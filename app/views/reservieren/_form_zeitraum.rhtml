@@ -1,0 +1,23 @@
+<table>
+	<tr>
+		<td></td>
+		<td>
+			<span class="leichter_hinweis">Früheste Abholung: <%= wochentag( fruehestes_startdatum ) + fruehestes_startdatum.strftime( ".%d.%m.%y" ) %></span>
+		</td>
+	</tr>
+	<tr>
+		<td>Abholung:</td>
+		<td>
+			<% if startdatum_fest.is_a?( Time ) -%>
+				<%= date_select( 'reservation', 'startdatum', :order => [ :day, :month, :year ], :disabled => true ) %>
+				<%= hidden_field( 'reservation', 'startdatum' ) %>
+			<% else -%>
+				<%= date_select( 'reservation', 'startdatum', :order => [ :day, :month, :year ] ) %>
+			<% end -%>
+		</td>
+	</tr>
+	<tr>
+		<td>Rückgabe:</td>
+		<td><%= date_select( 'reservation', 'enddatum', :order => [ :day, :month, :year ] ) %></td>
+	</tr>
+</table>

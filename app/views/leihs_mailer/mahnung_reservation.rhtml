@@ -1,0 +1,24 @@
+Hallo <%= @reservation.user.name %>,
+
+Ihre Reservierung Nr.<%= @reservation.id %> ist überfällig. 
+
+Folgende(s) Paket(e) haben Sie
+vom <%= @reservation.zeitraum_text %> reserviert:
+<% for paket in @reservation.pakets -%>
+* <%= paket.name %>
+<% end -%>
+
+Bitte holen Sie die Pakete unverzüglich ab, löschen Sie Ihre Reservation oder benachrichtigen Sie den Herausgeber<%= " (#{@reservation.herausgeber.email})" if @reservation.herausgeber and @reservation.herausgeber.email %>, sonst blockieren Sie andere Reservierende.
+
+Hier können Sie sich über weitere Details informieren:
+http://leihs.hgkz.ch/reservations/meine
+
+Mit freundlichen Grüssen,
+<%= @reservation.updater.name + "\r" if @reservation.updater %>leihs-Team
+
+
+------------------------------------------------------
+leihs
+Ausleihe- und Reservierungsystem der
+Hochschule für Gestaltung und Kunst Zürich
+http://leihs.hgkz.ch

@@ -1,0 +1,12 @@
+<div class="blatt">
+  <h2 class="anschluss">Meine Benutzerdaten</h2>
+	<p>Hier können die eigenen Benutzerdaten geändert werden.</p>
+	<br/>
+
+	<%= form_tag :action => 'update_mich' %>
+	<%= render :partial => 'users/form_registrierung' %>
+	
+	<br/>
+	<%= submit_tag 'Ändern' %>
+	</form>
+</div>

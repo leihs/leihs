@@ -1,0 +1,5 @@
+<h2>Reservationen Liste&nbsp;<%= link_to( image_tag( 'icon_kreuz.png' ), :controller => 'admin', :action => 'schalte_hilfe' ) %></h2>
+<p>Komplette Liste aller Reservationen und Ausleihen. Geordnet nach aktuellen Änderungen, die neuesten sind oben</p>
+<%= render :partial => 'res_aktionen_legende', :locals => { :anfangs_offen => true } %>
+<%= render :partial => 'res_status_legende', :locals => { :anfangs_offen => true } %>
+<%= render :partial => 'res_spalten_legende', :locals => { :anfangs_offen => false } %>

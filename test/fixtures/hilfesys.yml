@@ -1,0 +1,5 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first_hilfesys:
+  id: 1
+another_hilfesys:
+  id: 2

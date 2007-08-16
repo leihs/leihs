@@ -1,0 +1,49 @@
+<%= error_messages_for 'user' %>
+
+<!--[form:user]-->
+<p>
+	<label for="user_login">Vorname:</label><br/>
+  <%= text_field "user", "vorname", :size => 25 %><br/>
+  <label for="user_login">Nachname:</label><br/>
+  <%= text_field "user", "nachname", :size => 25 %>
+</p>
+<p>
+	<label for="user_login">Studienbereich/Abteilung:</label><br/>
+	<%= text_field "user", "abteilung", :size => 25 %>
+</p>
+
+<br />
+
+<p>
+	<% if @user.login != @user.email -%>
+		<label for="user_login">Login:</label><br/>
+		<%= text_field "user", "login", :size => 25 %><br />
+	<% end -%>
+	<label for="user_email">eMail Adresse<%= ', gleichzeitig Login Name:' if @user.login == @user.email %></label><br/>
+  <% if session[ :user ] and session[ :user ].herausgeber? -%>
+		<%= text_field "user", "email", :size => 50 %><br />
+	<% else -%>
+		<%= text_field "user", "email_prefix", :size => 35 %> @
+		<%= select "user", "email_suffix", [ [ 'zhdk.ch' ], [ 'hgkz.net' ], [ 'hgkz.ch' ], [ 'hmt.edu' ], [ 'doz.hmt.edu' ], [ 'stud.hmt.edu' ] ] %><br />
+	<% end -%>
+	&nbsp;An diese Adresse wird die Mail zur Freischaltung gesendet
+</p>
+
+<br/>
+
+<p>
+	<label for="user_password">Passwort:</label><br/>
+	<%= password_field "user", "password", :size => 25 %><br/>
+	<label for="user_password_confirmation">Passwort wiederholen:</label><br/>
+	<%= password_field "user", "password_confirmation", :size => 25 %>
+</p>
+	
+<br/>
+
+<p>
+	<label for="user_login">Telefon:</label><br/>
+	<%= text_field "user", "telefon", :size => 25 %><br/>
+	<label for="user_login">Postadresse:</label><br/>
+	<%= text_area "user", "postadresse", :cols => 35, :rows => 4 %>
+</p>
+<!--[eoform:user]-->

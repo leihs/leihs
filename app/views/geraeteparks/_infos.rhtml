@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<h2>Gerätepark <%= geraetepark.name %></h2>
+<p>
+	<%= image_tag( geraetepark.logo_url, :width => 130 ) if geraetepark.logo_url %><br /><br />
+	<%= simple_format( h( geraetepark.ansprechpartner ) ) %>
+	<%= simple_format( h( geraetepark.beschreibung ) ) %>
+</p>

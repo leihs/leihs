@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<div class="auswahl_liste">
+	<div class= "auswahlliste_hinweis">
+		klicken zum auswählen</div>
+		<% for user in @users -%>
+			<div>
+				<%= link_to_remote( "#{user.name} (#{user.abteilung})",
+				 			{ :update => 'namesuche',
+								:url => { :controller => 'ausleihen',
+											:action => 'reservierenden_waehlen',
+											:id => user.id } },
+							:class => 'normal' ) %>
+			</div>
+		<% end -%>
+</div>

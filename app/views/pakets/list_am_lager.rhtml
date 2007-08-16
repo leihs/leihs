@@ -1,0 +1,7 @@
+<div class="blatt_vor_tabelle">
+	<h2 class="anschluss"><%= @pakets.size %> Pakete am Lager</h2>
+	
+	<%= render_partial 'gemeinsam/flashs' %>
+</div>
+
+<%= render :partial => 'list_pakete' %>

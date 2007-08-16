@@ -1,0 +1,22 @@
+<%= error_messages_for 'geraetepark' %>
+
+<!--[form:geraetepark]-->
+<p><label for="geraetepark_name">Name</label><br/>
+<%= text_field 'geraetepark', 'name'  %></p>
+
+<p><label for="geraetepark_vertrag_bezeichnung">Leihvertrag Kopfzeile Bezeichnung</label><br/>
+<%= text_field 'geraetepark', 'vertrag_bezeichnung', :size => 50  %></p>
+
+<p><label for="geraetepark_vertrag_url">Leihvertrag URL</label><br/>
+<%= text_field 'geraetepark', 'vertrag_url', :size => 50  %></p>
+
+<p><label for="geraetepark_logo_url">leihs-Logo URL</label><br/>
+<%= text_field 'geraetepark', 'logo_url', :size => 50  %></p>
+
+<p><label for="geraetepark_ansprechpartner">Ansprechpartner</label> (max. 3 Zeilen)<br/>
+<%= text_area 'geraetepark', 'ansprechpartner', :rows => 3  %></p>
+
+<p><label for="geraetepark_beschreibung">Beschreibung</label><br/>
+<%= text_area 'geraetepark', 'beschreibung', :rows => 15  %></p>
+
+<!--[eoform:geraetepark]-->

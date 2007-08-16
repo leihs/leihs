@@ -1,0 +1,24 @@
+<% # --- LOCALS ---
+# reservation - Reservation, der Zubehoer hinzugefuegt werden soll
+zubehoer = Zubehoer.new
+-%>
+<div id="res_zubehoer_dazu" class="ajax_einblender" style="margin:0.5em; display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
+	<%= error_messages_for 'reservation' %>
+	<%= form_remote_tag( :url => {
+				  :controller => 'reservations',
+				  :action => 'zufuege_zubehoer',
+				  :id => reservation.id },
+				:loading => "Element.show( 'remote_submit_waiting' )" ) %>
+		<p>Zubehoer hinzufuegen</p>
+		
+		<p>
+		  <label for="zubehoer_beschreibung">Beschreibung:</label><br />
+		  <%= text_field 'zubehoer', 'beschreibung', :style => "width: 100%;" %></p>
+		<p>
+		  <label for="zubehoer_anzahl">Anzahl:</label>&nbsp;
+		  <%= select 'zubehoer', 'anzahl', [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] %></p>
+
+		<%= render( :partial => 'gemeinsam/remote_submit_tasten', :locals => {
+					:div_id => "res_zubehoer_dazu" } ) %>
+	</form>
+</div>

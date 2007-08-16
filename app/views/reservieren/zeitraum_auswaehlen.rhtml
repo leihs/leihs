@@ -1,0 +1,36 @@
+<!-- Anzeige eines Zeitraums mit Datum und Uhrzeit und optionaler Dauer -->
+<div class="blatt">
+	<%= render( :partial => 'schritt_titelzeile', :locals => {
+				:schritt => 1 } ) %>
+	<br />
+	<p>Von wann bis wann soll etwas reserviert werden?</p>
+	
+	<%= error_messages_for 'reservation' %>
+	
+	<%= render :partial => 'reservations/res_ueberschrift',
+	 			:locals => { :reservation => @reservation } %>
+
+		<br/>
+		<span class="hervor"><%= session[ :user ].name %></span> reserviert vom<br/>
+		<br />
+		
+		<% if session[ :aktiver_geraetepark ] == 1 -%>
+		<div class="warning">
+		  <h2 style="color: black;">AVZ Inventur</h2>
+		  <p>Keine Reservation vom 15.Juli bis 31.August</p>
+		</div>
+		<% end -%>
+		
+		<%= form_tag :action => 'zeitraum_auswaehlen' %>
+		<%= render( :partial => 'reservieren/form_zeitraum', :locals => {
+		 			:startdatum_fest => nil,
+					:fruehestes_startdatum => @fruehestes_startdatum } ) %>
+		
+		<br />
+		<div class="text_right">
+			<%= link_to 'Abbrechen', :controller => 'reservieren', :action => 'reservation_abbrechen' %>
+		| <%= submit_tag "Zeitraum auswählen" %>
+		</div>
+		</form>
+	</div>
+</div>

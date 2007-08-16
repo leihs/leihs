@@ -1,0 +1,21 @@
+<table>
+	<tr>
+		<td class="schritt_<%= 'in' if schritt != 1 %>aktiv_nr">1</td>
+		<td class="schritt_<%= 'in' if schritt != 1 %>aktiv">
+			<span class="h2">Zeitraum<br />auswählen</span>
+		</td>
+		<td class="schritt_<%= 'in' if schritt != 2 %>aktiv_nr">2</td>
+		<td class="schritt_<%= 'in' if schritt != 2 %>aktiv">
+			<span class="h2">Pakete<br />auswählen</span>
+		</td>
+		<td class="schritt_<%= 'in' if schritt != 3 %>aktiv_nr">3</td>
+		<td class="schritt_<%= 'in' if schritt != 3 %>aktiv">
+			<span class="h2">Reservation<br />abschicken</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="balken_<%= 'in' if schritt < 1 %>aktiv" colspan="2"></td>
+		<td class="balken_<%= 'in' if schritt < 2 %>aktiv" colspan="2"></td>
+		<td class="balken_<%= 'in' if schritt < 3 %>aktiv" colspan="2"></td>
+	</tr>
+</table>

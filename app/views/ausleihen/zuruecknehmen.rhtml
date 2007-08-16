@@ -1,0 +1,61 @@
+<div class="blatt">
+	<h2 class="anschluss">Pakete zurücknehmen</h2>
+	<p>Eine Ausleihe wird ganz oder teilweise zurückgenommen. Dabei kann der Zustand und die Wiederverwendbarkeit einzelner Pakete angepasst werden</p>
+	
+	<%= render :partial => 'gemeinsam/flashs' %>
+	<% error_messages_for 'reservation' %>
+	
+	<div class="ausleihe_blatt">
+		<h2>Ausleihe</h2>
+		<p><span class="hervor">
+			<%= @user.name %>&nbsp;(<%= @user.ausweis %>)
+		</span><br/>
+		lieh vom <span class="hervor"><%= @reservation.startdatum.strftime( '%d.%m.%y' ) %> bis <%= @reservation.enddatum.strftime( '%d.%m.%y' ) %></span></p>
+
+		<p>folgende <%= @reservation.pakets.size %> Pakete:</p>
+		
+		<%= form_tag :action => 'ruecknahme_pruefen', :id => @reservation %>
+		
+		<% for @paket in @reservation.pakets -%>
+			<div class="rueck_paket">
+				<table><tr>
+					<td><%= check_box 'paket[]', 'zurueck' %></td>
+					<td id="maxbreit"><span class="hervor"><%= @paket.name %></span>
+						(<%= @paket.alle_inventar_nr_text %>)</td>
+			<% if @paket.hinweise_ausleih -%>
+				</tr><tr>
+					<td></td>
+					<td><%= @paket.hinweise_ausleih %></td>
+			<% end -%>
+				</tr><tr>
+					<td></td>
+					<td class="text_right">
+						<label for="reservation_status">Paket</label>
+						<%= select( 'paket[]', 'status', Paket::STATUS_TEXT ) %></td>
+				</tr></table>
+			</div>
+		<% end -%>
+		<br/>
+		
+		<% if @reservation.zubehoer -%>
+			<div class="rueck_paket">
+				<%= check_box 'zubehoer', 'zurueck' %> Zubehör:
+				<span class="hervor"><%= @reservation.zubehoer %></span>
+			</div>
+		<% end -%>
+		<hr size="1"/>
+		<br/>
+		
+		<%= render :partial => 'reservations/reservation_teil_unten', :locals => { :reservation => @reservation } %>
+		
+		<br/>
+		<label for="reservation_status">Rückgabezustand</label>
+		<%= select( 'reservation', 'bewertung', Reservation::BEWERTUNG_TEXT ) %><br/><br/>
+		
+		<div class="text_right">
+			<%= link_to 'Abbrechen', :controller => 'admin', :action => 'index' %> |
+			<%= submit_tag 'Zurücknehmen' %>
+		</div>
+		</form>
+	</div>
+</div>

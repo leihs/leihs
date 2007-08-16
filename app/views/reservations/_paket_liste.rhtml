@@ -1,0 +1,47 @@
+<% # --- LOCALS ---
+# reservation - Reservation, deren Pakete bearbeitet werden sollen
+# mit_erweitern - soll oben ein Link zum Hinzufügen von Paketen eingeblendet werden?
+mit_erweitern = false unless defined?( mit_erweitern )
+# mehr_pakete - Action, die die Auswahl von weiteren Paketen auf Wahlseite ermöglicht
+#        Wenn leer, dann nur erweitern, wenn voll, dann entsprechender Link
+mehr_pakete = false unless defined?( mehr_pakete )
+-%>
+<?xml version='1.0' encoding='utf-8'?>
+
+<div class="feldname">
+	<% if mit_erweitern -%>
+		<%= link_to_function( image_tag( "icon_plus.png" ),
+					"Element.toggle( 'res_paket_dazu' )",
+					:title => 'Pakete hinzufügen' ) %>
+		<%= link_to_function( 'Pakete',
+					"Element.toggle( 'res_paket_dazu' )",
+					:title => 'Pakete hinzufügen',
+					:style => 'color:black;' ) %>
+	<% else -%>
+		Pakete
+	<% end -%>
+	
+	<% if mehr_pakete -%>
+	  &nbsp;&nbsp;&nbsp;&nbsp;
+	  <%= link_to( image_tag( 'icon_plus.png' ) + ' weitere Pakete',
+	        { :controller => 'ausleihen',
+	          :action => mehr_pakete },
+	        :style => 'font-size: 1.25em; text-transform: none;' ) %>
+	<% end -%>
+</div>
+
+<div class="feldinhalt">
+	<%= '<br />' if reservation.pakets.blank? %>
+	<% for paket in reservation.pakets
+		unless session[ :paket_weg_liste ] and session[ :paket_weg_liste ].include?( paket.id ) %>
+		<div class="reservation_paketliste" id="paketliste_item<%= paket.id %>">
+			<%= render( :partial => 'reservations/edit_paket', :locals => {
+						:reservation => reservation,
+						:paket => paket } ) %>
+		</div>
+	<% end
+	end %>
+	
+	<%= render( :partial => 'reservations/add_paket', :locals => {
+				:reservation => reservation } ) %>
+</div>

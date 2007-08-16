@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<%= link_to_function( image_tag( 'icon_stift.png', :class => 'icon' ),
+				"Element.toggle( 'res_status' )",
+				:title => 'Status ändern'
+							) unless reservation.ausgeliehen? or reservation.zurueck? %><%= reservationsstatus( reservation ) %>
+
+<div id="res_status" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
+	<%= error_messages_for 'reservation' %>
+	<%= form_tag( :controller => 'reservations',
+					:action => 'update_status',
+					:id => reservation.id ) %>
+		<p>
+			<label for="reservation_status">Status ändern auf:</label>
+			<%= select( 'reservation', 'status', Reservation::STATUS_TEXT ) %>
+		</p>
+		<p>
+			<label for="reservation_hinweise">Hinweise für eMail-Benachrichtigung:</label><br>
+			<%= text_area 'reservation', 'hinweise', :rows => 3 %>
+		</p>
+
+		<br />
+		<%= render( :partial => 'gemeinsam/remote_submit_tasten', :locals => {
+					:div_id => 'res_status' } ) %>
+	</form>
+</div>

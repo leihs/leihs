@@ -1,0 +1,7 @@
+<div class="filterblock">
+	<%= form_tag :action => 'setze_filter' %>
+	zeige <%= select( 'filter', 'feld', @filter.felder_selectliste ) %> mit:
+	<%= text_field 'filter', 'text', :size => 20 %><%= link_to( image_tag( 'icon_kreuz.png', :class => 'icon' ), { :action => 'loesche_filter' }, :title => 'Filter löschen' ) %>
+	<%= submit_tag "Filtern" %>
+	</form>
+</div>

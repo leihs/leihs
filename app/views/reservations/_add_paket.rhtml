@@ -1,0 +1,33 @@
+<% # --- LOCALS ---
+# reservation - Reservation, deren Paket ausgetauscht werden soll
+-%>
+<div id="res_paket_dazu" class="ajax_einblender" style="margin:0.5em; display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
+	<%= error_messages_for 'reservation' %>
+	<%= form_remote_tag( :url => {
+				  :controller => 'reservations',
+				  :action => 'zufuege_paket',
+				  :id => reservation.id },
+				:loading => "Element.hide( 'remote_submit_tasten' ); Element.show( 'remote_submit_waiting' )" ) %>
+		<p>Paket hinzufuegen</p>
+		
+		<label for="reservation_user_id">Inv.Nr./Bezeichnung:</label>
+		<%= text_field_tag 'suchtext' %>
+		<span id="suchrad" style="display: none;"><%= image_tag( 'spinner_grau_13.gif' ) %></span><br />
+		<%= observe_field( 'suchtext', :url => {
+		        :controller => 'reservations',
+						:action => 'zufuege_paket_select_remote',
+						:id => reservation.id },
+					:with => "'paketsuche=' + escape(value)",
+					:frequency => 1,
+					:update => 'paketsuche_resultate',
+					:loading => "Element.show( 'suchrad' )",
+					:complete => "Element.hide( 'suchrad' )" ) %>
+					
+		<div id="paketsuche_resultate">
+		</div>
+		
+		<br />
+		<%= render( :partial => 'gemeinsam/remote_submit_tasten', :locals => {
+					:div_id => "res_paket_dazu" } ) %>
+	</form>
+</div>

@@ -1,0 +1,15 @@
+<div class="blatt_vor_tabelle">
+	<h2 class="anschluss">Meine Reservationen</h2>
+	<p>Hier sind alle Ihre Reservationen in Zusammenfassung aufgeführt. Klicken Sie die Dreiecke vor dem Titel um Details einzublenden oder eine Reservation zu löschen</p>
+	
+	<%= render :partial => 'gemeinsam/flashs' %>
+	
+	<br/>
+	<% if @reservations.size > 0 -%>
+		<% for reservation in @reservations -%>
+			<%= render :partial => 'reservations/res_show_kurz', :locals => { :reservation => reservation } %>
+		<% end -%>
+	<% else -%>
+		<p>Im Augenblick haben Sie keine aktuellen Reservationen</p>
+	<% end -%>
+</div>

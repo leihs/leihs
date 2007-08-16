@@ -1,0 +1,5 @@
+<h2>Felder des Geräteparks&nbsp;<%= link_to( image_tag( 'icon_kreuz.png' ), :controller => 'admin', :action => 'schalte_hilfe' ) %></h2>
+<p>Hier können Informationen für den Gerätepark festgelegt werden. Diese Informationen werden angezeigt, wenn ein Gerätepark durch Reservierende ausgewählt wird oder der Nutzer auf das Logo von leihs klickt. Teile der Information tauchen auch im Leihvertrag auf</p>
+
+<%= render :partial => 'geraetepark_def', :locals => { :anfangs_offen => false } %>
+<%= render :partial => 'geraetepark_felder', :locals => { :anfangs_offen => true } %>

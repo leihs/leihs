@@ -1,0 +1,31 @@
+<% art = 'nix'
+	keine_tasten ||= false %>
+<% for item in sammlung %>
+	<div class="paket_kategorie_gruppe">
+		<% unless art == ( item.art.blank? ? '' : item.art ) %>
+			<div class="kategorie"><%=h item.art %></div>
+			<% art = ( item.art.blank? ? '' : item.art ) %>
+		<% end %>
+		<div class="paket_item">
+			<%= link_to( image_tag( 'icon_lochzu.png', :class => 'icon' ),
+						{ :action => 'sammlung_weg',
+							:id => item.id },
+						:title => 'aus Sammlung entfernen'
+									) unless keine_tasten %><%=
+			link_to( image_tag( 'icon_stift.png', :class => 'icon' ),
+						{ :controller => 'gegenstands',
+							:action => 'edit',
+							:id => item.id },
+						:title => 'Gegenstand mutieren'
+									) unless keine_tasten %>
+			<%= link_to( item.modellbezeichnung,
+			 			{ :controller => 'gegenstands',
+							:action => 'show',
+							:id => item.id },
+						:class => 'normal' ) %>
+			<%= "(#{item.inventar_nr_text})" if item.inventar_nr_text %>
+			<%= render( :partial => 'gegenstands/minibild',
+						:locals => { :gegenstand => item } ) %>
+		</div>
+	</div>
+<% end %>

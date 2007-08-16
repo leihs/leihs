@@ -1,0 +1,19 @@
+Sehr geehrte/r <%= @user.name %>,
+
+Herzlich willkommen!
+
+Wir freuen uns, dass Sie sich bei unserem Ausleihe-System ‘leihs’ neu angemeldet haben. Sie sind nur noch einen kleinen Schritt von Ihrem Glück entfernt. Aktivieren Sie Ihren Zugang zu ‘leihs’, indem Sie bitte den nachfolgenden Link klicken oder in Ihrem Browser abrufen:
+
+http://leihs.hgkz.ch/zugang/aktivieren?token=<%= @user.password[ 0..11 ] %>
+
+Bitte beachten Sie, dass Ihr Zugang erst funktionieren wird, nachdem Sie dies getan haben.
+
+Mit freundlichen Grüssen,
+ihr leihs-Team
+
+
+------------------------------------------------------
+leihs
+Ausleihe- und Reservierungsystem der
+Hochschule für Gestaltung und Kunst Zürich
+http://leihs.hgkz.ch

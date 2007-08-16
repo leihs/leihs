@@ -1,0 +1,19 @@
+<div class="blatt">
+	<h3>Gegenstand anzeigen</h3>
+	<br/>
+
+	<%= render_partial 'gemeinsam/flashs' %>
+
+	<%= render_partial 'gegenstands/reiter', :klickaktion => 'show', :selected => 'kaufvorgang' %>
+	
+	<div class="gegenstand_blatt">
+		<%= echo_feld_wenn_definiert 'Art', @kaufvorgang.art %>
+		<%= echo_feld_wenn_definiert 'Lieferant', @kaufvorgang.lieferant %>
+		<%= echo_feld_wenn_definiert 'Rechnungsnummer', @kaufvorgang.rechnungsnr %>
+		<%= echo_feld_wenn_definiert 'Kaufdatum', @kaufvorgang.kaufdatum %>
+		<%= echo_feld_wenn_definiert 'Kaufpreis (in SFr)', ( @kaufvorgang.kaufpreis / 100 ) %>
+		<%= echo_feld_wenn_definiert 'Abschreibedatum', @kaufvorgang.abschreibedatum %>
+		<br/>
+		<%= link_to 'Aendern', :action => 'edit', :id => @kaufvorgang.id %> | <%= link_to 'Zur&uuml;ck', :controller => 'gegenstands', :action => 'list' %>
+	</div>
+</div>

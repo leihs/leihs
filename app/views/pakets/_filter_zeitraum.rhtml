@@ -1,0 +1,8 @@
+<div class="filterblock_gelb">
+	<div class="boxtitel">Ausleihe-Zeitraum</div>
+	<%= form_tag %>
+	<p>von <%= datetime_select 'filter', 'startdatum'  %><br />
+	bis <%= datetime_select 'filter', 'enddatum'  %></p>
+	<%= submit_tag "Suchen" %>
+	</form>
+</div>

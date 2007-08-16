@@ -1,0 +1,52 @@
+<p>
+	<%= link_to_function( image_tag( "icon_stift.png", :class => 'icon' ),
+				"Element.toggle( 'res_user_tausch' )",
+				:title => 'Übertragen'
+							) unless !@edit_mode or reservation.ausgeliehen? or reservation.zurueck? %>
+	<span class="hervor">
+		<%= link_to( reservation.user.name,
+		 			{ :controller => 'users',
+						:action => 'show',
+						:id => reservation.user.id },
+					:class => 'normal' ) %>
+	</span>
+	<% if reservation.user.ausweis and reservation.user.ausweis.length > 0 -%>
+		(ID: <%= reservation.user.ausweis %>)
+	<% end -%>
+	
+	<% unless !@edit_mode or reservation.ausgeliehen? -%>
+		<div id="res_user_tausch" class="ajax_einblender" style="display:<%= @reservation.errors.count > 0 ? 'block' : 'none' %>;">
+			<p>Reservation einem anderen Benutzer übertragen:</p>
+			<label for="reservation_user_id">Benutzer:</label>
+			<%= select( 'reservation', 'user_id',
+						[ [ reservation.user.name_nachname_zuerst, reservation.user.id ] ] | User.benutzerliste_mit_benutzerstufe_und_berechtigung( reservation.mindestbenutzerstufe, reservation.geraetepark.id ) ) %>
+		</div>
+	<% end -%>
+</p>
+
+<p>
+	<%= reservation.ausgeliehen? ? ( reservation.zurueck? ? 'lieh' : 'leiht' ) : 'reserviert' %>
+	vom
+	<%= link_to_function( image_tag( "icon_stift.png", :class => 'icon' ),
+				"Element.toggle( 'res_verlaengern' )",
+				:title => 'Verlängern'
+							) unless !@edit_mode or reservation.zurueck? %>
+	<span class="hervor"><%= reservation.zeitraum_text %></span>
+	
+	<div id="res_verlaengern" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
+		<p>Verlängerung möglich im Zeitraum <%= reservation.minimale_verlaengerung_datum( !session[ :user ].herausgeber? ).strftime( '%d.%m.%Y' ) %>-<%= reservation.maximale_verlaengerung_datum( !session[ :user ].herausgeber? ).strftime( '%d.%m.%Y' ) %></p>
+		<table>
+			<tr>
+				<td><label for="reservation_startdatum">Neue Abholung:</label></td>
+				<td><%= date_select( 'reservation', 'startdatum', :order => [ :day, :month, :year ] ) %></td>
+			</tr>
+			<tr>
+				<td><label for="reservation_enddatum">Neue Rückgabe:</label></td>
+				<td><%= date_select( 'reservation', 'enddatum', :order => [ :day, :month, :year ] ) %></td>
+			</tr>
+		</table>
+	</div>
+</p>
+
+<%= render( :partial => 'reservations/paket_liste',
+			:locals => { :reservation => reservation } )%>

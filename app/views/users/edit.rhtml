@@ -1,0 +1,28 @@
+<div class="blatt">
+	<h2 class="anschluss">Benutzer bearbeiten</h2>
+	<p>Hier können die Daten des Benutzers geändert werden. Passwort und Ausleihberechtigung können hier neu gesetzt werden</p>
+	<br/>
+
+	<%= render :partial => 'gemeinsam/flashs' %>
+
+	<div class="user_blatt">
+		<h2>Benutzer Nr.<%= @user.id %></h2>
+		<%= form_tag :action => 'update',
+					:id => @user.id %>
+		
+		<%= render :partial => 'form_registrierung' %>
+		<hr size="1">
+		<%= render :partial => 'form_admin' %>
+		<br/>
+		
+		<%= render :partial => 'gemeinsam/letzte_aenderung', :locals => {
+					:item => @user } %>
+		<br/><br/>
+		<div class="text_right">
+			<%= link_to( 'Abbrechen',
+						:action => 'show',
+						:id => @user.id ) %> | <%= submit_tag 'Ändern' %>
+		</div>
+		</form>
+	</div>
+</div>

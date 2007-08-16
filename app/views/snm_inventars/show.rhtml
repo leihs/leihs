@@ -1,0 +1,8 @@
+<% for column in SnmInventar.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @snm_inventar.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @snm_inventar %> |
+<%= link_to 'Back', :action => 'list' %>

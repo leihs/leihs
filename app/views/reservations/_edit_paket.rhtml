@@ -1,0 +1,34 @@
+<% # --- LOCALS ---
+# reservation - Reservation, deren Paket ausgetauscht werden soll
+# paket - das Paket, das ausgetauscht werden soll
+-%>
+<% unless reservation.ausgeliehen? or reservation.zurueck? -%>
+	<%= link_to_remote( image_tag( 'icon_stift.png', :class => 'icon' ), :url => {
+					:controller => 'reservations',
+					:action => 'tausche_paket_select_remote',
+					:id => reservation.id,
+					:paket_id => paket.id },
+				:update => "res_tausch_#{paket.id}",
+				:loading => "Element.toggle( 'res_tausch_#{paket.id}' )",
+				:title => 'Paket tauschen' ) %><%=
+	link_to_remote( image_tag( 'icon_kreuz.png', :class => 'icon' ), :url => {
+	        :controller => 'reservations',
+					:action => 'loesche_paket',
+					:id => reservation.id,
+					:paket_id => paket.id },
+				:title => 'aus Reservation löschen',
+				:confirm => "Wollen Sie das Paket #{paket.name} wirklich aus der Reservation entfernen?" ) if reservation.pakets.size > 0 or reservation.zubehoer.size > 0 %>
+<% end -%>
+
+<%= render :partial => 'gemeinsam/indikator',
+			:locals => { :ueberlappt => paket.ueberlappt_hash( reservation ) } %>
+<%= link_to( paket.name,
+			{ :controller => 'pakets',
+				:action => 'show',
+				:id => paket.id },
+			:class => 'normal' ) %>
+(<%= paket.alle_inventar_nr_text %>)
+
+<div id="res_tausch_<%= paket.id %>" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
+	<%= image_tag( 'spinner_grau_13.gif' ) %> pruefen...<br /><br />
+</div>

@@ -1,0 +1,109 @@
+<% if reservation.ausgeliehen? or reservation.zurueck? -%>
+	<div class="mini_ausleihe<%= '_zurueck' if reservation.zurueck? %><%= '_ueber' if reservation.ueberfaellig? %>">
+<% else -%>
+	<div class="mini_reservation<%= '_genehm' if reservation.genehmigt? %><%= '_grau' if reservation.abgelehnt? or reservation.vorlaeufig? %>">
+<% end -%>
+
+<table>
+	<tr>
+		<td style="width: 2em; white-space: nowrap;">
+<%= link_to_function( image_tag( "klapp_auf.png", :class => 'icon' ),
+			"Element.toggle( 'res_#{reservation.id}_a',
+						'res_#{reservation.id}_z',
+						'res_#{reservation.id}',
+						'res_#{reservation.id}_x')",
+			:title => 'verbergen',
+			:id => "res_#{reservation.id}_a",
+			:style => 'display:none;' ) %>
+<%= link_to_function( image_tag( "klapp_zu.png", :class => 'icon' ),
+			"Element.toggle( 'res_#{reservation.id}_a',
+						'res_#{reservation.id}_z',
+						'res_#{reservation.id}',
+						'res_#{reservation.id}_x')",
+			:title => 'ansehen',
+			:id => "res_#{reservation.id}_z" ) %><%=
+link_to( image_tag( "icon_kreuz.png", :class => 'icon' ),
+			{ :controller => 'reservations',
+				:action => 'destroy',
+				:id => reservation.id },
+			:title => 'löschen',
+			:confirm => 'Soll diese Reservation wirklich gelöscht werden? Die Aktion kann nicht rückgängig gemacht werden',
+			:id => "res_#{reservation.id}_x",
+			:style => 'display:none;'
+						) unless reservation.ausgeliehen? or reservation.zurueck? %>
+		</td>
+		
+		<td class="maxbreit">
+			<span class="mini_titel">
+			<% if reservation.ausgeliehen? or reservation.zurueck? -%>
+				Ausleihe
+			<% else -%>
+				Reservation
+			<% end -%>
+			</span>
+			Nr. <%= reservation.id %>
+
+			&nbsp;&nbsp;&nbsp;
+			<%= reservationsstatus( reservation ) %>
+		</td>
+	</tr>
+
+	<tr>
+		<td></td>
+		<td>
+			bei
+			<%= link_to_remote( reservation.geraetepark.name,
+			 			:update => 'hilfe',
+						:url => { :controller => 'geraeteparks',
+									:action => 'hilfe_einblenden',
+									:id => reservation.geraetepark.id } ) %>
+			vom <%= reservation.zeitraum_text %>,	
+			<% if reservation.pakets.size == 0 -%>
+				<span class="hervor"><%= reservation.zubehoer %></span>
+			<% elsif reservation.pakets.size == 1 -%>
+				<span class="hervor"><%= reservation.pakets.first.name %></span>
+				<%= ( '(' + reservation.pakets.first.inventar_nr_text + ')' ) if user_herausgeber? %>
+			<% else -%>
+				<%= reservation.pakets.size %> Pakete
+			<% end -%>
+			<br/>
+	
+			<div id="res_<%= reservation.id %>" style="display:none;">
+			<% if reservation.pakets.size > 1 -%><p><ul>
+			<% for paket in reservation.pakets %>
+				<li>
+					<span class="hervor"><%= paket.name %></span><br/><%= paket.hinweise %>
+				</li>
+			<% end %>
+			</ul></p>
+			<% end -%>
+	
+			<hr size="1"/>
+	
+			<% if reservation.zweck and reservation.zweck.length > 1 -%>
+				Verwendung: <span class="hervor"><%=h reservation.zweck %></span><br/>
+			<% end -%>
+			<% if reservation.hinweise and reservation.hinweise.length > 1 -%>
+				<p>Hinweise:
+					<span class="hervor"><%=h reservation.hinweise %></span>
+				</p>
+			<% end -%>
+			<% if reservation.herausgeber
+				if reservation.ausgeliehen? or reservation.zurueck? -%>
+					Herausgegeben von
+					<%= reservation.herausgeber.name %>
+					<% if reservation.zuruecknehmer and reservation.zurueck? -%>
+						/ Zurueckgenommen von
+						<%= reservation.zuruecknehmer.name %><br/>
+						Bewertung: <span class="hervor"><%= reservation.bewertung_text %></span>
+					<% end
+				else -%>
+					Bearbeitet von <%= reservation.herausgeber.name %>
+				<% end
+			end -%>
+			</div>
+		
+		</td>
+	</tr>
+</table>
+</div>

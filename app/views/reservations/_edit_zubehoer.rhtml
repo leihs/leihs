@@ -1,0 +1,36 @@
+<% # --- LOCALS ---
+# reservation - Reservation, deren Zubehoer ausgetauscht werden soll
+# zubehoer - das Zubehoer, das ausgetauscht werden soll
+-%>
+<div id="zubehoer_item_<%= zubehoer.id %>">
+  <% unless reservation.ausgeliehen? or reservation.zurueck? -%>
+    <%= link_to_function( image_tag( 'icon_stift.png', :class => 'icon' ),
+          "Element.toggle( 'zubehoer_item_#{zubehoer.id}' ); Element.toggle( 'zubehoer_edit_#{zubehoer.id}' )",
+    			:title => 'Zubehoer ändern' ) %><%=
+    link_to_remote( image_tag( 'icon_kreuz.png', :class => 'icon' ), :url => {
+            :controller => 'reservations',
+    				:action => 'loesche_zubehoer',
+    				:id => reservation.id,
+    				:zubehoer_id => zubehoer.id },
+    			:title => 'aus Reservation löschen',
+    			:confirm => "Wollen Sie Zubehoer '#{zubehoer.beschreibung}' wirklich aus der Reservation entfernen?" ) if reservation.pakets.size > 0 or reservation.zubehoer.size > 0 %>
+  <% end -%>
+  <%= zubehoer.anzahl %>
+  <%=h zubehoer.beschreibung %>
+</div>
+
+<div id="zubehoer_edit_<%= zubehoer.id %>" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
+	<% @zubehoer = zubehoer -%>
+	<%= form_remote_tag( :url => {
+				  :controller => 'reservations',
+				  :action => 'aendere_zubehoer',
+				  :id => reservation.id,
+				  :zubehoer_id => zubehoer.id },
+				:loading => "Element.show( 'remote_submit_waiting' )" ) %>
+		<%= select( "zubehoer", "anzahl", [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ) %>
+		<%= text_field( "zubehoer", "beschreibung", :style => "width: 85%;" ) %><br />
+		<br />
+		<%= render( :partial => 'gemeinsam/remote_submit_tasten', :locals => {
+					:div_id => "zubehoer_edit_#{zubehoer.id}', 'zubehoer_item_#{zubehoer.id}" } ) %>
+	</form>
+</div>

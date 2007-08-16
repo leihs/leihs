@@ -1,0 +1,27 @@
+<div class="menu_kopf">
+	<%= link_to 'leihs', { :controller => 'haupt' }, :id => 'logo' %>
+</div>
+<br />
+
+<div class="menublock"<%= ' id="sel"' if params[ :action ] == 'signup' %>>
+	<%= link_to 'Zugang einrichten', :controller => 'zugang', :action => 'signup' %>
+</div>
+
+<div class="menublock"<%= ' id="sel"' if params[ :action ] != 'signup' %>>
+	<%= form_tag(
+				:controller => 'zugang',
+				:action=> "login" ) %>
+	<%= text_field( "user_login", '',
+				:size => 19,
+				:value => 'eMail/Login',
+				:style => 'background-color: #FEA;',
+				:onFocus => "this.value='';" ) %>
+	<%= password_field( "user_password", '',
+				:size =>19,
+				:value => 'Passwort',
+				:style => 'background-color: #FEA;',
+				:onFocus => "this.value='';" ) %>
+	
+	<%= submit_tag 'Anmelden' %>
+	</form>
+</div>

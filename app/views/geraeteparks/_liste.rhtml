@@ -1,0 +1,12 @@
+<h2>Angeschlossene Geräteparks</h2>
+<table class="geraetepark">
+<% for geraetepark in geraeteparks -%>
+	<tr>
+		<td><b><%= geraetepark.name %></b></td>
+		<td><%= ( geraetepark.logo_url.blank? ? '&nbsp;' : image_tag( geraetepark.logo_url, :width => "50" ) ) %> </td>
+		<td><%= simple_format( h( geraetepark.ansprechpartner ) ) %></td>
+	</tr>
+	<tr>
+	</tr>
+<% end -%>
+</table>

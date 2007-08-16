@@ -1,0 +1,13 @@
+<div class="zusatzinfo_klein">
+	zuletzt mutiert:
+	<% if item.updater -%>
+		<%= link_to( item.updater.name,
+		 			{ :controller => 'users',
+						:action => 'show',
+						:id => item.updater.id },
+					:class => 'normal' ) %>
+	<% else -%>
+		unbekannt
+	<% end -%>
+	, <%= item.updated_at.strftime( "%d.%m.%y (%H:%M)" ) if item and item.updated_at %>
+</div>

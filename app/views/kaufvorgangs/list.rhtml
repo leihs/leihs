@@ -1,0 +1,29 @@
+<h1>Listing kaufvorgangs</h1>
+
+<%= render_partial 'gemeinsam/baustelle' %>
+
+<table>
+  <tr>
+<% for column in Kaufvorgang.content_columns %>
+    <th><%= column.human_name %></th>
+<% end %>
+  </tr>
+  
+<% for kaufvorgang in @kaufvorgangs %>
+  <tr>
+  <% for column in Kaufvorgang.content_columns %>
+    <td><%=h kaufvorgang.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => kaufvorgang %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => kaufvorgang %></td>
+    <td><%= link_to 'Destroy', {:action => 'destroy', :id => kaufvorgang}, :confirm => "Are you sure?" %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to "Previous page", { :page => @kaufvorgang_pages.current.previous } if @kaufvorgang_pages.current.previous %>
+<%= link_to "Next page", { :page => @kaufvorgang_pages.current.next } if @kaufvorgang_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New kaufvorgang', :action => 'new' %>

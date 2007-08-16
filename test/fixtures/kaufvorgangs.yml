@@ -1,0 +1,12 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+first_kaufvorgang:
+  id: 1
+  art: Anschaffung
+  lieferant: DataQuest
+  rechnungsnr: 2662-01S
+  kaufdatum: 2004-04-16 10:00:00
+  kaufpreis: 366254
+
+another_kaufvorgang:
+  id: 2

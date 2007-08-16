@@ -1,0 +1,11 @@
+<div class="item_liste" id="selected">
+	<div class="boxtitel">Ausgewaehlte Pakete</div>
+	
+	<%= render_partial 'list_pakete', @ausgewaehlte_pakete %>
+</div>
+<br>
+<div class="item_liste">
+	<div class="boxtitel">Verf&uuml;gbare Pakete</div>
+	
+	<%= render_partial 'list_pakete', @andere_pakete %>
+</div>

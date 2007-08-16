@@ -1,0 +1,16 @@
+<div class="blatt">
+	<h3>Neuer Kaufvorgang</h3>
+	<br/>
+
+	<%= render_partial 'gemeinsam/flashs' %>
+
+	<%= render_partial 'gegenstands/reiter', :klickaktion => 'edit', :selected => 'kaufvorgang' %>
+	
+	<div class="gegenstand_blatt">
+		<%= form_tag :action => 'create', :id => @gegenstand.id %>
+		<%= render_partial "form" %>
+		<br/>
+		<%= submit_tag "Eintragen" %> | <%= link_to 'Abbrechen', :controller => 'gegenstands', :action => 'show', :id => @gegenstand.id %>
+		</form>
+	</div>
+</div>

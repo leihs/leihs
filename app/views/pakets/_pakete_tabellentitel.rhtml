@@ -1,0 +1,30 @@
+<table class="liste" border="0" cellspacing="0" cellpadding="0">
+	<tr class="ausserhalb">
+		<td class="aussen_abstand">&nbsp;</td>
+		<td></td>
+		<td>
+			<%= link_to 'alle&nbsp;schliessen', :action => 'alle_schliessen' unless @keine_kategorien %></td>
+		<% if user_herausgeber? -%>
+			<td></td>
+			<td></td>
+			<td></td>
+		<% end -%>
+		<td class="aussen_abstand">&nbsp;</td>
+	</tr>
+	
+	<tr class="ausserhalb">
+		<td class="abstand"></td>
+	</tr>
+ 	
+	<tr>
+		<th class="aussen_abstand">&nbsp;</th>
+		<th class="icon">&nbsp;</th>
+		<th id="maxbreit">Bezeichnung</th>
+		<% if user_herausgeber? -%>
+			<th>Inv.Nr</th>
+			<th class="text_right">Leihbef.</th>
+			<th class="text_right">?</th>
+		<% end -%>
+		<th class="aussen_abstand">&nbsp;</th>
+	</tr>
+</table>

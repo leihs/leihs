@@ -1,0 +1,108 @@
+<div class="blatt">
+	<h2>Der Seher</h2>
+
+<%= form_tag :action => 'list' %>
+	letzte(r)
+	<%= select 'zeitspanne', 'to_i', [
+				[ '10 Minuten', 60 * 10 ],
+				[ '30 Minuten', 60 * 30 ],
+				[ '1 Stunde', 60 * 60 ],
+				[ '2 Stunden', 60 * 60 * 2 ],
+				[ '3 Stunden', 60 * 60 * 3 ],
+				[ '5 Stunden', 60 * 60 * 5 ],
+				[ '10 Stunden', 60 * 60 * 10 ],
+				[ '1 Tag', 60 * 60 * 24 ],
+				[ '2 Tage', 60 * 60 * 24 * 2 ],
+				[ '3 Tage', 60 * 60 * 24 * 3 ],
+				[ 'Woche', 60 * 60 * 24 * 7 ],
+				[ '2 Wochen', 60 * 60 * 24 * 7 * 2 ],
+				[ 'Monat', 60 * 60 * 24 * 30 ] ] %>
+  <%= submit_tag "Aktualisieren" %>
+</form>
+</div>
+
+<table style="font-size: 9px;">
+  <tr>
+  	<th>Gegenstand</th>
+  	<th>Kaufvorgang</th>
+  	<th>Computerdaten</th>
+  	<th>Attribut</th>
+  	<th>Paket</th>
+  	<th>Reservation</th>
+  	<th>User</th>
+	</tr>
+  <% max = @gegenstands.size
+	max = @kaufvorgangs.size if @kaufvorgangs.size > max
+	max = @computerdatens.size if @computerdatens.size > max
+	max = @attributs.size if @attributs.size > max
+	max = @pakets.size if @pakets.size > max
+	max = @reservations.size if @reservations.size > max
+	max = @users.size if @users.size > max %>
+	<% for zaehler in 0...max %>
+	  <tr<%= ' class="hell"' if zaehler.odd? %>>
+	  	<td>
+				<% if @gegenstands.size > zaehler -%>
+	  			<%= link_to( @gegenstands[ zaehler ].id.to_s,
+							:controller => 'gegenstands',
+							:action => 'show',
+							:id => @gegenstands[ zaehler ].id ) %>
+					<%= @gegenstands[ zaehler ].updater.namenskuerzel if @gegenstands[ zaehler ].updater %>
+				<% end -%>
+	  	</td>
+	  	<td>
+				<% if @kaufvorgangs.size > zaehler -%>
+	  			<%= link_to( @kaufvorgangs[ zaehler ].id.to_s,
+							:controller => 'kaufvorgangs',
+							:action => 'show',
+							:id => @kaufvorgangs[ zaehler ].id ) %>
+					<%= @kaufvorgangs[ zaehler ].updater.namenskuerzel if @kaufvorgangs[ zaehler ].updater %>
+				<% end -%>
+	  	</td>
+	  	<td>
+				<% if @computerdatens.size > zaehler -%>
+	  			<%= link_to( @computerdatens[ zaehler ].id.to_s,
+							:controller => 'computerdatens',
+							:action => 'show',
+							:id => @computerdatens[ zaehler ].id )  %>
+					<%= @computerdatens[ zaehler ].updater.namenskuerzel if @computerdatens[ zaehler ].updater %>
+	  		<% end -%>
+			</td>
+	  	<td>
+	  		<% if @attributs.size > zaehler -%>
+					<%= link_to( @attributs[ zaehler ].id.to_s,
+							:controller => 'attributs',
+							:action => 'show',
+							:id => @attributs[ zaehler ].id ) %>
+					<%= @attributs[ zaehler ].wert %>
+	  		<% end -%>
+			</td>
+	  	<td>
+	  		<% if @pakets.size > zaehler -%>
+					<%= link_to( @pakets[ zaehler ].id.to_s,
+							:controller => 'pakets',
+							:action => 'show',
+							:id => @pakets[ zaehler ].id ) %>
+					<%= @pakets[ zaehler ].updater.namenskuerzel if @pakets[ zaehler ].updater %>
+	  		<% end -%>
+			</td>
+	  	<td>
+	  		<% if @reservations.size > zaehler -%>
+					<%= link_to( @reservations[ zaehler ].id.to_s,
+							:controller => 'reservations',
+							:action => 'show',
+							:id => @reservations[ zaehler ].id ) %>
+					<%= @reservations[ zaehler ].user.nachname %>
+	  		<% end -%>
+			</td>
+	  	<td>
+	  		<% if @users.size > zaehler -%>
+					<%= link_to( @users[ zaehler ].id.to_s,
+							:controller => 'users',
+							:action => 'show',
+							:id => @users[ zaehler ].id ) %>
+					<%= @users[ zaehler ].name %>
+	  		<% end -%>
+			</td>
+		</tr>
+	<% end %>
+</table>

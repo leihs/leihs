@@ -1,0 +1,16 @@
+<div class="blatt">
+	<%= render_partial 'gemeinsam/flashs' %>
+
+	<%= render_partial 'gegenstands/reiter', :klickaktion => 'edit', :selected => 'gegenstand' %>
+	
+	<div class="gegenstand_blatt">
+		<%= form_tag :action => 'create' %>
+		<%= render_partial "form" %>
+		<br/>
+
+		<div class="text_right">
+			<%= link_to 'Abbrechen', :action => 'list' %> | <%= submit_tag "Anlegen" %>
+		</div>
+		</form>
+	</div>
+</div>

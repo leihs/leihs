@@ -1,0 +1,65 @@
+<div class="menu_kopf">
+	<%= link_to( 'leihs',
+				{ :controller => 'haupt',
+					:action => 'info' },
+					:id => 'logo' ) %>
+	<%= link_to( image_tag( @logo_url, :height => 31 ),
+				:controller => 'haupt',
+				:action => 'info'
+							) if @logo_url and @logo_url.length > 0 %>
+	<br />
+	<%= simple_format( h( @logo_kontakt_text )
+				) if @logo_kontakt_text %>
+</div>
+
+<%= render :partial => 'menu/menu_part_gruppe' %>
+
+<div class="menublock"<%= ' id="sel"' if params[ :controller ] == 'reservieren' %>>
+	<% unless session[ :reservieren_schritt ] and params[ :controller ] == 'reservieren' %>
+		<%= link_to( 'Etwas reservieren',
+					:controller => 'reservieren',
+					:action => 'neue' ) %>
+	<% else %>
+		<%= link_to_function( 'RESERVIEREN',
+				"Element.toggle( 'menu_reservieren' )",
+				:class => 'menublock_gruppenkopf' ) %>
+			
+		<div id="menu_reservieren"<%= ' style="display:none;"' unless params[ :controller ] == 'reservieren' %>>
+			<% if session[ :reservieren_schritt ] >= 1 %>
+				<%= link_to( '1: Zeitraum auswählen',
+							:controller => 'reservieren',
+							:action => 'neue' ) %>
+			<% end %>
+			<% if session[ :reservieren_schritt ] >= 2 %>
+				<br>
+				<%= link_to( '2: Pakete auswaehlen',
+							:controller => 'reservieren',
+							:action => 'pakete_auswaehlen' ) %>
+			<% end %>
+			<% if session[ :reservieren_schritt ] >= 3 %>
+				<br>
+				<%= link_to( '3: Reservation abschicken',
+							:controller => 'reservieren',
+							:action => 'reservation_abschicken' ) %>
+			<% end -%>
+			<br>
+			<%= link_to( 'Reservation abbrechen',
+						:controller => 'reservieren',
+						:action => 'reservation_abbrechen' ) %>
+		</div>
+	<% end -%>
+</div>
+
+<div class="menublock"<%= ' id="sel"' if params[ :controller ] == 'pakets' %>>
+	<%= link_to 'Angebot Pakete', :controller => 'pakets', :action => 'list' %>
+</div>
+
+<div class="menublock"<%= ' id="sel"' if params[ :controller ] =~ /haupt|reservations/ %>>
+	<%= link_to 'Meine Reservationen', :controller => 'reservations', :action => 'meine' %><br />
+	<%= link_to 'Meine Daten', :controller => 'haupt', :action => 'edit_mich' %>
+</div>
+
+
+<div class="menublock"<%= ' id="sel"' if params[ :action ] == 'logout' %>>
+	<%= link_to 'Abmelden', :controller => 'zugang', :action => 'logout' %>
+</div>

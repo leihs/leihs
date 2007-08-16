@@ -1,0 +1,126 @@
+<% if paket.gegenstands.blank?
+ 			logger.error( "I--- Illegales Paket ohne Gegenstand: P#{paket.id}" )
+		else -%>
+<% paket_gegenstaende = paket.gegenstands || [ Gegenstand.new( :modellbezeichnung => 'nix' ) ]
+anzahl_gegenstaende = paket_gegenstaende.size -%>
+
+<tr<%= ' class="hell"' if zaehler.odd? %> id="paket_<%= paket.id %>">
+	<td class="aussen_abstand">&nbsp;</td>
+	<!-- Zelle 1 Icon -->
+	<td class="icon">
+		<%= ein_aus_klapp_icon( 'klapp_zu.png', 'Details zeigen',
+					'klapp_auf.png', 'Details verbergen',
+					'detail_', paket.id
+								) if anzahl_gegenstaende > 1 or hinweis_im_paket?( paket ) or ausleihhinweis_im_paket_und_herausgeber?( paket ) %>
+		
+		<%= zeige_aktions_icons( [ :edit, :destroy ], paket.id
+					) if mit_edit -%>
+		
+		<% if @reserv_mode -%>
+			<% if paket.komplett_frei?(
+							@reservation.startdatum,
+							@reservation.enddatum,
+							!session[ :user ].herausgeber?
+						)
+					if @reservation.startdatum >= Time.now.at_midnight + 1.day or paket.ist_am_lager? -%>
+				<%= link_to_remote( image_tag( 'icon_plus.png', :class => 'icon' ),
+				 			{ :update => 'auswahl',
+								:url => { :action => 'paket_dazu', :id => paket.id },
+								:complete => "Element.hide( 'paket_#{paket.id}', 'detail_#{paket.id}' )" },
+							:title => 'zur Reservation dazu' ) %>
+				<% else -%>
+					<span class="res_ueber">?</span>&nbsp;
+				<% end -%>
+			<% end -%>
+			<%= link_to_function(
+							render( :partial => 'gemeinsam/indikator',
+										:locals => { :ueberlappt => paket.ueberlappt_hash( @reservation ) } ),
+							"Element.toggle( 'reservationen_#{paket.id}' )",
+							:title => 'Reservationen ein/ausblenden' ) %>
+		<% end -%>
+	</td>
+	
+	<!-- Zelle 2 Name -->
+	<td>
+		<div class="paket_item">
+			<% if @reserv_mode -%>
+				<%= paket.name %>
+			<% else -%>
+				<% if session[ :user ].herausgeber? -%>
+					<%= link_to( paket.name,
+								{ :controller => 'pakets',
+									:action => 'show',
+									:id => paket.id },
+								:class => 'normal' ) %>
+				<% else -%>
+					<%= paket.name %>
+				<% end -%>
+			<% end -%>
+			<%= " (<b>#{paket.gegenstands.size}G</b>)" if anzahl_gegenstaende > 1 %>
+			<%= render( :partial => 'gegenstands/minibild', :locals => { :gegenstand => paket_gegenstaende.first } ) if anzahl_gegenstaende == 1 %>
+			<%= link_to( 'INFO',
+						paket_gegenstaende.first.info_url,
+						:class => 'link_symbol'
+									) unless anzahl_gegenstaende < 1 or paket_gegenstaende.first.info_url.blank? %>
+		</div>
+	</td>
+	
+	<% if user_herausgeber? -%>
+		<!-- Zelle 3 Inventarnummer 1.Gegenstand-->
+		<td class="kein_umbruch">
+			<%=h paket.inventar_nr_text %>
+		</td>
+	
+		<!-- Zelle 4 Leihbefugnis -->
+		<td class="terig_keinum" style="vertical-align: middle;">
+			<span class="kleingrau"><%= htmlle( :ausleihbefugnis, paket.ausleihbefugnis_text ) %></span>
+		</td>
+
+		<!-- Zelle 5 ausleihbar? -->
+		<td class="terig_keinum">
+			<span class="fett_rot"><%=h paket.status_kurztext %></span>
+		</td>
+	<% end -%>
+	
+	<td class="aussen_abstand">&nbsp;</td>
+</tr>
+
+<!-- Zeile 2: Zusätzlich optional einblendbare Informationen -->
+
+<tr<%= ' class="hell"' if zaehler.odd? %> id="detail_<%= paket.id %>" style="display:none;">
+	<td class="aussen_abstand">&nbsp;</td>
+	<td></td>
+	<td class="zelle_hinweise" colspan="<%= user_herausgeber? ? '4' : '1' %>">
+		<% if paket.hinweise %>
+			<%= simple_format( h( paket.hinweise ) ) %>
+		<% end %>
+		<% if paket.hinweise_ausleih and user_herausgeber? %>
+			<%= simple_format( h( paket.hinweise_ausleih ) ) %>
+		<% end %>
+		<% if anzahl_gegenstaende > 1 -%>
+		<div class="paketinhalt">
+			<%= render( :partial => 'gegenstands/items_gegenstaende_sammlung',
+			 			:locals => {
+									:sammlung => paket.gegenstands,
+									:keine_tasten => true } ) %>
+		</div>
+		<% end -%>
+	</td>
+	<td class="aussen_abstand">&nbsp;</td>
+</tr>
+
+<% if @reservation -%>
+
+<!-- Zeile 3: Zusätzliche Informationen über Reservationen -->
+
+<tr<%= ' class="hell"' if zaehler.odd? %> id="reservationen_<%= paket.id %>" style="display:none;">
+	<td class="aussen_abstand">&nbsp;</td>
+	<td></td>
+	<td colspan="<%= user_herausgeber? ? '4' : '1' %>">
+		<%= render :partial => 'pakets/reservationen_liste', :locals => { :reservationen => paket.finde_konkurrierende_reservationen( @reservation ) } %>
+	</td>
+	<td class="aussen_abstand">&nbsp;</td>
+</tr>
+
+<% end -%>
+<% end -%>

@@ -1,0 +1,17 @@
+<div class="blatt">
+	<%= render_partial 'gemeinsam/flashs' %>
+
+	<div class="gegenstand_blatt">
+		<h2>Gerätepark Nr.<%= @geraetepark.id %></h2>
+		<%= form_tag :action => 'update', :id => @geraetepark.id %>
+		<%= render_partial "form" %>
+
+		<%= render :partial => 'gemeinsam/letzte_aenderung', :locals => { :item => @geraetepark } %>
+		<br/><br/>
+		<div class="text_right">
+			<%= link_to 'Abbrechen', :controller => 'haupt', :action => 'info' %> |
+			<%= submit_tag "Ändern" %>
+		</div>
+		</form>
+	</div>
+</div>

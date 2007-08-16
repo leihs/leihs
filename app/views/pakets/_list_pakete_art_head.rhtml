@@ -1,0 +1,23 @@
+<tr>
+	<th class="aussen_abstand">&nbsp;</th>
+	<th class="icon">
+		<%= if session[ :paket_art_auf ].include?( paket.art )
+			link_to image_tag( 'klapp_auf_weiss.png' ), { :action => 'art_ausblenden', :art => paket.art }, :title => 'verbergen'
+		else
+			link_to image_tag( 'klapp_zu_weiss.png' ), { :action => 'art_einblenden', :art => paket.art }, :title => 'anzeigen'
+		end %>
+	</th>
+	<th id="maxbreit">
+		<%= if session[ :paket_art_auf ].include?( paket.art )
+			link_to paket.art, { :action => 'art_ausblenden', :art => paket.art }, :title => 'verbergen'
+		else
+			link_to paket.art, { :action => 'art_einblenden', :art => paket.art }, :title => 'anzeigen'
+		end %>
+	</th>
+	<% if user_herausgeber? -%>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+	<% end -%>
+	<th class="aussen_abstand">&nbsp;</th>
+</tr>

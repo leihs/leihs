@@ -1,0 +1,19 @@
+<div class="blatt">
+	<h3>Gegenstand anzeigen</h3>
+	<br/>
+
+	<%= render_partial 'gemeinsam/flashs' %>
+
+	<%= render_partial 'reiter', :klickaktion => 'show', :selected => 'attribut' %>
+
+	<div class="gegenstand_blatt">
+		<% for attribut in @attributs %>
+			<p>
+				<div class="feldname"><%= attribut.schluessel %></div>
+				<div class="feldinhalt"><%= attribut.wert %></div>
+			</p>
+		<% end %>
+		<br/>
+		<%= link_to 'Aendern', :action => 'edit_attribut', :id => @gegenstand.id %> | <%= link_to 'Zur&uuml;ck', :controller => 'gegenstands', :action => 'list' %>
+	</div>
+</div>
