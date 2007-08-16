@@ -1,0 +1,11 @@
+<div class="blatt">
+	<h2 class="anschluss">Auf Wiedersehen...</h2>
+	<p>Sie haben sich nun vom System abgemeldet.</p>
+	<br/>
+	
+	<%= render :partial => 'gemeinsam/flashs' %>
+	
+	<%= link_to( "Wieder anmelden",
+				:controller => 'haupt',
+				:action => 'index' ) %>
+</div>

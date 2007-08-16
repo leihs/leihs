@@ -1,0 +1,19 @@
+<h2>Herausgeber Status-Seite&nbsp;<%= link_to( image_tag( 'icon_kreuz.png' ), :controller => 'admin', :action => 'schalte_hilfe' ) %></h2>
+<p>Übersicht über die wichtigsten Vorgänge im System. Zusammenstellung einer Auswahl der aktuellsten Reservationen.</p>
+
+<%= hilfe_einblender( 'NeuRes', 'Neue Reservationen', true ) %>
+<p>frisch von Reservierenden eingetragen. Möglichst bald bearbeiten und entscheiden, ob R~ genehmigt wird, oder ob sie vorläufig bleibt</p></div>
+
+<%= hilfe_einblender( 'EinRes', 'Eintreffende Reservationen', false ) %>
+<p>Reservationen, deren Fälligkeit demnächst eintritt, d.h. die bald herausgegeben oder zurückgenommen werden</p></div>
+
+<%= hilfe_einblender( 'UebRes', 'Überfällige Reservationen', false ) %>
+<p>Reservationen, die zu lange ausgeliehen sind und nicht zurückgegeben wurden. Eventuell den Reservierenden telefonisch mahnen</p></div>
+
+<%= hilfe_einblender( 'VorRes', 'Vorläufige Reservationen', false ) %>
+<p>Reservationen, die als vorläufig eingetragen sind und die reservierten Pakete nicht blockieren. Für den Reservierenden ist es wichtig möglichst bald eine Genehmigung seiner R~ zu bekommen</p></div>
+
+<br/>
+<%= render :partial => 'res_aktionen_legende', :locals => { :anfangs_offen => true } %>
+<%= render :partial => 'res_status_legende', :locals => { :anfangs_offen => true } %>
+<%= render :partial => 'res_spalten_legende', :locals => { :anfangs_offen => false } %>

@@ -1,0 +1,9 @@
+<%= link_to( image_tag(
+						gegenstand.bild_url,
+						:class => 'minifoto' ),
+			gegenstand.bild_url,
+			:target => '_blank',
+			:onclick => "newWin=window.open( this.href, this.target, 'width=400, height=300, resizable=yes, toolBar=no, scrollbars=no' );
+						newWin.focus();
+						return false;"
+						) if ( gegenstand.bild_url and gegenstand.bild_url.length > 12 ) %>

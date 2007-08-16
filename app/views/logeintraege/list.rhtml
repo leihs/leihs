@@ -1,0 +1,45 @@
+<div class="blatt_vor_tabelle">
+	<h2>
+		Logbuch-Einträge
+		<%=  %></h2>
+</div>
+
+<table class="liste" style="font-size: 10px;">
+	<tr class="ausserhalb">
+		<td class="aussen_abstand">&nbsp;</td>
+		<td colspan="4">
+			<% for tag in Logeintrag.letzte_tage_liste( 15 ) -%>
+				<%= link_to( tag.strftime( '%d.%m.' ),
+				 			:action => 'list',
+							:id => tag.strftime( '%y%m%d' ) ) %>
+			<% end -%>
+		</td>
+		<td class="aussen_abstand">&nbsp;</td>
+	</tr>
+	
+	<tr>
+		<th class="aussen_abstand">&nbsp;</th>
+		<th>Zeitpunkt</th>
+		<th>Benutzer</th>
+		<th>Aktion</th>
+		<th>Kommentar</th>
+		<th class="aussen_abstand">&nbsp;</th>
+	</tr>
+ 
+	<% zaehler = 0
+	for eintrag in @logeintraege
+		zaehler += 1 -%>
+	  <tr<%= ' class="hell"' if zaehler.odd? %>>
+	  	<td class="aussen_abstand">&nbsp;</td>
+			<td class="kein_umbruch"><%= eintrag.created_at.strftime( '%H:%M' ) %></td>
+			<td><%= eintrag.user.name if eintrag.user %></td>
+			<td class="kein_umbruch"><%= eintrag.aktion %></td>
+			<td><%= eintrag.kommentar %></td>
+			<td class="aussen_abstand">&nbsp;</td>
+	  </tr>
+	<% end -%>
+	
+	<tr>
+		<th colspan="6"></th>
+	</tr>
+</table>

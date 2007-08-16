@@ -1,0 +1,11 @@
+<div class="blatt">
+  <h2>Registrierung</h2>
+	<%= render :partial => 'gemeinsam/flashs' %>
+
+	<%= form_tag :action=> "signup" %>
+	<%= render :partial => 'users/form_registrierung' %>
+	
+	<br/>
+	<%= submit_tag 'Zugang einrichten', :action => 'signup' %>
+	</form>
+</div>

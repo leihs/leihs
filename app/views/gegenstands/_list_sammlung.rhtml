@@ -1,0 +1,13 @@
+<div class="blatt">
+	<div class="paket_blatt">
+	<div class="boxtitel"><%= link_to( image_tag( 'icon_kreuz.png' ), { :action => 'sammlung_loeschen' }, :class => 'icon_right', :title => 'Sammlung loeschen' ) %>Vorl&auml;ufiges Paket mit <%= @gegenstaende_in_sammlung.size %> gewaehlten Gegenst&auml;nden</div>
+
+<%= render_partial( 'items_gegenstaende_sammlung', :sammlung => @gegenstaende_in_sammlung ) if @gegenstaende_in_sammlung.size > 0 %>
+
+<% if @mit_sammlung and @gegenstaende_in_sammlung.size > 0 %>
+	<div class="text_right">
+			<%= link_to 'zu Paket binden', :controller => 'pakets', :action => 'paket_binden' %>
+	</div>
+<% end %>
+	</div>
+</div>

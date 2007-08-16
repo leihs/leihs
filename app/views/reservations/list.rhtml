@@ -1,0 +1,40 @@
+<div class="blatt_vor_tabelle">
+	<h2 class="anschluss"><%= @reservations_anzahl %> Reservationen im System</h2>
+	<br />
+	
+	<%= render :partial => 'gemeinsam/flashs' %>
+	<%= render :partial => 'gemeinsam/filter' %>
+</div>
+
+<table class="liste" border="0" cellspacing="0" cellpadding="0">
+	<tr class="ausserhalb">
+		<td class="aussen_abstand">&nbsp;</td>
+		<td colspan="6">
+			<%= 'Seiten:' if @reservation_pages.length > 1 %>
+			<%= pagination_links( @reservation_pages, :window_size => 4 )  %>
+		</td>
+		<td colspan="2" class="text_right">
+			<%= link_to 'Reservation', { :controller => 'reservieren', :action => 'zeitraum_auswaehlen' }, :title => 'neue Reservation' %>
+			<%= link_to( image_tag( 'icon_plus.png', :class => 'icon' ), { :controller => 'reservieren', :action => 'zeitraum_auswaehlen' }, :title => 'neue Reservation' ) %>
+		</td>
+		<td class="aussen_abstand">&nbsp;</td>
+	</tr>
+
+	<%= render :partial => 'reservations/kurzliste_kopf' %>
+	
+	<% zaehler = 0
+	for reservation in @reservations
+		zaehler += 1 %>
+		<%= render :partial => 'reservations/kurzliste_zeile',
+		 			:locals => { :reservation => reservation,
+												:hell => ( zaehler.odd? ) } %>
+	<% end %>
+	
+	<tr>
+		<th colspan="11"></th>
+	</tr>
+
+</table>
+
+<% @t_diff = Time.now - @t_start
+Logeintrag.neuer_eintrag( session[ :user ], "Abruf #{Geraetepark.find( session[ :aktiver_geraetepark ] ).name} /reservations/list", @t_diff ) -%>

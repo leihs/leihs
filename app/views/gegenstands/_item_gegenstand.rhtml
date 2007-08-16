@@ -1,0 +1,34 @@
+<tr<%= ' class="hell"' if item_gegenstand_counter.modulo( 2 ) == 0 %>>
+	<td class="aussen_abstand">&nbsp;</td>
+	<td class="icon"><%=
+		if @mit_sammlung
+			if item_gegenstand.paket.nil?
+				link_to( image_tag( "icon_loch.png", :class => 'icon' ), { :action => 'sammlung_dazu', :id => item_gegenstand.id }, :title => 'zur Sammlung dazu' )
+			end
+		end %><%= zeige_aktions_icons( [ :edit, :destroy ], item_gegenstand.id ) %></td>
+	<td id="maxbreit">
+	<% if @mit_infos %>
+		<%=h item_gegenstand.modellbezeichnung %>
+	<% else %>
+		<%=h item_gegenstand.name_oder_modell %>
+	<% end %>
+	</td>
+	<td>
+		<%= item_gegenstand.inventar_nr_text %>
+	</td>
+	<td class="terig_keinum" style="text-align: right;">
+		<span class="kategorie"><%=h item_gegenstand.art %></span>
+	</td>
+	<td class="aussen_abstand">&nbsp;</td>
+</tr>
+
+<% if @mit_infos %>
+<tr <%= 'class="hell"' if item_gegenstand_counter.modulo( 2 ) == 0 %>>
+	<td class="aussen_abstand">&nbsp;</td>
+	<td></td>
+	<td><%=h item_gegenstand.name %></td>
+	<td><%=h item_gegenstand.hersteller %></td>
+	<td class="terig_keinum" style="text-align: right;"><%=h item_gegenstand.herausgabe_abteilung + ', ' + item_gegenstand.lagerort %></td>
+	<td class="aussen_abstand">&nbsp;</td>
+</tr>
+<% end %>

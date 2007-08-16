@@ -1,0 +1,93 @@
+<div class="blatt">
+	
+	<h1>Direkte Herausgabe</h1>
+	<p>Neuen Nutzer anlegen oder existierenden Nutzer auswählen,<br />
+		dann Zeitraum auswählen</p>
+	
+	<%= render :partial => 'gemeinsam/flashs' %>
+	<%= error_messages_for 'user' %>
+	<%= error_messages_for 'reservation' %>
+	<div class="reservation_blatt">
+	
+	<div id="dir_her_user_wahl" style="display:<%= ( session[ :direkte_herausgabe_modus ] == 'wahl' ) ? 'block' : 'none' %>;">
+		<h2 class="anschluss">Benutzer festlegen</h2>
+		
+		<%= link_to_function( 'neuen Nutzer eintragen',
+					"Element.hide( 'dir_her_user_wahl', 'dir_her_user' );
+						Element.show( 'dir_her_user_minimum' )",
+					:title => 'anlegen' ) %><br />
+		<br />
+		
+	<%= form_tag :action => 'direkt_pruefen', :id => 'wahl' %>
+		<div id="namesuche">
+			<label for="reservation_user_id">Name:</label>
+			<%= text_field_tag 'suchtext' %>
+			<span id="suchrad" style="display: none;">suchen...</span><br />
+			<%= observe_field( 'suchtext',
+						:update => 'namesuche_resultate',
+						:frequency => 1,
+						:with => "'namesuche=' + escape(value)",
+						:url => { :controller => 'users',
+											:action => 'search_for_list' },
+						:loading => "Element.show( 'suchrad' )",
+						:complete => "Element.hide( 'suchrad' )" ) %>
+			<div id="namesuche_resultate">
+			</div>
+		</div>
+		<br /><br />
+		
+		<%= render( :partial => 'reservieren/form_zeitraum', :locals => {
+		 			:startdatum_fest => @reservation.startdatum,
+					:fruehestes_startdatum => Time.now } ) %>
+		
+		<%= render :partial => 'ausleihen/submit_direkt_heraus' %>
+	</form>
+	</div>
+
+	<div id="dir_her_user_minimum" style="display:<%= ( session[ :direkte_herausgabe_modus ] == 'wenig' ) ? 'block' : 'none' %>;">
+		<h2 class="anschluss">Neuer Benutzer</h2>
+		
+		<%= link_to_function( 'mehr Eingaben',
+					"Element.hide( 'dir_her_user_minimum', 'dir_her_user' );
+						Element.show( 'dir_her_user' )",
+					:title => 'mehr' ) %>
+		| <%= link_to_function( 'existierenden Nutzer',
+					"Element.hide( 'dir_her_user_minimum', 'dir_her_user' );
+						Element.show( 'dir_her_user_wahl' )",
+					:title => 'wählen' ) %><br />
+		<br />
+		
+	<%= form_tag :action => 'direkt_pruefen', :id => 'wenig' %>
+		<%= render :partial => 'users/form_wenig' %>
+		<br />
+		
+		<%= render( :partial => 'reservieren/form_zeitraum', :locals => {
+					:startdatum_fest => @reservation.startdatum,
+					:fruehestes_startdatum => Time.now } ) %>
+		<%= render :partial => 'ausleihen/submit_direkt_heraus' %>
+	</form>
+	</div>
+	
+	<div id="dir_her_user" style="display:<%= ( session[ :direkte_herausgabe_modus ] == 'alles' ) ? 'block' : 'none' %>;">
+		<h2 class="anschluss">Neuer Benutzer</h2>
+		
+		<%= link_to_function 'weniger Eingaben',
+		      "Element.hide( 'dir_her_user', 'dir_her_user_wahl' ); Element.show( 'dir_her_user_minimum' )",
+		      :title => 'weniger' %>
+		| <%= link_to_function( 'existierenden Nutzer',
+		      "Element.hide( 'dir_her_user_minimum' ); Element.hide( 'dir_her_user' ); Element.show( 'dir_her_user_wahl' )",
+		      :title => 'wählen' ) %><br />
+		<br />
+		
+	<%= form_tag :action => 'direkt_pruefen', :id => 'alles' %>
+		<%= render :partial => 'users/form_registrierung' %>
+		<br />
+		<%= render( :partial => 'reservieren/form_zeitraum', :locals => {
+					:startdatum_fest => @reservation.startdatum,
+					:fruehestes_startdatum => Time.now } ) %>
+		<%= render :partial => 'ausleihen/submit_direkt_heraus' %>
+	</form>
+	</div>
+	
+	</div>	
+</div>

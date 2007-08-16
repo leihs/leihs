@@ -1,0 +1,8 @@
+<% for column in HwInventar.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @hw_inventar.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @hw_inventar %> |
+<%= link_to 'Back', :action => 'list' %>

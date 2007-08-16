@@ -1,0 +1,11 @@
+default:
+  all
+
+all:
+  listen,admin
+
+listen:
+  uri: /pakets/lisasdfsadft
+
+admin:
+  uri: /admin/status

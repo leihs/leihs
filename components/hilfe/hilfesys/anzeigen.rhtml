@@ -1,0 +1,6 @@
+<% logger.debug( "I --- hilfesys con | anzeigen template -- hilfeseite:#{@hilfeseite}" ) -%>
+<% if @hilfeseite %>
+	<%= render( :template => ( 'hilfesys/hilfesys/h_' + @hilfeseite ) ) %>
+<% else %>
+	<p>Hier finden Sie Hilfe zum aktuellen Seiteninhalt</p>
+<% end %>

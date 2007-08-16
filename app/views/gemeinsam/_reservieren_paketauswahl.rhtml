@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<% unless session[ :reservieren_sammlung ]
+	session[ :reservieren_sammlung ] = nil
+	session[ :reservieren_paketauswahl ] = nil
+else -%>
+
+<div class="auswahl">
+	<div class="auswahltitel">Auswahl (<%= paketauswahl.length %>
+	  <% if paketauswahl.length > 1 %>
+      Pakete)
+	  <% else -%>
+	    Paket)<br />
+	    <span style="font-weight: normal; color: #090;">mehrere Pakete auswählbar</span>
+	  <% end -%>
+	</div>
+	
+	<div class="paketauswahl_liste<%= '_scroll' if paketauswahl.size > 4 %>">
+  	<% for paket in Paket.find( paketauswahl )
+  		if paketauswahl and paketauswahl.include?( paket.id ) -%>
+  			<%= link_to_remote( image_tag( 'icon_kreuz.png', :class => 'icon' ),
+  						{ :update => 'auswahl',
+  							:url => { :action => 'paket_weg', :id => paket.id },
+  							:complete => "Element.show( 'paket_#{paket.id}', 'zu_#{paket.id}' ); Element.hide( 'auf_#{paket.id}' )" },
+  						:title => 'aus Auswahl entfernen' ) %>
+  			<%=h truncate( paket.inventar_nr_text + ' ' + paket.name, ( paketauswahl.size > 4 ? 22 : 26 ) ) %><br/>
+  		<% end
+  	end -%>
+  </div>
+	
+	<% if paketauswahl and paketauswahl.length > 0 -%>
+		<%= form_tag :action => 'reservation_abschicken' -%>
+		<div class="text_right">
+			<%= link_to( 'Abbrechen',
+						:controller => 'reservieren',
+						:action => 'reservation_abbrechen' ) %>
+			| <%= submit_tag 'Auswählen' -%>
+		</div>
+		<%= end_form_tag -%>
+	<% end %>
+</div>
+<% end -%>

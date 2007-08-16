@@ -1,0 +1,52 @@
+<div class="blatt">
+	<%= render_partial 'gemeinsam/flashs' %>
+
+	<div class="user_blatt">
+		<p>
+			<%= link_to( image_tag( 'icon_stift.png', :class => 'icon' ),
+						{ :controller => 'users',
+							:action => 'edit',
+							:id => @user.id },
+						:class => 'icon' ) %>
+			Benutzer Nr. <%= @user.id %>
+		</p>
+		<h2><%= h( @user.vorname.to_s + ' ' + @user.nachname.to_s ) %></h2>
+		<table class="felder">
+			<%= echo_tabelle_feld_wenn_definiert 'Abteilung', @user.abteilung %>
+			<%= echo_tabelle_feld_wenn_definiert( 'Login', @user.login ) if @user.login != @user.email %>
+			<td class="feldname">eMail</td>
+			<td class="feldinhalt">
+				<%= mail_to( @user.email, @user.email,
+				 			:subject => '[leihs] Anfrage vom Herausgeber',
+							:body => "Hallo #{@user.name},\r\r\r\r\r\rleihs\rAusleihe- und Reservierungsystem der\rHochschule für Gestaltung und Kunst Zürich\rhttp://leihs.hgkz.ch",
+							:class => 'normal' ) unless @user.email.blank? %>
+				<%= mail_to( @user.email,
+							image_tag( 'icon_pfeil_r.png', :class => 'icon' ),
+				 			:subject => '[leihs] Anfrage vom Herausgeber',
+							:body => "Hallo #{@user.name},\r\r\r\r\r\rleihs\rAusleihe- und Reservierungsystem der\rHochschule für Gestaltung und Kunst Zürich\rhttp://leihs.hgkz.ch",
+							:class => 'icon' ) unless @user.email.blank? %>
+			</td>
+			<%= echo_tabelle_feld_wenn_definiert 'Telefon', @user.telefon %>
+		</table>
+		<p>
+			<%= simple_format( echo_feld_wenn_definiert( 'Postadresse', @user.postadresse ) ) %>
+		</p>
+		
+		<hr size="1" />
+		
+		<table class="felder">
+			<%= echo_tabelle_feld_wenn_definiert 'Benutzerstufe', @user.benutzerstufe_text %>
+			<%= echo_tabelle_feld_wenn_definiert 'Berechtigungen', @user.berechtigungen_text %>
+			<%= echo_tabelle_feld_wenn_definiert 'Ausweis', @user.ausweis %>
+			<%= echo_tabelle_feld_wenn_definiert 'Verspätung', @user.verspaetung_text %>
+		</table>
+		<br />
+		
+		<%= render :partial => 'gemeinsam/letzte_aenderung', :locals => { :item => @user } %>
+	</div>
+	
+	<%= render( :partial => 'reservations/kurzliste', :locals => {
+				:reservationen => @user.reservations.sort! { |a, b|
+							b.sortier_datum <=> a.sortier_datum },
+				:titel => 'Benutzerbezogene' } ) %>
+</div>

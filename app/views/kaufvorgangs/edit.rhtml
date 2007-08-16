@@ -1,0 +1,20 @@
+<div class="blatt">
+	<h3>Gegenstand bearbeiten</h3>
+	<br/>
+
+	<%= render_partial 'gemeinsam/flashs' %>
+
+	<%= render_partial 'gegenstands/reiter', :klickaktion => 'edit', :selected => 'kaufvorgang' %>
+	
+	<div class="gegenstand_blatt">
+		<%= form_tag :action => 'update', :id => @kaufvorgang %>
+		<%= render_partial "form" %>
+		<br/>
+		<%= render :partial => 'gemeinsam/letzte_aenderung', :locals => { :item => @kaufvorgang } %>
+		<br/><br/>
+		<div class="text_right">
+			<%= submit_tag "Aendern" %> | <%= link_to 'Abbrechen', :controller => 'gegenstands', :action => 'list' %>
+		</div>
+		</form>
+	</div>
+</div>

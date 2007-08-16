@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<div class="auswahl_liste">
+	<div class= "auswahlliste_hinweis">
+		klicken zum auswählen</div>
+	<% for eintrag in @zusatzpakete -%>
+	<div>
+		<%= link_to_remote( eintrag[ 0 ],
+		 			{ :update => 'paketsuche_resultate',
+						:url => { :controller => 'pakets',
+									:action => 'select_for_list',
+									:id => eintrag[ 1 ] } },
+					:class => 'normal' ) %>
+	</div>
+<% end -%>
+</div>

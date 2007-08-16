@@ -1,0 +1,106 @@
+<% synced = ( @gegenstand.original_id.to_i > 0 ) -%>
+<%= error_messages_for 'gegenstand' %>
+
+<!--[form:gegenstand]-->
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'Bezeichnung', @gegenstand.modellbezeichnung %>
+<% else -%>
+	<p><label for="gegenstand_modellbezeichnung">Bezeichnung</label><br/>
+	<%= text_field 'gegenstand', 'modellbezeichnung' %></p>
+<% end -%>
+
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'Art', @gegenstand.art %>
+<% else -%>
+<p>
+	<div id="select_art">
+		<label for="paket_art">Art</label><br/>
+		<%= select 'gegenstand', 'art', Gegenstand.selectliste_art %>&nbsp;&nbsp;
+		<%= link_to_function( image_tag( "icon_stift.png", :class => 'icon' ), "Element.toggle( 'select_art', 'neu_art' )", :title => 'Neue Art eingeben' ) %>
+	</div>
+
+	<div id="neu_art" style="display:none">
+		<label for="gegenstand_art">Neue Art</label><br/>
+		<%= text_field 'gegenstand', 'neue_art'  %>
+	</div>
+</p>
+<% end -%>
+
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'Hersteller', @gegenstand.hersteller %>
+<% else -%>
+	<p><label for="gegenstand_hersteller">Hersteller</label><br/>
+	<%= text_field 'gegenstand', 'hersteller' %></p>
+<% end -%>
+
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'Seriennummer', @gegenstand.seriennr %>
+<% else -%>
+	<p><label for="gegenstand_seriennr">Seriennummer</label><br/>
+	<%= text_field 'gegenstand', 'seriennr' %></p>
+<% end -%>
+
+	<p><label for="gegenstand_abmessungen">Abmessungen</label><br/>
+	<%= text_field 'gegenstand', 'abmessungen' %></p>
+
+	<p><label for="gegenstand_bild_url">Bild URL</label>&nbsp;&nbsp;<%= render :partial => 'gegenstands/minibild', :locals => { :gegenstand => @gegenstand } %><br/>
+	<%= text_field 'gegenstand', 'bild_url' %></p>
+
+	<p><label for="gegenstand_info_url">Info URL</label><br/>
+	<%= text_field 'gegenstand', 'info_url' %></p>
+
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'Kommentar', @gegenstand.kommentar %>
+<% else -%>
+	<p><label for="gegenstand_zusatz">Kommentar</label><br/>
+	<%= text_area 'gegenstand', 'kommentar', :cols => 50, :rows => 5 %></p>
+<% end -%>
+
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'itHelp Inventar Nr.', @gegenstand.original_id %>
+<% else -%>
+	<%= echo_feld_wenn_definiert 'Inventar Nr.', @gegenstand.id %>
+<% end -%>
+
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'Inventar Abteilung', @gegenstand.inventar_abteilung %>
+<% else -%>
+	<p><label for="gegenstand_inventar_abteilung">Inventar Abteilung</label><br/>
+	<%= text_field 'gegenstand', 'inventar_abteilung' %></p>
+<% end -%>
+
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'Herausgabe Abteilung', @gegenstand.herausgabe_abteilung %>
+<% else -%>
+	<p><label for="gegenstand_herausgabe_abteilung">Herausgabe Abteilung</label><br/>
+	<%= text_field 'gegenstand', 'herausgabe_abteilung' %></p>
+<% end -%>
+
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'Lagerort', @gegenstand.lagerort %>
+<% else -%>
+	<p><label for="gegenstand_lagerort">Lagerort</label><br/>
+	<%= text_field 'gegenstand', 'lagerort' %></p>
+<% end -%>
+
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'Letzte Prüfung', @gegenstand.letzte_pruefung %>
+<% else -%>
+	<p><label for="gegenstand_letzte_pruefung">Letzte Pr&uuml;fung</label><br/>
+	<%= date_select 'gegenstand', 'letzte_pruefung' %></p>
+<% end -%>
+
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'Ausmusterdatum', @gegenstand.ausmusterdatum %>
+<% else -%>
+	<p><label for="gegenstand_ausmusterdatum">Ausmusterdatum</label><br/>
+	<%= date_select 'gegenstand', 'ausmusterdatum' %></p>
+<% end -%>
+
+<% if synced -%>
+	<%= echo_feld_wenn_definiert 'Ausmustergrund', @gegenstand.ausmustergrund %>
+<% else -%>
+	<p><label for="gegenstand_ausmustergrund">Grund der Ausmusterung</label><br/>
+	<%= text_field 'gegenstand', 'ausmustergrund' %></p>
+<% end -%>
+<!--[eoform:gegenstand]-->

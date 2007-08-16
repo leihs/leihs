@@ -1,0 +1,15 @@
+<div class="blatt_vor_tabelle">
+	<% unless session[ :direkte_herausgabe_modus ] -%>
+	  <%= render( :partial => 'reservieren/schritt_titelzeile', :locals => {
+				  :schritt => 2 } ) %>
+	  <br />
+	<% end -%>
+	
+	<p>Im Zeitraum <%= wochentag( @reservation.startdatum ) + @reservation.startdatum.strftime( '.%d.%m.%y' ) %> bis <%= wochentag( @reservation.enddatum ) + @reservation.enddatum.strftime( '.%d.%m.%y' ) %> sind
+	  <b><%= @pakets.length %> Pakete</b> teilweise verfügbar</p>
+</div>
+
+<%= render :partial => 'pakets/list_pakete_nach_art', :locals => { :pakete => @pakets } %>
+
+<% @t_diff = Time.now - @t_start
+Logeintrag.neuer_eintrag( session[ :user ], "Abruf #{Geraetepark.find( session[ :aktiver_geraetepark ] ).name} /reservieren/pakete_auswaehlen", @t_diff ) -%>

@@ -1,0 +1,57 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+importer_avz:
+  geraetepark_id: 1
+  user_id: 1
+
+importer_snm:
+  geraetepark_id: 3
+  user_id: 1
+
+magnus_avz:
+  geraetepark_id: 1
+  user_id: 3
+
+hans_dampf_sfv:
+  geraetepark_id: 2
+  user_id: 9
+
+student_sfv_sfv:
+  geraetepark_id: 2
+  user_id: 10
+
+student_sfv_avz:
+  geraetepark_id: 1
+  user_id: 10
+
+student_sfv_itz:
+  geraetepark_id: 4
+  user_id: 10
+
+normaler_student_avz:
+  geraetepark_id: 1
+  user_id: 11
+
+normaler_student_itz:
+  geraetepark_id: 4
+  user_id: 11
+
+student_ohne_ident_avz:
+  geraetepark_id: 1
+  user_id: 12
+
+student_ohne_ident_itz:
+  geraetepark_id: 4
+  user_id: 12
+
+normaler_herausgeber_avz:
+  geraetepark_id: 1
+  user_id: 13
+
+normaler_herausgeber_itz:
+  geraetepark_id: 4
+  user_id: 13
+
+lolo_nur_avz:
+  geraetepark_id: 1
+  user_id: 15

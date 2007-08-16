@@ -1,0 +1,40 @@
+<div class="blatt">
+	<h2>Gegenstand anzeigen</h2>
+	<br/>
+
+	<%= render_partial 'gemeinsam/flashs' %>
+
+	<%= render_partial 'gegenstands/reiter', :klickaktion => 'show', :selected => 'gegenstand' %>
+	
+	<div class="gegenstand_blatt">
+		<h2><%= @gegenstand.modellbezeichnung %></h2>
+		
+		<table class="felder">
+			<%= echo_tabelle_feld_wenn_definiert 'Art', @gegenstand.art %>
+			<%= echo_tabelle_feld_wenn_definiert 'Hersteller', @gegenstand.hersteller %>
+			<%= echo_tabelle_feld_wenn_definiert 'Seriennummer', @gegenstand.seriennr %>
+			<%= echo_tabelle_feld_wenn_definiert 'Abmessungen', @gegenstand.abmessungen %>
+			<%= echo_tabelle_feld_wenn_definiert 'Kommentar', @gegenstand.kommentar %>
+			<%= echo_tabelle_feld_wenn_definiert 'Inventar Abt.', @gegenstand.inventar_abteilung %>
+			<%= echo_tabelle_feld_wenn_definiert 'Herausgabe Abt.', @gegenstand.inventar_abteilung %>
+		
+			<% if @gegenstand.original_id.to_i > 0 -%>
+				<%= echo_tabelle_feld_wenn_definiert 'itHelp Inventar Nr.', @gegenstand.original_id %>
+			<% else -%>
+				<%= echo_tabelle_feld_wenn_definiert 'Inventar Nr.', @gegenstand.id %>
+			<% end -%>
+		
+			<%= echo_tabelle_feld_wenn_definiert 'Lagerort', @gegenstand.lagerort %>
+			<%= echo_tabelle_feld_wenn_definiert 'Letzte Prüfung', @gegenstand.letzte_pruefung %>
+			<%= echo_tabelle_feld_wenn_definiert 'Ausmusterdatum', @gegenstand.ausmusterdatum %>
+			<%= echo_tabelle_feld_wenn_definiert 'Grund der Ausmusterung', @gegenstand.ausmustergrund %>
+		</table>
+		
+		<%= echo_feld_wenn_definiert 'Bild URL', truncate( @gegenstand.bild_url, 100 ) %>
+		<%= echo_feld_wenn_definiert 'Info URL', truncate( @gegenstand.info_url, 100 ) %>
+		
+		<%= render :partial => 'gemeinsam/letzte_aenderung', :locals => { :item => @gegenstand } %>
+		<br/>
+		<%= link_to 'Aendern', :action => 'edit', :id => @gegenstand.id %> | <%= link_to 'Zur&uuml;ck', :action => 'list' %>
+	</div>
+</div>

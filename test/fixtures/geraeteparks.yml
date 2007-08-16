@@ -1,0 +1,24 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+keine_gruppe:
+  id: 1
+  name: AVZ
+  logo_url: http://interaction.hgkz.ch/projects/invuas/avz_logo.gif
+  ansprechpartner: avz@hgkz.net
+  beschreibung: Toller Verein, das AVZ!
+
+sfv:
+  id:               2
+  name:             SFV
+  logo_url:         http://interaction.hgkz.ch/projects/invuas/sfv_logo.jpg
+  ansprechpartner:  gian.courtin@hgkz.ch
+  beschreibung:     Auch der SFV ist ganz fit und hat die heissen Kameras...
+
+snm:
+  id:               3
+  name:             SNM
+  ansprechpartner:  ramon.cahenzli@hgkz.ch
+
+itz:
+  id:               4
+  name:             ITZ

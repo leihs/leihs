@@ -1,0 +1,20 @@
+<% item_name = "dieses" if item_name.blank? -%>
+<div class="text_right">
+	<%= link_to( image_tag( 'icon_kreuz.png', :class => 'icon' ),
+				{ :controller => params[ :controller ],
+					:action => 'destroy',
+					:id => params[ :id ] },
+				:confirm => "Wollen sie #{item_name} wirklich löschen? Die Aktion kann nicht rückgängig gemacht werden" ) %><%=
+		link_to( 'Löschen',
+					{ :controller => params[ :controller ],
+						:action => 'destroy',
+						:id => params[ :id ] },
+					:confirm => "Wollen sie #{item_name} wirklich löschen? Die Aktion kann nicht rückgängig gemacht werden" ) %>
+	| &nbsp;&nbsp;&nbsp;&nbsp;
+	<%= link_to( 'Abbrechen',
+				:controller => params[ :controller ],
+				:action => 'show',
+				:id => params[ :id ] ) %>
+	|
+	<%= submit_tag "Ändern" %>
+</div>

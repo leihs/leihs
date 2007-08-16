@@ -1,0 +1,21 @@
+<% titel = '' unless defined? titel -%>
+
+<% if reservationen and reservationen.size > 0 -%>
+	<h3 class="ueber_tabelle"><%=h titel %> Reservationen (<%= reservationen.size %>)</h3>
+	<table class="liste" border="0" cellspacing="0" cellpadding="0">
+
+		<%= render :partial => 'reservations/kurzliste_kopf' %>
+			
+		<% zaehler = 0
+		for reservation in reservationen
+			zaehler += 1 -%>
+			<%= render :partial => 'reservations/kurzliste_zeile',
+		 				:locals => { :reservation => reservation,
+												:hell => ( zaehler.odd? ) } %>
+		<% end -%>
+	
+		<tr>
+			<th colspan="11"></th>
+		</tr>
+	</table>
+<% end -%>

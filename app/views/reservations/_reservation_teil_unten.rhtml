@@ -1,0 +1,30 @@
+<% if reservation.zweck and reservation.zweck.length > 1 -%>
+	<div class="feldname">Verwendungszweck:</div>
+	<div class="Feldinhalt"><%=h reservation.zweck %></div>
+<% end -%>
+
+<% if reservation.herausgeber -%>
+	<br />
+	<table class="felder">
+		<% text = link_to( reservation.herausgeber.name,
+					{ :controller => 'users',
+						:action => 'show',
+						:id => reservation.herausgeber.id },
+					:class => 'normal' )
+		text += ', ' + reservation.startdatum.strftime( "%d.%m.%y (%H:%M)" ) -%>
+		<%= echo_tabelle_feld_wenn_definiert( 'Herausgegeber', text, false ) %>
+
+		<% if reservation.zuruecknehmer and reservation.zurueck? -%>
+			<% text = link_to( reservation.zuruecknehmer.name,
+				 		{ :controller => 'users',
+							:action => 'show',
+							:id => reservation.herausgeber.id },
+						:class => 'normal' )
+			text += ', ' + reservation.enddatum.strftime( "%d.%m.%y (%H:%M)" ) -%>
+			<%= echo_tabelle_feld_wenn_definiert( 'Zurücknehmer', text, false ) %>
+			<%= echo_tabelle_feld_wenn_definiert( 'Bewertung',
+						reservation.bewertung_text ) %>
+			<%= echo_tabelle_feld_wenn_definiert( 'Verspätung', reservation.verspaetung_text ) unless reservation.verspaetung.blank? %>
+		<% end -%>
+	</table>
+<% end -%>

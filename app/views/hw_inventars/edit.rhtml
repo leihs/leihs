@@ -1,0 +1,9 @@
+<h1>Editing hw_inventar</h1>
+
+<%= form_tag :action => 'update', :id => @hw_inventar %>
+  <%= render_partial "form" %>
+  <%= submit_tag "Edit" %>
+</form>
+
+<%= link_to 'Show', :action => 'show', :id => @hw_inventar %> |
+<%= link_to 'Back', :action => 'list' %>

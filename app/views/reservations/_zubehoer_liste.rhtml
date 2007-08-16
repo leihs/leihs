@@ -1,0 +1,36 @@
+<% # --- LOCALS ---
+# reservation - Reservation, deren Zubehoer bearbeitet werden soll
+# mit_erweitern - soll oben ein Link zum Hinzufügen von Zubehoer eingeblendet werden?
+mit_erweitern = false unless defined?( mit_erweitern )
+-%>
+<?xml version='1.0' encoding='utf-8'?>
+
+<div class="feldname">
+	<% if mit_erweitern -%>
+		<%= link_to_function( image_tag( "icon_plus.png" ),
+					"Element.toggle( 'res_zubehoer_dazu' )",
+					:title => 'Zubehör hinzufügen' ) %>
+		<%= link_to_function( 'Zubehör',
+					"Element.toggle( 'res_zubehoer_dazu' )",
+					:title => 'Zubehör hinzufügen',
+					:style => 'color: black;' ) %>
+	<% else -%>
+		Zubehör
+	<% end -%>
+</div>
+
+<div class="feldinhalt">
+  <%= '<br />' if reservation.zubehoer.blank? %>
+	<% for zubehoer in reservation.zubehoer
+		unless session[ :zubehoer_weg_liste ] and session[ :zubehoer_weg_liste ].include?( zubehoer.id ) %>
+		<div class="reservation_zubehoerliste" id="zubehoerliste_item<%= zubehoer.id %>">
+			<%= render( :partial => 'reservations/edit_zubehoer', :locals => {
+						:reservation => reservation,
+						:zubehoer => zubehoer } ) %>
+		</div>
+	<% end
+	end %>
+
+	<%= render( :partial => 'reservations/add_zubehoer', :locals => {
+				:reservation => reservation } ) %>
+</div>

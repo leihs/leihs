@@ -1,0 +1,31 @@
+<div class="blatt">
+	<%= render( :partial => 'gemeinsam/flashs' ) %>
+
+	<%= render( :partial => 'pakets/reiter', :locals => {
+				:paket => @paket } ) %>
+
+	<div class="gegenstand_blatt">
+		<span class="feldname">Paketinhalt</span>
+		<div class="paketinhalt">
+			<%= render( :partial => 'gegenstands/items_gegenstaende_sammlung',
+			 			:locals => {
+									:sammlung => @paket.gegenstands,
+									:keine_tasten => true } ) %>
+		</div>
+
+		<table class="felder">
+			<%= echo_tabelle_feld_wenn_definiert 'Name', @paket.name %>
+			<%= echo_tabelle_feld_wenn_definiert 'Art', @paket.art %>
+			<%= echo_tabelle_feld_wenn_definiert 'Status', @paket.status_text %>
+			<%= echo_tabelle_feld_wenn_definiert 'Gerätepark', @paket.geraetepark.name %>
+			<%= echo_tabelle_feld_wenn_definiert 'Ausleihbefugnis', @paket.ausleihbefugnis_text %>
+		</table>
+		<%= simple_format( echo_feld_wenn_definiert( 'Beschreibung/Hinweise für Leihende', @paket.hinweise ) ) %>
+		<%= simple_format( echo_feld_wenn_definiert( 'Hinweise für Verleihende', @paket.hinweise_ausleih ) ) %>
+		<%= render :partial => 'gemeinsam/letzte_aenderung', :locals => { :item => @paket } %>
+	</div>
+	
+	<%= render( :partial => 'reservations/kurzliste', :locals => {
+				:reservationen => @paket.reservations,
+				:titel => 'Paketbezogene' } ) %>
+</div>

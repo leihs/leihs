@@ -1,0 +1,27 @@
+Hallo <%= @reservation.user.name %>,
+
+Ihre Reservierung Nr.<%= @reservation.id %> folgender/s Paket(e) bei leihs
+<% for paket in @reservation.pakets -%>
+* <%= paket.name %>
+<% end -%>
+
+vom <%= @reservation.zeitraum_text %>
+wurde nun auf den Status '<%= @reservation.status_text %>' geändert.
+
+<% if @reservation.hinweise and @reservation.hinweise.length > 0 -%>
+Hinweis des Bearbeiters <%= @reservation.updater.name if @reservation.updater %>:
+<%= @reservation.hinweise %>
+<% end -%>
+
+Hier können Sie sich über weitere Details informieren:
+http://leihs.hgkz.ch/reservations/meine
+
+Mit freundlichen Grüssen,
+<%= @reservation.updater.name + "\r" if @reservation.updater %>leihs-Team
+
+
+------------------------------------------------------
+leihs
+Ausleihe- und Reservierungsystem der
+Hochschule für Gestaltung und Kunst Zürich
+http://leihs.hgkz.ch

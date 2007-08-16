@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<%= error_messages_for 'reservation' %>
+<%= form_remote_tag( :url => {
+			  :controller => 'reservations',
+			  :action => 'tausche_paket',
+			  :id => @reservation.id,
+			  :paket_id => @paket.id },
+			:update => "paketliste_item#{@paket.id}" ) %>
+	<p>Paket tauschen gegen</p>
+	<select id="reservation_pakets_<%= @paket.id %>" name="ersatzpaket_id">
+		<%= options_for_select( @ersatzpakete, @paket.id ) %>
+	</select>
+	<br /><br />
+	<%= render( :partial => 'gemeinsam/remote_submit_tasten', :locals => {
+				:div_id => "res_tausch_#{@paket.id}" } ) %>
+</form>

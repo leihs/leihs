@@ -1,0 +1,36 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+hans_reserviert_beamer_vorlaeufig:
+  paket_id: 1
+  reservation_id: 1
+
+magnus_reserviert_beamer:
+  paket_id: 2
+  reservation_id: 2
+
+magnus_reserviert_auch_stativ:
+  paket_id: 3
+  reservation_id: 2
+
+jemand_reserviert_stativ:
+  paket_id: 3
+  reservation_id: 3
+
+student_res_ding:
+  paket_id: 1
+  reservation_id: 4
+
+gina_leiht_akkupack:
+  paket_id:       5
+  reservation_id: 5
+
+einer_leiht_varilight:
+  paket_id:       861
+  reservation_id: 19
+
+anderer_leiht_varilight:
+  paket_id:       861
+  reservation_id: 22
+
+lolo_leiht_schraubenzieher_vom_sfv:
+  paket_id:       24
+  reservation_id: 23

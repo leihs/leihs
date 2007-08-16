@@ -1,0 +1,12 @@
+<div class="blatt">
+	<h2 class="anschluss">Rücknahme geprüft</h2>
+	<p>Die zurückgenommenen Pakete sind wieder im System verfügbar. Eventuell wurde eine weiterhin laufende Ausleihe abgespalten, wenn nicht alle Pakete zurück genommen werden konnten</p>
+	
+	<%= render :partial => 'gemeinsam/flashs' %>
+	<%= error_messages_for 'reservation' %>
+	
+	<%= render :partial => 'reservations/show', :locals => { :reservation => @reservation } %>
+	<br />
+	<%= render :partial => 'reservations/show', :locals => { :reservation => @reservation_offen } if @reservation_offen -%>
+
+</div>

@@ -1,0 +1,61 @@
+<table class="liste" border="0" cellspacing="0" cellpadding="0">
+	<tr class="ausserhalb">
+		<td class="aussen_abstand">&nbsp;</td>
+		<td></td>
+		<td>
+			<%= link_to 'alle&nbsp;schliessen', :action => 'alle_schliessen' unless @keine_kategorien %></td>
+		<% if user_herausgeber? -%>
+			<td></td>
+			<td></td>
+		<% end -%>
+		<td class="aussen_abstand">&nbsp;</td>
+	</tr>
+	
+	<tr class="ausserhalb">
+		<td class="abstand"></td>
+	</tr>
+ 	
+	<tr>
+		<th class="aussen_abstand">&nbsp;</th>
+		<th class="icon">&nbsp;</th>
+		<th id="maxbreit">Bezeichnung</th>
+		<% if user_herausgeber? -%>
+			<th>Inv.Nr</th>
+			<th class="text_right">Leihbef.</th>
+			<th class="text_right">?</th>
+		<% end -%>
+		<th class="aussen_abstand">&nbsp;</th>
+	</tr>
+</table>
+
+<table class="liste">
+<%
+art = ''
+zaehler = 0
+for paket in @pakets
+	unless @keine_kategorien or art == paket.art -%>
+		<%= render :partial => 'pakets/list_pakete_art_head',
+					:locals => { :paket => paket } %>
+		<% art = paket.art
+		zaehler = 1
+	end
+	
+	if session[ :paket_art_auf ].include?( paket.art ) or @keine_kategorien and !( session[ :reservieren_paketauswahl ] and session[ :reservieren_paketauswahl ].include?( paket.id ) ) -%>
+		
+		<%= render :partial => 'pakets/list_paket_zeile',
+					:locals => { :paket => paket,
+									:zaehler => zaehler,
+									:mit_edit => session[ :user ].admin? } %>
+		<% zaehler += 1 -%>
+	<% end
+end
+-%>
+</table>
+
+<table class="liste">	
+	<tr>
+		<th></th>
+	</tr>
+</table>
+
+<p>&nbsp;</p>

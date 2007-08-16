@@ -1,0 +1,21 @@
+<div>
+	<table class="reservationen_klein">
+	<% for reservation in reservationen -%>
+		<tr class="<%= reservation.fest? ? 'fest' : 'variabel' %>">
+			<% if user_herausgeber? -%>
+				<td><%= link_to reservation.id,
+							{ :controller => 'reservations',
+								:action => 'show',
+								:id => reservation.id },
+							:class => 'normal', :target => '_blank' %></td>
+			<% end -%>
+			<td><%= reservation.startdatum.strftime( '%d.%m.%y') %></td>
+			<td><%= reservation.enddatum.strftime( '%d.%m.%y') %></td>
+			<td><%= reservation.status_text %></td>
+			<% if user_herausgeber? and reservation.user -%>
+				<td><%= reservation.user.name  %></td>
+			<% end -%>
+		</tr>
+	<% end -%>
+	</table>
+</div>

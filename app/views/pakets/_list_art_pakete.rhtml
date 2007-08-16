@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<table class="liste" id="zu_<%= wandle_fuer_html_id( pakete.size > 0 ? pakete.first.art : 'unbekannt' ) %>" style="display:<%= mit_inhalt ? 'none' : 'block' %>;">
+	<%= render( :partial => 'pakets/art_tabelle_kopfzeile',
+				:locals => { :paket => pakete.first,
+							:offen => false,
+							:mit_remote => !mit_inhalt } ) %>
+</table>
+
+<% if mit_inhalt -%>
+	<table class="liste" id="auf_<%= wandle_fuer_html_id( pakete.first.art ) %>">
+		<%= render( :partial => 'pakets/art_tabelle_kopfzeile',
+					:locals => { :paket => pakete.first, :offen => true } ) %>
+		<% zaehler = 0
+		for paket in pakete
+			if !session[ :reservieren_paketauswahl ].include?( paket.id ) -%>
+				<%= render( :partial => 'pakets/list_paket_zeile',
+							:locals => { :paket => paket,
+										:zaehler => zaehler,
+										:mit_edit => false } ) %>
+				<% zaehler += 1 -%>
+			<% end -%>
+		<% end -%>
+	</table>
+<% end -%>

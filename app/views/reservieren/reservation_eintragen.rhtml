@@ -1,0 +1,21 @@
+<div class="blatt_vor_tabelle">
+	<h2 class="anschluss">Reservation eingetragen</h2>
+	<p>Die Reservation wurde <span class="hervor">vorläufig</span> eingetragen.<br/>
+	Der Herausgeber teilt per eMail den weiteren Status der Reservation mit (z.B. ob sie genehmigt oder abgelehnt wird).</p>
+	
+	<%= link_to_remote( 'Öffnungszeiten ' + @reservation.geraetepark.name,
+				:update => 'hilfe',
+				:url => { :controller => 'geraeteparks',
+									:action => 'hilfe_einblenden',
+									:id => @reservation.geraetepark.id } ) %>
+	<br /><br />
+	<% if user_herausgeber? -%>
+		<%= link_to( 'OK, danke. Weiter...',
+					:controller => 'admin',
+					:action => 'status' ) %>
+	<% else -%>
+		<%= link_to( 'OK, danke. Weiter...',
+					:controller => 'reservations',
+					:action => 'meine' ) %>
+	<% end -%>
+</div>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<div class="auswahl_liste">
+	<div class= "auswahlliste_hinweis">
+		klicken zum auswählen</div>
+	<% for paket in @pakets -%>
+	<div>
+		<%= link_to_remote( "#{truncate( paket.name, 32 )} (#{paket.inventar_nr_text})",
+		 			{ :update => 'paketsuche_resultate',
+						:url => { :controller => 'pakets',
+									:action => 'select_for_list',
+									:id => paket.id } },
+					:class => 'normal' ) %>
+	</div>
+<% end -%>
+</div>

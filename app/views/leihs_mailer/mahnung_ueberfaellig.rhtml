@@ -1,0 +1,24 @@
+Hallo <%= @reservation.user.name %>,
+
+Ihre Ausleihe Nr.<%= @reservation.id %> ist überfällig!
+
+Folgende(s) Paket(e) haben Sie
+vom <%= @reservation.zeitraum_text %> ausgeliehen:
+<% for paket in @reservation.pakets -%>
+* <%= paket.name %>
+<% end -%>
+
+Bringen Sie die Pakete bitte unverzüglich zurück, sonst kann es sein, dass wir Sie von der Ausleihe ausschliessen müssen.
+
+Hier können Sie sich über weitere Details informieren:
+http://leihs.hgkz.ch/reservations/meine
+
+Mit freundlichen Grüssen,
+<%= @reservation.updater.name + "\r" if @reservation.updater %>leihs-Team
+
+
+------------------------------------------------------
+leihs
+Ausleihe- und Reservierungsystem der
+Hochschule für Gestaltung und Kunst Zürich
+http://leihs.hgkz.ch

@@ -1,0 +1,41 @@
+<div class="blatt">
+	<h3>Gegenstand bearbeiten</h3>
+	<br />
+
+	<%= render_partial 'gemeinsam/flashs' %>
+
+	<%= render_partial 'gegenstands/reiter', :klickaktion => 'edit', :selected => 'attribut' %>
+
+	<div class="gegenstand_blatt">
+	<% for attribut in @attributs %>
+		<% if attribut.id != params[ :subid ].to_i %>
+			<p>
+				<div class="feldname"><%= link_to( image_tag( 'icon_stift.png' ), { :action => 'edit_attribut', :id => @gegenstand.id, :subid => attribut.id }, :title => 'Attribut aendern' %>
+				<%= link_to( image_tag( 'icon_kreuz.png' ), { :action => 'destroy_attribut', :id => @gegenstand.id, :subid => attribut.id }, :confirm => "Wollen sie das Attribut #{attribut.schluessel} wirklich löschen?\rDie Aktion kann nicht rückgängig gemacht werden", :title => 'Attribut loeschen' %>
+				<%= attribut.schluessel %></div>
+				<div class="feldinhalt"><%= attribut.wert %></div>
+			</p>
+		<% else %>
+			<% @attribut = attribut %>
+			<div class="attributformular">
+				<%= form_tag :action => 'update_attribut', :id => @gegenstand.id %>
+				<%= render_partial 'form_attribut' %>
+				<%= submit_tag 'Aendern' %>
+				</form>
+			</div>
+		<% end %>
+	<% end %>
+
+	<% if params[ :subid ].nil? %>
+		<% @attribut = Attribut.new %>
+		<br/>
+		<div class="attributformular">
+			<div class="boxtitel">Neues Attribut</div>
+			<%= form_tag :action => 'create_attribut', :id => @gegenstand.id %>
+			<%= render_partial 'form_attribut' %>
+			<%= submit_tag 'Eintragen' %>
+			</form>
+		</div>
+	<% end %>
+	</div>
+</div>

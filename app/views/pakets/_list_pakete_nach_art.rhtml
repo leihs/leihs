@@ -1,0 +1,15 @@
+<%= render :partial => 'pakets/pakete_tabellentitel' %>
+
+<% for art in art_array_aus_pakete( pakete ) -%>
+	<div id="stub_<%= wandle_fuer_html_id( art ) %>">
+		<%= render :partial => 'pakets/list_art_pakete', :locals => { :art => art, :pakete => pakete_array_mit_art( pakete, art ), :mit_inhalt => session[ :paket_art_auf ].include?( art ) } %>
+	</div>
+<% end -%>
+
+<table class="liste">	
+	<tr>
+		<th></th>
+	</tr>
+</table>
+
+<p>&nbsp;</p>

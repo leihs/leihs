@@ -1,0 +1,18 @@
+<div class="blatt">
+	<h1>Willkommen</h1>
+	
+	<p>im Reservations- und Ausleihesystem <b>leihs</b><br>
+	der Hochschule für Gestaltung Kunst in Zürich</p>
+	
+	<p>Hier können alle Studierenden, Dozierenden und Mitarbeiter der HGKZ die ausleihbaren Geräte und Dinge der unten aufgeführten Ausgabestellen einsehen.</p>
+	<p><span class="hervor">Zuerst</span> müssen Sie sich einen
+		<%= link_to 'Zugang einrichten',
+					:controller => 'zugang',
+					:action => 'signup' %>.<br />
+Die entsprechenden Berechtigungen werden Ihnen von den verschiedenen Ausgabestellen erteilt. Die Registrierungsbestätigung kann nur an Ihre eMail-Adresse der Schule geschickt werden.</p>
+	<p>Danach können Sie hier online stöbern, recherchieren und Reservationen tätigen.</p>
+	<br /><br />
+	
+	<%= render :partial => 'geraeteparks/liste', :locals => {
+				:geraeteparks => @geraeteparks } %>
+</div>

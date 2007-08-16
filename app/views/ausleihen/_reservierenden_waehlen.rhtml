@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<%= hidden_field_tag 'reservation[user_id]', @user.id %>
+<table class="felder">
+	<%= echo_tabelle_feld_wenn_definiert 'Benutzer:', @user.name %>
+	<%= echo_tabelle_feld_wenn_definiert 'Abteilung', @user.abteilung %>
+	<%= echo_tabelle_feld_wenn_definiert 'Berechtigung', @user.benutzerstufe_text %>
+</table>

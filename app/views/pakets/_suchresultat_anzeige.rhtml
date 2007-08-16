@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<%= hidden_field_tag 'dazu_paket_id', @paket.id %>
+<table class="felder">
+	<%= echo_tabelle_feld_wenn_definiert 'Name', @paket.name %>
+	<%= echo_tabelle_feld_wenn_definiert 'Inventar Nr.', @paket.inventar_nr_text %>
+	<%= echo_tabelle_feld_wenn_definiert 'Befugnis', @paket.ausleihbefugnis_text %>
+</table>

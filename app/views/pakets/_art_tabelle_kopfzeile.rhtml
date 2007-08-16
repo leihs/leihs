@@ -1,0 +1,39 @@
+<tr>
+	<th class="aussen_abstand">&nbsp;</th>
+	<th class="icon">
+		<%= link_to_function(
+					image_tag( offen ? 'klapp_auf_weiss.png' : 'klapp_zu_weiss.png' ),
+					"Element.toggle( 'auf_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}',
+								'zu_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}' )",
+					:title => ( offen ? 'verbergen' : 'anzeigen' )
+								) unless mit_remote %>
+		<%= link_to_remote( image_tag( 'klapp_zu_weiss.png' ),
+					:url => { :action => 'art_einblenden', :art => paket.art },
+					:update => 'stub_' + wandle_fuer_html_id( paket.art ),
+					:loading => "Element.show( 'spinner_stub_#{paket.id}' )",
+					:title => 'anzeigen'
+								) if mit_remote %>
+	</th>
+	<th id="maxbreit">
+		<%= link_to_function(
+					paket ? paket.art : 'nix',
+					"Element.toggle( 'auf_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}',
+								'zu_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}' )",
+					:title => ( offen ? 'verbergen' : 'anzeigen' )
+								) unless mit_remote %>
+		<%= link_to_remote( paket ? paket.art : 'nix',
+					:url => { :action => 'art_einblenden', :art => paket.art },
+					:update => 'stub_' + wandle_fuer_html_id( paket ? paket.art : 'nix' ),
+					:loading => "Element.show( 'spinner_stub_#{paket.id}' )",
+					:title => 'anzeigen'
+								) if mit_remote %>
+		<%= image_tag( 'spinner_blau_13.gif', :id => "spinner_stub_#{paket.id}", :style => 'margin: 0; padding: 0; padding-left: 0.5em; vertical-align: bottom; display:none;' ) %>
+	</th>
+	
+	<% if user_herausgeber? -%>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+	<% end -%>
+	<th class="aussen_abstand">&nbsp;</th>
+</tr>

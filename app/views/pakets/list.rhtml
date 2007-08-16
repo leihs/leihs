@@ -1,0 +1,17 @@
+<div class="blatt_vor_tabelle">
+	<h2 class="anschluss"><%= @pakets.size %> Pakete im Inventar</h2>
+	<% if session[ :user ].nil? or session[ :user ].reservierender? -%>
+		<p>Hier sehen Sie alle Pakete, die mit Ihrer Berechtigung ausgeliehen werden können. Teilweise können aufgeführte Pakete durch bestehende Reservationen nicht verfügbar sein.
+		<% unless session[ :user ] and session[ :user ].reservierender? -%>
+			Melden Sie sich an und prüfen sie die Verfügbarkeit in einer konkreten Reservation.
+		<% end -%>
+		</p>
+	<% end -%>
+	
+	<%= render_partial 'gemeinsam/flashs' %>
+</div>
+
+<%= render :partial => 'list_pakete' %>
+
+<% @t_diff = Time.now - @t_start
+Logeintrag.neuer_eintrag( session[ :user ], "Abruf #{Geraetepark.find( session[ :aktiver_geraetepark ] ).name} /pakets/list", @t_diff ) -%>
