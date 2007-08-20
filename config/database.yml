@@ -42,11 +42,3 @@ production:
   password: 163ruby9
   #socket: /tmp/mysql.sock
 
-benchmarking:
-  adapter: mysql
-  database: rails_leihs_dev
-  encoding: utf8 
-  username: rubylocal
-  password: 163ruby9
-  #socket: /var/run/mysqld/mysqld.sock
-
