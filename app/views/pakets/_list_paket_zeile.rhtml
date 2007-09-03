@@ -1,11 +1,14 @@
+<% logger.debug( "VT --- pakets | list paket zeile -- jetzt pakets/_list_paket_zeile rendern" ) if false -%>
+
 <% if paket.gegenstands.blank?
- 			logger.error( "I--- Illegales Paket ohne Gegenstand: P#{paket.id}" )
-		else -%>
-<% paket_gegenstaende = paket.gegenstands || [ Gegenstand.new( :modellbezeichnung => 'nix' ) ]
-anzahl_gegenstaende = paket_gegenstaende.size -%>
+ 			logger.error( "VT --- pakets | list paket zeile -- Illegales Paket ohne Gegenstand: P#{paket.id}" )
+		else
+		  paket_gegenstaende = paket.gegenstands || [ Gegenstand.new( :modellbezeichnung => 'nix' ) ]
+      anzahl_gegenstaende = paket_gegenstaende.size -%>
 
 <tr<%= ' class="hell"' if zaehler.odd? %> id="paket_<%= paket.id %>">
 	<td class="aussen_abstand">&nbsp;</td>
+
 	<!-- Zelle 1 Icon -->
 	<td class="icon">
 		<%= ein_aus_klapp_icon( 'klapp_zu.png', 'Details zeigen',
@@ -32,6 +35,7 @@ anzahl_gegenstaende = paket_gegenstaende.size -%>
 					<span class="res_ueber">?</span>&nbsp;
 				<% end -%>
 			<% end -%>
+			
 			<%= link_to_function(
 							render( :partial => 'gemeinsam/indikator',
 										:locals => { :ueberlappt => paket.ueberlappt_hash( @reservation ) } ),
@@ -56,6 +60,7 @@ anzahl_gegenstaende = paket_gegenstaende.size -%>
 					<%= paket.name %>
 				<% end -%>
 			<% end -%>
+			
 			<%= " (<b>#{paket.gegenstands.size}G</b>)" if anzahl_gegenstaende > 1 %>
 			<%= render( :partial => 'gegenstands/minibild', :locals => { :gegenstand => paket_gegenstaende.first } ) if anzahl_gegenstaende == 1 %>
 			<%= link_to( 'INFO',

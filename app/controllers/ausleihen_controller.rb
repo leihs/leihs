@@ -223,7 +223,7 @@ class AusleihenController < ApplicationController
 	end
 	
 	def direkt_pruefen
-		logger.debug( "I --- ausleihen -- direkt_pruefen -- params:#{params.to_yaml}")
+		logger.debug( "I --- ausleihen | direkt_pruefen -- params:#{params.to_yaml}")
 		session[ :direkte_herausgabe_modus ] = params[ :id ]
 		
 		if session[ :direkte_herausgabe_modus ] == 'wahl'
@@ -261,31 +261,35 @@ class AusleihenController < ApplicationController
 		end
 		
 		unless t_valid_user
-		  logger.debug( "-- C ausleihen | direkt pruefen -- kein valider benutzer" )
+		  logger.debug( "C --- ausleihen | direkt pruefen -- kein valider benutzer" )
 		  redirect_to :action => 'direkt_heraus' and return false
 		  
 		else
 		  # neue Reservation anlegen
 		  @reservation = Reservation.new( params[ :reservation ] )
+		  @reservation.status = Reservation::STATUS_ZUSAMMENSTELLEN
 		  @reservation.user = @user
-		  t_valid_reservation = @reservation.validate_fuer_direkte_herausgabe
+		  @reservation.updater = session[ :user ]
+		  @reservation.geraetepark_id = session[ :aktiver_geraetepark ]
+		  t_valid_reservation = @reservation.save
 	
   		unless t_valid_user and t_valid_reservation
-  			render :action => 'direkt_heraus'
+  			render :action => 'direkt_heraus' and return false
   			
   		else
-  			session[ :reservation ] = @reservation
+  		  @reservation.reload
+  			session[ :reservation_id ] = @reservation.id
   			
   			if params[ :nur_zubehoer ]
   			  # Direkt zum Zubehör weiter
   			  Logeintrag.neuer_eintrag( session[ :user ], 'beginnt direkte Herausgabe Zubehör', "für Benutzer #{@user.id}:#{@user.name}" )
-  			  redirect_to :action => 'reservation_abschicken'
+  			  redirect_to :action => 'reservation_abschicken', :id => @reservation.id
   			  
   			else
   			  # Pakete auswählen
   			  paketauswahl_neu
   			  Logeintrag.neuer_eintrag( session[ :user ], 'beginnt direkte Herausgabe', "für Benutzer #{@user.id}:#{@user.name}" )
-  			  redirect_to :action => 'pakete_auswaehlen'
+  			  redirect_to :action => 'pakete_auswaehlen', :id => @reservation.id
   			end
   		end
   	end	
@@ -298,7 +302,7 @@ class AusleihenController < ApplicationController
 		session[ :paket_art_auf ] ||= Array[ Paket.find( :first, :order => 'art' ).art ]
 		#logger.debug( "I --- ausleihen --- pakete_auswaehlen --- #{session.to_yaml}")
 		
-		@reservation = session[ :reservation ]
+		@reservation = Reservation.find( params[ :id ] )
 		@user = @reservation.user
 		@paketauswahl = session[ :reservieren_paketauswahl ]
 		@reserv_mode = true
@@ -312,21 +316,22 @@ class AusleihenController < ApplicationController
 	
 	def weitere_pakete
 	  paketauswahl_neu
-	  if session[ :reservation ].is_a?( Reservation ) and session[ :reservation ].pakets.size > 0
+	  @reservation = Reservation.find( session[ :reservation_id ] )
+	  if @reservation.pakets.size > 0
 	    # Pakete aus der Reservation in die Paketauswahl schreiben
-	    for paket in session[ :reservation ].pakets
+	    for paket in @reservation.pakets
 	      session[ :reservieren_paketauswahl ] << paket.id
 	    end
-	    session[ :reservation ].pakets = []
+	    @reservation.pakets = [ ]
 	  end
 	  
-	  redirect_to :action => 'pakete_auswaehlen'
+	  redirect_to :action => 'pakete_auswaehlen', :id => @reservation.id
 	end
 	
 	def reservation_abschicken  # eigentlich herausgabe_abschicken
 	  # wird aufgerufen von der Paketauswahl seitlich
 	  # auch in der Direkten Herausgabe. Dann aber verzweigen nach Zubehoer auswählen
-		@reservation = session[ :reservation ]
+		@reservation = Reservation.find( session[ :reservation_id ] )
 		@user = @reservation.user
 		logger.debug( "C --- ausleihen | reservation abschicken -- @reservation.user: #{@user.to_yaml}")
 		
@@ -350,7 +355,7 @@ class AusleihenController < ApplicationController
 	end
 	
 	def herausgabe_eintragen
-		@reservation = session[ :reservation ]
+		@reservation = Reservation.find( params[ :id  ] )
 		@user = @reservation.user
 		logger.debug( "I --- ausleihen_con | herausgabe eintragen -- @reservation.user: #{@user.to_yaml}")
 		
@@ -358,7 +363,7 @@ class AusleihenController < ApplicationController
 		if @user.new_record?
 			# wenn nicht, neu eintragen
 			if @user.email
-				@user.login = "#{@user.email}"
+				@user.login = @user.email
 			else
 				@user.login = "direkt_#{@user.nachname}_#{@user.abteilung}"
 			end

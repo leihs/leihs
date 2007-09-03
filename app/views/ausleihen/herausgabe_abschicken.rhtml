@@ -27,12 +27,13 @@
 	
   	<hr size="1"/>
 	
-		<%= form_tag :action => 'herausgabe_eintragen' %>
-		<%= hidden_field 'reservation', 'startdatum' %>
-		<%= hidden_field 'reservation', 'enddatum' %>
+		<%= form_tag :action => 'ausleihe_pruefen', :id => @reservation.id %>
 		<p>
 		  <label for="reservation_zweck">Verwendungszweck</label>:<br/>
 		  <%= text_area 'reservation', 'zweck', :rows => 3 %></p>
+		<p>
+		  Zusätzliche <label for="reservation_hinweise">Hinweise Leihvertrag</label>:<br/>
+		  <%= text_area 'reservation', 'hinweise', :rows => 3 %></p>
 		<br/>
 		
 		<div class="text_right">

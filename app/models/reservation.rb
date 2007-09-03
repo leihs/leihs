@@ -9,6 +9,7 @@ class Reservation < ActiveRecord::Base
 	belongs_to :geraetepark
 	
 	STATUS_TEXT = [ [ 'zurückgegeben', -2 ], [ 'abgelehnt', -1 ], [ 'neu', 0 ], [ 'vorläufig', 1 ], [ 'genehmigt', 2 ], [ 'ausgeliehen', 9 ] ]
+	STATUS_ZUSAMMENSTELLEN = -3
 	BEWERTUNG_TEXT = [ [ 'schlecht', -1 ], [ 'akzeptabel', 0 ], [ 'gut', 1 ] ]
 	
 	# Direkte Validierung
@@ -29,9 +30,10 @@ class Reservation < ActiveRecord::Base
 	end
 
 	def status_text
-		text = 'unbekannt'
+		text = '??'
+		text = '*' if status = STATUS_ZUSAMMENSTELLEN
 		for eintrag in STATUS_TEXT
-			text = eintrag[ 0 ] if eintrag[ 1 ] == self.status
+			text = eintrag[ 0 ] if eintrag[ 1 ] == status
 		end
 		return text
 	end

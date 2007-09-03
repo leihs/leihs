@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
 	def art_einblenden
 		art = params[ :art ] || params[ :id ]
 		logger.debug( "I --- app | art einblenden -- art:#{art}" )
-		@reservation = session[ :reservation ]
+		@reservation = Reservation.find( session[ :reservation_id ] )
 		@user = @reservation.user
 		@reserv_mode = true
 		

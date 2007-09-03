@@ -108,6 +108,9 @@ class ReservierenController < ApplicationController
 	end
 	
 	def reservation_eintragen
+	  unless params[ :reservation ][ :zweck ] and params[ :reservation ][ :zweck ].size > 3
+	    flash[ :error ] = 'Verwendungszweck muss eingetragen werden'
+	    redirect_to :action => 'reservation_abschicken'
 		session[ :reservieren_schritt ] = nil
 		
 		@reservation = session[ :reservation ]
