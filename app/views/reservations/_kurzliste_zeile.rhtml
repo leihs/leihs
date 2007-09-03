@@ -57,10 +57,13 @@
 					<% end -%>
 				<% end -%>
 				<% zeitmarke "kurzliste zeile schleife #{reservation.id}", t2 -%>
-		
+		    
 				<% unless reservation.zubehoer.blank? -%>
 					<%= '<br />' if anzahl_pakete( reservation ) > 1 %>
-					<%= h( reservation.zubehoer ) %>
+					<% for zubehoer_teil in reservation.zubehoer -%>
+						<%= '<br />' unless zubehoer_teil == reservation.zubehoer[ 0 ] %>
+					  <%= zubehoer_teil.anzahl.to_s + ' ' + h( zubehoer_teil.beschreibung ) %>
+					<% end -%>
 				<% end -%>
 			</div>
 		<% end -%>

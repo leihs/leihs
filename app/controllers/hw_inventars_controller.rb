@@ -41,6 +41,7 @@ class HwInventarsController < ApplicationController
 		
 		@hw_inventars = HwInventar.find( :all,
 					:conditions => "rental like 'yes'",
+					:order => 'Inv_Serienr',
 					:offset => @start,
 					:limit => @anzahl )
 		
@@ -48,7 +49,9 @@ class HwInventarsController < ApplicationController
 		zaehler = 0
 		for inventar in @hw_inventars
 			zaehler += 1
-			seite_text += "<br/>#{zaehler}: inventar Nr.#{inventar.Inv_Serienr} wird untersucht."
+			logger.debug( "C --- hw inventars | sync --" )
+			logger.debug( "C --- -------------------------- Sync Iteration Nr. #{zaehler}")
+			seite_text += " | #{zaehler}:hwInventar #{inventar.Inv_Serienr}"
 			geraet_text = ''
 			
 			#wenn der Eintrag schon existiert, dann ersetze diesen
@@ -182,17 +185,19 @@ class HwInventarsController < ApplicationController
 			end
 			
 			#Stao_Gebaeude -> lagerort (Teil 1)
+			#building -> lagerort (alternativer Teil 1)
 			#Stao_Raum -> lagerort (Teil 2)
-			if ( inventar.Stao_Gebaeude.length > 1 or inventar.Stao_Raum.length > 1 ) and @gegenstand.lagerort != ( inventar.Stao_Gebaeude + '-' + inventar.Stao_Raum )
-				@gegenstand.lagerort = ( inventar.Stao_Gebaeude + '-' + inventar.Stao_Raum )
-				geraet_text += "<br/>neues Stao_Gebäude/Stao_Raum: #{@gegenstand.lagerort}"
+			if ( inventar.Stao_Gebaeude.to_s.length > 1 or inventar.building_before_type_cast.to_s.length > 1 or inventar.Stao_Raum.to_s.length > 1 ) and @gegenstand.lagerort != ( ( inventar.building_before_type_cast.to_s.length > 1 ? inventar.building_before_type_cast.to_s : inventar.Stao_Gebaeude.to_s ) + '-' + inventar.Stao_Raum.to_s )
+				logger.debug( "C --- hw inventars | sync -- lagerort:#{@gegenstand.lagerort} -> #{( ( inventar.building_before_type_cast.to_s.length > 1 ? inventar.building_before_type_cast.to_s : inventar.Stao_Gebaeude.to_s ) + '-' + inventar.Stao_Raum.to_s )}")
+				@gegenstand.lagerort = ( ( inventar.building_before_type_cast.to_s.length > 1 ? inventar.building_before_type_cast.to_s : inventar.Stao_Gebaeude.to_s ) + '-' + inventar.Stao_Raum.to_s )
+				geraet_text += "<br/>neues Stao_Gebäude/building/Stao_Raum: #{@gegenstand.lagerort}"
 			end
 			
 			#rental -> ausleihbar
 			ausleihbar = 0
-			ausleihbar = 1 unless @gegenstand.ausmusterdatum
-			logger.debug( "I --- ausmusterdatum: #{@gegenstand.ausmusterdatum}" )
+			ausleihbar = 1 if @gegenstand.ausmusterdatum.blank? or @gegenstand.ausmusterdatum < Date.new( 1970, 1, 1 )
 			if @gegenstand.ausleihbar != ausleihbar
+			  logger.debug( "I --- ausmusterdatum: #{@gegenstand.ausmusterdatum}, ausleihbar:#{ausleihbar}" )
 				@gegenstand.ausleihbar = ausleihbar
 				geraet_text += "<br/>neuer Ausleihstatus: #{@gegenstand.ausleihbar}"
 			end
@@ -208,8 +213,8 @@ class HwInventarsController < ApplicationController
 			if inventar.Art_Wert.kind_of?( Numeric ) and inventar.Art_Wert > 0
 				@gegenstand.build_kaufvorgang unless @gegenstand.kaufvorgang
 				if @gegenstand.kaufvorgang.kaufpreis.to_i != ( inventar.Art_Wert * 100 ).to_i
-					logger.debug( "I --- gegenstand nachher #{@gegenstand.to_yaml}")
-					logger.debug( "I --- kaufvorgang #{@gegenstand.kaufvorgang.to_yaml}")
+					#logger.debug( "I --- gegenstand nachher #{@gegenstand.to_yaml}")
+					#logger.debug( "I --- kaufvorgang #{@gegenstand.kaufvorgang.to_yaml}")
 					@gegenstand.kaufvorgang.kaufpreis = inventar.Art_Wert * 100
 					kaufvorgang_modifiziert = true
 					geraet_text += "<br/>neuer Art_Wert: #{@gegenstand.kaufvorgang.kaufpreis}"
@@ -279,10 +284,10 @@ class HwInventarsController < ApplicationController
 			if geraet_text.length > 1
 				@gegenstand.updated_at = inventar.DB_geaendert_am
 				@gegenstand.save!
-				logger.debug( "I --- gegenstand nach save #{@gegenstand.to_yaml}" )
+				#logger.debug( "I --- gegenstand nach save #{@gegenstand.to_yaml}" )
 				geraet_text += "<br/>Gegenstand ID: #{@gegenstand.id}"
 
-				seite_text += geraet_text + "<br/><b>inventar Nr.#{@gegenstand.original_id}: #{@gegenstand.modellbezeichnung} wurde synchronisiert.</b><br/>"
+				seite_text = '<br>' + seite_text + geraet_text + "<br/><b>inventar Nr.#{@gegenstand.original_id}: #{@gegenstand.modellbezeichnung} wurde synchronisiert.</b><br/>"
 			end
 
 		end

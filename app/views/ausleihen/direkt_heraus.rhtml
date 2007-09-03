@@ -22,7 +22,7 @@
 		<div id="namesuche">
 			<label for="reservation_user_id">Name:</label>
 			<%= text_field_tag 'suchtext' %>
-			<span id="suchrad" style="display: none;">suchen...</span><br />
+			<span id="suchrad" style="display: none;"><%= image_tag( 'spinner_grau_13.gif' ) %> suchen...</span><br />
 			<%= observe_field( 'suchtext',
 						:update => 'namesuche_resultate',
 						:frequency => 1,

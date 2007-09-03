@@ -98,19 +98,9 @@ komplett_status = true
 	end
 	
 	def ist_am_lager?
-		#t = zeitmarke "paket(#{id}).ist_am_lager?"
 		unless defined?( @ist_am_lager )
-			ausgeliehene = reservations.find( :all, :conditions => [ 'status = 9' ] )
-			@ist_am_lager = ( ausgeliehene.size < 1 )
-			#logger.debug( "am lager:#{@ist_am_lager}" )
-			# @ist_am_lager = true
-			# for reservation in reservations
-			# 	#logger.debug( "I --- paket | ist am lager? -- ausgeliehen? R#{reservation.id} #{reservation.ausgeliehen?}" )
-			# 	@ist_am_lager = false if reservation.ausgeliehen?
-			# end
+		  @ist_am_lager = ( reservations.detect { |r| r.ausgeliehen? } == nil )
 		end
-		#logger.debug( "I --- paket | ist am lager? -- am lager? P#{id} #{status}" )
-		#zeitmarke "paket(#{id}).ist_am_lager?", t
 		return @ist_am_lager
 	end
 	
@@ -230,12 +220,12 @@ komplett_status = true
 		if in_art_array.size > 0
 			t_art_array_text = in_art_array.join( ',' )
 			pakete_array = self.find( :all,
-						:include => [ :reservations ],
+						:include => [ :reservations, :gegenstands, :geraetepark ],
 						:conditions => [ "ausleihbefugnis <= ? and pakets.geraetepark_id = ? and FIND_IN_SET( art, ? )", in_benutzerstufe, in_geraetepark, t_art_array_text ],
 						:order => 'pakets.art, pakets.name' )
 		else
 			pakete_array = self.find( :all,
-						:include => [ :reservations ],
+						:include => [ :reservations, :gegenstands, :geraetepark ],
 						:conditions => [ "ausleihbefugnis <= ? and pakets.geraetepark_id = ?", in_benutzerstufe, in_geraetepark ],
 						:order => 'pakets.art, pakets.name' )
 		end
@@ -282,7 +272,8 @@ komplett_status = true
 		return nicht_ausleihbare
 	end
 	
-	def self.find_freie_in_zeitraum( in_startdatum, in_enddatum, in_benutzerstufe = 1, in_geraetepark = 0, in_art = nil )
+	def self.find_freie_in_zeitraum( in_startdatum, in_enddatum,
+	      in_benutzerstufe = 1, in_geraetepark = 0, in_art = nil )
 		#logger.warn( 'W--- frei in zeitraum:' + in_startdatum.class.to_s )
 		#logger.warn( 'W--- frei in zeitraum:' + in_startdatum.to_s )
 		alle_pakete = self.find_mit_befugnis_und_art_array( in_benutzerstufe, in_geraetepark, ( in_art ? [ in_art ] : Array.new ) )

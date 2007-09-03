@@ -25,7 +25,8 @@ mehr_pakete = false unless defined?( mehr_pakete )
 	  &nbsp;&nbsp;&nbsp;&nbsp;
 	  <%= link_to( image_tag( 'icon_plus.png' ) + ' weitere Pakete',
 	        { :controller => 'ausleihen',
-	          :action => mehr_pakete },
+	          :action => mehr_pakete,
+	          :id => reservation.id },
 	        :style => 'font-size: 1.25em; text-transform: none;' ) %>
 	<% end -%>
 </div>
