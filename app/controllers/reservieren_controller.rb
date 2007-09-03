@@ -108,27 +108,28 @@ class ReservierenController < ApplicationController
 	end
 	
 	def reservation_eintragen
-	  unless params[ :reservation ][ :zweck ] and params[ :reservation ][ :zweck ].size > 3
-	    flash[ :error ] = 'Verwendungszweck muss eingetragen werden'
-	    redirect_to :action => 'reservation_abschicken'
-		session[ :reservieren_schritt ] = nil
-		
-		@reservation = session[ :reservation ]
-		@reservation.zweck = params[ :reservation ][ :zweck ]
-		@reservation.prioritaet = 1
-		@reservation.geraetepark_id = session[ :aktiver_geraetepark ]
-		@reservation.user = session[ :user ]
-		@reservation.updater_id = session[ :user ].id
-		@reservation.created_at = Time.now
-		
-		unless @reservation.save
-		  flash[ :notice ] = 'Reservation konnte nicht in Datenbank gesichert werden'
-		  redirect_to :action => 'reservation_abschicken'
-		else
-			@reservation.reload
-			Logeintrag.neuer_eintrag( session[ :user ], 'trägt neue Reservation ein', "Reservation #{@reservation.id}" )
-			paketauswahl_loeschen
-			session[ :reservation ] = nil
+		unless params[ :reservation ][ :zweck ] and params[ :reservation ][ :zweck ].size > 3
+		flash[ :error ] = 'Verwendungszweck muss eingetragen werden'
+		redirect_to :action => 'reservation_abschicken'
+			session[ :reservieren_schritt ] = nil
+			
+			@reservation = session[ :reservation ]
+			@reservation.zweck = params[ :reservation ][ :zweck ]
+			@reservation.prioritaet = 1
+			@reservation.geraetepark_id = session[ :aktiver_geraetepark ]
+			@reservation.user = session[ :user ]
+			@reservation.updater_id = session[ :user ].id
+			@reservation.created_at = Time.now
+			
+			unless @reservation.save
+			flash[ :notice ] = 'Reservation konnte nicht in Datenbank gesichert werden'
+			redirect_to :action => 'reservation_abschicken'
+			else
+				@reservation.reload
+				Logeintrag.neuer_eintrag( session[ :user ], 'trägt neue Reservation ein', "Reservation #{@reservation.id}" )
+				paketauswahl_loeschen
+				session[ :reservation ] = nil
+			end
 		end
 	end
 	
@@ -139,6 +140,4 @@ class ReservierenController < ApplicationController
 		redirect_to :controller => 'reservations', :action => 'meine'
 	end
 	
-end
-
 end
