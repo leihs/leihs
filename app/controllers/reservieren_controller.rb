@@ -108,9 +108,11 @@ class ReservierenController < ApplicationController
 	end
 	
 	def reservation_eintragen
-		unless params[ :reservation ][ :zweck ] and params[ :reservation ][ :zweck ].size > 3
-		flash[ :error ] = 'Verwendungszweck muss eingetragen werden'
-		redirect_to :action => 'reservation_abschicken'
+		if params[ :reservation ][ :zweck ] and params[ :reservation ][ :zweck ].size < 3
+			flash[ :error ] = 'Verwendungszweck muss eingetragen werden'
+			redirect_to :action => 'reservation_abschicken'
+		else
+		
 			session[ :reservieren_schritt ] = nil
 			
 			@reservation = session[ :reservation ]
@@ -122,8 +124,8 @@ class ReservierenController < ApplicationController
 			@reservation.created_at = Time.now
 			
 			unless @reservation.save
-			flash[ :notice ] = 'Reservation konnte nicht in Datenbank gesichert werden'
-			redirect_to :action => 'reservation_abschicken'
+				flash[ :notice ] = 'Reservation konnte nicht in Datenbank gesichert werden'
+				redirect_to :action => 'reservation_abschicken'
 			else
 				@reservation.reload
 				Logeintrag.neuer_eintrag( session[ :user ], 'trägt neue Reservation ein', "Reservation #{@reservation.id}" )
