@@ -375,4 +375,32 @@ class User < ActiveRecord::Base
 		end        
 	end  
   
+# --------------------------------------------------------------
+# Hack Methoden zur direkten Nutzung in ./script/console
+
+  def self.alle_emails_umschreiben
+    # alle Benutzer mit hgkz.net, hgkz.ch oder hmt.edu EMail Adresse
+    users = User.find_by_sql('select * from users where email like "%hgkz.net%" or email like "%hgkz.ch%" or email like "%hmt.edu%"')
+    
+    for user in users
+      new_email = user.email.scan(/(.*)@.*/)[0].to_s + "@zhdk.ch"
+      logger.warn( "M --- users | alle emails umschreiben -- email:#{user.email} -> #{new_email}" )
+      if user.login == user.email
+        user.login = new_email
+      end
+      user.email = new_email
+      user.save
+    end
+    
+    # alle Benutzer mit login mit hgkz.net, hgkz.ch oder hmt.edu
+    users = User.find_by_sql('select * from users where login like "%hgkz.net%" or email like "%hgkz.ch%" or email like "%hmt.edu%"')
+    
+    for user in users
+      new_email = user.login.scan(/(.*)@.*/)[0].to_s + "@zhdk.ch"
+      logger.warn( "M --- users | alle logins umschreiben -- email:#{user.login} -> #{new_email}" )
+      user.login = new_email
+      user.save
+    end
+  end
+
 end
