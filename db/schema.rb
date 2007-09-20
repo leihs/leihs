@@ -6,9 +6,9 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "attributs", :force => true do |t|
     t.column "lock_version", :integer,   :default => 0,                     :null => false
-    t.column "updated_at",   :timestamp
+    t.column "updated_at",   :timestamp,                                    :null => false
     t.column "updater_id",   :integer,   :default => 1
-    t.column "created_at",   :timestamp, :default => '2004-01-01 10:10:10'
+    t.column "created_at",   :timestamp, :default => '2004-01-01 10:10:10', :null => false
     t.column "ding_nr",      :integer,   :default => 0,                     :null => false
     t.column "schluessel",   :string
     t.column "wert",         :string
@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "computerdatens", :force => true do |t|
     t.column "lock_version",   :integer,                 :default => 0,                     :null => false
-    t.column "updated_at",     :timestamp
+    t.column "updated_at",     :timestamp,                                                  :null => false
     t.column "updater_id",     :integer,                 :default => 1
-    t.column "created_at",     :timestamp,               :default => '2004-01-01 10:10:10'
+    t.column "created_at",     :timestamp,               :default => '2004-01-01 10:10:10', :null => false
     t.column "benutzer_login", :string,    :limit => 50
     t.column "ip_adresse",     :string,    :limit => 20
     t.column "ip_maske",       :string,    :limit => 20
@@ -28,9 +28,9 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "gegenstands", :force => true do |t|
     t.column "lock_version",         :integer,                 :default => 0,                     :null => false
-    t.column "updated_at",           :timestamp
+    t.column "updated_at",           :timestamp,                                                  :null => false
     t.column "updater_id",           :integer,                 :default => 1
-    t.column "created_at",           :timestamp,               :default => '2005-04-01 00:00:00'
+    t.column "created_at",           :timestamp,               :default => '2005-04-01 00:00:00', :null => false
     t.column "original_id",          :integer
     t.column "name",                 :string
     t.column "hersteller",           :string
@@ -57,9 +57,9 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "geraeteparks", :force => true do |t|
     t.column "lock_version",        :integer,                 :default => 0,                     :null => false
-    t.column "updated_at",          :timestamp
+    t.column "updated_at",          :timestamp,                                                  :null => false
     t.column "updater_id",          :integer,                 :default => 1
-    t.column "created_at",          :timestamp,               :default => '2005-10-01 10:00:00'
+    t.column "created_at",          :timestamp,               :default => '2005-10-01 10:00:00', :null => false
     t.column "name",                :string,    :limit => 50, :default => "",                    :null => false
     t.column "logo_url",            :string
     t.column "ansprechpartner",     :text
@@ -71,17 +71,17 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "geraeteparks_users", :id => false, :force => true do |t|
     t.column "lock_version",   :integer,   :default => 0,                     :null => false
-    t.column "updated_at",     :timestamp
-    t.column "created_at",     :timestamp, :default => '2005-10-01 10:00:00'
+    t.column "updated_at",     :timestamp,                                    :null => false
+    t.column "created_at",     :timestamp, :default => '2005-10-01 10:00:00', :null => false
     t.column "geraetepark_id", :integer,   :default => 0
     t.column "user_id",        :integer,   :default => 0
   end
 
   create_table "kaufvorgangs", :force => true do |t|
     t.column "lock_version",    :integer,                  :default => 0,                     :null => false
-    t.column "updated_at",      :timestamp
+    t.column "updated_at",      :timestamp,                                                   :null => false
     t.column "updater_id",      :integer,                  :default => 1
-    t.column "created_at",      :timestamp,                :default => '2004-01-01 10:10:10'
+    t.column "created_at",      :timestamp,                :default => '2004-01-01 10:10:10', :null => false
     t.column "art",             :string
     t.column "lieferant",       :string
     t.column "rechnungsnr",     :string,    :limit => 100
@@ -92,8 +92,8 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "logeintraege", :force => true do |t|
     t.column "lock_version", :integer,                 :default => 0,                     :null => false
-    t.column "updated_at",   :timestamp
-    t.column "created_at",   :timestamp,               :default => '2006-05-05 10:00:00'
+    t.column "updated_at",   :timestamp,                                                  :null => false
+    t.column "created_at",   :timestamp,               :default => '2006-05-05 10:00:00', :null => false
     t.column "user_id",      :integer,                 :default => 0
     t.column "aktion",       :string,    :limit => 40, :default => "unbekannt",           :null => false
     t.column "kommentar",    :text
@@ -101,9 +101,9 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "pakets", :force => true do |t|
     t.column "lock_version",     :integer,   :default => 0,                     :null => false
-    t.column "updated_at",       :timestamp
+    t.column "updated_at",       :timestamp,                                    :null => false
     t.column "updater_id",       :integer,   :default => 1
-    t.column "created_at",       :timestamp, :default => '2004-01-01 10:10:10'
+    t.column "created_at",       :timestamp, :default => '2004-01-01 10:10:10', :null => false
     t.column "name",             :string
     t.column "art",              :string
     t.column "status",           :integer,   :default => 1,                     :null => false
@@ -115,8 +115,8 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "pakets_reservations", :id => false, :force => true do |t|
     t.column "lock_version",   :integer,   :default => 0,                     :null => false
-    t.column "updated_at",     :timestamp
-    t.column "created_at",     :timestamp, :default => '2004-01-01 10:10:10'
+    t.column "updated_at",     :timestamp,                                    :null => false
+    t.column "created_at",     :timestamp, :default => '2004-01-01 10:10:10', :null => false
     t.column "paket_id",       :integer,   :default => 0
     t.column "reservation_id", :integer,   :default => 0
   end
@@ -126,9 +126,9 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "reservations", :force => true do |t|
     t.column "lock_version",     :integer,   :default => 0,                     :null => false
-    t.column "updated_at",       :timestamp
+    t.column "updated_at",       :timestamp,                                    :null => false
     t.column "updater_id",       :integer,   :default => 1,                     :null => false
-    t.column "created_at",       :timestamp, :default => '2004-01-01 10:10:10'
+    t.column "created_at",       :timestamp, :default => '2004-01-01 10:10:10', :null => false
     t.column "status",           :integer,   :default => 0
     t.column "startdatum",       :datetime,  :default => '2005-10-01 10:00:00'
     t.column "enddatum",         :datetime,  :default => '2005-10-01 10:00:00'
@@ -151,9 +151,9 @@ ActiveRecord::Schema.define(:version => 5) do
 
   create_table "users", :force => true do |t|
     t.column "lock_version",  :integer,                  :default => 0,                     :null => false
-    t.column "updated_at",    :timestamp
+    t.column "updated_at",    :timestamp,                                                   :null => false
     t.column "updater_id",    :integer,                  :default => 1
-    t.column "created_at",    :timestamp,                :default => '2004-01-01 10:10:10'
+    t.column "created_at",    :timestamp,                :default => '2004-01-01 10:10:10', :null => false
     t.column "login",         :string,    :limit => 80
     t.column "password",      :string,    :limit => 40
     t.column "vorname",       :string,    :limit => 40
@@ -167,11 +167,37 @@ ActiveRecord::Schema.define(:version => 5) do
     t.column "login_als",     :integer,                  :default => 0,                     :null => false
   end
 
+  create_table "zeitmessung_nachher", :id => false, :force => true do |t|
+    t.column "datum",  :binary,  :limit => 10, :default => "",          :null => false
+    t.column "anzahl", :integer, :limit => 21, :default => 0,           :null => false
+    t.column "aktion", :string,  :limit => 40, :default => "unbekannt", :null => false
+    t.column "zeit",   :float,   :limit => 19
+  end
+
+  create_table "zeitmessung_nachher_lang", :id => false, :force => true do |t|
+    t.column "anzahl", :integer, :limit => 21, :default => 0,           :null => false
+    t.column "aktion", :string,  :limit => 40, :default => "unbekannt", :null => false
+    t.column "zeit",   :float,   :limit => 19
+  end
+
+  create_table "zeitmessung_vorher", :id => false, :force => true do |t|
+    t.column "datum",  :binary,  :limit => 10, :default => "",          :null => false
+    t.column "anzahl", :integer, :limit => 21, :default => 0,           :null => false
+    t.column "aktion", :string,  :limit => 40, :default => "unbekannt", :null => false
+    t.column "zeit",   :float,   :limit => 19
+  end
+
+  create_table "zeitmessung_vorher_lang", :id => false, :force => true do |t|
+    t.column "anzahl", :integer, :limit => 21, :default => 0,           :null => false
+    t.column "aktion", :string,  :limit => 40, :default => "unbekannt", :null => false
+    t.column "zeit",   :float,   :limit => 19
+  end
+
   create_table "zubehoer", :force => true do |t|
     t.column "lock_version",   :integer,  :default => 0,                     :null => false
     t.column "updated_at",     :datetime,                                    :null => false
     t.column "created_at",     :datetime, :default => '2004-01-01 10:10:10', :null => false
-    t.column "reservation_id", :integer,  :default => 0,                     :null => false
+    t.column "reservation_id", :integer,                                     :null => false
     t.column "beschreibung",   :string,   :default => "",                    :null => false
     t.column "anzahl",         :integer,  :default => 1,                     :null => false
   end
