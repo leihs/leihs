@@ -29,6 +29,11 @@
 			:class => 'normal' ) %>
 (<%= paket.alle_inventar_nr_text %>)
 
+<% unless paket.gestell.nil? %>
+     [ <%= paket.gestell %> ]
+   <%  end %>
+
+
 <div id="res_tausch_<%= paket.id %>" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
 	<%= image_tag( 'spinner_grau_13.gif' ) %> pruefen...<br /><br />
 </div>
