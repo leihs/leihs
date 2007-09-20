@@ -108,7 +108,7 @@ class AusleihenController < ApplicationController
     mein_pdf.Cell(100, mein_pdf.GetLineHeight(),
 					@reservation.geraetepark.name.downcase + ' ausleihvertrag', 0, 0, 'R')
 
-    # Print 'Hochschule für Gestaltung ...'
+    # Print 'Zürcher Hochschule ...'
 		mein_pdf.SetStyle('label')
 		mein_pdf.SetXY(31.85, 25.4)
 		mein_pdf.Cell(50, mein_pdf.GetLineHeight(),
@@ -166,7 +166,7 @@ class AusleihenController < ApplicationController
 		end
 		
 		# Linie und Bedingungen
-		bedingungen_text = "Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Hochschule für Gestaltung und Kunst Zürich. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen."
+		bedingungen_text = "Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen."
     bedingungen_text = umlaute_ersetzen(bedingungen_text)
 	
 		mein_pdf.SetY( ( mein_pdf.GetY() + 5 > 150 ) ? mein_pdf.GetY() + 5 : 150 )

@@ -60,19 +60,19 @@ class MeinPDF < FPDF
     lx = GetX()
     ly = GetY()
     
-    # Print 'h g k'
-    SetStyle('logo')
-    SetXY(11.35, 15.35)
-    Cell(10, GetLineHeight(), 'h', 0, 0, 'L')
-    SetXY(14.55, 15.35)
-    Cell(10, GetLineHeight(), 'g', 0, 0, 'L')
-    SetXY(17.85, 15.35)
-    Cell(10, GetLineHeight(), 'k', 0, 0, 'L')
-    
-    # Print 'z'
+    # Print 'Z'
     SetStyle('logoz')
-    SetXY(39.5, 12.5)
+    SetXY(11.35, 12.5)
     Cell(10, GetLineHeight(), 'Z', 0, 0, 'L')
+
+    # Print 'hdk'
+    SetStyle('logo')
+    SetXY(37.5, 15.35)
+    Cell(10, GetLineHeight(), 'h', 0, 0, 'L')
+    SetXY(40.8, 15.35)
+    Cell(10, GetLineHeight(), 'd', 0, 0, 'L')
+    SetXY(44.6, 15.53)
+    Cell(10, GetLineHeight(), 'k', 0, 0, 'L')
     
 		ty = 24 # Starthoehe fuer Logobeschriftung
 		
@@ -82,13 +82,13 @@ class MeinPDF < FPDF
   	  ty += 1.4
       # Bezeichnung des Geraeteparks
 			ty += 3.2
-      # Print 'Hochschule fuer Gestaltung ...'
+      # Print 'Hochschule ...'
       SetStyle('label')
       SetXY(31.85, ty)
    
       # We need to use Iconv to convert chars and umlauts
       ic = Iconv.new('iso-8859-1','utf-8')
-      hochschulname = 'Hochschule für Gestaltung und Kunst Zürich'
+      hochschulname = 'Zürcher Hochschule der Künste'
       hochschulname = ic.iconv(hochschulname)
  
       Cell(50, GetLineHeight(), hochschulname, 0, 0, 'L')
@@ -99,7 +99,8 @@ class MeinPDF < FPDF
       Line(31.5+1.4, ty, 31.5+3.6, ty)
 			ty += 1.4
       SetXY(31.85, ty)
-      Cell(50, GetLineHeight(), 'leihs.hgkz.ch', 0, 0, 'L')
+      Cell(50, GetLineHeight(), 'leihs.zhdk.ch', 0, 0, 'L')
+
 			ty += 3.2
 			# URL des Geraeteparks
     	ty += 4.9
