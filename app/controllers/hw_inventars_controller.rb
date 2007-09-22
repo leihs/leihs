@@ -287,7 +287,7 @@ class HwInventarsController < ApplicationController
 				#logger.debug( "I --- gegenstand nach save #{@gegenstand.to_yaml}" )
 				geraet_text += "<br/>Gegenstand ID: #{@gegenstand.id}"
 
-				seite_text = '<br>' + seite_text + geraet_text + "<br/><b>inventar Nr.#{@gegenstand.original_id}: #{@gegenstand.modellbezeichnung} wurde synchronisiert.</b><br/>"
+				seite_text = '<br />' + seite_text + geraet_text + "<br/><b>inventar Nr.#{@gegenstand.original_id}: #{@gegenstand.modellbezeichnung} wurde synchronisiert.</b><br/>"
 			end
 
 		end

@@ -221,7 +221,7 @@ komplett_status = true
 			t_art_array_text = in_art_array.join( ',' )
 			pakete_array = self.find( :all,
 						:include => [ :reservations, :gegenstands, :geraetepark ],
-						:conditions => [ "ausleihbefugnis <= ? and pakets.geraetepark_id = ? and FIND_IN_SET( art, ? )", in_benutzerstufe, in_geraetepark, t_art_array_text ],
+						:conditions => [ "ausleihbefugnis <= ? and pakets.geraetepark_id = ? and FIND_IN_SET( pakets.art, ? )", in_benutzerstufe, in_geraetepark, t_art_array_text ],
 						:order => 'pakets.art, pakets.name' )
 		else
 			pakete_array = self.find( :all,

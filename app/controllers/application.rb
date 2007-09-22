@@ -1,6 +1,9 @@
 # Filters added to this controller will be run for all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 
+# Filters added to this controller will be run for all controllers in the application.
+# Likewise, all the methods added will be available for all controllers.
+
 require_dependency 'login_system'
 #require_dependency 'hilfesys'
 
@@ -8,12 +11,24 @@ class ApplicationController < ActionController::Base
 	
 	include LoginSystem
 	
+  # Pick a unique cookie name to distinguish our session data from others'
+  session :session_key => '_leihs_session_id'
+  
+  # Kann in einem Controller mit folgender Anweisung umgangen werden:
+  # skip_before_filter :filter_name 
+  before_filter :set_charset
 	before_filter :logo_laden
 	
-	def keine_hilfe
-		session[ :hilfeseite ] = 'nix'
-	end
-	
+	# --- before Filter ---
+  
+  # Sets default character set to UTF-8
+  def set_charset
+    if request.xhr?
+      headers["Content-Type"] = "text/javascript; charset=utf-8" 
+    else
+      headers["Content-Type"] = "text/html; charset=utf-8" 
+    end
+  end
 	def logo_laden
 		#headers[ 'Cache-Control' ] = 'max-age=0'
 		#headers[ 'Vary' ] = '*'
@@ -21,6 +36,14 @@ class ApplicationController < ActionController::Base
 		gruppe = Geraetepark.find( session[ :aktiver_geraetepark ] )
 		@logo_url = gruppe.logo_url
 		@logo_kontakt_text = gruppe.ansprechpartner
+	end
+
+#----------------------------------------------------------
+# allgemeine Methoden
+ 
+	def keine_hilfe
+	  # Schaltet die Hilfeanzeige in der dritten Spalte aus
+		session[ :hilfeseite ] = 'nix'
 	end
 	
 #----------------------------------------------------------

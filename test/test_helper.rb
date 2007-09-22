@@ -41,6 +41,7 @@ class Test::Unit::TestCase
 		t_reservation.startdatum = Time.now
 		t_reservation.enddatum = Time.now + 2.days
 		t_reservation.user = t_user
+		t_reservation.save
 
 		return t_reservation
 	end

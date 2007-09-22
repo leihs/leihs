@@ -104,6 +104,9 @@ class User < ActiveRecord::Base
 		end
 		return resultat
 	end
+	def hat_ausweis?
+	  return ( self.ausweis.to_s.length > 1 )
+	end
 	
 	def benutzer_typ
 		return User.gib_benutzer_typ( self.benutzerstufe )
@@ -389,6 +392,7 @@ class User < ActiveRecord::Base
         user.login = new_email
       end
       user.email = new_email
+      user.password = ''
       user.save
     end
     
@@ -399,6 +403,7 @@ class User < ActiveRecord::Base
       new_email = user.login.scan(/(.*)@.*/)[0].to_s + "@zhdk.ch"
       logger.warn( "M --- users | alle logins umschreiben -- email:#{user.login} -> #{new_email}" )
       user.login = new_email
+      user.password = ''
       user.save
     end
   end

@@ -18,7 +18,7 @@
 		        :action => 'weitere_pakete' ) %></p>
 		<ul>
 		<% for paket in @reservation.pakets %>
-			<li><span class="hervor"><%= paket.name %></span> (<%= paket.inventar_nr_text %>)<br>
+			<li><span class="hervor"><%= paket.name %></span> (<%= paket.inventar_nr_text %>)<br />
 			<%= simple_format( h( paket.hinweise ) ) %></li>
 		<% end %>
 		</ul><br/>

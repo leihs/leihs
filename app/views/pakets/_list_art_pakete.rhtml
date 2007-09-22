@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='utf-8'?>
 <table class="liste" id="zu_<%= wandle_fuer_html_id( pakete.size > 0 ? pakete.first.art : 'unbekannt' ) %>" style="display:<%= mit_inhalt ? 'none' : 'block' %>;">
 	<%= render( :partial => 'pakets/art_tabelle_kopfzeile',
 				:locals => { :paket => pakete.first,

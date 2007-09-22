@@ -15,7 +15,7 @@ class ReservierenController < ApplicationController
 	end
 
 	def neue
-		session[ :reservation ] = nil
+		session[ :reservation_id ] = nil
 		session[ :reservieren_schritt ] = 1
 		@fruehestes_startdatum = Reservation.fruehestes_startdatum_von( Time.now )
 		
@@ -33,8 +33,14 @@ class ReservierenController < ApplicationController
 
 		if @reservation.validate_neu_res_zeitraum and ( session[ :aktiver_geraetepark ] == 1 ? @reservation.validate_avz_inventur : true )
 		  logger.debug( "--- reservieren con | zeitraum festlegen -- @reservation:#{@reservation.to_yaml}" )
+  		@reservation.created_at = Time.now
 			@reservation.user = session[ :user ]
-			session[ :reservation ] = @reservation
+			@reservation.updater_id = session[ :user ].id
+  		@reservation.prioritaet = 1
+  		@reservation.geraetepark_id = session[ :aktiver_geraetepark ]
+			@reservation.save
+			
+			session[ :reservation_id ] = @reservation.id
 			Logeintrag.neuer_eintrag( @reservation.user, 'gibt Zeitraum für Ausleihe an' )
 			redirect_to :action => 'pakete_auswaehlen'
 			
@@ -51,8 +57,8 @@ class ReservierenController < ApplicationController
 		session[ :reservieren_schritt ] = 2
 		session[ :paket_art_auf ] ||= Array[ 'Andere Hardware' ]
 		
-		if session[ :reservation ]
-			@reservation = session[ :reservation ]
+		if session[ :reservation_id ]
+			@reservation = Reservation.find( session[ :reservation_id ] )
 			@reservation.pakets.clear # falls schon Pakete drin waren
 			@paketauswahl = session[ :reservieren_paketauswahl ] unless session[ :reservieren_paketauswahl ].blank?
 		else
@@ -66,8 +72,6 @@ class ReservierenController < ApplicationController
 		end
 		
 		@reserv_mode = true
-		#logger.debug( "I--- reservieren con | pakete auswaehlen -- session #{session.to_yaml}" )
-		
 		@pakets = Paket.find_freie_in_zeitraum(
 					@reservation.startdatum,
 					@reservation.enddatum,
@@ -78,12 +82,14 @@ class ReservierenController < ApplicationController
 	
 	def weitere_pakete
 	  paketauswahl_neu
-	  if session[ :reservation ].is_a?( Reservation ) and session[ :reservation ].pakets.size > 0
+	  @reservation = Reservation.find( session[ :reservation_id ] )
+	  if @reservation.pakets.size > 0
 	    # Pakete aus der Reservation in die Paketauswahl schreiben
-	    for paket in session[ :reservation ].pakets
+	    for paket in @reservation.pakets
 	      session[ :reservieren_paketauswahl ] << paket.id
 	    end
-	    session[ :reservation ].pakets = []
+	    @reservation.pakets = []
+	    @reservation.save
 	  end
 	  
 	  redirect_to :action => 'pakete_auswaehlen'
@@ -93,7 +99,7 @@ class ReservierenController < ApplicationController
 		session[ :reservieren_schritt ] = 3
 		# User und Reservation Daten in Variable
 		@user = session[ :user ]
-		@reservation = session[ :reservation ]
+		@reservation = Reservation.find( session[ :reservation_id ] )
 		
 		# Pakete holen und verknuepfen
 		if session[ :reservieren_paketauswahl ] and session[ :reservieren_paketauswahl ].size > 0
@@ -101,7 +107,8 @@ class ReservierenController < ApplicationController
 			for paket in @pakets
 				@reservation.pakets |= [ paket ]
 			end
-			session[ :reservation ] = @reservation
+			@reservation.save
+
 			Logeintrag.neuer_eintrag( session[ :user ], 'stellt Pakete für Reservation zusammen' )
 		end
 		
@@ -111,33 +118,27 @@ class ReservierenController < ApplicationController
 		if params[ :reservation ][ :zweck ] and params[ :reservation ][ :zweck ].size < 3
 			flash[ :error ] = 'Verwendungszweck muss eingetragen werden'
 			redirect_to :action => 'reservation_abschicken'
-		else
-		
-			session[ :reservieren_schritt ] = nil
 			
-			@reservation = session[ :reservation ]
+		else
+			session[ :reservieren_schritt ] = nil
+			@reservation = Reservation.find( session[ :reservation_id ] )
 			@reservation.zweck = params[ :reservation ][ :zweck ]
-			@reservation.prioritaet = 1
-			@reservation.geraetepark_id = session[ :aktiver_geraetepark ]
-			@reservation.user = session[ :user ]
-			@reservation.updater_id = session[ :user ].id
-			@reservation.created_at = Time.now
 			
 			unless @reservation.save
 				flash[ :notice ] = 'Reservation konnte nicht in Datenbank gesichert werden'
 				redirect_to :action => 'reservation_abschicken'
+				
 			else
-				@reservation.reload
 				Logeintrag.neuer_eintrag( session[ :user ], 'trägt neue Reservation ein', "Reservation #{@reservation.id}" )
 				paketauswahl_loeschen
-				session[ :reservation ] = nil
+				session[ :reservation_id ] = nil
 			end
 		end
 	end
 	
 	def reservation_abbrechen
 		paketauswahl_loeschen
-		session[ :reservation ] = nil
+		session[ :reservation_id ] = nil
 		Logeintrag.neuer_eintrag( session[ :user ], 'bricht Reservationsvorgang ab' )
 		redirect_to :controller => 'reservations', :action => 'meine'
 	end

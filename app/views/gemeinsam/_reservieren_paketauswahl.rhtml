@@ -2,7 +2,7 @@
 # paketauswahl - Array mit Paket IDs der schon ausgewählten Pakete
 paketauswahl = [ ] unless defined?( paketauswahl )
 -%>
-<?xml version='1.0' encoding='utf-8'?>
+
 <% unless session[ :reservieren_sammlung ]
 	session[ :reservieren_sammlung ] = nil
 	session[ :reservieren_paketauswahl ] = nil
