@@ -6,7 +6,7 @@
 				link_to( image_tag( "icon_loch.png", :class => 'icon' ), { :action => 'sammlung_dazu', :id => item_gegenstand.id }, :title => 'zur Sammlung dazu' )
 			end
 		end %><%= zeige_aktions_icons( [ :edit, :destroy ], item_gegenstand.id ) %></td>
-	<td id="maxbreit">
+	<td class="maxbreit">
 	<% if @mit_infos %>
 		<%=h item_gegenstand.modellbezeichnung %>
 	<% else %>

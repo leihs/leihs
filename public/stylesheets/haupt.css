@@ -219,7 +219,7 @@ table.liste td.icon, table.liste th.icon {
 	white-space: nowrap;
 	text-align: right;
 }
-th#maxbreit, td#maxbreit { width: 99%; }
+th.maxbreit, td.maxbreit { width: 99%; }
 
 tr.ausserhalb td { background-color: #FFF; }
 tr.hell td { background-color: #F8F8F8; }

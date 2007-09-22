@@ -28,7 +28,7 @@
 					:class => 'normal' ) %>
 	</td>
 	<td><%= ( reservation.pakets and reservation.pakets.size > 1 ) ? ( '<b>' + reservation.pakets.size.to_s + '</b>' ) : '&nbsp;' %></td>
-	<td id="maxbreit">
+	<td class="maxbreit">
 		<% if reservation.pakets.size > 0 -%>
 			<%= link_to( h( reservation.uebersicht_text ),
 						{ :controller => 'pakets',

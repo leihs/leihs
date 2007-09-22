@@ -7,7 +7,7 @@
 			link_to image_tag( 'klapp_zu_weiss.png' ), { :action => 'art_einblenden', :art => paket.art }, :title => 'anzeigen'
 		end %>
 	</th>
-	<th id="maxbreit">
+	<th class="maxbreit">
 		<%= if session[ :paket_art_auf ].include?( paket.art )
 			link_to paket.art, { :action => 'art_ausblenden', :art => paket.art }, :title => 'verbergen'
 		else
