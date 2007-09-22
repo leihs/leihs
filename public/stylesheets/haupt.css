@@ -745,4 +745,16 @@ table.liste .paketinhalt {
   padding: 0;
 }
 
+/* --- The warning box that warns users when in dev mode --- */
+
+#devwarning {
+  background: red; 
+  color: white; 
+  font-weight: bold; 
+  border: 2px solid #bb0000; 
+  padding: 10px; 
+  margin: 6px; 
+  font-size: 18pt;
+}
+
 /* --- Ende --- */
