@@ -751,10 +751,11 @@ table.liste .paketinhalt {
   background: red; 
   color: white; 
   font-weight: bold; 
-  border: 2px solid #bb0000; 
-  padding: 10px; 
-  margin: 6px; 
-  font-size: 18pt;
+  border-bottom: 2px solid #bb0000; 
+  padding: 0.5em; 
+  margin: -0.85em;
+  margin-bottom: 0.5em;
+  font-size: 1.2em;
 }
 
 /* --- Ende --- */

@@ -1,0 +1,11 @@
+<div class="blatt">
+	<h1 class="anschluss">Leihvertrag ausdrucken</h1>
+	<p>Drucken Sie den Leihvertrag aus und lassen Sie den Kunden unterschreiben.</p>
+	
+	<%= render :partial => 'gemeinsam/flashs' %>
+	<%= error_messages_for 'reservation' %>
+	<%= error_messages_for 'user' %>
+	
+	<%= render :partial => 'reservations/show', :locals => {
+				:reservation => @reservation } -%>
+</div>
