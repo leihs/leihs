@@ -14,9 +14,6 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "wert",         :string
   end
 
-  add_index "attributs", ["updater_id"], :name => "updater_id"
-  add_index "attributs", ["ding_nr"], :name => "ding_nr"
-
   create_table "computerdatens", :force => true do |t|
     t.column "lock_version",   :integer,                 :default => 0,                     :null => false
     t.column "updated_at",     :timestamp,                                                  :null => false
@@ -28,9 +25,6 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "software",       :text
     t.column "gegenstand_id",  :integer
   end
-
-  add_index "computerdatens", ["gegenstand_id"], :name => "gegenstand_id"
-  add_index "computerdatens", ["updater_id"], :name => "updater_id"
 
   create_table "gegenstands", :force => true do |t|
     t.column "lock_version",         :integer,                 :default => 0,                     :null => false
@@ -60,12 +54,6 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "gegenstands", ["paket_id"], :name => "paket_id"
-  add_index "gegenstands", ["original_id"], :name => "original_id"
-  add_index "gegenstands", ["updater_id"], :name => "updater_id"
-  add_index "gegenstands", ["kaufvorgang_id"], :name => "kaufvorgang_id"
-  add_index "gegenstands", ["art"], :name => "art"
-  add_index "gegenstands", ["attribut_id"], :name => "attribut_id"
-  add_index "gegenstands", ["ausleihbar"], :name => "ausleihbar"
 
   create_table "geraeteparks", :force => true do |t|
     t.column "lock_version",        :integer,                 :default => 0,                     :null => false
@@ -81,8 +69,6 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "vertrag_url",         :string
   end
 
-  add_index "geraeteparks", ["updater_id"], :name => "updater_id"
-
   create_table "geraeteparks_users", :id => false, :force => true do |t|
     t.column "lock_version",   :integer,   :default => 0,                     :null => false
     t.column "updated_at",     :timestamp,                                    :null => false
@@ -90,9 +76,6 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "geraetepark_id", :integer,   :default => 0
     t.column "user_id",        :integer,   :default => 0
   end
-
-  add_index "geraeteparks_users", ["geraetepark_id"], :name => "geraetepark_id"
-  add_index "geraeteparks_users", ["user_id"], :name => "user_id"
 
   create_table "kaufvorgangs", :force => true do |t|
     t.column "lock_version",    :integer,                  :default => 0,                     :null => false
@@ -116,8 +99,6 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "kommentar",    :text
   end
 
-  add_index "logeintraege", ["user_id"], :name => "user_id"
-
   create_table "pakets", :force => true do |t|
     t.column "lock_version",     :integer,   :default => 0,                     :null => false
     t.column "updated_at",       :timestamp,                                    :null => false
@@ -132,10 +113,6 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "geraetepark_id",   :integer,   :default => 0,                     :null => false
     t.column "gestell",          :string
   end
-
-  add_index "pakets", ["updater_id"], :name => "updater_id"
-  add_index "pakets", ["geraetepark_id"], :name => "geraetepark_id"
-  add_index "pakets", ["art"], :name => "art"
 
   create_table "pakets_reservations", :id => false, :force => true do |t|
     t.column "lock_version",   :integer,   :default => 0,                     :null => false
@@ -161,6 +138,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "user_id",          :integer
     t.column "zweck",            :text
     t.column "hinweise",         :text
+    t.column "zubehoer",         :text
     t.column "herausgeber_id",   :integer
     t.column "rueckgabedatum",   :datetime
     t.column "zuruecknehmer_id", :integer
@@ -169,12 +147,6 @@ ActiveRecord::Schema.define(:version => 6) do
 
   add_index "reservations", ["status"], :name => "status"
   add_index "reservations", ["startdatum"], :name => "startdatum"
-  add_index "reservations", ["updater_id"], :name => "updater_id"
-  add_index "reservations", ["user_id"], :name => "user_id"
-  add_index "reservations", ["herausgeber_id"], :name => "herausgeber_id"
-  add_index "reservations", ["geraetepark_id"], :name => "geraetepark_id"
-  add_index "reservations", ["enddatum"], :name => "enddatum"
-  add_index "reservations", ["zuruecknehmer_id"], :name => "zuruecknehmer_id"
 
   create_table "sehers", :force => true do |t|
   end
@@ -196,11 +168,6 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "benutzerstufe", :integer,                  :default => 1,                     :null => false
     t.column "login_als",     :integer,                  :default => 0,                     :null => false
   end
-
-  add_index "users", ["updater_id"], :name => "updater_id"
-  add_index "users", ["login"], :name => "login"
-  add_index "users", ["benutzerstufe"], :name => "benutzerstufe"
-  add_index "users", ["password"], :name => "password"
 
   create_table "zeitmessung_nachher", :id => false, :force => true do |t|
     t.column "datum",  :binary,  :limit => 10, :default => "",          :null => false
