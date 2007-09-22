@@ -1,5 +1,6 @@
 <div class="blatt">
-	<h2>Herausgeben</h2>
+	<h1 class="anschluss">Herausgeben</h1>
+	<p>Prüfen Sie Zeitraum, Pakete und optional Zubehör. Geben Sie evtl. Hinweise für den Leihvertrag ein.</p>
 	
 	<%= render :partial => 'gemeinsam/flashs' %>
 	<%= error_messages_for 'reservation' %>
@@ -55,7 +56,7 @@
     
 		<hr size="1"/>
 		
-		<%= form_tag :action => 'ausleihe_pruefen', :id => @reservation %>
+		<%= form_tag :action => 'ausleihe_eintragen', :id => @reservation.id %>
   		<%= render :partial => 'reservations/reservation_teil_unten', :locals => { :reservation => @reservation } %>
 		
   		<% if @user.hat_ausweis? -%>

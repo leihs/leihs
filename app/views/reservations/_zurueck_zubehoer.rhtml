@@ -1,0 +1,12 @@
+<% # --- LOCALS ---
+# reservation - Reservation, deren Zubehoer ausgetauscht werden soll
+# zubehoer - das Zubehoer, das ausgetauscht werden soll
+@zubehoer = zubehoer
+-%>
+<td class="kein_umbruch">
+	<%= check_box 'zubehoer[]', 'zurueck' %>
+	<%= select( 'zubehoer[]', 'anzahl', [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] ) %>
+</td>
+<td class="maxbreit">
+	<%= zubehoer.beschreibung %>
+</td>

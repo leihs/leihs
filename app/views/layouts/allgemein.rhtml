@@ -17,7 +17,6 @@
 
 <div id="alles">
 
-
 	<div id="menu">
 		<% unless session[ :user ] -%>
 			<%= render :partial => 'menu/menu' %>
@@ -59,12 +58,11 @@
 	<% end -%>
 	
 	<div id="inhalt">
-<% if ( ENV["RAILS_ENV"] || RAILS_ENV ) == 'development' %>
-<div id="devwarning">
-Development-Version
-</div>
-<% end %>
-
+    <% if ( ENV["RAILS_ENV"] || RAILS_ENV ) == 'development' %>
+      <div id="devwarning">
+        Development-Version
+      </div>
+    <% end %>
 
 		<%= yield %>
 	</div>

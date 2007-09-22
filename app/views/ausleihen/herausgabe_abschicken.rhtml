@@ -1,9 +1,10 @@
 <div class="blatt_vor_tabelle">
-	<h1>Direkte Herausgabe</h1>
+	<h1 class="anschluss">Direkte Herausgabe</h1>
 	<p>Zubehör hinzufügen und Verwendungszweck eintragen und herausgeben</p>
+	
 	<%= error_messages_for 'reservation' %>
 	
-	<div class="reservation_blatt">
+	<div class="reservation_genehm_blatt">
 		<h2>Direkte Herausgabe</h2>
 		
 		<div class="res_paragraph" id="edit_user_res">
@@ -27,7 +28,7 @@
 	
   	<hr size="1"/>
 	
-		<%= form_tag :action => 'ausleihe_pruefen', :id => @reservation.id %>
+		<%= form_tag :action => 'ausleihe_eintragen', :id => @reservation.id %>
 		<p>
 		  <label for="reservation_zweck">Verwendungszweck</label>:<br/>
 		  <%= text_area 'reservation', 'zweck', :rows => 3 %></p>

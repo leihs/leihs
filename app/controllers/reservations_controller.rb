@@ -21,7 +21,8 @@ class ReservationsController < ApplicationController
 			filterbedingung += " and "
 			filterbedingung += @filter.bedingung
 		end
-
+    
+    Reservation.pruefe_haengende
 		@reservation_pages, @reservations = paginate( 'reservation',
 					:include => 'user',
 					:conditions => filterbedingung.length > 0 ? filterbedingung : nil,
@@ -275,12 +276,6 @@ class ReservationsController < ApplicationController
 		render :action => 'update_paket_liste'
 	end
 	
-  # def paket_weg
-  #   session[ :paket_weg_liste ] << params[ :paket_id ].to_i unless session[ :paket_weg_liste ].include?( params[ :paket_id ].to_i )
-  #   edit
-  #   render :action => 'show'
-  # end
-
 # --- Fuer Zubehoer ---
   def aendere_zubehoer
 		unless session[ :user ].herausgeber?

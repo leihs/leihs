@@ -1,0 +1,26 @@
+<% # --- LOCALS ---
+# reservation - Reservation, deren Paket ausgetauscht werden soll
+# paket - das Paket, das ausgetauscht werden soll
+@paket = paket
+-%>
+<td class="kein_umbruch">
+	<%= check_box 'paket[]', 'zurueck' %>
+	<%= render :partial => 'gemeinsam/indikator',
+				:locals => { :ueberlappt => paket.ueberlappt_hash( reservation ) } %>
+</td>
+<td class="maxbreit">
+	<%= link_to( paket.name,
+				{ :controller => 'pakets',
+					:action => 'show',
+					:id => paket.id },
+				:class => 'normal' ) %>
+	<br/>
+	(<%= paket.alle_inventar_nr_text %>)
+	<% unless paket.gestell.nil? %>
+		[ <%= paket.gestell %> ]
+	<%  end %>
+</td>
+<td>
+	<label for="paket[]">Paket ist:</label><br/>
+	<%= select( 'paket[]', 'status', Paket::STATUS_TEXT ) %></td>
+</td>

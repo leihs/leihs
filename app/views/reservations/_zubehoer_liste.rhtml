@@ -14,22 +14,25 @@ mit_erweitern = false unless defined?( mit_erweitern )
 					:title => 'Zubehör hinzufügen',
 					:style => 'color: black;' ) %>
 	<% else -%>
+		<%= 'Kein' if ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.zubehoer.blank? %>
 		Zubehör
 	<% end -%>
 </div>
 
-<div class="feldinhalt">
-  <%= '<br />' if reservation.zubehoer.blank? %>
-	<% for zubehoer in reservation.zubehoer
-		unless session[ :zubehoer_weg_liste ] and session[ :zubehoer_weg_liste ].include?( zubehoer.id ) %>
-		<div class="reservation_zubehoerliste" id="zubehoerliste_item<%= zubehoer.id %>">
-			<%= render( :partial => 'reservations/edit_zubehoer', :locals => {
-						:reservation => reservation,
-						:zubehoer => zubehoer } ) %>
-		</div>
-	<% end
-	end %>
+<% unless ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.zubehoer.blank? -%>
+	<div class="feldinhalt">
+	  <%= '<br />' if reservation.zubehoer.blank? %>
+		<% for zubehoer in reservation.zubehoer
+			unless session[ :zubehoer_weg_liste ] and session[ :zubehoer_weg_liste ].include?( zubehoer.id ) %>
+			<div class="reservation_zubehoerliste" id="zubehoerliste_item<%= zubehoer.id %>">
+				<%= render( :partial => 'reservations/edit_zubehoer', :locals => {
+							:reservation => reservation,
+							:zubehoer => zubehoer } ) %>
+			</div>
+		<% end
+		end %>
 
-	<%= render( :partial => 'reservations/add_zubehoer', :locals => {
-				:reservation => reservation } ) %>
-</div>
+		<%= render( :partial => 'reservations/add_zubehoer', :locals => {
+					:reservation => reservation } ) %>
+	</div>
+<% end -%>
