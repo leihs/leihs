@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 	  # Schaltet die Hilfeanzeige in der dritten Spalte aus
 		session[ :hilfeseite ] = 'nix'
 	end
-	
+
 #----------------------------------------------------------
 # Funktionen für die Zusammenstellung der Paketliste
 # (fuer reservieren und ausleihen)

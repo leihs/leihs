@@ -40,20 +40,7 @@
 				
 	<% if @reservation.genehmigt? or @reservation.ausgeliehen? or @reservation.zurueck? -%>
 		<br/><br/>
-		<div class="text_right">
-			<%= link_to( image_tag( 'icon_kreuz.png', :class => 'icon' ),
-						{ :controller => 'reservations',
-							:action => 'destroy',
-							:id => @reservation.id },
-						:confirm => "Wollen sie die Reservation #{@reservation.id} wirklich permanent löschen? Diese Aktion kann nicht rückgängig gemacht werden"
-						) unless @reservation.ausgeliehen? or @reservation.zurueck? %>
-			<%= link_to( 'löschen',
-						{ :controller => 'reservations',
-							:action => 'destroy',
-							:id => @reservation.id },
-						:confirm => "Wollen sie die Reservation #{@reservation.id} wirklich permanent löschen? Diese Aktion kann nicht rückgängig gemacht werden"
-						) unless @reservation.ausgeliehen? or @reservation.zurueck? %>
-			<%= '&nbsp; | &nbsp;' unless @reservation.ausgeliehen? or @reservation.zurueck? %>
+		<div>
 			<%= link_to( image_tag( 'icon_pdf.gif', :class => 'icon' ),
 						{ :controller => 'ausleihen',
 							:action => 'leihvertrag',
@@ -62,6 +49,20 @@
 						{ :controller => 'ausleihen',
 							:action => 'leihvertrag',
 							:id => @reservation.id } ) %>
+							
+			<% unless @reservation.ausgeliehen? or @reservation.zurueck? -%>
+				&nbsp;|&nbsp;
+				<%= link_to( image_tag( 'icon_kreuz.png', :class => 'icon' ),
+							{ :controller => 'reservations',
+								:action => 'destroy',
+								:id => @reservation.id },
+							:confirm => "Wollen sie die Reservation #{@reservation.id} wirklich permanent löschen? Diese Aktion kann nicht rückgängig gemacht werden" ) %>
+				<%= link_to( 'Löschen',
+							{ :controller => 'reservations',
+								:action => 'destroy',
+								:id => @reservation.id },
+							:confirm => "Wollen sie die Reservation #{@reservation.id} wirklich permanent löschen? Diese Aktion kann nicht rückgängig gemacht werden" ) %>
+			<% end -%>
 		</div>
 	<% end -%>
 	</div>

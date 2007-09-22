@@ -1,61 +1,56 @@
 <div class="blatt">
-	<h2 class="anschluss">Pakete zurücknehmen</h2>
-	<p>Eine Ausleihe wird ganz oder teilweise zurückgenommen. Dabei kann der Zustand und die Wiederverwendbarkeit einzelner Pakete angepasst werden</p>
-	
-	<%= render :partial => 'gemeinsam/flashs' %>
-	<% error_messages_for 'reservation' %>
-	
-	<div class="ausleihe_blatt">
-		<h2>Ausleihe</h2>
-		<p><span class="hervor">
-			<%= @user.name %>&nbsp;(<%= @user.ausweis %>)
-		</span><br/>
-		lieh vom <span class="hervor"><%= @reservation.startdatum.strftime( '%d.%m.%y' ) %> bis <%= @reservation.enddatum.strftime( '%d.%m.%y' ) %></span></p>
-
-		<p>folgende <%= @reservation.pakets.size %> Pakete:</p>
-		
-		<%= form_tag :action => 'ruecknahme_pruefen', :id => @reservation %>
-		
-		<% for @paket in @reservation.pakets -%>
-			<div class="rueck_paket">
-				<table><tr>
-					<td><%= check_box 'paket[]', 'zurueck' %></td>
-					<td class="maxbreit"><span class="hervor"><%= @paket.name %></span>
-						(<%= @paket.alle_inventar_nr_text %>)</td>
-			<% if @paket.hinweise_ausleih -%>
-				</tr><tr>
-					<td></td>
-					<td><%= @paket.hinweise_ausleih %></td>
-			<% end -%>
-				</tr><tr>
-					<td></td>
-					<td class="text_right">
-						<label for="reservation_status">Paket</label>
-						<%= select( 'paket[]', 'status', Paket::STATUS_TEXT ) %></td>
-				</tr></table>
-			</div>
-		<% end -%>
-		<br/>
-		
-		<% if @reservation.zubehoer -%>
-			<div class="rueck_paket">
-				<%= check_box 'zubehoer', 'zurueck' %> Zubehör:
-				<span class="hervor"><%= @reservation.zubehoer %></span>
-			</div>
-		<% end -%>
-		<hr size="1"/>
-		<br/>
-		
-		<%= render :partial => 'reservations/reservation_teil_unten', :locals => { :reservation => @reservation } %>
-		
-		<br/>
-		<label for="reservation_status">Rückgabezustand</label>
-		<%= select( 'reservation', 'bewertung', Reservation::BEWERTUNG_TEXT ) %><br/><br/>
-		
-		<div class="text_right">
-			<%= link_to 'Abbrechen', :controller => 'admin', :action => 'index' %> |
-			<%= submit_tag 'Zurücknehmen' %>
-		</div>
-		</form>
-	</div>
+  <h1 class="anschluss">Ausleihe zurücknehmen</h1>
+  <p>Eine Ausleihe wird ganz oder teilweise zurückgenommen. Dabei kann der Zustand und die Wiederverwendbarkeit einzelner Pakete angepasst werden</p>
+  
+  <%= render :partial => 'gemeinsam/flashs' %>
+  <% error_messages_for 'reservation' %>
+  
+  <%= render :partial => "reservations/res_ueberschrift", :locals => { :reservation => @reservation } %>
+  
+    <div class="res_paragraph" id="edit_status_res">
+      <%= render( :partial => 'reservations/edit_status', :locals => {
+            :reservation => @reservation } ) %>
+    </div>
+    <br />
+    
+    <div class="res_paragraph" id="edit_user_res">
+      <%= render :partial => 'reservations/edit_user', :locals => {
+            :reservation => @reservation } %></div>
+    <div class="res_paragraph" id="edit_termin_res">
+      <%= render :partial => 'reservations/edit_termin', :locals => {
+            :reservation => @reservation } %></div>
+    
+    <%= form_tag :action => 'ruecknahme_pruefen', :id => @reservation %>
+      <div class="res_paragraph" id="paket_liste">
+        <%= render :partial => 'reservations/paket_rueck_liste', :locals => {
+              :reservation => @reservation,
+              :mit_erweitern => !( @reservation.ausgeliehen? or @reservation.zurueck? ) } %>
+      </div>
+    
+      <div class="res_paragraph" id="zubehoer_liste">
+        <%= render :partial => 'reservations/zubehoer_rueck_liste', :locals => {
+              :reservation => @reservation,
+              :mit_erweitern => !( @reservation.ausgeliehen? or @reservation.zurueck? ) } %>
+      </div>
+    
+      <hr size="1"/>
+    
+      <%= render( :partial => 'reservations/reservation_teil_unten', :locals => {
+            :reservation => @reservation } ) %>
+    
+      <%= render :partial => 'gemeinsam/letzte_aenderung', :locals => {
+            :item => @reservation } %>
+    
+      <hr size="1"/>
+    
+      <div class="text_right">
+        <label for="reservation_status">Rückgabezustand ist:</label>
+        <%= select( 'reservation', 'bewertung', Reservation::BEWERTUNG_TEXT ) %><br/>
+        <br/>
+      
+        <%= link_to 'Abbrechen', :controller => 'admin', :action => 'index' %> |
+        <%= submit_tag 'Zurücknehmen' %>
+      </div>
+    </form>
+  </div>
 </div>

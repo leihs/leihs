@@ -75,31 +75,6 @@ class AusleihenControllerTest < Test::Unit::TestCase
 		assert_equal @res_user.password, @geaenderter_user.password
 	end
 	
-	def test_ausleihe_pruefen_ohne_user
-		get :ausleihe_pruefen, :id => 1
-		assert_kein_zugang
-	end
-	
-	def test_ausleihe_pruefen_student
-		@request.session[ :user ] = users( :normaler_student )
-		get :ausleihe_pruefen, :id => 1
-		assert_kein_zugang
-	end
-	
-	def test_ausleihe_pruefen
-		@request.session[ :user ] = users( :normaler_herausgeber )
-		@die_reservation = reservations( :student_ohne_id_res_ein_ding )
-		assert_valid @die_reservation
-		@res_user = @die_reservation.user
-		assert_valid @res_user
-		assert ( @res_user.ausweis.nil? or @res_user.ausweis.length < 1 )
-
-		get :ausleihe_pruefen, :id => 4
-
-		assert_redirected_to :action => 'herausgeben'
-		assert( @response.has_flash_object?( :alarm ) )
-	end		
-	
 #----------------------------------------------------------
 # Schritte einer direkten Herausgabe
 	

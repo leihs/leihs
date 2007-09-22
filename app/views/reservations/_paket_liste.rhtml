@@ -17,6 +17,7 @@ mehr_pakete = false unless defined?( mehr_pakete )
 					:title => 'Pakete hinzufügen',
 					:style => 'color:black;' ) %>
 	<% else -%>
+		<%= 'Keine' if ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.pakets.blank? %>
 		Pakete
 	<% end -%>
 	
@@ -30,18 +31,20 @@ mehr_pakete = false unless defined?( mehr_pakete )
 	<% end -%>
 </div>
 
-<div class="feldinhalt">
-	<%= '<br />' if reservation.pakets.blank? %>
-	<% for paket in reservation.pakets
-		unless session[ :paket_weg_liste ] and session[ :paket_weg_liste ].include?( paket.id ) %>
-		<div class="reservation_paketliste" id="paketliste_item<%= paket.id %>">
-			<%= render( :partial => 'reservations/edit_paket', :locals => {
-						:reservation => reservation,
-						:paket => paket } ) %>
-		</div>
-	<% end
-	end %>
+<% unless ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.pakets.blank? -%>
+	<div class="feldinhalt">
+		<%= '<br />' if reservation.pakets.blank? %>
+		<% for paket in reservation.pakets
+			unless session[ :paket_weg_liste ] and session[ :paket_weg_liste ].include?( paket.id ) %>
+			<div class="reservation_paketliste" id="paketliste_item<%= paket.id %>">
+				<%= render( :partial => 'reservations/edit_paket', :locals => {
+							:reservation => reservation,
+							:paket => paket } ) %>
+			</div>
+		<% end
+		end %>
 	
-	<%= render( :partial => 'reservations/add_paket', :locals => {
-				:reservation => reservation } ) %>
-</div>
+		<%= render( :partial => 'reservations/add_paket', :locals => {
+					:reservation => reservation } ) %>
+	</div>
+<% end -%>

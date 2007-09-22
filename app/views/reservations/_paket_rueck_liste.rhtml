@@ -1,0 +1,22 @@
+<% # --- LOCALS ---
+# reservation - Reservation, deren Pakete bearbeitet werden sollen
+-%>
+
+<div class="feldname">
+	<%= 'Keine' if ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.pakets.blank? %>
+	Pakete
+</div>
+
+<% unless ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.pakets.blank? -%>
+	<div class="feldinhalt">
+		<table>
+		<% for paket in reservation.pakets %>
+			<tr class="reservation_paketliste" id="paketliste_item<%= paket.id %>">
+				<%= render( :partial => 'reservations/zurueck_paket', :locals => {
+							:reservation => reservation,
+							:paket => paket } ) %>
+			</tr>
+		<% end %>
+		</table>
+	</div>
+<% end -%>

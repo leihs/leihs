@@ -1,0 +1,22 @@
+<% # --- LOCALS ---
+# reservation - Reservation, deren Zubehoer bearbeitet werden soll
+-%>
+
+<div class="feldname">
+	<%= 'Kein' if ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.zubehoer.blank? %>
+	Zubehör
+</div>
+
+<% unless ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.zubehoer.blank? -%>
+	<div class="feldinhalt">
+		<table>
+		<% for zubehoer in reservation.zubehoer %>
+			<tr class="reservation_zubehoerliste" id="zubehoerliste_item<%= zubehoer.id %>">
+				<%= render( :partial => 'reservations/zurueck_zubehoer', :locals => {
+							:reservation => reservation,
+							:zubehoer => zubehoer } ) %>
+			</tr>
+		<% end %>
+		</table>
+	</div>
+<% end -%>

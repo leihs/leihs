@@ -1,4 +1,7 @@
-<% edit_erlaubt = false unless defined? edit_erlaubt -%>
+<% # --- LOCALS ---
+# edit_erlaub - sollen der Status editierbar sein?
+edit_erlaubt = false unless defined? edit_erlaubt
+-%>
 
 <% if reservation.ausgeliehen? or reservation.zurueck? -%>
 	<div class="ausleihe_<%= 'zurueck_' if reservation.zurueck? %>blatt">
