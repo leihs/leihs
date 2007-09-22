@@ -70,7 +70,7 @@ class PaketsController < ApplicationController
 		session[ :paket_art_auf ] ||= Array[ 'Andere Hardware' ]
 
 		art = params[ :id ]
-		@reservation = session[ :reservation ]
+		@reservation = Reservation.find( session[ :reservation_id ] )
 		@user = @reservation.user
 		@reserv_mode = true
 		

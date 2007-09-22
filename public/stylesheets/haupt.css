@@ -91,7 +91,7 @@ input[ type=password ] {
 }
 textarea {
   padding: 0.2em;
-  width: 100%;
+  width: 97%;
 }
 hr { margin: 1em 0; }
 
@@ -109,7 +109,7 @@ a:hover {
 a:active { color: #08E; }
 a.neben_icon { vertical-align: super; }
 a.normal {
-	color: 0;
+	color: black;
 	font-weight: normal;
 }
 .hervor a.normal { font-weight: bold; }
@@ -651,6 +651,10 @@ table.liste .paketinhalt {
 	margin-top: 1em;
 	text-align: right;
 }
+.formular_tasten {
+  margin: 1em 0 0 0;
+  text-align: right;
+}
 
 /* --- Scaffold Tabellenformate --- */
 .scaffold table, .scaffold tr {
@@ -673,7 +677,7 @@ table.liste .paketinhalt {
   display: table;
 }
 #errorExplanation {
-  border: 2px solid #red;
+  border: 2px solid red;
   margin-bottom: 1em;
   background-color: #f0f0f0;
 }

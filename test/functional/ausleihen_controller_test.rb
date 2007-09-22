@@ -153,13 +153,13 @@ class AusleihenControllerTest < Test::Unit::TestCase
 		assert session[ :reservieren_paketauswahl ].is_a?( Array )
 		assert_equal 0, session[ :reservieren_paketauswahl ].size
 		
-		assert_not_nil session[ :reservation ]
+		assert_not_nil session[ :reservation_id ]
 	end
 	
 	def test_pakete_auswaehlen
 		@request.session[ :user ] = users( :normaler_herausgeber )
 		@request.session[ :aktiver_geraetepark ] = 4
-		@request.session[ :reservation ] = mach_minimal_reservation_fuer_direkt_heraus
+		@request.session[ :reservation_id ] = mach_minimal_reservation_fuer_direkt_heraus.id
 		@request.session[ :reservieren_sammlung ] = true
 		@request.session[ :reservieren_paketauswahl ] = Array.new
 		get :pakete_auswaehlen

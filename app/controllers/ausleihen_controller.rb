@@ -154,7 +154,9 @@ class AusleihenController < ApplicationController
 		if @reservation.zubehoer
 			mein_pdf.SetStyle('label')
 			mein_pdf.Cell(25, mein_pdf.GetLineHeight(), 'Zubehoer', 0, 1)
-			druck_multi_feld( mein_pdf,  @reservation.zubehoer )
+			zubehoer_texte = @reservation.zubehoer.collect { |z|
+			      z.anzahl.to_s + ' ' + z.beschreibung }
+			druck_multi_feld( mein_pdf, zubehoer_texte.join( "\n" ) )
 		end
 		
 		# Hinweise für den Leihvertrag
@@ -342,11 +344,6 @@ class AusleihenController < ApplicationController
 				@reservation.pakets |= [ paket ]
 			end
 			
-			# Reservation speichern und neu laden, um ID zu bekommen
-			@reservation.save
-			@reservation.reload
-			session[ :reservation ] = @reservation
-			
 			Logeintrag.neuer_eintrag( session[ :user ], 'stellt Reservation zusammen', "#{@reservation.pakets.size} Paket(e): #{@reservation.pakets.join( ',' )}" )
 			paketauswahl_loeschen
 		end
@@ -405,11 +402,11 @@ class AusleihenController < ApplicationController
 	end
 
 	def herausgabe_abbrechen
-		unless session[ :reservation ].new_record?
+		if session[ :reservation_id ]
 			Logeintrag.neuer_eintrag( session[ :user ], 'löscht hängende direkte Herausgabe' )
-			Reservation.find( session[ :reservation ].id ).destroy
+			Reservation.find( session[ :reservation_id ] ).destroy
 		end
-		session[ :reservation ] = nil
+		session[ :reservation_id ] = nil
 		session[ :direkte_herausgabe_modus ] = nil
 		session[ :reservieren_paketauswahl ] = nil
 		Logeintrag.neuer_eintrag( session[ :user ], 'bricht direkte Herausgabe ab' )

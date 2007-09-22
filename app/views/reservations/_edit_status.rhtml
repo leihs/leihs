@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='utf-8'?>
 <%= link_to_function( image_tag( 'icon_stift.png', :class => 'icon' ),
 				"Element.toggle( 'res_status' )",
 				:title => 'Status ändern'
@@ -14,7 +13,7 @@
 			<%= select( 'reservation', 'status', Reservation::STATUS_TEXT ) %>
 		</p>
 		<p>
-			<label for="reservation_hinweise">Hinweise für eMail-Benachrichtigung:</label><br>
+			<label for="reservation_hinweise">Hinweise für eMail-Benachrichtigung:</label><br />
 			<%= text_area 'reservation', 'hinweise', :rows => 3 %>
 		</p>
 

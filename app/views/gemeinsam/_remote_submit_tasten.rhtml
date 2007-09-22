@@ -1,15 +1,16 @@
 <%
-submit_text = 'Ändern' if submit_text.blank?
-div_id = 'div_remote_form' if div_id.blank?
+element_id = "" unless defined?( element_id ) and element_id.to_i > 0
+submit_text = 'Ändern' unless defined?( submit_text ) and !submit_text.blank?
+div_id = 'div_remote_form_' + element_id unless defined?( div_id ) and !div_id.blank?
 -%>
 <div class="text_right">
-	<div id="remote_submit_tasten">
+	<div id="remote_submit_tasten_<%= element_id %>">
 	<%= link_to_function( 'Abbrechen',
 				"Element.toggle('#{div_id}')" ) %>
 	|
 	<%= submit_tag submit_text %>
 	</div>
-	<div id="remote_submit_waiting" style="display:none;">
-		...moment bitte
+	<div id="remote_submit_waiting_<%= element_id %>" style="display:none;">
+		<%= image_tag( 'spinner_13_grau.gif' ) %> moment
 	</div>
 </div>

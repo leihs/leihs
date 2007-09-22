@@ -18,11 +18,15 @@ class ZugangController < ApplicationController
 			session[ :hilfeseite ] = 'index'
 			
 		else
-			@user = User.authenticate( params[ :user_login ], params[ :user_password ] )
+			@user = User.authenticate( params[ :user_login ].first, params[ :user_password ].first )
 			
 			unless @user
 				# keine sinnvolle Authentifizierung möglich
-				flash[ :notice ]  = "Login nicht möglich. Falscher Benutzername oder falsches Passwort?"
+				flash[ :notice ] = "Login nicht möglich. Falscher Benutzername oder falsches Passwort?"
+				logger.debug( "C --- zugang | login -- params:#{params}" )
+				if params[ :user_login ].first.include?( '@hgkz' ) or params[ :user_login ].first.include?( '@hmt' )
+          flash[ :notice ] = "Alle Logins wurden auf ZHdK E-Mail Adressen umgeschrieben. Bitte melden Sie sich mit Ihrer E-Mail @zhdk.ch an."
+        end
 			
 			else
 				# User erfolgreich identifiziert
@@ -74,8 +78,9 @@ class ZugangController < ApplicationController
 			#logger.debug( "I--- zugang con | signup -- params hash 2:#{params_hash.to_yaml}" )
 			
 			@user = User.new( params[ :user ] )
+			@user.email_suffix = 'zhdk.ch' unless @user.email_suffix.length > 1
 			@user.login = @user.email
-			@user.updater_id = @user.id || nil
+			@user.updater_id = session[ :user ] || nil
 			@user.created_at = Time.now
 			@user.benutzerstufe = 0
 			
@@ -95,7 +100,6 @@ class ZugangController < ApplicationController
 			else
 				Logeintrag.neuer_eintrag( nil, 'Zugang falsch ausgefüllt',
 							"#{@user.nachname} #{@user.vorname} #{@user.email}" )
-				flash[ :notice ] = "Zugangsregistration ist nicht richtig ausgefüllt"
 			end
 		end
 	end

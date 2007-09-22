@@ -31,18 +31,18 @@
 							:action => 'neue' ) %>
 			<% end %>
 			<% if session[ :reservieren_schritt ] >= 2 %>
-				<br>
+				<br />
 				<%= link_to( '2: Pakete auswaehlen',
 							:controller => 'reservieren',
 							:action => 'pakete_auswaehlen' ) %>
 			<% end %>
 			<% if session[ :reservieren_schritt ] >= 3 %>
-				<br>
+				<br />
 				<%= link_to( '3: Reservation abschicken',
 							:controller => 'reservieren',
 							:action => 'reservation_abschicken' ) %>
 			<% end -%>
-			<br>
+			<br />
 			<%= link_to( 'Reservation abbrechen',
 						:controller => 'reservieren',
 						:action => 'reservation_abbrechen' ) %>

@@ -23,8 +23,7 @@
   <% if session[ :user ] and session[ :user ].herausgeber? -%>
 		<%= text_field "user", "email", :size => 50 %><br />
 	<% else -%>
-		<%= text_field "user", "email_prefix", :size => 35 %> @
-		<%= select "user", "email_suffix", [ [ 'zhdk.ch' ], [ 'hgkz.net' ], [ 'hgkz.ch' ], [ 'hmt.edu' ], [ 'doz.hmt.edu' ], [ 'stud.hmt.edu' ] ] %><br />
+		<%= text_field "user", "email_prefix", :size => 35 %> @zhdk.ch<br />
 	<% end -%>
 	&nbsp;An diese Adresse wird die Mail zur Freischaltung gesendet
 </p>
