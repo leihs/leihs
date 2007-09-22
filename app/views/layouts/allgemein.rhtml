@@ -59,7 +59,7 @@
 	<% end -%>
 	
 	<div id="inhalt">
-<% if ENV["RAILS_ENV"] == 'development' %>
+<% if ( ENV["RAILS_ENV"] || RAILS_ENV ) == 'development' %>
 <div id="devwarning">
 Development-Version
 </div>
