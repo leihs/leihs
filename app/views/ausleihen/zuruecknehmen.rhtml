@@ -20,7 +20,7 @@
 			<div class="rueck_paket">
 				<table><tr>
 					<td><%= check_box 'paket[]', 'zurueck' %></td>
-					<td id="maxbreit"><span class="hervor"><%= @paket.name %></span>
+					<td class="maxbreit"><span class="hervor"><%= @paket.name %></span>
 						(<%= @paket.alle_inventar_nr_text %>)</td>
 			<% if @paket.hinweise_ausleih -%>
 				</tr><tr>

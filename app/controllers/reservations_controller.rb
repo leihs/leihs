@@ -327,13 +327,14 @@ class ReservationsController < ApplicationController
   def zufuege_zubehoer
 		logger.debug( "C --- reservations | zufuege zubehoer -- #{params.to_yaml}" )
 		@reservation = Reservation.find( params[ :id ] )
-		@zubehoer = Zubehoer.new( params[ :zubehoer ] )
+		@zubehoer = @reservation.zubehoer.build( params[ :zubehoer ] )
+		@zubehoer.created_at = Time.now
 		@zubehoer.save
 		
 		Logeintrag.neuer_eintrag( session[ :user ],
 					'fuegt Zubehoer hinzu',
 					"Zubehoer #{@zubehoer.id} -> Reservation #{@reservation.id}" )
-		@reservation.zubehoer << @zubehoer
+
 		@reservation.updater = session[ :user ]
 		@reservation.save
 		render :action => 'update_zubehoer_liste'
