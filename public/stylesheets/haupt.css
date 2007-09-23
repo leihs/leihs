@@ -14,6 +14,7 @@ input, textarea {
   font-family: Helvetica, Verdana, Arial, sans-serif;
 	font-size: 13px;
 	line-height: 1.25em;
+	margin: 0;
 }
 h1 {
   margin: 0 0 0.25em 0;
@@ -88,6 +89,7 @@ li { margin-bottom: 0.5em; }
 input[ type=text ],
 input[ type=password ] {
   margin: 0.2em 0 0.2em 0;
+  width: 90%;
 }
 textarea {
   padding: 0.2em;
@@ -624,11 +626,21 @@ table.liste .paketinhalt {
 	background-color: #EEE;
 	border: 1px dotted #BBB;
 	margin: 0.5em 0 1em 0;
-	padding: 1em 1em 0 1em;
+	padding: 1em;
 }
 .reservation_paketliste .ajax_einblender {
 	margin: 0.5em 1em 1em 3.5em;
 }
+.zubehoer_anzahl {
+  float: left;
+  width: 15%;
+  margin-right: 0.5em;
+}
+.zubehoer_beschrieb {
+  float: left;
+  width: 80%;
+}
+
 .zusatzinfo_klein{
 	font-size: 0.9em;
 	color: #999;
@@ -639,7 +651,9 @@ table.liste .paketinhalt {
 	font-size: 0.8em;
 	margin-bottom: 0.5em;
 }
+
 /* --- Eingabeformular Formate & Attribute --------------- */
+
 .attributformular {
 	margin-top: 1em;
 	padding: 0.75em;
@@ -657,6 +671,7 @@ table.liste .paketinhalt {
 }
 
 /* --- Scaffold Tabellenformate --- */
+
 .scaffold table, .scaffold tr {
 	font-size: 9px;
 	margin: 0;
