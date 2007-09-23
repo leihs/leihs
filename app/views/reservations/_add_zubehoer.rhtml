@@ -9,15 +9,8 @@ zubehoer = Zubehoer.new
 				  :action => 'zufuege_zubehoer',
 				  :id => reservation.id },
 				:loading => "Element.show( 'remote_submit_waiting' )" ) %>
-		<p>Zubehoer hinzufuegen</p>
 		
-		<p>
-		  <label for="zubehoer_beschreibung">Beschreibung:</label><br />
-		  <%= text_field 'zubehoer', 'beschreibung', :style => "width: 100%;" %></p>
-		<p>
-		  <label for="zubehoer_anzahl">Anzahl:</label>&nbsp;
-		  <%= select 'zubehoer', 'anzahl', [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ] %></p>
-
+    <%= render :partial => 'reservations/zubehoer_form' %><br/>
 		<%= render( :partial => 'gemeinsam/remote_submit_tasten', :locals => {
 					:div_id => "res_zubehoer_dazu" } ) %>
 	</form>
