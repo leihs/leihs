@@ -1,7 +1,7 @@
 <%= link_to_function( image_tag( 'icon_stift.png', :class => 'icon' ),
 				"Element.toggle( 'res_status' )",
 				:title => 'Status ändern'
-							) unless reservation.ausgeliehen? or reservation.zurueck? %><%= reservationsstatus( reservation ) %>
+							) unless reservation.ausgeliehen? or reservation.zurueck? or reservation.zusammenstellen? %><%= reservationsstatus( reservation ) %>
 
 <div id="res_status" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
 	<%= error_messages_for 'reservation' %>

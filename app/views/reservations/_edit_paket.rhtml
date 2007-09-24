@@ -2,7 +2,7 @@
 # reservation - Reservation, deren Paket ausgetauscht werden soll
 # paket - das Paket, das ausgetauscht werden soll
 -%>
-<% unless reservation.ausgeliehen? or reservation.zurueck? -%>
+<% if reservation.ist_paket_zubehoer_aenderbar? -%>
 	<%= link_to_remote( image_tag( 'icon_stift.png', :class => 'icon' ), :url => {
 					:controller => 'reservations',
 					:action => 'tausche_paket_select_remote',
@@ -30,6 +30,8 @@
 (<%= paket.alle_inventar_nr_text %>
 <%= ' | ' + paket.gestell unless paket.gestell.blank? %>)
 
-<div id="res_tausch_<%= paket.id %>" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
-	<%= image_tag( 'spinner_grau_13.gif' ) %> pruefen...<br /><br />
-</div>
+<% if reservation.ist_paket_zubehoer_aenderbar? -%>
+  <div id="res_tausch_<%= paket.id %>" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
+  	<%= image_tag( 'spinner_grau_13.gif' ) %> pruefen...<br /><br />
+  </div>
+<% end -%>

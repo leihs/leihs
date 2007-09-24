@@ -9,7 +9,7 @@
 			zeige_herausgeben_icons( reservation ) %><%=
 			zeige_aktions_icons( [ :destroy ], reservation.id,
 						:controller => 'reservations'
-									) unless reservation.ausgeliehen? or reservation.zurueck? %>
+									) unless reservation.ausgeliehen? or reservation.zurueck? or reservation.zusammenstellen? %>
 	</td>
 	<td><%=
 			link_to( reservation.id,

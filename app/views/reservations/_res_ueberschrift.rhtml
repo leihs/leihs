@@ -12,7 +12,7 @@ edit_erlaubt = false unless defined? edit_erlaubt
 					:class => 'icon' ) if edit_erlaubt and !reservation.zurueck? %>
 		<span class="reservation_titel">Ausleihe<%= ' Nr. ' + reservation.id.to_s unless reservation.id.blank? %></span>
 <% else -%>
-	<div class="reservation_<%= 'genehm_' if reservation.genehmigt? %>blatt">
+	<div class="reservation_<%= 'genehm_' if reservation.genehmigt? %><%= 'zusammen_' if reservation.zusammenstellen? %>blatt">
 		<%= link_to( image_tag( 'icon_stift.png', :class => 'icon' ),
 					{ :controller => 'reservations',
 						:action => 'edit',

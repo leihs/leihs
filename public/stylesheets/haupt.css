@@ -208,6 +208,8 @@ td.balken_inaktiv {
 	border-right: 6px solid white;
 }
 
+/* --- Tabellenformatierung Allgemein --- */
+
 th {
 	background-color: #79B;
 	border-top: 1px solid white;
@@ -232,6 +234,11 @@ tr.res_zurueck td { background-color: #DFD; }
 tr.res_aus td { background-color: #FDD; }
 tr.res_ueber td { background-color: #FBB; }
 tr.res_neu td { background-color: #FFB; }
+tr.res_zusammen td {
+  color: #999;
+  background-color: #F8F8F8;
+}
+tr.res_zusammen a { color: #999 }
 
 table.geraetepark { width: 0; }
 table.geraetepark tr { background-color: white; }
@@ -407,6 +414,7 @@ div.auswahl_liste {
 span.res_aus { font-weight: bold; color: #A44; }
 span.res_zurueck { font-weight: bold; color: #0A0; }
 span.res_ueber { font-weight: bold; color: #E00; }
+span.res_zusammen { font-weight: bold; color: #999; }
 span.res_neu { font-weight: bold; color: #CB0; }
 span.res_sonst { font-weight: bold; color: #999; }
 
@@ -479,7 +487,8 @@ div.res_paragraph { margin-bottom: 0.5em; }
 	margin: 1.5em;
 }
 .blatt_vor_tabelle { margin-bottom: 0.5em; }
-.paket_blatt, .gegenstand_blatt, .reservation_blatt, .reservation_genehm_blatt, .ausleihe_blatt, .ausleihe_zurueck_blatt, .user_blatt {
+.paket_blatt, .gegenstand_blatt, .reservation_blatt, .reservation_genehm_blatt, .reservation_zusammen_blatt, .ausleihe_blatt, .ausleihe_zurueck_blatt, .user_blatt {
+	background-color: #F8F8F8;
 	width: 30em;
 	padding: 2em;
 	border: 0;

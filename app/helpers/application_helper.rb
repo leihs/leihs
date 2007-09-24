@@ -285,7 +285,9 @@ module ApplicationHelper
 	end
 	
 	def reservationsstatus( in_reservation )
-		if in_reservation.neu?
+		if in_reservation.zusammenstellen?
+		  html = '<span class="res_zusammen">wird zusammengestellt</span>'
+		elsif in_reservation.neu?
 			html = '<span class="res_neu">neu</span>'
 		elsif in_reservation.vorlaeufig?
 			html = '<span class="res_sonst">vorläufig</span>'
@@ -307,6 +309,7 @@ module ApplicationHelper
 
 	def reservation_class( in_reservation )
 		text = 'hell'
+		text = 'res_zusammen' if in_reservation.zusammenstellen?
 		text = 'res_neu' if in_reservation.neu?
 		text = 'res_genehm' if in_reservation.genehmigt?
 		text = 'res_aus' if in_reservation.ausgeliehen?

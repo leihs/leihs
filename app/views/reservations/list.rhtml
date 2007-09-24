@@ -26,8 +26,7 @@
 	for reservation in @reservations
 		zaehler += 1 %>
 		<%= render :partial => 'reservations/kurzliste_zeile',
-		 			:locals => { :reservation => reservation,
-												:hell => ( zaehler.odd? ) } %>
+		 			:locals => { :reservation => reservation } %>
 	<% end %>
 	
 	<tr>
