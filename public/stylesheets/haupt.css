@@ -126,6 +126,13 @@ a.link_symbol {
 	padding: 1px 1px 0px 1px;
 	border: 1px solid #BBE;
 }
+a.resnr_link {
+  padding: 0.1em 0.1em 0em 0.1em;
+  color: white;
+  background-color: #999;
+  font-size: 0.9em;
+}
+a.resnr_link:hover { text-decoration: none; }
 
 /* --- Allgemeine Tabellenformate --- */
 
