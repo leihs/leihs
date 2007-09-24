@@ -3,28 +3,30 @@ vom
 <%= link_to_function( image_tag( "icon_stift.png", :class => 'icon' ),
 			"Element.toggle( 'res_verlaengern' )",
 			:title => 'Verlängern'
-						) unless reservation.zurueck? %><span class="hervor"><%= reservation.zeitraum_text %></span>
+						) if reservation.ist_zeitraum_aenderbar? %><span class="hervor"><%= reservation.zeitraum_text %></span>
 
-<div id="res_verlaengern" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
-	<%= error_messages_for 'reservation' %>
-	<p>Verlängerung möglich im Zeitraum <%= reservation.minimale_verlaengerung_datum( !session[ :user ].herausgeber? ).strftime( '%d.%m.%Y' ) %>-<%= reservation.maximale_verlaengerung_datum( !session[ :user ].herausgeber? ).strftime( '%d.%m.%Y' ) %></p>
-	<%= form_remote_tag( :url => {
-					:controller => 'reservations',
-					:action => 'update_termin',
-					:id => reservation.id },
-					:update => 'edit_termin_res' ) %>
-	<table>
-		<tr>
-			<td><label for="reservation_startdatum">Neue Abholung:</label></td>
-			<td><%= date_select( 'reservation', 'startdatum', :order => [ :day, :month, :year ] ) %></td>
-		</tr>
-		<tr>
-			<td><label for="reservation_enddatum">Neue Rückgabe:</label></td>
-			<td><%= date_select( 'reservation', 'enddatum', :order => [ :day, :month, :year ] ) %></td>
-		</tr>
-	</table>
-	<br />
-	<%= render( :partial => 'gemeinsam/remote_submit_tasten', :locals => {
-				:div_id => 'res_verlaengern' } ) %>
-	</form>
-</div>
+<% if reservation.ist_zeitraum_aenderbar? -%>
+  <div id="res_verlaengern" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
+  	<%= error_messages_for 'reservation' %>
+  	<p>Verlängerung möglich im Zeitraum <%= reservation.minimale_verlaengerung_datum( !session[ :user ].herausgeber? ).strftime( '%d.%m.%Y' ) %>-<%= reservation.maximale_verlaengerung_datum( !session[ :user ].herausgeber? ).strftime( '%d.%m.%Y' ) %></p>
+  	<%= form_remote_tag( :url => {
+  					:controller => 'reservations',
+  					:action => 'update_termin',
+  					:id => reservation.id },
+  					:update => 'edit_termin_res' ) %>
+  	<table>
+  		<tr>
+  			<td><label for="reservation_startdatum">Neue Abholung:</label></td>
+  			<td><%= date_select( 'reservation', 'startdatum', :order => [ :day, :month, :year ] ) %></td>
+  		</tr>
+  		<tr>
+  			<td><label for="reservation_enddatum">Neue Rückgabe:</label></td>
+  			<td><%= date_select( 'reservation', 'enddatum', :order => [ :day, :month, :year ] ) %></td>
+  		</tr>
+  	</table>
+  	<br />
+  	<%= render( :partial => 'gemeinsam/remote_submit_tasten', :locals => {
+  				:div_id => 'res_verlaengern' } ) %>
+  	</form>
+  </div>
+<% end -%>

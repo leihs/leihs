@@ -10,6 +10,7 @@ class Reservation < ActiveRecord::Base
   
   STATUS_TEXT = [ [ 'zurückgegeben', -2 ], [ 'abgelehnt', -1 ], [ 'neu', 0 ], [ 'vorläufig', 1 ], [ 'genehmigt', 2 ], [ 'ausgeliehen', 9 ] ]
   STATUS_ZUSAMMENSTELLEN = -3
+  STATUS_NEU = 0
   BEWERTUNG_TEXT = [ [ 'schlecht', -1 ], [ 'akzeptabel', 0 ], [ 'gut', 1 ] ]
   
   # Direkte Validierung
@@ -20,8 +21,11 @@ class Reservation < ActiveRecord::Base
 #-------------------------------------------------------------
 # einfache Status Prädikate
   
+  def zusammenstellen?
+    return ( status == STATUS_ZUSAMMENSTELLEN )
+  end
   def neu?
-    return ( status == 0 )
+    return ( status == STATUS_NEU )
   end
   def vorlaeufig?
     return ( status == 1 )
@@ -55,8 +59,19 @@ class Reservation < ActiveRecord::Base
     return ( konkurrierend? or neu? or vorlaeufig? )
   end
 
-  def fest?()
+  def fest?
     return ( status >= 2 or status == -2 )
+  end
+  
+  # konnen Daten der Reservation verändert werden?
+  def ist_nutzer_tauschbar?
+    return ( !( ausgeliehen? or zurueck? or zusammenstellen? ) )
+  end
+  def ist_zeitraum_aenderbar?
+    return ( !( zurueck? or zusammenstellen? ) )
+  end
+  def ist_paket_zubehoer_aenderbar?
+    return ( ist_nutzer_tauschbar? )
   end
   
 #-------------------------------------------------------------
@@ -431,7 +446,9 @@ class Reservation < ActiveRecord::Base
   end
   
   def self.pruefe_haengende
-    reservationen = Reservation.find_all_by_status( STATUS_ZUSAMMENSTELLEN )
+    reservationen = Reservation.find( :all,
+          :conditions => [ "status = ? and created_at < ?",
+                STATUS_ZUSAMMENSTELLEN, Time.now - 1.hour ] )
     for reservation in reservationen
       reservation.destroy
     end

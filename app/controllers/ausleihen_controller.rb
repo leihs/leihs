@@ -202,6 +202,7 @@ class AusleihenController < ApplicationController
   def direkt_heraus
     @user = User.new
     @reservation = Reservation.new
+    @reservation.status = Reservation::STATUS_ZUSAMMENSTELLEN
     @reservation.startdatum = Time.now
     @reservation.enddatum = Time.now.at_midnight + 1.day
     @fruehestes_startdatum = nil
@@ -244,6 +245,7 @@ class AusleihenController < ApplicationController
         unless @user.save
           logger.debug( "-- C ausleihen | direkt pruefen -- benutzer konnte nicht gesichert werden" )
           @reservation = Reservation.new( params[ :reservation ] )
+          @reservation.status = Reservation::STATUS_ZUSAMMENSTELLEN
           @reservation.startdatum = Time.now
           render :action => 'direkt_heraus' and return false
           

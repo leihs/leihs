@@ -20,6 +20,7 @@ class ReservierenController < ApplicationController
 		@fruehestes_startdatum = Reservation.fruehestes_startdatum_von( Time.now )
 		
 		@reservation = Reservation.new( {
+		      :status => Reservation::STATUS_ZUSAMMENSTELLEN,
 					:startdatum => @fruehestes_startdatum,
 					:enddatum => @fruehestes_startdatum + 1.day } )
 		@user = session[ :user ]
@@ -34,6 +35,7 @@ class ReservierenController < ApplicationController
 		if @reservation.validate_neu_res_zeitraum and ( session[ :aktiver_geraetepark ] == 1 ? @reservation.validate_avz_inventur : true )
 		  logger.debug( "--- reservieren con | zeitraum festlegen -- @reservation:#{@reservation.to_yaml}" )
   		@reservation.created_at = Time.now
+		  @reservation.status = Reservation::STATUS_ZUSAMMENSTELLEN
 			@reservation.user = session[ :user ]
 			@reservation.updater_id = session[ :user ].id
   		@reservation.prioritaet = 1
@@ -64,6 +66,7 @@ class ReservierenController < ApplicationController
 		else
 			if request.post?
 				@reservation = Reservation.new( params[ :reservation ] )
+        @reservation.status = Reservation::STATUS_ZUSAMMENSTELLEN
 				@reservation.user = session[ :user ]
 			else
 				redirect_to :action => 'zeitraum_auswaehlen'
@@ -123,6 +126,7 @@ class ReservierenController < ApplicationController
 			session[ :reservieren_schritt ] = nil
 			@reservation = Reservation.find( session[ :reservation_id ] )
 			@reservation.zweck = params[ :reservation ][ :zweck ]
+	    @reservation.status = Reservation::STATUS_NEU
 			
 			unless @reservation.save
 				flash[ :notice ] = 'Reservation konnte nicht in Datenbank gesichert werden'

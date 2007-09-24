@@ -15,9 +15,9 @@ mehr_pakete = false unless defined?( mehr_pakete )
 		<%= link_to_function( 'Pakete',
 					"Element.toggle( 'res_paket_dazu' )",
 					:title => 'Pakete hinzufügen',
-					:style => 'color:black;' ) %>
+					:style => 'color: black;' ) %>
 	<% else -%>
-		<%= 'Keine' if ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.pakets.blank? %>
+		<%= 'Keine' if reservation.pakets.blank? and !reservation.ist_paket_zubehoer_aenderbar? %>
 		Pakete
 	<% end -%>
 	
@@ -31,7 +31,7 @@ mehr_pakete = false unless defined?( mehr_pakete )
 	<% end -%>
 </div>
 
-<% unless ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.pakets.blank? -%>
+<% unless reservation.pakets.blank? and !reservation.ist_paket_zubehoer_aenderbar? -%>
 	<div class="feldinhalt">
 		<%= '<br />' if reservation.pakets.blank? %>
 		<% for paket in reservation.pakets
