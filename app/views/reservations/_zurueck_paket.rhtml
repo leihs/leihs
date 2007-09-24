@@ -15,10 +15,8 @@
 					:id => paket.id },
 				:class => 'normal' ) %>
 	<br/>
-	(<%= paket.alle_inventar_nr_text %>)
-	<% unless paket.gestell.nil? %>
-		[ <%= paket.gestell %> ]
-	<%  end %>
+	(<%= paket.alle_inventar_nr_text %>
+	<%= ' | ' + paket.gestell unless paket.gestell.blank? %>)
 </td>
 <td>
 	<label for="paket[]">Paket ist:</label><br/>
