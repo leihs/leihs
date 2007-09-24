@@ -21,6 +21,7 @@
 			<%= echo_tabelle_feld_wenn_definiert 'Gerätepark', @paket.geraetepark.name %>
 			<%= echo_tabelle_feld_wenn_definiert 'Ausleihbefugnis', @paket.ausleihbefugnis_text %>
 		</table>
+		
 		<%= simple_format( echo_feld_wenn_definiert( 'Beschreibung/Hinweise für Leihende', @paket.hinweise ) ) %>
 		<%= simple_format( echo_feld_wenn_definiert( 'Hinweise für Verleihende', @paket.hinweise_ausleih ) ) %>
 		<%= render :partial => 'gemeinsam/letzte_aenderung', :locals => { :item => @paket } %>

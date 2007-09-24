@@ -520,9 +520,12 @@ span.mini_titel { font-size: 1.1em; font-weight: bold; }
 	background-color: #EEF;
 }
 .blatt p {
-	padding:0;
-	margin:0;
-	margin-bottom:0.6em;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 0.6em;
+}
+.blatt div.abstand {
+  margin-bottom: 0.6em;
 }
 .blatt label {
 	margin-left: 0.3em;

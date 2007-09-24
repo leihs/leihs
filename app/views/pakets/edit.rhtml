@@ -1,23 +1,26 @@
 <div class="blatt">
-	<%= render_partial 'gemeinsam/flashs' %>
+	<%= render :partial => 'gemeinsam/flashs' %>
+  <%= error_messages_for 'paket' %>
 
-	<%= render( :partial => 'pakets/reiter', :locals => {
-				:paket => @paket } ) %>
+	<%= render :partial => 'pakets/reiter', :locals => {
+				:paket => @paket } %>
 	<div class="gegenstand_blatt">
 		<span class="feldname">Paketinhalt</span>
 		<div class="paketinhalt">
-			<%= render( :partial => 'gegenstands/items_gegenstaende_sammlung',
-			 			:locals => {
-									:sammlung => @paket.gegenstands,
-									:keine_tasten => true } ) %>
+			<%= render :partial => 'gegenstands/items_gegenstaende_sammlung', :locals => {
+			      :sammlung => @paket.gegenstands,
+						:keine_tasten => true } %>
 		</div>
 
 		<%= form_tag :action => 'update', :id => @paket.id %>
-		<%= render_partial "form" %>
+  		<%= render :partial => 'form' %>
 
-		<%= render :partial => 'gemeinsam/letzte_aenderung', :locals => { :item => @paket } %>
-		<br/><br/>
-		<%= render :partial => 'gemeinsam/submit_tasten', :locals => { :item => @paket, :item_name => "das Paket #{@paket.name}" } %>
+  		<%= render :partial => 'gemeinsam/letzte_aenderung', :locals => {
+  		      :item => @paket } %>
+  		<br/><br/>
+  		<%= render :partial => 'gemeinsam/submit_tasten', :locals => {
+  		      :item => @paket,
+  		      :item_name => "das Paket #{@paket.name}" } %>
 		</form>
 	</div>
 </div>

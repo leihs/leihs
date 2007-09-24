@@ -1,30 +1,25 @@
-<%= error_messages_for 'paket' %>
-
 <!--[form:gegenstand]-->
 <p><label for="paket_name">Name</label><br/>
 <%= text_field 'paket', 'name'  %></p>
 
-<p>
-<div id="select_art">
+<div id="select_art" class="abstand">
 	<label for="paket_art">Art</label><br/>
 	<%= select 'paket', 'art', Paket.selectliste_art %>
 	<%= link_to_function( image_tag( "icon_stift.png", :class => 'icon' ), "Element.toggle( 'select_art', 'neu_art' )", :title => 'Neue Art eingeben' ) %>
 </div>
 
-<div id="neu_art" style="display:none">
-	<label for="paket_art">Neue Art</label><br/>
+<div id="neu_art" class="abstand" style="display:none;">
+	<%= link_to_function( image_tag( "icon_kreuz.png", :class => 'icon' ), "Element.toggle( 'select_art', 'neu_art' )", :title => 'Zur Art zurück' ) %><label for="paket_art">Neue Art</label><br/>
 	<%= text_field 'paket', 'neue_art'  %>
 </div>
-</p>
 
 <p><label for="paket_gestell">Gestell</label><br/>
-<%= text_field 'paket', 'gestell' %>
-
+  <%= text_field 'paket', 'gestell' %></p>
 
 <p><label for="paket_status">Status</label><br/>
-<%= select 'paket', 'status', Paket::STATUS_TEXT %></p>
+  <%= select 'paket', 'status', Paket::STATUS_TEXT %></p>
 
-<table>
+<table style="margin-bottom: 0.6em;">
 	<tr>
 		<td width="50%">
 			<label for="paket_ausleihbefugnis">Ausleihbefugnis</label><br/>
@@ -35,12 +30,11 @@
 		  <%= select "paket", "geraetepark_id", Geraetepark.select_liste %>
 		</td>
 	</tr>
-</table><br/>
+</table>
 
 <p><label for="paket_hinweise">Beschreibung des Pakets für Reservierende</label><br/>
-<%= text_area 'paket', 'hinweise', :rows => 10 %></p>
+  <%= text_area 'paket', 'hinweise', :rows => 10 %></p>
 
-<p><label for="paket_hinweise_ausleih">Hinweise f&uuml;r Herausgeber</label><br/>
-<%= text_area 'paket', 'hinweise_ausleih', :rows => 5  %></p>
+<p><label for="paket_hinweise_ausleih">Hinweise für Herausgeber</label><br/>
+  <%= text_area 'paket', 'hinweise_ausleih', :rows => 5  %></p>
 <!--[eoform:gegenstand]-->
-
