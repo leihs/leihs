@@ -27,8 +27,11 @@
 				:action => 'show',
 				:id => paket.id },
 			:class => 'normal' ) %>
-(<%= paket.alle_inventar_nr_text %>
-<%= ' | ' + paket.gestell unless paket.gestell.blank? %>)
+(<%= paket.alle_inventar_nr_text %>)
+<%=  unless paket.gestell.blank?
+				"[" + paket.gestell + "]"
+     end
+ %>
 
 <% if reservation.ist_paket_zubehoer_aenderbar? -%>
   <div id="res_tausch_<%= paket.id %>" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">

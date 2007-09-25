@@ -9,14 +9,25 @@
 			zeige_herausgeben_icons( reservation ) %><%=
 			zeige_aktions_icons( [ :destroy ], reservation.id,
 						:controller => 'reservations'
-									) unless reservation.ausgeliehen? or reservation.zurueck? or reservation.zusammenstellen? %>
+									) unless reservation.ausgeliehen? or reservation.zurueck? or reservation.zusammenstellen?
+		
+		link_to( image_tag( 'icon_stift.png', :class => 'icon' ),
+		 			{ :controller => 'reservations',
+						:action => 'show',
+						:id => reservation.id },
+					:title => 'Reservation bearbeiten' ) 
+			%>
+
 	</td>
-	<td><%=
+	<td>
+			<%=
 			link_to( reservation.id,
 		 			{ :controller => 'reservations',
 						:action => 'show',
 						:id => reservation.id },
-					:class => 'resnr_link',
+					# Let's not display them this way for now - requires staff retraining
+					#:class => 'resnr_link',
+					:class => 'normal',
 					:title => 'Reservation bearbeiten' ) %></td>
 	<td><%= status_to_html( reservation ) %></td>
 	<td class="kein_umbruch"><%= datum_to_html( reservation.startdatum ) %></td>
