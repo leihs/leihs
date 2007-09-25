@@ -5,6 +5,8 @@
 	<p>Details zur Reservation ausfüllen und den Reservationsantrag abschicken</p>
 	<br/>
 	<%= error_messages_for 'reservation' %>
+  <%= render :partial => 'gemeinsam/flashs' %> 
+
 	
 	<%= render :partial => 'reservations/res_ueberschrift',
 	 			:locals => { :reservation => @reservation } %>
