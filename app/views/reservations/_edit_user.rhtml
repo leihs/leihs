@@ -12,7 +12,7 @@ link_to( reservation.user.name,
 	(ID: <%= reservation.user.ausweis %>)
 <% end -%>
 
-<% unless reservation.ist_nutzer_tauschbar? -%>
+<% if reservation.ist_nutzer_tauschbar? -%>
 	<%= error_messages_for :reservation %>
 	<div id="res_user_tausch" class="ajax_einblender" style="display:<%= reservation.errors.count > 0 ? 'block' : 'none' %>;">
 		<%= error_messages_for 'reservation' %>
