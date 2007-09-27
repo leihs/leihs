@@ -18,12 +18,12 @@
 			<td class="feldinhalt">
 				<%= mail_to( @user.email, @user.email,
 				 			:subject => '[leihs] Anfrage vom Herausgeber',
-							:body => "Hallo #{@user.name},\r\r\r\r\r\rleihs\rAusleihe- und Reservierungsystem der\rHochschule für Gestaltung und Kunst Zürich\rhttp://leihs.hgkz.ch",
+							:body => "Hallo #{@user.name},\r\r\r\r\r\rleihs\rAusleihe- und Reservierungsystem der\rZürcher Hochschule der Künste\rhttp://ausleihe.zhdk.ch",
 							:class => 'normal' ) unless @user.email.blank? %>
 				<%= mail_to( @user.email,
 							image_tag( 'icon_pfeil_r.png', :class => 'icon' ),
 				 			:subject => '[leihs] Anfrage vom Herausgeber',
-							:body => "Hallo #{@user.name},\r\r\r\r\r\rleihs\rAusleihe- und Reservierungsystem der\rHochschule für Gestaltung und Kunst Zürich\rhttp://leihs.hgkz.ch",
+							:body => "Hallo #{@user.name},\r\r\r\r\r\rleihs\rAusleihe- und Reservierungsystem der\rZürcher Hochschule der Künste\rhttp://ausleihe.zhdk.ch",
 							:class => 'icon' ) unless @user.email.blank? %>
 			</td>
 			<%= echo_tabelle_feld_wenn_definiert 'Telefon', @user.telefon %>
