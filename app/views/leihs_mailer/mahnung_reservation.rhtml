@@ -32,14 +32,13 @@ vom <%= @reservation.zeitraum_text %> reserviert:
 Bitte holen Sie die Pakete unverzüglich ab, löschen Sie Ihre Reservation oder benachrichtigen Sie den Herausgeber<%= " (#{@reservation.herausgeber.email})" if @reservation.herausgeber and @reservation.herausgeber.email %>, sonst blockieren Sie andere Reservierende.
 
 Hier können Sie sich über weitere Details informieren:
-http://leihs.hgkz.ch/reservations/meine
+http://ausleihe.zhdk.ch/reservations/meine
 
 Mit freundlichen Grüssen,
-<%= @reservation.updater.name + "\r" if @reservation.updater %>leihs-Team
+<%= @reservation.updater.name + "\r" if @reservation.updater %>
 
 
 ------------------------------------------------------
-leihs
 Ausleihe- und Reservierungsystem der
 Zürcher Hochschule der Künste
-http://leihs.zhdk.ch
+http://ausleihe.zhdk.ch
