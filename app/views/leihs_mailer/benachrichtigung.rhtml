@@ -21,7 +21,7 @@
 %>
 Hallo <%= @reservation.user.name %>,
 
-Ihre Reservierung Nr.<%= @reservation.id %> folgender/s Paket(e) bei leihs
+Ihre Reservierung Nr.<%= @reservation.id %> folgender/s Paket(e) im Ausleihsystem 
 <% for paket in @reservation.pakets -%>
 * <%= paket.name %>
 <% end -%>
@@ -35,14 +35,13 @@ Hinweis des Bearbeiters <%= @reservation.updater.name if @reservation.updater %>
 <% end -%>
 
 Hier können Sie sich über weitere Details informieren:
-http://leihs.hgkz.ch/reservations/meine
+http://ausleihe.zhdk.ch/reservations/meine
 
 Mit freundlichen Grüssen,
-<%= @reservation.updater.name + "\r" if @reservation.updater %>leihs-Team
+<%= @reservation.updater.name + "\r" if @reservation.updater %>
 
 
 ------------------------------------------------------
-leihs
 Ausleihe- und Reservierungsystem der
 Zürcher Hochschule der Künste
-http://leihs.zhdk.ch
+http://ausleihe.zhdk.ch
