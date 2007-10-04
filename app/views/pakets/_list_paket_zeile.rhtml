@@ -77,6 +77,11 @@
 									:action => 'show',
 									:id => paket.id },
 								:class => 'normal' ) %>
+
+					<%= unless paket.gestell.blank?
+							"[ " + paket.gestell + " ]"
+							end
+					%>
 				<% else -%>
 					<%= paket.name %>
 				<% end -%>
