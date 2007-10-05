@@ -31,6 +31,22 @@
 <% unless ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.pakets.blank? -%>
 	<div class="feldinhalt">
 		<table>
+
+<!-- This variation toggles the checkboxes instead of primitively selecting all.
+It may become useful to use one day.
+<td><input type='checkbox' onClick="$$('#paket_liste input.paket').each(function(box){box.checked=!box.checked});return true;" /> 
+			</td>
+-->
+
+		<tr>
+			<td>
+			</td>
+			<td><a href="#" onClick="$$('#paket_liste input.paket').each(function(box){box.checked=true});return false;"> Alle auswählen</a> 
+			</td>
+			<td>
+			</td>
+		</tr>
+
 		<% for paket in reservation.pakets %>
 			<tr class="reservation_paketliste" id="paketliste_item<%= paket.id %>">
 				<%= render( :partial => 'reservations/zurueck_paket', :locals => {
