@@ -41,7 +41,7 @@
       <%= render :partial => 'reservations/edit_termin', :locals => {
             :reservation => @reservation } %></div>
     
-    <%= form_tag :action => 'ruecknahme_pruefen', :id => @reservation %>
+    <%= form_tag :action => 'ruecknahme_pruefen', :id => @reservation  %>
       <div class="res_paragraph" id="paket_liste">
         <%= render :partial => 'reservations/paket_rueck_liste', :locals => {
               :reservation => @reservation,

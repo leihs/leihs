@@ -24,8 +24,9 @@
 # paket - das Paket, das ausgetauscht werden soll
 @paket = paket
 -%>
+
 <td class="kein_umbruch">
-	<%= check_box 'paket[]', 'zurueck' %>
+	<%= check_box 'paket[]', 'zurueck', { :class => 'paket' } %>
 	<%= render :partial => 'gemeinsam/indikator',
 				:locals => { :ueberlappt => paket.ueberlappt_hash( reservation ) } %>
 </td>
