@@ -31,7 +31,15 @@
 <% unless ( reservation.ausgeliehen? or reservation.zurueck? ) and reservation.zubehoer.blank? -%>
 	<div class="feldinhalt">
 		<table>
-		<% for zubehoer in reservation.zubehoer %>
+
+ <tr>
+      <td>
+      </td>
+      <td><a href="#" onClick="$$('#zubehoer_liste input.zubehoer').each(function(box){box.checked=true});return false;"> Alle auswählen</a>
+      </td>
+    </tr>
+
+  	<% for zubehoer in reservation.zubehoer %>
 			<tr class="reservation_zubehoerliste" id="zubehoerliste_item<%= zubehoer.id %>">
 				<%= render( :partial => 'reservations/zurueck_zubehoer', :locals => {
 							:reservation => reservation,

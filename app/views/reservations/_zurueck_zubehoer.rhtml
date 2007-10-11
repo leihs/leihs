@@ -25,7 +25,7 @@
 @zubehoer = zubehoer
 -%>
 <td class="kein_umbruch">
-  <%= check_box 'zubehoer[]', 'zurueck' %>
+  <%= check_box 'zubehoer[]', 'zurueck', { :class => 'zubehoer' } %>
   <%= text_field 'zubehoer[]', 'anzahl', :size => 3, :style => 'width: auto;' %>
 </td>
 <td class="maxbreit">
