@@ -99,7 +99,7 @@ class MeinPDF < FPDF
       Line(31.5+1.4, ty, 31.5+3.6, ty)
 			ty += 1.4
       SetXY(31.85, ty)
-      Cell(50, GetLineHeight(), 'leihs.zhdk.ch', 0, 0, 'L')
+      Cell(50, GetLineHeight(), 'ausleihe.zhdk.ch', 0, 0, 'L')
 
 			ty += 3.2
 			# URL des Geraeteparks
