@@ -32,16 +32,16 @@
 	<%= form_tag(
 				:controller => 'zugang',
 				:action=> "login" ) %>
+	<strong>Login bzw. E-Mail:</strong>
 	<%= text_field( "user_login", '',
 				:size => 19,
-				:value => 'eMail/Login',
-				:style => 'background-color: #FEA;',
-				:onFocus => "this.value='';" ) %>
+				:style => 'background-color: #FEA;'
+				 ) %>
+	<strong>Passwort:</strong>
 	<%= password_field( "user_password", '',
 				:size =>19,
-				:value => 'Passwort',
-				:style => 'background-color: #FEA;',
-				:onFocus => "this.value='';" ) %>
+				:style => 'background-color: #FEA;'
+				 ) %>
 	
 	<%= submit_tag 'Anmelden' %>
 	</form>
