@@ -18,6 +18,9 @@
 #    
 #    This file was written by:
 #    Magnus Rembold
+#
+#    With changes by:
+#    Ramon Cahenzli
 %>
 <table>
 	<tr>
@@ -30,15 +33,15 @@
 		<td>Abholung:</td>
 		<td>
 			<% if startdatum_fest.is_a?( Time ) -%>
-				<%= date_select( 'reservation', 'startdatum', :order => [ :day, :month, :year ], :disabled => true ) %>
+				<%= @reservation.startdatum.to_s %>
 				<%= hidden_field( 'reservation', 'startdatum' ) %>
 			<% else -%>
-				<%= date_select( 'reservation', 'startdatum', :order => [ :day, :month, :year ] ) %>
+				<%= calendar_date_select( 'reservation', 'startdatum', :time => false, :year_range => 2 ) %>
 			<% end -%>
 		</td>
 	</tr>
 	<tr>
 		<td>Rückgabe:</td>
-		<td><%= date_select( 'reservation', 'enddatum', :order => [ :day, :month, :year ] ) %></td>
+		<td><%= calendar_date_select( 'reservation', 'enddatum', { :time => false, :year_range => 2 } ) %></td>
 	</tr>
 </table>
