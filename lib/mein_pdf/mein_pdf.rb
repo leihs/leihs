@@ -71,7 +71,7 @@ class MeinPDF < FPDF
     Cell(10, GetLineHeight(), 'h', 0, 0, 'L')
     SetXY(40.8, 15.35)
     Cell(10, GetLineHeight(), 'd', 0, 0, 'L')
-    SetXY(44.6, 15.53)
+    SetXY(44.6, 15.35)
     Cell(10, GetLineHeight(), 'k', 0, 0, 'L')
     
 		ty = 24 # Starthoehe fuer Logobeschriftung

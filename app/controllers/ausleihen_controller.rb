@@ -18,6 +18,7 @@
 #    This file was written by:
 #    Magnus Rembold
 require 'mein_pdf/mein_pdf'
+require 'iconv'
 
 class AusleihenController < ApplicationController
 
@@ -108,6 +109,10 @@ class AusleihenController < ApplicationController
     mein_pdf = MeinPDF.new()
     mein_pdf.AddPage()
 
+		# We need to use Iconv to convert any strings that have umlauts
+    ic = Iconv.new('iso-8859-1','utf-8')
+
+
     mein_pdf.SetXY(mein_pdf.GetX(), 60)
     lx = mein_pdf.GetX()
     ly = mein_pdf.GetY()
@@ -131,7 +136,8 @@ class AusleihenController < ApplicationController
     mein_pdf.SetXY( 148, ly )
     mein_pdf.SetStyle('title')
     mein_pdf.Cell(48, mein_pdf.GetLineHeight(),
-          "zurueck bis #{@reservation.enddatum.strftime( '%d.%m.%y' )}", 0, 1, 'L')
+          ic.iconv("zurück bis #{@reservation.enddatum.strftime( '%A, %d.%m.%y' )}") , 0, 1, 'R'
+					 )
     mein_pdf.SetXY(31.5, ly)
     mein_pdf.Cell(110, mein_pdf.GetLineHeight(),
           "Ausleihe Nr.#{@reservation.id}", 0, 1, 'L')
