@@ -56,8 +56,18 @@ end
 
 # Konfiguration des ActionMailers
 ActionMailer::Base.smtp_settings = {
-	:address => "smtp.hgkz.net",
+	:address => "smtp.zhdk.ch",
 	:port => 25,
-	:domain => "appollo.hgkz.ch"
+	:domain => "ausleihe.zhdk.ch"
 }
 ActionMailer::Base.default_charset = 'utf-8'
+
+# CalendarDateSelect has only a limited number of date formats that work
+CalendarDateSelect.format = :hyphen_ampm
+
+
+# This creates a span instead of a div around fields with errors.
+# The advantage is that with a span, no newline is added after an error
+# field, so the CSS does not have to be changed to "inline" to prevent this
+#ActionView::Base.field_error_proc = Proc.new { |html_tag, instance|
+#"<span class=\"fieldWithErrors\">#{html_tag}</span>" }

@@ -709,7 +709,7 @@ table.liste .paketinhalt {
 .fieldWithErrors {
   padding: 2px;
   background-color: red;
-  display: table;
+  display: inline;
 }
 #errorExplanation {
   border: 2px solid red;
