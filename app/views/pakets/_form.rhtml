@@ -26,11 +26,11 @@
 <div id="select_art" class="abstand">
 	<label for="paket_art">Art</label><br/>
 	<%= select 'paket', 'art', Paket.selectliste_art %>
-	<%= link_to_function( image_tag( "icon_stift.png", :class => 'icon' ), "Element.toggle( 'select_art', 'neu_art' )", :title => 'Neue Art eingeben' ) %>
+	<%= link_to_function( image_tag( "icon_stift.png", :class => 'icon' ), "['select_art', 'neu_art'].each(Element.toggle)", :title => 'Neue Art eingeben' ) %>
 </div>
 
 <div id="neu_art" class="abstand" style="display:none;">
-	<%= link_to_function( image_tag( "icon_kreuz.png", :class => 'icon' ), "Element.toggle( 'select_art', 'neu_art' )", :title => 'Zur Art zurück' ) %><label for="paket_art">Neue Art</label><br/>
+	<%= link_to_function( image_tag( "icon_kreuz.png", :class => 'icon' ), "['select_art', 'neu_art'].each(Element.toggle)", :title => 'Zur Art zurück' ) %><label for="paket_art">Neue Art</label><br/>
 	<%= text_field 'paket', 'neue_art'  %>
 </div>
 

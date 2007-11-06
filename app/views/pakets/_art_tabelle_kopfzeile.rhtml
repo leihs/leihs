@@ -24,8 +24,9 @@
 	<th class="icon">
 		<%= link_to_function(
 					image_tag( offen ? 'klapp_auf_weiss.png' : 'klapp_zu_weiss.png' ),
-					"Element.toggle( 'auf_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}',
-								'zu_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}' )",
+					"['auf_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}',
+					   'zu_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}'].each(Element.toggle)",
+
 					:title => ( offen ? 'verbergen' : 'anzeigen' )
 								) unless mit_remote %>
 		<%= link_to_remote( image_tag( 'klapp_zu_weiss.png' ),
@@ -38,8 +39,8 @@
 	<th class="maxbreit">
 		<%= link_to_function(
 					paket ? paket.art : 'nix',
-					"Element.toggle( 'auf_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}',
-								'zu_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}' )",
+					"['auf_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}',
+						'zu_#{wandle_fuer_html_id( paket ? paket.art : 'nix' )}'].each(Element.toggle)",
 					:title => ( offen ? 'verbergen' : 'anzeigen' )
 								) unless mit_remote %>
 		<%= link_to_remote( paket ? paket.art : 'nix',
