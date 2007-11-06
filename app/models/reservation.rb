@@ -36,6 +36,9 @@ class Reservation < ActiveRecord::Base
   validates_uniqueness_of :id
   validates_presence_of :startdatum, :enddatum, :on => :create
   validates_associated :user, :updater, :geraetepark
+
+#	validates_date :startdatum, :on => :save
+
   
 #-------------------------------------------------------------
 # einfache Status Prädikate
@@ -529,9 +532,27 @@ class Reservation < ActiveRecord::Base
   end
 
   def validate_neu_res_zeitraum
-    errors.add( :startdatum, 'sollte mindestens einen vollen Tag in der Zukunft sein'
-          ) if startdatum < Reservation.fruehestes_startdatum_von().beginning_of_day
-    errors.add( :enddatum, 'sollte nach Abholung sein' ) if enddatum <= startdatum
+	
+		if startdatum.nil?
+			# Now here's something I don't understand: We have a validates_presence_of on
+			# both the startdatum and the enddatum, yet it is very possible that the program
+			# gets to this point with startdatums and enddatums that are nil.
+			#
+			# Why? What's wrong? Why this redundancy here? We must be setting those
+			# items to nil somewhere without intending to do that. That needs to be
+			# debugged.
+
+			errors.add( :startdatum, 'ist nicht angegeben oder ungültig.' )
+
+		elsif enddatum.nil?
+			errors.add( :enddatum, 'ist nicht angegeben oder ungültig.' )
+
+		else
+ 	  	errors.add( :startdatum, 'sollte mindestens einen vollen Tag in der Zukunft sein'
+ 	         ) if startdatum < Reservation.fruehestes_startdatum_von().beginning_of_day
+ 	   	errors.add( :enddatum, 'sollte nach Abholung sein' ) if enddatum <= startdatum
+		end
+
     return ( errors.count == 0 )  
   end
   
