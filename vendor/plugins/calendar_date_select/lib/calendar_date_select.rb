@@ -143,8 +143,15 @@ class CalendarDateSelect
         out << " "
         
         out << image_tag(CalendarDateSelect.image, 
-            :onclick => "new CalendarDateSelect( $(this).previous(), #{options_for_javascript(calendar_options)} );",
-            :style => 'border:0px; cursor:pointer;')
+            #:onclick => "new CalendarDateSelect( $(this).previous(), #{options_for_javascript(calendar_options)} );",
+						# patch by  caoweiyuan
+						# http://code.google.com/p/calendardateselect/issues/detail?id=42
+            :onclick => "new CalendarDateSelect( $(this).previous().hasClassName('fieldWithErrors') ? $(this).previous().down() : $(this).previous(), #{options_for_javascript(calendar_options)} );", 
+
+
+             :style => 'border:0px; cursor:pointer;')
+
+
       end
       
       out
