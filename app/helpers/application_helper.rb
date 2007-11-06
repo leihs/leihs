@@ -41,15 +41,15 @@ module ApplicationHelper
 					image_tag( in_bild_zu,
 								:class => 'icon',
 								:title => in_titel_zu ),
-					"Element.toggle( 'zu_#{in_id}', 'auf_#{in_id}',
-								'#{in_einausblender_prefix}#{in_id}' )",
+					"['zu_#{in_id}', 'auf_#{in_id}', '#{in_einausblender_prefix}#{in_id}'].each(Element.toggle)",
+
 					:id => "zu_#{in_id}" )
 		html += link_to_function(
 					image_tag( in_bild_auf,
 								:class => 'icon',
 								:title => in_titel_auf ),
-					"Element.toggle( 'zu_#{in_id}', 'auf_#{in_id}',
-								'#{in_einausblender_prefix}#{in_id}' )",
+					"['zu_#{in_id}', 'auf_#{in_id}', '#{in_einausblender_prefix}#{in_id}'].each(Element.toggle)",
+					
 					:id => "auf_#{in_id}",
 					:style => "display:none;" )
 		return html
