@@ -167,9 +167,9 @@ class AusleihenController < ApplicationController
       druck_paket( mein_pdf, paket )
     end
 
-    if @reservation.zubehoer
+    unless @reservation.zubehoer.empty?
       mein_pdf.SetStyle('label')
-      mein_pdf.Cell(25, mein_pdf.GetLineHeight(), 'Zubehoer', 0, 1)
+      mein_pdf.Cell(25, mein_pdf.GetLineHeight(), ic.iconv('Zubehör'), 0, 1)
       zubehoer_texte = @reservation.zubehoer.collect { |z|
             z.anzahl.to_s + ' ' + z.beschreibung }
       druck_multi_feld( mein_pdf, zubehoer_texte.join( "\n" ) )
@@ -193,7 +193,14 @@ class AusleihenController < ApplicationController
     mein_pdf.SetY( mein_pdf.GetY() + 3 )
     mein_pdf.SetStyle( 'label' )
     mein_pdf.MultiCell(165.5, mein_pdf.GetLineHeight(), bedingungen_text, 0, 'L')
-    
+
+		unless @reservation.zweck.empty?
+			mein_pdf.SetY( mein_pdf.GetY() + 2 )
+			mein_pdf.SetStyle('label')
+      mein_pdf.Cell(25, mein_pdf.GetLineHeight(), ic.iconv('Die Ausleihe ist ausschliesslich zum folgenden Zweck gestattet:'), 0, 1)
+      druck_multi_feld( mein_pdf, @reservation.zweck )
+		end
+
     # Unterschriften Felder
     if @reservation.herausgeber
       t_herausgeber_name = @reservation.herausgeber.name
@@ -208,7 +215,7 @@ class AusleihenController < ApplicationController
           "Herausgegeben am #{@reservation.startdatum.strftime( "%d.%m.%y" )} von #{t_herausgeber_name}", 0, 'L')
     
     mein_pdf.SetY( mein_pdf.GetY() + 7 )
-    druck_multi_feld( mein_pdf, "Unterschrift Zuruecknehmer:" )
+    druck_multi_feld( mein_pdf, "Unterschrift Zurücknehmer:" )
     mein_pdf.Line(mein_pdf.GetX() + 0.5, mein_pdf.GetY(), 140, mein_pdf.GetY()) 
     mein_pdf.SetStyle( 'label' )
     mein_pdf.MultiCell(165.5, mein_pdf.GetLineHeight(),
