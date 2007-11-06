@@ -37,7 +37,7 @@
 	<div id="select_art">
 		<label for="paket_art">Art</label><br/>
 		<%= select 'gegenstand', 'art', Gegenstand.selectliste_art %>&nbsp;&nbsp;
-		<%= link_to_function( image_tag( "icon_stift.png", :class => 'icon' ), "Element.toggle( 'select_art', 'neu_art' )", :title => 'Neue Art eingeben' ) %>
+		<%= link_to_function( image_tag( "icon_stift.png", :class => 'icon' ), "['select_art', 'neu_art'].each(Element.toggle)", :title => 'Neue Art eingeben' ) %>
 	</div>
 
 	<div id="neu_art" style="display:none">
