@@ -23,7 +23,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
 
 	# Constants
-	BERECHTIGUNG_TEXT = [ [ 'gesperrt', -1 ], [ 'neu', 0 ], [ '', -3 ], [ 'Student', 1 ], [ 'Mitarbeiter', 2 ], [ 'speziell Befugter', 3 ], [ '', -3 ], [ 'Herausgeber', 4 ], [ 'Admin', 5 ], [ 'root', 6 ] ]
+	BERECHTIGUNG_TEXT = [ [ 'geloescht', -2], [ 'gesperrt', -1 ], [ 'neu', 0 ], [ '', -3 ], [ 'Student', 1 ], [ 'Mitarbeiter', 2 ], [ 'speziell Befugter', 3 ], [ '', -3 ], [ 'Herausgeber', 4 ], [ 'Admin', 5 ], [ 'root', 6 ] ]
 	
 	# Assoziationen
 	belongs_to :updater,
@@ -129,6 +129,9 @@ class User < ActiveRecord::Base
 	
 	def benutzer_typ
 		return User.gib_benutzer_typ( self.benutzerstufe )
+	end
+	def geloescht?
+		return ( benutzer_typ == :geloescht )
 	end
 	def gesperrt?
 		return ( benutzer_typ == :gesperrt )
@@ -295,6 +298,7 @@ class User < ActiveRecord::Base
 	
 	def self.gib_benutzer_typ( in_benutzerstufe = 0 )
 		case in_benutzerstufe
+			when -2 then :geloescht
 			when -1 then :gesperrt
 			when 0 then nil
 			when 1..3 then :reservierender

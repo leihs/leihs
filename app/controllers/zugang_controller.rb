@@ -37,6 +37,7 @@ class ZugangController < ApplicationController
 			session[ :hilfeseite ] = 'index'
 			
 		else
+
 			@user = User.authenticate( params[ :user_login ].first, params[ :user_password ].first )
 			
 			unless @user
