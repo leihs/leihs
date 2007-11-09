@@ -110,7 +110,7 @@ class Reservation < ActiveRecord::Base
 
   def status_text
     text = '??'
-    text = '*' if status = STATUS_ZUSAMMENSTELLEN
+    text = '*' if status == STATUS_ZUSAMMENSTELLEN
     for eintrag in STATUS_TEXT
       text = eintrag[ 0 ] if eintrag[ 1 ] == status
     end
