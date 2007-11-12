@@ -295,7 +295,8 @@ module ApplicationHelper
 					when /Mitarbeiter/ then html_text += '#69F'
 					when /speziell/ then html_text += '#77D'
 					when /Herausgeber/ then html_text += '#949'
-					when /gesperrt|neu|geloescht/ then html_text += '#F00'
+					when /gesperrt|neu/ then html_text += '#F00'
+					when /geloescht/ then html_text += '#5A00BD'
 					when /Admin|root/ then html_text += '#990'
 				end
 				html_text += '">' + in_text + '</span>'
