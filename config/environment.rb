@@ -64,7 +64,7 @@ ActionMailer::Base.default_charset = 'utf-8'
 
 # CalendarDateSelect has only a limited number of date formats that work
 CalendarDateSelect.format = :hyphen_ampm
-
+CalendarDateSelect.image = "vcalendar.png" 
 
 # This creates a span instead of a div around fields with errors.
 # The advantage is that with a span, no newline is added after an error

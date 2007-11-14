@@ -14,10 +14,20 @@ class CalendarDateSelect
       :time => " %H:%M",
       :javascript_include => "format_finnish"
     },
-		:german => {
-      :date => "%d.%m.%Y",
+    :american => {
+      :date => "%m/%d/%Y",
+      :time => " %I:%M %p",
+      :javascript_include => "format_american"
+    },
+    :euro_24hr => {
+      :date => "%d %B %Y",
+      :time => " %H:%M", 
+      :javascript_include => "format_euro_24hr"
+    },
+    :italian => {
+      :date => "%d/%m/%Y",
       :time => " %H:%M",
-      :javascript_include => "format_german"
+      :javascript_include => "format_italian"
     }
   }
   
@@ -65,9 +75,9 @@ class CalendarDateSelect
       tag = calendar_options[:hidden] || calendar_options[:embedded] ? 
         hidden_field_tag(name, value, options) :
         text_field_tag(name, value, options)
-      
+     
       calendar_date_select_output(tag, calendar_options)
-    end
+  end
     
     # extracts any options passed into calendar date select, appropriating them to either the Javascript call or the html tag.
     def calendar_date_select_process_options(options)
@@ -94,7 +104,7 @@ class CalendarDateSelect
         calendar_options[key] = "function(param) { #{calendar_options[key]} }" unless calendar_options[key].include?("function") if calendar_options[key]
       end
       
-      calendar_options[:year_range] ||= 10
+      calendar_options[:year_range] = format_year_range(calendar_options[:year_range] || 10)
       calendar_options
     end
     
@@ -114,15 +124,16 @@ class CalendarDateSelect
       
       calendar_options = calendar_date_select_process_options(options)
       
-      options[:value] ||= if obj.respond_to?(method) && obj.send(method).respond_to?(:strftime)
-        obj.send(method).strftime(CalendarDateSelect.date_format_string(use_time))
-      elsif obj.respond_to?("#{method}_before_type_cast") 
-        obj.send("#{method}_before_type_cast")
-      elsif obj.respond_to?(method)
-        obj.send(method).to_s
-      else
-        nil
-      end
+      options[:value] ||= 
+        if(obj.respond_to?(method) && obj.send(method).respond_to?(:strftime))
+          obj.send(method).strftime(CalendarDateSelect.date_format_string(use_time))
+        elsif obj.respond_to?("#{method}_before_type_cast") 
+          obj.send("#{method}_before_type_cast")
+        elsif obj.respond_to?(method)
+          obj.send(method).to_s
+        else
+          nil
+        end
 
       tag = ActionView::Helpers::InstanceTag.new(object, method, self, nil, options.delete(:object))
       calendar_date_select_output(
@@ -140,21 +151,23 @@ class CalendarDateSelect
         
         out << javascript_tag("new CalendarDateSelect( $('#{uniq_id}').previous(), #{options_for_javascript(calendar_options)} ); ")
       else
-        out << " "
-        
-        out << image_tag(CalendarDateSelect.image, 
-            #:onclick => "new CalendarDateSelect( $(this).previous(), #{options_for_javascript(calendar_options)} );",
-						# patch by  caoweiyuan
-						# http://code.google.com/p/calendardateselect/issues/detail?id=42
-            :onclick => "new CalendarDateSelect( $(this).previous().hasClassName('fieldWithErrors') ? $(this).previous().down() : $(this).previous(), #{options_for_javascript(calendar_options)} );", 
 
-
-             :style => 'border:0px; cursor:pointer;')
-
-
+        outTemp = image_tag(CalendarDateSelect.image, 
+            :onclick => "new CalendarDateSelect( $(this).next(), #{options_for_javascript(calendar_options)} );",
+            :style => 'border:0px; cursor:pointer;',
+            :alt => 'Select Date via Calendar'
+            )
+        out = outTemp + " " + out 
       end
       
       out
+    end
+    
+  private
+    def format_year_range(year) # nodoc
+      return year unless year.respond_to?(:first)
+      return "[#{year.first}, #{year.last}]" unless year.first.respond_to?(:strftime)
+      return "[#{year.first.year}, #{year.last.year}]"
     end
   end
 end

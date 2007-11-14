@@ -89,7 +89,6 @@ li { margin-bottom: 0.5em; }
 input[ type=text ],
 input[ type=password ] {
   margin: 0.2em 0 0.2em 0;
-  width: 90%;
 }
 textarea {
   padding: 0.2em;

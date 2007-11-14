@@ -109,3 +109,7 @@
 .calendar_date_select td.today {
   border: 1px dashed #999;
 }
+
+.calendar_date_select .cds_header a.close { 
+  display: none
+}
