@@ -29,18 +29,18 @@
 	<tr>
 		<td style="width: 2em; white-space: nowrap;">
 <%= link_to_function( image_tag( "klapp_auf.png", :class => 'icon' ),
-			"Element.toggle( 'res_#{reservation.id}_a',
+			"['res_#{reservation.id}_a',
 						'res_#{reservation.id}_z',
 						'res_#{reservation.id}',
-						'res_#{reservation.id}_x')",
+						'res_#{reservation.id}_x'].each(Element.toggle)",
 			:title => 'verbergen',
 			:id => "res_#{reservation.id}_a",
 			:style => 'display:none;' ) %>
 <%= link_to_function( image_tag( "klapp_zu.png", :class => 'icon' ),
-			"Element.toggle( 'res_#{reservation.id}_a',
+			"['res_#{reservation.id}_a',
 						'res_#{reservation.id}_z',
 						'res_#{reservation.id}',
-						'res_#{reservation.id}_x')",
+						'res_#{reservation.id}_x'].each(Element.toggle)",
 			:title => 'ansehen',
 			:id => "res_#{reservation.id}_z" ) %><%=
 link_to( image_tag( "icon_kreuz.png", :class => 'icon' ),
