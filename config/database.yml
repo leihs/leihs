@@ -13,7 +13,7 @@ development:
   password: 163ruby9
 
   # for Debian and Ubuntu
-  #socket: /var/run/mysqld/mysqld.sock
+  socket: /var/run/mysqld/mysqld.sock
   
   # for Mac OS X
   #socket: /tmp/mysql.sock 
