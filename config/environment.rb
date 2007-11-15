@@ -1,5 +1,8 @@
 # Be sure to restart your webserver when you modify this file.
 
+# Behandelt Umlaute korrekt
+$KCODE = 'UTF8'
+
 # Uncomment below to force Rails into production mode
 # (Use only when you can't set environment variables through your web/app server)
 # ENV['RAILS_ENV'] = 'production'
@@ -61,6 +64,11 @@ ActionMailer::Base.smtp_settings = {
 	:domain => "ausleihe.zhdk.ch"
 }
 ActionMailer::Base.default_charset = 'utf-8'
+
+# Nicht abgefangene Exceptions an Magnus und Ramon mailen
+ExceptionNotifier.exception_recipients = %w( magnus.rembold@munterbund.de ramon.cahenzli@zhdk.ch )
+ExceptionNotifier.sender_address = %( no-reply@hgkz.net )
+ExceptionNotifier.email_prefix = "[leihs:ERROR] "
 
 # CalendarDateSelect has only a limited number of date formats that work
 CalendarDateSelect.format = :hyphen_ampm
