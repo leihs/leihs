@@ -194,7 +194,7 @@ class AusleihenController < ApplicationController
     mein_pdf.SetStyle( 'label' )
     mein_pdf.MultiCell(165.5, mein_pdf.GetLineHeight(), bedingungen_text, 0, 'L')
 
-		unless @reservation.zweck.empty?
+		unless @reservation.zweck.nil? or @reservation.zweck.empty? 
 			mein_pdf.SetY( mein_pdf.GetY() + 2 )
 			mein_pdf.SetStyle('label')
       mein_pdf.Cell(25, mein_pdf.GetLineHeight(), ic.iconv('Die Ausleihe ist ausschliesslich zum folgenden Zweck gestattet:'), 0, 1)
