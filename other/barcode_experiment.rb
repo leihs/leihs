@@ -1,34 +1,27 @@
 require 'rubygems'
 require 'gbarcode'
 require 'RMagick'
+require 'base64'
 
 include Gbarcode
+include Magick
 
 bc = barcode_create('CTR18282')
 
 barcode_encode(bc, BARCODE_93)
 
-#barcode_print(bc, File.new("test.eps","w") , BARCODE_OUT_EPS)
+# print the barcode into a string instead of stdout
+rd, wr = IO.pipe
+barcode_print(bc, wr, BARCODE_NO_ASCII | BARCODE_OUT_EPS)
+wr.close() # must close this to use the read pipe
+bc_eps = rd.readlines().join("\n")
+rd.close()     # it is good practice to also close this pipe
 
-#png = Image.new(200,100)
+# Note: we can use this EPS directly in our PDFs because the Ruby
+# FPDF port supports loading EPS images. But for other uses (onscreen etc.)
+# we need to convert it to something browser-displayable.
 
-#png.display
-
-def with_stdout_captured
-   old_stdout = $stdout
-   out = StringIO.new
-   $stdout = out
-   begin
-      yield
-   ensure
-      $stdout = old_stdout
-   end
-   out.string
-end
-
-png = with_stdout_captured do
-  barcode_print(bc, $stdout , BARCODE_OUT_EPS)
-end
-
-png.format = "PNG"
-png.display
+img = Image.read_inline( Base64.encode64(bc_eps)).first
+img.format = "PNG"
+img.crop!(CenterGravity, img.columns , 30)
+img.display
