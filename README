@@ -14,10 +14,18 @@ as Free Software later on.
 
 Since it's a "plain" Ruby on Rails application, we're
 reasonably sure that you can set it up without our help
-by going through the database dumps etc.
+by going through the included files, which do not stray
+too far from the defaults. 
 
 More information forthcoming! ;)
 
+
++ Dependencies
+
+leihs depends on the following gems and/or modules:
+
+Gbarcode (as of 1.1.10)
+RMagick  (as of 1.1.10)
 
 --
 
