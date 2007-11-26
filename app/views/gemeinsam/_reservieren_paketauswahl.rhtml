@@ -31,7 +31,7 @@ end -%>
 
 <% unless paketauswahl.blank? -%>
 <div class="auswahl">
-	<div class="auswahltitel">Auswahl (<%= paketauswahl.length %>
+	<div class="auswahltitel">Warenkorb (<%= paketauswahl.length %>
 	  <% if paketauswahl.length > 1 %>
       Pakete)
 	  <% else -%>
@@ -47,7 +47,7 @@ end -%>
   						{ :update => 'auswahl',
   							:url => { :action => 'paket_weg', :id => paket.id },
   							:complete => "Element.show( 'paket_#{paket.id}', 'zu_#{paket.id}' ); Element.hide( 'auf_#{paket.id}' )" },
-  						:title => 'aus Auswahl entfernen' ) %>
+  						:title => 'aus Warenkorb entfernen' ) %>
   			<%=h truncate( paket.inventar_nr_text + ' ' + paket.name, ( paketauswahl.size > 4 ? 22 : 26 ) ) %><br/>
   		<% end
   	end -%>
@@ -59,7 +59,7 @@ end -%>
 			<%= link_to( 'Abbrechen',
 						:controller => 'reservieren',
 						:action => 'reservation_abbrechen' ) %>
-			| <%= submit_tag 'Auswählen' -%>
+			| <%= submit_tag 'Reservieren' -%>
 		</div>
 		<%= end_form_tag -%>
 	<% end %>
