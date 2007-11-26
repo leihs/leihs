@@ -1,0 +1,5 @@
+if @bcredirect
+	page.redirect_to @bcredirect 
+elsif @bcnotice
+	page.replace_html("bcresults" , :partial => "barcode_results" )
+end
