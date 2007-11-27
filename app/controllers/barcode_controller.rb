@@ -41,8 +41,8 @@ class BarcodeController < ApplicationController
 
 	def barcode_search( barcode )
     # It's a contract ID!
-    if barcode =~ /^CTR\d+/
-      id = barcode.scan(/^CTR(\d+)/)[0][0]
+    if barcode =~ /^RES\d+/
+      id = barcode.scan(/^RES(\d+)/)[0][0]
       result = Reservation.find_by_id(id)
 		# Might be a user
 		elsif barcode =~ /^E?\d{7,8}$/
