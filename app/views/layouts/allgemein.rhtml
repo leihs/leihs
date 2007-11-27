@@ -37,7 +37,12 @@
 
 	<title>Ausleihe an der ZHdK | <%= ( params[ :controller ].to_s + '.' + params[ :action ].to_s ) %></title>
 </head>
-<body>
+
+	<% if (session[ :user ]) and ([:root, :admin, :herausgeber].include?(session[ :user ].benutzer_typ) ) %>
+	<body onLoad="Form.focusFirstElement('bcsearchform')">
+	<% else %>
+	<body>
+	<% end %>
 
 <div id="alles">
 
