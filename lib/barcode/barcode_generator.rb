@@ -78,7 +78,7 @@ class BarcodeGenerator
 	def png_file( filename )
 		img = self.png()
 		f = File.new("tmp/barcodes/" + filename, "w")
-		return img.write(f)
+		img.write(f)
 		f.close()
 	end
 
