@@ -19,9 +19,9 @@
 #    This file was written by:
 #    Ramon Cahenzli 
 %>
-		<div class="menublock" id="bcsearchbox">
-		<div id="bcresults"><span style="font-weight: bold;">Barcode-Box</span></div>
+		<div id="bcsearchbox" style="float: right;">
 		<%= form_remote_tag :url => { :controller => 'barcode', :action => 'search' }  %>
+		<span id="bcresults"><span style="font-weight: bold;">Barcode: </span>&nbsp;</span>
 		<%= text_field 'searchstring', nil , :size => 8, :tabindex => 1 %> 
 		<%= end_form_tag %>
 		</div>
