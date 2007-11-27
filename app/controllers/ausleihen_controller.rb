@@ -128,7 +128,7 @@ class AusleihenController < ApplicationController
 		require 'barcode/barcode_generator'
 		bc = BarcodeGenerator.new("CTR" + @reservation.id.to_s)
 		bc.png_file(@reservation.id.to_s + ".png")
-		mein_pdf.Image("tmp/barcodes/" + @reservation.id.to_s + ".png", 159.0, 25.0, 40, 8  )
+		mein_pdf.Image("#{RAILS_ROOT}/tmp/barcodes/" + @reservation.id.to_s + ".png", 159.0, 25.0, 40, 8  )
 
     # Print 'Zürcher Hochschule ...'
     mein_pdf.SetStyle('label')

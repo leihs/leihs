@@ -59,7 +59,7 @@ class BarcodeGenerator
 		bc = Gbarcode::barcode_create( @barcode_ascii.to_s )
 		Gbarcode::barcode_encode(bc, Gbarcode::BARCODE_128)
 		# print the barcode into a file instead of stdout
-		f = File.new("tmp/barcodes/" + filename, "w")
+		f = File.new("#{RAILS_ROOT}/tmp/barcodes/" + filename, "w")
 		Gbarcode::barcode_print(bc, f, Gbarcode::BARCODE_NO_ASCII | Gbarcode::BARCODE_OUT_EPS)
 		f.close()
 	end
@@ -77,7 +77,7 @@ class BarcodeGenerator
 	# Saves PNG version to file
 	def png_file( filename )
 		img = self.png()
-		f = File.new("tmp/barcodes/" + filename, "w")
+		f = File.new("#{RAILS_ROOT}/tmp/barcodes/" + filename, "w")
 		img.write(f)
 		f.close()
 	end
