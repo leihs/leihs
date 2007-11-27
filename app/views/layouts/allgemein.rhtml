@@ -50,7 +50,6 @@
 					<%= render :partial => 'menu/menu_reservierender' %>
 				<% when :herausgeber, :admin, :root -%>
 					<%= render :partial => 'menu/menu_herausgeber' %>
-					<%= render :partial => 'gemeinsam/barcode_searchbox' %>
 				<% else -%>
 					<%= render :partial => 'menu/menu' %>
 			<% end
@@ -89,6 +88,9 @@
       </div>
     <% end %>
 
+		<% if (session[ :user ]) and ([:root, :admin, :herausgeber].include?(session[ :user ].benutzer_typ) ) %>
+		<%= render :partial => 'gemeinsam/barcode_searchbox' %>
+		<% end %>
 
 		<%= yield %>
 	</div>
