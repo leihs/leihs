@@ -58,7 +58,7 @@ module PDF_EPS
         f_start = data.index('%%EndProlog') if f_start === false
         f_start = data.index('%%BoundingBox') if f_start === false
         
-        data = data.slice(f_start, data.length)
+        #data = data.slice(f_start, data.length)
         
         f_end = data.index('%%PageTrailer')
         f_end = data.index('showpage') if f_end === false

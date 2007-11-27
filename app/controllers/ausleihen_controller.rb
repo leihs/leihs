@@ -123,6 +123,13 @@ class AusleihenController < ApplicationController
     mein_pdf.Cell(100, mein_pdf.GetLineHeight(),
           @reservation.geraetepark.name.downcase + ' ausleihvertrag', 0, 0, 'R')
 
+
+		# Print barcode
+		require 'barcode/barcode_generator'
+		bc = BarcodeGenerator.new("CTR" + @reservation.id.to_s)
+		bc.png_file(@reservation.id.to_s + ".png")
+		mein_pdf.Image("tmp/barcodes/" + @reservation.id.to_s + ".png", 159.0, 25.0, 40, 8  )
+
     # Print 'Zürcher Hochschule ...'
     mein_pdf.SetStyle('label')
     mein_pdf.SetXY(31.85, 25.4)
