@@ -21,7 +21,7 @@
 class BarcodeController < ApplicationController
 
 	def search
-		searchstring = params[:searchstring]
+		searchstring = params[:bcsearchstring]
 	
 		if searchstring.nil? or searchstring.empty?
 			@bcnotice = "Kein Suchbegriff angegeben."
