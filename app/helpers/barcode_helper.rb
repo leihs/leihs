@@ -19,34 +19,4 @@
 #    Ramon Cahenzli 
 module BarcodeHelper
 
-	require 'rubygems'
-	require 'gbarcode'
-	require 'RMagick'
-	require 'base64'
-
-	include Gbarcode
-	include Magick
-
-	def get_barcode_eps( string )
-		bc = barcode_create( string.to_s )
-		barcode_encode(bc, BARCODE_93)
-
-	# print the barcode into a string instead of stdout
-		rd, wr = IO.pipe
-		barcode_print(bc, wr, BARCODE_NO_ASCII | BARCODE_OUT_EPS)
-		wr.close() # must close this to use the read pipe
-		bc_eps = rd.readlines().join("\n")
-		rd.close()     # it is good practice to also close this pipe
-
-		return bc_eps
-	end
-
-	def get_barcode_png( string )
-		img = Image.read_inline( Base64.encode64( get_barcode_eps( string) )).first
-		img.format = "PNG"
-		img.crop!(CenterGravity, img.columns , 30)
-		return img
-	end
-
-
 end

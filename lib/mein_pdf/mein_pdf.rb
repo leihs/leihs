@@ -1,9 +1,11 @@
 require 'fpdf/fpdf'
 require 'fpdf/bookmark'
+require 'fpdf/fpdf_eps'
 require 'iconv'
 
 
 class MeinPDF < FPDF
+
 
   # Path properties
   @BasePath      = ''
@@ -47,8 +49,8 @@ class MeinPDF < FPDF
     
     # Bookmark Setup
     extend(PDF_Bookmark)
-
-    
+   
+		extend(PDF_EPS)
   end
     
   # --------------------------------------------------------------------
