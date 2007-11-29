@@ -113,3 +113,8 @@
 .calendar_date_select .cds_header a.close { 
   display: none
 }
+
+.fieldWithErrors .calendar_date_select {
+  border: 2px solid red;
+}
+
