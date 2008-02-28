@@ -1,1 +1,0 @@
-require 'capistrano/ext/multistage'
