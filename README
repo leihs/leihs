@@ -1,0 +1,28 @@
+
+
+    leihs - a borrowing/lending/resource management system 
+            written in Ruby on Rails  
+
++ General
+
+This is the development branch for version 2.0 of leihs.
+
+2.0 is an ambitious rewrite of 1.x, evading the errors we
+made the first time round and making everyone really really
+happy.
+
+We can hope, can't we?
+
++ Dependencies
+
+leihs depends on the following gems and/or modules:
+
+Gbarcode 
+gettext
+ 
+--
+
+Developed at the Zurich University of the Arts
+http://www.zhdk.ch
+
+Visit our IT Center at http://itz.zhdk.ch
