@@ -1,3 +1,0 @@
-page.replace_html( 'zubehoer_liste', :partial => 'zubehoer_liste', :locals => {
-      :reservation => @reservation,
-      :mit_erweitern => !( @reservation.ausgeliehen? or @reservation.zurueck? ) } )

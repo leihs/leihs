@@ -1,2 +1,0 @@
-#!/bin/bash
-/var/www/rails/leihs/current/script/process/spawner -e development -p 11000 -i 3 -r 5

@@ -1,6 +1,0 @@
-if @bcredirect
-	page.redirect_to @bcredirect 
-elsif @bcnotice
-	page['bcsearchstring_'].value =''
-	page.replace_html("bcresults" , :partial => "barcode_results" )
-end

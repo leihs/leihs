@@ -1,6 +1,0 @@
-<%= image_tag( @geraetepark.logo_url, :width => 120 ) unless @geraetepark.logo_url.blank? %><br /><br />
-<h2>Gerätepark <%= @geraetepark.name %></h2>
-<p>
-	<%= simple_format( h( @geraetepark.ansprechpartner ) ) %>
-	<%= simple_format( h( @geraetepark.beschreibung ) ) %>
-</p>
