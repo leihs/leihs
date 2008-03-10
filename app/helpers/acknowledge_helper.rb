@@ -1,0 +1,2 @@
+module AcknowledgeHelper
+end
