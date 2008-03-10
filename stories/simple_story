@@ -1,0 +1,15 @@
+Story: Simple
+
+	As an inventory_manager
+	I want to see all new orders and acknowledge them
+	in order to have control over who is receiving what
+
+	Scenario: Test
+	
+	Given None
+	
+	When Nothing happens
+
+	Then flash appears
+	
+	
