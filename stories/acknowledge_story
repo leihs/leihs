@@ -1,19 +1,19 @@
 Story: Acknowledge orders
 
-	As an inventory_manager
-	I want to see all new orders and acknowledge them
-	in order to have control over who is receiving what
-	
-	Scenario: List with new orders
-	
-	Given the list of new orders contains 0 elements
-	And a new order is placed by a user named 'Joe'
-	
-	When the inventory_manager clicks 'acknowledge'
-	
-	Then he sees 1 order
-	And the name of the user is 'Joe'
-	
+  As an inventory_manager
+  I want to see all new orders and acknowledge them
+  in order to have control over who is receiving what
+  
+  Scenario: List with new orders
+
+  Given the list of new orders contains 0 elements
+  And a new order is placed by a user named 'Joe'
+
+  When the inventory_manager clicks 'acknowledge'
+
+  Then he sees 1 order
+  And the name of the user is 'Joe'
+
 
   Scenario: Count of new orders is shown
 
@@ -26,7 +26,7 @@ Story: Acknowledge orders
 
   When the inventory_manager clicks 'acknowledge'
 
-  Then the tab is titled 'acknowledge (5)'
+  Then the active tab is titled 'acknowledge (5)'
 
 
   Scenario: Acknowledge order
@@ -53,7 +53,7 @@ Story: Acknowledge orders
   And its subject is 'Reservation Confirmation'
   And it contains information "5 NEC 245"
 
-  And he sees 0 order
+  And inventory_manager sees 0 orders
 
 
   Scenario: Reject order
@@ -81,7 +81,7 @@ Story: Acknowledge orders
   And its subject is 'Reservation Rejected'
   And it contains information "Because I don't like you."
 
-  And he sees 0 order
+  And inventory_manager sees 0 order
 
 
   Scenario: Change amount and add Item
@@ -98,10 +98,11 @@ Story: Acknowledge orders
 
   Then Joe's order is opened in tab
 
-  When he changes amount to 4
+  When inventory_manager changes number of items of type 'NEC 245' to 4
   And he adds 1 item 'NEC 333'
   And he adds a personal message: "NEC 333 is better in that situation"
   And inventory_manager approves order
+  And inventory_manager sees 0 orders
 
   Then joe@test.ch receives an email
   And its subject is 'Reservation with changes confirmed'
@@ -133,10 +134,10 @@ Story: Acknowledge orders
 
   When inventory_manager searches for 'NEC 333'
 
-  Then 1 item appears
+  Then a choice of 1 item appears
 
   When inventory_manager selects 'NEC 333'
-
+  Then he sees 5 items of type 'NEC 333'
   When he adds a personal message: "NEC 333 is better than NEC 245"
   And inventory_manager approves order
 
@@ -159,12 +160,12 @@ Story: Acknowledge orders
   And the inventory_manager clicks 'acknowledge'
 
   Then he sees 1 order
-  And the order has 'draft' state
+  And the order has 'draft' status
 
   When he chooses Joe's order
 
   Then he sees 1 NEC 245
-  And he can undo changes
+  And he can revert order
   And he can approve order
   And he can reject order
 
