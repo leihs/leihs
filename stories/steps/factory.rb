@@ -18,5 +18,24 @@ module Factory
     o.save
     o
   end
+  
+  def self.create_type(attributes = {})
+    default_attributes = {
+      :name => 'type_1'
+    }
+    t = Type.create default_attributes.merge(attributes)
+    t.save
+    t
+  end
 
+  def self.create_item(attributes = {})
+    default_attributes = {
+      :inventory_code => "1"
+      
+    }
+    
+    i = Item.create default_attributes.merge(attributes)
+    i.save
+    i
+  end
 end

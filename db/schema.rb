@@ -9,7 +9,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 2) do
+ActiveRecord::Schema.define(:version => 6) do
+
+  create_table "accounts", :force => true do |t|
+    t.string   "email"
+    t.string   "login"
+    t.string   "hashed_password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "authentication_systems", :force => true do |t|
+    t.string "name"
+    t.string "class_name"
+  end
+
+  create_table "items", :force => true do |t|
+    t.string   "inventory_code"
+    t.integer  "type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "order_lines", :force => true do |t|
+    t.integer  "type_id"
+    t.integer  "order_id"
+    t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id",                       :null => false
@@ -20,13 +48,15 @@ ActiveRecord::Schema.define(:version => 2) do
 
   add_index "orders", ["user_id"], :name => "fk_order_user"
 
+  create_table "types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "login"
-    t.string   "email"
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
-    t.string   "remember_token"
-    t.datetime "remember_token_expires_at"
+    t.integer  "authentication_system_id", :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end

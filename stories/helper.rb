@@ -14,3 +14,6 @@ def run_local_story(filename, options={})
   run File.join(File.dirname(__FILE__), filename), options
 end
 
+def link2(attributes)
+  "<a href='#{attributes['url']}'>#{attributes['name']}</a>"
+end

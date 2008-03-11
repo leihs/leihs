@@ -1,0 +1,2097 @@
+# Logfile created on Mon Mar 10 17:55:09 CET 2008  [4;36;1mSQL (0.000138)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000113)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000193)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000151)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000101)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000237)[0m   [0;1mSELECT version FROM schema_info[0m
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 10:44:17) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsGOgtub3RpY2UiCmhlbGxvBjoKQHVzZWR7BjsGVA%3D%3D--7696bd559997d09e954edfb3fff78483bacec157
+  Parameters: {"action"=>"index", "controller"=>"acknowledge"}
+  [4;35;1mOrder Load (0.000000)[0m   [0mMysql::Error: Table 'leihs2_dev.orders' doesn't exist: SELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+
+
+ActiveRecord::StatementInvalid (Mysql::Error: Table 'leihs2_dev.orders' doesn't exist: SELECT * FROM `orders`   WHERE (`orders`.`status` = 'new') ):
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:150:in `log'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/mysql_adapter.rb:281:in `execute'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/mysql_adapter.rb:481:in `select'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:7:in `select_all_without_query_cache'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:53:in `select_all'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:74:in `cache_sql'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:53:in `select_all'
+    /vendor/rails/activerecord/lib/active_record/base.rb:532:in `find_by_sql'
+    /vendor/rails/activerecord/lib/active_record/base.rb:1233:in `find_every'
+    /vendor/rails/activerecord/lib/active_record/base.rb:503:in `find'
+    /app/models/order.rb:8:in `new_orders'
+    /app/controllers/acknowledge_controller.rb:4:in `index'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:1158:in `perform_action_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+  [4;36;1mSQL (0.000147)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000101)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000205)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000000)[0m   [0mMysql::Error: Table 'schema_info' already exists: CREATE TABLE `schema_info` (version int(11))[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mMysql::Error: Table 'schema_info' already exists: CREATE TABLE `schema_info` (version int(11))[0m
+  [4;35;1mSQL (0.000253)[0m   [0mSELECT version FROM schema_info[0m
+Migrating to CreateUsers (1)
+  [4;36;1mSQL (0.002214)[0m   [0;1mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `login` varchar(255) DEFAULT NULL, `email` varchar(255) DEFAULT NULL, `crypted_password` varchar(40) DEFAULT NULL, `salt` varchar(40) DEFAULT NULL, `remember_token` varchar(255) DEFAULT NULL, `remember_token_expires_at` datetime DEFAULT NULL, `created_at` datetime DEFAULT NULL, `updated_at` datetime DEFAULT NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.000279)[0m   [0mUPDATE schema_info SET version = 1[0m
+  [4;36;1mSQL (0.000149)[0m   [0;1mSELECT version FROM schema_info[0m
+Migrating to CreateOrders (2)
+  [4;35;1mSQL (0.024056)[0m   [0mCREATE TABLE `orders` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `user_id` int NOT NULL, `status` varchar(255) DEFAULT 'new', `created_at` datetime DEFAULT NULL, `updated_at` datetime DEFAULT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.013064)[0m   [0;1malter table orders add constraint fk_order_user foreign key (user_id) references users(id)[0m
+  [4;35;1mSQL (0.000327)[0m   [0mUPDATE schema_info SET version = 2[0m
+  [4;36;1mSQL (0.000289)[0m   [0;1mSELECT * FROM schema_info[0m
+  [4;35;1mSQL (0.000408)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.001837)[0m   [0;1mSHOW FIELDS FROM `orders`[0m
+  [4;35;1mSQL (0.002587)[0m   [0mdescribe `orders`[0m
+  [4;36;1mSQL (0.000465)[0m   [0;1mSHOW KEYS FROM `orders`[0m
+  [4;35;1mSQL (0.001900)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.002204)[0m   [0;1mdescribe `users`[0m
+  [4;35;1mSQL (0.000706)[0m   [0mSHOW KEYS FROM `users`[0m
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 10:44:35) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"acknowledge"}
+  [4;36;1mOrder Load (0.000744)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering acknowledge/index
+Completed in 0.01121 (89 reqs/sec) | Rendering: 0.00302 (26%) | DB: 0.00123 (11%) | 200 OK [http://localhost/acknowledge/index]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 10:47:39) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"acknowledge"}
+  [4;35;1mOrder Load (0.000378)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering acknowledge/index
+Completed in 0.00844 (118 reqs/sec) | Rendering: 0.00182 (21%) | DB: 0.00038 (4%) | 200 OK [http://localhost/acknowledge/index]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 10:47:42) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"acknowledge"}
+  [4;36;1mOrder Load (0.000370)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering acknowledge/index
+Completed in 0.00918 (108 reqs/sec) | Rendering: 0.00194 (21%) | DB: 0.00037 (4%) | 200 OK [http://localhost/acknowledge/index]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 10:48:04) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"acknowledge"}
+  [4;35;1mOrder Load (0.000345)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering acknowledge/index
+Completed in 0.01157 (86 reqs/sec) | Rendering: 0.00497 (42%) | DB: 0.00034 (2%) | 200 OK [http://localhost/acknowledge/index]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 10:48:21) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"acknowledge"}
+  [4;36;1mOrder Load (0.000358)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering acknowledge/index
+Completed in 0.01067 (93 reqs/sec) | Rendering: 0.00384 (35%) | DB: 0.00036 (3%) | 200 OK [http://localhost/acknowledge/index]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 10:48:56) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"acknowledge"}
+  [4;35;1mOrder Load (0.000361)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering acknowledge/index
+Completed in 0.01027 (97 reqs/sec) | Rendering: 0.00377 (36%) | DB: 0.00036 (3%) | 200 OK [http://localhost/acknowledge/index]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 10:48:57) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"acknowledge"}
+  [4;36;1mOrder Load (0.000447)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering acknowledge/index
+Completed in 0.00950 (105 reqs/sec) | Rendering: 0.00317 (33%) | DB: 0.00045 (4%) | 200 OK [http://localhost/acknowledge/index]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 10:49:08) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"acknowledge"}
+  [4;35;1mOrder Load (0.000439)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering acknowledge/index
+Completed in 0.00995 (100 reqs/sec) | Rendering: 0.00368 (36%) | DB: 0.00044 (4%) | 200 OK [http://localhost/acknowledge/index]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 10:50:28) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"acknowledge"}
+  [4;36;1mOrder Load (0.000369)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering acknowledge/index
+Completed in 0.00974 (102 reqs/sec) | Rendering: 0.00316 (32%) | DB: 0.00037 (3%) | 200 OK [http://localhost/acknowledge/index]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 10:50:41) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"acknowledge"}
+  [4;35;1mOrder Load (0.000519)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering acknowledge/index
+Completed in 0.01044 (95 reqs/sec) | Rendering: 0.00320 (30%) | DB: 0.00052 (4%) | 200 OK [http://localhost/acknowledge/index]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2008-03-11 10:52:04) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Rendering template within layouts/main
+Rendering dashboard/index
+
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.size) on line #4 of layouts/main.html.erb:
+1: <html>
+2: <body>
+3: 	<div id="header">
+4: 		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", :controller => 'acknowledge') %>
+5: 	</div>
+6: 
+7: </body>
+
+    app/views/layouts/main.html.erb:4:in `_run_erb_47app47views47layouts47main46html46erb'
+    vendor/rails/actionpack/lib/action_view/base.rb:637:in `compile_and_render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+    /usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+    vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1164:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2008-03-11 10:52:27) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Rendering template within layouts/main
+Rendering dashboard/index
+
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.size) on line #4 of layouts/main.html.erb:
+1: <html>
+2: <body>
+3: 	<div id="header">
+4: 		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", :controller => 'acknowledge') %>
+5: 	</div>
+6: 
+7: </body>
+
+    app/views/layouts/main.html.erb:4:in `_run_erb_47app47views47layouts47main46html46erb'
+    vendor/rails/actionpack/lib/action_view/base.rb:637:in `compile_and_render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+    /usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+    vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2008-03-11 10:52:29) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"dashboard"}
+Rendering template within layouts/main
+Rendering dashboard/index
+
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.size) on line #4 of layouts/main.html.erb:
+1: <html>
+2: <body>
+3: 	<div id="header">
+4: 		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", :controller => 'acknowledge') %>
+5: 	</div>
+6: 
+7: </body>
+
+    app/views/layouts/main.html.erb:4:in `_run_erb_47app47views47layouts47main46html46erb'
+    vendor/rails/actionpack/lib/action_view/base.rb:637:in `compile_and_render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+    /usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+    vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2008-03-11 11:06:41) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {}
+
+
+ActionController::RoutingError (No route matches "/backend/dashboard/index" with {:method=>:get}):
+    /vendor/rails/actionpack/lib/action_controller/routing.rb:1441:in `recognize_path'
+    /vendor/rails/actionpack/lib/action_controller/routing.rb:1424:in `recognize'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:170:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing ApplicationController#show (for 127.0.0.1 at 2008-03-11 11:10:11) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"show", "id"=>"index", "controller"=>"backend/dashboard"}
+
+
+LoadError (Expected /Users/jeromemuller/Sites/leihs2/app/controllers/backend/dashboard_controller.rb to define Backend::DashboardController):
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:249:in `load_missing_constant'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:453:in `const_missing'
+    /vendor/rails/activesupport/lib/active_support/inflector.rb:257:in `constantize'
+    /vendor/rails/activesupport/lib/active_support/core_ext/string/inflections.rb:148:in `constantize'
+    /vendor/rails/actionpack/lib/action_controller/routing.rb:1426:in `recognize'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:170:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing DashboardController#show (for 127.0.0.1 at 2008-03-11 11:23:45) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"show", "id"=>"index", "controller"=>"backend/dashboard"}
+
+
+ActionController::UnknownAction (No action responded to show):
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing DashboardController#show (for 127.0.0.1 at 2008-03-11 11:25:50) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"show", "id"=>"index", "controller"=>"backend/dashboard"}
+
+
+ActionController::UnknownAction (No action responded to show):
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing DashboardController#show (for 127.0.0.1 at 2008-03-11 11:25:55) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"show", "id"=>"index", "controller"=>"backend/dashboard"}
+
+
+ActionController::UnknownAction (No action responded to show):
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2008-03-11 11:25:58) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/dashboard"}
+Rendering template within layouts/main
+Rendering backend/dashboard/index
+ERROR: compiling _run_erb_47app47views47layouts47main46html46erb RAISED compile error
+/Users/jeromemuller/Sites/leihs2/app/views/layouts/main.html.erb:4: parse error, unexpected ')'
+_erbout.concat "\t\t"; _erbout.concat(( render_component :controller => ).to_s); _erbout.concat "\n"
+                                                                         ^
+Function body: def _run_erb_47app47views47layouts47main46html46erb(local_assigns)
+_erbout = ''; _erbout.concat "<html>\n"
+_erbout.concat "<body>\n"
+_erbout.concat "\t<div id=\"header\">\n"
+_erbout.concat "\t\t"; _erbout.concat(( render_component :controller => ).to_s); _erbout.concat "\n"
+_erbout.concat "\t\t"; _erbout.concat(( link_to(_("Acknowledge") + " (#{@new_orders.size})", :controller => 'acknowledge') ).to_s); _erbout.concat "\n"
+_erbout.concat "\t</div>\n"
+_erbout.concat "\n"
+_erbout.concat "</body>\n"
+_erbout.concat "</html>"; _erbout
+end
+Backtrace: /Users/jeromemuller/Sites/leihs2/app/views/layouts/main.html.erb:10:in `compile_template'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_view/base.rb:630:in `compile_and_render_template'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+/usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+/usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+/usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+/usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+/usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+/usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+/usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/railties/lib/commands/servers/webrick.rb:66
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/railties/lib/commands/server.rb:39
+script/server:3
+
+
+ActionView::TemplateError (compile error
+/Users/jeromemuller/Sites/leihs2/app/views/layouts/main.html.erb:4: parse error, unexpected ')'
+_erbout.concat "\t\t"; _erbout.concat(( render_component :controller => ).to_s); _erbout.concat "\n"
+                                                                         ^) on line #4 of layouts/main.html.erb:
+1: <html>
+2: <body>
+3: 	<div id="header">
+4: 		<%= render_component :controller => %>
+5: 		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", :controller => 'acknowledge') %>
+6: 	</div>
+7: 
+
+    app/views/layouts/main.html.erb:10:in `compile_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:630:in `compile_and_render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+    /usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+    vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing DashboardController#show (for 127.0.0.1 at 2008-03-11 11:26:03) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"show", "id"=>"index", "controller"=>"backend/dashboard"}
+
+
+ActionController::UnknownAction (No action responded to show):
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2008-03-11 11:26:05) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/dashboard"}
+Rendering template within layouts/main
+Rendering backend/dashboard/index
+ERROR: compiling _run_erb_47app47views47layouts47main46html46erb RAISED compile error
+/Users/jeromemuller/Sites/leihs2/app/views/layouts/main.html.erb:4: parse error, unexpected ')'
+_erbout.concat "\t\t"; _erbout.concat(( render_component :controller => ).to_s); _erbout.concat "\n"
+                                                                         ^
+Function body: def _run_erb_47app47views47layouts47main46html46erb(local_assigns)
+_erbout = ''; _erbout.concat "<html>\n"
+_erbout.concat "<body>\n"
+_erbout.concat "\t<div id=\"header\">\n"
+_erbout.concat "\t\t"; _erbout.concat(( render_component :controller => ).to_s); _erbout.concat "\n"
+_erbout.concat "\t\t"; _erbout.concat(( link_to(_("Acknowledge") + " (#{@new_orders.size})", :controller => 'acknowledge') ).to_s); _erbout.concat "\n"
+_erbout.concat "\t</div>\n"
+_erbout.concat "\n"
+_erbout.concat "</body>\n"
+_erbout.concat "</html>"; _erbout
+end
+Backtrace: /Users/jeromemuller/Sites/leihs2/app/views/layouts/main.html.erb:10:in `compile_template'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_view/base.rb:630:in `compile_and_render_template'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+/usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+/usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+/usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+/usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+/usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+/usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+/usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+/usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/railties/lib/commands/servers/webrick.rb:66
+/usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+/Users/jeromemuller/Sites/leihs2/vendor/rails/railties/lib/commands/server.rb:39
+script/server:3
+
+
+ActionView::TemplateError (compile error
+/Users/jeromemuller/Sites/leihs2/app/views/layouts/main.html.erb:4: parse error, unexpected ')'
+_erbout.concat "\t\t"; _erbout.concat(( render_component :controller => ).to_s); _erbout.concat "\n"
+                                                                         ^) on line #4 of layouts/main.html.erb:
+1: <html>
+2: <body>
+3: 	<div id="header">
+4: 		<%= render_component :controller => %>
+5: 		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", :controller => 'acknowledge') %>
+6: 	</div>
+7: 
+
+    app/views/layouts/main.html.erb:10:in `compile_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:630:in `compile_and_render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+    /usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+    vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2008-03-11 11:26:55) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/dashboard"}
+Rendering template within layouts/main
+Rendering backend/dashboard/index
+
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.size) on line #4 of layouts/main.html.erb:
+1: <html>
+2: <body>
+3: 	<div id="header">
+4: 		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", :controller => 'acknowledge') %>
+5: 	</div>
+6: 
+7: </body>
+
+    app/views/layouts/main.html.erb:4:in `_run_erb_47app47views47layouts47main46html46erb'
+    vendor/rails/actionpack/lib/action_view/base.rb:637:in `compile_and_render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+    /usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+    vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2008-03-11 11:28:09) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/dashboard"}
+
+
+NameError (uninitialized constant BackendController):
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:266:in `load_missing_constant'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:453:in `const_missing'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:465:in `const_missing'
+    /app/controllers/backend/dashboard_controller.rb:1
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:203:in `load_file'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:202:in `load_file'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:94:in `require_or_load'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:248:in `load_missing_constant'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:453:in `const_missing'
+    /vendor/rails/activesupport/lib/active_support/inflector.rb:257:in `constantize'
+    /vendor/rails/activesupport/lib/active_support/core_ext/string/inflections.rb:148:in `constantize'
+    /vendor/rails/actionpack/lib/action_controller/routing.rb:1426:in `recognize'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:170:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2008-03-11 11:28:26) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/dashboard"}
+Rendering template within layouts/main
+Rendering backend/dashboard/index
+
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.size) on line #4 of layouts/main.html.erb:
+1: <html>
+2: <body>
+3: 	<div id="header">
+4: 		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", :controller => 'acknowledge') %>
+5: 	</div>
+6: 
+7: </body>
+
+    app/views/layouts/main.html.erb:4:in `_run_erb_47app47views47layouts47main46html46erb'
+    vendor/rails/actionpack/lib/action_view/base.rb:637:in `compile_and_render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+    /usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+    vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2008-03-11 11:29:16) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/dashboard"}
+  [4;36;1mOrder Load (0.000367)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering backend/dashboard/index
+Completed in 0.01113 (89 reqs/sec) | Rendering: 0.00384 (34%) | DB: 0.00037 (3%) | 200 OK [http://localhost/backend/dashboard/]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:29:26) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000391)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering backend/acknowledge/index
+Completed in 0.01071 (93 reqs/sec) | Rendering: 0.00381 (35%) | DB: 0.00039 (3%) | 200 OK [http://localhost/backend/acknowledge]
+  [4;36;1mSQL (0.000146)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000101)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000209)[0m   [0;1mSELECT version FROM schema_info[0m
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:32:16) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000373)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering backend/acknowledge/index
+Completed in 0.01140 (87 reqs/sec) | Rendering: 0.00431 (37%) | DB: 0.00037 (3%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:32:17) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000412)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering backend/acknowledge/index
+Completed in 0.01009 (99 reqs/sec) | Rendering: 0.00315 (31%) | DB: 0.00041 (4%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2008-03-11 11:32:22) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/dashboard"}
+  [4;36;1mOrder Load (0.000364)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering backend/dashboard/index
+Completed in 0.01018 (98 reqs/sec) | Rendering: 0.00331 (32%) | DB: 0.00036 (3%) | 200 OK [http://localhost/backend/dashboard/]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:32:23) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000416)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/main
+Rendering backend/acknowledge/index
+Completed in 0.01079 (92 reqs/sec) | Rendering: 0.00318 (29%) | DB: 0.00042 (3%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:33:36) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000461)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.01192 (83 reqs/sec) | Rendering: 0.00446 (37%) | DB: 0.00046 (3%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:33:38) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000368)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.01068 (93 reqs/sec) | Rendering: 0.00348 (32%) | DB: 0.00037 (3%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:33:47) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000359)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.01074 (93 reqs/sec) | Rendering: 0.00388 (36%) | DB: 0.00036 (3%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:35:17) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000364)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.01131 (88 reqs/sec) | Rendering: 0.00447 (39%) | DB: 0.00036 (3%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:35:21) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000367)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.01013 (98 reqs/sec) | Rendering: 0.00338 (33%) | DB: 0.00037 (3%) | 200 OK [http://localhost/backend/acknowledge]
+  [4;36;1mSQL (0.000152)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000110)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000213)[0m   [0;1mSELECT version FROM schema_info[0m
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2008-03-11 11:37:05) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/dashboard"}
+  [4;35;1mOrder Load (0.000394)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/dashboard/index
+Completed in 0.01346 (74 reqs/sec) | Rendering: 0.00575 (42%) | DB: 0.00087 (6%) | 200 OK [http://localhost/backend/dashboard/]
+
+
+Processing DashboardController#index (for 127.0.0.1 at 2008-03-11 11:37:08) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/dashboard"}
+  [4;36;1mOrder Load (0.000403)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/dashboard/index
+Completed in 0.01064 (93 reqs/sec) | Rendering: 0.00340 (31%) | DB: 0.00040 (3%) | 200 OK [http://localhost/backend/dashboard/]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:37:11) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000359)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.01158 (86 reqs/sec) | Rendering: 0.00432 (37%) | DB: 0.00036 (3%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:38:14) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000379)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+
+
+ActionView::TemplateError (backend_acknowledge_url failed to generate from {:action=>"show", :controller=>"backend/acknowledge"} - you may have ambiguous routes, or you may need to supply additional parameters for this route.  content_url has the following required parameters: ["backend", "acknowledge", :id] - are they all satisfied?) on line #4 of layouts/backend/main.html.erb:
+1: <html>
+2: <body>
+3: 	<div id="header">
+4: 		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", backend_acknowledge_path) %>
+5: 	</div>
+6: 
+7: </body>
+
+    vendor/rails/actionpack/lib/action_controller/routing.rb:1419:in `raise_named_route_error'
+    vendor/rails/actionpack/lib/action_controller/routing.rb:1379:in `generate'
+    vendor/rails/actionpack/lib/action_controller/url_rewriter.rb:124:in `rewrite_path'
+    vendor/rails/actionpack/lib/action_controller/url_rewriter.rb:103:in `rewrite_url'
+    vendor/rails/actionpack/lib/action_controller/url_rewriter.rb:81:in `rewrite'
+    vendor/rails/actionpack/lib/action_controller/base.rb:616:in `url_for'
+    vendor/rails/actionpack/lib/action_view/helpers/url_helper.rb:71:in `url_for'
+    (eval):17:in `backend_acknowledge_path'
+    app/views/layouts/backend/main.html.erb:4:in `_run_erb_47app47views47layouts47backend47main46html46erb'
+    vendor/rails/actionpack/lib/action_view/base.rb:637:in `compile_and_render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+    /usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+    vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:38:56) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000378)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+
+
+ActionView::TemplateError (undefined local variable or method `backend_acknowledges_path' for #<ActionView::Base:0x176dd98>) on line #4 of layouts/backend/main.html.erb:
+1: <html>
+2: <body>
+3: 	<div id="header">
+4: 		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", backend_acknowledges_path) %>
+5: 	</div>
+6: 
+7: </body>
+
+    app/views/layouts/backend/main.html.erb:4:in `_run_erb_47app47views47layouts47backend47main46html46erb'
+    vendor/rails/actionpack/lib/action_view/base.rb:637:in `compile_and_render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+    /usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+    vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:39:07) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000370)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+
+
+ActionView::TemplateError (backend_acknowledge_url failed to generate from {:action=>"show", :controller=>"backend/acknowledge"} - you may have ambiguous routes, or you may need to supply additional parameters for this route.  content_url has the following required parameters: ["backend", "acknowledge", :id] - are they all satisfied?) on line #4 of layouts/backend/main.html.erb:
+1: <html>
+2: <body>
+3: 	<div id="header">
+4: 		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", backend_acknowledge_path) %>
+5: 	</div>
+6: 
+7: </body>
+
+    vendor/rails/actionpack/lib/action_controller/routing.rb:1419:in `raise_named_route_error'
+    vendor/rails/actionpack/lib/action_controller/routing.rb:1379:in `generate'
+    vendor/rails/actionpack/lib/action_controller/url_rewriter.rb:124:in `rewrite_path'
+    vendor/rails/actionpack/lib/action_controller/url_rewriter.rb:103:in `rewrite_url'
+    vendor/rails/actionpack/lib/action_controller/url_rewriter.rb:81:in `rewrite'
+    vendor/rails/actionpack/lib/action_controller/base.rb:616:in `url_for'
+    vendor/rails/actionpack/lib/action_view/helpers/url_helper.rb:71:in `url_for'
+    (eval):17:in `backend_acknowledge_path'
+    app/views/layouts/backend/main.html.erb:4:in `_run_erb_47app47views47layouts47backend47main46html46erb'
+    vendor/rails/actionpack/lib/action_view/base.rb:637:in `compile_and_render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+    /usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+    vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+  [4;36;1mSQL (0.000140)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000098)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000206)[0m   [0;1mSELECT version FROM schema_info[0m
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:39:54) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000398)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.01155 (86 reqs/sec) | Rendering: 0.00433 (37%) | DB: 0.00040 (3%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:40:00) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000363)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.01025 (97 reqs/sec) | Rendering: 0.00325 (31%) | DB: 0.00036 (3%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:40:24) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000361)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.00996 (100 reqs/sec) | Rendering: 0.00321 (32%) | DB: 0.00036 (3%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:40:25) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000364)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.01038 (96 reqs/sec) | Rendering: 0.00334 (32%) | DB: 0.00036 (3%) | 200 OK [http://localhost/backend/acknowledge]
+
+
+Processing AcknowledgeController#show (for 127.0.0.1 at 2008-03-11 11:40:29) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"show", "id"=>"3", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000362)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+
+
+ActionController::UnknownAction (No action responded to show):
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2008-03-11 11:41:30) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {}
+
+
+ActionController::RoutingError (No route matches "/backend/acknowledge/order/3" with {:method=>:get}):
+    /vendor/rails/actionpack/lib/action_controller/routing.rb:1441:in `recognize_path'
+    /vendor/rails/actionpack/lib/action_controller/routing.rb:1424:in `recognize'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:170:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2008-03-11 11:41:46) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {}
+
+
+ActionController::RoutingError (No route matches "/backend/acknowledge/order/3" with {:method=>:get}):
+    /vendor/rails/actionpack/lib/action_controller/routing.rb:1441:in `recognize_path'
+    /vendor/rails/actionpack/lib/action_controller/routing.rb:1424:in `recognize'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:170:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2008-03-11 11:41:47) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {}
+
+
+ActionController::RoutingError (No route matches "/backend/acknowledge/order/3" with {:method=>:get}):
+    /vendor/rails/actionpack/lib/action_controller/routing.rb:1441:in `recognize_path'
+    /vendor/rails/actionpack/lib/action_controller/routing.rb:1424:in `recognize'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:170:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing AcknowledgeController#order (for 127.0.0.1 at 2008-03-11 11:42:29) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"order", "id"=>"3", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000312)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+
+
+ActionController::MissingTemplate (Missing template backend/acknowledge/order.html.erb in view path /Users/jeromemuller/Sites/leihs2/app/views):
+    /vendor/rails/actionpack/lib/action_controller/base.rb:1269:in `assert_existence_of_template_file'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:1098:in `render_for_file'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:836:in `render_with_no_layout'
+    /vendor/rails/actionpack/lib/action_controller/layout.rb:262:in `render_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing AcknowledgeController#order (for 127.0.0.1 at 2008-03-11 11:47:12) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"format"=>"xml", "action"=>"order", "id"=>"3", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000389)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+
+
+ActionController::MissingTemplate (Missing layout layouts/backend/main.xml.erb in view path /Users/jeromemuller/Sites/leihs2/app/views):
+    /vendor/rails/actionpack/lib/action_controller/base.rb:1269:in `assert_existence_of_template_file'
+    /vendor/rails/actionpack/lib/action_controller/layout.rb:257:in `render_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:47:24) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"format"=>"xml", "action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000377)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+
+
+ActionController::MissingTemplate (Missing layout layouts/backend/main.xml.erb in view path /Users/jeromemuller/Sites/leihs2/app/views):
+    /vendor/rails/actionpack/lib/action_controller/base.rb:1269:in `assert_existence_of_template_file'
+    /vendor/rails/actionpack/lib/action_controller/layout.rb:257:in `render_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing AcknowledgeController#show (for 127.0.0.1 at 2008-03-11 11:47:35) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"format"=>"xml", "action"=>"show", "id"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000363)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+
+
+ActionController::UnknownAction (No action responded to show):
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing AcknowledgeController#show (for 127.0.0.1 at 2008-03-11 11:56:56) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"show", "id"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000363)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+
+
+ActionController::UnknownAction (No action responded to show):
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing AcknowledgeController#show (for 127.0.0.1 at 2008-03-11 11:57:01) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"show", "id"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000368)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+
+
+ActionController::UnknownAction (No action responded to show):
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    /vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    /vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    /vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    /vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    /vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    /vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    /vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    /vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    /vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    /vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    /vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    /vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    /vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (not_found)
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:57:39) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000367)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+
+
+ActionView::TemplateError (undefined local variable or method `backend_acknowledge_index_path' for #<ActionView::Base:0x1680a48>) on line #4 of layouts/backend/main.html.erb:
+1: <html>
+2: <body>
+3: 	<div id="header">
+4: 		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", backend_acknowledge_index_path) %>
+5: 	</div>
+6: 
+7: </body>
+
+    app/views/layouts/backend/main.html.erb:4:in `_run_erb_47app47views47layouts47backend47main46html46erb'
+    vendor/rails/actionpack/lib/action_view/base.rb:637:in `compile_and_render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:365:in `render_template'
+    vendor/rails/actionpack/lib/action_view/base.rb:316:in `render_file_without_locale'
+    /usr/local/lib/ruby/gems/1.8/gems/gettext-1.10.0/lib/gettext/rails.rb:280:in `render_file'
+    vendor/rails/actionpack/lib/action_controller/layout.rb:268:in `render_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:51:in `render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1153:in `default_render'
+    vendor/rails/actionpack/lib/action_controller/base.rb:1159:in `perform_action_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:697:in `call_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:689:in `perform_action_without_benchmark'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    /usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+    vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+    vendor/rails/actionpack/lib/action_controller/rescue.rb:199:in `perform_action_without_caching'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:678:in `perform_action'
+    vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:33:in `cache'
+    vendor/rails/activerecord/lib/active_record/query_cache.rb:8:in `cache'
+    vendor/rails/actionpack/lib/action_controller/caching.rb:677:in `perform_action'
+    vendor/rails/actionpack/lib/action_controller/base.rb:524:in `process_without_filters'
+    vendor/rails/actionpack/lib/action_controller/filters.rb:685:in `process_without_session_management_support'
+    vendor/rails/actionpack/lib/action_controller/session_management.rb:123:in `process'
+    vendor/rails/actionpack/lib/action_controller/base.rb:388:in `process'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:171:in `handle_request'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:115:in `dispatch'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:126:in `dispatch_cgi'
+    vendor/rails/actionpack/lib/action_controller/dispatcher.rb:9:in `dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:112:in `handle_dispatch'
+    vendor/rails/railties/lib/webrick_server.rb:78:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /usr/local/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /usr/local/lib/ruby/1.8/webrick/server.rb:82:in `start'
+    vendor/rails/railties/lib/webrick_server.rb:62:in `dispatch'
+    vendor/rails/railties/lib/commands/servers/webrick.rb:66
+    /usr/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+    vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+    vendor/rails/railties/lib/commands/server.rb:39
+    script/server:3
+
+Rendering /Users/jeromemuller/Sites/leihs2/vendor/rails/actionpack/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 11:58:07) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;35;1mOrder Load (0.000394)[0m   [0mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.01152 (86 reqs/sec) | Rendering: 0.00446 (38%) | DB: 0.00039 (3%) | 200 OK [http://localhost/backend/acknowledge/index]
+
+
+Processing AcknowledgeController#index (for 127.0.0.1 at 2008-03-11 12:05:47) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%0ASGFzaHsABjoKQHVzZWR7AA%3D%3D--116c0a796b4e5c8440ab30f96ef84aa88c895071
+  Parameters: {"action"=>"index", "controller"=>"backend/acknowledge"}
+  [4;36;1mOrder Load (0.000365)[0m   [0;1mSELECT * FROM `orders` WHERE (`orders`.`status` = 'new') [0m
+Rendering template within layouts/backend/main
+Rendering backend/acknowledge/index
+Completed in 0.01152 (86 reqs/sec) | Rendering: 0.00427 (37%) | DB: 0.00037 (3%) | 200 OK [http://localhost/backend/acknowledge/index]
+  [4;36;1mSQL (0.017070)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000442)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.028408)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000142)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000101)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000188)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000135)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000098)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000187)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000000)[0m   [0mMysql::Error: Table 'schema_info' already exists: CREATE TABLE `schema_info` (version int(11))[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mMysql::Error: Table 'schema_info' already exists: CREATE TABLE `schema_info` (version int(11))[0m
+  [4;35;1mSQL (0.000323)[0m   [0mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000164)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000151)[0m   [0mSELECT version FROM schema_info[0m
+Migrating to CreateTypes (3)
+  [4;36;1mSQL (0.002415)[0m   [0;1mCREATE TABLE `types` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255) DEFAULT NULL, `created_at` datetime DEFAULT NULL, `updated_at` datetime DEFAULT NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.000480)[0m   [0mUPDATE schema_info SET version = 3[0m
+  [4;36;1mSQL (0.000233)[0m   [0;1mSELECT * FROM schema_info[0m
+  [4;35;1mSQL (0.000388)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.047467)[0m   [0;1mSHOW FIELDS FROM `orders`[0m
+  [4;35;1mSQL (0.002234)[0m   [0mdescribe `orders`[0m
+  [4;36;1mSQL (0.000563)[0m   [0;1mSHOW KEYS FROM `orders`[0m
+  [4;35;1mSQL (0.001795)[0m   [0mSHOW FIELDS FROM `types`[0m
+  [4;36;1mSQL (0.001955)[0m   [0;1mdescribe `types`[0m
+  [4;35;1mSQL (0.000657)[0m   [0mSHOW KEYS FROM `types`[0m
+  [4;36;1mSQL (0.002905)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mSQL (0.003252)[0m   [0mdescribe `users`[0m
+  [4;36;1mSQL (0.000456)[0m   [0;1mSHOW KEYS FROM `users`[0m
+  [4;36;1mSQL (0.000134)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000100)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000190)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000145)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000097)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000233)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000000)[0m   [0mMysql::Error: Table 'schema_info' already exists: CREATE TABLE `schema_info` (version int(11))[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mMysql::Error: Table 'schema_info' already exists: CREATE TABLE `schema_info` (version int(11))[0m
+  [4;35;1mSQL (0.000268)[0m   [0mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000156)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000120)[0m   [0mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000118)[0m   [0;1mSELECT version FROM schema_info[0m
+Migrating to CreateItems (4)
+  [4;35;1mSQL (0.002572)[0m   [0mCREATE TABLE `items` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `inventory_code` varchar(255) DEFAULT NULL, `type_id` int(11) DEFAULT NULL, `created_at` datetime DEFAULT NULL, `updated_at` datetime DEFAULT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.000336)[0m   [0;1mUPDATE schema_info SET version = 4[0m
+  [4;35;1mSQL (0.000271)[0m   [0mSELECT * FROM schema_info[0m
+  [4;36;1mSQL (0.000417)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.001937)[0m   [0mSHOW FIELDS FROM `items`[0m
+  [4;36;1mSQL (0.001896)[0m   [0;1mdescribe `items`[0m
+  [4;35;1mSQL (0.000430)[0m   [0mSHOW KEYS FROM `items`[0m
+  [4;36;1mSQL (0.001601)[0m   [0;1mSHOW FIELDS FROM `orders`[0m
+  [4;35;1mSQL (0.002022)[0m   [0mdescribe `orders`[0m
+  [4;36;1mSQL (0.000425)[0m   [0;1mSHOW KEYS FROM `orders`[0m
+  [4;35;1mSQL (0.001454)[0m   [0mSHOW FIELDS FROM `types`[0m
+  [4;36;1mSQL (0.001753)[0m   [0;1mdescribe `types`[0m
+  [4;35;1mSQL (0.000358)[0m   [0mSHOW KEYS FROM `types`[0m
+  [4;36;1mSQL (0.001777)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mSQL (0.001934)[0m   [0mdescribe `users`[0m
+  [4;36;1mSQL (0.000380)[0m   [0;1mSHOW KEYS FROM `users`[0m
+  [4;36;1mSQL (0.000138)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000106)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000199)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000146)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000109)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000187)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000135)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000099)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000184)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000196)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000120)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000187)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000139)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000101)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000195)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000136)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000104)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000185)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000145)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000107)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000191)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000149)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000132)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000206)[0m   [0;1mSELECT version FROM schema_info[0m

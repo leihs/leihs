@@ -1,0 +1,8 @@
+<html>
+<body>
+	<div id="header">
+		<%= link_to(_("Acknowledge") + " (#{@new_orders.size})", :controller => 'acknowledge') %>
+	</div>
+	<%= yield %>
+</body>
+</html>
