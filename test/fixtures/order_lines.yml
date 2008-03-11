@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  type_id: 
+  order_id: 
+  quantity: 
+
+two:
+  type_id: 
+  order_id: 
+  quantity: 

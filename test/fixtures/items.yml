@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  inventory_code: MyString
+  type_id: 
+
+two:
+  inventory_code: MyString
+  type_id: 

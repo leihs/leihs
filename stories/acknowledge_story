@@ -1,18 +1,19 @@
 Story: Acknowledge orders
 
-  As an inventory_manager
-  I want to see all new orders and acknowledge them
-  in order to have control over who is receiving what
-  
-  Scenario: List with new orders
-
-  Given the list of new orders contains 0 elements
-  And a new order is placed by a user named 'Joe'
-
-  When the inventory_manager clicks 'acknowledge'
-
-  Then he sees 1 order
-  And the name of the user is 'Joe'
+	As an inventory_manager
+	I want to see all new orders and acknowledge them
+	in order to have control over who is receiving what
+	
+	Scenario: List with new orders
+	
+	Given the list of new orders contains 0 elements
+	And a new order is placed by a user named 'Joe'
+	
+	When inventory_manager clicks 'acknowledge'
+	
+	Then he sees 1 order
+	And the order was placed by a user named 'Joe'
+	
 
 
   Scenario: Count of new orders is shown
@@ -20,14 +21,13 @@ Story: Acknowledge orders
   Given the list of new orders contains 0 elements
   And 5 new orders are placed
 
-  When the inventory_manager looks at the screen
+  When inventory_manager looks at the screen
 
-  Then he sees 'acknowledge (5)'
+  Then he sees 'Acknowledge (5)'
 
-  When the inventory_manager clicks 'acknowledge'
+  When inventory_manager clicks 'acknowledge'
 
-  Then the active tab is titled 'acknowledge (5)'
-
+  Then the active tab is titled 'Acknowledge (5)'
 
   Scenario: Acknowledge order
 
@@ -44,6 +44,7 @@ Story: Acknowledge orders
   When he chooses Joe's order
 
   Then Joe's order is opened in tab
+  And the active tab is titled 'Order: Joe'
   And inventory_manager can approve order
   And inventory_manager can reject order
 
@@ -51,7 +52,7 @@ Story: Acknowledge orders
 
   Then joe@test.ch receives an email
   And its subject is 'Reservation Confirmation'
-  And it contains information "5 NEC 245"
+  And it contains information '5 NEC 245'
 
   And inventory_manager sees 0 orders
 

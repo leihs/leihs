@@ -13,10 +13,10 @@ development:
   password: 
 
   # for Debian and Ubuntu
-  socket: /var/run/mysqld/mysqld.sock
+  #socket: /var/run/mysqld/mysqld.sock
   
   # for Mac OS X
-  #socket: /tmp/mysql.sock 
+  socket: /tmp/mysql.sock 
  
   # Connect on a TCP socket.  If omitted, the adapter will connect on the
   # domain socket given by socket instead.
@@ -30,9 +30,9 @@ test:
   adapter: mysql
   database: leihs2_test
   encoding: utf8
-  username: rubylocal
-  password: 163ruby9
-  #socket: /tmp/mysql.sock
+  username: root
+  password: 
+  socket: /tmp/mysql.sock
 
 production:
   adapter: mysql

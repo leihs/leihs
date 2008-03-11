@@ -1,0 +1,4 @@
+<div id="active_tab"><%= _("Order") + ": #{@order.user.login}" %></div>
+
+<%= link_to('approve', :controller => 'acknowledge', :url => 'approve', :id => @order.id) %>
+<%= link_to('reject', :controller => 'acknowledge', :url => 'reject', :id => @order.id) %>
