@@ -25,6 +25,15 @@ class Backend::AcknowledgeController < Backend::BackendController
       init
       redirect_to :controller => 'acknowledge', :action => 'index'
     end
+  end 
+  
+  
+  def change_line
+    if request.post?
+      @order_line = OrderLine.find(params[:id])
+      @order_line.quantity = params[:quantity].to_i
+      @success = @order_line.save
+    end
   end
   
 end
