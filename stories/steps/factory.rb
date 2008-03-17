@@ -19,11 +19,11 @@ module Factory
     o
   end
   
-  def self.create_type(attributes = {})
+  def self.create_model(attributes = {})
     default_attributes = {
-      :name => 'type_1'
+      :name => 'model_1'
     }
-    t = Type.create default_attributes.merge(attributes)
+    t = Model.create default_attributes.merge(attributes)
     t.save
     t
   end

@@ -2,8 +2,8 @@
 
 one:
   inventory_code: MyString
-  type_id: 
+  model_id: 
 
 two:
   inventory_code: MyString
-  type_id: 
+  model_id: 

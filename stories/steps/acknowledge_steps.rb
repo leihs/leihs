@@ -1,5 +1,6 @@
 steps_for(:acknowledge) do
-   
+  
+  
   Given "the list of new orders contains $total elements" do | total |
     orders = Order.new_orders
     orders.size.should == total.to_i
@@ -17,21 +18,21 @@ steps_for(:acknowledge) do
     end
   end
   
-  Given "a type '$type' exists" do | type |
-    Factory.create_type(:name => type)
+  Given "a model '$model' exists" do | model |
+    Factory.create_model(:name => model)
   end
   
-  Given "$number items of type '$type' exist" do |number, type|
+  Given "$number items of model '$model' exist" do |number, model|
     number.to_i.times do | i |
-      Factory.create_item(:type_id => Type.find_by_name(type).id)
+      Factory.create_item(:model_id => Model.find_by_name(model).id)
     end
   end
   
-  Given "it asks for $number items of type '$type'" do |number, type|
-    @order.add(5, Type.find_by_name(type))
+  Given "it asks for $number items of model '$model'" do |number, model|
+    @order.add(5, Model.find_by_name(model))
     @order.save
     @order.order_lines.size.should == 1
-    @order.order_lines[0].type.name.should == type
+    @order.order_lines[0].model.name.should == model
     
   end
   
@@ -65,6 +66,24 @@ steps_for(:acknowledge) do
     @order = assigns(:order)
     @orders = assigns(:new_orders)
     @response = response
+  end
+  
+  When "$who rejects order" do |who|
+    get "/backend/acknowledge/reject/#{@order.id}"
+    response.should render_template('backend/acknowledge/reject')
+    @order = assigns(:order)
+    @orders = assigns(:new_orders)
+    @orders.should_not be_nil
+    @order.should_not be_nil
+    @response = response
+  end
+  
+  When "the reason is '$reason'" do |reason|
+    post "/backend/acknowledge/reject", :id => @order.id, :reason => reason
+    @order = assigns(:order)
+    @orders = assigns(:new_orders)
+    @orders.should_not be_nil
+    @order.should_not be_nil
   end
   
   Then "$who sees $size order$s" do | who, size, s |
