@@ -26,13 +26,19 @@ ActiveRecord::Schema.define(:version => 6) do
 
   create_table "items", :force => true do |t|
     t.string   "inventory_code"
-    t.integer  "type_id"
+    t.integer  "model_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "models", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "order_lines", :force => true do |t|
-    t.integer  "type_id"
+    t.integer  "model_id"
     t.integer  "order_id"
     t.integer  "quantity"
     t.datetime "created_at"
@@ -42,14 +48,6 @@ ActiveRecord::Schema.define(:version => 6) do
   create_table "orders", :force => true do |t|
     t.integer  "user_id",                       :null => false
     t.string   "status",     :default => "new"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "orders", ["user_id"], :name => "fk_order_user"
-
-  create_table "types", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -31,11 +31,11 @@ Story: Acknowledge orders
 
   Scenario: Acknowledge order
 
-  Given a type 'NEC 245' exists
-  And 7 items of type 'NEC 245' exist
+  Given a model 'NEC 245' exists
+  And 7 items of model 'NEC 245' exist
   And the list of new orders contains 0 elements
   And a new order is placed by a user named 'Joe'
-  And it asks for 5 items of type 'NEC 245'
+  And it asks for 5 items of model 'NEC 245'
   And Joe's email address is joe@test.ch
 
   When the inventory_manager clicks 'acknowledge'
@@ -59,11 +59,11 @@ Story: Acknowledge orders
 
   Scenario: Reject order
 
-  Given a type 'NEC 245' exists
-  And 7 items of type 'NEC 245' exist
+  Given a model 'NEC 245' exists
+  And 7 items of model 'NEC 245' exist
   And the list of new orders contains 0 elements
   And a new order is placed by a user named 'Joe'
-  And it asks for 5 items of type 'NEC 245'
+  And it asks for 5 items of model 'NEC 245'
   And Joe's email address is joe@test.ch
 
   When the inventory_manager clicks 'acknowledge'
@@ -76,30 +76,31 @@ Story: Acknowledge orders
   And inventory_manager can reject order
 
   When inventory_manager rejects order
-  And the reason is "Because I don't like you."
+  And the reason is 'Because I don't like you.'
 
   Then joe@test.ch receives an email
   And its subject is 'Reservation Rejected'
-  And it contains information "Because I don't like you."
+  And it contains information 'Because I don't like you.'
 
   And inventory_manager sees 0 order
 
 
+
   Scenario: Change amount and add Item
 
-  Given a type 'NEC 245' exists
-  And 7 items of type 'NEC 245' exist
-  And a type 'NEC 333' exists
-  And 5 items of type 'NEC 333' exist
+  Given a model 'NEC 245' exists
+  And 7 items of model 'NEC 245' exist
+  And a model 'NEC 333' exists
+  And 5 items of model 'NEC 333' exist
   And a new order is placed by a user named 'Joe'
-  And it asks for 5 items of type 'NEC 245'
+  And it asks for 5 items of model 'NEC 245'
   And Joe's email address is joe@test.ch
 
   When he chooses Joe's order
 
   Then Joe's order is opened in tab
 
-  When inventory_manager changes number of items of type 'NEC 245' to 4
+  When inventory_manager changes number of items of model 'NEC 245' to 4
   And he adds 1 item 'NEC 333'
   And he adds a personal message: "NEC 333 is better in that situation"
   And inventory_manager approves order
@@ -117,12 +118,12 @@ Story: Acknowledge orders
 
   Scenario: Swap Package
 
-  Given a type 'NEC 245' exists
-  And 7 items of type 'NEC 245' exist
-  And a type 'NEC 333' exists
-  And 5 items of type 'NEC 333' exist
+  Given a model 'NEC 245' exists
+  And 7 items of model 'NEC 245' exist
+  And a model 'NEC 333' exists
+  And 5 items of model 'NEC 333' exist
   And a new order is placed by a user named 'Joe'
-  And it asks for 5 items of type 'NEC 245'
+  And it asks for 5 items of model 'NEC 245'
   And Joe's email address is joe@test.ch
 
   When he chooses Joe's order
@@ -138,7 +139,7 @@ Story: Acknowledge orders
   Then a choice of 1 item appears
 
   When inventory_manager selects 'NEC 333'
-  Then he sees 5 items of type 'NEC 333'
+  Then he sees 5 items of model 'NEC 333'
   When he adds a personal message: "NEC 333 is better than NEC 245"
   And inventory_manager approves order
 
@@ -152,8 +153,8 @@ Story: Acknowledge orders
 
   Scenario: Draft
 
-  Given a type 'NEC 245' exists
-  And 7 items of type 'NEC 245' exist
+  Given a model 'NEC 245' exists
+  And 7 items of model 'NEC 245' exist
   And a new order is placed by a user named 'Joe'
 
   When he chooses Joe's order
