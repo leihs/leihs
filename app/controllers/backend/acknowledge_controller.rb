@@ -16,4 +16,15 @@ class Backend::AcknowledgeController < Backend::BackendController
     redirect_to :controller=> 'acknowledge', :action => 'index'
   end
   
+  def reject
+    @order = Order.find(params[:id])
+    if request.post?
+      @order.status = Order::REJECTED
+      @order.save
+      OrderMailer.deliver_rejected(@order, params[:reason])
+      init
+      redirect_to :controller => 'acknowledge', :action => 'index'
+    end
+  end
+  
 end
