@@ -86,6 +86,18 @@ steps_for(:acknowledge) do
     @order.should_not be_nil
   end
   
+  When "$who changes number of items of model '$model' to $quantity" do |who, model, quantity|
+    id = 0
+    @order.order_lines.each do |line|
+      if model == line.model.name
+        id = line.id
+      end
+    end
+    id.should > 0
+    post "/backend/acknowledge/change_line", :id => id, :quantity => quantity
+    
+  end
+  
   Then "$who sees $size order$s" do | who, size, s |
     @orders.size.should == size.to_i
     @order = @orders.first

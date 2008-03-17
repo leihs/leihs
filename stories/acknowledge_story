@@ -96,7 +96,8 @@ Story: Acknowledge orders
   And it asks for 5 items of model 'NEC 245'
   And Joe's email address is joe@test.ch
 
-  When he chooses Joe's order
+  When the inventory_manager clicks 'acknowledge'
+  And he chooses Joe's order
 
   Then Joe's order is opened in tab
 
@@ -113,8 +114,6 @@ Story: Acknowledge orders
   And it contains information "Changed 5 NEC 245 to 4 NEC 245"
   And it contains information "Added 1 NEC 333"
   And it contains information "NEC 333 is better in that situation"
-
-
 
   Scenario: Swap Package
 
