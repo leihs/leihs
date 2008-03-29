@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  role: 
+  permission: 
+  inventory_pool: 
+
+two:
+  role: 
+  permission: 
+  inventory_pool: 

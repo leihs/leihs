@@ -1,7 +1,7 @@
 class CreateOrders < ActiveRecord::Migration
   def self.up
     create_table :orders do |t|
-      t.integer :user_id, :null => false
+      t.belongs_to :user
       t.string :status, :default => 'new'
       t.timestamps
     end
