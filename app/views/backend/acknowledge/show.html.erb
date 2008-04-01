@@ -1,4 +1,20 @@
 <div id="active_tab"><%= _("Order") + ": #{@order.user.login}" %></div>
 
+<div id="changes"><ul></ul></div>
 <%= link_to('approve', :controller => 'acknowledge', :url => 'approve', :id => @order.id) %>
 <%= link_to('reject', :controller => 'acknowledge', :url => 'reject', :id => @order.id) %>
+
+<% @order.order_lines.each do |line| %>
+<% form_remote_tag :url => {:action => 'change_line'} do %>
+
+<div id="order_line_<%= line.id %>">
+	<input type="hidden" name="id" value="<%= line.id%>">
+	
+	<input type="text" name="quantity" value="<%= line.quantity %>">
+
+	<%= submit_tag 'Add...' %> 
+	
+</div>
+<% end %> 
+
+<% end %>
