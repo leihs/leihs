@@ -9,7 +9,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 6) do
+ActiveRecord::Schema.define(:version => 16) do
+
+  create_table "access_rights", :force => true do |t|
+    t.integer  "role_id"
+    t.integer  "permission_id"
+    t.integer  "inventory_pool_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "accessories", :force => true do |t|
+    t.integer  "model_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "accounts", :force => true do |t|
     t.string   "email"
@@ -24,9 +38,34 @@ ActiveRecord::Schema.define(:version => 6) do
     t.string "class_name"
   end
 
+  create_table "categories", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contract_lines", :force => true do |t|
+    t.integer  "contract_id"
+    t.integer  "item_id"
+    t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contracts", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "inventory_pools", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "items", :force => true do |t|
     t.string   "inventory_code"
     t.integer  "model_id"
+    t.integer  "inventory_pool_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -37,6 +76,14 @@ ActiveRecord::Schema.define(:version => 6) do
     t.datetime "updated_at"
   end
 
+  create_table "models_packages", :id => false, :force => true do |t|
+    t.integer "model_id"
+    t.integer "package_id"
+  end
+
+  add_index "models_packages", ["model_id"], :name => "index_models_packages_on_model_id"
+  add_index "models_packages", ["package_id"], :name => "index_models_packages_on_package_id"
+
   create_table "order_lines", :force => true do |t|
     t.integer  "model_id"
     t.integer  "order_id"
@@ -46,11 +93,40 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   create_table "orders", :force => true do |t|
-    t.integer  "user_id",                       :null => false
+    t.integer  "user_id"
     t.string   "status",     :default => "new"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "packages", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "permissions", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "properties", :force => true do |t|
+    t.integer  "model_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+  end
+
+  add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
+  add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "login"
