@@ -103,15 +103,17 @@ Story: Acknowledge orders
 
   When inventory_manager changes number of items of model 'NEC 245' to 4
   And he adds 1 item 'NEC 333'
-  And he adds a personal message: "NEC 333 is better in that situation"
+  And he adds a personal message: 'NEC 333 is better in that situation'
   And inventory_manager approves order
-  And inventory_manager sees 0 orders
+  
+  Then inventory_manager sees 0 order
 
-  Then joe@test.ch receives an email
+
+  And joe@test.ch receives an email
   And its subject is 'Reservation with changes confirmed'
   And it contains information "4 NEC 245"
   And it contains information "1 NEC 333"
-  And it contains information "Changed 5 NEC 245 to 4 NEC 245"
+  And it contains information "Changed quantity for NEC 245 from 5 to 4"
   And it contains information "Added 1 NEC 333"
   And it contains information "NEC 333 is better in that situation"
 

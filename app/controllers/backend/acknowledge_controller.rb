@@ -11,7 +11,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     @order = Order.find(params[:id])
     @order.status = Order::APPROVED
     @order.save
-    OrderMailer.deliver_approved(@order)
+    OrderMailer.deliver_approved(@order, params[:comment])
     init
     redirect_to :controller=> 'acknowledge', :action => 'index'
   end
@@ -34,11 +34,11 @@ class Backend::AcknowledgeController < Backend::BackendController
       original = @order_line.quantity
       required_quantity = params[:quantity].to_i
       @order_line.quantity = required_quantity < max_available ? required_quantity : max_available
-      @change = "Quantity updated from #{original.to_s} to #{@order_line.quantity}"
+      @change = "Changed quantity for #{@order_line.model.name} from #{original.to_s} to #{@order_line.quantity}" #TODO: Translation required
       
       if required_quantity > max_available
-        @flash_notice = _("Maximum number of items available at that time is 9")
-        @change += " (maximum available)"
+        @flash_notice = _("Maximum number of items available at that time is") + " " + max_available
+        @change += _(" (maximum available)")
       end
       
       @order_line.save
