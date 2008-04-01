@@ -29,11 +29,9 @@ steps_for(:acknowledge) do
   end
   
   Given "it asks for $number items of model '$model'" do |number, model|
-    @order.add(5, Model.find_by_name(model))
+    @order.add(number, Model.find_by_name(model))
     @order.save
-    @order.order_lines.size.should == 1
     @order.order_lines[0].model.name.should == model
-    
   end
   
   Given "$name's email address is $email" do |name, email|
@@ -95,7 +93,13 @@ steps_for(:acknowledge) do
     end
     id.should > 0
     post "/backend/acknowledge/change_line", :id => id, :quantity => quantity
-    response.should render_template('change_line.rjs')
+    response.should render_template('backend/acknowledge/change_line')
+  end
+  
+  When "$who adds $quantity item '$model'" do |who, quantity, model|
+    id = Model.find_by_name(model)
+    post "/backend/acknowledge/add_line", :id => @order.id, :model_id => id, :quantity => quantity
+    response.should render_template('backend/acknowledge/add_line')
   end
   
   Then "$who sees $size order$s" do | who, size, s |

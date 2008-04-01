@@ -15,8 +15,8 @@ class Order < ActiveRecord::Base
   def add(quantity, model)
     o = OrderLine.new(:quantity => quantity, 
                       :order_id => id, 
-                      :model_id => model.id)
-                  
+                      :model_id => model.to_i)
+                      
     order_lines << o
   end
   
