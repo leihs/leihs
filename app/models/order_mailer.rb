@@ -1,8 +1,9 @@
 class OrderMailer < ActionMailer::Base
 
-  def approved(order, sent_at = Time.now)
+  def approved(order, comment, sent_at = Time.now)
     @subject    = _('Reservation Confirmation')
     @body["order"] = order
+    @body["comment"] = comment
     @recipients = "#{order.user.email}"
     @from       = 'leihs'
     @sent_on    = sent_at

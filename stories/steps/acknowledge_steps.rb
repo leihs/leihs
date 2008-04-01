@@ -60,7 +60,7 @@ steps_for(:acknowledge) do
   end
   
   When "$who approves order" do |who|
-    get "/backend/acknowledge/approve/#{@order.id}"
+    get "/backend/acknowledge/approve", :id => @order.id, :comment => @comment
     @order = assigns(:order)
     @orders = assigns(:new_orders)
     @response = response
@@ -100,6 +100,10 @@ steps_for(:acknowledge) do
     id = Model.find_by_name(model)
     post "/backend/acknowledge/add_line", :id => @order.id, :model_id => id, :quantity => quantity
     response.should render_template('backend/acknowledge/add_line')
+  end
+  
+  When "$who adds a personal message: '$message'" do |who, message|
+    @comment = message
   end
   
   Then "$who sees $size order$s" do | who, size, s |
