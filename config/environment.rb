@@ -67,6 +67,13 @@ ActionMailer::Base.smtp_settings = {
 }
 ActionMailer::Base.default_charset = 'utf-8'
 
+
+class ActiveRecord::Base
+  def to_i
+    self.id
+  end
+end
+
 # E-Mail uncaught exceptions to the devs.
 ExceptionNotifier.exception_recipients = %w( magnus.rembold@munterbund.de ramon.cahenzli@zhdk.ch errors@jeromemueller.ch )
 ExceptionNotifier.sender_address = %( no-reply@hgkz.net )
