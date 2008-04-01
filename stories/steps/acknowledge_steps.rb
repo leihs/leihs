@@ -95,7 +95,7 @@ steps_for(:acknowledge) do
     end
     id.should > 0
     post "/backend/acknowledge/change_line", :id => id, :quantity => quantity
-    
+    response.should render_template('change_line.rjs')
   end
   
   Then "$who sees $size order$s" do | who, size, s |
