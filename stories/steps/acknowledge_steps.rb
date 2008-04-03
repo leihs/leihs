@@ -29,8 +29,10 @@ steps_for(:acknowledge) do
   end
   
   Given "it asks for $number items of model '$model'" do |number, model|
-    @order.add(number, Model.find_by_name(model))
+    @order.add_line(number, Model.find_by_name(model), 1)
+    @order.log_history("user submits order", 1)
     @order.save
+    @order.has_changes?.should == false
     @order.order_lines[0].model.name.should == model
   end
   
@@ -60,28 +62,22 @@ steps_for(:acknowledge) do
   end
   
   When "$who approves order" do |who|
-    get "/backend/acknowledge/approve", :id => @order.id, :comment => @comment
+    post "/backend/acknowledge/approve", :id => @order.id, :comment => @comment
     @order = assigns(:order)
     @orders = assigns(:new_orders)
+    @order.should_not be_nil
     @response = response
   end
   
-  When "$who rejects order" do |who|
-    get "/backend/acknowledge/reject/#{@order.id}"
-    response.should render_template('backend/acknowledge/reject')
+  When "$who rejects order with reason '$reason'" do |who, reason|
+    post "/backend/acknowledge/reject", :id => @order.id, :comment => reason
     @order = assigns(:order)
     @orders = assigns(:new_orders)
     @orders.should_not be_nil
     @order.should_not be_nil
     @response = response
-  end
-  
-  When "the reason is '$reason'" do |reason|
-    post "/backend/acknowledge/reject", :id => @order.id, :reason => reason
-    @order = assigns(:order)
-    @orders = assigns(:new_orders)
-    @orders.should_not be_nil
-    @order.should_not be_nil
+    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
+    
   end
   
   When "$who changes number of items of model '$model' to $quantity" do |who, model, quantity|
@@ -94,11 +90,23 @@ steps_for(:acknowledge) do
     id.should > 0
     post "/backend/acknowledge/change_line", :id => id, :quantity => quantity
     response.should render_template('backend/acknowledge/change_line')
+    @order = assigns(:order)
+    @order.has_changes?.should == true
+    @order.order_lines.each do |line|
+      if model == line.model.name
+        line.quantity.should == 4
+      end
+    end
+    
   end
   
   When "$who adds $quantity item '$model'" do |who, quantity, model|
-    id = Model.find_by_name(model)
-    post "/backend/acknowledge/add_line", :id => @order.id, :model_id => id, :quantity => quantity
+    model_id = Model.find_by_name(model).id
+    post "/backend/acknowledge/add_line", :id => @order.id, :model_id => model_id, :quantity => quantity
+    @order = assigns(:order)
+    @order.order_lines.each do | line |
+      line.model.should_not be_nil
+    end
     response.should render_template('backend/acknowledge/add_line')
   end
   

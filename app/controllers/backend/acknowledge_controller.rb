@@ -8,20 +8,29 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
   
   def approve
-    @order = Order.find(params[:id])
-    @order.status = Order::APPROVED
-    @order.save
-    OrderMailer.deliver_approved(@order, params[:comment])
-    init
-    redirect_to :controller=> 'acknowledge', :action => 'index'
+    if request.post?
+      @order = Order.find(params[:id])
+      @order.status = Order::APPROVED
+      @order.save
+      if @order.has_changes?
+        OrderMailer.deliver_changed(@order, params[:comment])
+      else
+        OrderMailer.deliver_approved(@order, params[:comment])
+      end
+      init
+      redirect_to :controller=> 'acknowledge', :action => 'index'
+    end
+    
+  rescue
+    puts $!
   end
   
   def reject
-    @order = Order.find(params[:id])
     if request.post?
+      @order = Order.find(params[:id])
       @order.status = Order::REJECTED
       @order.save
-      OrderMailer.deliver_rejected(@order, params[:reason])
+      OrderMailer.deliver_rejected(@order, params[:comment])
       init
       redirect_to :controller => 'acknowledge', :action => 'index'
     end
@@ -31,34 +40,24 @@ class Backend::AcknowledgeController < Backend::BackendController
   def change_line
     if request.post?
       @order_line = OrderLine.find(params[:id])
-      original = @order_line.quantity
+      @order = @order_line.order
       required_quantity = params[:quantity].to_i
-      @order_line.quantity = required_quantity < max_available ? required_quantity : max_available
-      @change = "Changed quantity for #{@order_line.model.name} from #{original.to_s} to #{@order_line.quantity}" #TODO: Translation required
-      
-      if required_quantity > max_available
-        @flash_notice = _("Maximum number of items available at that time is") + " " + max_available
-        @change += _(" (maximum available)")
-      end
-      
-      @order_line.save
+      @order_line, @change = @order.update_line(@order_line.id, required_quantity, session[:user_id])
+      @order.save
     end
   end
   
   def add_line
     if request.post?
       @order = Order.find(params[:id])
-      @order.add(params[:quantity].to_i, params[:model_id])
+      @order.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
       if not @order.save
         flash[:notice] = _("Model couldn't be added")
       end
     end
+  rescue
+    puts $!
   end
   
   
-  private
-  
-  def max_available
-    10 #TODO: When we have reservations and stuff
-  end
 end

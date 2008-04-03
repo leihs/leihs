@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 17) do
+ActiveRecord::Schema.define(:version => 18) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
@@ -68,6 +68,15 @@ ActiveRecord::Schema.define(:version => 17) do
     t.datetime "updated_at"
   end
 
+  create_table "histories", :force => true do |t|
+    t.string   "text",        :default => ""
+    t.integer  "type_const"
+    t.datetime "created_at",                  :null => false
+    t.integer  "target_id",                   :null => false
+    t.string   "target_type"
+    t.integer  "user_id"
+  end
+
   create_table "inventory_pools", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -76,7 +85,6 @@ ActiveRecord::Schema.define(:version => 17) do
   create_table "items", :force => true do |t|
     t.string   "inventory_code"
     t.integer  "model_id"
-    t.integer  "inventory_pool_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -104,7 +112,7 @@ ActiveRecord::Schema.define(:version => 17) do
   end
 
   create_table "orders", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",                       :null => false
     t.string   "status",     :default => "new"
     t.datetime "created_at"
     t.datetime "updated_at"
