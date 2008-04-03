@@ -1,3 +1,11 @@
-OrderMailer#changed
+<%= @comment %>
 
-Find me in app/views/order_mailer/changed.erb
+The following changes were made:
+
+<% @order.histories.each do | history |%>
+	<%= history.text if history.type_const == History::CHANGE %>
+<% end %>
+
+<% @order.order_lines.each do | line | %>
+	<%= line.quantity%> <%= line.model.name %>
+<% end %>

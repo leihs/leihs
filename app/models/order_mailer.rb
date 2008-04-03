@@ -10,20 +10,22 @@ class OrderMailer < ActionMailer::Base
     @headers    = {}
   end
 
-  def rejected(order, reason, sent_at = Time.now)
+  def rejected(order, comment, sent_at = Time.now)
     @subject    = _('Reservation Rejected')
     @body["order"] = order
-    @body["reason"] = reason
+    @body["comment"] = comment
     @recipients = "#{order.user.email}"
     @from       = ''
     @sent_on    = sent_at
     @headers    = {}
   end
 
-  def changed(order, sent_at = Time.now)
-    @subject    = 'OrderMailer#changed'
-    @body       = {}
-    @recipients = ''
+  def changed(order, comment, sent_at = Time.now)
+    @subject    = _('Reservation confirmed (with changes)')
+    @body["order"]  = order
+    @body["comment"] = comment
+    
+    @recipients = "#{order.user.email}"
     @from       = ''
     @sent_on    = sent_at
     @headers    = {}
