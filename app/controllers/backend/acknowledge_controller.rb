@@ -17,8 +17,10 @@ class Backend::AcknowledgeController < Backend::BackendController
       else
         OrderMailer.deliver_approved(@order, params[:comment])
       end
+
+      # TODO rjs: close the modal and responde to the parent window
       init
-      redirect_to :controller=> 'acknowledge', :action => 'index'
+      redirect_to :action => 'index'
     end
     
   rescue
@@ -31,8 +33,10 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order.status = Order::REJECTED
       @order.save
       OrderMailer.deliver_rejected(@order, params[:comment])
-      init
-      redirect_to :controller => 'acknowledge', :action => 'index'
+      
+      # TODO rjs: close the modal and responde to the parent window
+      #init
+      #redirect_to :action => 'index'
     end
   end 
   
@@ -59,5 +63,14 @@ class Backend::AcknowledgeController < Backend::BackendController
     puts $!
   end
   
+  
+  
+  def modal_approve
+    render :layout => 'backend/00-patterns/modal'
+  end
+
+  def modal_reject
+    render :layout => 'backend/00-patterns/modal'
+  end
   
 end

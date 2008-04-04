@@ -1,0 +1,10 @@
+	<h2><%= _("Wollen Sie die Bestellung quittieren?") %></h2>
+	<br />
+	<div class="buttons">
+		<%=	link_to(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Speichern + Quittieren"),
+					 { :controller => 'acknowledge', :action => 'approve', :id => params[:id] },
+					 { :class => 'positive', :method => 'post' }) %>
+					 
+		<%=	link_to_function(_("Abbrechen"), "parent.parent.GB_hide();") %>
+	</div>
+	

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/acts_as_commentable/README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Tue Apr 01 17:11:35 +0200 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Acts As Commentable
+</p>
+<h6>===========</h6>
+<p>
+Allows for comments to be added to multiple and different models.
+</p>
+<h2>Resources</h2>
+<p>
+Install
+</p>
+<pre>
+ * Run the following command:
+
+ script/plugin install http://juixe.com/svn/acts_as_commentable
+
+ * Create a new rails migration and add the following self.up and self.down methods
+
+  def self.up
+    create_table &quot;comments&quot;, :force =&gt; true do |t|
+      t.column &quot;title&quot;, :string, :limit =&gt; 50, :default =&gt; &quot;&quot;
+      t.column &quot;comment&quot;, :text, :default =&gt; &quot;&quot;
+      t.column &quot;created_at&quot;, :datetime, :null =&gt; false
+      t.column &quot;commentable_id&quot;, :integer, :default =&gt; 0, :null =&gt; false
+      t.column &quot;commentable_type&quot;, :string, :limit =&gt; 15, :default =&gt; &quot;&quot;, :null =&gt; false
+      t.column &quot;user_id&quot;, :integer, :default =&gt; 0, :null =&gt; false
+    end
+
+    add_index &quot;comments&quot;, [&quot;user_id&quot;], :name =&gt; &quot;fk_comments_user&quot;
+  end
+
+  def self.down
+    drop_table :comments
+  end
+</pre>
+<h2>Usage</h2>
+<pre>
+ * Make you ActiveRecord model act as commentable.
+
+ class Model &lt; ActiveRecord::Base
+        acts_as_commentable
+ end
+
+ * Add a comment to a model instance
+
+ model = Model.new
+ comment = Comment.new
+ comment.comment = 'Some comment'
+ model.comments &lt;&lt; comment
+
+ * Each comment reference commentable object
+
+ model = Model.find(1)
+ model.comments.get(0).commtable == model
+</pre>
+<h2>Credits</h2>
+<p>
+Xelipe - This plugin is heavily influced by Acts As Tagglable.
+</p>
+<h2>More</h2>
+<p>
+<a
+href="http://www.juixe.com/techknow/index.php/2006/06/18/acts-as-commentable-plugin">www.juixe.com/techknow/index.php/2006/06/18/acts-as-commentable-plugin</a>/
+<a
+href="http://www.juixe.com/projects/acts_as_commentable">www.juixe.com/projects/acts_as_commentable</a>
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,3 +1,4 @@
+<!-- TODO start old ================================================================================== -->
 <div id="active_tab"><%= _("Order") + ": #{@order.user.login}" %></div>
 
 <div id="changes"><ul></ul></div>
@@ -18,3 +19,154 @@
 <% end %> 
 
 <% end %>
+
+<!-- TODO end old ================================================================================== -->
+
+			
+			<div class="toolbar-main boxes">
+				<div class="buttons">
+					<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Speichern + Quittieren"),
+											 { :controller => 'acknowledge', :action => 'modal_approve', :id => @order.id },
+											 :title => "Warnung (Modales Fenster)",
+											 :class => "positive") %>
+					<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Bestellung ablehnen"),
+											 { :controller => 'acknowledge', :action => 'modal_reject', :id => @order.id },
+											 :title => "Warnung (Modales Fenster)") %>
+
+
+					<a href="modal-draft.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox" title="Warnung (Modales Fenster)"><img src="images/icons/disk.png" alt="" />  Als Entwurf speichern</a>
+					<a href="modal-delete.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox negative" title="Warnung (Modales Fenster)"><img src="images/icons/cancel.png" alt="" />  Bestellung löschen</a>
+				</div>
+			</div>
+			
+			<div id="meta" class="boxes">
+				
+				<div id="meta-bestellung">
+					<h2><%= _("Bestellung Nr.") + " #{@order.id}" %></h2>
+					<table cellspacing="0">
+						<tr class="alt-row">
+							<td><a href="modal-switch.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt arrow_switch" title="Warnung (Modales Fenster)">Reservierender:</a></td> 
+							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-user" title="Warnung (Modales Fenster)">Jan Mellissen</a></td>
+						</tr>
+						<tr class="alt-row">
+							<td>Zeitfenster:</td>
+							<td><a href="modal-overview.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-magnify" title="Warnung (Modales Fenster)">01.08.08 - 03.09.08</a></td>
+						</tr>
+						<tr class="alt-row">
+							<td><a href="modal-edit.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-pencil" title="Warnung (Modales Fenster)">Verwendungszweck:</a></td>
+							<td>Für das Studentenprojekt</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div id="meta-tabs">
+					
+					<div id="meta-tabs-container">
+					<ul>
+						<li class="active"><a href="#">Protokoll</a></li>
+						<li><a href="#">Weitere Infos</a></li>
+						<li><a href="#">Hilfe</a></li>
+					</ul>
+					<div id="meta-tabs-content">
+						<table>
+							<tr>
+								<td>Paket "Kamera" gelöscht</td>
+								<td>21.02.08, 12:36</td>
+							</tr>
+							<tr>
+								<td>Paket "Beamer" gelöscht</td>
+								<td>21.02.08, 12:35</td>
+							</tr>
+
+						</table>
+					</div>
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class="table-overview boxes">
+				
+				<div class="toolbar-second">
+					<h3>Pakete</h3>
+					<div class="buttons">
+						<a href="#"><img src="images/icons/package_add.png" alt="" />  Paket hinzufügen</a>
+						<a href="#"><img src="images/icons/date_edit.png" alt="" />  Markierte Zeitraum ändern</a>
+						<a href="#" class="negative"><img src="images/icons/cancel.png" alt="" />  Markierte löschen</a>
+					</div>
+				</div>
+				
+					<table cellspacing="0">
+						<tr>
+							<th scope="col"><input type="checkbox" /> Alle Markieren</th>
+							<th scope="col">Paket</th>
+							<th scope="col">Zeitraum</th>
+							<th scope="col">Aktion</th>
+						</tr>
+
+					<!-- TODO start iterator -->
+					<% for order_line in @order.order_lines %>
+						<tr class="alt-row">
+							<td><input type="checkbox" /></td>
+							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)"><%= order_line.model.name %></a></td>
+							<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">08.01.08 - 12.01.08</a></td>
+							<td><div class="buttons"><a href="#"><%= image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Austauschen") %></a> <a href="#" class="negative"><%= image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen") %></a></div></td>
+						</tr>
+					<% end %>
+					<!-- TODO end iterator -->						
+
+						<tr class="alt-row">
+							<td><input type="checkbox" /></td>
+							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)">Beamer NEC LT 245</a></td>
+							<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">08.01.08 - 12.01.08</a></td>
+							<td><div class="buttons"><a href="#"><img src="images/icons/arrow_switch.png" alt="" /> Austauschen</a> <a href="#" class="negative"><img src="images/icons/cancel.png" alt="" /> Löschen</a></div></td>
+						</tr>
+							<tr>
+								<td><input type="checkbox" /></td>
+								<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)">Stativ Modulo 2356</a></td>
+								<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">23.01.08 - 01.02.08</a></td>
+								<td><div class="buttons"><a href="#"><img src="images/icons/arrow_switch.png" alt="" /> Austauschen</a> <a href="#" class="negative"><img src="images/icons/cancel.png" alt="" /> Löschen</a></div></td>
+							</tr>
+
+
+						<tr class="alt-row">
+							<td><input type="checkbox" /></td>
+							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)">Digitalkamera Nikon D70</a></td>
+							<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">23.01.08 - 01.02.08</a></td>
+							<td><div class="buttons"><a href="#"><img src="images/icons/arrow_switch.png" alt="" /> Austauschen</a> <a href="#" class="negative"><img src="images/icons/cancel.png" alt="" /> Löschen</a></div></td>
+						</tr>
+
+						</table>
+						
+			</div>
+			
+					<div class="table-overview boxes">
+
+						<div class="toolbar-second">
+							<h3>Zubehör</h3>
+							<div class="buttons">
+								<a href="#"><img src="images/icons/package_add.png" alt="" />  Zubehör hinzufügen</a>
+								<a href="#" class="negative"><img src="images/icons/cancel.png" alt="" />  Markierte löschen</a>
+							</div>
+						</div>
+
+							<table cellspacing="0">
+								<tr>
+									<th scope="col"><input type="checkbox" /> Alle Markieren</th>
+									<th scope="col">Anzahl/Stückzahl</th>
+									<th scope="col">Bezeichnung</th>
+									<th scope="col">Bemerkung</th>
+									<th scope="col">Aktion</th>
+								</tr>
+								<tr class="alt-row">
+									<td><input type="checkbox" /></td>
+									<td><input type="text" /></td>
+									<td><input type="text" /></td>
+									<td><textarea></textarea></td>
+									<td><div class="buttons"><a href="#" class="negative"><img src="images/icons/cancel.png" alt="" /> Löschen</a></div></td>
+								</tr>
+								
+								
+							</table>
+					</div>
+					
