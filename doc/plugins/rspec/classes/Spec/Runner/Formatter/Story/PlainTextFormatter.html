@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Spec::Runner::Formatter::Story::PlainTextFormatter</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Spec::Runner::Formatter::Story::PlainTextFormatter</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../../files/vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter_rb.html">
+                vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                BaseTextFormatter
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000217">collected_steps</a>&nbsp;&nbsp;
+      <a href="#M000204">new</a>&nbsp;&nbsp;
+      <a href="#M000212">run_ended</a>&nbsp;&nbsp;
+      <a href="#M000205">run_started</a>&nbsp;&nbsp;
+      <a href="#M000210">scenario_failed</a>&nbsp;&nbsp;
+      <a href="#M000211">scenario_pending</a>&nbsp;&nbsp;
+      <a href="#M000208">scenario_started</a>&nbsp;&nbsp;
+      <a href="#M000209">scenario_succeeded</a>&nbsp;&nbsp;
+      <a href="#M000216">step_failed</a>&nbsp;&nbsp;
+      <a href="#M000215">step_pending</a>&nbsp;&nbsp;
+      <a href="#M000214">step_succeeded</a>&nbsp;&nbsp;
+      <a href="#M000213">step_upcoming</a>&nbsp;&nbsp;
+      <a href="#M000207">story_ended</a>&nbsp;&nbsp;
+      <a href="#M000206">story_started</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000204" class="method-detail">
+        <a name="M000204"></a>
+
+        <div class="method-heading">
+          <a href="#M000204" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(options, where)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000204-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000204-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 8</span>
+ 8:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">where</span>)
+ 9:             <span class="ruby-keyword kw">super</span>
+10:             <span class="ruby-ivar">@successful_scenario_count</span> = <span class="ruby-value">0</span>
+11:             <span class="ruby-ivar">@pending_scenario_count</span> = <span class="ruby-value">0</span>
+12:             <span class="ruby-ivar">@failed_scenarios</span> = []
+13:             <span class="ruby-ivar">@pending_steps</span> = []
+14:             <span class="ruby-ivar">@previous_type</span> = <span class="ruby-keyword kw">nil</span>
+15:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000217" class="method-detail">
+        <a name="M000217"></a>
+
+        <div class="method-heading">
+          <a href="#M000217" class="method-signature">
+          <span class="method-name">collected_steps</span><span class="method-args">(steps)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000217-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000217-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 100</span>
+100:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collected_steps</span>(<span class="ruby-identifier">steps</span>)
+101:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000212" class="method-detail">
+        <a name="M000212"></a>
+
+        <div class="method-heading">
+          <a href="#M000212" class="method-signature">
+          <span class="method-name">run_ended</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000212-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000212-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 58</span>
+58:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_ended</span>
+59:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#@count scenarios: #@successful_scenario_count succeeded, #{@failed_scenarios.size} failed, #@pending_scenario_count pending&quot;</span>
+60:             <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@pending_steps</span>.<span class="ruby-identifier">empty?</span>
+61:               <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\nPending Steps:&quot;</span>
+62:               <span class="ruby-ivar">@pending_steps</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pending</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+63:                 <span class="ruby-identifier">story_name</span>, <span class="ruby-identifier">scenario_name</span>, <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">pending</span>
+64:                 <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{i+1}) #{story_name} (#{scenario_name}): #{msg}&quot;</span>
+65:               <span class="ruby-keyword kw">end</span>
+66:             <span class="ruby-keyword kw">end</span>
+67:             <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@failed_scenarios</span>.<span class="ruby-identifier">empty?</span>
+68:               <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;\nFAILURES:&quot;</span>
+69:               <span class="ruby-ivar">@failed_scenarios</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">failure</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+70:                 <span class="ruby-identifier">title</span>, <span class="ruby-identifier">scenario_name</span>, <span class="ruby-identifier">err</span> = <span class="ruby-identifier">failure</span>
+71:                 <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">print</span> <span class="ruby-node">%[
+72:     #{i+1}) #{title} (#{scenario_name}) FAILED
+73:     #{err.class}: #{err.message}
+74:     #{err.backtrace.join(&quot;\n&quot;)}
+75: ]</span>
+76:               <span class="ruby-keyword kw">end</span>
+77:             <span class="ruby-keyword kw">end</span>            
+78:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000205" class="method-detail">
+        <a name="M000205"></a>
+
+        <div class="method-heading">
+          <a href="#M000205" class="method-signature">
+          <span class="method-name">run_started</span><span class="method-args">(count)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000205-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000205-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 17</span>
+17:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_started</span>(<span class="ruby-identifier">count</span>)
+18:             <span class="ruby-ivar">@count</span> = <span class="ruby-identifier">count</span>
+19:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Running #@count scenarios\n\n&quot;</span>
+20:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000210" class="method-detail">
+        <a name="M000210"></a>
+
+        <div class="method-heading">
+          <a href="#M000210" class="method-signature">
+          <span class="method-name">scenario_failed</span><span class="method-args">(story_title, scenario_name, err)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000210-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000210-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 47</span>
+47:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scenario_failed</span>(<span class="ruby-identifier">story_title</span>, <span class="ruby-identifier">scenario_name</span>, <span class="ruby-identifier">err</span>)
+48:             <span class="ruby-ivar">@options</span>.<span class="ruby-identifier">backtrace_tweaker</span>.<span class="ruby-identifier">tweak_backtrace</span>(<span class="ruby-identifier">err</span>)
+49:             <span class="ruby-ivar">@failed_scenarios</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">story_title</span>, <span class="ruby-identifier">scenario_name</span>, <span class="ruby-identifier">err</span>] <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@scenario_already_failed</span>
+50:             <span class="ruby-ivar">@scenario_already_failed</span> = <span class="ruby-keyword kw">true</span>
+51:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000211" class="method-detail">
+        <a name="M000211"></a>
+
+        <div class="method-heading">
+          <a href="#M000211" class="method-signature">
+          <span class="method-name">scenario_pending</span><span class="method-args">(story_title, scenario_name, msg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000211-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000211-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 53</span>
+53:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scenario_pending</span>(<span class="ruby-identifier">story_title</span>, <span class="ruby-identifier">scenario_name</span>, <span class="ruby-identifier">msg</span>)
+54:             <span class="ruby-ivar">@pending_scenario_count</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@scenario_already_failed</span>
+55:             <span class="ruby-ivar">@scenario_already_failed</span> = <span class="ruby-keyword kw">true</span>
+56:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000208" class="method-detail">
+        <a name="M000208"></a>
+
+        <div class="method-heading">
+          <a href="#M000208" class="method-signature">
+          <span class="method-name">scenario_started</span><span class="method-args">(story_title, scenario_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000208-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000208-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 36</span>
+36:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scenario_started</span>(<span class="ruby-identifier">story_title</span>, <span class="ruby-identifier">scenario_name</span>)
+37:             <span class="ruby-ivar">@current_scenario_name</span> = <span class="ruby-identifier">scenario_name</span>
+38:             <span class="ruby-ivar">@scenario_already_failed</span> = <span class="ruby-keyword kw">false</span>
+39:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">print</span> <span class="ruby-node">&quot;\n\n  Scenario: #{scenario_name}&quot;</span>
+40:             <span class="ruby-ivar">@scenario_ok</span> = <span class="ruby-keyword kw">true</span>
+41:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000209" class="method-detail">
+        <a name="M000209"></a>
+
+        <div class="method-heading">
+          <a href="#M000209" class="method-signature">
+          <span class="method-name">scenario_succeeded</span><span class="method-args">(story_title, scenario_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000209-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000209-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 43</span>
+43:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scenario_succeeded</span>(<span class="ruby-identifier">story_title</span>, <span class="ruby-identifier">scenario_name</span>)
+44:             <span class="ruby-ivar">@successful_scenario_count</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+45:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000216" class="method-detail">
+        <a name="M000216"></a>
+
+        <div class="method-heading">
+          <a href="#M000216" class="method-signature">
+          <span class="method-name">step_failed</span><span class="method-args">(type, description, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000216-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000216-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 94</span>
+94:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">step_failed</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">description</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+95:             <span class="ruby-identifier">found_step</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">description</span>, <span class="ruby-keyword kw">true</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+96:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">print</span> <span class="ruby-identifier">red</span>(<span class="ruby-ivar">@scenario_ok</span> <span class="ruby-operator">?</span> <span class="ruby-value str">&quot; (FAILED)&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot; (SKIPPED)&quot;</span>)
+97:             <span class="ruby-ivar">@scenario_ok</span> = <span class="ruby-keyword kw">false</span>
+98:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000215" class="method-detail">
+        <a name="M000215"></a>
+
+        <div class="method-heading">
+          <a href="#M000215" class="method-signature">
+          <span class="method-name">step_pending</span><span class="method-args">(type, description, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000215-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000215-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 87</span>
+87:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">step_pending</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">description</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+88:             <span class="ruby-identifier">found_step</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">description</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+89:             <span class="ruby-ivar">@pending_steps</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-ivar">@current_story_title</span>, <span class="ruby-ivar">@current_scenario_name</span>, <span class="ruby-identifier">description</span>]
+90:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">print</span> <span class="ruby-value str">&quot; (PENDING)&quot;</span>
+91:             <span class="ruby-ivar">@scenario_ok</span> = <span class="ruby-keyword kw">false</span>
+92:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000214" class="method-detail">
+        <a name="M000214"></a>
+
+        <div class="method-heading">
+          <a href="#M000214" class="method-signature">
+          <span class="method-name">step_succeeded</span><span class="method-args">(type, description, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000214-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000214-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 83</span>
+83:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">step_succeeded</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">description</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+84:             <span class="ruby-identifier">found_step</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">description</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+85:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000213" class="method-detail">
+        <a name="M000213"></a>
+
+        <div class="method-heading">
+          <a href="#M000213" class="method-signature">
+          <span class="method-name">step_upcoming</span><span class="method-args">(type, description, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000213-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000213-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 80</span>
+80:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">step_upcoming</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">description</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+81:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000207" class="method-detail">
+        <a name="M000207"></a>
+
+        <div class="method-heading">
+          <a href="#M000207" class="method-signature">
+          <span class="method-name">story_ended</span><span class="method-args">(title, narrative)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000207-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000207-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 31</span>
+31:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">story_ended</span>(<span class="ruby-identifier">title</span>, <span class="ruby-identifier">narrative</span>)
+32:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">puts</span>
+33:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">puts</span>
+34:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000206" class="method-detail">
+        <a name="M000206"></a>
+
+        <div class="method-heading">
+          <a href="#M000206" class="method-signature">
+          <span class="method-name">story_started</span><span class="method-args">(title, narrative)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000206-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000206-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb, line 22</span>
+22:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">story_started</span>(<span class="ruby-identifier">title</span>, <span class="ruby-identifier">narrative</span>)
+23:             <span class="ruby-ivar">@current_story_title</span> = <span class="ruby-identifier">title</span>
+24:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Story: #{title}\n\n&quot;</span>
+25:             <span class="ruby-identifier">narrative</span>.<span class="ruby-identifier">each_line</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+26:               <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;  &quot;</span>
+27:               <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">print</span> <span class="ruby-identifier">line</span>
+28:             <span class="ruby-keyword kw">end</span>
+29:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
