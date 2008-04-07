@@ -1,0 +1,10 @@
+	<h2><%= _("Sie sind Sie sicher, dass Sie diese Bestellung ablehnen möchten?") %></h2>
+	<p><%= _("Speichern Sie die Bestellung und kommen Sie später wieder darauf zurück.") %></p>
+	<br />
+	<div class="buttons">
+		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Ablehnen"),
+					 { :controller => 'acknowledge', :action => 'reject', :id => params[:id] },
+					 :class => 'positive', :method => 'post') %>
+					 
+		<%=	link_to_function(_("Abbrechen"), "parent.parent.GB_hide();") %>
+	</div>	
