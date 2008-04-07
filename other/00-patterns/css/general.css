@@ -3,6 +3,9 @@ Project: leihs 2.0
 Author: stefano.vannotti@zhdk.ch
 */
 
+@import url(tabs.css) all;
+@import url(buttons.css) all;
+@import url(tables.css) all;
 
 /* 	- - - - - - - - - - - - -
 GENERAL
