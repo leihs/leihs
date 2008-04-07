@@ -100,23 +100,23 @@
 				</div>
 				
 					<table cellspacing="0">
+					<!-- TODO start header -->
 						<tr>
-							<th scope="col"><input type="checkbox" /> Alle Markieren</th>
-							<th scope="col">Paket</th>
-							<th scope="col">Zeitraum</th>
-							<th scope="col">Aktion</th>
+							<th scope="col"><input type="checkbox" onClick="$$('body input.order_line_check').each(function(box){box.checked=checked})" /> <%= _("Alle Markieren") %></th>
+							<th scope="col"><%= _("Paket") %></th>
+							<th scope="col"><%= _("Zeitraum") %></th>
+							<th scope="col"><%= _("Aktion") %></th>
 						</tr>
+					<!-- TODO end header -->
 
 					<!-- TODO start iterator -->
 					<% for @line in @order.order_lines %>
-						<div id="order_line_<%= @line.id %>">
-							<tr class="alt-row">
-								<td><input type="checkbox" /> <%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %></td>
-								<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)"><%= @line.model.name %></a></td>
-								<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">08.01.08 - 12.01.08</a></td>
-								<td><div class="buttons"><a href="#"><%= image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Austauschen") %></a> <a href="#" class="negative"><%= image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen") %></a></div></td>
-							</tr>
-						</div>
+						<tr class="alt-row">
+							<td><input type="checkbox" class="order_line_check" name="order_lines[]" value="<%= @line.id %>" /> <%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %></td>
+							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)"><%= @line.model.name %></a></td>
+							<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">08.01.08 - 12.01.08</a></td>
+							<td><div class="buttons"><a href="#"><%= image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Austauschen") %></a> <a href="#" class="negative"><%= image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen") %></a></div></td>
+						</tr>
 					<% end %>
 					<!-- TODO end iterator -->						
 
@@ -158,7 +158,7 @@
 							<table cellspacing="0">
 								<tr>
 									<th scope="col"><input type="checkbox" /> Alle Markieren</th>
-									<th scope="col">Anzahl/St�ckzahl</th>
+									<th scope="col">Anzahl/Stückzahl</th>
 									<th scope="col">Bezeichnung</th>
 									<th scope="col">Bemerkung</th>
 									<th scope="col">Aktion</th>
@@ -168,7 +168,7 @@
 									<td><input type="text" /></td>
 									<td><input type="text" /></td>
 									<td><textarea></textarea></td>
-									<td><div class="buttons"><a href="#" class="negative"><img src="images/icons/cancel.png" alt="" /> L�schen</a></div></td>
+									<td><div class="buttons"><a href="#" class="negative"><img src="images/icons/cancel.png" alt="" /> Löschen</a></div></td>
 								</tr>
 								
 								
