@@ -1,10 +1,11 @@
 <!-- TODO start old ================================================================================== -->
 <div id="active_tab"><%= _("Order") + ": #{@order.user.login}" %></div>
 
-<div id="changes"><ul></ul></div>
+<!-- <div id="changes"><ul></ul></div> -->
 <%= link_to('approve', :controller => 'acknowledge', :url => 'approve', :id => @order.id) %>
 <%= link_to('reject', :controller => 'acknowledge', :url => 'reject', :id => @order.id) %>
 
+<!--
 <% @order.order_lines.each do |line| %>
 <% form_remote_tag :url => {:action => 'change_line'} do %>
 
@@ -19,7 +20,7 @@
 <% end %> 
 
 <% end %>
-
+-->
 <!-- TODO end old ================================================================================== -->
 
 			
@@ -77,8 +78,10 @@
 								<td>Paket "Beamer" gelöscht</td>
 								<td>21.02.08, 12:35</td>
 							</tr>
-
 						</table>
+						<!-- TODO start display changes in table -->
+							<div id="changes"><ul></ul></div>
+						<!-- TODO end display changes in table -->
 					</div>
 					</div>
 					
@@ -105,13 +108,15 @@
 						</tr>
 
 					<!-- TODO start iterator -->
-					<% for order_line in @order.order_lines %>
-						<tr class="alt-row">
-							<td><input type="checkbox" /></td>
-							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)"><%= order_line.model.name %></a></td>
-							<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">08.01.08 - 12.01.08</a></td>
-							<td><div class="buttons"><a href="#"><%= image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Austauschen") %></a> <a href="#" class="negative"><%= image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen") %></a></div></td>
-						</tr>
+					<% for @line in @order.order_lines %>
+						<div id="order_line_<%= @line.id %>">
+							<tr class="alt-row">
+								<td><input type="checkbox" /> <%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %></td>
+								<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)"><%= @line.model.name %></a></td>
+								<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">08.01.08 - 12.01.08</a></td>
+								<td><div class="buttons"><a href="#"><%= image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Austauschen") %></a> <a href="#" class="negative"><%= image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen") %></a></div></td>
+							</tr>
+						</div>
 					<% end %>
 					<!-- TODO end iterator -->						
 

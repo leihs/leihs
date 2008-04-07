@@ -1,10 +1,16 @@
 page.insert_html :bottom, 'changes', "<li>#{@change}</li>" 
 page.visual_effect :highlight, 'changes'
 
+page['line_quantity_' + params[:order_line_id]].value = @order_line.quantity
+page << "document.getElementById('line_quantity_#{params[:order_line_id]}').style.backgroundColor = '#{@color}'"
+
+
+# TODO where is defined @flash_notice ??
 if @flash_notice
   page.replace_html 'flash_notice', @flash_notice if @flash_notice
 
-  page.replace_html 'order_line_' + params[:id], "<input type='text' style='background-color: red' name='quantity' value='#{@order_line.quantity}'/>" 
+#  page.replace_html 'order_line_' + params[:id], "<input type='text' style='background-color: red' name='quantity' value='#{@order_line.quantity}'/>" 
+  
   page.delay(3) do
     page.visual_effect :fade, 'flash_notice'
   end

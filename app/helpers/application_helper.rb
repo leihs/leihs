@@ -2,7 +2,14 @@
 module ApplicationHelper
 
   def link_button(text, options = {})
+    #TODO check options: img, class, href, target 
+    options[:href] ||= "#"
+    options[:target] ||= "_self"
     
+    '<a href="' + options[:href] + '" target="' + options[:target] + '">' +   
+       (options[:class].nil? ? '' : ' class="' + options[:class] + '">') +
+       (options[:img].nil? ? '' : image_tag(options[:img])) +
+       ' ' + text + '</a>'
   end
 
   def submit_button(text, options = {})

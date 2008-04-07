@@ -58,6 +58,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order = @order_line.order
       required_quantity = params[:quantity].to_i
       @order_line, @change = @order.update_line(@order_line.id, required_quantity, session[:user_id])
+      @color = required_quantity != @order_line.quantity ? 'red' : ''
       @order.save
     end
   end
