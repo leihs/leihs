@@ -42,10 +42,19 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
   end 
   
+  def swap_line
+    if request.post?
+      @order = Order.find(params[:id])
+      @order.swap_line(params[:order_line_id], params[:model_id], session[:user_id])
+      redirect_to :action => 'show', :id => @order.id
+    else
+      redirect_to :controller => 'search', :action => 'model'
+    end
+  end
   
   def change_line
     if request.post?
-      @order_line = OrderLine.find(params[:id])
+      @order_line = OrderLine.find(params[:order_line_id])
       @order = @order_line.order
       required_quantity = params[:quantity].to_i
       @order_line, @change = @order.update_line(@order_line.id, required_quantity, session[:user_id])

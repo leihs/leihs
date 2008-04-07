@@ -38,6 +38,16 @@ class Order < ActiveRecord::Base
     
   end
   
+  def swap_line(line_id, model_id, user_id)
+    line = order_lines.find(line_id.to_i)
+    model = Model.find(model_id.to_i)
+    change = _("Swapped %{quantity} %{from} for %{quantity} %{to}") % { :quantity => line.quantity, :from => line.model.name, :to => model.name}
+    line.model = model
+    log_change(change, user_id)
+    line.save
+    [line, change]
+  end
+  
   #TODO: If you want to copy this method somewhere else, think about creating a acts_as_....
   def log_change(text, user_id)
     histories << History.new(:text => text, :user_id => user_id, :type_const => History::CHANGE)

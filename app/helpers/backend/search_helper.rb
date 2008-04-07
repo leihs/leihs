@@ -1,0 +1,2 @@
+module Backend::SearchHelper
+end

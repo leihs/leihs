@@ -81,23 +81,13 @@ steps_for(:acknowledge) do
   end
   
   When "$who changes number of items of model '$model' to $quantity" do |who, model, quantity|
-    id = 0
-    @order.order_lines.each do |line|
-      if model == line.model.name
-        id = line.id
-      end
-    end
+    id = find_line(model).id
     id.should > 0
-    post "/backend/acknowledge/change_line", :id => id, :quantity => quantity
+    post "/backend/acknowledge/change_line", :id => @order.id, :order_line_id => id, :quantity => quantity
     response.should render_template('backend/acknowledge/change_line')
     @order = assigns(:order)
     @order.has_changes?.should == true
-    @order.order_lines.each do |line|
-      if model == line.model.name
-        line.quantity.should == 4
-      end
-    end
-    
+    find_line(model).quantity.should == 4
   end
   
   When "$who adds $quantity item '$model'" do |who, quantity, model|
@@ -107,11 +97,33 @@ steps_for(:acknowledge) do
     @order.order_lines.each do | line |
       line.model.should_not be_nil
     end
-    response.should render_template('backend/acknowledge/add_line')
+    
+    @response.should render_template('backend/acknowledge/add_line')
   end
+  
   
   When "$who adds a personal message: '$message'" do |who, message|
     @comment = message
+  end
+
+  When "$who chooses 'swap' on order line '$model'" do |who, model|
+    line = find_line(model)
+    get "/backend/acknowledge/swap_line", :id => @order.id, :order_line_id => line.id
+    @order_line_id = line.id
+    @response = response    
+  end
+  
+  When "$who searches for '$model'" do |who, model|
+    post "/backend/search/model", :text => model
+    @search_result = assigns(:search_result)
+    @search_result.should_not be_nil
+  end
+  
+  When "$who selects '$model'" do |who, model|
+    model_id = Model.find(:first, :conditions => { :name => model}).id
+    post "/backend/acknowledge/swap_line", :id => @order.id, :order_line_id => @order_line_id, :model_id => model_id
+    @order = assigns(:order)
+    @order.should_not be_nil
   end
   
   Then "$who sees $size order$s" do | who, size, s |
@@ -128,7 +140,7 @@ steps_for(:acknowledge) do
   end
   
   Then "the active tab is titled '$title'" do | title |
-    @response.should have_tag("div#active_tab", title)
+    @response.should have_tag("li.active", title)
   end
   
   Then "$name's order is opened in tab" do |name|
@@ -154,5 +166,19 @@ steps_for(:acknowledge) do
   
   Then "it contains information '$line'" do |line|
     @mail.body.should match(Regexp.new(line))
+  end
+  
+  Then "Swap Item screen opens" do 
+    @response.redirect_url.should == 'http://www.example.com/backend/search/model'
+  end
+  
+  Then "a choice of $size item appears" do |size|
+    @search_result.size.should == size.to_i
+  end
+  
+  Then "$who sees $quantity items of model '$model'" do |who, quantity, model|
+    line = find_line(model)
+    line.should_not be_nil
+    line.quantity.should == quantity.to_i
   end
 end

@@ -1,1 +1,51 @@
-<div id="active_tab"><%= _("Acknowledge") + " (#{@new_orders.size})" %></div>
+<div id="meta" class="boxes">
+	<h2><%= _("Aktuell sind <em>%{n} neue Bestellungen</em> zu quittieren.") % { :n => @new_orders.size } %></h2>
+</div>
+			
+<div id="drafts" class="boxes">
+<!--
+	<div class="buttons">
+		<p style="float: left; line-height: 30px; margin-right: 20px;">Bestellungen in Bearbeitung (bitte vervollständigen):</p>
+		<a href="#"><img src="images/icons/tab_go.png" alt="" />  Muster, Henry (12.01.08, 12:33)</a>
+		<a href="#"><img src="images/icons/tab_go.png" alt="" />  Schwitter, Lukas (12.01.08, 10:21)</a>
+	</div>
+-->
+</div>
+			
+<div class="table-overview boxes">
+	
+	<div id="controller">
+		<form>
+			<input type="text" value="Bestellung suchen" />
+			<select>
+				<option>Alle Felder</option>
+				<option>Reservierender</option>
+				<option>Datum</option>
+				<option>Hersteller</option>
+				<option>...</option>
+			</select>
+		</form>
+	</div>
+	
+		<table cellspacing="0">
+			<tr>
+				<th scope="col">Empfangen am</th>
+				<th scope="col">Reservierender</th>
+				<th scope="col">Anzahl Pakete</th>
+				<th scope="col">Aktion</th>
+			</tr>
+
+		<% for order in @new_orders %>
+			<tr class="<%= cycle("alt-row", "fresh") -%>">
+				<td class="row-closed"><%= "#{time_ago_in_words(order.created_at)} ago" %></td>
+				<td><a href="modal-benutzer.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-user" title="Warnung (Modales Fenster)"><%= order.user.login %></a></td>
+				<td><%= _("%{n} Pakete") % {:n => order.order_lines.size} %></td>
+					<td><div class="buttons"><%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"), :controller => 'acknowledge', :action => 'show', :id => order %></div></td>
+			</tr>
+		<% end %>
+			
+			
+		</table>
+			
+</div>
+			

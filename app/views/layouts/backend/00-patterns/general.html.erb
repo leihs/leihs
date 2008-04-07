@@ -25,13 +25,7 @@
 	
 	<div id="container">
 
-		<!-- TODO tabs in partial -->
-		<div id="tabs">	
-			<ul>
-				<li><%= link_to "<span>" + _("Bestellung quittieren") + "<em> (#{@new_orders.size})</em></span>", :controller => 'dashboard' %></li>
-				<li class="active"><a href="#"><span>Bestellung bearbeiten<em>(Melissen, Jan)</em></span></a></li>
-			</ul>
-		</div>
+		<%= render :partial => 'tabs' %>
 		
 		<div id="inner-container">
 					

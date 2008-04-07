@@ -17,3 +17,14 @@ end
 def link2(attributes)
   "<a href='#{attributes['url']}'>#{attributes['name']}</a>"
 end
+
+
+def find_line(model)
+  id = 0
+  @order.order_lines.each do |line|
+    if model == line.model.name
+      return line
+    end
+  end
+  nil
+end
