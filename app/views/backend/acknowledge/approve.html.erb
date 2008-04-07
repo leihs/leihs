@@ -1,10 +1,16 @@
 	<h2><%= _("Wollen Sie die Bestellung quittieren?") %></h2>
 	<br />
+	<% form_tag( {:action => 'approve', :id => params[:id]}, :name => "f", :target => "_top") do %>
+	
+	Comments
+	<%= text_area_tag 'comment', nil, :size => "25x10" %>
+	
 	<div class="buttons">
-		<%=	link_to(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Speichern + Quittieren"),
-					 { :controller => 'acknowledge', :action => 'approve', :id => params[:id] },
-					 { :class => 'positive', :method => 'post' }) %>
-					 
-		<%=	link_to_function(_("Abbrechen"), "parent.parent.GB_hide();") %>
+		<%=	submit_button(_("Speichern + Quittieren"), {:img => $layout_public_path + "/images/icons/door.png", :class => 'positive'} ) %>
+				 		 
+		<%=	cancel_popup_button(_("Abbrechen") ) %>
 	</div>
+	
+	
+	<% end %>
 	
