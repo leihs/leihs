@@ -7,5 +7,8 @@ class Model < ActiveRecord::Base
   has_and_belongs_to_many :packages
 
   #TODO: Relation to Inventory Pool?
+
+  acts_as_ferret #TODO include/exclude fields
+  
   
 end
