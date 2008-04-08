@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ActsAsFerret::MoreLikeThis::IndexMethods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ActsAsFerret::MoreLikeThis::IndexMethods</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/vendor/plugins/acts_as_ferret/lib/more_like_this_rb.html">
+                vendor/plugins/acts_as_ferret/lib/more_like_this.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000051">build_more_like_this_query</a>&nbsp;&nbsp;
+      <a href="#M000052">create_query</a>&nbsp;&nbsp;
+      <a href="#M000054">create_queue</a>&nbsp;&nbsp;
+      <a href="#M000055">noise_word?</a>&nbsp;&nbsp;
+      <a href="#M000053">retrieve_terms</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000051" class="method-detail">
+        <a name="M000051"></a>
+
+        <div class="method-heading">
+          <a href="#M000051" class="method-signature">
+          <span class="method-name">build_more_like_this_query</span><span class="method-args">(id, class_name, options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+TODO to allow morelikethis for unsaved records, we have to give the unsaved
+record&#8216;s data to this method. check how this will work out via
+drb&#8230;
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000051-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000051-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/more_like_this.rb, line 66</span>
+66:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build_more_like_this_query</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">class_name</span>, <span class="ruby-identifier">options</span>)
+67:           [<span class="ruby-identifier">:similarity</span>, <span class="ruby-identifier">:analyzer</span>].<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">sym</span><span class="ruby-operator">|</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">sym</span>] = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">sym</span>].<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">new</span> }
+68:           <span class="ruby-identifier">ferret_index</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword kw">do</span> <span class="ruby-comment cmt"># avoid that concurrent writes close our reader</span>
+69:             <span class="ruby-identifier">ferret_index</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">:ensure_reader_open</span>)
+70:             <span class="ruby-identifier">reader</span> = <span class="ruby-identifier">ferret_index</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">:reader</span>)
+71:             <span class="ruby-identifier">term_freq_map</span> = <span class="ruby-identifier">retrieve_terms</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">class_name</span>, <span class="ruby-identifier">reader</span>, <span class="ruby-identifier">options</span>)
+72:             <span class="ruby-identifier">priority_queue</span> = <span class="ruby-identifier">create_queue</span>(<span class="ruby-identifier">term_freq_map</span>, <span class="ruby-identifier">reader</span>, <span class="ruby-identifier">options</span>)
+73:             <span class="ruby-identifier">create_query</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">class_name</span>, <span class="ruby-identifier">priority_queue</span>, <span class="ruby-identifier">options</span>)
+74:           <span class="ruby-keyword kw">end</span>
+75:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000052" class="method-detail">
+        <a name="M000052"></a>
+
+        <div class="method-heading">
+          <a href="#M000052" class="method-signature">
+          <span class="method-name">create_query</span><span class="method-args">(id, class_name, priority_queue, options={})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000052-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000052-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/more_like_this.rb, line 79</span>
+ 79:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_query</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">class_name</span>, <span class="ruby-identifier">priority_queue</span>, <span class="ruby-identifier">options</span>={})
+ 80:           <span class="ruby-identifier">query</span> = <span class="ruby-constant">Ferret</span><span class="ruby-operator">::</span><span class="ruby-constant">Search</span><span class="ruby-operator">::</span><span class="ruby-constant">BooleanQuery</span>.<span class="ruby-identifier">new</span>
+ 81:           <span class="ruby-identifier">qterms</span> = <span class="ruby-value">0</span>
+ 82:           <span class="ruby-identifier">best_score</span> = <span class="ruby-keyword kw">nil</span>
+ 83:           <span class="ruby-keyword kw">while</span>(<span class="ruby-identifier">cur</span> = <span class="ruby-identifier">priority_queue</span>.<span class="ruby-identifier">pop</span>)
+ 84:             <span class="ruby-identifier">term_query</span> = <span class="ruby-constant">Ferret</span><span class="ruby-operator">::</span><span class="ruby-constant">Search</span><span class="ruby-operator">::</span><span class="ruby-constant">TermQuery</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">cur</span>.<span class="ruby-identifier">field</span>, <span class="ruby-identifier">cur</span>.<span class="ruby-identifier">word</span>)
+ 85:             
+ 86:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:boost</span>]
+ 87:               <span class="ruby-comment cmt"># boost term according to relative score</span>
+ 88:               <span class="ruby-comment cmt"># TODO untested</span>
+ 89:               <span class="ruby-identifier">best_score</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">cur</span>.<span class="ruby-identifier">score</span>
+ 90:               <span class="ruby-identifier">term_query</span>.<span class="ruby-identifier">boost</span> = <span class="ruby-identifier">cur</span>.<span class="ruby-identifier">score</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">best_score</span>
+ 91:             <span class="ruby-keyword kw">end</span>
+ 92:             <span class="ruby-keyword kw">begin</span>
+ 93:               <span class="ruby-identifier">query</span>.<span class="ruby-identifier">add_query</span>(<span class="ruby-identifier">term_query</span>, <span class="ruby-identifier">:should</span>) 
+ 94:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Ferret</span><span class="ruby-operator">::</span><span class="ruby-constant">Search</span><span class="ruby-operator">::</span><span class="ruby-constant">BooleanQuery</span><span class="ruby-operator">::</span><span class="ruby-constant">TooManyClauses</span>
+ 95:               <span class="ruby-keyword kw">break</span>
+ 96:             <span class="ruby-keyword kw">end</span>
+ 97:             <span class="ruby-identifier">qterms</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+ 98:             <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:max_query_terms</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">qterms</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:max_query_terms</span>]
+ 99:           <span class="ruby-keyword kw">end</span>
+100:           <span class="ruby-comment cmt"># exclude the original record </span>
+101:           <span class="ruby-identifier">query</span>.<span class="ruby-identifier">add_query</span>(<span class="ruby-identifier">query_for_record</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">class_name</span>), <span class="ruby-identifier">:must_not</span>)
+102:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">query</span>
+103:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000054" class="method-detail">
+        <a name="M000054"></a>
+
+        <div class="method-heading">
+          <a href="#M000054" class="method-signature">
+          <span class="method-name">create_queue</span><span class="method-args">(term_freq_map, reader, options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+create an ordered(by score) list of word,fieldname,score structures
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000054-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000054-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/more_like_this.rb, line 157</span>
+157:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_queue</span>(<span class="ruby-identifier">term_freq_map</span>, <span class="ruby-identifier">reader</span>, <span class="ruby-identifier">options</span>)
+158:           <span class="ruby-identifier">pq</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">term_freq_map</span>.<span class="ruby-identifier">size</span>)
+159:           
+160:           <span class="ruby-identifier">similarity</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:similarity</span>]
+161:           <span class="ruby-identifier">num_docs</span> = <span class="ruby-identifier">reader</span>.<span class="ruby-identifier">num_docs</span>
+162:           <span class="ruby-identifier">term_freq_map</span>.<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">word</span>, <span class="ruby-identifier">tf</span><span class="ruby-operator">|</span>
+163:             <span class="ruby-comment cmt"># filter out words that don't occur enough times in the source</span>
+164:             <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:min_term_freq</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">tf</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:min_term_freq</span>]
+165:             
+166:             <span class="ruby-comment cmt"># go through all the fields and find the largest document frequency</span>
+167:             <span class="ruby-identifier">top_field</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:field_names</span>].<span class="ruby-identifier">first</span>
+168:             <span class="ruby-identifier">doc_freq</span> = <span class="ruby-value">0</span>
+169:             <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:field_names</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">field_name</span><span class="ruby-operator">|</span> 
+170:               <span class="ruby-identifier">freq</span> = <span class="ruby-identifier">reader</span>.<span class="ruby-identifier">doc_freq</span>(<span class="ruby-identifier">field_name</span>, <span class="ruby-identifier">word</span>)
+171:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">freq</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">doc_freq</span> 
+172:                 <span class="ruby-identifier">top_field</span> = <span class="ruby-identifier">field_name</span>
+173:                 <span class="ruby-identifier">doc_freq</span> = <span class="ruby-identifier">freq</span>
+174:               <span class="ruby-keyword kw">end</span>
+175:             <span class="ruby-keyword kw">end</span>
+176:             <span class="ruby-comment cmt"># filter out words that don't occur in enough docs</span>
+177:             <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:min_doc_freq</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">doc_freq</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:min_doc_freq</span>]
+178:             <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">doc_freq</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-comment cmt"># index update problem ?</span>
+179:             
+180:             <span class="ruby-identifier">idf</span> = <span class="ruby-identifier">similarity</span>.<span class="ruby-identifier">idf</span>(<span class="ruby-identifier">doc_freq</span>, <span class="ruby-identifier">num_docs</span>)
+181:             <span class="ruby-identifier">score</span> = <span class="ruby-identifier">tf</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">idf</span>
+182:             <span class="ruby-identifier">pq</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">FrequencyQueueItem</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">word</span>, <span class="ruby-identifier">top_field</span>, <span class="ruby-identifier">score</span>)
+183:           <span class="ruby-keyword kw">end</span>
+184:           <span class="ruby-identifier">pq</span>.<span class="ruby-identifier">compact!</span>
+185:           <span class="ruby-identifier">pq</span>.<span class="ruby-identifier">sort!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">score</span><span class="ruby-operator">&lt;=&gt;</span><span class="ruby-identifier">b</span>.<span class="ruby-identifier">score</span> }
+186:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">pq</span>
+187:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000055" class="method-detail">
+        <a name="M000055"></a>
+
+        <div class="method-heading">
+          <a href="#M000055" class="method-signature">
+          <span class="method-name">noise_word?</span><span class="method-args">(text, options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000055-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000055-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/more_like_this.rb, line 189</span>
+189:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">noise_word?</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">options</span>)
+190:           <span class="ruby-identifier">len</span> = <span class="ruby-identifier">text</span>.<span class="ruby-identifier">length</span>
+191:           (
+192:             (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:min_word_length</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">len</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:min_word_length</span>]) <span class="ruby-operator">||</span>
+193:             (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:max_word_length</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">len</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:max_word_length</span>]) <span class="ruby-operator">||</span>
+194:             (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:stop_words</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">text</span>))
+195:           )
+196:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000053" class="method-detail">
+        <a name="M000053"></a>
+
+        <div class="method-heading">
+          <a href="#M000053" class="method-signature">
+          <span class="method-name">retrieve_terms</span><span class="method-args">(id, class_name, reader, options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+creates a term/term_frequency map for terms from the fields given in
+options[:field_names]
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000053-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000053-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/more_like_this.rb, line 109</span>
+109:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retrieve_terms</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">class_name</span>, <span class="ruby-identifier">reader</span>, <span class="ruby-identifier">options</span>)
+110:           <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;more_like_this atm only works on saved records&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">nil?</span>
+111:           <span class="ruby-identifier">document_number</span> = <span class="ruby-identifier">document_number</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">class_name</span>) <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+112:           <span class="ruby-identifier">field_names</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:field_names</span>]
+113:           <span class="ruby-identifier">max_num_tokens</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:max_num_tokens</span>]
+114:           <span class="ruby-identifier">term_freq_map</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>)
+115:           <span class="ruby-identifier">doc</span> = <span class="ruby-keyword kw">nil</span>
+116:           <span class="ruby-identifier">record</span> = <span class="ruby-keyword kw">nil</span>
+117:           <span class="ruby-identifier">field_names</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">field</span><span class="ruby-operator">|</span>
+118:             <span class="ruby-comment cmt">#puts &quot;field: #{field}&quot;</span>
+119:             <span class="ruby-identifier">term_freq_vector</span> = <span class="ruby-identifier">reader</span>.<span class="ruby-identifier">term_vector</span>(<span class="ruby-identifier">document_number</span>, <span class="ruby-identifier">field</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">document_number</span>
+120:             <span class="ruby-comment cmt">#if false</span>
+121:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">term_freq_vector</span>
+122:               <span class="ruby-comment cmt"># use stored term vector</span>
+123:               <span class="ruby-comment cmt"># puts 'using stored term vector'</span>
+124:               <span class="ruby-identifier">term_freq_vector</span>.<span class="ruby-identifier">terms</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">term</span><span class="ruby-operator">|</span>
+125:                 <span class="ruby-identifier">term_freq_map</span>[<span class="ruby-identifier">term</span>.<span class="ruby-identifier">text</span>] <span class="ruby-operator">+=</span> <span class="ruby-identifier">term</span>.<span class="ruby-identifier">positions</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">noise_word?</span>(<span class="ruby-identifier">term</span>.<span class="ruby-identifier">text</span>, <span class="ruby-identifier">options</span>)
+126:               <span class="ruby-keyword kw">end</span>
+127:             <span class="ruby-keyword kw">else</span>
+128:               <span class="ruby-comment cmt"># puts 'no stored term vector'</span>
+129:               <span class="ruby-comment cmt"># no term vector stored, but we have stored the contents in the index</span>
+130:               <span class="ruby-comment cmt"># -&gt; extract terms from there</span>
+131:               <span class="ruby-identifier">content</span> = <span class="ruby-keyword kw">nil</span>
+132:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">document_number</span>
+133:                 <span class="ruby-identifier">doc</span> = <span class="ruby-identifier">reader</span>[<span class="ruby-identifier">document_number</span>]
+134:                 <span class="ruby-identifier">content</span> = <span class="ruby-identifier">doc</span>[<span class="ruby-identifier">field</span>]
+135:               <span class="ruby-keyword kw">end</span>
+136:               <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">content</span>
+137:                 <span class="ruby-comment cmt"># no term vector, no stored content, so try content from this instance</span>
+138:                 <span class="ruby-identifier">record</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:base_class</span>].<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>)
+139:                 <span class="ruby-identifier">content</span> = <span class="ruby-identifier">record</span>.<span class="ruby-identifier">content_for_field_name</span>(<span class="ruby-identifier">field</span>.<span class="ruby-identifier">to_s</span>)
+140:               <span class="ruby-keyword kw">end</span>
+141:               <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;have doc: #{doc[:id]} with #{field} == #{content}&quot;</span>
+142:               <span class="ruby-identifier">token_count</span> = <span class="ruby-value">0</span>
+143:               
+144:               <span class="ruby-identifier">ts</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:analyzer</span>].<span class="ruby-identifier">token_stream</span>(<span class="ruby-identifier">field</span>, <span class="ruby-identifier">content</span>)
+145:               <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">token</span> = <span class="ruby-identifier">ts</span>.<span class="ruby-identifier">next</span>
+146:                 <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">token_count</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">max_num_tokens</span>
+147:                 <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">noise_word?</span>(<span class="ruby-identifier">token</span>.<span class="ruby-identifier">text</span>, <span class="ruby-identifier">options</span>)
+148:                 <span class="ruby-identifier">term_freq_map</span>[<span class="ruby-identifier">token</span>.<span class="ruby-identifier">text</span>] <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+149:               <span class="ruby-keyword kw">end</span>
+150:             <span class="ruby-keyword kw">end</span>
+151:           <span class="ruby-keyword kw">end</span>
+152:           <span class="ruby-identifier">term_freq_map</span>
+153:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

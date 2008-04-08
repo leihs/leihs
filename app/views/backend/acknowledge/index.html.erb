@@ -15,8 +15,7 @@
 <div class="table-overview boxes">
 	
 	<div id="controller">
-		<form>
-			<input type="text" value="Bestellung suchen" />
+			<%= text_field_tag('search', _("Bestellung suchen"), :onchange => remote_function(:update => 'orders_table', :url => { :controller => 'search', :action => 'order' }, :with => "'search=' + value" )) %>
 			<select>
 				<option>Alle Felder</option>
 				<option>Reservierender</option>
@@ -24,28 +23,13 @@
 				<option>Hersteller</option>
 				<option>...</option>
 			</select>
-		</form>
+		
 	</div>
 	
-		<table cellspacing="0">
-			<tr>
-				<th scope="col">Empfangen am</th>
-				<th scope="col">Reservierender</th>
-				<th scope="col">Anzahl Pakete</th>
-				<th scope="col">Aktion</th>
-			</tr>
-
-		<% for order in @new_orders %>
-			<tr class="<%= cycle("alt-row", "fresh") -%>">
-				<td class="row-closed"><%= "#{time_ago_in_words(order.created_at)} ago" %></td>
-				<td><a href="modal-benutzer.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-user" title="Warnung (Modales Fenster)"><%= order.user.login %></a></td>
-				<td><%= _("%{n} Pakete") % {:n => order.order_lines.size} %></td>
-					<td><div class="buttons"><%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"), :controller => 'acknowledge', :action => 'show', :id => order %></div></td>
-			</tr>
-		<% end %>
+		<div id="orders_table">
+			<%= render :partial => 'orders' %>
+		</div>
 			
-			
-		</table>
-			
+						
 </div>
 			

@@ -1,0 +1,21 @@
+		<table cellspacing="0">
+			<tr>
+				<th scope="col">Empfangen am</th>
+				<th scope="col">Reservierender</th>
+				<th scope="col">Anzahl Pakete</th>
+				<th scope="col">Aktion</th>
+			</tr>
+
+<% @orders ||= @new_orders %>
+		<% for order in @orders %>
+			<tr class="<%= cycle("alt-row", "fresh") -%>">
+				<td class="row-closed"><%= "#{time_ago_in_words(order.created_at)} ago" %></td>
+				<td><a href="modal-benutzer.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-user" title="Warnung (Modales Fenster)"><%= order.user.login %></a></td>
+				<td><%= _("%{n} Pakete") % {:n => order.order_lines.size} %></td>
+					<td><div class="buttons"><%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"), :controller => 'acknowledge', :action => 'show', :id => order %></div></td>
+			</tr>
+		<% end %>
+
+		
+		</table>
+		

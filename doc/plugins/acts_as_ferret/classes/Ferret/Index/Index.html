@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Ferret::Index::Index</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Ferret::Index::Index</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/vendor/plugins/acts_as_ferret/lib/ferret_extensions_rb.html">
+                vendor/plugins/acts_as_ferret/lib/ferret_extensions.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000130">bulk_index</a>&nbsp;&nbsp;
+      <a href="#M000129">index_model</a>&nbsp;&nbsp;
+      <a href="#M000128">index_models</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">batch_size</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">logger</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000130" class="method-detail">
+        <a name="M000130"></a>
+
+        <div class="method-heading">
+          <a href="#M000130" class="method-signature">
+          <span class="method-name">bulk_index</span><span class="method-args">(model, ids, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000130-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000130-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_extensions.rb, line 56</span>
+56:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">bulk_index</span>(<span class="ruby-identifier">model</span>, <span class="ruby-identifier">ids</span>, <span class="ruby-identifier">options</span> = {})
+57:       <span class="ruby-identifier">options</span>.<span class="ruby-identifier">reverse_merge!</span> <span class="ruby-identifier">:optimize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+58:       <span class="ruby-identifier">orig_flush</span> = <span class="ruby-ivar">@auto_flush</span>
+59:       <span class="ruby-ivar">@auto_flush</span> = <span class="ruby-keyword kw">false</span>
+60:       <span class="ruby-identifier">bulk_indexer</span> = <span class="ruby-constant">ActsAsFerret</span><span class="ruby-operator">::</span><span class="ruby-constant">BulkIndexer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:batch_size</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@batch_size</span>, <span class="ruby-identifier">:logger</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">logger</span>, 
+61:                                                    <span class="ruby-identifier">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>, <span class="ruby-identifier">:index</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:total</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ids</span>.<span class="ruby-identifier">size</span>)
+62:       <span class="ruby-identifier">model</span>.<span class="ruby-identifier">records_for_bulk_index</span>(<span class="ruby-identifier">ids</span>, <span class="ruby-ivar">@batch_size</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">records</span>, <span class="ruby-identifier">offset</span><span class="ruby-operator">|</span>
+63:         <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;#{model} bulk indexing #{records.size} at #{offset}&quot;</span>
+64:         <span class="ruby-identifier">bulk_indexer</span>.<span class="ruby-identifier">index_records</span>(<span class="ruby-identifier">records</span>, <span class="ruby-identifier">offset</span>)
+65:       <span class="ruby-keyword kw">end</span>
+66:       <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">'finishing bulk index...'</span>
+67:       <span class="ruby-identifier">flush</span>
+68:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:optimize</span>]
+69:         <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">'optimizing...'</span>
+70:         <span class="ruby-identifier">optimize</span> 
+71:       <span class="ruby-keyword kw">end</span>
+72:       <span class="ruby-ivar">@auto_flush</span> = <span class="ruby-identifier">orig_flush</span>
+73:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000129" class="method-detail">
+        <a name="M000129"></a>
+
+        <div class="method-heading">
+          <a href="#M000129" class="method-signature">
+          <span class="method-name">index_model</span><span class="method-args">(model)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000129-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000129-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_extensions.rb, line 46</span>
+46:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index_model</span>(<span class="ruby-identifier">model</span>)
+47:       <span class="ruby-identifier">bulk_indexer</span> = <span class="ruby-constant">ActsAsFerret</span><span class="ruby-operator">::</span><span class="ruby-constant">BulkIndexer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:batch_size</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@batch_size</span>, <span class="ruby-identifier">:logger</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">logger</span>, 
+48:                                                    <span class="ruby-identifier">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>, <span class="ruby-identifier">:index</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:reindex</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>)
+49:       <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;reindexing model #{model.name}&quot;</span>
+50: 
+51:       <span class="ruby-identifier">model</span>.<span class="ruby-identifier">records_for_rebuild</span>(<span class="ruby-ivar">@batch_size</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">records</span>, <span class="ruby-identifier">offset</span><span class="ruby-operator">|</span>
+52:         <span class="ruby-identifier">bulk_indexer</span>.<span class="ruby-identifier">index_records</span>(<span class="ruby-identifier">records</span>, <span class="ruby-identifier">offset</span>)
+53:       <span class="ruby-keyword kw">end</span>
+54:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000128" class="method-detail">
+        <a name="M000128"></a>
+
+        <div class="method-heading">
+          <a href="#M000128" class="method-signature">
+          <span class="method-name">index_models</span><span class="method-args">(models)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000128-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000128-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_extensions.rb, line 38</span>
+38:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index_models</span>(<span class="ruby-identifier">models</span>)
+39:       <span class="ruby-identifier">models</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">model</span><span class="ruby-operator">|</span> <span class="ruby-identifier">index_model</span> <span class="ruby-identifier">model</span> }
+40:       <span class="ruby-identifier">flush</span>
+41:       <span class="ruby-identifier">optimize</span>
+42:       <span class="ruby-identifier">close</span>
+43:       <span class="ruby-constant">ActsAsFerret</span><span class="ruby-operator">::</span><span class="ruby-identifier">close_multi_indexes</span>
+44:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

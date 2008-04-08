@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: ActsAsFerret::Remote::Server</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">ActsAsFerret::Remote::Server</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/vendor/plugins/acts_as_ferret/lib/ferret_server_rb.html">
+                vendor/plugins/acts_as_ferret/lib/ferret_server.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This class acts as a drb server listening for indexing and search requests
+from models declared to &#8216;acts_as_ferret :remote =&gt; true&#8216;
+</p>
+<p>
+Usage:
+</p>
+<ul>
+<li>modify RAILS_ROOT/config/ferret_server.yml to suit your needs.
+
+</li>
+<li>environments for which no section in the config file exists will use the
+index locally (good for unit tests/development mode)
+
+</li>
+<li>run script/ferret_server to <a href="Server.html#M000067">start</a> the
+server:
+
+</li>
+</ul>
+<p>
+script/ferret_server -e production <a href="Server.html#M000067">start</a>
+</p>
+<ul>
+<li>to stop the server run
+
+</li>
+</ul>
+<p>
+script/ferret_server -e production stop
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000070">db_disconnect!</a>&nbsp;&nbsp;
+      <a href="#M000069">ensure_index_exists</a>&nbsp;&nbsp;
+      <a href="#M000068">method_missing</a>&nbsp;&nbsp;
+      <a href="#M000066">new</a>&nbsp;&nbsp;
+      <a href="#M000074">new_index_for</a>&nbsp;&nbsp;
+      <a href="#M000071">rebuild_index</a>&nbsp;&nbsp;
+      <a href="#M000073">reconnect_when_needed</a>&nbsp;&nbsp;
+      <a href="#M000067">start</a>&nbsp;&nbsp;
+      <a href="#M000072">with_class</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="UnixDaemon.html">ActsAsFerret::Remote::UnixDaemon</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000066" class="method-detail">
+        <a name="M000066"></a>
+
+        <div class="method-heading">
+          <a href="#M000066" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000066-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000066-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_server.rb, line 64</span>
+64:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+65:         <span class="ruby-ivar">@cfg</span> = <span class="ruby-constant">ActsAsFerret</span><span class="ruby-operator">::</span><span class="ruby-constant">Remote</span><span class="ruby-operator">::</span><span class="ruby-constant">Config</span>.<span class="ruby-identifier">new</span>
+66:         <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">allow_concurrency</span> = <span class="ruby-keyword kw">true</span>
+67:         <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">logger</span> = <span class="ruby-ivar">@logger</span> = <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@cfg</span>.<span class="ruby-identifier">log_file</span>)
+68:         <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-ivar">@cfg</span>.<span class="ruby-identifier">log_level</span>.<span class="ruby-identifier">upcase</span>) <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">DEBUG</span>
+69:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000070" class="method-detail">
+        <a name="M000070"></a>
+
+        <div class="method-heading">
+          <a href="#M000070" class="method-signature">
+          <span class="method-name">db_disconnect!</span><span class="method-args">(class_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+disconnects the db connection for the class specified by class_name used
+only in unit tests to check the automatic reconnection feature
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000070-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000070-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_server.rb, line 129</span>
+129:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">db_disconnect!</span>(<span class="ruby-identifier">class_name</span>)
+130:         <span class="ruby-identifier">with_class</span> <span class="ruby-identifier">class_name</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">clazz</span><span class="ruby-operator">|</span>
+131:           <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">disconnect!</span>
+132:         <span class="ruby-keyword kw">end</span>
+133:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000069" class="method-detail">
+        <a name="M000069"></a>
+
+        <div class="method-heading">
+          <a href="#M000069" class="method-signature">
+          <span class="method-name">ensure_index_exists</span><span class="method-args">(class_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+make sure we have a versioned index in place, building one if necessary
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000069-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000069-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_server.rb, line 117</span>
+117:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ensure_index_exists</span>(<span class="ruby-identifier">class_name</span>)
+118:         <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;DRb server: ensure_index_exists for class #{class_name}&quot;</span>
+119:         <span class="ruby-identifier">with_class</span> <span class="ruby-identifier">class_name</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">clazz</span><span class="ruby-operator">|</span>
+120:           <span class="ruby-identifier">dir</span> = <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:index_dir</span>]
+121:           <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">dir</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-value str">'segments'</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">dir</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%r{/\d+(_\d+)?$}</span>
+122:             <span class="ruby-identifier">rebuild_index</span>(<span class="ruby-identifier">clazz</span>)
+123:           <span class="ruby-keyword kw">end</span>
+124:         <span class="ruby-keyword kw">end</span>
+125:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000068" class="method-detail">
+        <a name="M000068"></a>
+
+        <div class="method-heading">
+          <a href="#M000068" class="method-signature">
+          <span class="method-name">method_missing</span><span class="method-args">(name, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+handles all incoming method calls, and sends them on to the <a
+href="../LocalIndex.html">LocalIndex</a> instance of the correct model
+class.
+</p>
+<p>
+Calls are not queued atm, so this will block until the call returned.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000068-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000068-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_server.rb, line 93</span>
+ 93:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+ 94:         <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;\#method_missing(#{name.inspect}, #{args.inspect})&quot;</span>
+ 95:         <span class="ruby-identifier">retried</span> = <span class="ruby-keyword kw">false</span>
+ 96:         <span class="ruby-identifier">with_class</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">clazz</span><span class="ruby-operator">|</span>
+ 97:           <span class="ruby-identifier">reconnect_when_needed</span>(<span class="ruby-identifier">clazz</span>) <span class="ruby-keyword kw">do</span>
+ 98:             <span class="ruby-comment cmt"># using respond_to? here so we not have to catch NoMethodError</span>
+ 99:             <span class="ruby-comment cmt"># which would silently catch those from deep inside the indexing</span>
+100:             <span class="ruby-comment cmt"># code, too...</span>
+101:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">aaf_index</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">name</span>)
+102:               <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">aaf_index</span>.<span class="ruby-identifier">send</span> <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
+103:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">name</span>)
+104:               <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;no luck, trying to call class method instead&quot;</span>
+105:               <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">send</span> <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
+106:             <span class="ruby-keyword kw">else</span>
+107:               <span class="ruby-identifier">raise</span> <span class="ruby-constant">NoMethodError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;method #{name} not supported by DRb server&quot;</span>)
+108:             <span class="ruby-keyword kw">end</span>
+109:           <span class="ruby-keyword kw">end</span>
+110:         <span class="ruby-keyword kw">end</span>
+111:       <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+112:         <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">error</span> <span class="ruby-node">&quot;ferret server error #{$!}\n#{$!.backtrace.join &quot;\n&quot;}&quot;</span>
+113:         <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+114:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000071" class="method-detail">
+        <a name="M000071"></a>
+
+        <div class="method-heading">
+          <a href="#M000071" class="method-signature">
+          <span class="method-name">rebuild_index</span><span class="method-args">(clazz, *models)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+hides <a href="../LocalIndex.html#M000111">LocalIndex#rebuild_index</a> to
+implement index versioning
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000071-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000071-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_server.rb, line 136</span>
+136:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rebuild_index</span>(<span class="ruby-identifier">clazz</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">models</span>)
+137:         <span class="ruby-identifier">with_class</span> <span class="ruby-identifier">clazz</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">clazz</span><span class="ruby-operator">|</span>
+138:           <span class="ruby-identifier">models</span> = <span class="ruby-identifier">models</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">:constantize</span>)
+139:           <span class="ruby-identifier">models</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">clazz</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">models</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">clazz</span>)
+140:           <span class="ruby-identifier">index</span> = <span class="ruby-identifier">new_index_for</span>(<span class="ruby-identifier">clazz</span>, <span class="ruby-identifier">models</span>)
+141:           <span class="ruby-identifier">reconnect_when_needed</span>(<span class="ruby-identifier">clazz</span>) <span class="ruby-keyword kw">do</span>
+142:             <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;DRb server: rebuild index for class(es) #{models.inspect} in #{index.options[:path]}&quot;</span>
+143:             <span class="ruby-identifier">index</span>.<span class="ruby-identifier">index_models</span> <span class="ruby-identifier">models</span>
+144:           <span class="ruby-keyword kw">end</span>
+145:           <span class="ruby-identifier">new_version</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:index_base_dir</span>], <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-value str">'%Y%m%d%H%M%S'</span>)
+146:           <span class="ruby-comment cmt"># create a unique directory name (needed for unit tests where </span>
+147:           <span class="ruby-comment cmt"># multiple rebuilds per second may occur)</span>
+148:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">new_version</span>)
+149:             <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+150:             <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">while</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-node">&quot;#{new_version}_#{i}&quot;</span>)
+151:             <span class="ruby-identifier">new_version</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;_#{i}&quot;</span>
+152:           <span class="ruby-keyword kw">end</span>
+153:           
+154:           <span class="ruby-constant">File</span>.<span class="ruby-identifier">rename</span> <span class="ruby-identifier">index</span>.<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:path</span>], <span class="ruby-identifier">new_version</span>
+155:           <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">index_dir</span> = <span class="ruby-identifier">new_version</span> 
+156:         <span class="ruby-keyword kw">end</span>
+157:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000067" class="method-detail">
+        <a name="M000067"></a>
+
+        <div class="method-heading">
+          <a href="#M000067" class="method-signature">
+          <span class="method-name">start</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Server.html#M000067">start</a> the server
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000067-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000067-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_server.rb, line 73</span>
+73:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start</span>
+74:         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;ferret_server not configured for #{RAILS_ENV}&quot;</span> <span class="ruby-keyword kw">unless</span> (<span class="ruby-ivar">@cfg</span>.<span class="ruby-identifier">uri</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>)
+75:         <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-value str">&quot;starting ferret server...&quot;</span>)
+76: 
+77:         <span class="ruby-identifier">platform_daemon</span> <span class="ruby-keyword kw">do</span> 
+78:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">running</span> = <span class="ruby-keyword kw">true</span>
+79:           <span class="ruby-constant">DRb</span>.<span class="ruby-identifier">start_service</span>(<span class="ruby-ivar">@cfg</span>.<span class="ruby-identifier">uri</span>, <span class="ruby-keyword kw">self</span>)
+80:           <span class="ruby-constant">DRb</span>.<span class="ruby-identifier">thread</span>.<span class="ruby-identifier">join</span>
+81:         <span class="ruby-keyword kw">end</span>
+82:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+83:         <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">to_s</span>)
+84:         <span class="ruby-identifier">raise</span>
+85:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000074" class="method-detail">
+        <a name="M000074"></a>
+
+        <div class="method-heading">
+          <a href="#M000074" class="method-signature">
+          <span class="method-name">new_index_for</span><span class="method-args">(clazz, models)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000074-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000074-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_server.rb, line 188</span>
+188:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_index_for</span>(<span class="ruby-identifier">clazz</span>, <span class="ruby-identifier">models</span>)
+189:           <span class="ruby-identifier">aaf_configuration</span> = <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">aaf_configuration</span>
+190:           <span class="ruby-identifier">ferret_cfg</span> = <span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:ferret</span>].<span class="ruby-identifier">dup</span>
+191:           <span class="ruby-identifier">ferret_cfg</span>.<span class="ruby-identifier">update</span> <span class="ruby-identifier">:auto_flush</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>, 
+192:                             <span class="ruby-identifier">:create</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>,
+193:                             <span class="ruby-identifier">:field_infos</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ActsAsFerret</span><span class="ruby-operator">::</span><span class="ruby-identifier">field_infos</span>(<span class="ruby-identifier">models</span>),
+194:                             <span class="ruby-identifier">:path</span>        =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:index_base_dir</span>], <span class="ruby-value str">'rebuild'</span>)
+195:           <span class="ruby-identifier">returning</span> <span class="ruby-constant">Ferret</span><span class="ruby-operator">::</span><span class="ruby-constant">Index</span><span class="ruby-operator">::</span><span class="ruby-constant">Index</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ferret_cfg</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+196:             <span class="ruby-identifier">i</span>.<span class="ruby-identifier">batch_size</span> = <span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:reindex_batch_size</span>]
+197:             <span class="ruby-identifier">i</span>.<span class="ruby-identifier">logger</span> = <span class="ruby-ivar">@logger</span>
+198:           <span class="ruby-keyword kw">end</span>
+199:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000073" class="method-detail">
+        <a name="M000073"></a>
+
+        <div class="method-heading">
+          <a href="#M000073" class="method-signature">
+          <span class="method-name">reconnect_when_needed</span><span class="method-args">(clazz) {|| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000073-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000073-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_server.rb, line 167</span>
+167:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reconnect_when_needed</span>(<span class="ruby-identifier">clazz</span>)
+168:           <span class="ruby-identifier">retried</span> = <span class="ruby-keyword kw">false</span>
+169:           <span class="ruby-keyword kw">begin</span>
+170:             <span class="ruby-keyword kw">yield</span>
+171:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">StatementInvalid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+172:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/MySQL server has gone away/</span>
+173:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">retried</span>
+174:                 <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+175:               <span class="ruby-keyword kw">else</span>
+176:                 <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;StatementInvalid caught, trying to reconnect...&quot;</span>
+177:                 <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">reconnect!</span>
+178:                 <span class="ruby-identifier">retried</span> = <span class="ruby-keyword kw">true</span>
+179:                 <span class="ruby-keyword kw">retry</span>
+180:               <span class="ruby-keyword kw">end</span>
+181:             <span class="ruby-keyword kw">else</span>
+182:               <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">error</span> <span class="ruby-node">&quot;StatementInvalid caught, but unsure what to do with it: #{e}&quot;</span>
+183:               <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+184:             <span class="ruby-keyword kw">end</span>
+185:           <span class="ruby-keyword kw">end</span>
+186:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000072" class="method-detail">
+        <a name="M000072"></a>
+
+        <div class="method-heading">
+          <a href="#M000072" class="method-signature">
+          <span class="method-name">with_class</span><span class="method-args">(clazz, *args) {|clazz, *args| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000072-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000072-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/ferret_server.rb, line 162</span>
+162:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with_class</span>(<span class="ruby-identifier">clazz</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+163:           <span class="ruby-identifier">clazz</span> = <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">constantize</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">String</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">clazz</span>
+164:           <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">clazz</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
+165:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
