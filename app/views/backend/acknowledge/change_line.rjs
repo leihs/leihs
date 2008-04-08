@@ -1,8 +1,9 @@
-page.insert_html :bottom, 'changes', "<li>#{@change}</li>" 
+page.insert_html :top, 'changes', "<li>#{@change}</li>" 
 page.visual_effect :highlight, 'changes'
-
+css_class = (@maximum_exceeded ? 'maximum_exceeded' : '')
 page['line_quantity_' + params[:order_line_id]].value = @order_line.quantity
-page << "document.getElementById('line_quantity_#{params[:order_line_id]}').style.backgroundColor = '#{@color}'"
+
+page << "document.getElementById('line_quantity_#{params[:order_line_id]}').className='#{css_class}'"
 
 
 # TODO where is defined @flash_notice ??

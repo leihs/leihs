@@ -1,0 +1,6 @@
+<div id="tabs">
+	<ul>
+		<li <%= 'class="active"' if controller.action_name == "index" %>><%= link_to "<span>" + _("Acknowledge") +
+		"<em> (#{@new_orders.size})</em></span>", :controller => 'acknowledge' %></li>
+	</ul>
+</div>

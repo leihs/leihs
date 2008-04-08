@@ -48,7 +48,8 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order.swap_line(params[:order_line_id], params[:model_id], session[:user_id])
       redirect_to :action => 'show', :id => @order.id
     else
-      redirect_to :controller => 'search', :action => 'model'
+      puts "get request"
+      redirect_to :controller => 'search', :action => 'model', :id => params[:id], :order_line_id => params[:order_line_id]
     end
   end
   
@@ -58,7 +59,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order = @order_line.order
       required_quantity = params[:quantity].to_i
       @order_line, @change = @order.update_line(@order_line.id, required_quantity, session[:user_id])
-      @color = required_quantity != @order_line.quantity ? 'red' : ''
+      @maximum_exceeded = required_quantity != @order_line.quantity
       @order.save
     end
   end

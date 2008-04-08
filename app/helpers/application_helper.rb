@@ -25,4 +25,11 @@ module ApplicationHelper
     link_to_function(text, "parent.parent.GB_hide();")
   end
 
+  def short_time(date)
+    date.strftime("%d.%m.%Y - %H:%M")
+  end
+  
+  def short_date(date)
+    date.strftime("%d.%m.%Y")
+  end
 end

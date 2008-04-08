@@ -1,2 +1,33 @@
-<h1>Backend::Search#model</h1>
-<p>Find me in app/views/backend/search/model.html.erb</p>
+<h2><%= _("Search new Model")%></h2>
+
+<%= _("Search") %>
+
+<% form_tag( {:action => 'model', :id => params[:id]}, :name => "search") do %>
+<%= hidden_field_tag('id', params[:id]) %>
+<%= hidden_field_tag('order_line_id', params[:order_line_id]) %>
+
+<%= text_field_tag 'text', params[:text] %>
+
+<% end %>
+
+<% form_tag( {:controller => 'acknowledge', :action => 'swap_line', :id => params[:id]}, :name => "f", :target => "_top" ) do %>
+<%= hidden_field_tag('id', params[:id]) %>
+<%= hidden_field_tag('order_line_id', params[:order_line_id]) %>
+
+<div class="search_results">
+	<% if @search_result.nil? %>
+		<p><%= _("No Search Results") %></p>
+	<% else %>
+		<% @search_result.each do |result| %>
+			<p><%= radio_button_tag('model_id', result.id) %> <%= result.name %></p>
+		<% end %>
+
+	<% end %>
+</div>
+
+<div class="buttons">
+	<%=	submit_button(_("Swap"), {:img => $layout_public_path + "/images/icons/arrow_switch.png", :class => 'positive'} ) %>
+			 		 
+	<%=	cancel_popup_button(_("Cancel") ) %>
+</div>
+<% end %>

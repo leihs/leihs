@@ -35,6 +35,12 @@ TABS
 	background: transparent url(../images/bg-tab-link.png) top right no-repeat;
 }
 
+
+.maximum_exceeded {
+	background: #D8473D;
+}
+
+
 #tabs ul li.active a {
 	background: transparent url(../images/bg-tab-active.png) top left no-repeat;
 }
