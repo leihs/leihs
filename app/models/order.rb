@@ -43,11 +43,13 @@ class Order < ActiveRecord::Base
   
   def swap_line(line_id, model_id, user_id)
     line = order_lines.find(line_id.to_i)
-    model = Model.find(model_id.to_i)
-    change = _("Swapped %{quantity} %{from} for %{quantity} %{to}") % { :quantity => line.quantity, :from => line.model.name, :to => model.name}
-    line.model = model
-    log_change(change, user_id)
-    line.save
+    if (line.model.id != model_id.to_i)
+      model = Model.find(model_id.to_i)
+      change = _("Swapped %{from} for %{to}") % { :from => line.model.name, :to => model.name}
+      line.model = model
+      log_change(change, user_id)
+      line.save
+    end
     [line, change]
   end
   

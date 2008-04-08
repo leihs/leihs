@@ -45,10 +45,14 @@ class Backend::AcknowledgeController < Backend::BackendController
   def swap_line
     if request.post?
       @order = Order.find(params[:id])
-      @order.swap_line(params[:order_line_id], params[:model_id], session[:user_id])
-      redirect_to :action => 'show', :id => @order.id
+      if params[:model_id].nil?
+        flash[:notice] = _("Model must be selected")
+      else
+        @order.swap_line(params[:order_line_id], params[:model_id], session[:user_id])
+      end  
+      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
+        
     else
-      puts "get request"
       redirect_to :controller => 'search', :action => 'model', :id => params[:id], :order_line_id => params[:order_line_id]
     end
   end

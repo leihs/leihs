@@ -117,9 +117,6 @@ Story: Acknowledge orders
   And it contains information 'NEC 333 is better in that situation'
 
 
-  
-
-
   Scenario: Swap Package
 
   Given a model 'NEC 245' exists
@@ -152,6 +149,6 @@ Story: Acknowledge orders
   Then joe@test.ch receives an email
   And its subject is 'Reservation confirmed (with changes)'
   And it contains information '5 NEC 333'
-  And it contains information 'Swapped 5 NEC 245 for 5 NEC 333'
+  And it contains information 'Swapped NEC 245 for NEC 333'
   And it contains information 'NEC 333 is better than NEC 245'
 
