@@ -45,8 +45,8 @@ Story: Acknowledge orders
 
   Then Joe's order is opened in tab
   And the active tab is titled 'Order: Joe'
-  And inventory_manager can approve order
-  And inventory_manager can reject order
+  And inventory_manager can Save + Approve
+  And inventory_manager can Reject Order
 
   When inventory_manager approves order
 
@@ -72,11 +72,11 @@ Story: Acknowledge orders
   When he chooses Joe's order
 
   Then Joe's order is opened in tab
-  And inventory_manager can approve order
-  And inventory_manager can reject order
+  And inventory_manager can Save + Approve
+  And inventory_manager can Reject Order
 
   When inventory_manager rejects order with reason 'Because I don't like you.'
-
+ 
   Then joe@test.ch receives an email
   And its subject is 'Reservation Rejected'
   And it contains information 'Because I don't like you.'

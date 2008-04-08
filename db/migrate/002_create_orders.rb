@@ -3,6 +3,7 @@ class CreateOrders < ActiveRecord::Migration
     create_table :orders do |t|
       t.belongs_to :user
       t.string :status, :default => 'new'
+      t.string :purpose
       t.timestamps
     end
     

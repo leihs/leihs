@@ -1,44 +1,19 @@
-<!-- TODO start old ================================================================================== -->
-<div id="active_tab"><%= _("Order") + ": #{@order.user.login}" %></div>
-
-<!-- <div id="changes"><ul></ul></div> -->
-<%= link_to('approve', :controller => 'acknowledge', :url => 'approve', :id => @order.id) %>
-<%= link_to('reject', :controller => 'acknowledge', :url => 'reject', :id => @order.id) %>
-
-<!--
-<% @order.order_lines.each do |line| %>
-<% form_remote_tag :url => {:action => 'change_line'} do %>
-
-<div id="order_line_<%= line.id %>">
-	<input type="hidden" name="id" value="<%= line.id%>">
-	
-	<input type="text" name="quantity" value="<%= line.quantity %>">
-
-	<%= submit_tag 'Add...' %> 
-	
-</div>
-<% end %> 
-
-<% end %>
--->
-<!-- TODO end old ================================================================================== -->
-
 			
-			<div class="toolbar-main boxes">
-				<div class="buttons">
-					<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Speichern + Quittieren"),
-											 { :controller => 'acknowledge', :action => 'approve', :id => @order.id },
-											 :title => "Warnung (Modales Fenster)",
-											 :class => "positive") %>
-					<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Bestellung ablehnen"),
-											 { :controller => 'acknowledge', :action => 'reject', :id => @order.id },
-											 :title => "Warnung (Modales Fenster)") %>
+<div class="toolbar-main boxes">
+	<div class="buttons">
+		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Save + Approve"),
+								 { :controller => 'acknowledge', :action => 'approve', :id => @order.id },
+								 :title => _("Approve Order"),
+								 :class => "positive") %>
+		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Reject Order"),
+								 { :controller => 'acknowledge', :action => 'reject', :id => @order.id },
+								 :title => _("Reject Order")) %>
 
 
-					<a href="modal-draft.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox" title="Warnung (Modales Fenster)"><img src="images/icons/disk.png" alt="" />  Als Entwurf speichern</a>
-					<a href="modal-delete.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox negative" title="Warnung (Modales Fenster)"><img src="images/icons/cancel.png" alt="" />  Bestellung löschen</a>
-				</div>
-			</div>
+		<a href="modal-draft.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox" title="Warnung (Modales Fenster)"><img src="images/icons/disk.png" alt="" />  Als Entwurf speichern</a>
+		<a href="modal-delete.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox negative" title="Warnung (Modales Fenster)"><img src="images/icons/cancel.png" alt="" />  Bestellung löschen</a>
+	</div>
+</div>
 			
 			<div id="meta" class="boxes">
 				
@@ -47,45 +22,21 @@
 					<table cellspacing="0">
 						<tr class="alt-row">
 							<td><a href="modal-switch.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt arrow_switch" title="Warnung (Modales Fenster)">Reservierender:</a></td> 
-							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-user" title="Warnung (Modales Fenster)">Jan Mellissen</a></td>
+							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-user" title="Warnung (Modales Fenster)"><%= @order.user.login %></a></td>
 						</tr>
 						<tr class="alt-row">
 							<td>Zeitfenster:</td>
-							<td><a href="modal-overview.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-magnify" title="Warnung (Modales Fenster)">01.08.08 - 03.09.08</a></td>
+							<td>01.08.08 - 03.09.08</td>
 						</tr>
 						<tr class="alt-row">
 							<td><a href="modal-edit.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-pencil" title="Warnung (Modales Fenster)">Verwendungszweck:</a></td>
-							<td>Für das Studentenprojekt</td>
+							<td><%= @order.purpose %></td>
 						</tr>
 					</table>
 				</div>
 				
-				<div id="meta-tabs">
-					
-					<div id="meta-tabs-container">
-					<ul>
-						<li class="active"><a href="#">Protokoll</a></li>
-						<li><a href="#">Weitere Infos</a></li>
-						<li><a href="#">Hilfe</a></li>
-					</ul>
-					<div id="meta-tabs-content">
-						<table>
-							<tr>
-								<td>Paket "Kamera" gelöscht</td>
-								<td>21.02.08, 12:36</td>
-							</tr>
-							<tr>
-								<td>Paket "Beamer" gelöscht</td>
-								<td>21.02.08, 12:35</td>
-							</tr>
-						</table>
-						<!-- TODO start display changes in table -->
-							<div id="changes"><ul></ul></div>
-						<!-- TODO end display changes in table -->
-					</div>
-					</div>
-					
-				</div>
+				<%= render :partial => 'additional_infos'%>
+				
 			</div>
 			
 			<div class="table-overview boxes">
@@ -100,46 +51,29 @@
 				</div>
 				
 					<table cellspacing="0">
-					<!-- TODO start header -->
 						<tr>
-							<th scope="col"><input type="checkbox" onClick="$$('body input.order_line_check').each(function(box){box.checked=checked})" /> <%= _("Alle Markieren") %></th>
-							<th scope="col"><%= _("Paket") %></th>
-							<th scope="col"><%= _("Zeitraum") %></th>
-							<th scope="col"><%= _("Aktion") %></th>
+							<th scope="col"><input type="checkbox" /> Alle Markieren</th>
+							<th scope="col">Paket</th>
+							<th scope="col">Zeitraum</th>
+							<th scope="col">Aktion</th>
 						</tr>
-					<!-- TODO end header -->
 
 					<!-- TODO start iterator -->
 					<% for @line in @order.order_lines %>
-						<tr class="alt-row">
-							<td><input type="checkbox" class="order_line_check" name="order_lines[]" value="<%= @line.id %>" /> <%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %></td>
-							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)"><%= @line.model.name %></a></td>
-							<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">08.01.08 - 12.01.08</a></td>
-							<td><div class="buttons"><a href="#"><%= image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Austauschen") %></a> <a href="#" class="negative"><%= image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen") %></a></div></td>
-						</tr>
+						<div id="order_line_<%= @line.id %>">
+							<tr class="alt-row">
+								<td><input type="checkbox" class="order_line_check" name="order_lines[]" value="<%= @line.id %>" /><%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %></td>
+								<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)"><%= @line.model.name %></a></td>
+								<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">08.01.08 - 12.01.08</a></td>
+								<td><div class="buttons">
+	<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
+									 { :controller => 'acknowledge', :action => 'swap_line', :id => @order.id, :order_line_id => @line.id },
+    									 :title => _("Swap Model") ) %>
+									<a href="#" class="negative"><%= image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen") %></a></div></td>
+							</tr>
+						</div>
 					<% end %>
 					<!-- TODO end iterator -->						
-
-						<tr class="alt-row">
-							<td><input type="checkbox" /></td>
-							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)">Beamer NEC LT 245</a></td>
-							<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">08.01.08 - 12.01.08</a></td>
-							<td><div class="buttons"><a href="#"><img src="images/icons/arrow_switch.png" alt="" /> Austauschen</a> <a href="#" class="negative"><img src="images/icons/cancel.png" alt="" /> Löschen</a></div></td>
-						</tr>
-							<tr>
-								<td><input type="checkbox" /></td>
-								<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)">Stativ Modulo 2356</a></td>
-								<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">23.01.08 - 01.02.08</a></td>
-								<td><div class="buttons"><a href="#"><img src="images/icons/arrow_switch.png" alt="" /> Austauschen</a> <a href="#" class="negative"><img src="images/icons/cancel.png" alt="" /> Löschen</a></div></td>
-							</tr>
-
-
-						<tr class="alt-row">
-							<td><input type="checkbox" /></td>
-							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)">Digitalkamera Nikon D70</a></td>
-							<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">23.01.08 - 01.02.08</a></td>
-							<td><div class="buttons"><a href="#"><img src="images/icons/arrow_switch.png" alt="" /> Austauschen</a> <a href="#" class="negative"><img src="images/icons/cancel.png" alt="" /> Löschen</a></div></td>
-						</tr>
 
 						</table>
 						
@@ -174,4 +108,3 @@
 								
 							</table>
 					</div>
-					

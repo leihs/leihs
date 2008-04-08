@@ -149,7 +149,7 @@ steps_for(:acknowledge) do
     @order.user.id.should == user.id
   end
   
-  Then "$who can $what order" do |who, what|
+  Then "$who can $what" do |who, what|
     @response.should have_tag("a", what)
   end
   
@@ -169,7 +169,7 @@ steps_for(:acknowledge) do
   end
   
   Then "Swap Item screen opens" do 
-    @response.redirect_url.should == 'http://www.example.com/backend/search/model'
+    @response.redirect_url.should == "http://www.example.com/backend/search/model/#{@order.id}?order_line_id=#{@order_line_id}"
   end
   
   Then "a choice of $size item appears" do |size|

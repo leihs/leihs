@@ -1,4 +1,4 @@
-	<h2><%= _("Wollen Sie die Bestellung quittieren?") %></h2>
+	<h2><%= _("Do you want to approve this order?") %></h2>
 	<br />
 	<% form_tag( {:action => 'approve', :id => params[:id]}, :name => "f", :target => "_top") do %>
 	
@@ -6,9 +6,9 @@
 	<%= text_area_tag 'comment', nil, :size => "25x10" %>
 	
 	<div class="buttons">
-		<%=	submit_button(_("Speichern + Quittieren"), {:img => $layout_public_path + "/images/icons/door.png", :class => 'positive'} ) %>
+		<%=	submit_button(_("Save + Approve"), {:img => $layout_public_path + "/images/icons/door.png", :class => 'positive'} ) %>
 				 		 
-		<%=	cancel_popup_button(_("Abbrechen") ) %>
+		<%=	cancel_popup_button(_("Cancel") ) %>
 	</div>
 	
 	
