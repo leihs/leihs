@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(:version => 18) do
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
-    t.string   "status",     :default => "new"
+    t.integer  "status_const", :default => 1
     t.string   "purpose"
     t.datetime "created_at"
     t.datetime "updated_at"

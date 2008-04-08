@@ -1,33 +1,48 @@
-<h2><%= _("Search new Model")%></h2>
-
-<%= _("Search") %>
-
-<% form_tag( {:action => 'model', :id => params[:id]}, :name => "search") do %>
-<%= hidden_field_tag('id', params[:id]) %>
-<%= hidden_field_tag('order_line_id', params[:order_line_id]) %>
-
-<%= text_field_tag 'text', params[:text] %>
-
-<% end %>
-
-<% form_tag( {:controller => 'acknowledge', :action => 'swap_line', :id => params[:id]}, :name => "f", :target => "_top" ) do %>
-<%= hidden_field_tag('id', params[:id]) %>
-<%= hidden_field_tag('order_line_id', params[:order_line_id]) %>
+<div id="controller">
+	<% form_tag( {:action => 'model', :id => params[:id]}, :name => "search") do %>
+	<%= hidden_field_tag('id', params[:id]) %>
+	<%= hidden_field_tag('order_line_id', params[:order_line_id]) %>
+	<p>
+	<%= text_field_tag 'text', params[:text] %>
+	</p>
+	<% end %>
+</div>
 
 <div class="search_results">
 	<% if @search_result.nil? %>
 		<p><%= _("No Search Results") %></p>
 	<% else %>
+		<table>
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Aktion</th>
+			</tr>
+			
 		<% @search_result.each do |result| %>
-			<p><%= radio_button_tag('model_id', result.id) %> <%= result.name %></p>
+			<tr class="<%= cycle("alt-row", "fresh") -%>">
+				<td class="row-closed"><%= result.name %></td>
+				<td>
+					<div class="buttons">
+						
+						<% form_tag( { :controller=> 'acknowledge', :action => 'swap_line' }, :name => "f#{result.id}", :target=> "_top") do %>
+							<%= hidden_field_tag('id', params[:id]) %>
+							<%= hidden_field_tag('order_line_id', params[:order_line_id]) %>
+							<%= hidden_field_tag('model_id', result.id) %>
+							
+<%= submit_button(_("Swap"), {:img => $layout_public_path + "/images/icons/arrow_switch.png", 
+							  :class=>"positive", 
+							  :form_name => "f#{result.id}"
+							  })%>
+							
+						<% end %>
+					</div>
+				</td>
+			</tr>
 		<% end %>
-
+		</table>
 	<% end %>
 </div>
 
 <div class="buttons">
-	<%=	submit_button(_("Swap"), {:img => $layout_public_path + "/images/icons/arrow_switch.png", :class => 'positive'} ) %>
-			 		 
 	<%=	cancel_popup_button(_("Cancel") ) %>
 </div>
-<% end %>
