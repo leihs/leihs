@@ -2,7 +2,7 @@ class CreateOrders < ActiveRecord::Migration
   def self.up
     create_table :orders do |t|
       t.belongs_to :user
-      t.string :status, :default => 'new'
+      t.integer :status_const, :default => Order::NEW # TODO create index 
       t.string :purpose
       t.timestamps
     end

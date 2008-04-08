@@ -10,7 +10,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   def approve
     if request.post?
       @order = Order.find(params[:id])
-      @order.status = Order::APPROVED
+      @order.status_const = Order::APPROVED
       @order.save
       if @order.has_changes?
         OrderMailer.deliver_changed(@order, params[:comment])
@@ -22,7 +22,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       init
       redirect_to :action => 'index'
     else
-      render :layout => 'backend/00-patterns/modal'
+      render :layout => $modal_layout_path
     end
     
   end
@@ -30,7 +30,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   def reject
     if request.post?
       @order = Order.find(params[:id])
-      @order.status = Order::REJECTED
+      @order.status_const = Order::REJECTED
       @order.save
       OrderMailer.deliver_rejected(@order, params[:comment])
       
@@ -38,7 +38,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       init
       redirect_to :action => 'index'
     else
-      render :layout => 'backend/00-patterns/modal'
+      render :layout => $modal_layout_path
     end
   end 
   
@@ -75,6 +75,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   rescue
     puts $!
   end
-  
+
 
 end

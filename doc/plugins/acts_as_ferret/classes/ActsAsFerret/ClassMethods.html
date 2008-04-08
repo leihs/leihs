@@ -1,0 +1,1140 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ActsAsFerret::ClassMethods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ActsAsFerret::ClassMethods</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/vendor/plugins/acts_as_ferret/lib/class_methods_rb.html">
+                vendor/plugins/acts_as_ferret/lib/class_methods.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000023">_multi_search</a>&nbsp;&nbsp;
+      <a href="#M000017">aaf_index</a>&nbsp;&nbsp;
+      <a href="#M000024">add_self_to_model_list_if_necessary</a>&nbsp;&nbsp;
+      <a href="#M000026">ar_find_by_contents</a>&nbsp;&nbsp;
+      <a href="#M000012">bulk_index</a>&nbsp;&nbsp;
+      <a href="#M000033">combine_conditions</a>&nbsp;&nbsp;
+      <a href="#M000030">count_records</a>&nbsp;&nbsp;
+      <a href="#M000032">create_index_instance</a>&nbsp;&nbsp;
+      <a href="#M000031">deprecated_options_support</a>&nbsp;&nbsp;
+      <a href="#M000008">disable_ferret</a>&nbsp;&nbsp;
+      <a href="#M000009">enable_ferret</a>&nbsp;&nbsp;
+      <a href="#M000010">ferret_enabled?</a>&nbsp;&nbsp;
+      <a href="#M000019">find_by_contents</a>&nbsp;&nbsp;
+      <a href="#M000021">find_id_by_contents</a>&nbsp;&nbsp;
+      <a href="#M000025">find_records_lazy_or_not</a>&nbsp;&nbsp;
+      <a href="#M000018">find_with_ferret</a>&nbsp;&nbsp;
+      <a href="#M000022">id_multi_search</a>&nbsp;&nbsp;
+      <a href="#M000016">index_dir=</a>&nbsp;&nbsp;
+      <a href="#M000027">lazy_find_by_contents</a>&nbsp;&nbsp;
+      <a href="#M000028">model_find</a>&nbsp;&nbsp;
+      <a href="#M000011">rebuild_index</a>&nbsp;&nbsp;
+      <a href="#M000015">records_for_bulk_index</a>&nbsp;&nbsp;
+      <a href="#M000014">records_for_rebuild</a>&nbsp;&nbsp;
+      <a href="#M000029">retrieve_records</a>&nbsp;&nbsp;
+      <a href="#M000020">total_hits</a>&nbsp;&nbsp;
+      <a href="#M000013">use_fast_batches?</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <a href="#M000017" class="method-signature">
+          <span class="method-name">aaf_index</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Retrieve the index instance for this model class. This can either be a <a
+href="LocalIndex.html">LocalIndex</a>, or a <a
+href="RemoteIndex.html">RemoteIndex</a> instance.
+</p>
+<p>
+Index instances are stored in a hash, using the index directory as the key.
+So model classes sharing a single index will share their Index object, too.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 108</span>
+108:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">aaf_index</span>
+109:       <span class="ruby-constant">ActsAsFerret</span><span class="ruby-operator">::</span><span class="ruby-identifier">ferret_indexes</span>[<span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:index_dir</span>]] <span class="ruby-operator">||=</span> <span class="ruby-identifier">create_index_instance</span>
+110:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="#M000012" class="method-signature">
+          <span class="method-name">bulk_index</span><span class="method-args">(*ids)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+re-index a number records specified by the given ids. Use for large
+indexing jobs i.e. after modifying a lot of records with <a
+href="../Ferret.html">Ferret</a> disabled. Please note that the state of <a
+href="../Ferret.html">Ferret</a> (enabled or disabled at class or record
+level) is not checked by this method, so if you need to do so (e.g. because
+of a custom <a href="ClassMethods.html#M000010">ferret_enabled?</a>
+implementation), you have to do so yourself.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 43</span>
+43:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">bulk_index</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">ids</span>)
+44:       <span class="ruby-identifier">options</span> = <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">ids</span>.<span class="ruby-identifier">last</span> <span class="ruby-value">? </span><span class="ruby-identifier">ids</span>.<span class="ruby-identifier">pop</span> <span class="ruby-operator">:</span> {}
+45:       <span class="ruby-identifier">ids</span> = <span class="ruby-identifier">ids</span>.<span class="ruby-identifier">first</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ids</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">ids</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Enumerable</span>)
+46:       <span class="ruby-identifier">aaf_index</span>.<span class="ruby-identifier">bulk_index</span>(<span class="ruby-identifier">ids</span>, <span class="ruby-identifier">options</span>)
+47:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="#M000008" class="method-signature">
+          <span class="method-name">disable_ferret</span><span class="method-args">() {|| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Disables ferret index updates for this model. When a block is given, <a
+href="../Ferret.html">Ferret</a> will be re-enabled again after executing
+the block.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 7</span>
+ 7:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">disable_ferret</span>
+ 8:       <span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:enabled</span>] = <span class="ruby-keyword kw">false</span>
+ 9:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+10:         <span class="ruby-keyword kw">yield</span>
+11:         <span class="ruby-identifier">enable_ferret</span>
+12:       <span class="ruby-keyword kw">end</span>
+13:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="#M000009" class="method-signature">
+          <span class="method-name">enable_ferret</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 15</span>
+15:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">enable_ferret</span>
+16:       <span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:enabled</span>] = <span class="ruby-keyword kw">true</span>
+17:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="#M000010" class="method-signature">
+          <span class="method-name">ferret_enabled?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 19</span>
+19:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ferret_enabled?</span>
+20:       <span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:enabled</span>]
+21:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+          <span class="method-name">find_by_contents</span><span class="method-args">(q, options = {}, find_options = {})</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="ClassMethods.html#M000018">find_with_ferret</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000021" class="method-detail">
+        <a name="M000021"></a>
+
+        <div class="method-heading">
+          <a href="#M000021" class="method-signature">
+          <span class="method-name">find_id_by_contents</span><span class="method-args">(q, options = {}, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Finds instance model name, ids and scores by contents. Useful e.g. if you
+want to search across models or do not want to fetch all result records
+(yet).
+</p>
+<p>
+Options are the same as for <a
+href="ClassMethods.html#M000019">find_by_contents</a>
+</p>
+<p>
+A block can be given too, it will be executed with every result: <a
+href="ClassMethods.html#M000021">find_id_by_contents</a>(q, options) do
+|model, id, score|
+</p>
+<pre>
+   id_array &lt;&lt; id
+   scores_by_id[id] = score
+</pre>
+<p>
+end NOTE: in case a block is given, only the <a
+href="ClassMethods.html#M000020">total_hits</a> value will be returned
+instead of the [<a href="ClassMethods.html#M000020">total_hits</a>,
+results] array!
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000021-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 228</span>
+228:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_id_by_contents</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+229:       <span class="ruby-identifier">deprecated_options_support</span>(<span class="ruby-identifier">options</span>)
+230:       <span class="ruby-identifier">aaf_index</span>.<span class="ruby-identifier">find_id_by_contents</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+231:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="#M000018" class="method-signature">
+          <span class="method-name">find_with_ferret</span><span class="method-args">(q, options = {}, find_options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Finds instances by searching the <a href="../Ferret.html">Ferret</a> index.
+Terms are ANDed by default, use OR between terms for ORed queries. Or
+specify +:or_default =&gt; true+ in the +:ferret+ options hash of
+acts_as_ferret.
+</p>
+<p>
+You may either use the <tt>offset</tt> and <tt>limit</tt> options to
+implement your own pagination logic, or use the <tt>page</tt> and
+<tt>per_page</tt> options to use the built in pagination support which is
+compatible with will_paginate&#8216;s view helpers. If <tt>page</tt> and
+<tt>per_page</tt> are given, <tt>offset</tt> and <tt>limit</tt> will be
+ignored.
+</p>
+<h2>options:</h2>
+<table>
+<tr><td valign="top">page:</td><td>page of search results to retrieve
+
+</td></tr>
+<tr><td valign="top">per_page:</td><td>number of search results that are displayed per page
+
+</td></tr>
+<tr><td valign="top">offset:</td><td>first hit to retrieve (useful for paging)
+
+</td></tr>
+<tr><td valign="top">limit:</td><td>number of hits to retrieve, or :all to retrieve all results
+
+</td></tr>
+<tr><td valign="top">lazy:</td><td>Array of field names whose contents should be read directly from the index.
+Those fields have to be marked +:store =&gt; :yes+ in their field options.
+Give true to get all stored fields. Note that if you have a shared index,
+you have to explicitly state the fields you want to fetch, true won&#8216;t
+work here)
+
+</td></tr>
+<tr><td valign="top">models:</td><td>only for single_index scenarios: an Array of other Model classes to include
+in this search. Use :all to query all models.
+
+</td></tr>
+<tr><td valign="top">multi:</td><td>Specify additional model classes to search through. Each of these, as well
+as this class, has to have the :store_class_name option set to true. This
+option replaces the multi_search method.
+
+</td></tr>
+</table>
+<p>
+<tt>find_options</tt> is a hash passed on to active_record&#8216;s find
+when retrieving the data from db, useful to i.e. prefetch relationships
+with :include or to specify additional filter criteria with :conditions.
+</p>
+<p>
+This method returns a <tt><a
+href="SearchResults.html">SearchResults</a></tt> instance, which really is
+an Array that has been decorated with a <a
+href="ClassMethods.html#M000020">total_hits</a> attribute holding the total
+number of hits. Additionally, <a
+href="SearchResults.html">SearchResults</a> is compatible with the
+pagination helper methods of the will_paginate plugin.
+</p>
+<p>
+Please keep in mind that the number of results delivered might be less than
+<tt>limit</tt> if you specify any active record conditions that further
+limit the result. Use <tt>limit</tt> and <tt>offset</tt> as AR find_options
+instead. <tt>page</tt> and <tt>per_page</tt> are supposed to work
+regardless of any <tt>conitions</tt> present in <tt>find_options</tt>.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000018-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 155</span>
+155:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_with_ferret</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-identifier">find_options</span> = {})
+156:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:per_page</span>]
+157:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:page</span>] = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:page</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:page</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+158:         <span class="ruby-identifier">limit</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:per_page</span>]
+159:         <span class="ruby-identifier">offset</span> = (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:page</span>] <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">limit</span>
+160:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:conditions</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">options</span>[<span class="ruby-identifier">:multi</span>]
+161:           <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:limit</span>] = <span class="ruby-identifier">limit</span>
+162:           <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:offset</span>] = <span class="ruby-identifier">offset</span>
+163:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:limit</span>] = <span class="ruby-identifier">:all</span>
+164:           <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:offset</span>
+165:         <span class="ruby-keyword kw">else</span>
+166:           <span class="ruby-comment cmt"># do pagination with ferret (or after everything is done in the case</span>
+167:           <span class="ruby-comment cmt"># of multi_search)</span>
+168:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:limit</span>] = <span class="ruby-identifier">limit</span>
+169:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:offset</span>] = <span class="ruby-identifier">offset</span>
+170:         <span class="ruby-keyword kw">end</span>
+171:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:conditions</span>]
+172:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:multi</span>]
+173:           <span class="ruby-comment cmt"># multisearch ignores find_options limit and offset</span>
+174:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:limit</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">find_options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:limit</span>)
+175:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:offset</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">find_options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:offset</span>)
+176:         <span class="ruby-keyword kw">else</span>
+177:           <span class="ruby-comment cmt"># let the db do the limiting and offsetting for single-table searches</span>
+178:           <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:limit</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:limit</span>)
+179:           <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:offset</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:offset</span>)
+180:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:limit</span>] = <span class="ruby-identifier">:all</span>
+181:         <span class="ruby-keyword kw">end</span>
+182:       <span class="ruby-keyword kw">end</span>
+183: 
+184:       <span class="ruby-identifier">total_hits</span>, <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:multi</span>].<span class="ruby-identifier">blank?</span>
+185:         <span class="ruby-identifier">find_records_lazy_or_not</span> <span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span>, <span class="ruby-identifier">find_options</span>
+186:       <span class="ruby-keyword kw">else</span>
+187:         <span class="ruby-identifier">_multi_search</span> <span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:multi</span>), <span class="ruby-identifier">options</span>, <span class="ruby-identifier">find_options</span>
+188:       <span class="ruby-keyword kw">end</span>
+189:       <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Query: #{q}\ntotal hits: #{total_hits}, results delivered: #{result.size}&quot;</span>
+190:       <span class="ruby-constant">SearchResults</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">total_hits</span>, <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:page</span>], <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:per_page</span>])
+191:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000022" class="method-detail">
+        <a name="M000022"></a>
+
+        <div class="method-heading">
+          <a href="#M000022" class="method-signature">
+          <span class="method-name">id_multi_search</span><span class="method-args">(query, additional_models = [], options = {}, &amp;proc)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns an array of hashes, each containing :class_name, :id and :score for
+a hit.
+</p>
+<p>
+if a block is given, class_name, id and score of each hit will be yielded,
+and the total number of hits is returned.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000022-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 239</span>
+239:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">id_multi_search</span>(<span class="ruby-identifier">query</span>, <span class="ruby-identifier">additional_models</span> = [], <span class="ruby-identifier">options</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">proc</span>)
+240:       <span class="ruby-identifier">deprecated_options_support</span>(<span class="ruby-identifier">options</span>)
+241:       <span class="ruby-identifier">models</span> = <span class="ruby-identifier">add_self_to_model_list_if_necessary</span>(<span class="ruby-identifier">additional_models</span>)
+242:       <span class="ruby-identifier">aaf_index</span>.<span class="ruby-identifier">id_multi_search</span>(<span class="ruby-identifier">query</span>, <span class="ruby-identifier">models</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">:to_s</span>), <span class="ruby-identifier">options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">proc</span>)
+243:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
+
+        <div class="method-heading">
+          <a href="#M000016" class="method-signature">
+          <span class="method-name">index_dir=</span><span class="method-args">(dir)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Switches this class to a new index located in dir. Used by the DRb server
+when switching to a new index version.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 95</span>
+ 95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index_dir=</span>(<span class="ruby-identifier">dir</span>)
+ 96:       <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;changing index dir to #{dir}&quot;</span>
+ 97:       <span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:index_dir</span>] = <span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:ferret</span>][<span class="ruby-identifier">:path</span>] = <span class="ruby-identifier">dir</span>
+ 98:       <span class="ruby-identifier">aaf_index</span>.<span class="ruby-identifier">reopen!</span>
+ 99:       <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;index dir is now #{dir}&quot;</span>
+100:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="#M000011" class="method-signature">
+          <span class="method-name">rebuild_index</span><span class="method-args">(*models)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+rebuild the index from all data stored for this model. This is called
+automatically when no index exists yet.
+</p>
+<p>
+When calling this method manually, you can give any additional model
+classes that should also go into this index as parameters. Useful when
+using the :single_index option. Note that attributes named the same in
+different models will share the same field options in the shared index.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 31</span>
+31:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rebuild_index</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">models</span>)
+32:       <span class="ruby-identifier">models</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">models</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-keyword kw">self</span>)
+33:       <span class="ruby-identifier">aaf_index</span>.<span class="ruby-identifier">rebuild_index</span> <span class="ruby-identifier">models</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">:to_s</span>)
+34:       <span class="ruby-identifier">index_dir</span> = <span class="ruby-identifier">find_last_index_version</span>(<span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:index_base_dir</span>]) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:remote</span>]
+35:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="#M000015" class="method-signature">
+          <span class="method-name">records_for_bulk_index</span><span class="method-args">(ids, batch_size = 1000) {|find( :all, :conditions =&gt; [&quot;id in (?)&quot;, id_slice] ), offset| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+yields the records with the given ids, in batches of batch_size
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 79</span>
+79:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">records_for_bulk_index</span>(<span class="ruby-identifier">ids</span>, <span class="ruby-identifier">batch_size</span> = <span class="ruby-value">1000</span>)
+80:       <span class="ruby-identifier">transaction</span> <span class="ruby-keyword kw">do</span>
+81:         <span class="ruby-identifier">offset</span> = <span class="ruby-value">0</span>
+82:         <span class="ruby-identifier">ids</span>.<span class="ruby-identifier">each_slice</span>(<span class="ruby-identifier">batch_size</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">id_slice</span><span class="ruby-operator">|</span>
+83:           <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;########## slice: #{id_slice.join(',')}&quot;</span>
+84:           <span class="ruby-identifier">records</span> = <span class="ruby-identifier">find</span>( <span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">&quot;id in (?)&quot;</span>, <span class="ruby-identifier">id_slice</span>] )
+85:           <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;########## slice records: #{records.inspect}&quot;</span>
+86:           <span class="ruby-comment cmt">#yield records, offset</span>
+87:           <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">find</span>( <span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">&quot;id in (?)&quot;</span>, <span class="ruby-identifier">id_slice</span>] ), <span class="ruby-identifier">offset</span>
+88:           <span class="ruby-identifier">offset</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">batch_size</span>
+89:         <span class="ruby-keyword kw">end</span>
+90:       <span class="ruby-keyword kw">end</span>
+91:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="#M000014" class="method-signature">
+          <span class="method-name">records_for_rebuild</span><span class="method-args">(batch_size = 1000) {|rows, offset| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+runs across all records yielding those to be indexed when the index is
+rebuilt
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 60</span>
+60:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">records_for_rebuild</span>(<span class="ruby-identifier">batch_size</span> = <span class="ruby-value">1000</span>)
+61:       <span class="ruby-identifier">transaction</span> <span class="ruby-keyword kw">do</span>
+62:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">use_fast_batches?</span>
+63:           <span class="ruby-identifier">offset</span> = <span class="ruby-value">0</span>
+64:           <span class="ruby-keyword kw">while</span> (<span class="ruby-identifier">rows</span> = <span class="ruby-identifier">find</span> <span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-node">&quot;#{table_name}.id &gt; ?&quot;</span>, <span class="ruby-identifier">offset</span> ], <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">batch_size</span>).<span class="ruby-identifier">any?</span>
+65:             <span class="ruby-identifier">offset</span> = <span class="ruby-identifier">rows</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">id</span>
+66:             <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">rows</span>, <span class="ruby-identifier">offset</span>
+67:           <span class="ruby-keyword kw">end</span>
+68:         <span class="ruby-keyword kw">else</span>
+69:           <span class="ruby-comment cmt"># sql server adapter won't batch correctly without defined ordering</span>
+70:           <span class="ruby-identifier">order</span> = <span class="ruby-node">&quot;#{primary_key} ASC&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/SQLServer/</span>
+71:           <span class="ruby-value">0</span>.<span class="ruby-identifier">step</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">count</span>, <span class="ruby-identifier">batch_size</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">offset</span><span class="ruby-operator">|</span>
+72:             <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">find</span>( <span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">batch_size</span>, <span class="ruby-identifier">:offset</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">offset</span>, <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order</span> ), <span class="ruby-identifier">offset</span>
+73:           <span class="ruby-keyword kw">end</span>
+74:         <span class="ruby-keyword kw">end</span>
+75:       <span class="ruby-keyword kw">end</span>
+76:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
+
+        <div class="method-heading">
+          <a href="#M000020" class="method-signature">
+          <span class="method-name">total_hits</span><span class="method-args">(q, options={})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the total number of hits for the given query To count the results
+of a query across multiple models, specify an array of class names with the
+:multi option.
+</p>
+<p>
+Note that since we don&#8216;t query the database here, this method
+won&#8216;t deliver the expected results when used on an AR association.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000020-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000020-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 202</span>
+202:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">total_hits</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span>={})
+203:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:models</span>]
+204:         <span class="ruby-comment cmt"># backwards compatibility</span>
+205:         <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;the :models option of total_hits is deprecated, please use :multi instead&quot;</span>
+206:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:multi</span>] = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:models</span>] 
+207:       <span class="ruby-keyword kw">end</span>
+208:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">models</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:multi</span>]
+209:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:multi</span>] = <span class="ruby-identifier">add_self_to_model_list_if_necessary</span>(<span class="ruby-identifier">models</span>).<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">:to_s</span>)
+210:       <span class="ruby-keyword kw">end</span>
+211:       <span class="ruby-identifier">aaf_index</span>.<span class="ruby-identifier">total_hits</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span>)
+212:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="#M000013" class="method-signature">
+          <span class="method-name">use_fast_batches?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+true if our db and table appear to be suitable for the mysql fast batch
+hack (see <a
+href="http://weblog.jamisbuck.org/2007/4/6/faking-cursors-in-activerecord">weblog.jamisbuck.org/2007/4/6/faking-cursors-in-activerecord</a>)
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 52</span>
+52:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">use_fast_batches?</span>
+53:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/Mysql/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">primary_key</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'id'</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:mysql_fast_batches</span>]
+54:         <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;using mysql specific batched find :all. Turn off with  :mysql_fast_batches =&gt; false if you encounter problems (i.e. because of non-integer UUIDs in the id column)&quot;</span>
+55:         <span class="ruby-keyword kw">true</span>
+56:       <span class="ruby-keyword kw">end</span>
+57:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000023" class="method-detail">
+        <a name="M000023"></a>
+
+        <div class="method-heading">
+          <a href="#M000023" class="method-signature">
+          <span class="method-name">_multi_search</span><span class="method-args">(query, additional_models = [], options = {}, find_options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000023-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000023-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 248</span>
+248:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_multi_search</span>(<span class="ruby-identifier">query</span>, <span class="ruby-identifier">additional_models</span> = [], <span class="ruby-identifier">options</span> = {}, <span class="ruby-identifier">find_options</span> = {})
+249:       <span class="ruby-identifier">result</span> = []
+250: 
+251:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:lazy</span>]
+252:         <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;find_options #{find_options} are ignored because :lazy =&gt; true&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">find_options</span>.<span class="ruby-identifier">empty?</span>
+253:         <span class="ruby-identifier">total_hits</span> = <span class="ruby-identifier">id_multi_search</span>(<span class="ruby-identifier">query</span>, <span class="ruby-identifier">additional_models</span>, <span class="ruby-identifier">options</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">score</span>, <span class="ruby-identifier">data</span><span class="ruby-operator">|</span>
+254:           <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">FerretResult</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">model</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">score</span>, <span class="ruby-identifier">data</span>)
+255:         <span class="ruby-keyword kw">end</span>
+256:       <span class="ruby-keyword kw">else</span>
+257:         <span class="ruby-identifier">id_arrays</span> = {}
+258:         <span class="ruby-identifier">rank</span> = <span class="ruby-value">0</span>
+259: 
+260:         <span class="ruby-identifier">limit</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:limit</span>)
+261:         <span class="ruby-identifier">offset</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:offset</span>) <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+262:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:limit</span>] = <span class="ruby-identifier">:all</span>
+263:         <span class="ruby-identifier">total_hits</span> = <span class="ruby-identifier">id_multi_search</span>(<span class="ruby-identifier">query</span>, <span class="ruby-identifier">additional_models</span>, <span class="ruby-identifier">options</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">score</span>, <span class="ruby-identifier">data</span><span class="ruby-operator">|</span>
+264:           <span class="ruby-identifier">id_arrays</span>[<span class="ruby-identifier">model</span>] <span class="ruby-operator">||=</span> {}
+265:           <span class="ruby-identifier">id_arrays</span>[<span class="ruby-identifier">model</span>][<span class="ruby-identifier">id</span>] = [ <span class="ruby-identifier">rank</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">score</span> ]
+266:         <span class="ruby-keyword kw">end</span>
+267:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">retrieve_records</span>(<span class="ruby-identifier">id_arrays</span>, <span class="ruby-identifier">find_options</span>)
+268:         <span class="ruby-identifier">total_hits</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:conditions</span>]
+269:  <span class="ruby-comment cmt">#       total_hits += offset if offset</span>
+270:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">limit</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">limit</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">:all</span>
+271:           <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>[<span class="ruby-identifier">offset</span><span class="ruby-operator">..</span><span class="ruby-identifier">limit</span><span class="ruby-operator">+</span><span class="ruby-identifier">offset</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>]
+272:         <span class="ruby-keyword kw">end</span>
+273:       <span class="ruby-keyword kw">end</span>
+274:       [<span class="ruby-identifier">total_hits</span>, <span class="ruby-identifier">result</span>]
+275:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000024" class="method-detail">
+        <a name="M000024"></a>
+
+        <div class="method-heading">
+          <a href="#M000024" class="method-signature">
+          <span class="method-name">add_self_to_model_list_if_necessary</span><span class="method-args">(models)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000024-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000024-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 277</span>
+277:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_self_to_model_list_if_necessary</span>(<span class="ruby-identifier">models</span>)
+278:       <span class="ruby-identifier">models</span> = [ <span class="ruby-identifier">models</span> ] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">models</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Array</span>
+279:       <span class="ruby-identifier">models</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">models</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-keyword kw">self</span>)
+280:       <span class="ruby-identifier">models</span>
+281:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
+
+        <div class="method-heading">
+          <a href="#M000026" class="method-signature">
+          <span class="method-name">ar_find_by_contents</span><span class="method-args">(q, options = {}, find_options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000026-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 292</span>
+292:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ar_find_by_contents</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-identifier">find_options</span> = {})
+293:       <span class="ruby-identifier">result_ids</span> = {}
+294:       <span class="ruby-identifier">total_hits</span> = <span class="ruby-identifier">find_id_by_contents</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">score</span>, <span class="ruby-identifier">data</span><span class="ruby-operator">|</span>
+295:         <span class="ruby-comment cmt"># stores ids, index and score of each hit for later ordering of</span>
+296:         <span class="ruby-comment cmt"># results</span>
+297:         <span class="ruby-identifier">result_ids</span>[<span class="ruby-identifier">id</span>] = [ <span class="ruby-identifier">result_ids</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">score</span> ]
+298:       <span class="ruby-keyword kw">end</span>
+299: 
+300:       <span class="ruby-identifier">result</span> = <span class="ruby-identifier">retrieve_records</span>( { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">result_ids</span> }, <span class="ruby-identifier">find_options</span> )
+301:       
+302:       <span class="ruby-comment cmt"># count total_hits via sql when using conditions or when we're called</span>
+303:       <span class="ruby-comment cmt"># from an ActiveRecord association.</span>
+304:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:conditions</span>] <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">caller</span>.<span class="ruby-identifier">find</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">call</span><span class="ruby-operator">|</span> <span class="ruby-identifier">call</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%r{active_record/associations}</span> }
+305:         <span class="ruby-comment cmt"># chances are the ferret result count is not our total_hits value, so</span>
+306:         <span class="ruby-comment cmt"># we correct this here.</span>
+307:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:limit</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">:all</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:page</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:offset</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:limit</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:offset</span>]
+308:           <span class="ruby-comment cmt"># our ferret result has been limited, so we need to re-run that</span>
+309:           <span class="ruby-comment cmt"># search to get the full result set from ferret.</span>
+310:           <span class="ruby-identifier">result_ids</span> = {}
+311:           <span class="ruby-identifier">find_id_by_contents</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:offset</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">score</span>, <span class="ruby-identifier">data</span><span class="ruby-operator">|</span>
+312:             <span class="ruby-identifier">result_ids</span>[<span class="ruby-identifier">id</span>] = [ <span class="ruby-identifier">result_ids</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">score</span> ]
+313:           <span class="ruby-keyword kw">end</span>
+314:           <span class="ruby-comment cmt"># Now ask the database for the total size of the final result set.</span>
+315:           <span class="ruby-identifier">total_hits</span> = <span class="ruby-identifier">count_records</span>( { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">result_ids</span> }, <span class="ruby-identifier">find_options</span> )
+316:         <span class="ruby-keyword kw">else</span>
+317:           <span class="ruby-comment cmt"># what we got from the database is our full result set, so take</span>
+318:           <span class="ruby-comment cmt"># it's size</span>
+319:           <span class="ruby-identifier">total_hits</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">length</span>
+320:         <span class="ruby-keyword kw">end</span>
+321:       <span class="ruby-keyword kw">end</span>
+322: 
+323:       [ <span class="ruby-identifier">total_hits</span>, <span class="ruby-identifier">result</span> ]
+324:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+          <a href="#M000033" class="method-signature">
+          <span class="method-name">combine_conditions</span><span class="method-args">(conditions, additional_conditions = [])</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+combine our conditions with those given by user, if any
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000033-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 446</span>
+446:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">combine_conditions</span>(<span class="ruby-identifier">conditions</span>, <span class="ruby-identifier">additional_conditions</span> = [])
+447:       <span class="ruby-identifier">returning</span> <span class="ruby-identifier">conditions</span> <span class="ruby-keyword kw">do</span>
+448:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">additional_conditions</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">additional_conditions</span>.<span class="ruby-identifier">any?</span>
+449:           <span class="ruby-identifier">cust_opts</span> = <span class="ruby-identifier">additional_conditions</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:shift</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">additional_conditions</span>.<span class="ruby-identifier">dup</span> <span class="ruby-operator">:</span> [ <span class="ruby-identifier">additional_conditions</span> ]
+450:           <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot; and &quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cust_opts</span>.<span class="ruby-identifier">shift</span>
+451:           <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">cust_opts</span>)
+452:         <span class="ruby-keyword kw">end</span>
+453:       <span class="ruby-keyword kw">end</span>
+454:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000030" class="method-detail">
+        <a name="M000030"></a>
+
+        <div class="method-heading">
+          <a href="#M000030" class="method-signature">
+          <span class="method-name">count_records</span><span class="method-args">(id_arrays, find_options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000030-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000030-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 401</span>
+401:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">count_records</span>(<span class="ruby-identifier">id_arrays</span>, <span class="ruby-identifier">find_options</span> = {})
+402:       <span class="ruby-identifier">count_options</span> = <span class="ruby-identifier">find_options</span>.<span class="ruby-identifier">dup</span>
+403:       <span class="ruby-identifier">count_options</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:limit</span>
+404:       <span class="ruby-identifier">count_options</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:offset</span>
+405:       <span class="ruby-identifier">count</span> = <span class="ruby-value">0</span>
+406:       <span class="ruby-identifier">id_arrays</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model</span>, <span class="ruby-identifier">id_array</span><span class="ruby-operator">|</span>
+407:         <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">id_array</span>.<span class="ruby-identifier">empty?</span>
+408:         <span class="ruby-keyword kw">begin</span>
+409:           <span class="ruby-identifier">model</span> = <span class="ruby-identifier">model</span>.<span class="ruby-identifier">constantize</span>
+410:           <span class="ruby-comment cmt"># merge conditions</span>
+411:           <span class="ruby-identifier">conditions</span> = <span class="ruby-identifier">combine_conditions</span>([ <span class="ruby-node">&quot;#{model.table_name}.#{model.primary_key} in (?)&quot;</span>, <span class="ruby-identifier">id_array</span>.<span class="ruby-identifier">keys</span> ], 
+412:                                           <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:conditions</span>])
+413:           <span class="ruby-identifier">opts</span> = <span class="ruby-identifier">find_options</span>.<span class="ruby-identifier">merge</span> <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>
+414:           <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:limit</span>; <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">:offset</span>
+415:           <span class="ruby-identifier">count</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">count</span> <span class="ruby-identifier">opts</span>
+416:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">TypeError</span>
+417:           <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{model} must use :store_class_name option if you want to use multi_search against it.\n#{$!}&quot;</span>
+418:         <span class="ruby-keyword kw">end</span>
+419:       <span class="ruby-keyword kw">end</span>
+420:       <span class="ruby-identifier">count</span>
+421:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+          <a href="#M000032" class="method-signature">
+          <span class="method-name">create_index_instance</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+creates a new Index instance.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000032-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 435</span>
+435:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_index_instance</span>
+436:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:remote</span>]
+437:        <span class="ruby-constant">RemoteIndex</span>
+438:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">aaf_configuration</span>[<span class="ruby-identifier">:single_index</span>]
+439:         <span class="ruby-constant">SharedIndex</span>
+440:       <span class="ruby-keyword kw">else</span>
+441:         <span class="ruby-constant">LocalIndex</span>
+442:       <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">aaf_configuration</span>)
+443:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000031" class="method-detail">
+        <a name="M000031"></a>
+
+        <div class="method-heading">
+          <a href="#M000031" class="method-signature">
+          <span class="method-name">deprecated_options_support</span><span class="method-args">(options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000031-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000031-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 423</span>
+423:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deprecated_options_support</span>(<span class="ruby-identifier">options</span>)
+424:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:num_docs</span>]
+425:         <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;:num_docs is deprecated, use :limit instead!&quot;</span>
+426:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:limit</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:num_docs</span>]
+427:       <span class="ruby-keyword kw">end</span>
+428:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:first_doc</span>]
+429:         <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;:first_doc is deprecated, use :offset instead!&quot;</span>
+430:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:offset</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:first_doc</span>]
+431:       <span class="ruby-keyword kw">end</span>
+432:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
+
+        <div class="method-heading">
+          <a href="#M000025" class="method-signature">
+          <span class="method-name">find_records_lazy_or_not</span><span class="method-args">(q, options = {}, find_options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000025-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 283</span>
+283:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_records_lazy_or_not</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-identifier">find_options</span> = {})
+284:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:lazy</span>]
+285:         <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;find_options #{find_options} are ignored because :lazy =&gt; true&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">find_options</span>.<span class="ruby-identifier">empty?</span>
+286:         <span class="ruby-identifier">lazy_find_by_contents</span> <span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span>
+287:       <span class="ruby-keyword kw">else</span>
+288:         <span class="ruby-identifier">ar_find_by_contents</span> <span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span>, <span class="ruby-identifier">find_options</span>
+289:       <span class="ruby-keyword kw">end</span>
+290:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
+
+        <div class="method-heading">
+          <a href="#M000027" class="method-signature">
+          <span class="method-name">lazy_find_by_contents</span><span class="method-args">(q, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000027-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 326</span>
+326:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">lazy_find_by_contents</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span> = {})
+327:       <span class="ruby-identifier">result</span> = []
+328:       <span class="ruby-identifier">total_hits</span> = <span class="ruby-identifier">find_id_by_contents</span>(<span class="ruby-identifier">q</span>, <span class="ruby-identifier">options</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">score</span>, <span class="ruby-identifier">data</span><span class="ruby-operator">|</span>
+329:         <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">FerretResult</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">model</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">score</span>, <span class="ruby-identifier">data</span>)
+330:       <span class="ruby-keyword kw">end</span>
+331:       [ <span class="ruby-identifier">total_hits</span>, <span class="ruby-identifier">result</span> ]
+332:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
+
+        <div class="method-heading">
+          <a href="#M000028" class="method-signature">
+          <span class="method-name">model_find</span><span class="method-args">(model, id, find_options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000028-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 335</span>
+335:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">model_find</span>(<span class="ruby-identifier">model</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">find_options</span> = {})
+336:       <span class="ruby-identifier">model</span>.<span class="ruby-identifier">constantize</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">find_options</span>)
+337:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000029" class="method-detail">
+        <a name="M000029"></a>
+
+        <div class="method-heading">
+          <a href="#M000029" class="method-signature">
+          <span class="method-name">retrieve_records</span><span class="method-args">(id_arrays, find_options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+retrieves search result records from a data structure like this: {
+&#8216;Model1&#8217; =&gt; { &#8216;1&#8217; =&gt; [ rank, score ],
+&#8216;2&#8217; =&gt; [ rank, score ] }
+</p>
+<p>
+TODO: in case of STI AR will filter out hits from other classes for us, but
+this will lead to less results retrieved &#8212;&gt; scoping of ferret
+query to self.class is still needed. from the ferret ML (thanks Curtis
+Hatter) &gt; I created a method in my base STI class so I can scope my
+query. For scoping &gt; I used something like the following line: &gt; &gt;
+query &lt;&lt; &quot; role:#{self.class.eql?(Contents) &#8217;*&#8217; :
+self.class}&quot; &gt; &gt; Though you could make it more generic by simply
+asking &gt; &quot;self.descends_from_active_record?&quot; which is how
+rails decides if it should &gt; scope your &quot;find&quot; query for STI
+models. You can check out &quot;base.rb&quot; in &gt; activerecord to see
+that. but maybe better do the scoping in <a
+href="ClassMethods.html#M000021">find_id_by_contents</a>&#8230;
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000029-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_ferret/lib/class_methods.rb, line 357</span>
+357:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retrieve_records</span>(<span class="ruby-identifier">id_arrays</span>, <span class="ruby-identifier">find_options</span> = {})
+358:       <span class="ruby-identifier">result</span> = []
+359:       <span class="ruby-comment cmt"># get objects for each model</span>
+360:       <span class="ruby-identifier">id_arrays</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model</span>, <span class="ruby-identifier">id_array</span><span class="ruby-operator">|</span>
+361:         <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">id_array</span>.<span class="ruby-identifier">empty?</span>
+362:         <span class="ruby-keyword kw">begin</span>
+363:           <span class="ruby-identifier">model</span> = <span class="ruby-identifier">model</span>.<span class="ruby-identifier">constantize</span>
+364:         <span class="ruby-keyword kw">rescue</span>
+365:           <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Please use ':store_class_name =&gt; true' if you want to use multi_search.\n#{$!}&quot;</span>
+366:         <span class="ruby-keyword kw">end</span>
+367: 
+368:         <span class="ruby-comment cmt"># merge conditions</span>
+369:         <span class="ruby-identifier">conditions</span> = <span class="ruby-identifier">combine_conditions</span>([ <span class="ruby-node">&quot;#{model.table_name}.#{model.primary_key} in (?)&quot;</span>, 
+370:                                           <span class="ruby-identifier">id_array</span>.<span class="ruby-identifier">keys</span> ], 
+371:                                         <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:conditions</span>])
+372: 
+373:         <span class="ruby-comment cmt"># check for include association that might only exist on some models in case of multi_search</span>
+374:         <span class="ruby-identifier">filtered_include_options</span> = []
+375:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">include_options</span> = <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:include</span>]
+376:           <span class="ruby-identifier">include_options</span> = [ <span class="ruby-identifier">include_options</span> ] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">include_options</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:each</span>)
+377:           <span class="ruby-identifier">include_options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">include_option</span><span class="ruby-operator">|</span>
+378:             <span class="ruby-identifier">filtered_include_options</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">include_option</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">reflections</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">include_option</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">include_option</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_sym</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">include_option</span>.<span class="ruby-identifier">to_sym</span>)
+379:           <span class="ruby-keyword kw">end</span>
+380:         <span class="ruby-keyword kw">end</span>
+381:         <span class="ruby-identifier">filtered_include_options</span> = <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filtered_include_options</span>.<span class="ruby-identifier">empty?</span>
+382: 
+383:         <span class="ruby-comment cmt"># fetch</span>
+384:         <span class="ruby-identifier">tmp_result</span> = <span class="ruby-identifier">model</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">find_options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>, 
+385:                                                          <span class="ruby-identifier">:include</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filtered_include_options</span>))
+386: 
+387:         <span class="ruby-comment cmt"># set scores and rank</span>
+388:         <span class="ruby-identifier">tmp_result</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">record</span><span class="ruby-operator">|</span>
+389:           <span class="ruby-identifier">record</span>.<span class="ruby-identifier">ferret_rank</span>, <span class="ruby-identifier">record</span>.<span class="ruby-identifier">ferret_score</span> = <span class="ruby-identifier">id_array</span>[<span class="ruby-identifier">record</span>.<span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span>]
+390:         <span class="ruby-keyword kw">end</span>
+391:         <span class="ruby-comment cmt"># merge with result array</span>
+392:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">concat</span> <span class="ruby-identifier">tmp_result</span>
+393:       <span class="ruby-keyword kw">end</span>
+394:       
+395:       <span class="ruby-comment cmt"># order results as they were found by ferret, unless an AR :order</span>
+396:       <span class="ruby-comment cmt"># option was given</span>
+397:       <span class="ruby-identifier">result</span>.<span class="ruby-identifier">sort!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">ferret_rank</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">ferret_rank</span> } <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">find_options</span>[<span class="ruby-identifier">:order</span>]
+398:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span>
+399:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

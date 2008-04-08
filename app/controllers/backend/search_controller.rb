@@ -4,24 +4,17 @@ class Backend::SearchController < ApplicationController
     if request.post?
       @search_result = Model.find(:all, :conditions => {:name => params[:text]})
     end
-    render  :layout => 'backend/00-patterns/modal'
+    render  :layout => $modal_layout_path
   end
-  
-  def select_model
-    if params[:model_id] != nil
-      
-        puts "Should be redirected"
-      redirect_to :controller => 'acknowledge', 
-              :action => 'swap_line', 
-              :id => params[:id], 
-              :order_line_id => params[:order_line_id],
-              :model_id => params[:model_id],
-              :target => "_top",
-              '_method' => :post
-              
+
+
+  def order
+    @orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::NEW]})
+    if request.post?
+      render :partial => 'backend/acknowledge/orders'
     else
-      puts params[:model_id] +" must be nil"
-      render :template => model, :layout => 'backend/00-patterns/modal'
+      render :controller => 'acknowledge', :action => 'index'
     end
-  end
+  end    
+
 end
