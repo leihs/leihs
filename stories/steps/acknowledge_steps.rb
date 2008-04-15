@@ -98,7 +98,7 @@ steps_for(:acknowledge) do
       line.model.should_not be_nil
     end
     
-    @response.should render_template('backend/acknowledge/add_line')
+    @response.redirect_url.should include("backend/acknowledge/show/#{@order.id}")
   end
   
   
@@ -114,7 +114,7 @@ steps_for(:acknowledge) do
   end
   
   When "$who searches for '$model'" do |who, model|
-    post "/backend/search/model", :text => model
+    post "/backend/search/model", :text => model, :source_controller => "acknowledge", :source_action => "swap_line"
     @search_result = assigns(:search_result)
     @search_result.should_not be_nil
   end
@@ -169,7 +169,7 @@ steps_for(:acknowledge) do
   end
   
   Then "Swap Item screen opens" do 
-    @response.redirect_url.should == "http://www.example.com/backend/search/model/#{@order.id}?order_line_id=#{@order_line_id}"
+    @response.redirect_url.should include("/backend/search/model/#{@order.id}?order_line_id=#{@order_line_id}")
   end
   
   Then "a choice of $size item appears" do |size|

@@ -1,3 +1,0 @@
-page.delay(3) do
-  page.visual_effect :fade, 'flash_notice'
-end

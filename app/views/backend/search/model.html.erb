@@ -1,7 +1,8 @@
 <div id="controller">
-	<% form_tag( {:action => 'model', :id => params[:id]}, :name => "search") do %>
-	<%= hidden_field_tag('id', params[:id]) %>
-	<%= hidden_field_tag('order_line_id', params[:order_line_id]) %>
+	<% form_tag( {} ) do %>
+	<% params.each do |p| %>
+		<%= hidden_field_tag(p[0], p[1]) unless p[0] == "text" %>
+	<% end %>	
 	<p>
 	<%= text_field_tag 'text', params[:text] %>
 	</p>
@@ -23,18 +24,12 @@
 				<td class="row-closed"><%= result.name %></td>
 				<td>
 					<div class="buttons">
+												
+						<%=	link_to(image_tag($layout_public_path + "/images/icons/#{get_action_image(params[:source_action])}.png") + " " + _(get_action_text(params[:source_action])),
+					 	{ :controller => params[:source_controller], :action => params[:source_action], :id => params[:id], :model_id => result.id, :order_line_id => params[:order_line_id] },
+						:method => 'post', :target=> '_top') %>
 						
-						<% form_tag( { :controller=> 'acknowledge', :action => 'swap_line' }, :name => "f#{result.id}", :target=> "_top") do %>
-							<%= hidden_field_tag('id', params[:id]) %>
-							<%= hidden_field_tag('order_line_id', params[:order_line_id]) %>
-							<%= hidden_field_tag('model_id', result.id) %>
-							
-<%= submit_button(_("Swap"), {:img => $layout_public_path + "/images/icons/arrow_switch.png", 
-							  :class=>"positive", 
-							  :form_name => "f#{result.id}"
-							  })%>
-							
-						<% end %>
+						
 					</div>
 				</td>
 			</tr>
