@@ -22,7 +22,12 @@
 					<table cellspacing="0">
 						<tr class="alt-row">
 							<td><a href="modal-switch.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt arrow_switch" title="Warnung (Modales Fenster)">Reservierender:</a></td> 
-							<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-user" title="Warnung (Modales Fenster)"><%= @order.user.login %></a></td>
+							<td>
+								<%= greybox_link_to_page(@order.user.login,
+									 { :controller => 'users', :action => 'show', :id => @order.user.id },
+    								 :title => _("User"),
+									 :class => "iconized-notxt edit-user" ) %>
+							</td>
 						</tr>
 						<tr class="alt-row">
 							<td>Zeitfenster:</td>
@@ -38,7 +43,29 @@
 				<%= render :partial => 'additional_infos'%>
 				
 			</div>
-			
+
+			<script type="text/javascript">
+				function checkbox_values(c){
+					s = new Array();
+					$$('body input.' + c).each(
+						function(box){
+							if(box.checked) s.push(box.value);
+						}
+					);			
+					return s;
+				}
+				
+				//TODO write as generic
+				function change_href(a){
+					var cbv = checkbox_values('order_line_check');
+					b = a.href.split('?');
+					a.href = b[0] + '?order_lines=' + cbv;
+					//a.href += '?order_lines=' + cbv;
+					decoGreyboxLinks();
+				}
+				
+			</script>
+							
 			<div class="table-overview boxes">
 				
 				<div class="toolbar-second">
@@ -46,19 +73,29 @@
 					<div class="buttons">
 						<a href="#"><img src="images/icons/package_add.png" alt="" />  Paket hinzufügen</a>
 						<a href="#"><img src="images/icons/date_edit.png" alt="" />  Markierte Zeitraum ändern</a>
-						<a href="#" class="negative"><img src="images/icons/cancel.png" alt="" />  Markierte löschen</a>
+						
+						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Markierte löschen"),
+							{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id },
+							:onmouseup => "change_href(this);" ,
+							:title => _("Remove Models"), :class => 'negative')
+							# TODO contribute :with in greybox
+							# :with => "'order_lines=' + checkbox_values('order_line_check')"
+							%>
 					</div>
 				</div>
 				
+				
 					<table cellspacing="0">
+					<!-- start header -->
 						<tr>
-							<th scope="col"><input type="checkbox" /> Alle Markieren</th>
-							<th scope="col">Paket</th>
-							<th scope="col">Zeitraum</th>
-							<th scope="col">Aktion</th>
+							<th scope="col"><input type="checkbox" id="order_lines" onClick="$$('body input.order_line_check').each(function(box){box.checked=checked})" /> <%= _("Alle Markieren") %></th>
+							<th scope="col"><%= _("Paket") %></th>
+							<th scope="col"><%= _("Zeitraum") %></th>
+							<th scope="col"><%= _("Aktion") %></th>
 						</tr>
+					<!-- end header -->
 
-					<!-- TODO start iterator -->
+					<!-- start iterator -->
 					<% for @line in @order.order_lines %>
 						<div id="order_line_<%= @line.id %>">
 							<tr class="alt-row">
@@ -66,14 +103,17 @@
 								<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)"><%= @line.model.name %></a></td>
 								<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">08.01.08 - 12.01.08</a></td>
 								<td><div class="buttons">
-	<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
-									 { :controller => 'acknowledge', :action => 'swap_line', :id => @order.id, :order_line_id => @line.id },
-    									 :title => _("Swap Model") ) %>
-									<a href="#" class="negative"><%= image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen") %></a></div></td>
+									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
+									 	{ :controller => 'acknowledge', :action => 'swap_line', :id => @order.id, :order_line_id => @line.id },
+    									:title => _("Swap Model") ) %>
+									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen"),
+									 	{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id, :order_lines => @line.id },
+    									:title => _("Remove Model"), :class => 'negative' ) %>
+									</div></td>
 							</tr>
 						</div>
 					<% end %>
-					<!-- TODO end iterator -->						
+					<!-- end iterator -->						
 
 						</table>
 						

@@ -18,7 +18,6 @@ class Backend::AcknowledgeController < Backend::BackendController
         OrderMailer.deliver_approved(@order, params[:comment])
       end
 
-      # TODO rjs: close the modal and responde to the parent window
       init
       redirect_to :action => 'index'
     else
@@ -34,7 +33,6 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order.save
       OrderMailer.deliver_rejected(@order, params[:comment])
       
-      # TODO rjs: close the modal and responde to the parent window
       init
       redirect_to :action => 'index'
     else
@@ -80,5 +78,26 @@ class Backend::AcknowledgeController < Backend::BackendController
     puts $!
   end
 
-
+  # TODO reuse in remove_lines
+  def remove_line
+     if request.post?
+        @order = Order.find(params[:id])
+        @order.remove_line(params[:order_line_id], session[:user_id])
+        redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
+    else
+      render :layout => $modal_layout_path
+    end   
+  end
+  
+  def remove_lines
+     if request.post?
+        @order = Order.find(params[:id])
+        params[:order_lines].each {|ol| @order.remove_line(ol, session[:user_id]) }
+        redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
+    else
+      @order_lines = OrderLine.find(params[:order_lines].split(','))
+      render :layout => $modal_layout_path
+    end   
+  end  
+  
 end
