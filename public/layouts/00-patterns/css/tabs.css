@@ -109,5 +109,5 @@ TABS
 	border-top: none;
 	padding: 1em;
 	height: 100px;
-	overflow: hidden;
+	overflow: auto;
 }
