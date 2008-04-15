@@ -50,8 +50,16 @@ class Order < ActiveRecord::Base
       log_change(change, user_id)
       line.save
     end
-    [line, change]
+    [line, change] # TODO where this return is used?
   end
+  
+  def remove_line(line_id, user_id)
+    line = order_lines.find(line_id.to_i)
+    change = _("Removed %{m}") % { :m => line.model.name }
+    line.destroy
+    log_change(change, user_id)
+    #[line, change]
+  end  
   
   #TODO: If you want to copy this method somewhere else, think about creating a acts_as_....
   def log_change(text, user_id)

@@ -1,0 +1,26 @@
+	<h2><%= _("Wollen Sie das Objekt wirklich löschen?") %></h2>
+	<br />
+	
+	<% @order_lines.each do	|ol| %>
+		<%= ol.model.name %>
+		<br />
+	<% end %>
+
+	<br />		
+	<div class="buttons">
+
+		<%#=	link_button(_("Löschen"),
+			#			{	:img => $layout_public_path + "/images/icons/cancel.png",
+			#				:href => url_for( :controller => 'acknowledge', :action => 'remove_line', :id => params[:id], :order_line_id => params[:order_line_id] ),
+			#			 	:class => 'negative',
+			#				:method => 'post',
+			#				:target=> "_top"} ) %>
+
+		<%=	link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen"),
+			 { :controller => 'acknowledge', :action => 'remove_lines', :id => params[:id], :order_lines => @order_lines },
+			 :class => 'negative', :method => 'post', :target=> '_top') %>
+			
+					 
+		<%=	cancel_popup_button(_("Cancel") ) %>
+	</div>	
+	

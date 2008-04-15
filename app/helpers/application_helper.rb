@@ -6,8 +6,9 @@ module ApplicationHelper
     options[:href] ||= "#"
     options[:target] ||= "_self"
     
-    '<a href="' + options[:href] + '" target="' + options[:target] + '">' +   
-       (options[:class].nil? ? '' : ' class="' + options[:class] + '">') +
+    '<a href="' + options[:href] + '" target="' + options[:target] + '"' +   
+       (options[:class].nil? ? '' : ' class="' + options[:class] + '"') +
+       '>' +
        (options[:img].nil? ? '' : image_tag(options[:img])) +
        ' ' + text + '</a>'
   end
