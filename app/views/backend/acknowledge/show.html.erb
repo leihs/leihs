@@ -71,7 +71,10 @@
 				<div class="toolbar-second">
 					<h3>Pakete</h3>
 					<div class="buttons">
-						<a href="#"><img src="images/icons/package_add.png" alt="" />  Paket hinzufügen</a>
+						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Paket hinzufügen"),
+						 	{ :controller => 'acknowledge', :action => 'add_line', :id => @order.id },
+							:title => _("Add Model") ) %>						
+
 						<a href="#"><img src="images/icons/date_edit.png" alt="" />  Markierte Zeitraum ändern</a>
 						
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Markierte löschen"),

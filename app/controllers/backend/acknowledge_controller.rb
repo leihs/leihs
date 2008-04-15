@@ -50,7 +50,12 @@ class Backend::AcknowledgeController < Backend::BackendController
       end  
       redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id        
     else
-      redirect_to :controller => 'search', :action => 'model', :id => params[:id], :order_line_id => params[:order_line_id]
+      redirect_to :controller => 'search', 
+                  :action => 'model',
+                  :id => params[:id],
+                  :order_line_id => params[:order_line_id],
+                  :source_controller => 'acknowledge',
+                  :source_action => 'swap_line'
     end
   end
   
@@ -64,14 +69,21 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order.save
     end
   end
-  
+
   def add_line
     if request.post?
-      @order = Order.find(params[:id])
-      @order.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
-      if not @order.save
-        flash[:notice] = _("Model couldn't be added")
-      end
+        @order = Order.find(params[:id])
+        @order.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
+        if not @order.save
+          flash[:notice] = _("Model couldn't be added")
+        end
+        redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
+    else
+      redirect_to :controller => 'search', 
+                  :action => 'model',
+                  :id => params[:id],
+                  :source_controller => 'acknowledge',
+                  :source_action => 'add_line'
     end
   end
 

@@ -5,15 +5,11 @@ class Model < ActiveRecord::Base
   has_many :accessories
 
   has_and_belongs_to_many :packages
-  
-  acts_as_ferret :fields => [ :name ],
-                 :store_class_name => true
-  
-
+    
   #TODO: Relation to Inventory Pool?
 
-  acts_as_ferret #TODO include/exclude fields
-  
+  acts_as_ferret :fields => [ :name ] #, :store_class_name => true
+
   
   def availability(current_time = DateTime.now)
     a = create_availability(current_time)
