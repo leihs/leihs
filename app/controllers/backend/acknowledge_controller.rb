@@ -48,8 +48,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       else
         @order.swap_line(params[:order_line_id], params[:model_id], session[:user_id])
       end  
-      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
-        
+      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id        
     else
       redirect_to :controller => 'search', :action => 'model', :id => params[:id], :order_line_id => params[:order_line_id]
     end

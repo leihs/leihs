@@ -18,9 +18,11 @@ class Order < ActiveRecord::Base
   end
 
 
-  def add_line(quantity, model, user_id)
+  def add_line(quantity, model, user_id, start_date = null, end_date = null)
     o = OrderLine.new(:quantity => quantity,
-                      :model_id => model.to_i)
+                      :model_id => model.to_i,
+                      :start_date => start_date,
+                      :end_date => end_date)
     log_change(_("Added") + " #{quantity} #{model.name}", user_id)
     order_lines << o
   end
