@@ -86,12 +86,14 @@ ActiveRecord::Schema.define(:version => 18) do
     t.string   "inventory_code"
     t.integer  "model_id"
     t.integer  "inventory_pool_id"
+    t.integer  "status",            :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "models", :force => true do |t|
     t.string   "name"
+    t.integer  "maintenance_period", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -108,6 +110,8 @@ ActiveRecord::Schema.define(:version => 18) do
     t.integer  "model_id"
     t.integer  "order_id"
     t.integer  "quantity"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

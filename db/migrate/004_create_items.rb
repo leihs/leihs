@@ -4,7 +4,7 @@ class CreateItems < ActiveRecord::Migration
       t.string :inventory_code
       t.belongs_to :model
       t.belongs_to :inventory_pool
-
+      t.integer :status, :default => Item::AVAILABLE
       t.timestamps
     end
   end

@@ -38,4 +38,15 @@ module Factory
     i.save
     i
   end
+  
+  def self.parsedate(str)
+    match = /(\d{1,2})\.(\d{1,2})\.(\d{2,4})\.?/.match(str)
+    unless match
+      ret = ParseDate.old_parsedate(str)
+    else
+      ret = [match[3].to_i, match[2].to_i, match[1].to_i, nil, nil, nil, nil, nil] 
+    end
+    DateTime.new(ret[0], ret[1], ret[2])
+  end
+  
 end
