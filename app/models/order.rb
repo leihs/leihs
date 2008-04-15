@@ -30,6 +30,7 @@ class Order < ActiveRecord::Base
   def update_line(line_id, required_quantity, user_id)
     line = order_lines.find(line_id)
     original = line.quantity
+    max_available = line.model.maximum_available_in_period(line.start_date, line.end_date)
     line.quantity = required_quantity < max_available ? required_quantity : max_available
     change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => original.to_s, :to => line.quantity }
 
@@ -80,10 +81,7 @@ class Order < ActiveRecord::Base
   end
   
   private
-  
-  def max_available
-    10 #TODO: When we have reservations and stuff
-  end
+ 
   
   def user_login
     self.user.login

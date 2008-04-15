@@ -21,12 +21,19 @@ class Model < ActiveRecord::Base
     a.period_for(date).quantity
   end
   
+  #TODO to implement
+  def maximum_available_in_period(start_date, end_date, current_time = DateTime.now)
+    maximum_available(start_date)
+  end  
+  
   private 
   
   def create_availability(current_time)
-    a = Availability.new(Item.find_available(id).size)
+    
+    i = self.items.find(:all, :conditions => ['status = ?', Item::AVAILABLE])
+    a = Availability.new(i.size)
     a.model = self
-    a.reservations(OrderLine.current_future_reservations(id, current_time))
+    a.reservations(OrderLine.current_and_future_reservations(id, current_time))
     a
   end
 end
