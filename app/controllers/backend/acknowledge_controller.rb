@@ -74,20 +74,8 @@ class Backend::AcknowledgeController < Backend::BackendController
         flash[:notice] = _("Model couldn't be added")
       end
     end
-  rescue
-    puts $!
   end
 
-  # TODO reuse in remove_lines
-  def remove_line
-     if request.post?
-        @order = Order.find(params[:id])
-        @order.remove_line(params[:order_line_id], session[:user_id])
-        redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
-    else
-      render :layout => $modal_layout_path
-    end   
-  end
   
   def remove_lines
      if request.post?
