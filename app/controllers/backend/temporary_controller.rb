@@ -9,10 +9,15 @@ class Backend::TemporaryController < Backend::BackendController
     params[:id] = 3
     params[:name] = "model"
     create_some_inventory
+    
+    8.times do
+      create_meaningful_inventory
+    end
 
     params[:id] = 5
     params[:name] = "user"
     create_some_users
+    create_meaningful_users
 
     params[:id] = 10
     create_some_new_orders
@@ -50,6 +55,30 @@ class Backend::TemporaryController < Backend::BackendController
     end
   end
   
+    
+  def create_meaningful_users
+    users = ['Ramon Cahenzli', 'Jerome Müller', 'Franco Sellitto']
+    users.each do |u|
+      u = User.new(:login => u.to_s)
+      u.save
+    end
+  end
+  
+  def create_meaningful_inventory
+      m = Model.new(:name => 'Beamer NEC LT245')
+      m.save
+      5.times do |serial_nr|
+        i = Item.new(:model_id => m.id, :inventory_code => serial_nr)
+      
+        i.save        
+      end
+
+  end
+  
+  def create_meaningful_orders
+  
+  end
+    
   def clean_db_and_index
     Item.delete_all
     Model.delete_all
