@@ -35,14 +35,46 @@ class Availability
   end
 
   def period_for(date)
-    date = Date.new(date.year, date.month, date.day)
+    date = as_date(date)
     periods.each do |period|
-      start_date = Date.new(period.start_date.year, period.start_date.month, period.start_date.day)
-      end_date = Date.new(period.end_date.year, period.end_date.month, period.end_date.day) if period.end_date
+      start_date = as_date(period.start_date)
+      end_date = as_date(period.end_date) if period.end_date
       return period if start_date <= date && (end_date.nil? || end_date >= date)
     end
     nil
   end
+
+  def maximum_available_in_period(start_date, end_date)
+    start_date = as_date(start_date)
+    end_date = as_date(end_date)
+    maximum_available = @quantity
+    periods.each do |period|
+      if period.is_part_of(start_date, end_date) || period.encloses(start_date, end_date) || period.start_date_in(start_date, end_date) || period.end_date_in(start_date, end_date)
+        maximum_available = period.quantity if period.quantity < maximum_available
+      end
+    end
+    maximum_available
+  end
+
+  def is_part_of(start_date, end_date)
+    return false if self.end_date.nil?
+    self.start_date >= start_date && self.end_date <= end_date
+  end
+  
+  def encloses(start_date, end_date)
+    self.start_date <= start_date && (self.end_date.nil? || self.end_date >= end_date)
+  end
+  
+  def start_date_in(start_date, end_date)
+    self.start_date >= start_date && self.start_date <= end_date
+  end
+  
+  def end_date_in(start_date, end_date)
+    return false if self.end_date.nil?
+    self.end_date >= start_date && self.end_date <= end_date
+  end
+  
+  
 
   def reservations(reservations)
     reservations.each do | reservation |
@@ -71,6 +103,10 @@ class Availability
   
   def is_returnal?(quantity)
     quantity > 0
+  end
+  
+  def as_date(date)
+    Date.new(date.year, date.month, date.day)
   end
   
 end

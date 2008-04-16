@@ -77,5 +77,9 @@ steps_for(:availability) do
     @model.maximum_available(Factory.parsedate(date)).should == quantity.to_i
   end
   
+  Then "the maximum available quantity from $start_date to $end_date is $quantity" do |start_date, end_date, quantity|
+    @model.maximum_available_in_period(Factory.parsedate(start_date), Factory.parsedate(end_date)).should == quantity.to_i
+  end
+  
   
 end
