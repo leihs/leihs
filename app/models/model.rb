@@ -12,18 +12,15 @@ class Model < ActiveRecord::Base
 
   
   def availability(current_time = DateTime.now)
-    a = create_availability(current_time)
-    a.periods
+    a = create_availability(current_time).periods
   end
   
   def maximum_available(date, current_time = DateTime.now)
-    a = create_availability(current_time)
-    a.period_for(date).quantity
+    create_availability(current_time).period_for(date).quantity
   end
   
-  #TODO to implement
   def maximum_available_in_period(start_date, end_date, current_time = DateTime.now)
-    maximum_available(start_date)
+    create_availability(current_time).maximum_available_in_period(start_date, end_date)
   end  
   
   private 
