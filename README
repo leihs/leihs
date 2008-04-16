@@ -19,6 +19,7 @@ leihs depends on the following gems and/or modules:
 
 Gbarcode 
 gettext
+ferret
  
 --
 
