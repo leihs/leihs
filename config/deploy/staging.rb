@@ -1,6 +1,6 @@
 set :application, "leihs2test"
 set :repository,  "http://code.zhdk.ch/svn/leihs/trunk"
-set :db_config, "/home/rails/leihs2test/database.yml"
+set :db_config, "/home/rails/leihs/leihs2test/database.yml"
 set :checkout, :export
 
 set :rails_env, "development"
