@@ -35,7 +35,7 @@
 						</tr>
 						<tr class="alt-row">
 							<td>Zeitfenster:</td>
-							<td>01.08.08 - 03.09.08</td>
+							<td><%= @order.time_window %></td>
 						</tr>
 						<tr class="alt-row">
 							<td><a href="modal-edit.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-pencil" title="Warnung (Modales Fenster)">Verwendungszweck:</a></td>
@@ -108,7 +108,9 @@
 							<tr class="alt-row">
 								<td><input type="checkbox" class="order_line_check" name="order_lines[]" value="<%= @line.id %>" /><%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %></td>
 								<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)"><%= @line.model.name %></a></td>
-								<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">08.01.08 - 12.01.08</a></td>
+								<td><a href="modal-calendar.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt date-edit" title="Warnung (Modales Fenster)">
+									<%= "#{@line.start_date} - #{@line.end_date}" %>
+									</a></td>
 								<td><div class="buttons">
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
 									 	{ :controller => 'acknowledge', :action => 'swap_line', :id => @order.id, :order_line_id => @line.id },
