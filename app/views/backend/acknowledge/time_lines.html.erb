@@ -19,6 +19,41 @@
 		End: <%= date_select("order_line", "end_date", :default => d2.max) %>
 
 	<br />		
+	<% if @order_lines.length == 1 %>
+	<div class="availability_overview">
+	<table>
+		<tr class="availability">
+			<td><%= _("Month")%></td>
+			<% 1.upto(31) do |i|%>
+			<td><%= i%></td>
+			<% end %>
+		</tr>
+		<% 
+			ol = @order_lines.first
+			current_date = Date.today
+			availability = ol.model.availabilities(current_date.beginning_of_month, (current_date + 6.month).end_of_month, current_date.beginning_of_month)
+			last_quantity = -1
+			availability.each do |a| 
+		%>
+		<%= "<tr class='availability'><td>#{a[0].strftime('%m')}" if 1 == a[0].day %>
+			<% if a[0] < current_date %>
+			<td></td>
+			<% else %>
+			<% 
+				a[1] += ol.quantity if a[0] >= ol.start_date && a[0] <= ol.end_date
+				color = a[1]
+				color = 0 if color < 0
+				color = 5 if color > 5
+			%>
+			<td class="<%= "available_" + color.to_s %>"><%= a[1] if a[1] != last_quantity %></td>
+			<% 
+				last_quantity = a[1]
+			end %>
+		<%= "</tr>" if a[0].end_of_month == a[0] %>
+	<% end %>
+	</table>
+	</div>
+	<% end %>
 	<div class="buttons">
 
 

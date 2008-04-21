@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(:version => 18) do
     t.integer  "model_id"
     t.integer  "order_id"
     t.integer  "quantity"
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.date     "start_date"
+    t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

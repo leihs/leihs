@@ -182,4 +182,33 @@ CONTENT
 	font-style: normal;
 }
 
+tr.availability td {
+	padding: 2px;
+	font-size: 10px;
+	text-align: center;
+}
+.available_0 {
+	background: red;
+}
 
+.available_1 {
+	background: orange;
+}
+
+.available_2 {
+	background: yellow;
+}
+
+.available_3 {
+	background: lightgreen;
+}
+
+.available_4 {
+	background: green;
+	color:white;
+}
+
+.available_5 {
+	background: darkgreen;
+	color: white;
+}
