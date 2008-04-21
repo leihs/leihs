@@ -30,7 +30,12 @@ class Order < ActiveRecord::Base
   def update_line(line_id, required_quantity, user_id)
     line = order_lines.find(line_id)
     original = line.quantity
+    
+    puts line.start_date
+    puts line.end_date
+    
     max_available = line.model.maximum_available_in_period(line.start_date, line.end_date)
+
     line.quantity = required_quantity < max_available ? required_quantity : max_available
     change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => original.to_s, :to => line.quantity }
 
@@ -41,7 +46,6 @@ class Order < ActiveRecord::Base
     log_change(change, user_id)
     line.save
     [line, change]
-    
   end
   
     # TODO merge with update_line ?
@@ -100,15 +104,22 @@ class Order < ActiveRecord::Base
   end
   
   
-  def time_window
+  def time_window_min
     d1 = Array.new
-    d2 = Array.new
     self.order_lines.each do |ol|
       d1 << ol.start_date
+    end
+    d1.min
+  end
+  
+  def time_window_max
+    d2 = Array.new
+    self.order_lines.each do |ol|
       d2 << ol.end_date
     end
-    "#{d1.min} - #{d2.max}"
+    d2.max
   end
+  
   
   private
  
