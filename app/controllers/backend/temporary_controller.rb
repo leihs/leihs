@@ -82,7 +82,7 @@ class Backend::TemporaryController < Backend::BackendController
   def clean_db_and_index
     Item.delete_all
     Model.delete_all
-    Order.delete_all
+    Order.destroy_all #delete_all
     User.delete_all
   end
 
