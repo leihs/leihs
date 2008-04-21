@@ -44,6 +44,25 @@ class Order < ActiveRecord::Base
     
   end
   
+    # TODO merge with update_line ?
+   def update_time_line(line_id, start_date, end_date, user_id)
+    line = order_lines.find(line_id)
+    original_start_date = line.start_date
+    original_end_date = line.end_date
+    line.start_date = start_date
+    line.end_date = end_date
+    puts "================"
+    puts line.inspect
+    puts start_date
+    puts end_date
+
+    change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
+    log_change(change, user_id)
+
+    line.save
+    #[line, change] # not used
+  end 
+  
   def swap_line(line_id, model_id, user_id)
     line = order_lines.find(line_id.to_i)
     if (line.model.id != model_id.to_i)
