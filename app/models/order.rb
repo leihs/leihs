@@ -23,7 +23,7 @@ class Order < ActiveRecord::Base
                       :model_id => model.to_i,
                       :start_date => start_date,
                       :end_date => end_date)
-    log_change(_("Added") + " #{quantity} #{model.name}", user_id)
+    log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id)
     order_lines << o
   end
   
@@ -78,6 +78,17 @@ class Order < ActiveRecord::Base
   def has_changes?
     history = histories.find(:first, :order => 'created_at DESC, id DESC')
     history.nil? ? false : history.type_const == History::CHANGE
+  end
+  
+  
+  def time_window
+    d1 = Array.new
+    d2 = Array.new
+    self.order_lines.each do |ol|
+      d1 << ol.start_date
+      d2 << ol.end_date
+    end
+    "#{d1.min} - #{d2.max}"
   end
   
   private

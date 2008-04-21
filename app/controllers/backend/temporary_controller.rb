@@ -50,7 +50,13 @@ class Backend::TemporaryController < Backend::BackendController
     params[:id].to_i.times do |i|
       order = Order.new()
       order.user_id = users[rand(users.size)].id
-      3.times { order.add_line(rand(3), models[rand(models.size)], order.user_id) }
+      3.times {
+        d = Array.new
+        2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
+        start_date = d.min 
+        end_date = d.max
+        order.add_line(rand(3), models[rand(models.size)], order.user_id, start_date, end_date )
+      }
       order.save
     end
   end
