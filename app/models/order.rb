@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
 
   belongs_to :user
-  has_many :order_lines
+  has_many :order_lines, :dependent => :destroy
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
   acts_as_commentable

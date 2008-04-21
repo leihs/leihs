@@ -39,7 +39,17 @@ class Backend::AcknowledgeController < Backend::BackendController
       render :layout => $modal_layout_path
     end
   end 
-  
+
+  def destroy
+     if request.post?
+        @order = Order.find(params[:id])
+        @order.destroy
+        redirect_to :controller=> 'acknowledge', :action => 'index'
+    else
+      render :layout => $modal_layout_path
+    end    
+  end
+
   def swap_line
     if request.post?
       @order = Order.find(params[:id])
@@ -97,6 +107,6 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order_lines = OrderLine.find(params[:order_lines].split(','))
       render :layout => $modal_layout_path
     end   
-  end  
-  
+  end
+    
 end
