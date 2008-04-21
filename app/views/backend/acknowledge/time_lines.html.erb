@@ -1,0 +1,33 @@
+
+	<%
+    	d1 = Array.new
+    	d2 = Array.new
+	  
+	  @order_lines.each do	|ol|
+	      d1 << ol.start_date
+    	  d2 << ol.end_date
+	%>
+		<%= ol.start_date %>
+		<%= ol.end_date %>
+		<br />
+	<% end %>
+
+
+	<% form_tag( { :order_lines => @order_lines }, :name => "f", :target=> '_top' ) do %>
+		Start: <%= date_select("order_line", "start_date", :default => d1.min) %>
+		<br />			
+		End: <%= date_select("order_line", "end_date", :default => d2.max) %>
+
+	<br />		
+	<div class="buttons">
+
+
+		<%=	submit_button(_("Confirm"),
+				:img => $layout_public_path + "/images/icons/date_edit.png",
+				:class => 'negative' ) %>
+					 
+		<%=	cancel_popup_button(_("Cancel") ) %>
+	</div>	
+
+	<% end %>	
+	
