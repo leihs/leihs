@@ -9,7 +9,7 @@
 <% @orders ||= @new_orders %>
 		<% for order in @orders %>
 			<tr class="<%= cycle("alt-row", "fresh") -%>">
-				<td class="row-closed"><%= "#{time_ago_in_words(order.created_at)} ago" %></td>
+				<td class="row-closed"><%= "#{today_or_yesterday_date(order.created_at)}" %></td>
 				<td>
 					<%= greybox_link_to_page(order.user.login,
 						 { :controller => 'users', :action => 'show', :id => order.user.id },
