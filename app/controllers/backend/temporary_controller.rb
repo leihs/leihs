@@ -10,9 +10,7 @@ class Backend::TemporaryController < Backend::BackendController
     params[:name] = "model"
     create_some_inventory
     
-    8.times do
-      create_meaningful_inventory
-    end
+    create_meaningful_inventory
 
     params[:id] = 5
     params[:name] = "user"
@@ -71,14 +69,17 @@ class Backend::TemporaryController < Backend::BackendController
   end
   
   def create_meaningful_inventory
-      m = Model.new(:name => 'Beamer NEC LT245')
-      m.save
-      5.times do |serial_nr|
-        i = Item.new(:model_id => m.id, :inventory_code => serial_nr)
-      
-        i.save        
-      end
+			stuff = ['Beamer NEC LT 245', 'Beamer Davis 1650', 'Kamera Nikon D80', 'Stativ Manfrotto 390', 'Brillenputzuch', 'Laserschwert']
 
+			stuff.each do |st|
+        m = Model.new(:name => st )
+        m.save
+        2.times do |serial_nr|
+          i = Item.new(:model_id => m.id, :inventory_code => serial_nr)
+      
+          i.save        
+        end
+      end
   end
   
   def create_meaningful_orders
