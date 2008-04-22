@@ -128,6 +128,7 @@ MAIN STRUCTURE
 
 #container {
 	min-width: 800px;
+	margin-left: 150px;
 }
 
 #inner-container {
