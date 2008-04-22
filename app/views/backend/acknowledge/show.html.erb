@@ -1,4 +1,13 @@
-			
+<% if @order.errors.size > 0 %>
+	<ul style="border: 1px solid red; padding: 2px;">
+	<% @order.errors.full_messages.each do |e| %>		
+		<li><%= e %></li>
+	<% end %>	
+	</ul>
+<% end %>			
+
+
+
 <div class="toolbar-main boxes">
 	<div class="buttons">
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Save + Approve"),
@@ -62,10 +71,15 @@
 				//TODO write as generic
 				function change_href(a){
 					var cbv = checkbox_values('order_line_check');
-					b = a.href.split('?');
-					a.href = b[0] + '?order_lines=' + cbv;
-					//a.href += '?order_lines=' + cbv;
-					decoGreyboxLinks();
+					
+					// TODO prevent execution without selection
+					//if(cbv.length == 0) {
+						// window.event.stopPropagation();
+					//}else{
+						b = a.href.split('?');
+						a.href = b[0] + '?order_lines=' + cbv;
+						decoGreyboxLinks();
+					//}
 				}
 				
 			</script>

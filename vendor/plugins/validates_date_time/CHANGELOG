@@ -1,0 +1,45 @@
+[19 March 2008]
+
+* Fix README typo.
+
+[11 February 2008]
+
+* Make :after add an error if the date is the same as the restriction.
+
+[7 January 2008]
+
+* Add support for ISO8601 formats.
+
+[14 December 2007]
+
+* Allow 1 through 6 digits for microseconds.
+
+[11 December 2007]
+
+* Parse microseconds from time and datetime strings.
+
+[28 September 2007]
+
+* Preserve ActiveRecord::Validations::DateTime.us_date_format for compatibility.
+
+[27 September 2007]
+
+* Improve the handling of multiparameter attributes.
+
+* BACKWARDS INCOMPATIBLE: Change namespace from ActiveRecord::Validations::DateTime to ValidatesDateTime.
+
+[19 September 2007]
+
+* Almost a complete rewrite! API unchanged. Let me know if there are any issues.
+
+[2 Sep 2007]
+
+ * Allow date and time formats like "February 5, 2006" and "September 01, 2007 06:10". [Mark A. Lane]
+
+[7 Jun 07]
+
+ * Datetime restrictions should be parsed as datetimes [Adam Meehan]
+ 
+[Earlier]
+
+ * Remove unused colon separated date format (dd:mm:yy) from parsing
