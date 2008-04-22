@@ -10,7 +10,7 @@ class OrderLine < ActiveRecord::Base
     OrderLine.find(:all, :conditions => ['model_id = ? and start_date > ?', model_id, date])
   end
   
-  def self.current_and_future_reservations(model_id, date = DateTime.now)
-    OrderLine.find(:all, :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?)', model_id, date, date, date])
+  def self.current_and_future_reservations(model_id, order_line_id = 0, date = DateTime.now)
+    OrderLine.find(:all, :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and id <> ?', model_id, date, date, date, order_line_id])
   end
 end

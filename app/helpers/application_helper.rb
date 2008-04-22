@@ -33,11 +33,11 @@ module ApplicationHelper
   ######## Date #########
 
   def short_time(date)
-    date.strftime("%d.%m.%Y - %H:%M")
+    date.strftime("%d.%m.%Y - %H:%M") if date
   end
   
   def short_date(date)
-    date.strftime("%d.%m.%Y")
+    date.strftime("%d.%m.%Y") if date
   end
   
   

@@ -31,7 +31,7 @@
 		<% 
 			ol = @order_lines.first
 			current_date = Date.today
-			availability = ol.model.availabilities(current_date.beginning_of_month, (current_date + 6.month).end_of_month, current_date.beginning_of_month)
+			availability = ol.model.availabilities(current_date.beginning_of_month, (current_date + 6.month).end_of_month, ol.id, current_date.beginning_of_month)
 			last_quantity = -1
 			availability.each do |a| 
 		%>
@@ -40,7 +40,6 @@
 			<td></td>
 			<% else %>
 			<% 
-				a[1] += ol.quantity if a[0] >= ol.start_date && a[0] <= ol.end_date
 				color = a[1]
 				color = 0 if color < 0
 				color = 5 if color > 5
