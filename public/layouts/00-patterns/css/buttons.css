@@ -154,3 +154,11 @@ a.arrow_switch {
 a:hover.arrow_switch {
 	background-image: url(../images/icons/arrow_switch.png);
 }
+
+
+
+.multiple_selection_button {
+	visibility: hidden;	
+}
+
+
