@@ -18,11 +18,32 @@
 
 	<div id="wrap">
 	
-	<div id="header" style="height: 150px; background-color: #DDDDDD">
-		header
-	</div>
+		<div id="header">
+			<div id="logo">
+				<h1><a href="/leihs/?tpl=&cat=&tab=">Leihs 2.0</a></h1>
+				<p>Gerätepark AVZ. (<a href="#">Ändern?</a>)</p>
+	
+			</div>
+			<div id="personal-toolbar">
+				<ul>
+					<li><strong>Angemeldet als Vorname Nachname.</strong></li>
+					<li><a href="#">Abmelden?</a></li>
+					<li><a href="#">Mein Konto</a></li>
+					<li><a href="#">Hilfe</a></li>
+	
+				</ul>
+			</div>		
+		</div>
+		<div id="banner">
+			<ul>
+				<li><%= link_to _('Acknowledge'), :controller => 'acknowledge' %></li>
+				<li><a href="#">Herausgeben (44)</a></li>
+				<li><a href="#">Zurücknehmen (18)</a></li>
+				<li><a href="#">Mahnen (3)</a></li>				
+			</ul>
+		</div> 
 
-	<div id="menu" style="height: 100%; width: 150px; float: left; background-color: #CCCCCC;">
+	<div id="sidebar">
 		menu
 	</div>
 	

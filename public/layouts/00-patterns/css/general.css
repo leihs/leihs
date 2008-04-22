@@ -69,11 +69,8 @@ table {
 }
 
 
-/* General Styling */
 
-html, body {
-	100%;
-}
+/* General Styling */
 
 body {
 	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
@@ -84,9 +81,17 @@ body {
 
 a {
 	text-decoration: none;
+	color: #09f;
+}
+
+a:hover {
+	color: #333;
 }
 
 /* Headings */
+h1 {
+	font-size: 180%;
+}
 
 h2 {
 	font-size: 150%;
@@ -100,6 +105,17 @@ h3 {
 MAIN STRUCTURE
  - - - - - - - - - - - - - */
 
+#header {
+	padding-top: 2em;
+	padding-bottom: 5em;
+	background: #fff;
+}
+
+#banner {
+	background: #1089d9;
+	clear: both;
+}
+
 #comment {
 	font-size: 80%;
 	padding: 2em;
@@ -108,8 +124,8 @@ MAIN STRUCTURE
 }
 
 #wrap {
-	padding: 2em;
-	height: 100%;
+	padding: 0 2em 2em 2em;
+	background: #f2f2f2;
 }
 
 #container {
@@ -122,6 +138,71 @@ MAIN STRUCTURE
 	border-left: 1px solid #c2c2c2;
 	border-bottom: 1px solid #c2c2c2;
 	padding: 3em 1.5em 0;
+}
+
+
+/*--------------------------------
+	Header
+--------------------------------*/
+
+#logo {
+	float: left;
+	width: 25%;
+	padding-left: 3em;
+}
+
+#logo h1 {
+	margin-bottom: 0.4em;
+}
+
+#personal-toolbar {
+	float: right;
+	text-align: right;
+}
+
+#personal-toolbar ul li {
+	display: inline;
+	padding: 0.5em;
+}
+
+/*--------------------------------
+	Sidebar
+--------------------------------*/
+
+#sidebar {
+	float: left;
+}
+
+
+/*--------------------------------
+	Banner
+--------------------------------*/
+
+#banner {
+	padding-left: 330px;
+	margin-bottom: 20px;
+	border: 1px solid #1089d9;
+	height: 50px;
+	clear: both;
+}
+
+#banner ul li {
+	float: left;
+	margin: 1em 2.5em 1em 0;
+}
+
+#banner ul li a {
+	display: block;
+	background: #09f;
+	padding: 0.5em;
+	color: #fff;
+	border: 1px solid #fff;
+}
+
+#banner ul li a:hover {
+	background: #1089d9;
+	color: #fff;
+	border: 1px solid #fff;
 }
 
 
