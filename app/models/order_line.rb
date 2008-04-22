@@ -1,6 +1,9 @@
 class OrderLine < ActiveRecord::Base
   belongs_to :model
   belongs_to :order
+      
+  validates_date :start_date, :before => [:end_date]
+  
   
   def self.current_reservations(model_id, date = DateTime.now)
     OrderLine.find(:all, :conditions => ['model_id = ? and start_date < ? and end_date > ?', model_id, date, date])

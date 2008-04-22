@@ -53,10 +53,15 @@ class Order < ActiveRecord::Base
     line.start_date = start_date
     line.end_date = end_date
 
-    change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
-    log_change(change, user_id)
+    if line.save
+      change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
+      log_change(change, user_id)
+    else
+      line.errors.each_full do |msg|
+        errors.add_to_base msg
+      end
+    end
 
-    line.save
     #[line, change] # not used
   end 
   

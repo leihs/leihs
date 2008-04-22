@@ -55,6 +55,7 @@ class Backend::TemporaryController < Backend::BackendController
         end_date = d.max
         order.add_line(rand(3), models[rand(models.size)], order.user_id, start_date, end_date )
       }
+      order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
       order.save
     end
   end

@@ -28,8 +28,14 @@
 		<%= render :partial => 'tabs' %>
 		
 		<div id="inner-container">
-					
-			<div id="flash_notice"></div>
+			
+				
+			<% if flash[:notice] %>
+				<div id="flash_notice">
+				<%= flash[:notice] %>
+				</div>
+			<% end %>		
+				
 			<%= yield %>
 	
 		</div>
