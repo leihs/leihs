@@ -58,13 +58,13 @@
 			</div>
 
 			<script type="text/javascript">
-				function checkbox_values(c){
+				function checkbox_values(boxes){
 					s = new Array();
-					$$('body input.' + c).each(
+					$$('body input.' + boxes).each(
 						function(box){
 							if(box.checked) s.push(box.value);
 						}
-					);			
+					);
 					return s;
 				}
 				
@@ -81,6 +81,20 @@
 						decoGreyboxLinks();
 					//}
 				}
+
+				function markAll(master, boxes){
+					$$('body input.' + boxes).each(
+						function(box){
+							box.checked = master.checked
+						}
+					);
+					
+//					if(s.lenght > 0){
+//						disabled=true
+//					}else{
+//					}
+
+				}
 				
 			</script>
 							
@@ -95,12 +109,14 @@
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Markierte Zeitraum ändern"),
 						 	{ :controller => 'acknowledge', :action => 'time_lines', :id => @order.id },
-							:onmouseup => "change_href(this);" ,
+							:onmouseup => "change_href(this);",
+							:disabled => "true",
 							:title => _("Time Period") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Markierte löschen"),
 							{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id },
-							:onmouseup => "change_href(this);" ,
+							:onmouseup => "change_href(this);",
+							:disabled => "true",
 							:title => _("Remove Models"), :class => 'negative')
 							# TODO contribute :with in greybox
 							# :with => "'order_lines=' + checkbox_values('order_line_check')"
@@ -112,7 +128,7 @@
 					<table cellspacing="0">
 					<!-- start header -->
 						<tr>
-							<th scope="col"><input type="checkbox" id="order_lines" onClick="$$('body input.order_line_check').each(function(box){box.checked=checked})" /> <%= _("Alle Markieren") %></th>
+							<th scope="col"><input type="checkbox" id="order_lines" onClick="markAll(this, 'order_line_check');" /> <%= _("Alle Markieren") %></th>
 							<th scope="col"><%= _("Paket") %></th>
 							<th scope="col"><%= _("Zeitraum") %></th>
 							<th scope="col"><%= _("Aktion") %></th>

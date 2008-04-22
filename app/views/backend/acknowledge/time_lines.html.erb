@@ -1,4 +1,3 @@
-
 	<%
     	d1 = Array.new
     	d2 = Array.new
@@ -7,16 +6,20 @@
 	      d1 << ol.start_date
     	  d2 << ol.end_date
 	%>
-		<%= ol.start_date %>
-		<%= ol.end_date %>
+		<%= "Quantity: #{ol.quantity}" %>
+		<br />			
+		<%= "Model: #{ol.model.name}" %>
+		<br />
+		<%= "#{short_date ol.start_date} - #{short_date ol.end_date}" %>
+		<br />
 		<br />
 	<% end %>
 
 
 	<% form_tag( { :order_lines => @order_lines }, :name => "f", :target=> '_top' ) do %>
-		Start: <%= date_select("order_line", "start_date", :default => d1.min) %>
-		<br />			
-		End: <%= date_select("order_line", "end_date", :default => d2.max) %>
+		Start: <%= date_select("order_line", "start_date", :default => d1.min, :order => [:day, :month, :year]) %>
+		
+		End: <%= date_select("order_line", "end_date", :default => d2.max, :order => [:day, :month, :year]) %>
 
 	<br />		
 	<% if @order_lines.length == 1 %>

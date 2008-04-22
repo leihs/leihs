@@ -2,7 +2,12 @@ class OrderLine < ActiveRecord::Base
   belongs_to :model
   belongs_to :order
       
-  validates_date :start_date, :before => [:end_date]
+  validate :date_sequence
+
+  def date_sequence
+    errors.add_to_base("Start Date must be before End Date") if end_date < start_date  
+  end
+  
   
   
   def self.current_reservations(model_id, date = DateTime.now)

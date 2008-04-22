@@ -8,22 +8,26 @@
 	<title>Bestellung quittieren (Default)</title>
 		
 	<%= stylesheet_link_tag $layout_public_path +"/css/general.css", :media => "all" %>
-	
-	<!-- TODO remove start
-	<link rel="stylesheet" href="/javascripts/thickbox/thickbox.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="/javascripts/thickbox/jquery.js"></script>
-	<script type="text/javascript" src="/javascripts/thickbox/thickbox-compressed.js"></script>
-	TODO remove end -->
-	
+
 	<%= greybox_head %>
 	<%= javascript_include_tag :defaults %>
 	
 </head>
 
 <body>
+
 	<div id="wrap">
 	
-	<div id="container">
+	<div id="header" style="height: 150px; background-color: #DDDDDD">
+		header
+	</div>
+
+	<div id="menu" style="height: 100%; width: 150px; float: left; background-color: #CCCCCC;">
+		menu
+	</div>
+	
+		
+	<div id="container" style="margin-left: 150px;">
 
 		<%= render :partial => 'tabs' %>
 		
@@ -42,6 +46,7 @@
 	</div>
 	
 	</div>
+	
 		
 </body>
 </html>
