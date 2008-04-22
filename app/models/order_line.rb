@@ -28,10 +28,8 @@ class OrderLine < ActiveRecord::Base
   end
 
   def date_sequence
-#    if start_date and end_date 
-      errors.add_to_base("Start Date must be before End Date") if end_date < start_date
-      errors.add_to_base("Start Date cannot be a past date") if start_date < Date.today
-#    end
+    errors.add_to_base(_("Start Date must be before End Date")) if end_date < start_date
+   #TODO: Think about this a little bit more.... errors.add_to_base(_("Start Date cannot be a past date")) if start_date < Date.today
   end
 
 end
