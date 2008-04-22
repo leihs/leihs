@@ -78,6 +78,8 @@ class Backend::AcknowledgeController < Backend::BackendController
       @maximum_exceeded = required_quantity != @order_line.quantity
       @order.save
     end
+  rescue
+    puts $!
   end
 
   def time_lines
