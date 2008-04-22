@@ -1,3 +1,4 @@
+
 class Model < ActiveRecord::Base
   has_many :items
   has_many :order_lines
@@ -11,11 +12,11 @@ class Model < ActiveRecord::Base
   acts_as_ferret :fields => [ :name ] #, :store_class_name => true
 
   
-  def availability(order_line_id = 0, current_time = DateTime.now)
+  def availability(order_line_id = 0, current_time = Date.today)
     a = create_availability(current_time, order_line_id).periods
   end
   
-  def availabilities(start_date, end_date, order_line_id = 0, current_time = DateTime.now)
+  def availabilities(start_date, end_date, order_line_id = 0, current_time = Date.today)
     a = create_availability(current_time, order_line_id)
     ret = []
     start_date.upto(end_date) do |d|
@@ -29,11 +30,11 @@ class Model < ActiveRecord::Base
     ret
   end
   
-  def maximum_available(date, order_line_id = 0, current_time = DateTime.now)
+  def maximum_available(date, order_line_id = 0, current_time = Date.today)
     create_availability(current_time, order_line_id).period_for(date).quantity
   end
   
-  def maximum_available_in_period(start_date, end_date, order_line_id = 0, current_time = DateTime.now)
+  def maximum_available_in_period(start_date, end_date, order_line_id = 0, current_time = Date.today)
     if (start_date.nil? && end_date.nil?)
       return items.size
     else

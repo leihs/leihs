@@ -52,12 +52,12 @@ steps_for(:availability) do
 	
 	Then "it should always be available" do
 	  @periods.size.should == 1
-	  @periods[0].start_date.should < DateTime.now
+	  @periods[0].start_date.should <= Date.today
     @periods[0].forever?.should == true
   end
 	
 	Then "$quantity should be available from $from to $to" do |quantity, from, to|
-	  from = ("now" == from) ? DateTime.now : Factory.parsedate(from)
+	  from = ("now" == from) ? Date.today : Factory.parsedate(from)
     to = ("the_end_of_time" == to) ? to = nil : to = Factory.parsedate(to)
   
     period = get_period(from, to, @periods)

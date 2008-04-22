@@ -74,12 +74,11 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order_line = OrderLine.find(params[:order_line_id])
       @order = @order_line.order
       required_quantity = params[:quantity].to_i
+
       @order_line, @change = @order.update_line(@order_line.id, required_quantity, session[:user_id])
       @maximum_exceeded = required_quantity != @order_line.quantity
       @order.save
     end
-  rescue
-    puts $!
   end
 
   def time_lines

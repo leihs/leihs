@@ -2,7 +2,7 @@ class Availability
   
   attr_accessor :start_date, :end_date, :quantity, :model
   
-  def initialize(max_quantity, start_date = DateTime.now, end_date = nil)
+  def initialize(max_quantity, start_date = Date.today, end_date = nil)
     @start_date = start_date
     @end_date = end_date
     @quantity = max_quantity
