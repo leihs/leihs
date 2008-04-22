@@ -4,8 +4,8 @@ class CreateOrderLines < ActiveRecord::Migration
       t.belongs_to :model
       t.belongs_to :order
       t.integer :quantity
-      t.date :start_date  #t.datetime :start_date
-      t.date :end_date  #t.datetime :end_date
+      t.date :start_date #, :default => DateTime.now  #Date.today #"CURDATE()"
+      t.date :end_date #, :default => DateTime.now  #Date.today #"CURDATE()"
 
       t.timestamps
     end
