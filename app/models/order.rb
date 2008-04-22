@@ -31,10 +31,7 @@ class Order < ActiveRecord::Base
     line = order_lines.find(line_id)
     original = line.quantity
     
-    puts line.start_date
-    puts line.end_date
-    
-    max_available = line.model.maximum_available_in_period(line.start_date, line.end_date)
+    max_available = line.model.maximum_available_in_period(line.start_date, line.end_date, line_id)
 
     line.quantity = required_quantity < max_available ? required_quantity : max_available
     change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => original.to_s, :to => line.quantity }
@@ -55,10 +52,6 @@ class Order < ActiveRecord::Base
     original_end_date = line.end_date
     line.start_date = start_date
     line.end_date = end_date
-    puts "================"
-    puts line.inspect
-    puts start_date
-    puts end_date
 
     change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
     log_change(change, user_id)
