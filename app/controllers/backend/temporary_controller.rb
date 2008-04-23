@@ -19,6 +19,7 @@ class Backend::TemporaryController < Backend::BackendController
 
     params[:id] = 10
     create_some_new_orders
+    create_beautiful_order
 
     render :text => "Complete"
   end
@@ -30,7 +31,7 @@ class Backend::TemporaryController < Backend::BackendController
       5.times do |serial_nr|
         i = Item.new(:model_id => m.id, :inventory_code => serial_nr)
       
-        i.save        
+        i.save
       end
     end
   end
@@ -70,21 +71,47 @@ class Backend::TemporaryController < Backend::BackendController
   end
   
   def create_meaningful_inventory
-			stuff = ['Beamer NEC LT 245', 'Beamer Davis 1650', 'Kamera Nikon D80', 'Stativ Manfrotto 390', 'Brillenputzuch', 'Laserschwert']
+    stuff = ['Beamer NEC LT 245', 'Beamer Davis 1650', 'Kamera Nikon D80', 'Stativ Manfrotto 390', 'Brillenputzuch', 'Laserschwert']
 
-			stuff.each do |st|
-        m = Model.new(:name => st )
-        m.save
-        2.times do |serial_nr|
-          i = Item.new(:model_id => m.id, :inventory_code => serial_nr)
-      
-          i.save        
-        end
+    stuff.each do |st|
+      m = Model.new(:name => st )
+      m.save
+      2.times do |serial_nr|
+        i = Item.new(:model_id => m.id, :inventory_code => serial_nr)
+        i.save
       end
+    end
   end
   
-  def create_meaningful_orders
-  
+  def create_beautiful_order
+    m = Model.new(:name => 'Canon EOS D40')
+    m.save
+    10.times do
+      i = Item.new(:model_id => m.id, :inventory_code => 1234)
+      i.save
+    end
+    m.save
+    
+    
+    order = Order.new()
+    order.user_id = User.find_by_login("Ramon Cahenzli")
+    order.add_line(3, m, order.user_id, Date.new(2008, 10, 12), Date.new(2008, 10, 20))
+    order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
+    order.save
+    
+    order = Order.new()
+    order.user_id = User.find_by_login("Ramon Cahenzli")
+    order.add_line(6, m, order.user_id, Date.new(2008, 10, 15), Date.new(2008, 10, 30))
+    order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
+    order.save
+    
+    
+    order = Order.new()
+    order.user_id = User.find_by_login("Ramon Cahenzli")
+    order.add_line(1, m, order.user_id, Date.new(2008, 10, 20), Date.new(2008, 10, 30))
+    order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
+    order.save
+    
   end
     
   def clean_db_and_index
