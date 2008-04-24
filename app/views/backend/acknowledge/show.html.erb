@@ -47,8 +47,13 @@
 							<td><%= short_date(@order.time_window_min) %> - <%= short_date(@order.time_window_max)%></td>
 						</tr>
 						<tr class="alt-row">
-							<td><a href="modal-edit.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-pencil" title="Warnung (Modales Fenster)">Verwendungszweck:</a></td>
-							<td><%= @order.purpose %></td>
+							<td>
+								<%= greybox_link_to_page(_("Purpose"),
+									 { :controller => 'acknowledge', :action => 'change_purpose', :id => @order.id },
+    								 :title => _("Purpose"),
+									 :class => "thickbox iconized-notxt edit-pencil" ) %>
+							</td>
+							<td><%= simple_format @order.purpose %></td>
 						</tr>
 					</table>
 				</div>

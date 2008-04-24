@@ -127,5 +127,16 @@ class Backend::AcknowledgeController < Backend::BackendController
       render :layout => $modal_layout_path
     end   
   end
+
+  def change_purpose
+    @order = Order.find(params[:id])
+    if request.post?
+      @order.purpose = params[:purpose]
+      @order.save
+      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
+    else
+      render :layout => $modal_layout_path
+    end
+  end
     
 end
