@@ -15,6 +15,35 @@
 		<br />
 	<% end %>
 
+	<script type="text/javascript">
+		function changeDate(type, y, m, d){
+			document.getElementById('order_line_' + type + '_date_1i').value = y;
+			document.getElementById('order_line_' + type + '_date_2i').value = m;
+			document.getElementById('order_line_' + type + '_date_3i').value = d;
+			
+			// TODO 
+			//Element.removeClassName('20080911', 'selected_date');
+			// TODO
+			//Element.addClassName('20080911', 'selected_date');
+
+		}
+	</script>
+	
+	<style type="text/css">
+		.selectable_date {
+			cursor: crosshair;
+		}
+		.selected_date {
+			border-bottom: 2px solid black;
+		}
+		.selected_date_start {
+			border-left: 2px solid black;
+		}
+		.selected_date_end {
+			border-right: 2px solid black;
+		}
+	</style>
+
 
 	<% form_tag( { :order_lines => @order_lines }, :name => "f", :target=> '_top' ) do %>
 		Start: <%= date_select("order_line", "start_date", :default => d1.min, :order => [:day, :month, :year]) %>
@@ -38,17 +67,26 @@
 			last_quantity = -1
 			availability.each do |a| 
 		%>
-		<%= "<tr class='availability'><td>#{a[0].strftime('%m')}" if 1 == a[0].day %>
+		<%= "<tr class='availability'><td>#{a[0].strftime('%B')}" if 1 == a[0].day %>
 			<% if a[0] < current_date %>
-			<td></td>
+				<td></td>
 			<% else %>
-			<% 
-				color = a[1]
-				color = 0 if color < 0
-				color = 5 if color > 5
-			%>
-			<td class="<%= "available_" + color.to_s %>"><%= a[1] if a[1] != last_quantity %></td>
-			<% 
+				<% 
+					color = a[1]
+					color = 0 if color < 0
+					color = 5 if color > 5
+				%>
+				<td id="<%= a[0].strftime('%Y%m%d') %>"
+					class="<%= "available_" + color.to_s %>
+						   <%= " selectable_date" %>
+						   <%= " selected_date" if a[0].between?(d1.min, d2.max) %>
+						   <%= " selected_date_start" if a[0].eql?(d1.min) %>
+						   <%= " selected_date_end" if a[0].eql?(d2.max) %>" 
+					onmousedown="changeDate('start', <%= "#{a[0].year}, #{a[0].month}, #{a[0].day}" %>);"
+					onmouseup="changeDate('end', <%= "#{a[0].year}, #{a[0].month}, #{a[0].day}" %>);">
+					<%= a[1] if a[1] != last_quantity %>
+				</td>
+				<% 
 				last_quantity = a[1]
 			end %>
 		<%= "</tr>" if a[0].end_of_month == a[0] %>

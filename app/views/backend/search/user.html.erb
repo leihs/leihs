@@ -1,0 +1,43 @@
+<div id="controller">
+	<% form_tag( {} ) do %>
+	<% params.each do |p| %>
+		<%= hidden_field_tag(p[0], p[1]) unless p[0] == "text" %>
+	<% end %>	
+	<p>
+	<%= text_field_tag 'text', params[:text] %>
+	</p>
+	<% end %>
+</div>
+
+<div class="search_results">
+	<% if @search_result.nil? %>
+		<p><%= _("No Search Results") %></p>
+	<% else %>
+		<table>
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Aktion</th>
+			</tr>
+			
+		<% @search_result.each do |result| %>
+			<tr class="<%= cycle("alt-row", "fresh") -%>">
+				<td class="row-closed"><%= result.login %></td>
+				<td>
+					<div class="buttons">
+												
+						<%=	link_to(image_tag($layout_public_path + "/images/icons/#{get_action_image(params[:source_action])}.png") + " " + _(get_action_text(params[:source_action])),
+					 	{ :controller => params[:source_controller], :action => params[:source_action], :id => params[:id], :user_id => result.id },
+						:method => 'post', :target=> '_top') %>
+						
+						
+					</div>
+				</td>
+			</tr>
+		<% end %>
+		</table>
+	<% end %>
+</div>
+
+<div class="buttons">
+	<%=	cancel_popup_button(_("Cancel") ) %>
+</div>

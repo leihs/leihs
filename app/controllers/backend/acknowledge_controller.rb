@@ -131,12 +131,29 @@ class Backend::AcknowledgeController < Backend::BackendController
   def change_purpose
     @order = Order.find(params[:id])
     if request.post?
-      @order.purpose = params[:purpose]
-      @order.save
+      @order.change_purpose(params[:purpose], session[:user_id])
       redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
     else
       render :layout => $modal_layout_path
     end
   end
+    
+   def swap_user
+    if request.post?
+      @order = Order.find(params[:id])
+      if params[:user_id].nil?
+        flash[:notice] = _("User must be selected")
+      else
+        @order.swap_user(params[:user_id], session[:user_id])
+      end  
+      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id        
+    else
+      redirect_to :controller => 'search', 
+                  :action => 'user',
+                  :id => params[:id],
+                  :source_controller => 'acknowledge',
+                  :source_action => 'swap_user'
+    end
+  end   
     
 end
