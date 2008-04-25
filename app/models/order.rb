@@ -84,6 +84,25 @@ class Order < ActiveRecord::Base
     log_change(change, user_id)
     #[line, change]
   end  
+
+  def change_purpose(new_purpose, user_id)
+    change = _("Purpose changed '%{from}' for '%{to}'") % { :from => self.purpose, :to => new_purpose}
+    self.purpose = new_purpose
+    log_change(change, user_id)
+    save
+    # [line, change]
+  end  
+  
+  def swap_user(new_user_id, admin_user_id)
+    user = User.find(new_user_id)
+    if (user.id != self.user_id.to_i)
+      change = _("User swapped %{from} for %{to}") % { :from => self.user.login, :to => user.login}
+      self.user = user
+      log_change(change, admin_user_id)
+      save
+    end
+    # [line, change]
+  end  
   
   #TODO: If you want to copy this method somewhere else, think about creating a acts_as_....
   def log_change(text, user_id)
