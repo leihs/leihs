@@ -5,6 +5,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def show
     @order = Order.find(params[:id])
+    @order.to_backup unless @order.has_backup?
   end
   
   def approve
@@ -40,6 +41,16 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
   end 
 
+  def restore
+    if request.post?
+      @order = Order.find(params[:id])
+      @order.from_backup      
+      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id        
+    else
+      render :layout => $modal_layout_path
+    end
+  end 
+  
   def destroy
      if request.post?
         @order = Order.find(params[:id])

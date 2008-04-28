@@ -18,9 +18,11 @@
 								 { :controller => 'acknowledge', :action => 'reject', :id => @order.id },
 								 :title => _("Reject Order")) %>
 
-
-		<a href="modal-draft.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox" title="Warnung (Modales Fenster)"><img src="images/icons/disk.png" alt="" />  Als Entwurf speichern</a>
-		
+		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/disk.png") + " " + _("Restore Original"),
+								 { :controller => 'acknowledge', :action => 'restore', :id => @order.id },
+								 :title => _("Restore Order"),
+								 :class => "thickbox") %>
+								 
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Bestellung löschen"),
 			{ :controller => 'acknowledge', :action => 'destroy', :id => @order.id },
 			:title => _("Delete Order"), :class => 'negative') %>

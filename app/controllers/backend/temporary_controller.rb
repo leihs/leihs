@@ -119,6 +119,7 @@ class Backend::TemporaryController < Backend::BackendController
     Model.delete_all
     Order.destroy_all #delete_all
     User.delete_all
+    Backup::Order.destroy_all
     
     FileUtils.remove_dir(File.dirname(__FILE__) + "/../../../index", true)
   end
