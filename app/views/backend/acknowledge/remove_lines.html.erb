@@ -16,7 +16,7 @@
 			#				:method => 'post',
 			#				:target=> "_top"} ) %>
 
-		<%=	link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen"),
+		<%=	link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
 			 { :controller => 'acknowledge', :action => 'remove_lines', :id => params[:id], :order_lines => @order_lines },
 			 :class => 'negative', :method => 'post', :target=> '_top') %>
 			

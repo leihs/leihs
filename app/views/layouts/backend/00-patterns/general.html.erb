@@ -36,7 +36,7 @@
 		</div>
 		<div id="banner">
 			<ul>
-				<li><%= link_to _('Acknowledge'), :controller => 'acknowledge' %></li>
+				<li><%= link_to _('Acknowledge') + " (#{@new_orders.size})", :controller => 'acknowledge' %></li>
 				<li><a href="#">Herausgeben (44)</a></li>
 				<li><a href="#">Zurücknehmen (18)</a></li>
 				<li><a href="#">Mahnen (3)</a></li>				

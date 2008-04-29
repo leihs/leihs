@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 18) do
+ActiveRecord::Schema.define(:version => 19) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
@@ -36,6 +36,25 @@ ActiveRecord::Schema.define(:version => 18) do
   create_table "authentication_systems", :force => true do |t|
     t.string "name"
     t.string "class_name"
+  end
+
+  create_table "backup_order_lines", :force => true do |t|
+    t.integer  "model_id"
+    t.integer  "order_id"
+    t.integer  "quantity"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "backup_orders", :force => true do |t|
+    t.integer  "order_id"
+    t.integer  "user_id"
+    t.integer  "status_const", :default => 1
+    t.string   "purpose"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "categories", :force => true do |t|
@@ -105,6 +124,15 @@ ActiveRecord::Schema.define(:version => 18) do
 
   add_index "models_packages", ["model_id"], :name => "index_models_packages_on_model_id"
   add_index "models_packages", ["package_id"], :name => "index_models_packages_on_package_id"
+
+  create_table "options", :force => true do |t|
+    t.integer  "order_line_id"
+    t.integer  "quantity"
+    t.string   "name"
+    t.string   "remark"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "order_lines", :force => true do |t|
     t.integer  "model_id"

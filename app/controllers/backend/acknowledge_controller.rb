@@ -94,15 +94,15 @@ class Backend::AcknowledgeController < Backend::BackendController
 
   def time_lines
      if request.post?
-          @order = Order.find(params[:id])
-        begin
-          start_date = Date.new(params[:order_line]['start_date(1i)'].to_i, params[:order_line]['start_date(2i)'].to_i, params[:order_line]['start_date(3i)'].to_i)
-          end_date = Date.new(params[:order_line]['end_date(1i)'].to_i, params[:order_line]['end_date(2i)'].to_i, params[:order_line]['end_date(3i)'].to_i)
-          params[:order_lines].each {|ol| @order.update_time_line(ol, start_date, end_date, session[:user_id]) }
-        rescue
-          flash[:notice] = "Invalid date" #TODO 
-        end 
-          render :controller=> 'acknowledge', :action => 'show', :id => @order.id
+      @order = Order.find(params[:id])
+      begin
+        start_date = Date.new(params[:order_line]['start_date(1i)'].to_i, params[:order_line]['start_date(2i)'].to_i, params[:order_line]['start_date(3i)'].to_i)
+        end_date = Date.new(params[:order_line]['end_date(1i)'].to_i, params[:order_line]['end_date(2i)'].to_i, params[:order_line]['end_date(3i)'].to_i)
+        params[:order_lines].each {|ol| @order.update_time_line(ol, start_date, end_date, session[:user_id]) }
+      rescue
+        flash[:notice] = "Invalid date" #TODO 
+      end 
+        render :controller=> 'acknowledge', :action => 'show', :id => @order.id
     else
       @order_lines = OrderLine.find(params[:order_lines].split(','))
       render :layout => $modal_layout_path
@@ -137,6 +137,28 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order_lines = OrderLine.find(params[:order_lines].split(','))
       render :layout => $modal_layout_path
     end   
+  end
+
+  def add_options
+    @option = params[:option_id].nil? ? Option.new : Option.find(params[:option_id]) 
+    if request.post?
+      @order = Order.find(params[:id])
+      params[:order_lines].each do | ol | 
+        line = OrderLine.find(ol)
+        option = Option.new(params[:option])
+        if option.save
+          line.options << option
+          line.save
+          @order.log_change(_("Added Option:") + " (#{option.quantity}) #{option.name}", session[:user_id])
+        else
+          flash[:notice] = _("Couldn't create option.")
+        end
+      end
+      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id      
+    else
+      @order_lines = OrderLine.find(params[:order_lines].split(','))
+      render :layout => $modal_layout_path      
+    end
   end
 
   def change_purpose
