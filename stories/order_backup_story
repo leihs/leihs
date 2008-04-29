@@ -1,0 +1,22 @@
+Story: Backup orders
+
+	As an inventory_manager
+	Before starting to edit an order I want to store a backup
+	in order to restore the original order if necessary
+	
+	
+Scenario: List of new and draft orders
+	
+	Given the list of new orders contains 3 elements
+
+	When inventory_manager clicks 'acknowledge'	
+	Then he sees 3 new orders and 0 draft orders 
+
+	When he chooses one order
+	Then a backup for the order is generated
+
+	When inventory_manager clicks 'acknowledge'	
+	Then he sees 2 new orders and 1 draft order 
+
+
+	
