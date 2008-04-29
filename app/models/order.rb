@@ -4,7 +4,7 @@ class Order < ActiveRecord::Base
   has_many :order_lines, :dependent => :destroy
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
-  has_one :backup, :class_name => "Backup::Order" # TODO acts_as_backupable
+  has_one :backup, :class_name => "Backup::Order", :dependent => :destroy #TODO delete when nullify # TODO acts_as_backupable
 
   
   acts_as_commentable
@@ -15,7 +15,6 @@ class Order < ActiveRecord::Base
   NEW = 1
   APPROVED = 2
   REJECTED = 3
-  #DRAFT = 4 # not really required
   
   def self.new_orders
     find(:all, :conditions => {:status_const => Order::NEW})
@@ -163,6 +162,10 @@ class Order < ActiveRecord::Base
     self.backup.order_lines.each do |ol|
       self.order_lines << OrderLine.new(ol.attributes.reject {|key, value| key == "id" or key == "order_id" })
     end
+    
+    self.histories.each {|h| h.destroy if h.created_at > self.backup.created_at}
+    
+    self.backup = nil
     
     self.save
   end

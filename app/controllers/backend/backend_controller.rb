@@ -11,6 +11,7 @@ class Backend::BackendController < ApplicationController
   
   def init
     @new_orders = Order.new_orders
+    #TODO define session[:user_id]
   end
   
 end

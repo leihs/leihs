@@ -45,7 +45,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     if request.post?
       @order = Order.find(params[:id])
       @order.from_backup      
-      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id        
+      redirect_to :controller=> 'acknowledge', :action => 'index'        
     else
       render :layout => $modal_layout_path
     end
