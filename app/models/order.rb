@@ -84,6 +84,7 @@ class Order < ActiveRecord::Base
     line = order_lines.find(line_id.to_i)
     change = _("Removed %{m}") % { :m => line.model.name }
     line.destroy
+    order_lines.delete(line)
     log_change(change, user_id)
     #[line, change]
   end  
@@ -146,21 +147,21 @@ class Order < ActiveRecord::Base
   end
 
   def to_backup
-    self.backup = Backup::Order.new(attributes.reject {|key, value| key == "id" })
+    self.backup = Backup::Order.new(attributes) #.reject {|key, value| key == "id" }
     
     self.order_lines.each do |ol|
-      self.backup.order_lines << Backup::OrderLine.new(ol.attributes.reject {|key, value| key == "id" })     
+      self.backup.order_lines << Backup::OrderLine.new(ol.attributes) #.reject {|key, value| key == "id" }     
     end
     
     self.save
   end  
  
   def from_backup
-    self.attributes = self.backup.attributes.reject {|key, value| key == "id" or key == "order_id" }
+    self.attributes = self.backup.attributes.reject {|key, value| key == "order_id" } # or key == "id" 
     
     self.order_lines.clear
     self.backup.order_lines.each do |ol|
-      self.order_lines << OrderLine.new(ol.attributes.reject {|key, value| key == "id" or key == "order_id" })
+      self.order_lines << OrderLine.new(ol.attributes.reject {|key, value| key == "order_id" }) # or key == "id" 
     end
     
     self.histories.each {|h| h.destroy if h.created_at > self.backup.created_at}
