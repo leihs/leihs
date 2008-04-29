@@ -1,0 +1,41 @@
+<h2><%= _("Add Options") %></h2>
+<br />
+
+<% @order_lines.each do	|ol| %>
+	<%= ol.model.name %>
+	<br />
+<% end %>
+
+<br />		
+
+<%- form_for :option, @option, :url => { :action => 'add_options',:id => params[:id], :order_lines => @order_lines }, :html => {:name => "f", :target => "_top"} do |f| -%>
+
+<div class="table-overview boxes">
+
+	<div class="toolbar-second">
+		<h3>Zubehör</h3>
+	</div>
+	
+		<table cellspacing="0">
+			<tr>
+				<th scope="col">Anzahl/Stückzahl</th>
+				<th scope="col">Bezeichnung</th>
+				<th scope="col">Bemerkung</th>
+			</tr>
+			<tr class="alt-row">
+				<td><%= f.text_field :quantity, :size => 3 %></td>
+				<td><%= f.text_field :name %></td>
+				<td><%= f.text_area :remark, :rows => 1, :cols => 20 %></td>
+			</tr>
+		</table>
+</div>
+
+<% end %>
+
+<div class="buttons">
+
+	<%=	submit_button(_("Add"), {:img => $layout_public_path + "/images/icons/attach.png", :class => 'positive' }) %>
+		
+				 
+	<%=	cancel_popup_button(_("Cancel") ) %>
+</div>	

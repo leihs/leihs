@@ -121,17 +121,17 @@
 				<div class="toolbar-second">
 					<h3>Pakete</h3>
 					<div class="buttons">
-						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Paket hinzufügen"),
+						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add Line"),
 						 	{ :controller => 'acknowledge', :action => 'add_line', :id => @order.id },
 							:title => _("Add Model") ) %>						
 
-						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Markierte Zeitraum ändern"),
+						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
 						 	{ :controller => 'acknowledge', :action => 'time_lines', :id => @order.id },
 							:onmouseup => "change_href(this);",
 							:class => "multiple_selection_button",
 							:title => _("Time Period") ) %>						
 
-						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Markierte löschen"),
+						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
 							{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id },
 							:onmouseup => "change_href(this);",
 							:class => "multiple_selection_button negative",
@@ -139,6 +139,12 @@
 							# TODO contribute :with in greybox
 							# :with => "'order_lines=' + checkbox_values('order_line_check')"
 							%>
+							
+							<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/attach.png") + " " + _("Add Options To Selection"),
+							 	{ :controller => 'acknowledge', :action => 'add_options', :id => @order.id },
+								:onmouseup => "change_href(this);",
+								:class => "multiple_selection_button",
+								:title => _("Add Options"), :width => 850 ) %>
 					</div>
 				</div>
 				
@@ -176,6 +182,11 @@
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen"),
 									 	{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id, :order_lines => @line.id },
     									:title => _("Remove Model"), :class => 'negative' ) %>
+
+									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/attach.png") + " " + _("Add Options"),
+									 	{ :controller => 'acknowledge', :action => 'add_options', 
+											:id => @order.id, :order_lines => @line.id },
+    										{:title => _("Add Options"), :width => 850}) %>
 									</div></td>
 							</tr>
 						</div>
@@ -191,27 +202,38 @@
 						<div class="toolbar-second">
 							<h3>Zubehör</h3>
 							<div class="buttons">
-								<a href="#"><img src="images/icons/package_add.png" alt="" />  Zubehör hinzufügen</a>
-								<a href="#" class="negative"><img src="images/icons/cancel.png" alt="" />  Markierte löschen</a>
+		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
+									{ :controller => 'acknowledge', :action => 'remove_options', :id => @order.id },
+									:onmouseup => "change_href(this);",
+									:class => "multiple_selection_option_button negative",
+									:title => _("Remove Options") )
+									%>
 							</div>
 						</div>
 
 							<table cellspacing="0">
 								<tr>
-									<th scope="col"><input type="checkbox" /> Alle Markieren</th>
+									<th scope="col"><input type="checkbox"  id="options" onClick="mark_all(this, 'option_line_check', 'multiple_selection_option_button');" /> <%= _("Alle Markieren") %> </th>
 									<th scope="col">Anzahl/Stückzahl</th>
 									<th scope="col">Bezeichnung</th>
 									<th scope="col">Bemerkung</th>
 									<th scope="col">Aktion</th>
 								</tr>
+			<% @order.order_lines.each do | ol | %>
+					<tr><td><%= ol.model.name %></td><td style="border: 0px; background-color: white;<p></p>"></td></tr>
+					<% ol.options.each do |option| %>
+						
+
 								<tr class="alt-row">
-									<td><input type="checkbox" /></td>
-									<td><input type="text" /></td>
-									<td><input type="text" /></td>
-									<td><textarea></textarea></td>
+									<td><%= check_box_tag('options[]', option.id, false, :class => "option_line_check", :onchange => "toggle_buttons('option_line_check', 'multiple_selection_option_button');" ) %>
+									</td>
+									<td><%= option.quantity %></td>
+									<td><%= option.name %></td>
+									<td><%= option.remark %></td>
 									<td><div class="buttons"><a href="#" class="negative"><img src="images/icons/cancel.png" alt="" /> Löschen</a></div></td>
 								</tr>
-								
+			<%		end
+			end %>								
 								
 							</table>
 					</div>

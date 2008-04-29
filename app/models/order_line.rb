@@ -2,6 +2,8 @@ class OrderLine < ActiveRecord::Base
   belongs_to :model
   belongs_to :order
   
+  has_many :options
+  
   before_validation_on_create :set_defaults
   validate :date_sequence
 

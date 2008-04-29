@@ -17,7 +17,7 @@ development:
   
   # for Mac OS X
   socket: /tmp/mysql.sock 
- 
+  
   # Connect on a TCP socket.  If omitted, the adapter will connect on the
   # domain socket given by socket instead.
   #host: localhost
@@ -32,7 +32,7 @@ test:
   encoding: utf8
   username: root
   password: 
-
+  
 production:
   adapter: mysql
   database: leihs2_dev
