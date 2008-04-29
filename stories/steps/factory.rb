@@ -10,11 +10,17 @@ module Factory
     u
   end
   
-  def self.create_order(attributes = {})
+  def self.create_order(attributes = {}, options = {})
     default_attributes = {
-      
+
     }
     o = Order.create default_attributes.merge(attributes)
+    options[:order_lines].times { |i|
+        model = Factory.create_model(:name => "model_#{i}" )
+        d = Array.new
+        2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
+        o.add_line(rand(3), model, o.user_id, d.min, d.max )
+    } if options[:order_lines]
     o.save
     o
   end
@@ -48,5 +54,18 @@ module Factory
     end
     DateTime.new(ret[0], ret[1], ret[2])
   end
+
+#  def self.create_order_line(attributes = {})
+#      model = Factory.create_model
+#
+#      d = Array.new
+#      2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
+#      
+#      ol = OrderLine.new(:quantity => rand(3),
+#                         :model_id => model.to_i,
+#                         :start_date => d.min,
+#                         :end_date => d.max)
+#      ol              
+#  end
   
 end

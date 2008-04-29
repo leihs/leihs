@@ -19,4 +19,24 @@ Scenario: List of new and draft orders
 	Then he sees 2 new orders and 1 draft order 
 
 
+Scenario: Restore an order
+
+	Given a new order with 4 order lines
+	And the order has 4 changes
+	
+	When inventory_manager chooses the order
+	Then a backup for the order is generated
+	
+	When he deletes 3 order line
+	Then the order has 1 order lines
+	And the order has 7 changes
+	
+	When he restores the order
+	Then the restored order has the same 4 order lines as the original
+	And the restored order has the same 4 changes as the original
+	
+	Then is redirected to 'acknowledge'
+	And he sees 1 new order and 0 draft orders
+	
+
 	
