@@ -2,7 +2,7 @@
 	session[:current_order] = Hash.new
 	session[:current_order][:id] = @order.id
 	session[:current_order][:user_login] = @order.user.login
-   else
+   elsif session[:current_order]
 	session[:current_order] = nil unless Order.exists?(session[:current_order][:id])
 	#TODO session[:current_order] = nil if approved or rejected
 	#     or manage different view directly in the show method

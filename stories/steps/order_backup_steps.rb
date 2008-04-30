@@ -34,10 +34,10 @@ steps_for(:order) do
   Given "a new order with $size order lines" do | size |
     user = Factory.create_user(:login => "Joe")
     @order = Factory.create_order({:user_id => user.id}, {:order_lines => size.to_i})
-#TODO wait?
 # debug here
 puts; puts "==="; puts "Histories crated_at:"; @order.histories.each { |h| puts; puts h.text; puts h.created_at; puts "%10.5f" % h.created_at.to_f }; puts "==="
     @original_order = @order
+    @original_order.has_backup?.should == false
     @order.order_lines.size.should == size.to_i
   end
 
@@ -46,10 +46,11 @@ puts; puts "==="; puts "Histories crated_at:"; @order.histories.each { |h| puts;
   end
 
   When "$who chooses the order" do | who |
-    order = @order
-    get "/backend/acknowledge/show/#{order.id}"
+    @order.has_backup?.should == false
+    get "/backend/acknowledge/show/#{@order.id}"
     response.should render_template('backend/acknowledge/show')
     @order = assigns(:order)
+    @order.has_backup?.should == true
 # debug here    
 puts; puts "==="; puts "Backup created at:"; puts @order.backup.created_at; puts "%10.5f" % @order.backup.created_at.to_f; puts "==="
   end

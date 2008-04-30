@@ -9,6 +9,7 @@
 
 
 <div class="toolbar-main boxes">
+  <% if @order.status_const == Order::NEW %>
 	<div class="buttons">
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Save + Approve"),
 								 { :controller => 'acknowledge', :action => 'approve', :id => @order.id },
@@ -26,8 +27,11 @@
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Bestellung löschen"),
 			{ :controller => 'acknowledge', :action => 'destroy', :id => @order.id },
 			:title => _("Delete Order"), :class => 'negative') %>
-
 	</div>
+  <% else %>
+  	Order not new
+	TODO: before_filter in controller?
+  <% end %>
 </div>
 			
 			<div id="meta" class="boxes">
