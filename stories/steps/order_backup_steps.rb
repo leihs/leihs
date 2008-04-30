@@ -10,7 +10,7 @@ steps_for(:order) do
   When "$who clicks '$action'" do | who, action |
     get "/backend/#{action}/index"
     @orders = assigns(:new_orders)
-    response.should render_template('backend/acknowledge/index')   
+    response.should render_template('backend/acknowledge/index')
   end
   
   Then "$who sees $size_n new order$s_n and $size_d draft order$s_d" do | who, size_n, s_n, size_d, s_d |
@@ -31,10 +31,12 @@ steps_for(:order) do
 
 ###############################################
 
-
   Given "a new order with $size order lines" do | size |
     user = Factory.create_user(:login => "Joe")
     @order = Factory.create_order({:user_id => user.id}, {:order_lines => size.to_i})
+#TODO wait?
+# debug here
+puts; puts "==="; puts "Histories crated_at:"; @order.histories.each { |h| puts; puts h.text; puts h.created_at; puts "%10.5f" % h.created_at.to_f }; puts "==="
     @original_order = @order
     @order.order_lines.size.should == size.to_i
   end
@@ -48,6 +50,8 @@ steps_for(:order) do
     get "/backend/acknowledge/show/#{order.id}"
     response.should render_template('backend/acknowledge/show')
     @order = assigns(:order)
+# debug here    
+puts; puts "==="; puts "Backup created at:"; puts @order.backup.created_at; puts "%10.5f" % @order.backup.created_at.to_f; puts "==="
   end
 
   When "$who deletes $size order line$s" do | who, size, s |
@@ -81,6 +85,52 @@ steps_for(:order) do
     get "/backend/#{action}/index"
     @orders = assigns(:new_orders)
     response.should render_template('backend/acknowledge/index')   
+  end
+
+###############################################
+  
+  Given "inventory_manager works on one order" do
+    user = Factory.create_user(:login => "Joe")
+    order = Factory.create_order({:user_id => user.id}, {:order_lines => 3})
+    get "/backend/acknowledge/show/#{order.id}"
+    response.should render_template('backend/acknowledge/show')
+    @order = assigns(:order)
+    @order.has_backup?.should == true
+  end
+  
+  When "he approves order" do
+    post "/backend/acknowledge/approve/#{@order.id}"
+    @order = assigns(:order)
+    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
+  end
+  
+  Then "the order doesn't have a backup anymore" do
+    @order.has_backup?.should == false
+  end
+
+  
+###############################################
+  
+  When "he rejects order" do
+    post "/backend/acknowledge/reject/#{@order.id}"
+    @order = assigns(:order)
+    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
+  end
+  
+
+###############################################
+  
+  When "he deletes order" do
+    post "/backend/acknowledge/destroy/#{@order.id}"
+    @order = assigns(:order)
+    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
+  end
+
+  Then "the order and the backup are deleted" do
+    @order.frozen?.should == true
+    Order.exists?(@order.id).should == false
+    @order.backup.frozen?.should == true
+    Backup::Order.exists?(@order.backup.id).should == false
   end
   
 end

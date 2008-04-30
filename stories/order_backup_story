@@ -37,6 +37,28 @@ Scenario: Restore an order
 	
 	Then is redirected to 'acknowledge'
 	And he sees 1 new order and 0 draft orders
+
+
+
+Scenario: Approve order
+
+	Given inventory_manager works on one order
 	
+	When he approves order
+	Then the order doesn't have a backup anymore	
+
+
+Scenario: Reject order
+
+	Given inventory_manager works on one order
+	
+	When he rejects order
+	Then the order doesn't have a backup anymore
 
 	
+Scenario: Delete order
+  
+	Given inventory_manager works on one order
+	
+	When he deletes order
+	Then the order and the backup are deleted
