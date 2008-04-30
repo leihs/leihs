@@ -1,9 +1,23 @@
+<% if @order
+	session[:current_order] = Hash.new
+	session[:current_order][:id] = @order.id
+	session[:current_order][:user_login] = @order.user.login
+   else
+	session[:current_order] = nil unless Order.exists?(session[:current_order][:id])
+	#TODO session[:current_order] = nil if approved or rejected
+	#     or manage different view directly in the show method
+   end %>
+
 <div id="tabs">	
 	<ul>
-		<li <%= 'class="active"' if controller.action_name == "index" %>><%= link_to "<span>" + _("Acknowledge") + "<em> (#{@new_orders.size})</em></span>", :controller => 'acknowledge' %></li>
+		<li <%= 'class="active"' if controller.action_name == "index" %>><%= link_to "<span>" + _("Acknowledge") + "<em> (#{@new_orders.size})</em></span>",
+																				:controller => 'acknowledge' %></li>
 
-<% if @order %>
-		<li <%= 'class="active"' if controller.action_name == "show" %>><a href="#"><span><%= _("Order:") + " " + @order.user.login %></span></a></li>
+<% if session[:current_order] %>
+		<li <%= 'class="active"' if controller.action_name == "show" %>><%= link_to "<span>" + _("Order:") + " " + session[:current_order][:user_login] + "</span>",
+																			 :controller => 'acknowledge',
+																			 :action => 'show',
+																			 :id => session[:current_order][:id] %></li>
 <% end %>
 </ul>
 </div>
