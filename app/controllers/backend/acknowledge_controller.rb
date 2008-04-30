@@ -5,6 +5,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def show
     @order = Order.find(params[:id])
+    # TODO manage approved and rejected orders   if @order.status_const != Order::NEW 
     @order.to_backup unless @order.has_backup?
   end
   
