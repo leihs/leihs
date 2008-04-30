@@ -12,6 +12,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     if request.post?
       @order = Order.find(params[:id])
       @order.status_const = Order::APPROVED
+      @order.backup = nil
       @order.save
       if @order.has_changes?
         OrderMailer.deliver_changed(@order, params[:comment])
@@ -31,6 +32,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     if request.post?
       @order = Order.find(params[:id])
       @order.status_const = Order::REJECTED
+      @order.backup = nil
       @order.save
       OrderMailer.deliver_rejected(@order, params[:comment])
       
