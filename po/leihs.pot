@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2008-04-28 10:15+0200\n"
+"POT-Creation-Date: 2008-05-02 13:00+0200\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,24 +16,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/controllers/backend/acknowledge_controller.rb:57
-msgid "Model must be selected"
+#: app/models/category.rb:-
+msgid "category"
 msgstr ""
 
-#: app/controllers/backend/acknowledge_controller.rb:107
-msgid "Model couldn't be added"
+#: app/models/category.rb:-
+msgid "Category|Created at"
 msgstr ""
 
-#: app/controllers/backend/acknowledge_controller.rb:145
-msgid "User must be selected"
+#: app/models/category.rb:-
+msgid "Category|Updated at"
 msgstr ""
 
-#: app/helpers/backend/acknowledge_helper.rb:9
-msgid "Today"
+#: app/models/user.rb:-
+msgid "user"
 msgstr ""
 
-#: app/helpers/backend/acknowledge_helper.rb:11
-msgid "Yesterday"
+#: app/models/user.rb:-
+msgid "User|Login"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Authentication system"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Created at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Updated at"
+msgstr ""
+
+#: app/models/accessory.rb:-
+msgid "accessory"
+msgstr ""
+
+#: app/models/accessory.rb:-
+msgid "Accessory|Model"
+msgstr ""
+
+#: app/models/accessory.rb:-
+msgid "Accessory|Created at"
+msgstr ""
+
+#: app/models/accessory.rb:-
+msgid "Accessory|Updated at"
 msgstr ""
 
 #: app/models/access_right.rb:-
@@ -60,68 +88,32 @@ msgstr ""
 msgid "AccessRight|Updated at"
 msgstr ""
 
-#: app/models/accessory.rb:-
-msgid "accessory"
+#: app/models/option.rb:-
+msgid "option"
 msgstr ""
 
-#: app/models/accessory.rb:-
-msgid "Accessory|Model"
+#: app/models/option.rb:-
+msgid "Option|Order line"
 msgstr ""
 
-#: app/models/accessory.rb:-
-msgid "Accessory|Created at"
+#: app/models/option.rb:-
+msgid "Option|Quantity"
 msgstr ""
 
-#: app/models/accessory.rb:-
-msgid "Accessory|Updated at"
+#: app/models/option.rb:-
+msgid "Option|Name"
 msgstr ""
 
-#: app/models/account.rb:-
-msgid "account"
+#: app/models/option.rb:-
+msgid "Option|Remark"
 msgstr ""
 
-#: app/models/account.rb:-
-msgid "Account|Email"
+#: app/models/option.rb:-
+msgid "Option|Created at"
 msgstr ""
 
-#: app/models/account.rb:-
-msgid "Account|Login"
-msgstr ""
-
-#: app/models/account.rb:-
-msgid "Account|Hashed password"
-msgstr ""
-
-#: app/models/account.rb:-
-msgid "Account|Created at"
-msgstr ""
-
-#: app/models/account.rb:-
-msgid "Account|Updated at"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "authentication system"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Name"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Class name"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "category"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "Category|Created at"
-msgstr ""
-
-#: app/models/category.rb:-
-msgid "Category|Updated at"
+#: app/models/option.rb:-
+msgid "Option|Updated at"
 msgstr ""
 
 #: app/models/contract.rb:-
@@ -138,178 +130,6 @@ msgstr ""
 
 #: app/models/contract.rb:-
 msgid "Contract|Updated at"
-msgstr ""
-
-#: app/models/contract_line.rb:-
-msgid "contract line"
-msgstr ""
-
-#: app/models/contract_line.rb:-
-msgid "ContractLine|Contract"
-msgstr ""
-
-#: app/models/contract_line.rb:-
-msgid "ContractLine|Item"
-msgstr ""
-
-#: app/models/contract_line.rb:-
-msgid "ContractLine|Quantity"
-msgstr ""
-
-#: app/models/contract_line.rb:-
-msgid "ContractLine|Created at"
-msgstr ""
-
-#: app/models/contract_line.rb:-
-msgid "ContractLine|Updated at"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "history"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Text"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Type const"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Created at"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Target"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Target type"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|User"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "inventory pool"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Created at"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Updated at"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "item"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Inventory code"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Model"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Inventory pool"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Status"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Created at"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Updated at"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "model"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Name"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Maintenance period"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Created at"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Updated at"
-msgstr ""
-
-#: app/models/order.rb:-
-msgid "order"
-msgstr ""
-
-#: app/models/order.rb:-
-msgid "Order|User"
-msgstr ""
-
-#: app/models/order.rb:-
-msgid "Order|Status const"
-msgstr ""
-
-#: app/models/order.rb:-
-msgid "Order|Purpose"
-msgstr ""
-
-#: app/models/order.rb:-
-msgid "Order|Created at"
-msgstr ""
-
-#: app/models/order.rb:-
-msgid "Order|Updated at"
-msgstr ""
-
-#: app/models/order.rb:26
-msgid "Added"
-msgstr ""
-
-#: app/models/order.rb:37
-msgid "Changed quantity for %{model} from %{from} to %{to}"
-msgstr ""
-
-#: app/models/order.rb:40
-msgid "Maximum number of items available at that time is %{max}"
-msgstr ""
-
-#: app/models/order.rb:41
-msgid "(maximum available)"
-msgstr ""
-
-#: app/models/order.rb:57
-msgid "Changed dates for %{model} from %{from} to %{to}"
-msgstr ""
-
-#: app/models/order.rb:72
-msgid "Swapped %{from} for %{to}"
-msgstr ""
-
-#: app/models/order.rb:82
-msgid "Removed %{m}"
-msgstr ""
-
-#: app/models/order.rb:89
-msgid "Purpose changed '%{from}' for '%{to}'"
-msgstr ""
-
-#: app/models/order.rb:99
-msgid "User swapped %{from} for %{to}"
 msgstr ""
 
 #: app/models/order_line.rb:-
@@ -344,8 +164,64 @@ msgstr ""
 msgid "OrderLine|Updated at"
 msgstr ""
 
-#: app/models/order_line.rb:31
+#: app/models/order_line.rb:33
 msgid "Start Date must be before End Date"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "history"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|Text"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|Type const"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|Created at"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|Target"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|Target type"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|User"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "item"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Inventory code"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Model"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Inventory pool"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Status"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Created at"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Updated at"
 msgstr ""
 
 #: app/models/order_mailer.rb:4
@@ -360,28 +236,100 @@ msgstr ""
 msgid "Reservation confirmed (with changes)"
 msgstr ""
 
-#: app/models/package.rb:-
-msgid "package"
+#: app/models/account.rb:-
+msgid "account"
 msgstr ""
 
-#: app/models/package.rb:-
-msgid "Package|Created at"
+#: app/models/account.rb:-
+msgid "Account|Email"
 msgstr ""
 
-#: app/models/package.rb:-
-msgid "Package|Updated at"
+#: app/models/account.rb:-
+msgid "Account|Login"
 msgstr ""
 
-#: app/models/permission.rb:-
-msgid "permission"
+#: app/models/account.rb:-
+msgid "Account|Hashed password"
 msgstr ""
 
-#: app/models/permission.rb:-
-msgid "Permission|Created at"
+#: app/models/account.rb:-
+msgid "Account|Created at"
 msgstr ""
 
-#: app/models/permission.rb:-
-msgid "Permission|Updated at"
+#: app/models/account.rb:-
+msgid "Account|Updated at"
+msgstr ""
+
+#: app/models/order.rb:-
+msgid "order"
+msgstr ""
+
+#: app/models/order.rb:-
+msgid "Order|User"
+msgstr ""
+
+#: app/models/order.rb:-
+msgid "Order|Status const"
+msgstr ""
+
+#: app/models/order.rb:-
+msgid "Order|Purpose"
+msgstr ""
+
+#: app/models/order.rb:-
+msgid "Order|Created at"
+msgstr ""
+
+#: app/models/order.rb:-
+msgid "Order|Updated at"
+msgstr ""
+
+#: app/models/order.rb:29
+msgid "Added"
+msgstr ""
+
+#: app/models/order.rb:40
+msgid "Changed quantity for %{model} from %{from} to %{to}"
+msgstr ""
+
+#: app/models/order.rb:43
+msgid "Maximum number of items available at that time is %{max}"
+msgstr ""
+
+#: app/models/order.rb:44
+msgid "(maximum available)"
+msgstr ""
+
+#: app/models/order.rb:60
+msgid "Changed dates for %{model} from %{from} to %{to}"
+msgstr ""
+
+#: app/models/order.rb:75
+msgid "Swapped %{from} for %{to}"
+msgstr ""
+
+#: app/models/order.rb:85
+msgid "Removed %{m}"
+msgstr ""
+
+#: app/models/order.rb:93
+msgid "Purpose changed '%{from}' for '%{to}'"
+msgstr ""
+
+#: app/models/order.rb:103
+msgid "User swapped %{from} for %{to}"
+msgstr ""
+
+#: app/models/authentication_system.rb:-
+msgid "authentication system"
+msgstr ""
+
+#: app/models/authentication_system.rb:-
+msgid "AuthenticationSystem|Name"
+msgstr ""
+
+#: app/models/authentication_system.rb:-
+msgid "AuthenticationSystem|Class name"
 msgstr ""
 
 #: app/models/property.rb:-
@@ -412,22 +360,168 @@ msgstr ""
 msgid "Role|Updated at"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "user"
+#: app/models/permission.rb:-
+msgid "permission"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Login"
+#: app/models/permission.rb:-
+msgid "Permission|Created at"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Authentication system"
+#: app/models/permission.rb:-
+msgid "Permission|Updated at"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Created at"
+#: app/models/package.rb:-
+msgid "package"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Updated at"
+#: app/models/package.rb:-
+msgid "Package|Created at"
+msgstr ""
+
+#: app/models/package.rb:-
+msgid "Package|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "inventory pool"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Updated at"
+msgstr ""
+
+#: app/models/contract_line.rb:-
+msgid "contract line"
+msgstr ""
+
+#: app/models/contract_line.rb:-
+msgid "ContractLine|Contract"
+msgstr ""
+
+#: app/models/contract_line.rb:-
+msgid "ContractLine|Item"
+msgstr ""
+
+#: app/models/contract_line.rb:-
+msgid "ContractLine|Quantity"
+msgstr ""
+
+#: app/models/contract_line.rb:-
+msgid "ContractLine|Created at"
+msgstr ""
+
+#: app/models/contract_line.rb:-
+msgid "ContractLine|Updated at"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "model"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Name"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Maintenance period"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Created at"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Updated at"
+msgstr ""
+
+#: app/helpers/backend/acknowledge_helper.rb:9
+msgid "Today"
+msgstr ""
+
+#: app/helpers/backend/acknowledge_helper.rb:11
+msgid "Yesterday"
+msgstr ""
+
+#: app/controllers/backend/acknowledge_controller.rb:71
+msgid "Model must be selected"
+msgstr ""
+
+#: app/controllers/backend/acknowledge_controller.rb:121
+msgid "Model couldn't be added"
+msgstr ""
+
+#: app/controllers/backend/acknowledge_controller.rb:155
+msgid "Added Option:"
+msgstr ""
+
+#: app/controllers/backend/acknowledge_controller.rb:157
+msgid "Couldn't create option."
+msgstr ""
+
+#: app/controllers/backend/acknowledge_controller.rb:181
+msgid "User must be selected"
+msgstr ""
+
+#: app/views/backend/acknowledge/reject.html.erb:2
+msgid ""
+"Speichern Sie die Bestellung und kommen Sie später wieder darauf zurück."
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:16
+msgid "Approve Order"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:20
+msgid "Reject Order"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:24
+msgid "Restore Order"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:29
+msgid "Delete Order"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:46
+msgid "Reservierender"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:64
+msgid "Purpose"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:130
+msgid "Add Model"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:136
+msgid "Time Period"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:142
+msgid "Remove Models"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:151
+#: app/views/backend/acknowledge/show.html.erb:193
+msgid "Add Options"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:185
+msgid "Swap Model"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:188
+msgid "Remove Model"
+msgstr ""
+
+#: app/views/backend/acknowledge/_orders.html.erb:16
+msgid "User"
 msgstr ""
