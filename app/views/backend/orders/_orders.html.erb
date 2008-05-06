@@ -1,0 +1,31 @@
+		<table cellspacing="0">
+			<tr>
+				<th scope="col">Empfangen am</th>
+				<th scope="col">Reservierender</th>
+				<th scope="col">Anzahl Pakete</th>
+				<th scope="col">Aktion</th>
+			</tr>
+
+<% @orders ||= @new_orders %>
+		<% for order in @orders %>
+			<tr class="<%= (order.has_backup? ? "alt-row" : "fresh" ) %>">
+				<td class="row-closed"><%= "#{today_or_yesterday_date(order.created_at)}" %></td>
+				<td>
+					<%= greybox_link_to_page(order.user.login,
+						 { :controller => 'users', :action => 'show', :id => order.user.id },
+						 :title => _("User"),
+						 :class => "iconized-notxt edit-user" ) %>
+				</td>
+				<td><%= _("%{n} Pakete") % {:n => order.order_lines.size} %></td>
+					<td>
+						<div class="buttons">
+						<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"), :controller => 'acknowledge', :action => 'show', :id => order %>
+						<%= link_to order.status_const, :action => 'order_lines_to_deliver', :user_id => order.user.id %>					
+						</div>
+					</td>
+			</tr>
+		<% end %>
+
+		
+		</table>
+		

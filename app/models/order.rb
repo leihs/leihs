@@ -20,6 +20,14 @@ class Order < ActiveRecord::Base
     find(:all, :conditions => {:status_const => Order::NEW})
   end
 
+  def self.approved_orders
+    find(:all, :conditions => {:status_const => Order::APPROVED})
+  end
+
+  def self.rejected_orders
+    find(:all, :conditions => {:status_const => Order::REJECTED})
+  end
+
 
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil)
     o = OrderLine.new(:quantity => quantity,

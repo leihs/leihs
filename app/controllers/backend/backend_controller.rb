@@ -9,9 +9,21 @@ class Backend::BackendController < ApplicationController
   
   layout $general_layout_path
   
+  
+  private
+  
   def init
-    @new_orders = Order.new_orders
+    @new_orders_size = Order.new_orders.size
     #TODO define session[:user_id]
+  end
+  
+  def set_order_to_session(order)
+    session[:current_order] = { :id => order.id,
+                                :user_login => order.user.login }
+  end
+  
+  def remove_order_from_session
+    session[:current_order] = nil
   end
   
 end

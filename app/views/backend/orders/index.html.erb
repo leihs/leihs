@@ -1,0 +1,32 @@
+			
+<div id="drafts" class="boxes">
+<!--
+	<div class="buttons">
+		<p style="float: left; line-height: 30px; margin-right: 20px;">Bestellungen in Bearbeitung (bitte vervollständigen):</p>
+		<a href="#"><img src="images/icons/tab_go.png" alt="" />  Muster, Henry (12.01.08, 12:33)</a>
+		<a href="#"><img src="images/icons/tab_go.png" alt="" />  Schwitter, Lukas (12.01.08, 10:21)</a>
+	</div>
+-->
+</div>
+			
+<div class="table-overview boxes">
+	
+	<div id="controller">
+			<%= text_field_tag('search', _("Bestellung suchen"), :onfocus => "this.value='';", :onchange => remote_function(:update => 'orders_table', :url => { :controller => 'search', :action => 'order' }, :with => "'search=' + value" )) %>
+			<select>
+				<option>Alle Felder</option>
+				<option>Reservierender</option>
+				<option>Datum</option>
+				<option>Hersteller</option>
+				<option>...</option>
+			</select>
+		
+	</div>
+	
+		<div id="orders_table">
+			<%= render :partial => 'orders' %>
+		</div>
+			
+						
+</div>
+			
