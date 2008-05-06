@@ -5,7 +5,7 @@ module Factory
       :login => "jerome",
       :email  => "jerome@example.com",
     }
-    u = User.create default_attributes.merge(attributes)
+    u = User.find_or_create_by_login default_attributes.merge(attributes)
     u.save
     u
   end
@@ -52,20 +52,27 @@ module Factory
     else
       ret = [match[3].to_i, match[2].to_i, match[1].to_i, nil, nil, nil, nil, nil] 
     end
-    DateTime.new(ret[0], ret[1], ret[2])
+    DateTime.new(ret[0], ret[1], ret[2]) # TODO Date
   end
 
-#  def self.create_order_line(attributes = {})
-#      model = Factory.create_model
-#
-#      d = Array.new
-#      2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
-#      
-#      ol = OrderLine.new(:quantity => rand(3),
-#                         :model_id => model.to_i,
-#                         :start_date => d.min,
-#                         :end_date => d.max)
-#      ol              
-#  end
+  def self.create_order_line(options = {})
+      model = Factory.create_model :name => options[:model_name]
+
+      if options[:start_date]
+        start_date = parsedate(options[:start_date])
+        end_date = start_date + 2.days
+      else
+        d = Array.new
+        2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
+        start_date = d.min
+        end_date = d.max
+      end
+      
+      ol = OrderLine.new(:quantity => options[:quantity],
+                         :model_id => model.to_i,
+                         :start_date => start_date,
+                         :end_date => end_date)
+      ol              
+  end
   
 end

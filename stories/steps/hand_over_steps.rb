@@ -8,12 +8,18 @@ steps_for(:hand_over) do
     orders.size.should == total.to_i
   end
 
-  When "a new order with $size order lines is placed by a user named '$who'" do | size, who |
+  When "a new order is placed by a user named '$who'" do | who |
     user = Factory.create_user(:login => who)
-    @order = Factory.create_order({:user_id => user.id}, {:order_lines => size.to_i})
-    @order.order_lines.size.should == size.to_i
+    @order = Factory.create_order({:user_id => user.id})    
   end
-  
+
+
+  When "he asks for $quantity '$what' from $from" do | quantity, what, from |
+    @order.order_lines << Factory.create_order_line(:model_name => :what,
+                                                    :quantity => quantity,
+                                                    :start_date => from)
+    @order.save                                                
+  end
   
   When "an inventory_manager approves the order" do
     post "/backend/acknowledge/approve", :id => @order.id, :comment => "test comment"
@@ -24,20 +30,26 @@ steps_for(:hand_over) do
 
   When "$who clicks '$action'" do | who, action |
     get "/backend/#{action}/index"
-    @orders = assigns(:orders) # TODO get group by
+    @grouped_lines = assigns(:grouped_lines)
     response.should render_template("backend/#{action}/index")
   end
   
-    
-  Then "he sees $total element$s_1 with $size line$s_2" do | total, s_1, size, s_2 |
-    @orders.size.should == total.to_i
-    @order_lines = []
-    @orders.each do |o|
-       o.order_lines.each { |ol| @order_lines << ol }
-    end
-    @order_lines.size.should == size.to_i
+  Then "he sees $total line$s with a total quantity of $quantity" do | total, s, quantity |
+      if @grouped_lines.size != total.to_i
+        @grouped_lines.each do |l|
+          puts l.start_date.to_s  
+        end
+      end
+     @grouped_lines.size.should == total.to_i
+     s = 0
+     @grouped_lines.each {|l| s += l.quantity }
+     s.should == quantity.to_i 
   end
-  
+
+  Then "line $line has a quantity of $quantity for user '$who'" do | line, quantity, who |
+    @grouped_lines[line.to_i - 1].quantity.should == quantity.to_i
+    @grouped_lines[line.to_i - 1].user_login.should == who
+  end
 
 ###############################################
 
