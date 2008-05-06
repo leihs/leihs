@@ -96,6 +96,13 @@ class Order < ActiveRecord::Base
     log_change(change, user_id)
     #[line, change]
   end  
+  
+  def remove_option(option_id, user_id)
+    option = Option.find(option_id.to_i)
+    change = _("Removed Option: %{o}") % { :o => ("(" + option.quantity.to_s + ") " + option.name) }
+    option.destroy
+    log_change(change, user_id)
+  end
 
   def change_purpose(new_purpose, user_id)
     change = _("Purpose changed '%{from}' for '%{to}'") % { :from => self.purpose, :to => new_purpose}

@@ -1,0 +1,18 @@
+<h2><%= _("Wollen sie die folgenden Optionen wirklich löschen?") %></h2>
+<br />
+
+<% @options.each do	|o| %>
+	<%= o.quantity %> <%= o.name %>
+	<br />
+<% end %>
+
+<br />		
+<div class="buttons">
+
+	<%=	link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
+		 { :controller => 'acknowledge', :action => 'remove_options', :id => params[:id], :options => @options },
+		 :class => 'negative', :method => 'post', :target=> '_top') %>
+		
+				 
+	<%=	cancel_popup_button(_("Cancel") ) %>
+</div>	
