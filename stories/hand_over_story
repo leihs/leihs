@@ -1,0 +1,27 @@
+Story: Backup orders
+
+	As an inventory_manager
+	I want to see all approved orders, grouped by user,
+	in order to generate contracts and hand over the phisical items
+
+	
+Scenario: List approved orders, grouped by user
+	
+	Given the list of approved orders contains 0 elements
+	
+	When a new order with 3 order lines is placed by a user named 'Joe'
+	And an inventory_manager approves the order
+	And inventory_manager clicks 'hand_over'
+	Then he sees 1 element with 3 lines
+
+	When a new order with 2 order lines is placed by a user named 'Joe'
+	And an inventory_manager approves the order
+	And inventory_manager clicks 'hand_over'
+	Then he sees 1 element with 5 lines
+
+	
+	
+Scenario: List of approved order lines of a given user
+	
+
+Scenario: Select order lines to hand over

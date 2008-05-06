@@ -1,17 +1,19 @@
 class Backend::AcknowledgeController < Backend::BackendController
 
+  before_filter :load_order, :except => :index
+
+
   def index
+    @new_orders = Order.new_orders
   end
   
   def show
-    @order = Order.find(params[:id])
-    # TODO manage approved and rejected orders   if @order.status_const != Order::NEW 
     @order.to_backup unless @order.has_backup?
+    set_order_to_session(@order)
   end
   
   def approve
     if request.post?
-      @order = Order.find(params[:id])
       @order.status_const = Order::APPROVED
       @order.backup = nil
       @order.save
@@ -21,23 +23,23 @@ class Backend::AcknowledgeController < Backend::BackendController
         OrderMailer.deliver_approved(@order, params[:comment])
       end
 
-      init
+      remove_order_from_session
+      init #TODO redundant?
       redirect_to :action => 'index'
     else
       render :layout => $modal_layout_path
-    end
-    
+    end    
   end
   
   def reject
     if request.post?
-      @order = Order.find(params[:id])
       @order.status_const = Order::REJECTED
       @order.backup = nil
       @order.save
       OrderMailer.deliver_rejected(@order, params[:comment])
       
-      init
+      remove_order_from_session
+      init #TODO redundant?
       redirect_to :action => 'index'
     else
       render :layout => $modal_layout_path
@@ -46,7 +48,6 @@ class Backend::AcknowledgeController < Backend::BackendController
 
   def restore
     if request.post?
-      @order = Order.find(params[:id])
       @order.from_backup      
       redirect_to :controller=> 'acknowledge', :action => 'index'        
     else
@@ -56,8 +57,8 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def destroy
      if request.post?
-        @order = Order.find(params[:id])
         @order.destroy
+        remove_order_from_session
         redirect_to :controller=> 'acknowledge', :action => 'index'
     else
       render :layout => $modal_layout_path
@@ -66,7 +67,6 @@ class Backend::AcknowledgeController < Backend::BackendController
 
   def swap_line
     if request.post?
-      @order = Order.find(params[:id])
       if params[:model_id].nil?
         flash[:notice] = _("Model must be selected")
       else
@@ -97,7 +97,6 @@ class Backend::AcknowledgeController < Backend::BackendController
 
   def time_lines
      if request.post?
-      @order = Order.find(params[:id])
       begin
         start_date = Date.new(params[:order_line]['start_date(1i)'].to_i, params[:order_line]['start_date(2i)'].to_i, params[:order_line]['start_date(3i)'].to_i)
         end_date = Date.new(params[:order_line]['end_date(1i)'].to_i, params[:order_line]['end_date(2i)'].to_i, params[:order_line]['end_date(3i)'].to_i)
@@ -110,12 +109,10 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order_lines = OrderLine.find(params[:order_lines].split(','))
       render :layout => $modal_layout_path
     end   
-    
   end
 
   def add_line
     if request.post?
-        @order = Order.find(params[:id])
         @order.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
         if not @order.save
           flash[:notice] = _("Model couldn't be added")
@@ -133,7 +130,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def remove_lines
      if request.post?
-        @order = Order.find(params[:id])
         params[:order_lines].each {|ol| @order.remove_line(ol, session[:user_id]) }
         redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
     else
@@ -145,7 +141,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   def add_options
     @option = params[:option_id].nil? ? Option.new : Option.find(params[:option_id]) 
     if request.post?
-      @order = Order.find(params[:id])
       params[:order_lines].each do | ol | 
         line = OrderLine.find(ol)
         option = Option.new(params[:option])
@@ -165,7 +160,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
 
   def change_purpose
-    @order = Order.find(params[:id])
     if request.post?
       @order.change_purpose(params[:purpose], session[:user_id])
       redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
@@ -176,7 +170,6 @@ class Backend::AcknowledgeController < Backend::BackendController
     
    def swap_user
     if request.post?
-      @order = Order.find(params[:id])
       if params[:user_id].nil?
         flash[:notice] = _("User must be selected")
       else
@@ -191,5 +184,16 @@ class Backend::AcknowledgeController < Backend::BackendController
                   :source_action => 'swap_user'
     end
   end   
+
+    
+    
+  private
+  
+  def load_order
+    @order = Order.find(params[:id]) if params[:id]
+    # TODO manage approved and rejected orders
+    #if @order.status_const != Order::NEW 
+    
+  end
     
 end
