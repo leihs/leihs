@@ -159,6 +159,17 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
   end
 
+  def remove_options
+     if request.post?
+        params[:options].each {|o| @order.remove_option(o, session[:user_id]) }
+        redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
+    else
+      @options = Option.find(params[:options].split(','))
+      render :layout => $modal_layout_path
+    end   
+  end
+
+
   def change_purpose
     if request.post?
       @order.change_purpose(params[:purpose], session[:user_id])
