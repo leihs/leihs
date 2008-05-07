@@ -2,6 +2,11 @@
 #
 # It has bugs! Mail them to ramon.cahenzli@gmail.com 
 #
+# Version history:
+#
+# 0.1: Initial release
+# 0.2: Fixed bug that would display blank pages with Adobe Acrobat Reader,
+#      but not with other readers.
 #
 # ----- License and Copyright
 #
@@ -39,39 +44,38 @@
 
 module PDF_Rotate
   
-  def initialize
-  angle = 0
-  end
-  
   def Rotate(angle, x=-1, y=-1)
   
+    @angle ||= 0
+ 
     if x == -1
-        x = @x
+      x = @x
     end
     
-    if y== -1
-        y = @y
+    if y == -1
+      y = @y
     end
     
     if @angle != 0
-        out('Q')
+      out('Q')
     end
 
     @angle = angle
+    
     if angle != 0
-        angle *= Math::PI/180
-        c=Math::cos(angle)
-        s=Math::sin(angle)
-        cx=x*@k
-        cy=(@h - y)*@k
+        angle *= Math::PI/180.0
+        c = Math::cos(angle)
+        s = Math::sin(angle)
+        cx = x*@k
+        cy = (@h - y)*@k
         out(sprintf('q %.5f %.5f %.5f %.5f %.2f %.2f cm 1 0 0 1 %.2f %.2f cm',c,s,-s,c,cx,cy,-cx,-cy))
     end
   end
    
   def endpage
     if @angle != 0
-        @angle = 0
-        out('Q')
+      @angle = 0
+      out('Q')
     end
     super
   end
