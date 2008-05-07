@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 
   belongs_to :authentication_system
   has_and_belongs_to_many :roles
+  has_many :orders
+  has_many :contracts
   
   acts_as_ferret :fields => [ :login ]  #, :store_class_name => true
     

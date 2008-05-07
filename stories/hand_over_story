@@ -1,8 +1,8 @@
-Story: Backup orders
+Story: Hand Over
 
 	As an inventory_manager
 	I want to see all approved orders, grouped by user,
-	in order to generate contracts and hand over the phisical items
+	in order to generate contracts and hand over the physical items
 
 	
 Scenario: List approved orders, grouped by same user and same start_date

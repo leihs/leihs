@@ -20,7 +20,7 @@
 					<td>
 						<div class="buttons">
 						<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"), :controller => 'acknowledge', :action => 'show', :id => order %>
-						<%= link_to order.status_const, :action => 'order_lines_to_deliver', :user_id => order.user.id %>					
+						Status: <%= order.status_const %>					
 						</div>
 					</td>
 			</tr>
