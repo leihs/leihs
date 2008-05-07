@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2008-05-02 13:00+0200\n"
+"POT-Creation-Date: 2008-05-07 12:21+0200\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -284,41 +284,46 @@ msgstr ""
 msgid "Order|Updated at"
 msgstr ""
 
-#: app/models/order.rb:29
+#: app/models/order.rb:37
 msgid "Added"
-msgstr ""
+msgstr "Hinzugefügt"
 
-#: app/models/order.rb:40
+#: app/models/order.rb:48
 msgid "Changed quantity for %{model} from %{from} to %{to}"
 msgstr "Anzahl für %{model} von %{from} auf %{to} geändert"
 
-#: app/models/order.rb:43
+#: app/models/order.rb:51
 msgid "Maximum number of items available at that time is %{max}"
 msgstr ""
+"Die maximale Anzahl verfügbarer Gegenstände für diesen Zeitraum ist %{max}"
 
-#: app/models/order.rb:44
+#: app/models/order.rb:52
 msgid "(maximum available)"
-msgstr ""
+msgstr "(Verfügbares Maximum)"
 
-#: app/models/order.rb:60
+#: app/models/order.rb:68
 msgid "Changed dates for %{model} from %{from} to %{to}"
-msgstr ""
+msgstr "Datum für Modell %{model} von %{from} auf %{to} geändert"
 
-#: app/models/order.rb:75
+#: app/models/order.rb:83
 msgid "Swapped %{from} for %{to}"
-msgstr ""
-
-#: app/models/order.rb:85
-msgid "Removed %{m}"
-msgstr ""
+msgstr "%{from} ausgetauscht durch %{to}"
 
 #: app/models/order.rb:93
-msgid "Purpose changed '%{from}' for '%{to}'"
-msgstr ""
+msgid "Removed %{m}"
+msgstr "%{m} entfernt"
 
-#: app/models/order.rb:103
+#: app/models/order.rb:102
+msgid "Removed Option: %{o}"
+msgstr "Zubehör entfernt: %{o}"
+
+#: app/models/order.rb:108
+msgid "Purpose changed '%{from}' for '%{to}'"
+msgstr "Zweck geändert von '%{from}' auf '%{to}'"
+
+#: app/models/order.rb:118
 msgid "User swapped %{from} for %{to}"
-msgstr ""
+msgstr "Benutzer getauscht von %{from} zu %{to}"
 
 #: app/models/authentication_system.rb:-
 msgid "authentication system"
@@ -450,22 +455,134 @@ msgstr "Gestern"
 
 #: app/controllers/backend/acknowledge_controller.rb:71
 msgid "Model must be selected"
-msgstr ""
+msgstr "Modell muss ausgewählt sein"
 
-#: app/controllers/backend/acknowledge_controller.rb:121
+#: app/controllers/backend/acknowledge_controller.rb:118
 msgid "Model couldn't be added"
-msgstr ""
+msgstr "Modell konnte nicht hinzugefügt werden"
 
-#: app/controllers/backend/acknowledge_controller.rb:155
+#: app/controllers/backend/acknowledge_controller.rb:150
 msgid "Added Option:"
-msgstr ""
+msgstr "Zubehör hinzugefügt:"
 
-#: app/controllers/backend/acknowledge_controller.rb:157
+#: app/controllers/backend/acknowledge_controller.rb:152
 msgid "Couldn't create option."
+msgstr "Konnte Zubehör nicht erstellen."
+
+#: app/controllers/backend/acknowledge_controller.rb:185
+msgid "User must be selected"
+msgstr "Benutzer muss ausgewählt sein"
+
+#: app/views/layouts/backend/00-patterns/general.html.erb:39
+#: app/views/backend/dashboard/_tabs.html.erb:3
+#: app/views/backend/acknowledge/_tabs.html.erb:4
+msgid "Acknowledge"
+msgstr "Quittieren"
+
+#: app/views/layouts/backend/00-patterns/general.html.erb:40
+msgid "Herausgeben"
 msgstr ""
 
-#: app/controllers/backend/acknowledge_controller.rb:181
-msgid "User must be selected"
+#: app/views/layouts/backend/00-patterns/general.html.erb:47
+#: app/views/backend/orders/_tabs.html.erb:4
+msgid "Orders"
+msgstr "Bestellungen"
+
+#: app/views/backend/orders/index.html.erb:15
+#: app/views/backend/hand_over/index.html.erb:15
+#: app/views/backend/acknowledge/index.html.erb:18
+msgid "Bestellung suchen"
+msgstr ""
+
+#: app/views/backend/orders/_orders.html.erb:16
+#: app/views/backend/hand_over/_lines.html.erb:12
+#: app/views/backend/acknowledge/show.html.erb:52
+#: app/views/backend/acknowledge/_orders.html.erb:16
+msgid "User"
+msgstr "Benutzer"
+
+#: app/views/backend/orders/_orders.html.erb:19
+#: app/views/backend/acknowledge/_orders.html.erb:19
+msgid "%{n} Pakete"
+msgstr ""
+
+#: app/views/backend/orders/_orders.html.erb:22
+#: app/views/backend/acknowledge/_orders.html.erb:20
+msgid "Überprüfen + Quittieren"
+msgstr ""
+
+#: app/views/backend/hand_over/_lines.html.erb:15
+msgid "%{n} Items"
+msgstr "%{n} Gegenstände"
+
+#: app/views/backend/hand_over/_lines.html.erb:18
+#: app/views/backend/hand_over/_tabs.html.erb:4
+msgid "Hand Over"
+msgstr "Herausgeben"
+
+#: app/views/backend/search/user.html.erb:14
+#: app/views/backend/search/model.html.erb:14
+msgid "No Search Results"
+msgstr "Keine Suchresultate"
+
+#: app/views/backend/search/user.html.erb:42
+#: app/views/backend/search/model.html.erb:42
+#: app/views/backend/acknowledge/restore.html.erb:8
+#: app/views/backend/acknowledge/time_lines.html.erb:104
+#: app/views/backend/acknowledge/change_purpose.html.erb:10
+#: app/views/backend/acknowledge/add_options.html.erb:40
+#: app/views/backend/acknowledge/reject.html.erb:9
+#: app/views/backend/acknowledge/remove_options.html.erb:17
+#: app/views/backend/acknowledge/destroy.html.erb:10
+#: app/views/backend/acknowledge/approve.html.erb:11
+#: app/views/backend/acknowledge/remove_lines.html.erb:19
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: app/views/backend/acknowledge/index.html.erb:2
+msgid "Aktuell sind <em>%{n} neue Bestellungen</em> zu quittieren."
+msgstr ""
+
+#: app/views/backend/acknowledge/restore.html.erb:1
+msgid "Restore to the original order?"
+msgstr "Den Originalzustand der Bestellung wiederherstellen?"
+
+#: app/views/backend/acknowledge/restore.html.erb:4
+#, fuzzy
+msgid "Restore"
+msgstr "Wiederherstellen"
+
+#: app/views/backend/acknowledge/time_lines.html.erb:58
+msgid "Month"
+msgstr "Monat"
+
+#: app/views/backend/acknowledge/time_lines.html.erb:100
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#: app/views/backend/acknowledge/change_purpose.html.erb:1
+#: app/views/backend/acknowledge/show.html.erb:62
+#: app/views/backend/acknowledge/show.html.erb:64
+msgid "Purpose"
+msgstr "Zweck"
+
+#: app/views/backend/acknowledge/change_purpose.html.erb:8
+msgid "Save"
+msgstr "Speichern"
+
+#: app/views/backend/acknowledge/add_options.html.erb:1
+#: app/views/backend/acknowledge/show.html.erb:151
+#: app/views/backend/acknowledge/show.html.erb:190
+#: app/views/backend/acknowledge/show.html.erb:193
+msgid "Add Options"
+msgstr "Zubehör hinzufügen"
+
+#: app/views/backend/acknowledge/add_options.html.erb:37
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: app/views/backend/acknowledge/reject.html.erb:1
+msgid "Sie sind Sie sicher, dass Sie diese Bestellung ablehnen möchten?"
 msgstr ""
 
 #: app/views/backend/acknowledge/reject.html.erb:2
@@ -473,55 +590,149 @@ msgid ""
 "Speichern Sie die Bestellung und kommen Sie später wieder darauf zurück."
 msgstr ""
 
-#: app/views/backend/acknowledge/show.html.erb:16
-msgid "Approve Order"
+#: app/views/backend/acknowledge/reject.html.erb:5
+msgid "Ablehnen"
 msgstr ""
 
+#: app/views/backend/acknowledge/show.html.erb:14
+#: app/views/backend/acknowledge/approve.html.erb:9
+msgid "Save + Approve"
+msgstr "Speichern + Quittieren"
+
+#: app/views/backend/acknowledge/show.html.erb:16
+msgid "Approve Order"
+msgstr "Bestellung akzeptieren"
+
+#: app/views/backend/acknowledge/show.html.erb:18
 #: app/views/backend/acknowledge/show.html.erb:20
 msgid "Reject Order"
-msgstr ""
+msgstr "Bestellung ablehnen"
+
+#: app/views/backend/acknowledge/show.html.erb:22
+#, fuzzy
+msgid "Restore Original"
+msgstr "Bestellung wiederherstellen"
 
 #: app/views/backend/acknowledge/show.html.erb:24
 msgid "Restore Order"
+msgstr "Bestellung wiederherstellen"
+
+#: app/views/backend/acknowledge/show.html.erb:27
+msgid "Bestellung löschen"
 msgstr ""
 
 #: app/views/backend/acknowledge/show.html.erb:29
 msgid "Delete Order"
+msgstr "Bestellung löschen"
+
+#: app/views/backend/acknowledge/show.html.erb:40
+msgid "Bestellung Nr."
 msgstr ""
 
+#: app/views/backend/acknowledge/show.html.erb:44
 #: app/views/backend/acknowledge/show.html.erb:46
 msgid "Reservierender"
 msgstr ""
 
-#: app/views/backend/acknowledge/show.html.erb:64
-msgid "Purpose"
-msgstr ""
+#: app/views/backend/acknowledge/show.html.erb:128
+#, fuzzy
+msgid "Add Line"
+msgstr "Zubehör hinzufügen"
 
 #: app/views/backend/acknowledge/show.html.erb:130
 msgid "Add Model"
-msgstr ""
+msgstr "Modell hinzufügen"
+
+#: app/views/backend/acknowledge/show.html.erb:132
+msgid "Change Timeframe for selection"
+msgstr "Zeitperiode für Ausgewählte ändern"
 
 #: app/views/backend/acknowledge/show.html.erb:136
+#: app/views/backend/acknowledge/show.html.erb:180
 msgid "Time Period"
-msgstr ""
+msgstr "Zeitabschnitt"
+
+#: app/views/backend/acknowledge/show.html.erb:138
+#: app/views/backend/acknowledge/show.html.erb:209
+msgid "Delete selection"
+msgstr "Ausgewählte löschen"
 
 #: app/views/backend/acknowledge/show.html.erb:142
 msgid "Remove Models"
+msgstr "Modelle entfernen"
+
+#: app/views/backend/acknowledge/show.html.erb:147
+#, fuzzy
+msgid "Add Options To Selection"
+msgstr "Zubehör hinzufügen"
+
+#: app/views/backend/acknowledge/show.html.erb:159
+#: app/views/backend/acknowledge/show.html.erb:220
+msgid "Alle Markieren"
 msgstr ""
 
-#: app/views/backend/acknowledge/show.html.erb:151
-#: app/views/backend/acknowledge/show.html.erb:193
-msgid "Add Options"
-msgstr "Zubehör hinzufügen"
+#: app/views/backend/acknowledge/show.html.erb:160
+msgid "Paket"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:161
+msgid "Zeitraum"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:162
+msgid "Aktion"
+msgstr ""
+
+#: app/views/backend/acknowledge/show.html.erb:183
+msgid "Swap"
+msgstr "Tauschen"
 
 #: app/views/backend/acknowledge/show.html.erb:185
 msgid "Swap Model"
+msgstr "Modell tauschen"
+
+#: app/views/backend/acknowledge/show.html.erb:186
+#: app/views/backend/acknowledge/show.html.erb:239
+#: app/views/backend/acknowledge/destroy.html.erb:5
+msgid "Löschen"
 msgstr ""
 
 #: app/views/backend/acknowledge/show.html.erb:188
 msgid "Remove Model"
+msgstr "Modell entfernen"
+
+#: app/views/backend/acknowledge/show.html.erb:213
+#, fuzzy
+msgid "Remove Options"
+msgstr "Zubehör entfernen"
+
+#: app/views/backend/acknowledge/show.html.erb:241
+msgid "Remove Option"
+msgstr "Zubehör entfernen"
+
+#: app/views/backend/acknowledge/remove_options.html.erb:1
+msgid "Wollen sie die folgenden Optionen wirklich löschen?"
 msgstr ""
 
-#: app/views/backend/acknowledge/_orders.html.erb:16
-msgid "User"
+#: app/views/backend/acknowledge/remove_options.html.erb:12
+#: app/views/backend/acknowledge/remove_lines.html.erb:14
+#, fuzzy
+msgid "Delete"
+msgstr "Bestellung löschen"
+
+#: app/views/backend/acknowledge/_additional_infos.html.erb:5
+msgid "Änderungen"
 msgstr ""
+
+#: app/views/backend/acknowledge/_tabs.html.erb:8
+msgid "Order:"
+msgstr "Bestellung: "
+
+#: app/views/backend/acknowledge/destroy.html.erb:1
+#: app/views/backend/acknowledge/remove_lines.html.erb:1
+msgid "Wollen Sie das Objekt wirklich löschen?"
+msgstr ""
+
+#: app/views/backend/acknowledge/approve.html.erb:1
+msgid "Do you want to approve this order?"
+msgstr "Wollen Sie diese Bestellung akzeptieren?"
