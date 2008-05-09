@@ -1,3 +1,9 @@
 Acknowledge			=			Bestellung quittieren
 Purpose				=			Verwendungszweck
+Time window			=			Zeitfenster
+Reserver			=			Reservierender
+Changes				=			Änderungen
+Delete				=			Löschen
+Delete Order		=			Bestellung löschen
+
 
