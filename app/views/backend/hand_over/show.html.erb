@@ -8,23 +8,89 @@
 <% end %>			
 
 
+<div class="toolbar-main boxes">
+	<div class="buttons">
+		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Save + Approve"),
+								 { :controller => 'hand_over', :action => 'approve', :id => @contract.id },
+								 :title => _("Approve contract"),
+								 :class => "positive") %>
+		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Reject contract"),
+								 { :controller => 'hand_over', :action => 'reject', :id => @contract.id },
+								 :title => _("Reject contract")) %>
+
+		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/disk.png") + " " + _("Restore Original"),
+								 { :controller => 'hand_over', :action => 'restore', :id => @contract.id },
+								 :title => _("Restore contract"),
+								 :class => "thickbox") %>
+								 
+		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete Order"),
+			{ :controller => 'hand_over', :action => 'destroy', :id => @contract.id },
+			:title => _("Delete contract"), :class => 'negative') %>
+	</div>
+</div>
+
+
 			
 			<div id="meta" class="boxes">
-				
-				<div id="meta-bestellung">
+				<div id="meta-contract">
 					<h2><%= _("Contract Nr.") + " #{@contract.id}" %></h2>
+					<table cellspacing="0">
+						<tr class="alt-row">
+							<td>
+								<%= _("Reserver") %>
+							</td> 
+							<td>
+								<%= greybox_link_to_page(@contract.user.login,
+									 { :controller => 'users', :action => 'show', :id => @contract.user.id },
+    								 :title => _("User"),
+									 :class => "iconized-notxt edit-user" ) %>
+								<br />
+								<%= _("Dieser Benutzer hat %{n} Bestellungen die noch nicht quittiert sind") % {:n => @contract.user.orders.new_orders.size} %> (TODO link)
+								<br />
+								<%= _("Dieser Benutzer muss %{n} Pakete zurückgeben") % {:n => 999 } %> (TODO link)
+							</td>
+						</tr>
+					</table>	
 				</div>
 				
 			</div>
 
-							
 			<div class="table-overview boxes">
 								
+				<div class="toolbar-second">
+					<h3>Pakete</h3>
+					<div class="buttons">
+						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add Line"),
+						 	{ :controller => 'hand_over', :action => 'add_line', :id => @contract.id },
+							:title => _("Add Model") ) %>						
+
+						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
+						 	{ :controller => 'hand_over', :action => 'time_lines', :id => @contract.id },
+							:onmouseup => "change_href(this, 'contract_line');",
+							:class => "multiple_selection_button",
+							:title => _("Time Period") ) %>						
+
+						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
+							{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id },
+							:onmouseup => "change_href(this, 'contract_line');",
+							:class => "multiple_selection_button negative",
+							:title => _("Remove Models") )
+							# TODO contribute :with in greybox
+							# :with => "'contract_lines=' + checkbox_values('contract_line_check')"
+							%>
+							
+							<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/attach.png") + " " + _("Add Options To Selection"),
+							 	{ :controller => 'hand_over', :action => 'add_options', :id => @contract.id },
+								:onmouseup => "change_href(this, 'contract_line');",
+								:class => "multiple_selection_button",
+								:title => _("Add Options"), :width => 850 ) %>
+					</div>
+				</div>
 				
 					<table cellspacing="0">
 					<!-- start header -->
 						<tr>
-							<th scope="col"><input type="checkbox" id="order_lines" onClick="mark_all(this, 'order_line_check', 'multiple_selection_button');" /> <%= _("Alle Markieren") %></th>
+							<th scope="col"><input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check', 'multiple_selection_button');" /> <%= _("Alle Markieren") %></th>
 							<th scope="col"><%= _("Paket") %></th>
 							<th scope="col"><%= _("Zeitraum") %></th>
 							<th scope="col"><%= _("Barcode") %></th>
@@ -38,7 +104,7 @@
 							<tr class="alt-row">
 								<td>
 									<%= check_box_tag('contract_lines[]', @line.id, false, :class => "contract_line_check", :onchange => "toggle_buttons('contract_line_check', 'multiple_selection_button');" ) %>
-									<%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id}, :with => "'quantity=' + value" )) %>
+									<%= @line.quantity %>
 								</td>
 								<td><a href="modal-ansicht.html?KeepThis=true&TB_iframe=true&height=400&width=600" class="thickbox iconized-notxt edit-package" title="Warnung (Modales Fenster)"><%= @line.item.model.name %></a></td>
 		
@@ -55,7 +121,7 @@
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
 									 	{ :controller => 'hand_over', :action => 'swap_line', :id => @contract.id, :contract_line_id => @line.id },
     									:title => _("Swap Model") ) %>
-									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen"),
+									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
 									 	{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id, :contract_lines => @line.id },
     									:title => _("Remove Model"), :class => 'negative' ) %>
 

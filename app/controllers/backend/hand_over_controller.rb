@@ -18,10 +18,12 @@ class Backend::HandOverController < Backend::BackendController
 
   # generates a new contract and contract_lines for each item
   def show
-    orders = User.find(params[:id]).orders.approved_orders
-    @order_lines = orders.collect {|o| o.order_lines }.flatten.sort
-    @contract = Contract.new # TODO if doesn't exist
-    @order_lines.each do |ol|
+    user = User.find(params[:id])
+    orders = user.orders.approved_orders
+    order_lines = orders.collect {|o| o.order_lines }.flatten.sort
+    
+    @contract = Contract.new(:user => user) # TODO if doesn't exist
+    order_lines.each do |ol|
       ol.quantity.times do
         @contract.contract_lines << ContractLine.new(:item => ol.model.items.first, #TODO selecting temporary item
                                                      :quantity => 1,

@@ -24,7 +24,7 @@
 								 :title => _("Restore Order"),
 								 :class => "thickbox") %>
 								 
-		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Bestellung löschen"),
+		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete Order"),
 			{ :controller => 'acknowledge', :action => 'destroy', :id => @order.id },
 			:title => _("Delete Order"), :class => 'negative') %>
 	</div>
@@ -41,9 +41,9 @@
 					<table cellspacing="0">
 						<tr class="alt-row">
 							<td>
-								<%= greybox_link_to_page(_("Reservierender") + ":",
+								<%= greybox_link_to_page(_("Reserver") + ":",
 									 { :controller => 'acknowledge', :action => 'swap_user', :id => @order.id },
-    								 :title => _("Reservierender"),
+    								 :title => _("Reserver"),
 									 :class => "thickbox iconized-notxt arrow_switch" ) %>
 							</td> 
 							<td>
@@ -54,7 +54,7 @@
 							</td>
 						</tr>
 						<tr class="alt-row">
-							<td>Zeitfenster:</td>
+							<td><%= _("Time window") %>:</td>
 							<td><%= short_date(@order.time_window_min) %> - <%= short_date(@order.time_window_max)%></td>
 						</tr>
 						<tr class="alt-row">
@@ -72,53 +72,6 @@
 				<%= render :partial => 'additional_infos'%>
 				
 			</div>
-
-			<script type="text/javascript">
-				function checkbox_values(boxes){
-					s = new Array();
-					$$('body input.' + boxes).each(
-						function(box){
-							if(box.checked) s.push(box.value);
-						}
-					);
-					return s;
-				}
-				
-				//TODO write as generic
-				function change_href(a, name){
-					var cbv = checkbox_values(name + '_check');
-					
-					// TODO prevent execution without selection
-					//if(cbv.length == 0) {
-						// window.event.stopPropagation();
-					//}else{
-						b = a.href.split('?');
-						a.href = b[0] + '?' + name + 's=' + cbv;
-						decoGreyboxLinks();
-					//}
-				}
-
-				function mark_all(master, boxes, buttons){
-					$$('body input.' + boxes).each(
-						function(box){
-							box.checked = master.checked
-						}
-					);
-					
-					toggle_buttons(boxes, buttons);
-				}
-				
-				function toggle_buttons(boxes, buttons){
-					s = checkbox_values(boxes);
-					
-					$$('body a.' + buttons).each(
-						function(button){
-							button.style.visibility = (s.length > 0 ? 'visible' : 'hidden');
-						}
-					);
-				}
-				
-			</script>
 							
 			<div class="table-overview boxes">
 				
@@ -183,7 +136,7 @@
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
 									 	{ :controller => 'acknowledge', :action => 'swap_line', :id => @order.id, :order_line_id => @line.id },
     									:title => _("Swap Model") ) %>
-									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen"),
+									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
 									 	{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id, :order_lines => @line.id },
     									:title => _("Remove Model"), :class => 'negative' ) %>
 
@@ -236,7 +189,7 @@
 									<td><%= option.name %></td>
 									<td><%= option.remark %></td>
 									<td><div class="buttons">
-									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen"),
+									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
 									 	{ :controller => 'acknowledge', :action => 'remove_options', :id => @order.id, :options => option.id },
     									:title => _("Remove Option"), :class => 'negative' ) %>
 									
