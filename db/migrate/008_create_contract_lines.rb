@@ -4,6 +4,8 @@ class CreateContractLines < ActiveRecord::Migration
       t.belongs_to :contract
       t.belongs_to :item
       t.integer :quantity
+      t.date :start_date
+      t.date :end_date
       
       t.timestamps
     end

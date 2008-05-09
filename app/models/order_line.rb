@@ -20,6 +20,9 @@ class OrderLine < ActiveRecord::Base
     OrderLine.find(:all, :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and id <> ?', model_id, date, date, date, order_line_id])
   end
 
+  def <=>(other)
+    self.start_date <=> other.start_date
+  end
 
   private
   
