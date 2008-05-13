@@ -117,12 +117,12 @@ class Backend::TemporaryController < Backend::BackendController
   def clean_db_and_index
     Item.delete_all
     Model.delete_all
-    Order.destroy_all #destroy_all
+    Order.delete_all #destroy_all
     OrderLine.delete_all
     User.delete_all
     Backup::Order.delete_all #destroy_all
     Backup::OrderLine.delete_all
-    Contract.destroy_all
+    Contract.delete_all
     ContractLine.delete_all
       
     FileUtils.remove_dir(File.dirname(__FILE__) + "/../../../index", true)
