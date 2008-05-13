@@ -3,6 +3,7 @@ class OrderLine < ActiveRecord::Base
   belongs_to :order
   
   has_many :options
+  has_many :contract_lines
   
   before_validation_on_create :set_defaults
   validate :date_sequence
@@ -23,6 +24,12 @@ class OrderLine < ActiveRecord::Base
   def <=>(other)
     self.start_date <=> other.start_date
   end
+
+  def has_all_contract_lines?
+    quantity <= contract_lines.size # TODO == ?
+  end
+
+
 
   private
   

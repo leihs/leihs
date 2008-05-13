@@ -4,6 +4,7 @@ module ApplicationHelper
 
   ######## Buttons #########
   
+  # TODO do we need it?
   def link_button(text, options = {})
     #TODO check options: img, class, href, target 
     options[:href] ||= "#"
