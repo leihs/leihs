@@ -1,15 +1,19 @@
 class Backend::AcknowledgeController < Backend::BackendController
 
   before_filter :load_order, :except => :index
-  before_filter :preload, :only => :index
 
   def index
-#    @new_orders = (@user ? @user.orders.new_orders : Order.new_orders )
-    
-    # OR #
-
     @new_orders = Order.new_orders
-    @orders = @user.orders.new_orders if @user
+
+    if params[:search]
+      params[:search] = "*#{params[:search]}*" # search with partial string
+      @orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::NEW]})
+      #@orders = @new_orders.find_by_contents(params[:search])
+    elsif params[:user_id]
+      @orders = User.find(params[:user_id]).orders.new_orders
+    end
+    
+    render :partial => 'orders' if request.post?
   end
   
   def show
@@ -210,9 +214,5 @@ class Backend::AcknowledgeController < Backend::BackendController
     # TODO manage approved and rejected orders
     #if @order.status_const != Order::NEW 
   end
-
-  def preload
-      @user = User.find(params[:user_id]) if params[:user_id]
-  end 
     
 end

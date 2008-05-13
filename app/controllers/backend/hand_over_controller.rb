@@ -14,6 +14,9 @@ class Backend::HandOverController < Backend::BackendController
                                               WHERE o.status_const = 2
                                               GROUP BY ol.start_date, u.id 
                                               ORDER BY ol.start_date, u.id") 
+                                              
+   # TODO search/filter                                           
+                                            
   end
 
   # generates a new contract and contract_lines for each item

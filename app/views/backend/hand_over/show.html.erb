@@ -34,6 +34,7 @@
 								<br />
 								<%= link_to _("Dieser Benutzer hat %{n} Bestellungen die noch nicht quittiert sind") % {:n => @contract.user.orders.new_orders.size},
 											:controller => 'acknowledge',
+											:action => 'index',
 											:user_id => @contract.user.id %>
 								<br />
 								<%= _("Dieser Benutzer muss %{n} Pakete zurückgeben") % {:n => 999 } %> (TODO link)

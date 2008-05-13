@@ -1,5 +1,8 @@
 class Backend::SearchController < ApplicationController
 
+  # TODO refactor and delete this controller
+
+
   def model
     if request.post?
       @search_result = Model.find_by_contents(params[:text])
@@ -8,14 +11,6 @@ class Backend::SearchController < ApplicationController
   end
 
 
-  def order
-    @orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::NEW]})
-    if request.post?
-      render :partial => 'backend/acknowledge/orders'
-    else
-      render :controller => 'acknowledge', :action => 'index'
-    end
-  end    
 
   def user
     if request.post?
