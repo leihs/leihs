@@ -20,18 +20,45 @@ class Backend::HandOverController < Backend::BackendController
   def show
     user = User.find(params[:id])
     orders = user.orders.approved_orders
-    order_lines = orders.collect {|o| o.order_lines }.flatten.sort
+    order_lines = orders.collect {|o| o.order_lines }.flatten
     
-    @contract = Contract.new(:user => user) # TODO if doesn't exist
+    @contract = user.get_current_contract
+    
     order_lines.each do |ol|
       ol.quantity.times do
-        @contract.contract_lines << ContractLine.new(:item => ol.model.items.first, #TODO selecting temporary item
-                                                     :quantity => 1,
-                                                     :start_date => ol.start_date,
-                                                     :end_date => ol.end_date)
+        
+#        @contract_lines << { :name => ol.model.name, :start_date => ol.start_date, :inventory_code => ''}
+#      end
+#      ol.contract_lines.each do |cl|
+#        @contract_lines << { :name => ol.model.name, :start_date => cl.start_date, :inventory_code => cl.inventory_code}
+
+        @contract.contract_lines << ContractLine.new(:order_line => ol,
+                                            :quantity => 1, # TODO do we need it?
+                                            :start_date => ol.start_date,
+                                            :end_date => ol.end_date) unless ol.has_all_contract_lines?
       end
+      
     end
+    @contract.contract_lines.sort!
+    @contract.save
   end
+  
+
+  def contract
+
+    if request.post?
+      
+      @contract = Contract.find(params[:id])
+      @contract.sign
+      
+      redirect_to :action => 'index'          
+    else
+      render :layout => $modal_layout_path
+    end    
+    
+  end
+  
+  
   
   
 end
