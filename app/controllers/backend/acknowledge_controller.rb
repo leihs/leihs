@@ -4,6 +4,7 @@ class Backend::AcknowledgeController < Backend::BackendController
 
   def index
     @new_orders = Order.new_orders
+    @working_orders = Order.new_orders.select { |o| o.has_backup? }
 
     if params[:search]
       params[:search] = "*#{params[:search]}*" # search with partial string

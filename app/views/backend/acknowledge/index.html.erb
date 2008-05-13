@@ -1,16 +1,18 @@
 <div id="meta" class="boxes">
 	<h2><%= _("Aktuell sind <em>%{n} neue Bestellungen</em> zu quittieren.") % { :n => @new_orders.size } %></h2>
 </div>
-			
-<div id="drafts" class="boxes">
-<!--
-	<div class="buttons">
-		<p style="float: left; line-height: 30px; margin-right: 20px;">Bestellungen in Bearbeitung (bitte vervollständigen):</p>
-		<a href="#"><img src="images/icons/tab_go.png" alt="" />  Muster, Henry (12.01.08, 12:33)</a>
-		<a href="#"><img src="images/icons/tab_go.png" alt="" />  Schwitter, Lukas (12.01.08, 10:21)</a>
+
+<% unless @working_orders.empty? %>		
+	<div id="drafts" class="boxes">
+		<div class="buttons">
+			<p style="float: left; line-height: 30px; margin-right: 20px;"><%= _("Bestellungen in Bearbeitung (bitte vervollständigen)") %>:</p>
+			<% for order in @working_orders %>
+				<%=	link_to(image_tag($layout_public_path + "/images/icons/tab_go.png") + "#{order.user.login} (#{today_or_yesterday_date(order.backup.updated_at)})",
+							{ :controller => 'acknowledge', :action => 'show', :id => order }) %>
+			<% end %>
+		</div>
 	</div>
--->
-</div>
+<% end %>
 			
 <div class="table-overview boxes">
 	
