@@ -29,7 +29,7 @@ class Backend::TemporaryController < Backend::BackendController
       m = Model.new(:name => params[:name] + " " + i.to_s)
       m.save
       5.times do |serial_nr|
-        i = Item.new(:model_id => m.id, :inventory_code => serial_nr)
+        i = Item.new(:model_id => m.id, :inventory_code => Item.get_new_unique_inventory_code)
       
         i.save
       end
@@ -77,7 +77,7 @@ class Backend::TemporaryController < Backend::BackendController
       m = Model.new(:name => st )
       m.save
       2.times do |serial_nr|
-        i = Item.new(:model_id => m.id, :inventory_code => serial_nr)
+        i = Item.new(:model_id => m.id, :inventory_code => Item.get_new_unique_inventory_code )
         i.save
       end
     end
@@ -87,7 +87,7 @@ class Backend::TemporaryController < Backend::BackendController
     m = Model.new(:name => 'Canon EOS D40')
     m.save
     10.times do
-      i = Item.new(:model_id => m.id, :inventory_code => 1234)
+      i = Item.new(:model_id => m.id, :inventory_code => Item.get_new_unique_inventory_code)
       i.save
     end
     m.save

@@ -292,3 +292,11 @@ tr.availability td {
 	background: darkgreen;
 	color: white;
 }
+
+.line_valid_true {
+	background-color: #CCFF66;	
+}
+
+.line_valid_false {
+	background-color: #FFCCCC;	
+}

@@ -7,6 +7,8 @@ class CreateItems < ActiveRecord::Migration
       t.integer :status, :default => Item::AVAILABLE
       t.timestamps
     end
+    
+    add_index :items, :inventory_code, :unique => true
   end
 
   def self.down
