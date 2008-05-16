@@ -1,0 +1,20 @@
+		<table cellspacing="0">
+			<tr>
+				<th scope="col">Model</th>
+				<th scope="col">Items</th>
+				<th scope="col">Orders</th>
+				<th scope="col">Aktion</th>
+			</tr>
+
+		<% for model in @models %>
+			<tr class="alt-row">
+				<td class="row-closed"><%= model.name %></td>
+				<td><%= model.items.size %></td>
+				<td><%= model.order_lines.size %></td>
+				<td></td>
+			</tr>
+		<% end %>
+
+		
+		</table>
+		

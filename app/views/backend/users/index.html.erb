@@ -1,0 +1,23 @@
+		<table cellspacing="0">
+			<tr>
+				<th scope="col">User</th>
+				<th scope="col">Orders</th>
+				<th scope="col">Contracts</th>
+				<th scope="col">Aktion</th>
+			</tr>
+
+		<% for user in @users %>
+			<tr class="alt-row">
+				<td class="row-closed"><%= user.login %></td>
+				<td><%= user.orders.size %> (<%= link_to user.orders.new_orders.size,
+														 :controller => 'acknowledge',
+														 :action => 'index',
+														 :user_id => user.id %>)</td>
+				<td><%= user.contracts.size %></td>
+				<td></td>
+			</tr>
+		<% end %>
+
+		
+		</table>
+		
