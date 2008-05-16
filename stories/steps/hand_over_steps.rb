@@ -46,9 +46,29 @@ steps_for(:hand_over) do
      s.should == quantity.to_i 
   end
 
+###############################################
+
   Then "line $line has a quantity of $quantity for user '$who'" do | line, quantity, who |
     @grouped_lines[line.to_i - 1].quantity.should == quantity.to_i
     @grouped_lines[line.to_i - 1].user_login.should == who
+  end
+
+###############################################
+
+
+  When "$who chooses one line" do | who |
+    line = @grouped_lines.first
+    get "/backend/hand_over/show/#{line.user_id}"
+    response.should render_template('backend/hand_over/show')
+    @contract = assigns(:contract)
+  end
+
+  Then "a new contract is generated" do
+    @contract.nil?.should == false
+  end
+
+  Then "he sees $size contract line$s for all approved order lines" do | size, s |
+    @contract.contract_lines.size.should == size.to_i
   end
 
 ###############################################
