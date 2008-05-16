@@ -1,11 +1,6 @@
-
-<% if @contract.errors.size > 0 %>
-	<ul style="border: 1px solid red; padding: 2px;">
-	<% @contract.errors.full_messages.each do |e| %>		
-		<li><%= e %></li>
-	<% end %>	
-	</ul>
-<% end %>			
+<div id='errors'>
+	<%= render :partial => 'errors' %>
+</div>
 
 
 <div class="toolbar-main boxes">
@@ -94,6 +89,7 @@
 
 					<!-- start iterator -->
 					<% for @line in @contract.contract_lines %>
+					<% #TODO partial %>
 						<div id="contract_line_<%= @line.id %>">
 							<tr class="alt-row">
 								<td>
@@ -108,9 +104,9 @@
 										:class => "thickbox iconized-notxt date-edit" ,
 										:title => _("Time Period") ) %>
 								</td>
-								<td>
+								<td id="inventory_code_<%= @line.id %>" class="line_valid_<%= @line.complete? %>">
 									<% @item = @line.item %>
-									<%= text_field(:item, :inventory_code, :size => 10 ) %>
+									<%= text_field(:item, :inventory_code, :id =>"line_item_inventory_code_#{@line.id}", :size => 10, :onchange => remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id}, :with => "'code=' + value" )) %>
 								</td>
 								<td><div class="buttons">
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),

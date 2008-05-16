@@ -46,22 +46,40 @@ class Backend::HandOverController < Backend::BackendController
     @contract.save
   end
   
-
+  # Creating the definitive contract
   def contract
-
     if request.post?
-      
       @contract = Contract.find(params[:id])
       @contract.sign
-      
       redirect_to :action => 'index'          
     else
       render :layout => $modal_layout_path
     end    
     
   end
-  
-  
+
+  # Changes the line according to the inserted inventory code
+  def change_line
+    if request.post?
+      @contract_line = ContractLine.find(params[:contract_line_id])
+      @contract = @contract_line.contract
+      #line = @contract.contract_lines.find(params[:contract_line_id])
+      required_item_inventory_code = params[:code]
+      @contract_line.item = Item.find(:first, :conditions => { :inventory_code => required_item_inventory_code})
+      if @contract_line.save
+        #change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
+        #log_change(change, user_id)
+      else
+        @contract_line.errors.each_full do |msg|
+          @contract.errors.add_to_base msg
+        end
+      end
+      
+#     TODO refactor in the Contract model
+#      @order_line, @change = @order.update_line(@order_line.id, required_quantity, session[:user_id])
+#      @contract.save 
+    end
+  end  
   
   
 end

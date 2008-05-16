@@ -124,6 +124,7 @@ class Order < ActiveRecord::Base
   end  
   
   #TODO: If you want to copy this method somewhere else, think about creating a acts_as_....
+  #TODO or create an Observer
   def log_change(text, user_id)
     histories << History.new(:text => text, :user_id => user_id, :type_const => History::CHANGE)
   end

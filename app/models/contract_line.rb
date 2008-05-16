@@ -3,11 +3,22 @@ class ContractLine < ActiveRecord::Base
   belongs_to :contract
   belongs_to :order_line
   
-  
-  # TODO validation: item.model == order_line.model
+  validate :item_model_matching
   
   def <=>(other)
     self.start_date <=> other.start_date
   end
+
+  # custom valid? method
+  def complete?
+    self.valid? and !self.item.nil?
+  end
+
+  private
+  
+  def item_model_matching
+    errors.add_to_base(_("The item doesn't match with the reserved model")) if !item.nil? and item.model != order_line.model
+  end
+  
   
 end

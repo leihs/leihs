@@ -36,7 +36,7 @@ module Factory
 
   def self.create_item(attributes = {})
     default_attributes = {
-      :inventory_code => "1"
+      :inventory_code => Item.get_new_unique_inventory_code
       
     }
     
