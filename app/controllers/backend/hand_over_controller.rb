@@ -80,6 +80,35 @@ class Backend::HandOverController < Backend::BackendController
 #      @contract.save 
     end
   end  
+
+  
+  # TODO implement
+  def add_line
+    if request.post?
+#        @contract.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
+        flash[:notice] = _("Model couldn't be added") unless @contract.save        
+        redirect_to :controller=> 'hand_over', :action => 'show', :id => @contract.user.id
+    else
+      redirect_to :controller => 'search', 
+                  :action => 'model',
+                  :id => params[:id],
+                  :source_controller => 'hand_over',
+                  :source_action => 'add_line'
+    end
+  end
+
+  
+  # TODO implement
+  def remove_lines
+     if request.post?
+#        params[:contract_lines].each {|cl| @contract.remove_line(cl, session[:user_id]) }
+        redirect_to :controller=> 'hand_over', :action => 'show', :id => @contract.user.id
+    else
+      @contract_lines = ContractLine.find(params[:contract_lines].split(','))
+      render :layout => $modal_layout_path
+    end   
+  end  
+  
   
   
 end

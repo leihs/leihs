@@ -124,9 +124,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   def add_line
     if request.post?
         @order.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
-        if not @order.save
-          flash[:notice] = _("Model couldn't be added")
-        end
+        flash[:notice] = _("Model couldn't be added") unless @order.save        
         redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
     else
       redirect_to :controller => 'search', 

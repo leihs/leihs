@@ -1,0 +1,7 @@
+	<% if @contract.errors.size > 0 %>
+		<ul style="border: 1px solid red; padding: 2px;">
+		<% @contract.errors.full_messages.each do |e| %>		
+			<li><%= e %></li>
+		<% end %>	
+		</ul>
+	<% end %>			

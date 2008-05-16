@@ -1,0 +1,20 @@
+	<h2><%= _("Wollen Sie das Objekt wirklich löschen?") %></h2>
+	<br />
+	
+	<% @contract_lines.each do	|cl| %>
+		<%= cl.order_line.model.name %>
+		<br />
+	<% end %>
+
+	<br />		
+	<div class="buttons">
+
+
+		<%=	link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
+			 { :controller => 'acknowledge', :action => 'remove_lines', :id => params[:id], :contract_lines => @contract_lines },
+			 :class => 'negative', :method => 'post', :target=> '_top') %>
+			
+					 
+		<%=	cancel_popup_button(_("Cancel") ) %>
+	</div>	
+	
