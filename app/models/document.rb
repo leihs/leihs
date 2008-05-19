@@ -1,11 +1,19 @@
 # Superclass for Order and Contract
 class Document < ActiveRecord::Base
-
   self.abstract_class = true
   
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
-  
+
+  def add_line(quantity, model, user_id, start_date = nil, end_date = nil)
+    c = "#{self.class}Line".constantize
+    o = c.new(:quantity => quantity,
+                      :model_id => model.to_i,
+                      :start_date => start_date,
+                      :end_date => end_date)
+    log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id)
+    lines << o
+  end
 
   def swap_line(line_id, model_id, user_id)
     line = lines.find(line_id.to_i)

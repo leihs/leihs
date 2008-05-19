@@ -10,6 +10,22 @@ class Backend::BackendController < ApplicationController
   layout $general_layout_path
  
 
+   # add a new line
+   def generic_add_line(document, render_id)
+    if request.post?
+      document.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
+      flash[:notice] = _("Model couldn't be added") unless document.save        
+      redirect_to :action => 'show', :id => render_id        
+    else
+      redirect_to :controller => 'search', 
+                  :action => 'model',
+                  :id => params[:id],
+                  :source_controller => params[:controller],
+                  :source_action => params[:action]
+    end
+  end
+
+
   # swap model for a given line
   def generic_swap_model_line(document, render_id)
     if request.post?
