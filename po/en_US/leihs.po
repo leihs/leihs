@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2008-05-07 12:21+0200\n"
+"POT-Creation-Date: 2008-05-16 12:37+0200\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,6 +46,22 @@ msgstr ""
 
 #: app/models/user.rb:-
 msgid "User|Updated at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "contract"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Contract|User"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Contract|Created at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Contract|Updated at"
 msgstr ""
 
 #: app/models/accessory.rb:-
@@ -116,22 +132,6 @@ msgstr ""
 msgid "Option|Updated at"
 msgstr ""
 
-#: app/models/contract.rb:-
-msgid "contract"
-msgstr ""
-
-#: app/models/contract.rb:-
-msgid "Contract|User"
-msgstr ""
-
-#: app/models/contract.rb:-
-msgid "Contract|Created at"
-msgstr ""
-
-#: app/models/contract.rb:-
-msgid "Contract|Updated at"
-msgstr ""
-
 #: app/models/order_line.rb:-
 msgid "order line"
 msgstr ""
@@ -164,7 +164,7 @@ msgstr ""
 msgid "OrderLine|Updated at"
 msgstr ""
 
-#: app/models/order_line.rb:33
+#: app/models/order_line.rb:43
 msgid "Start Date must be before End Date"
 msgstr ""
 
@@ -424,6 +424,10 @@ msgstr ""
 msgid "ContractLine|Updated at"
 msgstr ""
 
+#: app/models/contract_line.rb:20
+msgid "The item doesn't match with the reserved model"
+msgstr ""
+
 #: app/models/model.rb:-
 msgid "model"
 msgstr ""
@@ -452,23 +456,23 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: app/controllers/backend/acknowledge_controller.rb:71
+#: app/controllers/backend/acknowledge_controller.rb:81
 msgid "Model must be selected"
 msgstr ""
 
-#: app/controllers/backend/acknowledge_controller.rb:118
+#: app/controllers/backend/acknowledge_controller.rb:128
 msgid "Model couldn't be added"
 msgstr ""
 
-#: app/controllers/backend/acknowledge_controller.rb:150
+#: app/controllers/backend/acknowledge_controller.rb:160
 msgid "Added Option:"
 msgstr ""
 
-#: app/controllers/backend/acknowledge_controller.rb:152
+#: app/controllers/backend/acknowledge_controller.rb:162
 msgid "Couldn't create option."
 msgstr ""
 
-#: app/controllers/backend/acknowledge_controller.rb:185
+#: app/controllers/backend/acknowledge_controller.rb:195
 msgid "User must be selected"
 msgstr ""
 
@@ -487,14 +491,15 @@ msgstr ""
 msgid "Orders"
 msgstr ""
 
-#: app/views/backend/orders/index.html.erb:15
-#: app/views/backend/hand_over/index.html.erb:15
-#: app/views/backend/acknowledge/index.html.erb:18
+#: app/views/backend/orders/index.html.erb:5
+#: app/views/backend/hand_over/index.html.erb:5
+#: app/views/backend/acknowledge/index.html.erb:20
 msgid "Bestellung suchen"
 msgstr ""
 
 #: app/views/backend/orders/_orders.html.erb:16
 #: app/views/backend/hand_over/_lines.html.erb:12
+#: app/views/backend/hand_over/show.html.erb:27
 #: app/views/backend/acknowledge/show.html.erb:52
 #: app/views/backend/acknowledge/_orders.html.erb:16
 msgid "User"
@@ -515,15 +520,129 @@ msgid "%{n} Items"
 msgstr ""
 
 #: app/views/backend/hand_over/_lines.html.erb:18
+#: app/views/backend/hand_over/show.html.erb:67
+#: app/views/backend/hand_over/show.html.erb:71
 #: app/views/backend/hand_over/_tabs.html.erb:4
 msgid "Hand Over"
 msgstr ""
 
-#: app/views/backend/search/user.html.erb:14
-#: app/views/backend/search/model.html.erb:14
-msgid "No Search Results"
+#: app/views/backend/hand_over/show.html.erb:8
+msgid "Close"
 msgstr ""
 
+#: app/views/backend/hand_over/show.html.erb:18
+msgid "Contract Nr."
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:22
+#: app/views/backend/acknowledge/show.html.erb:44
+#: app/views/backend/acknowledge/show.html.erb:46
+msgid "Reserver"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:30
+msgid "Dieser Benutzer hat %{n} Bestellungen die noch nicht quittiert sind"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:35
+msgid "Dieser Benutzer muss %{n} Pakete zurückgeben"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:48
+#: app/views/backend/acknowledge/show.html.erb:81
+msgid "Add Line"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:50
+#: app/views/backend/acknowledge/show.html.erb:83
+msgid "Add Model"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:52
+#: app/views/backend/acknowledge/show.html.erb:85
+msgid "Change Timeframe for selection"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:56
+#: app/views/backend/hand_over/show.html.erb:105
+#: app/views/backend/acknowledge/show.html.erb:89
+#: app/views/backend/acknowledge/show.html.erb:133
+msgid "Time Period"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:58
+#: app/views/backend/acknowledge/show.html.erb:91
+#: app/views/backend/acknowledge/show.html.erb:162
+msgid "Delete selection"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:62
+#: app/views/backend/acknowledge/show.html.erb:95
+msgid "Remove Models"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:79
+#: app/views/backend/acknowledge/show.html.erb:112
+#: app/views/backend/acknowledge/show.html.erb:173
+msgid "Alle Markieren"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:81
+msgid "Alle von Heute"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:83
+#: app/views/backend/acknowledge/show.html.erb:113
+msgid "Paket"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:84
+#: app/views/backend/acknowledge/show.html.erb:114
+msgid "Zeitraum"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:85
+msgid "Barcode"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:86
+#: app/views/backend/acknowledge/show.html.erb:115
+msgid "Aktion"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:112
+#: app/views/backend/acknowledge/show.html.erb:136
+msgid "Swap"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:114
+#: app/views/backend/acknowledge/show.html.erb:138
+msgid "Swap Model"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:115
+#: app/views/backend/acknowledge/show.html.erb:139
+#: app/views/backend/acknowledge/show.html.erb:192
+#: app/views/backend/acknowledge/remove_options.html.erb:12
+#: app/views/backend/acknowledge/remove_lines.html.erb:14
+msgid "Delete"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:117
+#: app/views/backend/acknowledge/show.html.erb:141
+msgid "Remove Model"
+msgstr ""
+
+#: app/views/backend/hand_over/contract.html.erb:1
+msgid "Print Contract"
+msgstr ""
+
+#: app/views/backend/hand_over/contract.html.erb:5
+#: app/views/backend/acknowledge/time_lines.html.erb:100
+msgid "Confirm"
+msgstr ""
+
+#: app/views/backend/hand_over/contract.html.erb:9
 #: app/views/backend/search/user.html.erb:42
 #: app/views/backend/search/model.html.erb:42
 #: app/views/backend/acknowledge/restore.html.erb:8
@@ -538,8 +657,17 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: app/views/backend/search/user.html.erb:14
+#: app/views/backend/search/model.html.erb:14
+msgid "No Search Results"
+msgstr ""
+
 #: app/views/backend/acknowledge/index.html.erb:2
 msgid "Aktuell sind <em>%{n} neue Bestellungen</em> zu quittieren."
+msgstr ""
+
+#: app/views/backend/acknowledge/index.html.erb:8
+msgid "Bestellungen in Bearbeitung (bitte vervollständigen)"
 msgstr ""
 
 #: app/views/backend/acknowledge/restore.html.erb:1
@@ -554,10 +682,6 @@ msgstr ""
 msgid "Month"
 msgstr ""
 
-#: app/views/backend/acknowledge/time_lines.html.erb:100
-msgid "Confirm"
-msgstr ""
-
 #: app/views/backend/acknowledge/change_purpose.html.erb:1
 #: app/views/backend/acknowledge/show.html.erb:62
 #: app/views/backend/acknowledge/show.html.erb:64
@@ -569,9 +693,9 @@ msgid "Save"
 msgstr ""
 
 #: app/views/backend/acknowledge/add_options.html.erb:1
-#: app/views/backend/acknowledge/show.html.erb:151
-#: app/views/backend/acknowledge/show.html.erb:190
-#: app/views/backend/acknowledge/show.html.erb:193
+#: app/views/backend/acknowledge/show.html.erb:104
+#: app/views/backend/acknowledge/show.html.erb:143
+#: app/views/backend/acknowledge/show.html.erb:146
 msgid "Add Options"
 msgstr ""
 
@@ -615,9 +739,6 @@ msgid "Restore Order"
 msgstr ""
 
 #: app/views/backend/acknowledge/show.html.erb:27
-msgid "Bestellung löschen"
-msgstr ""
-
 #: app/views/backend/acknowledge/show.html.erb:29
 msgid "Delete Order"
 msgstr ""
@@ -626,81 +747,19 @@ msgstr ""
 msgid "Bestellung Nr."
 msgstr ""
 
-#: app/views/backend/acknowledge/show.html.erb:44
-#: app/views/backend/acknowledge/show.html.erb:46
-msgid "Reservierender"
+#: app/views/backend/acknowledge/show.html.erb:57
+msgid "Time window"
 msgstr ""
 
-#: app/views/backend/acknowledge/show.html.erb:128
-msgid "Add Line"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:130
-msgid "Add Model"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:132
-msgid "Change Timeframe for selection"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:136
-#: app/views/backend/acknowledge/show.html.erb:180
-msgid "Time Period"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:138
-#: app/views/backend/acknowledge/show.html.erb:209
-msgid "Delete selection"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:142
-msgid "Remove Models"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:147
+#: app/views/backend/acknowledge/show.html.erb:100
 msgid "Add Options To Selection"
 msgstr ""
 
-#: app/views/backend/acknowledge/show.html.erb:159
-#: app/views/backend/acknowledge/show.html.erb:220
-msgid "Alle Markieren"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:160
-msgid "Paket"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:161
-msgid "Zeitraum"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:162
-msgid "Aktion"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:183
-msgid "Swap"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:185
-msgid "Swap Model"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:186
-#: app/views/backend/acknowledge/show.html.erb:239
-#: app/views/backend/acknowledge/destroy.html.erb:5
-msgid "Löschen"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:188
-msgid "Remove Model"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:213
+#: app/views/backend/acknowledge/show.html.erb:166
 msgid "Remove Options"
 msgstr ""
 
-#: app/views/backend/acknowledge/show.html.erb:241
+#: app/views/backend/acknowledge/show.html.erb:194
 msgid "Remove Option"
 msgstr ""
 
@@ -708,13 +767,8 @@ msgstr ""
 msgid "Wollen sie die folgenden Optionen wirklich löschen?"
 msgstr ""
 
-#: app/views/backend/acknowledge/remove_options.html.erb:12
-#: app/views/backend/acknowledge/remove_lines.html.erb:14
-msgid "Delete"
-msgstr ""
-
 #: app/views/backend/acknowledge/_additional_infos.html.erb:5
-msgid "Änderungen"
+msgid "Changes"
 msgstr ""
 
 #: app/views/backend/acknowledge/_tabs.html.erb:8
@@ -724,6 +778,10 @@ msgstr ""
 #: app/views/backend/acknowledge/destroy.html.erb:1
 #: app/views/backend/acknowledge/remove_lines.html.erb:1
 msgid "Wollen Sie das Objekt wirklich löschen?"
+msgstr ""
+
+#: app/views/backend/acknowledge/destroy.html.erb:5
+msgid "Löschen"
 msgstr ""
 
 #: app/views/backend/acknowledge/approve.html.erb:1
