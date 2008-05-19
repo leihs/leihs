@@ -1,6 +1,6 @@
 class Backend::HandOverController < Backend::BackendController
 
-  before_filter :load_contract, :only => [:swap_model_line, :time_lines, :remove_lines]
+  before_filter :load_contract, :only => [:add_line, :swap_model_line, :time_lines, :remove_lines]
 
   def index
 #      orders = Order.approved_orders
@@ -86,21 +86,9 @@ class Backend::HandOverController < Backend::BackendController
   end  
 
   
-  # TODO implement
   def add_line
-    if request.post?
-#        @contract.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
-        flash[:notice] = _("Model couldn't be added") unless @contract.save        
-        redirect_to :action => 'show', :id => @contract.user.id
-    else
-      redirect_to :controller => 'search', 
-                  :action => 'model',
-                  :id => params[:id],
-                  :source_controller => 'hand_over',
-                  :source_action => 'add_line'
-    end
+    generic_add_line(@contract, @contract.user.id)
   end
-
 
   def swap_model_line
     generic_swap_model_line(@contract, @contract.user.id)

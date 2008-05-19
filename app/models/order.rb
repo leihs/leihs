@@ -58,15 +58,6 @@ class Order < Document
     end
   end
 
-
-  def add_line(quantity, model, user_id, start_date = nil, end_date = nil)
-    o = OrderLine.new(:quantity => quantity,
-                      :model_id => model.to_i,
-                      :start_date => start_date,
-                      :end_date => end_date)
-    log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id)
-    order_lines << o
-  end
   
   def update_line(line_id, required_quantity, user_id)
     line = order_lines.find(line_id)

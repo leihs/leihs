@@ -67,6 +67,10 @@ class Backend::AcknowledgeController < Backend::BackendController
     end    
   end
 
+  def add_line
+    generic_add_line(@order, @order.id)
+  end
+
   def swap_model_line
     generic_swap_model_line(@order, @order.id)
   end
@@ -84,26 +88,9 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
   end
 
-
   def time_lines
     generic_time_lines(@order, @order.id)
   end    
-
-
-  def add_line
-    if request.post?
-        @order.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
-        flash[:notice] = _("Model couldn't be added") unless @order.save        
-        redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
-    else
-      redirect_to :controller => 'search', 
-                  :action => 'model',
-                  :id => params[:id],
-                  :source_controller => 'acknowledge',
-                  :source_action => 'add_line'
-    end
-  end
-
   
   def remove_lines
     generic_remove_lines(@order, @order.id)
