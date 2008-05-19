@@ -1,7 +1,7 @@
 module Backend::SearchHelper
   
   ACTION_DICTIONARY = { "add_line" => ["Add", "package_add"],
-                        "swap_line" => ["Swap", "arrow_switch"],
+                        "swap_model_line" => ["Swap", "arrow_switch"],
                         "swap_user" => ["Swap", "arrow_switch"]}
   
   def get_action_text(action)

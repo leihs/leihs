@@ -2,24 +2,24 @@
     	d1 = Array.new
     	d2 = Array.new
 	  
-	  @order_lines.each do	|ol|
-	      d1 << ol.start_date
-    	  d2 << ol.end_date
-	%>
-		<%= "Quantity: #{ol.quantity}" %>
+	@lines.each do	|l|
+	      d1 << l.start_date
+    	  d2 << l.end_date
+								%>
+		<%= "Quantity: #{l.quantity}" %>
 		<br />			
-		<%= "Model: #{ol.model.name}" %>
+		<%= "Model: #{l.model.name}" %>
 		<br />
-		<%= "#{short_date ol.start_date} - #{short_date ol.end_date}" %>
+		<%= "#{short_date l.start_date} - #{short_date l.end_date}" %>
 		<br />
 		<br />
 	<% end %>
 
 	<script type="text/javascript">
 		function changeDate(type, y, m, d){
-			document.getElementById('order_line_' + type + '_date_1i').value = y;
-			document.getElementById('order_line_' + type + '_date_2i').value = m;
-			document.getElementById('order_line_' + type + '_date_3i').value = d;
+			document.getElementById('line_' + type + '_date_1i').value = y;
+			document.getElementById('line_' + type + '_date_2i').value = m;
+			document.getElementById('line_' + type + '_date_3i').value = d;
 			
 			// TODO 
 			//Element.removeClassName('20080911', 'selected_date');
@@ -45,13 +45,13 @@
 	</style>
 
 
-	<% form_tag( { :order_lines => @order_lines }, :name => "f", :target=> '_top' ) do %>
-		Start: <%= date_select("order_line", "start_date", :default => d1.min, :order => [:day, :month, :year]) %>
+	<% form_tag( { :lines => @lines }, :name => "f", :target=> '_top' ) do %>
+		Start: <%= date_select("line", "start_date", :default => d1.min, :order => [:day, :month, :year]) %>
 		
-		End: <%= date_select("order_line", "end_date", :default => d2.max, :order => [:day, :month, :year]) %>
+		End: <%= date_select("line", "end_date", :default => d2.max, :order => [:day, :month, :year]) %>
 
 	<br />		
-	<% if @order_lines.length == 1 %>
+	<% if @lines.length == 1 %>
 	<div class="availability_overview">
 	<table>
 		<tr class="availability">
@@ -61,9 +61,9 @@
 			<% end %>
 		</tr>
 		<% 
-			ol = @order_lines.first
+			l = @lines.first
 			current_date = Date.today
-			availability = ol.model.availabilities(current_date.beginning_of_month, (current_date + 6.month).end_of_month, ol.id, current_date.beginning_of_month)
+			availability = l.model.availabilities(current_date.beginning_of_month, (current_date + 6.month).end_of_month, l.id, current_date.beginning_of_month)
 			last_quantity = -1
 			availability.each do |a| 
 		%>

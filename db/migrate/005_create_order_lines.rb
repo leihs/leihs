@@ -6,6 +6,7 @@ class CreateOrderLines < ActiveRecord::Migration
       t.integer :quantity
       t.date :start_date #, :default => DateTime.now  #Date.today #"CURDATE()"
       t.date :end_date #, :default => DateTime.now  #Date.today #"CURDATE()"
+      t.boolean :contract_generated, :default => false
 
       t.timestamps
     end
@@ -17,6 +18,7 @@ class CreateOrderLines < ActiveRecord::Migration
       t.integer :quantity
       t.date :start_date #, :default => DateTime.now  #Date.today #"CURDATE()"
       t.date :end_date #, :default => DateTime.now  #Date.today #"CURDATE()"
+      t.boolean :contract_generated
 
       t.timestamps
     end

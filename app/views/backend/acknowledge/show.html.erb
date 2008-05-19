@@ -1,3 +1,6 @@
+Valid? <%= @order.approvable? %>
+
+
 <% if @order.errors.size > 0 %>
 	<ul style="border: 1px solid red; padding: 2px;">
 	<% @order.errors.full_messages.each do |e| %>		
@@ -84,13 +87,13 @@
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
 						 	{ :controller => 'acknowledge', :action => 'time_lines', :id => @order.id },
-							:onmouseup => "change_href(this, 'order_line');",
+							:onmouseup => "change_href(this, 'order_line', 'line');",
 							:class => "multiple_selection_button",
 							:title => _("Time Period") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
 							{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id },
-							:onmouseup => "change_href(this, 'order_line');",
+							:onmouseup => "change_href(this, 'order_line', 'line');",
 							:class => "multiple_selection_button negative",
 							:title => _("Remove Models") )
 							# TODO contribute :with in greybox
@@ -131,17 +134,18 @@
     								 :title => _("Model"),
 									 :class => "thickbox iconized-notxt edit-package" ) %>
 								</td>
-								<td><%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
-								 		{ :controller => 'acknowledge', :action => 'time_lines', :id => @order.id, :order_lines => @line.id },
+								<td class="line_valid_<%= @line.available? %>">
+									<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
+								 		{ :controller => 'acknowledge', :action => 'time_lines', :id => @order.id, :lines => @line.id },
 										:class => "thickbox iconized-notxt date-edit" ,
 										:title => _("Time Period") ) %>
 								</td>
 								<td><div class="buttons">
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
-									 	{ :controller => 'acknowledge', :action => 'swap_line', :id => @order.id, :order_line_id => @line.id },
+									 	{ :controller => 'acknowledge', :action => 'swap_model_line', :id => @order.id, :line_id => @line.id },
     									:title => _("Swap Model") ) %>
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
-									 	{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id, :order_lines => @line.id },
+									 	{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id, :lines => @line.id },
     									:title => _("Remove Model"), :class => 'negative' ) %>
 
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/attach.png") + " " + _("Add Options"),
