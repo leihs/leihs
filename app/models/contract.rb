@@ -1,4 +1,4 @@
-class Contract < ActiveRecord::Base
+class Contract < Document
 
   belongs_to :user
   has_many :contract_lines, :dependent => :destroy
@@ -6,8 +6,12 @@ class Contract < ActiveRecord::Base
   NEW = 1
   SIGNED = 2    
 
-  def sign
+  # alias
+  def lines
+    contract_lines
+  end
 
+  def sign
       contract_lines.each do |cl|
         cl.destroy if cl.item.nil?
       end
@@ -18,9 +22,11 @@ class Contract < ActiveRecord::Base
   end
 
 
-  # TODO pdf
-  def to_pdf
-    
+  # TODO implement
+  def to_pdf    
   end
+
+
+
 
 end

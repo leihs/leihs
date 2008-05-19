@@ -51,13 +51,13 @@
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
 						 	{ :controller => 'hand_over', :action => 'time_lines', :id => @contract.id },
-							:onmouseup => "change_href(this, 'contract_line');",
+							:onmouseup => "change_href(this, 'contract_line', 'line');",
 							:class => "multiple_selection_button",
 							:title => _("Time Period") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
 							{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id },
-							:onmouseup => "change_href(this, 'contract_line');",
+							:onmouseup => "change_href(this, 'contract_line', 'line');",
 							:class => "multiple_selection_button negative",
 							:title => _("Remove Models") )
 							# TODO contribute :with in greybox
@@ -97,13 +97,14 @@
 									<%= @line.quantity %>
 								</td>
 								<td>
-									<%= greybox_link_to_page(@line.order_line.model.name,
-									 { :controller => 'models', :action => 'show', :id => @line.order_line.model.id },
+									<%= greybox_link_to_page(@line.model.name,
+									 { :controller => 'models', :action => 'show', :id => @line.model.id },
     								 :title => _("Model"),
 									 :class => "thickbox iconized-notxt edit-package" ) %>
 								</td>
-								<td><%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
-								 		{ :controller => 'hand_over', :action => 'time_lines', :id => @contract.id, :contract_lines => @line.id },
+								<td class="line_valid_<%= @line.available? %>">
+									<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
+								 		{ :controller => 'hand_over', :action => 'time_lines', :id => @contract.id, :lines => @line.id },
 										:class => "thickbox iconized-notxt date-edit" ,
 										:title => _("Time Period") ) %>
 								</td>
@@ -113,10 +114,10 @@
 								</td>
 								<td><div class="buttons">
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
-									 	{ :controller => 'hand_over', :action => 'swap_line', :id => @contract.id, :contract_line_id => @line.id },
+										{ :controller => 'hand_over', :action => 'swap_model_line', :id => @contract.id, :line_id => @line.id },
     									:title => _("Swap Model") ) %>
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
-									 	{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id, :contract_lines => @line.id },
+									 	{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id, :lines => @line.id },
     									:title => _("Remove Model"), :class => 'negative' ) %>
 
 									</div></td>

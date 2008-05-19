@@ -109,20 +109,20 @@ steps_for(:acknowledge) do
 
   When "$who chooses 'swap' on order line '$model'" do |who, model|
     line = find_line(model)
-    get "/backend/acknowledge/swap_line", :id => @order.id, :order_line_id => line.id
+    get "/backend/acknowledge/swap_model_line", :id => @order.id, :line_id => line.id
     @order_line_id = line.id
     @response = response    
   end
   
   When "$who searches for '$model'" do |who, model|
-    post "/backend/search/model", :text => model, :source_controller => "acknowledge", :source_action => "swap_line"
+    post "/backend/search/model", :text => model, :source_controller => "acknowledge", :source_action => "swap_model_line"
     @search_result = assigns(:search_result)
     @search_result.should_not be_nil
   end
   
   When "$who selects '$model'" do |who, model|
     model_id = Model.find(:first, :conditions => { :name => model}).id
-    post "/backend/acknowledge/swap_line", :id => @order.id, :order_line_id => @order_line_id, :model_id => model_id
+    post "/backend/acknowledge/swap_model_line", :id => @order.id, :line_id => @order_line_id, :model_id => model_id
     @order = assigns(:order)
     @order.should_not be_nil
   end
@@ -170,7 +170,7 @@ steps_for(:acknowledge) do
   end
   
   Then "Swap Item screen opens" do 
-    @response.redirect_url.should include("/backend/search/model/#{@order.id}?order_line_id=#{@order_line_id}")
+    @response.redirect_url.should include("/backend/search/model/#{@order.id}?line_id=#{@order_line_id}")
   end
   
   Then "a choice of $size item appears" do |size|

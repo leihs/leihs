@@ -23,16 +23,8 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
   
   def approve
-    if request.post?
-      @order.status_const = Order::APPROVED
-      @order.backup = nil
-      @order.save
-      if @order.has_changes?
-        OrderMailer.deliver_changed(@order, params[:comment])
-      else
-        OrderMailer.deliver_approved(@order, params[:comment])
-      end
-
+    if request.post? and @order.approve(params[:comment])
+      
       remove_order_from_session
       init #TODO redundant?
       redirect_to :action => 'index'
@@ -75,24 +67,11 @@ class Backend::AcknowledgeController < Backend::BackendController
     end    
   end
 
-  def swap_line
-    if request.post?
-      if params[:model_id].nil?
-        flash[:notice] = _("Model must be selected")
-      else
-        @order.swap_line(params[:order_line_id], params[:model_id], session[:user_id])
-      end  
-      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id        
-    else
-      redirect_to :controller => 'search', 
-                  :action => 'model',
-                  :id => params[:id],
-                  :order_line_id => params[:order_line_id],
-                  :source_controller => 'acknowledge',
-                  :source_action => 'swap_line'
-    end
+  def swap_model_line
+    generic_swap_model_line(@order, @order.id)
   end
   
+  # change quantity for a given line
   def change_line
     if request.post?
       @order_line = OrderLine.find(params[:order_line_id])
@@ -105,21 +84,11 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
   end
 
+
   def time_lines
-     if request.post?
-      begin
-        start_date = Date.new(params[:order_line]['start_date(1i)'].to_i, params[:order_line]['start_date(2i)'].to_i, params[:order_line]['start_date(3i)'].to_i)
-        end_date = Date.new(params[:order_line]['end_date(1i)'].to_i, params[:order_line]['end_date(2i)'].to_i, params[:order_line]['end_date(3i)'].to_i)
-        params[:order_lines].each {|ol| @order.update_time_line(ol, start_date, end_date, session[:user_id]) }
-      rescue
-        flash[:notice] = "Invalid date" #TODO 
-      end 
-        render :controller=> 'acknowledge', :action => 'show', :id => @order.id
-    else
-      @order_lines = OrderLine.find(params[:order_lines].split(','))
-      render :layout => $modal_layout_path
-    end   
-  end
+    generic_time_lines(@order, @order.id)
+  end    
+
 
   def add_line
     if request.post?
@@ -137,13 +106,7 @@ class Backend::AcknowledgeController < Backend::BackendController
 
   
   def remove_lines
-     if request.post?
-        params[:order_lines].each {|ol| @order.remove_line(ol, session[:user_id]) }
-        redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
-    else
-      @order_lines = OrderLine.find(params[:order_lines].split(','))
-      render :layout => $modal_layout_path
-    end   
+    generic_remove_lines(@order, @order.id)
   end
 
   def add_options

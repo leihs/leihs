@@ -1,8 +1,7 @@
-class Order < ActiveRecord::Base
+class Order < Document
 
   belongs_to :user
   has_many :order_lines, :dependent => :destroy
-  has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
   has_one :backup, :class_name => "Backup::Order", :dependent => :destroy #TODO delete when nullify # TODO acts_as_backupable
 
@@ -15,7 +14,14 @@ class Order < ActiveRecord::Base
   NEW = 1
   APPROVED = 2
   REJECTED = 3
-  
+
+  # alias
+  def lines
+    order_lines
+  end
+
+#########################################################################
+
   def self.new_orders
     find(:all, :conditions => {:status_const => Order::NEW})
   end
@@ -26,6 +32,30 @@ class Order < ActiveRecord::Base
 
   def self.rejected_orders
     find(:all, :conditions => {:status_const => Order::REJECTED})
+  end
+
+#########################################################################
+
+
+  def approvable?
+    lines.all? {|l| l.available? }
+  end
+
+
+  def approve(comment)
+    if approvable?
+      self.status_const = Order::APPROVED
+      self.backup = nil
+      save
+      if has_changes?
+        OrderMailer.deliver_changed(self, comment)
+      else
+        OrderMailer.deliver_approved(self, comment)
+      end
+      return true
+    else
+      return false
+    end
   end
 
 
@@ -56,47 +86,7 @@ class Order < ActiveRecord::Base
     [line, change]
   end
   
-    # TODO merge with update_line ?
-   def update_time_line(line_id, start_date, end_date, user_id)
-    line = order_lines.find(line_id)
-    original_start_date = line.start_date
-    original_end_date = line.end_date
-    line.start_date = start_date
-    line.end_date = end_date
-
-    if line.save
-      change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
-      log_change(change, user_id)
-    else
-      line.errors.each_full do |msg|
-        errors.add_to_base msg
-      end
-    end
-
-    #[line, change] # not used
-  end 
-  
-  def swap_line(line_id, model_id, user_id)
-    line = order_lines.find(line_id.to_i)
-    if (line.model.id != model_id.to_i)
-      model = Model.find(model_id.to_i)
-      change = _("Swapped %{from} for %{to}") % { :from => line.model.name, :to => model.name}
-      line.model = model
-      log_change(change, user_id)
-      line.save
-    end
-    [line, change] # TODO where this return is used?
-  end
-  
-  def remove_line(line_id, user_id)
-    line = order_lines.find(line_id.to_i)
-    change = _("Removed %{m}") % { :m => line.model.name }
-    line.destroy
-    order_lines.delete(line)
-    log_change(change, user_id)
-    #[line, change]
-  end  
-  
+    
   def remove_option(option_id, user_id)
     option = Option.find(option_id.to_i)
     change = _("Removed Option: %{o}") % { :o => ("(" + option.quantity.to_s + ") " + option.name) }
@@ -122,23 +112,6 @@ class Order < ActiveRecord::Base
     end
     # [line, change]
   end  
-  
-  #TODO: If you want to copy this method somewhere else, think about creating a acts_as_....
-  #TODO or create an Observer
-  def log_change(text, user_id)
-    histories << History.new(:text => text, :user_id => user_id, :type_const => History::CHANGE)
-  end
-  
-  #TODO: If you want to copy this method somewhere else, think about creating a acts_as_....
-  def log_history(text, user_id)
-    histories << History.new(:text => text, :user_id => user_id, :type_const => History::ACTION)
-  end
-  
-  #TODO: If you want to copy this method somewhere else, think about creating a acts_as_....
-  def has_changes?
-    history = histories.find(:first, :order => 'created_at DESC, id DESC')
-    history.nil? ? false : history.type_const == History::CHANGE
-  end
   
   
   def time_window_min

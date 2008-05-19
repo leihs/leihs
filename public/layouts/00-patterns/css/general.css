@@ -294,7 +294,7 @@ tr.availability td {
 }
 
 .line_valid_true {
-	background-color: #CCFF66;	
+	/* background-color: #CCFF66; */	
 }
 
 .line_valid_false {

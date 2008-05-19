@@ -13,17 +13,24 @@ function checkbox_values(boxes){
 
 //TODO write as generic
 function change_href(a, name){
-	var cbv = checkbox_values(name + '_check');
+	change_href(a, name, name);
+	
+}
+
+//TODO write as generic
+function change_href(a, checkbox_name, param_name){
+	var cbv = checkbox_values(checkbox_name + '_check');
 	
 	// TODO prevent execution without selection
 	//if(cbv.length == 0) {
 		// window.event.stopPropagation();
 	//}else{
 		b = a.href.split('?');
-		a.href = b[0] + '?' + name + 's=' + cbv;
+		a.href = b[0] + '?' + param_name + 's=' + cbv;
 		decoGreyboxLinks();
 	//}
 }
+
 
 function mark_all(master, boxes, buttons){
 	$$('body input.' + boxes).each(

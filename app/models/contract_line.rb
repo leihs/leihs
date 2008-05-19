@@ -1,7 +1,7 @@
 class ContractLine < ActiveRecord::Base
   belongs_to :item
   belongs_to :contract
-  belongs_to :order_line
+  belongs_to :model
   
   validate :item_model_matching
   
@@ -13,14 +13,20 @@ class ContractLine < ActiveRecord::Base
   # custom valid? method
   # returns boolean
   def complete?
-    self.valid? and !self.item.nil?
+    !self.item.nil? and self.valid? and self.available?
   end
 
+  # TODO method copied from order_line
+  def available?
+    model.maximum_available_in_period(start_date, end_date, id) >= quantity
+  end
+  
+  
   private
   
   # validator
   def item_model_matching
-    errors.add_to_base(_("The item doesn't match with the reserved model")) if !item.nil? and item.model != order_line.model
+    errors.add_to_base(_("The item doesn't match with the reserved model")) if !item.nil? and item.model != model
   end
   
   
