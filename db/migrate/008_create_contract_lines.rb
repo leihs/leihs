@@ -4,7 +4,7 @@ class CreateContractLines < ActiveRecord::Migration
       t.belongs_to :contract
       t.belongs_to :item, :null => true
       t.belongs_to :model
-      t.integer :quantity # TODO
+      t.integer :quantity, :default => 1
       t.date :start_date
       t.date :end_date
       t.date :returned_date

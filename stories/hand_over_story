@@ -6,6 +6,11 @@ Story: Hand Over
 
 	
 Scenario: List approved orders, grouped by same user and same start_date
+
+	Given a model 'NEC 245' exists
+  	And 15 items of model 'NEC 245' exist
+	And a model 'BENQ 19' exists
+  	And 12 items of model 'BENQ 19' exist
 	
 	Given the list of approved orders contains 0 elements
 	
@@ -28,7 +33,12 @@ Scenario: List approved orders, grouped by same user and same start_date
 
 
 Scenario: List approved orders, grouped by different users and different start_dates
-	
+
+	Given a model 'NEC 245' exists
+  	And 15 items of model 'NEC 245' exist
+	And a model 'BENQ 19' exists
+  	And 12 items of model 'BENQ 19' exist
+		
 	Given the list of approved orders contains 0 elements
 	
 	When a new order is placed by a user named 'Joe'
@@ -57,6 +67,11 @@ Scenario: List approved orders, grouped by different users and different start_d
 	
 Scenario: Generation of contract lines based on the approved order lines of a given user
 
+	Given a model 'NEC 245' exists
+  	And 15 items of model 'NEC 245' exist
+	And a model 'BENQ 19' exists
+  	And 12 items of model 'BENQ 19' exist
+	
 	Given the list of approved orders contains 0 elements
 	
 	When a new order is placed by a user named 'Joe'
@@ -75,6 +90,11 @@ Scenario: Generation of contract lines based on the approved order lines of a gi
 
 Scenario: Select order lines to hand over
 
+	Given a model 'NEC 245' exists
+  	And 15 items of model 'NEC 245' exist
+	And a model 'BENQ 19' exists
+  	And 12 items of model 'BENQ 19' exist
+	
 	Given the list of approved orders contains 0 elements
 	
 	When a new order is placed by a user named 'Joe'
