@@ -25,7 +25,7 @@ class DocumentLine < ActiveRecord::Base
   def set_defaults
     self.start_date ||= Date.today
     self.end_date ||= Date.today
-    self.quantity = [quantity, 1].max
+#    self.quantity = [quantity, 1].max
   end
 
   def date_sequence

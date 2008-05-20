@@ -1,4 +1,4 @@
-class Backup::Order < Order
+class Backup::Order < ActiveRecord::Base
 
   set_table_name "backup_orders"
 

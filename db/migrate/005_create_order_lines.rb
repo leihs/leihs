@@ -3,7 +3,7 @@ class CreateOrderLines < ActiveRecord::Migration
     create_table :order_lines do |t|
       t.belongs_to :model
       t.belongs_to :order
-      t.integer :quantity
+      t.integer :quantity, :default => 1
       t.date :start_date #, :default => DateTime.now  #Date.today #"CURDATE()"
       t.date :end_date #, :default => DateTime.now  #Date.today #"CURDATE()"
       t.boolean :contract_generated, :default => false

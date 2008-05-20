@@ -1,6 +1,18 @@
 steps_for(:hand_over) do
 
+# Duplicated from availability_steps.rb
+  Given "a model '$model' exists" do | model |
+    @model = Factory.create_model(:name => model)
+  end
   
+  Given "$number items of model '$model' exist" do |number, model|
+    number.to_i.times do | i |
+      Factory.create_item(:model_id => Model.find_by_name(model).id)
+    end
+  end
+
+###############################################
+
   Given "the list of approved orders contains $total elements" do | total |
     orders = Order.approved_orders
     user = Factory.create_user(:login => name)
@@ -14,8 +26,8 @@ steps_for(:hand_over) do
   end
 
 
-  When "he asks for $quantity '$what' from $from" do | quantity, what, from |
-    @order.order_lines << Factory.create_order_line(:model_name => :what,
+  When "$who asks for $quantity '$what' from $from" do | who, quantity, what, from |
+    @order.order_lines << Factory.create_order_line(:model_name => what,
                                                     :quantity => quantity,
                                                     :start_date => from)
     @order.save                                                

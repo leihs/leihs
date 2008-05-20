@@ -45,7 +45,7 @@ class Order < Document
   def approve(comment)
     if approvable?
       self.status_const = Order::APPROVED
-      self.backup = nil
+      remove_backup
       save
       if has_changes?
         OrderMailer.deliver_changed(self, comment)
@@ -129,26 +129,30 @@ class Order < Document
   def to_backup
     self.backup = Backup::Order.new(attributes) #.reject {|key, value| key == "id" }
     
-    self.order_lines.each do |ol|
-      self.backup.order_lines << Backup::OrderLine.new(ol.attributes) #.reject {|key, value| key == "id" }     
+    order_lines.each do |ol|
+      backup.order_lines << Backup::OrderLine.new(ol.attributes) #.reject {|key, value| key == "id" }     
     end
     
-    self.save
+    save
   end  
  
   def from_backup
-    self.attributes = self.backup.attributes.reject {|key, value| key == "order_id" } # or key == "id" 
+    self.attributes = backup.attributes.reject {|key, value| key == "order_id" } # or key == "id" 
     
-    self.order_lines.clear
-    self.backup.order_lines.each do |ol|
-      self.order_lines << OrderLine.new(ol.attributes.reject {|key, value| key == "order_id" }) # or key == "id" 
+    order_lines.clear
+    backup.order_lines.each do |ol|
+      order_lines << OrderLine.new(ol.attributes.reject {|key, value| key == "order_id" }) # or key == "id" 
     end
     
-    self.histories.each {|h| h.destroy if h.created_at > self.backup.created_at}
+    histories.each {|h| h.destroy if h.created_at > backup.created_at}
     
+    remove_backup
+    
+    save
+  end
+  
+  def remove_backup
     self.backup = nil
-    
-    self.save
   end
   ############################################
   

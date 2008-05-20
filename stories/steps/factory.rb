@@ -9,7 +9,7 @@ module Factory
     u.save
     u
   end
-  
+
   def self.create_order(attributes = {}, options = {})
     default_attributes = {
 
@@ -24,12 +24,29 @@ module Factory
     o.save
     o
   end
+    
+  def self.create_order_with_models_and_items(attributes = {}, options = {})
+    default_attributes = {
+
+    }
+    o = Order.create default_attributes.merge(attributes)
+    options[:order_lines].times { |i|
+        model = Factory.create_model(:name => "model_#{i}" )
+        quantity = rand(3) + 1
+        quantity.times { Factory.create_item(:model => model)}
+        d = Array.new
+        2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
+        o.add_line(quantity, model, o.user_id, d.min, d.max )
+    } if options[:order_lines]
+    o.save
+    o
+  end
   
   def self.create_model(attributes = {})
     default_attributes = {
       :name => 'model_1'
     }
-    t = Model.create default_attributes.merge(attributes)
+    t = Model.find_or_create_by_name default_attributes.merge(attributes)
     t.save
     t
   end
