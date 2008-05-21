@@ -82,7 +82,11 @@
 							</th>
 							<th scope="col"><%= _("Paket") %></th>
 							<th scope="col"><%= _("Zeitraum") %></th>
-							<th scope="col"><%= _("Barcode") %></th>
+							<th scope="col">
+								<%= _("Barcode") %>
+								<br />
+								<%= text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'assign_inventory_code', :id => @contract.id }, :with => "'code=' + value" ) }) %>
+							</th>
 							<th scope="col"><%= _("Aktion") %></th>
 						</tr>
 					<!-- end header -->

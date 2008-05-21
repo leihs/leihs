@@ -13,6 +13,7 @@ class Backend::BackendController < ApplicationController
    # add a new line
    def generic_add_line(document, render_id)
     if request.post?
+      params[:quantity] ||= 1
       document.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
       flash[:notice] = _("Model couldn't be added") unless document.save        
       redirect_to :action => 'show', :id => render_id        
