@@ -51,6 +51,7 @@ class Backend::HandOverController < Backend::BackendController
   end
   
   # Creating the definitive contract
+  # TODO rename as "to_contract" or "sign_contract"
   def contract
     if request.post?
       @contract = Contract.find(params[:id])
@@ -84,6 +85,26 @@ class Backend::HandOverController < Backend::BackendController
 #      @contract.save 
     end
   end  
+
+  # TODO Franco working here ==============================
+  def assign_inventory_code
+    if request.post?
+      item = Item.find(:first, :conditions => { :inventory_code => params[:code] })
+      model = item.model unless item.nil?
+      unless model.nil?
+        contract = Contract.find(params[:id])
+        contract_line = contract.contract_lines.find(:first,
+                                                     :conditions => { :model_id => model.id,
+                                                                      :item_id => nil })
+        unless contract_line.nil?
+          params[:contract_line_id] = contract_line.id.to_s
+          change_line
+          render :action => 'change_line' and return # TODO
+        end
+      end
+    end
+    render :text => "nothing" # TODO
+  end
 
   
   def add_line
