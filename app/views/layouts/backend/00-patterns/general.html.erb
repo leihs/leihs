@@ -38,8 +38,8 @@
 			<ul>
 				<li><%= link_to _('Acknowledge') + " (#{@new_orders_size})", :controller => 'acknowledge' %></li>
 				<li><%= link_to _('Herausgeben') + " (#{@grouped_lines_size})", :controller => 'hand_over' %></li>
-				<li><a href="#">Zurücknehmen (18)</a></li>
-				<li><a href="#">Mahnen (3)</a></li>				
+				<li><%= link_to _('Zurücknehmen') + " (#{@signed_contracts_size})", :controller => 'TODO' %></li>
+				<li><a href="#">Mahnen (999)</a></li>				
 			</ul>
 		</div> 
 

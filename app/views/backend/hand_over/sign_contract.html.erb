@@ -3,7 +3,7 @@
 	<br />
 	<div class="buttons">
 		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Confirm"),
-					 { :controller => 'hand_over', :action => 'contract', :id => params[:id] },
+					 { :controller => 'hand_over', :action => 'sign_contract', :id => params[:id] },
 					 :class => 'positive', :method => 'post', :target=> '_top') %>
 					 
 		<%=	cancel_popup_button(_("Cancel") ) %>

@@ -65,7 +65,7 @@
 							%>
 							
 							<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/tab_go.png") + " " + _("Hand Over"),
-							 	{ :controller => 'hand_over', :action => 'contract', :id => @contract.id },
+							 	{ :controller => 'hand_over', :action => 'sign_contract', :id => @contract.id },
 								:onmouseup => "change_href(this, 'contract_line');",
 								:class => "multiple_selection_button",
 								:title => _("Hand Over") ) %>

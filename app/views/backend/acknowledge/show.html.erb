@@ -122,7 +122,6 @@
 						<div id="order_line_<%= @line.id %>">
 							<tr class="alt-row">
 								<td>
-									<!-- <input type="checkbox" class="order_line_check" name="order_lines[]" value="<%= @line.id %>" /> -->
 									<%= check_box_tag('order_lines[]', @line.id, false, :class => "order_line_check", :onchange => "toggle_buttons('order_line_check', 'multiple_selection_button');" ) %>
 									<%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %>
 								</td>
@@ -132,7 +131,7 @@
     								 :title => _("Model"),
 									 :class => "thickbox iconized-notxt edit-package" ) %>
 								</td>
-								<td class="line_valid_<%= @line.available? %>">
+								<td id="line_dates_<%= @line.id %>" class="line_valid_<%= @line.available? %>">
 									<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
 								 		{ :controller => 'acknowledge', :action => 'time_lines', :id => @order.id, :lines => @line.id },
 										:class => "thickbox iconized-notxt date-edit" ,
