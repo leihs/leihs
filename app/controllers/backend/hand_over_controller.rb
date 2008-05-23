@@ -7,15 +7,7 @@ class Backend::HandOverController < Backend::BackendController
 #      @users = orders.collect {|o| o.user }.uniq
 #      @order_lines = orders.collect {|o| o.order_lines }.flatten
 
-      @grouped_lines = OrderLine.find_by_sql("SELECT u.id AS user_id,
-                                                   u.login AS user_login,
-                                                   sum(ol.quantity) AS quantity,
-                                                   ol.start_date
-                                              FROM order_lines ol JOIN orders o ON ol.order_id = o.id
-                                                                  JOIN users u ON o.user_id = u.id
-                                              WHERE o.status_const = #{Order::APPROVED}
-                                              GROUP BY ol.start_date, u.id 
-                                              ORDER BY ol.start_date, u.id") 
+      @grouped_lines = OrderLine.ready_for_contract 
                                               
    # TODO search/filter                                           
                                             
@@ -31,14 +23,8 @@ class Backend::HandOverController < Backend::BackendController
     
     order_lines.each do |ol|
       ol.quantity.times do
-        
-#        @contract_lines << { :name => ol.model.name, :start_date => ol.start_date, :inventory_code => ''}
-#      end
-#      ol.contract_lines.each do |cl|
-#        @contract_lines << { :name => ol.model.name, :start_date => cl.start_date, :inventory_code => cl.inventory_code}
-
         @contract.contract_lines << ContractLine.new(:model => ol.model,
-                                            :quantity => 1, # TODO do we need it?
+                                            :quantity => 1,
                                             :start_date => ol.start_date,
                                             :end_date => ol.end_date) unless ol.contract_generated?
       end
@@ -51,8 +37,7 @@ class Backend::HandOverController < Backend::BackendController
   end
   
   # Creating the definitive contract
-  # TODO rename as "to_contract" or "sign_contract"
-  def contract
+  def sign_contract
     if request.post?
       @contract = Contract.find(params[:id])
       @contract.sign
@@ -86,7 +71,7 @@ class Backend::HandOverController < Backend::BackendController
     end
   end  
 
-  # TODO Franco working here ==============================
+  # given an inventory_code, searches for a matching contract_line
   def assign_inventory_code
     if request.post?
       item = Item.find(:first, :conditions => { :inventory_code => params[:code] })
@@ -99,11 +84,10 @@ class Backend::HandOverController < Backend::BackendController
         unless contract_line.nil?
           params[:contract_line_id] = contract_line.id.to_s
           change_line
-          render :action => 'change_line' and return # TODO
         end
       end
+      render :action => 'change_line'
     end
-    render :text => "nothing" # TODO
   end
 
   

@@ -58,22 +58,23 @@ class Order < Document
     end
   end
 
-  
+  # TODO keep the user required quantity 
   def update_line(line_id, required_quantity, user_id)
     line = order_lines.find(line_id)
-    original = line.quantity
+    original_quantity = line.quantity
     
     max_available = line.model.maximum_available_in_period(line.start_date, line.end_date, line_id)
 
-    line.quantity = required_quantity < max_available ? required_quantity : max_available
-    change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => original.to_s, :to => line.quantity }
+#    line.quantity = required_quantity < max_available ? required_quantity : max_available
+    line.quantity = [required_quantity, 0].max # TODO force positive quantity in DocumentLine
+    line.save
 
+    change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => original_quantity, :to => line.quantity }
     if required_quantity > max_available
       @flash_notice = _("Maximum number of items available at that time is %{max}") % {:max => max_available}
-      change += " " + _("(maximum available)")
+      change += " " + _("(maximum available: %{max})") % {:max => max_available}
     end
     log_change(change, user_id)
-    line.save
     [line, change]
   end
   

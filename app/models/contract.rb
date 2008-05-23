@@ -11,6 +11,21 @@ class Contract < Document
     contract_lines
   end
 
+
+#########################################################################
+
+#  def self.new_contracts
+#    find(:all, :conditions => {:status_const => Contract::NEW})
+#  end
+
+  def self.signed_contracts
+    find(:all, :conditions => {:status_const => Contract::SIGNED})
+  end
+
+#########################################################################
+
+
+
   def sign
       contract_lines.each do |cl|
         cl.destroy if cl.item.nil?
