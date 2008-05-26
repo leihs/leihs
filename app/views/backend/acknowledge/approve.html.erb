@@ -19,7 +19,12 @@
 <% else %>
 
 	<% #TODO %>
-	<%= _("This order is not approvable yet") %>
+	<h2><%= _("This order is not yet approvable") %></h2>
+	<br />
+	<div class="buttons">
+		<%=	cancel_popup_button(_("Close") ) %>
+	</div>
+
 
 <% end %>
 	

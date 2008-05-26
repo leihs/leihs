@@ -3,37 +3,19 @@ class Backend::HandOverController < Backend::BackendController
   before_filter :load_contract, :only => [:add_line, :swap_model_line, :time_lines, :remove_lines]
 
   def index
-#      orders = Order.approved_orders
-#      @users = orders.collect {|o| o.user }.uniq
-#      @order_lines = orders.collect {|o| o.order_lines }.flatten
 
-      @grouped_lines = OrderLine.ready_for_contract 
+#      @new_contracts = Contract.new_contracts
+
+      @grouped_lines = ContractLine.ready_for_contract                                           
                                               
    # TODO search/filter                                           
-                                            
   end
 
-  # generates a new contract and contract_lines for each item
+  # get current open contract for a given user
   def show
     user = User.find(params[:id])
-    orders = user.orders.approved_orders
-    order_lines = orders.collect {|o| o.order_lines }.flatten
-    
     @contract = user.get_current_contract
-    
-    order_lines.each do |ol|
-      ol.quantity.times do
-        @contract.contract_lines << ContractLine.new(:model => ol.model,
-                                            :quantity => 1,
-                                            :start_date => ol.start_date,
-                                            :end_date => ol.end_date) unless ol.contract_generated?
-      end
-      ol.contract_generated = true
-      ol.save
-    end
-    
     @contract.contract_lines.sort!
-    @contract.save
   end
   
   # Creating the definitive contract

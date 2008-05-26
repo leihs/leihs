@@ -79,8 +79,8 @@ class Backend::BackendController < ApplicationController
   private
   
   def init
-    @new_orders_size = Order.new_orders.size
-    @grouped_lines_size = OrderLine.ready_for_contract.size
+    @new_orders_size = Order.new_orders.size 
+    @new_contracts_size = ContractLine.ready_for_contract.size #Contract.new_contracts.size
     @signed_contracts_size = Contract.signed_contracts.size
 
     #TODO define session[:user_id]

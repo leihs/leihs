@@ -42,16 +42,33 @@ class Order < Document
   end
 
 
+  # approve order then generates a new contract and contract_lines for each item
   def approve(comment)
     if approvable?
       self.status_const = Order::APPROVED
       remove_backup
       save
+
       if has_changes?
         OrderMailer.deliver_changed(self, comment)
       else
         OrderMailer.deliver_approved(self, comment)
       end
+
+    
+      contract = user.get_current_contract 
+      order_lines.each do |ol|
+        ol.quantity.times do
+          contract.contract_lines << ContractLine.new(:model => ol.model,
+                                                      :quantity => 1,
+                                                      :start_date => ol.start_date,
+                                                      :end_date => ol.end_date) unless ol.contract_generated?
+        end
+        ol.contract_generated = true
+        ol.save
+      end   
+      contract.save      
+      
       return true
     else
       return false
