@@ -13,6 +13,17 @@ class ContractLine < DocumentLine
     !self.item.nil? and self.valid? and self.available?
   end
 
+  def self.ready_for_contract
+    find_by_sql("SELECT u.id AS user_id,
+                     u.login AS user_login,
+                     sum(cl.quantity) AS quantity,
+                     cl.start_date
+                  FROM contract_lines cl JOIN contracts c ON cl.contract_id = c.id
+                     JOIN users u ON c.user_id = u.id
+                  WHERE c.status_const = #{Contract::NEW}
+                  GROUP BY cl.start_date, u.id 
+                  ORDER BY cl.start_date, u.id")
+  end
   
   private
   
@@ -23,3 +34,4 @@ class ContractLine < DocumentLine
   
   
 end
+
