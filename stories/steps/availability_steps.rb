@@ -42,7 +42,7 @@ steps_for(:availability) do
   
   When "$who checks availability for '$what' on $date" do |who, model, date|
     date = Factory.parsedate(date)
-    @periods = @model.availability(date)
+    @periods = @model.availability(nil, date)
   end
   
   When "the date is $date and the item isn't returned" do |date|

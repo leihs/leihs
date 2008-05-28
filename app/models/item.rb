@@ -22,5 +22,5 @@ class Item < ActiveRecord::Base
     end while exists?(:inventory_code => code)
     code
   end
-  
+    
 end

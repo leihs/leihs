@@ -1,3 +1,17 @@
 Id: <%= @model.id %>
 <br />
 Model name: <%= @model.name %>
+<ul>
+<% @model.availability.each do |a| %>
+	<li><%= a.start_date %> : <%= a.quantity %></li>
+<% end %>
+</ul>
+
+<br />
+
+Items:
+<ul>
+<% @model.items.each do |i| %>
+	<li><%= i.inventory_code %></li>
+<% end %>
+</ul>

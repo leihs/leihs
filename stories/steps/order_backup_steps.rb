@@ -100,9 +100,10 @@ steps_for(:order) do
   end
   
   When "he approves order" do
+    @order.approvable?.should be_true
     post "/backend/acknowledge/approve/#{@order.id}"
     @order = assigns(:order)
-    @order.approvable?.should be_true
+    @order.approvable?.should be_false
     response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
   end
   

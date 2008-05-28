@@ -1,0 +1,111 @@
+<div id='errors'>
+	<%#TODO= render :partial => 'errors' %>
+</div>
+
+
+<div class="toolbar-main boxes">
+	<div class="buttons">
+		<%= link_to(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Close"),
+								 { :controller => 'take_back' }) %>
+
+	</div>
+</div>
+
+
+			
+			<div id="meta" class="boxes">
+				<div id="meta-contract">
+					<table cellspacing="0">
+						<tr class="alt-row">
+							<td>
+								<%= _("Reserver") %>
+							</td> 
+							<td>
+								<%= greybox_link_to_page(@user.login,
+									 { :controller => 'users', :action => 'show', :id => @user.id },
+    								 :title => _("User"),
+									 :class => "iconized-notxt edit-user" ) %>
+								<br />
+								<%= link_to _("Dieser Benutzer hat %{n} Bestellungen die noch nicht quittiert sind") % {:n => @user.orders.new_orders.size},
+											:controller => 'acknowledge',
+											:action => 'index',
+											:user_id => @user.id %>
+								<br />
+								<%= _("Dieser Benutzer muss %{n} Pakete zurückgeben") % {:n => 999 } %> (TODO link)
+							</td>
+						</tr>
+					</table>	
+				</div>
+				
+			</div>
+
+			<div class="table-overview boxes">
+								
+				<div class="toolbar-second">
+					<h3>Pakete</h3>
+					<div class="buttons">
+							<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/tab_go.png") + " " + _("Take Back"),
+							 	{ :controller => 'take_back', :action => 'update_contract', :id => @user.id },
+								:onmouseup => "change_href(this, 'contract_line', 'line');",
+								:class => "multiple_selection_button",
+								:title => _("Take Back") ) %>
+					</div>
+				</div>
+				
+					<table cellspacing="0">
+					<!-- start header -->
+						<tr>
+							<th scope="col">
+								<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check', 'multiple_selection_button');" /> <%= _("Alle Markieren") %>
+								<br />
+								<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check_today', 'multiple_selection_button');" /> <%= _("Alle von Heute") %>
+							</th>
+							<th scope="col"><%= _("Contract") %></th>
+							<th scope="col"><%= _("Paket") %></th>
+							<th scope="col"><%= _("Zeitraum") %></th>
+							<th scope="col">
+								<%= _("Barcode") %>
+								<br />
+								<%= text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'assign_inventory_code', :id => @user.id }, :with => "'code=' + value" ) }) %>
+							</th>
+							<th scope="col"><%= _("Aktion") %></th>
+						</tr>
+					<!-- end header -->
+
+					<!-- start iterator -->
+					<% for @line in @contract_lines %>
+						<div id="contract_line_<%= @line.id %>">
+							<tr class="alt-row">
+								<td>
+									<% check_box_today = (@line.end_date <= Date.today ? "contract_line_check_today" : "")  %>
+									<%= check_box_tag('contract_lines[]', @line.id, false, :id => "contract_line_check_#{@line.id}", :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'multiple_selection_button');" ) %>
+									<%= @line.quantity %>
+								</td>
+								<td>
+									<%= @line.contract.id %>
+								</td>
+								<td>
+									<%= greybox_link_to_page(@line.model.name,
+									 { :controller => 'models', :action => 'show', :id => @line.model.id },
+    								 :title => _("Model"),
+									 :class => "thickbox iconized-notxt edit-package" ) %>
+								</td>
+								<td class="line_valid_<%= @line.available? %>">
+									<%= "#{short_date(@line.start_date)} - #{short_date(@line.end_date)}" %>
+								</td>
+								<td id="inventory_code_<%= @line.id %>" class="line_valid_<%= @line.complete? %>">
+									<%= @line.item.inventory_code %>
+								</td>
+								<td><div class="buttons">
+
+									</div></td>
+							</tr>
+						</div>
+					<% end %>
+					<!-- end iterator -->						
+
+						</table>
+						
+			</div>
+			
+
