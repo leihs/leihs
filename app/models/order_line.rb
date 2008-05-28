@@ -18,5 +18,11 @@ class OrderLine < DocumentLine
     find(:all, :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and id <> ?', model_id, date, date, date, order_line_id])
   end
 
-
+  def order_to_exclude
+    id
+  end
+  
+  def contract_to_exclude
+    0
+  end
 end

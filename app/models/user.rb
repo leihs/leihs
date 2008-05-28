@@ -25,6 +25,13 @@ class User < ActiveRecord::Base
     c ||= Contract.create(:user => self, :status_const => Contract::NEW)
     c
   end
-  
+
+  def get_signed_contract_lines
+#    contract_lines = []
+#    contracts.each { |c| c.contract_lines.each { |cl| contract_lines << cl } }
+#    contract_lines
+
+    contracts.signed_contracts.collect { |c| c.contract_lines }.flatten
+  end
   
 end

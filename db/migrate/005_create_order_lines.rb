@@ -4,9 +4,8 @@ class CreateOrderLines < ActiveRecord::Migration
       t.belongs_to :model
       t.belongs_to :order
       t.integer :quantity, :default => 1
-      t.date :start_date #, :default => DateTime.now  #Date.today #"CURDATE()"
-      t.date :end_date #, :default => DateTime.now  #Date.today #"CURDATE()"
-      t.boolean :contract_generated, :default => false
+      t.date :start_date
+      t.date :end_date
 
       t.timestamps
     end
@@ -16,10 +15,9 @@ class CreateOrderLines < ActiveRecord::Migration
       t.belongs_to :model
       t.belongs_to :order
       t.integer :quantity
-      t.date :start_date #, :default => DateTime.now  #Date.today #"CURDATE()"
-      t.date :end_date #, :default => DateTime.now  #Date.today #"CURDATE()"
-      t.boolean :contract_generated
-
+      t.date :start_date
+      t.date :end_date
+      
       t.timestamps
     end
   

@@ -1,0 +1,15 @@
+#page.insert_html :top, 'changes', "<li>#{@change}</li>" 
+#page.visual_effect :highlight, 'changes'
+
+if @contract_line
+    page["contract_line_check_#{@contract_line.id}"].checked = true
+    page << "toggle_buttons('contract_line_check', 'multiple_selection_button');"
+    page["inventory_code"].value = ""
+
+#  css_class = "line_valid_#{@contract_line.complete?}"
+#  page << "$('inventory_code_#{params[:contract_line_id]}').className='#{css_class}'"
+  
+  page.replace_html 'errors', :partial => 'errors'
+end
+
+page << "$('inventory_code').focus()"

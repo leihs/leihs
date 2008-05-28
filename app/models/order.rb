@@ -38,7 +38,11 @@ class Order < Document
 
 
   def approvable?
-    lines.all? {|l| l.available? }
+    if self.status_const == Order::APPROVED
+      return false
+    else 
+      return lines.all? {|l| l.available? }
+    end
   end
 
 
@@ -62,12 +66,9 @@ class Order < Document
           contract.contract_lines << ContractLine.new(:model => ol.model,
                                                       :quantity => 1,
                                                       :start_date => ol.start_date,
-                                                      :end_date => ol.end_date) unless ol.contract_generated?
+                                                      :end_date => ol.end_date)
         end
-        ol.contract_generated = true
-        ol.save
       end   
-      contract.save      
       
       return true
     else
@@ -75,12 +76,12 @@ class Order < Document
     end
   end
 
-  # TODO keep the user required quantity 
+  # keep the user required quantity 
   def update_line(line_id, required_quantity, user_id)
     line = order_lines.find(line_id)
     original_quantity = line.quantity
     
-    max_available = line.model.maximum_available_in_period(line.start_date, line.end_date, line_id)
+    max_available = line.model.maximum_available_in_period(line.start_date, line.end_date, line)
 
 #    line.quantity = required_quantity < max_available ? required_quantity : max_available
     line.quantity = [required_quantity, 0].max # TODO force positive quantity in DocumentLine

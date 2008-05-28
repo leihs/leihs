@@ -10,11 +10,12 @@
 				<option>Hersteller</option>
 				<option>...</option>
 			</select>
-		
+			
+			<%= text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'return_random_inventory_code' }, :with => "'code=' + value" ) }) %>
 	</div>
 	
 		<div id="orders_table">
-			<%= render :partial => 'contracts' %>
+			<%= render :partial => 'lines' %>
 		</div>
 			
 						

@@ -3,10 +3,9 @@ class Backend::HandOverController < Backend::BackendController
   before_filter :load_contract, :only => [:add_line, :swap_model_line, :time_lines, :remove_lines]
 
   def index
-
 #      @new_contracts = Contract.new_contracts
 
-      @grouped_lines = ContractLine.ready_for_contract                                           
+      @grouped_lines = ContractLine.ready_for_hand_over                                           
                                               
    # TODO search/filter                                           
   end
@@ -25,9 +24,12 @@ class Backend::HandOverController < Backend::BackendController
       @contract.sign
       redirect_to :action => 'index'          
     else
+      #@user = User.find(params[:id])
+      #@lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
+      @lines = ContractLine.find(params[:lines].split(','))
+      @lines = @lines.delete_if {|l| l.item.nil? }
       render :layout => $modal_layout_path
     end    
-    
   end
 
   # Changes the line according to the inserted inventory code
