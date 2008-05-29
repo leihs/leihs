@@ -37,9 +37,9 @@
 		<div id="banner">
 			<ul>
 				<li><%= link_to _('Acknowledge') + " (#{@new_orders_size})", :controller => 'acknowledge' %></li>
-				<li><%= link_to _('Herausgeben') + " (#{@new_contracts_size})", :controller => 'hand_over' %></li>
-				<li><%= link_to _('Zurücknehmen') + " (#{@signed_contracts_size})", :controller => 'take_back' %></li>
-				<li><a href="#">Mahnen (999)</a></li>				
+				<li><%= link_to _('Hand Over') + " (#{@new_contracts_size})", :controller => 'hand_over' %></li>
+				<li><%= link_to _('Take Back') + " (#{@signed_contracts_size})", :controller => 'take_back' %></li>
+				<li><%= link_to _('Remind') + " (#{@remind_contracts_size})", :controller => 'todo' %></li>				
 			</ul>
 		</div> 
 

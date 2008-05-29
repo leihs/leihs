@@ -5,5 +5,10 @@ Reserver			=			Reservierender
 Changes				=			Änderungen
 Delete				=			Löschen
 Delete Order		=			Bestellung löschen
+Hand Over			=			Herausgeben
+Take Back			=			Zurücknehmen
+Remind				=			Mahnen
+
+
 
 

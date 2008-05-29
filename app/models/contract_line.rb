@@ -14,28 +14,16 @@ class ContractLine < DocumentLine
   end
 
 ##################################################
-  def self.ready_for_hand_over
-    find_by_sql("SELECT u.id AS user_id,
-                     u.login AS user_login,
-                     sum(cl.quantity) AS quantity,
-                     cl.start_date
-                  FROM contract_lines cl JOIN contracts c ON cl.contract_id = c.id
-                     JOIN users u ON c.user_id = u.id
-                  WHERE c.status_const = #{Contract::NEW}
-                  GROUP BY cl.start_date, u.id 
-                  ORDER BY cl.start_date, u.id")
+  def self.ready_for_hand_over(user = nil)
+    ready_for_('start_date', Contract::NEW, user)
   end
 
-  def self.ready_for_take_back
-    find_by_sql("SELECT u.id AS user_id,
-                     u.login AS user_login,
-                     sum(cl.quantity) AS quantity,
-                     cl.end_date
-                  FROM contract_lines cl JOIN contracts c ON cl.contract_id = c.id
-                     JOIN users u ON c.user_id = u.id
-                  WHERE c.status_const = #{Contract::SIGNED}
-                  GROUP BY cl.end_date, u.id 
-                  ORDER BY cl.end_date, u.id")
+  def self.ready_for_take_back(user = nil)
+    ready_for_('end_date', Contract::SIGNED, user)
+  end
+
+  def self.ready_for_remind(user = nil)
+    ready_for_('end_date', Contract::SIGNED, user, true)
   end
 ##################################################
   
@@ -48,7 +36,25 @@ class ContractLine < DocumentLine
   end  
   
   private
-  
+
+  def self.ready_for_(date, status, user, remind = false)
+    where_user = user ? " AND u.id = #{user.id}" : ""
+    where_remind = remind ? " AND cl.end_date < CURDATE() " : ""
+
+    find_by_sql("SELECT u.id AS user_id,
+                     u.login AS user_login,
+                     SUM(cl.quantity) AS quantity,
+                     cl.#{date}
+                  FROM contract_lines cl JOIN contracts c ON cl.contract_id = c.id
+                     JOIN users u ON c.user_id = u.id
+                  WHERE c.status_const = #{status}
+                    AND cl.returned_date IS NULL
+                    #{where_user}
+                    #{where_remind}
+                  GROUP BY cl.#{date}, u.id 
+                  ORDER BY cl.#{date}, u.id")
+  end
+    
   # validator
   def item_model_matching
     errors.add_to_base(_("The item doesn't match with the reserved model")) if item and item.model != model
