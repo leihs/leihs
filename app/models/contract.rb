@@ -6,7 +6,8 @@ class Contract < Document
 
   NEW = 1
   SIGNED = 2    
-
+  # TODO ?? CLOSED = 3
+  
   # alias
   def lines
     contract_lines
@@ -26,20 +27,18 @@ class Contract < Document
 #########################################################################
 
 
-  def sign
-    if contract_lines.any? { |cl| !cl.item.nil? }
-      self.status_const = Contract::SIGNED 
-      save
-    
-      if contract_lines.any? { |cl| cl.item.nil? }
+  def sign(contract_lines = nil)
+    if contract_lines.any? { |cl| !cl.item.nil? } # TODO cl.item
+      update_attribute :status_const, Contract::SIGNED 
+      
+      lines_for_new_contract = self.contract_lines - contract_lines
+      if lines_for_new_contract
         new_contract = user.get_current_contract
-        contract_lines.each do |cl|
-          cl.contract = new_contract if cl.item.nil?
-          cl.save
+        lines_for_new_contract.each do |cl|
+          cl.update_attribute :contract, new_contract
         end
       end
-
-      end
+    end
   end
 
 

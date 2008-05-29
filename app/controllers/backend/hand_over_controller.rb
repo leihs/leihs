@@ -3,11 +3,19 @@ class Backend::HandOverController < Backend::BackendController
   before_filter :load_contract, :only => [:add_line, :swap_model_line, :time_lines, :remove_lines]
 
   def index
-#      @new_contracts = Contract.new_contracts
-
+    
+    # TODO search/filter
+    if params[:search]
+      #params[:search] = "*#{params[:search]}*" # search with partial string
+      #@orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::NEW]})
+    elsif params[:user_id]
+      @user = User.find(params[:user_id])
+      @grouped_lines = ContractLine.ready_for_hand_over(@user)                                           
+    else
       @grouped_lines = ContractLine.ready_for_hand_over                                           
-                                              
-   # TODO search/filter                                           
+    end
+    
+    #render :partial => 'lines' if request.post?                                          
   end
 
   # get current open contract for a given user
@@ -21,7 +29,8 @@ class Backend::HandOverController < Backend::BackendController
   def sign_contract
     if request.post?
       @contract = Contract.find(params[:id])
-      @contract.sign
+      @lines = @contract.contract_lines.find(params[:lines].split(','))
+      @contract.sign(@lines)
       redirect_to :action => 'index'          
     else
       #@user = User.find(params[:id])

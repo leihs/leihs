@@ -1,12 +1,19 @@
 class Backend::TakeBackController < Backend::BackendController
   
   def index
-#      @signed_contracts = Contract.signed_contracts
-
-      @grouped_lines = ContractLine.ready_for_take_back                                           
                                               
-   # TODO search/filter                                           
-      
+    # TODO search/filter
+    if params[:search]
+      #params[:search] = "*#{params[:search]}*" # search with partial string
+      #@orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::NEW]})
+    elsif params[:user_id]
+      @user = User.find(params[:user_id])
+      @grouped_lines = ContractLine.ready_for_take_back(@user)                                           
+    else
+      @grouped_lines = ContractLine.ready_for_take_back                                           
+    end
+    
+    #render :partial => 'lines' if request.post?          
   end
 
   # get current contracts for a given user

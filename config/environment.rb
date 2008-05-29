@@ -83,7 +83,7 @@ module ActionView
         def convert_options_to_javascript!(html_options, url = '')
           confirm, popup = html_options.delete("confirm"), html_options.delete("popup")
 
-          method, target, href = html_options.delete("method"), html_options.delete("target"), html_options['href']
+          method, href, target = html_options.delete("method"), html_options['href'], html_options['target']
 
           html_options["onclick"] = case
             when popup && method

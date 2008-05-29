@@ -78,11 +78,13 @@ class Backend::BackendController < ApplicationController
   
   private
   
+  # TODO not needed for modal layout
   def init
     @new_orders_size = Order.new_orders.size 
     @new_contracts_size = ContractLine.ready_for_hand_over.size #Contract.new_contracts.size
     @signed_contracts_size = ContractLine.ready_for_take_back.size #Contract.signed_contracts.size
-
+    @remind_contracts_size = ContractLine.ready_for_remind.size
+    
     #TODO define session[:user_id]
   end
   
