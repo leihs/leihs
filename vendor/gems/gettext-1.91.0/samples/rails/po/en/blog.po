@@ -1,0 +1,107 @@
+# GetText Sample Blog on RoR.
+# 
+# Copyright (C) 2005,2006 Masao Mutoh
+# 
+# This file is distributed under the same license as the Ruby-GetText-Package.
+# 
+# Notice "Lastupdate". 
+# 
+# Masao Mutoh, 2005.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: blog 1.2.0\n"
+"POT-Creation-Date: 2007-08-01 23:20+0900\n"
+"PO-Revision-Date: 2005-12-23 01:28+0900\n"
+"Last-Translator: Masao Mutoh <mutoh at highway.ne.jp>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app/helpers/blog_helper.rb:43
+msgid "Ruby Links"
+msgstr ""
+
+#: app/helpers/blog_helper.rb:51
+msgid "Old articles"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "article"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Title"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Description"
+msgstr ""
+
+#: app/models/article.rb:-
+msgid "Article|Lastupdate"
+msgstr "Date"
+
+#: app/controllers/blog_controller.rb:33
+msgid "Article was successfully created."
+msgstr ""
+
+#: app/controllers/blog_controller.rb:47
+msgid "Article was successfully updated."
+msgstr ""
+
+#: app/views/blog/show.rhtml:13 app/views/blog/list.rhtml:13
+#: app/views/layouts/blog.rhtml:14
+msgid "GetText Sample Blog on RoR"
+msgstr ""
+
+#: app/views/blog/show.rhtml:16 app/views/blog/edit.rhtml:16
+msgid "Edit"
+msgstr ""
+
+#: app/views/blog/show.rhtml:17 app/views/blog/new.rhtml:20
+#: app/views/blog/edit.rhtml:21
+msgid "Back"
+msgstr ""
+
+#: app/views/blog/new.rhtml:13 app/views/blog/list.rhtml:15
+msgid "New article"
+msgstr ""
+
+#: app/views/blog/new.rhtml:17
+msgid "Create"
+msgstr ""
+
+#: app/views/blog/list.rhtml:18
+msgid "No articles were found."
+msgstr ""
+
+#: app/views/blog/edit.rhtml:12
+msgid "Editing article"
+msgstr ""
+
+#: app/views/blog/edit.rhtml:19
+msgid "Show"
+msgstr ""
+
+#: app/views/blog/edit.rhtml:20
+msgid "Destroy"
+msgstr ""
+
+#: app/views/blog/edit.rhtml:20
+msgid "Are you sure?"
+msgstr ""
+
+#: app/views/blog/_form.rhtml:16
+msgid "Lastupdate"
+msgstr "Date"
+
+#: app/views/blog/_form.rhtml:18
+msgid "Title: Required."
+msgstr ""
+
+#: app/views/blog/_form.rhtml:21
+msgid "Description: More than 10 characters."
+msgstr ""

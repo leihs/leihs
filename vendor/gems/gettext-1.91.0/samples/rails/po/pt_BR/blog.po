@@ -1,0 +1,105 @@
+# GetText Sample Blog on RoR.
+# 
+# Copyright (C) 2005,2006 Masao Mutoh
+# 
+# This file is distributed under the same license as the Ruby-GetText-Package.
+# 
+# Joao Pedrosa <joaopedrosa at gmail.com>, 2005.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: blog 1.2.0\n"
+"POT-Creation-Date: 2007-08-01 23:20+0900\n"
+"PO-Revision-Date: 2005-12-17 10:12-0300\n"
+"Last-Translator: Joao Pedrosa <joaopedrosa at gmail.com>\n"
+"Language-Team: Portuguese(Brazil)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app/helpers/blog_helper.rb:43
+msgid "Ruby Links"
+msgstr "Links de Ruby"
+
+#: app/helpers/blog_helper.rb:51
+msgid "Old articles"
+msgstr "Artigos antigos"
+
+#: app/models/article.rb:-
+msgid "article"
+msgstr "artigo"
+
+#: app/models/article.rb:-
+msgid "Article|Title"
+msgstr "Título"
+
+#: app/models/article.rb:-
+msgid "Article|Description"
+msgstr "Descrição"
+
+#: app/models/article.rb:-
+msgid "Article|Lastupdate"
+msgstr "Última Atualização"
+
+#: app/controllers/blog_controller.rb:33
+msgid "Article was successfully created."
+msgstr "Artigo criado com sucesso"
+
+#: app/controllers/blog_controller.rb:47
+msgid "Article was successfully updated."
+msgstr "Artigo atualizado com sucesso"
+
+#: app/views/blog/show.rhtml:13 app/views/blog/list.rhtml:13
+#: app/views/layouts/blog.rhtml:14
+msgid "GetText Sample Blog on RoR"
+msgstr "Blog de Exemplo do GetText no RoR"
+
+#: app/views/blog/show.rhtml:16 app/views/blog/edit.rhtml:16
+msgid "Edit"
+msgstr "Editar"
+
+#: app/views/blog/show.rhtml:17 app/views/blog/new.rhtml:20
+#: app/views/blog/edit.rhtml:21
+msgid "Back"
+msgstr "Voltar"
+
+#: app/views/blog/new.rhtml:13 app/views/blog/list.rhtml:15
+msgid "New article"
+msgstr "Novo artigo"
+
+#: app/views/blog/new.rhtml:17
+msgid "Create"
+msgstr "Criar"
+
+#: app/views/blog/list.rhtml:18
+msgid "No articles were found."
+msgstr "Nenhum artigo foi achado."
+
+#: app/views/blog/edit.rhtml:12
+msgid "Editing article"
+msgstr "Editando artigo"
+
+#: app/views/blog/edit.rhtml:19
+msgid "Show"
+msgstr "Mostrar"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Destroy"
+msgstr "Destruir"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Are you sure?"
+msgstr "Tem certeza?"
+
+#: app/views/blog/_form.rhtml:16
+msgid "Lastupdate"
+msgstr "Última atualização"
+
+#: app/views/blog/_form.rhtml:18
+msgid "Title: Required."
+msgstr "Título: Exigido."
+
+#: app/views/blog/_form.rhtml:21
+msgid "Description: More than 10 characters."
+msgstr "Descrição: Mais que 10 caracteres."

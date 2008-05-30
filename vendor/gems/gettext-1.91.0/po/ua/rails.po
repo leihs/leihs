@@ -1,0 +1,152 @@
+# translation of rails.po to Ukrainian
+#
+# a po-file for Ruby-GetText-Package and Ruby on Rails.
+# 
+# Copyright (C) 2005-2007 Masao Mutoh
+# 
+# This file is distributed under the same license as the Ruby-GetText-Package.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 1.90.0\n"
+"POT-Creation-Date: 2008-05-10 01:52+0900\n"
+"PO-Revision-Date: 2007-11-16 04:33+0200\n"
+"Last-Translator: Alex Rootoff <rootoff at pisem.net>\n"
+"Language-Team: Ukrainian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: lib/gettext/rails.rb:295
+msgid "%{num} error prohibited this %{record} from being saved"
+msgid_plural "%{num} errors prohibited this %{record} from being saved"
+msgstr[0] "Виявлено %{num} помилку %{record}, дані неможливо зберегти"
+msgstr[1] "Виявлено %{num} помилки %{record}, дані неможливо зберегти"
+msgstr[2] "Виявлено %{num} помилок %{record}, дані неможливо зберегти"
+
+#: lib/gettext/rails.rb:297
+msgid "There was a problem with the following field:"
+msgid_plural "There were problems with the following fields:"
+msgstr[0] "Проблема в полі:"
+msgstr[1] "Проблеми в полях:"
+msgstr[2] "Проблеми в полях:"
+
+#: lib/gettext/rails.rb:403
+msgid "less than 5 seconds"
+msgstr "менше 5 секунд"
+
+#: lib/gettext/rails.rb:403
+msgid "less than 10 seconds"
+msgstr "менше 10 секунд"
+
+#: lib/gettext/rails.rb:403
+msgid "less than 20 seconds"
+msgstr "менше 20 секунд"
+
+#: lib/gettext/rails.rb:404
+msgid "half a minute"
+msgstr "пів хвилини"
+
+#: lib/gettext/rails.rb:404
+msgid "less than a minute"
+msgstr "менше хвилини"
+
+#: lib/gettext/rails.rb:404
+msgid "about 1 month"
+msgstr "близько 1 місяця"
+
+#: lib/gettext/rails.rb:405
+msgid "about 1 year"
+msgstr "близько року"
+
+#: lib/gettext/rails.rb:406
+msgid "1 minute"
+msgid_plural "%{num} minutes"
+msgstr[0] "1 хвилина"
+msgstr[1] "%{num} хвилини"
+msgstr[2] "%{num} хвилин"
+
+#: lib/gettext/rails.rb:407
+msgid "about 1 hour"
+msgid_plural "about %{num} hours"
+msgstr[0] "близько години"
+msgstr[1] "близько %{num} годин"
+msgstr[2] "близько %{num} годин"
+
+#: lib/gettext/rails.rb:408
+msgid "1 day"
+msgid_plural "%{num} days"
+msgstr[0] "1 день"
+msgstr[1] "%{num} дні"
+msgstr[2] "%{num} днів"
+
+#: lib/gettext/rails.rb:409
+msgid "1 month"
+msgid_plural "%{num} months"
+msgstr[0] "1 місяць"
+msgstr[1] "%{num} місяці"
+msgstr[2] "%{num} місяців"
+
+#: lib/gettext/rails.rb:410
+#, fuzzy
+msgid "over 1 year"
+msgid_plural "over %{num} years"
+msgstr[0] "більше %{num} років"
+msgstr[1] "більше %{num} років"
+msgstr[2] "більше %{num} років"
+
+#: lib/gettext/active_record.rb:28
+msgid "Validation failed: %{error_messages}"
+msgstr "Перевірка правильності завершилась невдачею: %{error_messages}"
+
+#: lib/gettext/active_record.rb:219
+msgid "%{fn} is not included in the list"
+msgstr "%{fn} не включено в перелік"
+
+#: lib/gettext/active_record.rb:220
+msgid "%{fn} is reserved"
+msgstr "%{fn} зарезервовано"
+
+#: lib/gettext/active_record.rb:221
+msgid "%{fn} is invalid"
+msgstr "%{fn} не дійсний"
+
+#: lib/gettext/active_record.rb:222
+msgid "%{fn} doesn't match confirmation"
+msgstr "%{fn} не підтверджено"
+
+#: lib/gettext/active_record.rb:223
+msgid "%{fn} must be accepted"
+msgstr "%{fn} необхідно прийняти"
+
+#: lib/gettext/active_record.rb:224
+msgid "%{fn} can't be empty"
+msgstr "%{fn} не може бути пустим"
+
+#: lib/gettext/active_record.rb:225
+msgid "%{fn} can't be blank"
+msgstr "%{fn} не може бути пустим чи невизначеним"
+
+#: lib/gettext/active_record.rb:226
+msgid "%{fn} is too long (maximum is %d characters)"
+msgstr "%{fn} задовгий (має бути щонайбільше %d символів)"
+
+#: lib/gettext/active_record.rb:227
+msgid "%{fn} is too short (minimum is %d characters)"
+msgstr "%{fn} закороткий (має бути щонайменше %d символів)"
+
+#: lib/gettext/active_record.rb:228
+msgid "%{fn} is the wrong length (should be %d characters)"
+msgstr "%{fn} неправильна довжина (має бути  %d символів)"
+
+#: lib/gettext/active_record.rb:229
+msgid "%{fn} has already been taken"
+msgstr "%{fn} вже зайнято"
+
+#: lib/gettext/active_record.rb:230
+msgid "%{fn} is not a number"
+msgstr "%{fn} не є числом"

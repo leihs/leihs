@@ -1,0 +1,24 @@
+#! C:/mutomasa/dev/jruby/jruby-1.1RC3/bin/jruby.bat.exe
+=begin
+  rmsgmerge - ruby version of msgmerge
+
+  Copyright (C) 2005  Masao Mutoh
+ 
+  You may redistribute it and/or modify it under the same
+  license terms as Ruby.
+
+  $Id: rmsgmerge,v 1.11 2008/03/21 06:28:10 mutoh Exp $
+=end
+
+begin
+  require 'gettext/rmsgmerge'
+rescue LoadError
+  begin
+    require 'rubygems'
+    require_gem 'gettext/rmsgmerge'
+  rescue LoadError
+    raise 'Ruby-GetText-Package are not installed.'
+  end
+end
+
+GetText.rmsgmerge

@@ -1,0 +1,18 @@
+This directory is for unit-testing.
+You can test this library using Test::Unit.
+
+$ cd ..
+$ rake makemo
+$ cd test
+$ sh test.sh
+
+You can set some options. See --help.
+$ sh test.sh --help
+
+= Tasks
+rake createdb   # Build the MySQL test databases
+rake dropdb     # Drop the MySQL test databases
+rake rebuilddb  # Rebuild the MySQL test databases
+
+
+See rails/README to test rails application.

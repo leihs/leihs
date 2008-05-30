@@ -1,0 +1,24 @@
+#! C:/mutomasa/dev/jruby/jruby-1.1RC3/bin/jruby.bat.exe
+=begin
+  rgettext - ruby version of xgettext
+
+  Copyright (C) 2005  Masao Mutoh
+  
+  You may redistribute it and/or modify it under the same
+  license terms as Ruby.
+
+  $Id: rgettext,v 1.13 2008/03/21 06:28:09 mutoh Exp $
+=end
+
+begin
+  require 'gettext/rgettext'
+rescue LoadError
+  begin
+    require 'rubygems'
+    require_gem 'gettext/rgettext'
+  rescue LoadError
+    raise 'Ruby-GetText-Package are not installed.'
+  end
+end
+
+GetText.rgettext

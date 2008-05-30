@@ -1,0 +1,21 @@
+<h1><%= _("Editing article") %></h1>
+
+<%= error_messages_for :article %>
+
+<% form_for(@article) do |f| %>
+  <p>
+   <p><%= f.label :lastupdate %></p>
+   <p><%= f.date_select :lastupdate, :use_month_numbers => true %></p>
+   <p><%= f.label :title, _("Title: Required.") %></p>
+   <p><%= f.text_field :title %></p>
+   <p><%= f.label :title, _("Description: More than 10 characters.") %></p>
+   <p><%= f.text_area :description %></p>
+   <p><%= f.submit _("Edit") %></p>
+  </p>
+<% end %>
+
+<p>
+<%= link_to _('Show'), @article %> |
+<%= link_to _('Destroy'), @article, :confirm => _('Are you sure?'), :method => :delete %> |
+<%= link_to _('Back'), articles_path %>
+</p>
