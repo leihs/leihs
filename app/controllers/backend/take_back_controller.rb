@@ -27,7 +27,7 @@ class Backend::TakeBackController < Backend::BackendController
   # set the return dates to the given contract_lines
   def update_contract
     if request.post?
-      @lines = ContractLine.find(params[:lines].split(','))
+      @lines = ContractLine.find(params[:lines]) unless params[:lines].nil?
       @lines.each { |l| l.update_attribute :returned_date, Date.today }
       
       # TODO generate new pdf for the contracts       

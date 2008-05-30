@@ -29,7 +29,7 @@ class Backend::HandOverController < Backend::BackendController
   def sign_contract
     if request.post?
       @contract = Contract.find(params[:id])
-      @lines = @contract.contract_lines.find(params[:lines].split(','))
+      @lines = @contract.contract_lines.find(params[:lines]) unless params[:lines].nil?
       @contract.sign(@lines)
       redirect_to :action => 'index'          
     else
@@ -44,11 +44,14 @@ class Backend::HandOverController < Backend::BackendController
   # Changes the line according to the inserted inventory code
   def change_line
     if request.post?
+      # TODO refactor in the Contract model and keep track of changes
+
       @contract_line = ContractLine.find(params[:contract_line_id])
       @contract = @contract_line.contract
-      #line = @contract.contract_lines.find(params[:contract_line_id])
+      
       required_item_inventory_code = params[:code]
       @contract_line.item = Item.find(:first, :conditions => { :inventory_code => required_item_inventory_code})
+      @contract_line.start_date = Date.today
       if @contract_line.save
         #change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
         #log_change(change, user_id)
@@ -58,9 +61,6 @@ class Backend::HandOverController < Backend::BackendController
         end
       end
       
-#     TODO refactor in the Contract model
-#      @order_line, @change = @order.update_line(@order_line.id, required_quantity, session[:user_id])
-#      @contract.save 
     end
   end  
 
