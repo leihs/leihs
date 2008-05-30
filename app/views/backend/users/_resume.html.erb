@@ -1,0 +1,26 @@
+<ul>
+    <li>
+        <%= link_to _("Dieser Benutzer hat %{n} Bestellungen die noch nicht quittiert sind") % {:n => @user.orders.new_orders.size},
+        { :controller => 'acknowledge', :action => 'index', :user_id => @user.id },
+        { :target => '_top' } %>
+    </li>
+    <li>
+        <% # TODO sum quantity from grouped_lines ? %>
+        <%= link_to _("This user has %{n} items to pick up (waiting for hand over)") % {:n => @user.current_contract ? @user.current_contract.contract_lines.size : 0},
+        { :controller => 'hand_over', :action => 'index', :user_id => @user.id },
+        { :target => '_top' } %>
+    </li>
+    <li>
+        <% # TODO sum quantity from grouped_lines ? %>
+		<% lines = @user.contracts.signed_contracts.collect {|c| c.contract_lines.find(:all, :conditions => {:returned_date => nil}) }.flatten %>
+        <%= link_to _("This user has %{n} items to return (waiting for take back)") % {:n => lines.size },
+        { :controller => 'take_back', :action => 'index', :user_id => @user.id },
+        { :target => '_top' } %>
+    </li>
+    <li>
+        <% # TODO sum quantity from grouped_lines ? %>
+        <%= link_to _("This user has %{n} items to remind (waiting for take back)") % {:n => lines.find_all { |l| l.end_date < Date.today }.size },
+        { :controller => 'take_back', :action => 'index', :user_id => @user.id },
+        { :target => '_top' } %> (TODO link)
+    </li>
+</ul>

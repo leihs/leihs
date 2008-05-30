@@ -84,6 +84,7 @@ Scenario: Generation of contract lines based on the approved order lines of a gi
 	Then he sees 2 lines with a total quantity of 6
 	
 	When inventory_manager chooses one line
+#TODO test in acknowledge
 	Then a new contract is generated
 	And he sees 6 contract lines for all approved order lines
 	
@@ -106,8 +107,11 @@ Scenario: Select order lines to hand over
 	Then he sees 1 line with a total quantity of 4
 	
 	When inventory_manager chooses one line
+#TODO test in acknowledge
 	Then a new contract is generated
 	And he sees 4 contract lines for all approved order lines
-	
+
+#	When he assigns items to the first 3 items
 #	When he selects to hand over the first 3 items
 #	And he clicks the button 'hand_over'
+

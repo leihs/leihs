@@ -28,8 +28,10 @@ class Contract < Document
 
 
   def sign(contract_lines = nil)
-    if contract_lines.any? { |cl| !cl.item.nil? } # TODO cl.item
+    if contract_lines.any? { |cl| cl.item }
       update_attribute :status_const, Contract::SIGNED 
+
+      contract_lines.each {|cl| cl.update_attribute :start_date, Date.today if cl.start_date != Date.today }
       
       lines_for_new_contract = self.contract_lines - contract_lines
       if lines_for_new_contract
