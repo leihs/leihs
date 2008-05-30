@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -9,18 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 19) do
+ActiveRecord::Schema.define(:version => 20) do
 
   create_table "access_rights", :force => true do |t|
-    t.integer  "role_id"
-    t.integer  "permission_id"
-    t.integer  "inventory_pool_id"
+    t.integer  "role_id",           :limit => 11
+    t.integer  "permission_id",     :limit => 11
+    t.integer  "inventory_pool_id", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "accessories", :force => true do |t|
-    t.integer  "model_id"
+    t.integer  "model_id",   :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -39,9 +39,9 @@ ActiveRecord::Schema.define(:version => 19) do
   end
 
   create_table "backup_order_lines", :force => true do |t|
-    t.integer  "model_id"
-    t.integer  "order_id"
-    t.integer  "quantity"
+    t.integer  "model_id",   :limit => 11
+    t.integer  "order_id",   :limit => 11
+    t.integer  "quantity",   :limit => 11
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at"
@@ -49,9 +49,9 @@ ActiveRecord::Schema.define(:version => 19) do
   end
 
   create_table "backup_orders", :force => true do |t|
-    t.integer  "order_id"
-    t.integer  "user_id"
-    t.integer  "status_const", :default => 1
+    t.integer  "order_id",     :limit => 11
+    t.integer  "user_id",      :limit => 11
+    t.integer  "status_const", :limit => 11, :default => 1
     t.string   "purpose"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -66,34 +66,46 @@ ActiveRecord::Schema.define(:version => 19) do
     t.string   "title",            :limit => 50
     t.text     "comment"
     t.datetime "created_at"
-    t.integer  "commentable_id",                 :null => false
-    t.string   "commentable_type"
-    t.integer  "user_id"
+    t.integer  "commentable_id",   :limit => 11, :null => false
+    t.string   "commentable_type",               :null => false
+    t.integer  "user_id",          :limit => 11
   end
 
   add_index "comments", ["user_id"], :name => "fk_comments_user"
 
   create_table "contract_lines", :force => true do |t|
-    t.integer  "contract_id"
-    t.integer  "item_id"
-    t.integer  "quantity"
+    t.integer  "contract_id",   :limit => 11
+    t.integer  "item_id",       :limit => 11
+    t.integer  "model_id",      :limit => 11
+    t.integer  "quantity",      :limit => 11, :default => 1
+    t.date     "start_date"
+    t.date     "end_date"
+    t.date     "returned_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "contracts", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",      :limit => 11
+    t.integer  "status_const", :limit => 11, :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contracts_printouts", :id => false, :force => true do |t|
+    t.integer  "contract_id", :limit => 11
+    t.integer  "printout_id", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "histories", :force => true do |t|
-    t.string   "text",        :default => ""
-    t.integer  "type_const"
-    t.datetime "created_at",                  :null => false
-    t.integer  "target_id",                   :null => false
-    t.string   "target_type"
-    t.integer  "user_id"
+    t.string   "text",                      :default => ""
+    t.integer  "type_const",  :limit => 11
+    t.datetime "created_at",                                :null => false
+    t.integer  "target_id",   :limit => 11,                 :null => false
+    t.string   "target_type",                               :null => false
+    t.integer  "user_id",     :limit => 11
   end
 
   create_table "inventory_pools", :force => true do |t|
@@ -103,31 +115,33 @@ ActiveRecord::Schema.define(:version => 19) do
 
   create_table "items", :force => true do |t|
     t.string   "inventory_code"
-    t.integer  "model_id"
-    t.integer  "inventory_pool_id"
-    t.integer  "status",            :default => 1
+    t.integer  "model_id",          :limit => 11
+    t.integer  "inventory_pool_id", :limit => 11
+    t.integer  "status",            :limit => 11, :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "items", ["inventory_code"], :name => "index_items_on_inventory_code", :unique => true
+
   create_table "models", :force => true do |t|
     t.string   "name"
-    t.integer  "maintenance_period", :default => 0
+    t.integer  "maintenance_period", :limit => 11, :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "models_packages", :id => false, :force => true do |t|
-    t.integer "model_id"
-    t.integer "package_id"
+    t.integer "model_id",   :limit => 11
+    t.integer "package_id", :limit => 11
   end
 
   add_index "models_packages", ["model_id"], :name => "index_models_packages_on_model_id"
   add_index "models_packages", ["package_id"], :name => "index_models_packages_on_package_id"
 
   create_table "options", :force => true do |t|
-    t.integer  "order_line_id"
-    t.integer  "quantity"
+    t.integer  "order_line_id", :limit => 11
+    t.integer  "quantity",      :limit => 11
     t.string   "name"
     t.string   "remark"
     t.datetime "created_at"
@@ -135,9 +149,9 @@ ActiveRecord::Schema.define(:version => 19) do
   end
 
   create_table "order_lines", :force => true do |t|
-    t.integer  "model_id"
-    t.integer  "order_id"
-    t.integer  "quantity"
+    t.integer  "model_id",   :limit => 11
+    t.integer  "order_id",   :limit => 11
+    t.integer  "quantity",   :limit => 11, :default => 1
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at"
@@ -145,8 +159,8 @@ ActiveRecord::Schema.define(:version => 19) do
   end
 
   create_table "orders", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "status_const", :default => 1
+    t.integer  "user_id",      :limit => 11
+    t.integer  "status_const", :limit => 11, :default => 1
     t.string   "purpose"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -162,8 +176,14 @@ ActiveRecord::Schema.define(:version => 19) do
     t.datetime "updated_at"
   end
 
+  create_table "printouts", :force => true do |t|
+    t.binary   "pdf"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "properties", :force => true do |t|
-    t.integer  "model_id"
+    t.integer  "model_id",   :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -174,8 +194,8 @@ ActiveRecord::Schema.define(:version => 19) do
   end
 
   create_table "roles_users", :id => false, :force => true do |t|
-    t.integer "role_id"
-    t.integer "user_id"
+    t.integer "role_id", :limit => 11
+    t.integer "user_id", :limit => 11
   end
 
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
@@ -183,7 +203,7 @@ ActiveRecord::Schema.define(:version => 19) do
 
   create_table "users", :force => true do |t|
     t.string   "login"
-    t.integer  "authentication_system_id", :default => 1
+    t.integer  "authentication_system_id", :limit => 11, :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end

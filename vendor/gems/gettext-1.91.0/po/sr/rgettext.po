@@ -1,0 +1,135 @@
+#
+# a po-file for Ruby-GetText-Package
+#
+# Copyright (C) 2004-2008 Masao Mutoh
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 1.90.0\n"
+"POT-Creation-Date: 2008-05-10 01:52+0900\n"
+"PO-Revision-Date: 2008-05-10 20:49+0200\n"
+"Last-Translator: Slobodan Paunović\n"
+"Language-Team: Serbian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: lib/gettext/utils.rb:66
+msgid "Failed to merge with %{defpo}"
+msgstr "Neuspelo spajanje sa %{defpo}"
+
+#: lib/gettext/utils.rb:67
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "Novi .pot je iskopiran kao %{failed_filename}"
+
+#: lib/gettext/utils.rb:68
+msgid "Check these po/pot-files. It may have syntax errors or something wrong."
+msgstr "Proverite ove po/pot fajlove. Moguće je da ima sintaksnih grešaka ili da nešto nije u redu."
+
+#: lib/gettext/rgettext.rb:43
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' ignorisan."
+
+#: lib/gettext/rgettext.rb:183
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Upotreba: %s input.rb [-r parser.rb] [-o output.pot]"
+
+#: lib/gettext/rgettext.rb:185
+msgid "Extract translatable strings from given input files."
+msgstr "Ekstrakcija stringova za prevođenje iz zadatih ulaznih fajlova."
+
+#: lib/gettext/rgettext.rb:187 lib/gettext/rmsgfmt.rb:51
+#: lib/gettext/rmsgmerge.rb:408
+msgid "Specific options:"
+msgstr "Posebne opcije:"
+
+#: lib/gettext/rgettext.rb:189 lib/gettext/rmsgfmt.rb:53
+#: lib/gettext/rmsgmerge.rb:410
+msgid "write output to specified file"
+msgstr "pisanje izlaza u zadat fajl"
+
+#: lib/gettext/rgettext.rb:193
+msgid "File '%s' already exists."
+msgstr "Fajl '%s' već postoji."
+
+#: lib/gettext/rgettext.rb:198
+msgid "require the library before executing rgettext"
+msgstr "zahtevaj biblioteku pre izvršenja rgettext-a"
+
+#: lib/gettext/rgettext.rb:202
+msgid "run in debugging mode"
+msgstr "radi u dibaging modu"
+
+#: lib/gettext/rgettext.rb:206 lib/gettext/rmsgfmt.rb:57
+#: lib/gettext/rmsgmerge.rb:421
+msgid "display version information and exit"
+msgstr "prikaz informacija o verziji i izlaz"
+
+#: lib/gettext/rgettext.rb:230 lib/gettext/rmsgfmt.rb:31
+msgid "no input files"
+msgstr "nema ulaznih fajlova"
+
+#: lib/gettext/rmsgfmt.rb:47
+msgid "Usage: %s input.po [-o output.mo]"
+msgstr "Upotreba: %s input.po [-o output.mo]"
+
+#: lib/gettext/rmsgfmt.rb:49
+msgid "Generate binary message catalog from textual translation description."
+msgstr "Formiranje binarnog kataloga poruka iz tekstualnog prevoda."
+
+#: lib/gettext/rmsgmerge.rb:403
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Upotreba: %s def.po ref.pot [-o output.pot]"
+
+#: lib/gettext/rmsgmerge.rb:406
+msgid ""
+"Merges two Uniforum style .po files together. The def.po file is an existing "
+"PO file with translations. The ref.pot file is the last created PO file with "
+"up-to-date source references. ref.pot is generally created by rgettext."
+msgstr ""
+"Spaja zajedno dva uniformna .po fajla. def.po fajl je postojeći PO fajl sa "
+"prevodima. Ref.pot fajl je poslednje kreiran PO fajl sa tekućim izvornim "
+"referencama. Ref.pot se obično kreira pomoću rgettext-a."
+
+#: lib/gettext/rmsgmerge.rb:447
+msgid "definition po is not given."
+msgstr "definicioni po nije zadat."
+
+#: lib/gettext/rmsgmerge.rb:449
+msgid "reference pot is not given."
+msgstr "referentni pot nije zadat."
+
+#: lib/gettext/parser/glade.rb:74
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "%{file} nije u glade-2.0 formatu."
+
+#: lib/gettext/parser/active_record.rb:39
+msgid "'%{file}' is not found."
+msgstr "%{file} nije nađen."
+
+#: lib/gettext/parser/active_record.rb:80
+msgid "Ignored '%{file}'. Solve dependencies first."
+msgstr "Ignorisan '%{file}'. Prvo razrešite zavisnosti."
+
+#: lib/gettext/parser/active_record.rb:104
+msgid "No database is available."
+msgstr "Nije dostupna ni jedna baza podataka."
+
+#: lib/gettext/parser/active_record.rb:138
+msgid "rubygems are not found."
+msgstr "rubygems nisu pronađeni."
+
+#: lib/gettext.rb:363
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "3. parametar je pogrešan: value = %{number}"
+
+#: src/poparser.ry:26 src/poparser.ry:41
+msgid "Warning: fuzzy message was ignored.\n"
+msgstr "Upozorenje: fuzzy poruka je ignorisana.\n"
+
+#: src/poparser.ry:129
+msgid "Warning: obsolete msgid exists.\n"
+msgstr "Upozorenje: postoji zastareli msgid.\n"

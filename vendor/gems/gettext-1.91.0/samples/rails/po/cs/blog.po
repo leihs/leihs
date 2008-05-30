@@ -1,0 +1,107 @@
+# GetText Sample Blog on RoR.
+# 
+# Copyright (C) 2005,2006 Masao Mutoh
+# 
+# This file is distributed under the same license as the Ruby-GetText-Package.
+# 
+# Karel Miarka <kajism at yahoo.com>, 2005.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: blog 1.2.0\n"
+"POT-Creation-Date: 2007-08-01 23:20+0900\n"
+"PO-Revision-Date: 2005-12-17 21:56+0100\n"
+"Last-Translator: Karel Miarka <kajism at yahoo.com>\n"
+"Language-Team: Czech\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Czech\n"
+
+#: app/helpers/blog_helper.rb:43
+msgid "Ruby Links"
+msgstr "Ruby odkazy"
+
+#: app/helpers/blog_helper.rb:51
+msgid "Old articles"
+msgstr "Staré články"
+
+#: app/models/article.rb:-
+msgid "article"
+msgstr "článek"
+
+#: app/models/article.rb:-
+msgid "Article|Title"
+msgstr "Nadpis"
+
+#: app/models/article.rb:-
+msgid "Article|Description"
+msgstr "Popis"
+
+#: app/models/article.rb:-
+msgid "Article|Lastupdate"
+msgstr "Poslední aktualizace"
+
+#: app/controllers/blog_controller.rb:33
+msgid "Article was successfully created."
+msgstr "Článek byl úspěšně vytvořen."
+
+#: app/controllers/blog_controller.rb:47
+msgid "Article was successfully updated."
+msgstr "Článek byl úspěšně uložen."
+
+#: app/views/blog/show.rhtml:13 app/views/blog/list.rhtml:13
+#: app/views/layouts/blog.rhtml:14
+msgid "GetText Sample Blog on RoR"
+msgstr "Ukázkový GetText Blog na Ruby on Rails"
+
+#: app/views/blog/show.rhtml:16 app/views/blog/edit.rhtml:16
+msgid "Edit"
+msgstr "Upravit"
+
+#: app/views/blog/show.rhtml:17 app/views/blog/new.rhtml:20
+#: app/views/blog/edit.rhtml:21
+msgid "Back"
+msgstr "Zpět"
+
+#: app/views/blog/new.rhtml:13 app/views/blog/list.rhtml:15
+msgid "New article"
+msgstr "Nový článek"
+
+#: app/views/blog/new.rhtml:17
+msgid "Create"
+msgstr "Vytvořit"
+
+#: app/views/blog/list.rhtml:18
+msgid "No articles were found."
+msgstr "Žádné články nebyly nalezeny."
+
+#: app/views/blog/edit.rhtml:12
+msgid "Editing article"
+msgstr "Úprava článku"
+
+#: app/views/blog/edit.rhtml:19
+msgid "Show"
+msgstr "Detail"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Destroy"
+msgstr "Smazat"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Are you sure?"
+msgstr "Jste si jist(-a)?"
+
+#: app/views/blog/_form.rhtml:16
+msgid "Lastupdate"
+msgstr "Poslední aktualizace"
+
+#: app/views/blog/_form.rhtml:18
+msgid "Title: Required."
+msgstr "Nadpis: (povinná položka)"
+
+#: app/views/blog/_form.rhtml:21
+msgid "Description: More than 10 characters."
+msgstr "Popis: (nejméně 10 znaků)"

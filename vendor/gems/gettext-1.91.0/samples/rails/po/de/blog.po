@@ -1,0 +1,107 @@
+# GetText Sample Blog on RoR.
+# 
+# Copyright (C) 2005,2006 Masao Mutoh
+# 
+# This file is distributed under the same license as the Ruby-GetText-Package.
+# 
+# Sasa Ebach, 2005
+# Sven Herzberg <herzi at abi02.de>, 2005.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: blog 1.2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-01 23:20+0900\n"
+"PO-Revision-Date: 2005-12-27 17:04W. Europe Standard Time\n"
+"Last-Translator: Sasa Ebach <se at digitale-wertschoepfung.de>\n"
+"Language-Team: German <gnome-de at gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app/helpers/blog_helper.rb:43
+msgid "Ruby Links"
+msgstr "Links zu Ruby"
+
+#: app/helpers/blog_helper.rb:51
+msgid "Old articles"
+msgstr "Alte Einträge"
+
+#: app/models/article.rb:-
+msgid "article"
+msgstr "artikel"
+
+#: app/models/article.rb:-
+msgid "Article|Title"
+msgstr "Titel"
+
+#: app/models/article.rb:-
+msgid "Article|Description"
+msgstr "Beschreibung"
+
+#: app/models/article.rb:-
+msgid "Article|Lastupdate"
+msgstr "Letzte Aktualisierung"
+
+#: app/controllers/blog_controller.rb:33
+msgid "Article was successfully created."
+msgstr "Der Artikel wurde erfolgreich erstellt."
+
+#: app/controllers/blog_controller.rb:47
+msgid "Article was successfully updated."
+msgstr "Der Artikel wurde erfolgreich aktualisiert."
+
+#: app/views/blog/show.rhtml:13 app/views/blog/list.rhtml:13
+#: app/views/layouts/blog.rhtml:14
+msgid "GetText Sample Blog on RoR"
+msgstr "Gettext-Beispiel-Blog auf RoR"
+
+#: app/views/blog/show.rhtml:16 app/views/blog/edit.rhtml:16
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: app/views/blog/show.rhtml:17 app/views/blog/new.rhtml:20
+#: app/views/blog/edit.rhtml:21
+msgid "Back"
+msgstr "Zurück"
+
+#: app/views/blog/new.rhtml:13 app/views/blog/list.rhtml:15
+msgid "New article"
+msgstr "Neuer Artikel"
+
+#: app/views/blog/new.rhtml:17
+msgid "Create"
+msgstr "Erstellen"
+
+#: app/views/blog/list.rhtml:18
+msgid "No articles were found."
+msgstr "Keine Artikel gefunden."
+
+#: app/views/blog/edit.rhtml:12
+msgid "Editing article"
+msgstr "Artikel bearbeiten"
+
+#: app/views/blog/edit.rhtml:19
+msgid "Show"
+msgstr "Anzeigen"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Destroy"
+msgstr "Löschen"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Are you sure?"
+msgstr "Sind Sie sicher?"
+
+#: app/views/blog/_form.rhtml:16
+msgid "Lastupdate"
+msgstr "Letzte Aktualisierung"
+
+#: app/views/blog/_form.rhtml:18
+msgid "Title: Required."
+msgstr "Titel: Pflichtfeld."
+
+#: app/views/blog/_form.rhtml:21
+msgid "Description: More than 10 characters."
+msgstr "Beschreibung: Mehr als 10 Buchstaben."

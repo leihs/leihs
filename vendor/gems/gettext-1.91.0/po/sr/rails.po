@@ -1,0 +1,149 @@
+#
+# a po-file for Ruby-GetText-Package and Ruby on Rails.
+#
+# Copyright (C) 2005-2008 Masao Mutoh
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Slobodan Paunović <slobodan dot paunovic at gmail dot com>, 2008
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 1.90.0\n"
+"POT-Creation-Date: 2008-05-10 01:52+0900\n"
+"PO-Revision-Date: 2008-05-10 20:46+0200\n"
+"Last-Translator: Slobodan Paunović <slobodan dot paunovic at gmail dot com>\n"
+"Language-Team: Serbian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: lib/gettext/rails.rb:295
+msgid "%{num} error prohibited this %{record} from being saved"
+msgid_plural "%{num} errors prohibited this %{record} from being saved"
+msgstr[0] "%{num} greška je sprečila da se sačuva ovaj %{record}"
+msgstr[1] "%{num} greške su sprečile da se sačuva ovaj %{record}"
+msgstr[2] "%{num} grešaka su sprečile da se sačuva ovaj %{record}"
+
+#: lib/gettext/rails.rb:297
+msgid "There was a problem with the following field:"
+msgid_plural "There were problems with the following fields:"
+msgstr[0] "Postoji problem sa sledećim poljem:"
+msgstr[1] "Postoje problemi sa sledećim poljima:"
+msgstr[2] "Postoje problemi sa sledećim poljima:"
+
+#: lib/gettext/rails.rb:403
+msgid "less than 5 seconds"
+msgstr "manje od 5 sekundi"
+
+#: lib/gettext/rails.rb:403
+msgid "less than 10 seconds"
+msgstr "manje od 10 sekundi"
+
+#: lib/gettext/rails.rb:403
+msgid "less than 20 seconds"
+msgstr "manje od 20 sekundi"
+
+#: lib/gettext/rails.rb:404
+msgid "half a minute"
+msgstr "pola minuta"
+
+#: lib/gettext/rails.rb:404
+msgid "less than a minute"
+msgstr "manje od jednog minuta"
+
+#: lib/gettext/rails.rb:404
+msgid "about 1 month"
+msgstr "oko 1 mesec"
+
+#: lib/gettext/rails.rb:405
+msgid "about 1 year"
+msgstr "oko 1 godina"
+
+#: lib/gettext/rails.rb:406
+msgid "1 minute"
+msgid_plural "%{num} minutes"
+msgstr[0] "1 minut"
+msgstr[1] "%{num} minuta"
+msgstr[2] "%{num} minuta"
+
+#: lib/gettext/rails.rb:407
+msgid "about 1 hour"
+msgid_plural "about %{num} hours"
+msgstr[0] "oko 1 sat"
+msgstr[1] "oko %{num} sata"
+msgstr[2] "oko %{num} sati"
+
+#: lib/gettext/rails.rb:408
+msgid "1 day"
+msgid_plural "%{num} days"
+msgstr[0] "1 dan"
+msgstr[1] "%{num} dana"
+msgstr[2] "%{num} dana"
+
+#: lib/gettext/rails.rb:409
+msgid "1 month"
+msgid_plural "%{num} months"
+msgstr[0] "1 mesec"
+msgstr[1] "%{num} meseca"
+msgstr[2] "%{num} meseci"
+
+#: lib/gettext/rails.rb:410
+msgid "over 1 year"
+msgid_plural "over %{num} years"
+msgstr[0] "više od 1 godine"
+msgstr[1] "više od %{num} godine"
+msgstr[2] "više od %{num} godina"
+
+#: lib/gettext/active_record.rb:28
+msgid "Validation failed: %{error_messages}"
+msgstr "Validacija nije uspela: %{error_messages}"
+
+#: lib/gettext/active_record.rb:219
+msgid "%{fn} is not included in the list"
+msgstr "%{fn} se ne nalazi u listi"
+
+#: lib/gettext/active_record.rb:220
+msgid "%{fn} is reserved"
+msgstr "%{fn} je rezervisan"
+
+#: lib/gettext/active_record.rb:221
+msgid "%{fn} is invalid"
+msgstr "%{fn} nije ispravan"
+
+#: lib/gettext/active_record.rb:222
+msgid "%{fn} doesn't match confirmation"
+msgstr "%{fn} se ne slaže sa potvrdom"
+
+#: lib/gettext/active_record.rb:223
+msgid "%{fn} must be accepted"
+msgstr "%{fn} mora da se prihvati"
+
+#: lib/gettext/active_record.rb:224
+msgid "%{fn} can't be empty"
+msgstr "%{fn} ne sme biti prazan"
+
+#: lib/gettext/active_record.rb:225
+msgid "%{fn} can't be blank"
+msgstr "%{fn} ne sme biti prazan"
+
+#: lib/gettext/active_record.rb:226
+msgid "%{fn} is too long (maximum is %d characters)"
+msgstr "%{fn} je suviše dugačak (maksimum je %d karaktera)"
+
+#: lib/gettext/active_record.rb:227
+msgid "%{fn} is too short (minimum is %d characters)"
+msgstr "%{fn} je suviše kratak (minimum je %d karaktera)"
+
+#: lib/gettext/active_record.rb:228
+msgid "%{fn} is the wrong length (should be %d characters)"
+msgstr "%{fn} je pogrešne dužine (treba da ima %d karaktera)"
+
+#: lib/gettext/active_record.rb:229
+msgid "%{fn} has already been taken"
+msgstr "%{fn} je već zauzeto"
+
+#: lib/gettext/active_record.rb:230
+msgid "%{fn} is not a number"
+msgstr "%{fn} nije broj"

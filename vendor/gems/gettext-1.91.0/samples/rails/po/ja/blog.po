@@ -1,0 +1,105 @@
+# GetText Sample Blog on RoR.
+# 
+# Copyright (C) 2005,2006 Masao Mutoh
+# 
+# This file is distributed under the same license as the Ruby-GetText-Package.
+# 
+# Masao Mutoh <mutoh@highway.ne.jp>, 2005.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: blog 1.2.0\n"
+"POT-Creation-Date: 2007-08-01 23:20+0900\n"
+"PO-Revision-Date: 2005-08-26 23:02+0900\n"
+"Last-Translator: Masao Mutoh <mutoh@highway.ne.jp>\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: app/helpers/blog_helper.rb:43
+msgid "Ruby Links"
+msgstr "Ruby関連リンク"
+
+#: app/helpers/blog_helper.rb:51
+msgid "Old articles"
+msgstr "過去の記事"
+
+#: app/models/article.rb:-
+msgid "article"
+msgstr "記事"
+
+#: app/models/article.rb:-
+msgid "Article|Title"
+msgstr "タイトル"
+
+#: app/models/article.rb:-
+msgid "Article|Description"
+msgstr "内容"
+
+#: app/models/article.rb:-
+msgid "Article|Lastupdate"
+msgstr "投稿日"
+
+#: app/controllers/blog_controller.rb:33
+msgid "Article was successfully created."
+msgstr "記事の投稿に成功しました。"
+
+#: app/controllers/blog_controller.rb:47
+msgid "Article was successfully updated."
+msgstr "記事の更新に成功しました。"
+
+#: app/views/blog/show.rhtml:13 app/views/blog/list.rhtml:13
+#: app/views/layouts/blog.rhtml:14
+msgid "GetText Sample Blog on RoR"
+msgstr "GetTextサンプルブログ on RoR"
+
+#: app/views/blog/show.rhtml:16 app/views/blog/edit.rhtml:16
+msgid "Edit"
+msgstr "編集"
+
+#: app/views/blog/show.rhtml:17 app/views/blog/new.rhtml:20
+#: app/views/blog/edit.rhtml:21
+msgid "Back"
+msgstr "戻る"
+
+#: app/views/blog/new.rhtml:13 app/views/blog/list.rhtml:15
+msgid "New article"
+msgstr "新規投稿"
+
+#: app/views/blog/new.rhtml:17
+msgid "Create"
+msgstr "投稿"
+
+#: app/views/blog/list.rhtml:18
+msgid "No articles were found."
+msgstr "まだ記事がありません"
+
+#: app/views/blog/edit.rhtml:12
+msgid "Editing article"
+msgstr "記事の編集"
+
+#: app/views/blog/edit.rhtml:19
+msgid "Show"
+msgstr "表示"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Destroy"
+msgstr "削除"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Are you sure?"
+msgstr "よろしいですか？"
+
+#: app/views/blog/_form.rhtml:16
+msgid "Lastupdate"
+msgstr "投稿日"
+
+#: app/views/blog/_form.rhtml:18
+msgid "Title: Required."
+msgstr "タイトル：必須入力"
+
+#: app/views/blog/_form.rhtml:21
+msgid "Description: More than 10 characters."
+msgstr "内容：１０文字以上"

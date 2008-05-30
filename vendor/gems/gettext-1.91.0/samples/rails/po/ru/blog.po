@@ -1,0 +1,105 @@
+# translation of blog.po to Russian
+# GetText Sample Blog on RoR.
+# 
+# Copyright (C) 2005,2006 Masao Mutoh
+# 
+# This file is distributed under the same license as the Ruby-GetText-Package.
+# Yuri Kozlov <kozlov.y at gmail.com>, 2006.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: blog 1.2.0\n"
+"POT-Creation-Date: 2007-08-01 23:20+0900\n"
+"PO-Revision-Date: 2006-04-17 20:07+0300\n"
+"Last-Translator: Yuri Kozlov <kozlov.y at gmail.com>\n"
+"Language-Team: Russian <debian-l10n-russian at lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: app/helpers/blog_helper.rb:43
+msgid "Ruby Links"
+msgstr "Ruby ссылки"
+
+#: app/helpers/blog_helper.rb:51
+msgid "Old articles"
+msgstr "Старые статьи"
+
+#: app/models/article.rb:-
+msgid "article"
+msgstr "статья"
+
+#: app/models/article.rb:-
+msgid "Article|Title"
+msgstr "Заголовок"
+
+#: app/models/article.rb:-
+msgid "Article|Description"
+msgstr "Описание"
+
+#: app/models/article.rb:-
+msgid "Article|Lastupdate"
+msgstr "Обновлено"
+
+#: app/controllers/blog_controller.rb:33
+msgid "Article was successfully created."
+msgstr "Статья успешно создана."
+
+#: app/controllers/blog_controller.rb:47
+msgid "Article was successfully updated."
+msgstr "Статья успешно обновлена."
+
+#: app/views/blog/show.rhtml:13 app/views/blog/list.rhtml:13
+#: app/views/layouts/blog.rhtml:14
+msgid "GetText Sample Blog on RoR"
+msgstr "Пример блога с GetText на RoR"
+
+#: app/views/blog/show.rhtml:16 app/views/blog/edit.rhtml:16
+msgid "Edit"
+msgstr "Редактировать"
+
+#: app/views/blog/show.rhtml:17 app/views/blog/new.rhtml:20
+#: app/views/blog/edit.rhtml:21
+msgid "Back"
+msgstr "Назад"
+
+#: app/views/blog/new.rhtml:13 app/views/blog/list.rhtml:15
+msgid "New article"
+msgstr "Новая статья"
+
+#: app/views/blog/new.rhtml:17
+msgid "Create"
+msgstr "Создать"
+
+#: app/views/blog/list.rhtml:18
+msgid "No articles were found."
+msgstr "Нет статей."
+
+#: app/views/blog/edit.rhtml:12
+msgid "Editing article"
+msgstr "Редактирование статьи"
+
+#: app/views/blog/edit.rhtml:19
+msgid "Show"
+msgstr "Показать"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Destroy"
+msgstr "Удалить"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Are you sure?"
+msgstr "Уверены?"
+
+#: app/views/blog/_form.rhtml:16
+msgid "Lastupdate"
+msgstr "Обновлено"
+
+#: app/views/blog/_form.rhtml:18
+msgid "Title: Required."
+msgstr "Заголовок: Требуется."
+
+#: app/views/blog/_form.rhtml:21
+msgid "Description: More than 10 characters."
+msgstr "Описание: Более 10 символов."
