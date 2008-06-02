@@ -23,21 +23,21 @@ class Order < Document
 #########################################################################
 
 # finders provided by rails 2.1, but not yet recognized by rspec
-#  named_scope :new_orders, :conditions => {:status_const => Order::NEW}
-#  named_scope :approved_orders, :conditions => {:status_const => Order::APPROVED}
-#  named_scope :rejected_orders, :conditions => {:status_const => Order::REJECTED}
+  named_scope :new_orders, :conditions => {:status_const => Order::NEW}
+  named_scope :approved_orders, :conditions => {:status_const => Order::APPROVED}
+  named_scope :rejected_orders, :conditions => {:status_const => Order::REJECTED}
 
-  def self.new_orders
-    find(:all, :conditions => {:status_const => Order::NEW})
-  end
-
-  def self.approved_orders
-    find(:all, :conditions => {:status_const => Order::APPROVED})
-  end
-
-  def self.rejected_orders
-    find(:all, :conditions => {:status_const => Order::REJECTED})
-  end
+#  def self.new_orders
+#    find(:all, :conditions => {:status_const => Order::NEW})
+#  end
+#
+#  def self.approved_orders
+#    find(:all, :conditions => {:status_const => Order::APPROVED})
+#  end
+#
+#  def self.rejected_orders
+#    find(:all, :conditions => {:status_const => Order::REJECTED})
+#  end
 
 #########################################################################
 
