@@ -55,7 +55,7 @@ steps_for(:acknowledge) do
   end
   
   When "$who chooses $name's order" do | who, name |
-    order = @orders.find { |o| o.user.login == name }
+    order = @orders.detect { |o| o.user.login == name }
     get "/backend/acknowledge/show/#{order.id}"
     response.should render_template('backend/acknowledge/show')
     @order = assigns(:order)

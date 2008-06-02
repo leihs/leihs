@@ -39,7 +39,7 @@ class ContractLine < DocumentLine
 
   def self.ready_for_(date, status, user, remind = false)
     where_user = user ? " AND u.id = #{user.id}" : ""
-    where_remind = remind ? " AND cl.end_date < CURDATE() " : ""
+    where_remind = remind ? " AND cl.end_date < CURDATE() " : "" # TODO Date.today
 
     find_by_sql("SELECT u.id AS user_id,
                      u.login AS user_login,

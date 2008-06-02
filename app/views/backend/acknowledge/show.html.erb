@@ -100,7 +100,7 @@
 							
 							<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/attach.png") + " " + _("Add Options To Selection"),
 							 	{ :controller => 'acknowledge', :action => 'add_options', :id => @order.id },
-								:onmouseup => "change_href(this, 'order_line');",
+								:onmouseup => "change_href(this, 'order_line', 'line');",
 								:class => "multiple_selection_button",
 								:title => _("Add Options"), :width => 850 ) %>
 					</div>

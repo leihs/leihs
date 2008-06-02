@@ -99,7 +99,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   def add_options
     @option = params[:option_id].nil? ? Option.new : Option.find(params[:option_id]) 
     if request.post?
-      params[:order_lines].each do | ol | 
+      params[:lines].each do | ol | 
         line = OrderLine.find(ol)
         option = Option.new(params[:option])
         if option.save
@@ -112,7 +112,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       end
       redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id      
     else
-      @order_lines = OrderLine.find(params[:order_lines].split(','))
+      @order_lines = OrderLine.find(params[:lines].split(','))
       render :layout => $modal_layout_path      
     end
   end
