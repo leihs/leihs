@@ -54,6 +54,4 @@ class Contract < Document
   end
 
 
-
-
 end

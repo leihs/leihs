@@ -2,10 +2,8 @@ class ContractLine < DocumentLine
   
   belongs_to :item
   belongs_to :contract
-
   
   validate :item_model_matching, :item_available
-  
 
   # custom valid? method
   # returns boolean
@@ -25,6 +23,27 @@ class ContractLine < DocumentLine
   def self.ready_for_remind(user = nil)
     ready_for_('end_date', Contract::SIGNED, user, true)
   end
+##################################################
+
+  before_save { |record| 
+    record.item = nil if record.start_date != Date.today
+    record.start_date = Date.today unless record.item.nil?
+  }
+
+#  attr_accessor(:item, :start_date)
+#
+#  alias_method :orig_item, :item
+#  def item=(i)
+#    start_date = Date.today unless i.nil?
+#    orig_item = i
+#  end
+#
+#  alias_method :orig_start_date, :start_date
+#  def start_date=(sd)
+#    item = nil if sd != Date.today
+#    orig_start_date = sd
+#  end
+  
 ##################################################
   
   def order_to_exclude
