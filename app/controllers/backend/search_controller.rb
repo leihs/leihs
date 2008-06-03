@@ -5,7 +5,7 @@ class Backend::SearchController < ApplicationController
 
   def model
     if request.post?
-      @search_result = Model.find_by_contents(params[:text])
+      @search_result = Model.find_by_contents("*" + params[:text] + "*")
     end
     render  :layout => $modal_layout_path
   end
@@ -14,7 +14,7 @@ class Backend::SearchController < ApplicationController
 
   def user
     if request.post?
-      @search_result = User.find_by_contents(params[:text])
+      @search_result = User.find_by_contents("*" + params[:text] + "*")
     end
     render  :layout => $modal_layout_path
   end

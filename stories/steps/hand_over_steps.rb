@@ -15,7 +15,7 @@ steps_for(:hand_over) do
 
   Given "the list of approved orders contains $total elements" do | total |
     orders = Order.approved_orders
-    user = Factory.create_user(:login => name)
+    user = Factory.create_user
     total.to_i.times { orders << Factory.create_order(:user_id => user.id, :status_const => Order::APPROVED) }
     orders.size.should == total.to_i
   end
@@ -37,6 +37,8 @@ steps_for(:hand_over) do
     post "/backend/acknowledge/approve", :id => @order.id, :comment => "test comment"
     @order = assigns(:order)
     @order.should_not be_nil
+    @contract = @order.user.reload.current_contract
+    @contract.should_not be_nil
   end
 
 

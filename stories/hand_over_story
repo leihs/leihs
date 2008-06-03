@@ -80,13 +80,13 @@ Scenario: Generation of contract lines based on the approved order lines of a gi
 	And he asks for 3 'BENQ 19' from 12.12.2112	
 
 	And an inventory_manager approves the order
-	And inventory_manager clicks 'hand_over'
+	Then a new contract is generated
+	
+	When inventory_manager clicks 'hand_over'
 	Then he sees 2 lines with a total quantity of 6
 	
 	When inventory_manager chooses one line
-#TODO test in acknowledge
-	Then a new contract is generated
-	And he sees 6 contract lines for all approved order lines
+	Then he sees 6 contract lines for all approved order lines
 	
 
 Scenario: Select order lines to hand over

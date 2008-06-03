@@ -1,8 +1,12 @@
 class CreateInventoryPools < ActiveRecord::Migration
   def self.up
     create_table :inventory_pools do |t|
-
-      t.timestamps
+      t.string :name
+      t.text   :description
+      t.string :contract_description
+      t.string :contract_url
+      t.string :logo_url
+      
     end
   end
 
