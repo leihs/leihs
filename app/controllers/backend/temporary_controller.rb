@@ -9,8 +9,12 @@ class Backend::TemporaryController < Backend::BackendController
     params[:id] = 3
     params[:name] = "model"
     if params[:all]
-      Importer.new.start
-      Importer.new.start(100)
+      max = params[:all].to_i
+      if max > 0
+        Importer.new.start(max)
+      else
+        Importer.new.start
+      end
     else
       create_meaningful_inventory
     end
