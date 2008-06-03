@@ -8,10 +8,13 @@ class Backend::TemporaryController < Backend::BackendController
     
     params[:id] = 3
     params[:name] = "model"
-    create_some_inventory
+    if params[:all]
+      Importer.new.start
+      Importer.new.start(100)
+    else
+      create_meaningful_inventory
+    end
     
-    create_meaningful_inventory
-
     params[:id] = 5
     params[:name] = "user"
     create_some_users
@@ -23,6 +26,7 @@ class Backend::TemporaryController < Backend::BackendController
 
     render :text => "Complete"
   end
+  
   
   def create_some_inventory
     params[:id].to_i.times do |i|
@@ -84,14 +88,8 @@ class Backend::TemporaryController < Backend::BackendController
   end
   
   def create_beautiful_order
-    m = Model.new(:name => 'Canon EOS D40')
-    m.save
-    10.times do
-      i = Item.new(:model_id => m.id, :inventory_code => Item.get_new_unique_inventory_code)
-      i.save
-    end
-    m.save
-    
+    m = Model.find(:first)
+  
     
     order = Order.new()
     order.user_id = User.find_by_login("Ramon Cahenzli")

@@ -73,8 +73,8 @@ class Order < Document
                                                       :start_date => ol.start_date,
                                                       :end_date => ol.end_date)
         end
-      end   
-      
+      end
+         
       return true
     else
       return false
