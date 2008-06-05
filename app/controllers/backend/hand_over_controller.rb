@@ -4,18 +4,36 @@ class Backend::HandOverController < Backend::BackendController
 
   def index
     
-    # TODO search/filter
+    # OPTIMIZE with Visits (or Events)
+    @grouped_lines = []
+
     if params[:search]
-      #params[:search] = "*#{params[:search]}*" # search with partial string
-      #@orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::NEW]})
+      params[:search] = "*#{params[:search]}*" # search with partial string
+      @contracts = Contract.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Contract::NEW]})
+      
+      @contracts.each do |c|
+        dates = c.lines.collect { |l| l.start_date }.uniq
+        dates.each { |d| e = Contract.new(c.attributes); e.lines << c.lines; @grouped_lines << e.visits(d) }
+      end
+      
     elsif params[:user_id]
       @user = User.find(params[:user_id])
-      @grouped_lines = ContractLine.ready_for_hand_over(@user)                                           
+      #@grouped_lines = ContractLine.ready_for_hand_over(@user)
+      @contracts = [@user.current_contract]
+      @contracts.each do |c|
+        dates = c.lines.collect { |l| l.start_date }.uniq
+        dates.each { |d| e = Contract.new(c.attributes); e.lines << c.lines; @grouped_lines << e.visits(d) }
+      end
     else
-      @grouped_lines = ContractLine.ready_for_hand_over                                           
+#      @grouped_lines = ContractLine.ready_for_hand_over                                           
+      @contracts = Contract.ready_for_hand_over
+      #@contracts = Contract.new_contracts.to_hand_over
+      @grouped_lines = [] 
+      @contracts.each { |c| @grouped_lines << c.visits(c.s.to_date) }
     end
+
     
-    #render :partial => 'lines' if request.post?                                          
+    render :partial => 'contracts' if request.post? # TODO lines or contracts                                          
   end
 
   # get current open contract for a given user

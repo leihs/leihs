@@ -71,5 +71,20 @@ class Document < ActiveRecord::Base
   #
   #######################
 
+
+#  protected
+  
+  def user_login
+    user.login
+  end
+  
+  def lines_model_names
+    mn = [] 
+    lines.each do |l|
+      mn << l.model.name  
+    end
+    mn.uniq.join(" ")
+  end
+
   
 end
