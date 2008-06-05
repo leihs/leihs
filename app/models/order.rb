@@ -7,7 +7,7 @@ class Order < Document
 
   
   acts_as_commentable
-  acts_as_ferret :fields => [ :user_login, :order_lines_model_names, :purpose ],
+  acts_as_ferret :fields => [ :user_login, :lines_model_names, :purpose ],
                  :store_class_name => true
                  # TODO union of results :or_default => true
                  
@@ -73,8 +73,9 @@ class Order < Document
                                                       :start_date => ol.start_date,
                                                       :end_date => ol.end_date)
         end
-      end
-         
+      end   
+      contract.save
+      
       return true
     else
       return false
@@ -180,20 +181,5 @@ class Order < Document
   end
   ############################################
   
-  
-  private
- 
-  
-  def user_login
-    self.user.login
-  end
-  
-  def order_lines_model_names
-    mn = [] 
-    self.order_lines.each do |ol|
-      mn << ol.model.name  
-    end
-    mn.uniq.join(" ")
-  end
   
 end

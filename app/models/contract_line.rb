@@ -12,6 +12,18 @@ class ContractLine < DocumentLine
   end
 
 ##################################################
+
+  before_save { |record| 
+    if record.returned_date.nil?
+      record.item = nil if record.start_date != Date.today
+      record.start_date = Date.today unless record.item.nil?
+    end
+  }
+
+##################################################
+
+#  named_scope :to_hand_over, :conditions => {:returned_date => nil}
+
   def self.ready_for_hand_over(user = nil)
     ready_for_('start_date', Contract::NEW, user)
   end
@@ -24,27 +36,6 @@ class ContractLine < DocumentLine
     ready_for_('end_date', Contract::SIGNED, user, true)
   end
 ##################################################
-
-  before_save { |record| 
-    record.item = nil if record.start_date != Date.today
-    record.start_date = Date.today unless record.item.nil?
-  }
-
-#  attr_accessor(:item, :start_date)
-#
-#  alias_method :orig_item, :item
-#  def item=(i)
-#    start_date = Date.today unless i.nil?
-#    orig_item = i
-#  end
-#
-#  alias_method :orig_start_date, :start_date
-#  def start_date=(sd)
-#    item = nil if sd != Date.today
-#    orig_start_date = sd
-#  end
-  
-##################################################
   
   def order_to_exclude
     0
@@ -53,9 +44,11 @@ class ContractLine < DocumentLine
   def contract_to_exclude
     id
   end  
+
   
   private
 
+  # OPTIMIZE get rid of find_by_sql if possible
   def self.ready_for_(date, status, user, remind = false)
     where_user = user ? " AND u.id = #{user.id}" : ""
     where_remind = remind ? " AND cl.end_date < CURDATE() " : "" # TODO Date.today
@@ -83,6 +76,6 @@ class ContractLine < DocumentLine
     errors.add_to_base(_("The item is already handed over")) if item and ContractLine.exists?(["id != ? AND item_id = ? AND returned_date IS NULL", id, item.id]) 
   end
   
-  
+    
 end
 
