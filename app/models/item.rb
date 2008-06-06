@@ -9,6 +9,7 @@ class Item < ActiveRecord::Base
 
   validates_uniqueness_of :inventory_code
 
+  # TODO remove this method when no more needed
   # generates a new and unique inventory code
   def self.get_new_unique_inventory_code
     begin
@@ -22,5 +23,16 @@ class Item < ActiveRecord::Base
     end while exists?(:inventory_code => code)
     code
   end
+
+    
+  # TODO define an additional status_const?
+  def in_stock?(contract_line_id = nil)
+    if contract_line_id
+      return !ContractLine.exists?(["id != ? AND item_id = ? AND returned_date IS NULL", contract_line_id, id])
+    else
+      return !ContractLine.exists?(["item_id = ? AND returned_date IS NULL", id])
+    end
+  end
+    
     
 end

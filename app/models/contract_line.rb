@@ -73,7 +73,7 @@ class ContractLine < DocumentLine
   end
   
   def item_available
-    errors.add_to_base(_("The item is already handed over")) if item and ContractLine.exists?(["id != ? AND item_id = ? AND returned_date IS NULL", id, item.id]) 
+    errors.add_to_base(_("The item is already handed over")) if item and !item.in_stock?(id) 
   end
   
     

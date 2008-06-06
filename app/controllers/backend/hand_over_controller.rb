@@ -49,7 +49,12 @@ class Backend::HandOverController < Backend::BackendController
       @contract = Contract.find(params[:id])
       @lines = @contract.contract_lines.find(params[:lines]) unless params[:lines].nil?
       @contract.sign(@lines)
-      redirect_to :action => 'index'          
+
+      # TODO generate contract
+      send_data @contract.printouts.last.pdf, :filename => "contract.pdf", :type => "application/pdf"
+
+#      redirect_to :action => 'index'
+
     else
       #@user = User.find(params[:id])
       #@lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
