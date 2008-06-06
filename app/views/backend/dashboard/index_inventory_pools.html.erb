@@ -1,0 +1,47 @@
+			
+<div class="table-overview boxes">
+	
+	<div id="controller">
+			<%= text_field_tag('search', _("Bestellung suchen"), :onfocus => "this.value='';", :onchange => remote_function(:update => 'list_table', :url => { :action => 'index' }, :with => "'search=' + value" )) %>
+			<select>
+				<option>Alle Felder</option>
+				<option>Reservierender</option>
+				<option>Datum</option>
+				<option>Hersteller</option>
+				<option>...</option>
+			</select>
+		
+	</div>
+	
+		<div id="list_table">
+			
+		<table cellspacing="0">
+			<tr>
+				<th scope="col"><%= _("Name") %></th>
+				<th scope="col"><%= _("Description") %></th>
+				<th scope="col"><%= _("Items") %></th>
+				<th scope="col">Aktion</th>
+			</tr>
+
+		<% for inventory_pool in @inventory_pools %>
+			<tr>
+				<td><%= inventory_pool.name %></td>
+				<td><%= inventory_pool.description %></td>
+				<td><%= inventory_pool.items.size %></td>
+				<td></td>
+			</tr>
+		<% end %>
+
+		
+		</table>
+		
+
+
+
+
+
+		</div>
+			
+						
+</div>
+			

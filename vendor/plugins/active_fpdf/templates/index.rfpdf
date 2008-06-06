@@ -1,0 +1,8 @@
+pdf.extend(PDF_Chinese)
+pdf.AddPage
+ic = Iconv.new('GB2312', 'UTF-8')
+pdf.AddGBFont
+pdf.SetFont('GB','B',18)
+#for page in @pages
+#	pdf.Cell(40,10,ic.iconv("#{page.id}"), 0, 2)
+#end

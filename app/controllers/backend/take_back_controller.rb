@@ -30,8 +30,12 @@ class Backend::TakeBackController < Backend::BackendController
       @lines = ContractLine.find(params[:lines]) unless params[:lines].nil?
       @lines.each { |l| l.update_attribute :returned_date, Date.today }
       
-      # TODO generate new pdf for the contracts       
-      redirect_to :action => 'index'          
+      # TODO generate new pdf for the contracts
+      @contract = @lines.first.contract
+      @contract.to_pdf
+      send_data @contract.printouts.last.pdf, :filename => "contract.pdf", :type => "application/pdf"
+      
+      #redirect_to :action => 'index'          
     else
       #@user = User.find(params[:id])
       #@lines = @user.get_signed_contract_lines.find(params[:lines].split(','))

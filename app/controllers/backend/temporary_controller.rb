@@ -126,7 +126,8 @@ class Backend::TemporaryController < Backend::BackendController
     Backup::OrderLine.delete_all
     Contract.delete_all
     ContractLine.delete_all
-      
+    Printout.destroy_all
+    
     FileUtils.remove_dir(File.dirname(__FILE__) + "/../../../index", true)
   end
 

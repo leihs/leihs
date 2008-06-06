@@ -45,6 +45,9 @@
 
 	<div id="sidebar">
 		<ul>
+			<li><%= link_to _('Inventory Pools'), :controller => 'dashboard', :action => 'index_inventory_pools' %></li>
+			<li><%= link_to _('Items'), :controller => 'dashboard', :action => 'index_items' %></li>
+			<li><hr /></li>
 			<li><%= link_to _('Orders'), :controller => 'orders' %></li>
 			<li><%= link_to _('Models'), :controller => 'models' %></li>
 			<li><%= link_to _('Users'), :controller => 'users' %></li>
