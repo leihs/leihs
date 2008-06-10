@@ -1,13 +1,22 @@
 module Factory
-  
-  def self.create_user(attributes = {})
+
+  def self.create_user(attributes = {}, options = {})
     default_attributes = {
       :login => "jerome",
       :email  => "jerome@example.com",
     }
     u = User.find_or_create_by_login default_attributes.merge(attributes)
+    
+    Factory.define_role(u, options[:role]) if options[:role]
+
     u.save
     u
+  end
+
+  def self.define_role(user, role_name = "inventory_manager", inventory_pool_name = "ABC")
+    role = Role.find_or_create_by_name(:name => role_name)
+    inventory_pool = InventoryPool.find_or_create_by_name(:name => inventory_pool_name)
+    user.access_rights << AccessRight.new(:role => role, :inventory_pool => inventory_pool)
   end
 
   def self.create_order(attributes = {}, options = {})
@@ -53,8 +62,8 @@ module Factory
 
   def self.create_item(attributes = {})
     default_attributes = {
-      :inventory_code => Item.get_new_unique_inventory_code
-      
+      :inventory_code => Item.get_new_unique_inventory_code,
+      :inventory_pool => InventoryPool.find_or_create_by_name(:name => "ABC") 
     }
     
     i = Item.create default_attributes.merge(attributes)

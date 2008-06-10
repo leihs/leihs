@@ -20,15 +20,18 @@
 	
 		<div id="header">
 			<div id="logo">
-				<h1><a href="#">Leihs 2.0</a></h1>
-				<p>Gerätepark AVZ. (<a href="#">Ändern?</a>)</p>
+				<h1><%= link_to "Leihs 2.0", :controller => 'dashboard' %></h1>
+				<p><%= _("Inventory Pool") %>: <%= @current_inventory_pool.name %>. (<%= link_to _("Change") + "?", :controller => 'dashboard', :action => 'index_inventory_pools' %>)</p>
 	
 			</div>
 			<div id="personal-toolbar">
 				<ul>
-					<li><strong>Angemeldet als Vorname Nachname.</strong></li>
-					<li><a href="#">Abmelden?</a></li>
-					<li><a href="#">Mein Konto</a></li>
+					<li><strong><%= "Angemeldet als #{current_user.login}." %></strong></li>
+					<li>
+						<% session[:return_to] = request.request_uri %>
+						<%= link_to _("Logout") + "?", '/logout' %>
+					</li>
+					<li><%= link_to "My Account", :controller => 'users', :action => 'show' %></li>
 					<li><a href="#">Hilfe</a></li>
 	
 				</ul>
@@ -45,9 +48,7 @@
 
 	<div id="sidebar">
 		<ul>
-			<li><%= link_to _('Inventory Pools'), :controller => 'dashboard', :action => 'index_inventory_pools' %></li>
 			<li><%= link_to _('Items'), :controller => 'dashboard', :action => 'index_items' %></li>
-			<li><hr /></li>
 			<li><%= link_to _('Orders'), :controller => 'orders' %></li>
 			<li><%= link_to _('Models'), :controller => 'models' %></li>
 			<li><%= link_to _('Users'), :controller => 'users' %></li>

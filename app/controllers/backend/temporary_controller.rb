@@ -1,9 +1,8 @@
 class Backend::TemporaryController < Backend::BackendController
-
-  def index
-  end
+  require_role "inventory_manager", :for_all_except => :create_some
   
   def create_some
+    reset_session
     clean_db_and_index
     
     params[:id] = 3
@@ -31,22 +30,27 @@ class Backend::TemporaryController < Backend::BackendController
     render :text => "Complete"
   end
   
+private
   
-  def create_some_inventory
-    params[:id].to_i.times do |i|
-      m = Model.new(:name => params[:name] + " " + i.to_s)
-      m.save
-      5.times do |serial_nr|
-        i = Item.new(:model_id => m.id, :inventory_code => Item.get_new_unique_inventory_code)
-      
-        i.save
-      end
-    end
-  end
+#  def create_some_inventory
+#    params[:id].to_i.times do |i|
+#      m = Model.new(:name => params[:name] + " " + i.to_s)
+#      m.save
+#      5.times do |serial_nr|
+#        i = Item.new(:model_id => m.id, :inventory_code => Item.get_new_unique_inventory_code)
+#      
+#        i.save
+#      end
+#    end
+#  end
 
   def create_some_users
     params[:id].to_i.times do |i|
       u = User.new(:login => "#{params[:name]}_#{i}")
+        #u.roles << Role.find(:first, :conditions => {:name => "inventory_manager"})
+        r = Role.find(:first, :conditions => {:name => "inventory_manager"})
+        i = InventoryPool.find(:first)
+        u.access_rights << AccessRight.new(:role => r, :inventory_pool => i)
       u.save
     end
   end
@@ -127,6 +131,7 @@ class Backend::TemporaryController < Backend::BackendController
     Contract.delete_all
     ContractLine.delete_all
     Printout.destroy_all
+    AccessRight.delete_all
     
     FileUtils.remove_dir(File.dirname(__FILE__) + "/../../../index", true)
   end

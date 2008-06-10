@@ -9,7 +9,10 @@
 		<% for model in @models %>
 			<tr class="alt-row">
 				<td class="row-closed"><%= model.name %></td>
-				<td><%= model.items.size %></td>
+				<td>
+					<%# model.find_visible(current_user.inventory_pools) %>
+					<%= current_user.inventory_pools.collect(&:items).flatten.find_all{|i| i.model == model }.size %>
+					<%= model.items.size %></td>
 				<td><%= model.order_lines.size %></td>
 				<td></td>
 			</tr>

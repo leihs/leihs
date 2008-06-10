@@ -5,3 +5,12 @@ Login: <%= @user.login %>
 <br />
 <br />
 <%= render :partial => 'resume' %>
+
+<br />
+<br />
+
+<ul>
+<% @user.access_rights.each do |a| %>
+	<li><%= "#{a.inventory_pool.name} => #{a.role.name}" %></li>
+<% end %>
+</ul>

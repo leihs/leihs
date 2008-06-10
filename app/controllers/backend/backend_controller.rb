@@ -1,6 +1,8 @@
 class Backend::BackendController < ApplicationController
+  #override# require_role "inventory_manager" #, :for_all_except => [:create_some, # TODO for temporary_controller
+                                   #                     :login, :switch_inventory_pool] # TODO for rspec tests
   
-  before_filter :init
+  before_filter :init, :except => :create_some # TODO for temporary_controller  # TODO not needed for modal layout
   
   $theme = '00-patterns'
   $modal_layout_path = 'backend/' + $theme + '/modal'
@@ -9,7 +11,7 @@ class Backend::BackendController < ApplicationController
   
   layout $general_layout_path
  
-
+###############################################################  
    # add a new line
    def generic_add_line(document, render_id)
     if request.post?
@@ -73,19 +75,37 @@ class Backend::BackendController < ApplicationController
       render :template => 'backend/backend/remove_lines', :layout => $modal_layout_path
     end   
   end    
-  
-  
+###############################################################  
+
+  protected
+
+    # TODO temp
+    def current_user_and_inventory
+      [current_user, current_inventory_pool]
+    end
+    
+    # Accesses the current inventory pool from the session.
+    # Future calls avoid the database because nil is not equal to false.
+    def current_inventory_pool
+      @current_inventory_pool ||= InventoryPool.find(session[:inventory_pool_id]) if session[:inventory_pool_id] and not @current_inventory_pool == false
+    end
+
+    # Store the given inventory pool id in the session.
+    def current_inventory_pool=(new_inventory_pool)
+      session[:inventory_pool_id] = new_inventory_pool ? new_inventory_pool.id : nil
+      @current_inventory_pool = new_inventory_pool || false
+    end  
   
   private
   
-  # TODO not needed for modal layout
   def init
+    @current_inventory_pool = current_inventory_pool
+
     @new_orders_size = Order.new_orders.size 
     @new_contracts_size = ContractLine.ready_for_hand_over.size #Contract.new_contracts.size
     @signed_contracts_size = ContractLine.ready_for_take_back.size #Contract.signed_contracts.size
     @remind_contracts_size = ContractLine.ready_for_remind.size
     
-    #TODO define session[:user_id]
   end
   
   def set_order_to_session(order)

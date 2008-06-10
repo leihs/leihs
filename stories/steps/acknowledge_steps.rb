@@ -47,10 +47,17 @@ steps_for(:acknowledge) do
   end
      
   When "$who clicks '$action'" do | who, action |
+    ### TODO refactor to login sentence
+    user = Factory.create_user({:login => who}, {:role => 'inventory_manager'})
+    get "/backend/backend/login/#{user.id}"
+    inventory_pool = InventoryPool.find(:first, :conditions => {:name => "ABC"})
+    get "/backend/backend/switch_inventory_pool/#{inventory_pool.id}"
+    ###
+
     get "/backend/#{action}/index"
     @orders_size = assigns(:new_orders_size)
     @orders = assigns(:new_orders)
-    response.should render_template('backend/acknowledge/index')   
+    response.should render_template('backend/acknowledge/index')
     @response = response 
   end
   

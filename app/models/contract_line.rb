@@ -14,7 +14,7 @@ class ContractLine < DocumentLine
 ##################################################
 
   before_save { |record| 
-    if record.returned_date.nil?
+    unless record.returned_date
       record.item = nil if record.start_date != Date.today
       record.start_date = Date.today unless record.item.nil?
     end

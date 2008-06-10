@@ -1,7 +1,9 @@
 class Backend::ModelsController < Backend::BackendController
 
   def index
-    @models = Model.find(:all)    
+#    @models = Model.find(:all)
+    items = current_user.inventory_pools.collect(&:items).flatten
+    @models = items.collect(&:model).uniq  
   end
 
 
