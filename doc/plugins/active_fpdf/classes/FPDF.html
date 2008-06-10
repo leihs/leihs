@@ -1,0 +1,2038 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: FPDF</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">FPDF</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/vendor/plugins/active_fpdf/lib/fpdf_rb.html">
+                vendor/plugins/active_fpdf/lib/fpdf.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000044">AcceptPageBreak</a>&nbsp;&nbsp;
+      <a href="#M000037">AddFont</a>&nbsp;&nbsp;
+      <a href="#M000040">AddLink</a>&nbsp;&nbsp;
+      <a href="#M000026">AddPage</a>&nbsp;&nbsp;
+      <a href="#M000022">AliasNbPages</a>&nbsp;&nbsp;
+      <a href="#M000045">Cell</a>&nbsp;&nbsp;
+      <a href="#M000025">Close</a>&nbsp;&nbsp;
+      <a href="#M000023">Error</a>&nbsp;&nbsp;
+      <a href="#M000028">Footer</a>&nbsp;&nbsp;
+      <a href="#M000033">GetStringWidth</a>&nbsp;&nbsp;
+      <a href="#M000050">GetX</a>&nbsp;&nbsp;
+      <a href="#M000052">GetY</a>&nbsp;&nbsp;
+      <a href="#M000027">Header</a>&nbsp;&nbsp;
+      <a href="#M000048">Image</a>&nbsp;&nbsp;
+      <a href="#M000035">Line</a>&nbsp;&nbsp;
+      <a href="#M000042">Link</a>&nbsp;&nbsp;
+      <a href="#M000049">Ln</a>&nbsp;&nbsp;
+      <a href="#M000046">MultiCell</a>&nbsp;&nbsp;
+      <a href="#M000024">Open</a>&nbsp;&nbsp;
+      <a href="#M000055">Output</a>&nbsp;&nbsp;
+      <a href="#M000029">PageNo</a>&nbsp;&nbsp;
+      <a href="#M000036">Rect</a>&nbsp;&nbsp;
+      <a href="#M000019">SetAuthor</a>&nbsp;&nbsp;
+      <a href="#M000014">SetAutoPageBreak</a>&nbsp;&nbsp;
+      <a href="#M000016">SetCompression</a>&nbsp;&nbsp;
+      <a href="#M000021">SetCreator</a>&nbsp;&nbsp;
+      <a href="#M000015">SetDisplayMode</a>&nbsp;&nbsp;
+      <a href="#M000030">SetDrawColor</a>&nbsp;&nbsp;
+      <a href="#M000031">SetFillColor</a>&nbsp;&nbsp;
+      <a href="#M000038">SetFont</a>&nbsp;&nbsp;
+      <a href="#M000039">SetFontSize</a>&nbsp;&nbsp;
+      <a href="#M000020">SetKeywords</a>&nbsp;&nbsp;
+      <a href="#M000011">SetLeftMargin</a>&nbsp;&nbsp;
+      <a href="#M000034">SetLineWidth</a>&nbsp;&nbsp;
+      <a href="#M000041">SetLink</a>&nbsp;&nbsp;
+      <a href="#M000010">SetMargins</a>&nbsp;&nbsp;
+      <a href="#M000013">SetRightMargin</a>&nbsp;&nbsp;
+      <a href="#M000018">SetSubject</a>&nbsp;&nbsp;
+      <a href="#M000032">SetTextColor</a>&nbsp;&nbsp;
+      <a href="#M000017">SetTitle</a>&nbsp;&nbsp;
+      <a href="#M000012">SetTopMargin</a>&nbsp;&nbsp;
+      <a href="#M000051">SetX</a>&nbsp;&nbsp;
+      <a href="#M000054">SetXY</a>&nbsp;&nbsp;
+      <a href="#M000053">SetY</a>&nbsp;&nbsp;
+      <a href="#M000043">Text</a>&nbsp;&nbsp;
+      <a href="#M000047">Write</a>&nbsp;&nbsp;
+      <a href="#M000009">new</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">FPDF_VERSION</td>
+          <td>=</td>
+          <td class="context-item-value">'1.53d'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">FPDF_FONTPATH</td>
+          <td>=</td>
+          <td class="context-item-value">'app/views/fonts'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">FPDF_IMAGES_PATH</td>
+          <td>=</td>
+          <td class="context-item-value">'public/images/'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Charwidths</td>
+          <td>=</td>
+          <td class="context-item-value">{         'courier'=&gt;[600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600],                  'courierB'=&gt;[600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600],                  'courierI'=&gt;[600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600],                  'courierBI'=&gt;[600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600,600],                  'helvetica'=&gt;[278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 355, 556, 556, 889, 667, 191, 333, 333, 389, 584, 278, 333, 278, 278, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 278, 278, 584, 584, 584, 556, 1015, 667, 667, 722, 722, 667, 611, 778, 722, 278, 500, 667, 556, 833, 722, 778, 667, 778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 278, 278, 278, 469, 556, 333, 556, 556, 500, 556, 556, 278, 556, 556, 222, 222, 500, 222, 833, 556, 556, 556, 556, 333, 500, 278, 556, 500, 722, 500, 500, 500, 334, 260, 334, 584, 350, 556, 350, 222, 556, 333, 1000, 556, 556, 333, 1000, 667, 333, 1000, 350, 611, 350, 350, 222, 222, 333, 333, 350, 556, 1000, 333, 1000, 500, 333, 944, 350, 500, 667, 278, 333, 556, 556, 556, 556, 260, 556, 333, 737, 370, 556, 584, 333, 737, 333, 400, 584, 333, 333, 333, 556, 537, 278, 333, 333, 365, 556, 834, 834, 834, 611, 667, 667, 667, 667, 667, 667, 1000, 722, 667, 667, 667, 667, 278, 278, 278, 278, 722, 722, 778, 778, 778, 778, 778, 584, 778, 722, 722, 722, 722, 667, 667, 611, 556, 556, 556, 556, 556, 556, 889, 500, 556, 556, 556, 556, 278, 278, 278, 278, 556, 556, 556, 556, 556, 556, 556, 584, 611, 556, 556, 556, 556, 500, 556, 500],                  'helveticaB'=&gt;[278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 333, 474, 556, 556, 889, 722, 238, 333, 333, 389, 584, 278, 333, 278, 278, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 333, 333, 584, 584, 584, 611, 975, 722, 722, 722, 722, 667, 611, 778, 722, 278, 556, 722, 611, 833, 722, 778, 667, 778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 333, 278, 333, 584, 556, 333, 556, 611, 556, 611, 556, 333, 611, 611, 278, 278, 556, 278, 889, 611, 611, 611, 611, 389, 556, 333, 611, 556, 778, 556, 556, 500, 389, 280, 389, 584, 350, 556, 350, 278, 556, 500, 1000, 556, 556, 333, 1000, 667, 333, 1000, 350, 611, 350, 350, 278, 278, 500, 500, 350, 556, 1000, 333, 1000, 556, 333, 944, 350, 500, 667, 278, 333, 556, 556, 556, 556, 280, 556, 333, 737, 370, 556, 584, 333, 737, 333, 400, 584, 333, 333, 333, 611, 556, 278, 333, 333, 365, 556, 834, 834, 834, 611, 722, 722, 722, 722, 722, 722, 1000, 722, 667, 667, 667, 667, 278, 278, 278, 278, 722, 722, 778, 778, 778, 778, 778, 584, 778, 722, 722, 722, 722, 667, 667, 611, 556, 556, 556, 556, 556, 556, 889, 556, 556, 556, 556, 556, 278, 278, 278, 278, 611, 611, 611, 611, 611, 611, 611, 584, 611, 611, 611, 611, 611, 556, 611, 556],                  'helveticaI'=&gt;[278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 355, 556, 556, 889, 667, 191, 333, 333, 389, 584, 278, 333, 278, 278, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 278, 278, 584, 584, 584, 556, 1015, 667, 667, 722, 722, 667, 611, 778, 722, 278, 500, 667, 556, 833, 722, 778, 667, 778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 278, 278, 278, 469, 556, 333, 556, 556, 500, 556, 556, 278, 556, 556, 222, 222, 500, 222, 833, 556, 556, 556, 556, 333, 500, 278, 556, 500, 722, 500, 500, 500, 334, 260, 334, 584, 350, 556, 350, 222, 556, 333, 1000, 556, 556, 333, 1000, 667, 333, 1000, 350, 611, 350, 350, 222, 222, 333, 333, 350, 556, 1000, 333, 1000, 500, 333, 944, 350, 500, 667, 278, 333, 556, 556, 556, 556, 260, 556, 333, 737, 370, 556, 584, 333, 737, 333, 400, 584, 333, 333, 333, 556, 537, 278, 333, 333, 365, 556, 834, 834, 834, 611, 667, 667, 667, 667, 667, 667, 1000, 722, 667, 667, 667, 667, 278, 278, 278, 278, 722, 722, 778, 778, 778, 778, 778, 584, 778, 722, 722, 722, 722, 667, 667, 611, 556, 556, 556, 556, 556, 556, 889, 500, 556, 556, 556, 556, 278, 278, 278, 278, 556, 556, 556, 556, 556, 556, 556, 584, 611, 556, 556, 556, 556, 500, 556, 500],                  'helveticaBI'=&gt;[278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 333, 474, 556, 556, 889, 722, 238, 333, 333, 389, 584, 278, 333, 278, 278, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 333, 333, 584, 584, 584, 611, 975, 722, 722, 722, 722, 667, 611, 778, 722, 278, 556, 722, 611, 833, 722, 778, 667, 778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 333, 278, 333, 584, 556, 333, 556, 611, 556, 611, 556, 333, 611, 611, 278, 278, 556, 278, 889, 611, 611, 611, 611, 389, 556, 333, 611, 556, 778, 556, 556, 500, 389, 280, 389, 584, 350, 556, 350, 278, 556, 500, 1000, 556, 556, 333, 1000, 667, 333, 1000, 350, 611, 350, 350, 278, 278, 500, 500, 350, 556, 1000, 333, 1000, 556, 333, 944, 350, 500, 667, 278, 333, 556, 556, 556, 556, 280, 556, 333, 737, 370, 556, 584, 333, 737, 333, 400, 584, 333, 333, 333, 611, 556, 278, 333, 333, 365, 556, 834, 834, 834, 611, 722, 722, 722, 722, 722, 722, 1000, 722, 667, 667, 667, 667, 278, 278, 278, 278, 722, 722, 778, 778, 778, 778, 778, 584, 778, 722, 722, 722, 722, 667, 667, 611, 556, 556, 556, 556, 556, 556, 889, 556, 556, 556, 556, 556, 278, 278, 278, 278, 611, 611, 611, 611, 611, 611, 611, 584, 611, 611, 611, 611, 611, 556, 611, 556],                  'times'=&gt;[250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 333, 408, 500, 500, 833, 778, 180, 333, 333, 500, 564, 250, 333, 250, 278, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 278, 278, 564, 564, 564, 444, 921, 722, 667, 667, 722, 611, 556, 722, 722, 333, 389, 722, 611, 889, 722, 722, 556, 722, 667, 556, 611, 722, 722, 944, 722, 722, 611, 333, 278, 333, 469, 500, 333, 444, 500, 444, 500, 444, 333, 500, 500, 278, 278, 500, 278, 778, 500, 500, 500, 500, 333, 389, 278, 500, 500, 722, 500, 500, 444, 480, 200, 480, 541, 350, 500, 350, 333, 500, 444, 1000, 500, 500, 333, 1000, 556, 333, 889, 350, 611, 350, 350, 333, 333, 444, 444, 350, 500, 1000, 333, 980, 389, 333, 722, 350, 444, 722, 250, 333, 500, 500, 500, 500, 200, 500, 333, 760, 276, 500, 564, 333, 760, 333, 400, 564, 300, 300, 333, 500, 453, 250, 333, 300, 310, 500, 750, 750, 750, 444, 722, 722, 722, 722, 722, 722, 889, 667, 611, 611, 611, 611, 333, 333, 333, 333, 722, 722, 722, 722, 722, 722, 722, 564, 722, 722, 722, 722, 722, 722, 556, 500, 444, 444, 444, 444, 444, 444, 667, 444, 444, 444, 444, 444, 278, 278, 278, 278, 500, 500, 500, 500, 500, 500, 500, 564, 500, 500, 500, 500, 500, 500, 500, 500],                  'timesB'=&gt;[250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 333, 555, 500, 500, 1000, 833, 278, 333, 333, 500, 570, 250, 333, 250, 278, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 333, 333, 570, 570, 570, 500, 930, 722, 667, 722, 722, 667, 611, 778, 778, 389, 500, 778, 667, 944, 722, 778, 611, 778, 722, 556, 667, 722, 722, 1000, 722, 722, 667, 333, 278, 333, 581, 500, 333, 500, 556, 444, 556, 444, 333, 500, 556, 278, 333, 556, 278, 833, 556, 500, 556, 556, 444, 389, 333, 556, 500, 722, 500, 500, 444, 394, 220, 394, 520, 350, 500, 350, 333, 500, 500, 1000, 500, 500, 333, 1000, 556, 333, 1000, 350, 667, 350, 350, 333, 333, 500, 500, 350, 500, 1000, 333, 1000, 389, 333, 722, 350, 444, 722, 250, 333, 500, 500, 500, 500, 220, 500, 333, 747, 300, 500, 570, 333, 747, 333, 400, 570, 300, 300, 333, 556, 540, 250, 333, 300, 330, 500, 750, 750, 750, 500, 722, 722, 722, 722, 722, 722, 1000, 722, 667, 667, 667, 667, 389, 389, 389, 389, 722, 722, 778, 778, 778, 778, 778, 570, 778, 722, 722, 722, 722, 722, 611, 556, 500, 500, 500, 500, 500, 500, 722, 444, 444, 444, 444, 444, 278, 278, 278, 278, 500, 556, 500, 500, 500, 500, 500, 570, 500, 556, 556, 556, 556, 500, 556, 500],                  'timesI'=&gt;[250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 333, 420, 500, 500, 833, 778, 214, 333, 333, 500, 675, 250, 333, 250, 278, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 333, 333, 675, 675, 675, 500, 920, 611, 611, 667, 722, 611, 611, 722, 722, 333, 444, 667, 556, 833, 667, 722, 611, 722, 611, 500, 556, 722, 611, 833, 611, 556, 556, 389, 278, 389, 422, 500, 333, 500, 500, 444, 500, 444, 278, 500, 500, 278, 278, 444, 278, 722, 500, 500, 500, 500, 389, 389, 278, 500, 444, 667, 444, 444, 389, 400, 275, 400, 541, 350, 500, 350, 333, 500, 556, 889, 500, 500, 333, 1000, 500, 333, 944, 350, 556, 350, 350, 333, 333, 556, 556, 350, 500, 889, 333, 980, 389, 333, 667, 350, 389, 556, 250, 389, 500, 500, 500, 500, 275, 500, 333, 760, 276, 500, 675, 333, 760, 333, 400, 675, 300, 300, 333, 500, 523, 250, 333, 300, 310, 500, 750, 750, 750, 500, 611, 611, 611, 611, 611, 611, 889, 667, 611, 611, 611, 611, 333, 333, 333, 333, 722, 667, 722, 722, 722, 722, 722, 675, 722, 722, 722, 722, 722, 556, 611, 500, 500, 500, 500, 500, 500, 500, 667, 444, 444, 444, 444, 444, 278, 278, 278, 278, 500, 500, 500, 500, 500, 500, 500, 675, 500, 500, 500, 500, 500, 444, 500, 444],                  'timesBI'=&gt;[250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 389, 555, 500, 500, 833, 778, 278, 333, 333, 500, 570, 250, 333, 250, 278, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 333, 333, 570, 570, 570, 500, 832, 667, 667, 667, 722, 667, 667, 722, 778, 389, 500, 667, 611, 889, 722, 722, 611, 722, 667, 556, 611, 722, 667, 889, 667, 611, 611, 333, 278, 333, 570, 500, 333, 500, 500, 444, 500, 444, 333, 500, 556, 278, 278, 500, 278, 778, 556, 500, 500, 500, 389, 389, 278, 556, 444, 667, 500, 444, 389, 348, 220, 348, 570, 350, 500, 350, 333, 500, 500, 1000, 500, 500, 333, 1000, 556, 333, 944, 350, 611, 350, 350, 333, 333, 500, 500, 350, 500, 1000, 333, 1000, 389, 333, 722, 350, 389, 611, 250, 389, 500, 500, 500, 500, 220, 500, 333, 747, 266, 500, 606, 333, 747, 333, 400, 570, 300, 300, 333, 576, 500, 250, 333, 300, 300, 500, 750, 750, 750, 500, 667, 667, 667, 667, 667, 667, 944, 667, 667, 667, 667, 667, 389, 389, 389, 389, 722, 722, 722, 722, 722, 722, 722, 570, 722, 722, 722, 722, 722, 611, 611, 500, 500, 500, 500, 500, 500, 500, 722, 444, 444, 444, 444, 444, 278, 278, 278, 278, 500, 556, 500, 500, 500, 500, 500, 570, 500, 556, 556, 556, 556, 444, 500, 444],                  'symbol'=&gt;[250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 333, 713, 500, 549, 833, 778, 439, 333, 333, 500, 549, 250, 549, 250, 278, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 278, 278, 549, 549, 549, 444, 549, 722, 667, 722, 612, 611, 763, 603, 722, 333, 631, 722, 686, 889, 722, 722, 768, 741, 556, 592, 611, 690, 439, 768, 645, 795, 611, 333, 863, 333, 658, 500, 500, 631, 549, 549, 494, 439, 521, 411, 603, 329, 603, 549, 549, 576, 521, 549, 549, 521, 549, 603, 439, 576, 713, 686, 493, 686, 494, 480, 200, 480, 549, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 750, 620, 247, 549, 167, 713, 500, 753, 753, 753, 753, 1042, 987, 603, 987, 603, 400, 549, 411, 549, 549, 713, 494, 460, 549, 549, 549, 549, 1000, 603, 1000, 658, 823, 686, 795, 987, 768, 768, 823, 768, 768, 713, 713, 713, 713, 713, 713, 713, 768, 713, 790, 790, 890, 823, 549, 250, 713, 603, 603, 1042, 987, 603, 987, 603, 494, 329, 790, 790, 786, 713, 384, 384, 384, 384, 384, 384, 494, 494, 494, 494, 0, 329, 274, 686, 686, 686, 384, 384, 384, 384, 384, 384, 494, 494, 494, 0],                  'zapfdingbats'=&gt;[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 278, 974, 961, 974, 980, 719, 789, 790, 791, 690, 960, 939, 549, 855, 911, 933, 911, 945, 974, 755, 846, 762, 761, 571, 677, 763, 760, 759, 754, 494, 552, 537, 577, 692, 786, 788, 788, 790, 793, 794, 816, 823, 789, 841, 823, 833, 816, 831, 923, 744, 723, 749, 790, 792, 695, 776, 768, 792, 759, 707, 708, 682, 701, 826, 815, 789, 789, 707, 687, 696, 689, 786, 787, 713, 791, 785, 791, 873, 761, 762, 762, 759, 759, 892, 892, 788, 784, 438, 138, 277, 415, 392, 392, 668, 668, 0, 390, 390, 317, 317, 276, 276, 509, 509, 410, 410, 234, 234, 334, 334, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 732, 544, 544, 910, 667, 760, 760, 776, 595, 694, 626, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 788, 894, 838, 1016, 458, 748, 924, 748, 918, 927, 928, 928, 834, 873, 828, 924, 924, 917, 930, 931, 463, 883, 836, 836, 867, 867, 696, 696, 874, 0, 874, 760, 946, 771, 865, 771, 888, 967, 888, 831, 873, 927, 970, 918, 0]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF0</td>
+          <td>=</td>
+          <td class="context-item-value">0xc0</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+jpeg marker codes
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF1</td>
+          <td>=</td>
+          <td class="context-item-value">0xc1</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF2</td>
+          <td>=</td>
+          <td class="context-item-value">0xc2</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF3</td>
+          <td>=</td>
+          <td class="context-item-value">0xc3</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF5</td>
+          <td>=</td>
+          <td class="context-item-value">0xc5</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF6</td>
+          <td>=</td>
+          <td class="context-item-value">0xc6</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF7</td>
+          <td>=</td>
+          <td class="context-item-value">0xc7</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF9</td>
+          <td>=</td>
+          <td class="context-item-value">0xc9</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF10</td>
+          <td>=</td>
+          <td class="context-item-value">0xca</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF11</td>
+          <td>=</td>
+          <td class="context-item-value">0xcb</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF13</td>
+          <td>=</td>
+          <td class="context-item-value">0xcd</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF14</td>
+          <td>=</td>
+          <td class="context-item-value">0xce</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOF15</td>
+          <td>=</td>
+          <td class="context-item-value">0xcf</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOI</td>
+          <td>=</td>
+          <td class="context-item-value">0xd8</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_EOI</td>
+          <td>=</td>
+          <td class="context-item-value">0xd9</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">M_SOS</td>
+          <td>=</td>
+          <td class="context-item-value">0xda</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="#M000009" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(orientation='P', unit='mm', format='A4')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 56</span>
+ 56:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">orientation</span>=<span class="ruby-value str">'P'</span>, <span class="ruby-identifier">unit</span>=<span class="ruby-value str">'mm'</span>, <span class="ruby-identifier">format</span>=<span class="ruby-value str">'A4'</span>)
+ 57:         <span class="ruby-comment cmt"># Initialization of properties</span>
+ 58:         <span class="ruby-ivar">@page</span>=<span class="ruby-value">0</span>
+ 59:         <span class="ruby-ivar">@n</span>=<span class="ruby-value">2</span>
+ 60:         <span class="ruby-ivar">@buffer</span>=<span class="ruby-value str">''</span>
+ 61:         <span class="ruby-ivar">@pages</span>=[]
+ 62:         <span class="ruby-ivar">@OrientationChanges</span>=[]
+ 63:         <span class="ruby-ivar">@state</span>=<span class="ruby-value">0</span>
+ 64:         <span class="ruby-ivar">@fonts</span>={}
+ 65:         <span class="ruby-ivar">@FontFiles</span>={}
+ 66:         <span class="ruby-ivar">@diffs</span>=[]
+ 67:         <span class="ruby-ivar">@images</span>={}
+ 68:         <span class="ruby-ivar">@links</span>=[]
+ 69:         <span class="ruby-ivar">@PageLinks</span>={}
+ 70:         <span class="ruby-ivar">@InFooter</span>=<span class="ruby-keyword kw">false</span>
+ 71:         <span class="ruby-ivar">@FontFamily</span>=<span class="ruby-value str">''</span>
+ 72:         <span class="ruby-ivar">@FontStyle</span>=<span class="ruby-value str">''</span>
+ 73:         <span class="ruby-ivar">@FontSizePt</span>=<span class="ruby-value">12</span>
+ 74:         <span class="ruby-ivar">@underline</span>= <span class="ruby-keyword kw">false</span>
+ 75:         <span class="ruby-ivar">@DrawColor</span>=<span class="ruby-value str">'0 G'</span>
+ 76:         <span class="ruby-ivar">@FillColor</span>=<span class="ruby-value str">'0 g'</span>
+ 77:         <span class="ruby-ivar">@TextColor</span>=<span class="ruby-value str">'0 g'</span>
+ 78:         <span class="ruby-ivar">@ColorFlag</span>=<span class="ruby-keyword kw">false</span>
+ 79:         <span class="ruby-ivar">@ws</span>=<span class="ruby-value">0</span>
+ 80:         <span class="ruby-ivar">@offsets</span>=[]
+ 81: 
+ 82:         <span class="ruby-comment cmt"># Standard fonts</span>
+ 83:         <span class="ruby-ivar">@CoreFonts</span>={}
+ 84:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'courier'</span>]=<span class="ruby-value str">'Courier'</span>
+ 85:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'courierB'</span>]=<span class="ruby-value str">'Courier-Bold'</span>
+ 86:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'courierI'</span>]=<span class="ruby-value str">'Courier-Oblique'</span>
+ 87:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'courierBI'</span>]=<span class="ruby-value str">'Courier-BoldOblique'</span>
+ 88:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'helvetica'</span>]=<span class="ruby-value str">'Helvetica'</span>
+ 89:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'helveticaB'</span>]=<span class="ruby-value str">'Helvetica-Bold'</span>
+ 90:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'helveticaI'</span>]=<span class="ruby-value str">'Helvetica-Oblique'</span>
+ 91:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'helveticaBI'</span>]=<span class="ruby-value str">'Helvetica-BoldOblique'</span>
+ 92:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'times'</span>]=<span class="ruby-value str">'Times-Roman'</span>
+ 93:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'timesB'</span>]=<span class="ruby-value str">'Times-Bold'</span>
+ 94:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'timesI'</span>]=<span class="ruby-value str">'Times-Italic'</span>
+ 95:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'timesBI'</span>]=<span class="ruby-value str">'Times-BoldItalic'</span>
+ 96:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'symbol'</span>]=<span class="ruby-value str">'Symbol'</span>
+ 97:         <span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-value str">'zapfdingbats'</span>]=<span class="ruby-value str">'ZapfDingbats'</span>
+ 98: 
+ 99:         <span class="ruby-comment cmt"># Scale factor</span>
+100:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">unit</span><span class="ruby-operator">==</span><span class="ruby-value str">'pt'</span>
+101:             <span class="ruby-ivar">@k</span>=<span class="ruby-value">1</span>
+102:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">unit</span><span class="ruby-operator">==</span><span class="ruby-value str">'mm'</span>
+103:             <span class="ruby-ivar">@k</span>=<span class="ruby-value">72</span><span class="ruby-operator">/</span><span class="ruby-value">25.4</span>
+104:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">unit</span><span class="ruby-operator">==</span><span class="ruby-value str">'cm'</span>
+105:             <span class="ruby-ivar">@k</span>=<span class="ruby-value">72</span><span class="ruby-operator">/</span><span class="ruby-value">2.54</span>;
+106:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">unit</span><span class="ruby-operator">==</span><span class="ruby-value str">'in'</span>
+107:             <span class="ruby-ivar">@k</span>=<span class="ruby-value">72</span>
+108:         <span class="ruby-keyword kw">else</span>
+109:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">'Incorrect unit: '</span><span class="ruby-operator">+</span><span class="ruby-identifier">unit</span>
+110:         <span class="ruby-keyword kw">end</span>
+111: 
+112:         <span class="ruby-comment cmt"># Page format</span>
+113:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">format</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">String</span>
+114:             <span class="ruby-identifier">format</span>.<span class="ruby-identifier">downcase!</span>
+115:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">format</span><span class="ruby-operator">==</span><span class="ruby-value str">'a3'</span>
+116:                 <span class="ruby-identifier">format</span>=[<span class="ruby-value">841.89</span>,<span class="ruby-value">1190.55</span>]
+117:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">format</span><span class="ruby-operator">==</span><span class="ruby-value str">'a4'</span>
+118:                 <span class="ruby-identifier">format</span>=[<span class="ruby-value">595.28</span>,<span class="ruby-value">841.89</span>]
+119:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">format</span><span class="ruby-operator">==</span><span class="ruby-value str">'a5'</span>
+120:                 <span class="ruby-identifier">format</span>=[<span class="ruby-value">420.94</span>,<span class="ruby-value">595.28</span>]
+121:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">format</span><span class="ruby-operator">==</span><span class="ruby-value str">'letter'</span>
+122:                 <span class="ruby-identifier">format</span>=[<span class="ruby-value">612</span>,<span class="ruby-value">792</span>]
+123:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">format</span><span class="ruby-operator">==</span><span class="ruby-value str">'legal'</span>
+124:                 <span class="ruby-identifier">format</span>=[<span class="ruby-value">612</span>,<span class="ruby-value">1008</span>]
+125:             <span class="ruby-keyword kw">else</span>
+126:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">'Unknown page format: '</span><span class="ruby-operator">+</span><span class="ruby-identifier">format</span>
+127:             <span class="ruby-keyword kw">end</span>
+128:             <span class="ruby-ivar">@fwPt</span>,<span class="ruby-ivar">@fhPt</span>=<span class="ruby-identifier">format</span>
+129:         <span class="ruby-keyword kw">else</span>
+130:             <span class="ruby-ivar">@fwPt</span>=<span class="ruby-identifier">format</span>[<span class="ruby-value">0</span>]<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>
+131:             <span class="ruby-ivar">@fhPt</span>=<span class="ruby-identifier">format</span>[<span class="ruby-value">1</span>]<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>
+132:         <span class="ruby-keyword kw">end</span>
+133:         <span class="ruby-ivar">@fw</span>=<span class="ruby-ivar">@fwPt</span><span class="ruby-operator">/</span><span class="ruby-ivar">@k</span>;
+134:         <span class="ruby-ivar">@fh</span>=<span class="ruby-ivar">@fhPt</span><span class="ruby-operator">/</span><span class="ruby-ivar">@k</span>;
+135: 
+136:         <span class="ruby-comment cmt"># Page orientation</span>
+137:         <span class="ruby-identifier">orientation</span>.<span class="ruby-identifier">downcase!</span>
+138:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">orientation</span><span class="ruby-operator">==</span><span class="ruby-value str">'p'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">orientation</span><span class="ruby-operator">==</span><span class="ruby-value str">'portrait'</span>
+139:             <span class="ruby-ivar">@DefOrientation</span>=<span class="ruby-value str">'P'</span>
+140:             <span class="ruby-ivar">@wPt</span>=<span class="ruby-ivar">@fwPt</span>
+141:             <span class="ruby-ivar">@hPt</span>=<span class="ruby-ivar">@fhPt</span>
+142:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">orientation</span><span class="ruby-operator">==</span><span class="ruby-value str">'l'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">orientation</span><span class="ruby-operator">==</span><span class="ruby-value str">'landscape'</span>
+143:             <span class="ruby-ivar">@DefOrientation</span>=<span class="ruby-value str">'L'</span>
+144:             <span class="ruby-ivar">@wPt</span>=<span class="ruby-ivar">@fhPt</span>
+145:             <span class="ruby-ivar">@hPt</span>=<span class="ruby-ivar">@fwPt</span>
+146:         <span class="ruby-keyword kw">else</span>
+147:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">'Incorrect orientation: '</span><span class="ruby-operator">+</span><span class="ruby-identifier">orientation</span>
+148:         <span class="ruby-keyword kw">end</span>
+149:         <span class="ruby-ivar">@CurOrientation</span>=<span class="ruby-ivar">@DefOrientation</span>
+150:         <span class="ruby-ivar">@w</span>=<span class="ruby-ivar">@wPt</span><span class="ruby-operator">/</span><span class="ruby-ivar">@k</span>
+151:         <span class="ruby-ivar">@h</span>=<span class="ruby-ivar">@hPt</span><span class="ruby-operator">/</span><span class="ruby-ivar">@k</span>
+152: 
+153:         <span class="ruby-comment cmt"># Page margins (1 cm)</span>
+154:         <span class="ruby-identifier">margin</span>=<span class="ruby-value">28.35</span><span class="ruby-operator">/</span><span class="ruby-ivar">@k</span>
+155:         <span class="ruby-constant">SetMargins</span>(<span class="ruby-identifier">margin</span>,<span class="ruby-identifier">margin</span>)
+156:         <span class="ruby-comment cmt"># Interior cell margin (1 mm)</span>
+157:         <span class="ruby-ivar">@cMargin</span>=<span class="ruby-identifier">margin</span><span class="ruby-operator">/</span><span class="ruby-value">10</span>
+158:         <span class="ruby-comment cmt"># Line width (0.2 mm)</span>
+159:         <span class="ruby-ivar">@LineWidth</span>=<span class="ruby-value">0</span><span class="ruby-value">.567</span><span class="ruby-operator">/</span><span class="ruby-ivar">@k</span>
+160:         <span class="ruby-comment cmt"># Automatic page break</span>
+161:         <span class="ruby-constant">SetAutoPageBreak</span>(<span class="ruby-keyword kw">true</span>,<span class="ruby-value">2</span><span class="ruby-operator">*</span><span class="ruby-identifier">margin</span>)
+162:         <span class="ruby-comment cmt"># Full width display mode</span>
+163:         <span class="ruby-constant">SetDisplayMode</span>(<span class="ruby-value str">'fullwidth'</span>)
+164:         <span class="ruby-comment cmt"># Enable compression</span>
+165:         <span class="ruby-constant">SetCompression</span>(<span class="ruby-keyword kw">true</span>)
+166:         <span class="ruby-comment cmt"># Set default PDF version number</span>
+167:         <span class="ruby-ivar">@PDFVersion</span>=<span class="ruby-value str">'1.3'</span>
+168:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000044" class="method-detail">
+        <a name="M000044"></a>
+
+        <div class="method-heading">
+          <a href="#M000044" class="method-signature">
+          <span class="method-name">AcceptPageBreak</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000044-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000044-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 572</span>
+572:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">AcceptPageBreak</span>
+573:         <span class="ruby-comment cmt"># Accept automatic page break or not</span>
+574:         <span class="ruby-ivar">@AutoPageBreak</span>
+575:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000037" class="method-detail">
+        <a name="M000037"></a>
+
+        <div class="method-heading">
+          <a href="#M000037" class="method-signature">
+          <span class="method-name">AddFont</span><span class="method-args">(family, style='', file='')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000037-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000037-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 414</span>
+414:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">AddFont</span>(<span class="ruby-identifier">family</span>, <span class="ruby-identifier">style</span>=<span class="ruby-value str">''</span>, <span class="ruby-identifier">file</span>=<span class="ruby-value str">''</span>)
+415:          <span class="ruby-comment cmt"># Add a TrueType or Type1 font</span>
+416:          <span class="ruby-identifier">family</span> = <span class="ruby-identifier">family</span>.<span class="ruby-identifier">downcase</span>
+417:          <span class="ruby-identifier">family</span> = <span class="ruby-value str">'helvetica'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">family</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'arial'</span>
+418: 
+419:          <span class="ruby-identifier">style</span> = <span class="ruby-identifier">style</span>.<span class="ruby-identifier">upcase</span>
+420:          <span class="ruby-identifier">style</span> = <span class="ruby-value str">'BI'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">style</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'IB'</span>
+421: 
+422:         <span class="ruby-identifier">fontkey</span> = <span class="ruby-identifier">family</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">style</span>
+423: 
+424:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@fonts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">fontkey</span>)
+425:              <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Error</span>(<span class="ruby-node">&quot;Font already added: #{family} #{style}&quot;</span>)
+426:         <span class="ruby-keyword kw">end</span>
+427: 
+428:         <span class="ruby-identifier">file</span> = <span class="ruby-identifier">family</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">' '</span>, <span class="ruby-value str">''</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">style</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'.rb'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file</span> <span class="ruby-operator">==</span> <span class="ruby-value str">''</span>
+429: 
+430:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FPDF</span>.<span class="ruby-identifier">const_defined?</span> <span class="ruby-value str">'FPDF_FONTPATH'</span>
+431:             <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FPDF_FONTPATH</span>[<span class="ruby-value">-1</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'/'</span>
+432:                 <span class="ruby-identifier">file</span> = <span class="ruby-constant">FPDF_FONTPATH</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">file</span>
+433:             <span class="ruby-keyword kw">else</span>
+434:                 <span class="ruby-identifier">file</span> = <span class="ruby-constant">FPDF_FONTPATH</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'/'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">file</span>
+435:             <span class="ruby-keyword kw">end</span>
+436:         <span class="ruby-keyword kw">end</span>
+437:         
+438:         <span class="ruby-comment cmt"># Changed from &quot;require file&quot; to fix bug reported by Hans Allis.</span>
+439:         <span class="ruby-identifier">load</span> <span class="ruby-identifier">file</span>
+440: 
+441:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">desc</span>.<span class="ruby-identifier">nil?</span>
+442:            <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Error</span>(<span class="ruby-node">&quot;Could not include font definition file #{file}&quot;</span>)
+443:         <span class="ruby-keyword kw">end</span>
+444: 
+445:         <span class="ruby-identifier">i</span> = <span class="ruby-ivar">@fonts</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+446: 
+447:         <span class="ruby-ivar">@fonts</span>[<span class="ruby-identifier">fontkey</span>] = {<span class="ruby-value str">'i'</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">i</span>,
+448:                           <span class="ruby-value str">'type'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">type</span>,
+449:                           <span class="ruby-value str">'name'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">name</span>,
+450:                           <span class="ruby-value str">'desc'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">desc</span>,
+451:                             <span class="ruby-value str">'up'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">up</span>,
+452:                             <span class="ruby-value str">'ut'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">ut</span>,
+453:                             <span class="ruby-value str">'cw'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">cw</span>,
+454:                            <span class="ruby-value str">'enc'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">enc</span>,
+455:                           <span class="ruby-value str">'file'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">file</span>
+456:                        }
+457: 
+458:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">diff</span>
+459:             <span class="ruby-comment cmt"># Search existing encodings</span>
+460:             <span class="ruby-identifier">idx</span> = <span class="ruby-ivar">@diffs</span>.<span class="ruby-identifier">index</span>(<span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">diff</span>)
+461:             
+462:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">idx</span>
+463:                 <span class="ruby-ivar">@diffs</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">diff</span>)
+464:                 <span class="ruby-ivar">@fonts</span>[<span class="ruby-identifier">fontkey</span>][<span class="ruby-value str">'diff'</span>] = <span class="ruby-ivar">@diffs</span>.<span class="ruby-identifier">length</span>
+465:             <span class="ruby-keyword kw">else</span>
+466:                 <span class="ruby-ivar">@fonts</span>[<span class="ruby-identifier">fontkey</span>][<span class="ruby-value str">'diff'</span>] = <span class="ruby-identifier">idx</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+467:             <span class="ruby-keyword kw">end</span>
+468:         <span class="ruby-keyword kw">end</span>
+469: 
+470:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">file</span>
+471:              <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'TrueType'</span>
+472:                  <span class="ruby-ivar">@FontFiles</span>[<span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">file</span>] = {<span class="ruby-value str">'length1'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">originalsize</span>}
+473:              <span class="ruby-keyword kw">else</span>
+474:                  <span class="ruby-ivar">@FontFiles</span>[<span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">file</span>] = {<span class="ruby-value str">'length1'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">size1</span>, <span class="ruby-value str">'length2'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">FontDef</span>.<span class="ruby-identifier">size2</span>}
+475:             <span class="ruby-keyword kw">end</span>
+476:         <span class="ruby-keyword kw">end</span>
+477: 
+478:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>
+479:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000040" class="method-detail">
+        <a name="M000040"></a>
+
+        <div class="method-heading">
+          <a href="#M000040" class="method-signature">
+          <span class="method-name">AddLink</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000040-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000040-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 542</span>
+542:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">AddLink</span>
+543:         <span class="ruby-comment cmt"># Create a new internal link</span>
+544:         <span class="ruby-ivar">@links</span>.<span class="ruby-identifier">push</span>([<span class="ruby-value">0</span>, <span class="ruby-value">0</span>])
+545:         <span class="ruby-ivar">@links</span>.<span class="ruby-identifier">size</span>
+546:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
+
+        <div class="method-heading">
+          <a href="#M000026" class="method-signature">
+          <span class="method-name">AddPage</span><span class="method-args">(orientation='')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000026-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 279</span>
+279:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">AddPage</span>(<span class="ruby-identifier">orientation</span>=<span class="ruby-value str">''</span>)
+280:         <span class="ruby-comment cmt"># Start a new page</span>
+281:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Open</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@state</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>
+282:         <span class="ruby-identifier">family</span>=<span class="ruby-ivar">@FontFamily</span>
+283:         <span class="ruby-identifier">style</span>=<span class="ruby-ivar">@FontStyle</span><span class="ruby-operator">+</span>(<span class="ruby-ivar">@underline</span> <span class="ruby-operator">?</span> <span class="ruby-value str">'U'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">''</span>)
+284:         <span class="ruby-identifier">size</span>=<span class="ruby-ivar">@FontSizePt</span>
+285:         <span class="ruby-identifier">lw</span>=<span class="ruby-ivar">@LineWidth</span>
+286:         <span class="ruby-identifier">dc</span>=<span class="ruby-ivar">@DrawColor</span>
+287:         <span class="ruby-identifier">fc</span>=<span class="ruby-ivar">@FillColor</span>
+288:         <span class="ruby-identifier">tc</span>=<span class="ruby-ivar">@TextColor</span>
+289:         <span class="ruby-identifier">cf</span>=<span class="ruby-ivar">@ColorFlag</span>
+290:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@page</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+291:             <span class="ruby-comment cmt"># Page footer</span>
+292:             <span class="ruby-ivar">@InFooter</span>=<span class="ruby-keyword kw">true</span>
+293:             <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Footer</span>
+294:             <span class="ruby-ivar">@InFooter</span>=<span class="ruby-keyword kw">false</span>
+295:             <span class="ruby-comment cmt"># Close page</span>
+296:             <span class="ruby-identifier">endpage</span>
+297:         <span class="ruby-keyword kw">end</span>
+298:         <span class="ruby-comment cmt"># Start new page</span>
+299:         <span class="ruby-identifier">beginpage</span>(<span class="ruby-identifier">orientation</span>)
+300:         <span class="ruby-comment cmt"># Set line cap style to square</span>
+301:         <span class="ruby-identifier">out</span>(<span class="ruby-value str">'2 J'</span>)
+302:         <span class="ruby-comment cmt"># Set line width</span>
+303:         <span class="ruby-ivar">@LineWidth</span>=<span class="ruby-identifier">lw</span>
+304:         <span class="ruby-identifier">out</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.2f w'</span>,<span class="ruby-identifier">lw</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>))
+305:         <span class="ruby-comment cmt"># Set font</span>
+306:         <span class="ruby-constant">SetFont</span>(<span class="ruby-identifier">family</span>,<span class="ruby-identifier">style</span>,<span class="ruby-identifier">size</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">family</span>
+307:         <span class="ruby-comment cmt"># Set colors</span>
+308:         <span class="ruby-ivar">@DrawColor</span>=<span class="ruby-identifier">dc</span>
+309:         <span class="ruby-identifier">out</span>(<span class="ruby-identifier">dc</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">dc!</span>=<span class="ruby-value str">'0 G'</span>
+310:         <span class="ruby-ivar">@FillColor</span>=<span class="ruby-identifier">fc</span>
+311:         <span class="ruby-identifier">out</span>(<span class="ruby-identifier">fc</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fc!</span>=<span class="ruby-value str">'0 g'</span>
+312:         <span class="ruby-ivar">@TextColor</span>=<span class="ruby-identifier">tc</span>
+313:         <span class="ruby-ivar">@ColorFlag</span>=<span class="ruby-identifier">cf</span>
+314:         <span class="ruby-comment cmt"># Page header</span>
+315:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Header</span>
+316:         <span class="ruby-comment cmt"># Restore line width</span>
+317:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@LineWidth!</span>=<span class="ruby-identifier">lw</span>
+318:             <span class="ruby-ivar">@LineWidth</span>=<span class="ruby-identifier">lw</span>
+319:             <span class="ruby-identifier">out</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.2f w'</span>,<span class="ruby-identifier">lw</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>))
+320:         <span class="ruby-keyword kw">end</span>
+321:         <span class="ruby-comment cmt"># Restore font</span>
+322:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">SetFont</span>(<span class="ruby-identifier">family</span>,<span class="ruby-identifier">style</span>,<span class="ruby-identifier">size</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">family</span>
+323:         <span class="ruby-comment cmt"># Restore colors</span>
+324:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@DrawColor!</span>=<span class="ruby-identifier">dc</span>
+325:             <span class="ruby-ivar">@DrawColor</span>=<span class="ruby-identifier">dc</span>
+326:             <span class="ruby-identifier">out</span>(<span class="ruby-identifier">dc</span>)
+327:         <span class="ruby-keyword kw">end</span>
+328:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@FillColor!</span>=<span class="ruby-identifier">fc</span>
+329:             <span class="ruby-ivar">@FillColor</span>=<span class="ruby-identifier">fc</span>
+330:             <span class="ruby-identifier">out</span>(<span class="ruby-identifier">fc</span>)
+331:         <span class="ruby-keyword kw">end</span>
+332:         <span class="ruby-ivar">@TextColor</span>=<span class="ruby-identifier">tc</span>
+333:         <span class="ruby-ivar">@ColorFlag</span>=<span class="ruby-identifier">cf</span>
+334:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000022" class="method-detail">
+        <a name="M000022"></a>
+
+        <div class="method-heading">
+          <a href="#M000022" class="method-signature">
+          <span class="method-name">AliasNbPages</span><span class="method-args">(aliasnb='{nb}')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000022-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 251</span>
+251:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">AliasNbPages</span>(<span class="ruby-identifier">aliasnb</span>=<span class="ruby-value str">'{nb}'</span>)
+252:         <span class="ruby-comment cmt"># Define an alias for total number of pages</span>
+253:         <span class="ruby-ivar">@AliasNbPages</span>=<span class="ruby-identifier">aliasnb</span>
+254:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000045" class="method-detail">
+        <a name="M000045"></a>
+
+        <div class="method-heading">
+          <a href="#M000045" class="method-signature">
+          <span class="method-name">Cell</span><span class="method-args">(w,h=0,txt='',border=0,ln=0,align='',fill=0,link='')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000045-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000045-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 577</span>
+577:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Cell</span>(<span class="ruby-identifier">w</span>,<span class="ruby-identifier">h</span>=<span class="ruby-value">0</span>,<span class="ruby-identifier">txt</span>=<span class="ruby-value str">''</span>,<span class="ruby-identifier">border</span>=<span class="ruby-value">0</span>,<span class="ruby-identifier">ln</span>=<span class="ruby-value">0</span>,<span class="ruby-identifier">align</span>=<span class="ruby-value str">''</span>,<span class="ruby-identifier">fill</span>=<span class="ruby-value">0</span>,<span class="ruby-identifier">link</span>=<span class="ruby-value str">''</span>)
+578:         <span class="ruby-comment cmt"># Output a cell</span>
+579:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@y</span><span class="ruby-operator">+</span><span class="ruby-identifier">h</span><span class="ruby-operator">&gt;</span><span class="ruby-ivar">@PageBreakTrigger</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@InFooter</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AcceptPageBreak</span>
+580:             <span class="ruby-comment cmt"># Automatic page break</span>
+581:             <span class="ruby-identifier">x</span>=<span class="ruby-ivar">@x</span>
+582:             <span class="ruby-identifier">ws</span>=<span class="ruby-ivar">@ws</span>
+583:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ws</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+584:                 <span class="ruby-ivar">@ws</span>=<span class="ruby-value">0</span>
+585:                 <span class="ruby-identifier">out</span>(<span class="ruby-value str">'0 Tw'</span>)
+586:             <span class="ruby-keyword kw">end</span>
+587:             <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AddPage</span>(<span class="ruby-ivar">@CurOrientation</span>)
+588:             <span class="ruby-ivar">@x</span>=<span class="ruby-identifier">x</span>
+589:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ws</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+590:                 <span class="ruby-ivar">@ws</span>=<span class="ruby-identifier">ws</span>
+591:                 <span class="ruby-identifier">out</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.3f Tw'</span>,<span class="ruby-identifier">ws</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>))
+592:             <span class="ruby-keyword kw">end</span>
+593:         <span class="ruby-keyword kw">end</span>
+594:         <span class="ruby-identifier">w</span>=<span class="ruby-ivar">@w</span><span class="ruby-operator">-</span><span class="ruby-ivar">@rMargin</span><span class="ruby-operator">-</span><span class="ruby-ivar">@x</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">w</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>
+595:         <span class="ruby-identifier">s</span>=<span class="ruby-value str">''</span>
+596:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fill</span><span class="ruby-operator">==</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">border</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>
+597:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fill</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>
+598:                 <span class="ruby-identifier">op</span>=(<span class="ruby-identifier">border</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">'B'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'f'</span>
+599:             <span class="ruby-keyword kw">else</span>
+600:                 <span class="ruby-identifier">op</span>=<span class="ruby-value str">'S'</span>
+601:             <span class="ruby-keyword kw">end</span>
+602:             <span class="ruby-identifier">s</span>=<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.2f %.2f %.2f %.2f re %s '</span>,<span class="ruby-ivar">@x</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span><span class="ruby-ivar">@y</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">w</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-operator">-</span><span class="ruby-identifier">h</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">op</span>)
+603:         <span class="ruby-keyword kw">end</span>
+604:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">border</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">String</span>
+605:             <span class="ruby-identifier">x</span>=<span class="ruby-ivar">@x</span>
+606:             <span class="ruby-identifier">y</span>=<span class="ruby-ivar">@y</span>
+607:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">border</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'L'</span>).<span class="ruby-identifier">nil?</span>
+608:                 <span class="ruby-identifier">s</span>=<span class="ruby-identifier">s</span><span class="ruby-operator">+</span><span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.2f %.2f m %.2f %.2f l S '</span>,
+609:                     <span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span><span class="ruby-identifier">y</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span>(<span class="ruby-identifier">y</span><span class="ruby-operator">+</span><span class="ruby-identifier">h</span>))<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>)
+610:             <span class="ruby-keyword kw">end</span>
+611:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">border</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'T'</span>).<span class="ruby-identifier">nil?</span>
+612:                 <span class="ruby-identifier">s</span>=<span class="ruby-identifier">s</span><span class="ruby-operator">+</span><span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.2f %.2f m %.2f %.2f l S '</span>,
+613:                     <span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span><span class="ruby-identifier">y</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-identifier">x</span><span class="ruby-operator">+</span><span class="ruby-identifier">w</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span><span class="ruby-identifier">y</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>)
+614:             <span class="ruby-keyword kw">end</span>
+615:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">border</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'R'</span>).<span class="ruby-identifier">nil?</span>
+616:                 <span class="ruby-identifier">s</span>=<span class="ruby-identifier">s</span><span class="ruby-operator">+</span><span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.2f %.2f m %.2f %.2f l S '</span>,
+617:                     (<span class="ruby-identifier">x</span><span class="ruby-operator">+</span><span class="ruby-identifier">w</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span><span class="ruby-identifier">y</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-identifier">x</span><span class="ruby-operator">+</span><span class="ruby-identifier">w</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span>(<span class="ruby-identifier">y</span><span class="ruby-operator">+</span><span class="ruby-identifier">h</span>))<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>)
+618:             <span class="ruby-keyword kw">end</span>
+619:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">border</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'B'</span>).<span class="ruby-identifier">nil?</span>
+620:                 <span class="ruby-identifier">s</span>=<span class="ruby-identifier">s</span><span class="ruby-operator">+</span><span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.2f %.2f m %.2f %.2f l S '</span>,
+621:                     <span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span>(<span class="ruby-identifier">y</span><span class="ruby-operator">+</span><span class="ruby-identifier">h</span>))<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-identifier">x</span><span class="ruby-operator">+</span><span class="ruby-identifier">w</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span>(<span class="ruby-identifier">y</span><span class="ruby-operator">+</span><span class="ruby-identifier">h</span>))<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>)
+622:             <span class="ruby-keyword kw">end</span>
+623:         <span class="ruby-keyword kw">end</span>
+624:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">txt!</span>=<span class="ruby-value str">''</span>
+625:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">align</span><span class="ruby-operator">==</span><span class="ruby-value str">'R'</span>
+626:                 <span class="ruby-identifier">dx</span>=<span class="ruby-identifier">w</span><span class="ruby-operator">-</span><span class="ruby-ivar">@cMargin</span><span class="ruby-operator">-</span><span class="ruby-keyword kw">self</span>.<span class="ruby-constant">GetStringWidth</span>(<span class="ruby-identifier">txt</span>)
+627:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">align</span><span class="ruby-operator">==</span><span class="ruby-value str">'C'</span>
+628:                 <span class="ruby-identifier">dx</span>=(<span class="ruby-identifier">w</span><span class="ruby-operator">-</span><span class="ruby-keyword kw">self</span>.<span class="ruby-constant">GetStringWidth</span>(<span class="ruby-identifier">txt</span>))<span class="ruby-operator">/</span><span class="ruby-value">2</span>
+629:             <span class="ruby-keyword kw">else</span>
+630:                 <span class="ruby-identifier">dx</span>=<span class="ruby-ivar">@cMargin</span>
+631:             <span class="ruby-keyword kw">end</span>
+632:             <span class="ruby-identifier">txt</span> = <span class="ruby-identifier">txt</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">')'</span>, <span class="ruby-value str">'\\)'</span>)
+633:             <span class="ruby-identifier">txt</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-value str">'('</span>, <span class="ruby-value str">'\\('</span>)
+634:             <span class="ruby-identifier">txt</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-value str">'\\'</span>, <span class="ruby-value str">'\\\\'</span>)
+635:             <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@ColorFlag</span>
+636:                 <span class="ruby-identifier">s</span>=<span class="ruby-identifier">s</span><span class="ruby-operator">+</span><span class="ruby-value str">'q '</span><span class="ruby-operator">+</span><span class="ruby-ivar">@TextColor</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span>
+637:             <span class="ruby-keyword kw">end</span>
+638:             <span class="ruby-identifier">s</span>=<span class="ruby-identifier">s</span><span class="ruby-operator">+</span><span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'BT %.2f %.2f Td (%s) Tj ET'</span>,
+639:                 (<span class="ruby-ivar">@x</span><span class="ruby-operator">+</span><span class="ruby-identifier">dx</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span>(<span class="ruby-ivar">@y</span><span class="ruby-operator">+</span><span class="ruby-value">0</span><span class="ruby-value">.5</span><span class="ruby-operator">*</span><span class="ruby-identifier">h</span><span class="ruby-operator">+</span><span class="ruby-value">0</span><span class="ruby-value">.3</span><span class="ruby-operator">*</span><span class="ruby-ivar">@FontSize</span>))<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">txt</span>)
+640:             <span class="ruby-identifier">s</span>=<span class="ruby-identifier">s</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-identifier">dounderline</span>(<span class="ruby-ivar">@x</span><span class="ruby-operator">+</span><span class="ruby-identifier">dx</span>,<span class="ruby-ivar">@y</span><span class="ruby-operator">+</span><span class="ruby-value">0</span><span class="ruby-value">.5</span><span class="ruby-operator">*</span><span class="ruby-identifier">h</span><span class="ruby-operator">+</span><span class="ruby-value">0</span><span class="ruby-value">.3</span><span class="ruby-operator">*</span><span class="ruby-ivar">@FontSize</span>,<span class="ruby-identifier">txt</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@underline</span>
+641:             <span class="ruby-identifier">s</span>=<span class="ruby-identifier">s</span><span class="ruby-operator">+</span><span class="ruby-value str">' Q'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@ColorFlag</span>
+642:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">link</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">link</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">''</span>
+643:                 <span class="ruby-constant">Link</span>(<span class="ruby-ivar">@x</span><span class="ruby-operator">+</span><span class="ruby-identifier">dx</span>,<span class="ruby-ivar">@y</span><span class="ruby-operator">+</span><span class="ruby-value">0</span><span class="ruby-value">.5</span><span class="ruby-operator">*</span><span class="ruby-identifier">h</span><span class="ruby-operator">-</span><span class="ruby-value">0</span><span class="ruby-value">.5</span><span class="ruby-operator">*</span><span class="ruby-ivar">@FontSize</span>,<span class="ruby-constant">GetStringWidth</span>(<span class="ruby-identifier">txt</span>),<span class="ruby-ivar">@FontSize</span>,<span class="ruby-identifier">link</span>)
+644:             <span class="ruby-keyword kw">end</span>
+645:         <span class="ruby-keyword kw">end</span>
+646:         <span class="ruby-identifier">out</span>(<span class="ruby-identifier">s</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span>
+647:         <span class="ruby-ivar">@lasth</span>=<span class="ruby-identifier">h</span>
+648:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ln</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+649:             <span class="ruby-comment cmt"># Go to next line</span>
+650:             <span class="ruby-ivar">@y</span>=<span class="ruby-ivar">@y</span><span class="ruby-operator">+</span><span class="ruby-identifier">h</span>
+651:             <span class="ruby-ivar">@x</span>=<span class="ruby-ivar">@lMargin</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ln</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>
+652:         <span class="ruby-keyword kw">else</span>
+653:             <span class="ruby-ivar">@x</span>=<span class="ruby-ivar">@x</span><span class="ruby-operator">+</span><span class="ruby-identifier">w</span>
+654:         <span class="ruby-keyword kw">end</span>
+655:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
+
+        <div class="method-heading">
+          <a href="#M000025" class="method-signature">
+          <span class="method-name">Close</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000025-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 265</span>
+265:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Close</span>
+266:         <span class="ruby-comment cmt"># Terminate document</span>
+267:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@state</span><span class="ruby-operator">==</span><span class="ruby-value">3</span>
+268:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AddPage</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@page</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>
+269:         <span class="ruby-comment cmt"># Page footer</span>
+270:         <span class="ruby-ivar">@InFooter</span>=<span class="ruby-keyword kw">true</span>
+271:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Footer</span>
+272:         <span class="ruby-ivar">@InFooter</span>=<span class="ruby-keyword kw">false</span>
+273:         <span class="ruby-comment cmt"># Close page</span>
+274:         <span class="ruby-identifier">endpage</span>
+275:         <span class="ruby-comment cmt"># Close document</span>
+276:         <span class="ruby-identifier">enddoc</span>
+277:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000023" class="method-detail">
+        <a name="M000023"></a>
+
+        <div class="method-heading">
+          <a href="#M000023" class="method-signature">
+          <span class="method-name">Error</span><span class="method-args">(msg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000023-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000023-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 256</span>
+256:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Error</span>(<span class="ruby-identifier">msg</span>)
+257:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">'FPDF error: '</span><span class="ruby-operator">+</span><span class="ruby-identifier">msg</span>
+258:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
+
+        <div class="method-heading">
+          <a href="#M000028" class="method-signature">
+          <span class="method-name">Footer</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000028-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 340</span>
+340:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Footer</span>
+341:         <span class="ruby-comment cmt"># To be implemented in your inherited class</span>
+342:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+          <a href="#M000033" class="method-signature">
+          <span class="method-name">GetStringWidth</span><span class="method-args">(s)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000033-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 380</span>
+380:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">GetStringWidth</span>(<span class="ruby-identifier">s</span>)
+381:         <span class="ruby-comment cmt"># Get width of a string in the current font</span>
+382:         <span class="ruby-identifier">cw</span>=<span class="ruby-ivar">@CurrentFont</span>[<span class="ruby-value str">'cw'</span>]
+383:         <span class="ruby-identifier">w</span>=<span class="ruby-value">0</span>
+384:         <span class="ruby-identifier">s</span>.<span class="ruby-identifier">each_byte</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+385:             <span class="ruby-identifier">w</span>=<span class="ruby-identifier">w</span><span class="ruby-operator">+</span><span class="ruby-identifier">cw</span>[<span class="ruby-identifier">c</span>]
+386:         <span class="ruby-keyword kw">end</span>
+387:         <span class="ruby-identifier">w</span><span class="ruby-operator">*</span><span class="ruby-ivar">@FontSize</span><span class="ruby-operator">/</span><span class="ruby-value">1000.0</span>
+388:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000050" class="method-detail">
+        <a name="M000050"></a>
+
+        <div class="method-heading">
+          <a href="#M000050" class="method-signature">
+          <span class="method-name">GetX</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000050-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000050-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 865</span>
+865:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">GetX</span>
+866:         <span class="ruby-comment cmt"># Get x position</span>
+867:         <span class="ruby-ivar">@x</span>
+868:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000052" class="method-detail">
+        <a name="M000052"></a>
+
+        <div class="method-heading">
+          <a href="#M000052" class="method-signature">
+          <span class="method-name">GetY</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000052-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000052-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 879</span>
+879:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">GetY</span>
+880:         <span class="ruby-comment cmt"># Get y position</span>
+881:         <span class="ruby-ivar">@y</span>
+882:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
+
+        <div class="method-heading">
+          <a href="#M000027" class="method-signature">
+          <span class="method-name">Header</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000027-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 336</span>
+336:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Header</span>
+337:         <span class="ruby-comment cmt"># To be implemented in your inherited class</span>
+338:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000048" class="method-detail">
+        <a name="M000048"></a>
+
+        <div class="method-heading">
+          <a href="#M000048" class="method-signature">
+          <span class="method-name">Image</span><span class="method-args">(filename,x,y,w,h=0,type='',link='')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000048-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000048-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 821</span>
+821:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Image</span>(<span class="ruby-identifier">filename</span>,<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">w</span>,<span class="ruby-identifier">h</span>=<span class="ruby-value">0</span>,<span class="ruby-identifier">type</span>=<span class="ruby-value str">''</span>,<span class="ruby-identifier">link</span>=<span class="ruby-value str">''</span>)
+822:     
+823:         <span class="ruby-comment cmt"># Put an image on the page</span>
+824:         <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@images</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">filename</span>)
+825:             <span class="ruby-comment cmt"># First use of image, get info</span>
+826:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">type</span><span class="ruby-operator">==</span><span class="ruby-value str">''</span>
+827:                 <span class="ruby-identifier">pos</span>=<span class="ruby-identifier">filename</span>.<span class="ruby-identifier">rindex</span>(<span class="ruby-value str">'.'</span>)
+828:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pos</span>.<span class="ruby-identifier">nil?</span>
+829:                     <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Error</span>(<span class="ruby-value str">'Image file has no extension and no type was '</span><span class="ruby-operator">+</span>
+830:                         <span class="ruby-value str">'specified: '</span><span class="ruby-operator">+</span><span class="ruby-identifier">filename</span>)
+831:                 <span class="ruby-keyword kw">end</span>
+832:                 <span class="ruby-identifier">type</span>=<span class="ruby-identifier">filename</span>[<span class="ruby-identifier">pos</span><span class="ruby-operator">+</span><span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+833:             <span class="ruby-keyword kw">end</span>
+834:             <span class="ruby-identifier">type</span>.<span class="ruby-identifier">downcase!</span>
+835:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">type</span><span class="ruby-operator">==</span><span class="ruby-value str">'jpg'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">type</span><span class="ruby-operator">==</span><span class="ruby-value str">'jpeg'</span>
+836:                 <span class="ruby-identifier">info</span>=<span class="ruby-identifier">parsejpg</span>(<span class="ruby-constant">FPDF_IMAGES_PATH</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">filename</span>)
+837:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">type</span><span class="ruby-operator">==</span><span class="ruby-value str">'png'</span>
+838:                 <span class="ruby-identifier">info</span>=<span class="ruby-identifier">parsepng</span>(<span class="ruby-constant">FPDF_IMAGES_PATH</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">filename</span>)
+839:             <span class="ruby-keyword kw">else</span>
+840:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Error</span>(<span class="ruby-value str">'Unsupported image file type: '</span><span class="ruby-operator">+</span><span class="ruby-identifier">type</span>)
+841:             <span class="ruby-keyword kw">end</span>
+842:             <span class="ruby-identifier">info</span>[<span class="ruby-value str">'i'</span>]=<span class="ruby-ivar">@images</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+843:             <span class="ruby-ivar">@images</span>[<span class="ruby-identifier">filename</span>]=<span class="ruby-identifier">info</span>
+844:         <span class="ruby-keyword kw">else</span>
+845:             <span class="ruby-identifier">info</span>=<span class="ruby-ivar">@images</span>[<span class="ruby-identifier">filename</span>]
+846:         <span class="ruby-keyword kw">end</span>
+847:         <span class="ruby-comment cmt"># Automatic width or height calculation</span>
+848:         <span class="ruby-identifier">w</span>=<span class="ruby-identifier">h</span><span class="ruby-operator">*</span><span class="ruby-identifier">info</span>[<span class="ruby-value str">'w'</span>]<span class="ruby-operator">/</span><span class="ruby-identifier">info</span>[<span class="ruby-value str">'h'</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">w</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>
+849:         <span class="ruby-identifier">h</span>=<span class="ruby-identifier">w</span><span class="ruby-operator">*</span><span class="ruby-identifier">info</span>[<span class="ruby-value str">'h'</span>]<span class="ruby-operator">/</span><span class="ruby-identifier">info</span>[<span class="ruby-value str">'w'</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>
+850:         <span class="ruby-identifier">out</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'q %.2f 0 0 %.2f %.2f %.2f cm /I%d Do Q'</span>,
+851:             <span class="ruby-identifier">w</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">h</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span>(<span class="ruby-identifier">y</span><span class="ruby-operator">+</span><span class="ruby-identifier">h</span>))<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">info</span>[<span class="ruby-value str">'i'</span>]))
+852:         <span class="ruby-constant">Link</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">w</span>,<span class="ruby-identifier">h</span>,<span class="ruby-identifier">link</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">link</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">link</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">''</span>
+853:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
+
+        <div class="method-heading">
+          <a href="#M000035" class="method-signature">
+          <span class="method-name">Line</span><span class="method-args">(x1, y1, x2, y2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000035-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000035-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 396</span>
+396:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Line</span>(<span class="ruby-identifier">x1</span>, <span class="ruby-identifier">y1</span>, <span class="ruby-identifier">x2</span>, <span class="ruby-identifier">y2</span>)
+397:         <span class="ruby-comment cmt"># Draw a line</span>
+398:         <span class="ruby-identifier">out</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.2f %.2f m %.2f %.2f l S'</span>,
+399:             <span class="ruby-identifier">x1</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span><span class="ruby-identifier">y1</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">x2</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span><span class="ruby-identifier">y2</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>))
+400:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000042" class="method-detail">
+        <a name="M000042"></a>
+
+        <div class="method-heading">
+          <a href="#M000042" class="method-signature">
+          <span class="method-name">Link</span><span class="method-args">(x, y, w, h, link)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000042-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000042-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 555</span>
+555:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Link</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">w</span>, <span class="ruby-identifier">h</span>, <span class="ruby-identifier">link</span>)
+556:         <span class="ruby-comment cmt"># Put a link on the page</span>
+557:         <span class="ruby-ivar">@PageLinks</span>[<span class="ruby-ivar">@page</span>]=<span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@PageLinks</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-ivar">@Page</span>)
+558:         <span class="ruby-ivar">@PageLinks</span>[<span class="ruby-ivar">@page</span>].<span class="ruby-identifier">push</span>([<span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-ivar">@hPt</span><span class="ruby-operator">-</span><span class="ruby-identifier">y</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">w</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">h</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">link</span>])
+559:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000049" class="method-detail">
+        <a name="M000049"></a>
+
+        <div class="method-heading">
+          <a href="#M000049" class="method-signature">
+          <span class="method-name">Ln</span><span class="method-args">(h='')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000049-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000049-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 855</span>
+855:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Ln</span>(<span class="ruby-identifier">h</span>=<span class="ruby-value str">''</span>)
+856:         <span class="ruby-comment cmt"># Line feed; default value is last cell height</span>
+857:         <span class="ruby-ivar">@x</span>=<span class="ruby-ivar">@lMargin</span>
+858:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">String</span>)
+859:             <span class="ruby-ivar">@y</span>=<span class="ruby-ivar">@y</span><span class="ruby-operator">+</span><span class="ruby-ivar">@lasth</span>
+860:         <span class="ruby-keyword kw">else</span>
+861:             <span class="ruby-ivar">@y</span>=<span class="ruby-ivar">@y</span><span class="ruby-operator">+</span><span class="ruby-identifier">h</span>
+862:         <span class="ruby-keyword kw">end</span>
+863:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000046" class="method-detail">
+        <a name="M000046"></a>
+
+        <div class="method-heading">
+          <a href="#M000046" class="method-signature">
+          <span class="method-name">MultiCell</span><span class="method-args">(w,h,txt,border=0,align='J',fill=0)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000046-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000046-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 657</span>
+657:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">MultiCell</span>(<span class="ruby-identifier">w</span>,<span class="ruby-identifier">h</span>,<span class="ruby-identifier">txt</span>,<span class="ruby-identifier">border</span>=<span class="ruby-value">0</span>,<span class="ruby-identifier">align</span>=<span class="ruby-value str">'J'</span>,<span class="ruby-identifier">fill</span>=<span class="ruby-value">0</span>)
+658:         <span class="ruby-comment cmt"># Output text with automatic or explicit line breaks</span>
+659:         <span class="ruby-identifier">cw</span>=<span class="ruby-ivar">@CurrentFont</span>[<span class="ruby-value str">'cw'</span>]
+660:         <span class="ruby-identifier">w</span>=<span class="ruby-ivar">@w</span><span class="ruby-operator">-</span><span class="ruby-ivar">@rMargin</span><span class="ruby-operator">-</span><span class="ruby-ivar">@x</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">w</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>
+661:         <span class="ruby-identifier">wmax</span>=(<span class="ruby-identifier">w</span><span class="ruby-operator">-</span><span class="ruby-value">2</span><span class="ruby-operator">*</span><span class="ruby-ivar">@cMargin</span>)<span class="ruby-operator">*</span><span class="ruby-value">1000</span><span class="ruby-operator">/</span><span class="ruby-ivar">@FontSize</span>
+662:         <span class="ruby-identifier">s</span>=<span class="ruby-identifier">txt</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'\r'</span>,<span class="ruby-value str">''</span>)
+663:         <span class="ruby-identifier">nb</span>=<span class="ruby-identifier">s</span>.<span class="ruby-identifier">length</span>
+664:         <span class="ruby-identifier">nb</span>=<span class="ruby-identifier">nb</span><span class="ruby-operator">-</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">nb</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">s</span>[<span class="ruby-identifier">nb</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>].<span class="ruby-identifier">chr</span><span class="ruby-operator">==</span><span class="ruby-value str">'\n'</span>
+665:         <span class="ruby-identifier">b</span>=<span class="ruby-value">0</span>
+666:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">border!</span>=<span class="ruby-value">0</span>
+667:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">border</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>
+668:                 <span class="ruby-identifier">border</span>=<span class="ruby-value str">'LTRB'</span>
+669:                 <span class="ruby-identifier">b</span>=<span class="ruby-value str">'LRT'</span>
+670:                 <span class="ruby-identifier">b2</span>=<span class="ruby-value str">'LR'</span>
+671:             <span class="ruby-keyword kw">else</span>
+672:                 <span class="ruby-identifier">b2</span>=<span class="ruby-value str">''</span>
+673:                 <span class="ruby-identifier">b2</span>=<span class="ruby-value str">'L'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">border</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'L'</span>).<span class="ruby-identifier">nil?</span>
+674:                 <span class="ruby-identifier">b2</span>=<span class="ruby-identifier">b2</span><span class="ruby-operator">+</span><span class="ruby-value str">'R'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">border</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'R'</span>).<span class="ruby-identifier">nil?</span>
+675:                 <span class="ruby-identifier">b</span>=(<span class="ruby-keyword kw">not</span> <span class="ruby-identifier">border</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'T'</span>).<span class="ruby-identifier">nil?</span>) <span class="ruby-operator">?</span> (<span class="ruby-identifier">b2</span><span class="ruby-operator">+</span><span class="ruby-value str">'T'</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">b2</span>
+676:             <span class="ruby-keyword kw">end</span>
+677:         <span class="ruby-keyword kw">end</span>
+678:         <span class="ruby-identifier">sep</span>=<span class="ruby-value">-1</span>
+679:         <span class="ruby-identifier">i</span>=<span class="ruby-value">0</span>
+680:         <span class="ruby-identifier">j</span>=<span class="ruby-value">0</span>
+681:         <span class="ruby-identifier">l</span>=<span class="ruby-value">0</span>
+682:         <span class="ruby-identifier">ns</span>=<span class="ruby-value">0</span>
+683:         <span class="ruby-identifier">nl</span>=<span class="ruby-value">1</span>
+684:         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span><span class="ruby-operator">&lt;</span><span class="ruby-identifier">nb</span>
+685:             <span class="ruby-comment cmt"># Get next character</span>
+686:             <span class="ruby-identifier">c</span>=<span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">chr</span>
+687:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span><span class="ruby-operator">==</span><span class="ruby-value str">&quot;\n&quot;</span>
+688:                 <span class="ruby-comment cmt"># Explicit line break</span>
+689:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@ws</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+690:                     <span class="ruby-ivar">@ws</span>=<span class="ruby-value">0</span>
+691:                     <span class="ruby-identifier">out</span>(<span class="ruby-value str">'0 Tw'</span>)
+692:                 <span class="ruby-keyword kw">end</span>
+693:                 
+694:                 <span class="ruby-comment cmt"># Changed from s[j..i] to fix bug reported by Hans Allis.</span>
+695:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Cell</span>(<span class="ruby-identifier">w</span>,<span class="ruby-identifier">h</span>,<span class="ruby-identifier">s</span>[<span class="ruby-identifier">j</span><span class="ruby-operator">..</span><span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>],<span class="ruby-identifier">b</span>,<span class="ruby-value">2</span>,<span class="ruby-identifier">align</span>,<span class="ruby-identifier">fill</span>) 
+696:                 
+697:                 <span class="ruby-identifier">i</span>=<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+698:                 <span class="ruby-identifier">sep</span>=<span class="ruby-value">-1</span>
+699:                 <span class="ruby-identifier">j</span>=<span class="ruby-identifier">i</span>
+700:                 <span class="ruby-identifier">l</span>=<span class="ruby-value">0</span>
+701:                 <span class="ruby-identifier">ns</span>=<span class="ruby-value">0</span>
+702:                 <span class="ruby-identifier">nl</span>=<span class="ruby-identifier">nl</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+703:                 <span class="ruby-identifier">b</span>=<span class="ruby-identifier">b2</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">border</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">nl</span><span class="ruby-operator">==</span><span class="ruby-value">2</span>
+704:             <span class="ruby-keyword kw">else</span>
+705:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span><span class="ruby-operator">==</span><span class="ruby-value str">' '</span>
+706:                     <span class="ruby-identifier">sep</span>=<span class="ruby-identifier">i</span>
+707:                     <span class="ruby-identifier">ls</span>=<span class="ruby-identifier">l</span>
+708:                     <span class="ruby-identifier">ns</span>=<span class="ruby-identifier">ns</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+709:                 <span class="ruby-keyword kw">end</span>
+710:                 <span class="ruby-identifier">l</span>=<span class="ruby-identifier">l</span><span class="ruby-operator">+</span><span class="ruby-identifier">cw</span>[<span class="ruby-identifier">c</span>[<span class="ruby-value">0</span>]]
+711:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">wmax</span>
+712:                     <span class="ruby-comment cmt"># Automatic line break</span>
+713:                     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sep</span><span class="ruby-operator">==</span><span class="ruby-value">-1</span>
+714:                         <span class="ruby-identifier">i</span>=<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i</span><span class="ruby-operator">==</span><span class="ruby-identifier">j</span>
+715:                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@ws</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+716:                             <span class="ruby-ivar">@ws</span>=<span class="ruby-value">0</span>
+717:                             <span class="ruby-identifier">out</span>(<span class="ruby-value str">'0 Tw'</span>)
+718:                         <span class="ruby-keyword kw">end</span>
+719:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Cell</span>(<span class="ruby-identifier">w</span>,<span class="ruby-identifier">h</span>,<span class="ruby-identifier">s</span>[<span class="ruby-identifier">j</span><span class="ruby-operator">..</span><span class="ruby-identifier">i</span>],<span class="ruby-identifier">b</span>,<span class="ruby-value">2</span>,<span class="ruby-identifier">align</span>,<span class="ruby-identifier">fill</span>)
+720:                     <span class="ruby-keyword kw">else</span>
+721:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">align</span><span class="ruby-operator">==</span><span class="ruby-value str">'J'</span>
+722:                             <span class="ruby-ivar">@ws</span>=(<span class="ruby-identifier">ns</span><span class="ruby-operator">&gt;</span><span class="ruby-value">1</span>) <span class="ruby-operator">?</span> (<span class="ruby-identifier">wmax</span><span class="ruby-operator">-</span><span class="ruby-identifier">ls</span>)<span class="ruby-operator">/</span><span class="ruby-value">1000.0</span><span class="ruby-operator">*</span><span class="ruby-ivar">@FontSize</span><span class="ruby-operator">/</span>(<span class="ruby-identifier">ns</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>) <span class="ruby-operator">:</span> <span class="ruby-value">0</span>
+723:                             <span class="ruby-identifier">out</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.3f Tw'</span>,<span class="ruby-ivar">@ws</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>))
+724:                         <span class="ruby-keyword kw">end</span>
+725:                         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Cell</span>(<span class="ruby-identifier">w</span>,<span class="ruby-identifier">h</span>,<span class="ruby-identifier">s</span>[<span class="ruby-identifier">j</span><span class="ruby-operator">..</span><span class="ruby-identifier">sep</span>],<span class="ruby-identifier">b</span>,<span class="ruby-value">2</span>,<span class="ruby-identifier">align</span>,<span class="ruby-identifier">fill</span>)
+726:                         <span class="ruby-identifier">i</span>=<span class="ruby-identifier">sep</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+727:                     <span class="ruby-keyword kw">end</span>
+728:                     <span class="ruby-identifier">sep</span>=<span class="ruby-value">-1</span>
+729:                     <span class="ruby-identifier">j</span>=<span class="ruby-identifier">i</span>
+730:                     <span class="ruby-identifier">l</span>=<span class="ruby-value">0</span>
+731:                     <span class="ruby-identifier">ns</span>=<span class="ruby-value">0</span>
+732:                     <span class="ruby-identifier">nl</span>=<span class="ruby-identifier">nl</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+733:                     <span class="ruby-identifier">b</span>=<span class="ruby-identifier">b2</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">border</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">nl</span><span class="ruby-operator">==</span><span class="ruby-value">2</span>
+734:                 <span class="ruby-keyword kw">else</span>
+735:                     <span class="ruby-identifier">i</span>=<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+736:                 <span class="ruby-keyword kw">end</span>
+737:             <span class="ruby-keyword kw">end</span>
+738:         <span class="ruby-keyword kw">end</span>
+739: 
+740:         <span class="ruby-comment cmt"># Last chunk</span>
+741:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@ws</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+742:             <span class="ruby-ivar">@ws</span>=<span class="ruby-value">0</span>
+743:             <span class="ruby-identifier">out</span>(<span class="ruby-value str">'0 Tw'</span>)
+744:         <span class="ruby-keyword kw">end</span>
+745:         <span class="ruby-identifier">b</span>=<span class="ruby-identifier">b</span><span class="ruby-operator">+</span><span class="ruby-value str">'B'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">border!</span>=<span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">border</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'B'</span>).<span class="ruby-identifier">nil?</span>
+746:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Cell</span>(<span class="ruby-identifier">w</span>,<span class="ruby-identifier">h</span>,<span class="ruby-identifier">s</span>[<span class="ruby-identifier">j</span><span class="ruby-operator">..</span><span class="ruby-identifier">i</span>],<span class="ruby-identifier">b</span>,<span class="ruby-value">2</span>,<span class="ruby-identifier">align</span>,<span class="ruby-identifier">fill</span>)
+747:         <span class="ruby-ivar">@x</span>=<span class="ruby-ivar">@lMargin</span>
+748:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000024" class="method-detail">
+        <a name="M000024"></a>
+
+        <div class="method-heading">
+          <a href="#M000024" class="method-signature">
+          <span class="method-name">Open</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000024-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000024-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 260</span>
+260:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Open</span>
+261:         <span class="ruby-comment cmt"># Begin document</span>
+262:         <span class="ruby-ivar">@state</span>=<span class="ruby-value">1</span>
+263:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000055" class="method-detail">
+        <a name="M000055"></a>
+
+        <div class="method-heading">
+          <a href="#M000055" class="method-signature">
+          <span class="method-name">Output</span><span class="method-args">(file=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000055-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000055-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 900</span>
+900:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Output</span>(<span class="ruby-identifier">file</span>=<span class="ruby-keyword kw">nil</span>)
+901:         <span class="ruby-comment cmt"># Output PDF to file or return as a string</span>
+902:         
+903:         <span class="ruby-comment cmt"># Finish document if necessary</span>
+904:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Close</span> <span class="ruby-keyword kw">if</span>(<span class="ruby-ivar">@state</span><span class="ruby-operator">&lt;</span><span class="ruby-value">3</span>)
+905:         
+906:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">nil?</span>
+907:             <span class="ruby-comment cmt"># Return as a string</span>
+908:             <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@buffer</span>
+909:         <span class="ruby-keyword kw">else</span>
+910:             <span class="ruby-comment cmt"># Save file locally</span>
+911:             <span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>,<span class="ruby-value str">'wb'</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+912:                 <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span>(<span class="ruby-ivar">@buffer</span>)
+913:             <span class="ruby-keyword kw">end</span>
+914:         <span class="ruby-keyword kw">end</span>
+915:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000029" class="method-detail">
+        <a name="M000029"></a>
+
+        <div class="method-heading">
+          <a href="#M000029" class="method-signature">
+          <span class="method-name">PageNo</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000029-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 344</span>
+344:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">PageNo</span>
+345:         <span class="ruby-comment cmt"># Get current page number</span>
+346:         <span class="ruby-ivar">@page</span>
+347:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+          <a href="#M000036" class="method-signature">
+          <span class="method-name">Rect</span><span class="method-args">(x, y, w, h, style='')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000036-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000036-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 402</span>
+402:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Rect</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">w</span>, <span class="ruby-identifier">h</span>, <span class="ruby-identifier">style</span>=<span class="ruby-value str">''</span>)
+403:         <span class="ruby-comment cmt"># Draw a rectangle</span>
+404:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">style</span><span class="ruby-operator">==</span><span class="ruby-value str">'F'</span>
+405:             <span class="ruby-identifier">op</span>=<span class="ruby-value str">'f'</span>
+406:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">style</span><span class="ruby-operator">==</span><span class="ruby-value str">'FD'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">style</span><span class="ruby-operator">==</span><span class="ruby-value str">'DF'</span>
+407:             <span class="ruby-identifier">op</span>=<span class="ruby-value str">'B'</span>
+408:         <span class="ruby-keyword kw">else</span>
+409:             <span class="ruby-identifier">op</span>=<span class="ruby-value str">'S'</span>
+410:         <span class="ruby-keyword kw">end</span>
+411:         <span class="ruby-identifier">out</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.2f %.2f %.2f %.2f re %s'</span>, <span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span><span class="ruby-identifier">y</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">w</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-operator">-</span><span class="ruby-identifier">h</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">op</span>))
+412:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+          <a href="#M000019" class="method-signature">
+          <span class="method-name">SetAuthor</span><span class="method-args">(author)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000019-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 236</span>
+236:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetAuthor</span>(<span class="ruby-identifier">author</span>)
+237:         <span class="ruby-comment cmt"># Author of document</span>
+238:         <span class="ruby-ivar">@author</span>=<span class="ruby-identifier">author</span>
+239:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="#M000014" class="method-signature">
+          <span class="method-name">SetAutoPageBreak</span><span class="method-args">(auto, margin=0)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 194</span>
+194:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetAutoPageBreak</span>(<span class="ruby-identifier">auto</span>, <span class="ruby-identifier">margin</span>=<span class="ruby-value">0</span>)
+195:         <span class="ruby-comment cmt"># Set auto page break mode and triggering margin</span>
+196:         <span class="ruby-ivar">@AutoPageBreak</span>=<span class="ruby-identifier">auto</span>
+197:         <span class="ruby-ivar">@bMargin</span>=<span class="ruby-identifier">margin</span>
+198:         <span class="ruby-ivar">@PageBreakTrigger</span>=<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span><span class="ruby-identifier">margin</span>
+199:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
+
+        <div class="method-heading">
+          <a href="#M000016" class="method-signature">
+          <span class="method-name">SetCompression</span><span class="method-args">(compress)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 221</span>
+221:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetCompression</span>(<span class="ruby-identifier">compress</span>)
+222:         <span class="ruby-comment cmt"># Set page compression</span>
+223:         <span class="ruby-ivar">@compress</span> = <span class="ruby-identifier">compress</span>
+224:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000021" class="method-detail">
+        <a name="M000021"></a>
+
+        <div class="method-heading">
+          <a href="#M000021" class="method-signature">
+          <span class="method-name">SetCreator</span><span class="method-args">(creator)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000021-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 246</span>
+246:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetCreator</span>(<span class="ruby-identifier">creator</span>)
+247:         <span class="ruby-comment cmt"># Creator of document</span>
+248:         <span class="ruby-ivar">@creator</span>=<span class="ruby-identifier">creator</span>
+249:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="#M000015" class="method-signature">
+          <span class="method-name">SetDisplayMode</span><span class="method-args">(zoom, layout='continuous')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 201</span>
+201:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetDisplayMode</span>(<span class="ruby-identifier">zoom</span>, <span class="ruby-identifier">layout</span>=<span class="ruby-value str">'continuous'</span>)
+202:         <span class="ruby-comment cmt"># Set display mode in viewer</span>
+203:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">zoom</span><span class="ruby-operator">==</span><span class="ruby-value str">'fullpage'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">zoom</span><span class="ruby-operator">==</span><span class="ruby-value str">'fullwidth'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">zoom</span><span class="ruby-operator">==</span><span class="ruby-value str">'real'</span> <span class="ruby-keyword kw">or</span>
+204:             <span class="ruby-identifier">zoom</span><span class="ruby-operator">==</span><span class="ruby-value str">'default'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">zoom</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">String</span>
+205: 
+206:             <span class="ruby-ivar">@ZoomMode</span>=<span class="ruby-identifier">zoom</span>;
+207:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">zoom</span><span class="ruby-operator">==</span><span class="ruby-value str">'zoom'</span>
+208:             <span class="ruby-ivar">@ZoomMode</span>=<span class="ruby-identifier">layout</span>
+209:         <span class="ruby-keyword kw">else</span>
+210:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">'Incorrect zoom display mode: '</span><span class="ruby-operator">+</span><span class="ruby-identifier">zoom</span>
+211:         <span class="ruby-keyword kw">end</span>
+212:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">layout</span><span class="ruby-operator">==</span><span class="ruby-value str">'single'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">layout</span><span class="ruby-operator">==</span><span class="ruby-value str">'continuous'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">layout</span><span class="ruby-operator">==</span><span class="ruby-value str">'two'</span> <span class="ruby-keyword kw">or</span>
+213:             <span class="ruby-identifier">layout</span><span class="ruby-operator">==</span><span class="ruby-value str">'default'</span>
+214: 
+215:             <span class="ruby-ivar">@LayoutMode</span>=<span class="ruby-identifier">layout</span>
+216:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">zoom!</span>=<span class="ruby-value str">'zoom'</span>
+217:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">'Incorrect layout display mode: '</span><span class="ruby-operator">+</span><span class="ruby-identifier">layout</span>
+218:         <span class="ruby-keyword kw">end</span>
+219:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000030" class="method-detail">
+        <a name="M000030"></a>
+
+        <div class="method-heading">
+          <a href="#M000030" class="method-signature">
+          <span class="method-name">SetDrawColor</span><span class="method-args">(r,g=-1,b=-1)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000030-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000030-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 349</span>
+349:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetDrawColor</span>(<span class="ruby-identifier">r</span>,<span class="ruby-identifier">g</span>=<span class="ruby-value">-1</span>,<span class="ruby-identifier">b</span>=<span class="ruby-value">-1</span>)
+350:         <span class="ruby-comment cmt"># Set color for all stroking operations</span>
+351:         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">r</span><span class="ruby-operator">==</span><span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">g</span><span class="ruby-operator">==</span><span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">b</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">g</span><span class="ruby-operator">==</span><span class="ruby-value">-1</span>
+352:             <span class="ruby-ivar">@DrawColor</span>=<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.3f G'</span>,<span class="ruby-identifier">r</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>)
+353:         <span class="ruby-keyword kw">else</span>
+354:             <span class="ruby-ivar">@DrawColor</span>=<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.3f %.3f %.3f RG'</span>,<span class="ruby-identifier">r</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>,<span class="ruby-identifier">g</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>)
+355:         <span class="ruby-keyword kw">end</span>
+356:         <span class="ruby-identifier">out</span>(<span class="ruby-ivar">@DrawColor</span>) <span class="ruby-keyword kw">if</span>(<span class="ruby-ivar">@page</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>)
+357:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000031" class="method-detail">
+        <a name="M000031"></a>
+
+        <div class="method-heading">
+          <a href="#M000031" class="method-signature">
+          <span class="method-name">SetFillColor</span><span class="method-args">(r,g=-1,b=-1)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000031-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000031-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 359</span>
+359:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetFillColor</span>(<span class="ruby-identifier">r</span>,<span class="ruby-identifier">g</span>=<span class="ruby-value">-1</span>,<span class="ruby-identifier">b</span>=<span class="ruby-value">-1</span>)
+360:         <span class="ruby-comment cmt"># Set color for all filling operations</span>
+361:         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">r</span><span class="ruby-operator">==</span><span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">g</span><span class="ruby-operator">==</span><span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">b</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">g</span><span class="ruby-operator">==</span><span class="ruby-value">-1</span>
+362:             <span class="ruby-ivar">@FillColor</span>=<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.3f g'</span>,<span class="ruby-identifier">r</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>)
+363:         <span class="ruby-keyword kw">else</span>
+364:             <span class="ruby-ivar">@FillColor</span>=<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.3f %.3f %.3f rg'</span>,<span class="ruby-identifier">r</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>,<span class="ruby-identifier">g</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>)
+365:         <span class="ruby-keyword kw">end</span>
+366:         <span class="ruby-ivar">@ColorFlag</span>=(<span class="ruby-ivar">@FillColor!</span>=<span class="ruby-ivar">@TextColor</span>)
+367:         <span class="ruby-identifier">out</span>(<span class="ruby-ivar">@FillColor</span>) <span class="ruby-keyword kw">if</span>(<span class="ruby-ivar">@page</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>)
+368:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000038" class="method-detail">
+        <a name="M000038"></a>
+
+        <div class="method-heading">
+          <a href="#M000038" class="method-signature">
+          <span class="method-name">SetFont</span><span class="method-args">(family, style='', size=0)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000038-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000038-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 481</span>
+481:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetFont</span>(<span class="ruby-identifier">family</span>, <span class="ruby-identifier">style</span>=<span class="ruby-value str">''</span>, <span class="ruby-identifier">size</span>=<span class="ruby-value">0</span>)
+482:         <span class="ruby-comment cmt"># Select a font; size given in points</span>
+483:         <span class="ruby-identifier">family</span>.<span class="ruby-identifier">downcase!</span>
+484:         <span class="ruby-identifier">family</span>=<span class="ruby-ivar">@FontFamily</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">family</span><span class="ruby-operator">==</span><span class="ruby-value str">''</span>
+485:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">family</span><span class="ruby-operator">==</span><span class="ruby-value str">'arial'</span>
+486:             <span class="ruby-identifier">family</span>=<span class="ruby-value str">'helvetica'</span>
+487:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">family</span><span class="ruby-operator">==</span><span class="ruby-value str">'symbol'</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">family</span><span class="ruby-operator">==</span><span class="ruby-value str">'zapfdingbats'</span>
+488:             <span class="ruby-identifier">style</span>=<span class="ruby-value str">''</span>
+489:         <span class="ruby-keyword kw">end</span>
+490:         <span class="ruby-identifier">style</span>.<span class="ruby-identifier">upcase!</span>
+491:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">style</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'U'</span>).<span class="ruby-identifier">nil?</span>
+492:             <span class="ruby-ivar">@underline</span>=<span class="ruby-keyword kw">true</span>
+493:             <span class="ruby-identifier">style</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-value str">'U'</span>,<span class="ruby-value str">''</span>)
+494:         <span class="ruby-keyword kw">else</span>
+495:             <span class="ruby-ivar">@underline</span>=<span class="ruby-keyword kw">false</span>;
+496:         <span class="ruby-keyword kw">end</span>
+497:         <span class="ruby-identifier">style</span>=<span class="ruby-value str">'BI'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">style</span><span class="ruby-operator">==</span><span class="ruby-value str">'IB'</span>
+498:         <span class="ruby-identifier">size</span>=<span class="ruby-ivar">@FontSizePt</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">size</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>
+499:         <span class="ruby-comment cmt"># Test if font is already selected</span>
+500:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@FontFamily</span><span class="ruby-operator">==</span><span class="ruby-identifier">family</span> <span class="ruby-keyword kw">and</span>
+501:             <span class="ruby-ivar">@FontStyle</span><span class="ruby-operator">==</span><span class="ruby-identifier">style</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@FontSizePt</span><span class="ruby-operator">==</span><span class="ruby-identifier">size</span>
+502:         <span class="ruby-comment cmt"># Test if used for the first time</span>
+503:         <span class="ruby-identifier">fontkey</span>=<span class="ruby-identifier">family</span><span class="ruby-operator">+</span><span class="ruby-identifier">style</span>
+504:         <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@fonts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">fontkey</span>)
+505:             <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@CoreFonts</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">fontkey</span>)
+506:                 <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Charwidths</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">fontkey</span>)
+507:                     <span class="ruby-identifier">raise</span> <span class="ruby-value str">'Font unavailable'</span>
+508:                 <span class="ruby-keyword kw">end</span>
+509:                 <span class="ruby-ivar">@fonts</span>[<span class="ruby-identifier">fontkey</span>]={
+510:                     <span class="ruby-value str">'i'</span>=<span class="ruby-operator">&gt;</span><span class="ruby-ivar">@fonts</span>.<span class="ruby-identifier">size</span>,
+511:                     <span class="ruby-value str">'type'</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value str">'core'</span>,
+512:                     <span class="ruby-value str">'name'</span>=<span class="ruby-operator">&gt;</span><span class="ruby-ivar">@CoreFonts</span>[<span class="ruby-identifier">fontkey</span>],
+513:                     <span class="ruby-value str">'up'</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value">-100</span>,
+514:                     <span class="ruby-value str">'ut'</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value">50</span>,
+515:                     <span class="ruby-value str">'cw'</span>=<span class="ruby-operator">&gt;</span><span class="ruby-constant">Charwidths</span>[<span class="ruby-identifier">fontkey</span>]}
+516:             <span class="ruby-keyword kw">else</span>
+517:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">'Font unavailable'</span>
+518:             <span class="ruby-keyword kw">end</span>
+519:         <span class="ruby-keyword kw">end</span>
+520: 
+521:         <span class="ruby-comment cmt">#Select it</span>
+522:         <span class="ruby-ivar">@FontFamily</span>=<span class="ruby-identifier">family</span>
+523:         <span class="ruby-ivar">@FontStyle</span>=<span class="ruby-identifier">style</span>;
+524:         <span class="ruby-ivar">@FontSizePt</span>=<span class="ruby-identifier">size</span>
+525:         <span class="ruby-ivar">@FontSize</span>=<span class="ruby-identifier">size</span><span class="ruby-operator">/</span><span class="ruby-ivar">@k</span>;
+526:         <span class="ruby-ivar">@CurrentFont</span>=<span class="ruby-ivar">@fonts</span>[<span class="ruby-identifier">fontkey</span>]
+527:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@page</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+528:             <span class="ruby-identifier">out</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'BT /F%d %.2f Tf ET'</span>, <span class="ruby-ivar">@CurrentFont</span>[<span class="ruby-value str">'i'</span>], <span class="ruby-ivar">@FontSizePt</span>))
+529:         <span class="ruby-keyword kw">end</span>
+530:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000039" class="method-detail">
+        <a name="M000039"></a>
+
+        <div class="method-heading">
+          <a href="#M000039" class="method-signature">
+          <span class="method-name">SetFontSize</span><span class="method-args">(size)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000039-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000039-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 532</span>
+532:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetFontSize</span>(<span class="ruby-identifier">size</span>)
+533:         <span class="ruby-comment cmt"># Set font size in points</span>
+534:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@FontSizePt</span><span class="ruby-operator">==</span><span class="ruby-identifier">size</span>
+535:         <span class="ruby-ivar">@FontSizePt</span>=<span class="ruby-identifier">size</span>
+536:         <span class="ruby-ivar">@FontSize</span>=<span class="ruby-identifier">size</span><span class="ruby-operator">/</span><span class="ruby-ivar">@k</span>
+537:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@page</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+538:             <span class="ruby-identifier">out</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'BT /F%d %.2f Tf ET'</span>,<span class="ruby-ivar">@CurrentFont</span>[<span class="ruby-value str">'i'</span>],<span class="ruby-ivar">@FontSizePt</span>))
+539:         <span class="ruby-keyword kw">end</span>
+540:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
+
+        <div class="method-heading">
+          <a href="#M000020" class="method-signature">
+          <span class="method-name">SetKeywords</span><span class="method-args">(keywords)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000020-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000020-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 241</span>
+241:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetKeywords</span>(<span class="ruby-identifier">keywords</span>)
+242:         <span class="ruby-comment cmt"># Keywords of document</span>
+243:         <span class="ruby-ivar">@keywords</span>=<span class="ruby-identifier">keywords</span>
+244:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="#M000011" class="method-signature">
+          <span class="method-name">SetLeftMargin</span><span class="method-args">(margin)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 178</span>
+178:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetLeftMargin</span>(<span class="ruby-identifier">margin</span>)
+179:         <span class="ruby-comment cmt"># Set left margin</span>
+180:         <span class="ruby-ivar">@lMargin</span>=<span class="ruby-identifier">margin</span>
+181:         <span class="ruby-ivar">@x</span>=<span class="ruby-identifier">margin</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@page</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@x</span><span class="ruby-operator">&lt;</span><span class="ruby-identifier">margin</span>
+182:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
+
+        <div class="method-heading">
+          <a href="#M000034" class="method-signature">
+          <span class="method-name">SetLineWidth</span><span class="method-args">(width)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000034-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000034-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 390</span>
+390:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetLineWidth</span>(<span class="ruby-identifier">width</span>)
+391:         <span class="ruby-comment cmt"># Set line width</span>
+392:         <span class="ruby-ivar">@LineWidth</span>=<span class="ruby-identifier">width</span>
+393:         <span class="ruby-identifier">out</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.2f w'</span>,<span class="ruby-identifier">width</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>)) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@page</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
+394:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000041" class="method-detail">
+        <a name="M000041"></a>
+
+        <div class="method-heading">
+          <a href="#M000041" class="method-signature">
+          <span class="method-name">SetLink</span><span class="method-args">(link, y=0, page=-1)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000041-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000041-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 548</span>
+548:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetLink</span>(<span class="ruby-identifier">link</span>, <span class="ruby-identifier">y</span>=<span class="ruby-value">0</span>, <span class="ruby-identifier">page</span>=<span class="ruby-value">-1</span>)
+549:         <span class="ruby-comment cmt"># Set destination of internal link</span>
+550:         <span class="ruby-identifier">y</span>=<span class="ruby-ivar">@y</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">y</span><span class="ruby-operator">==</span><span class="ruby-value">-1</span>
+551:         <span class="ruby-identifier">page</span>=<span class="ruby-ivar">@page</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">page</span><span class="ruby-operator">==</span><span class="ruby-value">-1</span>
+552:         <span class="ruby-ivar">@links</span>[<span class="ruby-identifier">link</span>]=[<span class="ruby-identifier">page</span>, <span class="ruby-identifier">y</span>]
+553:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="#M000010" class="method-signature">
+          <span class="method-name">SetMargins</span><span class="method-args">(left, top, right=-1)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 170</span>
+170:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetMargins</span>(<span class="ruby-identifier">left</span>, <span class="ruby-identifier">top</span>, <span class="ruby-identifier">right</span>=<span class="ruby-value">-1</span>)
+171:         <span class="ruby-comment cmt"># Set left, top and right margins</span>
+172:         <span class="ruby-ivar">@lMargin</span>=<span class="ruby-identifier">left</span>
+173:         <span class="ruby-ivar">@tMargin</span>=<span class="ruby-identifier">top</span>
+174:         <span class="ruby-identifier">right</span>=<span class="ruby-identifier">left</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">right</span><span class="ruby-operator">==</span><span class="ruby-value">-1</span>
+175:         <span class="ruby-ivar">@rMargin</span>=<span class="ruby-identifier">right</span>
+176:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="#M000013" class="method-signature">
+          <span class="method-name">SetRightMargin</span><span class="method-args">(margin)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 189</span>
+189:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetRightMargin</span>(<span class="ruby-identifier">margin</span>)
+190:         <span class="ruby-comment cmt">#Set right margin</span>
+191:         <span class="ruby-ivar">@rMargin</span>=<span class="ruby-identifier">margin</span>
+192:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="#M000018" class="method-signature">
+          <span class="method-name">SetSubject</span><span class="method-args">(subject)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000018-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 231</span>
+231:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetSubject</span>(<span class="ruby-identifier">subject</span>)
+232:         <span class="ruby-comment cmt"># Subject of document</span>
+233:         <span class="ruby-ivar">@subject</span>=<span class="ruby-identifier">subject</span>
+234:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+          <a href="#M000032" class="method-signature">
+          <span class="method-name">SetTextColor</span><span class="method-args">(r,g=-1,b=-1)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000032-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 370</span>
+370:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetTextColor</span>(<span class="ruby-identifier">r</span>,<span class="ruby-identifier">g</span>=<span class="ruby-value">-1</span>,<span class="ruby-identifier">b</span>=<span class="ruby-value">-1</span>)
+371:         <span class="ruby-comment cmt"># Set color for text</span>
+372:         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">r</span><span class="ruby-operator">==</span><span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">g</span><span class="ruby-operator">==</span><span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">b</span><span class="ruby-operator">==</span><span class="ruby-value">0</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">g</span><span class="ruby-operator">==</span><span class="ruby-value">-1</span>
+373:             <span class="ruby-ivar">@TextColor</span>=<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.3f g'</span>,<span class="ruby-identifier">r</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>)
+374:         <span class="ruby-keyword kw">else</span>
+375:             <span class="ruby-ivar">@TextColor</span>=<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'%.3f %.3f %.3f rg'</span>,<span class="ruby-identifier">r</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>,<span class="ruby-identifier">g</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">/</span><span class="ruby-value">255.0</span>)
+376:         <span class="ruby-keyword kw">end</span>
+377:         <span class="ruby-ivar">@ColorFlag</span>=(<span class="ruby-ivar">@FillColor!</span>=<span class="ruby-ivar">@TextColor</span>)
+378:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <a href="#M000017" class="method-signature">
+          <span class="method-name">SetTitle</span><span class="method-args">(title)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 226</span>
+226:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetTitle</span>(<span class="ruby-identifier">title</span>)
+227:         <span class="ruby-comment cmt"># Title of document</span>
+228:         <span class="ruby-ivar">@title</span>=<span class="ruby-identifier">title</span>
+229:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="#M000012" class="method-signature">
+          <span class="method-name">SetTopMargin</span><span class="method-args">(margin)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 184</span>
+184:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetTopMargin</span>(<span class="ruby-identifier">margin</span>)
+185:         <span class="ruby-comment cmt"># Set top margin</span>
+186:         <span class="ruby-ivar">@tMargin</span>=<span class="ruby-identifier">margin</span>
+187:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000051" class="method-detail">
+        <a name="M000051"></a>
+
+        <div class="method-heading">
+          <a href="#M000051" class="method-signature">
+          <span class="method-name">SetX</span><span class="method-args">(x)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000051-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000051-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 870</span>
+870:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetX</span>(<span class="ruby-identifier">x</span>)
+871:         <span class="ruby-comment cmt"># Set x position</span>
+872:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">x</span><span class="ruby-operator">&gt;=</span><span class="ruby-value">0</span>
+873:             <span class="ruby-ivar">@x</span>=<span class="ruby-identifier">x</span>
+874:         <span class="ruby-keyword kw">else</span>
+875:             <span class="ruby-ivar">@x</span>=<span class="ruby-ivar">@w</span><span class="ruby-operator">+</span><span class="ruby-identifier">x</span>
+876:         <span class="ruby-keyword kw">end</span>
+877:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000054" class="method-detail">
+        <a name="M000054"></a>
+
+        <div class="method-heading">
+          <a href="#M000054" class="method-signature">
+          <span class="method-name">SetXY</span><span class="method-args">(x,y)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000054-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000054-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 894</span>
+894:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetXY</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>)
+895:         <span class="ruby-comment cmt"># Set x and y positions</span>
+896:         <span class="ruby-constant">SetY</span>(<span class="ruby-identifier">y</span>)
+897:         <span class="ruby-constant">SetX</span>(<span class="ruby-identifier">x</span>)
+898:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000053" class="method-detail">
+        <a name="M000053"></a>
+
+        <div class="method-heading">
+          <a href="#M000053" class="method-signature">
+          <span class="method-name">SetY</span><span class="method-args">(y)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000053-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000053-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 884</span>
+884:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">SetY</span>(<span class="ruby-identifier">y</span>)
+885:         <span class="ruby-comment cmt"># Set y position and reset x</span>
+886:         <span class="ruby-ivar">@x</span>=<span class="ruby-ivar">@lMargin</span>
+887:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">y</span><span class="ruby-operator">&gt;=</span><span class="ruby-value">0</span>
+888:             <span class="ruby-ivar">@y</span>=<span class="ruby-identifier">y</span>
+889:         <span class="ruby-keyword kw">else</span>
+890:             <span class="ruby-ivar">@y</span>=<span class="ruby-ivar">@h</span><span class="ruby-operator">+</span><span class="ruby-identifier">y</span>
+891:         <span class="ruby-keyword kw">end</span>
+892:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000043" class="method-detail">
+        <a name="M000043"></a>
+
+        <div class="method-heading">
+          <a href="#M000043" class="method-signature">
+          <span class="method-name">Text</span><span class="method-args">(x, y, txt)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000043-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000043-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 561</span>
+561:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Text</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">txt</span>)
+562:         <span class="ruby-comment cmt"># Output a string</span>
+563:         <span class="ruby-identifier">txt</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-value str">')'</span>, <span class="ruby-value str">'\\)'</span>)
+564:         <span class="ruby-identifier">txt</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-value str">'('</span>, <span class="ruby-value str">'\\('</span>)
+565:         <span class="ruby-identifier">txt</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-value str">'\\'</span>, <span class="ruby-value str">'\\\\'</span>)
+566:         <span class="ruby-identifier">s</span>=<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'BT %.2f %.2f Td (%s) Tj ET'</span>,<span class="ruby-identifier">x</span><span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,(<span class="ruby-ivar">@h</span><span class="ruby-operator">-</span><span class="ruby-identifier">y</span>)<span class="ruby-operator">*</span><span class="ruby-ivar">@k</span>,<span class="ruby-identifier">txt</span>);
+567:         <span class="ruby-identifier">s</span>=<span class="ruby-identifier">s</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-identifier">dounderline</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">txt</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@underline</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">txt!</span>=<span class="ruby-value str">''</span>
+568:         <span class="ruby-identifier">s</span>=<span class="ruby-value str">'q '</span><span class="ruby-operator">+</span><span class="ruby-ivar">@TextColor</span><span class="ruby-operator">+</span><span class="ruby-value str">' '</span><span class="ruby-operator">+</span><span class="ruby-identifier">s</span><span class="ruby-operator">+</span><span class="ruby-value str">' Q'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@ColorFlag</span>
+569:         <span class="ruby-identifier">out</span>(<span class="ruby-identifier">s</span>)
+570:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000047" class="method-detail">
+        <a name="M000047"></a>
+
+        <div class="method-heading">
+          <a href="#M000047" class="method-signature">
+          <span class="method-name">Write</span><span class="method-args">(h,txt,link='')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000047-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000047-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/fpdf.rb, line 750</span>
+750:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Write</span>(<span class="ruby-identifier">h</span>,<span class="ruby-identifier">txt</span>,<span class="ruby-identifier">link</span>=<span class="ruby-value str">''</span>)
+751:         <span class="ruby-comment cmt"># Output text in flowing mode</span>
+752:         <span class="ruby-identifier">cw</span>=<span class="ruby-ivar">@CurrentFont</span>[<span class="ruby-value str">'cw'</span>]
+753:         <span class="ruby-identifier">w</span>=<span class="ruby-ivar">@w</span><span class="ruby-operator">-</span><span class="ruby-ivar">@rMargin</span><span class="ruby-operator">-</span><span class="ruby-ivar">@x</span>
+754:         <span class="ruby-identifier">wmax</span>=(<span class="ruby-identifier">w</span><span class="ruby-operator">-</span><span class="ruby-value">2</span><span class="ruby-operator">*</span><span class="ruby-ivar">@cMargin</span>)<span class="ruby-operator">*</span><span class="ruby-value">1000</span><span class="ruby-operator">/</span><span class="ruby-ivar">@FontSize</span>
+755:         <span class="ruby-identifier">s</span>=<span class="ruby-identifier">txt</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;\r&quot;</span>,<span class="ruby-value str">''</span>)
+756:         <span class="ruby-identifier">nb</span>=<span class="ruby-identifier">s</span>.<span class="ruby-identifier">length</span>
+757:         <span class="ruby-identifier">sep</span>=<span class="ruby-value">-1</span>
+758:         <span class="ruby-identifier">i</span>=<span class="ruby-value">0</span>
+759:         <span class="ruby-identifier">j</span>=<span class="ruby-value">0</span>
+760:         <span class="ruby-identifier">l</span>=<span class="ruby-value">0</span>
+761:         <span class="ruby-identifier">nl</span>=<span class="ruby-value">1</span>
+762:         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span><span class="ruby-operator">&lt;</span><span class="ruby-identifier">nb</span>
+763:             <span class="ruby-comment cmt"># Get next character</span>
+764:             <span class="ruby-identifier">c</span>=<span class="ruby-identifier">s</span>[<span class="ruby-identifier">i</span>]
+765:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span><span class="ruby-operator">==</span><span class="ruby-value str">&quot;\n&quot;</span>[<span class="ruby-value">0</span>]
+766:                 <span class="ruby-comment cmt"># Explicit line break</span>
+767:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Cell</span>(<span class="ruby-identifier">w</span>,<span class="ruby-identifier">h</span>,<span class="ruby-identifier">s</span>[<span class="ruby-identifier">j</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-identifier">j</span>],<span class="ruby-value">0</span>,<span class="ruby-value">2</span>,<span class="ruby-value str">''</span>,<span class="ruby-value">0</span>,<span class="ruby-identifier">link</span>)
+768:                 <span class="ruby-identifier">i</span>=<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+769:                 <span class="ruby-identifier">sep</span>=<span class="ruby-value">-1</span>
+770:                 <span class="ruby-identifier">j</span>=<span class="ruby-identifier">i</span>
+771:                 <span class="ruby-identifier">l</span>=<span class="ruby-value">0</span>
+772:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">nl</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>
+773:                     <span class="ruby-ivar">@x</span>=<span class="ruby-ivar">@lMargin</span>
+774:                     <span class="ruby-identifier">w</span>=<span class="ruby-ivar">@w</span><span class="ruby-operator">-</span><span class="ruby-ivar">@rMargin</span><span class="ruby-operator">-</span><span class="ruby-ivar">@x</span>
+775:                     <span class="ruby-identifier">wmax</span>=(<span class="ruby-identifier">w</span><span class="ruby-operator">-</span><span class="ruby-value">2</span><span class="ruby-operator">*</span><span class="ruby-ivar">@cMargin</span>)<span class="ruby-operator">*</span><span class="ruby-value">1000</span><span class="ruby-operator">/</span><span class="ruby-ivar">@FontSize</span>
+776:                 <span class="ruby-keyword kw">end</span>
+777:                 <span class="ruby-identifier">nl</span>=<span class="ruby-identifier">nl</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+778:                 <span class="ruby-keyword kw">next</span>
+779:             <span class="ruby-keyword kw">end</span>
+780:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span><span class="ruby-operator">==</span><span class="ruby-value str">' '</span>[<span class="ruby-value">0</span>]
+781:                 <span class="ruby-identifier">sep</span>=<span class="ruby-identifier">i</span>
+782:                 <span class="ruby-identifier">ls</span>=<span class="ruby-identifier">l</span>
+783:             <span class="ruby-keyword kw">end</span>
+784:             <span class="ruby-identifier">l</span>=<span class="ruby-identifier">l</span><span class="ruby-operator">+</span><span class="ruby-identifier">cw</span>[<span class="ruby-identifier">c</span>];
+785:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">wmax</span>
+786:                 <span class="ruby-comment cmt"># Automatic line break</span>
+787:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sep</span><span class="ruby-operator">==</span><span class="ruby-value">-1</span>
+788:                     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@x</span><span class="ruby-operator">&gt;</span><span class="ruby-ivar">@lMargin</span>
+789:                         <span class="ruby-comment cmt"># Move to next line</span>
+790:                         <span class="ruby-ivar">@x</span>=<span class="ruby-ivar">@lMargin</span>
+791:                         <span class="ruby-ivar">@y</span>=<span class="ruby-ivar">@y</span><span class="ruby-operator">+</span><span class="ruby-identifier">h</span>
+792:                         <span class="ruby-identifier">w</span>=<span class="ruby-ivar">@w</span><span class="ruby-operator">-</span><span class="ruby-ivar">@rMargin</span><span class="ruby-operator">-</span><span class="ruby-ivar">@x</span>
+793:                         <span class="ruby-identifier">wmax</span>=(<span class="ruby-identifier">w</span><span class="ruby-operator">-</span><span class="ruby-value">2</span><span class="ruby-operator">*</span><span class="ruby-ivar">@cMargin</span>)<span class="ruby-operator">*</span><span class="ruby-value">1000</span><span class="ruby-operator">/</span><span class="ruby-ivar">@FontSize</span>
+794:                         <span class="ruby-identifier">i</span>=<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+795:                         <span class="ruby-identifier">nl</span>=<span class="ruby-identifier">nl</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+796:                         <span class="ruby-keyword kw">next</span>
+797:                     <span class="ruby-keyword kw">end</span>
+798:                     <span class="ruby-identifier">i</span>=<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i</span><span class="ruby-operator">==</span><span class="ruby-identifier">j</span>
+799:                     <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Cell</span>(<span class="ruby-identifier">w</span>,<span class="ruby-identifier">h</span>,<span class="ruby-identifier">s</span>[<span class="ruby-identifier">j</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-identifier">j</span>],<span class="ruby-value">0</span>,<span class="ruby-value">2</span>,<span class="ruby-value str">''</span>,<span class="ruby-value">0</span>,<span class="ruby-identifier">link</span>)
+800:                 <span class="ruby-keyword kw">else</span>
+801:                     <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Cell</span>(<span class="ruby-identifier">w</span>,<span class="ruby-identifier">h</span>,<span class="ruby-identifier">s</span>[<span class="ruby-identifier">j</span>,<span class="ruby-identifier">sep</span><span class="ruby-operator">-</span><span class="ruby-identifier">j</span>],<span class="ruby-value">0</span>,<span class="ruby-value">2</span>,<span class="ruby-value str">''</span>,<span class="ruby-value">0</span>,<span class="ruby-identifier">link</span>)
+802:                     <span class="ruby-identifier">i</span>=<span class="ruby-identifier">sep</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+803:                 <span class="ruby-keyword kw">end</span>
+804:                 <span class="ruby-identifier">sep</span>=<span class="ruby-value">-1</span>
+805:                 <span class="ruby-identifier">j</span>=<span class="ruby-identifier">i</span>
+806:                 <span class="ruby-identifier">l</span>=<span class="ruby-value">0</span>
+807:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">nl</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>
+808:                     <span class="ruby-ivar">@x</span>=<span class="ruby-ivar">@lMargin</span>
+809:                     <span class="ruby-identifier">w</span>=<span class="ruby-ivar">@w</span><span class="ruby-operator">-</span><span class="ruby-ivar">@rMargin</span><span class="ruby-operator">-</span><span class="ruby-ivar">@x</span>
+810:                     <span class="ruby-identifier">wmax</span>=(<span class="ruby-identifier">w</span><span class="ruby-operator">-</span><span class="ruby-value">2</span><span class="ruby-operator">*</span><span class="ruby-ivar">@cMargin</span>)<span class="ruby-operator">*</span><span class="ruby-value">1000</span><span class="ruby-operator">/</span><span class="ruby-ivar">@FontSize</span>
+811:                 <span class="ruby-keyword kw">end</span>
+812:                 <span class="ruby-identifier">nl</span>=<span class="ruby-identifier">nl</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+813:             <span class="ruby-keyword kw">else</span>
+814:                 <span class="ruby-identifier">i</span>=<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+815:             <span class="ruby-keyword kw">end</span>
+816:         <span class="ruby-keyword kw">end</span>
+817:         <span class="ruby-comment cmt"># Last chunk</span>
+818:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Cell</span>(<span class="ruby-identifier">l</span><span class="ruby-operator">/</span><span class="ruby-value">1000.0</span><span class="ruby-operator">*</span><span class="ruby-ivar">@FontSize</span>,<span class="ruby-identifier">h</span>,<span class="ruby-identifier">s</span>[<span class="ruby-identifier">j</span>,<span class="ruby-identifier">i</span>],<span class="ruby-value">0</span>,<span class="ruby-value">0</span>,<span class="ruby-value str">''</span>,<span class="ruby-value">0</span>,<span class="ruby-identifier">link</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i!</span>=<span class="ruby-identifier">j</span>
+819:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

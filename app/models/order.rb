@@ -2,6 +2,7 @@ class Order < Document
 
   belongs_to :user
   has_many :order_lines, :dependent => :destroy
+  has_many :models, :through => :order_lines
 
   has_one :backup, :class_name => "Backup::Order", :dependent => :destroy #TODO delete when nullify # TODO acts_as_backupable
 
@@ -19,6 +20,7 @@ class Order < Document
   def lines
     order_lines
   end
+
 
 #########################################################################
 

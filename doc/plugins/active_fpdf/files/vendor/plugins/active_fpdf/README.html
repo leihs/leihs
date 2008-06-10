@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/active_fpdf/README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Thu Jun 05 12:49:00 +0200 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+WELCOME TO <a href="../../../../classes/ActiveFPDF.html">ActiveFPDF</a>!
+</p>
+<p>
+install, use the plugin <a
+href="../../../../classes/ActiveFPDF.html">ActiveFPDF</a>
+</p>
+<h1>Introduction Rails Plugin: <a href="../../../../classes/ActiveFPDF.html">ActiveFPDF</a> =</h1>
+<p>
+This rails plugin <a
+href="../../../../classes/ActiveFPDF.html">ActiveFPDF</a> will allow very
+easy generation of i18n PDF documents (Chinese, Japanese, Korean, Central
+Europe, Cyrillic, Western Europe, Greek, Turkish, Hebrew, Baltic,
+Vietnamese and Thai Language) through the use of template file
+&quot;.rfpdf&quot; views for rails/pdf and optinal layout file
+&quot;.rb&quot; for pdf, and rely on the cool library Ruby <a
+href="../../../../classes/FPDF.html">FPDF</a>: <a
+href="http://zeropluszero.com/software/fpdf">zeropluszero.com/software/fpdf</a>/.
+This Plugin includes the library.
+</p>
+<h1>Install the plugin =</h1>
+<pre>
+  ruby script/plugin install http://cnruby.googlecode.com/svn/trunk/rails-plugins/active_fpdf/vendor/plugins/active_fpdf/
+  rake active_fpdf:init
+</pre>
+<h1>Prerequisite =</h1>
+<pre>
+  * Rails 1.2.3 and above
+  * create the directories for rails application
+    ** app/views/{View Name}/pdfs   #  template files for rails/pdf
+  * edit the config/environment.rb
+    Mime::Type.register &quot;application/pdf&quot;, :pdf
+  * save images for pdf files to this directory(optional)
+    ** public/images
+  * save new fonts to the directory(optional)
+    ** app/views/fonts
+</pre>
+<h1>Developing the rails code with the plugin =</h1>
+<pre>
+  * edit controller file, example the code for controller method index():
+    format.pdf { render *:layout=&gt;false*, :template =&gt; &quot;{View Name}/pdfs/index&quot; } # index.rfpdf
+  * create a template file for rails/pdf, example for controller pages:
+    app/views/{View Name}/pdfs/index.rfpdf
+  * finish
+</pre>
+<h1>Browsing the results =</h1>
+<pre>
+  * call the method index: _http://localhost:3000/{View Name}.pdf_
+</pre>
+<h1>Demo download and use =</h1>
+<pre>
+  * svn co http://cnruby.googlecode.com/svn/trunk/rails-plugins/active_fpdf/
+  * cd active_fpdf
+  * ruby script/server
+  * http://localhost:3000/pages and http://localhost:3000/pages.pdf
+</pre>
+<h1>Example for more complex development =</h1>
+<pre>
+  * edit controller file, example the code for controller method show():
+    http://cnruby.googlecode.com/svn/trunk/rails-plugins/active_fpdf/app/controllers/pages_controlller.txt
+  * create a template for rails/pdf, example for controller pages:
+    http://cnruby.googlecode.com/svn/trunk/rails-plugins/active_fpdf/app/views/pages/pdfs/show-03.rfpdf
+  * edit app/helpers/application_helper.rb, example
+     require 'pdf_layout_03'
+  * create a layout file for pdf, exmaple the layout file pdf_layout_03.rb for pdf
+    http://cnruby.googlecode.com/svn/trunk/rails-plugins/active_fpdf/app/helpers/pdf_layout_03.rb
+  * finish
+</pre>
+<h1>Error possibility for developing rails codes =</h1>
+<pre>
+  * The file encoding is not UTF-8.
+  * An image about layout file for pdf exists not.
+  * A new font file exists not.
+  * If we change a layout file for pdf, must restart webserver.
+  * Any false code exists in the files:
+    ** a template file for rails/pdf
+    ** a layout file for pdf
+  * Whether use a parameter &quot;:layout=&gt;false&quot; in the method render().
+</pre>
+<h1>Express command for rails example =</h1>
+<pre>
+  * rails use_fpdf
+  * cd use_fpdf
+  * ruby script/plugin install http://cnruby.googlecode.com/svn/trunk/rails-plugins/active_fpdf/vendor/plugins/active_fpdf/
+  * vi config/environment.rb
+  * vi config/database.yml
+  * mkdir app/views/pages/pdfs
+  * ruby script/generate scaffold_resource Page
+  * vi db/migrate/001_create_pages.rb
+  * rake db:migrate
+  * vi app/controllers/pages_controller.rb
+  * vi app/views/pages/pdfs/show.rfpdf
+  * vi app/views/pages/new.rhtml
+  * ruby script/server
+  * http://localhost:3000/pages/new
+  * http://localhost:3000/pages/1.pdf
+</pre>
+<h1>Known problems =</h1>
+<pre>
+  * Show bookmark is not correct for i18n.
+</pre>
+<p>
+Good luck using active_fpdf!
+</p>
+<p>
+Gudao Luo, gudao dot luo at gmail dot com
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

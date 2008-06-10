@@ -2,6 +2,7 @@ class CreateOrders < ActiveRecord::Migration
   def self.up
     create_table :orders do |t|
       t.belongs_to :user
+      t.belongs_to :inventory_pool
       t.integer :status_const, :default => Order::NEW # TODO create index 
       t.string :purpose
       t.timestamps
@@ -13,6 +14,7 @@ class CreateOrders < ActiveRecord::Migration
     create_table :backup_orders do |t|
       t.belongs_to :order
       t.belongs_to :user
+      t.belongs_to :inventory_pool
       t.integer :status_const, :default => Order::NEW # TODO create index 
       t.string :purpose
       t.timestamps

@@ -8,7 +8,10 @@ Delete Order		=			Bestellung löschen
 Hand Over			=			Herausgeben
 Take Back			=			Zurücknehmen
 Remind				=			Mahnen
-
+Inventory Pool		=			Gerätepark
+My Account			=			Mein Konto
+Change				=			Ändern
+Logout				=			Abmelden
 
 
 

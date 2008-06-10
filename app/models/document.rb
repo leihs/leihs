@@ -3,8 +3,17 @@ class Document < ActiveRecord::Base
   self.abstract_class = true
   
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
+  belongs_to :inventory_pool
 
+  # TODO temp determines related inventory_pool 
+  after_save { |record| 
+    unless record.inventory_pool
+     inventory_pool = record.models.first.items.first.inventory_pool
+     record.update_attribute(:inventory_pool, inventory_pool)
+    end
+  }
 
+################################################################
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil)
     c = "#{self.class}Line".constantize
     o = c.new(:quantity => quantity,

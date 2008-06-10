@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/restful_authentication/README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Fri Jun 06 17:52:13 +0200 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Restful Authentication Generator
+</p>
+<h4></h4>
+<p>
+This is a basic restful authentication generator for rails, taken from acts
+as authenticated. Currently it requires Rails 1.2.6 or above.
+</p>
+<p>
+To use:
+</p>
+<pre>
+  ./script/generate authenticated user sessions \
+                --include-activation \
+                --stateful
+</pre>
+<p>
+The first parameter specifies the model that gets created in signup
+(typically a user or account model). A model with migration is created, as
+well as a basic controller with the create method.
+</p>
+<p>
+The second parameter specifies the sessions controller name. This is the
+controller that handles the actual login/logout function on the site.
+</p>
+<p>
+The third parameter (&#8212;include-activation) generates the code for a
+ActionMailer and its respective Activation Code through email.
+</p>
+<p>
+The fourth (&#8212;stateful) builds in support for acts_as_state_machine
+and generates activation code. This was taken from:
+</p>
+<p>
+<a
+href="http://www.vaporbase.com/postings/stateful_authentication">www.vaporbase.com/postings/stateful_authentication</a>
+</p>
+<p>
+You can pass &#8212;skip-migration to skip the user migration.
+</p>
+<p>
+If you&#8216;re using acts_as_state_machine, define your users resource
+like this:
+</p>
+<pre>
+        map.resources :users, :member =&gt; { :suspend   =&gt; :put,
+                                     :unsuspend =&gt; :put,
+                                     :purge     =&gt; :delete }
+</pre>
+<p>
+Also, add an observer to config/environment.rb if you chose the
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

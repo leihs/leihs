@@ -1,4 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
+
+  
+  map.resources :users
+  map.resource :session
+  # For RESTful_Authentication
+  map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
+  map.signup '/signup', :controller => 'users', :action => 'new'
+  map.login '/login', :controller => 'sessions', :action => 'new'
+  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
+  # For RESTful_ACL
+  #map.error '/error', :controller => 'sessions', :action => 'error'
+  #map.denied '/denied', :controller => 'sessions', :action => 'denied'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

@@ -10,10 +10,23 @@ class CreateUsersAndAuthenticationSystem < ActiveRecord::Migration
     AuthenticationSystem.new(:name => "LDAP Authentication", :class_name => "LDAPAuthentication").save
     
     create_table :users do |t|
-      t.string :login             
+      t.string :login # restful_authentication             
       t.belongs_to :authentication_system, :default => 1
       t.timestamps
+
+      # Start restful_authentication
+      # TODO refactor dedicated authentication_system
+      t.string :email
+      t.string :crypted_password, :limit => 40
+      t.string :salt, :limit => 40
+      t.datetime :created_at
+      t.datetime :updated_at
+      t.string :remember_token
+      t.datetime :remember_token_expires_at
+      # End restful_authentication
+    
     end
+
     
   end
 
