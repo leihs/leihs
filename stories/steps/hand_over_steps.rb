@@ -37,7 +37,7 @@ steps_for(:hand_over) do
     post "/backend/acknowledge/approve", :id => @order.id, :comment => "test comment"
     @order = assigns(:order)
     @order.should_not be_nil
-    @contract = @order.user.reload.current_contract
+    @contract = @order.user.reload.current_contract(@order.inventory_pool)
     @contract.should_not be_nil
   end
 

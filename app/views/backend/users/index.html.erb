@@ -3,7 +3,7 @@
 				<th scope="col">User</th>
 				<th scope="col">Orders</th>
 				<th scope="col">Contracts</th>
-				<th scope="col">Aktion</th>
+				<th scope="col">Roles</th>
 			</tr>
 
 		<% for user in @users %>
@@ -14,7 +14,13 @@
 														 :action => 'index',
 														 :user_id => user.id %>)</td>
 				<td><%= user.contracts.size %></td>
-				<td></td>
+				<td>
+					<ul>
+					<% user.access_rights.each do |a| %>
+						<li><%= "#{a.inventory_pool.name} => #{a.role.name}" %></li>
+					<% end %>
+					</ul>					
+				</td>
 			</tr>
 		<% end %>
 

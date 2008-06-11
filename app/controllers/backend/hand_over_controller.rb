@@ -19,15 +19,16 @@ class Backend::HandOverController < Backend::BackendController
     elsif params[:user_id]
       @user = User.find(params[:user_id])
       #@grouped_lines = ContractLine.ready_for_hand_over(@user)
-      @contracts = [@user.current_contract]
+      @contracts = [@user.current_contract(current_inventory_pool)]
       @contracts.each do |c|
         dates = c.lines.collect { |l| l.start_date }.uniq
         dates.each { |d| e = Contract.new(c.attributes); e.lines << c.lines; @grouped_lines << e.visits(d) }
       end
     else
 #      @grouped_lines = ContractLine.ready_for_hand_over                                           
-      @contracts = Contract.ready_for_hand_over
-      #@contracts = Contract.new_contracts.to_hand_over
+#      @contracts = Contract.new_contracts.to_hand_over
+#old#      @contracts = Contract.ready_for_hand_over
+      @contracts = current_inventory_pool.contracts.ready_for_hand_over
       @grouped_lines = [] 
       @contracts.each { |c| @grouped_lines << c.visits(c.s.to_date) }
     end
@@ -39,7 +40,7 @@ class Backend::HandOverController < Backend::BackendController
   # get current open contract for a given user
   def show
     user = User.find(params[:id])
-    @contract = user.get_current_contract
+    @contract = user.get_current_contract(current_inventory_pool)
     @contract.contract_lines.sort!
   end
   

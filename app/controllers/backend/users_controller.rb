@@ -6,13 +6,9 @@ class Backend::UsersController < Backend::BackendController
 
   
   def show
-    if params[:id]
-      @user = User.find(params[:id])
-    else
-      @user = current_user
-    end
+    @user = User.find(params[:id])
  
-    render :layout => $modal_layout_path  if request.post?
+    render :layout => $modal_layout_path
   end
   
 end

@@ -1,10 +1,12 @@
 class Backend::AcknowledgeController < Backend::BackendController
+  require_role "inventory_manager" # TODO
 
   before_filter :load_order, :except => :index
 
   def index
-    @new_orders = Order.new_orders
-    @working_orders = Order.new_orders.select { |o| o.has_backup? }
+#old#    @new_orders = Order.new_orders
+    @new_orders = current_inventory_pool.orders.new_orders
+    @working_orders = @new_orders.select { |o| o.has_backup? }
 
     if params[:search]
       params[:search] = "*#{params[:search]}*" # search with partial string

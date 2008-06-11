@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :inventory_pools, :through => :access_rights
   has_many :orders
   has_many :contracts
-  has_one :current_contract, :class_name => "Contract", :conditions => ["status_const = ?", Contract::NEW]
+  has_many :current_contracts, :class_name => "Contract", :conditions => ["status_const = ?", Contract::NEW]
   
   acts_as_ferret :fields => [ :login ]  #, :store_class_name => true
 
@@ -22,17 +22,23 @@ class User < ActiveRecord::Base
   def email
     authinfo.email
   end
+
+  # a user has at most one new contract for each inventory pool
+  def current_contract(inventory_pool)
+    current_contracts.detect {|c| c.inventory_pool == inventory_pool } # OPTIMIZE
+  end
   
-  def get_current_contract
-    c = current_contract
-    c ||= Contract.create(:user => self, :status_const => Contract::NEW)
-    c
+  # get or create a new contract for a given inventory pool
+  def get_current_contract(inventory_pool)
+    contract = current_contract(inventory_pool)
+    contract ||= Contract.create(:user => self, :status_const => Contract::NEW, :inventory_pool => inventory_pool)
+    contract
   end
 
   def get_signed_contract_lines
-#    contract_lines = []
-#    contracts.each { |c| c.contract_lines.each { |cl| contract_lines << cl } }
-#    contract_lines
+#old#    contract_lines = []
+#old#    contracts.each { |c| c.contract_lines.each { |cl| contract_lines << cl } }
+#old#    contract_lines
 
     contracts.signed_contracts.collect { |c| c.contract_lines }.flatten
   end
