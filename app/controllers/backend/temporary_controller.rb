@@ -19,8 +19,8 @@ class Backend::TemporaryController < Backend::BackendController
     end
     
     params[:id] = 5
-    params[:name] = "user"
-    create_some_users
+    params[:name] = "admin"
+    create_admin_users
     create_meaningful_users
 
     params[:id] = 10
@@ -44,13 +44,14 @@ private
 #    end
 #  end
 
-  def create_some_users
+  def create_admin_users
     params[:id].to_i.times do |i|
       u = User.new(:login => "#{params[:name]}_#{i}")
-        #u.roles << Role.find(:first, :conditions => {:name => "inventory_manager"})
         r = Role.find(:first, :conditions => {:name => "inventory_manager"})
-        i = InventoryPool.find(:first)
-        u.access_rights << AccessRight.new(:role => r, :inventory_pool => i)
+        ips = InventoryPool.find(:all).select { rand(3) == 0 }
+        ips.each do |i|
+          u.access_rights << AccessRight.new(:role => r, :inventory_pool => i)
+        end
       u.save
     end
   end

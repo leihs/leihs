@@ -1,5 +1,5 @@
 class Backend::BackendController < ApplicationController
-  #override# require_role "inventory_manager" #, :for_all_except => [:create_some, # TODO for temporary_controller
+  #TODO override# require_role "inventory_manager" #, :for_all_except => [:create_some, # TODO for temporary_controller
                                    #                     :login, :switch_inventory_pool] # TODO for rspec tests
   
   before_filter :init, :except => :create_some # TODO for temporary_controller  # TODO not needed for modal layout
@@ -79,7 +79,6 @@ class Backend::BackendController < ApplicationController
 
   protected
 
-    # TODO temp
     def current_user_and_inventory
       [current_user, current_inventory_pool]
     end
@@ -92,6 +91,7 @@ class Backend::BackendController < ApplicationController
 
     # Store the given inventory pool id in the session.
     def current_inventory_pool=(new_inventory_pool)
+      puts new_inventory_pool.inspect
       session[:inventory_pool_id] = new_inventory_pool ? new_inventory_pool.id : nil
       @current_inventory_pool = new_inventory_pool || false
     end  
@@ -99,12 +99,26 @@ class Backend::BackendController < ApplicationController
   private
   
   def init
+    # OPTIMIZE select most recent used inventory pool
+    if logged_in?
+      unless self.current_inventory_pool
+        first_access_right = current_user.access_rights.detect {|a| a.role.name == 'inventory_manager'}
+        self.current_inventory_pool = first_access_right.inventory_pool if first_access_right
+      end
+    else
+      session[:return_to] = request.request_uri
+      redirect_to :controller => '/session', :action => 'new' and return
+    end
+
     @current_inventory_pool = current_inventory_pool
 
-    @new_orders_size = Order.new_orders.size 
-    @new_contracts_size = ContractLine.ready_for_hand_over.size #Contract.new_contracts.size
-    @signed_contracts_size = ContractLine.ready_for_take_back.size #Contract.signed_contracts.size
-    @remind_contracts_size = ContractLine.ready_for_remind.size
+#    if @current_inventory_pool
+      @new_orders_size = @current_inventory_pool.orders.new_orders.size #old# Order.new_orders.size
+      @new_contracts_size = @current_inventory_pool.contracts.ready_for_hand_over.size #old# ContractLine.ready_for_hand_over.size #Contract.new_contracts.size
+      # TODO scope
+      @signed_contracts_size = ContractLine.ready_for_take_back.size #Contract.signed_contracts.size
+      @remind_contracts_size = ContractLine.ready_for_remind.size
+#    end
     
   end
   

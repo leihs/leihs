@@ -21,6 +21,13 @@ class Order < Document
     order_lines
   end
 
+  # TODO temp determines related inventory_pool 
+  after_save { |record| 
+    unless record.inventory_pool
+     inventory_pool = record.models.first.items.first.inventory_pool # OPTIMIZE
+     record.update_attribute(:inventory_pool, inventory_pool)
+    end
+  }
 
 #########################################################################
 
@@ -67,7 +74,7 @@ class Order < Document
       end
 
     
-      contract = user.get_current_contract 
+      contract = user.get_current_contract(self.inventory_pool)
       order_lines.each do |ol|
         ol.quantity.times do
           contract.contract_lines << ContractLine.new(:model => ol.model,

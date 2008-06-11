@@ -1,3 +1,5 @@
+<% # TODO scope for the @current_inventory_pool %>
+
 <ul>
     <li>
         <%= link_to _("Dieser Benutzer hat %{n} Bestellungen die noch nicht quittiert sind") % {:n => @user.orders.new_orders.size},
@@ -6,7 +8,8 @@
     </li>
     <li>
         <% # TODO sum quantity from grouped_lines ? %>
-        <%= link_to _("This user has %{n} items to pick up (waiting for hand over)") % {:n => @user.current_contract ? @user.current_contract.contract_lines.size : 0},
+		<% contract = @user.current_contract(@current_inventory_pool) %>
+        <%= link_to _("This user has %{n} items to pick up (waiting for hand over)") % {:n => contract ? contract.lines.size : 0},
         { :controller => 'hand_over', :action => 'index', :user_id => @user.id },
         { :target => '_top' } %>
     </li>

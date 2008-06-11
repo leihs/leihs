@@ -21,7 +21,7 @@
 		<div id="header">
 			<div id="logo">
 				<h1><%= link_to "Leihs 2.0", :controller => 'dashboard' %></h1>
-				<p><%= _("Inventory Pool") %>: <%= @current_inventory_pool.name %>. (<%= link_to _("Change") + "?", :controller => 'dashboard', :action => 'index_inventory_pools' %>)</p>
+				<p><%= _("Inventory Pool") %>: <%= @current_inventory_pool.name if @current_inventory_pool %>. (<%= link_to _("Change") + "?", :controller => 'dashboard', :action => 'index_inventory_pools' %>)</p>
 	
 			</div>
 			<div id="personal-toolbar">
@@ -31,7 +31,10 @@
 						<% session[:return_to] = request.request_uri %>
 						<%= link_to _("Logout") + "?", '/logout' %>
 					</li>
-					<li><%= link_to "My Account", :controller => 'users', :action => 'show' %></li>
+					<li><%= greybox_link_to_page("My Account",
+						 { :controller => 'users', :action => 'show', :id => current_user.id },
+						 :title => _("User")) %>
+					</li>
 					<li><a href="#">Hilfe</a></li>
 	
 				</ul>
@@ -51,6 +54,7 @@
 			<li><%= link_to _('Items'), :controller => 'dashboard', :action => 'index_items' %></li>
 			<li><%= link_to _('Orders'), :controller => 'orders' %></li>
 			<li><%= link_to _('Models'), :controller => 'models' %></li>
+			<li><hr></li>
 			<li><%= link_to _('Users'), :controller => 'users' %></li>
 		</ul>
 	</div>

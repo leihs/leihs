@@ -12,6 +12,8 @@ ActionController::Routing::Routes.draw do |map|
   #map.error '/error', :controller => 'sessions', :action => 'error'
   #map.denied '/denied', :controller => 'sessions', :action => 'denied'
 
+  map.backend '/backend', :controller => 'backend/dashboard'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -45,6 +47,6 @@ ActionController::Routing::Routes.draw do |map|
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
-  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id', :defaults => { :controller => 'backend/dashboard' }
   map.connect ':controller/:action/:id.:format'
 end

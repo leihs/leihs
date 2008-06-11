@@ -79,7 +79,7 @@ class Contract < Document
       
       lines_for_new_contract = self.contract_lines - contract_lines
       if lines_for_new_contract
-        new_contract = user.get_current_contract
+        new_contract = user.get_current_contract(self.inventory_pool)
         lines_for_new_contract.each do |cl|
           cl.update_attribute :contract, new_contract
         end
