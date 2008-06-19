@@ -79,7 +79,7 @@ class InventoryImport::Importer
 
    InventoryImport::Geraetepark.establish_connection(
     		:adapter => 'mysql',
-    		:host => '195.176.254.22',
+    		:host => '195.176.254.49',
     		:database => 'rails_leihs',
     		:encoding => 'utf8',
     		:username => 'leihsread',
