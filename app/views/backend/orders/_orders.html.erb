@@ -6,7 +6,7 @@
 				<th scope="col">Aktion</th>
 			</tr>
 
-<% @orders ||= @new_orders %>
+<% @orders ||= @submitted_orders %>
 
 		<% for order in @orders %>
 			<tr class="<%= (order.has_backup? ? "alt-row" : "fresh" ) %>">

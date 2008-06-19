@@ -1,7 +1,7 @@
 steps_for(:order) do
  
   Given "the list of new orders contains $total elements" do | total |
-    orders = Order.new_orders
+    orders = Order.submitted_orders
     orders.size.should == 0
     user = Factory.create_user
     total.to_i.times { orders << Factory.create_order(:user_id => user.id) }
@@ -10,7 +10,7 @@ steps_for(:order) do
 
   When "$who clicks '$action'" do | who, action |
     get "/backend/#{action}/index"
-    @orders = assigns(:new_orders)
+    @orders = assigns(:submitted_orders)
     response.should render_template('backend/acknowledge/index')
   end
   
@@ -85,7 +85,7 @@ steps_for(:order) do
 
   Then "is redirected to '$action'" do | action |
     get "/backend/#{action}/index"
-    @orders = assigns(:new_orders)
+    @orders = assigns(:submitted_orders)
     response.should render_template('backend/acknowledge/index')   
   end
 

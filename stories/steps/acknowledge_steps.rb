@@ -2,7 +2,7 @@ steps_for(:acknowledge) do
   
   
   Given "the list of new orders contains $total elements" do | total |
-    orders = Order.new_orders
+    orders = Order.submitted_orders
     orders.size.should == total.to_i
   end
 
@@ -55,8 +55,8 @@ steps_for(:acknowledge) do
     ###
 
     get "/backend/#{action}/index"
-    @orders_size = assigns(:new_orders_size)
-    @orders = assigns(:new_orders)
+    @orders_size = assigns(:submitted_orders_size)
+    @orders = assigns(:submitted_orders)
     response.should render_template('backend/acknowledge/index')
     @response = response 
   end
@@ -72,7 +72,7 @@ steps_for(:acknowledge) do
   When "$who approves order" do |who|
     post "/backend/acknowledge/approve", :id => @order.id, :comment => @comment
     @order = assigns(:order)
-    @orders_size = assigns(:new_orders_size)
+    @orders_size = assigns(:submitted_orders_size)
     @order.should_not be_nil
     @response = response
   end
@@ -80,7 +80,7 @@ steps_for(:acknowledge) do
   When "$who rejects order with reason '$reason'" do |who, reason|
     post "/backend/acknowledge/reject", :id => @order.id, :comment => reason
     @order = assigns(:order)
-    @orders_size = assigns(:new_orders_size)
+    @orders_size = assigns(:submitted_orders_size)
     @orders.should_not be_nil
     @order.should_not be_nil
     @response = response

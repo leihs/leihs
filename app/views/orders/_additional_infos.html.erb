@@ -1,0 +1,31 @@
+<div id="meta-tabs">
+	
+	<div id="meta-tabs-container">
+		<ul>
+			<li class="active"><a href="#"><%= _("Changes") %></a></li>
+		</ul>
+		<div id="meta-tabs-content">
+			<!-->
+			<table>
+				<tr>
+					<td>Paket "Kamera" gelöscht</td>
+					<td>21.02.08, 12:36</td>
+				</tr>
+				<tr>
+					<td>Paket "Beamer" gelöscht</td>
+					<td>21.02.08, 12:35</td>
+				</tr>
+			</table>-->
+			<!-- TODO start display changes in table -->
+				<div id="changes">
+					<ul>
+						<% @order.histories.reverse.each do |history| %>
+							<li><%= short_time(history.created_at) %> <%= history.text %></li>
+						<% end %>
+					</ul>
+				</div>
+			<!-- TODO end display changes in table -->
+		</div>
+	</div>
+	
+</div>

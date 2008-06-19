@@ -1,0 +1,10 @@
+<ul style="margin-left: 5px;" class="buttons">
+	<% for category in @categories %>
+		<li>
+			<%= link_to_remote "#{">" unless category.is_leaf?} #{category.name}", :update => "children_category_#{category.id}",
+    										  :url => { :action => "expand_category", :id => category.id },
+											  :complete => visual_effect(:toggle_appear, "children_category_#{category.id}", :duration => 0.5) %>
+			<div id="<%= "children_category_#{category.id}" %>" style="display: none;"></div>
+		</li>
+	<% end %>
+</ul>

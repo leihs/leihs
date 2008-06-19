@@ -13,26 +13,22 @@ class Order < Document
                  # TODO union of results :or_default => true
                  
   NEW = 1
-  APPROVED = 2
-  REJECTED = 3
+  SUBMITTED = 2
+  APPROVED = 3
+  REJECTED = 4
 
   # alias
   def lines
     order_lines
   end
 
-  # TODO temp determines related inventory_pool 
-  after_save { |record| 
-    unless record.inventory_pool
-     inventory_pool = record.models.first.items.first.inventory_pool # OPTIMIZE
-     record.update_attribute(:inventory_pool, inventory_pool)
-    end
-  }
+#old# after_save :split_and_assign_to_inventory_pool
 
 #########################################################################
 
 # finders provided by rails 2.1, but not yet recognized by rspec
   named_scope :new_orders, :conditions => {:status_const => Order::NEW}
+  named_scope :submitted_orders, :conditions => {:status_const => Order::SUBMITTED}
   named_scope :approved_orders, :conditions => {:status_const => Order::APPROVED}
   named_scope :rejected_orders, :conditions => {:status_const => Order::REJECTED}
 
@@ -60,7 +56,7 @@ class Order < Document
   end
 
 
-  # approve order then generates a new contract and contract_lines for each item
+  # approves order then generates a new contract and contract_lines for each item
   def approve(comment)
     if approvable?
       self.status_const = Order::APPROVED
@@ -73,7 +69,6 @@ class Order < Document
         OrderMailer.deliver_approved(self, comment)
       end
 
-    
       contract = user.get_current_contract(self.inventory_pool)
       order_lines.each do |ol|
         ol.quantity.times do
@@ -91,15 +86,37 @@ class Order < Document
     end
   end
 
+  # submits order
+  def submit
+    self.status_const = Order::SUBMITTED
+    save
+    split_and_assign_to_inventory_pool 
+  end
+
   # keep the user required quantity 
   def update_line(line_id, required_quantity, user_id)
     line = order_lines.find(line_id)
     original_quantity = line.quantity
-    
+        
     max_available = line.model.maximum_available_in_period(line.start_date, line.end_date, line)
 
-#    line.quantity = required_quantity < max_available ? required_quantity : max_available
+#old#    line.quantity = required_quantity < max_available ? required_quantity : max_available
     line.quantity = [required_quantity, 0].max # TODO force positive quantity in DocumentLine
+
+    # check if it can be served by a single inventory pool, or split the line
+    # TODO check availability
+    if line.quantity <= max_available
+      single_inventory_pool = line.model.inventory_pools.any? {|ip| ip.items.count(:conditions => {:model_id => line.model.id}) >= line.quantity }
+      unless single_inventory_pool
+        total_quantity = line.quantity
+        line.quantity = 1 # TODO determine quantity to split
+        l = line.clone
+        l.quantity = total_quantity - line.quantity
+        lines << l
+      end
+      # TODO refresh interface with new line
+    end
+    
     line.save
 
     change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => original_quantity, :to => line.quantity }
@@ -189,6 +206,44 @@ class Order < Document
     self.backup = nil
   end
   ############################################
+
+  private
   
+  def split_and_assign_to_inventory_pool
+    if !inventory_pool and lines.first #temp#
+#working#
+#    # TODO check availability and TODO scope user's visible inventory pools
+#  
+#    # collect possible inventory pools 
+#    #inventory_pools = models.collect(&:inventory_pools).flatten.uniq
+#
+#    # construct combinations of inventory pools
+#    ip_set = []
+#    lines.each do |l|
+#      ip_set << l.possible_inventory_pools
+#    end
+#
+#    # split a single line if cannot be served by a single inventory pool
+#
+#    # define mandatory inventory pools
+
+#temp#    
+    # TODO temp determines related inventory_pool 
+    inventory_pool = lines.first.model.items.first.inventory_pool #old# record.models.first.items.first.inventory_pool
+  
+    # TODO split order for different inventory pools
+    to_split_lines = lines.select {|l| not l.model.inventory_pools.any?{|ip| ip == inventory_pool }}
+    unless to_split_lines.empty?
+      o = Order.new(self.attributes)
+      to_split_lines.each {|l| o.lines << l }
+      o.submit
+    end
+
+    update_attribute(:inventory_pool, inventory_pool)
+
+    end
+  end
+
+
   
 end

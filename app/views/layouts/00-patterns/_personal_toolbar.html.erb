@@ -1,0 +1,21 @@
+<ul>
+
+<% if current_user %>	
+	<li><strong><%= "Angemeldet als #{current_user.login}." %></strong></li>
+	<li>
+		<% session[:return_to] = request.request_uri %>
+		<%= link_to _("Logout") + "?", '/logout' %>
+	</li>
+	<li><%= greybox_link_to_page("My Account",
+		 { :controller => 'users', :action => 'show', :id => current_user.id },
+		 :title => _("User")) %>
+	</li>
+<% else %>
+	<li>
+		<% session[:return_to] = request.request_uri %>
+		<%= link_to _("Login") + "?", '/login' %>
+	</li>
+<% end %>
+
+	<li><a href="#">Hilfe</a></li>
+</ul>

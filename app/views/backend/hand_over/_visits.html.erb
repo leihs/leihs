@@ -1,0 +1,28 @@
+<% # TODO temporary using _lines or _contracts or _visits %>
+
+		<table cellspacing="0">
+
+
+		<% for visit in @visits %>
+			<tr>
+				<td>
+					<%= short_date(visit.date) %>
+				</td>
+				<td>
+					<%= greybox_link_to_page(visit.user.login,
+						 { :controller => 'users', :action => 'show', :id => visit.user.id },
+						 :title => _("User"),
+						 :class => "iconized-notxt edit-user" ) %>
+				</td>
+				<td><%= _("%{n} Items") % {:n => visit.quantity} %></td>
+					<td>
+						<div class="buttons">
+						<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Hand Over"), :action => 'show', :id => visit.user.id %>
+						</div>
+					</td>
+			</tr>
+		<% end %>
+
+		
+		</table>
+		

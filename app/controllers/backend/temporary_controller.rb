@@ -1,5 +1,5 @@
 class Backend::TemporaryController < Backend::BackendController
-  require_role "inventory_manager", :for_all_except => :create_some
+#  require_role "inventory_manager", :except => :create_some
   
   def create_some
     reset_session
@@ -18,13 +18,19 @@ class Backend::TemporaryController < Backend::BackendController
       create_meaningful_inventory
     end
     
+    create_some_categories
+    
     params[:id] = 5
     params[:name] = "admin"
-    create_admin_users
+    create_some_users
+#TODO    
+#    params[:name] = "student"
+#    create_some_users
+
     create_meaningful_users
 
     params[:id] = 10
-    create_some_new_orders
+    create_some_submitted_orders
     create_beautiful_order
 
     render :text => "Complete"
@@ -44,33 +50,33 @@ private
 #    end
 #  end
 
-  def create_admin_users
+  def create_some_users
     params[:id].to_i.times do |i|
       u = User.new(:login => "#{params[:name]}_#{i}")
         r = Role.find(:first, :conditions => {:name => "inventory_manager"})
-        ips = InventoryPool.find(:all).select { rand(3) == 0 }
-        ips.each do |i|
-          u.access_rights << AccessRight.new(:role => r, :inventory_pool => i)
+        ips = InventoryPool.find(:all).select { rand(3) == 0 or i == 0 }
+        ips.each do |ip|
+          u.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
         end
       u.save
     end
   end
 
-  def create_some_new_orders
+  def create_some_submitted_orders
     users = User.find(:all)
     models = Model.find(:all)
     params[:id].to_i.times do |i|
-      order = Order.new()
+      order = Order.new
       order.user_id = users[rand(users.size)].id
       3.times {
         d = Array.new
         2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
         start_date = d.min 
         end_date = d.max
-        order.add_line(rand(3), models[rand(models.size)], order.user_id, start_date, end_date )
+        order.add_line(rand(3)+1, models[rand(models.size)], order.user_id, start_date, end_date )
       }
       order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
-      order.save
+      order.submit
     end
   end
   
@@ -95,6 +101,24 @@ private
       end
     end
   end
+
+  def create_some_categories
+    20.times do
+      chars = ("A".."Z").to_a
+      name = ""
+      1.upto(5) { |i| name << chars[rand(chars.size-1)] } 
+      Category.create(:name => name)
+    end
+    categories = Category.find(:all, :limit => rand(5)+3, :order => "RAND()")
+    categories.each do |c|
+      # OPTIMIZE prevent recursion?
+      c.children << Category.find(:all, :limit => rand(5)+3, :order => "RAND()", :conditions => ["id != ?", c.id])
+      
+      # TODO assign models
+      # Model.find(:all, :limit => rand(3)+1, :order => "RAND()")
+    end
+  end
+  
   
   def create_beautiful_order
     m = Model.find(:first)
@@ -104,20 +128,20 @@ private
     order.user_id = User.find_by_login("Ramon Cahenzli")
     order.add_line(3, m, order.user_id, Date.new(2008, 10, 12), Date.new(2008, 10, 20))
     order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
-    order.save
+    order.submit
     
     order = Order.new()
     order.user_id = User.find_by_login("Ramon Cahenzli")
     order.add_line(6, m, order.user_id, Date.new(2008, 10, 15), Date.new(2008, 10, 30))
     order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
-    order.save
+    order.submit
     
     
     order = Order.new()
     order.user_id = User.find_by_login("Ramon Cahenzli")
     order.add_line(1, m, order.user_id, Date.new(2008, 10, 20), Date.new(2008, 10, 30))
     order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
-    order.save
+    order.submit
     
   end
     
@@ -133,9 +157,9 @@ private
     ContractLine.delete_all
     Printout.destroy_all
     AccessRight.delete_all
+    Category.destroy_all
     
     FileUtils.remove_dir(File.dirname(__FILE__) + "/../../../index", true)
   end
-
 
 end
