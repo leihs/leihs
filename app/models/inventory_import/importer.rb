@@ -1,7 +1,8 @@
 class InventoryImport::Importer
   
   def start(max = 999999)
-    connect_dev
+    #connect_dev
+    connect_prod
     inventar = InventoryImport::ItHelp.find(:all, :conditions => "rental like 'yes'",	:order => 'Inv_Serienr')
     count = 0
     
@@ -75,5 +76,14 @@ class InventoryImport::Importer
     		:encoding => 'utf8',
     		:username => 'magnus',
     		:password => '2read.0nly!' )
+
+   InventoryImport::Geraetepark.establish_connection(
+    		:adapter => 'mysql',
+    		:host => '195.176.254.22',
+    		:database => 'rails_leihs',
+    		:encoding => 'utf8',
+    		:username => 'leihsread',
+    		:password => '2read.0nly!' )
   end
+
 end
