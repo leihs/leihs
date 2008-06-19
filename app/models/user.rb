@@ -1,11 +1,11 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
   
-#################### Start OLD  
   belongs_to :authentication_system
   has_many :access_rights
   has_many :inventory_pools, :through => :access_rights
   has_many :orders
+  has_one  :current_order, :class_name => "Order", :conditions => ["status_const = ?", Contract::NEW]
   has_many :contracts
   has_many :current_contracts, :class_name => "Contract", :conditions => ["status_const = ?", Contract::NEW]
   
@@ -21,6 +21,15 @@ class User < ActiveRecord::Base
   
   def email
     authinfo.email
+  end
+
+################################################
+
+  # get or create a new order (among all inventory pools)
+  def get_current_order
+    order = current_order
+    order ||= Order.create(:user => self, :status_const => Order::NEW)
+    order
   end
 
   # a user has at most one new contract for each inventory pool
@@ -43,7 +52,6 @@ class User < ActiveRecord::Base
     contracts.signed_contracts.collect { |c| c.contract_lines }.flatten
   end
   
-#################### End OLD  
 
 #################### Start role_requirement
   

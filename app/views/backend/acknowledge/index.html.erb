@@ -1,5 +1,5 @@
 <div id="meta" class="boxes">
-	<h2><%= _("Aktuell sind <em>%{n} neue Bestellungen</em> zu quittieren.") % { :n => @new_orders.size } %></h2>
+	<h2><%= _("Aktuell sind <em>%{n} neue Bestellungen</em> zu quittieren.") % { :n => @submitted_orders.size } %></h2>
 </div>
 
 <% unless @working_orders.empty? %>		

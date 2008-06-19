@@ -1,5 +1,5 @@
 class Backend::BackendController < ApplicationController
-  #TODO override# require_role "inventory_manager" #, :for_all_except => [:create_some, # TODO for temporary_controller
+  #TODO override# require_role "inventory_manager" #, :except => [:create_some, # TODO for temporary_controller
                                    #                     :login, :switch_inventory_pool] # TODO for rspec tests
   
   before_filter :init, :except => :create_some # TODO for temporary_controller  # TODO not needed for modal layout
@@ -7,7 +7,7 @@ class Backend::BackendController < ApplicationController
   $theme = '00-patterns'
   $modal_layout_path = 'backend/' + $theme + '/modal'
   $general_layout_path = 'backend/' + $theme + '/general'
-  $layout_public_path = "/layouts/00-patterns"
+  $layout_public_path = '/layouts/' + $theme
   
   layout $general_layout_path
  
@@ -20,8 +20,8 @@ class Backend::BackendController < ApplicationController
       flash[:notice] = _("Model couldn't be added") unless document.save        
       redirect_to :action => 'show', :id => render_id        
     else
-      redirect_to :controller => 'search', 
-                  :action => 'model',
+      redirect_to :controller => 'models', 
+                  :action => 'search',
                   :id => params[:id],
                   :source_controller => params[:controller],
                   :source_action => params[:action]
@@ -39,8 +39,8 @@ class Backend::BackendController < ApplicationController
       end  
       redirect_to :action => 'show', :id => render_id        
     else
-      redirect_to :controller => 'search', 
-                  :action => 'model',
+      redirect_to :controller => 'models', 
+                  :action => 'search',
                   :id => params[:id],
                   :line_id => params[:line_id],
                   :source_controller => params[:controller],
@@ -91,7 +91,6 @@ class Backend::BackendController < ApplicationController
 
     # Store the given inventory pool id in the session.
     def current_inventory_pool=(new_inventory_pool)
-      puts new_inventory_pool.inspect
       session[:inventory_pool_id] = new_inventory_pool ? new_inventory_pool.id : nil
       @current_inventory_pool = new_inventory_pool || false
     end  
@@ -113,13 +112,13 @@ class Backend::BackendController < ApplicationController
     @current_inventory_pool = current_inventory_pool
 
 #    if @current_inventory_pool
-      @new_orders_size = @current_inventory_pool.orders.new_orders.size #old# Order.new_orders.size
-      @new_contracts_size = @current_inventory_pool.contracts.ready_for_hand_over.size #old# ContractLine.ready_for_hand_over.size #Contract.new_contracts.size
+      @submitted_orders_size = @current_inventory_pool.orders.submitted_orders.size #old# Order.submitted_orders.size
+      @new_contracts_size = @current_inventory_pool.hand_over_visits.size #old# @current_inventory_pool.contracts.ready_for_hand_over.size #old# ContractLine.ready_for_hand_over.size #Contract.new_contracts.size
+      @signed_contracts_size = @current_inventory_pool.take_back_visits.size #old# ContractLine.ready_for_take_back.size #Contract.signed_contracts.size
       # TODO scope
-      @signed_contracts_size = ContractLine.ready_for_take_back.size #Contract.signed_contracts.size
-      @remind_contracts_size = ContractLine.ready_for_remind.size
+      @remind_contracts_size = @current_inventory_pool.remind_visits.size #old# ContractLine.ready_for_remind.size
 #    end
-    
+
   end
   
   def set_order_to_session(order)

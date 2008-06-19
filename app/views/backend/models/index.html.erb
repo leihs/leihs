@@ -1,6 +1,7 @@
 		<table cellspacing="0">
 			<tr>
 				<th scope="col">Model</th>
+				<th scope="col">Inventory Pools</th>
 				<th scope="col">Items</th>
 				<th scope="col">Orders</th>
 				<th scope="col">Aktion</th>
@@ -10,9 +11,41 @@
 			<tr class="alt-row">
 				<td class="row-closed"><%= model.name %></td>
 				<td>
-					<%# model.find_visible(current_user.inventory_pools) %>
-					<%= current_user.inventory_pools.collect(&:items).flatten.find_all{|i| i.model == model }.size %>
-					<%= model.items.size %></td>
+
+					<ul>
+						<% for ip in model.inventory_pools %>
+							<li><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => model.id}) %></li>
+						<% end %>
+					</ul>
+
+				</td>
+				<td>
+					
+					<b>This IP:</b>
+						<%= @current_inventory_pool.items.count(:conditions => {:model_id => model.id}) %>
+						<ul>
+							<% ip = @current_inventory_pool %>
+								<li>- <%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => model.id}) %></li>
+						</ul>
+					<br />
+					<b>My visible IPs:</b>
+						<%= current_user.inventory_pools.collect(&:items).flatten.find_all{|i| i.model == model }.size %>
+						<ul>
+							<% for ip in current_user.inventory_pools %>
+								<li>- <%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => model.id}) %></li>
+							<% end %>
+						</ul>
+					
+					<br />
+					<b>All IPs:</b>
+						<%= model.items.size %>
+						<ul>
+							<% for ip in InventoryPool.all %>
+								<li>- <%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => model.id}) %></li>
+							<% end %>
+						</ul>
+
+				</td>
 				<td><%= model.order_lines.size %></td>
 				<td></td>
 			</tr>

@@ -15,4 +15,13 @@ class ApplicationController < ActionController::Base
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => 'a51355e168a2870e8e42d11f9390b986'
+  
+  # TODO temp
+  $theme = '00-patterns'
+  $modal_layout_path = $theme + '/modal'
+  $general_layout_path = $theme + '/general'
+  $layout_public_path = '/layouts/' + $theme
+
+  layout $general_layout_path
+  
 end

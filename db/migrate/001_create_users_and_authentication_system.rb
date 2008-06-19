@@ -6,8 +6,8 @@ class CreateUsersAndAuthenticationSystem < ActiveRecord::Migration
       t.string :class_name
     end
     
-    AuthenticationSystem.new(:name => "Database Authentication", :class_name => "DatabaseAuthentication").save
-    AuthenticationSystem.new(:name => "LDAP Authentication", :class_name => "LDAPAuthentication").save
+    AuthenticationSystem.create(:name => "Database Authentication", :class_name => "DatabaseAuthentication")
+    AuthenticationSystem.create(:name => "LDAP Authentication", :class_name => "LDAPAuthentication")
     
     create_table :users do |t|
       t.string :login # restful_authentication             

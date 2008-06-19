@@ -4,7 +4,7 @@ class Backend::HandOverController < Backend::BackendController
 
   def index
     
-    # OPTIMIZE with Visits (or Events)
+    # OPTIMIZE with Visits
     @grouped_lines = []
 
     if params[:search]
@@ -28,13 +28,15 @@ class Backend::HandOverController < Backend::BackendController
 #      @grouped_lines = ContractLine.ready_for_hand_over                                           
 #      @contracts = Contract.new_contracts.to_hand_over
 #old#      @contracts = Contract.ready_for_hand_over
-      @contracts = current_inventory_pool.contracts.ready_for_hand_over
-      @grouped_lines = [] 
-      @contracts.each { |c| @grouped_lines << c.visits(c.s.to_date) }
-    end
 
+#old#      @contracts = current_inventory_pool.contracts.ready_for_hand_over
+#old#      @grouped_lines = [] 
+#old#      @contracts.each { |c| @grouped_lines << c.visits(c.s.to_date) }
+      
+      @visits = current_inventory_pool.hand_over_visits
+    end
     
-    render :partial => 'contracts' if request.post? # TODO lines or contracts                                          
+    render :partial => 'visits' if request.post? # TODO lines or contracts or visits                                          
   end
 
   # get current open contract for a given user

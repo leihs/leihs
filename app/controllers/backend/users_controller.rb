@@ -10,5 +10,12 @@ class Backend::UsersController < Backend::BackendController
  
     render :layout => $modal_layout_path
   end
+
+  def search
+    if request.post?
+      @search_result = User.find_by_contents("*" + params[:text] + "*")
+    end
+    render  :layout => $modal_layout_path
+  end  
   
 end

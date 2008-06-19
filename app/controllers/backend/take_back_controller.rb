@@ -5,12 +5,15 @@ class Backend::TakeBackController < Backend::BackendController
     # TODO search/filter
     if params[:search]
       #params[:search] = "*#{params[:search]}*" # search with partial string
-      #@orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::NEW]})
-    elsif params[:user_id]
+      #@orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::SUBMITTED]})
+    elsif params[:user_id] #TODO
       @user = User.find(params[:user_id])
-      @grouped_lines = ContractLine.ready_for_take_back(@user)                                           
+      #old# @grouped_lines = ContractLine.ready_for_take_back(@user)
+    elsif params[:remind] #temp#
+      @visits = current_inventory_pool.remind_visits
     else
-      @grouped_lines = ContractLine.ready_for_take_back                                           
+#old#      @grouped_lines = ContractLine.ready_for_take_back 
+      @visits = current_inventory_pool.take_back_visits
     end
     
     #render :partial => 'lines' if request.post?          

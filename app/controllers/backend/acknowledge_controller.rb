@@ -4,16 +4,17 @@ class Backend::AcknowledgeController < Backend::BackendController
   before_filter :load_order, :except => :index
 
   def index
-#old#    @new_orders = Order.new_orders
-    @new_orders = current_inventory_pool.orders.new_orders
-    @working_orders = @new_orders.select { |o| o.has_backup? }
+#old#    @submitted_orders = Order.submitted_orders
+    @submitted_orders = current_inventory_pool.orders.submitted_orders
+    @working_orders = @submitted_orders.select { |o| o.has_backup? }
 
     if params[:search]
       params[:search] = "*#{params[:search]}*" # search with partial string
-      @orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::NEW]})
-      #@orders = @new_orders.find_by_contents(params[:search])
+      @orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::SUBMITTED]})
+      #@orders = @submitted_orders.find_by_contents(params[:search])
     elsif params[:user_id]
-      @orders = User.find(params[:user_id]).orders.new_orders
+      # TODO scope for current inventory ?
+      @orders = User.find(params[:user_id]).orders.submitted_orders
     end
     
     render :partial => 'orders' if request.post?
@@ -28,7 +29,6 @@ class Backend::AcknowledgeController < Backend::BackendController
     if request.post? and @order.approve(params[:comment])
       
       remove_order_from_session
-      init #TODO redundant?
       redirect_to :action => 'index'
     else
       render :layout => $modal_layout_path
@@ -43,7 +43,6 @@ class Backend::AcknowledgeController < Backend::BackendController
       OrderMailer.deliver_rejected(@order, params[:comment])
       
       remove_order_from_session
-      init #TODO redundant?
       redirect_to :action => 'index'
     else
       render :layout => $modal_layout_path
@@ -148,8 +147,8 @@ class Backend::AcknowledgeController < Backend::BackendController
       end  
       redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id        
     else
-      redirect_to :controller => 'search', 
-                  :action => 'user',
+      redirect_to :controller => 'users', 
+                  :action => 'search',
                   :id => params[:id],
                   :source_controller => 'acknowledge',
                   :source_action => 'swap_user'
@@ -161,9 +160,9 @@ class Backend::AcknowledgeController < Backend::BackendController
   private
   
   def load_order
-    @order = Order.find(params[:id]) if params[:id]
-    # TODO manage approved and rejected orders
-    #if @order.status_const != Order::NEW 
+      @order = Order.find(params[:id], :conditions => { :status_const => Order::SUBMITTED }) if params[:id]
+    rescue
+      redirect_to :action => 'index' unless @order
   end
     
 end

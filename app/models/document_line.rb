@@ -12,11 +12,11 @@ class DocumentLine < ActiveRecord::Base
     cl = ContractLine.find(:all, :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and id <> ?', model_id, date, date, date, document_line ? document_line.contract_to_exclude : 0])
     ol = OrderLine.find(:all,
                         :joins => :order,
-                        :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and order_lines.id <> ? and orders.status_const = ?', model_id, date, date, date, document_line ? document_line.order_to_exclude : 0, Order::NEW])
+                        :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and order_lines.id <> ? and orders.status_const = ?', model_id, date, date, date, document_line ? document_line.order_to_exclude : 0, Order::SUBMITTED])
     cl + ol
   end
 
-  # compares two objects in order to sort the
+  # compares two objects in order to sort them
   def <=>(other)
     self.start_date <=> other.start_date
   end

@@ -10,20 +10,12 @@
 
 
 <div class="toolbar-main boxes">
-  <% if @order.status_const == Order::SUBMITTED %>
+  <% if @order.status_const == Order::NEW %>
 	<div class="buttons">
-		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Save + Approve"),
-								 { :controller => 'acknowledge', :action => 'approve', :id => @order.id },
-								 :title => _("Approve Order"),
+		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Submit"),
+								 { :controller => 'orders', :action => 'submit', :id => @order.id },
+								 :title => _("Submit Order"),
 								 :class => "positive") %>
-		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Reject Order"),
-								 { :controller => 'acknowledge', :action => 'reject', :id => @order.id },
-								 :title => _("Reject Order")) %>
-
-		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/disk.png") + " " + _("Restore Original"),
-								 { :controller => 'acknowledge', :action => 'restore', :id => @order.id },
-								 :title => _("Restore Order"),
-								 :class => "thickbox") %>
 								 
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete Order"),
 			{ :controller => 'acknowledge', :action => 'destroy', :id => @order.id },
@@ -80,7 +72,7 @@
 					<h3>Pakete</h3>
 					<div class="buttons">
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add Line"),
-						 	{ :controller => 'acknowledge', :action => 'add_line', :id => @order.id },
+						 	{ :controller => 'orders', :action => 'add_line', :id => @order.id },
 							:title => _("Add Model") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
@@ -133,7 +125,7 @@
 											<% end %>
 										</ul>									
 								</td>
-								<td class="line_valid_<%= @current_inventory_pool.models.any?{|m| m == @line.model } %>"> <% # TODO temp check, remove it %>
+								<td>
 									<%= greybox_link_to_page(@line.model.name,
 									 { :controller => 'models', :action => 'show', :id => @line.model.id },
     								 :title => _("Model"),

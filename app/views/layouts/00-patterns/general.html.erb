@@ -20,7 +20,7 @@
 	
 		<div id="header">
 			<div id="logo">
-				<h1><%= link_to "Leihs 2.0", :controller => 'dashboard' %></h1>
+				<h1><%= link_to "Leihs 2.0", :controller => '/' %></h1>
 				<p><%= _("Inventory Pool") %>: <%= @current_inventory_pool.name if @current_inventory_pool %>. (<%= link_to _("Change") + "?", :controller => 'dashboard', :action => 'index_inventory_pools' %>)</p>
 	
 			</div>
@@ -29,29 +29,21 @@
 			</div>		
 		</div>
 		<div id="banner">
-			<ul>
-				<li><%= link_to _('Acknowledge') + " (#{@submitted_orders_size})", :controller => 'acknowledge' %></li>
-				<li><%= link_to _('Hand Over') + " (#{@new_contracts_size})", :controller => 'hand_over' %></li>
-				<li><%= link_to _('Take Back') + " (#{@signed_contracts_size})", :controller => 'take_back' %></li>
-				<% # TODO temp %>
-				<li><%= link_to _('Remind') + " (#{@remind_contracts_size})", :controller => 'take_back', :remind => true %></li>				
-			</ul>
 		</div> 
 
 	<div id="sidebar">
 		<ul>
-			<li><%= link_to _('Items'), :controller => 'dashboard', :action => 'index_items' %></li>
-			<li><%= link_to _('Orders'), :controller => 'orders' %></li>
-			<li><%= link_to _('Models'), :controller => 'models' %></li>
+			<li><%= link_to _('New Order'), :controller => 'orders', :action => 'new' %></li>
 			<li><hr></li>
-			<li><%= link_to _('Users'), :controller => 'users' %></li>
+			<li><%= link_to _('My Orders'), :controller => 'orders', :action => 'TODO' %></li>
+			<li><%= link_to _('My Contracts'), :controller => 'contracts', :action => 'TODO' %></li>
 		</ul>
 	</div>
 	
 		
 	<div id="container">
 
-		<%= render :partial => 'tabs' %>
+		<%#= render :partial => 'tabs' %>
 		
 		<div id="inner-container">
 			

@@ -22,19 +22,22 @@ class ContractLine < DocumentLine
 
 ##################################################
 
-#  named_scope :to_hand_over, :conditions => {:returned_date => nil}
+  named_scope :to_take_back, :conditions => {:returned_date => nil} #temp#
+  named_scope :to_remind, :conditions => ["returned_date IS NULL AND end_date < CURDATE()"] #temp#
 
-  def self.ready_for_hand_over(user = nil)
-    ready_for_('start_date', Contract::NEW, user)
-  end
+  #old#
+#  def self.ready_for_hand_over(user = nil)
+#    ready_for_('start_date', Contract::NEW, user)
+#  end
+#
+#  def self.ready_for_take_back(user = nil)
+#    ready_for_('end_date', Contract::SIGNED, user)
+#  end
+#
+#  def self.ready_for_remind(user = nil)
+#    ready_for_('end_date', Contract::SIGNED, user, true)
+#  end
 
-  def self.ready_for_take_back(user = nil)
-    ready_for_('end_date', Contract::SIGNED, user)
-  end
-
-  def self.ready_for_remind(user = nil)
-    ready_for_('end_date', Contract::SIGNED, user, true)
-  end
 ##################################################
   
   def order_to_exclude
@@ -48,24 +51,25 @@ class ContractLine < DocumentLine
   
   private
 
+#old#
   # OPTIMIZE get rid of find_by_sql if possible
-  def self.ready_for_(date, status, user, remind = false)
-    where_user = user ? " AND u.id = #{user.id}" : ""
-    where_remind = remind ? " AND cl.end_date < CURDATE() " : "" # TODO Date.today
-
-    find_by_sql("SELECT u.id AS user_id,
-                     u.login AS user_login,
-                     SUM(cl.quantity) AS quantity,
-                     cl.#{date}
-                  FROM contract_lines cl JOIN contracts c ON cl.contract_id = c.id
-                     JOIN users u ON c.user_id = u.id
-                  WHERE c.status_const = #{status}
-                    AND cl.returned_date IS NULL
-                    #{where_user}
-                    #{where_remind}
-                  GROUP BY cl.#{date}, u.id 
-                  ORDER BY cl.#{date}, u.id")
-  end
+#  def self.ready_for_(date, status, user, remind = false)
+#    where_user = user ? " AND u.id = #{user.id}" : ""
+#    where_remind = remind ? " AND cl.end_date < CURDATE() " : "" # TODO Date.today
+#
+#    find_by_sql("SELECT u.id AS user_id,
+#                     u.login AS user_login,
+#                     SUM(cl.quantity) AS quantity,
+#                     cl.#{date}
+#                  FROM contract_lines cl JOIN contracts c ON cl.contract_id = c.id
+#                     JOIN users u ON c.user_id = u.id
+#                  WHERE c.status_const = #{status}
+#                    AND cl.returned_date IS NULL
+#                    #{where_user}
+#                    #{where_remind}
+#                  GROUP BY cl.#{date}, u.id 
+#                  ORDER BY cl.#{date}, u.id")
+#  end
     
   # validator
   def validate_item
