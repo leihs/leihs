@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: SymetrieCom::Acts::BetterNestedSetHelper</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">SymetrieCom::Acts::BetterNestedSetHelper</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/vendor/plugins/betternestedset/lib/better_nested_set_helper_rb.html">
+                vendor/plugins/betternestedset/lib/better_nested_set_helper.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This module provides some helpers for the model classes using
+acts_as_nested_set. It is included by default in all views. If you need to
+remove it, edit the last line of init.rb.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000035">nested_set_full_outline</a>&nbsp;&nbsp;
+      <a href="#M000036">nested_set_options_for_select</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
+
+        <div class="method-heading">
+          <a href="#M000035" class="method-signature">
+          <span class="method-name">nested_set_full_outline</span><span class="method-args">(item, options={}) {|it| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prints a line of ancestors with links, on the form
+</p>
+<pre>
+   root &gt; parent &gt; item
+</pre>
+<h2>Usage</h2>
+<p>
+Default is to use links to {your_cotroller}/show with the first string
+column of your model. You can tweak this by passing your parameters, or
+better, pass a block that will receive an item from your nested set tree
+and a boolean flag (true for current item) and that should return the line
+with the link.
+</p>
+<h2>Examples</h2>
+<pre>
+  nested_set_full_outline(category)
+
+  # non standard actions and separators
+  nested_set_full_outline(category, :action =&gt; :search, :separator =&gt; ' | ')
+
+  # with a block that will return the link to the item
+  # note that the current item will lead to another action
+  nested_set_full_outline(category) { |item, current?|
+      if current?
+        link_to &quot;#{item.name} (#{item.})&quot;, product_url(:action =&gt; :show_category, :category =&gt; item.whole_url)
+      else
+        link_to &quot;#{item.name} (#{item.})&quot;, category_url(:action =&gt; :browse, :criteria =&gt; item.whole_url)
+      end
+    }
+</pre>
+<h2>Params are:</h2>
+<p>
+<tt>item</tt> - the object to display <tt>hash</tt> - containing :
+</p>
+<pre>
+ * +text_column+ - the title column, defaults to the first string column of the model
+ * +:action+ - the action to be called (defaults to :show)
+ * +:controller+ - the controller name (defaults to the model name)
+ * +:separator+ - the separator (defaults to &gt;)
+ * +&amp;block+ - a block { |item, current?| ... item.name }
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000035-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000035-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/betternestedset/lib/better_nested_set_helper.rb, line 45</span>
+45:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nested_set_full_outline</span>(<span class="ruby-identifier">item</span>, <span class="ruby-identifier">options</span>={})
+46:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">nil?</span>
+47:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">'Not a nested set model !'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:acts_as_nested_set_options</span>)
+48:         
+49:         <span class="ruby-identifier">options</span> = {
+50:           <span class="ruby-identifier">:text_column</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:text_column</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:text_column</span>],
+51:           <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:action</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">:show</span>,
+52:           <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:controller</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">underscore</span>,
+53:           <span class="ruby-identifier">:separator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:separator</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">' &amp;gt; '</span> }
+54:         
+55:         <span class="ruby-identifier">s</span> = <span class="ruby-value str">''</span>
+56:         <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">it</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">ancestors</span>
+57:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+58:             <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">it</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:separator</span>]
+59:           <span class="ruby-keyword kw">else</span>
+60:             <span class="ruby-identifier">s</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">link_to</span>( <span class="ruby-identifier">it</span>[<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:text_column</span>]], { <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:controller</span>], <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:action</span>], <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">it</span> }) <span class="ruby-operator">+</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:separator</span>]
+61:           <span class="ruby-keyword kw">end</span>
+62:         <span class="ruby-keyword kw">end</span>
+63:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+64:           <span class="ruby-identifier">s</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">item</span>)
+65:         <span class="ruby-keyword kw">else</span>
+66:           <span class="ruby-identifier">s</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">h</span>(<span class="ruby-identifier">item</span>[<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:text_column</span>]])
+67:         <span class="ruby-keyword kw">end</span>
+68:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+          <a href="#M000036" class="method-signature">
+          <span class="method-name">nested_set_options_for_select</span><span class="method-args">(class_or_item, options=nil) {|item| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns options for select. You can exclude some items from the tree. You
+can pass a block receiving an item and returning the string displayed in
+the select.
+</p>
+<h2>Usage</h2>
+<p>
+Default is to use the whole tree and to print the first string column of
+your model. You can tweak this by passing your parameters, or better, pass
+a block that will receive an item from your nested set tree and that should
+return the line with the link.
+</p>
+<h2>Examples</h2>
+<pre>
+  nested_set_options_for_select(Category)
+
+  # show only a part of the tree, and exclude a category and its subtree
+  nested_set_options_for_select(selected_category, :exclude =&gt; category)
+
+  # add a custom string
+  nested_set_options_for_select(Category, :exclude =&gt; category) { |item| &quot;#{'&amp;nbsp;' * item.level}#{item.name} (#{item.url})&quot; }
+</pre>
+<h2>Params</h2>
+<pre>
+ * +class_or_item+ - Class name or item or array of items to start the display with
+ * +text_column+ - the title column, defaults to the first string column of the model
+ * +&amp;block+ - a block { |item| ... item.name }
+   If no block passed, uses {|item| &quot;#{'··' * item.level}#{item[text_column]}&quot;}
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000036-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000036-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/betternestedset/lib/better_nested_set_helper.rb, line 94</span>
+ 94:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nested_set_options_for_select</span>(<span class="ruby-identifier">class_or_item</span>, <span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">nil</span>)
+ 95:         <span class="ruby-comment cmt"># find class</span>
+ 96:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">class_or_item</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Class</span>
+ 97:           <span class="ruby-identifier">first_item</span> = <span class="ruby-identifier">class_or_item</span>.<span class="ruby-identifier">roots</span>
+ 98:         <span class="ruby-keyword kw">else</span>
+ 99:           <span class="ruby-identifier">first_item</span> = <span class="ruby-identifier">class_or_item</span>
+100:         <span class="ruby-keyword kw">end</span>       
+101:         <span class="ruby-keyword kw">return</span> [] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">first_item</span>.<span class="ruby-identifier">nil?</span>
+102:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">'Not a nested set model !'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">class_or_item</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:acts_as_nested_set_options</span>)
+103:         
+104:         <span class="ruby-comment cmt"># exclude some items and all their children</span>
+105:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Hash</span>
+106:           <span class="ruby-identifier">text_column</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:text_column</span>]
+107:           <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete_if</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">:exclude</span> }
+108:         <span class="ruby-keyword kw">else</span>
+109:           <span class="ruby-identifier">options</span> = <span class="ruby-keyword kw">nil</span>
+110:         <span class="ruby-keyword kw">end</span>
+111:         <span class="ruby-identifier">text_column</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">class_or_item</span>.<span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:text_column</span>]
+112:         
+113:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">first_item</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+114:           <span class="ruby-identifier">tree</span> = <span class="ruby-identifier">first_item</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">i</span>.<span class="ruby-identifier">full_set</span>(<span class="ruby-identifier">options</span>)}.<span class="ruby-identifier">flatten</span>
+115:         <span class="ruby-keyword kw">else</span>
+116:           <span class="ruby-identifier">tree</span> = <span class="ruby-identifier">first_item</span>.<span class="ruby-identifier">full_set</span>(<span class="ruby-identifier">options</span>)
+117:         <span class="ruby-keyword kw">end</span>
+118:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+119:           <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span> [<span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">item</span>), <span class="ruby-identifier">item</span>.<span class="ruby-identifier">id</span>] }
+120:         <span class="ruby-keyword kw">else</span>  
+121:           <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span> [ <span class="ruby-node">&quot;#{'··' * item.level}#{item[text_column]}&quot;</span>, <span class="ruby-identifier">item</span>.<span class="ruby-identifier">id</span>]}
+122:         <span class="ruby-keyword kw">end</span>
+123:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

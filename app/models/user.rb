@@ -68,8 +68,15 @@ class User < ActiveRecord::Base
   def has_role?(role_in_question, inventory_pool_id_in_question) #sellittf# (role_in_question)
 #sellittf#    @_list ||= self.roles.collect(&:name)
 #sellittf#    return true if @_list.include?("admin")
-    @_list = self.access_rights.collect{|a| a.role.name if a.inventory_pool.id == inventory_pool_id_in_question }
-    (@_list.include?(role_in_question.to_s) )
+
+#old# retrieve roles for a given inventory_pool
+#sellittf#    @_list = self.access_rights.collect{|a| a.role.name if a.inventory_pool.id == inventory_pool_id_in_question }
+#sellittf#    (@_list.include?(role_in_question.to_s) )
+
+# retrieve roles for a given inventory_pool hierarchically with betternestedset plugin #sellittf#
+    role = Role.find(:first, :conditions => {:name => role_in_question})
+    roles = self.access_rights.collect{|a| a.role if a.inventory_pool.id == inventory_pool_id_in_question }.compact
+    ( roles.any? {|r| r.full_set.include?(role)} )
   end
   # ---------------------------------------
   

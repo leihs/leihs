@@ -113,7 +113,7 @@ module RoleRequirementSystem
     def access_denied
       if logged_in?
         #sellittf# render :nothing => true, :status => 401
-        render :text => "Access Denied: #{current_user.login} #{current_user.access_rights.first.role.name} #{current_user.access_rights.first.inventory_pool.name} for #{current_user_and_inventory[1]}"
+        render :text => "Access Denied: #{current_user.login} #{current_user.access_rights.first.role.name} #{current_user.access_rights.first.inventory_pool.name} for #{current_user_and_inventory[1].name}"
         return false
       else
         super

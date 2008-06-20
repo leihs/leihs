@@ -2,21 +2,30 @@ class Backend::TakeBackController < Backend::BackendController
   
   def index
                                               
-    # TODO search/filter
     if params[:search]
-      #params[:search] = "*#{params[:search]}*" # search with partial string
-      #@orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::SUBMITTED]})
+      params[:search] = "*#{params[:search]}*" # search with partial string
+      @contracts = Contract.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Contract::SIGNED]})
+
+      # OPTIMIZE named_scope intersection?
+      @visits = current_inventory_pool.take_back_visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }
+      
     elsif params[:user_id] #TODO
       @user = User.find(params[:user_id])
-      #old# @grouped_lines = ContractLine.ready_for_take_back(@user)
+#old#     @grouped_lines = ContractLine.ready_for_take_back(@user)
+
+      # OPTIMIZE named_scope intersection?
+      @visits = current_inventory_pool.take_back_visits.select {|v| v.user == @user}
+      
     elsif params[:remind] #temp#
       @visits = current_inventory_pool.remind_visits
+      
     else
 #old#      @grouped_lines = ContractLine.ready_for_take_back 
       @visits = current_inventory_pool.take_back_visits
+      
     end
     
-    #render :partial => 'lines' if request.post?          
+    render :partial => 'visits' if request.post? # TODO lines or visits
   end
 
   # get current contracts for a given user
