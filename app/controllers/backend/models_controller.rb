@@ -28,5 +28,16 @@ class Backend::ModelsController < Backend::BackendController
     @categories = Category.find(params[:id]).children if params[:id]
     render :partial => 'categories'
   end
+
+
+  def available_items
+    # TODO filter only available items
+    #old# @items = Model.find(params[:id]).items
+    @items = current_inventory_pool.items.find(:all, :conditions => ["model_id = ? AND inventory_code LIKE ?", params[:id], '%' + params[:code] + '%'])
+
+    # TODO check availability
+    
+    render :inline => "<%= auto_complete_result(@items, :inventory_code) %>"
+  end
   
 end

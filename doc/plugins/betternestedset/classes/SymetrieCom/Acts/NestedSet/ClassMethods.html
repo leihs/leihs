@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: SymetrieCom::Acts::NestedSet::ClassMethods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">SymetrieCom::Acts::NestedSet::ClassMethods</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/vendor/plugins/betternestedset/lib/better_nested_set_rb.html">
+                vendor/plugins/betternestedset/lib/better_nested_set.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This module provides an enhanced <a
+href="ClassMethods.html#M000001">acts_as_nested_set</a> mixin for
+ActiveRecord. Please see the README for background information, examples,
+and tips on usage.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000001">acts_as_nested_set</a>&nbsp;&nbsp;
+      <a href="#M000004">check_all</a>&nbsp;&nbsp;
+      <a href="#M000005">renumber_all</a>&nbsp;&nbsp;
+      <a href="#M000002">root</a>&nbsp;&nbsp;
+      <a href="#M000003">roots</a>&nbsp;&nbsp;
+      <a href="#M000006">sql_for</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="InstanceMethods.html">SymetrieCom::Acts::NestedSet::InstanceMethods</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="#M000001" class="method-signature">
+          <span class="method-name">acts_as_nested_set</span><span class="method-args">(options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Configuration options are:
+</p>
+<ul>
+<li><tt>parent_column</tt> - Column name for the parent/child foreign key
+(default: <tt>parent_id</tt>).
+
+</li>
+<li><tt>left_column</tt> - Column name for the left index (default:
+<tt>lft</tt>).
+
+</li>
+<li><tt>right_column</tt> - Column name for the right index (default:
+<tt>rgt</tt>). NOTE: Don&#8216;t use <tt>left</tt> and <tt>right</tt>,
+since these are reserved database words.
+
+</li>
+<li><tt>scope</tt> - Restricts what is to be considered a tree. Given a symbol,
+it&#8216;ll attach &quot;_id&quot; (if it isn&#8216;t there already) and
+use that as the foreign key restriction. It&#8216;s also possible to give
+it an entire string that is interpolated if you need a tighter scope than
+just a foreign key. Example: <tt><a
+href="ClassMethods.html#M000001">acts_as_nested_set</a> :scope =&gt;
+&#8216;tree_id = #{tree_id} AND completed = 0&#8216;</tt>
+
+</li>
+<li><tt>text_column</tt> - Column name for the title field (optional). Used as
+default in the {your-class}_options_for_select helper method. If empty,
+will use the first string field of your model class.
+
+</li>
+</ul>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000001-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000001-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/betternestedset/lib/better_nested_set.rb, line 22</span>
+22:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">acts_as_nested_set</span>(<span class="ruby-identifier">options</span> = {})          
+23:           
+24:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:scope</span>] = <span class="ruby-node">&quot;#{options[:scope]}_id&quot;</span>.<span class="ruby-identifier">intern</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:scope</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:scope</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp re">/_id$/</span>
+25:           
+26:           <span class="ruby-identifier">write_inheritable_attribute</span>(<span class="ruby-identifier">:acts_as_nested_set_options</span>,
+27:              { <span class="ruby-identifier">:parent_column</span>  =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:parent_column</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'parent_id'</span>),
+28:                <span class="ruby-identifier">:left_column</span>    =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:left_column</span>]   <span class="ruby-operator">||</span> <span class="ruby-value str">'lft'</span>),
+29:                <span class="ruby-identifier">:right_column</span>   =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:right_column</span>]  <span class="ruby-operator">||</span> <span class="ruby-value str">'rgt'</span>),
+30:                <span class="ruby-identifier">:scope</span>          =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:scope</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'1 = 1'</span>),
+31:                <span class="ruby-identifier">:text_column</span>    =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:text_column</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">columns</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> (<span class="ruby-identifier">c</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:string</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span> }.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">first</span>),
+32:                <span class="ruby-identifier">:class</span>          =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span> <span class="ruby-comment cmt"># for single-table inheritance</span>
+33:               } )
+34:           
+35:           <span class="ruby-identifier">class_inheritable_reader</span> <span class="ruby-identifier">:acts_as_nested_set_options</span>
+36:           
+37:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:scope</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>)
+38:             <span class="ruby-identifier">scope_condition_method</span> = <span class="ruby-node">%(
+39:               def scope_condition
+40:                 if #{acts_as_nested_set_options[:scope].to_s}.nil?
+41:                   &quot;#{acts_as_nested_set_options[:scope].to_s} IS NULL&quot;
+42:                 else
+43:                   &quot;#{acts_as_nested_set_options[:scope].to_s} = \#{#{acts_as_nested_set_options[:scope].to_s}}&quot;
+44:                 end
+45:               end
+46:             )</span>
+47:           <span class="ruby-keyword kw">else</span>
+48:             <span class="ruby-identifier">scope_condition_method</span> = <span class="ruby-node">&quot;def scope_condition() \&quot;#{acts_as_nested_set_options[:scope]}\&quot; end&quot;</span>
+49:           <span class="ruby-keyword kw">end</span>
+50:           
+51:           <span class="ruby-comment cmt"># no bulk assignment</span>
+52:           <span class="ruby-identifier">attr_protected</span>  <span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:left_column</span>].<span class="ruby-identifier">intern</span>,
+53:                           <span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:right_column</span>].<span class="ruby-identifier">intern</span>,
+54:                           <span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:parent_column</span>].<span class="ruby-identifier">intern</span>
+55:           <span class="ruby-comment cmt"># no assignment to structure fields</span>
+56:           <span class="ruby-identifier">module_eval</span> <span class="ruby-value str">&quot;def \#{acts_as_nested_set_options[:left_column]}=(x)\nraise ActiveRecord::ActiveRecordError, \&quot;Unauthorized assignment to \#{acts_as_nested_set_options[:left_column]}: it's an internal field handled by acts_as_nested_set code, use move_to_* methods instead.\&quot;\nend\ndef \#{acts_as_nested_set_options[:right_column]}=(x)\nraise ActiveRecord::ActiveRecordError, \&quot;Unauthorized assignment to \#{acts_as_nested_set_options[:right_column]}: it's an internal field handled by acts_as_nested_set code, use move_to_* methods instead.\&quot;\nend\ndef \#{acts_as_nested_set_options[:parent_column]}=(x)\nraise ActiveRecord::ActiveRecordError, \&quot;Unauthorized assignment to \#{acts_as_nested_set_options[:parent_column]}: it's an internal field handled by acts_as_nested_set code, use move_to_* methods instead.\&quot;\nend\n\#{scope_condition_method}\n&quot;</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span>
+57:           
+58:           
+59:           <span class="ruby-identifier">include</span> <span class="ruby-constant">SymetrieCom</span><span class="ruby-operator">::</span><span class="ruby-constant">Acts</span><span class="ruby-operator">::</span><span class="ruby-constant">NestedSet</span><span class="ruby-operator">::</span><span class="ruby-constant">InstanceMethods</span>
+60:           <span class="ruby-identifier">extend</span> <span class="ruby-constant">SymetrieCom</span><span class="ruby-operator">::</span><span class="ruby-constant">Acts</span><span class="ruby-operator">::</span><span class="ruby-constant">NestedSet</span><span class="ruby-operator">::</span><span class="ruby-constant">ClassMethods</span>
+61:           
+62:           <span class="ruby-comment cmt"># adds the helper for the class</span>
+63: <span class="ruby-comment cmt">#          ActionView::Base.send(:define_method, &quot;#{Inflector.underscore(self.class)}_options_for_select&quot;) { special=nil</span>
+64: <span class="ruby-comment cmt">#              &quot;#{acts_as_nested_set_options[:text_column]} || &quot;#{self.class} id #{id}&quot;</span>
+65: <span class="ruby-comment cmt">#            }</span>
+66:           
+67:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">check_all</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks the left/right indexes of all records, returning the number of
+records checked. Throws ActiveRecord::ActiveRecordError if it finds a
+problem.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/betternestedset/lib/better_nested_set.rb, line 96</span>
+ 96:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_all</span>
+ 97:           <span class="ruby-identifier">total</span> = <span class="ruby-value">0</span>
+ 98:           <span class="ruby-identifier">transaction</span> <span class="ruby-keyword kw">do</span>
+ 99:             <span class="ruby-comment cmt"># if there are virtual roots, only call check_full_tree on the first, because it will check other virtual roots in that tree.</span>
+100:             <span class="ruby-identifier">total</span> = <span class="ruby-identifier">roots</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">r</span>[<span class="ruby-identifier">r</span>.<span class="ruby-identifier">left_col_name</span>] <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">check_full_tree</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span> )}
+101:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecordError</span>, <span class="ruby-value str">&quot;Scope problems or nodes without a valid root&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:class</span>].<span class="ruby-identifier">count</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">total</span>
+102:           <span class="ruby-keyword kw">end</span>
+103:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">total</span>
+104:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">renumber_all</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Re-calculate the left/right values of all nodes. Can be used to convert
+ordinary trees into nested sets.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/betternestedset/lib/better_nested_set.rb, line 107</span>
+107:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">renumber_all</span>
+108:           <span class="ruby-identifier">scopes</span> = []
+109:           <span class="ruby-comment cmt"># only call it once for each scope_condition (if the scope conditions are messed up, this will obviously cause problems)</span>
+110:           <span class="ruby-identifier">roots</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+111:             <span class="ruby-identifier">r</span>.<span class="ruby-identifier">renumber_full_tree</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">scopes</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">r</span>.<span class="ruby-identifier">scope_condition</span>)
+112:             <span class="ruby-identifier">scopes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">scope_condition</span>
+113:           <span class="ruby-keyword kw">end</span>
+114:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="#M000002" class="method-signature">
+          <span class="method-name">root</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the single <a href="ClassMethods.html#M000002">root</a> for the
+class (or just the first <a href="ClassMethods.html#M000002">root</a>, if
+there are several). Deprecation note: the original <a
+href="ClassMethods.html#M000001">acts_as_nested_set</a> allowed <a
+href="ClassMethods.html#M000003">roots</a> to have parent_id = 0, so we
+currently do the same. This silliness will not be tolerated in future
+versions, however.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000002-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/betternestedset/lib/better_nested_set.rb, line 85</span>
+85:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">root</span>
+86:           <span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:class</span>].<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;(#{acts_as_nested_set_options[:parent_column]} IS NULL OR #{acts_as_nested_set_options[:parent_column]} = 0)&quot;</span>)
+87:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">roots</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <a href="ClassMethods.html#M000003">roots</a> and/or virtual <a
+href="ClassMethods.html#M000003">roots</a> of all trees. See the
+explanation of virtual <a href="ClassMethods.html#M000003">roots</a> in the
+README.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/betternestedset/lib/better_nested_set.rb, line 90</span>
+90:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">roots</span>
+91:           <span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:class</span>].<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;(#{acts_as_nested_set_options[:parent_column]} IS NULL OR #{acts_as_nested_set_options[:parent_column]} = 0)&quot;</span>, <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{acts_as_nested_set_options[:left_column]}&quot;</span>)
+92:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">sql_for</span><span class="method-args">(items)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns an SQL fragment that matches <em>items</em> <b>and</b> all of their
+descendants, for use in a WHERE clause. You can pass it a single object, a
+single ID, or an array of objects and/or IDs.
+</p>
+<pre>
+  # if a.lft = 2, a.rgt = 7, b.lft = 12 and b.rgt = 13
+  Set.sql_for([a,b]) # returns &quot;((lft BETWEEN 2 AND 7) OR (lft BETWEEN 12 AND 13))&quot;
+</pre>
+<p>
+Returns &quot;1 != 1&quot; if passed no items. If you need to exclude
+items, just use &quot;NOT (#{<a
+href="ClassMethods.html#M000006">sql_for</a>(items)})&quot;. Note that if
+you have multiple trees, it is up to you to apply your scope condition.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/betternestedset/lib/better_nested_set.rb, line 122</span>
+122:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sql_for</span>(<span class="ruby-identifier">items</span>)
+123:           <span class="ruby-identifier">items</span> = [<span class="ruby-identifier">items</span>] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">items</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+124:           <span class="ruby-comment cmt"># get objects for IDs</span>
+125:           <span class="ruby-identifier">items</span>.<span class="ruby-identifier">collect!</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:class</span>]) <span class="ruby-operator">?</span> <span class="ruby-identifier">s</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:class</span>].<span class="ruby-identifier">find</span>(<span class="ruby-identifier">s</span>)}.<span class="ruby-identifier">uniq</span>
+126:           <span class="ruby-identifier">items</span>.<span class="ruby-identifier">reject!</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">new_record?</span>} <span class="ruby-comment cmt"># exclude unsaved items, since they don't have left/right values yet</span>
+127:           
+128:           <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;1 != 1&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">items</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-comment cmt"># PostgreSQL didn't like '0', and SQLite3 didn't like 'FALSE'</span>
+129:           <span class="ruby-identifier">items</span>.<span class="ruby-identifier">map!</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;(#{acts_as_nested_set_options[:left_column]} BETWEEN #{e[acts_as_nested_set_options[:left_column]]} AND #{e[acts_as_nested_set_options[:right_column]]})&quot;</span> }
+130:           <span class="ruby-node">&quot;(#{items.join(' OR ')})&quot;</span>
+131:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

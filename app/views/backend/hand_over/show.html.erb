@@ -111,7 +111,18 @@
 								</td>
 								<td id="inventory_code_<%= @line.id %>" class="line_valid_<%= @line.complete? %>">
 									<% @item = @line.item %>
-									<%= text_field(:item, :inventory_code, :id =>"line_item_inventory_code_#{@line.id}", :size => 10, :onchange => remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id}, :with => "'code=' + value" )) %>
+									<%#old#= text_field(:item, :inventory_code,
+													:id => "line_item_inventory_code_#{@line.id}",
+													:size => 10,
+													:onchange => remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id}, :with => "'code=' + value" )) %>
+									<%= text_field_with_auto_complete :item, :inventory_code,
+																	{ :id => "line_item_inventory_code_#{@line.id}",
+																	# :index => @line.id,
+																	  :size => 10,
+																	  :onblur => remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id}, :with => "'code=' + value" ) },
+																	{ :url => { :controller => 'models', :action => 'available_items', :id => @line.model.id },
+																	  :method => :get,
+																	  :with => "'code=' + element.value" } %>
 								</td>
 								<td><div class="buttons">
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: AutoCompleteMacrosHelper</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">AutoCompleteMacrosHelper</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/vendor/plugins/auto_complete/lib/auto_complete_macros_helper_rb.html">
+                vendor/plugins/auto_complete/lib/auto_complete_macros_helper.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000003">auto_complete_field</a>&nbsp;&nbsp;
+      <a href="#M000004">auto_complete_result</a>&nbsp;&nbsp;
+      <a href="#M000005">text_field_with_auto_complete</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">auto_complete_field</span><span class="method-args">(field_id, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Adds AJAX autocomplete functionality to the text input field with the DOM
+ID specified by <tt>field_id</tt>.
+</p>
+<p>
+This function expects that the called action returns an HTML &lt;ul&gt;
+list, or nothing if no entries should be displayed for autocompletion.
+</p>
+<p>
+You&#8216;ll probably want to turn the browser&#8216;s built-in
+autocompletion off, so be sure to include an
+<tt>autocomplete=&quot;off&quot;</tt> attribute with your text input field.
+</p>
+<p>
+The autocompleter object is assigned to a Javascript variable named
+<tt>field_id</tt>_auto_completer. This object is useful if you for example
+want to trigger the auto-complete suggestions through other means than user
+input (for that specific case, call the <tt>activate</tt> method on that
+object).
+</p>
+<p>
+Required <tt>options</tt> are:
+</p>
+<table>
+<tr><td valign="top"><tt>:url</tt>:</td><td>URL to call for autocompletion results in url_for format.
+
+</td></tr>
+</table>
+<p>
+Addtional <tt>options</tt> are:
+</p>
+<table>
+<tr><td valign="top"><tt>:update</tt>:</td><td>Specifies the DOM ID of the element whose innerHTML should be updated with
+the autocomplete entries returned by the AJAX request. Defaults to
+<tt>field_id</tt> + &#8216;_auto_complete&#8216;
+
+</td></tr>
+<tr><td valign="top"><tt>:with</tt>:</td><td>A JavaScript expression specifying the parameters for the XMLHttpRequest.
+This defaults to &#8216;fieldname=value&#8217;.
+
+</td></tr>
+<tr><td valign="top"><tt>:frequency</tt>:</td><td>Determines the time to wait after the last keystroke for the AJAX request
+to be initiated.
+
+</td></tr>
+<tr><td valign="top"><tt>:indicator</tt>:</td><td>Specifies the DOM ID of an element which will be displayed while
+autocomplete is running.
+
+</td></tr>
+<tr><td valign="top"><tt>:tokens</tt>:</td><td>A string or an array of strings containing separator tokens for tokenized
+incremental autocompletion. Example: <tt>:tokens =&gt; &#8217;,&#8217;</tt>
+would allow multiple autocompletion entries, separated by commas.
+
+</td></tr>
+<tr><td valign="top"><tt>:min_chars</tt>:</td><td>The minimum number of characters that should be in the input field before
+an Ajax call is made to the server.
+
+</td></tr>
+<tr><td valign="top"><tt>:on_hide</tt>:</td><td>A Javascript expression that is called when the autocompletion div is
+hidden. The expression should take two variables: element and update.
+Element is a DOM element for the field, update is a DOM element for the div
+from which the innerHTML is replaced.
+
+</td></tr>
+<tr><td valign="top"><tt>:on_show</tt>:</td><td>Like on_hide, only now the expression is called then the div is shown.
+
+</td></tr>
+<tr><td valign="top"><tt>:after_update_element</tt>:</td><td>A Javascript expression that is called when the user has selected one of
+the proposed values. The expression should take two variables: element and
+value. Element is a DOM element for the field, value is the value selected
+by the user.
+
+</td></tr>
+<tr><td valign="top"><tt>:select</tt>:</td><td>Pick the class of the element from which the value for insertion should be
+extracted. If this is not specified, the entire element is used.
+
+</td></tr>
+<tr><td valign="top"><tt>:method</tt>:</td><td>Specifies the HTTP verb to use when the autocompletion request is made.
+Defaults to POST.
+
+</td></tr>
+</table>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/auto_complete/lib/auto_complete_macros_helper.rb, line 58</span>
+58:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">auto_complete_field</span>(<span class="ruby-identifier">field_id</span>, <span class="ruby-identifier">options</span> = {})
+59:     <span class="ruby-identifier">function</span> =  <span class="ruby-node">&quot;var #{field_id}_auto_completer = new Ajax.Autocompleter(&quot;</span>
+60:     <span class="ruby-identifier">function</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;'#{field_id}', &quot;</span>
+61:     <span class="ruby-identifier">function</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;'&quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:update</span>] <span class="ruby-operator">||</span> <span class="ruby-node">&quot;#{field_id}_auto_complete&quot;</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;', &quot;</span>
+62:     <span class="ruby-identifier">function</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;'#{url_for(options[:url])}'&quot;</span>
+63:     
+64:     <span class="ruby-identifier">js_options</span> = {}
+65:     <span class="ruby-identifier">js_options</span>[<span class="ruby-identifier">:tokens</span>] = <span class="ruby-identifier">array_or_string_for_javascript</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:tokens</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:tokens</span>]
+66:     <span class="ruby-identifier">js_options</span>[<span class="ruby-identifier">:callback</span>]   = <span class="ruby-node">&quot;function(element, value) { return #{options[:with]} }&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:with</span>]
+67:     <span class="ruby-identifier">js_options</span>[<span class="ruby-identifier">:indicator</span>]  = <span class="ruby-node">&quot;'#{options[:indicator]}'&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:indicator</span>]
+68:     <span class="ruby-identifier">js_options</span>[<span class="ruby-identifier">:select</span>]     = <span class="ruby-node">&quot;'#{options[:select]}'&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:select</span>]
+69:     <span class="ruby-identifier">js_options</span>[<span class="ruby-identifier">:paramName</span>]  = <span class="ruby-node">&quot;'#{options[:param_name]}'&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:param_name</span>]
+70:     <span class="ruby-identifier">js_options</span>[<span class="ruby-identifier">:frequency</span>]  = <span class="ruby-node">&quot;#{options[:frequency]}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:frequency</span>]
+71:     <span class="ruby-identifier">js_options</span>[<span class="ruby-identifier">:method</span>]     = <span class="ruby-node">&quot;'#{options[:method].to_s}'&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:method</span>]
+72: 
+73:     { <span class="ruby-identifier">:after_update_element</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:afterUpdateElement</span>, 
+74:       <span class="ruby-identifier">:on_show</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:onShow</span>, <span class="ruby-identifier">:on_hide</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:onHide</span>, <span class="ruby-identifier">:min_chars</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:minChars</span> }.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+75:       <span class="ruby-identifier">js_options</span>[<span class="ruby-identifier">v</span>] = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">k</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">k</span>]
+76:     <span class="ruby-keyword kw">end</span>
+77: 
+78:     <span class="ruby-identifier">function</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-value str">', '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">options_for_javascript</span>(<span class="ruby-identifier">js_options</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">')'</span>)
+79: 
+80:     <span class="ruby-identifier">javascript_tag</span>(<span class="ruby-identifier">function</span>)
+81:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">auto_complete_result</span><span class="method-args">(entries, field, phrase = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Use this method in your view to generate a return for the AJAX autocomplete
+requests.
+</p>
+<p>
+Example action:
+</p>
+<pre>
+  def auto_complete_for_item_title
+    @items = Item.find(:all,
+      :conditions =&gt; [ 'LOWER(description) LIKE ?',
+      '%' + request.raw_post.downcase + '%' ])
+    render :inline =&gt; &quot;&lt;%= auto_complete_result(@items, 'description') %&gt;&quot;
+  end
+</pre>
+<p>
+The <a
+href="AutoCompleteMacrosHelper.html#M000004">auto_complete_result</a> can
+of course also be called from a view belonging to the auto_complete action
+if you need to decorate it further.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/auto_complete/lib/auto_complete_macros_helper.rb, line 96</span>
+ 96:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">auto_complete_result</span>(<span class="ruby-identifier">entries</span>, <span class="ruby-identifier">field</span>, <span class="ruby-identifier">phrase</span> = <span class="ruby-keyword kw">nil</span>)
+ 97:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">entries</span>
+ 98:     <span class="ruby-identifier">items</span> = <span class="ruby-identifier">entries</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value str">&quot;li&quot;</span>, <span class="ruby-identifier">phrase</span> <span class="ruby-value">? </span><span class="ruby-identifier">highlight</span>(<span class="ruby-identifier">entry</span>[<span class="ruby-identifier">field</span>], <span class="ruby-identifier">phrase</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">h</span>(<span class="ruby-identifier">entry</span>[<span class="ruby-identifier">field</span>])) }
+ 99:     <span class="ruby-identifier">content_tag</span>(<span class="ruby-value str">&quot;ul&quot;</span>, <span class="ruby-identifier">items</span>.<span class="ruby-identifier">uniq</span>)
+100:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">text_field_with_auto_complete</span><span class="method-args">(object, method, tag_options = {}, completion_options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Wrapper for text_field with added AJAX autocompletion functionality.
+</p>
+<p>
+In your controller, you&#8216;ll need to define an action called
+auto_complete_for to respond the AJAX calls,
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/auto_complete/lib/auto_complete_macros_helper.rb, line 107</span>
+107:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">text_field_with_auto_complete</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">tag_options</span> = {}, <span class="ruby-identifier">completion_options</span> = {})
+108:     (<span class="ruby-identifier">completion_options</span>[<span class="ruby-identifier">:skip_style</span>] <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">auto_complete_stylesheet</span>) <span class="ruby-operator">+</span>
+109:     <span class="ruby-identifier">text_field</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">tag_options</span>) <span class="ruby-operator">+</span>
+110:     <span class="ruby-identifier">content_tag</span>(<span class="ruby-value str">&quot;div&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{object}_#{method}_auto_complete&quot;</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;auto_complete&quot;</span>) <span class="ruby-operator">+</span>
+111:     <span class="ruby-identifier">auto_complete_field</span>(<span class="ruby-node">&quot;#{object}_#{method}&quot;</span>, { <span class="ruby-identifier">:url</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;auto_complete_for_#{object}_#{method}&quot;</span> } }.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">completion_options</span>))
+112:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

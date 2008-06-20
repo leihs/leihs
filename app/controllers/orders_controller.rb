@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  #require_role "student"
+  require_role "student"
 
   before_filter :load_order, :except => [:index, :new]
 
