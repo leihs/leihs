@@ -114,8 +114,7 @@ private
       # OPTIMIZE prevent recursion?
       c.children << Category.find(:all, :limit => rand(5)+3, :order => "RAND()", :conditions => ["id != ?", c.id])
       
-      # TODO assign models
-      # Model.find(:all, :limit => rand(3)+1, :order => "RAND()")
+      c.models << Model.find(:all, :limit => rand(5)+1, :order => "RAND()")
     end
   end
   

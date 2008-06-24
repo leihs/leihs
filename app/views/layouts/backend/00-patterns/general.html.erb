@@ -29,13 +29,7 @@
 			</div>		
 		</div>
 		<div id="banner">
-			<ul>
-				<li><%= link_to _('Acknowledge') + " (#{@submitted_orders_size})", :controller => 'acknowledge' %></li>
-				<li><%= link_to _('Hand Over') + " (#{@new_contracts_size})", :controller => 'hand_over' %></li>
-				<li><%= link_to _('Take Back') + " (#{@signed_contracts_size})", :controller => 'take_back' %></li>
-				<% # TODO temp %>
-				<li><%= link_to _('Remind') + " (#{@remind_contracts_size})", :controller => 'take_back', :remind => true %></li>				
-			</ul>
+			<%= render :partial => '/layouts/backend/00-patterns/banner_buttons' %>
 		</div> 
 
 	<div id="sidebar">
@@ -43,6 +37,7 @@
 			<li><%= link_to _('Items'), :controller => 'dashboard', :action => 'index_items' %></li>
 			<li><%= link_to _('Orders'), :controller => 'orders' %></li>
 			<li><%= link_to _('Models'), :controller => 'models' %></li>
+			<li><%= link_to _('Categories'), :controller => 'categories' %></li>
 			<li><hr></li>
 			<li><%= link_to _('Users'), :controller => 'users' %></li>
 		</ul>
