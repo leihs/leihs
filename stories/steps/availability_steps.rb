@@ -18,6 +18,7 @@ steps_for(:availability) do
     model = Model.find_by_name(model)
     order = Factory.create_order
     order.add_line(quantity.to_i, model, nil, Factory.parsedate(from), Factory.parsedate(to))
+    order.submit
     order.save
     order.order_lines.size.should >= 1
     OrderLine.current_and_future_reservations(model.id).size.should >= 1
