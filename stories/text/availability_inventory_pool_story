@@ -1,0 +1,109 @@
+Story: Availability depending on Pools
+
+	As an Inventory Manager 
+	I want to be sure that a user only gets to see models from inventory pools he has access to
+	In order to prevent a user from ordering things he cannot borrow
+	
+	
+	Scenario: Basic
+	
+	Given 2 inventory pools
+	And model 'Coffee Mug' is available at all pools
+	And this model has 2 items in inventory pool 1
+	And this model has 3 items in inventory pool 2
+	And user 'joe' has access to inventory pool 1
+	And user 'jack' has access to inventory pool 1 and 2
+	And user 'john' has access to inventory pool 2
+	
+	Then the maximum number of available 'Coffee Mugs' for 'joe' is 2
+	And the maximum number of available 'Coffee Mugs' for 'jack' is 5
+	And the maximum number of available 'Coffee Mugs' for 'john' is 3
+	
+	Scenario: Items available in different pools
+	
+	Given 2 inventory pools
+	And model 'Coffee Mug' is available at all pools
+	And this model has 2 items in inventory pool 1
+	And this model has 3 items in inventory pool 2
+	And model 'Coffee Machine' is available at pool 1
+	And this model has 1 items in inventory pool 1
+	And user 'jack' has access to inventory pool 1 and 2
+	
+	When 'jack' orders 2 'Coffee Mugs'
+	And 'jack' order 1 'Coffee Machine'
+	
+	Then 1 Order exists for inventory pool 1
+	And it asks for 3 items
+	And 0 Orders exist for inventory pool 2
+	
+	Scenario: Splitting order and notifying user
+	
+	Given 2 inventory pools
+	And model 'Coffee Mug' is available at pool 2
+	And this model has 3 items in inventory pool 2
+	And model 'Coffee Machine' is available at pool 1
+	And this model has 1 items in inventory pool 1
+	And user 'jack' has access to inventory pool 1 and 2
+	
+	When 'jack' orders 3 'Coffee Mugs'
+	And 'jack' orders 1 'Coffee Machine'
+	
+	Then 1 Order exists for inventory pool 1
+	And it asks for 1 item
+	And 1 Order exists for inventory pool 2
+	And it asks for 3 items
+	And user 'jack' received an email with subject 'Your order has been split'
+	And it contains information that he has to pick up 1 item at inventory pool 1
+	And it contains information that he has to pick up 3 item at inventory pool 2
+	
+	Scenario : User can't order things that user can't see
+	
+	Given 2 inventory pools
+	And model 'Coffee Mug' is available at pool 2
+	And this model has 3 items in inventory pool 2
+	And model 'Coffee Machine' is available at pool 1
+	And this model has 1 items in inventory pool 1
+	And user 'jack' has access to inventory pool 1
+	
+	When 'jack' searches for 'Coffee Mug'
+	Then he gets an empty result set.
+	
+	When 'jack' searches for 'Coffee'
+	Then he sees 'Coffee Machine'
+	
+	Scenario: User must have instructions
+	
+	Given 2 inventory pools
+	And model 'Laser-guided HiSpeed Camera' is available at pool 2
+	And this model has 1 item in inventory pool 2
+	And this model requires users to have 'Using Baseball bats in camera maintenance' certification
+	And user 'jack' has access to inventory pool 2
+	
+	When 'jack' orders 'Laser-guided HiSpeed Camera'
+	
+	Then he is notified that he needs a certification to get this item
+	
+	Given 'jack' has a certification in 'Using Baseball bats in camera maintenance'
+	
+	When 'jack' orders 'Laser-guided HiSpeed Camera'
+	
+	Then his order contains 1 item
+	
+	Scenario: Hide inventory from user groups
+	
+	Given 2 inventory pools
+	And model 'Camera Canon Powershot S200' is available at pool 1
+	And this model has 3 items in inventory pool 1
+	And this model should not be seen by 'Video student'
+	And 'jack' has access to inventory pool 1
+	
+	When 'jack' orders 'Camera Canon Powershot S200'
+	
+	Then his order contains 1 item
+	
+	Given 'jack' belongs to group 'Video student'
+	
+	When 'jack' orders 'Camera Canon Powershot S200'
+	
+	Then he is not allowed to do that.
+	
