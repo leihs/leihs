@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  require_role "student"
+  prepend_before_filter :login_required
 
   before_filter :load_order, :except => [:index, :new]
 

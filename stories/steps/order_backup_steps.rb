@@ -1,10 +1,17 @@
 steps_for(:order) do
  
-  Given "the list of new orders contains $total elements" do | total |
+  Given "an $role for inventory pool '$ip' logs in as '$who'" do | role, ip, who |
+    user = Factory.create_user({:login => who, :password => "pass"}, {:role => role})
+    post "/session", :login => user.login, :password => "pass"
+    inventory_pool = InventoryPool.find_or_create_by_name(:name => ip)
+    get "/backend/dashboard/switch_inventory_pool/#{inventory_pool.id}"
+  end
+  
+  Given "the list of submitted orders contains $total elements" do | total |
     orders = Order.submitted_orders
     orders.size.should == 0
     user = Factory.create_user
-    total.to_i.times { orders << Factory.create_order(:user_id => user.id) }
+    total.to_i.times { orders << Factory.create_order(:user_id => user.id).submit }
     orders.size.should == total.to_i
   end
 
@@ -14,7 +21,7 @@ steps_for(:order) do
     response.should render_template('backend/acknowledge/index')
   end
   
-  Then "$who sees $size_n new order$s_n and $size_d draft order$s_d" do | who, size_n, s_n, size_d, s_d |
+  Then "$who sees $size_n submitted order$s_n and $size_d draft order$s_d" do | who, size_n, s_n, size_d, s_d |
     @orders.select{|o| !o.has_backup? }.size.should == size_n.to_i
     @orders.select{|o| o.has_backup? }.size.should == size_d.to_i
   end
@@ -32,9 +39,10 @@ steps_for(:order) do
 
 ###############################################
 
-  Given "a new order with $size order lines" do | size |
+  Given "a submitted order with $size order lines" do | size |
     user = Factory.create_user(:login => "Joe")
     @order = Factory.create_order({:user_id => user.id}, {:order_lines => size.to_i})
+    @order.submit
 # debug here
 #puts; puts "==="; puts "Histories crated_at:"; @order.histories.each { |h| puts; puts h.text; puts h.created_at; puts "%10.5f" % h.created_at.to_f }; puts "==="
     @original_order = @order
@@ -94,6 +102,7 @@ steps_for(:order) do
   Given "inventory_manager works on one order" do
     user = Factory.create_user(:login => "Joe")
     order = Factory.create_order_with_models_and_items({:user_id => user.id}, {:order_lines => 3})
+    order.submit
     get "/backend/acknowledge/show/#{order.id}"
     response.should render_template('backend/acknowledge/show')
     @order = assigns(:order)

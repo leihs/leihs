@@ -6,8 +6,20 @@ class Model < ActiveRecord::Base
   has_many :properties
   has_many :accessories
 
-#TODO  has_and_belongs_to_many :packages
   has_and_belongs_to_many :categories
+
+#TODO  has_and_belongs_to_many :packages
+#  has_and_belongs_to_many :packages,
+#                          :class_name => "Model",
+#                          :join_table => "models_packages",
+#                          :foreign_key => "model_id",
+#                          :association_foreign_key => "package_id"
+#
+#  has_and_belongs_to_many :sub_models,
+#                          :class_name => "Category",
+#                          :join_table => "models_packages",
+#                          :foreign_key => "package_id",
+#                          :association_foreign_key => "model_id"    
     
   acts_as_ferret :fields => [ :name ] #, :store_class_name => true
 

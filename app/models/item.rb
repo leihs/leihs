@@ -9,20 +9,20 @@ class Item < ActiveRecord::Base
 
   validates_uniqueness_of :inventory_code
 
-  # TODO remove this method when no more needed
+  # TODO remove this method when no more needed (it is used for Rspec tests)
   # generates a new and unique inventory code
-#  def self.get_new_unique_inventory_code
-#    begin
-#      chars_len = 1
-#      nums_len = 2
-#      chars = ("A".."Z").to_a
-#      nums = ("0".."9").to_a
-#      code = ""
-#      1.upto(chars_len) { |i| code << chars[rand(chars.size-1)] }
-#      1.upto(nums_len) { |i| code << nums[rand(nums.size-1)] }
-#    end while exists?(:inventory_code => code)
-#    code
-#  end
+  def self.get_new_unique_inventory_code
+    begin
+      chars_len = 1
+      nums_len = 2
+      chars = ("A".."Z").to_a
+      nums = ("0".."9").to_a
+      code = ""
+      1.upto(chars_len) { |i| code << chars[rand(chars.size-1)] }
+      1.upto(nums_len) { |i| code << nums[rand(nums.size-1)] }
+    end while exists?(:inventory_code => code)
+    code
+  end
 
     
   # TODO define an additional status_const?

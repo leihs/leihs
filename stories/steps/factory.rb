@@ -21,7 +21,7 @@ module Factory
 
   def self.create_order(attributes = {}, options = {})
     default_attributes = {
-
+      :inventory_pool => InventoryPool.find_or_create_by_name(:name => "ABC")
     }
     o = Order.create default_attributes.merge(attributes)
     options[:order_lines].times { |i|
