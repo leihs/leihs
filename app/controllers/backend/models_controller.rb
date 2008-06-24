@@ -1,4 +1,5 @@
 class Backend::ModelsController < Backend::BackendController
+  # TODO require_role ?
 
   def index
 #    @models = Model.find(:all)
@@ -23,12 +24,6 @@ class Backend::ModelsController < Backend::BackendController
     render  :layout => $modal_layout_path
   end  
   
-  # TODO refactor?
-  def expand_category
-    @categories = Category.find(params[:id]).children if params[:id]
-    render :partial => 'categories'
-  end
-
 
   def available_items
     # TODO filter only available items

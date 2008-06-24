@@ -8,22 +8,52 @@ class Model < ActiveRecord::Base
 
   has_and_belongs_to_many :categories
 
-#TODO  has_and_belongs_to_many :packages
-#  has_and_belongs_to_many :packages,
-#                          :class_name => "Model",
-#                          :join_table => "models_packages",
-#                          :foreign_key => "model_id",
-#                          :association_foreign_key => "package_id"
-#
-#  has_and_belongs_to_many :sub_models,
-#                          :class_name => "Category",
-#                          :join_table => "models_packages",
-#                          :foreign_key => "package_id",
-#                          :association_foreign_key => "model_id"    
+###
+  has_and_belongs_to_many :packages,
+                          :class_name => "Model",
+                          :join_table => "models_packages",
+                          :foreign_key => "model_id",
+                          :association_foreign_key => "package_id"
+
+  has_and_belongs_to_many :models,
+                          :class_name => "Model",
+                          :join_table => "models_packages",
+                          :foreign_key => "package_id",
+                          :association_foreign_key => "model_id"    
+###
+  has_and_belongs_to_many :compatibles,
+                          :class_name => "Model",
+                          :join_table => "models_compatibles",
+                          :foreign_key => "model_id",
+                          :association_foreign_key => "compatible_id",
+                     #TODO :insert_sql => "INSERT INTO models_compatibles (model_id, compatible_id)
+                     #                 VALUES (#{id}, #{record.id}), (#{record.id}, #{id})" 
+                          :after_add => :add_bidirectional_compatibility,
+                          :after_remove => :remove_bidirectional_compatibility
+  def add_bidirectional_compatibility(compatible)
+    compatible.compatibles << self unless compatible.compatibles.include?(self)
+  end
+  
+  def remove_bidirectional_compatibility(compatible)
+    compatible.compatibles.delete(self) rescue nil
+  end
+###
+
+  named_scope :packages, :joins => "LEFT JOIN models_packages ON models_packages.package_id = models.id",
+                         :conditions => ['models_packages.package_id IS NOT NULL']
+
     
   acts_as_ferret :fields => [ :name ] #, :store_class_name => true
+                 # TODO indexing properties
 
-  
+
+  # TODO a package shouldn't have items ?
+  def is_package?
+    !models.empty? # and items.empty?
+  end
+
+
+#############################################  
   def availability(document_line = nil, current_time = Date.today)
     create_availability(current_time, document_line).periods
   end
@@ -53,6 +83,7 @@ class Model < ActiveRecord::Base
       create_availability(current_time, document_line).maximum_available_in_period(start_date, end_date)
     end
   end  
+#############################################  
 
 
   
