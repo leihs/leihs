@@ -1,5 +1,11 @@
 steps_for(:acknowledge) do
-  
+
+  Given "an $role for inventory pool '$ip' logs in as '$who'" do | role, ip, who |
+    user = Factory.create_user({:login => who, :password => "pass"}, {:role => role})
+    post "/session", :login => user.login, :password => "pass"
+    inventory_pool = InventoryPool.find_or_create_by_name(:name => ip)
+    get "/backend/dashboard/switch_inventory_pool/#{inventory_pool.id}"
+  end
   
   Given "the list of new orders contains $total elements" do | total |
     orders = Order.submitted_orders
@@ -10,11 +16,15 @@ steps_for(:acknowledge) do
     user = Factory.create_user(:login => name)
     @order = Factory.create_order(:user_id => user.id)
   end
+
+  Given "the new order is submitted" do
+    @order.submit
+  end
   
   Given "$total new orders are placed" do | total |
     total.to_i.times do | i |
       user = Factory.create_user(:login => "user_#{i}")
-      order = Factory.create_order(:user_id => user.id)
+      order = Factory.create_order(:user_id => user.id).submit
     end
   end
   
@@ -47,13 +57,6 @@ steps_for(:acknowledge) do
   end
      
   When "$who clicks '$action'" do | who, action |
-    ### TODO refactor to login sentence
-    user = Factory.create_user({:login => who}, {:role => 'inventory_manager'})
-    get "/backend/backend/login/#{user.id}"
-    inventory_pool = InventoryPool.find(:first, :conditions => {:name => "ABC"})
-    get "/backend/backend/switch_inventory_pool/#{inventory_pool.id}"
-    ###
-
     get "/backend/#{action}/index"
     @orders_size = assigns(:submitted_orders_size)
     @orders = assigns(:submitted_orders)
@@ -122,7 +125,7 @@ steps_for(:acknowledge) do
   end
   
   When "$who searches for '$model'" do |who, model|
-    post "/backend/search/model", :text => model, :source_controller => "acknowledge", :source_action => "swap_model_line"
+    post "/backend/models/search", :text => model, :source_controller => "acknowledge", :source_action => "swap_model_line"
     @search_result = assigns(:search_result)
     @search_result.should_not be_nil
   end
@@ -135,8 +138,10 @@ steps_for(:acknowledge) do
   end
   
   Then "$who sees $size order$s" do | who, size, s |
+    get "/backend/acknowledge/index" #temp#
+    @orders_size = assigns(:submitted_orders_size)  #temp#
+    
     @orders_size.should == size.to_i
-    @order = @orders.first
   end
   
   Then "$who sees '$what'" do | who, what |
@@ -144,6 +149,7 @@ steps_for(:acknowledge) do
   end
   
   Then "the order was placed by a user named '$name'" do | name |
+    @order = @orders.first if @orders.size == 1 #temp#
     @order.user.login.should == name
   end
   
@@ -177,7 +183,7 @@ steps_for(:acknowledge) do
   end
   
   Then "Swap Item screen opens" do 
-    @response.redirect_url.should include("/backend/search/model/#{@order.id}?line_id=#{@order_line_id}")
+    @response.redirect_url.should include("/backend/models/search/#{@order.id}?line_id=#{@order_line_id}")
   end
   
   Then "a choice of $size item appears" do |size|

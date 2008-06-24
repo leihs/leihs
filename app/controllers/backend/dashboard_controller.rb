@@ -5,14 +5,14 @@ class Backend::DashboardController < Backend::BackendController
   end
 
   # TODO temp forcing login
-  def login
-    if params[:id]
-      self.current_user = User.find params[:id]
-    else
-      self.current_user ||= User.find :first
-    end
-
-  end
+#  def login
+#    if params[:id]
+#      self.current_user = User.find params[:id]
+#    else
+#      self.current_user ||= User.find :first
+#    end
+#
+#  end
 
   #TODO temp forcing inventory_pool
   def switch_inventory_pool

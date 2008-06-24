@@ -7,21 +7,23 @@ Story: Backup orders
 	
 Scenario: List of new and draft orders
 	
-	Given the list of new orders contains 3 elements
+	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given the list of submitted orders contains 3 elements
 
 	When inventory_manager clicks 'acknowledge'	
-	Then he sees 3 new orders and 0 draft orders 
+	Then he sees 3 submitted orders and 0 draft orders 
 
 	When he chooses one order
 	Then a backup for the order is generated
 
 	When inventory_manager clicks 'acknowledge'	
-	Then he sees 2 new orders and 1 draft order 
+	Then he sees 2 submitted orders and 1 draft order 
 
 
 Scenario: Restore an order
 
-	Given a new order with 4 order lines
+	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a submitted order with 4 order lines
 	And the order has 4 changes
 	
 	When inventory_manager chooses the order
@@ -36,12 +38,13 @@ Scenario: Restore an order
 	And the restored order has the same 4 changes as the original
 	
 	Then is redirected to 'acknowledge'
-	And he sees 1 new order and 0 draft orders
+	And he sees 1 submitted order and 0 draft orders
 
 
 
 Scenario: Approve order
 
+	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given inventory_manager works on one order
 	
 	When he approves order
@@ -50,6 +53,7 @@ Scenario: Approve order
 
 Scenario: Reject order
 
+	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given inventory_manager works on one order
 	
 	When he rejects order
@@ -58,6 +62,7 @@ Scenario: Reject order
 	
 Scenario: Delete order
   
+	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given inventory_manager works on one order
 	
 	When he deletes order

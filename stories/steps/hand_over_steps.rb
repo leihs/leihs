@@ -1,5 +1,12 @@
 steps_for(:hand_over) do
 
+  Given "an $role for inventory pool '$ip' logs in as '$who'" do | role, ip, who |
+    user = Factory.create_user({:login => who, :password => "pass"}, {:role => role})
+    post "/session", :login => user.login, :password => "pass"
+    inventory_pool = InventoryPool.find_or_create_by_name(:name => ip)
+    get "/backend/dashboard/switch_inventory_pool/#{inventory_pool.id}"
+  end
+
 # Duplicated from availability_steps.rb
   Given "a model '$model' exists" do | model |
     @model = Factory.create_model(:name => model)
@@ -32,8 +39,12 @@ steps_for(:hand_over) do
                                                     :start_date => from)
     @order.save                                                
   end
+
+  When "the new order is submitted" do
+    @order.submit
+  end
   
-  When "an inventory_manager approves the order" do
+  When "$who approves the order" do | who |
     post "/backend/acknowledge/approve", :id => @order.id, :comment => "test comment"
     @order = assigns(:order)
     @order.should_not be_nil
@@ -44,35 +55,30 @@ steps_for(:hand_over) do
 
   When "$who clicks '$action'" do | who, action |
     get "/backend/#{action}/index"
-    @grouped_lines = assigns(:grouped_lines)
+    @visits = assigns(:visits)
     response.should render_template("backend/#{action}/index")
   end
   
   Then "he sees $total line$s with a total quantity of $quantity" do | total, s, quantity |
-      if @grouped_lines.size != total.to_i
-        @grouped_lines.each do |l|
-          puts l.start_date.to_s  
-        end
-      end
-     @grouped_lines.size.should == total.to_i
+     @visits.size.should == total.to_i
      s = 0
-     @grouped_lines.each {|l| s += l.quantity }
+     @visits.each {|v| s += v.quantity }
      s.should == quantity.to_i 
   end
 
 ###############################################
 
   Then "line $line has a quantity of $quantity for user '$who'" do | line, quantity, who |
-    @grouped_lines[line.to_i - 1].quantity.should == quantity.to_i
-    @grouped_lines[line.to_i - 1].user_login.should == who
+    @visits[line.to_i - 1].quantity.should == quantity.to_i
+    @visits[line.to_i - 1].user.login.should == who
   end
 
 ###############################################
 
 
   When "$who chooses one line" do | who |
-    line = @grouped_lines.first
-    get "/backend/hand_over/show/#{line.user_id}"
+    line = @visits.first
+    get "/backend/hand_over/show/#{line.user.id}"
     response.should render_template('backend/hand_over/show')
     @contract = assigns(:contract)
   end

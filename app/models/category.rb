@@ -13,7 +13,7 @@ class Category < ActiveRecord::Base
                           :association_foreign_key => "category_id"
 
 
-#  has_and_belongs_to_many :models
+#TODO  has_and_belongs_to_many :models
 
   
   named_scope :roots, :joins => "LEFT JOIN categories_parents ON categories_parents.category_id = categories.id",

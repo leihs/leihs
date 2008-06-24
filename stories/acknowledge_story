@@ -4,10 +4,12 @@ Story: Acknowledge orders
 	I want to see all new orders and acknowledge them
 	in order to have control over who is receiving what
 	
-	Scenario: List with new orders
-	
+Scenario: List with new orders
+
+	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given the list of new orders contains 0 elements
 	And a new order is placed by a user named 'Joe'
+	And the new order is submitted
 	
 	When inventory_manager clicks 'acknowledge'
 	
@@ -16,8 +18,9 @@ Story: Acknowledge orders
 	
 
 
-  Scenario: Count of new orders is shown
+Scenario: Count of new orders is shown
 
+  Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given the list of new orders contains 0 elements
   And 5 new orders are placed
 
@@ -29,14 +32,16 @@ Story: Acknowledge orders
 
   Then the active tab is titled 'Acknowledge (5)'
 
-  Scenario: Acknowledge order
+Scenario: Acknowledge order
 
+  Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And the list of new orders contains 0 elements
   And a new order is placed by a user named 'Joe'
   And it asks for 5 items of model 'NEC 245'
   And Joe's email address is joe@test.ch
+  And the new order is submitted
 
   When the inventory_manager clicks 'acknowledge'
   Then he sees 1 order
@@ -57,14 +62,16 @@ Story: Acknowledge orders
   And inventory_manager sees 0 orders
 
 
-  Scenario: Reject order
+Scenario: Reject order
 
+  Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And the list of new orders contains 0 elements
   And a new order is placed by a user named 'Joe'
   And it asks for 5 items of model 'NEC 245'
   And Joe's email address is joe@test.ch
+  And the new order is submitted
 
   When the inventory_manager clicks 'acknowledge'
   Then he sees 1 order
@@ -85,8 +92,9 @@ Story: Acknowledge orders
 
 
 
-  Scenario: Change amount and add Item
+Scenario: Change amount and add Item
 
+  Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And a model 'NEC 333' exists
@@ -94,6 +102,7 @@ Story: Acknowledge orders
   And a new order is placed by a user named 'Joe'
   And it asks for 5 items of model 'NEC 245'
   And Joe's email address is joe@test.ch
+  And the new order is submitted
 
   When the inventory_manager clicks 'acknowledge'
   And he chooses Joe's order
@@ -117,8 +126,9 @@ Story: Acknowledge orders
   And it contains information 'NEC 333 is better in that situation'
 
 
-  Scenario: Swap Package
+Scenario: Swap Package
 
+  Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And a model 'NEC 333' exists
@@ -126,7 +136,7 @@ Story: Acknowledge orders
   And a new order is placed by a user named 'Joe'
   And it asks for 5 items of model 'NEC 245'
   And Joe's email address is joe@test.ch
-
+  And the new order is submitted
 
   When the inventory_manager clicks 'acknowledge'
   And he chooses Joe's order
