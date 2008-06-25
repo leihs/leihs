@@ -1,0 +1,72 @@
+= acts_as_graph
+
+The acts_as_graph plugin extends ActiveRecord to implement a connected graph.
+
+acts_as_graph produces a graph structure by providing self-referencing inbound 
+and outbound association collections to your model.  It requires that you have 
+an edge table (used in the HABTM relationship), which by default is called 
++CLASS_edges+ (where +CLASS+ is the name of your model), and which has two columns: 
++child_id+ and +parent_id+ by default.
+
+<b>Currently, only DAGs (Directed, Acyclic graphs) are supported</b>.  
+See {here}[http://en.wikipedia.org/wiki/Directed_acyclic_graph] and
+{here}[http://mathworld.wolfram.com/AcyclicDigraph.html] for more information.
+
+  class Task < ActiveRecord::Base
+    acts_as_graph :edge_table => "dependencies"
+  end
+
+  # task1
+  #  +- task2 
+  #  |   +- task3
+  #  |   \- task4
+  #  \- task3
+
+  task1 = Task.new(:name => "Task 1")
+  task2 = Task.new(:name => "Task 2")
+  task3 = Task.new(:name => "Task 3")
+  task4 = Task.new(:name => "Task 4")
+
+  task1.children << [task2, task3]
+  task2.children << task3
+  task2.children << task
+
+  task1.parents                                           => []
+  task3.parents                                           => [task1, task2]
+  task1.children                                          => [task2, task3]
+  task1.children.recursive.to_a                           => [task2, task3, task4]
+  task1.children.recursive.each { |child| child.spank }   => nil
+
+<i>See more examples under <tt>test/models</tt>.</i>
+
+The recursive object (of the Recursive class) is added to the +parents+ and +children+ 
+associations, and represents a DFS on those collections.  When coerced into an array, 
+it gathers all of the child or parent records recursively (obviously) into a single array.  
+When +each+ is called on the +recursive+ object, it yields against each record in turn.  
+This means that some operations (such as <tt>include?</tt>) will be faster when run with the 
++each+ implementation.
+
+The following options are supported, but some have yet to be implemented:
+
++edge_table+:: HABTM table that represents graph edges.  Defaults to +class_name_id+.
++parent_col+:: Column in +edge_table+ that references the parent node.  Defaults to +parent_id+.
++child_col+:: Column in +edge_table+ that references the child node.  Defaults to +child_id+.
++child_collection+:: Name of the child collection.  Defaults to +children+.
++parent_collection+:: Name of the child collection.  Defaults to +parents+.
++allow_cycles+:: Determines whether or not the graph is cyclic.  Defaults to +false+. <i>Cyclic graphs are not yet implemented</i>.
++directed+:: Determines whether or not the graph is directed.  Defaults to +true+. <i>Undirected graphs are not yet implemented</i>.
+  
+=== Future directions
+
+The following features are being worked on for this plugin:
+
+* Cyclic and undirected graphs.
+* DFS/BFS choices for the recursive object.
+* Converting the recursive object to a proxy (such as the how the other association proxies are done).
+ 
+=== Download
+
+You can get acts_as_graph via cvs.  From the rails project directory, run:
+
+  ./script/plugin install -x svn://rubyforge.com/var/svn/acts_as_graph
+

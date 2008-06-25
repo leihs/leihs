@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
       flash[:notice] = _("Model couldn't be added") unless @order.save        
       redirect_to :action => 'new', :id => @order.id        
     else
-      redirect_to :controller => 'backend/models', # TODO refactor to frontend
+      redirect_to :controller => 'models',
                   :action => 'search',
                   :id => params[:id],
                   :source_controller => params[:controller],

@@ -20,7 +20,7 @@ class Backend::BackendController < ApplicationController
       flash[:notice] = _("Model couldn't be added") unless document.save        
       redirect_to :action => 'show', :id => render_id        
     else
-      redirect_to :controller => 'models', 
+      redirect_to :controller => '/models', 
                   :action => 'search',
                   :id => params[:id],
                   :source_controller => params[:controller],
@@ -39,7 +39,7 @@ class Backend::BackendController < ApplicationController
       end  
       redirect_to :action => 'show', :id => render_id        
     else
-      redirect_to :controller => 'models', 
+      redirect_to :controller => '/models', 
                   :action => 'search',
                   :id => params[:id],
                   :line_id => params[:line_id],

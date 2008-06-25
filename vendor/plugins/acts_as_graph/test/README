@@ -1,0 +1,5 @@
+Test framework courtesy of plugin_test_kit:
+ 	http://www.mathewabonyi.com/articles/2006/08/09/plugin-test-kit-initial-release
+
+Before you run these tests, please make sure you have sqlite3 properly installed.  See
+http://wiki.rubyonrails.org/rails/pages/HowtoUseSQLite for more info.

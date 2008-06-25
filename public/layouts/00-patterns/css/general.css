@@ -300,3 +300,28 @@ tr.availability td {
 .line_valid_false {
 	background-color: #FFCCCC;	
 }
+
+/* Categories */
+
+ul.category > li {
+	margin-top: 5px;
+}
+
+ul.category > li > span {
+	font-size: 2em;
+	background-color: #DDDDDD;
+	border: 1px solid black;
+	padding: 0 500px 0 20px;
+}
+
+ul.category > li > div {
+	margin: 0 15px 15px 15px;
+	font-size: 0.92em;
+	border-left: 1px solid black;
+	padding-left: 2px;
+}
+
+ul.category > li > div > span.add_button {
+	margin-left: 50px;
+	color: navy;	
+}

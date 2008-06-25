@@ -14,16 +14,6 @@ class Backend::ModelsController < Backend::BackendController
     render :layout => $modal_layout_path
   end
 
-  def search
-    if request.post?
-      @search_result = Model.find_by_contents("*" + params[:text] + "*")
-    end
-
-    @categories = Category.roots # TODO refactor?
-    
-    render  :layout => $modal_layout_path
-  end  
-  
 
   def available_items
     # TODO filter only available items

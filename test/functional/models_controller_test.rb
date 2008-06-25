@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Backend::CategoriesControllerTest < ActionController::TestCase
+class ModelsControllerTest < ActionController::TestCase
   # Replace this with your real tests.
   def test_truth
     assert true

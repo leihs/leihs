@@ -1,0 +1,15 @@
+<% # OPTIMIZE %>
+<% @categories ||= Category.roots %>
+
+<ul style="margin-left: 10px;">
+	<% for category in @categories
+		 ancestor_ids = "#{@ancestor_ids}_#{category.id}"
+	 %>
+		<li>
+			<%= link_to_remote "#{category.name} (#{category.models.size})", :update => "children_category_#{ancestor_ids}",
+    										  :url => { :controller => "models", :action => "expand_category", :id => category.id, :ancestor_ids => ancestor_ids },
+											  :complete => visual_effect(:toggle_appear, "children_category_#{ancestor_ids}", :duration => 0.5) %>
+			<div id="<%= "children_category_#{ancestor_ids}" %>" style="display: none;"></div>
+		</li>
+	<% end %>
+</ul>
