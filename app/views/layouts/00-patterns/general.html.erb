@@ -33,7 +33,9 @@
 		</div> 
 
 	<div id="sidebar">
-		<%= render :partial => '/backend/categories/categories' %> <% # TODO refactor %>
+		<% # OPTIMIZE %>
+		<%= render :partial => '/models/categories' %>
+		<%#= render_component :controller => 'models', :action => 'categories' %>
 	</div>
 	
 		

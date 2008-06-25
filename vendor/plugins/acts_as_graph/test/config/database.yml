@@ -1,0 +1,13 @@
+test:
+  # adapter: sqlite3
+  # dbfile: ":memory:"
+  
+  # adapter: sqlite3
+  # dbfile: test.sqlite3.db
+  
+  adapter: mysql
+  host: localhost
+  username: test
+  password:
+  database: test
+  

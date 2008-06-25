@@ -43,7 +43,7 @@ class Model < ActiveRecord::Base
                          :conditions => ['models_packages.package_id IS NOT NULL']
 
     
-  acts_as_ferret :fields => [ :name ] #, :store_class_name => true
+  acts_as_ferret :fields => [ :name, :category_names ] #, :store_class_name => true
                  # TODO indexing properties
 
 
@@ -98,4 +98,14 @@ class Model < ActiveRecord::Base
     a.reservations(DocumentLine.current_and_future_reservations(id, document_line, current_time))
     a
   end
+  
+  def category_names
+    n = [] 
+    categories.each do |c|
+      n << c.name  
+    end
+    n.uniq.join(" ")
+  end
+  
+  
 end
