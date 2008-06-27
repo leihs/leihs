@@ -10,11 +10,12 @@ class Backend::AcknowledgeController < Backend::BackendController
 
     if params[:search]
       params[:search] = "*#{params[:search]}*" # search with partial string
-      @orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::SUBMITTED]})
-      #@orders = @submitted_orders.find_by_contents(params[:search])
+#old#      @orders = Order.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Order::SUBMITTED]})
+      @orders = @submitted_orders.find_by_contents(params[:search])
     elsif params[:user_id]
-      # TODO scope for current inventory ?
-      @orders = User.find(params[:user_id]).orders.submitted_orders
+#old#      @orders = User.find(params[:user_id]).orders.submitted_orders
+      # OPTIMIZE named_scope intersection?
+      @orders = @submitted_orders.select { |o| o.user.id == params[:user_id].to_i}
     end
     
     render :partial => 'orders' if request.post?

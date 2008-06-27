@@ -7,21 +7,21 @@
         { :target => '_top' } %>
     </li>
     <li>
-        <% # TODO sum quantity from grouped_lines ? %>
+        <% # TODO sum quantity from visits %>
 		<% contract = @user.current_contract(@current_inventory_pool) %>
         <%= link_to _("This user has %{n} items to pick up (waiting for hand over)") % {:n => contract ? contract.lines.size : 0},
         { :controller => 'hand_over', :action => 'index', :user_id => @user.id },
         { :target => '_top' } %>
     </li>
     <li>
-        <% # TODO sum quantity from grouped_lines ? %>
+        <% # TODO sum quantity from visits %>
 		<% lines = @user.contracts.signed_contracts.collect {|c| c.contract_lines.find(:all, :conditions => {:returned_date => nil}) }.flatten %>
         <%= link_to _("This user has %{n} items to return (waiting for take back)") % {:n => lines.size },
         { :controller => 'take_back', :action => 'index', :user_id => @user.id },
         { :target => '_top' } %>
     </li>
     <li>
-        <% # TODO sum quantity from grouped_lines ? %>
+        <% # TODO sum quantity from visits %>
         <%= link_to _("This user has %{n} items to remind (waiting for take back)") % {:n => lines.find_all { |l| l.end_date < Date.today }.size },
         { :controller => 'take_back', :action => 'index', :user_id => @user.id },
         { :target => '_top' } %> (TODO link)

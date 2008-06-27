@@ -88,9 +88,14 @@ class Order < Document
 
   # submits order
   def submit
-    self.status_const = Order::SUBMITTED
-    save
-    split_and_assign_to_inventory_pool 
+    if approvable?
+      update_attribute(:status_const, Order::SUBMITTED)
+      split_and_assign_to_inventory_pool 
+
+      return true
+    else
+      return false
+    end
   end
 
   # keep the user required quantity 
@@ -228,8 +233,9 @@ class Order < Document
 #    # define mandatory inventory pools
 
 #temp#    
-    # TODO temp determines related inventory_pool 
-    inventory_pool = lines.first.model.items.first.inventory_pool #old# record.models.first.items.first.inventory_pool
+    # TODO temp determines related inventory_pool
+    first_line_with_items = lines.detect {|l| !l.model.items.empty? } 
+    inventory_pool = first_line_with_items.model.items.first.inventory_pool #old# record.models.first.items.first.inventory_pool
   
     # TODO split order for different inventory pools
     to_split_lines = lines.select {|l| not l.model.inventory_pools.any?{|ip| ip == inventory_pool }}

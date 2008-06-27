@@ -5,15 +5,15 @@ module ModelsHelper
     for category in categories
       next unless @categories.include?(category)
       output << "<li>"
-      output << "<span>" + category.name + "</span>"
-      if false #category.parents.include?(category) # TODO prevent loops
-        output << " * RECURSION *"
-      else
+      output << "<span>" + category.name + category.id.to_s + "</span>"
+      #if false #category.parents.include?(category) # TODO prevent loops
+      #  output << " * RECURSION *"
+      #else
         output << "<div>"
         output << display_models(category.models)
         output << display_with_children(category.children)
         output << "</div>"
-      end
+      #end
       output << "</li>"
     end
     output << "</ul>"
@@ -24,16 +24,26 @@ module ModelsHelper
   def display_models(models)
     output = ""
     for model in models
-      for ip in model.inventory_pools
-        if @models.include?(model)
-          output << "- #{model.name}"
-          output << "<span class='add_button'>[#{ip.name}] (#{ip.items.count(:conditions => {:model_id => model.id})}) "
-          output << link_to(_("Add"),
-               { :controller => '/orders', :action => 'add_line', :id => current_user.get_current_order, :model_id => model.id },
-                :method => 'post', :target=> '_top')
-          output << "</span><br />"
+      if @models.include?(model)
+      # OPTIMIZE
+        if model.is_package?
+              output << "- #{model.name}"
+              output << "<span class='add_button'>(package) "
+              output << link_to(_("Add"),
+                   { :controller => '/orders', :action => 'add_line', :id => current_user.get_current_order, :model_id => model.id },
+                    :method => 'post', :target=> '_top')
+              output << "</span><br />"
+        else
+          for ip in model.inventory_pools
+              output << "- #{model.name}"
+              output << "<span class='add_button'>[#{ip.name}] (#{ip.items.count(:conditions => {:model_id => model.id})}) "
+              output << link_to(_("Add"),
+                   { :controller => '/orders', :action => 'add_line', :id => current_user.get_current_order, :model_id => model.id },
+                    :method => 'post', :target=> '_top')
+              output << "</span><br />"
+          end
         end
-      end      
+      end
     end
     
     output

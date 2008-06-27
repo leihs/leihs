@@ -14,8 +14,7 @@ class OrdersController < ApplicationController
   def submit
     if request.post? and @order.submit
       
-      #redirect_to :action => 'index'
-      render :text => "order submitted"
+      redirect_to '/'
     else
       render :layout => $modal_layout_path
     end        

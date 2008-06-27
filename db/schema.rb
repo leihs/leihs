@@ -68,17 +68,28 @@ ActiveRecord::Schema.define(:version => 20) do
     t.datetime "updated_at"
   end
 
+  create_table "categories_models", :id => false, :force => true do |t|
+    t.integer "category_id", :limit => 11
+    t.integer "model_id",    :limit => 11
+  end
+
+  add_index "categories_models", ["category_id"], :name => "index_categories_models_on_category_id"
+  add_index "categories_models", ["model_id"], :name => "index_categories_models_on_model_id"
+
   create_table "categories_parents", :id => false, :force => true do |t|
     t.integer "category_id", :limit => 11
     t.integer "parent_id",   :limit => 11
   end
 
+  add_index "categories_parents", ["category_id"], :name => "index_categories_parents_on_category_id"
+  add_index "categories_parents", ["parent_id"], :name => "index_categories_parents_on_parent_id"
+
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50
     t.text     "comment"
     t.datetime "created_at"
-    t.integer  "commentable_id",   :limit => 11,                 :null => false
-    t.string   "commentable_type",               :default => "", :null => false
+    t.integer  "commentable_id",   :limit => 11, :null => false
+    t.string   "commentable_type",               :null => false
     t.integer  "user_id",          :limit => 11
   end
 
@@ -116,7 +127,7 @@ ActiveRecord::Schema.define(:version => 20) do
     t.integer  "type_const",  :limit => 11
     t.datetime "created_at",                                :null => false
     t.integer  "target_id",   :limit => 11,                 :null => false
-    t.string   "target_type",               :default => "", :null => false
+    t.string   "target_type",                               :null => false
     t.integer  "user_id",     :limit => 11
   end
 
@@ -147,6 +158,14 @@ ActiveRecord::Schema.define(:version => 20) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "models_compatibles", :id => false, :force => true do |t|
+    t.integer "model_id",      :limit => 11
+    t.integer "compatible_id", :limit => 11
+  end
+
+  add_index "models_compatibles", ["model_id"], :name => "index_models_compatibles_on_model_id"
+  add_index "models_compatibles", ["compatible_id"], :name => "index_models_compatibles_on_compatible_id"
 
   create_table "models_packages", :id => false, :force => true do |t|
     t.integer "model_id",   :limit => 11
@@ -180,11 +199,6 @@ ActiveRecord::Schema.define(:version => 20) do
     t.integer  "inventory_pool_id", :limit => 11
     t.integer  "status_const",      :limit => 11, :default => 1
     t.string   "purpose"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "packages", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
