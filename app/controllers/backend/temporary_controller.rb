@@ -19,6 +19,7 @@ class Backend::TemporaryController < Backend::BackendController
     end
     
     create_some_categories
+    create_some_packages
     
     params[:id] = 5
     params[:name] = "admin"
@@ -49,6 +50,7 @@ private
 #      end
 #    end
 #  end
+
 
   def create_some_users
     params[:id].to_i.times do |i|
@@ -111,13 +113,24 @@ private
     end
     categories = Category.find(:all, :limit => rand(5)+3, :order => "RAND()")
     categories.each do |c|
-      # OPTIMIZE prevent recursion?
-      c.children << Category.find(:all, :limit => rand(5)+3, :order => "RAND()", :conditions => ["id != ?", c.id])
-      
+      begin
+        c.children << Category.find(:all, :limit => rand(5)+3, :order => "RAND()", :conditions => ["id != ?", c.id])
+      rescue
+      end
+    
       c.models << Model.find(:all, :limit => rand(5)+1, :order => "RAND()")
     end
   end
-  
+
+  def create_some_packages
+    5.times do |i|
+      m = Model.create(:name => "package_" + i.to_s)
+      begin
+        m.models << Model.find(:all, :limit => rand(5)+2, :order => "RAND()")
+      rescue
+      end
+    end
+  end  
   
   def create_beautiful_order
     m = Model.find(:first)

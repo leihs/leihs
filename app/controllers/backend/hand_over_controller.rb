@@ -8,7 +8,8 @@ class Backend::HandOverController < Backend::BackendController
 
     if params[:search]
       params[:search] = "*#{params[:search]}*" # search with partial string
-      @contracts = Contract.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Contract::NEW]})
+#old#      @contracts = Contract.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Contract::NEW]})
+      @contracts = current_inventory_pool.contracts.new_contracts.find_by_contents(params[:search])
 
 #old#      
 #      @contracts.each do |c|
@@ -16,10 +17,11 @@ class Backend::HandOverController < Backend::BackendController
 #        dates.each { |d| e = Contract.new(c.attributes); e.lines << c.lines; @grouped_lines << e.visits(d) }
 #      end
 
+      # OPTIMIZE display only effective visits (i.e. for a given model name, ...)
       # OPTIMIZE named_scope intersection?
       @visits = current_inventory_pool.hand_over_visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }
 
-  elsif params[:user_id]
+    elsif params[:user_id]
       @user = User.find(params[:user_id])
 
 #old#    

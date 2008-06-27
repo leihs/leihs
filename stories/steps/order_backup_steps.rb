@@ -101,7 +101,7 @@ steps_for(:order) do
   
   Given "inventory_manager works on one order" do
     user = Factory.create_user(:login => "Joe")
-    order = Factory.create_order_with_models_and_items({:user_id => user.id}, {:order_lines => 3})
+    order = Factory.create_order({:user_id => user.id}, {:order_lines => 3})
     order.submit
     get "/backend/acknowledge/show/#{order.id}"
     response.should render_template('backend/acknowledge/show')

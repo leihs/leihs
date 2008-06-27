@@ -8,18 +8,24 @@ class Model < ActiveRecord::Base
 
   has_and_belongs_to_many :categories
 
+  acts_as_graph :edge_table => "models_packages",
+                :parent_col => "package_id",
+                :child_col => "model_id",
+                :parent_collection => "packages",
+                :child_collection => "models"
+                
 ###
-  has_and_belongs_to_many :packages,
-                          :class_name => "Model",
-                          :join_table => "models_packages",
-                          :foreign_key => "model_id",
-                          :association_foreign_key => "package_id"
-
-  has_and_belongs_to_many :models,
-                          :class_name => "Model",
-                          :join_table => "models_packages",
-                          :foreign_key => "package_id",
-                          :association_foreign_key => "model_id"    
+#  has_and_belongs_to_many :packages,
+#                          :class_name => "Model",
+#                          :join_table => "models_packages",
+#                          :foreign_key => "model_id",
+#                          :association_foreign_key => "package_id"
+#
+#  has_and_belongs_to_many :models,
+#                          :class_name => "Model",
+#                          :join_table => "models_packages",
+#                          :foreign_key => "package_id",
+#                          :association_foreign_key => "model_id"    
 ###
   has_and_belongs_to_many :compatibles,
                           :class_name => "Model",
@@ -39,9 +45,14 @@ class Model < ActiveRecord::Base
   end
 ###
 
-  named_scope :packages, :joins => "LEFT JOIN models_packages ON models_packages.package_id = models.id",
-                         :conditions => ['models_packages.package_id IS NOT NULL']
+  named_scope :packages, :select => "models.*",
+                         :joins => "LEFT JOIN models_packages ON models_packages.package_id = models.id",
+                         :conditions => ['models_packages.package_id IS NOT NULL'],
+                         :group => "models_packages.package_id"
 
+  named_scope :without_items, :select => "models.*",
+                              :joins => "LEFT JOIN items ON items.model_id = models.id",
+                              :conditions => ['items.model_id IS NULL']
     
   acts_as_ferret :fields => [ :name, :category_names ] #, :store_class_name => true
                  # TODO indexing properties

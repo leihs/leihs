@@ -4,7 +4,8 @@ class Backend::TakeBackController < Backend::BackendController
                                               
     if params[:search]
       params[:search] = "*#{params[:search]}*" # search with partial string
-      @contracts = Contract.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Contract::SIGNED]})
+#old#      @contracts = Contract.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Contract::SIGNED]})
+      @contracts = current_inventory_pool.contracts.signed_contracts.find_by_contents(params[:search])
 
       # OPTIMIZE named_scope intersection?
       @visits = current_inventory_pool.take_back_visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }

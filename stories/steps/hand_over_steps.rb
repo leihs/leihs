@@ -40,6 +40,7 @@ steps_for(:hand_over) do
     @order.save                                                
   end
 
+  # OPTIMIZE see availability_inventory_pool_steps.rb
   When "the new order is submitted" do
     @order.submit
   end

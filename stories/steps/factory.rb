@@ -26,21 +26,6 @@ module Factory
     o = Order.create default_attributes.merge(attributes)
     options[:order_lines].times { |i|
         model = Factory.create_model(:name => "model_#{i}" )
-        d = Array.new
-        2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
-        o.add_line(rand(3), model, o.user_id, d.min, d.max )
-    } if options[:order_lines]
-    o.save
-    o
-  end
-    
-  def self.create_order_with_models_and_items(attributes = {}, options = {})
-    default_attributes = {
-
-    }
-    o = Order.create default_attributes.merge(attributes)
-    options[:order_lines].times { |i|
-        model = Factory.create_model(:name => "model_#{i}" )
         quantity = rand(3) + 1
         quantity.times { Factory.create_item(:model => model)}
         d = Array.new
@@ -50,7 +35,7 @@ module Factory
     o.save
     o
   end
-  
+      
   def self.create_model(attributes = {})
     default_attributes = {
       :name => 'model_1'
@@ -67,7 +52,6 @@ module Factory
     }
     
     i = Item.create default_attributes.merge(attributes)
-    i.save
     i
   end
   
@@ -100,5 +84,13 @@ module Factory
                          :end_date => end_date)
       ol              
   end
-  
+
+  def self.create_inventory_pool(attributes = {})
+    default_attributes = {
+      :name => "ABC" 
+    }
+    ip = InventoryPool.create default_attributes.merge(attributes)
+    ip
+  end
+
 end
