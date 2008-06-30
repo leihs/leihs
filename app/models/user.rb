@@ -45,10 +45,6 @@ class User < ActiveRecord::Base
   end
 
   def get_signed_contract_lines
-#old#    contract_lines = []
-#old#    contracts.each { |c| c.contract_lines.each { |cl| contract_lines << cl } }
-#old#    contract_lines
-
     contracts.signed_contracts.collect { |c| c.contract_lines }.flatten
   end
   

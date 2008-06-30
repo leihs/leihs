@@ -19,18 +19,6 @@ class Contract < Document
     contract_lines
   end
 
-#########################################################################
-
-  #old#
-#  attr_accessor(:start_date, :quantity)
-#
-#   def visits(sd)
-#    self.start_date = sd
-#    self.quantity = 0
-#    lines.sort.each {|l| self.quantity += l.quantity if l.start_date == self.start_date }
-#    self
-#   end
-
 
 #########################################################################
 
@@ -38,22 +26,6 @@ class Contract < Document
   named_scope :new_contracts, :conditions => {:status_const => Contract::NEW}
   named_scope :signed_contracts, :conditions => {:status_const => Contract::SIGNED}
 #temp#  named_scope :closed_contracts, :conditions => {:status_const => Contract::CLOSED}
-
-  #old#
-#  named_scope :ready_for_hand_over, :select => 'contracts.*, contract_lines.start_date AS s',
-#                                    :joins => :contract_lines,
-#                                    :conditions => {:status_const => Contract::NEW,
-#                                                    'contract_lines.returned_date' => nil } ,
-#                                    :group => 'contract_lines.start_date',
-#                                    :order => 'contract_lines.start_date'
-
-#  def self.new_contracts
-#    find(:all, :conditions => {:status_const => Contract::NEW})
-#  end
-#
-#  def self.signed_contracts
-#    find(:all, :conditions => {:status_const => Contract::SIGNED})
-#  end
 
 #########################################################################
 

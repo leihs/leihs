@@ -1,0 +1,21 @@
+<%
+order = current_user.current_order
+if order
+%>
+
+	<ul>
+		
+	<!-- start iterator -->
+	<% for line in order.lines %>
+		<li id="order_line_<%= line.id %>">
+			<%= line.model.name[0,30] %>
+		</li>
+	<% end %>
+	<!-- end iterator -->						
+	
+	</ul>
+
+	<br />
+	<%= link_to "Complete order", :controller => 'orders', :action => 'new' %>
+
+<% end %>

@@ -14,19 +14,6 @@ class Model < ActiveRecord::Base
                 :parent_collection => "packages",
                 :child_collection => "models"
                 
-###
-#  has_and_belongs_to_many :packages,
-#                          :class_name => "Model",
-#                          :join_table => "models_packages",
-#                          :foreign_key => "model_id",
-#                          :association_foreign_key => "package_id"
-#
-#  has_and_belongs_to_many :models,
-#                          :class_name => "Model",
-#                          :join_table => "models_packages",
-#                          :foreign_key => "package_id",
-#                          :association_foreign_key => "model_id"    
-###
   has_and_belongs_to_many :compatibles,
                           :class_name => "Model",
                           :join_table => "models_compatibles",
@@ -54,7 +41,7 @@ class Model < ActiveRecord::Base
                               :joins => "LEFT JOIN items ON items.model_id = models.id",
                               :conditions => ['items.model_id IS NULL']
     
-  acts_as_ferret :fields => [ :name, :category_names ] #, :store_class_name => true
+  acts_as_ferret :fields => [ :name, :category_names, :properties_values ] #, :store_class_name => true
                  # TODO indexing properties
 
 
@@ -117,6 +104,13 @@ class Model < ActiveRecord::Base
     end
     n.uniq.join(" ")
   end
-  
+
+  def properties_values
+    n = [] 
+    properties.each do |p|
+      n << p.value  
+    end
+    n.uniq.join(" ")
+  end
   
 end

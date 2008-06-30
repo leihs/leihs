@@ -7,7 +7,8 @@
 		 ancestor_ids = "#{@ancestor_ids}_#{category.id}"
 	 %>
 		<li>
-			<%= link_to_remote "#{category.name} (#{category.models.size})", #:update => "category_children_#{ancestor_ids}",
+			<% label = (@category ? category.label(@category) : category.name ) %>
+			<%= link_to_remote "#{label} (#{category.models.size})", #:update => "category_children_#{ancestor_ids}",
     										  :url => { :controller => "models", :action => "expand_category", :id => category.id, :ancestor_ids => ancestor_ids },
 											  :complete => visual_effect(:toggle_appear, "category_children_#{ancestor_ids}", :duration => 0.5)
  %>

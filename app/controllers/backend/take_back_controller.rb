@@ -4,7 +4,6 @@ class Backend::TakeBackController < Backend::BackendController
                                               
     if params[:search]
       params[:search] = "*#{params[:search]}*" # search with partial string
-#old#      @contracts = Contract.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Contract::SIGNED]})
       @contracts = current_inventory_pool.contracts.signed_contracts.find_by_contents(params[:search])
 
       # OPTIMIZE named_scope intersection?
@@ -12,7 +11,6 @@ class Backend::TakeBackController < Backend::BackendController
       
     elsif params[:user_id] #TODO
       @user = User.find(params[:user_id])
-#old#     @grouped_lines = ContractLine.ready_for_take_back(@user)
 
       # OPTIMIZE named_scope intersection?
       @visits = current_inventory_pool.take_back_visits.select {|v| v.user == @user}
@@ -21,7 +19,6 @@ class Backend::TakeBackController < Backend::BackendController
       @visits = current_inventory_pool.remind_visits
       
     else
-#old#      @grouped_lines = ContractLine.ready_for_take_back 
       @visits = current_inventory_pool.take_back_visits
       
     end

@@ -10,8 +10,7 @@ class Backend::OrdersController < Backend::BackendController
     elsif @user
       @orders = @user.orders
     else
-#old#      @orders = Order.find(:all)
-       @orders = current_inventory_pool.orders
+      @orders = current_inventory_pool.orders
     end
     
     render :partial => 'orders' if request.post?

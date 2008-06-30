@@ -4,18 +4,9 @@ class Backend::HandOverController < Backend::BackendController
 
   def index
     
-#old#    @grouped_lines = []
-
     if params[:search]
       params[:search] = "*#{params[:search]}*" # search with partial string
-#old#      @contracts = Contract.find_by_contents(params[:search], {}, {:conditions => ["status_const = ?", Contract::NEW]})
       @contracts = current_inventory_pool.contracts.new_contracts.find_by_contents(params[:search])
-
-#old#      
-#      @contracts.each do |c|
-#        dates = c.lines.collect { |l| l.start_date }.uniq
-#        dates.each { |d| e = Contract.new(c.attributes); e.lines << c.lines; @grouped_lines << e.visits(d) }
-#      end
 
       # OPTIMIZE display only effective visits (i.e. for a given model name, ...)
       # OPTIMIZE named_scope intersection?
@@ -24,25 +15,10 @@ class Backend::HandOverController < Backend::BackendController
     elsif params[:user_id]
       @user = User.find(params[:user_id])
 
-#old#    
-#      #@grouped_lines = ContractLine.ready_for_hand_over(@user)
-#      @contracts = [@user.current_contract(current_inventory_pool)]
-#      @contracts.each do |c|
-#        dates = c.lines.collect { |l| l.start_date }.uniq
-#        dates.each { |d| e = Contract.new(c.attributes); e.lines << c.lines; @grouped_lines << e.visits(d) }
-#      end
-
       # OPTIMIZE named_scope intersection?
       @visits = current_inventory_pool.hand_over_visits.select {|v| v.user == @user}
       
     else
-#      @grouped_lines = ContractLine.ready_for_hand_over                                           
-#      @contracts = Contract.new_contracts.to_hand_over
-#old#      @contracts = Contract.ready_for_hand_over
-
-#old#      @contracts = current_inventory_pool.contracts.ready_for_hand_over
-#old#      @grouped_lines = [] 
-#old#      @contracts.each { |c| @grouped_lines << c.visits(c.s.to_date) }
       
       @visits = current_inventory_pool.hand_over_visits
     end

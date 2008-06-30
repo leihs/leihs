@@ -17,7 +17,6 @@ class Backend::ModelsController < Backend::BackendController
 
   def available_items
     # TODO filter only available items
-    #old# @items = Model.find(params[:id]).items
     @items = current_inventory_pool.items.find(:all, :conditions => ["model_id = ? AND inventory_code LIKE ?", params[:id], '%' + params[:code] + '%'])
 
     # TODO check availability

@@ -34,7 +34,6 @@ class Backend::DashboardController < Backend::BackendController
 
   #  TODO refactor in a dedicated controller?
   def index_items    
-#old#      @items = Item.find(:all)
        @items = current_inventory_pool.items
   end
 
