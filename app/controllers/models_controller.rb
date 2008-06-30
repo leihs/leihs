@@ -13,7 +13,7 @@ class ModelsController < ApplicationController
     # OPTIMIZE
     if params[:id]
       category = Category.find(params[:id])
-      @categories = [category] + category.children.recursive.to_a
+      @categories = [category] # + category.children.recursive.to_a
     else
 #      @categories = Category.roots
       @categories = @models.collect(&:categories).flatten.uniq
@@ -40,11 +40,11 @@ class ModelsController < ApplicationController
   end
   
   def expand_category
-    @category_children = Category.find(params[:id]).children if params[:id]
-#    @ancestor_ids = (params[:ancestor_ids] ? params[:ancestor_ids] : 0) # OPTIMIZE
-#    render :partial => 'categories'
+    @category = Category.find(params[:id]) #if params[:id]
+    @category_children = @category.children
 
     index
+
     render :update do |page|
       page.replace_html "category_children_#{@ancestor_ids}", :partial => 'categories'
       page.replace_html "categories", :partial => 'categories_and_models'
@@ -67,5 +67,10 @@ class ModelsController < ApplicationController
     
     render  :layout => $modal_layout_path
   end  
+  
+  def details
+    @model = Model.find(params[:id]) if params[:id]
+    render :partial => 'details'
+  end
 
 end

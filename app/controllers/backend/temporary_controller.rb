@@ -20,6 +20,7 @@ class Backend::TemporaryController < Backend::BackendController
     
     create_some_categories
     create_some_packages
+    create_some_properties
     
     params[:id] = 5
     params[:name] = "admin"
@@ -114,7 +115,12 @@ private
     categories = Category.find(:all, :limit => rand(5)+3, :order => "RAND()")
     categories.each do |c|
       begin
-        c.children << Category.find(:all, :limit => rand(5)+3, :order => "RAND()", :conditions => ["id != ?", c.id])
+#        c.children << Category.find(:all, :limit => rand(5)+3, :order => "RAND()", :conditions => ["id != ?", c.id])
+        (rand(5)+3).times do |i|
+          child = Category.find(:first, :order => "RAND()", :conditions => ["id != ?", c.id])
+          c.children << child
+          child.set_label(c, "#{child.name}_#{i}")
+        end
       rescue
       end
     
@@ -130,7 +136,22 @@ private
       rescue
       end
     end
-  end  
+  end
+  
+  def create_some_properties
+      chars_up = ("A".."Z").to_a
+      chars_down = ("a".."z").to_a
+      
+      Model.all.each do |m|
+        (rand(5)+1).times do
+          key = ""
+          value = ""
+          1.upto(5) { |i| key << chars_up[rand(chars_up.size-1)] } 
+          1.upto(5) { |i| value << chars_down[rand(chars_down.size-1)] } 
+          m.properties << Property.create(:key => key, :value => value)
+        end
+      end
+  end
   
   def create_beautiful_order
     m = Model.find(:first)

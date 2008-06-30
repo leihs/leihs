@@ -23,10 +23,16 @@ class OrdersController < ApplicationController
   # TODO merge reservation and acknowledge methods? (i.e. mixin module)
   def add_line
     if request.post?
+      @order = current_user.get_current_order unless @order
       params[:quantity] ||= 1
       @order.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
-      flash[:notice] = _("Model couldn't be added") unless @order.save        
-      redirect_to :action => 'new', :id => @order.id        
+      flash[:notice] = _("Model couldn't be added") unless @order.save
+      if request.xml_http_request?
+        current_user.reload # OPTIMIZE the first 'Add' is not displaying the basket
+        render :partial => 'basket'      
+      else
+        redirect_to :action => 'new', :id => @order.id        
+      end
     else
       redirect_to :controller => 'models',
                   :action => 'search',

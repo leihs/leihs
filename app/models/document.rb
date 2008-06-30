@@ -8,7 +8,7 @@ class Document < ActiveRecord::Base
 ################################################################
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil)
     if model.is_package?
-      model.models.each { |m| puts "----#{m.id}"; add_line(quantity, m, user_id, start_date, end_date) }
+      model.models.each { |m| add_line(quantity, m, user_id, start_date, end_date) }
     else
       c = "#{self.class}Line".constantize
       o = c.new(:quantity => quantity,

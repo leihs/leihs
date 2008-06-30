@@ -48,7 +48,7 @@ steps_for(:availability_inventory_pool) do
   end
 
   When "the new order is submitted" do
-    post "/orders/submit", :id => @order.id   #old# @order.submit
+    post "/orders/submit", :id => @order.id
   end
 
   Then "$size order$s1 exist$s2 for inventory pool $ip" do |size, s1, s2, ip|

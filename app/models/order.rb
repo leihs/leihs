@@ -22,8 +22,6 @@ class Order < Document
     order_lines
   end
 
-#old# after_save :split_and_assign_to_inventory_pool
-
 #########################################################################
 
 # finders provided by rails 2.1, but not yet recognized by rspec
@@ -105,7 +103,6 @@ class Order < Document
         
     max_available = line.model.maximum_available_in_period(line.start_date, line.end_date, line)
 
-#old#    line.quantity = required_quantity < max_available ? required_quantity : max_available
     line.quantity = [required_quantity, 0].max # TODO force positive quantity in DocumentLine
 
     # check if it can be served by a single inventory pool, or split the line
@@ -235,7 +232,7 @@ class Order < Document
 #temp#    
     # TODO temp determines related inventory_pool
     first_line_with_items = lines.detect {|l| !l.model.items.empty? } 
-    inventory_pool = first_line_with_items.model.items.first.inventory_pool #old# record.models.first.items.first.inventory_pool
+    inventory_pool = first_line_with_items.model.items.first.inventory_pool
   
     # TODO split order for different inventory pools
     to_split_lines = lines.select {|l| not l.model.inventory_pools.any?{|ip| ip == inventory_pool }}

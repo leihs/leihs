@@ -1,0 +1,15 @@
+<% if @model %>
+	
+	<h3><%= @model.name %>
+	<%= link_to_remote(_("Add"), :update => 'basket',
+								 :url => {:controller => 'orders', :action => 'add_line', :model_id => @model.id}) %>
+	</h3>
+
+	<ul>
+	<% @model.properties.each do |p| %>
+		<li><b><%= p.key %>:</b> <%= p.value %></li>
+	<% end %>
+	</ul>
+	
+	
+<% end %>

@@ -95,11 +95,10 @@ class Backend::BackendController < ApplicationController
     @current_inventory_pool = current_inventory_pool
 
 #    if @current_inventory_pool
-      @submitted_orders_size = @current_inventory_pool.orders.submitted_orders.size #old# Order.submitted_orders.size
-      @new_contracts_size = @current_inventory_pool.hand_over_visits.size #old# @current_inventory_pool.contracts.ready_for_hand_over.size #old# ContractLine.ready_for_hand_over.size #Contract.new_contracts.size
-      @signed_contracts_size = @current_inventory_pool.take_back_visits.size #old# ContractLine.ready_for_take_back.size #Contract.signed_contracts.size
-      # TODO scope
-      @remind_contracts_size = @current_inventory_pool.remind_visits.size #old# ContractLine.ready_for_remind.size
+      @submitted_orders_size = @current_inventory_pool.orders.submitted_orders.size
+      @new_contracts_size = @current_inventory_pool.hand_over_visits.size
+      @signed_contracts_size = @current_inventory_pool.take_back_visits.size
+      @remind_contracts_size = @current_inventory_pool.remind_visits.size
 #    end
 
   end

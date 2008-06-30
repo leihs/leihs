@@ -2,21 +2,6 @@ class Category < ActiveRecord::Base
   acts_as_graph :edge_table => "categories_parents",
                 :child_col => "category_id"
   
-####
-#  # TODO prevent loops
-#  has_and_belongs_to_many :parents,
-#                          :class_name => "Category",
-#                          :join_table => "categories_parents",
-#                          :foreign_key => "category_id",
-#                          :association_foreign_key => "parent_id"
-#
-#  has_and_belongs_to_many :children,
-#                          :class_name => "Category",
-#                          :join_table => "categories_parents",
-#                          :foreign_key => "parent_id",
-#                          :association_foreign_key => "category_id"
-####
-
   # TODO indexing models with category_names
   has_and_belongs_to_many :models,
                           :after_add => :model_indexing,
@@ -44,19 +29,24 @@ class Category < ActiveRecord::Base
     children.empty?
   end
   
-#  # TODO
-#  def ancestors
-#  end
-#
-#  
-#  # TODO
-#  def is_looping?
-##    p = parents
-##    begin
-##      f = find(:all, :conditions => )
-##      a << f
-##    do while
-#  end
-  
+
+
+### Edge Label
+  def label(parent)
+    l = Category.find_by_sql("SELECT label
+                                  FROM categories_parents
+                                  WHERE category_id = #{id}
+                                    AND parent_id = #{parent.id}")
+    l.first.attributes["label"]
+  end
+
+  def set_label(parent, label)
+    # TODO prevent sql injections
+    Category.connection.execute("UPDATE categories_parents
+                                  SET label = '#{label}'
+                                  WHERE category_id = #{id}
+                                    AND parent_id = #{parent.id}")
+  end
+###  
   
 end

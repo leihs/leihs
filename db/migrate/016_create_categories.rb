@@ -8,6 +8,7 @@ class CreateCategories < ActiveRecord::Migration
     create_table :categories_parents, :id => false do |t|
       t.belongs_to :category
       t.belongs_to :parent
+      t.string  :label
     end
     add_index(:categories_parents, :category_id)
     add_index(:categories_parents, :parent_id)

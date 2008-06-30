@@ -303,6 +303,14 @@ tr.availability td {
 
 /* Categories */
 
+#categories {
+	border: 1px solid #B2B2B2;
+	height: 390px;
+	min-width: 460px;
+	overflow: auto;
+	padding: 1em;
+}
+
 ul.category > li {
 	margin-top: 5px;
 }
@@ -311,7 +319,7 @@ ul.category > li > span {
 	font-size: 2em;
 	background-color: #DDDDDD;
 	border: 1px solid black;
-	padding: 0 500px 0 20px;
+	padding: 0 400px 0 20px;
 }
 
 ul.category > li > div {
@@ -325,3 +333,20 @@ ul.category > li > div > span.add_button {
 	margin-left: 50px;
 	color: navy;	
 }
+
+/* Details */
+
+#details {
+	margin-bottom: 80px;
+	overflow: hidden;
+}
+
+/* Basket */
+
+#basket {
+	float: right;
+	width: 250px;
+	padding: 5px;
+}
+
+
