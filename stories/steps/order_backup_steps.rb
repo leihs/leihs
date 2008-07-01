@@ -1,20 +1,6 @@
-steps_for(:order) do
+steps_for(:order_backup) do
  
-  Given "an $role for inventory pool '$ip' logs in as '$who'" do | role, ip, who |
-    user = Factory.create_user({:login => who, :password => "pass"}, {:role => role})
-    post "/session", :login => user.login, :password => "pass"
-    inventory_pool = InventoryPool.find_or_create_by_name(:name => ip)
-    get "/backend/dashboard/switch_inventory_pool/#{inventory_pool.id}"
-  end
   
-  Given "the list of submitted orders contains $total elements" do | total |
-    orders = Order.submitted_orders
-    orders.size.should == 0
-    user = Factory.create_user
-    total.to_i.times { orders << Factory.create_order(:user_id => user.id).submit }
-    orders.size.should == total.to_i
-  end
-
   When "$who clicks '$action'" do | who, action |
     get "/backend/#{action}/index"
     @orders = assigns(:submitted_orders)
@@ -24,13 +10,6 @@ steps_for(:order) do
   Then "$who sees $size_n submitted order$s_n and $size_d draft order$s_d" do | who, size_n, s_n, size_d, s_d |
     @orders.select{|o| !o.has_backup? }.size.should == size_n.to_i
     @orders.select{|o| o.has_backup? }.size.should == size_d.to_i
-  end
-
-  When "$who chooses one order" do | who |
-    order = @orders.first
-    get "/backend/acknowledge/show/#{order.id}"
-    response.should render_template('backend/acknowledge/show')
-    @order = assigns(:order)
   end
 
   Then "a backup for the order is generated" do
@@ -65,7 +44,10 @@ steps_for(:order) do
   end
 
   When "$who deletes $size order line$s" do | who, size, s |
-    size.to_i.times { @order.remove_line(@order.order_lines.first.id, @order.user.id) }
+#old#    size.to_i.times { @order.remove_line(@order.order_lines.first.id, @order.user.id) }
+    @lines = @order.order_lines[0, size.to_i].collect(&:id)
+    post "/backend/acknowledge/remove_lines", :id => @order.id, :lines => @lines
+    @order = assigns(:order)
   end
 
   Then "the order has $size order line$s" do | size, s |
@@ -77,7 +59,9 @@ steps_for(:order) do
   end
   
   When "$who restores the order" do | who |
-    @order.from_backup
+#old#    @order.from_backup
+    post "/backend/acknowledge/restore", :id => @order.id
+    @order = assigns(:order)
   end
 
   Then "the restored order has the same $size order line$s as the original" do | size, s |
@@ -123,21 +107,6 @@ steps_for(:order) do
 
   
 ###############################################
-  
-  When "he rejects order" do
-    post "/backend/acknowledge/reject/#{@order.id}"
-    @order = assigns(:order)
-    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
-  end
-  
-
-###############################################
-  
-  When "he deletes order" do
-    post "/backend/acknowledge/destroy/#{@order.id}"
-    @order = assigns(:order)
-    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
-  end
 
   Then "the order and the backup are deleted" do
     @order.frozen?.should == true

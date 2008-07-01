@@ -66,13 +66,6 @@ steps_for(:acknowledge) do
     @response = response
   end
   
-  When "$who approves order" do |who|
-    post "/backend/acknowledge/approve", :id => @order.id, :comment => @comment
-    @order = assigns(:order)
-    @orders_size = assigns(:submitted_orders_size)
-    @order.should_not be_nil
-    @response = response
-  end
   
   When "$who rejects order with reason '$reason'" do |who, reason|
     post "/backend/acknowledge/reject", :id => @order.id, :comment => reason
