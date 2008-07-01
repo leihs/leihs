@@ -25,7 +25,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def approve
     if request.post? and @order.approve(params[:comment])
-      
       remove_order_from_session
       redirect_to :action => 'index'
     else

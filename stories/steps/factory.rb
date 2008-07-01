@@ -93,4 +93,12 @@ module Factory
     ip
   end
 
+  def self.create_category(attributes = {})
+    default_attributes = {
+      :name => 'category'
+    }
+    t = Category.find_or_create_by_name default_attributes.merge(attributes)
+    t
+  end
+  
 end

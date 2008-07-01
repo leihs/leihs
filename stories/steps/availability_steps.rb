@@ -1,15 +1,5 @@
 steps_for(:availability) do
-  
-  
-  Given "a model '$model' exists" do | model |
-    @model = Factory.create_model(:name => model)
-  end
-  
-  Given "$number items of model '$model' exist" do |number, model|
-    number.to_i.times do | i |
-      Factory.create_item(:model_id => Model.find_by_name(model).id)
-    end
-  end
+
   
   Given "$number reservations exist for model '$model'" do |number, model|
   end
