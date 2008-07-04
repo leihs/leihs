@@ -14,6 +14,7 @@ class Model < ActiveRecord::Base
                 :parent_collection => "packages",
                 :child_collection => "models"
                 
+########
   has_and_belongs_to_many :compatibles,
                           :class_name => "Model",
                           :join_table => "models_compatibles",
@@ -30,7 +31,7 @@ class Model < ActiveRecord::Base
   def remove_bidirectional_compatibility(compatible)
     compatible.compatibles.delete(self) rescue nil
   end
-###
+########
 
   named_scope :packages, :select => "models.*",
                          :joins => "LEFT JOIN models_packages ON models_packages.package_id = models.id",
@@ -42,7 +43,6 @@ class Model < ActiveRecord::Base
                               :conditions => ['items.model_id IS NULL']
     
   acts_as_ferret :fields => [ :name, :category_names, :properties_values ] #, :store_class_name => true
-                 # TODO indexing properties
 
 
   # TODO a package shouldn't have items ?

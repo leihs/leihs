@@ -1,6 +1,6 @@
 Story: Inventory
 
-	Describing Inventory Pools, Items, Models and Categories
+	Describing Inventory Pools, Items, Models, Packages and Categories
 	
 	
 Scenario: Categories structure
@@ -33,5 +33,39 @@ Scenario: Categories structure
 
 	When the category 'Filters' is selected	
 	Then there are 0 direct children and 0 total children 	 	
+
 	
+Scenario: Models organized in categories
 	
+	Given a category 'Cameras' exists
+	And a category 'Video' exists
+
+	And a model 'Sony 333' exists
+	And the model 'Sony 333' belongs to the category 'Cameras'
+
+	And a model 'Canon 444' exists
+	And the model 'Canon 444' belongs to the category 'Cameras'
+	
+	And a model 'Beamer 123' exists
+	And the model 'Beamer 123' belongs to the category 'Video'
+	
+	When the category 'Cameras' is selected	
+	Then there are 2 models belonging to that category
+
+	When the category 'Video' is selected	
+	Then there are 1 models belonging to that category
+
+
+Scenario: Models organized in packages
+	
+	Given a model 'Package 111' exists
+	And a model 'Sony 333' exists
+	And a model 'Canon 444' exists
+
+	And the model 'Sony 333' belongs to the model 'Package 111'
+	And the model 'Canon 444' belongs to the model 'Package 111'
+	
+	When the model 'Package 111' is selected	
+	Then there are 2 models belonging to that model
+
+		

@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_filter :load_order, :except => [:index, :new]
 
   def index
-    redirect_to :action => 'new'
+    @orders = current_user.orders
   end
   
   def new

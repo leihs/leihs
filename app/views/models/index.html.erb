@@ -1,24 +1,31 @@
 
-<div id="controller">
-	<% form_tag( {} ) do %>
-	<% params.each do |p| %>
-		<%= hidden_field_tag(p[0], p[1]) unless p[0] == "text" %>
-	<% end %>	
-	<p>
-	<%= text_field_tag 'text', params[:text] %>
 
-	</p>
-	<% end %>
+<div id="right_pane">
+	<div id="basket">
+		<%= render :partial => '/orders/basket' %>
+	</div>
 </div>
 
-<div id="basket">
-	<%= render :partial => '/orders/basket' %>
+<div id="central_pane">
+	<div id="controller">
+		<% form_tag( {} ) do %>
+		<% params.each do |p| %>
+			<%= hidden_field_tag(p[0], p[1]) unless p[0] == "search" %>
+		<% end %>	
+		<p>
+		<%= text_field_tag 'search', params[:search] %>
+	
+		</p>
+		<% end %>
+	</div>
+	
+	<div id="categories">
+		<%= render :partial => 'categories_and_models' %>
+	</div>
 </div>
 
-<div id="categories">
-	<%= render :partial => 'categories_and_models' %>
-</div>
-
-<div id="details">
-	<%= render :partial => 'details' %>
+<div id="bottom_pane">
+	<div id="details">
+		<%= render :partial => 'details' %>
+	</div>
 </div>

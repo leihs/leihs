@@ -112,7 +112,7 @@ steps_for(:acknowledge) do
   end
   
   When "$who searches for '$model'" do |who, model|
-    post "/models/search", :text => model, :source_controller => "acknowledge", :source_action => "swap_model_line"
+    post "/models/search", :search => model, :source_controller => "acknowledge", :source_action => "swap_model_line"
     @search_result = assigns(:search_result)
     @search_result.should_not be_nil
   end

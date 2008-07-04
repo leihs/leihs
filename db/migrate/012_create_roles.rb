@@ -9,7 +9,11 @@ class CreateRoles < ActiveRecord::Migration
       #t.timestamps
     end
 
+    r_a = Role.create(:name => "admin")
+    
     r_im = Role.create(:name => "inventory_manager")
+    r_im.move_to_child_of r_a
+    
     r_s = Role.create(:name => "student")
     r_s.move_to_child_of r_im
 

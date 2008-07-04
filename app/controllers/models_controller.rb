@@ -3,8 +3,8 @@ class ModelsController < ApplicationController
 
   def index
     
-    if params[:text]
-      @models = Model.find_by_contents("*" + params[:text] + "*")
+    if params[:search]
+      @models = Model.find_by_contents("*" + params[:search] + "*")
     else  
       @models = current_user.inventory_pools.collect(&:models).flatten
       @models += Model.packages # OPTIMIZE
@@ -55,11 +55,11 @@ class ModelsController < ApplicationController
     if request.post?
       if params[:source_controller].include?("backend/") #current_inventory_pool
         # Backend
-        @search_result = current_inventory_pool.models.find_by_contents("*" + params[:text] + "*")
+        @search_result = current_inventory_pool.models.find_by_contents("*" + params[:search] + "*")
       else
         # Frontend
         # TODO scope models visible by current_user
-        @search_result = Model.find_by_contents("*" + params[:text] + "*")
+        @search_result = Model.find_by_contents("*" + params[:search] + "*")
       end
     end
 
@@ -73,4 +73,7 @@ class ModelsController < ApplicationController
     render :partial => 'details'
   end
 
+  # TODO render_component (solve forgery)
+  #def recent
+  #end
 end

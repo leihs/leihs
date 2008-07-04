@@ -1,26 +1,12 @@
 class Backend::DashboardController < Backend::BackendController
-  require_role "inventory_manager", :for_all_except => [:index, :login, :switch_inventory_pool] # TODO for rspec tests
+  require_role "inventory_manager", :for_all_except => [:index, :login, :index_inventory_pools, :switch_inventory_pool] # TODO for rspec tests
   
   def index
   end
 
-  # TODO temp forcing login
-#  def login
-#    if params[:id]
-#      self.current_user = User.find params[:id]
-#    else
-#      self.current_user ||= User.find :first
-#    end
-#
-#  end
 
-  #TODO temp forcing inventory_pool
   def switch_inventory_pool
-    if params[:id]
-      self.current_inventory_pool = InventoryPool.find(params[:id])
-    #else
-    #  session[:inventory_pool_id] ||= InventoryPool.find(:first).id
-    end
+    self.current_inventory_pool = InventoryPool.find(params[:id]) if params[:id]
 
     redirect_to :action => 'index'
   end
@@ -30,11 +16,20 @@ class Backend::DashboardController < Backend::BackendController
   #  TODO refactor in a dedicated controller?
   def index_inventory_pools    
       @inventory_pools = InventoryPool.find(:all)   
+
+    render :layout => false if request.post?
   end
 
   #  TODO refactor in a dedicated controller?
-  def index_items    
-       @items = current_inventory_pool.items
+  def index_items
+    
+    @items = current_inventory_pool.items
+
+    if params[:search]
+      @items = @items.find_by_contents(params[:search])
+    end
+
+    render :layout => false if request.post?
   end
 
 

@@ -155,7 +155,7 @@
 
 									<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/attach.png") + " " + _("Add Options"),
 									 	{ :controller => 'acknowledge', :action => 'add_options', 
-											:id => @order.id, :order_lines => @line.id },
+											:id => @order.id, :lines => @line.id },
     										{:title => _("Add Options"), :width => 850}) %>
 									</div></td>
 							</tr>

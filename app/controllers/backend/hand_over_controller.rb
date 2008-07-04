@@ -17,13 +17,12 @@ class Backend::HandOverController < Backend::BackendController
 
       # OPTIMIZE named_scope intersection?
       @visits = current_inventory_pool.hand_over_visits.select {|v| v.user == @user}
-      
     else
       
       @visits = current_inventory_pool.hand_over_visits
     end
     
-    render :partial => 'visits' if request.post? # TODO lines or contracts or visits                                          
+    render :partial => 'visits' if request.post?                                          
   end
 
   # get current open contract for a given user

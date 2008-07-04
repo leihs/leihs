@@ -8,6 +8,10 @@ class Item < ActiveRecord::Base
   has_many :contract_lines
 
   validates_uniqueness_of :inventory_code
+  
+  acts_as_ferret :fields => [ :model_name, :inventory_pool_name, :inventory_code, :serial_number ] #, :store_class_name => true
+
+####################################################################
 
   # TODO remove this method when no more needed (it is used for Rspec tests)
   # generates a new and unique inventory code
@@ -33,6 +37,17 @@ class Item < ActiveRecord::Base
       return !ContractLine.exists?(["item_id = ? AND returned_date IS NULL", id])
     end
   end
-    
+
+####################################################################
+
+  private
+  
+  def model_name
+    model.name
+  end
+  
+  def inventory_pool_name
+    inventory_pool.name
+  end  
     
 end

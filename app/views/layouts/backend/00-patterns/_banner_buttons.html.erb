@@ -2,6 +2,5 @@
 	<li><%= link_to _('Acknowledge') + " (#{@submitted_orders_size})", :controller => 'acknowledge' %></li>
 	<li><%= link_to _('Hand Over') + " (#{@new_contracts_size})", :controller => 'hand_over' %></li>
 	<li><%= link_to _('Take Back') + " (#{@signed_contracts_size})", :controller => 'take_back' %></li>
-	<% # TODO temp %>
 	<li><%= link_to _('Remind') + " (#{@remind_contracts_size})", :controller => 'take_back', :remind => true %></li>				
 </ul>

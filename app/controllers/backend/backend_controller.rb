@@ -94,12 +94,12 @@ class Backend::BackendController < ApplicationController
 
     @current_inventory_pool = current_inventory_pool
 
-#    if @current_inventory_pool
-      @submitted_orders_size = @current_inventory_pool.orders.submitted_orders.size
-      @new_contracts_size = @current_inventory_pool.hand_over_visits.size
-      @signed_contracts_size = @current_inventory_pool.take_back_visits.size
-      @remind_contracts_size = @current_inventory_pool.remind_visits.size
-#    end
+    if @current_inventory_pool
+      @submitted_orders_size = @current_inventory_pool.orders.submitted_orders.size # TODO rename to @acknowledge.size
+      @new_contracts_size = @current_inventory_pool.hand_over_visits.size # TODO rename to @hand_over.size
+      @signed_contracts_size = @current_inventory_pool.take_back_visits.size # TODO rename to @take_back.size
+      @remind_contracts_size = @current_inventory_pool.remind_visits.size # TODO rename to @remind.size
+    end
 
   end
   
