@@ -15,4 +15,5 @@ if @contract_line
   page.replace_html 'errors', :partial => 'errors'
 end
 
-page << "$('inventory_code').focus()"
+# OPTIMIZE
+#page << "$('inventory_code').focus()"

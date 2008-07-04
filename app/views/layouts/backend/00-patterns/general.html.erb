@@ -11,7 +11,7 @@
 
 	<%= greybox_head %>
 	<%= javascript_include_tag :defaults %>
-	
+	<%= active_scaffold_includes %>	
 </head>
 
 <body>
@@ -37,7 +37,7 @@
 			<li><%= link_to _('Items'), :controller => 'dashboard', :action => 'index_items' %></li>
 			<li><%= link_to _('Orders'), :controller => 'orders' %></li>
 			<li><%= link_to _('Models'), :controller => 'models' %></li>
-			<li><%#= link_to _('Categories'), :controller => 'categories' %></li>
+			<li><%= link_to _('Categories'), :controller => 'categories' %></li>
 			<li><hr></li>
 			<li><%= link_to _('Users'), :controller => 'users' %></li>
 		</ul>
@@ -45,8 +45,10 @@
 	
 		
 	<div id="container">
-
+		
+		<% begin # OPTIMIZE %>
 		<%= render :partial => 'tabs' %>
+		<% rescue; end %>
 		
 		<div id="inner-container">
 			

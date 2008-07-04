@@ -1,10 +1,10 @@
 <div id="controller">
 	<% form_tag( {} ) do %>
 	<% params.each do |p| %>
-		<%= hidden_field_tag(p[0], p[1]) unless p[0] == "text" %>
+		<%= hidden_field_tag(p[0], p[1]) unless p[0] == "search" %>
 	<% end %>	
 	<p>
-	<%= text_field_tag 'text', params[:text] %>
+	<%= text_field_tag 'search', params[:search] %>
 	</p>
 	<% end %>
 </div>

@@ -1,10 +1,10 @@
 class Backend::ModelsController < Backend::BackendController
-  # TODO require_role ?
+  active_scaffold :model
+  
+  # TODO require_role "admin" ?
 
   def index
-#    @models = Model.find(:all)
-    items = current_user.inventory_pools.collect(&:items).flatten
-    @models = items.collect(&:model).uniq  
+    @models = current_user.inventory_pools.collect(&:models).flatten.uniq
   end
 
 
@@ -16,10 +16,10 @@ class Backend::ModelsController < Backend::BackendController
 
 
   def available_items
-    # TODO filter only available items
-    @items = current_inventory_pool.items.find(:all, :conditions => ["model_id = ? AND inventory_code LIKE ?", params[:id], '%' + params[:code] + '%'])
-
-    # TODO check availability
+    # OPTIMIZE prevent injection
+    items = current_inventory_pool.items.find(:all, :conditions => ["model_id IN (#{params[:model_ids]}) AND inventory_code LIKE ?", '%' + params[:code] + '%'])
+    # OPTIMIZE check availability
+    @items = items.select {|i| i.in_stock? }
     
     render :inline => "<%= auto_complete_result(@items, :inventory_code) %>"
   end

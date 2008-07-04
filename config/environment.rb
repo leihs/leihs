@@ -58,6 +58,7 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
 
   config.gem "gettext", :version => '1.91.0'
+  config.gem "ferret", :version => '0.11.6'
 
 end
 

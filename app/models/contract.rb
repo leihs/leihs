@@ -12,7 +12,7 @@ class Contract < Document
 
   NEW = 1
   SIGNED = 2
-#temp#  CLOSED = 3
+  CLOSED = 3
   
   # alias
   def lines
@@ -22,10 +22,9 @@ class Contract < Document
 
 #########################################################################
 
-# finders provided by rails 2.1, but not yet recognized by rspec
   named_scope :new_contracts, :conditions => {:status_const => Contract::NEW}
   named_scope :signed_contracts, :conditions => {:status_const => Contract::SIGNED}
-#temp#  named_scope :closed_contracts, :conditions => {:status_const => Contract::CLOSED}
+  named_scope :closed_contracts, :conditions => {:status_const => Contract::CLOSED}
 
 #########################################################################
 
@@ -49,6 +48,9 @@ class Contract < Document
     end
   end
 
+  def close
+    update_attribute :status_const, Contract::CLOSED
+  end
 
   # TODO contract layout
   def to_pdf

@@ -23,7 +23,7 @@ class Backend::TakeBackController < Backend::BackendController
       
     end
     
-    render :partial => 'visits' if request.post? # TODO lines or visits
+    render :partial => 'visits' if request.post?
   end
 
   # get current contracts for a given user
@@ -39,6 +39,9 @@ class Backend::TakeBackController < Backend::BackendController
     if request.post?
       @lines = ContractLine.find(params[:lines]) unless params[:lines].nil?
       @lines.each { |l| l.update_attribute :returned_date, Date.today }
+      
+      # TODO close contract
+      @contract.close if @contract.lines.all? { |l| !l.returned_date.nil? }
       
       # TODO generate new pdf for the contracts
       @contract = @lines.first.contract

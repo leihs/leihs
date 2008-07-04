@@ -1,15 +1,5 @@
 steps_for(:inventory) do
 
-  Given "a model '$model' exists" do | model |
-    @model = Factory.create_model(:name => model)
-  end
-  
-  Given "$number items of model '$model' exist" do |number, model|
-    number.to_i.times do | i |
-      Factory.create_item(:model_id => Model.find_by_name(model).id)
-    end
-  end
-
 ###############################################
 # Categories
 
@@ -43,5 +33,42 @@ steps_for(:inventory) do
     end
   end
 
+###############################################
+# Models
+
+  Given "a model '$model' exists" do | model |
+    @model = Factory.create_model(:name => model)
+  end
+    
+  Given "the model '$model' belongs to the category '$category'" do |model, category|
+    @model = Model.find(:first, :conditions => {:name => model})
+    @model.categories << Category.find(:first, :conditions => {:name => category})    
+  end
+
+  Given "the model '$model' belongs to the model '$package'" do |model, package|
+    @model = Model.find(:first, :conditions => {:name => model})
+    @model.packages << Model.find(:first, :conditions => {:name => package})    
+  end
+
+  When "the model '$model' is selected" do | model|
+    @model = Model.find(:first, :conditions => {:name => model})
+  end
+ 
+  Then "there are $size models belonging to that category" do |size|
+    @category.models.size.should == size.to_i
+  end
+
+  Then "there are $size models belonging to that model" do |size|
+    @model.models.size.should == size.to_i
+  end
+
+###############################################
+# Items
+
+  Given "$number items of model '$model' exist" do |number, model|
+    number.to_i.times do | i |
+      Factory.create_item(:model_id => Model.find_by_name(model).id)
+    end
+  end
 
 end

@@ -12,7 +12,10 @@ class Backend::AcknowledgeController < Backend::BackendController
       @orders = @submitted_orders.find_by_contents(params[:search])
     elsif params[:user_id]
       # OPTIMIZE named_scope intersection?
-      @orders = @submitted_orders.select { |o| o.user.id == params[:user_id].to_i}
+#old#      @orders = @submitted_orders.select { |o| o.user.id == params[:user_id].to_i}
+      
+      @user = User.find(params[:user_id])
+      @orders = @submitted_orders & @user.orders.submitted_orders
     end
     
     render :partial => 'orders' if request.post?

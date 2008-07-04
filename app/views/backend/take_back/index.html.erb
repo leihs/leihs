@@ -1,21 +1,11 @@
 			
 <div class="table-overview boxes">
 	
-	<div id="controller">
-			<%= text_field_tag('search', _("Bestellung suchen"), :onfocus => "this.value='';", :onchange => remote_function(:update => 'orders_table', :url => { :action => 'index' }, :with => "'search=' + value" )) %>
-			<select>
-				<option>Alle Felder</option>
-				<option>Reservierender</option>
-				<option>Datum</option>
-				<option>Hersteller</option>
-				<option>...</option>
-			</select>
-			
-			<%= text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'return_random_inventory_code' }, :with => "'code=' + value" ) }) %>
-	</div>
+		<%= render :partial => '/application/search' %>
+		
+		<%#TODO = text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'return_random_inventory_code' }, :with => "'code=' + value" ) }) %>
 	
-		<div id="orders_table">
-			<%# TODO lines or visits %>
+		<div id="list_table">
 			<%= render :partial => 'visits' %>
 		</div>
 			

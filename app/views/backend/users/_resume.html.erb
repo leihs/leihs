@@ -1,8 +1,7 @@
-<% # TODO scope for the @current_inventory_pool %>
 
 <ul>
     <li>
-        <%= link_to _("Dieser Benutzer hat %{n} Bestellungen die noch nicht quittiert sind") % {:n => @user.orders.submitted_orders.size},
+        <%= link_to _("Dieser Benutzer hat %{n} Bestellungen die noch nicht quittiert sind") % {:n => (@current_inventory_pool.orders.submitted_orders & @user.orders.submitted_orders).size},
         { :controller => 'acknowledge', :action => 'index', :user_id => @user.id },
         { :target => '_top' } %>
     </li>
@@ -14,16 +13,16 @@
         { :target => '_top' } %>
     </li>
     <li>
-        <% # TODO sum quantity from visits %>
+        <% # TODO sum quantity from visits, scope @current_inventory_pool %>
 		<% lines = @user.contracts.signed_contracts.collect {|c| c.contract_lines.find(:all, :conditions => {:returned_date => nil}) }.flatten %>
         <%= link_to _("This user has %{n} items to return (waiting for take back)") % {:n => lines.size },
         { :controller => 'take_back', :action => 'index', :user_id => @user.id },
         { :target => '_top' } %>
     </li>
     <li>
-        <% # TODO sum quantity from visits %>
+        <% # TODO sum quantity from visits, scope @current_inventory_pool %>
         <%= link_to _("This user has %{n} items to remind (waiting for take back)") % {:n => lines.find_all { |l| l.end_date < Date.today }.size },
-        { :controller => 'take_back', :action => 'index', :user_id => @user.id },
-        { :target => '_top' } %> (TODO link)
+        { :controller => 'take_back', :action => 'index', :user_id => @user.id, :remind => true },
+        { :target => '_top' } %>
     </li>
 </ul>

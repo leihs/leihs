@@ -5,6 +5,11 @@ class Document < ActiveRecord::Base
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
   belongs_to :inventory_pool
 
+  # compares two objects in order to sort them
+  def <=>(other)
+    self.created_at <=> other.created_at
+  end
+  
 ################################################################
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil)
     if model.is_package?

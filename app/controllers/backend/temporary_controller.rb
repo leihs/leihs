@@ -21,6 +21,7 @@ class Backend::TemporaryController < Backend::BackendController
     create_some_categories
     create_some_packages
     create_some_properties
+    create_some_compatibles
     
     params[:id] = 5
     params[:name] = "admin"
@@ -151,6 +152,15 @@ private
           m.properties << Property.create(:key => key, :value => value)
         end
       end
+  end
+
+  def create_some_compatibles
+    Model.all.each do |m|
+      begin
+        m.compatibles << Model.find(:all, :limit => rand(5)+2, :order => "RAND()")
+      rescue
+      end
+    end
   end
   
   def create_beautiful_order
