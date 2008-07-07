@@ -28,7 +28,10 @@ class User < ActiveRecord::Base
   # get or create a new order (among all inventory pools)
   def get_current_order
     order = current_order
-    order ||= Order.create(:user => self, :status_const => Order::NEW)
+    if order.nil?
+      order = Order.create(:user => self, :status_const => Order::NEW)
+      reload
+    end  
     order
   end
 
@@ -40,7 +43,10 @@ class User < ActiveRecord::Base
   # get or create a new contract for a given inventory pool
   def get_current_contract(inventory_pool)
     contract = current_contract(inventory_pool)
-    contract ||= Contract.create(:user => self, :status_const => Contract::NEW, :inventory_pool => inventory_pool)
+    if contract.nil?
+      contract = Contract.create(:user => self, :status_const => Contract::NEW, :inventory_pool => inventory_pool)
+      reload
+    end  
     contract
   end
 

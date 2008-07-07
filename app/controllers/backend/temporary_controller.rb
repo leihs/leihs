@@ -18,10 +18,10 @@ class Backend::TemporaryController < Backend::BackendController
       create_meaningful_inventory
     end
     
-    create_some_categories
     create_some_packages
+    create_some_categories
     create_some_properties
-    create_some_compatibles
+#TODO    create_some_compatibles
     
     params[:id] = 5
     params[:name] = "admin"
@@ -122,6 +122,11 @@ private
           c.children << child
           child.set_label(c, "#{child.name}_#{i}")
         end
+        rand(2).times do |i|
+          child = Package.find(:first, :order => "RAND()")
+          c.children << child
+          child.set_label(c, "#{child.name}_#{i}")
+        end
       rescue
       end
     
@@ -131,9 +136,9 @@ private
 
   def create_some_packages
     5.times do |i|
-      m = Model.create(:name => "package_" + i.to_s)
+      p = Package.create(:name => "package_" + i.to_s)
       begin
-        m.models << Model.find(:all, :limit => rand(5)+2, :order => "RAND()")
+        p.models << Model.find(:all, :limit => rand(5)+2, :order => "RAND()")
       rescue
       end
     end
@@ -154,14 +159,15 @@ private
       end
   end
 
-  def create_some_compatibles
-    Model.all.each do |m|
-      begin
-        m.compatibles << Model.find(:all, :limit => rand(5)+2, :order => "RAND()")
-      rescue
-      end
-    end
-  end
+#TODO
+#  def create_some_compatibles
+#    Model.all.each do |m|
+#      begin
+#        m.compatibles << Model.find(:all, :limit => rand(5)+2, :order => "RAND()")
+#      rescue
+#      end
+#    end
+#  end
   
   def create_beautiful_order
     m = Model.find(:first)

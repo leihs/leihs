@@ -7,13 +7,15 @@ class CreateModels < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :models_packages, :id => false do |t|
-      t.belongs_to :model
-      t.belongs_to :package
-    end
-    add_index(:models_packages, :model_id)
-    add_index(:models_packages, :package_id)
+# TODO remove
+#    create_table :models_packages, :id => false do |t|
+#      t.belongs_to :model
+#      t.belongs_to :package
+#    end
+#    add_index(:models_packages, :model_id)
+#    add_index(:models_packages, :package_id)
 
+# TODO remove
     create_table :models_compatibles, :id => false do |t|
       t.belongs_to :model
       t.belongs_to :compatible
@@ -25,7 +27,7 @@ class CreateModels < ActiveRecord::Migration
 
   def self.down
     drop_table :models
-    drop_table :models_packages
+#    drop_table :models_packages
   end
 end
 

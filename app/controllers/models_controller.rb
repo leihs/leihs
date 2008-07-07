@@ -7,7 +7,7 @@ class ModelsController < ApplicationController
       @models = Model.find_by_contents("*" + params[:search] + "*")
     else  
       @models = current_user.inventory_pools.collect(&:models).flatten
-      @models += Model.packages # OPTIMIZE
+#old#      @models += Model.packages # OPTIMIZE
     end
 
     # OPTIMIZE
@@ -16,7 +16,7 @@ class ModelsController < ApplicationController
       @categories = [category] # + category.children.recursive.to_a
     else
 #      @categories = Category.roots
-      @categories = @models.collect(&:categories).flatten.uniq
+      @categories = @models.collect(&:model_groups).flatten.uniq
       parents = []
       @categories.each do |c|
           parents << c.parents.recursive.to_a   
@@ -47,7 +47,11 @@ class ModelsController < ApplicationController
 
     render :update do |page|
       page.replace_html "category_children_#{@ancestor_ids}", :partial => 'categories'
+      
+      page << "elem = $('categories');"
+      page << "if (elem) {"
       page.replace_html "categories", :partial => 'categories_and_models'
+      page << "}"
     end
   end  
 

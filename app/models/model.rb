@@ -6,15 +6,20 @@ class Model < ActiveRecord::Base
   has_many :properties
   has_many :accessories
 
-  has_and_belongs_to_many :categories
+  # ModelGroups
+  has_and_belongs_to_many :model_groups
+#TODO  has_and_belongs_to_many :categories
+#TODO  has_and_belongs_to_many :packages
 
-  acts_as_graph :edge_table => "models_packages",
-                :parent_col => "package_id",
-                :child_col => "model_id",
-                :parent_collection => "packages",
-                :child_collection => "models"
+# TODO remove
+#  acts_as_graph :edge_table => "models_packages",
+#                :parent_col => "package_id",
+#                :child_col => "model_id",
+#                :parent_collection => "packages",
+#                :child_collection => "models"
                 
 ########
+# TODO refactor to ModelGroup
   has_and_belongs_to_many :compatibles,
                           :class_name => "Model",
                           :join_table => "models_compatibles",
@@ -33,10 +38,11 @@ class Model < ActiveRecord::Base
   end
 ########
 
-  named_scope :packages, :select => "models.*",
-                         :joins => "LEFT JOIN models_packages ON models_packages.package_id = models.id",
-                         :conditions => ['models_packages.package_id IS NOT NULL'],
-                         :group => "models_packages.package_id"
+#old#
+#  named_scope :packages, :select => "models.*",
+#                         :joins => "LEFT JOIN models_packages ON models_packages.package_id = models.id",
+#                         :conditions => ['models_packages.package_id IS NOT NULL'],
+#                         :group => "models_packages.package_id"
 
   named_scope :without_items, :select => "models.*",
                               :joins => "LEFT JOIN items ON items.model_id = models.id",
@@ -45,10 +51,11 @@ class Model < ActiveRecord::Base
   acts_as_ferret :fields => [ :name, :category_names, :properties_values ] #, :store_class_name => true
 
 
+#old#
   # TODO a package shouldn't have items ?
-  def is_package?
-    !models.empty? # and items.empty?
-  end
+#  def is_package?
+#    !models.empty? # and items.empty?
+#  end
 
 
 #############################################  

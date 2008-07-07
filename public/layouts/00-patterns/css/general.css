@@ -303,7 +303,7 @@ tr.availability td {
 	background-color: #FFCCCC;	
 }
 
-/* Categories */
+/* Model Groups */
 
 #central_pane {
 	border: 1px solid #B2B2B2;
@@ -313,28 +313,37 @@ tr.availability td {
 	padding: 1em;
 }
 
-ul.category > li {
+ul.model_group > li {
 	margin-top: 5px;
 }
 
-ul.category > li > span {
+ul.model_group > li > span {
 	font-size: 2em;
-	background-color: #DDDDDD;
 	border: 1px solid black;
 	padding: 0 400px 0 20px;
 }
 
-ul.category > li > div {
+ul.model_group > li.Category > span {
+	background-color: #DDDDDD;
+}
+
+ul.model_group > li.Package > span {
+	background-color: #FFFF00;
+}
+
+ul.model_group > li > div {
 	margin: 0 15px 15px 15px;
 	font-size: 0.92em;
 	border-left: 1px solid black;
 	padding-left: 2px;
 }
 
-ul.category > li > div > span.add_button {
+ul.model_group > li > div > span.add_button {
 	margin-left: 50px;
 	color: navy;	
 }
+
+
 
 /* Details */
 

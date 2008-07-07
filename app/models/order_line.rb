@@ -1,10 +1,16 @@
 class OrderLine < DocumentLine
 
   belongs_to :order
+  belongs_to :inventory_pool
   
   has_many :options
 
 
+  before_save :assign_inventory_pool
+  
+  
+###############################################  
+# TODO named_scope with lambda
   
   def self.current_reservations(model_id, date = Date.today)
     find(:all, :conditions => ['model_id = ? and start_date < ? and end_date > ?', model_id, date, date])
@@ -17,6 +23,8 @@ class OrderLine < DocumentLine
   def self.current_and_future_reservations(model_id, order_line_id = 0, date = Date.today)
     find(:all, :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and id <> ?', model_id, date, date, date, order_line_id])
   end
+
+###############################################
 
   def order_to_exclude
     id
@@ -40,6 +48,20 @@ class OrderLine < DocumentLine
   # TODO temp check, remove it 
   def correct_inventory_pool?
     model.inventory_pools.any?{|ip| ip == order.inventory_pool }
+  end
+
+  private
+  
+#working#  
+  # TODO suggest best possible inventory pool according to the other order_lines
+  def assign_inventory_pool
+    if self.inventory_pool.nil?
+      inventory_pool = nil
+      model.inventory_pools.each do |ip|
+        inventory_pool = ip if ip.items.count(:conditions => {:model_id => model.id}) >= quantity
+      end
+      self.inventory_pool = inventory_pool 
+    end
   end
   
 end

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: ActiveScaffold::Config::FieldSearch</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">ActiveScaffold::Config::FieldSearch</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/vendor/plugins/active_scaffold/lib/config/field_search_rb.html">
+                vendor/plugins/active_scaffold/lib/config/field_search.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Base.html">
+                Base
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000095">columns</a>&nbsp;&nbsp;
+      <a href="#M000096">columns=</a>&nbsp;&nbsp;
+      <a href="#M000094">full_text_search?</a>&nbsp;&nbsp;
+      <a href="#M000097">full_text_search?</a>&nbsp;&nbsp;
+      <a href="#M000093">new</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">full_text_search</td>
+          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">link</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+the ActionLink for this action
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000094" class="method-detail">
+        <a name="M000094"></a>
+
+        <div class="method-heading">
+          <a href="#M000094" class="method-signature">
+          <span class="method-name">full_text_search?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000094-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000094-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/config/field_search.rb, line 22</span>
+22:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">full_text_search?</span>
+23:       <span class="ruby-ivar">@@full_text_search</span>
+24:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000093" class="method-detail">
+        <a name="M000093"></a>
+
+        <div class="method-heading">
+          <a href="#M000093" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(core_config)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000093-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000093-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/config/field_search.rb, line 5</span>
+ 5:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">core_config</span>)
+ 6:       <span class="ruby-ivar">@core</span> = <span class="ruby-identifier">core_config</span>
+ 7: 
+ 8:       <span class="ruby-ivar">@full_text_search</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">full_text_search?</span>
+ 9: 
+10:       <span class="ruby-comment cmt"># start with the ActionLink defined globally</span>
+11:       <span class="ruby-ivar">@link</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">link</span>.<span class="ruby-identifier">clone</span>
+12:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000095" class="method-detail">
+        <a name="M000095"></a>
+
+        <div class="method-heading">
+          <a href="#M000095" class="method-signature">
+          <span class="method-name">columns</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+provides access to the list of <a
+href="FieldSearch.html#M000095">columns</a> specifically meant for the <a
+href="Search.html">Search</a> to use
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000095-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000095-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/config/field_search.rb, line 31</span>
+31:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">columns</span>
+32:       <span class="ruby-comment cmt"># we want to delay initializing to the @core.columns set for as long as possible. Too soon and .search_sql will not be available to .searchable?</span>
+33:       <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@columns</span>
+34:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">columns</span> = <span class="ruby-ivar">@core</span>.<span class="ruby-identifier">columns</span>.<span class="ruby-identifier">_inheritable</span>
+35:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">columns</span>.<span class="ruby-identifier">exclude</span> <span class="ruby-ivar">@core</span>.<span class="ruby-identifier">columns</span>.<span class="ruby-identifier">active_record_class</span>.<span class="ruby-identifier">locking_column</span>.<span class="ruby-identifier">to_sym</span>
+36:       <span class="ruby-keyword kw">end</span>
+37:       <span class="ruby-ivar">@columns</span>
+38:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000096" class="method-detail">
+        <a name="M000096"></a>
+
+        <div class="method-heading">
+          <a href="#M000096" class="method-signature">
+          <span class="method-name">columns=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000096-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000096-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/config/field_search.rb, line 40</span>
+40:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">columns=</span>(<span class="ruby-identifier">val</span>)
+41:       <span class="ruby-ivar">@columns</span> = <span class="ruby-constant">ActiveScaffold</span><span class="ruby-operator">::</span><span class="ruby-constant">DataStructures</span><span class="ruby-operator">::</span><span class="ruby-constant">ActionColumns</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">val</span>)
+42:       <span class="ruby-ivar">@columns</span>.<span class="ruby-identifier">action</span> = <span class="ruby-keyword kw">self</span>
+43:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000097" class="method-detail">
+        <a name="M000097"></a>
+
+        <div class="method-heading">
+          <a href="#M000097" class="method-signature">
+          <span class="method-name">full_text_search?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000097-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000097-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/config/field_search.rb, line 46</span>
+46:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">full_text_search?</span>
+47:       <span class="ruby-ivar">@full_text_search</span>
+48:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

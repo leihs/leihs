@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: ActiveScaffold::DataStructures::Columns</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">ActiveScaffold::DataStructures::Columns</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/vendor/plugins/active_scaffold/lib/data_structures/columns_rb.html">
+                vendor/plugins/active_scaffold/lib/data_structures/columns.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="../../Object.html">
+                Object
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000356">&lt;&lt;</a>&nbsp;&nbsp;
+      <a href="#M000360">[]</a>&nbsp;&nbsp;
+      <a href="#M000355">add</a>&nbsp;&nbsp;
+      <a href="#M000361">each</a>&nbsp;&nbsp;
+      <a href="#M000357">exclude</a>&nbsp;&nbsp;
+      <a href="#M000359">find_by_name</a>&nbsp;&nbsp;
+      <a href="#M000358">find_by_names</a>&nbsp;&nbsp;
+      <a href="#M000354">new</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">Enumerable</span>
+        <span class="include-name"><a href="../Configurable.html">ActiveScaffold::Configurable</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">_inheritable</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The motivation for this collection is that this <a
+href="Columns.html">Columns</a> data structure fills two roles: it provides
+the master list of all known columns, and it provides an inheritable list
+for all other actions (e.g. Create and Update and List). Well we actually
+want to <b>know</b> about as many columns as possible, so we don&#8216;t
+want people actually removing columns from @set. But at the same time, we
+want to be able to manage which columns get inherited. Tada!
+
+<p>
+This collection is referenced by other parts of <a
+href="../../ActiveScaffold.html">ActiveScaffold</a> and by methods within
+this DataStructure. IT IS NOT MEANT FOR PUBLIC USE (but if you know what
+you&#8216;re doing, go ahead)
+</p>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">active_record_class</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+This accessor is used by <a href="ActionColumns.html">ActionColumns</a> to
+create <a href="Columns.html#M000354">new</a> <a
+href="Column.html">Column</a> objects without adding them to this set
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000354" class="method-detail">
+        <a name="M000354"></a>
+
+        <div class="method-heading">
+          <a href="#M000354" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(active_record_class, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000354-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000354-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/data_structures/columns.rb, line 19</span>
+19:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">active_record_class</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+20:       <span class="ruby-ivar">@active_record_class</span> = <span class="ruby-identifier">active_record_class</span>
+21:       <span class="ruby-ivar">@_inheritable</span> = []
+22:       <span class="ruby-ivar">@set</span> = []
+23: 
+24:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">add</span> <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
+25:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000356" class="method-detail">
+        <a name="M000356"></a>
+
+        <div class="method-heading">
+          <span class="method-name">&lt;&lt;</span><span class="method-args">(*args)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Columns.html#M000355">add</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000360" class="method-detail">
+        <a name="M000360"></a>
+
+        <div class="method-heading">
+          <span class="method-name">[]</span><span class="method-args">(name)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Columns.html#M000359">find_by_name</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000355" class="method-detail">
+        <a name="M000355"></a>
+
+        <div class="method-heading">
+          <a href="#M000355" class="method-signature">
+          <span class="method-name">add</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+the way to <a href="Columns.html#M000355">add</a> columns to the set. this
+is primarily useful for virtual columns. note that this also makes columns
+inheritable
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000355-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000355-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/data_structures/columns.rb, line 29</span>
+29:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+30:       <span class="ruby-identifier">args</span>.<span class="ruby-identifier">flatten!</span> <span class="ruby-comment cmt"># allow [] as a param</span>
+31:       <span class="ruby-identifier">args</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">collect</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">to_sym</span> }
+32: 
+33:       <span class="ruby-comment cmt"># make the columns inheritable</span>
+34:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_inheritable</span> = <span class="ruby-identifier">_inheritable</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">args</span>)
+35:       <span class="ruby-comment cmt"># then add columns to @set (unless they already exist)</span>
+36:       <span class="ruby-identifier">args</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@set</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">ActiveScaffold</span><span class="ruby-operator">::</span><span class="ruby-constant">DataStructures</span><span class="ruby-operator">::</span><span class="ruby-constant">Column</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">a</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-ivar">@active_record_class</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">find_by_name</span>(<span class="ruby-identifier">a</span>) }
+37:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000361" class="method-detail">
+        <a name="M000361"></a>
+
+        <div class="method-heading">
+          <a href="#M000361" class="method-signature">
+          <span class="method-name">each</span><span class="method-args">() {|i| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000361-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000361-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/data_structures/columns.rb, line 58</span>
+58:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>
+59:       <span class="ruby-ivar">@set</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">i</span> }
+60:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000357" class="method-detail">
+        <a name="M000357"></a>
+
+        <div class="method-heading">
+          <a href="#M000357" class="method-signature">
+          <span class="method-name">exclude</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000357-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000357-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/data_structures/columns.rb, line 40</span>
+40:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">exclude</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+41:       <span class="ruby-comment cmt"># only remove columns from _inheritable. we never want to completely forget about a column.</span>
+42:       <span class="ruby-identifier">args</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_inheritable</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">a</span> }
+43:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000359" class="method-detail">
+        <a name="M000359"></a>
+
+        <div class="method-heading">
+          <a href="#M000359" class="method-signature">
+          <span class="method-name">find_by_name</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns the column of the given name.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000359-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000359-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/data_structures/columns.rb, line 51</span>
+51:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_by_name</span>(<span class="ruby-identifier">name</span>)
+52:       <span class="ruby-comment cmt"># this works because of `def column.=='</span>
+53:       <span class="ruby-identifier">column</span> = <span class="ruby-ivar">@set</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">name</span> }
+54:       <span class="ruby-identifier">column</span>
+55:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000358" class="method-detail">
+        <a name="M000358"></a>
+
+        <div class="method-heading">
+          <a href="#M000358" class="method-signature">
+          <span class="method-name">find_by_names</span><span class="method-args">(*names)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns an array of columns with the provided names
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000358-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000358-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/data_structures/columns.rb, line 46</span>
+46:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_by_names</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">names</span>)
+47:       <span class="ruby-ivar">@set</span>.<span class="ruby-identifier">find_all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">column</span><span class="ruby-operator">|</span> <span class="ruby-identifier">names</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">column</span>.<span class="ruby-identifier">name</span> }
+48:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
