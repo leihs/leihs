@@ -3,17 +3,20 @@ class Backend::ModelsController < Backend::BackendController
   
   # TODO require_role "admin" ?
 
+  # TODO refactor for active_scaffold ?
   def index
     @models = current_user.inventory_pools.collect(&:models).flatten.uniq
   end
 
 
+  # TODO refactor for active_scaffold ?
   def show
     @model = Model.find(params[:id])
  
     render :layout => $modal_layout_path
   end
 
+##########################################################
 
   def available_items
     # OPTIMIZE prevent injection

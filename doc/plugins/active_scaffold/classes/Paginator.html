@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Paginator</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Paginator</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/vendor/plugins/active_scaffold/lib/paginator_rb.html">
+                vendor/plugins/active_scaffold/lib/paginator.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Object.html">
+                Object
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000007">each</a>&nbsp;&nbsp;
+      <a href="#M000008">each_with_index</a>&nbsp;&nbsp;
+      <a href="#M000005">first</a>&nbsp;&nbsp;
+      <a href="#M000006">last</a>&nbsp;&nbsp;
+      <a href="#M000003">new</a>&nbsp;&nbsp;
+      <a href="#M000004">number_of_pages</a>&nbsp;&nbsp;
+      <a href="#M000009">page</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Paginator/ArgumentError.html" class="link">Paginator::ArgumentError</a><br />
+Class <a href="Paginator/MissingCountError.html" class="link">Paginator::MissingCountError</a><br />
+Class <a href="Paginator/MissingSelectError.html" class="link">Paginator::MissingSelectError</a><br />
+Class <a href="Paginator/Page.html" class="link">Paginator::Page</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">VERSION</td>
+          <td>=</td>
+          <td class="context-item-value">'1.0.9'</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">count</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">per_page</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(count, per_page, &amp;select)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Instantiate a <a href="Paginator.html#M000003">new</a> <a
+href="Paginator.html">Paginator</a> object
+</p>
+<p>
+Provide:
+</p>
+<ul>
+<li>A total count of the number of objects to paginate
+
+</li>
+<li>The number of objects in <a href="Paginator.html#M000007">each</a> <a
+href="Paginator.html#M000009">page</a>
+
+</li>
+<li>A block that returns the array of items
+
+<ul>
+<li>The block is passed the item offset (and the number of items to show per <a
+href="Paginator.html#M000009">page</a>, for convenience, if the arity is 2)
+
+</li>
+</ul>
+</li>
+</ul>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/paginator.rb, line 22</span>
+22:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">count</span>, <span class="ruby-identifier">per_page</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">select</span>)
+23:     <span class="ruby-ivar">@count</span>, <span class="ruby-ivar">@per_page</span> = <span class="ruby-identifier">count</span>, <span class="ruby-identifier">per_page</span>
+24:     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">select</span>
+25:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">MissingSelectError</span>, <span class="ruby-value str">&quot;Must provide block to select data for each page&quot;</span>
+26:     <span class="ruby-keyword kw">end</span>
+27:     <span class="ruby-ivar">@select</span> = <span class="ruby-identifier">select</span>
+28:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+          <a href="#M000007" class="method-signature">
+          <span class="method-name">each</span><span class="method-args">() {|item| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Iterate through pages
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/paginator.rb, line 46</span>
+46:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>
+47:     <span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+48:       <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">item</span>
+49:     <span class="ruby-keyword kw">end</span>
+50:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="#M000008" class="method-signature">
+          <span class="method-name">each_with_index</span><span class="method-args">() {|page(number, number - 1)| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Iterate through pages with indices
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/paginator.rb, line 53</span>
+53:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each_with_index</span>
+54:     <span class="ruby-value">1</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">number_of_pages</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">number</span><span class="ruby-operator">|</span>
+55:       <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">page</span>(<span class="ruby-identifier">number</span>), <span class="ruby-identifier">number</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)
+56:     <span class="ruby-keyword kw">end</span>
+57:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">first</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+First <a href="Paginator.html#M000009">page</a> object
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/paginator.rb, line 36</span>
+36:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">first</span>
+37:     <span class="ruby-identifier">page</span> <span class="ruby-value">1</span>
+38:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">last</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Last <a href="Paginator.html#M000009">page</a> object
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/paginator.rb, line 41</span>
+41:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">last</span>
+42:     <span class="ruby-identifier">page</span> <span class="ruby-identifier">number_of_pages</span>
+43:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">number_of_pages</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Total number of pages
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/paginator.rb, line 31</span>
+31:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">number_of_pages</span>
+32:      (<span class="ruby-ivar">@count</span> <span class="ruby-operator">/</span> <span class="ruby-ivar">@per_page</span>).<span class="ruby-identifier">to_i</span> <span class="ruby-operator">+</span> (<span class="ruby-ivar">@count</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@per_page</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>)
+33:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="#M000009" class="method-signature">
+          <span class="method-name">page</span><span class="method-args">(number)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Retrieve <a href="Paginator.html#M000009">page</a> object by number
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_scaffold/lib/paginator.rb, line 60</span>
+60:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">page</span>(<span class="ruby-identifier">number</span>)
+61:     <span class="ruby-identifier">number</span> = (<span class="ruby-identifier">n</span> = <span class="ruby-identifier">number</span>.<span class="ruby-identifier">to_i</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">n</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+62:     <span class="ruby-constant">Page</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">number</span>, <span class="ruby-identifier">lambda</span> { 
+63:       <span class="ruby-identifier">offset</span> = (<span class="ruby-identifier">number</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) <span class="ruby-operator">*</span> <span class="ruby-ivar">@per_page</span>
+64:       <span class="ruby-identifier">args</span> = [<span class="ruby-identifier">offset</span>]
+65:       <span class="ruby-identifier">args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@per_page</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@select</span>.<span class="ruby-identifier">arity</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
+66:       <span class="ruby-ivar">@select</span>.<span class="ruby-identifier">call</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+67:     })
+68:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

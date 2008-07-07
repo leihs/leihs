@@ -1,16 +1,18 @@
 module ModelsHelper
 
   def display_with_children(categories, parent = nil)
-    output = "<ul class='category'>"
+    output = "<ul class='model_group'>"
     for category in categories
       next unless @categories.include?(category)
-      output << "<li>"
-      output << "<span>" + (parent ? category.label(parent) : category.name) + "</span>"
+      output << "<li class='#{category.type}'>"
+      output << "<span>" + (parent ? category.label(parent) : category.name)
+      output << "<span style='padding-left: 10px;'>" + link_to_remote(_("Add"), :update => 'basket', :url => {:controller => 'orders', :action => 'add_package_to_order', :package_id => category.id}) + "</span>" if category.type == "Package"
+      output << "</span>"
 
-        output << "<div>"
-        output << display_models(category.models)
-        output << display_with_children(category.children, category)
-        output << "</div>"
+      output << "<div>"
+      output << display_models(category.models)
+      output << display_with_children(category.children, category)
+      output << "</div>"
 
       output << "</li>"
     end
@@ -23,13 +25,14 @@ module ModelsHelper
     output = ""
     for model in models
       if @models.include?(model)
-        if model.is_package?
-          output << display_add_label(model, "(package)")
-        else
+#old#
+#        if model.is_package?
+#          output << display_add_label(model, "(package)")
+#        else
           for ip in model.inventory_pools
               output << display_add_label(model, "[#{ip.name}] (#{ip.items.count(:conditions => {:model_id => model.id})})")
           end
-        end
+#        end
       end
     end
     

@@ -1,0 +1,13 @@
+<% # TODO refactor in controller %>
+<% packages = Package.all %>
+
+<ul>
+<% packages.each do |p| %>
+	<li>
+		<%= p.name %>
+		<%= link_to_remote(_("Add"), :update => 'basket',
+									 :url => {:controller => 'orders', :action => 'add_package_to_order', :package_id => p.id}) %>
+	</li>
+<% end %>
+</ul>
+

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ActiveScaffold::Config</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ActiveScaffold::Config</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/vendor/plugins/active_scaffold/lib/bridges/calendar_date_select/lib/as_cds_bridge_rb.html">
+                vendor/plugins/active_scaffold/lib/bridges/calendar_date_select/lib/as_cds_bridge.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/bridges/file_column/lib/as_file_column_bridge_rb.html">
+                vendor/plugins/active_scaffold/lib/bridges/file_column/lib/as_file_column_bridge.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/base_rb.html">
+                vendor/plugins/active_scaffold/lib/config/base.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/core_rb.html">
+                vendor/plugins/active_scaffold/lib/config/core.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/create_rb.html">
+                vendor/plugins/active_scaffold/lib/config/create.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/delete_rb.html">
+                vendor/plugins/active_scaffold/lib/config/delete.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/field_search_rb.html">
+                vendor/plugins/active_scaffold/lib/config/field_search.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/form_rb.html">
+                vendor/plugins/active_scaffold/lib/config/form.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/list_rb.html">
+                vendor/plugins/active_scaffold/lib/config/list.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/live_search_rb.html">
+                vendor/plugins/active_scaffold/lib/config/live_search.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/nested_rb.html">
+                vendor/plugins/active_scaffold/lib/config/nested.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/search_rb.html">
+                vendor/plugins/active_scaffold/lib/config/search.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/show_rb.html">
+                vendor/plugins/active_scaffold/lib/config/show.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/subform_rb.html">
+                vendor/plugins/active_scaffold/lib/config/subform.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/active_scaffold/lib/config/update_rb.html">
+                vendor/plugins/active_scaffold/lib/config/update.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Config/Base.html" class="link">ActiveScaffold::Config::Base</a><br />
+Class <a href="Config/Core.html" class="link">ActiveScaffold::Config::Core</a><br />
+Class <a href="Config/Create.html" class="link">ActiveScaffold::Config::Create</a><br />
+Class <a href="Config/Delete.html" class="link">ActiveScaffold::Config::Delete</a><br />
+Class <a href="Config/FieldSearch.html" class="link">ActiveScaffold::Config::FieldSearch</a><br />
+Class <a href="Config/Form.html" class="link">ActiveScaffold::Config::Form</a><br />
+Class <a href="Config/List.html" class="link">ActiveScaffold::Config::List</a><br />
+Class <a href="Config/LiveSearch.html" class="link">ActiveScaffold::Config::LiveSearch</a><br />
+Class <a href="Config/Nested.html" class="link">ActiveScaffold::Config::Nested</a><br />
+Class <a href="Config/Search.html" class="link">ActiveScaffold::Config::Search</a><br />
+Class <a href="Config/Show.html" class="link">ActiveScaffold::Config::Show</a><br />
+Class <a href="Config/Subform.html" class="link">ActiveScaffold::Config::Subform</a><br />
+Class <a href="Config/Update.html" class="link">ActiveScaffold::Config::Update</a><br />
+
+    </div>
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

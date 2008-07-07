@@ -199,39 +199,41 @@ class Order < Document
 
   private
   
+  # TODO assign based on the order_lines' inventory_pools
   def split_and_assign_to_inventory_pool
+
+#old#    
     if !inventory_pool and lines.first #temp#
-#working#
-#    # TODO check availability and TODO scope user's visible inventory pools
-#  
-#    # collect possible inventory pools 
-#    #inventory_pools = models.collect(&:inventory_pools).flatten.uniq
-#
-#    # construct combinations of inventory pools
-#    ip_set = []
-#    lines.each do |l|
-#      ip_set << l.possible_inventory_pools
-#    end
-#
-#    # split a single line if cannot be served by a single inventory pool
-#
-#    # define mandatory inventory pools
+      #working#
+      #    # TODO check availability and TODO scope user's visible inventory pools
+      #  
+      #    # collect possible inventory pools 
+      #    #inventory_pools = models.collect(&:inventory_pools).flatten.uniq
+      #
+      #    # construct combinations of inventory pools
+      #    ip_set = []
+      #    lines.each do |l|
+      #      ip_set << l.possible_inventory_pools
+      #    end
+      #
+      #    # split a single line if cannot be served by a single inventory pool
+      #
+      #    # define mandatory inventory pools
 
-#temp#    
-    # TODO temp determines related inventory_pool
-    first_line_with_items = lines.detect {|l| !l.model.items.empty? } 
-    inventory_pool = first_line_with_items.model.items.first.inventory_pool
+      #temp#    
+      # TODO temp determines related inventory_pool
+      first_line_with_items = lines.detect {|l| !l.model.items.empty? } 
+      inventory_pool = first_line_with_items.model.items.first.inventory_pool
+    
+      # TODO split order for different inventory pools
+      to_split_lines = lines.select {|l| not l.model.inventory_pools.any?{|ip| ip == inventory_pool }}
+      unless to_split_lines.empty?
+        o = Order.new(self.attributes)
+        to_split_lines.each {|l| o.lines << l }
+        o.submit
+      end
   
-    # TODO split order for different inventory pools
-    to_split_lines = lines.select {|l| not l.model.inventory_pools.any?{|ip| ip == inventory_pool }}
-    unless to_split_lines.empty?
-      o = Order.new(self.attributes)
-      to_split_lines.each {|l| o.lines << l }
-      o.submit
-    end
-
-    update_attribute(:inventory_pool, inventory_pool)
-
+      update_attribute(:inventory_pool, inventory_pool)
     end
   end
 

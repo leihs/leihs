@@ -29,7 +29,6 @@ class OrdersController < ApplicationController
       @order.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
       flash[:notice] = _("Model couldn't be added") unless @order.save
       if request.xml_http_request?
-        current_user.reload # OPTIMIZE the first 'Add' is not displaying the basket
         render :partial => 'basket'      
       else
         redirect_to :action => 'new', :id => @order.id        
@@ -57,6 +56,20 @@ class OrdersController < ApplicationController
     end
   end
 
+########################################################
+  
+  # TODO refactor in a separate controller ?
+  # TODO add_package_to_contract too ?
+  def add_package_to_order
+    if request.xml_http_request?
+      @order = current_user.get_current_order unless @order
+      package = Package.find(params[:package_id])
+      package.add_to_document(@order, current_user.id)
+      render :partial => 'basket'      
+    end    
+  end
+
+########################################################
 
   private
   

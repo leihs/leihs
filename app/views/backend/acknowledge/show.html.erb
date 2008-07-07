@@ -124,14 +124,17 @@
 								<td>
 									<%= check_box_tag('order_lines[]', @line.id, false, :class => "order_line_check", :onchange => "toggle_buttons('order_line_check', 'multiple_selection_button');" ) %>
 									<%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %>
-										<% # TODO temp %>
+									<% # TODO temp start %>
 										<br />
 										<%= "(max #{@line.model.maximum_available_in_period(@line.start_date, @line.end_date, @line)})" %>
 										<ul>
 											<% for ip in @line.model.inventory_pools %>
-												<li><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %></li>
+												<li <%= (@line.inventory_pool == ip ? "style='color: red;'" : "") %>><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %></li>
 											<% end %>
-										</ul>									
+										</ul>
+										<br />
+										Group: <%= @line.line_group.id if @line.line_group %>		
+									<% # TODO temp end %>							
 								</td>
 								<td class="line_valid_<%= @current_inventory_pool.models.any?{|m| m == @line.model } %>"> <% # TODO temp check, remove it %>
 									<%= greybox_link_to_page(@line.model.name,

@@ -3,6 +3,7 @@ class DocumentLine < ActiveRecord::Base
   self.abstract_class = true
   
   belongs_to :model
+  belongs_to :line_group
   
   before_validation_on_create :set_defaults
   validate :date_sequence  
@@ -25,7 +26,15 @@ class DocumentLine < ActiveRecord::Base
     model.maximum_available_in_period(start_date, end_date, self) >= quantity
   end
   
-
+  # OPTIMIZE
+  def get_my_group_lines
+    if self.line_group
+      group_lines = self.line_group.order_lines # TODO also for contract_lines
+    else 
+      group_lines = [self]
+    end    
+    group_lines
+  end
 
   private
   

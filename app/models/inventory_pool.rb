@@ -6,7 +6,7 @@ class InventoryPool < ActiveRecord::Base
   has_many :models, :through => :items, :uniq => true #, :group => :id
 
   has_many :orders
-  has_many :order_lines, :through => :orders
+  has_many :order_lines #old#, :through => :orders
 
   has_many :contracts
   has_many :contract_lines, :through => :contracts
