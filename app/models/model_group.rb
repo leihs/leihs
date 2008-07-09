@@ -3,14 +3,9 @@ class ModelGroup < ActiveRecord::Base
   acts_as_graph :edge_table => "model_groups_parents",
                 :child_col => "model_group_id"
   
-  # TODO indexing models with model_group_names
-  has_and_belongs_to_many :models,
-                          :after_add => :model_indexing,
-                          :after_remove => :model_indexing
-                          
-  def model_indexing(model)
-    model.save
-  end
+  has_many :model_links
+  has_many :models, :through => :model_links #, :uniq => true
+
 ###
   
 

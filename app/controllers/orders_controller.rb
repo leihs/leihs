@@ -59,12 +59,12 @@ class OrdersController < ApplicationController
 ########################################################
   
   # TODO refactor in a separate controller ?
-  # TODO add_package_to_contract too ?
-  def add_package_to_order
+  # TODO add_model_group_to_contract too ?
+  def add_model_group_to_order
     if request.xml_http_request?
       @order = current_user.get_current_order unless @order
-      package = Package.find(params[:package_id])
-      package.add_to_document(@order, current_user.id)
+      model_group = ModelGroup.find(params[:model_group_id])
+      model_group.add_to_document(@order, current_user.id)
       render :partial => 'basket'      
     end    
   end

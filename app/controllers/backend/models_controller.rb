@@ -1,16 +1,16 @@
 class Backend::ModelsController < Backend::BackendController
-  active_scaffold :model
+  active_scaffold :model do |config|
+    config.columns = [:manufacturer, :name, :model_groups]
+  end
   
   # TODO require_role "admin" ?
 
   # TODO refactor for active_scaffold ?
-  def index
-    @models = current_user.inventory_pools.collect(&:models).flatten.uniq
-  end
+#  def index
+#    @models = current_user.inventory_pools.collect(&:models).flatten.uniq
+#  end
 
-
-  # TODO refactor for active_scaffold ?
-  def show
+  def details
     @model = Model.find(params[:id])
  
     render :layout => $modal_layout_path

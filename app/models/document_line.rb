@@ -9,6 +9,13 @@ class DocumentLine < ActiveRecord::Base
   validate :date_sequence  
   validates_numericality_of :quantity, :greater_than_or_equal_to => 0, :only_integer => true 
 
+###############################################  
+  
+  named_scope :in_group, :conditions => ['line_group_id IS NOT NULL']
+  named_scope :not_in_group, :conditions => ['line_group_id IS NULL']
+
+###############################################  
+
   def self.current_and_future_reservations(model_id, document_line = nil, date = Date.today)
     cl = ContractLine.find(:all, :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and id <> ?', model_id, date, date, date, document_line ? document_line.contract_to_exclude : 0])
     ol = OrderLine.find(:all,

@@ -2,7 +2,8 @@ class Order < Document
 
   belongs_to :user
   has_many :order_lines, :dependent => :destroy
-  has_many :models, :through => :order_lines
+  has_many :models, :through => :order_lines #OPTIMIZE , :uniq => true
+  has_many :line_groups, :through => :order_lines, :uniq => true
 
   has_one :backup, :class_name => "Backup::Order", :dependent => :destroy #TODO delete when nullify # TODO acts_as_backupable
 
@@ -74,10 +75,12 @@ class Order < Document
 
   # submits order
   def submit
-    if approvable?
-      update_attribute(:status_const, Order::SUBMITTED)
-      split_and_assign_to_inventory_pool 
+    save if new_record? # OPTIMIZE
 
+    if approvable?
+      self.status_const = Order::SUBMITTED
+      split_and_assign_to_inventory_pool
+      save
       return true
     else
       return false
@@ -202,39 +205,53 @@ class Order < Document
   # TODO assign based on the order_lines' inventory_pools
   def split_and_assign_to_inventory_pool
 
-#old#    
-    if !inventory_pool and lines.first #temp#
-      #working#
-      #    # TODO check availability and TODO scope user's visible inventory pools
-      #  
-      #    # collect possible inventory pools 
-      #    #inventory_pools = models.collect(&:inventory_pools).flatten.uniq
-      #
-      #    # construct combinations of inventory pools
-      #    ip_set = []
-      #    lines.each do |l|
-      #      ip_set << l.possible_inventory_pools
-      #    end
-      #
-      #    # split a single line if cannot be served by a single inventory pool
-      #
-      #    # define mandatory inventory pools
-
-      #temp#    
-      # TODO temp determines related inventory_pool
-      first_line_with_items = lines.detect {|l| !l.model.items.empty? } 
-      inventory_pool = first_line_with_items.model.items.first.inventory_pool
-    
-      # TODO split order for different inventory pools
-      to_split_lines = lines.select {|l| not l.model.inventory_pools.any?{|ip| ip == inventory_pool }}
-      unless to_split_lines.empty?
+      inventory_pools = lines.collect(&:inventory_pool).flatten.uniq
+      inventory_pools.each do |ip|
+        if ip == inventory_pools.first
+          self.inventory_pool = ip
+          next          
+        end
+        to_split_lines = lines.select {|l| l.inventory_pool == ip }
         o = Order.new(self.attributes)
+        o.inventory_pool = ip
         to_split_lines.each {|l| o.lines << l }
-        o.submit
+        o.save        
       end
-  
-      update_attribute(:inventory_pool, inventory_pool)
-    end
+
+#old#    
+#    if !inventory_pool and lines.first #temp#
+#      #working#
+#      #    # TODO check availability and TODO scope user's visible inventory pools
+#      #  
+#      #    # collect possible inventory pools 
+#      #    #inventory_pools = models.collect(&:inventory_pools).flatten.uniq
+#      #
+#      #    # construct combinations of inventory pools
+#      #    ip_set = []
+#      #    lines.each do |l|
+#      #      ip_set << l.possible_inventory_pools
+#      #    end
+#      #
+#      #    # split a single line if cannot be served by a single inventory pool
+#      #
+#      #    # define mandatory inventory pools
+#
+#      #temp#    
+#      # TODO temp determines related inventory_pool
+#      first_line_with_items = lines.detect {|l| !l.model.items.empty? } 
+#      inventory_pool = first_line_with_items.model.items.first.inventory_pool
+#    
+#      # TODO split order for different inventory pools
+#      to_split_lines = lines.select {|l| not l.model.inventory_pools.any?{|ip| ip == inventory_pool }}
+#      unless to_split_lines.empty?
+#        o = Order.new(self.attributes)
+#        to_split_lines.each {|l| o.lines << l }
+#        o.submit
+#      end
+#  
+#      update_attribute(:inventory_pool, inventory_pool)
+#    end
+    
   end
 
 

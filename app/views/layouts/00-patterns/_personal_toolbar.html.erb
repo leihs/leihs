@@ -7,7 +7,7 @@
 		<%= link_to _("Logout") + "?", '/logout' %>
 	</li>
 	<li><%= greybox_link_to_page("My Account",
-		 { :controller => 'users', :action => 'show', :id => current_user.id },
+		 { :controller => 'users', :action => 'details', :id => current_user.id },
 		 :title => _("User")) %>
 	</li>
 <% else %>

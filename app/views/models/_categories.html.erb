@@ -1,5 +1,5 @@
 <% # OPTIMIZE %>
-<% @category_children ||= @categories %>
+<% @category_children ||= @categories.select {|c| c.type == 'Category' } if @categories %>
 <% @category_children ||= Category.roots %>
 
 <ul style="margin-left: 10px;">

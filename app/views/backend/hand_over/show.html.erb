@@ -23,7 +23,7 @@
 							</td> 
 							<td>
 								<%= greybox_link_to_page(@contract.user.login,
-									 { :controller => 'users', :action => 'show', :id => @contract.user.id },
+									 { :controller => 'users', :action => 'details', :id => @contract.user.id },
     								 :title => _("User"),
 									 :class => "iconized-notxt edit-user" ) %>
 								<br />
@@ -87,9 +87,10 @@
 								<%= text_field_with_auto_complete :inventory_code, nil,
 																{ :id => "inventory_code",
 																  :size => 10,
-																#  :onchange => remote_function( :url => { :action => 'assign_inventory_code', :id => @contract.id }, :with => "'code=' + value" ),
-																  :onkeydown => "if(event.keyCode == 39){ inventory_code_auto_completer.activate(); }
-																				 if(event.keyCode == 13){ " + remote_function( :url => { :action => 'assign_inventory_code', :id => @contract.id }, :with => "'code=' + value" ) + "}" },
+																  :onchange => remote_function( :url => { :action => 'assign_inventory_code', :id => @contract.id }, :with => "'code=' + value" ),
+																  :onkeyup => "if(event.keyCode == 13){
+																					if(value == ''){ inventory_code_auto_completer.activate(); }
+																				 	else{ " + remote_function( :url => { :action => 'assign_inventory_code', :id => @contract.id }, :with => "'code=' + value" ) + "} }" },
 																{ :url => { :controller => 'models', :action => 'available_items', :model_ids => model_ids },
 																  :method => :get,
 																  :with => "'code=' + element.value" } %>
@@ -110,7 +111,7 @@
 								</td>
 								<td>
 									<%= greybox_link_to_page(@line.model.name,
-									 { :controller => 'models', :action => 'show', :id => @line.model.id },
+									 { :controller => 'models', :action => 'details', :id => @line.model.id },
     								 :title => _("Model"),
 									 :class => "thickbox iconized-notxt edit-package" ) %>
 								</td>
@@ -131,9 +132,10 @@
 																	{ :id => "line_item_inventory_code_#{@line.id}",
 																	# :index => @line.id,
 																	  :size => 10,
-																	#  :onchange => remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + value" ),
-																	  :onkeydown => "if(event.keyCode == 39){ line_item_inventory_code_#{@line.id}_auto_completer.activate(); }
-																					 if(event.keyCode == 13){ " + remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + value" ) + "}" },
+																	  :onchange => remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + value" ),
+																	  :onkeyup => "if(event.keyCode == 13){
+																						if(value == ''){ line_item_inventory_code_#{@line.id}_auto_completer.activate(); }
+																					 	else{ " + remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + value" ) + "} }" },
 																	{ :url => { :controller => 'models', :action => 'available_items', :model_ids => @line.model.id },
 																	  :method => :get,
 																	  :with => "'code=' + element.value" } %>
