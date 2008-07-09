@@ -1,12 +1,14 @@
 class Backend::UsersController < Backend::BackendController
-  #active_scaffold :user
-
-  def index
-    @users = User.find(:all)    
+  active_scaffold :user do |config|
+    config.columns = [:login, :access_rights]
   end
 
-  
-  def show
+#  def index
+#    @users = User.find(:all)    
+#  end
+
+  # TODO refactor for active_scaffold  
+  def details
     @user = User.find(params[:id])
  
     render :layout => $modal_layout_path

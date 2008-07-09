@@ -1,0 +1,39 @@
+<div id="order_line_<%= @line.id %>">
+	<tr class="alt-row">
+		<td>
+			<%= check_box_tag('order_lines[]', @line.id, false, :class => "order_line_check", :onchange => "toggle_buttons('order_line_check', 'multiple_selection_button');" ) %>
+			<%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %>
+			<% # TODO temp start %>
+				<br />
+				<%= "(max #{@line.model.maximum_available_in_period(@line.start_date, @line.end_date, @line)})" %>
+				<ul>
+					<% for ip in @line.model.inventory_pools %>
+						<li <%= (@line.inventory_pool == ip ? "style='color: red;'" : "") %>><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %></li>
+					<% end %>
+				</ul>
+				<br />
+				Group: <%= @line.line_group.id if @line.line_group %>		
+			<% # TODO temp end %>							
+		</td>
+		<td>
+			<h3><%= @line.line_group.package.name %></h3>
+			<ul>
+				<% for model in @line.line_group.package.models %>
+					<li><%= model.name %></li>
+				<% end %>
+			</ul>
+		</td>
+		<td id="line_dates_<%= @line.id %>" class="line_valid_<%= @line.available? %>">
+			<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
+		 		{ :controller => 'acknowledge', :action => 'time_lines', :id => @order.id, :lines => @line.id },
+				:class => "thickbox iconized-notxt date-edit" ,
+				:title => _("Time Period") ) %>
+		</td>
+		<td><div class="buttons">
+			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
+			 	{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id, :lines => @line.id },
+				:title => _("Remove Model"), :class => 'negative' ) %>
+
+			</div></td>
+	</tr>
+</div>

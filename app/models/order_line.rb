@@ -7,7 +7,7 @@ class OrderLine < DocumentLine
 
 
   before_save :assign_inventory_pool
-  
+
   
 ###############################################  
 # TODO named_scope with lambda
@@ -52,13 +52,15 @@ class OrderLine < DocumentLine
 
   private
   
-#working#  
-  # TODO suggest best possible inventory pool according to the other order_lines
+  # OPTIMIZE suggest best possible inventory pool according to the other order_lines
   def assign_inventory_pool
     if self.inventory_pool.nil?
       inventory_pool = nil
       model.inventory_pools.each do |ip|
-        inventory_pool = ip if ip.items.count(:conditions => {:model_id => model.id}) >= quantity
+         if ip.items.count(:conditions => {:model_id => model.id}) >= quantity
+           inventory_pool = ip
+           break
+         end
       end
       self.inventory_pool = inventory_pool 
     end

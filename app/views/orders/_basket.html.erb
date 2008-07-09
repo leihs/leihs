@@ -8,11 +8,11 @@ if order
 	<!-- start iterator -->
 	<% for line in order.lines %>
 		<li id="order_line_<%= line.id %>">
-			<%= line.model.name[0,30] %>
+			<%= line.quantity %>x <%= line.model.name[0,30] %>
 		</li>
 	<% end %>
-	<!-- end iterator -->						
-	
+	<!-- end iterator -->
+
 	</ul>
 
 	<br />

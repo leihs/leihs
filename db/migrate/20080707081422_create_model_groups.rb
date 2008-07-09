@@ -3,18 +3,18 @@ class CreateModelGroups < ActiveRecord::Migration
     create_table :model_groups do |t|
       t.string :type # STI (single table inheritance)
       
-      # columns for Package and Category
       t.string :name      
       
       t.timestamps
     end
 
-    create_table :model_groups_models, :id => false do |t|
+    create_table :model_links do |t|
       t.belongs_to :model_group
       t.belongs_to :model
+      t.integer :quantity
     end
-    add_index(:model_groups_models, :model_group_id)
-    add_index(:model_groups_models, :model_id)
+    add_index(:model_links, :model_group_id)
+    add_index(:model_links, :model_id)
 
     create_table :model_groups_parents, :id => false do |t|
       t.belongs_to :model_group
@@ -28,7 +28,7 @@ class CreateModelGroups < ActiveRecord::Migration
 
   def self.down
     drop_table :model_groups
-    drop_table :model_groups_models
+    drop_table :model_links
     drop_table :model_groups_parents
   end
 end

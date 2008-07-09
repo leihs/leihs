@@ -29,6 +29,7 @@ class ModelsController < ApplicationController
 
   end
 
+
   def categories
     # OPTIMIZE
     #@category_children = Category.roots
@@ -74,7 +75,7 @@ class ModelsController < ApplicationController
   
   def details
     @model = Model.find(params[:id]) if params[:id]
-    render :partial => 'details'
+    render :partial => 'details' #, :layout => $modal_layout_path
   end
 
   # TODO render_component (solve forgery)

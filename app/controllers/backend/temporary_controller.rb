@@ -19,9 +19,10 @@ class Backend::TemporaryController < Backend::BackendController
     end
     
     create_some_packages
+    create_some_templates
     create_some_categories
     create_some_properties
-#TODO    create_some_compatibles
+    create_some_compatibles
     
     params[:id] = 5
     params[:name] = "admin"
@@ -122,24 +123,41 @@ private
           c.children << child
           child.set_label(c, "#{child.name}_#{i}")
         end
-        rand(2).times do |i|
+        (rand(1)+1).times do |i|
           child = Package.find(:first, :order => "RAND()")
+          c.children << child
+          child.set_label(c, "#{child.name}_#{i}")
+
+          child = Template.find(:first, :order => "RAND()")
           c.children << child
           child.set_label(c, "#{child.name}_#{i}")
         end
       rescue
       end
     
-      c.models << Model.find(:all, :limit => rand(5)+1, :order => "RAND()")
+      m = Model.find(:first, :order => "RAND()")
+      c.model_links << ModelLink.create(:model => m, :quantity => 1)
     end
   end
 
   def create_some_packages
     5.times do |i|
       p = Package.create(:name => "package_" + i.to_s)
-      begin
-        p.models << Model.find(:all, :limit => rand(5)+2, :order => "RAND()")
-      rescue
+
+      (rand(5)+2).times do
+        m = Model.find(:first, :order => "RAND()")
+        p.model_links << ModelLink.create(:model => m, :quantity => rand(3)+1)
+      end
+    end
+  end
+
+  def create_some_templates
+    5.times do |i|
+      p = Template.create(:name => "template_" + i.to_s)
+
+      (rand(5)+2).times do
+        m = Model.find(:first, :order => "RAND()")
+        p.model_links << ModelLink.create(:model => m, :quantity => rand(3)+1)
       end
     end
   end
@@ -159,15 +177,14 @@ private
       end
   end
 
-#TODO
-#  def create_some_compatibles
-#    Model.all.each do |m|
-#      begin
-#        m.compatibles << Model.find(:all, :limit => rand(5)+2, :order => "RAND()")
-#      rescue
-#      end
-#    end
-#  end
+  def create_some_compatibles
+    Model.all.each do |m|
+      begin
+        m.compatibles << Model.find(:all, :limit => rand(5)+2, :order => "RAND()")
+      rescue
+      end
+    end
+  end
   
   def create_beautiful_order
     m = Model.find(:first)

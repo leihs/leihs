@@ -2,7 +2,8 @@ class Contract < Document
 
   belongs_to :user
   has_many :contract_lines, :dependent => :destroy
-  has_many :models, :through => :contract_lines
+  has_many :models, :through => :contract_lines #OPTIMIZE , :uniq => true
+  has_many :line_groups, :through => :contract_lines, :uniq => true
   has_and_belongs_to_many :printouts  # TODO , :dependent => :destroy
 
   acts_as_ferret :fields => [ :user_login, :lines_model_names ],

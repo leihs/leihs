@@ -7,11 +7,12 @@ class Model < ActiveRecord::Base
   has_many :accessories
 
   # ModelGroups
-  has_and_belongs_to_many :model_groups
-#TODO  has_and_belongs_to_many :categories
-#TODO  has_and_belongs_to_many :packages
+  has_many :model_links
+  has_many :model_groups, :through => :model_links #, :uniq => true
+#TODO  has_many :categories
+#TODO  has_many :packages
 
-# TODO remove
+#old#
 #  acts_as_graph :edge_table => "models_packages",
 #                :parent_col => "package_id",
 #                :child_col => "model_id",
@@ -19,7 +20,7 @@ class Model < ActiveRecord::Base
 #                :child_collection => "models"
                 
 ########
-# TODO refactor to ModelGroup
+# TODO refactor to ModelGroup ?
   has_and_belongs_to_many :compatibles,
                           :class_name => "Model",
                           :join_table => "models_compatibles",
@@ -104,12 +105,14 @@ class Model < ActiveRecord::Base
     a
   end
   
+  # TODO through model_links and model_groups
   def category_names
-    n = [] 
-    categories.each do |c|
-      n << c.name  
-    end
-    n.uniq.join(" ")
+#    n = [] 
+#    categories.each do |c|
+#      n << c.name  
+#    end
+#    n.uniq.join(" ")
+    ""
   end
 
   def properties_values

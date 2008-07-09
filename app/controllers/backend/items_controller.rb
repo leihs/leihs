@@ -1,6 +1,10 @@
 class Backend::ItemsController < Backend::BackendController
-  active_scaffold :item
+  active_scaffold :item do |config|
+    config.columns = [:model, :inventory_pool, :inventory_code, :serial_number, :status]
 
+    config.list.sorting = { :model => :asc }
+  end
+  
   # TODO remove, refactor for active_scaffold
   def index_old
     @items = current_inventory_pool.items

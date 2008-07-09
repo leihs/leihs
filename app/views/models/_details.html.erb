@@ -6,12 +6,14 @@
 	</h3>
 
 	<ul style="float: left; width: 50%;">
+	Properties:
 	<% @model.properties.each do |p| %>
 		<li><b><%= p.key %>:</b> <%= p.value %></li>
 	<% end %>
 	</ul>
 	
 	<ul style="float: right; width: 50%;">
+	Compatibles:
 	<% @model.compatibles.each do |c| %>
 		<li><%= link_to_remote(c.name, :update => 'details', :url => {:controller => 'models', :action => 'details', :id => c.id}) %></li>
 	<% end %>

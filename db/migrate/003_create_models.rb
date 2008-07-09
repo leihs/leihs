@@ -15,7 +15,7 @@ class CreateModels < ActiveRecord::Migration
 #    add_index(:models_packages, :model_id)
 #    add_index(:models_packages, :package_id)
 
-# TODO remove
+# TODO remove ?
     create_table :models_compatibles, :id => false do |t|
       t.belongs_to :model
       t.belongs_to :compatible
