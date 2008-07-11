@@ -1,0 +1,51 @@
+<% is_package = (@line.line_group and @line.line_group.model_group.is_a?(Package)) %>
+
+<div id="contract_line_<%= @line.id %>">
+	<tr class="alt-row">
+		<td>
+			<% check_box_today = (@line.start_date <= Date.today ? "contract_line_check_today" : "")  %>
+			<%= check_box_tag('contract_lines[]', @line.id, false, :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'multiple_selection_button');" ) %>
+			<%= @line.quantity %>
+		</td>
+		<td>
+			<%= greybox_link_to_page(@line.model.name,
+			 { :controller => 'models', :action => 'details', :id => @line.model.id },
+			 :title => _("Model"),
+			 :class => "thickbox iconized-notxt edit-package" ) %>
+		</td>
+		<td class="line_valid_<%= @line.available? %>">
+			<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
+		 		{ :controller => 'hand_over', :action => 'time_lines', :id => @contract.id, :lines => @line.id },
+				:class => "thickbox iconized-notxt date-edit",
+				:id => "dates_#{@line.id}",
+				:title => _("Time Period") ) unless is_package %>
+		</td>
+		<td id="inventory_code_<%= @line.id %>" class="line_valid_<%= @line.complete? %>">
+			<% @item = @line.item %>
+			<%#old#= text_field(:item, :inventory_code,
+				#			:id => "line_item_inventory_code_#{@line.id}",
+				#			:size => 10,
+				#			:onchange => remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id}, :with => "'code=' + value" )) %>
+			<%= text_field_with_auto_complete :item, :inventory_code,
+											{ :id => "line_item_inventory_code_#{@line.id}",
+											# :index => @line.id,
+											  :size => 10,
+											  :onchange => remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + value" ),
+											  :onkeyup => "if(event.keyCode == 13){
+																if(value == ''){ line_item_inventory_code_#{@line.id}_auto_completer.activate(); }
+															 	else{ " + remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + value" ) + "} }" },
+											{ :url => { :controller => 'models', :action => 'available_items', :model_ids => @line.model.id },
+											  :method => :get,
+											  :with => "'code=' + element.value" } %>
+		</td>
+		<td><div class="buttons">
+			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
+				{ :controller => 'hand_over', :action => 'swap_model_line', :id => @contract.id, :line_id => @line.id },
+				:title => _("Swap Model") ) unless is_package %>
+			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
+			 	{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id, :lines => @line.id },
+				:title => _("Remove Model"), :class => 'negative' ) unless is_package %>
+
+			</div></td>
+	</tr>
+</div>

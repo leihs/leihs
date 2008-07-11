@@ -142,10 +142,11 @@ private
 
   def create_some_packages
     5.times do |i|
-      p = Package.create(:name => "package_" + i.to_s)
+      ip = InventoryPool.find(:first, :order => "RAND()")
+      p = Package.create(:name => "package_" + i.to_s, :inventory_pool => ip)
 
       (rand(5)+2).times do
-        m = Model.find(:first, :order => "RAND()")
+        m = ip.models.find(:first, :order => "RAND()")
         p.model_links << ModelLink.create(:model => m, :quantity => rand(3)+1)
       end
     end
@@ -223,7 +224,7 @@ private
     ContractLine.delete_all
     Printout.destroy_all
     AccessRight.delete_all
-    Category.destroy_all
+    ModelGroup.destroy_all
     
     FileUtils.remove_dir(File.dirname(__FILE__) + "/../../../index", true)
   end

@@ -1,0 +1,26 @@
+<% is_package = (@line_group and @line_group.model_group.is_a?(Package)) %>
+
+	<tr class="line_header">
+		<td>
+			<% # TODO %>
+			<%= @line_group.quantity %>
+			<% # temp %>
+			<%= @line_group.model_group.inventory_pool.name if is_package %>
+		</td>
+		<td class="title">
+			<%= image_tag($layout_public_path + "/images/icons/package_add.png") %> <%= @line_group.model_group.name %>
+		</td>
+		<td id="line_group_dates_<%= @line_group.id %>" class="line_valid_<%= @line_group.available? %>">
+			<% # TODO working here, check if contract line is a package, etc.... %>
+			<%= greybox_link_to_page("#{short_date(@line_group.lines.first.start_date)} - #{short_date(@line_group.lines.first.end_date)}",
+		 		{ :controller => 'acknowledge', :action => 'time_lines', :id => @contract.id, :lines => @line_group.lines.first },
+				:class => "thickbox iconized-notxt date-edit" ,
+				:title => _("Time Period") ) if is_package %>
+		</td>
+		<td>&nbsp;</td>
+		<td><div class="buttons">
+			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
+			 	{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id, :lines => @line.id },
+				:title => _("Remove Model"), :class => 'negative' ) if is_package %>
+			</div></td>
+	</tr>

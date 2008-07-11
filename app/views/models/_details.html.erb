@@ -1,8 +1,13 @@
 <% if @model %>
-	
+	<br />
 	<h3><%= @model.name %>
 	<%= link_to_remote(_("Add"), :update => 'basket',
 								 :url => {:controller => 'orders', :action => 'add_line', :model_id => @model.id}) %>
+								 
+	<% for ip in @model.inventory_pools & current_user.inventory_pools %>
+		<span style="border: 1px solid black; padding: 1px;"><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @model.id}) %></span>
+	<% end %>
+							 
 	</h3>
 
 	<ul style="float: left; width: 50%;">

@@ -1,5 +1,6 @@
 class Order < Document
 
+  belongs_to :inventory_pool # common for sibling classes
   belongs_to :user
   has_many :order_lines, :dependent => :destroy
   has_many :models, :through => :order_lines #OPTIMIZE , :uniq => true
@@ -61,6 +62,7 @@ class Order < Document
         ol.quantity.times do
           contract.contract_lines << ContractLine.new(:model => ol.model,
                                                       :quantity => 1,
+                                                      :line_group => ol.line_group,
                                                       :start_date => ol.start_date,
                                                       :end_date => ol.end_date)
         end
@@ -224,7 +226,7 @@ class Order < Document
 #      #    # TODO check availability and TODO scope user's visible inventory pools
 #      #  
 #      #    # collect possible inventory pools 
-#      #    #inventory_pools = models.collect(&:inventory_pools).flatten.uniq
+#      #    #inventory_pools = models.inventory_pools #old# models.collect(&:inventory_pools).flatten.uniq
 #      #
 #      #    # construct combinations of inventory pools
 #      #    ip_set = []

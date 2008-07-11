@@ -5,6 +5,8 @@ class CreateModelGroups < ActiveRecord::Migration
       
       t.string :name      
       
+      t.belongs_to :inventory_pool # for Package
+      
       t.timestamps
     end
 

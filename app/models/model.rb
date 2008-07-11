@@ -3,14 +3,16 @@ class Model < ActiveRecord::Base
   has_many :inventory_pools, :through => :items, :group => :id #, :uniq => true
   
   has_many :order_lines
+  has_many :contract_lines
   has_many :properties
   has_many :accessories
 
   # ModelGroups
   has_many :model_links
   has_many :model_groups, :through => :model_links #, :uniq => true
-#TODO  has_many :categories
-#TODO  has_many :packages
+  has_many :categories, :through => :model_links, :source => :model_group, :conditions => {:type => 'Category'}
+  has_many :packages, :through => :model_links, :source => :model_group, :conditions => {:type => 'Package'}
+  has_many :templates, :through => :model_links, :source => :model_group, :conditions => {:type => 'Template'}
 
 #old#
 #  acts_as_graph :edge_table => "models_packages",
@@ -49,7 +51,7 @@ class Model < ActiveRecord::Base
                               :joins => "LEFT JOIN items ON items.model_id = models.id",
                               :conditions => ['items.model_id IS NULL']
     
-  acts_as_ferret :fields => [ :name, :category_names, :properties_values ] #, :store_class_name => true
+  acts_as_ferret :fields => [ :name, :category_names, :properties_values ], :store_class_name => true
 
 
 #old#
@@ -92,6 +94,10 @@ class Model < ActiveRecord::Base
 #############################################  
 
 
+  def add_to_document(document, user_id, quantity = nil)
+    quantity ||= 1
+    document.add_line(quantity, self, user_id, nil, nil, nil)
+  end  
   
   
   

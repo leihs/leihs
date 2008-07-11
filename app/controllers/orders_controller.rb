@@ -25,9 +25,15 @@ class OrdersController < ApplicationController
   def add_line
     if request.post?
       @order = current_user.get_current_order unless @order
-      params[:quantity] ||= 1
-      @order.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
-      flash[:notice] = _("Model couldn't be added") unless @order.save
+
+      if params[:model_group_id]
+        model = ModelGroup.find(params[:model_group_id])
+      else
+        model = Model.find(params[:model_id])
+      end
+      model.add_to_document(@order, params[:user_id], params[:quantity])
+      
+      flash[:notice] = _("Line couldn't be added") unless @order.save
       if request.xml_http_request?
         render :partial => 'basket'      
       else
@@ -58,18 +64,6 @@ class OrdersController < ApplicationController
 
 ########################################################
   
-  # TODO refactor in a separate controller ?
-  # TODO add_model_group_to_contract too ?
-  def add_model_group_to_order
-    if request.xml_http_request?
-      @order = current_user.get_current_order unless @order
-      model_group = ModelGroup.find(params[:model_group_id])
-      model_group.add_to_document(@order, current_user.id)
-      render :partial => 'basket'      
-    end    
-  end
-
-########################################################
 
   private
   

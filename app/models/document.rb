@@ -2,8 +2,8 @@
 class Document < ActiveRecord::Base
   self.abstract_class = true
   
+  # TODO refactor in subclasses ?
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
-  belongs_to :inventory_pool
 
   # compares two objects in order to sort them
   def <=>(other)
@@ -20,8 +20,6 @@ class Document < ActiveRecord::Base
                 :line_group => line_group)
       log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id)
       lines << o
-      
-#TODO remove      model.models.each { |m| add_line(quantity, m, user_id, start_date, end_date) }
   end
 
   # TODO group_line dependency

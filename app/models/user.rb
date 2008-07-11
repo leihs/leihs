@@ -4,8 +4,12 @@ class User < ActiveRecord::Base
   belongs_to :authentication_system
   has_many :access_rights
   has_many :inventory_pools, :through => :access_rights
+  has_many :items, :through => :inventory_pools # thanks to the nested_has_many_through plugin
+  has_many :models, :through => :inventory_pools, :uniq => true # thanks to the nested_has_many_through plugin
+  
   has_many :orders
   has_one  :current_order, :class_name => "Order", :conditions => ["status_const = ?", Contract::NEW]
+
   has_many :contracts
   has_many :current_contracts, :class_name => "Contract", :conditions => ["status_const = ?", Contract::NEW]
   

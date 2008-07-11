@@ -1,6 +1,5 @@
-	<h2><%= _("Print Contract") %></h2>
+	<h2><%= _("Items to hand over") %></h2>
 
-	<%= _("Items to hand over") %>:
 	<ul>
 		<% @lines.each do |l| %>
 			<li><%= l.item.model.name %> - <%= l.item.inventory_code %></li>
@@ -9,8 +8,15 @@
 	
 	<br />
 	<div class="buttons">
-		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Confirm"),
-					 { :controller => 'hand_over', :action => 'sign_contract', :id => params[:id], :lines => @lines },
+		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Print Contract"),
+					 { :controller => 'hand_over', :action => 'print_contract', :id => params[:id], :lines => @lines },
+					 :class => 'positive') %>
+
+		<br />
+		<br />
+
+		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Sign Confirm"),
+					 { :controller => 'hand_over', :action => 'sign_contract', :id => params[:id] },
 					 :class => 'positive', :method => 'post', :target=> '_top') %>
 					 
 		<%=	cancel_popup_button(_("Cancel") ) %>

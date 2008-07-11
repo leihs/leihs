@@ -110,14 +110,16 @@
 					<!-- end header -->
 
 					<!-- start iterator -->
+					<% # TODO refactor partials to frontend (when final layout is decided) %>
+					
 					<% for @line in @order.lines.not_in_group  %>
-						<%= render :partial => 'line' %>
+						<%= render :partial => 'backend/acknowledge/line' %>
 					<% end %>
 
 					<% for @line_group in @order.line_groups  %>
-						<%= render :partial => 'line_group' %>
-						<% for @line in @line_group.order_lines  %>
-							<%= render :partial => 'line' %>
+						<%= render :partial => 'backend/acknowledge/line_group' %>
+						<% for @line in @line_group.lines  %>
+							<%= render :partial => 'backend/acknowledge/line' %>
 						<% end %>
 					<% end %>
 					<!-- end iterator -->						

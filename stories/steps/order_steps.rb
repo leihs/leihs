@@ -22,7 +22,7 @@ steps_for(:order) do
     @comment ||= ""
     post "/backend/acknowledge/approve", :id => @order.id, :comment => @comment
     @order = assigns(:order)
-    @orders_size = assigns(:submitted_orders_size)
+    @orders_size = assigns(:to_acknowledge_size)
     @order.should_not be_nil
     @response = response
   end
