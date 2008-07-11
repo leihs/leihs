@@ -69,33 +69,7 @@
 
 					<!-- start iterator -->
 					<% for @line in @contract_lines %>
-						<div id="contract_line_<%= @line.id %>">
-							<tr class="alt-row">
-								<td>
-									<% check_box_today = (@line.end_date <= Date.today ? "contract_line_check_today" : "")  %>
-									<%= check_box_tag('contract_lines[]', @line.id, false, :id => "contract_line_check_#{@line.id}", :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'multiple_selection_button');" ) %>
-									<%= @line.quantity %>
-								</td>
-								<td>
-									<%= @line.contract.id %>
-								</td>
-								<td>
-									<%= greybox_link_to_page(@line.model.name,
-									 { :controller => 'models', :action => 'details', :id => @line.model.id },
-    								 :title => _("Model"),
-									 :class => "thickbox iconized-notxt edit-package" ) %>
-								</td>
-								<td class="line_valid_<%= @line.available? %>">
-									<%= "#{short_date(@line.start_date)} - #{short_date(@line.end_date)}" %>
-								</td>
-								<td id="inventory_code_<%= @line.id %>" class="line_valid_<%= @line.complete? %>">
-									<%= @line.item.inventory_code %>
-								</td>
-								<td><div class="buttons">
-
-									</div></td>
-							</tr>
-						</div>
+						<%= render :partial => 'line' %>
 					<% end %>
 					<!-- end iterator -->						
 

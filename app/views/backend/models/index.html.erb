@@ -29,7 +29,7 @@
 						</ul>
 					<br />
 					<b>My visible IPs:</b>
-						<%= current_user.inventory_pools.collect(&:items).flatten.find_all{|i| i.model == model }.size %>
+						<%= current_user.items.count(:conditions => {:model_id => model.id}) %>
 						<ul>
 							<% for ip in current_user.inventory_pools %>
 								<li>- <%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => model.id}) %></li>
@@ -47,7 +47,7 @@
 
 				</td>
 				<td><%= model.order_lines.size %></td>
-				<td><%= model.is_package? %></td>
+				<td></td>
 			</tr>
 		<% end %>
 

@@ -6,7 +6,7 @@ module ModelsHelper
       next unless @categories.include?(category)
       output << "<li class='#{category.type}'>"
       output << "<span>" + (parent ? category.label(parent) : category.name)
-      output << "<span style='padding-left: 10px;'>" + link_to_remote(_("Add"), :update => 'basket', :url => {:controller => 'orders', :action => 'add_model_group_to_order', :model_group_id => category.id}) + "</span>" if category.type == "Package" or category.type == "Template"
+      output << "<span style='padding-left: 10px;'>" + link_to_remote(_("Add"), :update => 'basket', :url => {:controller => 'orders', :action => 'add_line', :model_group_id => category.id}) + "</span>" if category.type == "Package" or category.type == "Template"
       output << "</span>"
 
       output << "<div>"

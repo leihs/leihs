@@ -11,6 +11,8 @@ class InventoryPool < ActiveRecord::Base
   has_many :contracts
   has_many :contract_lines, :through => :contracts
 
+  has_many :packages
+  
   
   def hand_over_visits
     unless @ho_visits  # OPTIMIZE refresh if new contracts become available

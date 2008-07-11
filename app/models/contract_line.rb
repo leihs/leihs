@@ -2,6 +2,8 @@ class ContractLine < DocumentLine
   
   belongs_to :item
   belongs_to :contract
+  belongs_to :model # common for sibling classes
+  belongs_to :line_group # common for sibling classes
   
   validate :validate_item
 

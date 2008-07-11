@@ -6,11 +6,24 @@ if order
 	<ul>
 		
 	<!-- start iterator -->
-	<% for line in order.lines %>
-		<li id="order_line_<%= line.id %>">
+	<% for line in order.lines.not_in_group %>
+		<li id="order_line_<%= line.id %>" style="border: 1px solid black; margin: 2px; padding: 1px;">
 			<%= line.quantity %>x <%= line.model.name[0,30] %>
 		</li>
 	<% end %>
+	
+	<% for line_group in order.line_groups  %>
+		<ul style="border: 1px solid black; margin: 2px; padding: 1px;">
+		<li id="order_line_<%= line_group.id %>" style="background-color: silver;">
+			<b><%= line_group.quantity %>x <%= line_group.model_group.name[0,30] %></b>
+		</li>
+		<% for line in line_group.lines  %>
+			<li id="order_line_<%= line.id %>">
+				<%= line.quantity %>x <%= line.model.name[0,30] %>
+			</li>
+		<% end %>
+		</ul>
+	<% end %>	
 	<!-- end iterator -->
 
 	</ul>

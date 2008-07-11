@@ -1,3 +1,5 @@
+<% if @order.approvable? %>
+
 	<h2><%= _("Do you want to submit this order?") %></h2>
 
 	<br />
@@ -8,4 +10,19 @@
 					 :class => 'positive', :method => 'post', :target=> '_top') %>
 					 
 		<%=	cancel_popup_button(_("Cancel") ) %>
-	</div>		
+	</div>
+	
+	
+
+<% else %>
+
+	<% #TODO %>
+	<h2><%= _("This order is not yet approvable") %></h2>
+	<br />
+	<div class="buttons">
+		<%=	cancel_popup_button(_("Close") ) %>
+	</div>
+
+
+<% end %>
+			

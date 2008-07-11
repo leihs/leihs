@@ -118,13 +118,13 @@
 					<!-- end header -->
 
 					<!-- start iterator -->
-					<% group_lines = [] %>
-					<% for @line in @order.order_lines %>
-						<% if @line.line_group %>
-							<% next if group_lines.include?(@line.line_group) %>
-							<% group_lines << @line.line_group %>
-							<%= render :partial => 'line_group' %>
-						<% else %>
+					<% for @line in @order.lines.not_in_group  %>
+						<%= render :partial => 'line' %>
+					<% end %>
+
+					<% for @line_group in @order.line_groups  %>
+						<%= render :partial => 'line_group' %>
+						<% for @line in @line_group.lines  %>
 							<%= render :partial => 'line' %>
 						<% end %>
 					<% end %>

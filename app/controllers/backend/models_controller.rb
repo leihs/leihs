@@ -7,7 +7,7 @@ class Backend::ModelsController < Backend::BackendController
 
   # TODO refactor for active_scaffold ?
 #  def index
-#    @models = current_user.inventory_pools.collect(&:models).flatten.uniq
+#    @models = current_user.models #old# current_user.inventory_pools.collect(&:models).flatten.uniq
 #  end
 
   def details

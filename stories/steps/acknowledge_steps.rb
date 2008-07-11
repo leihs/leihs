@@ -52,7 +52,7 @@ steps_for(:acknowledge) do
      
   When "$who clicks '$action'" do | who, action |
     get "/backend/#{action}/index"
-    @orders_size = assigns(:submitted_orders_size)
+    @orders_size = assigns(:to_acknowledge_size)
     @orders = assigns(:submitted_orders)
     response.should render_template('backend/acknowledge/index')
     @response = response 
@@ -70,7 +70,7 @@ steps_for(:acknowledge) do
   When "$who rejects order with reason '$reason'" do |who, reason|
     post "/backend/acknowledge/reject", :id => @order.id, :comment => reason
     @order = assigns(:order)
-    @orders_size = assigns(:submitted_orders_size)
+    @orders_size = assigns(:to_acknowledge_size)
     @orders.should_not be_nil
     @order.should_not be_nil
     @response = response
@@ -126,7 +126,7 @@ steps_for(:acknowledge) do
   
   Then "$who sees $size order$s" do | who, size, s |
     get "/backend/acknowledge/index" #temp#
-    @orders_size = assigns(:submitted_orders_size)  #temp#
+    @orders_size = assigns(:to_acknowledge_size)  #temp#
     
     @orders_size.should == size.to_i
   end

@@ -1,6 +1,6 @@
 class Backend::HandOverController < Backend::BackendController
 
-  before_filter :load_contract, :only => [:add_line, :swap_model_line, :time_lines, :remove_lines]
+  before_filter :load_contract, :only => [:add_line, :swap_model_line, :time_lines, :remove_lines, :sign_contract, :print_contract]
 
   def index
     
@@ -32,25 +32,29 @@ class Backend::HandOverController < Backend::BackendController
     @contract.contract_lines.sort!
   end
   
-  # Creating the definitive contract
+  # Sign definitely the contract
   def sign_contract
     if request.post?
-      @contract = Contract.find(params[:id])
-      @lines = @contract.contract_lines.find(params[:lines]) unless params[:lines].nil?
-      @contract.sign(@lines)
+      # TODO make sure the coherence between paper and storage
+      @contract.sign
 
-      # TODO generate contract
-      send_data @contract.printouts.last.pdf, :filename => "contract.pdf", :type => "application/pdf"
-
-#      redirect_to :action => 'index'
-
+      redirect_to :action => 'index'
     else
       #@user = User.find(params[:id])
       #@lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
-      @lines = ContractLine.find(params[:lines].split(','))
+      @lines = @contract.contract_lines.find(params[:lines].split(','))
       @lines = @lines.delete_if {|l| l.item.nil? }
       render :layout => $modal_layout_path
     end    
+  end
+
+  # Creating the contract to print
+  def print_contract
+    @lines = @contract.contract_lines.find(params[:lines]) unless params[:lines].nil?
+    @contract.to_sign(@lines)
+
+    # TODO generate contract
+    send_data @contract.printouts.last.pdf, :filename => "contract.pdf", :type => "application/pdf"
   end
 
   # Changes the line according to the inserted inventory code

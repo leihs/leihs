@@ -1,6 +1,6 @@
 <ul>
-	<li><%= link_to _('Acknowledge') + " (#{@submitted_orders_size})", :controller => 'acknowledge' %></li>
-	<li><%= link_to _('Hand Over') + " (#{@new_contracts_size})", :controller => 'hand_over' %></li>
-	<li><%= link_to _('Take Back') + " (#{@signed_contracts_size})", :controller => 'take_back' %></li>
-	<li><%= link_to _('Remind') + " (#{@remind_contracts_size})", :controller => 'take_back', :remind => true %></li>				
+	<li><%= link_to _('Acknowledge') + " (#{@to_acknowledge_size})", :controller => 'acknowledge' %></li>
+	<li><%= link_to _('Hand Over') + " (#{@to_hand_over_size})", :controller => 'hand_over' %></li>
+	<li><%= link_to _('Take Back') + " (#{@to_take_back_size})", :controller => 'take_back' %></li>
+	<li><%= link_to _('Remind') + " (#{@to_remind_size})", :controller => 'take_back', :remind => true %></li>				
 </ul>

@@ -1,5 +1,6 @@
 class Contract < Document
 
+  belongs_to :inventory_pool # common for sibling classes
   belongs_to :user
   has_many :contract_lines, :dependent => :destroy
   has_many :models, :through => :contract_lines #OPTIMIZE , :uniq => true
@@ -29,17 +30,23 @@ class Contract < Document
 
 #########################################################################
 
+  def sign
+    update_attribute :status_const, Contract::SIGNED 
+  end
 
-  def sign(contract_lines = nil)
+
+  def to_sign(contract_lines = nil)
     if contract_lines and contract_lines.any? { |cl| cl.item }
-      update_attribute :status_const, Contract::SIGNED 
 
       # double check
       contract_lines.each {|cl| cl.update_attribute :start_date, Date.today if cl.start_date != Date.today }
       
       lines_for_new_contract = self.contract_lines - contract_lines
       if lines_for_new_contract
-        new_contract = user.get_current_contract(self.inventory_pool)
+        update_attribute :status_const, Contract::SIGNED # OPTIMIZE temp hack#  
+          new_contract = user.get_current_contract(self.inventory_pool)
+        update_attribute :status_const, Contract::NEW # OPTIMIZE temp hack# 
+
         lines_for_new_contract.each do |cl|
           cl.update_attribute :contract, new_contract
         end

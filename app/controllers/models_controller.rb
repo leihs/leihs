@@ -4,9 +4,9 @@ class ModelsController < ApplicationController
   def index
     
     if params[:search]
-      @models = Model.find_by_contents("*" + params[:search] + "*")
+      @models = current_user.models.find_by_contents("*" + params[:search] + "*")
     else  
-      @models = current_user.inventory_pools.collect(&:models).flatten
+      @models = current_user.models #old# current_user.inventory_pools.collect(&:models).flatten
 #old#      @models += Model.packages # OPTIMIZE
     end
 
@@ -63,8 +63,7 @@ class ModelsController < ApplicationController
         @search_result = current_inventory_pool.models.find_by_contents("*" + params[:search] + "*")
       else
         # Frontend
-        # TODO scope models visible by current_user
-        @search_result = Model.find_by_contents("*" + params[:search] + "*")
+        @search_result = current_user.models.find_by_contents("*" + params[:search] + "*", :multi => [Package, Template])
       end
     end
 

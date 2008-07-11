@@ -15,9 +15,15 @@ class Backend::BackendController < ApplicationController
    # add a new line
    def generic_add_line(document, render_id)
     if request.post?
-      params[:quantity] ||= 1
-      document.add_line(params[:quantity].to_i, Model.find(params[:model_id]), params[:user_id])
-      flash[:notice] = _("Model couldn't be added") unless document.save        
+
+      if params[:model_group_id]
+        model = ModelGroup.find(params[:model_group_id])
+      else
+        model = Model.find(params[:model_id])
+      end
+      model.add_to_document(document, params[:user_id], params[:quantity])
+
+      flash[:notice] = _("Line couldn't be added") unless document.save        
       redirect_to :action => 'show', :id => render_id        
     else
       redirect_to :controller => '/models', 
@@ -95,10 +101,10 @@ class Backend::BackendController < ApplicationController
     @current_inventory_pool = current_inventory_pool
 
     if @current_inventory_pool
-      @submitted_orders_size = @current_inventory_pool.orders.submitted_orders.size # TODO rename to @acknowledge.size
-      @new_contracts_size = @current_inventory_pool.hand_over_visits.size # TODO rename to @hand_over.size
-      @signed_contracts_size = @current_inventory_pool.take_back_visits.size # TODO rename to @take_back.size
-      @remind_contracts_size = @current_inventory_pool.remind_visits.size # TODO rename to @remind.size
+      @to_acknowledge_size = @current_inventory_pool.orders.submitted_orders.size
+      @to_hand_over_size = @current_inventory_pool.hand_over_visits.size
+      @to_take_back_size = @current_inventory_pool.take_back_visits.size
+      @to_remind_size = @current_inventory_pool.remind_visits.size
     end
 
   end

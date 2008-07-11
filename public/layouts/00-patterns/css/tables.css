@@ -26,6 +26,16 @@ table tr.alt-row {
 	background: #f8f8f8;
 }
 
+table tr.line_header {
+	background: #DDDDDD;
+}
+
+table tr.line_header td.title {
+	color: black;
+	font-size: 2em;
+	font-weight: bold;
+}
+
 table th {
 	background: #888;
 	color: #e2e2e2;

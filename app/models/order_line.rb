@@ -2,6 +2,9 @@ class OrderLine < DocumentLine
 
   belongs_to :order
   belongs_to :inventory_pool
+  belongs_to :model # common for sibling classes
+  belongs_to :line_group # common for sibling classes
+  
   
   has_many :options
 
