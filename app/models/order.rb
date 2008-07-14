@@ -76,8 +76,10 @@ class Order < Document
   end
 
   # submits order
-  def submit
-    save if new_record? # OPTIMIZE
+  def submit(purpose = "")
+    self.purpose = purpose if purpose
+    save
+    #old: save if new_record? # OPTIMIZE
 
     if approvable?
       self.status_const = Order::SUBMITTED
