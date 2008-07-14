@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
 
   def submit
     @order.created_at = DateTime.now
-    if request.post? and @order.submit
+    if request.post? and @order.submit(params[:purpose])
       
       redirect_to '/'
     else
