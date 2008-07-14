@@ -76,7 +76,7 @@ class Order < Document
   end
 
   # submits order
-  def submit(purpose = "")
+  def submit(purpose = nil)
     self.purpose = purpose if purpose
     save
     #old: save if new_record? # OPTIMIZE

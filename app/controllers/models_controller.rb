@@ -32,9 +32,10 @@ class ModelsController < ApplicationController
 
   def categories
     # OPTIMIZE
-    #@category_children = Category.roots
-    index
-    @category_children = @categories
+    @category_children = Category.roots
+    @category = @category_children
+    #index
+    #@category_children = @categories
     
 #    @ancestor_ids = (params[:ancestor_ids] ? params[:ancestor_ids] : 0) # OPTIMIZE
     render :partial => 'categories'
