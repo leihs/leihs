@@ -36,7 +36,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
   
   def reject
-    if request.post?
+    if request.post? and params[:comment]
       @order.status_const = Order::REJECTED
       @order.backup = nil
       @order.save

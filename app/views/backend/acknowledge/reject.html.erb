@@ -1,10 +1,17 @@
 	<h2><%= _("Sie sind Sie sicher, dass Sie diese Bestellung ablehnen möchten?") %></h2>
 	<p><%= _("Speichern Sie die Bestellung und kommen Sie später wieder darauf zurück.") %></p>
 	<br />
+	<% form_tag( {:action => 'reject', :id => params[:id]}, :name => "f", :target => "_top") do %>
+	
+	
+	Comments<br/>
+	<%= text_area_tag 'comment', nil, :size => "25x10" %>
+  
 	<div class="buttons">
-		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Ablehnen"),
-					 { :controller => 'acknowledge', :action => 'reject', :id => params[:id] },
-					 :class => 'positive', :method => 'post', :target=> '_top') %>
+	  <%=	submit_button(_("Ablehnen"), {:img => $layout_public_path + "/images/icons/door.png", :class => 'positive'} ) %>
 					 
 		<%=	cancel_popup_button(_("Cancel") ) %>
 	</div>	
+	
+	<% end %>
+  
