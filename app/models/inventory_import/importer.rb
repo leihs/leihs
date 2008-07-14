@@ -14,6 +14,9 @@ class InventoryImport::Importer
         :manufacturer => item.Art_Hersteller
       }
       model = Model.find_or_create_by_name attributes
+      category = Category.find_or_create_by_name :name => item.Art_Gruppe_2
+      category.model_links << ModelLink.create(:model => model, :quantity => 1) unless category.model_links.detect{| link |  link.model_id == model.id }
+      category.save
       
       item_attributes = {
         :inventory_code => (item.Stao_Abteilung + item.Inv_Serienr.to_s),
@@ -54,7 +57,7 @@ class InventoryImport::Importer
     {		:adapter => 'mysql',
     		:host => '127.0.0.1',
     		:database => 'ithelp_development',
-    		:encoding => 'utf8',
+    		:encoding => 'latin1',
     		:username => 'root',
     		:password => '' }
   end

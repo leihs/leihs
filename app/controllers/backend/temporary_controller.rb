@@ -20,7 +20,8 @@ class Backend::TemporaryController < Backend::BackendController
     
     create_some_packages
     create_some_templates
-    create_some_categories
+   # create_some_categories
+    create_some_root_categories
     create_some_properties
     create_some_compatibles
     
@@ -34,8 +35,8 @@ class Backend::TemporaryController < Backend::BackendController
     create_meaningful_users
 
     params[:id] = 10
-    create_some_submitted_orders
-    create_beautiful_order
+#    create_some_submitted_orders
+#    create_beautiful_order
 
     render :text => "Complete"
   end
@@ -105,6 +106,73 @@ private
         i.save
       end
     end
+  end
+
+
+  def create_some_root_categories
+    video = Category.create(:name => 'Video')
+    audio = Category.create(:name => 'Audio')
+    computer = Category.create(:name => 'Computer')
+    light = Category.create(:name => 'Licht')
+    foto = Category.create(:name => 'Foto')
+    other = Category.create(:name => 'Anderes')
+    stative = Category.create(:name => 'Stative')
+    
+    add_to(video, Category.find_or_create_by_name(:name => 'Video Kamera'))
+    add_to(video,  Category.find_or_create_by_name(:name => 'Film Kamera'))
+    add_to(video,  Category.find_or_create_by_name(:name => 'Video Kamera Zubehör'))
+    add_to(video,  Category.find_or_create_by_name(:name => 'Film Kamera Zubehör'))
+    add_to(video,  Category.find_or_create_by_name(:name => 'Video Monitor'))
+    add_to(video,  Category.find_or_create_by_name(:name => 'Video Recorder/Player'))
+    add_to(video,  Category.find_or_create_by_name(:name => 'Stativ Video/Film/Foto'))
+    
+    add_to(audio,  Category.find_or_create_by_name(:name => 'Audio Recorder portable'))
+    add_to(audio,  Category.find_or_create_by_name(:name => 'Audio Recorder/Player'))
+    add_to(audio,  Category.find_or_create_by_name(:name => 'Kopfhörer'))
+    add_to(audio,  Category.find_or_create_by_name(:name => 'Lautsprecher/-anlagen'))
+    add_to(audio,  Category.find_or_create_by_name(:name => 'Mikrofon'))
+    add_to(audio,  Category.find_or_create_by_name(:name => 'Mikrofon Zubehör'))
+    add_to(audio,  Category.find_or_create_by_name(:name => 'Verschiedene AV Geräte'))
+    add_to(audio,  Category.find_or_create_by_name(:name => 'Verstärker'))
+    add_to(audio,  Category.find_or_create_by_name(:name => 'Mikrofon Zubehör'))
+
+    add_to(foto,  Category.find_or_create_by_name(:name => 'Dia-/Hellraumprojektor'))
+    add_to(foto,  Category.find_or_create_by_name(:name => 'Foto analog'))
+    add_to(foto,  Category.find_or_create_by_name(:name => 'Foto digital'))
+    add_to(foto,  Category.find_or_create_by_name(:name => 'Foto Zubehör'))
+    add_to(foto,  Category.find_or_create_by_name(:name => 'Stativ Video/Film/Foto'))
+    
+    add_to(light,  Category.find_or_create_by_name(:name => 'Licht/Scheinwerfer'))
+    add_to(light,  Category.find_or_create_by_name(:name => 'Licht Stative'))
+    add_to(light,  Category.find_or_create_by_name(:name => 'Licht Zubehör'))
+    add_to(light,  Category.find_or_create_by_name(:name => 'Elektro Material'))
+
+    add_to(computer,  Category.find_or_create_by_name(:name => 'Desktop Macintosh'))
+    add_to(computer,  Category.find_or_create_by_name(:name => 'Desktop PC'))
+    add_to(computer,  Category.find_or_create_by_name(:name => 'Externer Massenspeicher'))
+    add_to(computer,  Category.find_or_create_by_name(:name => 'IT-Display'))
+    add_to(computer,  Category.find_or_create_by_name(:name => 'IT-Zubehör'))
+    add_to(computer,  Category.find_or_create_by_name(:name => 'Notebook'))
+    add_to(computer,  Category.find_or_create_by_name(:name => 'PowerBook'))
+    add_to(computer,  Category.find_or_create_by_name(:name => 'Scanner/Lesegerät'))
+    add_to(computer,  Category.find_or_create_by_name(:name => 'Server'))
+    add_to(computer,  Category.find_or_create_by_name(:name => 'Netzwerkkomponente'))
+    add_to(computer,  Category.find_or_create_by_name(:name => 'Andere Hardware'))
+
+    add_to(other, Category.find_or_create_by_name(:name => 'DVD - Recorder/Player'))
+    add_to(other, Category.find_or_create_by_name(:name => 'Medien-Rack/-Wagen'))
+    add_to(other, Category.find_or_create_by_name(:name => 'Andere Hardware'))
+    add_to(other, Category.find_or_create_by_name(:name => 'Leinwand'))
+    add_to(other, Category.find_or_create_by_name(:name => 'Set-/Bühnenbau'))
+    
+    add_to(stative, Category.find_or_create_by_name(:name => 'Licht Stative'))
+    add_to(stative, Category.find_or_create_by_name(:name => 'Stativ Video/Film/Foto'))
+    
+  end
+
+  def add_to(parent, sub)
+    parent.children << sub unless parent.children.include?(sub)
+    sub.set_label(parent, sub.name)
   end
 
   def create_some_categories
