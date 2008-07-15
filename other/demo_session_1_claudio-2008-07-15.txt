@@ -1,0 +1,58 @@
+
+
+Frontend
+
+1. Can we search for "Bildschirm" and have "Monitor" as a result? -> keyword system
+
+2. Have the ability for borrowers to say "permission given by ...", so that an order is permitted by a certain person (professor, boss, etc.).
+
+Backend
+
+
+1. When no items have their barcodes scanned (all barcode fields empty), the order shouldn't be able to be handed over.
+
+2. When scanning items, if you scan the barcode of an item that does not exist in the order, a small message should flash: "Hey, that's not a Monitory Sony XYZ, it's a camera Panasonic XYZ -- this is wrong, scan something else."
+
+3. Can we print contracts at any time? Even after handover? Would be useful.
+
+4. Display an exclamation point next to a user's name on hand over/acknowledge if the user has outstanding returns or other evil things.
+
+5. When going to "swap" screen, display number of items available with each item.
+
+6. When going to "swap" screen, re-display the previous search.
+
+7. When going to "swap" screen, display likely swap candidates (e.g. when swapping out a tripod, display tripods already.)
+
+8. Make it clear WHY a swap or a change of time frame does not work. Is it because there aren't enough items of that model or because the time frame won't work that way?
+
+9. In the "add line" and "swap" interfaces, display a pulldown of the time frames that are already present in the order, so inventory managers can choose the time frame the new model should be reserved for. Also provide such a mechanism for the "change time frame" greybox if possible.
+
+10. In the change timeline greybox, remove the close button (people might not realize that it cancels and doesn't save). Same for the hand over screen with the print contract buttons.
+
+11. With packages, make sure that it's all or nothing. Don't allow handing over only half a package.
+
+12. Rethink the "contract signed" button -- really necessary?
+
+13. Display the user summary ("x items to return..") in a more useful way -- there is too much to read right now.
+
+14. On return of an item, accessories may be missing. If there are missing accessories, make it possible to take note of them. The user who returns incomplete items should have the missing items attached to their account, so they can still be responsible. The incomplete items should not be available anymore (if the inventory manager decides that way). Some items may still be usable when these things are missing, some may not be -- the admin can decide which.
+
+15. Ask legal dept: is it okay if we make contracts where returns of single items can be signed off on the original contract?
+
+16. "New order" interface for admins, to reserver things for other people.
+
+17. When adding new model, show tabs for filtering: "show all", "show things available as of today".
+
+18. Warn, when models are reserved "from today to today" and should be handed over. Or make it impossible to enter that.
+
+19. Display "delete" button in "hand over" and "acknowledge" lists, so that orders that aren't picked up/are late can easily be deleted.
+
+20. Let admins make orders for other people.
+
+21. Adding options by barcode (or in general): Happens during handover. e.g. adding a bunch of VGA cables when someone picks up a monitor. Scan the same VGA cable barcode three times, adds three VGA cables.
+
+Stock management
+
+1. Needs a batch function to batch-move e.g. cameras from one shelf to another, one bldg to another, one room to another.
+
+
