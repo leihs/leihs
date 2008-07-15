@@ -24,8 +24,8 @@ class ContractLine < DocumentLine
 
 ##################################################
 
-  named_scope :to_take_back, :conditions => {:returned_date => nil} #temp#
-  named_scope :to_remind, :conditions => ["returned_date IS NULL AND end_date < CURDATE()"] #temp#
+  named_scope :to_take_back, :conditions => {:returned_date => nil}
+  named_scope :to_remind, :conditions => ["returned_date IS NULL AND end_date < CURDATE()"]
 
 ##################################################
   

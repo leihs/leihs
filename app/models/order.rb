@@ -177,8 +177,17 @@ class Order < Document
   def to_backup
     self.backup = Backup::Order.new(attributes) #.reject {|key, value| key == "id" }
     
-    order_lines.each do |ol|
+    order_lines.not_in_group.each do |ol|
       backup.order_lines << Backup::OrderLine.new(ol.attributes) #.reject {|key, value| key == "id" }     
+    end
+
+    line_groups.each do |lg|
+      blg = Backup::LineGroup.new(lg.attributes)
+      lg.order_lines.each do |ol|
+        bol = Backup::OrderLine.new(ol.attributes)
+        bol.line_group = blg
+        backup.order_lines << bol
+      end
     end
     
     save
@@ -188,9 +197,21 @@ class Order < Document
     self.attributes = backup.attributes.reject {|key, value| key == "order_id" } # or key == "id" 
     
     order_lines.clear
-    backup.order_lines.each do |ol|
+    line_groups.clear
+    
+    backup.order_lines.not_in_group.each do |ol|
       order_lines << OrderLine.new(ol.attributes.reject {|key, value| key == "order_id" }) # or key == "id" 
     end
+    
+    backup.line_groups.each do |blg|
+      lg = LineGroup.new(blg.attributes)
+      blg.order_lines.each do |bol|
+        ol = OrderLine.new(bol.attributes)
+        ol.line_group = lg
+        order_lines << ol
+      end
+    end
+    
     
     histories.each {|h| h.destroy if h.created_at > backup.created_at}
     

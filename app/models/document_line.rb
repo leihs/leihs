@@ -32,7 +32,7 @@ class DocumentLine < ActiveRecord::Base
   
   # OPTIMIZE
   def get_my_group_lines
-    if self.line_group
+    if line_group and line_group.model_group.is_a?(Package)
       group_lines = self.line_group.order_lines # TODO also for contract_lines
     else 
       group_lines = [self]

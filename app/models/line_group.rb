@@ -5,11 +5,7 @@ class LineGroup < ActiveRecord::Base
   
   belongs_to :model_group
 
-  # TODO dependency for packages (Template of type Package)
-
-  # TODO validation: make sure every related line is related to the same inventory pool
-  # TODO validation: make sure every related line has the same time period
-  #validate :all_lines_available?  
+  validate :package_dependencies
 
   # alias
   def lines
@@ -24,5 +20,17 @@ class LineGroup < ActiveRecord::Base
     lines.all? {|l| l.available? }
   end
 
+  private
+  
+  # make sure every related line is related to the same inventory pool and has the same time period
+  def package_dependencies
+    if model_group.is_a?(Package)
+      errors.add_to_base(_("The lines are not related to the same time period")) unless lines.all? {|l| l.start_date == lines.first.start_date and l.end_date == lines.first.end_date }
+      if contract_lines.empty? 
+        errors.add_to_base(_("The lines are not related to the same inventory pool")) unless lines.all? {|l| l.inventory_pool == l.order.inventory_pool }
+      end
+    end
+  end
+  
 
 end

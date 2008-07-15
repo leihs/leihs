@@ -33,12 +33,15 @@
 				<td class="row-closed"><%= result.name %></td>
 				<td>
 					<div class="buttons">
-												
+						<% if result.is_a?(Model)
+							url = { :controller => '/' + params[:source_controller], :action => params[:source_action], :id => params[:id], :model_id => result.id, :line_id => params[:line_id] }
+						else
+							url = { :controller => '/' + params[:source_controller], :action => params[:source_action], :id => params[:id], :model_group_id => result.id, :line_id => params[:line_id] }
+						end %>
+						
 						<%=	link_to(image_tag($layout_public_path + "/images/icons/#{get_action_image(params[:source_action])}.png") + " " + _(get_action_text(params[:source_action])),
-					 	{ :controller => '/' + params[:source_controller], :action => params[:source_action], :id => params[:id], :model_id => result.id, :line_id => params[:line_id] },
-						:method => 'post', :target=> '_top') %>
-						
-						
+				 			url,
+							:method => 'post', :target=> '_top') %>
 					</div>
 				</td>
 			</tr>

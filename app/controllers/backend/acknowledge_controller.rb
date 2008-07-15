@@ -89,6 +89,28 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
   end
 
+  # change quantity for a given line group
+  def change_line_group
+    if request.post?
+      @line_group = @order.line_groups.find(params[:line_group_id])
+      required_quantity = params[:quantity].to_i
+      
+      # prevent division by zero
+      if required_quantity > 0 and @line_group.quantity > 0
+        @line_group.lines.each do |l|
+          params[:quantity] = l.quantity * required_quantity / @line_group.quantity
+          params[:order_line_id] = l.id
+          change_line
+        end
+        
+        @line_group.quantity = required_quantity
+        @line_group.save
+      end
+
+      render :partial => 'lines'
+    end
+  end
+
   def time_lines
     generic_time_lines(@order, @order.id)
   end    

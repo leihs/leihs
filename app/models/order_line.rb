@@ -58,14 +58,18 @@ class OrderLine < DocumentLine
   # OPTIMIZE suggest best possible inventory pool according to the other order_lines
   def assign_inventory_pool
     if self.inventory_pool.nil?
-      inventory_pool = nil
-      model.inventory_pools.each do |ip|
-         if ip.items.count(:conditions => {:model_id => model.id}) >= quantity
-           inventory_pool = ip
-           break
-         end
+      if line_group and line_group.model_group.is_a?(Package)
+        self.inventory_pool = line_group.model_group.inventory_pool
+      else
+        inventory_pool = nil
+        model.inventory_pools.each do |ip|
+           if ip.items.count(:conditions => {:model_id => model.id}) >= quantity
+             inventory_pool = ip
+             break
+           end
+        end
+        self.inventory_pool = inventory_pool
       end
-      self.inventory_pool = inventory_pool 
     end
   end
   

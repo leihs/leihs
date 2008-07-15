@@ -54,8 +54,9 @@ class User < ActiveRecord::Base
     contract
   end
 
+  # get signed contract lines, filtering the already returned lines
   def get_signed_contract_lines
-    contracts.signed_contracts.collect { |c| c.contract_lines }.flatten
+    contracts.signed_contracts.collect { |c| c.contract_lines.to_take_back }.flatten
   end
   
 

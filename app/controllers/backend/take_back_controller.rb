@@ -34,21 +34,17 @@ class Backend::TakeBackController < Backend::BackendController
     @contract_lines.sort! {|a,b| a.end_date <=> b.end_date}
   end
 
-  # set the return dates to the given contract_lines
-  def update_contract
+  # Close definitely the contract
+  def close_contract
     if request.post?
-      @lines = ContractLine.find(params[:lines]) unless params[:lines].nil?
-      @lines.each { |l| l.update_attribute :returned_date, Date.today }
-      
-      # TODO close contract
+      # TODO collect the set of contracts
+      @lines = ContractLine.find(params[:lines]) if params[:lines]
+      @contract = @lines.first.contract # TODO iterate @lines.collect(&:contract)
+
+      # TODO make sure the coherence between paper and storage
       @contract.close if @contract.lines.all? { |l| !l.returned_date.nil? }
       
-      # TODO generate new pdf for the contracts
-      @contract = @lines.first.contract
-      @contract.to_pdf
-      send_data @contract.printouts.last.pdf, :filename => "contract.pdf", :type => "application/pdf"
-      
-      #redirect_to :action => 'index'          
+      redirect_to :action => 'index'          
     else
       #@user = User.find(params[:id])
       #@lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
@@ -56,6 +52,22 @@ class Backend::TakeBackController < Backend::BackendController
       render :layout => $modal_layout_path
     end    
   end
+
+  # Creating the contract to print
+  def print_contract
+#    @lines = @contract.contract_lines.find(params[:lines]) if params[:lines]
+    @lines = ContractLine.find(params[:lines]) if params[:lines]
+
+    # set the return dates to the given contract_lines
+    # TODO reverse if contract is not signed !!!!!!
+    @lines.each { |l| l.update_attribute :returned_date, Date.today }
+          
+    @contract = @lines.first.contract # TODO iterate @lines.collect(&:contract)
+    # TODO generate new pdf for the contracts
+    @contract.to_pdf
+    send_data @contract.printouts.last.pdf, :filename => "contract.pdf", :type => "application/pdf"
+  end  
+  
   
   # given an inventory_code, searches for the matching contract_line
   def assign_inventory_code
