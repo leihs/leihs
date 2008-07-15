@@ -40,7 +40,7 @@
 					<h3>Pakete</h3>
 					<div class="buttons">
 							<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/tab_go.png") + " " + _("Take Back"),
-							 	{ :controller => 'take_back', :action => 'update_contract', :id => @user.id },
+							 	{ :controller => 'take_back', :action => 'close_contract', :id => @user.id },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",
 								:class => "multiple_selection_button",
 								:title => _("Take Back") ) %>

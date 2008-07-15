@@ -106,31 +106,10 @@
 					</div>
 				</div>
 				
-				
-					<table cellspacing="0">
-					<!-- start header -->
-						<tr>
-							<th scope="col"><input type="checkbox" id="order_lines" onClick="mark_all(this, 'order_line_check', 'multiple_selection_button');" /> <%= _("Alle Markieren") %></th>
-							<th scope="col"><%= _("Paket") %></th>
-							<th scope="col"><%= _("Zeitraum") %></th>
-							<th scope="col"><%= _("Aktion") %></th>
-						</tr>
-					<!-- end header -->
 
-					<!-- start iterator -->
-					<% for @line in @order.lines.not_in_group  %>
-						<%= render :partial => 'line' %>
-					<% end %>
-
-					<% for @line_group in @order.line_groups  %>
-						<%= render :partial => 'line_group' %>
-						<% for @line in @line_group.lines  %>
-							<%= render :partial => 'line' %>
-						<% end %>
-					<% end %>
-					<!-- end iterator -->						
-
-						</table>
+				<table cellspacing="0" id='lines'>
+					<%= render :partial => 'lines' %>
+				</table>				
 						
 			</div>
 			

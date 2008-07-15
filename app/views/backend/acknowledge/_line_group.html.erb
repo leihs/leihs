@@ -2,10 +2,11 @@
 
 	<tr class="line_header">
 		<td>
-			<% # TODO %>
-			<%= text_field(:line_group, :quantity, :id =>"line_quantity_#{@line_group.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line_group.id}, :with => "'quantity=' + value" )) %>
-			<% # temp %>
-			<%= @line_group.model_group.inventory_pool.name if is_package %>
+			<% if is_package %>			
+				<%= text_field(:line_group, :quantity, :id =>"line_group_quantity_#{@line_group.id}", :size => 3, :onchange => remote_function( :update => 'lines', :url => { :action => 'change_line_group', :id => @order.id, :line_group_id => @line_group.id}, :with => "'quantity=' + value" )) %>
+				<% # temp %>
+				<%= @line_group.model_group.inventory_pool.name %>
+			<% end %>
 		</td>
 		<td class="title">
 			<%= image_tag($layout_public_path + "/images/icons/package_add.png") %> <%= @line_group.model_group.name %>

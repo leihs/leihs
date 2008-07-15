@@ -10,12 +10,11 @@ class ModelsController < ApplicationController
 #old#      @models += Model.packages # OPTIMIZE
     end
 
-    # OPTIMIZE
+    # OPTIMIZE OPTIMIZE OPTIMIZE
     if params[:id]
       category = Category.find(params[:id])
       @categories = [category] # + category.children.recursive.to_a
-    else
-#      @categories = Category.roots
+    elsif params[:search]
       @categories = @models.collect(&:model_groups).flatten.uniq
       parents = []
       @categories.each do |c|
@@ -23,6 +22,9 @@ class ModelsController < ApplicationController
       end
       @categories << parents
       @categories.flatten!.uniq!
+
+    else
+      @categories = Category.roots
     end
 
     @ancestor_ids = (params[:ancestor_ids] ? params[:ancestor_ids] : 0) # OPTIMIZE
@@ -61,7 +63,8 @@ class ModelsController < ApplicationController
     if request.post?
       if params[:source_controller].include?("backend/") #current_inventory_pool
         # Backend
-        @search_result = current_inventory_pool.models.find_by_contents("*" + params[:search] + "*")
+        # TODO scope Package and Template for the current inventory pool
+        @search_result = current_inventory_pool.models.find_by_contents("*" + params[:search] + "*", :multi => [Package, Template])
       else
         # Frontend
         @search_result = current_user.models.find_by_contents("*" + params[:search] + "*", :multi => [Package, Template])

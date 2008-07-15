@@ -40,6 +40,51 @@ class Backend::TemporaryController < Backend::BackendController
 
     render :text => "Complete"
   end
+
+  
+  
+  
+  def create_some_packages
+    ip = InventoryPool.find_by_name("AVZ")
+    p = Package.create(:name => "Stereo Set", :inventory_pool => ip)
+
+      m = ip.models.find_by_name("Mikrophon Sony Bluetooth ECM-HW1R")
+      p.model_links << ModelLink.create(:model => m, :quantity => 1)
+  
+      m = ip.models.find_by_name("Mikrophon Hama RMZ-14")
+      p.model_links << ModelLink.create(:model => m, :quantity => 1)
+
+    c = Category.find_by_name("Mikrofon")
+    add_to(c, p)
+  end
+
+  def create_some_templates
+    p = Template.create(:name => "Interview Set")
+
+      m = Model.find_by_name("DV-Kamera Sony-HC85E")
+      p.model_links << ModelLink.create(:model => m, :quantity => 1)
+
+      m = Model.find_by_name("Video-Stativ Sachtler DA 75")
+      p.model_links << ModelLink.create(:model => m, :quantity => 1)
+
+      m = Model.find_by_name("UHF-Microphon MIPRO ACT-707D")
+      p.model_links << ModelLink.create(:model => m, :quantity => 2)
+
+      m = Model.find_by_name("Kopfhörer Sony MDR-CD780")
+      p.model_links << ModelLink.create(:model => m, :quantity => 1)
+
+      m = Model.find_by_name("Lichtstativ Alu Nigg 300cm")
+      p.model_links << ModelLink.create(:model => m, :quantity => 1)
+
+      
+      c = Category.find_by_name("Anderes")
+      add_to(c, p)
+  end  
+  
+  
+  
+  
+################################################################################################
   
 private
   
@@ -208,28 +253,6 @@ private
     end
   end
 
-  def create_some_packages
-    5.times do |i|
-      ip = InventoryPool.find(:first, :order => "RAND()")
-      p = Package.create(:name => "package_" + i.to_s, :inventory_pool => ip)
-
-      (rand(5)+2).times do
-        m = ip.models.find(:first, :order => "RAND()")
-        p.model_links << ModelLink.create(:model => m, :quantity => rand(3)+1)
-      end
-    end
-  end
-
-  def create_some_templates
-    5.times do |i|
-      p = Template.create(:name => "template_" + i.to_s)
-
-      (rand(5)+2).times do
-        m = Model.find(:first, :order => "RAND()")
-        p.model_links << ModelLink.create(:model => m, :quantity => rand(3)+1)
-      end
-    end
-  end
   
   def create_some_properties
       chars_up = ("A".."Z").to_a

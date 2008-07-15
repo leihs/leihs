@@ -12,7 +12,7 @@ class CreateOrders < ActiveRecord::Migration
 
     # TODO acts_as_backupable
     create_table :backup_orders do |t|
-      t.belongs_to :order
+      t.belongs_to :order   # reference to orginal
       t.belongs_to :user
       t.belongs_to :inventory_pool
       t.integer :status_const, :default => Order::NEW # TODO create index 

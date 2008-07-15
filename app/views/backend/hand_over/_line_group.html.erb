@@ -20,7 +20,7 @@
 		<td>&nbsp;</td>
 		<td><div class="buttons">
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
-			 	{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id, :lines => @line.id },
+			 	{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id, :lines => @line_group.lines.first },
 				:title => _("Remove Model"), :class => 'negative' ) if is_package %>
 			</div></td>
 	</tr>

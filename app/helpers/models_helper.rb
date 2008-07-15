@@ -3,7 +3,7 @@ module ModelsHelper
   def display_with_children(categories, parent = nil)
     output = "<ul class='model_group'>"
     for category in categories
-      next unless @categories.include?(category)
+      next if category.is_a?(Category) and !@categories.include?(category) 
       output << "<li class='#{category.type}'>"
       output << "<span>" + (parent ? category.label(parent) : category.name)
       output << "<span style='padding-left: 10px;'>" + link_to_remote(_("Add"), :update => 'basket', :url => {:controller => 'orders', :action => 'add_line', :model_group_id => category.id}) + "</span>" if category.type == "Package" or category.type == "Template"
