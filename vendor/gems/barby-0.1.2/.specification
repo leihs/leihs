@@ -1,0 +1,71 @@
+--- !ruby/object:Gem::Specification 
+name: barby
+version: !ruby/object:Gem::Version 
+  version: 0.1.2
+platform: ruby
+authors: 
+- Tore Darell
+autorequire: barby
+bindir: bin
+cert_chain: 
+date: 2008-04-27 00:00:00 +02:00
+default_executable: 
+dependencies: []
+
+description: 
+email: toredarell@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README
+files: 
+- lib/barby.rb
+- lib/barby
+- lib/barby/barcode.rb
+- lib/barby/barcode
+- lib/barby/outputter.rb
+- lib/barby/outputter
+- lib/barby/version.rb
+- lib/barby/barcode/bookland.rb
+- lib/barby/barcode/code_128.rb
+- lib/barby/barcode/code_39.rb
+- lib/barby/barcode/ean_13.rb
+- lib/barby/barcode/ean_8.rb
+- lib/barby/barcode/gs1_128.rb
+- lib/barby/outputter/ascii_outputter.rb
+- lib/barby/outputter/pdfwriter_outputter.rb
+- lib/barby/outputter/rmagick_outputter.rb
+- lib/barby/outputter/cairo_outputter.rb
+- lib/barby/outputter/png_outputter.rb
+- README
+has_rdoc: true
+homepage: http://tore.darell.no/
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- bin
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">"
+    - !ruby/object:Gem::Version 
+      version: 0.0.0
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.1.1
+signing_key: 
+specification_version: 1
+summary: A pure-Ruby barcode generator
+test_files: []
+

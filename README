@@ -17,10 +17,13 @@ We can hope, can't we?
 
 leihs depends on the following gems and/or modules:
 
-Gbarcode 
+Barby 
 gettext
 ferret
- 
+
+They are included in the vendor directory, but if you see any reason to use
+your own system-wide versions, please do.
+
 --
 
 Developed at the Zurich University of the Arts
