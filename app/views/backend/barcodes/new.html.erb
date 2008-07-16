@@ -1,0 +1,19 @@
+<div class="table-overview boxes">
+
+  <h1>Barcode generator</h1>
+
+
+  <% form_tag  :controller => :barcodes, :action => :new, :method => 'post' do -%>
+
+
+  <p>
+  Barcode: <%= text_field_tag 'string', @string, :size => 40 %>
+  </p>
+
+  <p>
+  <%= submit_tag value= _("Generate barcode") %>
+  </p>
+
+  <% end %>
+
+</div>
