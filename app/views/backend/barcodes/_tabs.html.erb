@@ -1,0 +1,7 @@
+<div id="tabs">
+  <ul>
+      <li <%= 'class="active"' if controller.action_name == "new" %>><%= link_to "<span>" + _("Generate barcode") + "</span>",
+      :controller => 'barcodes', :action => 'new' %></li>
+
+  </ul>
+</div>
