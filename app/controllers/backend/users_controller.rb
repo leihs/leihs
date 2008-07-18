@@ -1,6 +1,6 @@
 class Backend::UsersController < Backend::BackendController
   active_scaffold :user do |config|
-    config.columns = [:login, :access_rights]
+    config.columns = [:login, :access_rights, :orders, :contracts]
   end
 
 #  def index
@@ -9,7 +9,7 @@ class Backend::UsersController < Backend::BackendController
 
   # TODO refactor for active_scaffold  
   def details
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]) # TODO scope current_inventory_pool
  
     render :layout => $modal_layout_path
   end

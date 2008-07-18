@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_one  :current_order, :class_name => "Order", :conditions => ["status_const = ?", Contract::NEW]
 
   has_many :contracts
+  has_many :contract_lines, :through => :contracts
   has_many :current_contracts, :class_name => "Contract", :conditions => ["status_const = ?", Contract::NEW]
   
   acts_as_ferret :fields => [ :login ]  #, :store_class_name => true
@@ -58,6 +59,21 @@ class User < ActiveRecord::Base
   def get_signed_contract_lines
     contracts.signed_contracts.collect { |c| c.contract_lines.to_take_back }.flatten
   end
+
+  
+  # TODO temp timeline
+  def timeline
+    events = []
+    contract_lines.each do |l|
+      events << Event.new(l.start_date, l.end_date, l.model.name)
+    end
+
+    xml = Event.wrap(events)
+    
+    f_name = "/javascripts/timeline/user_#{self.id}.xml"
+    File.open("public#{f_name}", 'w') { |f| f.puts xml }
+    f_name
+  end
   
 
 #################### Start role_requirement
@@ -89,8 +105,11 @@ class User < ActiveRecord::Base
   
 #################### End role_requirement
 
+######################################################################## from plugin
+
 #################### Start temp complete record
 
+  # TODO remove it
   before_validation_on_create { |record| 
     record.login ||= "bar"
     record.email ||= "#{rand(100000)}_foo@example.com"

@@ -1,28 +1,29 @@
+<%
+to_acknowledge_size = (@current_inventory_pool.orders.submitted_orders & @user.orders.submitted_orders).size
 
-<ul>
-    <li>
-        <%= link_to _("Dieser Benutzer hat %{n} Bestellungen die noch nicht quittiert sind") % {:n => (@current_inventory_pool.orders.submitted_orders & @user.orders.submitted_orders).size},
-        { :controller => 'acknowledge', :action => 'index', :user_id => @user.id },
-        { :target => '_top' } %>
-    </li>
-    <li>
-        <% # TODO sum quantity from visits %>
-		<% contract = @user.current_contract(@current_inventory_pool) %>
-        <%= link_to _("This user has %{n} items to pick up (waiting for hand over)") % {:n => contract ? contract.lines.size : 0},
-        { :controller => 'hand_over', :action => 'index', :user_id => @user.id },
-        { :target => '_top' } %>
-    </li>
-    <li>
-        <% # TODO sum quantity from visits, scope @current_inventory_pool %>
-		<% lines = @user.contracts.signed_contracts.collect {|c| c.contract_lines.find(:all, :conditions => {:returned_date => nil}) }.flatten %>
-        <%= link_to _("This user has %{n} items to return (waiting for take back)") % {:n => lines.size },
-        { :controller => 'take_back', :action => 'index', :user_id => @user.id },
-        { :target => '_top' } %>
-    </li>
-    <li>
-        <% # TODO sum quantity from visits, scope @current_inventory_pool %>
-        <%= link_to _("This user has %{n} items to remind (waiting for take back)") % {:n => lines.find_all { |l| l.end_date < Date.today }.size },
-        { :controller => 'take_back', :action => 'index', :user_id => @user.id, :remind => true },
-        { :target => '_top' } %>
-    </li>
+# TODO sum quantity from visits
+contract = @user.current_contract(@current_inventory_pool)
+to_hand_over_size = contract ? contract.lines.size : 0
+
+# TODO sum quantity from visits, scope @current_inventory_pool
+lines = @user.contracts.signed_contracts.collect {|c| c.contract_lines.find(:all, :conditions => {:returned_date => nil}) }.flatten
+to_take_back_size = lines.size
+
+# TODO sum quantity from visits, scope @current_inventory_pool
+to_remind_size = lines.find_all { |l| l.end_date < Date.today }.size
+%>
+
+<ul class="buttons">
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/accept.png") + " " + _('Acknowledge') + " (#{to_acknowledge_size})",
+			{ :controller => 'acknowledge', :action => 'index', :user_id => @user.id },
+			{ :target => '_top' } %></li>
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_turn_right.png") + " " + _('Hand Over') + " (#{to_hand_over_size})",
+	        { :controller => 'hand_over', :action => 'index', :user_id => @user.id },
+    	    { :target => '_top' } %></li>
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_undo.png") + " " + _('Take Back') + " (#{to_take_back_size})",
+        	{ :controller => 'take_back', :action => 'index', :user_id => @user.id },
+        	{ :target => '_top' } %></li>
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/clock.png") + " " + _('Remind') + " (#{to_remind_size})",
+        	{ :controller => 'take_back', :action => 'index', :user_id => @user.id, :remind => true },
+        	{ :target => '_top' } %></li>				
 </ul>

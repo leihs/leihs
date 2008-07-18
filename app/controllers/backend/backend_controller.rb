@@ -17,9 +17,9 @@ class Backend::BackendController < ApplicationController
     if request.post?
 
       if params[:model_group_id]
-        model = ModelGroup.find(params[:model_group_id])
+        model = ModelGroup.find(params[:model_group_id]) # TODO scope current_inventory_pool ?
       else
-        model = Model.find(params[:model_id])
+        model = current_inventory_pool.models.find(params[:model_id])
       end
       model.add_to_document(document, params[:user_id], params[:quantity])
 
@@ -41,7 +41,7 @@ class Backend::BackendController < ApplicationController
       if params[:model_id].nil?
         flash[:notice] = _("Model must be selected")
       else
-        document.swap_line(params[:line_id], params[:model_id], session[:user_id])
+        document.swap_line(params[:line_id], params[:model_id], current_user.id)
       end  
       redirect_to :action => 'show', :id => render_id        
     else
@@ -60,7 +60,7 @@ class Backend::BackendController < ApplicationController
       begin
         start_date = Date.new(params[:line]['start_date(1i)'].to_i, params[:line]['start_date(2i)'].to_i, params[:line]['start_date(3i)'].to_i)
         end_date = Date.new(params[:line]['end_date(1i)'].to_i, params[:line]['end_date(2i)'].to_i, params[:line]['end_date(3i)'].to_i)
-        params[:lines].each {|l| document.update_time_line(l, start_date, end_date, session[:user_id]) }
+        params[:lines].each {|l| document.update_time_line(l, start_date, end_date, current_user.id) }
       rescue
         flash[:notice] = "Invalid date" #TODO 
       end 
@@ -74,7 +74,7 @@ class Backend::BackendController < ApplicationController
   # remove OrderLines or ContractLines
   def generic_remove_lines(document, render_id)
      if request.post?
-        params[:lines].each {|l| document.remove_line(l, session[:user_id]) }
+        params[:lines].each {|l| document.remove_line(l, current_user.id) }
         redirect_to :action => 'show', :id => render_id
     else
       @lines = document.lines.find(params[:lines].split(','))

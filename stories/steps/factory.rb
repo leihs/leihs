@@ -100,5 +100,13 @@ module Factory
     t = Category.find_or_create_by_name default_attributes.merge(attributes)
     t
   end
+
+  def self.create_package(attributes = {})
+    default_attributes = {
+      :name => 'package'
+    }
+    t = Package.find_or_create_by_name default_attributes.merge(attributes)
+    t
+  end  
   
 end

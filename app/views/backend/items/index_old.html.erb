@@ -20,7 +20,7 @@
 				<td><%= item.model.name %></td>
 				<td class="line_valid_<%= item.in_stock? %>"><%= item.inventory_code %></td>
 				<td><%= item.serial_number %></td>
-				<td><%= item.status %><%# TODO rename to status_const %></td>
+				<td><%= item.status_const %></td>
 				<td><%= item.inventory_pool.name %></td>
 				<td></td>
 			</tr>

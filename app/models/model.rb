@@ -94,9 +94,9 @@ class Model < ActiveRecord::Base
 #############################################  
 
 
-  def add_to_document(document, user_id, quantity = nil)
+  def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil)
     quantity ||= 1
-    document.add_line(quantity, self, user_id, nil, nil, nil)
+    document.add_line(quantity, self, user_id, start_date, end_date, nil)
   end  
   
   
@@ -104,7 +104,7 @@ class Model < ActiveRecord::Base
   private 
   
   def create_availability(current_time, document_line = nil)    
-    i = self.items.find(:all, :conditions => ['status = ?', Item::AVAILABLE])
+    i = self.items.find(:all, :conditions => {:status_const => Item::AVAILABLE})
     a = Availability.new(i.size)
     a.model = self
     a.reservations(DocumentLine.current_and_future_reservations(id, document_line, current_time))

@@ -7,12 +7,14 @@ if @contract_line
     page["inventory_code"].value = ""
   end
 
-  bool = @contract_line.complete?
+  bool = @contract_line.complete? 
   css_class = "line_valid_#{bool}"
   page << "$('inventory_code_#{@contract_line.id}').className='#{css_class}'"
-  page["dates_#{@contract_line.id}"].innerHTML = "#{short_date(@contract_line.start_date)} - #{short_date(@contract_line.end_date)}" if bool
+  page["dates_#{@contract_line.id}"].innerHTML = "#{short_date(@contract_line.start_date)} - #{short_date(@contract_line.end_date)}" if bool and @contract_line.line_group.nil?
+  
+  page.alert("The start date has been changed") if @start_date_changed
   
   page.replace_html 'errors', :partial => 'errors'
 end
 
-page << "$('inventory_code').focus()"
+#page << "$('inventory_code').focus()"

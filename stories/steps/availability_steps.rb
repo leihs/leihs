@@ -22,7 +22,7 @@ steps_for(:availability) do
   Given "$who marks $quantity '$model' as 'in-repair' on 18.3.2100" do |who, quantity, model|
     @model = Model.find_by_name(model)
     quantity.to_i.times do |i|
-      @model.items[i].status = Item::IN_REPAIR
+      @model.items[i].status_const = Item::IN_REPAIR
       @model.items[i].save
     end
   end
