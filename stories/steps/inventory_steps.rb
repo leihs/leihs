@@ -45,11 +45,6 @@ steps_for(:inventory) do
     @model.categories << Category.find(:first, :conditions => {:name => category})    
   end
 
-  Given "the model '$model' belongs to the model '$package'" do |model, package|
-    @model = Model.find(:first, :conditions => {:name => model})
-    @model.packages << Model.find(:first, :conditions => {:name => package})    
-  end
-
   When "the model '$model' is selected" do | model|
     @model = Model.find(:first, :conditions => {:name => model})
   end
@@ -58,8 +53,27 @@ steps_for(:inventory) do
     @category.models.size.should == size.to_i
   end
 
-  Then "there are $size models belonging to that model" do |size|
-    @model.models.size.should == size.to_i
+
+###############################################
+# Packages
+
+  Given "a package '$package' exists" do | package |
+    package = Factory.create_package(:name => package)
+  end
+
+  Given "the package '$package' has $size model$s '$model'" do |package, size, s, model|
+    p = Package.find(:first, :conditions => {:name => package})
+    m = Model.find(:first, :conditions => {:name => model})
+    p.model_links << ModelLink.create(:model => m, :quantity => size.to_i)
+  end
+
+  When "the package '$package' is selected" do | package |
+    @package = Package.find(:first, :conditions => {:name => package})
+  end
+ 
+  Then "there are $size models belonging to that package with total quantity as $quantity" do |size, quantity|
+    @package.models.size.should == size.to_i
+    @package.total_quantity.should == quantity.to_i
   end
 
 ###############################################

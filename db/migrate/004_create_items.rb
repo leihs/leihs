@@ -5,7 +5,7 @@ class CreateItems < ActiveRecord::Migration
       t.string :serial_number
       t.belongs_to :model
       t.belongs_to :inventory_pool
-      t.integer :status, :default => Item::AVAILABLE  # TODO rename to status_const
+      t.integer :status_const, :default => Item::AVAILABLE
       t.timestamps
     end
     

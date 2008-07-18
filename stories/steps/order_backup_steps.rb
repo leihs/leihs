@@ -92,15 +92,7 @@ steps_for(:order_backup) do
     @order = assigns(:order)
     @order.has_backup?.should == true
   end
-  
-  When "he approves order" do
-    @order.approvable?.should be_true
-    post "/backend/acknowledge/approve/#{@order.id}"
-    @order = assigns(:order)
-    @order.approvable?.should be_false
-    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
-  end
-  
+    
   Then "the order doesn't have a backup anymore" do
     @order.has_backup?.should == false
   end

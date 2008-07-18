@@ -1,6 +1,6 @@
 class Backend::HandOverController < Backend::BackendController
 
-  before_filter :load_contract, :only => [:add_line, :swap_model_line, :time_lines, :remove_lines, :sign_contract, :print_contract]
+  before_filter :pre_load
 
   def index
     
@@ -13,8 +13,6 @@ class Backend::HandOverController < Backend::BackendController
       @visits = current_inventory_pool.hand_over_visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }
 
     elsif params[:user_id]
-      @user = User.find(params[:user_id])
-
       # OPTIMIZE named_scope intersection?
       @visits = current_inventory_pool.hand_over_visits.select {|v| v.user == @user}
     else
@@ -27,9 +25,15 @@ class Backend::HandOverController < Backend::BackendController
 
   # get current open contract for a given user
   def show
-    user = User.find(params[:id])
-    @contract = user.get_current_contract(current_inventory_pool)
-    @contract.contract_lines.sort!
+    @contract = @user.get_current_contract(current_inventory_pool)
+    @contract.contract_lines.sort! #temp# redundant
+  end
+  
+  def delete_visit
+    @contract = @user.get_current_contract(current_inventory_pool)
+    
+    params[:lines].each {|l| @contract.remove_line(l, current_user.id) }
+    redirect_to :action => 'index'
   end
   
   # Sign definitely the contract
@@ -62,12 +66,13 @@ class Backend::HandOverController < Backend::BackendController
     if request.post?
       # TODO refactor in the Contract model and keep track of changes
 
-      @contract_line = ContractLine.find(params[:contract_line_id])
+      @contract_line = ContractLine.find(params[:contract_line_id]) # TODO scope current_inventory_pool
       @contract = @contract_line.contract
       
       required_item_inventory_code = params[:code]
       @contract_line.item = Item.find(:first, :conditions => { :inventory_code => required_item_inventory_code})
       @contract_line.start_date = Date.today
+      @start_date_changed = @contract_line.start_date_changed?
       if @contract_line.save
         #change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
         #log_change(change, user_id)
@@ -77,17 +82,17 @@ class Backend::HandOverController < Backend::BackendController
         end
       end
       
+#      render :partial => 'lines'
     end
   end  
 
   # given an inventory_code, searches for a matching contract_line
   def assign_inventory_code
     if request.post?
-      item = Item.find(:first, :conditions => { :inventory_code => params[:code] })
+      item = current_inventory_pool.items.find(:first, :conditions => { :inventory_code => params[:code] })
       model = item.model unless item.nil?
       unless model.nil?
-        contract = Contract.find(params[:id])
-        contract_line = contract.contract_lines.find(:first,
+        contract_line = @contract.contract_lines.find(:first,
                                                      :conditions => { :model_id => model.id,
                                                                       :item_id => nil })
         unless contract_line.nil?
@@ -117,11 +122,17 @@ class Backend::HandOverController < Backend::BackendController
     generic_remove_lines(@contract, @contract.user.id)
   end  
 
-
+  # TODO temp timeline
+  def timeline
+    @timeline_xml = @contract.timeline
+    render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'
+  end
+    
   private
   
-  def load_contract
-    @contract = Contract.find(params[:id]) if params[:id]
+  def pre_load
+    @contract = current_inventory_pool.contracts.find(params[:id]) if params[:id] # TODO scope new_contracts ?
+    @user = User.find(params[:user_id]) if params[:user_id] # TODO scope current_inventory_pool
   end
 
 

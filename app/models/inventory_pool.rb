@@ -40,6 +40,41 @@ class InventoryPool < ActiveRecord::Base
    @r_visits ||= take_back_or_remind_visits(:remind => true)
   end
 
+
+  # TODO temp timeline
+  def timeline
+    events = []
+    contract_lines.each do |l|
+      events << Event.new(l.start_date, l.end_date, l.model.name)
+    end
+
+    xml = Event.wrap(events)
+    
+    f_name = "/javascripts/timeline/inventory_pool_#{self.id}.xml"
+    File.open("public#{f_name}", 'w') { |f| f.puts xml }
+    f_name
+  end
+
+  # TODO temp timeline
+  def timeline_visits
+    events = []
+    hand_over_visits.each do |v|
+      events << Event.new(v.date, v.date, v.user.login, false)
+    end
+
+    take_back_visits.each do |v|
+      events << Event.new(v.date, v.date, v.user.login, false, "take_back")
+    end
+
+    xml = Event.wrap(events)
+    
+    f_name = "/javascripts/timeline/inventory_pool_#{self.id}_visits.xml"
+    File.open("public#{f_name}", 'w') { |f| f.puts xml }
+    f_name
+  end
+
+###################################################################################
+
   private
   
   def take_back_or_remind_visits(remind = false)

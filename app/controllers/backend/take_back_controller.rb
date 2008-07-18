@@ -9,8 +9,8 @@ class Backend::TakeBackController < Backend::BackendController
       # OPTIMIZE named_scope intersection?
       @visits = current_inventory_pool.take_back_visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }
       
-    elsif params[:user_id] #TODO
-      @user = User.find(params[:user_id])
+    elsif params[:user_id]
+      @user = User.find(params[:user_id]) # TODO scope current_inventory_pool
 
       # OPTIMIZE named_scope intersection?
       @visits = current_inventory_pool.take_back_visits.select {|v| v.user == @user}
@@ -28,7 +28,7 @@ class Backend::TakeBackController < Backend::BackendController
 
   # get current contracts for a given user
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]) # TODO scope current_inventory_pool
     @contract_lines = @user.get_signed_contract_lines
     
     @contract_lines.sort! {|a,b| a.end_date <=> b.end_date}
@@ -38,7 +38,7 @@ class Backend::TakeBackController < Backend::BackendController
   def close_contract
     if request.post?
       # TODO collect the set of contracts
-      @lines = ContractLine.find(params[:lines]) if params[:lines]
+      @lines = ContractLine.find(params[:lines]) if params[:lines] # TODO scope current_inventory_pool
       @contract = @lines.first.contract # TODO iterate @lines.collect(&:contract)
 
       # TODO make sure the coherence between paper and storage
@@ -48,7 +48,7 @@ class Backend::TakeBackController < Backend::BackendController
     else
       #@user = User.find(params[:id])
       #@lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
-      @lines = ContractLine.find(params[:lines].split(','))
+      @lines = ContractLine.find(params[:lines].split(',')) # TODO scope current_inventory_pool
       render :layout => $modal_layout_path
     end    
   end
@@ -56,7 +56,7 @@ class Backend::TakeBackController < Backend::BackendController
   # Creating the contract to print
   def print_contract
 #    @lines = @contract.contract_lines.find(params[:lines]) if params[:lines]
-    @lines = ContractLine.find(params[:lines]) if params[:lines]
+    @lines = ContractLine.find(params[:lines]) if params[:lines] # TODO scope current_inventory_pool
 
     # set the return dates to the given contract_lines
     # TODO reverse if contract is not signed !!!!!!
@@ -72,9 +72,9 @@ class Backend::TakeBackController < Backend::BackendController
   # given an inventory_code, searches for the matching contract_line
   def assign_inventory_code
     if request.post?
-      item = Item.find(:first, :conditions => { :inventory_code => params[:code] })
+      item = current_inventory_pool.items.find(:first, :conditions => { :inventory_code => params[:code] })
       unless item.nil?
-        @user = User.find(params[:id])
+        @user = User.find(params[:id]) # TODO scope current_inventory_pool
         contract_lines = @user.get_signed_contract_lines
     
         contract_lines.sort! {|a,b| a.end_date <=> b.end_date} # TODO select first to take back
@@ -88,5 +88,11 @@ class Backend::TakeBackController < Backend::BackendController
     end
   end
 
+  # TODO temp timeline
+  def timeline
+    @user = User.find(params[:id]) # TODO scope current_inventory_pool
+    @timeline_xml = @user.timeline
+    render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'
+  end
     
 end

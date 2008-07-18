@@ -20,16 +20,20 @@ steps_for(:order) do
 
   When "$who approves order" do |who|
     @comment ||= ""
+    @order.approvable?.should be_true
     post "/backend/acknowledge/approve", :id => @order.id, :comment => @comment
     @order = assigns(:order)
-    @orders_size = assigns(:to_acknowledge_size)
     @order.should_not be_nil
+    @order.approvable?.should be_false
+    @orders_size = assigns(:to_acknowledge_size)
+    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
     @response = response
   end
 
 
-  When "he rejects order" do
-    post "/backend/acknowledge/reject/#{@order.id}"
+  When "$who rejects order" do |who|
+    @comment ||= ""
+    post "/backend/acknowledge/reject", :id => @order.id, :comment => @comment
     @order = assigns(:order)
     response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
   end

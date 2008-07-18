@@ -12,12 +12,6 @@ function checkbox_values(boxes){
 }
 
 //TODO write as generic
-function change_href(a, name){
-	change_href(a, name, name);
-	
-}
-
-//TODO write as generic
 function change_href(a, checkbox_name, param_name){
 	var cbv = checkbox_values(checkbox_name + '_check');
 	

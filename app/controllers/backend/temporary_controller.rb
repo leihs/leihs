@@ -18,10 +18,10 @@ class Backend::TemporaryController < Backend::BackendController
       create_meaningful_inventory
     end
     
-    create_some_packages
-    create_some_templates
    # create_some_categories
     create_some_root_categories
+    create_some_packages
+    create_some_templates
     create_some_properties
     create_some_compatibles
     
@@ -41,9 +41,96 @@ class Backend::TemporaryController < Backend::BackendController
     render :text => "Complete"
   end
 
+
+  def scene_3a
+    u = User.find_by_login("Franco Sellitto")
+    
+    order = u.get_current_order
+    start_date = Date.new(2008, 7, 15)
+    end_date = Date.new(2008, 8, 4)
+
+    m1 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("HDV/DVCam-Kamera Sony HVR-Z1E")
+    order.add_line(2, m1, u.id, start_date, end_date )
+    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("LCD Monitor Panasonic BT-LH900AE")
+    order.add_line(1, m2, u.id, start_date, end_date )
+    m3 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Stativ Velbon TH650 Admiral")
+    order.add_line(2, m3, u.id, start_date, end_date )
+
+    start_date = Date.new(2008, 8, 4)
+    end_date = Date.new(2008, 10, 1)
+    m1 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("PC Siemens Celsius W340, P4 3.2GHz 1GB")
+    order.add_line(1, m1, u.id, start_date, end_date )
+    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("HD LaCie d2 Drive 250 GB")
+    order.add_line(1, m2, u.id, start_date, end_date )
+
+    order.purpose = "Filming Scarface 2"
+    output1 = order.submit
+
+    ######
+        
+    u = User.find_by_login("Ramon Cahenzli")
+
+    order = u.get_current_order
+    start_date = Date.new(2008, 7, 15)
+    end_date = Date.new(2008, 7, 25)
+
+    p1 = u.inventory_pools.find_by_name("AVZ").packages.find_by_name("Stereo Set")
+    p1.add_to_document(order, u.id, 1, start_date, end_date)
+    
+    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Digitalrecorder Edirol R-1")
+    m2.add_to_document(order, u.id, 1, start_date, end_date)
+ 
+    start_date = Date.new(2008, 7, 25)
+    end_date = Date.new(2008, 8, 4)
+    m1 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("PC Siemens Celsius W340, P4 3.2GHz 1GB")
+    m1.add_to_document(order, u.id, 1, start_date, end_date)
+    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Aktivboxen Sony SRS-Z750")
+    m2.add_to_document(order, u.id, 4, start_date, end_date)
+    
+    order.purpose = "Recording CD"
+    output2 = order.submit
+    
+    render :text => "#{output1} - #{output2}"
+  end
+
+   def scene_3b
+    u = User.find_by_login("Ramon Cahenzli")
+
+    order = u.get_current_order
+    start_date = Date.new(2008, 9, 1)
+    end_date = Date.new(2008, 10, 2)
+
+    p1 = u.inventory_pools.find_by_name("AVZ").packages.find_by_name("Stereo Set")
+    p1.add_to_document(order, u.id, 1, start_date, end_date)
+    
+    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Digitalrecorder Edirol R-1")
+    m2.add_to_document(order, u.id, 1, start_date, end_date)
+     
+    order.purpose = "Recording CD (one more time)"
+    output1 = order.submit
+    
+    render :text => "#{output1}"
+  end
+ 
   
   
+################################################################################################
   
+private
+  
+#  def create_some_inventory
+#    params[:id].to_i.times do |i|
+#      m = Model.new(:name => params[:name] + " " + i.to_s)
+#      m.save
+#      5.times do |serial_nr|
+#        i = Item.new(:model_id => m.id, :inventory_code => Item.get_new_unique_inventory_code)
+#      
+#        i.save
+#      end
+#    end
+#  end
+
+ 
   def create_some_packages
     ip = InventoryPool.find_by_name("AVZ")
     p = Package.create(:name => "Stereo Set", :inventory_pool => ip)
@@ -82,24 +169,6 @@ class Backend::TemporaryController < Backend::BackendController
   end  
   
   
-  
-  
-################################################################################################
-  
-private
-  
-#  def create_some_inventory
-#    params[:id].to_i.times do |i|
-#      m = Model.new(:name => params[:name] + " " + i.to_s)
-#      m.save
-#      5.times do |serial_nr|
-#        i = Item.new(:model_id => m.id, :inventory_code => Item.get_new_unique_inventory_code)
-#      
-#        i.save
-#      end
-#    end
-#  end
-
 
   def create_some_users
     params[:id].to_i.times do |i|
@@ -136,6 +205,11 @@ private
     users = ['Ramon Cahenzli', 'Jerome Müller', 'Franco Sellitto']
     users.each do |u|
       u = User.new(:login => u.to_s)
+        r = Role.find(:first, :conditions => {:name => "student"})
+        ips = InventoryPool.find(:all, :conditions => {:name => ["AVZ", "ITZ"]})
+        ips.each do |ip|
+          u.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
+        end
       u.save
     end
   end

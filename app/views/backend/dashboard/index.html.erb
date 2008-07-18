@@ -1,0 +1,23 @@
+Inventory Pool: <%= @current_inventory_pool.name %>
+
+<div class="buttons">
+	
+<% # TODO temp timeline %>
+<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
+ 	{ :controller => 'dashboard', :action => 'timeline' },
+	:title => _("Timeline"), :width => 1000 ) %>						
+
+<% # TODO temp timeline %>
+<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline Visits"),
+ 	{ :controller => 'dashboard', :action => 'timeline_visits' },
+	:title => _("Timeline Visits"), :width => 1000 ) %>						
+
+</div>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

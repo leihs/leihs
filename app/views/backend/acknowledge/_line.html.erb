@@ -9,13 +9,17 @@
 				<%= @line.quantity %>
 			<% end %>	
 			<% # TODO temp start %>
-				<br />
-				<%= "(max #{@line.model.maximum_available_in_period(@line.start_date, @line.end_date, @line)})" %>
-				<ul>
-					<% for ip in @line.model.inventory_pools %>
-						<li <%= (@line.inventory_pool == ip ? "style='color: red;'" : "") %>><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %></li>
-					<% end %>
-				</ul>
+			  <ul>
+			  <% if @current_inventory_pool %>
+			  	<% ip = @current_inventory_pool %>
+				<li><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %></li>
+			  <% else %>
+				<li><%= "(max #{@line.model.maximum_available_in_period(@line.start_date, @line.end_date, @line)})" %></li>
+				<% for ip in @line.model.inventory_pools %>
+					<li <%= (@line.inventory_pool == ip ? "style='color: red;'" : "") %>><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %></li>
+				<% end %>
+			  <% end %>
+			  </ul>
 			<% # TODO temp end %>							
 		</td>
 		<td>
@@ -40,7 +44,7 @@
 
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/attach.png") + " " + _("Add Options"),
 			 	{ :controller => 'acknowledge', :action => 'add_options', 
-					:id => @order.id, :order_lines => @line.id },
+					:id => @order.id, :lines => @line.id },
 					{:title => _("Add Options"), :width => 850}) %>
 			</div></td>
 	</tr>

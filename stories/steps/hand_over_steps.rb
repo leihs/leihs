@@ -62,7 +62,7 @@ steps_for(:hand_over) do
 
   When "$who chooses one line" do | who |
     line = @visits.first
-    get "/backend/hand_over/show/#{line.user.id}"
+    get "/backend/hand_over/show", :user_id => line.user.id
     response.should render_template('backend/hand_over/show')
     @contract = assigns(:contract)
   end

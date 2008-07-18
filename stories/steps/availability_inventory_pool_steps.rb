@@ -32,8 +32,8 @@ steps_for(:availability_inventory_pool) do
   Then "the maximum number of available '$model' for '$who' is $size" do |model, who, size|
     user = User.find_by_login(who)
     @model = Model.find_by_name(model)
-    #old# user.inventory_pools.collect(&:items).flatten.find_all{|i| i.model == @model }.size.should == size.to_i    
-    user.items.count(:conditions => {:model_id => @model.id}).size.should == size.to_i
+    #old# user.inventory_pools.collect(&:items).flatten.find_all{|i| i.model == @model }.size.should == size.to_i
+    user.items.count(:conditions => {:model_id => @model.id}).should == size.to_i
   end
   
 ###########################################################################
@@ -66,5 +66,23 @@ steps_for(:availability_inventory_pool) do
     end
     total.should == number.to_i
   end
+
   
+###########################################################################
+
+  When "'$who' searches for '$model'" do |who, model|
+    post "/session", :login => who, :password => "pass"
+    post "/models/index", :search => model
+    @models = assigns(:models)
+  end
+  
+  Then "he gets an empty result set" do
+    @models.empty?.should == true
+  end
+
+  Then "he sees '$model'" do |model|
+    m = Model.find_by_name(model)
+    @models.include?(m).should == true
+  end
+
 end

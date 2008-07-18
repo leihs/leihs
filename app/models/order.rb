@@ -44,6 +44,7 @@ class Order < Document
   end
 
 
+  # TODO forward Options
   # approves order then generates a new contract and contract_lines for each item
   def approve(comment)
     if approvable?
@@ -152,23 +153,7 @@ class Order < Document
     # [line, change]
   end  
   
-  
-  def time_window_min
-    d1 = Array.new
-    self.order_lines.each do |ol|
-      d1 << ol.start_date
-    end
-    d1.min
-  end
-  
-  def time_window_max
-    d2 = Array.new
-    self.order_lines.each do |ol|
-      d2 << ol.end_date
-    end
-    d2.max
-  end
-  
+    
   # TODO acts_as_backupable ##################
   def has_backup?
     !self.backup.nil?

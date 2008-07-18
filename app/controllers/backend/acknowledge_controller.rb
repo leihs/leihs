@@ -12,8 +12,6 @@ class Backend::AcknowledgeController < Backend::BackendController
       @orders = @submitted_orders.find_by_contents(params[:search])
     elsif params[:user_id]
       # OPTIMIZE named_scope intersection?
-#old#      @orders = @submitted_orders.select { |o| o.user.id == params[:user_id].to_i}
-      
       @user = User.find(params[:user_id])
       @orders = @submitted_orders & @user.orders.submitted_orders
     end
@@ -28,6 +26,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def approve
     if request.post? and @order.approve(params[:comment])
+      @order.destroy # TODO remove old orders ?
       remove_order_from_session
       redirect_to :action => 'index'
     else
@@ -79,7 +78,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   # change quantity for a given line
   def change_line
     if request.post?
-      @order_line = OrderLine.find(params[:order_line_id])
+      @order_line = OrderLine.find(params[:order_line_id]) # TODO scope current_inventory_pool
       @order = @order_line.order
       required_quantity = params[:quantity].to_i
 
@@ -120,10 +119,10 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
 
   def add_options
-    @option = params[:option_id].nil? ? Option.new : Option.find(params[:option_id]) 
+    @option = params[:option_id].nil? ? Option.new : Option.find(params[:option_id]) # TODO scope current_inventory_pool
     if request.post?
       params[:lines].each do | ol | 
-        line = OrderLine.find(ol)
+        line = OrderLine.find(ol) # TODO scope current_inventory_pool
         option = Option.new(params[:option])
         if option.save
           line.options << option
@@ -135,7 +134,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       end
       redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id      
     else
-      @order_lines = OrderLine.find(params[:lines].split(','))
+      @order_lines = OrderLine.find(params[:lines].split(',')) # TODO scope current_inventory_pool
       render :layout => $modal_layout_path      
     end
   end
@@ -145,7 +144,7 @@ class Backend::AcknowledgeController < Backend::BackendController
         params[:options].each {|o| @order.remove_option(o, session[:user_id]) }
         redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
     else
-      @options = Option.find(params[:options].split(','))
+      @options = Option.find(params[:options].split(',')) # TODO scope current_inventory_pool
       render :layout => $modal_layout_path
     end   
   end
@@ -177,12 +176,17 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
   end   
 
+  # TODO temp timeline
+  def timeline
+    @timeline_xml = @order.timeline
+    render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'
+  end
     
     
   private
   
   def load_order
-      @order = Order.find(params[:id], :conditions => { :status_const => Order::SUBMITTED }) if params[:id]
+      @order = current_inventory_pool.orders.submitted_orders.find(params[:id]) if params[:id]
     rescue
       redirect_to :action => 'index' unless @order
   end

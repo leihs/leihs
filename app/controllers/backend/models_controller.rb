@@ -11,7 +11,7 @@ class Backend::ModelsController < Backend::BackendController
 #  end
 
   def details
-    @model = Model.find(params[:id])
+    @model = Model.find(params[:id]) # TODO scope current_inventory_pool
  
     render :layout => $modal_layout_path
   end

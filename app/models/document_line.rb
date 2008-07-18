@@ -8,8 +8,8 @@ class DocumentLine < ActiveRecord::Base
 
 ###############################################  
   
-  named_scope :in_group, :conditions => ['line_group_id IS NOT NULL']
-  named_scope :not_in_group, :conditions => ['line_group_id IS NULL']
+  named_scope :in_group, :conditions => ['line_group_id IS NOT NULL'], :order => "start_date, end_date"
+  named_scope :not_in_group, :conditions => ['line_group_id IS NULL'], :order => "start_date, end_date"
 
 ###############################################  
 
@@ -30,10 +30,9 @@ class DocumentLine < ActiveRecord::Base
     model.maximum_available_in_period(start_date, end_date, self) >= quantity
   end
   
-  # OPTIMIZE
   def get_my_group_lines
     if line_group and line_group.model_group.is_a?(Package)
-      group_lines = self.line_group.order_lines # TODO also for contract_lines
+      group_lines = line_group.lines
     else 
       group_lines = [self]
     end    

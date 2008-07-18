@@ -9,9 +9,29 @@ class Document < ActiveRecord::Base
   def <=>(other)
     self.created_at <=> other.created_at
   end
+
+################################################################
+  def time_window_min
+    d1 = Array.new
+    self.lines.each do |ol|
+      d1 << ol.start_date
+    end
+    d1.min
+  end
+  
+  def time_window_max
+    d2 = Array.new
+    self.lines.each do |ol|
+      d2 << ol.end_date
+    end
+    d2.max
+  end
   
 ################################################################
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil, line_group = nil)
+      start_date ||= time_window_min
+      end_date ||= time_window_max
+    
       c = "#{self.class}Line".constantize
       o = c.new(:quantity => quantity,
                 :model_id => model.to_i,
@@ -58,14 +78,18 @@ class Document < ActiveRecord::Base
   
   # with group_line dependency # TODO test
   def remove_line(line_id, user_id)
-    line = lines.find(line_id.to_i)
-    group_lines = line.get_my_group_lines
-    
-    group_lines.each do |l|
-      change = _("Removed %{m}") % { :m => l.model.name }
-      l.destroy
-      lines.delete(l)
-      log_change(change, user_id)
+    begin
+      line = lines.find(line_id.to_i)
+      group_lines = line.get_my_group_lines
+  
+      group_lines.each do |l|
+        change = _("Removed %{m}") % { :m => l.model.name }
+        l.destroy
+        lines.delete(l)
+        log_change(change, user_id)
+      end
+    rescue
+      # prevent exception trying to delete a line already deleted within a line_group
     end
   end  
   
@@ -88,6 +112,24 @@ class Document < ActiveRecord::Base
   #
   #######################
 
+
+  # TODO temp timeline
+  def timeline
+    events = []
+    lines.each do |l|
+      events << Event.new(l.start_date, l.end_date, l.model.name)
+#      events << Event.new(:start => l.start_date,
+#                          :end => l.end_date,
+#                          :title => l.model.name,
+#                          :isDuration => true)
+    end
+
+    xml = Event.wrap(events)
+    
+    f_name = "/javascripts/timeline/document_#{self.id}.xml"
+    File.open("public#{f_name}", 'w') { |f| f.puts xml }
+    f_name
+  end
 
 #  protected
   
