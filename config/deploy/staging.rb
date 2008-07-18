@@ -45,7 +45,7 @@ namespace :deploy do
 	end
 
 	task :restart do
-	# dito
+          run "pkill -SIGUSR2 -f -u leihs -- '-e development.*leihs2test'"
 	end
 end
 
