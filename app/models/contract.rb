@@ -5,7 +5,7 @@ class Contract < Document
   has_many :contract_lines, :dependent => :destroy
   has_many :models, :through => :contract_lines #OPTIMIZE , :uniq => true
   has_many :line_groups, :through => :contract_lines, :uniq => true
-  has_and_belongs_to_many :printouts  # TODO , :dependent => :destroy
+  # TODO remove Printout: has_and_belongs_to_many :printouts  #, :dependent => :destroy
 
   acts_as_ferret :fields => [ :user_login, :lines_model_names ],
                  :store_class_name => true
@@ -30,12 +30,9 @@ class Contract < Document
 
 #########################################################################
 
-  def sign
+  def sign(contract_lines = nil)
     update_attribute :status_const, Contract::SIGNED 
-  end
 
-
-  def to_sign(contract_lines = nil)
     if contract_lines and contract_lines.any? { |cl| cl.item }
 
       # double check
@@ -43,16 +40,13 @@ class Contract < Document
       
       lines_for_new_contract = self.contract_lines - contract_lines
       if lines_for_new_contract
-        update_attribute :status_const, Contract::SIGNED # OPTIMIZE temp hack#  
-          new_contract = user.get_current_contract(self.inventory_pool)
-        update_attribute :status_const, Contract::NEW # OPTIMIZE temp hack# 
-
+        new_contract = user.get_current_contract(self.inventory_pool)
+  
         lines_for_new_contract.each do |cl|
           cl.update_attribute :contract, new_contract
         end
       end
       
-      reload.to_pdf
     end
   end
 
@@ -62,14 +56,14 @@ class Contract < Document
 
   # TODO contract layout
   def to_pdf
-    printout = Printout.create
+# TODO remove Printout    printout = Printout.create
     
     ### Start PDF
       fpdf = FPDF.new
       fpdf.AddPage
   
       fpdf.SetFont('Arial', 'B', 16)
-      fpdf.Cell(40, 10, "Contract: #{id}-#{printout.id}")
+      fpdf.Cell(40, 10, "Contract: #{id}") # "-#{printout.id}"
       fpdf.Ln
   
       fpdf.SetFont('Arial', '', 10)
@@ -79,9 +73,11 @@ class Contract < Document
       end
     ### End PDF
 
-    printout.pdf = fpdf.Output
-    printout.save
-    printouts << printout
+# TODO remove Printout
+#    printout.pdf = fpdf.Output
+#    printout.save
+#    printouts << printout
+    fpdf.Output
   end
 
 

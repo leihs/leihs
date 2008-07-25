@@ -21,8 +21,8 @@ class Event
   def to_xml
     xml = Document.new()
     e = Element.new("event")
-    e.attributes["start"] = @start.strftime("%c")
-    e.attributes["end"] = @end.strftime("%c")
+    e.attributes["start"] = @start.strftime("%c %Z")
+    e.attributes["end"] = @end.strftime("%c %Z")
     e.attributes["title"] = @title
     e.attributes["isDuration"] = @isDuration
     e.attributes["icon"] = "api/images/dull-red-circle.png" if @action == "take_back"

@@ -9,6 +9,7 @@ class OrdersController < ApplicationController
   
   def new
     @order = current_user.get_current_order
+    render :layout => false if params[:_dc] # TODO temp extjs
   end
 
   def submit

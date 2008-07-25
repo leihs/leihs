@@ -20,6 +20,7 @@ function change_href(a, checkbox_name, param_name){
 		// window.event.stopPropagation();
 	//}else{
 		b = a.href.split('?');
+		//a.href = b[0] + '?' + b[1] + '&' + param_name + 's=' + cbv;
 		a.href = b[0] + '?' + param_name + 's=' + cbv;
 		decoGreyboxLinks();
 	//}

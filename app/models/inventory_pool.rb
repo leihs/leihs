@@ -1,6 +1,7 @@
 class InventoryPool < ActiveRecord::Base
 
   has_many :access_rights
+  has_many :users, :through => :access_rights
 
   has_many :items
   has_many :models, :through => :items, :uniq => true #, :group => :id

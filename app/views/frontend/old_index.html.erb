@@ -1,0 +1,74 @@
+  <div id="model_list" style="padding:20px"></div>
+  <% javascript_tag do -%>
+
+Ext.onReady(function(){
+
+    // create the Data Store
+    var store = new Ext.data.Store({
+        proxy: new Ext.data.HttpProxy(
+			new Ext.data.Connection({
+            	url: '/frontend/index',
+				method: 'GET',
+				extraParams: {format:'ext_json'}
+			})
+        ),
+
+        // create reader that reads the Topic records
+        reader: new Ext.data.JsonReader({
+            root: 'models',
+            totalProperty: 'results',
+            id: 'id',
+            fields: [
+                'name', 'manufacturer'
+            ]
+        }),
+
+        // turn on remote sorting
+        remoteSort: true
+    });
+    store.setDefaultSort('name', 'desc');
+	
+    // the column model has information about grid columns
+    // dataIndex maps the column to the specific data field in
+    // the data store
+    var cm = new Ext.grid.ColumnModel([{
+           header: "Name",
+           dataIndex: 'name',
+           width: 400
+        },{
+           header: "Manufacturer",
+           dataIndex: 'manufacturer',
+           width: 200
+        }]);
+
+    // by default columns are sortable
+    cm.defaultSortable = true;
+
+    var grid = new Ext.grid.GridPanel({
+        el:'model_list',
+        width:700,
+        height:500,
+        title:'Models',
+        store: store,
+        cm: cm,
+        loadMask: true,
+		bbar: new Ext.PagingToolbar({
+            pageSize: 25,
+            store: store,
+            displayInfo: true,
+            displayMsg: 'Displaying topics {0} - {1} of {2}',
+            emptyMsg: "No topics to display"
+        })
+    });
+
+    // render it
+    grid.render();
+
+    // trigger the data store load
+    store.load({params:{start:0, limit:25}});
+
+});
+
+
+  <% end -%>
+  

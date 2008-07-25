@@ -55,6 +55,8 @@ class ModelsController < ApplicationController
       page << "elem = $('categories');"
       page << "if (elem) {"
       page.replace_html "categories", :partial => 'categories_and_models'
+#      page << "}else{"
+#      page.replace_html "inner-container", :action => 'index', :layout => false
       page << "}"
     end
   end  

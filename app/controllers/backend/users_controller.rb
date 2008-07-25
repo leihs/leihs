@@ -3,11 +3,18 @@ class Backend::UsersController < Backend::BackendController
     config.columns = [:login, :access_rights, :orders, :contracts]
   end
 
+# TODO filter for inventory_pool
+  # filter for active_scaffold
+#  def conditions_for_collection
+#     {:inventory_pool_id => current_inventory_pool.id}
+#  end
+
+#################################################################
+
 #  def index
 #    @users = User.find(:all)    
 #  end
 
-  # TODO refactor for active_scaffold  
   def details
     @user = User.find(params[:id]) # TODO scope current_inventory_pool
  

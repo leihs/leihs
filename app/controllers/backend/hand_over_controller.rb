@@ -25,28 +25,23 @@ class Backend::HandOverController < Backend::BackendController
 
   # get current open contract for a given user
   def show
-    @contract = @user.get_current_contract(current_inventory_pool)
     @contract.contract_lines.sort! #temp# redundant
   end
   
   def delete_visit
-    @contract = @user.get_current_contract(current_inventory_pool)
-    
     params[:lines].each {|l| @contract.remove_line(l, current_user.id) }
     redirect_to :action => 'index'
   end
   
   # Sign definitely the contract
   def sign_contract
+    #@user = User.find(params[:user_id])
+    #@lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
+    @lines = @contract.contract_lines.find(params[:lines].split(','))
     if request.post?
-      # TODO make sure the coherence between paper and storage
-      @contract.sign
-
-      redirect_to :action => 'index'
+      @contract.sign(@lines)
+      redirect_to :action => 'print_contract', :id => @contract.id #'index'
     else
-      #@user = User.find(params[:id])
-      #@lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
-      @lines = @contract.contract_lines.find(params[:lines].split(','))
       @lines = @lines.delete_if {|l| l.item.nil? }
       render :layout => $modal_layout_path
     end    
@@ -54,11 +49,12 @@ class Backend::HandOverController < Backend::BackendController
 
   # Creating the contract to print
   def print_contract
-    @lines = @contract.contract_lines.find(params[:lines]) unless params[:lines].nil?
-    @contract.to_sign(@lines)
-
-    # TODO generate contract
-    send_data @contract.printouts.last.pdf, :filename => "contract.pdf", :type => "application/pdf"
+    if request.post?
+      #old# send_data @contract.printouts.last.pdf, :filename => "contract.pdf", :type => "application/pdf"
+      send_data @contract.to_pdf, :filename => "contract_#{@contract.id}.pdf", :type => "application/pdf"
+    else
+      render :layout => $modal_layout_path
+    end    
   end
 
   # Changes the line according to the inserted inventory code
@@ -74,8 +70,8 @@ class Backend::HandOverController < Backend::BackendController
       @contract_line.start_date = Date.today
       @start_date_changed = @contract_line.start_date_changed?
       if @contract_line.save
-        #change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
-        #log_change(change, user_id)
+        # TODO refactor in model: change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
+        # TODO refactor in model: log_change(change, user_id)
       else
         @contract_line.errors.each_full do |msg|
           @contract.errors.add_to_base msg
@@ -106,20 +102,20 @@ class Backend::HandOverController < Backend::BackendController
 
   
   def add_line
-    generic_add_line(@contract, @contract.user.id)
+    generic_add_line(@contract, @contract.id)
   end
 
   def swap_model_line
-    generic_swap_model_line(@contract, @contract.user.id)
+    generic_swap_model_line(@contract, @contract.id)
   end
 
   def time_lines
-    generic_time_lines(@contract, @contract.user.id)
+    generic_time_lines(@contract, @contract.id)
   end    
 
   # remove a contract line for a given contract
   def remove_lines
-    generic_remove_lines(@contract, @contract.user.id)
+    generic_remove_lines(@contract, @contract.id)
   end  
 
   # TODO temp timeline
@@ -133,6 +129,7 @@ class Backend::HandOverController < Backend::BackendController
   def pre_load
     @contract = current_inventory_pool.contracts.find(params[:id]) if params[:id] # TODO scope new_contracts ?
     @user = User.find(params[:user_id]) if params[:user_id] # TODO scope current_inventory_pool
+    @contract ||= @user.get_current_contract(current_inventory_pool) if @user
   end
 
 

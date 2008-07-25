@@ -1,8 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
 
   
-  map.resources :users
+  map.resources :users, :collection => { :timeline => :get } #do |user|
+  #end
   map.resource :session
+  
   # For RESTful_Authentication
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.signup '/signup', :controller => 'users', :action => 'new'

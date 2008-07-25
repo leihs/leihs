@@ -230,7 +230,7 @@ class Order < Document
 
 #old#    
 #    if !inventory_pool and lines.first #temp#
-#      #working#
+#      #temp#
 #      #    # TODO check availability and TODO scope user's visible inventory pools
 #      #  
 #      #    # collect possible inventory pools 

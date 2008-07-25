@@ -1,0 +1,8 @@
+<ul>
+	<li><%= link_to _('Items') + " (#{@current_inventory_pool.items.size})", :controller => 'items' %></li>
+	<li><%= link_to _('Orders'), :controller => 'orders' %></li>
+	<li><hr></li>
+	<li><%= link_to _('Models') + " (#{@current_inventory_pool.models.size})", :controller => 'models' %></li>
+	<li><%= link_to _('Categories'), :controller => 'categories' %></li>
+	<li><%= link_to _('Users') + " (#{@current_inventory_pool.users.size})", :controller => 'users' %></li>
+</ul>

@@ -26,7 +26,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def approve
     if request.post? and @order.approve(params[:comment])
-      @order.destroy # TODO remove old orders ?
+      # TODO test# @order.destroy # TODO remove old orders ?
       remove_order_from_session
       redirect_to :action => 'index'
     else
