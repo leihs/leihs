@@ -6,7 +6,7 @@
 <div class="toolbar-main boxes">
 	<div class="buttons">
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/tab_go.png") + " " + _("Take Back"),
-		 	{ :controller => 'take_back', :action => 'close_contract', :id => @user.id },
+		 	{ :controller => 'take_back', :action => 'close_contract' }, # , :user_id => @user.id
 			:onmouseup => "change_href(this, 'contract_line', 'line');",
 			:class => "multiple_selection_button",
 			:title => _("Take Back") ) %>
@@ -47,7 +47,7 @@
 					<div class="buttons">
 						<% # TODO temp timeline %>
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
-						 	{ :controller => 'take_back', :action => 'timeline', :id => @user.id },
+						 	{ :controller => 'take_back', :action => 'timeline', :user_id => @user.id },
 							:title => _("Timeline"), :width => 1000 ) %>						
 					</div>
 				</div>
@@ -66,7 +66,7 @@
 							<th scope="col">
 								<%= _("Barcode") %>
 								<br />
-								<%= text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'assign_inventory_code', :id => @user.id }, :with => "'code=' + value" ) }) %>
+								<%= text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'assign_inventory_code', :user_id => @user.id }, :with => "'code=' + value" ) }) %>
 							</th>
 							<th scope="col"><%= _("Aktion") %></th>
 						</tr>

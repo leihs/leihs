@@ -8,16 +8,9 @@
 		
 	<br />
 	<div class="buttons">
-		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Print Contract"),
-					 { :controller => 'take_back', :action => 'print_contract', :id => params[:id], :lines => @lines },
-					 :class => 'positive') %>
-
-		<br />
-		<br />
-
-		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Sign Confirm"),
-					 { :controller => 'take_back', :action => 'close_contract', :id => params[:id], :lines => @lines  },
-					 :class => 'positive', :method => 'post', :target=> '_top') %>
+		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Confirm"),
+					 { :controller => 'take_back', :action => 'close_contract', :lines => @lines  },
+					 :class => 'positive', :method => 'post') %>
 					 
 		<%=	cancel_popup_button(_("Cancel") ) %>
 	</div>	

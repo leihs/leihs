@@ -2,6 +2,15 @@ class Backend::ModelsController < Backend::BackendController
   active_scaffold :model do |config|
     config.columns = [:manufacturer, :name, :model_groups]
   end
+
+# TODO filter for inventory_pool
+  # filter for active_scaffold
+#  def conditions_for_collection
+#     {:inventory_pool_id => current_inventory_pool.id}
+#  end
+
+#################################################################
+
   
   # TODO require_role "admin" ?
 

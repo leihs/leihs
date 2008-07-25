@@ -6,6 +6,14 @@ class User < ActiveRecord::Base
   has_many :inventory_pools, :through => :access_rights
   has_many :items, :through => :inventory_pools # thanks to the nested_has_many_through plugin
   has_many :models, :through => :inventory_pools, :uniq => true # thanks to the nested_has_many_through plugin
+  has_many :categories, :through => :models, :uniq => true # thanks to the nested_has_many_through plugin
+  def all_categories # TODO optimize
+    @c = []
+    categories.each do |c|
+       @c << c.parents.recursive.to_a
+    end
+    @c.flatten.uniq
+  end
   
   has_many :orders
   has_one  :current_order, :class_name => "Order", :conditions => ["status_const = ?", Contract::NEW]

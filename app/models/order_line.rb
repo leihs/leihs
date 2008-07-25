@@ -37,7 +37,7 @@ class OrderLine < DocumentLine
     0
   end
   
-#working#
+# TODO temp
 #  # OPTIMIZE provide spreading to multiple inventory pools  
 #  def possible_inventory_pools
 #    ip_set = []

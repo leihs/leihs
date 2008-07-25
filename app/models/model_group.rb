@@ -18,22 +18,28 @@ class ModelGroup < ActiveRecord::Base
 
   
   def is_root?
-    parents.empty?
+    #parents.empty?
+    parents.delete_if {|x| x.type != self.type }.empty?
   end
   
   def is_leaf?
-    children.empty?
+    #children.empty?
+    children.delete_if {|x| x.type != self.type }.empty?
   end
   
 
 
 ### Edge Label
-  def label(parent)
-    l = ModelGroup.find_by_sql("SELECT label
-                                  FROM model_groups_parents
-                                  WHERE model_group_id = #{id}
-                                    AND parent_id = #{parent.id}")
-    l.first.attributes["label"]
+  def label(parent = nil)
+    if parent
+      l = ModelGroup.find_by_sql("SELECT label
+                                    FROM model_groups_parents
+                                    WHERE model_group_id = #{id}
+                                      AND parent_id = #{parent.id}")
+      return l.first.attributes["label"]
+    else
+      return name
+    end
   end
 
   def set_label(parent, label)
@@ -44,5 +50,17 @@ class ModelGroup < ActiveRecord::Base
                                     AND parent_id = #{parent.id}")
   end
 ###  
+
+###  TODO alias for Ext.Tree
+  def text 
+    # "#{label} (#{models.size})" # TODO intersection with current_user.models
+    label
+  end
+  
+  def leaf
+    is_leaf?
+  end
+###  
+
   
 end

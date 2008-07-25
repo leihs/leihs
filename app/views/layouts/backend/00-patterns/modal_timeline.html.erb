@@ -22,25 +22,36 @@
 	
 	function onLoad() {
 	  var eventSource = new Timeline.DefaultEventSource();
+
 	  var bandInfos = [
 	    Timeline.createBandInfo({
 	        eventSource:    eventSource,
-	        date:           "<%= Date.today.strftime('%c') %>",
+	        date:           "<%= Date.today.strftime('%c %Z') %>",
 	        width:          "85%", 
-	        intervalUnit:   Timeline.DateTime.MONTH, 
-	        intervalPixels: 100
+	        intervalUnit:   Timeline.DateTime.DAY, 
+	        intervalPixels: 40
 	    }),
 	    Timeline.createBandInfo({
 	        eventSource:    eventSource,
-	        date:           "<%= Date.today.strftime('%c') %>",
+	        date:           "<%= Date.today.strftime('%c %Z') %>",
 	        width:          "15%", 
-	        intervalUnit:   Timeline.DateTime.YEAR, 
-	        intervalPixels: 200,
+	        intervalUnit:   Timeline.DateTime.MONTH, 
+	        intervalPixels: 80,
 	  overview:	true
 	    })
 	  ];
 	  bandInfos[1].syncWith = 0;
 	  bandInfos[1].highlight = true;
+
+		for (var i = 0; i < bandInfos.length; i++) {
+	        bandInfos[i].decorators = [
+	            new Timeline.PointHighlightDecorator({
+	                date:       "<%= Date.today.strftime('%c %Z') %>",
+	                color:      "#FFC080",
+	                opacity:    50
+	            })
+	        ];
+	    }
 	  
 	  tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
 	  Timeline.loadXML("<%= @timeline_xml %>", function(xml, url) { eventSource.loadXML(xml, url); });

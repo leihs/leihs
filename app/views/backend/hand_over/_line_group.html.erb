@@ -13,7 +13,7 @@
 		<td id="line_group_dates_<%= @line_group.id %>" class="line_valid_<%= @line_group.available? %>">
 			<% # TODO working here, check if contract line is a package, etc.... %>
 			<%= greybox_link_to_page("#{short_date(@line_group.lines.first.start_date)} - #{short_date(@line_group.lines.first.end_date)}",
-		 		{ :controller => 'acknowledge', :action => 'time_lines', :id => @contract.id, :lines => @line_group.lines.first },
+		 		{ :controller => 'hand_over', :action => 'time_lines', :id => @contract.id, :lines => @line_group.lines.first },
 				:class => "thickbox iconized-notxt date-edit" ,
 				:title => _("Time Period") ) if is_package %>
 		</td>

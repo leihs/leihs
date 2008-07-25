@@ -14,16 +14,16 @@ to_remind_size = lines.find_all { |l| l.end_date < Date.today }.size
 %>
 
 <ul class="buttons">
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/accept.png") + " " + _('Acknowledge') + " (#{to_acknowledge_size})",
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/accept.png") + _("%{i} orders") % { :i => to_acknowledge_size },
 			{ :controller => 'acknowledge', :action => 'index', :user_id => @user.id },
-			{ :target => '_top' } %></li>
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_turn_right.png") + " " + _('Hand Over') + " (#{to_hand_over_size})",
+			{ :target => '_top' } if to_acknowledge_size > 0 %></li>
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_turn_right.png") + _("%{i} items") % { :i => to_hand_over_size },
 	        { :controller => 'hand_over', :action => 'index', :user_id => @user.id },
-    	    { :target => '_top' } %></li>
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_undo.png") + " " + _('Take Back') + " (#{to_take_back_size})",
+    	    { :target => '_top' } if to_hand_over_size > 0 %></li>
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_undo.png") + _("%{i} items") % { :i => to_take_back_size },
         	{ :controller => 'take_back', :action => 'index', :user_id => @user.id },
-        	{ :target => '_top' } %></li>
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/clock.png") + " " + _('Remind') + " (#{to_remind_size})",
+        	{ :target => '_top' } if to_take_back_size > 0 %></li>
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/clock.png") + _("%{i} items") % { :i => to_remind_size },
         	{ :controller => 'take_back', :action => 'index', :user_id => @user.id, :remind => true },
-        	{ :target => '_top' } %></li>				
+        	{ :target => '_top' } if to_remind_size > 0 %></li>
 </ul>

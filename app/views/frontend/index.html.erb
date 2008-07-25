@@ -1,0 +1,127 @@
+  <% javascript_tag do -%>
+	Ext.namespace('Frontend');
+	   
+    Frontend.start = function(){
+
+		<%= render :partial => 'categories' %>
+		<%= render :partial => 'models' %>
+		<%= render :partial => 'basket' %>
+
+	    var new_order = new Ext.Panel({
+	        contentEl:'new_order',
+	        title:'[3] Order',
+		    autoScroll:true,
+			show: function(cmp) {
+				Ext.Ajax.request({
+				    url: '/orders/new',
+				    method: 'GET',
+					success: function(response, options) {
+		               Ext.getDom('new_order').innerHTML = response.responseText;
+			        }
+				});
+			}
+	    });
+
+	    var user_timeline = new Ext.Panel({
+	        contentEl:'user_timeline',
+	        title:'[2] Timeline',
+		    autoScroll:true,
+			show: function(cmp) {
+				Ext.Ajax.request({
+				    url: '/users/timeline',
+				    method: 'GET',
+					success: function(response, options) {
+		               Ext.getDom('user_timeline').innerHTML = response.responseText;
+			        }
+				});
+			}
+	    });
+
+
+        Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+
+		var center_tabs = new Ext.TabPanel({
+                    region:'center',
+                    deferredRender:true,
+                    activeTab:0,
+                    margins:'0 5 0 5',
+                    items:[models, user_timeline, new_order]
+                });
+				        
+       var viewport = new Ext.Viewport({
+            layout:'border',
+            items:[{
+                    region:'north',
+                    height: 70,
+                    minSize: 50,
+                    maxSize: 100,
+                    collapsible: true,
+                    margins:'5 5 5 5',
+					html: 'Logo & Account'
+                },{
+                    region:'south',
+                    contentEl: 'south',
+                    height: 100,
+                    minSize: 100,
+                    maxSize: 200,
+                    collapsible: true,
+                    title:'South',
+                    margins:'5 0 0 0'
+                }, {
+                    region:'east',
+                    title: 'Basket',
+                    collapsible: true,
+                    width: 225,
+                    minSize: 175,
+                    maxSize: 400,
+                    layout:'fit',
+                    margins:'0 5 0 0',
+					autoScroll:true,
+                    items: basket
+                 },{
+                    region:'west',
+                    title:'Categories',
+                    collapsible: true,
+                    width: 200,
+                    minSize: 175,
+                    maxSize: 400,
+                    layout:'fit',
+                    margins:'0 0 0 5',
+					autoScroll:true,
+                    items: categories_panel
+                },
+				center_tabs
+             ]
+        });
+    };
+
+	Ext.onReady(Frontend.start);
+
+  <% end -%>
+
+  
+	<div id="model_list"></div>
+	<div id="basket"></div>
+	<div id="user_timeline"></div>
+	<div id="new_order">Loading...</div>
+	<div id="category-tree"></div>
+	
+	
+	
+	<div id="north"></div>
+	<div id="category-tree"></div>
+	
+	<div id="props-panel" style="width:200px;height:200px;overflow:hidden;">
+	</div>
+	<div id="south">
+	</div>
+	
+	
+	<div id="tpl_model_details" style="visibility: hidden;">
+	    <p><b>Model:</b> {name}</p><br>
+	    <p><b>Manufacturer:</b> {manufacturer}</p>
+	    <p><b>additional:</b> {additional}</p>
+	</div>
+        
+	
+	

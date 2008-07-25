@@ -12,6 +12,7 @@ class Backend::BackendController < ApplicationController
   layout $general_layout_path
  
 ###############################################################  
+   # TODO merge arguments if is always the case where (render_id == document.id)
    # add a new line
    def generic_add_line(document, render_id)
     if request.post?
@@ -62,9 +63,9 @@ class Backend::BackendController < ApplicationController
         end_date = Date.new(params[:line]['end_date(1i)'].to_i, params[:line]['end_date(2i)'].to_i, params[:line]['end_date(3i)'].to_i)
         params[:lines].each {|l| document.update_time_line(l, start_date, end_date, current_user.id) }
       rescue
-        flash[:notice] = "Invalid date" #TODO 
+        flash[:notice] = "Invalid date" #TODO display error message
       end 
-        render :action => 'show', :id => render_id
+        redirect_to :action => 'show', :id => render_id
     else
       @lines = document.lines.find(params[:lines].split(','))
       render :template => 'backend/backend/time_lines', :layout => $modal_layout_path
@@ -87,7 +88,7 @@ class Backend::BackendController < ApplicationController
   private
   
   def init
-    # OPTIMIZE select most recent used inventory pool
+    # OPTIMIZE select most recent used inventory pool (using session?)
     if logged_in?
       unless self.current_inventory_pool
         first_access_right = current_user.access_rights.detect {|a| a.role.name == 'inventory_manager'}

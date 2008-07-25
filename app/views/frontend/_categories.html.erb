@@ -1,0 +1,34 @@
+
+//	Categories = function(){
+
+	  // create initial root node
+      var categories_root = new Ext.tree.AsyncTreeNode({
+        text: 'Invisible Root',
+        id:'0'
+      });
+      
+	  // create the tree
+      var categories_panel = new Ext.tree.TreePanel({
+        loader: new Ext.tree.TreeLoader({
+          url:'/frontend/categories',
+          requestMethod:'GET',
+          baseParams:{format:'ext_json'}
+        }),
+        useArrows:true,
+		animate:true,
+        containerScroll: true, 
+		renderTo:'category-tree',
+        root: categories_root,
+        rootVisible:false,
+		listeners: {
+			click: function( node, e ){
+				store.load({params:{start:0, limit:25, category_id: node.id}});
+			}
+		}
+      });
+	  
+	  // expand invisible root node to trigger load
+      // of the first level of actual data
+      categories_root.expand();
+
+//   };

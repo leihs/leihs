@@ -28,16 +28,11 @@
 			</div>		
 		</div>
 		<div id="banner" style="background-color: #E9F9F9;"> <% # TODO temp remove it %>
-			<%= render :partial => '/layouts/00-patterns/banner_buttons' %>
+			<%= render :partial => '/layouts/00-patterns/banner_buttons' if logged_in? %>
 		</div> 
 
 	<div id="sidebar">
-		<% # OPTIMIZE %>
-		<%= render :partial => '/models/categories' %>
-		<%#= render_component :controller => 'models', :action => 'categories' %>
-		<br />
-		<%= render :partial => '/models/recent' %>
-		<%#= render_component :controller => 'models', :action => 'recent' %>
+		<%= render :partial => '/layouts/00-patterns/sidebar' if logged_in? %>
 	</div>
 	
 		

@@ -33,14 +33,7 @@
 		</div> 
 
 	<div id="sidebar">
-		<ul>
-			<li><%= link_to _('Items'), :controller => 'items' %></li>
-			<li><%= link_to _('Orders'), :controller => 'orders' %></li>
-			<li><hr></li>
-			<li><%= link_to _('Models'), :controller => 'models' %></li>
-			<li><%= link_to _('Categories'), :controller => 'categories' %></li>
-			<li><%= link_to _('Users'), :controller => 'users' %></li>
-		</ul>
+		<%= render :partial => '/layouts/backend/00-patterns/sidebar' if @current_inventory_pool %>
 	</div>
 	
 		

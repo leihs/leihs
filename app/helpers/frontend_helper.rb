@@ -1,0 +1,2 @@
+module FrontendHelper
+end
