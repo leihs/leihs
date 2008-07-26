@@ -1,0 +1,9 @@
+<div id="<%= singular_name %>-grid"></div>
+<%%= ext_datastore_for :<%= singular_name %> %>
+<%% javascript_tag do -%>
+  var <%= singular_name %>_column_model = new Ext.grid.ColumnModel([
+    {id: 'id', header: "#", width: 20, dataIndex: 'id'},
+<%= attributes.collect {|attribute| "    {header: '#{attribute.column.human_name}', dataIndex: '#{singular_name}[#{attribute.name}]'}" }.join(",\n") %>
+  ]);
+<%% end -%>
+<%%= ext_grid_for :<%= singular_name %>, :element => '<%= singular_name %>-grid' %>
