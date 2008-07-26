@@ -1,0 +1,6 @@
+<div id="<%= singular_name %>-form"></div>
+<%%= render :partial => 'form_items', :object => :<%= singular_name %>_form_items %>
+<%%= ext_form_for :<%= singular_name %>,
+                 :element => '<%= singular_name %>-form',
+                 :form_items => :<%= singular_name %>_form_items,
+                 :mode => :edit %>

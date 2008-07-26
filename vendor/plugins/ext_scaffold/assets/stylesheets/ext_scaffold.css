@@ -1,0 +1,98 @@
+.add {
+  background-image:url(../ext/examples/shared/icons/fam/add.gif) !important;
+}
+
+.remove {
+  background-image:url(../ext/examples/shared/icons/fam/delete.gif) !important;
+}
+
+.edit {
+  background-image:url(../ext/examples/shared/icons/fam/cog.png) !important;
+}
+
+.minutecss{
+    padding:4px;
+	height:100%;
+    border-top: 1px solid #a3bad9;
+    background: #dfecfb url(../ext/resources/images/default/shared/glass-bg.gif) repeat-x left top;	
+}
+.y-hour-middle,.y-hour-left,.y-hour-right {
+	font:bold 11px "sans serif", tahoma, verdana, helvetica;
+	overflow:hidden;
+}
+
+.y-hour-right, .y-hour-left {
+	width:18px;
+}
+.y-hour-right{
+	text-align:right;
+}
+.y-hour-middle {
+	padding-top:2px;
+	padding-bottom:2px;
+	color:#0000ff;
+}
+.y-hour-right a, .y-hour-left a{
+	display:block;
+	width:16px;
+	height:16px;
+	background-position: center;
+	background-repeat: no-repeat;
+	cursor:pointer;
+}
+
+.y-hour-right a {
+	background-image: url(../images/ext_scaffold/arrowRight.gif);
+	margin-right:2px;
+}
+.y-hour-left a{
+	background-image: url(../images/ext_scaffold/arrowLeft.gif);
+	margin-left:2px;
+}    
+.y-minute-middle,.y-minute-left,.y-minute-right {
+	font:bold 11px "sans serif", tahoma, verdana, helvetica;
+	overflow:hidden;
+}
+
+.y-minute-right, .y-minute-left {
+	width:18px;
+}
+.y-minute-right{
+	text-align:right;
+}
+.y-minute-middle {
+	padding-top:2px;
+	padding-bottom:2px;
+	color:#0000ff;
+}
+.y-minute-right a, .y-minute-left a{
+	display:block;
+	width:16px;
+	height:16px;
+	background-position: center;
+	background-repeat: no-repeat;
+	cursor:pointer;
+}
+
+.y-minute-right a {
+	background-image: url(../images/ext_scaffold/arrowRight.gif);
+	margin-right:2px;
+}
+.y-minute-left a{
+	background-image: url(../images/ext_scaffold/arrowLeft.gif);
+	margin-left:2px;
+}
+
+body { background-color: #fff; color: #333; }
+
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}

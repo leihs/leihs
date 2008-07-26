@@ -1,0 +1,5 @@
+<%% javascript_tag do -%>
+  var <%%= "#{form_items}" %> = [
+<%= attributes.collect {|attribute| "    <%= ext_field(:field_label => '#{attribute.column.human_name}', :name => '#{singular_name}[#{attribute.name}]', :xtype => :#{attribute.field_type}) " + "%" + ">" }.join(",\n") %>
+  ];
+<%% end -%>
