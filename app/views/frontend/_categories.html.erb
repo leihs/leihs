@@ -1,6 +1,4 @@
 
-//	Categories = function(){
-
 	  // create initial root node
       var categories_root = new Ext.tree.AsyncTreeNode({
         text: 'Invisible Root',
@@ -17,7 +15,7 @@
         useArrows:true,
 		animate:true,
         containerScroll: true, 
-		renderTo:'category-tree',
+		renderTo:'categories',
         root: categories_root,
         rootVisible:false,
 		listeners: {
@@ -29,6 +27,4 @@
 	  
 	  // expand invisible root node to trigger load
       // of the first level of actual data
-      categories_root.expand();
-
-//   };
+      //categories_root.expand();

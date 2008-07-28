@@ -18,8 +18,8 @@ class ApplicationController < ActionController::Base
   
   # TODO temp
   $theme = '00-patterns'
-  $modal_layout_path = $theme + '/modal'
-  $general_layout_path = $theme + '/general'
+  $modal_layout_path = 'layouts/' + $theme + '/modal'
+  $general_layout_path = 'layouts/' + $theme + '/general'
   $layout_public_path = '/layouts/' + $theme
 
   layout $general_layout_path

@@ -1,0 +1,157 @@
+	var Line = Ext.data.Record.create([
+	   {name: 'order_id', type: 'int'},
+	   {name: 'quantity', type: 'int'},
+	   {name: 'model.name', type: 'string'},
+	   {name: 'start_date', type: 'date'},
+	   {name: 'end_date', type: 'date'},
+	   {name: 'available?', type: 'string'}
+	]);
+
+    // create the Data Store
+    var complete_order_store = new Ext.data.GroupingStore({ //old Store
+        proxy: new Ext.data.HttpProxy(
+			new Ext.data.Connection({
+            	url: '/frontend/complete_order',
+				method: 'GET',
+				extraParams: {format:'ext_json'}
+			})
+        ),
+
+        // create reader that reads the Topic records
+        reader: new Ext.data.JsonReader({
+            root: 'order_lines',
+            totalProperty: 'results',
+            id: 'id'},
+			Line),
+
+		groupField: 'start_date',
+        sortInfo:{field: 'model', direction: "ASC"},
+
+        // turn on remote sorting
+        remoteSort: true
+    });
+
+    function formatDate(value){
+        return value ? value.dateFormat('d/m/y') : '';
+    };
+	
+    // the column model has information about grid columns
+    // dataIndex maps the column to the specific data field in
+    // the data store
+    var complete_order_cm = new Ext.grid.ColumnModel([{
+           header: "",
+           dataIndex: 'quantity',
+           width: 25,
+           align: 'right',
+		   editor: new Ext.form.TextField({ // TODO fix rendering problem
+               allowBlank: false
+           })
+        },{
+           header: "Model",
+           dataIndex: 'model.name',
+           width: 250
+        },{
+           header: "Start date",
+           dataIndex: 'start_date',
+           width: 100,
+           renderer: formatDate,
+           editor: new Ext.form.DateField({
+                format: 'd/m/y' //,
+				//renderer: new Ext.DatePicker({startDay: 1})
+            })
+        },{
+           header: "End date",
+           dataIndex: 'end_date',
+           width: 100,
+           renderer: formatDate,
+           editor: new Ext.form.DateField({
+                format: 'd/m/y' //,
+				//renderer: new Ext.DatePicker({startDay: 1})
+            })
+        },{
+           header: "Available",
+           dataIndex: 'available?',
+           width: 40
+        }]);
+
+    // by default columns are sortable
+    complete_order_cm.defaultSortable = true;
+
+    var complete_order = new Ext.grid.EditorGridPanel({ //old: GridPanel
+        el:'complete_order',
+        title:'[3] Order',
+        store: complete_order_store,
+        cm: complete_order_cm,
+		viewConfig: { forceFit: true },
+        loadMask: true,
+		clicksToEdit: 1,
+		show: function(cmp) {
+			this.store.load(); // TODO optimize render
+		},
+		view: new Ext.grid.GroupingView({
+            forceFit:true,
+            groupTextTpl: '{text}'
+        }),
+		listeners: {
+			afteredit: function(e){
+				if(e.field == "start_date" || e.field == "end_date"){
+				    u = '/frontend/change_time_lines';
+				    p = {"order_line_id": e.record.id, "start_date": e.record.data.start_date.dateFormat('Y-m-d'), "end_date": e.record.data.end_date.dateFormat('Y-m-d')};					
+				}else if(e.field == "quantity"){
+				    u = '/frontend/change_line';
+				    p = {"order_line_id": e.record.id, "quantity": e.value};
+				}
+				Ext.Ajax.request({
+ 					method: 'GET',
+				    url: u,
+				    params: p,
+				    success: function(responseObject) {
+					    complete_order_store.load();
+				    },
+					failure: function(responseObject) {
+						Ext.Msg.alert('Error', responseObject.responseText);
+					}
+				});
+			}
+		},
+        bbar: [
+			new Ext.Action({
+		        text: 'Submit Order',
+		        handler: function(){
+					submitPopup.show();
+		        }
+		    })
+        ]
+    });
+
+	//complete_order.render();
+	
+    // trigger the data store load
+    //complete_order_store.load();
+
+    var submitPopup = new Ext.Window({
+        title: 'Submit',
+        width: 920,
+        height: 500,
+        shim: false,
+        closeAction: 'hide',
+        bodyCfg: {tag: 'textarea', readonly: true},
+        bodyStyle: {
+            backgroundColor: 'white',
+            margin: '0px',
+            border: '0px none'
+        },
+        listeners: {
+            render: function(w) {
+                Ext.Ajax.request({
+					method: 'GET',
+				    url: '/orders/submit', // TODO refactor/reorganize controllers
+					params: {"id": complete_order_store.data.items[0].data.order_id}, // TODO collect order.id from json
+                    success: function(r) {
+						w.body.dom.value = r.responseText;
+                    }
+                });
+            }
+        }
+    });
+  

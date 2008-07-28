@@ -60,8 +60,15 @@ class Model < ActiveRecord::Base
 #    !models.empty? # and items.empty?
 #  end
 
-
 #############################################  
+
+  # compares two objects in order to sort them
+  def <=>(other)
+    self.name <=> other.name
+  end
+  
+#############################################  
+
   def availability(document_line = nil, current_time = Date.today)
     create_availability(current_time, document_line).periods
   end

@@ -24,12 +24,12 @@
     // the column model has information about grid columns
     // dataIndex maps the column to the specific data field in
     // the data store
-    var cm = new Ext.grid.ColumnModel([{
+    var basket_cm = new Ext.grid.ColumnModel([{
            header: "",
            dataIndex: 'quantity',
            width: 25,
            align: 'right',
-		   editor: new Ext.form.TextField({
+		   editor: new Ext.form.TextField({ // TODO fix rendering problem
                allowBlank: false
            })
         },{
@@ -39,13 +39,13 @@
         }]);
 
     // by default columns are sortable
-    cm.defaultSortable = true;
+    basket_cm.defaultSortable = true;
 
     var basket = new Ext.grid.EditorGridPanel({ //old: GridPanel
         el:'basket',
 //        title:'Basket',
         store: basket_store,
-        cm: cm,
+        cm: basket_cm,
         loadMask: true,
 		clicksToEdit: 1,
 		listeners: {
@@ -68,7 +68,7 @@
 			new Ext.Action({
 		        text: 'Complete Order',
 		        handler: function(){
-		            center_tabs.activate(new_order);
+		            center_tabs.activate(complete_order);
 		        }
 		    })
         ]

@@ -5,8 +5,8 @@ class Backend::BackendController < ApplicationController
   before_filter :init, :except => :create_some # TODO for temporary_controller  # TODO not needed for modal layout
   
   $theme = '00-patterns'
-  $modal_layout_path = 'backend/' + $theme + '/modal'
-  $general_layout_path = 'backend/' + $theme + '/general'
+  $modal_layout_path = 'layouts/backend/' + $theme + '/modal'
+  $general_layout_path = 'layouts/backend/' + $theme + '/general'
   $layout_public_path = '/layouts/' + $theme
   
   layout $general_layout_path

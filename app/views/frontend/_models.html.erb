@@ -65,6 +65,7 @@
         store: store,
         cm: cm,
 //		sm: sm,
+		viewConfig: { forceFit: true },
         loadMask: true,
         plugins: expander,
 
@@ -93,7 +94,7 @@
             'Search: ', ' ',
             new Ext.app.SearchField({
                 store: store,
-                width:320
+                width: 320
             })
         ],
 		bbar: new Ext.PagingToolbar({
