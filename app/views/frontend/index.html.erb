@@ -6,21 +6,7 @@
 		<%= render :partial => 'categories' %>
 		<%= render :partial => 'models' %>
 		<%= render :partial => 'basket' %>
-
-	    var new_order = new Ext.Panel({
-	        contentEl:'new_order',
-	        title:'[3] Order',
-		    autoScroll:true,
-			show: function(cmp) {
-				Ext.Ajax.request({
-				    url: '/orders/new',
-				    method: 'GET',
-					success: function(response, options) {
-		               Ext.getDom('new_order').innerHTML = response.responseText;
-			        }
-				});
-			}
-	    });
+		<%= render :partial => 'complete_order' %>
 
 	    var user_timeline = new Ext.Panel({
 	        contentEl:'user_timeline',
@@ -45,13 +31,14 @@
                     deferredRender:true,
                     activeTab:0,
                     margins:'0 5 0 5',
-                    items:[models, user_timeline, new_order]
+                    items:[models, user_timeline, complete_order]
                 });
 				        
        var viewport = new Ext.Viewport({
             layout:'border',
             items:[{
                     region:'north',
+                    contentEl: 'north',
                     height: 70,
                     minSize: 50,
                     maxSize: 100,
@@ -103,24 +90,16 @@
 	<div id="model_list"></div>
 	<div id="basket"></div>
 	<div id="user_timeline"></div>
-	<div id="new_order">Loading...</div>
-	<div id="category-tree"></div>
-	
-	
+	<div id="complete_order"></div>
+	<div id="categories"></div>
 	
 	<div id="north"></div>
-	<div id="category-tree"></div>
-	
-	<div id="props-panel" style="width:200px;height:200px;overflow:hidden;">
-	</div>
-	<div id="south">
-	</div>
+	<div id="south"></div>
 	
 	
 	<div id="tpl_model_details" style="visibility: hidden;">
 	    <p><b>Model:</b> {name}</p><br>
 	    <p><b>Manufacturer:</b> {manufacturer}</p>
-	    <p><b>additional:</b> {additional}</p>
 	</div>
         
 	

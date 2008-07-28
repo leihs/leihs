@@ -38,7 +38,7 @@ layout 'frontend'
   def basket
     order = current_user.current_order
     respond_to do |format|
-      format.html { render :action => 'basket', :layout => false }
+#      format.html { render :action => 'basket', :layout => false }
       format.ext_json { render :json => order.order_lines.to_ext_json(:include => :model) }
     end
   end
@@ -59,6 +59,15 @@ layout 'frontend'
     end
   end
 
+  # TODO sort on model.name
+  def complete_order(sort =  params[:sort] || "model", dir =  params[:dir] || "ASC")
+    order = current_user.current_order
+    respond_to do |format|
+      format.ext_json { render :json => order.order_lines.sort{|x,y| x.send(sort) <=> y.send(sort) }.to_ext_json(:include => :model, :methods => :available?) }
+      #TODO format.ext_json { render :json => order.to_ext_json(:include => :order_lines) }
+    end
+  end
+
 ############################################################################
   def add_line
       @order = current_user.get_current_order unless @order
@@ -68,7 +77,8 @@ layout 'frontend'
       
       flash[:notice] = _("Line couldn't be added") unless @order.save
       if request.xml_http_request?
-        render :action => 'basket', :layout => false
+#        render :action => 'basket', :layout => false
+        render :text => ""
       else
         redirect_to :action => 'new', :id => @order.id        
       end
@@ -87,5 +97,17 @@ layout 'frontend'
       render :text => ""
 #    end
   end
+
+  # change time frame for OrderLines or ContractLines 
+  def change_time_lines(order_line_id = params[:order_line_id], start_date = params[:start_date].split('-').map{|x| x.to_i}, end_date = params[:end_date].split('-').map{|x| x.to_i} )
+#    if request.post?
+        sd = Date.new(start_date[0],start_date[1],start_date[2])
+        ed = Date.new(end_date[0],end_date[1],end_date[2])
+        line = OrderLine.find(order_line_id)
+        document = current_user.orders.find(line.order.id) # scoping for user
+        document.update_time_line(line.id, sd, ed, current_user.id)
+        render :text => document.errors.full_messages.to_s, :status => (document.errors.empty? ? 202 : 403)
+#    end   
+  end      
   
 end
