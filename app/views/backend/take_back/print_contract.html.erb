@@ -5,8 +5,8 @@
 	  <ul>
 		<% @contracts.each do |c| %>
 			<li><%=	link_to(image_tag($layout_public_path + "/images/icons/script.png") + " " + _("Print Contract #{c.id}"),
-						 { :controller => 'take_back', :action => 'print_contract', :contract_id => c.id },
-						 :class => 'positive', :method => 'post') %>
+						 { :controller => 'take_back', :action => 'print_contract', :contract_id => c.id, :format => 'pdf' },
+						 :class => 'positive') %>
 			</li>			 
 		<% end %>
 					 

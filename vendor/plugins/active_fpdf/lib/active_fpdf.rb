@@ -37,11 +37,25 @@ module ActiveFPDF
   			end     
         
         @PDF_CLASS = "FPDF" if @PDF_CLASS.nil?
-     		pdf = ApplicationHelper.const_get(@PDF_CLASS).new
-        @tmpl = "#{@action_view.base_path}/#{@action_view.first_render}.#{@action_view.pick_template_extension(@action_view.first_render)}"
-   	    eval template, nil, @tmpl
-     		pdf.Output
+### sellittf - Patch 1 start
+#     	 pdf = ApplicationHelper.const_get(@PDF_CLASS).new
+#        @tmpl = "#{@action_view.base_path}/#{@action_view.first_render}.#{@action_view.pick_template_extension(@action_view.first_render)}"
+#   	   eval template, nil, @tmpl
+#        pdf.Output
+        ERB.new(template.source).result(binding)
+### sellittf - Patch 1 end
     	end
+
+### sellittf - Patch 2 start
+      def self.compilable?
+        false
+      end
+  
+      def compilable?
+        self.class.compilable?
+      end
+### sellittf - Patch 2 end
+  
   end
 
 end

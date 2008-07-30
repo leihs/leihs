@@ -24,6 +24,7 @@ class Backend::TemporaryController < Backend::BackendController
     create_some_templates
     create_some_properties
     create_some_compatibles
+    create_some_accessories
     
     params[:id] = 5
     params[:name] = "admin"
@@ -348,6 +349,16 @@ private
       begin
         m.compatibles << Model.find(:all, :limit => rand(5)+2, :order => "RAND()")
       rescue
+      end
+    end
+  end
+
+  def create_some_accessories
+    a = ['Charger', 'Mouse', 'USB Cable', 'Memory Stick']
+    
+    Model.all.each do |m|
+      rand(3).times do |i|
+        m.accessories << Accessory.new(:name => a[rand(a.size)])
       end
     end
   end

@@ -16,9 +16,7 @@ class Template < ModelGroup
   end  
 
   def total_quantity
-    total = 0
-    model_links.each { |ml| total += ml.quantity }
-    total
+    model_links.collect(&:quantity).sum
   end
   
   

@@ -15,3 +15,12 @@ Items:
 	<li class="line_valid_<%= i.in_stock? %>"><%= i.inventory_code %> => <%= i.inventory_pool.name %> </li>
 <% end %>
 </ul>
+
+<br />
+
+Accessories:
+<ul>
+<% @model.accessories.each do |a| %>
+	<li><%= a.name %></li>
+<% end %>
+</ul>

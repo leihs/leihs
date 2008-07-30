@@ -16,16 +16,18 @@ class Backend::UsersController < Backend::BackendController
 #  end
 
   def details
-    @user = User.find(params[:id]) # TODO scope current_inventory_pool
- 
+    @user = current_inventory_pool.users.find(params[:id])
     render :layout => $modal_layout_path
   end
 
   def search
-    if request.post?
-      @search_result = User.find_by_contents("*" + params[:search] + "*")
-    end
+    @search_result = User.find_by_contents("*" + params[:search] + "*") if request.post?
     render  :layout => $modal_layout_path
   end  
+
+  def remind
+    @user = current_inventory_pool.users.find(params[:user_id])
+    render :text => @user.remind(current_user) # TODO    
+  end
   
 end

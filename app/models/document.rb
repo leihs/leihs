@@ -113,7 +113,6 @@ class Document < ActiveRecord::Base
   #######################
 
 
-  # TODO temp timeline
   def timeline
     events = []
     lines.each do |l|

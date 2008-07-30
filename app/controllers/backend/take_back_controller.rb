@@ -55,13 +55,12 @@ class Backend::TakeBackController < Backend::BackendController
 
   # Creating the contract to print
   def print_contract
-    if request.post?
-      send_data @contract.to_pdf, :filename => "contract_#{@contract.id}.pdf", :type => "application/pdf"
-    else
-      @lines = ContractLine.find(params[:lines]) #if params[:lines] # TODO scope current_inventory_pool
-      @contracts = @lines.collect(&:contract).uniq #if @lines
-      render :layout => $modal_layout_path
-    end    
+    respond_to do |format|
+      format.html { @lines = ContractLine.find(params[:lines]) #if params[:lines] # TODO scope current_inventory_pool
+                    @contracts = @lines.collect(&:contract).uniq #if @lines
+                    render :layout => $modal_layout_path }
+      format.pdf { send_data(render(:layout => false, :template => "backend/hand_over/print_contract"), :filename => "contract_#{@contract.id}.pdf") }
+    end
   end
   
   
@@ -82,7 +81,6 @@ class Backend::TakeBackController < Backend::BackendController
     end
   end
 
-  # TODO temp timeline
   def timeline
     @timeline_xml = @user.timeline
     render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'

@@ -1,0 +1,16 @@
+
+<% @visits.each do | v | %>
+	<div>
+	<%= v.inventory_pool.name %> - <%= v.user.login %> - <%= v.date %>
+														<%#= short_date(v.date) %>
+	<br />
+	<%= v.quantity %>
+	<br />
+	<ul>
+	<% v.contract_lines.each do |l| %>
+		<li><%= l.quantity %> - <%= l.model.name %> - <%= l.item.inventory_code %> - <%= l.start_date %> - <%= l.end_date %>
+																					<%#= short_date(l.start_date) %> - <%#= short_date(l.end_date) %></li>
+	<% end %>
+	</ul>	
+	</div>
+<% end %>

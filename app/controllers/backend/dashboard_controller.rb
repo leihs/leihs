@@ -21,13 +21,11 @@ class Backend::DashboardController < Backend::BackendController
     redirect_to :action => 'index'
   end
 
-  # TODO temp timeline
   def timeline
     @timeline_xml = current_inventory_pool.timeline
     render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'
   end
 
-  # TODO temp timeline
   def timeline_visits
     @timeline_xml = current_inventory_pool.timeline_visits
     render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'

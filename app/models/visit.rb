@@ -16,11 +16,7 @@ class Visit
 
   
   def quantity
-    unless @quantity
-       @quantity = 0
-       @contract_lines.each {|c| @quantity += c.quantity }
-    end
-    @quantity      
+    @contract_lines.collect(&:quantity).sum
   end
 
   # compares two objects in order to sort them

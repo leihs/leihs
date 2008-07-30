@@ -27,3 +27,16 @@ to_remind_size = lines.find_all { |l| l.end_date < Date.today }.size
         	{ :controller => 'take_back', :action => 'index', :user_id => @user.id, :remind => true },
         	{ :target => '_top' } if to_remind_size > 0 %></li>
 </ul>
+
+<% if @user.to_remind? %>
+<br />
+<br />
+<ul class="buttons" style="float: right;">
+	<% unless @user.reminders.empty? %>
+		<li><%= _("%{i} reminders") % { :i => @user.reminders.size } %></li>
+		<li><%= _("last") %>: <%= short_time @user.reminders.last.created_at %></li>
+	<% end %>
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/clock_red.png") + _("Remind"),
+			{ :controller => 'users', :action => 'remind', :user_id => @user.id } %></li>
+</ul>
+<% end %>
