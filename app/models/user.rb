@@ -21,7 +21,10 @@ class User < ActiveRecord::Base
   has_many :contracts
   has_many :contract_lines, :through => :contracts
   has_many :current_contracts, :class_name => "Contract", :conditions => ["status_const = ?", Contract::NEW]
-  
+
+  has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
+  has_many :reminders, :as => :target, :class_name => "History", :dependent => :destroy, :conditions => {:type_const => History::REMIND}, :order => 'created_at ASC'
+
   acts_as_ferret :fields => [ :login ]  #, :store_class_name => true
 
   def authinfo
@@ -69,7 +72,6 @@ class User < ActiveRecord::Base
   end
 
   
-  # TODO temp timeline
   def timeline
     events = []
     contract_lines.each do |l|
@@ -82,7 +84,30 @@ class User < ActiveRecord::Base
     File.open("public#{f_name}", 'w') { |f| f.puts xml }
     f_name
   end
+
+  # TODO call from cron >>> ./script/runner User.remind_all
+  def self.remind_all
+    User.all.each do |u|
+      puts u.remind
+    end
+  end
+
+  def remind(reminder_user = self)
+    visits = to_remind
+    m = ""
+    unless visits.empty?
+      m = UserMailer.deliver_remind(self, visits)
+      histories << History.new(:text => _("Reminded %{q} items for contracts %{c}") % { :q => visits.collect(&:quantity).sum,
+                                                                                        :c => visits.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
+                               :user_id => reminder_user,
+                               :type_const => History::REMIND)
+    end
+    m
+  end
   
+  def to_remind?
+    not to_remind.empty?
+  end
 
 #################### Start role_requirement
   
@@ -205,6 +230,24 @@ class User < ActiveRecord::Base
     def password_required?
       crypted_password.blank? || !password.blank?
     end
+
+#########################################################################
     
+  private
+  
+  def to_remind
+    visits = []
+    contracts.signed_contracts.each do |c|
+      c.lines.to_remind.each do |l|
+        v = visits.detect { |w| w.user == c.user and w.date == l.end_date and w.inventory_pool == c.inventory_pool }
+        unless v
+          visits << Visit.new(c.inventory_pool, c.user, l.end_date, l)
+        else
+          v.contract_lines << l
+        end
+      end
+    end
+    visits.sort
+  end
     
 end

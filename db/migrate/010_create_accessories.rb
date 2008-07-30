@@ -2,8 +2,7 @@ class CreateAccessories < ActiveRecord::Migration
   def self.up
     create_table :accessories do |t|
       t.belongs_to :model
-
-      t.timestamps
+      t.string :name
     end
   end
 

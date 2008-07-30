@@ -42,7 +42,6 @@ class InventoryPool < ActiveRecord::Base
   end
 
 
-  # TODO temp timeline
   def timeline
     events = []
     contract_lines.each do |l|
@@ -56,7 +55,6 @@ class InventoryPool < ActiveRecord::Base
     f_name
   end
 
-  # TODO temp timeline
   def timeline_visits
     events = []
     hand_over_visits.each do |v|

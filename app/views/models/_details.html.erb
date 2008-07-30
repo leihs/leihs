@@ -10,12 +10,24 @@
 							 
 	</h3>
 
-	<ul style="float: left; width: 50%;">
+	<div style="float: left; width: 50%;">
+	<ul>
 	Properties:
 	<% @model.properties.each do |p| %>
 		<li><b><%= p.key %>:</b> <%= p.value %></li>
 	<% end %>
 	</ul>
+
+	<br />
+	
+	<ul>
+	Accessories:
+	<% @model.accessories.each do |a| %>
+		<li><%= a.name %></li>
+	<% end %>
+	</ul>
+	</div>
+	
 	
 	<ul style="float: right; width: 50%;">
 	Compatibles:

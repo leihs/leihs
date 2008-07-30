@@ -54,31 +54,30 @@ class Contract < Document
     update_attribute :status_const, Contract::CLOSED
   end
 
-  # TODO contract layout
-  def to_pdf
-# TODO remove Printout    printout = Printout.create
-    
-    ### Start PDF
-      fpdf = FPDF.new
-      fpdf.AddPage
-  
-      fpdf.SetFont('Arial', 'B', 16)
-      fpdf.Cell(40, 10, "Contract: #{id}") # "-#{printout.id}"
-      fpdf.Ln
-  
-      fpdf.SetFont('Arial', '', 10)
-      lines.each do |l|
-        fpdf.Write(5, "#{l.quantity} #{l.model.name} #{l.start_date} #{l.end_date} #{l.returned_date}")
-        fpdf.Ln(5)
-      end
-    ### End PDF
-
-# TODO remove Printout
-#    printout.pdf = fpdf.Output
-#    printout.save
-#    printouts << printout
-    fpdf.Output
-  end
+#  def to_pdf
+## TODO remove Printout    printout = Printout.create
+#    
+#    ### Start PDF
+#      fpdf = FPDF.new
+#      fpdf.AddPage
+#  
+#      fpdf.SetFont('Arial', 'B', 16)
+#      fpdf.Cell(40, 10, "Contract: #{id}") # "-#{printout.id}"
+#      fpdf.Ln
+#  
+#      fpdf.SetFont('Arial', '', 10)
+#      lines.each do |l|
+#        fpdf.Write(5, "#{l.quantity} #{l.model.name} #{l.start_date} #{l.end_date} #{l.returned_date}")
+#        fpdf.Ln(5)
+#      end
+#    ### End PDF
+#
+## TODO remove Printout
+##    printout.pdf = fpdf.Output
+##    printout.save
+##    printouts << printout
+#    fpdf.Output
+#  end
 
 
 end

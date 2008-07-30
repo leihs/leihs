@@ -45,8 +45,7 @@ steps_for(:hand_over) do
   
   Then "he sees $total line$s with a total quantity of $quantity" do | total, s, quantity |
      @visits.size.should == total.to_i
-     s = 0
-     @visits.each {|v| s += v.quantity }
+     s = @visits.collect(&:quantity).sum
      s.should == quantity.to_i 
   end
 

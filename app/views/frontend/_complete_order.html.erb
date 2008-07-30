@@ -135,12 +135,16 @@
         height: 500,
         shim: false,
         closeAction: 'hide',
-        bodyCfg: {tag: 'textarea', readonly: true},
+		modal: true,
+//        bodyCfg: {tag: 'textarea', readonly: true},
         bodyStyle: {
             backgroundColor: 'white',
             margin: '0px',
             border: '0px none'
         },
+		items: {
+		    xtype: 'panel'
+		},
         listeners: {
             render: function(w) {
                 Ext.Ajax.request({
@@ -148,7 +152,9 @@
 				    url: '/orders/submit', // TODO refactor/reorganize controllers
 					params: {"id": complete_order_store.data.items[0].data.order_id}, // TODO collect order.id from json
                     success: function(r) {
-						w.body.dom.value = r.responseText;
+						console.log(w);
+//						w.body.dom.value = r.responseText;
+						w.items.items[0].body.dom.innerHTML = r.responseText;
                     }
                 });
             }

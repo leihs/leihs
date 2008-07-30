@@ -104,7 +104,6 @@
 							:class => "multiple_selection_button",
 							:title => _("Add Options"), :width => 850 ) %>
 						
-						<% # TODO temp timeline %>
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
 						 	{ :controller => 'acknowledge', :action => 'timeline', :id => @order.id },
 							:title => _("Timeline"), :width => 1000 ) %>						

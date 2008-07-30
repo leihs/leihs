@@ -1,6 +1,6 @@
 # TODO remove Printout
 
-#class CreatePrintouts < ActiveRecord::Migration
+class CreatePrintouts < ActiveRecord::Migration
 #  def self.up
 #    create_table :printouts do |t|
 #      t.binary :pdf
@@ -22,4 +22,4 @@
 #    drop_table :printouts
 #    drop_table :contracts_printouts
 #  end
-#end
+end

@@ -40,7 +40,7 @@ class Backend::HandOverController < Backend::BackendController
     @lines = @contract.contract_lines.find(params[:lines].split(','))
     if request.post?
       @contract.sign(@lines)
-      redirect_to :action => 'print_contract', :id => @contract.id #'index'
+      redirect_to :action => 'print_contract', :id => @contract.id
     else
       @lines = @lines.delete_if {|l| l.item.nil? }
       render :layout => $modal_layout_path
@@ -49,12 +49,10 @@ class Backend::HandOverController < Backend::BackendController
 
   # Creating the contract to print
   def print_contract
-    if request.post?
-      #old# send_data @contract.printouts.last.pdf, :filename => "contract.pdf", :type => "application/pdf"
-      send_data @contract.to_pdf, :filename => "contract_#{@contract.id}.pdf", :type => "application/pdf"
-    else
-      render :layout => $modal_layout_path
-    end    
+    respond_to do |format|
+      format.html { render :layout => $modal_layout_path }
+      format.pdf { send_data(render(:layout => false), :filename => "contract_#{@contract.id}.pdf") }
+    end
   end
 
   # Changes the line according to the inserted inventory code
@@ -68,6 +66,7 @@ class Backend::HandOverController < Backend::BackendController
       required_item_inventory_code = params[:code]
       @contract_line.item = Item.find(:first, :conditions => { :inventory_code => required_item_inventory_code})
       @contract_line.start_date = Date.today
+      @contract_line.end_date = Date.today if @contract_line.end_date < @contract_line.start_date
       @start_date_changed = @contract_line.start_date_changed?
       if @contract_line.save
         # TODO refactor in model: change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
@@ -118,7 +117,6 @@ class Backend::HandOverController < Backend::BackendController
     generic_remove_lines(@contract, @contract.id)
   end  
 
-  # TODO temp timeline
   def timeline
     @timeline_xml = @contract.timeline
     render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'

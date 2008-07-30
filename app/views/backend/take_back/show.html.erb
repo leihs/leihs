@@ -45,7 +45,6 @@
 				<div class="toolbar-second">
 					<h3>Pakete</h3>
 					<div class="buttons">
-						<% # TODO temp timeline %>
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
 						 	{ :controller => 'take_back', :action => 'timeline', :user_id => @user.id },
 							:title => _("Timeline"), :width => 1000 ) %>						

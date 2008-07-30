@@ -66,7 +66,6 @@
 							# :with => "'contract_lines=' + checkbox_values('contract_line_check')"
 							%>
 							
-						<% # TODO temp timeline %>
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
 						 	{ :controller => 'hand_over', :action => 'timeline', :id => @contract.id },
 							:title => _("Timeline"), :width => 1000 ) %>						

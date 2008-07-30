@@ -176,7 +176,6 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
   end   
 
-  # TODO temp timeline
   def timeline
     @timeline_xml = @order.timeline
     render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'

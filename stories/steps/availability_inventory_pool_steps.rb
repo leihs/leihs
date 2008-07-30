@@ -60,9 +60,7 @@ steps_for(:availability_inventory_pool) do
   Then "it asks for $number item$s" do |number, s|
     total = 0
     @submitted_orders.each do |o|
-      o.lines.each do |l|
-        total += l.quantity
-      end
+      total += o.lines.collect(&:quantity).sum
     end
     total.should == number.to_i
   end

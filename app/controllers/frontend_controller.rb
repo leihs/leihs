@@ -106,7 +106,15 @@ layout 'frontend'
         line = OrderLine.find(order_line_id)
         document = current_user.orders.find(line.order.id) # scoping for user
         document.update_time_line(line.id, sd, ed, current_user.id)
+        
         render :text => document.errors.full_messages.to_s, :status => (document.errors.empty? ? 202 : 403)
+#        if document.errors.empty?
+#          render :text => ""
+#        else
+#          render :json => document.errors.full_messages.to_ext_json(:success => false)
+#        end
+
+
 #    end   
   end      
   
