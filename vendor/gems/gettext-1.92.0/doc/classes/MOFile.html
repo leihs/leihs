@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: MOFile</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">MOFile</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/gettext/mo_rb.html">
+                lib/gettext/mo.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Hash
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000012">hash_string</a>&nbsp;&nbsp;
+      <a href="#M000008">load</a>&nbsp;&nbsp;
+      <a href="#M000014">load_from_file</a>&nbsp;&nbsp;
+      <a href="#M000009">load_from_stream</a>&nbsp;&nbsp;
+      <a href="#M000006">new</a>&nbsp;&nbsp;
+      <a href="#M000011">next_prime</a>&nbsp;&nbsp;
+      <a href="#M000005">open</a>&nbsp;&nbsp;
+      <a href="#M000010">prime?</a>&nbsp;&nbsp;
+      <a href="#M000015">save_to_file</a>&nbsp;&nbsp;
+      <a href="#M000013">save_to_stream</a>&nbsp;&nbsp;
+      <a href="#M000016">set_comment</a>&nbsp;&nbsp;
+      <a href="#M000007">update!</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="MOFile/HeaderRev1.html" class="link">MOFile::HeaderRev1</a><br />
+Class <a href="MOFile/InvalidFormat.html" class="link">MOFile::InvalidFormat</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Header</td>
+          <td>=</td>
+          <td class="context-item-value">Struct.new(:magic,                       :revision,                       :nstrings,                       :orig_table_offset,                       :translated_table_offset,                       :hash_table_size,                       :hash_table_offset)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">MAGIC_BIG_ENDIAN</td>
+          <td>=</td>
+          <td class="context-item-value">&quot;\x95\x04\x12\xde&quot;</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">MAGIC_LITTLE_ENDIAN</td>
+          <td>=</td>
+          <td class="context-item-value">&quot;\xde\x12\x04\x95&quot;</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">HASHWORDBITS</td>
+          <td>=</td>
+          <td class="context-item-value">32</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+From gettext-0.12.1/gettext-runtime/intl/hash-string.h Defines the so
+called `hashpjw&#8217; function by P.J. Weinberger [see Aho/Sethi/Ullman,
+COMPILERS: Principles, Techniques and Tools, 1986, 1987 Bell Telephone
+Laboratories, Inc.]
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">charset</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">filename</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">last_modified</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">little_endian</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">nplurals</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">path</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">plural</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(output_charset = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 52</span>
+52:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">output_charset</span> = <span class="ruby-keyword kw">nil</span>)
+53:     <span class="ruby-ivar">@filename</span> = <span class="ruby-keyword kw">nil</span>
+54:     <span class="ruby-ivar">@last_modified</span> = <span class="ruby-keyword kw">nil</span>
+55:     <span class="ruby-ivar">@little_endian</span> = <span class="ruby-keyword kw">true</span>
+56:     <span class="ruby-ivar">@output_charset</span> = <span class="ruby-identifier">output_charset</span>
+57:     <span class="ruby-keyword kw">super</span>()
+58:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">open</span><span class="method-args">(arg = nil, output_charset = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 47</span>
+47:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">arg</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">output_charset</span> = <span class="ruby-keyword kw">nil</span>)
+48:     <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">output_charset</span>)
+49:     <span class="ruby-identifier">result</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">arg</span>)
+50:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="#M000012" class="method-signature">
+          <span class="method-name">hash_string</span><span class="method-args">(str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 192</span>
+192:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">hash_string</span>(<span class="ruby-identifier">str</span>)
+193:     <span class="ruby-identifier">hval</span> = <span class="ruby-value">0</span>
+194:     <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+195:     <span class="ruby-identifier">str</span>.<span class="ruby-identifier">each_byte</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span>
+196:       <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'\0'</span>
+197:       <span class="ruby-identifier">hval</span> <span class="ruby-operator">&lt;&lt;=</span> <span class="ruby-value">4</span>
+198:       <span class="ruby-identifier">hval</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_i</span>
+199:       <span class="ruby-identifier">g</span> = <span class="ruby-identifier">hval</span> <span class="ruby-operator">&amp;</span> (<span class="ruby-value">0xf</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-constant">HASHWORDBITS</span> <span class="ruby-operator">-</span> <span class="ruby-value">4</span>))
+200:       <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">g</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>)
+201:         <span class="ruby-identifier">hval</span> <span class="ruby-operator">^=</span> <span class="ruby-identifier">g</span> <span class="ruby-operator">&gt;&gt;</span> (<span class="ruby-constant">HASHWORDBITS</span> <span class="ruby-operator">-</span> <span class="ruby-value">8</span>)
+202:         <span class="ruby-identifier">hval</span> <span class="ruby-operator">^=</span> <span class="ruby-identifier">g</span>
+203:       <span class="ruby-keyword kw">end</span>
+204:     <span class="ruby-keyword kw">end</span>
+205:     <span class="ruby-identifier">hval</span>
+206:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="#M000008" class="method-signature">
+          <span class="method-name">load</span><span class="method-args">(arg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 71</span>
+71:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load</span>(<span class="ruby-identifier">arg</span>)
+72:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">String</span>
+73:       <span class="ruby-keyword kw">begin</span>
+74:         <span class="ruby-identifier">st</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">stat</span>(<span class="ruby-identifier">arg</span>)
+75:         <span class="ruby-ivar">@last_modified</span> = [<span class="ruby-identifier">st</span>.<span class="ruby-identifier">ctime</span>, <span class="ruby-identifier">st</span>.<span class="ruby-identifier">mtime</span>]
+76:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span>
+77:       <span class="ruby-keyword kw">end</span>
+78:       <span class="ruby-identifier">load_from_file</span>(<span class="ruby-identifier">arg</span>)
+79:     <span class="ruby-keyword kw">else</span>
+80:       <span class="ruby-identifier">load_from_stream</span>(<span class="ruby-identifier">arg</span>)
+81:     <span class="ruby-keyword kw">end</span>
+82:     <span class="ruby-ivar">@filename</span> = <span class="ruby-identifier">arg</span>
+83:     <span class="ruby-keyword kw">self</span>
+84:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="#M000014" class="method-signature">
+          <span class="method-name">load_from_file</span><span class="method-args">(filename)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 275</span>
+275:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_from_file</span>(<span class="ruby-identifier">filename</span>)
+276:     <span class="ruby-ivar">@filename</span> = <span class="ruby-identifier">filename</span>
+277:     <span class="ruby-keyword kw">begin</span>
+278:       <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-value str">'rb'</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">load_from_stream</span>(<span class="ruby-identifier">f</span>)}
+279:     <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+280:       <span class="ruby-identifier">e</span>.<span class="ruby-identifier">set_backtrace</span>(<span class="ruby-node">&quot;File: #{@filename}&quot;</span>)
+281:       <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+282:     <span class="ruby-keyword kw">end</span>
+283:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="#M000009" class="method-signature">
+          <span class="method-name">load_from_stream</span><span class="method-args">(io)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 86</span>
+ 86:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_from_stream</span>(<span class="ruby-identifier">io</span>)
+ 87:     <span class="ruby-identifier">magic</span> = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">4</span>)
+ 88:     <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">magic</span>
+ 89:     <span class="ruby-keyword kw">when</span> <span class="ruby-constant">MAGIC_BIG_ENDIAN</span>
+ 90:       <span class="ruby-ivar">@little_endian</span> = <span class="ruby-keyword kw">false</span>
+ 91:     <span class="ruby-keyword kw">when</span> <span class="ruby-constant">MAGIC_LITTLE_ENDIAN</span>
+ 92:       <span class="ruby-ivar">@little_endian</span> = <span class="ruby-keyword kw">true</span>
+ 93:     <span class="ruby-keyword kw">else</span>
+ 94:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidFormat</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">&quot;Unknown signature %s&quot;</span>, <span class="ruby-identifier">magic</span>.<span class="ruby-identifier">dump</span>))
+ 95:     <span class="ruby-keyword kw">end</span>
+ 96: 
+ 97:     <span class="ruby-identifier">endian_type6</span> = <span class="ruby-ivar">@little_endian</span> <span class="ruby-operator">?</span> <span class="ruby-value str">'V6'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'N6'</span>
+ 98:     <span class="ruby-identifier">endian_type_astr</span> = <span class="ruby-ivar">@little_endian</span> <span class="ruby-operator">?</span> <span class="ruby-value str">'V*'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'N*'</span>
+ 99: 
+100:     <span class="ruby-identifier">header</span> = <span class="ruby-constant">HeaderRev1</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">magic</span>, <span class="ruby-operator">*</span>(<span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">4</span> <span class="ruby-operator">*</span> <span class="ruby-value">6</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-identifier">endian_type6</span>)))
+101: 
+102:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">header</span>.<span class="ruby-identifier">revision</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+103:       <span class="ruby-comment cmt"># FIXME: It doesn't support sysdep correctly.</span>
+104:       <span class="ruby-identifier">header</span>.<span class="ruby-identifier">n_sysdep_segments</span> = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">4</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-identifier">endian_type6</span>)
+105:       <span class="ruby-identifier">header</span>.<span class="ruby-identifier">sysdep_segments_offset</span> = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">4</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-identifier">endian_type6</span>)
+106:       <span class="ruby-identifier">header</span>.<span class="ruby-identifier">n_sysdep_strings</span> = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">4</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-identifier">endian_type6</span>)
+107:       <span class="ruby-identifier">header</span>.<span class="ruby-identifier">orig_sysdep_tab_offset</span> = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">4</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-identifier">endian_type6</span>)
+108:       <span class="ruby-identifier">header</span>.<span class="ruby-identifier">trans_sysdep_tab_offset</span> = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">4</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-identifier">endian_type6</span>)
+109:     <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">header</span>.<span class="ruby-identifier">revision</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+110:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidFormat</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">&quot;file format revision %d isn't supported&quot;</span>, <span class="ruby-identifier">header</span>.<span class="ruby-identifier">revision</span>))
+111:     <span class="ruby-keyword kw">end</span>
+112:     <span class="ruby-identifier">io</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-identifier">header</span>.<span class="ruby-identifier">orig_table_offset</span>
+113:     <span class="ruby-identifier">orig_table_data</span> = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>((<span class="ruby-value">4</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">header</span>.<span class="ruby-identifier">nstrings</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-identifier">endian_type_astr</span>)
+114: 
+115:     <span class="ruby-identifier">io</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-identifier">header</span>.<span class="ruby-identifier">translated_table_offset</span>
+116:     <span class="ruby-identifier">trans_table_data</span> = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>((<span class="ruby-value">4</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">header</span>.<span class="ruby-identifier">nstrings</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-identifier">endian_type_astr</span>)
+117: 
+118:     <span class="ruby-identifier">original_strings</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">header</span>.<span class="ruby-identifier">nstrings</span>)
+119:     <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">header</span>.<span class="ruby-identifier">nstrings</span>
+120:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-identifier">orig_table_data</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>]
+121:       <span class="ruby-identifier">original_strings</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">orig_table_data</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span> <span class="ruby-operator">+</span> <span class="ruby-value">0</span>])
+122:     <span class="ruby-keyword kw">end</span>
+123: 
+124:     <span class="ruby-identifier">clear</span>
+125:     <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">header</span>.<span class="ruby-identifier">nstrings</span>
+126:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-identifier">trans_table_data</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>]
+127:       <span class="ruby-identifier">str</span> = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">trans_table_data</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span> <span class="ruby-operator">+</span> <span class="ruby-value">0</span>])
+128: 
+129:       <span class="ruby-keyword kw">if</span> (<span class="ruby-operator">!</span> <span class="ruby-identifier">original_strings</span>[<span class="ruby-identifier">i</span>]) <span class="ruby-operator">||</span> <span class="ruby-identifier">original_strings</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;&quot;</span>
+130:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">str</span>
+131:           <span class="ruby-ivar">@charset</span> = <span class="ruby-keyword kw">nil</span>
+132:           <span class="ruby-ivar">@nplurals</span> = <span class="ruby-keyword kw">nil</span>
+133:           <span class="ruby-ivar">@plural</span> = <span class="ruby-keyword kw">nil</span>
+134:           <span class="ruby-identifier">str</span>.<span class="ruby-identifier">each_line</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+135:             <span class="ruby-keyword kw">if</span> <span class="ruby-regexp re">/^Content-Type:/i</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">line</span> <span class="ruby-keyword kw">and</span> <span class="ruby-regexp re">/charset=((?:\w|-)+)/i</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">line</span>
+136:               <span class="ruby-ivar">@charset</span> = <span class="ruby-identifier">$1</span>
+137:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-regexp re">/^Plural-Forms:\s*nplurals\s*\=\s*(\d*);\s*plural\s*\=\s*([^;]*)\n?/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">line</span>
+138:               <span class="ruby-ivar">@nplurals</span> = <span class="ruby-identifier">$1</span>
+139:               <span class="ruby-ivar">@plural</span> = <span class="ruby-identifier">$2</span>
+140:             <span class="ruby-keyword kw">end</span>
+141:             <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@charset</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@nplurals</span>
+142:           }
+143:           <span class="ruby-ivar">@nplurals</span> = <span class="ruby-value str">&quot;1&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@nplurals</span>
+144:           <span class="ruby-ivar">@plural</span> = <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@plural</span>
+145:         <span class="ruby-keyword kw">end</span>
+146:       <span class="ruby-keyword kw">else</span>
+147:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@output_charset</span>
+148:           <span class="ruby-keyword kw">begin</span>
+149:             <span class="ruby-identifier">str</span> = <span class="ruby-constant">Iconv</span>.<span class="ruby-identifier">conv</span>(<span class="ruby-ivar">@output_charset</span>, <span class="ruby-ivar">@charset</span>, <span class="ruby-identifier">str</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@charset</span>
+150:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Iconv</span><span class="ruby-operator">::</span><span class="ruby-constant">Failure</span>
+151:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+152:               <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;@charset = &quot;</span>, <span class="ruby-ivar">@charset</span>, <span class="ruby-value str">&quot;\n&quot;</span>
+153:               <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;@output_charset = &quot;</span>, <span class="ruby-ivar">@output_charset</span>, <span class="ruby-value str">&quot;\n&quot;</span>
+154:               <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;msgid = &quot;</span>, <span class="ruby-identifier">original_strings</span>[<span class="ruby-identifier">i</span>], <span class="ruby-value str">&quot;\n&quot;</span>
+155:               <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;msgstr = &quot;</span>, <span class="ruby-identifier">str</span>, <span class="ruby-value str">&quot;\n&quot;</span>
+156:             <span class="ruby-keyword kw">end</span>
+157:           <span class="ruby-keyword kw">end</span>
+158:         <span class="ruby-keyword kw">end</span>
+159:       <span class="ruby-keyword kw">end</span>
+160:       <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">original_strings</span>[<span class="ruby-identifier">i</span>]] = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">freeze</span>
+161:     <span class="ruby-keyword kw">end</span>
+162:     <span class="ruby-keyword kw">self</span>
+163:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="#M000011" class="method-signature">
+          <span class="method-name">next_prime</span><span class="method-args">(seed)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+From gettext-0.12.1/gettext-tools/lib/hash.c
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 179</span>
+179:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">next_prime</span>(<span class="ruby-identifier">seed</span>)
+180:     <span class="ruby-identifier">seed</span> <span class="ruby-operator">|=</span> <span class="ruby-value">1</span>
+181:     <span class="ruby-keyword kw">while</span> (<span class="ruby-operator">!</span> <span class="ruby-identifier">prime?</span>(<span class="ruby-identifier">seed</span>))
+182:       <span class="ruby-identifier">seed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">2</span>
+183:     <span class="ruby-keyword kw">end</span>
+184:     <span class="ruby-identifier">seed</span>
+185:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="#M000010" class="method-signature">
+          <span class="method-name">prime?</span><span class="method-args">(candidate)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+From gettext-0.12.1/gettext-tools/lib/hash.c
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 166</span>
+166:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prime?</span>(<span class="ruby-identifier">candidate</span>)
+167:     <span class="ruby-identifier">divn</span> = <span class="ruby-value">3</span>
+168:     <span class="ruby-identifier">sq</span> = <span class="ruby-identifier">divn</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">divn</span>
+169: 
+170:     <span class="ruby-keyword kw">while</span> (<span class="ruby-identifier">sq</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">candidate</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">candidate</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">divn</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>)
+171:       <span class="ruby-identifier">divn</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+172:       <span class="ruby-identifier">sq</span> <span class="ruby-operator">+=</span> <span class="ruby-value">4</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">divn</span>
+173:       <span class="ruby-identifier">divn</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+174:     <span class="ruby-keyword kw">end</span>
+175:     <span class="ruby-identifier">candidate</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">divn</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+176:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="#M000015" class="method-signature">
+          <span class="method-name">save_to_file</span><span class="method-args">(filename)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 285</span>
+285:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_to_file</span>(<span class="ruby-identifier">filename</span>)
+286:     <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-value str">'wb'</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">save_to_stream</span>(<span class="ruby-identifier">f</span>)}
+287:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="#M000013" class="method-signature">
+          <span class="method-name">save_to_stream</span><span class="method-args">(io)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 208</span>
+208:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_to_stream</span>(<span class="ruby-identifier">io</span>)
+209:     <span class="ruby-comment cmt">#Save data as little endian format.</span>
+210:     <span class="ruby-identifier">header_size</span> = <span class="ruby-value">4</span> <span class="ruby-operator">*</span> <span class="ruby-value">7</span>
+211:     <span class="ruby-identifier">table_size</span>  = <span class="ruby-value">4</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">size</span>
+212: 
+213:     <span class="ruby-identifier">hash_table_size</span> = <span class="ruby-identifier">next_prime</span>((<span class="ruby-identifier">size</span> <span class="ruby-operator">*</span> <span class="ruby-value">4</span>) <span class="ruby-operator">/</span> <span class="ruby-value">3</span>) 
+214:     <span class="ruby-identifier">hash_table_size</span> = <span class="ruby-value">3</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hash_table_size</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">2</span>
+215:     <span class="ruby-identifier">header</span> = <span class="ruby-constant">Header</span>.<span class="ruby-identifier">new</span>(
+216:       <span class="ruby-constant">MAGIC_LITTLE_ENDIAN</span>,          <span class="ruby-comment cmt"># magic</span>
+217:       <span class="ruby-value">0</span>,                            <span class="ruby-comment cmt"># revision</span>
+218:       <span class="ruby-identifier">size</span>,                         <span class="ruby-comment cmt"># nstrings</span>
+219:       <span class="ruby-identifier">header_size</span>,                  <span class="ruby-comment cmt"># orig_table_offset</span>
+220:       <span class="ruby-identifier">header_size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">table_size</span>,     <span class="ruby-comment cmt"># translated_table_offset</span>
+221:       <span class="ruby-identifier">hash_table_size</span>,              <span class="ruby-comment cmt"># hash_table_size</span>
+222:       <span class="ruby-identifier">header_size</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">table_size</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span>  <span class="ruby-comment cmt"># hash_table_offset</span>
+223:     )
+224:     <span class="ruby-identifier">io</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">header</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">'a4V*'</span>))
+225: 
+226:     <span class="ruby-identifier">ary</span> = <span class="ruby-identifier">to_a</span>
+227:     <span class="ruby-identifier">ary</span>.<span class="ruby-identifier">sort!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>[<span class="ruby-value">0</span>]} <span class="ruby-comment cmt"># sort by original string</span>
+228: 
+229:     <span class="ruby-identifier">pos</span> = <span class="ruby-identifier">header</span>.<span class="ruby-identifier">hash_table_size</span> <span class="ruby-operator">*</span> <span class="ruby-value">4</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">header</span>.<span class="ruby-identifier">hash_table_offset</span>
+230: 
+231:     <span class="ruby-identifier">orig_table_data</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>()
+232:     <span class="ruby-identifier">ary</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">item</span>, <span class="ruby-identifier">_</span><span class="ruby-operator">|</span>
+233:       <span class="ruby-identifier">orig_table_data</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">item</span>.<span class="ruby-identifier">size</span>)
+234:       <span class="ruby-identifier">orig_table_data</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">pos</span>)
+235:       <span class="ruby-identifier">pos</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span> <span class="ruby-comment cmt"># +1 is &lt;NUL&gt;</span>
+236:     }
+237:     <span class="ruby-identifier">io</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">orig_table_data</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">'V*'</span>))
+238: 
+239:     <span class="ruby-identifier">trans_table_data</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>()
+240:     <span class="ruby-identifier">ary</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">_</span>, <span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+241:       <span class="ruby-identifier">trans_table_data</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">item</span>.<span class="ruby-identifier">size</span>)
+242:       <span class="ruby-identifier">trans_table_data</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">pos</span>)
+243:       <span class="ruby-identifier">pos</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span> <span class="ruby-comment cmt"># +1 is &lt;NUL&gt;</span>
+244:     }
+245:     <span class="ruby-identifier">io</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">trans_table_data</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">'V*'</span>))
+246: 
+247:     <span class="ruby-identifier">hash_tab</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">hash_table_size</span>)
+248:     <span class="ruby-identifier">j</span> = <span class="ruby-value">0</span>
+249:     <span class="ruby-identifier">ary</span>[<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">size</span>].<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">_</span><span class="ruby-operator">|</span>
+250:       <span class="ruby-identifier">hash_val</span> = <span class="ruby-identifier">hash_string</span>(<span class="ruby-identifier">key</span>)
+251:       <span class="ruby-identifier">idx</span> = <span class="ruby-identifier">hash_val</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">hash_table_size</span>
+252:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hash_tab</span>[<span class="ruby-identifier">idx</span>] <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">nil</span>
+253:         <span class="ruby-identifier">incr</span> = <span class="ruby-value">1</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">hash_val</span> <span class="ruby-operator">%</span> (<span class="ruby-identifier">hash_table_size</span> <span class="ruby-operator">-</span> <span class="ruby-value">2</span>))
+254:         <span class="ruby-keyword kw">begin</span>
+255:           <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">idx</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">hash_table_size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">incr</span>)
+256:             <span class="ruby-identifier">idx</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">hash_table_size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">incr</span>
+257:           <span class="ruby-keyword kw">else</span>
+258:             <span class="ruby-identifier">idx</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">incr</span>
+259:           <span class="ruby-keyword kw">end</span>
+260:         <span class="ruby-keyword kw">end</span> <span class="ruby-keyword kw">until</span> (<span class="ruby-identifier">hash_tab</span>[<span class="ruby-identifier">idx</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword kw">nil</span>)
+261:       <span class="ruby-keyword kw">end</span>
+262:       <span class="ruby-identifier">hash_tab</span>[<span class="ruby-identifier">idx</span>] = <span class="ruby-identifier">j</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+263:       <span class="ruby-identifier">j</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+264:     }
+265:     <span class="ruby-identifier">hash_tab</span>.<span class="ruby-identifier">collect!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">i</span> <span class="ruby-value">? </span><span class="ruby-identifier">i</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>}
+266: 
+267:     <span class="ruby-identifier">io</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">hash_tab</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">'V*'</span>))
+268: 
+269:     <span class="ruby-identifier">ary</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">item</span>, <span class="ruby-identifier">_</span><span class="ruby-operator">|</span> <span class="ruby-identifier">io</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">item</span>); <span class="ruby-identifier">io</span>.<span class="ruby-identifier">write</span>(<span class="ruby-value str">&quot;\0&quot;</span>) }
+270:     <span class="ruby-identifier">ary</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">_</span>, <span class="ruby-identifier">item</span><span class="ruby-operator">|</span> <span class="ruby-identifier">io</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">item</span>); <span class="ruby-identifier">io</span>.<span class="ruby-identifier">write</span>(<span class="ruby-value str">&quot;\0&quot;</span>) }
+271: 
+272:     <span class="ruby-keyword kw">self</span>
+273:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
+
+        <div class="method-heading">
+          <a href="#M000016" class="method-signature">
+          <span class="method-name">set_comment</span><span class="method-args">(msgid_or_sym, comment)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 289</span>
+289:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_comment</span>(<span class="ruby-identifier">msgid_or_sym</span>, <span class="ruby-identifier">comment</span>)
+290:     <span class="ruby-comment cmt">#Do nothing</span>
+291:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+          <a href="#M000007" class="method-signature">
+          <span class="method-name">update!</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/gettext/mo.rb, line 60</span>
+60:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update!</span>
+61:     <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FileTest</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-ivar">@filename</span>)
+62:       <span class="ruby-identifier">st</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">stat</span>(<span class="ruby-ivar">@filename</span>)
+63:       <span class="ruby-identifier">load</span>(<span class="ruby-ivar">@filename</span>) <span class="ruby-keyword kw">unless</span> (<span class="ruby-ivar">@last_modified</span> <span class="ruby-operator">==</span> [<span class="ruby-identifier">st</span>.<span class="ruby-identifier">ctime</span>, <span class="ruby-identifier">st</span>.<span class="ruby-identifier">mtime</span>])
+64:     <span class="ruby-keyword kw">else</span>
+65:       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{@filename} was lost.&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+66:       <span class="ruby-identifier">clear</span>
+67:     <span class="ruby-keyword kw">end</span>
+68:     <span class="ruby-keyword kw">self</span>
+69:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
