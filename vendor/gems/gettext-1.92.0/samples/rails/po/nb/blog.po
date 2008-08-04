@@ -1,0 +1,107 @@
+# GetText Sample Blog on RoR.
+#
+# Copyright (C) 2005,2006 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Runar Ingebrigtsen <EMAIL at ADDRESS>, 2008.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: blog 1.2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-01 23:20+0900\n"
+"PO-Revision-Date: 2008-07-14 16:21+0200\n"
+"Last-Translator: Runar Ingebrigtsen <EMAIL at ADDRESS>\n"
+"Language-Team: Norwegian/Bokmaal <LL at li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
+
+#: app/helpers/blog_helper.rb:43
+msgid "Ruby Links"
+msgstr "Ruby-lenker"
+
+#: app/helpers/blog_helper.rb:51
+msgid "Old articles"
+msgstr "Gamle artikler"
+
+#: app/models/article.rb:-
+msgid "article"
+msgstr "artikkel"
+
+#: app/models/article.rb:-
+msgid "Article|Title"
+msgstr "Artikkel|Tittel"
+
+#: app/models/article.rb:-
+msgid "Article|Description"
+msgstr "Artikkel|Beskrivelse"
+
+#: app/models/article.rb:-
+msgid "Article|Lastupdate"
+msgstr "Artikkel|Siste oppdatering"
+
+#: app/controllers/blog_controller.rb:33
+msgid "Article was successfully created."
+msgstr "Artikkelen ble opprettet uten problemer."
+
+#: app/controllers/blog_controller.rb:47
+msgid "Article was successfully updated."
+msgstr "Artikkelen ble oppdatert uten problemer."
+
+#: app/views/blog/show.rhtml:13 app/views/blog/list.rhtml:13
+#: app/views/layouts/blog.rhtml:14
+msgid "GetText Sample Blog on RoR"
+msgstr "GetText eksempelblogg i RoR"
+
+#: app/views/blog/show.rhtml:16 app/views/blog/edit.rhtml:16
+msgid "Edit"
+msgstr "Endre"
+
+#: app/views/blog/show.rhtml:17 app/views/blog/new.rhtml:20
+#: app/views/blog/edit.rhtml:21
+msgid "Back"
+msgstr "Tilbake"
+
+#: app/views/blog/new.rhtml:13 app/views/blog/list.rhtml:15
+msgid "New article"
+msgstr "Ny artikkel"
+
+#: app/views/blog/new.rhtml:17
+msgid "Create"
+msgstr "Opprett"
+
+#: app/views/blog/list.rhtml:18
+msgid "No articles were found."
+msgstr "Ingen artikler ble funnet"
+
+#: app/views/blog/edit.rhtml:12
+msgid "Editing article"
+msgstr "Endrer artikkel"
+
+#: app/views/blog/edit.rhtml:19
+msgid "Show"
+msgstr "Vis"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Destroy"
+msgstr "Fjern"
+
+#: app/views/blog/edit.rhtml:20
+msgid "Are you sure?"
+msgstr "Er du sikker?"
+
+#: app/views/blog/_form.rhtml:16
+msgid "Lastupdate"
+msgstr "Siste oppdatering"
+
+#: app/views/blog/_form.rhtml:18
+msgid "Title: Required."
+msgstr "Tittel: Påkrevet"
+
+#: app/views/blog/_form.rhtml:21
+msgid "Description: More than 10 characters."
+msgstr "Beskrivelse: Mer enn 10 tegn."
+
