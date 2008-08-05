@@ -1,5 +1,17 @@
-class Backend::TemporaryController < Backend::BackendController
+class Backend::TemporaryController < ApplicationController
 #  require_role "inventory_manager", :except => :create_some
+  
+  def login
+    if request.post?
+      if params[:user_name].include?('hacker')
+        
+      else
+        id = "1-" + params[:user_name] if params[:user_name].include?('admin')
+        id ||= "2-" + params[:user_name]
+        redirect_to "http://localhost:3000/authenticator/zhdk/login_successfull/" + id
+      end
+    end
+  end
   
   def create_some
     reset_session
@@ -22,6 +34,7 @@ class Backend::TemporaryController < Backend::BackendController
     create_some_root_categories
     create_some_packages
     create_some_templates
+
     create_some_properties
     create_some_compatibles
     create_some_accessories

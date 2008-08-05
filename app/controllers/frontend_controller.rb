@@ -1,6 +1,8 @@
 class FrontendController < ApplicationController
 
-layout 'frontend'
+  prepend_before_filter :login_required
+
+  layout 'frontend'
 
   def index
   end

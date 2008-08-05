@@ -16,7 +16,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.backend '/backend', :controller => 'backend/dashboard'
 
-
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -49,6 +48,7 @@ ActionController::Routing::Routes.draw do |map|
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
+  map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
   map.connect ':controller/:action/:id', :defaults => { :controller => 'models' }
   map.connect ':controller/:action/:id.:format'
 end

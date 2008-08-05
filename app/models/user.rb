@@ -1,4 +1,3 @@
-require 'digest/sha1'
 class User < ActiveRecord::Base
   
   belongs_to :authentication_system
@@ -7,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :items, :through => :inventory_pools # thanks to the nested_has_many_through plugin
   has_many :models, :through => :inventory_pools, :uniq => true # thanks to the nested_has_many_through plugin
   has_many :categories, :through => :models, :uniq => true # thanks to the nested_has_many_through plugin
+
   def all_categories # TODO optimize
     @c = []
     categories.each do |c|
@@ -21,10 +21,25 @@ class User < ActiveRecord::Base
   has_many :contracts
   has_many :contract_lines, :through => :contracts
   has_many :current_contracts, :class_name => "Contract", :conditions => ["status_const = ?", Contract::NEW]
+<<<<<<< .mine
+
+
+  validates_presence_of     :login #TODO: is Email mandatory? , :email
+  validates_length_of       :login,    :within => 3..100
+  #TODO is Email mandatory? validates_length_of       :email,    :within => 3..100
+  
+=======
 
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
   has_many :reminders, :as => :target, :class_name => "History", :dependent => :destroy, :conditions => {:type_const => History::REMIND}, :order => 'created_at ASC'
 
+>>>>>>> .r394
+  # prevents a user from submitting a crafted form that bypasses activation
+  # anything else you want your user to change should be added here.
+  attr_accessible :login, :email, :password, :password_confirmation, :unique_id
+
+
+  
   acts_as_ferret :fields => [ :login ]  #, :store_class_name => true
 
   def authinfo
@@ -138,6 +153,8 @@ class User < ActiveRecord::Base
   
 #################### End role_requirement
 
+<<<<<<< .mine
+=======
 ######################################################################## from plugin
 
 #################### Start temp complete record
@@ -250,4 +267,5 @@ class User < ActiveRecord::Base
     visits.sort
   end
     
+>>>>>>> .r394
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20) do
+ActiveRecord::Schema.define(:version => 20080707081422) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id",           :limit => 11
@@ -38,14 +38,25 @@ ActiveRecord::Schema.define(:version => 20) do
   end
 
   create_table "authentication_systems", :force => true do |t|
-    t.string "name"
-    t.string "class_name"
+    t.string  "name"
+    t.string  "class_name"
+    t.boolean "default"
+    t.boolean "active"
+  end
+
+  create_table "backup_line_groups", :force => true do |t|
+    t.integer  "model_group_id", :limit => 11
+    t.integer  "quantity",       :limit => 11, :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "backup_order_lines", :force => true do |t|
-    t.integer  "model_id",   :limit => 11
-    t.integer  "order_id",   :limit => 11
-    t.integer  "quantity",   :limit => 11
+    t.integer  "model_id",          :limit => 11
+    t.integer  "line_group_id",     :limit => 11
+    t.integer  "order_id",          :limit => 11
+    t.integer  "inventory_pool_id", :limit => 11
+    t.integer  "quantity",          :limit => 11
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at"
@@ -62,34 +73,12 @@ ActiveRecord::Schema.define(:version => 20) do
     t.datetime "updated_at"
   end
 
-  create_table "categories", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "categories_models", :id => false, :force => true do |t|
-    t.integer "category_id", :limit => 11
-    t.integer "model_id",    :limit => 11
-  end
-
-  add_index "categories_models", ["category_id"], :name => "index_categories_models_on_category_id"
-  add_index "categories_models", ["model_id"], :name => "index_categories_models_on_model_id"
-
-  create_table "categories_parents", :id => false, :force => true do |t|
-    t.integer "category_id", :limit => 11
-    t.integer "parent_id",   :limit => 11
-  end
-
-  add_index "categories_parents", ["category_id"], :name => "index_categories_parents_on_category_id"
-  add_index "categories_parents", ["parent_id"], :name => "index_categories_parents_on_parent_id"
-
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50
     t.text     "comment"
     t.datetime "created_at"
-    t.integer  "commentable_id",   :limit => 11, :null => false
-    t.string   "commentable_type",               :null => false
+    t.integer  "commentable_id",   :limit => 11,                 :null => false
+    t.string   "commentable_type",               :default => "", :null => false
     t.integer  "user_id",          :limit => 11
   end
 
@@ -99,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20) do
     t.integer  "contract_id",   :limit => 11
     t.integer  "item_id",       :limit => 11
     t.integer  "model_id",      :limit => 11
+    t.integer  "line_group_id", :limit => 11
     t.integer  "quantity",      :limit => 11, :default => 1
     t.date     "start_date"
     t.date     "end_date"
@@ -115,19 +105,12 @@ ActiveRecord::Schema.define(:version => 20) do
     t.datetime "updated_at"
   end
 
-  create_table "contracts_printouts", :id => false, :force => true do |t|
-    t.integer  "contract_id", :limit => 11
-    t.integer  "printout_id", :limit => 11
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "histories", :force => true do |t|
     t.string   "text",                      :default => ""
     t.integer  "type_const",  :limit => 11
     t.datetime "created_at",                                :null => false
     t.integer  "target_id",   :limit => 11,                 :null => false
-    t.string   "target_type",                               :null => false
+    t.string   "target_type",               :default => "", :null => false
     t.integer  "user_id",     :limit => 11
   end
 
@@ -144,12 +127,45 @@ ActiveRecord::Schema.define(:version => 20) do
     t.string   "serial_number"
     t.integer  "model_id",          :limit => 11
     t.integer  "inventory_pool_id", :limit => 11
-    t.integer  "status",            :limit => 11, :default => 1
+    t.integer  "status_const",      :limit => 11, :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "items", ["inventory_code"], :name => "index_items_on_inventory_code", :unique => true
+
+  create_table "line_groups", :force => true do |t|
+    t.integer  "model_group_id", :limit => 11
+    t.integer  "quantity",       :limit => 11, :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "model_groups", :force => true do |t|
+    t.string   "type"
+    t.string   "name"
+    t.integer  "inventory_pool_id", :limit => 11
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "model_groups_parents", :id => false, :force => true do |t|
+    t.integer "model_group_id", :limit => 11
+    t.integer "parent_id",      :limit => 11
+    t.string  "label"
+  end
+
+  add_index "model_groups_parents", ["model_group_id"], :name => "index_model_groups_parents_on_model_group_id"
+  add_index "model_groups_parents", ["parent_id"], :name => "index_model_groups_parents_on_parent_id"
+
+  create_table "model_links", :force => true do |t|
+    t.integer "model_group_id", :limit => 11
+    t.integer "model_id",       :limit => 11
+    t.integer "quantity",       :limit => 11
+  end
+
+  add_index "model_links", ["model_group_id"], :name => "index_model_links_on_model_group_id"
+  add_index "model_links", ["model_id"], :name => "index_model_links_on_model_id"
 
   create_table "models", :force => true do |t|
     t.string   "name"
@@ -167,14 +183,6 @@ ActiveRecord::Schema.define(:version => 20) do
   add_index "models_compatibles", ["model_id"], :name => "index_models_compatibles_on_model_id"
   add_index "models_compatibles", ["compatible_id"], :name => "index_models_compatibles_on_compatible_id"
 
-  create_table "models_packages", :id => false, :force => true do |t|
-    t.integer "model_id",   :limit => 11
-    t.integer "package_id", :limit => 11
-  end
-
-  add_index "models_packages", ["model_id"], :name => "index_models_packages_on_model_id"
-  add_index "models_packages", ["package_id"], :name => "index_models_packages_on_package_id"
-
   create_table "options", :force => true do |t|
     t.integer  "order_line_id", :limit => 11
     t.integer  "quantity",      :limit => 11
@@ -185,9 +193,11 @@ ActiveRecord::Schema.define(:version => 20) do
   end
 
   create_table "order_lines", :force => true do |t|
-    t.integer  "model_id",   :limit => 11
-    t.integer  "order_id",   :limit => 11
-    t.integer  "quantity",   :limit => 11, :default => 1
+    t.integer  "model_id",          :limit => 11
+    t.integer  "line_group_id",     :limit => 11
+    t.integer  "order_id",          :limit => 11
+    t.integer  "inventory_pool_id", :limit => 11
+    t.integer  "quantity",          :limit => 11, :default => 1
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at"
@@ -203,14 +213,10 @@ ActiveRecord::Schema.define(:version => 20) do
     t.datetime "updated_at"
   end
 
-  create_table "printouts", :force => true do |t|
-    t.binary   "pdf"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "properties", :force => true do |t|
     t.integer  "model_id",   :limit => 11
+    t.string   "key"
+    t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -224,14 +230,11 @@ ActiveRecord::Schema.define(:version => 20) do
 
   create_table "users", :force => true do |t|
     t.string   "login"
-    t.integer  "authentication_system_id",  :limit => 11, :default => 1
+    t.integer  "authentication_system_id", :limit => 11, :default => 1
+    t.string   "unique_id"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email"
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
-    t.string   "remember_token"
-    t.datetime "remember_token_expires_at"
   end
 
 end
