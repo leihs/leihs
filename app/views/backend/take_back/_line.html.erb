@@ -18,10 +18,15 @@
 			<%= "#{short_date(@line.start_date)} - #{short_date(@line.end_date)}" %>
 		</td>
 		<td id="inventory_code_<%= @line.id %>" class="line_valid_<%= @line.complete? %>">
-			<%= @line.item.inventory_code %>
+			<%= greybox_link_to_page(@line.item.inventory_code,
+			 { :controller => 'items', :action => 'details', :id => @line.item.id },
+			 :title => _("Item"),
+			 :class => "iconized-notxt" ) %>
 		</td>
-		<td><div class="buttons">
-
-			</div></td>
+		<td class="buttons">
+			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/flag_red.png") + " " + _("Broken"),
+					 	{ :controller => 'take_back', :action => 'broken', :item_id => @line.item_id, :contract_id => @line.contract.id },
+						:title => _("Broken"), :class => (@line.item.status_const == Item::IN_REPAIR ? "negative" : "") ) %>
+		</td>
 	</tr>
 </div>

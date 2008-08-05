@@ -1,0 +1,30 @@
+Id: <%= @item.id %>
+<br />
+Model name: <%= @item.model.name %>
+
+<br />
+Status: <%= @item.status_const %>
+
+<br />
+
+<ul>
+	<li class="line_valid_<%= @item.in_stock? %>"><%= @item.inventory_code %> => <%= @item.inventory_pool.name %> </li>
+</ul>
+
+<br />
+
+Accessories:
+<ul>
+<% @item.model.accessories.each do |a| %>
+	<li><%= a.name %></li>
+<% end %>
+</ul>
+
+<br />
+
+Histories:
+<ul>
+<% @item.histories.each do |h| %>
+	<li><%= short_date h.created_at %> - <%= h.type_const %> - <%= h.text %></li>
+<% end %>
+</ul>

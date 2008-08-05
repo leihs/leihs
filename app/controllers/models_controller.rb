@@ -83,6 +83,7 @@ class ModelsController < ApplicationController
     render :partial => 'details' #, :layout => $modal_layout_path
   end
 
+
   # TODO render_component (solve forgery)
   #def recent
   #end

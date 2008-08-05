@@ -29,11 +29,22 @@
 	</div>
 	
 	
-	<ul style="float: right; width: 50%;">
+	<div style="float: right; width: 50%;">
+	<ul>
 	Compatibles:
 	<% @model.compatibles.each do |c| %>
 		<li><%= link_to_remote(c.name, :update => 'details', :url => {:controller => 'models', :action => 'details', :id => c.id}) %></li>
 	<% end %>
 	</ul>
+	
+	<br />
+	Images:
+	<ul>
+	<% @model.images.each do |i| %>
+		<li style="display: inline;"><%= link_to_function(image_tag(i.public_filename(:thumb)), "$('image_big').src='#{i.public_filename}'") %></li>
+	<% end %>
+	</ul>
+	<img id="image_big">
+	</div>
 	
 <% end %>

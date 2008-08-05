@@ -6,10 +6,16 @@ class Item < ActiveRecord::Base
   belongs_to :model
   belongs_to :inventory_pool
   has_many :contract_lines
+  has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
   validates_uniqueness_of :inventory_code
   
   acts_as_ferret :fields => [ :model_name, :inventory_pool_name, :inventory_code, :serial_number ] #, :store_class_name => true
+
+####################################################################
+
+  named_scope :available, :conditions => {:status_const => Item::AVAILABLE} 
+  named_scope :in_repair, :conditions => {:status_const => Item::IN_REPAIR} 
 
 ####################################################################
 
@@ -38,6 +44,17 @@ class Item < ActiveRecord::Base
     end
   end
 
+  #######################
+  #
+  def log_history(text, user_id)
+    histories << History.new(:text => text, :user_id => user_id, :type_const => History::BROKEN)
+  end
+
+    # TODO item returns to available
+  #
+  #######################
+  
+  
 ####################################################################
 
   private

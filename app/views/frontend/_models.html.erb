@@ -1,6 +1,6 @@
 
     // create the Data Store
-    var store = new Ext.data.Store({
+    var models_store = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy(
 			new Ext.data.Connection({
             	url: '/frontend/models',
@@ -22,7 +22,7 @@
         // turn on remote sorting
         remoteSort: true
     });
-    store.setDefaultSort('name', 'ASC');
+    models_store.setDefaultSort('name', 'ASC');
 
     // row expander
     var expander = new Ext.grid.RowExpander({
@@ -44,7 +44,7 @@
     // the column model has information about grid columns
     // dataIndex maps the column to the specific data field in
     // the data store
-    var cm = new Ext.grid.ColumnModel([
+    var models_cm = new Ext.grid.ColumnModel([
 		expander,
 		{
            header: "Name",
@@ -57,17 +57,20 @@
         }, sm]);
 
     // by default columns are sortable
-    cm.defaultSortable = true;
+    models_cm.defaultSortable = true;
 
     var models = new Ext.grid.GridPanel({
-        el:'model_list',
+//        el:'model_list',
         title:'[1] Models',
-        store: store,
-        cm: cm,
+        store: models_store,
+        cm: models_cm,
 //		sm: sm,
 		viewConfig: { forceFit: true },
         loadMask: true,
         plugins: expander,
+//		show: function(cmp) {
+//			this.store.load(); // TODO optimize render
+//		},
 
 		listeners: {
 			cellclick: function( grid, rowIndex, columnIndex, e ){
@@ -93,13 +96,13 @@
         tbar: [
             'Search: ', ' ',
             new Ext.app.SearchField({
-                store: store,
+                store: models_store,
                 width: 320
             })
         ],
 		bbar: new Ext.PagingToolbar({
             pageSize: 25,
-            store: store,
+            store: models_store,
             displayInfo: true,
             displayMsg: 'Displaying topics {0} - {1} of {2}',
             emptyMsg: "No topics to display"
@@ -108,7 +111,7 @@
 
 
     // trigger the data store load
-    store.load({params:{start:0, limit:25}});
+    models_store.load({params:{start:0, limit:25}});
 
 
   

@@ -13,6 +13,7 @@
           baseParams:{format:'ext_json'}
         }),
         useArrows:true,
+		border: false,
 		animate:true,
         containerScroll: true, 
 		renderTo:'categories',
@@ -20,7 +21,7 @@
         rootVisible:false,
 		listeners: {
 			click: function( node, e ){
-				store.load({params:{start:0, limit:25, category_id: node.id}});
+				models.store.load({params:{start:0, limit:25, category_id: node.id}});
 			}
 		}
       });

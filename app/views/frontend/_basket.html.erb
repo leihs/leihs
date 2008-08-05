@@ -14,11 +14,12 @@
             root: 'order_lines',
             totalProperty: 'results',
             id: 'id',
-            fields: ['quantity', 'model.name']
-        }),
+            fields: [
+			   {name: 'quantity',  type: 'int'}, //, map: 'orders.order_lines.quantity'
+			   {name: 'model.name', type: 'string'} //, map: 'orders.order_lines.model.name'
+			]
+        })
 
-        // turn on remote sorting
-        remoteSort: true
     });
 	
     // the column model has information about grid columns
@@ -38,14 +39,15 @@
            width: 170
         }]);
 
-    // by default columns are sortable
-    basket_cm.defaultSortable = true;
-
     var basket = new Ext.grid.EditorGridPanel({ //old: GridPanel
         el:'basket',
 //        title:'Basket',
         store: basket_store,
         cm: basket_cm,
+		enableColumnHide: false,
+		enableColumnMove: false,
+		enableHdMenu: false,
+		viewConfig: { forceFit: true },
         loadMask: true,
 		clicksToEdit: 1,
 		listeners: {

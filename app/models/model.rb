@@ -6,6 +6,7 @@ class Model < ActiveRecord::Base
   has_many :contract_lines
   has_many :properties
   has_many :accessories
+  has_many :images
 
   # ModelGroups
   has_many :model_links
@@ -13,13 +14,6 @@ class Model < ActiveRecord::Base
   has_many :categories, :through => :model_links, :source => :model_group, :conditions => {:type => 'Category'}
   has_many :packages, :through => :model_links, :source => :model_group, :conditions => {:type => 'Package'}
   has_many :templates, :through => :model_links, :source => :model_group, :conditions => {:type => 'Template'}
-
-#old#
-#  acts_as_graph :edge_table => "models_packages",
-#                :parent_col => "package_id",
-#                :child_col => "model_id",
-#                :parent_collection => "packages",
-#                :child_collection => "models"
                 
 ########
 # TODO refactor to ModelGroup ?
@@ -41,24 +35,11 @@ class Model < ActiveRecord::Base
   end
 ########
 
-#old#
-#  named_scope :packages, :select => "models.*",
-#                         :joins => "LEFT JOIN models_packages ON models_packages.package_id = models.id",
-#                         :conditions => ['models_packages.package_id IS NOT NULL'],
-#                         :group => "models_packages.package_id"
-
   named_scope :without_items, :select => "models.*",
                               :joins => "LEFT JOIN items ON items.model_id = models.id",
                               :conditions => ['items.model_id IS NULL']
     
   acts_as_ferret :fields => [ :name, :category_names, :properties_values ], :store_class_name => true
-
-
-#old#
-  # TODO a package shouldn't have items ?
-#  def is_package?
-#    !models.empty? # and items.empty?
-#  end
 
 #############################################  
 
