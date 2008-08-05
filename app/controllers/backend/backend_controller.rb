@@ -95,7 +95,7 @@ class Backend::BackendController < ApplicationController
         self.current_inventory_pool = first_access_right.inventory_pool if first_access_right
       end
     else
-      session[:return_to] = request.request_uri
+      store_location
       redirect_to :controller => '/session', :action => 'new' and return
     end
 
