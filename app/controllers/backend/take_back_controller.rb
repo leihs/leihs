@@ -81,6 +81,16 @@ class Backend::TakeBackController < Backend::BackendController
     end
   end
 
+  def broken
+    if request.post?
+      @item.update_attribute :status_const, Item::IN_REPAIR 
+      @item.log_history(params[:comment], current_user.id)
+      redirect_to :action => 'show', :user_id => @contract.user.id
+    else
+      render :layout => $modal_layout_path
+    end
+  end
+
   def timeline
     @timeline_xml = @user.timeline
     render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'
@@ -91,6 +101,7 @@ class Backend::TakeBackController < Backend::BackendController
   def pre_load
     @user = User.find(params[:user_id]) if params[:user_id] # TODO scope current_inventory_pool    
     @contract = Contract.find(params[:contract_id]) if params[:contract_id]
+    @item = Item.find(params[:item_id]) if params[:item_id] 
   end
     
 end

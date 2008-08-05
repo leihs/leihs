@@ -10,6 +10,13 @@ class Backend::ItemsController < Backend::BackendController
      {:inventory_pool_id => current_inventory_pool.id}
   end
 
+
+  def details
+    @item = Item.find(params[:id]) # TODO scope current_inventory_pool
+ 
+    render :layout => $modal_layout_path
+  end
+  
 #################################################################
 
   # TODO remove, refactor for active_scaffold

@@ -5,6 +5,7 @@
 
 		<%= render :partial => 'categories' %>
 		<%= render :partial => 'models' %>
+		<%= render :partial => 'recent_models' %>
 		<%= render :partial => 'basket' %>
 		<%= render :partial => 'complete_order' %>
 
@@ -43,8 +44,7 @@
                     minSize: 50,
                     maxSize: 100,
                     collapsible: true,
-                    margins:'5 5 5 5',
-					html: 'Logo & Account'
+                    margins:'5 5 5 5'
                 },{
                     region:'south',
                     contentEl: 'south',
@@ -67,15 +67,29 @@
                     items: basket
                  },{
                     region:'west',
-                    title:'Categories',
+					title: ' ',
                     collapsible: true,
+                    split:true,
                     width: 200,
                     minSize: 175,
                     maxSize: 400,
-                    layout:'fit',
                     margins:'0 0 0 5',
 					autoScroll:true,
-                    items: categories_panel
+                    layout:'fit',
+                    layout:'accordion',
+                    layoutConfig:{
+                        animate:true
+                    },
+                    items: [
+					{
+						title: 'Categories',
+						border: false,
+						items: categories_panel
+                    },{
+                        title: 'Recent Models',
+                        border: false,
+						items: recent_models
+                    }]
                 },
 				center_tabs
              ]
@@ -88,14 +102,23 @@
 
   
 	<div id="model_list"></div>
+	<div id="recent_models"></div>
 	<div id="basket"></div>
 	<div id="user_timeline"></div>
 	<div id="complete_order"></div>
 	<div id="categories"></div>
 	
-	<div id="north"></div>
 	<div id="south"></div>
 	
+	<div id="north">
+		<div id="logo">
+			<h1><%= link_to "Leihs 2.0", :controller => '/' %></h1>
+
+		</div>
+		<div id="personal-toolbar">
+			<%= render :partial => '/layouts/00-patterns/personal_toolbar' %>
+		</div>		
+	</div>	
 	
 	<div id="tpl_model_details" style="visibility: hidden;">
 	    <p><b>Model:</b> {name}</p><br>

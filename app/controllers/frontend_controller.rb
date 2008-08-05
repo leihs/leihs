@@ -37,11 +37,24 @@ class FrontendController < ApplicationController
 #    end
 #  end
 
+  def recent_models
+    m = current_user.orders.sort.collect(&:models).flatten.uniq[0,5] if current_user
+    m ||= []
+    respond_to do |format|
+      format.ext_json { render :json => m.to_ext_json }
+    end
+  end
+
   def basket
-    order = current_user.current_order
+    order = current_user.get_current_order
+    puts order.inspect
+    puts order.order_lines.inspect
     respond_to do |format|
 #      format.html { render :action => 'basket', :layout => false }
-      format.ext_json { render :json => order.order_lines.to_ext_json(:include => :model) }
+      #format.ext_json { render :json => order.order_lines.to_ext_json(:include => :model) }
+      format.ext_json { render :json => order.to_json(:include => {
+                                                          :order_lines => { :include => :model }
+                                                          } ) }
     end
   end
 
@@ -63,29 +76,42 @@ class FrontendController < ApplicationController
 
   # TODO sort on model.name
   def complete_order(sort =  params[:sort] || "model", dir =  params[:dir] || "ASC")
-    order = current_user.current_order
+    order = current_user.get_current_order
     respond_to do |format|
-      format.ext_json { render :json => order.order_lines.sort{|x,y| x.send(sort) <=> y.send(sort) }.to_ext_json(:include => :model, :methods => :available?) }
-      #TODO format.ext_json { render :json => order.to_ext_json(:include => :order_lines) }
+#      format.ext_json { render :json => order.order_lines.sort{|x,y| x.send(sort) <=> y.send(sort) }.to_ext_json(:include => :model, :methods => :available?) }
+      format.ext_json { render :json => order.to_json(:include => {
+                                                          :order_lines => { :include => :model,
+                                                                            :methods => :available?,
+                                                                            :except => [:created_at, :updated_at]}
+                                                          } ) }
     end
   end
 
 ############################################################################
   def add_line
-      @order = current_user.get_current_order unless @order
+      @order = current_user.get_current_order #unless @order
 
-        model = Model.find(params[:model_id])
+      model = Model.find(params[:model_id])
       model.add_to_document(@order, current_user.id, 1)
       
       flash[:notice] = _("Line couldn't be added") unless @order.save
       if request.xml_http_request?
 #        render :action => 'basket', :layout => false
-        render :text => ""
+        render :nothing => true # render :text => ""
       else
         redirect_to :action => 'new', :id => @order.id        
       end
   end
 
+  def remove_lines
+     @order = current_user.get_current_order #unless @order
+     
+     lines = @order.lines.find(params[:lines].split(','))
+     lines.each {|l| @order.remove_line(l, current_user.id) }
+      
+     render :nothing => true
+  end   
+  
   def change_line(line_id = params[:order_line_id],
                   required_quantity = params[:quantity].to_i)
  #   if request.post?
@@ -96,7 +122,7 @@ class FrontendController < ApplicationController
       @maximum_exceeded = required_quantity != @order_line.quantity
       @order.save
       
-      render :text => ""
+      render :nothing => true # render :text => ""
 #    end
   end
 

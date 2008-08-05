@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/attachment_fu/README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Thu Jun 26 04:08:14 +0200 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+attachment-fu
+</p>
+<h6>=======</h6>
+<p>
+attachment_fu is a plugin by Rick Olson (aka technoweenie &lt;<a
+href="http://techno-weenie.net">techno-weenie.net</a>&gt;) and is the
+successor to acts_as_attachment. To get a basic run-through of its
+capabilities, check out Mike Clark&#8216;s tutorial &lt;<a
+href="http://clarkware.com/cgi/blosxom/2007/02/24#FileUploadFu">clarkware.com/cgi/blosxom/2007/02/24#FileUploadFu</a>&gt;.
+</p>
+<p>
+attachment_fu functionality
+</p>
+<h6>=====================</h6>
+<p>
+attachment_fu facilitates file uploads in Ruby on Rails. There are a few
+storage options for the actual file data, but the plugin always at a
+minimum stores metadata for each file in the database.
+</p>
+<p>
+There are three storage options for files uploaded through attachment_fu:
+</p>
+<pre>
+  File system
+  Database file
+  Amazon S3
+</pre>
+<p>
+Each method of storage many options associated with it that will be covered
+in the following section. Something to note, however, is that the Amazon S3
+storage requires you to modify config/amazon_s3.yml and the Database file
+storage requires an extra table.
+</p>
+<p>
+attachment_fu models
+</p>
+<h6>==============</h6>
+<p>
+For all three of these storage options a table of metadata is required.
+This table will contain information about the file (hence the
+&#8216;meta&#8217;) and its location. This table has no restrictions on
+naming, unlike the extra table required for database storage, which must
+have a table name of db_files (and by convention a model of DbFile).
+</p>
+<p>
+In the model there are two methods made available by this plugins:
+has_attachment and validates_as_attachment.
+</p>
+<p>
+has_attachment(options = {})
+</p>
+<pre>
+  This method accepts the options in a hash:
+    :content_type     # Allowed content types.
+                      # Allows all by default.  Use :image to allow all standard image types.
+    :min_size         # Minimum size allowed.
+                      # 1 byte is the default.
+    :max_size         # Maximum size allowed.
+                      # 1.megabyte is the default.
+    :size             # Range of sizes allowed.
+                      # (1..1.megabyte) is the default.  This overrides the :min_size and :max_size options.
+    :resize_to        # Used by RMagick to resize images.
+                      # Pass either an array of width/height, or a geometry string.
+    :thumbnails       # Specifies a set of thumbnails to generate.
+                      # This accepts a hash of filename suffixes and RMagick resizing options.
+                      # This option need only be included if you want thumbnailing.
+    :thumbnail_class  # Set which model class to use for thumbnails.
+                      # This current attachment class is used by default.
+    :path_prefix      # path to store the uploaded files.
+                      # Uses public/#{table_name} by default for the filesystem, and just #{table_name} for the S3 backend.
+                      # Setting this sets the :storage to :file_system.
+    :partition        # Partiton files in directories like /0000/0001/image.jpg. Default is true.
+    :storage          # Specifies the storage system to use..
+                      # Defaults to :db_file.  Options are :file_system, :db_file, and :s3.
+    :processor        # Sets the image processor to use for resizing of the attached image.
+                      # Options include ImageScience, Rmagick, and MiniMagick.  Default is whatever is installed.
+
+  Examples:
+    has_attachment :max_size =&gt; 1.kilobyte
+    has_attachment :size =&gt; 1.megabyte..2.megabytes
+    has_attachment :content_type =&gt; 'application/pdf'
+    has_attachment :content_type =&gt; ['application/pdf', 'application/msword', 'text/plain']
+    has_attachment :content_type =&gt; :image, :resize_to =&gt; [50,50]
+    has_attachment :content_type =&gt; ['application/pdf', :image], :resize_to =&gt; 'x50'
+    has_attachment :thumbnails =&gt; { :thumb =&gt; [50, 50], :geometry =&gt; 'x50' }
+    has_attachment :storage =&gt; :file_system, :path_prefix =&gt; 'public/files'
+    has_attachment :storage =&gt; :file_system, :path_prefix =&gt; 'public/files',
+                   :content_type =&gt; :image, :resize_to =&gt; [50,50], :partition =&gt; false
+    has_attachment :storage =&gt; :file_system, :path_prefix =&gt; 'public/files',
+                   :thumbnails =&gt; { :thumb =&gt; [50, 50], :geometry =&gt; 'x50' }
+    has_attachment :storage =&gt; :s3
+</pre>
+<p>
+validates_as_attachment
+</p>
+<pre>
+  This method prevents files outside of the valid range (:min_size to :max_size, or the :size range) from being saved.  It does not however, halt the upload of such files.  They will be uploaded into memory regardless of size before validation.
+
+  Example:
+    validates_as_attachment
+</pre>
+<p>
+attachment_fu migrations
+</p>
+<h6>==================</h6>
+<p>
+Fields for attachment_fu metadata tables&#8230;
+</p>
+<pre>
+  in general:
+    size,         :integer  # file size in bytes
+    content_type, :string   # mime type, ex: application/mp3
+    filename,     :string   # sanitized filename
+  that reference images:
+    height,       :integer  # in pixels
+    width,        :integer  # in pixels
+  that reference images that will be thumbnailed:
+    parent_id,    :integer  # id of parent image (on the same table, a self-referencing foreign-key).
+                            # Only populated if the current object is a thumbnail.
+    thumbnail,    :string   # the 'type' of thumbnail this attachment record describes.
+                            # Only populated if the current object is a thumbnail.
+                            # Usage:
+                            # [ In Model 'Avatar' ]
+                            #   has_attachment :content_type =&gt; :image,
+                            #                  :storage =&gt; :file_system,
+                            #                  :max_size =&gt; 500.kilobytes,
+                            #                  :resize_to =&gt; '320x200&gt;',
+                            #                  :thumbnails =&gt; { :small =&gt; '10x10&gt;',
+                            #                                   :thumb =&gt; '100x100&gt;' }
+                            # [ Elsewhere ]
+                            # @user.avatar.thumbnails.first.thumbnail #=&gt; 'small'
+  that reference files stored in the database (:db_file):
+    db_file_id,   :integer  # id of the file in the database (foreign key)
+</pre>
+<p>
+Field for attachment_fu db_files table:
+</p>
+<pre>
+  data, :binary # binary file data, for use in database file storage
+</pre>
+<p>
+attachment_fu views
+</p>
+<h6>=============</h6>
+<p>
+There are two main views tasks that will be directly affected by
+attachment_fu: upload forms and displaying uploaded images.
+</p>
+<p>
+There are two parts of the upload form that differ from typical usage.
+</p>
+<pre>
+  1. Include ':multipart =&gt; true' in the html options of the form_for tag.
+    Example:
+      &lt;% form_for(:attachment_metadata, :url =&gt; { :action =&gt; &quot;create&quot; }, :html =&gt; { :multipart =&gt; true }) do |form| %&gt;
+
+  2. Use the file_field helper with :uploaded_data as the field name.
+    Example:
+      &lt;%= form.file_field :uploaded_data %&gt;
+</pre>
+<p>
+Displaying uploaded images is made easy by the public_filename method of
+the ActiveRecord attachment objects using file system and s3 storage.
+</p>
+<p>
+public_filename(thumbnail = nil)
+</p>
+<pre>
+  Returns the public path to the file.  If a thumbnail prefix is specified it will return the public file path to the corresponding thumbnail.
+  Examples:
+    attachment_obj.public_filename          #=&gt; /attachments/2/file.jpg
+    attachment_obj.public_filename(:thumb)  #=&gt; /attachments/2/file_thumb.jpg
+    attachment_obj.public_filename(:small)  #=&gt; /attachments/2/file_small.jpg
+</pre>
+<p>
+When serving files from database storage, doing more than simply
+downloading the file is beyond the scope of this document.
+</p>
+<p>
+attachment_fu controllers
+</p>
+<h6>===================</h6>
+<p>
+There are two considerations to take into account when using attachment_fu
+in controllers.
+</p>
+<p>
+The first is when the files have no publicly accessible path and need to be
+downloaded through an action.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  def readme
+    send_file '/path/to/readme.txt', :type =&gt; 'plain/text', :disposition =&gt; 'inline'
+  end
+</pre>
+<p>
+See the possible values for send_file for reference.
+</p>
+<p>
+The second is when saving the file when submitted from a form. Example in
+view:
+</p>
+<pre>
+ &lt;%= form.file_field :attachable, :uploaded_data %&gt;
+</pre>
+<p>
+Example in controller:
+</p>
+<pre>
+  def create
+    @attachable_file = AttachmentMetadataModel.new(params[:attachable])
+    if @attachable_file.save
+      flash[:notice] = 'Attachment was successfully created.'
+      redirect_to attachable_url(@attachable_file)
+    else
+      render :action =&gt; :new
+    end
+  end
+</pre>
+<p>
+attachement_fu scripting
+</p>
+<h6>==============================</h6>
+<p>
+You may wish to import a large number of images or attachments. The
+following example shows how to upload a file from a script.
+</p>
+<p>
+#!/usr/bin/env ./script/runner
+</p>
+<p>
+# required to use ActionController::TestUploadedFile require
+&#8216;action_controller&#8217; require
+&#8216;action_controller/test_process.rb&#8216;
+</p>
+<p>
+path = &quot;./public/images/x.jpg&quot;
+</p>
+<p>
+# mimetype is a string like &quot;image/jpeg&quot;. One way to get the
+mimetype for a given file on a UNIX system # mimetype = `file -ib
+#{path}`.gsub(/\n/,&quot;&quot;)
+</p>
+<p>
+mimetype = &quot;image/jpeg&quot;
+</p>
+<p>
+# This will &quot;upload&quot; the file at path and create the new model.
+@attachable = AttachmentMetadataModel.new(:uploaded_data =&gt;
+ActionController::TestUploadedFile.new(path, mimetype)) @attachable.save
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

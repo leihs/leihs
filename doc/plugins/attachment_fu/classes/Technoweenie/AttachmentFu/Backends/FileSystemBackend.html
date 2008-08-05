@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Technoweenie::AttachmentFu::Backends::FileSystemBackend</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Technoweenie::AttachmentFu::Backends::FileSystemBackend</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend_rb.html">
+                vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Methods for file system backed attachments
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000053">attachment_path_id</a>&nbsp;&nbsp;
+      <a href="#M000052">base_path</a>&nbsp;&nbsp;
+      <a href="#M000057">create_temp_file</a>&nbsp;&nbsp;
+      <a href="#M000061">current_data</a>&nbsp;&nbsp;
+      <a href="#M000058">destroy_file</a>&nbsp;&nbsp;
+      <a href="#M000056">filename=</a>&nbsp;&nbsp;
+      <a href="#M000051">full_filename</a>&nbsp;&nbsp;
+      <a href="#M000054">partitioned_path</a>&nbsp;&nbsp;
+      <a href="#M000055">public_filename</a>&nbsp;&nbsp;
+      <a href="#M000059">rename_file</a>&nbsp;&nbsp;
+      <a href="#M000060">save_to_storage</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000053" class="method-detail">
+        <a name="M000053"></a>
+
+        <div class="method-heading">
+          <a href="#M000053" class="method-signature">
+          <span class="method-name">attachment_path_id</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The attachment ID used in the full path of a file
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000053-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000053-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb, line 30</span>
+30:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attachment_path_id</span>
+31:           ((<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:parent_id</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">parent_id</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">id</span>).<span class="ruby-identifier">to_i</span>
+32:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000052" class="method-detail">
+        <a name="M000052"></a>
+
+        <div class="method-heading">
+          <a href="#M000052" class="method-signature">
+          <span class="method-name">base_path</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Used as the base path that <a
+href="FileSystemBackend.html#M000055">public_filename</a> strips off <a
+href="FileSystemBackend.html#M000051">full_filename</a> to create the
+public path
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000052-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000052-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb, line 25</span>
+25:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">base_path</span>
+26:           <span class="ruby-ivar">@base_path</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAILS_ROOT</span>, <span class="ruby-value str">'public'</span>)
+27:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000057" class="method-detail">
+        <a name="M000057"></a>
+
+        <div class="method-heading">
+          <a href="#M000057" class="method-signature">
+          <span class="method-name">create_temp_file</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a temp file from the currently saved file.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000057-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000057-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb, line 56</span>
+56:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_temp_file</span>
+57:           <span class="ruby-identifier">copy_to_temp_file</span> <span class="ruby-identifier">full_filename</span>
+58:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000056" class="method-detail">
+        <a name="M000056"></a>
+
+        <div class="method-heading">
+          <a href="#M000056" class="method-signature">
+          <span class="method-name">filename=</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000056-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000056-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb, line 50</span>
+50:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filename=</span>(<span class="ruby-identifier">value</span>)
+51:           <span class="ruby-ivar">@old_filename</span> = <span class="ruby-identifier">full_filename</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">filename</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@old_filename</span>
+52:           <span class="ruby-identifier">write_attribute</span> <span class="ruby-identifier">:filename</span>, <span class="ruby-identifier">sanitize_filename</span>(<span class="ruby-identifier">value</span>)
+53:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000051" class="method-detail">
+        <a name="M000051"></a>
+
+        <div class="method-heading">
+          <a href="#M000051" class="method-signature">
+          <span class="method-name">full_filename</span><span class="method-args">(thumbnail = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets the full path to the filename in this format:
+</p>
+<pre>
+  # This assumes a model name like MyModel
+  # public/#{table_name} is the default filesystem path
+  RAILS_ROOT/public/my_models/5/blah.jpg
+</pre>
+<p>
+Overwrite this method in your model to customize the filename. The optional
+thumbnail argument will output the thumbnail&#8216;s filename.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000051-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000051-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb, line 19</span>
+19:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">full_filename</span>(<span class="ruby-identifier">thumbnail</span> = <span class="ruby-keyword kw">nil</span>)
+20:           <span class="ruby-identifier">file_system_path</span> = (<span class="ruby-identifier">thumbnail</span> <span class="ruby-value">? </span><span class="ruby-identifier">thumbnail_class</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">self</span>).<span class="ruby-identifier">attachment_options</span>[<span class="ruby-identifier">:path_prefix</span>].<span class="ruby-identifier">to_s</span>
+21:           <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAILS_ROOT</span>, <span class="ruby-identifier">file_system_path</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">partitioned_path</span>(<span class="ruby-identifier">thumbnail_name_for</span>(<span class="ruby-identifier">thumbnail</span>)))
+22:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000054" class="method-detail">
+        <a name="M000054"></a>
+
+        <div class="method-heading">
+          <a href="#M000054" class="method-signature">
+          <span class="method-name">partitioned_path</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+by default paritions files into directories e.g. 0000/0001/image.jpg to
+turn this off set :partition =&gt; false
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000054-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000054-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb, line 36</span>
+36:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">partitioned_path</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+37:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:attachment_options</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">attachment_options</span>[<span class="ruby-identifier">:partition</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span> 
+38:             <span class="ruby-identifier">args</span>
+39:           <span class="ruby-keyword kw">else</span> 
+40:             (<span class="ruby-value str">&quot;%08d&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">attachment_path_id</span>).<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/..../</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">args</span>
+41:           <span class="ruby-keyword kw">end</span>
+42:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000055" class="method-detail">
+        <a name="M000055"></a>
+
+        <div class="method-heading">
+          <a href="#M000055" class="method-signature">
+          <span class="method-name">public_filename</span><span class="method-args">(thumbnail = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets the public path to the file The optional thumbnail argument will
+output the thumbnail&#8216;s filename.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000055-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000055-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb, line 46</span>
+46:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">public_filename</span>(<span class="ruby-identifier">thumbnail</span> = <span class="ruby-keyword kw">nil</span>)
+47:           <span class="ruby-identifier">full_filename</span>(<span class="ruby-identifier">thumbnail</span>).<span class="ruby-identifier">gsub</span> <span class="ruby-node">%r(^#{Regexp.escape(base_path)})</span>, <span class="ruby-value str">''</span>
+48:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000061" class="method-detail">
+        <a name="M000061"></a>
+
+        <div class="method-heading">
+          <a href="#M000061" class="method-signature">
+          <span class="method-name">current_data</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000061-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000061-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb, line 95</span>
+95:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_data</span>
+96:             <span class="ruby-constant">File</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">full_filename</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">full_filename</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+97:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000058" class="method-detail">
+        <a name="M000058"></a>
+
+        <div class="method-heading">
+          <a href="#M000058" class="method-signature">
+          <span class="method-name">destroy_file</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Destroys the file. Called in the after_destroy callback
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000058-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000058-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb, line 62</span>
+62:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destroy_file</span>
+63:             <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">rm</span> <span class="ruby-identifier">full_filename</span>
+64:             <span class="ruby-comment cmt"># remove directory also if it is now empty</span>
+65:             <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">rmdir</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">full_filename</span>)) <span class="ruby-keyword kw">if</span> (<span class="ruby-constant">Dir</span>.<span class="ruby-identifier">entries</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">full_filename</span>))<span class="ruby-operator">-</span>[<span class="ruby-value str">'.'</span>,<span class="ruby-value str">'..'</span>]).<span class="ruby-identifier">empty?</span>
+66:           <span class="ruby-keyword kw">rescue</span>
+67:             <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Exception destroying  #{full_filename.inspect}: [#{$!.class.name}] #{$1.to_s}&quot;</span>
+68:             <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">warn</span> <span class="ruby-identifier">$!</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot; &gt; #{b}&quot;</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+69:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000059" class="method-detail">
+        <a name="M000059"></a>
+
+        <div class="method-heading">
+          <a href="#M000059" class="method-signature">
+          <span class="method-name">rename_file</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Renames the given file before saving
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000059-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000059-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb, line 72</span>
+72:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rename_file</span>
+73:             <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@old_filename</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@old_filename</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">full_filename</span>
+74:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">save_attachment?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@old_filename</span>)
+75:               <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">rm</span> <span class="ruby-ivar">@old_filename</span>
+76:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@old_filename</span>)
+77:               <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mv</span> <span class="ruby-ivar">@old_filename</span>, <span class="ruby-identifier">full_filename</span>
+78:             <span class="ruby-keyword kw">end</span>
+79:             <span class="ruby-ivar">@old_filename</span> =  <span class="ruby-keyword kw">nil</span>
+80:             <span class="ruby-keyword kw">true</span>
+81:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000060" class="method-detail">
+        <a name="M000060"></a>
+
+        <div class="method-heading">
+          <a href="#M000060" class="method-signature">
+          <span class="method-name">save_to_storage</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Saves the file to the file system
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000060-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000060-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb, line 84</span>
+84:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_to_storage</span>
+85:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">save_attachment?</span>
+86:               <span class="ruby-comment cmt"># TODO: This overwrites the file if it exists, maybe have an allow_overwrite option?</span>
+87:               <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">full_filename</span>))
+88:               <span class="ruby-constant">File</span>.<span class="ruby-identifier">cp</span>(<span class="ruby-identifier">temp_path</span>, <span class="ruby-identifier">full_filename</span>)
+89:               <span class="ruby-constant">File</span>.<span class="ruby-identifier">chmod</span>(<span class="ruby-identifier">attachment_options</span>[<span class="ruby-identifier">:chmod</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0644</span>, <span class="ruby-identifier">full_filename</span>)
+90:             <span class="ruby-keyword kw">end</span>
+91:             <span class="ruby-ivar">@old_filename</span> = <span class="ruby-keyword kw">nil</span>
+92:             <span class="ruby-keyword kw">true</span>
+93:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

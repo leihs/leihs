@@ -1,0 +1,77 @@
+
+    // create the Data Store
+    var recent_models_store = new Ext.data.Store({
+        proxy: new Ext.data.HttpProxy(
+			new Ext.data.Connection({
+            	url: '/frontend/recent_models',
+				method: 'GET',
+				extraParams: {format:'ext_json'}
+			})
+        ),
+
+        // create reader that reads the Topic records
+        reader: new Ext.data.JsonReader({
+            root: 'models',
+            totalProperty: 'results',
+            id: 'id',
+            fields: [
+                'name', 'manufacturer'
+            ]
+        }),
+
+    });
+	
+    // the column model has information about grid columns
+    // dataIndex maps the column to the specific data field in
+    // the data store
+    var recent_models_cm = new Ext.grid.ColumnModel([
+		{
+           header: "Name",
+           dataIndex: 'name',
+           width: 150
+        },{
+           header: "Manufacturer",
+           dataIndex: 'manufacturer',
+           width: 50
+        }]);
+
+    var recent_models = new Ext.grid.GridPanel({
+//        el:'recent_models',
+        border: false,
+        store: recent_models_store,
+        cm: recent_models_cm,
+		enableColumnHide: false,
+		enableColumnMove: false,
+		enableHdMenu: false,
+		viewConfig: { forceFit: true },
+        loadMask: true,
+//		show: function(cmp) {
+//			this.store.load(); // TODO optimize render
+//		},
+
+		listeners: {
+			rowclick: function( grid, rowIndex, e ){
+				x_id = grid.getStore().getAt(rowIndex).id;
+				//var conn = new Ext.data.Connection();
+				//conn.request({
+				Ext.Ajax.request({
+				    url: '/frontend/add_line?model_id=' + x_id,
+//				    method: 'POST',
+//	TODO			    params: {"authenticity_token": encodeURIComponent('7839094fc4f002d4585df81e6486429aba7c9350')},
+				    success: function(responseObject) {
+					    basket_store.load();
+				    },
+					failure: function() {
+						Ext.Msg.alert('Status', 'Failure');
+					}
+				});
+			}
+		},
+    });
+
+
+    // trigger the data store load
+    recent_models_store.load({params:{start:0, limit:5}});
+
+
+  

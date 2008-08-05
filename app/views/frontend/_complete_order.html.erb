@@ -35,10 +35,13 @@
         return value ? value.dateFormat('d/m/y') : '';
     };
 	
+	var complete_order_sm = new Ext.grid.CheckboxSelectionModel();
+	
     // the column model has information about grid columns
     // dataIndex maps the column to the specific data field in
     // the data store
-    var complete_order_cm = new Ext.grid.ColumnModel([{
+    var complete_order_cm = new Ext.grid.ColumnModel([complete_order_sm,
+		{
            header: "",
            dataIndex: 'quantity',
            width: 25,
@@ -78,10 +81,11 @@
     complete_order_cm.defaultSortable = true;
 
     var complete_order = new Ext.grid.EditorGridPanel({ //old: GridPanel
-        el:'complete_order',
+//        el:'complete_order',
         title:'[3] Order',
         store: complete_order_store,
         cm: complete_order_cm,
+		sm: complete_order_sm,
 		viewConfig: { forceFit: true },
         loadMask: true,
 		clicksToEdit: 1,
@@ -114,6 +118,43 @@
 				});
 			}
 		},
+		tbar:[{
+	            text:'Add',
+	            tooltip:'Add a new row',
+	            iconCls:'add',
+				handler: function(){
+					Ext.Msg.alert('Click','You clicked on "Add".\n' + complete_order_sm.getSelections().length);
+				}
+	        }, '-', {
+	            text:'Options',
+	            tooltip:'Options',
+	            iconCls:'option',
+				handler: function(){
+					Ext.Msg.alert('Click','You clicked on "Options".\n' + complete_order_sm.getSelections().length);
+				}
+	        },'-',{
+	            text:'Remove',
+	            tooltip:'Remove the selected item',
+	            iconCls:'remove',
+				handler: function(){
+					var selected = complete_order_sm.getSelections();
+					var lines = "";
+		
+					for(var i = 0; i < selected.length; i++){
+						if(lines != "") lines += ","; 
+						lines += selected[i].id;
+					}
+					
+	                Ext.Ajax.request({
+						method: 'GET',
+					    url: '/frontend/remove_lines',
+						params: {"lines": lines},
+	                    success: function(r) {
+						    complete_order_store.load();
+	                    }
+	                });					
+				}
+	        }],
         bbar: [
 			new Ext.Action({
 		        text: 'Submit Order',
@@ -151,9 +192,8 @@
 					method: 'GET',
 				    url: '/orders/submit', // TODO refactor/reorganize controllers
 					params: {"id": complete_order_store.data.items[0].data.order_id}, // TODO collect order.id from json
+                    //params: {"id": complete_order_store.id},
                     success: function(r) {
-						console.log(w);
-//						w.body.dom.value = r.responseText;
 						w.items.items[0].body.dom.innerHTML = r.responseText;
                     }
                 });

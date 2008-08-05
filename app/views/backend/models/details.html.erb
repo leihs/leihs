@@ -1,6 +1,6 @@
+<%= render :partial => '/models/details' %>
+<hr>
 Id: <%= @model.id %>
-<br />
-Model name: <%= @model.name %>
 <ul>
 <% @model.availability.each do |a| %>
 	<li><%= a.start_date %> : <%= a.quantity %></li>

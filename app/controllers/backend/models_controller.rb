@@ -25,7 +25,6 @@ class Backend::ModelsController < Backend::BackendController
     render :layout => $modal_layout_path
   end
 
-##########################################################
 
   def available_items
     # OPTIMIZE prevent injection
@@ -34,6 +33,22 @@ class Backend::ModelsController < Backend::BackendController
     @items = items.select {|i| i.in_stock? }
     
     render :inline => "<%= auto_complete_result(@items, :inventory_code) %>"
+  end
+
+  
+##########################################################
+
+  def upload_image
+    @model = Model.find(params[:id]) # TODO scope current_inventory_pool
+
+    if request.post?
+      @image = Image.new(params[:image])
+      @image.model = @model
+      if @image.save
+        flash[:notice] = 'Attachment was successfully created.'
+        redirect_to :action => 'details', :id => @model.id
+      end
+    end
   end
   
 end

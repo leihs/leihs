@@ -86,8 +86,10 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000083">new</a>&nbsp;&nbsp;
-      <a href="#M000084">render</a>&nbsp;&nbsp;
+      <a href="#M000004">compilable?</a>&nbsp;&nbsp;
+      <a href="#M000003">compilable?</a>&nbsp;&nbsp;
+      <a href="#M000001">new</a>&nbsp;&nbsp;
+      <a href="#M000002">render</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -116,19 +118,45 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000083" class="method-detail">
-        <a name="M000083"></a>
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
 
         <div class="method-heading">
-          <a href="#M000083" class="method-signature">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">compilable?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+sellittf - Patch 2 start
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/active_fpdf.rb, line 50</span>
+50:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">compilable?</span>
+51:         <span class="ruby-keyword kw">false</span>
+52:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="#M000001" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(action_view)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000083-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000083-source">
+            onclick="toggleCode('M000001-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000001-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/active_fpdf.rb, line 8</span>
  8:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">action_view</span>)
@@ -141,19 +169,42 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000084" class="method-detail">
-        <a name="M000084"></a>
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
 
         <div class="method-heading">
-          <a href="#M000084" class="method-signature">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">compilable?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/active_fpdf.rb, line 54</span>
+54:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compilable?</span>
+55:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">compilable?</span>
+56:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="#M000002" class="method-signature">
           <span class="method-name">render</span><span class="method-args">(template, local_assigns = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000084-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000084-source">
+            onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000002-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/active_fpdf/lib/active_fpdf.rb, line 12</span>
 12:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render</span>(<span class="ruby-identifier">template</span>, <span class="ruby-identifier">local_assigns</span> = {})
@@ -184,11 +235,14 @@
 37:                         <span class="ruby-keyword kw">end</span>     
 38:         
 39:         <span class="ruby-ivar">@PDF_CLASS</span> = <span class="ruby-value str">&quot;FPDF&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@PDF_CLASS</span>.<span class="ruby-identifier">nil?</span>
-40:                 <span class="ruby-identifier">pdf</span> = <span class="ruby-constant">ApplicationHelper</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-ivar">@PDF_CLASS</span>).<span class="ruby-identifier">new</span>
-41:         <span class="ruby-ivar">@tmpl</span> = <span class="ruby-node">&quot;#{@action_view.base_path}/#{@action_view.first_render}.#{@action_view.pick_template_extension(@action_view.first_render)}&quot;</span>
-42:             <span class="ruby-identifier">eval</span> <span class="ruby-identifier">template</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-ivar">@tmpl</span>
-43:                 <span class="ruby-identifier">pdf</span>.<span class="ruby-constant">Output</span>
-44:         <span class="ruby-keyword kw">end</span>
+40: <span class="ruby-comment cmt">### sellittf - Patch 1 start</span>
+41: <span class="ruby-comment cmt">#        pdf = ApplicationHelper.const_get(@PDF_CLASS).new</span>
+42: <span class="ruby-comment cmt">#        @tmpl = &quot;#{@action_view.base_path}/#{@action_view.first_render}.#{@action_view.pick_template_extension(@action_view.first_render)}&quot;</span>
+43: <span class="ruby-comment cmt">#          eval template, nil, @tmpl</span>
+44: <span class="ruby-comment cmt">#        pdf.Output</span>
+45:         <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">template</span>.<span class="ruby-identifier">source</span>).<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
+46: <span class="ruby-comment cmt">### sellittf - Patch 1 end</span>
+47:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
