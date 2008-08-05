@@ -8,7 +8,6 @@
 <% if current_user %>	
 	<li><strong><%= "Angemeldet als #{current_user.login}." %></strong></li>
 	<li>
-		<% session[:return_to] = request.request_uri %>
 		<%= link_to _("Logout") + "?", '/logout' %>
 	</li>
 	<li><%= greybox_link_to_page("My Account",
@@ -17,7 +16,6 @@
 	</li>
 <% else %>
 	<li>
-		<% session[:return_to] = request.request_uri %>
 		<%= link_to _("Login") + "?", '/login' %>
 	</li>
 <% end %>

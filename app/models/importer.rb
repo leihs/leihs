@@ -1,7 +1,24 @@
 class Importer
   
   def start(max = 9999999)
-    InventoryImport::Importer.new.start(max)
+    msg = InventoryImport::Importer.new.start(max)
+    msg << create_admin
+    msg
+  end
+  
+  def create_admin
+        
+    user = User.create(:unique_id => "super_user",
+                       :email => "",
+                       :login => "super_user_1")
+
+    r = Role.find(:first, :conditions => {:name => "admin"})
+    ips = InventoryPool.find(:all)
+    ips.each do |ip|
+      user.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
+    end
+    user.save
+    "Administrator für alle Pools ist " + user.login
   end
   
 end

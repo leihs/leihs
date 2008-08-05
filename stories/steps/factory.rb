@@ -45,6 +45,15 @@ module Factory
     t
   end
 
+  def self.create_package(attributes = {})
+    default_attributes = {
+      :name => 'package_1'
+    }
+    p = Package.find_or_create_by_name default_attributes.merge(attributes)
+    p.save
+    p
+  end
+  
   def self.create_item(attributes = {})
     default_attributes = {
       :inventory_code => Item.get_new_unique_inventory_code,

@@ -1,14 +1,31 @@
-# This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
-  # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
+
+  AUTHENTICATION_URL = 'http://localhost:3000/backend/temporary/login'
 
   # render new.rhtml
   def new
+    redirect_to :action => 'authenticate'
+  end
+
+  def old_new
+    render :action => 'new'
+  end
+
+  def authenticate(id = params[:id])
+    @selected_system = AuthenticationSystem.find(id) if id
+    @selected_system ||= AuthenticationSystem.default_system.first
+    
+    sys = eval("Authenticator::" + @selected_system.class_name + "Controller").new
+    
+    redirect_to sys.login_form_path
+    
+  rescue
+    render :text => "No default authentication system selected." unless AuthenticationSystem.default_system.first
+    render :text => 'Class not found: ' + @selected_system.class_name
   end
 
   def create
-    self.current_user = User.authenticate(params[:login], params[:password])
+    self.current_user = User.find_by_login(params[:login])
     if logged_in?
       if params[:remember_me] == "1"
         current_user.remember_me unless current_user.remember_token?
@@ -22,7 +39,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
     reset_session
     flash[:notice] = "You have been logged out."

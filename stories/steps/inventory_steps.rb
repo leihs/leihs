@@ -85,4 +85,17 @@ steps_for(:inventory) do
     end
   end
 
+
+###############################################
+# Packages
+
+  Given "a package '$name' exists" do |name|
+    @package = Factory.create_package(:name => name)
+  end
+  
+  Given "the package contains $quantity '$model'" do |quantity, model|
+   quantity.to_i.times { @package.models << Model.find(:first, :conditions => {:name => model}) }
+  end
+
+
 end

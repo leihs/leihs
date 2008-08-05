@@ -4,26 +4,21 @@ class CreateUsersAndAuthenticationSystem < ActiveRecord::Migration
     create_table :authentication_systems do |t|
       t.string :name
       t.string :class_name
+      t.boolean :default
+      t.boolean :active
     end
     
-    AuthenticationSystem.create(:name => "Database Authentication", :class_name => "DatabaseAuthentication")
-    AuthenticationSystem.create(:name => "LDAP Authentication", :class_name => "LDAPAuthentication")
+    AuthenticationSystem.create(:name => "Database Authentication", :class_name => "DatabaseAuthentication", :active => false)
+    AuthenticationSystem.create(:name => "LDAP Authentication", :class_name => "LDAPAuthentication", :active => false)
+    AuthenticationSystem.create(:name => "ZHDK Authentication", :class_name => "Zhdk", :active => true, :default => true)
+    
     
     create_table :users do |t|
-      t.string :login # restful_authentication             
+      t.string :login #TODO: Rename to 'name'
       t.belongs_to :authentication_system, :default => 1
-      t.timestamps
-
-      # Start restful_authentication
-      # TODO refactor dedicated authentication_system
+      t.string :unique_id
       t.string :email
-      t.string :crypted_password, :limit => 40
-      t.string :salt, :limit => 40
-      t.datetime :created_at
-      t.datetime :updated_at
-      t.string :remember_token
-      t.datetime :remember_token_expires_at
-      # End restful_authentication
+      t.timestamps
     
     end
 
