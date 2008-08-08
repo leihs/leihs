@@ -1,10 +1,12 @@
 class Item < ActiveRecord::Base
   
-  AVAILABLE = 1
-  IN_REPAIR = 2
+  BORROWABLE = 1
+  UNBORROWABLE = 2
   
   belongs_to :model
-  belongs_to :inventory_pool
+  belongs_to :location
+  delegate :inventory_pool, :to => :location  #old# has_one :inventory_pool, :through => :location
+  
   has_many :contract_lines
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
@@ -14,8 +16,8 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-  named_scope :available, :conditions => {:status_const => Item::AVAILABLE} 
-  named_scope :in_repair, :conditions => {:status_const => Item::IN_REPAIR} 
+  named_scope :available, :conditions => {:status_const => Item::BORROWABLE} 
+  named_scope :in_repair, :conditions => {:status_const => Item::UNBORROWABLE} 
 
 ####################################################################
 
@@ -35,7 +37,6 @@ class Item < ActiveRecord::Base
   end
 
     
-  # TODO define an additional status_const?
   def in_stock?(contract_line_id = nil)
     if contract_line_id
       return !ContractLine.exists?(["id != ? AND item_id = ? AND returned_date IS NULL", contract_line_id, id])

@@ -1,13 +1,16 @@
 class Backend::ModelsController < Backend::BackendController
   active_scaffold :model do |config|
-    config.columns = [:manufacturer, :name, :model_groups]
+    config.columns = [:manufacturer, :name, :model_groups, :locations]
+    config.columns.each { |c| c.collapsed = true }
+
+    config.actions.exclude :create, :update, :delete
   end
 
-# TODO filter for inventory_pool
-  # filter for active_scaffold
-#  def conditions_for_collection
-#     {:inventory_pool_id => current_inventory_pool.id}
-#  end
+  # filter for active_scaffold (through locations)
+  def conditions_for_collection
+    #old# {:inventory_pool_id => current_inventory_pool.id}
+    ['locations.inventory_pool_id = ?', current_inventory_pool.id] 
+  end
 
 #################################################################
 
@@ -16,11 +19,11 @@ class Backend::ModelsController < Backend::BackendController
 
   # TODO refactor for active_scaffold ?
 #  def index
-#    @models = current_user.models #old# current_user.inventory_pools.collect(&:models).flatten.uniq
+#    @models = current_user.models
 #  end
 
   def details
-    @model = Model.find(params[:id]) # TODO scope current_inventory_pool
+    @model = current_inventory_pool.models.find(params[:id])
  
     render :layout => $modal_layout_path
   end
@@ -39,7 +42,7 @@ class Backend::ModelsController < Backend::BackendController
 ##########################################################
 
   def upload_image
-    @model = Model.find(params[:id]) # TODO scope current_inventory_pool
+    @model = current_inventory_pool.models.find(params[:id])
 
     if request.post?
       @image = Image.new(params[:image])

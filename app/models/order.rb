@@ -3,7 +3,7 @@ class Order < Document
   belongs_to :inventory_pool # common for sibling classes
   belongs_to :user
   has_many :order_lines, :dependent => :destroy
-  has_many :models, :through => :order_lines #OPTIMIZE , :uniq => true
+  has_many :models, :through => :order_lines, :uniq => true
   has_many :line_groups, :through => :order_lines, :uniq => true
 
   has_one :backup, :class_name => "Backup::Order", :dependent => :destroy #TODO delete when nullify # TODO acts_as_backupable
@@ -239,7 +239,7 @@ class Order < Document
 #      #    # construct combinations of inventory pools
 #      #    ip_set = []
 #      #    lines.each do |l|
-#      #      ip_set << l.possible_inventory_pools
+#      #      ip_set << l.models.collect(&:inventory_pools)
 #      #    end
 #      #
 #      #    # split a single line if cannot be served by a single inventory pool

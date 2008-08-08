@@ -20,7 +20,7 @@ class Backend::OrdersController < Backend::BackendController
   private
   
   def preload
-    @user = User.find(params[:user_id]) if params[:user_id] # TODO scope current_inventory_pool
+    @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
   end
   
 end

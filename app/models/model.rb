@@ -1,6 +1,7 @@
 class Model < ActiveRecord::Base
   has_many :items
-  has_many :inventory_pools, :through => :items, :group => :id #, :uniq => true
+  has_many :locations, :through => :items, :uniq => true
+  has_many :inventory_pools, :through => :locations, :uniq => true #, :group => :id # (nested)
   
   has_many :order_lines
   has_many :contract_lines
@@ -92,7 +93,7 @@ class Model < ActiveRecord::Base
   private 
   
   def create_availability(current_time, document_line = nil)    
-    i = self.items.find(:all, :conditions => {:status_const => Item::AVAILABLE})
+    i = self.items.find(:all, :conditions => {:status_const => Item::BORROWABLE})
     a = Availability.new(i.size)
     a.model = self
     a.reservations(DocumentLine.current_and_future_reservations(id, document_line, current_time))

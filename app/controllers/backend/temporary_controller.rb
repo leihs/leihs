@@ -411,7 +411,6 @@ private
     Backup::OrderLine.delete_all
     Contract.delete_all
     ContractLine.delete_all
-    # TODO remove Printout: Printout.destroy_all
     AccessRight.delete_all
     ModelGroup.destroy_all
     

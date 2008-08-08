@@ -25,7 +25,7 @@ class Backend::HandOverController < Backend::BackendController
 
   # get current open contract for a given user
   def show
-    @contract.contract_lines.sort! #temp# redundant
+    #old# @contract.contract_lines.sort!
   end
   
   def delete_visit
@@ -35,24 +35,15 @@ class Backend::HandOverController < Backend::BackendController
   
   # Sign definitely the contract
   def sign_contract
-    #@user = User.find(params[:user_id])
     #@lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
     @lines = @contract.contract_lines.find(params[:lines].split(','))
     if request.post?
       @contract.sign(@lines)
-      redirect_to :action => 'print_contract', :id => @contract.id
+      render :action => 'print_contract', :layout => $modal_layout_path
     else
       @lines = @lines.delete_if {|l| l.item.nil? }
       render :layout => $modal_layout_path
     end    
-  end
-
-  # Creating the contract to print
-  def print_contract
-    respond_to do |format|
-      format.html { render :layout => $modal_layout_path }
-      format.pdf { send_data(render(:layout => false), :filename => "contract_#{@contract.id}.pdf") }
-    end
   end
 
   # Changes the line according to the inserted inventory code
@@ -60,7 +51,7 @@ class Backend::HandOverController < Backend::BackendController
     if request.post?
       # TODO refactor in the Contract model and keep track of changes
 
-      @contract_line = ContractLine.find(params[:contract_line_id]) # TODO scope current_inventory_pool
+      @contract_line = current_inventory_pool.contract_lines.find(params[:contract_line_id])
       @contract = @contract_line.contract
       
       required_item_inventory_code = params[:code]
@@ -125,8 +116,8 @@ class Backend::HandOverController < Backend::BackendController
   private
   
   def pre_load
-    @contract = current_inventory_pool.contracts.find(params[:id]) if params[:id] # TODO scope new_contracts ?
-    @user = User.find(params[:user_id]) if params[:user_id] # TODO scope current_inventory_pool
+    @contract = current_inventory_pool.contracts.new_contracts.find(params[:id]) if params[:id]
+    @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
     @contract ||= @user.get_current_contract(current_inventory_pool) if @user
   end
 

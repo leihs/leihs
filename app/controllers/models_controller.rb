@@ -6,8 +6,7 @@ class ModelsController < ApplicationController
     if params[:search]
       @models = current_user.models.find_by_contents("*" + params[:search] + "*")
     else  
-      @models = current_user.models #old# current_user.inventory_pools.collect(&:models).flatten
-#old#      @models += Model.packages # OPTIMIZE
+      @models = current_user.models
     end
 
     # OPTIMIZE OPTIMIZE OPTIMIZE

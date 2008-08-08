@@ -10,7 +10,7 @@ steps_for(:hand_over) do
 
   # TODO test as Given or refactor to order_test 
   When "a new order is placed by a user named '$who'" do | who |
-    user = Factory.create_user(:login => who)
+    user = Factory.create_user({:login => who}, {:role => "student"})
     @order = Factory.create_order({:user_id => user.id})    
   end
 
@@ -23,9 +23,8 @@ steps_for(:hand_over) do
     @order.save                                                
   end
 
-  # OPTIMIZE see availability_inventory_pool_steps.rb
   When "the new order is submitted" do
-    @order.submit
+    post "/orders/submit", :id => @order.id
   end
   
   When "$who approves the order" do | who |
@@ -60,8 +59,8 @@ steps_for(:hand_over) do
 
 
   When "$who chooses one line" do | who |
-    line = @visits.first
-    get "/backend/hand_over/show", :user_id => line.user.id
+    visit = @visits.first
+    get "/backend/hand_over/show", :user_id => visit.user.id
     response.should render_template('backend/hand_over/show')
     @contract = assigns(:contract)
   end
