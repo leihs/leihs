@@ -16,13 +16,17 @@ steps_for(:availability_inventory_pool) do
   Given "this model has $number item$s in inventory pool $ip" do |number, s, ip|
     inventory_pool = InventoryPool.find_by_name(ip)
     number.to_i.times do | i |
-      Factory.create_item(:model => @model, :inventory_pool => inventory_pool)
+      l = Location.find(:first, :conditions => {:name => "generic", :inventory_pool_id => inventory_pool.id})
+      l = Location.create(:name => "generic", :inventory_pool => inventory_pool) unless l
+      Factory.create_item(:model => @model, :location => l)
     end
     inventory_pool.items.count(:conditions => {:model_id => @model.id}).should == number.to_i
   end
   
   Given "user '$who' has access to inventory pool $ip_s" do |who, ip_s|
-    user = Factory.create_user({:login => who, :password => "pass"})
+    user = Factory.create_user({:login => who
+                                  #, :password => "pass"
+                                })
     ip_s.split(" and ").each do |ip_name|
       Factory.define_role(user, "student", ip_name)
       user.inventory_pools.include?(InventoryPool.find_by_name(ip_name)).should == true
@@ -32,14 +36,13 @@ steps_for(:availability_inventory_pool) do
   Then "the maximum number of available '$model' for '$who' is $size" do |model, who, size|
     user = User.find_by_login(who)
     @model = Model.find_by_name(model)
-    #old# user.inventory_pools.collect(&:items).flatten.find_all{|i| i.model == @model }.size.should == size.to_i
     user.items.count(:conditions => {:model_id => @model.id}).should == size.to_i
   end
   
 ###########################################################################
 
   When "'$who' order$s $quantity '$model'" do |who, s, quantity, model|
-    post "/session", :login => who, :password => "pass"
+    post "/session", :login => who #, :password => "pass"
     get "/orders/new"
     @order = assigns(:order)
     model_id = Model.find_by_name(model).id
@@ -69,7 +72,7 @@ steps_for(:availability_inventory_pool) do
 ###########################################################################
 
   When "'$who' searches for '$model'" do |who, model|
-    post "/session", :login => who, :password => "pass"
+    post "/session", :login => who #, :password => "pass"
     post "/models/index", :search => model
     @models = assigns(:models)
   end

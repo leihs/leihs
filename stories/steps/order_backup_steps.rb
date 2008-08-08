@@ -44,7 +44,6 @@ steps_for(:order_backup) do
   end
 
   When "$who deletes $size order line$s" do | who, size, s |
-#old#    size.to_i.times { @order.remove_line(@order.order_lines.first.id, @order.user.id) }
     @lines = @order.order_lines[0, size.to_i].collect(&:id)
     post "/backend/acknowledge/remove_lines", :id => @order.id, :lines => @lines
     @order = assigns(:order)
@@ -59,7 +58,6 @@ steps_for(:order_backup) do
   end
   
   When "$who restores the order" do | who |
-#old#    @order.from_backup
     post "/backend/acknowledge/restore", :id => @order.id
     @order = assigns(:order)
   end

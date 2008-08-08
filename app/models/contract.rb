@@ -3,9 +3,8 @@ class Contract < Document
   belongs_to :inventory_pool # common for sibling classes
   belongs_to :user
   has_many :contract_lines, :dependent => :destroy
-  has_many :models, :through => :contract_lines #OPTIMIZE , :uniq => true
+  has_many :models, :through => :contract_lines, :uniq => true
   has_many :line_groups, :through => :contract_lines, :uniq => true
-  # TODO remove Printout: has_and_belongs_to_many :printouts  #, :dependent => :destroy
 
   acts_as_ferret :fields => [ :user_login, :lines_model_names ],
                  :store_class_name => true
@@ -53,31 +52,6 @@ class Contract < Document
   def close
     update_attribute :status_const, Contract::CLOSED
   end
-
-#  def to_pdf
-## TODO remove Printout    printout = Printout.create
-#    
-#    ### Start PDF
-#      fpdf = FPDF.new
-#      fpdf.AddPage
-#  
-#      fpdf.SetFont('Arial', 'B', 16)
-#      fpdf.Cell(40, 10, "Contract: #{id}") # "-#{printout.id}"
-#      fpdf.Ln
-#  
-#      fpdf.SetFont('Arial', '', 10)
-#      lines.each do |l|
-#        fpdf.Write(5, "#{l.quantity} #{l.model.name} #{l.start_date} #{l.end_date} #{l.returned_date}")
-#        fpdf.Ln(5)
-#      end
-#    ### End PDF
-#
-## TODO remove Printout
-##    printout.pdf = fpdf.Output
-##    printout.save
-##    printouts << printout
-#    fpdf.Output
-#  end
 
 
 end

@@ -78,7 +78,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   # change quantity for a given line
   def change_line
     if request.post?
-      @order_line = OrderLine.find(params[:order_line_id]) # TODO scope current_inventory_pool
+      @order_line = current_inventory_pool.order_lines.find(params[:order_line_id])
       @order = @order_line.order
       required_quantity = params[:quantity].to_i
 
@@ -122,7 +122,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     @option = params[:option_id].nil? ? Option.new : Option.find(params[:option_id]) # TODO scope current_inventory_pool
     if request.post?
       params[:lines].each do | ol | 
-        line = OrderLine.find(ol) # TODO scope current_inventory_pool
+        line = current_inventory_pool.order_lines.find(ol)
         option = Option.new(params[:option])
         if option.save
           line.options << option
@@ -134,7 +134,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       end
       redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id      
     else
-      @order_lines = OrderLine.find(params[:lines].split(',')) # TODO scope current_inventory_pool
+      @order_lines = current_inventory_pool.order_lines.find(params[:lines].split(','))
       render :layout => $modal_layout_path      
     end
   end

@@ -22,7 +22,9 @@ class InventoryImport::Importer
         :inventory_code => (item.Stao_Abteilung + item.Inv_Serienr.to_s),
         :serial_number => item.Art_Serienr,
         :model => model,
-        :inventory_pool => InventoryPool.find_or_create_by_name(item.Stao_Abteilung)
+        # TODO import real location
+        :location => Location.find_or_create_by_name(:name => "generic_#{item.Stao_Abteilung}",
+                                                     :inventory_pool => InventoryPool.find_or_create_by_name(item.Stao_Abteilung))
       }
       item = Item.find_or_create_by_inventory_code item_attributes
       count += 1

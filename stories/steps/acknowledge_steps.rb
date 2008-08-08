@@ -7,7 +7,7 @@ steps_for(:acknowledge) do
   end
 
   Given "a new order is placed by a user named '$name'" do | name |
-    user = Factory.create_user(:login => name)
+    user = Factory.create_user({:login => name}, {:role => "student"})
     @order = Factory.create_order(:user_id => user.id)
   end
 
@@ -125,8 +125,8 @@ steps_for(:acknowledge) do
   end
   
   Then "$who sees $size order$s" do | who, size, s |
-    get "/backend/acknowledge/index" #temp#
-    @orders_size = assigns(:to_acknowledge_size)  #temp#
+    get "/backend/acknowledge/index"
+    @orders_size = assigns(:to_acknowledge_size)
     
     @orders_size.should == size.to_i
   end

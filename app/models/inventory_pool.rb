@@ -3,7 +3,8 @@ class InventoryPool < ActiveRecord::Base
   has_many :access_rights
   has_many :users, :through => :access_rights
 
-  has_many :items
+  has_many :locations
+  has_many :items, :through => :locations #, :uniq => true
   has_many :models, :through => :items, :uniq => true #, :group => :id
 
   has_many :orders
@@ -79,13 +80,12 @@ class InventoryPool < ActiveRecord::Base
   def take_back_or_remind_visits(remind = false)
     visits = []
     contracts.signed_contracts.each do |c|
-      #temp# c.lines.each do |l|
       if remind
         lines = c.lines.to_remind
       else
         lines = c.lines.to_take_back
       end
-      lines.each do |l| #temp#
+      lines.each do |l|
         v = visits.detect { |w| w.user == c.user and w.date == l.end_date }
         unless v
           visits << Visit.new(c.inventory_pool, c.user, l.end_date, l)

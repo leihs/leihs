@@ -15,7 +15,7 @@ class Backend::TakeBackController < Backend::BackendController
       # OPTIMIZE named_scope intersection?
       @visits = current_inventory_pool.take_back_visits.select {|v| v.user == @user}
       
-    elsif params[:remind] #temp#
+    elsif params[:remind]
       @visits = current_inventory_pool.remind_visits
       
     else
@@ -36,7 +36,7 @@ class Backend::TakeBackController < Backend::BackendController
   def close_contract
     if request.post?
       #temp# @lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
-      @lines = ContractLine.find(params[:lines]) #if params[:lines] # TODO scope current_inventory_pool
+      @lines = current_inventory_pool.contract_lines.find(params[:lines]) #if params[:lines]
       @contracts = @lines.collect(&:contract).uniq #if @lines
 
       # set the return dates to the given contract_lines
@@ -46,21 +46,11 @@ class Backend::TakeBackController < Backend::BackendController
         c.close if c.lines.all? { |l| !l.returned_date.nil? }
       end
       
-      redirect_to :action => 'print_contract', :lines => @lines
+      render :action => 'print_contract', :layout => $modal_layout_path
     else
-      @lines = ContractLine.find(params[:lines].split(',')) if params[:lines] # TODO scope current_inventory_pool
+      @lines = current_inventory_pool.contract_lines.find(params[:lines].split(',')) if params[:lines]
       render :layout => $modal_layout_path
     end    
-  end
-
-  # Creating the contract to print
-  def print_contract
-    respond_to do |format|
-      format.html { @lines = ContractLine.find(params[:lines]) #if params[:lines] # TODO scope current_inventory_pool
-                    @contracts = @lines.collect(&:contract).uniq #if @lines
-                    render :layout => $modal_layout_path }
-      format.pdf { send_data(render(:layout => false, :template => "backend/hand_over/print_contract"), :filename => "contract_#{@contract.id}.pdf") }
-    end
   end
   
   
@@ -83,7 +73,7 @@ class Backend::TakeBackController < Backend::BackendController
 
   def broken
     if request.post?
-      @item.update_attribute :status_const, Item::IN_REPAIR 
+      @item.update_attribute :status_const, Item::UNBORROWABLE 
       @item.log_history(params[:comment], current_user.id)
       redirect_to :action => 'show', :user_id => @contract.user.id
     else
@@ -99,7 +89,7 @@ class Backend::TakeBackController < Backend::BackendController
   private
   
   def pre_load
-    @user = User.find(params[:user_id]) if params[:user_id] # TODO scope current_inventory_pool    
+    @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]    
     @contract = Contract.find(params[:contract_id]) if params[:contract_id]
     @item = Item.find(params[:item_id]) if params[:item_id] 
   end

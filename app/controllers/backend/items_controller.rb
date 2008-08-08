@@ -1,18 +1,21 @@
 class Backend::ItemsController < Backend::BackendController
   active_scaffold :item do |config|
-    config.columns = [:model, :inventory_pool, :inventory_code, :serial_number, :status_const, :in_stock?]
+    config.columns = [:model, :location, :inventory_code, :serial_number, :status_const, :in_stock?]
+    config.columns.each { |c| c.collapsed = true }
 
     config.list.sorting = { :model => :asc }
+    config.action_links.add 'toggle_status', :label => 'Toggle borrowable status', :type => :record # TODO optimize
   end
 
-  # filter for active_scaffold
+  # filter for active_scaffold through location
   def conditions_for_collection
-     {:inventory_pool_id => current_inventory_pool.id}
+    # TODO return nil if current_user role is 'Admin'
+    #old# {:inventory_pool_id => current_inventory_pool.id}
+    ['locations.inventory_pool_id = ?', current_inventory_pool.id] 
   end
-
 
   def details
-    @item = Item.find(params[:id]) # TODO scope current_inventory_pool
+    @item = current_inventory_pool.items.find(params[:id])
  
     render :layout => $modal_layout_path
   end
@@ -29,5 +32,12 @@ class Backend::ItemsController < Backend::BackendController
 
     render :layout => false if request.post?  
   end
-  
+
+  def toggle_status
+    @item = current_inventory_pool.items.find(params[:id])
+    @item.status_const = (@item.status_const == Item::BORROWABLE ? Item::UNBORROWABLE : Item::BORROWABLE)
+    @item.save
+    render :text => "Status changed"
+  end
+
 end

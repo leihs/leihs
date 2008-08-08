@@ -37,16 +37,6 @@ class OrderLine < DocumentLine
     0
   end
   
-# TODO temp
-#  # OPTIMIZE provide spreading to multiple inventory pools  
-#  def possible_inventory_pools
-#    ip_set = []
-#    # TODO check availability
-#    model.inventory_pools.each do |ip|
-#      ip_set << ip if ip.items.count(:conditions => {:model_id => model.id}) >= quantity
-#    end
-#    ip_set
-#  end
 
   # TODO temp check, remove it 
   def correct_inventory_pool?

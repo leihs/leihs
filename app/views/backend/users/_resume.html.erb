@@ -1,16 +1,13 @@
 <%
 to_acknowledge_size = (@current_inventory_pool.orders.submitted_orders & @user.orders.submitted_orders).size
 
-# TODO sum quantity from visits
-contract = @user.current_contract(@current_inventory_pool)
-to_hand_over_size = contract ? contract.lines.size : 0
+to_hand_over_size = @current_inventory_pool.hand_over_visits.select { |v| v.user == @user }.collect(&:quantity).sum
 
-# TODO sum quantity from visits, scope @current_inventory_pool
-lines = @user.contracts.signed_contracts.collect {|c| c.contract_lines.find(:all, :conditions => {:returned_date => nil}) }.flatten
-to_take_back_size = lines.size
+# OPTIMIZE collect only items with {:returned_date => nil}
+to_take_back_size = @current_inventory_pool.take_back_visits.select { |v| v.user == @user }.collect(&:quantity).sum
 
-# TODO sum quantity from visits, scope @current_inventory_pool
-to_remind_size = lines.find_all { |l| l.end_date < Date.today }.size
+# OPTIMIZE collect only items with {:returned_date => nil}
+to_remind_size = @current_inventory_pool.remind_visits.select { |v| v.user == @user }.collect(&:quantity).sum
 %>
 
 <ul class="buttons">
@@ -37,6 +34,6 @@ to_remind_size = lines.find_all { |l| l.end_date < Date.today }.size
 		<li><%= _("last") %>: <%= short_time @user.reminders.last.created_at %></li>
 	<% end %>
 	<li><%= link_to image_tag($layout_public_path + "/images/icons/clock_red.png") + _("Remind"),
-			{ :controller => 'users', :action => 'remind', :user_id => @user.id } %></li>
+			{ :controller => 'users', :action => 'remind', :id => @user.id } %></li>
 </ul>
 <% end %>

@@ -5,7 +5,14 @@ Model name: <%= @item.model.name %>
 <br />
 Status: <%= @item.status_const %>
 
+<hr />
+
+Location: <%= @item.location.name %>
 <br />
+Inventory Pool: <%= @item.location.inventory_pool.name %>
+
+
+<hr />
 
 <ul>
 	<li class="line_valid_<%= @item.in_stock? %>"><%= @item.inventory_code %> => <%= @item.inventory_pool.name %> </li>
