@@ -13,6 +13,16 @@ class Backend::TemporaryController < ApplicationController
     end
   end
   
+  def user_info(id = params[:id])
+    @id = id[0..id.index('-') - 1]
+    @name = id[id.index("-") + 1..id.length]
+    @groups = []
+    if @id.eql?("1") 
+      @groups << 'admin'
+    end
+    render :action => 'user_info', :layout => false
+  end
+  
   def create_some
     reset_session
     clean_db_and_index

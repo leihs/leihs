@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080707081422) do
+ActiveRecord::Schema.define(:version => 20080806070541) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id",           :limit => 11
@@ -24,9 +24,8 @@ ActiveRecord::Schema.define(:version => 20080707081422) do
   add_index "access_rights", ["inventory_pool_id"], :name => "index_access_rights_on_inventory_pool_id"
 
   create_table "accessories", :force => true do |t|
-    t.integer  "model_id",   :limit => 11
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "model_id", :limit => 11
+    t.string  "name"
   end
 
   create_table "accounts", :force => true do |t|
@@ -114,6 +113,19 @@ ActiveRecord::Schema.define(:version => 20080707081422) do
     t.integer  "user_id",     :limit => 11
   end
 
+  create_table "images", :force => true do |t|
+    t.integer  "model_id",     :limit => 11
+    t.string   "content_type"
+    t.string   "filename"
+    t.integer  "size",         :limit => 11
+    t.integer  "height",       :limit => 11
+    t.integer  "width",        :limit => 11
+    t.integer  "parent_id",    :limit => 11
+    t.string   "thumbnail"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "inventory_pools", :force => true do |t|
     t.string "name"
     t.text   "description"
@@ -125,9 +137,9 @@ ActiveRecord::Schema.define(:version => 20080707081422) do
   create_table "items", :force => true do |t|
     t.string   "inventory_code"
     t.string   "serial_number"
-    t.integer  "model_id",          :limit => 11
-    t.integer  "inventory_pool_id", :limit => 11
-    t.integer  "status_const",      :limit => 11, :default => 1
+    t.integer  "model_id",       :limit => 11
+    t.integer  "location_id",    :limit => 11
+    t.integer  "status_const",   :limit => 11, :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -137,6 +149,13 @@ ActiveRecord::Schema.define(:version => 20080707081422) do
   create_table "line_groups", :force => true do |t|
     t.integer  "model_group_id", :limit => 11
     t.integer  "quantity",       :limit => 11, :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "locations", :force => true do |t|
+    t.integer  "inventory_pool_id", :limit => 11
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
