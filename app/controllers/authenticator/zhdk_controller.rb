@@ -15,17 +15,15 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   end
   
   def login_successfull(session_id = params[:id])
-    Net::HTTP.start("www.zhdk.ch") do |http| 
-      #response = http.get('test2/?auth/ithelp/response/#{session_id}') 
-      response = http.get('/test2/upload/tester1.xml')
-      if response.code.to_i == 200
-        xml = Hash.from_xml(response.body)
-        uid = xml["authresponse"]["person"]["uniqueid"]
-        self.current_user = User.find(:first, :conditions => { :unique_id => uid }) || generate_new_user(xml)
-        redirect_back_or_default("/")
-      else
-        render :text => "Authentication Failure. HTTP connection failed - response was #{response.code}" 
-      end
+    #response = Net::HTTP.get_response('www.zhdk.ch', "test2/?auth/ithelp/response/#{session_id}")
+    response = Net::HTTP.get_response('localhost', "/backend/temporary/user_info/#{session_id}", 3001)
+    if response.code.to_i == 200
+      xml = Hash.from_xml(response.body)
+      uid = xml["authresponse"]["person"]["uniqueid"]
+      self.current_user = User.find(:first, :conditions => { :unique_id => uid }) || generate_new_user(xml)
+      redirect_back_or_default("/")
+    else
+      render :text => "Authentication Failure. HTTP connection failed - response was #{response.code}" 
     end
   end
   
