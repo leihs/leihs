@@ -1,0 +1,13 @@
+<authresponse>
+<person>
+  <uniqueid><%= @id %></uniqueid>
+  <email><%= @name %></email>
+  <firstname>Test</firstname>
+  <lastname>Nachname</lastname>
+  <groups>
+    <% @groups.each do |group| %>
+      <group><%= group %></group>
+    <% end %>
+  </groups>
+</person>
+</authresponse>
