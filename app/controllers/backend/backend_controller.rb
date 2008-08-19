@@ -1,6 +1,7 @@
 class Backend::BackendController < ApplicationController
-  #TODO override# require_role "inventory_manager" #, :except => [:create_some, # TODO for temporary_controller
-                                   #                     :login, :switch_inventory_pool] # TODO for rspec tests
+  require_role "inventory_manager", :for_current_inventory_pool => true # TODO override in subcontrollers
+                                   # :except => [:create_some, # TODO for temporary_controller
+                                   #             :login, :switch_inventory_pool] # TODO for rspec tests
   
   before_filter :init, :except => :create_some # TODO for temporary_controller  # TODO not needed for modal layout
   

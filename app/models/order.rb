@@ -34,7 +34,6 @@ class Order < Document
 
 #########################################################################
 
-
   def approvable?
     if self.status_const == Order::APPROVED
       return false

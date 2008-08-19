@@ -1,6 +1,6 @@
 class Backend::ItemsController < Backend::BackendController
   active_scaffold :item do |config|
-    config.columns = [:model, :location, :inventory_code, :serial_number, :status_const, :in_stock?]
+    config.columns = [:model, :inventory_pool, :location, :inventory_code, :serial_number, :status_const, :in_stock?]
     config.columns.each { |c| c.collapsed = true }
 
     config.list.sorting = { :model => :asc }

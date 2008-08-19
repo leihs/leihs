@@ -1,6 +1,7 @@
 class FrontendController < ApplicationController
 
-  prepend_before_filter :login_required
+  #old# prepend_before_filter :login_required
+  require_role "student"
 
   layout 'frontend'
 
@@ -47,8 +48,6 @@ class FrontendController < ApplicationController
 
   def basket
     order = current_user.get_current_order
-    puts order.inspect
-    puts order.order_lines.inspect
     respond_to do |format|
 #      format.html { render :action => 'basket', :layout => false }
       #format.ext_json { render :json => order.order_lines.to_ext_json(:include => :model) }

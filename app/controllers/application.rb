@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   # You can move this into a different controller, if you wish.  This module gives you the require_role helpers, and others.
   include RoleRequirementSystem
 
-
   helper :all # include all helpers, all the time
 
   init_gettext 'leihs'
@@ -23,20 +22,17 @@ class ApplicationController < ActionController::Base
   $layout_public_path = '/layouts/' + $theme
 
   layout $general_layout_path
-
+  
 ####################################################  
 
+  # TODO refactor in BackendController (optimize first /models_controllers.rb and lib/role_requirement_system
   protected
-
-    def current_user_and_inventory
-      [current_user, current_inventory_pool]
-    end
     
     # Accesses the current inventory pool from the session.
     # Future calls avoid the database because nil is not equal to false.
     def current_inventory_pool
       @current_inventory_pool ||= InventoryPool.find(session[:inventory_pool_id]) if session[:inventory_pool_id] and not @current_inventory_pool == false
-      @current_inventory_pool ||= InventoryPool.first #temp# TODO remove it
+      @current_inventory_pool ||= current_user.inventory_pools.first if current_user # TODO test
     end
 
     # Store the given inventory pool id in the session.

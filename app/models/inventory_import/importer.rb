@@ -32,10 +32,11 @@ class InventoryImport::Importer
     messages
   end
   
-  def get_location(inventory_pool_name, location_name)
+  # TODO import building, room and shelf
+  def get_location(inventory_pool_name, location_room)
     inventory_pool = InventoryPool.find_or_create_by_name(inventory_pool_name)
-    location = Location.find(:first, :conditions => {:name => location_name, :inventory_pool_id => inventory_pool.id})
-    location = Location.create(:name => location_name, :inventory_pool => inventory_pool) unless location
+    location = Location.find(:first, :conditions => {:room => location_room, :inventory_pool_id => inventory_pool.id})
+    location = Location.create(:room => location_room, :inventory_pool => inventory_pool) unless location
     return location
   end
   

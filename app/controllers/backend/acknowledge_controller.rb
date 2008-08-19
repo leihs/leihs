@@ -1,5 +1,5 @@
 class Backend::AcknowledgeController < Backend::BackendController
-  require_role "inventory_manager" # TODO
+#  require_role "inventory_manager", :for_current_inventory_pool => true # TODO
 
   before_filter :load_order, :except => :index
 

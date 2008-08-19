@@ -1,5 +1,4 @@
-class ModelsController < ApplicationController
-  prepend_before_filter :login_required
+class ModelsController < Frontend1Controller
 
   def index
     

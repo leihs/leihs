@@ -21,6 +21,10 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
+  def to_s
+    "#{model.name} #{inventory_code}"
+  end
+    
   # TODO remove this method when no more needed (it is used for Rspec tests)
   # generates a new and unique inventory code
   def self.get_new_unique_inventory_code
@@ -36,7 +40,6 @@ class Item < ActiveRecord::Base
     code
   end
 
-    
   def in_stock?(contract_line_id = nil)
     if contract_line_id
       return !ContractLine.exists?(["id != ? AND item_id = ? AND returned_date IS NULL", contract_line_id, id])

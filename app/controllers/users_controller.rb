@@ -1,6 +1,4 @@
-class UsersController < ApplicationController
-  prepend_before_filter :login_required
-  
+class UsersController < Frontend1Controller
 
   def timeline
     @timeline_xml = current_user.timeline
