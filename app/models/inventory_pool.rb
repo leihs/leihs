@@ -15,6 +15,9 @@ class InventoryPool < ActiveRecord::Base
 
   has_many :packages
   
+  def to_s
+    "#{name}"
+  end
   
   def hand_over_visits
     unless @ho_visits  # OPTIMIZE refresh if new contracts become available

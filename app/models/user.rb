@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
   
   # has_role? simply needs to return true or false whether a user has a role or not.  
   # It may be a good idea to have "admin" roles return true always
-  def has_role?(role_in_question, inventory_pool_id_in_question) #sellittf# (role_in_question)
+  def has_role?(role_in_question, inventory_pool_in_question = nil) #sellittf# (role_in_question)
 #sellittf#    @_list ||= self.roles.collect(&:name)
 #sellittf#    return true if @_list.include?("admin")
 
@@ -141,7 +141,11 @@ class User < ActiveRecord::Base
 
 # retrieve roles for a given inventory_pool hierarchically with betternestedset plugin #sellittf#
     role = Role.find(:first, :conditions => {:name => role_in_question})
-    roles = self.access_rights.collect{|a| a.role if a.inventory_pool.id == inventory_pool_id_in_question }.compact
+    if inventory_pool_in_question
+      roles = self.access_rights.collect{|a| a.role if a.inventory_pool.id == inventory_pool_in_question.id }.compact
+    else
+      roles = self.access_rights.collect(&:role)
+    end  
     ( roles.any? {|r| r.full_set.include?(role)} )
   end
   # ---------------------------------------

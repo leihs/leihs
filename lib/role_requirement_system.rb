@@ -36,7 +36,8 @@ module RoleRequirementSystem
     def require_role(roles, options = {})
       options.assert_valid_keys(:if, :unless,
         :for, :only, 
-        :for_all_except, :except
+        :for_all_except, :except,
+        :for_current_inventory_pool #sellittf#
       )
       
       # only declare that before filter once
@@ -93,10 +94,11 @@ module RoleRequirementSystem
         # check to see if they have one of the required roles
         passed = false
 
-        user, inventory = user_inventory #sellittf#
+        user, inventory_pool = user_inventory #sellittf#
+        inventory_pool = nil unless options[:for_current_inventory_pool] #sellittf#
         roles.each { |role|
-          passed = true if user.has_role?(role, inventory.id) #sellittf# (role)
-        } unless (user==:false || user==false || user==nil || inventory==nil) #sellittf# (user==:false || user==false)
+          passed = true if user.has_role?(role, inventory_pool) #sellittf# (role)
+        } unless (user==:false || user==false || user==nil) #sellittf# (... || inventory_pool==nil) #ori# (user==:false || user==false)
                 
         return false unless passed
       }
@@ -112,17 +114,20 @@ module RoleRequirementSystem
     
     def access_denied
       if logged_in?
-        #sellittf# render :nothing => true, :status => 401
-        #jerome nil reference exception# render :text => "Access Denied: #{current_user.login} #{current_user.access_rights.first.role.name} #{current_user.access_rights.first.inventory_pool.name} for #{current_user_and_inventory[1].name}"
-        render :text => "Access Denied: #{current_user.login}"
-        return false
+        #sellittf start# 
+        # render :nothing => true, :status => 401
+        #old# render :text => "Access Denied: #{current_user.login} #{current_user.access_rights.first.role.name} #{current_user.access_rights.first.inventory_pool.name} for #{current_inventory_pool.name}"
+        flash[:notice] = "Access Denied"
+        # redirect_to :controller => "/sessions", :action => "access_denied" and return false
+        redirect_to "/" and return false
+        #sellittf end# 
       else
         super
       end
     end
     
     def check_roles       
-      return access_denied unless self.class.user_authorized_for?(current_user_and_inventory, params, binding) #sellittf# (current_user, params, binding)
+      return access_denied unless self.class.user_authorized_for?([current_user, current_inventory_pool], params, binding) #sellittf# (current_user, params, binding)
       
       true
     end

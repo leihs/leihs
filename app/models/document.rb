@@ -10,6 +10,10 @@ class Document < ActiveRecord::Base
     self.created_at <=> other.created_at
   end
 
+  def to_s
+    "#{id}"
+  end
+
 ################################################################
   def time_window_min
     d1 = Array.new
@@ -28,6 +32,7 @@ class Document < ActiveRecord::Base
   end
   
 ################################################################
+
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil, line_group = nil)
       start_date ||= time_window_min
       end_date ||= time_window_max

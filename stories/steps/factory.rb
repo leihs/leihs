@@ -57,7 +57,7 @@ module Factory
   def self.create_item(attributes = {})
     default_attributes = {
       :inventory_code => Item.get_new_unique_inventory_code,
-      :location => Location.find_or_create_by_name(:name => "generic_ABC",
+      :location => Location.find_or_create_by_room(:room => "main_ABC",
                                                    :inventory_pool => InventoryPool.find_or_create_by_name(:name => "ABC")) 
     }
     i = Item.create default_attributes.merge(attributes)

@@ -1,5 +1,5 @@
 class Backend::DashboardController < Backend::BackendController
-  require_role "inventory_manager", :for_all_except => [:index, :login, :index_inventory_pools, :switch_inventory_pool] # TODO for rspec tests
+#old#  require_role "inventory_manager", :for_all_except => [:index, :login, :index_inventory_pools, :switch_inventory_pool] # TODO for rspec tests
   
   def index
   end

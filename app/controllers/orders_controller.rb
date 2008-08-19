@@ -1,5 +1,4 @@
-class OrdersController < ApplicationController
-  prepend_before_filter :login_required
+class OrdersController < Frontend1Controller
 
   before_filter :load_order, :except => [:index, :new]
 

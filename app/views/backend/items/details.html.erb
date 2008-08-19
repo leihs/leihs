@@ -7,7 +7,7 @@ Status: <%= @item.status_const %>
 
 <hr />
 
-Location: <%= @item.location.name %>
+Location: <%= @item.location.building %>, <%= @item.location.room %>, <%= @item.location.shelf %>
 <br />
 Inventory Pool: <%= @item.location.inventory_pool.name %>
 
