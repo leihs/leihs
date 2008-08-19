@@ -11,7 +11,6 @@
 			<%= _("Barcode") %>
 			<br />
 			<span class="barcode_pulldown">
-			<%#= text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'assign_inventory_code', :id => @contract.id }, :with => "'code=' + value" ) }) %>
 			<% model_ids = @contract.models.collect(&:id).uniq.join(',') %>
 			<%= text_field_with_auto_complete :inventory_code, nil,
 											{ :id => "inventory_code",
@@ -30,7 +29,14 @@
 <!-- end header -->
 
 <!-- start iterator -->
-<% for @line in @contract.lines.not_in_group  %>
+<% 
+  last_date = Date.new
+  for @line in @contract.lines.not_in_group
+    if @line.start_date > last_date
+      last_date = @line.start_date
+%>
+  <tr><td cellspan="3"><%= short_date(@line.start_date) %></td></tr>
+<% end %>
 	<%= render :partial => 'line' %>
 <% end %>
 

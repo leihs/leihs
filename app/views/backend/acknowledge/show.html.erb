@@ -77,7 +77,7 @@
 			<div class="table-overview boxes">
 				
 				<div class="toolbar-second">
-					<h3>Pakete</h3>
+					<h3><%= _("Pakete") %></h3>
 					<div class="buttons">
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add Line"),
 						 	{ :controller => 'acknowledge', :action => 'add_line', :id => @order.id },
