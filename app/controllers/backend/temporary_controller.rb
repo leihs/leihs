@@ -14,8 +14,11 @@ class Backend::TemporaryController < ApplicationController
   end
   
   def user_info(id = params[:id])
+
     @id = id[0..id.index('-') - 1]
     @name = id[id.index("-") + 1..id.length]
+    @user = User.find_by_login(@name)
+        
     @groups = []
     if @id.eql?("1") 
       @groups << 'admin'
