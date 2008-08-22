@@ -1,9 +1,12 @@
 class Backend::ModelsController < Backend::BackendController
+
+  before_filter :pre_load
+
   active_scaffold :model do |config|
-    config.columns = [:manufacturer, :name, :model_groups, :locations]
+    config.columns = [:manufacturer, :name, :model_groups, :locations, :compatibles]
     config.columns.each { |c| c.collapsed = true }
 
-    config.actions.exclude :create, :update, :delete
+#    config.actions.exclude :create, :update, :delete
   end
 
   # filter for active_scaffold (through locations)
@@ -14,44 +17,132 @@ class Backend::ModelsController < Backend::BackendController
 
 #################################################################
 
-  
-  # TODO require_role "admin" ?
 
-  # TODO refactor for active_scaffold ?
-#  def index
-#    @models = current_user.models
-#  end
-
-  def details
-    @model = current_inventory_pool.models.find(params[:id])
- 
+  def details 
     render :layout => $modal_layout_path
   end
 
 
   def available_items
     # OPTIMIZE prevent injection
-    items = current_inventory_pool.items.find(:all, :conditions => ["model_id IN (#{params[:model_ids]}) AND inventory_code LIKE ?", '%' + params[:code] + '%'])
+    a_items = current_inventory_pool.items.find(:all, :conditions => ["model_id IN (#{params[:model_ids]}) AND inventory_code LIKE ?", '%' + params[:code] + '%'])
     # OPTIMIZE check availability
-    @items = items.select {|i| i.in_stock? }
+    @items = a_items.select {|i| i.in_stock? }
     
     render :inline => "<%= auto_complete_result(@items, :inventory_code) %>"
   end
 
   
-##########################################################
+#################################################################
 
-  def upload_image
-    @model = current_inventory_pool.models.find(params[:id])
+  # TODO
+  def show
+    # template has to be .rhtml (??)
+  end
 
+  # TODO
+  def new
+    @model = Model.create # TODO validation
+    render :action => 'show', :layout => false
+  end
+    
+  # TODO
+  def edit 
+    render :action => 'show', :layout => false
+  end
+  
+  # TODO
+  def update 
+    @model.name = params[:name]
+    @model.manufacturer = params[:manufacturer]
+    @model.save
+    render :action => 'show'
+  end
+
+#################################################################
+
+  def items
+    #render :layout => false
+  end
+
+#################################################################
+
+  def properties
+    #render :layout => false
+  end
+  
+  def add_property
+    @model.properties << Property.create(:key => params[:key], :value => params[:value])
+    redirect_to :action => 'properties', :id => @model
+  end
+
+  def remove_property
+    @model.properties.delete(@model.properties.find(params[:property_id]))
+    redirect_to :action => 'properties', :id => @model
+  end
+  
+  def edit_property
+    # TODO
+  end
+
+#################################################################
+
+  def accessories
+    #render :layout => false
+  end
+  
+  def add_accessory
+    @model.accessories << Accessory.create(:name => params[:name])
+    redirect_to :action => 'accessories', :id => @model
+  end
+
+  def remove_accessory
+    @model.accessories.delete(@model.accessories.find(params[:accessory_id]))
+    redirect_to :action => 'accessories', :id => @model
+  end
+  
+#################################################################
+
+  def compatibles
+    #render :layout => false
+  end
+  
+  def search_compatible
+    @models = current_inventory_pool.models.find_by_contents("*" + params[:search] + "*")
+    render :partial => 'model_for_compatible', :collection => @models
+  end
+
+  def add_compatible
+    @model.compatibles << current_inventory_pool.models.find(params[:compatible_id])
+    redirect_to :action => 'compatibles', :id => @model
+  end
+
+  def remove_compatible
+    @model.compatibles.delete(@model.compatibles.find(params[:compatible_id]))
+    redirect_to :action => 'compatibles', :id => @model
+  end
+
+#################################################################
+
+  def images
     if request.post?
       @image = Image.new(params[:image])
       @image.model = @model
       if @image.save
         flash[:notice] = 'Attachment was successfully created.'
-        redirect_to :action => 'details', :id => @model.id
+      else
+        flash[:notice] = 'Upload error.'
       end
     end
   end
+
+#################################################################
+
+  private
   
+  def pre_load
+    params[:id] ||= params[:model_id] if params[:model_id]
+    @model = current_inventory_pool.models.find(params[:id]) if params[:id]
+  end
+
 end

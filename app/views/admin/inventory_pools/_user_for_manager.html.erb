@@ -1,0 +1,8 @@
+<%= user_for_manager.login %>
+
+<%= link_to _('Set as inventory manager'),
+			:action => 'add_manager',
+			:id => @inventory_pool,
+			:manager_id => user_for_manager %>
+
+<br />

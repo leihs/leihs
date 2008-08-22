@@ -1,0 +1,11 @@
+<% tabnav :model_edit do %>
+
+	<% for ip in @model.inventory_pools & current_user.inventory_pools %>
+		<span style="border: 1px solid black; padding: 1px;"><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @model.id}) %></span>
+	<% end %>
+
+	<hr />
+	
+	TODO: calendar with colors
+
+<% end %>	

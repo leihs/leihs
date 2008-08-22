@@ -3,7 +3,9 @@
 <li style="border: 1px solid #1089D9; background-color: #E9F9F9;"><%= link_to 'Frontend 1', '/', :style => "color: #1089D9;" %></li>
 <li style="border: 1px solid #1089D9; background-color: #E9F9F9;"><%= link_to 'Frontend 2', '/frontend', :style => "color: #1089D9;" %></li>
 <li style="border: 1px solid #1089D9; background-color: #1089D9;"><%= link_to 'Backend', '/backend', :style => "color: #E9F9F9;" %></li>
-
+<% if true # TODO %>
+<li style="border: 1px solid #1089D9; background-color: #1089D9;"><%= link_to 'Admin', '/admin', :style => "color: #E9F9F9;" %></li>
+<% end %>
  
 <% if current_user %>	
 	<li><strong><%= "Angemeldet als #{current_user.login}." %></strong></li>

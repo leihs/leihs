@@ -17,7 +17,6 @@ class Model < ActiveRecord::Base
   has_many :templates, :through => :model_links, :source => :model_group, :conditions => {:type => 'Template'}
                 
 ########
-# TODO refactor to ModelGroup ?
   has_and_belongs_to_many :compatibles,
                           :class_name => "Model",
                           :join_table => "models_compatibles",

@@ -1,0 +1,29 @@
+
+<% tabnav :inventory_pool_edit do %>
+
+	<ul>
+	<% for manager in @inventory_pool.managers %>
+	<% p manager.inspect %>
+		<li>
+		<%= manager.login %> 
+		<%= link_to _('Remove'),
+					:action => 'remove_manager',
+					:id => @inventory_pool,
+					:manager_id => manager %>
+		</li>
+	<% end %>	
+	</ul>
+
+	<hr />
+	<div id="search_query">
+		<%= _("Add more managers") %>: <%= text_field_tag('search', _("search"),
+							:onfocus => "this.value='';",
+							:onchange => remote_function(:update => 'search_result',
+														 :url => { :action => 'search_manager', :id => @inventory_pool },
+														 :with => "'search=*' + value + '*'" )) %>
+	</div>
+	<div id="search_result">
+	</div>
+	
+
+<% end %>

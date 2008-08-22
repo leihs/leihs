@@ -2,10 +2,27 @@ class InventoryPool < ActiveRecord::Base
 
   has_many :access_rights
   has_many :users, :through => :access_rights
-
+########
+#  has_many :managers, :through => :access_rights, :source => :user, :join_table => "access_rights", :conditions => ["access_rights.role_id = 2"]
+#  has_many :managers, :class_name => "User",
+#           :finder_sql => "SELECT DISTINCT u.*
+#                            FROM access_rights ar
+#                              LEFT JOIN users u
+#                                ON ar.user_id = u.id
+#                                  LEFT JOIN roles r
+#                                    ON ar.role_id = r.id
+#                            WHERE ar.inventory_pool_id = #{self.id} 
+#                              AND r.name = 'manager'"
+  has_and_belongs_to_many :managers,
+                          :class_name => "User",
+                          :select => "users.*",
+                          :join_table => "access_rights",
+                          :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "manager"}).id]
+########
+      
   has_many :locations
   has_many :items, :through => :locations #, :uniq => true
-  has_many :models, :through => :items, :uniq => true #, :group => :id
+  has_many :models, :through => :items, :uniq => true
 
   has_many :orders
   has_many :order_lines #old#, :through => :orders
@@ -18,6 +35,8 @@ class InventoryPool < ActiveRecord::Base
   def to_s
     "#{name}"
   end
+
+###################################################################################
   
   def hand_over_visits
     unless @ho_visits  # OPTIMIZE refresh if new contracts become available

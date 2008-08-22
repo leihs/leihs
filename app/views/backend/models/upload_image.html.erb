@@ -1,8 +1,0 @@
-Upload image for model <%= @model.name %>
-
-
-<% form_for(:image, :url => {}, 
-                    :html => { :multipart => true }) do |f| -%>
-    <%= f.file_field :uploaded_data %>
-    <%= f.submit 'Upload' %>
-<% end -%>

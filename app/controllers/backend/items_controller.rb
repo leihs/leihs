@@ -1,4 +1,7 @@
 class Backend::ItemsController < Backend::BackendController
+  
+  before_filter :pre_load
+  
   active_scaffold :item do |config|
     config.columns = [:model, :inventory_pool, :location, :inventory_code, :serial_number, :status_const, :in_stock?]
     config.columns.each { |c| c.collapsed = true }
@@ -14,12 +17,84 @@ class Backend::ItemsController < Backend::BackendController
     ['locations.inventory_pool_id = ?', current_inventory_pool.id] 
   end
 
+#################################################################
+
+  def in_repair
+    render :inline => "<%= render :active_scaffold => 'backend/items', :constraints => { :status_const => Item::UNBORROWABLE } %>",
+           :layout => $general_layout_path
+  end
+
   def details
-    @item = current_inventory_pool.items.find(params[:id])
- 
     render :layout => $modal_layout_path
   end
+
+#################################################################
+
+  # TODO
+  def show
+    # template has to be .rhtml (??)
+  end
+
+  # TODO
+  def new
+    @item = Item.create # TODO validation
+    render :action => 'show', :layout => false
+  end
+    
+  # TODO
+  def edit 
+    render :action => 'show', :layout => false
+  end
   
+  # TODO
+  def update 
+    @item.inventory_code = params[:inventory_code]
+    @item.serial_number = params[:serial_number]
+    @item.save
+    render :action => 'show'
+  end
+
+#################################################################
+
+  def model
+    #render :layout => false
+  end
+
+  def search_model
+    @models = Model.find_by_contents("*" + params[:search] + "*")
+    render :partial => 'model_for_item', :collection => @models
+  end
+
+  def set_model
+    @item.model = Model.find(params[:model_id])
+    @item.save
+    redirect_to :action => 'model', :id => @item
+  end
+
+#################################################################
+
+  def location
+    #render :layout => false
+  end
+  
+  def set_location
+    @item.location = current_inventory_pool.locations.find(params[:location_id])
+    @item.save
+    redirect_to :action => 'location', :id => @item
+  end
+
+#################################################################
+
+  def status
+    #render :layout => false
+  end
+
+  def toggle_status
+    @item.status_const = (@item.status_const == Item::BORROWABLE ? Item::UNBORROWABLE : Item::BORROWABLE)
+    @item.save
+    redirect_to :action => 'status', :id => @item
+  end
+
 #################################################################
 
   # TODO remove, refactor for active_scaffold
@@ -33,11 +108,13 @@ class Backend::ItemsController < Backend::BackendController
     render :layout => false if request.post?  
   end
 
-  def toggle_status
-    @item = current_inventory_pool.items.find(params[:id])
-    @item.status_const = (@item.status_const == Item::BORROWABLE ? Item::UNBORROWABLE : Item::BORROWABLE)
-    @item.save
-    render :text => "Status changed"
+#################################################################
+
+  private
+  
+  def pre_load
+    params[:id] ||= params[:item_id] if params[:item_id]
+    @item = current_inventory_pool.items.find(params[:id]) if params[:id]
   end
 
 end

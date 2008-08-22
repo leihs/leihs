@@ -1,0 +1,15 @@
+
+<% tabnav :inventory_pool_edit do %>
+
+	<% form_tag :action => 'update', :id => @inventory_pool do %>
+
+		<ul>
+		<li><b>Name:</b> <%= text_field_tag :name, @inventory_pool.name %></li>	
+		<li><b>Description:</b> <%= text_area_tag :description, @inventory_pool.description, :rows => 6, :cols => 50 %></li>
+		</ul>
+	
+		<%= submit_tag 'Submit' %>
+	<% end %>
+	
+
+<% end %>

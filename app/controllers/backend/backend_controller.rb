@@ -1,5 +1,5 @@
 class Backend::BackendController < ApplicationController
-  require_role "inventory_manager", :for_current_inventory_pool => true # TODO override in subcontrollers
+  require_role "manager", :for_current_inventory_pool => true # TODO override in subcontrollers
                                    # :except => [:create_some, # TODO for temporary_controller
                                    #             :login, :switch_inventory_pool] # TODO for rspec tests
   
@@ -92,7 +92,7 @@ class Backend::BackendController < ApplicationController
     # OPTIMIZE select most recent used inventory pool (using session?)
     if logged_in?
       unless self.current_inventory_pool
-        first_access_right = current_user.access_rights.detect {|a| a.role.name == 'inventory_manager'}
+        first_access_right = current_user.access_rights.detect {|a| a.role.name == 'manager'}
         self.current_inventory_pool = first_access_right.inventory_pool if first_access_right
       end
     else

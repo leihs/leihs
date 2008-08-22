@@ -1,0 +1,8 @@
+<%= model_for_compatible.name %> <%= model_for_compatible.manufacturer %>
+
+<%= link_to _('Set as compatible'),
+			:action => 'add_compatible',
+			:id => @model,
+			:compatible_id => model_for_compatible %>
+
+<br />
