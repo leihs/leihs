@@ -8,10 +8,11 @@ class CreateAccessRights < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index(:access_rights, :role_id)
-    add_index(:access_rights, :user_id)
-    add_index(:access_rights, :inventory_pool_id)
-  
+    # TODO optimize indices
+    # add_index(:access_rights, :role_id)
+    # add_index(:access_rights, :user_id)
+    # add_index(:access_rights, :inventory_pool_id)
+    add_index(:access_rights, [:role_id, :user_id, :inventory_pool_id], :unique => true)
   end
 
   def self.down

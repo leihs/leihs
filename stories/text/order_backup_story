@@ -1,13 +1,13 @@
 Story: Backup orders
 
-	As an inventory_manager
+	As an Inventory Manager
 	Before starting to edit an order I want to store a backup
 	in order to restore the original order if necessary
 	
 	
 Scenario: List of new and draft orders
 	
-	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given the list of submitted orders contains 3 elements
 
 	When inventory_manager clicks 'acknowledge'	
@@ -22,7 +22,7 @@ Scenario: List of new and draft orders
 
 Scenario: Restore an order
 
-	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given a submitted order with 4 order lines
 	And the order has 4 changes
 	
@@ -44,7 +44,7 @@ Scenario: Restore an order
 
 Scenario: Approve order
 
-	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given inventory_manager works on one order
 	
 	When he approves order
@@ -53,7 +53,7 @@ Scenario: Approve order
 
 Scenario: Reject order
 
-	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given inventory_manager works on one order
 	
 	When he rejects order
@@ -62,7 +62,7 @@ Scenario: Reject order
 	
 Scenario: Delete order
   
-	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given inventory_manager works on one order
 	
 	When he deletes order
@@ -71,12 +71,12 @@ Scenario: Delete order
 	
 Scenario: Backup an order with line_groups
 
-	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given a submitted order with 4 order lines belonging to 1 line group
 
 
 Scenario: Restore an order with line_groups
 
-	Given an inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given a submitted order with 4 order lines belonging to 1 line group
 	

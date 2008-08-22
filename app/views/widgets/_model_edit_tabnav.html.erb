@@ -1,0 +1,50 @@
+<h2><%= image_tag(@model.images.first.public_filename(:thumb)) unless @model.images.empty? %>
+	<%= @model.name %></h2>
+
+<%  
+
+render_tabnav :model_edit, 
+              :generate_css => true do 
+
+	add_tab do |t|
+		t.named 'Model'
+		t.links_to :controller => 'models', :action => 'show', :id => @model
+	end
+
+	add_tab do |t|
+		t.named 'Items'
+		t.links_to :controller => 'models', :action => 'items', :id => @model
+	end
+
+	add_tab do |t|
+		t.named 'Categories *'
+		t.links_to :controller => 'models', :action => 'details', :id => @model
+	end
+
+	add_tab do |t|
+		t.named 'Properties'
+		t.links_to :controller => 'models', :action => 'properties', :id => @model
+	end
+
+	add_tab do |t|
+		t.named 'Accessories'
+		t.links_to :controller => 'models', :action => 'accessories', :id => @model
+	end
+
+	add_tab do |t|
+		t.named 'Images'
+		t.links_to :controller => 'models', :action => 'images', :id => @model
+	end
+
+	add_tab do |t|
+		t.named 'Compatibles'
+		t.links_to :controller => 'models', :action => 'compatibles', :id => @model
+	end
+
+	add_tab do |t|
+		t.named 'Availability'
+		t.links_to :controller => 'models', :action => 'availability', :id => @model
+	end
+
+end 
+%>

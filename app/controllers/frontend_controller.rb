@@ -31,12 +31,14 @@ class FrontendController < ApplicationController
     end
   end
 
-#  def details(model_id = params[:id])
-#    m = current_user.models.find(model_id)
+  # TODO working here
+  def details(model_id = params[:model_id])
+    @model = current_user.models.find(model_id)
+    render :partial => '/models/details'
 #    respond_to do |format|
-#      format.ext_json { render :json => m.to_ext_json(:include => :inventory_pools) } # TODO working here
+#      format.ext_json { render :json => @model.to_json(:include => :inventory_pools) }
 #    end
-#  end
+  end
 
   def recent_models
     m = current_user.orders.sort.collect(&:models).flatten.uniq[0,5] if current_user

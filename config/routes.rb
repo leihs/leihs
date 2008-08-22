@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.denied '/denied', :controller => 'sessions', :action => 'denied'
 
   map.backend '/backend', :controller => 'backend/dashboard'
+  map.admin '/admin', :controller => 'admin/inventory_pools'
 
   # The priority is based upon order of creation: first created -> highest priority.
 

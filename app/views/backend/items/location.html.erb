@@ -1,0 +1,19 @@
+
+<% tabnav :item_edit do %>
+
+	<b><%= @item.location.inventory_pool.name %>:</b> <%= @item.location.building %>, <%= @item.location.room %>, <%= @item.location.shelf %>
+
+	<hr />
+	<%= _("Set different location") %>:
+		<ul>
+		<% @current_inventory_pool.locations.each do |l| %>
+			<li><b><%= l.inventory_pool.name %>:</b> <%= l.building %>, <%= l.room %>, <%= l.shelf %>
+											 <%= link_to _('Set'),
+													:action => 'set_location',
+													:id => @item,
+													:location_id => l %></li>
+		<% end %>
+		</ul>
+	
+
+<% end %>

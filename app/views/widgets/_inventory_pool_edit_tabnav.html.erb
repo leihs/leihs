@@ -1,0 +1,28 @@
+<h2><%= @inventory_pool.name %></h2>
+
+<%  
+
+render_tabnav :inventory_pool_edit, 
+              :generate_css => true do 
+
+	add_tab do |t|
+		t.named 'InventoryPool'
+		t.links_to :controller => 'inventory_pools', :action => 'edit', :id => @inventory_pool
+	end
+
+	add_tab do |t|
+		t.named 'Locations'
+		t.links_to :controller => 'inventory_pools', :action => 'locations', :id => @inventory_pool
+	end
+
+	add_tab do |t|
+		t.named 'Items *'
+		t.links_to :controller => 'inventory_pools', :action => 'items', :id => @inventory_pool
+	end
+
+	add_tab do |t|
+		t.named 'InventoryManagers'
+		t.links_to :controller => 'inventory_pools', :action => 'managers', :id => @inventory_pool
+	end
+end 
+%>

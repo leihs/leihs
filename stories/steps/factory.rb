@@ -13,10 +13,14 @@ module Factory
     u
   end
 
-  def self.define_role(user, role_name = "inventory_manager", inventory_pool_name = "ABC")
+  def self.define_role(user, role_name = "manager", inventory_pool_name = "ABC")
     role = Role.find_or_create_by_name(:name => role_name)
     inventory_pool = InventoryPool.find_or_create_by_name(:name => inventory_pool_name)
-    user.access_rights << AccessRight.new(:role => role, :inventory_pool => inventory_pool)
+    begin
+      user.access_rights << AccessRight.new(:role => role, :inventory_pool => inventory_pool)
+    rescue
+      # unique index, record already present
+    end
   end
 
   def self.create_order(attributes = {}, options = {})

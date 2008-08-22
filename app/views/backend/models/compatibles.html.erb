@@ -1,0 +1,29 @@
+
+<% tabnav :model_edit do %>
+
+	<ul>
+	<% for model in (@model.compatibles & @current_inventory_pool.models) %>
+		<li>
+		<%= model.name %>
+		<%= link_to _('Remove'),
+					:action => 'remove_compatible',
+					:id => @model,
+					:compatible_id => model %>
+		</li>
+	<% end %>	
+	</ul>
+
+	<hr />
+	<div id="search_query">
+		<%= _("Add more compatible models") %>: <%= text_field_tag('search', _("search"),
+							:onfocus => "this.value='';",
+							:onchange => remote_function(:update => 'search_result',
+														 :url => { :action => 'search_compatible', :id => @model },
+														 :with => "'search=*' + value + '*'" )) %>
+	</div>
+	<div id="search_result">
+	</div>
+
+	
+
+<% end %>

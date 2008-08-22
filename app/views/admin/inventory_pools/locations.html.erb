@@ -1,0 +1,33 @@
+
+<% tabnav :inventory_pool_edit do %>
+
+	<ul>
+	<% for location in @inventory_pool.locations %>
+		<li>
+		<%= location.building %>, <%= location.room %>, <%= location.shelf %> (<%= location.items.size %>) 
+		<%= link_to _('Remove'),
+					:action => 'remove_location',
+					:id => @inventory_pool,
+					:location_id => location if location.items.empty? %>
+		</li>
+	<% end %>	
+	</ul>
+
+	<hr />
+		<%= _("Add more locations") %>:
+				<% form_tag :action => 'add_location', :id => @inventory_pool do %>
+				
+					<%= text_field_tag('building', _("building"),
+						:onfocus => "if(this.value=='building') this.value='';") %>
+
+					<%= text_field_tag('room', _("room"),
+						:onfocus => "if(this.value=='room') this.value='';") %>
+
+					<%= text_field_tag('shelf', _("shelf"),
+						:onfocus => "if(this.value=='shelf') this.value='';") %>
+						
+					<%= submit_tag 'Add' %>
+				<% end %>
+	
+
+<% end %>

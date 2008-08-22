@@ -33,9 +33,11 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :unique_id
 
-
-  
   acts_as_ferret :fields => [ :login ]  #, :store_class_name => true
+
+  def to_s
+    login
+  end
 
   def authinfo
     @authinfo ||= Class.const_get(authentication_system.class_name).new(login)

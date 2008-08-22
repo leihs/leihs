@@ -21,7 +21,7 @@
         rootVisible:false,
 		listeners: {
 			click: function( node, e ){
-				models.store.load({params:{start:0, limit:25, category_id: node.id}});
+				models_grid.store.load({params:{start:0, limit:25, category_id: node.id}});
 			}
 		}
       });

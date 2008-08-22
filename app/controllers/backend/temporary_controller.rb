@@ -1,5 +1,4 @@
 class Backend::TemporaryController < ApplicationController
-#  require_role "inventory_manager", :except => :create_some
   
   def login
     if request.post?
@@ -200,7 +199,7 @@ private
   def create_some_users
     params[:id].to_i.times do |i|
       u = User.new(:login => "#{params[:name]}_#{i}")
-        r = Role.find(:first, :conditions => {:name => "inventory_manager"})
+        r = Role.find(:first, :conditions => {:name => "manager"})
         ips = InventoryPool.find(:all).select { rand(3) == 0 or i == 0 }
         ips.each do |ip|
           u.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)

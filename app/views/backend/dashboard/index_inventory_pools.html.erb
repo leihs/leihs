@@ -16,7 +16,7 @@
 		<% for inventory_pool in @inventory_pools %>
 			<tr>
 				<td>
-				<% if current_user.has_role?('inventory_manager', inventory_pool) %>
+				<% if current_user.has_role?('manager', inventory_pool) %>
 					<%= link_to inventory_pool.name, :controller => 'dashboard', :action => 'switch_inventory_pool', :id => inventory_pool.id %>
 				<% else %>	
 					<%= inventory_pool.name %>
@@ -25,7 +25,7 @@
 				<td><%= inventory_pool.description %></td>
 				<td><%= inventory_pool.items.size %></td>
 				<td class="buttons" nowrap>
-				<% if current_user.has_role?('inventory_manager', inventory_pool)
+				<% if current_user.has_role?('manager', inventory_pool)
 				      to_acknowledge_size = inventory_pool.orders.submitted_orders.size
 				      to_hand_over_size = inventory_pool.hand_over_visits.size
 				      to_take_back_size = inventory_pool.take_back_visits.size
