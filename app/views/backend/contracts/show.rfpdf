@@ -39,6 +39,42 @@
     end
 
     pdf.Cell(w.sum, 0, '', 'T')
+
+
+	if @contract.options.size > 0
+		header = [_("Qt."), _("Name"),  _("Barcode"), _("Start date"), _("End date"), _("Returned Date") ]
+
+		pdf.Ln()
+		pdf.Cell(40, 10, _("Options:"))
+		pdf.Ln()
+		
+	    pdf.SetFillColor(200, 200, 200)
+	    pdf.SetDrawColor(200, 200, 200)
+	    pdf.SetLineWidth(0.3)
+	    pdf.SetFont('Arial', '', 10)
+
+	    # Header
+	    w = [10.0, 75.0, 25.0, 25.0, 25.0, 25.0]
+	    0.upto(header.length - 1) do |i|
+	      pdf.Cell(w[i], 7, header[i], 1, 0, 'C', 1)
+	    end
+	    pdf.Ln()
+
+		fill = 0
+
+	    @contract.options.each do |o|
+	      pdf.Cell(w[0], 6, o.quantity.to_s, 'LR', 0, 'L', fill)
+	      pdf.Cell(w[1], 6, o.name, 'LR', 0, 'L', fill)
+	      pdf.Cell(w[2], 6, o.barcode, 'LR', 0, 'L', fill)
+	      pdf.Cell(w[3], 6, short_date(@contract.time_window_min).to_s, 'LR', 0, 'R', fill)
+	      pdf.Cell(w[4], 6, short_date(@contract.time_window_max).to_s, 'LR', 0, 'R', fill)
+	      pdf.Cell(w[5], 6, short_date(o.returned_date).to_s, 'LR', 0, 'R', fill)
+	      pdf.Ln()
+	      fill = (fill == 0 ? 1 : 0)
+	    end
+
+	    pdf.Cell(w.sum, 0, '', 'T')
+	end
 %>
 
 <%= pdf.Output() %>

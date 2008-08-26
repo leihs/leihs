@@ -1,0 +1,3 @@
+page["inventory_code"].value = ""
+page.replace_html 'options', :partial => 'options'
+page.visual_effect :highlight, 'options'

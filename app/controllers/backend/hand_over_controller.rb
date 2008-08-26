@@ -73,6 +73,7 @@ class Backend::HandOverController < Backend::BackendController
   end  
 
   # given an inventory_code, searches for a matching contract_line
+  # and if not found, adds an option
   def assign_inventory_code
     if request.post?
       item = current_inventory_pool.items.find(:first, :conditions => { :inventory_code => params[:code] })
@@ -85,9 +86,28 @@ class Backend::HandOverController < Backend::BackendController
           params[:contract_line_id] = contract_line.id.to_s
           change_line
         end
+        render :action => 'change_line'
+        
+      else 
+        #Inventory Code is not an item - might be an option...
+        om = OptionMap.find(:first, :conditions => { :barcode => params[:code] })
+        if om
+          @option = Option.create(:barcode => om.barcode, :name => om.text, :quantity => 1, :contract => @contract)
+          render :action => 'add_option'
+        end   
       end
-      render :action => 'change_line'
     end
+  end
+
+
+  def remove_options
+     if request.post?
+        params[:options].each {|o| @contract.remove_option(o, session[:user_id]) }
+        redirect_to :controller=> 'hand_over', :action => 'show', :id => @contract.id
+    else
+      @options = Option.find(params[:options].split(',')) # TODO scope current_inventory_pool
+      render :layout => $modal_layout_path
+    end   
   end
 
   

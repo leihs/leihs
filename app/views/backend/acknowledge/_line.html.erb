@@ -35,10 +35,5 @@
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
 			 	{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id, :lines => @line.id },
 				:title => _("Remove Model"), :class => 'negative' ) %>
-
-			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/attach.png") + " " + _("Add Options"),
-			 	{ :controller => 'acknowledge', :action => 'add_options', 
-					:id => @order.id, :lines => @line.id },
-					{:title => _("Add Options"), :width => 850}) %>
 			</div></td>
 	</tr>

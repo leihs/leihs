@@ -7,7 +7,7 @@
 	<div class="buttons">
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/tab_go.png") + " " + _("Take Back"),
 		 	{ :controller => 'take_back', :action => 'close_contract' }, # , :user_id => @user.id
-			:onmouseup => "change_href(this, 'contract_line', 'line');",
+			:onmouseup => "change_href(this, 'contract_line', 'line');change_href(this, 'option', 'option', false);",
 			:class => "multiple_selection_button",
 			:title => _("Take Back") ) %>
 
@@ -89,4 +89,46 @@
 						
 			</div>
 			
+
+			<div class="table-overview boxes">
+								
+				<div class="toolbar-second">
+					<h3><%= _("Options") %></h3>
+					<div class="buttons">
+						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
+						 	{ :controller => 'take_back', :action => 'timeline', :user_id => @user.id },
+							:title => _("Timeline"), :width => 1000 ) %>						
+					</div>
+				</div>
+				
+				<table cellspacing="0">
+        	<tr>
+        		<th scope="col"><input type="checkbox"  id="options" onClick="mark_all(this, 'option_check', 'multiple_selection_option_button');" /> <%= _("Alle Markieren") %> </th>
+        		<th scope="col">Anzahl/Stückzahl</th>
+        		<th scope="col">Bezeichnung</th>
+        		<th scope="col">Aktion</th>
+        	</tr>
+
+          <% @user.contracts.signed_contracts.each do |c|
+    			  c.options.each do |option| 
+    			%>        		
+    			<tr class="alt-row">
+        			<td><%= check_box_tag('options[]', option.id, false, :class => "option_check", :onchange => "toggle_buttons('option_check', 'multiple_selection_option_button');" ) %>
+        			</td>
+        			<td><%= option.quantity %></td>
+        			<td><%= option.name %></td>
+        			<td>
+        			  <div class="buttons">
+        			  <%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
+        			 	    { :controller => 'hand_over', :action => 'remove_options', :id => c.id, :options => option.id },
+        					    :title => _("Remove Option"), :class => 'negative' ) %>
+        			  </div>
+        			</td>
+        		</tr>
+        <%  end	
+          end	%>								
+        </table>
+				
+      </div>
+
 

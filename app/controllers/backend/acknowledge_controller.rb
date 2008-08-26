@@ -95,38 +95,6 @@ class Backend::AcknowledgeController < Backend::BackendController
     generic_remove_lines(@order, @order.id)
   end
 
-  def add_options
-    @option = params[:option_id].nil? ? Option.new : Option.find(params[:option_id]) # TODO scope current_inventory_pool
-    if request.post?
-      params[:lines].each do | ol | 
-        line = current_inventory_pool.order_lines.find(ol)
-        option = Option.new(params[:option])
-        if option.save
-          line.options << option
-          line.save
-          @order.log_change(_("Added Option:") + " (#{option.quantity}) #{option.name}", session[:user_id])
-        else
-          flash[:notice] = _("Couldn't create option.")
-        end
-      end
-      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id      
-    else
-      @order_lines = current_inventory_pool.order_lines.find(params[:lines].split(','))
-      render :layout => $modal_layout_path      
-    end
-  end
-
-  def remove_options
-     if request.post?
-        params[:options].each {|o| @order.remove_option(o, session[:user_id]) }
-        redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
-    else
-      @options = Option.find(params[:options].split(',')) # TODO scope current_inventory_pool
-      render :layout => $modal_layout_path
-    end   
-  end
-
-
   def change_purpose
     if request.post?
       @order.change_purpose(params[:purpose], session[:user_id])

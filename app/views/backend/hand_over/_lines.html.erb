@@ -12,16 +12,7 @@
 			<br />
 			<span class="barcode_pulldown">
 			<% model_ids = @contract.models.collect(&:id).uniq.join(',') %>
-			<%= text_field_with_auto_complete :inventory_code, nil,
-											{ :id => "inventory_code",
-											  :size => 10,
-											  :onchange => remote_function( :url => { :action => 'assign_inventory_code', :id => @contract.id }, :with => "'code=' + value" ),
-											  :onkeyup => "if(event.keyCode == 13){
-																if(value == ''){ inventory_code_auto_completer.activate(); }
-															 	else{ " + remote_function( :url => { :action => 'assign_inventory_code', :id => @contract.id }, :with => "'code=' + value" ) + "} }" },
-											{ :url => { :controller => 'models', :action => 'available_items', :model_ids => model_ids },
-											  :method => :get,
-											  :with => "'code=' + element.value" } %>
+			<%= text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'assign_inventory_code', :id => @contract.id }, :with => "'code=' + value" ) }) %>
 			</span>								
 		</th>
 		<th scope="col"><%= _("Aktion") %></th>
