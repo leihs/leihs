@@ -55,46 +55,12 @@ steps_for(:inventory) do
 
 
 ###############################################
-# Packages
-
-  Given "a package '$package' exists" do | package |
-    package = Factory.create_package(:name => package)
-  end
-
-  Given "the package '$package' has $size model$s '$model'" do |package, size, s, model|
-    p = Package.find(:first, :conditions => {:name => package})
-    m = Model.find(:first, :conditions => {:name => model})
-    p.model_links << ModelLink.create(:model => m, :quantity => size.to_i)
-  end
-
-  When "the package '$package' is selected" do | package |
-    @package = Package.find(:first, :conditions => {:name => package})
-  end
- 
-  Then "there are $size models belonging to that package with total quantity as $quantity" do |size, quantity|
-    @package.models.size.should == size.to_i
-    @package.total_quantity.should == quantity.to_i
-  end
-
-###############################################
 # Items
 
   Given "$number items of model '$model' exist" do |number, model|
     number.to_i.times do | i |
       Factory.create_item(:model_id => Model.find_by_name(model).id)
     end
-  end
-
-
-###############################################
-# Packages
-
-  Given "a package '$name' exists" do |name|
-    @package = Factory.create_package(:name => name)
-  end
-  
-  Given "the package contains $quantity '$model'" do |quantity, model|
-   quantity.to_i.times { @package.models << Model.find(:first, :conditions => {:name => model}) }
   end
 
 

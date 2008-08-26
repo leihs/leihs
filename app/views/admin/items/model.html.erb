@@ -1,0 +1,26 @@
+
+<% tabnav :item_admin do %>
+
+	<ul>
+		<li><b>Name:</b> <%= @item.model.name %></li>
+		<li><b>Manufacturer:</b> <%= @item.model.manufacturer %></li>
+	</ul>
+	
+
+	<hr />
+	<div id="search_query">
+		<%= _("Set new model") %>: <%= text_field_tag('search', _("search"),
+							:onfocus => "this.value='';",
+							:onchange => remote_function(:update => 'search_result',
+														 :url => { :action => 'search_model', :id => @item },
+														 :with => "'search=*' + value + '*'" )) %>
+	</div>
+	<div id="search_result">
+	</div>
+	
+	<hr />
+	<%= greybox_link_to_page(_('Create new model (TODO and assign)'),
+		 	{ :controller => 'models', :action => 'new' },
+			:title => _("Model"), :width => 850 ) %>
+
+<% end %>

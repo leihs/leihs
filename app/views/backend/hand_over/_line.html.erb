@@ -1,5 +1,3 @@
-<% is_package = (@line.line_group and @line.line_group.model_group.is_a?(Package)) %>
-
 <div id="contract_line_<%= @line.id %>">
 	<tr class="alt-row">
 		<td>
@@ -18,7 +16,7 @@
 		 		{ :controller => 'hand_over', :action => 'time_lines', :id => @contract.id, :lines => @line.id },
 				:class => "thickbox iconized-notxt date-edit",
 				:id => "dates_#{@line.id}",
-				:title => _("Time Period") ) unless is_package %>
+				:title => _("Time Period") ) %>
 		</td>
 		<td id="inventory_code_<%= @line.id %>" class="line_valid_<%= @line.complete? %>">
 			<% @item = @line.item %>
@@ -37,10 +35,10 @@
 		<td><div class="buttons">
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
 				{ :controller => 'hand_over', :action => 'swap_model_line', :id => @contract.id, :line_id => @line.id },
-				:title => _("Swap Model") ) unless is_package %>
+				:title => _("Swap Model") ) %>
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
 			 	{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id, :lines => @line.id },
-				:title => _("Remove Model"), :class => 'negative' ) unless is_package %>
+				:title => _("Remove Model"), :class => 'negative' ) %>
 
 			</div></td>
 	</tr>

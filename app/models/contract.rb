@@ -4,7 +4,6 @@ class Contract < Document
   belongs_to :user
   has_many :contract_lines, :dependent => :destroy
   has_many :models, :through => :contract_lines, :uniq => true
-  has_many :line_groups, :through => :contract_lines, :uniq => true
 
   acts_as_ferret :fields => [ :user_login, :lines_model_names ],
                  :store_class_name => true

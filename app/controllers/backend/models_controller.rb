@@ -6,6 +6,8 @@ class Backend::ModelsController < Backend::BackendController
     config.columns = [:manufacturer, :name, :model_groups, :locations, :compatibles]
     config.columns.each { |c| c.collapsed = true }
 
+    config.show.link.inline = false
+
 #    config.actions.exclude :create, :update, :delete
   end
 
@@ -39,26 +41,8 @@ class Backend::ModelsController < Backend::BackendController
   def show
     # template has to be .rhtml (??)
   end
-
-  # TODO
-  def new
-    @model = Model.create # TODO validation
-    render :action => 'show', :layout => false
-  end
-    
-  # TODO
-  def edit 
-    render :action => 'show', :layout => false
-  end
-  
-  # TODO
-  def update 
-    @model.name = params[:name]
-    @model.manufacturer = params[:manufacturer]
-    @model.save
-    render :action => 'show'
-  end
-
+ 
+ 
 #################################################################
 
   def items

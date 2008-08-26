@@ -6,6 +6,8 @@ class Backend::ItemsController < Backend::BackendController
     config.columns = [:model, :inventory_pool, :location, :inventory_code, :serial_number, :status_const, :in_stock?]
     config.columns.each { |c| c.collapsed = true }
 
+    config.show.link.inline = false
+
     config.list.sorting = { :model => :asc }
     config.action_links.add 'toggle_status', :label => 'Toggle borrowable status', :type => :record # TODO optimize
   end
@@ -35,40 +37,10 @@ class Backend::ItemsController < Backend::BackendController
     # template has to be .rhtml (??)
   end
 
-  # TODO
-  def new
-    @item = Item.create # TODO validation
-    render :action => 'show', :layout => false
-  end
-    
-  # TODO
-  def edit 
-    render :action => 'show', :layout => false
-  end
-  
-  # TODO
-  def update 
-    @item.inventory_code = params[:inventory_code]
-    @item.serial_number = params[:serial_number]
-    @item.save
-    render :action => 'show'
-  end
-
 #################################################################
 
   def model
     #render :layout => false
-  end
-
-  def search_model
-    @models = Model.find_by_contents("*" + params[:search] + "*")
-    render :partial => 'model_for_item', :collection => @models
-  end
-
-  def set_model
-    @item.model = Model.find(params[:model_id])
-    @item.save
-    redirect_to :action => 'model', :id => @item
   end
 
 #################################################################

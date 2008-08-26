@@ -1,6 +1,6 @@
 Story: Inventory
 
-	Describing Inventory Pools, Items, Models, Packages and Categories
+	Describing Inventory Pools, Items, Models and Categories
 	
 	
 Scenario: Categories structure
@@ -54,18 +54,5 @@ Scenario: Models organized in categories
 
 	When the category 'Video' is selected	
 	Then there are 1 models belonging to that category
-
-
-Scenario: Models organized in packages
-	
-	Given a package 'Package 111' exists
-	And a model 'Sony 333' exists
-	And a model 'Canon 444' exists
-
-	And the package 'Package 111' has 1 model 'Sony 333'
-	And the package 'Package 111' has 2 models 'Canon 444'
-	
-	When the package 'Package 111' is selected	
-	Then there are 2 models belonging to that package with total quantity as 3
 
 		

@@ -44,7 +44,7 @@ class Backend::TemporaryController < ApplicationController
     
    # create_some_categories
     create_some_root_categories
-    create_some_packages
+#old#    create_some_packages
     create_some_templates
 
     create_some_properties
@@ -100,8 +100,9 @@ class Backend::TemporaryController < ApplicationController
     start_date = Date.new(2008, 7, 15)
     end_date = Date.new(2008, 7, 25)
 
-    p1 = u.inventory_pools.find_by_name("AVZ").packages.find_by_name("Stereo Set")
-    p1.add_to_document(order, u.id, 1, start_date, end_date)
+#old#
+#    p1 = u.inventory_pools.find_by_name("AVZ").packages.find_by_name("Stereo Set")
+#    p1.add_to_document(order, u.id, 1, start_date, end_date)
     
     m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Digitalrecorder Edirol R-1")
     m2.add_to_document(order, u.id, 1, start_date, end_date)
@@ -126,8 +127,9 @@ class Backend::TemporaryController < ApplicationController
     start_date = Date.new(2008, 9, 1)
     end_date = Date.new(2008, 10, 2)
 
-    p1 = u.inventory_pools.find_by_name("AVZ").packages.find_by_name("Stereo Set")
-    p1.add_to_document(order, u.id, 1, start_date, end_date)
+#old#
+#    p1 = u.inventory_pools.find_by_name("AVZ").packages.find_by_name("Stereo Set")
+#    p1.add_to_document(order, u.id, 1, start_date, end_date)
     
     m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Digitalrecorder Edirol R-1")
     m2.add_to_document(order, u.id, 1, start_date, end_date)
@@ -156,20 +158,21 @@ private
 #    end
 #  end
 
- 
-  def create_some_packages
-    ip = InventoryPool.find_by_name("AVZ")
-    p = Package.create(:name => "Stereo Set", :inventory_pool => ip)
 
-      m = ip.models.find_by_name("Mikrophon Sony Bluetooth ECM-HW1R")
-      p.model_links << ModelLink.create(:model => m, :quantity => 1)
-  
-      m = ip.models.find_by_name("Mikrophon Hama RMZ-14")
-      p.model_links << ModelLink.create(:model => m, :quantity => 1)
-
-    c = Category.find_by_name("Mikrofon")
-    add_to(c, p)
-  end
+#old# 
+#  def create_some_packages
+#    ip = InventoryPool.find_by_name("AVZ")
+#    p = Package.create(:name => "Stereo Set", :inventory_pool => ip)
+#
+#      m = ip.models.find_by_name("Mikrophon Sony Bluetooth ECM-HW1R")
+#      p.model_links << ModelLink.create(:model => m, :quantity => 1)
+#  
+#      m = ip.models.find_by_name("Mikrophon Hama RMZ-14")
+#      p.model_links << ModelLink.create(:model => m, :quantity => 1)
+#
+#    c = Category.find_by_name("Mikrofon")
+#    add_to(c, p)
+#  end
 
   def create_some_templates
     p = Template.create(:name => "Interview Set")
@@ -337,9 +340,10 @@ private
           child.set_label(c, "#{child.name}_#{i}")
         end
         (rand(1)+1).times do |i|
-          child = Package.find(:first, :order => "RAND()")
-          c.children << child
-          child.set_label(c, "#{child.name}_#{i}")
+#old#          
+#          child = Package.find(:first, :order => "RAND()")
+#          c.children << child
+#          child.set_label(c, "#{child.name}_#{i}")
 
           child = Template.find(:first, :order => "RAND()")
           c.children << child

@@ -1,7 +1,7 @@
 class Model < ActiveRecord::Base
   has_many :items
   has_many :locations, :through => :items, :uniq => true
-  has_many :inventory_pools, :through => :locations, :uniq => true #, :group => :id # (nested)
+  has_many :inventory_pools, :through => :locations, :uniq => true
   
   has_many :order_lines
   has_many :contract_lines
@@ -13,7 +13,6 @@ class Model < ActiveRecord::Base
   has_many :model_links
   has_many :model_groups, :through => :model_links #, :uniq => true
   has_many :categories, :through => :model_links, :source => :model_group, :conditions => {:type => 'Category'}
-  has_many :packages, :through => :model_links, :source => :model_group, :conditions => {:type => 'Package'}
   has_many :templates, :through => :model_links, :source => :model_group, :conditions => {:type => 'Template'}
                 
 ########
@@ -38,7 +37,9 @@ class Model < ActiveRecord::Base
   named_scope :without_items, :select => "models.*",
                               :joins => "LEFT JOIN items ON items.model_id = models.id",
                               :conditions => ['items.model_id IS NULL']
-    
+
+  validates_presence_of :name
+
   acts_as_ferret :fields => [ :name, :category_names, :properties_values ], :store_class_name => true
 
 #############################################  
@@ -84,7 +85,7 @@ class Model < ActiveRecord::Base
 
   def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil)
     quantity ||= 1
-    document.add_line(quantity, self, user_id, start_date, end_date, nil)
+    document.add_line(quantity, self, user_id, start_date, end_date)
   end  
   
   

@@ -23,6 +23,7 @@ class Backend::BackendController < ApplicationController
       else
         model = current_inventory_pool.models.find(params[:model_id])
       end
+      # TODO params[:user_id] ||= current_user.id
       model.add_to_document(document, params[:user_id], params[:quantity])
 
       flash[:notice] = _("Line couldn't be added") unless document.save        
