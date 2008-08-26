@@ -34,14 +34,17 @@ class Backend::TakeBackController < Backend::BackendController
 
   # Close definitely the contract
   def close_contract
+    @options = Option.find(params[:options].split(','))
+    
     if request.post?
       #temp# @lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
       @lines = current_inventory_pool.contract_lines.find(params[:lines]) #if params[:lines]
       @contracts = @lines.collect(&:contract).uniq #if @lines
-
+      
       # set the return dates to the given contract_lines
       @lines.each { |l| l.update_attribute :returned_date, Date.today }
-  
+      @options.each { |o| o.update_attribute :returned_date, Date.today }
+      
       @contracts.each do |c|
         c.close if c.lines.all? { |l| !l.returned_date.nil? }
       end

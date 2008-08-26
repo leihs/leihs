@@ -12,7 +12,8 @@ function checkbox_values(boxes){
 }
 
 //TODO write as generic
-function change_href(a, checkbox_name, param_name){
+function change_href(a, checkbox_name, param_name, clear_arguments){
+	clear_arguments = (clear_arguments == null) ? true : false;
 	var cbv = checkbox_values(checkbox_name + '_check');
 	
 	// TODO prevent execution without selection
@@ -20,8 +21,33 @@ function change_href(a, checkbox_name, param_name){
 		// window.event.stopPropagation();
 	//}else{
 		b = a.href.split('?');
-		//a.href = b[0] + '?' + b[1] + '&' + param_name + 's=' + cbv;
-		a.href = b[0] + '?' + param_name + 's=' + cbv;
+		if (clear_arguments) {
+			a.href = b[0] + '?' + param_name + 's=' + cbv;
+		}
+		else {
+			a.href = b[0] + '?' + b[1] + '&' + param_name + 's=' + cbv; // TODO: Find place where it doesn't work. Needed for Take Back (Options...)
+		}
+		decoGreyboxLinks();
+	//}
+
+
+}
+
+function change_href_with_clear(a, checkbox_name, param_name, clear_arguments)
+{
+	var cbv = checkbox_values(checkbox_name + '_check');
+	
+	// TODO prevent execution without selection
+	//if(cbv.length == 0) {
+		// window.event.stopPropagation();
+	//}else{
+		b = a.href.split('?');
+		if (clear_arguments) {
+			a.href = b[0] + '?' + param_name + 's=' + cbv;
+		}
+		else {
+			a.href = b[0] + '?' + b[1] + '&' + param_name + 's=' + cbv; // TODO: Find place where it doesn't work. Needed for Take Back (Options...)
+		}
 		decoGreyboxLinks();
 	//}
 }

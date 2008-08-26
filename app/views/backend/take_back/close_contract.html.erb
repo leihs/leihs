@@ -1,15 +1,24 @@
-	<h2><%= _("Returned items") %></h2>
-	
-	<ul>
-		<% @lines.each do |l| %>
-			<li><%= l.item.model.name %> - <%= l.item.inventory_code %></li>
-		<% end %>
-	</ul>
-		
+<h2><%= _("Returned items") %></h2>
+
+<ul>
+	<% @lines.each do |l| %>
+		<li><%= l.item.model.name %> - <%= l.item.inventory_code %></li>
+	<% end %>
+</ul>
+
+<h2><%= _("Returned options") %></h2>
+
+<ul>
+	<% @options.each do |o| %>
+		<li><%= o.name %> - <%= o.barcode %></li>
+	<% end %>
+</ul>
+
+
 	<br />
 	<div class="buttons">
 		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Confirm"),
-					 { :controller => 'take_back', :action => 'close_contract', :lines => @lines  },
+					 { :controller => 'take_back', :action => 'close_contract', :lines => @lines, :options => @options  },
 					 :class => 'positive', :method => 'post') %>
 					 
 		<%=	cancel_popup_button(_("Cancel") ) %>

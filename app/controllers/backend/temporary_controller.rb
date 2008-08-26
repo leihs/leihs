@@ -17,7 +17,7 @@ class Backend::TemporaryController < ApplicationController
     @id = id[0..id.index('-') - 1]
     @name = id[id.index("-") + 1..id.length]
     @user = User.find_by_login(@name)
-        
+    @user ||= User.new(:login => @name, :unique_id => rand(50000))
     @groups = []
     if @id.eql?("1") 
       @groups << 'admin'

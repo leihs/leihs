@@ -5,7 +5,14 @@
 			<li><%= l.item.model.name %> - <%= l.item.inventory_code %></li>
 		<% end %>
 	</ul>
-	
+<% if @contract.options.size > 0 %>
+<h3><%= _("Options to hand over") %></h3>
+<ul>
+  <% @contract.options.each do |o| %>
+    <li><%= o.quantity %> <%= o.name %></li>
+  <% end %>
+</ul>
+<% end %>
 	<br />
 	<div class="buttons">
 		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Confirm"),

@@ -19,9 +19,7 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
     t.datetime "updated_at"
   end
 
-  add_index "access_rights", ["role_id"], :name => "index_access_rights_on_role_id"
-  add_index "access_rights", ["user_id"], :name => "index_access_rights_on_user_id"
-  add_index "access_rights", ["inventory_pool_id"], :name => "index_access_rights_on_inventory_pool_id"
+  add_index "access_rights", ["role_id", "user_id", "inventory_pool_id"], :name => "index_access_rights_on_role_id_and_user_id_and_inventory_pool_id", :unique => true
 
   create_table "accessories", :force => true do |t|
     t.integer "model_id", :limit => 11
@@ -155,7 +153,9 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
 
   create_table "locations", :force => true do |t|
     t.integer  "inventory_pool_id", :limit => 11
-    t.string   "name"
+    t.string   "building"
+    t.string   "room"
+    t.string   "shelf"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -202,11 +202,17 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
   add_index "models_compatibles", ["model_id"], :name => "index_models_compatibles_on_model_id"
   add_index "models_compatibles", ["compatible_id"], :name => "index_models_compatibles_on_compatible_id"
 
+  create_table "option_maps", :force => true do |t|
+    t.string "barcode"
+    t.string "text"
+  end
+
   create_table "options", :force => true do |t|
-    t.integer  "order_line_id", :limit => 11
+    t.integer  "contract_id",   :limit => 11
     t.integer  "quantity",      :limit => 11
+    t.string   "barcode"
     t.string   "name"
-    t.string   "remark"
+    t.date     "returned_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

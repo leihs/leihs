@@ -75,4 +75,21 @@
 						
 			</div>
 			
+  					<div class="table-overview boxes">
+
+  						<div class="toolbar-second">
+  							<h3>Zubehör</h3>
+  							<div class="buttons">
+  		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
+  									{ :controller => 'hand_over', :action => 'remove_options', :id => @contract.id },
+  									:onmouseup => "change_href(this, 'option', 'option');",
+  									:class => "multiple_selection_option_button negative",
+  									:title => _("Remove Options") )
+  									%>
+  							</div>
+  						</div>
+    			    <div id="options">
+                <%= render :partial => 'options' %>
+  					</div>
+          </div>
 

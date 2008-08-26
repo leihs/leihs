@@ -4,6 +4,7 @@ class Contract < Document
   belongs_to :user
   has_many :contract_lines, :dependent => :destroy
   has_many :models, :through => :contract_lines, :uniq => true
+  has_many :options
 
   acts_as_ferret :fields => [ :user_login, :lines_model_names ],
                  :store_class_name => true
@@ -51,6 +52,14 @@ class Contract < Document
   def close
     update_attribute :status_const, Contract::CLOSED
   end
+
+  def remove_option(option_id, user_id)
+    option = Option.find(option_id.to_i)
+    change = _("Removed Option: %{o}") % { :o => ("(" + option.quantity.to_s + ") " + option.name) }
+    option.destroy
+    log_change(change, user_id)
+  end
+
 
 
 end

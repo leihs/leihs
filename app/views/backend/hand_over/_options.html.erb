@@ -1,0 +1,24 @@
+<table cellspacing="0">
+	<tr>
+		<th scope="col"><input type="checkbox"  id="options" onClick="mark_all(this, 'option_check', 'multiple_selection_option_button');" /> <%= _("Alle Markieren") %> </th>
+		<th scope="col">Anzahl/Stückzahl</th>
+		<th scope="col">Bezeichnung</th>
+		<th scope="col">Aktion</th>
+	</tr>
+		
+	<% @contract.options.each do |option| %>
+		<tr class="alt-row">
+			<td><%= check_box_tag('options[]', option.id, false, :class => "option_check", :onchange => "toggle_buttons('option_check', 'multiple_selection_option_button');" ) %>
+			</td>
+			<td><%= option.quantity %></td>
+			<td><%= option.name %></td>
+			<td>
+			  <div class="buttons">
+			  <%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
+			 	    { :controller => 'hand_over', :action => 'remove_options', :id => @contract.id, :options => option.id },
+					    :title => _("Remove Option"), :class => 'negative' ) %>
+			  </div>
+			</td>
+		</tr>
+<%	end	%>								
+</table>
