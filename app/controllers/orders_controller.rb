@@ -31,6 +31,7 @@ class OrdersController < Frontend1Controller
       else
         model = Model.find(params[:model_id])
       end
+      # TODO params[:user_id] ||= current_user.id
       model.add_to_document(@order, params[:user_id], params[:quantity])
       
       flash[:notice] = _("Line couldn't be added") unless @order.save

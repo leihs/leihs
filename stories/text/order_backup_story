@@ -69,14 +69,3 @@ Scenario: Delete order
 	Then the order and the backup are deleted
 
 	
-Scenario: Backup an order with line_groups
-
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-	Given a submitted order with 4 order lines belonging to 1 line group
-
-
-Scenario: Restore an order with line_groups
-
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-	Given a submitted order with 4 order lines belonging to 1 line group
-	

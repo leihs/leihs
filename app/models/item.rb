@@ -11,6 +11,7 @@ class Item < ActiveRecord::Base
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
   validates_uniqueness_of :inventory_code
+  validates_presence_of [:model, :location, :inventory_code]
   
   acts_as_ferret :fields => [ :model_name, :inventory_pool_name, :inventory_code, :serial_number ] #, :store_class_name => true
 
@@ -22,7 +23,7 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   def to_s
-    "#{model.name} #{inventory_code}"
+    "#{model.name if model} #{inventory_code}" # TODO remove 'if model'
   end
     
   # TODO remove this method when no more needed (it is used for Rspec tests)

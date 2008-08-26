@@ -9,14 +9,7 @@
 <!-- end header -->
 
 <!-- start iterator -->
-<% for @line in @order.lines.not_in_group  %>
+<% for @line in @order.lines  %>
 	<%= render :partial => 'backend/acknowledge/line' %>
-<% end %>
-
-<% for @line_group in @order.line_groups  %>
-	<%= render :partial => 'backend/acknowledge/line_group' %>
-	<% for @line in @line_group.lines  %>
-		<%= render :partial => 'backend/acknowledge/line' %>
-	<% end %>
 <% end %>
 <!-- end iterator -->						

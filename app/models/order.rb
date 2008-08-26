@@ -4,7 +4,6 @@ class Order < Document
   belongs_to :user
   has_many :order_lines, :dependent => :destroy
   has_many :models, :through => :order_lines, :uniq => true
-  has_many :line_groups, :through => :order_lines, :uniq => true
 
   has_one :backup, :class_name => "Backup::Order", :dependent => :destroy #TODO delete when nullify # TODO acts_as_backupable
 
@@ -62,7 +61,6 @@ class Order < Document
         ol.quantity.times do
           contract.contract_lines << ContractLine.new(:model => ol.model,
                                                       :quantity => 1,
-                                                      :line_group => ol.line_group,
                                                       :start_date => ol.start_date,
                                                       :end_date => ol.end_date)
         end
@@ -161,19 +159,10 @@ class Order < Document
   def to_backup
     self.backup = Backup::Order.new(attributes) #.reject {|key, value| key == "id" }
     
-    order_lines.not_in_group.each do |ol|
+    order_lines.each do |ol|
       backup.order_lines << Backup::OrderLine.new(ol.attributes) #.reject {|key, value| key == "id" }     
     end
 
-    line_groups.each do |lg|
-      blg = Backup::LineGroup.new(lg.attributes)
-      lg.order_lines.each do |ol|
-        bol = Backup::OrderLine.new(ol.attributes)
-        bol.line_group = blg
-        backup.order_lines << bol
-      end
-    end
-    
     save
   end  
  
@@ -181,22 +170,11 @@ class Order < Document
     self.attributes = backup.attributes.reject {|key, value| key == "order_id" } # or key == "id" 
     
     order_lines.clear
-    line_groups.clear
     
-    backup.order_lines.not_in_group.each do |ol|
+    backup.order_lines.each do |ol|
       order_lines << OrderLine.new(ol.attributes.reject {|key, value| key == "order_id" }) # or key == "id" 
     end
-    
-    backup.line_groups.each do |blg|
-      lg = LineGroup.new(blg.attributes)
-      blg.order_lines.each do |bol|
-        ol = OrderLine.new(bol.attributes)
-        ol.line_group = lg
-        order_lines << ol
-      end
-    end
-    
-    
+        
     histories.each {|h| h.destroy if h.created_at > backup.created_at}
     
     remove_backup

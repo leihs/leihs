@@ -13,11 +13,15 @@ class Importer
                        :login => "super_user_1")
 
     r = Role.find(:first, :conditions => {:name => "admin"})
-    ips = InventoryPool.find(:all)
-    ips.each do |ip|
-      user.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
-    end
-    user.save
+#old#
+#    ips = InventoryPool.find(:all)
+#    ips.each do |ip|
+#      user.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
+#    end
+#    user.save
+
+     user.access_rights << AccessRight.new(:role => r, :inventory_pool => nil)
+
     "Administrator für alle Pools ist " + user.login
   end
   

@@ -63,11 +63,11 @@ class ModelsController < Frontend1Controller
     if request.post?
       if params[:source_controller].include?("backend/") #current_inventory_pool
         # Backend
-        # TODO scope Package and Template for the current inventory pool
-        @search_result = current_inventory_pool.models.find_by_contents("*" + params[:search] + "*", :multi => [Package, Template])
+        # TODO scope Template for the current inventory pool
+        @search_result = current_inventory_pool.models.find_by_contents("*" + params[:search] + "*", :multi => [Template])
       else
         # Frontend
-        @search_result = current_user.models.find_by_contents("*" + params[:search] + "*", :multi => [Package, Template])
+        @search_result = current_user.models.find_by_contents("*" + params[:search] + "*", :multi => [Template])
       end
     end
 

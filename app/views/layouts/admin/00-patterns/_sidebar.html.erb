@@ -1,6 +1,22 @@
 <ul>
 	<li><%= link_to _('InventoryPools') + " (#{InventoryPool.count})", :controller => 'inventory_pools' %></li>
-	<li><%= link_to _('Models') + " (#{Model.count})", :controller => 'models' %></li>
+	<li><%= _('Items') %>
+		<ul>
+		<li><%= link_to _('All') + " (#{Item.count})", :controller => 'items' %></li>
+		<li><%= link_to _('In Repair') + " (#{Item.in_repair.count})", :controller => 'items', :action => 'in_repair' %></li>
+		<li><%= greybox_link_to_page(_('New **'),
+			 	{ :controller => 'items', :action => 'new' },
+				:title => _("Item"), :width => 850 ) %></li>
+		</ul>	
+	</li>
+	<li><%= _('Models') %>
+		<ul>
+		<li><%= link_to _('All') + " (#{Model.count})", :controller => 'models' %></li>
+		<li><%= greybox_link_to_page(_('New **'),
+			 	{ :controller => 'models', :action => 'new' },
+				:title => _("Model"), :width => 850 ) %></li>
+		</ul>	
+	</li>
 	<li><%= link_to _('Categories') + " (#{Category.count})", :controller => 'categories' %></li>
 	<li><%= link_to _('Users') + " (#{User.count})", :controller => 'users' %></li>
 	<li><%= link_to _('Roles') + " (#{Role.count})", :controller => 'roles' %></li>

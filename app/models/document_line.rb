@@ -8,11 +8,6 @@ class DocumentLine < ActiveRecord::Base
 
 ###############################################  
   
-  named_scope :in_group, :conditions => ['line_group_id IS NOT NULL'], :order => "start_date, end_date"
-  named_scope :not_in_group, :conditions => ['line_group_id IS NULL'], :order => "start_date, end_date"
-
-###############################################  
-
   def self.current_and_future_reservations(model_id, document_line = nil, date = Date.today)
     cl = ContractLine.find(:all, :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and id <> ?', model_id, date, date, date, document_line ? document_line.contract_to_exclude : 0])
     ol = OrderLine.find(:all,
@@ -30,21 +25,11 @@ class DocumentLine < ActiveRecord::Base
     model.maximum_available_in_period(start_date, end_date, self) >= quantity
   end
   
-  def get_my_group_lines
-    if line_group and line_group.model_group.is_a?(Package)
-      group_lines = line_group.lines
-    else 
-      group_lines = [self]
-    end    
-    group_lines
-  end
-
   private
   
   def set_defaults
     self.start_date ||= Date.today
     self.end_date ||= Date.today
-#    self.quantity = [quantity, 1].max
   end
 
   def date_sequence

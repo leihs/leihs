@@ -21,6 +21,7 @@ class InventoryPool < ActiveRecord::Base
 ########
       
   has_many :locations
+  has_one  :main_location, :class_name => "Location", :conditions => {:main => true}  
   has_many :items, :through => :locations #, :uniq => true
   has_many :models, :through => :items, :uniq => true
 
@@ -30,7 +31,8 @@ class InventoryPool < ActiveRecord::Base
   has_many :contracts
   has_many :contract_lines, :through => :contracts
 
-  has_many :packages
+  before_create :assign_main_location
+
   
   def to_s
     "#{name}"
@@ -98,6 +100,13 @@ class InventoryPool < ActiveRecord::Base
 ###################################################################################
 
   private
+  
+  def assign_main_location(location = nil)
+    location ||= Location.create(:room => "main")
+    #old# self.main_location = location
+    location.update_attribute :main, true
+    self.locations << location
+  end
   
   def take_back_or_remind_visits(remind = false)
     visits = []

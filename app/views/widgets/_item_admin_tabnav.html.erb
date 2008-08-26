@@ -1,0 +1,31 @@
+<% if @item.model %>
+	<h2><%= image_tag(@item.model.images.first.public_filename(:thumb)) unless @item.model.images.empty? %>
+		<%= @item.model.name %></h2>
+<% end %>
+
+<%  
+render_tabnav :item_admin, 
+              :generate_css => true do 
+    
+	add_tab do |t|
+		t.named 'Item'
+		t.links_to :controller => 'items', :action => 'show', :id => @item
+	end
+
+	add_tab do |t|
+		t.named 'Model'
+		t.links_to :controller => 'items', :action => 'model', :id => @item
+	end
+
+	add_tab do |t|
+		t.named 'InventoryPool'
+		t.links_to :controller => 'items', :action => 'inventory_pool', :id => @item
+	end
+
+	add_tab do |t|
+		t.named 'Status'
+		t.links_to :controller => 'items', :action => 'status', :id => @item
+	end
+
+end 
+%>

@@ -1,18 +1,17 @@
 
 <% tabnav :inventory_pool_edit do %>
-
-	<ul>
-	<% for manager in @inventory_pool.managers %>
-	<% p manager.inspect %>
-		<li>
-		<%= manager.login %> 
+	
+<% tableize @inventory_pool.managers,
+		 :header => "listing managers",
+		 :generate_css => true do |manager| %>
+		 
+		<%= manager.login %>
+		<br />
 		<%= link_to _('Remove'),
 					:action => 'remove_manager',
 					:id => @inventory_pool,
 					:manager_id => manager %>
-		</li>
-	<% end %>	
-	</ul>
+<% end %>		 	
 
 	<hr />
 	<div id="search_query">

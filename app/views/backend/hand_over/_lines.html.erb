@@ -31,20 +31,13 @@
 <!-- start iterator -->
 <% 
   last_date = Date.new
-  for @line in @contract.lines.not_in_group
+  for @line in @contract.lines
     if @line.start_date > last_date
       last_date = @line.start_date
 %>
   <tr><td cellspan="3"><%= short_date(@line.start_date) %></td></tr>
 <% end %>
 	<%= render :partial => 'line' %>
-<% end %>
-
-<% for @line_group in @contract.line_groups  %>
-	<%= render :partial => 'line_group' %>
-	<% for @line in @line_group.lines  %>
-		<%= render :partial => 'line' %>
-	<% end %>
 <% end %>
 <!-- end iterator -->						
 

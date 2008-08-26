@@ -6,6 +6,8 @@ class Admin::InventoryPoolsController < Admin::AdminController
     config.columns = [:name, :description, :locations] # , :managers
     config.columns.each { |c| c.collapsed = true }
 
+    config.update.link.inline = false
+
     config.show.columns << :managers
   end
   

@@ -4,7 +4,6 @@
 				<th scope="col">Inventory Pools</th>
 				<th scope="col">Items</th>
 				<th scope="col">Orders</th>
-				<th scope="col">Package?</th>
 			</tr>
 
 		<% for model in @models %>
@@ -47,7 +46,6 @@
 
 				</td>
 				<td><%= model.order_lines.size %></td>
-				<td></td>
 			</tr>
 		<% end %>
 
