@@ -1,6 +1,6 @@
 class Backend::AcknowledgeController < Backend::BackendController
 
-  before_filter :load_order, :except => :index
+  before_filter :pre_load, :except => :index
 
   def index
     @submitted_orders = current_inventory_pool.orders.submitted_orders
@@ -129,7 +129,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     
   private
   
-  def load_order
+  def pre_load
       @order = current_inventory_pool.orders.submitted_orders.find(params[:id]) if params[:id]
     rescue
       redirect_to :action => 'index' unless @order

@@ -46,6 +46,7 @@
            dataIndex: 'quantity',
            width: 25,
            align: 'right',
+ 		   renderer:function(value,p,r){ return (r.data['available?'] == 'true')? value:'<div style="background-color: red;">'+ value +'</div>';},
 		   editor: new Ext.form.TextField({ // TODO fix rendering problem
                allowBlank: false
            })
@@ -74,6 +75,9 @@
         },{
            header: "Available",
            dataIndex: 'available?',
+		   align: 'center',
+		// css: "background-color: red;",
+ 		   renderer:function(value){ return (value == 'true')?'Yes':'<div style="background-color: red;">No</div>';},
            width: 40
         }]);
 
@@ -89,14 +93,18 @@
 		viewConfig: { forceFit: true },
         loadMask: true,
 		clicksToEdit: 1,
-		show: function(cmp) {
-			this.store.load(); // TODO optimize render
-		},
+//old//		
+//		show: function(cmp) {
+//			this.store.load(); // TODO optimize render
+//		},
 		view: new Ext.grid.GroupingView({
             forceFit:true,
             groupTextTpl: '{text}'
         }),
 		listeners: {
+			activate: function(cmp) {
+				this.store.load();
+			},
 			afteredit: function(e){
 				if(e.field == "start_date" || e.field == "end_date"){
 				    u = '/frontend/change_time_lines';

@@ -44,7 +44,7 @@ steps_for(:availability_inventory_pool) do
   When "'$who' order$s $quantity '$model'" do |who, s, quantity, model|
     post "/session", :login => who #, :password => "pass"
     get "/orders/new"
-    @order = assigns(:order)
+    @order = assigns(:order) # TODO strange error occurs, the second time the variable is not assigned
     model_id = Model.find_by_name(model).id
     post "/orders/add_line", :id => @order.id, :model_id => model_id, :quantity => quantity
     @order = assigns(:order)

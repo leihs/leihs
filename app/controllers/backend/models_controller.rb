@@ -8,12 +8,11 @@ class Backend::ModelsController < Backend::BackendController
 
     config.show.link.inline = false
 
-#    config.actions.exclude :create, :update, :delete
+    config.actions.exclude :create, :update, :delete
   end
 
   # filter for active_scaffold (through locations)
   def conditions_for_collection
-    #old# {:inventory_pool_id => current_inventory_pool.id}
     ['locations.inventory_pool_id = ?', current_inventory_pool.id] 
   end
 

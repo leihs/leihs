@@ -16,7 +16,8 @@
             id: 'id',
             fields: [
 			   {name: 'quantity',  type: 'int'}, //, map: 'orders.order_lines.quantity'
-			   {name: 'model.name', type: 'string'} //, map: 'orders.order_lines.model.name'
+			   {name: 'model.name', type: 'string'}, //, map: 'orders.order_lines.model.name'
+			   {name: 'available?', type: 'string'} //, map: 'orders.order_lines.available?'
 			]
         })
 
@@ -30,6 +31,7 @@
            dataIndex: 'quantity',
            width: 25,
            align: 'right',
+ 		   renderer:function(value,p,r){ return (r.data['available?'] == 'true')? value:'<div style="background-color: red;">'+ value +'</div>';},
 		   editor: new Ext.form.TextField({ // TODO fix rendering problem
                allowBlank: false
            })
@@ -76,10 +78,10 @@
         ]
     });
 
-	basket.render();
+	// basket.render();
 	
     // trigger the data store load
-    basket_store.load();
+    // basket_store.load();
 
 
   

@@ -1,0 +1,12 @@
+
+<% tabnav :model_admin do %>
+
+	<ul>
+	<% for item in @model.items %>
+		<li><b><%= item.inventory_code %></b> <%= item.serial_number %></li>
+	<% end %>
+	</ul>
+
+	<%= render :active_scaffold => 'admin/items', :constraints => { :model_id => @model.id } %>
+
+<% end %>

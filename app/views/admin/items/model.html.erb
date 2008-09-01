@@ -1,11 +1,12 @@
 
 <% tabnav :item_admin do %>
 
+	<% if @item.model %>
 	<ul>
 		<li><b>Name:</b> <%= @item.model.name %></li>
 		<li><b>Manufacturer:</b> <%= @item.model.manufacturer %></li>
 	</ul>
-	
+	<% end %>	
 
 	<hr />
 	<div id="search_query">

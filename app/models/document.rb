@@ -63,7 +63,7 @@ class Document < ActiveRecord::Base
     original_start_date = line.start_date
     original_end_date = line.end_date
     line.start_date = start_date
-    line.end_date = end_date
+    line.end_date = [start_date, end_date].max
     if line.save
       change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
       log_change(change, user_id)

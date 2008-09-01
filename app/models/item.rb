@@ -3,6 +3,8 @@ class Item < ActiveRecord::Base
   BORROWABLE = 1
   UNBORROWABLE = 2
   
+  attr_accessor :step
+  
   belongs_to :model
   belongs_to :location
   delegate :inventory_pool, :to => :location  #old# has_one :inventory_pool, :through => :location
@@ -11,14 +13,18 @@ class Item < ActiveRecord::Base
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
   validates_uniqueness_of :inventory_code
-  validates_presence_of [:model, :location, :inventory_code]
+  #validates_length_of :inventory_code, :minimum => 1, :too_short => "please enter at least %d character", :if => Proc.new {|i| i.step == :step_item}
+  validates_presence_of :inventory_code, :if => Proc.new {|i| i.step == :step_item}
+  validates_presence_of :model, :if => Proc.new {|i| i.step == :step_model}
+  validates_presence_of :location, :if => Proc.new {|i| i.step == :step_location}
   
   acts_as_ferret :fields => [ :model_name, :inventory_pool_name, :inventory_code, :serial_number ] #, :store_class_name => true
 
 ####################################################################
 
   named_scope :available, :conditions => {:status_const => Item::BORROWABLE} 
-  named_scope :in_repair, :conditions => {:status_const => Item::UNBORROWABLE} 
+  named_scope :in_repair, :conditions => {:status_const => Item::UNBORROWABLE}
+  named_scope :incompletes, :conditions => ['inventory_code IS NULL OR model_id IS NULL OR location_id IS NULL']
 
 ####################################################################
 

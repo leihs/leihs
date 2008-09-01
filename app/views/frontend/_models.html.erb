@@ -23,30 +23,11 @@
         remoteSort: true
     });
     models_store.setDefaultSort('name', 'ASC');
-
-/*
-    // row expander
-    var expander = new Ext.grid.RowExpander({
-        tpl : new Ext.Template.from('tpl_model_details')
-    });
-
-    var add_button = new Ext.Action({
-        text: 'Add',
-        handler: function(){
-            Ext.example.msg('Click','You clicked on "Action 1".');
-        }
-    });
-*/
-    var add = new Ext.grid.CheckboxSelectionModel({
-					header: "Add",
-					singleSelect: true
-					});
 	
     // the column model has information about grid columns
     // dataIndex maps the column to the specific data field in
     // the data store
     var models_cm = new Ext.grid.ColumnModel([
-//		expander,
 		{
            header: "Name",
            dataIndex: 'name',
@@ -55,7 +36,12 @@
            header: "Manufacturer",
            dataIndex: 'manufacturer',
            width: 200
-        }, add]);
+        }, {header: "",
+			width: 50,
+			dataIndex: '',
+			align: 'center',
+			renderer: function(){ return '<input type="button" value="Add" style="font-size:80%; cursor: pointer;" />';}
+		}]);
 
     // by default columns are sortable
     models_cm.defaultSortable = true;
@@ -71,14 +57,13 @@
 //		sm: sm,
 		viewConfig: { forceFit: true },
         loadMask: true,
-//        plugins: expander,
 //		show: function(cmp) {
 //			this.store.load(); // TODO optimize render
 //		},
 
 		listeners: {
 			cellclick: function( grid, rowIndex, columnIndex, e ){
-			  if (columnIndex == 3){
+			  if (columnIndex == 2){
 				x_id = grid.getStore().getAt(rowIndex).id;
 				//var conn = new Ext.data.Connection();
 				//conn.request({
@@ -140,19 +125,36 @@
 			bodyStyle: {
 				background: '#ffffff',
 				padding: '7px'
-			},
-	        tpl : new Ext.Template.from('tpl_model_details')
+			} //,
+	        //tpl : new Ext.Template.from('tpl_model_details')
         });
 
 ///////////////////////////////////////////////////////////////////////////
-	
+	   var already_visible = false;
        var models = new Ext.Panel({
             layout:'border',
 			frame: true,
 	        title:'[1] Models',
 			width: 540,
 			height:350,
-            items:[models_grid, models_details]
+            items:[models_grid, models_details],
+			listeners: {
+				activate: function(cmp) {
+					if(already_visible){
+						viewport.getComponent(1).setVisible(true);
+						viewport.getComponent(2).setVisible(true);
+						viewport.doLayout();
+					}else{
+						already_visible = true;
+					}
+				    basket_store.load();
+				},
+				deactivate: function(cmp) {
+					viewport.getComponent(1).setVisible(false);
+					viewport.getComponent(2).setVisible(false);
+					viewport.doLayout();
+				}
+			}
         });
 
   

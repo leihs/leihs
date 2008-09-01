@@ -1,6 +1,5 @@
 class FrontendController < ApplicationController
 
-  #old# prepend_before_filter :login_required
   require_role "student"
 
   layout 'frontend'
@@ -31,7 +30,7 @@ class FrontendController < ApplicationController
     end
   end
 
-  # TODO working here
+  # TODO optimize html rendering to extjs
   def details(model_id = params[:model_id])
     @model = current_user.models.find(model_id)
     render :partial => '/models/details'
@@ -54,7 +53,9 @@ class FrontendController < ApplicationController
 #      format.html { render :action => 'basket', :layout => false }
       #format.ext_json { render :json => order.order_lines.to_ext_json(:include => :model) }
       format.ext_json { render :json => order.to_json(:include => {
-                                                          :order_lines => { :include => :model }
+                                                          :order_lines => { :include => :model,
+                                                                            :methods => :available?,
+                                                                            :except => [:created_at, :updated_at]}
                                                           } ) }
     end
   end
@@ -92,7 +93,7 @@ class FrontendController < ApplicationController
   def add_line
       @order = current_user.get_current_order #unless @order
 
-      model = Model.find(params[:model_id])
+      model = current_user.models.find(params[:model_id])
       model.add_to_document(@order, current_user.id, 1)
       
       flash[:notice] = _("Line couldn't be added") unless @order.save
