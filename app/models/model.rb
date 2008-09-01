@@ -38,7 +38,9 @@ class Model < ActiveRecord::Base
                               :joins => "LEFT JOIN items ON items.model_id = models.id",
                               :conditions => ['items.model_id IS NULL']
 
-  validates_presence_of :name
+  validates_uniqueness_of :name
+  #validates_length_of :name, :minimum => 1 #, :too_short => "please enter at least %d character", :if => Proc.new {|i| i.step == :step_item}
+  validates_presence_of :name #, :if => Proc.new {|i| i.step == :step_item}
 
   acts_as_ferret :fields => [ :name, :category_names, :properties_values ], :store_class_name => true
 

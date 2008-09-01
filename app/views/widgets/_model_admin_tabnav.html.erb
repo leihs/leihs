@@ -11,7 +11,7 @@
 
 <%  
 
-render_tabnav :model_edit, 
+render_tabnav :model_admin, 
               :generate_css => true do 
 
 	add_tab do |t|
@@ -31,22 +31,23 @@ render_tabnav :model_edit,
 	end
 
 	add_tab do |t|
-		t.named 'Properties *'
+		t.named 'Properties'
 		t.links_to :action => 'properties', :id => @model.id
+		t.html[:style] = "background-color: red;" if @model.properties.empty? 
 	end
 
 	add_tab do |t|
-		t.named 'Accessories'
+		t.named 'Accessories *'
 		t.links_to :action => 'accessories', :id => @model.id
 	end
 
 	add_tab do |t|
-		t.named 'Images'
+		t.named 'Images *'
 		t.links_to :action => 'images', :id => @model.id
 	end
 
 	add_tab do |t|
-		t.named 'Compatibles'
+		t.named 'Compatibles *'
 		t.links_to :action => 'compatibles', :id => @model.id
 	end
 
@@ -54,7 +55,6 @@ render_tabnav :model_edit,
 		t.named 'Availability'
 		t.links_to :action => 'availability', :id => @model.id
 	end
-
 
 end 
 %>

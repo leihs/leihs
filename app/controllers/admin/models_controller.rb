@@ -18,13 +18,12 @@ class Admin::ModelsController < Admin::AdminController
 
   # TODO
   def new
-    @model = Model.new
-    render :action => 'show', :layout => false
+    render :action => 'show' #, :layout => false
   end
     
   # TODO
   def edit 
-    render :action => 'show', :layout => false
+    render :action => 'show' #, :layout => false
   end
   
   # TODO
@@ -100,6 +99,7 @@ class Admin::ModelsController < Admin::AdminController
   def pre_load
     params[:id] ||= params[:model_id] if params[:model_id]
     @model = Model.find(params[:id]) if params[:id]
+    @model ||= Model.new
   end
   
   

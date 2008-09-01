@@ -10,12 +10,12 @@ class Backend::ItemsController < Backend::BackendController
 
     config.list.sorting = { :model => :asc }
     config.action_links.add 'toggle_status', :label => 'Toggle borrowable status', :type => :record # TODO optimize
+
+    config.actions.exclude :create, :update, :delete
   end
 
   # filter for active_scaffold through location
   def conditions_for_collection
-    # TODO return nil if current_user role is 'Admin'
-    #old# {:inventory_pool_id => current_inventory_pool.id}
     ['locations.inventory_pool_id = ?', current_inventory_pool.id] 
   end
 

@@ -1,6 +1,6 @@
 class OrdersController < Frontend1Controller
 
-  before_filter :load_order, :except => [:index, :new]
+  before_filter :pre_load, :except => [:index, :new]
 
   def index
     @orders = current_user.orders
@@ -68,7 +68,7 @@ class OrdersController < Frontend1Controller
 
   private
   
-  def load_order
+  def pre_load
       @order = Order.find(params[:id], :conditions => { :status_const => Order::NEW }) if params[:id]
     rescue
       redirect_to :action => 'index' unless @order

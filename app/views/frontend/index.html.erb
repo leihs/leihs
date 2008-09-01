@@ -11,16 +11,27 @@
 
 	    var user_timeline = new Ext.Panel({
 	        contentEl:'user_timeline',
-	        title:'[2] Timeline',
+	        title:'[2] Timeline (existing contracts)',
 		    autoScroll:true,
-			show: function(cmp) {
-				Ext.Ajax.request({
-				    url: '/users/timeline',
-				    method: 'GET',
-					success: function(response, options) {
-		               Ext.getDom('user_timeline').innerHTML = response.responseText;
-			        }
-				});
+			listeners: { activate: function(cmp) {
+/*
+							Ext.Ajax.request({
+							    url: '/users/timeline',
+							    method: 'GET',
+								success: function(response, options) {
+					               Ext.getDom('user_timeline').innerHTML = response.responseText;
+						        }
+							});
+
+							this.load({
+							    url: '/users/timeline',
+							    text: "Loading...",
+							    timeout: 30
+							});
+*/							
+			               Ext.getDom('user_timeline').innerHTML = "<iframe src='/users/timeline' width='100%' height='500' frameborder='0'></iframe>";
+
+						}
 			}
 	    });
 
@@ -34,10 +45,11 @@
                     margins:'0 5 0 5',
                     items:[models, user_timeline, complete_order]
                 });
-				        
+				   
+	   var northPanel, southPanel, eastPanel, westPanel, centerPanel;				        
        var viewport = new Ext.Viewport({
             layout:'border',
-            items:[{
+            items:[northPanel = {
                     region:'north',
                     contentEl: 'north',
                     height: 70,
@@ -45,7 +57,7 @@
                     maxSize: 100,
                     collapsible: true,
                     margins:'5 5 5 5'
-                 },{
+                 }, eastPanel = {
                     region:'east',
                     title: 'Basket',
                     collapsible: true,
@@ -55,8 +67,9 @@
                     layout:'fit',
                     margins:'0 5 0 0',
 					autoScroll:true,
+					// hidden: true,
                     items: basket
-                 },{
+                 }, westPanel = {
                     region:'west',
 					title: ' ',
                     collapsible: true,
@@ -66,6 +79,7 @@
                     maxSize: 400,
                     margins:'0 0 0 5',
 					autoScroll:true,
+					// hidden: true,
                     layout:'fit',
                     layout:'accordion',
                     layoutConfig:{
@@ -82,7 +96,7 @@
 						items: recent_models
                     }]
                 },
-				center_tabs
+				centerPanel = center_tabs
              ]
         });
     };
@@ -108,11 +122,6 @@
 			<%= render :partial => '/layouts/00-patterns/personal_toolbar' %>
 		</div>		
 	</div>	
-	
-	<div id="tpl_model_details" style="visibility: hidden;">
-	    <p><b>Model:</b> {name}</p><br>
-	    <p><b>Manufacturer:</b> {manufacturer}</p>
-	</div>
-        
+	        
 	
 	

@@ -35,6 +35,22 @@ class User < ActiveRecord::Base
 
   acts_as_ferret :fields => [ :login ]  #, :store_class_name => true
 
+################################################
+
+  named_scope :admins, :select => "DISTINCT users.*",
+                       :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
+                       :conditions => ['roles.name = ?', 'admin']
+
+  named_scope :managers, :select => "DISTINCT users.*",
+                       :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
+                       :conditions => ['roles.name = ?', 'manager']
+
+  named_scope :students, :select => "DISTINCT users.*",
+                       :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
+                       :conditions => ['roles.name = ?', 'student']
+
+################################################
+
   def to_s
     login
   end

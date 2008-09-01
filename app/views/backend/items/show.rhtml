@@ -1,14 +1,9 @@
 
 <% tabnav :item_edit do %>
 
-	<% form_tag :action => 'update', :id => @item do %>
-
-		<ul>
-		<li><b>Inventory Code:</b> <%= text_field_tag :inventory_code, @item.inventory_code %></li>	
-		<li><b>Serial Number:</b> <%= text_field_tag :serial_number, @item.serial_number %></li>
-		</ul>
-	
-		<%= submit_tag 'Submit' %>
-	<% end %>
+	<ul>
+	<li><b>Inventory Code:</b> <%= @item.inventory_code %></li>	
+	<li><b>Serial Number:</b> <%= @item.serial_number %></li>
+	</ul>
 
 <% end %>

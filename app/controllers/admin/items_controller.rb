@@ -11,6 +11,12 @@ class Admin::ItemsController < Admin::AdminController
     config.list.sorting = { :model => :asc }
   end
 
+#################################################################
+
+  def incompletes
+    render :inline => "Incompletes <hr /> <%= render :active_scaffold => 'admin/items', :conditions => ['items.id IN (?)', Item.incompletes] %>", # TODO optimize conditions
+           :layout => $general_layout_path
+  end
 
 #################################################################
 
@@ -21,13 +27,12 @@ class Admin::ItemsController < Admin::AdminController
 
   # TODO steps: [model, inventory_pool, inventory_code]
   def new
-    @item = Item.new
-    render :action => 'show', :layout => false
+    render :action => 'show' #, :layout => false
   end
     
   # TODO
   def edit 
-    render :action => 'show', :layout => false
+    render :action => 'show' #, :layout => false
   end
   
   # TODO
@@ -35,6 +40,7 @@ class Admin::ItemsController < Admin::AdminController
     @item ||= Item.create
     @item.inventory_code = params[:inventory_code]
     @item.serial_number = params[:serial_number]
+    @item.step = :step_item
     @item.save
     render :action => 'show'
   end
@@ -52,6 +58,7 @@ class Admin::ItemsController < Admin::AdminController
 
   def set_model
     @item.model = Model.find(params[:model_id])
+    @item.step = :step_model
     @item.save
     redirect_to :action => 'model', :id => @item
   end
@@ -65,6 +72,7 @@ class Admin::ItemsController < Admin::AdminController
   def set_inventory_pool
     ip = InventoryPool.find(params[:inventory_pool_id])
     @item.location = ip.main_location
+    @item.step = :step_location
     @item.save
     redirect_to :action => 'inventory_pool', :id => @item
   end
@@ -82,6 +90,7 @@ class Admin::ItemsController < Admin::AdminController
   def pre_load
     params[:id] ||= params[:item_id] if params[:item_id]
     @item = Item.find(params[:id]) if params[:id]
+    @item ||= Item.new
   end
 
 end

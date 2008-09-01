@@ -51,41 +51,9 @@
 					</div>
 				</div>
 				
-					<table cellspacing="0">
-					<!-- start header -->
-						<tr>
-							<th scope="col">
-								<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check', 'multiple_selection_button');" /> <%= _("Alle Markieren") %>
-								<br />
-								<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check_today', 'multiple_selection_button');" /> <%= _("Alle von Heute") %>
-							</th>
-							<th scope="col"><%= _("Contract") %></th>
-							<th scope="col"><%= _("Paket") %></th>
-							<th scope="col"><%= _("Zeitraum") %></th>
-							<th scope="col">
-								<%= _("Barcode") %>
-								<br />
-								<%= text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'assign_inventory_code', :user_id => @user.id }, :with => "'code=' + value" ) }) %>
-							</th>
-							<th scope="col"><%= _("Aktion") %></th>
-						</tr>
-					<!-- end header -->
-
-					<!-- start iterator -->
-				  <% 
-            last_date = Date.new
-            for @line in @contract_lines
-              if @line.end_date > last_date
-                last_date = @line.end_date
-          %>
-            <tr><td cellspan="3"><%= short_date(@line.end_date) %></td></tr>
-          <% end %>
-        
-						<%= render :partial => 'line' %>
-					<% end %>
-					<!-- end iterator -->						
-
-						</table>
+				<table cellspacing="0" id='lines'>
+					<%= render :partial => 'lines' %>
+				</table>				
 						
 			</div>
 			

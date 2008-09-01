@@ -1,3 +1,11 @@
+<% if @item.errors.size > 0 %>
+	<ul style="border: 1px solid red; padding: 2px;">
+	<% @item.errors.full_messages.each do |e| %>		
+		<li><%= e %></li>
+	<% end %>	
+	</ul>
+<% end %>			
+
 <% if @item.model %>
 	<h2><%= image_tag(@item.model.images.first.public_filename(:thumb)) unless @item.model.images.empty? %>
 		<%= @item.model.name %></h2>
@@ -69,22 +77,22 @@ render_tabnav :item_edit,
 
 	add_tab do |t|
 		t.named 'Item'
-		t.links_to :controller => 'items', :action => 'show', :id => @item
+		t.links_to :action => 'show', :id => @item.id
 	end
 
 	add_tab do |t|
 		t.named 'Model'
-		t.links_to :controller => 'items', :action => 'model', :id => @item
+		t.links_to :action => 'model', :id => @item.id
 	end
 
 	add_tab do |t|
 		t.named 'Location'
-		t.links_to :controller => 'items', :action => 'location', :id => @item
+		t.links_to :action => 'location', :id => @item.id
 	end
 
 	add_tab do |t|
 		t.named 'Status'
-		t.links_to :controller => 'items', :action => 'status', :id => @item
+		t.links_to :action => 'status', :id => @item.id
 	end
 
 end 
