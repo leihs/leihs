@@ -58,6 +58,9 @@ class Model < ActiveRecord::Base
     self.name <=> other.name
   end
   
+  def is_package?
+    items.size == 1 and items.first.is_package?
+  end
 #############################################  
 
   def availability(document_line = nil, current_time = Date.today)

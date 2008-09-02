@@ -21,6 +21,13 @@
 			 { :controller => 'models', :action => 'details', :id => @line.model.id },
 			 :title => _("Model"),
 			 :class => "thickbox iconized-notxt edit-package" ) %>
+			 <% if @line.model.is_package? %>
+			   <ul class="model_group">
+ 			   <% @line.model.items.first.children.each do |item| %>			   
+ 			      <li class="Package"><span><%= "#{item.model.name} (#{item.inventory_code})" %></span></li>
+ 			   <% end %>
+			   </ul> 
+			 <% end %>
 		</td>
 		<td id="line_dates_<%= @line.id %>" class="line_valid_<%= @line.available? %>">
 			<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",

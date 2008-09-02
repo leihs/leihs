@@ -63,6 +63,10 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def is_package?
+    children.size > 0
+  end
+
   #######################
   #
   def log_history(text, user_id)

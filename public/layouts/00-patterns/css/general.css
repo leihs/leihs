@@ -318,22 +318,22 @@ tr.availability td {
 	padding: 1em;
 }
 
-ul.model_group > li {
+ul.model_group {
 	margin-top: 5px;
+	padding-left: 15px;
+	padding-bottom: 5px;
+	background-color: #89A9B6;
+}
+
+ul.model_group > li {
+	padding-top: 5px;	
 }
 
 ul.model_group > li > span {
-	font-size: 2em;
-	border: 1px solid black;
-	padding: 0 400px 0 20px;
 }
 
 ul.model_group > li.Category > span {
 	background-color: #DDDDDD;
-}
-
-ul.model_group > li.Package > span {
-	background-color: #FFFF00;
 }
 
 ul.model_group > li.Template > span {
