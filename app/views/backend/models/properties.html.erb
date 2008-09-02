@@ -3,25 +3,9 @@
 
 	<ul>
 	<% @model.properties.each do |p| %>
-		<li><b><%= p.key %>:</b> <%= p.value %> <%= link_to _('Remove'),
-														:action => 'remove_property',
-														:id => @model,
-														:property_id => p %></li>
+		<li><b><%= p.key %>:</b> <%= p.value %></li>
 	<% end %>
 	</ul>
 
-	<hr />
-	<%= _("Add more properties") %>:
-				<% form_tag :action => 'add_property', :id => @model do %>
-				
-					<%= text_field_tag('key', _("key"),
-						:onfocus => "if(this.value=='key') this.value='';") %>
-						
-					<%= text_field_tag('value', _("value"),
-						:onfocus => "if(this.value=='value') this.value='';") %>
-
-					<%= submit_tag 'Add' %>
-				<% end %>
-	
 
 <% end %>

@@ -5,6 +5,9 @@ class Item < ActiveRecord::Base
   
   attr_accessor :step
   
+  belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id'
+  has_many :children, :class_name => "Item", :foreign_key => 'parent_id'
+  
   belongs_to :model
   belongs_to :location
   delegate :inventory_pool, :to => :location  #old# has_one :inventory_pool, :through => :location
@@ -22,10 +25,15 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-  named_scope :available, :conditions => {:status_const => Item::BORROWABLE} 
+  named_scope :available, :conditions => {:status_const => Item::BORROWABLE} # TODO ['parent_id IS NULL'] 
   named_scope :in_repair, :conditions => {:status_const => Item::UNBORROWABLE}
   named_scope :incompletes, :conditions => ['inventory_code IS NULL OR model_id IS NULL OR location_id IS NULL']
-
+  
+  # TODO do we need it?
+  named_scope :package_roots, :select => "DISTINCT items.*",
+                              :joins => "JOIN items i ON items.id = i.parent_id",
+                              :conditions => ['items.parent_id IS NULL']
+  
 ####################################################################
 
   def to_s

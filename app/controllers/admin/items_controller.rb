@@ -72,6 +72,12 @@ class Admin::ItemsController < Admin::AdminController
   def set_inventory_pool
     ip = InventoryPool.find(params[:inventory_pool_id])
     @item.location = ip.main_location
+    
+    # if is the first item of that model assigned to the inventory_pool,
+    # then creates accessory associations
+    @item.model.accessories.each {|a| ip.accessories << a } unless ip.models.include?(@item.model)
+    
+    
     @item.step = :step_location
     @item.save
     redirect_to :action => 'inventory_pool', :id => @item

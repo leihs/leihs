@@ -25,11 +25,14 @@ class InventoryPool < ActiveRecord::Base
   has_many :items, :through => :locations #, :uniq => true
   has_many :models, :through => :items, :uniq => true
 
+  has_and_belongs_to_many :accessories
+
   has_many :orders
   has_many :order_lines #old#, :through => :orders
 
   has_many :contracts
   has_many :contract_lines, :through => :contracts
+
 
   before_create :assign_main_location
 

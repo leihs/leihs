@@ -383,10 +383,10 @@ private
   end
 
   def create_some_accessories
-    a = ['Charger', 'Mouse', 'USB Cable', 'Memory Stick']
+    a = ['Charger', 'Mouse', 'USB Cable', 'FireWire Cable', 'Memory Stick', 'Bag', 'Remote Controller']
     
     Model.all.each do |m|
-      rand(3).times do |i|
+      3.times do |i|
         m.accessories << Accessory.new(:name => a[rand(a.size)])
       end
     end

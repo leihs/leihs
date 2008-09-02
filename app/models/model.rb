@@ -1,5 +1,5 @@
 class Model < ActiveRecord::Base
-  has_many :items
+  has_many :items # TODO filter children items, has_many :all_items ??
   has_many :locations, :through => :items, :uniq => true
   has_many :inventory_pools, :through => :locations, :uniq => true
   
@@ -37,6 +37,13 @@ class Model < ActiveRecord::Base
   named_scope :without_items, :select => "models.*",
                               :joins => "LEFT JOIN items ON items.model_id = models.id",
                               :conditions => ['items.model_id IS NULL']
+
+  # TODO test it
+  named_scope :packages, :select => "DISTINCT models.*",
+                         :joins => "LEFT JOIN items j ON models.id = j.model_id JOIN items i ON j.id = i.parent_id",
+                         :conditions => ['j.parent_id IS NULL']
+  
+#############################################  
 
   validates_uniqueness_of :name
   #validates_length_of :name, :minimum => 1 #, :too_short => "please enter at least %d character", :if => Proc.new {|i| i.step == :step_item}

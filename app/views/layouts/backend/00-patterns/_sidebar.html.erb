@@ -10,6 +10,7 @@
 	<li><%= _('Models') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{@current_inventory_pool.models.size})", :controller => 'models' %></li>
+		<li><%= link_to _('Packages') + " (#{@current_inventory_pool.models.packages.size})", :controller => 'models', :action => 'packages' %></li>
 		</ul>	
 	</li>
 	<li><%= link_to _('Locations') + " (#{@current_inventory_pool.locations.size})", :controller => 'locations' %></li>
