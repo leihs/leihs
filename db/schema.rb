@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
     t.string  "name"
   end
 
+  create_table "accessories_inventory_pools", :id => false, :force => true do |t|
+    t.integer "accessory_id",      :limit => 11
+    t.integer "inventory_pool_id", :limit => 11
+  end
+
+  add_index "accessories_inventory_pools", ["accessory_id", "inventory_pool_id"], :name => "index_accessories_inventory_pools", :unique => true
+
   create_table "accounts", :force => true do |t|
     t.string   "email"
     t.string   "login"
@@ -41,16 +48,8 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
     t.boolean "active"
   end
 
-  create_table "backup_line_groups", :force => true do |t|
-    t.integer  "model_group_id", :limit => 11
-    t.integer  "quantity",       :limit => 11, :default => 1
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "backup_order_lines", :force => true do |t|
     t.integer  "model_id",          :limit => 11
-    t.integer  "line_group_id",     :limit => 11
     t.integer  "order_id",          :limit => 11
     t.integer  "inventory_pool_id", :limit => 11
     t.integer  "quantity",          :limit => 11
@@ -85,7 +84,6 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
     t.integer  "contract_id",   :limit => 11
     t.integer  "item_id",       :limit => 11
     t.integer  "model_id",      :limit => 11
-    t.integer  "line_group_id", :limit => 11
     t.integer  "quantity",      :limit => 11, :default => 1
     t.date     "start_date"
     t.date     "end_date"
@@ -98,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
     t.integer  "user_id",           :limit => 11
     t.integer  "inventory_pool_id", :limit => 11
     t.integer  "status_const",      :limit => 11, :default => 1
+    t.string   "purpose"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -138,21 +137,16 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
     t.integer  "model_id",       :limit => 11
     t.integer  "location_id",    :limit => 11
     t.integer  "status_const",   :limit => 11, :default => 1
+    t.integer  "parent_id",      :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "items", ["inventory_code"], :name => "index_items_on_inventory_code", :unique => true
 
-  create_table "line_groups", :force => true do |t|
-    t.integer  "model_group_id", :limit => 11
-    t.integer  "quantity",       :limit => 11, :default => 1
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "locations", :force => true do |t|
     t.integer  "inventory_pool_id", :limit => 11
+    t.boolean  "main"
     t.string   "building"
     t.string   "room"
     t.string   "shelf"
@@ -163,7 +157,6 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
   create_table "model_groups", :force => true do |t|
     t.string   "type"
     t.string   "name"
-    t.integer  "inventory_pool_id", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -187,7 +180,7 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
   add_index "model_links", ["model_id"], :name => "index_model_links_on_model_id"
 
   create_table "models", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                             :default => "", :null => false
     t.string   "manufacturer"
     t.integer  "maintenance_period", :limit => 11, :default => 0
     t.datetime "created_at"
@@ -219,7 +212,6 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
 
   create_table "order_lines", :force => true do |t|
     t.integer  "model_id",          :limit => 11
-    t.integer  "line_group_id",     :limit => 11
     t.integer  "order_id",          :limit => 11
     t.integer  "inventory_pool_id", :limit => 11
     t.integer  "quantity",          :limit => 11, :default => 1
