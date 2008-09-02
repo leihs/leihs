@@ -18,6 +18,11 @@ class Backend::ModelsController < Backend::BackendController
 
 #################################################################
 
+  def packages
+    render :inline => "Packages <hr /> <%= render :active_scaffold => 'backend/models', :conditions => ['models.id IN (?)', @current_inventory_pool.models.packages] %>", # TODO optimize conditions
+           :layout => $general_layout_path
+  end
+
 
   def details 
     render :layout => $modal_layout_path
@@ -53,20 +58,6 @@ class Backend::ModelsController < Backend::BackendController
   def properties
     #render :layout => false
   end
-  
-  def add_property
-    @model.properties << Property.create(:key => params[:key], :value => params[:value])
-    redirect_to :action => 'properties', :id => @model
-  end
-
-  def remove_property
-    @model.properties.delete(@model.properties.find(params[:property_id]))
-    redirect_to :action => 'properties', :id => @model
-  end
-  
-  def edit_property
-    # TODO
-  end
 
 #################################################################
 
@@ -74,13 +65,12 @@ class Backend::ModelsController < Backend::BackendController
     #render :layout => false
   end
   
-  def add_accessory
-    @model.accessories << Accessory.create(:name => params[:name])
-    redirect_to :action => 'accessories', :id => @model
-  end
-
-  def remove_accessory
-    @model.accessories.delete(@model.accessories.find(params[:accessory_id]))
+  def set_accessories(accessory_ids = params[:accessory_ids] || [])
+    @current_inventory_pool.accessories -= @model.accessories
+    
+    accessory_ids.each do |a|
+      @current_inventory_pool.accessories << @model.accessories.find(a.to_i)
+    end
     redirect_to :action => 'accessories', :id => @model
   end
   

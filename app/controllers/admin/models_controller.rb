@@ -56,10 +56,6 @@ class Admin::ModelsController < Admin::AdminController
     @model.properties.delete(@model.properties.find(params[:property_id]))
     redirect_to :action => 'properties', :id => @model
   end
-  
-  def edit_property
-    # TODO
-  end
 
 #################################################################
 

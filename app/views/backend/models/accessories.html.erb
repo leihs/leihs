@@ -1,24 +1,22 @@
 
 <% tabnav :model_edit do %>
 
-	<ul>
-	<% @model.accessories.each do |a| %>
-		<li><b><%= a.name %></b> <%= link_to _('Remove'),
-												:action => 'remove_accessory',
-												:id => @model,
-												:accessory_id => a %></li>
-	<% end %>
-	</ul>
+	<% form_tag :action => 'set_accessories', :id => @model do %>
 
-	<hr />
-	<%= _("Add more accessories") %>:
-				<% form_tag :action => 'add_accessory', :id => @model do %>
-				
-					<%= text_field_tag('name', _("name"),
-						:onfocus => "if(this.value=='name') this.value='';") %>
-						
-					<%= submit_tag 'Add' %>
-				<% end %>
+		<ul>
+		<% @model.accessories.each do |a| %>
+			<li><%= check_box_tag 'accessory_ids[]',
+								  a.id,
+								  @current_inventory_pool.accessories.include?(a) %>
+				<b><%= a.name %></b>
+			</li>
+		<% end %>
+		</ul>
+			
+		<br />
+							
+		<%= submit_tag 'Set' %>
+	<% end %>
 	
 
 <% end %>
