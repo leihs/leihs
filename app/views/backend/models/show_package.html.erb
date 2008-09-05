@@ -1,0 +1,42 @@
+
+<% form_tag :action => 'update_package', :id => @model do %>
+
+	Package name: <%= text_field_tag('name', @model.name) %>
+	<br />
+
+	<% ic = @model.items.empty? ? "" : @model.items.first.inventory_code %>
+	Inventory code: <%= text_field_tag('inventory_code', ic) %>
+	<br />
+						
+	<%= submit_tag 'Submit' %>
+<% end %>
+
+TODO: Set Location
+
+<% unless @model.items.empty? %>
+	<br />
+	<ul>
+	<% @model.items.first.children.each do |i| %>
+		<li>
+			<b><%= i.model.name %></b>, <%= i.model.manufacturer %>, <%= i.inventory_code %>
+			<%= link_to _('Remove'),
+						:action => 'remove_package_item',
+						:id => @model,
+						:item_id => i %>
+		</li>
+	<% end %>
+	</ul>
+		
+
+	<hr />
+	<div id="search_query">
+		<%= _("Add more items") %>: <%= text_field_tag('search', _("search"),
+									:onfocus => "this.value='';",
+									:onchange => remote_function(:update => 'search_result',
+																 :url => { :action => 'search_package_items', :id => @model },
+																 :with => "'query=' + value" )) %>
+	</div>
+	<div id="search_result">
+	</div>
+<% end %>
+	

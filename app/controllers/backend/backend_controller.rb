@@ -17,21 +17,20 @@ class Backend::BackendController < ApplicationController
    # add a new line
    def generic_add_line(document, render_id)
     if request.post?
-
       if params[:model_group_id]
         model = ModelGroup.find(params[:model_group_id]) # TODO scope current_inventory_pool ?
       else
         model = current_inventory_pool.models.find(params[:model_id])
       end
-      # TODO params[:user_id] ||= current_user.id
+      params[:user_id] ||= current_user.id # OPTIMIZE
       model.add_to_document(document, params[:user_id], params[:quantity])
 
       flash[:notice] = _("Line couldn't be added") unless document.save        
       redirect_to :action => 'show', :id => render_id        
     else
-      redirect_to :controller => '/models', 
+      redirect_to :controller => 'models', 
                   :action => 'search',
-                  :id => params[:id],
+                  :document_id => params[:id],
                   :source_controller => params[:controller],
                   :source_action => params[:action]
     end
@@ -48,9 +47,9 @@ class Backend::BackendController < ApplicationController
       end  
       redirect_to :action => 'show', :id => render_id        
     else
-      redirect_to :controller => '/models', 
+      redirect_to :controller => 'models', 
                   :action => 'search',
-                  :id => params[:id],
+                  :document_id => params[:id],
                   :line_id => params[:line_id],
                   :source_controller => params[:controller],
                   :source_action => params[:action]
@@ -76,9 +75,9 @@ class Backend::BackendController < ApplicationController
   
   # remove OrderLines or ContractLines
   def generic_remove_lines(document, render_id)
-     if request.post?
-        params[:lines].each {|l| document.remove_line(l, current_user.id) }
-        redirect_to :action => 'show', :id => render_id
+    if request.post?
+      params[:lines].each {|l| document.remove_line(l, current_user.id) }
+      redirect_to :action => 'show', :id => render_id
     else
       @lines = document.lines.find(params[:lines].split(','))
       render :template => 'backend/backend/remove_lines', :layout => $modal_layout_path

@@ -1,32 +1,14 @@
-
-    // create the Data Store
-    var basket_store = new Ext.data.Store({
-        proxy: new Ext.data.HttpProxy(
-			new Ext.data.Connection({
-            	url: '/frontend/basket',
-				method: 'GET',
-				extraParams: {format:'ext_json'}
-			})
-        ),
-
-        // create reader that reads the Topic records
-        reader: new Ext.data.JsonReader({
-            root: 'order_lines',
-            totalProperty: 'results',
-            id: 'id',
-            fields: [
-			   {name: 'quantity',  type: 'int'}, //, map: 'orders.order_lines.quantity'
-			   {name: 'model.name', type: 'string'}, //, map: 'orders.order_lines.model.name'
-			   {name: 'available?', type: 'string'} //, map: 'orders.order_lines.available?'
-			]
-        })
-
-    });
 	
     // the column model has information about grid columns
     // dataIndex maps the column to the specific data field in
     // the data store
-    var basket_cm = new Ext.grid.ColumnModel([{
+    var basket_cm = new Ext.grid.ColumnModel([
+		{
+			header: "",
+			width: 25,
+			dataIndex: '',
+			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/delete.png" %>" style="cursor: pointer;" />';}
+		},{
            header: "",
            dataIndex: 'quantity',
            width: 25,
@@ -43,34 +25,52 @@
 
     var basket = new Ext.grid.EditorGridPanel({ //old: GridPanel
         el:'basket',
-//        title:'Basket',
-        store: basket_store,
+        title:'Basket',
+        store: complete_order_store,
         cm: basket_cm,
 		enableColumnHide: false,
 		enableColumnMove: false,
 		enableHdMenu: false,
 		viewConfig: { forceFit: true },
+		border: false,
         loadMask: true,
 		clicksToEdit: 1,
 		listeners: {
+			expand: function(e){
+				this.store.load();
+			},
 			afteredit: function(e){
 				Ext.Ajax.request({
-				    url: '/frontend/change_line',
- 				method: 'GET',
+				    url: '/orders/change_line',
+ 					method: 'GET',
 				    params: {"order_line_id": e.record.id, "quantity": e.value},
 				    success: function(responseObject) {
-					    basket_store.load();
+					    complete_order_store.load();
 				    },
 					failure: function() {
 						Ext.Msg.alert('Status', 'Failure');
 					}
 				});
-
+			},
+			cellclick: function( grid, rowIndex, columnIndex, e ){
+			  if (columnIndex == 0){
+				x_id = grid.getStore().getAt(rowIndex).id;
+				Ext.Ajax.request({
+					method: 'GET',
+				    url: '/orders/remove_lines',
+					params: {"lines": x_id},
+                    success: function(r) {
+					    complete_order_store.load();
+                    }
+				});
+			  }
 			}
 		},
         bbar: [
 			new Ext.Action({
 		        text: 'Complete Order',
+				iconCls:'bt',
+	            icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
 		        handler: function(){
 		            center_tabs.activate(complete_order);
 		        }
@@ -81,7 +81,7 @@
 	// basket.render();
 	
     // trigger the data store load
-    // basket_store.load();
+    // complete_order_store.load();
 
 
   

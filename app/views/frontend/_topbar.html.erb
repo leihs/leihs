@@ -1,0 +1,29 @@
+	    var topbar = new Ext.Toolbar({
+			height: 30,
+			style: 'color: navy;',
+	        items: [{
+					xtype: 'tbtext',
+					text:'<b>Leihs 2.0</b>'
+				}, '-', {
+					text:'Preferences',
+					menu: {items: [
+                        {text: '<b>Bold</b>', handler: ''},
+                        {text: '<i>Italic</i>', handler: ''},
+                        {text: '<u>Underline</u>', handler: ''}, 
+	                ]}
+				},{
+					text:'View',
+					menu: {}
+				},{
+					text:'Help',
+					menu: {}
+				}, '->', {
+					xtype: 'tbtext',
+					text:'<%= current_user.login %>'
+				},{
+					text:'Logout',
+					handler: function() {
+								window.location.href = '/logout';
+							}
+				}]
+	    });

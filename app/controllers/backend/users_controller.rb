@@ -32,7 +32,7 @@ class Backend::UsersController < Backend::BackendController
   end
 
   def search
-    @search_result = current_inventory_pool.users.find_by_contents("*" + params[:search] + "*") if request.post?
+    @search_result = current_inventory_pool.users.find_by_contents("*" + params[:query] + "*") if request.post?
     render  :layout => $modal_layout_path
   end  
 

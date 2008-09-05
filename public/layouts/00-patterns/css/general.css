@@ -310,14 +310,6 @@ tr.availability td {
 
 /* Model Groups */
 
-#central_pane {
-	border: 1px solid #B2B2B2;
-	height: 390px;
-	min-width: 460px;
-	overflow: auto;
-	padding: 1em;
-}
-
 ul.model_group {
 	margin-top: 5px;
 	padding-left: 15px;
@@ -352,22 +344,6 @@ ul.model_group > li > div > span.add_button {
 	color: navy;	
 }
 
-
-
-/* Details */
-
-#bottom_pane {
-	margin-bottom: 80px;
-	overflow: hidden;
-}
-
-/* Basket */
-
-#right_pane {
-	float: right;
-	width: 250px;
-	padding: 5px;
-}
 
 .barcode_pulldown {
 	color: #444;

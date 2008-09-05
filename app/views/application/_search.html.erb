@@ -1,11 +1,11 @@
-<% unless params[:search] %>
+<% unless params[:query] %>
 
 	<div id="controller">
 			<%= text_field_tag('search', _("search"),
 								:onfocus => "this.value='';",
 								:onchange => remote_function(:update => 'list_table',
 															 :url => { },
-															 :with => "'search=*' + value + '*'" )) %>
+															 :with => "'query=' + value" )) %>
 			<!--
 			<select>
 				<option>Alle Felder</option>

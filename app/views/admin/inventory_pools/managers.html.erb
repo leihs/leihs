@@ -19,7 +19,7 @@
 							:onfocus => "this.value='';",
 							:onchange => remote_function(:update => 'search_result',
 														 :url => { :action => 'search_manager', :id => @inventory_pool },
-														 :with => "'search=*' + value + '*'" )) %>
+														 :with => "'query=' + value" )) %>
 	</div>
 	<div id="search_result">
 	</div>

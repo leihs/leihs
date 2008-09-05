@@ -19,7 +19,7 @@
 							:onfocus => "this.value='';",
 							:onchange => remote_function(:update => 'search_result',
 														 :url => { :action => 'search_compatible', :id => @model },
-														 :with => "'search=*' + value + '*'" )) %>
+														 :with => "'query=*' + value" )) %>
 	</div>
 	<div id="search_result">
 	</div>

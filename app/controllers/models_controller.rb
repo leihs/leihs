@@ -1,88 +1,64 @@
-class ModelsController < Frontend1Controller
+class ModelsController < FrontendController
 
-  def index
-    
-    if params[:search]
-      @models = current_user.models.find_by_contents("*" + params[:search] + "*")
-    else  
-      @models = current_user.models
-    end
-
-    # OPTIMIZE OPTIMIZE OPTIMIZE
-    if params[:id]
-      category = Category.find(params[:id])
-      @categories = [category] # + category.children.recursive.to_a
-    elsif params[:search]
-      @categories = @models.collect(&:model_groups).flatten.uniq
-      parents = []
-      @categories.each do |c|
-          parents << c.parents.recursive.to_a   
-      end
-      @categories << parents
-      @categories.flatten!.uniq!
-
+  # TODO prevent sql injection
+  def index( category_id = params[:category_id],
+             start = (params[:start] || 0).to_i,
+             limit = (params[:limit] || 25).to_i,
+             query = params[:query],
+             recent = params[:recent],
+             sort =  params[:sort] || "name",
+             dir =  params[:dir] || "ASC" )
+    if category_id
+      # OPTIMIZE intersection
+      # @models = Category.find(category_id).models.find(:all, :offset => start, :limit => limit, :order => "#{sort} #{dir}") & current_user.models
+      # c = (Category.find(category_id).models & current_user.models).size
+      category = Category.find(category_id)
+      @models = (category.children.recursive.to_a << category).collect(&:models).flatten & current_user.models
+      c = @models.size
+    elsif query
+      @models = current_user.models.find_by_contents("*" + query + "*", {:offset => start, :limit => limit, :order => "#{sort} #{dir}"})
+      # TODO include Templates
+      # @models = current_user.models.find_by_contents("*" + query + "*", {:offset => start, :limit => limit, :order => "#{sort} #{dir}", :multi => [Template]})
+      c = @models.total_hits
+    elsif recent
+      @models = current_user.orders.sort.collect(&:models).flatten.uniq[0,limit]
+      @models ||= []
+      c = @models.size
     else
-      @categories = Category.roots
+      @models = current_user.models.find(:all, :offset => start, :limit => limit, :order => "#{sort} #{dir}")
+      c = current_user.models.count(:all)
     end
-
-    @ancestor_ids = (params[:ancestor_ids] ? params[:ancestor_ids] : 0) # OPTIMIZE
-
-  end
-
-
-  def categories
-    # OPTIMIZE
-    @category_children = Category.roots
-    @category = @category_children
-    #index
-    #@category_children = @categories
-    
-#    @ancestor_ids = (params[:ancestor_ids] ? params[:ancestor_ids] : 0) # OPTIMIZE
-    render :partial => 'categories'
-  end
-  
-  def expand_category
-    @category = Category.find(params[:id]) #if params[:id]
-    @category_children = @category.children
-
-    index
-
-    render :update do |page|
-      page.replace_html "category_children_#{@ancestor_ids}", :partial => 'categories'
-      
-      page << "elem = $('categories');"
-      page << "if (elem) {"
-      page.replace_html "categories", :partial => 'categories_and_models'
-#      page << "}else{"
-#      page.replace_html "inner-container", :action => 'index', :layout => false
-      page << "}"
+    respond_to do |format|
+      format.ext_json { render :json => @models.to_ext_json(:count => c) }
     end
   end  
 
-  def search
-    if request.post?
-      if params[:source_controller].include?("backend/") #current_inventory_pool
-        # Backend
-        # TODO scope Template for the current inventory pool
-        @search_result = current_inventory_pool.models.find_by_contents("*" + params[:search] + "*", :multi => [Template])
-      else
-        # Frontend
-        @search_result = current_user.models.find_by_contents("*" + params[:search] + "*", :multi => [Template])
-      end
+  # TODO interesections
+  def categories(id = params[:node].to_i)
+    if id == 0 
+#      c = Category.roots
+#      c = current_user.categories.roots
+      c = current_user.all_categories & Category.roots
+    else
+      # OPTIMIZE intersection
+      c = current_user.categories & Category.find(id).children # TODO scope only children Category (not ModelGroup)
+#      c = current_user.categories.find(id).children
+#      c = current_user.all_categories.find(id).children
     end
-
-    # TODO @categories = Category.roots
-    
-    render  :layout => $modal_layout_path
-  end  
+    respond_to do |format|
+      format.ext_json { render :json => c.to_json(:methods => [:text, :leaf]) } # .to_a.to_ext_json
+    end
+  end
   
-  def details
-    @model = Model.find(params[:id]) if params[:id]
-    render :partial => 'details' #, :layout => $modal_layout_path
+#######################################################  
+  
+  # TODO optimize html rendering to extjs
+  def details(model_id = params[:model_id] || params[:id]) # TODO remove :id
+    @model = current_user.models.find(model_id)
+    render :partial => 'details'
+#    respond_to do |format|
+#      format.ext_json { render :json => @model.to_json(:include => :inventory_pools) }
+#    end
   end
 
-
-  # TODO render_component (solve forgery)
-  #def recent
-  #end
 end

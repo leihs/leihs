@@ -55,7 +55,7 @@ class Admin::InventoryPoolsController < Admin::AdminController
   end
 
   def search_manager
-    @users = User.find_by_contents("*" + params[:search] + "*")
+    @users = User.find_by_contents("*" + params[:query] + "*")
     render :partial => 'user_for_manager', :collection => @users
   end
 

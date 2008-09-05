@@ -6,9 +6,9 @@ class Backend::AcknowledgeController < Backend::BackendController
     @submitted_orders = current_inventory_pool.orders.submitted_orders
     @working_orders = @submitted_orders.select { |o| o.has_backup? }
 
-    if params[:search]
-      params[:search] = "*#{params[:search]}*" # search with partial string
-      @orders = @submitted_orders.find_by_contents(params[:search])
+    if params[:query]
+      # search with partial string
+      @orders = @submitted_orders.find_by_contents("*" + params[:query] + "*")
     elsif params[:user_id]
       # OPTIMIZE named_scope intersection?
       @user = User.find(params[:user_id])
@@ -81,7 +81,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order = @order_line.order
       required_quantity = params[:quantity].to_i
 
-      @order_line, @change = @order.update_line(@order_line.id, required_quantity, session[:user_id])
+      @order_line, @change = @order.update_line(@order_line.id, required_quantity, current_user.id)
       @maximum_exceeded = required_quantity != @order_line.quantity
       @order.save
     end
@@ -97,7 +97,7 @@ class Backend::AcknowledgeController < Backend::BackendController
 
   def change_purpose
     if request.post?
-      @order.change_purpose(params[:purpose], session[:user_id])
+      @order.change_purpose(params[:purpose], current_user.id)
       redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
     else
       render :layout => $modal_layout_path
@@ -109,7 +109,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       if params[:user_id].nil?
         flash[:notice] = _("User must be selected")
       else
-        @order.swap_user(params[:user_id], session[:user_id])
+        @order.swap_user(params[:user_id], current_user.id)
       end  
       redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id        
     else
