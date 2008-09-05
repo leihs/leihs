@@ -1,4 +1,4 @@
-class UsersController < Frontend1Controller
+class UsersController < FrontendController
 
   def timeline
     @timeline_xml = current_user.timeline

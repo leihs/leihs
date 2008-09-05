@@ -52,7 +52,7 @@ class Admin::ItemsController < Admin::AdminController
   end
 
   def search_model
-    @models = Model.find_by_contents("*" + params[:search] + "*", :limit => 999) # OPTIMIZE limit
+    @models = Model.find_by_contents("*" + params[:query] + "*", :limit => 999) # OPTIMIZE limit
     render :partial => 'model_for_item', :collection => @models
   end
 

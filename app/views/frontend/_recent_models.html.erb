@@ -3,7 +3,7 @@
     var recent_models_store = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy(
 			new Ext.data.Connection({
-            	url: '/frontend/recent_models',
+            	url: '/models/index',
 				method: 'GET',
 				extraParams: {format:'ext_json'}
 			})
@@ -55,11 +55,11 @@
 				//var conn = new Ext.data.Connection();
 				//conn.request({
 				Ext.Ajax.request({
-				    url: '/frontend/add_line?model_id=' + x_id,
+				    url: '/orders/add_line?model_id=' + x_id,
 //				    method: 'POST',
 //	TODO			    params: {"authenticity_token": encodeURIComponent('7839094fc4f002d4585df81e6486429aba7c9350')},
 				    success: function(responseObject) {
-					    basket_store.load();
+					    complete_order_store.load();
 				    },
 					failure: function() {
 						Ext.Msg.alert('Status', 'Failure');
@@ -71,7 +71,7 @@
 
 
     // trigger the data store load
-    recent_models_store.load({params:{start:0, limit:5}});
+    recent_models_store.load({params:{start:0, limit:5, recent:true}});
 
 
   

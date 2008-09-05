@@ -4,9 +4,9 @@ class Backend::TakeBackController < Backend::BackendController
 
   def index
                                               
-    if params[:search]
-      params[:search] = "*#{params[:search]}*" # search with partial string
-      @contracts = current_inventory_pool.contracts.signed_contracts.find_by_contents(params[:search])
+    if params[:query]
+      # search with partial string
+      @contracts = current_inventory_pool.contracts.signed_contracts.find_by_contents("*" + params[:query] + "*")
 
       # OPTIMIZE named_scope intersection?
       @visits = current_inventory_pool.take_back_visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }

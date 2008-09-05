@@ -10,7 +10,7 @@
 		</td>
 		<td>
 			<%= greybox_link_to_page(@line.model.name,
-			 { :controller => 'models', :action => 'details', :id => @line.model.id },
+			 { :controller => 'models', :action => 'details', :model_id => @line.model.id },
 			 :title => _("Model"),
 			 :class => "thickbox iconized-notxt edit-package" ) %>
 		</td>

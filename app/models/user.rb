@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :items, :through => :inventory_pools # (nested)
   has_many :models, :through => :inventory_pools, :uniq => true # (nested)
   has_many :categories, :through => :models, :uniq => true # (nested)
+  # TODO has_many :templates, :through => :models, :uniq => true # (nested)
 
   def all_categories # TODO optimize
     @c = []

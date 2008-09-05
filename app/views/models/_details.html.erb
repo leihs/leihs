@@ -3,6 +3,16 @@
 	<h3><%= @model.name %>
 	<%= link_to_remote(_("Add"), :update => 'basket',
 								 :url => {:controller => 'orders', :action => 'add_line', :model_id => @model.id}) %>
+	<%= link_to_function _("Add2"), "Ext.Ajax.request({
+				    url: '/orders/add_line?model_id=#{@model.id}',
+				    success: function(responseObject) {
+					    complete_order_store.load();
+				    },
+					failure: function() {
+						Ext.Msg.alert('Status', 'Failure');
+					}
+				});" %>
+	<img src="<%= $layout_public_path + "/images/icons/add.png" %>" style="cursor: pointer;" onclick="Ext.Msg.alert('Status', 'Failure');" />							 
 								 
 	<% for ip in @model.inventory_pools & current_user.inventory_pools %>
 		<span style="border: 1px solid black; padding: 1px;"><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @model.id}) %></span>
@@ -17,15 +27,6 @@
 		<li><b><%= p.key %>:</b> <%= p.value %></li>
 	<% end %>
 	</ul>
-
-	<br />
-	
-	<ul>
-	Accessories:
-	<% @model.accessories.each do |a| %>
-		<li><%= a.name %></li>
-	<% end %>
-	</ul>
 	</div>
 	
 	
@@ -33,7 +34,7 @@
 	<ul>
 	Compatibles:
 	<% @model.compatibles.each do |c| %>
-		<li><%= link_to_remote(c.name, :update => 'details', :url => {:controller => 'models', :action => 'details', :id => c.id}) %></li>
+		<li><%= link_to_remote(c.name, :update => 'details', :url => {:controller => 'models', :action => 'details', :model_id => c.id}) %></li>
 	<% end %>
 	</ul>
 	

@@ -3,11 +3,26 @@
 	   
     Frontend.start = function(){
 
+		<%= render :partial => 'topbar' %>
 		<%= render :partial => 'categories' %>
 		<%= render :partial => 'models' %>
 		<%= render :partial => 'recent_models' %>
-		<%= render :partial => 'basket' %>
 		<%= render :partial => 'complete_order' %>
+		<%= render :partial => 'basket' %>
+
+	    var account = new Ext.Panel({
+	        title:'Account',
+			border: false,
+		    autoScroll:true,
+			html: '<%= current_user.login %>'
+	    });
+
+	    var tips = new Ext.Panel({
+	        title:'Tips',
+			border: false,
+		    autoScroll:true,
+			html: 'tips here'
+	    });
 
 	    var user_timeline = new Ext.Panel({
 	        contentEl:'user_timeline',
@@ -42,8 +57,14 @@
                     region:'center',
                     deferredRender:true,
                     activeTab:0,
-                    margins:'0 5 0 5',
-                    items:[models, user_timeline, complete_order]
+                    margins:'0 5 5 5',
+                    items:[
+						{
+							title: 'Welcome',
+							html: 'Welcome page...',
+							closable: true
+						},
+						models, user_timeline, complete_order]
                 });
 				   
 	   var northPanel, southPanel, eastPanel, westPanel, centerPanel;				        
@@ -52,23 +73,27 @@
             items:[northPanel = {
                     region:'north',
                     contentEl: 'north',
-                    height: 70,
-                    minSize: 50,
-                    maxSize: 100,
+                    height: 30,
+                    minSize: 30,
+                    maxSize: 30,
                     collapsible: true,
-                    margins:'5 5 5 5'
+                    margins:'5 5 5 5',
+					items: topbar
                  }, eastPanel = {
                     region:'east',
-                    title: 'Basket',
+                    title: ' ', //'Basket',
                     collapsible: true,
-                    width: 225,
+                    width: 200,
                     minSize: 175,
                     maxSize: 400,
-                    layout:'fit',
-                    margins:'0 5 0 0',
+                    margins:'0 5 5 0',
 					autoScroll:true,
 					// hidden: true,
-                    items: basket
+                    layout:'accordion', //'fit',
+                    layoutConfig:{
+                        animate:true
+                    },
+                    items: [ account, basket, tips ]
                  }, westPanel = {
                     region:'west',
 					title: ' ',
@@ -77,24 +102,32 @@
                     width: 200,
                     minSize: 175,
                     maxSize: 400,
-                    margins:'0 0 0 5',
+                    margins:'0 0 5 5',
 					autoScroll:true,
 					// hidden: true,
-                    layout:'fit',
+                    //layout:'fit',
                     layout:'accordion',
                     layoutConfig:{
                         animate:true
                     },
                     items: [
-					{
-						title: 'Categories',
-						border: false,
-						items: categories_panel
-                    },{
-                        title: 'Recent Models',
-                        border: false,
-						items: recent_models
-                    }]
+						{
+							title: 'Categories',
+							border: false,
+							items: categories_panel
+	                    },{
+							title: 'Inventory Pools',
+							border: false,
+							html: '<%= current_user.inventory_pools.collect(&:name).join('<br />') %>'
+	                    },{
+							title: 'Orders & Contracts',
+							border: false,
+							html: '<%= (current_user.orders + current_user.contracts).collect(&:created_at).join('<br />') %>'
+	                    },{
+	                        title: 'Recent Models',
+	                        border: false,
+							items: recent_models
+	                    }]
                 },
 				centerPanel = center_tabs
              ]
@@ -103,8 +136,7 @@
 
 	Ext.onReady(Frontend.start);
 
-  <% end -%>
-
+  <% end -%>  
   
 	<div id="model_list"></div>
 	<div id="recent_models"></div>
@@ -113,15 +145,7 @@
 	<div id="complete_order"></div>
 	<div id="categories"></div>
 		
-	<div id="north">
-		<div id="logo">
-			<h1><%= link_to "Leihs 2.0", :controller => '/' %></h1>
-
-		</div>
-		<div id="personal-toolbar">
-			<%= render :partial => '/layouts/00-patterns/personal_toolbar' %>
-		</div>		
-	</div>	
+	<div id="north"></div>	
 	        
 	
 	

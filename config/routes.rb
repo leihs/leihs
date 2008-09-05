@@ -50,6 +50,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # Install the default routes as the lowest priority.
   map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
-  map.connect ':controller/:action/:id', :defaults => { :controller => 'models' }
+  map.connect ':controller/:action/:id', :defaults => { :controller => 'frontend' }
   map.connect ':controller/:action/:id.:format'
 end

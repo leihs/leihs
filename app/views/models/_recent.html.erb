@@ -1,9 +1,0 @@
-<% # TODO refactor in controller %>
-<% models = current_user.orders.sort.collect(&:models).flatten.uniq[0,5] if current_user %>
-<% models ||= [] %>
-
-<ul>
-<% models.each do |m| %>
-	<li><%= link_to_remote(m.name[0,20], :update => 'details', :url => {:controller => 'models', :action => 'details', :id => m.id}) %></li>
-<% end %>
-</ul>

@@ -70,15 +70,13 @@ class Backend::ItemsController < Backend::BackendController
 #################################################################
 
   # TODO remove, refactor for active_scaffold
-  def index_old
-    @items = current_inventory_pool.items
-
-    if params[:search]
-      @items = @items.find_by_contents(params[:search])
-    end
-
-    render :layout => false if request.post?  
-  end
+#  def index_old
+#    @items = current_inventory_pool.items
+#    
+#    @items = @items.find_by_contents("*" + params[:query] + "*") if params[:query]
+#
+#    render :layout => false if request.post?  
+#  end
 
 #################################################################
 

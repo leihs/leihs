@@ -4,9 +4,9 @@ class Backend::HandOverController < Backend::BackendController
 
   def index
     
-    if params[:search]
-      params[:search] = "*#{params[:search]}*" # search with partial string
-      @contracts = current_inventory_pool.contracts.new_contracts.find_by_contents(params[:search])
+    if params[:query]
+      # search with partial string
+      @contracts = current_inventory_pool.contracts.new_contracts.find_by_contents("*" + params[:query] + "*")
 
       # OPTIMIZE display only effective visits (i.e. for a given model name, ...)
       # OPTIMIZE named_scope intersection?

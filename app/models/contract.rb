@@ -2,7 +2,7 @@ class Contract < Document
 
   belongs_to :inventory_pool # common for sibling classes
   belongs_to :user
-  has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC'
+  has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC, created_at ASC'
   has_many :models, :through => :contract_lines, :uniq => true
   has_many :options
 

@@ -6,9 +6,9 @@ class Backend::OrdersController < Backend::BackendController
 
     @orders = current_inventory_pool.orders
 
-    if params[:search]
-      params[:search] = "*#{params[:search]}*" # search with partial string
-      @orders = @orders.find_by_contents(params[:search])
+    if params[:query]
+      # search with partial string
+      @orders = @orders.find_by_contents("*" + params[:query] + "*")
     elsif @user
       @orders = @orders & @user.orders
     end

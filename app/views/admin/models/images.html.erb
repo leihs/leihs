@@ -1,0 +1,20 @@
+<% tabnav :model_admin do %>
+
+	<ul>
+	<% @model.images.each do |i| %>
+		<li style="display: inline;"><%= link_to_function(image_tag(i.public_filename(:thumb)), "$('image_big').src='#{i.public_filename}'") %></li>
+	<% end %>
+	</ul>
+	<img id="image_big">
+
+	<hr />
+
+	Upload image for model <%= @model.name %>
+	
+	<% form_for(:image, :url => {}, 
+	                    :html => { :multipart => true }) do |f| -%>
+	    <%= f.file_field :uploaded_data %>
+	    <%= f.submit 'Upload' %>
+	<% end -%>
+
+<% end %>
