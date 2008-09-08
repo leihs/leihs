@@ -6,27 +6,36 @@ class ModelsController < FrontendController
              limit = (params[:limit] || 25).to_i,
              query = params[:query],
              recent = params[:recent],
-             sort =  params[:sort] || "name",
+             sort =  "models.#{params[:sort]}" || "models.name",
              dir =  params[:dir] || "ASC" )
     if category_id
+      #old# @models = Category.find(category_id).models.find(:all, :offset => start, :limit => limit, :order => "#{sort} #{dir}") & current_user.models
+      #old# c = (Category.find(category_id).models & current_user.models).size
       # OPTIMIZE intersection
-      # @models = Category.find(category_id).models.find(:all, :offset => start, :limit => limit, :order => "#{sort} #{dir}") & current_user.models
-      # c = (Category.find(category_id).models & current_user.models).size
       category = Category.find(category_id)
-      @models = (category.children.recursive.to_a << category).collect(&:models).flatten & current_user.models
+      @models = (category.children.recursive.to_a << category).collect(&:models).flatten & current_user.models.all(:conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
       c = @models.size
     elsif query
-      @models = current_user.models.find_by_contents("*" + query + "*", {:offset => start, :limit => limit, :order => "#{sort} #{dir}"})
+      @models = current_user.models.find_by_contents("*" + query + "*", {:offset => start,
+                                                                         :limit => limit,
+                                                                         :order => "#{sort} #{dir}"},
+                                                                         :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
       # TODO include Templates
       # @models = current_user.models.find_by_contents("*" + query + "*", {:offset => start, :limit => limit, :order => "#{sort} #{dir}", :multi => [Template]})
+      # TODO fix total_hits with has_many
       c = @models.total_hits
     elsif recent
       @models = current_user.orders.sort.collect(&:models).flatten.uniq[0,limit]
       @models ||= []
       c = @models.size
     else
-      @models = current_user.models.find(:all, :offset => start, :limit => limit, :order => "#{sort} #{dir}")
-      c = current_user.models.count(:all)
+      @models = current_user.models.find(:all,
+                                         :offset => start,
+                                         :limit => limit,
+                                         :order => "#{sort} #{dir}",
+                                         :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
+      c = current_user.models.count(:all,
+                                    :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
     end
     respond_to do |format|
       format.ext_json { render :json => @models.to_ext_json(:count => c) }

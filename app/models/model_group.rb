@@ -4,7 +4,7 @@ class ModelGroup < ActiveRecord::Base
                 :child_col => "model_group_id"
   
   has_many :model_links
-  has_many :models, :through => :model_links #, :uniq => true
+  has_many :models, :through => :model_links, :uniq => true
 
 ###
   
