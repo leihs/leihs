@@ -11,7 +11,7 @@ class Model < ActiveRecord::Base
 
   # ModelGroups
   has_many :model_links
-  has_many :model_groups, :through => :model_links #, :uniq => true
+  has_many :model_groups, :through => :model_links, :uniq => true
   has_many :categories, :through => :model_links, :source => :model_group, :conditions => {:type => 'Category'}
   has_many :templates, :through => :model_links, :source => :model_group, :conditions => {:type => 'Template'}
                 

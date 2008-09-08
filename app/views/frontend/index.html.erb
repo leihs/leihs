@@ -5,17 +5,20 @@
 
 		<%= render :partial => 'topbar' %>
 		<%= render :partial => 'categories' %>
+		<%= render :partial => 'inventory_pools' %>
 		<%= render :partial => 'models' %>
 		<%= render :partial => 'recent_models' %>
 		<%= render :partial => 'complete_order' %>
 		<%= render :partial => 'basket' %>
 
+		/*
 	    var account = new Ext.Panel({
 	        title:'Account',
 			border: false,
 		    autoScroll:true,
 			html: '<%= current_user.login %>'
 	    });
+		*/
 
 	    var tips = new Ext.Panel({
 	        title:'Tips',
@@ -93,7 +96,7 @@
                     layoutConfig:{
                         animate:true
                     },
-                    items: [ account, basket, tips ]
+                    items: [ basket, tips ] // account, 
                  }, westPanel = {
                     region:'west',
 					title: ' ',
@@ -115,11 +118,7 @@
 							title: 'Categories',
 							border: false,
 							items: categories_panel
-	                    },{
-							title: 'Inventory Pools',
-							border: false,
-							html: '<%= current_user.inventory_pools.collect(&:name).join('<br />') %>'
-	                    },{
+	                    }, inventory_pools, {
 							title: 'Orders & Contracts',
 							border: false,
 							html: '<%= (current_user.orders + current_user.contracts).collect(&:created_at).join('<br />') %>'

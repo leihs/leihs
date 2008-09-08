@@ -1,4 +1,6 @@
 
+// TODO render empty result when is actually empty: {"nil_classes": [], "results": 0}
+
     // create the Data Store
     var models_store = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy(
@@ -59,10 +61,6 @@
 //		sm: sm,
 		viewConfig: { forceFit: true },
         loadMask: true,
-//		show: function(cmp) {
-//			this.store.load(); // TODO optimize render
-//		},
-
 		listeners: {
 			cellclick: function( grid, rowIndex, columnIndex, e ){
 			  if (columnIndex == 2){
@@ -74,8 +72,7 @@
 //				    method: 'POST',
 //	TODO			    params: {"authenticity_token": encodeURIComponent('7839094fc4f002d4585df81e6486429aba7c9350')},
 				    success: function(responseObject) {
-						eastPanel.items[1].expand();
-						complete_order_store.load();
+						if(!eastPanel.items[0].expand()) complete_order_store.load();
 				    },
 					failure: function() {
 						Ext.Msg.alert('Status', 'Failure');
@@ -135,7 +132,7 @@
         });
 
 ///////////////////////////////////////////////////////////////////////////
-	   var already_visible = false;
+	   //var already_visible = false;
        var models = new Ext.Panel({
             layout:'border',
 			frame: true,

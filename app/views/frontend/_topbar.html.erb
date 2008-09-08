@@ -7,23 +7,35 @@
 				}, '-', {
 					text:'Preferences',
 					menu: {items: [
-                        {text: '<b>Bold</b>', handler: ''},
-                        {text: '<i>Italic</i>', handler: ''},
-                        {text: '<u>Underline</u>', handler: ''}, 
+                        {text: 'Menu 1', handler: ''},
+                        {text: 'Menu 2', handler: ''},
+                        {text: 'Menu 3', handler: ''} 
 	                ]}
 				},{
 					text:'View',
-					menu: {}
+					menu: {items: [
+                        {text: 'Menu 1', handler: ''},
+                        {text: 'Menu 2', handler: ''},
+                        {text: 'Menu 3', handler: ''} 
+	                ]}
 				},{
 					text:'Help',
-					menu: {}
+					menu: {items: [
+                        {text: 'Menu 1', handler: ''},
+                        {text: 'Menu 2', handler: ''},
+                        {text: 'Menu 3', handler: ''} 
+	                ]}
 				}, '->', {
-					xtype: 'tbtext',
-					text:'<%= current_user.login %>'
-				},{
-					text:'Logout',
-					handler: function() {
-								window.location.href = '/logout';
-							}
+					text:'Account',
+					menu: {items: [
+                        {text: '<%= current_user.login %>', handler: ''},
+                        {text: 'Logout',
+						 iconCls:'bt',
+				         icon:'<%= $layout_public_path + "/images/icons/application_delete.png" %>',
+						 handler: function() {
+									window.location.href = '/logout';
+								}
+						}
+	                ]}
 				}]
 	    });

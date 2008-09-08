@@ -1,7 +1,7 @@
 class InventoryPool < ActiveRecord::Base
 
   has_many :access_rights
-  has_many :users, :through => :access_rights
+  has_many :users, :through => :access_rights, :uniq => true
 ########
 #  has_many :managers, :through => :access_rights, :source => :user, :join_table => "access_rights", :conditions => ["access_rights.role_id = 2"]
 #  has_many :managers, :class_name => "User",
@@ -22,7 +22,7 @@ class InventoryPool < ActiveRecord::Base
       
   has_many :locations
   has_one  :main_location, :class_name => "Location", :conditions => {:main => true}  
-  has_many :items, :through => :locations #, :uniq => true
+  has_many :items, :through => :locations, :uniq => true
   has_many :models, :through => :items, :uniq => true
 
   has_and_belongs_to_many :accessories
@@ -31,7 +31,7 @@ class InventoryPool < ActiveRecord::Base
   has_many :order_lines #old#, :through => :orders
 
   has_many :contracts
-  has_many :contract_lines, :through => :contracts
+  has_many :contract_lines, :through => :contracts, :uniq => true
 
 
   before_create :assign_main_location

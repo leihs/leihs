@@ -2,9 +2,13 @@ class User < ActiveRecord::Base
   
   belongs_to :authentication_system
   has_many :access_rights
-  has_many :inventory_pools, :through => :access_rights
-  has_many :items, :through => :inventory_pools # (nested)
-  has_many :models, :through => :inventory_pools, :uniq => true # (nested)
+  has_many :inventory_pools, :through => :access_rights, :uniq => true
+  has_many :items, :through => :inventory_pools, :uniq => true # (nested)
+  has_many :models, :through => :inventory_pools, :uniq => true # do # (nested)
+    #  def inventory_pools(ips = nil)
+    #    find :all, :conditions => ["inventory_pools.id IN (?)", ips] if ips
+    #  end
+    #end
   has_many :categories, :through => :models, :uniq => true # (nested)
   # TODO has_many :templates, :through => :models, :uniq => true # (nested)
 
@@ -20,7 +24,7 @@ class User < ActiveRecord::Base
   has_one  :current_order, :class_name => "Order", :conditions => ["status_const = ?", Contract::NEW]
 
   has_many :contracts
-  has_many :contract_lines, :through => :contracts
+  has_many :contract_lines, :through => :contracts, :uniq => true
   has_many :current_contracts, :class_name => "Contract", :conditions => ["status_const = ?", Contract::NEW]
 
   validates_presence_of     :login #TODO: is Email mandatory? , :email

@@ -1,0 +1,96 @@
+
+
+    // create the Data Store
+    var inventory_pools_store = new Ext.data.Store({
+        proxy: new Ext.data.HttpProxy(
+			new Ext.data.Connection({
+            	url: '/frontend/get_inventory_pools',
+				method: 'GET',
+				extraParams: {format:'ext_json'}
+			})
+        ),
+
+        // create reader that reads the Topic records
+        reader: new Ext.data.JsonReader({
+            root: 'inventory_pools',
+            totalProperty: 'results',
+            id: 'id',
+            fields: [
+                {name: 'name'}
+            ]
+        }),
+
+        // turn on remote sorting
+        remoteSort: true
+    });
+    inventory_pools_store.setDefaultSort('name', 'ASC');
+
+	var inventory_pools_sm = new Ext.grid.CheckboxSelectionModel();
+		
+    // the column model has information about grid columns
+    // dataIndex maps the column to the specific data field in
+    // the data store
+    var inventory_pools_cm = new Ext.grid.ColumnModel([
+		inventory_pools_sm,
+		{
+           header: "Name",
+           dataIndex: 'name'
+		}
+		]);
+
+
+    // by default columns are sortable
+    inventory_pools_cm.defaultSortable = true;
+
+    var inventory_pools = new Ext.grid.GridPanel({
+        title:'Inventory Pools',
+		border: false,
+		split: true,
+        store: inventory_pools_store,
+        cm: inventory_pools_cm,
+		sm: inventory_pools_sm,
+		viewConfig: { forceFit: true },
+        loadMask: true,
+        tbar: [
+			new Ext.Action({
+		        text: 'Refresh',
+				iconCls:'bt',
+	            icon:'<%= $layout_public_path + "/images/icons/arrow_refresh.png" %>',
+		        handler: function(){
+					var selected = inventory_pools_sm.getSelections();
+					var lines = "";
+		
+					for(var i = 0; i < selected.length; i++){
+						if(lines != "") lines += ","; 
+						lines += selected[i].id;
+					}
+					
+	                Ext.Ajax.request({
+						method: 'GET',
+					    url: '/frontend/set_inventory_pools',
+						params: {"inventory_pool_ids": lines},
+	                    success: function(r) {
+				            center_tabs.activate(models);
+							models_store.load({params:{start:0, limit:25}});
+	                    }
+	                });					
+		        }
+		    })
+        ]
+    });
+
+	
+	// trigger the data store load
+    inventory_pools_store.load();
+
+	inventory_pools_store.on('load', function(store, records, options) {
+	    var recs = [];
+		var current_inventory_pools = [<%= session[:inventory_pool_ids].join(',') %>];
+	    store.each(function(rec){
+	        if(current_inventory_pools.include(rec.id)){
+	            recs.push(rec);
+	        }
+	    });
+	    inventory_pools_sm.selectRecords(recs);		
+	});
+	
