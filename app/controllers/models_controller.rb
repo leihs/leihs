@@ -38,7 +38,13 @@ class ModelsController < FrontendController
                                     :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
     end
     respond_to do |format|
-      format.ext_json { render :json => @models.to_ext_json(:count => c) }
+      format.ext_json { render :json => @models.to_ext_json(:count => c #,
+#                                                            :include => {
+#                                                                :inventory_pools => { :except => [:description,
+#                                                                                                  :logo_url,
+#                                                                                                  :contract_url,
+#                                                                                                  :contract_description] } }
+                                                                 ) }
     end
   end  
 

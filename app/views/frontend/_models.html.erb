@@ -17,7 +17,9 @@
             totalProperty: 'results',
             id: 'id',
             fields: [
-                'name', 'manufacturer'
+				   {name: 'name', type: 'string'},
+				   {name: 'manufacturer', type: 'string'} //,
+				   // {name: 'inventory_pools', type: 'string' }
             ]
         }),
 
@@ -25,6 +27,29 @@
         remoteSort: true
     });
     models_store.setDefaultSort('name', 'ASC');
+
+/*
+    // create the Data Store
+    var models_details_store = new Ext.data.Store({
+        proxy: new Ext.data.HttpProxy(
+			new Ext.data.Connection({
+			    url: '/models/details?model_id=1', // + x_id,
+				method: 'GET',
+				extraParams: {format:'ext_json'}
+			})
+        ),
+
+        // create reader that reads the Topic records
+        reader: new Ext.data.JsonReader({
+            root: 'models',
+            totalProperty: 'results',
+            id: 'id',
+            fields: [
+                'name', 'manufacturer'
+            ]
+        }),
+    });
+*/
 	
     // the column model has information about grid columns
     // dataIndex maps the column to the specific data field in
@@ -38,6 +63,10 @@
            header: "Manufacturer",
            dataIndex: 'manufacturer',
            width: 200
+//        },{
+//           header: "Inventory Pool",
+//          dataIndex: 'inventory_pools',
+//           width: 100
         }, {header: "",
 			width: 50,
 			fixed: true,
@@ -63,8 +92,8 @@
         loadMask: true,
 		listeners: {
 			cellclick: function( grid, rowIndex, columnIndex, e ){
+			  x_id = grid.getStore().getAt(rowIndex).id;
 			  if (columnIndex == 2){
-				x_id = grid.getStore().getAt(rowIndex).id;
 				//var conn = new Ext.data.Connection();
 				//conn.request({
 				Ext.Ajax.request({
@@ -79,13 +108,22 @@
 					}
 				});
 			  }else{
-				x_id = grid.getStore().getAt(rowIndex).id;
 				models_details.load({
 				    url: '/models/details?model_id=' + x_id,
 				    text: "Loading...",
 				    timeout: 30
 				});
-				//models_template.append('some-element', {name: 'myid', manufacturer: 'bar'});
+				/*
+				Ext.Ajax.request({
+				    url: '/models/details?model_id=' + x_id,
+				    success: function(responseObject) {
+						//models_template.append('some-element', {name: 'myid', manufacturer: 'bar'});
+						//models_template.overwrite(Ext.getCmp('models_details').body, responseObject); //grid.getStore().getAt(rowIndex).data
+						Ext.Msg.alert('Status', responseObject.class);
+					}
+				});
+				models_details_store.load();
+				*/
 			  }
 			}
 		},
@@ -114,16 +152,18 @@
 	
 	/*
 	var models_template = new Ext.Template(
-	    '<div>',
+	    ['<div>',
 	        '<h3>{name}</h3>',
 	        '{manufacturer}',
-	    '</div>'
+	    '</div>']
 	);
 	*/
 
        var models_details = new Ext.Panel({
+	   		id: 'models_details',
 			region: 'center',
 		    autoScroll:true,
+			//store: models_details_store,
 			bodyStyle: {
 				background: '#ffffff',
 				padding: '7px'

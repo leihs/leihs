@@ -87,7 +87,8 @@ end
     respond_to do |format|
 #      format.ext_json { render :json => order.order_lines.sort{|x,y| x.send(sort) <=> y.send(sort) }.to_ext_json(:include => :model, :methods => :available?) }
       format.ext_json { render :json => order.to_json(:include => {
-                                                          :order_lines => { :include => :model,
+                                                          :order_lines => { :include => [:model,
+                                                                                         :inventory_pool],
                                                                             :methods => :available?,
                                                                             :except => [:created_at, :updated_at]}
                                                           } ) }
