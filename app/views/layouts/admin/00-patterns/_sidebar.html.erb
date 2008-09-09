@@ -1,36 +1,36 @@
 <ul>
 	<li><%= link_to _('InventoryPools') + " (#{InventoryPool.count})", :controller => 'inventory_pools' %></li>
+	<li><hr /></li>
 	<li><%= _('Items') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{Item.count})", :controller => 'items' %></li>
 		<li><%= link_to _('In Repair') + " (#{Item.in_repair.count})", :controller => 'items', :action => 'in_repair' %></li>
 		<li><%= link_to _('Incompletes') + " (#{Item.incompletes.count})", :controller => 'items', :action => 'incompletes' %></li>
 		<li><%= link_to _('New *'), :controller => 'items', :action => 'new' %></li>
-		<li><%= greybox_link_to_page(_('New **'),
-			 	{ :controller => 'items', :action => 'new' },
-				:title => _("Item"), :width => 850 ) %></li>
 		</ul>	
 	</li>
+	<li><hr /></li>
 	<li><%= _('Models') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{Model.count})", :controller => 'models' %></li>
-		<li><%= greybox_link_to_page(_('New **'),
-			 	{ :controller => 'models', :action => 'new' },
-				:title => _("Model"), :width => 850 ) %></li>
+		<li><%= link_to _('New *'), :controller => 'models', :action => 'new' %></li>
 		</ul>	
 	</li>
+	<li><hr /></li>
 	<li><%= link_to _('Categories') + " (#{Category.count})", :controller => 'categories' %></li>
+	<li><hr /></li>
 	<li><%= _('Users') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{User.count})", :controller => 'users' %></li>
 		<li><%= link_to _('Admins') + " (#{User.admins.size})", :controller => 'users', :action => 'admins' %></li>
 		<li><%= link_to _('Managers') + " (#{User.managers.size})", :controller => 'users', :action => 'managers' %></li>
 		<li><%= link_to _('Students') + " (#{User.students.size})", :controller => 'users', :action => 'students' %></li>
-		<li><%= greybox_link_to_page(_('New **'),
-			 	{ :controller => 'access_rights', :action => 'new' },
-				:title => _("AccessRight"), :width => 850 ) %></li>
+		<li><%= link_to _('New *'), :controller => 'access_rights', :action => 'new' %></li>
 		</ul>	
 	</li>
+	<li><hr /></li>
 	<li><%= link_to _('Roles') + " (#{Role.count})", :controller => 'roles' %></li>
-	<li><%= link_to _('AccessRights (TODO remove)') + " (#{AccessRight.count})", :controller => 'access_rights' %></li>
+	<li><hr /></li>
+	<% # TODO remove %>
+	<li><%= link_to _('AccessRights') + " (#{AccessRight.count})", :controller => 'access_rights' %></li>
 </ul>
