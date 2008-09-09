@@ -1,5 +1,4 @@
 <% if @model %>
-	<br />
 	<h3><%= @model.name %>
 	<%= link_to_function image_tag($layout_public_path + "/images/icons/add.png"), "Ext.Ajax.request({
 				    url: '/orders/add_line?model_id=#{@model.id}',
@@ -17,38 +16,44 @@
 							 
 	</h3>
 
-	<div style="float: left; width: 50%;">
-	<ul>
-	Properties:
-	<% @model.properties.each do |p| %>
-		<li><b><%= p.key %>:</b> <%= p.value %></li>
-	<% end %>
-	</ul>
-
 	<br />
-	Images:
-	<ul>
-	<% @model.images.each do |i| %>
-		<li style="display: inline;"><%= link_to_function(image_tag(i.public_filename(:thumb)), "$('image_big').src='#{i.public_filename}'") %></li>
-	<% end %>
-	</ul>
-	<img id="image_big">
+
+	<div style="float: left; width: 50%;">
+		<ul>
+		<% @model.images.each do |i| %>
+			<li style="display: inline;"><%= link_to_function(image_tag(i.public_filename(:thumb)), "$('image_big').src='#{i.public_filename}'") %></li>
+		<% end %>
+		</ul>
+		<img id="image_big">
+
+		<br />
+
+		<% unless @model.properties.empty? %>
+			<ul>
+			Properties:
+			<% @model.properties.each do |p| %>
+				<li><b><%= p.key %>:</b> <%= p.value %></li>
+			<% end %>
+			</ul>
+		<% end %>
 	</div>
 
-	</div>
 	
 	
-	<div style="float: right; width: 50%;">
-	<ul>
-	Compatibles:
-	<% @model.compatibles.each do |c| %>
-		<li><%= link_to_function c.name, "Ext.getCmp('models_details').load({
-				    url: '/models/details?model_id=#{c.id}',
-				    text: 'Loading...',
-				    timeout: 30
-				});" %>
-		</li>
+	<% unless @model.compatibles.empty? %>
+		<div style="float: right; width: 50%;">
+		<ul>
+		Compatibles:
+		<% @model.compatibles.each do |c| %>
+			<li><%= link_to_function c.name, "Ext.getCmp('models_details').load({
+					    url: '/models/details?model_id=#{c.id}',
+					    text: 'Loading...',
+					    timeout: 30
+					});" %>
+			</li>
+		<% end %>
+		</ul>
+		</div>
 	<% end %>
-	</ul>
 		
 <% end %>

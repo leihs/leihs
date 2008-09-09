@@ -16,6 +16,7 @@ class ModelsController < FrontendController
       @models = (category.children.recursive.to_a << category).collect(&:models).flatten & current_user.models.all(:conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
       c = @models.size
     elsif query
+      # TODO searcheable by property values
       @models = current_user.models.find_by_contents("*" + query + "*", {:offset => start,
                                                                          :limit => limit,
                                                                          :order => "#{sort} #{dir}"},
@@ -34,6 +35,7 @@ class ModelsController < FrontendController
                                          :limit => limit,
                                          :order => "#{sort} #{dir}",
                                          :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
+      # TODO fix 
       c = current_user.models.count(:all,
                                     :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
     end
