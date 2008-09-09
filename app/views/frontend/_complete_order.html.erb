@@ -4,7 +4,8 @@
 	   {name: 'model.name', type: 'string'},
 	   {name: 'start_date', type: 'date'},
 	   {name: 'end_date', type: 'date'},
-	   {name: 'available?', type: 'string'}
+	   {name: 'available?', type: 'string'},
+	   {name: 'inventory_pool.name', type: 'string'}
 	]);
 
     // create the Data Store
@@ -55,6 +56,10 @@
            dataIndex: 'model.name',
            width: 250
         },{
+           header: "Inventory Pool",
+           dataIndex: 'inventory_pool.name',
+           width: 100
+        },{
            header: "Start date",
            dataIndex: 'start_date',
            width: 100,
@@ -87,6 +92,7 @@
 
     var complete_order = new Ext.grid.EditorGridPanel({ //old: GridPanel
 //        el:'complete_order',
+    	id: 'complete_order',
         title:'[3] Order',
         store: complete_order_store,
         cm: complete_order_cm,

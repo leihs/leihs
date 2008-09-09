@@ -1,18 +1,15 @@
 <% if @model %>
 	<br />
 	<h3><%= @model.name %>
-	<%= link_to_remote(_("Add"), :update => 'basket',
-								 :url => {:controller => 'orders', :action => 'add_line', :model_id => @model.id}) %>
-	<%= link_to_function _("Add2"), "Ext.Ajax.request({
+	<%= link_to_function image_tag($layout_public_path + "/images/icons/add.png"), "Ext.Ajax.request({
 				    url: '/orders/add_line?model_id=#{@model.id}',
 				    success: function(responseObject) {
-					    complete_order_store.load();
+					    Ext.getCmp('complete_order').getStore().load();
 				    },
 					failure: function() {
 						Ext.Msg.alert('Status', 'Failure');
 					}
 				});" %>
-	<img src="<%= $layout_public_path + "/images/icons/add.png" %>" style="cursor: pointer;" onclick="Ext.Msg.alert('Status', 'Failure');" />							 
 								 
 	<% for ip in @model.inventory_pools & current_user.inventory_pools %>
 		<span style="border: 1px solid black; padding: 1px;"><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @model.id}) %></span>
@@ -27,17 +24,7 @@
 		<li><b><%= p.key %>:</b> <%= p.value %></li>
 	<% end %>
 	</ul>
-	</div>
-	
-	
-	<div style="float: right; width: 50%;">
-	<ul>
-	Compatibles:
-	<% @model.compatibles.each do |c| %>
-		<li><%= link_to_remote(c.name, :update => 'details', :url => {:controller => 'models', :action => 'details', :model_id => c.id}) %></li>
-	<% end %>
-	</ul>
-	
+
 	<br />
 	Images:
 	<ul>
@@ -47,5 +34,21 @@
 	</ul>
 	<img id="image_big">
 	</div>
+
+	</div>
 	
+	
+	<div style="float: right; width: 50%;">
+	<ul>
+	Compatibles:
+	<% @model.compatibles.each do |c| %>
+		<li><%= link_to_function c.name, "Ext.getCmp('models_details').load({
+				    url: '/models/details?model_id=#{c.id}',
+				    text: 'Loading...',
+				    timeout: 30
+				});" %>
+		</li>
+	<% end %>
+	</ul>
+		
 <% end %>
