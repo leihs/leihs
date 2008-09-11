@@ -51,6 +51,11 @@
 		sm: inventory_pools_sm,
 		viewConfig: { forceFit: true },
         loadMask: true,
+		listeners: {
+			expand: function(e){
+				inventory_pools_store.load();
+			}
+		},
         tbar: [
 			new Ext.Action({
 		        text: 'Refresh',
@@ -81,7 +86,7 @@
 
 	
 	// trigger the data store load
-    inventory_pools_store.load();
+    //inventory_pools_store.load();
 
 	inventory_pools_store.on('load', function(store, records, options) {
 	    var recs = [];

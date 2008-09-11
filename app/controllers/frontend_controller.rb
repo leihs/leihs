@@ -10,7 +10,8 @@ class FrontendController < ApplicationController
     ips = current_user.inventory_pools
     c = ips.size
     respond_to do |format|
-      format.ext_json { render :json => ips.to_ext_json(:count => c,
+      format.ext_json { render :json => ips.to_ext_json(:class => "InventoryPool",
+                                                        :count => c,
                                                         :except => [:description,
                                                                     :logo_url,
                                                                     :contract_url,

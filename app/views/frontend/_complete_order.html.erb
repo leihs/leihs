@@ -93,7 +93,7 @@
     var complete_order = new Ext.grid.EditorGridPanel({ //old: GridPanel
 //        el:'complete_order',
     	id: 'complete_order',
-        title:'[3] Order',
+        title:'Order',
         store: complete_order_store,
         cm: complete_order_cm,
 		sm: complete_order_sm,
@@ -107,6 +107,10 @@
 		listeners: {
 			activate: function(cmp) {
 				this.store.load();
+				basket.disable();
+			},
+			deactivate: function(cmp) {
+				basket.enable();
 			},
 			afteredit: function(e){
 				if(e.field == "start_date" || e.field == "end_date"){
@@ -130,27 +134,34 @@
 			}
 		},
 		tbar:[{
-	            text:'Add',
-	            tooltip:'Add a new row',
+				id: 'bt_change_timeframe',
+	            text:'Change Timeframe',
+	            tooltip:'Change the timeframe for the selected items',
 				iconCls:'bt',
-	            icon:'<%= $layout_public_path + "/images/icons/add.png" %>',
+	            icon:'<%= $layout_public_path + "/images/icons/date_edit.png" %>',
 				handler: function(){
-					Ext.Msg.alert('Click','You clicked on "Add".\n' + complete_order_sm.getSelections().length);
+					Ext.MessageBox.show({
+			           title: 'Change Timeframe',
+			           msg: 'TODO display 2 calendars:',
+			           width:300,
+			           buttons: Ext.MessageBox.OKCANCEL,
+			           multiline: true,
+			           fn: function (btn, text){
+							if(btn == "ok"){
+								var lines = selected_lines();
+								
+							}
+					   },
+			           animEl: this.id
+			       });
 				}
 	        },'-',{
 	            text:'Remove',
-	            tooltip:'Remove the selected item',
+	            tooltip:'Remove the selected items',
 				iconCls:'bt',
 	            icon:'<%= $layout_public_path + "/images/icons/delete.png" %>',
 				handler: function(){
-					var selected = complete_order_sm.getSelections();
-					var lines = "";
-		
-					for(var i = 0; i < selected.length; i++){
-						if(lines != "") lines += ","; 
-						lines += selected[i].id;
-					}
-					
+					var lines = selected_lines();
 	                Ext.Ajax.request({
 						method: 'GET',
 					    url: '/orders/remove_lines',
@@ -163,11 +174,37 @@
 	        }],
         bbar: [
 			new Ext.Action({
+				id: 'bt_submit',
 		        text: 'Submit Order',
 				iconCls:'bt',
 	            icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
 		        handler: function(){
-					submitPopup.show();
+					//submitPopup.show();
+					Ext.MessageBox.show({
+			           title: '<%= _("Do you want to submit this order?") %>',
+			           msg: '<%= _("Purpose") %>',
+			           width:300,
+			           buttons: Ext.MessageBox.OKCANCEL,
+			           multiline: true,
+			           fn: function (btn, text){
+							if(btn == "ok"){
+								complete_order.disable();
+				                Ext.Ajax.request({
+								    url: '/orders/submit',
+									method: 'POST',
+				                    //params: {"id": complete_order_store.id}, // TODO protect_from_forgery
+									params: {"id": complete_order_store.data.items[0].data.order_id, // TODO collect order.id from json
+											<%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>},
+									success: function(r) {
+										//w.items.items[0].body.dom.innerHTML = r.responseText;
+										//Ext.Msg.alert(r.responseText);
+										window.location.href = '/';
+				                    }
+				                });
+							}
+					   },
+			           animEl: this.id
+			       });
 		        }
 		    })
         ]
@@ -177,7 +214,7 @@
 	
     // trigger the data store load
     //complete_order_store.load();
-
+/*
     var submitPopup = new Ext.Window({
         title: 'Submit',
         width: 920,
@@ -208,4 +245,17 @@
             }
         }
     });
+ */
+ 
+  	function selected_lines(){
+		var selected = complete_order_sm.getSelections();
+		var lines = "";
+		
+		for(var i = 0; i < selected.length; i++){
+			if(lines != "") lines += ","; 
+			lines += selected[i].id;
+		}
+		return lines;
+	}
+
   

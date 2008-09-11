@@ -8,7 +8,7 @@
 			width: 25,
 			dataIndex: '',
 			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/delete.png" %>" style="cursor: pointer;" />';}
-		},{
+/*		},{
            header: "",
            dataIndex: 'quantity',
            width: 25,
@@ -16,7 +16,7 @@
  		   renderer:function(value,p,r){ return (r.data['available?'] == 'true')? value:'<div style="background-color: red;">'+ value +'</div>';},
 		   editor: new Ext.form.TextField({ // TODO fix rendering problem
                allowBlank: false
-           })
+           }) */
         },{
            header: "Model",
            dataIndex: 'model.name',
@@ -39,7 +39,7 @@
 			expand: function(e){
 				this.store.load();
 			},
-			afteredit: function(e){
+/*			afteredit: function(e){
 				Ext.Ajax.request({
 				    url: '/orders/change_line',
  					method: 'GET',
@@ -51,7 +51,7 @@
 						Ext.Msg.alert('Status', 'Failure');
 					}
 				});
-			},
+			}, */
 			cellclick: function( grid, rowIndex, columnIndex, e ){
 			  if (columnIndex == 0){
 				x_id = grid.getStore().getAt(rowIndex).id;

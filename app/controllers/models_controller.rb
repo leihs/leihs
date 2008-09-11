@@ -15,7 +15,7 @@ class ModelsController < FrontendController
       category = Category.find(category_id)
       @models = (category.children.recursive.to_a << category).collect(&:models).flatten & current_user.models.all(:conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
       c = @models.size
-    elsif query
+    elsif !query.blank?
       # TODO searcheable by property values
       @models = current_user.models.find_by_contents("*" + query + "*", {:offset => start,
                                                                          :limit => limit,
@@ -40,12 +40,13 @@ class ModelsController < FrontendController
                                     :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
     end
     respond_to do |format|
-      format.ext_json { render :json => @models.to_ext_json(:count => c #,
-#                                                            :include => {
-#                                                                :inventory_pools => { :except => [:description,
-#                                                                                                  :logo_url,
-#                                                                                                  :contract_url,
-#                                                                                                  :contract_description] } }
+      format.ext_json { render :json => @models.to_ext_json(:class => "Model",
+                                                            :count => c,
+                                                            :include => {
+                                                                :inventory_pools => { :except => [:description,
+                                                                                                  :logo_url,
+                                                                                                  :contract_url,
+                                                                                                  :contract_description] } }
                                                                  ) }
     end
   end  

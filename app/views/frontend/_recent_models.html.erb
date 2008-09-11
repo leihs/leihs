@@ -45,25 +45,14 @@
 		enableHdMenu: false,
 		viewConfig: { forceFit: true },
         loadMask: true,
-//		show: function(cmp) {
-//			this.store.load(); // TODO optimize render
-//		},
-
 		listeners: {
 			rowclick: function( grid, rowIndex, e ){
 				x_id = grid.getStore().getAt(rowIndex).id;
-				//var conn = new Ext.data.Connection();
-				//conn.request({
-				Ext.Ajax.request({
-				    url: '/orders/add_line?model_id=' + x_id,
-//				    method: 'POST',
-//	TODO			    params: {"authenticity_token": encodeURIComponent('7839094fc4f002d4585df81e6486429aba7c9350')},
-				    success: function(responseObject) {
-					    complete_order_store.load();
-				    },
-					failure: function() {
-						Ext.Msg.alert('Status', 'Failure');
-					}
+	            center_tabs.activate(models);				
+				models_details.load({
+				    url: '/models/details?model_id=' + x_id,
+				    text: "Loading...",
+				    timeout: 30
 				});
 			}
 		},
@@ -71,7 +60,7 @@
 
 
     // trigger the data store load
-    recent_models_store.load({params:{start:0, limit:5, recent:true}});
+    //recent_models_store.load({params:{start:0, limit:5, recent:true}});
 
 
   

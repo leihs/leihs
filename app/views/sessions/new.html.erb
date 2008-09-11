@@ -1,12 +1,23 @@
+  <%= stylesheet_link_tag "/javascripts/ext/resources/css/ext-all.css" %>
+    
+
+<div style="width:300px;">
+    <div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>
+    <div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">
+
+        <h3 style="margin-bottom:5px;">Login</h3>
+
 <% form_tag session_path do -%>
 <p><label for="login">Login</label><br/>
-<%= text_field_tag 'login' %>
+<%= text_field_tag 'login' %><br/>
 Existing users:
 <%= User.find(:all).collect(&:login).inspect %>
 </p>
 
+<br/>
+
 <p><label for="password">Password</label><br/>
-<%= password_field_tag 'password' %>
+<%= password_field_tag 'password' %><br/>
 Password:
 [pass]
 </p>
@@ -16,5 +27,11 @@ Password:
 <%= check_box_tag 'remember_me' %></p>
 -->
 
+<br/>
+
 <p><%= submit_tag 'Log in' %></p>
 <% end -%>
+
+    </div></div></div>
+    <div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>
+</div>
