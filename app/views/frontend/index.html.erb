@@ -29,7 +29,8 @@
 
 	    var user_timeline = new Ext.Panel({
 	        contentEl:'user_timeline',
-	        title:'[2] Timeline (existing contracts)',
+	        title:'Timeline (existing contracts)',
+			closable: true,
 		    autoScroll:true,
 			listeners: { activate: function(cmp) {
 /*
@@ -67,7 +68,7 @@
 							html: 'Welcome page...',
 							closable: true
 						},
-						models, user_timeline, complete_order]
+						models, complete_order] //, user_timeline
                 });
 				   
 	   var northPanel, southPanel, eastPanel, westPanel, centerPanel;				        
@@ -117,13 +118,30 @@
 							title: 'Categories',
 							border: false,
 							items: categories_panel
-	                    }, inventory_pools, {
+	                    }, inventory_pools
+						 ,{
 							title: 'Orders & Contracts',
 							border: false,
+					        tbar: [
+								new Ext.Action({
+							        text: 'Timeline',
+									iconCls:'bt',
+						            icon:'<%= $layout_public_path + "/images/icons/shape_align_left.png" %>',
+							        handler: function(){
+										center_tabs.add(user_timeline);
+										center_tabs.activate(user_timeline);
+							        }
+							    })
+					        ],
 							html: '<%= (current_user.orders + current_user.contracts).collect(&:created_at).join('<br />') %>'
 	                    },{
 	                        title: 'Recent Models',
 	                        border: false,
+							listeners: {
+								expand: function(e){
+									recent_models_store.load({params:{start:0, limit:5, recent:true}});
+								}
+							},
 							items: recent_models
 	                    }]
                 },
