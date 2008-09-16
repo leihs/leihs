@@ -22,8 +22,6 @@ steps_for(:order_backup) do
     user = Factory.create_user(:login => "Joe")
     @order = Factory.create_order({:user_id => user.id}, {:order_lines => size.to_i})
     @order.submit
-# debug here
-#puts; puts "==="; puts "Histories crated_at:"; @order.histories.each { |h| puts; puts h.text; puts h.created_at; puts "%10.5f" % h.created_at.to_f }; puts "==="
     @original_order = @order
     @original_order.has_backup?.should == false
     @order.order_lines.size.should == size.to_i
@@ -35,18 +33,20 @@ steps_for(:order_backup) do
 
   When "$who chooses the order" do | who |
     @order.has_backup?.should == false
+    sleep 1
     get "/backend/acknowledge/show/#{@order.id}"
     response.should render_template('backend/acknowledge/show')
     @order = assigns(:order)
+    sleep 1
     @order.has_backup?.should == true
-# debug here    
-#puts; puts "==="; puts "Backup created at:"; puts @order.backup.created_at; puts "%10.5f" % @order.backup.created_at.to_f; puts "==="
+    @order.backup.created_at.should >= @order.histories.first.created_at
   end
 
   When "$who deletes $size order line$s" do | who, size, s |
     @lines = @order.order_lines[0, size.to_i].collect(&:id)
     post "/backend/acknowledge/remove_lines", :id => @order.id, :lines => @lines
     @order = assigns(:order)
+    @order.histories.size.should == 7 #TODO: REMOVE, when the failing test doesn't fail no mo
   end
 
   Then "the order has $size order line$s" do | size, s |
@@ -69,6 +69,7 @@ steps_for(:order_backup) do
   end
 
   Then "the restored order has the same $size change$s as the original" do | size, s |
+    @order.reload
     @order.histories.size.should == size.to_i 
     @order.histories.should == @original_order.histories
   end
