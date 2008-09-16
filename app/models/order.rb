@@ -1,5 +1,7 @@
 class Order < Document
 
+  attr_protected :created_at
+
   belongs_to :inventory_pool # common for sibling classes
   belongs_to :user
   has_many :order_lines, :dependent => :destroy, :order => 'start_date ASC, created_at ASC'
@@ -149,22 +151,22 @@ class Order < Document
   end
 
   def to_backup
-    self.backup = Backup::Order.new(attributes) #.reject {|key, value| key == "id" }
+    self.backup = Backup::Order.new(attributes)
     
     order_lines.each do |ol|
-      backup.order_lines << Backup::OrderLine.new(ol.attributes) #.reject {|key, value| key == "id" }     
+      backup.order_lines << Backup::OrderLine.new(ol.attributes)
     end
 
     save
   end  
  
   def from_backup
-    self.attributes = backup.attributes.reject {|key, value| key == "order_id" } # or key == "id" 
+    self.attributes = backup.attributes.reject {|key, value| key == "order_id" }
     
     order_lines.clear
     
     backup.order_lines.each do |ol|
-      order_lines << OrderLine.new(ol.attributes.reject {|key, value| key == "order_id" }) # or key == "id" 
+      order_lines << OrderLine.new(ol.attributes.reject {|key, value| key == "order_id" }) 
     end
         
     histories.each {|h| h.destroy if h.created_at > backup.created_at}
