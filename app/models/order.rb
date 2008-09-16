@@ -149,7 +149,7 @@ class Order < Document
   end
 
   def to_backup
-    self.backup = Backup::Order.new(attributes.reject {|key, value| key == "created_at" }) #.reject {|key, value| key == "id" }
+    self.backup = Backup::Order.new(attributes) #.reject {|key, value| key == "id" }
     
     order_lines.each do |ol|
       backup.order_lines << Backup::OrderLine.new(ol.attributes) #.reject {|key, value| key == "id" }     
