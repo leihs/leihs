@@ -94,17 +94,13 @@ Scenario: Not Returned
 	
 	Given a model 'Lasersword Grendab' exists
 	And 1 items of model 'Lasersword Grendab' exist
-	And the maintenance period for this model is 2 days
-	And a reservation exists for 1 'Lasersword Grendab' from 1.1.2100 to 5.1.2100
+	And a contract exists for 1 'Lasersword Grendab' from 1.1.2100 to 5.1.2100
 	
 	When inventory_manager checks availability for 'Lasersword Grendab'
 	
-	Then the maximum available quantity on 8.1.2100 is 1
+	Then if I check the maximum available quantity for 8.1.2100 is 1 on 4.1.2100
 	
-	When the date is 6.1.2100 and the item isn't returned
-	
-	Then the maximum available quantity on 8.1.2100 is 0
-	And the maximum available quantity on 15.2.2222 is 0
+	Then if I check the maximum available quantity for 8.1.2100 is 0 on 6.1.2100
 	
 	
 Scenario: Reservations from the past

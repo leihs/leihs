@@ -101,12 +101,11 @@ class Model < ActiveRecord::Base
   end  
   
   
-  
-  private 
+  private
   
   def create_availability(current_time, document_line = nil)    
     i = self.items.find(:all, :conditions => {:status_const => Item::BORROWABLE})
-    a = Availability.new(i.size)
+    a = Availability.new(i.size, Date.today, nil, current_time)
     a.model = self
     a.reservations(DocumentLine.current_and_future_reservations(id, document_line, current_time))
     a
