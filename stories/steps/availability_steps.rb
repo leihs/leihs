@@ -10,9 +10,24 @@ steps_for(:availability) do
     order.add_line(quantity.to_i, model, nil, Factory.parsedate(from), Factory.parsedate(to))
     order.submit
     order.save
-    order.order_lines.size.should >= 1
-    OrderLine.current_and_future_reservations(model.id).size.should >= 1
+    order.lines.size.should >= 1
+    DocumentLine.current_and_future_reservations(model.id).size.should >= 1
   end
+  
+  Given "a contract exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
+    model = Model.find_by_name(model)
+    contract = Factory.create_user.get_current_contract(model.items.first.inventory_pool)
+    contract.add_line(quantity.to_i, model, nil, Date.today, Factory.parsedate(to))
+    contract.save
+    line = contract.contract_lines.first
+    line.item = model.items.first
+    line.save
+    contract.reload
+    contract.lines.size.should >= 1
+    contract.lines.first.item.should_not be_nil
+    DocumentLine.current_and_future_reservations(model.id).size.should >= 1
+  end
+  
   
   Given "the maintenance period for this model is $days days" do |days|
     @model.maintenance_period = days.to_i
@@ -34,11 +49,6 @@ steps_for(:availability) do
   When "$who checks availability for '$what' on $date" do |who, model, date|
     date = Factory.parsedate(date)
     @periods = @model.availability(nil, date)
-  end
-  
-  When "the date is $date and the item isn't returned" do |date|
-    date = Factory.parsedate(date)
-    
   end
 	
 	Then "it should always be available" do
@@ -66,6 +76,10 @@ steps_for(:availability) do
   
   Then "the maximum available quantity on $date is $quantity" do |date, quantity|
     @model.maximum_available(Factory.parsedate(date)).should == quantity.to_i
+  end
+  
+  Then "if I check the maximum available quantity for $date is $quantity on $current_date" do |date, quantity, current_date|
+    @model.maximum_available(Factory.parsedate(date), nil, Factory.parsedate(current_date)).should == quantity.to_i
   end
   
   Then "the maximum available quantity from $start_date to $end_date is $quantity" do |start_date, end_date, quantity|

@@ -2,10 +2,11 @@ class Availability
   
   attr_accessor :start_date, :end_date, :quantity, :model
   
-  def initialize(max_quantity, start_date = Date.today, end_date = nil)
+  def initialize(max_quantity, start_date = Date.today, end_date = nil, current_date = nil)
     @start_date = start_date
     @end_date = end_date
     @quantity = max_quantity
+    @current_date = current_date
     @events = []
   end
   
@@ -21,7 +22,7 @@ class Availability
     @events.each do |event|
       date_of_event = event[0]
       if is_returnal?(event[1])
-        date_of_event = date_of_event + @model.maintenance_period.day
+        date_of_event = date_of_event + @model.maintenance_period.day 
       else
         date_of_event = date_of_event - 1.day
       end
@@ -73,30 +74,30 @@ class Availability
     return false if self.end_date.nil?
     self.end_date >= start_date && self.end_date <= end_date
   end
-  
-  
 
   def reservations(reservations)
     reservations.each do | reservation |
-      reserve(reservation.quantity, reservation.start_date, reservation.end_date)
+      reserve(reservation)
     end
     
   end
   
-  def reserve(quantity, from, to)
-    remove(quantity, from)
-    add(quantity, to)
+  def reserve(reservation)
+    remove(reservation)
+    add(reservation)
     @events = @events.sort do |x, y|
       x[0] <=> y[0]
     end
   end
   
-  def remove(quantity, on)
-    @events << [Date.new(on.year, on.month, on.day), -quantity]
+  def remove(reservation)
+    on = reservation.start_date
+    @events << [Date.new(on.year, on.month, on.day), -reservation.quantity]
   end
   
-  def add(quantity, on)
-    @events << [Date.new(on.year, on.month, on.day), quantity]
+  def add(reservation)
+    on = reservation.end_date
+    @events << [Date.new(on.year, on.month, on.day), reservation.quantity] unless reservation.is_late?(@current_date)
   end
   
   private 

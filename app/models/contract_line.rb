@@ -36,6 +36,9 @@ class ContractLine < DocumentLine
     id
   end  
 
+  def is_late?(current_date = Date.today)
+    item and returned_date.nil? and end_date < current_date
+  end
   
   private
     

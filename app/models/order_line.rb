@@ -33,6 +33,9 @@ class OrderLine < DocumentLine
     0
   end
   
+  def is_late?(current_date = Date.today)
+    false
+  end
 
   # TODO temp check, remove it 
   def correct_inventory_pool?

@@ -9,10 +9,10 @@ class DocumentLine < ActiveRecord::Base
 ###############################################  
   
   def self.current_and_future_reservations(model_id, document_line = nil, date = Date.today)
-    cl = ContractLine.find(:all, :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and id <> ?', model_id, date, date, date, document_line ? document_line.contract_to_exclude : 0])
+    cl = ContractLine.find(:all, :conditions => ['model_id = ? and returned_date is null and id <> ?', model_id, document_line ? document_line.contract_to_exclude : 0])
     ol = OrderLine.find(:all,
                         :joins => :order,
-                        :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and order_lines.id <> ? and orders.status_const = ?', model_id, date, date, date, document_line ? document_line.order_to_exclude : 0, Order::SUBMITTED])
+                        :conditions => ['model_id = ? and ((start_date <= ? and end_date > ?) or start_date > ?) and order_lines.id <> ? and orders.status_const = ?', model_id, date, date, date, document_line ? document_line.order_to_exclude : 0, Order::SUBMITTED])
     cl + ol
   end
 
