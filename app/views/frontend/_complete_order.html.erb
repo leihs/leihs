@@ -1,9 +1,11 @@
 	var Line = Ext.data.Record.create([
 	   {name: 'order_id', type: 'int'},
 	   {name: 'quantity', type: 'int'},
+	   {name: 'model.id', type: 'string'},
 	   {name: 'model.name', type: 'string'},
-	   {name: 'start_date', type: 'date'},
-	   {name: 'end_date', type: 'date'},
+	   {name: 'model.manufacturer', type: 'string'},
+	   {name: 'start_date', type: 'date'}, //, dateFormat:'d.m.Y'
+	   {name: 'end_date', type: 'date'}, //, dateFormat:'d.m.Y'
 	   {name: 'available?', type: 'string'},
 	   {name: 'inventory_pool.name', type: 'string'}
 	]);
@@ -25,7 +27,7 @@
             id: 'id'},
 			Line),
 
-		groupField: 'start_date',
+		groupField: 'inventory_pool.name', //'start_date',
         sortInfo:{field: 'model', direction: "ASC"},
 
         // turn on remote sorting
@@ -33,10 +35,18 @@
     });
 
     function formatDate(value){
-        return value ? value.dateFormat('d/m/y') : '';
+        return value ? value.dateFormat('d.m.Y') : '';
     };
 	
-	var complete_order_sm = new Ext.grid.CheckboxSelectionModel();
+	var complete_order_sm = new Ext.grid.CheckboxSelectionModel({
+									listeners: {
+										selectionchange: function(cmp){
+											var b = !(complete_order_sm.getCount() > 0);
+											Ext.getCmp('bt_change_timeframe').setDisabled(b);
+											Ext.getCmp('bt_remove').setDisabled(b);
+										}	
+									}
+								});
 	
     // the column model has information about grid columns
     // dataIndex maps the column to the specific data field in
@@ -45,36 +55,35 @@
 		{
            header: "",
            dataIndex: 'quantity',
-           width: 25,
+           width: 20,
            align: 'right',
- 		   renderer:function(value,p,r){ return (r.data['available?'] == 'true')? value:'<div style="background-color: red;">'+ value +'</div>';},
+// 		   renderer:function(value,p,r){ return (r.data['available?'] == 'true')? value:'<div style="background-color: red;">'+ value +'</div>';},
 		   editor: new Ext.form.TextField({ // TODO fix rendering problem
                allowBlank: false
            })
         },{
            header: "Model",
-           dataIndex: 'model.name',
-           width: 250
+           dataIndex: 'model.name'
         },{
            header: "Inventory Pool",
            dataIndex: 'inventory_pool.name',
-           width: 100
+           width: 50
         },{
            header: "Start date",
            dataIndex: 'start_date',
-           width: 100,
+           width: 50,
            renderer: formatDate,
            editor: new Ext.form.DateField({
-                format: 'd/m/y' //,
+                format: 'd.m.Y' //,
 				//renderer: new Ext.DatePicker({startDay: 1})
             })
         },{
            header: "End date",
            dataIndex: 'end_date',
-           width: 100,
+           width: 50,
            renderer: formatDate,
            editor: new Ext.form.DateField({
-                format: 'd/m/y' //,
+                format: 'd.m.Y' //,
 				//renderer: new Ext.DatePicker({startDay: 1})
             })
         },{
@@ -93,11 +102,15 @@
     var complete_order = new Ext.grid.EditorGridPanel({ //old: GridPanel
 //        el:'complete_order',
     	id: 'complete_order',
-        title:'Order',
+//        title:'Order',
+		height:350,
+//		width: 600,
+		split: true,
+		region: 'center',
         store: complete_order_store,
         cm: complete_order_cm,
 		sm: complete_order_sm,
-		viewConfig: { forceFit: true },
+		//viewConfig: { forceFit: true },
         loadMask: true,
 		clicksToEdit: 1,
 		view: new Ext.grid.GroupingView({
@@ -105,23 +118,30 @@
             groupTextTpl: '{text}'
         }),
 		listeners: {
-			activate: function(cmp) {
-				this.store.load();
-				basket.disable();
-			},
-			deactivate: function(cmp) {
-				basket.enable();
+			cellclick: function( grid, rowIndex, columnIndex, e ){
+				x_id = grid.getStore().getAt(rowIndex).data['model.id'];
+				models_details.load({
+				    url: '/models/details?model_id=' + x_id,
+				    text: "Loading...",
+				    timeout: 30,
+					scripts: true
+				});
 			},
 			afteredit: function(e){
 				if(e.field == "start_date" || e.field == "end_date"){
 				    u = '/orders/change_time_lines';
-				    p = {"order_line_id": e.record.id, "start_date": e.record.data.start_date.dateFormat('Y-m-d'), "end_date": e.record.data.end_date.dateFormat('Y-m-d')};					
+				    p = {"lines": [e.record.id],
+						 "start_date": e.record.data.start_date.dateFormat('d.m.Y'),
+						 "end_date": e.record.data.end_date.dateFormat('d.m.Y'),
+						 <%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>}; //OPTIMIZE					
 				}else if(e.field == "quantity"){
 				    u = '/orders/change_line';
-				    p = {"order_line_id": e.record.id, "quantity": e.value};
+				    p = {"order_line_id": e.record.id,
+						 "quantity": e.value,
+						 <%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>}; //OPTIMIZE
 				}
 				Ext.Ajax.request({
- 					method: 'GET',
+ 					method: 'POST',
 				    url: u,
 				    params: p,
 				    success: function(responseObject) {
@@ -139,113 +159,83 @@
 	            tooltip:'Change the timeframe for the selected items',
 				iconCls:'bt',
 	            icon:'<%= $layout_public_path + "/images/icons/date_edit.png" %>',
-				handler: function(){
-					Ext.MessageBox.show({
-			           title: 'Change Timeframe',
-			           msg: 'TODO display 2 calendars:',
-			           width:300,
-			           buttons: Ext.MessageBox.OKCANCEL,
-			           multiline: true,
-			           fn: function (btn, text){
-							if(btn == "ok"){
-								var lines = selected_lines();
-								
-							}
-					   },
-			           animEl: this.id
-			       });
-				}
+				disabled: true,
+				handler: function(){ show_change_timeframe(); }
 	        },'-',{
+				id: 'bt_remove',
 	            text:'Remove',
 	            tooltip:'Remove the selected items',
 				iconCls:'bt',
 	            icon:'<%= $layout_public_path + "/images/icons/delete.png" %>',
+				disabled: true,
 				handler: function(){
-					var lines = selected_lines();
-	                Ext.Ajax.request({
-						method: 'GET',
-					    url: '/orders/remove_lines',
-						params: {"lines": lines},
-	                    success: function(r) {
-						    complete_order_store.load();
-	                    }
-	                });					
-				}
-	        }],
-        bbar: [
-			new Ext.Action({
-				id: 'bt_submit',
-		        text: 'Submit Order',
-				iconCls:'bt',
-	            icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
-		        handler: function(){
-					//submitPopup.show();
-					Ext.MessageBox.show({
-			           title: '<%= _("Do you want to submit this order?") %>',
-			           msg: '<%= _("Purpose") %>',
-			           width:300,
-			           buttons: Ext.MessageBox.OKCANCEL,
-			           multiline: true,
+					Ext.Msg.show({
+					   title:'Remove',
+					   msg: 'You are sure?',
+   			           width:300,
+					   buttons: Ext.Msg.YESNO,
+					   animEl: this.id,
+					   icon: Ext.MessageBox.QUESTION,
 			           fn: function (btn, text){
-							if(btn == "ok"){
-								complete_order.disable();
+							if(btn == "yes"){
 				                Ext.Ajax.request({
-								    url: '/orders/submit',
 									method: 'POST',
-				                    //params: {"id": complete_order_store.id}, // TODO protect_from_forgery
-									params: {"id": complete_order_store.data.items[0].data.order_id, // TODO collect order.id from json
+								    url: '/orders/remove_lines',
+									params: {"lines": selected_lines(),
 											<%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>},
-									success: function(r) {
-										//w.items.items[0].body.dom.innerHTML = r.responseText;
-										//Ext.Msg.alert(r.responseText);
-										window.location.href = '/';
+				                    success: function(r) {
+									    complete_order_store.load();
 				                    }
-				                });
+				                });					
 							}
-					   },
-			           animEl: this.id
-			       });
-		        }
-		    })
-        ]
+					   }
+					});
+				}
+	        }, '->',{
+					id: 'bt_submit',
+			        text: 'Submit Order',
+					iconCls:'bt',
+		            icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
+			        handler: function(){
+					  if(complete_order_store.reader.jsonData['approvable?']){
+						Ext.MessageBox.show({
+				           title: '<%= _("Do you want to submit this order?") %>',
+				           msg: '<%= _("Purpose") %>',
+				           width:300,
+				           buttons: Ext.MessageBox.OKCANCEL,
+				           multiline: true,
+				           animEl: this.id,
+				           fn: function (btn, text){
+								if(btn == "ok"){
+									complete_order.disable();
+					                Ext.Ajax.request({
+									    url: '/orders/submit',
+										method: 'POST',
+										params: {"id": complete_order_store.reader.jsonData['id'],
+												 "purpose": text,
+												<%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>},
+										success: function(r) {
+											window.location.href = '/';
+					                    }
+					                });
+								}
+						   }
+				       });
+					 }else{
+						Ext.Msg.show({
+						   title:'Submit',
+						   msg: 'This order is not yet approvable',
+	   			           width:300,
+						   buttons: Ext.Msg.OK,
+						   animEl: this.id,
+						   icon: Ext.MessageBox.ERROR
+						});
+					 }
+			       }
+			}]
     });
 
-	//complete_order.render();
-	
-    // trigger the data store load
-    //complete_order_store.load();
-/*
-    var submitPopup = new Ext.Window({
-        title: 'Submit',
-        width: 920,
-        height: 500,
-        shim: false,
-        closeAction: 'hide',
-		modal: true,
-//        bodyCfg: {tag: 'textarea', readonly: true},
-        bodyStyle: {
-            backgroundColor: 'white',
-            margin: '0px',
-            border: '0px none'
-        },
-		items: {
-		    xtype: 'panel'
-		},
-        listeners: {
-            render: function(w) {
-                Ext.Ajax.request({
-					method: 'GET',
-				    url: '/orders/submit',
-					params: {"id": complete_order_store.data.items[0].data.order_id}, // TODO collect order.id from json
-                    //params: {"id": complete_order_store.id},
-                    success: function(r) {
-						w.items.items[0].body.dom.innerHTML = r.responseText;
-                    }
-                });
-            }
-        }
-    });
- */
+
  
   	function selected_lines(){
 		var selected = complete_order_sm.getSelections();
@@ -258,4 +248,148 @@
 		return lines;
 	}
 
-  
+	function get_selected_min_start_date(){
+		var selected = complete_order_sm.getSelections();
+		var min = selected[0].data.start_date;
+		
+		for(var i = 1; i < selected.length; i++){
+			if(selected[i].data.start_date < min)
+				min = selected[i].data.start_date;
+		}
+		return min;		
+	}
+
+	function get_selected_max_end_date(){
+		var selected = complete_order_sm.getSelections();
+		var max = selected[0].data.end_date;
+		
+		for(var i = 1; i < selected.length; i++){
+			if(selected[i].data.end_date > max)
+				max = selected[i].data.end_date;
+		}
+		return max;		
+	}
+
+       var order_guide = new Ext.Panel({
+	   		id: 'order_guide',
+			height: 60,
+			region: 'north',
+			html: 'Guide here...',
+		    autoScroll:true
+        });
+/*
+       var models_details_2 = new Ext.Panel({
+	   		id: 'models_details',
+			height:220,
+			region: 'south',
+		    autoScroll:true
+        });
+*/  
+
+	function show_change_timeframe(){
+		    var timeframe_form = new Ext.form.FormPanel({
+		        labelAlign: 'top',
+				buttonAlign: 'right',
+				region: 'center',
+		        frame:true,
+		//        title: 'Form',
+		//        width: 600,
+		        items: [{
+		            layout:'column',
+		            items:[{
+		                columnWidth:.5,
+		                layout: 'form',
+		                items: start_date = {
+		                    xtype:'datefield',
+		                    fieldLabel: 'Start date',
+		                    name: 'start_date',
+							value: get_selected_min_start_date(),
+		                    format: "d.m.Y",
+							//startDay: 1,
+							//minDate: new Date(),
+							disabledDays: [6,0],
+		                    anchor:'90%'
+		                }
+		            },{
+		                columnWidth:.5,
+		                layout: 'form',
+		                items: {
+		                    xtype:'datefield',
+		                    fieldLabel: 'End date',
+		                    name: 'end_date',
+							value: get_selected_max_end_date(),
+							format: "d.m.Y",
+							//startDay: 1,
+							//minDate: new Date(),
+							disabledDays: [6,0],
+		                    anchor:'90%'
+		                }
+		            }]
+		        }],		
+		        buttons: [{
+		            text: 'Change',
+					type: 'submit',
+					handler: function() {
+						Ext.Ajax.request({
+		 					method: 'POST',
+						    url: '/orders/change_time_lines',
+						    params: {"lines": selected_lines(),
+									 "start_date": timeframe_form.form.findField('start_date').getValue().dateFormat('d.m.Y'),
+									 "end_date": timeframe_form.form.findField('end_date').getValue().dateFormat('d.m.Y'),
+									 <%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>},
+						    success: function(responseObject) {
+							    complete_order_store.load();
+								timeframe_win.hide();
+						    },
+							failure: function(responseObject) {
+								Ext.Msg.alert('Error', responseObject.responseText);
+							}
+						});
+					}
+			    }]
+		    });
+
+
+			var timeframe_win = new Ext.Window({
+	            title    : 'Change Timeframe',
+	            //closable : true,
+				closeAction:'hide',
+	            width    : 500,
+	            height   : 200,
+	            //border : false,
+	            plain    : true,
+	            layout   : 'border',
+	            items    : [timeframe_form]
+	        });
+			timeframe_win.show();
+				   
+		}		
+
+
+///////////////////////////////////////////////////////////////////////////
+
+       var order = new Ext.Panel({
+			id: 'order',
+            layout:'card',
+			activeItem: 0,
+			frame: true,
+	        title:'Order',
+            items:[{
+					xtype: 'panel',
+					layout: 'border',
+					items: [order_guide, complete_order] //, models_details_2
+	            },{
+					xtype: 'panel',
+					layout: 'border',
+					html: 'Second step...'
+	            }],
+			listeners: {
+				activate: function(cmp) {
+					complete_order_store.load();
+					basket.disable();
+				},
+				deactivate: function(cmp) {
+					basket.enable();
+				}				
+			}			
+        });

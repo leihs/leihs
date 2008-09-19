@@ -1,27 +1,133 @@
-<% if @model %>
-    <div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>
-    <div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">
+<% if @model
+
+		m = @model.availabilities(Date.today, (Date.today + 6.month))
+		n = m.delete_if {|x| x[1] > 0}.collect {|x| x[0].strftime('%Y-%m-%d')}
+	
+		ips = []
+	 	for ip in @model.inventory_pools & current_user.inventory_pools
+			ips << ["#{ip.id}", "#{ip.name} (#{ip.items.count(:conditions => {:model_id => @model.id})})" ]
+		end
+ %>
+
+<script type="text/javascript">
+	Ext.onReady(function() {
+
+		Ext.QuickTips.init();
+	
+	    Ext.form.Field.prototype.msgTarget = 'side';
+	
+	    var bd = Ext.get('add_form');
+	
+	    var add_form = new Ext.form.FormPanel({
+	        labelAlign: 'top',
+			buttonAlign: 'right',
+	        frame:true,
+	        title: '<%= @model.name %>',
+	        width: 600,
+	        items: [{
+	            layout:'column',
+	            items:[{
+	                columnWidth:.1,
+	                layout: 'form',
+	                items: {
+	                    xtype:'numberfield',
+	                    fieldLabel: 'Quantity',
+	                    name: 'quantity',
+						value: '1',
+	                    anchor:'70%'
+	                }
+	            },{
+	                columnWidth:.3,
+	                layout: 'form',
+	                items: {
+	                    xtype:'combo',
+	                    fieldLabel: 'Inventory Pool',
+	                    name: 'inventory_pool',
+					    mode: 'local',
+					    triggerAction: 'all',
+						store: <%= ips.to_json %>,
+						allowBlank: false,
+						hiddenName: 'inventory_pool_id',
+						editable: false,
+	                    anchor:'95%'
+	                }
+	            },{
+	                columnWidth:.3,
+	                layout: 'form',
+	                items: {
+	                    xtype:'datefield',
+	                    fieldLabel: 'Start date',
+	                    name: 'start_date',
+						value: new Date(), //new Date(yy,mm,dd)
+	                    format: "d.m.Y",
+						//startDay: 1,
+						//minDate: new Date(),
+						disabledDays: [6,0],
+	                    anchor:'95%'
+	                }
+	            },{
+	                columnWidth:.3,
+	                layout: 'form',
+	                items: {
+	                    xtype:'datefield',
+	                    fieldLabel: 'End date',
+	                    name: 'end_date',
+						value: new Date(), //new Date(yy,mm,dd)
+						format: "d.m.Y",
+						//startDay: 1,
+						//minDate: new Date(),
+						disabledDays: [6,0],
+	                    anchor:'95%'
+	                }
+	            }]
+	        }],
+	        buttons: [{
+	            text: 'Add',
+				type: 'submit',
+				 handler: function() {
+				 	/*
+						sd = add_form.form.findField('start_date');
+						sd.setRawValue(sd.getValue().dateFormat('d.m.Y'));
+						ed = add_form.form.findField('end_date');
+						ed.setRawValue(ed.getValue().dateFormat('d.m.Y'));
+					*/
+						add_form.form.submit({
+							waitMsg: 'Saving Data...',
+						    url: '/orders/add_line',
+							method: 'POST',
+							params: {'model_id': '<%= @model.id %>',
+									 <%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>},
+						    success: function(responseObject) {
+							    Ext.getCmp('complete_order').getStore().load();
+						    },
+							failure: function(responseObject) {
+								Ext.Msg.alert('Error', responseObject.responseText);
+							}
+				        });
+				      }
+		          }]
+	    });
+	
+	    add_form.render(bd);
+
+		var model_tabs = new Ext.TabPanel({
+		    applyTo: 'model_tabs',
+		    activeTab: 0,
+		    deferredRender: false,
+			viewConfig: { forceFit: true },
+			autoWidth: true,
+		    autoTabs: true
+		});
+
+	});
+</script>
 
 
-	<h3><%= @model.name %>
-	<%= link_to_function image_tag($layout_public_path + "/images/icons/add.png"), "Ext.Ajax.request({
-				    url: '/orders/add_line?model_id=#{@model.id}',
-				    success: function(responseObject) {
-					    Ext.getCmp('complete_order').getStore().load();
-				    },
-					failure: function() {
-						Ext.Msg.alert('Status', 'Failure');
-					}
-				});" %>
-								 
-	<% for ip in @model.inventory_pools & current_user.inventory_pools %>
-		<span style="border: 1px solid black; padding: 1px;"><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @model.id}) %></span>
-	<% end %>
-							 
-	</h3>
-
-	<br />
-
+<div id="model_tabs">
+    <div class="x-tab" title="Details">	
+		
+		<h3><%= @model.name %></h3>
+		
 		<ul>
 		<% @model.images.each do |i| %>
 			<li style="display: inline;"><%= link_to_function(image_tag(i.public_filename(:thumb)), "$('image_big').src='#{i.public_filename}'") %></li>
@@ -36,43 +142,11 @@
 		 %>
 			<img id="image_big" src='<%= src %>'>
 
-		<br />
+	</div>
 
-	<%
-		m = @model.availabilities(Date.today, (Date.today + 6.month))
-		# TODO p m.inspect
-		n = m.delete_if {|x| x[1] > 0}.collect {|x| x[0].strftime('%Y-%m-%d')}
-	%>
 
-		<script type="text/javascript">
-			Ext.onReady(function() {
-				var calendar = new Ext.DatePicker({
-										renderTo:'calendar',
-										startDay: 1,
-										format: "Y-m-d",
-										// OPTIMIZE
-										<%= "disabledDates: #{n.inspect}," unless n.empty? %> //["2008-09-15", "2008-09-20"]
-										minDate: new Date()
-										//disabledDays: [6,0]
-									});
-//				calendar.render('calendar');
-				/*
-				Ext.MessageBox.show({
-					title: 'Paragraph Clicked',
-					msg: 'message',
-					width: 200,
-					buttons: Ext.MessageBox.OK
-				});
-				*/
-			});		
-		</script>
+    <div class="x-tab" title="Properties">
 
-		<div id="calendar" style="float: left; padding: 10px;">
-		</div>
-
-		<br />
-
-	<div style="text-align: right;">
 	<% unless @model.properties.empty? %>
 		<ul>
 		Properties:
@@ -82,8 +156,10 @@
 		</ul>
 	<% end %>
 
-	<br />	
-	<br />	
+	</div>	
+
+
+    <div class="x-tab" title="Compatibles">
 	
 	<% unless @model.compatibles.empty? %>
 		<ul>
@@ -94,15 +170,21 @@
 					    text: 'Loading...',
 					    timeout: 30,
 						scripts: true
-					});" %>
+					})" %>
 			</li>
 		<% end %>
 		</ul>
-		</div>
 	<% end %>
 
+	</div>	
 
-    </div></div></div>
-    <div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>
+
+    <div class="x-tab" title="Add to Order">
+		<div id="add_form">
+		</div>
+	</div>
+
+
+</div>	
 
 <% end %>

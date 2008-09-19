@@ -4,8 +4,8 @@ class Template < ModelGroup
 
   # TODO merge model_links with same models and sum quantities
 
-  
-  def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil)
+  # TODO pass inventory_pool_id
+  def add_to_document(document, user_id, quantity = 1, start_date = nil, end_date = nil, inventory_pool = nil)
     model_links.each do |ml|
       document.add_line(ml.quantity, ml.model, user_id, start_date, end_date)
     end

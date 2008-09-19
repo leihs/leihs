@@ -11,15 +11,6 @@
 		<%= render :partial => 'complete_order' %>
 		<%= render :partial => 'basket' %>
 
-		/*
-	    var account = new Ext.Panel({
-	        title:'Account',
-			border: false,
-		    autoScroll:true,
-			html: '<%= current_user.login %>'
-	    });
-		*/
-
 	    var tips = new Ext.Panel({
 	        title:'Tips',
 			border: false,
@@ -33,21 +24,6 @@
 			closable: true,
 		    autoScroll:true,
 			listeners: { activate: function(cmp) {
-/*
-							Ext.Ajax.request({
-							    url: '/users/timeline',
-							    method: 'GET',
-								success: function(response, options) {
-					               Ext.getDom('user_timeline').innerHTML = response.responseText;
-						        }
-							});
-
-							this.load({
-							    url: '/users/timeline',
-							    text: "Loading...",
-							    timeout: 30
-							});
-*/							
 			               Ext.getDom('user_timeline').innerHTML = "<iframe src='/users/timeline' width='100%' height='500' frameborder='0'></iframe>";
 
 						}
@@ -61,14 +37,15 @@
                     region:'center',
                     deferredRender:true,
                     activeTab:0,
-                    margins:'0 5 5 5',
-                    items:[
-						{
+                    //margins:'0 5 5 5',
+                    items:[{
+							xtype: 'panel',
 							title: 'Welcome',
 							html: 'Welcome page...',
 							closable: true
 						},
-						models, complete_order] //, user_timeline
+						models_grid, //models,
+						order] //, user_timeline
                 });
 				   
 	   var northPanel, southPanel, eastPanel, westPanel, centerPanel;				        
@@ -77,9 +54,7 @@
             items:[northPanel = {
                     region:'north',
                     contentEl: 'north',
-                    height: 30,
-                    minSize: 30,
-                    maxSize: 30,
+                    height: 40,
                     collapsible: true,
                     margins:'5 5 5 5',
 					items: topbar
@@ -87,11 +62,12 @@
                     region:'east',
                     //title: ' ', //'Basket',
                     //collapsible: true,
+                    split:true,
                     width: 200,
                     minSize: 175,
-                    maxSize: 400,
+                    maxSize: 300,
                     margins:'0 5 5 0',
-					autoScroll:true,
+					//autoScroll:true,
 					// hidden: true,
                     layout:'accordion', //'fit',
                     layoutConfig:{
@@ -102,10 +78,10 @@
                     region:'west',
 					//title: ' ',
                     //collapsible: true,
-                    //split:true,
+                    split:true,
                     width: 200,
                     minSize: 175,
-                    maxSize: 400,
+                    maxSize: 300,
                     margins:'0 0 5 5',
 					autoScroll:true,
 					// hidden: true,
@@ -144,8 +120,15 @@
 							},
 							items: recent_models
 	                    }]
-                },
-				centerPanel = center_tabs
+                }, centerPanel = {
+					xtype: 'panel',
+					region: 'center',
+					deferredRender:true,
+                    //margins:'0 5 5 5',
+					layout: 'border',
+					items: [center_tabs,
+							models_details]
+				}
              ]
         });
     };

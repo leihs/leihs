@@ -48,7 +48,7 @@
 		listeners: {
 			rowclick: function( grid, rowIndex, e ){
 				x_id = grid.getStore().getAt(rowIndex).id;
-	            center_tabs.activate(models);				
+	            //center_tabs.activate(models);				
 				models_details.load({
 				    url: '/models/details?model_id=' + x_id,
 				    text: "Loading...",
