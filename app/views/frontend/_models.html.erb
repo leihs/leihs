@@ -26,29 +26,6 @@
     });
     models_store.setDefaultSort('name', 'ASC');
 
-/*
-    // create the Data Store
-    var models_details_store = new Ext.data.Store({
-        proxy: new Ext.data.HttpProxy(
-			new Ext.data.Connection({
-			    url: '/models/details?model_id=1', // + x_id,
-				method: 'GET',
-				extraParams: {format:'ext_json'}
-			})
-        ),
-
-        // create reader that reads the Topic records
-        reader: new Ext.data.JsonReader({
-            root: 'models',
-            totalProperty: 'results',
-            id: 'id',
-            fields: [
-                'name', 'manufacturer'
-            ]
-        }),
-    });
-*/
-	
     // the column model has information about grid columns
     // dataIndex maps the column to the specific data field in
     // the data store
@@ -71,13 +48,6 @@
 							n.push(value[i].name)
 						return n.join(", ");
 					 },
-        }, {header: "",
-			width: 50,
-			fixed: true,
-			dataIndex: '',
-			align: 'center',
-			//renderer: function(){ return '<input type="button" value="Add" style="font-size:80%; cursor: pointer;" />';}
-			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/add.png" %>" style="cursor: pointer;" />';}
 		}]);
 
     // by default columns are sortable
@@ -85,8 +55,8 @@
 
     var models_grid = new Ext.grid.GridPanel({
 //        el:'model_list',
-//        title:'[1] Models',
-		height:350,
+        title:'Models',
+//		height:350,
 		split: true,
 		region: 'north',
         store: models_store,
@@ -97,37 +67,12 @@
 		listeners: {
 			cellclick: function( grid, rowIndex, columnIndex, e ){
 			  x_id = grid.getStore().getAt(rowIndex).id;
-			  if (columnIndex == 3){
-				Ext.Ajax.request({
-				    url: '/orders/add_line?model_id=' + x_id,
-//				    method: 'POST',
-//	TODO			    params: {"authenticity_token": encodeURIComponent('7839094fc4f002d4585df81e6486429aba7c9350')},
-				    success: function(responseObject) {
-						if(!eastPanel.items[0].expand()) complete_order_store.load();
-				    },
-					failure: function() {
-						Ext.Msg.alert('Status', 'Failure');
-					}
-				});
-			  }else{
 				models_details.load({
 				    url: '/models/details?model_id=' + x_id,
 				    text: "Loading...",
 				    timeout: 30,
 					scripts: true
 				});
-				/*
-				Ext.Ajax.request({
-				    url: '/models/details?model_id=' + x_id,
-				    success: function(responseObject) {
-						//models_template.append('some-element', {name: 'myid', manufacturer: 'bar'});
-						//models_template.overwrite(Ext.getCmp('models_details').body, responseObject); //grid.getStore().getAt(rowIndex).data
-						Ext.Msg.alert('Status', responseObject.class);
-					}
-				});
-				models_details_store.load();
-				*/
-			  }
 			}
 		},
 
@@ -153,57 +98,11 @@
 
 ///////////////////////////////////////////////////////////////////////////
 	
-	/*
-	var models_template = new Ext.Template(
-	    ['<div>',
-	        '<h3>{name}</h3>',
-	        '{manufacturer}',
-	    '</div>']
-	);
-	*/
-
        var models_details = new Ext.Panel({
 	   		id: 'models_details',
-			region: 'center',
-		    autoScroll:true,
-			//store: models_details_store,
-			/*
-			bodyStyle: {
-				background: '#ffffff',
-				padding: '7px'
-			}
-			*/
-			//, tpl: models_template
-        });
-
-///////////////////////////////////////////////////////////////////////////
-	   //var already_visible = false;
-       var models = new Ext.Panel({
-			id: 'models',
-            layout:'border',
-			frame: true,
-	        title:'Models',
-			width: 540,
-			height:350,
-            items:[models_grid, models_details]
-			/* ,
-			listeners: {
-				activate: function(cmp) {
-					if(already_visible){
-						viewport.getComponent(1).setVisible(true);
-						viewport.getComponent(2).setVisible(true);
-						viewport.doLayout();
-					}else{
-						already_visible = true;
-					}
-					if(!eastPanel.items[1].expand()) complete_order_store.load();
-				},
-				deactivate: function(cmp) {
-					viewport.getComponent(1).setVisible(false);
-					viewport.getComponent(2).setVisible(false);
-					viewport.doLayout();
-				}
-			} */
-        });
-
-  
+			region: 'south',
+            split:true,
+			height:220,
+            //margins:'5 0 0 0',
+		    autoScroll:true
+		});

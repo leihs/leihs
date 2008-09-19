@@ -22,8 +22,8 @@
 		listeners: {
 			click: function( node, e ){
 				node.toggle();
-				models.show();
-				models_grid.store.load({params:{start:0, limit:25, category_id: node.id}});
+				models_grid.show();
+				models_store.load({params:{start:0, limit:25, category_id: node.id}});
 			}
 		}
       });

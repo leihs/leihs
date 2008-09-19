@@ -43,7 +43,7 @@
     inventory_pools_cm.defaultSortable = true;
 
     var inventory_pools = new Ext.grid.GridPanel({
-        title:'Inventory Pools',
+        title:'Inventory Pools (<%= "#{session[:inventory_pool_ids].size}/#{current_user.inventory_pools.size}" %>)',
 		border: false,
 		split: true,
         store: inventory_pools_store,
@@ -75,7 +75,7 @@
 					    url: '/frontend/set_inventory_pools',
 						params: {"inventory_pool_ids": lines},
 	                    success: function(r) {
-				            center_tabs.activate(models);
+				            models_grid.show(); //center_tabs.activate(models);
 							models_store.load({params:{start:0, limit:25}});
 	                    }
 	                });					

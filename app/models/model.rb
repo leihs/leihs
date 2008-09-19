@@ -95,9 +95,8 @@ class Model < ActiveRecord::Base
 #############################################  
 
 
-  def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil)
-    quantity ||= 1
-    document.add_line(quantity, self, user_id, start_date, end_date)
+  def add_to_document(document, user_id, quantity = 1, start_date = nil, end_date = nil, inventory_pool = nil)
+    document.add_line(quantity, self, user_id, start_date, end_date, inventory_pool)
   end  
   
   

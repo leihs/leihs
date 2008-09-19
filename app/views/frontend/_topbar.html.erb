@@ -1,15 +1,15 @@
 	    var topbar = new Ext.Toolbar({
-			height: 30,
+			height: 40,
 			style: 'color: navy;',
 	        items: [{
 					xtype: 'tbtext',
-					text:'<b>Leihs 2.0</b>'
-				}, '-', {
+					text:'<a href="/" style="color: navy; text-decoration: none; font-size: x-large; font-weight: bold;">Leihs 2.0</a>'
+				}, ' ', '-', ' ', {
 					text:'Preferences',
 					menu: {items: [
-                        {text: 'Menu 1', handler: ''},
-                        {text: 'Menu 2', handler: ''},
-                        {text: 'Menu 3', handler: ''} 
+                        {text: '<b>Menu 1</b>', handler: ''},
+                        {text: '<i>Menu 2</i>', handler: ''},
+                        {text: '<u>Menu 3</u>', handler: ''} 
 	                ]}
 				},{
 					text:'View',
@@ -25,10 +25,16 @@
                         {text: 'Menu 2', handler: ''},
                         {text: 'Menu 3', handler: ''} 
 	                ]}
-				}, '->', {
-					text:'Account',
-					menu: {items: [
-                        {text: '<%= current_user.login %>', handler: ''},
+				}, '->', //{
+//					text:'Account',
+//					menu: {items: [
+                        {text: '<%= current_user.login %>', 
+						 iconCls:'bt',
+				         icon:'<%= $layout_public_path + "/images/icons/user.png" %>',
+						 handler: function() {
+									// TODO
+								}
+						},
                         {text: 'Logout',
 						 iconCls:'bt',
 				         icon:'<%= $layout_public_path + "/images/icons/application_delete.png" %>',
@@ -36,6 +42,7 @@
 									window.location.href = '/logout';
 								}
 						}
-	                ]}
-				}]
+//	                ]}
+				//}
+				]
 	    });
