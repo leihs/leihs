@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :unique_id
+  attr_accessible :login, :email, :password, :password_confirmation
 
   acts_as_ferret :fields => [ :login ]  #, :store_class_name => true
 
@@ -64,13 +64,13 @@ class User < ActiveRecord::Base
     @authinfo ||= Class.const_get(authentication_system.class_name).new(login)
   end
   
-  def email=(email)
-    authinfo.email = email
-  end
+#  def email=(email)
+#    authinfo.email = email
+#  end
   
-  def email
-    authinfo.email
-  end
+#  def email
+#    authinfo.email
+#  end
 
 ################################################
 
@@ -165,7 +165,7 @@ class User < ActiveRecord::Base
 # retrieve roles for a given inventory_pool hierarchically with betternestedset plugin #sellittf#
     role = Role.find(:first, :conditions => {:name => role_in_question})
     if inventory_pool_in_question
-      roles = self.access_rights.collect{|a| a.role if a.inventory_pool.id == inventory_pool_in_question.id }.compact
+      roles = self.access_rights.collect{|a| a.role if a.inventory_pool and a.inventory_pool.id == inventory_pool_in_question.id }.compact
     else
       roles = self.access_rights.collect(&:role)
     end  
