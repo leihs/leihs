@@ -7,7 +7,7 @@ class Backend::TemporaryController < ApplicationController
       else
         id = "1-" + params[:user_name] if params[:user_name].include?('admin')
         id ||= "2-" + params[:user_name]
-        redirect_to "http://localhost:3000/authenticator/zhdk/login_successfull/" + id
+        redirect_to "http://localhost:3000/authenticator/zhdk/login_successful/" + id
       end
     end
   end
@@ -27,7 +27,7 @@ class Backend::TemporaryController < ApplicationController
   
   def create_some
     reset_session
-    clean_db_and_index
+#    clean_db_and_index
     
     params[:id] = 3
     params[:name] = "model"
@@ -53,12 +53,12 @@ class Backend::TemporaryController < ApplicationController
     
     params[:id] = 5
     params[:name] = "admin"
-    create_some_users
+#old#    create_some_users
 #TODO    
 #    params[:name] = "student"
 #    create_some_users
 
-    create_meaningful_users
+#old#   create_meaningful_users
 
     params[:id] = 10
 #    create_some_submitted_orders
