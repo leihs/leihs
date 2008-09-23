@@ -33,14 +33,6 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
 
   add_index "accessories_inventory_pools", ["accessory_id", "inventory_pool_id"], :name => "index_accessories_inventory_pools", :unique => true
 
-  create_table "accounts", :force => true do |t|
-    t.string   "email"
-    t.string   "login"
-    t.string   "hashed_password"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "authentication_systems", :force => true do |t|
     t.string  "name"
     t.string  "class_name"
