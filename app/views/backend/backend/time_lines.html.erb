@@ -63,7 +63,7 @@
 		<% 
 			l = @lines.first
 			current_date = Date.today
-			availability = l.model.availabilities(current_date.beginning_of_month, (current_date + 6.month).end_of_month, l, current_date.beginning_of_month)
+			availability = l.model.available_dates_for_document_line(current_date.beginning_of_month, (current_date + 6.month).end_of_month, l, current_date.beginning_of_month)
 			last_quantity = -1
 			availability.each do |a| 
 		%>

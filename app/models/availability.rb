@@ -15,7 +15,7 @@ class Availability
   end
   
   def periods
-    periods = []
+    availabilities = []
     last_date = @start_date
     last_quantity = @quantity
     
@@ -26,14 +26,29 @@ class Availability
       else
         date_of_event = date_of_event - 1.day
       end
-      periods << Availability.new(last_quantity, last_date, date_of_event)
+      availabilities << Availability.new(last_quantity, last_date, date_of_event)
       last_date = date_of_event + 1.day  
       last_quantity = last_quantity + event[1]
     end
     
-    periods << (periods.size == 0 ? self : Availability.new(last_quantity, last_date, nil))
-    periods
+    availabilities << (availabilities.size == 0 ? self : Availability.new(last_quantity, last_date, nil))
+    availabilities
   end
+
+  def dates(start_date, end_date)
+    ret = []
+    start_date.upto(end_date) do |d|
+      period = period_for(d)
+      if period.nil?
+        ret << [d, 0]
+      else
+        ret << [d, period.quantity]
+      end
+    end
+    ret
+  end
+
+
 
   def period_for(date)
     date = as_date(date)
@@ -50,27 +65,27 @@ class Availability
     end_date = as_date(end_date)
     maximum_available = @quantity
     periods.each do |period|
-      if period.is_part_of(start_date, end_date) || period.encloses(start_date, end_date) || period.start_date_in(start_date, end_date) || period.end_date_in(start_date, end_date)
+      if period.is_part_of?(start_date, end_date) || period.encloses?(start_date, end_date) || period.start_date_in?(start_date, end_date) || period.end_date_in?(start_date, end_date)
         maximum_available = period.quantity if period.quantity < maximum_available
       end
     end
     maximum_available
   end
 
-  def is_part_of(start_date, end_date)
+  def is_part_of?(start_date, end_date)
     return false if self.end_date.nil?
     self.start_date >= start_date && self.end_date <= end_date
   end
   
-  def encloses(start_date, end_date)
+  def encloses?(start_date, end_date)
     self.start_date <= start_date && (self.end_date.nil? || self.end_date >= end_date)
   end
   
-  def start_date_in(start_date, end_date)
+  def start_date_in?(start_date, end_date)
     self.start_date >= start_date && self.start_date <= end_date
   end
   
-  def end_date_in(start_date, end_date)
+  def end_date_in?(start_date, end_date)
     return false if self.end_date.nil?
     self.end_date >= start_date && self.end_date <= end_date
   end
@@ -79,28 +94,21 @@ class Availability
     reservations.each do | reservation |
       reserve(reservation)
     end
-    
   end
-  
+
+  private 
+
   def reserve(reservation)
-    remove(reservation)
-    add(reservation)
-    @events = @events.sort do |x, y|
-      x[0] <=> y[0]
-    end
-  end
-  
-  def remove(reservation)
+    # remove
     on = reservation.start_date
     @events << [Date.new(on.year, on.month, on.day), -reservation.quantity]
-  end
-  
-  def add(reservation)
+
+    # add
     on = reservation.end_date
     @events << [Date.new(on.year, on.month, on.day), reservation.quantity] unless reservation.is_late?(@current_date)
+
+    @events = @events.sort {|x, y| x[0] <=> y[0] }
   end
-  
-  private 
   
   def is_returnal?(quantity)
     quantity > 0

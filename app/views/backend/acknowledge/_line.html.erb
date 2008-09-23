@@ -8,7 +8,7 @@
 			  	<% ip = @current_inventory_pool %>
 				<li><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %></li>
 			  <% else %>
-				<li><%= "(max #{@line.model.maximum_available_in_period(@line.start_date, @line.end_date, @line)})" %></li>
+				<li><%= "(max #{@line.model.maximum_available_in_period_for_document_line(@line.start_date, @line.end_date, @line)})" %></li>
 				<% for ip in @line.model.inventory_pools %>
 					<li <%= (@line.inventory_pool == ip ? "style='color: red;'" : "") %>><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %></li>
 				<% end %>

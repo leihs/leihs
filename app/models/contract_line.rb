@@ -4,6 +4,8 @@ class ContractLine < DocumentLine
   belongs_to :contract
   belongs_to :model # common for sibling classes
   
+  delegate :inventory_pool, :to => :contract
+  
   validate :validate_item
 
   # custom valid? method

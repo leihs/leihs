@@ -1,10 +1,10 @@
 <% if @model
 
-		m = @model.availabilities(Date.today, (Date.today + 6.month))
-		n = m.delete_if {|x| x[1] > 0}.collect {|x| x[0].strftime('%Y-%m-%d')}
+#		m = @model.availabilities(Date.today, (Date.today + 6.month))
+#		n = m.delete_if {|x| x[1] > 0}.collect {|x| x[0].strftime('%Y-%m-%d')}
 	
 		ips = []
-	 	for ip in @model.inventory_pools & current_user.inventory_pools
+	 	for ip in @model.inventory_pools & @current_inventory_pools
 			ips << ["#{ip.id}", "#{ip.name} (#{ip.items.count(:conditions => {:model_id => @model.id})})" ]
 		end
  %>

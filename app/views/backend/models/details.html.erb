@@ -38,7 +38,7 @@
 <hr>
 Id: <%= @model.id %>
 <ul>
-<% @model.availability.each do |a| %>
+<% @model.available_periods_for_inventory_pool(@current_inventory_pool).each do |a| %>
 	<li><%= a.start_date %> : <%= a.quantity %></li>
 <% end %>
 </ul>

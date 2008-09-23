@@ -34,14 +34,11 @@ class Document < ActiveRecord::Base
 ################################################################
 
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil, inventory_pool = nil)
-      start_date ||= time_window_min
-      end_date ||= time_window_max
-    
       document_line = "#{self.class}Line".constantize
-      o = document_line.new(:quantity => quantity,
+      o = document_line.new(:quantity => quantity || 1,
                             :model_id => model.to_i,
-                            :start_date => start_date,
-                            :end_date => end_date)
+                            :start_date => start_date || time_window_min,
+                            :end_date => end_date || time_window_max)
       o.inventory_pool = inventory_pool if inventory_pool # only for OrderLine
       log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id)
       lines << o

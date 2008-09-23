@@ -79,7 +79,6 @@ class Order < Document
   def submit(purpose = nil)
     self.purpose = purpose if purpose
     save
-    #old: save if new_record? # OPTIMIZE
 
     if approvable?
       self.status_const = Order::SUBMITTED
@@ -91,28 +90,14 @@ class Order < Document
     end
   end
 
-  # keep the user required quantity 
+  # keep the user required quantity, force positive quantity 
   def update_line(line_id, required_quantity, user_id)
     line = order_lines.find(line_id)
     original_quantity = line.quantity
         
-    max_available = line.model.maximum_available_in_period(line.start_date, line.end_date, line)
+    max_available = line.model.maximum_available_in_period_for_document_line(line.start_date, line.end_date, line)
 
-    line.quantity = [required_quantity, 0].max # TODO force positive quantity in DocumentLine
-
-    # check if it can be served by a single inventory pool, or split the line
-    # TODO check availability
-    if line.quantity <= max_available
-      single_inventory_pool = line.model.inventory_pools.any? {|ip| ip.items.count(:conditions => {:model_id => line.model.id}) >= line.quantity }
-      unless single_inventory_pool
-        total_quantity = line.quantity
-        line.quantity = 1 # TODO determine quantity to split
-        l = line.clone
-        l.quantity = total_quantity - line.quantity
-        lines << l
-      end
-      # TODO refresh interface with new line
-    end
+    line.quantity = [required_quantity, 0].max
     
     line.save
 
@@ -130,7 +115,6 @@ class Order < Document
     self.purpose = new_purpose
     log_change(change, user_id)
     save
-    # [line, change]
   end  
   
   def swap_user(new_user_id, admin_user_id)
@@ -141,7 +125,6 @@ class Order < Document
       log_change(change, admin_user_id)
       save
     end
-    # [line, change]
   end  
   
     
@@ -198,43 +181,7 @@ class Order < Document
         to_split_lines.each {|l| o.lines << l }
         o.save        
       end
-
-#old#    
-#    if !inventory_pool and lines.first #temp#
-#      #temp#
-#      #    # TODO check availability and TODO scope user's visible inventory pools
-#      #  
-#      #    # collect possible inventory pools 
-#      #    #inventory_pools = models.inventory_pools #old# models.collect(&:inventory_pools).flatten.uniq
-#      #
-#      #    # construct combinations of inventory pools
-#      #    ip_set = []
-#      #    lines.each do |l|
-#      #      ip_set << l.models.collect(&:inventory_pools)
-#      #    end
-#      #
-#      #    # split a single line if cannot be served by a single inventory pool
-#      #
-#      #    # define mandatory inventory pools
-#
-#      #temp#    
-#      # TODO temp determines related inventory_pool
-#      first_line_with_items = lines.detect {|l| !l.model.items.empty? } 
-#      inventory_pool = first_line_with_items.model.items.first.inventory_pool
-#    
-#      # TODO split order for different inventory pools
-#      to_split_lines = lines.select {|l| not l.model.inventory_pools.any?{|ip| ip == inventory_pool }}
-#      unless to_split_lines.empty?
-#        o = Order.new(self.attributes)
-#        to_split_lines.each {|l| o.lines << l }
-#        o.submit
-#      end
-#  
-#      update_attribute(:inventory_pool, inventory_pool)
-#    end
     
   end
-
-
   
 end
