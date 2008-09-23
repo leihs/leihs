@@ -42,7 +42,7 @@ steps_for(:acknowledge) do
   
   Given "$name's email address is $email" do |name, email|
     u = User.find_by_login(name)
-    u.email = email
+    u.update_attribute(:email, email)
   end
   
   When "$who looks at the screen" do | who |

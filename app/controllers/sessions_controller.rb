@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
   end
 
   def authenticate(id = params[:id])
-    @selected_system = AuthenticationSystem.find(id) if id
+    @selected_system = AuthenticationSystem.active_systems.find(id) if id
     @selected_system ||= AuthenticationSystem.default_system.first
     
     sys = eval("Authenticator::" + @selected_system.class_name + "Controller").new
