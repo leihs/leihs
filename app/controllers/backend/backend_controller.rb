@@ -23,7 +23,7 @@ class Backend::BackendController < ApplicationController
         model = current_inventory_pool.models.find(params[:model_id])
       end
       params[:user_id] ||= current_user.id # OPTIMIZE
-      model.add_to_document(document, params[:user_id], params[:quantity])
+      model.add_to_document(document, params[:user_id], params[:quantity], nil, nil, current_inventory_pool)
 
       flash[:notice] = _("Line couldn't be added") unless document.save        
       redirect_to :action => 'show', :id => render_id        

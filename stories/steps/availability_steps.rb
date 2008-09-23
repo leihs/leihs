@@ -11,7 +11,7 @@ steps_for(:availability) do
     order.submit
     order.save
     order.lines.size.should >= 1
-    DocumentLine.current_and_future_reservations(model.id).size.should >= 1
+    DocumentLine.current_and_future_reservations(model.id, order.inventory_pool).size.should >= 1
   end
   
   Given "a contract exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
@@ -25,7 +25,7 @@ steps_for(:availability) do
     contract.reload
     contract.lines.size.should >= 1
     contract.lines.first.item.should_not be_nil
-    DocumentLine.current_and_future_reservations(model.id).size.should >= 1
+    DocumentLine.current_and_future_reservations(model.id, contract.inventory_pool).size.should >= 1
   end
   
   
@@ -43,12 +43,12 @@ steps_for(:availability) do
   end
   
   When "$who checks availability for '$what'" do |who, model|
-    @periods = @model.availability
+    @periods = @model.available_periods_for_inventory_pool(InventoryPool.first)
   end
   
   When "$who checks availability for '$what' on $date" do |who, model, date|
     date = Factory.parsedate(date)
-    @periods = @model.availability(nil, date)
+    @periods = @model.available_periods_for_inventory_pool(InventoryPool.first, date)
   end
 	
 	Then "it should always be available" do
@@ -75,15 +75,15 @@ steps_for(:availability) do
 	end
   
   Then "the maximum available quantity on $date is $quantity" do |date, quantity|
-    @model.maximum_available(Factory.parsedate(date)).should == quantity.to_i
+    @model.maximum_available_for_inventory_pool(Factory.parsedate(date), InventoryPool.first).should == quantity.to_i
   end
   
   Then "if I check the maximum available quantity for $date is $quantity on $current_date" do |date, quantity, current_date|
-    @model.maximum_available(Factory.parsedate(date), nil, Factory.parsedate(current_date)).should == quantity.to_i
+    @model.maximum_available_for_inventory_pool(Factory.parsedate(date), InventoryPool.first, Factory.parsedate(current_date)).should == quantity.to_i
   end
   
   Then "the maximum available quantity from $start_date to $end_date is $quantity" do |start_date, end_date, quantity|
-    @model.maximum_available_in_period(Factory.parsedate(start_date), Factory.parsedate(end_date)).should == quantity.to_i
+    @model.maximum_available_in_period_for_inventory_pool(Factory.parsedate(start_date), Factory.parsedate(end_date), InventoryPool.first).should == quantity.to_i
   end
   
   

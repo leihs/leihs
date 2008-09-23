@@ -18,6 +18,7 @@ class CreateModels < ActiveRecord::Migration
 
   def self.down
     drop_table :models
+    drop_table :models_compatibles
   end
 end
 

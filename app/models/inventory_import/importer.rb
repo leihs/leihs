@@ -15,8 +15,9 @@ class InventoryImport::Importer
       }
       model = Model.find_or_create_by_name attributes
       category = Category.find_or_create_by_name :name => item.Art_Gruppe_2
-      category.model_links << ModelLink.create(:model => model, :quantity => 1) unless category.model_links.detect{| link |  link.model_id == model.id }
-      category.save
+      #old# category.model_links << ModelLink.create(:model => model, :quantity => 1) unless category.model_links.detect{| link |  link.model_id == model.id }
+      #old# category.save
+      category.models << model # TODO *a* prevent duplications 
       
       item_attributes = {
         :inventory_code => (item.Stao_Abteilung + item.Inv_Serienr.to_s),
