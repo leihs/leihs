@@ -60,18 +60,6 @@ class User < ActiveRecord::Base
     login
   end
 
-  def authinfo
-    @authinfo ||= Class.const_get(authentication_system.class_name).new(login)
-  end
-  
-#  def email=(email)
-#    authinfo.email = email
-#  end
-  
-#  def email
-#    authinfo.email
-#  end
-
 ################################################
 
   # get or create a new order (among all inventory pools)

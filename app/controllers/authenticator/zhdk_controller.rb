@@ -8,6 +8,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   APPLICATION_IDENT = '7f6d33ca2ad44359c826e2337d9315b1'
   DEFAULT_INVENTORY_POOLS = ["AVZ", "ITZ"]
   SUPER_USERS = ["e157339|zhdk", "e159123|zhdk", "e10262|zhdk"] #Jerome, Franco, Ramon
+  AUTHENTICATION_SYSTEM_CLASS_NAME = "Zhdk"
   
   def login_form_path
     "/authenticator/zhdk/login"
@@ -22,25 +23,28 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     if response.code.to_i == 200
       xml = Hash.from_xml(response.body)
       uid = xml["authresponse"]["person"]["uniqueid"]
-      self.current_user = User.find(:first, :conditions => { :unique_id => uid }) || generate_new_user(xml) #TODO: Update Information that changes (groups, email etc.)
+      self.current_user = create_or_update_user(xml)
       redirect_back_or_default("/")
     else
       render :text => "Authentication Failure. HTTP connection failed - response was #{response.code}" 
     end
   end
-  
-  
-  def generate_new_user(xml)
-
-    user = User.new(:email => xml["authresponse"]["person"]["email"],
-                       :login => "#{xml['authresponse']['person']['firstname']} #{xml["authresponse"]["person"]["lastname"]}")
-    user.unique_id = xml["authresponse"]["person"]["uniqueid"]
-    user.save
-    r = Role.find(:first, :conditions => {:name => "student"})
-    ips = InventoryPool.find(:all, :conditions => {:name => DEFAULT_INVENTORY_POOLS})
-    ips.each do |ip|
-      user.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
+    
+  def create_or_update_user(xml)
+    uid = xml["authresponse"]["person"]["uniqueid"]
+    user = User.find(:first, :conditions => { :unique_id => uid }) || User.new
+    if user.new_record?
+      user.unique_id = uid      
+      r = Role.find(:first, :conditions => {:name => "student"})
+      ips = InventoryPool.find(:all, :conditions => {:name => DEFAULT_INVENTORY_POOLS})
+      ips.each do |ip|
+        user.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
+      end
     end
+    user.email = xml["authresponse"]["person"]["email"]
+    user.login = "#{xml['authresponse']['person']['firstname']} #{xml["authresponse"]["person"]["lastname"]}"
+    user.authentication_system = AuthenticationSystem.find(:first, :conditions => {:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME })
+    user.save
     
     if SUPER_USERS.include?(user.unique_id)
       r = Role.find(:first, :conditions => {:name => "admin"})    
