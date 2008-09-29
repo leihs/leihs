@@ -1,6 +1,6 @@
 require 'net/http' 
 require 'net/https'
-
+require 'cgi'
 class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   
   
@@ -15,7 +15,11 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   end
   
   def login
-    redirect_to AUTHENTICATION_URL
+    redirect_to target
+  end
+  
+  def target
+    AUTHENTICATION_URL + "&url_postlogin=" + CGI::escape("http://#{request.host}:#{request.port}#{url_for('/authenticator/zhdk/login_successful/%s')}")
   end
   
   def login_successful(session_id = params[:id])
