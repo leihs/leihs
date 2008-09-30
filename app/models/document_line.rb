@@ -9,14 +9,29 @@ class DocumentLine < ActiveRecord::Base
 ###############################################  
   
   def self.current_and_future_reservations(model_id, inventory_pool, document_line = nil, date = Date.today)
+    
+    is_order_line = (document_line and document_line.is_a?(OrderLine))
+    is_contract_line = (document_line and document_line.is_a?(ContractLine))
     cl = ContractLine.find(:all,
                            :joins => :contract,
                            :conditions => ['model_id = ? AND returned_date IS NULL AND contract_lines.id <> ? AND contracts.inventory_pool_id = ?',
-                                                  model_id, (document_line ? document_line.contract_to_exclude : 0), inventory_pool.id])
+                                                  model_id, (is_contract_line ? document_line.id : 0), inventory_pool.id])
     ol = OrderLine.find(:all,
                         :joins => :order,
-                        :conditions => ['model_id = ? AND ((start_date <= ? AND end_date > ?) OR start_date > ?) AND order_lines.id <> ? AND orders.status_const = ? AND orders.inventory_pool_id = ?',
-                                         model_id, date, date, date, (document_line ? document_line.order_to_exclude : 0), Order::SUBMITTED, inventory_pool.id])
+                        :conditions => ["model_id = :model_id 
+                                            AND ((start_date <= :date AND end_date >= :date) OR start_date > :date) 
+                                            AND order_lines.id <> :order_line_id 
+                                            AND (orders.status_const = :submitted
+                                                            OR (orders.id = :current_order_id AND orders.status_const = :new_order))
+                                            AND order_lines.inventory_pool_id = :inventory_pool",
+                                         { :model_id => model_id, 
+                                           :date => date,
+                                           :order_line_id => (is_order_line ? document_line.id : 0), 
+                                           :submitted => Order::SUBMITTED, 
+                                           :current_order_id => (is_order_line ? document_line.order_id : 0),
+                                           :new_order => Order::NEW, 
+                                           :inventory_pool => inventory_pool.id}
+                                        ])
     cl + ol
   end
 
@@ -24,6 +39,7 @@ class DocumentLine < ActiveRecord::Base
   def <=>(other)
     self.start_date <=> other.start_date
   end
+
 
   def available?
     model.maximum_available_in_period_for_document_line(start_date, end_date, self) >= quantity

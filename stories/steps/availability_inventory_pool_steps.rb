@@ -48,6 +48,7 @@ steps_for(:availability_inventory_pool) do
     model_id = Model.find_by_name(model).id
     post "/orders/add_line", :id => @order.id, :model_id => model_id, :quantity => quantity
     @order = assigns(:order)
+    @line = @order.order_lines.last
   end
 
   When "the new order is submitted" do
@@ -91,4 +92,18 @@ steps_for(:availability_inventory_pool) do
     @models.include?(m).should == true
   end
 
+  When "'$user' orders another $quantity '$model' for the same time" do |user, quantity, model|
+    model_id = Model.find_by_name(model).id
+    post "/orders/add_line", :id => @order.id, :model_id => model_id, :quantity => quantity
+    @order = assigns(:order)
+    @line = @order.order_lines.last 
+  end
+
+  Then "they should be available" do
+    @line.available?.should == true
+  end
+  
+  Then "they should not be available" do
+    @line.available?.should == false    
+  end
 end

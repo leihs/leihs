@@ -53,7 +53,7 @@ class Order < Document
       save
 
       Notification.order_approved(self, comment)
-
+      
       contract = user.get_current_contract(self.inventory_pool)
       order_lines.each do |ol|
         ol.quantity.times do
