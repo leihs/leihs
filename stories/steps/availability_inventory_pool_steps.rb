@@ -68,6 +68,11 @@ steps_for(:availability_inventory_pool) do
     total.should == number.to_i
   end
 
+  Then "user '$user' gets notified that his order has been submitted" do |who|
+    user = Factory.create_user({:login => who })
+    user.notifications.size.should == 1
+    user.notifications.first.title = "Order submitted"
+  end
   
 ###########################################################################
 

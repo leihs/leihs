@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
     #  end
     #end
   has_many :categories, :through => :models, :uniq => true # (nested)
+  has_many :notifications
   # TODO has_many :templates, :through => :models, :uniq => true # (nested)
 
   def all_categories # TODO optimize
@@ -117,7 +118,7 @@ class User < ActiveRecord::Base
     visits = to_remind
     m = ""
     unless visits.empty?
-      m = UserMailer.deliver_remind(self, visits)
+      Notification.remind_user(self, visits)
       histories << History.new(:text => _("Reminded %{q} items for contracts %{c}") % { :q => visits.collect(&:quantity).sum,
                                                                                         :c => visits.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
                                :user_id => reminder_user,

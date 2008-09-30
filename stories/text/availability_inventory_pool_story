@@ -54,9 +54,7 @@ Scenario: Splitting order and notifying user
 	And it asks for 1 item
 	And 1 order exists for inventory pool 2
 	And it asks for 3 items
-	And user 'jack' received an email with subject 'Your order has been split'
-	And it contains information that he has to pick up 1 item at inventory pool 1
-	And it contains information that he has to pick up 3 item at inventory pool 2
+	And user 'jack' gets notified that his order has been submitted
 	
 Scenario: User can't order things that user can't see
 	
@@ -72,40 +70,4 @@ Scenario: User can't order things that user can't see
 	
 	When 'jack' searches for 'Coffee'
 	Then he sees 'Coffee Machine'
-	
-Scenario: User must have instructions
-	
-	Given 2 inventory pools
-	And a model 'Laser-guided HiSpeed Camera' exists
-	And this model has 1 item in inventory pool 2
-	And this model requires users to have 'Using Baseball bats in camera maintenance' certification
-	And user 'jack' has access to inventory pool 2
-	
-	When 'jack' orders 'Laser-guided HiSpeed Camera'
-	
-	Then he is notified that he needs a certification to get this item
-	
-	Given 'jack' has a certification in 'Using Baseball bats in camera maintenance'
-	
-	When 'jack' orders 'Laser-guided HiSpeed Camera'
-	
-	Then his order contains 1 item
-	
-Scenario: Hide inventory from user groups
-	
-	Given 2 inventory pools
-	And a model 'Camera Canon Powershot S200' exists
-	And this model has 3 items in inventory pool 1
-	And this model should not be seen by 'Video student'
-	And 'jack' has access to inventory pool 1
-	
-	When 'jack' orders 'Camera Canon Powershot S200'
-	
-	Then his order contains 1 item
-	
-	Given 'jack' belongs to group 'Video student'
-	
-	When 'jack' orders 'Camera Canon Powershot S200'
-	
-	Then he is not allowed to do that.
 	
