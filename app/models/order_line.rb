@@ -26,14 +26,6 @@ class OrderLine < DocumentLine
 
 ###############################################
 
-  def order_to_exclude
-    id
-  end
-  
-  def contract_to_exclude
-    0
-  end
-  
   def is_late?(current_date = Date.today)
     false
   end

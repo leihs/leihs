@@ -28,15 +28,7 @@ class ContractLine < DocumentLine
   named_scope :to_take_back, :conditions => ["item_id IS NOT NULL AND returned_date IS NULL"]
   named_scope :to_remind,    :conditions => ["item_id IS NOT NULL AND returned_date IS NULL AND end_date < CURDATE()"]
 
-##################################################
-  
-  def order_to_exclude
-    0
-  end
-  
-  def contract_to_exclude
-    id
-  end  
+################################################## 
 
   def is_late?(current_date = Date.today)
     item and returned_date.nil? and end_date < current_date

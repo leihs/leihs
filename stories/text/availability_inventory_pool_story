@@ -71,3 +71,15 @@ Scenario: User can't order things that user can't see
 	When 'jack' searches for 'Coffee'
 	Then he sees 'Coffee Machine'
 	
+Scenario: User orders the same item multiple times, thus exceeding maximum quantity
+
+  Given 1 inventory pools
+  And a model 'Pink Hairbrush' exists
+  And this model has 3 items in inventory pool 1
+  And user 'samantha' has access to inventory pool 1
+  
+  When 'samantha' orders 3 'Pink Hairbrush'
+  Then they should be available
+  
+  When 'samantha' orders another 2 'Pink Hairbrush' for the same time
+  Then they should not be available
