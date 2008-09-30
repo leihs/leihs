@@ -38,7 +38,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order.status_const = Order::REJECTED
       @order.backup = nil
       @order.save
-      OrderMailer.deliver_rejected(@order, params[:comment])
+      Notification.order_rejected(@order, params[:comment] )
       
       remove_order_from_session
       redirect_to :action => 'index'

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080806070541) do
+ActiveRecord::Schema.define(:version => 20080929144756) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
@@ -186,6 +186,12 @@ ActiveRecord::Schema.define(:version => 20080806070541) do
 
   add_index "models_compatibles", ["model_id"], :name => "index_models_compatibles_on_model_id"
   add_index "models_compatibles", ["compatible_id"], :name => "index_models_compatibles_on_compatible_id"
+
+  create_table "notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title",      :default => ""
+    t.datetime "created_at",                 :null => false
+  end
 
   create_table "option_maps", :force => true do |t|
     t.string "barcode"

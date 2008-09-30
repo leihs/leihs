@@ -52,11 +52,7 @@ class Order < Document
       remove_backup
       save
 
-      if has_changes?
-        OrderMailer.deliver_changed(self, comment)
-      else
-        OrderMailer.deliver_approved(self, comment)
-      end
+      Notification.order_approved(self, comment)
 
       contract = user.get_current_contract(self.inventory_pool)
       order_lines.each do |ol|
@@ -84,6 +80,9 @@ class Order < Document
       self.status_const = Order::SUBMITTED
       split_and_assign_to_inventory_pool
       save
+      
+      Notification.order_submitted(self, purpose)
+
       return true
     else
       return false

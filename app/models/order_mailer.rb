@@ -10,6 +10,16 @@ class OrderMailer < ActionMailer::Base
     @headers    = {}
   end
 
+  def submitted(order, purpose, sent_at = Time.now)
+    @subject    = _('Reservation Submitted')
+    @body["order"] = order
+    @body["purpose"] = purpose
+    @recipients = "#{order.user.email}"
+    @from       = 'leihs'
+    @sent_on    = sent_at
+    @headers    = {}
+  end
+
   def rejected(order, comment, sent_at = Time.now)
     @subject    = _('Reservation Rejected')
     @body["order"] = order

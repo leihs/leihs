@@ -17,3 +17,12 @@ config.action_view.cache_template_loading            = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
+
+# Configuration for ActionMailer
+ActionMailer::Base.smtp_settings = {
+  :address => "smtp.zhdk.ch",
+  :port => 25,
+  :domain => "ausleihe.zhdk.ch"
+}
+ActionMailer::Base.default_charset = 'utf-8'
+

@@ -64,15 +64,6 @@ Rails::Initializer.run do |config|
 end
 
 
-# Configuration for ActionMailer
-ActionMailer::Base.smtp_settings = {
-  :address => "smtp.zhdk.ch",
-  :port => 25,
-  :domain => "ausleihe.zhdk.ch"
-}
-ActionMailer::Base.default_charset = 'utf-8'
-
-
 # E-Mail uncaught exceptions to the devs.
 ExceptionNotifier.exception_recipients = %w( magnus.rembold@munterbund.de ramon.cahenzli@zhdk.ch errors@jeromemueller.ch )
 ExceptionNotifier.sender_address = %( no-reply@hgkz.net )
