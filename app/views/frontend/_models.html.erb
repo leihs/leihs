@@ -1,4 +1,20 @@
 
+    // create reader that reads the Topic records
+	var model_reader = new Ext.data.JsonReader({
+		        root: 'models',
+		        totalProperty: 'results',
+		        id: 'id',
+		        fields: [
+					   {name: 'name', type: 'string'},
+					   {name: 'manufacturer', type: 'string'},
+					   {name: 'properties'},
+					   {name: 'inventory_pools'},
+					   {name: 'compatibles'},
+					   {name: 'accessories'},
+					   {name: 'images'}
+		        ]
+		    });
+
     // create the Data Store
     var models_store = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy(
@@ -8,19 +24,7 @@
 				extraParams: {format:'ext_json'}
 			})
         ),
-
-        // create reader that reads the Topic records
-        reader: new Ext.data.JsonReader({
-            root: 'models',
-            totalProperty: 'results',
-            id: 'id',
-            fields: [
-				   {name: 'name', type: 'string'},
-				   {name: 'manufacturer', type: 'string'},
-				   {name: 'inventory_pools' }
-            ]
-        }),
-
+        reader: model_reader,
         // turn on remote sorting
         remoteSort: true
     });
@@ -47,35 +51,34 @@
 		   				for( i=0; i<value.length; i++ )
 							n.push(value[i].name)
 						return n.join(", ");
-					 },
+					 }
 		}]);
 
     // by default columns are sortable
     models_cm.defaultSortable = true;
 
     var models_grid = new Ext.grid.GridPanel({
-//        el:'model_list',
         title:'Models',
-//		height:350,
 		split: true,
 		region: 'north',
         store: models_store,
         cm: models_cm,
-//		sm: sm,
 		viewConfig: { forceFit: true },
         loadMask: true,
 		listeners: {
-			cellclick: function( grid, rowIndex, columnIndex, e ){
+			rowclick: function( grid, rowIndex, e ){
 			  x_id = grid.getStore().getAt(rowIndex).id;
-				models_details.load({
+			  /*
+				model_details.load({
 				    url: '/models/details?model_id=' + x_id,
 				    text: "Loading...",
 				    timeout: 30,
 					scripts: true
 				});
+			  */
+			  model_store.load({params:{model_id: x_id}});
 			}
 		},
-
         tbar: [
             'Search: ', ' ',
             new Ext.app.SearchField({
@@ -96,13 +99,241 @@
     // trigger the data store load
     models_store.load({params:{start:0, limit:25}});
 
+
 ///////////////////////////////////////////////////////////////////////////
-	
-       var models_details = new Ext.Panel({
-	   		id: 'models_details',
+// Model Details
+////////////////
+		var model_details;
+		
+		var model_store = new Ext.data.Store({
+		    proxy: new Ext.data.HttpProxy(
+				new Ext.data.Connection({
+		        	url: '/models/details', // invoke with params: {model_id: x_id},
+					method: 'GET',
+					extraParams: {format:'ext_json'}
+				})
+		    ),			
+		    reader: model_reader,
+			listeners: { datachanged: function(){
+											model_details.setActiveTab(0);
+//											var a = model_details.getActiveTab();
+//											model_details.setActiveTab(0);
+//											model_details.setActiveTab(a);
+										}
+							}
+		});
+
+		var model_store_compatibles = new Ext.data.Store({
+		    reader: new Ext.data.JsonReader({
+		        root: 'compatibles',
+		        totalProperty: 'results',
+		        id: 'id',
+		        fields: [
+					   {name: 'name', type: 'string'},
+					   {name: 'manufacturer', type: 'string'}
+		        ]
+		    })
+		});
+
+		var model_store_ips = new Ext.data.JsonStore({
+	        root: 'inventory_pools',
+	        id: 'id',
+	        fields: [
+				   {name: 'id', type: 'int'},
+				   {name: 'name', type: 'string'}
+	        ]
+		});
+
+		Ext.QuickTips.init();	
+	    Ext.form.Field.prototype.msgTarget = 'side';
+
+		model_details = new Ext.TabPanel({
+			id: 'model_details',
 			region: 'south',
-            split:true,
+		    split:true,
 			height:220,
-            //margins:'5 0 0 0',
-		    autoScroll:true
+		    autoScroll:true,
+		    activeTab: 0,
+			defaults: {	store: model_store },
+			items: [{
+		        xtype: 'dataview',
+				title: 'Details',
+				loadingText: "Loading...",
+		        tpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<div>{name}, {manufacturer}</div>',
+									'<hr>Images: <tpl for="images">',
+										'<div><img src="{public_filename_thumb}"></div>',
+								    '</tpl>',
+								    '<hr>Properties: <tpl for="properties">',
+										'<div>{key}: {value}</div>',
+								    '</tpl>',
+									'<hr>Inventory Pools: <tpl for="inventory_pools">',
+										'<div>{name}: ({items_size})</div>',
+								    '</tpl>',
+									'<hr>Compatibles: <tpl for="compatibles">',
+										'<div>{name}, {manufacturer}</div>',
+								    '</tpl>',
+						    '</tpl>'
+							)
+			},{
+		        xtype: 'dataview',
+				title: 'Images',
+				itemSelector:'div.model_image',
+		        tpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+							    '<tpl for="images">',
+									'<div class="model_image"><img src="{public_filename_thumb}"></div>',
+							    '</tpl>',
+						    '</tpl>'
+							)
+			},{
+		        xtype: 'dataview',
+				title: 'Properties',
+				itemSelector:'div.model_property',
+		        tpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+							    '<tpl for="properties">',
+									'<div class="model_property">{key}: {value}</div>',
+							    '</tpl>',
+						    '</tpl>'
+							)
+			},{
+		        xtype: 'dataview',
+				title: 'Accessories',
+				itemSelector:'div.model_accessory',
+		        tpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+							    '<tpl for="accessories">',
+									'<div class="model_accessory">{name}</div>',
+							    '</tpl>',
+						    '</tpl>'
+							)
+			},{
+		        xtype: 'dataview',
+//						listeners: { activate: function(){ this.render(); } },
+				title: 'Inventory Pools',
+				itemSelector:'div.model_inventory_pool',
+		        tpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+							    '<tpl for="inventory_pools">',
+									'<div class="model_inventory_pool">{name}: ({items_size})</div>',
+							    '</tpl>',
+						    '</tpl>'
+							)
+			},{
+		        xtype: 'grid',
+				listeners: {
+					activate: function(){ this.store.loadData(model_store.reader.jsonData['models'][0]); }, // this.render();
+					rowclick: function( grid, rowIndex, e ){
+					  x_id = grid.getStore().getAt(rowIndex).id;
+					  model_store.load({params:{model_id: x_id}});
+					}					
+				},
+				title: 'Compatibles',
+				viewConfig: { forceFit: true },
+				loadMask: true,
+				autoscroll: true,
+				store: model_store_compatibles,
+		        cm:  new Ext.grid.ColumnModel([
+						{
+				           header: "Name",
+				           dataIndex: 'name',
+				           width: 400
+				        },{
+				           header: "Manufacturer",
+				           dataIndex: 'manufacturer',
+				           width: 200
+						}])
+			}, {
+		        xtype: 'form',
+				title: 'Add',
+				renderTo: document.body,
+				hidden: true,
+				listeners: { activate: function(){ model_store_ips.loadData(model_store.reader.jsonData['models'][0]); this.doLayout(); } },
+/// start form						
+		        labelAlign: 'top',
+				buttonAlign: 'right',
+		        frame:true,
+		        width: 600,
+		        items: [{
+		            layout:'column',
+		            items:[{
+		                columnWidth:.1,
+		                layout: 'form',
+		                items: {
+		                    xtype:'numberfield',
+		                    fieldLabel: 'Quantity',
+		                    name: 'quantity',
+							value: '1',
+		                    anchor:'70%'
+		                }
+		            },{
+		                columnWidth:.3,
+		                layout: 'form',
+		                items: {
+		                    xtype:'combo',
+		                    fieldLabel: 'Inventory Pool',
+		                    name: 'inventory_pool',
+						    mode: 'local',
+						    triggerAction: 'all',
+							store: model_store_ips,
+							allowBlank: false,
+					        displayField: "name",
+					        valueField: "id",
+							hiddenName: 'inventory_pool_id',
+							editable: false,
+		                    anchor:'90%'
+		                }
+		            },{
+		                columnWidth:.3,
+		                layout: 'form',
+		                items: {
+		                    xtype:'datefield',
+		                    fieldLabel: 'Start date',
+		                    name: 'start_date',
+							value: new Date(), //new Date(yy,mm,dd)
+		                    format: "d.m.Y",
+							//startDay: 1,
+							//minDate: new Date(),
+							disabledDays: [6,0],
+		                    anchor:'90%'
+		                }
+		            },{
+		                columnWidth:.3,
+		                layout: 'form',
+		                items: {
+		                    xtype:'datefield',
+		                    fieldLabel: 'End date',
+		                    name: 'end_date',
+							value: new Date(), //new Date(yy,mm,dd)
+							format: "d.m.Y",
+							//startDay: 1,
+							//minDate: new Date(),
+							disabledDays: [6,0],
+		                    anchor:'90%'
+		                }
+		            }]
+		        }],
+		        buttons: [{
+		            text: 'Add',
+					type: 'submit',
+					 handler: function() {
+							this.findParentByType('form').form.submit({
+								waitMsg: 'Saving Data...',
+							    url: '/orders/add_line',
+								method: 'POST',
+								params: {'model_id': model_store.data.items[0].id,
+										 <%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>},
+							    success: function(responseObject) {
+								    Ext.getCmp('complete_order').getStore().load();
+							    },
+								failure: function(responseObject) {
+									Ext.Msg.alert('Error', responseObject.responseText);
+								}
+					        });
+					      }
+			          }]
+/// end form						
+					}]
 		});

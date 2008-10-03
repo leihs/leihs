@@ -46,7 +46,9 @@ class ModelsController < FrontendController
                                                                 :inventory_pools => { :except => [:description,
                                                                                                   :logo_url,
                                                                                                   :contract_url,
-                                                                                                  :contract_description] } }
+                                                                                                  :contract_description,
+                                                                                                  :created_at,
+                                                                                                  :updated_at] } }
                                                                  ) }
     end
   end  
@@ -70,13 +72,49 @@ class ModelsController < FrontendController
   
 #######################################################  
   
-  # TODO optimize html rendering to extjs
   def details(model_id = params[:model_id] || params[:id]) # TODO remove :id
     @model = current_user.models.find(model_id)
-    render :partial => 'details'
-#    respond_to do |format|
-#      format.ext_json { render :json => @model.to_json(:include => :inventory_pools) }
-#    end
+    
+    @models = [@model]
+    c = @models.size
+    respond_to do |format|
+      format.html { render :partial => 'details' } # TODO remove OR optimize html rendering to extjs
+                                  #old# @model.to_json
+      format.ext_json { render :json => @models.to_ext_json(:class => "Model",
+                                                            :count => c,
+                                                            :include => {
+                                                                :properties => { :except => [:created_at,
+                                                                                             :updated_at] },
+                                                                :accessories => { :except => [:model_id] },
+                                                                :compatibles => { :except => [:created_at,  # TODO scope by current_inventory_pools
+                                                                                             :updated_at,
+                                                                                             :model_id,
+                                                                                             :compatible_id] },
+                                                                :inventory_pools => { :methods => [[:items_size, @model.id]], # TODO include availability OR items_size
+                                                                                      :except => [:description,  # TODO scope by current_inventory_pools
+                                                                                                  :logo_url,
+                                                                                                  :contract_url,
+                                                                                                  :contract_description,
+                                                                                                  :created_at,
+                                                                                                  :updated_at] },
+                                                                :images => { :methods => [:public_filename_thumb],
+                                                                             :except => [:created_at,
+                                                                                         :updated_at] }
+                                                                        }
+                                                                 ) }
+#TODO#      format.ext_json { render :json => { :model => @model, :inventory_pools => (@model.inventory_pools & current_inventory_pools) } }
+    end
   end
+
+#old#
+#  def image_show(image_id = params[:id])
+#    @image = Image.find(image_id)
+#    #render :inline => "<%= @image.public_filename(:thumb) %>"
+#    
+#    send_data(@image.data, 
+#    :filename => @photo.name, 
+#    :type => @photo.content_type, 
+#    :disposition => "inline") 
+#  end
 
 end

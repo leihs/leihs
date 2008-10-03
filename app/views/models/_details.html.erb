@@ -147,25 +147,22 @@
 
     <div class="x-tab" title="Properties">
 
-	<% unless @model.properties.empty? %>
 		<ul>
 		Properties:
 		<% @model.properties.each do |p| %>
 			<li><b><%= p.key %>:</b> <%= p.value %></li>
 		<% end %>
 		</ul>
-	<% end %>
 
 	</div>	
 
 
     <div class="x-tab" title="Compatibles">
 	
-	<% unless @model.compatibles.empty? %>
 		<ul>
 		Compatibles:
-		<% @model.compatibles.each do |c| %>
-			<li><%= link_to_function c.name, "Ext.getCmp('models_details').load({
+		<% (@model.compatibles & current_user.models).each do |c| %>
+			<li><%= link_to_function c.name, "Ext.getCmp('model_details').load({
 					    url: '/models/details?model_id=#{c.id}',
 					    text: 'Loading...',
 					    timeout: 30,
@@ -174,7 +171,6 @@
 			</li>
 		<% end %>
 		</ul>
-	<% end %>
 
 	</div>	
 

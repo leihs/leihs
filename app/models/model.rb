@@ -61,6 +61,9 @@ class Model < ActiveRecord::Base
   def is_package?
     items.size == 1 and items.first.is_package?
   end
+
+#############################################  
+# Availability
 #############################################  
 
   def available_periods_for_document_line(document_line, current_time = Date.today)
@@ -103,36 +106,28 @@ class Model < ActiveRecord::Base
   def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil, inventory_pool = nil)
     document.add_line(quantity, self, user_id, start_date, end_date, inventory_pool)
   end  
-  
-  
+
   private
   
   def create_availability(current_time, document_line, inventory_pool)    
-    i = self.items.find(:all, :conditions => {:status_const => Item::BORROWABLE})
-    
-    # TODO *d* optimize query
-    i = i.delete_if {|x| x.inventory_pool != inventory_pool }
+    i = self.items.find(:all,
+                        :joins => :location,
+                        :conditions => ['status_const = ? AND locations.inventory_pool_id = ?',
+                                        Item::BORROWABLE, inventory_pool.id])
+    r = DocumentLine.current_and_future_reservations(id, inventory_pool, document_line, current_time)
     
     a = Availability.new(i.size, Date.today, nil, current_time)
     a.model = self
-    a.reservations(DocumentLine.current_and_future_reservations(id, inventory_pool, document_line, current_time))
+    a.reservations(r)
     a
   end
   
   def category_names
-    n = [] 
-    categories.each do |c|
-      n << c.name  
-    end
-    n.uniq.join(" ")
+    categories.collect(&:name).uniq.join(" ")
   end
 
   def properties_values
-    n = [] 
-    properties.each do |p|
-      n << p.value  
-    end
-    n.uniq.join(" ")
+    properties.collect(&:value).uniq.join(" ")
   end
   
 end

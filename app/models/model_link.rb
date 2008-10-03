@@ -2,10 +2,14 @@ class ModelLink < ActiveRecord::Base
   
   belongs_to :model_group
   belongs_to :model
-                          
+
+  # prevent duplicated model in Category, but allow for Template
+  validates_uniqueness_of :model_id, :scope => :model_group_id,
+                                     :message => _("already in Category"),
+                                     :if => Proc.new {|ml| ml.model_group.is_a?(Category) }
+  
   after_save :model_indexing                        
 
-# TODO *a* unique index model_group_id + model_id
                           
   private
                           

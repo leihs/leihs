@@ -43,7 +43,7 @@
     inventory_pools_cm.defaultSortable = true;
 
     var inventory_pools = new Ext.grid.GridPanel({
-        title:'Inventory Pools (<%= "#{session[:inventory_pool_ids].size}/#{current_user.inventory_pools.size}" %>)',
+        title:'Inventory Pools (<%= "#{@current_inventory_pools.size}/#{current_user.inventory_pools.size}" %>)',
 		border: false,
 		split: true,
         store: inventory_pools_store,
@@ -56,7 +56,7 @@
 				inventory_pools_store.load();
 			}
 		},
-        tbar: [
+        tbar: ['->',
 			new Ext.Action({
 		        text: 'Refresh',
 				iconCls:'bt',
@@ -75,8 +75,9 @@
 					    url: '/frontend/set_inventory_pools',
 						params: {"inventory_pool_ids": lines},
 	                    success: function(r) {
-				            models_grid.show(); //center_tabs.activate(models);
+				            models_grid.show();
 							models_store.load({params:{start:0, limit:25}});
+							// TODO refresh the Frontend completely ??
 	                    }
 	                });					
 		        }
@@ -90,7 +91,7 @@
 
 	inventory_pools_store.on('load', function(store, records, options) {
 	    var recs = [];
-		var current_inventory_pools = [<%= session[:inventory_pool_ids].join(',') %>];
+		var current_inventory_pools = <%= @current_inventory_pools.collect(&:id).to_json %>;
 	    store.each(function(rec){
 	        if(current_inventory_pools.include(rec.id)){
 	            recs.push(rec);

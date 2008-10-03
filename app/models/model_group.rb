@@ -54,7 +54,8 @@ class ModelGroup < ActiveRecord::Base
 ###  TODO alias for Ext.Tree
   def text 
     # "#{label} (#{models.size})" # TODO intersection with current_user.models
-    label
+    #label
+    "#{label} (id #{id})" # TODO temp
   end
   
   def leaf

@@ -12,10 +12,17 @@ class DocumentLine < ActiveRecord::Base
     
     is_order_line = (document_line and document_line.is_a?(OrderLine))
     is_contract_line = (document_line and document_line.is_a?(ContractLine))
+    
     cl = ContractLine.find(:all,
                            :joins => :contract,
-                           :conditions => ['model_id = ? AND returned_date IS NULL AND contract_lines.id <> ? AND contracts.inventory_pool_id = ?',
-                                                  model_id, (is_contract_line ? document_line.id : 0), inventory_pool.id])
+                           :conditions => ["model_id = :model_id 
+                                              AND returned_date IS NULL
+                                              AND contract_lines.id <> :contract_line_id
+                                              AND contracts.inventory_pool_id = :inventory_pool_id",
+                                           { :model_id => model_id,
+                                             :contract_line_id => (is_contract_line ? document_line.id : 0),
+                                             :inventory_pool_id => inventory_pool.id }
+                                          ])
     ol = OrderLine.find(:all,
                         :joins => :order,
                         :conditions => ["model_id = :model_id 
@@ -23,14 +30,14 @@ class DocumentLine < ActiveRecord::Base
                                             AND order_lines.id <> :order_line_id 
                                             AND (orders.status_const = :submitted
                                                             OR (orders.id = :current_order_id AND orders.status_const = :new_order))
-                                            AND order_lines.inventory_pool_id = :inventory_pool",
+                                            AND order_lines.inventory_pool_id = :inventory_pool_id",
                                          { :model_id => model_id, 
                                            :date => date,
                                            :order_line_id => (is_order_line ? document_line.id : 0), 
                                            :submitted => Order::SUBMITTED, 
                                            :current_order_id => (is_order_line ? document_line.order_id : 0),
                                            :new_order => Order::NEW, 
-                                           :inventory_pool => inventory_pool.id}
+                                           :inventory_pool_id => inventory_pool.id }
                                         ])
     cl + ol
   end

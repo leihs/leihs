@@ -53,7 +53,6 @@ class Document < ActiveRecord::Base
       log_change(change, user_id)
       line.save
     end
-    [line, change] # TODO where this return is used?
   end
 
   def update_time_line(line_id, start_date, end_date, user_id)

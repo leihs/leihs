@@ -11,6 +11,10 @@
 		<%= render :partial => 'complete_order' %>
 		<%= render :partial => 'basket' %>
 
+	    function formatDate(value){
+	        return value ? value.dateFormat('d.m.Y') : '';
+	    };
+		
 	    var tips = new Ext.Panel({
 	        title:'Tips',
 			border: false,
@@ -25,7 +29,6 @@
 		    autoScroll:true,
 			listeners: { activate: function(cmp) {
 			               Ext.getDom('user_timeline').innerHTML = "<iframe src='/users/timeline' width='100%' height='500' frameborder='0'></iframe>";
-
 						}
 			}
 	    });
@@ -37,15 +40,14 @@
                     region:'center',
                     deferredRender:true,
                     activeTab:0,
-                    //margins:'0 5 5 5',
                     items:[{
 							xtype: 'panel',
 							title: 'Welcome',
 							html: 'Welcome page...',
 							closable: true
 						},
-						models_grid, //models,
-						order] //, user_timeline
+						models_grid,
+						order]
                 });
 				   
 	   var northPanel, southPanel, eastPanel, westPanel, centerPanel;				        
@@ -55,50 +57,83 @@
                     region:'north',
                     contentEl: 'north',
                     height: 40,
-                    collapsible: true,
+                    //collapsible: true,
                     margins:'5 5 5 5',
 					items: topbar
                  }, eastPanel = {
                     region:'east',
-                    //title: ' ', //'Basket',
-                    //collapsible: true,
                     split:true,
                     width: 200,
                     minSize: 175,
                     maxSize: 300,
                     margins:'0 5 5 0',
-					//autoScroll:true,
-					// hidden: true,
-                    layout:'accordion', //'fit',
+                    layout:'accordion',
                     layoutConfig:{
                         animate:true
                     },
-                    items: [ basket, tips ] // account, 
+                    items: [ basket, tips ] 
                  }, westPanel = {
                     region:'west',
-					//title: ' ',
-                    //collapsible: true,
                     split:true,
                     width: 200,
                     minSize: 175,
                     maxSize: 300,
                     margins:'0 0 5 5',
 					autoScroll:true,
-					// hidden: true,
                     layout:'accordion',
                     layoutConfig:{
                         animate:true
                     },
-                    items: [
-						{
-							title: 'Categories',
-							border: false,
-							items: categories_panel
-	                    }, inventory_pools
+                    items: [categories_panel, inventory_pools
 						 ,{
-							title: 'Orders & Contracts',
+<%	a = []
+	(current_user.orders + current_user.contracts).sort.each {|x| a << [x.id, x.class.to_s, x.created_at]}
+%>
+					        xtype: 'grid',
+							title: 'Documents (<%= a.size %>)',
 							border: false,
-					        tbar: [
+							viewConfig: { forceFit: true },
+							store: new Ext.data.SimpleStore({
+										 fields: [	{name: 'id', type: 'int'},
+										 			{name: 'document', type: 'string'},
+	   											  	{name: 'created_at', type: 'date' }	],
+										 data: <%= a.to_json %>
+										}),
+					        cm:  new Ext.grid.ColumnModel([
+									{
+							           header: "Document",
+							           dataIndex: 'document',
+									   width: 100
+									},{
+							           header: "ID",
+							           dataIndex: 'id',
+									   width: 20
+									},{
+							           header: "Date",
+							           dataIndex: 'created_at',
+									   width: 100,
+									   renderer: function(value,p,r){ return formatDate(value); }
+									}]),
+									listeners: {
+										rowclick: function( grid, rowIndex, e ){
+										  record = grid.getStore().getAt(rowIndex);
+										  x_id = record.data.id;
+										  x_document = record.data.document;
+
+										// TODO search for existing tab or create it
+										
+										    var document_panel = new Ext.Panel({
+										        title: x_document + ' ' + x_id,
+												closable: true,
+											    autoScroll:true,
+												html: "here document " + x_document + " " + x_id
+										    });
+
+											center_tabs.add(document_panel);
+											center_tabs.activate(document_panel);
+										}
+									},
+					        tbar: ['->',
 								new Ext.Action({
 							        text: 'Timeline',
 									iconCls:'bt',
@@ -108,8 +143,7 @@
 										center_tabs.activate(user_timeline);
 							        }
 							    })
-					        ],
-							html: '<%= (current_user.orders + current_user.contracts).collect(&:created_at).join('<br />') %>'
+					        ]
 	                    },{
 	                        title: 'Recent Models',
 	                        border: false,
@@ -124,10 +158,9 @@
 					xtype: 'panel',
 					region: 'center',
 					deferredRender:true,
-                    //margins:'0 5 5 5',
 					layout: 'border',
 					items: [center_tabs,
-							models_details]
+							model_details]
 				}
              ]
         });
@@ -142,7 +175,6 @@
 	<div id="basket"></div>
 	<div id="user_timeline"></div>
 	<div id="complete_order"></div>
-	<div id="categories"></div>
 		
 	<div id="north"></div>	
 	        
