@@ -8,5 +8,13 @@ class Image < ActiveRecord::Base
                    :storage => :file_system, :path_prefix => 'public/images/attachments'
 
     validates_as_attachment
+
+    
+####################################
+
+  # alias for serialization
+  def public_filename_thumb
+    public_filename(:thumb)
+  end
     
 end

@@ -40,6 +40,12 @@ class InventoryPool < ActiveRecord::Base
   def to_s
     "#{name}"
   end
+  
+  # TODO
+  # alias for serialization
+  def items_size(model_id = nil)
+    items.count(:conditions => {:model_id => model_id})
+  end
 
 ###################################################################################
   

@@ -34,9 +34,6 @@
         remoteSort: true
     });
 
-    function formatDate(value){
-        return value ? value.dateFormat('d.m.Y') : '';
-    };
 	
 	var complete_order_sm = new Ext.grid.CheckboxSelectionModel({
 									listeners: {
@@ -119,13 +116,18 @@
         }),
 		listeners: {
 			cellclick: function( grid, rowIndex, columnIndex, e ){
-				x_id = grid.getStore().getAt(rowIndex).data['model.id'];
-				models_details.load({
-				    url: '/models/details?model_id=' + x_id,
-				    text: "Loading...",
-				    timeout: 30,
-					scripts: true
-				});
+				if (columnIndex == 2){
+					x_id = grid.getStore().getAt(rowIndex).data['model.id'];
+					/*
+					model_details.load({
+					    url: '/models/details?model_id=' + x_id,
+					    text: "Loading...",
+					    timeout: 30,
+						scripts: true
+					});
+					*/
+					model_store.load({params:{model_id: x_id}});
+				}
 			},
 			afteredit: function(e){
 				if(e.field == "start_date" || e.field == "end_date"){
@@ -278,8 +280,8 @@
 		    autoScroll:true
         });
 /*
-       var models_details_2 = new Ext.Panel({
-	   		id: 'models_details',
+       var model_details_2 = new Ext.Panel({
+	   		id: 'model_details',
 			height:220,
 			region: 'south',
 		    autoScroll:true
@@ -377,7 +379,7 @@
             items:[{
 					xtype: 'panel',
 					layout: 'border',
-					items: [order_guide, complete_order] //, models_details_2
+					items: [order_guide, complete_order] //, model_details_2
 	            },{
 					xtype: 'panel',
 					layout: 'border',

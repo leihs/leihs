@@ -49,11 +49,14 @@
 			rowclick: function( grid, rowIndex, e ){
 				x_id = grid.getStore().getAt(rowIndex).id;
 	            //center_tabs.activate(models);				
-				models_details.load({
+				/*
+				model_details.load({
 				    url: '/models/details?model_id=' + x_id,
 				    text: "Loading...",
 				    timeout: 30
 				});
+				*/
+			    model_store.load({params:{model_id: x_id}});
 			}
 		},
     });
