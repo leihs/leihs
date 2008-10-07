@@ -107,6 +107,40 @@ class User < ActiveRecord::Base
     f_name
   end
 
+  def timeline_visits
+    visits = []
+    contracts.new_contracts.each do |c|
+      c.lines.each do |l|
+        v = visits.detect { |w| w.date == l.start_date }
+        unless v
+          visits << Event.new(l.start_date, l.start_date, self.login, false, "hand_over", c.inventory_pool, self, l)
+        else
+          v.contract_lines << l
+        end
+      end
+    end
+
+    contracts.signed_contracts.each do |c|
+      c.lines.each do |l|
+        v = visits.detect { |w| w.date == l.end_date }
+        unless v
+          visits << Event.new(l.end_date, l.end_date, self.login, false, "take_back", c.inventory_pool, self, l)
+        else
+          v.contract_lines << l
+        end
+      end
+    end
+
+    visits.sort!    
+
+    xml = Event.wrap(visits)
+    
+    f_name = "/javascripts/timeline/user_#{self.id}_visits.xml"
+    File.open("public#{f_name}", 'w') { |f| f.puts xml }
+    f_name
+  end
+
+
   # TODO call from cron >>> ./script/runner User.remind_all
   def self.remind_all
     User.all.each do |u|
@@ -173,7 +207,7 @@ class User < ActiveRecord::Base
       c.lines.to_remind.each do |l|
         v = visits.detect { |w| w.user == c.user and w.date == l.end_date and w.inventory_pool == c.inventory_pool }
         unless v
-          visits << Visit.new(c.inventory_pool, c.user, l.end_date, l)
+          visits << Event.new(l.end_date, l.end_date, c.user.login, false, "take_back", c.inventory_pool, c.user, l) # Visit.new(c.inventory_pool, c.user, l.end_date, l)
         else
           v.contract_lines << l
         end

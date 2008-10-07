@@ -130,7 +130,7 @@ class Backend::HandOverController < Backend::BackendController
 
   def timeline
     @timeline_xml = @contract.timeline
-    render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'
+    render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'
   end
     
   private

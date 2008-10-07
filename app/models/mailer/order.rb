@@ -1,4 +1,4 @@
-class OrderMailer < ActionMailer::Base
+class Mailer::Order < ActionMailer::Base
 
   def approved(order, comment, sent_at = Time.now)
     @subject    = _('Reservation Confirmation')

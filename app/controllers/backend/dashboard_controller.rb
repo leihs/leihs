@@ -22,12 +22,12 @@ class Backend::DashboardController < Backend::BackendController
 
   def timeline
     @timeline_xml = current_inventory_pool.timeline
-    render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'
+    render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'
   end
 
   def timeline_visits
     @timeline_xml = current_inventory_pool.timeline_visits
-    render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'
+    render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'
   end
 
 

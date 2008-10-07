@@ -8,16 +8,45 @@ class Event
                 :end,
                 :title,
                 :isDuration,
-                :action   # hand_over, take_back
+                :action,   # hand_over, take_back
+                :inventory_pool,
+                :user,
+                :contract_lines,
+                :quantity
                 
-  def initialize(start_date = Date.today, end_date = Date.today, title = "", isDuration = true, action = "hand_over")
+  def initialize(start_date = Date.today,
+                 end_date = Date.today,
+                 title = "",
+                 isDuration = true,
+                 action = "hand_over",
+                 inventory_pool = nil,
+                 user = nil,
+                 contract_line = nil)
     @start = start_date
     @end = end_date
     @title = title
     @isDuration = isDuration
     @action = action
+    @inventory_pool = inventory_pool
+    @user = user
+    @contract_lines = [contract_line]
   end
 
+  #alias
+  def date
+    start
+  end
+  
+  def quantity
+    @contract_lines.collect(&:quantity).sum
+  end
+
+  # compares two objects in order to sort them
+  def <=>(other)
+    self.date <=> other.date
+  end  
+
+############################################################################
   def to_xml
     xml = Document.new()
     e = Element.new("event")

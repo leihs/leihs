@@ -1,4 +1,4 @@
-class UserMailer < ActionMailer::Base
+class Mailer::User < ActionMailer::Base
 
   def remind(user, visits, sent_at = Time.now)
     @subject    = _('Remind')

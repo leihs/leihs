@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
   
-  map.resources :users, :collection => { :timeline => :get } #do |user|
+  map.resources :users, :collection => { :timeline => :get, :timeline_visits => :get } #do |user|
   #end
   map.resource :session
   
