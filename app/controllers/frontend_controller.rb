@@ -23,7 +23,8 @@ class FrontendController < ApplicationController
     self.current_inventory_pools = current_user.inventory_pools.all(:conditions => ["inventory_pools.id IN (?)", ips])
     render :nothing => true
   end
-  
+
+########################################################################  
   
   protected
     

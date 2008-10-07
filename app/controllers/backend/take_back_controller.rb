@@ -86,7 +86,7 @@ class Backend::TakeBackController < Backend::BackendController
 
   def timeline
     @timeline_xml = @user.timeline
-    render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'
+    render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'
   end
 
   private

@@ -123,7 +123,7 @@ class Backend::AcknowledgeController < Backend::BackendController
 
   def timeline
     @timeline_xml = @order.timeline
-    render :text => "", :layout => 'backend/' + $theme + '/modal_timeline'
+    render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'
   end
     
     
