@@ -1,5 +1,19 @@
 class UsersController < FrontendController
 
+  def account
+    render :layout => false
+  end
+
+########################################################################  
+
+  def visits
+    @visits = current_user.visits
+    respond_to do |format|
+      format.ext_json { render :json => @visits.to_ext_json }
+    end
+  end
+
+
   def timeline
     @timeline_xml = current_user.timeline
     render :nothing => true, :layout => '/layouts/backend/' + $theme + '/modal_timeline'

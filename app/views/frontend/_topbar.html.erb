@@ -1,3 +1,4 @@
+
 	    var topbar = new Ext.Toolbar({
 			height: 40,
 			style: 'color: navy;',
@@ -25,14 +26,13 @@
                         {text: 'Menu 2', handler: ''},
                         {text: 'Menu 3', handler: ''} 
 	                ]}
-				}, '->', //{
-//					text:'Account',
-//					menu: {items: [
-                        {text: '<%= current_user.login %>', 
-						 iconCls:'bt',
-				         icon:'<%= $layout_public_path + "/images/icons/user.png" %>',
-						 handler: function() {
-									// TODO
+				}, '->', {text: '<%= current_user.login %>', 
+						  iconCls:'bt',
+				          icon:'<%= $layout_public_path + "/images/icons/user.png" %>',
+						  handler: function() {
+									new Ext.data.ScriptTagProxy({
+										    url: '/users/account'
+										}).load();
 								}
 						},
                         {text: 'Logout',
@@ -42,7 +42,5 @@
 									window.location.href = '/logout';
 								}
 						}
-//	                ]}
-				//}
 				]
 	    });

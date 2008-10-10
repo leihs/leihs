@@ -1,8 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
 
   
-  map.resources :users, :collection => { :timeline => :get, :timeline_visits => :get } #do |user|
-  #end
+  map.resources :users, :collection => { :visits => :get,
+                                         :timeline => :get,
+                                         :timeline_visits => :get,
+                                         :account => :get }
   map.resource :session
   
   # For RESTful_Authentication

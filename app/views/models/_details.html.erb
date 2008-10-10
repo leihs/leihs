@@ -96,7 +96,7 @@
 						    url: '/orders/add_line',
 							method: 'POST',
 							params: {'model_id': '<%= @model.id %>',
-									 <%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>},
+									 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},
 						    success: function(responseObject) {
 							    Ext.getCmp('complete_order').getStore().load();
 						    },
