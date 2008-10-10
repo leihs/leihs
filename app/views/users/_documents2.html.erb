@@ -1,0 +1,173 @@
+Ext.onReady(function(){
+	
+	var catalog = [{
+        title: 'Orders',
+		iconCls:'icon-apps',
+		cls:'active',
+        samples: [{
+            text: 'Feed Viewer 2.0',
+            url: 'feed-viewer/view.html',
+            icon: '/images/rails.png',
+            desc: 'RSS 2.0 feed reader sample application that features a swappable reader panel layout.'
+        },{
+            text: 'Simple Tasks 2.0',
+            url: 'http://extjs.com/blog/2008/02/24/tasks2/',
+            icon: '/images/rails.png',
+            desc: 'Complete personal task management application sample that runs on <a href="http://labs.adobe.com/technologies/air/" target="_blank">Adobe AIR</a>.'
+        },{
+            text: 'Simple Tasks',
+            url: 'tasks/tasks.html',
+            icon: '/images/rails.png',
+            desc: 'Personal task management application sample that uses <a href="http://gears.google.com" target="_blank">Google Gears</a> for data storage.'
+        },{
+            text: 'Image Organizer',
+            url: 'organizer/organizer.html',
+            icon: '/images/rails.png',
+            desc: 'DataView and TreePanel sample that demonstrates dragging data items from a DataView into a TreePanel.'
+        },{
+            text: 'Web Desktop',
+            url: 'desktop/desktop.html',
+            icon: '/images/rails.png',
+            desc: 'Demonstrates how one could build a desktop in the browser using Ext components including a module plugin system.'
+        }]
+    },{
+        title: 'Contracts',
+        iconCls:'icon-grid',
+        samples: [{
+            text: 'Basic Array Grid',
+            url: 'grid/array-grid.html',
+            icon: '/images/rails.png',
+            desc: 'A basic read-only grid loaded from local array data that demonstrates the use of custom column renderer functions.'
+        },{
+            text: 'Editable Grid',
+            url: 'grid/edit-grid.html',
+            icon: '/images/rails.png',
+            desc: 'An editable grid loaded from XML that shows multiple types of grid ediors as well as defining custom data records.'
+        },{
+            text: 'XML Grid',
+            url: 'grid/xml-grid.html',
+            icon: '/images/rails.png',
+            desc: 'A simple read-only grid loaded from XML data.'
+        },{
+            text: 'Paging',
+            url: 'grid/paging.html',
+            icon: '/images/rails.png',
+            desc: 'A grid with paging, cross-domain data loading and custom- rendered expandable row bodies.'
+        },{
+            text: 'Grouping',
+            url: 'grid/grouping.html',
+            icon: '/images/rails.png',
+            desc: 'A basic grouping grid showing collapsible data groups that can be customized via the "Group By" header menu option.'
+        },{
+            text: 'Live Group Summary',
+            url: 'grid/totals.html',
+            icon: '/images/rails.png',
+            desc: 'Advanced grouping grid that allows cell editing and includes custom dynamic summary calculations.'
+        },{
+            text: 'Grid Plugins',
+            url: 'grid/grid3.html',
+            icon: '/images/rails.png',
+            desc: 'Multiple grids customized via plugins: expander rows, checkbox selection and row numbering.'
+        },{
+            text: 'Grid Filtering',
+            url: 'grid-filtering/grid-filter.html',
+            icon: '/images/rails.png',
+            desc: '<i>New!</i> Grid plugins providing custom data filtering menus that support various data types.'
+        },{
+            text: 'Grid From Markup',
+            url: 'grid/from-markup.html',
+            icon: '/images/rails.png',
+            desc: 'Custom GridPanel extension that can convert a plain HTML table into a dynamic grid at runtime.'
+        },{
+            text: 'Binding: Grid (basic)',
+            url: 'grid/binding.html',
+            icon: '/images/rails.png',
+            desc: '<i>New!</i> Data binding a grid to a detail preview panel via the grid\'s RowSelectionModel.'
+        },{
+            text: 'Binding: Grid (advanced)',
+            url: 'grid/binding-with-classes.html',
+            icon: '/images/rails.png',
+            desc: '<i>New!</i> Refactoring the basic data binding example to use a class-based application design model.'
+        }]
+    },{
+        title: 'Events',
+        iconCls:'icon-tabs',
+        samples: [{
+            text: 'Basic Tabs',
+            url: 'tabs/tabs.html',
+            icon: '/images/rails.png',
+            desc: 'Basic tab functionality including autoHeight, tabs from markup, Ajax loading and tab events.'
+        },{
+            text: 'Advanced Tabs',
+            url: 'tabs/tabs-adv.html',
+            icon: '/images/rails.png',
+            desc: 'Advanced tab features including tab scrolling, adding tabs programmatically and a context menu plugin.'
+        }]
+    },{
+        title: 'Visits',
+        iconCls:'icon-win',
+        samples: [{
+            text: 'Hello World',
+            url: 'window/hello.html',
+            icon: '/images/rails.png',
+            desc: 'Simple "Hello World" window that contains a basic TabPanel.'
+        },{
+            text: 'MessageBox',
+            url: 'message-box/msg-box.html',
+            icon: '/images/rails.png',
+            desc: 'Different styles include confirm, alert, prompt, progress and wait and also support custom icons.'
+        },{
+            text: 'Layout Window',
+            url: 'window/layout.html',
+            icon: '/images/rails.png',
+            desc: 'A window containing a basic BorderLayout with nested TabPanel.'
+        }]
+    }];
+
+    for(var i = 0, c; c = catalog[i]; i++){
+        c.id = 'sample-' + i;
+    }
+
+	var ct = Ext.get('doc-box');
+	
+	var tpl = new Ext.XTemplate(
+        '<div id="sample-ct">',
+            '<tpl for=".">',
+            '<div><a name="{id}" id="{id}"></a><h2><div unselectable="on">{title}</div></h2>',
+            '<dl>',
+                '<tpl for="samples">',
+                    '<dd ext:url="{url}"><img title="{text}" src="{icon}"/>',
+                        '<div><h4>{text}</h4><p>{desc}</p></div>',
+                    '</dd>',
+                '</tpl>',
+            '<div style="clear:left"></div></dl></div>',
+            '</tpl>',
+        '</div>'
+    );
+
+	tpl.overwrite(ct, catalog);
+	
+		
+	
+	ct.on('mouseover', function(e, t){
+        if(t = e.getTarget('dd')){
+            Ext.fly(t).addClass('over');
+        }
+    });
+    ct.on('mouseout', function(e, t){
+        if((t = e.getTarget('dd')) && !e.within(t, true)){
+            Ext.fly(t).removeClass('over');
+        }
+    });
+	ct.on('click', function(e, t){
+        if((t = e.getTarget('dd', 5)) && !e.getTarget('a', 3)){
+            var url = Ext.fly(t).getAttributeNS('ext', 'url');
+			if(url){
+				window.open(url.indexOf('http') === 0 ? url : ('/deploy/dev/examples/' + url));
+			}
+        }else if(t = e.getTarget('h2', 3, true)){
+			t.up('div').toggleClass('collapsed');
+		}		
+    });
+    	
+});

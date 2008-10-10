@@ -56,7 +56,7 @@ class InventoryPool < ActiveRecord::Base
         c.lines.each do |l|
           v = @ho_visits.detect { |w| w.user == c.user and w.date == l.start_date }
           unless v
-            @ho_visits << Event.new(l.start_date, l.start_date, c.user.login, false, "hand_over", c.inventory_pool, c.user, l) # Visit.new(c.inventory_pool, c.user, l.start_date, l)
+            @ho_visits << Event.new(l.start_date, l.start_date, c.user.login, false, "hand_over", c.inventory_pool, c.user, l)
           else
             v.contract_lines << l
           end
@@ -82,7 +82,7 @@ class InventoryPool < ActiveRecord::Base
       events << Event.new(l.start_date, l.end_date, l.model.name)
     end
 
-    xml = Event.wrap(events)
+    xml = Event.xml_wrap(events)
     
     f_name = "/javascripts/timeline/inventory_pool_#{self.id}.xml"
     File.open("public#{f_name}", 'w') { |f| f.puts xml }
@@ -90,17 +90,9 @@ class InventoryPool < ActiveRecord::Base
   end
 
   def timeline_visits
-#    events = []
-#    hand_over_visits.each do |v|
-#      events << Event.new(v.date, v.date, v.user.login, false)
-#    end
-#
-#    take_back_visits.each do |v|
-#      events << Event.new(v.date, v.date, v.user.login, false, "take_back")
-#    end
     events = hand_over_visits + take_back_visits 
 
-    xml = Event.wrap(events)
+    xml = Event.xml_wrap(events)
     
     f_name = "/javascripts/timeline/inventory_pool_#{self.id}_visits.xml"
     File.open("public#{f_name}", 'w') { |f| f.puts xml }
@@ -129,7 +121,7 @@ class InventoryPool < ActiveRecord::Base
       lines.each do |l|
         v = visits.detect { |w| w.user == c.user and w.date == l.end_date }
         unless v
-          visits << Event.new(l.end_date, l.end_date, c.user.login, false, "take_back", c.inventory_pool, c.user, l) # Visit.new(c.inventory_pool, c.user, l.end_date, l)
+          visits << Event.new(l.end_date, l.end_date, c.user.login, false, "take_back", c.inventory_pool, c.user, l)
         else
           v.contract_lines << l
         end

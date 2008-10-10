@@ -1,0 +1,37 @@
+Ext.onReady(function(){
+
+		<%= render :partial => '/users/events' %>
+		<%= render :partial => '/users/documents' %>
+
+					 				center_tabs = Ext.getCmp('center_tabs');
+									
+					 				account_panel = center_tabs.getComponent('account_panel');
+					 				if(!account_panel){
+									    account_panel = new Ext.TabPanel({
+											id: 'account_panel',
+									        title: 'Account',
+											closable: true,
+										    autoScroll: true,
+											activeTab: 0,
+											items: [events_grid, documents_grid,
+											{ xtype: 'panel',
+										        title:'Doc 2',
+												closable: true,
+											    autoScroll:true,
+												listeners: {
+													activate: function(){
+														this.load({
+														    url: '/frontend/index2',
+														    text: "Loading...",
+														    timeout: 30,
+															scripts: true
+														});
+													}
+												}
+											  }] 
+									    });
+										center_tabs.add(account_panel);
+									}
+									center_tabs.activate(account_panel);
+
+});

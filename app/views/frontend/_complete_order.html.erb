@@ -11,7 +11,7 @@
 	]);
 
     // create the Data Store
-    var complete_order_store = new Ext.data.GroupingStore({ //old Store
+    var complete_order_store = new Ext.data.GroupingStore({
         proxy: new Ext.data.HttpProxy(
 			new Ext.data.Connection({
             	url: '/orders/show',
@@ -96,18 +96,18 @@
     // by default columns are sortable
     complete_order_cm.defaultSortable = true;
 
-    var complete_order = new Ext.grid.EditorGridPanel({ //old: GridPanel
-//        el:'complete_order',
+    var complete_order = new Ext.grid.EditorGridPanel({
     	id: 'complete_order',
 //        title:'Order',
-		height:350,
-//		width: 600,
-		split: true,
+//		autoHeight: true,
+//		height: 100,
+//		autoScroll: true,
+//		split: true,
+//		overflow:'auto',
 		region: 'center',
         store: complete_order_store,
         cm: complete_order_cm,
 		sm: complete_order_sm,
-		//viewConfig: { forceFit: true },
         loadMask: true,
 		clicksToEdit: 1,
 		view: new Ext.grid.GroupingView({
@@ -126,7 +126,8 @@
 						scripts: true
 					});
 					*/
-					model_store.load({params:{model_id: x_id}});
+					//old// model_store.load({params:{model_id: x_id}});
+					add_model_details(x_id);
 				}
 			},
 			afteredit: function(e){
@@ -135,12 +136,12 @@
 				    p = {"lines": [e.record.id],
 						 "start_date": e.record.data.start_date.dateFormat('d.m.Y'),
 						 "end_date": e.record.data.end_date.dateFormat('d.m.Y'),
-						 <%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>}; //OPTIMIZE					
+						 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'};
 				}else if(e.field == "quantity"){
 				    u = '/orders/change_line';
 				    p = {"order_line_id": e.record.id,
 						 "quantity": e.value,
-						 <%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>}; //OPTIMIZE
+						 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'};
 				}
 				Ext.Ajax.request({
  					method: 'POST',
@@ -184,7 +185,7 @@
 									method: 'POST',
 								    url: '/orders/remove_lines',
 									params: {"lines": selected_lines(),
-											<%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>},
+											 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},
 				                    success: function(r) {
 									    complete_order_store.load();
 				                    }
@@ -215,7 +216,7 @@
 										method: 'POST',
 										params: {"id": complete_order_store.reader.jsonData['id'],
 												 "purpose": text,
-												<%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>},
+												 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},
 										success: function(r) {
 											window.location.href = '/';
 					                    }
@@ -279,14 +280,6 @@
 			html: 'Guide here...',
 		    autoScroll:true
         });
-/*
-       var model_details_2 = new Ext.Panel({
-	   		id: 'model_details',
-			height:220,
-			region: 'south',
-		    autoScroll:true
-        });
-*/  
 
 	function show_change_timeframe(){
 		    var timeframe_form = new Ext.form.FormPanel({
@@ -338,7 +331,7 @@
 						    params: {"lines": selected_lines(),
 									 "start_date": timeframe_form.form.findField('start_date').getValue().dateFormat('d.m.Y'),
 									 "end_date": timeframe_form.form.findField('end_date').getValue().dateFormat('d.m.Y'),
-									 <%= "'#{request_forgery_protection_token}': '#{form_authenticity_token}'" %>},
+									 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},
 						    success: function(responseObject) {
 							    complete_order_store.load();
 								timeframe_win.hide();
@@ -379,7 +372,7 @@
             items:[{
 					xtype: 'panel',
 					layout: 'border',
-					items: [order_guide, complete_order] //, model_details_2
+					items: [order_guide, complete_order]
 	            },{
 					xtype: 'panel',
 					layout: 'border',
@@ -387,6 +380,7 @@
 	            }],
 			listeners: {
 				activate: function(cmp) {
+					model_details.collapse();
 					complete_order_store.load();
 					basket.disable();
 				},

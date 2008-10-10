@@ -93,27 +93,23 @@ class User < ActiveRecord::Base
     contracts.signed_contracts.collect { |c| c.contract_lines.to_take_back }.flatten
   end
 
-  
-  def timeline
-    events = []
-    contract_lines.each do |l|
-      events << Event.new(l.start_date, l.end_date, l.model.name)
-    end
+####################################################################
 
-    xml = Event.wrap(events)
-    
-    f_name = "/javascripts/timeline/user_#{self.id}.xml"
-    File.open("public#{f_name}", 'w') { |f| f.puts xml }
-    f_name
+  def events
+    e = []
+    contract_lines.each do |l|
+      e << Event.new(l.start_date, l.end_date, l.model.name)
+    end
+    e.sort
   end
 
-  def timeline_visits
-    visits = []
+  def visits
+    e = []
     contracts.new_contracts.each do |c|
       c.lines.each do |l|
-        v = visits.detect { |w| w.date == l.start_date }
+        v = e.detect { |w| w.date == l.start_date and w.inventory_pool == c.inventory_pool }
         unless v
-          visits << Event.new(l.start_date, l.start_date, self.login, false, "hand_over", c.inventory_pool, self, l)
+          e << Event.new(l.start_date, l.start_date, "#{self.login} - #{c.inventory_pool.name}", false, "hand_over", c.inventory_pool, self, l)
         else
           v.contract_lines << l
         end
@@ -122,24 +118,36 @@ class User < ActiveRecord::Base
 
     contracts.signed_contracts.each do |c|
       c.lines.each do |l|
-        v = visits.detect { |w| w.date == l.end_date }
+        v = e.detect { |w| w.date == l.end_date and w.inventory_pool == c.inventory_pool }
         unless v
-          visits << Event.new(l.end_date, l.end_date, self.login, false, "take_back", c.inventory_pool, self, l)
+          e << Event.new(l.end_date, l.end_date, "#{self.login} - #{c.inventory_pool.name}", false, "take_back", c.inventory_pool, self, l)
         else
           v.contract_lines << l
         end
       end
     end
 
-    visits.sort!    
+    e.sort   
+  end
 
-    xml = Event.wrap(visits)
+  
+  def timeline
+    xml = Event.xml_wrap(events)
+    
+    f_name = "/javascripts/timeline/user_#{self.id}.xml"
+    File.open("public#{f_name}", 'w') { |f| f.puts xml }
+    f_name
+  end
+
+  def timeline_visits
+    xml = Event.xml_wrap(visits)
     
     f_name = "/javascripts/timeline/user_#{self.id}_visits.xml"
     File.open("public#{f_name}", 'w') { |f| f.puts xml }
     f_name
   end
 
+####################################################################
 
   # TODO call from cron >>> ./script/runner User.remind_all
   def self.remind_all
@@ -149,12 +157,12 @@ class User < ActiveRecord::Base
   end
 
   def remind(reminder_user = self)
-    visits = to_remind
+    visits_to_remind = to_remind
     m = ""
-    unless visits.empty?
-      Notification.remind_user(self, visits)
-      histories << History.new(:text => _("Reminded %{q} items for contracts %{c}") % { :q => visits.collect(&:quantity).sum,
-                                                                                        :c => visits.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
+    unless visits_to_remind.empty?
+      Notification.remind_user(self, visits_to_remind)
+      histories << History.new(:text => _("Reminded %{q} items for contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
+                                                                                        :c => visits_to_remind.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
                                :user_id => reminder_user,
                                :type_const => History::REMIND)
     end
@@ -202,18 +210,18 @@ class User < ActiveRecord::Base
   private
   
   def to_remind
-    visits = []
+    e = []
     contracts.signed_contracts.each do |c|
       c.lines.to_remind.each do |l|
-        v = visits.detect { |w| w.user == c.user and w.date == l.end_date and w.inventory_pool == c.inventory_pool }
+        v = e.detect { |w| w.date == l.end_date and w.inventory_pool == c.inventory_pool }
         unless v
-          visits << Event.new(l.end_date, l.end_date, c.user.login, false, "take_back", c.inventory_pool, c.user, l) # Visit.new(c.inventory_pool, c.user, l.end_date, l)
+          e << Event.new(l.end_date, l.end_date, "#{self.login} - #{c.inventory_pool.name}", false, "take_back", c.inventory_pool, self, l)
         else
           v.contract_lines << l
         end
       end
     end
-    visits.sort
+    e.sort
   end
     
 end

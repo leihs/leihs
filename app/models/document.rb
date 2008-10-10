@@ -34,12 +34,15 @@ class Document < ActiveRecord::Base
 ################################################################
 
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil, inventory_pool = nil)
+      end_date = start_date if end_date and start_date and end_date < start_date
+      
       document_line = "#{self.class}Line".constantize
       o = document_line.new(:quantity => quantity || 1,
                             :model_id => model.to_i,
                             :start_date => start_date || time_window_min,
                             :end_date => end_date || time_window_max)
       o.inventory_pool = inventory_pool if inventory_pool # only for OrderLine
+      
       log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id)
       lines << o
   end
@@ -105,7 +108,7 @@ class Document < ActiveRecord::Base
       events << Event.new(l.start_date, l.end_date, l.model.name)
     end
 
-    xml = Event.wrap(events)
+    xml = Event.xml_wrap(events)
     
     f_name = "/javascripts/timeline/document_#{self.id}.xml"
     File.open("public#{f_name}", 'w') { |f| f.puts xml }

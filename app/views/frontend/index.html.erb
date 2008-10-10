@@ -1,4 +1,10 @@
   <% javascript_tag do -%>
+
+    function formatDate(value){
+        return value ? value.dateFormat('d.m.Y') : '';
+    };
+
+
 	Ext.namespace('Frontend');
 	   
     Frontend.start = function(){
@@ -10,18 +16,7 @@
 		<%= render :partial => 'recent_models' %>
 		<%= render :partial => 'complete_order' %>
 		<%= render :partial => 'basket' %>
-
-	    function formatDate(value){
-	        return value ? value.dateFormat('d.m.Y') : '';
-	    };
 		
-	    var tips = new Ext.Panel({
-	        title:'Tips',
-			border: false,
-		    autoScroll:true,
-			html: 'tips here'
-	    });
-
 	    var user_timeline = new Ext.Panel({
 	        contentEl:'user_timeline',
 	        title:'Timeline',
@@ -37,13 +32,14 @@
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
 		var center_tabs = new Ext.TabPanel({
+					id: 'center_tabs',
                     region:'center',
-                    deferredRender:true,
+//                    deferredRender:true,
                     activeTab:0,
                     items:[{
 							xtype: 'panel',
 							title: 'Welcome',
-							html: 'Welcome page...',
+							html: '<div style="margin: 10px;"><h2>Welcome page...</h2><img src="images/rails.png"></div>',
 							closable: true
 						},
 						models_grid,
@@ -57,7 +53,6 @@
                     region:'north',
                     contentEl: 'north',
                     height: 40,
-                    //collapsible: true,
                     margins:'5 5 5 5',
 					items: topbar
                  }, eastPanel = {
@@ -71,7 +66,7 @@
                     layoutConfig:{
                         animate:true
                     },
-                    items: [ basket, tips ] 
+                    items: [ basket ] 
                  }, westPanel = {
                     region:'west',
                     split:true,
@@ -85,87 +80,7 @@
                         animate:true
                     },
                     items: [categories_panel, inventory_pools
-						 ,{
-<%	a = []
-	(current_user.orders + current_user.contracts).sort.each {|x| a << [x.id, x.class.to_s, x.created_at]}
-%>
-					        xtype: 'grid',
-							title: 'Documents (<%= a.size %>)',
-							border: false,
-							viewConfig: { forceFit: true },
-							store: new Ext.data.SimpleStore({
-										 fields: [	{name: 'id', type: 'int'},
-										 			{name: 'document', type: 'string'},
-	   											  	{name: 'created_at', type: 'date' }	],
-										 data: <%= a.to_json %>
-										}),
-					        cm:  new Ext.grid.ColumnModel([
-									{
-							           header: "Document",
-							           dataIndex: 'document',
-									   width: 100
-									},{
-							           header: "ID",
-							           dataIndex: 'id',
-									   width: 20
-									},{
-							           header: "Date",
-							           dataIndex: 'created_at',
-									   width: 100,
-									   renderer: function(value,p,r){ return formatDate(value); }
-									}]),
-									listeners: {
-										rowclick: function( grid, rowIndex, e ){
-										  record = grid.getStore().getAt(rowIndex);
-										  x_id = record.data.id;
-										  x_document = record.data.document;
-
-										// TODO search for existing tab or create it
-										
-										    var document_panel = new Ext.Panel({
-										        title: x_document + ' ' + x_id,
-												closable: true,
-											    autoScroll:true,
-//												html: "here document " + x_document + " " + x_id
-												html: "<object type='application/pdf' data='/users/show_document/" + x_id + ".pdf' width='100%' height='100%'> </object>"
-//								                html: "<iframe src='/users/show_document/" + x_id + ".pdf' width='100%' height='500' frameborder='0'></iframe>"
-										    });
-
-											center_tabs.add(document_panel);
-											center_tabs.activate(document_panel);
-/*
-											document_panel.load({
-											    url: '/users/show_document/' + x_id + '.pdf',
-											    text: "Loading...",
-											    timeout: 30,
-												scripts: true
-											});
-*/
-										}
-									},
-					        tbar: ['->',
-								new Ext.Action({
-							        text: 'Timeline Contracts',
-									iconCls:'bt',
-						            icon:'<%= $layout_public_path + "/images/icons/shape_align_left.png" %>',
-							        handler: function(){
-										center_tabs.add(user_timeline);
-							            Ext.getDom('user_timeline').innerHTML = "<iframe src='/users/timeline' width='100%' height='500' frameborder='0'></iframe>";
-										center_tabs.activate(user_timeline);
-							        }
-							    }),
-								new Ext.Action({
-							        text: 'Visits',
-									iconCls:'bt',
-						            icon:'<%= $layout_public_path + "/images/icons/shape_align_left.png" %>',
-							        handler: function(){
-										center_tabs.add(user_timeline);
-							            Ext.getDom('user_timeline').innerHTML = "<iframe src='/users/timeline_visits' width='100%' height='500' frameborder='0'></iframe>";
-										center_tabs.activate(user_timeline);
-							        }
-							    })
-					        ]
-	                    },{
+						,{
 	                        title: 'Recent Models',
 	                        border: false,
 							listeners: {
@@ -193,9 +108,7 @@
   
 	<div id="model_list"></div>
 	<div id="recent_models"></div>
-	<div id="basket"></div>
 	<div id="user_timeline"></div>
-	<div id="complete_order"></div>
 		
 	<div id="north"></div>	
 	        

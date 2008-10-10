@@ -47,6 +47,7 @@ class Event
   end  
 
 ############################################################################
+
   def to_xml
     xml = Document.new()
     e = Element.new("event")
@@ -61,7 +62,7 @@ class Event
   end
 
 
-  def self.wrap(events)
+  def self.xml_wrap(events)
     xml = Document.new()
     @d = Element.new("data")
     events.each do |e|

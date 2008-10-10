@@ -91,12 +91,7 @@ class ModelsController < FrontendController
                                                                                              :model_id,
                                                                                              :compatible_id] },
                                                                 :inventory_pools => { :methods => [[:items_size, @model.id]], # TODO include availability OR items_size
-                                                                                      :except => [:description,  # TODO scope by current_inventory_pools
-                                                                                                  :logo_url,
-                                                                                                  :contract_url,
-                                                                                                  :contract_description,
-                                                                                                  :created_at,
-                                                                                                  :updated_at] },
+                                                                                      :only => [:id, :name] }, # TODO scope by current_inventory_pools
                                                                 :images => { :methods => [:public_filename_thumb],
                                                                              :except => [:created_at,
                                                                                          :updated_at] }
