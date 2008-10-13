@@ -51,6 +51,19 @@ steps_for(:availability_inventory_pool) do
     @line = @order.order_lines.last
   end
 
+
+  When "'$who' order$s $quantity '$model' from inventory pool $ip" do |who, s, quantity, model, ip|
+    post "/session", :login => who #, :password => "pass"
+    get "/orders/new"
+    @order = assigns(:order)
+    model_id = Model.find_by_name(model).id
+    inv_pool = InventoryPool.find_by_name(ip)
+    post "/orders/add_line", :id => @order.id, :model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id
+    @order = assigns(:order)
+    @line = @order.order_lines.last
+  end
+
+
   When "the new order is submitted" do
     post "/orders/submit", :id => @order.id
   end

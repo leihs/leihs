@@ -49,9 +49,10 @@ class DocumentLine < ActiveRecord::Base
 
 
   def available?
-    model.maximum_available_in_period_for_document_line(start_date, end_date, self) >= quantity
+    model.maximum_available_in_period_for_document_line(start_date, end_date, self) >= quantity and 
+                  inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)
   end
-  
+
   private
   
   def set_defaults

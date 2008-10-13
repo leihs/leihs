@@ -1,10 +1,32 @@
 module Factory
 
+  def self.create_dataset_simple
+    
+    inventory_pool = Factory.create_inventory_pool_default_workdays
+        
+	  # Create User with role
+	  user = Factory.create_user(:login => 'inv_man')
+    Factory.define_role(user, "manager", inventory_pool.name)
+
+	  # Create Customer
+	  customer = Factory.create_user(:login => 'customer')
+	  Factory.define_role(customer, "student", inventory_pool.name)
+    
+    # Create Model and Item
+    model = Factory.create_model(:name => 'holey parachute')
+    l = Location.find(:first, :conditions => {:room => "main", :inventory_pool_id => inventory_pool.id})
+    l = Location.create(:room => "main", :inventory_pool => inventory_pool) unless l
+    Factory.create_item(:model => model, :location => l)
+    
+    [inventory_pool, user, customer, model]
+  end
+
   def self.create_user(attributes = {}, options = {})
     default_attributes = {
       :login => "jerome",
       :email  => "jerome@example.com",
     }
+    
     u = User.find_or_create_by_login default_attributes.merge(attributes)
     
     Factory.define_role(u, options[:role]) if options[:role]
@@ -15,7 +37,7 @@ module Factory
 
   def self.define_role(user, role_name = "manager", inventory_pool_name = "ABC")
     role = Role.find_or_create_by_name(:name => role_name)
-    inventory_pool = InventoryPool.find_or_create_by_name(:name => inventory_pool_name)
+    inventory_pool = create_inventory_pool(:name => inventory_pool_name)
     begin
       user.access_rights << AccessRight.new(:role => role, :inventory_pool => inventory_pool)
     rescue
@@ -25,7 +47,7 @@ module Factory
 
   def self.create_order(attributes = {}, options = {})
     default_attributes = {
-      :inventory_pool => InventoryPool.find_or_create_by_name(:name => "ABC")
+      :inventory_pool => create_inventory_pool(:name => "ABC")
     }
     o = Order.create default_attributes.merge(attributes)
     options[:order_lines].times { |i|
@@ -54,7 +76,7 @@ module Factory
     default_attributes = {
       :inventory_code => Item.get_new_unique_inventory_code,
       :location => Location.find_or_create_by_room(:room => "main_ABC",
-                                                   :inventory_pool => InventoryPool.find_or_create_by_name(:name => "ABC")) 
+                                                   :inventory_pool => create_inventory_pool(:name => "ABC")) 
     }
     i = Item.create default_attributes.merge(attributes)
     i
@@ -94,9 +116,25 @@ module Factory
     default_attributes = {
       :name => "ABC" 
     }
-    ip = InventoryPool.create default_attributes.merge(attributes)
+    ip = InventoryPool.find_by_name default_attributes.merge(attributes)[:name]
+    if ip.nil?
+      ip = InventoryPool.create default_attributes.merge(attributes)
+      w = ip.get_workday
+      w.sunday = true
+      w.saturday = true
+      w.save
+    end
     ip
   end
+
+  def self.create_inventory_pool_default_workdays(attributes = {})
+    default_attributes = {
+      :name => "ABC" 
+    }
+    ip = InventoryPool.find_or_create_by_name default_attributes.merge(attributes)[:name]
+    ip
+  end
+
 
   def self.create_category(attributes = {})
     default_attributes = {

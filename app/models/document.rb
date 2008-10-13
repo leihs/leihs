@@ -41,7 +41,7 @@ class Document < ActiveRecord::Base
                             :model_id => model.to_i,
                             :start_date => start_date || time_window_min,
                             :end_date => end_date || time_window_max)
-      o.inventory_pool = inventory_pool if inventory_pool # only for OrderLine
+      o.inventory_pool = inventory_pool if inventory_pool and o.is_a?(OrderLine) # TODO: This is not very nice :-(
       
       log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id)
       lines << o

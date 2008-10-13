@@ -7,7 +7,8 @@ class ContractLine < DocumentLine
   delegate :inventory_pool, :to => :contract
   
   validate :validate_item
-
+  validate :inventory_pool_open
+  
   # custom valid? method
   # returns boolean
   def complete?
@@ -50,7 +51,11 @@ class ContractLine < DocumentLine
     end
   end
   
-   
+  def inventory_pool_open
+    if end_date and not contract.inventory_pool.is_open_on?(end_date)
+      errors.add_to_base(_("This inventory pool is closed on the proposed end date"))
+    end
+  end
     
 end
 
