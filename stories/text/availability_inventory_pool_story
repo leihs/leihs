@@ -83,3 +83,20 @@ Scenario: User orders the same item multiple times, thus exceeding maximum quant
   
   When 'samantha' orders another 2 'Pink Hairbrush' for the same time
   Then they should not be available
+  
+Scenario: User can decide from which pool he orders
+
+  Given 2 inventory pools
+  And a model 'Coffee Mug' exists
+  And this model has 3 items in inventory pool 1
+  And this model has 1 items in inventory pool 2
+  And user 'jack' has access to inventory pool 1
+  And user 'jack' has access to inventory pool 2
+  
+  When 'jack' orders 2 'Coffee Mug' from inventory pool 1
+  
+  Then they should be available
+  
+  When 'jack' orders 2 'Coffee Mug' from inventory pool 2
+  Then they should not be available
+  

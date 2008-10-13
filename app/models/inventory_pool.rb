@@ -1,6 +1,8 @@
 class InventoryPool < ActiveRecord::Base
 
   has_many :access_rights
+  has_one :workday, :dependent => :delete
+  has_many :holidays
   has_many :users, :through => :access_rights, :uniq => true
 ########
 #  has_many :managers, :through => :access_rights, :source => :user, :join_table => "access_rights", :conditions => ["access_rights.role_id = 2"]
@@ -47,6 +49,24 @@ class InventoryPool < ActiveRecord::Base
     items.count(:conditions => {:model_id => model_id})
   end
 
+  def is_open_on?(date)
+    get_workday.is_open_on?(date) and not holiday?(date)
+  end
+
+  def get_workday
+    if workday.nil?
+      self.workday = Workday.new(:inventory_pool => self)
+      save
+    end
+    workday
+  end
+  
+  def holiday?(date)
+    holidays.each do |h|
+      return true if date >= h.start_date and date <= h.end_date
+    end
+    return false
+  end
 ###################################################################################
   
   def hand_over_visits

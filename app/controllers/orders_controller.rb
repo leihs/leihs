@@ -46,6 +46,7 @@ class OrdersController < FrontendController
     model.add_to_document(@order, user_id, quantity, start_date, end_date, inventory_pool)
     
     flash[:notice] = _("Line couldn't be added") unless @order.save
+    
 #    render :nothing => true # render :text => ""
     render :text => @order.errors.full_messages.to_s, :status => (@order.errors.empty? ? 200 : 400)
   end

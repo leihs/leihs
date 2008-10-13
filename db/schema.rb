@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080929144756) do
+ActiveRecord::Schema.define(:version => 20081007122945) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
@@ -100,6 +100,15 @@ ActiveRecord::Schema.define(:version => 20080929144756) do
     t.integer  "target_id",                   :null => false
     t.string   "target_type", :default => "", :null => false
     t.integer  "user_id"
+  end
+
+  create_table "holidays", :force => true do |t|
+    t.integer  "inventory_pool_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "images", :force => true do |t|
@@ -248,6 +257,19 @@ ActiveRecord::Schema.define(:version => 20080929144756) do
     t.integer  "authentication_system_id", :default => 1
     t.string   "unique_id"
     t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "workdays", :force => true do |t|
+    t.integer  "inventory_pool_id"
+    t.boolean  "monday",            :default => true
+    t.boolean  "tuesday",           :default => true
+    t.boolean  "wednesday",         :default => true
+    t.boolean  "thursday",          :default => true
+    t.boolean  "friday",            :default => true
+    t.boolean  "saturday",          :default => false
+    t.boolean  "sunday",            :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
