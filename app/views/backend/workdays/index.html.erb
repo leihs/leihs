@@ -1,0 +1,18 @@
+<div class="workdays">
+<h4><%= _("Workdays") %></h4>
+<% Workday::DAYS.each do |day| %>
+<%
+  is_open = @workday.send(day)
+  background = is_open ? "#CCFF66" : "#FFCCCC" 
+  background_highlight = is_open ? "#A5FF0A" : "#F4A3A3"
+  location = url_for(:controller => 'workdays', :action => (is_open ? 'close' : 'open'), :day => day)
+%>
+<div class="workday <%= open_as_string(@workday.send(day)) %>" onMouseOver="this.style.backgroundColor='<%= background_highlight %>';" onMouseOut="this.style.backgroundColor='<%= background %>';" onClick="self.location='<%= location %>'">
+
+	<%= _(day) %><br/><%= _(open_as_string(@workday.send(day)))%>
+
+</div>
+
+<% end %>
+</div>
+<h4><%= _("Holidays")%></h4>

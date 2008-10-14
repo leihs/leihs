@@ -139,6 +139,7 @@ MAIN STRUCTURE
 	border-left: 1px solid #c2c2c2;
 	border-bottom: 1px solid #c2c2c2;
 	padding: 3em 1.5em 0;
+	min-height: 200px;
 }
 
 
@@ -347,4 +348,26 @@ ul.model_group > li > div > span.add_button {
 
 .barcode_pulldown {
 	color: #444;
+}
+
+.workdays {
+	height: 100px;
+}
+
+.workday {
+	border: 1px solid lightgray;
+	width: 100px;
+	float: left;
+	text-align: center;
+	margin: 5px;
+	padding: 5px;
+	cursor: pointer;
+}
+
+.closed {
+	background-color: #FFCCCC;
+}
+
+.open {
+	background-color: #CCFF66;
 }

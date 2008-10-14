@@ -1,6 +1,8 @@
 class Workday < ActiveRecord::Base
   belongs_to :inventory_pool
   
+  DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+  
   def is_open_on?(date)
     case date.wday
     when 1

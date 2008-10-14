@@ -54,10 +54,7 @@ class InventoryPool < ActiveRecord::Base
   end
 
   def get_workday
-    if workday.nil?
-      self.workday = Workday.new(:inventory_pool => self)
-      save
-    end
+    create_workday if workday.nil?
     workday
   end
   

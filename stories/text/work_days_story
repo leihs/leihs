@@ -103,4 +103,18 @@ Scenario: Hand Over during holiday
 	When trying to set the end date to the same date
 	Then that should not be possible because the end date can't be on a holiday
 	
+Scenario: Changing Workdays
+
+	When an inventory manager clicks 'Opening Times'
+	Then he sees that his inventory pool is currently open on monday, tuesday, wednesday, thursday, friday
+	
+	When he deselects tuesday, thursday, friday
+	And he clicks 'Opening Times'
+	
+	Then he sees that his inventory pool is currently open on monday, wednesday
+	
+	When he selects friday
+	And he clicks 'Opening Times'
+	
+	Then he sees that his inventory pool is currently open on monday, wednesday, friday
 	

@@ -58,12 +58,15 @@ steps_for(:work_days) do
     @line = @order.order_lines.last
 	end
 	
-	When "an inventory manager clicks 'hand over'" do
+	When "$who clicks '$action'" do |who, action|
 	  inventory_pool,inv_manager, @user, model = Factory.create_dataset_simple
 	  
 	  #Login as User
     post "/session", :login => inv_manager.login
-    get "/backend/hand_over/index"
+    get "/backend/hand_over/index" if action == 'hand over'
+    get "/backend/workdays/index" if action == 'Opening Times'
+
+    @workday = assigns(:workday)
   end
 	
 	When "he tries to hand over an item to a customer" do
@@ -105,4 +108,33 @@ steps_for(:work_days) do
 	  @save_successful.should == false
   end
 
+  Then "he sees that his inventory pool is currently open on $days" do |days|
+    other_days = Workday::DAYS
+    days.split(',').each do |day|
+      other_days.delete(day.strip)
+      @workday.send(day.strip).should == true
+    end
+    
+    other_days.each do |day|
+      if @workday.send(day) == true 
+        puts "****************"
+        puts @workday.inspect
+        puts "****************"
+      end
+      @workday.send(day).should == false
+    end
+  end
+  
+  When "he deselects $days" do |days|
+    days.split(',').each do |day|
+      post "/backend/workdays/close", :day => day.strip
+    end
+  end
+  
+  When "he selects $days" do |days|
+    days.split(',').each do |day|
+      post "/backend/workdays/open", :day => day.strip
+    end
+  end
+  
 end
