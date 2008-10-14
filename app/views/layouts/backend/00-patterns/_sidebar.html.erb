@@ -21,4 +21,8 @@
 		<li><%= link_to _('Students') + " (#{(@current_inventory_pool.users & User.students).size})", :controller => 'users', :action => 'students' %></li>
 		</ul>	
 	</li>
+	<li><%= _("Opening Times")%></li>
+		<ul>
+			<li><%= link_to _("Opening Times"), :controller => 'workdays'%></li>
+		</ul>
 </ul>
