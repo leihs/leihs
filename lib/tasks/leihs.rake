@@ -12,7 +12,26 @@ namespace :leihs do
     # TODO implement
   end
 
-  
+
+  # TODO remove this
+  desc "Random dataset generator"
+  task :dataset => :environment do
+#    params[:id] = 5
+#    params[:name] = "admin"
+#    create_some_users
+#    params[:name] = "student"
+#    create_some_users
+
+    create_meaningful_users
+
+    create_some_submitted_orders(10)
+#    create_beautiful_order
+
+#    scene_3a
+#    scene_3b
+
+    puts "Complete"    
+  end
   
 ################################################################################################
 # Refactoring from Backend::TemporaryController
@@ -46,94 +65,81 @@ namespace :leihs do
     create_some_compatibles
     create_some_accessories
     
-    params[:id] = 5
-    params[:name] = "admin"
-#old#    create_some_users
-#TODO    
-#    params[:name] = "student"
-#    create_some_users
-
-#old#   create_meaningful_users
-
-    params[:id] = 10
-#    create_some_submitted_orders
-#    create_beautiful_order
-
     puts "Complete"
   end
 
 
-  def scene_3a
-    u = User.find_by_login("Franco Sellitto")
-    
-    order = u.get_current_order
-    start_date = Date.new(2008, 7, 15)
-    end_date = Date.new(2008, 8, 4)
-
-    m1 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("HDV/DVCam-Kamera Sony HVR-Z1E")
-    order.add_line(2, m1, u.id, start_date, end_date )
-    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("LCD Monitor Panasonic BT-LH900AE")
-    order.add_line(1, m2, u.id, start_date, end_date )
-    m3 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Stativ Velbon TH650 Admiral")
-    order.add_line(2, m3, u.id, start_date, end_date )
-
-    start_date = Date.new(2008, 8, 4)
-    end_date = Date.new(2008, 10, 1)
-    m1 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("PC Siemens Celsius W340, P4 3.2GHz 1GB")
-    order.add_line(1, m1, u.id, start_date, end_date )
-    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("HD LaCie d2 Drive 250 GB")
-    order.add_line(1, m2, u.id, start_date, end_date )
-
-    order.purpose = "Filming Scarface 2"
-    output1 = order.submit
-
-    ######
-        
-    u = User.find_by_login("Ramon Cahenzli")
-
-    order = u.get_current_order
-    start_date = Date.new(2008, 7, 15)
-    end_date = Date.new(2008, 7, 25)
-
-#old#
-#    p1 = u.inventory_pools.find_by_name("AVZ").packages.find_by_name("Stereo Set")
-#    p1.add_to_document(order, u.id, 1, start_date, end_date)
-    
-    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Digitalrecorder Edirol R-1")
-    m2.add_to_document(order, u.id, 1, start_date, end_date)
- 
-    start_date = Date.new(2008, 7, 25)
-    end_date = Date.new(2008, 8, 4)
-    m1 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("PC Siemens Celsius W340, P4 3.2GHz 1GB")
-    m1.add_to_document(order, u.id, 1, start_date, end_date)
-    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Aktivboxen Sony SRS-Z750")
-    m2.add_to_document(order, u.id, 4, start_date, end_date)
-    
-    order.purpose = "Recording CD"
-    output2 = order.submit
-    
-    puts "#{output1} - #{output2}"
-  end
-
-   def scene_3b
-    u = User.find_by_login("Ramon Cahenzli")
-
-    order = u.get_current_order
-    start_date = Date.new(2008, 9, 1)
-    end_date = Date.new(2008, 10, 2)
-
-#old#
-#    p1 = u.inventory_pools.find_by_name("AVZ").packages.find_by_name("Stereo Set")
-#    p1.add_to_document(order, u.id, 1, start_date, end_date)
-    
-    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Digitalrecorder Edirol R-1")
-    m2.add_to_document(order, u.id, 1, start_date, end_date)
-     
-    order.purpose = "Recording CD (one more time)"
-    output1 = order.submit
-    
-    puts "#{output1}"
-  end
+#  def scene_3a
+#    u = User.find_by_login("Franco Sellitto")
+#    
+#    order = u.get_current_order
+#    start_date = Date.new(2008, 7, 15)
+#    end_date = Date.new(2008, 8, 4)
+#
+#    m1 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("HDV/DVCam-Kamera Sony HVR-Z1E")
+#    order.add_line(2, m1, u.id, start_date, end_date )
+#    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("LCD Monitor Panasonic BT-LH900AE")
+#    order.add_line(1, m2, u.id, start_date, end_date )
+#    m3 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Stativ Velbon TH650 Admiral")
+#    order.add_line(2, m3, u.id, start_date, end_date )
+#
+#    start_date = Date.new(2008, 8, 4)
+#    end_date = Date.new(2008, 10, 1)
+#    m1 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("PC Siemens Celsius W340, P4 3.2GHz 1GB")
+#    order.add_line(1, m1, u.id, start_date, end_date )
+#    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("HD LaCie d2 Drive 250 GB")
+#    order.add_line(1, m2, u.id, start_date, end_date )
+#
+#    order.purpose = "Filming Scarface 2"
+#    output1 = order.submit
+#
+#    ######
+#        
+#    u = User.find_by_login("Ramon Cahenzli")
+#
+#    order = u.get_current_order
+#    start_date = Date.new(2008, 7, 15)
+#    end_date = Date.new(2008, 7, 25)
+#
+##old#
+##    p1 = u.inventory_pools.find_by_name("AVZ").packages.find_by_name("Stereo Set")
+##    p1.add_to_document(order, u.id, 1, start_date, end_date)
+#    
+#    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Digitalrecorder Edirol R-1")
+#    m2.add_to_document(order, u.id, 1, start_date, end_date)
+# 
+#    start_date = Date.new(2008, 7, 25)
+#    end_date = Date.new(2008, 8, 4)
+#    m1 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("PC Siemens Celsius W340, P4 3.2GHz 1GB")
+#    m1.add_to_document(order, u.id, 1, start_date, end_date)
+#    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Aktivboxen Sony SRS-Z750")
+#    m2.add_to_document(order, u.id, 4, start_date, end_date)
+#    
+#    order.purpose = "Recording CD"
+#    output2 = order.submit
+#    
+#    puts "#{output1} - #{output2}"
+#  end
+#
+#   def scene_3b
+#    u = User.find_by_login("Ramon Cahenzli")
+#
+#    order = u.get_current_order
+#    start_date = Date.new(2008, 9, 1)
+#    end_date = Date.new(2008, 10, 2)
+#
+##old#
+##    p1 = u.inventory_pools.find_by_name("AVZ").packages.find_by_name("Stereo Set")
+##    p1.add_to_document(order, u.id, 1, start_date, end_date)
+#    
+#    m2 = u.inventory_pools.find_by_name("AVZ").models.find_by_name("Digitalrecorder Edirol R-1")
+#    m2.add_to_document(order, u.id, 1, start_date, end_date)
+#     
+#    order.purpose = "Recording CD (one more time)"
+#    output1 = order.submit
+#    
+#    puts "#{output1}"
+#  end
  
   
   
@@ -193,30 +199,30 @@ namespace :leihs do
   
   
 
-  def create_some_users
-    params[:id].to_i.times do |i|
-      u = User.new(:login => "#{params[:name]}_#{i}")
-        r = Role.find(:first, :conditions => {:name => "manager"})
-        ips = InventoryPool.find(:all).select { rand(3) == 0 or i == 0 }
-        ips.each do |ip|
-          u.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
-        end
-      u.save
-    end
-  end
+#  def create_some_users
+#    params[:id].to_i.times do |i|
+#      u = User.new(:login => "#{params[:name]}_#{i}")
+#        r = Role.find(:first, :conditions => {:name => "manager"})
+#        ips = InventoryPool.find(:all).select { rand(3) == 0 or i == 0 }
+#        ips.each do |ip|
+#          u.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
+#        end
+#      u.save
+#    end
+#  end
 
-  def create_some_submitted_orders
+  def create_some_submitted_orders(quantity = 3)
     users = User.find(:all)
-    models = Model.find(:all)
-    params[:id].to_i.times do |i|
-      order = Order.new
-      order.user_id = users[rand(users.size)].id
+    quantity.times do |i|
+      user = users[rand(users.size)]      
+      order = Order.new(:user => user)
       3.times {
         d = Array.new
         2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
         start_date = d.min 
         end_date = d.max
-        order.add_line(rand(3)+1, models[rand(models.size)], order.user_id, start_date, end_date )
+        model = user.models[rand(user.models.size)]
+        order.add_line(rand(3)+1, model, order.user.id, start_date, end_date, model.inventory_pools.first )
       }
       order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
       order.submit
@@ -318,39 +324,39 @@ namespace :leihs do
     sub.set_label(parent, sub.name)
   end
 
-  def create_some_categories
-    20.times do
-      chars = ("A".."Z").to_a
-      name = ""
-      1.upto(5) { |i| name << chars[rand(chars.size-1)] } 
-      Category.create(:name => name)
-    end
-    categories = Category.find(:all, :limit => rand(5)+3, :order => "RAND()")
-    categories.each do |c|
-      begin
-#        c.children << Category.find(:all, :limit => rand(5)+3, :order => "RAND()", :conditions => ["id != ?", c.id])
-        (rand(5)+3).times do |i|
-          child = Category.find(:first, :order => "RAND()", :conditions => ["id != ?", c.id])
-          c.children << child
-          child.set_label(c, "#{child.name}_#{i}")
-        end
-        (rand(1)+1).times do |i|
-#old#          
-#          child = Package.find(:first, :order => "RAND()")
+#  def create_some_categories
+#    20.times do
+#      chars = ("A".."Z").to_a
+#      name = ""
+#      1.upto(5) { |i| name << chars[rand(chars.size-1)] } 
+#      Category.create(:name => name)
+#    end
+#    categories = Category.find(:all, :limit => rand(5)+3, :order => "RAND()")
+#    categories.each do |c|
+#      begin
+##        c.children << Category.find(:all, :limit => rand(5)+3, :order => "RAND()", :conditions => ["id != ?", c.id])
+#        (rand(5)+3).times do |i|
+#          child = Category.find(:first, :order => "RAND()", :conditions => ["id != ?", c.id])
 #          c.children << child
 #          child.set_label(c, "#{child.name}_#{i}")
-
-          child = Template.find(:first, :order => "RAND()")
-          c.children << child
-          child.set_label(c, "#{child.name}_#{i}")
-        end
-      rescue
-      end
-    
-      m = Model.find(:first, :order => "RAND()")
-      c.model_links << ModelLink.create(:model => m, :quantity => 1)
-    end
-  end
+#        end
+#        (rand(1)+1).times do |i|
+##old#          
+##          child = Package.find(:first, :order => "RAND()")
+##          c.children << child
+##          child.set_label(c, "#{child.name}_#{i}")
+#
+#          child = Template.find(:first, :order => "RAND()")
+#          c.children << child
+#          child.set_label(c, "#{child.name}_#{i}")
+#        end
+#      rescue
+#      end
+#    
+#      m = Model.find(:first, :order => "RAND()")
+#      c.model_links << ModelLink.create(:model => m, :quantity => 1)
+#    end
+#  end
 
   
   def create_some_properties
@@ -387,46 +393,46 @@ namespace :leihs do
     end
   end
   
-  def create_beautiful_order
-    m = Model.find(:first)
-  
+#  def create_beautiful_order
+#    m = Model.find(:first)
+#  
+#    
+#    order = Order.new()
+#    order.user_id = User.find_by_login("Ramon Cahenzli")
+#    order.add_line(3, m, order.user_id, Date.new(2008, 10, 12), Date.new(2008, 10, 20))
+#    order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
+#    order.submit
+#    
+#    order = Order.new()
+#    order.user_id = User.find_by_login("Ramon Cahenzli")
+#    order.add_line(6, m, order.user_id, Date.new(2008, 10, 15), Date.new(2008, 10, 30))
+#    order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
+#    order.submit
+#    
+#    
+#    order = Order.new()
+#    order.user_id = User.find_by_login("Ramon Cahenzli")
+#    order.add_line(1, m, order.user_id, Date.new(2008, 10, 20), Date.new(2008, 10, 30))
+#    order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
+#    order.submit
+#    
+#  end
     
-    order = Order.new()
-    order.user_id = User.find_by_login("Ramon Cahenzli")
-    order.add_line(3, m, order.user_id, Date.new(2008, 10, 12), Date.new(2008, 10, 20))
-    order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
-    order.submit
-    
-    order = Order.new()
-    order.user_id = User.find_by_login("Ramon Cahenzli")
-    order.add_line(6, m, order.user_id, Date.new(2008, 10, 15), Date.new(2008, 10, 30))
-    order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
-    order.submit
-    
-    
-    order = Order.new()
-    order.user_id = User.find_by_login("Ramon Cahenzli")
-    order.add_line(1, m, order.user_id, Date.new(2008, 10, 20), Date.new(2008, 10, 30))
-    order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
-    order.submit
-    
-  end
-    
-  def clean_db_and_index
-    Item.delete_all
-    Model.delete_all
-    Order.delete_all #destroy_all
-    OrderLine.delete_all
-    User.delete_all
-    Backup::Order.delete_all #destroy_all
-    Backup::OrderLine.delete_all
-    Contract.delete_all
-    ContractLine.delete_all
-    AccessRight.delete_all
-    ModelGroup.destroy_all
-    
-    FileUtils.remove_dir(File.dirname(__FILE__) + "/../../../index", true)
-  end
+#  def clean_db_and_index
+#    Item.delete_all
+#    Model.delete_all
+#    Order.delete_all #destroy_all
+#    OrderLine.delete_all
+#    User.delete_all
+#    Backup::Order.delete_all #destroy_all
+#    Backup::OrderLine.delete_all
+#    Contract.delete_all
+#    ContractLine.delete_all
+#    AccessRight.delete_all
+#    ModelGroup.destroy_all
+#    
+#    FileUtils.remove_dir(File.dirname(__FILE__) + "/../../../index", true)
+#  end
   
   
   

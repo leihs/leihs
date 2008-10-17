@@ -371,3 +371,37 @@ ul.model_group > li > div > span.add_button {
 .open {
 	background-color: #CCFF66;
 }
+
+/* 	- - - - - - - - - - - - -
+Pagination
+ - - - - - - - - - - - - - */
+
+.pagination {
+	margin:0.3em;
+	padding:0.3em;
+}
+.pagination a {
+	border:1px solid #AAAADD;
+	color:#336699;
+	margin:0.2em;
+	padding:0.1em 0.3em;
+	text-decoration:none;
+}
+.pagination a:hover, .pagination a:active {
+	border:1px solid #336699;
+	color:#000000;
+}
+.pagination span.current {
+	background-color:#336699;
+	border:1px solid #336699;
+	color:#FFFFFF;
+	font-weight:bold;
+	margin:0.2em;
+	padding:0.1em 0.3em;
+}
+.pagination span.disabled {
+	border:1px solid #EEEEEE;
+	color:#DDDDDD;
+	margin:0.2em;
+	padding:0.1em 0.3em;
+}

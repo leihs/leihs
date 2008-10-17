@@ -1,29 +1,33 @@
-		<table cellspacing="0">
-			<tr>
-				<th scope="col">User</th>
-				<th scope="col">Orders</th>
-				<th scope="col">Contracts</th>
-				<th scope="col">Roles</th>
-			</tr>
+<% table_with_search_and_pagination :columns => [_("User"), _("Access Rights"), _("Documents"), _("Action")],
+						   			:records => @users do |user| %>	
 
-		<% for user in @users %>
 			<tr class="alt-row">
 				<td class="row-closed"><%= user.login %></td>
-				<td><%= user.orders.size %> (<%= link_to user.orders.submitted_orders.size,
-														 :controller => 'acknowledge',
-														 :action => 'index',
-														 :user_id => user.id %>)</td>
-				<td><%= user.contracts.size %></td>
 				<td>
 					<ul>
 					<% user.access_rights.each do |a| %>
-						<li><%= "#{a.inventory_pool.name} => #{a.role.name}" %></li>
+						<li><%= a.to_s %></li>
 					<% end %>
 					</ul>					
 				</td>
+				<td>
+					<ul>
+						<li>Orders: <%= user.orders.size %> (<%= link_to user.orders.submitted_orders.size,
+														 :controller => 'acknowledge',
+														 :action => 'index',
+														 :user_id => user.id %>)</li>
+						<li>Contracts: <%= user.contracts.size %></li>
+					</ul>
+				</td>
+				<td>
+					<ul>
+						<li><%= link_to _("Show"), :action => 'show', :id => user.id %></li>
+						<li><%= link_to _("New Contract"), :action => 'new_contract', :id => user.id %></li>
+						<li><%= link_to _("Remind"), :action => 'remind', :id => user.id %></li>
+					</ul>
+				</td>
 			</tr>
-		<% end %>
 
-		
-		</table>
+<% end %>
+
 		

@@ -4,21 +4,21 @@
 	<li><%= _('Items') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{@current_inventory_pool.items.size})", :controller => 'items' %></li>
-		<li><%= link_to _('In Repair') + " (#{@current_inventory_pool.items.in_repair.size})", :controller => 'items', :action => 'in_repair' %></li>
+		<li><%= link_to _('In Repair') + " (#{@current_inventory_pool.items.in_repair.size})", :controller => 'items', :filter => 'in_repair' %></li>
 		</ul>	
 	</li>
 	<li><%= _('Models') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{@current_inventory_pool.models.size})", :controller => 'models' %></li>
-		<li><%= link_to _('Packages') + " (#{@current_inventory_pool.models.packages.size})", :controller => 'models', :action => 'packages' %></li>
+		<li><%= link_to "**" + _('Packages') + " (#{@current_inventory_pool.models.packages.size})", :controller => 'models', :action => 'packages' %></li>
 		</ul>	
 	</li>
-	<li><%= link_to _('Locations') + " (#{@current_inventory_pool.locations.size})", :controller => 'locations' %></li>
+	<li><%= link_to "**" + _('Locations') + " (#{@current_inventory_pool.locations.size})", :controller => 'locations' %></li>
 	<li><%= _('Users') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{@current_inventory_pool.users.size})", :controller => 'users' %></li>
-		<li><%= link_to _('Managers') + " (#{(@current_inventory_pool.users & User.managers).size})", :controller => 'users', :action => 'managers' %></li>
-		<li><%= link_to _('Students') + " (#{(@current_inventory_pool.users & User.students).size})", :controller => 'users', :action => 'students' %></li>
+		<li><%= link_to _('Managers') + " (#{(@current_inventory_pool.users & User.managers).size})", :controller => 'users', :filter => 'managers' %></li>
+		<li><%= link_to _('Students') + " (#{(@current_inventory_pool.users & User.students).size})", :controller => 'users', :filter => 'students' %></li>
 		</ul>	
 	</li>
 	<li><%= _("Opening Times")%></li>

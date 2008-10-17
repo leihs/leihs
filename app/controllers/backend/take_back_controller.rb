@@ -3,27 +3,27 @@ class Backend::TakeBackController < Backend::BackendController
   before_filter :pre_load
 
   def index
+    if params[:remind]
+      visits = current_inventory_pool.remind_visits
+    else
+      visits = current_inventory_pool.take_back_visits
+    end
                                               
-    if params[:query]
-      # search with partial string
+    if !params[:query].blank?
       @contracts = current_inventory_pool.contracts.signed_contracts.find_by_contents("*" + params[:query] + "*")
 
+      # TODO search by inventory_code
+
       # OPTIMIZE named_scope intersection?
-      @visits = current_inventory_pool.take_back_visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }
+      visits = visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }
       
-    elsif params[:user_id]
+    elsif @user
       # OPTIMIZE named_scope intersection?
-      @visits = current_inventory_pool.take_back_visits.select {|v| v.user == @user}
-      
-    elsif params[:remind]
-      @visits = current_inventory_pool.remind_visits
-      
-    else
-      @visits = current_inventory_pool.take_back_visits
+      visits = visits.select {|v| v.user == @user}
       
     end
-    
-    render :partial => 'visits' if request.post?
+
+    @visits = visits.paginate :page => params[:page], :per_page => Document.per_page #old#, :total_entries => visits.size
   end
 
   # get current contracts for a given user

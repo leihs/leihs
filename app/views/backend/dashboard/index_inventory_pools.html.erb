@@ -1,19 +1,7 @@
-			
-<div class="table-overview boxes">
+<% table_with_search_and_pagination :columns => [_("Name"), _("Description"), _("Items"), _("Action")],
+									:records => @inventory_pools do |inventory_pool| %>	
 
-		<%= render :partial => '/application/search' %>
-	
-		<div id="list_table">
-			
-		<table cellspacing="0">
-			<tr>
-				<th scope="col"><%= _("Name") %></th>
-				<th scope="col"><%= _("Description") %></th>
-				<th scope="col"><%= _("Items") %></th>
-				<th scope="col">Aktion</th>
-			</tr>
 
-		<% for inventory_pool in @inventory_pools %>
 			<tr>
 				<td>
 				<% if current_user.has_role?('manager', inventory_pool) %>
@@ -38,18 +26,6 @@
 				<% end %>
 				</td>
 			</tr>
-		<% end %>
 
-		
-		</table>
-		
-
-
-
-
-
-		</div>
-			
-						
-</div>
-			
+<% end %>
+	

@@ -14,6 +14,13 @@ class Document < ActiveRecord::Base
     "#{id}"
   end
 
+####################################################################
+
+  # paginator limit
+  def self.per_page
+    10
+  end
+
 ################################################################
   def time_window_min
     d1 = Array.new

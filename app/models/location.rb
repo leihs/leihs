@@ -4,7 +4,7 @@ class Location < ActiveRecord::Base
   has_many :items
 
   def to_s
-    "#{building} #{room} #{shelf}"
+    "#{inventory_pool.name} - #{building} #{room} #{shelf}"
   end
 
 end
