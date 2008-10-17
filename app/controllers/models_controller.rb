@@ -53,14 +53,13 @@ class ModelsController < FrontendController
     end
   end  
 
-  # TODO interesections
+  # OPTIMIZE interesections
   def categories(id = params[:node].to_i)
     if id == 0 
 #      c = Category.roots
 #      c = current_user.categories.roots
       c = current_user.all_categories & Category.roots
     else
-      # OPTIMIZE intersection
       c = current_user.categories & Category.find(id).children # TODO scope only children Category (not ModelGroup)
 #      c = current_user.categories.find(id).children
 #      c = current_user.all_categories.find(id).children
@@ -86,12 +85,14 @@ class ModelsController < FrontendController
                                                                 :properties => { :except => [:created_at,
                                                                                              :updated_at] },
                                                                 :accessories => { :except => [:model_id] },
-                                                                :compatibles => { :except => [:created_at,  # TODO scope by current_inventory_pools
+                                                                :compatibles => { :records => current_inventory_pools.collect(&:models).flatten.uniq,
+                                                                                  :except => [:created_at, 
                                                                                              :updated_at,
                                                                                              :model_id,
                                                                                              :compatible_id] },
-                                                                :inventory_pools => { :methods => [[:items_size, @model.id]], # TODO include availability OR items_size
-                                                                                      :only => [:id, :name] }, # TODO scope by current_inventory_pools
+                                                                :inventory_pools => { :records => current_inventory_pools,
+                                                                                      :methods => [[:items_size, @model.id]], # OPTIMIZE include availability for today?
+                                                                                      :only => [:id, :name] },
                                                                 :images => { :methods => [:public_filename_thumb],
                                                                              :except => [:created_at,
                                                                                          :updated_at] }

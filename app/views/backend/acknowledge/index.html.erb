@@ -14,14 +14,25 @@
 	</div>
 <% end %>
 			
-<div class="table-overview boxes">
-	
-		<%= render :partial => '/application/search' %>
-	
-		<div id="list_table">
-			<%= render :partial => 'orders' %>
-		</div>
-			
-						
-</div>
+
+<% table_with_search_and_pagination :columns => [_("Empfangen am"), _("Reservierender"), _("Anzahl Pakete"), _("Aktion")],
+						   			:records => @orders do |order| %>	
+
+
+			<tr class="<%= (order.has_backup? ? "alt-row" : "fresh" ) %>">
+				<td class="line_valid_<%= order.lines.all?{|l| l.correct_inventory_pool? } %>"> <% # TODO temp check, remove it %>
+					<%= "#{today_or_yesterday_date(order.created_at)}" %>
+				</td>
+				<td>
+					<%= greybox_link_to_page(order.user.login,
+						 { :controller => 'users', :action => 'details', :id => order.user.id },
+						 :title => _("User"),
+						 :class => "iconized-notxt edit-user" ) %>
+				</td>
+				<td class="line_valid_<%= order.approvable? %>"><%= _("%{n} Pakete") % {:n => order.order_lines.size} %></td>
+					<td><div class="buttons"><%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"), :controller => 'acknowledge', :action => 'show', :id => order %></div></td>
+			</tr>
+
+<% end %>
+
 			
