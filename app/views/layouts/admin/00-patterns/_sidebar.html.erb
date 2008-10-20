@@ -14,7 +14,11 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= link_to _('Categories') + " (#{Category.count})", :controller => 'categories' %></li>
+	<li><%= _('Categories') %>
+		<ul>
+		<li><%= link_to _('All') + " (#{Category.count})", :controller => 'categories' %></li>
+		</ul>	
+	</li>
 	<li><hr /></li>
 	<li><%= _('Users') %>
 		<ul>
@@ -25,5 +29,9 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= link_to _('** Roles') + " (#{Role.count})", :controller => 'roles' %></li>
+	<li><%= "**" + _('Roles') %>
+		<ul>
+		<li><%= link_to _('All') + " (#{Role.count})", :controller => 'roles' %></li>
+		</ul>	
+	</li>
 </ul>
