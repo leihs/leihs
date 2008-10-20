@@ -25,13 +25,6 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-  # paginator limit
-  def self.per_page
-    10
-  end
-
-####################################################################
-
   named_scope :available, :conditions => {:status_const => Item::BORROWABLE} # TODO ['parent_id IS NULL'] 
   named_scope :in_repair, :conditions => {:status_const => Item::UNBORROWABLE}
   named_scope :incompletes, :conditions => ['inventory_code IS NULL OR model_id IS NULL OR location_id IS NULL']

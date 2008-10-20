@@ -2,40 +2,31 @@ class Admin::ItemsController < Admin::AdminController
   
   before_filter :pre_load
   
-  active_scaffold :item do |config|
-    config.columns = [:model, :inventory_pool, :location, :inventory_code, :serial_number, :status_const, :in_stock?]
-    config.columns.each { |c| c.collapsed = true }
-
-    config.show.link.inline = false
-
-    config.list.sorting = { :model => :asc }
+  def index
+    
+    # TODO *17* search and filter 
+    unless params[:query].blank?
+      @items = Item.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+    else
+      case params[:filter]
+        when "incompletes"
+          items = Item.all(:conditions => ['items.id IN (?)', Item.incompletes])
+      end
+      
+      # OPTIMIZE queries
+      items ||= Item.all
+      @items = items.paginate :page => params[:page], :per_page => $per_page      
+    end
   end
 
-#################################################################
-
-  def incompletes
-    render :inline => "Incompletes <hr /> <%= render :active_scaffold => 'admin/items', :conditions => ['items.id IN (?)', Item.incompletes] %>", # TODO optimize conditions
-           :layout => $general_layout_path
-  end
-
-#################################################################
-
-  # TODO
   def show
     # template has to be .rhtml (??)
   end
 
-  # TODO steps: [model, inventory_pool, inventory_code]
   def new
-    render :action => 'show' #, :layout => false
+    render :action => 'show'
   end
-    
-  # TODO
-  def edit 
-    render :action => 'show' #, :layout => false
-  end
-  
-  # TODO
+      
   def update 
     @item ||= Item.create
     @item.inventory_code = params[:inventory_code]
@@ -76,6 +67,7 @@ class Admin::ItemsController < Admin::AdminController
     # if is the first item of that model assigned to the inventory_pool,
     # then creates accessory associations
     @item.model.accessories.each {|a| ip.accessories << a } unless ip.models.include?(@item.model)
+    # TODO *17* fix problem with accessories setting inventory_pool
     
     
     @item.step = :step_location

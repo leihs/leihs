@@ -85,17 +85,35 @@ class Backend::BackendController < ApplicationController
   end    
 ###############################################################  
 
+  protected
+    
+    # Accesses the current inventory pool from the session.
+    # Future calls avoid the database because nil is not equal to false.
+    def current_inventory_pool
+      @current_inventory_pool ||= InventoryPool.find(session[:inventory_pool_id]) if session[:inventory_pool_id] and not @current_inventory_pool == false
+
+      #old# @current_inventory_pool ||= current_user.inventory_pools.first if current_user # TODO test
+
+      # OPTIMIZE select most recent used inventory pool (using session?)
+      unless @current_inventory_pool
+        first_access_right = current_user.access_rights.detect {|a| a.role.name == 'manager'}
+        @current_inventory_pool = first_access_right.inventory_pool if first_access_right
+      end
+      @current_inventory_pool
+    end
+
+    # Stores the given inventory pool id in the session.
+    def current_inventory_pool=(new_inventory_pool)
+      session[:inventory_pool_id] = new_inventory_pool ? new_inventory_pool.id : nil
+      @current_inventory_pool = new_inventory_pool || false
+    end  
+
+####################################################  
   
   private
   
   def init
-    # OPTIMIZE select most recent used inventory pool (using session?)
-    if logged_in?
-      unless self.current_inventory_pool
-        first_access_right = current_user.access_rights.detect {|a| a.role.name == 'manager'}
-        self.current_inventory_pool = first_access_right.inventory_pool if first_access_right
-      end
-    else
+    unless logged_in?
       store_location
       redirect_to :controller => '/session', :action => 'new' and return
     end

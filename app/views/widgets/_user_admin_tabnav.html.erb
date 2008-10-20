@@ -1,0 +1,29 @@
+<i>User</i>
+<hr />
+
+<% if @user.errors.size > 0 %>
+	<ul style="border: 1px solid red; padding: 2px;">
+	<% @user.errors.full_messages.each do |e| %>		
+		<li><%= e %></li>
+	<% end %>	
+	</ul>
+<% end %>			
+
+<%  
+
+render_tabnav :user_admin, 
+              :generate_css => true do 
+
+	add_tab do |t|
+		t.named 'User'
+		t.links_to :action => 'show', :id => @user.id
+		t.html[:style] = "background-color: red;" if @user.login.blank? 
+	end
+
+	add_tab do |t|
+		t.named 'Access Rights'
+		t.links_to :action => 'access_rights', :id => @user.id
+	end
+
+end 
+%>

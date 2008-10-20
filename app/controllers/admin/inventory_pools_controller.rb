@@ -13,23 +13,29 @@ class Admin::InventoryPoolsController < Admin::AdminController
   
 #################################################################
 
+  def index
+    unless params[:query].blank?
+      inventory_pools = InventoryPool.all(:conditions => ["name LIKE ?", "%" + params[:query] + "%"])
+    else
+      inventory_pools = InventoryPool.all      
+    end
 
-  # TODO
+    @inventory_pools = inventory_pools.paginate :page => params[:page], :per_page => $per_page
+  end
+
+  def show
+  end
+
   def new
     @inventory_pool = InventoryPool.create # TODO validation
-    render :action => 'edit', :layout => false
+    render :action => 'show'
   end
-    
-  # TODO
-  def edit 
-  end
-  
-  # TODO
+      
   def update
     @inventory_pool.name = params[:name]
     @inventory_pool.description = params[:description]
     @inventory_pool.save
-    render :action => 'edit'
+    render :action => 'show'
   end
 
 #################################################################

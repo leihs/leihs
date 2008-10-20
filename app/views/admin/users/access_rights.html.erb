@@ -1,0 +1,25 @@
+
+<% tabnav :user_admin do %>
+
+	<ul>
+	<% @user.access_rights.each do |a| %>
+		<li><b><%= a.to_s %></b> <%= link_to _('Remove'),
+												:action => 'remove_access_right',
+												:id => @user,
+												:access_right_id => a %></li>
+	<% end %>
+	</ul>
+
+	<hr />
+	<%= _("Add more access rights") %>:
+				<% form_tag :action => 'add_access_right', :id => @user do %>
+				
+					<%= collection_select(:access_right, :role_id, Role.all, :id, :name, {:include_blank => true}) %>
+					 for 
+					<%= collection_select(:access_right, :inventory_pool_id, InventoryPool.all, :id, :name, {:include_blank => true}) %>
+						
+					<%= submit_tag 'Add' %>
+				<% end %>
+	
+
+<% end %>

@@ -65,7 +65,7 @@ module RoleRequirementSystem
     end
     
     # This is the core of RoleRequirement.  Here is where it discerns if a user can access a controller or not./
-    def user_authorized_for?(user_inventory, params = {}, binding = self.binding) #sellittf# (user, params = {}, binding = self.binding)
+    def user_authorized_for?(user_and_inventory, params = {}, binding = self.binding) #sellittf# (user, params = {}, binding = self.binding)
       return true unless Array===self.role_requirements
       self.role_requirements.each{| role_requirement|
         roles = role_requirement[:roles]
@@ -94,7 +94,7 @@ module RoleRequirementSystem
         # check to see if they have one of the required roles
         passed = false
 
-        user, inventory_pool = user_inventory #sellittf#
+        user, inventory_pool = user_and_inventory #sellittf#
         inventory_pool = nil unless options[:for_current_inventory_pool] #sellittf#
         roles.each { |role|
           passed = true if user.has_role?(role, inventory_pool) #sellittf# (role)
@@ -126,8 +126,9 @@ module RoleRequirementSystem
       end
     end
     
-    def check_roles       
-      return access_denied unless self.class.user_authorized_for?([current_user, current_inventory_pool], params, binding) #sellittf# (current_user, params, binding)
+    def check_roles
+      user_and_inventory = [current_user, current_inventory_pool] #sellittf#
+      return access_denied unless self.class.user_authorized_for?(user_and_inventory, params, binding) #sellittf# (current_user, params, binding)
       
       true
     end

@@ -11,22 +11,24 @@ class Admin::ModelsController < Admin::AdminController
 
 #################################################################
 
-  # TODO
+  def index
+    unless params[:query].blank?
+      # TODO *16* fix total_hits, now is wrong summing model(s).items.size
+      @models = Model.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+    else
+          
+      @models = Model.paginate :page => params[:page], :per_page => $per_page
+    end
+  end
+
   def show
     # template has to be .rhtml (??)
   end
 
-  # TODO
   def new
-    render :action => 'show' #, :layout => false
+    render :action => 'show'
   end
-    
-  # TODO
-  def edit 
-    render :action => 'show' #, :layout => false
-  end
-  
-  # TODO
+      
   def update
     @model ||= Model.create
     @model.name = params[:name]

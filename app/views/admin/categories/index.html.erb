@@ -1,0 +1,20 @@
+<% table_with_search_and_pagination :columns => [_("Name"), _("Type"), _("Models"), _("Children"), _("Parents"), _("Action")],
+						   			:records => @categories do |category| %>	
+
+			<tr>
+				<td><%= category.name %></td>
+				<td><%= category.type %></td>
+				<td><%= category.models.size %></td>
+				<td><%= category.children.size %></td>
+				<td><%= category.parents.size %></td>
+				<td class="buttons" nowrap>
+					<ul>
+						<li><%= link_to _("Show"), :action => 'show', :id => category.id %></li>
+						<li><%= link_to _("* Delete"), :action => '', :id => category.id %></li>
+					</ul>
+				</td>
+			</tr>
+
+<% end %>
+
+		

@@ -3,10 +3,7 @@
 
 	<ul>
 	<% for item in @model.items %>
-		<li><b><%= item.inventory_code %></b> <%= item.serial_number %></li>
-	<% end %>
+		<li><b><%= link_to item.inventory_code, :controller => 'items', :action => 'show', :id => item.id %></b> <%= item.serial_number %>, <%= item.location %></li>	<% end %>
 	</ul>
-
-	<%= render :active_scaffold => 'admin/items', :constraints => { :model_id => @model.id } %>
 
 <% end %>

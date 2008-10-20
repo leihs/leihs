@@ -3,10 +3,8 @@
 
 	<ul>
 	<% for item in (@model.items & @current_inventory_pool.items) %>
-		<li><b><%= item.inventory_code %></b> <%= item.serial_number %></li>
+		<li><b><%= link_to item.inventory_code, :controller => 'items', :action => 'show', :id => item.id %></b> <%= item.serial_number %>, <%= item.location %></li>
 	<% end %>
 	</ul>
-
-	<%= render :active_scaffold => 'backend/items', :constraints => { :model_id => @model.id } %>
 
 <% end %>
