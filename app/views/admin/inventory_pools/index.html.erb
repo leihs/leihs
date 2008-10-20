@@ -1,0 +1,20 @@
+<%= link_to _("Create New"), :action => 'new' %>
+
+<% table_with_search_and_pagination :columns => [_("Name"), _("Description"), _("Items"), _("Action")],
+									:records => @inventory_pools do |inventory_pool| %>	
+
+
+			<tr>
+				<td><%= inventory_pool.name %></td>
+				<td width="40%"><%= inventory_pool.description %></td>
+				<td><%= inventory_pool.items.size %></td>
+				<td class="buttons" nowrap>
+					<ul>
+						<li><%= link_to _("Show"), :action => 'show', :id => inventory_pool.id %></li>
+						<li><%= link_to _("* Delete"), :action => '', :id => inventory_pool.id %></li>
+					</ul>
+				</td>
+			</tr>
+
+<% end %>
+	

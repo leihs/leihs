@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   end
 
   def old_new
-    render :action => 'new'
+    render :action => 'new', :layout => false
   end
 
   def authenticate(id = params[:id])

@@ -1,0 +1,29 @@
+<i>Category</i>
+<hr />
+
+<% if @category.errors.size > 0 %>
+	<ul style="border: 1px solid red; padding: 2px;">
+	<% @category.errors.full_messages.each do |e| %>		
+		<li><%= e %></li>
+	<% end %>	
+	</ul>
+<% end %>			
+
+<%  
+
+render_tabnav :category_admin, 
+              :generate_css => true do 
+
+	add_tab do |t|
+		t.named 'Category'
+		t.links_to :action => 'show', :id => @category.id
+		t.html[:style] = "background-color: red;" if @category.name.blank? 
+	end
+
+	add_tab do |t|
+		t.named 'Models *'
+		t.links_to :action => 'models', :id => @category.id
+	end
+
+end 
+%>

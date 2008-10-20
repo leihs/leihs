@@ -4,4 +4,8 @@ class Role < ActiveRecord::Base
 
   acts_as_nested_set
 
+  def to_s
+    "#{name}"
+  end
+
 end

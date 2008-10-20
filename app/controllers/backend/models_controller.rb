@@ -2,43 +2,21 @@ class Backend::ModelsController < Backend::BackendController
 
   before_filter :pre_load
 
-#  active_scaffold :model do |config|
-#    config.columns = [:manufacturer, :name, :model_groups, :locations, :compatibles]
-#    config.columns.each { |c| c.collapsed = true }
-#
-#    config.show.link.inline = false
-#
-#    config.actions.exclude :create, :update, :delete
-#  end
-#
-#  # filter for active_scaffold (through locations)
-#  def conditions_for_collection
-#    ['locations.inventory_pool_id = ?', current_inventory_pool.id] 
-#  end
-
-#################################################################
-
   def index
     models = current_inventory_pool.models
     
     unless params[:query].blank?
       # TODO *16* fix total_hits, now is wrong summing model(s).items.size
-      @models = models.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => Item.per_page)
+      @models = models.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
     else
-#      case params[:status]
-#        when "in_repair"
-#          items = items.all(:conditions => { :status_const => Item::UNBORROWABLE })
-#      end
-          
-      @models = models.paginate :page => params[:page], :per_page => Item.per_page # TODO *16* define something like Backend::per_page
-    end
-  end
 
-  # TODO *16* refactor to index
-  def packages
-    @ids = current_inventory_pool.models.packages.collect(&:id)
-    render :inline => "<%= link_to _('New Package'), :action => 'new_package' %> <hr /> <%= render :active_scaffold => 'backend/models', :conditions => ['models.id IN (?)', @ids] %>", # TODO optimize conditions
-           :layout => $general_layout_path
+      case params[:filter]
+        when "packages"
+          models = current_inventory_pool.models.packages
+      end
+
+      @models = models.paginate :page => params[:page], :per_page => $per_page
+    end
   end
 
   def show_package 

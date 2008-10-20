@@ -1,12 +1,16 @@
+<% if params[:filter] == "packages" %>
+<%= link_to _('New Package'), :action => 'new_package' %> <hr />
+<% end %>
+
 <% table_with_search_and_pagination :columns => ["", _("Model"), _("Items"), _("Compatibles"), _("Action")],
 						   			:records => @models do |model| %>	
 
-			<tr class="alt-row">
-				<td>TODO image here</td>
-				<td class="row-closed"><%= model.name %></td>
+			<tr>
+				<td><%= image_tag(model.images.first.public_filename(:thumb)) unless model.images.empty? %></td>
+				<td><%= model.name %></td>
 				<td><%= @current_inventory_pool.items.count(:conditions => {:model_id => model.id}) %></td>
 				<td><%= (model.compatibles & @current_inventory_pool.models).size %></td>
-				<td><%= link_to _("Show"), :action => 'show', :id => model.id %></td>
+				<td class="buttons" nowrap><%= link_to _("Show"), :action => 'show', :id => model.id %></td>
 			</tr>
 
 

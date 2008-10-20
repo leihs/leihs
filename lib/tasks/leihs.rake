@@ -222,7 +222,7 @@ namespace :leihs do
         start_date = d.min 
         end_date = d.max
         model = user.models[rand(user.models.size)]
-        order.add_line(rand(3)+1, model, order.user.id, start_date, end_date, model.inventory_pools.first )
+        order.add_line(rand(3)+1, model, order.user.id, start_date, end_date, model.inventory_pools.first ) if model
       }
       order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
       order.submit
@@ -233,13 +233,16 @@ namespace :leihs do
   def create_meaningful_users
     users = ['Ramon Cahenzli', 'Jerome Müller', 'Franco Sellitto']
     users.each do |u|
-      u = User.new(:login => u.to_s)
+      u = User.find_or_create_by_login(:login => u.to_s)
+      unless u
         r = Role.find(:first, :conditions => {:name => "student"})
         ips = InventoryPool.find(:all, :conditions => {:name => ["AVZ", "ITZ"]})
         ips.each do |ip|
           u.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
         end
-      u.save
+        u.save
+        puts "user #{u.login} created"
+      end
     end
   end
 

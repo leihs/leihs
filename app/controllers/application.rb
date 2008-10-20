@@ -21,25 +21,18 @@ class ApplicationController < ActionController::Base
   $general_layout_path = 'layouts/' + $theme + '/general'
   $layout_public_path = '/layouts/' + $theme
 
+  $per_page = 10
+  
   layout $general_layout_path
   
 ####################################################  
 
-  # TODO refactor in BackendController (optimize first /models_controllers.rb and lib/role_requirement_system
   protected
     
-    # Accesses the current inventory pool from the session.
-    # Future calls avoid the database because nil is not equal to false.
-    def current_inventory_pool
-      @current_inventory_pool ||= InventoryPool.find(session[:inventory_pool_id]) if session[:inventory_pool_id] and not @current_inventory_pool == false
-      @current_inventory_pool ||= current_user.inventory_pools.first if current_user # TODO test
-    end
-
-    # Stores the given inventory pool id in the session.
-    def current_inventory_pool=(new_inventory_pool)
-      session[:inventory_pool_id] = new_inventory_pool ? new_inventory_pool.id : nil
-      @current_inventory_pool = new_inventory_pool || false
-    end  
+  # TODO **20 optimize lib/role_requirement and refactor to backend  
+  def current_inventory_pool
+    nil
+  end
 
   
 end

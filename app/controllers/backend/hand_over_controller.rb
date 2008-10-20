@@ -19,7 +19,7 @@ class Backend::HandOverController < Backend::BackendController
       
     end
     
-    @visits = visits.paginate :page => params[:page], :per_page => Document.per_page #old#, :total_entries => visits.size
+    @visits = visits.paginate :page => params[:page], :per_page => $per_page
   end
 
   # get current open contract for a given user

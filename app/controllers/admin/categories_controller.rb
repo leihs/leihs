@@ -1,10 +1,17 @@
 class Admin::CategoriesController < Admin::AdminController
-  active_scaffold :category do |config|
-    config.columns = [:name, :type, :models, :children, :parents]
-    config.columns.each { |c| c.collapsed = true }
 
-#    config.actions.exclude :create, :update, :delete
-end
+
+  def index
+    unless params[:query].blank?
+      @categories = Category.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+    else
+      @categories = Category.paginate :page => params[:page], :per_page => $per_page      
+    end
+  end
+  
+  def show
+    @category = Category.find(params[:id])
+  end
 
 
 end

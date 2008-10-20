@@ -1,8 +1,8 @@
 <% table_with_search_and_pagination :columns => [_("Empfangen am"), _("Reservierender"), _("Anzahl Pakete"), _("Aktion")],
 						   			:records => @contracts do |contract| %>	
 
-			<tr class="alt-row">
-				<td class="row-closed"><%= "#{today_or_yesterday_date(contract.created_at)}" %></td>
+			<tr>
+				<td><%= "#{today_or_yesterday_date(contract.created_at)}" %></td>
 				<td>
 					<%= greybox_link_to_page(contract.user.login,
 						 { :controller => 'users', :action => 'details', :id => contract.user.id },
@@ -10,13 +10,11 @@
 						 :class => "iconized-notxt edit-user" ) %>
 				</td>
 				<td><%= _("%{n} Pakete") % {:n => contract.lines.size} %></td>
-					<td>
-						<div class="buttons">
-						Status: <%= contract.status_const %>
-						-
-						InventoryPool: <%= contract.inventory_pool.name %>					
-						</div>
-					</td>
+				<td class="buttons" nowrap>
+					Status: <%= contract.status_const %>
+					-
+					InventoryPool: <%= contract.inventory_pool.name %>					
+				</td>
 			</tr>
 <% end %>
 
