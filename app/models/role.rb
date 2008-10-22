@@ -4,6 +4,8 @@ class Role < ActiveRecord::Base
 
   acts_as_nested_set
 
+  acts_as_ferret :fields => [ :name ]
+
   def to_s
     "#{name}"
   end

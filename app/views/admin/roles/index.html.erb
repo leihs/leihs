@@ -1,0 +1,17 @@
+<% table_with_search_and_pagination :columns => [_("Name"), _("Parent"), _("Action")],
+						   			:records => @roles do |role| %>	
+
+			<tr>
+				<td><%= role.name %></td>
+				<td><%= role.parent %></td>
+				<td class="buttons" nowrap>
+					<ul>
+						<li><%= link_to _("* Show"), :action => '', :id => role.id %></li>
+						<li><%= link_to _("* Delete"), :action => '', :id => role.id %></li>
+					</ul>
+				</td>
+			</tr>
+
+<% end %>
+
+		
