@@ -5,26 +5,21 @@ class Backend::HandOverController < Backend::BackendController
   def index
     visits = current_inventory_pool.hand_over_visits
     
-    if !params[:query].blank?
+    unless params[:query].blank?
       # search with partial string
       @contracts = current_inventory_pool.contracts.new_contracts.find_by_contents("*" + params[:query] + "*")
 
       # OPTIMIZE display only effective visits (i.e. for a given model name, ...)
-      # OPTIMIZE named_scope intersection?
-      visits = visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }
-
-    elsif @user
-      # OPTIMIZE named_scope intersection?
-      visits = visits.select {|v| v.user == @user}
-      
+      visits = visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } } # OPTIMIZE named_scope intersection?
     end
+
+    visits = visits.select {|v| v.user == @user} if @user # OPTIMIZE named_scope intersection?
     
     @visits = visits.paginate :page => params[:page], :per_page => $per_page
   end
 
   # get current open contract for a given user
   def show
-    #old# @contract.contract_lines.sort!
   end
   
   def delete_visit

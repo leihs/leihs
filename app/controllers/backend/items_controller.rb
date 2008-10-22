@@ -4,15 +4,15 @@ class Backend::ItemsController < Backend::BackendController
 
   def index
     items = current_inventory_pool.items
+
+    case params[:filter]
+      when "in_repair"
+        items = items.in_repair
+    end
     
     unless params[:query].blank?
       @items = items.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
     else
-      case params[:filter]
-        when "in_repair"
-          items = items.all(:conditions => { :status_const => Item::UNBORROWABLE })
-      end
-          
       @items = items.paginate :page => params[:page], :per_page => $per_page      
     end
   end

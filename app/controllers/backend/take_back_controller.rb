@@ -9,19 +9,16 @@ class Backend::TakeBackController < Backend::BackendController
       visits = current_inventory_pool.take_back_visits
     end
                                               
-    if !params[:query].blank?
+    unless params[:query].blank?
       @contracts = current_inventory_pool.contracts.signed_contracts.find_by_contents("*" + params[:query] + "*")
 
       # TODO search by inventory_code
 
       # OPTIMIZE named_scope intersection?
       visits = visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }
-      
-    elsif @user
-      # OPTIMIZE named_scope intersection?
-      visits = visits.select {|v| v.user == @user}
-      
     end
+
+    visits = visits.select {|v| v.user == @user} if @user # OPTIMIZE named_scope intersection?
 
     @visits = visits.paginate :page => params[:page], :per_page => $per_page
   end

@@ -13,10 +13,8 @@ class Admin::ModelsController < Admin::AdminController
 
   def index
     unless params[:query].blank?
-      # TODO *16* fix total_hits, now is wrong summing model(s).items.size
       @models = Model.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
     else
-          
       @models = Model.paginate :page => params[:page], :per_page => $per_page
     end
   end

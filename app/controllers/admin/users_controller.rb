@@ -3,30 +3,27 @@ class Admin::UsersController < Admin::AdminController
   before_filter :pre_load
 
   def index
-    
-    unless params[:query].blank?
-      users = User.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
-    end
+    # TODO 20** User.rebuild_index
 
-    # TODO *18* optimize
-    users ||= User.all
-
-    # TODO *17* search and filter
     case params[:filter]
       when "admins"
-        users = users & User.admins # TODO optimize conditions
+        users = User.admins
       when "managers"
-        users = users & User.managers # TODO optimize conditions
+        users = User.managers
       when "students"
-        users = users & User.students # TODO optimize conditions
+        users = User.students
+      else
+        users = User
     end
-
-    # TODO *17* you're paginating twice!!!
-    @users = users.paginate :page => params[:page], :per_page => $per_page      
+    
+    unless params[:query].blank?
+      @users = users.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+    else
+      @users = users.paginate :page => params[:page], :per_page => $per_page
+    end
   end
   
   def show
-    @user = User.find(params[:id])
   end
 
 #################################################################
@@ -36,14 +33,10 @@ class Admin::UsersController < Admin::AdminController
   
   def add_access_right
     r = Role.find(params[:access_right][:role_id])
-    ip = InventoryPool.find(params[:access_right][:inventory_pool_id])
+    ip = InventoryPool.find(params[:access_right][:inventory_pool_id]) unless params[:access_right][:inventory_pool_id].blank? 
     @user.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
 
     redirect_to :action => 'access_rights', :id => @user
-  end
-
-  def edit_access_right
-    # TODO *18* implement
   end
 
   def remove_access_right

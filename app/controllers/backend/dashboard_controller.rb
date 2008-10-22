@@ -9,10 +9,10 @@ class Backend::DashboardController < Backend::BackendController
   #  TODO refactor in a dedicated controller?
 
   def index_inventory_pools
+    inventory_pools = InventoryPool
+    
     unless params[:query].blank?
-      inventory_pools = InventoryPool.all(:conditions => ["name LIKE ?", "%" + params[:query] + "%"])
-    else
-      inventory_pools = InventoryPool.all      
+      inventory_pools = inventory_pools.all(:conditions => ["name LIKE ?", "%" + params[:query] + "%"])
     end
 
     @inventory_pools = inventory_pools.paginate :page => params[:page], :per_page => $per_page

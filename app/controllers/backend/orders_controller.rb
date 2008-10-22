@@ -5,15 +5,13 @@ class Backend::OrdersController < Backend::BackendController
   def index
     # TODO display approved orders?? remove approved orders when contract is generated?
     orders = current_inventory_pool.orders
+    orders = orders & @user.orders if @user
 
-    if !params[:query].blank?
+    unless params[:query].blank?
       @orders = orders.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
     else
-      orders = orders & @user.orders if @user
       @orders = orders.paginate :page => params[:page], :per_page => $per_page
     end
-  
-  # TODO *15* fix total_results, status 2 - 3
   end
   
   private

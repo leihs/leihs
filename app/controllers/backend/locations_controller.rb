@@ -1,15 +1,42 @@
 class Backend::LocationsController < Backend::BackendController
-  active_scaffold :location do |config|
-    config.columns = [:building, :room, :shelf, :inventory_pool, :items]
-    config.columns.each { |c| c.collapsed = true }
 
-#    config.actions.exclude :create, :update, :delete
+  before_filter :pre_load
+
+
+  def index
+    locations = current_inventory_pool.locations
+    
+    unless params[:query].blank?
+      @locations = locations.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+    else
+      @locations = locations.paginate :page => params[:page], :per_page => $per_page      
+    end
   end
 
-  # filter for active_scaffold
-  def conditions_for_collection
-    # TODO return nil if current_user role is 'Admin'
-    {:inventory_pool_id => current_inventory_pool.id}
+  def show
+  end
+
+  def new
+    @location = Location.new
+    render :action => 'show'
+  end
+
+  def update
+    @location ||= Location.create(:inventory_pool => current_inventory_pool)
+    @location.building = params[:building]
+    @location.room = params[:room]
+    @location.shelf = params[:shelf]
+    @location.save
+    redirect_to :action => 'index'
+  end
+
+#################################################################
+
+  private
+  
+  def pre_load
+    params[:id] ||= params[:location_id] if params[:location_id]
+    @location = current_inventory_pool.locations.find(params[:id]) if params[:id]
   end
 
 end

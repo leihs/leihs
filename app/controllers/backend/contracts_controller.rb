@@ -4,14 +4,13 @@ class Backend::ContractsController < Backend::BackendController
 
   def index
     contracts = current_inventory_pool.contracts
+    contracts = contracts & @user.contracts if @user
 
-    if !params[:query].blank?
+    unless params[:query].blank?
       @contracts = contracts.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
     else
-      contracts = contracts & @user.contracts if @user
       @contracts = contracts.paginate :page => params[:page], :per_page => $per_page
     end
-
   end
   
   def show

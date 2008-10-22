@@ -10,7 +10,7 @@ Login: <%= @user.login %>
 <br />
 
 <ul>
-<% @user.access_rights.each do |a| %>
-	<li><%= "#{a.inventory_pool.name} => #{a.role.name}" %></li>
+<% @user.access_rights.select{|a| a.inventory_pool == @current_inventory_pool}.each do |a| %>
+	<li><%= a %></li>
 <% end %>
 </ul>

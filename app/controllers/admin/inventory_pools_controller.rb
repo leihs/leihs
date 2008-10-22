@@ -2,22 +2,12 @@ class Admin::InventoryPoolsController < Admin::AdminController
 
   before_filter :pre_load
 
-  active_scaffold :inventory_pool do |config|
-    config.columns = [:name, :description, :locations] # , :managers
-    config.columns.each { |c| c.collapsed = true }
-
-    config.update.link.inline = false
-
-    config.show.columns << :managers
-  end
-  
-#################################################################
 
   def index
+    inventory_pools = InventoryPool
+    
     unless params[:query].blank?
-      inventory_pools = InventoryPool.all(:conditions => ["name LIKE ?", "%" + params[:query] + "%"])
-    else
-      inventory_pools = InventoryPool.all      
+      inventory_pools = inventory_pools.all(:conditions => ["name LIKE ?", "%" + params[:query] + "%"])
     end
 
     @inventory_pools = inventory_pools.paginate :page => params[:page], :per_page => $per_page
