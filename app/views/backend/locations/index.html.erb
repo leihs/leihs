@@ -1,0 +1,22 @@
+<%= link_to _("Create New"), :action => 'new' %>
+
+<% table_with_search_and_pagination :columns => [_("Building"), _("Room"), _("Shelf"), _("Inventory Pool"), _("Items"), _("Action")],
+						   			:records => @locations do |location| %>	
+
+			<tr>
+				<td><%= location.building %></td>
+				<td><%= location.room %></td>
+				<td><%= location.shelf %></td>
+				<td><%= location.inventory_pool.name %></td>
+				<td><%= location.items.size %></td>
+				<td class="buttons" nowrap>
+					<ul>
+						<li><%= link_to _("Show"), :action => 'show', :id => location.id %></li>
+						<li><%= link_to _("* Delete"), :action => '', :id => location.id %></li>
+					</ul>
+				</td>
+			</tr>
+
+<% end %>
+
+		

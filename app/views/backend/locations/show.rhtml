@@ -1,0 +1,12 @@
+
+	<% form_tag :action => 'update', :id => @location do %>
+
+		<ul>
+		<li><b>Building:</b> <%= text_field_tag :building, @location.building %></li>	
+		<li><b>Room:</b> <%= text_field_tag :room, @location.room %></li>	
+		<li><b>Shelf:</b> <%= text_field_tag :shelf, @location.shelf %></li>	
+		</ul>
+	
+		<%= submit_tag 'Submit' %>
+	<% end %>
+  

@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   
   belongs_to :authentication_system
   has_many :access_rights
+#  has_many :roles, :through => :access_rights, :uniq => true
   has_many :inventory_pools, :through => :access_rights, :uniq => true
   has_many :items, :through => :inventory_pools, :uniq => true # (nested)
   has_many :models, :through => :inventory_pools, :uniq => true # do # (nested)
@@ -43,6 +44,7 @@ class User < ActiveRecord::Base
 
 ################################################
 
+  # NOTE working for User.students but not working for InventoryPool.first.users.students, use InventoryPool.first.students instead  
   named_scope :admins, :select => "DISTINCT users.*",
                        :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
                        :conditions => ['roles.name = ?', 'admin']

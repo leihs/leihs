@@ -3,19 +3,17 @@ class Admin::ItemsController < Admin::AdminController
   before_filter :pre_load
   
   def index
+    case params[:filter]
+      when "incompletes"
+        items = Item.incompletes
+      else
+        items = Item
+    end
     
-    # TODO *17* search and filter 
     unless params[:query].blank?
-      @items = Item.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+      @items = items.find_by_contents("*" + params[:query] + "*",  :page => params[:page], :per_page => $per_page)
     else
-      case params[:filter]
-        when "incompletes"
-          items = Item.all(:conditions => ['items.id IN (?)', Item.incompletes])
-      end
-      
-      # OPTIMIZE queries
-      items ||= Item.all
-      @items = items.paginate :page => params[:page], :per_page => $per_page      
+      @items = items.paginate :page => params[:page], :per_page => $per_page 
     end
   end
 

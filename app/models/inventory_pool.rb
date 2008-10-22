@@ -20,6 +20,12 @@ class InventoryPool < ActiveRecord::Base
                           :select => "users.*",
                           :join_table => "access_rights",
                           :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "manager"}).id]
+
+  has_and_belongs_to_many :students,
+                          :class_name => "User",
+                          :select => "users.*",
+                          :join_table => "access_rights",
+                          :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "student"}).id]
 ########
       
   has_many :locations

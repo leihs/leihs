@@ -5,7 +5,7 @@
 				<td><%= user.login %></td>
 				<td>
 					<ul>
-					<% user.access_rights.each do |a| %>
+					<% user.access_rights.select{|a| a.inventory_pool == @current_inventory_pool}.each do |a| %>
 						<li><%= a.to_s %></li>
 					<% end %>
 					</ul>					

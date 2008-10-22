@@ -12,7 +12,8 @@ class CreateAccessRights < ActiveRecord::Migration
     # add_index(:access_rights, :role_id)
     # add_index(:access_rights, :user_id)
     # add_index(:access_rights, :inventory_pool_id)
-    add_index(:access_rights, [:role_id, :user_id, :inventory_pool_id], :unique => true) # TODO 20** not working ???
+    #old# add_index(:access_rights, [:role_id, :user_id, :inventory_pool_id], :unique => true) # TODO 20** not working ???
+    add_index(:access_rights, [:user_id, :inventory_pool_id], :unique => true)
 
     create_admin
 
