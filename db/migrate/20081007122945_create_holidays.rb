@@ -5,7 +5,6 @@ class CreateHolidays < ActiveRecord::Migration
       t.date :start_date
       t.date :end_date
       t.string :name
-      t.timestamps
     end
   end
 

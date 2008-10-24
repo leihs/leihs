@@ -2,7 +2,7 @@ class InventoryPool < ActiveRecord::Base
 
   has_many :access_rights
   has_one :workday, :dependent => :delete
-  has_many :holidays
+  has_many :holidays, :dependent => :delete_all
   has_many :users, :through => :access_rights, :uniq => true
 ########
 #  has_many :managers, :through => :access_rights, :source => :user, :join_table => "access_rights", :conditions => ["access_rights.role_id = 2"]
@@ -27,7 +27,8 @@ class InventoryPool < ActiveRecord::Base
                           :join_table => "access_rights",
                           :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "student"}).id]
 ########
-      
+
+    
   has_many :locations
   has_one  :main_location, :class_name => "Location", :conditions => {:main => true}  
   has_many :items, :through => :locations, :uniq => true
@@ -44,9 +45,16 @@ class InventoryPool < ActiveRecord::Base
 
   before_create :assign_main_location
 
-  
   def to_s
     "#{name}"
+  end
+  
+  def closed_days
+    workday.closed_days
+  end
+  
+  def closed_dates
+    ["30.10.2008"] #TODO **24** Get the dates from Holidays, put them in the correct format (depends on DatePicker)
   end
   
   # TODO

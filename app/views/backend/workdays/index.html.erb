@@ -16,3 +16,14 @@
 <% end %>
 </div>
 <h4><%= _("Holidays")%></h4>
+<% form_for :holiday, :url => { :action => 'add_holiday' } do |f| %>
+Start Date: <%= f.date_select(:start_date)%>
+End Date: <%= f.date_select(:end_date)%>
+Name: <%= f.text_field(:name)%><%= submit_tag(_("Add"))%>
+
+<ul>
+<% end %>
+<% @holidays.each do |holiday| %>
+<li class="holiday"><%= link_to(image_tag($layout_public_path + "/images/icons/cancel.png"), :action => 'delete_holiday', :id => holiday.id) %> <%= short_date(holiday.start_date) %> - <%= short_date(holiday.end_date) %>: <%= holiday.name %></li>
+<% end %>
+</ul>
