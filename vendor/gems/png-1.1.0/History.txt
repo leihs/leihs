@@ -1,0 +1,18 @@
+*** 1.1.0 / 2007-03-26
+
++ 4 major enhancements:
+    + Fixed and incorporated Dominik Barathon's optimizations.
+    + Wrote inline methods for png_crc and png_join. Now about 15x faster overall.
+    + Basic PNG loading.
+    + Reoriented x/y origin to bottom left. This will break things!
++ 3 minor enhancements:
+    + Awesome ascii art patches from Tom Werner: Canvas#inpsect, Canvas#to_s, Color#to_ascii.
+    + Switched to Hoe.
+    + PNG.pie_chart from png/pie.
++ 1 bug fix:
+    + Fixed bug in PNG::Canvas#each.
+
+*** 1.0.0 / 2006-09-31
+
++ Birthday!
+
