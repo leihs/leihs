@@ -1,0 +1,6 @@
+<h1><%= _("GetText Sample Blog on RoR") %></h1>
+<%= show_article(@article, false) %>
+<p>
+<%= link_to _('Edit'), edit_article_path(@article) %> |
+<%= link_to _('Back'), articles_path %>
+</p>

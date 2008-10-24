@@ -1,0 +1,103 @@
+# GetText Sample Blog on RoR.
+#
+# Copyright (C) 2006 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# LIN CHUNG-YI <xmarsh at gmail.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: blog 2.0.0\n"
+"POT-Creation-Date: 2008-09-15 00:49+0900\n"
+"PO-Revision-Date: 2006-08-15 09:38+0800\n"
+"Last-Translator: LIN CHUNG-YI <xmarsh at gmail.com>\n"
+"Language-Team: zh_TW <xmarsh at gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: TAIWAN\n"
+
+#: app/helpers/articles_helper.rb:42
+msgid "Ruby Links"
+msgstr "Ruby連結"
+
+#: app/helpers/articles_helper.rb:50
+msgid "Old articles"
+msgstr "舊文章"
+
+#: app/models/article.rb:-
+msgid "article"
+msgstr "文章"
+
+#: app/models/article.rb:-
+msgid "Article|Title"
+msgstr "標題"
+
+#: app/models/article.rb:-
+msgid "Article|Description"
+msgstr "描述"
+
+#: app/models/article.rb:-
+msgid "Article|Lastupdate"
+msgstr "最近更新"
+
+#: app/controllers/articles_controller.rb:58
+msgid "Article was successfully created."
+msgstr "文章已成功建立"
+
+#: app/controllers/articles_controller.rb:75
+msgid "Article was successfully updated."
+msgstr "文章已成功更新"
+
+#: app/views/articles/edit.html.erb:1
+msgid "Editing article"
+msgstr "編輯文章"
+
+#: app/views/articles/edit.html.erb:9 app/views/articles/new.html.erb:9
+msgid "Title: Required."
+msgstr "標題需要填寫"
+
+#: app/views/articles/edit.html.erb:11 app/views/articles/new.html.erb:11
+msgid "Description: More than 10 characters."
+msgstr "描述需多於十個字"
+
+#: app/views/articles/edit.html.erb:13 app/views/articles/show.html.erb:4
+msgid "Edit"
+msgstr "編輯"
+
+#: app/views/articles/edit.html.erb:18
+msgid "Show"
+msgstr "觀看"
+
+#: app/views/articles/edit.html.erb:19
+msgid "Destroy"
+msgstr "刪除"
+
+#: app/views/articles/edit.html.erb:19
+msgid "Are you sure?"
+msgstr "你確定嗎?"
+
+#: app/views/articles/edit.html.erb:20 app/views/articles/show.html.erb:5
+#: app/views/articles/new.html.erb:18
+msgid "Back"
+msgstr "返回"
+
+#: app/views/articles/show.html.erb:1 app/views/articles/index.html.erb:1
+#: app/views/layouts/articles.html.erb:7
+msgid "GetText Sample Blog on RoR"
+msgstr "GetText 的 RoR 部落格範例"
+
+#: app/views/articles/new.html.erb:1 app/views/articles/index.html.erb:4
+msgid "New article"
+msgstr "新文章"
+
+#: app/views/articles/new.html.erb:13
+msgid "Create"
+msgstr "新增"
+
+#: app/views/articles/index.html.erb:7
+msgid "No articles were found."
+msgstr "找不到文章"

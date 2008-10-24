@@ -1,0 +1,17 @@
+<h1><%= _("GetText Sample Blog on RoR") %></h1>
+
+<p style="text-align:right">
+<%= link_to _('New article'), new_article_path %>
+</p>
+<% if @articles.size == 0 %>
+  <p><%= _("No articles were found.") %></p>
+<% else %>
+  <%
+     @articles.each_with_index do |article, index|
+  %>
+       <%= show_article(article) %>
+  <%
+       break if index > 1
+     end
+  %>
+<% end %>

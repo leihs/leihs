@@ -1,0 +1,174 @@
+#
+# a po-file for Ruby-GetText-Package and Ruby on Rails.
+#
+# Copyright (C) 2005-2008 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Patrick Lenz, 2006,2007,2008
+# Sasa Ebach, 2005
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 1.92.0\n"
+"POT-Creation-Date: 2008-09-14 01:48+0900\n"
+"PO-Revision-Date: 2008-07-13 10:00W. Europe Standard Time\n"
+"Last-Translator: Patrick Lenz <patrick at limited-overload.de>\n"
+"Language-Team: German\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/gettext/rails.rb:327
+msgid "%{num} error prohibited this %{record} from being saved"
+msgid_plural "%{num} errors prohibited this %{record} from being saved"
+msgstr[0] ""
+"%{num} Fehler hat verhindert, dass dieser %{record} gespeichert werden konnte"
+msgstr[1] ""
+"%{num} Fehler haben verhindert, dass dieser %{record} gespeichert werden "
+"konnte"
+
+#: lib/gettext/rails.rb:329
+msgid "There was a problem with the following field:"
+msgid_plural "There were problems with the following fields:"
+msgstr[0] "Folgendes Feld hat Probleme verursacht:"
+msgstr[1] "Folgende Felder haben Probleme verursacht:"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 5 seconds"
+msgstr "weniger als 5 Sekunden"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 10 seconds"
+msgstr "weniger als 10 Sekunden"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 20 seconds"
+msgstr "weniger als 20 Sekunden"
+
+#: lib/gettext/rails.rb:436
+msgid "half a minute"
+msgstr "eine halbe Minute"
+
+#: lib/gettext/rails.rb:436
+msgid "less than a minute"
+msgstr "weniger als eine Minute"
+
+#: lib/gettext/rails.rb:436
+msgid "about 1 month"
+msgstr "ungefähr 1 Monat"
+
+#: lib/gettext/rails.rb:437
+msgid "about 1 year"
+msgstr "ungefähr 1 Jahr"
+
+#: lib/gettext/rails.rb:438
+msgid "1 minute"
+msgid_plural "%{num} minutes"
+msgstr[0] "1 Minute"
+msgstr[1] "%{num} Minuten"
+
+#: lib/gettext/rails.rb:439
+msgid "about 1 hour"
+msgid_plural "about %{num} hours"
+msgstr[0] "ungefähr 1 Stunde"
+msgstr[1] "ungefähr %{num} Stunden"
+
+#: lib/gettext/rails.rb:440
+msgid "1 day"
+msgid_plural "%{num} days"
+msgstr[0] "1 Tag"
+msgstr[1] "%{num} Tage"
+
+#: lib/gettext/rails.rb:441
+msgid "1 month"
+msgid_plural "%{num} months"
+msgstr[0] "1 Monat"
+msgstr[1] "%{num} Monate"
+
+#: lib/gettext/rails.rb:442
+msgid "over 1 year"
+msgid_plural "over %{num} years"
+msgstr[0] "über 1 Jahr"
+msgstr[1] "über %{num} Jahre"
+
+#: lib/gettext/active_record.rb:28
+msgid "Validation failed: %{error_messages}"
+msgstr "Validierung fehlgeschlagen: %{error_messages}"
+
+#: lib/gettext/active_record.rb:247
+msgid "%{fn} is not included in the list"
+msgstr "%{fn} kommt nicht in der Liste vor"
+
+#: lib/gettext/active_record.rb:248
+msgid "%{fn} is reserved"
+msgstr "%{fn} ist reserviert"
+
+#: lib/gettext/active_record.rb:249
+msgid "%{fn} is invalid"
+msgstr "%{fn} ist ungültig"
+
+#: lib/gettext/active_record.rb:250
+msgid "%{fn} doesn't match confirmation"
+msgstr "%{fn} stimmt nicht mit der Bestätigung überein"
+
+#: lib/gettext/active_record.rb:251
+msgid "%{fn} must be accepted"
+msgstr "%{fn} muss akzeptiert werden"
+
+#: lib/gettext/active_record.rb:252
+msgid "%{fn} can't be empty"
+msgstr "%{fn} darf nicht leer sein"
+
+#: lib/gettext/active_record.rb:253
+msgid "%{fn} can't be blank"
+msgstr "%{fn} darf nicht leer sein"
+
+#: lib/gettext/active_record.rb:254
+msgid "%{fn} is too long (maximum is %d characters)"
+msgstr "%{fn} ist zu lang (max. %d Zeichen)"
+
+#: lib/gettext/active_record.rb:255
+msgid "%{fn} is too short (minimum is %d characters)"
+msgstr "%{fn} ist zu kurz (min. %d Zeichen)"
+
+#: lib/gettext/active_record.rb:256
+msgid "%{fn} is the wrong length (should be %d characters)"
+msgstr "%{fn} hat eine falsche Länge (sollte %d Zeichen lang sein)"
+
+#: lib/gettext/active_record.rb:257
+msgid "%{fn} has already been taken"
+msgstr "%{fn} existiert bereits"
+
+#: lib/gettext/active_record.rb:258
+msgid "%{fn} is not a number"
+msgstr "%{fn} ist keine Ziffer"
+
+#: lib/gettext/active_record.rb:259
+msgid "%{fn} must be greater than %d"
+msgstr "%{fn} muss größer sein als %d"
+
+#: lib/gettext/active_record.rb:260
+msgid "%{fn} must be greater than or equal to %d"
+msgstr "%{fn} muss größer oder gleich %d sein"
+
+#: lib/gettext/active_record.rb:261
+msgid "%{fn} must be equal to %d"
+msgstr "%{fn} muss gleich %d sein"
+
+#: lib/gettext/active_record.rb:262
+msgid "%{fn} must be less than %d"
+msgstr "%{fn} muss kleiner sein als %d"
+
+#: lib/gettext/active_record.rb:263
+msgid "%{fn} must be less than or equal to %d"
+msgstr "%{fn} muss kleiner oder gleich %d sein"
+
+#: lib/gettext/active_record.rb:264
+msgid "%{fn} must be odd"
+msgstr "%{fn} muss ungerade sein"
+
+#: lib/gettext/active_record.rb:265
+msgid "%{fn} must be even"
+msgstr "%{fn} muss gerade sein"

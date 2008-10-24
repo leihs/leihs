@@ -1,0 +1,166 @@
+# translation of rails.po to Simplified Chinese
+#
+# a po-file for Ruby-GetText-Package and Ruby on Rails.
+#
+# Copyright (C) 2006-2008 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Yang Bob <bob.yang.dev at gmail.com>, 2006-2008.
+# Yingfeng <blogyingfeng at gmail.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 1.92.0\n"
+"POT-Creation-Date: 2008-09-14 01:48+0900\n"
+"PO-Revision-Date: 2006-04-15 13:36+0300\n"
+"Last-Translator: Yang Bob <bob.yang.dev at gmail.com>\n"
+"Language-Team: Simplified Chinese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: lib/gettext/rails.rb:327
+msgid "%{num} error prohibited this %{record} from being saved"
+msgid_plural "%{num} errors prohibited this %{record} from being saved"
+msgstr[0] "共有%{num}个错误导致“%{record}”无法被保存"
+
+#: lib/gettext/rails.rb:329
+msgid "There was a problem with the following field:"
+msgid_plural "There were problems with the following fields:"
+msgstr[0] "如下字段出现错误："
+
+#: lib/gettext/rails.rb:435
+msgid "less than 5 seconds"
+msgstr "少于5秒"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 10 seconds"
+msgstr "少于10秒"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 20 seconds"
+msgstr "少于20秒"
+
+#: lib/gettext/rails.rb:436
+msgid "half a minute"
+msgstr "半分钟"
+
+#: lib/gettext/rails.rb:436
+msgid "less than a minute"
+msgstr "少于1分钟"
+
+#: lib/gettext/rails.rb:436
+msgid "about 1 month"
+msgstr "大约1个月"
+
+#: lib/gettext/rails.rb:437
+msgid "about 1 year"
+msgstr "大约1年"
+
+#: lib/gettext/rails.rb:438
+msgid "1 minute"
+msgid_plural "%{num} minutes"
+msgstr[0] "%{num}分钟"
+
+#: lib/gettext/rails.rb:439
+msgid "about 1 hour"
+msgid_plural "about %{num} hours"
+msgstr[0] "大约%{num}小时"
+
+#: lib/gettext/rails.rb:440
+msgid "1 day"
+msgid_plural "%{num} days"
+msgstr[0] "%{num}天"
+
+#: lib/gettext/rails.rb:441
+msgid "1 month"
+msgid_plural "%{num} months"
+msgstr[0] "%{num}个月"
+
+#: lib/gettext/rails.rb:442
+msgid "over 1 year"
+msgid_plural "over %{num} years"
+msgstr[0] "%{num}年以上"
+
+#: lib/gettext/active_record.rb:28
+msgid "Validation failed: %{error_messages}"
+msgstr "验证失败：%{error_messages}"
+
+#: lib/gettext/active_record.rb:247
+msgid "%{fn} is not included in the list"
+msgstr "%{fn}没有包含在本列表中"
+
+#: lib/gettext/active_record.rb:248
+msgid "%{fn} is reserved"
+msgstr "%{fn}是保留关键字"
+
+#: lib/gettext/active_record.rb:249
+msgid "%{fn} is invalid"
+msgstr "%{fn}无效"
+
+#: lib/gettext/active_record.rb:250
+msgid "%{fn} doesn't match confirmation"
+msgstr "%{fn}与确认输入的内容不一致"
+
+#: lib/gettext/active_record.rb:251
+msgid "%{fn} must be accepted"
+msgstr "%{fn}必须被接受"
+
+#: lib/gettext/active_record.rb:252
+msgid "%{fn} can't be empty"
+msgstr "%{fn}不能为空"
+
+#: lib/gettext/active_record.rb:253
+msgid "%{fn} can't be blank"
+msgstr "%{fn}不能为空"
+
+#: lib/gettext/active_record.rb:254
+msgid "%{fn} is too long (maximum is %d characters)"
+msgstr "%{fn}超出长度范围了(最多允许%d个字符)"
+
+#: lib/gettext/active_record.rb:255
+msgid "%{fn} is too short (minimum is %d characters)"
+msgstr "%{fn}太短了 (不能少于%d个字符)"
+
+#: lib/gettext/active_record.rb:256
+msgid "%{fn} is the wrong length (should be %d characters)"
+msgstr "%{fn}长度错误 (应当包含%d个字符)"
+
+#: lib/gettext/active_record.rb:257
+msgid "%{fn} has already been taken"
+msgstr "%{fn}已经被使用了"
+
+#: lib/gettext/active_record.rb:258
+msgid "%{fn} is not a number"
+msgstr "%{fn}不是数字"
+
+#: lib/gettext/active_record.rb:259
+msgid "%{fn} must be greater than %d"
+msgstr "%{fn}必须大于"
+
+#: lib/gettext/active_record.rb:260
+msgid "%{fn} must be greater than or equal to %d"
+msgstr "%{fn}必须大于等于"
+
+#: lib/gettext/active_record.rb:261
+msgid "%{fn} must be equal to %d"
+msgstr "%{fn}必须等于"
+
+#: lib/gettext/active_record.rb:262
+msgid "%{fn} must be less than %d"
+msgstr "%{fn}必须小于"
+
+#: lib/gettext/active_record.rb:263
+msgid "%{fn} must be less than or equal to %d"
+msgstr "%{fn}必须小于等于"
+
+#: lib/gettext/active_record.rb:264
+msgid "%{fn} must be odd"
+msgstr "%{fn}必须是奇数"
+
+#: lib/gettext/active_record.rb:265
+msgid "%{fn} must be even"
+msgstr "%{fn}必须是偶数"

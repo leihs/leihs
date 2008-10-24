@@ -1,0 +1,136 @@
+/*
+   CSS for Ruby-GetText-Package
+                    by Masao Mutoh.
+*/
+
+body {
+  margin: 0px;
+  padding: 0px;
+  color: #000;
+  background-color: #fff;
+  line-height: 1.5em;
+}
+
+h1 {
+  color: #002288;
+  text-align: center;
+  clear: both;
+  padding: 1em;
+  margin: 5px;
+  border: solid;
+  background-color: #eeeeff;
+  border-color: #9999ff;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+h2 {
+  margin: 0px;
+  padding: 0.3em;
+  margin-top: 1em;
+  margin-left: 1.5em;
+  margin-right: 10px;
+  margin-bottom:0.8em;
+  border: solid thin;
+  border-left: solid;
+  border-color: #9999ff;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 1px;
+  border-left-width: 15px;
+
+}
+
+h3 {
+  margin:1em;
+  margin-bottom: 0.5em;
+  margin-top: 1.5em;
+  margin-left: 2em;
+  margin-right: 24px;
+  padding: 0.1em;
+  padding-top: 0;
+  padding-left: 0.7em;
+  border-style: dashed;
+  border-width: 0px 0px 1px 1px;
+  border-color: #ddddff;
+}
+
+p {
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-top: 0px;
+  margin-left: 1.5em;
+  margin-right: 1em;
+  margin-bottom: 0.5em;
+}
+
+
+.locale {
+  margin: 2em;
+  padding: 1em;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  border-color: #ddddff;
+}
+
+pre {
+  margin: 3em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  border-color: #ddddff;
+  background-color: #eeffee;
+}
+
+.copyright { 
+  border-style: solid;
+  border-width: 2px 0px 0px 0px;
+  border-color: #ddddff;
+  text-align: right;
+  padding-right: 2em;
+  margin: 1em;
+}
+
+div.main {
+  margin-left: 250px;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+div.navigation {
+  position: absolute;
+  text-align: center;
+  top: 10px;
+  left: 0px;
+  width: 210px;
+  padding: 10px;
+  padding-left: 0px;
+}
+
+div.window {
+  text-align: left;
+  margin-left: 10px;
+  margin-top: 20px;
+  background-color: #eef;
+  padding: 10px;
+  padding-top: 0px;
+  border: solid;
+  border-width: 1px;
+  border-color: #99f;
+}
+
+p.notice { 
+  color: green;
+  margin: 5px;
+  background-color: #ffd;
+  padding: 10px;
+  border: solid;
+  border-width: 1px;
+  border-color: #cca;
+}
+
+li {
+  margin-left: 1em;
+}
