@@ -3,7 +3,7 @@
 
 	<ul>
 	<% for item in @model.items %>
-		<li><b><%= link_to item.inventory_code, :controller => 'items', :action => 'show', :id => item.id %></b> <%= item.serial_number %>, <%= item.location %></li>	<% end %>
+		<li><b><%= link_to item.inventory_code, admin_item_path(item) %></b> <%= item.serial_number %>, <%= item.location %></li>	<% end %>
 	</ul>
 
 <% end %>

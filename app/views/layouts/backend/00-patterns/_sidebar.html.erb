@@ -1,10 +1,10 @@
 <ul>
-	<li><%= link_to _('Orders') + " (#{@current_inventory_pool.orders.size})", :controller => 'orders' %></li>
-	<li><%= link_to _('Contracts') + " (#{@current_inventory_pool.contracts.size})", :controller => 'contracts' %></li>
+	<li><%= link_to _('Orders') + " (#{@current_inventory_pool.orders.size})", backend_orders_path %></li>
+	<li><%= link_to _('Contracts') + " (#{@current_inventory_pool.contracts.size})", backend_contracts_path %></li>
 	<li><%= _('Items') %>
 		<ul>
-		<li><%= link_to _('All') + " (#{@current_inventory_pool.items.size})", :controller => 'items' %></li>
-		<li><%= link_to _('In Repair') + " (#{@current_inventory_pool.items.in_repair.size})", :controller => 'items', :filter => 'in_repair' %></li>
+		<li><%= link_to _('All') + " (#{@current_inventory_pool.items.size})", backend_items_path %></li>
+		<li><%= link_to _('In Repair') + " (#{@current_inventory_pool.items.in_repair.size})", backend_items_path(:filter => 'in_repair') %></li>
 		</ul>	
 	</li>
 	<li><%= _('Models') %>
@@ -15,7 +15,7 @@
 	</li>
 	<li><%= _('Locations') %>
 		<ul>
-		<li><%= link_to _('All') + " (#{@current_inventory_pool.locations.size})", :controller => 'locations' %></li>
+		<li><%= link_to _('All') + " (#{@current_inventory_pool.locations.size})", backend_locations_path %></li>
 		</ul>	
 	</li>
 	<li><%= _('Users') %>

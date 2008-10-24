@@ -19,56 +19,50 @@ class Admin::ItemsController < Admin::AdminController
 
   def show
     # template has to be .rhtml (??)
+    @item.step = 'step_item'
   end
 
   def new
-    render :action => 'show'
+    show and render :action => 'show'
+  end
+
+  def create
+    update
   end
       
-  def update 
-    @item ||= Item.create
-    @item.inventory_code = params[:inventory_code]
-    @item.serial_number = params[:serial_number]
-    @item.step = :step_item
-    @item.save
-    render :action => 'show'
+  def update
+    @item.step = params[:item][:step]
+    if @item.update_attributes(params[:item])
+      redirect_to admin_item_path(@item)
+    else
+      show and render :action => 'show' # TODO 24** redirect to the correct tabbed form
+    end
   end
 
 #################################################################
 
   def model
-    #render :layout => false
-  end
-
-  def search_model
-    @models = Model.find_by_contents("*" + params[:query] + "*", :limit => 999) # OPTIMIZE limit
-    render :partial => 'model_for_item', :collection => @models
-  end
-
-  def set_model
-    @item.model = Model.find(params[:model_id])
-    @item.step = :step_model
-    @item.save
-    redirect_to :action => 'model', :id => @item
+    @item.step = 'step_model'
   end
 
 #################################################################
 
   def inventory_pool
-    #render :layout => false
+    # forcing wizard step
+    redirect_to admin_item_path(@item) unless @item.model
   end
   
   def set_inventory_pool
     ip = InventoryPool.find(params[:inventory_pool_id])
     @item.location = ip.main_location
     
-    # if is the first item of that model assigned to the inventory_pool,
+    # if it's the first item of that model assigned to the inventory_pool,
     # then creates accessory associations
     @item.model.accessories.each {|a| ip.accessories << a } unless ip.models.include?(@item.model)
     # TODO *17* fix problem with accessories setting inventory_pool
     
     
-    @item.step = :step_location
+    @item.step = 'step_location'
     @item.save
     redirect_to :action => 'inventory_pool', :id => @item
   end

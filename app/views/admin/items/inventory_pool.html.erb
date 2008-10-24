@@ -2,7 +2,7 @@
 <% tabnav :item_admin do %>
 
 	<% if @item.location %>
-	<b><%= @item.location.inventory_pool.name %>:</b> <%= @item.location.building %>, <%= @item.location.room %>, <%= @item.location.shelf %>
+		<b><%= @item.location.inventory_pool.name %>:</b> <%= @item.location.building %>, <%= @item.location.room %>, <%= @item.location.shelf %>
 	<% end %>
 	
 	<hr />

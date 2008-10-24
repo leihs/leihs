@@ -32,7 +32,8 @@ class Backend::UsersController < Backend::BackendController
   end  
 
   def remind
-    render :text => @user.remind(current_user) # TODO    
+    flash[:notice] = "User #{@user} reminded " + @user.remind(current_user)
+    redirect_to :action => 'index' 
   end
   
   def new_contract

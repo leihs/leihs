@@ -53,6 +53,10 @@ class Model < ActiveRecord::Base
 
 #############################################  
 
+  def to_s
+    "#{name}"
+  end
+
   # compares two objects in order to sort them
   def <=>(other)
     self.name <=> other.name

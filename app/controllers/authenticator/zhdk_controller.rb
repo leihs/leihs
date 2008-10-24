@@ -42,7 +42,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
       r = Role.find(:first, :conditions => {:name => "student"})
       ips = InventoryPool.find(:all, :conditions => {:name => DEFAULT_INVENTORY_POOLS})
       ips.each do |ip|
-        user.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)
+        user.access_rights.create(:role => r, :inventory_pool => ip)
       end
     end
     user.email = xml["authresponse"]["person"]["email"]
@@ -52,7 +52,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     
     if SUPER_USERS.include?(user.unique_id)
       r = Role.find(:first, :conditions => {:name => "admin"})    
-      user.access_rights << AccessRight.new(:role => r, :inventory_pool => nil)
+      user.access_rights.create(:role => r, :inventory_pool => nil)
     end
     user
   end

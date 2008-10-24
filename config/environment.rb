@@ -57,14 +57,16 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 
-  config.gem "gettext", :version => '1.93.0'
-  config.gem "ferret", :version => '0.11.6'
   config.gem "acts_as_ferret", :version => '0.4.3'
-  config.gem "rmagick", :version => '2.7.0' # TODO gem dependencies
-
+  config.gem "barby", :version => '0.2.0'
+  config.gem "ferret", :version => '0.11.6'
+  config.gem "gettext", :version => '1.93.0'
+  config.gem "png", :version => '1.1.0'
+  #config.gem "rmagick", :version => '2.7.0'
+  
 end
 
-
+# TODO **24 is this still right?
 # E-Mail uncaught exceptions to the devs.
 ExceptionNotifier.exception_recipients = %w( magnus.rembold@munterbund.de ramon.cahenzli@zhdk.ch errors@jeromemueller.ch )
 ExceptionNotifier.sender_address = %( no-reply@hgkz.net )

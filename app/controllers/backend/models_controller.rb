@@ -25,7 +25,7 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def update_package(name = params[:name], inventory_code = params[:inventory_code])
-    @model.items << Item.new(:location => current_inventory_pool.main_location) if @model.items.empty?
+    @model.items.create(:location => current_inventory_pool.main_location) if @model.items.empty?
     @model.items.first.inventory_code = inventory_code
     @model.name = name
     @model.save 

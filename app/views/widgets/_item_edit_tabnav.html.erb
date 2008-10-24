@@ -80,7 +80,8 @@ render_tabnav :item_edit,
 
 	add_tab do |t|
 		t.named 'Item'
-		t.links_to :action => 'show', :id => @item.id
+		t.links_to backend_item_path(@item)
+		t.highlights_on :action => 'show'
 	end
 
 	add_tab do |t|

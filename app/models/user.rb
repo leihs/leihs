@@ -163,10 +163,10 @@ class User < ActiveRecord::Base
     m = ""
     unless visits_to_remind.empty?
       Notification.remind_user(self, visits_to_remind)
-      histories << History.new(:text => _("Reminded %{q} items for contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
-                                                                                        :c => visits_to_remind.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
-                               :user_id => reminder_user,
-                               :type_const => History::REMIND)
+      histories.create(:text => _("Reminded %{q} items for contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
+                                                                                :c => visits_to_remind.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
+                       :user_id => reminder_user,
+                       :type_const => History::REMIND)
     end
     m
   end

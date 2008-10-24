@@ -1,11 +1,12 @@
 
 <% tabnav :item_admin do %>
 
-	<% form_tag :action => 'update', :id => @item do %>
-
+	<% form_for [:admin, @item] do |f| %>
+		<%= f.hidden_field :step %>
+	
 		<ul>
-		<li><b>Inventory Code:</b> <%= text_field_tag :inventory_code, @item.inventory_code %></li>	
-		<li><b>Serial Number:</b> <%= text_field_tag :serial_number, @item.serial_number %></li>
+		<li><b>Inventory Code:</b> <%= f.text_field :inventory_code %></li>	
+		<li><b>Serial Number:</b> <%= f.text_field :serial_number %></li>
 		</ul>
 	
 		<%= submit_tag 'Submit' %>

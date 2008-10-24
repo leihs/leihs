@@ -34,9 +34,9 @@ class Admin::InventoryPoolsController < Admin::AdminController
   end
 
   def add_location
-    @inventory_pool.locations << Location.create(:building => params[:building],
-                                                 :room => params[:room],
-                                                 :shelf => params[:shelf])
+    @inventory_pool.locations.create(:building => params[:building],
+                                     :room => params[:room],
+                                     :shelf => params[:shelf])
     redirect_to :action => 'locations', :id => @inventory_pool
   end
 
@@ -58,7 +58,7 @@ class Admin::InventoryPoolsController < Admin::AdminController
   def add_manager
     role = Role.first(:conditions => {:name => "manager"})
     begin
-      @inventory_pool.access_rights << AccessRight.create(:user_id => params[:manager_id], :role_id => role.id)
+      @inventory_pool.access_rights.create(:user_id => params[:manager_id], :role_id => role.id)
     rescue
       # unique index, record already present
     end

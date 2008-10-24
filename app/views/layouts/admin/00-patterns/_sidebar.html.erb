@@ -1,37 +1,37 @@
 <ul>
-	<li><%= link_to _('InventoryPools') + " (#{InventoryPool.count})", :controller => 'inventory_pools' %></li>
+	<li><%= link_to _('InventoryPools') + " (#{InventoryPool.count})", admin_inventory_pools_path %></li>
 	<li><hr /></li>
 	<li><%= _('Items') %>
 		<ul>
-		<li><%= link_to _('All') + " (#{Item.count})", :controller => 'items' %></li>
-		<li><%= link_to _('Incompletes') + " (#{Item.incompletes.count})", :controller => 'items', :filter => 'incompletes' %></li>
+		<li><%= link_to _('All') + " (#{Item.count})", admin_items_path %></li>
+		<li><%= link_to _('Incompletes') + " (#{Item.incompletes.count})", admin_items_path(:filter => 'incompletes') %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
 	<li><%= _('Models') %>
 		<ul>
-		<li><%= link_to _('All') + " (#{Model.count})", :controller => 'models' %></li>
+		<li><%= link_to _('All') + " (#{Model.count})", admin_models_path %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
 	<li><%= _('Categories') %>
 		<ul>
-		<li><%= link_to _('All') + " (#{Category.count})", :controller => 'categories' %></li>
+		<li><%= link_to _('All') + " (#{Category.count})", admin_categories_path %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
 	<li><%= _('Users') %>
 		<ul>
-		<li><%= link_to _('All') + " (#{User.count})", :controller => 'users' %></li>
-		<li><%= link_to _('Admins') + " (#{User.admins.size})", :controller => 'users', :filter => 'admins' %></li>
-		<li><%= link_to _('Managers') + " (#{User.managers.size})", :controller => 'users', :filter => 'managers' %></li>
-		<li><%= link_to _('Students') + " (#{User.students.size})", :controller => 'users', :filter => 'students' %></li>
+		<li><%= link_to _('All') + " (#{User.count})", admin_users_path %></li>
+		<li><%= link_to _('Admins') + " (#{User.admins.size})", admin_users_path(:filter => 'admins') %></li>
+		<li><%= link_to _('Managers') + " (#{User.managers.size})", admin_users_path(:filter => 'managers') %></li>
+		<li><%= link_to _('Students') + " (#{User.students.size})", admin_users_path(:filter => 'students') %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
 	<li><%= _('Roles') %>
 		<ul>
-		<li><%= link_to _('All') + " (#{Role.count})", :controller => 'roles' %></li>
+		<li><%= link_to _('All') + " (#{Role.count})", admin_roles_path %></li>
 		</ul>	
 	</li>
 </ul>

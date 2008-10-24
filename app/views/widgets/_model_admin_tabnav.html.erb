@@ -19,7 +19,8 @@ render_tabnav :model_admin,
 
 	add_tab do |t|
 		t.named 'Model'
-		t.links_to :action => 'show', :id => @model.id
+		t.links_to admin_model_path(@model)
+		t.highlights_on :action => 'show'
 		t.html[:style] = "background-color: red;" if @model.name.blank? 
 	end
 

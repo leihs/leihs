@@ -39,7 +39,7 @@ class Admin::ModelsController < Admin::AdminController
   end
   
   def add_property
-    @model.properties << Property.create(:key => params[:key], :value => params[:value])
+    @model.properties.create(:key => params[:key], :value => params[:value])
     redirect_to :action => 'properties', :id => @model
   end
 
@@ -55,7 +55,7 @@ class Admin::ModelsController < Admin::AdminController
   end
   
   def add_accessory
-    @model.accessories << Accessory.create(:name => params[:name])
+    @model.accessories.create(:name => params[:name])
     redirect_to :action => 'accessories', :id => @model
   end
 
@@ -80,6 +80,11 @@ class Admin::ModelsController < Admin::AdminController
   end
 
 #################################################################
+
+  def auto_complete(model = params[:model])
+    @models = Model.find_by_contents("*" + model[:name] + "*")
+    render :partial => 'auto_complete'
+  end
 
   private
   
