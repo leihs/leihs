@@ -9,7 +9,6 @@ class CreateWorkdays < ActiveRecord::Migration
       t.boolean :friday, :default => true
       t.boolean :saturday, :default => false
       t.boolean :sunday, :default => false
-      t.timestamps
     end
   end
 

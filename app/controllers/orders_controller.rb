@@ -105,7 +105,9 @@ end
                                                                                          :inventory_pool => {:except => [:description,
                                                                                                                          :logo_url,
                                                                                                                          :contract_url,
-                                                                                                                         :contract_description]} },
+                                                                                                                         :contract_description],
+                                                                                                              :methods => [:closed_days, 
+                                                                                                                           :closed_dates] } },
                                                                             :methods => :available?,
                                                                             :except => [:created_at, :updated_at]}
                                                           } ) }

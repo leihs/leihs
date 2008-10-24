@@ -372,6 +372,11 @@ ul.model_group > li > div > span.add_button {
 	background-color: #CCFF66;
 }
 
+.holiday {
+	padding-top: 15px;
+	margin-left: 20px;
+}
+
 /* 	- - - - - - - - - - - - -
 Pagination
  - - - - - - - - - - - - - */

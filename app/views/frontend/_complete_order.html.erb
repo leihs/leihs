@@ -7,7 +7,9 @@
 	   {name: 'start_date', type: 'date'}, //, dateFormat:'d.m.Y'
 	   {name: 'end_date', type: 'date'}, //, dateFormat:'d.m.Y'
 	   {name: 'available?', type: 'string'},
-	   {name: 'inventory_pool.name', type: 'string'}
+	   {name: 'inventory_pool.name', type: 'string'},
+	   {name: 'inventory_pool.closed_days'},
+	   {name: 'inventory_pool.closed_dates'}
 	]);
 
     // create the Data Store
@@ -71,8 +73,14 @@
            width: 50,
            renderer: formatDate,
            editor: new Ext.form.DateField({
-                format: 'd.m.Y' //,
-				//renderer: new Ext.DatePicker({startDay: 1})
+                //format: 'd.m.Y'
+				//, disabledDays: function() { var n = new Array();
+				//							console.log(complete_order_store.reader);
+				//							//n.push(complete_order_store.reader.jsonData['inventory_pool.closed_days']);
+				//							return n;
+				//	},
+				//disabledDates: ["10/30/08"]
+				
             })
         },{
            header: "End date",
@@ -128,6 +136,12 @@
 					*/
 					//old// model_store.load({params:{model_id: x_id}});
 					add_model_details(x_id);
+				}
+				else if (columnIndex == 4 || columnIndex == 5) {
+					var field = grid.getColumnModel().getCellEditor(columnIndex, rowIndex).field;
+					field.setDisabledDays(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_days']);
+					field.setDisabledDates(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_dates']); // TODO: Maybe works with new ext.js
+	//				field.menu.picker.setDisabledDates(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_dates']);
 				}
 			},
 			afteredit: function(e){

@@ -23,4 +23,16 @@ class Workday < ActiveRecord::Base
       return false #Should not be reached
     end
   end
+  
+  def closed_days
+    days = []
+    days << 0 unless sunday
+    days << 1 unless monday
+    days << 2 unless tuesday
+    days << 3 unless wednesday
+    days << 4 unless thursday
+    days << 5 unless friday
+    days << 6 unless saturday
+    days
+  end
 end
