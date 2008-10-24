@@ -1,0 +1,82 @@
+--- !ruby/object:Gem::Specification 
+name: png
+version: !ruby/object:Gem::Version 
+  version: 1.1.0
+platform: ruby
+authors: 
+- Ryan Davis
+- Eric Hodel
+autorequire: 
+bindir: bin
+cert_chain: 
+date: 2007-03-26 00:00:00 +02:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: RubyInline
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 3.5.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: hoe
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.2.0
+    version: 
+description: "PNG is an almost-pure-ruby PNG library. It lets you write a PNG without any C libraries.  == FEATURES  * Very simple interface. * Outputs simple PNG files with ease. * Basic PNG reader as well (someday it might do compositing and the like!). * Almost pure ruby, does require a compiler.  == SYNOPSYS  require 'png'  canvas = PNG::Canvas.new 200, 200  # Set a point to a color canvas[100, 100] = PNG::Color::Black  # draw an anti-aliased line canvas.line 50, 50, 100, 50, PNG::Color::Blue  png = PNG.new canvas png.save 'blah.png'"
+email: support@zenspider.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- History.txt
+- Manifest.txt
+- README.txt
+- Rakefile
+- example/lines.rb
+- example/profile.rb
+- example/profile_lines.rb
+- lib/png.rb
+- lib/png/pie.rb
+- test/test_png.rb
+has_rdoc: true
+homepage: http://www.zenspider.com/ZSS/Products/png/
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- bin
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">"
+    - !ruby/object:Gem::Version 
+      version: 0.0.0
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: seattlerb
+rubygems_version: 1.3.0
+signing_key: 
+specification_version: 1
+summary: An almost-pure-ruby PNG library
+test_files: 
+- test/test_png.rb
