@@ -13,13 +13,13 @@ table th, table td {
 	margin: 0;
 	padding: 8px 20px;
 	text-align: center;
-	border: 1px solid #b2b2b2;
 	text-align: left;
 	vertical-align: middle;
 }
 
 table tr {
 	background: #f1f1f1;
+	border: 1px solid #b2b2b2;
 }
 
 table tr.alt-row {
@@ -41,8 +41,21 @@ table th {
 	color: #e2e2e2;
 }
 
+.table-overview {
+	margin-bottom: 2em;
+}
+
 /* Classes */
 
 .fresh {
 	font-weight: bold !important;
 }
+
+#controller div.result {
+	margin: 0 20px 0 20px;
+}
+
+#controller div {
+	display: inline;
+}
+

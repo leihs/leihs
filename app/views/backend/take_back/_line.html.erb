@@ -19,7 +19,7 @@
 		</td>
 		<td id="inventory_code_<%= @line.id %>" class="line_valid_<%= @line.complete? %>">
 			<%= greybox_link_to_page(@line.item.inventory_code,
-			 { :controller => 'items', :action => 'details', :id => @line.item.id },
+			 backend_item_path(@line.item), # TODO 22** render without layout
 			 :title => _("Item"),
 			 :class => "iconized-notxt" ) %>
 		</td>

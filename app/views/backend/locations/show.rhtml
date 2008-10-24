@@ -1,10 +1,10 @@
 
-	<% form_tag :action => 'update', :id => @location do %>
+	<% form_for @location, :url => { :action => "update" } do |f| %>
 
 		<ul>
-		<li><b>Building:</b> <%= text_field_tag :building, @location.building %></li>	
-		<li><b>Room:</b> <%= text_field_tag :room, @location.room %></li>	
-		<li><b>Shelf:</b> <%= text_field_tag :shelf, @location.shelf %></li>	
+		<li><b>Building:</b> <%= f.text_field :building %></li>	
+		<li><b>Room:</b> <%= f.text_field :room %></li>	
+		<li><b>Shelf:</b> <%= f.text_field :shelf %></li>	
 		</ul>
 	
 		<%= submit_tag 'Submit' %>

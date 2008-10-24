@@ -87,11 +87,11 @@ class Document < ActiveRecord::Base
   #######################
   #
   def log_change(text, user_id)
-    histories << History.new(:text => text, :user_id => user_id, :type_const => History::CHANGE)
+    histories.create(:text => text, :user_id => user_id, :type_const => History::CHANGE)
   end
   
   def log_history(text, user_id)
-    histories << History.new(:text => text, :user_id => user_id, :type_const => History::ACTION)
+    histories.create(:text => text, :user_id => user_id, :type_const => History::ACTION)
   end
   
   def has_changes?

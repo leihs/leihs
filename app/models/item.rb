@@ -16,10 +16,10 @@ class Item < ActiveRecord::Base
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
   validates_uniqueness_of :inventory_code
-  #validates_length_of :inventory_code, :minimum => 1, :too_short => "please enter at least %d character", :if => Proc.new {|i| i.step == :step_item}
-  validates_presence_of :inventory_code, :if => Proc.new {|i| i.step == :step_item}
-  validates_presence_of :model, :if => Proc.new {|i| i.step == :step_model}
-  validates_presence_of :location, :if => Proc.new {|i| i.step == :step_location}
+  #validates_length_of :inventory_code, :minimum => 1, :too_short => "please enter at least %d character", :if => Proc.new {|i| i.step == 'step_item'}
+  validates_presence_of :inventory_code, :if => Proc.new {|i| i.step == 'step_item'}
+  validates_presence_of :model, :if => Proc.new {|i| i.step == 'step_model'}
+  validates_presence_of :location, :if => Proc.new {|i| i.step == 'step_location'}
   
   acts_as_ferret :fields => [ :model_name, :inventory_pool_name, :inventory_code, :serial_number ] #, :store_class_name => true
 
@@ -70,7 +70,7 @@ class Item < ActiveRecord::Base
   #######################
   #
   def log_history(text, user_id)
-    histories << History.new(:text => text, :user_id => user_id, :type_const => History::BROKEN)
+    histories.create(:text => text, :user_id => user_id, :type_const => History::BROKEN)
   end
 
     # TODO item returns to available

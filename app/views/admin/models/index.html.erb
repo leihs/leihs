@@ -10,7 +10,7 @@
 				<td><%= model.compatibles.size %></td>
 				<td class="buttons" nowrap>
 					<ul>
-						<li><%= link_to _("Show"), :action => 'show', :id => model.id %></li>
+						<li><%= link_to _("Show"), admin_model_path(model) %></li>
 						<li><%= link_to _("* Delete"), :action => '', :id => model.id %></li>
 					</ul>
 				</td>

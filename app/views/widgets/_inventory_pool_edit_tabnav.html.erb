@@ -10,7 +10,8 @@ render_tabnav :inventory_pool_edit,
 
 	add_tab do |t|
 		t.named 'InventoryPool'
-		t.links_to :controller => 'inventory_pools', :action => 'edit', :id => @inventory_pool
+		t.links_to admin_inventory_pool_path(@inventory_pool)
+		t.highlights_on :action => 'show'
 	end
 
 	add_tab do |t|

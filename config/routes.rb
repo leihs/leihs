@@ -39,11 +39,23 @@ ActionController::Routing::Routes.draw do |map|
   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
 
   # Sample resource route within a namespace:
- # map.namespace :backend do |backend|
- #   # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
- #   backend.resources :acknowledge
- #   backend.resources :dashboard
- # end
+  map.namespace :backend do |backend|
+#    backend.resources :acknowledge
+#    backend.resources :dashboard
+    backend.resources :orders
+    backend.resources :contracts
+    backend.resources :locations
+    backend.resources :items
+  end
+
+  map.namespace :admin do |admin|
+    admin.resources :inventory_pools
+    admin.resources :items
+    admin.resources :models, :collection => { :auto_complete => :get }
+    admin.resources :categories
+    admin.resources :users
+    admin.resources :roles
+  end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   # map.root :controller => "welcome"

@@ -16,12 +16,13 @@ render_tabnav :category_admin,
 
 	add_tab do |t|
 		t.named 'Category'
-		t.links_to :action => 'show', :id => @category.id
+		t.links_to admin_category_path(@category)
+		t.highlights_on :action => 'show'
 		t.html[:style] = "background-color: red;" if @category.name.blank? 
 	end
 
 	add_tab do |t|
-		t.named 'Models *'
+		t.named 'Models'
 		t.links_to :action => 'models', :id => @category.id
 	end
 

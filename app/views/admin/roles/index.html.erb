@@ -6,7 +6,7 @@
 				<td><%= role.parent %></td>
 				<td class="buttons" nowrap>
 					<ul>
-						<li><%= link_to _("* Show"), :action => '', :id => role.id %></li>
+						<li><%= link_to _("* Show"), admin_role_path(role) %></li>
 						<li><%= link_to _("* Delete"), :action => '', :id => role.id %></li>
 					</ul>
 				</td>
