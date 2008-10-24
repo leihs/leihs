@@ -1,0 +1,102 @@
+# GetText Sample Blog on RoR.
+#
+# Copyright (C) 2005,2006 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Joao Pedrosa <joaopedrosa at gmail.com>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: blog 2.0.0\n"
+"POT-Creation-Date: 2008-09-15 00:49+0900\n"
+"PO-Revision-Date: 2005-12-17 10:12-0300\n"
+"Last-Translator: Joao Pedrosa <joaopedrosa at gmail.com>\n"
+"Language-Team: Portuguese(Brazil)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app/helpers/articles_helper.rb:42
+msgid "Ruby Links"
+msgstr "Links de Ruby"
+
+#: app/helpers/articles_helper.rb:50
+msgid "Old articles"
+msgstr "Artigos antigos"
+
+#: app/models/article.rb:-
+msgid "article"
+msgstr "artigo"
+
+#: app/models/article.rb:-
+msgid "Article|Title"
+msgstr "Título"
+
+#: app/models/article.rb:-
+msgid "Article|Description"
+msgstr "Descrição"
+
+#: app/models/article.rb:-
+msgid "Article|Lastupdate"
+msgstr "Última atualização"
+
+#: app/controllers/articles_controller.rb:58
+msgid "Article was successfully created."
+msgstr "Artigo criado com sucesso"
+
+#: app/controllers/articles_controller.rb:75
+msgid "Article was successfully updated."
+msgstr "Artigo atualizado com sucesso"
+
+#: app/views/articles/edit.html.erb:1
+msgid "Editing article"
+msgstr "Editando artigo"
+
+#: app/views/articles/edit.html.erb:9 app/views/articles/new.html.erb:9
+msgid "Title: Required."
+msgstr "Título: Exigido."
+
+#: app/views/articles/edit.html.erb:11 app/views/articles/new.html.erb:11
+msgid "Description: More than 10 characters."
+msgstr "Descrição: Mais que 10 caracteres."
+
+#: app/views/articles/edit.html.erb:13 app/views/articles/show.html.erb:4
+msgid "Edit"
+msgstr "Editar"
+
+#: app/views/articles/edit.html.erb:18
+msgid "Show"
+msgstr "Mostrar"
+
+#: app/views/articles/edit.html.erb:19
+msgid "Destroy"
+msgstr "Destruir"
+
+#: app/views/articles/edit.html.erb:19
+msgid "Are you sure?"
+msgstr "Tem certeza?"
+
+#: app/views/articles/edit.html.erb:20 app/views/articles/show.html.erb:5
+#: app/views/articles/new.html.erb:18
+msgid "Back"
+msgstr "Voltar"
+
+#: app/views/articles/show.html.erb:1 app/views/articles/index.html.erb:1
+#: app/views/layouts/articles.html.erb:7
+msgid "GetText Sample Blog on RoR"
+msgstr "Blog de Exemplo do GetText no RoR"
+
+#: app/views/articles/new.html.erb:1 app/views/articles/index.html.erb:4
+msgid "New article"
+msgstr "Novo artigo"
+
+#: app/views/articles/new.html.erb:13
+msgid "Create"
+msgstr "Criar"
+
+#: app/views/articles/index.html.erb:7
+msgid "No articles were found."
+msgstr "Nenhum artigo foi achado."
+

@@ -1,0 +1,169 @@
+# a po-file for Ruby-GetText-Package and Ruby on Rails.
+#
+# Copyright (C) 2005-2007 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# damphyr <damphyr@gmx.net>, 2006-2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 1.92.0\n"
+"POT-Creation-Date: 2008-09-14 01:48+0900\n"
+"PO-Revision-Date: 2006-01-06 19:50+0100\n"
+"Last-Translator: damphyr <damphyr@gmx.net>\n"
+"Language-Team: Greek\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/gettext/rails.rb:327
+msgid "%{num} error prohibited this %{record} from being saved"
+msgid_plural "%{num} errors prohibited this %{record} from being saved"
+msgstr[0] "%{num} λάθος  απέτρεψε την αποθήκευση της εγγραφής %{record}"
+msgstr[1] "%{num} λάθη απέτρεψαν την αποθήκευση της εγγραφής %{record}"
+
+#: lib/gettext/rails.rb:329
+msgid "There was a problem with the following field:"
+msgid_plural "There were problems with the following fields:"
+msgstr[0] "Υπάρχουν προβλήματα στο παρακάτω πεδίο:"
+msgstr[1] "Υπάρχουν προβλήματα στα παρακάτω πεδία:"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 5 seconds"
+msgstr "λιγότερο από 5 δευτερόλεπτα"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 10 seconds"
+msgstr "λιγότερο από 10 δευτερόλεπτα"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 20 seconds"
+msgstr "λιγότερο από 20 δευτερόλεπτα"
+
+#: lib/gettext/rails.rb:436
+msgid "half a minute"
+msgstr "μισό λεπτό"
+
+#: lib/gettext/rails.rb:436
+msgid "less than a minute"
+msgstr "λιγότερο από ένα λεπτό"
+
+#: lib/gettext/rails.rb:436
+msgid "about 1 month"
+msgstr "περίπου ένα μήνα"
+
+#: lib/gettext/rails.rb:437
+msgid "about 1 year"
+msgstr "περίπου ένα χρόνο"
+
+#: lib/gettext/rails.rb:438
+msgid "1 minute"
+msgid_plural "%{num} minutes"
+msgstr[0] "%{num} λεπτό"
+msgstr[1] "%{num} λεπτά"
+
+#: lib/gettext/rails.rb:439
+msgid "about 1 hour"
+msgid_plural "about %{num} hours"
+msgstr[0] "περίπου %{num} ώρα"
+msgstr[1] "περίπου %{num} ώρες"
+
+#: lib/gettext/rails.rb:440
+msgid "1 day"
+msgid_plural "%{num} days"
+msgstr[0] "%{num} μέρα"
+msgstr[1] "%{num} μέρες"
+
+#: lib/gettext/rails.rb:441
+msgid "1 month"
+msgid_plural "%{num} months"
+msgstr[0] "ένα μήνα"
+msgstr[1] "%{num} μήνες"
+
+#: lib/gettext/rails.rb:442
+msgid "over 1 year"
+msgid_plural "over %{num} years"
+msgstr[0] "πάνω από χρόνο"
+msgstr[1] "πάνω από %{num} χρόνια"
+
+#: lib/gettext/active_record.rb:28
+msgid "Validation failed: %{error_messages}"
+msgstr "Αποτυχία ελέγχου: %{error_messages}"
+
+#: lib/gettext/active_record.rb:247
+msgid "%{fn} is not included in the list"
+msgstr "το %{fn} δεν περιλαμβάνεται στη λίστα"
+
+#: lib/gettext/active_record.rb:248
+msgid "%{fn} is reserved"
+msgstr "το %{fn} είναι κατειλημένο"
+
+#: lib/gettext/active_record.rb:249
+msgid "%{fn} is invalid"
+msgstr "το %{fn} είναι άκυρο"
+
+#: lib/gettext/active_record.rb:250
+msgid "%{fn} doesn't match confirmation"
+msgstr "το %{fn} δεν ταιριάζει με την επιβεβαίωση του"
+
+#: lib/gettext/active_record.rb:251
+msgid "%{fn} must be accepted"
+msgstr "το %{fn} πρέπει να γίνει δεκτό"
+
+#: lib/gettext/active_record.rb:252
+msgid "%{fn} can't be empty"
+msgstr "το %{fn} δεν γίνεται να είναι κενό"
+
+#: lib/gettext/active_record.rb:253
+msgid "%{fn} can't be blank"
+msgstr "το %{fn} δεν γίνεται να είναι κενό"
+
+#: lib/gettext/active_record.rb:254
+msgid "%{fn} is too long (maximum is %d characters)"
+msgstr "το %{fn} είναι πολύ μακρύ (το μέγιστο είναι %d χαρακτήρες)"
+
+#: lib/gettext/active_record.rb:255
+msgid "%{fn} is too short (minimum is %d characters)"
+msgstr "το %{fn} είναι πολύ μικρό (το ελάχιστο είναι %d χαρακτήρες)"
+
+#: lib/gettext/active_record.rb:256
+msgid "%{fn} is the wrong length (should be %d characters)"
+msgstr "το %{fn} έχει το λάθος μήκος (πρέπει να είναι %d χαρακτήρες)"
+
+#: lib/gettext/active_record.rb:257
+msgid "%{fn} has already been taken"
+msgstr "το %{fn} είναι ήδη κατειλημένο"
+
+#: lib/gettext/active_record.rb:258
+msgid "%{fn} is not a number"
+msgstr "το %{fn} δεν είναι αριθμός"
+
+#: lib/gettext/active_record.rb:259
+msgid "%{fn} must be greater than %d"
+msgstr "το %{fn} πρέπει να μεγαλύτερο ή ίσο απο %d"
+
+#: lib/gettext/active_record.rb:260
+msgid "%{fn} must be greater than or equal to %d"
+msgstr "το %{fn} πρέπει να μεγαλύτερο ή ίσο απο %d"
+
+#: lib/gettext/active_record.rb:261
+msgid "%{fn} must be equal to %d"
+msgstr "το %{fn} πρέπει να μικρότερο ή ίσο με %d"
+
+#: lib/gettext/active_record.rb:262
+msgid "%{fn} must be less than %d"
+msgstr "το %{fn} πρέπει να μικρότερο ή ίσο απο %d"
+
+#: lib/gettext/active_record.rb:263
+msgid "%{fn} must be less than or equal to %d"
+msgstr "το %{fn} πρέπει να μικρότερο ή ίσο απο %d"
+
+#: lib/gettext/active_record.rb:264
+msgid "%{fn} must be odd"
+msgstr "το %{fn} πρέπει να περιτό"
+
+#: lib/gettext/active_record.rb:265
+msgid "%{fn} must be even"
+msgstr "το %{fn} πρέπει να είναι άρτιο"

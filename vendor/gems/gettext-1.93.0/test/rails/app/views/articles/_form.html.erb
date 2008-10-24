@@ -1,0 +1,13 @@
+<%= error_messages_for 'article' %>
+
+<!--[form:article]-->
+<p><label for="article_title"><%= _("Title") %></label><br/>
+<%= text_field 'article', 'title'  %></p>
+
+<p><label for="article_description"><%= _("Description") %></label><br/>
+<%= text_area 'article', 'description'  %></p>
+
+<p><label for="article_lastupdate"><%= _("Lastupdate") %></label><br/>
+<%= date_select 'article', 'lastupdate' %></p>
+<!--[eoform:article]-->
+

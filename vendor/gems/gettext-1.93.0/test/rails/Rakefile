@@ -1,0 +1,36 @@
+# Add your own tasks in files placed in lib/tasks ending in .rake,
+# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+
+$:.unshift "../../lib"
+require(File.join(File.dirname(__FILE__), 'config', 'boot'))
+
+require 'rake'
+require 'rake/testtask'
+require 'rake/rdoctask'
+
+require 'tasks/rails'
+
+desc 'Build the MySQL test databases'
+task :createdb do
+  %x( mysqladmin -u root create rails_unittest )
+  %x( rake db:schema:load )
+end
+
+desc 'Drop the MySQL test databases'
+task :dropdb do
+  %x( mysqladmin -u root -f drop rails_unittest )
+end
+
+desc "Create mo-files for L10n"
+task :makemo do
+  require 'gettext/utils'
+  GetText.create_mofiles(true, "po", "locale")
+  mkdir "log" unless File.exists? "log"
+end
+
+desc "Update pot/po files to match new version."
+task :updatepo do
+  require 'gettext/utils'
+  GetText.update_pofiles("rails_test", Dir.glob("{app,lib}/**/*.{rb,rhtml,erb}"),
+                         "rails_test 1.2.0")
+end

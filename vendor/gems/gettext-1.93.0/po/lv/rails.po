@@ -1,0 +1,175 @@
+#
+# a po-file for Ruby-GetText-Package and Ruby on Rails.
+#
+# Copyright (C) 2005,2006 Masao Mutoh
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Aivars Akots, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 1.92.0\n"
+"POT-Creation-Date: 2008-09-14 01:48+0900\n"
+"PO-Revision-Date: 2008-07-25 09:37+0200\n"
+"Last-Translator: Aivars Akots <aivars.akots@gmail.com>\n"
+"Language-Team: Latvian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+#: lib/gettext/rails.rb:327
+msgid "%{num} error prohibited this %{record} from being saved"
+msgid_plural "%{num} errors prohibited this %{record} from being saved"
+msgstr[0] "%d kļūdas rezultātā %s netika saglabāts"
+msgstr[1] "%d kļūdu rezultātā %s netika saglabāts"
+
+#: lib/gettext/rails.rb:329
+msgid "There was a problem with the following field:"
+msgid_plural "There were problems with the following fields:"
+msgstr[0] "Radās problēmas ar sekojošu lauku:"
+msgstr[1] "Radās problēmas ar sekojošajiem laukiem:"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 5 seconds"
+msgstr "mazāk kā 5 sekundes"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 10 seconds"
+msgstr "mazāk kā 10 sekundes"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 20 seconds"
+msgstr "mazāk kā 20 sekundes"
+
+#: lib/gettext/rails.rb:436
+msgid "half a minute"
+msgstr "pus minūte"
+
+#: lib/gettext/rails.rb:436
+msgid "less than a minute"
+msgstr "mazāk kā 1 minūte"
+
+#: lib/gettext/rails.rb:436
+msgid "about 1 month"
+msgstr "apmēram 1 mēnesis"
+
+#: lib/gettext/rails.rb:437
+msgid "about 1 year"
+msgstr "apmēram 1 gads"
+
+#: lib/gettext/rails.rb:438
+#, fuzzy
+msgid "1 minute"
+msgid_plural "%{num} minutes"
+msgstr[0] "pus minūte"
+msgstr[1] "pus minūte"
+msgstr[2] "pus minūte"
+
+#: lib/gettext/rails.rb:439
+msgid "about 1 hour"
+msgid_plural "about %{num} hours"
+msgstr[0] "apmēram 1 stunda"
+msgstr[1] "apmērm %{num} stundas"
+
+#: lib/gettext/rails.rb:440
+msgid "1 day"
+msgid_plural "%{num} days"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: lib/gettext/rails.rb:441
+#, fuzzy
+msgid "1 month"
+msgid_plural "%{num} months"
+msgstr[0] "apmēram 1 mēnesis"
+msgstr[1] "apmēram 1 mēnesis"
+msgstr[2] "apmēram 1 mēnesis"
+
+#: lib/gettext/rails.rb:442
+msgid "over 1 year"
+msgid_plural "over %{num} years"
+msgstr[0] "vairāk kā 1 gads"
+msgstr[1] "vairāk kā %{num} gadi"
+
+#: lib/gettext/active_record.rb:28
+msgid "Validation failed: %{error_messages}"
+msgstr "Validācija neveiksmīga: %{error_messages}"
+
+#: lib/gettext/active_record.rb:247
+msgid "%{fn} is not included in the list"
+msgstr "%{fn} nav iekļauts sarakstā"
+
+#: lib/gettext/active_record.rb:248
+msgid "%{fn} is reserved"
+msgstr "%{fn} ir rezervēts"
+
+#: lib/gettext/active_record.rb:249
+msgid "%{fn} is invalid"
+msgstr "%{fn} ir nepareizi noformēts"
+
+#: lib/gettext/active_record.rb:250
+msgid "%{fn} doesn't match confirmation"
+msgstr "%{fn} nesakrīt ar apstiprinājumu"
+
+#: lib/gettext/active_record.rb:251
+msgid "%{fn} must be accepted"
+msgstr "%{fn} ir jāakceptē"
+
+#: lib/gettext/active_record.rb:252
+msgid "%{fn} can't be empty"
+msgstr "%{fn} nevar būt tukšs"
+
+#: lib/gettext/active_record.rb:253
+msgid "%{fn} can't be blank"
+msgstr "%{fn} ir obligāti jāaizpilda"
+
+#: lib/gettext/active_record.rb:254
+msgid "%{fn} is too long (maximum is %d characters)"
+msgstr "%{fn} ir pārāk garšs (maksimums %d simboli)"
+
+#: lib/gettext/active_record.rb:255
+msgid "%{fn} is too short (minimum is %d characters)"
+msgstr "%{fn} ir pārāk īss (minimums %d simboli)"
+
+#: lib/gettext/active_record.rb:256
+msgid "%{fn} is the wrong length (should be %d characters)"
+msgstr "%{fn} ir nepareiza garuma (jābūt %d simboliem)"
+
+#: lib/gettext/active_record.rb:257
+msgid "%{fn} has already been taken"
+msgstr "%{fn} ir jau aizņemts"
+
+#: lib/gettext/active_record.rb:258
+msgid "%{fn} is not a number"
+msgstr "%{fn} nav skaitlis"
+
+#: lib/gettext/active_record.rb:259
+msgid "%{fn} must be greater than %d"
+msgstr "%{fn} jābūt lielākam kā %d"
+
+#: lib/gettext/active_record.rb:260
+msgid "%{fn} must be greater than or equal to %d"
+msgstr "%{fn} jābūt lielākam vai vienādam ar %d"
+
+#: lib/gettext/active_record.rb:261
+msgid "%{fn} must be equal to %d"
+msgstr "%{fn} jābūt vienādam ar %d"
+
+#: lib/gettext/active_record.rb:262
+msgid "%{fn} must be less than %d"
+msgstr "%{fn} jābūt mazākam kā %d"
+
+#: lib/gettext/active_record.rb:263
+msgid "%{fn} must be less than or equal to %d"
+msgstr "%{fn} jābūt mazākam vai vienādam ar %d"
+
+#: lib/gettext/active_record.rb:264
+msgid "%{fn} must be odd"
+msgstr "%{fn} jābūt nepāra skaitlim"
+
+#: lib/gettext/active_record.rb:265
+msgid "%{fn} must be even"
+msgstr "%{fn} jābūt pāra skaitlim"

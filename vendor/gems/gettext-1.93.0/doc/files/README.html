@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Tue Sep 16 02:17:20 +0900 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Ruby-Gettext-Package</h1>
+<p>
+Ruby-<a href="../classes/GetText.html">GetText</a>-Package is a
+Localization(L10n) library and tools which modeled after GNU gettext
+package.
+</p>
+<p>
+This library provides to translate original messages to localized messages
+properly using client-side locale information(environment variable or CGI
+variable).
+</p>
+<p>
+And the tools for developers support to create, use, and modify localized
+message files(message catalogs) easily.
+</p>
+<h2>Features</h2>
+<ul>
+<li>Simple APIs(similar GNU gettext)
+
+</li>
+<li>rgettext creates po-files from
+
+<ul>
+<li>ruby scripts
+
+</li>
+<li>glade-2 XML file(.glade)
+
+</li>
+<li>ERB file(.rhtml, .erb)
+
+</li>
+<li>ActiveRecord(.rb)
+
+</li>
+<li>Others(with your own parsers)
+
+</li>
+<li>The po-file is compatible to GNU gettext.
+
+</li>
+</ul>
+</li>
+<li>rmsgfmt creates a mo-file from a po-file. The mo-file is compatible to GNU
+gettext(msgfmt).
+
+</li>
+<li>textdomain&#8216;s scope is adapt to ruby class/module mechanism.
+
+<ul>
+<li>A class/module can have plural textdomains.
+
+</li>
+<li>a message is looked up in its class/module and ancestors.
+
+</li>
+</ul>
+</li>
+<li><a href="../classes/Locale.html">Locale</a> is retrieved from System
+variables (ENV[&#8216;LANG&#8217;], POSIX, Win32)
+
+</li>
+<li>CGI support (gettext/cgi)
+
+<ul>
+<li><a href="../classes/Locale.html">Locale</a> is retrieved from client
+informations (HTTP_ACCEPT_LANGUAGE, HTTP_ACCEPT_CHARSET,
+QUERY_STRING(lang), Cookies(lang)).
+
+</li>
+</ul>
+</li>
+<li>ERB support (gettext/erb)
+
+</li>
+<li>Ruby on Rails support (gettext/rails)
+
+<ul>
+<li>before_init_gettext, init_gettext, after_init_gettext for initializing <a
+href="../classes/GetText.html">GetText</a>.
+
+</li>
+<li>ActionController, ActionView, ActionMailer and ActiveRecord are localized
+in a textdomain.
+
+</li>
+<li>Validation messages in ActiveRecord are localized.
+
+</li>
+<li>The table/field names of ActiveRecord are extracted by rgettext and
+translated in the application.
+
+</li>
+<li>plugins can have their own textdomains.
+
+</li>
+<li>ActionMailer supports ISO-2022-JP message in ja locale.
+
+</li>
+</ul>
+</li>
+<li><a href="../classes/String.html">String</a>%() is extended to use named
+argument such as &quot;%{foo}&quot; %{:foo =&gt; 1}
+
+</li>
+</ul>
+<h2>Requirements</h2>
+<ul>
+<li>Ruby 1.8.3 or later &lt;<a
+href="http://www.ruby-lang.org/ja">www.ruby-lang.org/ja</a>/&gt;
+
+</li>
+<li>(for development only)
+
+<ul>
+<li>GNU gettext 0.10.35 or later &lt;<a
+href="http://www.gnu.org/software/gettext/gettext.html">www.gnu.org/software/gettext/gettext.html</a>&gt;
+
+</li>
+<li>Racc-1.4.3 or later &lt;<a
+href="http://www.ruby-lang.org/raa/list.rhtml?name=racc">www.ruby-lang.org/raa/list.rhtml?name=racc</a>&gt;
+
+</li>
+</ul>
+</li>
+<li>(for compiling src/rmsgfmt.ry only)
+
+<ul>
+<li>Ruby on Rails 2.0.0 or later (if you use this package with Ruby on Rails)
+&lt;<a href="http://www.rubyonrails.org">www.rubyonrails.org</a>/&gt;
+
+</li>
+</ul>
+</li>
+</ul>
+<h2>Install</h2>
+<ul>
+<li>gem:
+
+<pre>
+  ($ su)
+   # gem install gettext
+</pre>
+</li>
+<li>tar-ball:
+
+<pre>
+  De-Compress archive and enter its top directory.
+  Then type:
+  ($ su)
+   # ruby setup.rb
+</pre>
+</li>
+</ul>
+<p>
+You can also install files in your favor directory by supplying setup.rb
+some options. Try &quot;ruby setup.rb &#8212;help&quot;.
+</p>
+<h2>Usage</h2>
+<p>
+If you are end-user of an application which depends on this library, you
+don&#8216;t need do nothing (See applications documents).
+</p>
+<p>
+If you are developer of the application which depends on this library,
+</p>
+<p>
+see: <a href="http://gettext.rubyforge.org">gettext.rubyforge.org</a>/
+</p>
+<h2>License</h2>
+<p>
+This program is licenced under the same licence as Ruby. (See the file
+&#8216;COPYING&#8217;.)
+</p>
+<ul>
+<li>mo.rb
+
+<ul>
+<li>Copyright (C) 2001-2007 Masao Mutoh &lt;mutoh at highwhay.ne.jp&gt;
+
+</li>
+<li>Copyright (C) 2001,2002 Masahiro Sakai &lt;s01397ms at sfc.keio.ac.jp&gt;
+
+</li>
+</ul>
+</li>
+<li>gettext.rb
+
+<ul>
+<li>Copyright (C) 2001-2008 Masao Mutoh &lt;mutoh at highwhay.ne.jp&gt;
+
+</li>
+<li>Copyright (C) 2001,2002 Masahiro Sakai &lt;s01397ms at sfc.keio.ac.jp&gt;
+
+</li>
+</ul>
+</li>
+<li>rgettext
+
+<ul>
+<li>Copyright (C) 2001-2007 Masao Mutoh &lt;mutoh at highwhay.ne.jp&gt;
+
+</li>
+<li>Copyright (C) 2001,2002 Yasushi Shoji &lt;yashi at atmark-techno.com&gt;
+
+</li>
+</ul>
+</li>
+<li>setup.rb
+
+<ul>
+<li>Copyright (C) 2000-2005 Minero Aoki &lt;aamine at loveruby.net&gt;
+
+</li>
+<li>This file is released under LGPL. See the top of the install.rb.
+
+</li>
+</ul>
+</li>
+<li>Others
+
+<ul>
+<li>Copyright (C) 2001-2008 Masao Mutoh &lt;mutoh at highwhay.ne.jp&gt;
+
+</li>
+</ul>
+</li>
+</ul>
+<h2>Translators</h2>
+<ul>
+<li>Bosnian(bs) - Sanjin Sehic &lt;saserr at gmail.com&gt;
+
+</li>
+<li>Bulgarian(bg) - Sava Chankov &lt;sava.chankov at gmail.com&gt;
+
+</li>
+<li>Catalan(ca) - Ramon Salvadó &lt;rsalvado at gnuine.com&gt;
+
+</li>
+<li>Chinese(Simplified)(zh_CN) - Yang Bob &lt;bob.yang.dev at gmail.com&gt;
+(current)
+
+<pre>
+                             Yingfeng &lt;blogyingfeng at gmail.com&gt;
+</pre>
+</li>
+<li>Chinese(Traditional)(zh_TW)- Yang Bob &lt;bob.yang.dev at gmail.com&gt;
+(current)
+
+<pre>
+                             LIN CHUNG-YI &lt;xmarsh at gmail.com&gt;
+</pre>
+</li>
+<li>Croatian(hr) - Sanjin Sehic &lt;saserr at gmail.com&gt;
+
+</li>
+<li>Czech(cs) - Karel Miarka &lt;kajism at yahoo.com&gt;
+
+</li>
+<li>Dutch(nl) - Menno Jonkers &lt;ruby-gettext at jonkers.com&gt;
+
+</li>
+<li>Esperanto(eo) - Malte Milatz &lt;malte at gmx-topmail.de&gt;
+
+</li>
+<li>Estonian(et) - Erkki Eilonen &lt;erkki at itech.ee&gt;
+
+</li>
+<li>French(fr) - Vincent Isambart &lt;vincent.isambart at gmail.com&gt;
+(current)
+
+<pre>
+                             David Sulc &lt;davidsulc at gmail.com&gt;
+                             Laurent Sansonetti &lt;laurent.sansonetti at gmail.com&gt;
+</pre>
+</li>
+<li>German(de) - Patrick Lenz &lt;patrick at limited-overload.de&gt; (current)
+
+<pre>
+                             Detlef Reichl &lt;detlef.reichl at gmx.org&gt;
+                             Sven Herzberg &lt;herzi at abi02.de&gt;
+                             Sascha Ebach &lt;se at digitale-wertschoepfung.de&gt;
+</pre>
+</li>
+<li>Greek(el) - Vassilis Rizopoulos &lt;damphyr at gmx.net&gt;
+
+</li>
+<li>Hungarian(hu) - Tamás Tompa &lt;tompata at gmail.com&gt;
+
+</li>
+<li>Italian(it) - Marco Lazzeri &lt;marco.lazzeri at gmail.com&gt;
+
+<pre>
+                             Gabriele Renzi &lt;surrender_it at yahoo.it&gt;
+</pre>
+</li>
+<li>Japanese(ja) - Masao Mutoh &lt;mutoh at highway.ne.jp&gt;
+
+</li>
+<li>Korean(ko) - Gyoung-Yoon Noh &lt;nohmad at gmail.com&gt;
+
+</li>
+<li>Latvian(lv) - Aivars Akots &lt;aivars.akots at gmail.com&gt;
+
+</li>
+<li>Norwegian(nb) - Runar Ingebrigtsen &lt;runar at mopo.no&gt;
+
+</li>
+<li>Portuguese(Brazil)(pt_BR) - Antonio S. de A. Terceiro &lt;terceiro at
+softwarelivre.org&gt; (current)
+
+<pre>
+                             Joao Pedrosa &lt;joaopedrosa at gmail.com&gt;
+</pre>
+</li>
+<li>Russian(ru) - Yuri Kozlov &lt;kozlov.y at gmail.com&gt;
+
+</li>
+<li>Serbian(sr) - Slobodan Paunović&quot; &lt;slobodan.paunovic at
+gmail.com&gt;
+
+</li>
+<li>Spanish(es) - David Espada &lt;davinci at escomposlinux.org&gt; (current)
+
+</li>
+<li>David Moreno Garza &lt;damog at damog.net&gt;
+
+</li>
+<li>Swedish(sv) - Nikolai Weibull &lt;mailing-lists.ruby-talk at
+rawuncut.elitemail.org&gt;
+
+</li>
+<li>Ukrainian(ua) - Alex Rootoff &lt;rootoff at pisem.net&gt;
+
+</li>
+<li>Vietnamese(vi) - Ngoc Dao Thanh &lt;ngocdaothanh at gmail.com&gt;
+
+</li>
+</ul>
+<h2>Status of translations</h2>
+<ul>
+<li>Bosnian(bs) - 1.90.0 (old)
+
+</li>
+<li>Bulgarian(bg) - 1.93.0 (new)
+
+</li>
+<li>Catalan(ca) - 1.93.0
+
+</li>
+<li>Croatian(hr) - 1.90.0 (old)
+
+</li>
+<li>Chinese(zh_CN) - 1.93.0
+
+</li>
+<li>Chinese(zh_TW) - 1.93.0
+
+</li>
+<li>Czech(cs) - 1.9.0 (old)
+
+</li>
+<li>Dutch(nl) - 1.90.0 (old)
+
+</li>
+<li>English(default) - 1.90.0 (old)
+
+</li>
+<li>Esperanto(eo) - 1.93.0
+
+</li>
+<li>Estonian(et) - 1.93.0
+
+</li>
+<li>French(fr) - 1.93.0
+
+</li>
+<li>German(de) - 1.93.0
+
+</li>
+<li>Greek(el) - 1.93.0
+
+</li>
+<li>Hungarian(hu) - 1.93.0
+
+</li>
+<li>Italian(it) - 1.6.0 (old)
+
+</li>
+<li>Japanese(ja) - 1.93.0
+
+</li>
+<li>Korean(ko) - 1.9.0 (old)
+
+</li>
+<li>Latvian(lv) - 1.93.0 (new)
+
+</li>
+<li>Norwegian(nb) - 1.93.0
+
+</li>
+<li>Portuguese(Brazil)(pt_BR) - 1.93.0
+
+</li>
+<li>Russian(ru) - 1.93.0
+
+</li>
+<li>Serbian(sr) - 1.91.0 (old)
+
+</li>
+<li>Spanish(es) - 1.93.0
+
+</li>
+<li>Swedish(sv) - 0.8.0 (too much old)
+
+</li>
+<li>Ukrainian(ua) - 1.93.0
+
+</li>
+<li>Vietnamese(vi) - 1.93.0
+
+</li>
+</ul>
+<h2>Maintainer</h2>
+<p>
+Masao Mutoh &lt;mutoh at highway.ne.jp&gt;
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+#
+# a po-file for Ruby-GetText-Package and Ruby on Rails.
+#
+# Copyright (C) 2006,2007 Masao Mutoh
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Erkki Eilonen <erkki at itech.ee>, 2006,2007.
+# Tõlked on väga toored ning vajavad kindlasti ülevaatamist.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 1.92.0\n"
+"POT-Creation-Date: 2008-09-14 01:48+0900\n"
+"PO-Revision-Date: 2008-08-07 14:00+0300\n"
+"Last-Translator: Erkki Eilonen <erkki at itech.ee>\n"
+"Language-Team: Estonian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: lib/gettext/rails.rb:327
+msgid "%{num} error prohibited this %{record} from being saved"
+msgid_plural "%{num} errors prohibited this %{record} from being saved"
+msgstr[0] "%{num} viga takistas valitud %{record} salvestamist"
+msgstr[1] "%{num} viga takistas valitud %{record} salvestamist"
+
+#: lib/gettext/rails.rb:329
+msgid "There was a problem with the following field:"
+msgid_plural "There were problems with the following fields:"
+msgstr[0] "Viga järgmise väljaga:"
+msgstr[1] "Viga järgmiste väljadega:"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 5 seconds"
+msgstr "vähem kui 5 sekundit"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 10 seconds"
+msgstr "vähem kui 10 sekundit"
+
+#: lib/gettext/rails.rb:435
+msgid "less than 20 seconds"
+msgstr "vähem kui 20 sekundit"
+
+#: lib/gettext/rails.rb:436
+msgid "half a minute"
+msgstr "pool minutit"
+
+#: lib/gettext/rails.rb:436
+msgid "less than a minute"
+msgstr "vähem kui minut"
+
+#: lib/gettext/rails.rb:436
+msgid "about 1 month"
+msgstr "umbes 1 kuu"
+
+#: lib/gettext/rails.rb:437
+msgid "about 1 year"
+msgstr "umbes 1 aasta"
+
+#: lib/gettext/rails.rb:438
+msgid "1 minute"
+msgid_plural "%{num} minutes"
+msgstr[0] "1 minut"
+msgstr[1] "%{num} minutit"
+
+#: lib/gettext/rails.rb:439
+msgid "about 1 hour"
+msgid_plural "about %{num} hours"
+msgstr[0] "umbes 1 tund"
+msgstr[1] "umbes %{num} tundi"
+
+#: lib/gettext/rails.rb:440
+msgid "1 day"
+msgid_plural "%{num} days"
+msgstr[0] "1 päev"
+msgstr[1] "%{num} päeva"
+
+#: lib/gettext/rails.rb:441
+msgid "1 month"
+msgid_plural "%{num} months"
+msgstr[0] "1 kuu"
+msgstr[1] "%{num} kuud"
+
+#: lib/gettext/rails.rb:442
+msgid "over 1 year"
+msgid_plural "over %{num} years"
+msgstr[0] "üle %{num} aasta"
+msgstr[1] "üle %{num} aasta"
+
+#: lib/gettext/active_record.rb:28
+msgid "Validation failed: %{error_messages}"
+msgstr "Õigsuse kontroll ebaõnnestus: %{error_messages}"
+
+#: lib/gettext/active_record.rb:247
+msgid "%{fn} is not included in the list"
+msgstr "%{fn} pole lubatud"
+
+#: lib/gettext/active_record.rb:248
+msgid "%{fn} is reserved"
+msgstr "%{fn} pole lubatud"
+
+#: lib/gettext/active_record.rb:249
+msgid "%{fn} is invalid"
+msgstr "%{fn} on vigane"
+
+#: lib/gettext/active_record.rb:250
+msgid "%{fn} doesn't match confirmation"
+msgstr "%{fn} ei vasta kinnitusele"
+
+#: lib/gettext/active_record.rb:251
+msgid "%{fn} must be accepted"
+msgstr "%{fn} peab olema märgitud"
+
+#: lib/gettext/active_record.rb:252
+msgid "%{fn} can't be empty"
+msgstr "%{fn} ei tohi olla tühi"
+
+#: lib/gettext/active_record.rb:253
+msgid "%{fn} can't be blank"
+msgstr "%{fn} ei tohi olla tühi"
+
+#: lib/gettext/active_record.rb:254
+msgid "%{fn} is too long (maximum is %d characters)"
+msgstr "%{fn} on liiga pikk (lubatud kuni %d tähemärki)"
+
+#: lib/gettext/active_record.rb:255
+msgid "%{fn} is too short (minimum is %d characters)"
+msgstr "%{fn} on liiga lühike (peab olema vähemalt %d tähemärki)"
+
+#: lib/gettext/active_record.rb:256
+msgid "%{fn} is the wrong length (should be %d characters)"
+msgstr "%{fn} on vale pikkusega (peab olema %d tähemärki)"
+
+#: lib/gettext/active_record.rb:257
+msgid "%{fn} has already been taken"
+msgstr "%{fn} on juba olemas"
+
+#: lib/gettext/active_record.rb:258
+msgid "%{fn} is not a number"
+msgstr "%{fn} ei ole number"
+
+#: lib/gettext/active_record.rb:259
+msgid "%{fn} must be greater than %d"
+msgstr "%{fn} peab olema suurem kui %d"
+
+#: lib/gettext/active_record.rb:260
+msgid "%{fn} must be greater than or equal to %d"
+msgstr "%{fn} peab olema suurem või võrdne %d-ga"
+
+#: lib/gettext/active_record.rb:261
+msgid "%{fn} must be equal to %d"
+msgstr "%{fn} peab olema võrdne %d-ga"
+
+#: lib/gettext/active_record.rb:262
+msgid "%{fn} must be less than %d"
+msgstr "%{fn} peab väiksem kui %d"
+
+#: lib/gettext/active_record.rb:263
+msgid "%{fn} must be less than or equal to %d"
+msgstr "%{fn} peab olema väiksem või võrdne %d-ga"
+
+#: lib/gettext/active_record.rb:264
+msgid "%{fn} must be odd"
+msgstr "%{fn} peab paaritu"
+
+#: lib/gettext/active_record.rb:265
+msgid "%{fn} must be even"
+msgstr "%{fn} peab olema paaris"

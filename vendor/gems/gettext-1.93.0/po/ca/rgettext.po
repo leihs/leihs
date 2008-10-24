@@ -1,0 +1,145 @@
+#
+# po-file for Ruby-GetText-Package
+#
+# Copyright (C) 2004-2008 Masao Mutoh
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Ramon Salvadó <rsalvado at gnuine.com>, 2006-2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 1.92.0\n"
+"POT-Creation-Date: 2008-09-14 01:48+0900\n"
+"PO-Revision-Date: 2005-12-20 10:33+0900E\n"
+"Last-Translator: Ramon Salvadó <rsalvado at gnuine.com>\n"
+"Language-Team: Catalan\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/gettext/utils.rb:68
+msgid ""
+"`%{cmd}' may not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/utils.rb:80
+msgid "Failed to merge with %{defpo}"
+msgstr "Ha fallat al fer el merge amb %{defpo}"
+
+#: lib/gettext/utils.rb:81
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "S'ha copiat el nou .pot a %{failed_filename}"
+
+#: lib/gettext/utils.rb:82
+msgid "Check these po/pot-files. It may have syntax errors or something wrong."
+msgstr ""
+"Revisa aquestes po/pot-files. Poden contenir errors o quelcom malament."
+
+#: lib/gettext/rgettext.rb:43
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' ignorat"
+
+#: lib/gettext/rgettext.rb:189
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Ús: %s entrada.po [-r parser.rb] [-o sortida.pot]"
+
+#: lib/gettext/rgettext.rb:191
+msgid "Extract translatable strings from given input files."
+msgstr "Extreu les cadenes de paraules traduïbles dels fitxers d'entrada."
+
+#: lib/gettext/rgettext.rb:193 lib/gettext/rmsgfmt.rb:51
+#: lib/gettext/rmsgmerge.rb:408
+msgid "Specific options:"
+msgstr "Opcions específiques:"
+
+#: lib/gettext/rgettext.rb:195 lib/gettext/rmsgfmt.rb:53
+#: lib/gettext/rmsgmerge.rb:410
+msgid "write output to specified file"
+msgstr "escriu la sortida en un fitxer especificat"
+
+#: lib/gettext/rgettext.rb:199
+msgid "File '%s' already exists."
+msgstr "El fitxer '%s' ja existeix"
+
+#: lib/gettext/rgettext.rb:204
+msgid "require the library before executing rgettext"
+msgstr "requereix la llibreria abans d'executar rgettext"
+
+#: lib/gettext/rgettext.rb:208
+msgid "run in debugging mode"
+msgstr "executa en mode debug"
+
+#: lib/gettext/rgettext.rb:212 lib/gettext/rmsgfmt.rb:57
+#: lib/gettext/rmsgmerge.rb:421
+msgid "display version information and exit"
+msgstr "mostra informació de la versió i surt"
+
+#: lib/gettext/rgettext.rb:236 lib/gettext/rmsgfmt.rb:31
+msgid "no input files"
+msgstr "no hi ha fitxers d'entrada"
+
+#: lib/gettext/rmsgfmt.rb:47
+msgid "Usage: %s input.po [-o output.mo]"
+msgstr "Ús: %s entrada.po [-o sortida.mo]"
+
+#: lib/gettext/rmsgfmt.rb:49
+msgid "Generate binary message catalog from textual translation description."
+msgstr ""
+"Genera un catàleg de missatges binaris a partir d'un fitxer de traducció "
+"textual."
+
+#: lib/gettext/rmsgmerge.rb:403
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Ús: %s def.po ref.pot [-o sortida.pot]"
+
+#: lib/gettext/rmsgmerge.rb:406
+msgid ""
+"Merges two Uniforum style .po files together. The def.po file is an existing "
+"PO file with translations. The ref.pot file is the last created PO file with "
+"up-to-date source references. ref.pot is generally created by rgettext."
+msgstr ""
+"Combina dos fitxers .po d'estil Uniforum. El fitxer def.po és un fitxer PO "
+"existent amb traduccions. El fitxer ref.pot és l'últim fitxer PO amb "
+"referències actualitzades. Normalment qui ha creat ref.pot és rgettext"
+
+#: lib/gettext/rmsgmerge.rb:447
+msgid "definition po is not given."
+msgstr "no s'ha donat una definició po"
+
+#: lib/gettext/rmsgmerge.rb:449
+msgid "reference pot is not given."
+msgstr "no s'ha donat una referència pot"
+
+#: lib/gettext/parser/glade.rb:74
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "El fitxer `%{file}' no té el format glade-2.0."
+
+#: lib/gettext/parser/active_record.rb:39
+msgid "'%{file}' is not found."
+msgstr "El fitxer '%{file}' no s'ha trobat"
+
+#: lib/gettext/parser/active_record.rb:80
+msgid "Ignored '%{file}'. Solve dependencies first."
+msgstr "S'ignora el fitxer '%{file}'. Primer ha de resoldre les dependències."
+
+#: lib/gettext/parser/active_record.rb:104
+msgid "No database is available."
+msgstr "No hi ha una base de dades disponible."
+
+#: lib/gettext/parser/active_record.rb:140
+msgid "rubygems are not found."
+msgstr "no s'ha trobat rubygems"
+
+#: lib/gettext.rb:417
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "El tercer paràmetre es erroni: valor = %{number}"
+
+#: src/poparser.ry:38 src/poparser.ry:55
+msgid "Warning: fuzzy message was ignored.\n"
+msgstr "Avís: s'ha ignorat el missatge ambigu.\n"
+
+#: src/poparser.ry:148
+msgid "Warning: obsolete msgid exists.\n"
+msgstr "Avís: existeix un msgid obsolet.\n"

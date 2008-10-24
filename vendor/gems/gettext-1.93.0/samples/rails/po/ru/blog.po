@@ -1,0 +1,102 @@
+# translation of blog.po to Russian
+# GetText Sample Blog on RoR.
+#
+# Copyright (C) 2005,2006 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+# Yuri Kozlov <kozlov.y at gmail.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: blog 2.0.0\n"
+"POT-Creation-Date: 2008-09-15 00:49+0900\n"
+"PO-Revision-Date: 2006-04-17 20:07+0300\n"
+"Last-Translator: Yuri Kozlov <kozlov.y at gmail.com>\n"
+"Language-Team: Russian <debian-l10n-russian at lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: app/helpers/articles_helper.rb:42
+msgid "Ruby Links"
+msgstr "Ruby ссылки"
+
+#: app/helpers/articles_helper.rb:50
+msgid "Old articles"
+msgstr "Старые статьи"
+
+#: app/models/article.rb:-
+msgid "article"
+msgstr "статья"
+
+#: app/models/article.rb:-
+msgid "Article|Title"
+msgstr "Заголовок"
+
+#: app/models/article.rb:-
+msgid "Article|Description"
+msgstr "Описание"
+
+#: app/models/article.rb:-
+msgid "Article|Lastupdate"
+msgstr "Обновлено"
+
+#: app/controllers/articles_controller.rb:58
+msgid "Article was successfully created."
+msgstr "Статья успешно создана."
+
+#: app/controllers/articles_controller.rb:75
+msgid "Article was successfully updated."
+msgstr "Статья успешно обновлена."
+
+#: app/views/articles/edit.html.erb:1
+msgid "Editing article"
+msgstr "Редактирование статьи"
+
+#: app/views/articles/edit.html.erb:9 app/views/articles/new.html.erb:9
+msgid "Title: Required."
+msgstr "Заголовок: Требуется."
+
+#: app/views/articles/edit.html.erb:11 app/views/articles/new.html.erb:11
+msgid "Description: More than 10 characters."
+msgstr "Описание: Более 10 символов."
+
+#: app/views/articles/edit.html.erb:13 app/views/articles/show.html.erb:4
+msgid "Edit"
+msgstr "Редактировать"
+
+#: app/views/articles/edit.html.erb:18
+msgid "Show"
+msgstr "Показать"
+
+#: app/views/articles/edit.html.erb:19
+msgid "Destroy"
+msgstr "Удалить"
+
+#: app/views/articles/edit.html.erb:19
+msgid "Are you sure?"
+msgstr "Уверены?"
+
+#: app/views/articles/edit.html.erb:20 app/views/articles/show.html.erb:5
+#: app/views/articles/new.html.erb:18
+msgid "Back"
+msgstr "Назад"
+
+#: app/views/articles/show.html.erb:1 app/views/articles/index.html.erb:1
+#: app/views/layouts/articles.html.erb:7
+msgid "GetText Sample Blog on RoR"
+msgstr "Пример блога с GetText на RoR"
+
+#: app/views/articles/new.html.erb:1 app/views/articles/index.html.erb:4
+msgid "New article"
+msgstr "Новая статья"
+
+#: app/views/articles/new.html.erb:13
+msgid "Create"
+msgstr "Создать"
+
+#: app/views/articles/index.html.erb:7
+msgid "No articles were found."
+msgstr "Нет статей."
+

@@ -1,0 +1,177 @@
+= Ruby-Gettext-Package
+
+Ruby-GetText-Package is a Localization(L10n) library and tools 
+which modeled after GNU gettext package.
+
+This library provides to translate original messages to localized 
+messages properly using client-side locale information(environment
+variable or CGI variable).
+
+And the tools for developers support to create, use, and modify 
+localized message files(message catalogs) easily.
+
+== Features
+* Simple APIs(similar GNU gettext)
+
+* rgettext creates po-files from 
+  * ruby scripts 
+  * glade-2 XML file(.glade)
+  * ERB file(.rhtml, .erb)
+  * ActiveRecord(.rb)
+  * Others(with your own parsers)
+  * The po-file is compatible to GNU gettext.
+
+* rmsgfmt creates a mo-file from a po-file.
+  The mo-file is compatible to GNU gettext(msgfmt).
+
+* textdomain's scope is adapt to ruby class/module mechanism.
+  * A class/module can have plural textdomains.
+  * a message is looked up in its class/module and ancestors.
+
+* Locale is retrieved from System variables (ENV['LANG'], POSIX, Win32)
+
+* CGI support (gettext/cgi)
+  * Locale is retrieved from client informations
+    (HTTP_ACCEPT_LANGUAGE, HTTP_ACCEPT_CHARSET, QUERY_STRING(lang), Cookies(lang)).
+
+* ERB support (gettext/erb)
+
+* Ruby on Rails support (gettext/rails)
+  * before_init_gettext, init_gettext, after_init_gettext for initializing
+    GetText.
+  * ActionController, ActionView, ActionMailer and ActiveRecord are 
+    localized in a textdomain.
+  * Validation messages in ActiveRecord are localized.
+  * The table/field names of ActiveRecord are extracted by rgettext 
+    and translated in the application.
+  * plugins can have their own textdomains.
+  * ActionMailer supports ISO-2022-JP message in ja locale.
+
+* String%() is extended to use named argument such as "%{foo}" %{:foo => 1}
+
+== Requirements
+* Ruby 1.8.3 or later <http://www.ruby-lang.org/ja/>
+* (for development only)
+  * GNU gettext 0.10.35 or later 
+    <http://www.gnu.org/software/gettext/gettext.html>
+  * Racc-1.4.3 or later
+    <http://www.ruby-lang.org/raa/list.rhtml?name=racc>
+* (for compiling src/rmsgfmt.ry only)
+  * Ruby on Rails 2.0.0 or later (if you use this package with Ruby on Rails)
+    <http://www.rubyonrails.org/>
+
+== Install
+* gem:
+    ($ su)
+     # gem install gettext
+
+* tar-ball:
+    De-Compress archive and enter its top directory.
+    Then type:
+    ($ su)
+     # ruby setup.rb
+
+You can also install files in your favor directory by
+supplying setup.rb some options. Try "ruby setup.rb --help".
+
+== Usage
+If you are end-user of an application which depends on this library, 
+you don't need do nothing (See applications documents).
+
+If you are developer of the application which depends on this library,
+
+see: http://gettext.rubyforge.org/
+
+== License
+This program is licenced under the same licence as Ruby.
+(See the file 'COPYING'.)
+
+* mo.rb
+  * Copyright (C) 2001-2007 Masao Mutoh <mutoh at highwhay.ne.jp>
+  * Copyright (C) 2001,2002 Masahiro Sakai <s01397ms at sfc.keio.ac.jp>
+
+* gettext.rb
+  * Copyright (C) 2001-2008 Masao Mutoh <mutoh at highwhay.ne.jp>
+  * Copyright (C) 2001,2002 Masahiro Sakai <s01397ms at sfc.keio.ac.jp>
+
+* rgettext 
+  * Copyright (C) 2001-2007 Masao Mutoh <mutoh at highwhay.ne.jp>
+  * Copyright (C) 2001,2002 Yasushi Shoji <yashi at atmark-techno.com>
+
+* setup.rb
+  * Copyright (C) 2000-2005 Minero Aoki <aamine at loveruby.net>
+  * This file is released under LGPL. See the top of the install.rb.
+
+* Others
+  * Copyright (C) 2001-2008 Masao Mutoh <mutoh at highwhay.ne.jp>
+
+
+== Translators
+* Bosnian(bs)                - Sanjin Sehic <saserr at gmail.com>
+* Bulgarian(bg)              - Sava Chankov <sava.chankov at gmail.com>
+* Catalan(ca)                - Ramon Salvadó <rsalvado at gnuine.com>
+* Chinese(Simplified)(zh_CN) - Yang Bob <bob.yang.dev at gmail.com> (current)
+                               Yingfeng <blogyingfeng at gmail.com>
+* Chinese(Traditional)(zh_TW)- Yang Bob <bob.yang.dev at gmail.com> (current)
+                               LIN CHUNG-YI <xmarsh at gmail.com>
+* Croatian(hr)               - Sanjin Sehic <saserr at gmail.com>
+* Czech(cs)                  - Karel Miarka <kajism at yahoo.com>
+* Dutch(nl)                  - Menno Jonkers <ruby-gettext at jonkers.com>
+* Esperanto(eo)              - Malte Milatz <malte at gmx-topmail.de>
+* Estonian(et)               - Erkki Eilonen <erkki at itech.ee>
+* French(fr)                 - Vincent Isambart <vincent.isambart at gmail.com> (current)
+                               David Sulc <davidsulc at gmail.com>
+                               Laurent Sansonetti <laurent.sansonetti at gmail.com> 
+* German(de)                 - Patrick Lenz <patrick at limited-overload.de> (current)
+                               Detlef Reichl <detlef.reichl at gmx.org>
+                               Sven Herzberg <herzi at abi02.de>
+                               Sascha Ebach <se at digitale-wertschoepfung.de>
+* Greek(el)                  - Vassilis Rizopoulos <damphyr at gmx.net>
+* Hungarian(hu)              - Tamás Tompa <tompata at gmail.com>
+* Italian(it)                - Marco Lazzeri <marco.lazzeri at gmail.com>
+                               Gabriele Renzi <surrender_it at yahoo.it>
+* Japanese(ja)               - Masao Mutoh <mutoh at highway.ne.jp>
+* Korean(ko)                 - Gyoung-Yoon Noh <nohmad at gmail.com>
+* Latvian(lv)                - Aivars Akots <aivars.akots at gmail.com>
+* Norwegian(nb)              - Runar Ingebrigtsen <runar at mopo.no>
+* Portuguese(Brazil)(pt_BR)  - Antonio S. de A. Terceiro <terceiro at softwarelivre.org> (current)
+                               Joao Pedrosa <joaopedrosa at gmail.com> 
+* Russian(ru)                - Yuri Kozlov <kozlov.y at gmail.com>
+* Serbian(sr)                - Slobodan Paunović" <slobodan.paunovic at gmail.com>
+* Spanish(es)                - David Espada <davinci at escomposlinux.org> (current)
+*                              David Moreno Garza <damog at damog.net>
+* Swedish(sv)                - Nikolai Weibull <mailing-lists.ruby-talk at rawuncut.elitemail.org>
+* Ukrainian(ua)              - Alex Rootoff <rootoff at pisem.net>
+* Vietnamese(vi)             - Ngoc Dao Thanh <ngocdaothanh at gmail.com>
+
+== Status of translations
+* Bosnian(bs)               - 1.90.0 (old)
+* Bulgarian(bg)             - 1.93.0 (new)
+* Catalan(ca)               - 1.93.0
+* Croatian(hr)              - 1.90.0 (old)
+* Chinese(zh_CN)            - 1.93.0
+* Chinese(zh_TW)            - 1.93.0
+* Czech(cs)                 - 1.9.0 (old)
+* Dutch(nl)                 - 1.90.0 (old)
+* English(default)          - 1.90.0 (old)
+* Esperanto(eo)             - 1.93.0
+* Estonian(et)              - 1.93.0
+* French(fr)                - 1.93.0
+* German(de)                - 1.93.0
+* Greek(el)                 - 1.93.0 
+* Hungarian(hu)             - 1.93.0
+* Italian(it)               - 1.6.0 (old)
+* Japanese(ja)              - 1.93.0
+* Korean(ko)                - 1.9.0 (old)
+* Latvian(lv)               - 1.93.0 (new)
+* Norwegian(nb)             - 1.93.0
+* Portuguese(Brazil)(pt_BR) - 1.93.0
+* Russian(ru)               - 1.93.0
+* Serbian(sr)               - 1.91.0 (old)
+* Spanish(es)               - 1.93.0
+* Swedish(sv)               - 0.8.0 (too much old)
+* Ukrainian(ua)             - 1.93.0
+* Vietnamese(vi)            - 1.93.0
+
+== Maintainer
+Masao Mutoh <mutoh at highway.ne.jp>
