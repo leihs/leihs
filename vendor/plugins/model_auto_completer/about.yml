@@ -1,0 +1,7 @@
+author: 
+  name: ASPgems S.L.
+  homepage: http://www.aspgems.com 
+summary: model_auto_completer provides auto completion for models.
+homepage: http://model-ac.rubyforge.org
+plugin: svn://rubyforge.org/var/svn/model-ac/trunk/vendor/plugins/model_auto_completer
+license: MIT 
