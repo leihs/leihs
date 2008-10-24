@@ -1,8 +1,0 @@
-<h1><%= _("New article") %></h1>
-
-<% form_tag :action => 'create' do %>
-  <%= render :partial => 'form' %>
-  <%= submit_tag _("Create") %>
-<% end %>
-
-<%= link_to _('Back'), :action => 'list' %>
