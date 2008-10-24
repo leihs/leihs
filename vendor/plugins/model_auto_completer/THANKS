@@ -1,0 +1,5 @@
+* Wolfram Arnold suggested addition of a way to disable random suffixes.
+
+* Javier Vidal suggested explicit mention of :skip_style.
+
+* James Stewart send a patch with a better way to compute the foreign key of the association.

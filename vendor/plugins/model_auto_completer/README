@@ -1,0 +1,29 @@
+= model_auto_completer
+
+== Description
+
+model_auto_completer provides auto completion for models. That is, the user autocompletes a
+text field, and the widget manages a hidden field that stores the ID of the selected model.
+
+== Usage
+
+This plugin offers three helpers and a class method for controllers. See the
+documentation of ModelAutoCompleterHelper.
+
+== Installation
+
+To install model_auto_completer run
+
+  script/plugin install http://model-ac.rubyforge.org/svn/trunk/vendor/plugins/model_auto_completer
+
+In Rails 2 you need the auto_complete plugin as well:
+
+  script/plugin install auto_complete
+
+== Copyright
+
+(C) 2007-2008 {ASPgems S.L.}[http://www.aspgems.com]
+
+== License
+
+This code is available under the MIT license.
