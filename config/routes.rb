@@ -40,20 +40,46 @@ ActionController::Routing::Routes.draw do |map|
 
   # Sample resource route within a namespace:
   map.namespace :backend do |backend|
+    # TODO 28** nesting to inventory_pool, removing session
 #    backend.resources :acknowledge
 #    backend.resources :dashboard
     backend.resources :orders
     backend.resources :contracts
     backend.resources :locations
-    backend.resources :items
+    backend.resources :items, :member => { :model => :get,
+                                           :location => :get,
+                                           :status => :get }
+    backend.resources :models, :collection => { :auto_complete => :get },
+                               :member => { :properties => :get,
+                                            :accessories => :get,
+                                            :images => :get } do |model|
+      model.resources :items
+# TODO 28** working here
+#      model.resources :categories
+#      model.resources :compatibles, :controller => :models
+    end
   end
 
   map.namespace :admin do |admin|
-    admin.resources :inventory_pools
-    admin.resources :items
-    admin.resources :models, :collection => { :auto_complete => :get }
-    admin.resources :categories
-    admin.resources :users
+    admin.resources :inventory_pools, :member => { :locations => :get,
+                                                   :managers => :get,
+                                                   :add_manager => :put } do |inventory_pool|
+      inventory_pool.resources :items
+    end
+    admin.resources :items, :member => { :model => :get,
+                                         :inventory_pool => :get }
+    admin.resources :models, :collection => { :auto_complete => :get },
+                             :member => { :properties => :get,
+                                          :accessories => :get,
+                                          :images => :get } do |model|
+      model.resources :items
+      model.resources :categories
+      model.resources :compatibles, :controller => :models
+    end
+    admin.resources :categories do |category|
+      category.resources :models
+    end
+    admin.resources :users, :collection => { :auto_complete => :get }
     admin.resources :roles
   end
 

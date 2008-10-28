@@ -62,7 +62,8 @@ Rails::Initializer.run do |config|
   config.gem "ferret", :version => '0.11.6'
   config.gem "gettext", :version => '1.93.0'
   config.gem "png", :version => '1.1.0'
-  #config.gem "rmagick", :version => '2.7.0'
+#  config.gem "rmagick", :version => '2.7.0'
+#  config.gem "rspec", :version => '1.1.11'
   
 end
 

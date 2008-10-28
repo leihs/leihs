@@ -3,18 +3,26 @@ class Admin::ItemsController < Admin::AdminController
   before_filter :pre_load
   
   def index
+
+    if @inventory_pool
+      items = @inventory_pool.items
+    elsif @model
+      items = @model.items
+    else
+      items = Item
+    end    
+
     case params[:filter]
       when "incompletes"
-        items = Item.incompletes
-      else
-        items = Item
+        items = items.incompletes
     end
-    
+        
     unless params[:query].blank?
       @items = items.find_by_contents("*" + params[:query] + "*",  :page => params[:page], :per_page => $per_page)
     else
       @items = items.paginate :page => params[:page], :per_page => $per_page 
     end
+    
   end
 
   def show
@@ -23,10 +31,12 @@ class Admin::ItemsController < Admin::AdminController
   end
 
   def new
+    @item = Item.new
     show and render :action => 'show'
   end
 
   def create
+    @item = Item.new
     update
   end
       
@@ -39,6 +49,11 @@ class Admin::ItemsController < Admin::AdminController
     end
   end
 
+  def destroy
+    @item.destroy
+    redirect_to admin_items_path
+  end
+
 #################################################################
 
   def model
@@ -48,8 +63,6 @@ class Admin::ItemsController < Admin::AdminController
 #################################################################
 
   def inventory_pool
-    # forcing wizard step
-    redirect_to admin_item_path(@item) unless @item.model
   end
   
   def set_inventory_pool
@@ -80,7 +93,8 @@ class Admin::ItemsController < Admin::AdminController
   def pre_load
     params[:id] ||= params[:item_id] if params[:item_id]
     @item = Item.find(params[:id]) if params[:id]
-    @item ||= Item.new
+    @inventory_pool = InventoryPool.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
+    @model = Model.find(params[:model_id]) if params[:model_id]
   end
 
 end

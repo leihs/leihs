@@ -3,6 +3,7 @@ class AccessRight < ActiveRecord::Base
   belongs_to :user
   belongs_to :inventory_pool
 
+  validates_presence_of :user, :role
   validates_uniqueness_of :inventory_pool_id, :scope => :user_id
   validate :validates_admin_role
 

@@ -14,7 +14,9 @@
 				<td class="buttons" nowrap>
 					<ul>
 						<li><%= link_to _("Show"), admin_item_path(item) %></li>
-						<li><%= link_to _("* Delete"), :action => '', :id => item.id %></li>
+						<li><%= link_to _("Delete"), admin_item_path(item),
+										:confirm => _("Are you sure?"),
+										:method => :delete %></li>
 					</ul>
 				</td>
 			</tr>

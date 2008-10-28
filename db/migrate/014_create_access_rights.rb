@@ -8,15 +8,9 @@ class CreateAccessRights < ActiveRecord::Migration
       t.timestamps
     end
 
-    # TODO optimize indices
-    # add_index(:access_rights, :role_id)
-    # add_index(:access_rights, :user_id)
-    # add_index(:access_rights, :inventory_pool_id)
-    #old# add_index(:access_rights, [:role_id, :user_id, :inventory_pool_id], :unique => true) # TODO 20** not working ???
     add_index(:access_rights, [:user_id, :inventory_pool_id], :unique => true)
 
     create_admin
-
   end
 
   def self.down
@@ -28,10 +22,9 @@ class CreateAccessRights < ActiveRecord::Migration
                       :login => "super_user_1")
 
     user.unique_id = "super_user_1"
-    r = Role.find(:first, :conditions => {:name => "admin"})
-
-    user.access_rights << AccessRight.new(:role => r, :inventory_pool => nil)
     user.save
-    puts "Administrator für alle Pools ist " + user.login
+    r = Role.find(:first, :conditions => {:name => "admin"})
+    user.access_rights.create(:role => r, :inventory_pool => nil)
+    puts _("The administrator %{a} has been created ") % { :a => user.login }
   end
 end

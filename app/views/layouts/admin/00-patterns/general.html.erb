@@ -19,7 +19,7 @@
 	
 		<div id="header">
 			<div id="logo">
-				<h1><%= link_to "Leihs 2.0", :controller => 'dashboard' %></h1>
+				<h1><%= link_to "Leihs 2.0", :controller => '/admin' %></h1>
 				<p><%= _("Inventory Pool") %>: <%= @current_inventory_pool.name if @current_inventory_pool %>. (<%= link_to _("Change") + "?", :controller => 'dashboard', :action => 'index_inventory_pools' %>)</p>
 	
 			</div>
@@ -50,9 +50,24 @@
 				<%= flash[:notice] %>
 				</div>
 			<% end %>		
-				
+
+<% # OPTIMIZE 28** rendering tabs %>
+<% if @inventory_pool %>
+	<% @tab = :inventory_pool_admin %>
+<% elsif @model %>
+	<% @tab = :model_admin %>
+<% elsif @category %>
+	<% @tab = :category_admin %>
+<% end %>
+
+<% if @tab %>
+	<% tabnav @tab do %>
 			<%= yield %>
-	
+	<% end %>
+<% else %>
+	<%= yield %>
+<% end %>
+		
 		</div>
 	</div>
 	

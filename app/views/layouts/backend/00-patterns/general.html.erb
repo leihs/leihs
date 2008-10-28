@@ -51,7 +51,21 @@
 				</div>
 			<% end %>		
 				
+<% # OPTIMIZE 28** rendering tabs %>
+<% if @model %>
+	<% @tab = :model_backend %>
+<% elsif @item %>
+	<% @tab = :item_backend %>
+<% end %>
+
+<% if @tab %>
+	<% tabnav @tab do %>
 			<%= yield %>
+	<% end %>
+<% else %>
+	<%= yield %>
+<% end %>
+
 	
 		</div>
 	</div>

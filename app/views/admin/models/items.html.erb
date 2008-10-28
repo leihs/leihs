@@ -1,9 +1,0 @@
-
-<% tabnav :model_admin do %>
-
-	<ul>
-	<% for item in @model.items %>
-		<li><b><%= link_to item.inventory_code, admin_item_path(item) %></b> <%= item.serial_number %>, <%= item.location %></li>	<% end %>
-	</ul>
-
-<% end %>

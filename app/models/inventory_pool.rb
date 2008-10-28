@@ -1,6 +1,6 @@
 class InventoryPool < ActiveRecord::Base
 
-  has_many :access_rights
+  has_many :access_rights, :dependent => :delete_all
   has_one :workday, :dependent => :delete
   has_many :holidays, :dependent => :delete_all
   has_many :users, :through => :access_rights, :uniq => true
@@ -44,6 +44,10 @@ class InventoryPool < ActiveRecord::Base
 
 
   before_create :assign_main_location
+
+  validates_presence_of :name
+
+#######################################################################
 
   def to_s
     "#{name}"

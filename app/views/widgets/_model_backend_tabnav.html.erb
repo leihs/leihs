@@ -14,18 +14,19 @@
 
 <%  
 
-render_tabnav :model_edit, 
+render_tabnav :model_backend, 
               :generate_css => true do 
 
 	add_tab do |t|
 		t.named 'Model'
-		t.links_to :action => 'show', :id => @model.id
-		t.html[:style] = "background-color: red;" if @model.name.blank? 
+		t.links_to backend_model_path(@model)
+		t.highlights_on :action => 'show'
 	end
 
 	add_tab do |t|
 		t.named 'Items'
-		t.links_to :action => 'items', :id => @model.id
+		t.links_to backend_model_items_path(@model)
+		t.highlights_on :controller => 'backend/items', :action => 'index'
 	end
 
 	add_tab do |t|
@@ -35,26 +36,29 @@ render_tabnav :model_edit,
 
 	add_tab do |t|
 		t.named 'Properties'
-		t.links_to :action => 'properties', :id => @model.id
+		t.links_to properties_backend_model_path(@model)
+		t.highlights_on :action => 'properties'
 	end
 
 	add_tab do |t|
 		t.named 'Accessories'
-		t.links_to :action => 'accessories', :id => @model.id
+		t.links_to accessories_backend_model_path(@model)
+		t.highlights_on :action => 'accessories'
 	end
 
 	add_tab do |t|
 		t.named 'Images'
-		t.links_to :action => 'images', :id => @model.id
+		t.links_to images_backend_model_path(@model)
+		t.highlights_on :action => 'images'
 	end
 
 	add_tab do |t|
-		t.named 'Compatibles'
+		t.named 'Compatibles *'
 		t.links_to :action => 'compatibles', :id => @model.id
 	end
 
 	add_tab do |t|
-		t.named 'Availability'
+		t.named 'Availability *'
 		t.links_to :action => 'availability', :id => @model.id
 	end
 

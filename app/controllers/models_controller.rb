@@ -102,15 +102,4 @@ class ModelsController < FrontendController
     end
   end
 
-#old#
-#  def image_show(image_id = params[:id])
-#    @image = Image.find(image_id)
-#    #render :inline => "<%= @image.public_filename(:thumb) %>"
-#    
-#    send_data(@image.data, 
-#    :filename => @photo.name, 
-#    :type => @photo.content_type, 
-#    :disposition => "inline") 
-#  end
-
 end
