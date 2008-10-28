@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   
   belongs_to :authentication_system
-  has_many :access_rights
+  has_many :access_rights, :dependent => :delete_all
 #  has_many :roles, :through => :access_rights, :uniq => true
   has_many :inventory_pools, :through => :access_rights, :uniq => true
   has_many :items, :through => :inventory_pools, :uniq => true # (nested)

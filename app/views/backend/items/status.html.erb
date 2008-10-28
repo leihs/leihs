@@ -1,6 +1,4 @@
 
-<% tabnav :item_edit do %>
-
 	<ul>
 		<li><b>Status:</b> <%= @item.status_const %> <%= link_to _('Toggle borrowable status'), :action => 'toggle_status', :id => @item %></li>
 		<li><b>In Stock?:</b> <%= @item.in_stock? %></li>
@@ -9,23 +7,21 @@
 
 	<hr />
 
-<br />
-
-Accessories:
-<ul>
-<% @item.model.accessories.each do |a| %>
-	<li><%= a.name %></li>
-<% end %>
-</ul>
-
-<br />
-
-Histories:
-<ul>
-<% @item.histories.each do |h| %>
-	<li><%= short_date h.created_at %> - <%= h.type_const %> - <%= h.text %></li>
-<% end %>
-</ul>
+	<br />
 	
-
-<% end %>
+	Accessories:
+	<ul>
+	<% @item.model.accessories.each do |a| %>
+		<li><%= a.name %></li>
+	<% end %>
+	</ul>
+	
+	<br />
+	
+	Histories:
+	<ul>
+	<% @item.histories.each do |h| %>
+		<li><%= short_date h.created_at %> - <%= h.type_const %> - <%= h.text %></li>
+	<% end %>
+	</ul>
+		

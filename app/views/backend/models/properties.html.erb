@@ -1,11 +1,7 @@
 
-<% tabnav :model_edit do %>
-
 	<ul>
 	<% @model.properties.each do |p| %>
 		<li><b><%= p.key %>:</b> <%= p.value %></li>
 	<% end %>
 	</ul>
 
-
-<% end %>

@@ -1,28 +1,28 @@
 
-<% tabnav :inventory_pool_edit do %>
 	
-<% tableize @inventory_pool.managers,
-		 :header => "listing managers",
-		 :generate_css => true do |manager| %>
-		 
-		<%= manager.login %>
-		<br />
-		<%= link_to _('Remove'),
-					:action => 'remove_manager',
-					:id => @inventory_pool,
-					:manager_id => manager %>
-<% end %>		 	
+	<% tableize @inventory_pool.managers,
+			 :header => "listing managers",
+			 :generate_css => true do |manager| %>
+			 
+			<%= manager.login %>
+			<br />
+			<%= link_to _('Remove'),
+						:action => 'remove_manager',
+						:id => @inventory_pool,
+						:manager_id => manager %>
+	<% end %>		 	
 
 	<hr />
-	<div id="search_query">
-		<%= _("Add more managers") %>: <%= text_field_tag('search', _("search"),
-							:onfocus => "this.value='';",
-							:onchange => remote_function(:update => 'search_result',
-														 :url => { :action => 'search_manager', :id => @inventory_pool },
-														 :with => "'query=' + value" )) %>
-	</div>
-	<div id="search_result">
-	</div>
+	<% form_for [:admin, @inventory_pool], :url => { :action => 'add_manager' } do |f| %>
+
+		<%= _("Add as manager") %>:
+		<%= model_auto_completer ("user[login]", nil, "inventory_pool[manager_id]", nil,
+									{ :url => auto_complete_admin_users_path, :submit_on_return => true },
+									{ :size => 40 },
+									{ :method => :get, :select => :name }) %>
+
+
+		<%= submit_tag 'Submit' %>
+	<% end %>
 	
 
-<% end %>

@@ -1,12 +1,23 @@
 class ModelGroup < ActiveRecord::Base
-  
-  acts_as_graph :edge_table => "model_groups_parents",
-                :child_col => "model_group_id"
-  
+
   has_many :model_links
   has_many :models, :through => :model_links, :uniq => true
 
-###
+##################################################
+
+  # OPTIMIZE use acts-as-dag instead ??
+  acts_as_graph :edge_table => "model_groups_parents",
+                :child_col => "model_group_id"
+  # TODO contribute to acts_as_graph
+  def all_children
+    children.recursive.to_a
+  end
+
+  def all_models
+    (all_children.collect(&:models) + models).flatten.uniq  
+  end
+  
+##################################################
   
 
   # TODO define roots explicitly?
@@ -49,7 +60,7 @@ class ModelGroup < ActiveRecord::Base
                                   WHERE model_group_id = #{id}
                                     AND parent_id = #{parent.id}")
   end
-###  
+##################################################
 
 ###  TODO alias for Ext.Tree
   def text 

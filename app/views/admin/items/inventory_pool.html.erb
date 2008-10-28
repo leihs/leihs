@@ -1,21 +1,28 @@
 
 <% tabnav :item_admin do %>
 
-	<% if @item.location %>
-		<b><%= @item.location.inventory_pool.name %>:</b> <%= @item.location.building %>, <%= @item.location.room %>, <%= @item.location.shelf %>
-	<% end %>
+	<% unless @item.model %>
 	
-	<hr />
-	<%= _("Set different inventory pool (default location)") %>:
-		<ul>
-		<% InventoryPool.all.each do |ip| %>
-			<li><b><%= ip.name %></b>
-								 <%= link_to _('Set'),
-										:action => 'set_inventory_pool',
-										:id => @item,
-										:inventory_pool_id => ip %></li>
+		<%= _("Select model first") %>
+		
+	<% else %>
+	
+		<% if @item.location %>
+			<b><%= @item.location.inventory_pool.name %>:</b> <%= @item.location.building %>, <%= @item.location.room %>, <%= @item.location.shelf %>
 		<% end %>
-		</ul>
+		
+		<hr />
+		<%= _("Set different inventory pool (default location)") %>:
+			<ul>
+			<% InventoryPool.all.each do |ip| %>
+				<li><b><%= ip.name %></b>
+									 <%= link_to _('Set'),
+											:action => 'set_inventory_pool',
+											:id => @item,
+											:inventory_pool_id => ip %></li>
+			<% end %>
+			</ul>
 	
+	<% end %>	
 
 <% end %>

@@ -80,12 +80,6 @@ class Backend::ModelsController < Backend::BackendController
  
 #################################################################
 
-  def items
-    #render :layout => false
-  end
-
-#################################################################
-
   def properties
     #render :layout => false
   end
@@ -138,7 +132,7 @@ class Backend::ModelsController < Backend::BackendController
   def pre_load
     params[:model_id] ||= params[:id] if params[:id]
     @model = current_inventory_pool.models.find(params[:model_id]) if params[:model_id]
-    @model ||= Model.new # OPTIMIZE
+    # TODO 28** remove:   @model ||= Model.new # OPTIMIZE
   end
 
 end

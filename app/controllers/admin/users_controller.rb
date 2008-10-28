@@ -46,6 +46,11 @@ class Admin::UsersController < Admin::AdminController
 
 #################################################################
 
+  def auto_complete(user = params[:user])
+    @users = User.find_by_contents("*" + user[:login] + "*")
+    render :partial => 'auto_complete'
+  end
+
   private
   
   def pre_load

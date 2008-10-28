@@ -1,9 +1,6 @@
 
-<% tabnav :item_edit do %>
-
 	<ul>
 		<li><b>Name:</b> <%= link_to @item.model.name, :controller => 'models', :action => 'show', :id => @item.model.id %></li>
 		<li><b>Manufacturer:</b> <%= @item.model.manufacturer %></li>
 	</ul>
 	
-<% end %>

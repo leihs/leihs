@@ -3,7 +3,12 @@ class Backend::ItemsController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    items = current_inventory_pool.items
+
+    if @model
+      items = @model.items & current_inventory_pool.items # TODO 28** optimize intersection
+    else
+      items = current_inventory_pool.items
+    end    
 
     case params[:filter]
       when "in_repair"
@@ -59,6 +64,7 @@ class Backend::ItemsController < Backend::BackendController
   def pre_load
     params[:id] ||= params[:item_id] if params[:item_id]
     @item = current_inventory_pool.items.find(params[:id]) if params[:id]
+    @model = current_inventory_pool.models.find(params[:model_id]) if params[:model_id]
   end
 
 end

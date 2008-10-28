@@ -26,39 +26,47 @@ render_tabnav :model_admin,
 
 	add_tab do |t|
 		t.named 'Items'
-		t.links_to :action => 'items', :id => @model.id
+		t.links_to admin_model_items_path(@model)
+		t.highlights_on :controller => 'admin/items', :action => 'index'
+		t.html[:style] = "background-color: red;" if @model.items.empty? 
 	end
 
 	add_tab do |t|
-		t.named 'Categories *'
-		t.links_to :action => 'details', :id => @model.id
+		t.named 'Categories'
+		t.links_to admin_model_categories_path(@model)
+		t.highlights_on :controller => 'admin/categories', :action => 'index'
+		t.html[:style] = "background-color: red;" if @model.categories.empty?
 	end
 
 	add_tab do |t|
 		t.named 'Properties'
-		t.links_to :action => 'properties', :id => @model.id
+		t.links_to properties_admin_model_path(@model)
+		t.highlights_on :action => 'properties'
 		t.html[:style] = "background-color: red;" if @model.properties.empty? 
 	end
 
 	add_tab do |t|
 		t.named 'Accessories'
-		t.links_to :action => 'accessories', :id => @model.id
+		t.links_to accessories_admin_model_path(@model)
+		t.highlights_on :action => 'accessories'
 		t.html[:style] = "background-color: red;" if @model.accessories.empty? 
 	end
 
 	add_tab do |t|
 		t.named 'Images'
-		t.links_to :action => 'images', :id => @model.id
+		t.links_to images_admin_model_path(@model)
+		t.highlights_on :action => 'images'
 		t.html[:style] = "background-color: red;" if @model.images.empty? 
 	end
 
 	add_tab do |t|
-		t.named 'Compatibles *'
-		t.links_to :action => 'compatibles', :id => @model.id
+		t.named 'Compatibles'
+		t.links_to admin_model_compatibles_path(@model)
+#		t.highlights_on :controller => 'admin/categories', :action => 'index'
 	end
 
 	add_tab do |t|
-		t.named 'Availability'
+		t.named 'Availability *'
 		t.links_to :action => 'availability', :id => @model.id
 	end
 

@@ -92,12 +92,15 @@ class Backend::BackendController < ApplicationController
     def current_inventory_pool
       @current_inventory_pool ||= InventoryPool.find(session[:inventory_pool_id]) if session[:inventory_pool_id] and not @current_inventory_pool == false
 
-      #old# @current_inventory_pool ||= current_user.inventory_pools.first if current_user # TODO test
-
       # OPTIMIZE select most recent used inventory pool (using session?)
       unless @current_inventory_pool
         first_access_right = current_user.access_rights.detect {|a| a.role.name == 'manager'}
-        @current_inventory_pool = first_access_right.inventory_pool if first_access_right
+        if first_access_right
+          @current_inventory_pool = first_access_right.inventory_pool
+        else
+          # OPTIMIZE 28** forcing at least one inventory pool, however the has_role? check should fail
+          @current_inventory_pool = InventoryPool.first
+        end
       end
       @current_inventory_pool
     end

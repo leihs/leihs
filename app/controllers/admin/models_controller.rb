@@ -3,10 +3,18 @@ class Admin::ModelsController < Admin::AdminController
   before_filter :pre_load
 
   def index
-    unless params[:query].blank?
-      @models = Model.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+    if @category
+      models = @category.models
+    elsif @model
+      models = @model.compatibles
     else
-      @models = Model.paginate :page => params[:page], :per_page => $per_page
+      models = Model
+    end    
+
+    unless params[:query].blank?
+      @models = models.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+    else
+      @models = models.paginate :page => params[:page], :per_page => $per_page
     end
   end
 
@@ -15,7 +23,13 @@ class Admin::ModelsController < Admin::AdminController
   end
 
   def new
+    @model = Model.new
     render :action => 'show'
+  end
+
+  def create
+    @model = Model.new
+    update
   end
       
   def update
@@ -24,12 +38,6 @@ class Admin::ModelsController < Admin::AdminController
     @model.manufacturer = params[:manufacturer]
     @model.save
     render :action => 'show'
-  end
-
-#################################################################
-
-  def items
-    #render :layout => false
   end
 
 #################################################################
@@ -80,6 +88,11 @@ class Admin::ModelsController < Admin::AdminController
   end
 
 #################################################################
+  def availability
+    # TODO 27** implement
+  end
+
+#################################################################
 
   def auto_complete(model = params[:model])
     @models = Model.find_by_contents("*" + model[:name] + "*")
@@ -91,7 +104,7 @@ class Admin::ModelsController < Admin::AdminController
   def pre_load
     params[:id] ||= params[:model_id] if params[:model_id]
     @model = Model.find(params[:id]) if params[:id]
-    @model ||= Model.new
+    @category = Category.find(params[:category_id]) if params[:category_id]
   end
   
   

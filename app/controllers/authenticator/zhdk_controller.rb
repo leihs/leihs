@@ -26,7 +26,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     response = fetch("#{AUTHENTICATION_URL}/response&agw_sess_id=#{session_id}&app_ident=#{APPLICATION_IDENT}")
     if response.code.to_i == 200
       xml = Hash.from_xml(response.body)
-      uid = xml["authresponse"]["person"]["uniqueid"]
+      #old# uid = xml["authresponse"]["person"]["uniqueid"]
       self.current_user = create_or_update_user(xml)
       redirect_back_or_default("/")
     else
@@ -37,18 +37,20 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   def create_or_update_user(xml)
     uid = xml["authresponse"]["person"]["uniqueid"]
     user = User.find(:first, :conditions => { :unique_id => uid }) || User.new
+    user.email = xml["authresponse"]["person"]["email"]
+    user.login = "#{xml['authresponse']['person']['firstname']} #{xml["authresponse"]["person"]["lastname"]}"
+    user.authentication_system = AuthenticationSystem.find(:first, :conditions => {:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME })
     if user.new_record?
-      user.unique_id = uid      
+      user.unique_id = uid
+      user.save
       r = Role.find(:first, :conditions => {:name => "student"})
       ips = InventoryPool.find(:all, :conditions => {:name => DEFAULT_INVENTORY_POOLS})
       ips.each do |ip|
         user.access_rights.create(:role => r, :inventory_pool => ip)
       end
+    else
+      user.save
     end
-    user.email = xml["authresponse"]["person"]["email"]
-    user.login = "#{xml['authresponse']['person']['firstname']} #{xml["authresponse"]["person"]["lastname"]}"
-    user.authentication_system = AuthenticationSystem.find(:first, :conditions => {:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME })
-    user.save
     
     if SUPER_USERS.include?(user.unique_id)
       r = Role.find(:first, :conditions => {:name => "admin"})    

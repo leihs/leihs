@@ -17,15 +17,31 @@ class Admin::InventoryPoolsController < Admin::AdminController
   end
 
   def new
-    @inventory_pool = InventoryPool.create # TODO validation
+    @inventory_pool = InventoryPool.new
     render :action => 'show'
   end
-      
+
+  def create
+    @inventory_pool = InventoryPool.new
+    update
+  end
+
   def update
-    @inventory_pool.name = params[:name]
-    @inventory_pool.description = params[:description]
-    @inventory_pool.save
-    render :action => 'show'
+    if @inventory_pool.update_attributes(params[:inventory_pool])
+      redirect_to admin_inventory_pool_path(@inventory_pool)
+    else
+      render :action => 'show' # TODO 24** redirect to the correct tabbed form
+    end
+  end
+
+  def destroy
+    if @inventory_pool.items.empty?
+      @inventory_pool.destroy
+      redirect_to admin_inventory_pools_path
+    else
+      @inventory_pool.errors.add_to_base _("The Inventory Pool must be empty")
+      render :action => 'show' # TODO 24** redirect to the correct tabbed form
+    end
   end
 
 #################################################################
@@ -50,15 +66,15 @@ class Admin::InventoryPoolsController < Admin::AdminController
   def managers
   end
 
-  def search_manager
-    @users = User.find_by_contents("*" + params[:query] + "*")
-    render :partial => 'user_for_manager', :collection => @users
-  end
-
+#  def search_manager
+#    @users = User.find_by_contents("*" + params[:query] + "*")
+#    render :partial => 'user_for_manager', :collection => @users
+#  end
+ 
   def add_manager
     role = Role.first(:conditions => {:name => "manager"})
     begin
-      @inventory_pool.access_rights.create(:user_id => params[:manager_id], :role_id => role.id)
+      @inventory_pool.access_rights.create(:user_id => params[:inventory_pool][:manager_id], :role_id => role.id)
     rescue
       # unique index, record already present
     end
@@ -70,7 +86,7 @@ class Admin::InventoryPoolsController < Admin::AdminController
     @inventory_pool.access_rights.delete(@inventory_pool.access_rights.first(:conditions => { :user_id => params[:manager_id], :role_id => role.id }))
     redirect_to :action => 'managers', :id => @inventory_pool
   end
-
+  
 #################################################################
 
   private

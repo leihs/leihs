@@ -27,7 +27,7 @@
 #   :generate_css => true|false #=> generates a default inline css for the tabnav, defaults to false
 #   :html => aHash #=> sets html options for the tabnav's div (es :html => {:class=> 'myCssClass', :id=>'myCssId'}) 
 #     
-render_tabnav :item_edit, 
+render_tabnav :item_backend, 
               :generate_css => true do 
     
   # this generates a tab for every controller in your app
@@ -86,17 +86,20 @@ render_tabnav :item_edit,
 
 	add_tab do |t|
 		t.named 'Model'
-		t.links_to :action => 'model', :id => @item.id
+		t.links_to model_backend_item_path(@item)
+		t.highlights_on :action => 'model'
 	end
 
 	add_tab do |t|
 		t.named 'Location'
-		t.links_to :action => 'location', :id => @item.id
+		t.links_to location_backend_item_path(@item)
+		t.highlights_on :action => 'location'
 	end
 
 	add_tab do |t|
 		t.named 'Status'
-		t.links_to :action => 'status', :id => @item.id
+		t.links_to status_backend_item_path(@item)
+		t.highlights_on :action => 'status'
 	end
 
 end 

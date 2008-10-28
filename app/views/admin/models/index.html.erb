@@ -11,7 +11,9 @@
 				<td class="buttons" nowrap>
 					<ul>
 						<li><%= link_to _("Show"), admin_model_path(model) %></li>
-						<li><%= link_to _("* Delete"), :action => '', :id => model.id %></li>
+						<li><%= link_to _("Delete"), admin_model_path(model),
+										:confirm => _("Are you sure?"),
+										:method => :delete if model.items.empty? %></li>
 					</ul>
 				</td>
 			</tr>
