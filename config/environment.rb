@@ -67,9 +67,22 @@ Rails::Initializer.run do |config|
   
 end
 
+# This ensures that a mongrel can start even if it's started
+# by a user that is not the same user the mongrel runs as. In other words,
+# if user 'leihs' should run the mongrel but you use user 'root' to start,
+# this would usually fail since that user can't write to /root/.ruby_inline.
+# This temp dir takes care of that.
+
+temp = Tempfile.new('ruby_inline', '/tmp')
+dir = temp.path
+temp.delete
+Dir.mkdir(dir, 0755)
+ENV['INLINEDIR'] = dir
+
+
 # TODO **24 is this still right?
 # E-Mail uncaught exceptions to the devs.
-ExceptionNotifier.exception_recipients = %w( magnus.rembold@munterbund.de ramon.cahenzli@zhdk.ch errors@jeromemueller.ch )
+ExceptionNotifier.exception_recipients = %w( ramon.cahenzli@zhdk.ch errors@jeromemueller.ch )
 ExceptionNotifier.sender_address = %( no-reply@hgkz.net )
 ExceptionNotifier.email_prefix = "[leihs:ERROR] "
 
