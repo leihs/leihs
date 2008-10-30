@@ -8,14 +8,15 @@
 				</td>
 				<td>
 					<%= greybox_link_to_page(visit.user.login,
-						 { :controller => 'users', :action => 'details', :id => visit.user.id },
-						 :title => _("User"),
-						 :class => "iconized-notxt edit-user" ) %>
+							backend_inventory_pool_user_path(@current_inventory_pool, visit.user, :layout => "modal"),
+						 	:title => _("User"),
+						 	:class => "iconized-notxt edit-user" ) %>
 				</td>
 				<td><%= _("%{n} Items") % {:n => visit.quantity} %></td>
 				<td width="200px">
 					<div class="buttons">
-					<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Hand Over"), :action => 'show', :user_id => visit.user.id %>
+					<% # TODO 29** fix routing and remove ":id => 0" %>
+					<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Hand Over"), backend_inventory_pool_hand_over_path(@current_inventory_pool, 0, :user_id => visit.user.id) %>
 					<%= link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + _("Delete"), {:action => 'delete_visit', :user_id => visit.user.id, :lines => visit.contract_lines}, :class => 'negative') if visit.date < Date.today %>
 					</div>
 				</td>

@@ -26,7 +26,6 @@ class Admin::ItemsController < Admin::AdminController
   end
 
   def show
-    # template has to be .rhtml (??)
     @item.step = 'step_item'
   end
 

@@ -25,6 +25,7 @@
 				<td class="row-closed"><%= result.name %></td>
 				<td>
 					<div class="buttons">
+						<% # TODO 30** routes, solve rspec test %>
 						<% if result.is_a?(Model)
 							url = { :controller => '/' + params[:source_controller], :action => params[:source_action], :id => params[:document_id], :model_id => result.id, :line_id => params[:line_id] }
 						else

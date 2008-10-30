@@ -28,9 +28,9 @@
 							</td> 
 							<td>
 								<%= greybox_link_to_page(@user.login,
-									 { :controller => 'users', :action => 'details', :id => @user.id },
-    								 :title => _("User"),
-									 :class => "iconized-notxt edit-user" ) %>
+										backend_inventory_pool_user_path(@current_inventory_pool, @user, :layout => "modal"),
+										:title => _("User"),
+										:class => "iconized-notxt edit-user" ) %>
 								<br />
 								<%= render :partial => 'backend/users/resume' %>
 							</td>

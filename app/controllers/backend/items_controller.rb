@@ -23,15 +23,16 @@ class Backend::ItemsController < Backend::BackendController
   end
 
   def show
-    # template has to be .rhtml (??)
     # TODO 22** render :layout => $modal_layout_path if <greybox>
   end
 
 #################################################################
 
-  def model
-    #render :layout => false
-  end
+# TODO 30** remove, also view
+#old#
+#  def model
+#    #render :layout => false
+#  end
 
 #################################################################
 

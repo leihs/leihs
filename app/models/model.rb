@@ -49,7 +49,7 @@ class Model < ActiveRecord::Base
   #validates_length_of :name, :minimum => 1 #, :too_short => "please enter at least %d character", :if => Proc.new {|i| i.step == :step_item}
   validates_presence_of :name #, :if => Proc.new {|i| i.step == :step_item}
 
-  acts_as_ferret :fields => [ :name, :category_names, :properties_values ], :store_class_name => true
+  acts_as_ferret :fields => [ :name, :manufacturer, :category_names, :properties_values ], :store_class_name => true
 
 #############################################  
 

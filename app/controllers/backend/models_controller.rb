@@ -5,6 +5,10 @@ class Backend::ModelsController < Backend::BackendController
   def index
     models = current_inventory_pool.models
 
+    if @model
+      models = models & @model.compatibles
+    end    
+
     case params[:filter]
       when "packages"
         models = models.packages
@@ -38,21 +42,18 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def add_package_item
-    @model.items.first.children << current_inventory_pool.items.find(params[:item_id])
+    @model.items.first.children << @item
     @model.save
     redirect_to :action => 'show_package', :id => @model
   end
 
   def remove_package_item
+    # TODO 30** remove using @item
     @model.items.first.children.delete(@model.items.first.children.find(params[:item_id]))
     redirect_to :action => 'show_package', :id => @model
   end
 
 #################################################################
-  def details 
-    render :layout => $modal_layout_path
-  end
-
 
   def available_items
     # OPTIMIZE prevent injection
@@ -66,10 +67,10 @@ class Backend::ModelsController < Backend::BackendController
   
 #################################################################
 
-  # TODO
   def show
     redirect_to :action => 'show_package', :model_id => @model if @model.is_package?
-    # template has to be .rhtml (??)
+    # TODO 30** remove 'details' view. refactor widget_tabs
+    render :action => 'details', :layout => $modal_layout_path if params[:layout] == "modal"
   end
  
   def search
@@ -132,7 +133,8 @@ class Backend::ModelsController < Backend::BackendController
   def pre_load
     params[:model_id] ||= params[:id] if params[:id]
     @model = current_inventory_pool.models.find(params[:model_id]) if params[:model_id]
-    # TODO 28** remove:   @model ||= Model.new # OPTIMIZE
+    @item = current_inventory_pool.items.find(params[:item_id]) if params[:item_id]
+    @model = @item.model if @item and !@model
   end
 
 end

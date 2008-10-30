@@ -55,7 +55,8 @@ class Backend::AcknowledgeController < Backend::BackendController
   end 
   
   def destroy
-     if request.post?
+    # TODO 29** remove "request.post? or"
+    if request.post? or request.delete?
         @order.destroy
         remove_order_from_session
         redirect_to :controller=> 'acknowledge', :action => 'index'

@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.error '/error', :controller => 'sessions', :action => 'error'
   #map.denied '/denied', :controller => 'sessions', :action => 'denied'
 
-  map.backend '/backend', :controller => 'backend/dashboard'
+  map.backend '/backend', :controller => 'backend/inventory_pools'
   map.admin '/admin', :controller => 'admin/inventory_pools'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -38,25 +38,59 @@ ActionController::Routing::Routes.draw do |map|
   # Sample resource route with sub-resources:
   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
 
-  # Sample resource route within a namespace:
+  map.resources :orders, :member => { :submit => :any,
+                                      :add_line => :any }
+  map.resources :models
+
   map.namespace :backend do |backend|
     # TODO 28** nesting to inventory_pool, removing session
-#    backend.resources :acknowledge
-#    backend.resources :dashboard
-    backend.resources :orders
-    backend.resources :contracts
-    backend.resources :locations
-    backend.resources :items, :member => { :model => :get,
-                                           :location => :get,
-                                           :status => :get }
-    backend.resources :models, :collection => { :auto_complete => :get },
-                               :member => { :properties => :get,
-                                            :accessories => :get,
-                                            :images => :get } do |model|
-      model.resources :items
-# TODO 28** working here
-#      model.resources :categories
-#      model.resources :compatibles, :controller => :models
+    backend.resources :inventory_pools, :member => { :timeline => :get,
+                                                     :timeline_visits => :get } do |inventory_pool|
+      inventory_pool.resources :acknowledge, :member => { :approve => :any,
+                                                          :reject => :any,
+                                                          :add_line => :any,
+                                                          :change_line => :any,
+                                                          :remove_lines => :any,
+                                                          :swap_model_line => :any,
+                                                          :time_lines => :any,
+                                                          :restore => :any,
+                                                          :swap_user => :any,
+                                                          :change_purpose => :any,
+                                                          :timeline => :get }
+      inventory_pool.resources :hand_over, :member => { :add_line => :any,
+                                                        :change_line => :any,
+                                                        :remove_lines => :any,
+                                                        :swap_model_line => :any,
+                                                        :time_lines => :any,
+                                                        :sign_contract => :any,
+                                                        :remove_options => :any,
+                                                        :assign_inventory_code => :any,
+                                                        :timeline => :get }
+      inventory_pool.resources :take_back
+  
+      inventory_pool.resources :orders
+      inventory_pool.resources :contracts
+      inventory_pool.resources :locations
+      inventory_pool.resources :items, :member => { :location => :get,
+                                                    :status => :get } do |item|
+            item.resource :model                                                
+      end
+      inventory_pool.resources :models, :collection => { :auto_complete => :get,
+                                                         :search => :any,
+                                                         :available_items => :any },
+                                        :member => { :properties => :get,
+                                                     :accessories => :get,
+                                                     :images => :get } do |model|
+            model.resources :items
+            model.resources :categories
+            model.resources :compatibles, :controller => :models
+      end
+      inventory_pool.resources :users, :member => { :new_contract => :get,
+                                                    :remind => :get }
+      inventory_pool.resources :workdays, :collection => { :close => :any,
+                                                           :open => :any,
+                                                           :add_holiday => :post,
+                                                           :delete_holiday => :get }
     end
   end
 
@@ -64,22 +98,29 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :inventory_pools, :member => { :locations => :get,
                                                    :managers => :get,
                                                    :add_manager => :put } do |inventory_pool|
-      inventory_pool.resources :items
+        inventory_pool.resources :items
     end
     admin.resources :items, :member => { :model => :get,
                                          :inventory_pool => :get }
     admin.resources :models, :collection => { :auto_complete => :get },
                              :member => { :properties => :get,
+                                          :add_property => :post,
+                                          :remove_property => :get,
+                                          :images => :any,
                                           :accessories => :get,
-                                          :images => :get } do |model|
-      model.resources :items
-      model.resources :categories
-      model.resources :compatibles, :controller => :models
+                                          :add_accessory => :post,
+                                          :remove_accessory => :get } do |model|
+        model.resources :items
+        model.resources :categories
+        model.resources :compatibles, :controller => :models
     end
     admin.resources :categories do |category|
-      category.resources :models
+        category.resources :models
     end
-    admin.resources :users, :collection => { :auto_complete => :get }
+    admin.resources :users, :collection => { :auto_complete => :get },
+                            :member => { :access_rights => :get,
+                                         :remove_access_right => :get,
+                                         :add_access_right => :post }
     admin.resources :roles
   end
 
@@ -89,6 +130,7 @@ ActionController::Routing::Routes.draw do |map|
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
+# TODO 30** remove "map.connect"
   map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
   map.connect ':controller/:action/:id', :defaults => { :controller => 'frontend' }
   map.connect ':controller/:action/:id.:format'

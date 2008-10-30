@@ -25,12 +25,12 @@ class Backend::LocationsController < Backend::BackendController
     # TODO 22** set new main (default) location
     @location ||= Location.new(:inventory_pool => current_inventory_pool)
     @location.update_attributes(params[:location])
-    redirect_to(backend_locations_path)
+    redirect_to(backend_inventory_pool_locations_path)
   end
 
   def destroy
     @location.destroy
-    redirect_to(backend_locations_path)
+    redirect_to(backend_inventory_pool_locations_path)
   end
 
 #################################################################

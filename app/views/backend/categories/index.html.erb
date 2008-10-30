@@ -1,0 +1,18 @@
+<% table_with_search_and_pagination :columns => [_("Name"), _("Type"), _("Models"), _("All Models"), _("Children"), _("All Children"), _("Parents"), _("Action")],
+						   			:records => @categories do |category| %>	
+
+			<tr>
+				<td><%= category.name %></td>
+				<td><%= category.type %></td>
+				<td><%= category.models.size %></td>
+				<td><%= category.all_models.size %></td>
+				<td><%= category.children.size %></td>
+				<td><%= category.all_children.size %></td>
+				<td><%= category.parents.size %></td>
+				<td class="buttons" nowrap>
+				</td>
+			</tr>
+
+<% end %>
+
+		

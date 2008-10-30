@@ -6,9 +6,9 @@
 				<td><%= "#{today_or_yesterday_date(order.created_at)}" %></td>
 				<td>
 					<%= greybox_link_to_page(order.user.login,
-						 { :controller => 'users', :action => 'details', :id => order.user.id },
-						 :title => _("User"),
-						 :class => "iconized-notxt edit-user" ) %>
+							backend_inventory_pool_user_path(@current_inventory_pool, order.user, :layout => "modal"),
+							:title => _("User"),
+							:class => "iconized-notxt edit-user" ) %>
 				</td>
 				<td><%= _("%{n} Pakete") % {:n => order.lines.size} %></td>
 				<td class="buttons" nowrap>

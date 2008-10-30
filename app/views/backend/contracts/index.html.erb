@@ -5,9 +5,9 @@
 				<td><%= "#{today_or_yesterday_date(contract.created_at)}" %></td>
 				<td>
 					<%= greybox_link_to_page(contract.user.login,
-						 { :controller => 'users', :action => 'details', :id => contract.user.id },
-						 :title => _("User"),
-						 :class => "iconized-notxt edit-user" ) %>
+							backend_inventory_pool_user_path(@current_inventory_pool, contract.user, :layout => "modal"),
+							:title => _("User"),
+							:class => "iconized-notxt edit-user" ) %>
 				</td>
 				<td><%= _("%{n} Pakete") % {:n => contract.lines.size} %></td>
 				<td class="buttons" nowrap>
