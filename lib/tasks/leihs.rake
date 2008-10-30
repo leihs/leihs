@@ -7,9 +7,21 @@ namespace :leihs do
   end
   
   
-  desc "Maintenance"
+  desc "Maintenance: rebuild ferret index"
   task :maintenance => :environment do
-    # TODO implement
+    
+    puts "Rebuilding ferret index..."
+    User.rebuild_index
+    Role.rebuild_index
+    Category.rebuild_index
+    Template.rebuild_index
+    Model.rebuild_index
+    Item.rebuild_index
+    Location.rebuild_index
+    Contract.rebuild_index
+    Order.rebuild_index
+    
+    puts "Complete"    
   end
 
 

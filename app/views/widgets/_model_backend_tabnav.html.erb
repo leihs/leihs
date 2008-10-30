@@ -19,42 +19,43 @@ render_tabnav :model_backend,
 
 	add_tab do |t|
 		t.named 'Model'
-		t.links_to backend_model_path(@model)
+		t.links_to backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'show'
 	end
 
 	add_tab do |t|
 		t.named 'Items'
-		t.links_to backend_model_items_path(@model)
+		t.links_to backend_inventory_pool_model_items_path(@current_inventory_pool, @model)
 		t.highlights_on :controller => 'backend/items', :action => 'index'
 	end
 
 	add_tab do |t|
-		t.named 'Categories *'
-		t.links_to :action => 'details', :id => @model.id
+		t.named 'Categories'
+		t.links_to backend_inventory_pool_model_categories_path(@current_inventory_pool, @model)
+		t.highlights_on :controller => 'backend/categories', :action => 'index'
 	end
 
 	add_tab do |t|
 		t.named 'Properties'
-		t.links_to properties_backend_model_path(@model)
+		t.links_to properties_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'properties'
 	end
 
 	add_tab do |t|
 		t.named 'Accessories'
-		t.links_to accessories_backend_model_path(@model)
+		t.links_to accessories_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'accessories'
 	end
 
 	add_tab do |t|
 		t.named 'Images'
-		t.links_to images_backend_model_path(@model)
+		t.links_to images_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'images'
 	end
 
 	add_tab do |t|
-		t.named 'Compatibles *'
-		t.links_to :action => 'compatibles', :id => @model.id
+		t.named 'Compatibles'
+		t.links_to backend_inventory_pool_model_compatibles_path(@current_inventory_pool, @model)
 	end
 
 	add_tab do |t|

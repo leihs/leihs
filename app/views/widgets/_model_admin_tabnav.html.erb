@@ -65,10 +65,5 @@ render_tabnav :model_admin,
 #		t.highlights_on :controller => 'admin/categories', :action => 'index'
 	end
 
-	add_tab do |t|
-		t.named 'Availability *'
-		t.links_to :action => 'availability', :id => @model.id
-	end
-
 end 
 %>

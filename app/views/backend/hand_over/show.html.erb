@@ -6,7 +6,7 @@
 <div class="toolbar-main boxes">
 	<div class="buttons">
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/tab_go.png") + " " + _("Hand Over"),
-		 	{ :controller => 'hand_over', :action => 'sign_contract', :id => @contract.id },
+		 	{ :action => 'sign_contract', :id => @contract },
 			:onmouseup => "change_href(this, 'contract_line', 'line');",
 			:class => "multiple_selection_button",
 			:title => _("Hand Over") ) %>
@@ -26,9 +26,9 @@
 							</td> 
 							<td>
 								<%= greybox_link_to_page(@contract.user.login,
-									 { :controller => 'users', :action => 'details', :id => @contract.user.id },
-    								 :title => _("User"),
-									 :class => "iconized-notxt edit-user" ) %>
+										backend_inventory_pool_user_path(@current_inventory_pool, @contract.user, :layout => "modal"),
+										:title => _("User"),
+										:class => "iconized-notxt edit-user" ) %>
 								<br />
 								<% @user = @contract.user %>
 								<%= render :partial => 'backend/users/resume' %>
@@ -45,27 +45,27 @@
 					<h3>Pakete</h3>
 					<div class="buttons">
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add Line"),
-						 	{ :controller => 'hand_over', :action => 'add_line', :id => @contract.id },
-							:title => _("Add Model") ) %>						
+							 	{ :action => 'add_line', :id => @contract },
+								:title => _("Add Model") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
-						 	{ :controller => 'hand_over', :action => 'time_lines', :id => @contract.id },
-							:onmouseup => "change_href(this, 'contract_line', 'line');",
-							:class => "multiple_selection_button",
-							:title => _("Time Period") ) %>						
+							 	{ :action => 'time_lines', :id => @contract },
+								:onmouseup => "change_href(this, 'contract_line', 'line');",
+								:class => "multiple_selection_button",
+								:title => _("Time Period") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
-							{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id },
-							:onmouseup => "change_href(this, 'contract_line', 'line');",
-							:class => "multiple_selection_button negative",
-							:title => _("Remove Models") )
-							# TODO contribute :with in greybox
-							# :with => "'contract_lines=' + checkbox_values('contract_line_check')"
-							%>
+								{ :action => 'remove_lines', :id => @contract },
+								:onmouseup => "change_href(this, 'contract_line', 'line');",
+								:class => "multiple_selection_button negative",
+								:title => _("Remove Models") )
+								# TODO contribute :with in greybox
+								# :with => "'contract_lines=' + checkbox_values('contract_line_check')"
+								%>
 							
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
-						 	{ :controller => 'hand_over', :action => 'timeline', :id => @contract.id },
-							:title => _("Timeline"), :width => 1000 ) %>						
+							 	{ :action => 'timeline', :id => @contract },
+								:title => _("Timeline"), :width => 1000 ) %>						
 					</div>
 				</div>
 
@@ -81,7 +81,7 @@
   							<h3>Zubehör</h3>
   							<div class="buttons">
   		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
-  									{ :controller => 'hand_over', :action => 'remove_options', :id => @contract.id },
+  									{ :action => 'remove_options', :id => @contract },
   									:onmouseup => "change_href(this, 'option', 'option');",
   									:class => "multiple_selection_option_button negative",
   									:title => _("Remove Options") )

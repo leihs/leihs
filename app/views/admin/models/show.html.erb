@@ -1,0 +1,11 @@
+
+	<% form_for [:admin, @model] do |f| %>
+	
+		<ul>
+		<li><b>Name:</b> <%= f.text_field :name %></li>	
+		<li><b>Manufacturer:</b> <%= f.text_field :manufacturer %></li>
+		</ul>
+	
+		<%= submit_tag 'Submit' %>
+	<% end %>
+

@@ -19,7 +19,6 @@ class Admin::ModelsController < Admin::AdminController
   end
 
   def show
-    # template has to be .rhtml (??)
   end
 
   def new
@@ -31,13 +30,23 @@ class Admin::ModelsController < Admin::AdminController
     @model = Model.new
     update
   end
-      
+
   def update
-    @model ||= Model.create
-    @model.name = params[:name]
-    @model.manufacturer = params[:manufacturer]
-    @model.save
-    render :action => 'show'
+    if @model.update_attributes(params[:model])
+      redirect_to admin_model_path(@model)
+    else
+      render :action => 'show' # TODO 24** redirect to the correct tabbed form
+    end
+  end
+
+  def destroy
+    if @model.items.empty?
+      @model.destroy
+      redirect_to admin_models_path
+    else
+      @model.errors.add_to_base _("The model has items")
+      render :action => 'show' # TODO 24** redirect to the correct tabbed form
+    end
   end
 
 #################################################################
@@ -85,11 +94,6 @@ class Admin::ModelsController < Admin::AdminController
         flash[:notice] = 'Upload error.'
       end
     end
-  end
-
-#################################################################
-  def availability
-    # TODO 27** implement
   end
 
 #################################################################

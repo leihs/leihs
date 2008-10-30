@@ -11,7 +11,7 @@ steps_for(:order) do
 
   When "$who chooses one order" do | who |
     order = @orders.first
-    get "/backend/acknowledge/show/#{order.id}"
+    get backend_inventory_pool_acknowledge_path(@inventory_pool, order)
     response.should render_template('backend/acknowledge/show')
     @order = assigns(:order)
   end
@@ -21,28 +21,28 @@ steps_for(:order) do
   When "$who approves order" do |who|
     @comment ||= ""
     @order.approvable?.should be_true
-    post "/backend/acknowledge/approve", :id => @order.id, :comment => @comment
+    post approve_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :comment => @comment)
     @order = assigns(:order)
     @order.should_not be_nil
     @order.approvable?.should be_false
     @orders_size = assigns(:to_acknowledge_size)
-    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
+    response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
     @response = response
   end
 
 
   When "$who rejects order" do |who|
     @comment ||= ""
-    post "/backend/acknowledge/reject", :id => @order.id, :comment => @comment
+    post reject_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :comment => @comment)
     @order = assigns(:order)
-    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
+    response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
   end
   
   
   When "he deletes order" do
-    post "/backend/acknowledge/destroy/#{@order.id}"
+    delete backend_inventory_pool_acknowledge_path(@inventory_pool, @order)
     @order = assigns(:order)
-    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
+    response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
   end
   
 ###############################################

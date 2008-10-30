@@ -1,11 +1,12 @@
 <%= link_to _("Create New"), :action => 'new' %>
 
-<% table_with_search_and_pagination :columns => ["", _("Model"), _("Items"), _("Compatibles"), _("Action")],
+<% table_with_search_and_pagination :columns => ["", _("Model"), _("Manufacturer"), _("Items"), _("Compatibles"), _("Action")],
 						   			:records => @models do |model| %>	
 
 			<tr>
 				<td><%= image_tag(model.images.first.public_filename(:thumb)) unless model.images.empty? %></td>
 				<td><%= model.name %></td>
+				<td><%= model.manufacturer %></td>
 				<td><%= model.items.size %></td>
 				<td><%= model.compatibles.size %></td>
 				<td class="buttons" nowrap>

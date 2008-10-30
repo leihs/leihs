@@ -80,25 +80,26 @@ render_tabnav :item_backend,
 
 	add_tab do |t|
 		t.named 'Item'
-		t.links_to backend_item_path(@item)
+		t.links_to backend_inventory_pool_item_path(@current_inventory_pool, @item)
 		t.highlights_on :action => 'show'
 	end
 
 	add_tab do |t|
-		t.named 'Model'
-		t.links_to model_backend_item_path(@item)
+		# TODO 30** TODO nested layout
+		t.named 'Model (TODO nested layout)'
+		t.links_to backend_inventory_pool_item_model_path(@current_inventory_pool, @item)
 		t.highlights_on :action => 'model'
 	end
 
 	add_tab do |t|
 		t.named 'Location'
-		t.links_to location_backend_item_path(@item)
+		t.links_to location_backend_inventory_pool_item_path(@current_inventory_pool, @item)
 		t.highlights_on :action => 'location'
 	end
 
 	add_tab do |t|
 		t.named 'Status'
-		t.links_to status_backend_item_path(@item)
+		t.links_to status_backend_inventory_pool_item_path(@current_inventory_pool, @item)
 		t.highlights_on :action => 'status'
 	end
 

@@ -7,9 +7,9 @@
 		</td>
 		<td>
 			<%= greybox_link_to_page(@line.model.name,
-			 { :controller => 'models', :action => 'details', :model_id => @line.model.id },
-			 :title => _("Model"),
-			 :class => "thickbox iconized-notxt edit-package" ) %>
+					backend_inventory_pool_model_path(@current_inventory_pool, @line.model, :layout => "modal"),
+					:title => _("Model"),
+					:class => "thickbox iconized-notxt edit-package" ) %>
 		</td>
 		<td class="line_valid_<%= @line.available? %>">
 			<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",

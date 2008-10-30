@@ -18,9 +18,9 @@
 		</td>
 		<td>
 			<%= greybox_link_to_page(@line.model.name,
-			 { :controller => 'models', :action => 'details', :model_id => @line.model.id },
-			 :title => _("Model"),
-			 :class => "thickbox iconized-notxt edit-package" ) %>
+					backend_inventory_pool_model_path(@current_inventory_pool, @line.model, :layout => "modal"),
+					:title => _("Model"),
+					:class => "thickbox iconized-notxt edit-package" ) %>
 			 <% if @line.model.is_package? %>
 			   <ul class="model_group">
  			   <% @line.model.items.first.children.each do |item| %>			   
@@ -31,16 +31,16 @@
 		</td>
 		<td id="line_dates_<%= @line.id %>" class="line_valid_<%= @line.available? %>">
 			<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
-		 		{ :controller => 'acknowledge', :action => 'time_lines', :id => @order.id, :lines => @line.id },
-				:class => "thickbox iconized-notxt date-edit" ,
-				:title => _("Time Period") ) %>
+			 		{ :action => 'time_lines', :id => @order.id, :lines => @line.id },
+					:class => "thickbox iconized-notxt date-edit" ,
+					:title => _("Time Period") ) %>
 		</td>
 		<td><div class="buttons">
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
-			 	{ :controller => 'acknowledge', :action => 'swap_model_line', :id => @order.id, :line_id => @line.id },
-				:title => _("Swap Model") ) %>
+			 		{ :action => 'swap_model_line', :id => @order.id, :line_id => @line.id },
+					:title => _("Swap Model") ) %>
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
-			 	{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id, :lines => @line.id },
-				:title => _("Remove Model"), :class => 'negative' ) %>
+			 		{ :action => 'remove_lines', :id => @order.id, :lines => @line.id },
+					:title => _("Remove Model"), :class => 'negative' ) %>
 			</div></td>
 	</tr>

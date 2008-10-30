@@ -19,8 +19,8 @@
 	
 		<div id="header">
 			<div id="logo">
-				<h1><%= link_to "Leihs 2.0", :controller => 'dashboard' %></h1>
-				<p><%= _("Inventory Pool") %>: <%= @current_inventory_pool.name if @current_inventory_pool %>. (<%= link_to _("Change") + "?", :controller => 'dashboard', :action => 'index_inventory_pools' %>)</p>
+				<h1><%= link_to "Leihs 2.0", (@current_inventory_pool ? backend_inventory_pool_path(@current_inventory_pool) : backend_path) %></h1>
+				<p><%= _("Inventory Pool") %>: <%= @current_inventory_pool.name if @current_inventory_pool %>. (<%= link_to _("Change") + "?", backend_path %>)</p>
 	
 			</div>
 			<div id="personal-toolbar">
@@ -28,7 +28,7 @@
 			</div>		
 		</div>
 		<div id="banner">
-			<%= render :partial => '/layouts/backend/00-patterns/banner_buttons' %>
+			<%= render :partial => '/layouts/backend/00-patterns/banner_buttons' if @current_inventory_pool %>
 		</div> 
 
 	<div id="sidebar">

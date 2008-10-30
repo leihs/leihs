@@ -7,7 +7,8 @@ steps_for(:login) do
     post "/session", :login => user.login
                         #, :password => "pass"
     inventory_pool = InventoryPool.find_or_create_by_name(:name => ip)
-    get "/backend/dashboard/switch_inventory_pool/#{inventory_pool.id}"
+    get backend_inventory_pool_path(inventory_pool)
+    @inventory_pool = assigns(:current_inventory_pool)
   end
 
 end

@@ -24,11 +24,12 @@ steps_for(:hand_over) do
   end
 
   When "the new order is submitted" do
-    post "/orders/submit", :id => @order.id
+#old#    post "/orders/submit", :id => @order.id
+    post submit_order_path(@order)
   end
   
   When "$who approves the order" do | who |
-    post "/backend/acknowledge/approve", :id => @order.id, :comment => "test comment"
+    post approve_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :comment => "test comment")
     @order = assigns(:order)
     @order.should_not be_nil
     @contract = @order.user.reload.current_contract(@order.inventory_pool)
@@ -37,7 +38,7 @@ steps_for(:hand_over) do
 
 
   When "$who clicks '$action'" do | who, action |
-    get "/backend/#{action}/index"
+    get send("backend_inventory_pool_#{action}_index_path", @inventory_pool)
     @visits = assigns(:visits)
     response.should render_template("backend/#{action}/index")
   end
@@ -60,7 +61,8 @@ steps_for(:hand_over) do
 
   When "$who chooses one line" do | who |
     visit = @visits.first
-    get "/backend/hand_over/show", :user_id => visit.user.id
+    # TODO 29** fix routing and remove ":id => 0"
+    get backend_inventory_pool_hand_over_path(@inventory_pool, 0, :user_id => visit.user.id)
     response.should render_template('backend/hand_over/show')
     @contract = assigns(:contract)
   end

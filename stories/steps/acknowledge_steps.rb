@@ -46,12 +46,12 @@ steps_for(:acknowledge) do
   end
   
   When "$who looks at the screen" do | who |
-    get "/backend/dashboard/index"
+    get backend_inventory_pool_path(@inventory_pool)
     @response = response
   end
      
   When "$who clicks '$action'" do | who, action |
-    get "/backend/#{action}/index"
+    get send("backend_inventory_pool_#{action}_index_path", @inventory_pool)
     @orders_size = assigns(:to_acknowledge_size)
     @orders = assigns(:submitted_orders)
     response.should render_template('backend/acknowledge/index')
@@ -60,7 +60,7 @@ steps_for(:acknowledge) do
   
   When "$who chooses $name's order" do | who, name |
     order = @orders.detect { |o| o.user.login == name }
-    get "/backend/acknowledge/show/#{order.id}"
+    get backend_inventory_pool_acknowledge_path(@inventory_pool, order)
     response.should render_template('backend/acknowledge/show')
     @order = assigns(:order)
     @response = response
@@ -68,20 +68,19 @@ steps_for(:acknowledge) do
   
   
   When "$who rejects order with reason '$reason'" do |who, reason|
-    post "/backend/acknowledge/reject", :id => @order.id, :comment => reason
+    post reject_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :comment => reason)
     @order = assigns(:order)
     @orders_size = assigns(:to_acknowledge_size)
     @orders.should_not be_nil
     @order.should_not be_nil
     @response = response
-    response.redirect_url.should == 'http://www.example.com/backend/acknowledge'
-    
+    response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
   end
   
   When "$who changes number of items of model '$model' to $quantity" do |who, model, quantity|
     id = find_line(model).id
     id.should > 0
-    post "/backend/acknowledge/change_line", :id => @order.id, :order_line_id => id, :quantity => quantity
+    post change_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :order_line_id => id, :quantity => quantity)
     response.should render_template('backend/acknowledge/change_line')
     @order = assigns(:order)
     @order.has_changes?.should == true
@@ -90,13 +89,12 @@ steps_for(:acknowledge) do
   
   When "$who adds $quantity item '$model'" do |who, quantity, model|
     model_id = Model.find_by_name(model).id
-    post "/backend/acknowledge/add_line", :id => @order.id, :model_id => model_id, :quantity => quantity
+    post add_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :model_id => model_id, :quantity => quantity)
     @order = assigns(:order)
     @order.order_lines.each do | line |
       line.model.should_not be_nil
     end
-    
-    @response.redirect_url.should include("backend/acknowledge/show/#{@order.id}")
+    @response.redirect_url.should include("backend/inventory_pools/#{@inventory_pool.id}/acknowledge/#{@order.id}")
   end
   
   
@@ -106,26 +104,26 @@ steps_for(:acknowledge) do
 
   When "$who chooses 'swap' on order line '$model'" do |who, model|
     line = find_line(model)
-    get "/backend/acknowledge/swap_model_line", :id => @order.id, :line_id => line.id
+    get swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :line_id => line.id)
     @order_line_id = line.id
     @response = response    
   end
   
   When "$who searches for '$model'" do |who, model|
-    post "/backend/models/search", :query => model, :source_controller => "acknowledge", :source_action => "swap_model_line"
+    post search_backend_inventory_pool_models_path(@inventory_pool, :query => model, :source_controller => "acknowledge", :source_action => "swap_model_line")
     @search_result = assigns(:search_result)
     @search_result.should_not be_nil
   end
   
   When "$who selects '$model'" do |who, model|
     model_id = Model.find(:first, :conditions => { :name => model}).id
-    post "/backend/acknowledge/swap_model_line", :id => @order.id, :line_id => @order_line_id, :model_id => model_id
+    post swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :line_id => @order_line_id, :model_id => model_id)
     @order = assigns(:order)
     @order.should_not be_nil
   end
   
   Then "$who sees $size order$s" do | who, size, s |
-    get "/backend/acknowledge/index"
+    get backend_inventory_pool_acknowledge_index_path(@inventory_pool)
     @orders_size = assigns(:to_acknowledge_size)
     
     @orders_size.should == size.to_i
@@ -170,7 +168,7 @@ steps_for(:acknowledge) do
   end
   
   Then "Swap Item screen opens" do 
-    @response.redirect_url.should include("/backend/models/search?document_id=#{@order.id}&line_id=#{@order_line_id}")
+    @response.redirect_url.should include("/backend/inventory_pools/#{@inventory_pool.id}/models/search?document_id=#{@order.id}&line_id=#{@order_line_id}")
   end
   
   Then "a choice of $size item appears" do |size|

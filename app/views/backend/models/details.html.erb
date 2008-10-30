@@ -1,3 +1,6 @@
+<% # TODO remove this view %>
+OLD OLD OLD OLD OLD OLD OLD
+
 	<h3><%= @model.name %>
 								 
 	<% for ip in @model.inventory_pools & current_user.inventory_pools %>
@@ -20,7 +23,7 @@
 	<ul>
 	Compatibles:
 	<% @model.compatibles.each do |c| %>
-		<li><%= link_to_remote(c.name, :update => 'details', :url => {:controller => 'models', :action => 'details', :model_id => c.id}) %></li>
+		<li><%= link_to_remote(c.name, :update => 'details', :url => {:controller => 'models', :action => 'show', :model_id => c.id}) %></li>
 	<% end %>
 	</ul>
 	

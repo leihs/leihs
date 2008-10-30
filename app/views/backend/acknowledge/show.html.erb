@@ -13,20 +13,20 @@
   <% if @order.status_const == Order::SUBMITTED %>
 	<div class="buttons">
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Save + Approve"),
-								 { :controller => 'acknowledge', :action => 'approve', :id => @order.id },
+								 { :action => 'approve', :id => @order },
 								 :title => _("Approve Order"),
 								 :class => "positive") %>
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Reject Order"),
-								 { :controller => 'acknowledge', :action => 'reject', :id => @order.id },
+								 { :action => 'reject', :id => @order },
 								 :title => _("Reject Order")) %>
 
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/disk.png") + " " + _("Restore Original"),
-								 { :controller => 'acknowledge', :action => 'restore', :id => @order.id },
+								 { :action => 'restore', :id => @order },
 								 :title => _("Restore Order"),
 								 :class => "thickbox") %>
-								 
+		<% # TODO 29** fix destroy, greybox is not working %>
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete Order"),
-			{ :controller => 'acknowledge', :action => 'destroy', :id => @order.id },
+			{ :action => 'destroy', :id => @order },
 			:title => _("Delete Order"), :class => 'negative') %>
 	</div>
   <% end %>
@@ -40,15 +40,15 @@
 						<tr class="alt-row">
 							<td>
 								<%= greybox_link_to_page(_("Reserver") + ":",
-									 { :controller => 'acknowledge', :action => 'swap_user', :id => @order.id },
-    								 :title => _("Reserver"),
-									 :class => "thickbox iconized-notxt arrow_switch" ) %>
+										{ :action => 'swap_user', :id => @order },
+										:title => _("Reserver"),
+										:class => "thickbox iconized-notxt arrow_switch" ) %>
 							</td> 
 							<td>
 								<%= greybox_link_to_page(@order.user.login,
-									 { :controller => 'users', :action => 'details', :id => @order.user.id },
-    								 :title => _("User"),
-									 :class => "iconized-notxt edit-user" ) %>
+										backend_inventory_pool_user_path(@current_inventory_pool, @order.user, :layout => "modal"),
+										:title => _("User"),
+										:class => "iconized-notxt edit-user" ) %>
 							</td>
 						</tr>
 						<tr class="alt-row">
@@ -58,9 +58,9 @@
 						<tr class="alt-row">
 							<td>
 								<%= greybox_link_to_page(_("Purpose"),
-									 { :controller => 'acknowledge', :action => 'change_purpose', :id => @order.id },
-    								 :title => _("Purpose"),
-									 :class => "thickbox iconized-notxt edit-pencil" ) %>
+										{ :action => 'change_purpose', :id => @order },
+										:title => _("Purpose"),
+										:class => "thickbox iconized-notxt edit-pencil" ) %>
 							</td>
 							<td><%= simple_format @order.purpose %></td>
 						</tr>
@@ -77,27 +77,27 @@
 					<h3><%= _("Pakete") %></h3>
 					<div class="buttons">
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add Line"),
-						 	{ :controller => 'acknowledge', :action => 'add_line', :id => @order.id },
-							:title => _("Add Model") ) %>						
+							 	{ :action => 'add_line', :id => @order },
+								:title => _("Add Model") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
-						 	{ :controller => 'acknowledge', :action => 'time_lines', :id => @order.id },
-							:onmouseup => "change_href(this, 'order_line', 'line');",
-							:class => "multiple_selection_button",
-							:title => _("Time Period") ) %>						
+								{ :action => 'time_lines', :id => @order },
+								:onmouseup => "change_href(this, 'order_line', 'line');",
+								:class => "multiple_selection_button",
+								:title => _("Time Period") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
-							{ :controller => 'acknowledge', :action => 'remove_lines', :id => @order.id },
-							:onmouseup => "change_href(this, 'order_line', 'line');",
-							:class => "multiple_selection_button negative",
-							:title => _("Remove Models") )
-							# TODO contribute :with in greybox
-							# :with => "'order_lines=' + checkbox_values('order_line_check')"
-							%>
+								{ :action => 'remove_lines', :id => @order },
+								:onmouseup => "change_href(this, 'order_line', 'line');",
+								:class => "multiple_selection_button negative",
+								:title => _("Remove Models") )
+								# TODO contribute :with in greybox
+								# :with => "'order_lines=' + checkbox_values('order_line_check')"
+								%>
 						
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
-						 	{ :controller => 'acknowledge', :action => 'timeline', :id => @order.id },
-							:title => _("Timeline"), :width => 1000 ) %>						
+								{ :action => 'timeline', :id => @order },
+								:title => _("Timeline"), :width => 1000 ) %>						
 								
 					</div>
 				</div>

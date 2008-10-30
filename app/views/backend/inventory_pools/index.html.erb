@@ -5,7 +5,7 @@
 			<tr>
 				<td>
 				<% if current_user.has_role?('manager', inventory_pool) %>
-					<%= link_to inventory_pool.name, :controller => 'dashboard', :action => 'switch_inventory_pool', :id => inventory_pool.id %>
+					<%= link_to inventory_pool.name, backend_inventory_pool_path(inventory_pool) %>
 				<% else %>	
 					<%= inventory_pool.name %>
 				<% end %>

@@ -44,40 +44,43 @@ steps_for(:work_days) do
     # Login                            
     post "/session", :login => user.login
     @order.destroy if @order
-    get "/orders/new"
+#old#    get "/orders/new"
+    get new_order_path
     @order = assigns(:order)
     
-    post "/orders/add_line", :id => @order.id, 
-                             :model_id => model.id, 
-                             :quantity => 1, 
-                             :inventory_pool_id => inventory_pool.id,
-                             :start_date => date,
-                             :end_date => date
+#old#
+#    post "/orders/add_line", :id => @order.id, 
+#                             :model_id => model.id, 
+#                             :quantity => 1, 
+#                             :inventory_pool_id => inventory_pool.id,
+#                             :start_date => date,
+#                             :end_date => date
+    post add_line_order_path(@order, :model_id => model.id, :quantity => 1, :inventory_pool_id => inventory_pool.id, :start_date => date, :end_date => date)
                              
     @order = assigns(:order)
     @line = @order.order_lines.last
 	end
 	
 	When "$who clicks '$action'" do |who, action|
-	  inventory_pool,inv_manager, @user, model = Factory.create_dataset_simple
+	  @inventory_pool,inv_manager, @user, model = Factory.create_dataset_simple
 	  
 	  #Login as User
     post "/session", :login => inv_manager.login
-    get "/backend/hand_over/index" if action == 'hand over'
-    get "/backend/workdays/index" if action == 'Opening Times'
+    get backend_inventory_pool_hand_over_index_path(@inventory_pool) if action == 'hand over'
+    get backend_inventory_pool_workdays_path(@inventory_pool) if action == 'Opening Times'
 
     @workday = assigns(:workday)
   end
 	
 	When "he tries to hand over an item to a customer" do
-	  get "/backend/hand_over/show", :user_id => @user.id
+    # TODO 29** fix routing and remove ":id => 0"
+    get backend_inventory_pool_hand_over_path(@inventory_pool, 0, :user_id => @user.id)
     
     @contract = assigns(:contract)
     @contract.lines.size.should == 0
     
-    post "/backend/hand_over/add_line", :user_id => @user.id, 
-                                        :model_id => Model.first.id, 
-                                        :quantity => 1
+    # TODO 29** fix routing and remove ":id => 0"
+    post add_line_backend_inventory_pool_hand_over_path(@inventory_pool, 0, :user_id => @user.id, :model_id => Model.first.id, :quantity => 1)
                                
     @contract = assigns(:contract)
   end
@@ -127,13 +130,15 @@ steps_for(:work_days) do
   
   When "he deselects $days" do |days|
     days.split(',').each do |day|
-      post "/backend/workdays/close", :day => day.strip
+#old#      post "/backend/workdays/close", :day => day.strip
+      post close_backend_inventory_pool_workdays_path(@inventory_pool, :day => day.strip)
     end
   end
   
   When "he selects $days" do |days|
     days.split(',').each do |day|
-      post "/backend/workdays/open", :day => day.strip
+#old#      post "/backend/workdays/open", :day => day.strip
+      post open_backend_inventory_pool_workdays_path(@inventory_pool, :day => day.strip)
     end
   end
   

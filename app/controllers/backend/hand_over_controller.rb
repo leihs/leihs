@@ -130,7 +130,8 @@ class Backend::HandOverController < Backend::BackendController
   private
   
   def pre_load
-    @contract = current_inventory_pool.contracts.new_contracts.find(params[:id]) if params[:id]
+    # TODO 29** fix routing and remove "and params[:id].to_i > 0"
+    @contract = current_inventory_pool.contracts.new_contracts.find(params[:id]) if params[:id] and params[:id].to_i > 0
     @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
     @contract ||= @user.get_current_contract(current_inventory_pool) if @user
   end

@@ -3,8 +3,6 @@ class Admin::UsersController < Admin::AdminController
   before_filter :pre_load
 
   def index
-    # TODO 20** User.rebuild_index
-
     case params[:filter]
       when "admins"
         users = User.admins
@@ -24,6 +22,11 @@ class Admin::UsersController < Admin::AdminController
   end
   
   def show
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to admin_users_path
   end
 
 #################################################################
