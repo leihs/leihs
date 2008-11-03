@@ -2,11 +2,11 @@
 <div class="buttons">
 	
 <%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
- 	timeline_backend_inventory_pool_path(@current_inventory_pool),
+ 	{ :action => 'timeline' },
 	:title => _("Timeline"), :width => 1000 ) %>						
 
 <%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline Visits"),
- 	timeline_visits_backend_inventory_pool_path(@current_inventory_pool),
+ 	{ :action => 'timeline_visits' },
 	:title => _("Timeline Visits"), :width => 1000 ) %>						
 
 </div>

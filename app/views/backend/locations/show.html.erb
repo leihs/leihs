@@ -1,5 +1,5 @@
 
-	<% form_for @location, :url => { :action => "update" } do |f| %>
+	<% form_for [:backend, @current_inventory_pool, @location] do |f| %>
 
 		<ul>
 		<li><b>Building:</b> <%= f.text_field :building %></li>	

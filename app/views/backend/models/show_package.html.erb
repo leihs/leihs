@@ -1,5 +1,5 @@
 
-<% form_tag :action => 'update_package', :id => @model do %>
+<% form_tag :action => 'update_package', :id => @model.id do %>
 
 	Package name: <%= text_field_tag('name', @model.name) %>
 	<br />

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: NewRelic</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">NewRelic</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/vendor/plugins/newrelic_rpm/lib/newrelic/local_environment_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/local_environment.rb
+                </a>
+        <br />
+                <a href="../files/vendor/plugins/newrelic_rpm/lib/newrelic/metric_data_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/metric_data.rb
+                </a>
+        <br />
+                <a href="../files/vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent.rb
+                </a>
+        <br />
+                <a href="../files/vendor/plugins/newrelic_rpm/lib/newrelic/stats_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/stats.rb
+                </a>
+        <br />
+                <a href="../files/vendor/plugins/newrelic_rpm/lib/newrelic/transaction_sample_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/transaction_sample.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+from agent.rb
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="NewRelic/Agent.html" class="link">NewRelic::Agent</a><br />
+Module <a href="NewRelic/Metrics.html" class="link">NewRelic::Metrics</a><br />
+Module <a href="NewRelic/Stats.html" class="link">NewRelic::Stats</a><br />
+Class <a href="NewRelic/LocalEnvironment.html" class="link">NewRelic::LocalEnvironment</a><br />
+Class <a href="NewRelic/MethodTraceStats.html" class="link">NewRelic::MethodTraceStats</a><br />
+Class <a href="NewRelic/MetricData.html" class="link">NewRelic::MetricData</a><br />
+Class <a href="NewRelic/MetricSpec.html" class="link">NewRelic::MetricSpec</a><br />
+Class <a href="NewRelic/ScopedMethodTraceStats.html" class="link">NewRelic::ScopedMethodTraceStats</a><br />
+Class <a href="NewRelic/TransactionSample.html" class="link">NewRelic::TransactionSample</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">COLLAPSE_SEGMENTS_THRESHOLD</td>
+          <td>=</td>
+          <td class="context-item-value">2</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">MYSQL_EXPLAIN_COLUMNS</td>
+          <td>=</td>
+          <td class="context-item-value">[         &quot;Id&quot;,         &quot;Select Type&quot;,         &quot;Table&quot;,         &quot;Type&quot;,         &quot;Possible Keys&quot;,         &quot;Key&quot;,         &quot;Key Length&quot;,         &quot;Ref&quot;,         &quot;Rows&quot;,         &quot;Extra&quot;</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

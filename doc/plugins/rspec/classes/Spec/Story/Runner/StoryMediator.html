@@ -88,15 +88,17 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000490">create_given</a>&nbsp;&nbsp;
-      <a href="#M000491">create_given_scenario</a>&nbsp;&nbsp;
-      <a href="#M000489">create_scenario</a>&nbsp;&nbsp;
-      <a href="#M000488">create_story</a>&nbsp;&nbsp;
-      <a href="#M000493">create_then</a>&nbsp;&nbsp;
-      <a href="#M000492">create_when</a>&nbsp;&nbsp;
-      <a href="#M000486">new</a>&nbsp;&nbsp;
-      <a href="#M000494">run_stories</a>&nbsp;&nbsp;
-      <a href="#M000487">stories</a>&nbsp;&nbsp;
+      <a href="#M000545">add_to_last</a>&nbsp;&nbsp;
+      <a href="#M000540">create_given</a>&nbsp;&nbsp;
+      <a href="#M000541">create_given_scenario</a>&nbsp;&nbsp;
+      <a href="#M000539">create_scenario</a>&nbsp;&nbsp;
+      <a href="#M000538">create_story</a>&nbsp;&nbsp;
+      <a href="#M000543">create_then</a>&nbsp;&nbsp;
+      <a href="#M000542">create_when</a>&nbsp;&nbsp;
+      <a href="#M000544">last_step</a>&nbsp;&nbsp;
+      <a href="#M000536">new</a>&nbsp;&nbsp;
+      <a href="#M000546">run_stories</a>&nbsp;&nbsp;
+      <a href="#M000537">stories</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -126,19 +128,19 @@ Class <a href="StoryMediator/Story.html" class="link">Spec::Story::Runner::Story
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000486" class="method-detail">
-        <a name="M000486"></a>
+      <div id="method-M000536" class="method-detail">
+        <a name="M000536"></a>
 
         <div class="method-heading">
-          <a href="#M000486" class="method-signature">
+          <a href="#M000536" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(step_group, runner, options={})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000486-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000486-source">
+            onclick="toggleCode('M000536-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000536-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_mediator.rb, line 6</span>
  6:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">step_group</span>, <span class="ruby-identifier">runner</span>, <span class="ruby-identifier">options</span>={})
@@ -154,19 +156,42 @@ Class <a href="StoryMediator/Story.html" class="link">Spec::Story::Runner::Story
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000490" class="method-detail">
-        <a name="M000490"></a>
+      <div id="method-M000545" class="method-detail">
+        <a name="M000545"></a>
 
         <div class="method-heading">
-          <a href="#M000490" class="method-signature">
+          <a href="#M000545" class="method-signature">
+          <span class="method-name">add_to_last</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000545-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000545-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_mediator.rb, line 45</span>
+45:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_to_last</span>(<span class="ruby-identifier">name</span>)
+46:           <span class="ruby-identifier">last_step</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">name</span>
+47:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000540" class="method-detail">
+        <a name="M000540"></a>
+
+        <div class="method-heading">
+          <a href="#M000540" class="method-signature">
           <span class="method-name">create_given</span><span class="method-args">(name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000490-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000490-source">
+            onclick="toggleCode('M000540-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000540-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_mediator.rb, line 25</span>
 25:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_given</span>(<span class="ruby-identifier">name</span>)
@@ -177,19 +202,19 @@ Class <a href="StoryMediator/Story.html" class="link">Spec::Story::Runner::Story
         </div>
       </div>
 
-      <div id="method-M000491" class="method-detail">
-        <a name="M000491"></a>
+      <div id="method-M000541" class="method-detail">
+        <a name="M000541"></a>
 
         <div class="method-heading">
-          <a href="#M000491" class="method-signature">
+          <a href="#M000541" class="method-signature">
           <span class="method-name">create_given_scenario</span><span class="method-args">(name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000491-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000491-source">
+            onclick="toggleCode('M000541-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000541-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_mediator.rb, line 29</span>
 29:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_given_scenario</span>(<span class="ruby-identifier">name</span>)
@@ -200,19 +225,19 @@ Class <a href="StoryMediator/Story.html" class="link">Spec::Story::Runner::Story
         </div>
       </div>
 
-      <div id="method-M000489" class="method-detail">
-        <a name="M000489"></a>
+      <div id="method-M000539" class="method-detail">
+        <a name="M000539"></a>
 
         <div class="method-heading">
-          <a href="#M000489" class="method-signature">
+          <a href="#M000539" class="method-signature">
           <span class="method-name">create_scenario</span><span class="method-args">(title)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000489-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000489-source">
+            onclick="toggleCode('M000539-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000539-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_mediator.rb, line 21</span>
 21:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_scenario</span>(<span class="ruby-identifier">title</span>)
@@ -223,19 +248,19 @@ Class <a href="StoryMediator/Story.html" class="link">Spec::Story::Runner::Story
         </div>
       </div>
 
-      <div id="method-M000488" class="method-detail">
-        <a name="M000488"></a>
+      <div id="method-M000538" class="method-detail">
+        <a name="M000538"></a>
 
         <div class="method-heading">
-          <a href="#M000488" class="method-signature">
+          <a href="#M000538" class="method-signature">
           <span class="method-name">create_story</span><span class="method-args">(title, narrative)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000488-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000488-source">
+            onclick="toggleCode('M000538-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000538-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_mediator.rb, line 17</span>
 17:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_story</span>(<span class="ruby-identifier">title</span>, <span class="ruby-identifier">narrative</span>)
@@ -246,19 +271,19 @@ Class <a href="StoryMediator/Story.html" class="link">Spec::Story::Runner::Story
         </div>
       </div>
 
-      <div id="method-M000493" class="method-detail">
-        <a name="M000493"></a>
+      <div id="method-M000543" class="method-detail">
+        <a name="M000543"></a>
 
         <div class="method-heading">
-          <a href="#M000493" class="method-signature">
+          <a href="#M000543" class="method-signature">
           <span class="method-name">create_then</span><span class="method-args">(name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000493-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000493-source">
+            onclick="toggleCode('M000543-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000543-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_mediator.rb, line 37</span>
 37:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_then</span>(<span class="ruby-identifier">name</span>)
@@ -269,19 +294,19 @@ Class <a href="StoryMediator/Story.html" class="link">Spec::Story::Runner::Story
         </div>
       </div>
 
-      <div id="method-M000492" class="method-detail">
-        <a name="M000492"></a>
+      <div id="method-M000542" class="method-detail">
+        <a name="M000542"></a>
 
         <div class="method-heading">
-          <a href="#M000492" class="method-signature">
+          <a href="#M000542" class="method-signature">
           <span class="method-name">create_when</span><span class="method-args">(name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000492-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000492-source">
+            onclick="toggleCode('M000542-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000542-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_mediator.rb, line 33</span>
 33:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_when</span>(<span class="ruby-identifier">name</span>)
@@ -292,42 +317,65 @@ Class <a href="StoryMediator/Story.html" class="link">Spec::Story::Runner::Story
         </div>
       </div>
 
-      <div id="method-M000494" class="method-detail">
-        <a name="M000494"></a>
+      <div id="method-M000544" class="method-detail">
+        <a name="M000544"></a>
 
         <div class="method-heading">
-          <a href="#M000494" class="method-signature">
-          <span class="method-name">run_stories</span><span class="method-args">()</span>
+          <a href="#M000544" class="method-signature">
+          <span class="method-name">last_step</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000494-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000494-source">
+            onclick="toggleCode('M000544-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000544-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_mediator.rb, line 41</span>
-41:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_stories</span>
-42:           <span class="ruby-identifier">stories</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">story</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@runner</span>.<span class="ruby-identifier">instance_eval</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">story</span>) }
+41:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">last_step</span>
+42:           <span class="ruby-identifier">current_scenario</span>.<span class="ruby-identifier">last_step</span>
 43:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000487" class="method-detail">
-        <a name="M000487"></a>
+      <div id="method-M000546" class="method-detail">
+        <a name="M000546"></a>
 
         <div class="method-heading">
-          <a href="#M000487" class="method-signature">
+          <a href="#M000546" class="method-signature">
+          <span class="method-name">run_stories</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000546-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000546-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_mediator.rb, line 49</span>
+49:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_stories</span>
+50:           <span class="ruby-identifier">stories</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">story</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@runner</span>.<span class="ruby-identifier">instance_eval</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">story</span>) }
+51:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000537" class="method-detail">
+        <a name="M000537"></a>
+
+        <div class="method-heading">
+          <a href="#M000537" class="method-signature">
           <span class="method-name">stories</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000487-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000487-source">
+            onclick="toggleCode('M000537-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000537-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_mediator.rb, line 13</span>
 13:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stories</span>

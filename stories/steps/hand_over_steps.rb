@@ -24,7 +24,6 @@ steps_for(:hand_over) do
   end
 
   When "the new order is submitted" do
-#old#    post "/orders/submit", :id => @order.id
     post submit_order_path(@order)
   end
   
@@ -61,8 +60,7 @@ steps_for(:hand_over) do
 
   When "$who chooses one line" do | who |
     visit = @visits.first
-    # TODO 29** fix routing and remove ":id => 0"
-    get backend_inventory_pool_hand_over_path(@inventory_pool, 0, :user_id => visit.user.id)
+    get backend_inventory_pool_hand_over_path(@inventory_pool, visit.user.get_current_contract(@inventory_pool))
     response.should render_template('backend/hand_over/show')
     @contract = assigns(:contract)
   end

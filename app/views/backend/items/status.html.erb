@@ -1,6 +1,6 @@
 
 	<ul>
-		<li><b>Status:</b> <%= @item.status_const %> <%= link_to _('Toggle borrowable status'), :action => 'toggle_status', :id => @item %></li>
+		<li><b>Status:</b> <%= @item.status_const %> <%= link_to _('Toggle borrowable status'), :action => 'toggle_status' %></li>
 		<li><b>In Stock?:</b> <%= @item.in_stock? %></li>
 		<li>TODO: currently borrowed by user ...</li>
 	</ul>

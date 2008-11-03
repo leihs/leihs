@@ -80,32 +80,29 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000155">after</a>&nbsp;&nbsp;
-      <a href="#M000156">append_after</a>&nbsp;&nbsp;
-      <a href="#M000152">append_before</a>&nbsp;&nbsp;
-      <a href="#M000153">before</a>&nbsp;&nbsp;
-      <a href="#M000140">describe</a>&nbsp;&nbsp;
-      <a href="#M000149">described_type</a>&nbsp;&nbsp;
-      <a href="#M000148">description</a>&nbsp;&nbsp;
-      <a href="#M000138">description_text</a>&nbsp;&nbsp;
-      <a href="#M000139">inherited</a>&nbsp;&nbsp;
-      <a href="#M000143">it</a>&nbsp;&nbsp;
-      <a href="#M000141">it_should_behave_like</a>&nbsp;&nbsp;
-      <a href="#M000142">predicate_matchers</a>&nbsp;&nbsp;
-      <a href="#M000154">prepend_after</a>&nbsp;&nbsp;
-      <a href="#M000151">prepend_before</a>&nbsp;&nbsp;
-      <a href="#M000160">register</a>&nbsp;&nbsp;
-      <a href="#M000161">registration_backtrace</a>&nbsp;&nbsp;
-      <a href="#M000157">remove_after</a>&nbsp;&nbsp;
-      <a href="#M000147">run</a>&nbsp;&nbsp;
-      <a href="#M000163">run_after_each</a>&nbsp;&nbsp;
-      <a href="#M000162">run_before_each</a>&nbsp;&nbsp;
-      <a href="#M000150">set_description</a>&nbsp;&nbsp;
-      <a href="#M000158">setup</a>&nbsp;&nbsp;
-      <a href="#M000144">specify</a>&nbsp;&nbsp;
-      <a href="#M000159">teardown</a>&nbsp;&nbsp;
-      <a href="#M000145">xit</a>&nbsp;&nbsp;
-      <a href="#M000146">xspecify</a>&nbsp;&nbsp;
+      <a href="#M000160">context</a>&nbsp;&nbsp;
+      <a href="#M000162">create_nested_example_group</a>&nbsp;&nbsp;
+      <a href="#M000161">create_shared_example_group</a>&nbsp;&nbsp;
+      <a href="#M000159">describe</a>&nbsp;&nbsp;
+      <a href="#M000173">described_type</a>&nbsp;&nbsp;
+      <a href="#M000172">description</a>&nbsp;&nbsp;
+      <a href="#M000157">description_args</a>&nbsp;&nbsp;
+      <a href="#M000156">description_text</a>&nbsp;&nbsp;
+      <a href="#M000165">example</a>&nbsp;&nbsp;
+      <a href="#M000158">inherited</a>&nbsp;&nbsp;
+      <a href="#M000166">it</a>&nbsp;&nbsp;
+      <a href="#M000163">it_should_behave_like</a>&nbsp;&nbsp;
+      <a href="#M000164">predicate_matchers</a>&nbsp;&nbsp;
+      <a href="#M000175">register</a>&nbsp;&nbsp;
+      <a href="#M000176">registration_backtrace</a>&nbsp;&nbsp;
+      <a href="#M000171">run</a>&nbsp;&nbsp;
+      <a href="#M000178">run_after_each</a>&nbsp;&nbsp;
+      <a href="#M000177">run_before_each</a>&nbsp;&nbsp;
+      <a href="#M000174">set_description</a>&nbsp;&nbsp;
+      <a href="#M000167">specify</a>&nbsp;&nbsp;
+      <a href="#M000168">xexample</a>&nbsp;&nbsp;
+      <a href="#M000169">xit</a>&nbsp;&nbsp;
+      <a href="#M000170">xspecify</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -117,6 +114,7 @@
       <h3 class="section-bar">Included Modules</h3>
 
       <div id="includes-list">
+        <span class="include-name"><a href="BeforeAndAfterHooks.html">Spec::Example::BeforeAndAfterHooks</a></span>
         <span class="include-name">Spec::Plugins::MockFramework</span>
       </div>
     </div>
@@ -125,6 +123,19 @@
 
 
 
+    <div id="aliases-list">
+      <h3 class="section-bar">External Aliases</h3>
+
+      <div class="name-list">
+                        <table summary="aliases">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">description_options</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">options</td>
+        </tr>
+                        </table>
+      </div>
+    </div>
 
 
     <div id="attribute-list">
@@ -132,11 +143,6 @@
 
       <div class="name-list">
         <table>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">description_args</td>
-          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
-          <td class="context-item-desc"></td>
-        </tr>
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">description_options</td>
           <td class="context-item-value">&nbsp;[R]&nbsp;</td>
@@ -148,8 +154,8 @@
           <td class="context-item-desc"></td>
         </tr>
         <tr class="top-aligned-row context-row">
-          <td class="context-item-name">registration_binding_block</td>
-          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-name">matcher_class</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
           <td class="context-item-desc"></td>
         </tr>
         <tr class="top-aligned-row context-row">
@@ -167,27 +173,27 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000138" class="method-detail">
-        <a name="M000138"></a>
+      <div id="method-M000156" class="method-detail">
+        <a name="M000156"></a>
 
         <div class="method-heading">
-          <a href="#M000138" class="method-signature">
+          <a href="#M000156" class="method-signature">
           <span class="method-name">description_text</span><span class="method-args">(*args)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000138-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000138-source">
+            onclick="toggleCode('M000156-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000156-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 6</span>
- 6:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description_text</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
- 7:           <span class="ruby-identifier">args</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">result</span>, <span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
- 8:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-keyword kw">unless</span> (<span class="ruby-identifier">result</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(\s|\.|#)/</span>)
- 9:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">to_s</span>
-10:           <span class="ruby-keyword kw">end</span>
-11:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 10</span>
+10:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description_text</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+11:           <span class="ruby-identifier">args</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">result</span>, <span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
+12:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-keyword kw">unless</span> (<span class="ruby-identifier">result</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(\s|\.|#)/</span>)
+13:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">to_s</span>
+14:           <span class="ruby-keyword kw">end</span>
+15:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -195,108 +201,82 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000155" class="method-detail">
-        <a name="M000155"></a>
+      <div id="method-M000160" class="method-detail">
+        <a name="M000160"></a>
 
         <div class="method-heading">
-          <span class="method-name">after</span><span class="method-args">(*args, &amp;block)</span>
+          <span class="method-name">context</span><span class="method-args">(*args, &amp;example_group_block)</span>
         </div>
       
         <div class="method-description">
           <p>
-Alias for <a href="ExampleGroupMethods.html#M000154">prepend_after</a>
+Alias for <a href="ExampleGroupMethods.html#M000159">describe</a>
 </p>
         </div>
       </div>
 
-      <div id="method-M000156" class="method-detail">
-        <a name="M000156"></a>
+      <div id="method-M000162" class="method-detail">
+        <a name="M000162"></a>
 
         <div class="method-heading">
-          <a href="#M000156" class="method-signature">
-          <span class="method-name">append_after</span><span class="method-args">(*args, &amp;block)</span>
+          <a href="#M000162" class="method-signature">
+          <span class="method-name">create_nested_example_group</span><span class="method-args">(args, example_group_block)</span>
           </a>
         </div>
       
         <div class="method-description">
-          <p>
-Registers a block to be executed <a
-href="ExampleGroupMethods.html#M000155">after</a> each example. This method
-appends <tt>block</tt> to existing <a
-href="ExampleGroupMethods.html#M000155">after</a> blocks.
-</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000156-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000156-source">
+            onclick="toggleCode('M000162-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000162-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 204</span>
-204:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">append_after</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-205:         <span class="ruby-identifier">scope</span>, <span class="ruby-identifier">options</span> = <span class="ruby-identifier">scope_and_options</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-206:         <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">after_parts_from_scope</span>(<span class="ruby-identifier">scope</span>)
-207:         <span class="ruby-identifier">parts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">block</span>
-208:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 65</span>
+65:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_nested_example_group</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">example_group_block</span>)
+66:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">subclass</span>(<span class="ruby-value str">&quot;Subclass&quot;</span>) <span class="ruby-keyword kw">do</span>
+67:           <span class="ruby-identifier">describe</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+68:           <span class="ruby-identifier">module_eval</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">example_group_block</span>)
+69:         <span class="ruby-keyword kw">end</span>
+70:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000152" class="method-detail">
-        <a name="M000152"></a>
+      <div id="method-M000161" class="method-detail">
+        <a name="M000161"></a>
 
         <div class="method-heading">
-          <a href="#M000152" class="method-signature">
-          <span class="method-name">append_before</span><span class="method-args">(*args, &amp;block)</span>
+          <a href="#M000161" class="method-signature">
+          <span class="method-name">create_shared_example_group</span><span class="method-args">(args, example_group_block)</span>
           </a>
         </div>
       
         <div class="method-description">
-          <p>
-Registers a block to be executed <a
-href="ExampleGroupMethods.html#M000153">before</a> each example. This
-method appends <tt>block</tt> to existing <a
-href="ExampleGroupMethods.html#M000153">before</a> blocks.
-</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000152-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000152-source">
+            onclick="toggleCode('M000161-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000161-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 186</span>
-186:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">append_before</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-187:         <span class="ruby-identifier">scope</span>, <span class="ruby-identifier">options</span> = <span class="ruby-identifier">scope_and_options</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-188:         <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">before_parts_from_scope</span>(<span class="ruby-identifier">scope</span>)
-189:         <span class="ruby-identifier">parts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">block</span>
-190:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 61</span>
+61:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_shared_example_group</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">example_group_block</span>)
+62:         <span class="ruby-constant">SharedExampleGroup</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">example_group_block</span>)
+63:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000153" class="method-detail">
-        <a name="M000153"></a>
+      <div id="method-M000159" class="method-detail">
+        <a name="M000159"></a>
 
         <div class="method-heading">
-          <span class="method-name">before</span><span class="method-args">(*args, &amp;block)</span>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Alias for <a href="ExampleGroupMethods.html#M000152">append_before</a>
-</p>
-        </div>
-      </div>
-
-      <div id="method-M000140" class="method-detail">
-        <a name="M000140"></a>
-
-        <div class="method-heading">
-          <a href="#M000140" class="method-signature">
+          <a href="#M000159" class="method-signature">
           <span class="method-name">describe</span><span class="method-args">(*args, &amp;example_group_block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Makes the describe/it syntax available from a class. For example:
+Makes the describe/it syntax available from a class. For <a
+href="ExampleGroupMethods.html#M000165">example</a>:
 </p>
 <pre>
   class StackSpec &lt; Spec::ExampleGroup
@@ -312,182 +292,210 @@ Makes the describe/it syntax available from a class. For example:
   end
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000140-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000140-source">
+            onclick="toggleCode('M000159-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000159-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 36</span>
-36:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">describe</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">example_group_block</span>)
-37:         <span class="ruby-identifier">args</span> <span class="ruby-operator">&lt;&lt;</span> {} <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>
-38:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">example_group_block</span>
-39:           <span class="ruby-identifier">params</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>
-40:           <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:spec_path</span>] = <span class="ruby-identifier">eval</span>(<span class="ruby-value str">&quot;caller(0)[1]&quot;</span>, <span class="ruby-identifier">example_group_block</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:spec_path</span>]
-41:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:shared</span>]
-42:             <span class="ruby-constant">SharedExampleGroup</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">example_group_block</span>)
-43:           <span class="ruby-keyword kw">else</span>
-44:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">subclass</span>(<span class="ruby-value str">&quot;Subclass&quot;</span>) <span class="ruby-keyword kw">do</span>
-45:               <span class="ruby-identifier">describe</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-46:               <span class="ruby-identifier">module_eval</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">example_group_block</span>)
-47:             <span class="ruby-keyword kw">end</span>
-48:           <span class="ruby-keyword kw">end</span>
-49:         <span class="ruby-keyword kw">else</span>
-50:           <span class="ruby-identifier">set_description</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-51:           <span class="ruby-identifier">before_eval</span>
-52:           <span class="ruby-keyword kw">self</span>
-53:         <span class="ruby-keyword kw">end</span>
-54:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 45</span>
+45:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">describe</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">example_group_block</span>)
+46:         <span class="ruby-identifier">args</span> <span class="ruby-operator">&lt;&lt;</span> {} <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>
+47:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">example_group_block</span>
+48:           <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>
+49:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:spec_path</span>] = <span class="ruby-identifier">eval</span>(<span class="ruby-value str">&quot;caller(0)[1]&quot;</span>, <span class="ruby-identifier">example_group_block</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:spec_path</span>]
+50:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:shared</span>]
+51:             <span class="ruby-identifier">create_shared_example_group</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">example_group_block</span>)
+52:           <span class="ruby-keyword kw">else</span>
+53:             <span class="ruby-identifier">create_nested_example_group</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">example_group_block</span>)
+54:           <span class="ruby-keyword kw">end</span>
+55:         <span class="ruby-keyword kw">else</span>
+56:           <span class="ruby-identifier">set_description</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+57:         <span class="ruby-keyword kw">end</span>
+58:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000149" class="method-detail">
-        <a name="M000149"></a>
+      <div id="method-M000173" class="method-detail">
+        <a name="M000173"></a>
 
         <div class="method-heading">
-          <a href="#M000149" class="method-signature">
+          <a href="#M000173" class="method-signature">
           <span class="method-name">described_type</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000149-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000149-source">
+            onclick="toggleCode('M000173-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000173-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 142</span>
-142:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">described_type</span>
-143:         <span class="ruby-identifier">description_parts</span>.<span class="ruby-identifier">find</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">part</span><span class="ruby-operator">|</span> <span class="ruby-identifier">part</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Module</span>)}
-144:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 154</span>
+154:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">described_type</span>
+155:         <span class="ruby-identifier">description_parts</span>.<span class="ruby-identifier">find</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">part</span><span class="ruby-operator">|</span> <span class="ruby-identifier">part</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Module</span>)}
+156:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000148" class="method-detail">
-        <a name="M000148"></a>
+      <div id="method-M000172" class="method-detail">
+        <a name="M000172"></a>
 
         <div class="method-heading">
-          <a href="#M000148" class="method-signature">
+          <a href="#M000172" class="method-signature">
           <span class="method-name">description</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000148-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000148-source">
+            onclick="toggleCode('M000172-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000172-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 133</span>
-133:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description</span>
-134:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">ExampleGroupMethods</span>.<span class="ruby-identifier">description_text</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">description_parts</span>)
-135:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">result</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;&quot;</span>
-136:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">to_s</span>
-137:         <span class="ruby-keyword kw">else</span>
-138:           <span class="ruby-identifier">result</span>
-139:         <span class="ruby-keyword kw">end</span>
-140:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 145</span>
+145:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description</span>
+146:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">ExampleGroupMethods</span>.<span class="ruby-identifier">description_text</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">description_parts</span>)
+147:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">result</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;&quot;</span>
+148:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">to_s</span>
+149:         <span class="ruby-keyword kw">else</span>
+150:           <span class="ruby-identifier">result</span>
+151:         <span class="ruby-keyword kw">end</span>
+152:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000139" class="method-detail">
-        <a name="M000139"></a>
+      <div id="method-M000157" class="method-detail">
+        <a name="M000157"></a>
 
         <div class="method-heading">
-          <a href="#M000139" class="method-signature">
+          <a href="#M000157" class="method-signature">
+          <span class="method-name">description_args</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000157-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000157-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 21</span>
+21:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description_args</span>
+22:         <span class="ruby-ivar">@description_args</span> <span class="ruby-operator">||=</span> []
+23:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000165" class="method-detail">
+        <a name="M000165"></a>
+
+        <div class="method-heading">
+          <a href="#M000165" class="method-signature">
+          <span class="method-name">example</span><span class="method-args">(description=nil, options={}, &amp;implementation)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates an instance of the current <a
+href="ExampleGroupMethods.html#M000165">example</a> group class and adds <a
+href="ExampleGroupMethods.html#M000166">it</a> to a collection of examples
+of the current <a href="ExampleGroupMethods.html#M000165">example</a>
+group.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000165-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000165-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 114</span>
+114:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example</span>(<span class="ruby-identifier">description</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">options</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">implementation</span>)
+115:         <span class="ruby-identifier">e</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">description</span>, <span class="ruby-identifier">options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">implementation</span>)
+116:         <span class="ruby-identifier">example_objects</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>
+117:         <span class="ruby-identifier">e</span>
+118:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000158" class="method-detail">
+        <a name="M000158"></a>
+
+        <div class="method-heading">
+          <a href="#M000158" class="method-signature">
           <span class="method-name">inherited</span><span class="method-args">(klass)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000139-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000139-source">
+            onclick="toggleCode('M000158-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000158-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 16</span>
-16:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">klass</span>)
-17:         <span class="ruby-keyword kw">super</span>
-18:         <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">register</span> {}
-19:         <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">register_at_exit_hook</span>
-20:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 25</span>
+25:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">klass</span>)
+26:         <span class="ruby-keyword kw">super</span>
+27:         <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">register</span> {}
+28:         <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">register_at_exit_hook</span>
+29:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000143" class="method-detail">
-        <a name="M000143"></a>
+      <div id="method-M000166" class="method-detail">
+        <a name="M000166"></a>
 
         <div class="method-heading">
-          <a href="#M000143" class="method-signature">
-          <span class="method-name">it</span><span class="method-args">(description=nil, &amp;implementation)</span>
+          <span class="method-name">it</span><span class="method-args">(description=nil, options={}, &amp;implementation)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="ExampleGroupMethods.html#M000165">example</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000163" class="method-detail">
+        <a name="M000163"></a>
+
+        <div class="method-heading">
+          <a href="#M000163" class="method-signature">
+          <span class="method-name">it_should_behave_like</span><span class="method-args">(*shared_example_groups)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates an instance of <a href="../Example.html">Spec::Example::Example</a>
-and adds <a href="ExampleGroupMethods.html#M000143">it</a> to a collection
-of examples of the current example group.
+Use this to pull in examples from shared <a
+href="ExampleGroupMethods.html#M000165">example</a> groups. See <a
+href="../Runner.html">Spec::Runner</a> for information about shared <a
+href="ExampleGroupMethods.html#M000165">example</a> groups.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000143-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000143-source">
+            onclick="toggleCode('M000163-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000163-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 105</span>
-105:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">it</span>(<span class="ruby-identifier">description</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">implementation</span>)
-106:         <span class="ruby-identifier">e</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">description</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">implementation</span>)
-107:         <span class="ruby-identifier">example_objects</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>
-108:         <span class="ruby-identifier">e</span>
-109:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 74</span>
+74:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">it_should_behave_like</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">shared_example_groups</span>)
+75:         <span class="ruby-identifier">shared_example_groups</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">group</span><span class="ruby-operator">|</span>
+76:           <span class="ruby-identifier">include_shared_example_group</span>(<span class="ruby-identifier">group</span>)
+77:         <span class="ruby-keyword kw">end</span>
+78:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000141" class="method-detail">
-        <a name="M000141"></a>
+      <div id="method-M000164" class="method-detail">
+        <a name="M000164"></a>
 
         <div class="method-heading">
-          <a href="#M000141" class="method-signature">
-          <span class="method-name">it_should_behave_like</span><span class="method-args">(shared_example_group)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Use this to pull in examples from shared example groups. See <a
-href="../Runner.html">Spec::Runner</a> for information about shared example
-groups.
-</p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000141-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000141-source">
-<pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 58</span>
-58:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">it_should_behave_like</span>(<span class="ruby-identifier">shared_example_group</span>)
-59:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">shared_example_group</span>
-60:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">SharedExampleGroup</span>
-61:           <span class="ruby-identifier">include</span> <span class="ruby-identifier">shared_example_group</span>
-62:         <span class="ruby-keyword kw">else</span>
-63:           <span class="ruby-identifier">example_group</span> = <span class="ruby-constant">SharedExampleGroup</span>.<span class="ruby-identifier">find_shared_example_group</span>(<span class="ruby-identifier">shared_example_group</span>)
-64:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">example_group</span>
-65:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Shared Example Group '#{shared_example_group}' can not be found&quot;</span>)
-66:           <span class="ruby-keyword kw">end</span>
-67:           <span class="ruby-identifier">include</span>(<span class="ruby-identifier">example_group</span>)
-68:         <span class="ruby-keyword kw">end</span>
-69:       <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000142" class="method-detail">
-        <a name="M000142"></a>
-
-        <div class="method-heading">
-          <a href="#M000142" class="method-signature">
+          <a href="#M000164" class="method-signature">
           <span class="method-name">predicate_matchers[matcher_name] = method_on_object<br />
 predicate_matchers[matcher_name] = [method1_on_object, method2_on_object]<br />
 </span>
@@ -522,359 +530,233 @@ class. RSpec provides a couple of these out of the box:
   end
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000142-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000142-source">
+            onclick="toggleCode('M000164-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000164-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 99</span>
- 99:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">predicate_matchers</span>
-100:         <span class="ruby-ivar">@predicate_matchers</span> <span class="ruby-operator">||=</span> {<span class="ruby-identifier">:an_instance_of</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:is_a?</span>}
-101:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 108</span>
+108:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">predicate_matchers</span>
+109:         <span class="ruby-ivar">@predicate_matchers</span> <span class="ruby-operator">||=</span> {<span class="ruby-identifier">:an_instance_of</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:is_a?</span>}
+110:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000154" class="method-detail">
-        <a name="M000154"></a>
+      <div id="method-M000175" class="method-detail">
+        <a name="M000175"></a>
 
         <div class="method-heading">
-          <a href="#M000154" class="method-signature">
-          <span class="method-name">prepend_after</span><span class="method-args">(*args, &amp;block)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Registers a block to be executed <a
-href="ExampleGroupMethods.html#M000155">after</a> each example. This method
-prepends <tt>block</tt> to existing <a
-href="ExampleGroupMethods.html#M000155">after</a> blocks.
-</p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000154-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000154-source">
-<pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 195</span>
-195:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepend_after</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-196:         <span class="ruby-identifier">scope</span>, <span class="ruby-identifier">options</span> = <span class="ruby-identifier">scope_and_options</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-197:         <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">after_parts_from_scope</span>(<span class="ruby-identifier">scope</span>)
-198:         <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">block</span>)
-199:       <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000151" class="method-detail">
-        <a name="M000151"></a>
-
-        <div class="method-heading">
-          <a href="#M000151" class="method-signature">
-          <span class="method-name">prepend_before</span><span class="method-args">(*args, &amp;block)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Registers a block to be executed <a
-href="ExampleGroupMethods.html#M000153">before</a> each example. This
-method prepends <tt>block</tt> to existing <a
-href="ExampleGroupMethods.html#M000153">before</a> blocks.
-</p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000151-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000151-source">
-<pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 178</span>
-178:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepend_before</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-179:         <span class="ruby-identifier">scope</span>, <span class="ruby-identifier">options</span> = <span class="ruby-identifier">scope_and_options</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-180:         <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">before_parts_from_scope</span>(<span class="ruby-identifier">scope</span>)
-181:         <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">block</span>)
-182:       <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000160" class="method-detail">
-        <a name="M000160"></a>
-
-        <div class="method-heading">
-          <a href="#M000160" class="method-signature">
+          <a href="#M000175" class="method-signature">
           <span class="method-name">register</span><span class="method-args">(&amp;registration_binding_block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000160-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000160-source">
+            onclick="toggleCode('M000175-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000175-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 248</span>
-248:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">register</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">registration_binding_block</span>)
-249:         <span class="ruby-ivar">@registration_binding_block</span> = <span class="ruby-identifier">registration_binding_block</span>
-250:         <span class="ruby-identifier">rspec_options</span>.<span class="ruby-identifier">add_example_group</span> <span class="ruby-keyword kw">self</span>
-251:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 193</span>
+193:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">register</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">registration_binding_block</span>)
+194:         <span class="ruby-ivar">@registration_binding_block</span> = <span class="ruby-identifier">registration_binding_block</span>
+195:         <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">options</span>.<span class="ruby-identifier">add_example_group</span> <span class="ruby-keyword kw">self</span>
+196:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000161" class="method-detail">
-        <a name="M000161"></a>
+      <div id="method-M000176" class="method-detail">
+        <a name="M000176"></a>
 
         <div class="method-heading">
-          <a href="#M000161" class="method-signature">
+          <a href="#M000176" class="method-signature">
           <span class="method-name">registration_backtrace</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000161-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000161-source">
+            onclick="toggleCode('M000176-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000176-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 257</span>
-257:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">registration_backtrace</span>
-258:         <span class="ruby-identifier">eval</span>(<span class="ruby-value str">&quot;caller&quot;</span>, <span class="ruby-identifier">registration_binding_block</span>.<span class="ruby-identifier">binding</span>)
-259:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 202</span>
+202:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">registration_backtrace</span>
+203:         <span class="ruby-identifier">eval</span>(<span class="ruby-value str">&quot;caller&quot;</span>, <span class="ruby-ivar">@registration_binding_block</span>)
+204:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000157" class="method-detail">
-        <a name="M000157"></a>
+      <div id="method-M000171" class="method-detail">
+        <a name="M000171"></a>
 
         <div class="method-heading">
-          <a href="#M000157" class="method-signature">
-          <span class="method-name">remove_after</span><span class="method-args">(scope, &amp;block)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000157-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000157-source">
-<pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 210</span>
-210:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remove_after</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-211:         <span class="ruby-identifier">after_each_parts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">block</span>)
-212:       <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000147" class="method-detail">
-        <a name="M000147"></a>
-
-        <div class="method-heading">
-          <a href="#M000147" class="method-signature">
+          <a href="#M000171" class="method-signature">
           <span class="method-name">run</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000147-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000147-source">
+            onclick="toggleCode('M000171-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000171-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 119</span>
-119:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
-120:         <span class="ruby-identifier">examples</span> = <span class="ruby-identifier">examples_to_run</span>
-121:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">examples</span>.<span class="ruby-identifier">empty?</span>
-122:         <span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">add_example_group</span>(<span class="ruby-keyword kw">self</span>)
-123:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">dry_run</span>(<span class="ruby-identifier">examples</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">dry_run?</span>
-124: 
-125:         <span class="ruby-identifier">plugin_mock_framework</span>
-126:         <span class="ruby-identifier">define_methods_from_predicate_matchers</span>
-127: 
-128:         <span class="ruby-identifier">success</span>, <span class="ruby-identifier">before_all_instance_variables</span> = <span class="ruby-identifier">run_before_all</span>
-129:         <span class="ruby-identifier">success</span>, <span class="ruby-identifier">after_all_instance_variables</span>  = <span class="ruby-identifier">execute_examples</span>(<span class="ruby-identifier">success</span>, <span class="ruby-identifier">before_all_instance_variables</span>, <span class="ruby-identifier">examples</span>)
-130:         <span class="ruby-identifier">success</span>                                = <span class="ruby-identifier">run_after_all</span>(<span class="ruby-identifier">success</span>, <span class="ruby-identifier">after_all_instance_variables</span>)
-131:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 131</span>
+131:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
+132:         <span class="ruby-identifier">examples</span> = <span class="ruby-identifier">examples_to_run</span>
+133:         <span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">add_example_group</span>(<span class="ruby-keyword kw">self</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">examples_to_run</span>.<span class="ruby-identifier">empty?</span>
+134:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">examples</span>.<span class="ruby-identifier">empty?</span>
+135:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">dry_run</span>(<span class="ruby-identifier">examples</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">dry_run?</span>
+136: 
+137:         <span class="ruby-identifier">plugin_mock_framework</span>
+138:         <span class="ruby-identifier">define_methods_from_predicate_matchers</span>
+139: 
+140:         <span class="ruby-identifier">success</span>, <span class="ruby-identifier">before_all_instance_variables</span> = <span class="ruby-identifier">run_before_all</span>
+141:         <span class="ruby-identifier">success</span>, <span class="ruby-identifier">after_all_instance_variables</span>  = <span class="ruby-identifier">execute_examples</span>(<span class="ruby-identifier">success</span>, <span class="ruby-identifier">before_all_instance_variables</span>, <span class="ruby-identifier">examples</span>)
+142:         <span class="ruby-identifier">success</span>                                = <span class="ruby-identifier">run_after_all</span>(<span class="ruby-identifier">success</span>, <span class="ruby-identifier">after_all_instance_variables</span>)
+143:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000163" class="method-detail">
-        <a name="M000163"></a>
+      <div id="method-M000178" class="method-detail">
+        <a name="M000178"></a>
 
         <div class="method-heading">
-          <a href="#M000163" class="method-signature">
+          <a href="#M000178" class="method-signature">
           <span class="method-name">run_after_each</span><span class="method-args">(example)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000163-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000163-source">
+            onclick="toggleCode('M000178-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000178-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 267</span>
-267:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_after_each</span>(<span class="ruby-identifier">example</span>)
-268:         <span class="ruby-identifier">execute_in_class_hierarchy</span>(<span class="ruby-identifier">:superclass_first</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">example_group</span><span class="ruby-operator">|</span>
-269:           <span class="ruby-identifier">example</span>.<span class="ruby-identifier">eval_each_fail_slow</span>(<span class="ruby-identifier">example_group</span>.<span class="ruby-identifier">after_each_parts</span>)
-270:         <span class="ruby-keyword kw">end</span>
-271:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 212</span>
+212:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_after_each</span>(<span class="ruby-identifier">example</span>)
+213:         <span class="ruby-identifier">each_ancestor_example_group_class</span>(<span class="ruby-identifier">:superclass_first</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">example_group_class</span><span class="ruby-operator">|</span>
+214:           <span class="ruby-identifier">example</span>.<span class="ruby-identifier">eval_each_fail_slow</span>(<span class="ruby-identifier">example_group_class</span>.<span class="ruby-identifier">after_each_parts</span>)
+215:         <span class="ruby-keyword kw">end</span>
+216:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000162" class="method-detail">
-        <a name="M000162"></a>
+      <div id="method-M000177" class="method-detail">
+        <a name="M000177"></a>
 
         <div class="method-heading">
-          <a href="#M000162" class="method-signature">
+          <a href="#M000177" class="method-signature">
           <span class="method-name">run_before_each</span><span class="method-args">(example)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000162-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000162-source">
+            onclick="toggleCode('M000177-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000177-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 261</span>
-261:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_before_each</span>(<span class="ruby-identifier">example</span>)
-262:         <span class="ruby-identifier">execute_in_class_hierarchy</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">example_group</span><span class="ruby-operator">|</span>
-263:           <span class="ruby-identifier">example</span>.<span class="ruby-identifier">eval_each_fail_fast</span>(<span class="ruby-identifier">example_group</span>.<span class="ruby-identifier">before_each_parts</span>)
-264:         <span class="ruby-keyword kw">end</span>
-265:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 206</span>
+206:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_before_each</span>(<span class="ruby-identifier">example</span>)
+207:         <span class="ruby-identifier">each_ancestor_example_group_class</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">example_group_class</span><span class="ruby-operator">|</span>
+208:           <span class="ruby-identifier">example</span>.<span class="ruby-identifier">eval_each_fail_fast</span>(<span class="ruby-identifier">example_group_class</span>.<span class="ruby-identifier">before_each_parts</span>)
+209:         <span class="ruby-keyword kw">end</span>
+210:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000150" class="method-detail">
-        <a name="M000150"></a>
+      <div id="method-M000174" class="method-detail">
+        <a name="M000174"></a>
 
         <div class="method-heading">
-          <a href="#M000150" class="method-signature">
+          <a href="#M000174" class="method-signature">
           <span class="method-name">set_description</span><span class="method-args">(*args)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000150-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000150-source">
+            onclick="toggleCode('M000174-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000174-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 154</span>
-154:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_description</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-155:         <span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args_and_options</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-156:         <span class="ruby-ivar">@description_args</span> = <span class="ruby-identifier">args</span>
-157:         <span class="ruby-ivar">@description_options</span> = <span class="ruby-identifier">options</span>
-158:         <span class="ruby-ivar">@description_text</span> = <span class="ruby-constant">ExampleGroupMethods</span>.<span class="ruby-identifier">description_text</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-159:         <span class="ruby-ivar">@spec_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:spec_path</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:spec_path</span>]
-160:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">described_type</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Module</span>
-161:           <span class="ruby-identifier">include</span> <span class="ruby-identifier">described_type</span>
-162:         <span class="ruby-keyword kw">end</span>
-163:         <span class="ruby-keyword kw">self</span>
-164:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 166</span>
+166:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_description</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+167:         <span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args_and_options</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+168:         <span class="ruby-ivar">@description_args</span> = <span class="ruby-identifier">args</span>
+169:         <span class="ruby-ivar">@description_options</span> = <span class="ruby-identifier">options</span>
+170:         <span class="ruby-ivar">@description_text</span> = <span class="ruby-constant">ExampleGroupMethods</span>.<span class="ruby-identifier">description_text</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+171:         <span class="ruby-ivar">@spec_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:spec_path</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:spec_path</span>]
+172:         <span class="ruby-keyword kw">self</span>
+173:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000158" class="method-detail">
-        <a name="M000158"></a>
+      <div id="method-M000167" class="method-detail">
+        <a name="M000167"></a>
 
         <div class="method-heading">
-          <a href="#M000158" class="method-signature">
-          <span class="method-name">setup</span><span class="method-args">(&amp;block)</span>
+          <span class="method-name">specify</span><span class="method-args">(description=nil, options={}, &amp;implementation)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="ExampleGroupMethods.html#M000165">example</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000168" class="method-detail">
+        <a name="M000168"></a>
+
+        <div class="method-heading">
+          <a href="#M000168" class="method-signature">
+          <span class="method-name">xexample</span><span class="method-args">(description=nil, opts={}, &amp;block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Deprecated. Use <a
-href="ExampleGroupMethods.html#M000153">before</a>(:each)
+Use this to temporarily disable an <a
+href="ExampleGroupMethods.html#M000165">example</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000158-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000158-source">
+            onclick="toggleCode('M000168-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000168-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 215</span>
-215:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-216:         <span class="ruby-identifier">before</span>(<span class="ruby-identifier">:each</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-217:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 124</span>
+124:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">xexample</span>(<span class="ruby-identifier">description</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+125:         <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Example disabled: #{description}&quot;</span>)
+126:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000144" class="method-detail">
-        <a name="M000144"></a>
+      <div id="method-M000169" class="method-detail">
+        <a name="M000169"></a>
 
         <div class="method-heading">
-          <span class="method-name">specify</span><span class="method-args">(description=nil, &amp;implementation)</span>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Alias for <a href="ExampleGroupMethods.html#M000143">it</a>
-</p>
-        </div>
-      </div>
-
-      <div id="method-M000159" class="method-detail">
-        <a name="M000159"></a>
-
-        <div class="method-heading">
-          <a href="#M000159" class="method-signature">
-          <span class="method-name">teardown</span><span class="method-args">(&amp;block)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Deprecated. Use <a href="ExampleGroupMethods.html#M000155">after</a>(:each)
-</p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000159-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000159-source">
-<pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 220</span>
-220:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">teardown</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-221:         <span class="ruby-identifier">after</span>(<span class="ruby-identifier">:each</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-222:       <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000145" class="method-detail">
-        <a name="M000145"></a>
-
-        <div class="method-heading">
-          <a href="#M000145" class="method-signature">
           <span class="method-name">xit</span><span class="method-args">(description=nil, opts={}, &amp;block)</span>
-          </a>
         </div>
       
         <div class="method-description">
           <p>
-Use this to temporarily disable an example.
+Alias for <a href="ExampleGroupMethods.html#M000168">xexample</a>
 </p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000145-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000145-source">
-<pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_methods.rb, line 114</span>
-114:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">xit</span>(<span class="ruby-identifier">description</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">opts</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-115:         <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Example disabled: #{description}&quot;</span>)
-116:       <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
         </div>
       </div>
 
-      <div id="method-M000146" class="method-detail">
-        <a name="M000146"></a>
+      <div id="method-M000170" class="method-detail">
+        <a name="M000170"></a>
 
         <div class="method-heading">
           <span class="method-name">xspecify</span><span class="method-args">(description=nil, opts={}, &amp;block)</span>
@@ -882,7 +764,7 @@ Use this to temporarily disable an example.
       
         <div class="method-description">
           <p>
-Alias for <a href="ExampleGroupMethods.html#M000145">xit</a>
+Alias for <a href="ExampleGroupMethods.html#M000168">xexample</a>
 </p>
         </div>
       </div>

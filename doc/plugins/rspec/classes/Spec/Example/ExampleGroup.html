@@ -82,7 +82,8 @@
 
     <div id="description">
       <p>
-The superclass for all regular RSpec examples.
+Base class for customized example groups. Use this if you want to make a
+custom example group.
 </p>
 
     </div>
@@ -94,7 +95,7 @@ The superclass for all regular RSpec examples.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000180">new</a>&nbsp;&nbsp;
+      <a href="#M000197">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -123,25 +124,26 @@ The superclass for all regular RSpec examples.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000180" class="method-detail">
-        <a name="M000180"></a>
+      <div id="method-M000197" class="method-detail">
+        <a name="M000197"></a>
 
         <div class="method-heading">
-          <a href="#M000180" class="method-signature">
-          <span class="method-name">new</span><span class="method-args">(defined_description, &amp;implementation)</span>
+          <a href="#M000197" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(defined_description, options={}, &amp;implementation)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000180-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000180-source">
+            onclick="toggleCode('M000197-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000197-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group.rb, line 8</span>
- 8:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">defined_description</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">implementation</span>)
- 9:         <span class="ruby-ivar">@_defined_description</span> = <span class="ruby-identifier">defined_description</span>
-10:         <span class="ruby-ivar">@_implementation</span> = <span class="ruby-identifier">implementation</span>
-11:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group.rb, line 9</span>
+ 9:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">defined_description</span>, <span class="ruby-identifier">options</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">implementation</span>)
+10:         <span class="ruby-ivar">@_options</span> = <span class="ruby-identifier">options</span>
+11:         <span class="ruby-ivar">@_defined_description</span> = <span class="ruby-identifier">defined_description</span>
+12:         <span class="ruby-ivar">@_implementation</span> = <span class="ruby-identifier">implementation</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">pending_implementation</span>
+13:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

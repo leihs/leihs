@@ -43,11 +43,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :models
 
   map.namespace :backend do |backend|
-    # TODO 28** nesting to inventory_pool, removing session
     backend.resources :inventory_pools, :member => { :timeline => :get,
                                                      :timeline_visits => :get } do |inventory_pool|
       inventory_pool.resources :acknowledge, :member => { :approve => :any,
                                                           :reject => :any,
+                                                          :delete => :get,
                                                           :add_line => :any,
                                                           :change_line => :any,
                                                           :remove_lines => :any,
@@ -65,19 +65,31 @@ ActionController::Routing::Routes.draw do |map|
                                                         :sign_contract => :any,
                                                         :remove_options => :any,
                                                         :assign_inventory_code => :any,
+                                                        :timeline => :get,
+                                                        :delete_visit => :get }
+      inventory_pool.resources :take_back, :member => { :close_contract => :any,
+                                                        :assign_inventory_code => :any,
+                                                        :broken => :any,
                                                         :timeline => :get }
-      inventory_pool.resources :take_back
   
       inventory_pool.resources :orders
       inventory_pool.resources :contracts
       inventory_pool.resources :locations
       inventory_pool.resources :items, :member => { :location => :get,
-                                                    :status => :get } do |item|
+                                                    :set_location => :get,
+                                                    :status => :get,
+                                                    :toggle_status => :get } do |item|
             item.resource :model                                                
       end
       inventory_pool.resources :models, :collection => { :auto_complete => :get,
                                                          :search => :any,
-                                                         :available_items => :any },
+                                                         :available_items => :any,
+                                                         :show_package => :get,
+                                                         :new_package => :get,
+                                                         :update_package => :post,
+                                                         :search_package_items => :post,
+                                                         :add_package_item => :get,
+                                                         :remove_package_item => :get },
                                         :member => { :properties => :get,
                                                      :accessories => :get,
                                                      :images => :get } do |model|
@@ -85,7 +97,8 @@ ActionController::Routing::Routes.draw do |map|
             model.resources :categories
             model.resources :compatibles, :controller => :models
       end
-      inventory_pool.resources :users, :member => { :new_contract => :get,
+      inventory_pool.resources :users, :collection => { :search => :any },
+                                       :member => { :new_contract => :get,
                                                     :remind => :get }
       inventory_pool.resources :workdays, :collection => { :close => :any,
                                                            :open => :any,
@@ -93,15 +106,21 @@ ActionController::Routing::Routes.draw do |map|
                                                            :delete_holiday => :get }
     end
   end
+  
+############################################################################
 
   map.namespace :admin do |admin|
     admin.resources :inventory_pools, :member => { :locations => :get,
+                                                   :add_location => :post,
+                                                   :remove_location => :get,
                                                    :managers => :get,
+                                                   :remove_manager => :get,
                                                    :add_manager => :put } do |inventory_pool|
         inventory_pool.resources :items
     end
     admin.resources :items, :member => { :model => :get,
-                                         :inventory_pool => :get }
+                                         :inventory_pool => :get,
+                                         :set_inventory_pool => :get }
     admin.resources :models, :collection => { :auto_complete => :get },
                              :member => { :properties => :get,
                                           :add_property => :post,
@@ -131,7 +150,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Install the default routes as the lowest priority.
 # TODO 30** remove "map.connect"
-  map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
-  map.connect ':controller/:action/:id', :defaults => { :controller => 'frontend' }
-  map.connect ':controller/:action/:id.:format'
+#  map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
+#  map.connect ':controller/:action/:id', :defaults => { :controller => 'frontend' }
+#  map.connect ':controller/:action/:id.:format'
 end

@@ -94,18 +94,18 @@ Baseclass for formatters that implements all required methods as no-ops.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000249">add_example_group</a>&nbsp;&nbsp;
-      <a href="#M000258">close</a>&nbsp;&nbsp;
-      <a href="#M000255">dump_failure</a>&nbsp;&nbsp;
-      <a href="#M000257">dump_pending</a>&nbsp;&nbsp;
-      <a href="#M000256">dump_summary</a>&nbsp;&nbsp;
-      <a href="#M000252">example_failed</a>&nbsp;&nbsp;
-      <a href="#M000251">example_passed</a>&nbsp;&nbsp;
-      <a href="#M000253">example_pending</a>&nbsp;&nbsp;
-      <a href="#M000250">example_started</a>&nbsp;&nbsp;
-      <a href="#M000247">new</a>&nbsp;&nbsp;
-      <a href="#M000248">start</a>&nbsp;&nbsp;
-      <a href="#M000254">start_dump</a>&nbsp;&nbsp;
+      <a href="#M000281">add_example_group</a>&nbsp;&nbsp;
+      <a href="#M000290">close</a>&nbsp;&nbsp;
+      <a href="#M000287">dump_failure</a>&nbsp;&nbsp;
+      <a href="#M000289">dump_pending</a>&nbsp;&nbsp;
+      <a href="#M000288">dump_summary</a>&nbsp;&nbsp;
+      <a href="#M000284">example_failed</a>&nbsp;&nbsp;
+      <a href="#M000283">example_passed</a>&nbsp;&nbsp;
+      <a href="#M000285">example_pending</a>&nbsp;&nbsp;
+      <a href="#M000282">example_started</a>&nbsp;&nbsp;
+      <a href="#M000279">new</a>&nbsp;&nbsp;
+      <a href="#M000280">start</a>&nbsp;&nbsp;
+      <a href="#M000286">start_dump</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -150,19 +150,19 @@ Baseclass for formatters that implements all required methods as no-ops.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000247" class="method-detail">
-        <a name="M000247"></a>
+      <div id="method-M000279" class="method-detail">
+        <a name="M000279"></a>
 
         <div class="method-heading">
-          <a href="#M000247" class="method-signature">
+          <a href="#M000279" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(options, where)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000247-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000247-source">
+            onclick="toggleCode('M000279-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000279-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 7</span>
  7:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">where</span>)
@@ -176,11 +176,11 @@ Baseclass for formatters that implements all required methods as no-ops.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000249" class="method-detail">
-        <a name="M000249"></a>
+      <div id="method-M000281" class="method-detail">
+        <a name="M000281"></a>
 
         <div class="method-heading">
-          <a href="#M000249" class="method-signature">
+          <a href="#M000281" class="method-signature">
           <span class="method-name">add_example_group</span><span class="method-args">(example_group)</span>
           </a>
         </div>
@@ -192,11 +192,11 @@ example_group. <tt>example_group</tt> is the example_group.
 </p>
 <p>
 The next method to be invoked after this is <a
-href="BaseFormatter.html#M000252">example_failed</a> or example_finished
+href="BaseFormatter.html#M000284">example_failed</a> or example_finished
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000249-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000249-source">
+            onclick="toggleCode('M000281-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000281-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 25</span>
 25:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_example_group</span>(<span class="ruby-identifier">example_group</span>)
@@ -207,11 +207,11 @@ href="BaseFormatter.html#M000252">example_failed</a> or example_finished
         </div>
       </div>
 
-      <div id="method-M000258" class="method-detail">
-        <a name="M000258"></a>
+      <div id="method-M000290" class="method-detail">
+        <a name="M000290"></a>
 
         <div class="method-heading">
-          <a href="#M000258" class="method-signature">
+          <a href="#M000290" class="method-signature">
           <span class="method-name">close</span><span class="method-args">()</span>
           </a>
         </div>
@@ -222,22 +222,22 @@ This method is invoked at the very end. Allows the formatter to clean up,
 like closing open streams.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000258-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000258-source">
+            onclick="toggleCode('M000290-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000290-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 72</span>
-72:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">close</span>
-73:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 74</span>
+74:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">close</span>
+75:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000255" class="method-detail">
-        <a name="M000255"></a>
+      <div id="method-M000287" class="method-detail">
+        <a name="M000287"></a>
 
         <div class="method-heading">
-          <a href="#M000255" class="method-signature">
+          <a href="#M000287" class="method-signature">
           <span class="method-name">dump_failure</span><span class="method-args">(counter, failure)</span>
           </a>
         </div>
@@ -250,22 +250,22 @@ the sequence number of the associated example. <tt>failure</tt> is a
 Failure object, which contains detailed information about the failure.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000255-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000255-source">
+            onclick="toggleCode('M000287-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000287-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 60</span>
-60:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_failure</span>(<span class="ruby-identifier">counter</span>, <span class="ruby-identifier">failure</span>)
-61:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 62</span>
+62:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_failure</span>(<span class="ruby-identifier">counter</span>, <span class="ruby-identifier">failure</span>)
+63:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000257" class="method-detail">
-        <a name="M000257"></a>
+      <div id="method-M000289" class="method-detail">
+        <a name="M000289"></a>
 
         <div class="method-heading">
-          <a href="#M000257" class="method-signature">
+          <a href="#M000289" class="method-signature">
           <span class="method-name">dump_pending</span><span class="method-args">()</span>
           </a>
         </div>
@@ -275,22 +275,22 @@ Failure object, which contains detailed information about the failure.
 This gets invoked after the summary if option is set to do so.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000257-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000257-source">
+            onclick="toggleCode('M000289-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000289-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 68</span>
-68:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_pending</span>
-69:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 70</span>
+70:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_pending</span>
+71:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000256" class="method-detail">
-        <a name="M000256"></a>
+      <div id="method-M000288" class="method-detail">
+        <a name="M000288"></a>
 
         <div class="method-heading">
-          <a href="#M000256" class="method-signature">
+          <a href="#M000288" class="method-signature">
           <span class="method-name">dump_summary</span><span class="method-args">(duration, example_count, failure_count, pending_count)</span>
           </a>
         </div>
@@ -300,22 +300,22 @@ This gets invoked after the summary if option is set to do so.
 This method is invoked after the dumping of examples and failures.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000256-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000256-source">
+            onclick="toggleCode('M000288-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000288-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 64</span>
-64:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_summary</span>(<span class="ruby-identifier">duration</span>, <span class="ruby-identifier">example_count</span>, <span class="ruby-identifier">failure_count</span>, <span class="ruby-identifier">pending_count</span>)
-65:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 66</span>
+66:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_summary</span>(<span class="ruby-identifier">duration</span>, <span class="ruby-identifier">example_count</span>, <span class="ruby-identifier">failure_count</span>, <span class="ruby-identifier">pending_count</span>)
+67:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000252" class="method-detail">
-        <a name="M000252"></a>
+      <div id="method-M000284" class="method-detail">
+        <a name="M000284"></a>
 
         <div class="method-heading">
-          <a href="#M000252" class="method-signature">
+          <a href="#M000284" class="method-signature">
           <span class="method-name">example_failed</span><span class="method-args">(example, counter, failure)</span>
           </a>
         </div>
@@ -328,8 +328,8 @@ occurred inside it (such as a failed should or other exception).
 <tt>failure</tt> is the associated Failure object.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000252-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000252-source">
+            onclick="toggleCode('M000284-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000284-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 41</span>
 41:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_failed</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">counter</span>, <span class="ruby-identifier">failure</span>)
@@ -339,11 +339,11 @@ occurred inside it (such as a failed should or other exception).
         </div>
       </div>
 
-      <div id="method-M000251" class="method-detail">
-        <a name="M000251"></a>
+      <div id="method-M000283" class="method-detail">
+        <a name="M000283"></a>
 
         <div class="method-heading">
-          <a href="#M000251" class="method-signature">
+          <a href="#M000283" class="method-signature">
           <span class="method-name">example_passed</span><span class="method-args">(example)</span>
           </a>
         </div>
@@ -353,8 +353,8 @@ occurred inside it (such as a failed should or other exception).
 This method is invoked when an <tt>example</tt> passes.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000251-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000251-source">
+            onclick="toggleCode('M000283-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000283-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 34</span>
 34:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_passed</span>(<span class="ruby-identifier">example</span>)
@@ -364,12 +364,12 @@ This method is invoked when an <tt>example</tt> passes.
         </div>
       </div>
 
-      <div id="method-M000253" class="method-detail">
-        <a name="M000253"></a>
+      <div id="method-M000285" class="method-detail">
+        <a name="M000285"></a>
 
         <div class="method-heading">
-          <a href="#M000253" class="method-signature">
-          <span class="method-name">example_pending</span><span class="method-args">(example, message)</span>
+          <a href="#M000285" class="method-signature">
+          <span class="method-name">example_pending</span><span class="method-args">(example, message, pending_caller)</span>
           </a>
         </div>
       
@@ -379,24 +379,26 @@ This method is invoked when an example is not yet implemented (i.e. has not
 been provided a block), or when an ExamplePendingError is raised.
 <tt>message</tt> is the message from the ExamplePendingError, if it exists,
 or the default value of &quot;Not Yet Implemented&quot;
+<tt>pending_caller</tt> is the file and line number of the spec which has
+called the pending method
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000253-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000253-source">
+            onclick="toggleCode('M000285-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000285-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 48</span>
-48:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_pending</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">message</span>)
-49:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 50</span>
+50:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_pending</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">pending_caller</span>)
+51:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000250" class="method-detail">
-        <a name="M000250"></a>
+      <div id="method-M000282" class="method-detail">
+        <a name="M000282"></a>
 
         <div class="method-heading">
-          <a href="#M000250" class="method-signature">
+          <a href="#M000282" class="method-signature">
           <span class="method-name">example_started</span><span class="method-args">(example)</span>
           </a>
         </div>
@@ -406,8 +408,8 @@ or the default value of &quot;Not Yet Implemented&quot;
 This method is invoked when an <tt>example</tt> starts.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000250-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000250-source">
+            onclick="toggleCode('M000282-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000282-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 30</span>
 30:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_started</span>(<span class="ruby-identifier">example</span>)
@@ -417,11 +419,11 @@ This method is invoked when an <tt>example</tt> starts.
         </div>
       </div>
 
-      <div id="method-M000248" class="method-detail">
-        <a name="M000248"></a>
+      <div id="method-M000280" class="method-detail">
+        <a name="M000280"></a>
 
         <div class="method-heading">
-          <a href="#M000248" class="method-signature">
+          <a href="#M000280" class="method-signature">
           <span class="method-name">start</span><span class="method-args">(example_count)</span>
           </a>
         </div>
@@ -434,11 +436,11 @@ provide progress on feedback (graphical ones)
 </p>
 <p>
 This method will only be invoked once, and the next one to be invoked is <a
-href="BaseFormatter.html#M000249">add_example_group</a>
+href="BaseFormatter.html#M000281">add_example_group</a>
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000248-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000248-source">
+            onclick="toggleCode('M000280-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000280-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 18</span>
 18:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start</span>(<span class="ruby-identifier">example_count</span>)
@@ -448,11 +450,11 @@ href="BaseFormatter.html#M000249">add_example_group</a>
         </div>
       </div>
 
-      <div id="method-M000254" class="method-detail">
-        <a name="M000254"></a>
+      <div id="method-M000286" class="method-detail">
+        <a name="M000286"></a>
 
         <div class="method-heading">
-          <a href="#M000254" class="method-signature">
+          <a href="#M000286" class="method-signature">
           <span class="method-name">start_dump</span><span class="method-args">()</span>
           </a>
         </div>
@@ -461,16 +463,16 @@ href="BaseFormatter.html#M000249">add_example_group</a>
           <p>
 This method is invoked after all of the examples have executed. The next
 method to be invoked after this one is <a
-href="BaseFormatter.html#M000255">dump_failure</a> (once for each failed
+href="BaseFormatter.html#M000287">dump_failure</a> (once for each failed
 example),
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000254-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000254-source">
+            onclick="toggleCode('M000286-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000286-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 53</span>
-53:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start_dump</span>
-54:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb, line 55</span>
+55:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start_dump</span>
+56:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

@@ -80,22 +80,23 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000519">And</a>&nbsp;&nbsp;
-      <a href="#M000516">Given</a>&nbsp;&nbsp;
-      <a href="#M000515">GivenScenario</a>&nbsp;&nbsp;
-      <a href="#M000518">Then</a>&nbsp;&nbsp;
-      <a href="#M000517">When</a>&nbsp;&nbsp;
-      <a href="#M000506">add_listener</a>&nbsp;&nbsp;
-      <a href="#M000504">create</a>&nbsp;&nbsp;
-      <a href="#M000512">errors</a>&nbsp;&nbsp;
-      <a href="#M000514">errors</a>&nbsp;&nbsp;
-      <a href="#M000505">listeners</a>&nbsp;&nbsp;
-      <a href="#M000510">run_given_scenario_with_suspended_listeners</a>&nbsp;&nbsp;
-      <a href="#M000513">start_collecting_errors</a>&nbsp;&nbsp;
-      <a href="#M000507">step_mother</a>&nbsp;&nbsp;
-      <a href="#M000509">step_names</a>&nbsp;&nbsp;
-      <a href="#M000511">store_and_call</a>&nbsp;&nbsp;
-      <a href="#M000508">use</a>&nbsp;&nbsp;
+      <a href="#M000573">And</a>&nbsp;&nbsp;
+      <a href="#M000570">Given</a>&nbsp;&nbsp;
+      <a href="#M000569">GivenScenario</a>&nbsp;&nbsp;
+      <a href="#M000572">Then</a>&nbsp;&nbsp;
+      <a href="#M000571">When</a>&nbsp;&nbsp;
+      <a href="#M000559">add_listener</a>&nbsp;&nbsp;
+      <a href="#M000557">create</a>&nbsp;&nbsp;
+      <a href="#M000566">dry_run</a>&nbsp;&nbsp;
+      <a href="#M000568">errors</a>&nbsp;&nbsp;
+      <a href="#M000565">errors</a>&nbsp;&nbsp;
+      <a href="#M000558">listeners</a>&nbsp;&nbsp;
+      <a href="#M000563">run_given_scenario_with_suspended_listeners</a>&nbsp;&nbsp;
+      <a href="#M000567">start_collecting_errors</a>&nbsp;&nbsp;
+      <a href="#M000560">step_mother</a>&nbsp;&nbsp;
+      <a href="#M000562">step_names</a>&nbsp;&nbsp;
+      <a href="#M000564">store_and_call</a>&nbsp;&nbsp;
+      <a href="#M000561">use</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -125,240 +126,263 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000506" class="method-detail">
-        <a name="M000506"></a>
+      <div id="method-M000559" class="method-detail">
+        <a name="M000559"></a>
 
         <div class="method-heading">
-          <a href="#M000506" class="method-signature">
+          <a href="#M000559" class="method-signature">
           <span class="method-name">add_listener</span><span class="method-args">(listener)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000506-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000506-source">
+            onclick="toggleCode('M000559-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000559-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 31</span>
-31:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_listener</span>(<span class="ruby-identifier">listener</span>)
-32:           <span class="ruby-identifier">listeners</span>() <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">listener</span>
-33:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 30</span>
+30:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_listener</span>(<span class="ruby-identifier">listener</span>)
+31:           <span class="ruby-identifier">listeners</span>() <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">listener</span>
+32:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000504" class="method-detail">
-        <a name="M000504"></a>
+      <div id="method-M000557" class="method-detail">
+        <a name="M000557"></a>
 
         <div class="method-heading">
-          <a href="#M000504" class="method-signature">
+          <a href="#M000557" class="method-signature">
           <span class="method-name">create</span><span class="method-args">(cls = Object, *args)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000504-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000504-source">
+            onclick="toggleCode('M000557-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000557-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 23</span>
-23:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>(<span class="ruby-identifier">cls</span> = <span class="ruby-constant">Object</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-24:           <span class="ruby-identifier">cls</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>).<span class="ruby-identifier">extend</span>(<span class="ruby-constant">World</span>)
-25:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 22</span>
+22:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>(<span class="ruby-identifier">cls</span> = <span class="ruby-constant">Object</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+23:           <span class="ruby-identifier">cls</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>).<span class="ruby-identifier">extend</span>(<span class="ruby-constant">World</span>)
+24:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000512" class="method-detail">
-        <a name="M000512"></a>
+      <div id="method-M000566" class="method-detail">
+        <a name="M000566"></a>
 
         <div class="method-heading">
-          <a href="#M000512" class="method-signature">
+          <a href="#M000566" class="method-signature">
+          <span class="method-name">dry_run</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000566-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000566-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 90</span>
+90:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dry_run</span>
+91:           <span class="ruby-operator">::</span><span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Story</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">dry_run</span>
+92:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000565" class="method-detail">
+        <a name="M000565"></a>
+
+        <div class="method-heading">
+          <a href="#M000565" class="method-signature">
           <span class="method-name">errors</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000512-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000512-source">
+            onclick="toggleCode('M000565-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000565-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 87</span>
-87:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">errors</span>
-88:           <span class="ruby-ivar">@errors</span> <span class="ruby-operator">||=</span> []
-89:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 86</span>
+86:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">errors</span>
+87:           <span class="ruby-ivar">@errors</span> <span class="ruby-operator">||=</span> []
+88:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000505" class="method-detail">
-        <a name="M000505"></a>
+      <div id="method-M000558" class="method-detail">
+        <a name="M000558"></a>
 
         <div class="method-heading">
-          <a href="#M000505" class="method-signature">
+          <a href="#M000558" class="method-signature">
           <span class="method-name">listeners</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000505-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000505-source">
+            onclick="toggleCode('M000558-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000558-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 27</span>
-27:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">listeners</span>
-28:           <span class="ruby-ivar">@listeners</span> <span class="ruby-operator">||=</span> []
-29:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 26</span>
+26:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">listeners</span>
+27:           <span class="ruby-ivar">@listeners</span> <span class="ruby-operator">||=</span> []
+28:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000510" class="method-detail">
-        <a name="M000510"></a>
+      <div id="method-M000563" class="method-detail">
+        <a name="M000563"></a>
 
         <div class="method-heading">
-          <a href="#M000510" class="method-signature">
+          <a href="#M000563" class="method-signature">
           <span class="method-name">run_given_scenario_with_suspended_listeners</span><span class="method-args">(world, type, name, scenario)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000510-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000510-source">
+            onclick="toggleCode('M000563-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000563-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 47</span>
-47:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_given_scenario_with_suspended_listeners</span>(<span class="ruby-identifier">world</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">scenario</span>)
-48:           <span class="ruby-identifier">current_listeners</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">listeners</span>)
-49:           <span class="ruby-keyword kw">begin</span>
-50:             <span class="ruby-identifier">listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">found_scenario</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">name</span>) }
-51:             <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">clear</span>
-52:             <span class="ruby-identifier">scenario</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">world</span>, <span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-operator">::</span><span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Story</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">dry_run</span>
-53:           <span class="ruby-keyword kw">ensure</span>
-54:             <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">current_listeners</span>)
-55:           <span class="ruby-keyword kw">end</span>
-56:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 46</span>
+46:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_given_scenario_with_suspended_listeners</span>(<span class="ruby-identifier">world</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">scenario</span>)
+47:           <span class="ruby-identifier">current_listeners</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">listeners</span>)
+48:           <span class="ruby-keyword kw">begin</span>
+49:             <span class="ruby-identifier">listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">found_scenario</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">name</span>) }
+50:             <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">clear</span>
+51:             <span class="ruby-identifier">scenario</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">world</span>, <span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">dry_run</span>
+52:           <span class="ruby-keyword kw">ensure</span>
+53:             <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">current_listeners</span>)
+54:           <span class="ruby-keyword kw">end</span>
+55:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000507" class="method-detail">
-        <a name="M000507"></a>
+      <div id="method-M000560" class="method-detail">
+        <a name="M000560"></a>
 
         <div class="method-heading">
-          <a href="#M000507" class="method-signature">
+          <a href="#M000560" class="method-signature">
           <span class="method-name">step_mother</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000507-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000507-source">
+            onclick="toggleCode('M000560-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000560-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 35</span>
-35:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">step_mother</span>
-36:           <span class="ruby-ivar">@step_mother</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">StepMother</span>.<span class="ruby-identifier">new</span>
-37:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 34</span>
+34:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">step_mother</span>
+35:           <span class="ruby-ivar">@step_mother</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">StepMother</span>.<span class="ruby-identifier">new</span>
+36:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000509" class="method-detail">
-        <a name="M000509"></a>
+      <div id="method-M000562" class="method-detail">
+        <a name="M000562"></a>
 
         <div class="method-heading">
-          <a href="#M000509" class="method-signature">
+          <a href="#M000562" class="method-signature">
           <span class="method-name">step_names</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000509-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000509-source">
+            onclick="toggleCode('M000562-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000562-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 43</span>
-43:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">step_names</span>
-44:           <span class="ruby-ivar">@step_names</span> <span class="ruby-operator">||=</span> []
-45:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 42</span>
+42:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">step_names</span>
+43:           <span class="ruby-ivar">@step_names</span> <span class="ruby-operator">||=</span> []
+44:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000511" class="method-detail">
-        <a name="M000511"></a>
+      <div id="method-M000564" class="method-detail">
+        <a name="M000564"></a>
 
         <div class="method-heading">
-          <a href="#M000511" class="method-signature">
+          <a href="#M000564" class="method-signature">
           <span class="method-name">store_and_call</span><span class="method-args">(world, type, name, *args, &amp;block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000511-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000511-source">
+            onclick="toggleCode('M000564-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000564-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 58</span>
-58:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">store_and_call</span>(<span class="ruby-identifier">world</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-59:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
-60:             <span class="ruby-identifier">step_mother</span>.<span class="ruby-identifier">store</span>(<span class="ruby-identifier">type</span>, <span class="ruby-constant">Step</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>))
-61:           <span class="ruby-keyword kw">end</span>
-62:           <span class="ruby-identifier">step</span> = <span class="ruby-identifier">step_mother</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">name</span>)
-63: 
-64:           <span class="ruby-identifier">step_name</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">name</span>
-65:           <span class="ruby-identifier">step_names</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">step_name</span>
-66:           
-67:           <span class="ruby-comment cmt"># It's important to have access to the parsed args here, so</span>
-68:           <span class="ruby-comment cmt"># we can give them to the listeners. The HTML reporter needs</span>
-69:           <span class="ruby-comment cmt"># the args so it can style them. See the generated output in</span>
-70:           <span class="ruby-comment cmt"># story_server/prototype/rspec_stories.html (generated by rake stories)</span>
-71:           <span class="ruby-identifier">args</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">parse_args</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span>
-72:           <span class="ruby-keyword kw">begin</span>
-73:             <span class="ruby-identifier">listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">step_upcoming</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">step_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) }
-74:             <span class="ruby-identifier">step</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">world</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-operator">::</span><span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Story</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">dry_run</span>
-75:             <span class="ruby-identifier">listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">step_succeeded</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">step_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) }
-76:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-77:             <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">e</span>
-78:             <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Example</span><span class="ruby-operator">::</span><span class="ruby-constant">ExamplePendingError</span>
-79:               <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">step_pending</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">step_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) }
-80:             <span class="ruby-keyword kw">else</span>
-81:               <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">step_failed</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">step_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) }
-82:             <span class="ruby-keyword kw">end</span>
-83:             <span class="ruby-identifier">errors</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>
-84:           <span class="ruby-keyword kw">end</span>
-85:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 57</span>
+57:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">store_and_call</span>(<span class="ruby-identifier">world</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+58:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+59:             <span class="ruby-identifier">step_mother</span>.<span class="ruby-identifier">store</span>(<span class="ruby-identifier">type</span>, <span class="ruby-constant">Step</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>))
+60:           <span class="ruby-keyword kw">end</span>
+61:           <span class="ruby-identifier">step</span> = <span class="ruby-identifier">step_mother</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">name</span>)
+62: 
+63:           <span class="ruby-identifier">step_name</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">name</span>
+64:           <span class="ruby-identifier">step_names</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">step_name</span>
+65:           
+66:           <span class="ruby-comment cmt"># It's important to have access to the parsed args here, so</span>
+67:           <span class="ruby-comment cmt"># we can give them to the listeners. The HTML reporter needs</span>
+68:           <span class="ruby-comment cmt"># the args so it can style them. See the generated output in</span>
+69:           <span class="ruby-comment cmt"># story_server/prototype/rspec_stories.html (generated by rake stories)</span>
+70:           <span class="ruby-identifier">args</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">parse_args</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span>
+71:           <span class="ruby-keyword kw">begin</span>
+72:             <span class="ruby-identifier">listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">step_upcoming</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">step_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) }
+73:             <span class="ruby-identifier">step</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">world</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">dry_run</span>
+74:             <span class="ruby-identifier">listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">step_succeeded</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">step_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) }
+75:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+76:             <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">e</span>
+77:             <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Example</span><span class="ruby-operator">::</span><span class="ruby-constant">ExamplePendingError</span>
+78:               <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">step_pending</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">step_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) }
+79:             <span class="ruby-keyword kw">else</span>
+80:               <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">step_failed</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">step_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) }
+81:             <span class="ruby-keyword kw">end</span>
+82:             <span class="ruby-identifier">errors</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>
+83:           <span class="ruby-keyword kw">end</span>
+84:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000508" class="method-detail">
-        <a name="M000508"></a>
+      <div id="method-M000561" class="method-detail">
+        <a name="M000561"></a>
 
         <div class="method-heading">
-          <a href="#M000508" class="method-signature">
+          <a href="#M000561" class="method-signature">
           <span class="method-name">use</span><span class="method-args">(steps)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000508-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000508-source">
+            onclick="toggleCode('M000561-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000561-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 39</span>
-39:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">use</span>(<span class="ruby-identifier">steps</span>)
-40:           <span class="ruby-identifier">step_mother</span>.<span class="ruby-identifier">use</span>(<span class="ruby-identifier">steps</span>)
-41:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 38</span>
+38:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">use</span>(<span class="ruby-identifier">steps</span>)
+39:           <span class="ruby-identifier">step_mother</span>.<span class="ruby-identifier">use</span>(<span class="ruby-identifier">steps</span>)
+40:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -366,166 +390,166 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000519" class="method-detail">
-        <a name="M000519"></a>
+      <div id="method-M000573" class="method-detail">
+        <a name="M000573"></a>
 
         <div class="method-heading">
-          <a href="#M000519" class="method-signature">
+          <a href="#M000573" class="method-signature">
           <span class="method-name">And</span><span class="method-args">(name, *args, &amp;block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000519-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000519-source">
+            onclick="toggleCode('M000573-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000573-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 120</span>
-120:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">And</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-121:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">store_and_call</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-ivar">@__previous_step</span>, <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
-122:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 123</span>
+123:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">And</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+124:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">store_and_call</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-ivar">@__previous_step</span>, <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+125:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000516" class="method-detail">
-        <a name="M000516"></a>
+      <div id="method-M000570" class="method-detail">
+        <a name="M000570"></a>
 
         <div class="method-heading">
-          <a href="#M000516" class="method-signature">
+          <a href="#M000570" class="method-signature">
           <span class="method-name">Given</span><span class="method-args">(name, *args, &amp;block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000516-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000516-source">
+            onclick="toggleCode('M000570-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000570-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 105</span>
-105:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Given</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-106:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">store_and_call</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:given</span>, <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
-107:         <span class="ruby-ivar">@__previous_step</span> = <span class="ruby-identifier">:given</span>
-108:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 108</span>
+108:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Given</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+109:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">store_and_call</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:given</span>, <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+110:         <span class="ruby-ivar">@__previous_step</span> = <span class="ruby-identifier">:given</span>
+111:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000515" class="method-detail">
-        <a name="M000515"></a>
+      <div id="method-M000569" class="method-detail">
+        <a name="M000569"></a>
 
         <div class="method-heading">
-          <a href="#M000515" class="method-signature">
+          <a href="#M000569" class="method-signature">
           <span class="method-name">GivenScenario</span><span class="method-args">(name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000515-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000515-source">
+            onclick="toggleCode('M000569-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000569-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 100</span>
-100:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">GivenScenario</span>(<span class="ruby-identifier">name</span>)
-101:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">run_given_scenario_with_suspended_listeners</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-value str">'given scenario'</span><span class="ruby-value str">'given scenario'</span>, <span class="ruby-identifier">name</span>, <span class="ruby-constant">GivenScenario</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>))
-102:         <span class="ruby-ivar">@__previous_step</span> = <span class="ruby-identifier">:given</span>
-103:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 103</span>
+103:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">GivenScenario</span>(<span class="ruby-identifier">name</span>)
+104:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">run_given_scenario_with_suspended_listeners</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-value str">'given scenario'</span><span class="ruby-value str">'given scenario'</span>, <span class="ruby-identifier">name</span>, <span class="ruby-constant">GivenScenario</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>))
+105:         <span class="ruby-ivar">@__previous_step</span> = <span class="ruby-identifier">:given</span>
+106:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000518" class="method-detail">
-        <a name="M000518"></a>
+      <div id="method-M000572" class="method-detail">
+        <a name="M000572"></a>
 
         <div class="method-heading">
-          <a href="#M000518" class="method-signature">
+          <a href="#M000572" class="method-signature">
           <span class="method-name">Then</span><span class="method-args">(name, *args, &amp;block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000518-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000518-source">
+            onclick="toggleCode('M000572-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000572-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 115</span>
-115:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Then</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-116:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">store_and_call</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:then</span>, <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
-117:         <span class="ruby-ivar">@__previous_step</span> = <span class="ruby-identifier">:then</span>
-118:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 118</span>
+118:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Then</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+119:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">store_and_call</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:then</span>, <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+120:         <span class="ruby-ivar">@__previous_step</span> = <span class="ruby-identifier">:then</span>
+121:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000517" class="method-detail">
-        <a name="M000517"></a>
+      <div id="method-M000571" class="method-detail">
+        <a name="M000571"></a>
 
         <div class="method-heading">
-          <a href="#M000517" class="method-signature">
+          <a href="#M000571" class="method-signature">
           <span class="method-name">When</span><span class="method-args">(name, *args, &amp;block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000517-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000517-source">
+            onclick="toggleCode('M000571-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000571-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 110</span>
-110:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">When</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-111:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">store_and_call</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:when</span>, <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
-112:         <span class="ruby-ivar">@__previous_step</span> = <span class="ruby-identifier">:when</span>
-113:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 113</span>
+113:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">When</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+114:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">store_and_call</span> <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">:when</span>, <span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+115:         <span class="ruby-ivar">@__previous_step</span> = <span class="ruby-identifier">:when</span>
+116:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000514" class="method-detail">
-        <a name="M000514"></a>
+      <div id="method-M000568" class="method-detail">
+        <a name="M000568"></a>
 
         <div class="method-heading">
-          <a href="#M000514" class="method-signature">
+          <a href="#M000568" class="method-signature">
           <span class="method-name">errors</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000514-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000514-source">
+            onclick="toggleCode('M000568-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000568-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 96</span>
-96:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">errors</span>
-97:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">errors</span>
-98:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 99</span>
+ 99:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">errors</span>
+100:         <span class="ruby-constant">World</span>.<span class="ruby-identifier">errors</span>
+101:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000513" class="method-detail">
-        <a name="M000513"></a>
+      <div id="method-M000567" class="method-detail">
+        <a name="M000567"></a>
 
         <div class="method-heading">
-          <a href="#M000513" class="method-signature">
+          <a href="#M000567" class="method-signature">
           <span class="method-name">start_collecting_errors</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000513-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000513-source">
+            onclick="toggleCode('M000567-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000567-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 92</span>
-92:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start_collecting_errors</span>
-93:         <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">clear</span>
-94:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/world.rb, line 95</span>
+95:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start_collecting_errors</span>
+96:         <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">clear</span>
+97:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

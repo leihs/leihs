@@ -94,7 +94,7 @@ Tweaks raised Exceptions to mask noisy (unneeded) parts of the backtrace
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000337">tweak_backtrace</a>&nbsp;&nbsp;
+      <a href="#M000377">tweak_backtrace</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -114,7 +114,7 @@ Tweaks raised Exceptions to mask noisy (unneeded) parts of the backtrace
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">IGNORE_PATTERNS</td>
           <td>=</td>
-          <td class="context-item-value">spec_files + [           /\/lib\/ruby\//,           /bin\/spec:/,           /bin\/rcov:/,           /lib\/rspec_on_rails/,           /vendor\/rails/,           # TextMate's Ruby and RSpec plugins           /Ruby\.tmbundle\/Support\/tmruby.rb:/,           /RSpec\.tmbundle\/Support\/lib/,           /temp_textmate\./,           /mock_frameworks\/rspec/,           /spec_server/</td>
+          <td class="context-item-value">spec_files + [           /\/lib\/ruby\//,           /bin\/spec:/,           /bin\/rcov:/,           /lib\/rspec-rails/,           /vendor\/rails/,           # TextMate's Ruby and RSpec plugins           /Ruby\.tmbundle\/Support\/tmruby.rb:/,           /RSpec\.tmbundle\/Support\/lib/,           /temp_textmate\./,           /mock_frameworks\/rspec/,           /spec_server/</td>
         </tr>
         </table>
       </div>
@@ -129,35 +129,34 @@ Tweaks raised Exceptions to mask noisy (unneeded) parts of the backtrace
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000337" class="method-detail">
-        <a name="M000337"></a>
+      <div id="method-M000377" class="method-detail">
+        <a name="M000377"></a>
 
         <div class="method-heading">
-          <a href="#M000337" class="method-signature">
+          <a href="#M000377" class="method-signature">
           <span class="method-name">tweak_backtrace</span><span class="method-args">(error)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000337-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000337-source">
+            onclick="toggleCode('M000377-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000377-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/backtrace_tweaker.rb, line 41</span>
 41:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tweak_backtrace</span>(<span class="ruby-identifier">error</span>)
 42:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">error</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">nil?</span>
-43:         <span class="ruby-identifier">error</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">collect!</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
-44:           <span class="ruby-identifier">clean_up_double_slashes</span>(<span class="ruby-identifier">line</span>)
-45:           <span class="ruby-constant">IGNORE_PATTERNS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ignore</span><span class="ruby-operator">|</span>
-46:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">ignore</span>
-47:               <span class="ruby-identifier">line</span> = <span class="ruby-keyword kw">nil</span>
-48:               <span class="ruby-keyword kw">break</span>
-49:             <span class="ruby-keyword kw">end</span>
-50:           <span class="ruby-keyword kw">end</span>
-51:           <span class="ruby-identifier">line</span>
-52:         <span class="ruby-keyword kw">end</span>
-53:         <span class="ruby-identifier">error</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">compact!</span>
-54:       <span class="ruby-keyword kw">end</span>
+43:         <span class="ruby-identifier">error</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">collect!</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">message</span><span class="ruby-operator">|</span>
+44:           <span class="ruby-identifier">clean_up_double_slashes</span>(<span class="ruby-identifier">message</span>)
+45:           <span class="ruby-identifier">kept_lines</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">select</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+46:             <span class="ruby-constant">IGNORE_PATTERNS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ignore</span><span class="ruby-operator">|</span>
+47:               <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">ignore</span>
+48:             <span class="ruby-keyword kw">end</span>
+49:           <span class="ruby-keyword kw">end</span>
+50:           <span class="ruby-identifier">kept_lines</span>.<span class="ruby-identifier">empty?</span><span class="ruby-value">? </span><span class="ruby-keyword kw">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">kept_lines</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+51:         <span class="ruby-keyword kw">end</span>
+52:         <span class="ruby-identifier">error</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">compact!</span>
+53:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

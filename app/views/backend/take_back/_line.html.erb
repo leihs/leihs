@@ -19,9 +19,9 @@
 		</td>
 		<td id="inventory_code_<%= @line.id %>" class="line_valid_<%= @line.complete? %>">
 			<%= greybox_link_to_page(@line.item.inventory_code,
-			 backend_inventory_pool_item_path(@line.item), # TODO 22** render without layout
-			 :title => _("Item"),
-			 :class => "iconized-notxt" ) %>
+				 backend_inventory_pool_item_path(@current_inventory_pool, @line.item), # TODO 22** render without layout
+				 :title => _("Item"),
+				 :class => "iconized-notxt" ) %>
 		</td>
 		<td class="buttons">
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/flag_red.png") + " " + _("Broken"),

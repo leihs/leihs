@@ -88,12 +88,13 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000178">create_example_group</a>&nbsp;&nbsp;
-      <a href="#M000176">default</a>&nbsp;&nbsp;
-      <a href="#M000179">determine_superclass</a>&nbsp;&nbsp;
-      <a href="#M000177">get</a>&nbsp;&nbsp;
-      <a href="#M000175">register</a>&nbsp;&nbsp;
-      <a href="#M000174">reset</a>&nbsp;&nbsp;
+      <a href="#M000191">all_registered?</a>&nbsp;&nbsp;
+      <a href="#M000195">create_example_group</a>&nbsp;&nbsp;
+      <a href="#M000193">default</a>&nbsp;&nbsp;
+      <a href="#M000196">determine_superclass</a>&nbsp;&nbsp;
+      <a href="#M000194">get</a>&nbsp;&nbsp;
+      <a href="#M000192">register</a>&nbsp;&nbsp;
+      <a href="#M000190">reset</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -115,93 +116,119 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000178" class="method-detail">
-        <a name="M000178"></a>
+      <div id="method-M000191" class="method-detail">
+        <a name="M000191"></a>
 
         <div class="method-heading">
-          <a href="#M000178" class="method-signature">
+          <a href="#M000191" class="method-signature">
+          <span class="method-name">all_registered?</span><span class="method-args">(example_group_classes)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000191-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000191-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 10</span>
+10:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">all_registered?</span>(<span class="ruby-identifier">example_group_classes</span>)
+11:           <span class="ruby-identifier">example_group_classes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">example_group_class</span><span class="ruby-operator">|</span>
+12:             <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">registered_or_ancestor_of_registered?</span> <span class="ruby-identifier">example_group_class</span>
+13:           <span class="ruby-keyword kw">end</span>
+14:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+15:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000195" class="method-detail">
+        <a name="M000195"></a>
+
+        <div class="method-heading">
+          <a href="#M000195" class="method-signature">
           <span class="method-name">create_example_group</span><span class="method-args">(*args, &amp;block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000178-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000178-source">
+            onclick="toggleCode('M000195-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000195-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 37</span>
-37:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_example_group</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-38:           <span class="ruby-identifier">opts</span> = <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span> <span class="ruby-value">? </span><span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">:</span> {}
-39:           <span class="ruby-identifier">superclass</span> = <span class="ruby-identifier">determine_superclass</span>(<span class="ruby-identifier">opts</span>)
-40:           <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">describe</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-41:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 50</span>
+50:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_example_group</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+51:           <span class="ruby-identifier">opts</span> = <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span> <span class="ruby-value">? </span><span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">:</span> {}
+52:           <span class="ruby-identifier">superclass</span> = <span class="ruby-identifier">determine_superclass</span>(<span class="ruby-identifier">opts</span>)
+53:           <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">describe</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+54:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000176" class="method-detail">
-        <a name="M000176"></a>
+      <div id="method-M000193" class="method-detail">
+        <a name="M000193"></a>
 
         <div class="method-heading">
-          <a href="#M000176" class="method-signature">
+          <a href="#M000193" class="method-signature">
           <span class="method-name">default</span><span class="method-args">(example_group_class)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Sets the <a href="ExampleGroupFactory.html#M000176">default</a> <a
+Sets the <a href="ExampleGroupFactory.html#M000193">default</a> <a
 href="ExampleGroup.html">ExampleGroup</a> class
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000176-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000176-source">
+            onclick="toggleCode('M000193-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000193-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 23</span>
-23:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default</span>(<span class="ruby-identifier">example_group_class</span>)
-24:           <span class="ruby-identifier">old</span> = <span class="ruby-ivar">@example_group_types</span>
-25:           <span class="ruby-ivar">@example_group_types</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">example_group_class</span>)
-26:           <span class="ruby-ivar">@example_group_types</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">old</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">old</span>
-27:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 36</span>
+36:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default</span>(<span class="ruby-identifier">example_group_class</span>)
+37:           <span class="ruby-identifier">old</span> = <span class="ruby-ivar">@example_group_types</span>
+38:           <span class="ruby-ivar">@example_group_types</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">example_group_class</span>)
+39:           <span class="ruby-ivar">@example_group_types</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">old</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">old</span>
+40:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000177" class="method-detail">
-        <a name="M000177"></a>
+      <div id="method-M000194" class="method-detail">
+        <a name="M000194"></a>
 
         <div class="method-heading">
-          <a href="#M000177" class="method-signature">
-          <span class="method-name">get</span><span class="method-args">(id=nil)</span>
+          <a href="#M000194" class="method-signature">
+          <span class="method-name">get</span><span class="method-args">(key=nil)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000177-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000177-source">
+            onclick="toggleCode('M000194-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000194-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 29</span>
-29:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get</span>(<span class="ruby-identifier">id</span>=<span class="ruby-keyword kw">nil</span>)
-30:           <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@example_group_types</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">id</span>)
-31:             <span class="ruby-identifier">id</span>
-32:           <span class="ruby-keyword kw">else</span>
-33:             <span class="ruby-ivar">@example_group_types</span>[<span class="ruby-identifier">id</span>]
-34:           <span class="ruby-keyword kw">end</span>
-35:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 42</span>
+42:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get</span>(<span class="ruby-identifier">key</span>=<span class="ruby-keyword kw">nil</span>)
+43:           <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@example_group_types</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+44:             <span class="ruby-identifier">key</span>
+45:           <span class="ruby-keyword kw">else</span>
+46:             <span class="ruby-ivar">@example_group_types</span>[<span class="ruby-identifier">key</span>]
+47:           <span class="ruby-keyword kw">end</span>
+48:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000175" class="method-detail">
-        <a name="M000175"></a>
+      <div id="method-M000192" class="method-detail">
+        <a name="M000192"></a>
 
         <div class="method-heading">
-          <a href="#M000175" class="method-signature">
-          <span class="method-name">register</span><span class="method-args">(id, example_group_class)</span>
+          <a href="#M000192" class="method-signature">
+          <span class="method-name">register</span><span class="method-args">(key, example_group_class)</span>
           </a>
         </div>
       
@@ -211,39 +238,47 @@ Registers an example group class <tt>klass</tt> with the symbol
 <tt>type</tt>. For example:
 </p>
 <pre>
-  Spec::Example::ExampleGroupFactory.register(:farm, Spec::Farm::Example::FarmExampleGroup)
+  Spec::Example::ExampleGroupFactory.register(:farm, FarmExampleGroup)
 </pre>
 <p>
-This will cause Main#describe from a file living in <tt>spec/farm</tt> to
-create example group instances of type
-Spec::Farm::Example::FarmExampleGroup.
+With that you can append a hash with :type =&gt; :farm to the describe
+method and it will load an instance of FarmExampleGroup.
+</p>
+<pre>
+  describe Pig, :type =&gt; :farm do
+    ...
+</pre>
+<p>
+If you don&#8216;t use the hash explicitly, <tt>describe</tt> will
+implicitly use an instance of FarmExampleGroup for any file loaded from the
+<tt>./spec/farm</tt> directory.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000175-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000175-source">
+            onclick="toggleCode('M000192-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000192-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 18</span>
-18:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">register</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">example_group_class</span>)
-19:           <span class="ruby-ivar">@example_group_types</span>[<span class="ruby-identifier">id</span>] = <span class="ruby-identifier">example_group_class</span>
-20:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 31</span>
+31:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">register</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">example_group_class</span>)
+32:           <span class="ruby-ivar">@example_group_types</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">example_group_class</span>
+33:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000174" class="method-detail">
-        <a name="M000174"></a>
+      <div id="method-M000190" class="method-detail">
+        <a name="M000190"></a>
 
         <div class="method-heading">
-          <a href="#M000174" class="method-signature">
+          <a href="#M000190" class="method-signature">
           <span class="method-name">reset</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000174-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000174-source">
+            onclick="toggleCode('M000190-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000190-source">
 <pre>
    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 5</span>
 5:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset</span>
@@ -257,29 +292,29 @@ Spec::Farm::Example::FarmExampleGroup.
 
       <h3 class="section-bar">Protected Class methods</h3>
 
-      <div id="method-M000179" class="method-detail">
-        <a name="M000179"></a>
+      <div id="method-M000196" class="method-detail">
+        <a name="M000196"></a>
 
         <div class="method-heading">
-          <a href="#M000179" class="method-signature">
+          <a href="#M000196" class="method-signature">
           <span class="method-name">determine_superclass</span><span class="method-args">(opts)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000179-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000179-source">
+            onclick="toggleCode('M000196-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000196-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 45</span>
-45:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">determine_superclass</span>(<span class="ruby-identifier">opts</span>)
-46:           <span class="ruby-identifier">id</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:type</span>]
-47:             <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:type</span>]
-48:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:spec_path</span>] <span class="ruby-operator">=~</span> <span class="ruby-node">/spec(\\|\/)(#{@example_group_types.keys.join('|')})/</span>
-49:             <span class="ruby-identifier">$2</span> <span class="ruby-operator">==</span> <span class="ruby-value str">''</span> <span class="ruby-operator">?</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">$2</span>.<span class="ruby-identifier">to_sym</span>
-50:           <span class="ruby-keyword kw">end</span>
-51:           <span class="ruby-identifier">get</span>(<span class="ruby-identifier">id</span>)
-52:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_group_factory.rb, line 58</span>
+58:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">determine_superclass</span>(<span class="ruby-identifier">opts</span>)
+59:           <span class="ruby-identifier">key</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:type</span>]
+60:             <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:type</span>]
+61:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">opts</span>[<span class="ruby-identifier">:spec_path</span>] <span class="ruby-operator">=~</span> <span class="ruby-node">/spec(\\|\/)(#{@example_group_types.keys.join('|')})/</span>
+62:             <span class="ruby-identifier">$2</span> <span class="ruby-operator">==</span> <span class="ruby-value str">''</span> <span class="ruby-operator">?</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">$2</span>.<span class="ruby-identifier">to_sym</span>
+63:           <span class="ruby-keyword kw">end</span>
+64:           <span class="ruby-identifier">get</span>(<span class="ruby-identifier">key</span>)
+65:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

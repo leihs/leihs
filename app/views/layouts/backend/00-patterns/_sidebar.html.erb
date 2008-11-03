@@ -1,32 +1,38 @@
 <ul>
-	<li><%= link_to _('Orders') + " (#{@current_inventory_pool.orders.size})", backend_inventory_pool_orders_path %></li>
-	<li><%= link_to _('Contracts') + " (#{@current_inventory_pool.contracts.size})", backend_inventory_pool_contracts_path %></li>
+	<li><%= link_to _('Orders') + " (#{@current_inventory_pool.orders.size})", :controller => 'orders' %></li>
+	<li><hr /></li>
+	<li><%= link_to _('Contracts') + " (#{@current_inventory_pool.contracts.size})", :controller => 'contracts' %></li>
+	<li><hr /></li>
 	<li><%= _('Items') %>
 		<ul>
-		<li><%= link_to _('All') + " (#{@current_inventory_pool.items.size})", backend_inventory_pool_items_path %></li>
-		<li><%= link_to _('In Repair') + " (#{@current_inventory_pool.items.in_repair.size})", backend_inventory_pool_items_path(:filter => 'in_repair') %></li>
+			<li><%= link_to _('All') + " (#{@current_inventory_pool.items.size})", :controller => 'items' %></li>
+			<li><%= link_to _('In Repair') + " (#{@current_inventory_pool.items.in_repair.size})", :controller => 'items', :filter => 'in_repair' %></li>
 		</ul>	
 	</li>
+	<li><hr /></li>
 	<li><%= _('Models') %>
 		<ul>
-		<li><%= link_to _('All') + " (#{@current_inventory_pool.models.size})", backend_inventory_pool_models_path %></li>
-		<li><%= link_to _('Packages') + " (#{@current_inventory_pool.models.packages.size})", backend_inventory_pool_models_path(:filter => 'packages') %></li>
+			<li><%= link_to _('All') + " (#{@current_inventory_pool.models.size})", :controller => 'models' %></li>
+			<li><%= link_to _('Packages') + " (#{@current_inventory_pool.models.packages.size})", :controller => 'models', :filter => 'packages' %></li>
 		</ul>	
 	</li>
+	<li><hr /></li>
 	<li><%= _('Locations') %>
 		<ul>
-		<li><%= link_to _('All') + " (#{@current_inventory_pool.locations.size})", backend_inventory_pool_locations_path %></li>
+			<li><%= link_to _('All') + " (#{@current_inventory_pool.locations.size})", :controller => 'locations' %></li>
 		</ul>	
 	</li>
+	<li><hr /></li>
 	<li><%= _('Users') %>
 		<ul>
-		<li><%= link_to _('All') + " (#{@current_inventory_pool.users.size})", backend_inventory_pool_users_path %></li>
-		<li><%= link_to _('Managers') + " (#{@current_inventory_pool.managers.size})", backend_inventory_pool_users_path(:filter => 'managers') %></li>
-		<li><%= link_to _('Students') + " (#{@current_inventory_pool.students.size})", backend_inventory_pool_users_path(:filter => 'students') %></li>
+			<li><%= link_to _('All') + " (#{@current_inventory_pool.users.size})", :controller => 'users' %></li>
+			<li><%= link_to _('Managers') + " (#{@current_inventory_pool.managers.size})", :controller => 'users', :filter => 'managers' %></li>
+			<li><%= link_to _('Students') + " (#{@current_inventory_pool.students.size})", :controller => 'users', :filter => 'students' %></li>
 		</ul>	
 	</li>
+	<li><hr /></li>
 	<li><%= _("Opening Times")%></li>
 		<ul>
-			<li><%= link_to _("Opening Times"), backend_inventory_pool_workdays_path %></li>
+			<li><%= link_to _("Opening Times"), :controller => 'workdays' %></li>
 		</ul>
 </ul>

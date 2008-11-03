@@ -88,11 +88,11 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000559">[]</a>&nbsp;&nbsp;
-      <a href="#M000561">assign_steps_to</a>&nbsp;&nbsp;
-      <a href="#M000558">new</a>&nbsp;&nbsp;
-      <a href="#M000560">run_in</a>&nbsp;&nbsp;
-      <a href="#M000562">steps_for</a>&nbsp;&nbsp;
+      <a href="#M000611">[]</a>&nbsp;&nbsp;
+      <a href="#M000613">assign_steps_to</a>&nbsp;&nbsp;
+      <a href="#M000610">new</a>&nbsp;&nbsp;
+      <a href="#M000612">run_in</a>&nbsp;&nbsp;
+      <a href="#M000614">steps_for</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -132,19 +132,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000558" class="method-detail">
-        <a name="M000558"></a>
+      <div id="method-M000610" class="method-detail">
+        <a name="M000610"></a>
 
         <div class="method-heading">
-          <a href="#M000558" class="method-signature">
+          <a href="#M000610" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(title, narrative, params = {}, &amp;body)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000558-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000558-source">
+            onclick="toggleCode('M000610-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000610-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/story.rb, line 6</span>
  6:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">title</span>, <span class="ruby-identifier">narrative</span>, <span class="ruby-identifier">params</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">body</span>)
@@ -160,19 +160,19 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000559" class="method-detail">
-        <a name="M000559"></a>
+      <div id="method-M000611" class="method-detail">
+        <a name="M000611"></a>
 
         <div class="method-heading">
-          <a href="#M000559" class="method-signature">
+          <a href="#M000611" class="method-signature">
           <span class="method-name">[]</span><span class="method-args">(key)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000559-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000559-source">
+            onclick="toggleCode('M000611-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000611-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/story.rb, line 13</span>
 13:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">key</span>)
@@ -183,54 +183,51 @@
         </div>
       </div>
 
-      <div id="method-M000561" class="method-detail">
-        <a name="M000561"></a>
+      <div id="method-M000613" class="method-detail">
+        <a name="M000613"></a>
 
         <div class="method-heading">
-          <a href="#M000561" class="method-signature">
+          <a href="#M000613" class="method-signature">
           <span class="method-name">assign_steps_to</span><span class="method-args">(assignee)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000561-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000561-source">
+            onclick="toggleCode('M000613-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000613-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/story.rb, line 21</span>
 21:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">assign_steps_to</span>(<span class="ruby-identifier">assignee</span>)
-22:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:steps</span>]
-23:           <span class="ruby-identifier">assignee</span>.<span class="ruby-identifier">use</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:steps</span>])
-24:         <span class="ruby-keyword kw">else</span>
-25:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">keys</span> = <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:steps_for</span>]
-26:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Symbol</span>
-27:             <span class="ruby-identifier">keys</span> = [<span class="ruby-identifier">keys</span>]
-28:           <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">nil</span>
-29:             <span class="ruby-identifier">keys</span> = []
+22:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">steps</span>=<span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:steps_for</span>]
+23:           <span class="ruby-identifier">steps</span> = [<span class="ruby-identifier">steps</span>] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">steps</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+24:           <span class="ruby-identifier">steps</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">step</span><span class="ruby-operator">|</span>
+25:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">step</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">StepGroup</span>)
+26:               <span class="ruby-identifier">assignee</span>.<span class="ruby-identifier">use</span>(<span class="ruby-identifier">step</span>)
+27:             <span class="ruby-keyword kw">else</span>
+28:               <span class="ruby-identifier">assignee</span>.<span class="ruby-identifier">use</span>(<span class="ruby-identifier">steps_for</span>(<span class="ruby-identifier">step</span>))
+29:             <span class="ruby-keyword kw">end</span>
 30:           <span class="ruby-keyword kw">end</span>
-31:           <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
-32:             <span class="ruby-identifier">assignee</span>.<span class="ruby-identifier">use</span>(<span class="ruby-identifier">steps_for</span>(<span class="ruby-identifier">key</span>))
-33:           <span class="ruby-keyword kw">end</span>
-34:         <span class="ruby-keyword kw">end</span>
-35:       <span class="ruby-keyword kw">end</span>
+31:         <span class="ruby-keyword kw">end</span>
+32:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000560" class="method-detail">
-        <a name="M000560"></a>
+      <div id="method-M000612" class="method-detail">
+        <a name="M000612"></a>
 
         <div class="method-heading">
-          <a href="#M000560" class="method-signature">
+          <a href="#M000612" class="method-signature">
           <span class="method-name">run_in</span><span class="method-args">(obj)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000560-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000560-source">
+            onclick="toggleCode('M000612-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000612-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/story.rb, line 17</span>
 17:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_in</span>(<span class="ruby-identifier">obj</span>)
@@ -241,24 +238,24 @@
         </div>
       </div>
 
-      <div id="method-M000562" class="method-detail">
-        <a name="M000562"></a>
+      <div id="method-M000614" class="method-detail">
+        <a name="M000614"></a>
 
         <div class="method-heading">
-          <a href="#M000562" class="method-signature">
+          <a href="#M000614" class="method-signature">
           <span class="method-name">steps_for</span><span class="method-args">(key)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000562-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000562-source">
+            onclick="toggleCode('M000614-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000614-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/story.rb, line 37</span>
-37:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">steps_for</span>(<span class="ruby-identifier">key</span>)
-38:         <span class="ruby-identifier">$rspec_story_steps</span>[<span class="ruby-identifier">key</span>]
-39:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/story.rb, line 34</span>
+34:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">steps_for</span>(<span class="ruby-identifier">key</span>)
+35:         <span class="ruby-identifier">$rspec_story_steps</span>[<span class="ruby-identifier">key</span>]
+36:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

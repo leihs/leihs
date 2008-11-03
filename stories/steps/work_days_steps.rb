@@ -44,18 +44,15 @@ steps_for(:work_days) do
     # Login                            
     post "/session", :login => user.login
     @order.destroy if @order
-#old#    get "/orders/new"
     get new_order_path
     @order = assigns(:order)
     
-#old#
-#    post "/orders/add_line", :id => @order.id, 
-#                             :model_id => model.id, 
-#                             :quantity => 1, 
-#                             :inventory_pool_id => inventory_pool.id,
-#                             :start_date => date,
-#                             :end_date => date
-    post add_line_order_path(@order, :model_id => model.id, :quantity => 1, :inventory_pool_id => inventory_pool.id, :start_date => date, :end_date => date)
+    post add_line_order_path( @order,
+                              :model_id => model.id,
+                              :quantity => 1,
+                              :inventory_pool_id => inventory_pool.id,
+                              :start_date => date,
+                              :end_date => date)
                              
     @order = assigns(:order)
     @line = @order.order_lines.last
@@ -73,14 +70,12 @@ steps_for(:work_days) do
   end
 	
 	When "he tries to hand over an item to a customer" do
-    # TODO 29** fix routing and remove ":id => 0"
-    get backend_inventory_pool_hand_over_path(@inventory_pool, 0, :user_id => @user.id)
+    get backend_inventory_pool_hand_over_path(@inventory_pool, @user.get_current_contract(@inventory_pool))
     
     @contract = assigns(:contract)
     @contract.lines.size.should == 0
     
-    # TODO 29** fix routing and remove ":id => 0"
-    post add_line_backend_inventory_pool_hand_over_path(@inventory_pool, 0, :user_id => @user.id, :model_id => Model.first.id, :quantity => 1)
+    post add_line_backend_inventory_pool_hand_over_path(@inventory_pool, @user.get_current_contract(@inventory_pool), :model_id => Model.first.id, :quantity => 1)
                                
     @contract = assigns(:contract)
   end
@@ -98,6 +93,7 @@ steps_for(:work_days) do
     @contract.lines.size.should == 1
     line = @contract.lines.first
     line.start_date = Factory.parsedate(@date)
+# TODO 31** fix hand_over on closed days    
     line.save.should == true
   end
   

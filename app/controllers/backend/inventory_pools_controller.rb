@@ -10,13 +10,6 @@ class Backend::InventoryPoolsController < Backend::BackendController
     @inventory_pools = inventory_pools.paginate :page => params[:page], :per_page => $per_page
   end
 
-#old#
-#  def switch_inventory_pool
-#    self.current_inventory_pool = InventoryPool.find(params[:id]) if params[:id]
-#
-#    redirect_to :action => 'index'
-#  end
-
   def timeline
     @timeline_xml = current_inventory_pool.timeline
     render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'

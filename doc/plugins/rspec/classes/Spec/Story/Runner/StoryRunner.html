@@ -88,12 +88,12 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000476">Story</a>&nbsp;&nbsp;
-      <a href="#M000478">add_listener</a>&nbsp;&nbsp;
-      <a href="#M000475">new</a>&nbsp;&nbsp;
-      <a href="#M000477">run_stories</a>&nbsp;&nbsp;
-      <a href="#M000474">scenario_from_current_story</a>&nbsp;&nbsp;
-      <a href="#M000479">scenario_from_current_story</a>&nbsp;&nbsp;
+      <a href="#M000526">Story</a>&nbsp;&nbsp;
+      <a href="#M000528">add_listener</a>&nbsp;&nbsp;
+      <a href="#M000525">new</a>&nbsp;&nbsp;
+      <a href="#M000527">run_stories</a>&nbsp;&nbsp;
+      <a href="#M000524">scenario_from_current_story</a>&nbsp;&nbsp;
+      <a href="#M000529">scenario_from_current_story</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -143,19 +143,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000475" class="method-detail">
-        <a name="M000475"></a>
+      <div id="method-M000525" class="method-detail">
+        <a name="M000525"></a>
 
         <div class="method-heading">
-          <a href="#M000475" class="method-signature">
+          <a href="#M000525" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(scenario_runner, world_creator = World)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000475-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000475-source">
+            onclick="toggleCode('M000525-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000525-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_runner.rb, line 15</span>
 15:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">scenario_runner</span>, <span class="ruby-identifier">world_creator</span> = <span class="ruby-constant">World</span>)
@@ -172,19 +172,19 @@
         </div>
       </div>
 
-      <div id="method-M000474" class="method-detail">
-        <a name="M000474"></a>
+      <div id="method-M000524" class="method-detail">
+        <a name="M000524"></a>
 
         <div class="method-heading">
-          <a href="#M000474" class="method-signature">
+          <a href="#M000524" class="method-signature">
           <span class="method-name">scenario_from_current_story</span><span class="method-args">(scenario_name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000474-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000474-source">
+            onclick="toggleCode('M000524-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000524-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_runner.rb, line 8</span>
  8:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scenario_from_current_story</span>(<span class="ruby-identifier">scenario_name</span>)
@@ -197,19 +197,19 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000476" class="method-detail">
-        <a name="M000476"></a>
+      <div id="method-M000526" class="method-detail">
+        <a name="M000526"></a>
 
         <div class="method-heading">
-          <a href="#M000476" class="method-signature">
+          <a href="#M000526" class="method-signature">
           <span class="method-name">Story</span><span class="method-args">(title, narrative, params = {}, &amp;body)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000476-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000476-source">
+            onclick="toggleCode('M000526-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000526-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_runner.rb, line 25</span>
 25:         <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Story</span>(<span class="ruby-identifier">title</span>, <span class="ruby-identifier">narrative</span>, <span class="ruby-identifier">params</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">body</span>)
@@ -227,88 +227,90 @@
         </div>
       </div>
 
-      <div id="method-M000478" class="method-detail">
-        <a name="M000478"></a>
+      <div id="method-M000528" class="method-detail">
+        <a name="M000528"></a>
 
         <div class="method-heading">
-          <a href="#M000478" class="method-signature">
+          <a href="#M000528" class="method-signature">
           <span class="method-name">add_listener</span><span class="method-args">(listener)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000478-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000478-source">
+            onclick="toggleCode('M000528-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000528-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_runner.rb, line 58</span>
-58:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_listener</span>(<span class="ruby-identifier">listener</span>)
-59:           <span class="ruby-ivar">@listeners</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">listener</span>
-60:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_runner.rb, line 60</span>
+60:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_listener</span>(<span class="ruby-identifier">listener</span>)
+61:           <span class="ruby-ivar">@listeners</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">listener</span>
+62:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000477" class="method-detail">
-        <a name="M000477"></a>
+      <div id="method-M000527" class="method-detail">
+        <a name="M000527"></a>
 
         <div class="method-heading">
-          <a href="#M000477" class="method-signature">
+          <a href="#M000527" class="method-signature">
           <span class="method-name">run_stories</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000477-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000477-source">
+            onclick="toggleCode('M000527-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000527-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_runner.rb, line 36</span>
 36:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_stories</span>
 37:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@stories</span>.<span class="ruby-identifier">empty?</span>
 38:           <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">run_started</span>(<span class="ruby-identifier">scenarios</span>.<span class="ruby-identifier">size</span>) }
-39:           <span class="ruby-ivar">@stories</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">story</span><span class="ruby-operator">|</span>
-40:             <span class="ruby-identifier">story</span>.<span class="ruby-identifier">assign_steps_to</span>(<span class="ruby-constant">World</span>)
-41:             <span class="ruby-ivar">@current_story</span> = <span class="ruby-identifier">story</span>
-42:             <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">story_started</span>(<span class="ruby-identifier">story</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">story</span>.<span class="ruby-identifier">narrative</span>) }
-43:             <span class="ruby-identifier">scenarios</span> = <span class="ruby-ivar">@scenarios_by_story</span>[<span class="ruby-identifier">story</span>.<span class="ruby-identifier">title</span>]
-44:             <span class="ruby-identifier">scenarios</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">scenario</span><span class="ruby-operator">|</span>
-45:               <span class="ruby-identifier">type</span> = <span class="ruby-identifier">story</span>[<span class="ruby-identifier">:type</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Object</span>
-46:               <span class="ruby-identifier">args</span> = <span class="ruby-identifier">story</span>[<span class="ruby-identifier">:args</span>] <span class="ruby-operator">||</span> []
-47:               <span class="ruby-identifier">world</span> = <span class="ruby-ivar">@world_creator</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-48:               <span class="ruby-ivar">@scenario_runner</span>.<span class="ruby-identifier">run</span>(<span class="ruby-identifier">scenario</span>, <span class="ruby-identifier">world</span>)
-49:             <span class="ruby-keyword kw">end</span>
-50:             <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">story_ended</span>(<span class="ruby-identifier">story</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">story</span>.<span class="ruby-identifier">narrative</span>) }
-51:             <span class="ruby-constant">World</span>.<span class="ruby-identifier">step_mother</span>.<span class="ruby-identifier">clear</span>
-52:           <span class="ruby-keyword kw">end</span>
-53:           <span class="ruby-identifier">unique_steps</span> = (<span class="ruby-constant">World</span>.<span class="ruby-identifier">step_names</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-constant">Regexp</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">n</span> <span class="ruby-value">? </span><span class="ruby-identifier">n</span>.<span class="ruby-identifier">source</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">to_s</span>}).<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">sort</span>
-54:           <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">collected_steps</span>(<span class="ruby-identifier">unique_steps</span>) }
-55:           <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">run_ended</span> }
-56:         <span class="ruby-keyword kw">end</span>
+39:           <span class="ruby-identifier">success</span> = <span class="ruby-keyword kw">true</span>
+40:           <span class="ruby-ivar">@stories</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">story</span><span class="ruby-operator">|</span>
+41:             <span class="ruby-identifier">story</span>.<span class="ruby-identifier">assign_steps_to</span>(<span class="ruby-constant">World</span>)
+42:             <span class="ruby-ivar">@current_story</span> = <span class="ruby-identifier">story</span>
+43:             <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">story_started</span>(<span class="ruby-identifier">story</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">story</span>.<span class="ruby-identifier">narrative</span>) }
+44:             <span class="ruby-identifier">scenarios</span> = <span class="ruby-ivar">@scenarios_by_story</span>[<span class="ruby-identifier">story</span>.<span class="ruby-identifier">title</span>]
+45:             <span class="ruby-identifier">scenarios</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">scenario</span><span class="ruby-operator">|</span>
+46:               <span class="ruby-identifier">type</span> = <span class="ruby-identifier">story</span>[<span class="ruby-identifier">:type</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Object</span>
+47:               <span class="ruby-identifier">args</span> = <span class="ruby-identifier">story</span>[<span class="ruby-identifier">:args</span>] <span class="ruby-operator">||</span> []
+48:               <span class="ruby-identifier">world</span> = <span class="ruby-ivar">@world_creator</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+49:               <span class="ruby-identifier">success</span> = <span class="ruby-identifier">success</span> <span class="ruby-operator">&amp;</span> <span class="ruby-ivar">@scenario_runner</span>.<span class="ruby-identifier">run</span>(<span class="ruby-identifier">scenario</span>, <span class="ruby-identifier">world</span>)
+50:             <span class="ruby-keyword kw">end</span>
+51:             <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">story_ended</span>(<span class="ruby-identifier">story</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">story</span>.<span class="ruby-identifier">narrative</span>) }
+52:             <span class="ruby-constant">World</span>.<span class="ruby-identifier">step_mother</span>.<span class="ruby-identifier">clear</span>
+53:           <span class="ruby-keyword kw">end</span>
+54:           <span class="ruby-identifier">unique_steps</span> = (<span class="ruby-constant">World</span>.<span class="ruby-identifier">step_names</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-constant">Regexp</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">n</span> <span class="ruby-value">? </span><span class="ruby-identifier">n</span>.<span class="ruby-identifier">source</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">to_s</span>}).<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">sort</span>
+55:           <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">collected_steps</span>(<span class="ruby-identifier">unique_steps</span>) }
+56:           <span class="ruby-ivar">@listeners</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">run_ended</span> }
+57:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">success</span>
+58:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000479" class="method-detail">
-        <a name="M000479"></a>
+      <div id="method-M000529" class="method-detail">
+        <a name="M000529"></a>
 
         <div class="method-heading">
-          <a href="#M000479" class="method-signature">
+          <a href="#M000529" class="method-signature">
           <span class="method-name">scenario_from_current_story</span><span class="method-args">(scenario_name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000479-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000479-source">
+            onclick="toggleCode('M000529-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000529-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_runner.rb, line 62</span>
-62:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scenario_from_current_story</span>(<span class="ruby-identifier">scenario_name</span>)
-63:           <span class="ruby-ivar">@scenarios_by_story</span>[<span class="ruby-ivar">@current_story</span>.<span class="ruby-identifier">title</span>].<span class="ruby-identifier">find</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">scenario_name</span> }
-64:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_runner.rb, line 64</span>
+64:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scenario_from_current_story</span>(<span class="ruby-identifier">scenario_name</span>)
+65:           <span class="ruby-ivar">@scenarios_by_story</span>[<span class="ruby-ivar">@current_story</span>.<span class="ruby-identifier">title</span>].<span class="ruby-identifier">find</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">scenario_name</span> }
+66:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

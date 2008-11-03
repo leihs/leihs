@@ -9,9 +9,8 @@
 
 
 
-<div class="toolbar-main boxes">
   <% if @order.status_const == Order::SUBMITTED %>
-	<div class="buttons">
+	<div class="toolbar-main boxes buttons">
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Save + Approve"),
 								 { :action => 'approve', :id => @order },
 								 :title => _("Approve Order"),
@@ -24,13 +23,11 @@
 								 { :action => 'restore', :id => @order },
 								 :title => _("Restore Order"),
 								 :class => "thickbox") %>
-		<% # TODO 29** fix destroy, greybox is not working %>
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete Order"),
-			{ :action => 'destroy', :id => @order },
-			:title => _("Delete Order"), :class => 'negative') %>
+								{ :action => 'delete', :id => @order },
+								:title => _("Delete Order"), :class => 'negative') %>
 	</div>
   <% end %>
-</div>
 			
 			<div id="meta" class="boxes">
 				

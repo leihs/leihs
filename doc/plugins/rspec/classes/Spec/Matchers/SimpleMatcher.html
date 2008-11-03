@@ -88,10 +88,12 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000406">failure_message</a>&nbsp;&nbsp;
-      <a href="#M000405">matches?</a>&nbsp;&nbsp;
-      <a href="#M000407">negative_failure_message</a>&nbsp;&nbsp;
-      <a href="#M000404">new</a>&nbsp;&nbsp;
+      <a href="#M000447">description</a>&nbsp;&nbsp;
+      <a href="#M000450">explanation</a>&nbsp;&nbsp;
+      <a href="#M000448">failure_message</a>&nbsp;&nbsp;
+      <a href="#M000446">matches?</a>&nbsp;&nbsp;
+      <a href="#M000449">negative_failure_message</a>&nbsp;&nbsp;
+      <a href="#M000445">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -113,7 +115,17 @@
         <table>
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">description</td>
-          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">failure_message</td>
+          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">negative_failure_message</td>
+          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
           <td class="context-item-desc"></td>
         </tr>
         </table>
@@ -126,19 +138,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000404" class="method-detail">
-        <a name="M000404"></a>
+      <div id="method-M000445" class="method-detail">
+        <a name="M000445"></a>
 
         <div class="method-heading">
-          <a href="#M000404" class="method-signature">
+          <a href="#M000445" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(description, &amp;match_block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000404-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000404-source">
+            onclick="toggleCode('M000445-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000445-source">
 <pre>
    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb, line 6</span>
 6:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">description</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">match_block</span>)
@@ -152,71 +164,122 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000406" class="method-detail">
-        <a name="M000406"></a>
+      <div id="method-M000447" class="method-detail">
+        <a name="M000447"></a>
 
         <div class="method-heading">
-          <a href="#M000406" class="method-signature">
+          <a href="#M000447" class="method-signature">
+          <span class="method-name">description</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000447-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000447-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb, line 21</span>
+21:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description</span>
+22:         <span class="ruby-ivar">@description</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">explanation</span>
+23:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000450" class="method-detail">
+        <a name="M000450"></a>
+
+        <div class="method-heading">
+          <a href="#M000450" class="method-signature">
+          <span class="method-name">explanation</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000450-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000450-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb, line 33</span>
+33:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">explanation</span>
+34:         <span class="ruby-value str">&quot;No description provided. See RDoc for simple_matcher()&quot;</span>
+35:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000448" class="method-detail">
+        <a name="M000448"></a>
+
+        <div class="method-heading">
+          <a href="#M000448" class="method-signature">
           <span class="method-name">failure_message</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000406-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000406-source">
+            onclick="toggleCode('M000448-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000448-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb, line 16</span>
-16:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">failure_message</span>()
-17:         <span class="ruby-keyword kw">return</span> <span class="ruby-node">%[expected #{@description.inspect} but got #{@actual.inspect}]</span>
-18:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb, line 25</span>
+25:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">failure_message</span>
+26:         <span class="ruby-ivar">@failure_message</span> <span class="ruby-operator">||</span> (<span class="ruby-ivar">@description</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-identifier">explanation</span> <span class="ruby-operator">:</span> <span class="ruby-node">%[expected #{@description.inspect} but got #{@given.inspect}]</span>)
+27:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000405" class="method-detail">
-        <a name="M000405"></a>
+      <div id="method-M000446" class="method-detail">
+        <a name="M000446"></a>
 
         <div class="method-heading">
-          <a href="#M000405" class="method-signature">
-          <span class="method-name">matches?</span><span class="method-args">(actual)</span>
+          <a href="#M000446" class="method-signature">
+          <span class="method-name">matches?</span><span class="method-args">(given)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000405-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000405-source">
+            onclick="toggleCode('M000446-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000446-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb, line 11</span>
-11:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">actual</span>)
-12:         <span class="ruby-ivar">@actual</span> = <span class="ruby-identifier">actual</span>
-13:         <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@match_block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-ivar">@actual</span>)
-14:       <span class="ruby-keyword kw">end</span>
+11:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">given</span>)
+12:         <span class="ruby-ivar">@given</span> = <span class="ruby-identifier">given</span>
+13:         <span class="ruby-keyword kw">case</span> <span class="ruby-ivar">@match_block</span>.<span class="ruby-identifier">arity</span>
+14:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">2</span>
+15:           <span class="ruby-ivar">@match_block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-ivar">@given</span>, <span class="ruby-keyword kw">self</span>)
+16:         <span class="ruby-keyword kw">else</span>
+17:           <span class="ruby-ivar">@match_block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-ivar">@given</span>)
+18:         <span class="ruby-keyword kw">end</span>
+19:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000407" class="method-detail">
-        <a name="M000407"></a>
+      <div id="method-M000449" class="method-detail">
+        <a name="M000449"></a>
 
         <div class="method-heading">
-          <a href="#M000407" class="method-signature">
+          <a href="#M000449" class="method-signature">
           <span class="method-name">negative_failure_message</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000407-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000407-source">
+            onclick="toggleCode('M000449-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000449-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb, line 20</span>
-20:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">negative_failure_message</span>()
-21:         <span class="ruby-keyword kw">return</span> <span class="ruby-node">%[expected not to get #{@description.inspect}, but got #{@actual.inspect}]</span>
-22:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb, line 29</span>
+29:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">negative_failure_message</span>
+30:         <span class="ruby-ivar">@negative_failure_message</span> <span class="ruby-operator">||</span> (<span class="ruby-ivar">@description</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-identifier">explanation</span> <span class="ruby-operator">:</span> <span class="ruby-node">%[expected not to get #{@description.inspect}, but got #{@given.inspect}]</span>)
+31:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

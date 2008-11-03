@@ -80,16 +80,17 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000168">__full_description</a>&nbsp;&nbsp;
-      <a href="#M000173">after_example</a>&nbsp;&nbsp;
-      <a href="#M000172">before_example</a>&nbsp;&nbsp;
-      <a href="#M000167">description</a>&nbsp;&nbsp;
-      <a href="#M000164">execute</a>&nbsp;&nbsp;
-      <a href="#M000171">implementation_backtrace</a>&nbsp;&nbsp;
-      <a href="#M000165">instance_variable_hash</a>&nbsp;&nbsp;
-      <a href="#M000170">run_with_description_capturing</a>&nbsp;&nbsp;
-      <a href="#M000169">set_instance_variables_from_hash</a>&nbsp;&nbsp;
-      <a href="#M000166">violated</a>&nbsp;&nbsp;
+      <a href="#M000184">__full_description</a>&nbsp;&nbsp;
+      <a href="#M000189">after_each_example</a>&nbsp;&nbsp;
+      <a href="#M000188">before_each_example</a>&nbsp;&nbsp;
+      <a href="#M000182">description</a>&nbsp;&nbsp;
+      <a href="#M000186">eval_block</a>&nbsp;&nbsp;
+      <a href="#M000179">execute</a>&nbsp;&nbsp;
+      <a href="#M000187">implementation_backtrace</a>&nbsp;&nbsp;
+      <a href="#M000180">instance_variable_hash</a>&nbsp;&nbsp;
+      <a href="#M000183">options</a>&nbsp;&nbsp;
+      <a href="#M000185">set_instance_variables_from_hash</a>&nbsp;&nbsp;
+      <a href="#M000181">violated</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -109,19 +110,6 @@
     <div id="section">
 
 
-    <div id="constants-list">
-      <h3 class="section-bar">Constants</h3>
-
-      <div class="name-list">
-        <table summary="Constants">
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">PENDING_EXAMPLE_BLOCK</td>
-          <td>=</td>
-          <td class="context-item-value">lambda {         raise Spec::Example::ExamplePendingError.new(&quot;Not Yet Implemented&quot;)</td>
-        </tr>
-        </table>
-      </div>
-    </div>
 
 
 
@@ -132,19 +120,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000168" class="method-detail">
-        <a name="M000168"></a>
+      <div id="method-M000184" class="method-detail">
+        <a name="M000184"></a>
 
         <div class="method-heading">
-          <a href="#M000168" class="method-signature">
+          <a href="#M000184" class="method-signature">
           <span class="method-name">__full_description</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000168-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000168-source">
+            onclick="toggleCode('M000184-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000184-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 67</span>
 67:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">__full_description</span>
@@ -155,161 +143,179 @@
         </div>
       </div>
 
-      <div id="method-M000167" class="method-detail">
-        <a name="M000167"></a>
+      <div id="method-M000182" class="method-detail">
+        <a name="M000182"></a>
 
         <div class="method-heading">
-          <a href="#M000167" class="method-signature">
+          <a href="#M000182" class="method-signature">
           <span class="method-name">description</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000167-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000167-source">
+            onclick="toggleCode('M000182-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000182-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 63</span>
-63:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description</span>
-64:         <span class="ruby-ivar">@_defined_description</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@_matcher_description</span> <span class="ruby-operator">||</span> <span class="ruby-value str">&quot;NO NAME&quot;</span>
-65:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 59</span>
+59:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description</span>
+60:         <span class="ruby-ivar">@_defined_description</span> <span class="ruby-operator">||</span> <span class="ruby-operator">::</span><span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Matchers</span>.<span class="ruby-identifier">generated_description</span> <span class="ruby-operator">||</span> <span class="ruby-value str">&quot;NO NAME&quot;</span>
+61:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000164" class="method-detail">
-        <a name="M000164"></a>
+      <div id="method-M000186" class="method-detail">
+        <a name="M000186"></a>
 
         <div class="method-heading">
-          <a href="#M000164" class="method-signature">
+          <a href="#M000186" class="method-signature">
+          <span class="method-name">eval_block</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000186-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000186-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 80</span>
+80:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eval_block</span>
+81:         <span class="ruby-identifier">instance_eval</span>(<span class="ruby-operator">&amp;</span><span class="ruby-ivar">@_implementation</span>)
+82:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000179" class="method-detail">
+        <a name="M000179"></a>
+
+        <div class="method-heading">
+          <a href="#M000179" class="method-signature">
           <span class="method-name">execute</span><span class="method-args">(options, instance_variables)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000164-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000164-source">
+            onclick="toggleCode('M000179-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000179-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 11</span>
-11:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">instance_variables</span>)
-12:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">example_started</span>(<span class="ruby-keyword kw">self</span>)
-13:         <span class="ruby-identifier">set_instance_variables_from_hash</span>(<span class="ruby-identifier">instance_variables</span>)
-14:         
-15:         <span class="ruby-identifier">execution_error</span> = <span class="ruby-keyword kw">nil</span>
-16:         <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">timeout</span>) <span class="ruby-keyword kw">do</span>
-17:           <span class="ruby-keyword kw">begin</span>
-18:             <span class="ruby-identifier">before_example</span>
-19:             <span class="ruby-identifier">run_with_description_capturing</span>
-20:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-21:             <span class="ruby-identifier">execution_error</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">e</span>
-22:           <span class="ruby-keyword kw">end</span>
-23:           <span class="ruby-keyword kw">begin</span>
-24:             <span class="ruby-identifier">after_example</span>
-25:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-26:             <span class="ruby-identifier">execution_error</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">e</span>
-27:           <span class="ruby-keyword kw">end</span>
-28:         <span class="ruby-keyword kw">end</span>
-29: 
-30:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">example_finished</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">execution_error</span>)
-31:         <span class="ruby-identifier">success</span> = <span class="ruby-identifier">execution_error</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-constant">ExamplePendingError</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">execution_error</span>
-32:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 7</span>
+ 7:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">instance_variables</span>)
+ 8:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">example_started</span>(<span class="ruby-keyword kw">self</span>)
+ 9:         <span class="ruby-identifier">set_instance_variables_from_hash</span>(<span class="ruby-identifier">instance_variables</span>)
+10:         
+11:         <span class="ruby-identifier">execution_error</span> = <span class="ruby-keyword kw">nil</span>
+12:         <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">timeout</span>) <span class="ruby-keyword kw">do</span>
+13:           <span class="ruby-keyword kw">begin</span>
+14:             <span class="ruby-identifier">before_each_example</span>
+15:             <span class="ruby-identifier">eval_block</span>
+16:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+17:             <span class="ruby-identifier">execution_error</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">e</span>
+18:           <span class="ruby-keyword kw">end</span>
+19:           <span class="ruby-keyword kw">begin</span>
+20:             <span class="ruby-identifier">after_each_example</span>
+21:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+22:             <span class="ruby-identifier">execution_error</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">e</span>
+23:           <span class="ruby-keyword kw">end</span>
+24:         <span class="ruby-keyword kw">end</span>
+25: 
+26:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">reporter</span>.<span class="ruby-identifier">example_finished</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">execution_error</span>)
+27:         <span class="ruby-identifier">success</span> = <span class="ruby-identifier">execution_error</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-constant">ExamplePendingError</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">execution_error</span>
+28:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000171" class="method-detail">
-        <a name="M000171"></a>
+      <div id="method-M000187" class="method-detail">
+        <a name="M000187"></a>
 
         <div class="method-heading">
-          <a href="#M000171" class="method-signature">
+          <a href="#M000187" class="method-signature">
           <span class="method-name">implementation_backtrace</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000171-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000171-source">
+            onclick="toggleCode('M000187-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000187-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 89</span>
-89:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">implementation_backtrace</span>
-90:         <span class="ruby-identifier">eval</span>(<span class="ruby-value str">&quot;caller&quot;</span>, <span class="ruby-ivar">@_implementation</span>)
-91:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 84</span>
+84:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">implementation_backtrace</span>
+85:         <span class="ruby-identifier">eval</span>(<span class="ruby-value str">&quot;caller&quot;</span>, <span class="ruby-ivar">@_implementation</span>)
+86:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000165" class="method-detail">
-        <a name="M000165"></a>
+      <div id="method-M000180" class="method-detail">
+        <a name="M000180"></a>
 
         <div class="method-heading">
-          <a href="#M000165" class="method-signature">
+          <a href="#M000180" class="method-signature">
           <span class="method-name">instance_variable_hash</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000165-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000165-source">
+            onclick="toggleCode('M000180-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000180-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 34</span>
-34:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instance_variable_hash</span>
-35:         <span class="ruby-identifier">instance_variables</span>.<span class="ruby-identifier">inject</span>({}) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">variable_hash</span>, <span class="ruby-identifier">variable_name</span><span class="ruby-operator">|</span>
-36:           <span class="ruby-identifier">variable_hash</span>[<span class="ruby-identifier">variable_name</span>] = <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-identifier">variable_name</span>)
-37:           <span class="ruby-identifier">variable_hash</span>
-38:         <span class="ruby-keyword kw">end</span>
-39:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 30</span>
+30:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instance_variable_hash</span>
+31:         <span class="ruby-identifier">instance_variables</span>.<span class="ruby-identifier">inject</span>({}) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">variable_hash</span>, <span class="ruby-identifier">variable_name</span><span class="ruby-operator">|</span>
+32:           <span class="ruby-identifier">variable_hash</span>[<span class="ruby-identifier">variable_name</span>] = <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-identifier">variable_name</span>)
+33:           <span class="ruby-identifier">variable_hash</span>
+34:         <span class="ruby-keyword kw">end</span>
+35:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000170" class="method-detail">
-        <a name="M000170"></a>
+      <div id="method-M000183" class="method-detail">
+        <a name="M000183"></a>
 
         <div class="method-heading">
-          <a href="#M000170" class="method-signature">
-          <span class="method-name">run_with_description_capturing</span><span class="method-args">()</span>
+          <a href="#M000183" class="method-signature">
+          <span class="method-name">options</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000170-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000170-source">
+            onclick="toggleCode('M000183-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000183-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 80</span>
-80:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_with_description_capturing</span>
-81:         <span class="ruby-keyword kw">begin</span>
-82:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">instance_eval</span>(<span class="ruby-operator">&amp;</span>(<span class="ruby-ivar">@_implementation</span> <span class="ruby-operator">||</span> <span class="ruby-constant">PENDING_EXAMPLE_BLOCK</span>))
-83:         <span class="ruby-keyword kw">ensure</span>
-84:           <span class="ruby-ivar">@_matcher_description</span> = <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Matchers</span>.<span class="ruby-identifier">generated_description</span>
-85:           <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Matchers</span>.<span class="ruby-identifier">clear_generated_description</span>
-86:         <span class="ruby-keyword kw">end</span>
-87:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 63</span>
+63:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">options</span>
+64:         <span class="ruby-ivar">@_options</span>
+65:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000169" class="method-detail">
-        <a name="M000169"></a>
+      <div id="method-M000185" class="method-detail">
+        <a name="M000185"></a>
 
         <div class="method-heading">
-          <a href="#M000169" class="method-signature">
+          <a href="#M000185" class="method-signature">
           <span class="method-name">set_instance_variables_from_hash</span><span class="method-args">(ivars)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000169-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000169-source">
+            onclick="toggleCode('M000185-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000185-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 71</span>
 71:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_instance_variables_from_hash</span>(<span class="ruby-identifier">ivars</span>)
@@ -325,24 +331,24 @@
         </div>
       </div>
 
-      <div id="method-M000166" class="method-detail">
-        <a name="M000166"></a>
+      <div id="method-M000181" class="method-detail">
+        <a name="M000181"></a>
 
         <div class="method-heading">
-          <a href="#M000166" class="method-signature">
+          <a href="#M000181" class="method-signature">
           <span class="method-name">violated</span><span class="method-args">(message=&quot;&quot;)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000166-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000166-source">
+            onclick="toggleCode('M000181-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000181-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 41</span>
-41:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">violated</span>(<span class="ruby-identifier">message</span>=<span class="ruby-value str">&quot;&quot;</span>)
-42:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Expectations</span><span class="ruby-operator">::</span><span class="ruby-constant">ExpectationNotMetError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>)
-43:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 37</span>
+37:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">violated</span>(<span class="ruby-identifier">message</span>=<span class="ruby-value str">&quot;&quot;</span>)
+38:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Expectations</span><span class="ruby-operator">::</span><span class="ruby-constant">ExpectationNotMetError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>)
+39:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -350,51 +356,51 @@
 
       <h3 class="section-bar">Protected Instance methods</h3>
 
-      <div id="method-M000173" class="method-detail">
-        <a name="M000173"></a>
+      <div id="method-M000189" class="method-detail">
+        <a name="M000189"></a>
 
         <div class="method-heading">
-          <a href="#M000173" class="method-signature">
-          <span class="method-name">after_example</span><span class="method-args">()</span>
+          <a href="#M000189" class="method-signature">
+          <span class="method-name">after_each_example</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000173-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000173-source">
+            onclick="toggleCode('M000189-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000189-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 102</span>
-102:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">after_example</span>
-103:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">run_after_each</span>(<span class="ruby-keyword kw">self</span>)
-104:         <span class="ruby-identifier">verify_mocks_for_rspec</span>
-105:       <span class="ruby-keyword kw">ensure</span>
-106:         <span class="ruby-identifier">teardown_mocks_for_rspec</span>
-107:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 97</span>
+ 97:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">after_each_example</span>
+ 98:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">run_after_each</span>(<span class="ruby-keyword kw">self</span>)
+ 99:         <span class="ruby-identifier">verify_mocks_for_rspec</span>
+100:       <span class="ruby-keyword kw">ensure</span>
+101:         <span class="ruby-identifier">teardown_mocks_for_rspec</span>
+102:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000172" class="method-detail">
-        <a name="M000172"></a>
+      <div id="method-M000188" class="method-detail">
+        <a name="M000188"></a>
 
         <div class="method-heading">
-          <a href="#M000172" class="method-signature">
-          <span class="method-name">before_example</span><span class="method-args">()</span>
+          <a href="#M000188" class="method-signature">
+          <span class="method-name">before_each_example</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000172-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000172-source">
+            onclick="toggleCode('M000188-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000188-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 97</span>
- 97:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">before_example</span>
- 98:         <span class="ruby-identifier">setup_mocks_for_rspec</span>
- 99:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">run_before_each</span>(<span class="ruby-keyword kw">self</span>)
-100:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/example_methods.rb, line 92</span>
+92:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">before_each_example</span>
+93:         <span class="ruby-identifier">setup_mocks_for_rspec</span>
+94:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">run_before_each</span>(<span class="ruby-keyword kw">self</span>)
+95:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

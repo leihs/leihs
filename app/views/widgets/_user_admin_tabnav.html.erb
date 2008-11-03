@@ -16,8 +16,7 @@ render_tabnav :user_admin,
 
 	add_tab do |t|
 		t.named 'User'
-		t.links_to admin_user_path(@user)
-		t.highlights_on :action => 'show'
+		t.links_to :action => 'show', :id => @user.id
 		t.html[:style] = "background-color: red;" if @user.login.blank? 
 	end
 

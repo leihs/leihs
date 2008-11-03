@@ -2,17 +2,15 @@
 	<h2><%= _("Aktuell sind <em>%{n} neue Bestellungen</em> zu quittieren.") % { :n => @submitted_orders.size } %></h2>
 </div>
 
-<% unless @working_orders.empty? %>		
-	<div id="drafts" class="boxes">
-		<div class="buttons">
+	<% unless @working_orders.empty? %>		
+		<div id="drafts" class="boxes buttons">
 			<p style="float: left; line-height: 30px; margin-right: 20px;"><%= _("Bestellungen in Bearbeitung (bitte vervollständigen)") %>:</p>
 			<% for order in @working_orders %>
 				<%=	link_to(image_tag($layout_public_path + "/images/icons/tab_go.png") + "#{order.user.login} (#{today_or_yesterday_date(order.backup.updated_at)})",
-							{ :controller => 'acknowledge', :action => 'show', :id => order }) %>
+							{ :action => 'show', :id => order }) %>
 			<% end %>
 		</div>
-	</div>
-<% end %>
+	<% end %>
 			
 
 <% table_with_search_and_pagination :columns => [_("Empfangen am"), _("Reservierender"), _("Anzahl Pakete"), _("Aktion")],
@@ -30,7 +28,9 @@
 							 :class => "iconized-notxt edit-user" ) %>
 				</td>
 				<td class="line_valid_<%= order.approvable? %>"><%= _("%{n} Pakete") % {:n => order.order_lines.size} %></td>
-					<td><div class="buttons"><%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"), :controller => 'acknowledge', :action => 'show', :id => order %></div></td>
+				<td class="buttons">
+					<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"), :action => 'show', :id => order %>
+				</td>
 			</tr>
 
 <% end %>
