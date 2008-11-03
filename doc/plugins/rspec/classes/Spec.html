@@ -55,6 +55,22 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
+                <a href="../files/vendor/plugins/rspec/lib/spec/adapters/ruby_engine/mri_rb.html">
+                vendor/plugins/rspec/lib/spec/adapters/ruby_engine/mri.rb
+                </a>
+        <br />
+                <a href="../files/vendor/plugins/rspec/lib/spec/adapters/ruby_engine/rubinius_rb.html">
+                vendor/plugins/rspec/lib/spec/adapters/ruby_engine/rubinius.rb
+                </a>
+        <br />
+                <a href="../files/vendor/plugins/rspec/lib/spec/adapters/ruby_engine_rb.html">
+                vendor/plugins/rspec/lib/spec/adapters/ruby_engine.rb
+                </a>
+        <br />
+                <a href="../files/vendor/plugins/rspec/lib/spec/example/before_and_after_hooks_rb.html">
+                vendor/plugins/rspec/lib/spec/example/before_and_after_hooks.rb
+                </a>
+        <br />
                 <a href="../files/vendor/plugins/rspec/lib/spec/example/configuration_rb.html">
                 vendor/plugins/rspec/lib/spec/example/configuration.rb
                 </a>
@@ -195,8 +211,8 @@
                 vendor/plugins/rspec/lib/spec/matchers.rb
                 </a>
         <br />
-                <a href="../files/vendor/plugins/rspec/lib/spec/mocks/argument_constraint_matchers_rb.html">
-                vendor/plugins/rspec/lib/spec/mocks/argument_constraint_matchers.rb
+                <a href="../files/vendor/plugins/rspec/lib/spec/mocks/argument_constraints_rb.html">
+                vendor/plugins/rspec/lib/spec/mocks/argument_constraints.rb
                 </a>
         <br />
                 <a href="../files/vendor/plugins/rspec/lib/spec/mocks/argument_expectation_rb.html">
@@ -287,6 +303,10 @@
                 vendor/plugins/rspec/lib/spec/runner/formatter/html_formatter.rb
                 </a>
         <br />
+                <a href="../files/vendor/plugins/rspec/lib/spec/runner/formatter/nested_text_formatter_rb.html">
+                vendor/plugins/rspec/lib/spec/runner/formatter/nested_text_formatter.rb
+                </a>
+        <br />
                 <a href="../files/vendor/plugins/rspec/lib/spec/runner/formatter/profile_formatter_rb.html">
                 vendor/plugins/rspec/lib/spec/runner/formatter/profile_formatter.rb
                 </a>
@@ -309,6 +329,10 @@
         <br />
                 <a href="../files/vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter_rb.html">
                 vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb
+                </a>
+        <br />
+                <a href="../files/vendor/plugins/rspec/lib/spec/runner/formatter/story/progress_bar_formatter_rb.html">
+                vendor/plugins/rspec/lib/spec/runner/formatter/story/progress_bar_formatter.rb
                 </a>
         <br />
                 <a href="../files/vendor/plugins/rspec/lib/spec/runner/formatter/text_mate_formatter_rb.html">
@@ -403,10 +427,6 @@
                 vendor/plugins/rspec/lib/spec/story/world.rb
                 </a>
         <br />
-                <a href="../files/vendor/plugins/rspec/lib/spec/translator_rb.html">
-                vendor/plugins/rspec/lib/spec/translator.rb
-                </a>
-        <br />
                 <a href="../files/vendor/plugins/rspec/lib/spec/version_rb.html">
                 vendor/plugins/rspec/lib/spec/version.rb
                 </a>
@@ -436,9 +456,10 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000016">exit?</a>&nbsp;&nbsp;
-      <a href="#M000015">run</a>&nbsp;&nbsp;
-      <a href="#M000014">run?</a>&nbsp;&nbsp;
+      <a href="#M000014">exit?</a>&nbsp;&nbsp;
+      <a href="#M000013">run</a>&nbsp;&nbsp;
+      <a href="#M000012">run?</a>&nbsp;&nbsp;
+      <a href="#M000015">spec_command?</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -452,7 +473,8 @@
     <div id="class-list">
       <h3 class="section-bar">Classes and Modules</h3>
 
-      Module <a href="Spec/Example.html" class="link">Spec::Example</a><br />
+      Module <a href="Spec/Adapters.html" class="link">Spec::Adapters</a><br />
+Module <a href="Spec/Example.html" class="link">Spec::Example</a><br />
 Module <a href="Spec/Expectations.html" class="link">Spec::Expectations</a><br />
 Module <a href="Spec/Extensions.html" class="link">Spec::Extensions</a><br />
 Module <a href="Spec/Matchers.html" class="link">Spec::Matchers</a><br />
@@ -462,26 +484,12 @@ Module <a href="Spec/Rake.html" class="link">Spec::Rake</a><br />
 Module <a href="Spec/Runner.html" class="link">Spec::Runner</a><br />
 Module <a href="Spec/Story.html" class="link">Spec::Story</a><br />
 Module <a href="Spec/VERSION.html" class="link">Spec::VERSION</a><br />
-Class <a href="Spec/Translator.html" class="link">Spec::Translator</a><br />
 
     </div>
 
 
 
 
-    <div id="attribute-list">
-      <h3 class="section-bar">Attributes</h3>
-
-      <div class="name-list">
-        <table>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">run</td>
-          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
-          <td class="context-item-desc"></td>
-        </tr>
-        </table>
-      </div>
-    </div>
       
 
 
@@ -489,24 +497,71 @@ Class <a href="Spec/Translator.html" class="link">Spec::Translator</a><br />
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000016" class="method-detail">
-        <a name="M000016"></a>
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
 
         <div class="method-heading">
-          <a href="#M000016" class="method-signature">
+          <a href="#M000014" class="method-signature">
           <span class="method-name">exit?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000016-source">
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec.rb, line 26</span>
-26:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">exit?</span>; \
-27:       <span class="ruby-operator">!</span><span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">:Test</span>) <span class="ruby-operator">||</span> <span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Unit</span>.<span class="ruby-identifier">run?</span>; \
-28:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec.rb, line 24</span>
+24:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">exit?</span>
+25:       <span class="ruby-operator">!</span><span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">:Test</span>) <span class="ruby-operator">||</span> <span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Unit</span>.<span class="ruby-identifier">run?</span>
+26:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="#M000013" class="method-signature">
+          <span class="method-name">run</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec.rb, line 19</span>
+19:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
+20:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">run?</span>
+21:       <span class="ruby-constant">Runner</span>.<span class="ruby-identifier">options</span>.<span class="ruby-identifier">run_examples</span>
+22:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="#M000012" class="method-signature">
+          <span class="method-name">run?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec.rb, line 15</span>
+15:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run?</span>
+16:       <span class="ruby-constant">Runner</span>.<span class="ruby-identifier">options</span>.<span class="ruby-identifier">examples_run?</span>
+17:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -517,7 +572,7 @@ Class <a href="Spec/Translator.html" class="link">Spec::Translator</a><br />
 
         <div class="method-heading">
           <a href="#M000015" class="method-signature">
-          <span class="method-name">run</span><span class="method-args">()</span>
+          <span class="method-name">spec_command?</span><span class="method-args">()</span>
           </a>
         </div>
       
@@ -526,36 +581,10 @@ Class <a href="Spec/Translator.html" class="link">Spec::Translator</a><br />
             onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000015-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec.rb, line 18</span>
-18:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>; \
-19:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">run?</span>; \
-20:       <span class="ruby-identifier">result</span> = <span class="ruby-identifier">rspec_options</span>.<span class="ruby-identifier">run_examples</span>; \
-21:       <span class="ruby-ivar">@run</span> = <span class="ruby-keyword kw">true</span>; \
-22:       <span class="ruby-identifier">result</span>; \
-23:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000014" class="method-detail">
-        <a name="M000014"></a>
-
-        <div class="method-heading">
-          <a href="#M000014" class="method-signature">
-          <span class="method-name">run?</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000014-source">
-<pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec.rb, line 14</span>
-14:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run?</span>
-15:       <span class="ruby-ivar">@run</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">rspec_options</span>.<span class="ruby-identifier">examples_run?</span>
-16:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec.rb, line 28</span>
+28:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">spec_command?</span>
+29:       <span class="ruby-identifier">$0</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'/'</span>).<span class="ruby-identifier">last</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'spec'</span>
+30:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

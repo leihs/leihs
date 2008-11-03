@@ -31,7 +31,7 @@ class Backend::TakeBackController < Backend::BackendController
 
   # Close definitely the contract
   def close_contract
-    @options = Option.find(params[:options].split(','))
+    @options = Option.find(params[:options].split(',')) if params[:options]
     
     if request.post?
       #temp# @lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
@@ -40,7 +40,7 @@ class Backend::TakeBackController < Backend::BackendController
       
       # set the return dates to the given contract_lines
       @lines.each { |l| l.update_attribute :returned_date, Date.today }
-      @options.each { |o| o.update_attribute :returned_date, Date.today }
+      @options.each { |o| o.update_attribute :returned_date, Date.today } if @options
       
       @contracts.each do |c|
         c.close if c.lines.all? { |l| !l.returned_date.nil? }
@@ -89,7 +89,8 @@ class Backend::TakeBackController < Backend::BackendController
   private
   
   def pre_load
-    @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]    
+    params[:id] ||= params[:user_id] if params[:user_id]
+    @user = current_inventory_pool.users.find(params[:id]) if params[:id]    
     @contract = Contract.find(params[:contract_id]) if params[:contract_id]
     @item = Item.find(params[:item_id]) if params[:item_id] 
   end

@@ -31,7 +31,7 @@ class Backend::BackendController < ApplicationController
       redirect_to :controller => 'models', 
                   :action => 'search',
                   :document_id => params[:id],
-                  :source_controller => params[:controller],
+                  :source_controller => params[:controller].split('/').last,
                   :source_action => params[:action]
     end
   end
@@ -51,7 +51,7 @@ class Backend::BackendController < ApplicationController
                   :action => 'search',
                   :document_id => params[:id],
                   :line_id => params[:line_id],
-                  :source_controller => params[:controller],
+                  :source_controller => params[:controller].split('/').last,
                   :source_action => params[:action]
     end
   end
@@ -87,24 +87,7 @@ class Backend::BackendController < ApplicationController
 
   protected
     
-    # Accesses the current inventory pool from the session.
-    # Future calls avoid the database because nil is not equal to false.
     def current_inventory_pool
-#old#
-#      @current_inventory_pool ||= InventoryPool.find(session[:inventory_pool_id]) if session[:inventory_pool_id] and not @current_inventory_pool == false
-#
-#      # OPTIMIZE select most recent used inventory pool (using session?)
-#      unless @current_inventory_pool
-#        first_access_right = current_user.access_rights.detect {|a| a.role.name == 'manager'}
-#        if first_access_right
-#          @current_inventory_pool = first_access_right.inventory_pool
-#        else
-#          # OPTIMIZE 28** forcing at least one inventory pool, however the has_role? check should fail
-#          @current_inventory_pool = InventoryPool.first
-#        end
-#      end
-#      @current_inventory_pool
-
       # TODO 28** patch to Rails: actionpack/lib/action_controller/...
       if !params[:inventory_pool_id] and params[:id]
         request.path_parameters[:inventory_pool_id] = params[:id]
@@ -113,13 +96,6 @@ class Backend::BackendController < ApplicationController
 #      @current_inventory_pool = InventoryPool.find(params[:inventory_pool_id])
       @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
     end
-
-    # Stores the given inventory pool id in the session.
-#old#
-#    def current_inventory_pool=(new_inventory_pool)
-#      session[:inventory_pool_id] = new_inventory_pool ? new_inventory_pool.id : nil
-#      @current_inventory_pool = new_inventory_pool || false
-#    end  
 
 ####################################################  
   

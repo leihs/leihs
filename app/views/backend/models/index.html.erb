@@ -11,7 +11,7 @@
 				<td><%= @current_inventory_pool.items.count(:conditions => {:model_id => model.id}) %></td>
 				<td><%= (model.compatibles & @current_inventory_pool.models).size %></td>
 				<td class="buttons" nowrap>
-					<%= link_to _("Show"), backend_inventory_pool_model_path(@current_inventory_pool, model) %>
+					<%= link_to _("Show"), {:action => 'show', :id => model} %>
 				</td>
 			</tr>
 

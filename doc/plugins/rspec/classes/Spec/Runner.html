@@ -95,6 +95,10 @@
                 vendor/plugins/rspec/lib/spec/runner/formatter/html_formatter.rb
                 </a>
         <br />
+                <a href="../../files/vendor/plugins/rspec/lib/spec/runner/formatter/nested_text_formatter_rb.html">
+                vendor/plugins/rspec/lib/spec/runner/formatter/nested_text_formatter.rb
+                </a>
+        <br />
                 <a href="../../files/vendor/plugins/rspec/lib/spec/runner/formatter/profile_formatter_rb.html">
                 vendor/plugins/rspec/lib/spec/runner/formatter/profile_formatter.rb
                 </a>
@@ -117,6 +121,10 @@
         <br />
                 <a href="../../files/vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter_rb.html">
                 vendor/plugins/rspec/lib/spec/runner/formatter/story/plain_text_formatter.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/rspec/lib/spec/runner/formatter/story/progress_bar_formatter_rb.html">
+                vendor/plugins/rspec/lib/spec/runner/formatter/story/progress_bar_formatter.rb
                 </a>
         <br />
                 <a href="../../files/vendor/plugins/rspec/lib/spec/runner/formatter/text_mate_formatter_rb.html">
@@ -189,9 +197,10 @@ set of known objects in a known starting state. We begin be describing
   end
 </pre>
 <p>
-We use the before block to set up the <a href="Example.html">Example</a>
-(given), and then the it method to hold the example code that expresses the
-event (when) and the expected outcome (then).
+We <a href="Runner.html#M000227">use</a> the before block to set up the <a
+href="Example.html">Example</a> (given), and then the it method to hold the
+example code that expresses the event (when) and the expected outcome
+(then).
 </p>
 <h2>Helper Methods</h2>
 <p>
@@ -208,9 +217,10 @@ module.
 </p>
 <h2>Setup and Teardown</h2>
 <p>
-You can use before and after within a <a href="Example.html">Example</a>.
-Both methods take an optional scope argument so you can run the block
-before :each example or before :all examples
+You can <a href="Runner.html#M000227">use</a> before and after within a <a
+href="Example.html">Example</a>. Both methods take an optional scope
+argument so you can run the block before :each example or before :all
+examples
 </p>
 <pre>
   describe &quot;...&quot; do
@@ -249,9 +259,10 @@ each of the examples.
 It is also possible to specify a <tt>before :all</tt> and <tt>after
 :all</tt> block that will run only once for each behaviour, respectively
 before the first <tt>before :each</tt> and after the last <tt>after
-:each</tt>. The use of these is generally discouraged, because it
-introduces dependencies between the examples. Still, it might prove useful
-for very expensive operations if you know what you are doing.
+:each</tt>. The <a href="Runner.html#M000227">use</a> of these is generally
+discouraged, because it introduces dependencies between the examples.
+Still, it might prove useful for very expensive operations if you know what
+you are doing.
 </p>
 <h2>Local helper methods</h2>
 <p>
@@ -330,8 +341,8 @@ You can also assign the shared group to a module and include that
  end
 </pre>
 <p>
-And, for those of you who prefer to use something more like Ruby, you can
-just include the module directly
+And, for those of you who prefer to <a href="Runner.html#M000227">use</a>
+something more like Ruby, you can just include the module directly
 </p>
 <pre>
  describe SmallEdition do
@@ -352,7 +363,8 @@ just include the module directly
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000203">configure</a>&nbsp;&nbsp;
+      <a href="#M000226">configure</a>&nbsp;&nbsp;
+      <a href="#M000227">use</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -411,18 +423,18 @@ TODO: BT - Deprecate BehaviourRunner?
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000203" class="method-detail">
-        <a name="M000203"></a>
+      <div id="method-M000226" class="method-detail">
+        <a name="M000226"></a>
 
         <div class="method-heading">
-          <a href="#M000203" class="method-signature">
+          <a href="#M000226" class="method-signature">
           <span class="method-name">configure</span><span class="method-args">() {|configuration| ...}</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Use this to <a href="Runner.html#M000203">configure</a> various
+Use this to <a href="Runner.html#M000226">configure</a> various
 configurable aspects of RSpec:
 </p>
 <pre>
@@ -436,13 +448,36 @@ href="Example/Configuration.html">Spec::Example::Configuration</a>
 instance. See its RDoc for details about what you can do with it.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000203-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000203-source">
+            onclick="toggleCode('M000226-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000226-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner.rb, line 183</span>
 183:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">configure</span>
 184:         <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">configuration</span>
 185:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000227" class="method-detail">
+        <a name="M000227"></a>
+
+        <div class="method-heading">
+          <a href="#M000227" class="method-signature">
+          <span class="method-name">use</span><span class="method-args">(options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000227-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000227-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner.rb, line 207</span>
+207:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">use</span> <span class="ruby-identifier">options</span>
+208:         <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">options</span>
+209:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

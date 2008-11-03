@@ -104,8 +104,9 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000428">dry_run</a>&nbsp;&nbsp;
-      <a href="#M000427">register_listener</a>&nbsp;&nbsp;
+      <a href="#M000471">create_story_runner</a>&nbsp;&nbsp;
+      <a href="#M000473">dry_run</a>&nbsp;&nbsp;
+      <a href="#M000472">register_listener</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -139,34 +140,57 @@ Class <a href="Runner/StoryRunner.html" class="link">Spec::Story::Runner::StoryR
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000428" class="method-detail">
-        <a name="M000428"></a>
+      <div id="method-M000471" class="method-detail">
+        <a name="M000471"></a>
 
         <div class="method-heading">
-          <a href="#M000428" class="method-signature">
+          <a href="#M000471" class="method-signature">
+          <span class="method-name">create_story_runner</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000471-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000471-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner.rb, line 35</span>
+35:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_story_runner</span>
+36:           <span class="ruby-constant">Runner</span><span class="ruby-operator">::</span><span class="ruby-constant">StoryRunner</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">scenario_runner</span>, <span class="ruby-identifier">world_creator</span>)
+37:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000473" class="method-detail">
+        <a name="M000473"></a>
+
+        <div class="method-heading">
+          <a href="#M000473" class="method-signature">
           <span class="method-name">dry_run</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000428-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000428-source">
+            onclick="toggleCode('M000473-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000473-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner.rb, line 49</span>
-49:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dry_run</span>
-50:           <span class="ruby-identifier">run_options</span>.<span class="ruby-identifier">dry_run</span>
-51:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner.rb, line 52</span>
+52:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dry_run</span>
+53:           <span class="ruby-identifier">run_options</span>.<span class="ruby-identifier">dry_run</span>
+54:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000427" class="method-detail">
-        <a name="M000427"></a>
+      <div id="method-M000472" class="method-detail">
+        <a name="M000472"></a>
 
         <div class="method-heading">
-          <a href="#M000427" class="method-signature">
+          <a href="#M000472" class="method-signature">
           <span class="method-name">register_listener</span><span class="method-args">(listener)</span>
           </a>
         </div>
@@ -176,15 +200,15 @@ Class <a href="Runner/StoryRunner.html" class="link">Spec::Story::Runner::StoryR
 Use this to register a customer output formatter.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000427-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000427-source">
+            onclick="toggleCode('M000472-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000472-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner.rb, line 36</span>
-36:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">register_listener</span>(<span class="ruby-identifier">listener</span>)
-37:           <span class="ruby-identifier">story_runner</span>.<span class="ruby-identifier">add_listener</span>(<span class="ruby-identifier">listener</span>) <span class="ruby-comment cmt"># run_started, story_started, story_ended, #run_ended</span>
-38:           <span class="ruby-identifier">world_creator</span>.<span class="ruby-identifier">add_listener</span>(<span class="ruby-identifier">listener</span>) <span class="ruby-comment cmt"># found_scenario, step_succeeded, step_failed, step_failed</span>
-39:           <span class="ruby-identifier">scenario_runner</span>.<span class="ruby-identifier">add_listener</span>(<span class="ruby-identifier">listener</span>) <span class="ruby-comment cmt"># scenario_started, scenario_succeeded, scenario_pending, scenario_failed</span>
-40:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner.rb, line 40</span>
+40:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">register_listener</span>(<span class="ruby-identifier">listener</span>)
+41:           <span class="ruby-identifier">story_runner</span>.<span class="ruby-identifier">add_listener</span>(<span class="ruby-identifier">listener</span>) <span class="ruby-comment cmt"># run_started, story_started, story_ended, #run_ended</span>
+42:           <span class="ruby-identifier">world_creator</span>.<span class="ruby-identifier">add_listener</span>(<span class="ruby-identifier">listener</span>) <span class="ruby-comment cmt"># found_scenario, step_succeeded, step_failed, step_failed</span>
+43:           <span class="ruby-identifier">scenario_runner</span>.<span class="ruby-identifier">add_listener</span>(<span class="ruby-identifier">listener</span>) <span class="ruby-comment cmt"># scenario_started, scenario_succeeded, scenario_pending, scenario_failed</span>
+44:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

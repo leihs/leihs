@@ -80,9 +80,10 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000032">mock</a>&nbsp;&nbsp;
-      <a href="#M000033">stub</a>&nbsp;&nbsp;
-      <a href="#M000034">stub_everything</a>&nbsp;&nbsp;
+      <a href="#M000059">allow_message_expectations_on_nil</a>&nbsp;&nbsp;
+      <a href="#M000056">mock</a>&nbsp;&nbsp;
+      <a href="#M000057">stub</a>&nbsp;&nbsp;
+      <a href="#M000058">stub_everything</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -94,7 +95,7 @@
       <h3 class="section-bar">Included Modules</h3>
 
       <div id="includes-list">
-        <span class="include-name"><a href="ArgumentConstraintMatchers.html">Spec::Mocks::ArgumentConstraintMatchers</a></span>
+        <span class="include-name"><a href="ArgumentConstraints.html">Spec::Mocks::ArgumentConstraints</a></span>
       </div>
     </div>
 
@@ -111,11 +112,41 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000032" class="method-detail">
-        <a name="M000032"></a>
+      <div id="method-M000059" class="method-detail">
+        <a name="M000059"></a>
 
         <div class="method-heading">
-          <a href="#M000032" class="method-signature">
+          <a href="#M000059" class="method-signature">
+          <span class="method-name">allow_message_expectations_on_nil</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Disables warning messages about expectations being set on nil.
+</p>
+<p>
+By default warning messages are issued when expectations are set on nil.
+This is to prevent false-positives and to catch potential bugs early on.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000059-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000059-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb, line 40</span>
+40:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">allow_message_expectations_on_nil</span>
+41:         <span class="ruby-constant">Proxy</span>.<span class="ruby-identifier">allow_message_expectations_on_nil</span>
+42:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000056" class="method-detail">
+        <a name="M000056"></a>
+
+        <div class="method-heading">
+          <a href="#M000056" class="method-signature">
           <span class="method-name">mock</span><span class="method-args">(name, stubs_and_options={})</span>
           </a>
         </div>
@@ -127,14 +158,14 @@ href="Mock.html">Spec::Mocks::Mock</a>.
 </p>
 <p>
 <tt>name</tt> is used for failure reporting, so you should use the role
-that the <a href="ExampleMethods.html#M000032">mock</a> is playing in the
+that the <a href="ExampleMethods.html#M000056">mock</a> is playing in the
 example.
 </p>
 <p>
 <tt>stubs_and_options</tt> lets you assign options and <a
-href="ExampleMethods.html#M000033">stub</a> values at the same time. The
+href="ExampleMethods.html#M000057">stub</a> values at the same time. The
 only option available is :null_object. Anything else is treated as a <a
-href="ExampleMethods.html#M000033">stub</a> value.
+href="ExampleMethods.html#M000057">stub</a> value.
 </p>
 <h2>Examples</h2>
 <pre>
@@ -146,8 +177,8 @@ href="ExampleMethods.html#M000033">stub</a> value.
   stub_person.email =&gt; &quot;joe@domain.com&quot;
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000032-source">
+            onclick="toggleCode('M000056-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000056-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb, line 23</span>
 23:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">mock</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">stubs_and_options</span>={})
@@ -158,8 +189,8 @@ href="ExampleMethods.html#M000033">stub</a> value.
         </div>
       </div>
 
-      <div id="method-M000033" class="method-detail">
-        <a name="M000033"></a>
+      <div id="method-M000057" class="method-detail">
+        <a name="M000057"></a>
 
         <div class="method-heading">
           <span class="method-name">stub</span><span class="method-args">(name, stubs_and_options={})</span>
@@ -167,29 +198,29 @@ href="ExampleMethods.html#M000033">stub</a> value.
       
         <div class="method-description">
           <p>
-Alias for <a href="ExampleMethods.html#M000032">mock</a>
+Alias for <a href="ExampleMethods.html#M000056">mock</a>
 </p>
         </div>
       </div>
 
-      <div id="method-M000034" class="method-detail">
-        <a name="M000034"></a>
+      <div id="method-M000058" class="method-detail">
+        <a name="M000058"></a>
 
         <div class="method-heading">
-          <a href="#M000034" class="method-signature">
+          <a href="#M000058" class="method-signature">
           <span class="method-name">stub_everything</span><span class="method-args">(name = 'stub')</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Shortcut for creating a <a href="ExampleMethods.html#M000032">mock</a>
+Shortcut for creating a <a href="ExampleMethods.html#M000056">mock</a>
 object that will return itself in response to any message it receives that
 it hasn&#8216;t been explicitly instructed to respond to.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000034-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000034-source">
+            onclick="toggleCode('M000058-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000058-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb, line 32</span>
 32:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stub_everything</span>(<span class="ruby-identifier">name</span> = <span class="ruby-value str">'stub'</span>)

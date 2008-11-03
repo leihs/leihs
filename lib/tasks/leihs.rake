@@ -25,6 +25,17 @@ namespace :leihs do
   end
 
 
+  desc "Run Rspec tests"
+  task :test do
+    puts "Removing log/test.log..."
+      system "rm log/test.log"
+    puts "Resetting database..."
+      system "rake db:migrate:reset RAILS_ENV=test"
+    puts "Running all stories..."
+      system "ruby stories/all.rb"
+  end
+
+
   # TODO remove this
   desc "Random dataset generator"
   task :dataset => :environment do
@@ -227,7 +238,7 @@ namespace :leihs do
     users = User.find(:all)
     quantity.times do |i|
       user = users[rand(users.size)]      
-      order = Order.new(:user => user)
+      order = Order.create(:user => user)
       3.times {
         d = Array.new
         2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }

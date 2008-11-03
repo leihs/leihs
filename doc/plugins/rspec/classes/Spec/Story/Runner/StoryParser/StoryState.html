@@ -88,14 +88,14 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000457">eof</a>&nbsp;&nbsp;
-      <a href="#M000454">event</a>&nbsp;&nbsp;
-      <a href="#M000453">given</a>&nbsp;&nbsp;
-      <a href="#M000450">one_more_of_the_same</a>&nbsp;&nbsp;
-      <a href="#M000456">other</a>&nbsp;&nbsp;
-      <a href="#M000455">outcome</a>&nbsp;&nbsp;
-      <a href="#M000452">scenario</a>&nbsp;&nbsp;
-      <a href="#M000451">story</a>&nbsp;&nbsp;
+      <a href="#M000505">eof</a>&nbsp;&nbsp;
+      <a href="#M000502">event</a>&nbsp;&nbsp;
+      <a href="#M000501">given</a>&nbsp;&nbsp;
+      <a href="#M000498">one_more_of_the_same</a>&nbsp;&nbsp;
+      <a href="#M000504">other</a>&nbsp;&nbsp;
+      <a href="#M000503">outcome</a>&nbsp;&nbsp;
+      <a href="#M000500">scenario</a>&nbsp;&nbsp;
+      <a href="#M000499">story</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -117,137 +117,68 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000457" class="method-detail">
-        <a name="M000457"></a>
+      <div id="method-M000505" class="method-detail">
+        <a name="M000505"></a>
 
         <div class="method-heading">
-          <a href="#M000457" class="method-signature">
+          <a href="#M000505" class="method-signature">
           <span class="method-name">eof</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000457-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000457-source">
+            onclick="toggleCode('M000505-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000505-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 179</span>
-179:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eof</span>
-180:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">create_story</span>
-181:           <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 187</span>
+187:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eof</span>
+188:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">create_story</span>
+189:           <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000454" class="method-detail">
-        <a name="M000454"></a>
+      <div id="method-M000502" class="method-detail">
+        <a name="M000502"></a>
 
         <div class="method-heading">
-          <a href="#M000454" class="method-signature">
+          <a href="#M000502" class="method-signature">
           <span class="method-name">event</span><span class="method-args">(line)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000454-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000454-source">
-<pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 167</span>
-167:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">event</span>(<span class="ruby-identifier">line</span>)
-168:             <span class="ruby-identifier">other</span>(<span class="ruby-identifier">line</span>)
-169:           <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000453" class="method-detail">
-        <a name="M000453"></a>
-
-        <div class="method-heading">
-          <a href="#M000453" class="method-signature">
-          <span class="method-name">given</span><span class="method-args">(line)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000453-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000453-source">
-<pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 163</span>
-163:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">given</span>(<span class="ruby-identifier">line</span>)
-164:             <span class="ruby-identifier">other</span>(<span class="ruby-identifier">line</span>)
-165:           <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000450" class="method-detail">
-        <a name="M000450"></a>
-
-        <div class="method-heading">
-          <a href="#M000450" class="method-signature">
-          <span class="method-name">one_more_of_the_same</span><span class="method-args">(line)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000450-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000450-source">
-<pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 148</span>
-148:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">one_more_of_the_same</span>(<span class="ruby-identifier">line</span>)
-149:             <span class="ruby-identifier">other</span>(<span class="ruby-identifier">line</span>)
-150:           <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000456" class="method-detail">
-        <a name="M000456"></a>
-
-        <div class="method-heading">
-          <a href="#M000456" class="method-signature">
-          <span class="method-name">other</span><span class="method-args">(line)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000456-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000456-source">
+            onclick="toggleCode('M000502-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000502-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 175</span>
-175:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">other</span>(<span class="ruby-identifier">line</span>)
-176:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">add_story_line</span>(<span class="ruby-identifier">line</span>)
+175:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">event</span>(<span class="ruby-identifier">line</span>)
+176:             <span class="ruby-identifier">other</span>(<span class="ruby-identifier">line</span>)
 177:           <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000455" class="method-detail">
-        <a name="M000455"></a>
+      <div id="method-M000501" class="method-detail">
+        <a name="M000501"></a>
 
         <div class="method-heading">
-          <a href="#M000455" class="method-signature">
-          <span class="method-name">outcome</span><span class="method-args">(line)</span>
+          <a href="#M000501" class="method-signature">
+          <span class="method-name">given</span><span class="method-args">(line)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000455-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000455-source">
+            onclick="toggleCode('M000501-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000501-source">
 <pre>
      <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 171</span>
-171:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">outcome</span>(<span class="ruby-identifier">line</span>)
+171:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">given</span>(<span class="ruby-identifier">line</span>)
 172:             <span class="ruby-identifier">other</span>(<span class="ruby-identifier">line</span>)
 173:           <span class="ruby-keyword kw">end</span>
 </pre>
@@ -255,50 +186,119 @@
         </div>
       </div>
 
-      <div id="method-M000452" class="method-detail">
-        <a name="M000452"></a>
+      <div id="method-M000498" class="method-detail">
+        <a name="M000498"></a>
 
         <div class="method-heading">
-          <a href="#M000452" class="method-signature">
+          <a href="#M000498" class="method-signature">
+          <span class="method-name">one_more_of_the_same</span><span class="method-args">(line)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000498-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000498-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 156</span>
+156:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">one_more_of_the_same</span>(<span class="ruby-identifier">line</span>)
+157:             <span class="ruby-identifier">other</span>(<span class="ruby-identifier">line</span>)
+158:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000504" class="method-detail">
+        <a name="M000504"></a>
+
+        <div class="method-heading">
+          <a href="#M000504" class="method-signature">
+          <span class="method-name">other</span><span class="method-args">(line)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000504-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000504-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 183</span>
+183:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">other</span>(<span class="ruby-identifier">line</span>)
+184:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">add_story_line</span>(<span class="ruby-identifier">line</span>)
+185:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000503" class="method-detail">
+        <a name="M000503"></a>
+
+        <div class="method-heading">
+          <a href="#M000503" class="method-signature">
+          <span class="method-name">outcome</span><span class="method-args">(line)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000503-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000503-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 179</span>
+179:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">outcome</span>(<span class="ruby-identifier">line</span>)
+180:             <span class="ruby-identifier">other</span>(<span class="ruby-identifier">line</span>)
+181:           <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000500" class="method-detail">
+        <a name="M000500"></a>
+
+        <div class="method-heading">
+          <a href="#M000500" class="method-signature">
           <span class="method-name">scenario</span><span class="method-args">(line)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000452-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000452-source">
+            onclick="toggleCode('M000500-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000500-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 157</span>
-157:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scenario</span>(<span class="ruby-identifier">line</span>)
-158:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">create_story</span>
-159:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">create_scenario</span>(<span class="ruby-identifier">line</span>)
-160:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">transition_to</span>(<span class="ruby-identifier">:scenario_state</span>)
-161:           <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 165</span>
+165:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scenario</span>(<span class="ruby-identifier">line</span>)
+166:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">create_story</span>
+167:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">create_scenario</span>(<span class="ruby-identifier">line</span>)
+168:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">transition_to</span>(<span class="ruby-identifier">:scenario_state</span>)
+169:           <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000451" class="method-detail">
-        <a name="M000451"></a>
+      <div id="method-M000499" class="method-detail">
+        <a name="M000499"></a>
 
         <div class="method-heading">
-          <a href="#M000451" class="method-signature">
+          <a href="#M000499" class="method-signature">
           <span class="method-name">story</span><span class="method-args">(line)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000451-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000451-source">
+            onclick="toggleCode('M000499-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000499-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 152</span>
-152:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">story</span>(<span class="ruby-identifier">line</span>)
-153:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">create_story</span>
-154:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">add_story_line</span>(<span class="ruby-identifier">line</span>)
-155:           <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/runner/story_parser.rb, line 160</span>
+160:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">story</span>(<span class="ruby-identifier">line</span>)
+161:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">create_story</span>
+162:             <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">add_story_line</span>(<span class="ruby-identifier">line</span>)
+163:           <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

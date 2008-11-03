@@ -80,11 +80,11 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000423">context</a>&nbsp;&nbsp;
-      <a href="#M000422">describe</a>&nbsp;&nbsp;
-      <a href="#M000426">share_as</a>&nbsp;&nbsp;
-      <a href="#M000424">share_examples_for</a>&nbsp;&nbsp;
-      <a href="#M000425">shared_examples_for</a>&nbsp;&nbsp;
+      <a href="#M000467">context</a>&nbsp;&nbsp;
+      <a href="#M000466">describe</a>&nbsp;&nbsp;
+      <a href="#M000470">share_as</a>&nbsp;&nbsp;
+      <a href="#M000468">share_examples_for</a>&nbsp;&nbsp;
+      <a href="#M000469">shared_examples_for</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -106,8 +106,8 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000423" class="method-detail">
-        <a name="M000423"></a>
+      <div id="method-M000467" class="method-detail">
+        <a name="M000467"></a>
 
         <div class="method-heading">
           <span class="method-name">context</span><span class="method-args">(*args, &amp;block)</span>
@@ -115,16 +115,16 @@
       
         <div class="method-description">
           <p>
-Alias for <a href="Main.html#M000422">describe</a>
+Alias for <a href="Main.html#M000466">describe</a>
 </p>
         </div>
       </div>
 
-      <div id="method-M000422" class="method-detail">
-        <a name="M000422"></a>
+      <div id="method-M000466" class="method-detail">
+        <a name="M000466"></a>
 
         <div class="method-heading">
-          <a href="#M000422" class="method-signature">
+          <a href="#M000466" class="method-signature">
           <span class="method-name">describe</span><span class="method-args">(*args, &amp;block)</span>
           </a>
         </div>
@@ -147,22 +147,22 @@ with an options Hash as the last argument:
 <p>
 The reason for using different behaviour classes is to have different
 matcher methods available from within the <tt><a
-href="Main.html#M000422">describe</a></tt> block.
+href="Main.html#M000466">describe</a></tt> block.
 </p>
 <p>
-See Spec::Example::ExampleFactory#register for details about how to
+See Spec::Example::ExampleGroupFactory#register for details about how to
 register special implementations.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000422-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000422-source">
+            onclick="toggleCode('M000466-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000466-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/extensions/main.rb, line 22</span>
 22:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">describe</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
 23:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span>
 24:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">block</span>
 25:         <span class="ruby-identifier">args</span> <span class="ruby-operator">&lt;&lt;</span> {} <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>
-26:         <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>[<span class="ruby-identifier">:spec_path</span>] = <span class="ruby-identifier">caller</span>(<span class="ruby-value">0</span>)[<span class="ruby-value">1</span>]
+26:         <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>[<span class="ruby-identifier">:spec_path</span>] = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">caller</span>(<span class="ruby-value">0</span>)[<span class="ruby-value">1</span>])
 27:         <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Example</span><span class="ruby-operator">::</span><span class="ruby-constant">ExampleGroupFactory</span>.<span class="ruby-identifier">create_example_group</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
 28:       <span class="ruby-keyword kw">end</span>
 </pre>
@@ -170,11 +170,11 @@ register special implementations.
         </div>
       </div>
 
-      <div id="method-M000426" class="method-detail">
-        <a name="M000426"></a>
+      <div id="method-M000470" class="method-detail">
+        <a name="M000470"></a>
 
         <div class="method-heading">
-          <a href="#M000426" class="method-signature">
+          <a href="#M000470" class="method-signature">
           <span class="method-name">share_as</span><span class="method-args">(name, &amp;block)</span>
           </a>
         </div>
@@ -211,8 +211,8 @@ just include the module directly
  end
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000426-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000426-source">
+            onclick="toggleCode('M000470-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000470-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/extensions/main.rb, line 76</span>
 76:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">share_as</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
@@ -227,11 +227,11 @@ just include the module directly
         </div>
       </div>
 
-      <div id="method-M000424" class="method-detail">
-        <a name="M000424"></a>
+      <div id="method-M000468" class="method-detail">
+        <a name="M000468"></a>
 
         <div class="method-heading">
-          <a href="#M000424" class="method-signature">
+          <a href="#M000468" class="method-signature">
           <span class="method-name">share_examples_for</span><span class="method-args">(name, &amp;block)</span>
           </a>
         </div>
@@ -255,8 +255,8 @@ Creates an example group that can be shared by other example groups
  end
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000424-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000424-source">
+            onclick="toggleCode('M000468-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000468-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/extensions/main.rb, line 46</span>
 46:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">share_examples_for</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
@@ -267,8 +267,8 @@ Creates an example group that can be shared by other example groups
         </div>
       </div>
 
-      <div id="method-M000425" class="method-detail">
-        <a name="M000425"></a>
+      <div id="method-M000469" class="method-detail">
+        <a name="M000469"></a>
 
         <div class="method-heading">
           <span class="method-name">shared_examples_for</span><span class="method-args">(name, &amp;block)</span>
@@ -276,7 +276,7 @@ Creates an example group that can be shared by other example groups
       
         <div class="method-description">
           <p>
-Alias for <a href="Main.html#M000424">share_examples_for</a>
+Alias for <a href="Main.html#M000468">share_examples_for</a>
 </p>
         </div>
       </div>

@@ -118,11 +118,11 @@ href="../../Spec/Example/ExampleGroup.html">Spec::Example::ExampleGroup</a>
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000585">example_method?</a>&nbsp;&nbsp;
-      <a href="#M000587">new</a>&nbsp;&nbsp;
-      <a href="#M000588">run</a>&nbsp;&nbsp;
-      <a href="#M000584">suite</a>&nbsp;&nbsp;
-      <a href="#M000586">test_method?</a>&nbsp;&nbsp;
+      <a href="#M000632">example_method?</a>&nbsp;&nbsp;
+      <a href="#M000634">new</a>&nbsp;&nbsp;
+      <a href="#M000635">run</a>&nbsp;&nbsp;
+      <a href="#M000631">suite</a>&nbsp;&nbsp;
+      <a href="#M000633">test_method?</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -151,19 +151,19 @@ href="../../Spec/Example/ExampleGroup.html">Spec::Example::ExampleGroup</a>
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000585" class="method-detail">
-        <a name="M000585"></a>
+      <div id="method-M000632" class="method-detail">
+        <a name="M000632"></a>
 
         <div class="method-heading">
-          <a href="#M000585" class="method-signature">
+          <a href="#M000632" class="method-signature">
           <span class="method-name">example_method?</span><span class="method-args">(method_name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000585-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000585-source">
+            onclick="toggleCode('M000632-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000632-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb, line 34</span>
 34:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_method?</span>(<span class="ruby-identifier">method_name</span>)
@@ -174,48 +174,51 @@ href="../../Spec/Example/ExampleGroup.html">Spec::Example::ExampleGroup</a>
         </div>
       </div>
 
-      <div id="method-M000587" class="method-detail">
-        <a name="M000587"></a>
+      <div id="method-M000634" class="method-detail">
+        <a name="M000634"></a>
 
         <div class="method-heading">
-          <a href="#M000587" class="method-signature">
-          <span class="method-name">new</span><span class="method-args">(defined_description, &amp;implementation)</span>
+          <a href="#M000634" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(defined_description, options={}, &amp;implementation)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000587-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000587-source">
+            onclick="toggleCode('M000634-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000634-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb, line 46</span>
-46:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">defined_description</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">implementation</span>)
+46:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">defined_description</span>, <span class="ruby-identifier">options</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">implementation</span>)
 47:         <span class="ruby-ivar">@_defined_description</span> = <span class="ruby-identifier">defined_description</span>
-48:         <span class="ruby-ivar">@_implementation</span> = <span class="ruby-identifier">implementation</span>
-49: 
-50:         <span class="ruby-ivar">@_result</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Unit</span><span class="ruby-operator">::</span><span class="ruby-constant">TestResult</span>.<span class="ruby-identifier">new</span>
-51:         <span class="ruby-comment cmt"># @method_name is important to set here because it &quot;complies&quot; with Test::Unit's interface.</span>
-52:         <span class="ruby-comment cmt"># Some Test::Unit extensions depend on @method_name being present.</span>
-53:         <span class="ruby-ivar">@method_name</span> = <span class="ruby-ivar">@_defined_description</span>
-54:       <span class="ruby-keyword kw">end</span>
+48:         
+49:         <span class="ruby-comment cmt"># TODO - examples fail in rspec-rails if we remove &quot;|| pending_implementation&quot;</span>
+50:         <span class="ruby-comment cmt">#      - find a way to fail without it in rspec's code examples</span>
+51:         <span class="ruby-ivar">@_implementation</span> = <span class="ruby-identifier">implementation</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">pending_implementation</span>
+52: 
+53:         <span class="ruby-ivar">@_result</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Unit</span><span class="ruby-operator">::</span><span class="ruby-constant">TestResult</span>.<span class="ruby-identifier">new</span>
+54:         <span class="ruby-comment cmt"># @method_name is important to set here because it &quot;complies&quot; with Test::Unit's interface.</span>
+55:         <span class="ruby-comment cmt"># Some Test::Unit extensions depend on @method_name being present.</span>
+56:         <span class="ruby-ivar">@method_name</span> = <span class="ruby-ivar">@_defined_description</span>
+57:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000584" class="method-detail">
-        <a name="M000584"></a>
+      <div id="method-M000631" class="method-detail">
+        <a name="M000631"></a>
 
         <div class="method-heading">
-          <a href="#M000584" class="method-signature">
+          <a href="#M000631" class="method-signature">
           <span class="method-name">suite</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000584-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000584-source">
+            onclick="toggleCode('M000631-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000631-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb, line 30</span>
 30:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">suite</span>
@@ -226,19 +229,19 @@ href="../../Spec/Example/ExampleGroup.html">Spec::Example::ExampleGroup</a>
         </div>
       </div>
 
-      <div id="method-M000586" class="method-detail">
-        <a name="M000586"></a>
+      <div id="method-M000633" class="method-detail">
+        <a name="M000633"></a>
 
         <div class="method-heading">
-          <a href="#M000586" class="method-signature">
+          <a href="#M000633" class="method-signature">
           <span class="method-name">test_method?</span><span class="method-args">(method_name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000586-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000586-source">
+            onclick="toggleCode('M000633-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000633-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb, line 38</span>
 38:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_method?</span>(<span class="ruby-identifier">method_name</span>)
@@ -254,24 +257,24 @@ href="../../Spec/Example/ExampleGroup.html">Spec::Example::ExampleGroup</a>
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000588" class="method-detail">
-        <a name="M000588"></a>
+      <div id="method-M000635" class="method-detail">
+        <a name="M000635"></a>
 
         <div class="method-heading">
-          <a href="#M000588" class="method-signature">
+          <a href="#M000635" class="method-signature">
           <span class="method-name">run</span><span class="method-args">(ignore_this_argument=nil)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000588-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000588-source">
+            onclick="toggleCode('M000635-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000635-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb, line 56</span>
-56:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">ignore_this_argument</span>=<span class="ruby-keyword kw">nil</span>)
-57:         <span class="ruby-keyword kw">super</span>()
-58:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb, line 59</span>
+59:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">ignore_this_argument</span>=<span class="ruby-keyword kw">nil</span>)
+60:         <span class="ruby-keyword kw">super</span>()
+61:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

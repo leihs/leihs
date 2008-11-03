@@ -1,6 +1,6 @@
 <ul>
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/accept.png") + " " + _('Acknowledge') + " (#{@to_acknowledge_size})", backend_inventory_pool_acknowledge_index_path %></li>
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_turn_right.png") + " " + _('Hand Over') + " (#{@to_hand_over_size})", backend_inventory_pool_hand_over_index_path %></li>
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_undo.png") + " " + _('Take Back') + " (#{@to_take_back_size})", backend_inventory_pool_take_back_index_path %></li>
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/clock.png") + " " + _('Remind') + " (#{@to_remind_size})", backend_inventory_pool_take_back_index_path(:remind => true) %></li>				
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/accept.png") + " " + _('Acknowledge') + " (#{@to_acknowledge_size})", :controller => 'acknowledge' %></li>
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_turn_right.png") + " " + _('Hand Over') + " (#{@to_hand_over_size})", :controller => 'hand_over' %></li>
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_undo.png") + " " + _('Take Back') + " (#{@to_take_back_size})", :controller => 'take_back' %></li>
+	<li><%= link_to image_tag($layout_public_path + "/images/icons/clock.png") + " " + _('Remind') + " (#{@to_remind_size})", :controller => 'take_back', :remind => true %></li>				
 </ul>

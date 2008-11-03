@@ -92,8 +92,7 @@ steps_for(:availability_inventory_pool) do
 
   When "'$who' searches for '$model'" do |who, model|
     post "/session", :login => who #, :password => "pass"
-# TODO 30** why post ??    
-    post "/models/index", :query => model
+    get models_path(:query => model)
     @models = assigns(:models)
   end
   

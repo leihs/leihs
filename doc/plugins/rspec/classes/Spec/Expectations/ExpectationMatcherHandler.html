@@ -88,7 +88,7 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000028">handle_matcher</a>&nbsp;&nbsp;
+      <a href="#M000026">handle_matcher</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -96,13 +96,6 @@
 
 
     <!-- if includes -->
-    <div id="includes">
-      <h3 class="section-bar">Included Modules</h3>
-
-      <div id="includes-list">
-        <span class="include-name"><a href="MatcherHandlerHelper.html">MatcherHandlerHelper</a></span>
-      </div>
-    </div>
 
     <div id="section">
 
@@ -117,30 +110,34 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000028" class="method-detail">
-        <a name="M000028"></a>
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
 
         <div class="method-heading">
-          <a href="#M000028" class="method-signature">
+          <a href="#M000026" class="method-signature">
           <span class="method-name">handle_matcher</span><span class="method-args">(actual, matcher, &amp;block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000028-source">
+            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000026-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/expectations/handler.rb, line 14</span>
-14:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle_matcher</span>(<span class="ruby-identifier">actual</span>, <span class="ruby-identifier">matcher</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-15:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">matcher</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:matches?</span>)
-16:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidMatcherError</span>, <span class="ruby-node">&quot;Expected a matcher, got #{matcher.inspect}.&quot;</span>
-17:           <span class="ruby-keyword kw">end</span>
-18:           
-19:           <span class="ruby-identifier">match</span> = <span class="ruby-identifier">matcher</span>.<span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">actual</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-20:           <span class="ruby-operator">::</span><span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Matchers</span>.<span class="ruby-identifier">generated_description</span> = <span class="ruby-node">&quot;should #{describe_matcher(matcher)}&quot;</span>
-21:           <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Expectations</span>.<span class="ruby-identifier">fail_with</span>(<span class="ruby-identifier">matcher</span>.<span class="ruby-identifier">failure_message</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">match</span>
-22:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/expectations/handler.rb, line 7</span>
+ 7:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle_matcher</span>(<span class="ruby-identifier">actual</span>, <span class="ruby-identifier">matcher</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+ 8:           <span class="ruby-operator">::</span><span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Matchers</span>.<span class="ruby-identifier">last_should</span> = <span class="ruby-value str">&quot;should&quot;</span>
+ 9:           <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">PositiveOperatorMatcher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">actual</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">matcher</span>.<span class="ruby-identifier">nil?</span>
+10: 
+11:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">matcher</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:matches?</span>)
+12:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidMatcherError</span>, <span class="ruby-node">&quot;Expected a matcher, got #{matcher.inspect}.&quot;</span>
+13:           <span class="ruby-keyword kw">end</span>
+14:           
+15:           <span class="ruby-identifier">match</span> = <span class="ruby-identifier">matcher</span>.<span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">actual</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+16:           <span class="ruby-operator">::</span><span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Matchers</span>.<span class="ruby-identifier">last_matcher</span> = <span class="ruby-identifier">matcher</span>
+17:           <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Expectations</span>.<span class="ruby-identifier">fail_with</span>(<span class="ruby-identifier">matcher</span>.<span class="ruby-identifier">failure_message</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">match</span>
+18:           <span class="ruby-identifier">match</span>
+19:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

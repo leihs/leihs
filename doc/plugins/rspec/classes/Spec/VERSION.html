@@ -103,17 +103,7 @@
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">TINY</td>
           <td>=</td>
-          <td class="context-item-value">3</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">RELEASE_CANDIDATE</td>
-          <td>=</td>
-          <td class="context-item-value">nil</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">BUILD_TIME_UTC</td>
-          <td>=</td>
-          <td class="context-item-value">20080218031844</td>
+          <td class="context-item-value">11</td>
         </tr>
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">STRING</td>
@@ -121,29 +111,9 @@
           <td class="context-item-value">[MAJOR, MINOR, TINY].join('.')</td>
         </tr>
         <tr class="top-aligned-row context-row">
-          <td class="context-item-name">TAG</td>
+          <td class="context-item-name">SUMMARY</td>
           <td>=</td>
-          <td class="context-item-value">&quot;REL_#{[MAJOR, MINOR, TINY, RELEASE_CANDIDATE].compact.join('_')}&quot;.upcase.gsub(/\.|-/, '_')</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">FULL_VERSION</td>
-          <td>=</td>
-          <td class="context-item-value">&quot;#{[MAJOR, MINOR, TINY, RELEASE_CANDIDATE].compact.join('.')} (build #{BUILD_TIME_UTC})&quot;</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">NAME</td>
-          <td>=</td>
-          <td class="context-item-value">&quot;RSpec&quot;</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">URL</td>
-          <td>=</td>
-          <td class="context-item-value">&quot;http://rspec.rubyforge.org/&quot;</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">DESCRIPTION</td>
-          <td>=</td>
-          <td class="context-item-value">&quot;#{NAME}-#{FULL_VERSION} - BDD for Ruby\n#{URL}&quot;</td>
+          <td class="context-item-value">&quot;rspec #{STRING}&quot;</td>
         </tr>
         </table>
       </div>

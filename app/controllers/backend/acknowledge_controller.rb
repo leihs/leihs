@@ -54,15 +54,14 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
   end 
   
-  def destroy
-    # TODO 29** remove "request.post? or"
-    if request.post? or request.delete?
-        @order.destroy
-        remove_order_from_session
-        redirect_to :controller=> 'acknowledge', :action => 'index'
-    else
+  def delete
       render :layout => $modal_layout_path
-    end    
+  end
+  
+  def destroy
+      @order.destroy
+      remove_order_from_session
+      redirect_to :controller=> 'acknowledge', :action => 'index'
   end
 
   def add_line
@@ -114,7 +113,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     else
       redirect_to :controller => 'users', 
                   :action => 'search',
-                  :id => params[:id],
+                  :document_id => params[:id],
                   :source_controller => 'acknowledge',
                   :source_action => 'swap_user'
     end

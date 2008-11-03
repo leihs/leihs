@@ -208,8 +208,8 @@ you can very easily write your own.
 </p>
 <p>
 For example, imagine that you are writing a game in which players can <a
-href="Matchers.html#M000386">be</a> in various zones on a virtual board. To
-specify that bob should <a href="Matchers.html#M000386">be</a> in zone 4,
+href="Matchers.html#M000426">be</a> in various zones on a virtual board. To
+specify that bob should <a href="Matchers.html#M000426">be</a> in zone 4,
 you could say:
 </p>
 <pre>
@@ -277,7 +277,7 @@ your spec:
   end
 </pre>
 <p>
-or you can <a href="Matchers.html#M000396">include</a> in globally in a
+or you can <a href="Matchers.html#M000436">include</a> in globally in a
 spec_helper.rb file <tt>require</tt>d from your spec file(s):
 </p>
 <pre>
@@ -295,23 +295,23 @@ spec_helper.rb file <tt>require</tt>d from your spec file(s):
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000386">be</a>&nbsp;&nbsp;
-      <a href="#M000387">be_close</a>&nbsp;&nbsp;
-      <a href="#M000388">change</a>&nbsp;&nbsp;
-      <a href="#M000389">eql</a>&nbsp;&nbsp;
-      <a href="#M000390">equal</a>&nbsp;&nbsp;
-      <a href="#M000391">exist</a>&nbsp;&nbsp;
-      <a href="#M000392">have</a>&nbsp;&nbsp;
-      <a href="#M000394">have_at_least</a>&nbsp;&nbsp;
-      <a href="#M000395">have_at_most</a>&nbsp;&nbsp;
-      <a href="#M000393">have_exactly</a>&nbsp;&nbsp;
-      <a href="#M000396">include</a>&nbsp;&nbsp;
-      <a href="#M000397">match</a>&nbsp;&nbsp;
-      <a href="#M000398">raise_error</a>&nbsp;&nbsp;
-      <a href="#M000399">respond_to</a>&nbsp;&nbsp;
-      <a href="#M000400">satisfy</a>&nbsp;&nbsp;
-      <a href="#M000401">simple_matcher</a>&nbsp;&nbsp;
-      <a href="#M000402">throw_symbol</a>&nbsp;&nbsp;
+      <a href="#M000426">be</a>&nbsp;&nbsp;
+      <a href="#M000427">be_close</a>&nbsp;&nbsp;
+      <a href="#M000428">change</a>&nbsp;&nbsp;
+      <a href="#M000429">eql</a>&nbsp;&nbsp;
+      <a href="#M000430">equal</a>&nbsp;&nbsp;
+      <a href="#M000431">exist</a>&nbsp;&nbsp;
+      <a href="#M000432">have</a>&nbsp;&nbsp;
+      <a href="#M000434">have_at_least</a>&nbsp;&nbsp;
+      <a href="#M000435">have_at_most</a>&nbsp;&nbsp;
+      <a href="#M000433">have_exactly</a>&nbsp;&nbsp;
+      <a href="#M000436">include</a>&nbsp;&nbsp;
+      <a href="#M000437">match</a>&nbsp;&nbsp;
+      <a href="#M000438">raise_error</a>&nbsp;&nbsp;
+      <a href="#M000439">respond_to</a>&nbsp;&nbsp;
+      <a href="#M000440">satisfy</a>&nbsp;&nbsp;
+      <a href="#M000441">simple_matcher</a>&nbsp;&nbsp;
+      <a href="#M000442">throw_symbol</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -343,11 +343,11 @@ Class <a href="Matchers/SimpleMatcher.html" class="link">Spec::Matchers::SimpleM
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000386" class="method-detail">
-        <a name="M000386"></a>
+      <div id="method-M000426" class="method-detail">
+        <a name="M000426"></a>
 
         <div class="method-heading">
-          <a href="#M000386" class="method-signature">
+          <a href="#M000426" class="method-signature">
           <span class="method-name">should be<br />
 should be_true<br />
 should be_false<br />
@@ -361,16 +361,16 @@ should_not be_arbitrary_predicate(*args)<br />
       
         <div class="method-description">
           <p>
-Given true, false, or nil, will pass if actual is true, false or nil
+Given true, false, or nil, will pass if given value is true, false or nil
 (respectively). Given no args means the caller should <a
-href="Matchers.html#M000400">satisfy</a> an if condition (to <a
-href="Matchers.html#M000386">be</a> or not to <a
-href="Matchers.html#M000386">be</a>).
+href="Matchers.html#M000440">satisfy</a> an if condition (to <a
+href="Matchers.html#M000426">be</a> or not to <a
+href="Matchers.html#M000426">be</a>).
 </p>
 <p>
 Predicates are any Ruby method that ends in a &quot;?&quot; and returns
 true or false. Given be_ followed by arbitrary_predicate (without the
-&quot;?&quot;), RSpec will <a href="Matchers.html#M000397">match</a>
+&quot;?&quot;), RSpec will <a href="Matchers.html#M000437">match</a>
 convert that into a query against the target object.
 </p>
 <p>
@@ -394,23 +394,23 @@ prefix that best suits the predicate.
   target.should_not be_old_enough(16) #passes unless target.old_enough?(16)
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000386-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000386-source">
+            onclick="toggleCode('M000426-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000426-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/be.rb, line 220</span>
-220:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">be</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-221:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Be</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-222:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/be.rb, line 217</span>
+217:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">be</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+218:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Be</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+219:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000387" class="method-detail">
-        <a name="M000387"></a>
+      <div id="method-M000427" class="method-detail">
+        <a name="M000427"></a>
 
         <div class="method-heading">
-          <a href="#M000387" class="method-signature">
+          <a href="#M000427" class="method-signature">
           <span class="method-name">should be_close(expected, delta)<br />
 should_not be_close(expected, delta)<br />
 </span>
@@ -419,15 +419,15 @@ should_not be_close(expected, delta)<br />
       
         <div class="method-description">
           <p>
-Passes if actual == expected +/- delta
+Passes if given == expected +/- delta
 </p>
 <h2><a href="Example.html">Example</a></h2>
 <pre>
   result.should be_close(3.0, 0.5)
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000387-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000387-source">
+            onclick="toggleCode('M000427-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000427-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/be_close.rb, line 33</span>
 33:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">be_close</span>(<span class="ruby-identifier">expected</span>, <span class="ruby-identifier">delta</span>)
@@ -438,11 +438,11 @@ Passes if actual == expected +/- delta
         </div>
       </div>
 
-      <div id="method-M000388" class="method-detail">
-        <a name="M000388"></a>
+      <div id="method-M000428" class="method-detail">
+        <a name="M000428"></a>
 
         <div class="method-heading">
-          <a href="#M000388" class="method-signature">
+          <a href="#M000428" class="method-signature">
           <span class="method-name">should change(receiver, message, &block)<br />
 should change(receiver, message, &block).by(value)<br />
 should change(receiver, message, &block).from(old).to(new)<br />
@@ -454,7 +454,7 @@ should_not change(receiver, message, &block)<br />
         <div class="method-description">
           <p>
 Allows you to specify that a Proc will cause some value to <a
-href="Matchers.html#M000388">change</a>.
+href="Matchers.html#M000428">change</a>.
 </p>
 <h2>Examples</h2>
 <pre>
@@ -476,7 +476,7 @@ href="Matchers.html#M000388">change</a>.
 
   string = &quot;string&quot;
   lambda {
-    string.reverse
+    string.reverse!
   }.should change { string }.from(&quot;string&quot;).to(&quot;gnirts&quot;)
 
   lambda {
@@ -488,43 +488,43 @@ href="Matchers.html#M000388">change</a>.
   }.should change(employee, :title).from(&quot;Mail Clerk&quot;).to(&quot;CEO&quot;)
 </pre>
 <p>
-Evaluates +receiver.message+ or <tt>block</tt> before and after it
+Evaluates <tt>receiver.message</tt> or <tt>block</tt> before and after it
 evaluates the c object (generated by the lambdas in the examples above).
 </p>
 <p>
-Then compares the values before and after the +receiver.message+ and
+Then compares the values before and after the <tt>receiver.message</tt> and
 evaluates the difference compared to the expected difference.
 </p>
-<h2>Warning</h2>
+<h2>WARNING</h2>
 <p>
-<tt>should_not</tt> <tt><a href="Matchers.html#M000388">change</a></tt>
-only supports the form with no subsequent calls to <tt>by</tt>,
+<tt>should_not <a href="Matchers.html#M000428">change</a></tt> only
+supports the form with no subsequent calls to <tt>by</tt>,
 <tt>by_at_least</tt>, <tt>by_at_most</tt>, <tt>to</tt> or <tt>from</tt>.
 </p>
 <p>
 blocks passed to <tt>should</tt> <tt><a
-href="Matchers.html#M000388">change</a></tt> and <tt>should_not</tt> <tt><a
-href="Matchers.html#M000388">change</a></tt> must use the <tt>{}</tt> form
-(<tt>do/end</tt> is not supported)
+href="Matchers.html#M000428">change</a></tt> and <tt>should_not</tt> <tt><a
+href="Matchers.html#M000428">change</a></tt> must use the <tt>{}</tt> form
+(<tt>do/end</tt> is not supported).
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000388-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000388-source">
+            onclick="toggleCode('M000428-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000428-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/change.rb, line 141</span>
-141:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">change</span>(<span class="ruby-identifier">target</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">message</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-142:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Change</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">target</span>, <span class="ruby-identifier">message</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-143:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/change.rb, line 145</span>
+145:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">change</span>(<span class="ruby-identifier">receiver</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">message</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+146:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Change</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">receiver</span>, <span class="ruby-identifier">message</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+147:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000389" class="method-detail">
-        <a name="M000389"></a>
+      <div id="method-M000429" class="method-detail">
+        <a name="M000429"></a>
 
         <div class="method-heading">
-          <a href="#M000389" class="method-signature">
+          <a href="#M000429" class="method-signature">
           <span class="method-name">should eql(expected)<br />
 should_not eql(expected)<br />
 </span>
@@ -533,8 +533,8 @@ should_not eql(expected)<br />
       
         <div class="method-description">
           <p>
-Passes if actual and expected are of <a
-href="Matchers.html#M000390">equal</a> value, but not necessarily the same
+Passes if given and expected are of <a
+href="Matchers.html#M000430">equal</a> value, but not necessarily the same
 object.
 </p>
 <p>
@@ -548,8 +548,8 @@ for more information about equality in Ruby.
   5.should_not eql(3)
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000389-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000389-source">
+            onclick="toggleCode('M000429-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000429-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/eql.rb, line 39</span>
 39:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eql</span>(<span class="ruby-identifier">expected</span>)
@@ -560,11 +560,11 @@ for more information about equality in Ruby.
         </div>
       </div>
 
-      <div id="method-M000390" class="method-detail">
-        <a name="M000390"></a>
+      <div id="method-M000430" class="method-detail">
+        <a name="M000430"></a>
 
         <div class="method-heading">
-          <a href="#M000390" class="method-signature">
+          <a href="#M000430" class="method-signature">
           <span class="method-name">should equal(expected)<br />
 should_not equal(expected)<br />
 </span>
@@ -573,7 +573,7 @@ should_not equal(expected)<br />
       
         <div class="method-description">
           <p>
-Passes if actual and expected are the same object (object identity).
+Passes if given and expected are the same object (object identity).
 </p>
 <p>
 See <a
@@ -586,8 +586,8 @@ for more information about equality in Ruby.
   &quot;5&quot;.should_not equal(&quot;5&quot;) #Strings that look the same are not the same object
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000390-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000390-source">
+            onclick="toggleCode('M000430-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000430-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/equal.rb, line 39</span>
 39:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">equal</span>(<span class="ruby-identifier">expected</span>)
@@ -598,32 +598,37 @@ for more information about equality in Ruby.
         </div>
       </div>
 
-      <div id="method-M000391" class="method-detail">
-        <a name="M000391"></a>
+      <div id="method-M000431" class="method-detail">
+        <a name="M000431"></a>
 
         <div class="method-heading">
-          <a href="#M000391" class="method-signature">
-          <span class="method-name">exist</span><span class="method-args">()</span>
+          <a href="#M000431" class="method-signature">
+          <span class="method-name">should exist<br />
+should_not exist<br />
+</span>
           </a>
         </div>
       
         <div class="method-description">
+          <p>
+Passes if given.exist?
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000391-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000391-source">
+            onclick="toggleCode('M000431-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000431-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/exist.rb, line 15</span>
-15:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">exist</span>; <span class="ruby-constant">Exist</span>.<span class="ruby-identifier">new</span>; <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/exist.rb, line 20</span>
+20:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">exist</span>; <span class="ruby-constant">Exist</span>.<span class="ruby-identifier">new</span>; <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000392" class="method-detail">
-        <a name="M000392"></a>
+      <div id="method-M000432" class="method-detail">
+        <a name="M000432"></a>
 
         <div class="method-heading">
-          <a href="#M000392" class="method-signature">
+          <a href="#M000432" class="method-signature">
           <span class="method-name">should have(number).named_collection__or__sugar<br />
 should_not have(number).named_collection__or__sugar<br />
 </span>
@@ -662,23 +667,23 @@ length
   &quot;this string&quot;.should have(11).characters #&quot;characters&quot; is pure sugar
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000392-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000392-source">
+            onclick="toggleCode('M000432-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000432-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/have.rb, line 118</span>
-118:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">have</span>(<span class="ruby-identifier">n</span>)
-119:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Have</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">n</span>)
-120:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/have.rb, line 123</span>
+123:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">have</span>(<span class="ruby-identifier">n</span>)
+124:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Have</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">n</span>)
+125:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000394" class="method-detail">
-        <a name="M000394"></a>
+      <div id="method-M000434" class="method-detail">
+        <a name="M000434"></a>
 
         <div class="method-heading">
-          <a href="#M000394" class="method-signature">
+          <a href="#M000434" class="method-signature">
           <span class="method-name">should have_at_least(number).items<br />
 </span>
           </a>
@@ -686,31 +691,31 @@ length
       
         <div class="method-description">
           <p>
-Exactly like <a href="Matchers.html#M000392">have</a>() with &gt;=.
+Exactly like <a href="Matchers.html#M000432">have</a>() with &gt;=.
 </p>
 <h2>Warning</h2>
 <p>
 <tt>should_not</tt> <tt><a
-href="Matchers.html#M000394">have_at_least</a></tt> is not supported
+href="Matchers.html#M000434">have_at_least</a></tt> is not supported
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000394-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000394-source">
+            onclick="toggleCode('M000434-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000434-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/have.rb, line 131</span>
-131:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">have_at_least</span>(<span class="ruby-identifier">n</span>)
-132:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Have</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">n</span>, <span class="ruby-identifier">:at_least</span>)
-133:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/have.rb, line 136</span>
+136:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">have_at_least</span>(<span class="ruby-identifier">n</span>)
+137:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Have</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">n</span>, <span class="ruby-identifier">:at_least</span>)
+138:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000395" class="method-detail">
-        <a name="M000395"></a>
+      <div id="method-M000435" class="method-detail">
+        <a name="M000435"></a>
 
         <div class="method-heading">
-          <a href="#M000395" class="method-signature">
+          <a href="#M000435" class="method-signature">
           <span class="method-name">should have_at_most(number).items<br />
 </span>
           </a>
@@ -718,28 +723,28 @@ href="Matchers.html#M000394">have_at_least</a></tt> is not supported
       
         <div class="method-description">
           <p>
-Exactly like <a href="Matchers.html#M000392">have</a>() with &lt;=.
+Exactly like <a href="Matchers.html#M000432">have</a>() with &lt;=.
 </p>
 <h2>Warning</h2>
 <p>
 <tt>should_not</tt> <tt><a
-href="Matchers.html#M000395">have_at_most</a></tt> is not supported
+href="Matchers.html#M000435">have_at_most</a></tt> is not supported
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000395-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000395-source">
+            onclick="toggleCode('M000435-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000435-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/have.rb, line 143</span>
-143:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">have_at_most</span>(<span class="ruby-identifier">n</span>)
-144:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Have</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">n</span>, <span class="ruby-identifier">:at_most</span>)
-145:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/have.rb, line 148</span>
+148:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">have_at_most</span>(<span class="ruby-identifier">n</span>)
+149:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Have</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">n</span>, <span class="ruby-identifier">:at_most</span>)
+150:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000393" class="method-detail">
-        <a name="M000393"></a>
+      <div id="method-M000433" class="method-detail">
+        <a name="M000433"></a>
 
         <div class="method-heading">
           <span class="method-name">have_exactly</span><span class="method-args">(n)</span>
@@ -747,16 +752,16 @@ href="Matchers.html#M000395">have_at_most</a></tt> is not supported
       
         <div class="method-description">
           <p>
-Alias for <a href="Matchers.html#M000392">have</a>
+Alias for <a href="Matchers.html#M000432">have</a>
 </p>
         </div>
       </div>
 
-      <div id="method-M000396" class="method-detail">
-        <a name="M000396"></a>
+      <div id="method-M000436" class="method-detail">
+        <a name="M000436"></a>
 
         <div class="method-heading">
-          <a href="#M000396" class="method-signature">
+          <a href="#M000436" class="method-signature">
           <span class="method-name">should include(expected)<br />
 should_not include(expected)<br />
 </span>
@@ -765,7 +770,7 @@ should_not include(expected)<br />
       
         <div class="method-description">
           <p>
-Passes if actual includes expected. This works for collections and Strings.
+Passes if given includes expected. This works for collections and Strings.
 You can also pass in multiple args and it will only pass if all args are
 found in collection.
 </p>
@@ -779,23 +784,23 @@ found in collection.
   &quot;spread&quot;.should_not include(&quot;red&quot;)
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000396-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000396-source">
+            onclick="toggleCode('M000436-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000436-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/include.rb, line 66</span>
-66:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">include</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">expected</span>)
-67:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Include</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">expected</span>)
-68:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/include.rb, line 73</span>
+73:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">include</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">expected</span>)
+74:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">Include</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">expected</span>)
+75:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000397" class="method-detail">
-        <a name="M000397"></a>
+      <div id="method-M000437" class="method-detail">
+        <a name="M000437"></a>
 
         <div class="method-heading">
-          <a href="#M000397" class="method-signature">
+          <a href="#M000437" class="method-signature">
           <span class="method-name">should match(regexp)<br />
 should_not match(regexp)<br />
 </span>
@@ -804,15 +809,15 @@ should_not match(regexp)<br />
       
         <div class="method-description">
           <p>
-Given a <a href="../Regexp.html">Regexp</a>, passes if actual =~ regexp
+Given a <a href="../Regexp.html">Regexp</a>, passes if given =~ regexp
 </p>
 <h2>Examples</h2>
 <pre>
   email.should match(/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i)
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000397-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000397-source">
+            onclick="toggleCode('M000437-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000437-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/match.rb, line 37</span>
 37:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match</span>(<span class="ruby-identifier">regexp</span>)
@@ -823,15 +828,19 @@ Given a <a href="../Regexp.html">Regexp</a>, passes if actual =~ regexp
         </div>
       </div>
 
-      <div id="method-M000398" class="method-detail">
-        <a name="M000398"></a>
+      <div id="method-M000438" class="method-detail">
+        <a name="M000438"></a>
 
         <div class="method-heading">
-          <a href="#M000398" class="method-signature">
+          <a href="#M000438" class="method-signature">
           <span class="method-name">should raise_error()<br />
 should raise_error(NamedError)<br />
 should raise_error(NamedError, String)<br />
 should raise_error(NamedError, Regexp)<br />
+should raise_error() { |error| ... }<br />
+should raise_error(NamedError) { |error| ... }<br />
+should raise_error(NamedError, String) { |error| ... }<br />
+should raise_error(NamedError, Regexp) { |error| ... }<br />
 should_not raise_error()<br />
 should_not raise_error(NamedError)<br />
 should_not raise_error(NamedError, String)<br />
@@ -845,14 +854,16 @@ should_not raise_error(NamedError, Regexp)<br />
 With no args, matches if any error is raised. With a named error, matches
 only if that specific error is raised. With a named error and messsage
 specified as a <a href="../String.html">String</a>, matches only if both <a
-href="Matchers.html#M000397">match</a>. With a named error and messsage
+href="Matchers.html#M000437">match</a>. With a named error and messsage
 specified as a <a href="../Regexp.html">Regexp</a>, matches only if both <a
-href="Matchers.html#M000397">match</a>.
+href="Matchers.html#M000437">match</a>. Pass an optional block to perform
+extra verifications on the exception matched
 </p>
 <h2>Examples</h2>
 <pre>
   lambda { do_something_risky }.should raise_error
   lambda { do_something_risky }.should raise_error(PoorRiskDecisionError)
+  lambda { do_something_risky }.should raise_error(PoorRiskDecisionError) { |error| error.data.should == 42 }
   lambda { do_something_risky }.should raise_error(PoorRiskDecisionError, &quot;that was too risky&quot;)
   lambda { do_something_risky }.should raise_error(PoorRiskDecisionError, /oo ri/)
 
@@ -862,23 +873,23 @@ href="Matchers.html#M000397">match</a>.
   lambda { do_something_risky }.should_not raise_error(PoorRiskDecisionError, /oo ri/)
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000398-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000398-source">
+            onclick="toggleCode('M000438-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000438-source">
 <pre>
-     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/raise_error.rb, line 105</span>
-105:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raise_error</span>(<span class="ruby-identifier">error</span>=<span class="ruby-constant">Exception</span>, <span class="ruby-identifier">message</span>=<span class="ruby-keyword kw">nil</span>)
-106:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">RaiseError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">error</span>, <span class="ruby-identifier">message</span>)
-107:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/raise_error.rb, line 128</span>
+128:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raise_error</span>(<span class="ruby-identifier">error</span>=<span class="ruby-constant">Exception</span>, <span class="ruby-identifier">message</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+129:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">RaiseError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">error</span>, <span class="ruby-identifier">message</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+130:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000399" class="method-detail">
-        <a name="M000399"></a>
+      <div id="method-M000439" class="method-detail">
+        <a name="M000439"></a>
 
         <div class="method-heading">
-          <a href="#M000399" class="method-signature">
+          <a href="#M000439" class="method-signature">
           <span class="method-name">should respond_to(*names)<br />
 should_not respond_to(*names)<br />
 </span>
@@ -888,27 +899,27 @@ should_not respond_to(*names)<br />
         <div class="method-description">
           <p>
 Matches if the target object responds to all of the names provided. Names
-can <a href="Matchers.html#M000386">be</a> Strings or Symbols.
+can <a href="Matchers.html#M000426">be</a> Strings or Symbols.
 </p>
 <h2>Examples</h2>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000399-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000399-source">
+            onclick="toggleCode('M000439-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000439-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/respond_to.rb, line 41</span>
-41:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">respond_to</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">names</span>)
-42:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">RespondTo</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">names</span>)
-43:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/respond_to.rb, line 42</span>
+42:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">respond_to</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">names</span>)
+43:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">RespondTo</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">names</span>)
+44:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000400" class="method-detail">
-        <a name="M000400"></a>
+      <div id="method-M000440" class="method-detail">
+        <a name="M000440"></a>
 
         <div class="method-heading">
-          <a href="#M000400" class="method-signature">
+          <a href="#M000440" class="method-signature">
           <span class="method-name">should satisfy {}<br />
 should_not satisfy {}<br />
 </span>
@@ -920,7 +931,7 @@ should_not satisfy {}<br />
 Passes if the submitted block returns true. Yields target to the block.
 </p>
 <p>
-Generally speaking, this should <a href="Matchers.html#M000386">be</a>
+Generally speaking, this should <a href="Matchers.html#M000426">be</a>
 thought of as a last resort when you can&#8216;t find any other way to
 specify the behaviour you wish to specify.
 </p>
@@ -935,8 +946,8 @@ custom matcher, which would likely make your specs more expressive.
   }
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000400-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000400-source">
+            onclick="toggleCode('M000440-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000440-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/satisfy.rb, line 43</span>
 43:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">satisfy</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
@@ -947,67 +958,181 @@ custom matcher, which would likely make your specs more expressive.
         </div>
       </div>
 
-      <div id="method-M000401" class="method-detail">
-        <a name="M000401"></a>
+      <div id="method-M000441" class="method-detail">
+        <a name="M000441"></a>
 
         <div class="method-heading">
-          <a href="#M000401" class="method-signature">
-          <span class="method-name">simple_matcher</span><span class="method-args">(message, &amp;match_block)</span>
+          <a href="#M000441" class="method-signature">
+          <span class="method-name">simple_matcher</span><span class="method-args">(description=nil, &amp;match_block)</span>
           </a>
         </div>
       
         <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000401-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000401-source">
+          <p>
+<a href="Matchers.html#M000441">simple_matcher</a> makes it easy for you to
+create your own custom matchers in just a few lines of code when you
+don&#8216;t need all the power of a completely custom matcher object.
+</p>
+<p>
+The <tt>description</tt> argument will appear as part of any failure
+message, and is also the source for auto-generated descriptions.
+</p>
+<p>
+The <tt>match_block</tt> can <a href="Matchers.html#M000432">have</a> an
+arity of 1 or 2. The first block argument will <a
+href="Matchers.html#M000426">be</a> the given value. The second, if the
+block accepts it will <a href="Matchers.html#M000426">be</a> the matcher
+itself, giving you access to set custom failure messages in favor of the
+defaults.
+</p>
+<p>
+The <tt>match_block</tt> should return a boolean: <tt>true</tt> indicates a
+<a href="Matchers.html#M000437">match</a>, which will pass if you use
+<tt>should</tt> and fail if you use <tt>should_not</tt>. false (or nil)
+indicates no <a href="Matchers.html#M000437">match</a>, which will do the
+reverse: fail if you use <tt>should</tt> and pass if you use
+<tt>should_not</tt>.
+</p>
+<p>
+An error in the <tt>match_block</tt> will bubble up, resulting in a
+failure.
+</p>
+<h2><a href="Example.html">Example</a> with default messages</h2>
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb, line 25</span>
-25:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">simple_matcher</span>(<span class="ruby-identifier">message</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">match_block</span>)
-26:       <span class="ruby-constant">SimpleMatcher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">match_block</span>)
-27:     <span class="ruby-keyword kw">end</span>
+  def be_even
+    simple_matcher(&quot;an even number&quot;) { |given| given % 2 == 0 }
+  end
+
+  describe 2 do
+    it &quot;should be even&quot; do
+      2.should be_even
+    end
+  end
+</pre>
+<p>
+Given an odd number, this example would produce an error message stating:
+expected &quot;an even number&quot;, got 3.
+</p>
+<p>
+Unfortunately, if you&#8216;re a fan of auto-generated descriptions, this
+will produce &quot;should an even number.&quot; Not the most desirable
+result. You can control that using custom messages:
+</p>
+<h2><a href="Example.html">Example</a> with custom messages</h2>
+<pre>
+  def rhyme_with(expected)
+    simple_matcher(&quot;rhyme with #{expected.inspect}&quot;) do |given, matcher|
+      matcher.failure_message = &quot;expected #{given.inspect} to rhyme with #{expected.inspect}&quot;
+      matcher.negative_failure_message = &quot;expected #{given.inspect} not to rhyme with #{expected.inspect}&quot;
+      given.rhymes_with? expected
+    end
+  end
+
+  # OR
+
+  def rhyme_with(expected)
+    simple_matcher do |given, matcher|
+      matcher.description = &quot;rhyme with #{expected.inspect}&quot;
+      matcher.failure_message = &quot;expected #{given.inspect} to rhyme with #{expected.inspect}&quot;
+      matcher.negative_failure_message = &quot;expected #{given.inspect} not to rhyme with #{expected.inspect}&quot;
+      given.rhymes_with? expected
+    end
+  end
+
+  describe &quot;pecan&quot; do
+    it &quot;should rhyme with 'be gone'&quot; do
+      nut = &quot;pecan&quot;
+      nut.extend Rhymer
+      nut.should rhyme_with(&quot;be gone&quot;)
+    end
+  end
+</pre>
+<p>
+The resulting messages would <a href="Matchers.html#M000426">be</a>:
+</p>
+<pre>
+  description:              rhyme with &quot;be gone&quot;
+  failure_message:          expected &quot;pecan&quot; to rhyme with &quot;be gone&quot;
+  negative failure_message: expected &quot;pecan&quot; not to rhyme with &quot;be gone&quot;
+</pre>
+<h2>Wrapped <a href="Expectations.html">Expectations</a></h2>
+<p>
+Because errors will bubble up, it is possible to wrap other expectations in
+a <a href="Matchers/SimpleMatcher.html">SimpleMatcher</a>.
+</p>
+<pre>
+  def be_even
+    simple_matcher(&quot;an even number&quot;) { |given| (given % 2).should == 0 }
+  end
+</pre>
+<p>
+BE VERY CAREFUL when you do this. Only use wrapped expectations for
+matchers that will always <a href="Matchers.html#M000426">be</a> used in
+only the positive (<tt>should</tt>) or negative (<tt>should_not</tt>), but
+not both. The reason is that is you wrap a <tt>should</tt> and call the
+wrapper with <tt>should_not</tt>, the correct result (the <tt>should</tt>
+failing), will fail when you want it to pass.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000441-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000441-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb, line 128</span>
+128:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">simple_matcher</span>(<span class="ruby-identifier">description</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">match_block</span>)
+129:       <span class="ruby-constant">SimpleMatcher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">description</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">match_block</span>)
+130:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000402" class="method-detail">
-        <a name="M000402"></a>
+      <div id="method-M000442" class="method-detail">
+        <a name="M000442"></a>
 
         <div class="method-heading">
-          <a href="#M000402" class="method-signature">
+          <a href="#M000442" class="method-signature">
           <span class="method-name">should throw_symbol()<br />
 should throw_symbol(:sym)<br />
+should throw_symbol(:sym, arg)<br />
 should_not throw_symbol()<br />
 should_not throw_symbol(:sym)<br />
+should_not throw_symbol(:sym, arg)<br />
 </span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Given a <a href="../Symbol.html">Symbol</a> argument, matches if a proc
+Given no argument, matches if a proc throws any <a
+href="../Symbol.html">Symbol</a>.
+</p>
+<p>
+Given a <a href="../Symbol.html">Symbol</a>, matches if the given proc
 throws the specified <a href="../Symbol.html">Symbol</a>.
 </p>
 <p>
-Given no argument, matches if a proc throws any <a
-href="../Symbol.html">Symbol</a>.
+Given a <a href="../Symbol.html">Symbol</a> and an arg, matches if the
+given proc throws the specified <a href="../Symbol.html">Symbol</a> with
+the specified arg.
 </p>
 <h2>Examples</h2>
 <pre>
   lambda { do_something_risky }.should throw_symbol
   lambda { do_something_risky }.should throw_symbol(:that_was_risky)
+  lambda { do_something_risky }.should throw_symbol(:that_was_risky, culprit)
 
   lambda { do_something_risky }.should_not throw_symbol
   lambda { do_something_risky }.should_not throw_symbol(:that_was_risky)
+  lambda { do_something_risky }.should_not throw_symbol(:that_was_risky, culprit)
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000402-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000402-source">
+            onclick="toggleCode('M000442-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000442-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/throw_symbol.rb, line 70</span>
-70:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">throw_symbol</span>(<span class="ruby-identifier">sym</span>=<span class="ruby-keyword kw">nil</span>)
-71:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">ThrowSymbol</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">sym</span>)
-72:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/matchers/throw_symbol.rb, line 96</span>
+96:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">throw_symbol</span>(<span class="ruby-identifier">sym</span>=<span class="ruby-keyword kw">nil</span>)
+97:       <span class="ruby-constant">Matchers</span><span class="ruby-operator">::</span><span class="ruby-constant">ThrowSymbol</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">sym</span>)
+98:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

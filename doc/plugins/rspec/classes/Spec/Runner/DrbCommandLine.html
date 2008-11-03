@@ -82,7 +82,7 @@
 
     <div id="description">
       <p>
-Facade to <a href="DrbCommandLine.html#M000336">run</a> specs by connecting
+Facade to <a href="DrbCommandLine.html#M000376">run</a> specs by connecting
 to a DRB server
 </p>
 
@@ -95,7 +95,7 @@ to a DRB server
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000336">run</a>&nbsp;&nbsp;
+      <a href="#M000376">run</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -117,11 +117,11 @@ to a DRB server
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000336" class="method-detail">
-        <a name="M000336"></a>
+      <div id="method-M000376" class="method-detail">
+        <a name="M000376"></a>
 
         <div class="method-heading">
-          <a href="#M000336" class="method-signature">
+          <a href="#M000376" class="method-signature">
           <span class="method-name">run</span><span class="method-args">(options)</span>
           </a>
         </div>
@@ -133,14 +133,14 @@ href="CommandLine.html">CommandLine</a> - making it possible for clients to
 use both interchangeably.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000336-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000336-source">
+            onclick="toggleCode('M000376-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000376-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/drb_command_line.rb, line 9</span>
  9:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">run</span>(<span class="ruby-identifier">options</span>)
 10:         <span class="ruby-keyword kw">begin</span>
 11:           <span class="ruby-constant">DRb</span>.<span class="ruby-identifier">start_service</span>
-12:           <span class="ruby-identifier">spec_server</span> = <span class="ruby-constant">DRbObject</span>.<span class="ruby-identifier">new_with_uri</span>(<span class="ruby-value str">&quot;druby://localhost:8989&quot;</span>)
+12:           <span class="ruby-identifier">spec_server</span> = <span class="ruby-constant">DRbObject</span>.<span class="ruby-identifier">new_with_uri</span>(<span class="ruby-value str">&quot;druby://127.0.0.1:8989&quot;</span>)
 13:           <span class="ruby-identifier">spec_server</span>.<span class="ruby-identifier">run</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">argv</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">error_stream</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">output_stream</span>)
 14:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">DRb</span><span class="ruby-operator">::</span><span class="ruby-constant">DRbConnError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
 15:           <span class="ruby-identifier">options</span>.<span class="ruby-identifier">error_stream</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;No server is running&quot;</span>

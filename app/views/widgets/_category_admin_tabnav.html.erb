@@ -24,7 +24,7 @@ render_tabnav :category_admin,
 	add_tab do |t|
 		t.named 'Models'
 		t.links_to admin_category_models_path(@category)
-		t.highlights_on :controller => 'models', :action => 'index'
+		t.highlights_on :controller => 'admin/models', :action => 'index'
 	end
 
 end 

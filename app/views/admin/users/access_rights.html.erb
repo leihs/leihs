@@ -13,13 +13,12 @@
 	<hr />
 	<%= _("Add more access rights") %>:
 				<% form_tag :action => 'add_access_right', :id => @user do %>
-				
-					<%= collection_select(:access_right, :role_id, Role.all, :id, :name, {:include_blank => true}) %>
+
+					<%= collection_select(:access_right, :role_id, Role.all, :id, :name, {:include_blank => true}, {:size => 5}) %>
 					 for 
-					<%= collection_select(:access_right, :inventory_pool_id, InventoryPool.all, :id, :name, {:include_blank => true}) %>
-						
+					<%= collection_select(:access_right, :inventory_pool_id, InventoryPool.all, :id, :name, {:include_blank => true}, {:size => 5}) %>
+
 					<%= submit_tag 'Add' %>
 				<% end %>
-	
 
 <% end %>

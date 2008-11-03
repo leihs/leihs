@@ -25,14 +25,16 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def new_package
+    @model = Model.new
     render :action => 'show_package' #, :layout => false
   end
 
   def update_package(name = params[:name], inventory_code = params[:inventory_code])
-    @model.items.create(:location => current_inventory_pool.main_location) if @model.items.empty?
-    @model.items.first.inventory_code = inventory_code
+    @model ||= Model.new
     @model.name = name
     @model.save 
+    @model.items.create(:location => current_inventory_pool.main_location) if @model.items.empty?
+    @model.items.first.update_attribute(:inventory_code, inventory_code)
     redirect_to :action => 'show_package', :id => @model
   end
   
@@ -82,13 +84,11 @@ class Backend::ModelsController < Backend::BackendController
 #################################################################
 
   def properties
-    #render :layout => false
   end
 
 #################################################################
 
   def accessories
-    #render :layout => false
   end
   
   def set_accessories(accessory_ids = params[:accessory_ids] || [])

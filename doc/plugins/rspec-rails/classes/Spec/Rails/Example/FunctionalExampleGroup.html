@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Spec::Rails::Example::FunctionalExampleGroup</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Spec::Rails::Example::FunctionalExampleGroup</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group_rb.html">
+                vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="RailsExampleGroup.html">
+                RailsExampleGroup
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000060">assigns</a>&nbsp;&nbsp;
+      <a href="#M000059">cookies</a>&nbsp;&nbsp;
+      <a href="#M000057">flash</a>&nbsp;&nbsp;
+      <a href="#M000056">params</a>&nbsp;&nbsp;
+      <a href="#M000058">session</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">ActionController::TestProcess</span>
+        <span class="include-name">ActionController::Assertions</span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+    <div id="aliases-list">
+      <h3 class="section-bar">External Aliases</h3>
+
+      <div class="name-list">
+                        <table summary="aliases">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">assigns</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">orig_assigns</td>
+        </tr>
+                        </table>
+      </div>
+    </div>
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">request</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">response</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000060" class="method-detail">
+        <a name="M000060"></a>
+
+        <div class="method-heading">
+          <a href="#M000060" class="method-signature">
+          <span class="method-name">assigns()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Hash of instance variables to values that are made available to views. ==
+Examples
+</p>
+<pre>
+  #in thing_controller.rb
+  def new
+    @thing = Thing.new
+  end
+
+  #in thing_controller_spec
+  get 'new'
+  assigns[:registration].should == Thing.new
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000060-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000060-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb, line 76</span>
+76:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">assigns</span>(<span class="ruby-identifier">key</span> = <span class="ruby-keyword kw">nil</span>)
+77:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">nil?</span>
+78:             <span class="ruby-identifier">_assigns_hash_proxy</span>
+79:           <span class="ruby-keyword kw">else</span>
+80:             <span class="ruby-identifier">_assigns_hash_proxy</span>[<span class="ruby-identifier">key</span>]
+81:           <span class="ruby-keyword kw">end</span>
+82:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000059" class="method-detail">
+        <a name="M000059"></a>
+
+        <div class="method-heading">
+          <a href="#M000059" class="method-signature">
+          <span class="method-name">cookies</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Overrides the <tt><a
+href="FunctionalExampleGroup.html#M000059">cookies</a>()</tt> method in
+ActionController::TestResponseBehaviour, returning a proxy that accesses
+the requests <a href="FunctionalExampleGroup.html#M000059">cookies</a> when
+setting a cookie and the responses <a
+href="FunctionalExampleGroup.html#M000059">cookies</a> when reading one.
+This allows you to set and read <a
+href="FunctionalExampleGroup.html#M000059">cookies</a> in examples using
+the same API with which you set and read them in controllers.
+</p>
+<h2>Examples (<a href="../../Rails.html">Rails</a> &gt;= 1.2.6)</h2>
+<pre>
+  cookies[:user_id] = '1234'
+  get :index
+  assigns[:user].id.should == '1234'
+
+  post :login
+  cookies[:login].expires.should == 1.week.from_now
+</pre>
+<h2>Examples (<a href="../../Rails.html">Rails</a> &gt;= 2.0.0 only)</h2>
+<pre>
+  cookies[:user_id] = {:value =&gt; '1234', :expires =&gt; 1.minute.ago}
+  get :index
+  response.should be_redirect
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000059-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000059-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb, line 52</span>
+52:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cookies</span>
+53:           <span class="ruby-ivar">@cookies</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Example</span><span class="ruby-operator">::</span><span class="ruby-constant">CookiesProxy</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+54:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000057" class="method-detail">
+        <a name="M000057"></a>
+
+        <div class="method-heading">
+          <a href="#M000057" class="method-signature">
+          <span class="method-name">flash</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000057-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000057-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb, line 23</span>
+23:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">flash</span>
+24:           <span class="ruby-identifier">response</span>.<span class="ruby-identifier">flash</span>
+25:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000056" class="method-detail">
+        <a name="M000056"></a>
+
+        <div class="method-heading">
+          <a href="#M000056" class="method-signature">
+          <span class="method-name">params</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000056-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000056-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb, line 19</span>
+19:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">params</span>
+20:           <span class="ruby-identifier">request</span>.<span class="ruby-identifier">parameters</span>
+21:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000058" class="method-detail">
+        <a name="M000058"></a>
+
+        <div class="method-heading">
+          <a href="#M000058" class="method-signature">
+          <span class="method-name">session</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000058-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000058-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb, line 27</span>
+27:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">session</span>
+28:           <span class="ruby-identifier">response</span>.<span class="ruby-identifier">session</span>
+29:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

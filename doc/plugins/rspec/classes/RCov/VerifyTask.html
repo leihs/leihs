@@ -94,8 +94,8 @@ running <a href="../Spec/Rake/SpecTask.html">Spec::Rake::SpecTask</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000013">define</a>&nbsp;&nbsp;
-      <a href="#M000012">new</a>&nbsp;&nbsp;
+      <a href="#M000011">define</a>&nbsp;&nbsp;
+      <a href="#M000010">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -168,19 +168,19 @@ Whether or not to output details. Defaults to true.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000012" class="method-detail">
-        <a name="M000012"></a>
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
 
         <div class="method-heading">
-          <a href="#M000012" class="method-signature">
+          <a href="#M000010" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(name=:verify_rcov) {|self if block_given?| ...}</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000012-source">
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/rake/verify_rcov.rb, line 25</span>
 25:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>=<span class="ruby-identifier">:verify_rcov</span>)
@@ -199,29 +199,29 @@ Whether or not to output details. Defaults to true.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000013" class="method-detail">
-        <a name="M000013"></a>
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
 
         <div class="method-heading">
-          <a href="#M000013" class="method-signature">
+          <a href="#M000011" class="method-signature">
           <span class="method-name">define</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000013-source">
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/rake/verify_rcov.rb, line 35</span>
 35:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">define</span>
 36:       <span class="ruby-identifier">desc</span> <span class="ruby-node">&quot;Verify that rcov coverage is at least #{threshold}%&quot;</span>
 37:       <span class="ruby-identifier">task</span> <span class="ruby-ivar">@name</span> <span class="ruby-keyword kw">do</span>
-38:         <span class="ruby-identifier">total_coverage</span> = <span class="ruby-keyword kw">nil</span>
+38:         <span class="ruby-identifier">total_coverage</span> = <span class="ruby-value">0</span>
 39: 
 40:         <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">index_html</span>).<span class="ruby-identifier">each_line</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
-41:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/&lt;tt class='coverage_total'&gt;(\d+\.\d+)%&lt;\/tt&gt;/</span>
-42:             <span class="ruby-identifier">total_coverage</span> = <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">$1</span>)
+41:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/&lt;tt class='coverage_total'&gt;\s*(\d+\.\d+)%\s*&lt;\/tt&gt;/</span>
+42:             <span class="ruby-identifier">total_coverage</span> = <span class="ruby-identifier">$1</span>.<span class="ruby-identifier">to_f</span>
 43:             <span class="ruby-keyword kw">break</span>
 44:           <span class="ruby-keyword kw">end</span>
 45:         <span class="ruby-keyword kw">end</span>

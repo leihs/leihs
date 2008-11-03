@@ -88,15 +88,15 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000339">add_example_group</a>&nbsp;&nbsp;
-      <a href="#M000346">dump</a>&nbsp;&nbsp;
-      <a href="#M000345">end</a>&nbsp;&nbsp;
-      <a href="#M000343">example_failed</a>&nbsp;&nbsp;
-      <a href="#M000341">example_finished</a>&nbsp;&nbsp;
-      <a href="#M000340">example_started</a>&nbsp;&nbsp;
-      <a href="#M000342">failure</a>&nbsp;&nbsp;
-      <a href="#M000338">new</a>&nbsp;&nbsp;
-      <a href="#M000344">start</a>&nbsp;&nbsp;
+      <a href="#M000379">add_example_group</a>&nbsp;&nbsp;
+      <a href="#M000386">dump</a>&nbsp;&nbsp;
+      <a href="#M000385">end</a>&nbsp;&nbsp;
+      <a href="#M000383">example_failed</a>&nbsp;&nbsp;
+      <a href="#M000381">example_finished</a>&nbsp;&nbsp;
+      <a href="#M000380">example_started</a>&nbsp;&nbsp;
+      <a href="#M000382">failure</a>&nbsp;&nbsp;
+      <a href="#M000378">new</a>&nbsp;&nbsp;
+      <a href="#M000384">start</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -114,6 +114,19 @@
 
     </div>
 
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">EXAMPLE_PENDING_DEPRECATION_WARNING</td>
+          <td>=</td>
+          <td class="context-item-value">&lt;&lt;-WARNING         DEPRECATION NOTICE: RSpec's formatters have changed example_pending         to accept three arguments instead of just two. Please see the rdoc         for Spec::Runner::Formatter::BaseFormatter#example_pending         for more information.                    Please update any custom formatters to accept the third argument         to example_pending. Support for example_pending with two arguments         and this warning message will be removed after the RSpec 1.1.5 release.       WARNING</td>
+        </tr>
+        </table>
+      </div>
+    </div>
 
 
 
@@ -142,19 +155,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000338" class="method-detail">
-        <a name="M000338"></a>
+      <div id="method-M000378" class="method-detail">
+        <a name="M000378"></a>
 
         <div class="method-heading">
-          <a href="#M000338" class="method-signature">
+          <a href="#M000378" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(options)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000338-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000338-source">
+            onclick="toggleCode('M000378-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000378-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/reporter.rb, line 6</span>
  6:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>)
@@ -169,19 +182,19 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000339" class="method-detail">
-        <a name="M000339"></a>
+      <div id="method-M000379" class="method-detail">
+        <a name="M000379"></a>
 
         <div class="method-heading">
-          <a href="#M000339" class="method-signature">
+          <a href="#M000379" class="method-signature">
           <span class="method-name">add_example_group</span><span class="method-args">(example_group)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000339-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000339-source">
+            onclick="toggleCode('M000379-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000379-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/reporter.rb, line 12</span>
 12:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_example_group</span>(<span class="ruby-identifier">example_group</span>)
@@ -195,11 +208,11 @@
         </div>
       </div>
 
-      <div id="method-M000346" class="method-detail">
-        <a name="M000346"></a>
+      <div id="method-M000386" class="method-detail">
+        <a name="M000386"></a>
 
         <div class="method-heading">
-          <a href="#M000346" class="method-signature">
+          <a href="#M000386" class="method-signature">
           <span class="method-name">dump</span><span class="method-args">()</span>
           </a>
         </div>
@@ -209,8 +222,8 @@
 Dumps the summary and returns the total number of failures
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000346-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000346-source">
+            onclick="toggleCode('M000386-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000386-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/reporter.rb, line 56</span>
 56:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump</span>
@@ -228,19 +241,19 @@ Dumps the summary and returns the total number of failures
         </div>
       </div>
 
-      <div id="method-M000345" class="method-detail">
-        <a name="M000345"></a>
+      <div id="method-M000385" class="method-detail">
+        <a name="M000385"></a>
 
         <div class="method-heading">
-          <a href="#M000345" class="method-signature">
+          <a href="#M000385" class="method-signature">
           <span class="method-name">end</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000345-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000345-source">
+            onclick="toggleCode('M000385-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000385-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/reporter.rb, line 51</span>
 51:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">end</span>
@@ -251,8 +264,8 @@ Dumps the summary and returns the total number of failures
         </div>
       </div>
 
-      <div id="method-M000343" class="method-detail">
-        <a name="M000343"></a>
+      <div id="method-M000383" class="method-detail">
+        <a name="M000383"></a>
 
         <div class="method-heading">
           <span class="method-name">example_failed</span><span class="method-args">(example, error)</span>
@@ -260,24 +273,24 @@ Dumps the summary and returns the total number of failures
       
         <div class="method-description">
           <p>
-Alias for <a href="Reporter.html#M000342">failure</a>
+Alias for <a href="Reporter.html#M000382">failure</a>
 </p>
         </div>
       </div>
 
-      <div id="method-M000341" class="method-detail">
-        <a name="M000341"></a>
+      <div id="method-M000381" class="method-detail">
+        <a name="M000381"></a>
 
         <div class="method-heading">
-          <a href="#M000341" class="method-signature">
+          <a href="#M000381" class="method-signature">
           <span class="method-name">example_finished</span><span class="method-args">(example, error=nil)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000341-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000341-source">
+            onclick="toggleCode('M000381-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000381-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/reporter.rb, line 23</span>
 23:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_finished</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">error</span>=<span class="ruby-keyword kw">nil</span>)
@@ -286,7 +299,7 @@ Alias for <a href="Reporter.html#M000342">failure</a>
 26:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">error</span>.<span class="ruby-identifier">nil?</span>
 27:           <span class="ruby-identifier">example_passed</span>(<span class="ruby-identifier">example</span>)
 28:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Example</span><span class="ruby-operator">::</span><span class="ruby-constant">ExamplePendingError</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">error</span>
-29:           <span class="ruby-identifier">example_pending</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">error</span>.<span class="ruby-identifier">message</span>)
+29:           <span class="ruby-identifier">example_pending</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">error</span>.<span class="ruby-identifier">pending_caller</span>, <span class="ruby-identifier">error</span>.<span class="ruby-identifier">message</span>)
 30:         <span class="ruby-keyword kw">else</span>
 31:           <span class="ruby-identifier">example_failed</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">error</span>)
 32:         <span class="ruby-keyword kw">end</span>
@@ -296,19 +309,19 @@ Alias for <a href="Reporter.html#M000342">failure</a>
         </div>
       </div>
 
-      <div id="method-M000340" class="method-detail">
-        <a name="M000340"></a>
+      <div id="method-M000380" class="method-detail">
+        <a name="M000380"></a>
 
         <div class="method-heading">
-          <a href="#M000340" class="method-signature">
+          <a href="#M000380" class="method-signature">
           <span class="method-name">example_started</span><span class="method-args">(example)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000340-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000340-source">
+            onclick="toggleCode('M000380-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000380-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/reporter.rb, line 19</span>
 19:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_started</span>(<span class="ruby-identifier">example</span>)
@@ -319,19 +332,19 @@ Alias for <a href="Reporter.html#M000342">failure</a>
         </div>
       </div>
 
-      <div id="method-M000342" class="method-detail">
-        <a name="M000342"></a>
+      <div id="method-M000382" class="method-detail">
+        <a name="M000382"></a>
 
         <div class="method-heading">
-          <a href="#M000342" class="method-signature">
+          <a href="#M000382" class="method-signature">
           <span class="method-name">failure</span><span class="method-args">(example, error)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000342-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000342-source">
+            onclick="toggleCode('M000382-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000382-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/reporter.rb, line 35</span>
 35:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">failure</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">error</span>)
@@ -347,19 +360,19 @@ Alias for <a href="Reporter.html#M000342">failure</a>
         </div>
       </div>
 
-      <div id="method-M000344" class="method-detail">
-        <a name="M000344"></a>
+      <div id="method-M000384" class="method-detail">
+        <a name="M000384"></a>
 
         <div class="method-heading">
-          <a href="#M000344" class="method-signature">
+          <a href="#M000384" class="method-signature">
           <span class="method-name">start</span><span class="method-args">(number_of_examples)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000344-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000344-source">
+            onclick="toggleCode('M000384-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000384-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/reporter.rb, line 45</span>
 45:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start</span>(<span class="ruby-identifier">number_of_examples</span>)

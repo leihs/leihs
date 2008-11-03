@@ -6,10 +6,12 @@ class Backend::WorkdaysController < Backend::BackendController
   end
   
   def close
+    # TODO **31 template error (log/test.log)
     update_workday(params[:day], false) and redirect_to :action => 'index'
   end
   
   def open
+    # TODO **31 test error (log/test.log)
     update_workday(params[:day], true) and redirect_to :action => 'index'
   end
   

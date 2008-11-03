@@ -86,11 +86,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000181">add_shared_example_group</a>&nbsp;&nbsp;
-      <a href="#M000185">execute_in_class_hierarchy</a>&nbsp;&nbsp;
-      <a href="#M000182">find_shared_example_group</a>&nbsp;&nbsp;
-      <a href="#M000184">new</a>&nbsp;&nbsp;
-      <a href="#M000183">shared_example_groups</a>&nbsp;&nbsp;
+      <a href="#M000199">each_ancestor_example_group_class</a>&nbsp;&nbsp;
+      <a href="#M000198">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -108,6 +105,12 @@
 
     <div id="section">
 
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="SharedExampleGroup/ClassMethods.html" class="link">Spec::Example::SharedExampleGroup::ClassMethods</a><br />
+
+    </div>
 
 
 
@@ -119,101 +122,26 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000181" class="method-detail">
-        <a name="M000181"></a>
+      <div id="method-M000198" class="method-detail">
+        <a name="M000198"></a>
 
         <div class="method-heading">
-          <a href="#M000181" class="method-signature">
-          <span class="method-name">add_shared_example_group</span><span class="method-args">(new_example_group)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000181-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000181-source">
-<pre>
-   <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/shared_example_group.rb, line 5</span>
-5:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_shared_example_group</span>(<span class="ruby-identifier">new_example_group</span>)
-6:           <span class="ruby-identifier">guard_against_redefining_existing_example_group</span>(<span class="ruby-identifier">new_example_group</span>)
-7:           <span class="ruby-identifier">shared_example_groups</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">new_example_group</span>
-8:         <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000182" class="method-detail">
-        <a name="M000182"></a>
-
-        <div class="method-heading">
-          <a href="#M000182" class="method-signature">
-          <span class="method-name">find_shared_example_group</span><span class="method-args">(example_group_description)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000182-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000182-source">
-<pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/shared_example_group.rb, line 10</span>
-10:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_shared_example_group</span>(<span class="ruby-identifier">example_group_description</span>)
-11:           <span class="ruby-identifier">shared_example_groups</span>.<span class="ruby-identifier">find</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span>
-12:             <span class="ruby-identifier">b</span>.<span class="ruby-identifier">description</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">example_group_description</span>
-13:           <span class="ruby-keyword kw">end</span>
-14:         <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000184" class="method-detail">
-        <a name="M000184"></a>
-
-        <div class="method-heading">
-          <a href="#M000184" class="method-signature">
+          <a href="#M000198" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(*args, &amp;example_group_block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000184-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000184-source">
+            onclick="toggleCode('M000198-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000198-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/shared_example_group.rb, line 39</span>
-39:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">example_group_block</span>)
-40:         <span class="ruby-identifier">describe</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-41:         <span class="ruby-ivar">@example_group_block</span> = <span class="ruby-identifier">example_group_block</span>
-42:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">add_shared_example_group</span>(<span class="ruby-keyword kw">self</span>)
-43:       <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000183" class="method-detail">
-        <a name="M000183"></a>
-
-        <div class="method-heading">
-          <a href="#M000183" class="method-signature">
-          <span class="method-name">shared_example_groups</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000183-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000183-source">
-<pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/shared_example_group.rb, line 16</span>
-16:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">shared_example_groups</span>
-17:           <span class="ruby-comment cmt"># TODO - this needs to be global, or at least accessible from</span>
-18:           <span class="ruby-comment cmt"># from subclasses of Example in a centralized place. I'm not loving</span>
-19:           <span class="ruby-comment cmt"># this as a solution, but it works for now.</span>
-20:           <span class="ruby-identifier">$shared_example_groups</span> <span class="ruby-operator">||=</span> []
-21:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/shared_example_group.rb, line 37</span>
+37:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">example_group_block</span>)
+38:         <span class="ruby-identifier">describe</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+39:         <span class="ruby-ivar">@example_group_block</span> = <span class="ruby-identifier">example_group_block</span>
+40:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">add_shared_example_group</span>(<span class="ruby-keyword kw">self</span>)
+41:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -221,28 +149,24 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000185" class="method-detail">
-        <a name="M000185"></a>
+      <div id="method-M000199" class="method-detail">
+        <a name="M000199"></a>
 
         <div class="method-heading">
-          <a href="#M000185" class="method-signature">
-          <span class="method-name">execute_in_class_hierarchy</span><span class="method-args">(superclass_last=false) {|example_group| ...}</span>
+          <a href="#M000199" class="method-signature">
+          <span class="method-name">each_ancestor_example_group_class</span><span class="method-args">(superclass_last=false) {|self| ...}</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000185-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000185-source">
+            onclick="toggleCode('M000199-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000199-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/shared_example_group.rb, line 49</span>
-49:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute_in_class_hierarchy</span>(<span class="ruby-identifier">superclass_last</span>=<span class="ruby-keyword kw">false</span>)
-50:         <span class="ruby-identifier">classes</span> = [<span class="ruby-keyword kw">self</span>]
-51:         <span class="ruby-identifier">superclass_last</span> <span class="ruby-value">? </span><span class="ruby-identifier">classes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">ExampleMethods</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">classes</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-constant">ExampleMethods</span>)
-52:         <span class="ruby-identifier">classes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">example_group</span><span class="ruby-operator">|</span>
-53:           <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">example_group</span>
-54:         <span class="ruby-keyword kw">end</span>
-55:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/example/shared_example_group.rb, line 47</span>
+47:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each_ancestor_example_group_class</span>(<span class="ruby-identifier">superclass_last</span>=<span class="ruby-keyword kw">false</span>)
+48:         <span class="ruby-keyword kw">yield</span> <span class="ruby-keyword kw">self</span>
+49:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

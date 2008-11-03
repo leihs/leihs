@@ -110,7 +110,7 @@ steps_for(:acknowledge) do
   end
   
   When "$who searches for '$model'" do |who, model|
-    post search_backend_inventory_pool_models_path(@inventory_pool, :query => model, :source_controller => "acknowledge", :source_action => "swap_model_line")
+    post search_backend_inventory_pool_models_path(@inventory_pool, :query => model, :source_controller => "acknowledge", :source_action => "swap_model_line", :document_id => @order, :line_id => @order_line_id)
     @search_result = assigns(:search_result)
     @search_result.should_not be_nil
   end

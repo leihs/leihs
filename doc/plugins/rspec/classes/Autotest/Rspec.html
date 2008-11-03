@@ -91,8 +91,6 @@
       <a href="#M000008">consolidate_failures</a>&nbsp;&nbsp;
       <a href="#M000009">make_test_cmd</a>&nbsp;&nbsp;
       <a href="#M000007">new</a>&nbsp;&nbsp;
-      <a href="#M000010">spec_command</a>&nbsp;&nbsp;
-      <a href="#M000011">spec_commands</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -159,7 +157,7 @@
 28:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">consolidate_failures</span>(<span class="ruby-identifier">failed</span>)
 29:     <span class="ruby-identifier">filters</span> = <span class="ruby-identifier">new_hash_of_arrays</span>
 30:     <span class="ruby-identifier">failed</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">spec</span>, <span class="ruby-identifier">trace</span><span class="ruby-operator">|</span>
-31:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">trace</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\n(\.\/)?(.*\.rb):[\d]+:\Z?/</span>
+31:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">trace</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\n(\.\/)?(.*spec\.rb):[\d]+:\Z?/</span>
 32:         <span class="ruby-identifier">filters</span>[<span class="ruby-identifier">$2</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">spec</span>
 33:       <span class="ruby-keyword kw">end</span>
 34:     <span class="ruby-keyword kw">end</span>
@@ -186,78 +184,9 @@
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/autotest/rspec.rb, line 38</span>
 38:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">make_test_cmd</span>(<span class="ruby-identifier">files_to_test</span>)
-39:     <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;#{ruby} -S #{spec_command} #{add_options_if_present} #{files_to_test.keys.flatten.join(' ')}&quot;</span>
-40:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000010" class="method-detail">
-        <a name="M000010"></a>
-
-        <div class="method-heading">
-          <a href="#M000010" class="method-signature">
-          <span class="method-name">spec_command</span><span class="method-args">(separator=File::ALT_SEPARATOR)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Finds the proper spec command to use. Precendence is set in the
-lazily-evaluated method <a href="Rspec.html#M000011">spec_commands</a>.
-Alias + Override that in ~/.autotest to provide a different spec command
-then the default paths provided.
-</p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000010-source">
-<pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/autotest/rspec.rb, line 50</span>
-50:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">spec_command</span>(<span class="ruby-identifier">separator</span>=<span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">ALT_SEPARATOR</span>)
-51:     <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">defined?</span> <span class="ruby-ivar">@spec_command</span> <span class="ruby-keyword kw">then</span>
-52:       <span class="ruby-ivar">@spec_command</span> = <span class="ruby-identifier">spec_commands</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">cmd</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">cmd</span> }
-53: 
-54:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">RspecCommandError</span>, <span class="ruby-value str">&quot;No spec command could be found!&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@spec_command</span>
-55: 
-56:       <span class="ruby-ivar">@spec_command</span>.<span class="ruby-identifier">gsub!</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">SEPARATOR</span>, <span class="ruby-identifier">separator</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">separator</span>
-57:     <span class="ruby-keyword kw">end</span>
-58:     <span class="ruby-ivar">@spec_command</span>
-59:   <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000011" class="method-detail">
-        <a name="M000011"></a>
-
-        <div class="method-heading">
-          <a href="#M000011" class="method-signature">
-          <span class="method-name">spec_commands</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-<a href="../Autotest.html">Autotest</a> will look for spec commands in the
-following locations, in this order:
-</p>
-<pre>
-  * bin/spec
-  * default spec bin/loader installed in Rubygems
-</pre>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000011-source">
-<pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/autotest/rspec.rb, line 66</span>
-66:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">spec_commands</span>
-67:     [
-68:       <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword kw">__FILE__</span>), <span class="ruby-value str">'..'</span>, <span class="ruby-value str">'..'</span>, <span class="ruby-value str">'bin'</span>, <span class="ruby-value str">'spec'</span>)),
-69:       <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Config</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-value str">'bindir'</span>], <span class="ruby-value str">'spec'</span>)
-70:     ]
-71:   <span class="ruby-keyword kw">end</span>
+39:     <span class="ruby-keyword kw">return</span> <span class="ruby-value str">''</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">files_to_test</span>.<span class="ruby-identifier">empty?</span>
+40:     <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;#{ruby} -S #{files_to_test.keys.flatten.join(' ')} #{add_options_if_present}&quot;</span>
+41:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

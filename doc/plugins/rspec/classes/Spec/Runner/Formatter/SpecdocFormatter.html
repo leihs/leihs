@@ -88,10 +88,10 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000243">add_example_group</a>&nbsp;&nbsp;
-      <a href="#M000244">example_failed</a>&nbsp;&nbsp;
-      <a href="#M000245">example_passed</a>&nbsp;&nbsp;
-      <a href="#M000246">example_pending</a>&nbsp;&nbsp;
+      <a href="#M000275">add_example_group</a>&nbsp;&nbsp;
+      <a href="#M000276">example_failed</a>&nbsp;&nbsp;
+      <a href="#M000277">example_passed</a>&nbsp;&nbsp;
+      <a href="#M000278">example_pending</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -113,19 +113,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000243" class="method-detail">
-        <a name="M000243"></a>
+      <div id="method-M000275" class="method-detail">
+        <a name="M000275"></a>
 
         <div class="method-heading">
-          <a href="#M000243" class="method-signature">
+          <a href="#M000275" class="method-signature">
           <span class="method-name">add_example_group</span><span class="method-args">(example_group)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000243-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000243-source">
+            onclick="toggleCode('M000275-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000275-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/specdoc_formatter.rb, line 7</span>
  7:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_example_group</span>(<span class="ruby-identifier">example_group</span>)
@@ -139,19 +139,19 @@
         </div>
       </div>
 
-      <div id="method-M000244" class="method-detail">
-        <a name="M000244"></a>
+      <div id="method-M000276" class="method-detail">
+        <a name="M000276"></a>
 
         <div class="method-heading">
-          <a href="#M000244" class="method-signature">
+          <a href="#M000276" class="method-signature">
           <span class="method-name">example_failed</span><span class="method-args">(example, counter, failure)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000244-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000244-source">
+            onclick="toggleCode('M000276-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000276-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/specdoc_formatter.rb, line 14</span>
 14:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_failed</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">counter</span>, <span class="ruby-identifier">failure</span>)
@@ -169,19 +169,19 @@
         </div>
       </div>
 
-      <div id="method-M000245" class="method-detail">
-        <a name="M000245"></a>
+      <div id="method-M000277" class="method-detail">
+        <a name="M000277"></a>
 
         <div class="method-heading">
-          <a href="#M000245" class="method-signature">
+          <a href="#M000277" class="method-signature">
           <span class="method-name">example_passed</span><span class="method-args">(example)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000245-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000245-source">
+            onclick="toggleCode('M000277-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000277-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/specdoc_formatter.rb, line 25</span>
 25:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_passed</span>(<span class="ruby-identifier">example</span>)
@@ -194,22 +194,22 @@
         </div>
       </div>
 
-      <div id="method-M000246" class="method-detail">
-        <a name="M000246"></a>
+      <div id="method-M000278" class="method-detail">
+        <a name="M000278"></a>
 
         <div class="method-heading">
-          <a href="#M000246" class="method-signature">
-          <span class="method-name">example_pending</span><span class="method-args">(example, message)</span>
+          <a href="#M000278" class="method-signature">
+          <span class="method-name">example_pending</span><span class="method-args">(example, message, pending_caller)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000246-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000246-source">
+            onclick="toggleCode('M000278-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000278-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/specdoc_formatter.rb, line 31</span>
-31:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_pending</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">message</span>)
+31:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_pending</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">pending_caller</span>)
 32:           <span class="ruby-keyword kw">super</span>
 33:           <span class="ruby-identifier">output</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">yellow</span>(<span class="ruby-node">&quot;- #{example.description} (PENDING: #{message})&quot;</span>)
 34:           <span class="ruby-identifier">output</span>.<span class="ruby-identifier">flush</span>

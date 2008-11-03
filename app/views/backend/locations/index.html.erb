@@ -12,8 +12,8 @@
 				<td><%= location.items.size %></td>
 				<td class="buttons" nowrap>
 					<ul>
-						<li><%= link_to _("Show"), backend_inventory_pool_location_path(@current_inventory_pool, location) %></li>
-						<li><%= link_to _("Delete"), backend_inventory_pool_location_path(@current_inventory_pool, location), :confirm => 'Are you sure?', :method => :delete if location.items.empty? and !location.main %></li>
+						<li><%= link_to _("Show"), {:action => 'show', :id => location} %></li>
+						<li><%= link_to _("Delete"), {:action => 'destroy', :id => location}, :confirm => 'Are you sure?', :method => :delete if location.items.empty? and !location.main %></li>
 					</ul>
 				</td>
 			</tr>

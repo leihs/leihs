@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.datetime "updated_at"
   end
 
-  add_index "access_rights", ["role_id", "user_id", "inventory_pool_id"], :name => "index_access_rights_on_role_id_and_user_id_and_inventory_pool_id", :unique => true
+  add_index "access_rights", ["user_id", "inventory_pool_id"], :name => "index_access_rights_on_user_id_and_inventory_pool_id", :unique => true
 
   create_table "accessories", :force => true do |t|
     t.integer "model_id"
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.string   "title",            :limit => 50
     t.text     "comment"
     t.datetime "created_at"
-    t.integer  "commentable_id",                                 :null => false
-    t.string   "commentable_type",               :default => "", :null => false
+    t.integer  "commentable_id",                 :null => false
+    t.string   "commentable_type",               :null => false
     t.integer  "user_id"
   end
 
@@ -98,17 +98,15 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.integer  "type_const"
     t.datetime "created_at",                  :null => false
     t.integer  "target_id",                   :null => false
-    t.string   "target_type", :default => "", :null => false
+    t.string   "target_type",                 :null => false
     t.integer  "user_id"
   end
 
   create_table "holidays", :force => true do |t|
-    t.integer  "inventory_pool_id"
-    t.date     "start_date"
-    t.date     "end_date"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "inventory_pool_id"
+    t.date    "start_date"
+    t.date    "end_date"
+    t.string  "name"
   end
 
   create_table "images", :force => true do |t|
@@ -181,7 +179,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   add_index "model_links", ["model_id"], :name => "index_model_links_on_model_id"
 
   create_table "models", :force => true do |t|
-    t.string   "name",               :default => "", :null => false
+    t.string   "name",                              :null => false
     t.string   "manufacturer"
     t.integer  "maintenance_period", :default => 0
     t.datetime "created_at"
@@ -262,16 +260,14 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   end
 
   create_table "workdays", :force => true do |t|
-    t.integer  "inventory_pool_id"
-    t.boolean  "monday",            :default => true
-    t.boolean  "tuesday",           :default => true
-    t.boolean  "wednesday",         :default => true
-    t.boolean  "thursday",          :default => true
-    t.boolean  "friday",            :default => true
-    t.boolean  "saturday",          :default => false
-    t.boolean  "sunday",            :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "inventory_pool_id"
+    t.boolean "monday",            :default => true
+    t.boolean "tuesday",           :default => true
+    t.boolean "wednesday",         :default => true
+    t.boolean "thursday",          :default => true
+    t.boolean "friday",            :default => true
+    t.boolean "saturday",          :default => false
+    t.boolean "sunday",            :default => false
   end
 
 end

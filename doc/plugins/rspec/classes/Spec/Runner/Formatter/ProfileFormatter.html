@@ -88,11 +88,12 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000241">example_passed</a>&nbsp;&nbsp;
-      <a href="#M000240">example_started</a>&nbsp;&nbsp;
-      <a href="#M000238">new</a>&nbsp;&nbsp;
-      <a href="#M000239">start</a>&nbsp;&nbsp;
-      <a href="#M000242">start_dump</a>&nbsp;&nbsp;
+      <a href="#M000272">example_passed</a>&nbsp;&nbsp;
+      <a href="#M000271">example_started</a>&nbsp;&nbsp;
+      <a href="#M000274">method_missing</a>&nbsp;&nbsp;
+      <a href="#M000269">new</a>&nbsp;&nbsp;
+      <a href="#M000270">start</a>&nbsp;&nbsp;
+      <a href="#M000273">start_dump</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -114,19 +115,19 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000238" class="method-detail">
-        <a name="M000238"></a>
+      <div id="method-M000269" class="method-detail">
+        <a name="M000269"></a>
 
         <div class="method-heading">
-          <a href="#M000238" class="method-signature">
+          <a href="#M000269" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(options, where)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000238-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000238-source">
+            onclick="toggleCode('M000269-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000269-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/profile_formatter.rb, line 8</span>
  8:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">where</span>)
@@ -140,19 +141,19 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000241" class="method-detail">
-        <a name="M000241"></a>
+      <div id="method-M000272" class="method-detail">
+        <a name="M000272"></a>
 
         <div class="method-heading">
-          <a href="#M000241" class="method-signature">
+          <a href="#M000272" class="method-signature">
           <span class="method-name">example_passed</span><span class="method-args">(example)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000241-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000241-source">
+            onclick="toggleCode('M000272-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000272-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/profile_formatter.rb, line 21</span>
 21:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_passed</span>(<span class="ruby-identifier">example</span>)
@@ -168,19 +169,19 @@
         </div>
       </div>
 
-      <div id="method-M000240" class="method-detail">
-        <a name="M000240"></a>
+      <div id="method-M000271" class="method-detail">
+        <a name="M000271"></a>
 
         <div class="method-heading">
-          <a href="#M000240" class="method-signature">
+          <a href="#M000271" class="method-signature">
           <span class="method-name">example_started</span><span class="method-args">(example)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000240-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000240-source">
+            onclick="toggleCode('M000271-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000271-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/profile_formatter.rb, line 17</span>
 17:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_started</span>(<span class="ruby-identifier">example</span>)
@@ -191,19 +192,42 @@
         </div>
       </div>
 
-      <div id="method-M000239" class="method-detail">
-        <a name="M000239"></a>
+      <div id="method-M000274" class="method-detail">
+        <a name="M000274"></a>
 
         <div class="method-heading">
-          <a href="#M000239" class="method-signature">
+          <a href="#M000274" class="method-signature">
+          <span class="method-name">method_missing</span><span class="method-args">(sym, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000274-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000274-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/profile_formatter.rb, line 45</span>
+45:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">sym</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+46:           <span class="ruby-comment cmt"># ignore</span>
+47:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000270" class="method-detail">
+        <a name="M000270"></a>
+
+        <div class="method-heading">
+          <a href="#M000270" class="method-signature">
           <span class="method-name">start</span><span class="method-args">(count)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000239-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000239-source">
+            onclick="toggleCode('M000270-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000270-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/profile_formatter.rb, line 13</span>
 13:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start</span>(<span class="ruby-identifier">count</span>)
@@ -214,19 +238,19 @@
         </div>
       </div>
 
-      <div id="method-M000242" class="method-detail">
-        <a name="M000242"></a>
+      <div id="method-M000273" class="method-detail">
+        <a name="M000273"></a>
 
         <div class="method-heading">
-          <a href="#M000242" class="method-signature">
+          <a href="#M000273" class="method-signature">
           <span class="method-name">start_dump</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000242-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000242-source">
+            onclick="toggleCode('M000273-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000273-source">
 <pre>
     <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/profile_formatter.rb, line 30</span>
 30:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start_dump</span>

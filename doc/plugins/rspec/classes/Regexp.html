@@ -150,7 +150,7 @@
 <pre>
    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/story/extensions/regexp.rb, line 2</span>
 2:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">step_name</span>
-3:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">source</span>
+3:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">source</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-value str">'\\$'</span>, <span class="ruby-value str">'$$'</span>
 4:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>

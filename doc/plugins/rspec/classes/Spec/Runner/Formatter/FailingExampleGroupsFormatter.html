@@ -88,10 +88,9 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000301">add_example_group</a>&nbsp;&nbsp;
-      <a href="#M000303">dump_failure</a>&nbsp;&nbsp;
-      <a href="#M000304">dump_summary</a>&nbsp;&nbsp;
-      <a href="#M000302">example_failed</a>&nbsp;&nbsp;
+      <a href="#M000343">dump_failure</a>&nbsp;&nbsp;
+      <a href="#M000344">dump_summary</a>&nbsp;&nbsp;
+      <a href="#M000342">example_failed</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -106,19 +105,6 @@
 
 
 
-    <div id="attribute-list">
-      <h3 class="section-bar">Attributes</h3>
-
-      <div class="name-list">
-        <table>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">example_group</td>
-          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
-          <td class="context-item-desc"></td>
-        </tr>
-        </table>
-      </div>
-    </div>
       
 
 
@@ -126,100 +112,76 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000301" class="method-detail">
-        <a name="M000301"></a>
+      <div id="method-M000343" class="method-detail">
+        <a name="M000343"></a>
 
         <div class="method-heading">
-          <a href="#M000301" class="method-signature">
-          <span class="method-name">add_example_group</span><span class="method-args">(example_group)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000301-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000301-source">
-<pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/failing_example_groups_formatter.rb, line 8</span>
- 8:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_example_group</span>(<span class="ruby-identifier">example_group</span>)
- 9:           <span class="ruby-keyword kw">super</span>
-10:           <span class="ruby-ivar">@example_group</span> = <span class="ruby-identifier">example_group</span>
-11:         <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000303" class="method-detail">
-        <a name="M000303"></a>
-
-        <div class="method-heading">
-          <a href="#M000303" class="method-signature">
+          <a href="#M000343" class="method-signature">
           <span class="method-name">dump_failure</span><span class="method-args">(counter, failure)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000303-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000303-source">
+            onclick="toggleCode('M000343-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000343-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/failing_example_groups_formatter.rb, line 25</span>
-25:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_failure</span>(<span class="ruby-identifier">counter</span>, <span class="ruby-identifier">failure</span>)
-26:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/failing_example_groups_formatter.rb, line 19</span>
+19:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_failure</span>(<span class="ruby-identifier">counter</span>, <span class="ruby-identifier">failure</span>)
+20:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000304" class="method-detail">
-        <a name="M000304"></a>
+      <div id="method-M000344" class="method-detail">
+        <a name="M000344"></a>
 
         <div class="method-heading">
-          <a href="#M000304" class="method-signature">
+          <a href="#M000344" class="method-signature">
           <span class="method-name">dump_summary</span><span class="method-args">(duration, example_count, failure_count, pending_count)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000304-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000304-source">
+            onclick="toggleCode('M000344-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000344-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/failing_example_groups_formatter.rb, line 28</span>
-28:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_summary</span>(<span class="ruby-identifier">duration</span>, <span class="ruby-identifier">example_count</span>, <span class="ruby-identifier">failure_count</span>, <span class="ruby-identifier">pending_count</span>)
-29:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/failing_example_groups_formatter.rb, line 22</span>
+22:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dump_summary</span>(<span class="ruby-identifier">duration</span>, <span class="ruby-identifier">example_count</span>, <span class="ruby-identifier">failure_count</span>, <span class="ruby-identifier">pending_count</span>)
+23:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000302" class="method-detail">
-        <a name="M000302"></a>
+      <div id="method-M000342" class="method-detail">
+        <a name="M000342"></a>
 
         <div class="method-heading">
-          <a href="#M000302" class="method-signature">
+          <a href="#M000342" class="method-signature">
           <span class="method-name">example_failed</span><span class="method-args">(example, counter, failure)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000302-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000302-source">
+            onclick="toggleCode('M000342-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000342-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/failing_example_groups_formatter.rb, line 13</span>
-13:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_failed</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">counter</span>, <span class="ruby-identifier">failure</span>)
-14:           <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@example_group</span>
-15:             <span class="ruby-identifier">description_parts</span> = <span class="ruby-ivar">@example_group</span>.<span class="ruby-identifier">description_parts</span>.<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">description</span><span class="ruby-operator">|</span>
-16:               <span class="ruby-identifier">description</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/(.*) \(druby.*\)$/</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">$1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">description</span>
-17:             <span class="ruby-keyword kw">end</span>
-18:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">puts</span> <span class="ruby-operator">::</span><span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Example</span><span class="ruby-operator">::</span><span class="ruby-constant">ExampleGroupMethods</span>.<span class="ruby-identifier">description_text</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">description_parts</span>)
-19: 
-20:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">flush</span>
-21:             <span class="ruby-ivar">@example_group</span> = <span class="ruby-keyword kw">nil</span>
-22:           <span class="ruby-keyword kw">end</span>
-23:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/formatter/failing_example_groups_formatter.rb, line 7</span>
+ 7:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">example_failed</span>(<span class="ruby-identifier">example</span>, <span class="ruby-identifier">counter</span>, <span class="ruby-identifier">failure</span>)
+ 8:           <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@example_group</span>
+ 9:             <span class="ruby-identifier">description_parts</span> = <span class="ruby-ivar">@example_group</span>.<span class="ruby-identifier">description_parts</span>.<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">description</span><span class="ruby-operator">|</span>
+10:               <span class="ruby-identifier">description</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/(.*) \(druby.*\)$/</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">$1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">description</span>
+11:             <span class="ruby-keyword kw">end</span>
+12:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">puts</span> <span class="ruby-operator">::</span><span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Example</span><span class="ruby-operator">::</span><span class="ruby-constant">ExampleGroupMethods</span>.<span class="ruby-identifier">description_text</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">description_parts</span>)
+13: 
+14:             <span class="ruby-ivar">@output</span>.<span class="ruby-identifier">flush</span>
+15:             <span class="ruby-ivar">@example_group</span> = <span class="ruby-keyword kw">nil</span>
+16:           <span class="ruby-keyword kw">end</span>
+17:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

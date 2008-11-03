@@ -80,13 +80,6 @@
 
   <div id="contextContent">
 
-    <div id="description">
-      <p>
-Facade to <a href="CommandLine.html#M000384">run</a> specs without having
-to fork a new ruby process (using `spec &#8230;`)
-</p>
-
-    </div>
 
 
    </div>
@@ -95,7 +88,7 @@ to fork a new ruby process (using `spec &#8230;`)
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000384">run</a>&nbsp;&nbsp;
+      <a href="#M000424">run</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -117,41 +110,28 @@ to fork a new ruby process (using `spec &#8230;`)
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000384" class="method-detail">
-        <a name="M000384"></a>
+      <div id="method-M000424" class="method-detail">
+        <a name="M000424"></a>
 
         <div class="method-heading">
-          <a href="#M000384" class="method-signature">
-          <span class="method-name">run</span><span class="method-args">(instance_rspec_options)</span>
+          <a href="#M000424" class="method-signature">
+          <span class="method-name">run</span><span class="method-args">(tmp_options=Spec::Runner.options)</span>
           </a>
         </div>
       
         <div class="method-description">
-          <p>
-Runs specs. <tt>argv</tt> is the commandline args as per the spec
-commandline API, <tt>err</tt> and <tt>out</tt> are the streams output will
-be written to.
-</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000384-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000384-source">
+            onclick="toggleCode('M000424-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000424-source">
 <pre>
-    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/command_line.rb, line 10</span>
-10:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">instance_rspec_options</span>)
-11:           <span class="ruby-comment cmt"># NOTE - this call to init_rspec_options is not spec'd, but neither is any of this</span>
-12:           <span class="ruby-comment cmt"># swapping of $rspec_options. That is all here to enable rspec to run against itself</span>
-13:           <span class="ruby-comment cmt"># and maintain coverage in a single process. Therefore, DO NOT mess with this stuff</span>
-14:           <span class="ruby-comment cmt"># unless you know what you are doing!</span>
-15:           <span class="ruby-identifier">init_rspec_options</span>(<span class="ruby-identifier">instance_rspec_options</span>)
-16:           <span class="ruby-identifier">orig_rspec_options</span> = <span class="ruby-identifier">rspec_options</span>
-17:           <span class="ruby-keyword kw">begin</span>
-18:             <span class="ruby-identifier">$rspec_options</span> = <span class="ruby-identifier">instance_rspec_options</span>
-19:             <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">$rspec_options</span>.<span class="ruby-identifier">run_examples</span>
-20:           <span class="ruby-keyword kw">ensure</span>
-21:             <span class="ruby-operator">::</span><span class="ruby-constant">Spec</span>.<span class="ruby-identifier">run</span> = <span class="ruby-keyword kw">true</span>
-22:             <span class="ruby-identifier">$rspec_options</span> = <span class="ruby-identifier">orig_rspec_options</span>
-23:           <span class="ruby-keyword kw">end</span>
-24:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/command_line.rb, line 7</span>
+ 7:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">tmp_options</span>=<span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">options</span>)
+ 8:           <span class="ruby-identifier">orig_options</span> = <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">options</span>
+ 9:           <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">use</span> <span class="ruby-identifier">tmp_options</span>
+10:           <span class="ruby-identifier">tmp_options</span>.<span class="ruby-identifier">run_examples</span>
+11:         <span class="ruby-keyword kw">ensure</span>
+12:           <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">use</span> <span class="ruby-identifier">orig_options</span>
+13:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

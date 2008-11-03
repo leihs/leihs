@@ -3,8 +3,7 @@
 </div>
 
 
-<div class="toolbar-main boxes">
-	<div class="buttons">
+<div class="toolbar-main boxes buttons">
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/tab_go.png") + " " + _("Hand Over"),
 		 	{ :action => 'sign_contract', :id => @contract },
 			:onmouseup => "change_href(this, 'contract_line', 'line');",
@@ -14,7 +13,6 @@
 		<%= link_to(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Close"),
 								 { :controller => 'hand_over' }) %>
 
-	</div>
 </div>
 			<div id="meta" class="boxes">
 				<div id="meta-contract">

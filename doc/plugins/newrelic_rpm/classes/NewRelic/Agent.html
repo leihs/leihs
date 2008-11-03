@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: NewRelic::Agent</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">NewRelic::Agent</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/vendor/plugins/newrelic_rpm/lib/newrelic/agent/agent_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/agent/agent.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/newrelic_rpm/lib/newrelic/agent/error_collector_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/agent/error_collector.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/newrelic_rpm/lib/newrelic/agent/samplers/cpu_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/agent/samplers/cpu.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/newrelic_rpm/lib/newrelic/agent/samplers/memory_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/agent/samplers/memory.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/newrelic_rpm/lib/newrelic/agent/stats_engine_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/agent/stats_engine.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/newrelic_rpm/lib/newrelic/agent/synchronize_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/agent/synchronize.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/newrelic_rpm/lib/newrelic/agent/transaction_sampler_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/agent/transaction_sampler.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/newrelic_rpm/lib/newrelic/agent/worker_loop_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/agent/worker_loop.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent_rb.html">
+                vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A worker loop executes a set of registered tasks on a single thread. A task
+is a proc or block with a specified call period in seconds.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000037">add_request_parameters</a>&nbsp;&nbsp;
+      <a href="#M000046">add_request_parameters</a>&nbsp;&nbsp;
+      <a href="#M000032">agent</a>&nbsp;&nbsp;
+      <a href="#M000040">agent</a>&nbsp;&nbsp;
+      <a href="#M000036">disable_sql_recording</a>&nbsp;&nbsp;
+      <a href="#M000044">disable_sql_recording</a>&nbsp;&nbsp;
+      <a href="#M000038">disable_transaction_tracing</a>&nbsp;&nbsp;
+      <a href="#M000045">disable_transaction_tracing</a>&nbsp;&nbsp;
+      <a href="#M000033">get_stats</a>&nbsp;&nbsp;
+      <a href="#M000041">get_stats</a>&nbsp;&nbsp;
+      <a href="#M000039">ignore_error_filter</a>&nbsp;&nbsp;
+      <a href="#M000034">manual_start</a>&nbsp;&nbsp;
+      <a href="#M000042">manual_start</a>&nbsp;&nbsp;
+      <a href="#M000043">set_sql_obfuscator</a>&nbsp;&nbsp;
+      <a href="#M000035">set_sql_obfuscator</a>&nbsp;&nbsp;
+      <a href="#M000047">should_ignore_error</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="Agent/Synchronize.html" class="link">NewRelic::Agent::Synchronize</a><br />
+Class <a href="Agent/Agent.html" class="link">NewRelic::Agent::Agent</a><br />
+Class <a href="Agent/CPUSampler.html" class="link">NewRelic::Agent::CPUSampler</a><br />
+Class <a href="Agent/ErrorCollector.html" class="link">NewRelic::Agent::ErrorCollector</a><br />
+Class <a href="Agent/ForceDisconnectException.html" class="link">NewRelic::Agent::ForceDisconnectException</a><br />
+Class <a href="Agent/IgnoreSilentlyException.html" class="link">NewRelic::Agent::IgnoreSilentlyException</a><br />
+Class <a href="Agent/LicenseException.html" class="link">NewRelic::Agent::LicenseException</a><br />
+Class <a href="Agent/MemorySampler.html" class="link">NewRelic::Agent::MemorySampler</a><br />
+Class <a href="Agent/StatsEngine.html" class="link">NewRelic::Agent::StatsEngine</a><br />
+Class <a href="Agent/TransactionSampleBuilder.html" class="link">NewRelic::Agent::TransactionSampleBuilder</a><br />
+Class <a href="Agent/TransactionSampler.html" class="link">NewRelic::Agent::TransactionSampler</a><br />
+Class <a href="Agent/WorkerLoop.html" class="link">NewRelic::Agent::WorkerLoop</a><br />
+
+    </div>
+
+
+    <div id="aliases-list">
+      <h3 class="section-bar">External Aliases</h3>
+
+      <div class="name-list">
+                        <table summary="aliases">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">agent</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">instance</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">agent</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">instance</td>
+        </tr>
+                        </table>
+      </div>
+    </div>
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000037" class="method-detail">
+        <a name="M000037"></a>
+
+        <div class="method-heading">
+          <a href="#M000037" class="method-signature">
+          <span class="method-name">add_request_parameters</span><span class="method-args">(params = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add parameters to the current transaction trace
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000037-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000037-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/agent/agent.rb, line 105</span>
+105:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_request_parameters</span>(<span class="ruby-identifier">params</span> = {})
+106:       <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">transaction_sampler</span>.<span class="ruby-identifier">add_request_parameters</span>(<span class="ruby-identifier">params</span>)
+107:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000046" class="method-detail">
+        <a name="M000046"></a>
+
+        <div class="method-heading">
+          <a href="#M000046" class="method-signature">
+          <span class="method-name">add_request_parameters</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000046-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000046-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent.rb, line 55</span>
+55:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_request_parameters</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+56:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+          <a href="#M000032" class="method-signature">
+          <span class="method-name">agent</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000032-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/agent/agent.rb, line 34</span>
+34:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">agent</span>
+35:       <span class="ruby-constant">NewRelic</span><span class="ruby-operator">::</span><span class="ruby-constant">Agent</span><span class="ruby-operator">::</span><span class="ruby-constant">Agent</span>.<span class="ruby-identifier">instance</span>
+36:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000040" class="method-detail">
+        <a name="M000040"></a>
+
+        <div class="method-heading">
+          <a href="#M000040" class="method-signature">
+          <span class="method-name">agent</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000040-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000040-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent.rb, line 31</span>
+31:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">agent</span>
+32:         <span class="ruby-constant">NewRelic</span><span class="ruby-operator">::</span><span class="ruby-constant">Agent</span><span class="ruby-operator">::</span><span class="ruby-constant">Agent</span>.<span class="ruby-identifier">instance</span>
+33:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+          <a href="#M000036" class="method-signature">
+          <span class="method-name">disable_sql_recording</span><span class="method-args">() {|| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method sets the state of sql recording in the transaction sampler
+feature. Within the given block, no sql will be recorded
+</p>
+<p>
+usage:
+</p>
+<pre>
+  NewRelic::Agent.disable_sql_recording do
+    ...
+   end
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000036-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000036-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/agent/agent.rb, line 93</span>
+ 93:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">disable_sql_recording</span>
+ 94:       <span class="ruby-identifier">state</span> = <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">set_record_sql</span>(<span class="ruby-keyword kw">false</span>)
+ 95:       <span class="ruby-keyword kw">begin</span>
+ 96:         <span class="ruby-keyword kw">yield</span>
+ 97:       <span class="ruby-keyword kw">ensure</span>
+ 98:         <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">set_record_sql</span>(<span class="ruby-identifier">state</span>)
+ 99:       <span class="ruby-keyword kw">end</span>
+100:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000044" class="method-detail">
+        <a name="M000044"></a>
+
+        <div class="method-heading">
+          <a href="#M000044" class="method-signature">
+          <span class="method-name">disable_sql_recording</span><span class="method-args">() {|| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000044-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000044-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent.rb, line 47</span>
+47:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">disable_sql_recording</span>
+48:         <span class="ruby-keyword kw">yield</span>
+49:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000038" class="method-detail">
+        <a name="M000038"></a>
+
+        <div class="method-heading">
+          <a href="#M000038" class="method-signature">
+          <span class="method-name">disable_transaction_tracing</span><span class="method-args">() {|| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method disables the recording of transaction traces in the given
+block.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000038-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000038-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/agent/agent.rb, line 111</span>
+111:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">disable_transaction_tracing</span>
+112:       <span class="ruby-identifier">state</span> = <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">set_record_tt</span>(<span class="ruby-keyword kw">false</span>)
+113:       <span class="ruby-keyword kw">begin</span>
+114:         <span class="ruby-keyword kw">yield</span>
+115:       <span class="ruby-keyword kw">ensure</span>
+116:         <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">set_record_tt</span>(<span class="ruby-identifier">state</span>)
+117:       <span class="ruby-keyword kw">end</span>
+118:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000045" class="method-detail">
+        <a name="M000045"></a>
+
+        <div class="method-heading">
+          <a href="#M000045" class="method-signature">
+          <span class="method-name">disable_transaction_tracing</span><span class="method-args">() {|| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000045-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000045-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent.rb, line 51</span>
+51:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">disable_transaction_tracing</span>
+52:         <span class="ruby-keyword kw">yield</span>
+53:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+          <a href="#M000033" class="method-signature">
+          <span class="method-name">get_stats</span><span class="method-args">(metric_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get or create a statistics gatherer that will aggregate numerical data
+under a metric name.
+</p>
+<p>
+metric_name should follow a slash separated path convention. Application
+specific metrics should begin with &quot;Custom/&quot;.
+</p>
+<p>
+the statistical gatherer returned by <a
+href="Agent.html#M000033">get_stats</a> accepts data via calls to
+add_data_point(value)
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000033-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/agent/agent.rb, line 48</span>
+48:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_stats</span>(<span class="ruby-identifier">metric_name</span>)
+49:       <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">stats_engine</span>.<span class="ruby-identifier">get_stats</span>(<span class="ruby-identifier">metric_name</span>, <span class="ruby-keyword kw">false</span>)
+50:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000041" class="method-detail">
+        <a name="M000041"></a>
+
+        <div class="method-heading">
+          <a href="#M000041" class="method-signature">
+          <span class="method-name">get_stats</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000041-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000041-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent.rb, line 37</span>
+37:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_stats</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+38:         <span class="ruby-constant">MethodTraceStats</span>.<span class="ruby-identifier">new</span>
+39:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000039" class="method-detail">
+        <a name="M000039"></a>
+
+        <div class="method-heading">
+          <a href="#M000039" class="method-signature">
+          <span class="method-name">ignore_error_filter</span><span class="method-args">(&amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method allows a filter to be applied to errors that RPM will track.
+The block should return the exception to track (which could be different
+from the original exception) or nil to ignore this exception
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000039-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000039-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/agent/agent.rb, line 124</span>
+124:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ignore_error_filter</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+125:       <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">error_collector</span>.<span class="ruby-identifier">ignore_error_filter</span> <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+126:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
+
+        <div class="method-heading">
+          <a href="#M000034" class="method-signature">
+          <span class="method-name">manual_start</span><span class="method-args">(environment, identifier)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Call this to manually start the <a href="Agent.html">Agent</a> in
+situations where the <a href="Agent.html">Agent</a> does not auto-start.
+When the rails environment loads, so does the <a
+href="Agent.html">Agent</a>. However, the <a href="Agent.html">Agent</a>
+will only connect to RPM if a web plugin is found. If you want to
+selectively monitor rails processes that don&#8216;t use web plugins, then
+call this method in your code and the <a href="Agent.html">Agent</a> will
+fire up and start reporting to RPM.
+</p>
+<p>
+environment - the name of the environment. used for logging only port - the
+name of this instance. shows up in the RPM UI screens. can be any String
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000034-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000034-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/agent/agent.rb, line 63</span>
+63:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">manual_start</span>(<span class="ruby-identifier">environment</span>, <span class="ruby-identifier">identifier</span>)
+64:       <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">manual_start</span>(<span class="ruby-identifier">environment</span>, <span class="ruby-identifier">identifier</span>)
+65:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000042" class="method-detail">
+        <a name="M000042"></a>
+
+        <div class="method-heading">
+          <a href="#M000042" class="method-signature">
+          <span class="method-name">manual_start</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000042-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000042-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent.rb, line 41</span>
+41:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">manual_start</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+42:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000043" class="method-detail">
+        <a name="M000043"></a>
+
+        <div class="method-heading">
+          <a href="#M000043" class="method-signature">
+          <span class="method-name">set_sql_obfuscator</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000043-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000043-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent.rb, line 44</span>
+44:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_sql_obfuscator</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+45:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
+
+        <div class="method-heading">
+          <a href="#M000035" class="method-signature">
+          <span class="method-name">set_sql_obfuscator</span><span class="method-args">(type = :replace, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method sets the block sent to this method as a sql obfuscator. The
+block will be called with a single String SQL statement to obfuscate. The
+method must return the obfuscated String SQL. If chaining of obfuscators is
+required, use type = :before or :after
+</p>
+<p>
+type = :before, :replace, :after
+</p>
+<p>
+example:
+</p>
+<pre>
+   NewRelic::Agent.set_sql_obfuscator(:replace) do |sql|
+      my_obfuscator(sql)
+   end
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000035-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000035-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/agent/agent.rb, line 79</span>
+79:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_sql_obfuscator</span>(<span class="ruby-identifier">type</span> = <span class="ruby-identifier">:replace</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+80:       <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">set_sql_obfuscator</span> <span class="ruby-identifier">type</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+81:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000047" class="method-detail">
+        <a name="M000047"></a>
+
+        <div class="method-heading">
+          <a href="#M000047" class="method-signature">
+          <span class="method-name">should_ignore_error</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000047-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000047-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/newrelic_rpm/lib/newrelic/shim_agent.rb, line 58</span>
+58:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">should_ignore_error</span>
+59:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
