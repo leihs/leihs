@@ -110,7 +110,7 @@ steps_for(:acknowledge) do
   end
   
   When "$who searches for '$model'" do |who, model|
-    post search_backend_inventory_pool_models_path(@inventory_pool, :query => model, :source_controller => "acknowledge", :source_action => "swap_model_line", :document_id => @order, :line_id => @order_line_id)
+    post search_backend_inventory_pool_models_path(@inventory_pool, :query => model, :source_path => swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :line_id => @order_line_id) )
     @search_result = assigns(:search_result)
     @search_result.should_not be_nil
   end
@@ -168,7 +168,7 @@ steps_for(:acknowledge) do
   end
   
   Then "Swap Item screen opens" do 
-    @response.redirect_url.should include("/backend/inventory_pools/#{@inventory_pool.id}/models/search?document_id=#{@order.id}&line_id=#{@order_line_id}")
+    @response.redirect_url.should include("/backend/inventory_pools/#{@inventory_pool.id}/models/search?source_path=%2Fbackend%2Finventory_pools%2F#{@inventory_pool.id}%2Facknowledge%2F#{@order.id}%2Fswap_model_line%3Fline_id%3D#{@order_line_id}")
   end
   
   Then "a choice of $size item appears" do |size|

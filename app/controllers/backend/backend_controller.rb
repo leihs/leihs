@@ -15,7 +15,7 @@ class Backend::BackendController < ApplicationController
 ###############################################################  
    # TODO merge arguments if is always the case where (render_id == document.id)
    # add a new line
-   def generic_add_line(document, render_id)
+   def generic_add_line(document, render_id = nil)
     if request.post?
       if params[:model_group_id]
         model = ModelGroup.find(params[:model_group_id]) # TODO scope current_inventory_pool ?
@@ -26,38 +26,33 @@ class Backend::BackendController < ApplicationController
       model.add_to_document(document, params[:user_id], params[:quantity], nil, nil, current_inventory_pool)
 
       flash[:notice] = _("Line couldn't be added") unless document.save        
-      redirect_to :action => 'show', :id => render_id        
+      redirect_to :action => 'show', :id => render_id
     else
       redirect_to :controller => 'models', 
                   :action => 'search',
-                  :document_id => params[:id],
-                  :source_controller => params[:controller].split('/').last,
-                  :source_action => params[:action]
+                  :source_path => request.env['REQUEST_URI']
     end
   end
 
 
   # swap model for a given line
-  def generic_swap_model_line(document, render_id)
+  def generic_swap_model_line(document, render_id = nil)
     if request.post?
       if params[:model_id].nil?
         flash[:notice] = _("Model must be selected")
       else
         document.swap_line(params[:line_id], params[:model_id], current_user.id)
-      end  
-      redirect_to :action => 'show', :id => render_id        
+      end
+      redirect_to :action => 'show', :id => render_id     
     else
       redirect_to :controller => 'models', 
                   :action => 'search',
-                  :document_id => params[:id],
-                  :line_id => params[:line_id],
-                  :source_controller => params[:controller].split('/').last,
-                  :source_action => params[:action]
+                  :source_path => request.env['REQUEST_URI']
     end
   end
   
   # change time frame for OrderLines or ContractLines 
-  def generic_time_lines(document, render_id)
+  def generic_time_lines(document, render_id = nil)
     if request.post?
       begin
         start_date = Date.new(params[:line]['start_date(1i)'].to_i, params[:line]['start_date(2i)'].to_i, params[:line]['start_date(3i)'].to_i)
@@ -74,7 +69,7 @@ class Backend::BackendController < ApplicationController
   end    
   
   # remove OrderLines or ContractLines
-  def generic_remove_lines(document, render_id)
+  def generic_remove_lines(document, render_id = nil)
     if request.post?
       params[:lines].each {|l| document.remove_line(l, current_user.id) }
       redirect_to :action => 'show', :id => render_id

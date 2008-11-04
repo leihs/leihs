@@ -25,7 +25,7 @@
 		</td>
 		<td class="buttons">
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/flag_red.png") + " " + _("Broken"),
-					 	{ :controller => 'take_back', :action => 'broken', :item_id => @line.item_id, :contract_id => @line.contract.id },
+					 	{ :action => 'broken', :line_id => @line },
 						:title => _("Broken"), :class => (@line.item.status_const == Item::UNBORROWABLE ? "negative" : "") ) %>
 		</td>
 	</tr>

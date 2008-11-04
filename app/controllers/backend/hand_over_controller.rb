@@ -97,29 +97,28 @@ class Backend::HandOverController < Backend::BackendController
   def remove_options
      if request.post?
         params[:options].each {|o| @contract.remove_option(o, session[:user_id]) }
-        redirect_to :controller=> 'hand_over', :action => 'show', :id => @contract.id
+        redirect_to :action => 'show'
     else
       @options = Option.find(params[:options].split(',')) # TODO scope current_inventory_pool
       render :layout => $modal_layout_path
     end   
   end
 
-  
   def add_line
-    generic_add_line(@contract, @contract.id)
+    generic_add_line(@contract)
   end
 
   def swap_model_line
-    generic_swap_model_line(@contract, @contract.id)
+    generic_swap_model_line(@contract)
   end
 
   def time_lines
-    generic_time_lines(@contract, @contract.id)
+    generic_time_lines(@contract)
   end    
 
   # remove a contract line for a given contract
   def remove_lines
-    generic_remove_lines(@contract, @contract.id)
+    generic_remove_lines(@contract)
   end  
 
   def timeline
@@ -130,9 +129,8 @@ class Backend::HandOverController < Backend::BackendController
   private
   
   def pre_load
-    @contract = current_inventory_pool.contracts.new_contracts.find(params[:id]) if params[:id]
-    @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id] # TODO 31** still used?
-    @contract ||= @user.get_current_contract(current_inventory_pool) if @user
+    @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
+    @contract = @user.get_current_contract(current_inventory_pool) if @user
   end
 
 

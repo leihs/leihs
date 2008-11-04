@@ -72,10 +72,11 @@ class Backend::TakeBackController < Backend::BackendController
   end
 
   def broken
+    @contract_line = @user.contract_lines.find(params[:line_id])
     if request.post?
-      @item.update_attribute :status_const, Item::UNBORROWABLE 
-      @item.log_history(params[:comment], current_user.id)
-      redirect_to :action => 'show', :user_id => @contract.user.id
+      @contract_line.item.update_attribute :status_const, Item::UNBORROWABLE 
+      @contract_line.item.log_history(params[:comment], current_user.id)
+      redirect_to :action => 'show'
     else
       render :layout => $modal_layout_path
     end
@@ -89,10 +90,7 @@ class Backend::TakeBackController < Backend::BackendController
   private
   
   def pre_load
-    params[:id] ||= params[:user_id] if params[:user_id]
-    @user = current_inventory_pool.users.find(params[:id]) if params[:id]    
-    @contract = Contract.find(params[:contract_id]) if params[:contract_id]
-    @item = Item.find(params[:item_id]) if params[:item_id] 
+    @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
   end
     
 end

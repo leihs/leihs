@@ -57,20 +57,8 @@ ActionController::Routing::Routes.draw do |map|
                                                           :swap_user => :any,
                                                           :change_purpose => :any,
                                                           :timeline => :get }
-      inventory_pool.resources :hand_over, :member => { :add_line => :any,
-                                                        :change_line => :any,
-                                                        :remove_lines => :any,
-                                                        :swap_model_line => :any,
-                                                        :time_lines => :any,
-                                                        :sign_contract => :any,
-                                                        :remove_options => :any,
-                                                        :assign_inventory_code => :any,
-                                                        :timeline => :get,
-                                                        :delete_visit => :get }
-      inventory_pool.resources :take_back, :member => { :close_contract => :any,
-                                                        :assign_inventory_code => :any,
-                                                        :broken => :any,
-                                                        :timeline => :get }
+      inventory_pool.resources :hand_over # OPTIMIZE 03** only for index purpose
+      inventory_pool.resources :take_back # OPTIMIZE 03** only for index purpose
   
       inventory_pool.resources :orders
       inventory_pool.resources :contracts
@@ -99,7 +87,24 @@ ActionController::Routing::Routes.draw do |map|
       end
       inventory_pool.resources :users, :collection => { :search => :any },
                                        :member => { :new_contract => :get,
-                                                    :remind => :get }
+                                                    :remind => :get } do |user|
+               user.resource :hand_over, :controller => :hand_over, # OPTIMIZE 03** pluralization
+                                         :member => { :add_line => :any,
+                                                      :change_line => :any,
+                                                      :remove_lines => :any,
+                                                      :swap_model_line => :any,
+                                                      :time_lines => :any,
+                                                      :sign_contract => :any,
+                                                      :remove_options => :any,
+                                                      :assign_inventory_code => :any,
+                                                      :timeline => :get,
+                                                      :delete_visit => :get }
+                user.resource :take_back, :controller => :take_back, # OPTIMIZE 03** pluralization
+                                          :member => { :close_contract => :any,
+                                                       :assign_inventory_code => :any,
+                                                       :broken => :any,
+                                                       :timeline => :get }
+      end
       inventory_pool.resources :workdays, :collection => { :close => :any,
                                                            :open => :any,
                                                            :add_holiday => :post,

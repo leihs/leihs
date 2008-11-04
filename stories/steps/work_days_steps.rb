@@ -70,12 +70,12 @@ steps_for(:work_days) do
   end
 	
 	When "he tries to hand over an item to a customer" do
-    get backend_inventory_pool_hand_over_path(@inventory_pool, @user.get_current_contract(@inventory_pool))
+    get backend_inventory_pool_user_hand_over_path(@inventory_pool, @user)
     
     @contract = assigns(:contract)
     @contract.lines.size.should == 0
     
-    post add_line_backend_inventory_pool_hand_over_path(@inventory_pool, @user.get_current_contract(@inventory_pool), :model_id => Model.first.id, :quantity => 1)
+    post add_line_backend_inventory_pool_user_hand_over_path(@inventory_pool, @user, :model_id => Model.first.id, :quantity => 1)
                                
     @contract = assigns(:contract)
   end
@@ -93,7 +93,6 @@ steps_for(:work_days) do
     @contract.lines.size.should == 1
     line = @contract.lines.first
     line.start_date = Factory.parsedate(@date)
-# TODO 31** fix hand_over on closed days    
     line.save.should == true
   end
   
@@ -126,14 +125,12 @@ steps_for(:work_days) do
   
   When "he deselects $days" do |days|
     days.split(',').each do |day|
-#old#      post "/backend/workdays/close", :day => day.strip
       post close_backend_inventory_pool_workdays_path(@inventory_pool, :day => day.strip)
     end
   end
   
   When "he selects $days" do |days|
     days.split(',').each do |day|
-#old#      post "/backend/workdays/open", :day => day.strip
       post open_backend_inventory_pool_workdays_path(@inventory_pool, :day => day.strip)
     end
   end

@@ -23,12 +23,6 @@ class Backend::UsersController < Backend::BackendController
     render :layout => $modal_layout_path if params[:layout] == "modal"
   end
 
-  # TODO 29** remove details method
-#old#
-#  def details
-#    render :action => 'show', :layout => $modal_layout_path
-#  end
-
   def search
     @search_result = current_inventory_pool.users.find_by_contents("*" + params[:query] + "*") if request.post?
     render  :layout => $modal_layout_path
@@ -40,7 +34,7 @@ class Backend::UsersController < Backend::BackendController
   end
   
   def new_contract
-    redirect_to :controller => 'hand_over', :action => 'show', :user_id => params[:id]
+    redirect_to [:backend, @current_inventory_pool, @user, :hand_over]
   end
 
   #################################################################
