@@ -5,7 +5,8 @@ ActionController::Routing::Routes.draw do |map|
                                          :timeline => :get,
                                          :timeline_visits => :get,
                                          :account => :get }
-  map.resource :session, :member => { :authenticate => :any }
+  map.resource :session, :member => { :authenticate => :any,
+                                      :old_new => :get } # TODO 04** remove, only for offline login
   
   map.resource :frontend, :controller => 'frontend', :member => { :get_inventory_pools => :any }
   

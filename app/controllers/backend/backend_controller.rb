@@ -7,6 +7,7 @@ class Backend::BackendController < ApplicationController
   
   $theme = '00-patterns'
   $modal_layout_path = 'layouts/backend/' + $theme + '/modal'
+  $modal_timeline_layout_path = 'layouts/backend/' + $theme + '/modal_timeline'
   $general_layout_path = 'layouts/backend/' + $theme + '/general'
   $layout_public_path = '/layouts/' + $theme
   

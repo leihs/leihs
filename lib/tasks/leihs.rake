@@ -47,9 +47,9 @@ namespace :leihs do
 
     create_meaningful_users
 
-    create_some_submitted_orders(10)
+#temp#    create_some_submitted_orders(10)
+    
 #    create_beautiful_order
-
 #    scene_3a
 #    scene_3b
 
