@@ -3,7 +3,7 @@
     var recent_models_store = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy(
 			new Ext.data.Connection({
-            	url: '/models/index',
+            	url: '/models',
 				method: 'GET',
 				extraParams: {format:'ext_json'}
 			})
@@ -47,23 +47,11 @@
         loadMask: true,
 		listeners: {
 			rowclick: function( grid, rowIndex, e ){
-				x_id = grid.getStore().getAt(rowIndex).id;
-	            //center_tabs.activate(models);				
-				/*
-				model_details.load({
-				    url: '/models/details?model_id=' + x_id,
-				    text: "Loading...",
-				    timeout: 30
-				});
-				*/
-			    model_store.load({params:{model_id: x_id}});
+				model_id = grid.getStore().getAt(rowIndex).id;
+			    //old// model_store.load({params:{model_id: model_id}});
+				add_model_details(model_id);
 			}
 		},
     });
-
-
-    // trigger the data store load
-    //recent_models_store.load({params:{start:0, limit:5, recent:true}});
-
 
   
