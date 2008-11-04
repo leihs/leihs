@@ -5,7 +5,9 @@ ActionController::Routing::Routes.draw do |map|
                                          :timeline => :get,
                                          :timeline_visits => :get,
                                          :account => :get }
-  map.resource :session
+  map.resource :session, :member => { :authenticate => :any }
+  
+  map.resource :frontend, :controller => 'frontend', :member => { :get_inventory_pools => :any }
   
   # For RESTful_Authentication
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
@@ -38,9 +40,14 @@ ActionController::Routing::Routes.draw do |map|
   # Sample resource route with sub-resources:
   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
 
-  map.resources :orders, :member => { :submit => :any,
-                                      :add_line => :any }
-  map.resources :models
+  map.resource :order, :member => { :submit => :post,
+                                      :add_line => :post,
+                                      :change_line => :post,
+                                      :remove_lines => :post,
+                                      :change_time_lines => :post }
+                                      
+  map.resources :models, :collection => { :categories => :any },
+                         :member => { :details => :any }
 
   map.namespace :backend do |backend|
     backend.resources :inventory_pools, :member => { :timeline => :get,
@@ -152,13 +159,13 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  # map.root :controller => "welcome"
+  map.root :controller => "frontend"
 
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
 # TODO 30** remove "map.connect"
-#  map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
+  map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
 #  map.connect ':controller/:action/:id', :defaults => { :controller => 'frontend' }
 #  map.connect ':controller/:action/:id.:format'
 end

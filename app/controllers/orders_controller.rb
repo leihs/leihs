@@ -62,7 +62,7 @@ class OrdersController < FrontendController
   # change quantity for a given line
   def change_line(line_id = params[:order_line_id],
                   required_quantity = params[:quantity].to_i)
- #   if request.post?
+    if request.post? 
       @order_line = OrderLine.find(line_id)
       @order = @order_line.order
 
@@ -71,8 +71,8 @@ class OrdersController < FrontendController
       @order.save
       
       render :nothing => true
-#    end
-end
+    end
+  end
 
   # change time frame for OrderLines or ContractLines 
   def change_time_lines(lines = @order.lines.find(params[:lines].split(',')),
@@ -120,13 +120,13 @@ end
   private
   
   def pre_load
-      # OPTIMIZE
-      if params[:id]
-        @order = Order.find(params[:id], :conditions => { :status_const => Order::NEW })
-      else
+      # TODO
+      #if params[:id]
+      #  @order = Order.find(params[:id], :conditions => { :status_const => Order::NEW })
+      #else
         @order = current_user.get_current_order
-      end
-    rescue
-      redirect_to :action => 'index' unless @order
+      #end
+    #rescue
+    #  redirect_to :action => 'index' unless @order
   end  
 end
