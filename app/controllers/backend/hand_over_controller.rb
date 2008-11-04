@@ -2,6 +2,7 @@ class Backend::HandOverController < Backend::BackendController
 
   before_filter :pre_load
   protect_from_forgery :except => [:auto_complete_for_location_building, :auto_complete_for_location_room]
+
   def index
     visits = current_inventory_pool.hand_over_visits
     

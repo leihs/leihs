@@ -19,7 +19,7 @@
     var models_store = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy(
 			new Ext.data.Connection({
-            	url: '/models/index',
+            	url: '/models',
 				method: 'GET',
 				extraParams: {format:'ext_json'}
 			})
@@ -68,15 +68,6 @@
 		listeners: {
 			rowclick: function( grid, rowIndex, e ){
 			  model_id = grid.getStore().getAt(rowIndex).id;
-			  /* //old//
-				model_details.load({
-				    url: '/models/details?model_id=' + model_id,
-				    text: "Loading...",
-				    timeout: 30,
-					scripts: true
-				});
-			  */
-			  //old// model_store.load({params:{model_id: model_id}});
 			  add_model_details(model_id);
 			}
 		},
@@ -131,7 +122,7 @@ function add_model_details(model_id){
 	
 		model_store[model_id] = new Ext.data.Store({
 			proxy: new Ext.data.HttpProxy(new Ext.data.Connection({
-				url: '/models/details', // invoke with params: {model_id: model_id},
+				url: '/models/' + model_id + '/details', // invoke with params: {model_id: model_id},
 				method: 'GET',
 				extraParams: {
 					format: 'ext_json'
@@ -225,12 +216,6 @@ function add_model_details(model_id){
 					}, // this.render(); */
 					rowclick: function(grid, rowIndex, e){
 						model_id = grid.getStore().getAt(rowIndex).id;
-						/* //old//
-						model_store.load({
-							params: {
-								model_id: model_id
-							}
-						}); */
 						add_model_details(model_id);
 					}
 				},
@@ -332,7 +317,7 @@ function add_model_details(model_id){
 					handler: function(){
 						this.findParentByType('form').form.submit({
 							waitMsg: 'Saving Data...',
-							url: '/orders/add_line',
+							url: '/order/add_line',
 							method: 'POST',
 							params: {
 								'model_id': model_store[model_id].data.items[0].id,
@@ -353,9 +338,9 @@ function add_model_details(model_id){
 		
 		
 		model_store[model_id].load({
-			params: {
-				model_id: model_id
-			}
+//			params: {
+//				model_id: model_id
+//			}
 		});
 
 		model_details.add(model_tab);

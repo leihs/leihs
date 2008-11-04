@@ -16,7 +16,7 @@
     var complete_order_store = new Ext.data.GroupingStore({
         proxy: new Ext.data.HttpProxy(
 			new Ext.data.Connection({
-            	url: '/orders/show',
+            	url: '/order',
 				method: 'GET',
 				extraParams: {format:'ext_json'}
 			})
@@ -146,13 +146,13 @@
 			},
 			afteredit: function(e){
 				if(e.field == "start_date" || e.field == "end_date"){
-				    u = '/orders/change_time_lines';
+				    u = '/order/change_time_lines';
 				    p = {"lines": [e.record.id],
 						 "start_date": e.record.data.start_date.dateFormat('d.m.Y'),
 						 "end_date": e.record.data.end_date.dateFormat('d.m.Y'),
 						 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'};
 				}else if(e.field == "quantity"){
-				    u = '/orders/change_line';
+				    u = '/order/change_line';
 				    p = {"order_line_id": e.record.id,
 						 "quantity": e.value,
 						 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'};
@@ -197,7 +197,7 @@
 							if(btn == "yes"){
 				                Ext.Ajax.request({
 									method: 'POST',
-								    url: '/orders/remove_lines',
+								    url: '/order/remove_lines',
 									params: {"lines": selected_lines(),
 											 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},
 				                    success: function(r) {
@@ -226,7 +226,7 @@
 								if(btn == "ok"){
 									complete_order.disable();
 					                Ext.Ajax.request({
-									    url: '/orders/submit',
+									    url: '/order/submit',
 										method: 'POST',
 										params: {"id": complete_order_store.reader.jsonData['id'],
 												 "purpose": text,
@@ -341,7 +341,7 @@
 					handler: function() {
 						Ext.Ajax.request({
 		 					method: 'POST',
-						    url: '/orders/change_time_lines',
+						    url: '/order/change_time_lines',
 						    params: {"lines": selected_lines(),
 									 "start_date": timeframe_form.form.findField('start_date').getValue().dateFormat('d.m.Y'),
 									 "end_date": timeframe_form.form.findField('end_date').getValue().dateFormat('d.m.Y'),
