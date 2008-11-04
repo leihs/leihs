@@ -5,10 +5,10 @@
 
 <div class="toolbar-main boxes buttons">
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/tab_go.png") + " " + _("Hand Over"),
-		 	{ :action => 'sign_contract', :id => @contract },
-			:onmouseup => "change_href(this, 'contract_line', 'line');",
-			:class => "multiple_selection_button",
-			:title => _("Hand Over") ) %>
+			 	{ :action => 'sign_contract' },
+				:onmouseup => "change_href(this, 'contract_line', 'line');",
+				:class => "multiple_selection_button",
+				:title => _("Hand Over") ) %>
 
 		<%= link_to(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Close"),
 								 { :controller => 'hand_over' }) %>
@@ -43,17 +43,17 @@
 					<h3>Pakete</h3>
 					<div class="buttons">
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add Line"),
-							 	{ :action => 'add_line', :id => @contract },
+							 	{ :action => 'add_line' },
 								:title => _("Add Model") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
-							 	{ :action => 'time_lines', :id => @contract },
+							 	{ :action => 'time_lines' },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",
 								:class => "multiple_selection_button",
 								:title => _("Time Period") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
-								{ :action => 'remove_lines', :id => @contract },
+								{ :action => 'remove_lines' },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",
 								:class => "multiple_selection_button negative",
 								:title => _("Remove Models") )
@@ -62,7 +62,7 @@
 								%>
 							
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
-							 	{ :action => 'timeline', :id => @contract },
+							 	{ :action => 'timeline' },
 								:title => _("Timeline"), :width => 1000 ) %>						
 					</div>
 				</div>
@@ -79,7 +79,7 @@
   							<h3>Zubehör</h3>
   							<div class="buttons">
   		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
-  									{ :action => 'remove_options', :id => @contract },
+  									{ :action => 'remove_options' },
   									:onmouseup => "change_href(this, 'option', 'option');",
   									:class => "multiple_selection_option_button negative",
   									:title => _("Remove Options") )

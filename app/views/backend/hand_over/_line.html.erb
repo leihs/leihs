@@ -13,7 +13,7 @@
 		</td>
 		<td class="line_valid_<%= @line.available? %>">
 			<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
-			 		{ :action => 'time_lines', :id => @contract, :lines => @line.id },
+			 		{ :action => 'time_lines', :lines => @line.id },
 					:class => "thickbox iconized-notxt date-edit",
 					:id => "dates_#{@line.id}",
 					:title => _("Time Period") ) %>
@@ -34,11 +34,11 @@
 		</td>
 		<td class="buttons">
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
-				{ :controller => 'hand_over', :action => 'swap_model_line', :id => @contract.id, :line_id => @line.id },
-				:title => _("Swap Model") ) %>
+					{ :action => 'swap_model_line', :line_id => @line.id },
+					:title => _("Swap Model") ) %>
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
-			 	{ :controller => 'hand_over', :action => 'remove_lines', :id => @contract.id, :lines => @line.id },
-				:title => _("Remove Model"), :class => 'negative' ) %>
+				 	{ :action => 'remove_lines', :lines => @line.id },
+					:title => _("Remove Model"), :class => 'negative' ) %>
 
 		</td>
 	</tr>

@@ -1,11 +1,11 @@
 	<h2><%= _("Broken item") %></h2>
 
-	<h4><%= @item.model.name %> - <%= @item.inventory_code %></h4>
+	<h4><%= @contract_line.item.model.name %> - <%= @contract_line.item.inventory_code %></h4>
 
 	<br />
-	<% form_tag( {:action => 'broken', :item_id => @item.id, :contract_id => @contract.id}, :name => "f", :target => "_top") do %>
+	<% form_tag( {:action => 'broken', :line_id => @contract_line}, :name => "f", :target => "_top") do %>
 	   	<%= _("Comments") %><br/>
-		<%= text_area_tag 'comment', "Item broken by #{@contract.user.login}, contract #{@contract.id}", :size => "25x10" %>
+		<%= text_area_tag 'comment', "Item broken by #{@contract_line.contract.user.login}, contract #{@contract_line.contract.id}", :size => "25x10" %>
 		
 		<div class="buttons">
 			<%=	submit_button(_("Submit"), {:img => $layout_public_path + "/images/icons/flag_red.png", :class => 'negative'} ) %>

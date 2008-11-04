@@ -14,8 +14,8 @@
 			<td><%= option.name %></td>
 			<td class="buttons">
 			  <%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
-			 	    { :controller => 'hand_over', :action => 'remove_options', :id => @contract.id, :options => option.id },
-					    :title => _("Remove Option"), :class => 'negative' ) %>
+			 	  	{ :action => 'remove_options', :options => option.id },
+				      :title => _("Remove Option"), :class => 'negative' ) %>
 			</td>
 		</tr>
 <%	end	%>								

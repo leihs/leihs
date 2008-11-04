@@ -248,7 +248,8 @@ namespace :leihs do
         order.add_line(rand(3)+1, model, order.user.id, start_date, end_date, model.inventory_pools.first ) if model
       }
       order.purpose = "This is the purpose: text text and more text, text text and more text, text text and more text, text text and more text."
-      order.submit
+      order.submit # TODO 03** make sure assignment to an inventory_pool
+      puts "New order for inventory pool '#{order.inventory_pool}'"
     end
   end
   

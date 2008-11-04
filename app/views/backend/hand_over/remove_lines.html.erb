@@ -11,7 +11,7 @@
 
 
 		<%=	link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
-			 { :controller => 'hand_over', :action => 'remove_lines', :id => params[:id], :contract_lines => @contract_lines },
+			 { :action => 'remove_lines', :contract_lines => @contract_lines },
 			 :class => 'negative', :method => 'post', :target=> '_top') %>
 			
 					 

@@ -9,9 +9,9 @@
 						 :class => 'positive') %>
 			</li>			 
 		<% end %>
-					 
+
 		<li><%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Close"),
-					 { :controller => 'take_back', :action => 'index' },
+					 { :action => 'index' },
 					 :target=> '_top') %>
 	 	</li>
 	  </ul>

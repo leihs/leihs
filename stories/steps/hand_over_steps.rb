@@ -60,7 +60,7 @@ steps_for(:hand_over) do
 
   When "$who chooses one line" do | who |
     visit = @visits.first
-    get backend_inventory_pool_hand_over_path(@inventory_pool, visit.user.get_current_contract(@inventory_pool))
+    get backend_inventory_pool_user_hand_over_path(@inventory_pool, visit.user)
     response.should render_template('backend/hand_over/show')
     @contract = assigns(:contract)
   end

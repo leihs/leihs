@@ -4,6 +4,7 @@ class Contract < Document
   belongs_to :user
   has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC, created_at ASC'
   has_many :models, :through => :contract_lines, :uniq => true
+  has_many :items, :through => :contract_lines, :uniq => false
   has_many :options
 
   acts_as_ferret :fields => [ :user_login, :lines_model_names ],

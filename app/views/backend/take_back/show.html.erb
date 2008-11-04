@@ -5,7 +5,7 @@
 
 <div class="toolbar-main boxes buttons">
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/tab_go.png") + " " + _("Take Back"),
-			 	{ :controller => 'take_back', :action => 'close_contract' }, # , :user_id => @user.id
+			 	{ :action => 'close_contract' },
 				:onmouseup => "change_href(this, 'contract_line', 'line');change_href(this, 'option', 'option', false);",
 				:class => "multiple_selection_button",
 				:title => _("Take Back") ) %>
@@ -44,8 +44,8 @@
 					<h3>Pakete</h3>
 					<div class="buttons">
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
-						 	{ :controller => 'take_back', :action => 'timeline', :user_id => @user.id },
-							:title => _("Timeline"), :width => 1000 ) %>						
+						 		{ :action => 'timeline'},
+								:title => _("Timeline"), :width => 1000 ) %>						
 					</div>
 				</div>
 				
