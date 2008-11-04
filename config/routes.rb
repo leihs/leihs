@@ -87,6 +87,7 @@ ActionController::Routing::Routes.draw do |map|
                                                          :remove_package_item => :get },
                                         :member => { :properties => :get,
                                                      :accessories => :get,
+                                                     :set_accessories => :post,
                                                      :images => :get } do |model|
             model.resources :items
             model.resources :categories

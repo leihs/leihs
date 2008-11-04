@@ -51,10 +51,10 @@
 				</div>
 			<% end %>		
 				
-<% # OPTIMIZE 28** rendering tabs %>
-<% if @model %>
+<% # TODO 03** render tabs into nested layout %>
+<% if (params[:controller] == "backend/models" or params[:model_id]) and @model %>
 	<% @tab = :model_backend %>
-<% elsif @item %>
+<% elsif (params[:controller] == "backend/items" or params[:item_id]) and @item %>
 	<% @tab = :item_backend %>
 <% end %>
 
