@@ -2,7 +2,7 @@ steps_for(:hand_over) do
 
 
   Given "the list of approved orders contains $total elements" do | total |
-    orders = Order.approved_orders
+    orders = @inventory_pool.orders.approved_orders
     user = Factory.create_user
     total.to_i.times { orders << Factory.create_order(:user_id => user.id, :status_const => Order::APPROVED) }
     orders.size.should == total.to_i
@@ -12,6 +12,7 @@ steps_for(:hand_over) do
   When "a new order is placed by a user named '$who'" do | who |
     user = Factory.create_user({:login => who}, {:role => "student"})
     @order = Factory.create_order({:user_id => user.id})    
+    post "/session", :login => who #new#
   end
 
 
@@ -24,10 +25,11 @@ steps_for(:hand_over) do
   end
 
   When "the new order is submitted" do
-    post submit_order_path(@order)
+    post submit_order_path
   end
   
   When "$who approves the order" do | who |
+    post "/session", :login => @last_inventory_manager_login_name #new#
     post approve_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :comment => "test comment")
     @order = assigns(:order)
     @order.should_not be_nil

@@ -47,8 +47,7 @@ steps_for(:work_days) do
     get new_order_path
     @order = assigns(:order)
     
-    post add_line_order_path( @order,
-                              :model_id => model.id,
+    post add_line_order_path( :model_id => model.id,
                               :quantity => 1,
                               :inventory_pool_id => inventory_pool.id,
                               :start_date => date,
