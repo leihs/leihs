@@ -56,6 +56,7 @@ render_tabnav :model_backend,
 	add_tab do |t|
 		t.named 'Compatibles'
 		t.links_to backend_inventory_pool_model_compatibles_path(@current_inventory_pool, @model)
+		t.highlights_on :controller => 'backend/models', :action => 'index'
 	end
 
 	add_tab do |t|

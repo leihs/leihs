@@ -66,11 +66,6 @@ class Admin::InventoryPoolsController < Admin::AdminController
   def managers
   end
 
-#  def search_manager
-#    @users = User.find_by_contents("*" + params[:query] + "*")
-#    render :partial => 'user_for_manager', :collection => @users
-#  end
- 
   def add_manager
     role = Role.first(:conditions => {:name => "manager"})
     begin
