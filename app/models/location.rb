@@ -6,7 +6,7 @@ class Location < ActiveRecord::Base
   acts_as_ferret :fields => [ :building, :room, :shelf ]
 
   def to_s
-    "#{inventory_pool.name} - #{building} #{room} #{shelf}"
+    "#{building} #{room} #{shelf}" #TODO: Removed inventory_pool.name because it throws an error on Location.new
   end
 
 end

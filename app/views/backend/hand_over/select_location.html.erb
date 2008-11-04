@@ -1,0 +1,23 @@
+<% if @location.new_record? %>
+<table>
+	<% form_for [:backend, @location], :url => { :action => 'select_location' } do |f| %>
+	<tr>
+		<td><%= _("Building") %>:</td>
+		<td><%= text_field_with_auto_complete :location, :building %></td>
+	</tr>
+	<tr>
+		<td><%= _("Room") %>:</td>
+		<td><%= text_field_with_auto_complete :location, :room %></td>
+	</tr>
+	<tr><td></td><td><%= submit_tag 'Submit' %> <%=	cancel_popup_button(_("OK") ) %>
+	</td></tr>
+	<%= hidden_field_tag :line_id, params[:line_id]%>
+	
+	<% end %>
+</table>
+<% else %>
+<%= @location %> <%= link_to(_("Remove"), {:action => 'select_location', :line_id => params[:line_id]}, {:method => 'delete'} ) %>
+<p style="margin-top: 20px">
+ <%= cancel_popup_button(_("OK") ) %>
+</p>
+<% end %>

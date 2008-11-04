@@ -98,7 +98,10 @@ ActionController::Routing::Routes.draw do |map|
                                                       :remove_options => :any,
                                                       :assign_inventory_code => :any,
                                                       :timeline => :get,
-                                                      :delete_visit => :get }
+                                                      :delete_visit => :get,
+                                                      :select_location => :any,
+                                                      :auto_complete_for_location_building => :post,
+                                                      :auto_complete_for_location_room => :post }
                 user.resource :take_back, :controller => :take_back, # OPTIMIZE 03** pluralization
                                           :member => { :close_contract => :any,
                                                        :assign_inventory_code => :any,
