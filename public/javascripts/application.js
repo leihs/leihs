@@ -72,3 +72,8 @@ function toggle_buttons(boxes, buttons){
 		}
 	);
 }
+
+function refresh_me() 
+{ 
+	window.location.reload();
+}

@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.integer  "contract_id"
     t.integer  "item_id"
     t.integer  "model_id"
+    t.integer  "location_id"
     t.integer  "quantity",      :default => 1
     t.date     "start_date"
     t.date     "end_date"

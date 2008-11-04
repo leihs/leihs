@@ -1,7 +1,7 @@
 class Backend::HandOverController < Backend::BackendController
 
   before_filter :pre_load
-
+  protect_from_forgery :except => [:auto_complete_for_location_building, :auto_complete_for_location_room]
   def index
     visits = current_inventory_pool.hand_over_visits
     
@@ -125,7 +125,40 @@ class Backend::HandOverController < Backend::BackendController
     @timeline_xml = @contract.timeline
     render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'
   end
+  
+  def select_location
+    @contract_line = @contract.contract_lines.find(:first, :conditions => {:id => params[:line_id]})
+    @location = @contract_line.location || Location.new
+    if request.post?
+      @location = Location.find(:first, :conditions => {:building => params[:location][:building], :room => params[:location][:room]})
+      unless @location
+        @location = Location.create(params[:location])
+        @location.inventory_pool = current_inventory_pool
+      end
+      @contract_line.location = @location
+      @contract_line.save
+    end
     
+    if request.delete?
+      @contract_line.location = nil
+      @contract_line.save
+      @location = Location.new
+    end
+    render :layout => 'backend/' + $theme + '/modal'
+  end
+    
+  def auto_complete_for_location_building
+    @locations = Location.find(:all, :conditions => ['building like ?', params[:location][:building] + "%"])
+    @field = "building"
+    render :inline => "<%= auto_complete_result(@locations, :building) %>"
+  end
+  
+  def auto_complete_for_location_room
+    @locations = Location.find(:all, :conditions => ['room like ?', params[:location][:room] + "%"])
+    @field = "room"
+    render :inline => "<%= auto_complete_result(@locations, :room) %>"
+  end
+  
   private
   
   def pre_load
