@@ -51,6 +51,9 @@ ActionController::Routing::Routes.draw do |map|
                          :member => { :details => :any }
 
   map.namespace :backend do |backend|
+    backend.resources :barcodes, :member => { :index => :any, :new => :any }
+
+
     backend.resources :inventory_pools, :member => { :timeline => :get,
                                                      :timeline_visits => :get } do |inventory_pool|
       inventory_pool.resources :acknowledge, :member => { :approve => :any,

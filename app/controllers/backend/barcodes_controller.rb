@@ -1,12 +1,11 @@
 class Backend::BarcodesController < Backend::BackendController
 
-
-  def index
+	def index
     redirect_to :action => 'new'
   end
 
   def new
-    if request.post?
+    if params[:string].nil? == false
       @string = params[:string]
       @height = 25
       require 'barby'
