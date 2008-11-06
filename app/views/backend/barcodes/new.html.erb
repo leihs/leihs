@@ -3,7 +3,7 @@
   <h1>Barcode generator</h1>
 
 
-  <% form_tag  :controller => :barcodes, :action => :new do -%>
+  <% form_tag({:controller => :barcodes, :action => :new}, :method => :get) do -%>
 
 
   <p>
