@@ -82,10 +82,10 @@ class InventoryImport::Importer
   def connect_prod
     InventoryImport::ItHelp.establish_connection(
     		:adapter => 'mysql',
-    		:host => '195.176.254.22',
+    		:host => '195.176.254.49',
     		:database => 'help',
     		:encoding => 'utf8',
-    		:username => 'magnus',
+    		:username => 'helpread',
     		:password => '2read.0nly!' )
 
    InventoryImport::Geraetepark.establish_connection(
