@@ -6,9 +6,7 @@
 
 <% if session[:current_order] %>
 		<li <%= 'class="active"' if controller.action_name == "show" %>><%= link_to "<span>" + _("Order:") + " " + session[:current_order][:user_login] + "</span>",
-																			 :controller => 'acknowledge',
-																			 :action => 'show',
-																			 :id => session[:current_order][:id] %></li>
+																			 backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, session[:current_order][:user_id], session[:current_order][:id]) %></li>
 <% end %>
 </ul>
 </div>

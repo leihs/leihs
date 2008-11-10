@@ -3,7 +3,7 @@ class Backend::BackendController < ApplicationController
                                    # :except => [:create_some, # TODO for temporary_controller
                                    #             :login, :switch_inventory_pool] # TODO for rspec tests
   
-  before_filter :init, :except => :create_some # TODO for temporary_controller  # TODO not needed for modal layout
+  before_filter :init
   
   $theme = '00-patterns'
   $modal_layout_path = 'layouts/backend/' + $theme + '/modal'
@@ -27,11 +27,11 @@ class Backend::BackendController < ApplicationController
       
       model.add_to_document(document, params[:user_id], params[:quantity], nil, nil, current_inventory_pool)
 
-      flash[:notice] = _("Line couldn't be added") unless document.save        
+      flash[:notice] = _("Line couldn't be added") unless document.save # TODO 05** display document.errors
       redirect_to :action => 'show', :id => render_id
     else
       redirect_to :controller => 'models', 
-                  :action => 'search',
+                  :layout => 'modal',
                   :source_path => request.env['REQUEST_URI']
     end
   end
@@ -48,7 +48,7 @@ class Backend::BackendController < ApplicationController
       redirect_to :action => 'show', :id => render_id     
     else
       redirect_to :controller => 'models', 
-                  :action => 'search',
+                  :layout => 'modal',
                   :source_path => request.env['REQUEST_URI']
     end
   end
@@ -90,7 +90,7 @@ class Backend::BackendController < ApplicationController
         request.path_parameters[:inventory_pool_id] = params[:id]
         request.parameters[:inventory_pool_id] = params[:id]
       end
-#      @current_inventory_pool = InventoryPool.find(params[:inventory_pool_id])
+#old#      @current_inventory_pool = InventoryPool.find(params[:inventory_pool_id])
       @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
     end
 
@@ -117,6 +117,7 @@ class Backend::BackendController < ApplicationController
   
   def set_order_to_session(order)
     session[:current_order] = { :id => order.id,
+                                :user_id => order.user.id,
                                 :user_login => order.user.login }
   end
   

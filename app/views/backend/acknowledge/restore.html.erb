@@ -2,7 +2,7 @@
 	<br />
 	<div class="buttons">
 		<%=	link_to(image_tag($layout_public_path + "/images/icons/disk.png") + " " + _("Restore"),
-					 { :controller => 'acknowledge', :action => 'restore', :id => params[:id] },
+					 { :action => 'restore', :id => @order },
 					 :class => 'positive', :method => 'post', :target=> '_top') %>
 					 
 		<%=	cancel_popup_button(_("Cancel") ) %>

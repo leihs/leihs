@@ -43,7 +43,8 @@ class ModelsController < FrontendController
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
                                                             :include => {
-                                                                :inventory_pools => { :except => [:description,
+                                                                :inventory_pools => { :records => current_inventory_pools,
+                                                                                      :except => [:description,
                                                                                                   :logo_url,
                                                                                                   :contract_url,
                                                                                                   :contract_description,
@@ -71,8 +72,8 @@ class ModelsController < FrontendController
   
 #######################################################  
   
-  def details(model_id = params[:model_id] || params[:id]) # TODO remove :id
-    @model = current_user.models.find(model_id)
+  def show
+    @model = current_user.models.find(params[:id])
     
     @models = [@model]
     c = @models.size

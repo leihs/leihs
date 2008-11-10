@@ -11,7 +11,7 @@ steps_for(:order) do
 
   When "$who chooses one order" do | who |
     order = @orders.first
-    get backend_inventory_pool_acknowledge_path(@inventory_pool, order)
+    get backend_inventory_pool_user_acknowledge_path(@inventory_pool, order.user, order)
     response.should render_template('backend/acknowledge/show')
     @order = assigns(:order)
   end
@@ -21,7 +21,7 @@ steps_for(:order) do
   When "$who approves order" do |who|
     @comment ||= ""
     @order.approvable?.should be_true
-    post approve_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :comment => @comment)
+    post approve_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :comment => @comment)
     @order = assigns(:order)
     @order.should_not be_nil
     @order.approvable?.should be_false
@@ -33,14 +33,14 @@ steps_for(:order) do
 
   When "$who rejects order" do |who|
     @comment ||= ""
-    post reject_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :comment => @comment)
+    post reject_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :comment => @comment)
     @order = assigns(:order)
     response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
   end
   
   
   When "he deletes order" do
-    delete backend_inventory_pool_acknowledge_path(@inventory_pool, @order)
+    delete backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order)
     @order = assigns(:order)
     response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
   end

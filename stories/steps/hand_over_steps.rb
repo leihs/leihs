@@ -10,7 +10,7 @@ steps_for(:hand_over) do
 
   # TODO test as Given or refactor to order_test 
   When "a new order is placed by a user named '$who'" do | who |
-    user = Factory.create_user({:login => who}, {:role => "student"})
+    user = Factory.create_user(:login => who)
     @order = Factory.create_order({:user_id => user.id})    
     post "/session", :login => who #new#
   end
@@ -30,7 +30,7 @@ steps_for(:hand_over) do
   
   When "$who approves the order" do | who |
     post "/session", :login => @last_inventory_manager_login_name #new#
-    post approve_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :comment => "test comment")
+    post approve_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :comment => "test comment")
     @order = assigns(:order)
     @order.should_not be_nil
     @contract = @order.user.reload.current_contract(@order.inventory_pool)
@@ -39,7 +39,8 @@ steps_for(:hand_over) do
 
 
   When "$who clicks '$action'" do | who, action |
-    get send("backend_inventory_pool_#{action}_index_path", @inventory_pool)
+#old#    get send("backend_inventory_pool_#{action}_index_path", @inventory_pool)
+    get send("backend_inventory_pool_#{action}_path", @inventory_pool)
     @visits = assigns(:visits)
     response.should render_template("backend/#{action}/index")
   end

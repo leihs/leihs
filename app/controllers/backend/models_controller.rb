@@ -15,10 +15,13 @@ class Backend::ModelsController < Backend::BackendController
     end
     
     unless params[:query].blank?
-      @models = models.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+      # TODO 06** total is incorrect!!
+      @models = models.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page) # TODO 06** :multi => [Template]
     else
       @models = models.paginate :page => params[:page], :per_page => $per_page
     end
+    
+    render :layout => $modal_layout_path if params[:layout] == "modal"
   end
 
   def show_package 
@@ -37,21 +40,14 @@ class Backend::ModelsController < Backend::BackendController
     @model.items.first.update_attribute(:inventory_code, inventory_code)
     redirect_to :action => 'show_package', :id => @model
   end
-  
-  def search_package_items
-    @items = current_inventory_pool.items.find_by_contents("*" + params[:query] + "*")
-    render :partial => 'item_for_package', :collection => @items
-  end
 
   def add_package_item
     @model.items.first.children << @item
-    @model.save
     redirect_to :action => 'show_package', :id => @model
   end
 
   def remove_package_item
-    # TODO 30** remove using @item
-    @model.items.first.children.delete(@model.items.first.children.find(params[:item_id]))
+    @model.items.first.children.delete(@item)
     redirect_to :action => 'show_package', :id => @model
   end
 
@@ -74,13 +70,7 @@ class Backend::ModelsController < Backend::BackendController
     # TODO 30** remove 'details' view. refactor widget_tabs
     render :action => 'details', :layout => $modal_layout_path if params[:layout] == "modal"
   end
- 
-  def search
-    # TODO scope Template for the current inventory pool
-    @search_result = current_inventory_pool.models.find_by_contents("*" + params[:query] + "*", :multi => [Template]) if request.post?
-    render  :layout => $modal_layout_path
-  end  
- 
+  
 #################################################################
 
   def properties
@@ -101,6 +91,8 @@ class Backend::ModelsController < Backend::BackendController
   end
   
 #################################################################
+
+# TODO 06** reactivate compatibles association
 
   def compatibles
     #render :layout => false

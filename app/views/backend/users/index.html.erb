@@ -20,11 +20,19 @@
 					</ul>
 				</td>
 				<td class="buttons" nowrap>
-					<ul>
-						<li><%= link_to _("Show"), :action => 'show', :id => user.id %></li>
-						<li><%= link_to _("New Contract"), :action => 'new_contract', :id => user.id %></li>
-						<li><%= link_to _("Remind"), :action => 'remind', :id => user.id %></li>
-					</ul>
+					<% if params[:source_path]
+							glue = (params[:source_path].include?('?') ? '&' : '?' )
+							url = "#{params[:source_path]}#{glue}swap_user_id=#{user.id}"
+						%>
+						<%=	link_to(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"), url,
+							:method => 'post', :target=> '_top') %>
+					<% else %>
+						<ul>
+							<li><%= link_to _("Show"), :action => 'show', :id => user.id %></li>
+							<li><%= link_to _("New Contract"), :action => 'new_contract', :id => user.id %></li>
+							<li><%= link_to _("Remind"), :action => 'remind', :id => user.id %></li>
+						</ul>
+					<% end %>
 				</td>
 			</tr>
 

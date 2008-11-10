@@ -73,7 +73,7 @@
            width: 50,
            renderer: formatDate,
            editor: new Ext.form.DateField({
-                //format: 'd.m.Y'
+                format: 'd.m.Y' // TODO 05** to test
 				//, disabledDays: function() { var n = new Array();
 				//							console.log(complete_order_store.reader);
 				//							//n.push(complete_order_store.reader.jsonData['inventory_pool.closed_days']);
@@ -125,17 +125,8 @@
 		listeners: {
 			cellclick: function( grid, rowIndex, columnIndex, e ){
 				if (columnIndex == 2){
-					x_id = grid.getStore().getAt(rowIndex).data['model.id'];
-					/*
-					model_details.load({
-					    url: '/models/details?model_id=' + x_id,
-					    text: "Loading...",
-					    timeout: 30,
-						scripts: true
-					});
-					*/
-					//old// model_store.load({params:{model_id: x_id}});
-					add_model_details(x_id);
+					model_id = grid.getStore().getAt(rowIndex).data['model.id'];
+					add_model_details(model_id);
 				}
 				else if (columnIndex == 4 || columnIndex == 5) {
 					var field = grid.getColumnModel().getCellEditor(columnIndex, rowIndex).field;

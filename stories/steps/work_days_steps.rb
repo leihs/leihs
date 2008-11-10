@@ -58,11 +58,12 @@ steps_for(:work_days) do
 	end
 	
 	When "$who clicks '$action'" do |who, action|
-	  @inventory_pool,inv_manager, @user, model = Factory.create_dataset_simple
+	  @inventory_pool, inv_manager, @user, model = Factory.create_dataset_simple
 	  
 	  #Login as User
     post "/session", :login => inv_manager.login
-    get backend_inventory_pool_hand_over_index_path(@inventory_pool) if action == 'hand over'
+#old#    get backend_inventory_pool_hand_over_index_path(@inventory_pool) if action == 'hand over'
+    get backend_inventory_pool_hand_over_path(@inventory_pool) if action == 'hand over'
     get backend_inventory_pool_workdays_path(@inventory_pool) if action == 'Opening Times'
 
     @workday = assigns(:workday)

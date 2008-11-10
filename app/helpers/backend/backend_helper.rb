@@ -17,7 +17,9 @@ module Backend::BackendHelper
       content_tag :div, :class => "table-overview", :id => "controller" do
 #          r = form_tag :url => { }, :method => :get do
           r = "<form>"
-            r += hidden_field_tag :filter, filter if filter
+            request.path_parameters.each {|k,v| params.delete(k) }
+            params.delete(:query)
+            params.each {|p| r += hidden_field_tag(p[0], p[1]) }
             r += text_field_tag :query, query, :onchange => "submit()", :id => 'search_field'
             r += javascript_tag("$('search_field').focus()")
             

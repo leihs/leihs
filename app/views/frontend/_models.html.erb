@@ -108,7 +108,7 @@
 //			activeTab: 0
 		});
 
-		var model_store = new Array();
+		var model_store = new Array(); // TODO 05** provide a better data structure
 		var model_store_compatibles = new Array();
 		var model_store_ips = new Array();
 
@@ -122,7 +122,7 @@ function add_model_details(model_id){
 	
 		model_store[model_id] = new Ext.data.Store({
 			proxy: new Ext.data.HttpProxy(new Ext.data.Connection({
-				url: '/models/' + model_id + '/details', // invoke with params: {model_id: model_id},
+				url: '/models/' + model_id,
 				method: 'GET',
 				extraParams: {
 					format: 'ext_json'
@@ -257,13 +257,17 @@ function add_model_details(model_id){
 					items: [{
 						columnWidth: .1,
 						layout: 'form',
-						items: {
+						items: [{
 							xtype: 'numberfield',
 							fieldLabel: 'Quantity',
 							name: 'quantity',
 							value: '1',
 							anchor: '70%'
-						}
+						},{
+							xtype: 'hidden',
+							name: 'model_id',
+							value: model_id
+						}]
 					}, {
 						columnWidth: .3,
 						layout: 'form',
@@ -320,7 +324,6 @@ function add_model_details(model_id){
 							url: '/order/add_line',
 							method: 'POST',
 							params: {
-								'model_id': model_id, //old// model_store[model_id].data.items[0].id,
 								'<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'
 							},
 							success: function(responseObject){
@@ -336,12 +339,7 @@ function add_model_details(model_id){
 			}]
 		});
 		
-		
-		model_store[model_id].load({
-//			params: {
-//				model_id: model_id
-//			}
-		});
+		model_store[model_id].load();
 
 		model_details.add(model_tab);
 	}	
