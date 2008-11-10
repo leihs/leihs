@@ -1,7 +1,17 @@
 <ul>
-	<li><%= link_to _('Orders') + " (#{@current_inventory_pool.orders.size})", :controller => 'orders' %></li>
+	<li><%= _('Orders') %>
+		<ul>
+			<li><%= link_to _('Submitted') + " (#{@current_inventory_pool.orders.submitted_orders.size})", :controller => 'orders', :filter => 'submitted' %></li>
+			<li><%= link_to _('Approved') + " (#{@current_inventory_pool.orders.approved_orders.size})", :controller => 'orders', :filter => 'approved' %></li>
+		</ul>	
+	</li>
 	<li><hr /></li>
-	<li><%= link_to _('Contracts') + " (#{@current_inventory_pool.contracts.size})", :controller => 'contracts' %></li>
+	<li><%= _('Contracts') %>
+		<ul>
+			<li><%= link_to _('Signed') + " (#{@current_inventory_pool.contracts.signed_contracts.size})", :controller => 'contracts', :filter => 'signed' %></li>
+			<li><%= link_to _('Closed') + " (#{@current_inventory_pool.contracts.closed_contracts.size})", :controller => 'contracts', :filter => 'closed' %></li>
+		</ul>	
+	</li>
 	<li><hr /></li>
 	<li><%= _('Items') %>
 		<ul>

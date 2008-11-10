@@ -16,7 +16,7 @@
 	<% form_for [:admin, @inventory_pool], :url => { :action => 'add_manager' } do |f| %>
 
 		<%= _("Add as manager") %>:
-		<%= model_auto_completer ("user[login]", nil, "inventory_pool[manager_id]", nil,
+		<%= model_auto_completer ("query", nil, "inventory_pool[manager_id]", nil,
 									{ :url => auto_complete_admin_users_path, :submit_on_return => true },
 									{ :size => 40 },
 									{ :method => :get, :select => :name }) %>

@@ -5,12 +5,14 @@ module Factory
     inventory_pool = Factory.create_inventory_pool_default_workdays
         
 	  # Create User with role
-	  user = Factory.create_user(:login => 'inv_man')
-    Factory.define_role(user, "manager", inventory_pool.name)
+#old#	  user = Factory.create_user(:login => 'inv_man')
+#old#    Factory.define_role(user, "manager", inventory_pool.name)
+    user = Factory.create_user({:login => 'inv_man'},{:role => "manager", :inventory_pool => inventory_pool.name})
 
 	  # Create Customer
-	  customer = Factory.create_user(:login => 'customer')
-	  Factory.define_role(customer, "student", inventory_pool.name)
+#old#	  customer = Factory.create_user(:login => 'customer')
+#old#	  Factory.define_role(customer, "student", inventory_pool.name)
+	  customer = Factory.create_user({:login => 'customer'}, {:role => "student", :inventory_pool => inventory_pool.name})
     
     # Create Model and Item
     model = Factory.create_model(:name => 'holey parachute')
@@ -29,7 +31,9 @@ module Factory
     
     u = User.find_or_create_by_login default_attributes.merge(attributes)
     
-    Factory.define_role(u, options[:role]) if options[:role]
+    options[:role] ||= "student"
+    options[:inventory_pool] ||= "ABC"
+    Factory.define_role(u, options[:role], options[:inventory_pool])
 
     u.save
     u

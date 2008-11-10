@@ -14,6 +14,10 @@ class Document < ActiveRecord::Base
     "#{id}"
   end
 
+  def quantity
+    lines.collect(&:quantity).sum
+  end
+
 ################################################################
   def time_window_min
     d1 = Array.new
@@ -31,11 +35,10 @@ class Document < ActiveRecord::Base
     d2.max
   end
   
-  def next_open_date
-    x = Date.today
+  def next_open_date(x = Date.today)
     if inventory_pool
       while not inventory_pool.is_open_on?(x) do
-        x = x + 1.day
+        x += 1.day
       end
     end
     x
@@ -45,7 +48,7 @@ class Document < ActiveRecord::Base
 
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil, inventory_pool = nil)
       end_date = start_date if end_date and start_date and end_date < start_date
-      end_date = next_open_date if start_date.nil? and end_date.nil?
+# TODO 05** to Jerome: isn't fixed by line 54? # end_date = next_open_date if start_date.nil? and end_date.nil?
 
       document_line = "#{self.class}Line".constantize
       o = document_line.new(:quantity => quantity || 1,

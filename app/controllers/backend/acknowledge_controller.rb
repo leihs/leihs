@@ -48,7 +48,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   def restore
     if request.post?
       @order.from_backup      
-      redirect_to :controller=> 'acknowledge', :action => 'index'        
+      redirect_to :action => 'index'        
     else
       render :layout => $modal_layout_path
     end
@@ -96,7 +96,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   def change_purpose
     if request.post?
       @order.change_purpose(params[:purpose], current_user.id)
-      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id
+      redirect_to backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, @order.user, @order)
     else
       render :layout => $modal_layout_path
     end
@@ -104,18 +104,16 @@ class Backend::AcknowledgeController < Backend::BackendController
     
    def swap_user
     if request.post?
-      if params[:user_id].nil?
+      if params[:swap_user_id].nil?
         flash[:notice] = _("User must be selected")
       else
-        @order.swap_user(params[:user_id], current_user.id)
+        @order.swap_user(params[:swap_user_id], current_user.id)
       end  
-      redirect_to :controller=> 'acknowledge', :action => 'show', :id => @order.id        
+      redirect_to backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, @order.user, @order)
     else
       redirect_to :controller => 'users', 
-                  :action => 'search',
-                  :document_id => params[:id],
-                  :source_controller => 'acknowledge',
-                  :source_action => 'swap_user'
+                  :layout => 'modal',
+                  :source_path => request.env['REQUEST_URI']
     end
   end   
 
@@ -128,8 +126,8 @@ class Backend::AcknowledgeController < Backend::BackendController
   private
   
   def pre_load
-      @order = current_inventory_pool.orders.submitted_orders.find(params[:id]) if params[:id]
       @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
+      @order = @user.orders.submitted_orders.find(params[:id]) if params[:id] and @user
     rescue
       redirect_to :action => 'index' unless @order
   end

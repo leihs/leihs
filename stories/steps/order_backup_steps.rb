@@ -2,7 +2,8 @@ steps_for(:order_backup) do
  
   
   When "$who clicks '$action'" do | who, action |
-    get send("backend_inventory_pool_#{action}_index_path", @inventory_pool)
+#old#    get send("backend_inventory_pool_#{action}_index_path", @inventory_pool)
+    get send("backend_inventory_pool_#{action}_path", @inventory_pool)
     @orders = assigns(:submitted_orders)
     response.should render_template('backend/acknowledge/index')
   end
@@ -34,7 +35,7 @@ steps_for(:order_backup) do
   When "$who chooses the order" do | who |
     @order.has_backup?.should == false
     sleep 1
-    get backend_inventory_pool_acknowledge_path(@inventory_pool, @order)
+    get backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order)
     response.should render_template('backend/acknowledge/show')
     @order = assigns(:order)
     sleep 1
@@ -44,7 +45,7 @@ steps_for(:order_backup) do
 
   When "$who deletes $size order line$s" do | who, size, s |
     @lines = @order.order_lines[0, size.to_i].collect(&:id)
-    post remove_lines_backend_inventory_pool_acknowledge_path(@inventory_pool, @order, :lines => @lines)
+    post remove_lines_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :lines => @lines)
     @order = assigns(:order)
     @order.histories.size.should == 7 #TODO: REMOVE, when the failing test doesn't fail no mo
   end
@@ -58,7 +59,7 @@ steps_for(:order_backup) do
   end
   
   When "$who restores the order" do | who |
-    post restore_backend_inventory_pool_acknowledge_path(@inventory_pool, @order)
+    post restore_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order)
     @order = assigns(:order)
   end
 
@@ -75,7 +76,8 @@ steps_for(:order_backup) do
   end
 
   Then "is redirected to '$action'" do | action |
-    get send("backend_inventory_pool_#{action}_index_path", @inventory_pool)
+#old#    get send("backend_inventory_pool_#{action}_index_path", @inventory_pool)
+    get send("backend_inventory_pool_#{action}_path", @inventory_pool)
     @orders = assigns(:submitted_orders)
     response.should render_template('backend/acknowledge/index')   
   end
@@ -86,7 +88,7 @@ steps_for(:order_backup) do
     user = Factory.create_user(:login => "Joe")
     order = Factory.create_order({:user_id => user.id}, {:order_lines => 3})
     order.submit
-    get backend_inventory_pool_acknowledge_path(@inventory_pool, order)
+    get backend_inventory_pool_user_acknowledge_path(@inventory_pool, order.user, order)
     response.should render_template('backend/acknowledge/show')
     @order = assigns(:order)
     @order.has_backup?.should == true

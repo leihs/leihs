@@ -49,8 +49,8 @@ class Admin::UsersController < Admin::AdminController
 
 #################################################################
 
-  def auto_complete(user = params[:user])
-    @users = User.find_by_contents("*" + user[:login] + "*")
+  def auto_complete
+    @users = User.find_by_contents("*" + params[:query] + "*")
     render :partial => 'auto_complete'
   end
 

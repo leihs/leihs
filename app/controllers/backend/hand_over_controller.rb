@@ -7,7 +7,6 @@ class Backend::HandOverController < Backend::BackendController
     visits = current_inventory_pool.hand_over_visits
     
     unless params[:query].blank?
-      # search with partial string
       @contracts = current_inventory_pool.contracts.new_contracts.find_by_contents("*" + params[:query] + "*")
 
       # OPTIMIZE display only effective visits (i.e. for a given model name, ...)

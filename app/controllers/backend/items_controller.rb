@@ -60,6 +60,13 @@ class Backend::ItemsController < Backend::BackendController
 
 #################################################################
 
+  def auto_complete
+    @items = current_inventory_pool.items.find_by_contents("*" + params[:query] + "*")
+    render :partial => 'auto_complete'
+  end
+
+#################################################################
+
   private
   
   def pre_load

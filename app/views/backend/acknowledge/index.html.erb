@@ -7,7 +7,7 @@
 			<p style="float: left; line-height: 30px; margin-right: 20px;"><%= _("Bestellungen in Bearbeitung (bitte vervollständigen)") %>:</p>
 			<% for order in @working_orders %>
 				<%=	link_to(image_tag($layout_public_path + "/images/icons/tab_go.png") + "#{order.user.login} (#{today_or_yesterday_date(order.backup.updated_at)})",
-							{ :action => 'show', :id => order }) %>
+							backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, order.user, order)) %>
 			<% end %>
 		</div>
 	<% end %>
@@ -27,9 +27,10 @@
 							 :title => _("User"),
 							 :class => "iconized-notxt edit-user" ) %>
 				</td>
-				<td class="line_valid_<%= order.approvable? %>"><%= _("%{n} Pakete") % {:n => order.order_lines.size} %></td>
+				<td class="line_valid_<%= order.approvable? %>"><%= _("%{n} Items") % {:n => order.quantity} %></td>
 				<td class="buttons">
-					<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"), :action => 'show', :id => order %>
+					<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"),
+							backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, order.user, order) %>
 				</td>
 			</tr>
 
