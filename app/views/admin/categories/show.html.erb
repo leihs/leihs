@@ -1,5 +1,13 @@
 
+	<% form_for [:admin, @category] do |f| %>
+	
 		<ul>
-		<li><b>Name:</b> <%= @category.name %></li>	
+		<li><b>Name:</b> <%= f.text_field :name %></li>	
 		</ul>
+	
+		<%= submit_tag 'Submit' %>
+	<% end %>
+
+
+<%= image_tag @graph if @graph %>
 	

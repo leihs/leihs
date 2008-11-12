@@ -42,13 +42,8 @@
 		<% rescue; end %>
 		
 		<div id="inner-container">
-			
-				
-			<% if flash[:notice] %>
-				<div id="flash_notice">
-				<%= flash[:notice] %>
-				</div>
-			<% end %>		
+
+		<%= flash_helper %>
 
 <% # TODO 03** render tabs into nested layout %>
 <% if @inventory_pool %>

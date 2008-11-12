@@ -1,0 +1,874 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: GoogleChart</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">GoogleChart</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/vendor/plugins/google_charts_on_rails/lib/google_chart_rb.html">
+                vendor/plugins/google_charts_on_rails/lib/google_chart.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000006">data_encoding_type</a>&nbsp;&nbsp;
+      <a href="#M000013">encode_data</a>&nbsp;&nbsp;
+      <a href="#M000016">extended_encode</a>&nbsp;&nbsp;
+      <a href="#M000002">identifier</a>&nbsp;&nbsp;
+      <a href="#M000012">identify_size</a>&nbsp;&nbsp;
+      <a href="#M000010">identify_things_from_args</a>&nbsp;&nbsp;
+      <a href="#M000009">identify_type</a>&nbsp;&nbsp;
+      <a href="#M000020">join</a>&nbsp;&nbsp;
+      <a href="#M000021">join_labels</a>&nbsp;&nbsp;
+      <a href="#M000018">logger</a>&nbsp;&nbsp;
+      <a href="#M000017">logger</a>&nbsp;&nbsp;
+      <a href="#M000001">method_missing</a>&nbsp;&nbsp;
+      <a href="#M000004">new</a>&nbsp;&nbsp;
+      <a href="#M000019">protect_from_deep_stack</a>&nbsp;&nbsp;
+      <a href="#M000003">respond_to?</a>&nbsp;&nbsp;
+      <a href="#M000014">simple_encode</a>&nbsp;&nbsp;
+      <a href="#M000011">split_data_and_labels_from_array</a>&nbsp;&nbsp;
+      <a href="#M000015">text_encode</a>&nbsp;&nbsp;
+      <a href="#M000008">to_s</a>&nbsp;&nbsp;
+      <a href="#M000007">to_url</a>&nbsp;&nbsp;
+      <a href="#M000005">type=</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">ActionView::Helpers</span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SERVER</td>
+          <td>=</td>
+          <td class="context-item-value">'http://chart.apis.google.com/chart?'.freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">TYPE_VAR</td>
+          <td>=</td>
+          <td class="context-item-value">'cht'.freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">TITLE_VAR</td>
+          <td>=</td>
+          <td class="context-item-value">'chtt'.freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SIZE_VAR</td>
+          <td>=</td>
+          <td class="context-item-value">'chs'.freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">DATA_VAR</td>
+          <td>=</td>
+          <td class="context-item-value">'chd'.freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">LABELS_VAR</td>
+          <td>=</td>
+          <td class="context-item-value">'chl'.freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">COLORS_VAR</td>
+          <td>=</td>
+          <td class="context-item-value">'chco'.freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">BAR_WIDTH_SPACING_VAR</td>
+          <td>=</td>
+          <td class="context-item-value">'chbh'.freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">TYPE_VAR_VALUES</td>
+          <td>=</td>
+          <td class="context-item-value">{     :line =&gt; 'lc',     :line_xy =&gt; 'lxy',     :bar_horizontal_stacked =&gt; 'bhs',     :bar_vertical_stacked =&gt; 'bvs',     :bar_horizontal_grouped =&gt; 'bhg',     :bar_vertical_grouped =&gt; 'bhg',     :pie =&gt; 'p',     :pie_3d =&gt; 'p3',     :venn =&gt; 'v',     :scatter_plot =&gt; 's',   }.freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">TYPE_MATCHING_REGEX</td>
+          <td>=</td>
+          <td class="context-item-value">/#{TYPE_VAR_VALUES.keys.collect{|t|t.to_s}.sort.reverse * '|'}/i.freeze</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+have to collect key and sort to reverse becuase of the greedy regex
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SIZE_MATCHING_REGEX</td>
+          <td>=</td>
+          <td class="context-item-value">/([0-9]+)x([0-9]+)/i.freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">DEFAULT_HEIGHT</td>
+          <td>=</td>
+          <td class="context-item-value">200</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">DEFAULT_WIDTH</td>
+          <td>=</td>
+          <td class="context-item-value">200</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SIMPLE_ENCODING_SOURCE</td>
+          <td>=</td>
+          <td class="context-item-value">'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SIMPLE_ENCODING_SIZE_MINUS_ONE</td>
+          <td>=</td>
+          <td class="context-item-value">SIMPLE_ENCODING_SOURCE.size - 1</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">bar_spacing</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">bar_width</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+TODO: add support for bar width and spacing chbh=&lt;bar width in
+pixels&gt;,&lt;optional space between groups&gt;
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">colors</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data_encoding_type</td>
+          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">height</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">labels</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">show_labels</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">title</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">type</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">width</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="#M000001" class="method-signature">
+          <span class="method-name">method_missing</span><span class="method-args">(method, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000001-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000001-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 28</span>
+28:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+29:     <span class="ruby-comment cmt">#TODO make it thread safe by creating a separate class, presently it could be bad</span>
+30:     <span class="ruby-identifier">protect_from_deep_stack</span> <span class="ruby-keyword kw">do</span>
+31:       <span class="ruby-identifier">new</span>.<span class="ruby-identifier">identifier</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">args</span>)
+32:     <span class="ruby-keyword kw">end</span>
+33:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">() {|self if block_given?| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 46</span>
+46:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>()
+47:     <span class="ruby-comment cmt">#set defaults</span>
+48:     <span class="ruby-ivar">@show_labels</span> = <span class="ruby-keyword kw">true</span>
+49:     <span class="ruby-keyword kw">yield</span> <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+50:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">respond_to?</span><span class="method-args">(method)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 41</span>
+41:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">method</span>)
+42:     <span class="ruby-comment cmt">#TODO: have to check with identifiers before returning true</span>
+43:     <span class="ruby-keyword kw">true</span> 
+44:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Class methods</h3>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <a href="#M000017" class="method-signature">
+          <span class="method-name">logger</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+encoding ends here utils start
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 161</span>
+161:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">logger</span>
+162:     <span class="ruby-constant">RAILS_DEFAULT_LOGGER</span>
+163:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+          <a href="#M000019" class="method-signature">
+          <span class="method-name">protect_from_deep_stack</span><span class="method-args">() {|if block_given?| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000019-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 167</span>
+167:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">protect_from_deep_stack</span>
+168:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@protection_from_deep_stack_is_set</span>
+169:     <span class="ruby-ivar">@protection_from_deep_stack_is_set</span> = <span class="ruby-keyword kw">true</span>
+170:     <span class="ruby-identifier">whatever</span> = <span class="ruby-keyword kw">yield</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+171:     <span class="ruby-ivar">@protection_from_deep_stack_is_set</span> = <span class="ruby-keyword kw">false</span>
+172:     <span class="ruby-identifier">whatever</span>
+173:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">data_encoding_type</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 66</span>
+66:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">data_encoding_type</span>
+67:     <span class="ruby-comment cmt">#TODO: identify the data type automatically after the data array is set</span>
+68:     <span class="ruby-ivar">@data_encoding_type</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">:text</span>
+69:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="#M000002" class="method-signature">
+          <span class="method-name">identifier</span><span class="method-args">(method, args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000002-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 34</span>
+34:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">identifier</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">args</span>)
+35:     <span class="ruby-identifier">method_to_match</span> = <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>
+36:     <span class="ruby-identifier">identify_type</span>(<span class="ruby-identifier">method_to_match</span>)
+37:     <span class="ruby-identifier">identify_size</span>(<span class="ruby-identifier">method_to_match</span>)
+38:     <span class="ruby-identifier">identify_things_from_args</span>(<span class="ruby-identifier">args</span>)
+39:     <span class="ruby-keyword kw">self</span>
+40:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="#M000008" class="method-signature">
+          <span class="method-name">to_s</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 86</span>
+86:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+87:     <span class="ruby-identifier">to_url</span>
+88:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+          <a href="#M000007" class="method-signature">
+          <span class="method-name">to_url</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 71</span>
+71:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_url</span>
+72:     <span class="ruby-identifier">params</span> = {}
+73:     <span class="ruby-identifier">params</span>[<span class="ruby-constant">TYPE_VAR</span>] = <span class="ruby-constant">TYPE_VAR_VALUES</span>[<span class="ruby-ivar">@type</span>]
+74:     <span class="ruby-identifier">params</span>[<span class="ruby-constant">TITLE_VAR</span>] = <span class="ruby-ivar">@title</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@title</span>
+75:     <span class="ruby-identifier">params</span>[<span class="ruby-constant">SIZE_VAR</span>] = <span class="ruby-node">&quot;#{@width||DEFAULT_WIDTH}x#{@height||DEFAULT_HEIGHT}&quot;</span>
+76:     <span class="ruby-identifier">params</span>[<span class="ruby-constant">DATA_VAR</span>] = <span class="ruby-identifier">encode_data</span>
+77:     <span class="ruby-identifier">params</span>[<span class="ruby-constant">LABELS_VAR</span>] = <span class="ruby-identifier">join_labels</span> <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@labels</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@show_labels</span>)
+78:     <span class="ruby-identifier">params</span>[<span class="ruby-constant">COLORS_VAR</span>] = <span class="ruby-identifier">join</span>(<span class="ruby-ivar">@colors</span>) <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@colors</span>)
+79:     
+80:     <span class="ruby-identifier">chart_params</span> = []
+81:     <span class="ruby-identifier">params</span>.<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+82:       <span class="ruby-identifier">chart_params</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{key}=#{value}&quot;</span>
+83:     <span class="ruby-keyword kw">end</span>
+84:     <span class="ruby-node">&quot;#{SERVER}#{(chart_params * '&amp;amp;')}&quot;</span>
+85:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">type=</span><span class="method-args">(t)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 52</span>
+52:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type=</span>(<span class="ruby-identifier">t</span>)
+53:     <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">t</span>.<span class="ruby-identifier">to_sym</span>
+54:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="#M000013" class="method-signature">
+          <span class="method-name">encode_data</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+identifiers ends here encoding starts here
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 127</span>
+127:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode_data</span>
+128:     <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">data_encoding_type</span>
+129:       <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:simple</span>
+130:         <span class="ruby-ivar">@encoded_data</span> = <span class="ruby-identifier">simple_encode</span>(<span class="ruby-ivar">@data</span>)
+131:       <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:text</span>
+132:         <span class="ruby-ivar">@encoded_data</span> = <span class="ruby-identifier">text_encode</span>(<span class="ruby-ivar">@data</span>)
+133:       <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:extended</span>
+134:         <span class="ruby-ivar">@encoded_data</span> = <span class="ruby-identifier">extended_encode</span>(<span class="ruby-ivar">@data</span>)
+135:     <span class="ruby-keyword kw">end</span>
+136:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
+
+        <div class="method-heading">
+          <a href="#M000016" class="method-signature">
+          <span class="method-name">extended_encode</span><span class="method-args">(data_to_encode)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 156</span>
+156:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extended_encode</span>(<span class="ruby-identifier">data_to_encode</span>)
+157:     <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'extended encoding of the data is not implemented'</span>)
+158:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="#M000012" class="method-signature">
+          <span class="method-name">identify_size</span><span class="method-args">(source)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 118</span>
+118:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">identify_size</span>(<span class="ruby-identifier">source</span>)
+119:     <span class="ruby-identifier">matched</span> = <span class="ruby-identifier">source</span>.<span class="ruby-identifier">match</span>(<span class="ruby-constant">SIZE_MATCHING_REGEX</span>) 
+120:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">matched</span>
+121:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">width</span> = <span class="ruby-identifier">matched</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span> 
+122:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">height</span> = <span class="ruby-identifier">matched</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>
+123:     <span class="ruby-keyword kw">end</span>
+124:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="#M000010" class="method-signature">
+          <span class="method-name">identify_things_from_args</span><span class="method-args">(args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 95</span>
+ 95:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">identify_things_from_args</span>(<span class="ruby-identifier">args</span>)
+ 96:     <span class="ruby-comment cmt">#this identies the data and any labels that are attached</span>
+ 97:     <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]
+ 98:       <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Array</span>
+ 99:         <span class="ruby-comment cmt">#check if array has arrays with in for lables and data</span>
+100:         <span class="ruby-identifier">split_data_and_labels_from_array</span>(<span class="ruby-identifier">args</span>)
+101:       <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>
+102:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">data</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">values</span>
+103:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">labels</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">keys</span>
+104:     <span class="ruby-keyword kw">else</span>
+105:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">data</span> = <span class="ruby-identifier">args</span>
+106:     <span class="ruby-keyword kw">end</span>
+107:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="#M000009" class="method-signature">
+          <span class="method-name">identify_type</span><span class="method-args">(source)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+identifiers starts here
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 91</span>
+91:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">identify_type</span>(<span class="ruby-identifier">source</span>)
+92:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">type</span>= <span class="ruby-identifier">source</span>.<span class="ruby-identifier">match</span>(<span class="ruby-constant">TYPE_MATCHING_REGEX</span>)[<span class="ruby-value">0</span>]
+93:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
+
+        <div class="method-heading">
+          <a href="#M000020" class="method-signature">
+          <span class="method-name">join</span><span class="method-args">(thingy)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000020-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000020-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 175</span>
+175:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">join</span>(<span class="ruby-identifier">thingy</span>)
+176:     <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">thingy</span>
+177:       <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+178:         <span class="ruby-identifier">thingy</span>
+179:       <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Array</span>
+180:         <span class="ruby-identifier">thingy</span> <span class="ruby-operator">*</span> <span class="ruby-value str">','</span>
+181:     <span class="ruby-keyword kw">end</span>
+182:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000021" class="method-detail">
+        <a name="M000021"></a>
+
+        <div class="method-heading">
+          <a href="#M000021" class="method-signature">
+          <span class="method-name">join_labels</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000021-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 184</span>
+184:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">join_labels</span>
+185:     <span class="ruby-ivar">@labels</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span><span class="ruby-constant">CGI</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">l</span>.<span class="ruby-identifier">to_s</span>)}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'|'</span>)
+186:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="#M000018" class="method-signature">
+          <span class="method-name">logger</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000018-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 164</span>
+164:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">logger</span>
+165:     <span class="ruby-constant">RAILS_DEFAULT_LOGGER</span>
+166:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="#M000014" class="method-signature">
+          <span class="method-name">simple_encode</span><span class="method-args">(data_to_encode)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 139</span>
+139:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">simple_encode</span>(<span class="ruby-identifier">data_to_encode</span>)
+140:     <span class="ruby-identifier">max_value</span> = <span class="ruby-identifier">data_to_encode</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">max</span>
+141:     <span class="ruby-identifier">encoded</span>= <span class="ruby-value str">'s:'</span>
+142:     <span class="ruby-identifier">data_to_encode</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">current_value</span><span class="ruby-operator">|</span>
+143:       <span class="ruby-comment cmt">#is there a better way of checking if an object is one of the numeric class</span>
+144:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_value</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:integer?</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_value</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>
+145:         <span class="ruby-identifier">encoded</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-constant">SIMPLE_ENCODING_SOURCE</span>[<span class="ruby-constant">SIMPLE_ENCODING_SIZE_MINUS_ONE</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">current_value</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">max_value</span>]
+146:       <span class="ruby-keyword kw">else</span>
+147:         <span class="ruby-identifier">encoded</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-value str">'_'</span>
+148:       <span class="ruby-keyword kw">end</span>
+149:     <span class="ruby-keyword kw">end</span>
+150:     <span class="ruby-identifier">encoded</span>
+151:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="#M000011" class="method-signature">
+          <span class="method-name">split_data_and_labels_from_array</span><span class="method-args">(passed_array)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 108</span>
+108:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">split_data_and_labels_from_array</span>(<span class="ruby-identifier">passed_array</span>)
+109:     <span class="ruby-identifier">data_array</span> = []
+110:     <span class="ruby-identifier">label_array</span> = []
+111:     <span class="ruby-identifier">passed_array</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">piece</span><span class="ruby-operator">|</span>
+112:       <span class="ruby-identifier">label_array</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">piece</span>[<span class="ruby-value">0</span>]
+113:       <span class="ruby-identifier">data_array</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">piece</span>[<span class="ruby-value">1</span>]
+114:     <span class="ruby-keyword kw">end</span>
+115:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">data</span> = <span class="ruby-identifier">data_array</span>
+116:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">labels</span> = <span class="ruby-identifier">label_array</span>
+117:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="#M000015" class="method-signature">
+          <span class="method-name">text_encode</span><span class="method-args">(data_to_encode)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/google_charts_on_rails/lib/google_chart.rb, line 152</span>
+152:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">text_encode</span>(<span class="ruby-identifier">data_to_encode</span>)
+153:     <span class="ruby-comment cmt">#TODO:make sure all the data_to_encode is in the allowed range</span>
+154:     <span class="ruby-value str">'t:'</span><span class="ruby-operator">+</span>(<span class="ruby-identifier">data_to_encode</span> <span class="ruby-operator">*</span> <span class="ruby-value str">','</span>)
+155:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

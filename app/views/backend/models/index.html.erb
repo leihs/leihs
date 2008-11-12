@@ -1,5 +1,7 @@
 <% if params[:filter] == "packages" %>
-<%= link_to _('New Package'), :action => 'new_package' %> <hr />
+<div class="toolbar-second buttons">
+	<%= link_to _('New Package'), :action => 'new_package' %>
+</div>
 <% end %>
 
 <% table_with_search_and_pagination :columns => ["", _("Model"), _("Items"), _("Compatibles"), _("Action")],

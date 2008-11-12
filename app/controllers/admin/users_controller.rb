@@ -24,6 +24,27 @@ class Admin::UsersController < Admin::AdminController
   def show
   end
 
+  def new
+    @user = User.new
+    render :action => 'show'
+  end
+
+  def create
+    @user = User.new
+    update
+  end
+
+  def update
+    if @user.update_attributes(params[:user])
+      redirect_to admin_user_path(@user)
+    else
+      # TODO 12 ** refactor to after_filter, then remove errors from tabnav views
+      # flash[:error] = @user.errors.full_messages.to_s # or .join ??
+
+      render :action => 'show' # TODO 24** redirect to the correct tabbed form
+    end
+  end
+
   def destroy
     @user.destroy
     redirect_to admin_users_path

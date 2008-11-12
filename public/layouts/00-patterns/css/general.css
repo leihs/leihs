@@ -220,6 +220,7 @@ Controller
 #controller {
 	background: #e2e2e2;
 	padding: 1em;
+	margin: 10px 0 10px 0;
 	border: 1px solid #b2b2b2;
 }
 
@@ -410,3 +411,23 @@ Pagination
 	margin:0.2em;
 	padding:0.1em 0.3em;
 }
+
+
+/* 	- - - - - - - - - - - - -
+Flash
+ - - - - - - - - - - - - - */
+
+div.flash_notice {
+    border: 1px solid green;    
+    padding:10px;
+	margin-bottom: 10px; 
+    font-weight:bold;
+}
+
+div.flash_error {
+    border: 2px solid red;
+    padding:10px;
+	margin-bottom: 10px; 
+    font-weight:bold;
+}
+

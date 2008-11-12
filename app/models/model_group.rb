@@ -27,7 +27,14 @@ class ModelGroup < ActiveRecord::Base
   named_scope :leafs, :joins => "LEFT JOIN model_groups_parents AS mgp ON mgp.parent_id = model_groups.id",
                       :conditions => ['mgp.parent_id IS NULL']
 
-  
+################################################
+
+  def to_s
+    name
+  end
+
+################################################
+
   def is_root?
     #parents.empty?
     parents.delete_if {|x| x.type != self.type }.empty?
@@ -47,7 +54,7 @@ class ModelGroup < ActiveRecord::Base
                                     FROM model_groups_parents
                                     WHERE model_group_id = #{id}
                                       AND parent_id = #{parent.id}")
-      return l.first.attributes["label"]
+      return l.first.attributes["label"] || name
     else
       return name
     end
@@ -63,10 +70,11 @@ class ModelGroup < ActiveRecord::Base
 ##################################################
 
 ###  TODO alias for Ext.Tree
-  def text 
-    # "#{label} (#{models.size})" # TODO intersection with current_user.models
-    #label
-    "#{label} (id #{id})" # TODO temp
+  def text(parent_id = nil)
+    parent = (parent_id == 0 ? nil : ModelGroup.find(parent_id))
+    # "#{label(parent)} (#{models.size})" # TODO intersection with current_user.models
+    #label(parent)
+    "#{label(parent)} (id #{id})" # TODO temp
   end
   
   def leaf

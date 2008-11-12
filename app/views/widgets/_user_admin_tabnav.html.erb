@@ -16,13 +16,16 @@ render_tabnav :user_admin,
 
 	add_tab do |t|
 		t.named 'User'
-		t.links_to :action => 'show', :id => @user.id
+		t.links_to admin_user_path(@user)
+		t.highlights_on :action => 'show'
 		t.html[:style] = "background-color: red;" if @user.login.blank? 
 	end
 
 	add_tab do |t|
 		t.named 'Access Rights'
-		t.links_to :action => 'access_rights', :id => @user.id
+		t.links_to access_rights_admin_user_path(@user)
+		t.highlights_on :action => 'access_rights'
+		t.html[:style] = "background-color: red;" if @user.access_rights.blank? 
 	end
 
 end 

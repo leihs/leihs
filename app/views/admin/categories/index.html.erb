@@ -1,3 +1,29 @@
+<% if @category %>
+	<% if request.env['REQUEST_URI'].include?("parents") %>
+	 <div class="toolbar-second">
+		<% form_for [:add_parent, :admin, @category] do |f| %>
+		<%#temp# form_for [:admin, @category, :parents] do |f| %>
+	
+			<%= _("Add as subcategory of") %>:
+			<%= model_auto_completer ('query', nil, 'parent[category_id]', nil,
+										{ :url => auto_complete_admin_categories_path, :submit_on_return => true },
+										{ :size => 40 },
+										{ :method => :get, :select => :name }) %>
+
+			<%= _("Label") %>:
+			<%= text_field_tag 'parent[label]' %></li>	
+
+			<%= submit_tag 'Submit' %>
+		<% end %>
+	 </div>
+	<% end %>
+<% else %>
+	<%= image_tag @graph if @graph %>
+	 <div class="toolbar-second buttons">
+		<%= link_to _("Create New"), :action => 'new' %>
+	 </div>
+<% end %>
+
 <% table_with_search_and_pagination :columns => [_("Name"), _("Type"), _("Models"), _("All Models"), _("Children"), _("All Children"), _("Parents"), _("Action")],
 						   			:records => @categories do |category| %>	
 
