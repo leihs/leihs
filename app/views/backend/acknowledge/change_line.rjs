@@ -10,7 +10,7 @@ css_class = "line_valid_#{@order_line.available?}"
 page << "$('line_dates_#{params[:order_line_id]}').className='#{css_class}'"
 
 
-# TODO show errors
+# TODO 12** show errors
 if @flash_notice
   page.replace_html 'flash_notice', @flash_notice if @flash_notice
 

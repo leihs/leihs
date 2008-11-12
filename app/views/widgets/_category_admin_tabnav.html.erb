@@ -9,6 +9,8 @@
 	</ul>
 <% end %>			
 
+<h2><%= @category.name %></h2>
+
 <%  
 
 render_tabnav :category_admin, 
@@ -22,9 +24,19 @@ render_tabnav :category_admin,
 	end
 
 	add_tab do |t|
-		t.named 'Models'
+		t.named "Models (#{@category.models.size})"
 		t.links_to admin_category_models_path(@category)
-		t.highlights_on :controller => 'admin/models', :action => 'index'
+		t.highlights_on :controller => 'admin/models', :action => 'index' # TODO 10** not working
+	end
+
+	add_tab do |t|
+		t.named "Children (#{@category.children.size})"
+		t.links_to admin_category_children_path(@category)
+	end
+
+	add_tab do |t|
+		t.named "Parents (#{@category.parents.size})"
+		t.links_to admin_category_parents_path(@category)
 	end
 
 end 

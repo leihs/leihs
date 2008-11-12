@@ -1,3 +1,7 @@
+<div class="toolbar-second buttons">
+	<%= link_to _("Create New"), :action => 'new' %>
+</div>
+
 <% table_with_search_and_pagination :columns => [_("User"), _("Access Rights"), _("Documents"), _("Action")],
 						   			:records => @users do |user| %>	
 

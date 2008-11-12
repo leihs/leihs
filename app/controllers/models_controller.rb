@@ -57,16 +57,17 @@ class ModelsController < FrontendController
   # OPTIMIZE interesections
   def categories(id = params[:node].to_i)
     if id == 0 
-#      c = Category.roots
+      c = Category.roots
 #      c = current_user.categories.roots
-      c = current_user.all_categories & Category.roots
+#      c = current_user.all_categories & Category.roots
     else
-      c = current_user.categories & Category.find(id).children # TODO scope only children Category (not ModelGroup)
+      c = Category.find(id).children
+#      c = current_user.categories & Category.find(id).children # TODO scope only children Category (not ModelGroup)
 #      c = current_user.categories.find(id).children
 #      c = current_user.all_categories.find(id).children
     end
     respond_to do |format|
-      format.ext_json { render :json => c.to_json(:methods => [:text, :leaf]) } # .to_a.to_ext_json
+      format.ext_json { render :json => c.to_json(:methods => [[:text, id], :leaf]) } # .to_a.to_ext_json
     end
   end
   

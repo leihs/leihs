@@ -26,7 +26,26 @@
                         {text: 'Menu 2', handler: ''},
                         {text: 'Menu 3', handler: ''} 
 	                ]}
-				}, '->', {text: '<%= current_user.login %>', 
+				}, '->',
+						<% if current_user.has_role?('manager') %>
+						{text: 'Backend', 
+						  iconCls:'bt',
+				          icon:'<%= $layout_public_path + "/images/icons/application_edit.png" %>',
+						  handler: function() {
+									window.location.href = '/backend';
+								}
+						},
+						<% end %>
+						<% if current_user.has_role?('admin') %>
+						{text: 'Admin', 
+						  iconCls:'bt',
+				          icon:'<%= $layout_public_path + "/images/icons/application_key.png" %>',
+						  handler: function() {
+									window.location.href = '/admin';
+								}
+						},
+						<% end %>
+						{text: '<%= current_user.login %>', 
 						  iconCls:'bt',
 				          icon:'<%= $layout_public_path + "/images/icons/user.png" %>',
 						  handler: function() {

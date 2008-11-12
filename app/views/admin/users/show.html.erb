@@ -1,10 +1,14 @@
 
 <% tabnav :user_admin do %>
 
-
+	<% form_for [:admin, @user] do |f| %>
+	
 		<ul>
-		<li><b>Login:</b> <%= @user.login %></li>	
-		<li><b>Unique ID:</b> <%= @user.unique_id %></li>	
+		<li><b>Login:</b> <%= f.text_field :login %></li>	
+		<li><b>Unique ID:</b> <%= @user.unique_id %></li>
 		</ul>
+	
+		<%= submit_tag 'Submit' %>
+	<% end %>
 	
 <% end %>

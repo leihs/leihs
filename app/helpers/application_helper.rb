@@ -66,4 +66,12 @@ module ApplicationHelper
   end
   
   
+  ######## Flash #########
+
+  def flash_helper
+    [:notice, :error].map do |f|
+      content_tag(:div, flash[f], :class => "flash_#{f}") if flash[f]
+    end
+  end
+  
 end

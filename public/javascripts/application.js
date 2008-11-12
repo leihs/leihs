@@ -68,7 +68,16 @@ function toggle_buttons(boxes, buttons){
 	
 	$$('body a.' + buttons).each(
 		function(button){
-			button.style.visibility = (s.length > 0 ? 'visible' : 'hidden');
+			//old// button.style.visibility = (s.length > 0 ? 'visible' : 'hidden');
+			if(s.length > 0){
+				button.style.opacity = 1;
+				button.style.filter = 'alpha(opacity=100)'; /* IE */
+				// TODO 10** reset link // button.href="";
+			}else{
+				button.style.opacity = 0.4;
+				button.style.filter = 'alpha(opacity=40)'; /* IE */
+				// TODO 10** prevent link // button.href="javascript:return false;";
+			}
 		}
 	);
 }

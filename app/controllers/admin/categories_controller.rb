@@ -5,6 +5,13 @@ class Admin::CategoriesController < Admin::AdminController
   def index
     if @model
       categories = @model.categories
+    elsif @category
+      # TODO 12** optimize filter
+      if request.env['REQUEST_URI'].include?("parents")
+          categories = @category.parents
+      elsif request.env['REQUEST_URI'].include?("children")
+          categories = @category.children
+      end
     else
       categories = Category
     end    
@@ -14,10 +21,63 @@ class Admin::CategoriesController < Admin::AdminController
     else
       @categories = categories.paginate :page => params[:page], :per_page => $per_page      
     end
+    
+#    ############ start graph
+#      unless @category
+#          edges = []
+#          Category.all.each do |p|
+#            p.children.each do |c|
+#              edges << [p, c] #[p.id, c.id]
+#            end
+#          end
+#          
+#          # http://rgl.rubyforge.org/
+#          # http://www.graphviz.org/Download_macos.php
+#          require 'rgl/adjacency'
+#          require 'rgl/dot'
+#          dg=RGL::DirectedAdjacencyGraph.new
+#          edges.each {|e| dg.add_edge(e[0], e[1]) }
+#          @graph = dg.write_to_graphic_file('png', 'public/images/graphs/categories').gsub('public', '')  
+#      end
+#    ############ stop graph
   end
   
   def show
-    @category = Category.find(params[:id])
+#    ############ start graph
+#          edges = []
+#          @category.children.each do |c|
+#            edges << [@category, c] #[@category.id, c.id]
+#          end
+#          @category.parents.each do |p|
+#            edges << [p, @category] #[p.id, @category.id]
+#          end
+#          
+#          # http://rgl.rubyforge.org/
+#          # http://www.graphviz.org/Download_macos.php
+#          require 'rgl/adjacency'
+#          require 'rgl/dot'
+#          dg=RGL::DirectedAdjacencyGraph.new
+#          edges.each {|e| dg.add_edge(e[0], e[1]) }
+#          @graph = dg.write_to_graphic_file('png', "public/images/graphs/categories_#{@category.id}").gsub('public', '')  
+#    ############ stop graph
+  end
+
+  def new
+    @category = Category.new
+    render :action => 'show'
+  end
+
+  def create
+    @category = Category.new
+    update
+  end
+
+  def update
+    if @category.update_attributes(params[:category])
+      redirect_to admin_category_path(@category)
+    else
+      render :action => 'show' # TODO 24** redirect to the correct tabbed form
+    end
   end
 
   def destroy
@@ -31,7 +91,30 @@ class Admin::CategoriesController < Admin::AdminController
   end
 
 #################################################################
+  
+  def add_parent(parent = params[:parent])
+    begin
+      @parent = Category.find(parent[:category_id])
+      @parent.children << @category unless @parent.children.include?(@category)
+      @category.set_label(@parent, parent[:label]) unless parent[:label].blank?
+    rescue
+      #@category.errors.add_to_base(_("Attempt to add node to own graph collection"))
+      flash[:error] = _("Attempt to add node to own graph collection")
+    end
+    redirect_to admin_category_parents_path(@category)
+  end
 
+  def remove_parent
+    # TODO 12** implement
+  end
+
+#################################################################
+
+  def auto_complete
+    @categories = Category.find_by_contents("*" + params[:query] + "*")
+    render :partial => 'auto_complete'
+  end
+  
   private
   
   def pre_load

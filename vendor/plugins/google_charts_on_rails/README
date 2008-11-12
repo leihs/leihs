@@ -1,0 +1,64 @@
+GoogleChartsOnRails
+===================
+
+This is a very small wrapper plugin for the wonderful Charts API from Google.
+
+
+Example
+=======
+
+GoogleChart.pie(10,20,40,30).to_url
+
+With labels:
+
+GoogleChart.pie(['1997',10],['1998',20],['1999',40],['2000',30]).to_url
+
+or with a Hash
+
+GoogleChart.pie('year 1997'=>10,'year 1998'=>20,'year 1999'=>15,'year 2000'=>55).to_url
+
+Pretty much anything would work:
+
+    GoogleChart.line_xy 
+    GoogleChart.bar_horizontal_stacked
+    GoogleChart.bar_vertical_stacked
+    GoogleChart.bar_horizontal_grouped
+    GoogleChart.bar_vertical_grouped
+    GoogleChart.pie
+    GoogleChart.pie_3d 
+    GoogleChart.venn
+    GoogleChart.scatter_plot
+
+which you can marry with the size
+
+	GoogleChart.pie_100x200(10,20,40,30).to_url
+	
+even
+
+	GoogleChart.100x200_pie(10,20,40,30).to_url
+
+or do as crazy as 
+
+	GoogleChart.pie_with_size_blah_blah_600x400('year 1997'=>10,'year 1998'=>20,'year 1999'=>15,'year 2000'=>55).to_url
+
+Lets do it the old fashioned way:
+
+	sales_chart = GoogleChart.new
+	sales_chart.type = :pie
+	sales_chart.data = [10, 20, 15, 55]
+
+	sales_chart.height = 200
+	sales_chart.width = 150
+	
+	#change the default colour with the hex code
+	sales_chart.colors = '346090'
+	
+	small_sales_chart_url = sales_chart.to_url
+
+	#reuse and change size, set labels for big chart
+	sales_chart.labels = ['year 1997','year 1998','year 1999','year 2000']
+	sales_chart.height = 600
+	sales_chart.width = 350
+	big_sales_chart_url = sales_chart.to_url
+	
+Copyright (c) 2007 Balaji Raghavan, released under the MIT license
