@@ -418,14 +418,16 @@ Flash
  - - - - - - - - - - - - - */
 
 div.flash_notice {
-    border: 1px solid green;    
+    border: 1px solid green;
+	background-color: #DDFFDD;    
     padding:10px;
 	margin-bottom: 10px; 
     font-weight:bold;
 }
 
 div.flash_error {
-    border: 2px solid red;
+    border: 1px solid red;
+	background-color: #FFDDDD;    
     padding:10px;
 	margin-bottom: 10px; 
     font-weight:bold;

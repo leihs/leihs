@@ -9,11 +9,4 @@
 		<%= submit_tag 'Submit' %>
 	<% end %>
 
-<%
-	values = {}
-	@model.inventory_pools.each do |ip|
-		n = ip.items_size(@model.id)
-		values["#{ip.name} (#{n})"] = n
-	end
-%>
-<%=	image_tag GoogleChart.pie_3d_350x150(values).to_url %>
+<%=	image_tag @graph if @graph %>

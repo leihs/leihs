@@ -15,7 +15,7 @@ class InventoryImport::Importer
       }
       model = Model.find_or_create_by_name attributes
       category = Category.find_or_create_by_name :name => item.Art_Gruppe_2
-      category.models << model unless category.models.include?(model) # OPTIMIZE avoid condition, check uniqueness on ModelLink
+      category.models << model unless category.models.include?(model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
       
       item_attributes = {
         :inventory_code => (item.Stao_Abteilung + item.Inv_Serienr.to_s),

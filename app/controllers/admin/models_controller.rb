@@ -19,6 +19,12 @@ class Admin::ModelsController < Admin::AdminController
   end
 
   def show
+    values = {}
+    @model.inventory_pools.each do |ip|
+      n = ip.items_size(@model.id)
+      values["#{ip.name} (#{n})"] = n
+    end
+    @graph = GoogleChart.pie_3d_350x150(values).to_url
   end
 
   def new
