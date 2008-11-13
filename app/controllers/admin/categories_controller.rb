@@ -68,8 +68,18 @@ class Admin::CategoriesController < Admin::AdminController
   end
 
   def create
-    @category = Category.new
-    update
+    if @model and @category
+      unless @category.models.include?(@model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
+        @category.models << @model
+        flash[:notice] = _("Category successfully assigned")
+      else
+        flash[:error] = _("The model is already assigned to this category")
+      end
+      redirect_to admin_model_categories_path(@model)
+    else
+      @category = Category.new
+      update
+    end
   end
 
   def update
@@ -81,12 +91,18 @@ class Admin::CategoriesController < Admin::AdminController
   end
 
   def destroy
-    if @category.models.empty?
-      @category.destroy
-      redirect_to admin_categories_path
+    if @model and @category
+        @category.models.delete(@model)
+        flash[:notice] = _("Category successfully removed")
+        redirect_to admin_model_categories_path(@model)
     else
-      @category.errors.add_to_base _("The Category must be empty")
-      render :action => 'show' # TODO 24** redirect to the correct tabbed form
+      if @category.models.empty?
+        @category.destroy
+        redirect_to admin_categories_path
+      else
+        @category.errors.add_to_base _("The Category must be empty")
+        render :action => 'show' # TODO 24** redirect to the correct tabbed form
+      end
     end
   end
 
@@ -98,7 +114,6 @@ class Admin::CategoriesController < Admin::AdminController
       @parent.children << @category unless @parent.children.include?(@category)
       @category.set_label(@parent, parent[:label]) unless parent[:label].blank?
     rescue
-      #@category.errors.add_to_base(_("Attempt to add node to own graph collection"))
       flash[:error] = _("Attempt to add node to own graph collection")
     end
     redirect_to admin_category_parents_path(@category)

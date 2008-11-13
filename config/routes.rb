@@ -159,7 +159,7 @@ ActionController::Routing::Routes.draw do |map|
         model.resources :compatibles, :controller => 'models'
     end
     admin.resources :categories, :collection => { :auto_complete => :get },
-                                 :member => { :add_parent => :any }do |category|
+                                 :member => { :add_parent => :any } do |category|
         category.resources :parents, :controller => 'categories'
         category.resources :children, :controller => 'categories'
         category.resources :models

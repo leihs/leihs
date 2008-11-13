@@ -3,13 +3,11 @@
 	 <div class="toolbar-second">
 		<% form_for [:add_parent, :admin, @category] do |f| %>
 		<%#temp# form_for [:admin, @category, :parents] do |f| %>
-	
 			<%= _("Add as subcategory of") %>:
 			<%= model_auto_completer ('query', nil, 'parent[category_id]', nil,
 										{ :url => auto_complete_admin_categories_path, :submit_on_return => true },
 										{ :size => 40 },
 										{ :method => :get, :select => :name }) %>
-
 			<%= _("Label") %>:
 			<%= text_field_tag 'parent[label]' %></li>	
 
@@ -17,6 +15,18 @@
 		<% end %>
 	 </div>
 	<% end %>
+<% elsif @model %>
+	 <div class="toolbar-second">
+		<%#temp# form_for [:admin, @model, :categories] do |f| %>
+		<% form_tag "/admin/models/#{@model.id}/categories" do %>
+			<%= _("Add to category") %>:
+			<%= model_auto_completer ('query', nil, 'category_id', nil,
+										{ :url => auto_complete_admin_categories_path, :submit_on_return => true },
+										{ :size => 40 },
+										{ :method => :get, :select => :name }) %>
+			<%= submit_tag 'Submit' %>
+		<% end %>
+	 </div>
 <% else %>
 	<%= image_tag @graph if @graph %>
 	 <div class="toolbar-second buttons">
@@ -41,6 +51,9 @@
 						<li><%= link_to _("Delete"), admin_category_path(category),
 										:confirm => _("Are you sure?"),
 										:method => :delete if category.models.empty? %></li>
+						<li><%= link_to _("Remove"), admin_model_category_path(@model, category),
+										:confirm => _("Are you sure?"),
+										:method => :delete if @model %></li>
 					</ul>
 				</td>
 			</tr>
