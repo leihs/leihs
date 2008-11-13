@@ -15,14 +15,15 @@ We can hope, can't we?
 
 + Dependencies
 
-leihs depends on the following gems and/or modules:
+leihs depends on the following gems or libraries:
 
-Barby 
-gettext
-ferret
+1. Barby 
+2. gettext
+3. ferret
+4. GraphViz (for the "dot" program to generate network graphs)
 
-They are included in the vendor directory, but if you see any reason to use
-your own system-wide versions, please do.
+The gems are included in the vendor directory, but if you see any 
+reason to use your own system-wide versions, please do.
 
 --
 
