@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation
 
-  acts_as_ferret :fields => [ :login ]  #, :store_class_name => true
+  acts_as_ferret :fields => [ :login ], :remote => true  #, :store_class_name => true
 
 ################################################
 

@@ -21,7 +21,7 @@ class Item < ActiveRecord::Base
   validates_presence_of :model, :if => Proc.new {|i| i.step == 'step_model'}
   validates_presence_of :location, :if => Proc.new {|i| i.step == 'step_location'}
   
-  acts_as_ferret :fields => [ :model_name, :inventory_pool_name, :inventory_code, :serial_number ] #, :store_class_name => true
+  acts_as_ferret :fields => [ :model_name, :inventory_pool_name, :inventory_code, :serial_number ], :remote => true  #, :store_class_name => true
 
 ####################################################################
 
