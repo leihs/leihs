@@ -4,7 +4,7 @@ class Role < ActiveRecord::Base
 
   acts_as_nested_set
 
-  acts_as_ferret :fields => [ :name ]
+  acts_as_ferret :fields => [ :name ], :remote => true
 
   def to_s
     "#{name}"

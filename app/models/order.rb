@@ -12,7 +12,8 @@ class Order < Document
   
   acts_as_commentable
   acts_as_ferret :fields => [ :user_login, :lines_model_names, :purpose ],
-                 :store_class_name => true
+                 :store_class_name => true,
+                 :remote => true
                  # TODO union of results :or_default => true
                  
   NEW = 1

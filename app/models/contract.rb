@@ -8,7 +8,8 @@ class Contract < Document
   has_many :options
 
   acts_as_ferret :fields => [ :user_login, :lines_model_names ],
-                 :store_class_name => true
+                 :store_class_name => true,
+                 :remote => true
                  # TODO union of results :or_default => true
 
 

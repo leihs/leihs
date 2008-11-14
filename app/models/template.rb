@@ -1,6 +1,6 @@
 class Template < ModelGroup
 
-  acts_as_ferret :fields => [ :name ], :store_class_name => true
+  acts_as_ferret :fields => [ :name ], :store_class_name => true, :remote => true
 
   # TODO merge model_links with same models and sum quantities
 
