@@ -16,7 +16,7 @@ class Backend::ModelsController < Backend::BackendController
     
     unless params[:query].blank?
       # TODO 06** total is incorrect!!
-      @models = models.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page) # TODO 06** :multi => [Template]
+      @models = models.find_by_contents(params[:query], :page => params[:page], :per_page => $per_page) # TODO 06** :multi => [Template]
     else
       @models = models.paginate :page => params[:page], :per_page => $per_page
     end
@@ -99,7 +99,7 @@ class Backend::ModelsController < Backend::BackendController
   end
   
   def search_compatible
-    @models = current_inventory_pool.models.find_by_contents("*" + params[:query] + "*")
+    @models = current_inventory_pool.models.find_by_contents(params[:query])
     render :partial => 'model_for_compatible', :collection => @models
   end
 

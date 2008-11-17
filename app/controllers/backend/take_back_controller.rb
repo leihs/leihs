@@ -10,7 +10,7 @@ class Backend::TakeBackController < Backend::BackendController
     end
                                               
     unless params[:query].blank?
-      @contracts = current_inventory_pool.contracts.signed_contracts.find_by_contents("*" + params[:query] + "*")
+      @contracts = current_inventory_pool.contracts.signed_contracts.find_by_contents(params[:query])
 
       # TODO search by inventory_code
 

@@ -16,7 +16,7 @@ class Backend::ItemsController < Backend::BackendController
     end
     
     unless params[:query].blank?
-      @items = items.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+      @items = items.find_by_contents(params[:query], :page => params[:page], :per_page => $per_page)
     else
       @items = items.paginate :page => params[:page], :per_page => $per_page      
     end
@@ -61,7 +61,7 @@ class Backend::ItemsController < Backend::BackendController
 #################################################################
 
   def auto_complete
-    @items = current_inventory_pool.items.find_by_contents("*" + params[:query] + "*")
+    @items = current_inventory_pool.items.find_by_contents(params[:query])
     render :partial => 'auto_complete'
   end
 

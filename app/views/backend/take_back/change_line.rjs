@@ -3,7 +3,7 @@
 
 if @contract_line
     page["contract_line_check_#{@contract_line.id}"].checked = true
-    page << "toggle_buttons('contract_line_check', 'multiple_selection_button');"
+    page << "toggle_buttons('contract_line_check', 'ghostable_group_1');"
     page["inventory_code"].value = ""
 
 #  css_class = "line_valid_#{@contract_line.complete?}"

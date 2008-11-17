@@ -80,13 +80,13 @@
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
 								{ :action => 'time_lines', :id => @order },
 								:onmouseup => "change_href(this, 'order_line', 'line');",
-								:class => "multiple_selection_button",
+								:class => "ghostable_group_1 ghosted",
 								:title => _("Time Period") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
 								{ :action => 'remove_lines', :id => @order },
 								:onmouseup => "change_href(this, 'order_line', 'line');",
-								:class => "multiple_selection_button negative",
+								:class => "ghostable_group_1 ghosted negative",
 								:title => _("Remove Models") )
 								# TODO contribute :with in greybox
 								# :with => "'order_lines=' + checkbox_values('order_line_check')"
@@ -94,7 +94,7 @@
 						
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
 								{ :action => 'timeline', :id => @order },
-								:title => _("Timeline"), :width => 1000 ) %>						
+								:title => _("Timeline"), :width => 1000 ) %>
 								
 					</div>
 				</div>

@@ -1,0 +1,11 @@
+= v0.4
+* moved to git, minor changes to init.rb
+
+= v0.3
+* Added support for updating the DOM via AJAX and using onclick rather than rel attributes on tags. [Marc Lee]
+
+= v0.2
+* some changes where I broke my tests. :D [Steven Soroka]
+
+= v0.1
+* Initial release [Steven Soroka]

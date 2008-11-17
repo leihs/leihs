@@ -156,27 +156,11 @@ a:hover.arrow_switch {
 }
 
 
-/* Multiple Selection Buttons */
-
-.multiple_selection_button {
-/*	visibility: hidden; */	
-	opacity: 0.4;
-	filter: alpha(opacity=40); /* IE */	
-}
-
-.multiple_selection_option_button {
-/*	visibility: hidden; */	
-	opacity: 0.4;
-	filter: alpha(opacity=40); /* IE */	
-}
-
-/* Disabled */
-/*
-.buttons a.disabled {
+/* Ghostable Buttons */
+.buttons a.ghosted {
 	opacity: 0.4;
 	filter: alpha(opacity=40);	
 }
-*/
 
 
 

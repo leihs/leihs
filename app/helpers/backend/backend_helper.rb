@@ -64,4 +64,8 @@ module Backend::BackendHelper
     return html
   end
 
+
+  # TODO 17** buttons_tag
+  # <div class="buttons" onclick="if(event.target.hasClassName('ghosted')){ return false; }">
+
 end
