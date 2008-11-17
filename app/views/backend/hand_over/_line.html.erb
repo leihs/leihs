@@ -2,7 +2,7 @@
 	<tr class="alt-row">
 		<td>
 			<% check_box_today = (@line.start_date <= Date.today ? "contract_line_check_today" : "")  %>
-			<%= check_box_tag('contract_lines[]', @line.id, false, :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'multiple_selection_button');" ) %>
+			<%= check_box_tag('contract_lines[]', @line.id, false, :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'ghostable_group_1');" ) %>
 			<%= @line.quantity %>
 		</td>
 		<td>

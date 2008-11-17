@@ -33,6 +33,7 @@ function change_href(a, checkbox_name, param_name, clear_arguments){
 
 }
 
+/*
 function change_href_with_clear(a, checkbox_name, param_name, clear_arguments)
 {
 	var cbv = checkbox_values(checkbox_name + '_check');
@@ -51,7 +52,7 @@ function change_href_with_clear(a, checkbox_name, param_name, clear_arguments)
 		decoGreyboxLinks();
 	//}
 }
-
+*/
 
 function mark_all(master, boxes, buttons){
 	$$('body input.' + boxes).each(
@@ -65,18 +66,15 @@ function mark_all(master, boxes, buttons){
 
 function toggle_buttons(boxes, buttons){
 	s = checkbox_values(boxes);
-	
+
 	$$('body a.' + buttons).each(
 		function(button){
-			//old// button.style.visibility = (s.length > 0 ? 'visible' : 'hidden');
 			if(s.length > 0){
-				button.style.opacity = 1;
-				button.style.filter = 'alpha(opacity=100)'; /* IE */
-				// TODO 10** reset link // button.href="";
+				button.removeClassName('ghosted');
+				button.onclick = function(){ }
 			}else{
-				button.style.opacity = 0.4;
-				button.style.filter = 'alpha(opacity=40)'; /* IE */
-				// TODO 10** prevent link // button.href="javascript:return false;";
+				button.addClassName('ghosted');
+				button.onclick = function(){ return false; }
 			}
 		}
 	);

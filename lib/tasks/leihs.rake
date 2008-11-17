@@ -17,6 +17,7 @@ namespace :leihs do
     Template.rebuild_index
     Model.rebuild_index
     Item.rebuild_index
+    InventoryPool.rebuild_index
     Location.rebuild_index
     Contract.rebuild_index
     Order.rebuild_index

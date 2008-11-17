@@ -1,0 +1,45 @@
+Greybox v0.4
+============
+
+DESCRIPTION:
+Rails wrapper for greybox, comes with assets from GreyBox v5.53 (to upgrade greybox, replace contents of assets/greybox with new assets from release, assuming I haven't updated the plugin).  Hopefully that's not against some license somewhere.
+You can find GreyBox here: http://orangoo.com/labs/GreyBox/
+
+USAGE:
+<%= greybox_head %> in layout. 
+
+Optionally force absolute path to greybox files (they install to public/greybox by default):
+<%= greybox_head('http://www.mysite.com/greybox') %>
+
+Examples:
+  <%= greybox_link_to_image(image_tag('rockies_thumb.jpg'), "/images/rocky_mountains.jpg", 
+        :title => 'From my trip to the rockies!') %>
+
+also can be used as a block:
+	<% greybox_link_to_image nil, "/images/rocky_mountains.jpg", :title => 'From my trip to the rockies!' do %>
+	    <%= image_tag('rockies_thumb.jpg') %>
+	<% end %>
+
+  <% greybox_link_to_page(nil, "http://www.google.ca", :title => 'This is google!') do
+    image_tag('google_image.jpg')
+  end %>
+
+	<%= greybox_link_to_page("View Google!", "http://www.google.ca", :title => 'This is google!') %>
+
+wrap pages or images in greybox_links(group_name) to allow visitors to flip between them (Haven't tested mixing sites and images, my guess is it wouldn't work. stick to one or the other):
+
+  greybox_links "Nice pics" do
+    greybox_link_to_image "sunset", "sunset.jpg"
+    greybox_link_to_image "sunset 2", "sunset2.jpg"
+  end
+
+If you plan to be updating the page with javascript dynamically, check out the greybox_advance_link_to_page method, which uses onclick events rather than depending on the rel attribute.  It takes the same parameters as greybox_link_to_page()
+
+DOCS:
+run rdoc to generate documentation from source.
+
+TESTS:
+"rake" to run tests.  They passed, I swear. :D
+
+Steven Soroka
+http://blog.stevensoroka.ca

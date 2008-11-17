@@ -7,7 +7,7 @@
 		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/tab_go.png") + " " + _("Hand Over"),
 			 	{ :action => 'sign_contract' },
 				:onmouseup => "change_href(this, 'contract_line', 'line');",
-				:class => "multiple_selection_button",
+				:class => "ghostable_group_1 ghosted",
 				:title => _("Hand Over") ) %>
 
 		<%= link_to(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Close"),
@@ -49,13 +49,13 @@
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
 							 	{ :action => 'time_lines' },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",
-								:class => "multiple_selection_button",
+								:class => "ghostable_group_1 ghosted",
 								:title => _("Time Period") ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
 								{ :action => 'remove_lines' },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",
-								:class => "multiple_selection_button negative",
+								:class => "ghostable_group_1 ghosted negative",
 								:title => _("Remove Models") )
 								# TODO contribute :with in greybox
 								# :with => "'contract_lines=' + checkbox_values('contract_line_check')"
@@ -81,7 +81,7 @@
   		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
   									{ :action => 'remove_options' },
   									:onmouseup => "change_href(this, 'option', 'option');",
-  									:class => "multiple_selection_option_button negative",
+  									:class => "ghostable_group_2 ghosted negative",
   									:title => _("Remove Options") )
   									%>
   							</div>

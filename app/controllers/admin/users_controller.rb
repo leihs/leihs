@@ -15,7 +15,7 @@ class Admin::UsersController < Admin::AdminController
     end
     
     unless params[:query].blank?
-      @users = users.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+      @users = users.find_by_contents(params[:query], :page => params[:page], :per_page => $per_page)
     else
       @users = users.paginate :page => params[:page], :per_page => $per_page
     end
@@ -71,7 +71,7 @@ class Admin::UsersController < Admin::AdminController
 #################################################################
 
   def auto_complete
-    @users = User.find_by_contents("*" + params[:query] + "*")
+    @users = User.find_by_contents(params[:query])
     render :partial => 'auto_complete'
   end
 

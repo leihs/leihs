@@ -12,7 +12,7 @@ class Admin::ModelsController < Admin::AdminController
     end    
 
     unless params[:query].blank?
-      @models = models.find_by_contents("*" + params[:query] + "*", :page => params[:page], :per_page => $per_page)
+      @models = models.find_by_contents(params[:query], :page => params[:page], :per_page => $per_page)
     else
       @models = models.paginate :page => params[:page], :per_page => $per_page
     end

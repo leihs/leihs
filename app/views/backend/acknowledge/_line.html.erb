@@ -1,6 +1,6 @@
 	<tr class="alt-row" id="order_line_<%= @line.id %>">
 		<td>
-			<%= check_box_tag('order_lines[]', @line.id, false, :class => "order_line_check", :onchange => "toggle_buttons('order_line_check', 'multiple_selection_button');" ) %>
+			<%= check_box_tag('order_lines[]', @line.id, false, :class => "order_line_check", :onchange => "toggle_buttons('order_line_check', 'ghostable_group_1');" ) %>
 				<%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %>
 			<% # TODO temp start %>
 			  <ul>
