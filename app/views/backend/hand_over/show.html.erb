@@ -52,6 +52,15 @@
 								:class => "ghostable_group_1 ghosted",
 								:title => _("Time Period") ) %>						
 
+
+						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/house.png") + " " + _("Change Installation Location"),
+							 	{ :action => 'select_location' },
+								:onmouseup => "change_href(this, 'contract_line', 'line');",
+								:class => "ghostable_group_1 ghosted",
+								:title => _("Time Period"),
+								:callback => 'refresh_me' ) %>						
+
+
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
 								{ :action => 'remove_lines' },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",

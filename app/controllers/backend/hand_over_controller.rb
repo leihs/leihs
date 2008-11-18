@@ -29,7 +29,6 @@ class Backend::HandOverController < Backend::BackendController
   
   # Sign definitely the contract
   def sign_contract
-    #@lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
     @lines = @contract.contract_lines.find(params[:lines].split(','))
     if request.post?
       @contract.sign(@lines)
@@ -127,22 +126,25 @@ class Backend::HandOverController < Backend::BackendController
   end
   
   def select_location
-    @contract_line = @contract.contract_lines.find(:first, :conditions => {:id => params[:line_id]})
-    @location = @contract_line.location || Location.new
+    @lines = @contract.contract_lines.find(params[:lines].split(','))
+    @location = Location.new
     if request.post?
       @location = Location.find(:first, :conditions => {:building => params[:location][:building], :room => params[:location][:room]})
       unless @location
         @location = Location.create(params[:location])
         @location.inventory_pool = current_inventory_pool
       end
-      @contract_line.location = @location
-      @contract_line.save
+      @lines.each do |line|
+        line.location = @location
+        line.save  
+      end
     end
     
     if request.delete?
-      @contract_line.location = nil
-      @contract_line.save
-      @location = Location.new
+      @lines.each do |line|
+        line.location = nil
+        line.save
+      end
     end
     render :layout => 'backend/' + $theme + '/modal'
   end

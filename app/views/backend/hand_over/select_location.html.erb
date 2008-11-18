@@ -1,6 +1,23 @@
-<% if @location.new_record? %>
+<h2 style="margin-bottom:10px;font-size: 150%"><%= _("Installation Location")%></h2>
+<p><%= _("You're changing the installation location for the following items:")%></p>
+<ul style="margin: 10px">
+<% @lines.each do |line| %>
+	<li><%= line.model.name %><b><%= " " + _("(Installed in: ")  + line.location.building + ", " + line.location.room + ")" if line.location%></b></li>
+<% end %>
+</ul>
+<% x = @lines.find do |l|
+	l.location
+   end
+   if x
+%>
+<div class="buttons" style="float:none;margin-bottom:15px">
+ 	<%=	link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Remove Location from the above models"),
+		 { :action => 'select_location', :lines => @lines},
+		 :class => 'negative', :method => 'delete', :style => 'float:none;margin: 5px;width: 280px') %>
+</div>
+<% end %>
+<% form_for [:backend, @location], :url => { :action => 'select_location', :lines => @lines }, :html => { :name => 'f' } do |f| %>
 <table>
-	<% form_for [:backend, @location], :url => { :action => 'select_location' } do |f| %>
 	<tr>
 		<td><%= _("Building") %>:</td>
 		<td><%= text_field_with_auto_complete :location, :building %></td>
@@ -9,15 +26,13 @@
 		<td><%= _("Room") %>:</td>
 		<td><%= text_field_with_auto_complete :location, :room %></td>
 	</tr>
-	<tr><td></td><td><%= submit_tag 'Submit' %> <%=	cancel_popup_button(_("OK") ) %>
-	</td></tr>
-	<%= hidden_field_tag :line_id, params[:line_id]%>
-	
-	<% end %>
 </table>
-<% else %>
-<%= @location %> <%= link_to(_("Remove"), {:action => 'select_location', :line_id => params[:line_id]}, {:method => 'delete'} ) %>
-<p style="margin-top: 20px">
- <%= cancel_popup_button(_("OK") ) %>
+<p>
+<div class="buttons">
+	<%= submit_button(_("Confirm Location"), {:class=> 'positive', :img => $layout_public_path + "/images/icons/house.png"})%>
+</div>
 </p>
+<div class="buttons">
+	<%=	cancel_popup_button(_("Close") ) %>
+</div>
 <% end %>
