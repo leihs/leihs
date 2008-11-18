@@ -48,13 +48,12 @@ class Document < ActiveRecord::Base
 
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil, inventory_pool = nil)
       end_date = start_date if end_date and start_date and end_date < start_date
-# TODO 05** to Jerome: isn't fixed by line 54? # end_date = next_open_date if start_date.nil? and end_date.nil?
-
+      
       document_line = "#{self.class}Line".constantize
       o = document_line.new(:quantity => quantity || 1,
                             :model_id => model.to_i,
                             :start_date => start_date || time_window_min,
-                            :end_date => end_date || time_window_max)
+                            :end_date => end_date || next_open_date(time_window_max))
       o.inventory_pool = inventory_pool if inventory_pool and o.is_a?(OrderLine) # TODO: This is not very nice :-(
       
       log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id)

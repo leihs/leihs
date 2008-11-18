@@ -6,6 +6,11 @@
 			<%= @line.quantity %>
 		</td>
 		<td>
+			
+			<%  if @line.location %>
+			<% location = @line.location.building + "," + @line.location.room %>
+				<%= image_tag($layout_public_path + "/images/icons/house.png", :title => _("Installed in: ") + location) %>
+			<% end %>
 			<%= greybox_link_to_page(@line.model.name,
 					backend_inventory_pool_model_path(@current_inventory_pool, @line.model, :layout => "modal"),
 					:title => _("Model"),
@@ -32,16 +37,6 @@
 											  :method => :get,
 											  :with => "'code=' + element.value" } %>
 		</td>
-		<td>
-			<%  if @line.location %>
-			<% location = @line.location.building + "/" + @line.location.room %>
-			<% else %>
-			<% location = _("None specified")%>
-			<% end %>
-			<%= greybox_link(image_tag($layout_public_path + "/images/icons/house.png") + " " + location, 
-						{:action => 'select_location', :id => @contract.id, :line_id => @line.id},
-						{:callback => 'refresh_me', :title => _("Choose Location")} )%>
-		</td>		
 		<td class="buttons">
 
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
