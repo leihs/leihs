@@ -128,7 +128,7 @@ class Backend::HandOverController < Backend::BackendController
   def select_location
     @lines = @contract.contract_lines.find(params[:lines].split(','))
     @location = Location.new
-    if request.post?
+    if request.post? and not (params[:location][:building].blank? and params[:location][:building].blank?)
       @location = Location.find(:first, :conditions => {:building => params[:location][:building], :room => params[:location][:room]})
       unless @location
         @location = Location.create(params[:location])
