@@ -65,6 +65,9 @@ Rails::Initializer.run do |config|
 #  config.gem "rmagick", :version => '2.7.0'
 #  config.gem "rspec", :version => '1.1.11'
 #  config.gem "rgl", :version => '0.4.0'
+
+# TODO 18** unpack gem and remove plugin:  config.gem "mislav-will_paginate", :version => '2.3.6'
+
   
 end
 

@@ -12,6 +12,6 @@ Inventory Pool		=			Gerätepark
 My Account			=			Mein Konto
 Change				=			Ändern
 Logout				=			Abmelden
-
-
+Options				=			Zubehör
+Items				=			Pakete
 

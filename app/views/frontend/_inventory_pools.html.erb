@@ -4,9 +4,8 @@
     var inventory_pools_store = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy(
 			new Ext.data.Connection({
-            	url: '/frontend/get_inventory_pools',
-				method: 'GET',
-				extraParams: {format:'ext_json'}
+            	url: '/frontend/get_inventory_pools.ext_json',
+				method: 'GET'
 			})
         ),
 
@@ -75,8 +74,8 @@
 					    url: '/frontend/set_inventory_pools',
 						params: {"inventory_pool_ids": lines},
 	                    success: function(r) {
+							models_store.load(); //({params:{start:0, limit:25}});
 				            models_grid.show();
-							models_store.load({params:{start:0, limit:25}});
 							// TODO refresh the Frontend completely ??
 	                    }
 	                });					

@@ -12,11 +12,12 @@ class OrdersController < FrontendController
 
   def submit
     @order.created_at = DateTime.now
-    if request.post? and @order.submit(params[:purpose])
-      redirect_to '/'
+    if @order.submit(params[:purpose])
+      # TODO 18** List Inventory Pools ... and additional informations
+      render :text => _("The order has been successfully submitted, but is NOT YET CONFIRMED."), :status => 200
     else
-      render :layout => $modal_layout_path
-    end        
+      render :nothing => true, :status => 400
+    end
   end
 
   def add_line(model_id = params[:model_id],

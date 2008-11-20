@@ -16,9 +16,8 @@
     var complete_order_store = new Ext.data.GroupingStore({
         proxy: new Ext.data.HttpProxy(
 			new Ext.data.Connection({
-            	url: '/order',
-				method: 'GET',
-				extraParams: {format:'ext_json'}
+            	url: '/order.ext_json',
+				method: 'GET'
 			})
         ),
 
@@ -205,7 +204,7 @@
 					iconCls:'bt',
 		            icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
 			        handler: function(){
-					  if(complete_order_store.reader.jsonData['approvable?']){
+					  if(complete_order_store.data.length > 0 && complete_order_store.reader.jsonData['approvable?']){
 						Ext.MessageBox.show({
 				           title: '<%= _("Do you want to submit this order?") %>',
 				           msg: '<%= _("Purpose") %>',
@@ -215,16 +214,27 @@
 				           animEl: this.id,
 				           fn: function (btn, text){
 								if(btn == "ok"){
-									complete_order.disable();
+//									complete_order.disable();
 					                Ext.Ajax.request({
 									    url: '/order/submit',
 										method: 'POST',
 										params: {"id": complete_order_store.reader.jsonData['id'],
 												 "purpose": text,
 												 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},
-										success: function(r) {
-											window.location.href = '/';
+										success: function(responseObject) {
+//											complete_order.enable();
+											Ext.Msg.show({
+											   title:'Order submitted',
+											   msg: responseObject.responseText, // TODO 18** make sure the text is displayed
+										       width:500,
+											   buttons: Ext.Msg.OK,
+											   icon: Ext.MessageBox.INFO,
+									           fn: function(btn, text){
+													window.location.href = '/';
+											   }
+											});
 					                    }
+										// TODO 18** catch failure
 					                });
 								}
 						   }

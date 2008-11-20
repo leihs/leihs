@@ -47,7 +47,7 @@ class InventoryPool < ActiveRecord::Base
 
   validates_presence_of :name
 
-  acts_as_ferret :fields => [ :name, :description ]
+  acts_as_ferret :fields => [ :name, :description ], :store_class_name => true, :remote => true
 
 #######################################################################
 

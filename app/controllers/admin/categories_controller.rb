@@ -17,7 +17,7 @@ class Admin::CategoriesController < Admin::AdminController
     end    
     
     unless params[:query].blank?
-      @categories = categories.find_by_contents(params[:query], :page => params[:page], :per_page => $per_page)
+      @categories = categories.search(params[:query], :page => params[:page], :per_page => $per_page)
     else
       @categories = categories.paginate :page => params[:page], :per_page => $per_page      
     end
@@ -126,7 +126,7 @@ class Admin::CategoriesController < Admin::AdminController
 #################################################################
 
   def auto_complete
-    @categories = Category.find_by_contents(params[:query])
+    @categories = Category.search(params[:query])
     render :partial => 'auto_complete'
   end
   

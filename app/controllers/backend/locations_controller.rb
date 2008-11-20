@@ -7,7 +7,7 @@ class Backend::LocationsController < Backend::BackendController
     locations = current_inventory_pool.locations
     
     unless params[:query].blank?
-      @locations = locations.find_by_contents(params[:query], :page => params[:page], :per_page => $per_page)
+      @locations = locations.search(params[:query], :page => params[:page], :per_page => $per_page)
     else
       @locations = locations.paginate :page => params[:page], :per_page => $per_page      
     end

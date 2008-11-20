@@ -5,13 +5,14 @@ class Backend::BarcodesController < Backend::BackendController
   end
 
   def new
-    if params[:string].nil? == false
+  end
+
+  def create
       @string = params[:string]
       @height = 25
       require 'barby'
       require 'barby/outputter/png_outputter'
       send_data(Barby::Code128B.new(@string.to_s).to_png(:height => @height.to_f), :filename => "barcode_#{@string}.png", :type => 'image/png')
-    end
   end
 
 end

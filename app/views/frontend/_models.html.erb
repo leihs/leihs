@@ -19,14 +19,21 @@
     var models_store = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy(
 			new Ext.data.Connection({
-            	url: '/models',
-				method: 'GET',
-				extraParams: {format:'ext_json'}
+            	url: '/models.ext_json',
+				method: 'GET'
 			})
         ),
         reader: model_reader,
-        // turn on remote sorting
-        remoteSort: true
+		listeners: {
+			beforeload: function(store, options){
+				if(store.lastOptions && store.lastOptions.params.category_id && !options.params.category_id){
+					options.params.category_id = store.lastOptions.params.category_id;
+				}
+//temp//				models_tbar_label.setText((options.params.category_id ? ' Category: ' + categories_panel.nodeHash[options.params.category_id].attributes.name : ''));
+				models_tbar_label.setText((options.params.category_id ? ' Category: ' + categories_panel.nodeHash[options.params.category_id].text : ''));
+			}
+	 	},
+        remoteSort: true // turn on remote sorting
     });
     models_store.setDefaultSort('name', 'ASC');
 
@@ -46,6 +53,8 @@
            header: "Inventory Pool",
            dataIndex: 'inventory_pools',
            width: 100,
+		   sortable: false,
+		   menuDisabled: true,
  		   renderer: function(value){
 		   				var n = new Array();
 		   				for( i=0; i<value.length; i++ )
@@ -63,9 +72,14 @@
 		region: 'north',
         store: models_store,
         cm: models_cm,
+		enableColumnHide: false,
+		enableColumnMove: false,
 		viewConfig: { forceFit: true },
         loadMask: true,
 		listeners: {
+//			activate: function(cmp) {
+//				if(models_store.getCount() == 0) models_store.load(); //({params:{start:0, limit:25}});
+//			},
 			rowclick: function( grid, rowIndex, e ){
 			  model_id = grid.getStore().getAt(rowIndex).id;
 			  add_model_details(model_id);
@@ -76,7 +90,10 @@
             new Ext.app.SearchField({
                 store: models_store,
                 width: 320
-            })
+            }), ' ',
+			models_tbar_label= new Ext.form.Label({
+				text: ''
+			})
         ],
 		bbar: new Ext.PagingToolbar({
             pageSize: 25,
@@ -89,7 +106,7 @@
 
 
     // trigger the data store load
-    models_store.load({params:{start:0, limit:25}});
+//old//    models_store.load({params:{start:0, limit:25}});
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -97,15 +114,10 @@
 ////////////////
 		var model_details = new Ext.TabPanel({
 			region: 'south',
-//			title: 'Model',
 			collapsible: true,
 			collapsed: true,
 			split: true,
-//			autoHeight: true,
 			height: 290 //, // 'auto'
-//			autoScroll: true,
-//			items: { id: 'model_details' }
-//			activeTab: 0
 		});
 
 		var model_store = new Array(); // TODO 05** provide a better data structure
@@ -122,24 +134,15 @@ function add_model_details(model_id){
 	
 		model_store[model_id] = new Ext.data.Store({
 			proxy: new Ext.data.HttpProxy(new Ext.data.Connection({
-				url: '/models/' + model_id,
-				method: 'GET',
-				extraParams: {
-					format: 'ext_json'
-				}
+				url: '/models/' + model_id + '.ext_json',
+				method: 'GET'
 			})),
 			reader: model_reader,
 			listeners: { datachanged: function(){
-				/*
-				 	model_details.expand();
-					//model_details.remove(0);
-				 	model_details.add(add_details(this.data.items[0].data.name));
-			 		model_details.doLayout();
-			 	*/
-				model_tab.setTitle(this.data.items[0].data.name);
-				model_store_compatibles[model_id].loadData(this.reader.jsonData['models'][0]);
-				model_store_ips[model_id].loadData(this.reader.jsonData['models'][0]);
-				 }
+					model_tab.setTitle(this.data.items[0].data.name);
+					model_store_compatibles[model_id].loadData(this.reader.jsonData['models'][0]);
+					model_store_ips[model_id].loadData(this.reader.jsonData['models'][0]);
+				}
 		 	}
 		});
 		

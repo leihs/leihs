@@ -4,7 +4,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
     inventory_pools = InventoryPool
 
     unless params[:query].blank?
-      @inventory_pools = inventory_pools.find_by_contents(params[:query], :page => params[:page], :per_page => $per_page)
+      @inventory_pools = inventory_pools.search(params[:query], :page => params[:page], :per_page => $per_page)
     else
       @inventory_pools = inventory_pools.paginate :page => params[:page], :per_page => $per_page
     end

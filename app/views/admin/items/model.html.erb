@@ -13,7 +13,7 @@
 		<%= f.hidden_field :step %>
 
 		<%= _("Set new model") %>:
-		<%= belongs_to_auto_completer :item, :model, :name, {:url => auto_complete_admin_models_path, :submit_on_return => true },
+		<%= belongs_to_auto_completer :item, :model, :query, {:url => auto_complete_admin_models_path, :submit_on_return => true },
 															{ :size => 40 },
 															{ :method => :get, :select => :name } %>
 

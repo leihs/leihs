@@ -1,47 +1,63 @@
 class ModelsController < FrontendController
 
   # TODO prevent sql injection
-  def index( category_id = params[:category_id],
+  def index( category_id = params[:category_id], # TODO 18** nested route ?
              start = (params[:start] || 0).to_i,
              limit = (params[:limit] || 25).to_i,
              query = params[:query],
              recent = params[:recent],
-             sort =  "models.#{params[:sort]}" || "models.name",
-             dir =  params[:dir] || "ASC" )
+             sort =  "models.#{(params[:sort] || 'name')}",
+             dir =  params[:dir] || 'ASC' )
+
+    if recent
+      models = current_user.orders.sort.collect(&:models).flatten.uniq[start,limit]
+      models ||= []
+    else
+      models = current_user.models.all(:conditions => ["inventory_pools.id IN (?)", current_inventory_pools]) 
+    end
+
     if category_id
-      #old# @models = Category.find(category_id).models.find(:all, :offset => start, :limit => limit, :order => "#{sort} #{dir}") & current_user.models
-      #old# c = (Category.find(category_id).models & current_user.models).size
-      # OPTIMIZE intersection
+#old# @models = Category.find(category_id).models.find(:all, :offset => start, :limit => limit, :order => "#{sort} #{dir}") & current_user.models
+#old# c = (Category.find(category_id).models & current_user.models).size
       category = Category.find(category_id)
-      @models = (category.children.recursive.to_a << category).collect(&:models).flatten & current_user.models.all(:conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
-      c = @models.size
-    elsif !query.blank?
-      # TODO searcheable by property values
-      @models = current_user.models.find_by_contents("*" + query + "*", {:offset => start,
-                                                                         :limit => limit,
-                                                                         :order => "#{sort} #{dir}"},
-                                                                         :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
-      # TODO include Templates
-      # @models = current_user.models.find_by_contents("*" + query + "*", {:offset => start, :limit => limit, :order => "#{sort} #{dir}", :multi => [Template]})
+      models = (category.children.recursive.to_a << category).collect(&:models).flatten & models #old# current_user.models.all(:conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
+    end
+
+    unless query.blank?
+#old#
+#      @models = current_user.models.find_by_contents(query, {:offset => start,
+#                                                   :limit => limit,
+#                                                   :order => "#{sort} #{dir}"},
+#                                                   :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
+      # TODO 18** scope search to current category selection
+      # TODO 18** include Templates: models += current_user.templates
+#old#      models = current_user.models & current_inventory_pools.collect(&:models).flatten.uniq 
+      @models = models.search(query, {:offset => start, :limit => limit}, {:order => "#{sort} #{dir}"})
+      
       # TODO fix total_hits with has_many
       c = @models.total_hits
-    elsif recent
-      @models = current_user.orders.sort.collect(&:models).flatten.uniq[0,limit]
-      @models ||= []
-      c = @models.size
     else
-      @models = current_user.models.find(:all,
-                                         :offset => start,
-                                         :limit => limit,
-                                         :order => "#{sort} #{dir}",
-                                         :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
-      # TODO fix 
-      c = current_user.models.count(:all,
-                                    :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
+#old#
+#      @models = current_user.models.find(:all,
+#                                         :offset => start,
+#                                         :limit => limit,
+#                                         :order => "#{sort} #{dir}",
+#                                         :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
+#      # TODO fix 
+#      c = current_user.models.count(:all,
+#                                    :conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
+
+    # TODO 18** sort
+    @models = models.paginate :page => ((start / limit) + 1), :per_page => limit, :order => "#{sort} #{dir}"
+    c = models.size
     end
+
     respond_to do |format|
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
+                                                            :except => [ :maintenance_period,
+                                                                         :created_at,
+                                                                         :updated_at ],
                                                             :include => {
                                                                 :inventory_pools => { :records => current_inventory_pools,
                                                                                       :except => [:description,

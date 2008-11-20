@@ -17,9 +17,9 @@ module Backend::BackendHelper
       content_tag :div, :class => "table-overview", :id => "controller" do
 #          r = form_tag :url => { }, :method => :get do
           r = "<form>"
-            request.path_parameters.each {|k,v| params.delete(k) }
-            params.delete(:query)
-            params.each {|p| r += hidden_field_tag(p[0], p[1]) }
+            filter_params = request.path_parameters.keys << "query"
+            params.each {|k,v| r += hidden_field_tag(k, v) unless filter_params.include?(k) }
+
             r += text_field_tag :query, query, :onchange => "submit()", :id => 'search_field'
             r += javascript_tag("$('search_field').focus()")
             
@@ -67,5 +67,7 @@ module Backend::BackendHelper
 
   # TODO 17** buttons_tag
   # <div class="buttons" onclick="if(event.target.hasClassName('ghosted')){ return false; }">
+
+  # TODO 17** ghosted buttons are not preventing right click (open link in New Window, etc)
 
 end

@@ -40,7 +40,7 @@
 			<div class="table-overview">
 								
 				<div class="toolbar-second">
-					<h3>Pakete</h3>
+					<h3><%= _("Items") %></h3>
 					<div class="buttons">
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add Line"),
 							 	{ :action => 'add_line' },
@@ -85,7 +85,7 @@
   					<div class="table-overview">
 
   						<div class="toolbar-second">
-  							<h3>Zubehör</h3>
+  							<h3><%= _("Options") %></h3>
   							<div class="buttons">
   		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
   									{ :action => 'remove_options' },

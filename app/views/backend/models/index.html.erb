@@ -1,7 +1,19 @@
-<% if params[:filter] == "packages" %>
-<div class="toolbar-second buttons">
-	<%= link_to _('New Package'), :action => 'new_package' %>
-</div>
+<% if @model %>
+	 <div class="toolbar-second">
+		<%# form_for [:backend, @current_inventory_pool, @model, :compatibles] do %>
+		<% form_tag backend_inventory_pool_model_compatibles_path(@current_inventory_pool, @model) do %>
+			<%= _("Add compatible") %>:
+			<%= model_auto_completer ('query', nil, 'compatible[model_id]', nil,
+										{ :url => { :controller => 'models', :action => 'auto_complete' }, :submit_on_return => true },
+										{ :size => 40 },
+										{ :method => :get, :select => :name }) %>
+			<%= submit_tag 'Submit' %>
+		<% end %>
+	 </div>
+<% elsif params[:filter] == "packages" %>
+	<div class="toolbar-second buttons">
+		<%= link_to _('New Package'), :action => 'new_package' %>
+	</div>
 <% end %>
 
 <% table_with_search_and_pagination :columns => ["", _("Model"), _("Items"), _("Compatibles"), _("Action")],
@@ -21,7 +33,12 @@
 						<%=	link_to(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add"), url,
 							:method => 'post', :target=> '_top') %>
 					<% else %>						
-						<%= link_to _("Show"), {:action => 'show', :id => model} %>
+						<ul>
+							<li><%= link_to _("Show"), backend_inventory_pool_model_path(@current_inventory_pool, model) %></li>
+							<li><%= link_to _("Remove"), backend_inventory_pool_model_compatible_path(@current_inventory_pool, @model, model),
+											:confirm => _("Are you sure?"),
+											:method => :delete if @model %></li>
+						</ul>
 					<% end %>
 				</td>
 			</tr>
