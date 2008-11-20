@@ -15,14 +15,42 @@ class Backend::ModelsController < Backend::BackendController
     end
     
     unless params[:query].blank?
-      # TODO 06** total is incorrect!!
-      @models = models.find_by_contents(params[:query], :page => params[:page], :per_page => $per_page) # TODO 06** :multi => [Template]
+      @models = models.search(params[:query], :page => params[:page], :per_page => $per_page)
     else
       @models = models.paginate :page => params[:page], :per_page => $per_page
     end
     
     render :layout => $modal_layout_path if params[:layout] == "modal"
   end
+
+  def show
+    redirect_to :action => 'show_package', :model_id => @model if @model.is_package?
+    # TODO 30** remove 'details' view. refactor widget_tabs
+    render :action => 'details', :layout => $modal_layout_path if params[:layout] == "modal"
+  end
+  
+  def create
+    if @model and params[:compatible][:model_id]
+      @compatible_model = current_inventory_pool.models.find(params[:compatible][:model_id])
+      unless @model.compatibles.include?(@compatible_model)
+        @model.compatibles << @compatible_model
+        flash[:notice] = _("Model successfully added as compatible")
+      else
+        flash[:error] = _("The model is already compatible")
+      end
+      redirect_to :action => 'index', :model_id => @model
+    end
+  end
+
+  def destroy
+    if @model and params[:id]
+        @model.compatibles.delete(@model.compatibles.find(params[:id]))
+        flash[:notice] = _("Compatible successfully removed")
+        redirect_to :action => 'index', :model_id => @model
+    end
+  end
+  
+#################################################################
 
   def show_package 
   end
@@ -61,15 +89,6 @@ class Backend::ModelsController < Backend::BackendController
     
     render :inline => "<%= auto_complete_result(@items, :inventory_code) %>"
   end
-
-  
-#################################################################
-
-  def show
-    redirect_to :action => 'show_package', :model_id => @model if @model.is_package?
-    # TODO 30** remove 'details' view. refactor widget_tabs
-    render :action => 'details', :layout => $modal_layout_path if params[:layout] == "modal"
-  end
   
 #################################################################
 
@@ -92,33 +111,15 @@ class Backend::ModelsController < Backend::BackendController
   
 #################################################################
 
-# TODO 06** reactivate compatibles association
-
-  def compatibles
-    #render :layout => false
-  end
-  
-  def search_compatible
-    @models = current_inventory_pool.models.find_by_contents(params[:query])
-    render :partial => 'model_for_compatible', :collection => @models
-  end
-
-  def add_compatible
-    @model.compatibles << current_inventory_pool.models.find(params[:compatible_id])
-    redirect_to :action => 'compatibles', :id => @model
-  end
-
-  def remove_compatible
-    @model.compatibles.delete(@model.compatibles.find(params[:compatible_id]))
-    redirect_to :action => 'compatibles', :id => @model
-  end
-
-#################################################################
-
   def images
   end
 
 #################################################################
+
+  def auto_complete
+    @models = current_inventory_pool.models.search(params[:query])
+    render :partial => 'auto_complete'
+  end
 
   private
   

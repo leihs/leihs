@@ -9,7 +9,7 @@
 							:title => _("User"),
 							:class => "iconized-notxt edit-user" ) %>
 				</td>
-				<td><%= _("%{n} Pakete") % {:n => contract.lines.size} %></td>
+				<td><%= _("%{n} Items") % {:n => contract.quantity} %></td>
 				<td class="buttons" nowrap>
 					Status: <%= contract.status_const %>
 					-

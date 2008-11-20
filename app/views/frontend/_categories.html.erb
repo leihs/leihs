@@ -8,9 +8,8 @@
 	  // create the tree
       var categories_panel = new Ext.tree.TreePanel({
         loader: new Ext.tree.TreeLoader({
-          url:'/models/categories',
-          requestMethod:'GET',
-          baseParams:{format:'ext_json'}
+          url:'/models/categories.ext_json',
+          requestMethod:'GET'
         }),
 		title: 'Categories',
 //        useArrows:true,
@@ -25,7 +24,7 @@
 			click: function( node, e ){
 				node.toggle();
 				models_grid.show();
-				models_store.load({params:{start:0, limit:25, category_id: node.id}});
+				models_store.load({params:{start:0, limit:25, category_id: node.id}}); // TODO 18** start and limit as default, then:  ({params:{category_id: node.id}});
 			}
 		}
       });

@@ -3,9 +3,8 @@
     var recent_models_store = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy(
 			new Ext.data.Connection({
-            	url: '/models',
-				method: 'GET',
-				extraParams: {format:'ext_json'}
+            	url: '/models.ext_json',
+				method: 'GET'
 			})
         ),
 

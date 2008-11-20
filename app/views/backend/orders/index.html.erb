@@ -10,8 +10,9 @@
 							:title => _("User"),
 							:class => "iconized-notxt edit-user" ) %>
 				</td>
-				<td><%= _("%{n} Pakete") % {:n => order.lines.size} %></td>
+				<td><%= _("%{n} Items") % {:n => order.quantity} %></td>
 				<td class="buttons" nowrap>
+					TODO TODO
 					<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"),
 							backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, order.user, order) %>
 					Status: <%= order.status_const %>

@@ -44,26 +44,23 @@ ActionController::Routing::Routes.draw do |map|
                                        :set_inventory_pools => :any }
 
   map.resource :order, :member => { :submit => :post,
-                                      :add_line => :post,
-                                      :change_line => :post,
-                                      :remove_lines => :post,
-                                      :change_time_lines => :post }
+                                    :add_line => :post,
+                                    :change_line => :post,
+                                    :remove_lines => :post,
+                                    :change_time_lines => :post }
                                       
   map.resources :models, :collection => { :categories => :any }
 
 ############################################################################
 
   map.namespace :backend do |backend|
-    backend.resources :barcodes, :member => { :index => :any, :new => :any } # TODO 06** to Ramon: not needed, are already rest methods
+    backend.resources :barcodes
 
 
     backend.resources :inventory_pools, :member => { :timeline => :get,
                                                      :timeline_visits => :get } do |inventory_pool|
-      #old# inventory_pool.resources :acknowledge # OPTIMIZE 03** only for index purpose
       inventory_pool.acknowledge 'acknowledge', :controller => 'acknowledge', :action => 'index'
-      #old# inventory_pool.resources :hand_over # OPTIMIZE 03** only for index purpose
       inventory_pool.hand_over 'hand_over', :controller => 'hand_over', :action => 'index'
-      #old# inventory_pool.resources :take_back # OPTIMIZE 03** only for index purpose
       inventory_pool.take_back 'take_back', :controller => 'take_back', :action => 'index'
   
       inventory_pool.resources :orders # TODO 07** also nest to user?

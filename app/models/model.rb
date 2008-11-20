@@ -30,7 +30,7 @@ class Model < ActiveRecord::Base
   end
   
   def remove_bidirectional_compatibility(compatible)
-    compatible.compatibles.delete(self) rescue nil
+    compatible.compatibles.delete(self) if compatible.compatibles.include?(self) #old# rescue nil
   end
 ########
 
@@ -49,7 +49,7 @@ class Model < ActiveRecord::Base
   #validates_length_of :name, :minimum => 1 #, :too_short => "please enter at least %d character", :if => Proc.new {|i| i.step == :step_item}
   validates_presence_of :name #, :if => Proc.new {|i| i.step == :step_item}
 
-  acts_as_ferret :fields => [ :name, :manufacturer, :category_names, :properties_values ], :store_class_name => true, :remote => true
+  acts_as_ferret :fields => [ :name, :manufacturer, :category_names, :properties_values, :items_inventory_codes ], :store_class_name => true, :remote => true
 
 #############################################  
 
@@ -134,4 +134,8 @@ class Model < ActiveRecord::Base
     properties.collect(&:value).uniq.join(" ")
   end
   
+  def items_inventory_codes
+    items.collect(&:inventory_code).join(" ")
+  end
+
 end

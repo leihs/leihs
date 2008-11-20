@@ -18,9 +18,8 @@
     var events_store = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy(
 			new Ext.data.Connection({
-            	url: '/users/visits',
-				method: 'GET',
-				extraParams: {format:'ext_json'}
+            	url: '/users/visits.ext_json',
+				method: 'GET'
 			})
         ),
 		autoLoad: true,

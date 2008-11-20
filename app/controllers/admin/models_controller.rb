@@ -12,7 +12,7 @@ class Admin::ModelsController < Admin::AdminController
     end    
 
     unless params[:query].blank?
-      @models = models.find_by_contents(params[:query], :page => params[:page], :per_page => $per_page)
+      @models = models.search(params[:query], :page => params[:page], :per_page => $per_page)
     else
       @models = models.paginate :page => params[:page], :per_page => $per_page
     end
@@ -105,7 +105,7 @@ class Admin::ModelsController < Admin::AdminController
 #################################################################
 
   def auto_complete(model = params[:model])
-    @models = Model.find_by_contents("*" + model[:name] + "*")
+    @models = Model.search(model[:query])
     render :partial => 'auto_complete'
   end
 
