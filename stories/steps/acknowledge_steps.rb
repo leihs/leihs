@@ -51,7 +51,6 @@ steps_for(:acknowledge) do
   end
      
   When "$who clicks '$action'" do | who, action |
-#old#    get send("backend_inventory_pool_#{action}_index_path", @inventory_pool)
     get send("backend_inventory_pool_#{action}_path", @inventory_pool)
     @orders_size = assigns(:to_acknowledge_size)
     @orders = assigns(:submitted_orders)
@@ -125,7 +124,6 @@ steps_for(:acknowledge) do
   end
   
   Then "$who sees $size order$s" do | who, size, s |
-#old#    get backend_inventory_pool_acknowledge_index_path(@inventory_pool)
     get backend_inventory_pool_acknowledge_path(@inventory_pool)
     @orders_size = assigns(:to_acknowledge_size)
     
