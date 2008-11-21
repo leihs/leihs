@@ -4,6 +4,9 @@ class Workday < ActiveRecord::Base
   DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
   
   def is_open_on?(date)
+    
+    return false if date.nil?
+    
     case date.wday
     when 1
       return monday

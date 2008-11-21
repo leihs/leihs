@@ -78,6 +78,8 @@ steps_for(:work_days) do
     post add_line_backend_inventory_pool_user_hand_over_path(@inventory_pool, @user, :model_id => Model.first.id, :quantity => 1)
                                
     @contract = assigns(:contract)
+    @contract.lines.size.should == 1
+    
   end
 
 	

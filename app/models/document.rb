@@ -35,7 +35,8 @@ class Document < ActiveRecord::Base
     d2.max
   end
   
-  def next_open_date(x = Date.today)
+  def next_open_date(x)
+    x = Date.today if x.nil?
     if inventory_pool
       while not inventory_pool.is_open_on?(x) do
         x += 1.day
