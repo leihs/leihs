@@ -2,7 +2,7 @@
 	<%= link_to _("Create New"), :action => 'new' %>
 </div>
 
-<% table_with_search_and_pagination :columns => ["", _("Model"), _("Inventory Code"), _("Serial Number"), _("Location"), _("Status"), _("In Stock?"), _("Action")],
+<% table_with_search_and_pagination :columns => ["", _("Model"), _("Inventory Code"), _("Serial Number"), _("Location"), _("Status"), _("In stock?"), _("Action")],
 						   			:records => @items do |item| %>	
 
 			<tr>
