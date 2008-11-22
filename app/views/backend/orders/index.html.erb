@@ -1,4 +1,4 @@
-<% table_with_search_and_pagination :columns => [_("Empfangen am"), _("Reservierender"), _("Anzahl Pakete"), _("Aktion")],
+<% table_with_search_and_pagination :columns => [_("Received at"), _("Reserver"), _("Number of items"), _("Action")],
 									:records => @orders do |order| %>	
 
 
@@ -13,7 +13,7 @@
 				<td><%= _("%{n} Items") % {:n => order.quantity} %></td>
 				<td class="buttons" nowrap>
 					TODO TODO
-					<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Überprüfen + Quittieren"),
+					<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Check + Acknowledge"),
 							backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, order.user, order) %>
 					Status: <%= order.status_const %>
 					-

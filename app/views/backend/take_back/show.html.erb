@@ -69,10 +69,10 @@
 				
 				<table cellspacing="0">
         	<tr>
-        		<th scope="col"><input type="checkbox"  id="options" onClick="mark_all(this, 'option_check', 'ghostable_group_2');" /> <%= _("Alle Markieren") %> </th>
-        		<th scope="col">Anzahl/Stückzahl</th>
-        		<th scope="col">Bezeichnung</th>
-        		<th scope="col">Aktion</th>
+        		<th scope="col"><input type="checkbox"  id="options" onClick="mark_all(this, 'option_check', 'ghostable_group_2');" /> <%= _("Check all") %> </th>
+        		<th scope="col">Number</th>
+        		<th scope="col">Description</th>
+        		<th scope="col">Action</th>
         	</tr>
 
           <% @user.contracts.signed_contracts.each do |c|
