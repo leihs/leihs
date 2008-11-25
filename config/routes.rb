@@ -56,7 +56,6 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :backend do |backend|
     backend.resources :barcodes
 
-
     backend.resources :inventory_pools, :member => { :timeline => :get,
                                                      :timeline_visits => :get } do |inventory_pool|
       inventory_pool.acknowledge 'acknowledge', :controller => 'acknowledge', :action => 'index'
@@ -66,6 +65,7 @@ ActionController::Routing::Routes.draw do |map|
       inventory_pool.resources :orders # TODO 07** also nest to user?
       inventory_pool.resources :contracts # TODO 07** also nest to user?
       inventory_pool.resources :locations
+      inventory_pool.resources :option_maps
       inventory_pool.resources :items, :collection => { :auto_complete => :get },
                                        :member => { :location => :get,
                                                     :set_location => :get,

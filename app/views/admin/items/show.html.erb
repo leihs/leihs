@@ -4,10 +4,11 @@
 	<% form_for [:admin, @item] do |f| %>
 		<%= f.hidden_field :step %>
 	
-		<ul>
-		<li><b>Inventory Code:</b> <%= f.text_field :inventory_code %></li>	
-		<li><b>Serial Number:</b> <%= f.text_field :serial_number %></li>
-		</ul>
+		<table>
+		<tr><td><b><%= _("Inventory Code:") %></b></td><td><%= f.text_field :inventory_code %></td></tr>
+		<tr><td><b><%= _("Serial Number:") %></b></td><td><%= f.text_field :serial_number %></td></tr>	
+		<tr><td><b><%= _("Required Level:") %></b></td><td><%= f.select :required_level, AccessRight::LEVELS %></td></tr>
+		</table>
 	
 		<%= submit_tag 'Submit' %>
 	<% end %>

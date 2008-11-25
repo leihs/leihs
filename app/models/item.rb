@@ -66,6 +66,10 @@ class Item < ActiveRecord::Base
   def is_package?
     children.size > 0
   end
+  
+  def borrowable_by?(user)
+    user.level_for(inventory_pool) >= required_level
+  end
 
   #######################
   #

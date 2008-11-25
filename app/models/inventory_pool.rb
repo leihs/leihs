@@ -30,6 +30,7 @@ class InventoryPool < ActiveRecord::Base
 
     
   has_many :locations
+  has_many :option_maps
   has_one  :main_location, :class_name => "Location", :conditions => {:main => true}  
   has_many :items, :through => :locations, :uniq => true
   has_many :models, :through => :items, :uniq => true

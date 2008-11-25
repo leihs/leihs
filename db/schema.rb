@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.integer  "role_id"
     t.integer  "user_id"
     t.integer  "inventory_pool_id"
+    t.integer  "level",             :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -138,6 +139,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.integer  "location_id"
     t.integer  "status_const",   :default => 1
     t.integer  "parent_id"
+    t.integer  "required_level", :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -202,8 +204,9 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   end
 
   create_table "option_maps", :force => true do |t|
-    t.string "barcode"
-    t.string "text"
+    t.integer "inventory_pool_id"
+    t.string  "barcode"
+    t.string  "text"
   end
 
   create_table "options", :force => true do |t|

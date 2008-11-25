@@ -1,0 +1,20 @@
+<div class="toolbar-second buttons">
+	<%= link_to _("Create New"), :action => 'new' %>
+</div>
+
+<% table_with_search_and_pagination :columns => [_("Barcode"), _("Text"), _("Action")],
+						   			:records => @option_maps do |option| %>	
+
+			<tr>
+				<td><%= option.barcode %></td>
+				<td><%= option.text %></td>
+				<td class="buttons" nowrap>
+					<ul>
+						<li><%= link_to _("Show"), {:action => 'show', :id => option} %></li>
+						<li><%= link_to _("Delete"), {:action => 'destroy', :id => option}, :confirm => _("Are you sure?"), :method => :delete %></li>
+					</ul>
+				</td>
+			</tr>
+
+<% end %>
+

@@ -1,4 +1,10 @@
 class AccessRight < ActiveRecord::Base
+
+  EVERYBODY = 1
+  PRIVILEGED = 5
+  
+  LEVELS = {_("Everybody") => EVERYBODY, _("Privileged") => PRIVILEGED}
+
   belongs_to :role
   belongs_to :user
   belongs_to :inventory_pool
