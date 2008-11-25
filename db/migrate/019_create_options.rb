@@ -10,6 +10,7 @@ class CreateOptions < ActiveRecord::Migration
     end
     
     create_table :option_maps do |t|
+      t.belongs_to :inventory_pool
       t.string :barcode
       t.string :text
     end

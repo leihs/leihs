@@ -1,0 +1,10 @@
+
+<% form_for [:backend, @current_inventory_pool, @option_map] do |f| %>
+
+	<table>
+	<tr><td><b>Barcode:</b></td><td><%= f.text_field :barcode %></td></tr>	
+	<tr><td><b>Text:</b></td><td><%= f.text_field :text %></td></tr>	
+	</table>
+
+	<%= submit_tag 'Submit' %>
+<% end %>

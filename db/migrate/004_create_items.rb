@@ -7,6 +7,7 @@ class CreateItems < ActiveRecord::Migration
       t.belongs_to :location #, :null => false
       t.integer :status_const, :default => Item::BORROWABLE
       t.integer :parent_id, :null => true # for package purpose
+      t.integer :required_level, :default => AccessRight::EVERYBODY
       t.timestamps
     end
     
