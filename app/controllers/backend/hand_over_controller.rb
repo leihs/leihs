@@ -92,6 +92,20 @@ class Backend::HandOverController < Backend::BackendController
     end
   end
 
+  def add_option
+    if request.post?
+      om = OptionMap.find(:first, :conditions => { :barcode => params[:option][:name] })
+      if om
+        @option = Option.create(:barcode => om.barcode, :name => om.text, :quantity => params[:option][:quantity], :contract => @contract)
+      else
+        @option = Option.new(params[:option])
+        @option.contract = @contract
+        @option.save
+      end
+    end
+    @no_actions = true
+    render :layout => $modal_layout_path
+  end
 
   def remove_options
      if request.post?

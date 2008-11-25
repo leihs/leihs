@@ -109,6 +109,7 @@ ActionController::Routing::Routes.draw do |map|
                                                       :swap_model_line => :any,
                                                       :time_lines => :any,
                                                       :sign_contract => :any,
+                                                      :add_option => :any,
                                                       :remove_options => :any,
                                                       :assign_inventory_code => :any,
                                                       :timeline => :get,
@@ -120,6 +121,7 @@ ActionController::Routing::Routes.draw do |map|
                                           :member => { :close_contract => :any,
                                                        :assign_inventory_code => :any,
                                                        :broken => :any,
+                                                       :remove_options => :any,
                                                        :timeline => :get }
       end
       inventory_pool.resources :workdays, :collection => { :close => :any,
