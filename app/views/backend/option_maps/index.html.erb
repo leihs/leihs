@@ -11,6 +11,7 @@
 				<td class="buttons" nowrap>
 					<ul>
 						<li><%= link_to _("Show"), {:action => 'show', :id => option} %></li>
+						<li><%= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => option.barcode}, :method => :post %></li>
 						<li><%= link_to _("Delete"), {:action => 'destroy', :id => option}, :confirm => _("Are you sure?"), :method => :delete %></li>
 					</ul>
 				</td>

@@ -87,6 +87,9 @@
   						<div class="toolbar-second">
   							<h3><%= _("Options") %></h3>
   							<div class="buttons">
+	    <%= greybox_link( image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add Option"),
+								 	{ :action => 'add_option' },
+									{:title => _("Add Option"), :callback => 'refresh_me' }) %>
   		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
   									{ :action => 'remove_options' },
   									:onmouseup => "change_href(this, 'option', 'option');",
