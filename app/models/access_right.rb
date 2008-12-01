@@ -16,9 +16,14 @@ class AccessRight < ActiveRecord::Base
   def to_s
     s = "#{role.name}"
     s += " for #{inventory_pool.name}" if inventory_pool
+    s += " (#{level_string})"
     s
   end
 
+  def level_string
+    n = LEVELS.index(level)
+    n.nil? ? level : n
+  end
 
   private
   
