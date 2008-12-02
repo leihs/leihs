@@ -11,5 +11,16 @@ steps_for(:login) do
     @inventory_pool = assigns(:current_inventory_pool)
     @last_inventory_manager_login_name = who
   end
+  
+  Given "User '$name' is a '$level' customer" do |name, level|
+    user = Factory.create_user({:login => name
+                                  #, :password => "pass"
+                                }, {:role => 'student'})
+    r = user.access_rights.first
+    r.level = AccessRight::LEVELS.index(level)
+    r.save
+    post "/session", :login => user.login
+  end
+
 
 end

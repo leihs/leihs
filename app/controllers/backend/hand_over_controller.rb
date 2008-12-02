@@ -86,7 +86,7 @@ class Backend::HandOverController < Backend::BackendController
         om = OptionMap.find(:first, :conditions => { :barcode => params[:code] })
         if om
           @option = Option.create(:barcode => om.barcode, :name => om.text, :quantity => 1, :contract => @contract)
-          render :action => 'add_option'
+          render :action => 'add_option_to_list'
         end   
       end
     end

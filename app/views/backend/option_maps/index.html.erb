@@ -8,7 +8,7 @@
 			<tr>
 				<td><%= option.barcode %></td>
 				<td><%= option.text %></td>
-				<td class="buttons" nowrap>
+				<td class="buttons" style="white-space: nowrap">
 					<ul>
 						<li><%= link_to _("Show"), {:action => 'show', :id => option} %></li>
 						<li><%= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => option.barcode}, :method => :post %></li>

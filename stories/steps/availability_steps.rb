@@ -41,6 +41,13 @@ steps_for(:availability) do
       @model.items[i].save
     end
   end
+
+  Given "$quantity items of this model are for '$level' customers only" do |quantity, level|
+    items = @model.items
+    quantity.to_i.times do |i|
+      items[i].required_level = AccessRight::LEVELS.index(level)
+    end
+  end
   
   When "$who checks availability for '$what'" do |who, model|
     @periods = @model.available_periods_for_inventory_pool(InventoryPool.first)
