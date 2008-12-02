@@ -63,5 +63,12 @@ steps_for(:inventory) do
     end
   end
 
+  Given "$number items of this model exist" do |number|
+    number.to_i.times do | i |
+      Factory.create_item(:model_id => @model.id)
+    end
+    @model = Model.find(@model.id)
+  end
+
 
 end
