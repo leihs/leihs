@@ -12,7 +12,7 @@
 				<td><%= location.inventory_pool.name %></td>
 				<td><%= location.main %></td>
 				<td><%= location.items.size %></td>
-				<td class="buttons" nowrap>
+				<td class="buttons" style="white-space: nowrap">
 					<ul>
 						<li><%= link_to _("Show"), {:action => 'show', :id => location} %></li>
 						<li><%= link_to _("Delete"), {:action => 'destroy', :id => location}, :confirm => 'Are you sure?', :method => :delete if location.items.empty? and !location.main %></li>
