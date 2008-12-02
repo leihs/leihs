@@ -35,6 +35,10 @@ class OrderLine < DocumentLine
     model.inventory_pools.any?{|ip| ip == order.inventory_pool }
   end
 
+  def document
+    order
+  end
+
   private
   
   # OPTIMIZE suggest best possible inventory pool according to the other order_lines

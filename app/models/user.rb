@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
 
 
   def level_for(ip)
-    ar = access_rights.detect { |ar| ar.role.id == 3 and ar.inventory_pool.id == ip.id}
+    ar = access_rights.detect { |ar| ar.role.id > 1 and ar.inventory_pool.id == ip.id}
     ar.nil? ? 0 : ar.level
   end
 

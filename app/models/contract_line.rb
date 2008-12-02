@@ -36,6 +36,10 @@ class ContractLine < DocumentLine
     item and returned_date.nil? and end_date < current_date
   end
   
+  def document
+    contract
+  end
+  
   private
     
   # validator

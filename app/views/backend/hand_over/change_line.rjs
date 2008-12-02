@@ -13,8 +13,20 @@ if @contract_line
   page["dates_#{@contract_line.id}"].innerHTML = "#{short_date(@contract_line.start_date)} - #{short_date(@contract_line.end_date)}" if bool
   
   page.alert("The start date has been changed") if @start_date_changed
-  
+
+
   page.replace_html 'errors', :partial => 'errors'
+  
 end
+
+if flash[:notice]
+  page.replace_html 'messages', '<div class="flash_notice">' + flash[:notice] + '</div>'
+end
+
+if flash[:error]
+  page.replace_html 'messages', '<div class="flash_error">' + flash[:error] + '</div>'
+end
+flash.discard if flash
+
 
 #page << "$('inventory_code').focus()"

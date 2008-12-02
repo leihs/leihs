@@ -45,17 +45,19 @@ steps_for(:availability) do
   Given "$quantity items of this model are for '$level' customers only" do |quantity, level|
     items = @model.items
     quantity.to_i.times do |i|
-      items[i].required_level = AccessRight::LEVELS.index(level)
+      items[i].required_level = AccessRight::LEVELS[level]
+      items[i].save
     end
   end
   
   When "$who checks availability for '$what'" do |who, model|
-    @periods = @model.available_periods_for_inventory_pool(InventoryPool.first)
+    @user = User.find_by_login(who)
+    @periods = @model.available_periods_for_inventory_pool(InventoryPool.first, nil)
   end
   
   When "$who checks availability for '$what' on $date" do |who, model, date|
     date = Factory.parsedate(date)
-    @periods = @model.available_periods_for_inventory_pool(InventoryPool.first, date)
+    @periods = @model.available_periods_for_inventory_pool(InventoryPool.first, @user, date)
   end
 	
 	Then "it should always be available" do
@@ -82,15 +84,15 @@ steps_for(:availability) do
 	end
   
   Then "the maximum available quantity on $date is $quantity" do |date, quantity|
-    @model.maximum_available_for_inventory_pool(Factory.parsedate(date), InventoryPool.first).should == quantity.to_i
+    @model.maximum_available_for_inventory_pool(Factory.parsedate(date), InventoryPool.first, @user).should == quantity.to_i
   end
   
   Then "if I check the maximum available quantity for $date is $quantity on $current_date" do |date, quantity, current_date|
-    @model.maximum_available_for_inventory_pool(Factory.parsedate(date), InventoryPool.first, Factory.parsedate(current_date)).should == quantity.to_i
+    @model.maximum_available_for_inventory_pool(Factory.parsedate(date), InventoryPool.first, @user, Factory.parsedate(current_date)).should == quantity.to_i
   end
   
   Then "the maximum available quantity from $start_date to $end_date is $quantity" do |start_date, end_date, quantity|
-    @model.maximum_available_in_period_for_inventory_pool(Factory.parsedate(start_date), Factory.parsedate(end_date), InventoryPool.first).should == quantity.to_i
+    @model.maximum_available_in_period_for_inventory_pool(Factory.parsedate(start_date), Factory.parsedate(end_date), InventoryPool.first, @user).should == quantity.to_i
   end
   
   
