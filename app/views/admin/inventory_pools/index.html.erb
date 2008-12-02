@@ -10,7 +10,7 @@
 				<td><%= inventory_pool.name %></td>
 				<td width="40%"><%= inventory_pool.description %></td>
 				<td><%= inventory_pool.items.size %></td>
-				<td class="buttons" nowrap>
+				<td class="buttons" style="white-space: nowrap">
 					<ul>
 						<li><%= link_to _("Show"), :action => 'show', :id => inventory_pool %></li>
 						<li><%= link_to _("Delete"), { :action => 'destroy', :id => inventory_pool },

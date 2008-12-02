@@ -16,7 +16,7 @@ module Backend::BackendHelper
 
       content_tag :div, :class => "table-overview", :id => "controller" do
 #          r = form_tag :url => { }, :method => :get do
-          r = "<form>"
+          r = "<form action=\"\">"
             filter_params = request.path_parameters.keys << "query"
             params.each {|k,v| r += hidden_field_tag(k, v) unless filter_params.include?(k) }
 

@@ -7,7 +7,7 @@
   background_highlight = is_open ? "#A5FF0A" : "#F4A3A3"
   location = url_for(:controller => 'workdays', :action => (is_open ? 'close' : 'open'), :day => day)
 %>
-<div class="workday <%= open_as_string(@workday.send(day)) %>" onMouseOver="this.style.backgroundColor='<%= background_highlight %>';" onMouseOut="this.style.backgroundColor='<%= background %>';" onClick="self.location='<%= location %>'">
+<div class="workday <%= open_as_string(@workday.send(day)) %>" onmouseover="this.style.backgroundColor='<%= background_highlight %>';" onmouseout="this.style.backgroundColor='<%= background %>';" onclick="self.location='<%= location %>'">
 
 	<%= _(day) %><br/><%= _(open_as_string(@workday.send(day)))%>
 
@@ -17,13 +17,16 @@
 </div>
 <h4><%= _("Holidays")%></h4>
 <% form_for :holiday, :url => { :action => 'add_holiday' } do |f| %>
-Start Date: <%= f.date_select(:start_date, :order => [:day, :month, :year])%>
+<p>Start Date: <%= f.date_select(:start_date, :order => [:day, :month, :year])%>
 End Date: <%= f.date_select(:end_date, :order => [:day, :month, :year])%>
 Name: <%= f.text_field(:name)%><%= submit_tag(_("Add"))%>
+</p>
+<% end %>
 
+<%if @holidays and @holidays.length > 0 %>
 <ul>
-<% end %>
-<% @holidays.each do |holiday| %>
-<li class="holiday"><%= link_to(image_tag($layout_public_path + "/images/icons/cancel.png"), :action => 'delete_holiday', :id => holiday.id) %> <%= short_date(holiday.start_date) %> - <%= short_date(holiday.end_date) %>: <%= holiday.name %></li>
-<% end %>
+	<% @holidays.each do |holiday| %>
+	<li class="holiday"><%= link_to(image_tag($layout_public_path + "/images/icons/cancel.png"), :action => 'delete_holiday', :id => holiday.id) %> <%= short_date(holiday.start_date) %> - <%= short_date(holiday.end_date) %>: <%= holiday.name %></li>
+	<% end %>
 </ul>
+<% end %>
