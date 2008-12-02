@@ -13,13 +13,12 @@ steps_for(:login) do
   end
   
   Given "User '$name' is a '$level' customer" do |name, level|
-    user = Factory.create_user({:login => name
+    @user = Factory.create_user({:login => name
                                   #, :password => "pass"
                                 }, {:role => 'student'})
-    r = user.access_rights.first
-    r.level = AccessRight::LEVELS.index(level)
+    r = @user.access_rights.first
+    r.level = AccessRight::LEVELS[level]
     r.save
-    post "/session", :login => user.login
   end
 
 

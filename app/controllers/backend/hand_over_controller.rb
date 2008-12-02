@@ -77,8 +77,15 @@ class Backend::HandOverController < Backend::BackendController
                                                                       :item_id => nil })
         unless contract_line.nil?
           params[:contract_line_id] = contract_line.id.to_s
+          flash[:notice] = "Inventory Code assigned"
+          if item.required_level > current_user.level_for(item.inventory_pool)
+            flash[:error] = "This item requires the user to be level " + item.required_level.to_s
+          end
           change_line
+        else
+          flash[:error] = "Inventory Code identifies an item that is not in this order."
         end
+
         render :action => 'change_line'
         
       else 
@@ -89,6 +96,7 @@ class Backend::HandOverController < Backend::BackendController
           render :action => 'add_option_to_list'
         end   
       end
+      
     end
   end
 

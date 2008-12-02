@@ -71,37 +71,37 @@ class Model < ActiveRecord::Base
 #############################################  
 
   def available_periods_for_document_line(document_line, current_time = Date.today)
-    create_availability(current_time, document_line, document_line.inventory_pool).periods
+    create_availability(current_time, document_line, document_line.inventory_pool, document_line.document.user).periods
   end
 
   # TODO *e* inventory_pools array ??
-  def available_periods_for_inventory_pool(inventory_pool, current_time = Date.today)
-    create_availability(current_time, nil, inventory_pool).periods
+  def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
+    create_availability(current_time, nil, inventory_pool, user).periods
   end
 
   # TODO *e* available_dates_for_inventory_pool method ??
   def available_dates_for_document_line(start_date, end_date, document_line, current_time = Date.today)
-    create_availability(current_time, document_line, document_line.inventory_pool).dates(start_date, end_date)
+    create_availability(current_time, document_line, document_line.inventory_pool, document_line.document.user).dates(start_date, end_date)
   end
   
   # TODO *e* maximum_available_for_document_line method ??
-  def maximum_available_for_inventory_pool(date, inventory_pool, current_time = Date.today)
-    create_availability(current_time, nil, inventory_pool).period_for(date).quantity
+  def maximum_available_for_inventory_pool(date, inventory_pool, user, current_time = Date.today)
+    create_availability(current_time, nil, inventory_pool, user).period_for(date).quantity
   end
   
   def maximum_available_in_period_for_document_line(start_date, end_date, document_line, current_time = Date.today)
     if (start_date.nil? && end_date.nil?)
       return items.size
     else
-      create_availability(current_time, document_line, document_line.inventory_pool).maximum_available_in_period(start_date, end_date)
+      create_availability(current_time, document_line, document_line.inventory_pool, document_line.document.user).maximum_available_in_period(start_date, end_date)
     end
   end  
 
-  def maximum_available_in_period_for_inventory_pool(start_date, end_date, inventory_pool, current_time = Date.today)
+  def maximum_available_in_period_for_inventory_pool(start_date, end_date, inventory_pool, user, current_time = Date.today)
     if (start_date.nil? && end_date.nil?)
       return items.size
     else
-      create_availability(current_time, nil, inventory_pool).maximum_available_in_period(start_date, end_date)
+      create_availability(current_time, nil, inventory_pool, user).maximum_available_in_period(start_date, end_date)
     end
   end  
 #############################################  
@@ -113,11 +113,12 @@ class Model < ActiveRecord::Base
 
   private
   
-  def create_availability(current_time, document_line, inventory_pool)    
+  def create_availability(current_time, document_line, inventory_pool, user)    
     i = self.items.find(:all,
                         :joins => :location,
-                        :conditions => ['status_const = ? AND locations.inventory_pool_id = ?',
-                                        Item::BORROWABLE, inventory_pool.id])
+                        :conditions => ['status_const = ? AND required_level <= ? AND locations.inventory_pool_id = ?',
+                                        Item::BORROWABLE, user.nil? ? 1 : user.level_for(inventory_pool), inventory_pool.id])
+                         
     r = DocumentLine.current_and_future_reservations(id, inventory_pool, document_line, current_time)
     
     a = Availability.new(i.size, Date.today, nil, current_time)
