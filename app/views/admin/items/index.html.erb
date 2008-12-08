@@ -12,7 +12,7 @@
 				<td><%= item.serial_number %></td>
 				<td><%= item.location.to_s if item.location %></td>
 				<td><%= item.status_const %></td>
-				<td class="line_valid_<%= item.in_stock? %>"><%= item.in_stock? %></td>
+				<td class="valid_<%= item.in_stock? %>"><%= item.in_stock? %></td>
 				<td class="buttons" style="white-space: nowrap">
 					<ul>
 						<li><%= link_to _("Show"), admin_item_path(item) %></li>

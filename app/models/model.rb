@@ -14,6 +14,10 @@ class Model < ActiveRecord::Base
   has_many :model_groups, :through => :model_links, :uniq => true
   has_many :categories, :through => :model_links, :source => :model_group, :conditions => {:type => 'Category'}
   has_many :templates, :through => :model_links, :source => :model_group, :conditions => {:type => 'Template'}
+  
+  # Packages
+  has_many :package_items, :through => :items, :source => :children
+
                 
 ########
   has_and_belongs_to_many :compatibles,
@@ -66,6 +70,11 @@ class Model < ActiveRecord::Base
     items.size == 1 and items.first.is_package?
   end
 
+#old#
+#  def package_items
+#    is_package? ? items.first.children : []
+#  end
+  
 #############################################  
 # Availability
 #############################################  

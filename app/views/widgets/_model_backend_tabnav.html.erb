@@ -1,4 +1,4 @@
-<i>Model</i>
+<i>Package</i>
 <hr />
 
 <% if @model.errors.size > 0 %>
@@ -59,10 +59,10 @@ render_tabnav :model_backend,
 		t.highlights_on :controller => 'backend/models', :action => 'index'
 	end
 
-	add_tab do |t|
-		t.named 'Availability *'
-		#t.links_to :action => 'availability', :id => @model.id
-	end
+#	add_tab do |t|
+#		t.named 'Availability *'
+#		#t.links_to :action => 'availability', :id => @model.id
+#	end
 
 
 end 

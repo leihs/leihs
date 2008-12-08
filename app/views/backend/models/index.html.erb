@@ -1,3 +1,74 @@
+<% # TODO 03** categories and nested layout %>
+
+<% unless request.xml_http_request? %>  
+  <%= stylesheet_link_tag "/javascripts/ext/resources/css/ext-all.css" %>
+  <%= javascript_include_tag "/javascripts/ext/adapter/prototype/ext-prototype-adapter.js" %>
+  <%= javascript_include_tag "/javascripts/ext/ext-all.js" %>
+
+<style type="text/css">
+.x-tree .x-panel-body {
+	background-color: transparent;
+}
+.x-tree-node .x-tree-node-over {
+	background-color: #CCCCCC;
+}
+</style>
+
+  <% javascript_tag do %>
+    start = function(){
+
+	  // create initial root node
+      var categories_root = new Ext.tree.AsyncTreeNode({
+        text: 'All',
+        id:'ynode-0',
+		leaf: false,
+		real_id: '0'
+      });
+	  
+	  var categories_loader = new Ext.tree.TreeLoader({
+	    url:'/models/categories.ext_json',
+	    requestMethod:'GET'
+	  });
+
+	  categories_loader.on("beforeload", function(treeLoader, node) {
+        treeLoader.baseParams.category_id = (node.attributes.real_id ? node.attributes.real_id : 0);
+      }, this);
+	      
+	  // create the tree
+      var categories_panel = new Ext.tree.TreePanel({
+        loader: categories_loader,
+		title: 'Categories',
+		collapsible: false,
+		border: false,
+		animate:true,
+		autoScroll:true,
+        root: categories_root,
+        rootVisible:true,
+		renderTo: 'categories',
+		hlColor: '#FF0000',
+		listeners: {
+			click: function( node, e ){
+				if(node.attributes.real_id != 0) node.toggle();
+				new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', parameters:'category_id=' + node.attributes.real_id}); return false;
+			}
+		}
+      });
+	  
+	  // expand invisible root node to trigger load
+      // of the first level of actual data
+      categories_root.expand();
+    };
+
+	Ext.onReady(start);
+  <% end %>
+  
+<table><tr>
+<td id="categories" style="vertical-align:top;" width="20%">
+
+</td>
+<td style="vertical-align:top;" width="80%">
+<% end %>  
+
 <% if @model %>
 	 <div class="toolbar-second">
 		<%# form_for [:backend, @current_inventory_pool, @model, :compatibles] do %>
@@ -45,3 +116,8 @@
 
 
 <% end %>
+
+<% unless request.xml_http_request? %>  
+</td>
+</tr></table>
+<% end %>  

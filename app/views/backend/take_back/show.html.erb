@@ -19,21 +19,7 @@
 			
 			<div id="meta" class="boxes">
 				<div id="meta-contract">
-					<table cellspacing="0">
-						<tr class="alt-row">
-							<td>
-								<%= _("Reserver") %>
-							</td> 
-							<td>
-								<%= greybox_link_to_page(@user.login,
-										backend_inventory_pool_user_path(@current_inventory_pool, @user, :layout => "modal"),
-										:title => _("User"),
-										:class => "iconized-notxt edit-user" ) %>
-								<br />
-								<%= render :partial => 'backend/users/resume' %>
-							</td>
-						</tr>
-					</table>	
+					<%= show_reserver(@user) %>
 				</div>
 				
 			</div>

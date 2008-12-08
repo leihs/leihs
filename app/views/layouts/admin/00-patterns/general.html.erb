@@ -46,14 +46,6 @@
 		<%= flash_helper %>
 
 <% # TODO 03** render tabs into nested layout %>
-<% if @inventory_pool %>
-	<% @tab = :inventory_pool_admin %>
-<% elsif @model %>
-	<% @tab = :model_admin %>
-<% elsif @category %>
-	<% @tab = :category_admin %>
-<% end %>
-
 <% if @tab %>
 	<% tabnav @tab do %>
 			<%= yield %>

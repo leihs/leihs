@@ -6,24 +6,21 @@
 			<%= @line.quantity %>
 		</td>
 		<td>
-			
 			<%  if @line.location %>
-			<% location = @line.location.building + "," + @line.location.room %>
+				<% location = @line.location.building + "," + @line.location.room %>
 				<%= image_tag($layout_public_path + "/images/icons/house.png", :title => _("Installed in: ") + location) %>
 			<% end %>
-			<%= greybox_link_to_page(@line.model.name,
-					backend_inventory_pool_model_path(@current_inventory_pool, @line.model, :layout => "modal"),
-					:title => _("Model"),
-					:class => "thickbox iconized-notxt edit-package" ) %>
+			<%= show_line_model(@line.model) %>
 		</td>
-		<td class="line_valid_<%= @line.available? %>">
+		<td class="valid_<%= @line.available? %>">
 			<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
 			 		{ :action => 'time_lines', :lines => @line.id },
 					:class => "thickbox iconized-notxt date-edit",
 					:id => "dates_#{@line.id}",
 					:title => _("Time Period") ) %>
 		</td>
-		<td id="inventory_code_<%= @line.id %>" class="line_valid_<%= @line.complete? %>">
+		<% b = @line.complete? %>
+		<td id="inventory_code_<%= @line.id %>" class="valid_<%= b %>" title="<%= @line.complete_tooltip unless b %>">
 			<% @item = @line.item %>
 			<%= text_field_with_auto_complete :item, :inventory_code,
 											{ :id => "line_item_inventory_code_#{@line.id}",

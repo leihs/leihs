@@ -6,7 +6,7 @@ page['line_quantity_' + params[:order_line_id]].value = @order_line.quantity
 #css_class = (@maximum_exceeded ? 'maximum_exceeded' : '')
 #page << "$('line_quantity_#{params[:order_line_id]}').className='#{css_class}'"
 
-css_class = "line_valid_#{@order_line.available?}"
+css_class = "valid_#{@order_line.available?}"
 page << "$('line_dates_#{params[:order_line_id]}').className='#{css_class}'"
 
 

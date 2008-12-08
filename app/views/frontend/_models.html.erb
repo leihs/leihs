@@ -11,7 +11,9 @@
 					   {name: 'inventory_pools'},
 					   {name: 'compatibles'},
 					   {name: 'accessories'},
-					   {name: 'images'}
+					   {name: 'images'},
+					   {name: 'is_package', mapping: 'is_package?', type: 'boolean'},
+					   {name: 'package_items'}					   
 		        ]
 		    });
 
@@ -29,8 +31,9 @@
 				if(store.lastOptions && store.lastOptions.params.category_id && !options.params.category_id){
 					options.params.category_id = store.lastOptions.params.category_id;
 				}
-//temp//				models_tbar_label.setText((options.params.category_id ? ' Category: ' + categories_panel.nodeHash[options.params.category_id].attributes.name : ''));
-				models_tbar_label.setText((options.params.category_id ? ' Category: ' + categories_panel.nodeHash[options.params.category_id].text : ''));
+			},
+			load: function(store, options){
+				models_tbar_label.setText(categories_panel.selModel.selNode ? categories_panel.selModel.selNode.text : 'All');
 			}
 	 	},
         remoteSort: true // turn on remote sorting
@@ -48,7 +51,10 @@
         },{
            header: "Manufacturer",
            dataIndex: 'manufacturer',
-           width: 200
+           width: 200,
+ 		   renderer: function(value, metadata, record){
+		   				return (record.data.is_package ? '<img src="<%= $layout_public_path + "/images/icons/package_green.png" %>" />' : value);
+					 }
         },{
            header: "Inventory Pool",
            dataIndex: 'inventory_pools',
@@ -61,10 +67,21 @@
 							n.push(value[i].name)
 						return n.join(", ");
 					 }
+        }, {header: "",
+			width: 50,
+			fixed: true,
+			dataIndex: '',
+			align: 'center',
+			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/add.png" %>" style="cursor: pointer;" />';}
 		}]);
 
     // by default columns are sortable
     models_cm.defaultSortable = true;
+
+	var models_search_field = new Ext.app.SearchField({
+					                store: models_store,
+					                width: 320
+					            });
 
     var models_grid = new Ext.grid.GridPanel({
         title:'Models',
@@ -80,20 +97,19 @@
 //			activate: function(cmp) {
 //				if(models_store.getCount() == 0) models_store.load(); //({params:{start:0, limit:25}});
 //			},
-			rowclick: function( grid, rowIndex, e ){
+			cellclick: function( grid, rowIndex, columnIndex, e ){
 			  model_id = grid.getStore().getAt(rowIndex).id;
-			  add_model_details(model_id);
+			  model_tab = add_model_details(model_id);
+			  if (columnIndex == grid.colModel.config.length - 1) {
+			  	model_tab.activate(model_tab.items.length - 1);
+			  }
 			}
 		},
         tbar: [
-            'Search: ', ' ',
-            new Ext.app.SearchField({
-                store: models_store,
-                width: 320
-            }), ' ',
-			models_tbar_label= new Ext.form.Label({
-				text: ''
-			})
+            'Search: ',
+			models_search_field,
+            ' Category: ',
+			models_tbar_label= new Ext.form.Label({ text: 'All' })
         ],
 		bbar: new Ext.PagingToolbar({
             pageSize: 25,
@@ -117,6 +133,8 @@
 			collapsible: true,
 			collapsed: true,
 			split: true,
+			resizeTabs: true,
+			tabWidth: 300,
 			height: 290 //, // 'auto'
 		});
 
@@ -140,8 +158,9 @@ function add_model_details(model_id){
 			reader: model_reader,
 			listeners: { datachanged: function(){
 					model_tab.setTitle(this.data.items[0].data.name);
-					model_store_compatibles[model_id].loadData(this.reader.jsonData['models'][0]);
-					model_store_ips[model_id].loadData(this.reader.jsonData['models'][0]);
+					var modelData = this.reader.jsonData['models'][0];
+					model_store_compatibles[model_id].loadData(modelData);
+					model_store_ips[model_id].loadData(modelData);
 				}
 		 	}
 		});
@@ -170,15 +189,19 @@ function add_model_details(model_id){
 			}, {
 				name: 'name',
 				type: 'string'
+			}, {
+				name: 'items_size',
+				type: 'int'
+			}, {
+				name: 'name_and_items_size', // TODO 01** provide name_and_items_size directly in extjs
+				type: 'string'
 			}]
 		});
 		
 		var model_tab = new Ext.TabPanel({
 			id: model_id,
-			//		region: 'south',
-			//		split: true,
-			//		height: 220,
 			title: ' ', //model_id,
+			iconCls:'icon-model',
 			autoScroll: true,
 			activeTab: 0,
 			closable: true,
@@ -190,12 +213,13 @@ function add_model_details(model_id){
 				xtype: 'dataview',
 				title: 'Details',
 				loadingText: "Loading...",
-				tpl: new Ext.XTemplate('<tpl for=".">', '<div>{name}<br />{manufacturer}', '<tpl if="images[0]" for="images[0]">', '<div class="model_image"><img src="{public_filename_thumb}"></div>', '</tpl>', '</tpl>', '</tpl>')
-			}, {
-				xtype: 'dataview',
-				title: 'Images',
-				itemSelector: 'div.model_image',
-				tpl: new Ext.XTemplate('<tpl for=".">', '<tpl for="images">', '<div class="model_image"><img src="{public_filename_thumb}"></div>', '</tpl>', '</tpl>')
+				tpl: new Ext.XTemplate('<tpl for=".">', '<div>{name}<br />{manufacturer}',
+											'<tpl if="package_items.length">',
+												'<br />Package: <ul><tpl for="package_items">',
+							            			'<li>{inventory_code}, <tpl for="model">{name}, {manufacturer}</tpl></li>',
+								        		'</tpl></ul>',
+							        		'</tpl>',
+										'<div class="model_images"><tpl for="images">', '<img src="{public_filename_thumb}">', '</tpl></div>', '</tpl>', '</tpl>')
 			}, {
 				xtype: 'dataview',
 				title: 'Properties',
@@ -206,11 +230,6 @@ function add_model_details(model_id){
 				title: 'Accessories',
 				itemSelector: 'div.model_accessory',
 				tpl: new Ext.XTemplate('<tpl for=".">', '<tpl for="accessories">', '<div class="model_accessory">{name}</div>', '</tpl>', '</tpl>')
-			}, {
-				xtype: 'dataview',
-				title: 'Inventory Pools',
-				itemSelector: 'div.model_inventory_pool',
-				tpl: new Ext.XTemplate('<tpl for=".">', '<tpl for="inventory_pools">', '<div class="model_inventory_pool">{name}: ({items_size})</div>', '</tpl>', '</tpl>')
 			}, {
 				xtype: 'grid',
 				listeners: {
@@ -223,9 +242,7 @@ function add_model_details(model_id){
 					}
 				},
 				title: 'Compatibles',
-				viewConfig: {
-					forceFit: true
-				},
+				viewConfig: { forceFit: true },
 				loadMask: true,
 				autoscroll: true,
 				store: model_store_compatibles[model_id],
@@ -241,6 +258,7 @@ function add_model_details(model_id){
 			}, {
 				xtype: 'form',
 				title: 'Add',
+				iconCls:'icon-add',
 				//			renderTo: document.body,
 				//			viewConfig: { forceFit: true },
 				//			hidden: true,
@@ -282,11 +300,14 @@ function add_model_details(model_id){
 							triggerAction: 'all',
 							store: model_store_ips[model_id],
 							allowBlank: false,
-							displayField: "name",
+							displayField: "name_and_items_size",
 							valueField: "id",
 							hiddenName: 'inventory_pool_id',
 							editable: false,
-							anchor: '90%'
+							anchor: '90%',
+							listeners: {
+								render: function(combo){ if(combo.store.data.items[0]) combo.setValue(combo.store.data.items[0].id); } // OPTIMIZE 08** select last selected inventory_pool 
+							}
 						}
 					}, {
 						columnWidth: .3,
@@ -341,7 +362,7 @@ function add_model_details(model_id){
 			/// end form						
 			}]
 		});
-		
+
 		model_store[model_id].load();
 
 		model_details.add(model_tab);
@@ -350,5 +371,5 @@ function add_model_details(model_id){
 	model_details.activate(model_tab);
 	model_details.doLayout();
 
-
+	return model_tab;
 } // end function

@@ -7,10 +7,11 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>Leihs 2.0 (Backend)</title>
 		
-	<%= stylesheet_link_tag $layout_public_path +"/css/general.css", :media => "all" %>
+	<%= stylesheet_link_tag $layout_public_path + "/css/general.css", :media => "all" %>
+	<%= stylesheet_link_tag "/javascripts/tooltips/tooltips.css", :media => "screen" %>
 
 	<%= greybox_head('/javascripts/greybox') %>
-	<%= javascript_include_tag :defaults %>
+	<%= javascript_include_tag :defaults, "tooltips/tooltips", "tooltips/builder" %>
 </head>
 
 <body>
@@ -47,12 +48,6 @@
 		<%= flash_helper %>
 				
 <% # TODO 03** render tabs into nested layout %>
-<% if (params[:controller] == "backend/models" or params[:model_id]) and @model %>
-	<% @tab = :model_backend %>
-<% elsif (params[:controller] == "backend/items" or params[:item_id]) and @item %>
-	<% @tab = :item_backend %>
-<% end %>
-
 <% if @tab %>
 	<% tabnav @tab do %>
 			<%= yield %>
@@ -67,6 +62,7 @@
 	
 	</div>
 	
+<%= enable_tooltip %>
 		
 </body>
 </html>

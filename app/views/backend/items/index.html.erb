@@ -7,7 +7,7 @@
 				<td><%= item.serial_number %></td>
 				<td><%= item.location.to_s %></td>
 				<td><%= item.status_const %></td>
-				<td class="line_valid_<%= item.in_stock? %>"><%= item.in_stock? %></td>
+				<td class="valid_<%= item.in_stock? %>"><%= item.in_stock? %></td>
 				<td class="buttons" style="white-space: nowrap">
 					<%= link_to _("Show"), :action => 'show', :id => item %>
 				</td>

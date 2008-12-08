@@ -923,3 +923,6 @@ body.x-body-masked .x-window-plain .x-window-mc{background:#C7D6E9;}
 .x-slider-vert .x-slider-thumb-over{background-position:-15px -14px;}
 .x-slider-vert .x-slider-thumb-drag{background-position:-30px -28px;}
 
+/* leihs */
+.icon-model { background: url(/layouts/00-patterns/images/icons/package.png) 0 4px no-repeat !important;} 
+.icon-add { background: url(/layouts/00-patterns/images/icons/add.png) 0 4px no-repeat !important;} 

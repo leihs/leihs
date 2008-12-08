@@ -1,0 +1,12 @@
+
+	<b><%= @model.items.first.location.inventory_pool.name %>:</b> <%= @model.items.first.location.building %>, <%= @model.items.first.location.room %>, <%= @model.items.first.location.shelf %>
+
+	<hr />
+	<%= _("Set different location") %>:
+		<ul>
+		<% @current_inventory_pool.locations.each do |l| %>
+			<li><b><%= l.inventory_pool.name %>:</b> <%= l.building %>, <%= l.room %>, <%= l.shelf %>
+											 <%= link_to _('Set'), :action => 'set_package_location', :location_id => l %></li>
+		<% end %>
+		</ul>
+	

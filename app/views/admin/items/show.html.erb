@@ -1,6 +1,4 @@
 
-<% tabnav :item_admin do %>
-
 	<% form_for [:admin, @item] do |f| %>
 		<%= f.hidden_field :step %>
 	
@@ -12,5 +10,3 @@
 	
 		<%= submit_tag 'Submit' %>
 	<% end %>
-
-<% end %>

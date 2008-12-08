@@ -56,19 +56,17 @@ class Backend::TakeBackController < Backend::BackendController
   
   # given an inventory_code, searches for the matching contract_line
   def assign_inventory_code
-    if request.post?
-      item = current_inventory_pool.items.find(:first, :conditions => { :inventory_code => params[:code] })
-      unless item.nil?
-        contract_lines = @user.get_signed_contract_lines
-    
-        contract_lines.sort! {|a,b| a.end_date <=> b.end_date} # TODO select first to take back
-        @contract_line = contract_lines.detect {|cl| cl.item_id == item.id }
-        @contract_line.update_attribute :start_date, Date.today
+    item = current_inventory_pool.items.find(:first, :conditions => { :inventory_code => params[:code] })
+    unless item.nil?
+      contract_lines = @user.get_signed_contract_lines
+  
+      contract_lines.sort! {|a,b| a.end_date <=> b.end_date} # TODO select first to take back
+      @contract_line = contract_lines.detect {|cl| cl.item_id == item.id }
+      @contract_line.update_attribute :start_date, Date.today
 
-        @contract = @contract_line.contract # TODO optimize errors report
-      end
-      render :action => 'change_line'
+      @contract = @contract_line.contract # TODO optimize errors report
     end
+    render :action => 'change_line'
   end
 
   def broken

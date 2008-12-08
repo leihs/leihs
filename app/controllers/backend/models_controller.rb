@@ -5,13 +5,16 @@ class Backend::ModelsController < Backend::BackendController
   def index
     models = current_inventory_pool.models
 
-    if @model
-      models = models & @model.compatibles
-    end    
+    models = models & @model.compatibles if @model
 
     case params[:filter]
       when "packages"
         models = models.packages
+    end
+
+    if params[:category_id] and params[:category_id].to_i != 0
+      category = Category.find(params[:category_id].to_i)
+      models = models & (category.children.recursive.to_a << category).collect(&:models).flatten
     end
     
     unless params[:query].blank?
@@ -21,12 +24,16 @@ class Backend::ModelsController < Backend::BackendController
     end
     
     render :layout => $modal_layout_path if params[:layout] == "modal"
+    render :layout => !request.xml_http_request? # TODO 04**
   end
 
   def show
-    redirect_to :action => 'show_package', :model_id => @model if @model.is_package?
-    # TODO 30** remove 'details' view. refactor widget_tabs
-    render :action => 'details', :layout => $modal_layout_path if params[:layout] == "modal"
+    if @model.is_package?
+      redirect_to :action => 'show_package', :layout => params[:layout]
+    else
+      # TODO 30** remove 'details' view. refactor widget_tabs
+      render :action => 'details', :layout => $modal_layout_path if params[:layout] == "modal"
+    end
   end
   
   def create
@@ -52,7 +59,10 @@ class Backend::ModelsController < Backend::BackendController
   
 #################################################################
 
+  # TODO 04** refactor in a dedicated controller?
+
   def show_package 
+    render :layout => $modal_layout_path if params[:layout] == "modal"
   end
 
   def new_package
@@ -69,14 +79,29 @@ class Backend::ModelsController < Backend::BackendController
     redirect_to :action => 'show_package', :id => @model
   end
 
+  def show_package_items
+    render :layout => $modal_layout_path if params[:layout] == "modal"
+  end
+
   def add_package_item
+    # OPTIMIZE 03** @model.package_items << @item
     @model.items.first.children << @item
-    redirect_to :action => 'show_package', :id => @model
+    redirect_to :action => 'show_package_items', :id => @model
   end
 
   def remove_package_item
+    # OPTIMIZE 03** @model.package_items.delete(@item)
     @model.items.first.children.delete(@item)
-    redirect_to :action => 'show_package', :id => @model
+    redirect_to :action => 'show_package_items', :id => @model
+  end
+
+  def show_package_location
+    #render :layout => false
+  end
+  
+  def set_package_location
+    @model.items.first.update_attribute(:location, current_inventory_pool.locations.find(params[:location_id]))
+    redirect_to :action => 'show_package_location', :id => @model
   end
 
 #################################################################
@@ -128,6 +153,14 @@ class Backend::ModelsController < Backend::BackendController
     @model = current_inventory_pool.models.find(params[:model_id]) if params[:model_id]
     @item = current_inventory_pool.items.find(params[:item_id]) if params[:item_id]
     @model = @item.model if @item and !@model
+    
+    if @model
+      if @model.is_package?
+        @tab = :package_backend
+      else
+        @tab = :model_backend
+      end
+    end
   end
 
 end

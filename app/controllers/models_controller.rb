@@ -1,7 +1,7 @@
 class ModelsController < FrontendController
 
   # TODO prevent sql injection
-  def index( category_id = params[:category_id], # TODO 18** nested route ?
+  def index( category_id = params[:category_id].to_i, # TODO 18** nested route ?
              start = (params[:start] || 0).to_i,
              limit = (params[:limit] || 25).to_i,
              query = params[:query],
@@ -23,7 +23,7 @@ class ModelsController < FrontendController
       conditions << current_inventory_pools 
     end
 
-    if category_id
+    if category_id and category_id != 0
       category = Category.find(category_id)
 #old#   models = (category.children.recursive.to_a << category).collect(&:models).flatten & models
       m_ids= (category.children.recursive.to_a << category).collect(&:models).flatten.uniq.collect(&:id)
@@ -47,6 +47,7 @@ class ModelsController < FrontendController
     respond_to do |format|
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
+                                                            :methods => [:is_package?],
                                                             :except => [ :maintenance_period,
                                                                          :created_at,
                                                                          :updated_at ],
@@ -63,7 +64,8 @@ class ModelsController < FrontendController
   end  
 
   # OPTIMIZE interesections
-  def categories(id = params[:node].to_i)
+  # TODO 03** refactor to categories_controller ??
+  def categories(id = params[:category_id].to_i)
     if id == 0 
       c = Category.roots
 #      c = current_user.categories.roots
@@ -75,7 +77,10 @@ class ModelsController < FrontendController
 #      c = current_user.all_categories.find(id).children
     end
     respond_to do |format|
-      format.ext_json { render :json => c.to_json(:methods => [[:text, id], :leaf]) } # .to_a.to_ext_json
+      format.ext_json { render :json => c.to_json(:methods => [[:text, id],
+                                                               :leaf,
+                                                               :real_id],
+                                                  :except => [:id]) } # .to_a.to_ext_json
     end
   end
   
@@ -91,6 +96,11 @@ class ModelsController < FrontendController
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
                                                             :include => {
+                                                                :package_items => { :except => [:created_at,
+                                                                                                :updated_at,
+                                                                                                :parent_id,
+                                                                                                :model_id],
+                                                                                    :include => [:model]},
                                                                 :properties => { :except => [:created_at,
                                                                                              :updated_at] },
                                                                 :accessories => { :except => [:model_id] },
@@ -100,7 +110,8 @@ class ModelsController < FrontendController
                                                                                              :model_id,
                                                                                              :compatible_id] },
                                                                 :inventory_pools => { :records => current_inventory_pools,
-                                                                                      :methods => [[:items_size, @model.id]], # OPTIMIZE include availability for today?
+                                                                                      :methods => [[:items_size, @model.id], # OPTIMIZE include availability for today?
+                                                                                                   [:name_and_items_size, @model.id]], # TODO 01** provide name_and_items_size directly in extjs
                                                                                       :only => [:id, :name] },
                                                                 :images => { :methods => [:public_filename_thumb],
                                                                              :except => [:created_at,

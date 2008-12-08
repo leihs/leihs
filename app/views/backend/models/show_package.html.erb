@@ -11,35 +11,5 @@
 	<%= submit_tag 'Submit' %>
 <% end %>
 
-TODO: Set Location
-
-<% unless @model.items.empty? %>
-	<br />
-	<ul>
-	<% @model.items.first.children.each do |i| %>
-		<li>
-			<b><%= i.model.name %></b>, <%= i.model.manufacturer %>, <%= i.inventory_code %>
-			<%= link_to _('Remove'),
-						:action => 'remove_package_item',
-						:id => @model,
-						:item_id => i %>
-		</li>
-	<% end %>
-	</ul>
-		
-
-	<hr />
-	<% form_for [:backend, @model], :url => { :action => 'add_package_item' } do |f| %>
-
-		<%= _("Add more items") %>:
-		<%= model_auto_completer ("query", nil, "item_id", nil,
-									{ :url => {:controller => 'items', :action => 'auto_complete'}, :submit_on_return => true },
-									{ :size => 40 },
-									{ :method => :get, :select => :name }) %>
-
-
-		<%= submit_tag 'Submit' %>
-	<% end %>
-
-<% end %>
-	
+<hr />
+TODO: Set Category
