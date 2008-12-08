@@ -5,33 +5,23 @@
 	@lines.each do	|l|
 	      d1 << l.start_date
     	  d2 << l.end_date
-								%>
+	%>
 		<%= "Quantity: #{l.quantity}" %>
 		<br />			
 		<%= "Model: #{l.model.name}" %>
 		<br />
 		<%= "#{short_date l.start_date} - #{short_date l.end_date}" %>
-		<br />
-		<br />
+		<hr />
 	<% end %>
-
-	<script type="text/javascript">
-		function changeDate(type, y, m, d){
-			document.getElementById('line_' + type + '_date_1i').value = y;
-			document.getElementById('line_' + type + '_date_2i').value = m;
-			document.getElementById('line_' + type + '_date_3i').value = d;
-			
-			// TODO 
-			//Element.removeClassName('20080911', 'selected_date');
-			// TODO
-			//Element.addClassName('20080911', 'selected_date');
-
-		}
-	</script>
 	
 	<style type="text/css">
+		/*
 		.selectable_date {
-			cursor: crosshair;
+			cursor: hand;
+		}
+		*/
+		.selectable_date_over {
+			background-color: #DDDDDD;
 		}
 		.selected_date {
 			border-bottom: 2px solid black;
@@ -50,59 +40,91 @@
 		
 		End: <%= date_select("line", "end_date", :default => d2.max, :order => [:day, :month, :year]) %>
 
-	<br />		
-	<% if @lines.length == 1 %>
-	<div class="availability_overview">
-	<table>
-		<tr class="availability">
-			<td><%= _("Month")%></td>
-			<% 1.upto(31) do |i|%>
-			<td><%= i%></td>
+		<br />
+		<br />
+		<div id="select_text" style="font-size: large;"></div>
+		<br />
+		
+		<% if @lines.length == 1 %>
+		<table class="availability_overview">
+			<tr class="availability">
+				<td><%= _("Month")%></td>
+				<% 1.upto(31) do |i|%>
+				<td><%= i%></td>
+				<% end %>
+			</tr>
+			<% 
+				l = @lines.first
+				current_date = Date.today
+				availability = l.model.available_dates_for_document_line(current_date.beginning_of_month, (current_date + 6.month).end_of_month, l, current_date.beginning_of_month)
+				last_quantity = -1
+				availability.each do |a| 
+			%>
+				<%= "<tr class='availability'><td>#{a[0].strftime('%B')}" if 1 == a[0].day %>
+					<% if a[0] < current_date %>
+						<td></td>
+					<% else %>
+						<% 
+							color = a[1]
+							color = 0 if color < 0
+							color = 5 if color > 5
+		
+							c = "with_tooltip available_" + color.to_s + " selectable_date"
+							c += " selected_date" if a[0].between?(d1.min, d2.max)
+							c += " selected_date_start" if a[0].eql?(d1.min)
+							c += " selected_date_end" if a[0].eql?(d2.max)
+						%>
+						<td id="<%= a[0].strftime('%Y%m%d') %>"
+							title="<%= a[0].strftime('%d.%m.%Y') %>"
+							class="<%= c %>" 
+							onclick="changeDate(<%= "#{a[0].year}, #{a[0].month}, #{a[0].day}" %>);"
+							onmouseover="this.addClassName('selectable_date_over');"
+							onmouseout="this.removeClassName('selectable_date_over');">
+							<%= a[1] if a[1] != last_quantity %>
+						</td>
+						<% 
+						last_quantity = a[1]
+					end %>
+				<%= "</tr>" if a[0].end_of_month == a[0] %>
 			<% end %>
-		</tr>
-		<% 
-			l = @lines.first
-			current_date = Date.today
-			availability = l.model.available_dates_for_document_line(current_date.beginning_of_month, (current_date + 6.month).end_of_month, l, current_date.beginning_of_month)
-			last_quantity = -1
-			availability.each do |a| 
-		%>
-		<%= "<tr class='availability'><td>#{a[0].strftime('%B')}" if 1 == a[0].day %>
-			<% if a[0] < current_date %>
-				<td></td>
-			<% else %>
-				<% 
-					color = a[1]
-					color = 0 if color < 0
-					color = 5 if color > 5
-				%>
-				<td id="<%= a[0].strftime('%Y%m%d') %>"
-					class="<%= "available_" + color.to_s %>
-						   <%= " selectable_date" %>
-						   <%= " selected_date" if a[0].between?(d1.min, d2.max) %>
-						   <%= " selected_date_start" if a[0].eql?(d1.min) %>
-						   <%= " selected_date_end" if a[0].eql?(d2.max) %>" 
-					onmousedown="changeDate('start', <%= "#{a[0].year}, #{a[0].month}, #{a[0].day}" %>);"
-					onmouseup="changeDate('end', <%= "#{a[0].year}, #{a[0].month}, #{a[0].day}" %>);">
-					<%= a[1] if a[1] != last_quantity %>
-				</td>
-				<% 
-				last_quantity = a[1]
-			end %>
-		<%= "</tr>" if a[0].end_of_month == a[0] %>
-	<% end %>
-	</table>
-	</div>
-	<% end %>
-	<div class="buttons">
-
-
-		<%=	submit_button(_("Confirm"),
-				:img => $layout_public_path + "/images/icons/date_edit.png",
-				:class => 'negative' ) %>
-					 
-		<%=	cancel_popup_button(_("Cancel") ) %>
-	</div>	
-
-	<% end %>	
+		</table>
+		<% end %>
 	
+			<br />
+			<div class="buttons">
+				<%=	submit_button(_("Confirm"),
+						:img => $layout_public_path + "/images/icons/date_edit.png",
+						:class => 'negative' ) %>
+							 
+				<%=	cancel_popup_button(_("Cancel") ) %>
+			</div>	
+
+	<% end %>
+	
+ <script type="text/javascript">
+		var clicks = 0;
+		
+		function toggle_select_text(){
+			$('select_text').innerHTML = (clicks % 2 ? "Select end date:" : "Select start date:");
+		}
+		
+		function changeDate(y, m, d){
+			clicks++;
+			var type = (clicks % 2 ? 'start' : 'end');
+			
+			document.getElementById('line_' + type + '_date_1i').value = y;
+			document.getElementById('line_' + type + '_date_2i').value = m;
+			document.getElementById('line_' + type + '_date_3i').value = d;
+			
+			toggle_select_text();
+			
+			// TODO
+			// prevent end_date < start_date
+						
+			// TODO 
+			//Element.removeClassName('20080911', 'selected_date');
+			//Element.addClassName('20080911', 'selected_date');
+		}
+		
+		toggle_select_text();
+</script>

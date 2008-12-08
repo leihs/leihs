@@ -115,6 +115,8 @@ class Admin::ModelsController < Admin::AdminController
     params[:id] ||= params[:model_id] if params[:model_id]
     @model = Model.find(params[:id]) if params[:id]
     @category = Category.find(params[:category_id]) if params[:category_id]
+
+    @tab = :model_admin if @model
   end
   
   

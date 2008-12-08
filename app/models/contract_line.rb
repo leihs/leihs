@@ -16,6 +16,15 @@ class ContractLine < DocumentLine
     !self.item.nil? and self.valid? and self.available?
   end
 
+  # TODO 04** merge in complete? 
+  def complete_tooltip
+    r = ""
+    r += _("item not assigned. ") unless !self.item.nil?
+    r += _("not valid. ") unless self.valid? # TODO 04** self.errors.full_messages
+    r += _("not available. ") unless self.available?
+    return r
+  end
+
 ##################################################
 
   before_save { |record| 

@@ -52,7 +52,16 @@ class DocumentLine < ActiveRecord::Base
     model.maximum_available_in_period_for_document_line(start_date, end_date, self) >= quantity and 
                   inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)
   end
-  
+
+  # TODO 04** merge in available? 
+  def available_tooltip
+    r = ""
+    r += _("quantity not available. ") unless model.maximum_available_in_period_for_document_line(start_date, end_date, self) >= quantity
+    r += _("inventory pool is closed on start_date. ") unless inventory_pool.is_open_on?(start_date)
+    r += _("inventory pool is closed on end_date. ") unless inventory_pool.is_open_on?(end_date)
+    return r
+  end
+
 
   private
   

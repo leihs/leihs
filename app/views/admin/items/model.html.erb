@@ -1,6 +1,4 @@
 
-<% tabnav :item_admin do %>
-
 	<% if @item.model %>
 		<ul>
 			<li><b>Name:</b> <%= @item.model.name %></li>
@@ -24,5 +22,3 @@
 	<%= greybox_link_to_page(_('Create new model (TODO and assign)'),
 		 	new_admin_model_path,
 			:title => _("Model"), :width => 850 ) %>
-
-<% end %>

@@ -51,7 +51,7 @@ Id: <%= @model.id %>
 Items:
 <ul>
 <% @model.items.each do |i| %>
-	<li class="line_valid_<%= i.in_stock? %>"><%= i.inventory_code %> => <%= i.inventory_pool.name %> </li>
+	<li class="valid_<%= i.in_stock? %>"><%= i.inventory_code %> => <%= i.inventory_pool.name %> </li>
 <% end %>
 </ul>
 

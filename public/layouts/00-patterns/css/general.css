@@ -302,27 +302,27 @@ tr.availability td {
 	color: white;
 }
 
-.line_valid_true {
+.valid_true {
 	/* background-color: #CCFF66; */	
 }
 
-.line_valid_false {
+.valid_false {
 	background-color: #FFCCCC;	
 }
 
 /* Model Groups */
 
 ul.model_group {
-	margin-top: 5px;
+	padding-top: 5px;
 	padding-left: 15px;
 	padding-bottom: 5px;
-	background-color: #89A9B6;
 }
 
 ul.model_group > li {
-	padding-top: 5px;	
+	list-style-type: square;	
 }
 
+/* OLD
 ul.model_group > li > span {
 }
 
@@ -345,11 +345,15 @@ ul.model_group > li > div > span.add_button {
 	margin-left: 50px;
 	color: navy;	
 }
+*/
 
+/* Barcode */
 
 .barcode_pulldown {
 	color: #444;
 }
+
+/* Workdays */
 
 .workdays {
 	height: 100px;

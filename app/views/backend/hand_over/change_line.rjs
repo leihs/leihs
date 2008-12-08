@@ -8,7 +8,7 @@ if @contract_line
   end
 
   bool = @contract_line.complete? 
-  css_class = "line_valid_#{bool}"
+  css_class = "valid_#{bool}"
   page << "$('inventory_code_#{@contract_line.id}').className='#{css_class}'"
   page["dates_#{@contract_line.id}"].innerHTML = "#{short_date(@contract_line.start_date)} - #{short_date(@contract_line.end_date)}" if bool
   

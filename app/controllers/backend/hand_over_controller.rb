@@ -68,35 +68,31 @@ class Backend::HandOverController < Backend::BackendController
   # given an inventory_code, searches for a matching contract_line
   # and if not found, adds an option
   def assign_inventory_code
-    if request.post?
-      item = current_inventory_pool.items.find(:first, :conditions => { :inventory_code => params[:code] })
-      model = item.model unless item.nil?
-      unless model.nil?
-        contract_line = @contract.contract_lines.find(:first,
-                                                     :conditions => { :model_id => model.id,
+    item = current_inventory_pool.items.first(:conditions => { :inventory_code => params[:code] })
+    model = item.model unless item.nil?
+    unless model.nil?
+      contract_line = @contract.contract_lines.first(:conditions => { :model_id => model.id,
                                                                       :item_id => nil })
-        unless contract_line.nil?
-          params[:contract_line_id] = contract_line.id.to_s
-          flash[:notice] = "Inventory Code assigned"
-          if item.required_level > current_user.level_for(item.inventory_pool)
-            flash[:error] = "This item requires the user to be level " + item.required_level.to_s
-          end
-          change_line
-        else
-          flash[:error] = "Inventory Code identifies an item that is not in this order."
+      unless contract_line.nil?
+        params[:contract_line_id] = contract_line.id.to_s
+        flash[:notice] = "Inventory Code assigned"
+        if item.required_level > current_user.level_for(item.inventory_pool)
+          flash[:error] = "This item requires the user to be level " + item.required_level.to_s
         end
-
-        render :action => 'change_line'
-        
-      else 
-        #Inventory Code is not an item - might be an option...
-        om = OptionMap.find(:first, :conditions => { :barcode => params[:code] })
-        if om
-          @option = Option.create(:barcode => om.barcode, :name => om.text, :quantity => 1, :contract => @contract)
-          render :action => 'add_option_to_list'
-        end   
+        change_line
+      else
+        flash[:error] = "Inventory Code identifies an item that is not in this order."
       end
+
+      render :action => 'change_line'
       
+    else 
+      #Inventory Code is not an item - might be an option...
+      om = OptionMap.find(:first, :conditions => { :barcode => params[:code] })
+      if om
+        @option = Option.create(:barcode => om.barcode, :name => om.text, :quantity => 1, :contract => @contract)
+        render :action => 'add_option_to_list'
+      end   
     end
   end
 

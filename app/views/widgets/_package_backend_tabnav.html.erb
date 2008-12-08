@@ -1,0 +1,46 @@
+<i>Model</i>
+<hr />
+
+<% if @model.errors.size > 0 %>
+	<ul style="border: 1px solid red; padding: 2px;">
+	<% @model.errors.full_messages.each do |e| %>		
+		<li><%= e %></li>
+	<% end %>	
+	</ul>
+<% end %>			
+
+<h2><%= image_tag(@model.images.first.public_filename(:thumb)) unless @model.images.empty? %>
+	<%= @model.name %></h2>
+
+<%  
+
+render_tabnav :package_backend, 
+              :generate_css => true do 
+
+	add_tab do |t|
+		t.named 'Package'
+		t.links_to show_package_backend_inventory_pool_model_path(@current_inventory_pool, @model)
+		t.highlights_on :action => 'show_package'
+	end
+
+	add_tab do |t|
+		t.named 'Items'
+		t.links_to show_package_items_backend_inventory_pool_model_path(@current_inventory_pool, @model)
+		t.highlights_on :action => 'show_package_items'
+	end
+
+#	add_tab do |t|
+#		t.named 'Categories'
+#		t.links_to backend_inventory_pool_model_categories_path(@current_inventory_pool, @model)
+#		t.highlights_on :controller => 'backend/categories', :action => 'index'
+#	end
+
+	add_tab do |t|
+		t.named 'Location'
+		t.links_to show_package_location_backend_inventory_pool_model_path(@current_inventory_pool, @model)
+		t.highlights_on :action => 'show_package_location'
+	end
+
+
+end 
+%>

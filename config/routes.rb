@@ -81,8 +81,11 @@ ActionController::Routing::Routes.draw do |map|
                                                      :accessories => :get,
                                                      :set_accessories => :post,
                                                      :show_package => :get,
+                                                     :show_package_items => :get,
                                                      :add_package_item => :put,
                                                      :remove_package_item => :get,
+                                                     :show_package_location => :get,
+                                                     :set_package_location => :get,
                                                      :images => :get } do |model|
             model.resources :items
             model.resources :categories
@@ -111,7 +114,7 @@ ActionController::Routing::Routes.draw do |map|
                                                       :sign_contract => :any,
                                                       :add_option => :any,
                                                       :remove_options => :any,
-                                                      :assign_inventory_code => :any,
+                                                      :assign_inventory_code => :post,
                                                       :timeline => :get,
                                                       :delete_visit => :get,
                                                       :select_location => :any,
@@ -119,7 +122,7 @@ ActionController::Routing::Routes.draw do |map|
                                                       :auto_complete_for_location_room => :post }
                 user.resource :take_back, :controller => 'take_back', # OPTIMIZE 03** pluralization
                                           :member => { :close_contract => :any,
-                                                       :assign_inventory_code => :any,
+                                                       :assign_inventory_code => :post,
                                                        :broken => :any,
                                                        :remove_options => :any,
                                                        :timeline => :get }

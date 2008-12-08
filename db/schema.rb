@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.string   "title",            :limit => 50
     t.text     "comment"
     t.datetime "created_at"
-    t.integer  "commentable_id",                                 :null => false
-    t.string   "commentable_type",               :default => "", :null => false
+    t.integer  "commentable_id",                 :null => false
+    t.string   "commentable_type",               :null => false
     t.integer  "user_id"
   end
 
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.integer  "type_const"
     t.datetime "created_at",                  :null => false
     t.integer  "target_id",                   :null => false
-    t.string   "target_type", :default => "", :null => false
+    t.string   "target_type",                 :null => false
     t.integer  "user_id"
   end
 
@@ -182,7 +182,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   add_index "model_links", ["model_id"], :name => "index_model_links_on_model_id"
 
   create_table "models", :force => true do |t|
-    t.string   "name",               :default => "", :null => false
+    t.string   "name",                              :null => false
     t.string   "manufacturer"
     t.integer  "maintenance_period", :default => 0
     t.datetime "created_at"

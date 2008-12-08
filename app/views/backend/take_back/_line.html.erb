@@ -9,17 +9,14 @@
 			<%= @line.contract.id %>
 		</td>
 		<td>
-			<%= greybox_link_to_page(@line.model.name,
-					backend_inventory_pool_model_path(@current_inventory_pool, @line.model, :layout => "modal"),
-					:title => _("Model"),
-					:class => "thickbox iconized-notxt edit-package" ) %>
+			<%= show_line_model(@line.model) %>
 		</td>
-		<td class="line_valid_<%= @line.available? %>">
+		<td class="valid_<%= @line.available? %>">
 			<%= "#{short_date(@line.start_date)} - #{short_date(@line.end_date)}" %>
 		</td>
-		<td id="inventory_code_<%= @line.id %>" class="line_valid_<%= @line.complete? %>">
+		<td id="inventory_code_<%= @line.id %>" class="valid_<%= @line.complete? %>">
 			<%= greybox_link_to_page(@line.item.inventory_code,
-				 backend_inventory_pool_item_path(@current_inventory_pool, @line.item), # TODO 22** render without layout
+				 backend_inventory_pool_item_path(@current_inventory_pool, @line.item, :layout => "modal"),
 				 :title => _("Item"),
 				 :class => "iconized-notxt" ) %>
 		</td>

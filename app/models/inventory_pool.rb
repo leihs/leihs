@@ -64,10 +64,14 @@ class InventoryPool < ActiveRecord::Base
     ["30.10.2008"] #TODO **24** Get the dates from Holidays, put them in the correct format (depends on DatePicker)
   end
   
-  # TODO
   # alias for serialization
   def items_size(model_id = nil)
     items.count(:conditions => {:model_id => model_id})
+  end
+
+  # TODO 01** provide name_and_items_size directly in extjs
+  def name_and_items_size(model_id = nil)
+    "#{name} (#{items_size(model_id)})"
   end
 
   def is_open_on?(date)

@@ -1,0 +1,29 @@
+<% unless @model.items.empty? %>
+	<ul>
+	<% @model.package_items.each do |i| %>
+		<li>
+			<b><%= i.model.name %></b>, <%= i.model.manufacturer %>, <%= i.inventory_code %>
+			<%= link_to _('Remove'),
+						:action => 'remove_package_item',
+						:id => @model,
+						:item_id => i %>
+		</li>
+	<% end %>
+	</ul>
+
+	<br />
+		
+	<% form_for [:backend, @model], :url => { :action => 'add_package_item' } do |f| %>
+
+		<%= _("Add more items") %>:
+		<%= model_auto_completer ("query", nil, "item_id", nil,
+									{ :url => {:controller => 'items', :action => 'auto_complete'}, :submit_on_return => true },
+									{ :size => 40 },
+									{ :method => :get, :select => :name }) %>
+
+
+		<%= submit_tag 'Submit' %>
+	<% end %>
+
+<% end %>
+	

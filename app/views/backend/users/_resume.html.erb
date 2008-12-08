@@ -23,17 +23,11 @@ to_remind_size = @current_inventory_pool.remind_visits.select { |v| v.user == @u
 	<li><%= link_to image_tag($layout_public_path + "/images/icons/clock.png") + _("%{i} items") % { :i => to_remind_size },
         	backend_inventory_pool_user_take_back_path(@current_inventory_pool, @user, :remind => true),
         	{ :target => '_top' } if to_remind_size > 0 %></li>
-</ul>
-
-<% if @user.to_remind? %>
-<br />
-<br />
-<ul class="buttons" style="float: right;">
-	<% unless @user.reminders.empty? %>
-		<li><%= _("%{i} reminders") % { :i => @user.reminders.size } %></li>
-		<li><%= _("last") %>: <%= short_time @user.reminders.last.created_at %></li>
+	<% if @user.to_remind? %>
+		<li><%= link_to image_tag($layout_public_path + "/images/icons/clock_red.png") + _("Remind"),
+				{ :controller => 'users', :action => 'remind', :id => @user.id } %></li>
+		<% unless @user.reminders.empty? %>
+			<li><%= _("%{i} reminders, last: %{d}") % { :i => @user.reminders.size, :d => (short_time @user.reminders.last.created_at) } %></li>
+		<% end %>
 	<% end %>
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/clock_red.png") + _("Remind"),
-			{ :controller => 'users', :action => 'remind', :id => @user.id } %></li>
 </ul>
-<% end %>
