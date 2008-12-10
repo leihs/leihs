@@ -1,8 +1,5 @@
 class Item < ActiveRecord::Base
   
-  BORROWABLE = 1
-  UNBORROWABLE = 2
-  
   attr_accessor :step
   
   belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id'
@@ -20,20 +17,19 @@ class Item < ActiveRecord::Base
   validates_presence_of :inventory_code, :if => Proc.new {|i| i.step == 'step_item'}
   validates_presence_of :model, :if => Proc.new {|i| i.step == 'step_model'}
   validates_presence_of :location, :if => Proc.new {|i| i.step == 'step_location'}
+  validate :validates_if_is_package
   
   acts_as_ferret :fields => [ :model_name, :inventory_pool_name, :inventory_code, :serial_number ], :store_class_name => true, :remote => true
 
 ####################################################################
 
-  named_scope :available, :conditions => {:status_const => Item::BORROWABLE} # TODO ['parent_id IS NULL'] 
-  named_scope :in_repair, :conditions => {:status_const => Item::UNBORROWABLE}
-  named_scope :incompletes, :conditions => ['inventory_code IS NULL OR model_id IS NULL OR location_id IS NULL']
-  
-  # TODO do we need it?
-  named_scope :package_roots, :select => "DISTINCT items.*",
-                              :joins => "JOIN items i ON items.id = i.parent_id",
-                              :conditions => ['items.parent_id IS NULL']
-  
+  named_scope :borrowable, :conditions => {:is_borrowable => true, :parent_id => nil} 
+  named_scope :broken, :conditions => {:is_broken => true}
+  named_scope :incomplete, :conditions => {:is_incomplete => true}
+  named_scope :unborrowable, :conditions => {:is_borrowable => false}
+
+  named_scope :unfinished, :conditions => ['inventory_code IS NULL OR model_id IS NULL OR location_id IS NULL']
+    
 ####################################################################
 
   def to_s
@@ -63,10 +59,6 @@ class Item < ActiveRecord::Base
     end
   end
 
-  def is_package?
-    children.size > 0
-  end
-  
   def borrowable_by?(user)
     user.level_for(inventory_pool) >= required_level
   end
@@ -74,10 +66,10 @@ class Item < ActiveRecord::Base
   #######################
   #
   def log_history(text, user_id)
-    histories.create(:text => text, :user_id => user_id, :type_const => History::BROKEN)
+    h = histories.create(:text => text, :user_id => user_id, :type_const => History::BROKEN)
+    histories.reset if h.changed?
   end
 
-    # TODO item returns to available
   #
   #######################
   
@@ -92,6 +84,11 @@ class Item < ActiveRecord::Base
   
   def inventory_pool_name
     inventory_pool.name
-  end  
+  end
+  
+  def validates_if_is_package
+    errors.add_to_base(_("Package error")) if children.size > 0 and !model.is_package
+  end
+  
     
 end

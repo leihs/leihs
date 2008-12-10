@@ -94,6 +94,14 @@ class Backend::BackendController < ApplicationController
       @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
     end
 
+    # OPTIMIZE **09 (merge with backend)
+    def render(args = {})
+      default_args = {
+        :layout => !request.xml_http_request?
+      }
+      super default_args.merge(args)
+    end
+
 ####################################################  
   
   private

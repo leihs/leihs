@@ -56,7 +56,7 @@ class Backend::TakeBackController < Backend::BackendController
   
   # given an inventory_code, searches for the matching contract_line
   def assign_inventory_code
-    item = current_inventory_pool.items.find(:first, :conditions => { :inventory_code => params[:code] })
+    item = current_inventory_pool.items.first(:conditions => { :inventory_code => params[:code] })
     unless item.nil?
       contract_lines = @user.get_signed_contract_lines
   
@@ -69,11 +69,12 @@ class Backend::TakeBackController < Backend::BackendController
     render :action => 'change_line'
   end
 
-  def broken
+  def inspection
     @contract_line = @user.contract_lines.find(params[:line_id])
     if request.post?
-      @contract_line.item.update_attribute :status_const, Item::UNBORROWABLE 
-      @contract_line.item.log_history(params[:comment], current_user.id)
+      @contract_line.item.update_attributes(params[:item])
+      
+      @contract_line.item.log_history(params[:note], current_user.id)
       redirect_to :action => 'show'
     else
       render :layout => $modal_layout_path

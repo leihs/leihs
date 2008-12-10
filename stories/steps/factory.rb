@@ -123,7 +123,7 @@ module Factory
     ip = InventoryPool.find_by_name default_attributes.merge(attributes)[:name]
     if ip.nil?
       ip = InventoryPool.create default_attributes.merge(attributes)
-      w = ip.get_workday
+      w = ip.workday
       w.sunday = true
       w.saturday = true
       w.save

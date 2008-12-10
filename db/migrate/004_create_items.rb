@@ -5,9 +5,12 @@ class CreateItems < ActiveRecord::Migration
       t.string :serial_number
       t.belongs_to :model #, :null => false
       t.belongs_to :location #, :null => false
-      t.integer :status_const, :default => Item::BORROWABLE
       t.integer :parent_id, :null => true # for package purpose
       t.integer :required_level, :default => AccessRight::EVERYBODY
+      t.boolean :is_broken, :default => false
+      t.boolean :is_incomplete, :default => false
+      t.boolean :is_borrowable, :default => true
+
       t.timestamps
     end
     

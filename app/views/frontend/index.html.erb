@@ -9,6 +9,20 @@
 	   
     Frontend.start = function(){
 
+
+		if(Ext.DatePicker){
+		  Ext.apply(Ext.DatePicker.prototype, {
+		    format            : "d.m.Y",
+		    startDay          : 1
+		  });
+		}
+
+		if(Ext.form.DateField){
+		  Ext.apply(Ext.form.DateField.prototype, {
+		    format            : "d.m.Y"
+		  });
+		}
+
 		<%= render :partial => 'topbar' %>
 		<%= render :partial => 'categories' %>
 		<%= render :partial => 'inventory_pools' %>

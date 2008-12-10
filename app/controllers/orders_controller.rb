@@ -117,17 +117,10 @@ class OrdersController < FrontendController
 
 ########################################################
   
-
   private
   
   def pre_load
-      # TODO
-      #if params[:id]
-      #  @order = Order.find(params[:id], :conditions => { :status_const => Order::NEW })
-      #else
         @order = current_user.get_current_order
-      #end
-    #rescue
-    #  redirect_to :action => 'index' unless @order
   end  
+
 end

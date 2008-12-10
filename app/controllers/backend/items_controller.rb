@@ -11,8 +11,12 @@ class Backend::ItemsController < Backend::BackendController
     end    
 
     case params[:filter]
-      when "in_repair"
-        items = items.in_repair
+      when "broken"
+        items = items.broken
+      when "incomplete"
+        items = items.incomplete
+      when "unborrowable"
+        items = items.unborrowable
     end
     
     unless params[:query].blank?
@@ -20,12 +24,15 @@ class Backend::ItemsController < Backend::BackendController
     else
       @items = items.paginate :page => params[:page], :per_page => $per_page      
     end
-
-    render :layout => !request.xml_http_request?
   end
 
   def show
     render :layout => $modal_layout_path if params[:layout] == "modal"
+  end
+
+  def update
+    @item.update_attributes(params[:item])
+    redirect_to :action => 'show', :id => @item # TODO redirect to the right tab
   end
 
 #################################################################
@@ -45,10 +52,12 @@ class Backend::ItemsController < Backend::BackendController
     #render :layout => false
   end
 
-  def toggle_status
-    @item.status_const = (@item.status_const == Item::BORROWABLE ? Item::UNBORROWABLE : Item::BORROWABLE)
-    @item.save
-    redirect_to :action => 'status', :id => @item
+#################################################################
+
+  def notes
+    if request.post?
+        @item.log_history(params[:note], current_user.id)
+    end
   end
 
 #################################################################

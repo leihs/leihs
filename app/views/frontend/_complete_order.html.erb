@@ -72,14 +72,13 @@
            width: 50,
            renderer: formatDate,
            editor: new Ext.form.DateField({
-                format: 'd.m.Y' // TODO 05** to test
+//old//                format: 'd.m.Y' // TODO 05** to test
 				//, disabledDays: function() { var n = new Array();
 				//							console.log(complete_order_store.reader);
 				//							//n.push(complete_order_store.reader.jsonData['inventory_pool.closed_days']);
 				//							return n;
 				//	},
 				//disabledDates: ["10/30/08"]
-				
             })
         },{
            header: "End date",
@@ -87,7 +86,7 @@
            width: 50,
            renderer: formatDate,
            editor: new Ext.form.DateField({
-                format: 'd.m.Y' //,
+//old//                format: 'd.m.Y' //,
 				//renderer: new Ext.DatePicker({startDay: 1})
             })
         },{
@@ -314,9 +313,8 @@
 		                    fieldLabel: 'Start date',
 		                    name: 'start_date',
 							value: get_selected_min_start_date(),
-		                    format: "d.m.Y",
-							//startDay: 1,
-							//minDate: new Date(),
+//old//		                    format: "d.m.Y",
+							//minValue: new Date(),
 							disabledDays: [6,0],
 		                    anchor:'90%'
 		                }
@@ -328,9 +326,8 @@
 		                    fieldLabel: 'End date',
 		                    name: 'end_date',
 							value: get_selected_max_end_date(),
-							format: "d.m.Y",
-							//startDay: 1,
-							//minDate: new Date(),
+//old//							format: "d.m.Y",
+							//minValue: new Date(),
 							disabledDays: [6,0],
 		                    anchor:'90%'
 		                }

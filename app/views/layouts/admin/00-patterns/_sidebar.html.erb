@@ -4,7 +4,10 @@
 	<li><%= _('Items') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{Item.count})", admin_items_path %></li>
-		<li><%= link_to _('Incompletes') + " (#{Item.incompletes.count})", admin_items_path(:filter => 'incompletes') %></li>
+		<li><%= link_to _('Broken') + " (#{Item.broken.size})", admin_items_path(:filter => 'broken') %></li>
+		<li><%= link_to _('Incomplete') + " (#{Item.incomplete.size})", admin_items_path(:filter => 'incomplete') %></li>
+		<li><%= link_to _('Unborrowable') + " (#{Item.unborrowable.size})", admin_items_path(:filter => 'unborrowable') %></li>
+		<li><%= link_to _('Unfinished') + " (#{Item.unfinished.count})", admin_items_path(:filter => 'unfinished') %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>

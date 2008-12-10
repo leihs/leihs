@@ -70,6 +70,7 @@ ActionController::Routing::Routes.draw do |map|
                                        :member => { :location => :get,
                                                     :set_location => :get,
                                                     :status => :get,
+                                                    :notes => :any,
                                                     :toggle_status => :get } do |item|
             item.resource :model                                                
       end
@@ -123,7 +124,7 @@ ActionController::Routing::Routes.draw do |map|
                 user.resource :take_back, :controller => 'take_back', # OPTIMIZE 03** pluralization
                                           :member => { :close_contract => :any,
                                                        :assign_inventory_code => :post,
-                                                       :broken => :any,
+                                                       :inspection => :any,
                                                        :remove_options => :any,
                                                        :timeline => :get }
       end

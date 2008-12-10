@@ -3,7 +3,7 @@ class CreateImages < ActiveRecord::Migration
     create_table :images do |t|
       t.belongs_to :model
 
-      #TODO t.boolean :main 
+      #TODO t.boolean :is_main, :default => false
       
       ### attachment_fu
       t.string  :content_type

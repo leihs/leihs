@@ -4,6 +4,8 @@ class CreateModels < ActiveRecord::Migration
       t.string :name, :null => false
       t.string :manufacturer
       t.integer :maintenance_period, :default => 0
+      t.boolean :is_package, :default => false
+      
       t.timestamps
     end
 

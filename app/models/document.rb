@@ -2,7 +2,6 @@
 class Document < ActiveRecord::Base
   self.abstract_class = true
   
-  # TODO refactor in subclasses ?
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
   # compares two objects in order to sort them

@@ -12,7 +12,7 @@
 					   {name: 'compatibles'},
 					   {name: 'accessories'},
 					   {name: 'images'},
-					   {name: 'is_package', mapping: 'is_package?', type: 'boolean'},
+					   {name: 'is_package', type: 'boolean'},
 					   {name: 'package_items'}					   
 		        ]
 		    });
@@ -317,9 +317,8 @@ function add_model_details(model_id){
 							fieldLabel: 'Start date',
 							name: 'start_date',
 							value: new Date(), //new Date(yy,mm,dd)
-							format: "d.m.Y",
-							//startDay: 1,
-							//minDate: new Date(),
+//old//							format: "d.m.Y",
+							//minValue: new Date(),
 							disabledDays: [6, 0],
 							anchor: '90%'
 						}
@@ -331,9 +330,8 @@ function add_model_details(model_id){
 							fieldLabel: 'End date',
 							name: 'end_date',
 							value: new Date(), //new Date(yy,mm,dd)
-							format: "d.m.Y",
-							//startDay: 1,
-							//minDate: new Date(),
+//old//							format: "d.m.Y",
+							//minValue: new Date(),
 							disabledDays: [6, 0],
 							anchor: '90%'
 						}

@@ -8,5 +8,16 @@ class Admin::AdminController < ApplicationController
   
   layout $general_layout_path
   
+
+  protected
+  
+    # OPTIMIZE **09 (merge with backend)
+    def render(args = {})
+      default_args = {
+        :layout => !request.xml_http_request?
+      }
+      super default_args.merge(args)
+    end
+
   
 end

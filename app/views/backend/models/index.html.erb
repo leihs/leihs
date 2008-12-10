@@ -1,6 +1,6 @@
 <% # TODO 03** categories and nested layout %>
 
-<% unless request.xml_http_request? %>  
+<% if @show_categories_tree %>  
   <%= stylesheet_link_tag "/javascripts/ext/resources/css/ext-all.css" %>
   <%= javascript_include_tag "/javascripts/ext/adapter/prototype/ext-prototype-adapter.js" %>
   <%= javascript_include_tag "/javascripts/ext/ext-all.js" %>
@@ -49,7 +49,7 @@
 		listeners: {
 			click: function( node, e ){
 				if(node.attributes.real_id != 0) node.toggle();
-				new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', parameters:'category_id=' + node.attributes.real_id}); return false;
+				new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', onLoading:function(request){Element.show('spinner')}, parameters:'category_id=' + node.attributes.real_id}); return false;
 			}
 		}
       });
@@ -117,7 +117,7 @@
 
 <% end %>
 
-<% unless request.xml_http_request? %>  
+<% if @show_categories_tree %>  
 </td>
 </tr></table>
 <% end %>  

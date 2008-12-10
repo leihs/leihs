@@ -7,5 +7,8 @@ class History < ActiveRecord::Base
   
   belongs_to :target, :polymorphic => true
   belongs_to :user
+
+  validates_presence_of :text
+  
   
 end

@@ -37,7 +37,8 @@ steps_for(:availability) do
   Given "$who marks $quantity '$model' as 'in-repair' on 18.3.2100" do |who, quantity, model|
     @model = Model.find_by_name(model)
     quantity.to_i.times do |i|
-      @model.items[i].status_const = Item::UNBORROWABLE
+      @model.items[i].is_broken = true
+      @model.items[i].is_borrowable = false
       @model.items[i].save
     end
   end
