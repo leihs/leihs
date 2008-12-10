@@ -22,9 +22,10 @@ class Backend::ModelsController < Backend::BackendController
     else
       @models = models.paginate :page => params[:page], :per_page => $per_page
     end
-    
+
+    @show_categories_tree = !(request.xml_http_request? or params[:filter] == "packages")
+
     render :layout => $modal_layout_path if params[:layout] == "modal"
-    render :layout => !request.xml_http_request? # TODO 04**
   end
 
   def show
@@ -72,6 +73,7 @@ class Backend::ModelsController < Backend::BackendController
 
   def update_package(name = params[:name], inventory_code = params[:inventory_code])
     @model ||= Model.new
+    @model.is_package = true
     @model.name = name
     @model.save 
     @model.items.create(:location => current_inventory_pool.main_location) if @model.items.empty?
@@ -96,7 +98,6 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def show_package_location
-    #render :layout => false
   end
   
   def set_package_location
@@ -154,13 +155,7 @@ class Backend::ModelsController < Backend::BackendController
     @item = current_inventory_pool.items.find(params[:item_id]) if params[:item_id]
     @model = @item.model if @item and !@model
     
-    if @model
-      if @model.is_package?
-        @tab = :package_backend
-      else
-        @tab = :model_backend
-      end
-    end
+    @tab = (@model.is_package ? :package_backend : :model_backend ) if @model
   end
 
 end

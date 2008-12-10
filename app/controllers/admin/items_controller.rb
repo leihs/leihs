@@ -13,8 +13,14 @@ class Admin::ItemsController < Admin::AdminController
     end    
 
     case params[:filter]
-      when "incompletes"
-        items = items.incompletes
+      when "broken"
+        items = items.broken
+      when "incomplete"
+        items = items.incomplete
+      when "unborrowable"
+        items = items.unborrowable
+      when "unfinished"
+        items = items.unfinished
     end
         
     unless params[:query].blank?

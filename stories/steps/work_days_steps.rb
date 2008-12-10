@@ -5,16 +5,16 @@ steps_for(:work_days) do
 
   Given "inventory_pool is open on $days" do |days|
     inventory_pool = Factory.create_inventory_pool
-    inventory_pool.get_workday.monday = false
-    inventory_pool.get_workday.tuesday = false
-    inventory_pool.get_workday.wednesday = false
-    inventory_pool.get_workday.thursday = false
-    inventory_pool.get_workday.friday = false
-    inventory_pool.get_workday.saturday = false
-    inventory_pool.get_workday.sunday = false
-    inventory_pool.get_workday.save
+    inventory_pool.workday.monday = false
+    inventory_pool.workday.tuesday = false
+    inventory_pool.workday.wednesday = false
+    inventory_pool.workday.thursday = false
+    inventory_pool.workday.friday = false
+    inventory_pool.workday.saturday = false
+    inventory_pool.workday.sunday = false
+    inventory_pool.workday.save
     days.split(",").each do |day|
-      inventory_pool.get_workday.update_attribute(day.strip.downcase, true)
+      inventory_pool.workday.update_attribute(day.strip.downcase, true)
     end
   end
   

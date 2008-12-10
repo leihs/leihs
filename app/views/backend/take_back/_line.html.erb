@@ -21,9 +21,9 @@
 				 :class => "iconized-notxt" ) %>
 		</td>
 		<td class="buttons">
-			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/flag_red.png") + " " + _("Broken"),
-					 	{ :action => 'broken', :line_id => @line },
-						:title => _("Broken"), :class => (@line.item.status_const == Item::UNBORROWABLE ? "negative" : "") ) %>
+			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/magnifier.png") + " " + _("Inspection"),
+					 	{ :action => 'inspection', :line_id => @line },
+						:title => _("Inspection") ) %>
 		</td>
 	</tr>
 </div>

@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   create_table "authentication_systems", :force => true do |t|
     t.string  "name"
     t.string  "class_name"
-    t.boolean "default"
-    t.boolean "active"
+    t.boolean "is_default", :default => false
+    t.boolean "is_active",  :default => false
   end
 
   create_table "backup_order_lines", :force => true do |t|
@@ -137,9 +137,11 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.string   "serial_number"
     t.integer  "model_id"
     t.integer  "location_id"
-    t.integer  "status_const",   :default => 1
     t.integer  "parent_id"
     t.integer  "required_level", :default => 1
+    t.boolean  "is_broken",      :default => false
+    t.boolean  "is_incomplete",  :default => false
+    t.boolean  "is_borrowable",  :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -148,7 +150,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
 
   create_table "locations", :force => true do |t|
     t.integer  "inventory_pool_id"
-    t.boolean  "main"
+    t.boolean  "is_main",           :default => false
     t.string   "building"
     t.string   "room"
     t.string   "shelf"
@@ -182,9 +184,10 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   add_index "model_links", ["model_id"], :name => "index_model_links_on_model_id"
 
   create_table "models", :force => true do |t|
-    t.string   "name",                              :null => false
+    t.string   "name",                                  :null => false
     t.string   "manufacturer"
     t.integer  "maintenance_period", :default => 0
+    t.boolean  "is_package",         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

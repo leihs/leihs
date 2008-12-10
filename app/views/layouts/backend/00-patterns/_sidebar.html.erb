@@ -16,7 +16,9 @@
 	<li><%= _('Items') %>
 		<ul>
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.items.size})", :controller => 'items' %></li>
-			<li><%= link_to _('In Repair') + " (#{@current_inventory_pool.items.in_repair.size})", :controller => 'items', :filter => 'in_repair' %></li>
+			<li><%= link_to _('Broken') + " (#{@current_inventory_pool.items.broken.size})", :controller => 'items', :filter => 'broken' %></li>
+			<li><%= link_to _('Incomplete') + " (#{@current_inventory_pool.items.incomplete.size})", :controller => 'items', :filter => 'incomplete' %></li>
+			<li><%= link_to _('Unborrowable') + " (#{@current_inventory_pool.items.unborrowable.size})", :controller => 'items', :filter => 'unborrowable' %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>

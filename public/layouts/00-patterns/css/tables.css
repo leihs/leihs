@@ -51,6 +51,17 @@ table th {
 	font-weight: bold !important;
 }
 
+/* 	- - - - - - - - - - - - -
+Controller
+ - - - - - - - - - - - - - */
+
+#controller {
+	background: #e2e2e2;
+	padding: 10px;
+	margin: 10px 0 10px 0;
+	border: 1px solid #b2b2b2;
+}
+
 #controller div.result {
 	margin: 0 20px 0 20px;
 }

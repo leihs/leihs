@@ -31,7 +31,7 @@ class InventoryPool < ActiveRecord::Base
     
   has_many :locations
   has_many :option_maps
-  has_one  :main_location, :class_name => "Location", :conditions => {:main => true}  
+  has_one  :main_location, :class_name => "Location", :conditions => {:is_main => true}  
   has_many :items, :through => :locations, :uniq => true
   has_many :models, :through => :items, :uniq => true
 
@@ -44,7 +44,7 @@ class InventoryPool < ActiveRecord::Base
   has_many :contract_lines, :through => :contracts, :uniq => true
 
 
-  before_create :assign_main_location
+  before_create :assign_main_location, :create_workday
 
   validates_presence_of :name
 
@@ -61,7 +61,7 @@ class InventoryPool < ActiveRecord::Base
   end
   
   def closed_dates
-    ["30.10.2008"] #TODO **24** Get the dates from Holidays, put them in the correct format (depends on DatePicker)
+    ["25.12.2009"] #TODO **24** Get the dates from Holidays, put them in the correct format (depends on DatePicker)
   end
   
   # alias for serialization
@@ -75,14 +75,9 @@ class InventoryPool < ActiveRecord::Base
   end
 
   def is_open_on?(date)
-    get_workday.is_open_on?(date) and not holiday?(date)
+    workday.is_open_on?(date) and not holiday?(date)
   end
 
-  def get_workday
-    create_workday if workday.nil?
-    workday
-  end
-  
   def holiday?(date)
     holidays.each do |h|
       return true if date >= h.start_date and date <= h.end_date
@@ -148,7 +143,7 @@ class InventoryPool < ActiveRecord::Base
   def assign_main_location(location = nil)
     location ||= Location.create(:room => "main")
     #old# self.main_location = location
-    location.update_attribute :main, true
+    location.update_attribute :is_main, true
     self.locations << location
   end
   

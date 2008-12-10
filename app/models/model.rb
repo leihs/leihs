@@ -42,10 +42,7 @@ class Model < ActiveRecord::Base
                               :joins => "LEFT JOIN items ON items.model_id = models.id",
                               :conditions => ['items.model_id IS NULL']
 
-  # TODO test it
-  named_scope :packages, :select => "DISTINCT models.*",
-                         :joins => "LEFT JOIN items j ON models.id = j.model_id JOIN items i ON j.id = i.parent_id",
-                         :conditions => ['j.parent_id IS NULL']
+  named_scope :packages, :conditions => { :is_package => true }
   
 #############################################  
 
@@ -65,15 +62,6 @@ class Model < ActiveRecord::Base
   def <=>(other)
     self.name <=> other.name
   end
-  
-  def is_package?
-    items.size == 1 and items.first.is_package?
-  end
-
-#old#
-#  def package_items
-#    is_package? ? items.first.children : []
-#  end
   
 #############################################  
 # Availability
@@ -122,12 +110,11 @@ class Model < ActiveRecord::Base
 
   private
   
-  def create_availability(current_time, document_line, inventory_pool, user)    
-    i = self.items.find(:all,
-                        :joins => :location,
-                        :conditions => ['status_const = ? AND required_level <= ? AND locations.inventory_pool_id = ?',
-                                        Item::BORROWABLE, user.nil? ? 1 : user.level_for(inventory_pool), inventory_pool.id])
-                         
+  def create_availability(current_time, document_line, inventory_pool, user)
+    i = self.items.borrowable.all(:joins => :location,
+                                  :conditions => ['required_level <= ? AND locations.inventory_pool_id = ?',
+                                                  (user.nil? ? 1 : user.level_for(inventory_pool)), inventory_pool.id])    
+                             
     r = DocumentLine.current_and_future_reservations(id, inventory_pool, document_line, current_time)
     
     a = Availability.new(i.size, Date.today, nil, current_time)

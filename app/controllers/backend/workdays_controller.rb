@@ -30,7 +30,7 @@ class Backend::WorkdaysController < Backend::BackendController
   end
   
   def load_workdays
-    @workday = current_inventory_pool.get_workday
+    @workday = current_inventory_pool.workday
   end
   
   def load_holidays

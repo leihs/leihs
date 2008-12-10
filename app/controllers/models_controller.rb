@@ -47,7 +47,6 @@ class ModelsController < FrontendController
     respond_to do |format|
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
-                                                            :methods => [:is_package?],
                                                             :except => [ :maintenance_period,
                                                                          :created_at,
                                                                          :updated_at ],

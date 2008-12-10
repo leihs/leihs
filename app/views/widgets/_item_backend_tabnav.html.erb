@@ -103,5 +103,11 @@ render_tabnav :item_backend,
 		t.highlights_on :action => 'status'
 	end
 
+	add_tab do |t|
+		t.named 'Notes'
+		t.links_to notes_backend_inventory_pool_item_path(@current_inventory_pool, @item)
+		t.highlights_on :action => 'notes'
+	end
+
 end 
 %>

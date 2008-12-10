@@ -2,7 +2,7 @@
 	<%= link_to _("Create New"), :action => 'new' %>
 </div>
 
-<% table_with_search_and_pagination :columns => ["", _("Model"), _("Inventory Code"), _("Serial Number"), _("Location"), _("Status"), _("In stock?"), _("Action")],
+<% table_with_search_and_pagination :columns => ["", _("Model"), _("Inventory Code"), _("Serial Number"), _("Location"), _("Borrowable"), _("In stock?"), _("Action")],
 						   			:records => @items do |item| %>	
 
 			<tr>
@@ -11,7 +11,7 @@
 				<td><%= item.inventory_code %></td>
 				<td><%= item.serial_number %></td>
 				<td><%= item.location.to_s if item.location %></td>
-				<td><%= item.status_const %></td>
+				<td><%= item.is_borrowable %></td>
 				<td class="valid_<%= item.in_stock? %>"><%= item.in_stock? %></td>
 				<td class="buttons" style="white-space: nowrap">
 					<ul>

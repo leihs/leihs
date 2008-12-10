@@ -33,6 +33,5 @@ class ApplicationController < ActionController::Base
   def current_inventory_pool
     nil
   end
-
   
 end
