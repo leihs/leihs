@@ -101,7 +101,8 @@ class Admin::ItemsController < Admin::AdminController
     @inventory_pool = InventoryPool.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
     @model = Model.find(params[:model_id]) if params[:model_id]
 
-    @tab = :item_admin if @item
+    @tabs = []
+    @tabs << :item_admin if @item
   end
 
 end

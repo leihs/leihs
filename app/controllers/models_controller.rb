@@ -94,6 +94,7 @@ class ModelsController < FrontendController
                                   #old# @model.to_json
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
+                                                            :methods => [[:chart, current_inventory_pools.first, current_user]], # TODO 11** all ip
                                                             :include => {
                                                                 :package_items => { :except => [:created_at,
                                                                                                 :updated_at,
@@ -104,7 +105,7 @@ class ModelsController < FrontendController
                                                                                              :updated_at] },
                                                                 :accessories => { :except => [:model_id] },
                                                                 :compatibles => { :records => current_inventory_pools.collect(&:models).flatten.uniq,
-                                                                                  :except => [:created_at, 
+                                                                                  :except => [:created_at,
                                                                                              :updated_at,
                                                                                              :model_id,
                                                                                              :compatible_id] },

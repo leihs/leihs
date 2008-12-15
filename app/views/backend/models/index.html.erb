@@ -1,4 +1,4 @@
-<% # TODO 03** categories and nested layout %>
+<% # TODO 12** categories and nested layout %>
 
 <% if @show_categories_tree %>  
   <%= stylesheet_link_tag "/javascripts/ext/resources/css/ext-all.css" %>
@@ -69,6 +69,8 @@
 <td style="vertical-align:top;" width="80%">
 <% end %>  
 
+<% unless request.xml_http_request? %>
+
 <% if @model %>
 	 <div class="toolbar-second">
 		<%# form_for [:backend, @current_inventory_pool, @model, :compatibles] do %>
@@ -86,6 +88,9 @@
 		<%= link_to _('New Package'), :action => 'new_package' %>
 	</div>
 <% end %>
+
+<% end %>
+
 
 <% table_with_search_and_pagination :columns => ["", _("Model"), _("Items"), _("Compatibles"), _("Action")],
 						   			:records => @models do |model| %>	

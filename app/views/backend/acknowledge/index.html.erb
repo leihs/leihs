@@ -1,3 +1,5 @@
+<% unless request.xml_http_request? %>
+
 <div id="meta" class="boxes">
 	<h2><%= _("<em>%{n} new orders</em> to acknowledge.") % { :n => @submitted_orders.size } %></h2>
 </div>
@@ -11,7 +13,9 @@
 			<% end %>
 		</div>
 	<% end %>
-			
+
+<% end %>			
+
 
 <% table_with_search_and_pagination :columns => [_("Received at"), _("Reserver"), _("Number of items"), _("Action")],
 						   			:records => @orders do |order| %>	

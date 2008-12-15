@@ -76,10 +76,13 @@ class Model < ActiveRecord::Base
     create_availability(current_time, nil, inventory_pool, user).periods
   end
 
-  # TODO *e* available_dates_for_inventory_pool method ??
   def available_dates_for_document_line(start_date, end_date, document_line, current_time = Date.today)
     create_availability(current_time, document_line, document_line.inventory_pool, document_line.document.user).dates(start_date, end_date)
   end
+
+  def available_dates_for_inventory_pool(start_date, end_date, inventory_pool, user, current_time = Date.today)
+    create_availability(current_time, nil, inventory_pool, user).dates(start_date, end_date)
+  end  
   
   # TODO *e* maximum_available_for_document_line method ??
   def maximum_available_for_inventory_pool(date, inventory_pool, user, current_time = Date.today)
@@ -101,8 +104,51 @@ class Model < ActiveRecord::Base
       create_availability(current_time, nil, inventory_pool, user).maximum_available_in_period(start_date, end_date)
     end
   end  
+
 #############################################  
 
+  def chart(inventory_pool, user, start_date = Date.today, offset_months = 3)
+    availabilities = available_dates_for_inventory_pool(start_date, start_date + offset_months.months, inventory_pool, user)
+    values = []
+    days = []
+    months = []
+    last_value = nil
+    last_month = nil
+    availabilities.each do |a|
+      values << a[1]
+      days << (last_value != a[1] ? a[0].day : nil)
+      months << (last_month != a[0].month ? a[0].strftime('%B') : nil)      
+      last_value = a[1] 
+      last_month = a[0].month
+    end
+
+    values_uniq = values.uniq
+    values_max = values.max
+
+    x1_labels = days.join('|')
+    x2_labels = months.join('|')
+#    y_labels = (0..values_max).to_a.collect{|v| values.include?(v) ? v : nil}.join('|')
+    y_labels = values_uniq.join('|')
+    y_positions = values_uniq.join(',')
+
+    args = []
+    args << "cht=bvs"
+    args << "chs=800x200"
+    args << "chxt=x,x,y,r"
+    args << "chxtc=0,-200|1,5|2,-800"
+    args << "chxs=1,000000,12,-1,lt,000000"
+    args << "chxl=0:|#{x1_labels}|1:|#{x2_labels}|2:|#{y_labels}|3:|#{y_labels}"
+    args << "chd=t:#{values.join(',')}"
+    args << "chbh=7,1"
+    args << "chds=0,#{values_max}"
+    args << "chxr=2,0,#{values_max}|3,0,#{values_max}"
+    args << "chxp=2,#{y_positions}|3,#{y_positions}"
+    
+    return "http://chart.apis.google.com/chart?#{args.join('&')}" 
+  end
+
+
+#############################################  
 
   def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil, inventory_pool = nil)
     document.add_line(quantity, self, user_id, start_date, end_date, inventory_pool)

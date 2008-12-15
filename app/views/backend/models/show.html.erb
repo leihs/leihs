@@ -4,3 +4,10 @@
 	<li><b>Manufacturer:</b> <%= @model.manufacturer %></li>
 	</ul>
 
+<%=	image_tag @chart if @chart %>
+
+<ul>
+<% @model.available_periods_for_inventory_pool(@current_inventory_pool, current_user).each do |a| %>
+	<li><%= a.start_date %> : <%= a.quantity %></li>
+<% end %>
+</ul>

@@ -16,7 +16,7 @@
 		</td>
 		<td id="inventory_code_<%= @line.id %>" class="valid_<%= @line.complete? %>">
 			<%= greybox_link_to_page(@line.item.inventory_code,
-				 backend_inventory_pool_item_path(@current_inventory_pool, @line.item, :layout => "modal"),
+				 backend_inventory_pool_model_item_path(@current_inventory_pool, @line.item.model, @line.item, :layout => "modal"),
 				 :title => _("Item"),
 				 :class => "iconized-notxt" ) %>
 		</td>

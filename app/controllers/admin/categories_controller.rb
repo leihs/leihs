@@ -137,7 +137,8 @@ class Admin::CategoriesController < Admin::AdminController
     @category = Category.find(params[:id]) if params[:id]
     @model = Model.find(params[:model_id]) if params[:model_id]
 
-    @tab = :category_admin if @category
+    @tabs = []
+    @tabs << :category_admin if @category
   end
 
 

@@ -1,4 +1,4 @@
-<i>Package</i>
+<i>Model</i>
 <hr />
 
 <% if @model.errors.size > 0 %>
@@ -20,13 +20,13 @@ render_tabnav :model_backend,
 	add_tab do |t|
 		t.named 'Model'
 		t.links_to backend_inventory_pool_model_path(@current_inventory_pool, @model)
-		t.highlights_on :action => 'show'
+		t.highlights_on :controller => 'backend/models', :action => 'show'
 	end
 
 	add_tab do |t|
 		t.named 'Items'
 		t.links_to backend_inventory_pool_model_items_path(@current_inventory_pool, @model)
-		t.highlights_on :controller => 'backend/items', :action => 'index'
+		t.highlights_on :controller => 'backend/items'
 	end
 
 	add_tab do |t|
@@ -58,12 +58,6 @@ render_tabnav :model_backend,
 		t.links_to backend_inventory_pool_model_compatibles_path(@current_inventory_pool, @model)
 		t.highlights_on :controller => 'backend/models', :action => 'index'
 	end
-
-#	add_tab do |t|
-#		t.named 'Availability *'
-#		#t.links_to :action => 'availability', :id => @model.id
-#	end
-
 
 end 
 %>

@@ -9,7 +9,7 @@
 				<td><%= item.is_borrowable %></td>
 				<td class="valid_<%= item.in_stock? %>"><%= item.in_stock? %></td>
 				<td class="buttons" style="white-space: nowrap">
-					<%= link_to _("Show"), :action => 'show', :id => item %>
+					<%= link_to _("Show"), [:backend, @current_inventory_pool, item.model, item] %>
 				</td>
 			</tr>
 

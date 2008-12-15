@@ -6,7 +6,7 @@
 
 	<br />
 
-	<% form_for [:backend, @current_inventory_pool, @item] do |f| %>
+	<% form_for [:backend, @current_inventory_pool, @item.model, @item] do |f| %>
 	<table style="width: 500px;">
 		<tr><td><%= _("Working order") %>:</td><td><%= f.select :is_broken, {_("OK") => false, _("Broken") => true} %></td></tr>
 		<tr><td><%= _("Completeness") %>:</td><td><%= f.select :is_incomplete, {_("OK") => false, _("Incomplete") => true} %></td></tr>

@@ -17,12 +17,9 @@ class Backend::UsersController < Backend::BackendController
     else
       @users = users.paginate :page => params[:page], :per_page => $per_page      
     end
-    
-    render :layout => $modal_layout_path if params[:layout] == "modal"
   end
 
   def show
-    render :layout => $modal_layout_path if params[:layout] == "modal"
   end
 
   def remind
