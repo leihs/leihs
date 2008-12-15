@@ -27,7 +27,6 @@ class Backend::ItemsController < Backend::BackendController
   end
 
   def show
-    render :layout => $modal_layout_path if params[:layout] == "modal"
   end
 
   def update
@@ -75,8 +74,10 @@ class Backend::ItemsController < Backend::BackendController
     params[:id] ||= params[:item_id] if params[:item_id]
     @item = current_inventory_pool.items.find(params[:id]) if params[:id]
     @model = current_inventory_pool.models.find(params[:model_id]) if params[:model_id]
-    
-    @tab = :item_backend if @item    
+
+    @tabs = []
+    @tabs << :model_backend if @model
+    @tabs << :item_backend if @item
   end
 
 end

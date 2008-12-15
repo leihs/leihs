@@ -24,16 +24,13 @@ class Backend::ModelsController < Backend::BackendController
     end
 
     @show_categories_tree = !(request.xml_http_request? or params[:filter] == "packages")
-
-    render :layout => $modal_layout_path if params[:layout] == "modal"
   end
 
   def show
     if @model.is_package?
       redirect_to :action => 'show_package', :layout => params[:layout]
     else
-      # TODO 30** remove 'details' view. refactor widget_tabs
-      render :action => 'details', :layout => $modal_layout_path if params[:layout] == "modal"
+      @chart = @model.chart(current_inventory_pool, current_user) 
     end
   end
   
@@ -63,7 +60,6 @@ class Backend::ModelsController < Backend::BackendController
   # TODO 04** refactor in a dedicated controller?
 
   def show_package 
-    render :layout => $modal_layout_path if params[:layout] == "modal"
   end
 
   def new_package
@@ -82,7 +78,6 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def show_package_items
-    render :layout => $modal_layout_path if params[:layout] == "modal"
   end
 
   def add_package_item
@@ -155,7 +150,8 @@ class Backend::ModelsController < Backend::BackendController
     @item = current_inventory_pool.items.find(params[:item_id]) if params[:item_id]
     @model = @item.model if @item and !@model
     
-    @tab = (@model.is_package ? :package_backend : :model_backend ) if @model
+    @tabs = []
+    @tabs << (@model.is_package ? :package_backend : :model_backend ) if @model
   end
 
 end

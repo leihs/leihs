@@ -13,6 +13,9 @@ class AccessRight < ActiveRecord::Base
   validates_uniqueness_of :inventory_pool_id, :scope => :user_id
   validate :validates_admin_role
 
+  before_validation_on_create :remove_old
+
+
   def to_s
     s = "#{role.name}"
     s += " for #{inventory_pool.name}" if inventory_pool
@@ -32,6 +35,13 @@ class AccessRight < ActiveRecord::Base
       errors.add_to_base(_("The admin role cannot be scoped to an inventory pool")) unless inventory_pool.nil?
     else    
       errors.add_to_base(_("Inventory Pool is missing")) if inventory_pool.nil?
+    end
+  end
+
+  def remove_old
+    unless user.access_rights.empty?
+      old_ar = user.access_rights.first(:conditions => { :inventory_pool_id => inventory_pool.id })
+      user.access_rights.delete(old_ar) if old_ar
     end
   end
 

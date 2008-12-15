@@ -1,6 +1,10 @@
+<% unless request.xml_http_request? %>
+
 <div class="toolbar-second buttons">
 	<%= link_to _("Create New"), :action => 'new' %>
 </div>
+
+<% end %>
 
 <% table_with_search_and_pagination :columns => [_("Name"), _("Description"), _("Items"), _("Action")],
 									:records => @inventory_pools do |inventory_pool| %>	

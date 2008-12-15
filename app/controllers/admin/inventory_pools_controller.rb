@@ -90,7 +90,8 @@ class Admin::InventoryPoolsController < Admin::AdminController
     params[:id] ||= params[:inventory_pool_id] if params[:inventory_pool_id]
     @inventory_pool = InventoryPool.find(params[:id]) if params[:id]
 
-    @tab = :inventory_pool_admin if @inventory_pool
+    @tabs = []
+    @tabs << :inventory_pool_admin if @inventory_pool
   end
 
   

@@ -19,8 +19,14 @@
 
 <body>
 
-			<div id="flash_notice_modal"></div> <% # TODO 12** where is used? %>
-			<%= yield %>
+		<%= flash_helper %>
+		
+		<% # TODO 12** optimize nested tabs rendering %>
+		<% if @tabs %>
+			<%= tabnavs @tabs, yield %>
+		<% else %>
+			<%=  yield %>
+		<% end %>
 
 </body>
 </html>

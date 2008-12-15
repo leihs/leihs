@@ -26,7 +26,8 @@ module Backend::BackendHelper
             parameters = ""
             params.each {|k,v| parameters += ", #{k}: '#{v}'" unless filter_params.include?(k) }
 
-            r = text_field_tag :query, query, :onchange => "new Ajax.Updater('list_table', '#{url_for({})}', {asynchronous:true, evalScripts:true, method:'get', onLoading:function(request){Element.show('spinner')}, parameters: {query: this.value #{parameters}}}); return false;", :id => 'search_field'
+#old#            r = text_field_tag :query, query, :onchange => "new Ajax.Updater('list_table', '#{url_for({})}', {asynchronous:true, evalScripts:true, method:'get', onLoading:function(request){Element.show('spinner')}, parameters: {query: this.value #{parameters}}}); return false;", :id => 'search_field'
+            r = text_field_tag :query, query, :onchange => "new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', onLoading:function(request){Element.show('spinner')}, parameters: {query: this.value #{parameters}}}); return false;", :id => 'search_field'
             r += javascript_tag("$('search_field').focus()")
             
             r += content_tag :div, :class => "result", :style => "min-height: 200px;" do

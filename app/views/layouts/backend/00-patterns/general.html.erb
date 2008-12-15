@@ -46,17 +46,14 @@
 		<div id="inner-container">
 			
 		<%= flash_helper %>
-				
-<% # TODO 03** render tabs into nested layout %>
-<% if @tab %>
-	<% tabnav @tab do %>
-			<%= yield %>
-	<% end %>
-<% else %>
-	<%= yield %>
-<% end %>
-
-	
+		
+		<% # TODO 12** optimize nested tabs rendering %>
+		<% if @tabs %>
+			<%= tabnavs @tabs, yield %>
+		<% else %>
+			<%=  yield %>
+		<% end %>
+		
 		</div>
 	</div>
 	
