@@ -2,7 +2,6 @@
 
     require 'iconv'
 
-
     # TODO: move to helper
     def filter(text)
       ic = Iconv.new('iso-8859-1','utf-8')
@@ -86,12 +85,34 @@
     fill = 0
 
     @contract.lines.each do |l|
-      pdf.Cell(w[0], 6, l.quantity.to_s, 'LR', 0, 'L', fill)
-      pdf.Cell(w[1], 6, l.model.name, 'LR', 0, 'L', fill)
-      pdf.Cell(w[2], 6, l.item.inventory_code, 'LR', 0, 'L', fill)
-      pdf.Cell(w[3], 6, short_date(l.start_date).to_s, 'LR', 0, 'R', fill)
-      pdf.Cell(w[4], 6, short_date(l.end_date).to_s, 'LR', 0, 'R', fill)
-      pdf.Cell(w[5], 6, short_date(l.returned_date).to_s, 'LR', 0, 'R', fill)
+      line_start_x = pdf.GetX
+      line_start_y = pdf.GetY
+
+
+      multi_y_before = pdf.GetY
+
+      pdf.MultiCell(w[1], 6, l.model.name, 'LR', 0, 'L', fill)
+
+      multi_y_after = pdf.GetY
+      multi_x_after = pdf.GetX
+
+      cell_height = multi_y_after - multi_y_before
+
+
+      # Prints the first cell before the multicell, because we didn't know
+      # the line height achieved by the linebreak-savvy MultiCell before
+      # actually calling pdf.MultiCell
+      pdf.SetXY(line_start_x, line_start_y)
+      pdf.Cell(w[0], cell_height, l.quantity.to_s, 'LR', 0, 'L', fill)
+
+
+
+      # Prints the rest of the cells where we'd expect them, after the MultiCell
+      pdf.SetXY(multi_x_after, multi_y_after)
+      pdf.Cell(w[2], cell_height, l.item.inventory_code, 'LR', 0, 'L', fill)
+      pdf.Cell(w[3], cell_height, short_date(l.start_date).to_s, 'LR', 0, 'R', fill)
+      pdf.Cell(w[4], cell_height, short_date(l.end_date).to_s, 'LR', 0, 'R', fill)
+      pdf.Cell(w[5], cell_height, short_date(l.returned_date).to_s, 'LR', 0, 'R', fill)
       pdf.Ln()
       fill = (fill == 0 ? 1 : 0)
     end
