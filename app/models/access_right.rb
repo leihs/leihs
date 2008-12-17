@@ -40,7 +40,7 @@ class AccessRight < ActiveRecord::Base
 
   def remove_old
     unless user.access_rights.empty?
-      old_ar = user.access_rights.first(:conditions => { :inventory_pool_id => inventory_pool.id })
+      old_ar = user.access_rights.first(:conditions => { :inventory_pool_id => inventory_pool.id }) if inventory_pool
       user.access_rights.delete(old_ar) if old_ar
     end
   end

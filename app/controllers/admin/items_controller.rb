@@ -68,22 +68,20 @@ class Admin::ItemsController < Admin::AdminController
 #################################################################
 
   def inventory_pool
+    if request.post?
+      ip = InventoryPool.find(params[:inventory_pool_id])
+      @item.location = ip.main_location
+      
+      # if it's the first item of that model assigned to the inventory_pool,
+      # then creates accessory associations
+      @item.model.accessories.each {|a| ip.accessories << a unless ip.accessories.include?(a) } unless ip.models.include?(@item.model)
+      
+      @item.step = 'step_location'
+      @item.save
+      redirect_to
+    end
   end
   
-  def set_inventory_pool
-    ip = InventoryPool.find(params[:inventory_pool_id])
-    @item.location = ip.main_location
-    
-    # if it's the first item of that model assigned to the inventory_pool,
-    # then creates accessory associations
-    @item.model.accessories.each {|a| ip.accessories << a } unless ip.models.include?(@item.model)
-    # TODO *17* fix problem with accessories setting inventory_pool
-    
-    
-    @item.step = 'step_location'
-    @item.save
-    redirect_to :action => 'inventory_pool', :id => @item
-  end
 
 #################################################################
 
@@ -102,6 +100,7 @@ class Admin::ItemsController < Admin::AdminController
     @model = Model.find(params[:model_id]) if params[:model_id]
 
     @tabs = []
+    @tabs << :model_admin if @model
     @tabs << :item_admin if @item
   end
 

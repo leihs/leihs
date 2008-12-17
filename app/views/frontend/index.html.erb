@@ -31,18 +31,6 @@
 		<%= render :partial => 'complete_order' %>
 		<%= render :partial => 'basket' %>
 		
-	    var user_timeline = new Ext.Panel({
-	        contentEl:'user_timeline',
-	        title:'Timeline',
-			closable: true,
-		    autoScroll:true /*,
-			listeners: { activate: function(cmp) {
-			               Ext.getDom('user_timeline').innerHTML = "<iframe src='/users/timeline' width='100%' height='500' frameborder='0'></iframe>";
-						}
-			} */
-	    });
-
-
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
 		var center_tabs = new Ext.TabPanel({

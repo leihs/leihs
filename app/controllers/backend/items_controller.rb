@@ -37,12 +37,10 @@ class Backend::ItemsController < Backend::BackendController
 #################################################################
 
   def location
-    #render :layout => false
-  end
-  
-  def set_location
-    @item.update_attribute(:location, current_inventory_pool.locations.find(params[:location_id]))
-    redirect_to :action => 'location', :id => @item
+    if request.post?
+      @item.update_attribute(:location, current_inventory_pool.locations.find(params[:location_id]))
+      redirect_to
+    end
   end
 
 #################################################################

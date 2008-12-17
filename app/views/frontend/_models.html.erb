@@ -346,7 +346,7 @@ function add_model_details(model_id, add_tab){
 					handler: function(){
 						this.findParentByType('form').form.submit({
 							waitMsg: 'Saving Data...',
-							url: '/order/add_line',
+							url: '/user/order/add_line',
 							method: 'POST',
 							params: {
 								'<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'
