@@ -14,7 +14,14 @@ class Contract < Document
   NEW = 1
   SIGNED = 2
   CLOSED = 3
-  
+
+  STATUS = {_("New") => NEW, _("Signed") => SIGNED, _("Closed") => CLOSED }
+
+  def status_string
+    n = STATUS.index(status_const)
+    n.nil? ? status_const : n
+  end
+
   # alias
   def lines
     contract_lines

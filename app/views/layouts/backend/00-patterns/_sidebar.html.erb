@@ -40,6 +40,7 @@
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.users.size})", :controller => 'users' %></li>
 			<li><%= link_to _('Managers') + " (#{@current_inventory_pool.managers.size})", :controller => 'users', :filter => 'managers' %></li>
 			<li><%= link_to _('Students') + " (#{@current_inventory_pool.students.size})", :controller => 'users', :filter => 'students' %></li>
+			<li><%= link_to _('Unknown'), :controller => 'users', :filter => 'unknown' %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>

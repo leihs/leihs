@@ -9,6 +9,15 @@ class ApplicationController < ActionController::Base
 
   helper :all # include all helpers, all the time
 
+  # TODO 16** http://www.yotabanana.com/hiki/ruby-gettext-howto-rails.html
+  before_init_gettext :define_locale
+  def define_locale
+    if params[:locale] #if (cookies["lang"].nil? or cookies["lang"].empty?)
+      set_locale params[:locale]
+#    else
+#      set_locale "en"
+    end
+  end 
   init_gettext 'leihs'
 
   # See ActionController::RequestForgeryProtection for details
@@ -33,5 +42,12 @@ class ApplicationController < ActionController::Base
   def current_inventory_pool
     nil
   end
+
+  # overriding
+  # TODO 16** doesn't work for *_url and *_path 
+  def default_url_options(options = nil)
+    { :layout => params[:layout] }
+  end
+
   
 end

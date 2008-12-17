@@ -37,8 +37,8 @@ render_tabnav :package_backend,
 
 	add_tab do |t|
 		t.named 'Location'
-		t.links_to show_package_location_backend_inventory_pool_model_path(@current_inventory_pool, @model)
-		t.highlights_on :action => 'show_package_location'
+		t.links_to package_location_backend_inventory_pool_model_path(@current_inventory_pool, @model)
+		t.highlights_on :action => 'package_location'
 	end
 
 

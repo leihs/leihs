@@ -8,19 +8,17 @@
 
 <%  
 
-render_tabnav :user_admin, 
+render_tabnav :user_backend, 
               :generate_css => true do 
 
 	add_tab do |t|
 		t.named 'User'
 		t.links_to :action => 'show'
-		t.html[:style] = "background-color: red;" if @user.login.blank? 
 	end
 
 	add_tab do |t|
 		t.named 'Access Rights'
 		t.links_to :action => 'access_rights'
-		t.html[:style] = "background-color: red;" if @user.access_rights.blank? 
 	end
 
 end 

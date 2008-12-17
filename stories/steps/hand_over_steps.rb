@@ -25,7 +25,7 @@ steps_for(:hand_over) do
   end
 
   When "the new order is submitted" do
-    post submit_order_path
+    post submit_user_order_path
   end
   
   When "$who approves the order" do | who |

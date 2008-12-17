@@ -55,6 +55,7 @@ class Admin::UsersController < Admin::AdminController
   def access_rights
   end
   
+  # TODO 15** fix error adding 'admin' 
   def add_access_right
     r = Role.find(params[:access_right][:role_id])
     ip = InventoryPool.find(params[:access_right][:inventory_pool_id]) unless params[:access_right][:inventory_pool_id].blank? 
@@ -80,6 +81,9 @@ class Admin::UsersController < Admin::AdminController
   def pre_load
     params[:id] ||= params[:user_id] if params[:user_id]
     @user = User.find(params[:id]) if params[:id]
+
+    @tabs = []
+    @tabs << :user_admin if @user
   end
   
 end

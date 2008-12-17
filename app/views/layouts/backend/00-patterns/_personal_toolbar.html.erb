@@ -7,7 +7,9 @@
 <% end %>
  
 <% if current_user %>	
-	<li><strong><%= "Angemeldet als #{current_user.login}." %></strong></li>
+	<li>
+		<strong><%= _("Angemeldet als %{u}.") % { :u => current_user.login } %></strong>
+	</li>
 	<li>
 		<%= link_to _("Logout") + "?", '/logout' %>
 	</li>
@@ -22,4 +24,9 @@
 <% end %>
 
 	<li><a href="#">Hilfe</a></li>
+	<li class="buttons">
+		<% locales.each do |k,v| %>
+			<%= link_to v, :params => params.merge({:locale => k}) %>
+		<% end %>
+	</li>
 </ul>

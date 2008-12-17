@@ -92,12 +92,11 @@ class Backend::ModelsController < Backend::BackendController
     redirect_to :action => 'show_package_items', :id => @model
   end
 
-  def show_package_location
-  end
-  
-  def set_package_location
-    @model.items.first.update_attribute(:location, current_inventory_pool.locations.find(params[:location_id]))
-    redirect_to :action => 'show_package_location', :id => @model
+  def package_location
+    if request.post?
+      @model.items.first.update_attribute(:location, current_inventory_pool.locations.find(params[:location_id]))
+      redirect_to
+    end
   end
 
 #################################################################
@@ -119,15 +118,14 @@ class Backend::ModelsController < Backend::BackendController
 #################################################################
 
   def accessories
-  end
-  
-  def set_accessories(accessory_ids = params[:accessory_ids] || [])
-    @current_inventory_pool.accessories -= @model.accessories
-    
-    accessory_ids.each do |a|
-      @current_inventory_pool.accessories << @model.accessories.find(a.to_i)
+    if request.post?
+      @current_inventory_pool.accessories -= @model.accessories
+      
+      (params[:accessory_ids] || []).each do |a|
+        @current_inventory_pool.accessories << @model.accessories.find(a.to_i)
+      end
+      redirect_to
     end
-    redirect_to :action => 'accessories', :id => @model
   end
   
 #################################################################

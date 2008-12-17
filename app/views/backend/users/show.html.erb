@@ -1,16 +1,9 @@
-Id: <%= @user.id %>
-<br />
 Login: <%= @user.login %>
 
 <br />
 <br />
+
 <%= render :partial => 'resume' %>
 
 <br />
 <br />
-
-<ul>
-<% @user.access_rights.select{|a| a.inventory_pool == @current_inventory_pool}.each do |a| %>
-	<li><%= a %></li>
-<% end %>
-</ul>

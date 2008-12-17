@@ -19,6 +19,13 @@ class Order < Document
   APPROVED = 3
   REJECTED = 4
 
+  STATUS = {_("New") => NEW, _("Submitted") => SUBMITTED, _("Approved") => APPROVED, _("Rejected") => REJECTED }
+
+  def status_string
+    n = STATUS.index(status_const)
+    n.nil? ? status_const : n
+  end
+
   # alias
   def lines
     order_lines

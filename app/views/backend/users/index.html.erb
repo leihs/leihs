@@ -29,8 +29,8 @@
 					<% else %>
 						<ul>
 							<li><%= link_to _("Show"), :action => 'show', :id => user.id %></li>
-							<li><%= link_to _("New Contract"), :action => 'new_contract', :id => user.id %></li>
-							<li><%= link_to _("Remind"), :action => 'remind', :id => user.id %></li>
+							<li><%= link_to _("New Contract"), :action => 'new_contract', :id => user.id if @current_inventory_pool.users.include?(user) %></li>
+							<li><%= link_to _("Remind"), :action => 'remind', :id => user.id if user.to_remind? %></li>
 						</ul>
 					<% end %>
 				</td>

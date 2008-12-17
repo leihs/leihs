@@ -47,6 +47,7 @@ class Event
   end  
 
 ############################################################################
+# Timeline
 
   def to_xml
     xml = Document.new()

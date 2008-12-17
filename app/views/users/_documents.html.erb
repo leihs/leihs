@@ -1,5 +1,5 @@
 <%	a = []
-	(current_user.orders + current_user.contracts).sort.each {|x| a << [x.id, x.class.to_s, x.created_at]}
+	(@user.orders + @user.contracts).sort.each {|x| a << [x.id, x.class.to_s, x.created_at, x.status_string]}
 %>
     var documents_grid = new Ext.grid.GridPanel({
 							title: 'Documents (<%= a.size %>)',
@@ -10,7 +10,8 @@
 							store: new Ext.data.SimpleStore({
 										 fields: [	{name: 'id', type: 'int'},
 										 			{name: 'document', type: 'string'},
-	   											  	{name: 'created_at', type: 'date' }	],
+	   											  	{name: 'created_at', type: 'date' },
+													{name: 'status', type: 'string'} ],
 										 data: <%= a.to_json %>
 										}),
 					        cm:  new Ext.grid.ColumnModel([
@@ -25,38 +26,17 @@
 									},{
 							           header: "Date",
 							           dataIndex: 'created_at',
-									   width: 100,
+									   width: 80,
 									   renderer: function(value,p,r){ return formatDate(value); }
+									},{
+							           header: "Status",
+							           dataIndex: 'status',
+									   width: 80
 									}]),
 									listeners: {
 										rowclick: function( grid, rowIndex, e ){
-										  record = grid.getStore().getAt(rowIndex);
-										  x_id = record.data.id;
-										  x_document = record.data.document;
-
-											panel_id = x_document + ' ' + x_id;
-							 				document_panel = account_panel.getComponent(panel_id);
-							 				if(!document_panel){
-											    document_panel = new Ext.Panel({
-													id: panel_id,
-											        title: panel_id,
-													closable: true,
-												    autoScroll:true,
-	//												html: "here document " + x_document + " " + x_id
-													html: "<object type='application/pdf' data='/users/show_document/" + x_id + ".pdf' width='100%' height='100%'> </object>"
-	//								                html: "<iframe src='/users/show_document/" + x_id + ".pdf' width='100%' height='500' frameborder='0'></iframe>"
-											    });
-												account_panel.add(document_panel);
-											}
-											account_panel.activate(document_panel);
-/*
-											document_panel.load({
-											    url: '/users/show_document/' + x_id + '.pdf',
-											    text: "Loading...",
-											    timeout: 30,
-												scripts: true
-											});
-*/
+											record = grid.getStore().getAt(rowIndex);
+											add_document_details(record.data.document, record.data.id);
 										}
 									},
 					        tbar: ['->',
@@ -66,10 +46,117 @@
 						            icon:'<%= $layout_public_path + "/images/icons/shape_align_left.png" %>',
 							        handler: function(){
 										account_panel.add(user_timeline);
-							            Ext.getDom('user_timeline').innerHTML = "<iframe src='/users/timeline' width='100%' height='500' frameborder='0'></iframe>";
+							            Ext.getDom('user_timeline').innerHTML = "<iframe src='/user/timeline' width='100%' height='500' frameborder='0'></iframe>";
 										account_panel.activate(user_timeline);
 							        }
 							    })
 					        ]
 	                    });
-						
+
+///////////////////////////////////////////////////////////////////////////
+// Document Details
+////////////////
+
+	var Line = Ext.data.Record.create([
+	   {name: 'order_id', type: 'int'},
+	   {name: 'quantity', type: 'int'},
+	   {name: 'model.id', type: 'string'},
+	   {name: 'model.name', type: 'string'},
+	   {name: 'model.manufacturer', type: 'string'},
+	   {name: 'start_date', type: 'date'},
+	   {name: 'end_date', type: 'date'},
+	   {name: 'available?', type: 'string'},
+	   {name: 'inventory_pool.name', type: 'string'},
+	   {name: 'inventory_pool.closed_days'},
+	   {name: 'inventory_pool.closed_dates'}
+	]);
+
+	var order_reader = new Ext.data.JsonReader({
+				            root: 'order_lines',
+				            totalProperty: 'results',
+				            id: 'id'},
+							Line);
+		
+    var order_cm = new Ext.grid.ColumnModel([
+		{
+           header: "",
+           dataIndex: 'quantity',
+           width: 20,
+           align: 'right'
+        },{
+           header: "Model",
+           dataIndex: 'model.name'
+        },{
+           header: "Inventory Pool",
+           dataIndex: 'inventory_pool.name',
+           width: 50
+        },{
+           header: "Start date",
+           dataIndex: 'start_date',
+           width: 50,
+           renderer: formatDate
+        },{
+           header: "End date",
+           dataIndex: 'end_date',
+           width: 50,
+           renderer: formatDate
+        },{
+           header: "Available",
+           dataIndex: 'available?',
+		   align: 'center',
+ 		   renderer:function(value){ var img = (value == 'true')?'accept':'exclamation';
+		   							 return '<img src="<%= $layout_public_path %>/images/icons/' + img + '.png" />';},
+           width: 40
+        }]);
+
+//    order_cm.defaultSortable = true;
+
+
+
+function add_document_details(document_type, document_id){
+
+		panel_id = document_type + ' ' + document_id;
+		document_panel = account_panel.getComponent(panel_id);
+		if(!document_panel){
+
+		    var order_store = new Ext.data.GroupingStore({
+		        proxy: new Ext.data.HttpProxy(
+					new Ext.data.Connection({
+						url: '/user/orders/' + document_id + '.ext_json',
+						method: 'GET'
+					})
+		        ),
+		        reader: order_reader,
+				groupField: 'start_date',
+		        sortInfo:{field: 'model', direction: "ASC"},
+		        remoteSort: true
+		    });
+	
+								/*
+								    document_panel = new Ext.Panel({
+										id: panel_id,
+								        title: panel_id,
+										closable: true,
+									    autoScroll:true
+//										,html: "<object type='application/pdf' data='/user/document.pdf?id=" + document_id + "' width='100%' height='100%'> </object>"
+								    });
+								*/
+			document_panel = new Ext.grid.GridPanel({
+				id: panel_id,
+		        title: panel_id,
+				closable: true,
+		        store: order_store,
+		        cm: order_cm,
+		        loadMask: true,
+				view: new Ext.grid.GroupingView({
+		            forceFit:true,
+		            groupTextTpl: '{text}'
+		        })
+		    });
+			account_panel.add(document_panel);
+		}
+		
+		order_store.load();
+		account_panel.activate(document_panel); 
+ 
+} // end function

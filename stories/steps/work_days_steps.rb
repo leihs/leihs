@@ -44,10 +44,10 @@ steps_for(:work_days) do
     # Login                            
     post "/session", :login => user.login
     @order.destroy if @order
-    get new_order_path
+    get '/user/order'
     @order = assigns(:order)
     
-    post add_line_order_path( :model_id => model.id,
+    post add_line_user_order_path( :model_id => model.id,
                               :quantity => 1,
                               :inventory_pool_id => inventory_pool.id,
                               :start_date => date,

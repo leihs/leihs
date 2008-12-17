@@ -97,10 +97,9 @@ class OrdersController < FrontendController
 ########################################################
 
   def show(sort =  params[:sort] || "model", dir =  params[:dir] || "ASC")
-    order = current_user.get_current_order
     respond_to do |format|
-#      format.ext_json { render :json => order.order_lines.sort{|x,y| x.send(sort) <=> y.send(sort) }.to_ext_json(:include => :model, :methods => :available?) }
-      format.ext_json { render :json => order.to_json(:methods => :approvable?,
+#      format.ext_json { render :json => @order.order_lines.sort{|x,y| x.send(sort) <=> y.send(sort) }.to_ext_json(:include => :model, :methods => :available?) }
+      format.ext_json { render :json => @order.to_json(:methods => :approvable?,
                                                       :include => {
                                                           :order_lines => { :include => {:model => {},
                                                                                          :inventory_pool => {:except => [:description,
@@ -120,7 +119,7 @@ class OrdersController < FrontendController
   private
   
   def pre_load
-        @order = current_user.get_current_order
+        @order = (params[:id] ? current_user.orders.find(params[:id]) : current_user.get_current_order)
   end  
 
 end

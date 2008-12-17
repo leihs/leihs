@@ -6,7 +6,9 @@
 		<ul>
 		<% @current_inventory_pool.locations.each do |l| %>
 			<li><b><%= l.inventory_pool.name %>:</b> <%= l.building %>, <%= l.room %>, <%= l.shelf %>
-											 <%= link_to _('Set'), :action => 'set_location', :location_id => l %></li>
+											 <%= link_to _('Set'),
+													{ :location_id => l },
+													{ :method => :post } %></li>
 		<% end %>
 		</ul>
 	

@@ -32,22 +32,24 @@ ActionController::Routing::Routes.draw do |map|
   # Sample resource route with sub-resources:
   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
 
-  map.resources :users, :collection => { :visits => :get,
-                                         :timeline => :get,
-                                         :timeline_visits => :get,
-                                         :account => :get }
+  map.resource :user, :member => { :visits => :get,
+                                   :timeline => :get,
+                                   :timeline_visits => :get,
+                                   :account => :get,
+                                   :document => :get } do |user|
+      user.resource :order, :member => { :submit => :post,
+                                         :add_line => :post,
+                                         :change_line => :post,
+                                         :remove_lines => :post,
+                                         :change_time_lines => :post }
+      user.resources :orders
+  end
   map.resource :session, :member => { :authenticate => :any,
                                       :old_new => :get } # TODO 04** remove, only for offline login
   
   map.resource :frontend, :controller => 'frontend',
                           :member => { :get_inventory_pools => :any,
                                        :set_inventory_pools => :any }
-
-  map.resource :order, :member => { :submit => :post,
-                                    :add_line => :post,
-                                    :change_line => :post,
-                                    :remove_lines => :post,
-                                    :change_time_lines => :post }
                                       
   map.resources :models, :collection => { :categories => :any }
 
@@ -74,24 +76,24 @@ ActionController::Routing::Routes.draw do |map|
                                                          :new_package => :get,
                                                          :update_package => :post },
                                         :member => { :properties => :get,
-                                                     :accessories => :get,
-                                                     :set_accessories => :post,
+                                                     :accessories => :any,
                                                      :show_package => :get,
                                                      :show_package_items => :get,
                                                      :add_package_item => :put,
                                                      :remove_package_item => :get,
-                                                     :show_package_location => :get,
-                                                     :set_package_location => :get,
+                                                     :package_location => :any,
                                                      :images => :get } do |model|
-            model.resources :items, :member => { :location => :get,
-                                                 :set_location => :get,
+            model.resources :items, :member => { :location => :any,
                                                  :status => :get,
                                                  :notes => :any }
             model.resources :categories
             model.resources :compatibles, :controller => 'models'
       end
       inventory_pool.resources :users, :member => { :new_contract => :get,
-                                                    :remind => :get } do |user|
+                                                    :remind => :get,
+                                                    :access_rights => :get,
+                                                    :remove_access_right => :get,
+                                                    :add_access_right => :post } do |user|
                user.resources :acknowledge, :member => { :approve => :any,
                                                          :reject => :any,
                                                          :delete => :get,
@@ -145,8 +147,7 @@ ActionController::Routing::Routes.draw do |map|
         inventory_pool.resources :items
     end
     admin.resources :items, :member => { :model => :get,  # TODO 12** remove and nest to models ??
-                                         :inventory_pool => :get,
-                                         :set_inventory_pool => :get }
+                                         :inventory_pool => :any }
     admin.resources :models, :collection => { :auto_complete => :get },
                              :member => { :properties => :get,
                                           :add_property => :post,

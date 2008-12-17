@@ -20,15 +20,15 @@ render_tabnav :item_admin,
     
 	add_tab do |t|
 		t.named 'Item'
-		t.links_to admin_item_path(@item)
-		t.highlights_on :action => 'show'
+		t.links_to :action => 'show' #admin_item_path(@item)
+#		t.highlights_on :action => 'show'
 		t.html[:style] = "background-color: red;" if @item.inventory_code.blank? 
 	end
 
 	add_tab do |t|
 		t.named 'Model'
-		t.links_to model_admin_item_path(@item) #:action => 'model', :id => @item.id
-		t.highlights_on :action => 'model'
+		t.links_to :action => 'model' # model_admin_item_path(@item)
+#		t.highlights_on :action => 'model'
 		t.html[:style] = "background-color: red;" unless @item.model
 
 #		t.links_to_remote :url => { :action => 'model', :id => @item.id }, :update => "tabbb"
@@ -37,8 +37,8 @@ render_tabnav :item_admin,
 
 	add_tab do |t|
 		t.named 'InventoryPool'
-		t.links_to inventory_pool_admin_item_path(@item) #:action => 'inventory_pool', :id => @item.id
-		t.highlights_on :action => 'inventory_pool'
+		t.links_to :action => 'inventory_pool' # inventory_pool_admin_item_path(@item)
+#		t.highlights_on :action => 'inventory_pool'
 		t.html[:style] = "background-color: red;" unless @item.location
 		# TODO 24** disable unless model (t.disabled_if)
 	end
