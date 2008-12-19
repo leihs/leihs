@@ -4,8 +4,12 @@
 
     # TODO: move to helper
     def filter(text)
-      ic = Iconv.new('iso-8859-1','utf-8')
+      ic = Iconv.new('iso-8859-1//IGNORE//TRANSLIT','utf-8')
       ic.iconv(text)
+    end
+
+    def user_address
+      @contract.user.login
     end
 
     leftmargin = 25.0
@@ -39,7 +43,7 @@
     pdf.SetXY( parties_x, parties_y + 5)
     pdf.SetFont('Arial', '', 10)
     pdf.MultiCell(blockwidth, 5, filter("Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8031 Zürich"))
-
+    below_lender_y = pdf.GetY
 
 
     pdf.SetFont('Arial', 'B', 10)
@@ -48,10 +52,12 @@
 
     pdf.SetXY( parties_x + blockwidth + blockspacing, parties_y + 5)
     pdf.SetFont('Arial', '', 10)
-    pdf.MultiCell(blockwidth, 5, filter("Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8031 Zürich"))
+    pdf.MultiCell(blockwidth, 5, filter(user_address))
+    below_borrower_y = pdf.GetY
 
 
-	pdf.Ln()
+    pdf.SetY( [below_borrower_y, below_lender_y].max)
+    pdf.Ln
 
 
     # Legal text for contract TODO: get this info from system configuration, i.e. the DB
@@ -67,13 +73,13 @@
     pdf.SetFillColor(200, 200, 200)
     pdf.SetDrawColor(150, 150, 150)
     pdf.SetLineWidth(0.3)
-    pdf.SetFont('Arial', '', 10)
+    pdf.SetFont('Arial', '', 9)
 
     # Table Header
     # TODO: ugly filters. more elegant way?
-    item_table_header = [filter(_("Qt.")), filter(_("Model")), filter(_("Inventory Code")), filter(_("Start date")), filter(_("End date")), filter(_("Returned date"))]
+    item_table_header = [filter(_("Inventory Code")), filter(_("Model")),  filter(_("Start date")), filter(_("End date")), filter(_("Returned date"))]
 
-    w = [10.0, 65.0, 25.0, 22.0, 22.0, 22.0]
+    w = [25.0, 75.0, 22.0, 22.0, 22.0]
     0.upto(item_table_header.length - 1) do |i|
       pdf.Cell(w[i], 7, item_table_header[i], 1, 0, 'C', 1)
     end
@@ -85,34 +91,30 @@
     fill = 0
 
     @contract.lines.each do |l|
+
       line_start_x = pdf.GetX
       line_start_y = pdf.GetY
 
+      pdf.SetXY(line_start_x + w[0], line_start_y)
 
-      multi_y_before = pdf.GetY
+      before_description_x = pdf.GetX
+      before_description_y = pdf.GetY
 
-      pdf.MultiCell(w[1], 6, l.model.name, 'LR', 0, 'L', fill)
+      pdf.MultiCell(w[1], 5, l.model.name,  'LR', 'L', fill)
 
-      multi_y_after = pdf.GetY
-      multi_x_after = pdf.GetX
+      after_description_x = before_description_x + w[1]
+      after_description_y = pdf.GetY
 
-      cell_height = multi_y_after - multi_y_before
+      cell_height = after_description_y - before_description_y
 
-
-      # Prints the first cell before the multicell, because we didn't know
-      # the line height achieved by the linebreak-savvy MultiCell before
-      # actually calling pdf.MultiCell
       pdf.SetXY(line_start_x, line_start_y)
-      pdf.Cell(w[0], cell_height, l.quantity.to_s, 'LR', 0, 'L', fill)
-
-
+      pdf.Cell(w[0], cell_height, l.item.inventory_code, 'LR', 0, 'L', fill)
 
       # Prints the rest of the cells where we'd expect them, after the MultiCell
-      pdf.SetXY(multi_x_after, multi_y_after)
-      pdf.Cell(w[2], cell_height, l.item.inventory_code, 'LR', 0, 'L', fill)
-      pdf.Cell(w[3], cell_height, short_date(l.start_date).to_s, 'LR', 0, 'R', fill)
-      pdf.Cell(w[4], cell_height, short_date(l.end_date).to_s, 'LR', 0, 'R', fill)
-      pdf.Cell(w[5], cell_height, short_date(l.returned_date).to_s, 'LR', 0, 'R', fill)
+      pdf.SetXY(after_description_x, line_start_y)
+      pdf.Cell(w[2], cell_height, short_date(l.start_date).to_s, 'LR', 0, 'R', fill)
+      pdf.Cell(w[3], cell_height, short_date(l.end_date).to_s, 'LR', 0, 'R', fill)
+      pdf.Cell(w[4], cell_height, short_date(l.returned_date).to_s, 'LR', 0, 'R', fill)
       pdf.Ln()
       fill = (fill == 0 ? 1 : 0)
     end
@@ -120,6 +122,8 @@
     pdf.Cell(w.sum, 0, '', 'T')
 
 
+    #pdf.Cell( filter(_("Options")) )
+    
     # Options to hand over
 	if @contract.options.size > 0
         item_table_header = [filter(_("Qt.")), filter(_("Name")), filter(_("Barcode")), filter(_("Start date")), filter(_("End date")), filter(_("Returned date"))]
@@ -144,7 +148,9 @@
 
 	    @contract.options.each do |o|
 	      pdf.Cell(w[0], 6, o.quantity.to_s, 'LR', 0, 'L', fill)
-	      pdf.Cell(w[1], 6, o.name, 'LR', 0, 'L', fill)
+        
+          pdf.Cell(w[1], 6, o.name, 'LR', 0, 'L', fill)
+
 	      pdf.Cell(w[2], 6, o.barcode, 'LR', 0, 'L', fill)
 	      pdf.Cell(w[3], 6, short_date(@contract.time_window_min).to_s, 'LR', 0, 'R', fill)
 	      pdf.Cell(w[4], 6, short_date(@contract.time_window_max).to_s, 'LR', 0, 'R', fill)
@@ -157,11 +163,32 @@
 	end
 
 
-    # Not doing anything yet
-    #pdf.Ln()
-    #pdf.SetFont('Arial', '', 10)
-    #pdf.Write(5, filter(@contract.purpose))
+    pdf.SetFont('Arial', '', 10)
+
+
+    # Purpose
+    pdf.Ln(5)
     
+    pdf.Write(5, filter(_("Purpose:")) + " " + filter(@contract.purpose))
+
+    pdf.Ln(10)
+
+    pdf.SetFont('Arial', '', 7)
+    # TODO english
+    pdf.Write(3, filter("Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die 'Richtlinie zur Ausleihe von Sachen' der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien."))
+    pdf.SetFont('Arial', '', 10)
+
+    pdf.Ln(15)
+
+
+
+    pdf.Cell(40, 0, filter(_("Signature of borrower:")) , 0, 0)
+    pdf.SetDrawColor(0,0,0)
+    after_signature_x = pdf.GetX
+
+    pdf.Cell(50, 0, Date.today.strftime("%d.%m.%Y"), 0, 0)
+    pdf.Line(after_signature_x, pdf.GetY + 3, pdf.GetX + 80, pdf.GetY + 3)
+
 
 %>
 
