@@ -19,7 +19,8 @@ render_tabnav :model_backend,
 
 	add_tab do |t|
 		t.named 'Model'
-		t.links_to backend_inventory_pool_model_path(@current_inventory_pool, @model)
+#old#		t.links_to backend_inventory_pool_model_path(@current_inventory_pool, @model, :layout => params[:layout]) # TODO 16** optimize :layout
+		t.links_to :controller => 'backend/models', :action => 'show', :id => @model
 		t.highlights_on :controller => 'backend/models', :action => 'show'
 	end
 

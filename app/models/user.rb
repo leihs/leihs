@@ -99,7 +99,8 @@ class User < ActiveRecord::Base
   def events
     e = []
     contract_lines.each do |l|
-      e << Event.new(l.start_date, l.end_date, l.model.name)
+      #old# e << Event.new(l.start_date, l.end_date, l.model.name)
+      e << Event.new(:start => l.start_date, :end => l.end_date, :title =>l.model.name)
     end
     e.sort
   end
@@ -110,7 +111,8 @@ class User < ActiveRecord::Base
       c.lines.each do |l|
         v = e.detect { |w| w.date == l.start_date and w.inventory_pool == c.inventory_pool }
         unless v
-          e << Event.new(l.start_date, l.start_date, "#{self.login} - #{c.inventory_pool.name}", false, "hand_over", c.inventory_pool, self, l)
+          #old# e << Event.new(l.start_date, l.start_date, "#{self.login} - #{c.inventory_pool.name}", false, "hand_over", c.inventory_pool, self, l)
+          e << Event.new(:start => l.start_date, :end => l.start_date, :title => "#{self.login} - #{c.inventory_pool.name}", :isDuration => false, :action => "hand_over", :inventory_pool => c.inventory_pool, :user => self, :contract_lines => [l])
         else
           v.contract_lines << l
         end
@@ -121,7 +123,8 @@ class User < ActiveRecord::Base
       c.lines.each do |l|
         v = e.detect { |w| w.date == l.end_date and w.inventory_pool == c.inventory_pool }
         unless v
-          e << Event.new(l.end_date, l.end_date, "#{self.login} - #{c.inventory_pool.name}", false, "take_back", c.inventory_pool, self, l)
+          #old# e << Event.new(l.end_date, l.end_date, "#{self.login} - #{c.inventory_pool.name}", false, "take_back", c.inventory_pool, self, l)
+          e << Event.new(:start => l.end_date, :end => l.end_date, :title => "#{self.login} - #{c.inventory_pool.name}", :isDuration => false, :action => "take_back", :inventory_pool => c.inventory_pool, :user => self, :contract_lines => [l])
         else
           v.contract_lines << l
         end
@@ -192,22 +195,30 @@ class User < ActiveRecord::Base
   
   # has_role? simply needs to return true or false whether a user has a role or not.  
   # It may be a good idea to have "admin" roles return true always
-  def has_role?(role_in_question, inventory_pool_in_question = nil) #sellittf# (role_in_question)
-#sellittf#    @_list ||= self.roles.collect(&:name)
-#sellittf#    return true if @_list.include?("admin")
+  def has_role?(role_in_question, inventory_pool_in_question = nil, exact_match = false) #sellittf# (role_in_question)
 
-#old# retrieve roles for a given inventory_pool
-#sellittf#    @_list = self.access_rights.collect{|a| a.role.name if a.inventory_pool.id == inventory_pool_id_in_question }
-#sellittf#    (@_list.include?(role_in_question.to_s) )
+#sellittf#
+#old#
+#    @_list ||= self.roles.collect(&:name)
+#    return true if @_list.include?("admin")
+#
+#    # retrieve roles for a given inventory_pool
+#    @_list = self.access_rights.collect{|a| a.role.name if a.inventory_pool.id == inventory_pool_id_in_question }
+#    (@_list.include?(role_in_question.to_s) )
 
-# retrieve roles for a given inventory_pool hierarchically with betternestedset plugin #sellittf#
+    # retrieve roles for a given inventory_pool hierarchically with betternestedset plugin #sellittf#
     role = Role.find(:first, :conditions => {:name => role_in_question})
     if inventory_pool_in_question
       roles = self.access_rights.collect{|a| a.role if a.inventory_pool and a.inventory_pool.id == inventory_pool_in_question.id }.compact
     else
       roles = self.access_rights.collect(&:role)
-    end  
-    ( roles.any? {|r| r.full_set.include?(role)} )
+    end
+    
+    if exact_match
+      return roles.include?(role)
+    else
+      return ( roles.any? {|r| r.full_set.include?(role)} )
+    end
   end
   # ---------------------------------------
   
@@ -222,7 +233,8 @@ class User < ActiveRecord::Base
       c.lines.to_remind.each do |l|
         v = e.detect { |w| w.date == l.end_date and w.inventory_pool == c.inventory_pool }
         unless v
-          e << Event.new(l.end_date, l.end_date, "#{self.login} - #{c.inventory_pool.name}", false, "take_back", c.inventory_pool, self, l)
+          #old# e << Event.new(l.end_date, l.end_date, "#{self.login} - #{c.inventory_pool.name}", false, "take_back", c.inventory_pool, self, l)
+          e << Event.new(:start => l.end_date, :end => l.end_date, :title => "#{self.login} - #{c.inventory_pool.name}", :isDuration => false, :action => "take_back", :inventory_pool => c.inventory_pool, :user => self, :contract_lines => [l])
         else
           v.contract_lines << l
         end

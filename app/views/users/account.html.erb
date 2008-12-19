@@ -1,7 +1,8 @@
 Ext.onReady(function(){
 
 	<%= render :partial => '/users/events' %>
-	<%= render :partial => '/users/documents' %>
+	<%= render :partial => '/users/orders' %>
+	<%= render :partial => '/users/contracts' %>
 
     var user_timeline = new Ext.Panel({
         contentEl:'user_timeline',
@@ -21,7 +22,8 @@ Ext.onReady(function(){
 		closable: true,
 	    autoScroll: true,
 		activeTab: 0,
-		items: [events_grid, documents_grid,
+		items: [events_grid, orders_grid, contracts_grid
+/*		,
 		{ xtype: 'panel',
 	        title:'Doc 2',
 			closable: true,
@@ -36,7 +38,9 @@ Ext.onReady(function(){
 					});
 				}
 			}
-		  }] 
+		  }
+*/
+		  ] 
     });
 	center_tabs.add(account_panel);
 }

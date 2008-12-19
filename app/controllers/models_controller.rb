@@ -91,10 +91,9 @@ class ModelsController < FrontendController
     @models = [@model]
     c = @models.size
     respond_to do |format|
-                                  #old# @model.to_json
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
-                                                            :methods => [[:chart, current_inventory_pools.first, current_user]], # TODO 11** all ip
+                                                            :methods => [[:chart, current_user]],
                                                             :include => {
                                                                 :package_items => { :except => [:created_at,
                                                                                                 :updated_at,
@@ -118,7 +117,6 @@ class ModelsController < FrontendController
                                                                                          :updated_at] }
                                                                         }
                                                                  ) }
-#TODO#      format.ext_json { render :json => { :model => @model, :inventory_pools => (@model.inventory_pools & current_inventory_pools) } }
     end
   end
 

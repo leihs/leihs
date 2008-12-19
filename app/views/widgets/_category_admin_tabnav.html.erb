@@ -26,17 +26,19 @@ render_tabnav :category_admin,
 	add_tab do |t|
 		t.named "Models (#{@category.models.size})"
 		t.links_to admin_category_models_path(@category)
-		t.highlights_on :controller => 'admin/models', :action => 'index' # TODO 10** not working
+		t.highlights_on :controller => 'admin/models', :action => 'index'
 	end
 
 	add_tab do |t|
 		t.named "Children (#{@category.children.size})"
 		t.links_to admin_category_children_path(@category)
+		t.html[:class] = 'active' if request.path_parameters[:controller] == 'admin/categories' and request.env['REQUEST_URI'].include?("children")
 	end
 
 	add_tab do |t|
 		t.named "Parents (#{@category.parents.size})"
 		t.links_to admin_category_parents_path(@category)
+		t.html[:class] = 'active' if request.path_parameters[:controller] == 'admin/categories' and request.env['REQUEST_URI'].include?("parents")
 	end
 
 end 

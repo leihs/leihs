@@ -93,7 +93,8 @@ class InventoryPool < ActiveRecord::Base
         c.lines.each do |l|
           v = @ho_visits.detect { |w| w.user == c.user and w.date == l.start_date }
           unless v
-            @ho_visits << Event.new(l.start_date, l.start_date, c.user.login, false, "hand_over", c.inventory_pool, c.user, l)
+            #old# @ho_visits << Event.new(l.start_date, l.start_date, c.user.login, false, "hand_over", c.inventory_pool, c.user, l)
+            @ho_visits << Event.new(:start => l.start_date, :end => l.end_date, :title => c.user.login, :isDuration => false, :action => "hand_over", :inventory_pool => c.inventory_pool, :user => c.user, :contract_lines => [l])
           else
             v.contract_lines << l
           end
@@ -116,7 +117,8 @@ class InventoryPool < ActiveRecord::Base
   def timeline
     events = []
     contract_lines.each do |l|
-      events << Event.new(l.start_date, l.end_date, l.model.name)
+      #old# events << Event.new(l.start_date, l.end_date, l.model.name)
+      events << Event.new(:start => l.start_date, :end => l.end_date, :title =>l.model.name)
     end
 
     xml = Event.xml_wrap(events)
@@ -158,7 +160,8 @@ class InventoryPool < ActiveRecord::Base
       lines.each do |l|
         v = visits.detect { |w| w.user == c.user and w.date == l.end_date }
         unless v
-          visits << Event.new(l.end_date, l.end_date, c.user.login, false, "take_back", c.inventory_pool, c.user, l)
+          #old# visits << Event.new(l.end_date, l.end_date, c.user.login, false, "take_back", c.inventory_pool, c.user, l)
+          visits << Event.new(:start => l.end_date, :end => l.end_date, :title => c.user.login, :isDuration => false, :action => "take_back", :inventory_pool => c.inventory_pool, :user => c.user, :contract_lines => [l])
         else
           v.contract_lines << l
         end

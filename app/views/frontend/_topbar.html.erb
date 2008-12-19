@@ -27,7 +27,7 @@
                         {text: 'Menu 3', handler: ''} 
 	                ]}
 				}, '->',
-						<% if current_user.has_role?('manager') %>
+						<% if current_user.has_role?('manager', nil, true) %>
 						{text: 'Backend', 
 						  iconCls:'bt',
 				          icon:'<%= $layout_public_path + "/images/icons/application_edit.png" %>',
@@ -36,7 +36,7 @@
 								}
 						},
 						<% end %>
-						<% if current_user.has_role?('admin') %>
+						<% if current_user.has_role?('admin', nil, true) %>
 						{text: 'Admin', 
 						  iconCls:'bt',
 				          icon:'<%= $layout_public_path + "/images/icons/application_key.png" %>',
