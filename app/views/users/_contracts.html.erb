@@ -1,24 +1,24 @@
 <%	a = []
-	(@user.orders + @user.contracts).sort.each {|x| a << [x.id, x.class.to_s, x.created_at, x.status_string]}
+	@user.contracts.sort.each {|c| a << [c.id, c.created_at, c.status_string, c.inventory_pool.name]}
 %>
-    var documents_grid = new Ext.grid.GridPanel({
-							title: 'Documents (<%= a.size %>)',
+    var contracts_grid = new Ext.grid.GridPanel({
+							title: 'Contracts (<%= a.size %>)',
 							autoHeight: true,
 							height: 'auto',
 							border: false,
 							viewConfig: { forceFit: true },
 							store: new Ext.data.SimpleStore({
 										 fields: [	{name: 'id', type: 'int'},
-										 			{name: 'document', type: 'string'},
 	   											  	{name: 'created_at', type: 'date' },
-													{name: 'status', type: 'string'} ],
+													{name: 'status', type: 'string'},
+													{name: 'inventory_pool.name', type: 'string'} ],
 										 data: <%= a.to_json %>
 										}),
 					        cm:  new Ext.grid.ColumnModel([
 									{
-							           header: "Document",
-							           dataIndex: 'document',
-									   width: 100
+							           header: "Inventory Pool",
+							           dataIndex: 'inventory_pool.name',
+									   width: 40
 									},{
 							           header: "ID",
 							           dataIndex: 'id',
@@ -33,12 +33,12 @@
 							           dataIndex: 'status',
 									   width: 80
 									}]),
-									listeners: {
-										rowclick: function( grid, rowIndex, e ){
-											record = grid.getStore().getAt(rowIndex);
-											add_document_details(record.data.document, record.data.id);
-										}
-									},
+							listeners: {
+								rowclick: function( grid, rowIndex, e ){
+									record = grid.getStore().getAt(rowIndex);
+									add_contract_details(record.data.id);
+								}
+							},
 					        tbar: ['->',
 								new Ext.Action({
 							        text: 'Timeline Contracts',
@@ -54,42 +54,47 @@
 	                    });
 
 ///////////////////////////////////////////////////////////////////////////
-// Document Details
+// Details
 ////////////////
 
-	var Line = Ext.data.Record.create([
-	   {name: 'order_id', type: 'int'},
+	var ContractLine = Ext.data.Record.create([
+	   {name: 'contract_id', type: 'int'},
 	   {name: 'quantity', type: 'int'},
-	   {name: 'model.id', type: 'string'},
-	   {name: 'model.name', type: 'string'},
-	   {name: 'model.manufacturer', type: 'string'},
 	   {name: 'start_date', type: 'date'},
 	   {name: 'end_date', type: 'date'},
-	   {name: 'available?', type: 'string'},
-	   {name: 'inventory_pool.name', type: 'string'},
-	   {name: 'inventory_pool.closed_days'},
-	   {name: 'inventory_pool.closed_dates'}
+	   {name: 'model'},
+	   {name: 'item'}
 	]);
 
-	var order_reader = new Ext.data.JsonReader({
-				            root: 'order_lines',
+	var contract_reader = new Ext.data.JsonReader({
+				            root: 'contract_lines',
 				            totalProperty: 'results',
 				            id: 'id'},
-							Line);
+							ContractLine);
 		
-    var order_cm = new Ext.grid.ColumnModel([
+    var contract_cm = new Ext.grid.ColumnModel([
 		{
-           header: "",
+           header: "Quantity",
            dataIndex: 'quantity',
-           width: 20,
+           width: 50,
            align: 'right'
         },{
            header: "Model",
-           dataIndex: 'model.name'
+           dataIndex: 'model',
+		   renderer: function(value){ return value.name; },
+		   width: 120		   
         },{
-           header: "Inventory Pool",
-           dataIndex: 'inventory_pool.name',
+           header: "Item",
+           dataIndex: 'item',
+		   renderer: function(value){ return value.inventory_code; },
            width: 50
+/* TODO
+	    },{
+           header: "Inventory Pool",
+           dataIndex: 'item',
+		   renderer: function(value){ return value.location; },
+           width: 50
+*/		  
         },{
            header: "Start date",
            dataIndex: 'start_date',
@@ -100,63 +105,57 @@
            dataIndex: 'end_date',
            width: 50,
            renderer: formatDate
-        },{
-           header: "Available",
-           dataIndex: 'available?',
-		   align: 'center',
- 		   renderer:function(value){ var img = (value == 'true')?'accept':'exclamation';
-		   							 return '<img src="<%= $layout_public_path %>/images/icons/' + img + '.png" />';},
-           width: 40
         }]);
 
-//    order_cm.defaultSortable = true;
+//    contract_cm.defaultSortable = true;
 
 
 
-function add_document_details(document_type, document_id){
+function add_contract_details(contract_id){
 
-		panel_id = document_type + ' ' + document_id;
-		document_panel = account_panel.getComponent(panel_id);
-		if(!document_panel){
+		panel_id = 'Contract ' + contract_id;
+		contract_panel = account_panel.getComponent(panel_id);
+		if(!contract_panel){
 
-		    var order_store = new Ext.data.GroupingStore({
+		    var contract_store = new Ext.data.GroupingStore({
 		        proxy: new Ext.data.HttpProxy(
 					new Ext.data.Connection({
-						url: '/user/orders/' + document_id + '.ext_json',
+						url: '/user/contracts/' + contract_id + '.ext_json',
 						method: 'GET'
 					})
 		        ),
-		        reader: order_reader,
+		        reader: contract_reader,
 				groupField: 'start_date',
 		        sortInfo:{field: 'model', direction: "ASC"},
 		        remoteSort: true
 		    });
 	
 								/*
-								    document_panel = new Ext.Panel({
+								    contract_panel = new Ext.Panel({
 										id: panel_id,
 								        title: panel_id,
 										closable: true,
 									    autoScroll:true
-//										,html: "<object type='application/pdf' data='/user/document.pdf?id=" + document_id + "' width='100%' height='100%'> </object>"
+//										,html: "<object type='application/pdf' data='/user/document.pdf?id=" + contract_id + "' width='100%' height='100%'> </object>"
 								    });
 								*/
-			document_panel = new Ext.grid.GridPanel({
+			contract_panel = new Ext.grid.GridPanel({
 				id: panel_id,
 		        title: panel_id,
 				closable: true,
-		        store: order_store,
-		        cm: order_cm,
+		        store: contract_store,
+		        cm: contract_cm,
 		        loadMask: true,
 				view: new Ext.grid.GroupingView({
 		            forceFit:true,
 		            groupTextTpl: '{text}'
 		        })
 		    });
-			account_panel.add(document_panel);
+			account_panel.add(contract_panel);
+
+			contract_store.load();
 		}
 		
-		order_store.load();
-		account_panel.activate(document_panel); 
+		account_panel.activate(contract_panel); 
  
 } // end function

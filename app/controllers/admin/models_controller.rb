@@ -19,12 +19,7 @@ class Admin::ModelsController < Admin::AdminController
   end
 
   def show
-    values = {}
-    @model.inventory_pools.each do |ip|
-      n = ip.items_size(@model.id)
-      values["#{ip.name} (#{n})"] = n
-    end
-    @graph = GoogleChart.pie_3d_350x150(values).to_url
+    @graph = @model.graph 
   end
 
   def new
@@ -58,7 +53,6 @@ class Admin::ModelsController < Admin::AdminController
 #################################################################
 
   def properties
-    #render :layout => false
   end
   
   def add_property
@@ -74,7 +68,6 @@ class Admin::ModelsController < Admin::AdminController
 #################################################################
 
   def accessories
-    #render :layout => false
   end
   
   def add_accessory
@@ -117,6 +110,7 @@ class Admin::ModelsController < Admin::AdminController
     @category = Category.find(params[:category_id]) if params[:category_id]
 
     @tabs = []
+    @tabs << :category_admin if @category
     @tabs << :model_admin if @model
   end
   

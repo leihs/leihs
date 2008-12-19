@@ -35,14 +35,15 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :user, :member => { :visits => :get,
                                    :timeline => :get,
                                    :timeline_visits => :get,
-                                   :account => :get,
-                                   :document => :get } do |user|
+                            #old#? :document => :get,
+                                   :account => :get } do |user|
       user.resource :order, :member => { :submit => :post,
                                          :add_line => :post,
                                          :change_line => :post,
                                          :remove_lines => :post,
                                          :change_time_lines => :post }
       user.resources :orders
+      user.resources :contracts
   end
   map.resource :session, :member => { :authenticate => :any,
                                       :old_new => :get } # TODO 04** remove, only for offline login
@@ -71,7 +72,7 @@ ActionController::Routing::Routes.draw do |map|
 #old#      inventory_pool.resources :items, :collection => { :auto_complete => :get }  # TODO 12** nest to model
       inventory_pool.items 'items', :controller => 'items', :action => 'index'
       inventory_pool.auto_complete 'auto_complete', :controller => 'items', :action => 'auto_complete' # TODO 12** optimize
-      inventory_pool.resources :models, :collection => { :auto_complete => :get,
+      inventory_pool.resources :models, :collection => { :auto_complete => :get, # TODO 17** merge all 'auto_complete' methods into 'index'
                                                          :available_items => :any,
                                                          :new_package => :get,
                                                          :update_package => :post },

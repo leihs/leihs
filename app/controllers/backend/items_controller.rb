@@ -46,7 +46,6 @@ class Backend::ItemsController < Backend::BackendController
 #################################################################
 
   def status
-    #render :layout => false
   end
 
 #################################################################

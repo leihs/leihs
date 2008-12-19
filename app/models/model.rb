@@ -107,7 +107,19 @@ class Model < ActiveRecord::Base
 
 #############################################  
 
-  def chart(inventory_pool, user, start_date = Date.today, offset_months = 3)
+  def graph
+    values = {}
+    inventory_pools.each do |ip|
+      n = ip.items_size(id)
+      values["#{ip.name} (#{n})"] = n
+    end
+    GoogleChart.pie_3d_350x150(values).to_url
+  end
+
+#old#
+  def chart(user, inventory_pool = nil, start_date = Date.today, offset_months = 3)
+    inventory_pool ||= (user.inventory_pools & self.inventory_pools).first # TODO 17** collect all available inventory_pools
+    
     availabilities = available_dates_for_inventory_pool(start_date, start_date + offset_months.months, inventory_pool, user)
     values = []
     days = []
@@ -147,6 +159,52 @@ class Model < ActiveRecord::Base
     return "http://chart.apis.google.com/chart?#{args.join('&')}" 
   end
 
+#new#
+#  def chart(user, inventory_pool = nil, start_date = Date.today, offset_months = 3)
+#    values = []
+#    days = []
+#    months = []
+#    last_value = nil
+#    last_month = nil
+#
+#    inventory_pools = (inventory_pool ? [inventory_pool] : (user.inventory_pools & self.inventory_pools))
+#    inventory_pools.each do |ip|
+#      ip_values = []
+#      availabilities = available_dates_for_inventory_pool(start_date, start_date + offset_months.months, ip, user)
+#      availabilities.each do |a|
+#        ip_values << a[1]
+#        days << (last_value != a[1] ? a[0].day : nil)
+#        months << (last_month != a[0].month ? a[0].strftime('%B') : nil)      
+#        last_value = a[1] 
+#        last_month = a[0].month
+#      end
+#      values << ip_values.join(',')
+#    end
+#
+#    values_uniq = values.uniq
+#    values_max = values.max
+#
+#    x1_labels = days.join('|')
+#    x2_labels = months.join('|')
+##    y_labels = (0..values_max).to_a.collect{|v| values.include?(v) ? v : nil}.join('|')
+#    y_labels = values_uniq.join('|')
+#    y_positions = values_uniq.join(',')
+#
+#    args = []
+#    args << "cht=bvg" #"cht=bvs"
+#    args << "chs=800x200"
+#    args << "chxt=x,x,y,r"
+#    args << "chxtc=0,-200|1,5|2,-800"
+#    args << "chxs=1,000000,12,-1,lt,000000"
+#    args << "chxl=0:|#{x1_labels}|1:|#{x2_labels}|2:|#{y_labels}|3:|#{y_labels}"
+#    args << "chd=t:#{values.join('|')}"
+#    args << "chbh=7,1,2"
+#    args << "chds=0,#{values_max}"
+#    args << "chxr=2,0,#{values_max}|3,0,#{values_max}"
+#    args << "chxp=2,#{y_positions}|3,#{y_positions}"
+#    
+#    return "http://chart.apis.google.com/chart?#{args.join('&')}" 
+#  end
 
 #############################################  
 

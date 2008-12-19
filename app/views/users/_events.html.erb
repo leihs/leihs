@@ -1,19 +1,17 @@
-		
+	var Event = Ext.data.Record.create([
+	   {name: 'start', type: 'date'},
+	   {name: 'title', type: 'string'},
+	   {name: 'action', type: 'string'},
+	   {name: 'quantity', type: 'int'},
+	   {name: 'inventory_pool.name'},
+	   {name: 'contract_lines'}
+	]);
+			
 	var events_reader = new Ext.data.JsonReader({
 		        root: 'events',
 		        totalProperty: 'results',
-		        id: 'id',
-		        fields: [
-					   {name: 'start', type: 'date'},
-					   {name: 'title', type: 'string'},
-					   {name: 'isDuration'},
-					   {name: 'action', type: 'string'},
-					   {name: 'inventory_pool.name'},
-					   {name: 'user'},
-					   {name: 'contract_lines'},
-					   {name: 'quantity'}
-		        ]
-		    });
+		        id: 'id'},
+				Event);
 
     var events_store = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy(
@@ -30,20 +28,24 @@
 		{
            header: "Date",
            dataIndex: 'start',
-           width: 100,
+           width: 60,
 		   renderer: function(value,p,r){ return formatDate(value); }
 		},{
            header: "Title",
            dataIndex: 'title',
-           width: 400
+           width: 200
 		},{
            header: "Inventory Pool",
            dataIndex: 'inventory_pool.name',
-           width: 200
+           width: 100
+		},{
+           header: "Items",
+           dataIndex: 'quantity',
+           width: 20
 		},{
            header: "Action",
            dataIndex: 'action',
-           width: 200
+           width: 100
 		}]);
 
     var events_grid = new Ext.grid.GridPanel({
@@ -54,6 +56,12 @@
         loadMask: true,
 		autoHeight: true,
 		height: 'auto',
+		listeners: {
+			rowclick: function( grid, rowIndex, e ){
+				record = grid.getStore().getAt(rowIndex);
+				add_event_details(record);
+			}
+		},
         tbar: ['->',
 			new Ext.Action({
 		        text: 'Visits',
@@ -71,3 +79,77 @@
     // trigger the data store load
     //events_store.load();
 
+///////////////////////////////////////////////////////////////////////////
+// Details
+////////////////
+
+	var EventLine = Ext.data.Record.create([
+	   {name: 'quantity', type: 'int'},
+	   {name: 'start_date', type: 'date'},
+	   {name: 'end_date', type: 'date'},
+	   {name: 'model'},
+	   {name: 'item'}
+	]);
+
+	var event_reader = new Ext.data.JsonReader({
+				            //root: 'event_lines',
+				            totalProperty: 'results',
+				            id: 'id'},
+							EventLine);
+		
+    var event_cm = new Ext.grid.ColumnModel([
+		{
+           header: "Quantity",
+           dataIndex: 'quantity',
+           width: 50,
+           align: 'right'
+        },{
+           header: "Model",
+           dataIndex: 'model',
+		   renderer: function(value){ return value.name; },
+           width: 120,
+        },{
+           header: "Item",
+           dataIndex: 'item',
+		   renderer: function(value){ return value.inventory_code; },
+           width: 80,
+        },{
+           header: "Start date",
+           dataIndex: 'start_date',
+           width: 80,
+           renderer: formatDate
+        },{
+           header: "End date",
+           dataIndex: 'end_date',
+           width: 80,
+           renderer: formatDate
+        }]);
+
+
+function add_event_details(event){
+		panel_id = 'Event ' + event.id;
+		event_panel = account_panel.getComponent(panel_id);
+		if(!event_panel){
+
+		    var event_store = new Ext.data.Store({
+		        reader: event_reader,
+				data: event.data.contract_lines
+		    });
+	
+			event_panel = new Ext.grid.GridPanel({
+				id: panel_id,
+		        title: 'Event: ' + event.data.title,
+				closable: true,
+		        store: event_store,
+		        cm: event_cm,
+		        loadMask: true,
+				viewConfig: { forceFit: true }
+		    });
+			account_panel.add(event_panel);
+
+			//event_store.loadData(event.data.contract_lines);
+		}
+		
+		account_panel.activate(event_panel); 
+ 
+} // end function

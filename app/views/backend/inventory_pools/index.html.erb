@@ -1,10 +1,11 @@
 <% table_with_search_and_pagination :columns => [_("Name"), _("Description"), _("Items"), _("Action")],
 									:records => @inventory_pools do |inventory_pool| %>	
 
+			<% is_manager = current_user.has_role?('manager', inventory_pool) %>
 
 			<tr>
 				<td>
-				<% if current_user.has_role?('manager', inventory_pool) %>
+				<% if is_manager %>
 					<%= link_to inventory_pool.name, backend_inventory_pool_path(inventory_pool) %>
 				<% else %>	
 					<%= inventory_pool.name %>
@@ -13,7 +14,7 @@
 				<td><%= inventory_pool.description %></td>
 				<td><%= inventory_pool.items.size %></td>
 				<td class="buttons" style="white-space: nowrap">
-				<% if current_user.has_role?('manager', inventory_pool)
+				<% if is_manager
 				      to_acknowledge_size = inventory_pool.orders.submitted_orders.size
 				      to_hand_over_size = inventory_pool.hand_over_visits.size
 				      to_take_back_size = inventory_pool.take_back_visits.size

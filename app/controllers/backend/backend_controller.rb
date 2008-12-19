@@ -90,7 +90,6 @@ class Backend::BackendController < ApplicationController
         request.path_parameters[:inventory_pool_id] = params[:id]
         request.parameters[:inventory_pool_id] = params[:id]
       end
-#old#      @current_inventory_pool = InventoryPool.find(params[:inventory_pool_id])
       @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
     end
 

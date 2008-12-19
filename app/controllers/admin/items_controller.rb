@@ -86,7 +86,6 @@ class Admin::ItemsController < Admin::AdminController
 #################################################################
 
   def status
-    #render :layout => false
   end
 
 #################################################################

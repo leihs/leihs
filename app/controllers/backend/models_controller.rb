@@ -30,7 +30,7 @@ class Backend::ModelsController < Backend::BackendController
     if @model.is_package?
       redirect_to :action => 'show_package', :layout => params[:layout]
     else
-      @chart = @model.chart(current_inventory_pool, current_user) 
+      @chart = @model.chart(current_user, current_inventory_pool) 
     end
   end
   
