@@ -36,16 +36,8 @@
 		var center_tabs = new Ext.TabPanel({
 					id: 'center_tabs',
                     region:'center',
-//                    deferredRender:true,
                     activeTab:0,
-                    items:[{
-							xtype: 'panel',
-							title: 'Welcome',
-							html: '<div style="margin: 10px;"><h2>Welcome page...</h2><img src="images/rails.png"></div>',
-							closable: true
-						},
-						models_grid,
-						order]
+                    items:[models_grid, order]
                 });
 				   
 	   var northPanel, southPanel, eastPanel, westPanel, centerPanel;				        

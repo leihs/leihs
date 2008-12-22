@@ -36,13 +36,13 @@
 
 
 	<% form_tag( { :lines => @lines }, :name => "f", :target=> '_top' ) do %>
-		Start: <%= date_select("line", "start_date", :default => d1.min, :order => [:day, :month, :year]) %>
+		Start: <%= date_select("line", "start_date", { :default => d1.min, :order => [:day, :month, :year] }, { :onchange => "validate_date_sequence();" }) %>
 		
-		End: <%= date_select("line", "end_date", :default => d2.max, :order => [:day, :month, :year]) %>
+		End: <%= date_select("line", "end_date", { :default => d2.max, :order => [:day, :month, :year] }, { :onchange => "validate_date_sequence();" }) %>
 
 		<br />
 		<br />
-		<div id="select_text" style="font-size: large;"></div>
+		<div id="select_notice" class="flash_notice"></div>
 		<br />
 		
 		<% if @lines.length == 1 %>
@@ -89,42 +89,60 @@
 			<% end %>
 		</table>
 		<% end %>
+
+			<br />
+			<div id="error" class="flash_error" style="display:none;"><%= _("Start Date must be before End Date") %></div>
 	
 			<br />
 			<div class="buttons">
 				<%=	submit_button(_("Confirm"),
 						:img => $layout_public_path + "/images/icons/date_edit.png",
-						:class => 'negative' ) %>
+						:class => 'negative',
+						:id => 'submit_button' ) %>
 							 
 				<%=	cancel_popup_button(_("Cancel") ) %>
 			</div>	
-
+			
 	<% end %>
 	
  <script type="text/javascript">
 		var clicks = 0;
 		
-		function toggle_select_text(){
-			$('select_text').innerHTML = (clicks % 2 ? "Select end date:" : "Select start date:");
+		function toggle_select_notice(){
+			$('select_notice').innerHTML = (clicks % 2 ? "Select end date" : "Select start date");
+			new Effect.Highlight('select_notice');
 		}
+		
+		function validate_date_sequence(){
+			var start_date = $('line_start_date_1i').value * 10000 + $('line_start_date_2i').value * 100 + $('line_start_date_3i').value * 1;
+			var end_date = $('line_end_date_1i').value * 10000 + $('line_end_date_2i').value * 100 + $('line_end_date_3i').value * 1;
+			
+			if(end_date < start_date){
+				$('submit_button').fade();
+				$('error').appear();
+				new Effect.Highlight('error');
+			}else{
+				$('submit_button').appear();
+				$('error').fade();
+			}
+		}
+
 		
 		function changeDate(y, m, d){
 			clicks++;
 			var type = (clicks % 2 ? 'start' : 'end');
 			
-			document.getElementById('line_' + type + '_date_1i').value = y;
-			document.getElementById('line_' + type + '_date_2i').value = m;
-			document.getElementById('line_' + type + '_date_3i').value = d;
+			$('line_' + type + '_date_1i').value = y;
+			$('line_' + type + '_date_2i').value = m;
+			$('line_' + type + '_date_3i').value = d;
 			
-			toggle_select_text();
+			toggle_select_notice();
+			validate_date_sequence();
 			
-			// TODO
-			// prevent end_date < start_date
-						
 			// TODO 
 			//Element.removeClassName('20080911', 'selected_date');
 			//Element.addClassName('20080911', 'selected_date');
 		}
 		
-		toggle_select_text();
+		toggle_select_notice();
 </script>

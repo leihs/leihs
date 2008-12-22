@@ -18,9 +18,10 @@ module ApplicationHelper
   end
 
   def submit_button(text, options = {})
-    #TODO check options: img, class
+    #TODO check options: img, class, id
     options[:form_name] ||= "f"
     '<a href="javascript://donothing" onclick="' + options[:form_name] + '.submit();"' +   
+       (options[:id].nil? ? '' : ' id="' + options[:id] + '"') +
        (options[:class].nil? ? '' : ' class="' + options[:class] + '">') +
        (options[:img].nil? ? '' : image_tag(options[:img])) +
        ' ' + text + '</a>'
