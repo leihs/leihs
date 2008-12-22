@@ -32,9 +32,9 @@ module Backend::BackendHelper
             
             r += content_tag :div, :class => "result", :style => "min-height: 200px;" do
               total = (records.is_a?(ActsAsFerret::SearchResults) ? records.total_hits : records.total_entries)
-              s = " <b>#{total}</b> results"
-              s += " for <b>#{query}</b>" if query
-              s += " filtering <b>#{filter}</b>" if filter
+              s = _(" <b>%d</b> results") % total
+              s += _(" for <b>%s</b>") % query if query
+              s += _(" filtering <b>%s</b>") % filter if filter
 #              w = will_paginate(records, :params => {:query => query})
 #              w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:with => "'query=' + $('search_field').value", :update => 'list_table'}
               w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:update => 'list_table', :loading => "Element.show('spinner')"}
