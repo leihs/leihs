@@ -81,7 +81,7 @@
 
     w = [25.0, 75.0, 22.0, 22.0, 22.0]
     0.upto(item_table_header.length - 1) do |i|
-      pdf.Cell(w[i], 7, item_table_header[i], 1, 0, 'C', 1)
+      pdf.Cell(w[i], 5, item_table_header[i], 1, 0, 'C', 1)
     end
     pdf.Ln()
 
@@ -131,16 +131,15 @@
 		pdf.Ln()
 		pdf.Cell(40, 10, _("Options:"))
 		pdf.Ln()
-		
-	    pdf.SetFillColor(200, 200, 200)
-	    pdf.SetDrawColor(200, 200, 200)
+        pdf.SetFillColor(200, 200, 200)
+        pdf.SetDrawColor(150, 150, 150)
 	    pdf.SetLineWidth(0.3)
-	    pdf.SetFont('Arial', '', 10)
+	    pdf.SetFont('Arial', '', 9)
 
 	    # Table Header for options
         w = [10.0, 65.0, 25.0, 22.0, 22.0, 22.0]
 	    0.upto(item_table_header.length - 1) do |i|
-	      pdf.Cell(w[i], 7, item_table_header[i], 1, 0, 'C', 1)
+	      pdf.Cell(w[i], 5, item_table_header[i], 1, 0, 'C', 1)
 	    end
 	    pdf.Ln()
 
@@ -151,7 +150,7 @@
         
           pdf.Cell(w[1], 6, o.name, 'LR', 0, 'L', fill)
 
-	      pdf.Cell(w[2], 6, o.barcode, 'LR', 0, 'L', fill)
+	      pdf.Cell(w[2], 6, o.barcode || '', 'LR', 0, 'L', fill)
 	      pdf.Cell(w[3], 6, short_date(@contract.time_window_min).to_s, 'LR', 0, 'R', fill)
 	      pdf.Cell(w[4], 6, short_date(@contract.time_window_max).to_s, 'LR', 0, 'R', fill)
 	      pdf.Cell(w[5], 6, short_date(o.returned_date).to_s, 'LR', 0, 'R', fill)
@@ -168,8 +167,14 @@
 
     # Purpose
     pdf.Ln(5)
-    
-    pdf.Write(5, filter(_("Purpose:")) + " " + filter(@contract.purpose))
+
+    if @contract.purpose.nil?
+      purpose = _("No purpose given.")
+    else
+      purpose = @contract.purpose
+    end
+
+    pdf.Write(5, filter(_("Purpose:")) + " " + purpose )
 
     pdf.Ln(10)
 
