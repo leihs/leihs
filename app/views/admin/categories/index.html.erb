@@ -54,10 +54,13 @@
 						<li><%= link_to _("Show"), admin_category_path(category) %></li>
 						<li><%= link_to _("Delete"), admin_category_path(category),
 										:confirm => _("Are you sure?"),
-										:method => :delete if category.models.empty? %></li>
+										:method => :delete if category.models.empty? and category.children.empty? %></li>
 						<li><%= link_to _("Remove"), admin_model_category_path(@model, category),
 										:confirm => _("Are you sure?"),
 										:method => :delete if @model %></li>
+						<li><%= link_to _("Remove Parent"), admin_category_path(@category, :parent_id => category.id),
+										:confirm => _("Are you sure?"),
+										:method => :delete if @category and @category.parents.include?(category) %></li>
 					</ul>
 				</td>
 			</tr>

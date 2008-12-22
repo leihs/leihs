@@ -95,6 +95,9 @@ class Admin::CategoriesController < Admin::AdminController
         @category.models.delete(@model)
         flash[:notice] = _("Category successfully removed")
         redirect_to admin_model_categories_path(@model)
+    elsif @category and @parent
+      @parent.children.delete(@category) #if @parent.children.include?(@category)
+      redirect_to admin_category_parents_path(@category)
     else
       if @category.models.empty?
         @category.destroy
@@ -119,10 +122,6 @@ class Admin::CategoriesController < Admin::AdminController
     redirect_to admin_category_parents_path(@category)
   end
 
-  def remove_parent
-    # TODO 12** implement
-  end
-
 #################################################################
 
   def auto_complete
@@ -136,6 +135,7 @@ class Admin::CategoriesController < Admin::AdminController
     params[:id] ||= params[:category_id] if params[:category_id]
     @category = Category.find(params[:id]) if params[:id]
     @model = Model.find(params[:model_id]) if params[:model_id]
+    @parent = Category.find(params[:parent_id]) if params[:parent_id] 
 
     @tabs = []
     @tabs << :model_admin if @model

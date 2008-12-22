@@ -5,27 +5,6 @@
 	        items: [{
 					xtype: 'tbtext',
 					text:'<a href="/" style="color: navy; text-decoration: none; font-size: x-large; font-weight: bold;">Leihs 2.0</a>'
-				}, ' ', '-', ' ', {
-					text:'Preferences',
-					menu: {items: [
-                        {text: '<b>Menu 1</b>', handler: ''},
-                        {text: '<i>Menu 2</i>', handler: ''},
-                        {text: '<u>Menu 3</u>', handler: ''} 
-	                ]}
-				},{
-					text:'View',
-					menu: {items: [
-                        {text: 'Menu 1', handler: ''},
-                        {text: 'Menu 2', handler: ''},
-                        {text: 'Menu 3', handler: ''} 
-	                ]}
-				},{
-					text:'Help',
-					menu: {items: [
-                        {text: 'Menu 1', handler: ''},
-                        {text: 'Menu 2', handler: ''},
-                        {text: 'Menu 3', handler: ''} 
-	                ]}
 				}, '->',
 						<% if current_user.has_role?('manager', nil, true) %>
 						{text: 'Backend', 
