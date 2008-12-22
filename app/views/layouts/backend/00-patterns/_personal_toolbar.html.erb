@@ -8,12 +8,12 @@
  
 <% if current_user %>	
 	<li>
-		<strong><%= _("Angemeldet als %{u}.") % { :u => current_user.login } %></strong>
+		<strong><%= _("Logged in as %{u}.") % { :u => current_user.login } %></strong>
 	</li>
 	<li>
 		<%= link_to _("Logout") + "?", '/logout' %>
 	</li>
-	<li><%= greybox_link_to_page("My Account",
+	<li><%= greybox_link_to_page( _("My Account"),
 				backend_inventory_pool_user_path(@current_inventory_pool, current_user, :layout => "modal"),
 				:title => _("User")) %> <% # TODO 29** provide account link for admin layout %>
 	</li>
@@ -23,7 +23,6 @@
 	</li>
 <% end %>
 
-	<li><a href="#">Hilfe</a></li>
 	<li class="buttons">
 		<% locales.each do |k,v| %>
 			<%= link_to v, :params => params.merge({:locale => k}) %>

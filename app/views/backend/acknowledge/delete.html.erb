@@ -2,7 +2,7 @@
 	<br />
 	<div class="buttons">
 
-		<%=	link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Löschen"),
+		<%=	link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
 			 backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, @order.user, @order),
 			 :class => 'negative', :method => :delete, :target=> '_top') %>
 			
