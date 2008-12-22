@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2008-12-22 14:40+0100\n"
+"POT-Creation-Date: 2008-12-22 16:20+0100\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: English\n"
@@ -804,6 +804,18 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
+#: app/helpers/backend/backend_helper.rb:35
+msgid " <b>%d</b> results"
+msgstr ""
+
+#: app/helpers/backend/backend_helper.rb:36
+msgid " for <b>%s</b>"
+msgstr ""
+
+#: app/helpers/backend/backend_helper.rb:37
+msgid " filtering <b>%s</b>"
+msgstr ""
+
 #: app/helpers/backend/backend_helper.rb:86
 #: app/views/backend/hand_over/index.html.erb:1
 #: app/views/backend/orders/index.html.erb:1
@@ -943,6 +955,7 @@ msgstr ""
 #: app/views/backend/take_back/show.html.erb:73
 #: app/views/backend/backend/remove_lines.html.erb:13
 #: app/views/backend/acknowledge/_line.html.erb:33
+#: app/views/backend/acknowledge/delete.html.erb:5
 #: app/views/backend/option_maps/index.html.erb:20
 msgid "Delete"
 msgstr ""
@@ -1646,10 +1659,6 @@ msgstr ""
 
 #: app/views/backend/acknowledge/_tabs.html.erb:8
 msgid "Order:"
-msgstr ""
-
-#: app/views/backend/acknowledge/delete.html.erb:5
-msgid "Löschen"
 msgstr ""
 
 #: app/views/backend/acknowledge/change_purpose.html.erb:8
