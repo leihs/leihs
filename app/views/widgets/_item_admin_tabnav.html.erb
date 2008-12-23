@@ -19,14 +19,14 @@ render_tabnav :item_admin,
               :generate_css => true do 
     
 	add_tab do |t|
-		t.named 'Item'
+		t.named _('Item')
 		t.links_to :action => 'show' #admin_item_path(@item)
 #		t.highlights_on :action => 'show'
 		t.html[:style] = "background-color: red;" if @item.inventory_code.blank? 
 	end
 
 	add_tab do |t|
-		t.named 'Model'
+		t.named _('Model')
 		t.links_to :action => 'model' # model_admin_item_path(@item)
 #		t.highlights_on :action => 'model'
 		t.html[:style] = "background-color: red;" unless @item.model
@@ -36,7 +36,7 @@ render_tabnav :item_admin,
 	end
 
 	add_tab do |t|
-		t.named 'InventoryPool'
+		t.named _('InventoryPool')
 		t.links_to :action => 'inventory_pool' # inventory_pool_admin_item_path(@item)
 #		t.highlights_on :action => 'inventory_pool'
 		t.html[:style] = "background-color: red;" unless @item.location

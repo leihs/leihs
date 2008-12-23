@@ -18,25 +18,25 @@ render_tabnav :package_backend,
               :generate_css => true do 
 
 	add_tab do |t|
-		t.named 'Package'
+		t.named _('Package')
 		t.links_to show_package_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'show_package'
 	end
 
 	add_tab do |t|
-		t.named 'Items'
+		t.named _('Items')
 		t.links_to show_package_items_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'show_package_items'
 	end
 
 #	add_tab do |t|
-#		t.named 'Categories'
+#		t.named _('Categories')
 #		t.links_to backend_inventory_pool_model_categories_path(@current_inventory_pool, @model)
 #		t.highlights_on :controller => 'backend/categories', :action => 'index'
 #	end
 
 	add_tab do |t|
-		t.named 'Location'
+		t.named _('Location')
 		t.links_to package_location_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'package_location'
 	end

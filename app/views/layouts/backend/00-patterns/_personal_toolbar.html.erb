@@ -1,21 +1,20 @@
-<ul>
-<% # TODO temp remove it %>
-<li style="border: 1px solid #1089D9; background-color: #E9F9F9;"><%= link_to 'Frontend', '/', :style => "color: #1089D9;" %></li>
-<li style="border: 1px solid #1089D9; background-color: #1089D9;"><%= link_to 'Backend', '/backend', :style => "color: #E9F9F9;" %></li>
-<% if true # TODO %>
-<li style="border: 1px solid #1089D9; background-color: #1089D9;"><%= link_to 'Admin', '/admin', :style => "color: #E9F9F9;" %></li>
-<% end %>
- 
+<ul class="buttons">
+	
+<li>
+	<%= link_to 'Frontend', '/' if current_user.has_role?('student', nil, false) %>
+	<%= link_to 'Backend', '/backend' if current_user.has_role?('manager', nil, true) %>
+	<%= link_to 'Admin', '/admin' if current_user.has_role?('admin', nil, true) %>
+</li>
+
+<li>|</li>
+
 <% if current_user %>	
 	<li>
 		<strong><%= _("Logged in as %{u}.") % { :u => current_user.login } %></strong>
-	</li>
-	<li>
-		<%= link_to _("Logout") + "?", '/logout' %>
-	</li>
-	<li><%= greybox_link_to_page( _("My Account"),
+		<%= greybox_link_to_page( _("My Account"),
 				backend_inventory_pool_user_path(@current_inventory_pool, current_user, :layout => "modal"),
 				:title => _("User")) %> <% # TODO 29** provide account link for admin layout %>
+		<%= link_to _("Logout") + "?", '/logout' %>
 	</li>
 <% else %>
 	<li>
@@ -23,9 +22,12 @@
 	</li>
 <% end %>
 
-	<li class="buttons">
-		<% locales.each do |k,v| %>
-			<%= link_to v, :params => params.merge({:locale => k}) %>
-		<% end %>
-	</li>
+<li>|</li>
+
+<li>
+	<% locales.each do |k,v| %>
+		<%= link_to v, :params => params.merge({:locale => k}) %>
+	<% end %>
+</li>
+
 </ul>

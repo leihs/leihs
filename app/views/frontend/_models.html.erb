@@ -85,7 +85,7 @@
 					            });
 
     var models_grid = new Ext.grid.GridPanel({
-        title:'Models',
+        title: '<%= _("Models") %>',
 		split: true,
 		region: 'north',
         store: models_store,
@@ -105,17 +105,17 @@
 			}
 		},
         tbar: [
-            'Search: ',
+            '<%= _("Search") %>: ',
 			models_search_field,
-            ' Category: ',
-			models_tbar_label= new Ext.form.Label({ text: 'All' })
+            ' <%= _("Category") %>: ',
+			models_tbar_label= new Ext.form.Label({ text: '<%= _("All") %>' })
         ],
 		bbar: new Ext.PagingToolbar({
             pageSize: 25,
             store: models_store,
             displayInfo: true,
             displayMsg: 'Displaying models {0} - {1} of {2}',
-            emptyMsg: "No models to display"
+            emptyMsg: '<%= _("No models to display") %>'
         })
     });
 
@@ -214,8 +214,8 @@ function add_model_details(model_id, add_tab){
 			},
 			items: [{
 				xtype: 'dataview',
-				title: 'Details',
-				loadingText: "Loading...",
+				title: '<%= _("Details") %>',
+				loadingText: '<%= _("Loading") %>...',
                 tpl: new Ext.XTemplate('<tpl for=".">', 
                                          '<h2>{name} ({manufacturer})</h2>',
                                          '<p>Description goes here, if present.</p>',
@@ -231,12 +231,12 @@ function add_model_details(model_id, add_tab){
 										'<div class="model_images"><tpl for="images">', '<img src="{public_filename_thumb}">', '</tpl>', '</div>', '</tpl>', '</tpl>')
 			}, {
 				xtype: 'dataview',
-				title: 'Properties',
+				title: '<%= _("Properties") %>',
 				itemSelector: 'div.model_property',
 				tpl: new Ext.XTemplate('<tpl for=".">', '<tpl for="properties">', '<div class="model_property">{key}: {value}</div>', '</tpl>', '</tpl>')
 			}, {
 				xtype: 'dataview',
-				title: 'Accessories',
+				title: '<%= _("Accessories") %>',
 				itemSelector: 'div.model_accessory',
                 tpl: new Ext.XTemplate('<tpl for=".">', '<ul class="accessories">', '<tpl for="accessories">', '<li class="model_accessory">{name}</li>',  '</tpl>', '</ul>', '</tpl>')
 			}, {
@@ -250,23 +250,23 @@ function add_model_details(model_id, add_tab){
 						add_model_details(model_id);
 					}
 				},
-				title: 'Compatibles',
+				title: '<%= _("Compatibles") %>',
 				viewConfig: { forceFit: true },
 				loadMask: true,
 				autoscroll: true,
 				store: model_store_compatibles[model_id],
 				cm: new Ext.grid.ColumnModel([{
-					header: "Name",
+					header: '<%= _("Name") %>',
 					dataIndex: 'name',
 					width: 400
 				}, {
-					header: "Manufacturer",
+					header: '<%= _("Manufacturer") %>',
 					dataIndex: 'manufacturer',
 					width: 200
 				}])
 			}, {
 				xtype: 'form',
-				title: 'Add',
+				title: '<%= _("Add") %>',
 				iconCls:'icon-add',
 				//			renderTo: document.body,
 				//			viewConfig: { forceFit: true },
@@ -289,7 +289,7 @@ function add_model_details(model_id, add_tab){
 						layout: 'form',
 						items: [{
 							xtype: 'numberfield',
-							fieldLabel: 'Quantity',
+							fieldLabel: '<%= _("Quantity") %>',
 							name: 'quantity',
 							value: '1',
 							anchor: '70%'
@@ -303,7 +303,7 @@ function add_model_details(model_id, add_tab){
 						layout: 'form',
 						items: {
 							xtype: 'combo',
-							fieldLabel: 'Inventory Pool',
+							fieldLabel: '<%= _("Inventory Pool") %>',
 							name: 'inventory_pool',
 							mode: 'local',
 							triggerAction: 'all',
@@ -323,7 +323,7 @@ function add_model_details(model_id, add_tab){
 						layout: 'form',
 						items: {
 							xtype: 'datefield',
-							fieldLabel: 'Start date',
+							fieldLabel: '<%= _("Start date") %>',
 							name: 'start_date',
 							value: new Date(), //new Date(yy,mm,dd)
 //old//							format: "d.m.Y",
@@ -336,7 +336,7 @@ function add_model_details(model_id, add_tab){
 						layout: 'form',
 						items: {
 							xtype: 'datefield',
-							fieldLabel: 'End date',
+							fieldLabel: '<%= _("End date") %>',
 							name: 'end_date',
 							value: new Date(), //new Date(yy,mm,dd)
 //old//							format: "d.m.Y",
@@ -347,11 +347,11 @@ function add_model_details(model_id, add_tab){
 					}]
 				}],
 				buttons: [{
-					text: 'Add',
+					text: '<%= _("Add") %>',
 					type: 'submit',
 					handler: function(){
 						this.findParentByType('form').form.submit({
-							waitMsg: 'Saving Data...',
+							waitMsg: '<%= _("Saving Data") %>...',
 							url: '/user/order/add_line',
 							method: 'POST',
 							params: {

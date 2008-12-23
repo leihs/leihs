@@ -104,12 +104,6 @@
 
     var complete_order = new Ext.grid.EditorGridPanel({
     	id: 'complete_order',
-//        title:'Order',
-//		autoHeight: true,
-//		height: 100,
-//		autoScroll: true,
-//		split: true,
-//		overflow:'auto',
 		region: 'center',
         store: complete_order_store,
         cm: complete_order_cm,
@@ -161,7 +155,7 @@
 		},
 		tbar:[{
 				id: 'bt_change_timeframe',
-	            text:'Change Timeframe',
+	            text: '<%= _("Change Timeframe") %>',
 	            tooltip:'Change the timeframe for the selected items',
 				iconCls:'bt',
 	            icon:'<%= $layout_public_path + "/images/icons/date_edit.png" %>',
@@ -169,15 +163,15 @@
 				handler: function(){ show_change_timeframe(); }
 	        },'-',{
 				id: 'bt_remove',
-	            text:'Remove',
-	            tooltip:'Remove the selected items',
+	            text: '<%= _("Remove") %>',
+	            tooltip: '<%= _("Remove the selected items") %>',
 				iconCls:'bt',
 	            icon:'<%= $layout_public_path + "/images/icons/delete.png" %>',
 				disabled: true,
 				handler: function(){
 					Ext.Msg.show({
-					   title:'Remove',
-					   msg: 'You are sure?',
+					   title: '<%= _("Remove") %>',
+					   msg: '<%= _("You are sure?") %>',
    			           width:300,
 					   buttons: Ext.Msg.YESNO,
 					   animEl: this.id,
@@ -199,7 +193,7 @@
 				}
 	        }, '->',{
 					id: 'bt_submit',
-			        text: 'Submit Order',
+			        text: '<%= _("Submit Order") %>',
 					iconCls:'bt',
 		            icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
 			        handler: function(){
@@ -223,7 +217,7 @@
 										success: function(responseObject) {
 //											complete_order.enable();
 											Ext.Msg.show({
-											   title:'Order submitted',
+											   title: '<%= _("Order submitted") %>',
 											   msg: responseObject.responseText, // TODO 18** make sure the text is displayed
 										       width:500,
 											   buttons: Ext.Msg.OK,
@@ -240,8 +234,8 @@
 				       });
 					 }else{
 						Ext.Msg.show({
-						   title:'Submit',
-						   msg: 'This order is not yet approvable',
+						   title: '<%= _("Submit") %>',
+						   msg: '<%= _("This order is not yet approvable") %>',
 	   			           width:300,
 						   buttons: Ext.Msg.OK,
 						   animEl: this.id,
@@ -301,8 +295,6 @@
 				buttonAlign: 'right',
 				region: 'center',
 		        frame:true,
-		//        title: 'Form',
-		//        width: 600,
 		        items: [{
 		            layout:'column',
 		            items:[{
@@ -310,10 +302,9 @@
 		                layout: 'form',
 		                items: start_date = {
 		                    xtype:'datefield',
-		                    fieldLabel: 'Start date',
+		                    fieldLabel: '<%= _("Start date") %>',
 		                    name: 'start_date',
 							value: get_selected_min_start_date(),
-//old//		                    format: "d.m.Y",
 							//minValue: new Date(),
 							disabledDays: [6,0],
 		                    anchor:'90%'
@@ -323,10 +314,9 @@
 		                layout: 'form',
 		                items: {
 		                    xtype:'datefield',
-		                    fieldLabel: 'End date',
+		                    fieldLabel: '<%= _("End date") %>',
 		                    name: 'end_date',
 							value: get_selected_max_end_date(),
-//old//							format: "d.m.Y",
 							//minValue: new Date(),
 							disabledDays: [6,0],
 		                    anchor:'90%'
@@ -334,7 +324,7 @@
 		            }]
 		        }],		
 		        buttons: [{
-		            text: 'Change',
+		            text: '<%= _("Change") %>',
 					type: 'submit',
 					handler: function() {
 						Ext.Ajax.request({
@@ -358,7 +348,7 @@
 
 
 			var timeframe_win = new Ext.Window({
-	            title    : 'Change Timeframe',
+	            title    : '<%= _("Change Timeframe") %>',
 	            //closable : true,
 				closeAction:'hide',
 	            width    : 500,
@@ -380,7 +370,7 @@
             layout:'card',
 			activeItem: 0,
 			frame: true,
-	        title:'Order',
+	        title: '<%= _("Order") %>',
             items:[{
 					xtype: 'panel',
 					layout: 'border',
