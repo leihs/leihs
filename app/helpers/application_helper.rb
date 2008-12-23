@@ -105,7 +105,7 @@ module ApplicationHelper
   ######## Gettext #########
   
   def locales
-    [['en', 'english'], ['de_CH', 'deutsch']]
+    [['en_US', 'english'], ['de_CH', 'deutsch']]
   end
   
 end

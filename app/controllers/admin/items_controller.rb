@@ -99,6 +99,7 @@ class Admin::ItemsController < Admin::AdminController
     @model = Model.find(params[:model_id]) if params[:model_id]
 
     @tabs = []
+    @tabs << :inventory_pool_admin if @inventory_pool
     @tabs << :model_admin if @model
     @tabs << :item_admin if @item
   end

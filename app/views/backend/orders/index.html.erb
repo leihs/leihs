@@ -1,8 +1,9 @@
-<% table_with_search_and_pagination :columns => [_("Received at"), _("Reserver"), _("Number of items"), _("Action")],
+<% table_with_search_and_pagination :columns => [_("Id"), _("Date"), _("Reserver"), _("Number of items"), _("Action")],
 									:records => @orders do |order| %>	
 
 
 			<tr class="<%= (order.has_backup? ? "alt-row" : "fresh" ) %>">
+				<td><%= order.id %></td>
 				<td><%= "#{today_or_yesterday_date(order.created_at)}" %></td>
 				<td>
 					<%= greybox_link_to_page(order.user.login,
@@ -12,12 +13,14 @@
 				</td>
 				<td><%= _("%{n} Items") % {:n => order.quantity} %></td>
 				<td class="buttons" style="white-space: nowrap">
-					TODO TODO
-					<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Check + Acknowledge"),
-							backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, order.user, order) %>
-					Status: <%= order.status_const %>
-					-
-					InventoryPool: <%= order.inventory_pool.name %>					
+					<% case params[:filter]
+				    	 when "submitted" %>
+						<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("View + Acknowledge"),
+								backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, order.user, order) %>
+					<%	 when "approved" %>
+						<% # TODO 23** link to hand_over ? %>
+						<% # TODO 23** remove approved orders after hand_over ? %>
+					<% end %>
 				</td>
 			</tr>
 

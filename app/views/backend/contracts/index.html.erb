@@ -1,7 +1,8 @@
-<% table_with_search_and_pagination :columns => [_("Received at"), _("Reserver"), _("Number of items"), _("Action")],
+<% table_with_search_and_pagination :columns => [_("Id"), _("Date"), _("Reserver"), _("Number of items"), _("Action")],
 						   			:records => @contracts do |contract| %>	
 
 			<tr>
+				<td><%= contract.id %></td>
 				<td><%= "#{today_or_yesterday_date(contract.created_at)}" %></td>
 				<td>
 					<%= greybox_link_to_page(contract.user.login,
@@ -11,9 +12,14 @@
 				</td>
 				<td><%= _("%{n} Items") % {:n => contract.quantity} %></td>
 				<td class="buttons" style="white-space: nowrap">
-					Status: <%= contract.status_const %>
-					-
-					InventoryPool: <%= contract.inventory_pool.name %>					
+					<% case params[:filter]
+				    	 when "signed" %>
+						<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Take Back"),
+								[:backend, @current_inventory_pool, contract.user, :take_back] %>
+					<%	 when "closed" %>
+					<% end %>
+					<%=	link_to image_tag($layout_public_path + "/images/icons/script.png") + " " + _("Print PDF"),
+								 { :controller => 'contracts', :action => 'show', :id => contract, :format => 'pdf' } %>
 				</td>
 			</tr>
 <% end %>
