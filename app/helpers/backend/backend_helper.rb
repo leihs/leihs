@@ -37,7 +37,7 @@ module Backend::BackendHelper
               s += _(" filtering <b>%s</b>") % filter if filter
 #              w = will_paginate(records, :params => {:query => query})
 #              w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:with => "'query=' + $('search_field').value", :update => 'list_table'}
-              w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:update => 'list_table', :loading => "Element.show('spinner')"}
+              w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:update => 'list_table', :loading => "Element.show('spinner')"}, :previous_label => _("Previous"), :next_label => _("Next")
               s += w if w
               s += image_tag("spinner.gif", :id => 'spinner', :style => 'display: none; vertical-align: middle; padding: 0 4px 0 4px;')
               s
