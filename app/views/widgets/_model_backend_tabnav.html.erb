@@ -18,44 +18,44 @@ render_tabnav :model_backend,
               :generate_css => true do 
 
 	add_tab do |t|
-		t.named 'Model'
+		t.named _('Model')
 #old#		t.links_to backend_inventory_pool_model_path(@current_inventory_pool, @model, :layout => params[:layout]) # TODO 16** optimize :layout
 		t.links_to :controller => 'backend/models', :action => 'show', :id => @model
 		t.highlights_on :controller => 'backend/models', :action => 'show'
 	end
 
 	add_tab do |t|
-		t.named 'Items'
+		t.named _('Items')
 		t.links_to backend_inventory_pool_model_items_path(@current_inventory_pool, @model)
 		t.highlights_on :controller => 'backend/items'
 	end
 
 	add_tab do |t|
-		t.named 'Categories'
+		t.named _('Categories')
 		t.links_to backend_inventory_pool_model_categories_path(@current_inventory_pool, @model)
 		t.highlights_on :controller => 'backend/categories', :action => 'index'
 	end
 
 	add_tab do |t|
-		t.named 'Properties'
+		t.named _('Properties')
 		t.links_to properties_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'properties'
 	end
 
 	add_tab do |t|
-		t.named 'Accessories'
+		t.named _('Accessories')
 		t.links_to accessories_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'accessories'
 	end
 
 	add_tab do |t|
-		t.named 'Images'
+		t.named _('Images')
 		t.links_to images_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'images'
 	end
 
 	add_tab do |t|
-		t.named 'Compatibles'
+		t.named _('Compatibles')
 		t.links_to backend_inventory_pool_model_compatibles_path(@current_inventory_pool, @model)
 		t.highlights_on :controller => 'backend/models', :action => 'index'
 	end

@@ -42,7 +42,7 @@
     inventory_pools_cm.defaultSortable = true;
 
     var inventory_pools = new Ext.grid.GridPanel({
-        title:'Inventory Pools (<%= "#{@current_inventory_pools.size}/#{current_user.inventory_pools.size}" %>)',
+        title:'Inventory Pools (<%= "#{@current_inventory_pools.size}/#{current_user.inventory_pools.size}" %>)', // TODO 23** translate _()
 		border: false,
 		split: true,
         store: inventory_pools_store,
@@ -57,7 +57,7 @@
 		},
         tbar: ['->',
 			new Ext.Action({
-		        text: 'Refresh',
+		        text: '<%= _("Refresh") %>',
 				iconCls:'bt',
 	            icon:'<%= $layout_public_path + "/images/icons/arrow_refresh.png" %>',
 		        handler: function(){

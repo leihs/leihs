@@ -24,6 +24,17 @@
 								}
 						},
 						<% end %>
+					'-',
+						<% locales.each do |k,v| %>
+	                        {text: '<%= v %>',
+							 iconCls:'bt',
+					         icon:'<%= $layout_public_path + "/images/icons/comment.png" %>',
+							 handler: function() {
+										window.location.href = '<%= url_for({:locale => k}) %>';
+									}
+							},
+						<% end %>
+					'-',
 						{text: '<%= current_user.login %>', 
 						  iconCls:'bt',
 				          icon:'<%= $layout_public_path + "/images/icons/user.png" %>',
@@ -33,7 +44,7 @@
 										}).load();
 								}
 						},
-                        {text: 'Logout',
+                        {text: '<%= _("Logout") %>',
 						 iconCls:'bt',
 				         icon:'<%= $layout_public_path + "/images/icons/application_delete.png" %>',
 						 handler: function() {

@@ -18,14 +18,14 @@ render_tabnav :model_admin,
               :generate_css => true do 
 
 	add_tab do |t|
-		t.named 'Model'
+		t.named _('Model')
 		t.links_to admin_model_path(@model)
 		t.highlights_on :action => 'show'
 		t.html[:style] = "background-color: red;" if @model.name.blank? 
 	end
 
 	add_tab do |t|
-		t.named 'Items'
+		t.named _('Items')
 		t.links_to admin_model_items_path(@model)
 		t.highlights_on :controller => 'admin/items', :action => 'index'
 #temp#	t.html[:class] = 'active' if request.path_parameters[:controller] == 'admin/items' and request.path_parameters[:action] == 'index'
@@ -33,7 +33,7 @@ render_tabnav :model_admin,
 	end
 
 	add_tab do |t|
-		t.named 'Categories'
+		t.named _('Categories')
 		t.links_to admin_model_categories_path(@model)
 		t.highlights_on :controller => 'admin/categories', :action => 'index'
 #temp#	t.html[:class] = 'active' if request.path_parameters[:controller] == 'admin/categories' and request.path_parameters[:action] == 'index'
@@ -41,28 +41,28 @@ render_tabnav :model_admin,
 	end
 
 	add_tab do |t|
-		t.named 'Properties'
+		t.named _('Properties')
 		t.links_to properties_admin_model_path(@model)
 		t.highlights_on :action => 'properties'
 		t.html[:style] = "background-color: red;" if @model.properties.empty? 
 	end
 
 	add_tab do |t|
-		t.named 'Accessories'
+		t.named _('Accessories')
 		t.links_to accessories_admin_model_path(@model)
 		t.highlights_on :action => 'accessories'
 		t.html[:style] = "background-color: red;" if @model.accessories.empty? 
 	end
 
 	add_tab do |t|
-		t.named 'Images'
+		t.named _('Images')
 		t.links_to images_admin_model_path(@model)
 		t.highlights_on :action => 'images'
 		t.html[:style] = "background-color: red;" if @model.images.empty? 
 	end
 
 	add_tab do |t|
-		t.named 'Compatibles'
+		t.named _('Compatibles')
 		t.links_to admin_model_compatibles_path(@model)
 		t.highlights_on :controller => 'admin/models', :action => 'index'
 #temp#	t.html[:class] = 'active' if request.path_parameters[:controller] == 'admin/models' and request.path_parameters[:action] == 'index'

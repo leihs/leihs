@@ -12,12 +12,12 @@ render_tabnav :user_backend,
               :generate_css => true do 
 
 	add_tab do |t|
-		t.named 'User'
+		t.named _('User')
 		t.links_to :action => 'show'
 	end
 
 	add_tab do |t|
-		t.named 'Access Rights'
+		t.named _('Access Rights')
 		t.links_to :action => 'access_rights'
 	end
 

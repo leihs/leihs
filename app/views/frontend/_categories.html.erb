@@ -1,7 +1,7 @@
 
 	  // create initial root node
       var categories_root = new Ext.tree.AsyncTreeNode({
-        text: 'All',
+        text: '<%= _("All") %>',
         id:'ynode-0',
 		leaf: false,
 		real_id: '0'
@@ -19,7 +19,7 @@
 	  // create the tree
       var categories_panel = new Ext.tree.TreePanel({
         loader: categories_loader,
-		title: 'Categories',
+		title: '<%= _("Categories") %>',
 //        useArrows:true,
 		collapsible: true,
 		border: false,
