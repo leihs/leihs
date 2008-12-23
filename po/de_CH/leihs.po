@@ -1271,7 +1271,7 @@ msgstr "%{n} Artikel"
 #: app/views/backend/inventory_pools/index.html.erb:24
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:3
 msgid "Hand Over"
-msgstr "Übergeben"
+msgstr "Aushändigen"
 
 #: app/views/backend/hand_over/show.html.erb:13
 #: app/views/backend/hand_over/select_location.html.erb:36
