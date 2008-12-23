@@ -816,11 +816,11 @@ msgstr " <b>%d</b> Resultate "
 
 #: app/helpers/backend/backend_helper.rb:36
 msgid " for <b>%s</b>"
-msgstr " nach <b>%s</b>"
+msgstr " für Suche nach <b>%s</b>"
 
 #: app/helpers/backend/backend_helper.rb:37
 msgid " filtering <b>%s</b>"
-msgstr " filtere <b>%s</b>"
+msgstr " filtere nach <b>%s</b>"
 
 #: app/helpers/backend/backend_helper.rb:86
 #: app/views/backend/hand_over/index.html.erb:1
