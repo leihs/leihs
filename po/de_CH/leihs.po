@@ -1586,7 +1586,7 @@ msgstr "Retournierte Optionen"
 
 #: app/views/backend/take_back/_lines.html.erb:6
 msgid "Check today's"
-msgstr "Von heute überprüfen"
+msgstr "Alle von heute"
 
 #: app/views/backend/take_back/_lines.html.erb:8
 msgid "Contract"
