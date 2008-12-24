@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "POT-Creation-Date: 2008-12-24 10:03+0100\n"
-"PO-Revision-Date: 2008-12-24 10:13+0100\n"
+"PO-Revision-Date: 2008-12-24 10:45+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Benutzer muss ausgewählt sein"
 
 #: app/controllers/orders_controller.rb:17
 msgid "The order has been successfully submitted, but is NOT YET CONFIRMED."
-msgstr "Die Bestellung wurde erfolgreich eingericht, ist aber NOCH NICHT BESTÄTIGT."
+msgstr "Die Bestellung wurde erfolgreich eingereicht, ist aber NOCH NICHT BESTÄTIGT."
 
 #: app/controllers/admin/models_controller.rb:48
 msgid "The model has items"
