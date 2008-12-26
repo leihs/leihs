@@ -410,19 +410,23 @@ Pagination
 Flash
  - - - - - - - - - - - - - */
 
-div.flash_notice {
+div.flash {
+    padding:10px;
+	margin-bottom: 10px; 
+    font-weight:bold;
+}
+
+div.notice {
     border: 1px solid green;
 	background-color: #DDFFDD;    
-    padding:10px;
-	margin-bottom: 10px; 
-    font-weight:bold;
 }
 
-div.flash_error {
+div.error {
     border: 1px solid red;
 	background-color: #FFDDDD;    
-    padding:10px;
-	margin-bottom: 10px; 
-    font-weight:bold;
 }
 
+div.flash ul {
+	list-style: square;
+	margin-left: 10px;
+}

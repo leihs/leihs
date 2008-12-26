@@ -50,7 +50,9 @@ class Admin::ItemsController < Admin::AdminController
     if @item.update_attributes(params[:item])
       redirect_to admin_item_path(@item)
     else
+      flash[:error] = @item.errors.full_messages
       show and render :action => 'show' # TODO 24** redirect to the correct tabbed form
+      #redirect_to request.referer # TODO 24** keep form fields
     end
   end
 

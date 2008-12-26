@@ -1,10 +1,12 @@
 <ul class="buttons">
-	
-<li>
-	<%= link_to 'Frontend', '/' if current_user.has_role?('student', nil, false) %>
-	<%= link_to 'Backend', '/backend' if current_user.has_role?('manager', nil, true) %>
-	<%= link_to 'Admin', '/admin' if current_user.has_role?('admin', nil, true) %>
-</li>
+
+<% if current_user %>	
+	<li>
+		<%= link_to 'Frontend', '/' if current_user.has_role?('student', nil, false) %>
+		<%= link_to 'Backend', '/backend' if current_user.has_role?('manager', nil, true) %>
+		<%= link_to 'Admin', '/admin' if current_user.has_role?('admin', nil, true) %>
+	</li>
+<% end %>
 
 <li>|</li>
 

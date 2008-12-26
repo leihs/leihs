@@ -75,7 +75,7 @@
 					<div class="buttons">
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add Line"),
 							 	{ :action => 'add_line', :id => @order },
-								:title => _("Add Model"), :fullscreen => true ) %>						
+								:title => _("Add Model"), :width => 1000 ) %>						
 
 						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
 								{ :action => 'time_lines', :id => @order },
