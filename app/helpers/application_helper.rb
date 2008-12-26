@@ -70,11 +70,25 @@ module ApplicationHelper
   ######## Flash #########
 
   def flash_helper
+    r = ""
     [:notice, :error].map do |f|
-      content_tag(:div, flash[f], :class => "flash_#{f}") if flash[f]
+      r += content_tag(:div, to_list(flash[f]), :class => "flash #{f}") if flash[f]
     end
+    flash.discard if flash
+    r
   end
 
+  def to_list(msg = [])
+    content_tag :ul do
+      r = ""
+      msg.to_a.each do |e|
+        r += content_tag :li do
+          e
+        end
+      end
+      r
+    end
+  end
   
   ######## Tabs #########
 

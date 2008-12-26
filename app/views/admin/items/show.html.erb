@@ -7,6 +7,7 @@
 		<tr><td><b><%= _("Serial Number:") %></b></td><td><%= f.text_field :serial_number %></td></tr>	
 		<tr><td><b><%= _("Required Level:") %></b></td><td><%= f.select :required_level, AccessRight::LEVELS %></td></tr>
 		</table>
-	
+
+		<br />	
 		<%= submit_tag 'Submit' %>
 	<% end %>

@@ -39,10 +39,9 @@ class Admin::UsersController < Admin::AdminController
       redirect_to admin_user_path(@user)
     else
       # TODO 12 ** refactor to after_filter, then remove errors from tabnav views
-      # flash[:error] = @user.errors.full_messages.to_s # or .join ??
+      flash[:error] = @user.errors.full_messages
 
       #redirect_to request.referer #or# request.env['HTTP_REFERER']
-      puts request.inspect
       render :action => 'show' # TODO 24** redirect to the correct tabbed form
     end
   end

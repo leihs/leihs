@@ -1,7 +1,8 @@
 	
 	<ul>
 	<% @item.histories.each do |h| %>
-		<li><%= short_date h.created_at %> - <%= h.type_const %> - <%= h.text %></li>
+		<li><h4><%= h.user.login %> - <%= short_date h.created_at %>:</h4>
+			<%= h.text %></li>
 	<% end %>
 	</ul>
 
