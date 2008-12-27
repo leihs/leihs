@@ -1,0 +1,18 @@
+	
+	<ul>
+	<% @item.histories.each do |h| %>
+		<li><h4><%= h.user.login %> - <%= short_date h.created_at %>:</h4>
+			<%= h.text %></li>
+	<% end %>
+	</ul>
+
+	<hr />
+	
+	<% form_tag url_for({ }) do %>
+	   	<%= _("Note") %><br/>
+		<%= text_area_tag 'note', nil, :size => "25x10" %>
+
+		<%= submit_tag _("Submit") %>		
+	<% end %>
+	
+		

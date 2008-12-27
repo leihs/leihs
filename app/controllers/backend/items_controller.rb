@@ -31,7 +31,7 @@ class Backend::ItemsController < Backend::BackendController
 
   def update
     @item.update_attributes(params[:item])
-    redirect_to :action => 'show', :id => @item # TODO redirect to the right tab
+    redirect_to :action => 'show', :id => @item # TODO 24** redirect to the right tab
   end
 
 #################################################################

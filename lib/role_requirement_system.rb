@@ -116,7 +116,7 @@ module RoleRequirementSystem
       if logged_in?
         #sellittf start# 
         # render :nothing => true, :status => 401
-        flash[:notice] = "Access Denied"
+        flash[:notice] = _("Access Denied")
         # redirect_to :controller => "/sessions", :action => "access_denied" and return false
         redirect_to "/" and return false
         #sellittf end# 

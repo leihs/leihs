@@ -84,10 +84,12 @@ class Admin::ItemsController < Admin::AdminController
     end
   end
   
-
 #################################################################
 
-  def status
+  def notes
+    if request.post?
+        @item.log_history(params[:note], current_user.id)
+    end
   end
 
 #################################################################

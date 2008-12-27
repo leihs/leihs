@@ -25,7 +25,7 @@ class Backend::UsersController < Backend::BackendController
   end
 
   def remind
-    flash[:notice] = "User #{@user} has been reminded " + @user.remind(current_user)
+    flash[:notice] = _("User %s has been reminded ") % @user.remind(current_user)
     redirect_to :action => 'index' 
   end
   
