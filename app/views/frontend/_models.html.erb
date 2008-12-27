@@ -324,11 +324,16 @@ function add_model_details(model_id, add_tab){
 						items: {
 							xtype: 'datefield',
 							fieldLabel: '<%= _("Start date") %>',
+							id: 'start_date',
 							name: 'start_date',
-							value: new Date(), //new Date(yy,mm,dd)
-//old//							format: "d.m.Y",
+							value: new Date(),
 							//minValue: new Date(),
 							disabledDays: [6, 0],
+							listeners: {
+								valid: function(){
+									this.findParentByType('form').findById('end_date').validate();
+								}
+							},
 							anchor: '90%'
 						}
 					}, {
@@ -337,11 +342,20 @@ function add_model_details(model_id, add_tab){
 						items: {
 							xtype: 'datefield',
 							fieldLabel: '<%= _("End date") %>',
+							id: 'end_date',
 							name: 'end_date',
-							value: new Date(), //new Date(yy,mm,dd)
-//old//							format: "d.m.Y",
+							value: new Date(),
 							//minValue: new Date(),
 							disabledDays: [6, 0],
+							validator: function(){
+								var start_date = this.findParentByType('form').findById('start_date').getValue();
+								var end_date = this.getValue();
+								if (end_date < start_date){
+									return '<%= _("Start Date must be before End Date") %>';
+								}else{
+									return true;
+								}
+							},
 							anchor: '90%'
 						}
 					}]
