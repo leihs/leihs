@@ -72,7 +72,6 @@
            width: 50,
            renderer: formatDate,
            editor: new Ext.form.DateField({
-//old//                format: 'd.m.Y' // TODO 05** to test
 				//, disabledDays: function() { var n = new Array();
 				//							console.log(complete_order_store.reader);
 				//							//n.push(complete_order_store.reader.jsonData['inventory_pool.closed_days']);
@@ -85,10 +84,7 @@
            dataIndex: 'end_date',
            width: 50,
            renderer: formatDate,
-           editor: new Ext.form.DateField({
-//old//                format: 'd.m.Y' //,
-				//renderer: new Ext.DatePicker({startDay: 1})
-            })
+           editor: new Ext.form.DateField({})
         },{
            header: "Available",
            dataIndex: 'available?',
@@ -119,8 +115,7 @@
 				if (columnIndex == 2){
 					model_id = grid.getStore().getAt(rowIndex).data['model.id'];
 					add_model_details(model_id);
-				}
-				else if (columnIndex == 4 || columnIndex == 5) {
+				}else if (columnIndex == 4 || columnIndex == 5) {
 					var field = grid.getColumnModel().getCellEditor(columnIndex, rowIndex).field;
 					field.setDisabledDays(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_days']);
 					field.setDisabledDates(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_dates']); // TODO: Maybe works with new ext.js
@@ -129,6 +124,10 @@
 			},
 			afteredit: function(e){
 				if(e.field == "start_date" || e.field == "end_date"){
+					if(e.record.data.end_date < e.record.data.start_date){
+						Ext.Msg.alert('<%= _("Error") %>', '<%= _("Start Date must be before End Date") %>');
+						return false;
+					}
 				    u = '/user/order/change_time_lines';
 				    p = {"lines": [e.record.id],
 						 "start_date": e.record.data.start_date.dateFormat('d.m.Y'),
