@@ -73,25 +73,25 @@ render_tabnav :item_backend,
 	add_tab do |t|
 		t.named _('Item')
 		t.links_to :action => 'show' # backend_inventory_pool_model_item_path(@current_inventory_pool, @item.model, @item)
-		t.highlights_on :action => 'show'
+#		t.highlights_on :action => 'show'
 	end
 
 	add_tab do |t|
 		t.named _('Location')
 		t.links_to :action => 'location' # location_backend_inventory_pool_model_item_path(@current_inventory_pool, @item.model, @item)
-		t.highlights_on :action => 'location'
+#		t.highlights_on :action => 'location'
 	end
 
 	add_tab do |t|
 		t.named _('Status')
 		t.links_to :action => 'status' # status_backend_inventory_pool_model_item_path(@current_inventory_pool, @item.model, @item)
-		t.highlights_on :action => 'status'
+#		t.highlights_on :action => 'status'
 	end
 
 	add_tab do |t|
 		t.named _('Notes')
 		t.links_to :action => 'notes' # notes_backend_inventory_pool_model_item_path(@current_inventory_pool, @item.model, @item)
-		t.highlights_on :action => 'notes'
+#		t.highlights_on :action => 'notes'
 	end
 
 end 

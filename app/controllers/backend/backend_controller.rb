@@ -27,7 +27,7 @@ class Backend::BackendController < ApplicationController
       
       model.add_to_document(document, params[:user_id], params[:quantity], nil, nil, current_inventory_pool)
 
-      flash[:notice] = _("Line couldn't be added") unless document.save # TODO 05** display document.errors
+      flash[:notice] = document.errors.full_messages unless document.save
       redirect_to :action => 'show', :id => render_id
     else
       redirect_to :controller => 'models', 
@@ -61,9 +61,9 @@ class Backend::BackendController < ApplicationController
         end_date = Date.new(params[:line]['end_date(1i)'].to_i, params[:line]['end_date(2i)'].to_i, params[:line]['end_date(3i)'].to_i)
         params[:lines].each {|l| document.update_time_line(l, start_date, end_date, current_user.id) }
       rescue
-        flash[:notice] = "Invalid date" #TODO display error message
+        flash[:notice] = document.errors.full_messages
       end 
-        redirect_to :action => 'show', :id => render_id
+      redirect_to :action => 'show', :id => render_id
     else
       @lines = document.lines.find(params[:lines].split(','))
       render :template => 'backend/backend/time_lines', :layout => $modal_layout_path

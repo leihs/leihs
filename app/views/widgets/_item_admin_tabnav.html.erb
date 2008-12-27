@@ -40,7 +40,11 @@ render_tabnav :item_admin,
 		t.links_to :action => 'inventory_pool' # inventory_pool_admin_item_path(@item)
 #		t.highlights_on :action => 'inventory_pool'
 		t.html[:style] = "background-color: red;" unless @item.location
-		# TODO 24** disable unless model (t.disabled_if)
+	end
+
+	add_tab do |t|
+		t.named _('Notes')
+		t.links_to :action => 'notes'
 	end
 
 end 

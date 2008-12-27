@@ -88,9 +88,9 @@ class Admin::ModelsController < Admin::AdminController
       @image = Image.new(params[:image])
       @image.model = @model
       if @image.save
-        flash[:notice] = 'Attachment was successfully created.'
+        flash[:notice] = _("Attachment was successfully created.")
       else
-        flash[:notice] = 'Upload error.'
+        flash[:notice] = _("Upload error.")
       end
     end
   end

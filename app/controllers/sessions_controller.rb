@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
       redirect_back_or_default('/')
-      flash[:notice] = "Logged in successfully"
+      flash[:notice] = _("Logged in successfully")
     else
       render :action => 'new'
     end
@@ -42,7 +42,7 @@ class SessionsController < ApplicationController
   def destroy
     cookies.delete :auth_token
     reset_session
-    flash[:notice] = "You have been logged out."
+    flash[:notice] = _("You have been logged out.")
     redirect_back_or_default('/')
   end
 end

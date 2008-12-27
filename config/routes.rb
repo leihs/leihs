@@ -148,7 +148,8 @@ ActionController::Routing::Routes.draw do |map|
         inventory_pool.resources :items
     end
     admin.resources :items, :member => { :model => :get,  # TODO 12** remove and nest to models ??
-                                         :inventory_pool => :any }
+                                         :inventory_pool => :any,
+                                         :notes => :any }
     admin.resources :models, :collection => { :auto_complete => :get },
                              :member => { :properties => :get,
                                           :add_property => :post,
