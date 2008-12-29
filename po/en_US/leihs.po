@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2008-12-24 10:03+0100\n"
+"POT-Creation-Date: 2008-12-29 08:52+0100\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,13 +28,24 @@ msgstr ""
 msgid "Compatible successfully removed"
 msgstr ""
 
-#: app/controllers/backend/backend_controller.rb:30
-#: app/controllers/orders_controller.rb:49
-msgid "Line couldn't be added"
+#: app/controllers/backend/hand_over_controller.rb:78
+msgid "Inventory Code assigned"
+msgstr ""
+
+#: app/controllers/backend/hand_over_controller.rb:80
+msgid "This item requires the user to be level %s"
+msgstr ""
+
+#: app/controllers/backend/hand_over_controller.rb:84
+msgid "Inventory Code identifies an item that is not in this order."
 msgstr ""
 
 #: app/controllers/backend/backend_controller.rb:44
 msgid "Model must be selected"
+msgstr ""
+
+#: app/controllers/backend/users_controller.rb:28
+msgid "User %s has been reminded "
 msgstr ""
 
 #: app/controllers/backend/acknowledge_controller.rb:108
@@ -45,8 +56,28 @@ msgstr ""
 msgid "The order has been successfully submitted, but is NOT YET CONFIRMED."
 msgstr ""
 
+#: app/controllers/orders_controller.rb:49
+msgid "Line couldn't be added"
+msgstr ""
+
+#: app/controllers/sessions_controller.rb:36
+msgid "Logged in successfully"
+msgstr ""
+
+#: app/controllers/sessions_controller.rb:45
+msgid "You have been logged out."
+msgstr ""
+
 #: app/controllers/admin/models_controller.rb:48
 msgid "The model has items"
+msgstr ""
+
+#: app/controllers/admin/models_controller.rb:91
+msgid "Attachment was successfully created."
+msgstr ""
+
+#: app/controllers/admin/models_controller.rb:93
+msgid "Upload error."
 msgstr ""
 
 #: app/controllers/admin/categories_controller.rb:74
@@ -112,7 +143,7 @@ msgstr ""
 #: app/views/backend/hand_over/index.html.erb:11
 #: app/views/backend/orders/index.html.erb:11
 #: app/views/backend/users/index.html.erb:1
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:16
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:18
 #: app/views/widgets/_user_admin_tabnav.html.erb:15
 #: app/views/widgets/_user_backend_tabnav.html.erb:15
 #: app/views/admin/users/index.html.erb:10
@@ -439,6 +470,8 @@ msgstr ""
 
 #: app/models/document_line.rb:75
 #: app/views/backend/backend/time_lines.html.erb:94
+#: app/views/frontend/_complete_order.html.erb:128
+#: app/views/frontend/_models.html.erb:354
 msgid "Start Date must be before End Date"
 msgstr ""
 
@@ -731,7 +764,7 @@ msgid "Notification|Created at"
 msgstr ""
 
 #: app/models/notification.rb:7
-#: app/views/frontend/_complete_order.html.erb:220
+#: app/views/frontend/_complete_order.html.erb:219
 msgid "Order submitted"
 msgstr ""
 
@@ -1107,15 +1140,17 @@ msgid "Unborrowable"
 msgstr ""
 
 #: app/views/backend/take_back/inspection.html.erb:18
-#: app/views/backend/items/notes.html.erb:11
+#: app/views/backend/items/notes.html.erb:12
+#: app/views/admin/items/notes.html.erb:12
 msgid "Note"
 msgstr ""
 
 #: app/views/backend/take_back/inspection.html.erb:22
 #: app/views/backend/locations/show.html.erb:10
 #: app/views/backend/items/status.html.erb:16
-#: app/views/backend/items/notes.html.erb:14
-#: app/views/frontend/_complete_order.html.erb:237
+#: app/views/backend/items/notes.html.erb:15
+#: app/views/admin/items/notes.html.erb:15
+#: app/views/frontend/_complete_order.html.erb:236
 msgid "Submit"
 msgstr ""
 
@@ -1164,7 +1199,7 @@ msgstr ""
 #: app/views/backend/acknowledge/change_purpose.html.erb:1
 #: app/views/backend/acknowledge/show.html.erb:57
 #: app/views/backend/acknowledge/show.html.erb:59
-#: app/views/frontend/_complete_order.html.erb:203
+#: app/views/frontend/_complete_order.html.erb:202
 msgid "Purpose"
 msgstr ""
 
@@ -1312,7 +1347,7 @@ msgid "Comments"
 msgstr ""
 
 #: app/views/backend/acknowledge/approve.html.erb:19
-#: app/views/frontend/_complete_order.html.erb:238
+#: app/views/frontend/_complete_order.html.erb:237
 msgid "This order is not yet approvable"
 msgstr ""
 
@@ -1502,7 +1537,7 @@ msgstr ""
 #: app/views/backend/models/index.html.erb:107
 #: app/views/admin/users/access_rights.html.erb:26
 #: app/views/frontend/_models.html.erb:269
-#: app/views/frontend/_models.html.erb:350
+#: app/views/frontend/_models.html.erb:364
 msgid "Add"
 msgstr ""
 
@@ -1521,8 +1556,8 @@ msgstr ""
 #: app/views/admin/users/access_rights.html.erb:4
 #: app/views/admin/models/properties.html.erb:5
 #: app/views/admin/models/accessories.html.erb:5
-#: app/views/frontend/_complete_order.html.erb:166
-#: app/views/frontend/_complete_order.html.erb:173
+#: app/views/frontend/_complete_order.html.erb:165
+#: app/views/frontend/_complete_order.html.erb:172
 msgid "Remove"
 msgstr ""
 
@@ -1684,24 +1719,24 @@ msgid "Compatibles"
 msgstr ""
 
 #: app/views/layouts/backend/00-patterns/general.html.erb:24
-#: app/views/frontend/_complete_order.html.erb:327
+#: app/views/frontend/_complete_order.html.erb:326
 msgid "Change"
 msgstr ""
 
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:13
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:15
 msgid "Logged in as %{u}."
 msgstr ""
 
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:14
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:16
 msgid "My Account"
 msgstr ""
 
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:17
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:19
 #: app/views/frontend/_topbar.html.erb:47
 msgid "Logout"
 msgstr ""
 
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:21
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:23
 msgid "Login"
 msgstr ""
 
@@ -1777,6 +1812,7 @@ msgid "Status"
 msgstr ""
 
 #: app/views/widgets/_item_backend_tabnav.html.erb:92
+#: app/views/widgets/_item_admin_tabnav.html.erb:46
 msgid "Notes"
 msgstr ""
 
@@ -1788,6 +1824,18 @@ msgstr ""
 #: app/views/widgets/_category_admin_tabnav.html.erb:20
 #: app/views/frontend/_models.html.erb:110
 msgid "Category"
+msgstr ""
+
+#: app/views/widgets/_category_admin_tabnav.html.erb:27
+msgid "Models (%d)"
+msgstr ""
+
+#: app/views/widgets/_category_admin_tabnav.html.erb:33
+msgid "Children (%d)"
+msgstr ""
+
+#: app/views/widgets/_category_admin_tabnav.html.erb:39
+msgid "Parents (%d)"
 msgstr ""
 
 #: app/views/widgets/_package_backend_tabnav.html.erb:21
@@ -1899,42 +1947,50 @@ msgstr ""
 msgid "Visits"
 msgstr ""
 
+#: app/views/users/_contracts.html.erb:5
+msgid "Contracts (%d)"
+msgstr ""
+
 #: app/views/users/_contracts.html.erb:44 app/views/users/_orders.html.erb:44
 msgid "Timeline Contracts"
 msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:158
-#: app/views/frontend/_complete_order.html.erb:351
+#: app/views/frontend/_complete_order.html.erb:128
+msgid "Error"
+msgstr ""
+
+#: app/views/frontend/_complete_order.html.erb:157
+#: app/views/frontend/_complete_order.html.erb:350
 msgid "Change Timeframe"
 msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:167
+#: app/views/frontend/_complete_order.html.erb:166
 msgid "Remove the selected items"
 msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:174
+#: app/views/frontend/_complete_order.html.erb:173
 msgid "You are sure?"
 msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:196
+#: app/views/frontend/_complete_order.html.erb:195
 msgid "Submit Order"
 msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:202
+#: app/views/frontend/_complete_order.html.erb:201
 msgid "Do you want to submit this order?"
 msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:305
+#: app/views/frontend/_complete_order.html.erb:304
 #: app/views/frontend/_models.html.erb:326
 msgid "Start date"
 msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:317
-#: app/views/frontend/_models.html.erb:339
+#: app/views/frontend/_complete_order.html.erb:316
+#: app/views/frontend/_models.html.erb:344
 msgid "End date"
 msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:373
+#: app/views/frontend/_complete_order.html.erb:372
 msgid "Order"
 msgstr ""
 
@@ -1958,8 +2014,12 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: app/views/frontend/_models.html.erb:354
+#: app/views/frontend/_models.html.erb:368
 msgid "Saving Data"
+msgstr ""
+
+#: app/views/frontend/_inventory_pools.html.erb:45
+msgid "%{a}/%{b}"
 msgstr ""
 
 #: app/views/frontend/_inventory_pools.html.erb:60
@@ -1968,4 +2028,8 @@ msgstr ""
 
 #: app/views/frontend/index.html.erb:78
 msgid "Recent Models"
+msgstr ""
+
+#: lib/role_requirement_system.rb:119
+msgid "Access Denied"
 msgstr ""
