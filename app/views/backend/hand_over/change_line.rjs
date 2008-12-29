@@ -19,6 +19,7 @@ if @contract_line
   
 end
 
+# TODO 28** use flash_helper
 if flash[:notice]
   page.replace_html 'messages', '<div class="flash_notice">' + flash[:notice] + '</div>'
 end

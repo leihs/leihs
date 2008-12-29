@@ -48,7 +48,7 @@ class Backend::HandOverController < Backend::BackendController
       @contract = @contract_line.contract
       
       required_item_inventory_code = params[:code]
-      @contract_line.item = Item.find(:first, :conditions => { :inventory_code => required_item_inventory_code})
+      @contract_line.item = Item.first(:conditions => { :inventory_code => required_item_inventory_code})
       @contract_line.start_date = Date.today
       @contract_line.end_date = Date.today if @contract_line.end_date < @contract_line.start_date
       @start_date_changed = @contract_line.start_date_changed?
@@ -61,6 +61,10 @@ class Backend::HandOverController < Backend::BackendController
         end
       end
       
+# TODO 28** update all lines
+#      render :update do |page|
+#        page.replace_html  'lines', :partial => 'lines'
+#      end
 #      render :partial => 'lines'
     end
   end  

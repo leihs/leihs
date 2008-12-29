@@ -98,9 +98,9 @@ module ApplicationHelper
     html = capture { render :partial => partial_template }
     if block_given?
       options = {:id => @_tabnav.html[:id] + '_content', :class => @_tabnav.html[:class] + '_content'}
-    html += content_tag :div, options do
-        capture(&block)
-    end
+      html += content_tag :div, options do
+          capture(&block)
+      end
     end
     return html
   end

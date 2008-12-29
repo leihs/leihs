@@ -118,7 +118,6 @@ class Document < ActiveRecord::Base
   def timeline
     events = []
     lines.each do |l|
-      #old# events << Event.new(l.start_date, l.end_date, l.model.name)
       events << Event.new(:start => l.start_date, :end => l.end_date, :title =>l.model.name)
     end
 

@@ -16,6 +16,8 @@ class Admin::ModelsController < Admin::AdminController
     else
       @models = models.paginate :page => params[:page], :per_page => $per_page
     end
+
+    @show_categories_tree = !request.xml_http_request?
   end
 
   def show

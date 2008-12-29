@@ -73,8 +73,8 @@ class ModelGroup < ActiveRecord::Base
   def text(parent_id = nil)
     parent = (parent_id == 0 ? nil : ModelGroup.find(parent_id))
     # "#{label(parent)} (#{models.size})" # TODO intersection with current_user.models
-    #label(parent)
-    "#{label(parent)} (id #{id})" # TODO temp
+    label(parent)
+    #"#{label(parent)} (id #{id})" # TODO temp
   end
   
   def leaf

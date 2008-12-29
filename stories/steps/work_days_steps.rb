@@ -62,7 +62,6 @@ steps_for(:work_days) do
 	  
 	  #Login as User
     post "/session", :login => inv_manager.login
-#old#    get backend_inventory_pool_hand_over_index_path(@inventory_pool) if action == 'hand over'
     get backend_inventory_pool_hand_over_path(@inventory_pool) if action == 'hand over'
     get backend_inventory_pool_workdays_path(@inventory_pool) if action == 'Opening Times'
 

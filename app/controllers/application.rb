@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   $general_layout_path = 'layouts/' + $theme + '/general'
   $layout_public_path = '/layouts/' + $theme
 
-  $per_page = 10 # OPTIMIZE keep per_page in user session?
+  $per_page = 15 # OPTIMIZE keep per_page in user session?
   
   layout $general_layout_path
   

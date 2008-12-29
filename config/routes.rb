@@ -107,7 +107,7 @@ ActionController::Routing::Routes.draw do |map|
                                                          :swap_user => :any,
                                                          :change_purpose => :any,
                                                          :timeline => :get }
-               user.resource :hand_over, :controller => 'hand_over', # OPTIMIZE 03** pluralization
+               user.resource :hand_over, :controller => 'hand_over',
                                          :member => { :add_line => :any,
                                                       :change_line => :any,
                                                       :remove_lines => :any,
@@ -122,7 +122,7 @@ ActionController::Routing::Routes.draw do |map|
                                                       :select_location => :any,
                                                       :auto_complete_for_location_building => :post,
                                                       :auto_complete_for_location_room => :post }
-                user.resource :take_back, :controller => 'take_back', # OPTIMIZE 03** pluralization
+                user.resource :take_back, :controller => 'take_back',
                                           :member => { :close_contract => :any,
                                                        :assign_inventory_code => :post,
                                                        :inspection => :any,

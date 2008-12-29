@@ -25,37 +25,37 @@ render_tabnav :model_backend,
 	end
 
 	add_tab do |t|
-		t.named _('Items')
+		t.named _("Items (%d)") % @current_inventory_pool.items_size(@model)
 		t.links_to backend_inventory_pool_model_items_path(@current_inventory_pool, @model)
 		t.highlights_on :controller => 'backend/items'
 	end
 
 	add_tab do |t|
-		t.named _('Categories')
+		t.named _("Categories (%d)") % @model.categories.size
 		t.links_to backend_inventory_pool_model_categories_path(@current_inventory_pool, @model)
 		t.highlights_on :controller => 'backend/categories', :action => 'index'
 	end
 
 	add_tab do |t|
-		t.named _('Properties')
+		t.named _("Properties (%d)") % @model.properties.size
 		t.links_to properties_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'properties'
 	end
 
 	add_tab do |t|
-		t.named _('Accessories')
+		t.named _("Accessories (%d)") % @model.accessories.size
 		t.links_to accessories_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'accessories'
 	end
 
 	add_tab do |t|
-		t.named _('Images')
+		t.named _("Images (%d)") % @model.images.size
 		t.links_to images_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'images'
 	end
 
 	add_tab do |t|
-		t.named _('Compatibles')
+		t.named _("Compatibles (%d)") % (@model.compatibles & @current_inventory_pool.models).size
 		t.links_to backend_inventory_pool_model_compatibles_path(@current_inventory_pool, @model)
 		t.highlights_on :controller => 'backend/models', :action => 'index'
 	end
