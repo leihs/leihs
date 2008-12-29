@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2008-12-24 10:03+0100\n"
-"PO-Revision-Date: 2008-12-24 10:45+0100\n"
+"POT-Creation-Date: 2008-12-29 08:52+0100\n"
+"PO-Revision-Date: 2008-12-29 08:56+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -28,14 +28,25 @@ msgstr "Dieses Modell ist bereits kompatibel"
 msgid "Compatible successfully removed"
 msgstr "Kompatibles Modell erfolgreich entfernt"
 
-#: app/controllers/backend/backend_controller.rb:30
-#: app/controllers/orders_controller.rb:49
-msgid "Line couldn't be added"
-msgstr "Zeile konnte nicht hinzugefügt werden"
+#: app/controllers/backend/hand_over_controller.rb:78
+msgid "Inventory Code assigned"
+msgstr "Inventarcode zugewiesen"
+
+#: app/controllers/backend/hand_over_controller.rb:80
+msgid "This item requires the user to be level %s"
+msgstr "Dieses Gerät benötigt mindestens Benutzerstufe %s"
+
+#: app/controllers/backend/hand_over_controller.rb:84
+msgid "Inventory Code identifies an item that is not in this order."
+msgstr "Der Inventarcode gehört zu einem Gerät, das in dieser Bestellung nicht auftaucht"
 
 #: app/controllers/backend/backend_controller.rb:44
 msgid "Model must be selected"
 msgstr "Modell muss ausgewählt sein"
+
+#: app/controllers/backend/users_controller.rb:28
+msgid "User %s has been reminded "
+msgstr "Benutzer %s wurde erinnert"
 
 #: app/controllers/backend/acknowledge_controller.rb:108
 msgid "User must be selected"
@@ -45,9 +56,29 @@ msgstr "Benutzer muss ausgewählt sein"
 msgid "The order has been successfully submitted, but is NOT YET CONFIRMED."
 msgstr "Die Bestellung wurde erfolgreich eingereicht, ist aber NOCH NICHT BESTÄTIGT."
 
+#: app/controllers/orders_controller.rb:49
+msgid "Line couldn't be added"
+msgstr "Zeile konnte nicht hinzugefügt werden"
+
+#: app/controllers/sessions_controller.rb:36
+msgid "Logged in successfully"
+msgstr "Erfolgreich eingeloggt"
+
+#: app/controllers/sessions_controller.rb:45
+msgid "You have been logged out."
+msgstr "Sie sind nun ausgeloggt."
+
 #: app/controllers/admin/models_controller.rb:48
 msgid "The model has items"
 msgstr "Das Modell hat Gegenstände"
+
+#: app/controllers/admin/models_controller.rb:91
+msgid "Attachment was successfully created."
+msgstr "Attachment erfolgreich erstellt."
+
+#: app/controllers/admin/models_controller.rb:93
+msgid "Upload error."
+msgstr "Fehler beim Hochladen."
 
 #: app/controllers/admin/categories_controller.rb:74
 msgid "Category successfully assigned"
@@ -112,7 +143,7 @@ msgstr "Reservierer"
 #: app/views/backend/hand_over/index.html.erb:11
 #: app/views/backend/orders/index.html.erb:11
 #: app/views/backend/users/index.html.erb:1
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:16
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:18
 #: app/views/widgets/_user_admin_tabnav.html.erb:15
 #: app/views/widgets/_user_backend_tabnav.html.erb:15
 #: app/views/admin/users/index.html.erb:10
@@ -440,6 +471,8 @@ msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 
 #: app/models/document_line.rb:75
 #: app/views/backend/backend/time_lines.html.erb:94
+#: app/views/frontend/_complete_order.html.erb:128
+#: app/views/frontend/_models.html.erb:354
 msgid "Start Date must be before End Date"
 msgstr "Startdaum muss vor Enddatum liegen"
 
@@ -485,31 +518,31 @@ msgstr ""
 
 #: app/models/workday.rb:-
 msgid "Workday|Monday"
-msgstr ""
+msgstr "Arbeitstag|Montag"
 
 #: app/models/workday.rb:-
 msgid "Workday|Tuesday"
-msgstr ""
+msgstr "Arbeitstag/Dienstag"
 
 #: app/models/workday.rb:-
 msgid "Workday|Wednesday"
-msgstr ""
+msgstr "Arbeitstag/Mittwoch"
 
 #: app/models/workday.rb:-
 msgid "Workday|Thursday"
-msgstr ""
+msgstr "Arbeitstag/Donnerstag"
 
 #: app/models/workday.rb:-
 msgid "Workday|Friday"
-msgstr ""
+msgstr "Arbeitstag/Freitag"
 
 #: app/models/workday.rb:-
 msgid "Workday|Saturday"
-msgstr ""
+msgstr "Arbeitstag/Samstag"
 
 #: app/models/workday.rb:-
 msgid "Workday|Sunday"
-msgstr ""
+msgstr "Arbeitstag/Sonntag"
 
 #: app/models/model.rb:-
 msgid "model"
@@ -732,7 +765,7 @@ msgid "Notification|Created at"
 msgstr ""
 
 #: app/models/notification.rb:7
-#: app/views/frontend/_complete_order.html.erb:220
+#: app/views/frontend/_complete_order.html.erb:219
 msgid "Order submitted"
 msgstr "Bestellung abgeschickt"
 
@@ -1108,15 +1141,17 @@ msgid "Unborrowable"
 msgstr "Nicht ausleihbar"
 
 #: app/views/backend/take_back/inspection.html.erb:18
-#: app/views/backend/items/notes.html.erb:11
+#: app/views/backend/items/notes.html.erb:12
+#: app/views/admin/items/notes.html.erb:12
 msgid "Note"
 msgstr "Notiz"
 
 #: app/views/backend/take_back/inspection.html.erb:22
 #: app/views/backend/locations/show.html.erb:10
 #: app/views/backend/items/status.html.erb:16
-#: app/views/backend/items/notes.html.erb:14
-#: app/views/frontend/_complete_order.html.erb:237
+#: app/views/backend/items/notes.html.erb:15
+#: app/views/admin/items/notes.html.erb:15
+#: app/views/frontend/_complete_order.html.erb:236
 msgid "Submit"
 msgstr "Absenden"
 
@@ -1165,7 +1200,7 @@ msgstr "Monat"
 #: app/views/backend/acknowledge/change_purpose.html.erb:1
 #: app/views/backend/acknowledge/show.html.erb:57
 #: app/views/backend/acknowledge/show.html.erb:59
-#: app/views/frontend/_complete_order.html.erb:203
+#: app/views/frontend/_complete_order.html.erb:202
 msgid "Purpose"
 msgstr "Zweck"
 
@@ -1311,7 +1346,7 @@ msgid "Comments"
 msgstr "Kommentare"
 
 #: app/views/backend/acknowledge/approve.html.erb:19
-#: app/views/frontend/_complete_order.html.erb:238
+#: app/views/frontend/_complete_order.html.erb:237
 msgid "This order is not yet approvable"
 msgstr "Diese Bestellung kann noch nicht bestätigt werden"
 
@@ -1501,7 +1536,7 @@ msgstr "Ferientage"
 #: app/views/backend/models/index.html.erb:107
 #: app/views/admin/users/access_rights.html.erb:26
 #: app/views/frontend/_models.html.erb:269
-#: app/views/frontend/_models.html.erb:350
+#: app/views/frontend/_models.html.erb:364
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -1520,8 +1555,8 @@ msgstr "Bestellungen"
 #: app/views/admin/users/access_rights.html.erb:4
 #: app/views/admin/models/properties.html.erb:5
 #: app/views/admin/models/accessories.html.erb:5
-#: app/views/frontend/_complete_order.html.erb:166
-#: app/views/frontend/_complete_order.html.erb:173
+#: app/views/frontend/_complete_order.html.erb:165
+#: app/views/frontend/_complete_order.html.erb:172
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -1683,24 +1718,24 @@ msgid "Compatibles"
 msgstr "Kompatible"
 
 #: app/views/layouts/backend/00-patterns/general.html.erb:24
-#: app/views/frontend/_complete_order.html.erb:327
+#: app/views/frontend/_complete_order.html.erb:326
 msgid "Change"
 msgstr "Ändern"
 
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:13
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:15
 msgid "Logged in as %{u}."
 msgstr "Eingeloggt als %{u}."
 
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:14
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:16
 msgid "My Account"
 msgstr "Mein Konto"
 
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:17
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:19
 #: app/views/frontend/_topbar.html.erb:47
 msgid "Logout"
 msgstr "Logout"
 
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:21
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:23
 msgid "Login"
 msgstr "Login"
 
@@ -1776,6 +1811,7 @@ msgid "Status"
 msgstr "Status"
 
 #: app/views/widgets/_item_backend_tabnav.html.erb:92
+#: app/views/widgets/_item_admin_tabnav.html.erb:46
 msgid "Notes"
 msgstr "Notizen"
 
@@ -1788,6 +1824,18 @@ msgstr "Gerätepark"
 #: app/views/frontend/_models.html.erb:110
 msgid "Category"
 msgstr "Kategorie"
+
+#: app/views/widgets/_category_admin_tabnav.html.erb:27
+msgid "Models (%d)"
+msgstr "Modelle  (%d)"
+
+#: app/views/widgets/_category_admin_tabnav.html.erb:33
+msgid "Children (%d)"
+msgstr "Kind-Elemente  (%d)"
+
+#: app/views/widgets/_category_admin_tabnav.html.erb:39
+msgid "Parents (%d)"
+msgstr "Eltern-Elemente (%d)"
 
 #: app/views/widgets/_package_backend_tabnav.html.erb:21
 msgid "Package"
@@ -1899,43 +1947,51 @@ msgstr "Lade"
 msgid "Visits"
 msgstr "Besuche"
 
+#: app/views/users/_contracts.html.erb:5
+msgid "Contracts (%d)"
+msgstr "Verträge (%d)"
+
 #: app/views/users/_contracts.html.erb:44
 #: app/views/users/_orders.html.erb:44
 msgid "Timeline Contracts"
 msgstr "Zeitleiste Verträge"
 
-#: app/views/frontend/_complete_order.html.erb:158
-#: app/views/frontend/_complete_order.html.erb:351
+#: app/views/frontend/_complete_order.html.erb:128
+msgid "Error"
+msgstr "Fehler"
+
+#: app/views/frontend/_complete_order.html.erb:157
+#: app/views/frontend/_complete_order.html.erb:350
 msgid "Change Timeframe"
 msgstr "Zeitfenster ändern"
 
-#: app/views/frontend/_complete_order.html.erb:167
+#: app/views/frontend/_complete_order.html.erb:166
 msgid "Remove the selected items"
 msgstr "Ausgewähltes entfernen"
 
-#: app/views/frontend/_complete_order.html.erb:174
+#: app/views/frontend/_complete_order.html.erb:173
 msgid "You are sure?"
 msgstr "Sind Sie sicher?"
 
-#: app/views/frontend/_complete_order.html.erb:196
+#: app/views/frontend/_complete_order.html.erb:195
 msgid "Submit Order"
 msgstr "Bestellung abschicken"
 
-#: app/views/frontend/_complete_order.html.erb:202
+#: app/views/frontend/_complete_order.html.erb:201
 msgid "Do you want to submit this order?"
 msgstr "Wollen Sie diese Bestellung abschicken?"
 
-#: app/views/frontend/_complete_order.html.erb:305
+#: app/views/frontend/_complete_order.html.erb:304
 #: app/views/frontend/_models.html.erb:326
 msgid "Start date"
 msgstr "Startdatum"
 
-#: app/views/frontend/_complete_order.html.erb:317
-#: app/views/frontend/_models.html.erb:339
+#: app/views/frontend/_complete_order.html.erb:316
+#: app/views/frontend/_models.html.erb:344
 msgid "End date"
 msgstr "Enddatum"
 
-#: app/views/frontend/_complete_order.html.erb:373
+#: app/views/frontend/_complete_order.html.erb:372
 msgid "Order"
 msgstr "Bestellung"
 
@@ -1959,9 +2015,13 @@ msgstr "Keine Modelle anzuzeigen"
 msgid "Details"
 msgstr "Details"
 
-#: app/views/frontend/_models.html.erb:354
+#: app/views/frontend/_models.html.erb:368
 msgid "Saving Data"
 msgstr "Speichere Daten"
+
+#: app/views/frontend/_inventory_pools.html.erb:45
+msgid "%{a}/%{b}"
+msgstr "%{a}/%{b}"
 
 #: app/views/frontend/_inventory_pools.html.erb:60
 msgid "Refresh"
@@ -1970,6 +2030,10 @@ msgstr "Aktualisieren"
 #: app/views/frontend/index.html.erb:78
 msgid "Recent Models"
 msgstr "Angesehene Modelle"
+
+#: lib/role_requirement_system.rb:119
+msgid "Access Denied"
+msgstr "Zugriff verweigert"
 
 #~ msgid "Check + Acknowledge"
 #~ msgstr "Prüfen + genehmigen"
