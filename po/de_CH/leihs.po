@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2008-12-29 08:52+0100\n"
-"PO-Revision-Date: 2008-12-29 08:56+0100\n"
+"POT-Creation-Date: 2008-12-29 10:53+0100\n"
+"PO-Revision-Date: 2008-12-29 10:59+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -161,6 +161,8 @@ msgstr "Benutzer"
 #: app/views/admin/items/index.html.erb:10
 #: app/views/admin/models/index.html.erb:10
 #: app/views/frontend/_basket.html.erb:16
+#: app/views/backend/contracts/show.rfpdf:80
+#: app/views/users/document.rfpdf:75
 msgid "Model"
 msgstr "Modell"
 
@@ -1173,6 +1175,8 @@ msgstr "Zeitfenster"
 #: app/views/backend/option_maps/show.html.erb:8
 #: app/views/backend/option_maps/index.html.erb:10
 #: app/views/backend/option_maps/index.html.erb:19
+#: app/views/backend/contracts/show.rfpdf:129
+#: app/views/users/document.rfpdf:104
 msgid "Barcode"
 msgstr "Barcode"
 
@@ -1374,6 +1378,8 @@ msgstr "Zeitleiste Besuche"
 #: app/views/admin/categories/index.html.erb:41
 #: app/views/admin/roles/index.html.erb:1
 #: app/views/frontend/_models.html.erb:259
+#: app/views/backend/contracts/show.rfpdf:129
+#: app/views/users/document.rfpdf:104
 msgid "Name"
 msgstr "Name"
 
@@ -1669,6 +1675,8 @@ msgstr "Setzen"
 
 #: app/views/backend/items/index.html.erb:1
 #: app/views/admin/items/index.html.erb:10
+#: app/views/backend/contracts/show.rfpdf:80
+#: app/views/users/document.rfpdf:75
 msgid "Inventory Code"
 msgstr "Inventarcode"
 
@@ -1983,11 +1991,19 @@ msgstr "Wollen Sie diese Bestellung abschicken?"
 
 #: app/views/frontend/_complete_order.html.erb:304
 #: app/views/frontend/_models.html.erb:326
+#: app/views/backend/contracts/show.rfpdf:80
+#: app/views/backend/contracts/show.rfpdf:129
+#: app/views/users/document.rfpdf:75
+#: app/views/users/document.rfpdf:104
 msgid "Start date"
 msgstr "Startdatum"
 
 #: app/views/frontend/_complete_order.html.erb:316
 #: app/views/frontend/_models.html.erb:344
+#: app/views/backend/contracts/show.rfpdf:80
+#: app/views/backend/contracts/show.rfpdf:129
+#: app/views/users/document.rfpdf:75
+#: app/views/users/document.rfpdf:104
 msgid "End date"
 msgstr "Enddatum"
 
@@ -2030,6 +2046,56 @@ msgstr "Aktualisieren"
 #: app/views/frontend/index.html.erb:78
 msgid "Recent Models"
 msgstr "Angesehene Modelle"
+
+#: app/views/backend/contracts/show.rfpdf:26
+#: app/views/users/document.rfpdf:23
+msgid "Contract no. %d"
+msgstr "Vertrag Nr. %d"
+
+#: app/views/backend/contracts/show.rfpdf:36
+#: app/views/users/document.rfpdf:33
+msgid "Lending party:"
+msgstr ""
+
+#: app/views/backend/contracts/show.rfpdf:51
+#: app/views/users/document.rfpdf:48
+msgid "Borrowing party:"
+msgstr ""
+
+#: app/views/backend/contracts/show.rfpdf:67
+#: app/views/users/document.rfpdf:62
+msgid "This lending contract covers borrowing the following items by the person (natural or legal) described as \"borrowing party\" above. Use of these items is only allowed for the purpose given below."
+msgstr ""
+
+#: app/views/backend/contracts/show.rfpdf:80
+#: app/views/backend/contracts/show.rfpdf:129
+#: app/views/users/document.rfpdf:75
+#: app/views/users/document.rfpdf:104
+msgid "Returned date"
+msgstr "Rückgabedatum"
+
+#: app/views/backend/contracts/show.rfpdf:129
+#: app/views/users/document.rfpdf:75
+#: app/views/users/document.rfpdf:104
+msgid "Qt."
+msgstr ""
+
+#: app/views/backend/contracts/show.rfpdf:132
+#: app/views/users/document.rfpdf:107
+msgid "Options:"
+msgstr "Optionen:"
+
+#: app/views/backend/contracts/show.rfpdf:172
+msgid "No purpose given."
+msgstr ""
+
+#: app/views/backend/contracts/show.rfpdf:177
+msgid "Purpose:"
+msgstr "Zweck:"
+
+#: app/views/backend/contracts/show.rfpdf:190
+msgid "Signature of borrower:"
+msgstr ""
 
 #: lib/role_requirement_system.rb:119
 msgid "Access Denied"
