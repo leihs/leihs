@@ -99,7 +99,6 @@ class User < ActiveRecord::Base
   def events
     e = []
     contract_lines.each do |l|
-      #old# e << Event.new(l.start_date, l.end_date, l.model.name)
       e << Event.new(:start => l.start_date, :end => l.end_date, :title =>l.model.name)
     end
     e.sort
@@ -111,7 +110,6 @@ class User < ActiveRecord::Base
       c.lines.each do |l|
         v = e.detect { |w| w.date == l.start_date and w.inventory_pool == c.inventory_pool }
         unless v
-          #old# e << Event.new(l.start_date, l.start_date, "#{self.login} - #{c.inventory_pool.name}", false, "hand_over", c.inventory_pool, self, l)
           e << Event.new(:start => l.start_date, :end => l.start_date, :title => "#{self.login} - #{c.inventory_pool.name}", :isDuration => false, :action => "hand_over", :inventory_pool => c.inventory_pool, :user => self, :contract_lines => [l])
         else
           v.contract_lines << l
@@ -123,7 +121,6 @@ class User < ActiveRecord::Base
       c.lines.each do |l|
         v = e.detect { |w| w.date == l.end_date and w.inventory_pool == c.inventory_pool }
         unless v
-          #old# e << Event.new(l.end_date, l.end_date, "#{self.login} - #{c.inventory_pool.name}", false, "take_back", c.inventory_pool, self, l)
           e << Event.new(:start => l.end_date, :end => l.end_date, :title => "#{self.login} - #{c.inventory_pool.name}", :isDuration => false, :action => "take_back", :inventory_pool => c.inventory_pool, :user => self, :contract_lines => [l])
         else
           v.contract_lines << l
@@ -233,7 +230,6 @@ class User < ActiveRecord::Base
       c.lines.to_remind.each do |l|
         v = e.detect { |w| w.date == l.end_date and w.inventory_pool == c.inventory_pool }
         unless v
-          #old# e << Event.new(l.end_date, l.end_date, "#{self.login} - #{c.inventory_pool.name}", false, "take_back", c.inventory_pool, self, l)
           e << Event.new(:start => l.end_date, :end => l.end_date, :title => "#{self.login} - #{c.inventory_pool.name}", :isDuration => false, :action => "take_back", :inventory_pool => c.inventory_pool, :user => self, :contract_lines => [l])
         else
           v.contract_lines << l

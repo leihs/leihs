@@ -136,5 +136,71 @@ module Backend::BackendHelper
 
 ############################################################################################
 
+  def extjs_model_tree
+    html = ""
+    html += stylesheet_link_tag "/javascripts/ext/resources/css/ext-all.css"
+    html += javascript_include_tag "/javascripts/ext/adapter/prototype/ext-prototype-adapter.js"
+    html += javascript_include_tag "/javascripts/ext/ext-all.js"
+    html += content_tag :style, :type => "text/css" do
+      "
+      .x-tree .x-panel-body {
+        background-color: transparent;
+      }
+      .x-tree-node .x-tree-node-over {
+        background-color: #CCCCCC;
+      }
+      "
+    end
+    html += javascript_tag do
+      "
+      start = function(){
+  
+      // create initial root node
+        var categories_root = new Ext.tree.AsyncTreeNode({
+          text: '#{_("All")}',
+          id:'ynode-0',
+      leaf: false,
+      real_id: '0'
+        });
+      
+      var categories_loader = new Ext.tree.TreeLoader({
+        url:'/models/categories.ext_json',
+        requestMethod:'GET'
+      });
+  
+      categories_loader.on('beforeload', function(treeLoader, node) {
+          treeLoader.baseParams.category_id = (node.attributes.real_id ? node.attributes.real_id : 0);
+        }, this);
+          
+      // create the tree
+        var categories_panel = new Ext.tree.TreePanel({
+          loader: categories_loader,
+      title: '#{_("Categories")}',
+      collapsible: false,
+      border: false,
+      animate:true,
+      autoScroll:true,
+          root: categories_root,
+          rootVisible:true,
+      renderTo: 'categories',
+      hlColor: '#FF0000',
+      listeners: {
+        click: function( node, e ){
+          if(node.attributes.real_id != 0) node.toggle();
+          new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', onLoading:function(request){Element.show('spinner')}, parameters:'category_id=' + node.attributes.real_id}); return false;
+        }
+      }
+        });
+      
+      // expand invisible root node to trigger load
+        // of the first level of actual data
+        categories_root.expand();
+      };
+  
+    Ext.onReady(start);
+    "
+    end
+    return html
+  end
 
 end

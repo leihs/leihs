@@ -17,35 +17,6 @@ class Event < ActiveRecord::Base
   has_one :user
   has_many :contract_lines                
 
-#old#
-#  attr_accessor :start,
-#                :end,
-#                :title,
-#                :isDuration,
-#                :action,   # hand_over, take_back
-#                :inventory_pool,
-#                :user,
-#                :contract_lines,
-#                :quantity
-#                
-#  def initialize(start_date = Date.today,
-#                 end_date = Date.today,
-#                 title = "",
-#                 isDuration = true,
-#                 action = "hand_over",
-#                 inventory_pool = nil,
-#                 user = nil,
-#                 contract_line = nil)
-#    self.start = start_date
-#    self.end = end_date
-#    self.title = title
-#    self.isDuration = isDuration
-#    self.action = action
-#    self.inventory_pool = inventory_pool
-#    self.user = user
-#    self.contract_lines = [contract_line]
-#  end
-
   #alias
   def date
     start

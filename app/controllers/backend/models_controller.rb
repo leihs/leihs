@@ -102,8 +102,9 @@ class Backend::ModelsController < Backend::BackendController
 #################################################################
 
   def available_items
-    # OPTIMIZE prevent injection
-    a_items = current_inventory_pool.items.find(:all, :conditions => ["model_id IN (#{params[:model_ids]}) AND inventory_code LIKE ?", '%' + params[:code] + '%'])
+    a_items = current_inventory_pool.items.all(:conditions => ["model_id IN (?) AND inventory_code LIKE ?",
+                                                                params[:model_ids],
+                                                                '%' + params[:code] + '%'])
     # OPTIMIZE check availability
     @items = a_items.select {|i| i.in_stock? }
     

@@ -1,4 +1,15 @@
-<% unless request.xml_http_request? %>
+<% if @show_categories_tree %>  
+
+	<%= extjs_model_tree %>
+	  
+<table><tr>
+<td id="categories" style="vertical-align:top;" width="20%">
+
+</td>
+<td style="vertical-align:top;" width="80%">
+<% end %>  
+
+<% unless request.xml_http_request? or @model %>
 
 <div class="toolbar-second buttons">
 	<%= link_to _("Create New"), :action => 'new' %>
@@ -28,3 +39,8 @@
 
 
 <% end %>
+
+<% if @show_categories_tree %>  
+</td>
+</tr></table>
+<% end %>  

@@ -25,7 +25,7 @@ render_tabnav :model_admin,
 	end
 
 	add_tab do |t|
-		t.named _('Items')
+		t.named _("Items (%d)") % @model.items.size
 		t.links_to admin_model_items_path(@model)
 		t.highlights_on :controller => 'admin/items', :action => 'index'
 #temp#	t.html[:class] = 'active' if request.path_parameters[:controller] == 'admin/items' and request.path_parameters[:action] == 'index'
@@ -33,7 +33,7 @@ render_tabnav :model_admin,
 	end
 
 	add_tab do |t|
-		t.named _('Categories')
+		t.named _("Categories (%d)") % @model.categories.size
 		t.links_to admin_model_categories_path(@model)
 		t.highlights_on :controller => 'admin/categories', :action => 'index'
 #temp#	t.html[:class] = 'active' if request.path_parameters[:controller] == 'admin/categories' and request.path_parameters[:action] == 'index'
@@ -41,28 +41,28 @@ render_tabnav :model_admin,
 	end
 
 	add_tab do |t|
-		t.named _('Properties')
+		t.named _("Properties (%d)") % @model.properties.size
 		t.links_to properties_admin_model_path(@model)
 		t.highlights_on :action => 'properties'
 		t.html[:style] = "background-color: red;" if @model.properties.empty? 
 	end
 
 	add_tab do |t|
-		t.named _('Accessories')
+		t.named _("Accessories (%d)") % @model.accessories.size
 		t.links_to accessories_admin_model_path(@model)
 		t.highlights_on :action => 'accessories'
 		t.html[:style] = "background-color: red;" if @model.accessories.empty? 
 	end
 
 	add_tab do |t|
-		t.named _('Images')
+		t.named _("Images (%d)") % @model.images.size
 		t.links_to images_admin_model_path(@model)
 		t.highlights_on :action => 'images'
 		t.html[:style] = "background-color: red;" if @model.images.empty? 
 	end
 
 	add_tab do |t|
-		t.named _('Compatibles')
+		t.named _("Compatibles (%d)") % @model.compatibles.size
 		t.links_to admin_model_compatibles_path(@model)
 		t.highlights_on :controller => 'admin/models', :action => 'index'
 #temp#	t.html[:class] = 'active' if request.path_parameters[:controller] == 'admin/models' and request.path_parameters[:action] == 'index'

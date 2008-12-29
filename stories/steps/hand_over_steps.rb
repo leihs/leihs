@@ -39,7 +39,6 @@ steps_for(:hand_over) do
 
 
   When "$who clicks '$action'" do | who, action |
-#old#    get send("backend_inventory_pool_#{action}_index_path", @inventory_pool)
     get send("backend_inventory_pool_#{action}_path", @inventory_pool)
     @visits = assigns(:visits)
     response.should render_template("backend/#{action}/index")
