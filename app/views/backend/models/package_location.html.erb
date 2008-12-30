@@ -1,14 +1,13 @@
 
-	<b><%= @model.items.first.location.inventory_pool.name %>:</b> <%= @model.items.first.location.building %>, <%= @model.items.first.location.room %>, <%= @model.items.first.location.shelf %>
+<% tableize @current_inventory_pool.locations,
+		 :header => _("Set location") do |l| %>
 
-	<hr />
-	<%= _("Set different location") %>:
-		<ul>
-		<% @current_inventory_pool.locations.each do |l| %>
-			<li><b><%= l.inventory_pool.name %>:</b> <%= l.building %>, <%= l.room %>, <%= l.shelf %>
-											 <%= link_to _('Set'),
-													{ :location_id => l },
-													{ :method => :post } %></li>
-		<% end %>
-		</ul>
-	
+		 <% this = (@model.items.first.location == l) %>
+		 <% style = this ? "border: 1px solid; padding: 3px; background-color: white;" : "" %>
+		 
+		<span style="<%= style %>">
+			<b><%= l.inventory_pool.name %>:</b> <%= l.building %>, <%= l.room %>, <%= l.shelf %>
+			 	<%= link_to _('Set'), { :location_id => l }, { :method => :post } unless this %>
+		</span>
+		 
+<% end %>		 	

@@ -7,7 +7,7 @@
 	<% end %>	
 
 	<hr />
-	<% # TODO 22** :html => { :onsubmit => "check query or return false;" } %>
+
 	<% form_for [:admin, @item] do |f| %>
 		<%= f.hidden_field :step %>
 
@@ -18,8 +18,3 @@
 
 		<%= submit_tag 'Submit' %>
 	<% end %>
-
-	<hr />
-	<%= greybox_link_to_page(_('Create new model (TODO and assign)'),
-		 	new_admin_model_path,
-			:title => _("Model"), :width => 850 ) %>

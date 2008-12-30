@@ -17,7 +17,7 @@ render_tabnav :user_backend,
 	end
 
 	add_tab do |t|
-		t.named _('Access Rights')
+		t.named _("Access Rights (%d)") % @user.access_rights.all(:conditions => {:inventory_pool_id => @current_inventory_pool.id}).size
 		t.links_to :action => 'access_rights'
 	end
 

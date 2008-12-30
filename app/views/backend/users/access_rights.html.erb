@@ -1,26 +1,29 @@
 
-	<ul>
-	<% @user.access_rights.all(:conditions => {:inventory_pool_id => @current_inventory_pool.id}).each do |a| %>
-		<li><b><%= a.to_s %></b> <%= link_to _('Remove'),
-												:action => 'remove_access_right',
-												:id => @user,
-												:access_right_id => a %></li>
-	<% end %>
-	</ul>
+<% tableize @user.access_rights.all(:conditions => {:inventory_pool_id => @current_inventory_pool.id}),
+		 :header => "Access Rights",
+		 :generate_css => true do |a| %>
 
-	<br />
-	<br />
-	
-	<% form_tag :action => 'add_access_right', :id => @user do %>
-		<table style="width: 400px">
-			<tr>
-				<th><%= _("Role") %></th>
-				<th></th>
+		<b><%= a.to_s %></b>
+		<br />
+		<%= link_to _('Remove'),
+				:action => 'remove_access_right',
+				:id => @user,
+				:access_right_id => a %>		 
+<% end %>		 	
+
+<br />
+<br />
+
+<% form_tag :action => 'add_access_right', :id => @user do %>
+	<table style="width: 400px">
+		<tr>
+			<th><%= _("Role") %></th>
+			<th></th>
+		</tr>
+		<tr>
+			<td><%= collection_select(:access_right, :role_id, Role.all(:conditions => ["name != 'admin'"]), :id, :name, {}, {:size => 5}) %></td>
+			<td><%= submit_tag _('Add') %></td>
 			</tr>
-			<tr>
-				<td><%= collection_select(:access_right, :role_id, Role.all(:conditions => ["name != 'admin'"]), :id, :name, {}, {:size => 5}) %></td>
-				<td><%= submit_tag _('Add') %></td>
-				</tr>
-		</table>
-	<% end %>
+	</table>
+<% end %>
 
