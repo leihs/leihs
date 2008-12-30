@@ -16,8 +16,8 @@
 				<td><%= item.inventory_code %></td>
 				<td><%= item.serial_number %></td>
 				<td><%= item.location.to_s if item.location %></td>
-				<td><%= item.is_borrowable %></td>
-				<td class="valid_<%= item.in_stock? %>"><%= item.in_stock? %></td>
+				<td><%= image_tag($layout_public_path + "/images/icons/" + (item.is_borrowable ? "accept": "delete") + ".png") %></td>
+				<td><%= image_tag($layout_public_path + "/images/icons/" + (item.in_stock? ? "accept": "delete") + ".png") %></td>
 				<td class="buttons" style="white-space: nowrap">
 					<ul>
 						<li><%= link_to _("Show"), admin_item_path(item) %></li>

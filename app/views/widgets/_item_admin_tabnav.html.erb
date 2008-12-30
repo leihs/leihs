@@ -43,7 +43,7 @@ render_tabnav :item_admin,
 	end
 
 	add_tab do |t|
-		t.named _('Notes')
+		t.named _("Notes (%d)") % @item.histories.size
 		t.links_to :action => 'notes'
 	end
 

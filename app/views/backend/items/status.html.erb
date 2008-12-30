@@ -1,7 +1,7 @@
 
 	<ul>
-		<li><b>In stock?:</b> <%= @item.in_stock? %></li>
-		<li>TODO: currently borrowed by user ...</li>
+		<li><b>In stock?:</b> <%= image_tag($layout_public_path + "/images/icons/" + (@item.in_stock? ? "accept": "delete") + ".png") %> </li>
+		<% # unless @item.in_stock?		TODO 29** currently borrowed by user %>
 	</ul>
 
 	<br />
@@ -21,6 +21,7 @@
 
 	<br />
 	
+	<% # TODO 29** only accessories related to current_inventory_pool %>
 	Accessories:
 	<ul>
 	<% @item.model.accessories.each do |a| %>

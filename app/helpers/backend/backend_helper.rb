@@ -55,7 +55,17 @@ module Backend::BackendHelper
         r = ""
         options[:columns].each do |column|
           r += content_tag :th do
-             column
+            if column.is_a?(Array)
+              if params[:sort] == column[1]
+                dir = (params[:dir] ? nil : "DESC")
+              end
+              link_to_remote column[0],
+                :url => params.merge({ :sort => column[1], :dir => dir}),
+                :update => 'list_table',
+                :loading => "Element.show('spinner')"
+            else
+              column
+            end  
           end
         end
         r

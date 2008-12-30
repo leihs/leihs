@@ -45,6 +45,15 @@ table th {
 	margin-bottom: 2em;
 }
 
+.table-overview th a {
+	color: #E2E2E2;
+	text-decoration: underline;
+}
+
+.table-overview th a:hover {
+	color: #b9cfe2;
+}
+
 /* Classes */
 
 .fresh {

@@ -61,7 +61,7 @@ class InventoryPool < ActiveRecord::Base
   end
   
   def closed_dates
-    ["25.12.2009"] #TODO **24** Get the dates from Holidays, put them in the correct format (depends on DatePicker)
+    ["01.01.2009"] #TODO **24** Get the dates from Holidays, put them in the correct format (depends on DatePicker)
   end
   
   # alias for serialization
