@@ -12,7 +12,7 @@
 
 <% if current_user %>	
 	<li>
-		<strong><%= _("Logged in as %{u}.") % { :u => current_user.login } %></strong>
+		<b><%= image_tag($layout_public_path + "/images/icons/user.png") %> <%= current_user.login %></b>
 		<%= greybox_link_to_page( _("My Account"),
 				backend_inventory_pool_user_path(@current_inventory_pool, current_user, :layout => "modal"),
 				:title => _("User")) %> <% # TODO 29** provide account link for admin layout %>
