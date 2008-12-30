@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2008-12-29 10:53+0100\n"
-"PO-Revision-Date: 2008-12-29 10:59+0100\n"
+"POT-Creation-Date: 2008-12-30 09:42+0100\n"
+"PO-Revision-Date: 2008-12-30 09:58+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -28,15 +28,15 @@ msgstr "Dieses Modell ist bereits kompatibel"
 msgid "Compatible successfully removed"
 msgstr "Kompatibles Modell erfolgreich entfernt"
 
-#: app/controllers/backend/hand_over_controller.rb:78
+#: app/controllers/backend/hand_over_controller.rb:82
 msgid "Inventory Code assigned"
 msgstr "Inventarcode zugewiesen"
 
-#: app/controllers/backend/hand_over_controller.rb:80
+#: app/controllers/backend/hand_over_controller.rb:84
 msgid "This item requires the user to be level %s"
 msgstr "Dieses Gerät benötigt mindestens Benutzerstufe %s"
 
-#: app/controllers/backend/hand_over_controller.rb:84
+#: app/controllers/backend/hand_over_controller.rb:88
 msgid "Inventory Code identifies an item that is not in this order."
 msgstr "Der Inventarcode gehört zu einem Gerät, das in dieser Bestellung nicht auftaucht"
 
@@ -68,15 +68,15 @@ msgstr "Erfolgreich eingeloggt"
 msgid "You have been logged out."
 msgstr "Sie sind nun ausgeloggt."
 
-#: app/controllers/admin/models_controller.rb:48
+#: app/controllers/admin/models_controller.rb:50
 msgid "The model has items"
 msgstr "Das Modell hat Gegenstände"
 
-#: app/controllers/admin/models_controller.rb:91
+#: app/controllers/admin/models_controller.rb:93
 msgid "Attachment was successfully created."
 msgstr "Attachment erfolgreich erstellt."
 
-#: app/controllers/admin/models_controller.rb:93
+#: app/controllers/admin/models_controller.rb:95
 msgid "Upload error."
 msgstr "Fehler beim Hochladen."
 
@@ -153,13 +153,13 @@ msgstr "Benutzer"
 #: app/helpers/backend/backend_helper.rb:105
 #: app/views/backend/hand_over/_lines.html.erb:8
 #: app/views/backend/items/index.html.erb:1
-#: app/views/backend/models/index.html.erb:93
+#: app/views/backend/models/index.html.erb:35
 #: app/views/widgets/_model_backend_tabnav.html.erb:21
 #: app/views/widgets/_model_admin_tabnav.html.erb:21
 #: app/views/widgets/_item_admin_tabnav.html.erb:29
 #: app/views/admin/items/model.html.erb:25
 #: app/views/admin/items/index.html.erb:10
-#: app/views/admin/models/index.html.erb:10
+#: app/views/admin/models/index.html.erb:21
 #: app/views/frontend/_basket.html.erb:16
 #: app/views/backend/contracts/show.rfpdf:80
 #: app/views/users/document.rfpdf:75
@@ -710,7 +710,7 @@ msgstr ""
 msgid "User|Updated at"
 msgstr ""
 
-#: app/models/user.rb:174
+#: app/models/user.rb:171
 msgid "Reminded %{q} items for contracts %{c}"
 msgstr "%{q} Mal für Vertrag %{c} erinnert"
 
@@ -945,13 +945,13 @@ msgstr "Anzahl Gegenstände"
 #: app/views/backend/option_maps/index.html.erb:10
 #: app/views/backend/locations/index.html.erb:10
 #: app/views/backend/items/index.html.erb:1
-#: app/views/backend/models/index.html.erb:93
+#: app/views/backend/models/index.html.erb:35
 #: app/views/admin/inventory_pools/index.html.erb:9
 #: app/views/admin/categories/index.html.erb:41
 #: app/views/admin/users/index.html.erb:10
 #: app/views/admin/roles/index.html.erb:1
 #: app/views/admin/items/index.html.erb:10
-#: app/views/admin/models/index.html.erb:10
+#: app/views/admin/models/index.html.erb:21
 msgid "Action"
 msgstr "Aktion"
 
@@ -990,15 +990,13 @@ msgstr "Schließen"
 #: app/views/backend/inventory_pools/index.html.erb:1
 #: app/views/backend/hand_over/show.html.erb:30
 #: app/views/backend/locations/index.html.erb:10
-#: app/views/backend/models/index.html.erb:93
+#: app/views/backend/models/index.html.erb:35
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:16
 #: app/views/layouts/admin/00-patterns/_sidebar.html.erb:4
-#: app/views/widgets/_model_backend_tabnav.html.erb:28
 #: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:34
-#: app/views/widgets/_model_admin_tabnav.html.erb:28
 #: app/views/widgets/_package_backend_tabnav.html.erb:27
 #: app/views/admin/inventory_pools/index.html.erb:9
-#: app/views/admin/models/index.html.erb:10
+#: app/views/admin/models/index.html.erb:21
 msgid "Items"
 msgstr "Gegenstände"
 
@@ -1042,7 +1040,7 @@ msgstr "Alle anwählen"
 #: app/views/admin/categories/index.html.erb:55
 #: app/views/admin/users/index.html.erb:31
 #: app/views/admin/items/index.html.erb:24
-#: app/views/admin/models/index.html.erb:22
+#: app/views/admin/models/index.html.erb:33
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1186,10 +1184,9 @@ msgid "Print contract"
 msgstr "Vertrag drucken"
 
 #: app/views/backend/take_back/index.html.erb:1
-#: app/views/backend/acknowledge/index.html.erb:20
 #: app/views/backend/hand_over/index.html.erb:1
-msgid "Received at"
-msgstr "Empfangen "
+msgid "Visit at"
+msgstr "Besuch um"
 
 #: app/views/backend/backend/remove_lines.html.erb:1
 #: app/views/backend/acknowledge/delete.html.erb:1
@@ -1362,6 +1359,10 @@ msgstr "<em>%{n} Neue Bestellungen</em> zu bestätigen."
 msgid "Orders you are editing (please complete)"
 msgstr "Bestellungen, die Sie bearbeiten (bitte vervollständigen)"
 
+#: app/views/backend/acknowledge/index.html.erb:20
+msgid "Received at"
+msgstr "Empfangen "
+
 #: app/views/backend/acknowledge/index.html.erb:36
 #: app/views/backend/orders/index.html.erb:18
 msgid "View + Acknowledge"
@@ -1497,7 +1498,6 @@ msgid "Mark"
 msgstr "Markieren"
 
 #: app/views/backend/hand_over/_lines.html.erb:4
-#: app/views/backend/models/index.html.erb:20
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:18
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:27
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:34
@@ -1539,7 +1539,7 @@ msgstr "Ferientage"
 
 #: app/views/backend/workdays/index.html.erb:22
 #: app/views/backend/users/access_rights.html.erb:22
-#: app/views/backend/models/index.html.erb:107
+#: app/views/backend/models/index.html.erb:49
 #: app/views/admin/users/access_rights.html.erb:26
 #: app/views/frontend/_models.html.erb:269
 #: app/views/frontend/_models.html.erb:364
@@ -1554,7 +1554,7 @@ msgstr "Bestellungen"
 
 #: app/views/backend/users/access_rights.html.erb:4
 #: app/views/backend/models/show_package_items.html.erb:6
-#: app/views/backend/models/index.html.erb:112
+#: app/views/backend/models/index.html.erb:54
 #: app/views/admin/inventory_pools/locations.html.erb:7
 #: app/views/admin/inventory_pools/managers.html.erb:9
 #: app/views/admin/categories/index.html.erb:58
@@ -1607,12 +1607,12 @@ msgstr "Dokumente"
 #: app/views/backend/option_maps/index.html.erb:18
 #: app/views/backend/locations/index.html.erb:22
 #: app/views/backend/items/index.html.erb:12
-#: app/views/backend/models/index.html.erb:111
+#: app/views/backend/models/index.html.erb:53
 #: app/views/admin/inventory_pools/index.html.erb:19
 #: app/views/admin/categories/index.html.erb:54
 #: app/views/admin/users/index.html.erb:30
 #: app/views/admin/items/index.html.erb:23
-#: app/views/admin/models/index.html.erb:21
+#: app/views/admin/models/index.html.erb:32
 msgid "Show"
 msgstr "Anzeigen"
 
@@ -1626,7 +1626,7 @@ msgstr "Neuer Vertrag"
 #: app/views/admin/categories/index.html.erb:35
 #: app/views/admin/users/index.html.erb:4
 #: app/views/admin/items/index.html.erb:4
-#: app/views/admin/models/index.html.erb:4
+#: app/views/admin/models/index.html.erb:15
 msgid "Create New"
 msgstr "Erstellen"
 
@@ -1635,14 +1635,14 @@ msgid "Text"
 msgstr "Text"
 
 #: app/views/backend/option_maps/index.html.erb:20
-#: app/views/backend/models/index.html.erb:113
+#: app/views/backend/models/index.html.erb:55
 #: app/views/admin/inventory_pools/index.html.erb:21
 #: app/views/admin/categories/index.html.erb:56
 #: app/views/admin/categories/index.html.erb:59
 #: app/views/admin/categories/index.html.erb:62
 #: app/views/admin/users/index.html.erb:32
 #: app/views/admin/items/index.html.erb:25
-#: app/views/admin/models/index.html.erb:23
+#: app/views/admin/models/index.html.erb:34
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
@@ -1701,26 +1701,16 @@ msgstr "An Lager?"
 msgid "Add more items"
 msgstr "Mehr Gegenstände hinzufügen"
 
-#: app/views/backend/models/index.html.erb:38
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:20
-#: app/views/widgets/_model_backend_tabnav.html.erb:34
-#: app/views/widgets/_model_admin_tabnav.html.erb:36
-#: app/views/frontend/_categories.html.erb:22
-msgid "Categories"
-msgstr "Kategorien"
-
-#: app/views/backend/models/index.html.erb:76
+#: app/views/backend/models/index.html.erb:18
 msgid "Add compatible"
 msgstr "Kompatible/s hinzufügen"
 
-#: app/views/backend/models/index.html.erb:86
+#: app/views/backend/models/index.html.erb:28
 msgid "New Package"
 msgstr "Neues Paket"
 
-#: app/views/backend/models/index.html.erb:93
-#: app/views/widgets/_model_backend_tabnav.html.erb:58
-#: app/views/widgets/_model_admin_tabnav.html.erb:65
-#: app/views/admin/models/index.html.erb:10
+#: app/views/backend/models/index.html.erb:35
+#: app/views/admin/models/index.html.erb:21
 #: app/views/frontend/_models.html.erb:253
 msgid "Compatibles"
 msgstr "Kompatible"
@@ -1789,6 +1779,11 @@ msgstr "Inventarpools"
 msgid "Unfinished"
 msgstr "Nicht abgeschlossen"
 
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:20
+#: app/views/frontend/_categories.html.erb:22
+msgid "Categories"
+msgstr "Kategorien"
+
 #: app/views/layouts/admin/00-patterns/_sidebar.html.erb:29
 msgid "Admins"
 msgstr "Admins"
@@ -1797,22 +1792,35 @@ msgstr "Admins"
 msgid "Roles"
 msgstr "Rollen"
 
+#: app/views/widgets/_model_backend_tabnav.html.erb:28
+#: app/views/widgets/_model_admin_tabnav.html.erb:28
+msgid "Items (%d)"
+msgstr "Gegenstände (%d)"
+
+#: app/views/widgets/_model_backend_tabnav.html.erb:34
+#: app/views/widgets/_model_admin_tabnav.html.erb:36
+msgid "Categories (%d)"
+msgstr "Kategorien (%d)"
+
 #: app/views/widgets/_model_backend_tabnav.html.erb:40
 #: app/views/widgets/_model_admin_tabnav.html.erb:44
-#: app/views/frontend/_models.html.erb:234
-msgid "Properties"
-msgstr "Eigenschaften"
+msgid "Properties (%d)"
+msgstr "Eigenschaften  (%d)"
 
 #: app/views/widgets/_model_backend_tabnav.html.erb:46
 #: app/views/widgets/_model_admin_tabnav.html.erb:51
-#: app/views/frontend/_models.html.erb:239
-msgid "Accessories"
-msgstr "Zubehör"
+msgid "Accessories (%d)"
+msgstr "Zubehör (%d)"
 
 #: app/views/widgets/_model_backend_tabnav.html.erb:52
 #: app/views/widgets/_model_admin_tabnav.html.erb:58
-msgid "Images"
-msgstr "Bilder"
+msgid "Images (%d)"
+msgstr "Bilder (%d)"
+
+#: app/views/widgets/_model_backend_tabnav.html.erb:58
+#: app/views/widgets/_model_admin_tabnav.html.erb:65
+msgid "Compatibles (%d)"
+msgstr "Kompatible (%d)"
 
 #: app/views/widgets/_item_backend_tabnav.html.erb:86
 msgid "Status"
@@ -1933,7 +1941,7 @@ msgstr "Schlüssel"
 msgid "value"
 msgstr "Wert"
 
-#: app/views/admin/models/index.html.erb:10
+#: app/views/admin/models/index.html.erb:21
 #: app/views/frontend/_models.html.erb:263
 msgid "Manufacturer"
 msgstr "Hersteller"
@@ -1972,6 +1980,10 @@ msgstr "Fehler"
 #: app/views/frontend/_complete_order.html.erb:350
 msgid "Change Timeframe"
 msgstr "Zeitfenster ändern"
+
+#: app/views/frontend/_complete_order.html.erb:158
+msgid "Change the timeframe for the selected items"
+msgstr "Zeitfenster für Auswahl ändern"
 
 #: app/views/frontend/_complete_order.html.erb:166
 msgid "Remove the selected items"
@@ -2031,6 +2043,14 @@ msgstr "Keine Modelle anzuzeigen"
 msgid "Details"
 msgstr "Details"
 
+#: app/views/frontend/_models.html.erb:234
+msgid "Properties"
+msgstr "Eigenschaften"
+
+#: app/views/frontend/_models.html.erb:239
+msgid "Accessories"
+msgstr "Zubehör"
+
 #: app/views/frontend/_models.html.erb:368
 msgid "Saving Data"
 msgstr "Speichere Daten"
@@ -2055,17 +2075,17 @@ msgstr "Vertrag Nr. %d"
 #: app/views/backend/contracts/show.rfpdf:36
 #: app/views/users/document.rfpdf:33
 msgid "Lending party:"
-msgstr ""
+msgstr "Verleiher:"
 
 #: app/views/backend/contracts/show.rfpdf:51
 #: app/views/users/document.rfpdf:48
 msgid "Borrowing party:"
-msgstr ""
+msgstr "Ausleihende/r: "
 
 #: app/views/backend/contracts/show.rfpdf:67
 #: app/views/users/document.rfpdf:62
 msgid "This lending contract covers borrowing the following items by the person (natural or legal) described as \"borrowing party\" above. Use of these items is only allowed for the purpose given below."
-msgstr ""
+msgstr "Dieser Leihvertrag deckt die Ausleihe der folgenden Gegenstände durch die natürliche oder rechtliche Person ab, die oben als \"Ausleihende/r\" bezeichnet ist. Die Verwendung der Gegenstände ist nur im Rahmen des unten angegebenen Zwecks gestattet."
 
 #: app/views/backend/contracts/show.rfpdf:80
 #: app/views/backend/contracts/show.rfpdf:129
@@ -2078,7 +2098,7 @@ msgstr "Rückgabedatum"
 #: app/views/users/document.rfpdf:75
 #: app/views/users/document.rfpdf:104
 msgid "Qt."
-msgstr ""
+msgstr "Anz."
 
 #: app/views/backend/contracts/show.rfpdf:132
 #: app/views/users/document.rfpdf:107
@@ -2087,7 +2107,7 @@ msgstr "Optionen:"
 
 #: app/views/backend/contracts/show.rfpdf:172
 msgid "No purpose given."
-msgstr ""
+msgstr "Kein Zweck angegeben."
 
 #: app/views/backend/contracts/show.rfpdf:177
 msgid "Purpose:"
@@ -2095,7 +2115,7 @@ msgstr "Zweck:"
 
 #: app/views/backend/contracts/show.rfpdf:190
 msgid "Signature of borrower:"
-msgstr ""
+msgstr "Unterschrift des/der Ausleihenden:"
 
 #: lib/role_requirement_system.rb:119
 msgid "Access Denied"
