@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2008-12-29 10:53+0100\n"
+"POT-Creation-Date: 2008-12-30 09:42+0100\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: English\n"
@@ -24,15 +24,15 @@ msgstr ""
 msgid "Compatible successfully removed"
 msgstr ""
 
-#: app/controllers/backend/hand_over_controller.rb:78
+#: app/controllers/backend/hand_over_controller.rb:82
 msgid "Inventory Code assigned"
 msgstr ""
 
-#: app/controllers/backend/hand_over_controller.rb:80
+#: app/controllers/backend/hand_over_controller.rb:84
 msgid "This item requires the user to be level %s"
 msgstr ""
 
-#: app/controllers/backend/hand_over_controller.rb:84
+#: app/controllers/backend/hand_over_controller.rb:88
 msgid "Inventory Code identifies an item that is not in this order."
 msgstr ""
 
@@ -64,15 +64,15 @@ msgstr ""
 msgid "You have been logged out."
 msgstr ""
 
-#: app/controllers/admin/models_controller.rb:48
+#: app/controllers/admin/models_controller.rb:50
 msgid "The model has items"
 msgstr ""
 
-#: app/controllers/admin/models_controller.rb:91
+#: app/controllers/admin/models_controller.rb:93
 msgid "Attachment was successfully created."
 msgstr ""
 
-#: app/controllers/admin/models_controller.rb:93
+#: app/controllers/admin/models_controller.rb:95
 msgid "Upload error."
 msgstr ""
 
@@ -149,13 +149,13 @@ msgstr ""
 #: app/helpers/backend/backend_helper.rb:105
 #: app/views/backend/hand_over/_lines.html.erb:8
 #: app/views/backend/items/index.html.erb:1
-#: app/views/backend/models/index.html.erb:93
+#: app/views/backend/models/index.html.erb:35
 #: app/views/widgets/_model_backend_tabnav.html.erb:21
 #: app/views/widgets/_model_admin_tabnav.html.erb:21
 #: app/views/widgets/_item_admin_tabnav.html.erb:29
 #: app/views/admin/items/model.html.erb:25
 #: app/views/admin/items/index.html.erb:10
-#: app/views/admin/models/index.html.erb:10
+#: app/views/admin/models/index.html.erb:21
 #: app/views/frontend/_basket.html.erb:16
 #: app/views/backend/contracts/show.rfpdf:80 app/views/users/document.rfpdf:75
 msgid "Model"
@@ -704,7 +704,7 @@ msgstr ""
 msgid "User|Updated at"
 msgstr ""
 
-#: app/models/user.rb:174
+#: app/models/user.rb:171
 msgid "Reminded %{q} items for contracts %{c}"
 msgstr ""
 
@@ -939,13 +939,13 @@ msgstr ""
 #: app/views/backend/option_maps/index.html.erb:10
 #: app/views/backend/locations/index.html.erb:10
 #: app/views/backend/items/index.html.erb:1
-#: app/views/backend/models/index.html.erb:93
+#: app/views/backend/models/index.html.erb:35
 #: app/views/admin/inventory_pools/index.html.erb:9
 #: app/views/admin/categories/index.html.erb:41
 #: app/views/admin/users/index.html.erb:10
 #: app/views/admin/roles/index.html.erb:1
 #: app/views/admin/items/index.html.erb:10
-#: app/views/admin/models/index.html.erb:10
+#: app/views/admin/models/index.html.erb:21
 msgid "Action"
 msgstr ""
 
@@ -984,15 +984,13 @@ msgstr ""
 #: app/views/backend/inventory_pools/index.html.erb:1
 #: app/views/backend/hand_over/show.html.erb:30
 #: app/views/backend/locations/index.html.erb:10
-#: app/views/backend/models/index.html.erb:93
+#: app/views/backend/models/index.html.erb:35
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:16
 #: app/views/layouts/admin/00-patterns/_sidebar.html.erb:4
-#: app/views/widgets/_model_backend_tabnav.html.erb:28
 #: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:34
-#: app/views/widgets/_model_admin_tabnav.html.erb:28
 #: app/views/widgets/_package_backend_tabnav.html.erb:27
 #: app/views/admin/inventory_pools/index.html.erb:9
-#: app/views/admin/models/index.html.erb:10
+#: app/views/admin/models/index.html.erb:21
 msgid "Items"
 msgstr ""
 
@@ -1036,7 +1034,7 @@ msgstr ""
 #: app/views/admin/categories/index.html.erb:55
 #: app/views/admin/users/index.html.erb:31
 #: app/views/admin/items/index.html.erb:24
-#: app/views/admin/models/index.html.erb:22
+#: app/views/admin/models/index.html.erb:33
 msgid "Delete"
 msgstr ""
 
@@ -1180,9 +1178,8 @@ msgid "Print contract"
 msgstr ""
 
 #: app/views/backend/take_back/index.html.erb:1
-#: app/views/backend/acknowledge/index.html.erb:20
 #: app/views/backend/hand_over/index.html.erb:1
-msgid "Received at"
+msgid "Visit at"
 msgstr ""
 
 #: app/views/backend/backend/remove_lines.html.erb:1
@@ -1358,6 +1355,10 @@ msgstr ""
 msgid "Orders you are editing (please complete)"
 msgstr ""
 
+#: app/views/backend/acknowledge/index.html.erb:20
+msgid "Received at"
+msgstr ""
+
 #: app/views/backend/acknowledge/index.html.erb:36
 #: app/views/backend/orders/index.html.erb:18
 msgid "View + Acknowledge"
@@ -1493,7 +1494,6 @@ msgid "Mark"
 msgstr ""
 
 #: app/views/backend/hand_over/_lines.html.erb:4
-#: app/views/backend/models/index.html.erb:20
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:18
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:27
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:34
@@ -1535,7 +1535,7 @@ msgstr ""
 
 #: app/views/backend/workdays/index.html.erb:22
 #: app/views/backend/users/access_rights.html.erb:22
-#: app/views/backend/models/index.html.erb:107
+#: app/views/backend/models/index.html.erb:49
 #: app/views/admin/users/access_rights.html.erb:26
 #: app/views/frontend/_models.html.erb:269
 #: app/views/frontend/_models.html.erb:364
@@ -1550,7 +1550,7 @@ msgstr ""
 
 #: app/views/backend/users/access_rights.html.erb:4
 #: app/views/backend/models/show_package_items.html.erb:6
-#: app/views/backend/models/index.html.erb:112
+#: app/views/backend/models/index.html.erb:54
 #: app/views/admin/inventory_pools/locations.html.erb:7
 #: app/views/admin/inventory_pools/managers.html.erb:9
 #: app/views/admin/categories/index.html.erb:58
@@ -1603,12 +1603,12 @@ msgstr ""
 #: app/views/backend/option_maps/index.html.erb:18
 #: app/views/backend/locations/index.html.erb:22
 #: app/views/backend/items/index.html.erb:12
-#: app/views/backend/models/index.html.erb:111
+#: app/views/backend/models/index.html.erb:53
 #: app/views/admin/inventory_pools/index.html.erb:19
 #: app/views/admin/categories/index.html.erb:54
 #: app/views/admin/users/index.html.erb:30
 #: app/views/admin/items/index.html.erb:23
-#: app/views/admin/models/index.html.erb:21
+#: app/views/admin/models/index.html.erb:32
 msgid "Show"
 msgstr ""
 
@@ -1622,7 +1622,7 @@ msgstr ""
 #: app/views/admin/categories/index.html.erb:35
 #: app/views/admin/users/index.html.erb:4
 #: app/views/admin/items/index.html.erb:4
-#: app/views/admin/models/index.html.erb:4
+#: app/views/admin/models/index.html.erb:15
 msgid "Create New"
 msgstr ""
 
@@ -1631,14 +1631,14 @@ msgid "Text"
 msgstr ""
 
 #: app/views/backend/option_maps/index.html.erb:20
-#: app/views/backend/models/index.html.erb:113
+#: app/views/backend/models/index.html.erb:55
 #: app/views/admin/inventory_pools/index.html.erb:21
 #: app/views/admin/categories/index.html.erb:56
 #: app/views/admin/categories/index.html.erb:59
 #: app/views/admin/categories/index.html.erb:62
 #: app/views/admin/users/index.html.erb:32
 #: app/views/admin/items/index.html.erb:25
-#: app/views/admin/models/index.html.erb:23
+#: app/views/admin/models/index.html.erb:34
 msgid "Are you sure?"
 msgstr ""
 
@@ -1696,26 +1696,16 @@ msgstr ""
 msgid "Add more items"
 msgstr ""
 
-#: app/views/backend/models/index.html.erb:38
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:20
-#: app/views/widgets/_model_backend_tabnav.html.erb:34
-#: app/views/widgets/_model_admin_tabnav.html.erb:36
-#: app/views/frontend/_categories.html.erb:22
-msgid "Categories"
-msgstr ""
-
-#: app/views/backend/models/index.html.erb:76
+#: app/views/backend/models/index.html.erb:18
 msgid "Add compatible"
 msgstr ""
 
-#: app/views/backend/models/index.html.erb:86
+#: app/views/backend/models/index.html.erb:28
 msgid "New Package"
 msgstr ""
 
-#: app/views/backend/models/index.html.erb:93
-#: app/views/widgets/_model_backend_tabnav.html.erb:58
-#: app/views/widgets/_model_admin_tabnav.html.erb:65
-#: app/views/admin/models/index.html.erb:10
+#: app/views/backend/models/index.html.erb:35
+#: app/views/admin/models/index.html.erb:21
 #: app/views/frontend/_models.html.erb:253
 msgid "Compatibles"
 msgstr ""
@@ -1784,6 +1774,11 @@ msgstr ""
 msgid "Unfinished"
 msgstr ""
 
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:20
+#: app/views/frontend/_categories.html.erb:22
+msgid "Categories"
+msgstr ""
+
 #: app/views/layouts/admin/00-patterns/_sidebar.html.erb:29
 msgid "Admins"
 msgstr ""
@@ -1792,21 +1787,34 @@ msgstr ""
 msgid "Roles"
 msgstr ""
 
+#: app/views/widgets/_model_backend_tabnav.html.erb:28
+#: app/views/widgets/_model_admin_tabnav.html.erb:28
+msgid "Items (%d)"
+msgstr ""
+
+#: app/views/widgets/_model_backend_tabnav.html.erb:34
+#: app/views/widgets/_model_admin_tabnav.html.erb:36
+msgid "Categories (%d)"
+msgstr ""
+
 #: app/views/widgets/_model_backend_tabnav.html.erb:40
 #: app/views/widgets/_model_admin_tabnav.html.erb:44
-#: app/views/frontend/_models.html.erb:234
-msgid "Properties"
+msgid "Properties (%d)"
 msgstr ""
 
 #: app/views/widgets/_model_backend_tabnav.html.erb:46
 #: app/views/widgets/_model_admin_tabnav.html.erb:51
-#: app/views/frontend/_models.html.erb:239
-msgid "Accessories"
+msgid "Accessories (%d)"
 msgstr ""
 
 #: app/views/widgets/_model_backend_tabnav.html.erb:52
 #: app/views/widgets/_model_admin_tabnav.html.erb:58
-msgid "Images"
+msgid "Images (%d)"
+msgstr ""
+
+#: app/views/widgets/_model_backend_tabnav.html.erb:58
+#: app/views/widgets/_model_admin_tabnav.html.erb:65
+msgid "Compatibles (%d)"
 msgstr ""
 
 #: app/views/widgets/_item_backend_tabnav.html.erb:86
@@ -1928,7 +1936,7 @@ msgstr ""
 msgid "value"
 msgstr ""
 
-#: app/views/admin/models/index.html.erb:10
+#: app/views/admin/models/index.html.erb:21
 #: app/views/frontend/_models.html.erb:263
 msgid "Manufacturer"
 msgstr ""
@@ -1964,6 +1972,10 @@ msgstr ""
 #: app/views/frontend/_complete_order.html.erb:157
 #: app/views/frontend/_complete_order.html.erb:350
 msgid "Change Timeframe"
+msgstr ""
+
+#: app/views/frontend/_complete_order.html.erb:158
+msgid "Change the timeframe for the selected items"
 msgstr ""
 
 #: app/views/frontend/_complete_order.html.erb:166
@@ -2020,6 +2032,14 @@ msgstr ""
 
 #: app/views/frontend/_models.html.erb:217
 msgid "Details"
+msgstr ""
+
+#: app/views/frontend/_models.html.erb:234
+msgid "Properties"
+msgstr ""
+
+#: app/views/frontend/_models.html.erb:239
+msgid "Accessories"
 msgstr ""
 
 #: app/views/frontend/_models.html.erb:368
