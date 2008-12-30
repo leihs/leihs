@@ -18,7 +18,7 @@ render_tabnav :user_admin,
 	end
 
 	add_tab do |t|
-		t.named _('Access Rights')
+		t.named _("Access Rights (%d)") % @user.access_rights.size
 		t.links_to :action => 'access_rights'
 		t.html[:style] = "background-color: red;" if @user.access_rights.blank? 
 	end

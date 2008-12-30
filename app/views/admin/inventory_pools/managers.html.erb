@@ -1,28 +1,28 @@
 
-	
-	<% tableize @inventory_pool.managers,
-			 :header => "listing managers",
-			 :generate_css => true do |manager| %>
-			 
-			<%= manager.login %>
-			<br />
-			<%= link_to _('Remove'),
-						:action => 'remove_manager',
-						:id => @inventory_pool,
-						:manager_id => manager %>
-	<% end %>		 	
 
-	<hr />
-	<% form_for [:admin, @inventory_pool], :url => { :action => 'add_manager' } do |f| %>
+<% tableize @inventory_pool.managers,
+		 :header => "Managers",
+		 :generate_css => true do |manager| %>
+		 
+		<%= manager.login %>
+		<br />
+		<%= link_to _('Remove'),
+					:action => 'remove_manager',
+					:id => @inventory_pool,
+					:manager_id => manager %>
+<% end %>		 	
 
-		<%= _("Add as manager") %>:
-		<%= model_auto_completer ("query", nil, "inventory_pool[manager_id]", nil,
-									{ :url => auto_complete_admin_users_path, :submit_on_return => true },
-									{ :size => 40 },
-									{ :method => :get, :select => :name }) %>
+<hr />
+<% form_for [:admin, @inventory_pool], :url => { :action => 'add_manager' } do |f| %>
+
+	<%= _("Add as manager") %>:
+	<%= model_auto_completer ("query", nil, "inventory_pool[manager_id]", nil,
+								{ :url => auto_complete_admin_users_path, :submit_on_return => true },
+								{ :size => 40 },
+								{ :method => :get, :select => :name }) %>
 
 
-		<%= submit_tag 'Submit' %>
-	<% end %>
-	
+	<%= submit_tag 'Submit' %>
+<% end %>
+
 

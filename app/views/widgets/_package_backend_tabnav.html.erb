@@ -24,7 +24,7 @@ render_tabnav :package_backend,
 	end
 
 	add_tab do |t|
-		t.named _('Items')
+		t.named _("Items (%d)") % @model.package_items.size
 		t.links_to show_package_items_backend_inventory_pool_model_path(@current_inventory_pool, @model)
 		t.highlights_on :action => 'show_package_items'
 	end

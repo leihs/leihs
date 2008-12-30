@@ -1,16 +1,16 @@
 
 
-	<ul>
-	<% for location in @inventory_pool.locations %>
-		<li>
-		<%= location.building %>, <%= location.room %>, <%= location.shelf %> (<%= location.items.size %>) 
-		<%= link_to _('Remove'),
-					:action => 'remove_location',
-					:id => @inventory_pool,
-					:location_id => location if location.items.empty? %>
-		</li>
-	<% end %>	
-	</ul>
+	<% tableize @inventory_pool.locations,
+			 :header => "Locations",
+			 :generate_css => true do |location| %>
+
+			<%= location.building %>, <%= location.room %>, <%= location.shelf %> (<%= location.items.size %>) 
+			<br />
+			<%= link_to _('Remove'),
+						:action => 'remove_location',
+						:id => @inventory_pool,
+						:location_id => location if location.items.empty? %>			 
+	<% end %>		 	
 
 	<hr />
 		<%= _("Add more locations") %>:

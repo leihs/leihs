@@ -1,22 +1,25 @@
 
-	<% unless @item.model %>
+<% unless @item.model %>
+
+	<%= _("Select model first") %>
 	
-		<%= _("Select model first") %>
-		
-	<% else %>
-	
-		<% if @item.location %>
-			<b><%= @item.location.inventory_pool.name %>:</b> <%= @item.location.building %>, <%= @item.location.room %>, <%= @item.location.shelf %>
-		<% end %>
-		
-		<hr />
-		<%= _("Set different inventory pool (default location)") %>:
-			<ul>
-			<% InventoryPool.all.each do |ip| %>
-				<li><b><%= ip.name %></b> <%= link_to _('Set'),
-											  { :inventory_pool_id => ip },
-											  { :method => :post } %></li>
-			<% end %>
-			</ul>
-	
-	<% end %>	
+<% else %>
+
+	<% tableize InventoryPool.all,
+			 :header => _("Set inventory pool") do |ip| %>
+			 
+			 <% this = (@item.inventory_pool == ip) %>
+			 <% style = this ? "border: 1px solid; padding: 3px; background-color: white;" : "" %>
+			 
+			<span style="<%= style %>">
+				<b><%= ip.name %></b>
+					<% if this %>
+						<%= @item.location %>
+					<% else %>
+						<%= link_to _('Set'), { :inventory_pool_id => ip }, { :method => :post } %>
+					<% end %>
+			</span>
+
+	<% end %>		 	
+
+<% end %>	

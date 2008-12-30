@@ -1,17 +1,18 @@
 <% unless @model.items.empty? %>
-	<ul>
-	<% @model.package_items.each do |i| %>
-		<li>
+
+	<% tableize @model.package_items,
+			 :header => "Items",
+			 :generate_css => true do |i| %>
+			 
 			<b><%= i.model.name %></b>, <%= i.model.manufacturer %>, <%= i.inventory_code %>
+			<br />
 			<%= link_to _('Remove'),
 						:action => 'remove_package_item',
 						:id => @model,
 						:item_id => i %>
-		</li>
-	<% end %>
-	</ul>
+	<% end %>		 	
 
-	<br />
+	<hr />
 		
 	<% form_for [:backend, @model], :url => { :action => 'add_package_item' } do |f| %>
 
