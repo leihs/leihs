@@ -13,12 +13,13 @@
 	<% end %>		 	
 
 	<hr />
-		
+	
+	<% # TODO 30** prevent submit if the form is still empty %>	
 	<% form_for [:backend, @model], :url => { :action => 'add_package_item' } do |f| %>
 
 		<%= _("Add more items") %>:
 		<%= model_auto_completer ("query", nil, "item_id", nil,
-									{ :url => {:controller => 'items', :action => 'auto_complete'}, :submit_on_return => true },
+									{ :url => backend_inventory_pool_items_path(:format => :auto_complete), :submit_on_return => true },
 									{ :size => 40 },
 									{ :method => :get, :select => :name }) %>
 

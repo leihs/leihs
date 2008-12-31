@@ -1,7 +1,5 @@
 class Backend::BackendController < ApplicationController
-  require_role "manager", :for_current_inventory_pool => true # TODO override in subcontrollers
-                                   # :except => [:create_some, # TODO for temporary_controller
-                                   #             :login, :switch_inventory_pool] # TODO for rspec tests
+  require_role "manager", :for_current_inventory_pool => true
   
   before_filter :init
   
@@ -14,9 +12,9 @@ class Backend::BackendController < ApplicationController
   layout $general_layout_path
  
 ###############################################################  
-   # TODO merge arguments if is always the case where (render_id == document.id)
+
    # add a new line
-   def generic_add_line(document, render_id = nil)
+   def generic_add_line(document)
     if request.post?
       if params[:model_group_id]
         model = ModelGroup.find(params[:model_group_id]) # TODO scope current_inventory_pool ?
@@ -28,7 +26,7 @@ class Backend::BackendController < ApplicationController
       model.add_to_document(document, params[:user_id], params[:quantity], nil, nil, current_inventory_pool)
 
       flash[:notice] = document.errors.full_messages unless document.save
-      redirect_to :action => 'show', :id => render_id
+      redirect_to :action => 'show', :id => document.id
     else
       redirect_to :controller => 'models', 
                   :layout => 'modal',
@@ -38,14 +36,14 @@ class Backend::BackendController < ApplicationController
 
 
   # swap model for a given line
-  def generic_swap_model_line(document, render_id = nil)
+  def generic_swap_model_line(document)
     if request.post?
       if params[:model_id].nil?
         flash[:notice] = _("Model must be selected")
       else
         document.swap_line(params[:line_id], params[:model_id], current_user.id)
       end
-      redirect_to :action => 'show', :id => render_id     
+      redirect_to :action => 'show', :id => document.id     
     else
       redirect_to :controller => 'models', 
                   :layout => 'modal',
@@ -54,7 +52,7 @@ class Backend::BackendController < ApplicationController
   end
   
   # change time frame for OrderLines or ContractLines 
-  def generic_time_lines(document, render_id = nil)
+  def generic_time_lines(document)
     if request.post?
       begin
         start_date = Date.new(params[:line]['start_date(1i)'].to_i, params[:line]['start_date(2i)'].to_i, params[:line]['start_date(3i)'].to_i)
@@ -63,7 +61,7 @@ class Backend::BackendController < ApplicationController
       rescue
         flash[:notice] = document.errors.full_messages
       end 
-      redirect_to :action => 'show', :id => render_id
+      redirect_to :action => 'show', :id => document.id
     else
       @lines = document.lines.find(params[:lines].split(','))
       render :template => 'backend/backend/time_lines', :layout => $modal_layout_path
@@ -71,10 +69,10 @@ class Backend::BackendController < ApplicationController
   end    
   
   # remove OrderLines or ContractLines
-  def generic_remove_lines(document, render_id = nil)
+  def generic_remove_lines(document)
     if request.post?
       params[:lines].each {|l| document.remove_line(l, current_user.id) }
-      redirect_to :action => 'show', :id => render_id
+      redirect_to :action => 'show', :id => document.id
     else
       @lines = document.lines.find(params[:lines].split(','))
       render :template => 'backend/backend/remove_lines', :layout => $modal_layout_path

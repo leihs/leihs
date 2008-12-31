@@ -72,7 +72,7 @@ module ApplicationHelper
   def flash_helper
     r = ""
     [:notice, :error].map do |f|
-      r += content_tag(:div, to_list(flash[f]), :class => "flash #{f}") if flash[f]
+      r += content_tag(:div, to_list(flash[f]), :class => "flash #{f}") unless flash[f].blank?
     end
     flash.discard if flash
     r

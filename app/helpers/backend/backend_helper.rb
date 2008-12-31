@@ -113,7 +113,7 @@ module Backend::BackendHelper
     html = greybox_link_to_page(model.name,
             backend_inventory_pool_model_path(@current_inventory_pool, model, :layout => "modal"),
             :title => _("Model"),
-            :class => "thickbox iconized-notxt edit-package" )
+            :class => "thickbox iconized-notxt edit-package", :width => 1000 )
 
     html += content_tag :ul, :class => "model_group" do
       r = ""

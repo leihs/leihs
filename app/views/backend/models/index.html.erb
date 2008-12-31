@@ -13,11 +13,12 @@
 
 <% if @model %>
 	 <div class="toolbar-second">
+ 		<% # TODO 30** prevent submit if the form is still empty %>	
 		<%# form_for [:backend, @current_inventory_pool, @model, :compatibles] do %>
 		<% form_tag backend_inventory_pool_model_compatibles_path(@current_inventory_pool, @model) do %>
 			<%= _("Add compatible") %>:
 			<%= model_auto_completer ('query', nil, 'compatible[model_id]', nil,
-										{ :url => { :controller => 'models', :action => 'auto_complete' }, :submit_on_return => true },
+										{ :url => backend_inventory_pool_models_path(:format => :auto_complete), :submit_on_return => true },
 										{ :size => 40 },
 										{ :method => :get, :select => :name }) %>
 			<%= submit_tag 'Submit' %>

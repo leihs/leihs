@@ -65,11 +65,11 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
 
   def add_line
-    generic_add_line(@order, @order.id)
+    generic_add_line(@order)
   end
 
   def swap_model_line
-    generic_swap_model_line(@order, @order.id)
+    generic_swap_model_line(@order)
   end
   
   # change quantity for a given line
@@ -86,11 +86,11 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
 
   def time_lines
-    generic_time_lines(@order, @order.id)
+    generic_time_lines(@order)
   end    
   
   def remove_lines
-    generic_remove_lines(@order, @order.id)
+    generic_remove_lines(@order)
   end
 
   def change_purpose

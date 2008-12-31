@@ -19,14 +19,14 @@ render_tabnav :package_backend,
 
 	add_tab do |t|
 		t.named _('Package')
-		t.links_to show_package_backend_inventory_pool_model_path(@current_inventory_pool, @model)
-		t.highlights_on :action => 'show_package'
+		t.links_to package_backend_inventory_pool_model_path(@current_inventory_pool, @model)
+		t.highlights_on :action => 'package'
 	end
 
 	add_tab do |t|
 		t.named _("Items (%d)") % @model.package_items.size
-		t.links_to show_package_items_backend_inventory_pool_model_path(@current_inventory_pool, @model)
-		t.highlights_on :action => 'show_package_items'
+		t.links_to package_items_backend_inventory_pool_model_path(@current_inventory_pool, @model)
+		t.highlights_on :action => 'package_items'
 	end
 
 #	add_tab do |t|

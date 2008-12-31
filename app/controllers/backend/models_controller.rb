@@ -28,7 +28,7 @@ class Backend::ModelsController < Backend::BackendController
 
   def show
     if @model.is_package?
-      redirect_to :action => 'show_package', :layout => params[:layout]
+      redirect_to :action => 'package', :layout => params[:layout]
     else
       @chart = @model.chart(current_user, current_inventory_pool) 
     end
@@ -59,12 +59,12 @@ class Backend::ModelsController < Backend::BackendController
 
   # TODO 04** refactor in a dedicated controller?
 
-  def show_package 
+  def package 
   end
 
   def new_package
     @model = Model.new
-    render :action => 'show_package' #, :layout => false
+    render :action => 'package' #, :layout => false
   end
 
   def update_package(name = params[:name], inventory_code = params[:inventory_code])
@@ -74,22 +74,22 @@ class Backend::ModelsController < Backend::BackendController
     @model.save 
     @model.items.create(:location => current_inventory_pool.main_location) if @model.items.empty?
     @model.items.first.update_attribute(:inventory_code, inventory_code)
-    redirect_to :action => 'show_package', :id => @model
+    redirect_to :action => 'package', :id => @model
   end
 
-  def show_package_items
+  def package_items
   end
 
   def add_package_item
     # OPTIMIZE 03** @model.package_items << @item
     @model.items.first.children << @item
-    redirect_to :action => 'show_package_items', :id => @model
+    redirect_to :action => 'package_items', :id => @model
   end
 
   def remove_package_item
     # OPTIMIZE 03** @model.package_items.delete(@item)
     @model.items.first.children.delete(@item)
-    redirect_to :action => 'show_package_items', :id => @model
+    redirect_to :action => 'package_items', :id => @model
   end
 
   def package_location
@@ -135,11 +135,6 @@ class Backend::ModelsController < Backend::BackendController
   end
 
 #################################################################
-
-  def auto_complete
-    @models = current_inventory_pool.models.search(params[:query])
-    render :partial => 'auto_complete'
-  end
 
   private
   

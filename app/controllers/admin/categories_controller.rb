@@ -123,11 +123,6 @@ class Admin::CategoriesController < Admin::AdminController
   end
 
 #################################################################
-
-  def auto_complete
-    @categories = Category.search(params[:query])
-    render :partial => 'auto_complete'
-  end
   
   private
   

@@ -99,11 +99,6 @@ class Admin::ModelsController < Admin::AdminController
 
 #################################################################
 
-  def auto_complete(model = params[:model])
-    @models = Model.search(model[:query])
-    render :partial => 'auto_complete'
-  end
-
   private
   
   def pre_load
