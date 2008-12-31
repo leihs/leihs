@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.datetime "updated_at"
   end
 
+  add_index "backup_orders", ["status_const"], :name => "index_backup_orders_on_status_const"
+
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50
     t.text     "comment"
@@ -94,6 +96,8 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "contracts", ["status_const"], :name => "index_contracts_on_status_const"
 
   create_table "histories", :force => true do |t|
     t.string   "text",        :default => ""
@@ -147,6 +151,9 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   end
 
   add_index "items", ["inventory_code"], :name => "index_items_on_inventory_code", :unique => true
+  add_index "items", ["is_broken"], :name => "index_items_on_is_broken"
+  add_index "items", ["is_incomplete"], :name => "index_items_on_is_incomplete"
+  add_index "items", ["is_borrowable"], :name => "index_items_on_is_borrowable"
 
   create_table "locations", :force => true do |t|
     t.integer  "inventory_pool_id"
@@ -191,6 +198,8 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "models", ["is_package"], :name => "index_models_on_is_package"
 
   create_table "models_compatibles", :id => false, :force => true do |t|
     t.integer "model_id"
@@ -241,6 +250,8 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "orders", ["status_const"], :name => "index_orders_on_status_const"
 
   create_table "properties", :force => true do |t|
     t.integer  "model_id"

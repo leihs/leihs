@@ -3,11 +3,12 @@
 <% if @category %>
 	<% if request.env['REQUEST_URI'].include?("parents") %>
 	 <div class="toolbar-second">
+ 		<% # TODO 30** prevent submit if the form is still empty %>	
 		<% form_for [:add_parent, :admin, @category] do |f| %>
 		<%#temp# form_for [:admin, @category, :parents] do |f| %>
 			<%= _("Add as subcategory of") %>:
 			<%= model_auto_completer ('query', nil, 'parent[category_id]', nil,
-										{ :url => auto_complete_admin_categories_path, :submit_on_return => true },
+										{ :url => admin_categories_path(:format => :auto_complete), :submit_on_return => true },
 										{ :size => 40 },
 										{ :method => :get, :select => :name }) %>
 			<%= _("Label") %>:
@@ -19,11 +20,12 @@
 	<% end %>
 <% elsif @model %>
 	 <div class="toolbar-second">
-		<%#temp# form_for [:admin, @model, :categories] do |f| %>
+ 		<% # TODO 30** prevent submit if the form is still empty %>	
 		<% form_tag "/admin/models/#{@model.id}/categories" do %>
+		<%#temp# form_for [:admin, @model, :categories] do |f| %>
 			<%= _("Add to category") %>:
 			<%= model_auto_completer ('query', nil, 'category_id', nil,
-										{ :url => auto_complete_admin_categories_path, :submit_on_return => true },
+										{ :url => admin_categories_path(:format => :auto_complete), :submit_on_return => true },
 										{ :size => 40 },
 										{ :method => :get, :select => :name }) %>
 			<%= submit_tag 'Submit' %>

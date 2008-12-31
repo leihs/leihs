@@ -3,10 +3,12 @@ class CreateContracts < ActiveRecord::Migration
     create_table :contracts do |t|
       t.belongs_to :user
       t.belongs_to :inventory_pool
-      t.integer :status_const, :default => Contract::NEW # TODO create index 
+      t.integer :status_const, :default => Contract::NEW 
       t.string :purpose # TODO implement
       t.timestamps
     end
+    add_index(:contracts, :status_const)
+
   end
 
   def self.down

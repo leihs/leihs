@@ -5,9 +5,9 @@ class CreateModels < ActiveRecord::Migration
       t.string :manufacturer
       t.integer :maintenance_period, :default => 0
       t.boolean :is_package, :default => false
-      
       t.timestamps
     end
+    add_index :models, :is_package
 
     create_table :models_compatibles, :id => false do |t|
       t.belongs_to :model

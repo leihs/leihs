@@ -56,26 +56,25 @@ class Admin::UsersController < Admin::AdminController
   def access_rights
   end
   
-  # TODO 15** fix error adding 'admin' 
   def add_access_right
     r = Role.find(params[:access_right][:role_id])
     ip = InventoryPool.find(params[:access_right][:inventory_pool_id]) unless params[:access_right][:inventory_pool_id].blank? 
-    @user.access_rights.create(:role => r, :inventory_pool => ip, :level => params[:level])
-
+    ar = @user.access_rights.create(:role => r, :inventory_pool => ip, :level => params[:level])
+    unless ar.changed?
+      flash[:notice] = _("Access Right successfully created")
+    else
+      flash[:error] = ar.errors.full_messages
+    end
     redirect_to :action => 'access_rights', :id => @user
   end
 
   def remove_access_right
     @user.access_rights.delete(@user.access_rights.find(params[:access_right_id]))
+    flash[:notice] = _("Access Right successfully removed")
     redirect_to :action => 'access_rights', :id => @user
   end
 
 #################################################################
-
-  def auto_complete
-    @users = User.search(params[:query])
-    render :partial => 'auto_complete'
-  end
 
   private
   

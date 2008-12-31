@@ -59,12 +59,6 @@ class Backend::ItemsController < Backend::BackendController
 
 #################################################################
 
-  def auto_complete
-    @items = current_inventory_pool.items.search(params[:query])
-    render :partial => 'auto_complete'
-  end
-
-#################################################################
 
   private
   

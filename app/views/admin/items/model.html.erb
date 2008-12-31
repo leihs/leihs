@@ -8,13 +8,15 @@
 
 	<hr />
 
+	<% # TODO 30** prevent submit if the form is still empty %>	
 	<% form_for [:admin, @item] do |f| %>
 		<%= f.hidden_field :step %>
 
 		<%= _("Set new model") %>:
-		<%= belongs_to_auto_completer :item, :model, :query, {:url => auto_complete_admin_models_path, :submit_on_return => true },
-															{ :size => 40 },
-															{ :method => :get, :select => :name } %>
+		<%= model_auto_completer ('query', nil, 'item[model_id]', nil,
+									{ :url => admin_models_path(:format => :auto_complete), :submit_on_return => true },
+									{ :size => 40 },
+									{ :method => :get, :select => :name }) %>
 
 		<%= submit_tag 'Submit' %>
 	<% end %>

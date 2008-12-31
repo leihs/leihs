@@ -1,7 +1,6 @@
 class Backend::HandOverController < Backend::BackendController
 
   before_filter :pre_load
-  protect_from_forgery :except => [:auto_complete_for_location_building, :auto_complete_for_location_room]
 
   def index
     visits = current_inventory_pool.hand_over_visits
@@ -172,13 +171,13 @@ class Backend::HandOverController < Backend::BackendController
   end
     
   def auto_complete_for_location_building
-    @locations = Location.find(:all, :conditions => ['building like ?', params[:location][:building] + "%"])
+    @locations = Location.all(:conditions => ['building LIKE ?', params[:location][:building] + "%"])
     @field = "building"
     render :inline => "<%= auto_complete_result(@locations, :building) %>"
   end
   
   def auto_complete_for_location_room
-    @locations = Location.find(:all, :conditions => ['room like ?', params[:location][:room] + "%"])
+    @locations = Location.all(:conditions => ['room LIKE ?', params[:location][:room] + "%"])
     @field = "room"
     render :inline => "<%= auto_complete_result(@locations, :room) %>"
   end

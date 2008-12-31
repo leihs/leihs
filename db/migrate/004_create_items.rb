@@ -10,11 +10,13 @@ class CreateItems < ActiveRecord::Migration
       t.boolean :is_broken, :default => false
       t.boolean :is_incomplete, :default => false
       t.boolean :is_borrowable, :default => true
-
       t.timestamps
     end
-    
     add_index :items, :inventory_code, :unique => true
+    add_index :items, :is_broken
+    add_index :items, :is_incomplete
+    add_index :items, :is_borrowable
+
   end
 
   def self.down

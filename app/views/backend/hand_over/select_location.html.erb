@@ -20,11 +20,11 @@
 <table>
 	<tr>
 		<td><%= _("Building") %>:</td>
-		<td><%= text_field_with_auto_complete :location, :building %></td>
+		<td><%= text_field_with_auto_complete :location, :building, {}, { :method => :get } %></td>
 	</tr>
 	<tr>
 		<td><%= _("Room") %>:</td>
-		<td><%= text_field_with_auto_complete :location, :room %></td>
+		<td><%= text_field_with_auto_complete :location, :room, {}, { :method => :get } %></td>
 	</tr>
 </table>
 <p>

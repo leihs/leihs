@@ -1,5 +1,5 @@
 # http://dev.rubyonrails.org/ticket/5983
-# adapted by Franco Sellitto
+# adapted by Franco Sellitto (sellittf)
 module AutoCompleteMacrosHelper 
   def text_field_with_auto_complete(object, method, tag_options = {}, completion_options = {})
     if(tag_options[:id])

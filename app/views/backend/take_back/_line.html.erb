@@ -18,7 +18,7 @@
 			<%= greybox_link_to_page(@line.item.inventory_code,
 				 backend_inventory_pool_model_item_path(@current_inventory_pool, @line.item.model, @line.item, :layout => "modal"),
 				 :title => _("Item"),
-				 :class => "iconized-notxt" ) %>
+				 :class => "iconized-notxt", :width => 1000 ) %>
 		</td>
 		<td class="buttons">
 			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/magnifier.png") + " " + _("Inspection"),

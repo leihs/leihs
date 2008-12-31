@@ -69,27 +69,24 @@ ActionController::Routing::Routes.draw do |map|
       inventory_pool.resources :contracts # TODO 07** also nest to user?
       inventory_pool.resources :locations
       inventory_pool.resources :option_maps
-#old#      inventory_pool.resources :items, :collection => { :auto_complete => :get }  # TODO 12** nest to model
-      inventory_pool.items 'items', :controller => 'items', :action => 'index'
-      inventory_pool.auto_complete 'auto_complete', :controller => 'items', :action => 'auto_complete' # TODO 12** optimize
-      inventory_pool.resources :models, :collection => { :auto_complete => :get, # TODO 17** merge all 'auto_complete' methods into 'index'
-                                                         :available_items => :any,
+      inventory_pool.resources :models, :collection => { :available_items => :any,
                                                          :new_package => :get,
                                                          :update_package => :post },
                                         :member => { :properties => :get,
                                                      :accessories => :any,
-                                                     :show_package => :get,
-                                                     :show_package_items => :get,
+                                                     :package => :get,
+                                                     :package_items => :get,
                                                      :add_package_item => :put,
                                                      :remove_package_item => :get,
                                                      :package_location => :any,
                                                      :images => :get } do |model|
+            model.resources :categories
+            model.resources :compatibles, :controller => 'models'
             model.resources :items, :member => { :location => :any,
                                                  :status => :get,
                                                  :notes => :any }
-            model.resources :categories
-            model.resources :compatibles, :controller => 'models'
       end
+      inventory_pool.items 'items', :controller => 'items', :action => 'index'
       inventory_pool.resources :users, :member => { :new_contract => :get,
                                                     :remind => :get,
                                                     :access_rights => :get,
@@ -120,8 +117,8 @@ ActionController::Routing::Routes.draw do |map|
                                                       :timeline => :get,
                                                       :delete_visit => :get,
                                                       :select_location => :any,
-                                                      :auto_complete_for_location_building => :post,
-                                                      :auto_complete_for_location_room => :post }
+                                                      :auto_complete_for_location_building => :get,
+                                                      :auto_complete_for_location_room => :get }
                 user.resource :take_back, :controller => 'take_back',
                                           :member => { :close_contract => :any,
                                                        :assign_inventory_code => :post,
@@ -150,8 +147,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :items, :member => { :model => :get,  # TODO 12** remove and nest to models ??
                                          :inventory_pool => :any,
                                          :notes => :any }
-    admin.resources :models, :collection => { :auto_complete => :get },
-                             :member => { :properties => :get,
+    admin.resources :models, :member => { :properties => :get,
                                           :add_property => :post,
                                           :remove_property => :get,
                                           :images => :any,
@@ -162,14 +158,12 @@ ActionController::Routing::Routes.draw do |map|
         model.resources :categories
         model.resources :compatibles, :controller => 'models'
     end
-    admin.resources :categories, :collection => { :auto_complete => :get },
-                                 :member => { :add_parent => :any } do |category|
+    admin.resources :categories, :member => { :add_parent => :any } do |category|
         category.resources :parents, :controller => 'categories'
         category.resources :children, :controller => 'categories'
         category.resources :models
     end
-    admin.resources :users, :collection => { :auto_complete => :get },
-                            :member => { :access_rights => :get,
+    admin.resources :users, :member => { :access_rights => :get,
                                          :remove_access_right => :get,
                                          :add_access_right => :post }
     admin.resources :roles
