@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2008-12-30 09:42+0100\n"
+"POT-Creation-Date: 2008-12-31 12:03+0100\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: app/helpers/backend/backend_helper.rb:86
+#: app/helpers/backend/backend_helper.rb:96
 #: app/views/backend/contracts/index.html.erb:1
 #: app/views/backend/take_back/index.html.erb:1
 #: app/views/backend/acknowledge/show.html.erb:39
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Reserver"
 msgstr ""
 
-#: app/helpers/backend/backend_helper.rb:89
+#: app/helpers/backend/backend_helper.rb:99
 #: app/views/backend/contracts/index.html.erb:10
 #: app/views/backend/take_back/index.html.erb:12
 #: app/views/backend/acknowledge/show.html.erb:47
@@ -150,14 +150,13 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: app/helpers/backend/backend_helper.rb:105
+#: app/helpers/backend/backend_helper.rb:115
 #: app/views/backend/hand_over/_lines.html.erb:8
 #: app/views/backend/items/index.html.erb:1
 #: app/views/backend/models/index.html.erb:35
 #: app/views/widgets/_model_backend_tabnav.html.erb:21
 #: app/views/widgets/_model_admin_tabnav.html.erb:21
 #: app/views/widgets/_item_admin_tabnav.html.erb:29
-#: app/views/admin/items/model.html.erb:25
 #: app/views/admin/items/index.html.erb:10
 #: app/views/admin/models/index.html.erb:21
 #: app/views/frontend/_basket.html.erb:16
@@ -991,8 +990,6 @@ msgstr ""
 #: app/views/backend/models/index.html.erb:35
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:16
 #: app/views/layouts/admin/00-patterns/_sidebar.html.erb:4
-#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:34
-#: app/views/widgets/_package_backend_tabnav.html.erb:27
 #: app/views/admin/inventory_pools/index.html.erb:9
 #: app/views/admin/models/index.html.erb:21
 msgid "Items"
@@ -1538,9 +1535,9 @@ msgid "Holidays"
 msgstr ""
 
 #: app/views/backend/workdays/index.html.erb:22
-#: app/views/backend/users/access_rights.html.erb:22
+#: app/views/backend/users/access_rights.html.erb:25
 #: app/views/backend/models/index.html.erb:49
-#: app/views/admin/users/access_rights.html.erb:26
+#: app/views/admin/users/access_rights.html.erb:29
 #: app/views/frontend/_models.html.erb:269
 #: app/views/frontend/_models.html.erb:364
 msgid "Add"
@@ -1552,13 +1549,13 @@ msgstr ""
 msgid "Orders"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:4
-#: app/views/backend/models/show_package_items.html.erb:6
+#: app/views/backend/users/access_rights.html.erb:8
+#: app/views/backend/models/show_package_items.html.erb:9
 #: app/views/backend/models/index.html.erb:54
-#: app/views/admin/inventory_pools/locations.html.erb:7
+#: app/views/admin/inventory_pools/locations.html.erb:9
 #: app/views/admin/inventory_pools/managers.html.erb:9
 #: app/views/admin/categories/index.html.erb:58
-#: app/views/admin/users/access_rights.html.erb:4
+#: app/views/admin/users/access_rights.html.erb:8
 #: app/views/admin/models/properties.html.erb:5
 #: app/views/admin/models/accessories.html.erb:5
 #: app/views/frontend/_complete_order.html.erb:165
@@ -1566,8 +1563,8 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:17
-#: app/views/admin/users/access_rights.html.erb:17
+#: app/views/backend/users/access_rights.html.erb:20
+#: app/views/admin/users/access_rights.html.erb:20
 msgid "Role"
 msgstr ""
 
@@ -1592,8 +1589,6 @@ msgid "%{i} reminders, last: %{d}"
 msgstr ""
 
 #: app/views/backend/users/index.html.erb:1
-#: app/views/widgets/_user_admin_tabnav.html.erb:21
-#: app/views/widgets/_user_backend_tabnav.html.erb:20
 #: app/views/admin/users/index.html.erb:10
 msgid "Access Rights"
 msgstr ""
@@ -1652,7 +1647,7 @@ msgstr ""
 
 #: app/views/backend/locations/index.html.erb:10
 #: app/views/layouts/backend/00-patterns/general.html.erb:24
-#: app/views/admin/users/access_rights.html.erb:18
+#: app/views/admin/users/access_rights.html.erb:21
 #: app/views/frontend/_basket.html.erb:19
 #: app/views/frontend/_models.html.erb:306
 msgid "Inventory Pool"
@@ -1662,14 +1657,14 @@ msgstr ""
 msgid "Main?"
 msgstr ""
 
-#: app/views/backend/items/location.html.erb:5
-#: app/views/backend/models/package_location.html.erb:5
-msgid "Set different location"
+#: app/views/backend/items/location.html.erb:3
+#: app/views/backend/models/package_location.html.erb:3
+msgid "Set location"
 msgstr ""
 
-#: app/views/backend/items/location.html.erb:9
-#: app/views/backend/models/package_location.html.erb:9
-#: app/views/admin/items/inventory_pool.html.erb:16
+#: app/views/backend/items/location.html.erb:10
+#: app/views/backend/models/package_location.html.erb:10
+#: app/views/admin/items/inventory_pool.html.erb:19
 msgid "Set"
 msgstr ""
 
@@ -1696,7 +1691,7 @@ msgstr ""
 msgid "In stock?"
 msgstr ""
 
-#: app/views/backend/models/show_package_items.html.erb:18
+#: app/views/backend/models/show_package_items.html.erb:19
 msgid "Add more items"
 msgstr ""
 
@@ -1717,10 +1712,6 @@ msgstr ""
 #: app/views/layouts/backend/00-patterns/general.html.erb:24
 #: app/views/frontend/_complete_order.html.erb:326
 msgid "Change"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:15
-msgid "Logged in as %{u}."
 msgstr ""
 
 #: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:16
@@ -1746,13 +1737,11 @@ msgid "Packages"
 msgstr ""
 
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:32
-#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:27
 msgid "Locations"
 msgstr ""
 
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:41
 #: app/views/layouts/admin/00-patterns/_sidebar.html.erb:30
-#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:41
 msgid "Managers"
 msgstr ""
 
@@ -1792,7 +1781,9 @@ msgid "Roles"
 msgstr ""
 
 #: app/views/widgets/_model_backend_tabnav.html.erb:28
+#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:34
 #: app/views/widgets/_model_admin_tabnav.html.erb:28
+#: app/views/widgets/_package_backend_tabnav.html.erb:27
 msgid "Items (%d)"
 msgstr ""
 
@@ -1827,12 +1818,25 @@ msgstr ""
 
 #: app/views/widgets/_item_backend_tabnav.html.erb:92
 #: app/views/widgets/_item_admin_tabnav.html.erb:46
-msgid "Notes"
+msgid "Notes (%d)"
+msgstr ""
+
+#: app/views/widgets/_user_admin_tabnav.html.erb:21
+#: app/views/widgets/_user_backend_tabnav.html.erb:20
+msgid "Access Rights (%d)"
 msgstr ""
 
 #: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:20
 #: app/views/widgets/_item_admin_tabnav.html.erb:39
 msgid "InventoryPool"
+msgstr ""
+
+#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:27
+msgid "Locations (%d)"
+msgstr ""
+
+#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:41
+msgid "Managers (%d)"
 msgstr ""
 
 #: app/views/widgets/_category_admin_tabnav.html.erb:20
@@ -1892,7 +1896,7 @@ msgstr ""
 msgid "Remove Parent"
 msgstr ""
 
-#: app/views/admin/users/access_rights.html.erb:19
+#: app/views/admin/users/access_rights.html.erb:22
 msgid "Level"
 msgstr ""
 
@@ -1902,10 +1906,6 @@ msgstr ""
 
 #: app/views/admin/items/model.html.erb:14
 msgid "Set new model"
-msgstr ""
-
-#: app/views/admin/items/model.html.erb:23
-msgid "Create new model (TODO and assign)"
 msgstr ""
 
 #: app/views/admin/items/show.html.erb:6
@@ -1924,8 +1924,8 @@ msgstr ""
 msgid "Select model first"
 msgstr ""
 
-#: app/views/admin/items/inventory_pool.html.erb:13
-msgid "Set different inventory pool (default location)"
+#: app/views/admin/items/inventory_pool.html.erb:9
+msgid "Set inventory pool"
 msgstr ""
 
 #: app/views/admin/models/properties.html.erb:13
