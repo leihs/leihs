@@ -1,0 +1,54 @@
+<style type="text/css">
+table.orders {
+	border-collapse: collapse;
+	width: 80%;
+	border: 1px solid #b2b2b2;
+}
+
+table.orders th, table.orders td {
+	margin: 0;
+	padding: 4px 12px;
+	text-align: left;
+}
+
+table.orders tr {
+	vertical-align: middle;
+	background: #f1f1f1;
+	border: 1px solid #b2b2b2;
+}
+
+table.orders th {
+	background: #888;
+	color: #e2e2e2;
+}
+</style>
+
+
+<h2>
+<%= _("The order has been successfully submitted, but is NOT YET CONFIRMED.") %>
+</h2>
+
+<hr />
+<h3><%= _("Pending orders") %>:</h3>
+<br />
+
+<table class="orders">
+	<tr>
+	<th><%= _("Received at") %></th>
+	<th><%= _("Inventory Pool") %></th>
+	<th><%= _("Number of items") %></th>
+	<th><%= _("Time window") %></th>
+	<th><%= _("Purpose") %></th>
+	</tr>
+	
+<% current_user.orders.submitted_orders.each do |order| %>	
+	<tr>
+	<td><%= today_or_yesterday_date(order.created_at) %></td>
+	<td><%= order.inventory_pool %></td>
+	<td><%= order.quantity %></td>
+	<td><%= short_date(order.time_window_min) %> - <%= short_date(order.time_window_max) %></td>
+	<td><%= h order.purpose %></td>
+	</tr>
+<% end %>
+
+</table>

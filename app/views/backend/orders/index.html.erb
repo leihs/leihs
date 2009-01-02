@@ -4,7 +4,7 @@
 
 			<tr class="<%= (order.has_backup? ? "alt-row" : "fresh" ) %>">
 				<td><%= order.id %></td>
-				<td><%= "#{today_or_yesterday_date(order.created_at)}" %></td>
+				<td><%= today_or_yesterday_date(order.created_at) %></td>
 				<td>
 					<%= greybox_link_to_page(order.user.login,
 							backend_inventory_pool_user_path(@current_inventory_pool, order.user, :layout => "modal"),
