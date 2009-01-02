@@ -23,7 +23,7 @@
 
 			<tr class="<%= (order.has_backup? ? "alt-row" : "fresh" ) %>">
 				<td class="valid_<%= order.lines.all?{|l| l.correct_inventory_pool? } %>"> <% # TODO temp check, remove it %>
-					<%= "#{today_or_yesterday_date(order.created_at)}" %>
+					<%= today_or_yesterday_date(order.created_at) %>
 				</td>
 				<td>
 					<%= greybox_link_to_page(order.user.login,

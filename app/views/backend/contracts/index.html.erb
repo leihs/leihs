@@ -3,7 +3,7 @@
 
 			<tr>
 				<td><%= contract.id %></td>
-				<td><%= "#{today_or_yesterday_date(contract.created_at)}" %></td>
+				<td><%= today_or_yesterday_date(contract.created_at) %></td>
 				<td>
 					<%= greybox_link_to_page(contract.user.login,
 							backend_inventory_pool_user_path(@current_inventory_pool, contract.user, :layout => "modal"),

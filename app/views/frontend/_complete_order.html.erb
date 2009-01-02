@@ -206,6 +206,8 @@
 				           animEl: this.id,
 				           fn: function (btn, text){
 								if(btn == "ok"){
+/*
+//OLD//
 //									complete_order.disable();
 					                Ext.Ajax.request({
 									    url: '/user/order/submit',
@@ -228,7 +230,17 @@
 					                    }
 										// TODO 18** catch failure
 					                });
-								}
+*/
+									order.layout.setActiveItem(1);
+									order.layout.activeItem.load({
+									    url: '/user/order/submit',
+										method: 'POST',
+										params: {"id": complete_order_store.reader.jsonData['id'],
+												 "purpose": text,
+												 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'}
+									});
+									// TODO 18** catch failure
+							}
 						   }
 				       });
 					 }else{
@@ -376,8 +388,17 @@
 					items: [order_guide, complete_order]
 	            },{
 					xtype: 'panel',
-					layout: 'border',
-					html: 'Second step...'
+				    autoScroll:true,
+				    bbar: [
+				        '->',
+				        {
+				            text: 'New Order',
+				            handler: function(){
+								complete_order_store.load();
+								order.layout.setActiveItem(0);
+							}
+				        }
+				    ]
 	            }],
 			listeners: {
 				activate: function(cmp) {

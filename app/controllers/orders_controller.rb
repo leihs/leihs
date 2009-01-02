@@ -14,9 +14,10 @@ class OrdersController < FrontendController
     @order.created_at = DateTime.now
     if @order.submit(params[:purpose])
       # TODO 18** List Inventory Pools ... and additional informations
-      render :text => _("The order has been successfully submitted, but is NOT YET CONFIRMED."), :status => 200
+      render :partial => 'submit'
     else
-      render :nothing => true, :status => 400
+      # TODO 18** catch failure
+      render :text => _("Submission failed"), :status => 400
     end
   end
 
