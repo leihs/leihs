@@ -15,18 +15,10 @@ module Backend::BackendHelper
       query = nil if query.blank?
 
       content_tag :div, :class => "table-overview", :id => "controller" do
-#          content_tag :form do
-#            r = ""
-#          r = "<form action=\"\">"
-#          r = form_remote_tag :url => { }, :html => { :method => :get } #do
-#          r = form_remote_tag :update => 'list_table', :html => { :method => :get } #do 
             filter_params = request.path_parameters.keys << "query" << "page"
-#            params.each {|k,v| r += hidden_field_tag(k, v) unless filter_params.include?(k) }
-
             parameters = ""
             params.each {|k,v| parameters += ", #{k}: '#{v}'" unless filter_params.include?(k) }
 
-#old#            r = text_field_tag :query, query, :onchange => "new Ajax.Updater('list_table', '#{url_for({})}', {asynchronous:true, evalScripts:true, method:'get', onLoading:function(request){Element.show('spinner')}, parameters: {query: this.value #{parameters}}}); return false;", :id => 'search_field'
             r = text_field_tag :query, query, :onchange => "new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', onLoading:function(request){Element.show('spinner')}, parameters: {query: this.value #{parameters}}}); return false;", :id => 'search_field'
             r += javascript_tag("$('search_field').focus()")
             
@@ -35,16 +27,12 @@ module Backend::BackendHelper
               s = _(" <b>%d</b> results") % total
               s += _(" for <b>%s</b>") % query if query
               s += _(" filtering <b>%s</b>") % filter if filter
-#              w = will_paginate(records, :params => {:query => query})
-#              w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:with => "'query=' + $('search_field').value", :update => 'list_table'}
               w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:update => 'list_table', :loading => "Element.show('spinner')"}, :previous_label => _("Previous"), :next_label => _("Next")
               s += w if w
               s += image_tag("spinner.gif", :id => 'spinner', :style => 'display: none; vertical-align: middle; padding: 0 4px 0 4px;')
               s
             end
-#          r += "</form>"
           r
-          #end
       end
   end 
 
@@ -73,7 +61,6 @@ module Backend::BackendHelper
   
       options[:records].each do |record|
         s += capture(record, &block)
-        # yield(record)
       end
       
       s
@@ -161,6 +148,12 @@ module Backend::BackendHelper
       }
       "
     end
+
+    # TODO 04** prevent render modal layout inside another modal layout
+    filter_params = request.path_parameters.keys << "category_id"
+    parameters = ""
+    params.each {|k,v| parameters += ", #{k}: '#{v}'" unless filter_params.include?(k) }
+
     html += javascript_tag do
       "
       start = function(){
@@ -197,7 +190,7 @@ module Backend::BackendHelper
       listeners: {
         click: function( node, e ){
           if(node.attributes.real_id != 0) node.toggle();
-          new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', onLoading:function(request){Element.show('spinner')}, parameters:'category_id=' + node.attributes.real_id}); return false;
+          new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', onLoading:function(request){Element.show('spinner')}, parameters: {category_id: node.attributes.real_id #{parameters}}}); return false;
         }
       }
         });
