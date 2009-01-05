@@ -34,7 +34,7 @@ class Order < Document
 #########################################################################
 
   named_scope :new_orders, :conditions => {:status_const => Order::NEW}, :order => 'created_at DESC'
-  named_scope :submitted, :conditions => {:status_const => Order::SUBMITTED}, :order => 'created_at DESC'
+  named_scope :submitted, :conditions => {:status_const => Order::SUBMITTED}, :order => 'created_at DESC', :include => :backup # OPTIMIZE N+1 select problem
   named_scope :approved, :conditions => {:status_const => Order::APPROVED}, :order => 'created_at DESC'
   named_scope :rejected, :conditions => {:status_const => Order::REJECTED}, :order => 'created_at DESC'
 

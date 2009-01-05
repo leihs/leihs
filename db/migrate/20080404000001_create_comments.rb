@@ -7,8 +7,9 @@ class CreateComments < ActiveRecord::Migration
       t.references :commentable,  :null => false, :polymorphic => true
       t.belongs_to :user
     end
-    add_index :comments, :user_id, :name => "fk_comments_user"
 #    add_index :comments, [:commentable_type, :commentable_id]
+    foreign_key :comments, :user_id, :users
+
   end
 
   def self.down

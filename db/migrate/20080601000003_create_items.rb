@@ -5,25 +5,23 @@ class CreateItems < ActiveRecord::Migration
       t.string :serial_number
       t.belongs_to :model #, :null => false
       t.belongs_to :location #, :null => false
-      t.integer :owner_id
       t.integer :parent_id, :null => true # for package purpose
-      t.integer :required_level, :default => AccessRight::STUDENT
-      t.string :invoice_number
-      t.date :invoice_date
-      t.date :last_check, :default => nil
-      t.date :retired, :default => nil
-      t.string :retired_reason, :default => nil
-      t.decimal :price, :precision => 8, :scale => 2
+      t.integer :required_level, :default => AccessRight::EVERYBODY
       t.boolean :is_broken, :default => false
       t.boolean :is_incomplete, :default => false
       t.boolean :is_borrowable, :default => true
       t.timestamps
     end
+    
     add_index :items, :inventory_code, :unique => true
+    add_index :items, :required_level
     add_index :items, :is_broken
     add_index :items, :is_incomplete
     add_index :items, :is_borrowable
 
+    foreign_key :items, :model_id, :models
+    foreign_key :items, :location_id, :locations
+    foreign_key :items, :parent_id, :items
   end
 
   def self.down

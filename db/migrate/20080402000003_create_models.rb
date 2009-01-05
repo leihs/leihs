@@ -3,10 +3,6 @@ class CreateModels < ActiveRecord::Migration
     create_table :models do |t|
       t.string :name, :null => false
       t.string :manufacturer
-      t.string :description
-      t.string :internal_description
-      t.string :info_url
-      t.decimal :rental_price, :precision => 8, :scale => 2
       t.integer :maintenance_period, :default => 0
       t.boolean :is_package, :default => false
       t.timestamps
@@ -17,9 +13,9 @@ class CreateModels < ActiveRecord::Migration
       t.belongs_to :model
       t.belongs_to :compatible
     end
-    add_index(:models_compatibles, :model_id)
-    add_index(:models_compatibles, :compatible_id)
-  
+    foreign_key :models_compatibles, :model_id, :models
+    foreign_key :models_compatibles, :compatible_id, :models
+
   end
 
   def self.down

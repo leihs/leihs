@@ -10,6 +10,9 @@ class CreateWorkdays < ActiveRecord::Migration
       t.boolean :saturday, :default => false
       t.boolean :sunday, :default => false
     end
+
+    foreign_key :workdays, :inventory_pool_id, :inventory_pools
+
   end
 
   def self.down

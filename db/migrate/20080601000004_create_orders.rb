@@ -8,8 +8,9 @@ class CreateOrders < ActiveRecord::Migration
       t.timestamps
     end
     add_index(:orders, :status_const)
+    foreign_key :orders, :user_id, :users
+    foreign_key :orders, :inventory_pool_id, :inventory_pools
 
-    #execute "alter table orders add constraint fk_order_user foreign key (user_id) references users(id)"
 
     # TODO acts_as_backupable
     create_table :backup_orders do |t|
@@ -21,8 +22,10 @@ class CreateOrders < ActiveRecord::Migration
       t.timestamps
     end
     add_index(:backup_orders, :status_const)
-     
-     
+    foreign_key :backup_orders, :order_id, :orders
+    foreign_key :backup_orders, :user_id, :users
+    foreign_key :backup_orders, :inventory_pool_id, :inventory_pools
+          
   end
 
   def self.down

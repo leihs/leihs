@@ -34,9 +34,8 @@ class Backend::TakeBackController < Backend::BackendController
     @options = Option.find(params[:options].split(',')) if params[:options]
     
     if request.post?
-      #temp# @lines = @user.get_signed_contract_lines.find(params[:lines].split(','))
-      @lines = current_inventory_pool.contract_lines.find(params[:lines]) #if params[:lines]
-      @contracts = @lines.collect(&:contract).uniq #if @lines
+      @lines = current_inventory_pool.contract_lines.find(params[:lines])
+      @contracts = @lines.collect(&:contract).uniq
       
       # set the return dates to the given contract_lines
       @lines.each { |l| l.update_attribute :returned_date, Date.today }

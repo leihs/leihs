@@ -7,6 +7,8 @@ class CreateHistories < ActiveRecord::Migration
       t.references :target, :null => false, :polymorphic => true
       t.belongs_to :user
     end
+    foreign_key :histories, :user_id, :users
+
   end
 
   def self.down
