@@ -4,7 +4,7 @@ class CreateAccessRights < ActiveRecord::Migration
       t.belongs_to :role
       t.belongs_to :user
       t.belongs_to :inventory_pool
-      t.integer :level, :default => AccessRight::EVERYBODY
+      t.integer :level, :default => AccessRight::STUDENT
       t.timestamps
     end
 

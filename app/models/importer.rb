@@ -5,5 +5,7 @@ class Importer
     msg
   end
   
-  
+  def start_once
+    InventoryImport::ImportOnce.new.start
+  end
 end

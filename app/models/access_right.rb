@@ -1,9 +1,10 @@
 class AccessRight < ActiveRecord::Base
 
-  EVERYBODY = 1
-  PRIVILEGED = 5
+  STUDENT = 1
+  EMPLOYEE = 3
+  SPECIAL = 5
   
-  LEVELS = {_("Everybody") => EVERYBODY, _("Privileged") => PRIVILEGED}
+  LEVELS = {_("Student") => STUDENT, _("Employee") => EMPLOYEE, _("Special") => SPECIAL }
 
   belongs_to :role
   belongs_to :user
