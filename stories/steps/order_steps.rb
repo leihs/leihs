@@ -2,7 +2,7 @@ steps_for(:order) do
  
   
   Given "the list of submitted orders contains $total elements" do | total |
-    orders = Order.submitted_orders
+    orders = Order.submitted
     orders.size.should == 0
     user = Factory.create_user
     total.to_i.times { orders << Factory.create_order(:user_id => user.id).submit }

@@ -115,7 +115,7 @@ class Backend::BackendController < ApplicationController
     @current_inventory_pool = current_inventory_pool
 
     if @current_inventory_pool
-      @to_acknowledge_size = @current_inventory_pool.orders.submitted_orders.size
+      @to_acknowledge_size = @current_inventory_pool.orders.submitted.size
       @to_hand_over_size = @current_inventory_pool.hand_over_visits.size
       @to_take_back_size = @current_inventory_pool.take_back_visits.size
       @to_remind_size = @current_inventory_pool.remind_visits.size

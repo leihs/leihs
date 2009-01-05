@@ -9,9 +9,11 @@ class Backend::OrdersController < Backend::BackendController
 
     case params[:filter]
       when "submitted"
-        orders = orders.submitted_orders
+        orders = orders.submitted
       when "approved"
-        orders = orders.approved_orders
+        orders = orders.approved
+      when "rejected"
+        orders = orders.rejected
     end
 
     unless params[:query].blank?
@@ -20,10 +22,17 @@ class Backend::OrdersController < Backend::BackendController
       @orders = orders.paginate :page => params[:page], :per_page => $per_page
     end
   end
+
+  def show
+      
+  end
+  
   
   private
   
   def preload
+    params[:order_id] ||= params[:id] if params[:id]
+    @order = current_inventory_pool.orders.find(params[:order_id]) if params[:order_id]
     @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
   end
   

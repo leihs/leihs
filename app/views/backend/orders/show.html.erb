@@ -1,0 +1,56 @@
+
+<% if @order.errors.size > 0 %>
+	<ul style="border: 1px solid red; padding: 2px;">
+	<% @order.errors.full_messages.each do |e| %>		
+		<li><%= e %></li>
+	<% end %>	
+	</ul>
+<% end %>			
+
+
+			
+			<div id="meta" class="boxes">
+				
+				<div id="meta-bestellung">
+					<h2><%= _("Order No.") + " #{@order.id} (#{@order.status_string})" %></h2>
+					<table cellspacing="0">
+						<tr class="alt-row">
+							<td>
+								<%=_("Reserver") + ":" %>
+							</td> 
+							<td>
+								<%= greybox_link_to_page(@order.user.login,
+										backend_inventory_pool_user_path(@current_inventory_pool, @order.user, :layout => "modal"),
+										:title => _("User"),
+										:class => "iconized-notxt edit-user" ) %>
+							</td>
+						</tr>
+						<tr class="alt-row">
+							<td><%= _("Time window") %>:</td>
+							<td><%= short_date(@order.time_window_min) %> - <%= short_date(@order.time_window_max)%></td>
+						</tr>
+						<tr class="alt-row">
+							<td>
+								<%= _("Purpose") %>
+							</td>
+							<td><%= simple_format @order.purpose %></td>
+						</tr>
+					</table>
+				</div>
+				
+				<%= render :partial => 'additional_infos'%>
+				
+			</div>
+							
+			<div class="table-overview">
+				
+				<div class="toolbar-second">
+					<h3><%= _("Models") %></h3>
+				</div>
+				
+
+				<table cellspacing="0" id='lines'>
+					<%= render :partial => 'lines' %>
+				</table>				
+						
+			</div>

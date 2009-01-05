@@ -2,7 +2,7 @@ steps_for(:hand_over) do
 
 
   Given "the list of approved orders contains $total elements" do | total |
-    orders = @inventory_pool.orders.approved_orders
+    orders = @inventory_pool.orders.approved
     user = Factory.create_user
     total.to_i.times { orders << Factory.create_order(:user_id => user.id, :status_const => Order::APPROVED) }
     orders.size.should == total.to_i

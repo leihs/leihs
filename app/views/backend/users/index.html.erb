@@ -12,7 +12,7 @@
 				</td>
 				<td>
 					<ul>
-						<li>Orders: <%= user.orders.size %> (<%= link_to user.orders.submitted_orders.size,
+						<li>Orders: <%= user.orders.size %> (<%= link_to user.orders.submitted.size,
 														 :controller => 'acknowledge',
 														 :action => 'index',
 														 :user_id => user.id %>)</li>

@@ -3,11 +3,11 @@ class Backend::AcknowledgeController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    orders = current_inventory_pool.orders.submitted_orders
+    orders = current_inventory_pool.orders.submitted
     @submitted_orders = orders
     @working_orders = orders.select { |o| o.has_backup? }
 
-    orders = orders & @user.orders.submitted_orders if @user
+    orders = orders & @user.orders.submitted if @user
 
     unless params[:query].blank?
       @orders = orders.search(params[:query], :page => params[:page], :per_page => $per_page)
@@ -127,7 +127,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def pre_load
       @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
-      @order = @user.orders.submitted_orders.find(params[:id]) if params[:id] and @user
+      @order = @user.orders.submitted.find(params[:id]) if params[:id] and @user
     rescue
       redirect_to :action => 'index' unless @order
   end
