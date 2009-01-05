@@ -7,7 +7,11 @@ class CreateContracts < ActiveRecord::Migration
       t.string :purpose # TODO implement
       t.timestamps
     end
+
     add_index(:contracts, :status_const)
+
+    foreign_key :contracts, :user_id, :users
+    foreign_key :contracts, :inventory_pool_id, :inventory_pools
 
   end
 

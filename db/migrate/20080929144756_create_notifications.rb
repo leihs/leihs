@@ -5,6 +5,8 @@ class CreateNotifications < ActiveRecord::Migration
       t.string :title, :default => ""
       t.datetime :created_at, :null => false
     end
+    foreign_key :notifications, :user_id, :users
+
   end
 
   def self.down

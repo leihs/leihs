@@ -19,9 +19,8 @@ class CreateUsersAndAuthenticationSystem < ActiveRecord::Migration
       t.string :unique_id
       t.string :email
       t.timestamps
-    
     end
-
+    foreign_key :users, :authentication_system_id, :authentication_systems
     
   end
 

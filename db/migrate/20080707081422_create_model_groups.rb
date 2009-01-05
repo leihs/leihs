@@ -13,16 +13,16 @@ class CreateModelGroups < ActiveRecord::Migration
       t.belongs_to :model
       t.integer :quantity
     end
-    add_index(:model_links, :model_group_id)
-    add_index(:model_links, :model_id)
+    foreign_key :model_links, :model_group_id, :model_groups
+    foreign_key :model_links, :model_id, :models
 
     create_table :model_groups_parents, :id => false do |t|
       t.belongs_to :model_group
       t.belongs_to :parent
       t.string  :label
     end
-    add_index(:model_groups_parents, :model_group_id)
-    add_index(:model_groups_parents, :parent_id)
+    foreign_key :model_groups_parents, :model_group_id, :model_groups
+    foreign_key :model_groups_parents, :parent_id, :model_groups
     
   end
 

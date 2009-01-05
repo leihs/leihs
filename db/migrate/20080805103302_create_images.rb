@@ -17,6 +17,9 @@ class CreateImages < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    foreign_key :images, :model_id, :models
+
   end
 
   def self.down

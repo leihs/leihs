@@ -7,6 +7,9 @@ class CreateProperties < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    foreign_key :properties, :model_id, :models
+  
   end
 
   def self.down

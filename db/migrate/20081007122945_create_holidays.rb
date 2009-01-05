@@ -6,6 +6,9 @@ class CreateHolidays < ActiveRecord::Migration
       t.date :end_date
       t.string :name
     end
+
+    foreign_key :holidays, :inventory_pool_id, :inventory_pools
+
   end
 
   def self.down

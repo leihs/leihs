@@ -12,6 +12,12 @@ class CreateContractLines < ActiveRecord::Migration
       
       t.timestamps
     end
+    
+    foreign_key :contract_lines, :contract_id, :contracts
+    foreign_key :contract_lines, :item_id, :items
+    foreign_key :contract_lines, :model_id, :models
+    foreign_key :contract_lines, :location_id, :locations
+
   end
 
   def self.down

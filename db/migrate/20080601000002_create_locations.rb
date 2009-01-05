@@ -9,6 +9,9 @@ class CreateLocations < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    foreign_key :locations, :inventory_pool_id, :inventory_pools
+
   end
 
   def self.down

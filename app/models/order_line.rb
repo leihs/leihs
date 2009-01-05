@@ -30,10 +30,10 @@ class OrderLine < DocumentLine
     false
   end
 
-  # TODO temp check, remove it 
-  def correct_inventory_pool?
-    model.inventory_pools.any?{|ip| ip == order.inventory_pool }
-  end
+  # TODO use as validation?
+#  def correct_inventory_pool?
+#    model.inventory_pools.include?(order.inventory_pool)
+#  end
 
   def document
     order
