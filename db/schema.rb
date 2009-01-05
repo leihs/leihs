@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.string   "title",            :limit => 50
     t.text     "comment"
     t.datetime "created_at"
-    t.integer  "commentable_id",                 :null => false
-    t.string   "commentable_type",               :null => false
+    t.integer  "commentable_id",                                 :null => false
+    t.string   "commentable_type",               :default => "", :null => false
     t.integer  "user_id"
   end
 
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.integer  "type_const"
     t.datetime "created_at",                  :null => false
     t.integer  "target_id",                   :null => false
-    t.string   "target_type",                 :null => false
+    t.string   "target_type", :default => "", :null => false
     t.integer  "user_id"
   end
 
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   create_table "inventory_pools", :force => true do |t|
     t.string "name"
     t.text   "description"
+    t.string "contact_details"
     t.string "contract_description"
     t.string "contract_url"
     t.string "logo_url"
@@ -141,11 +142,18 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.string   "serial_number"
     t.integer  "model_id"
     t.integer  "location_id"
+    t.integer  "owner_id"
     t.integer  "parent_id"
-    t.integer  "required_level", :default => 1
-    t.boolean  "is_broken",      :default => false
-    t.boolean  "is_incomplete",  :default => false
-    t.boolean  "is_borrowable",  :default => true
+    t.integer  "required_level",                               :default => 1
+    t.string   "invoice_number"
+    t.date     "invoice_date"
+    t.date     "last_check"
+    t.date     "retired"
+    t.string   "retired_reason"
+    t.decimal  "price",          :precision => 8, :scale => 2
+    t.boolean  "is_broken",                                    :default => false
+    t.boolean  "is_incomplete",                                :default => false
+    t.boolean  "is_borrowable",                                :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -191,10 +199,14 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   add_index "model_links", ["model_id"], :name => "index_model_links_on_model_id"
 
   create_table "models", :force => true do |t|
-    t.string   "name",                                  :null => false
+    t.string   "name",                                               :default => "",    :null => false
     t.string   "manufacturer"
-    t.integer  "maintenance_period", :default => 0
-    t.boolean  "is_package",         :default => false
+    t.string   "description"
+    t.string   "internal_description"
+    t.string   "info_url"
+    t.decimal  "rental_price",         :precision => 8, :scale => 2
+    t.integer  "maintenance_period",                                 :default => 0
+    t.boolean  "is_package",                                         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

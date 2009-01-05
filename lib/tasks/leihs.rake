@@ -6,6 +6,10 @@ namespace :leihs do
     create_some(params)
   end
   
+  desc "Migration from leihs1 - items that are not in ithelp"
+  task :init_once => :environment do
+    create_once
+  end
   
   desc "Maintenance: rebuild ferret index"
   task :maintenance => :environment do
@@ -60,6 +64,11 @@ namespace :leihs do
 ################################################################################################
 # Refactoring from Backend::TemporaryController
 
+  def create_once
+    puts "Importing from leihs 1"
+    Importer.new.start_once
+    puts "Done"
+  end
   
   def create_some(params = {})
     puts "Initializing #{params[:all]} items ..."
@@ -83,11 +92,11 @@ namespace :leihs do
    # create_some_categories
     create_some_root_categories
 #old#    create_some_packages
-    create_some_templates
+#    create_some_templates
 
-    create_some_properties
-    create_some_compatibles
-    create_some_accessories
+#    create_some_properties
+#    create_some_compatibles
+#    create_some_accessories
     
     puts "Complete"
   end
