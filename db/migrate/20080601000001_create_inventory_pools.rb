@@ -3,6 +3,7 @@ class CreateInventoryPools < ActiveRecord::Migration
     create_table :inventory_pools do |t|
       t.string :name
       t.text   :description
+      t.string :contact_details
       t.string :contract_description
       t.string :contract_url
       t.string :logo_url

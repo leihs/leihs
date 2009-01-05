@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.string   "title",            :limit => 50
     t.text     "comment"
     t.datetime "created_at"
-    t.integer  "commentable_id",                                 :null => false
-    t.string   "commentable_type",               :default => "", :null => false
+    t.integer  "commentable_id",                 :null => false
+    t.string   "commentable_type",               :null => false
     t.integer  "user_id"
   end
 
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.integer  "type_const"
     t.datetime "created_at",                  :null => false
     t.integer  "target_id",                   :null => false
-    t.string   "target_type", :default => "", :null => false
+    t.string   "target_type",                 :null => false
     t.integer  "user_id"
   end
 
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   add_index "items", ["is_borrowable"], :name => "index_items_on_is_borrowable"
   add_index "items", ["model_id"], :name => "fk_items_model_id"
   add_index "items", ["location_id"], :name => "fk_items_location_id"
+  add_index "items", ["owner_id"], :name => "fk_items_owner_id"
   add_index "items", ["parent_id"], :name => "fk_items_parent_id"
 
   create_table "locations", :force => true do |t|
@@ -226,7 +227,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   add_index "model_links", ["model_id"], :name => "fk_model_links_model_id"
 
   create_table "models", :force => true do |t|
-    t.string   "name",                                               :default => "",    :null => false
+    t.string   "name",                                                                  :null => false
     t.string   "manufacturer"
     t.string   "description"
     t.string   "internal_description"
