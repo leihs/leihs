@@ -1,0 +1,23 @@
+
+<!-- start header -->
+	<tr>
+		<th scope="col"><%= _("Quantity") %></th>
+		<th scope="col"><%= _("Item") %></th>
+		<th scope="col"><%= _("Time frame") %></th>
+	</tr>
+<!-- end header -->
+
+<!-- start iterator -->
+<%
+last_date = Date.new
+for @line in @order.lines  
+	if @line.start_date > last_date
+  		last_date = @line.start_date
+    	%>
+		<tr class="line_header"><td colspan="4" class="title"><%= short_date(@line.start_date) %></td></tr>
+	<% end %>
+	<%= render :partial => 'line' %>
+<% end %>
+<!-- end iterator -->						
+
+

@@ -41,7 +41,7 @@ table.orders th {
 	<th><%= _("Purpose") %></th>
 	</tr>
 	
-<% current_user.orders.submitted_orders.each do |order| %>	
+<% current_user.orders.submitted.each do |order| %>	
 	<tr>
 	<td><%= today_or_yesterday_date(order.created_at) %></td>
 	<td><%= order.inventory_pool %></td>

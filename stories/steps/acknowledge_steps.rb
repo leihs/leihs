@@ -2,7 +2,7 @@ steps_for(:acknowledge) do
 
   
   Given "the list of new orders contains $total elements" do | total |
-    orders = Order.submitted_orders
+    orders = Order.submitted
     orders.size.should == total.to_i
   end
 

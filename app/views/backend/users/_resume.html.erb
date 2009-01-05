@@ -1,5 +1,5 @@
 <%
-to_acknowledge_size = (@current_inventory_pool.orders.submitted_orders & @user.orders.submitted_orders).size
+to_acknowledge_size = (@current_inventory_pool.orders.submitted & @user.orders.submitted).size
 
 to_hand_over_size = @current_inventory_pool.hand_over_visits.select { |v| v.user == @user }.collect(&:quantity).sum
 

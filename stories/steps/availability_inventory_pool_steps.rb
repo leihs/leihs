@@ -70,7 +70,7 @@ steps_for(:availability_inventory_pool) do
 
   Then "$size order$s1 exist$s2 for inventory pool $ip" do |size, s1, s2, ip|
     inventory_pool = InventoryPool.find_by_name(ip)
-    @submitted_orders = inventory_pool.orders.submitted_orders
+    @submitted_orders = inventory_pool.orders.submitted
     @submitted_orders.size.should == size.to_i
   end
 
