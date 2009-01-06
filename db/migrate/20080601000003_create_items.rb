@@ -5,6 +5,7 @@ class CreateItems < ActiveRecord::Migration
       t.string :serial_number
       t.belongs_to :model #, :null => false
       t.belongs_to :location #, :null => false
+      t.belongs_to :supplier
       t.integer :owner_id
       t.integer :parent_id, :null => true # for package purpose
       t.integer :required_level, :default => AccessRight::STUDENT

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081007122945) do
+ActiveRecord::Schema.define(:version => 20090106104142) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.string   "title",            :limit => 50
     t.text     "comment"
     t.datetime "created_at"
-    t.integer  "commentable_id",                 :null => false
-    t.string   "commentable_type",               :null => false
+    t.integer  "commentable_id",                                 :null => false
+    t.string   "commentable_type",               :default => "", :null => false
     t.integer  "user_id"
   end
 
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.integer  "type_const"
     t.datetime "created_at",                  :null => false
     t.integer  "target_id",                   :null => false
-    t.string   "target_type",                 :null => false
+    t.string   "target_type", :default => "", :null => false
     t.integer  "user_id"
   end
 
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.string   "serial_number"
     t.integer  "model_id"
     t.integer  "location_id"
+    t.integer  "supplier_id"
     t.integer  "owner_id"
     t.integer  "parent_id"
     t.integer  "required_level",                               :default => 1
@@ -227,7 +228,7 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
   add_index "model_links", ["model_id"], :name => "fk_model_links_model_id"
 
   create_table "models", :force => true do |t|
-    t.string   "name",                                                                  :null => false
+    t.string   "name",                                               :default => "",    :null => false
     t.string   "manufacturer"
     t.string   "description"
     t.string   "internal_description"
@@ -320,6 +321,12 @@ ActiveRecord::Schema.define(:version => 20081007122945) do
     t.integer "lft"
     t.integer "rgt"
     t.string  "name"
+  end
+
+  create_table "suppliers", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
