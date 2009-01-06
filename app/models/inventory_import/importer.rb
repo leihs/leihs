@@ -49,7 +49,8 @@ class InventoryImport::Importer
           :is_incomplete => gegenstand.paket.nil? ? false : (gegenstand.paket.status == 0),
           :is_broken => gegenstand.paket.nil? ? false : (gegenstand.paket.status == -2),
           :is_borrowable => gegenstand.ausleihbar?,
-          :price => gegenstand.kaufvorgang.kaufpreis.nil? ? 0 : gegenstand.kaufvorgang.kaufpreis / 100 
+          :price => gegenstand.kaufvorgang.kaufpreis.nil? ? 0 : gegenstand.kaufvorgang.kaufpreis / 100,
+          :supplier => Supplier.find_or_create_by_name({ :name => item.Lief_Firma })
         }
         item = Item.find_or_create_by_inventory_code item_attributes
         count += 1

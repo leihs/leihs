@@ -8,6 +8,7 @@ class Item < ActiveRecord::Base
   belongs_to :model
   belongs_to :location
   belongs_to :owner, :class_name => "InventoryPool", :foreign_key => "owner_id"
+  belongs_to :supplier
   delegate :inventory_pool, :to => :location  #old# has_one :inventory_pool, :through => :location
   
   has_many :contract_lines
