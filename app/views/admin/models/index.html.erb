@@ -22,7 +22,7 @@
 						   			:records => @models do |model| %>	
 
 			<tr>
-				<td><%= image_tag(model.images.first.public_filename(:thumb)) unless model.images.empty? %></td>
+				<td><%= link_to image_tag(model.image_thumb), admin_model_path(model) if model.image_thumb %></td>
 				<td><%= model.name %></td>
 				<td><%= model.manufacturer %></td>
 				<td><%= model.items.size %></td>
