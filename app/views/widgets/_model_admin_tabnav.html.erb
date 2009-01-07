@@ -9,7 +9,7 @@
 	</ul>
 <% end %>			
 
-<h2><%= image_tag(@model.images.first.public_filename(:thumb)) unless @model.images.empty? %>
+<h2><%= image_tag(@model.image_thumb) if @model.image_thumb %>
 	<%= @model.name %></h2>
 
 <%  

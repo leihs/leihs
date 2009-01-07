@@ -9,7 +9,7 @@
 	</ul>
 <% end %>			
 
-<h2><%= image_tag(@model.images.first.public_filename(:thumb)) unless @model.images.empty? %>
+<h2><%= image_tag(@model.image_thumb) if @model.image_thumb %>
 	<%= @model.name %></h2>
 
 <%  
@@ -29,11 +29,11 @@ render_tabnav :package_backend,
 		t.highlights_on :action => 'package_items'
 	end
 
-#	add_tab do |t|
-#		t.named _('Categories')
-#		t.links_to backend_inventory_pool_model_categories_path(@current_inventory_pool, @model)
-#		t.highlights_on :controller => 'backend/categories', :action => 'index'
-#	end
+	add_tab do |t|
+		t.named _("Categories (%d)") % @model.categories.size
+		t.links_to backend_inventory_pool_model_categories_path(@current_inventory_pool, @model)
+		t.highlights_on :controller => 'backend/categories', :action => 'index'
+	end
 
 	add_tab do |t|
 		t.named _('Location')

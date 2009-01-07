@@ -10,7 +10,7 @@
 <% end %>			
 
 <% if @item.model %>
-	<h2><%= image_tag(@item.model.images.first.public_filename(:thumb)) unless @item.model.images.empty? %>
+	<h2><%= image_tag(@item.model.image_thumb) if @item.model.image_thumb %>
 		<%= @item.model.name %></h2>
 <% end %>
 

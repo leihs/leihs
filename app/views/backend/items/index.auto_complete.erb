@@ -2,7 +2,7 @@
 <% for item in @items %>
 	<li id="<%= dom_id(item) %>" style="clear: both;">
 		<% unless item.model.images.empty? %>
-			<span class="informal" style="float: left;"><%= image_tag(item.model.images.first.public_filename(:thumb)) %></span>
+			<span class="informal" style="float: left;"><%= image_tag(item.model.image_thumb) %></span>
 		<% end %>
 		<div class="name"><%=h item.model.name %></div>
 		<span class="informal"><i><%=h item.model.manufacturer %></i></span>

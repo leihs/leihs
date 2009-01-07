@@ -37,7 +37,7 @@
 						   			:records => @models do |model| %>	
 
 			<tr>
-				<td><%= image_tag(model.images.first.public_filename(:thumb)) unless model.images.empty? %></td>
+				<td><%= link_to image_tag(model.image_thumb), backend_inventory_pool_model_path(@current_inventory_pool, model) if model.image_thumb and !params[:source_path] %></td>
 				<td><%= model.name %></td>
 				<td><%= @current_inventory_pool.items.count(:conditions => {:model_id => model.id}) %></td>
 				<td><%= (model.compatibles & @current_inventory_pool.models).size %></td>

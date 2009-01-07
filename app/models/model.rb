@@ -62,7 +62,11 @@ class Model < ActiveRecord::Base
   def <=>(other)
     self.name <=> other.name
   end
-  
+
+  # TODO 06** define main image
+  def image_thumb
+    ( images.empty? ? nil : images.first.public_filename(:thumb) )
+  end
 #############################################  
 # Availability
 #############################################  

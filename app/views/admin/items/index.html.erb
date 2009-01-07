@@ -11,7 +11,7 @@
 						   			:records => @items do |item| %>	
 
 			<tr>
-				<td><%= image_tag(item.model.images.first.public_filename(:thumb)) unless item.model.nil? or item.model.images.empty? %></td>
+				<td><%= link_to image_tag(item.model.image_thumb), admin_item_path(item) if item.model and item.model.image_thumb %></td>
 				<td><%= item.model.name if item.model %></td>
 				<td><%= item.inventory_code %></td>
 				<td><%= item.serial_number %></td>
