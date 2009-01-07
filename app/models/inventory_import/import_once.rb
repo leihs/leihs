@@ -5,7 +5,7 @@ class InventoryImport::ImportOnce
     connect_dev
     #connect_prod
     
-    #import_items(max)
+    import_items(max)
     import_users
     
   end
