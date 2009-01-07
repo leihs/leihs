@@ -11,3 +11,26 @@
 
 </div>
 
+<table style="margin: 15px 0 15px 0;"><tr>
+<td style="vertical-align:top; width: 33%;">
+	<% orders = @current_inventory_pool.orders.submitted.reverse[0..4] %>
+	<%= render :partial => "/backend/acknowledge/index", :locals => { :orders => orders } unless orders.empty? %>
+</td>
+
+<td style="vertical-align:top; width: 33%;">
+	<% visits = @current_inventory_pool.hand_over_visits.select {|v| v.start < Date.today } %>
+	<%= render :partial => "/backend/hand_over/index", :locals => { :visits => visits, :title => _("Overdue") } unless visits.empty? %>
+	<br />
+	<% visits = @current_inventory_pool.hand_over_visits.select {|v| v.start == Date.today } %>
+	<%= render :partial => "/backend/hand_over/index", :locals => { :visits => visits, :title => _("Today") } unless visits.empty? %>
+</td>
+
+<td style="vertical-align:top; width: 33%;">
+	<% visits = @current_inventory_pool.remind_visits %>
+	<%= render :partial => "/backend/take_back/index", :locals => { :visits => visits, :title => _("Overdue") } unless visits.empty? %>
+	<br />
+	<% visits = @current_inventory_pool.take_back_visits.select {|v| v.start == Date.today } %>
+	<%= render :partial => "/backend/take_back/index", :locals => { :visits => visits, :title => _("Today") } unless visits.empty? %>
+</td>
+
+</tr></table>

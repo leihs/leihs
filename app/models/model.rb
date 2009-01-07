@@ -1,6 +1,6 @@
 class Model < ActiveRecord::Base
   has_many :items # TODO filter children items, has_many :all_items ??
-  has_many :locations, :through => :items, :uniq => true
+  has_many :locations, :through => :items, :uniq => true  # OPTIMIZE N+1 select problem, :include => :inventory_pools
   has_many :inventory_pools, :through => :locations, :uniq => true
   
   has_many :order_lines

@@ -34,6 +34,7 @@ class Backend::HandOverController < Backend::BackendController
       render :action => 'print_contract', :layout => $modal_layout_path
     else
       @lines = @lines.delete_if {|l| l.item.nil? }
+      flash[:error] = _("No items to hand over specified. Please assign inventory codes to the items you want to hand over.") if @lines.empty?
       render :layout => $modal_layout_path
     end    
   end

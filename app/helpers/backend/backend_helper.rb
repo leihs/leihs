@@ -42,18 +42,22 @@ module Backend::BackendHelper
       s = content_tag :tr do
         r = ""
         options[:columns].each do |column|
-          r += content_tag :th do
+          r += content_tag :th, :style => "white-space:nowrap;" do
+            p = ""
             if column.is_a?(Array)
-              if params[:sort] == column[1]
-                dir = (params[:dir] ? nil : "DESC")
-              end
-              link_to_remote column[0],
+              b = (params[:sort] == column[1])
+              dir = (params[:dir] ? nil : "DESC") if b
+              p += link_to_remote column[0],
                 :url => params.merge({ :sort => column[1], :dir => dir}),
+                :method => :get,
+                :form => true,
                 :update => 'list_table',
                 :loading => "Element.show('spinner')"
+              p += image_tag($layout_public_path + "/images/icons/arrow_" + (params[:dir] ? "down" : "up") +".png", :style => "vertical-align: bottom;" ) if b
             else
-              column
-            end  
+              p += column
+            end
+            p
           end
         end
         r

@@ -1,6 +1,6 @@
 
 <% tableize @user.access_rights.all(:conditions => {:inventory_pool_id => @current_inventory_pool.id}),
-		 :header => "Access Rights",
+		 :header => _("Access Rights"),
 		 :generate_css => true do |a| %>
 
 		<b><%= a.to_s %></b>
@@ -18,10 +18,12 @@
 	<table style="width: 400px">
 		<tr>
 			<th><%= _("Role") %></th>
+			<th><%= _("Level") %></th>
 			<th></th>
 		</tr>
 		<tr>
 			<td><%= collection_select(:access_right, :role_id, Role.all(:conditions => ["name != 'admin'"]), :id, :name, {}, {:size => 5}) %></td>
+			<td><%= select_tag :level, options_for_select(AccessRight::LEVELS) %> </td>
 			<td><%= submit_tag _('Add') %></td>
 			</tr>
 	</table>

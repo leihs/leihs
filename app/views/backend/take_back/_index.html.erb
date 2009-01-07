@@ -1,0 +1,20 @@
+<table>
+	<tr>
+	<th colspan="2"><%= image_tag($layout_public_path + "/images/icons/arrow_undo.png") + " #{title} " + _("Take Back visits") %></th>
+	</tr>
+	
+<% visits.each do |visit| %>	
+	<tr>
+		<td>
+			<%= short_date(visit.date) %>
+			<br />
+			<b><%= visit.user.login %></b>
+		</td>
+		<td class="buttons">
+			<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png"),
+					backend_inventory_pool_user_take_back_path(@current_inventory_pool, visit.user) %>
+		</td>
+	</tr>
+<% end %>
+
+</table>

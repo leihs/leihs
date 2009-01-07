@@ -1,5 +1,5 @@
-# sellittf
 # Patch for rails/activerecord/lib/active_record/serialization.rb
+# by Franco Sellitto (sellittf)
 # ** 1st**
 # provides arguments to :methods, wrapping method name and arguments into an array
 # :methods => [:name]
