@@ -1,8 +1,16 @@
+require 'user'
 class InventoryImport::ImportOnce
   
   def start(max = 999999)
     connect_dev
     #connect_prod
+    
+    #import_items(max)
+    import_users
+    
+  end
+
+  def import_items(max)
     inventar = InventoryImport::Gegenstand.find(:all, :conditions => "original_id is null")
     count = 0
     successfull = 0
@@ -54,8 +62,9 @@ class InventoryImport::ImportOnce
     puts "Total: #{count}"
     puts "Successfull: #{successfull}"
     puts "Not so successfull: #{count - successfull}"
+    
   end
-
+  
   def get_location(gegenstand)
     if gegenstand.paket
       get_owner(gegenstand.paket.geraetepark.name)
@@ -97,11 +106,58 @@ class InventoryImport::ImportOnce
     puts "Couldn't append #{url} to #{model.name}"
   end
 
+  def import_users
+    count = 0
+    ignored = 0
+    errors = 0
+    admins = 0
+    InventoryImport::User.all.each do |user|
+      count += 1
+      if user.geraeteparks_users.count > 0
+        u = User.find_or_create_by_email(:email => user.email, :login => user.login)
+        if u.save
+          if user.benutzerstufe >= 5 
+            role = Role.find_by_name('admin')
+            u.access_rights << AccessRight.create(:user => u, :role => role)
+            admins += 1
+          end
+
+          user.geraeteparks_users.each do |geraetepark|
+            level = user.benutzerstufe > 0 and user.benutzerstufe < 4 ? user.benutzerstufe : 1
+            role = Role.find_by_name('student')
+            role = Role.find_by_name('manager') if user.benutzerstufe == 4
+
+            u.access_rights << AccessRight.create(:user => u, 
+                                                      :role => role,
+                                                      :level => level, 
+                                                      :inventory_pool => convert_ip(geraetepark))            
+          end
+        else
+          errors += 1
+          puts "#{user.vorname} #{user.nachname} konnte nicht übernommen werden."
+        end
+      else
+        ignored += 1
+      end
+    end
+    
+    puts "Total:   #{count}"
+    puts "Ignored: #{ignored}"
+    puts "Admins:  #{admins}"
+  end
+
+  def convert_ip(ip)
+    InventoryPool.find(:first, :conditions => ['name = ?', ip.geraetepark.name])
+  end
+
+
     def connect_dev
       InventoryImport::Kaufvorgang.establish_connection(leihs_dev)
       InventoryImport::Geraetepark.establish_connection(leihs_dev)
       InventoryImport::Gegenstand.establish_connection(leihs_dev)
       InventoryImport::Paket.establish_connection(leihs_dev)
+      InventoryImport::User.establish_connection(leihs_dev)
+      InventoryImport::GeraeteparksUser.establish_connection(leihs_dev)
       InventoryImport::ItHelp.establish_connection(it_help_dev)
     end
 
@@ -141,6 +197,4 @@ class InventoryImport::ImportOnce
       		:password => '2read.0nly!' )
     end
 
-
-  
 end
