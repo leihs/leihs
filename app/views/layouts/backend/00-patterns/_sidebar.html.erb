@@ -1,7 +1,7 @@
 <ul>
 	<li><%= _('Orders') %>
 		<ul>
-			<li><%= link_to _('Submitted') + " (#{@current_inventory_pool.orders.submitted.size})", :controller => 'orders', :filter => 'submitted' %></li>
+			<li><%= link_to _('Pending') + " (#{@current_inventory_pool.orders.submitted.size})", :controller => 'orders', :filter => 'submitted' %></li>
 			<li><%= link_to _('Approved') + " (#{@current_inventory_pool.orders.approved.size})", :controller => 'orders', :filter => 'approved' %></li>
 			<li><%= link_to _('Rejected') + " (#{@current_inventory_pool.orders.rejected.size})", :controller => 'orders', :filter => 'rejected' %></li>
 		</ul>	

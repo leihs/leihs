@@ -40,8 +40,12 @@ class Backend::UsersController < Backend::BackendController
   
   def add_access_right
     r = Role.find(params[:access_right][:role_id])
-    @user.access_rights.create(:role => r, :inventory_pool => current_inventory_pool)
-
+    ar = @user.access_rights.create(:role => r, :inventory_pool => current_inventory_pool, :level => params[:level])
+    unless ar.changed?
+      flash[:notice] = _("Access Right successfully created")
+    else
+      flash[:error] = ar.errors.full_messages
+    end
     redirect_to :action => 'access_rights', :id => @user
   end
 

@@ -47,7 +47,7 @@
 							glue = (params[:source_path].include?('?') ? '&' : '?' )
 							url = "#{params[:source_path]}#{glue}#{var_id}=#{model.id}"
 						%>
-						<%=	link_to(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add"), url,
+						<%=	link_to(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Select"), url,
 							:method => 'post', :target=> '_top') %>
 					<% else %>						
 						<ul>

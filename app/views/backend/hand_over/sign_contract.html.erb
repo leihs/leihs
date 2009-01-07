@@ -1,10 +1,11 @@
 	<h2><%= _("Items to hand over") %></h2>
 
 	<ul>
-		<% @lines.each do |l| %>
-			<li><%= l.item.model.name %> - <%= l.item.inventory_code %></li>
-		<% end %>
+	<% @lines.each do |l| %>
+		<li><%= l.item.model.name %> - <%= l.item.inventory_code %></li>
+	<% end %>
 	</ul>
+
 <% if @contract.options.size > 0 %>
 <h3><%= _("Options to hand over") %></h3>
 <ul>
@@ -13,11 +14,13 @@
   <% end %>
 </ul>
 <% end %>
+
 	<br />
+
 	<div class="buttons">
 		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Confirm"),
 					 { :action => 'sign_contract', :lines => @lines },
-					 :class => 'positive', :method => 'post') %>
+					 :class => 'positive', :method => 'post') unless @lines.empty? %>
 					 
 		<%=	cancel_popup_button(_("Cancel") ) %>
 	</div>	

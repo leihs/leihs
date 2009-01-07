@@ -41,6 +41,7 @@ class ModelsController < FrontendController
 #old#    @models = models.paginate :page => ((start / limit) + 1), :per_page => limit, :order => "#{sort} #{dir}"
 #old#2    @models = Model.paginate :page => ((start / limit) + 1), :per_page => limit, :order => "#{sort} #{dir}", :conditions => ["models.id IN (?)", models.collect(&:id)] 
       @models = models.paginate :page => ((start / limit) + 1), :per_page => limit, :order => "#{sort} #{dir}", :conditions => conditions
+          # OPTIMIZE N+1 select problem, :include => :locations
       c = @models.total_entries
     end
 

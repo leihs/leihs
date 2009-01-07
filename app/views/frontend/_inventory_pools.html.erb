@@ -42,7 +42,7 @@
     inventory_pools_cm.defaultSortable = true;
 
     var inventory_pools = new Ext.grid.GridPanel({
-        title:'Inventory Pools (<%= _("%{a}/%{b}") % { :a => @current_inventory_pools.size, :b => current_user.inventory_pools.size } %>)',
+        title:'<%= _("Inventory Pools") %> (<%= _("%{a}/%{b}") % { :a => @current_inventory_pools.size, :b => current_user.inventory_pools.size } %>)',
 		border: false,
 		split: true,
         store: inventory_pools_store,

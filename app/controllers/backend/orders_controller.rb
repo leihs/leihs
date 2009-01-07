@@ -3,7 +3,6 @@ class Backend::OrdersController < Backend::BackendController
   before_filter :preload
   
   def index
-    # TODO display approved orders?? remove approved orders when contract is generated?
     orders = current_inventory_pool.orders
     orders = orders & @user.orders if @user
 
