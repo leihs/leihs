@@ -28,11 +28,10 @@ class User < ActiveRecord::Base
   has_many :contract_lines, :through => :contracts, :uniq => true
   has_many :current_contracts, :class_name => "Contract", :conditions => ["status_const = ?", Contract::NEW]
 
-# TODO 08** email validation
-  validates_presence_of     :login #, :email
+  validates_presence_of     :login, :email
   validates_length_of       :login,    :within => 3..100
-#  validates_uniqueness_of   :email
-#  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates_uniqueness_of   :email
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
     
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
   has_many :reminders, :as => :target, :class_name => "History", :dependent => :destroy, :conditions => {:type_const => History::REMIND}, :order => 'created_at ASC'
