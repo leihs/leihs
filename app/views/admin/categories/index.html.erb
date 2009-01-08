@@ -20,7 +20,7 @@
 	<% end %>
 <% elsif @model %>
 	 <div class="toolbar-second">
-		<% form_tag "/admin/models/#{@model.id}/categories",
+		<% form_tag admin_model_categories_path(@model),
 					:onsubmit => "return ($('is_selected').value == 1);" do %>
 			<%= hidden_field_tag :is_selected, 0 %>
 			<%= _("Add to category") %>:

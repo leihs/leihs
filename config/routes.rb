@@ -87,6 +87,7 @@ ActionController::Routing::Routes.draw do |map|
                                                  :notes => :any }
       end
       inventory_pool.items 'items', :controller => 'items', :action => 'index'
+      inventory_pool.resources :categories # TODO 08** only for packages?
       inventory_pool.resources :users, :member => { :new_contract => :get,
                                                     :remind => :get,
                                                     :access_rights => :get,

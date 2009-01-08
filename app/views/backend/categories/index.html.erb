@@ -1,3 +1,18 @@
+<% if @model and @model.is_package %>
+	 <div class="toolbar-second">
+		<% form_tag backend_inventory_pool_model_categories_path(@current_inventory_pool, @model),
+					:onsubmit => "return ($('is_selected').value == 1);" do %>
+			<%= hidden_field_tag :is_selected, 0 %>
+			<%= _("Add to category") %>:
+			<%= model_auto_completer ('query', nil, 'category_id', nil,
+										{ :url => backend_inventory_pool_categories_path(@current_inventory_pool, :format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
+										{ :size => 40 },
+										{ :method => :get, :select => :name }) %>
+			<%= submit_tag 'Submit' %>
+		<% end %>
+	 </div>
+<% end %>
+
 <% table_with_search_and_pagination :columns => [_("Name"), _("Type"), _("Models"), _("All Models"), _("Children"), _("All Children"), _("Parents"), _("Action")],
 						   			:records => @categories do |category| %>	
 
@@ -10,6 +25,11 @@
 				<td><%= category.all_children.size %></td>
 				<td><%= category.parents.size %></td>
 				<td class="buttons" style="white-space: nowrap">
+					<ul>
+						<li><%= link_to _("Remove"), backend_inventory_pool_model_category_path(@current_inventory_pool, @model, category),
+										:confirm => _("Are you sure?"),
+										:method => :delete if @model and @model.is_package %></li>
+					</ul>
 				</td>
 			</tr>
 
