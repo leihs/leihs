@@ -28,7 +28,7 @@ module Factory
       :login => "jerome",
       :email  => "jerome@example.com",
     }
-    
+    default_attributes[:email] = "#{attributes[:login]}@example.com" if attributes[:login]
     u = User.find_or_create_by_login default_attributes.merge(attributes)
     
     options[:role] ||= "student"
@@ -43,7 +43,7 @@ module Factory
     role = Role.find_or_create_by_name(:name => role_name)
     inventory_pool = create_inventory_pool(:name => inventory_pool_name)
     begin
-      user.access_rights << AccessRight.new(:role => role, :inventory_pool => inventory_pool)
+      user.access_rights.create(:role => role, :inventory_pool => inventory_pool)
     rescue
       # unique index, record already present
     end

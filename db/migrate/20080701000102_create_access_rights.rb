@@ -21,7 +21,7 @@ class CreateAccessRights < ActiveRecord::Migration
   end
   
   def self.create_admin
-    user = User.new(  :email => "",
+    user = User.new(  :email => "super_user_1@leihs.zhdk.ch", # TODO 08** email attribute is now required
                       :login => "super_user_1")
 
     user.unique_id = "super_user_1"
