@@ -28,7 +28,7 @@ module Factory
       :login => "jerome",
       :email  => "jerome@example.com",
     }
-    default_attributes[:email] = "#{attributes[:login]}@example.com" if attributes[:login]
+    default_attributes[:email] = "#{attributes[:login].gsub(' ', '_')}@example.com" if attributes[:login]
     u = User.find_or_create_by_login default_attributes.merge(attributes)
     
     options[:role] ||= "student"

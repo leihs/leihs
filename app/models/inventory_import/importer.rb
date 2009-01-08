@@ -116,7 +116,9 @@ class InventoryImport::Importer
       })
     end
   end
-    
+
+####################################################################
+
   def connect_dev
     InventoryImport::Geraetepark.establish_connection(leihs_dev)
     InventoryImport::Gegenstand.establish_connection(leihs_dev)
@@ -142,23 +144,34 @@ class InventoryImport::Importer
     		:username => 'root',
     		:password => '' }
   end
+
+####################################################################
   
   def connect_prod
-    InventoryImport::ItHelp.establish_connection(
-    		:adapter => 'mysql',
-    		:host => '195.176.254.49',
-    		:database => 'help',
-    		:encoding => 'utf8',
-    		:username => 'helpread',
-    		:password => '2read.0nly!' )
-
-   InventoryImport::Geraetepark.establish_connection(
-    		:adapter => 'mysql',
-    		:host => '195.176.254.49',
-    		:database => 'rails_leihs',
-    		:encoding => 'utf8',
-    		:username => 'leihsread',
-    		:password => '2read.0nly!' )
+    InventoryImport::Geraetepark.establish_connection(leihs_prod)
+    InventoryImport::Gegenstand.establish_connection(leihs_prod)
+    InventoryImport::Kaufvorgang.establish_connection(leihs_prod)
+    InventoryImport::Paket.establish_connection(leihs_prod)
+    InventoryImport::ItHelp.establish_connection(it_help_prod)
   end
+
+  def it_help_prod
+    {   :adapter => 'mysql',
+        :host => '195.176.254.49',
+        :database => 'help',
+        :encoding => 'utf8',
+        :username => 'helpread',
+        :password => '2read.0nly!' }
+  end
+  
+  def leihs_prod
+    {   :adapter => 'mysql',
+        :host => '195.176.254.49',
+        :database => 'rails_leihs',
+        :encoding => 'utf8',
+        :username => 'leihsread',
+        :password => '2read.0nly!' }
+  end
+
 
 end
