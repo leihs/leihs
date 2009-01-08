@@ -50,7 +50,7 @@ class InventoryImport::ImportOnce
           :is_incomplete => gegenstand.paket.nil? ? false : (gegenstand.paket.status == 0),
           :is_broken => gegenstand.paket.nil? ? false : (gegenstand.paket.status == -2),
           :is_borrowable => gegenstand.ausleihbar?, 
-					:price => gegenstand.kaufvorgang.nil? or gegenstand.kaufvorgang.kaufpreis.nil? ? 0 : gegenstand.kaufvorgang.kaufpreis / 100        
+					:price => (gegenstand.kaufvorgang.nil? or gegenstand.kaufvorgang.kaufpreis.nil?) ? 0 : gegenstand.kaufvorgang.kaufpreis / 100
         }
         item = Item.find_or_create_by_inventory_code item_attributes
         successfull += 1
