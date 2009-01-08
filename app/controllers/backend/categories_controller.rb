@@ -22,7 +22,29 @@ class Backend::CategoriesController < Backend::BackendController
     @category = Category.find(params[:id])
   end
 
+#################################################################
+# Only for packages 
 
+  def create
+    if @model and @category and @model.is_package
+      unless @category.models.include?(@model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
+        @category.models << @model
+        flash[:notice] = _("Category successfully assigned")
+      else
+        flash[:error] = _("The model is already assigned to this category")
+      end
+      redirect_to :action => 'index'
+    end
+  end
+
+  def destroy
+    if @model and @category and @model.is_package
+        @category.models.delete(@model)
+        flash[:notice] = _("Category successfully removed")
+        redirect_to :action => 'index'
+    end
+  end
+  
 #################################################################
 
   private
@@ -33,7 +55,7 @@ class Backend::CategoriesController < Backend::BackendController
     @model = current_inventory_pool.models.find(params[:model_id]) if params[:model_id]
 
     @tabs = []
-    @tabs << :model_backend if @model
+    @tabs << (@model.is_package ? :package_backend : :model_backend ) if @model
   end
 
 
