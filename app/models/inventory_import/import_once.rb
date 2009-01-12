@@ -115,6 +115,8 @@ class InventoryImport::ImportOnce
       count += 1
       if user.geraeteparks_users.count > 0
         u = User.find_or_create_by_email(:email => user.email, :login => user.login)
+        u.lastname = user.nachname
+        u.firstname = user.vorname
         if u.save
           if user.benutzerstufe >= 5 
             role = Role.find_by_name('admin')

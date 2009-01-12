@@ -14,7 +14,9 @@ class CreateUsersAndAuthenticationSystem < ActiveRecord::Migration
     
     
     create_table :users do |t|
-      t.string :login #TODO: Rename to 'name'
+      t.string :login
+      t.string :firstname
+      t.string :lastname
       t.belongs_to :authentication_system, :default => 1
       t.string :unique_id
       t.string :email

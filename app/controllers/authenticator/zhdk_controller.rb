@@ -37,10 +37,14 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   def create_or_update_user(xml)
     uid = xml["authresponse"]["person"]["uniqueid"]
     email = xml["authresponse"]["person"]["email"] || uid + "@leihs.zhdk.ch"
+    firstname = "#{xml['authresponse']['person']['firstname']}"
+    lastname = "#{xml["authresponse"]["person"]["lastname"]}"
     user = User.find(:first, :conditions => { :unique_id => uid }) || User.find(:first, :conditions => { :email => email }) || User.new
     user.unique_id = uid
     user.email = email
-    user.login = "#{xml['authresponse']['person']['firstname']} #{xml["authresponse"]["person"]["lastname"]}"
+    user.login = "#{firstname} #{lastname}"
+    user.firstname = firstname
+    user.lastname = lastname
     user.authentication_system = AuthenticationSystem.find(:first, :conditions => {:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME })
     if user.new_record?
       user.save
