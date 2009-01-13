@@ -1,4 +1,5 @@
 require 'user'
+
 class InventoryImport::ImportOnce
   
   def start(max = 999999)
@@ -16,6 +17,7 @@ class InventoryImport::ImportOnce
     successfull = 0
     
     inventar.each do |gegenstand|
+      
      # puts "Found: #{item.Inv_Serienr} - #{item.Art_Bezeichnung} = #{gegenstand.modellbezeichnung}"
       attributes = {
         :name => gegenstand.modellbezeichnung,
@@ -28,9 +30,12 @@ class InventoryImport::ImportOnce
       model = Model.find_or_create_by_name attributes
       
       add_picture(model, gegenstand.bild_url) if gegenstand.bild_url and not gegenstand.bild_url.blank? and model.images.size == 0
-      
-      #category = Category.find_or_create_by_name :name => item.Art_Gruppe_2
-      #category.models << model unless category.models.include?(model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
+
+      cat_name = gegenstand.paket.art if gegenstand.paket
+      cat_name ||= gegenstand.art 
+      cat_name ||= "Andere Hardware"
+      category = Category.find_or_create_by_name :name => cat_name
+      category.models << model unless category.models.include?(model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
       
       location = get_location(gegenstand)
       if location.nil?
@@ -158,6 +163,7 @@ class InventoryImport::ImportOnce
       InventoryImport::Geraetepark.establish_connection(leihs_dev)
       InventoryImport::Gegenstand.establish_connection(leihs_dev)
       InventoryImport::Paket.establish_connection(leihs_dev)
+      InventoryImport::Attribut.establish_connection(leihs_dev)
       InventoryImport::User.establish_connection(leihs_dev)
       InventoryImport::GeraeteparksUser.establish_connection(leihs_dev)
       InventoryImport::ItHelp.establish_connection(it_help_dev)

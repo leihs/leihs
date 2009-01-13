@@ -20,7 +20,7 @@
 					:title => _("Time Period") ) %>
 		</td>
 		<% b = @line.complete? %>
-		<td id="inventory_code_<%= @line.id %>" class="valid_<%= b %>" title="<%= @line.complete_tooltip unless b %>">
+		<td id="inventory_code_<%= @line.id %>" class="valid_<%= b %>">
 			<% @item = @line.item %>
 			<%= text_field_with_auto_complete :item, :inventory_code,
 											{ :id => "line_item_inventory_code_#{@line.id}",
@@ -33,6 +33,14 @@
 											{ :url => { :controller => 'models', :action => 'available_items', :model_ids => @line.model.id },
 											  :method => :get,
 											  :with => "'code=' + element.value" } %>
+						
+						
+								<% if @line.model.internal_description and not @line.model.internal_description.blank? %>
+								<% tooltip image_tag($layout_public_path + "/images/icons/information.png") do%>
+									<%= @line.model.internal_description %>
+								<% end %>
+								<% end %>
+							
 		</td>
 		<td class="buttons">
 
