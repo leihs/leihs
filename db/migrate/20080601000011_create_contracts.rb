@@ -4,7 +4,7 @@ class CreateContracts < ActiveRecord::Migration
       t.belongs_to :user
       t.belongs_to :inventory_pool
       t.integer :status_const, :default => Contract::NEW 
-      t.string :purpose # TODO implement
+      t.string :purpose
       t.timestamps
     end
 

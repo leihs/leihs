@@ -3,7 +3,7 @@ class CreateOrderLines < ActiveRecord::Migration
     create_table :order_lines do |t|
       t.belongs_to :model
       t.belongs_to :order
-      t.belongs_to :inventory_pool # OPTIMIZE redundant with order.inventory_pool
+      t.belongs_to :inventory_pool
       t.integer :quantity, :default => 1
       t.date :start_date
       t.date :end_date

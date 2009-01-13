@@ -1,10 +1,10 @@
 class CreateItems < ActiveRecord::Migration
   def self.up
     create_table :items do |t|
-      t.string :inventory_code #, :null => false
+      t.string :inventory_code
       t.string :serial_number
-      t.belongs_to :model #, :null => false
-      t.belongs_to :location #, :null => false
+      t.belongs_to :model
+      t.belongs_to :location
       t.belongs_to :supplier
       t.integer :owner_id
       t.integer :parent_id, :null => true # for package purpose

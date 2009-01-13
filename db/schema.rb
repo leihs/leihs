@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20090106104142) do
   create_table "accessories", :force => true do |t|
     t.integer "model_id"
     t.string  "name"
+    t.integer "quantity"
   end
 
   add_index "accessories", ["model_id"], :name => "fk_accessories_model_id"
@@ -135,16 +136,15 @@ ActiveRecord::Schema.define(:version => 20090106104142) do
   add_index "holidays", ["inventory_pool_id"], :name => "fk_holidays_inventory_pool_id"
 
   create_table "images", :force => true do |t|
-    t.integer  "model_id"
-    t.string   "content_type"
-    t.string   "filename"
-    t.integer  "size"
-    t.integer  "height"
-    t.integer  "width"
-    t.integer  "parent_id"
-    t.string   "thumbnail"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "model_id"
+    t.boolean "is_main",      :default => false
+    t.string  "content_type"
+    t.string  "filename"
+    t.integer "size"
+    t.integer "height"
+    t.integer "width"
+    t.integer "parent_id"
+    t.string  "thumbnail"
   end
 
   add_index "images", ["model_id"], :name => "fk_images_model_id"
@@ -199,13 +199,11 @@ ActiveRecord::Schema.define(:version => 20090106104142) do
   add_index "items", ["parent_id"], :name => "fk_items_parent_id"
 
   create_table "locations", :force => true do |t|
-    t.integer  "inventory_pool_id"
-    t.boolean  "is_main",           :default => false
-    t.string   "building"
-    t.string   "room"
-    t.string   "shelf"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "inventory_pool_id"
+    t.boolean "is_main",           :default => false
+    t.string  "building"
+    t.string  "room"
+    t.string  "shelf"
   end
 
   add_index "locations", ["inventory_pool_id"], :name => "fk_locations_inventory_pool_id"
@@ -275,13 +273,11 @@ ActiveRecord::Schema.define(:version => 20090106104142) do
   add_index "option_maps", ["inventory_pool_id"], :name => "fk_option_maps_inventory_pool_id"
 
   create_table "options", :force => true do |t|
-    t.integer  "contract_id"
-    t.integer  "quantity"
-    t.string   "barcode"
-    t.string   "name"
-    t.date     "returned_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "contract_id"
+    t.integer "quantity"
+    t.string  "barcode"
+    t.string  "name"
+    t.date    "returned_date"
   end
 
   add_index "options", ["contract_id"], :name => "fk_options_contract_id"
@@ -315,11 +311,9 @@ ActiveRecord::Schema.define(:version => 20090106104142) do
   add_index "orders", ["inventory_pool_id"], :name => "fk_orders_inventory_pool_id"
 
   create_table "properties", :force => true do |t|
-    t.integer  "model_id"
-    t.string   "key"
-    t.string   "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "model_id"
+    t.string  "key"
+    t.string  "value"
   end
 
   add_index "properties", ["model_id"], :name => "fk_properties_model_id"

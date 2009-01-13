@@ -3,7 +3,7 @@ class CreateAccessories < ActiveRecord::Migration
     create_table :accessories do |t|
       t.belongs_to :model
       t.string :name
-      # TODO need quantity?
+      t.integer :quantity
     end
     foreign_key :accessories, :model_id, :models
 
