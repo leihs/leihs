@@ -45,5 +45,19 @@ class ApplicationController < ActionController::Base
     { :layout => params[:layout] }
   end
 
+  def render(args = {})
+    default_args = {}
+    if params[:layout] == "modal"
+      default_args[:layout] = $modal_layout_path
+    elsif request.xml_http_request?
+      default_args[:layout] = false
+    end
+    super default_args.merge(args)
+  end
+
+  def sanitize_order(*values)
+    statement = "%s %s"
+    statement % values.collect { |value| User.connection.quote_string(value.to_s) }
+  end
   
 end

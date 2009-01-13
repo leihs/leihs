@@ -23,12 +23,7 @@ class Admin::ItemsController < Admin::AdminController
         items = items.unfinished
     end
         
-    unless params[:query].blank?
-      @items = items.search(params[:query],  :page => params[:page], :per_page => $per_page)
-    else
-      @items = items.paginate :page => params[:page], :per_page => $per_page 
-    end
-    
+    @items = items.search(params[:query],  :page => params[:page], :per_page => $per_page)
   end
 
   def show

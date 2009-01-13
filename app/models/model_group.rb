@@ -2,6 +2,7 @@ class ModelGroup < ActiveRecord::Base
 
   has_many :model_links
   has_many :models, :through => :model_links, :uniq => true
+  has_and_belongs_to_many :inventory_pools
 
 ##################################################
 
@@ -70,7 +71,7 @@ class ModelGroup < ActiveRecord::Base
 ##################################################
 
 ###  TODO alias for Ext.Tree
-  def text(parent_id = nil)
+  def text(parent_id = 0)
     parent = (parent_id == 0 ? nil : ModelGroup.find(parent_id))
     # "#{label(parent)} (#{models.size})" # TODO intersection with current_user.models
     label(parent)

@@ -32,11 +32,13 @@ class Order < Document
   end
 
 #########################################################################
-
-  named_scope :new_orders, :conditions => {:status_const => Order::NEW}, :order => 'created_at DESC'
-  named_scope :submitted, :conditions => {:status_const => Order::SUBMITTED}, :order => 'created_at DESC', :include => :backup # OPTIMIZE N+1 select problem
-  named_scope :approved, :conditions => {:status_const => Order::APPROVED}, :order => 'created_at DESC'
-  named_scope :rejected, :conditions => {:status_const => Order::REJECTED}, :order => 'created_at DESC'
+  # TODO 09** This feature is scheduled for: Rails v2.3/3.0
+  # default_scope :order => 'created_at ASC'
+  
+  named_scope :new_orders, :conditions => {:status_const => Order::NEW}, :order => 'created_at ASC'
+  named_scope :submitted, :conditions => {:status_const => Order::SUBMITTED}, :order => 'created_at ASC', :include => :backup # OPTIMIZE N+1 select problem
+  named_scope :approved, :conditions => {:status_const => Order::APPROVED}, :order => 'created_at ASC'
+  named_scope :rejected, :conditions => {:status_const => Order::REJECTED}, :order => 'created_at ASC'
 
 
 #########################################################################

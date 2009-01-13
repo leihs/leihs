@@ -1,0 +1,144 @@
+
+	  // create initial root node
+      var templates_root = new Ext.tree.AsyncTreeNode({
+        id:'0',
+		leaf: false
+      });
+	  
+	  var templates_loader = new Ext.tree.TreeLoader({
+	    url:'/templates.ext_json',
+	    requestMethod:'GET'
+	  });
+	      
+	  // create the tree
+      var templates_panel = new Ext.tree.TreePanel({
+        loader: templates_loader,
+		title: '<%= _("Templates") %>',
+		collapsible: true,
+		border: false,
+		animate:true,
+		autoScroll:true,
+        root: templates_root,
+        rootVisible:false,
+		listeners: {
+			click: function( node, e ){
+				template_grid.show();
+				//template_store.load({params:{id: node.attributes.id}});
+				template_store.proxy.conn.method = 'GET'; 
+				template_store.proxy.conn.url = '/templates/' + node.attributes.id + '.ext_json'; 
+				template_store.load({params:{template_id: node.attributes.id}}); // TODO 12** get rid of template_id
+			}
+		}
+      });
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	var template_reader = new Ext.data.JsonReader({
+		        root: 'model_links',
+		        totalProperty: 'results',
+		        id: 'model_id',
+		        fields: [{ name: 'quantity', type: 'int' },
+						 { name: 'name', type: 'string', mapping: 'model.name' },
+						 { name: 'manufacturer', type: 'string', mapping: 'model.manufacturer' },
+						 { name: 'inventory_pools', mapping: 'model.inventory_pools' },
+						 { name: 'is_package', type: 'boolean', mapping: 'model.is_package' }
+		        		]
+		    });
+
+    // create the Data Store
+    var template_store = new Ext.data.Store({
+        proxy: new Ext.data.HttpProxy({
+			conn: new Ext.data.Connection({
+            		//url: '/templates.ext_json',
+					//method: 'GET'
+				})
+        }),
+        reader: template_reader,
+        remoteSort: true // turn on remote sorting
+    });
+    template_store.setDefaultSort('name', 'ASC');
+
+    var template_cm = new Ext.grid.ColumnModel([
+		{
+           header: "Quantity",
+           dataIndex: 'quantity',
+           width: 60
+        },{
+           header: "Name",
+           dataIndex: 'name',
+           width: 400
+        },{
+           header: "Manufacturer",
+           dataIndex: 'manufacturer',
+           width: 200,
+ 		   renderer: function(value, metadata, record){
+		   				return (record.data.is_package ? '<img src="<%= $layout_public_path + "/images/icons/package_green.png" %>" />' : value);
+					 }
+        },{
+           header: "Inventory Pool",
+           dataIndex: 'inventory_pools',
+           width: 100,
+		   sortable: false,
+		   menuDisabled: true,
+ 		   renderer: function(value){
+		   				var n = new Array();
+		   				for( i=0; i<value.length; i++ )
+							n.push(value[i].name)
+						return n.join(", ");
+					 }
+        }, {header: "",
+			width: 50,
+			fixed: true,
+			dataIndex: '',
+			align: 'center',
+			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/add.png" %>" style="cursor: pointer;" />';}
+		}]);
+
+    // by default columns are sortable
+    template_cm.defaultSortable = true;
+
+    var template_grid = new Ext.grid.GridPanel({
+        title: '<%= _("Template") %>',
+		split: true,
+		region: 'north',
+        store: template_store,
+        cm: template_cm,
+		enableColumnHide: false,
+		enableColumnMove: false,
+		viewConfig: { forceFit: true },
+        loadMask: true,
+		listeners: {
+			cellclick: function( grid, rowIndex, columnIndex, e ){
+			  model_id = grid.getStore().getAt(rowIndex).id;
+			  add_tab = (columnIndex == grid.colModel.config.length - 1);
+			  model_tab = add_model_details(model_id, add_tab);
+			}
+		},
+	    tbar: [
+	        '->',
+	        {
+	            text: '<%= _("Add all") %>',
+				iconCls:'bt',
+	          	icon:'<%= $layout_public_path + "/images/icons/add.png" %>',
+	            handler: function(){
+					Ext.Ajax.request({
+						url: '/user/order/add_line',
+	 					method: 'POST',
+					    params: {"model_group_id": template_store.lastOptions.params.template_id,  // TODO 12** get rid of lastOptions
+						 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},
+						success: function(responseObject){
+							complete_order_store.load();
+						},
+						failure: function(responseObject){
+							Ext.Msg.alert('Error', responseObject.responseText);
+						}
+					});
+				}
+	        }
+	    ]
+    });
+
+
+	 	  

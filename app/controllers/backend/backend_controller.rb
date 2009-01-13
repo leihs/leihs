@@ -91,17 +91,6 @@ class Backend::BackendController < ApplicationController
       @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
     end
 
-    # OPTIMIZE **09 (merge with admin)
-    def render(args = {})
-      default_args = {}
-      if params[:layout] == "modal"
-        default_args[:layout] = $modal_layout_path
-      elsif request.xml_http_request?
-        default_args[:layout] = false
-      end
-      super default_args.merge(args)
-    end
-
 ####################################################  
   
   private

@@ -5,21 +5,22 @@
 	
 <% else %>
 
-	<% tableize InventoryPool.all,
-			 :header => _("Set inventory pool") do |ip| %>
-			 
-			 <% this = (@item.inventory_pool == ip) %>
-			 <% style = this ? "border: 1px solid; padding: 3px; background-color: white;" : "" %>
-			 
-			<span style="<%= style %>">
-				<b><%= ip.name %></b>
-					<% if this %>
-						<%= @item.location %>
-					<% else %>
-						<%= link_to _('Set'), { :inventory_pool_id => ip }, { :method => :post } %>
-					<% end %>
-			</span>
-
-	<% end %>		 	
+	<% table :columns => [_("Inventory Pool"), _("Actions")], 
+			 :records => InventoryPool.all do |ip| %>	
+	
+				 <% this = (@item.location and @item.inventory_pool == ip) %>
+				 <% style = this ? "background-color: #CCCCCC;" : "" %>
+	
+				<tr style="<%= style %>">
+					<td><%= ip.name %> <%= @item.location if this %></td>
+					<td class="buttons" style="white-space: nowrap">
+						<% if this %>
+							<%= _("Active") %>
+						<% else %>
+							<%= link_to _("Set"), { :inventory_pool_id => ip }, { :method => :post } %>
+						<% end %>
+					</td>
+				</tr>
+	<% end %>
 
 <% end %>	

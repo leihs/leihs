@@ -1,12 +1,15 @@
 module Backend::BackendHelper
 
+  def table(options = {}, html_options = {}, &block)
+    html = table_tag(options, html_options, &block)
+    concat(html, block.binding)
+  end
 
   def table_with_search_and_pagination(options = {}, html_options = {}, &block)
     html = content_tag :div, :class => "table-overview", :id => 'list_table' do
         r = search_field_tag(options[:records])
         r += table_tag(options, html_options, &block)
     end
-    
     concat(html, block.binding)
   end 
 
@@ -38,22 +41,23 @@ module Backend::BackendHelper
 
 
   def table_tag(options = {}, html_options = {}, &block)
-    content_tag :table do    
-      s = content_tag :tr do
+    content_tag :table do
+      s = ""
+      s += content_tag :tr do
         r = ""
         options[:columns].each do |column|
           r += content_tag :th, :style => "white-space:nowrap;" do
             p = ""
             if column.is_a?(Array)
               b = (params[:sort] == column[1])
-              dir = (params[:dir] ? nil : "DESC") if b
+              dir = (params[:dir] == "ASC" ? "DESC" : "ASC") if b
               p += link_to_remote column[0],
                 :url => params.merge({ :sort => column[1], :dir => dir}),
                 :method => :get,
                 :form => true,
                 :update => 'list_table',
                 :loading => "Element.show('spinner')"
-              p += image_tag($layout_public_path + "/images/icons/arrow_" + (params[:dir] ? "down" : "up") +".png", :style => "vertical-align: bottom;" ) if b
+              p += image_tag($layout_public_path + "/images/icons/arrow_" + (params[:dir] == "ASC" ? "down" : "up") +".png", :style => "vertical-align: bottom;" ) if b
             else
               p += column
             end
@@ -61,14 +65,14 @@ module Backend::BackendHelper
           end
         end
         r
-      end
+      end unless options[:columns].blank?
   
       options[:records].each do |record|
         s += capture(record, &block)
       end
       
       s
-    end        
+    end
   end
 
 
@@ -123,10 +127,11 @@ module Backend::BackendHelper
 ############################################################################################
 
   def enable_tooltip
-    javascript_tag do
-      '$$(".valid_false").each( function(tip) { new Tooltip(tip, {opacity: ".85", backgroundColor: "#FC9", borderColor: "#C96", textColor: "#000", textShadowColor: "#FFF"}); });
-       $$(".with_tooltip").each( function(tip) { new Tooltip(tip, {opacity: ".85", backgroundColor: "#FC9", borderColor: "#C96", textColor: "#000", textShadowColor: "#FFF"}); });'
-    end
+#temp#    
+#    javascript_tag do
+#      '$$(".valid_false").each( function(tip) { new Tooltip(tip, {opacity: ".85", backgroundColor: "#FC9", borderColor: "#C96", textColor: "#000", textShadowColor: "#FFF"}); });
+#       $$(".with_tooltip").each( function(tip) { new Tooltip(tip, {opacity: ".85", backgroundColor: "#FC9", borderColor: "#C96", textColor: "#000", textShadowColor: "#FFF"}); });'
+#    end
   end
 
 
@@ -171,7 +176,7 @@ module Backend::BackendHelper
         });
       
       var categories_loader = new Ext.tree.TreeLoader({
-        url:'/models/categories.ext_json',
+        url:'/categories.ext_json',
         requestMethod:'GET'
       });
   

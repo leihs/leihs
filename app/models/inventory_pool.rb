@@ -35,6 +35,13 @@ class InventoryPool < ActiveRecord::Base
   has_many :items, :through => :locations, :uniq => true
   has_many :models, :through => :items, :uniq => true
 
+  has_and_belongs_to_many :model_groups
+  has_and_belongs_to_many :templates,
+                          :join_table => 'inventory_pools_model_groups',
+                          :association_foreign_key => 'model_group_id',
+                          :conditions => {:type => 'Template'}
+
+
   has_and_belongs_to_many :accessories
 
   has_many :orders

@@ -4,12 +4,7 @@ class Backend::OptionMapsController < Backend::BackendController
 
   def index
     options = current_inventory_pool.option_maps || []
-    
-    unless params[:query].blank?
-      @option_maps = options.search(params[:query], :page => params[:page], :per_page => $per_page)
-    else
-      @option_maps = options.paginate :page => params[:page], :per_page => $per_page      
-    end
+    @option_maps = options.search(params[:query], :page => params[:page], :per_page => $per_page)
   end
   
   def show

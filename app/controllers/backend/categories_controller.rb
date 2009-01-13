@@ -10,12 +10,8 @@ class Backend::CategoriesController < Backend::BackendController
       categories = Category
     end    
     
-    unless params[:query].blank?
-      # TODO 30** searching through backend/models
-      @categories = categories.search(params[:query], :page => params[:page], :per_page => $per_page)
-    else
-      @categories = categories.paginate :page => params[:page], :per_page => $per_page      
-    end
+    # TODO 30** searching through backend/models
+    @categories = categories.search(params[:query], :page => params[:page], :per_page => $per_page)
   end
   
   def show

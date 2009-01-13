@@ -14,11 +14,7 @@ class Backend::UsersController < Backend::BackendController
         users = current_inventory_pool.users
     end
 
-    unless params[:query].blank?
-      @users = users.search(params[:query], :page => params[:page], :per_page => $per_page)
-    else
-      @users = users.paginate :page => params[:page], :per_page => $per_page      
-    end
+    @users = users.search(params[:query], :page => params[:page], :per_page => $per_page)
   end
 
   def show

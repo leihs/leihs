@@ -17,11 +17,7 @@ class Backend::ModelsController < Backend::BackendController
       models = models & (category.children.recursive.to_a << category).collect(&:models).flatten
     end
     
-    unless params[:query].blank?
-      @models = models.search(params[:query], :page => params[:page], :per_page => $per_page)
-    else
-      @models = models.paginate :page => params[:page], :per_page => $per_page
-    end
+    @models = models.search(params[:query], :page => params[:page], :per_page => $per_page)
 
     @show_categories_tree = !(request.xml_http_request? or params[:filter] == "packages")
   end

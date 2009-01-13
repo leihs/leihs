@@ -27,6 +27,7 @@
 		<ul>
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.models.size})", :controller => 'models' %></li>
 			<li><%= link_to _('Packages') + " (#{@current_inventory_pool.models.packages.size})", :controller => 'models', :filter => 'packages' %></li>
+			<li><%= link_to _('Templates') + " (#{@current_inventory_pool.templates.size})", :controller => 'templates' %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>

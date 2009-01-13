@@ -67,6 +67,7 @@ class Model < ActiveRecord::Base
   def image_thumb
     ( images.empty? ? nil : images.first.public_filename(:thumb) )
   end
+  
 #############################################  
 # Availability
 #############################################  
@@ -149,7 +150,7 @@ class Model < ActiveRecord::Base
 
     args = []
     args << "cht=bvs"
-    args << "chs=800x200"
+    args << "chs=800x150"
     args << "chxt=x,x,y,r"
     args << "chxtc=0,-200|1,5|2,-800"
     args << "chxs=1,000000,12,-1,lt,000000"

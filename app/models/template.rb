@@ -1,13 +1,31 @@
 class Template < ModelGroup
 
+  # TODO 12** belongs_to :inventory_pool through
+  # TODO 12** validates belongs_to 1 and only 1 inventory pool
+  # TODO 12** validates all models are present to current inventory_pool
+  # TODO 12** has_many :models through
+
   acts_as_ferret :fields => [ :name ], :store_class_name => true, :remote => true
+
+####################################################################################
+
+  def to_s
+    name
+  end
+
+  # compares two objects in order to sort them
+  def <=>(other)
+    self.name <=> other.name
+  end
+
+####################################################################################
+
 
   # TODO merge model_links with same models and sum quantities
 
-  # TODO pass inventory_pool_id
   def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil, inventory_pool = nil)
     model_links.each do |ml|
-      document.add_line(ml.quantity, ml.model, user_id, start_date, end_date)
+      document.add_line(ml.quantity, ml.model, user_id, start_date, end_date, inventory_pool)
     end
   end  
 

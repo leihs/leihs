@@ -16,11 +16,7 @@ class Admin::CategoriesController < Admin::AdminController
       categories = Category
     end    
     
-    unless params[:query].blank?
-      @categories = categories.search(params[:query], :page => params[:page], :per_page => $per_page)
-    else
-      @categories = categories.paginate :page => params[:page], :per_page => $per_page      
-    end
+    @categories = categories.search(params[:query], :page => params[:page], :per_page => $per_page)
     
 #    ############ start graph
 #      unless @category

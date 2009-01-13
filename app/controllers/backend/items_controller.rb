@@ -2,8 +2,10 @@ class Backend::ItemsController < Backend::BackendController
   
   before_filter :pre_load
 
-  def index( sort = params[:sort] || 'models.name',
-             dir =  params[:dir] || 'ASC')
+  def index
+    # TODO 09** fix order
+    params[:sort] ||= 'models.name'
+    params[:dir] ||= 'ASC'
 
     if @model
       items = @model.items & current_inventory_pool.items # TODO 28** optimize intersection
@@ -20,11 +22,7 @@ class Backend::ItemsController < Backend::BackendController
         items = items.unborrowable
     end
     
-    unless params[:query].blank?
-      @items = items.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => "#{sort} #{dir}", :include => [:model, :location]})
-    else
-      @items = items.paginate :page => params[:page], :per_page => $per_page, :order => "#{sort} #{dir}", :include => [:model, :location]
-    end
+    @items = items.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir]), :include => [:model, :location]})
   end
 
   def show
