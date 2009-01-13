@@ -25,6 +25,7 @@
 
 		<%= render :partial => 'topbar' %>
 		<%= render :partial => 'categories' %>
+		<%= render :partial => 'templates' %>
 		<%= render :partial => 'inventory_pools' %>
 		<%= render :partial => 'models' %>
 		<%= render :partial => 'recent_models' %>
@@ -37,7 +38,7 @@
 					id: 'center_tabs',
                     region:'center',
                     activeTab:0,
-                    items:[models_grid, order]
+                    items:[models_grid, order, template_grid] // TODO 08** open template tabs as closeable
                 });
 				   
 	   var northPanel, southPanel, eastPanel, westPanel, centerPanel;				        
@@ -73,8 +74,8 @@
                     layoutConfig:{
                         animate:true
                     },
-                    items: [categories_panel, inventory_pools
-						,{
+                    items: [categories_panel, templates_panel, inventory_pools
+						,{ // TODO refactor to _recent_models.html.erb
 	                        title: '<%= _("Recent Models") %>',
 	                        border: false,
 							listeners: {

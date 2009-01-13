@@ -20,7 +20,10 @@
 			<%= show_line_model(@line.model) %>
 		</td>
 		<% b = @line.available? %>
-		<td id="line_dates_<%= @line.id %>" class="valid_<%= b %>" title="<%= @line.available_tooltip unless b %>">
+		<td id="line_dates_<%= @line.id %>" class="valid_<%= b %>">
+			<% tooltip do %>
+				<%= @line.available_tooltip %>
+			<% end unless b %>
 			<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
 			 		{ :action => 'time_lines', :id => @order.id, :lines => @line.id },
 					:class => "thickbox iconized-notxt date-edit" ,

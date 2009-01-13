@@ -1,0 +1,38 @@
+<div class="toolbar-second">
+	<% form_for [:add_model, :backend, @current_inventory_pool, @my_template],
+				 :html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
+		<%= hidden_field_tag :is_selected, 0 %>
+
+		<%= _("Add model") %>:
+		<%= model_auto_completer ('query', nil, 'model_link[model_id]', nil,
+									{ :url => backend_inventory_pool_models_path(:format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
+									{ :size => 40 },
+									{ :method => :get, :select => :name }) %>
+		
+		<%= _("Quantity") %>:
+		<%= text_field_tag 'model_link[quantity]' %></li>	
+	
+		<%= submit_tag 'Submit' %>
+	<% end %>
+</div>
+
+<br />
+
+<% table :columns => [_(""), _("Model"), _("Quantity"), _("Action")],
+		 :records => @my_template.model_links do |ml| %>	
+
+		<tr>
+			<td><%= image_tag(ml.model.image_thumb) if ml.model.image_thumb %></td>
+			<td><%= ml.model.name %></td>
+			<td><%= ml.quantity %></td>
+			<td class="buttons">
+				<ul>
+					<li><%= link_to _("Show"), backend_inventory_pool_model_path(@current_inventory_pool, ml.model) %></li>
+					<li><%= link_to _("Remove"), backend_inventory_pool_template_path(@current_inventory_pool, @my_template, :model_link_id => ml),
+									:confirm => _("Are you sure?"),
+									:method => :delete %></li>
+				</ul>
+			</td>
+		</tr>
+
+<% end %>

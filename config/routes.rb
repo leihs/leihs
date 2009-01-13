@@ -13,24 +13,8 @@ ActionController::Routing::Routes.draw do |map|
   map.backend '/backend', :controller => 'backend/inventory_pools'
   map.admin '/admin', :controller => 'admin/inventory_pools'
 
-  # The priority is based upon order of creation: first created -> highest priority.
-
-  # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
-
-  # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
-
-  # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
+############################################################################
+# Frontend
 
   map.resource :user, :member => { :visits => :get,
                                    :timeline => :get,
@@ -40,7 +24,7 @@ ActionController::Routing::Routes.draw do |map|
       user.resource :order, :member => { :submit => :post,
                                          :add_line => :post,
                                          :change_line => :post,
-                                         :remove_lines => :post,
+                                         :remove_lines => :post,  # OPTIMIZE method
                                          :change_time_lines => :post }
       user.resources :orders
       user.resources :contracts
@@ -52,9 +36,12 @@ ActionController::Routing::Routes.draw do |map|
                           :member => { :get_inventory_pools => :any,
                                        :set_inventory_pools => :any }
                                       
-  map.resources :models, :collection => { :categories => :any }
+  map.resources :models
+  map.resources :categories
+  map.resources :templates
 
 ############################################################################
+# Backend
 
   map.namespace :backend do |backend|
     backend.resources :barcodes
@@ -77,7 +64,7 @@ ActionController::Routing::Routes.draw do |map|
                                                      :package => :get,
                                                      :package_items => :get,
                                                      :add_package_item => :put,
-                                                     :remove_package_item => :get,
+                                                     :remove_package_item => :get, # OPTIMIZE method
                                                      :package_location => :any,
                                                      :images => :get } do |model|
             model.resources :categories
@@ -86,19 +73,20 @@ ActionController::Routing::Routes.draw do |map|
                                                  :status => :get,
                                                  :notes => :any }
       end
+      inventory_pool.resources :templates, :member => { :models => :get,
+                                                        :add_model => :put }
       inventory_pool.items 'items', :controller => 'items', :action => 'index'
-      inventory_pool.resources :categories # TODO 08** only for packages?
       inventory_pool.resources :users, :member => { :new_contract => :get,
                                                     :remind => :get,
                                                     :access_rights => :get,
-                                                    :remove_access_right => :get,
+                                                    :remove_access_right => :get,  # OPTIMIZE method
                                                     :add_access_right => :post } do |user|
                user.resources :acknowledge, :member => { :approve => :any,
                                                          :reject => :any,
                                                          :delete => :get,
                                                          :add_line => :any,
                                                          :change_line => :any,
-                                                         :remove_lines => :any,
+                                                         :remove_lines => :any,  # OPTIMIZE method
                                                          :swap_model_line => :any,
                                                          :time_lines => :any,
                                                          :restore => :any,
@@ -108,12 +96,12 @@ ActionController::Routing::Routes.draw do |map|
                user.resource :hand_over, :controller => 'hand_over',
                                          :member => { :add_line => :any,
                                                       :change_line => :any,
-                                                      :remove_lines => :any,
+                                                      :remove_lines => :any,  # OPTIMIZE method
                                                       :swap_model_line => :any,
                                                       :time_lines => :any,
                                                       :sign_contract => :any,
                                                       :add_option => :any,
-                                                      :remove_options => :any,
+                                                      :remove_options => :any,  # OPTIMIZE method
                                                       :assign_inventory_code => :post,
                                                       :timeline => :get,
                                                       :delete_visit => :get,
@@ -124,7 +112,7 @@ ActionController::Routing::Routes.draw do |map|
                                           :member => { :close_contract => :any,
                                                        :assign_inventory_code => :post,
                                                        :inspection => :any,
-                                                       :remove_options => :any,
+                                                       :remove_options => :any,  # OPTIMIZE method
                                                        :timeline => :get }
       end
       inventory_pool.resources :workdays, :collection => { :close => :any,
@@ -135,13 +123,14 @@ ActionController::Routing::Routes.draw do |map|
   end
   
 ############################################################################
+# Admin
 
   map.namespace :admin do |admin|
     admin.resources :inventory_pools, :member => { :locations => :get,
                                                    :add_location => :post,
-                                                   :remove_location => :get,
+                                                   :remove_location => :get,  # OPTIMIZE method
                                                    :managers => :get,
-                                                   :remove_manager => :get,
+                                                   :remove_manager => :get,  # OPTIMIZE method
                                                    :add_manager => :put } do |inventory_pool|
         inventory_pool.resources :items
     end
@@ -150,11 +139,11 @@ ActionController::Routing::Routes.draw do |map|
                                          :notes => :any }
     admin.resources :models, :member => { :properties => :get,
                                           :add_property => :post,
-                                          :remove_property => :get,
+                                          :remove_property => :get,  # OPTIMIZE method
                                           :images => :any,
                                           :accessories => :get,
                                           :add_accessory => :post,
-                                          :remove_accessory => :get } do |model|
+                                          :remove_accessory => :get } do |model|  # OPTIMIZE method
         model.resources :items
         model.resources :categories
         model.resources :compatibles, :controller => 'models'
@@ -165,7 +154,7 @@ ActionController::Routing::Routes.draw do |map|
         category.resources :models
     end
     admin.resources :users, :member => { :access_rights => :get,
-                                         :remove_access_right => :get,
+                                         :remove_access_right => :get,  # OPTIMIZE method
                                          :add_access_right => :post }
     admin.resources :roles
   end
@@ -178,7 +167,7 @@ ActionController::Routing::Routes.draw do |map|
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
-# TODO 30** remove "map.connect"
+# TODO 30** remove "map.connect" for authenticator, use named route instead
   map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
 #  map.connect ':controller/:action/:id', :defaults => { :controller => 'frontend' }
 #  map.connect ':controller/:action/:id.:format'

@@ -1,31 +1,37 @@
 <% unless @model.items.empty? %>
+	<div class="toolbar-second">
+		<% form_for [:backend, @model], :url => { :action => 'add_package_item' },
+					:html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
+			<%= hidden_field_tag :is_selected, 0 %>
+			<%= _("Add item") %>:
+			<%= model_auto_completer ("query", nil, "item_id", nil,
+										{ :url => backend_inventory_pool_items_path(:format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
+										{ :size => 40 },
+										{ :method => :get, :select => :name }) %>
+	
+	
+			<%= submit_tag 'Submit' %>
+		<% end %>
+	</div>
 
-	<% tableize @model.package_items,
-			 :header => "Items",
-			 :generate_css => true do |i| %>
-			 
-			<b><%= i.model.name %></b>, <%= i.model.manufacturer %>, <%= i.inventory_code %>
-			<br />
-			<%= link_to _('Remove'),
+	<br />
+
+		
+	<% table :columns => [_("Model"), _("Manufacturer"), _("Inventory Code"), _("Action")],
+			 :records => @model.package_items do |i| %>	
+	
+			<tr>
+				<td><%= i.model.name %></td>
+				<td><%= i.model.manufacturer %></td>
+				<td><%= i.inventory_code %></td>
+				<td class="buttons" style="white-space: nowrap">
+				 	<%= link_to _('Remove'),
 						:action => 'remove_package_item',
 						:id => @model,
 						:item_id => i %>
-	<% end %>		 	
-
-	<hr />
-	
-	<% form_for [:backend, @model], :url => { :action => 'add_package_item' },
-				:html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
-		<%= hidden_field_tag :is_selected, 0 %>
-		<%= _("Add more items") %>:
-		<%= model_auto_completer ("query", nil, "item_id", nil,
-									{ :url => backend_inventory_pool_items_path(:format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
-									{ :size => 40 },
-									{ :method => :get, :select => :name }) %>
-
-
-		<%= submit_tag 'Submit' %>
+				</td>
+			</tr>
 	<% end %>
-
+	
 <% end %>
 	

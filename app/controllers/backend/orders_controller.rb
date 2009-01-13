@@ -15,11 +15,7 @@ class Backend::OrdersController < Backend::BackendController
         orders = orders.rejected
     end
 
-    unless params[:query].blank?
-      @orders = orders.search(params[:query], :page => params[:page], :per_page => $per_page)
-    else
-      @orders = orders.paginate :page => params[:page], :per_page => $per_page
-    end
+    @orders = orders.search(params[:query], :page => params[:page], :per_page => $per_page)
   end
 
   def show

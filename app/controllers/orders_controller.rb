@@ -29,7 +29,9 @@ class OrdersController < FrontendController
                end_date = params[:end_date],
                inventory_pool_id = params[:inventory_pool_id] )
     if model_group_id
-      model = ModelGroup.find(model_group_id) # TODO add templates
+      #old# model = ModelGroup.find(model_group_id)
+      model = Template.find(model_group_id)
+      inventory_pool_id ||= model.inventory_pools.first.id
     else
       model = current_user.models.find(model_id)
     end
@@ -46,10 +48,9 @@ class OrdersController < FrontendController
     inventory_pool = (inventory_pool_id ? current_user.inventory_pools.find(inventory_pool_id) : nil)
     
     model.add_to_document(@order, user_id, quantity, start_date, end_date, inventory_pool)
-    
-    flash[:notice] = _("Line couldn't be added") unless @order.save
-    
-#    render :nothing => true # render :text => ""
+
+    # OPTIMIZE 08**
+    flash[:notice] = @order.errors.full_messages unless @order.save
     render :text => @order.errors.full_messages.to_s, :status => (@order.errors.empty? ? 200 : 400)
   end
 

@@ -1,13 +1,21 @@
-
-<% tableize @current_inventory_pool.locations,
-		 :header => _("Set location") do |l| %>
+		
+<% table :columns => [_("Inventory Pool"), _("Building"), _("Room"), _("Shelf"), _("Action")],
+		 :records => @current_inventory_pool.locations do |l| %>	
 
 		 <% this = (@model.items.first.location == l) %>
-		 <% style = this ? "border: 1px solid; padding: 3px; background-color: white;" : "" %>
-		 
-		<span style="<%= style %>">
-			<b><%= l.inventory_pool.name %>:</b> <%= l.building %>, <%= l.room %>, <%= l.shelf %>
-			 	<%= link_to _('Set'), { :location_id => l }, { :method => :post } unless this %>
-		</span>
-		 
-<% end %>		 	
+		 <% style = this ? "background-color: #CCCCCC;" : "" %>
+
+		<tr style="<%= style %>">
+			<td><%= l.inventory_pool.name %></td>
+			<td><%= l.building %></td>
+			<td><%= l.room %></td>
+			<td><%= l.shelf %></td>
+			<td class="buttons">
+				<% if this %>
+					<%= _("Active") %>
+				<% else %>
+				 	<%= link_to _("Set"), { :location_id => l }, { :method => :post } %>
+				<% end %>
+			</td>
+		</tr>
+<% end %>

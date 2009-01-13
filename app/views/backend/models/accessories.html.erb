@@ -1,3 +1,4 @@
+<% unless @model.accessories.empty? %>
 
 	<% form_tag :action => 'accessories', :id => @model do %>
 
@@ -15,4 +16,6 @@
 							
 		<%= submit_tag 'Set' %>
 	<% end %>
+	
+<% end %>
 	

@@ -10,9 +10,6 @@ class User < ActiveRecord::Base
     #  end
     #end
   has_many :categories, :through => :models, :uniq => true # (nested)
-  has_many :notifications
-  # TODO has_many :templates, :through => :models, :uniq => true # (nested)
-
   def all_categories # TODO optimize
     @c = []
     categories.each do |c|
@@ -20,6 +17,15 @@ class User < ActiveRecord::Base
     end
     @c.flatten.uniq
   end
+
+#old#  has_many :templates, :through => :models, :uniq => true # TODO 08** alternatively define an association directly between <Template belongs_to InventoryPool>
+# TODO 12** real association
+#temp#  has_many :templates, :through => :inventory_pools
+  def templates
+    inventory_pools.collect(&:templates).flatten.sort
+  end
+
+  has_many :notifications
   
   has_many :orders
   has_one  :current_order, :class_name => "Order", :conditions => ["status_const = ?", Contract::NEW]

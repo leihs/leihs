@@ -1,19 +1,4 @@
 
-<% tableize @user.access_rights.all(:conditions => {:inventory_pool_id => @current_inventory_pool.id}),
-		 :header => _("Access Rights"),
-		 :generate_css => true do |a| %>
-
-		<b><%= a.to_s %></b>
-		<br />
-		<%= link_to _('Remove'),
-				:action => 'remove_access_right',
-				:id => @user,
-				:access_right_id => a %>		 
-<% end %>		 	
-
-<br />
-<br />
-
 <% form_tag :action => 'add_access_right', :id => @user do %>
 	<table style="width: 400px">
 		<tr>
@@ -29,3 +14,17 @@
 	</table>
 <% end %>
 
+<br />
+
+<% table :records => @user.access_rights.all(:conditions => {:inventory_pool_id => @current_inventory_pool.id}) do |a| %>	
+
+		<tr>
+			<td><%= a.to_s %></td>
+			<td class="buttons">
+			 	<%= link_to _('Remove'),
+					:action => 'remove_access_right',
+					:id => @user,
+					:access_right_id => a %>
+			</td>
+		</tr>
+<% end %>

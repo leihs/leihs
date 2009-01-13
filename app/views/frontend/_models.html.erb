@@ -7,6 +7,7 @@
 		        fields: [
 					   {name: 'name', type: 'string'},
 					   {name: 'manufacturer', type: 'string'},
+					   {name: 'description', type: 'string'},
 					   {name: 'properties'},
 					   {name: 'inventory_pools'},
 					   {name: 'compatibles'},
@@ -121,7 +122,7 @@
 
 
     // trigger the data store load
-//old//    models_store.load({params:{start:0, limit:25}});
+    models_store.load({params:{start:0, limit:25}});
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -217,10 +218,9 @@ function add_model_details(model_id, add_tab){
 				title: '<%= _("Details") %>',
 				loadingText: '<%= _("Loading") %>...',
                 tpl: new Ext.XTemplate('<tpl for=".">', 
+										 '<div class="model_images" style="float: right;"><tpl for="images">', '<img src="{public_filename_thumb}">', '</tpl>', '</div>',                
                                          '<h2>{name} ({manufacturer})</h2>',
-                                         '<p>Description goes here, if present.</p>',
-                
-                                         '<h3>Availability</h3>',
+                                         '<p>{description}</p>',
                                          '<p><img src="{chart}"></p>',
                                         
 											'<tpl if="package_items.length">',
@@ -228,7 +228,7 @@ function add_model_details(model_id, add_tab){
 							            			'<li>{inventory_code}, <tpl for="model">{name}, {manufacturer}</tpl></li>',
 								        		'</tpl></ul>',
 							        		'</tpl>',
-										'<div class="model_images"><tpl for="images">', '<img src="{public_filename_thumb}">', '</tpl>', '</div>', '</tpl>', '</tpl>')
+										'</tpl>')
 			}, {
 				xtype: 'dataview',
 				title: '<%= _("Properties") %>',
@@ -269,8 +269,6 @@ function add_model_details(model_id, add_tab){
 				title: '<%= _("Add") %>',
 				iconCls:'icon-add',
 				//			renderTo: document.body,
-				//			viewConfig: { forceFit: true },
-				//			hidden: true,
 				listeners: {
 					activate: function(){
 						//model_store_ips[model_id].loadData(model_store[model_id].reader.jsonData['models'][0]);
@@ -281,7 +279,6 @@ function add_model_details(model_id, add_tab){
 				labelAlign: 'top',
 				buttonAlign: 'right',
 				frame: true,
-				//			width: 600,
 				items: [{
 					layout: 'column',
 					items: [{
@@ -324,14 +321,14 @@ function add_model_details(model_id, add_tab){
 						items: {
 							xtype: 'datefield',
 							fieldLabel: '<%= _("Start date") %>',
-							id: 'start_date',
+							id: 'start_date_' + model_id,
 							name: 'start_date',
 							value: new Date(),
 							//minValue: new Date(),
 							disabledDays: [6, 0],
 							listeners: {
 								valid: function(){
-									this.findParentByType('form').findById('end_date').validate();
+									this.findParentByType('form').findById('end_date_' + model_id).validate();
 								}
 							},
 							anchor: '90%'
@@ -342,13 +339,13 @@ function add_model_details(model_id, add_tab){
 						items: {
 							xtype: 'datefield',
 							fieldLabel: '<%= _("End date") %>',
-							id: 'end_date',
+							id: 'end_date_' + model_id,
 							name: 'end_date',
 							value: new Date(),
 							//minValue: new Date(),
 							disabledDays: [6, 0],
 							validator: function(){
-								var start_date = this.findParentByType('form').findById('start_date').getValue();
+								var start_date = this.findParentByType('form').findById('start_date_' + model_id).getValue();
 								var end_date = this.getValue();
 								if (end_date < start_date){
 									return '<%= _("Start Date must be before End Date") %>';
@@ -372,7 +369,8 @@ function add_model_details(model_id, add_tab){
 								'<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'
 							},
 							success: function(responseObject){
-								Ext.getCmp('complete_order').getStore().load();
+//old//							Ext.getCmp('complete_order').getStore().load();
+								complete_order_store.load();
 							},
 							failure: function(responseObject){
 								Ext.Msg.alert('Error', responseObject.responseText);

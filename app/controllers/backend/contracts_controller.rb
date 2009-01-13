@@ -13,11 +13,7 @@ class Backend::ContractsController < Backend::BackendController
         contracts = contracts.closed_contracts
     end
 
-    unless params[:query].blank?
-      @contracts = contracts.search(params[:query], :page => params[:page], :per_page => $per_page)
-    else
-      @contracts = contracts.paginate :page => params[:page], :per_page => $per_page
-    end
+    @contracts = contracts.search(params[:query], :page => params[:page], :per_page => $per_page)
   end
   
   def show

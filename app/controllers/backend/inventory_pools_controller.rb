@@ -1,13 +1,7 @@
 class Backend::InventoryPoolsController < Backend::BackendController
   
   def index
-    inventory_pools = InventoryPool
-
-    unless params[:query].blank?
-      @inventory_pools = inventory_pools.search(params[:query], :page => params[:page], :per_page => $per_page)
-    else
-      @inventory_pools = inventory_pools.paginate :page => params[:page], :per_page => $per_page
-    end
+    @inventory_pools = InventoryPool.search(params[:query], :page => params[:page], :per_page => $per_page)
   end
 
   def timeline

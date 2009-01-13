@@ -1,18 +1,4 @@
 
-
-<% tableize @inventory_pool.managers,
-		 :header => "Managers",
-		 :generate_css => true do |manager| %>
-		 
-		<%= manager.login %>
-		<br />
-		<%= link_to _('Remove'),
-					:action => 'remove_manager',
-					:id => @inventory_pool,
-					:manager_id => manager %>
-<% end %>		 	
-
-<hr />
 <% form_for [:admin, @inventory_pool], :url => { :action => 'add_manager' },
 			:html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
 	<%= hidden_field_tag :is_selected, 0 %>
@@ -26,4 +12,22 @@
 	<%= submit_tag 'Submit' %>
 <% end %>
 
+<br />
 
+<% table :columns => [_("Login"), _("Action")],
+		 :records => @inventory_pool.managers do |manager| %>	
+
+			<tr>
+				<td><%= manager.login %></td>
+				<td class="buttons" style="white-space: nowrap">
+					<ul>
+						<li><%= link_to _('Remove'),
+									:action => 'remove_manager',
+									:id => @inventory_pool,
+									:manager_id => manager %></li>
+					</ul>
+				</td>
+			</tr>
+
+
+<% end %>

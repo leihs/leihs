@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(:version => 20090106104142) do
     t.string   "title",            :limit => 50
     t.text     "comment"
     t.datetime "created_at"
-    t.integer  "commentable_id",                                 :null => false
-    t.string   "commentable_type",               :default => "", :null => false
+    t.integer  "commentable_id",                 :null => false
+    t.string   "commentable_type",               :null => false
     t.integer  "user_id"
   end
 
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20090106104142) do
     t.integer  "type_const"
     t.datetime "created_at",                  :null => false
     t.integer  "target_id",                   :null => false
-    t.string   "target_type", :default => "", :null => false
+    t.string   "target_type",                 :null => false
     t.integer  "user_id"
   end
 
@@ -157,6 +157,14 @@ ActiveRecord::Schema.define(:version => 20090106104142) do
     t.string "contract_url"
     t.string "logo_url"
   end
+
+  create_table "inventory_pools_model_groups", :id => false, :force => true do |t|
+    t.integer "inventory_pool_id"
+    t.integer "model_group_id"
+  end
+
+  add_index "inventory_pools_model_groups", ["inventory_pool_id"], :name => "fk_inventory_pools_model_groups_inventory_pool_id"
+  add_index "inventory_pools_model_groups", ["model_group_id"], :name => "fk_inventory_pools_model_groups_model_group_id"
 
   create_table "items", :force => true do |t|
     t.string   "inventory_code"
@@ -221,14 +229,14 @@ ActiveRecord::Schema.define(:version => 20090106104142) do
   create_table "model_links", :force => true do |t|
     t.integer "model_group_id"
     t.integer "model_id"
-    t.integer "quantity"
+    t.integer "quantity",       :default => 1
   end
 
   add_index "model_links", ["model_group_id"], :name => "fk_model_links_model_group_id"
   add_index "model_links", ["model_id"], :name => "fk_model_links_model_id"
 
   create_table "models", :force => true do |t|
-    t.string   "name",                                               :default => "",    :null => false
+    t.string   "name",                                                                  :null => false
     t.string   "manufacturer"
     t.string   "description"
     t.string   "internal_description"

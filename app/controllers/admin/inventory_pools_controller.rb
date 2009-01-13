@@ -2,15 +2,10 @@ class Admin::InventoryPoolsController < Admin::AdminController
 
   before_filter :pre_load
 
-
   def index
-    inventory_pools = InventoryPool
-    
-    unless params[:query].blank?
-      @inventory_pools = inventory_pools.search(params[:query], :page => params[:page], :per_page => $per_page)
-    else
-      @inventory_pools = inventory_pools.paginate :page => params[:page], :per_page => $per_page
-    end
+    params[:sort] ||= 'inventory_pools.name'
+    params[:dir] ||= 'ASC'
+    @inventory_pools = InventoryPool.search(params[:query], { :page => params[:page], :per_page => $per_page }, { :order => sanitize_order(params[:sort], params[:dir]) })
   end
 
   def show
@@ -57,7 +52,7 @@ class Admin::InventoryPoolsController < Admin::AdminController
   end
 
   def remove_location
-    @inventory_pool.locations.delete(@inventory_pool.locations.find(params[:location_id]))
+    @inventory_pool.locations.delete(@inventory_pool.locations.find(params[:location_id])) # OPTIMIZE
     redirect_to :action => 'locations', :id => @inventory_pool
   end
 

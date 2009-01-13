@@ -2,15 +2,8 @@ class Backend::LocationsController < Backend::BackendController
 
   before_filter :pre_load
 
-
   def index
-    locations = current_inventory_pool.locations
-    
-    unless params[:query].blank?
-      @locations = locations.search(params[:query], :page => params[:page], :per_page => $per_page)
-    else
-      @locations = locations.paginate :page => params[:page], :per_page => $per_page      
-    end
+    @locations = current_inventory_pool.locations.search(params[:query], :page => params[:page], :per_page => $per_page)
   end
 
   def show

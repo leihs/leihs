@@ -1,6 +1,5 @@
 class ModelsController < FrontendController
 
-  # TODO prevent sql injection
   def index( category_id = params[:category_id].to_i, # TODO 18** nested route ?
              start = (params[:start] || 0).to_i,
              limit = (params[:limit] || 25).to_i,
@@ -23,7 +22,7 @@ class ModelsController < FrontendController
       conditions << current_inventory_pools 
     end
 
-    if category_id and category_id != 0
+    if category_id > 0
       category = Category.find(category_id)
 #old#   models = (category.children.recursive.to_a << category).collect(&:models).flatten & models
       m_ids= (category.children.recursive.to_a << category).collect(&:models).flatten.uniq.collect(&:id)
@@ -31,16 +30,17 @@ class ModelsController < FrontendController
       conditions << m_ids 
     end
 
+    # TODO 09** merge paginate to search
     unless query.blank?
       # TODO 18** include Templates: models += current_user.templates
       models = models.all(:conditions => conditions)
-      @models = models.search(query, {:offset => start, :limit => limit}, {:order => "#{sort} #{dir}"})
+      @models = models.search(query, {:offset => start, :limit => limit}, {:order => sanitize_order(sort, dir)})
       
       c = @models.total_hits
     else
 #old#    @models = models.paginate :page => ((start / limit) + 1), :per_page => limit, :order => "#{sort} #{dir}"
 #old#2    @models = Model.paginate :page => ((start / limit) + 1), :per_page => limit, :order => "#{sort} #{dir}", :conditions => ["models.id IN (?)", models.collect(&:id)] 
-      @models = models.paginate :page => ((start / limit) + 1), :per_page => limit, :order => "#{sort} #{dir}", :conditions => conditions
+      @models = models.paginate :page => ((start / limit) + 1), :per_page => limit, :order => sanitize_order(sort, dir), :conditions => conditions
           # OPTIMIZE N+1 select problem, :include => :locations
       c = @models.total_entries
     end
@@ -48,7 +48,9 @@ class ModelsController < FrontendController
     respond_to do |format|
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
-                                                            :except => [ :maintenance_period,
+                                                            :except => [ :internal_description,
+                                                                         :info_url,
+                                                                         :maintenance_period,
                                                                          :created_at,
                                                                          :updated_at ],
                                                             :include => {
@@ -63,27 +65,6 @@ class ModelsController < FrontendController
     end
   end  
 
-  # OPTIMIZE interesections
-  # TODO 03** refactor to categories_controller ??
-  def categories(id = params[:category_id].to_i)
-    if id == 0 
-      c = Category.roots
-#      c = current_user.categories.roots
-#      c = current_user.all_categories & Category.roots
-    else
-      c = Category.find(id).children
-#      c = current_user.categories & Category.find(id).children # TODO scope only children Category (not ModelGroup)
-#      c = current_user.categories.find(id).children
-#      c = current_user.all_categories.find(id).children
-    end
-    respond_to do |format|
-      format.ext_json { render :json => c.to_json(:methods => [[:text, id],
-                                                               :leaf,
-                                                               :real_id],
-                                                  :except => [:id]) } # .to_a.to_ext_json
-    end
-  end
-  
 #######################################################  
   
   def show
@@ -94,6 +75,11 @@ class ModelsController < FrontendController
     respond_to do |format|
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
+                                                            :except => [ :internal_description,
+                                                                         :info_url,
+                                                                         :maintenance_period,
+                                                                         :created_at,
+                                                                         :updated_at ],
                                                             :methods => [[:chart, current_user]],
                                                             :include => {
                                                                 :package_items => { :except => [:created_at,
