@@ -52,6 +52,7 @@ class Order < Document
   end
 
 
+  # TODO 13** forward purpose
   # TODO forward Options
   # approves order then generates a new contract and contract_lines for each item
   def approve(comment)

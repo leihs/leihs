@@ -4,8 +4,6 @@ class CreateProperties < ActiveRecord::Migration
       t.belongs_to :model
       t.string :key
       t.string :value
-
-      t.timestamps
     end
 
     foreign_key :properties, :model_id, :models

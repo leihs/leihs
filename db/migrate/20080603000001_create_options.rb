@@ -6,7 +6,6 @@ class CreateOptions < ActiveRecord::Migration
       t.string :barcode
       t.string :name
       t.date :returned_date
-      t.timestamps
     end
     foreign_key :options, :contract_id, :contracts
     

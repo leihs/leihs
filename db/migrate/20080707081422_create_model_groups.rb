@@ -18,7 +18,7 @@ class CreateModelGroups < ActiveRecord::Migration
     create_table :model_links do |t|
       t.belongs_to :model_group
       t.belongs_to :model
-      t.integer :quantity, :default => 1 # TODO 12** quantity is required for Template, but not for Category. refactor to Template validation
+      t.integer :quantity, :default => 1
     end
     foreign_key :model_links, :model_group_id, :model_groups
     foreign_key :model_links, :model_id, :models

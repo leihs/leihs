@@ -7,7 +7,6 @@ class CreateInventoryPools < ActiveRecord::Migration
       t.string :contract_description
       t.string :contract_url
       t.string :logo_url
-      
     end
   end
 

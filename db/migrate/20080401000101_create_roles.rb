@@ -6,7 +6,6 @@ class CreateRoles < ActiveRecord::Migration
       t.integer :rgt        # acts_as_nested_set
 
       t.string :name
-      #t.timestamps
     end
 
     r_a = Role.create(:name => "admin")

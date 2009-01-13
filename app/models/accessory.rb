@@ -10,4 +10,7 @@ class Accessory < ActiveRecord::Base
   # - when the admin assigns the first item of the given model to an inventory_pool,
   # then all accessories_inventory_pools assiociations are automatically generated 
 
+
+  # TODO 13** implement quantity attribute
+
 end

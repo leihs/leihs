@@ -6,8 +6,6 @@ class CreateLocations < ActiveRecord::Migration
       t.string  :building
       t.string  :room
       t.string  :shelf
-
-      t.timestamps
     end
 
     foreign_key :locations, :inventory_pool_id, :inventory_pools
