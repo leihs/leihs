@@ -57,7 +57,7 @@ module Backend::BackendHelper
                 :form => true,
                 :update => 'list_table',
                 :loading => "Element.show('spinner')"
-              p += image_tag($layout_public_path + "/images/icons/arrow_" + (params[:dir] == "ASC" ? "down" : "up") +".png", :style => "vertical-align: bottom;" ) if b
+              p += icon_tag("arrow_" + (params[:dir] == "ASC" ? "down" : "up")) if b
             else
               p += column
             end

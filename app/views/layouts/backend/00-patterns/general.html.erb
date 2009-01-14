@@ -32,32 +32,33 @@
 			<%= render :partial => '/layouts/backend/00-patterns/banner_buttons' if @current_inventory_pool %>
 		</div> 
 
-	<div id="sidebar">
-		<%= render :partial => '/layouts/backend/00-patterns/sidebar' if @current_inventory_pool %>
-	</div>
-	
-		
-	<div id="container">
-		
-		<% begin # OPTIMIZE %>
-		<%= render :partial => 'tabs' %>
-		<% rescue; end %>
-		
-		<div id="inner-container">
-			
-		<%= flash_helper %>
-		
-		<% # TODO 12** optimize nested tabs rendering %>
-		<% if @tabs %>
-			<%= tabnavs @tabs, yield %>
-		<% else %>
-			<%=  yield %>
-		<% end %>
-		
+		<div id="sidebar">
+			<%= render :partial => '/layouts/backend/00-patterns/sidebar' if @current_inventory_pool %>
 		</div>
-	</div>
+		
+			
+		<div id="container">
+			
+			<% begin # OPTIMIZE %>
+			<%= render :partial => 'tabs' %>
+			<% rescue; end %>
+			
+			<div id="inner-container">
+				
+			<%= flash_helper %>
+			
+			<% # TODO 12** optimize nested tabs rendering %>
+			<% if @tabs %>
+				<%= tabnavs @tabs, yield %>
+			<% else %>
+				<%=  yield %>
+			<% end %>
+			
+			</div>
+		</div>
 	
 	</div>
+
 	
 <%= enable_tooltip %>
 		

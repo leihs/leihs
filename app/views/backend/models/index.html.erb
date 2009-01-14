@@ -47,11 +47,11 @@
 							glue = (params[:source_path].include?('?') ? '&' : '?' )
 							url = "#{params[:source_path]}#{glue}#{var_id}=#{model.id}"
 						%>
-						<%=	link_to(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Select"), url,
+						<%=	link_to(icon_tag("package_add") + " " + _("Select"), url,
 							:method => 'post', :target=> '_top') %>
 					<% else %>						
 						<ul>
-							<li><%= link_to _("Show"), backend_inventory_pool_model_path(@current_inventory_pool, model) %></li>
+							<li><%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_model_path(@current_inventory_pool, model) %></li>
 							<li><%= link_to _("Remove"), backend_inventory_pool_model_compatible_path(@current_inventory_pool, @model, model),
 											:confirm => _("Are you sure?"),
 											:method => :delete if @model %></li>

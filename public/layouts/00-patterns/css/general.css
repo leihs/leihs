@@ -175,6 +175,7 @@ MAIN STRUCTURE
 	float: left;
 	width: 150px;
 	overflow: auto;
+	margin-bottom: 2em;
 }
 
 #sidebar ul ul {

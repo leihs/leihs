@@ -7,7 +7,13 @@
 	  
 	  var templates_loader = new Ext.tree.TreeLoader({
 	    url:'/templates.ext_json',
-	    requestMethod:'GET'
+	    requestMethod:'GET',
+		listeners: {
+			beforeload: function(){
+				// load just when the accordion is expanded
+				return templates_root.isExpanded();
+			}
+		}
 	  });
 	      
 	  // create the tree
@@ -21,12 +27,16 @@
         root: templates_root,
         rootVisible:false,
 		listeners: {
+			expand: function(e){
+				if(templates_root.childNodes.length == 0) templates_loader.load(templates_root);
+			},
 			click: function( node, e ){
-				template_grid.show();
-				//template_store.load({params:{id: node.attributes.id}});
+				center_tabs.add(template_grid);
+				template_id = node.attributes.id;
 				template_store.proxy.conn.method = 'GET'; 
-				template_store.proxy.conn.url = '/templates/' + node.attributes.id + '.ext_json'; 
-				template_store.load({params:{template_id: node.attributes.id}}); // TODO 12** get rid of template_id
+				template_store.proxy.conn.url = '/templates/' + template_id + '.ext_json'; 
+				template_store.load({params:{template_id: template_id}}); // TODO 12** get rid of params
+				template_grid.show();
 			}
 		}
       });
@@ -109,6 +119,7 @@
 		enableColumnMove: false,
 		viewConfig: { forceFit: true },
         loadMask: true,
+		//closable: true,
 		listeners: {
 			cellclick: function( grid, rowIndex, columnIndex, e ){
 			  model_id = grid.getStore().getAt(rowIndex).id;

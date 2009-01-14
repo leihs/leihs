@@ -11,20 +11,20 @@ to_remind_size = @current_inventory_pool.remind_visits.select { |v| v.user == @u
 %>
 
 <ul class="buttons">
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/accept.png") + _("%{i} orders") % { :i => to_acknowledge_size },
+	<li><%= link_to icon_tag("accept") + _("%{i} orders") % { :i => to_acknowledge_size },
 			backend_inventory_pool_user_acknowledge_index_path(@current_inventory_pool, @user),
 			{ :target => '_top' } if to_acknowledge_size > 0 %></li>
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_turn_right.png") + _("%{i} items") % { :i => to_hand_over_size },
+	<li><%= link_to icon_tag("arrow_turn_right") + _("%{i} items") % { :i => to_hand_over_size },
 			backend_inventory_pool_user_hand_over_path(@current_inventory_pool, @user),
     	    { :target => '_top' } if to_hand_over_size > 0 %></li>
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/arrow_undo.png") + _("%{i} items") % { :i => to_take_back_size },
+	<li><%= link_to icon_tag("arrow_undo") + _("%{i} items") % { :i => to_take_back_size },
 			backend_inventory_pool_user_take_back_path(@current_inventory_pool, @user),
         	{ :target => '_top' } if to_take_back_size > 0 %></li>
-	<li><%= link_to image_tag($layout_public_path + "/images/icons/clock.png") + _("%{i} items") % { :i => to_remind_size },
+	<li><%= link_to icon_tag("clock") + _("%{i} items") % { :i => to_remind_size },
         	backend_inventory_pool_user_take_back_path(@current_inventory_pool, @user, :remind => true),
         	{ :target => '_top' } if to_remind_size > 0 %></li>
 	<% if @user.to_remind? %>
-		<li><%= link_to image_tag($layout_public_path + "/images/icons/clock_red.png") + _("Remind"),
+		<li><%= link_to icon_tag("clock_red") + _("Remind"),
 				{ :controller => 'users', :action => 'remind', :id => @user.id } %></li>
 		<% unless @user.reminders.empty? %>
 			<li><%= _("%{i} reminders, last: %{d}") % { :i => @user.reminders.size, :d => (short_time @user.reminders.last.created_at) } %></li>

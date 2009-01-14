@@ -19,7 +19,7 @@
 				<td><%= location.items.size %></td>
 				<td class="buttons" style="white-space: nowrap">
 					<ul>
-						<li><%= link_to _("Show"), {:action => 'show', :id => location} %></li>
+						<li><%= link_to icon_tag("magnifier") + _("Show"), {:action => 'show', :id => location} %></li>
 						<li><%= link_to _("Delete"), {:action => 'destroy', :id => location}, :confirm => 'Are you sure?', :method => :delete if location.items.empty? and !location.is_main %></li>
 					</ul>
 				</td>

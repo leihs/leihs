@@ -21,7 +21,7 @@
 				 :class => "iconized-notxt", :width => 1000 ) %>
 		</td>
 		<td class="buttons">
-			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/magnifier.png") + " " + _("Inspection"),
+			<%= greybox_link_to_page(icon_tag("magnifier") + " " + _("Inspection"),
 					 	{ :action => 'inspection', :line_id => @line },
 						:title => _("Inspection") ) %>
 		</td>

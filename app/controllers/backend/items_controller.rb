@@ -9,6 +9,8 @@ class Backend::ItemsController < Backend::BackendController
 
     if @model
       items = @model.items & current_inventory_pool.items # TODO 28** optimize intersection
+    elsif @location
+      items = @location.items
     else
       items = current_inventory_pool.items
     end    
@@ -64,8 +66,10 @@ class Backend::ItemsController < Backend::BackendController
     params[:id] ||= params[:item_id] if params[:item_id]
     @item = current_inventory_pool.items.find(params[:id]) if params[:id]
     @model = current_inventory_pool.models.find(params[:model_id]) if params[:model_id]
+    @location = current_inventory_pool.locations.find(params[:location_id]) if params[:location_id]
 
     @tabs = []
+    @tabs << :location_backend if @location
     @tabs << :model_backend if @model
     @tabs << :item_backend if @item
   end

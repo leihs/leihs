@@ -37,6 +37,9 @@ class Backend::LocationsController < Backend::BackendController
   def pre_load
     params[:id] ||= params[:location_id] if params[:location_id]
     @location = current_inventory_pool.locations.find(params[:id]) if params[:id]
+
+    @tabs = []
+    @tabs << :location_backend if @location
   end
 
 end

@@ -21,7 +21,7 @@
 			<td><%= option.name %></td>
 			<% unless @no_actions %>
 			<td class="buttons">
-			  <%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
+			  <%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete"),
 			 	  	{ :action => 'remove_options', :options => option.id },
 				      :title => _("Remove Option"), :class => 'negative' ) %>
 			</td>

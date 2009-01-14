@@ -1,6 +1,6 @@
 
 	<ul>
-		<li><b>In stock?:</b> <%= image_tag($layout_public_path + "/images/icons/" + (@item.in_stock? ? "accept": "delete") + ".png") %> </li>
+		<li><b>In stock?:</b> <%= icon_tag(@item.in_stock? ? "accept": "delete") %> </li>
 		<% # unless @item.in_stock?		TODO 29** currently borrowed by user %>
 	</ul>
 

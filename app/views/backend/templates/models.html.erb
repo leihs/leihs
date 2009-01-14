@@ -24,10 +24,18 @@
 		<tr>
 			<td><%= image_tag(ml.model.image_thumb) if ml.model.image_thumb %></td>
 			<td><%= ml.model.name %></td>
-			<td><%= ml.quantity %></td>
+			
+			<%  c = @current_inventory_pool.items_size(ml.model.id)
+				b = (ml.quantity <= c) %>
+			<td class="valid_<%= b %>">
+				<%= ml.quantity %>
+				<% tooltip do %>
+					<%= _("Only %d items are present.") % c %>
+				<% end unless b %>	
+			</td>
 			<td class="buttons">
 				<ul>
-					<li><%= link_to _("Show"), backend_inventory_pool_model_path(@current_inventory_pool, ml.model) %></li>
+					<li><%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_model_path(@current_inventory_pool, ml.model) %></li>
 					<li><%= link_to _("Remove"), backend_inventory_pool_template_path(@current_inventory_pool, @my_template, :model_link_id => ml),
 									:confirm => _("Are you sure?"),
 									:method => :delete %></li>

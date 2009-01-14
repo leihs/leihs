@@ -54,7 +54,9 @@ ActionController::Routing::Routes.draw do |map|
   
       inventory_pool.resources :orders # TODO 07** also nest to user?
       inventory_pool.resources :contracts # TODO 07** also nest to user?
-      inventory_pool.resources :locations
+      inventory_pool.resources :locations do |location|
+        location.resources :items
+      end
       inventory_pool.resources :option_maps
       inventory_pool.resources :models, :collection => { :available_items => :any,
                                                          :new_package => :get,

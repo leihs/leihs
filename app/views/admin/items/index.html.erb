@@ -16,11 +16,11 @@
 				<td><%= item.inventory_code %></td>
 				<td><%= item.serial_number %></td>
 				<td><%= item.location.to_s if item.location %></td>
-				<td><%= image_tag($layout_public_path + "/images/icons/" + (item.is_borrowable ? "accept": "delete") + ".png") %></td>
-				<td><%= image_tag($layout_public_path + "/images/icons/" + (item.in_stock? ? "accept": "delete") + ".png") %></td>
+				<td><%= icon_tag(item.is_borrowable ? "accept": "delete") %></td>
+				<td><%= icon_tag(item.in_stock? ? "accept": "delete") %></td>
 				<td class="buttons" style="white-space: nowrap">
 					<ul>
-						<li><%= link_to _("Show"), admin_item_path(item) %></li>
+						<li><%= link_to icon_tag("magnifier") + _("Show"), admin_item_path(item) %></li>
 						<li><%= link_to _("Delete"), admin_item_path(item),
 										:confirm => _("Are you sure?"),
 										:method => :delete %></li>

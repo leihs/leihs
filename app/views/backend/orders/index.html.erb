@@ -15,10 +15,10 @@
 				<td class="buttons" style="white-space: nowrap">
 					<% case params[:filter]
 				    	 when "submitted" %>
-						<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("View + Acknowledge"),
+						<%= link_to icon_tag("tab_go") + _("View + Acknowledge"),
 								backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, order.user, order) %>
 					<%	 when "approved", "rejected" %>
-						<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("View"),
+						<%= link_to icon_tag("tab_go") + _("View"),
 								backend_inventory_pool_order_path(@current_inventory_pool, order) %>
 					<% end %>
 				</td>

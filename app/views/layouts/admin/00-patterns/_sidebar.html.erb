@@ -1,7 +1,7 @@
 <ul>
-	<li><%= link_to _('InventoryPools') + " (#{InventoryPool.count})", admin_inventory_pools_path %></li>
+	<li><%= link_to icon_tag("shape_handles") + " " + _('InventoryPools') + " (#{InventoryPool.count})", admin_inventory_pools_path %></li>
 	<li><hr /></li>
-	<li><%= _('Items') %>
+	<li><%= icon_tag("camera") + " " + _('Items') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{Item.count})", admin_items_path %></li>
 		<li><%= link_to _('Broken') + " (#{Item.broken.size})", admin_items_path(:filter => 'broken') %></li>
@@ -11,19 +11,19 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= _('Models') %>
+	<li><%= icon_tag("package") + " " + _('Models') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{Model.count})", admin_models_path %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= _('Categories') %>
+	<li><%= icon_tag("chart_organisation") + " " + _('Categories') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{Category.count})", admin_categories_path %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= _('Users') %>
+	<li><%= icon_tag("user") + " " + _('Users') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{User.count})", admin_users_path %></li>
 		<li><%= link_to _('Admins') + " (#{User.admins.size})", admin_users_path(:filter => 'admins') %></li>
@@ -32,7 +32,7 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= _('Roles') %>
+	<li><%= icon_tag("shape_square_key") + " " + _('Roles') %>
 		<ul>
 		<li><%= link_to _('All') + " (#{Role.count})", admin_roles_path %></li>
 		</ul>	

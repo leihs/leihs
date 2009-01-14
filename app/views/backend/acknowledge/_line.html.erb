@@ -30,10 +30,10 @@
 					:title => _("Time Period") ) %>
 		</td>
 		<td class="buttons">
-			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
+			<%= greybox_link_to_page(icon_tag("arrow_switch") + " " + _("Swap"),
 			 		{ :action => 'swap_model_line', :id => @order.id, :line_id => @line.id },
 					:title => _("Swap Model"), :width => 1000 ) %>
-			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
+			<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete"),
 			 		{ :action => 'remove_lines', :id => @order.id, :lines => @line.id },
 					:title => _("Remove Model"), :class => 'negative' ) %>
 		</td>

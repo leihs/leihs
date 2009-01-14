@@ -10,7 +10,7 @@
 	<div class="buttons">
 
 
-		<%=	link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
+		<%=	link_to(icon_tag("cancel") + " " + _("Delete"),
 			 { :action => 'remove_lines', :contract_lines => @contract_lines },
 			 :class => 'negative', :method => 'post', :target=> '_top') %>
 			
