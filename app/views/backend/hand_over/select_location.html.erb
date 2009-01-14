@@ -11,7 +11,7 @@
    if x
 %>
 <div class="buttons" style="float:none;margin-bottom:15px">
- 	<%=	link_to(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Remove Location from the above models"),
+ 	<%=	link_to(icon_tag("cancel") + " " + _("Remove Location from the above models"),
 		 { :action => 'select_location', :lines => @lines},
 		 :class => 'negative', :method => 'delete', :style => 'float:none;margin: 5px;width: 280px') %>
 </div>
@@ -29,7 +29,7 @@
 </table>
 <p>
 <div class="buttons">
-	<%= submit_button(_("Confirm Location"), {:class=> 'positive', :img => $layout_public_path + "/images/icons/house.png"})%>
+	<%= submit_button(_("Confirm Location"), {:class=> 'positive', :icon => "house"})%>
 </div>
 </p>
 <div class="buttons">

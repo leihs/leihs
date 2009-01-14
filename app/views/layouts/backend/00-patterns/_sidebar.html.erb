@@ -1,5 +1,5 @@
 <ul>
-	<li><%= _('Orders') %>
+	<li><%= icon_tag("page") + " " + _('Orders') %>
 		<ul>
 			<li><%= link_to _('Pending') + " (#{@current_inventory_pool.orders.submitted.size})", :controller => 'orders', :filter => 'submitted' %></li>
 			<li><%= link_to _('Approved') + " (#{@current_inventory_pool.orders.approved.size})", :controller => 'orders', :filter => 'approved' %></li>
@@ -7,14 +7,14 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= _('Contracts') %>
+	<li><%= icon_tag("page_green") + " " + _('Contracts') %>
 		<ul>
 			<li><%= link_to _('Signed') + " (#{@current_inventory_pool.contracts.signed_contracts.size})", :controller => 'contracts', :filter => 'signed' %></li>
 			<li><%= link_to _('Closed') + " (#{@current_inventory_pool.contracts.closed_contracts.size})", :controller => 'contracts', :filter => 'closed' %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= _('Items') %>
+	<li><%= icon_tag("camera") + " " + _('Items') %>
 		<ul>
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.items.size})", :controller => 'items' %></li>
 			<li><%= link_to _('Broken') + " (#{@current_inventory_pool.items.broken.size})", :controller => 'items', :filter => 'broken' %></li>
@@ -23,7 +23,7 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= _('Models') %>
+	<li><%= icon_tag("package") + " " + _('Models') %>
 		<ul>
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.models.size})", :controller => 'models' %></li>
 			<li><%= link_to _('Packages') + " (#{@current_inventory_pool.models.packages.size})", :controller => 'models', :filter => 'packages' %></li>
@@ -31,13 +31,13 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= _('Locations') %>
+	<li><%= icon_tag("shape_group") + " " + _('Locations') %>
 		<ul>
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.locations.size})", :controller => 'locations' %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= _('Users') %>
+	<li><%= icon_tag("user") + " " + _('Users') %>
 		<ul>
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.users.size})", :controller => 'users' %></li>
 			<li><%= link_to _('Managers') + " (#{@current_inventory_pool.managers.size})", :controller => 'users', :filter => 'managers' %></li>
@@ -46,13 +46,13 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= _("Opening Times")%>
+	<li><%= icon_tag("calendar") + " " + _("Opening Times")%>
 		<ul>
 			<li><%= link_to _("Opening Times"), :controller => 'workdays' %></li>
 		</ul>
 	</li>
 	<li><hr/></li>
-	<li><%= _("Options")%>
+	<li><%= icon_tag("attach") + " " + _("Options")%>
 		<ul>
 			<li><%= link_to _("All"), :controller => 'option_maps' %></li>
 		</ul>

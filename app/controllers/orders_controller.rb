@@ -99,10 +99,10 @@ class OrdersController < FrontendController
 ########################################################
 
   def show(sort =  params[:sort] || "model", dir =  params[:dir] || "ASC")
+    # TODO 13** send errors and notices
     respond_to do |format|
-#      format.ext_json { render :json => @order.order_lines.sort{|x,y| x.send(sort) <=> y.send(sort) }.to_ext_json(:include => :model, :methods => :available?) }
       format.ext_json { render :json => @order.to_json(:methods => :approvable?,
-                                                      :include => {
+                                                       :include => {
                                                           :order_lines => { :include => {:model => {},
                                                                                          :inventory_pool => {:except => [:description,
                                                                                                                          :logo_url,

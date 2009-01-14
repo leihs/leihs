@@ -2,11 +2,11 @@
 	
 	<br />
 	<div class="buttons">
-		<%=	link_to(image_tag($layout_public_path + "/images/icons/script.png") + " " + _("Print Contract #{params[:id]}"),
+		<%=	link_to(icon_tag("script") + " " + _("Print Contract #{params[:id]}"),
 					 { :controller => 'contracts', :action => 'show', :id => @contract, :format => 'pdf' },
 					 :class => 'positive') %>
 					 
-		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Close"),
+		<%=	link_to(icon_tag("door_out") + " " + _("Close"),
 					 { :controller => 'hand_over', :action => 'index' },
 					 :target=> '_top') %>
 	</div>	

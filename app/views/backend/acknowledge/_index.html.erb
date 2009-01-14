@@ -1,6 +1,6 @@
 <table>
 	<tr>
-	<th colspan="2"><%= image_tag($layout_public_path + "/images/icons/accept.png") + " " + _("Pending orders") %></th>
+	<th colspan="2"><%= icon_tag("accept") + " " + _("Pending orders") %></th>
 	</tr>
 	
 <% orders.each do |order| %>	
@@ -11,7 +11,7 @@
 			<b><%= order.user.login %></b>
 		</td>
 		<td class="buttons">
-			<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png"),
+			<%= link_to icon_tag("tab_go"),
 					backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, order.user, order) %>
 		</td>
 	</tr>

@@ -20,10 +20,10 @@
 				      to_take_back_size = inventory_pool.take_back_visits.size
 				      to_remind_size = inventory_pool.remind_visits.size
 				 %>
-				<%= link_to image_tag($layout_public_path + "/images/icons/accept.png") + " " + _('Acknowledge') + " (#{to_acknowledge_size})", backend_inventory_pool_acknowledge_path(inventory_pool) if to_acknowledge_size > 0 %>
-				<%= link_to image_tag($layout_public_path + "/images/icons/arrow_turn_right.png") + " " + _('Hand Over') + " (#{to_hand_over_size})", backend_inventory_pool_hand_over_path(inventory_pool) if to_hand_over_size > 0 %>
-				<%= link_to image_tag($layout_public_path + "/images/icons/arrow_undo.png") + " " + _('Take Back') + " (#{to_take_back_size})", backend_inventory_pool_take_back_path(inventory_pool) if to_take_back_size > 0 %>
-				<%= link_to image_tag($layout_public_path + "/images/icons/clock.png") + " " + _('Remind') + " (#{to_remind_size})", backend_inventory_pool_take_back_path(inventory_pool, :remind => true) if to_remind_size > 0 %>				
+				<%= link_to icon_tag("accept") + " " + _('Acknowledge') + " (#{to_acknowledge_size})", backend_inventory_pool_acknowledge_path(inventory_pool) if to_acknowledge_size > 0 %>
+				<%= link_to icon_tag("arrow_turn_right") + " " + _('Hand Over') + " (#{to_hand_over_size})", backend_inventory_pool_hand_over_path(inventory_pool) if to_hand_over_size > 0 %>
+				<%= link_to icon_tag("arrow_undo") + " " + _('Take Back') + " (#{to_take_back_size})", backend_inventory_pool_take_back_path(inventory_pool) if to_take_back_size > 0 %>
+				<%= link_to icon_tag("clock") + " " + _('Remind') + " (#{to_remind_size})", backend_inventory_pool_take_back_path(inventory_pool, :remind => true) if to_remind_size > 0 %>				
 				<% end %>
 				</td>
 			</tr>

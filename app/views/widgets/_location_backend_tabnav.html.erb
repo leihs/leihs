@@ -1,0 +1,24 @@
+<i>Location</i>
+<hr />
+
+<h2><%= @location %></h2>
+
+<%  
+
+render_tabnav :location_backend, 
+              :generate_css => true do 
+
+	add_tab do |t|
+		t.named _("Location")
+		t.links_to backend_inventory_pool_location_path(@current_inventory_pool, @location)
+		t.highlights_on :action => 'show'
+	end
+
+	add_tab do |t|
+		t.named _("Items (%d)") % @location.items.size
+		t.links_to backend_inventory_pool_location_items_path(@current_inventory_pool, @location)
+		t.highlights_on :controller => 'backend/items', :action => 'index'
+	end
+
+end 
+%>

@@ -2,9 +2,9 @@
 
 <% if current_user %>	
 	<li>
-		<%= link_to 'Frontend', '/' if current_user.has_role?('student', nil, false) %>
-		<%= link_to 'Backend', '/backend' if current_user.has_role?('manager', nil, true) %>
-		<%= link_to 'Admin', '/admin' if current_user.has_role?('admin', nil, true) %>
+		<%= link_to icon_tag("application") + 'Frontend', '/' if current_user.has_role?('student', nil, false) %>
+		<%= link_to icon_tag("application_edit") + 'Backend', '/backend' if current_user.has_role?('manager', nil, true) %>
+		<%= link_to icon_tag("application_key") + 'Admin', '/admin' if current_user.has_role?('admin', nil, true) %>
 	</li>
 <% end %>
 
@@ -12,11 +12,10 @@
 
 <% if current_user %>	
 	<li>
-		<b><%= image_tag($layout_public_path + "/images/icons/user.png") %> <%= current_user.login %></b>
-		<%= greybox_link_to_page( _("My Account"),
+		<%= greybox_link_to_page(icon_tag("user") + current_user.login,
 				backend_inventory_pool_user_path(@current_inventory_pool, current_user, :layout => "modal"),
 				:title => _("User")) %> <% # TODO 29** provide account link for admin layout %>
-		<%= link_to _("Logout") + "?", '/logout' %>
+		<%= link_to icon_tag("application_delete") + _("Logout") + "?", '/logout' %>
 	</li>
 <% else %>
 	<li>
@@ -28,7 +27,7 @@
 
 <li>
 	<% locales.each do |k,v| %>
-		<%= link_to v, :params => params.merge({:locale => k}) %>
+		<%= link_to icon_tag("comment") + v, :params => params.merge({:locale => k}) %>
 	<% end %>
 </li>
 

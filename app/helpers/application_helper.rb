@@ -4,26 +4,25 @@ module ApplicationHelper
 
   ######## Buttons #########
   
-  # TODO do we need it?
-  def link_button(text, options = {})
-    #TODO check options: img, class, href, target 
-    options[:href] ||= "#"
-    options[:target] ||= "_self"
-    
-    '<a href="' + options[:href] + '" target="' + options[:target] + '"' +   
-       (options[:class].nil? ? '' : ' class="' + options[:class] + '"') +
-       '>' +
-       (options[:img].nil? ? '' : image_tag(options[:img])) +
-       ' ' + text + '</a>'
-  end
+#  def link_button(text, options = {})
+#    #TODO check options: img, class, href, target 
+#    options[:href] ||= "#"
+#    options[:target] ||= "_self"
+#    
+#    '<a href="' + options[:href] + '" target="' + options[:target] + '"' +   
+#       (options[:class].nil? ? '' : ' class="' + options[:class] + '"') +
+#       '>' +
+#       (options[:img].nil? ? '' : image_tag(options[:img])) +
+#       ' ' + text + '</a>'
+#  end
 
   def submit_button(text, options = {})
-    #TODO check options: img, class, id
+    #TODO check options: icon, class, id
     options[:form_name] ||= "f"
     '<a href="javascript://donothing" onclick="' + options[:form_name] + '.submit();"' +   
        (options[:id].nil? ? '' : ' id="' + options[:id] + '"') +
        (options[:class].nil? ? '' : ' class="' + options[:class] + '">') +
-       (options[:img].nil? ? '' : image_tag(options[:img])) +
+       (options[:icon].nil? ? '' : icon_tag(options[:icon])) +
        ' ' + text + '</a>'
   end
   
@@ -40,6 +39,11 @@ module ApplicationHelper
     block_given? && block_is_within_action_view?(block) ? concat(link, block.binding) : link
   end
 
+  ######## Icon #########
+
+  def icon_tag(icon)
+    image_tag($layout_public_path + "/images/icons/" + icon + ".png", :style => "vertical-align: bottom;")
+  end
 
   ######## Date #########
 

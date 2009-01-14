@@ -14,11 +14,11 @@
 				<td class="buttons" style="white-space: nowrap">
 					<% case params[:filter]
 				    	 when "signed" %>
-						<%= link_to image_tag($layout_public_path + "/images/icons/tab_go.png") + _("Take Back"),
+						<%= link_to icon_tag("tab_go") + _("Take Back"),
 								[:backend, @current_inventory_pool, contract.user, :take_back] %>
 					<%	 when "closed" %>
 					<% end %>
-					<%=	link_to image_tag($layout_public_path + "/images/icons/script.png") + " " + _("Print PDF"),
+					<%=	link_to icon_tag("script") + " " + _("Print PDF"),
 								 { :controller => 'contracts', :action => 'show', :id => contract, :format => 'pdf' } %>
 				</td>
 			</tr>

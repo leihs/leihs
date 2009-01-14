@@ -8,7 +8,7 @@
 		<td>
 			<%  if @line.location %>
 				<% location = @line.location.building + "," + @line.location.room %>
-				<%= image_tag($layout_public_path + "/images/icons/house.png", :title => _("Installed in: ") + location) %>
+				<%= icon_tag("house", :title => _("Installed in: ") + location) %>
 			<% end %>
 			<%= show_line_model(@line.model) %>
 		</td>
@@ -36,7 +36,7 @@
 						
 						
 								<% if @line.model.internal_description and not @line.model.internal_description.blank? %>
-								<% tooltip image_tag($layout_public_path + "/images/icons/information.png") do%>
+								<% tooltip icon_tag("information") do%>
 									<%= @line.model.internal_description %>
 								<% end %>
 								<% end %>
@@ -44,10 +44,10 @@
 		</td>
 		<td class="buttons">
 
-			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/arrow_switch.png") + " " + _("Swap"),
+			<%= greybox_link_to_page(icon_tag("arrow_switch") + " " + _("Swap"),
 					{ :action => 'swap_model_line', :line_id => @line.id },
 					:title => _("Swap Model"), :width => 1000 ) %>
-			<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete"),
+			<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete"),
 				 	{ :action => 'remove_lines', :lines => @line.id },
 					:title => _("Remove Model"), :class => 'negative' ) %>
 

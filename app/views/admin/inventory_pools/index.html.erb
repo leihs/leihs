@@ -16,7 +16,7 @@
 				<td><%= inventory_pool.items.size %></td>
 				<td class="buttons" style="white-space: nowrap">
 					<ul>
-						<li><%= link_to _("Show"), :action => 'show', :id => inventory_pool %></li>
+						<li><%= link_to icon_tag("magnifier") + _("Show"), :action => 'show', :id => inventory_pool %></li>
 						<li><%= link_to _("Delete"), { :action => 'destroy', :id => inventory_pool },
 										:confirm => _("Are you sure?"),
 										:method => :delete if inventory_pool.items.empty? %></li>

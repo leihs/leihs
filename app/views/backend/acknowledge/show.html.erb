@@ -11,19 +11,19 @@
 
   <% if @order.status_const == Order::SUBMITTED %>
 	<div class="toolbar-main boxes buttons">
-		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door.png") + " " + _("Save + Approve"),
+		<%= greybox_link_to_page(icon_tag("door") + " " + _("Save + Approve"),
 								 { :action => 'approve', :id => @order },
 								 :title => _("Approve Order"),
 								 :class => "positive") %>
-		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Reject Order"),
+		<%= greybox_link_to_page(icon_tag("door_out") + " " + _("Reject Order"),
 								 { :action => 'reject', :id => @order },
 								 :title => _("Reject Order")) %>
 
-		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/disk.png") + " " + _("Restore Original"),
+		<%= greybox_link_to_page(icon_tag("disk") + " " + _("Restore Original"),
 								 { :action => 'restore', :id => @order },
 								 :title => _("Restore Order"),
 								 :class => "thickbox") %>
-		<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete Order"),
+		<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete Order"),
 								{ :action => 'delete', :id => @order },
 								:title => _("Delete Order"), :class => 'negative') %>
 	</div>
@@ -73,17 +73,17 @@
 				<div class="toolbar-second">
 					<h3><%= _("Models") %></h3>
 					<div class="buttons">
-						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/package_add.png") + " " + _("Add Line"),
+						<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Line"),
 							 	{ :action => 'add_line', :id => @order },
 								:title => _("Add Model"), :width => 1000 ) %>						
 
-						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/date_edit.png") + " " + _("Change Timeframe for selection"),
+						<%= greybox_link_to_page(icon_tag("date_edit") + " " + _("Change Timeframe for selection"),
 								{ :action => 'time_lines', :id => @order },
 								:onmouseup => "change_href(this, 'order_line', 'line');",
 								:class => "ghostable_group_1 ghosted",
 								:title => _("Time Period") ) %>						
 
-						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/cancel.png") + " " + _("Delete selection"),
+						<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete selection"),
 								{ :action => 'remove_lines', :id => @order },
 								:onmouseup => "change_href(this, 'order_line', 'line');",
 								:class => "ghostable_group_1 ghosted negative",
@@ -92,7 +92,7 @@
 								# :with => "'order_lines=' + checkbox_values('order_line_check')"
 								%>
 						
-						<%= greybox_link_to_page(image_tag($layout_public_path + "/images/icons/shape_align_left.png") + " " + _("Timeline"),
+						<%= greybox_link_to_page(icon_tag("shape_align_left") + " " + _("Timeline"),
 								{ :action => 'timeline', :id => @order },
 								:title => _("Timeline"), :width => 1000 ) %>
 								

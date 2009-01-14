@@ -18,7 +18,7 @@
 	<br />
 
 	<div class="buttons">
-		<%=	link_to(image_tag($layout_public_path + "/images/icons/door_out.png") + " " + _("Confirm"),
+		<%=	link_to(icon_tag("door_out") + " " + _("Confirm"),
 					 { :action => 'sign_contract', :lines => @lines },
 					 :class => 'positive', :method => 'post') unless @lines.empty? %>
 					 

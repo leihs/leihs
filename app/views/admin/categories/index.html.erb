@@ -53,7 +53,7 @@
 				<td><%= category.parents.size %></td>
 				<td class="buttons" style="white-space: nowrap">
 					<ul>
-						<li><%= link_to _("Show"), admin_category_path(category) %></li>
+						<li><%= link_to icon_tag("magnifier") + _("Show"), admin_category_path(category) %></li>
 						<li><%= link_to _("Delete"), admin_category_path(category),
 										:confirm => _("Are you sure?"),
 										:method => :delete if category.models.empty? and category.children.empty? %></li>

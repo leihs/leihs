@@ -19,7 +19,7 @@
 		<%= text_area_tag 'note', "User: #{@contract_line.contract.user.login}\nContract: #{@contract_line.contract.id}", :size => "25x10" %>
 		
 		<div class="buttons">
-			<%=	submit_button(_("Submit"), {:img => $layout_public_path + "/images/icons/flag_red.png"} ) %>
+			<%=	submit_button(_("Submit"), {:icon => "flag_red"} ) %>
 					 		 
 			<%=	cancel_popup_button(_("Cancel") ) %>
 		</div>
