@@ -2,14 +2,14 @@
 						   			:records => @items do |item| %>	
 
 			<tr>
-				<td><%= link_to image_tag(item.model.image_thumb), admin_item_path(item) if item.model.image_thumb %></td>
+				<td><%= link_to image_tag(item.model.image_thumb), admin_model_item_path(item.model, item) if item.model.image_thumb %></td>
 				<td><%= item.model.name %></td>
 				<td><%= item.inventory_code %></td>
 				<td><%= item.serial_number %></td>
 				<td><%= item.location.to_s %></td>
 				<td><%= icon_tag(item.is_borrowable ? "accept": "delete") %></td>
 				<td><%= icon_tag(item.in_stock? ? "accept": "delete") %></td>
-				<td class="buttons" style="white-space: nowrap">
+				<td class="buttons">
 					<%= link_to icon_tag("magnifier") + _("Show"), [:backend, @current_inventory_pool, item.model, item] %>
 				</td>
 			</tr>

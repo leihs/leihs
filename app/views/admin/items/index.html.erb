@@ -1,7 +1,7 @@
-<% unless request.xml_http_request? %>
+<% if !request.xml_http_request? and @model %>
 
 <div class="toolbar-second buttons">
-	<%= link_to _("Create New"), :action => 'new' %>
+	<%= link_to _("Create New"), new_admin_model_item_path(@model) %>
 </div>
 
 <% end %>
@@ -11,17 +11,17 @@
 						   			:records => @items do |item| %>	
 
 			<tr>
-				<td><%= link_to image_tag(item.model.image_thumb), admin_item_path(item) if item.model and item.model.image_thumb %></td>
+				<td><%= link_to image_tag(item.model.image_thumb), admin_model_item_path(item.model, item) if item.model.image_thumb %></td>
 				<td><%= item.model.name if item.model %></td>
 				<td><%= item.inventory_code %></td>
 				<td><%= item.serial_number %></td>
 				<td><%= item.location.to_s if item.location %></td>
 				<td><%= icon_tag(item.is_borrowable ? "accept": "delete") %></td>
 				<td><%= icon_tag(item.in_stock? ? "accept": "delete") %></td>
-				<td class="buttons" style="white-space: nowrap">
+				<td class="buttons">
 					<ul>
-						<li><%= link_to icon_tag("magnifier") + _("Show"), admin_item_path(item) %></li>
-						<li><%= link_to _("Delete"), admin_item_path(item),
+						<li><%= link_to icon_tag("magnifier") + _("Show"), admin_model_item_path(item.model, item) %></li>
+						<li><%= link_to _("Delete"), admin_model_item_path(item.model, item),
 										:confirm => _("Are you sure?"),
 										:method => :delete %></li>
 					</ul>

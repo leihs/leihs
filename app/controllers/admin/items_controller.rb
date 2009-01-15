@@ -31,19 +31,19 @@ class Admin::ItemsController < Admin::AdminController
   end
 
   def new
-    @item = Item.new
+    @item = Item.new(:model => @model)
     show and render :action => 'show'
   end
 
   def create
-    @item = Item.new
+    @item = Item.new(:model => @model)
     update
   end
       
   def update
     @item.step = params[:item][:step]
     if @item.update_attributes(params[:item])
-      redirect_to admin_item_path(@item)
+      redirect_to admin_model_item_path(@item.model, @item)
     else
       flash[:error] = @item.errors.full_messages
       show and render :action => 'show' # TODO 24** redirect to the correct tabbed form
@@ -59,7 +59,7 @@ class Admin::ItemsController < Admin::AdminController
 #################################################################
 
   def model
-    @item.step = 'step_model'
+    #old# @item.step = 'step_model'
   end
 
 #################################################################
@@ -92,10 +92,10 @@ class Admin::ItemsController < Admin::AdminController
   private
   
   def pre_load
-    params[:id] ||= params[:item_id] if params[:item_id]
-    @item = Item.find(params[:id]) if params[:id]
+    params[:item_id] ||= params[:id] if params[:id]
     @inventory_pool = InventoryPool.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
     @model = Model.find(params[:model_id]) if params[:model_id]
+    @item = Item.find(params[:item_id]) if params[:item_id]
 
     @tabs = []
     @tabs << :inventory_pool_admin if @inventory_pool

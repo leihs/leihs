@@ -12,7 +12,7 @@
 							:class => "iconized-notxt edit-user" ) %>
 				</td>
 				<td><%= _("%{n} Items") % {:n => order.quantity} %></td>
-				<td class="buttons" style="white-space: nowrap">
+				<td class="buttons">
 					<% case params[:filter]
 				    	 when "submitted" %>
 						<%= link_to icon_tag("tab_go") + _("View + Acknowledge"),

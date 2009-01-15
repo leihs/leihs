@@ -1,5 +1,5 @@
 
-	<% form_for [:admin, @item] do |f| %>
+	<% form_for [:admin, @item.model, @item] do |f| %>
 		<%= f.hidden_field :step %>
 	
 		<table>

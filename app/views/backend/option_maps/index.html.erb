@@ -13,7 +13,7 @@
 			<tr>
 				<td><%= option.barcode %></td>
 				<td><%= option.text %></td>
-				<td class="buttons" style="white-space: nowrap">
+				<td class="buttons">
 					<ul>
 						<li><%= link_to icon_tag("magnifier") + _("Show"), {:action => 'show', :id => option} %></li>
 						<li><%= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => option.barcode}, :method => :post %></li>

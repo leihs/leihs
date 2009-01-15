@@ -1,6 +1,3 @@
-<i>Item</i>
-<hr />
-
 <% if @item.errors.size > 0 %>
 	<ul style="border: 1px solid red; padding: 2px;">
 	<% @item.errors.full_messages.each do |e| %>		
@@ -9,25 +6,20 @@
 	</ul>
 <% end %>			
 
-<% if @item.model %>
-	<h2><%= image_tag(@item.model.image_thumb) if @item.model.image_thumb %>
-		<%= @item.model.name %></h2>
-<% end %>
-
 <%  
 render_tabnav :item_admin, 
               :generate_css => true do 
     
 	add_tab do |t|
 		t.named _('Item')
-		t.links_to :action => 'show' #admin_item_path(@item)
+		t.links_to :action => 'show' #old# admin_item_path(@item)
 #		t.highlights_on :action => 'show'
 		t.html[:style] = "background-color: red;" if @item.inventory_code.blank? 
 	end
 
 	add_tab do |t|
 		t.named _('Model')
-		t.links_to :action => 'model' # model_admin_item_path(@item)
+		t.links_to :action => 'model' #old# model_admin_item_path(@item)
 #		t.highlights_on :action => 'model'
 		t.html[:style] = "background-color: red;" unless @item.model
 
@@ -37,7 +29,7 @@ render_tabnav :item_admin,
 
 	add_tab do |t|
 		t.named _('InventoryPool')
-		t.links_to :action => 'inventory_pool' # inventory_pool_admin_item_path(@item)
+		t.links_to :action => 'inventory_pool' #old# inventory_pool_admin_item_path(@item)
 #		t.highlights_on :action => 'inventory_pool'
 		t.html[:style] = "background-color: red;" unless @item.location
 	end

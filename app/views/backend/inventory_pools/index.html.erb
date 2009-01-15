@@ -13,7 +13,7 @@
 				</td>
 				<td><%= inventory_pool.description %></td>
 				<td><%= inventory_pool.items.size %></td>
-				<td class="buttons" style="white-space: nowrap">
+				<td class="buttons">
 				<% if is_manager
 				      to_acknowledge_size = inventory_pool.orders.submitted.size
 				      to_hand_over_size = inventory_pool.hand_over_visits.size
