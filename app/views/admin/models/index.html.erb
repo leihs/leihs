@@ -27,7 +27,7 @@
 				<td><%= model.manufacturer %></td>
 				<td><%= model.items.size %></td>
 				<td><%= model.compatibles.size %></td>
-				<td class="buttons" style="white-space: nowrap">
+				<td class="buttons">
 					<ul>
 						<li><%= link_to icon_tag("magnifier") + _("Show"), admin_model_path(model) %></li>
 						<li><%= link_to _("Delete"), admin_model_path(model),

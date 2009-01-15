@@ -11,7 +11,7 @@
 							:class => "iconized-notxt edit-user" ) %>
 				</td>
 				<td><%= _("%{n} Items") % {:n => contract.quantity} %></td>
-				<td class="buttons" style="white-space: nowrap">
+				<td class="buttons">
 					<% case params[:filter]
 				    	 when "signed" %>
 						<%= link_to icon_tag("tab_go") + _("Take Back"),

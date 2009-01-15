@@ -25,7 +25,7 @@
 						<li>Contracts: <%= user.contracts.size %></li>
 					</ul>
 				</td>
-				<td class="buttons" style="white-space: nowrap">
+				<td class="buttons">
 					<ul>
 						<li><%= link_to icon_tag("magnifier") + _("Show"), :action => 'show', :id => user.id %></li>
 						<li><%= link_to _("Delete"), admin_user_path(user),

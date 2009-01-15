@@ -17,7 +17,7 @@ class Item < ActiveRecord::Base
   validates_uniqueness_of :inventory_code
   #validates_length_of :inventory_code, :minimum => 1, :too_short => "please enter at least %d character", :if => Proc.new {|i| i.step == 'step_item'}
   validates_presence_of :inventory_code, :if => Proc.new {|i| i.step == 'step_item'}
-  validates_presence_of :model, :if => Proc.new {|i| i.step == 'step_model'}
+  validates_presence_of :model #old#, :if => Proc.new {|i| i.step == 'step_model'}
   validates_presence_of :location, :if => Proc.new {|i| i.step == 'step_location'}
   validate :validates_if_is_package
   

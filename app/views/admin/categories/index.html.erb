@@ -51,7 +51,7 @@
 				<td><%= category.children.size %></td>
 				<td><%= category.all_children.size %></td>
 				<td><%= category.parents.size %></td>
-				<td class="buttons" style="white-space: nowrap">
+				<td class="buttons">
 					<ul>
 						<li><%= link_to icon_tag("magnifier") + _("Show"), admin_category_path(category) %></li>
 						<li><%= link_to _("Delete"), admin_category_path(category),

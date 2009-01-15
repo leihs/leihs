@@ -19,7 +19,7 @@
 						<li>Contracts: <%= user.contracts.size %></li>
 					</ul>
 				</td>
-				<td class="buttons" style="white-space: nowrap">
+				<td class="buttons">
 					<% if params[:source_path]
 							glue = (params[:source_path].include?('?') ? '&' : '?' )
 							url = "#{params[:source_path]}#{glue}swap_user_id=#{user.id}"

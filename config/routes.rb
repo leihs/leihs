@@ -136,9 +136,7 @@ ActionController::Routing::Routes.draw do |map|
                                                    :add_manager => :put } do |inventory_pool|
         inventory_pool.resources :items
     end
-    admin.resources :items, :member => { :model => :get,  # TODO 12** remove and nest to models ??
-                                         :inventory_pool => :any,
-                                         :notes => :any }
+    admin.items 'items', :controller => 'items', :action => 'index'
     admin.resources :models, :member => { :properties => :get,
                                           :add_property => :post,
                                           :remove_property => :get,  # OPTIMIZE method
@@ -146,7 +144,9 @@ ActionController::Routing::Routes.draw do |map|
                                           :accessories => :get,
                                           :add_accessory => :post,
                                           :remove_accessory => :get } do |model|  # OPTIMIZE method
-        model.resources :items
+        model.resources :items, :member => { :model => :get,  # TODO 12** remove and nest to models ??
+                                             :inventory_pool => :any,
+                                             :notes => :any }
         model.resources :categories
         model.resources :compatibles, :controller => 'models'
     end

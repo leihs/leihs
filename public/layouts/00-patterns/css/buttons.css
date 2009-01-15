@@ -3,6 +3,9 @@ Buttons
  - - - - - - - - - - - - - */
 
 /* Thanks to Kevin Hale - http://particletree.com/features/rediscovering-the-button-element/ */
+.buttons {
+	white-space: nowrap;
+}
 
 .buttons a, .buttons button{
     /* display:block; */

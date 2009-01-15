@@ -24,7 +24,7 @@
 				<td><%= category.children.size %></td>
 				<td><%= category.all_children.size %></td>
 				<td><%= category.parents.size %></td>
-				<td class="buttons" style="white-space: nowrap">
+				<td class="buttons">
 					<ul>
 						<li><%= link_to _("Remove"), backend_inventory_pool_model_category_path(@current_inventory_pool, @model, category),
 										:confirm => _("Are you sure?"),
