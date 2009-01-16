@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2008-12-31 12:03+0100\n"
+"POT-Creation-Date: 2009-01-16 14:55+0100\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,16 +16,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/controllers/backend/models_controller.rb:42
-msgid "Model successfully added as compatible"
+#: app/controllers/sessions_controller.rb:36
+msgid "Logged in successfully"
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:44
-msgid "The model is already compatible"
+#: app/controllers/sessions_controller.rb:45
+msgid "You have been logged out."
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:53
-msgid "Compatible successfully removed"
+#: app/controllers/admin/categories_controller.rb:70
+#: app/controllers/backend/categories_controller.rb:28
+msgid "Category successfully assigned"
+msgstr ""
+
+#: app/controllers/admin/categories_controller.rb:72
+#: app/controllers/backend/categories_controller.rb:30
+msgid "The model is already assigned to this category"
+msgstr ""
+
+#: app/controllers/admin/categories_controller.rb:92
+#: app/controllers/backend/categories_controller.rb:39
+msgid "Category successfully removed"
+msgstr ""
+
+#: app/controllers/admin/categories_controller.rb:102
+msgid "The Category must be empty"
+msgstr ""
+
+#: app/controllers/admin/categories_controller.rb:116
+msgid "Attempt to add node to own graph collection"
+msgstr ""
+
+#: app/controllers/admin/inventory_pools_controller.rb:37
+msgid "The Inventory Pool must be empty"
+msgstr ""
+
+#: app/controllers/admin/models_controller.rb:46
+msgid "The model has items"
+msgstr ""
+
+#: app/controllers/admin/models_controller.rb:89
+msgid "Attachment was successfully created."
+msgstr ""
+
+#: app/controllers/admin/models_controller.rb:91
+msgid "Upload error."
+msgstr ""
+
+#: app/controllers/admin/users_controller.rb:60
+#: app/controllers/backend/users_controller.rb:41
+msgid "Access Right successfully created"
+msgstr ""
+
+#: app/controllers/admin/users_controller.rb:69
+msgid "Access Right successfully removed"
+msgstr ""
+
+#: app/controllers/backend/hand_over_controller.rb:37
+msgid ""
+"No items to hand over specified. Please assign inventory codes to the items "
+"you want to hand over."
 msgstr ""
 
 #: app/controllers/backend/hand_over_controller.rb:82
@@ -40,294 +90,32 @@ msgstr ""
 msgid "Inventory Code identifies an item that is not in this order."
 msgstr ""
 
-#: app/controllers/backend/backend_controller.rb:44
+#: app/controllers/backend/models_controller.rb:38
+msgid "Model successfully added as compatible"
+msgstr ""
+
+#: app/controllers/backend/models_controller.rb:40
+msgid "The model is already compatible"
+msgstr ""
+
+#: app/controllers/backend/models_controller.rb:49
+msgid "Compatible successfully removed"
+msgstr ""
+
+#: app/controllers/backend/backend_controller.rb:42
 msgid "Model must be selected"
 msgstr ""
 
-#: app/controllers/backend/users_controller.rb:28
+#: app/controllers/backend/users_controller.rb:24
 msgid "User %s has been reminded "
 msgstr ""
 
-#: app/controllers/backend/acknowledge_controller.rb:108
+#: app/controllers/backend/acknowledge_controller.rb:104
 msgid "User must be selected"
 msgstr ""
 
-#: app/controllers/orders_controller.rb:17
-msgid "The order has been successfully submitted, but is NOT YET CONFIRMED."
-msgstr ""
-
-#: app/controllers/orders_controller.rb:49
-msgid "Line couldn't be added"
-msgstr ""
-
-#: app/controllers/sessions_controller.rb:36
-msgid "Logged in successfully"
-msgstr ""
-
-#: app/controllers/sessions_controller.rb:45
-msgid "You have been logged out."
-msgstr ""
-
-#: app/controllers/admin/models_controller.rb:50
-msgid "The model has items"
-msgstr ""
-
-#: app/controllers/admin/models_controller.rb:93
-msgid "Attachment was successfully created."
-msgstr ""
-
-#: app/controllers/admin/models_controller.rb:95
-msgid "Upload error."
-msgstr ""
-
-#: app/controllers/admin/categories_controller.rb:74
-msgid "Category successfully assigned"
-msgstr ""
-
-#: app/controllers/admin/categories_controller.rb:76
-msgid "The model is already assigned to this category"
-msgstr ""
-
-#: app/controllers/admin/categories_controller.rb:96
-msgid "Category successfully removed"
-msgstr ""
-
-#: app/controllers/admin/categories_controller.rb:106
-msgid "The Category must be empty"
-msgstr ""
-
-#: app/controllers/admin/categories_controller.rb:120
-msgid "Attempt to add node to own graph collection"
-msgstr ""
-
-#: app/controllers/admin/inventory_pools_controller.rb:42
-msgid "The Inventory Pool must be empty"
-msgstr ""
-
-#: app/helpers/backend/backend_helper.rb:35
-msgid " <b>%d</b> results"
-msgstr ""
-
-#: app/helpers/backend/backend_helper.rb:36
-msgid " for <b>%s</b>"
-msgstr ""
-
-#: app/helpers/backend/backend_helper.rb:37
-msgid " filtering <b>%s</b>"
-msgstr ""
-
-#: app/helpers/backend/backend_helper.rb:40
-msgid "Previous"
-msgstr ""
-
-#: app/helpers/backend/backend_helper.rb:40
-msgid "Next"
-msgstr ""
-
-#: app/helpers/backend/backend_helper.rb:96
-#: app/views/backend/contracts/index.html.erb:1
-#: app/views/backend/take_back/index.html.erb:1
-#: app/views/backend/acknowledge/show.html.erb:39
-#: app/views/backend/acknowledge/show.html.erb:41
-#: app/views/backend/acknowledge/index.html.erb:20
-#: app/views/backend/hand_over/index.html.erb:1
-#: app/views/backend/orders/index.html.erb:1
-msgid "Reserver"
-msgstr ""
-
-#: app/helpers/backend/backend_helper.rb:99
-#: app/views/backend/contracts/index.html.erb:10
-#: app/views/backend/take_back/index.html.erb:12
-#: app/views/backend/acknowledge/show.html.erb:47
-#: app/views/backend/acknowledge/index.html.erb:31
-#: app/views/backend/hand_over/index.html.erb:11
-#: app/views/backend/orders/index.html.erb:11
-#: app/views/backend/users/index.html.erb:1
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:18
-#: app/views/widgets/_user_admin_tabnav.html.erb:15
-#: app/views/widgets/_user_backend_tabnav.html.erb:15
-#: app/views/admin/users/index.html.erb:10
-msgid "User"
-msgstr ""
-
-#: app/helpers/backend/backend_helper.rb:115
-#: app/views/backend/hand_over/_lines.html.erb:8
-#: app/views/backend/items/index.html.erb:1
-#: app/views/backend/models/index.html.erb:35
-#: app/views/widgets/_model_backend_tabnav.html.erb:21
-#: app/views/widgets/_model_admin_tabnav.html.erb:21
-#: app/views/widgets/_item_admin_tabnav.html.erb:29
-#: app/views/admin/items/index.html.erb:10
-#: app/views/admin/models/index.html.erb:21
-#: app/views/frontend/_basket.html.erb:16
-#: app/views/backend/contracts/show.rfpdf:80 app/views/users/document.rfpdf:75
-msgid "Model"
-msgstr ""
-
-#: app/helpers/backend/acknowledge_helper.rb:9
-msgid "Today"
-msgstr ""
-
-#: app/helpers/backend/acknowledge_helper.rb:11
-msgid "Yesterday"
-msgstr ""
-
-#: app/models/order.rb:22 app/models/contract.rb:18
-msgid "New"
-msgstr ""
-
-#: app/models/order.rb:22
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:4
-msgid "Submitted"
-msgstr ""
-
-#: app/models/order.rb:22
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:5
-msgid "Approved"
-msgstr ""
-
-#: app/models/order.rb:22
-msgid "Rejected"
-msgstr ""
-
-#: app/models/order.rb:109
-msgid "Changed quantity for %{model} from %{from} to %{to}"
-msgstr ""
-
-#: app/models/order.rb:111
-msgid "Maximum number of items available at that time is %{max}"
-msgstr ""
-
-#: app/models/order.rb:112
-msgid "(maximum available: %{max})"
-msgstr ""
-
-#: app/models/order.rb:119
-msgid "Purpose changed '%{from}' for '%{to}'"
-msgstr ""
-
-#: app/models/order.rb:128
-msgid "User swapped %{from} for %{to}"
-msgstr ""
-
-#: app/models/model_group.rb:-
-msgid "model group"
-msgstr ""
-
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Type"
-msgstr ""
-
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Name"
-msgstr ""
-
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Created at"
-msgstr ""
-
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Updated at"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "inventory pool"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Name"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Description"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Contract description"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Contract url"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Logo url"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "role"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Parent"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Lft"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Rgt"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Name"
-msgstr ""
-
-#: app/models/property.rb:-
-msgid "property"
-msgstr ""
-
-#: app/models/property.rb:-
-msgid "Property|Model"
-msgstr ""
-
-#: app/models/property.rb:-
-msgid "Property|Key"
-msgstr ""
-
-#: app/models/property.rb:-
-msgid "Property|Value"
-msgstr ""
-
-#: app/models/property.rb:-
-msgid "Property|Created at"
-msgstr ""
-
-#: app/models/property.rb:-
-msgid "Property|Updated at"
-msgstr ""
-
-#: app/models/accessory.rb:-
-msgid "accessory"
-msgstr ""
-
-#: app/models/accessory.rb:-
-msgid "Accessory|Model"
-msgstr ""
-
-#: app/models/accessory.rb:-
-msgid "Accessory|Name"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "authentication system"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Name"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Class name"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Is default"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Is active"
+#: app/controllers/orders_controller.rb:20
+msgid "Submission failed"
 msgstr ""
 
 #: app/models/access_right.rb:-
@@ -358,474 +146,72 @@ msgstr ""
 msgid "AccessRight|Updated at"
 msgstr ""
 
-#: app/models/access_right.rb:6
-msgid "Everybody"
+#: app/models/access_right.rb:7
+msgid "Student"
 msgstr ""
 
-#: app/models/access_right.rb:6
-msgid "Privileged"
+#: app/models/access_right.rb:7
+msgid "Employee"
 msgstr ""
 
-#: app/models/access_right.rb:35
+#: app/models/access_right.rb:7
+msgid "Special"
+msgstr ""
+
+#: app/models/access_right.rb:36
 msgid "The admin role cannot be scoped to an inventory pool"
 msgstr ""
 
-#: app/models/access_right.rb:37
+#: app/models/access_right.rb:38
 msgid "Inventory Pool is missing"
 msgstr ""
 
-#: app/models/contract.rb:18
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:11
-msgid "Signed"
+#: app/models/inventory_pool.rb:-
+msgid "role"
 msgstr ""
 
-#: app/models/contract.rb:18
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:12
-msgid "Closed"
+#: app/models/inventory_pool.rb:-
+msgid "Role|Parent"
 msgstr ""
 
-#: app/models/contract.rb:65
-msgid "Removed Option: %{o}"
+#: app/models/inventory_pool.rb:-
+msgid "Role|Lft"
 msgstr ""
 
-#: app/models/contract_line.rb:22
-msgid "item not assigned. "
+#: app/models/inventory_pool.rb:-
+msgid "Role|Rgt"
 msgstr ""
 
-#: app/models/contract_line.rb:23
-msgid "not valid. "
+#: app/models/inventory_pool.rb:-
+msgid "Role|Name"
 msgstr ""
 
-#: app/models/contract_line.rb:24
-msgid "not available. "
+#: app/models/inventory_pool.rb:-
+msgid "inventory pool"
 msgstr ""
 
-#: app/models/contract_line.rb:58
-msgid "The item doesn't match with the reserved model"
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Name"
 msgstr ""
 
-#: app/models/contract_line.rb:61
-msgid "The item is already handed over"
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Description"
 msgstr ""
 
-#: app/models/contract_line.rb:64
-msgid "The item doesn't belong to the inventory pool related to this contract"
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Contact details"
 msgstr ""
 
-#: app/models/contract_line.rb:70
-msgid "This inventory pool is closed on the proposed end date"
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Contract description"
 msgstr ""
 
-#: app/models/document.rb:59
-msgid "Added"
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Contract url"
 msgstr ""
 
-#: app/models/document.rb:67
-msgid "Swapped %{from} for %{to}"
-msgstr ""
-
-#: app/models/document.rb:81
-msgid "Changed dates for %{model} from %{from} to %{to}"
-msgstr ""
-
-#: app/models/document.rb:92
-msgid "Removed %{m}"
-msgstr ""
-
-#: app/models/mailer/order.rb:4
-msgid "Reservation Confirmation"
-msgstr ""
-
-#: app/models/mailer/order.rb:14
-msgid "Reservation Submitted"
-msgstr ""
-
-#: app/models/mailer/order.rb:24
-msgid "Reservation Rejected"
-msgstr ""
-
-#: app/models/mailer/order.rb:34
-msgid "Reservation confirmed (with changes)"
-msgstr ""
-
-#: app/models/mailer/user.rb:4
-#: app/views/backend/inventory_pools/index.html.erb:26
-#: app/views/backend/users/_resume.html.erb:27
-#: app/views/backend/users/index.html.erb:33
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:5
-msgid "Remind"
-msgstr ""
-
-#: app/models/document_line.rb:59
-msgid "quantity not available. "
-msgstr ""
-
-#: app/models/document_line.rb:60
-msgid "inventory pool is closed on start_date. "
-msgstr ""
-
-#: app/models/document_line.rb:61
-msgid "inventory pool is closed on end_date. "
-msgstr ""
-
-#: app/models/document_line.rb:75
-#: app/views/backend/backend/time_lines.html.erb:94
-#: app/views/frontend/_complete_order.html.erb:128
-#: app/views/frontend/_models.html.erb:354
-msgid "Start Date must be before End Date"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "location"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Inventory pool"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Is main"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Building"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Room"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Shelf"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Created at"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Updated at"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "workday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Inventory pool"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Monday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Tuesday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Wednesday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Thursday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Friday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Saturday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Sunday"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "model"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Name"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Manufacturer"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Maintenance period"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Is package"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Created at"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Updated at"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "history"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Text"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Type const"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Created at"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Target"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Target type"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|User"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "item"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Inventory code"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Serial number"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Model"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Location"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Parent"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Required level"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Is broken"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Is incomplete"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Is borrowable"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Created at"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Updated at"
-msgstr ""
-
-#: app/models/item.rb:90
-msgid "Package error"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "contract"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|User"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Inventory pool"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Status const"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Purpose"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Created at"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Updated at"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "user"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Login"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Authentication system"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Unique"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Email"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Created at"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Updated at"
-msgstr ""
-
-#: app/models/user.rb:171
-msgid "Reminded %{q} items for contracts %{c}"
-msgstr ""
-
-#: app/models/model_link.rb:-
-msgid "model link"
-msgstr ""
-
-#: app/models/model_link.rb:-
-msgid "ModelLink|Model group"
-msgstr ""
-
-#: app/models/model_link.rb:-
-msgid "ModelLink|Model"
-msgstr ""
-
-#: app/models/model_link.rb:-
-msgid "ModelLink|Quantity"
-msgstr ""
-
-#: app/models/model_link.rb:8
-msgid "already in Category"
-msgstr ""
-
-#: app/models/option_map.rb:-
-msgid "option map"
-msgstr ""
-
-#: app/models/option_map.rb:-
-msgid "OptionMap|Inventory pool"
-msgstr ""
-
-#: app/models/option_map.rb:-
-msgid "OptionMap|Barcode"
-msgstr ""
-
-#: app/models/option_map.rb:-
-msgid "OptionMap|Text"
-msgstr ""
-
-#: app/models/notification.rb:-
-msgid "notification"
-msgstr ""
-
-#: app/models/notification.rb:-
-msgid "Notification|User"
-msgstr ""
-
-#: app/models/notification.rb:-
-msgid "Notification|Title"
-msgstr ""
-
-#: app/models/notification.rb:-
-msgid "Notification|Created at"
-msgstr ""
-
-#: app/models/notification.rb:7
-#: app/views/frontend/_complete_order.html.erb:219
-msgid "Order submitted"
-msgstr ""
-
-#: app/models/notification.rb:19
-msgid "Order approved"
-msgstr ""
-
-#: app/models/notification.rb:25
-msgid "Order rejected"
-msgstr ""
-
-#: app/models/notification.rb:31
-msgid "Reminder"
-msgstr ""
-
-#: app/models/event.rb:-
-msgid "event"
-msgstr ""
-
-#: app/models/event.rb:-
-msgid "Event|Start"
-msgstr ""
-
-#: app/models/event.rb:-
-msgid "Event|End"
-msgstr ""
-
-#: app/models/event.rb:-
-msgid "Event|Title"
-msgstr ""
-
-#: app/models/event.rb:-
-msgid "Event|Isduration"
-msgstr ""
-
-#: app/models/event.rb:-
-msgid "Event|Action"
-msgstr ""
-
-#: app/models/event.rb:-
-msgid "Event|Quantity"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "holiday"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|Inventory pool"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|Start date"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|End date"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|Name"
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Logo url"
 msgstr ""
 
 #: app/models/image.rb:-
@@ -872,6 +258,162 @@ msgstr ""
 msgid "Image|Updated at"
 msgstr ""
 
+#: app/models/history.rb:-
+msgid "history"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|Text"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|Type const"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|Created at"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|Target"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|Target type"
+msgstr ""
+
+#: app/models/history.rb:-
+msgid "History|User"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "model"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Name"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Manufacturer"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Description"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Internal description"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Info url"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Rental price"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Maintenance period"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Is package"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Created at"
+msgstr ""
+
+#: app/models/model.rb:-
+msgid "Model|Updated at"
+msgstr ""
+
+#: app/models/property.rb:-
+msgid "property"
+msgstr ""
+
+#: app/models/property.rb:-
+msgid "Property|Model"
+msgstr ""
+
+#: app/models/property.rb:-
+msgid "Property|Key"
+msgstr ""
+
+#: app/models/property.rb:-
+msgid "Property|Value"
+msgstr ""
+
+#: app/models/property.rb:-
+msgid "Property|Created at"
+msgstr ""
+
+#: app/models/property.rb:-
+msgid "Property|Updated at"
+msgstr ""
+
+#: app/models/location.rb:-
+msgid "location"
+msgstr ""
+
+#: app/models/location.rb:-
+msgid "Location|Inventory pool"
+msgstr ""
+
+#: app/models/location.rb:-
+msgid "Location|Is main"
+msgstr ""
+
+#: app/models/location.rb:-
+msgid "Location|Building"
+msgstr ""
+
+#: app/models/location.rb:-
+msgid "Location|Room"
+msgstr ""
+
+#: app/models/location.rb:-
+msgid "Location|Shelf"
+msgstr ""
+
+#: app/models/location.rb:-
+msgid "Location|Created at"
+msgstr ""
+
+#: app/models/location.rb:-
+msgid "Location|Updated at"
+msgstr ""
+
+#: app/models/event.rb:-
+msgid "event"
+msgstr ""
+
+#: app/models/event.rb:-
+msgid "Event|Start"
+msgstr ""
+
+#: app/models/event.rb:-
+msgid "Event|End"
+msgstr ""
+
+#: app/models/event.rb:-
+msgid "Event|Title"
+msgstr ""
+
+#: app/models/event.rb:-
+msgid "Event|Isduration"
+msgstr ""
+
+#: app/models/event.rb:-
+msgid "Event|Action"
+msgstr ""
+
+#: app/models/event.rb:-
+msgid "Event|Quantity"
+msgstr ""
+
 #: app/models/option.rb:-
 msgid "option"
 msgstr ""
@@ -904,144 +446,1553 @@ msgstr ""
 msgid "Option|Updated at"
 msgstr ""
 
-#: app/views/backend/barcodes/_tabs.html.erb:3
-#: app/views/backend/barcodes/new.html.erb:14
-msgid "Generate barcode"
+#: app/models/option_map.rb:-
+msgid "option map"
 msgstr ""
 
-#: app/views/backend/contracts/index.html.erb:1
-#: app/views/backend/orders/index.html.erb:1
-msgid "Id"
+#: app/models/option_map.rb:-
+msgid "OptionMap|Inventory pool"
 msgstr ""
 
-#: app/views/backend/contracts/index.html.erb:1
-#: app/views/backend/orders/index.html.erb:1
-msgid "Date"
+#: app/models/option_map.rb:-
+msgid "OptionMap|Barcode"
 msgstr ""
 
-#: app/views/backend/contracts/index.html.erb:1
-#: app/views/backend/take_back/index.html.erb:1
-#: app/views/backend/acknowledge/index.html.erb:20
+#: app/models/option_map.rb:-
+msgid "OptionMap|Text"
+msgstr ""
+
+#: app/models/notification.rb:-
+msgid "notification"
+msgstr ""
+
+#: app/models/notification.rb:-
+msgid "Notification|User"
+msgstr ""
+
+#: app/models/notification.rb:-
+msgid "Notification|Title"
+msgstr ""
+
+#: app/models/notification.rb:-
+msgid "Notification|Created at"
+msgstr ""
+
+#: app/models/notification.rb:7
+#: app/views/frontend/_complete_order.html.erb:221
+msgid "Order submitted"
+msgstr ""
+
+#: app/models/notification.rb:19
+msgid "Order approved"
+msgstr ""
+
+#: app/models/notification.rb:25
+msgid "Order rejected"
+msgstr ""
+
+#: app/models/notification.rb:31
+msgid "Reminder"
+msgstr ""
+
+#: app/models/contract_line.rb:22
+msgid "item not assigned. "
+msgstr ""
+
+#: app/models/contract_line.rb:23
+msgid "not valid. "
+msgstr ""
+
+#: app/models/contract_line.rb:24
+msgid "not available. "
+msgstr ""
+
+#: app/models/contract_line.rb:58
+msgid "The item doesn't match with the reserved model"
+msgstr ""
+
+#: app/models/contract_line.rb:61
+msgid "The item is already handed over"
+msgstr ""
+
+#: app/models/contract_line.rb:64
+msgid "The item doesn't belong to the inventory pool related to this contract"
+msgstr ""
+
+#: app/models/contract_line.rb:70
+msgid "This inventory pool is closed on the proposed end date"
+msgstr ""
+
+#: app/models/order.rb:22 app/models/contract.rb:18
+msgid "New"
+msgstr ""
+
+#: app/models/order.rb:22
+msgid "Submitted"
+msgstr ""
+
+#: app/models/order.rb:22
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:5
+msgid "Approved"
+msgstr ""
+
+#: app/models/order.rb:22
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:6
+msgid "Rejected"
+msgstr ""
+
+#: app/models/order.rb:112
+msgid "Changed quantity for %{model} from %{from} to %{to}"
+msgstr ""
+
+#: app/models/order.rb:114
+msgid "Maximum number of items available at that time is %{max}"
+msgstr ""
+
+#: app/models/order.rb:115
+msgid "(maximum available: %{max})"
+msgstr ""
+
+#: app/models/order.rb:122
+msgid "Purpose changed '%{from}' for '%{to}'"
+msgstr ""
+
+#: app/models/order.rb:131
+msgid "User swapped %{from} for %{to}"
+msgstr ""
+
+#: app/models/document.rb:59
+msgid "Added"
+msgstr ""
+
+#: app/models/document.rb:67
+msgid "Swapped %{from} for %{to}"
+msgstr ""
+
+#: app/models/document.rb:81
+msgid "Changed dates for %{model} from %{from} to %{to}"
+msgstr ""
+
+#: app/models/document.rb:92
+msgid "Removed %{m}"
+msgstr ""
+
+#: app/models/document_line.rb:59
+msgid "quantity not available. "
+msgstr ""
+
+#: app/models/document_line.rb:60
+msgid "inventory pool is closed on start_date. "
+msgstr ""
+
+#: app/models/document_line.rb:61
+msgid "inventory pool is closed on end_date. "
+msgstr ""
+
+#: app/models/document_line.rb:75
+#: app/views/backend/backend/time_lines.html.erb:94
+#: app/views/frontend/_complete_order.html.erb:128
+#: app/views/frontend/_models.html.erb:351
+msgid "Start Date must be before End Date"
+msgstr ""
+
+#: app/models/mailer/order.rb:4
+msgid "Reservation Confirmation"
+msgstr ""
+
+#: app/models/mailer/order.rb:14
+msgid "Reservation Submitted"
+msgstr ""
+
+#: app/models/mailer/order.rb:24
+msgid "Reservation Rejected"
+msgstr ""
+
+#: app/models/mailer/order.rb:34
+msgid "Reservation confirmed (with changes)"
+msgstr ""
+
+#: app/models/mailer/user.rb:4 app/views/backend/users/index.html.erb:33
+#: app/views/backend/users/_resume.html.erb:27
+#: app/views/backend/inventory_pools/index.html.erb:26
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:5
+msgid "Remind"
+msgstr ""
+
+#: app/models/holiday.rb:-
+msgid "holiday"
+msgstr ""
+
+#: app/models/holiday.rb:-
+msgid "Holiday|Inventory pool"
+msgstr ""
+
+#: app/models/holiday.rb:-
+msgid "Holiday|Start date"
+msgstr ""
+
+#: app/models/holiday.rb:-
+msgid "Holiday|End date"
+msgstr ""
+
+#: app/models/holiday.rb:-
+msgid "Holiday|Name"
+msgstr ""
+
+#: app/models/supplier.rb:-
+msgid "supplier"
+msgstr ""
+
+#: app/models/supplier.rb:-
+msgid "Supplier|Name"
+msgstr ""
+
+#: app/models/supplier.rb:-
+msgid "Supplier|Created at"
+msgstr ""
+
+#: app/models/supplier.rb:-
+msgid "Supplier|Updated at"
+msgstr ""
+
+#: app/models/authentication_system.rb:-
+msgid "authentication system"
+msgstr ""
+
+#: app/models/authentication_system.rb:-
+msgid "AuthenticationSystem|Name"
+msgstr ""
+
+#: app/models/authentication_system.rb:-
+msgid "AuthenticationSystem|Class name"
+msgstr ""
+
+#: app/models/authentication_system.rb:-
+msgid "AuthenticationSystem|Is default"
+msgstr ""
+
+#: app/models/authentication_system.rb:-
+msgid "AuthenticationSystem|Is active"
+msgstr ""
+
+#: app/models/model_link.rb:-
+msgid "model link"
+msgstr ""
+
+#: app/models/model_link.rb:-
+msgid "ModelLink|Model group"
+msgstr ""
+
+#: app/models/model_link.rb:-
+msgid "ModelLink|Model"
+msgstr ""
+
+#: app/models/model_link.rb:-
+msgid "ModelLink|Quantity"
+msgstr ""
+
+#: app/models/model_link.rb:10
+msgid "already in Category"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "contract"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Contract|User"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Contract|Inventory pool"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Contract|Status const"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Contract|Purpose"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Contract|Created at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Contract|Updated at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "user"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Login"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Firstname"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Lastname"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Authentication system"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Unique"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Email"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Created at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Updated at"
+msgstr ""
+
+#: app/models/user.rb:182
+msgid "Reminded %{q} items for contracts %{c}"
+msgstr ""
+
+#: app/models/model_group.rb:-
+msgid "model group"
+msgstr ""
+
+#: app/models/model_group.rb:-
+msgid "ModelGroup|Type"
+msgstr ""
+
+#: app/models/model_group.rb:-
+msgid "ModelGroup|Name"
+msgstr ""
+
+#: app/models/model_group.rb:-
+msgid "ModelGroup|Created at"
+msgstr ""
+
+#: app/models/model_group.rb:-
+msgid "ModelGroup|Updated at"
+msgstr ""
+
+#: app/models/workday.rb:-
+msgid "workday"
+msgstr ""
+
+#: app/models/workday.rb:-
+msgid "Workday|Inventory pool"
+msgstr ""
+
+#: app/models/workday.rb:-
+msgid "Workday|Monday"
+msgstr ""
+
+#: app/models/workday.rb:-
+msgid "Workday|Tuesday"
+msgstr ""
+
+#: app/models/workday.rb:-
+msgid "Workday|Wednesday"
+msgstr ""
+
+#: app/models/workday.rb:-
+msgid "Workday|Thursday"
+msgstr ""
+
+#: app/models/workday.rb:-
+msgid "Workday|Friday"
+msgstr ""
+
+#: app/models/workday.rb:-
+msgid "Workday|Saturday"
+msgstr ""
+
+#: app/models/workday.rb:-
+msgid "Workday|Sunday"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "item"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Inventory code"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Serial number"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Model"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Location"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Supplier"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Owner"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Parent"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Required level"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Invoice number"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Invoice date"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Last check"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Retired"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Retired reason"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Price"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Is broken"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Is incomplete"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Is borrowable"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Created at"
+msgstr ""
+
+#: app/models/item.rb:-
+msgid "Item|Updated at"
+msgstr ""
+
+#: app/models/item.rb:92
+msgid "Package error"
+msgstr ""
+
+#: app/models/contract.rb:18
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:12
+msgid "Signed"
+msgstr ""
+
+#: app/models/contract.rb:18
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:13
+msgid "Closed"
+msgstr ""
+
+#: app/models/contract.rb:65
+msgid "Removed Option: %{o}"
+msgstr ""
+
+#: app/models/accessory.rb:-
+msgid "accessory"
+msgstr ""
+
+#: app/models/accessory.rb:-
+msgid "Accessory|Model"
+msgstr ""
+
+#: app/models/accessory.rb:-
+msgid "Accessory|Name"
+msgstr ""
+
+#: app/helpers/backend/acknowledge_helper.rb:9
+#: app/views/backend/inventory_pools/show.html.erb:25
+#: app/views/backend/inventory_pools/show.html.erb:33
+msgid "Today"
+msgstr ""
+
+#: app/helpers/backend/acknowledge_helper.rb:11
+msgid "Yesterday"
+msgstr ""
+
+#: app/helpers/backend/backend_helper.rb:30
+msgid " <b>%d</b> results"
+msgstr ""
+
+#: app/helpers/backend/backend_helper.rb:31
+msgid " for <b>%s</b>"
+msgstr ""
+
+#: app/helpers/backend/backend_helper.rb:32
+msgid " filtering <b>%s</b>"
+msgstr ""
+
+#: app/helpers/backend/backend_helper.rb:33
+msgid "Previous"
+msgstr ""
+
+#: app/helpers/backend/backend_helper.rb:33
+msgid "Next"
+msgstr ""
+
+#: app/helpers/backend/backend_helper.rb:91
 #: app/views/backend/hand_over/index.html.erb:1
 #: app/views/backend/orders/index.html.erb:1
+#: app/views/backend/orders/show.html.erb:19
+#: app/views/backend/take_back/index.html.erb:1
+#: app/views/backend/contracts/index.html.erb:1
+#: app/views/backend/acknowledge/index.html.erb:20
+#: app/views/backend/acknowledge/show.html.erb:39
+#: app/views/backend/acknowledge/show.html.erb:41
+msgid "Reserver"
+msgstr ""
+
+#: app/helpers/backend/backend_helper.rb:94
+#: app/views/widgets/_user_admin_tabnav.html.erb:18
+#: app/views/widgets/_user_backend_tabnav.html.erb:18
+#: app/views/admin/users/index.html.erb:10
+#: app/views/backend/hand_over/index.html.erb:11
+#: app/views/backend/users/index.html.erb:1
+#: app/views/backend/orders/index.html.erb:11
+#: app/views/backend/orders/show.html.erb:24
+#: app/views/backend/take_back/index.html.erb:12
+#: app/views/backend/contracts/index.html.erb:10
+#: app/views/backend/acknowledge/index.html.erb:31
+#: app/views/backend/acknowledge/show.html.erb:47
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:17
+msgid "User"
+msgstr ""
+
+#: app/helpers/backend/backend_helper.rb:110
+#: app/views/widgets/_item_admin_tabnav.html.erb:21
+#: app/views/widgets/_model_admin_tabnav.html.erb:18
+#: app/views/widgets/_model_backend_tabnav.html.erb:21
+#: app/views/admin/items/index.html.erb:10
+#: app/views/admin/models/index.html.erb:21
+#: app/views/backend/hand_over/_lines.html.erb:8
+#: app/views/backend/items/index.html.erb:1
+#: app/views/backend/models/package_items.html.erb:20
+#: app/views/backend/models/index.html.erb:36
+#: app/views/backend/templates/models.html.erb:21
+#: app/views/frontend/_basket.html.erb:16 app/views/users/document.rfpdf:75
+#: app/views/users/show_document.rfpdf:7
+#: app/views/backend/contracts/show.rfpdf:80
+msgid "Model"
+msgstr ""
+
+#: app/views/users/_orders.html.erb:44 app/views/users/_contracts.html.erb:44
+msgid "Timeline Contracts"
+msgstr ""
+
+#: app/views/users/_documents2.html.erb:4
+#: app/views/backend/orders/_tabs.html.erb:4
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:2
+msgid "Orders"
+msgstr ""
+
+#: app/views/users/_documents2.html.erb:34
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:10
+msgid "Contracts"
+msgstr ""
+
+#: app/views/users/_contracts.html.erb:5
+msgid "Contracts (%d)"
+msgstr ""
+
+#: app/views/users/_events.html.erb:67
+msgid "Visits"
+msgstr ""
+
+#: app/views/users/account.html.erb:35 app/views/frontend/_models.html.erb:219
+msgid "Loading"
+msgstr ""
+
+#: app/views/orders/_submit.html.erb:2
+msgid "The order has been successfully submitted, but is NOT YET CONFIRMED."
+msgstr ""
+
+#: app/views/orders/_submit.html.erb:6
+#: app/views/backend/acknowledge/_index.html.erb:3
+msgid "Pending orders"
+msgstr ""
+
+#: app/views/orders/_submit.html.erb:11
+#: app/views/backend/acknowledge/index.html.erb:20
+msgid "Received at"
+msgstr ""
+
+#: app/views/orders/_submit.html.erb:12
+#: app/views/admin/users/access_rights.html.erb:6
+#: app/views/admin/items/inventory_pool.html.erb:8
+#: app/views/backend/locations/index.html.erb:10
+#: app/views/backend/items/location.html.erb:2
+#: app/views/backend/models/package_location.html.erb:2
+#: app/views/frontend/_basket.html.erb:19
+#: app/views/frontend/_models.html.erb:303
+#: app/views/layouts/backend/00-patterns/general.html.erb:24
+msgid "Inventory Pool"
+msgstr ""
+
+#: app/views/orders/_submit.html.erb:13
+#: app/views/backend/hand_over/index.html.erb:1
+#: app/views/backend/orders/index.html.erb:1
+#: app/views/backend/take_back/index.html.erb:1
+#: app/views/backend/contracts/index.html.erb:1
+#: app/views/backend/acknowledge/index.html.erb:20
 msgid "Number of items"
 msgstr ""
 
-#: app/views/backend/contracts/index.html.erb:1
-#: app/views/backend/take_back/_lines.html.erb:16
-#: app/views/backend/take_back/index.html.erb:1
-#: app/views/backend/acknowledge/_lines.html.erb:7
-#: app/views/backend/acknowledge/index.html.erb:20
-#: app/views/backend/inventory_pools/index.html.erb:1
-#: app/views/backend/categories/index.html.erb:1
-#: app/views/backend/hand_over/_options.html.erb:9
-#: app/views/backend/hand_over/_lines.html.erb:18
-#: app/views/backend/hand_over/index.html.erb:1
-#: app/views/backend/orders/index.html.erb:1
-#: app/views/backend/users/index.html.erb:1
-#: app/views/backend/option_maps/index.html.erb:10
-#: app/views/backend/locations/index.html.erb:10
+#: app/views/orders/_submit.html.erb:14
+#: app/views/backend/orders/show.html.erb:29
+#: app/views/backend/acknowledge/show.html.erb:52
+msgid "Time window"
+msgstr ""
+
+#: app/views/orders/_submit.html.erb:15
+#: app/views/backend/orders/show.html.erb:34
+#: app/views/backend/acknowledge/show.html.erb:57
+#: app/views/backend/acknowledge/show.html.erb:59
+#: app/views/backend/acknowledge/change_purpose.html.erb:1
+#: app/views/frontend/_complete_order.html.erb:202
+msgid "Purpose"
+msgstr ""
+
+#: app/views/widgets/_item_backend_tabnav.html.erb:74
+#: app/views/widgets/_item_admin_tabnav.html.erb:14
+#: app/views/backend/orders/_lines.html.erb:5
+#: app/views/backend/take_back/_line.html.erb:20
+#: app/views/backend/take_back/_lines.html.erb:9
+#: app/views/backend/acknowledge/_lines.html.erb:5
+msgid "Item"
+msgstr ""
+
+#: app/views/widgets/_item_backend_tabnav.html.erb:80
+#: app/views/widgets/_package_backend_tabnav.html.erb:39
+#: app/views/widgets/_location_backend_tabnav.html.erb:12
+#: app/views/admin/items/index.html.erb:10
 #: app/views/backend/items/index.html.erb:1
-#: app/views/backend/models/index.html.erb:35
-#: app/views/admin/inventory_pools/index.html.erb:9
-#: app/views/admin/categories/index.html.erb:41
+msgid "Location"
+msgstr ""
+
+#: app/views/widgets/_item_backend_tabnav.html.erb:86
+msgid "Status"
+msgstr ""
+
+#: app/views/widgets/_item_backend_tabnav.html.erb:92
+#: app/views/widgets/_item_admin_tabnav.html.erb:38
+msgid "Notes (%d)"
+msgstr ""
+
+#: app/views/widgets/_item_admin_tabnav.html.erb:31
+#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:20
+msgid "InventoryPool"
+msgstr ""
+
+#: app/views/widgets/_template_backend_tabnav.html.erb:20
+#: app/views/frontend/_templates.html.erb:113
+msgid "Template"
+msgstr ""
+
+#: app/views/widgets/_template_backend_tabnav.html.erb:25
+msgid "Models (%{m}/%{i})"
+msgstr ""
+
+#: app/views/widgets/_package_backend_tabnav.html.erb:21
+msgid "Package"
+msgstr ""
+
+#: app/views/widgets/_package_backend_tabnav.html.erb:27
+#: app/views/widgets/_location_backend_tabnav.html.erb:18
+#: app/views/widgets/_model_admin_tabnav.html.erb:25
+#: app/views/widgets/_model_backend_tabnav.html.erb:28
+#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:34
+msgid "Items (%d)"
+msgstr ""
+
+#: app/views/widgets/_package_backend_tabnav.html.erb:33
+#: app/views/widgets/_model_admin_tabnav.html.erb:33
+#: app/views/widgets/_model_backend_tabnav.html.erb:35
+msgid "Categories (%d)"
+msgstr ""
+
+#: app/views/widgets/_user_admin_tabnav.html.erb:24
+#: app/views/widgets/_user_backend_tabnav.html.erb:23
+msgid "Access Rights (%d)"
+msgstr ""
+
+#: app/views/widgets/_model_admin_tabnav.html.erb:41
+#: app/views/widgets/_model_backend_tabnav.html.erb:42
+msgid "Properties (%d)"
+msgstr ""
+
+#: app/views/widgets/_model_admin_tabnav.html.erb:48
+#: app/views/widgets/_model_backend_tabnav.html.erb:49
+msgid "Accessories (%d)"
+msgstr ""
+
+#: app/views/widgets/_model_admin_tabnav.html.erb:55
+#: app/views/widgets/_model_backend_tabnav.html.erb:56
+msgid "Images (%d)"
+msgstr ""
+
+#: app/views/widgets/_model_admin_tabnav.html.erb:62
+#: app/views/widgets/_model_backend_tabnav.html.erb:63
+msgid "Compatibles (%d)"
+msgstr ""
+
+#: app/views/widgets/_category_admin_tabnav.html.erb:20
+#: app/views/frontend/_models.html.erb:111
+msgid "Category"
+msgstr ""
+
+#: app/views/widgets/_category_admin_tabnav.html.erb:27
+msgid "Models (%d)"
+msgstr ""
+
+#: app/views/widgets/_category_admin_tabnav.html.erb:33
+msgid "Children (%d)"
+msgstr ""
+
+#: app/views/widgets/_category_admin_tabnav.html.erb:39
+msgid "Parents (%d)"
+msgstr ""
+
+#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:27
+msgid "Locations (%d)"
+msgstr ""
+
+#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:41
+msgid "Managers (%d)"
+msgstr ""
+
+#: app/views/admin/users/access_rights.html.erb:5
+#: app/views/backend/users/access_rights.html.erb:5
+msgid "Role"
+msgstr ""
+
+#: app/views/admin/users/access_rights.html.erb:7
+#: app/views/backend/users/access_rights.html.erb:6
+msgid "Level"
+msgstr ""
+
+#: app/views/admin/users/access_rights.html.erb:14
+#: app/views/backend/users/access_rights.html.erb:12
+#: app/views/backend/workdays/index.html.erb:22
+#: app/views/frontend/_models.html.erb:269
+#: app/views/frontend/_models.html.erb:361
+msgid "Add"
+msgstr ""
+
+#: app/views/admin/users/access_rights.html.erb:27
+#: app/views/admin/models/accessories.html.erb:5
+#: app/views/admin/models/properties.html.erb:5
+#: app/views/admin/categories/index.html.erb:60
+#: app/views/admin/inventory_pools/locations.html.erb:29
+#: app/views/admin/inventory_pools/managers.html.erb:24
+#: app/views/backend/users/access_rights.html.erb:24
+#: app/views/backend/models/package_items.html.erb:28
+#: app/views/backend/models/index.html.erb:55
+#: app/views/backend/categories/index.html.erb:29
+#: app/views/backend/templates/index.html.erb:15
+#: app/views/backend/templates/models.html.erb:39
+#: app/views/frontend/_complete_order.html.erb:165
+#: app/views/frontend/_complete_order.html.erb:172
+msgid "Remove"
+msgstr ""
+
+#: app/views/admin/users/index.html.erb:4
+#: app/views/admin/items/index.html.erb:4
+#: app/views/admin/models/index.html.erb:15
+#: app/views/admin/categories/index.html.erb:37
+#: app/views/admin/inventory_pools/index.html.erb:4
+#: app/views/backend/locations/index.html.erb:4
+#: app/views/backend/option_maps/index.html.erb:4
+msgid "Create New"
+msgstr ""
+
 #: app/views/admin/users/index.html.erb:10
-#: app/views/admin/roles/index.html.erb:1
+#: app/views/backend/users/index.html.erb:1
+msgid "Access Rights"
+msgstr ""
+
+#: app/views/admin/users/index.html.erb:10
+#: app/views/backend/users/index.html.erb:1
+msgid "Documents"
+msgstr ""
+
+#: app/views/admin/users/index.html.erb:10
 #: app/views/admin/items/index.html.erb:10
 #: app/views/admin/models/index.html.erb:21
+#: app/views/admin/roles/index.html.erb:1
+#: app/views/admin/categories/index.html.erb:43
+#: app/views/admin/inventory_pools/index.html.erb:9
+#: app/views/admin/inventory_pools/locations.html.erb:19
+#: app/views/admin/inventory_pools/managers.html.erb:17
+#: app/views/backend/hand_over/_options.html.erb:9
+#: app/views/backend/hand_over/index.html.erb:1
+#: app/views/backend/hand_over/_lines.html.erb:18
+#: app/views/backend/locations/index.html.erb:10
+#: app/views/backend/users/index.html.erb:1
+#: app/views/backend/items/location.html.erb:2
+#: app/views/backend/items/index.html.erb:1
+#: app/views/backend/models/package_items.html.erb:20
+#: app/views/backend/models/index.html.erb:36
+#: app/views/backend/models/package_location.html.erb:2
+#: app/views/backend/orders/index.html.erb:1
+#: app/views/backend/categories/index.html.erb:16
+#: app/views/backend/inventory_pools/index.html.erb:1
+#: app/views/backend/take_back/index.html.erb:1
+#: app/views/backend/take_back/_lines.html.erb:16
+#: app/views/backend/templates/index.html.erb:5
+#: app/views/backend/templates/models.html.erb:21
+#: app/views/backend/contracts/index.html.erb:1
+#: app/views/backend/acknowledge/index.html.erb:20
+#: app/views/backend/acknowledge/_lines.html.erb:7
+#: app/views/backend/option_maps/index.html.erb:10
 msgid "Action"
 msgstr ""
 
-#: app/views/backend/contracts/index.html.erb:13
-#: app/views/backend/take_back/index.html.erb:15
-#: app/views/backend/acknowledge/index.html.erb:34
-#: app/views/backend/hand_over/index.html.erb:14
-#: app/views/backend/orders/index.html.erb:14
-msgid "%{n} Items"
+#: app/views/admin/users/index.html.erb:30
+#: app/views/admin/items/index.html.erb:23
+#: app/views/admin/models/index.html.erb:32
+#: app/views/admin/categories/index.html.erb:56
+#: app/views/admin/inventory_pools/index.html.erb:19
+#: app/views/backend/locations/index.html.erb:22
+#: app/views/backend/users/index.html.erb:31
+#: app/views/backend/items/index.html.erb:13
+#: app/views/backend/models/index.html.erb:54
+#: app/views/backend/templates/index.html.erb:14
+#: app/views/backend/templates/models.html.erb:38
+#: app/views/backend/option_maps/index.html.erb:18
+msgid "Show"
 msgstr ""
 
-#: app/views/backend/contracts/index.html.erb:17
-#: app/views/backend/take_back/show.html.erb:7
-#: app/views/backend/take_back/show.html.erb:11
-#: app/views/backend/take_back/_tabs.html.erb:4
-#: app/views/backend/take_back/index.html.erb:17
-#: app/views/backend/inventory_pools/index.html.erb:25
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:4
-msgid "Take Back"
+#: app/views/admin/users/index.html.erb:31
+#: app/views/admin/items/index.html.erb:24
+#: app/views/admin/models/index.html.erb:33
+#: app/views/admin/categories/index.html.erb:57
+#: app/views/admin/inventory_pools/index.html.erb:20
+#: app/views/backend/hand_over/_line.html.erb:50
+#: app/views/backend/hand_over/remove_options.html.erb:12
+#: app/views/backend/hand_over/_options.html.erb:24
+#: app/views/backend/hand_over/remove_lines.html.erb:13
+#: app/views/backend/locations/index.html.erb:23
+#: app/views/backend/take_back/show.html.erb:73
+#: app/views/backend/backend/remove_lines.html.erb:13
+#: app/views/backend/acknowledge/_line.html.erb:36
+#: app/views/backend/acknowledge/delete.html.erb:5
+#: app/views/backend/option_maps/index.html.erb:20
+msgid "Delete"
 msgstr ""
 
-#: app/views/backend/contracts/index.html.erb:21
-msgid "Print PDF"
+#: app/views/admin/users/index.html.erb:32
+#: app/views/admin/items/index.html.erb:25
+#: app/views/admin/models/index.html.erb:34
+#: app/views/admin/categories/index.html.erb:58
+#: app/views/admin/categories/index.html.erb:61
+#: app/views/admin/categories/index.html.erb:64
+#: app/views/admin/inventory_pools/index.html.erb:21
+#: app/views/backend/models/index.html.erb:56
+#: app/views/backend/categories/index.html.erb:30
+#: app/views/backend/templates/index.html.erb:16
+#: app/views/backend/templates/models.html.erb:40
+#: app/views/backend/option_maps/index.html.erb:20
+msgid "Are you sure?"
 msgstr ""
 
-#: app/views/backend/take_back/show.html.erb:13
-#: app/views/backend/take_back/print_contract.html.erb:13
-#: app/views/backend/acknowledge/approve.html.erb:22
-#: app/views/backend/hand_over/show.html.erb:13
-#: app/views/backend/hand_over/select_location.html.erb:36
-#: app/views/backend/hand_over/print_contract.html.erb:9
-msgid "Close"
+#: app/views/admin/items/notes.html.erb:12
+#: app/views/backend/items/notes.html.erb:12
+#: app/views/backend/take_back/inspection.html.erb:18
+msgid "Note"
 msgstr ""
 
-#: app/views/backend/take_back/show.html.erb:30
-#: app/views/backend/inventory_pools/index.html.erb:1
+#: app/views/admin/items/notes.html.erb:15
+#: app/views/backend/locations/show.html.erb:10
+#: app/views/backend/items/notes.html.erb:15
+#: app/views/backend/items/status.html.erb:16
+#: app/views/backend/take_back/inspection.html.erb:22
+#: app/views/frontend/_complete_order.html.erb:248
+msgid "Submit"
+msgstr ""
+
+#: app/views/admin/items/model.html.erb:15
+msgid "Set new model"
+msgstr ""
+
+#: app/views/admin/items/index.html.erb:10
+#: app/views/backend/items/index.html.erb:1
+#: app/views/backend/models/package_items.html.erb:20
+#: app/views/users/document.rfpdf:75 app/views/users/show_document.rfpdf:7
+#: app/views/backend/contracts/show.rfpdf:80
+msgid "Inventory Code"
+msgstr ""
+
+#: app/views/admin/items/index.html.erb:10
+#: app/views/backend/items/index.html.erb:1
+msgid "Serial Number"
+msgstr ""
+
+#: app/views/admin/items/index.html.erb:10
+#: app/views/backend/items/index.html.erb:1
+#: app/views/backend/items/status.html.erb:13
+#: app/views/backend/take_back/inspection.html.erb:13
+msgid "Borrowable"
+msgstr ""
+
+#: app/views/admin/items/index.html.erb:10
+#: app/views/backend/items/index.html.erb:1
+msgid "In stock?"
+msgstr ""
+
+#: app/views/admin/items/show.html.erb:6
+msgid "Inventory Code:"
+msgstr ""
+
+#: app/views/admin/items/show.html.erb:7
+msgid "Serial Number:"
+msgstr ""
+
+#: app/views/admin/items/show.html.erb:8
+msgid "Required Level:"
+msgstr ""
+
+#: app/views/admin/items/inventory_pool.html.erb:4
+msgid "Select model first"
+msgstr ""
+
+#: app/views/admin/items/inventory_pool.html.erb:8
+msgid "Actions"
+msgstr ""
+
+#: app/views/admin/items/inventory_pool.html.erb:18
+#: app/views/backend/items/location.html.erb:15
+#: app/views/backend/models/package_location.html.erb:15
+msgid "Active"
+msgstr ""
+
+#: app/views/admin/items/inventory_pool.html.erb:20
+#: app/views/backend/items/location.html.erb:17
+#: app/views/backend/models/package_location.html.erb:17
+msgid "Set"
+msgstr ""
+
+#: app/views/admin/models/index.html.erb:21
+#: app/views/backend/models/package_items.html.erb:20
+#: app/views/frontend/_models.html.erb:263
+msgid "Manufacturer"
+msgstr ""
+
+#: app/views/admin/models/index.html.erb:21
+#: app/views/admin/inventory_pools/index.html.erb:9
+#: app/views/admin/inventory_pools/locations.html.erb:19
 #: app/views/backend/hand_over/show.html.erb:30
 #: app/views/backend/locations/index.html.erb:10
-#: app/views/backend/models/index.html.erb:35
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:16
+#: app/views/backend/models/index.html.erb:36
+#: app/views/backend/inventory_pools/index.html.erb:1
+#: app/views/backend/take_back/show.html.erb:30
+#: app/views/backend/templates/index.html.erb:5
 #: app/views/layouts/admin/00-patterns/_sidebar.html.erb:4
-#: app/views/admin/inventory_pools/index.html.erb:9
-#: app/views/admin/models/index.html.erb:21
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:17
 msgid "Items"
 msgstr ""
 
+#: app/views/admin/models/index.html.erb:21
+#: app/views/backend/models/index.html.erb:36
+#: app/views/frontend/_models.html.erb:253
+msgid "Compatibles"
+msgstr ""
+
+#: app/views/admin/models/accessories.html.erb:13
+msgid "Add more accessories"
+msgstr ""
+
+#: app/views/admin/models/accessories.html.erb:16
+msgid "name"
+msgstr ""
+
+#: app/views/admin/models/properties.html.erb:13
+msgid "Add more properties"
+msgstr ""
+
+#: app/views/admin/models/properties.html.erb:16
+msgid "key"
+msgstr ""
+
+#: app/views/admin/models/properties.html.erb:19
+msgid "value"
+msgstr ""
+
+#: app/views/admin/roles/index.html.erb:1
+#: app/views/admin/categories/index.html.erb:43
+#: app/views/admin/inventory_pools/index.html.erb:9
+#: app/views/backend/categories/index.html.erb:16
+#: app/views/backend/inventory_pools/index.html.erb:1
+#: app/views/backend/templates/index.html.erb:5
+#: app/views/frontend/_models.html.erb:259 app/views/users/document.rfpdf:104
+#: app/views/users/show_document.rfpdf:47
+#: app/views/backend/contracts/show.rfpdf:129
+msgid "Name"
+msgstr ""
+
+#: app/views/admin/roles/index.html.erb:1
+msgid "Parent"
+msgstr ""
+
+#: app/views/admin/categories/index.html.erb:9
+msgid "Add as subcategory of"
+msgstr ""
+
+#: app/views/admin/categories/index.html.erb:14
+msgid "Label"
+msgstr ""
+
+#: app/views/admin/categories/index.html.erb:26
+#: app/views/backend/categories/index.html.erb:6
+msgid "Add to category"
+msgstr ""
+
+#: app/views/admin/categories/index.html.erb:43
+#: app/views/backend/categories/index.html.erb:16
+msgid "Type"
+msgstr ""
+
+#: app/views/admin/categories/index.html.erb:43
+#: app/views/backend/models/_tabs.html.erb:4
+#: app/views/backend/orders/show.html.erb:48
+#: app/views/backend/categories/index.html.erb:16
+#: app/views/backend/templates/index.html.erb:5
+#: app/views/backend/acknowledge/show.html.erb:74
+#: app/views/frontend/_models.html.erb:89
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:14
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:26
+msgid "Models"
+msgstr ""
+
+#: app/views/admin/categories/index.html.erb:43
+#: app/views/backend/categories/index.html.erb:16
+msgid "All Models"
+msgstr ""
+
+#: app/views/admin/categories/index.html.erb:43
+#: app/views/backend/categories/index.html.erb:16
+msgid "Children"
+msgstr ""
+
+#: app/views/admin/categories/index.html.erb:43
+#: app/views/backend/categories/index.html.erb:16
+msgid "All Children"
+msgstr ""
+
+#: app/views/admin/categories/index.html.erb:43
+#: app/views/backend/categories/index.html.erb:16
+msgid "Parents"
+msgstr ""
+
+#: app/views/admin/categories/index.html.erb:63
+msgid "Remove Parent"
+msgstr ""
+
+#: app/views/admin/inventory_pools/index.html.erb:9
+#: app/views/backend/hand_over/_options.html.erb:7
+#: app/views/backend/inventory_pools/index.html.erb:1
+msgid "Description"
+msgstr ""
+
+#: app/views/admin/inventory_pools/locations.html.erb:2
+msgid "Add more locations"
+msgstr ""
+
+#: app/views/admin/inventory_pools/locations.html.erb:5
+msgid "building"
+msgstr ""
+
+#: app/views/admin/inventory_pools/locations.html.erb:8
+msgid "room"
+msgstr ""
+
+#: app/views/admin/inventory_pools/locations.html.erb:11
+msgid "shelf"
+msgstr ""
+
+#: app/views/admin/inventory_pools/locations.html.erb:19
+#: app/views/backend/hand_over/select_location.html.erb:22
+#: app/views/backend/locations/index.html.erb:10
+#: app/views/backend/items/location.html.erb:2
+#: app/views/backend/models/package_location.html.erb:2
+msgid "Building"
+msgstr ""
+
+#: app/views/admin/inventory_pools/locations.html.erb:19
+#: app/views/backend/hand_over/select_location.html.erb:26
+#: app/views/backend/locations/index.html.erb:10
+#: app/views/backend/items/location.html.erb:2
+#: app/views/backend/models/package_location.html.erb:2
+msgid "Room"
+msgstr ""
+
+#: app/views/admin/inventory_pools/locations.html.erb:19
+#: app/views/backend/locations/index.html.erb:10
+#: app/views/backend/items/location.html.erb:2
+#: app/views/backend/models/package_location.html.erb:2
+msgid "Shelf"
+msgstr ""
+
+#: app/views/admin/inventory_pools/managers.html.erb:5
+msgid "Add as manager"
+msgstr ""
+
+#: app/views/admin/inventory_pools/managers.html.erb:17
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:22
+msgid "Login"
+msgstr ""
+
+#: app/views/backend/hand_over/_line.html.erb:11
+msgid "Installed in: "
+msgstr ""
+
+#: app/views/backend/hand_over/_line.html.erb:20
+#: app/views/backend/hand_over/show.html.erb:40
+#: app/views/backend/hand_over/show.html.erb:47
+#: app/views/backend/acknowledge/_line.html.erb:30
+#: app/views/backend/acknowledge/show.html.erb:84
+msgid "Time Period"
+msgstr ""
+
+#: app/views/backend/hand_over/_line.html.erb:47
+#: app/views/backend/users/index.html.erb:27
+#: app/views/backend/acknowledge/_line.html.erb:33
+msgid "Swap"
+msgstr ""
+
+#: app/views/backend/hand_over/_line.html.erb:49
+#: app/views/backend/acknowledge/_line.html.erb:35
+msgid "Swap Model"
+msgstr ""
+
+#: app/views/backend/hand_over/_line.html.erb:52
+#: app/views/backend/acknowledge/_line.html.erb:38
+msgid "Remove Model"
+msgstr ""
+
+#: app/views/backend/hand_over/sign_contract.html.erb:1
+msgid "Items to hand over"
+msgstr ""
+
+#: app/views/backend/hand_over/sign_contract.html.erb:10
+msgid "Options to hand over"
+msgstr ""
+
+#: app/views/backend/hand_over/sign_contract.html.erb:21
+#: app/views/backend/take_back/close_contract.html.erb:20
+#: app/views/backend/backend/time_lines.html.erb:98
+msgid "Confirm"
+msgstr ""
+
+#: app/views/backend/hand_over/sign_contract.html.erb:25
+#: app/views/backend/hand_over/remove_options.html.erb:17
+#: app/views/backend/hand_over/remove_lines.html.erb:18
+#: app/views/backend/take_back/inspection.html.erb:24
+#: app/views/backend/take_back/close_contract.html.erb:24
+#: app/views/backend/backend/time_lines.html.erb:103
+#: app/views/backend/backend/remove_lines.html.erb:18
+#: app/views/backend/acknowledge/restore.html.erb:8
+#: app/views/backend/acknowledge/delete.html.erb:10
+#: app/views/backend/acknowledge/change_purpose.html.erb:10
+#: app/views/backend/acknowledge/approve.html.erb:12
+#: app/views/backend/acknowledge/reject.html.erb:13
+msgid "Cancel"
+msgstr ""
+
+#: app/views/backend/hand_over/remove_options.html.erb:1
+msgid "Do you really want to delete the following options?"
+msgstr ""
+
+#: app/views/backend/hand_over/_options.html.erb:4
+#: app/views/backend/take_back/show.html.erb:58
+#: app/views/backend/take_back/_lines.html.erb:4
+#: app/views/backend/acknowledge/_lines.html.erb:4
+msgid "Check all"
+msgstr ""
+
+#: app/views/backend/hand_over/_options.html.erb:6
+#: app/views/backend/orders/_lines.html.erb:4
+#: app/views/backend/templates/models.html.erb:12
+#: app/views/backend/templates/models.html.erb:21
+#: app/views/frontend/_models.html.erb:289
+msgid "Quantity"
+msgstr ""
+
+#: app/views/backend/hand_over/_options.html.erb:26
+#: app/views/backend/take_back/show.html.erb:75
+msgid "Remove Option"
+msgstr ""
+
+#: app/views/backend/hand_over/index.html.erb:1
+#: app/views/backend/take_back/index.html.erb:1
+msgid "Visit at"
+msgstr ""
+
+#: app/views/backend/hand_over/index.html.erb:14
+#: app/views/backend/orders/index.html.erb:14
+#: app/views/backend/take_back/index.html.erb:15
+#: app/views/backend/contracts/index.html.erb:13
+#: app/views/backend/acknowledge/index.html.erb:34
+msgid "%{n} Items"
+msgstr ""
+
+#: app/views/backend/hand_over/index.html.erb:16
+#: app/views/backend/hand_over/show.html.erb:7
+#: app/views/backend/hand_over/show.html.erb:11
+#: app/views/backend/hand_over/_tabs.html.erb:4
+#: app/views/backend/inventory_pools/index.html.erb:24
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:3
+msgid "Hand Over"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:13
+#: app/views/backend/hand_over/select_location.html.erb:36
+#: app/views/backend/hand_over/print_contract.html.erb:9
+#: app/views/backend/take_back/show.html.erb:13
+#: app/views/backend/take_back/print_contract.html.erb:13
+#: app/views/backend/acknowledge/approve.html.erb:22
+msgid "Close"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:19
+msgid "Contract Nr."
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:32
+#: app/views/backend/acknowledge/show.html.erb:76
+msgid "Add Line"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:34
+#: app/views/backend/acknowledge/show.html.erb:78
+msgid "Add Model"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:36
+#: app/views/backend/acknowledge/show.html.erb:80
+msgid "Change Timeframe for selection"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:43
+msgid "Change Installation Location"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:51
+#: app/views/backend/hand_over/show.html.erb:80
+#: app/views/backend/acknowledge/show.html.erb:86
+msgid "Delete selection"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:55
+#: app/views/backend/acknowledge/show.html.erb:90
+msgid "Remove Models"
+msgstr ""
+
+#: app/views/backend/hand_over/show.html.erb:60
+#: app/views/backend/hand_over/show.html.erb:62
+#: app/views/backend/inventory_pools/show.html.erb:4
+#: app/views/backend/inventory_pools/show.html.erb:6
 #: app/views/backend/take_back/show.html.erb:32
 #: app/views/backend/take_back/show.html.erb:34
 #: app/views/backend/take_back/show.html.erb:50
 #: app/views/backend/take_back/show.html.erb:52
 #: app/views/backend/acknowledge/show.html.erb:95
 #: app/views/backend/acknowledge/show.html.erb:97
-#: app/views/backend/inventory_pools/show.html.erb:4
-#: app/views/backend/inventory_pools/show.html.erb:6
-#: app/views/backend/hand_over/show.html.erb:60
-#: app/views/backend/hand_over/show.html.erb:62
 msgid "Timeline"
 msgstr ""
 
-#: app/views/backend/take_back/show.html.erb:48
 #: app/views/backend/hand_over/show.html.erb:75
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:53
+#: app/views/backend/take_back/show.html.erb:48
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:55
 msgid "Options"
 msgstr ""
 
-#: app/views/backend/take_back/show.html.erb:58
-#: app/views/backend/take_back/_lines.html.erb:4
-#: app/views/backend/acknowledge/_lines.html.erb:4
-#: app/views/backend/hand_over/_options.html.erb:4
-msgid "Check all"
+#: app/views/backend/hand_over/show.html.erb:77
+#: app/views/backend/hand_over/show.html.erb:79
+#: app/views/backend/hand_over/add_option.html.erb:5
+msgid "Add Option"
 msgstr ""
 
-#: app/views/backend/take_back/show.html.erb:73
-#: app/views/backend/backend/remove_lines.html.erb:13
-#: app/views/backend/acknowledge/_line.html.erb:33
-#: app/views/backend/acknowledge/delete.html.erb:5
-#: app/views/backend/hand_over/remove_lines.html.erb:13
-#: app/views/backend/hand_over/_options.html.erb:24
-#: app/views/backend/hand_over/_line.html.erb:42
-#: app/views/backend/hand_over/remove_options.html.erb:12
-#: app/views/backend/option_maps/index.html.erb:20
-#: app/views/backend/locations/index.html.erb:23
-#: app/views/admin/inventory_pools/index.html.erb:20
-#: app/views/admin/categories/index.html.erb:55
-#: app/views/admin/users/index.html.erb:31
-#: app/views/admin/items/index.html.erb:24
-#: app/views/admin/models/index.html.erb:33
-msgid "Delete"
+#: app/views/backend/hand_over/show.html.erb:84
+msgid "Remove Options"
 msgstr ""
 
-#: app/views/backend/take_back/show.html.erb:75
-#: app/views/backend/hand_over/_options.html.erb:26
-msgid "Remove Option"
+#: app/views/backend/hand_over/_index.html.erb:3
+msgid "Hand Over visits"
+msgstr ""
+
+#: app/views/backend/hand_over/select_location.html.erb:1
+msgid "Installation Location"
+msgstr ""
+
+#: app/views/backend/hand_over/select_location.html.erb:2
+msgid "You're changing the installation location for the following items:"
+msgstr ""
+
+#: app/views/backend/hand_over/select_location.html.erb:5
+msgid "(Installed in: "
+msgstr ""
+
+#: app/views/backend/hand_over/select_location.html.erb:14
+msgid "Remove Location from the above models"
+msgstr ""
+
+#: app/views/backend/hand_over/select_location.html.erb:32
+msgid "Confirm Location"
+msgstr ""
+
+#: app/views/backend/hand_over/print_contract.html.erb:1
+#: app/views/backend/take_back/print_contract.html.erb:1
+msgid "Print contract"
+msgstr ""
+
+#: app/views/backend/hand_over/add_option.html.erb:3
+msgid "Quantity:"
+msgstr ""
+
+#: app/views/backend/hand_over/add_option.html.erb:4
+msgid "Name:"
+msgstr ""
+
+#: app/views/backend/hand_over/remove_lines.html.erb:1
+#: app/views/backend/backend/remove_lines.html.erb:1
+#: app/views/backend/acknowledge/delete.html.erb:1
+msgid "Do you really want to delete the object?"
+msgstr ""
+
+#: app/views/backend/hand_over/_lines.html.erb:3
+msgid "Mark"
+msgstr ""
+
+#: app/views/backend/hand_over/_lines.html.erb:4
+#: app/views/frontend/_models.html.erb:112
+#: app/views/frontend/_categories.html.erb:4
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:6
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:16
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:22
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:28
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:37
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:19
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:28
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:36
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:42
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:57
+msgid "All"
+msgstr ""
+
+#: app/views/backend/hand_over/_lines.html.erb:6
+msgid "From today"
+msgstr ""
+
+#: app/views/backend/hand_over/_lines.html.erb:9
+msgid "Timeframe"
+msgstr ""
+
+#: app/views/backend/hand_over/_lines.html.erb:11
+#: app/views/backend/take_back/_lines.html.erb:12
+#: app/views/backend/option_maps/index.html.erb:10
+#: app/views/backend/option_maps/index.html.erb:19
+#: app/views/backend/option_maps/show.html.erb:8
+#: app/views/users/document.rfpdf:104 app/views/users/show_document.rfpdf:47
+#: app/views/backend/contracts/show.rfpdf:129
+msgid "Barcode"
+msgstr ""
+
+#: app/views/backend/locations/index.html.erb:10
+msgid "Main?"
+msgstr ""
+
+#: app/views/backend/barcodes/new.html.erb:14
+#: app/views/backend/barcodes/_tabs.html.erb:3
+msgid "Generate barcode"
+msgstr ""
+
+#: app/views/backend/users/index.html.erb:32
+msgid "New Contract"
+msgstr ""
+
+#: app/views/backend/users/_tabs.html.erb:7
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:26
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:40
+msgid "Users"
+msgstr ""
+
+#: app/views/backend/users/_resume.html.erb:14
+msgid "%{i} orders"
+msgstr ""
+
+#: app/views/backend/users/_resume.html.erb:17
+#: app/views/backend/users/_resume.html.erb:20
+#: app/views/backend/users/_resume.html.erb:23
+msgid "%{i} items"
+msgstr ""
+
+#: app/views/backend/users/_resume.html.erb:30
+msgid "%{i} reminders, last: %{d}"
+msgstr ""
+
+#: app/views/backend/items/status.html.erb:11
+#: app/views/backend/take_back/inspection.html.erb:7
+msgid "Working order"
+msgstr ""
+
+#: app/views/backend/items/status.html.erb:11
+#: app/views/backend/items/status.html.erb:12
+#: app/views/backend/items/status.html.erb:13
+#: app/views/backend/take_back/inspection.html.erb:7
+#: app/views/backend/take_back/inspection.html.erb:10
+#: app/views/backend/take_back/inspection.html.erb:13
+#: app/views/backend/option_maps/show.html.erb:13
+msgid "OK"
+msgstr ""
+
+#: app/views/backend/items/status.html.erb:11
+#: app/views/backend/take_back/inspection.html.erb:7
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:7
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:20
+msgid "Broken"
+msgstr ""
+
+#: app/views/backend/items/status.html.erb:12
+#: app/views/backend/take_back/inspection.html.erb:10
+msgid "Completeness"
+msgstr ""
+
+#: app/views/backend/items/status.html.erb:12
+#: app/views/backend/take_back/inspection.html.erb:10
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:8
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:21
+msgid "Incomplete"
+msgstr ""
+
+#: app/views/backend/items/status.html.erb:13
+#: app/views/backend/take_back/inspection.html.erb:13
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:9
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:22
+msgid "Unborrowable"
+msgstr ""
+
+#: app/views/backend/models/package_items.html.erb:6
+msgid "Add item"
+msgstr ""
+
+#: app/views/backend/models/index.html.erb:19
+msgid "Add compatible"
+msgstr ""
+
+#: app/views/backend/models/index.html.erb:29
+msgid "New Package"
+msgstr ""
+
+#: app/views/backend/models/index.html.erb:50
+msgid "Select"
+msgstr ""
+
+#: app/views/backend/models/package.html.erb:4
+msgid "Package name"
+msgstr ""
+
+#: app/views/backend/models/package.html.erb:8
+msgid "Inventory code"
+msgstr ""
+
+#: app/views/backend/orders/index.html.erb:1
+#: app/views/backend/contracts/index.html.erb:1
+msgid "Id"
+msgstr ""
+
+#: app/views/backend/orders/index.html.erb:1
+#: app/views/backend/contracts/index.html.erb:1
+msgid "Date"
+msgstr ""
+
+#: app/views/backend/orders/index.html.erb:18
+#: app/views/backend/acknowledge/index.html.erb:36
+msgid "View + Acknowledge"
+msgstr ""
+
+#: app/views/backend/orders/index.html.erb:21
+msgid "View"
+msgstr ""
+
+#: app/views/backend/orders/show.html.erb:15
+#: app/views/backend/acknowledge/show.html.erb:35
+msgid "Order No."
+msgstr ""
+
+#: app/views/backend/orders/_additional_infos.html.erb:5
+#: app/views/backend/acknowledge/_additional_infos.html.erb:5
+msgid "Changes"
+msgstr ""
+
+#: app/views/backend/orders/_lines.html.erb:6
+#: app/views/backend/take_back/_lines.html.erb:10
+#: app/views/backend/acknowledge/_lines.html.erb:6
+msgid "Time frame"
+msgstr ""
+
+#: app/views/backend/inventory_pools/index.html.erb:23
+#: app/views/backend/acknowledge/_tabs.html.erb:4
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:2
+msgid "Acknowledge"
+msgstr ""
+
+#: app/views/backend/inventory_pools/index.html.erb:25
+#: app/views/backend/take_back/index.html.erb:17
+#: app/views/backend/take_back/show.html.erb:7
+#: app/views/backend/take_back/show.html.erb:11
+#: app/views/backend/take_back/_tabs.html.erb:4
+#: app/views/backend/contracts/index.html.erb:17
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:4
+msgid "Take Back"
+msgstr ""
+
+#: app/views/backend/inventory_pools/show.html.erb:8
+#: app/views/backend/inventory_pools/show.html.erb:10
+msgid "Timeline Visits"
+msgstr ""
+
+#: app/views/backend/inventory_pools/show.html.erb:22
+#: app/views/backend/inventory_pools/show.html.erb:30
+msgid "Overdue"
+msgstr ""
+
+#: app/views/backend/take_back/_line.html.erb:24
+#: app/views/backend/take_back/_line.html.erb:26
+#: app/views/backend/take_back/inspection.html.erb:1
+msgid "Inspection"
+msgstr ""
+
+#: app/views/backend/take_back/_index.html.erb:3
+msgid "Take Back visits"
 msgstr ""
 
 #: app/views/backend/take_back/close_contract.html.erb:1
@@ -1052,104 +2003,6 @@ msgstr ""
 msgid "Returned options"
 msgstr ""
 
-#: app/views/backend/take_back/close_contract.html.erb:20
-#: app/views/backend/backend/time_lines.html.erb:98
-#: app/views/backend/hand_over/sign_contract.html.erb:18
-msgid "Confirm"
-msgstr ""
-
-#: app/views/backend/take_back/close_contract.html.erb:24
-#: app/views/backend/take_back/inspection.html.erb:24
-#: app/views/backend/backend/remove_lines.html.erb:18
-#: app/views/backend/backend/time_lines.html.erb:103
-#: app/views/backend/acknowledge/change_purpose.html.erb:10
-#: app/views/backend/acknowledge/reject.html.erb:13
-#: app/views/backend/acknowledge/restore.html.erb:8
-#: app/views/backend/acknowledge/approve.html.erb:12
-#: app/views/backend/acknowledge/delete.html.erb:10
-#: app/views/backend/hand_over/remove_lines.html.erb:18
-#: app/views/backend/hand_over/sign_contract.html.erb:22
-#: app/views/backend/hand_over/remove_options.html.erb:17
-msgid "Cancel"
-msgstr ""
-
-#: app/views/backend/take_back/_line.html.erb:20
-#: app/views/backend/take_back/_lines.html.erb:9
-#: app/views/backend/acknowledge/_lines.html.erb:5
-#: app/views/widgets/_item_backend_tabnav.html.erb:74
-#: app/views/widgets/_item_admin_tabnav.html.erb:22
-msgid "Item"
-msgstr ""
-
-#: app/views/backend/take_back/_line.html.erb:24
-#: app/views/backend/take_back/_line.html.erb:26
-#: app/views/backend/take_back/inspection.html.erb:1
-msgid "Inspection"
-msgstr ""
-
-#: app/views/backend/take_back/inspection.html.erb:7
-#: app/views/backend/items/status.html.erb:11
-msgid "Working order"
-msgstr ""
-
-#: app/views/backend/take_back/inspection.html.erb:7
-#: app/views/backend/take_back/inspection.html.erb:10
-#: app/views/backend/take_back/inspection.html.erb:13
-#: app/views/backend/option_maps/show.html.erb:13
-#: app/views/backend/items/status.html.erb:11
-#: app/views/backend/items/status.html.erb:12
-#: app/views/backend/items/status.html.erb:13
-msgid "OK"
-msgstr ""
-
-#: app/views/backend/take_back/inspection.html.erb:7
-#: app/views/backend/items/status.html.erb:11
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:19
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:7
-msgid "Broken"
-msgstr ""
-
-#: app/views/backend/take_back/inspection.html.erb:10
-#: app/views/backend/items/status.html.erb:12
-msgid "Completeness"
-msgstr ""
-
-#: app/views/backend/take_back/inspection.html.erb:10
-#: app/views/backend/items/status.html.erb:12
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:20
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:8
-msgid "Incomplete"
-msgstr ""
-
-#: app/views/backend/take_back/inspection.html.erb:13
-#: app/views/backend/items/status.html.erb:13
-#: app/views/backend/items/index.html.erb:1
-#: app/views/admin/items/index.html.erb:10
-msgid "Borrowable"
-msgstr ""
-
-#: app/views/backend/take_back/inspection.html.erb:13
-#: app/views/backend/items/status.html.erb:13
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:21
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:9
-msgid "Unborrowable"
-msgstr ""
-
-#: app/views/backend/take_back/inspection.html.erb:18
-#: app/views/backend/items/notes.html.erb:12
-#: app/views/admin/items/notes.html.erb:12
-msgid "Note"
-msgstr ""
-
-#: app/views/backend/take_back/inspection.html.erb:22
-#: app/views/backend/locations/show.html.erb:10
-#: app/views/backend/items/status.html.erb:16
-#: app/views/backend/items/notes.html.erb:15
-#: app/views/admin/items/notes.html.erb:15
-#: app/views/frontend/_complete_order.html.erb:236
-msgid "Submit"
-msgstr ""
-
 #: app/views/backend/take_back/_lines.html.erb:6
 msgid "Check today's"
 msgstr ""
@@ -1158,64 +2011,44 @@ msgstr ""
 msgid "Contract"
 msgstr ""
 
-#: app/views/backend/take_back/_lines.html.erb:10
-#: app/views/backend/acknowledge/_lines.html.erb:6
-msgid "Time frame"
+#: app/views/backend/templates/index.html.erb:2
+msgid "New Template"
 msgstr ""
 
-#: app/views/backend/take_back/_lines.html.erb:12
-#: app/views/backend/hand_over/_lines.html.erb:11
-#: app/views/backend/option_maps/show.html.erb:8
-#: app/views/backend/option_maps/index.html.erb:10
-#: app/views/backend/option_maps/index.html.erb:19
-#: app/views/backend/contracts/show.rfpdf:129
-#: app/views/users/document.rfpdf:104
-msgid "Barcode"
+#: app/views/backend/templates/show.html.erb:4
+msgid "Template name"
 msgstr ""
 
-#: app/views/backend/take_back/print_contract.html.erb:1
-#: app/views/backend/hand_over/print_contract.html.erb:1
-msgid "Print contract"
+#: app/views/backend/templates/models.html.erb:6
+msgid "Add model"
 msgstr ""
 
-#: app/views/backend/take_back/index.html.erb:1
-#: app/views/backend/hand_over/index.html.erb:1
-msgid "Visit at"
-msgstr ""
-
-#: app/views/backend/backend/remove_lines.html.erb:1
-#: app/views/backend/acknowledge/delete.html.erb:1
-#: app/views/backend/hand_over/remove_lines.html.erb:1
-msgid "Do you really want to delete the object?"
+#: app/views/backend/templates/models.html.erb:33
+msgid "Only %d items are present."
 msgstr ""
 
 #: app/views/backend/backend/time_lines.html.erb:51
 msgid "Month"
 msgstr ""
 
-#: app/views/backend/acknowledge/change_purpose.html.erb:1
-#: app/views/backend/acknowledge/show.html.erb:57
-#: app/views/backend/acknowledge/show.html.erb:59
-#: app/views/frontend/_complete_order.html.erb:202
-msgid "Purpose"
+#: app/views/backend/contracts/index.html.erb:21
+msgid "Print PDF"
 msgstr ""
 
-#: app/views/backend/acknowledge/change_purpose.html.erb:8
-msgid "Save"
+#: app/views/backend/acknowledge/restore.html.erb:1
+msgid "Restore to the original order?"
 msgstr ""
 
-#: app/views/backend/acknowledge/reject.html.erb:1
-msgid "Are yo sure you want to reject the order?"
+#: app/views/backend/acknowledge/restore.html.erb:4
+msgid "Restore"
 msgstr ""
 
-#: app/views/backend/acknowledge/reject.html.erb:2
-msgid ""
-"You can enter an additional comment below, which will be sent to the user by "
-"e-mail."
+#: app/views/backend/acknowledge/index.html.erb:4
+msgid "<em>%{n} new orders</em> to acknowledge."
 msgstr ""
 
-#: app/views/backend/acknowledge/reject.html.erb:11
-msgid "Reject"
+#: app/views/backend/acknowledge/index.html.erb:9
+msgid "Orders you are editing (please complete)"
 msgstr ""
 
 #: app/views/backend/acknowledge/show.html.erb:14
@@ -1245,94 +2078,12 @@ msgstr ""
 msgid "Delete Order"
 msgstr ""
 
-#: app/views/backend/acknowledge/show.html.erb:35
-msgid "Order No."
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:52
-msgid "Time window"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:74
-#: app/views/backend/categories/index.html.erb:1
-#: app/views/backend/models/_tabs.html.erb:4
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:25
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:14
-#: app/views/admin/categories/index.html.erb:41
-#: app/views/frontend/_models.html.erb:88
-msgid "Models"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:76
-#: app/views/backend/hand_over/show.html.erb:32
-msgid "Add Line"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:78
-#: app/views/backend/hand_over/show.html.erb:34
-msgid "Add Model"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:80
-#: app/views/backend/hand_over/show.html.erb:36
-msgid "Change Timeframe for selection"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:84
-#: app/views/backend/acknowledge/_line.html.erb:27
-#: app/views/backend/hand_over/show.html.erb:40
-#: app/views/backend/hand_over/show.html.erb:47
-#: app/views/backend/hand_over/_line.html.erb:20
-msgid "Time Period"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:86
-#: app/views/backend/hand_over/show.html.erb:51
-#: app/views/backend/hand_over/show.html.erb:80
-msgid "Delete selection"
-msgstr ""
-
-#: app/views/backend/acknowledge/show.html.erb:90
-#: app/views/backend/hand_over/show.html.erb:55
-msgid "Remove Models"
-msgstr ""
-
-#: app/views/backend/acknowledge/restore.html.erb:1
-msgid "Restore to the original order?"
-msgstr ""
-
-#: app/views/backend/acknowledge/restore.html.erb:4
-msgid "Restore"
-msgstr ""
-
-#: app/views/backend/acknowledge/_additional_infos.html.erb:5
-msgid "Changes"
-msgstr ""
-
-#: app/views/backend/acknowledge/_line.html.erb:30
-#: app/views/backend/hand_over/_line.html.erb:39
-#: app/views/backend/users/index.html.erb:27
-msgid "Swap"
-msgstr ""
-
-#: app/views/backend/acknowledge/_line.html.erb:32
-#: app/views/backend/hand_over/_line.html.erb:41
-msgid "Swap Model"
-msgstr ""
-
-#: app/views/backend/acknowledge/_line.html.erb:35
-#: app/views/backend/hand_over/_line.html.erb:44
-msgid "Remove Model"
-msgstr ""
-
-#: app/views/backend/acknowledge/_tabs.html.erb:4
-#: app/views/backend/inventory_pools/index.html.erb:23
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:2
-msgid "Acknowledge"
-msgstr ""
-
 #: app/views/backend/acknowledge/_tabs.html.erb:8
 msgid "Order:"
+msgstr ""
+
+#: app/views/backend/acknowledge/change_purpose.html.erb:8
+msgid "Save"
 msgstr ""
 
 #: app/views/backend/acknowledge/approve.html.erb:3
@@ -1344,186 +2095,22 @@ msgid "Comments"
 msgstr ""
 
 #: app/views/backend/acknowledge/approve.html.erb:19
-#: app/views/frontend/_complete_order.html.erb:237
+#: app/views/frontend/_complete_order.html.erb:249
 msgid "This order is not yet approvable"
 msgstr ""
 
-#: app/views/backend/acknowledge/index.html.erb:4
-msgid "<em>%{n} new orders</em> to acknowledge."
+#: app/views/backend/acknowledge/reject.html.erb:1
+msgid "Are yo sure you want to reject the order?"
 msgstr ""
 
-#: app/views/backend/acknowledge/index.html.erb:9
-msgid "Orders you are editing (please complete)"
+#: app/views/backend/acknowledge/reject.html.erb:2
+msgid ""
+"You can enter an additional comment below, which will be sent to the user by "
+"e-mail."
 msgstr ""
 
-#: app/views/backend/acknowledge/index.html.erb:20
-msgid "Received at"
-msgstr ""
-
-#: app/views/backend/acknowledge/index.html.erb:36
-#: app/views/backend/orders/index.html.erb:18
-msgid "View + Acknowledge"
-msgstr ""
-
-#: app/views/backend/inventory_pools/show.html.erb:8
-#: app/views/backend/inventory_pools/show.html.erb:10
-msgid "Timeline Visits"
-msgstr ""
-
-#: app/views/backend/inventory_pools/index.html.erb:1
-#: app/views/backend/categories/index.html.erb:1
-#: app/views/admin/inventory_pools/index.html.erb:9
-#: app/views/admin/categories/index.html.erb:41
-#: app/views/admin/roles/index.html.erb:1
-#: app/views/frontend/_models.html.erb:259
-#: app/views/backend/contracts/show.rfpdf:129
-#: app/views/users/document.rfpdf:104
-msgid "Name"
-msgstr ""
-
-#: app/views/backend/inventory_pools/index.html.erb:1
-#: app/views/backend/hand_over/_options.html.erb:7
-#: app/views/admin/inventory_pools/index.html.erb:9
-msgid "Description"
-msgstr ""
-
-#: app/views/backend/inventory_pools/index.html.erb:24
-#: app/views/backend/hand_over/show.html.erb:7
-#: app/views/backend/hand_over/show.html.erb:11
-#: app/views/backend/hand_over/_tabs.html.erb:4
-#: app/views/backend/hand_over/index.html.erb:16
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:3
-msgid "Hand Over"
-msgstr ""
-
-#: app/views/backend/categories/index.html.erb:1
-#: app/views/admin/categories/index.html.erb:41
-msgid "Type"
-msgstr ""
-
-#: app/views/backend/categories/index.html.erb:1
-#: app/views/admin/categories/index.html.erb:41
-msgid "All Models"
-msgstr ""
-
-#: app/views/backend/categories/index.html.erb:1
-#: app/views/admin/categories/index.html.erb:41
-msgid "Children"
-msgstr ""
-
-#: app/views/backend/categories/index.html.erb:1
-#: app/views/admin/categories/index.html.erb:41
-msgid "All Children"
-msgstr ""
-
-#: app/views/backend/categories/index.html.erb:1
-#: app/views/admin/categories/index.html.erb:41
-msgid "Parents"
-msgstr ""
-
-#: app/views/backend/hand_over/_options.html.erb:6
-#: app/views/frontend/_models.html.erb:292
-msgid "Quantity"
-msgstr ""
-
-#: app/views/backend/hand_over/sign_contract.html.erb:1
-msgid "Items to hand over"
-msgstr ""
-
-#: app/views/backend/hand_over/sign_contract.html.erb:9
-msgid "Options to hand over"
-msgstr ""
-
-#: app/views/backend/hand_over/show.html.erb:19
-msgid "Contract Nr."
-msgstr ""
-
-#: app/views/backend/hand_over/show.html.erb:43
-msgid "Change Installation Location"
-msgstr ""
-
-#: app/views/backend/hand_over/show.html.erb:77
-#: app/views/backend/hand_over/show.html.erb:79
-#: app/views/backend/hand_over/add_option.html.erb:5
-msgid "Add Option"
-msgstr ""
-
-#: app/views/backend/hand_over/show.html.erb:84
-msgid "Remove Options"
-msgstr ""
-
-#: app/views/backend/hand_over/_line.html.erb:11
-msgid "Installed in: "
-msgstr ""
-
-#: app/views/backend/hand_over/remove_options.html.erb:1
-msgid "Do you really want to delete the following options?"
-msgstr ""
-
-#: app/views/backend/hand_over/select_location.html.erb:1
-msgid "Installation Location"
-msgstr ""
-
-#: app/views/backend/hand_over/select_location.html.erb:2
-msgid "You're changing the installation location for the following items:"
-msgstr ""
-
-#: app/views/backend/hand_over/select_location.html.erb:5
-msgid "(Installed in: "
-msgstr ""
-
-#: app/views/backend/hand_over/select_location.html.erb:14
-msgid "Remove Location from the above models"
-msgstr ""
-
-#: app/views/backend/hand_over/select_location.html.erb:22
-#: app/views/backend/locations/index.html.erb:10
-msgid "Building"
-msgstr ""
-
-#: app/views/backend/hand_over/select_location.html.erb:26
-#: app/views/backend/locations/index.html.erb:10
-msgid "Room"
-msgstr ""
-
-#: app/views/backend/hand_over/select_location.html.erb:32
-msgid "Confirm Location"
-msgstr ""
-
-#: app/views/backend/hand_over/_lines.html.erb:3
-msgid "Mark"
-msgstr ""
-
-#: app/views/backend/hand_over/_lines.html.erb:4
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:18
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:27
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:34
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:40
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:55
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:6
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:16
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:22
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:28
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:37
-#: app/views/frontend/_categories.html.erb:4
-#: app/views/frontend/_models.html.erb:111
-msgid "All"
-msgstr ""
-
-#: app/views/backend/hand_over/_lines.html.erb:6
-msgid "From today"
-msgstr ""
-
-#: app/views/backend/hand_over/_lines.html.erb:9
-msgid "Timeframe"
-msgstr ""
-
-#: app/views/backend/hand_over/add_option.html.erb:3
-msgid "Quantity:"
-msgstr ""
-
-#: app/views/backend/hand_over/add_option.html.erb:4
-msgid "Name:"
+#: app/views/backend/acknowledge/reject.html.erb:11
+msgid "Reject"
 msgstr ""
 
 #: app/views/backend/workdays/index.html.erb:2
@@ -1534,439 +2121,29 @@ msgstr ""
 msgid "Holidays"
 msgstr ""
 
-#: app/views/backend/workdays/index.html.erb:22
-#: app/views/backend/users/access_rights.html.erb:25
-#: app/views/backend/models/index.html.erb:49
-#: app/views/admin/users/access_rights.html.erb:29
-#: app/views/frontend/_models.html.erb:269
-#: app/views/frontend/_models.html.erb:364
-msgid "Add"
-msgstr ""
-
-#: app/views/backend/orders/_tabs.html.erb:4
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:2
-#: app/views/users/_documents2.html.erb:4
-msgid "Orders"
-msgstr ""
-
-#: app/views/backend/users/access_rights.html.erb:8
-#: app/views/backend/models/show_package_items.html.erb:9
-#: app/views/backend/models/index.html.erb:54
-#: app/views/admin/inventory_pools/locations.html.erb:9
-#: app/views/admin/inventory_pools/managers.html.erb:9
-#: app/views/admin/categories/index.html.erb:58
-#: app/views/admin/users/access_rights.html.erb:8
-#: app/views/admin/models/properties.html.erb:5
-#: app/views/admin/models/accessories.html.erb:5
-#: app/views/frontend/_complete_order.html.erb:165
-#: app/views/frontend/_complete_order.html.erb:172
-msgid "Remove"
-msgstr ""
-
-#: app/views/backend/users/access_rights.html.erb:20
-#: app/views/admin/users/access_rights.html.erb:20
-msgid "Role"
-msgstr ""
-
-#: app/views/backend/users/_tabs.html.erb:7
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:38
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:26
-msgid "Users"
-msgstr ""
-
-#: app/views/backend/users/_resume.html.erb:14
-msgid "%{i} orders"
-msgstr ""
-
-#: app/views/backend/users/_resume.html.erb:17
-#: app/views/backend/users/_resume.html.erb:20
-#: app/views/backend/users/_resume.html.erb:23
-msgid "%{i} items"
-msgstr ""
-
-#: app/views/backend/users/_resume.html.erb:30
-msgid "%{i} reminders, last: %{d}"
-msgstr ""
-
-#: app/views/backend/users/index.html.erb:1
-#: app/views/admin/users/index.html.erb:10
-msgid "Access Rights"
-msgstr ""
-
-#: app/views/backend/users/index.html.erb:1
-#: app/views/admin/users/index.html.erb:10
-msgid "Documents"
-msgstr ""
-
-#: app/views/backend/users/index.html.erb:31
-#: app/views/backend/option_maps/index.html.erb:18
-#: app/views/backend/locations/index.html.erb:22
-#: app/views/backend/items/index.html.erb:12
-#: app/views/backend/models/index.html.erb:53
-#: app/views/admin/inventory_pools/index.html.erb:19
-#: app/views/admin/categories/index.html.erb:54
-#: app/views/admin/users/index.html.erb:30
-#: app/views/admin/items/index.html.erb:23
-#: app/views/admin/models/index.html.erb:32
-msgid "Show"
-msgstr ""
-
-#: app/views/backend/users/index.html.erb:32
-msgid "New Contract"
-msgstr ""
-
-#: app/views/backend/option_maps/index.html.erb:4
-#: app/views/backend/locations/index.html.erb:4
-#: app/views/admin/inventory_pools/index.html.erb:4
-#: app/views/admin/categories/index.html.erb:35
-#: app/views/admin/users/index.html.erb:4
-#: app/views/admin/items/index.html.erb:4
-#: app/views/admin/models/index.html.erb:15
-msgid "Create New"
-msgstr ""
-
 #: app/views/backend/option_maps/index.html.erb:10
 msgid "Text"
 msgstr ""
 
-#: app/views/backend/option_maps/index.html.erb:20
-#: app/views/backend/models/index.html.erb:55
-#: app/views/admin/inventory_pools/index.html.erb:21
-#: app/views/admin/categories/index.html.erb:56
-#: app/views/admin/categories/index.html.erb:59
-#: app/views/admin/categories/index.html.erb:62
-#: app/views/admin/users/index.html.erb:32
-#: app/views/admin/items/index.html.erb:25
-#: app/views/admin/models/index.html.erb:34
-msgid "Are you sure?"
+#: app/views/frontend/index.html.erb:79
+msgid "Recent Models"
 msgstr ""
 
-#: app/views/backend/locations/index.html.erb:10
-msgid "Shelf"
+#: app/views/frontend/_basket.html.erb:30
+msgid "Basket"
 msgstr ""
 
-#: app/views/backend/locations/index.html.erb:10
-#: app/views/layouts/backend/00-patterns/general.html.erb:24
-#: app/views/admin/users/access_rights.html.erb:21
-#: app/views/frontend/_basket.html.erb:19
-#: app/views/frontend/_models.html.erb:306
-msgid "Inventory Pool"
+#: app/views/frontend/_basket.html.erb:81
+msgid "Complete Order"
 msgstr ""
 
-#: app/views/backend/locations/index.html.erb:10
-msgid "Main?"
+#: app/views/frontend/_templates.html.erb:22
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:30
+msgid "Templates"
 msgstr ""
 
-#: app/views/backend/items/location.html.erb:3
-#: app/views/backend/models/package_location.html.erb:3
-msgid "Set location"
-msgstr ""
-
-#: app/views/backend/items/location.html.erb:10
-#: app/views/backend/models/package_location.html.erb:10
-#: app/views/admin/items/inventory_pool.html.erb:19
-msgid "Set"
-msgstr ""
-
-#: app/views/backend/items/index.html.erb:1
-#: app/views/admin/items/index.html.erb:10
-#: app/views/backend/contracts/show.rfpdf:80 app/views/users/document.rfpdf:75
-msgid "Inventory Code"
-msgstr ""
-
-#: app/views/backend/items/index.html.erb:1
-#: app/views/admin/items/index.html.erb:10
-msgid "Serial Number"
-msgstr ""
-
-#: app/views/backend/items/index.html.erb:1
-#: app/views/widgets/_item_backend_tabnav.html.erb:80
-#: app/views/widgets/_package_backend_tabnav.html.erb:39
-#: app/views/admin/items/index.html.erb:10
-msgid "Location"
-msgstr ""
-
-#: app/views/backend/items/index.html.erb:1
-#: app/views/admin/items/index.html.erb:10
-msgid "In stock?"
-msgstr ""
-
-#: app/views/backend/models/show_package_items.html.erb:19
-msgid "Add more items"
-msgstr ""
-
-#: app/views/backend/models/index.html.erb:18
-msgid "Add compatible"
-msgstr ""
-
-#: app/views/backend/models/index.html.erb:28
-msgid "New Package"
-msgstr ""
-
-#: app/views/backend/models/index.html.erb:35
-#: app/views/admin/models/index.html.erb:21
-#: app/views/frontend/_models.html.erb:253
-msgid "Compatibles"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/general.html.erb:24
-#: app/views/frontend/_complete_order.html.erb:326
-msgid "Change"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:16
-msgid "My Account"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:19
-#: app/views/frontend/_topbar.html.erb:47
-msgid "Logout"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:23
-msgid "Login"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:9
-#: app/views/users/_documents2.html.erb:34
-msgid "Contracts"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:28
-msgid "Packages"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:32
-msgid "Locations"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:41
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:30
-msgid "Managers"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:42
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:31
-msgid "Students"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:43
-msgid "Unknown"
-msgstr ""
-
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:47
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:49
-msgid "Opening Times"
-msgstr ""
-
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:2
-msgid "InventoryPools"
-msgstr ""
-
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:10
-msgid "Unfinished"
-msgstr ""
-
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:20
-#: app/views/frontend/_categories.html.erb:22
-msgid "Categories"
-msgstr ""
-
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:29
-msgid "Admins"
-msgstr ""
-
-#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:35
-msgid "Roles"
-msgstr ""
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:28
-#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:34
-#: app/views/widgets/_model_admin_tabnav.html.erb:28
-#: app/views/widgets/_package_backend_tabnav.html.erb:27
-msgid "Items (%d)"
-msgstr ""
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:34
-#: app/views/widgets/_model_admin_tabnav.html.erb:36
-msgid "Categories (%d)"
-msgstr ""
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:40
-#: app/views/widgets/_model_admin_tabnav.html.erb:44
-msgid "Properties (%d)"
-msgstr ""
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:46
-#: app/views/widgets/_model_admin_tabnav.html.erb:51
-msgid "Accessories (%d)"
-msgstr ""
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:52
-#: app/views/widgets/_model_admin_tabnav.html.erb:58
-msgid "Images (%d)"
-msgstr ""
-
-#: app/views/widgets/_model_backend_tabnav.html.erb:58
-#: app/views/widgets/_model_admin_tabnav.html.erb:65
-msgid "Compatibles (%d)"
-msgstr ""
-
-#: app/views/widgets/_item_backend_tabnav.html.erb:86
-msgid "Status"
-msgstr ""
-
-#: app/views/widgets/_item_backend_tabnav.html.erb:92
-#: app/views/widgets/_item_admin_tabnav.html.erb:46
-msgid "Notes (%d)"
-msgstr ""
-
-#: app/views/widgets/_user_admin_tabnav.html.erb:21
-#: app/views/widgets/_user_backend_tabnav.html.erb:20
-msgid "Access Rights (%d)"
-msgstr ""
-
-#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:20
-#: app/views/widgets/_item_admin_tabnav.html.erb:39
-msgid "InventoryPool"
-msgstr ""
-
-#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:27
-msgid "Locations (%d)"
-msgstr ""
-
-#: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:41
-msgid "Managers (%d)"
-msgstr ""
-
-#: app/views/widgets/_category_admin_tabnav.html.erb:20
-#: app/views/frontend/_models.html.erb:110
-msgid "Category"
-msgstr ""
-
-#: app/views/widgets/_category_admin_tabnav.html.erb:27
-msgid "Models (%d)"
-msgstr ""
-
-#: app/views/widgets/_category_admin_tabnav.html.erb:33
-msgid "Children (%d)"
-msgstr ""
-
-#: app/views/widgets/_category_admin_tabnav.html.erb:39
-msgid "Parents (%d)"
-msgstr ""
-
-#: app/views/widgets/_package_backend_tabnav.html.erb:21
-msgid "Package"
-msgstr ""
-
-#: app/views/admin/inventory_pools/locations.html.erb:16
-msgid "Add more locations"
-msgstr ""
-
-#: app/views/admin/inventory_pools/locations.html.erb:19
-msgid "building"
-msgstr ""
-
-#: app/views/admin/inventory_pools/locations.html.erb:22
-msgid "room"
-msgstr ""
-
-#: app/views/admin/inventory_pools/locations.html.erb:25
-msgid "shelf"
-msgstr ""
-
-#: app/views/admin/inventory_pools/managers.html.erb:18
-msgid "Add as manager"
-msgstr ""
-
-#: app/views/admin/categories/index.html.erb:8
-msgid "Add as subcategory of"
-msgstr ""
-
-#: app/views/admin/categories/index.html.erb:13
-msgid "Label"
-msgstr ""
-
-#: app/views/admin/categories/index.html.erb:24
-msgid "Add to category"
-msgstr ""
-
-#: app/views/admin/categories/index.html.erb:61
-msgid "Remove Parent"
-msgstr ""
-
-#: app/views/admin/users/access_rights.html.erb:22
-msgid "Level"
-msgstr ""
-
-#: app/views/admin/roles/index.html.erb:1
-msgid "Parent"
-msgstr ""
-
-#: app/views/admin/items/model.html.erb:14
-msgid "Set new model"
-msgstr ""
-
-#: app/views/admin/items/show.html.erb:6
-msgid "Inventory Code:"
-msgstr ""
-
-#: app/views/admin/items/show.html.erb:7
-msgid "Serial Number:"
-msgstr ""
-
-#: app/views/admin/items/show.html.erb:8
-msgid "Required Level:"
-msgstr ""
-
-#: app/views/admin/items/inventory_pool.html.erb:4
-msgid "Select model first"
-msgstr ""
-
-#: app/views/admin/items/inventory_pool.html.erb:9
-msgid "Set inventory pool"
-msgstr ""
-
-#: app/views/admin/models/properties.html.erb:13
-msgid "Add more properties"
-msgstr ""
-
-#: app/views/admin/models/properties.html.erb:16
-msgid "key"
-msgstr ""
-
-#: app/views/admin/models/properties.html.erb:19
-msgid "value"
-msgstr ""
-
-#: app/views/admin/models/index.html.erb:21
-#: app/views/frontend/_models.html.erb:263
-msgid "Manufacturer"
-msgstr ""
-
-#: app/views/admin/models/accessories.html.erb:13
-msgid "Add more accessories"
-msgstr ""
-
-#: app/views/admin/models/accessories.html.erb:16
-msgid "name"
-msgstr ""
-
-#: app/views/users/account.html.erb:35 app/views/frontend/_models.html.erb:218
-msgid "Loading"
-msgstr ""
-
-#: app/views/users/_events.html.erb:67
-msgid "Visits"
-msgstr ""
-
-#: app/views/users/_contracts.html.erb:5
-msgid "Contracts (%d)"
-msgstr ""
-
-#: app/views/users/_contracts.html.erb:44 app/views/users/_orders.html.erb:44
-msgid "Timeline Contracts"
+#: app/views/frontend/_templates.html.erb:133
+msgid "Add all"
 msgstr ""
 
 #: app/views/frontend/_complete_order.html.erb:128
@@ -1974,7 +2151,7 @@ msgid "Error"
 msgstr ""
 
 #: app/views/frontend/_complete_order.html.erb:157
-#: app/views/frontend/_complete_order.html.erb:350
+#: app/views/frontend/_complete_order.html.erb:362
 msgid "Change Timeframe"
 msgstr ""
 
@@ -1998,43 +2175,54 @@ msgstr ""
 msgid "Do you want to submit this order?"
 msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:304
-#: app/views/frontend/_models.html.erb:326
+#: app/views/frontend/_complete_order.html.erb:316
+#: app/views/frontend/_models.html.erb:323 app/views/users/document.rfpdf:75
+#: app/views/users/document.rfpdf:104 app/views/users/show_document.rfpdf:7
+#: app/views/users/show_document.rfpdf:47
 #: app/views/backend/contracts/show.rfpdf:80
 #: app/views/backend/contracts/show.rfpdf:129
-#: app/views/users/document.rfpdf:75 app/views/users/document.rfpdf:104
 msgid "Start date"
 msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:316
-#: app/views/frontend/_models.html.erb:344
+#: app/views/frontend/_complete_order.html.erb:328
+#: app/views/frontend/_models.html.erb:341 app/views/users/document.rfpdf:75
+#: app/views/users/document.rfpdf:104 app/views/users/show_document.rfpdf:7
+#: app/views/users/show_document.rfpdf:47
 #: app/views/backend/contracts/show.rfpdf:80
 #: app/views/backend/contracts/show.rfpdf:129
-#: app/views/users/document.rfpdf:75 app/views/users/document.rfpdf:104
 msgid "End date"
 msgstr ""
 
-#: app/views/frontend/_complete_order.html.erb:372
+#: app/views/frontend/_complete_order.html.erb:338
+#: app/views/layouts/backend/00-patterns/general.html.erb:24
+msgid "Change"
+msgstr ""
+
+#: app/views/frontend/_complete_order.html.erb:384
 msgid "Order"
 msgstr ""
 
-#: app/views/frontend/_basket.html.erb:30
-msgid "Basket"
+#: app/views/frontend/_inventory_pools.html.erb:45
+msgid "Inventory Pools"
 msgstr ""
 
-#: app/views/frontend/_basket.html.erb:81
-msgid "Complete Order"
+#: app/views/frontend/_inventory_pools.html.erb:45
+msgid "%{a}/%{b}"
 msgstr ""
 
-#: app/views/frontend/_models.html.erb:108
+#: app/views/frontend/_inventory_pools.html.erb:60
+msgid "Refresh"
+msgstr ""
+
+#: app/views/frontend/_models.html.erb:109
 msgid "Search"
 msgstr ""
 
-#: app/views/frontend/_models.html.erb:118
+#: app/views/frontend/_models.html.erb:119
 msgid "No models to display"
 msgstr ""
 
-#: app/views/frontend/_models.html.erb:217
+#: app/views/frontend/_models.html.erb:218
 msgid "Details"
 msgstr ""
 
@@ -2046,55 +2234,107 @@ msgstr ""
 msgid "Accessories"
 msgstr ""
 
-#: app/views/frontend/_models.html.erb:368
+#: app/views/frontend/_models.html.erb:365
 msgid "Saving Data"
 msgstr ""
 
-#: app/views/frontend/_inventory_pools.html.erb:45
-msgid "%{a}/%{b}"
+#: app/views/frontend/_categories.html.erb:23
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:20
+msgid "Categories"
 msgstr ""
 
-#: app/views/frontend/_inventory_pools.html.erb:60
-msgid "Refresh"
+#: app/views/frontend/_topbar.html.erb:47
+#: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:18
+msgid "Logout"
 msgstr ""
 
-#: app/views/frontend/index.html.erb:78
-msgid "Recent Models"
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:2
+msgid "InventoryPools"
 msgstr ""
 
-#: app/views/backend/contracts/show.rfpdf:26 app/views/users/document.rfpdf:23
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:10
+msgid "Unfinished"
+msgstr ""
+
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:29
+msgid "Admins"
+msgstr ""
+
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:30
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:43
+msgid "Managers"
+msgstr ""
+
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:31
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:44
+msgid "Students"
+msgstr ""
+
+#: app/views/layouts/admin/00-patterns/_sidebar.html.erb:35
+msgid "Roles"
+msgstr ""
+
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:4
+msgid "Pending"
+msgstr ""
+
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:29
+msgid "Packages"
+msgstr ""
+
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:34
+msgid "Locations"
+msgstr ""
+
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:45
+msgid "Unknown"
+msgstr ""
+
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:49
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:51
+msgid "Opening Times"
+msgstr ""
+
+#: app/views/users/document.rfpdf:23 app/views/backend/contracts/show.rfpdf:26
 msgid "Contract no. %d"
 msgstr ""
 
-#: app/views/backend/contracts/show.rfpdf:36 app/views/users/document.rfpdf:33
+#: app/views/users/document.rfpdf:33 app/views/backend/contracts/show.rfpdf:36
 msgid "Lending party:"
 msgstr ""
 
-#: app/views/backend/contracts/show.rfpdf:51 app/views/users/document.rfpdf:48
+#: app/views/users/document.rfpdf:48 app/views/backend/contracts/show.rfpdf:51
 msgid "Borrowing party:"
 msgstr ""
 
-#: app/views/backend/contracts/show.rfpdf:67 app/views/users/document.rfpdf:62
+#: app/views/users/document.rfpdf:62 app/views/backend/contracts/show.rfpdf:67
 msgid ""
 "This lending contract covers borrowing the following items by the person "
 "(natural or legal) described as \"borrowing party\" above. Use of these "
 "items is only allowed for the purpose given below."
 msgstr ""
 
-#: app/views/backend/contracts/show.rfpdf:80
-#: app/views/backend/contracts/show.rfpdf:129
 #: app/views/users/document.rfpdf:75 app/views/users/document.rfpdf:104
-msgid "Returned date"
-msgstr ""
-
+#: app/views/users/show_document.rfpdf:7
+#: app/views/users/show_document.rfpdf:47
 #: app/views/backend/contracts/show.rfpdf:129
-#: app/views/users/document.rfpdf:75 app/views/users/document.rfpdf:104
 msgid "Qt."
 msgstr ""
 
+#: app/views/users/document.rfpdf:75 app/views/users/document.rfpdf:104
+#: app/views/users/show_document.rfpdf:7
+#: app/views/backend/contracts/show.rfpdf:80
+#: app/views/backend/contracts/show.rfpdf:129
+msgid "Returned date"
+msgstr ""
+
+#: app/views/users/document.rfpdf:107 app/views/users/show_document.rfpdf:50
 #: app/views/backend/contracts/show.rfpdf:132
-#: app/views/users/document.rfpdf:107
 msgid "Options:"
+msgstr ""
+
+#: app/views/users/show_document.rfpdf:47
+msgid "Returned Date"
 msgstr ""
 
 #: app/views/backend/contracts/show.rfpdf:172
