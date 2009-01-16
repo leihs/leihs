@@ -2,6 +2,7 @@ set :application, "leihs2test-hkb"
 set :repository,  "http://code.zhdk.ch/svn/leihs/trunk"
 set :db_config, "/home/rails/leihs/leihs2test-hkb/database.yml"
 set :checkout, :export
+set :use_sudo, false
 
 set :rails_env, "development"
 
