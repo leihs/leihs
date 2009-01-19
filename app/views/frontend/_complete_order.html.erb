@@ -1,3 +1,6 @@
+//////////////////////////////////////////////////////////////////
+// Order
+
 	var Line = Ext.data.Record.create([
 	   {name: 'order_id', type: 'int'},
 	   {name: 'quantity', type: 'int'},
@@ -7,6 +10,7 @@
 	   {name: 'start_date', type: 'date'},
 	   {name: 'end_date', type: 'date'},
 	   {name: 'available?', type: 'string'},
+	   {name: 'available_tooltip', type: 'string'},
 	   {name: 'inventory_pool.name', type: 'string'},
 	   {name: 'inventory_pool.closed_days'},
 	   {name: 'inventory_pool.closed_dates'}
@@ -34,6 +38,22 @@
         // turn on remote sorting
         remoteSort: true
     });
+
+//////////////////////////////////////////////////////////////////
+// Order Guide
+
+	var order_guide = new Ext.DataView({
+		//id: 'order_guide',
+	    autoScroll:true,
+		region: 'north',
+		height: 60,
+		emptyText: 'No resutls to display',
+		store: complete_order_store,
+		itemSelector: 'div.order_line',
+		tpl: new Ext.XTemplate('<tpl for=".">', '<div class="order_line">{available_tooltip}</div>', '</tpl>')
+	});
+
+//////////////////////////////////////////////////////////////////
 
 	
 	var complete_order_sm = new Ext.grid.CheckboxSelectionModel({
@@ -90,8 +110,10 @@
            dataIndex: 'available?',
 		   align: 'center',
 		// css: "background-color: red;",
- 		   renderer:function(value){ var img = (value == 'true')?'accept':'exclamation';
-		   							 return '<img src="<%= $layout_public_path %>/images/icons/' + img + '.png" />';},
+// 		   renderer:function(value,p,r){ return (r.data['available?'] == 'true')? value:'<div style="background-color: red;">'+ value +'</div>';},
+ 		   renderer:function(value,p,r){ var img = (value == 'true')?'accept':'exclamation';
+		   								 var qtip = (r.data['available?'] == 'true') ? '' : 'ext:qtip="' + r.data['available_tooltip'] +'"'; 
+		   							 	 return '<img ' + qtip + ' src="<%= $layout_public_path %>/images/icons/' + img + '.png" />';},
            width: 40
         }]);
 
@@ -292,14 +314,6 @@
 		return max;		
 	}
 
-       var order_guide = new Ext.Panel({
-	   		id: 'order_guide',
-			height: 60,
-			region: 'north',
-			html: '',
-		    autoScroll:true
-        });
-
 	function show_change_timeframe(){
 		    var timeframe_form = new Ext.form.FormPanel({
 		        labelAlign: 'top',
@@ -405,6 +419,8 @@
 					model_details.collapse();
 //					complete_order_store.load();
 					basket.disable();
+
+					order_guide.html = 'hoi';		
 				},
 				deactivate: function(cmp) {
 					basket.enable();

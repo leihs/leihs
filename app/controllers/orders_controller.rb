@@ -110,7 +110,7 @@ class OrdersController < FrontendController
                                                                                                                          :contract_description],
                                                                                                               :methods => [:closed_days, 
                                                                                                                            :closed_dates] } },
-                                                                            :methods => :available?,
+                                                                            :methods => [:available?, :available_tooltip],
                                                                             :except => [:created_at, :updated_at]}
                                                           } ) }
     end
