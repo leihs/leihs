@@ -122,6 +122,7 @@ class InventoryImport::ImportOnce
         u = User.find_or_create_by_email(:email => user.email, :login => user.login)
         u.lastname = user.nachname
         u.firstname = user.vorname
+        u.phone = user.telefon if user.telefon
         if u.save
           if user.benutzerstufe >= 5 
             role = Role.find_by_name('admin')

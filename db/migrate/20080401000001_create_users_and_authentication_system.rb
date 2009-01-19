@@ -17,6 +17,7 @@ class CreateUsersAndAuthenticationSystem < ActiveRecord::Migration
       t.string :login
       t.string :firstname
       t.string :lastname
+      t.string :phone
       t.belongs_to :authentication_system, :default => 1
       t.string :unique_id
       t.string :email
