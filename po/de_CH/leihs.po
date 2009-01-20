@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2009-01-16 14:55+0100\n"
-"PO-Revision-Date: 2009-01-16 17:03+0100\n"
+"POT-Creation-Date: 2009-01-20 17:45+0100\n"
+"PO-Revision-Date: 2009-01-20 17:50+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgstr "Zugriffsrecht erfolgreich entfernt"
 
 #: app/controllers/backend/hand_over_controller.rb:37
 msgid "No items to hand over specified. Please assign inventory codes to the items you want to hand over."
-msgstr ""
+msgstr "Es sind keine Gegenstände zur Übergabe markiert. Bitte weisen Sie den Gegenständen, die Sie übergeben wollen, Inventarcodes zu."
 
 #: app/controllers/backend/hand_over_controller.rb:82
 msgid "Inventory Code assigned"
@@ -114,7 +114,7 @@ msgstr "Benutzer muss ausgewählt sein"
 
 #: app/controllers/orders_controller.rb:20
 msgid "Submission failed"
-msgstr ""
+msgstr "Abschicken schlug fehl."
 
 #: app/models/access_right.rb:-
 msgid "access right"
@@ -150,11 +150,11 @@ msgstr "Student"
 
 #: app/models/access_right.rb:7
 msgid "Employee"
-msgstr ""
+msgstr "Mitarbeiter"
 
 #: app/models/access_right.rb:7
 msgid "Special"
-msgstr ""
+msgstr "Speziell"
 
 #: app/models/access_right.rb:36
 msgid "The admin role cannot be scoped to an inventory pool"
@@ -414,7 +414,7 @@ msgstr ""
 
 #: app/models/option.rb:-
 msgid "option"
-msgstr ""
+msgstr "Option"
 
 #: app/models/option.rb:-
 msgid "Option|Contract"
@@ -462,7 +462,7 @@ msgstr ""
 
 #: app/models/notification.rb:-
 msgid "notification"
-msgstr ""
+msgstr "Erinnerung"
 
 #: app/models/notification.rb:-
 msgid "Notification|User"
@@ -477,7 +477,7 @@ msgid "Notification|Created at"
 msgstr ""
 
 #: app/models/notification.rb:7
-#: app/views/frontend/_complete_order.html.erb:221
+#: app/views/frontend/_complete_order.html.erb:243
 msgid "Order submitted"
 msgstr "Bestellung abgeschickt"
 
@@ -590,7 +590,7 @@ msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 
 #: app/models/document_line.rb:75
 #: app/views/backend/backend/time_lines.html.erb:94
-#: app/views/frontend/_complete_order.html.erb:128
+#: app/views/frontend/_complete_order.html.erb:150
 #: app/views/frontend/_models.html.erb:351
 msgid "Start Date must be before End Date"
 msgstr "Startdaum muss vor Enddatum liegen"
@@ -1080,7 +1080,7 @@ msgstr "Zeitfenster"
 #: app/views/backend/acknowledge/show.html.erb:57
 #: app/views/backend/acknowledge/show.html.erb:59
 #: app/views/backend/acknowledge/change_purpose.html.erb:1
-#: app/views/frontend/_complete_order.html.erb:202
+#: app/views/frontend/_complete_order.html.erb:224
 msgid "Purpose"
 msgstr "Zweck"
 
@@ -1118,7 +1118,7 @@ msgstr "Gerätepark"
 #: app/views/widgets/_template_backend_tabnav.html.erb:20
 #: app/views/frontend/_templates.html.erb:113
 msgid "Template"
-msgstr ""
+msgstr "Vorlage"
 
 #: app/views/widgets/_template_backend_tabnav.html.erb:25
 msgid "Models (%{m}/%{i})"
@@ -1222,8 +1222,8 @@ msgstr "Hinzufügen"
 #: app/views/backend/categories/index.html.erb:29
 #: app/views/backend/templates/index.html.erb:15
 #: app/views/backend/templates/models.html.erb:39
-#: app/views/frontend/_complete_order.html.erb:165
-#: app/views/frontend/_complete_order.html.erb:172
+#: app/views/frontend/_complete_order.html.erb:187
+#: app/views/frontend/_complete_order.html.erb:194
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -1327,6 +1327,21 @@ msgstr "Löschen"
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
+#: app/views/admin/users/show.html.erb:8
+#: app/views/backend/users/show.html.erb:2
+msgid "Name: "
+msgstr "Name:"
+
+#: app/views/admin/users/show.html.erb:9
+#: app/views/backend/users/show.html.erb:3
+msgid "Email: "
+msgstr "E-Mail:"
+
+#: app/views/admin/users/show.html.erb:10
+#: app/views/backend/users/show.html.erb:4
+msgid "Phone: "
+msgstr "Telefon:"
+
 #: app/views/admin/items/notes.html.erb:12
 #: app/views/backend/items/notes.html.erb:12
 #: app/views/backend/take_back/inspection.html.erb:18
@@ -1338,7 +1353,7 @@ msgstr "Notiz"
 #: app/views/backend/items/notes.html.erb:15
 #: app/views/backend/items/status.html.erb:16
 #: app/views/backend/take_back/inspection.html.erb:22
-#: app/views/frontend/_complete_order.html.erb:248
+#: app/views/frontend/_complete_order.html.erb:270
 msgid "Submit"
 msgstr "Absenden"
 
@@ -1845,6 +1860,10 @@ msgstr "Strichcode erstellen"
 msgid "New Contract"
 msgstr "Neuer Vertrag"
 
+#: app/views/backend/users/show.html.erb:1
+msgid "Login: "
+msgstr "Login:"
+
 #: app/views/backend/users/_tabs.html.erb:7
 #: app/views/layouts/admin/00-patterns/_sidebar.html.erb:26
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:40
@@ -1947,7 +1966,7 @@ msgstr "Ansehen + bestätigen"
 
 #: app/views/backend/orders/index.html.erb:21
 msgid "View"
-msgstr ""
+msgstr "Ansehen"
 
 #: app/views/backend/orders/show.html.erb:15
 #: app/views/backend/acknowledge/show.html.erb:35
@@ -2019,7 +2038,7 @@ msgstr "Vertrag"
 
 #: app/views/backend/templates/index.html.erb:2
 msgid "New Template"
-msgstr ""
+msgstr "Neue Vorlage"
 
 #: app/views/backend/templates/show.html.erb:4
 msgid "Template name"
@@ -2031,7 +2050,7 @@ msgstr "Modell hinzufügen"
 
 #: app/views/backend/templates/models.html.erb:33
 msgid "Only %d items are present."
-msgstr ""
+msgstr "Nur %d Gegenstände sind verfügbar."
 
 #: app/views/backend/backend/time_lines.html.erb:51
 msgid "Month"
@@ -2101,7 +2120,7 @@ msgid "Comments"
 msgstr "Kommentare"
 
 #: app/views/backend/acknowledge/approve.html.erb:19
-#: app/views/frontend/_complete_order.html.erb:249
+#: app/views/frontend/_complete_order.html.erb:271
 msgid "This order is not yet approvable"
 msgstr "Diese Bestellung kann noch nicht bestätigt werden"
 
@@ -2150,36 +2169,36 @@ msgstr "Vorlagen"
 msgid "Add all"
 msgstr "Alle hinzfügen"
 
-#: app/views/frontend/_complete_order.html.erb:128
+#: app/views/frontend/_complete_order.html.erb:150
 msgid "Error"
 msgstr "Fehler"
 
-#: app/views/frontend/_complete_order.html.erb:157
-#: app/views/frontend/_complete_order.html.erb:362
+#: app/views/frontend/_complete_order.html.erb:179
+#: app/views/frontend/_complete_order.html.erb:376
 msgid "Change Timeframe"
 msgstr "Zeitfenster ändern"
 
-#: app/views/frontend/_complete_order.html.erb:158
+#: app/views/frontend/_complete_order.html.erb:180
 msgid "Change the timeframe for the selected items"
 msgstr "Zeitfenster für Auswahl ändern"
 
-#: app/views/frontend/_complete_order.html.erb:166
+#: app/views/frontend/_complete_order.html.erb:188
 msgid "Remove the selected items"
 msgstr "Ausgewähltes entfernen"
 
-#: app/views/frontend/_complete_order.html.erb:173
+#: app/views/frontend/_complete_order.html.erb:195
 msgid "You are sure?"
 msgstr "Sind Sie sicher?"
 
-#: app/views/frontend/_complete_order.html.erb:195
+#: app/views/frontend/_complete_order.html.erb:217
 msgid "Submit Order"
 msgstr "Bestellung abschicken"
 
-#: app/views/frontend/_complete_order.html.erb:201
+#: app/views/frontend/_complete_order.html.erb:223
 msgid "Do you want to submit this order?"
 msgstr "Wollen Sie diese Bestellung abschicken?"
 
-#: app/views/frontend/_complete_order.html.erb:316
+#: app/views/frontend/_complete_order.html.erb:330
 #: app/views/frontend/_models.html.erb:323
 #: app/views/users/document.rfpdf:75
 #: app/views/users/document.rfpdf:104
@@ -2190,7 +2209,7 @@ msgstr "Wollen Sie diese Bestellung abschicken?"
 msgid "Start date"
 msgstr "Startdatum"
 
-#: app/views/frontend/_complete_order.html.erb:328
+#: app/views/frontend/_complete_order.html.erb:342
 #: app/views/frontend/_models.html.erb:341
 #: app/views/users/document.rfpdf:75
 #: app/views/users/document.rfpdf:104
@@ -2201,12 +2220,12 @@ msgstr "Startdatum"
 msgid "End date"
 msgstr "Enddatum"
 
-#: app/views/frontend/_complete_order.html.erb:338
+#: app/views/frontend/_complete_order.html.erb:352
 #: app/views/layouts/backend/00-patterns/general.html.erb:24
 msgid "Change"
 msgstr "Ändern"
 
-#: app/views/frontend/_complete_order.html.erb:384
+#: app/views/frontend/_complete_order.html.erb:398
 msgid "Order"
 msgstr "Bestellung"
 
@@ -2284,7 +2303,7 @@ msgstr "Rollen"
 
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:4
 msgid "Pending"
-msgstr ""
+msgstr "Offen"
 
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:29
 msgid "Packages"
