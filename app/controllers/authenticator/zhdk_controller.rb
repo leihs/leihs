@@ -39,7 +39,9 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     email = xml["authresponse"]["person"]["email"] || uid + "@leihs.zhdk.ch"
     firstname = "#{xml['authresponse']['person']['firstname']}"
     lastname = "#{xml["authresponse"]["person"]["lastname"]}"
-    phone = "#{xml["authresponse"]["person"]["telephone"]}"
+    phone = "#{xml["authresponse"]["person"]["phone_mobile"]}"
+    phone = "#{xml["authresponse"]["person"]["phone_business"]}" if phone.blank?
+    phone = "#{xml["authresponse"]["person"]["phone_private"]}" if phone.blank?
     user = User.find(:first, :conditions => { :unique_id => uid }) || User.find(:first, :conditions => { :email => email }) || User.new
     user.unique_id = uid
     user.email = email
