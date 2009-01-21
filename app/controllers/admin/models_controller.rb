@@ -3,6 +3,9 @@ class Admin::ModelsController < Admin::AdminController
   before_filter :pre_load
 
   def index
+    params[:sort] ||= 'models.name'
+    params[:dir] ||= 'ASC'
+
     if @category
       models = @category.models
     elsif @model
@@ -11,7 +14,7 @@ class Admin::ModelsController < Admin::AdminController
       models = Model
     end    
 
-    @models = models.search(params[:query], :page => params[:page], :per_page => $per_page)
+    @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
 
     @show_categories_tree = !request.xml_http_request?
   end

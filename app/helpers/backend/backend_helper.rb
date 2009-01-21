@@ -52,7 +52,7 @@ module Backend::BackendHelper
               b = (params[:sort] == column[1])
               dir = (params[:dir] == "ASC" ? "DESC" : "ASC") if b
               p += link_to_remote column[0],
-                :url => params.merge({ :sort => column[1], :dir => dir}),
+                :url => params.merge({ :sort => column[1], :dir => dir, :page => 1}),
                 :method => :get,
                 :form => true,
                 :update => 'list_table',

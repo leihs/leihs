@@ -3,6 +3,9 @@ class Backend::ModelsController < Backend::BackendController
   before_filter :pre_load
 
   def index
+    params[:sort] ||= 'models.name'
+    params[:dir] ||= 'ASC'
+
     models = current_inventory_pool.models
 
     models = models & @model.compatibles if @model
@@ -17,7 +20,7 @@ class Backend::ModelsController < Backend::BackendController
       models = models & (category.children.recursive.to_a << category).collect(&:models).flatten
     end
     
-    @models = models.search(params[:query], :page => params[:page], :per_page => $per_page)
+    @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
 
     @show_categories_tree = !(request.xml_http_request? or params[:filter] == "packages")
   end

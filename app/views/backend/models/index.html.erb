@@ -33,13 +33,14 @@
 <% end %>
 
 
-<% table_with_search_and_pagination :columns => ["", _("Model"), _("Items"), _("Compatibles"), _("Action")],
+<% table_with_search_and_pagination :columns => ["", [_("Model"), 'models.name'], [_("Manufacturer"), 'models.manufacturer'], _("Items"), _("Compatibles"), _("Action")],
 						   			:records => @models do |model| %>	
 
 			<% record_path = backend_inventory_pool_model_path(@current_inventory_pool, model) %>
 			<tr>
 				<td><%= link_to image_tag(model.image_thumb), record_path if model.image_thumb and !params[:source_path] %></td>
 				<td><%= model.name %></td>
+				<td><%= model.manufacturer %></td>
 				<td><%= @current_inventory_pool.items.count(:conditions => {:model_id => model.id}) %></td>
 				<td><%= (model.compatibles & @current_inventory_pool.models).size %></td>
 				<td class="buttons">

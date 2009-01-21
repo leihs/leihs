@@ -3,10 +3,11 @@ class Array
   # TODO 06** optimize scoping directly to sql
   # Forward search query to Ferret search engine
   def search(q, options = {}, find_options = {})
-    unless q.blank?
+    q = "*" if q.blank? # TODO 21** avoid using ferret (use directly paginate instead)
+    unless q.blank? or self.empty?
       classes = self.collect(&:class).uniq
       c = classes.shift
-      options[:multi] = classes unless classes.empty? # TODO 06** where is it used?
+      #options[:multi] = classes unless classes.empty? # TODO 06** where is it used?
       
       #ids = self.collect{|x| "id:#{x.id}"}.join(" OR ")
       #q = "(#{q}) AND (#{ids})"
