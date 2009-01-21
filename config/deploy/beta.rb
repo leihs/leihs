@@ -4,8 +4,9 @@ set :db_config, "/home/rails/leihs/leihs2beta/database.yml"
 set :checkout, :export
 set :use_sudo, false
 
-
 set :rails_env, "production"
+
+default_run_options[:shell] = false
 
 
 # If you aren't deploying to /u/apps/#{application} on the target
@@ -39,12 +40,9 @@ task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
 end
 
-task :start_ferret do
+task :chmod_ferret do
   run "chmod +x #{release_path}/script/ferret_server"
-  run "#{release_path}/script/ferret_server -e production stop"
-  run "#{release_path}/script/ferret_server -e production start"
 end
-
 
 namespace :deploy do
 	task :start do
@@ -53,12 +51,25 @@ namespace :deploy do
 	end
 
 	task :restart do
-          run "pkill -SIGUSR2 -f -u leihs -- '-e development.*leihs2beta'"
+          run "pkill -SIGUSR2 -f -u leihs -- '-e production.*leihs2beta'"
 	end
 end
 
-after "deploy:symlink", :link_config
-after "deploy:symlink", :start_ferret
 
+after "deploy:symlink", :link_config
+after "deploy:symlink", :chmod_ferret
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
+
+before "deploy:start" do 
+  run "#{current_path}/script/ferret_server -e production start"
+end 
+ 
+after "deploy:stop" do 
+  run "#{current_path}/script/ferret_server -e production stop"
+end
+ 
+after 'deploy:restart' do
+  run "cd #{current_path} && ./script/ferret_server -e production stop"
+  run "cd #{current_path} && ./script/ferret_server -e production start"
+end
