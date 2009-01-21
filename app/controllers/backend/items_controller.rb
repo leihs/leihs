@@ -3,7 +3,6 @@ class Backend::ItemsController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    # TODO 09** fix order
     params[:sort] ||= 'models.name'
     params[:dir] ||= 'ASC'
 

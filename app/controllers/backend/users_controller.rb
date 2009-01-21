@@ -3,6 +3,9 @@ class Backend::UsersController < Backend::BackendController
   before_filter :pre_load
 
   def index
+    params[:sort] ||= 'login'
+    params[:dir] ||= 'ASC'
+
     case params[:filter]
       when "managers"
         users = current_inventory_pool.managers
@@ -14,7 +17,7 @@ class Backend::UsersController < Backend::BackendController
         users = current_inventory_pool.users
     end
 
-    @users = users.search(params[:query], :page => params[:page], :per_page => $per_page)
+    @users = users.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
   end
 
   def show

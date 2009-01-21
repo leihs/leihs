@@ -7,7 +7,7 @@
 <% end %>
 
 
-<% table_with_search_and_pagination :columns => [_("Building"), _("Room"), _("Shelf"), _("Inventory Pool"), _("Main?"), _("Items"), _("Action")],
+<% table_with_search_and_pagination :columns => [[_("Building"), 'building'], [_("Room"), 'room'], [_("Shelf"), 'shelf'], _("Inventory Pool"), [_("Main?"), 'is_main'], _("Items"), _("Action")],
 						   			:records => @locations do |location| %>	
 
 			<tr>
@@ -15,7 +15,7 @@
 				<td><%= location.room %></td>
 				<td><%= location.shelf %></td>
 				<td><%= location.inventory_pool.name %></td>
-				<td><%= location.is_main %></td>
+				<td><%= icon_tag("accept") if location.is_main %></td>
 				<td><%= location.items.size %></td>
 				<td class="buttons">
 					<ul>

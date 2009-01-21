@@ -3,6 +3,8 @@ class Admin::ItemsController < Admin::AdminController
   before_filter :pre_load
   
   def index
+    params[:sort] ||= 'models.name'
+    params[:dir] ||= 'ASC'
 
     if @inventory_pool
       items = @inventory_pool.items
@@ -23,7 +25,7 @@ class Admin::ItemsController < Admin::AdminController
         items = items.unfinished
     end
         
-    @items = items.search(params[:query],  :page => params[:page], :per_page => $per_page)
+    @items = items.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir]), :include => [:model, :location]})
   end
 
   def show

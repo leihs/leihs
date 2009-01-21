@@ -3,7 +3,11 @@ class Backend::LocationsController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    @locations = current_inventory_pool.locations.search(params[:query], :page => params[:page], :per_page => $per_page)
+    params[:sort] ||= 'room'
+    params[:dir] ||= 'ASC'
+
+    # TODO 21** refactor default options and find_options to search method
+    @locations = current_inventory_pool.locations.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
   end
 
   def show
