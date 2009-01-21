@@ -26,3 +26,7 @@ ActionMailer::Base.smtp_settings = {
 }
 ActionMailer::Base.default_charset = 'utf-8'
 
+# Necessary to prevent this error:
+# http://www.viget.com/extend/rubyinline-in-shared-rails-environments/
+ENV['INLINEDIR'] = '/home/rails/leihs/'
+
