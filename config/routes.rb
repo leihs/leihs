@@ -36,7 +36,7 @@ ActionController::Routing::Routes.draw do |map|
                           :member => { :get_inventory_pools => :any,
                                        :set_inventory_pools => :any }
                                       
-  map.resources :models
+  map.resources :models, :member => { :chart => :get } # TODO 21** implement
   map.resources :categories
   map.resources :templates
 

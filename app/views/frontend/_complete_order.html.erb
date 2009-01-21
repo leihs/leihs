@@ -7,6 +7,7 @@
 	   {name: 'model.id', type: 'string'},
 	   {name: 'model.name', type: 'string'},
 	   {name: 'model.manufacturer', type: 'string'},
+	   {name: 'model_name', type: 'string', mapping: 'model.name'}, // TODO redundant
 	   {name: 'start_date', type: 'date'},
 	   {name: 'end_date', type: 'date'},
 	   {name: 'available?', type: 'string'},
@@ -24,33 +25,39 @@
 				method: 'GET'
 			})
         ),
-
-        // create reader that reads the Topic records
-        reader: new Ext.data.JsonReader({
+        reader: new Ext.data.JsonReader({ // create reader that reads the Topic records
             root: 'order_lines',
             totalProperty: 'results',
             id: 'id'},
 			Line),
-
+		listeners: {
+			load: function(){
+				if(center_tabs.activeTab == order) toggle_submit_button();
+			}
+		},
+		//autoLoad: true,
 		groupField: 'inventory_pool.name', //'start_date',
         sortInfo:{field: 'model', direction: "ASC"},
-
-        // turn on remote sorting
-        remoteSort: true
+        remoteSort: true // turn on remote sorting
     });
 
 //////////////////////////////////////////////////////////////////
 // Order Guide
 
-	var order_guide = new Ext.DataView({
-		//id: 'order_guide',
+	var order_guide = new Ext.Panel({
+		title: " ", // NOTE title has to be present (not empty string)
+	    layout:'anchor',
 	    autoScroll:true,
+		frame: true,
 		region: 'north',
-		height: 60,
-		emptyText: 'No resutls to display',
-		store: complete_order_store,
-		itemSelector: 'div.order_line',
-		tpl: new Ext.XTemplate('<tpl for=".">', '<div class="order_line">{available_tooltip}</div>', '</tpl>')
+		height: 70,
+	    items: [
+			new Ext.DataView({
+				store: complete_order_store,
+				itemSelector: '.order_line',
+				tpl: new Ext.XTemplate('<tpl for=".">', '<div class="order_line"><tpl if="available_tooltip">- {model_name}: {available_tooltip}</tpl></div>', '</tpl>')
+	    	})
+		]
 	});
 
 //////////////////////////////////////////////////////////////////
@@ -212,13 +219,12 @@
 					   }
 					});
 				}
-	        }, '->',{
+	        }, '->', {
 					id: 'bt_submit',
 			        text: '<%= _("Submit Order") %>',
 					iconCls:'bt',
 		            icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
 			        handler: function(){
-					  if(complete_order_store.data.length > 0 && complete_order_store.reader.jsonData['approvable?']){
 						Ext.MessageBox.show({
 				           title: '<%= _("Do you want to submit this order?") %>',
 				           msg: '<%= _("Purpose") %>',
@@ -228,31 +234,6 @@
 				           animEl: this.id,
 				           fn: function (btn, text){
 								if(btn == "ok"){
-/*
-//OLD//
-//									complete_order.disable();
-					                Ext.Ajax.request({
-									    url: '/user/order/submit',
-										method: 'POST',
-										params: {"id": complete_order_store.reader.jsonData['id'],
-												 "purpose": text,
-												 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},
-										success: function(responseObject) {
-//											complete_order.enable();
-											Ext.Msg.show({
-											   title: '<%= _("Order submitted") %>',
-											   msg: responseObject.responseText, // TODO 18** make sure the text is displayed
-										       width:500,
-											   buttons: Ext.Msg.OK,
-											   icon: Ext.MessageBox.INFO,
-									           fn: function(btn, text){
-													window.location.href = '/';
-											   }
-											});
-					                    }
-										// TODO 18** catch failure
-					                });
-*/
 									order.layout.setActiveItem(1);
 									order.layout.activeItem.load({
 									    url: '/user/order/submit',
@@ -265,16 +246,6 @@
 							}
 						   }
 				       });
-					 }else{
-						Ext.Msg.show({
-						   title: '<%= _("Submit") %>',
-						   msg: '<%= _("This order is not yet approvable") %>',
-	   			           width:300,
-						   buttons: Ext.Msg.OK,
-						   animEl: this.id,
-						   icon: Ext.MessageBox.ERROR
-						});
-					 }
 			       }
 			}]
     });
@@ -394,19 +365,23 @@
 			id: 'order',
             layout:'card',
 			activeItem: 0,
-			frame: true,
 	        title: '<%= _("Order") %>',
             items:[{
 					xtype: 'panel',
 					layout: 'border',
+					border: false,
 					items: [order_guide, complete_order]
 	            },{
 					xtype: 'panel',
 				    autoScroll:true,
+					frame: true,
 				    bbar: [
 				        '->',
 				        {
+							//id: 'bt_new_order',
 				            text: 'New Order',
+							//iconCls:'bt',
+				            //icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
 				            handler: function(){
 								complete_order_store.load();
 								order.layout.setActiveItem(0);
@@ -416,14 +391,29 @@
 	            }],
 			listeners: {
 				activate: function(cmp) {
+					toggle_submit_button();
 					model_details.collapse();
 //					complete_order_store.load();
 					basket.disable();
-
-					order_guide.html = 'hoi';		
 				},
 				deactivate: function(cmp) {
 					basket.enable();
 				}				
 			}			
         });
+
+	function toggle_submit_button(){
+		var a = (complete_order_store.data.length > 0);
+		var b = complete_order_store.reader.jsonData['approvable?'];
+		var c = !(a && b);
+		var t = " "; // NOTE title has to be present (not empty string)
+
+		if(!a){
+			t = '<%= _("The order is empty") %>';
+		}else if(!b){
+			t = '<%= _("The order is not yet approvable") %>';
+		}
+		order_guide.setTitle(t);		
+
+		Ext.getCmp('bt_submit').setDisabled(c);
+	}

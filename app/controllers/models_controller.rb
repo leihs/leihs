@@ -1,5 +1,7 @@
 class ModelsController < FrontendController
 
+  before_filter :pre_load
+
   def index( category_id = params[:category_id].to_i, # TODO 18** nested route ?
              start = (params[:start] || 0).to_i,
              limit = (params[:limit] || 25).to_i,
@@ -68,8 +70,6 @@ class ModelsController < FrontendController
 #######################################################  
   
   def show
-    @model = current_user.models.find(params[:id])
-    
     @models = [@model]
     c = @models.size
     respond_to do |format|
@@ -106,5 +106,22 @@ class ModelsController < FrontendController
                                                                  ) }
     end
   end
+
+#################################################################
+
+  def chart
+     # TODO 21** implement
+  end
+
+#################################################################
+
+  private
+  
+  def pre_load
+#    params[:model_id] ||= params[:id] if params[:id]
+#    @model = current_user.models.find(params[:model_id]) if params[:model_id]
+    @model = current_user.models.find(params[:id]) if params[:id]
+  end
+
 
 end
