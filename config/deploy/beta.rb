@@ -39,6 +39,12 @@ task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
 end
 
+task :start_ferret do
+  run "chmod +x #{release_path}/script/ferret_server"
+  run "#{release_path}/script/ferret_server -e production stop"
+  run "#{release_path}/script/ferret_server -e production start"
+end
+
 
 namespace :deploy do
 	task :start do
@@ -52,5 +58,7 @@ namespace :deploy do
 end
 
 after "deploy:symlink", :link_config
+after "deploy:symlink", :start_ferret
+
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
