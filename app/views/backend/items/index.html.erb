@@ -1,8 +1,9 @@
 <% table_with_search_and_pagination :columns => ["", [_("Model"), 'models.name'], [_("Inventory Code"), 'items.inventory_code'], [_("Serial Number"), 'items.serial_number'], _("Location"), [_("Borrowable"), 'items.is_borrowable'], _("In stock?"), _("Action")],
 						   			:records => @items do |item| %>	
 
+			<% record_path = [:backend, @current_inventory_pool, item.model, item] %>
 			<tr>
-				<td><%= link_to image_tag(item.model.image_thumb), admin_model_item_path(item.model, item) if item.model.image_thumb %></td>
+				<td><%= link_to image_tag(item.model.image_thumb), record_path if item.model.image_thumb %></td>
 				<td><%= item.model.name %></td>
 				<td><%= item.inventory_code %></td>
 				<td><%= item.serial_number %></td>
@@ -10,7 +11,7 @@
 				<td><%= icon_tag(item.is_borrowable ? "accept": "delete") %></td>
 				<td><%= icon_tag(item.in_stock? ? "accept": "delete") %></td>
 				<td class="buttons">
-					<%= link_to icon_tag("magnifier") + _("Show"), [:backend, @current_inventory_pool, item.model, item] %>
+					<%= link_to icon_tag("magnifier") + _("Show"), record_path %>
 				</td>
 			</tr>
 

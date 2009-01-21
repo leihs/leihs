@@ -16,7 +16,7 @@
 	<li><hr /></li>
 	<li><%= icon_tag("camera") + " " + _('Items') %>
 		<ul>
-			<li><%= link_to _('All') + " (#{@current_inventory_pool.items.size})", :controller => 'items' %></li> <% # TODO items.size not working on Broken view %>
+			<li><%= link_to _('All') + " (#{@current_inventory_pool.items.count})", :controller => 'items' %></li>
 			<li><%= link_to _('Broken') + " (#{@current_inventory_pool.items.broken.size})", :controller => 'items', :filter => 'broken' %></li>
 			<li><%= link_to _('Incomplete') + " (#{@current_inventory_pool.items.incomplete.size})", :controller => 'items', :filter => 'incomplete' %></li>
 			<li><%= link_to _('Unborrowable') + " (#{@current_inventory_pool.items.unborrowable.size})", :controller => 'items', :filter => 'unborrowable' %></li>
@@ -25,7 +25,7 @@
 	<li><hr /></li>
 	<li><%= icon_tag("package") + " " + _('Models') %>
 		<ul>
-			<li><%= link_to _('All') + " (#{@current_inventory_pool.models.size})", :controller => 'models' %></li>
+			<li><%= link_to _('All') + " (#{@current_inventory_pool.models.count})", :controller => 'models' %></li>
 			<li><%= link_to _('Packages') + " (#{@current_inventory_pool.models.packages.size})", :controller => 'models', :filter => 'packages' %></li>
 			<li><%= link_to _('Templates') + " (#{@current_inventory_pool.templates.size})", :controller => 'templates' %></li>
 		</ul>	
