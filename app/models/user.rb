@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
 
 ################################################
 
-  # NOTE working for User.students but not working for InventoryPool.first.users.students, use InventoryPool.first.students instead  
+  # NOTE working for User.customers but not working for InventoryPool.first.users.customers, use InventoryPool.first.customers instead  
   named_scope :admins, :select => "DISTINCT users.*",
                        :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
                        :conditions => ['roles.name = ?', 'admin']
@@ -59,9 +59,9 @@ class User < ActiveRecord::Base
                        :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
                        :conditions => ['roles.name = ?', 'manager']
 
-  named_scope :students, :select => "DISTINCT users.*",
+  named_scope :customers, :select => "DISTINCT users.*",
                        :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
-                       :conditions => ['roles.name = ?', 'student']
+                       :conditions => ['roles.name = ?', 'customer']
 
 ################################################
 

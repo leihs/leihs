@@ -13,7 +13,7 @@ class CreateRoles < ActiveRecord::Migration
     r_im = Role.create(:name => "manager")
     r_im.move_to_child_of r_a
     
-    r_s = Role.create(:name => "student")
+    r_s = Role.create(:name => "customer")
     r_s.move_to_child_of r_im
 
   end

@@ -11,8 +11,8 @@ module Factory
 
 	  # Create Customer
 #old#	  customer = Factory.create_user(:login => 'customer')
-#old#	  Factory.define_role(customer, "student", inventory_pool.name)
-	  customer = Factory.create_user({:login => 'customer'}, {:role => "student", :inventory_pool => inventory_pool.name})
+#old#	  Factory.define_role(customer, "customer", inventory_pool.name)
+	  customer = Factory.create_user({:login => 'customer'}, {:role => "customer", :inventory_pool => inventory_pool.name})
     
     # Create Model and Item
     model = Factory.create_model(:name => 'holey parachute')
@@ -31,7 +31,7 @@ module Factory
     default_attributes[:email] = "#{attributes[:login].gsub(' ', '_')}@example.com" if attributes[:login]
     u = User.find_or_create_by_login default_attributes.merge(attributes)
     
-    options[:role] ||= "student"
+    options[:role] ||= "customer"
     options[:inventory_pool] ||= "ABC"
     Factory.define_role(u, options[:role], options[:inventory_pool])
 

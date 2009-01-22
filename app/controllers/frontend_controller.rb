@@ -2,7 +2,7 @@ class FrontendController < ApplicationController
 
   before_filter :current_inventory_pools
 
-  require_role "student"
+  require_role "customer"
 
   layout 'frontend'
 

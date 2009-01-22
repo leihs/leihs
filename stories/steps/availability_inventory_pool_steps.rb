@@ -28,7 +28,7 @@ steps_for(:availability_inventory_pool) do
                                   #, :password => "pass"
                                 })
     ip_s.split(" and ").each do |ip_name|
-      Factory.define_role(user, "student", ip_name)
+      Factory.define_role(user, "customer", ip_name)
       user.inventory_pools.include?(InventoryPool.find_by_name(ip_name)).should == true
     end
   end

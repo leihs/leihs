@@ -1,7 +1,7 @@
 <%= _("Login: ") + @user.login %><br/>
-<%= _("Name: ") + @user.name %><br/>
-<%= _("Email: ") + @user.email %><br/>
-<%= _("Phone: ") + @user.phone %><br/>
+<%= _("Name: ") + @user.name if @user.name %><br/>
+<%= _("Email: ") + @user.email if @user.email %><br/>
+<%= _("Phone: ") + @user.phone if @user.phone %><br/>
 
 <br />
 <br />

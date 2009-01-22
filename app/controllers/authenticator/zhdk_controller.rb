@@ -52,7 +52,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     user.authentication_system = AuthenticationSystem.find(:first, :conditions => {:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME })
     if user.new_record?
       user.save
-      r = Role.find(:first, :conditions => {:name => "student"})
+      r = Role.find(:first, :conditions => {:name => "customer"})
       ips = InventoryPool.find(:all, :conditions => {:name => DEFAULT_INVENTORY_POOLS})
       ips.each do |ip|
         user.access_rights.create(:role => r, :inventory_pool => ip)

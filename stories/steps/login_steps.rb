@@ -15,7 +15,7 @@ steps_for(:login) do
   Given "User '$name' is a '$level' customer" do |name, level|
     @user = Factory.create_user({:login => name
                                   #, :password => "pass"
-                                }, {:role => 'student'})
+                                }, {:role => 'customer'})
     r = @user.access_rights.first
     r.level = AccessRight::LEVELS[level]
     r.save

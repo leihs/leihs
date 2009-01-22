@@ -1,10 +1,10 @@
 class AccessRight < ActiveRecord::Base
 
-  STUDENT = 1
+  CUSTOMER = 1
   EMPLOYEE = 3
   SPECIAL = 5
   
-  LEVELS = {_("Student") => STUDENT, _("Employee") => EMPLOYEE, _("Special") => SPECIAL }
+  LEVELS = {_("Customer") => CUSTOMER, _("Employee") => EMPLOYEE, _("Special") => SPECIAL }
 
   belongs_to :role
   belongs_to :user
