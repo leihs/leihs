@@ -5,9 +5,9 @@
 		<li><b>Login:</b> <%= f.text_field :login %></li>	
 		<li><b>Unique ID:</b> <%= @user.unique_id %></li>
 		
-		<li><%= _("Name: ") + @user.name %></li>
-		<li><%= _("Email: ") + @user.email %></li>
-		<li><%= _("Phone: ") + @user.phone %></li>
+		<li><%= _("Name") %>: <%= @user.name %></li>
+		<li><%= _("Email") %>: <%= @user.email %></li>
+		<li><%= _("Phone") %>: <%= @user.phone %></li>
 		</ul>
 	
 		<%= submit_tag 'Submit' %>
