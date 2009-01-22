@@ -8,7 +8,7 @@ class CreateItems < ActiveRecord::Migration
       t.belongs_to :supplier
       t.integer :owner_id
       t.integer :parent_id, :null => true # for package purpose
-      t.integer :required_level, :default => AccessRight::STUDENT
+      t.integer :required_level, :default => AccessRight::CUSTOMER
       t.string :invoice_number
       t.date :invoice_date
       t.date :last_check, :default => nil

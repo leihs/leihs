@@ -132,7 +132,7 @@ class InventoryImport::ImportOnce
 
           user.geraeteparks_users.each do |geraetepark|
             level = user.benutzerstufe > 0 and user.benutzerstufe < 4 ? user.benutzerstufe : 1
-            role = Role.find_by_name('student')
+            role = Role.find_by_name('customer')
             role = Role.find_by_name('manager') if user.benutzerstufe == 4
 
             u.access_rights << AccessRight.create(:user => u, 

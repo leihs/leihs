@@ -13,7 +13,6 @@ class Backend::ItemsController < Backend::BackendController
     else
       items = current_inventory_pool.items
     end    
-
     case params[:filter]
       when "broken"
         items = items.broken

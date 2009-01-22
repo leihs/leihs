@@ -47,7 +47,7 @@ namespace :leihs do
 #    params[:id] = 5
 #    params[:name] = "admin"
 #    create_some_users
-#    params[:name] = "student"
+#    params[:name] = "customer"
 #    create_some_users
 
     create_meaningful_users
@@ -269,7 +269,7 @@ namespace :leihs do
     users.each do |u|
       u = User.find_or_create_by_login(:login => u.to_s)
       unless u
-        r = Role.find(:first, :conditions => {:name => "student"})
+        r = Role.find(:first, :conditions => {:name => "customer"})
         ips = InventoryPool.find(:all, :conditions => {:name => ["AVZ", "ITZ"]})
         ips.each do |ip|
           u.access_rights << AccessRight.new(:role => r, :inventory_pool => ip)

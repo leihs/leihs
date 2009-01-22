@@ -11,8 +11,8 @@ class Admin::UsersController < Admin::AdminController
         users = User.admins
       when "managers"
         users = User.managers
-      when "students"
-        users = User.students
+      when "customers"
+        users = User.customers
       else
         users = User
     end

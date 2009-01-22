@@ -28,7 +28,7 @@
 		<li><%= link_to _('All') + " (#{User.count})", admin_users_path %></li>
 		<li><%= link_to _('Admins') + " (#{User.admins.size})", admin_users_path(:filter => 'admins') %></li>
 		<li><%= link_to _('Managers') + " (#{User.managers.size})", admin_users_path(:filter => 'managers') %></li>
-		<li><%= link_to _('Students') + " (#{User.students.size})", admin_users_path(:filter => 'students') %></li>
+		<li><%= link_to _('Customers') + " (#{User.customers.size})", admin_users_path(:filter => 'customers') %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>

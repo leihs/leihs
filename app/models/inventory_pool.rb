@@ -21,11 +21,11 @@ class InventoryPool < ActiveRecord::Base
                           :join_table => "access_rights",
                           :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "manager"}).id]
 
-  has_and_belongs_to_many :students,
+  has_and_belongs_to_many :customers,
                           :class_name => "User",
                           :select => "users.*",
                           :join_table => "access_rights",
-                          :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "student"}).id]
+                          :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "customer"}).id]
 ########
 
     

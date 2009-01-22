@@ -9,8 +9,8 @@ class Backend::UsersController < Backend::BackendController
     case params[:filter]
       when "managers"
         users = current_inventory_pool.managers
-      when "students"
-        users = current_inventory_pool.students
+      when "customers"
+        users = current_inventory_pool.customers
       when "unknown"
         users = User.all - current_inventory_pool.users
       else
