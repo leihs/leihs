@@ -187,7 +187,9 @@
 
 
 
-    pdf.Cell(40, 0, filter(_("Signature of borrower:")) , 0, 0)
+    signature_text = filter(_("Signature of borrower:"))
+    signature_cellwidth = (signature_text.length * 1.8).to_f
+    pdf.Cell(signature_cellwidth, 0, signature_text , 0, 0)
     pdf.SetDrawColor(0,0,0)
     after_signature_x = pdf.GetX
 
