@@ -15,9 +15,8 @@ class ApplicationController < ActionController::Base
 
     if params[:locale] 
       cookies['locale'] = params[:locale]
-    end
-
-    if cookies['locale']
+      set_locale params[:locale] 
+    elsif cookies['locale']
       set_locale cookies['locale']
     else
       cookies['locale'] = 'de_CH' 
