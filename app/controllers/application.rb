@@ -13,11 +13,14 @@ class ApplicationController < ActionController::Base
   before_init_gettext :define_locale
   def define_locale
 
-    if params[:locale]    
+    if params[:locale] 
       cookies['locale'] = params[:locale]
+    end
+
+    if cookies['locale']
       set_locale cookies['locale']
     else
-      cookies['locale'] = 'de_CH'
+      cookies['locale'] = 'de_CH' 
       set_locale 'de_CH'
     end
 
