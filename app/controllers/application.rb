@@ -12,7 +12,13 @@ class ApplicationController < ActionController::Base
   # TODO 16** http://www.yotabanana.com/hiki/ruby-gettext-howto-rails.html
   before_init_gettext :define_locale
   def define_locale
-    set_locale params[:locale] if params[:locale]
+    
+    cookies['locale'] = params[:locale] if params[:locale]
+    if cookies['locale']
+      set_locale cookies['locale']
+    else
+      set_locale 'de_CH'
+    end
   end 
   init_gettext 'leihs'
 
@@ -29,7 +35,9 @@ class ApplicationController < ActionController::Base
   $per_page = 15 # OPTIMIZE keep per_page in user session?
   
   layout $general_layout_path
-  
+ 
+
+ 
 ####################################################  
 
   protected
