@@ -6,7 +6,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   
   AUTHENTICATION_URL = 'http://www.zhdk.ch/?auth/leihs2'
   APPLICATION_IDENT = '7f6d33ca2ad44359c826e2337d9315b1'
-  DEFAULT_INVENTORY_POOLS = ["AVZ", "ITZ"]
+  DEFAULT_INVENTORY_POOLS = ["ITZ"]
   SUPER_USERS = ["e157339|zhdk", "e159123|zhdk", "e10262|zhdk"] #Jerome, Franco, Ramon
   AUTHENTICATION_SYSTEM_CLASS_NAME = "Zhdk"
   
