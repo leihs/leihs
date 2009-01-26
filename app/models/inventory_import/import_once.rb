@@ -3,8 +3,8 @@ require 'user'
 class InventoryImport::ImportOnce
   
   def start(max = 999999)
-    connect_dev
-    #connect_prod
+    #connect_dev
+    connect_prod
     
     import_items(max)
     import_users
@@ -164,7 +164,6 @@ class InventoryImport::ImportOnce
       InventoryImport::Geraetepark.establish_connection(leihs_dev)
       InventoryImport::Gegenstand.establish_connection(leihs_dev)
       InventoryImport::Paket.establish_connection(leihs_dev)
-      InventoryImport::Attribut.establish_connection(leihs_dev)
       InventoryImport::User.establish_connection(leihs_dev)
       InventoryImport::GeraeteparksUser.establish_connection(leihs_dev)
       InventoryImport::ItHelp.establish_connection(it_help_dev)
@@ -194,30 +193,27 @@ class InventoryImport::ImportOnce
         InventoryImport::Geraetepark.establish_connection(leihs_prod)
         InventoryImport::Gegenstand.establish_connection(leihs_prod)
         InventoryImport::Paket.establish_connection(leihs_prod)
-        InventoryImport::Attribut.establish_connection(leihs_prod)
         InventoryImport::User.establish_connection(leihs_prod)
         InventoryImport::GeraeteparksUser.establish_connection(leihs_prod)
         InventoryImport::ItHelp.establish_connection(it_help_prod)
     end
     
     def it_help_prod
-      InventoryImport::ItHelp.establish_connection(
-      		:adapter => 'mysql',
+      	{ :adapter => 'mysql',
       		:host => '195.176.254.49',
       		:database => 'help',
       		:encoding => 'utf8',
       		:username => 'helpread',
-      		:password => '2read.0nly!' )
+      		:password => '2read.0nly!' }
     end
     
     def leihs_prod
-     InventoryImport::Geraetepark.establish_connection(
-      		:adapter => 'mysql',
+       {  :adapter => 'mysql',
       		:host => '195.176.254.49',
       		:database => 'rails_leihs',
       		:encoding => 'utf8',
       		:username => 'leihsread',
-      		:password => '2read.0nly!' )
+      		:password => '2read.0nly!' }
     end
 
 end
