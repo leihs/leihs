@@ -6,8 +6,8 @@ class InventoryImport::Importer
   attr_accessor :messages
   
   def start(max = 999999)
-    connect_dev
-    #connect_prod
+    #connect_dev
+    connect_prod
     self.messages = []
     inventar = InventoryImport::ItHelp.find(:all, :conditions => "rental like 'yes'",	:order => 'Inv_Serienr')
     count = 0
@@ -158,7 +158,7 @@ class InventoryImport::Importer
   def it_help_prod
     {   :adapter => 'mysql',
         :host => '195.176.254.49',
-        :database => 'help',
+        :database => 'ithelp_alt',
         :encoding => 'utf8',
         :username => 'helpread',
         :password => '2read.0nly!' }
