@@ -7,7 +7,7 @@ class InventoryImport::ImportOnce
     connect_prod
     
     import_items(max)
-    import_users
+    #import_users
     
   end
 
@@ -201,7 +201,7 @@ class InventoryImport::ImportOnce
     def it_help_prod
       	{ :adapter => 'mysql',
       		:host => '195.176.254.49',
-      		:database => 'help',
+      		:database => 'ithelp_alt',
       		:encoding => 'utf8',
       		:username => 'helpread',
       		:password => '2read.0nly!' }
