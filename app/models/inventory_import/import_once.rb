@@ -189,6 +189,18 @@ class InventoryImport::ImportOnce
     end
 
     def connect_prod
+      
+        InventoryImport::Kaufvorgang.establish_connection(leihs_prod)
+        InventoryImport::Geraetepark.establish_connection(leihs_prod)
+        InventoryImport::Gegenstand.establish_connection(leihs_prod)
+        InventoryImport::Paket.establish_connection(leihs_prod)
+        InventoryImport::Attribut.establish_connection(leihs_prod)
+        InventoryImport::User.establish_connection(leihs_prod)
+        InventoryImport::GeraeteparksUser.establish_connection(leihs_prod)
+        InventoryImport::ItHelp.establish_connection(it_help_prod)
+    end
+    
+    def it_help_prod
       InventoryImport::ItHelp.establish_connection(
       		:adapter => 'mysql',
       		:host => '195.176.254.49',
@@ -196,7 +208,9 @@ class InventoryImport::ImportOnce
       		:encoding => 'utf8',
       		:username => 'helpread',
       		:password => '2read.0nly!' )
-
+    end
+    
+    def leihs_prod
      InventoryImport::Geraetepark.establish_connection(
       		:adapter => 'mysql',
       		:host => '195.176.254.49',
