@@ -150,7 +150,9 @@ function add_model_details(model_id, add_tab){
 	if (add_tab == null) add_tab = false;
  
 	model_tab = model_details.getComponent(model_id);
-	if (!model_tab) {
+	if (model_tab) {
+	  	if(add_tab) model_tab.activate(model_tab.items.length - 1);		
+	}else{
 	
 		model_store[model_id] = new Ext.data.Store({
 			proxy: new Ext.data.HttpProxy(new Ext.data.Connection({
@@ -295,7 +297,7 @@ function add_model_details(model_id, add_tab){
 							value: model_id
 						}]
 					}, {
-						columnWidth: .3,
+						columnWidth: .2,
 						layout: 'form',
 						items: {
 							xtype: 'combo',
@@ -315,7 +317,7 @@ function add_model_details(model_id, add_tab){
 							}
 						}
 					}, {
-						columnWidth: .3,
+						columnWidth: .2,
 						layout: 'form',
 						items: {
 							xtype: 'datefield',
@@ -333,7 +335,7 @@ function add_model_details(model_id, add_tab){
 							anchor: '90%'
 						}
 					}, {
-						columnWidth: .3,
+						columnWidth: .2,
 						layout: 'form',
 						items: {
 							xtype: 'datefield',
@@ -354,29 +356,33 @@ function add_model_details(model_id, add_tab){
 							},
 							anchor: '90%'
 						}
-					}]
-				}],
-				buttons: [{
-					text: '<%= _("Add") %>',
-					type: 'submit',
-					handler: function(){
-						this.findParentByType('form').form.submit({
-							waitMsg: '<%= _("Saving Data") %>...',
-							url: '/user/order/add_line',
-							method: 'POST',
-							params: {
-								'<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'
-							},
-							success: function(responseObject){
-//old//							Ext.getCmp('complete_order').getStore().load();
-								complete_order_store.load();
-							},
-							failure: function(responseObject){
-								Ext.Msg.alert('Error', responseObject.responseText);
+					}, {
+						columnWidth: .1,
+						items: new Ext.Button({
+							text: '<%= _("Add") %>',
+							type: 'submit',
+							iconCls: 'bt',
+							icon: '<%= $layout_public_path + "/images/icons/add.png" %>',
+							handler: function(){
+								this.findParentByType('form').form.submit({
+									waitMsg: '<%= _("Saving Data") %>...',
+									url: '/user/order/add_line',
+									method: 'POST',
+									params: {
+										'<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'
+									},
+									success: function(responseObject){
+										complete_order_store.load();
+									},
+									failure: function(responseObject){
+										Ext.Msg.alert('Error', responseObject.responseText);
+									}
+								});
 							}
-						});
-					}
-				}]
+						})
+					}]
+				}
+				]
 			/// end form						
 			}]
 		});
