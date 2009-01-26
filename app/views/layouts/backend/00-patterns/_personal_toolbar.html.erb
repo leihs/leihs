@@ -27,7 +27,8 @@
 
 <li>
 	<% locales.each do |k,v| %>
-		<%= link_to icon_tag("comment") + v, :params => params.merge({:locale => k}) %>
+		<%#old#= link_to icon_tag("comment") + v, :params => params.merge({:locale => k}) %>
+		<%= link_to icon_tag("comment") + v, :locale => k %>
 	<% end %>
 </li>
 

@@ -122,6 +122,11 @@
 		   								 var qtip = (r.data['available?'] == 'true') ? '' : 'ext:qtip="' + r.data['available_tooltip'] +'"'; 
 		   							 	 return '<img ' + qtip + ' src="<%= $layout_public_path %>/images/icons/' + img + '.png" />';},
            width: 40
+        },{
+			header: "",
+			width: 20,
+			dataIndex: '',
+			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/bin_closed.png" %>" style="cursor: pointer;" />';}
         }]);
 
     // by default columns are sortable
@@ -141,14 +146,25 @@
         }),
 		listeners: {
 			cellclick: function( grid, rowIndex, columnIndex, e ){
-				if (columnIndex == 2){
+				if (columnIndex == 2) {
 					model_id = grid.getStore().getAt(rowIndex).data['model.id'];
 					add_model_details(model_id);
 				}else if (columnIndex == 4 || columnIndex == 5) {
-					var field = grid.getColumnModel().getCellEditor(columnIndex, rowIndex).field;
-					field.setDisabledDays(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_days']);
-					field.setDisabledDates(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_dates']); // TODO: Maybe works with new ext.js
-	//				field.menu.picker.setDisabledDates(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_dates']);
+						var field = grid.getColumnModel().getCellEditor(columnIndex, rowIndex).field;
+						field.setDisabledDays(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_days']);
+						field.setDisabledDates(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_dates']); // TODO: Maybe works with new ext.js
+						//field.menu.picker.setDisabledDates(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_dates']);
+				}else if (columnIndex == 7){
+					x_id = grid.getStore().getAt(rowIndex).id;
+					Ext.Ajax.request({
+						method: 'POST',
+					    url: '/user/order/remove_lines',
+						params: {"lines": x_id,
+								 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},
+	                    success: function(r) {
+						    complete_order_store.load();
+	                    }
+					});
 				}
 			},
 			afteredit: function(e){

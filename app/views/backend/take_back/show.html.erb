@@ -2,21 +2,8 @@
 	<%#TODO= render :partial => 'errors' %>
 </div>
 
+<%= render :partial => 'buttons' %>
 
-<div class="toolbar-main boxes buttons">
-		<%= greybox_link_to_page(icon_tag("tab_go") + " " + _("Take Back"),
-			 	{ :action => 'close_contract' },
-				:onmouseup => "change_href(this, 'contract_line', 'line');change_href(this, 'option', 'option', false);",
-				:class => "ghostable_group_1 ghosted",
-				:title => _("Take Back") ) %>
-
-		<%= link_to(icon_tag("door") + " " + _("Close"),
-								 { :controller => 'take_back' }) %>
-
-</div>
-
-
-			
 			<div id="meta" class="boxes">
 				<div id="meta-contract">
 					<%= show_reserver(@user) %>
@@ -80,5 +67,7 @@
         </table>
 				
       </div>
+
+<%= render :partial => 'buttons' %>
 
 

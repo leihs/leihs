@@ -1,60 +1,61 @@
 <ul>
 	<li><%= icon_tag("page") + " " + _('Orders') %>
 		<ul>
-			<li><%= link_to _('Pending') + " (#{@current_inventory_pool.orders.submitted.size})", :controller => 'orders', :filter => 'submitted' %></li>
-			<li><%= link_to _('Approved') + " (#{@current_inventory_pool.orders.approved.size})", :controller => 'orders', :filter => 'approved' %></li>
-			<li><%= link_to _('Rejected') + " (#{@current_inventory_pool.orders.rejected.size})", :controller => 'orders', :filter => 'rejected' %></li>
+			<li><%= link_to _('Pending') + " (#{@current_inventory_pool.orders.submitted.size})", backend_inventory_pool_orders_path(:filter => 'submitted') %></li>
+			<li><%= link_to _('Approved') + " (#{@current_inventory_pool.orders.approved.size})", backend_inventory_pool_orders_path(:filter => 'approved') %></li>
+			<li><%= link_to _('Rejected') + " (#{@current_inventory_pool.orders.rejected.size})", backend_inventory_pool_orders_path(:filter => 'rejected') %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
 	<li><%= icon_tag("page_green") + " " + _('Contracts') %>
 		<ul>
-			<li><%= link_to _('Signed') + " (#{@current_inventory_pool.contracts.signed_contracts.size})", :controller => 'contracts', :filter => 'signed' %></li>
-			<li><%= link_to _('Closed') + " (#{@current_inventory_pool.contracts.closed_contracts.size})", :controller => 'contracts', :filter => 'closed' %></li>
+			<li><%= link_to _('Signed') + " (#{@current_inventory_pool.contracts.signed_contracts.size})", backend_inventory_pool_contracts_path(:filter => 'signed') %></li>
+			<li><%= link_to _('Closed') + " (#{@current_inventory_pool.contracts.closed_contracts.size})", backend_inventory_pool_contracts_path(:filter => 'closed') %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
 	<li><%= icon_tag("camera") + " " + _('Items') %>
 		<ul>
-			<li><%= link_to _('All') + " (#{@current_inventory_pool.items.count})", :controller => 'items' %></li>
-			<li><%= link_to _('Broken') + " (#{@current_inventory_pool.items.broken.size})", :controller => 'items', :filter => 'broken' %></li>
-			<li><%= link_to _('Incomplete') + " (#{@current_inventory_pool.items.incomplete.size})", :controller => 'items', :filter => 'incomplete' %></li>
-			<li><%= link_to _('Unborrowable') + " (#{@current_inventory_pool.items.unborrowable.size})", :controller => 'items', :filter => 'unborrowable' %></li>
+			<li><%= link_to _('All') + " (#{@current_inventory_pool.items.count})", backend_inventory_pool_items_path() %></li>
+			<li><%= link_to _('In Stock') + " (#{@current_inventory_pool.items.in_stock.count})", backend_inventory_pool_items_path(:filter => 'in_stock') %></li>
+			<li><%= link_to _('Broken') + " (#{@current_inventory_pool.items.broken.size})", backend_inventory_pool_items_path(:filter => 'broken') %></li>
+			<li><%= link_to _('Incomplete') + " (#{@current_inventory_pool.items.incomplete.size})", backend_inventory_pool_items_path(:filter => 'incomplete') %></li>
+			<li><%= link_to _('Unborrowable') + " (#{@current_inventory_pool.items.unborrowable.size})", backend_inventory_pool_items_path(:filter => 'unborrowable') %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
 	<li><%= icon_tag("package") + " " + _('Models') %>
 		<ul>
-			<li><%= link_to _('All') + " (#{@current_inventory_pool.models.count})", :controller => 'models' %></li>
-			<li><%= link_to _('Packages') + " (#{@current_inventory_pool.models.packages.size})", :controller => 'models', :filter => 'packages' %></li>
-			<li><%= link_to _('Templates') + " (#{@current_inventory_pool.templates.size})", :controller => 'templates' %></li>
+			<li><%= link_to _('All') + " (#{@current_inventory_pool.models.count})", backend_inventory_pool_models_path() %></li>
+			<li><%= link_to _('Packages') + " (#{@current_inventory_pool.models.packages.size})", backend_inventory_pool_models_path(:filter => 'packages') %></li>
+			<li><%= link_to _('Templates') + " (#{@current_inventory_pool.templates.size})", backend_inventory_pool_templates_path() %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
 	<li><%= icon_tag("shape_group") + " " + _('Locations') %>
 		<ul>
-			<li><%= link_to _('All') + " (#{@current_inventory_pool.locations.size})", :controller => 'locations' %></li>
+			<li><%= link_to _('All') + " (#{@current_inventory_pool.locations.size})", backend_inventory_pool_locations_path() %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
 	<li><%= icon_tag("user") + " " + _('Users') %>
 		<ul>
-			<li><%= link_to _('All') + " (#{@current_inventory_pool.users.size})", :controller => 'users' %></li>
-			<li><%= link_to _('Managers') + " (#{@current_inventory_pool.managers.size})", :controller => 'users', :filter => 'managers' %></li>
-			<li><%= link_to _('Customers') + " (#{@current_inventory_pool.customers.size})", :controller => 'users', :filter => 'customers' %></li>
-			<li><%= link_to _('Unknown'), :controller => 'users', :filter => 'unknown' %></li>
+			<li><%= link_to _('All') + " (#{@current_inventory_pool.users.size})", backend_inventory_pool_users_path() %></li>
+			<li><%= link_to _('Managers') + " (#{@current_inventory_pool.managers.size})", backend_inventory_pool_users_path(:filter => 'managers') %></li>
+			<li><%= link_to _('Customers') + " (#{@current_inventory_pool.customers.size})", backend_inventory_pool_users_path(:filter => 'customers') %></li>
+			<li><%= link_to _('Unknown'), backend_inventory_pool_users_path(:filter => 'unknown') %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
 	<li><%= icon_tag("calendar") + " " + _("Opening Times")%>
 		<ul>
-			<li><%= link_to _("Opening Times"), :controller => 'workdays' %></li>
+			<li><%= link_to _("Opening Times"), backend_inventory_pool_workdays_path() %></li>
 		</ul>
 	</li>
 	<li><hr/></li>
 	<li><%= icon_tag("attach") + " " + _("Options")%>
 		<ul>
-			<li><%= link_to _("All"), :controller => 'option_maps' %></li>
+			<li><%= link_to _("All"), backend_inventory_pool_option_maps_path() %></li>
 		</ul>
 	</li>
 </ul>

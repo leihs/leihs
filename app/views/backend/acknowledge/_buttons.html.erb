@@ -1,0 +1,19 @@
+  <% if @order.status_const == Order::SUBMITTED %>
+	<div class="toolbar-main boxes buttons">
+		<%= greybox_link_to_page(icon_tag("door") + " " + _("Save + Approve"),
+								 { :action => 'approve', :id => @order },
+								 :title => _("Approve Order"),
+								 :class => "positive") %>
+		<%= greybox_link_to_page(icon_tag("door_out") + " " + _("Reject Order"),
+								 { :action => 'reject', :id => @order },
+								 :title => _("Reject Order")) %>
+
+		<%= greybox_link_to_page(icon_tag("disk") + " " + _("Restore Original"),
+								 { :action => 'restore', :id => @order },
+								 :title => _("Restore Order"),
+								 :class => "thickbox") %>
+		<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete Order"),
+								{ :action => 'delete', :id => @order },
+								:title => _("Delete Order"), :class => 'negative') %>
+	</div>
+  <% end %>
