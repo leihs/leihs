@@ -296,13 +296,13 @@ namespace :leihs do
 
 
   def create_some_root_categories
-    video = Category.create(:name => 'Video')
-    audio = Category.create(:name => 'Audio')
-    computer = Category.create(:name => 'Computer')
-    light = Category.create(:name => 'Licht')
-    foto = Category.create(:name => 'Foto')
-    other = Category.create(:name => 'Anderes')
-    stative = Category.create(:name => 'Stative')
+    video = Category.find_or_create_by_name(:name => 'Video')
+    audio = Category.find_or_create_by_name(:name => 'Audio')
+    computer = Category.find_or_create_by_name(:name => 'Computer')
+    light = Category.find_or_create_by_name(:name => 'Licht')
+    foto = Category.find_or_create_by_name(:name => 'Foto')
+    other = Category.find_or_create_by_name(:name => 'Anderes')
+    stative = Category.find_or_create_by_name(:name => 'Stative')
     
     add_to(video, Category.find_or_create_by_name(:name => 'Video Kamera'))
     add_to(video,  Category.find_or_create_by_name(:name => 'Film Kamera'))
