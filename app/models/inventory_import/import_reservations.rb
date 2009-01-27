@@ -129,7 +129,8 @@ class InventoryImport::ImportReservations
   def connect_dev
     InventoryImport::Reservation.establish_connection(leihs_dev)    
     InventoryImport::Paket.establish_connection(leihs_dev)    
-    InventoryImport::Gegenstand.establish_connection(leihs_dev)    
+    InventoryImport::Gegenstand.establish_connection(leihs_dev)
+    InventoryImport::User.establish_connection(leihs_dev)  
     InventoryImport::Geraetepark.establish_connection(leihs_dev)    
   end
   
@@ -137,6 +138,7 @@ class InventoryImport::ImportReservations
     InventoryImport::Reservation.establish_connection(leihs_prod)
     InventoryImport::Paket.establish_connection(leihs_prod)
     InventoryImport::Gegenstand.establish_connection(leihs_prod)
+    InventoryImport::User.establish_connection(leihs_prod)
     InventoryImport::Geraetepark.establish_connection(leihs_prod)
   end
   
