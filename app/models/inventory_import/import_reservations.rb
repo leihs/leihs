@@ -27,7 +27,14 @@ class InventoryImport::ImportReservations
   end
 
   def import_as_order(reservation)
-    o = Order.create(:user => User.find_by_login(reservation.user.login),
+    
+    user = User.find_by_login(reservation.user.login)
+    if user.nil?
+      puts "#{reservation.user.login} not found. Not importing order"
+      return
+    end
+    
+    o = Order.create(:user => user,
                   :purpose => reservation.zweck,
                   :inventory_pool => get_inventory_pool(reservation.geraetepark.name),
                   :status_const => Order::SUBMITTED)
@@ -60,8 +67,14 @@ class InventoryImport::ImportReservations
   end
   
   def import_as_contract(reservation)
-
-    c = Contract.create(:user => User.find_by_login(reservation.user.login),
+    
+    user = User.find_by_login(reservation.user.login)
+    if user.nil?
+      puts "#{reservation.user.login} not found. Not importing contract."
+      return
+    end
+    
+    c = Contract.create(:user => user,
                   :purpose => reservation.zweck,
                   :inventory_pool => get_inventory_pool(reservation.geraetepark.name),
                   :status_const => Contract::SIGNED)
