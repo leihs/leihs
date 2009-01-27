@@ -85,6 +85,10 @@ Dir.mkdir(dir, 0755)
 ENV['INLINEDIR'] = dir
 
 
+# Prevent UTF-8 problems with acts_as_ferret
+ENV['LC_CTYPE'] = 'en_US.UTF-8'
+Ferret.locale = "en_US.UTF-8"
+
 # TODO **24 is this still right?
 # E-Mail uncaught exceptions to the devs.
 ExceptionNotifier.exception_recipients = %w( ramon.cahenzli@zhdk.ch errors@jeromemueller.ch )
