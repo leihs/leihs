@@ -27,7 +27,7 @@ class OrderLine < DocumentLine
 ###############################################
 
   def is_late?(current_date = Date.today)
-    false
+    false #TODO 27 Not necessary anymore
   end
 
   # TODO use as validation?
