@@ -6,8 +6,8 @@ class InventoryImport::Importer
   attr_accessor :messages
   
   def start(max = 999999)
-    #connect_dev
-    connect_prod
+    connect_dev
+    #connect_prod
     self.messages = []
     inventar = InventoryImport::ItHelp.find(:all, :conditions => "rental like 'yes'",	:order => 'Inv_Serienr')
     count = 0
@@ -52,7 +52,7 @@ class InventoryImport::Importer
           :price => gegenstand.kaufvorgang.kaufpreis.nil? ? 0 : gegenstand.kaufvorgang.kaufpreis / 100,
           :supplier => Supplier.find_or_create_by_name({ :name => item.Lief_Firma })
         }
-        item = Item.find_or_create_by_inventory_code item_attributes
+        i = Item.find_or_create_by_inventory_code item_attributes
         count += 1
         break if count == max
       else
@@ -91,17 +91,31 @@ class InventoryImport::Importer
   
   # TODO import building, room and shelf
   def get_location(inventory_pool_name, location_room)
-    inventory_pool = InventoryPool.find_or_create_by_name(inventory_pool_name)
+    inventory_pool = InventoryPool.find_by_name(inventory_pool_name)
+    inventory_pool = InventoryPool.find_by_name(use_new_name_for(inventory_pool_name)) unless inventory_pool
+    inventory_pool = InventoryPool.create(:name => inventory_pool_name) unless inventory_pool
     location = Location.find(:first, :conditions => {:room => location_room, :inventory_pool_id => inventory_pool.id})
     location = Location.create(:room => location_room, :inventory_pool => inventory_pool) unless location
     return location
   end
   
   def get_owner(dept)
-    InventoryPool.find_by_name(dept[0..2])
+    o = InventoryPool.find_by_name(dept[0..2])
+    o = InventoryPool.find_by_name(dept[0..2]) unless o
+    o
   rescue
     
   end
+  
+  
+  def use_new_name_for(inv_abt)
+    puts "Did the name change for: #{inv_abt}?"
+    return "VMK" if inv_abt.upcase == "SNM" 
+    return "VMK" if inv_abt.upcase == "VNM"
+    return "VIAD" if inv_abt.upcase == "IAD"
+    inv_abt
+  end
+  
   
   def import_inventory_pools
     parks = InventoryImport::Geraetepark.find(:all)
