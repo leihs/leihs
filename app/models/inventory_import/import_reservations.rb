@@ -66,6 +66,10 @@ class InventoryImport::ImportReservations
     
   end
   
+#  def login_for(id)
+#    InventoryImport::User.find(id).login
+#  end
+  
   def import_as_contract(reservation)
     
     user = User.find_by_login(reservation.user.login)
