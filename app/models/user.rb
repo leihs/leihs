@@ -25,9 +25,9 @@ class User < ActiveRecord::Base
     inventory_pools.collect(&:templates).flatten.sort
   end
 
-  has_many :notifications
+  has_many :notifications, :dependent => :delete_all
   
-  has_many :orders
+  has_many :orders, :dependent => :delete_all
   has_one  :current_order, :class_name => "Order", :conditions => ["status_const = ?", Contract::NEW]
 
   has_many :contracts

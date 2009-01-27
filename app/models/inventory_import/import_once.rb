@@ -6,8 +6,8 @@ class InventoryImport::ImportOnce
     #connect_dev
     connect_prod
     
-    import_items(max)
-    #import_users
+    #import_items(max)
+    import_users
     
   end
 
@@ -16,52 +16,68 @@ class InventoryImport::ImportOnce
     count = 0
     successfull = 0
     
+    location = get_location(gegenstand)
+
     inventar.each do |gegenstand|
-      
-     # puts "Found: #{item.Inv_Serienr} - #{item.Art_Bezeichnung} = #{gegenstand.modellbezeichnung}"
-      attributes = {
-        :name => gegenstand.modellbezeichnung,
-        :manufacturer => gegenstand.hersteller,
-        :description => gegenstand.paket.nil? ? "" : gegenstand.paket.hinweise,
-        :internal_description => gegenstand.paket.nil? ? "" : gegenstand.paket.hinweise_ausleih,
-        :rental_price => gegenstand.paket.nil? ? 0 : gegenstand.paket.price,
-        :info_url => gegenstand.info_url
-      }
-      model = Model.find_or_create_by_name attributes
-      
-      add_picture(model, gegenstand.bild_url) if gegenstand.bild_url and not gegenstand.bild_url.blank? and model.images.size == 0
 
       cat_name = gegenstand.paket.art if gegenstand.paket
-      cat_name ||= gegenstand.art 
-      cat_name ||= "Andere Hardware"
-      category = Category.find_or_create_by_name :name => cat_name
-      category.models << model unless category.models.include?(model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
+      cat_name ||= gegenstand.art
       
-      location = get_location(gegenstand)
-      if location.nil?
-        puts "Ignoring item with id: #{gegenstand.id} because I couldn't figure out to which inventory pool it belongs."
-      else
-        item_attributes = {
-          :inventory_code => (gegenstand.inventar_abteilung + gegenstand.id.to_s),
-          :serial_number => gegenstand.seriennr,
-          :model => model,
-          :location => get_location(gegenstand).main_location,
-          :owner => get_owner(gegenstand.inventar_abteilung),
-          :last_check => gegenstand.letzte_pruefung,
-          :retired => gegenstand.ausmusterdatum,
-          :retired_reason => gegenstand.ausmustergrund,
-          :invoice_number => gegenstand.kaufvorgang.nil? ? '' : gegenstand.kaufvorgang.rechnungsnr,
-          :invoice_date => gegenstand.kaufvorgang.nil? ? nil : gegenstand.kaufvorgang.kaufdatum,
-          :is_incomplete => gegenstand.paket.nil? ? false : (gegenstand.paket.status == 0),
-          :is_broken => gegenstand.paket.nil? ? false : (gegenstand.paket.status == -2),
-          :is_borrowable => gegenstand.ausleihbar?, 
-					:price => (gegenstand.kaufvorgang.nil? or gegenstand.kaufvorgang.kaufpreis.nil?) ? 0 : gegenstand.kaufvorgang.kaufpreis / 100
-        }
-        item = Item.find_or_create_by_inventory_code item_attributes
-        successfull += 1
+      if cat_name.blank?
+        puts "Ignoring '#{gegenstand.modellbezeichnung}' because it belongs to empty category."
+      else 
+        if 
+          puts "Ignoring '#{gegenstand.modellbezeichnung}' because no inventorypool was found."
+        else
+         # puts "Found: #{item.Inv_Serienr} - #{item.Art_Bezeichnung} = #{gegenstand.modellbezeichnung}"
+          attributes = {
+            :name => gegenstand.modellbezeichnung,
+            :manufacturer => gegenstand.hersteller,
+            :description => gegenstand.paket.nil? ? "" : gegenstand.paket.hinweise,
+            :internal_description => gegenstand.paket.nil? ? "" : gegenstand.paket.hinweise_ausleih,
+            :rental_price => gegenstand.paket.nil? ? 0 : gegenstand.paket.price,
+            :info_url => gegenstand.info_url
+          }
+          model = Model.find_or_create_by_name attributes
+      
+          add_picture(model, gegenstand.bild_url) if gegenstand.bild_url and not gegenstand.bild_url.blank? and model.images.size == 0
+
+          cat_name ||= "Andere Hardware"
+          category = Category.find(:first, :conditions => ['name = ?', cat_name])
+          if category.nil?
+            if model.categories.count == 0
+              category = Category.create(:name => cat_name)
+            end
+          end
+          category.models << model unless category.nil? or category.models.include?(model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink          
+      
+          if location.nil?
+            puts "Ignoring item with id: #{gegenstand.id} because I couldn't figure out to which inventory pool it belongs."
+          else
+            item_attributes = {
+              :inventory_code => (gegenstand.inventar_abteilung + gegenstand.id.to_s),
+              :serial_number => gegenstand.seriennr,
+              :model => model,
+              :location => get_location(gegenstand).main_location,
+              :owner => get_owner(gegenstand.inventar_abteilung),
+              :last_check => gegenstand.letzte_pruefung,
+              :retired => gegenstand.ausmusterdatum,
+              :retired_reason => gegenstand.ausmustergrund,
+              :invoice_number => gegenstand.kaufvorgang.nil? ? '' : gegenstand.kaufvorgang.rechnungsnr,
+              :invoice_date => gegenstand.kaufvorgang.nil? ? nil : gegenstand.kaufvorgang.kaufdatum,
+              :is_incomplete => gegenstand.paket.nil? ? false : (gegenstand.paket.status == 0),
+              :is_broken => gegenstand.paket.nil? ? false : (gegenstand.paket.status == -2),
+              :is_borrowable => gegenstand.ausleihbar?, 
+    					:price => (gegenstand.kaufvorgang.nil? or gegenstand.kaufvorgang.kaufpreis.nil?) ? 0 : gegenstand.kaufvorgang.kaufpreis / 100
+            }
+            item = Item.find_or_create_by_inventory_code item_attributes
+            puts "Errors: #{item.errors.size}  #{item.errors}" if item.errors.size > 0
+            successfull += 1
+          end
+          count += 1
+          break if count == max
+        end
       end
-      count += 1
-      break if count == max
     end
     puts "--------------"
     puts "Total: #{count}"
@@ -72,22 +88,30 @@ class InventoryImport::ImportOnce
   
   def get_location(gegenstand)
     if gegenstand.paket
-      get_owner(gegenstand.paket.geraetepark.name)
+      o = get_owner(gegenstand.paket.geraetepark.name)
     else
-      puts "No Inventorypool found for #{gegenstand.id} - taking owner."
       o = get_owner(gegenstand.inventar_abteilung)
       if o.nil?
         puts "--> Also no owner found..."
       end
-      o
     end
+    o
   end
   
   def get_owner(inv_abt)
-    InventoryPool.find(:first, :conditions => ['name = ?', inv_abt])
+    o = InventoryPool.find(:first, :conditions => ['name = ?', inv_abt])
+    o = InventoryPool.find(:first, :conditions => ['name = ?', use_new_name_for(inv_abt)]) unless o
+    o
   rescue
     puts "InventoryPool '#{inv_abt}' not found."
     nil
+  end
+  
+  def use_new_name_for(inv_abt)
+    return "VMK" if inv_abt.upcase == "SNM" 
+    return "VMK" if inv_abt.upcase == "VNM"
+    return "VIAD" if inv_abt.upcase == "IAD"
+    inv_abt
   end
 
   def add_picture(model, url)
@@ -119,30 +143,35 @@ class InventoryImport::ImportOnce
     InventoryImport::User.all.each do |user|
       count += 1
       if user.geraeteparks_users.count > 0
-        u = User.find_or_create_by_email(:email => user.email, :login => user.login)
-        u.lastname = user.nachname
-        u.firstname = user.vorname
-        u.phone = user.telefon if user.telefon
-        if u.save
-          if user.benutzerstufe >= 5 
-            role = Role.find_by_name('admin')
-            u.access_rights << AccessRight.create(:user => u, :role => role)
-            admins += 1
-          end
-
-          user.geraeteparks_users.each do |geraetepark|
-            level = user.benutzerstufe > 0 and user.benutzerstufe < 4 ? user.benutzerstufe : 1
-            role = Role.find_by_name('customer')
-            role = Role.find_by_name('manager') if user.benutzerstufe == 4
-
-            u.access_rights << AccessRight.create(:user => u, 
-                                                      :role => role,
-                                                      :level => level, 
-                                                      :inventory_pool => convert_ip(geraetepark))            
-          end
+        if user.benutzerstufe == -3
+          u = User.find(:first, :conditions => ['email = ?', user.email])
+          u.destroy
         else
-          errors += 1
-          puts "#{user.vorname} #{user.nachname} konnte nicht übernommen werden."
+          u = User.find_or_create_by_email(:email => user.email, :login => user.login)
+          u.lastname = user.nachname
+          u.firstname = user.vorname
+          u.phone = user.telefon if user.telefon
+          if u.save
+            if user.benutzerstufe >= 5 
+              role = Role.find_by_name('admin')
+              u.access_rights << AccessRight.create(:user => u, :role => role)
+              admins += 1
+            end
+
+            user.geraeteparks_users.each do |geraetepark|
+              level = AccessRight::CUSTOMER 
+              level = AccessRight::EMPLOYEE if user.benutzerstufe == 2
+              level = AccessRight::SPECIAL if user.benutzerstufe == 3
+              
+              role = Role.find_by_name('customer')
+              role = Role.find_by_name('manager') if user.benutzerstufe == 4
+
+              u.access_rights.create(:role => role, :inventory_pool => convert_ip(geraetepark), :level => level)
+            end
+          else
+            errors += 1
+            puts "#{user.vorname} #{user.nachname} konnte nicht übernommen werden."
+          end
         end
       else
         ignored += 1
