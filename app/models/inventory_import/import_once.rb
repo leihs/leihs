@@ -6,7 +6,7 @@ class InventoryImport::ImportOnce
     #connect_dev
     connect_prod
     
-    #import_items(max)
+    import_items(max)
     import_users
     
   end
@@ -16,9 +16,9 @@ class InventoryImport::ImportOnce
     count = 0
     successfull = 0
     
-    location = get_location(gegenstand)
-
     inventar.each do |gegenstand|
+
+      location = get_location(gegenstand)
 
       cat_name = gegenstand.paket.art if gegenstand.paket
       cat_name ||= gegenstand.art
@@ -26,8 +26,8 @@ class InventoryImport::ImportOnce
       if cat_name.blank?
         puts "Ignoring '#{gegenstand.modellbezeichnung}' because it belongs to empty category."
       else 
-        if 
-          puts "Ignoring '#{gegenstand.modellbezeichnung}' because no inventorypool was found."
+        if location.nil? 
+          puts "Ignoring #{gegenstand.id} - '#{gegenstand.modellbezeichnung}' because no inventorypool was found."
         else
          # puts "Found: #{item.Inv_Serienr} - #{item.Art_Bezeichnung} = #{gegenstand.modellbezeichnung}"
           attributes = {
@@ -101,6 +101,7 @@ class InventoryImport::ImportOnce
   def get_owner(inv_abt)
     o = InventoryPool.find(:first, :conditions => ['name = ?', inv_abt])
     o = InventoryPool.find(:first, :conditions => ['name = ?', use_new_name_for(inv_abt)]) unless o
+    puts "#{inv_abt} not found." if o.nil?
     o
   rescue
     puts "InventoryPool '#{inv_abt}' not found."
