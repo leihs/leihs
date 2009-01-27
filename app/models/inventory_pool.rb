@@ -93,7 +93,7 @@ class InventoryPool < ActiveRecord::Base
 ###################################################################################
   
   def hand_over_visits
-    unless @ho_visits  # OPTIMIZE refresh if new contracts become available
+    #unless @ho_visits  # OPTIMIZE refresh if new contracts become available
       @ho_visits = []
       contracts.new_contracts.each do |c|
         c.lines.each do |l|
@@ -106,7 +106,7 @@ class InventoryPool < ActiveRecord::Base
         end
       end
       @ho_visits.sort!
-    end
+    #end
     @ho_visits
   end
 

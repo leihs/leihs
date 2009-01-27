@@ -13,7 +13,7 @@ class InventoryImport::ImportReservations
     orders = 0
     contracts = 0
     reservations.each do |reservation|
-      if reservation.status < 3
+      if reservation.status < 2
         import_as_order(reservation)
         orders += 1
       else
@@ -46,23 +46,25 @@ class InventoryImport::ImportReservations
       paket.gegenstands.each do |gegenstand|
         item = Item.find(:first, :conditions => ['inventory_code = ?', "#{gegenstand.inventar_abteilung}#{gegenstand.original_id}"])
         if item
-          line = OrderLine.new(:order => o,
-                                :model => item.model,
+          
+          line = o.order_lines.build(:model => item.model,
                                 :quantity => 1,
-                                :start_date => reservation.startdatum,
-                                :end_date => reservation.enddatum,
+                                :start_date => o.next_open_date(reservation.startdatum),
+                                :end_date => o.next_open_date(reservation.enddatum),
                                 :inventory_pool => get_inventory_pool(reservation.geraetepark.name))
-            unless line.save
-              puts "-------> Line not saved (Order: #{o.id} User: #{o.user.id} Item: #{item.inventory_code})"
-              puts "#{line.errors.full_messages}"
-            end
+          unless line.save
+            puts "-------> Line not saved (Order: #{o.id} User: #{o.user.id} Item: #{item.inventory_code})"
+            puts "#{line.errors.full_messages}"
+          end
         else
           puts "#{gegenstand.inventar_abteilung}#{gegenstand.original_id} not found  (Contract: #{o.id} User: #{o.user.id})"
         end
       end
     end
     
-    puts "Approving: " + o.approve("Approved in leihs 1", false).to_s if reservation.status == 2
+    if reservation.status == 2
+      puts "Approving: " + o.approve("Approved in leihs 1", false).to_s 
+    end
     
   end
   
@@ -81,7 +83,7 @@ class InventoryImport::ImportReservations
     c = Contract.create(:user => user,
                   :purpose => reservation.zweck,
                   :inventory_pool => get_inventory_pool(reservation.geraetepark.name),
-                  :status_const => Contract::SIGNED)
+                  :status_const => (reservation.status == 2) ? Contract::NEW : Contract::SIGNED)
     
     c.created_at = reservation.created_at
     c.save
@@ -92,10 +94,10 @@ class InventoryImport::ImportReservations
         item = Item.find(:first, :conditions => ['inventory_code = ?', "#{gegenstand.inventar_abteilung}#{gegenstand.original_id}"])
         if item
           line = ContractLine.new(:contract => c,
-                          :item => item,
+                          :item => ((reservation.status == 2) ? nil : item) ,
                           :model => item.model,
                           :start_date => reservation.startdatum,
-                          :end_date => reservation.enddatum)
+                          :end_date => c.next_open_date(reservation.enddatum))
           unless line.save
             puts "-------> Line not saved (Contract: #{c.id} User: #{c.user.id} Item: #{item.inventory_code})"
             puts "#{line.errors.full_messages}"
