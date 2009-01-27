@@ -41,7 +41,7 @@ class Contract < Document
 
     if contract_lines and contract_lines.any? { |cl| cl.item }
 
-      # double check
+      # Forces handover date to be today.
       contract_lines.each {|cl| cl.update_attribute :start_date, Date.today if cl.start_date != Date.today }
       
       lines_for_new_contract = self.contract_lines - contract_lines

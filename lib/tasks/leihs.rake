@@ -6,9 +6,15 @@ namespace :leihs do
     create_some(params)
   end
   
-  desc "Migration from leihs1 - items that are not in ithelp"
+  desc "Migration from leihs1 - items that are not in ithelp and users in general"
   task :init_once => :environment do
     create_once
+  end
+  
+  desc "Migrate reservations from leihs1"
+  task :import_reservations => :environment do
+    params = { :pool => ENV['pool']}
+    import_reservations(params)
   end
   
   desc "Maintenance: rebuild ferret index"
@@ -67,6 +73,12 @@ namespace :leihs do
   def create_once
     puts "Importing from leihs 1"
     Importer.new.start_once
+    puts "Done"
+  end
+  
+  def import_reservations(params = {})
+    puts "Importing Reservations"
+    Importer.new.start_reservations_import(params[:pool].to_i)
     puts "Done"
   end
   
