@@ -29,7 +29,9 @@ class ContractLine < DocumentLine
 
   before_save { |record| 
     unless record.returned_date
-      record.item = nil if record.start_date != Date.today
+      #TODO 27 Commented for import
+      # But what happens if an inventory manager sees on the next day that he put in the wrong number and wants to correct it?
+      # record.item = nil if record.start_date != Date.today
       record.start_date = Date.today unless record.item.nil?
     end
   }

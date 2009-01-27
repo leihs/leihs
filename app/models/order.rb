@@ -55,13 +55,13 @@ class Order < Document
   # TODO 13** forward purpose
   # TODO forward Options
   # approves order then generates a new contract and contract_lines for each item
-  def approve(comment)
+  def approve(comment, send_mail = true)
     if approvable?
       self.status_const = Order::APPROVED
       remove_backup
       save
 
-      Notification.order_approved(self, comment)
+      Notification.order_approved(self, comment, send_mail)
       
       contract = user.get_current_contract(self.inventory_pool)
       order_lines.each do |ol|
