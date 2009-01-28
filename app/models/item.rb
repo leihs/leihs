@@ -1,7 +1,9 @@
 class Item < ActiveRecord::Base
   
   attr_accessor :step
-  
+
+####################################################################
+
   belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id'
   has_many :children, :class_name => "Item", :foreign_key => 'parent_id'
   
@@ -14,15 +16,22 @@ class Item < ActiveRecord::Base
   has_many :contract_lines
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
+####################################################################
+
   validates_uniqueness_of :inventory_code
   #validates_length_of :inventory_code, :minimum => 1, :too_short => "please enter at least %d character", :if => Proc.new {|i| i.step == 'step_item'}
   validates_presence_of :inventory_code, :if => Proc.new {|i| i.step == 'step_item'}
   validates_presence_of :model #old#, :if => Proc.new {|i| i.step == 'step_model'}
   validates_presence_of :location, :if => Proc.new {|i| i.step == 'step_location'}
   validate :validates_if_is_package
-  
-  acts_as_ferret :fields => [ :model_name, :inventory_pool_name, :inventory_code, :serial_number ], :store_class_name => true, :remote => true
 
+####################################################################
+
+  # OPTIMIZE
+  after_save :update_ferret_index
+
+  acts_as_ferret :fields => [ :model_name, :inventory_pool_name, :inventory_code, :serial_number ], :store_class_name => true, :remote => true
+    
 ####################################################################
 
   named_scope :borrowable, :conditions => {:is_borrowable => true, :parent_id => nil} 
@@ -80,7 +89,12 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   private
-  
+
+  # OPTIMIZE
+  def update_ferret_index
+    self.model.reload.ferret_update if self.model
+  end
+
   def model_name
     model.name
   end
@@ -88,10 +102,9 @@ class Item < ActiveRecord::Base
   def inventory_pool_name
     inventory_pool.name
   end
-  
+
   def validates_if_is_package
     errors.add_to_base(_("Package error")) if children.size > 0 and !model.is_package
   end
   
-    
 end
