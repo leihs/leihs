@@ -84,6 +84,14 @@ temp.delete
 Dir.mkdir(dir, 0755)
 ENV['INLINEDIR'] = dir
 
+ActionMailer::Base.smtp_settings = {
+  :address => "smtp.zhdk.ch",
+  :port => 25,
+  :domain => "beta.ausleihe.zhdk.ch"
+}
+ActionMailer::Base.default_charset = 'utf-8'
+
+
 
 # Prevent UTF-8 problems with acts_as_ferret
 ENV['LC_CTYPE'] = 'en_US.UTF-8'
