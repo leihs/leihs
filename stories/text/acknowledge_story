@@ -56,7 +56,7 @@ Scenario: Acknowledge order
   When inventory_manager approves order
 
   Then joe@test.ch receives an email
-  And its subject is 'Reservation Confirmation'
+  And its subject is '[leihs] Reservation Confirmation'
   And it contains information '5 NEC 245'
 
   And inventory_manager sees 0 orders
@@ -85,7 +85,7 @@ Scenario: Reject order
   When inventory_manager rejects order with reason 'Because I don't like you.'
  
   Then joe@test.ch receives an email
-  And its subject is 'Reservation Rejected'
+  And its subject is '[leihs] Reservation Rejected'
   And it contains information 'Because I don't like you.'
 
   And inventory_manager sees 0 order
@@ -118,7 +118,7 @@ Scenario: Change amount and add Item
 
 
   And joe@test.ch receives an email
-  And its subject is 'Reservation confirmed (with changes)'
+  And its subject is '[leihs] Reservation confirmed (with changes)'
   And it contains information '4 NEC 245'
   And it contains information '1 NEC 333'
   And it contains information 'Changed quantity for NEC 245 from 5 to 4'
@@ -157,7 +157,7 @@ Scenario: Swap Model
   And inventory_manager approves order
 
   Then joe@test.ch receives an email
-  And its subject is 'Reservation confirmed (with changes)'
+  And its subject is '[leihs] Reservation confirmed (with changes)'
   And it contains information '5 NEC 333'
   And it contains information 'Swapped NEC 245 for NEC 333'
   And it contains information 'NEC 333 is better than NEC 245'
