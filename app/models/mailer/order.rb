@@ -1,7 +1,7 @@
 class Mailer::Order < ActionMailer::Base
 
   def approved(order, comment, sent_at = Time.now)
-    @subject    = _('Reservation Confirmation')
+    @subject    = _('[leihs] Reservation Confirmation')
     @body["order"] = order
     @body["comment"] = comment
     @recipients = "#{order.user.email}"
@@ -11,7 +11,7 @@ class Mailer::Order < ActionMailer::Base
   end
 
   def submitted(order, purpose, sent_at = Time.now)
-    @subject    = _('Reservation Submitted')
+    @subject    = _('[leihs] Reservation Submitted')
     @body["order"] = order
     @body["purpose"] = purpose
     @recipients = "#{order.user.email}"
@@ -21,7 +21,7 @@ class Mailer::Order < ActionMailer::Base
   end
 
   def rejected(order, comment, sent_at = Time.now)
-    @subject    = _('Reservation Rejected')
+    @subject    = _('[leihs] Reservation Rejected')
     @body["order"] = order
     @body["comment"] = comment
     @recipients = "#{order.user.email}"
@@ -31,7 +31,7 @@ class Mailer::Order < ActionMailer::Base
   end
 
   def changed(order, comment, sent_at = Time.now)
-    @subject    = _('Reservation confirmed (with changes)')
+    @subject    = _('[leihs] Reservation confirmed (with changes)')
     @body["order"]  = order
     @body["comment"] = comment
     
