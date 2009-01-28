@@ -5,7 +5,7 @@ class Mailer::Order < ActionMailer::Base
     @body["order"] = order
     @body["comment"] = comment
     @recipients = "#{order.user.email}"
-    @from       = 'leihs'
+    @from       = 'no-reply@zhdk.ch'
     @sent_on    = sent_at
     @headers    = {}
   end
@@ -15,7 +15,7 @@ class Mailer::Order < ActionMailer::Base
     @body["order"] = order
     @body["purpose"] = purpose
     @recipients = "#{order.user.email}"
-    @from       = 'leihs'
+    @from       = 'no-reply@zhdk.ch'
     @sent_on    = sent_at
     @headers    = {}
   end
@@ -25,7 +25,7 @@ class Mailer::Order < ActionMailer::Base
     @body["order"] = order
     @body["comment"] = comment
     @recipients = "#{order.user.email}"
-    @from       = ''
+    @from       = 'no-reply@zhdk.ch'
     @sent_on    = sent_at
     @headers    = {}
   end
@@ -36,7 +36,7 @@ class Mailer::Order < ActionMailer::Base
     @body["comment"] = comment
     
     @recipients = "#{order.user.email}"
-    @from       = ''
+    @from       = 'no-reply@zhdk.ch'
     @sent_on    = sent_at
     @headers    = {}
   end
