@@ -1,6 +1,6 @@
 <%= @comment %>
 
-The following changes were made:
+<%= _("The following changes were made to your order:") %>
 
 <% @order.histories.each do | history |%>
 	<%= history.text if history.type_const == History::CHANGE %>
