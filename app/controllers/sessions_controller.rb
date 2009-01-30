@@ -8,9 +8,9 @@ class SessionsController < ApplicationController
   end
 
   # TODO 05** temporary
-  def old_new
-    render :action => 'new', :layout => 'layouts/backend/00-patterns/general'
-  end
+#  def old_new
+#    render :action => 'new', :layout => 'layouts/backend/00-patterns/general'
+#  end
 
   def authenticate(id = params[:id])
     @selected_system = AuthenticationSystem.active_systems.find(id) if id
@@ -25,19 +25,19 @@ class SessionsController < ApplicationController
     render :text => 'Class not found: ' + @selected_system.class_name
   end
 
-  def create
-    self.current_user = User.find_by_login(params[:login])
-    if logged_in?
-      if params[:remember_me] == "1"
-        current_user.remember_me unless current_user.remember_token?
-        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
-      end
-      redirect_back_or_default('/')
-      flash[:notice] = _("Logged in successfully")
-    else
-      render :action => 'new'
-    end
-  end
+#  def create
+#    self.current_user = User.find_by_login(params[:login])
+#    if logged_in?
+#      if params[:remember_me] == "1"
+#        current_user.remember_me unless current_user.remember_token?
+#        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+#      end
+#      redirect_back_or_default('/')
+#      flash[:notice] = _("Logged in successfully")
+#    else
+#      render :action => 'new'
+#    end
+#  end
 
   def destroy
     cookies.delete :auth_token
