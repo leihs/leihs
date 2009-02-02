@@ -27,3 +27,9 @@ table.orders th {
 	background: #888;
 	color: #e2e2e2;
 }
+
+.model_description {
+    font-family: arial,tahoma,helvetica,sans-serif;
+    padding: 12px;
+    font-size: 12px;
+}
