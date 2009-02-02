@@ -221,6 +221,7 @@ function add_model_details(model_id, add_tab){
 				loadingText: '<%= _("Loading") %>...',
                 tpl: new Ext.XTemplate('<tpl for=".">', 
 										 '<div class="model_images" style="float: right;"><tpl for="images">', '<img src="{public_filename_thumb}">', '</tpl>', '</div>',                
+                                         '<div class="model_description">',
                                          '<h2>{name} ({manufacturer})</h2>',
                                          '<p>{description}</p>',
                                          '<p><img src="{chart}"></p>',
@@ -230,6 +231,7 @@ function add_model_details(model_id, add_tab){
 							            			'<li>{inventory_code}, <tpl for="model">{name}, {manufacturer}</tpl></li>',
 								        		'</tpl></ul>',
 							        		'</tpl>',
+                                        '</div>',
 										'</tpl>')
 			}, {
 				xtype: 'dataview',
