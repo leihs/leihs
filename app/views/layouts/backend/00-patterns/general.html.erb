@@ -20,9 +20,10 @@
 	
 		<div id="header">
 			<div id="logo">
-				<h1><%= link_to "Leihs 2.0", (@current_inventory_pool ? backend_inventory_pool_path(@current_inventory_pool) : backend_path) %></h1>
-				<p><%= _("Inventory Pool") %>: <%= @current_inventory_pool.name if @current_inventory_pool %>. (<%= link_to _("Change") + "?", backend_path %>)</p>
-	
+				<h1><%= link_to "Leihs 2.0", backend_path %></h1>
+				<% if @current_inventory_pool %>
+					<p><%= _("Inventory Pool") %>: <%= link_to @current_inventory_pool.name, backend_inventory_pool_path(@current_inventory_pool) %>. (<%= link_to _("Change") + "?", backend_path %>)</p>
+				<% end %>
 			</div>
 			<div id="personal-toolbar">
 				<%= render :partial => '/layouts/backend/00-patterns/personal_toolbar' %>
@@ -60,6 +61,7 @@
 	</div>
 
 	
+<%= enable_loading_panel %>
 <%= enable_tooltip %>
 		
 </body>

@@ -54,6 +54,11 @@ module ApplicationHelper
   def short_date(date)
     date.strftime("%d.%m.%Y") if date
   end
+
+  def dates_with_period(start_date, end_date)
+    interval = (end_date - start_date).abs + 1
+    "#{short_date(start_date)} - #{short_date(end_date)}<br/><span style='font-size:smaller;'>#{pluralize(interval, _("Day"))}</span>" #old# _("%d Days") % interval
+  end
   
 #old#  
 #  ######## Search #########
@@ -74,9 +79,15 @@ module ApplicationHelper
   ######## Flash #########
 
   def flash_helper
+    content_tag :div, :id => "flash" do
+      flash_content
+    end
+  end
+
+  def flash_content
     r = ""
     [:notice, :error].map do |f|
-      r += content_tag(:div, to_list(flash[f]), :class => "flash #{f}") unless flash[f].blank?
+      r += content_tag(:div, to_list(flash[f]), :class => "#{f}") unless flash[f].blank?
     end
     flash.discard if flash
     r

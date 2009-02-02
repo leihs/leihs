@@ -19,19 +19,11 @@ class Document < ActiveRecord::Base
 
 ################################################################
   def time_window_min
-    d1 = Array.new
-    self.lines.each do |ol|
-      d1 << ol.start_date
-    end
-    d1.min
+    self.lines.collect(&:start_date).min || Date.today
   end
   
   def time_window_max
-    d2 = Array.new
-    self.lines.each do |ol|
-      d2 << ol.end_date
-    end
-    d2.max
+    self.lines.collect(&:end_date).max || Date.today
   end
   
   def next_open_date(x)

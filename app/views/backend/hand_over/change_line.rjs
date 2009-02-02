@@ -2,32 +2,37 @@
 #page.visual_effect :highlight, 'changes'
 
 if @contract_line
-  if @contract_line.item
-    page["line_item_inventory_code_#{@contract_line.id}"].value = @contract_line.item.inventory_code
-    page["inventory_code"].value = ""
-  end
+#  if @contract_line.item
+#    page["line_item_inventory_code_#{@contract_line.id}"].value = @contract_line.item.inventory_code
+#    page["inventory_code"].value = ""
+#  end
+#
+#  bool = @contract_line.complete? 
+#  css_class = "valid_#{bool}"
+#  page << "$('inventory_code_#{@contract_line.id}').className='#{css_class}'"
+#  page["dates_#{@contract_line.id}"].innerHTML = dates_with_period(@contract_line.start_date, @contract_line.end_date) if bool
 
-  bool = @contract_line.complete? 
-  css_class = "valid_#{bool}"
-  page << "$('inventory_code_#{@contract_line.id}').className='#{css_class}'"
-  page["dates_#{@contract_line.id}"].innerHTML = "#{short_date(@contract_line.start_date)} - #{short_date(@contract_line.end_date)}" if bool
+  page.replace_html 'lines', :partial => 'lines'
+  page[:inventory_code].value = ""
   
-  page.alert("The start date has been changed") if @start_date_changed
+  #old# page.alert("The start date has been changed") if @start_date_changed
 
+#old#  page.replace_html 'errors', :partial => 'errors'
 
-  page.replace_html 'errors', :partial => 'errors'
-  
+elsif @option
+  page[:inventory_code].value = ""
+  page.replace_html 'options', :partial => 'options'
+  page.visual_effect :highlight, 'options'
+
+elsif @add_as_new_line
+  # TODO 29** open grey box
+  flash[:error] += "<br/>" + link_to("Add Item #{@item.model.name} - #{@item.inventory_code}",
+                            add_line_with_item_backend_inventory_pool_user_hand_over_path(@current_inventory_pool, @contract.user, :item_id => @item), :method => 'post', :target=> '_top')
 end
 
-# TODO 28** use flash_helper
-if flash[:notice]
-  page.replace_html 'messages', '<div class="flash_notice">' + flash[:notice] + '</div>'
+if flash
+  page.replace_html 'flash', flash_content
+  flash.discard
 end
-
-if flash[:error]
-  page.replace_html 'messages', '<div class="flash_error">' + flash[:error] + '</div>'
-end
-flash.discard if flash
-
 
 #page << "$('inventory_code').focus()"

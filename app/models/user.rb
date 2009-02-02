@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   belongs_to :authentication_system
   has_many :access_rights, :dependent => :delete_all, :include => :role # OPTIMIZE N+1 select problem
   has_many :inventory_pools, :through => :access_rights, :uniq => true
+  # TODO 29** has_many :managed_inventory_pools
   has_many :items, :through => :inventory_pools, :uniq => true # (nested)
   has_many :models, :through => :inventory_pools, :uniq => true # do # (nested)
     #  def inventory_pools(ips = nil)

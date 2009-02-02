@@ -20,7 +20,7 @@
 	<td><%= today_or_yesterday_date(order.created_at) %></td>
 	<td><%= order.inventory_pool %></td>
 	<td><%= order.quantity %></td>
-	<td><%= short_date(order.time_window_min) %> - <%= short_date(order.time_window_max) %></td>
+	<td><%= dates_with_period(order.time_window_min, order.time_window_max) %></td>
 	<td><%= h order.purpose %></td>
 	</tr>
 <% end %>

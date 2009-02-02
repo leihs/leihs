@@ -32,7 +32,7 @@ module Backend::BackendHelper
               s += _(" filtering <b>%s</b>") % filter if filter
               w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:update => 'list_table', :loading => "Element.show('spinner')"}, :previous_label => _("Previous"), :next_label => _("Next")
               s += w if w
-              s += image_tag("spinner.gif", :id => 'spinner', :style => 'display: none; vertical-align: middle; padding: 0 4px 0 4px;')
+              s += image_tag("spinner.gif", :id => 'spinner', :style => 'display: none;', :class => "loading_spinner")
               s
             end
           r
@@ -139,6 +139,24 @@ module Backend::BackendHelper
 #  def show_tooltip
 #  
 #  end
+
+############################################################################################
+
+  def enable_loading_panel
+    h = javascript_tag do
+        "Ajax.Responders.register({
+            onCreate: function(){ $('loading_panel').style.visibility='visible'; },
+            onComplete: function(){ $('loading_panel').style.visibility='hidden'; }
+        });"
+    end
+    h += content_tag :div, :id => 'loading_panel' do
+        r = image_tag("spinner.gif", :class => "loading_spinner")
+        r += " "
+        r += _("Loading")
+        r += "..."
+    end
+    h
+  end
 
 ############################################################################################
 

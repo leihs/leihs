@@ -24,7 +24,7 @@
 			<% tooltip do %>
 				<%= @line.available_tooltip %>
 			<% end unless b %>
-			<%= greybox_link_to_page("#{short_date(@line.start_date)} - #{short_date(@line.end_date)}",
+			<%= greybox_link_to_page(dates_with_period(@line.start_date, @line.end_date),
 			 		{ :action => 'time_lines', :id => @order.id, :lines => @line.id },
 					:class => "thickbox iconized-notxt date-edit" ,
 					:title => _("Time Period") ) %>

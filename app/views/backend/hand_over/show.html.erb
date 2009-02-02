@@ -1,5 +1,5 @@
 <div id='errors'>
-	<%= render :partial => 'errors' %>
+	<%#= render :partial => 'errors' %>
 </div>
 
 <%= render :partial => 'buttons' %>
@@ -11,8 +11,6 @@
 				</div>
 				
 			</div>
-
-<div id="messages"></div>
 
 			<div class="table-overview">
 								
@@ -53,9 +51,31 @@
 					</div>
 				</div>
 
-				<table cellspacing="0" id='lines'>
-					<%= render :partial => 'lines' %>
-				</table>				
+				<table cellspacing="0">
+					<!-- start header -->
+						<tr>
+							<th scope="col"><%= _("Mark")%><br/>
+								<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check', 'ghostable_group_1');" /> <%= _("All") %>
+								<br />
+								<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check_today', 'ghostable_group_1');" /> <%= _("From today") %>
+							</th>
+							<th scope="col"><%= _("Model") %></th>
+							<th scope="col"><%= _("Timeframe") %></th>
+							<th scope="col">
+								<%= _("Barcode") %>
+								<br />
+								<% model_ids = @contract.models.collect(&:id).uniq.join(',') %>
+								<%= text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'assign_inventory_code' }, :with => "'code=' + value" ) }) %>
+							</th>
+							<th scope="col"><%= _("Action") %></th>
+						</tr>
+					<!-- end header -->
+					<tbody id='lines'>
+						<%= render :partial => 'lines' %>
+					</tbody>
+				</table>	
+							
+				<%= javascript_tag("$('inventory_code').focus()") %>
 						
 			</div>
 			

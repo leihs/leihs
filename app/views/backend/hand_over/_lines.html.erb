@@ -1,23 +1,3 @@
-<!-- start header -->
-	<tr>
-		<th scope="col"><%= _("Mark")%><br/>
-			<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check', 'ghostable_group_1');" /> <%= _("All") %>
-			<br />
-			<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check_today', 'ghostable_group_1');" /> <%= _("From today") %>
-		</th>
-		<th scope="col"><%= _("Model") %></th>
-		<th scope="col"><%= _("Timeframe") %></th>
-		<th scope="col">
-			<%= _("Barcode") %>
-			<br />
-			<span class="barcode_pulldown">
-			<% model_ids = @contract.models.collect(&:id).uniq.join(',') %>
-			<%= text_field_tag(:inventory_code, nil, { :size => 10, :onchange => remote_function( :url => { :action => 'assign_inventory_code' }, :with => "'code=' + value" ) }) %>
-			</span>								
-		</th>
-		<th scope="col"><%= _("Action") %></th>
-	</tr>
-<!-- end header -->
 
 <!-- start iterator -->
 <%
@@ -31,3 +11,5 @@ for @line in @contract.lines
 	<%= render :partial => 'line' %>
 <% end %>
 <!-- end iterator -->						
+
+<%= javascript_tag("toggle_buttons('contract_line_check', 'ghostable_group_1');") %>

@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
       user.resources :contracts
   end
   map.resource :session, :member => { :authenticate => :any,
-                                      :old_new => :get } # TODO 04** remove, only for offline login
+                                      :old_new => :get } # TODO 05** remove, only for offline login
   
   map.resource :frontend, :controller => 'frontend',
                           :member => { :get_inventory_pools => :any,
@@ -97,6 +97,7 @@ ActionController::Routing::Routes.draw do |map|
                                                          :timeline => :get }
                user.resource :hand_over, :controller => 'hand_over',
                                          :member => { :add_line => :any,
+                                                      :add_line_with_item => :post, # TODO 29**
                                                       :change_line => :any,
                                                       :remove_lines => :any,  # OPTIMIZE method
                                                       :swap_model_line => :any,

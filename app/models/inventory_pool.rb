@@ -32,7 +32,7 @@ class InventoryPool < ActiveRecord::Base
   has_many :locations
   has_many :option_maps
   has_one  :main_location, :class_name => "Location", :conditions => {:is_main => true}  
-  has_many :items, :through => :locations, :uniq => true
+  has_many :items, :through => :locations #, :uniq => true
   has_many :models, :through => :items, :uniq => true
 
   has_and_belongs_to_many :model_groups
@@ -71,8 +71,10 @@ class InventoryPool < ActiveRecord::Base
     ["01.01.2009"] #TODO **24** Get the dates from Holidays, put them in the correct format (depends on DatePicker)
   end
   
+  # TODO remove this method and use directly named_scope with lambda 
   def items_size(model_id = nil)
-    items.count(:conditions => {:model_id => model_id})
+    #old# items.count(:conditions => {:model_id => model_id})
+    items.by_model(model_id).count
   end
 
   # TODO 01** provide name_and_items_size directly in extjs

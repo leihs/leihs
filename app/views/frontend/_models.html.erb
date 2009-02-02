@@ -224,7 +224,6 @@ function add_model_details(model_id, add_tab){
                                          '<div class="model_description">',
                                          '<h2>{name} ({manufacturer})</h2>',
                                          '<p>{description}</p>',
-                                         '<p><img src="{chart}"></p>',
                                         
 											'<tpl if="package_items.length">',
 												'<br />Package: <ul><tpl for="package_items">',
@@ -269,9 +268,15 @@ function add_model_details(model_id, add_tab){
 					width: 200
 				}])
 			}, {
+				xtype: 'dataview',
+				title: '<%= _("Chart") %>',
+                tpl: new Ext.XTemplate('<tpl for=".">', 
+                                         '<p><img src="{chart}"></p>',
+										'</tpl>')
+			}, {
 				xtype: 'form',
 				title: '<%= _("Add") %>',
-				iconCls:'icon-add',
+				//iconCls:'icon-add',
 				listeners: {
 					activate: function(){
 						//model_store_ips[model_id].loadData(model_store[model_id].reader.jsonData['models'][0]);

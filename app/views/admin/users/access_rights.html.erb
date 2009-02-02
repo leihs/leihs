@@ -1,3 +1,10 @@
+<% javascript_tag do %>
+	function changed_selection(v){
+		var visibility = (v == 1 ? "hidden" : "visible");
+		$('access_right_inventory_pool_id').style.visibility=visibility;			
+		$('level').style.visibility=visibility;			
+	}
+<% end %>
 
 <% form_tag :action => 'add_access_right', :id => @user do %>
 	<table style="width: 400px">
@@ -8,7 +15,7 @@
 			<th></th>
 		</tr>
 		<tr>
-			<td><%= collection_select(:access_right, :role_id, Role.all, :id, :name, {}, {:size => 5}) %></td>
+			<td><%= collection_select(:access_right, :role_id, Role.all, :id, :name, {}, {:size => 5, :onchange => "changed_selection(this.value);"}) %></td>
 			<td><%= collection_select(:access_right, :inventory_pool_id, InventoryPool.all, :id, :name, {}, {:size => 5}) %></td>
 			<td><%= select_tag :level, options_for_select(AccessRight::LEVELS) %> </td>
 			<td><%= submit_tag _('Add') %></td>
