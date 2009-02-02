@@ -134,7 +134,7 @@ class Model < ActiveRecord::Base
     availabilities.each do |a|
       values << a[1]
       days << (last_value != a[1] ? a[0].day : nil)
-      months << (last_month != a[0].month ? a[0].strftime('%B') : nil)      
+      months << (last_month != a[0].month ? a[0].strftime('%b') : nil)      
       last_value = a[1] 
       last_month = a[0].month
     end
@@ -179,7 +179,7 @@ class Model < ActiveRecord::Base
 #      availabilities.each do |a|
 #        ip_values << a[1]
 #        days << (last_value != a[1] ? a[0].day : nil)
-#        months << (last_month != a[0].month ? a[0].strftime('%B') : nil)      
+#        months << (last_month != a[0].month ? a[0].strftime('%b') : nil)      
 #        last_value = a[1] 
 #        last_month = a[0].month
 #      end

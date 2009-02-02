@@ -41,7 +41,9 @@ class Item < ActiveRecord::Base
 
   named_scope :unfinished, :conditions => ['inventory_code IS NULL OR model_id IS NULL OR location_id IS NULL']
   named_scope :in_stock, :conditions => ['items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)']
-    
+
+  named_scope :by_model, lambda { |model| { :conditions => { :model_id => model } } }
+
 ####################################################################
 
   def to_s

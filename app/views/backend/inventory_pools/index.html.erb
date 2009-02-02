@@ -1,20 +1,20 @@
-<% table_with_search_and_pagination :columns => [_("Name"), _("Description"), _("Items"), _("Action")],
+<% table :columns => [_("Name"), _("Description"), _("Action")],
 									:records => @inventory_pools do |inventory_pool| %>	
 
-			<% is_manager = current_user.has_role?('manager', inventory_pool) %>
+			<%# is_manager = current_user.has_role?('manager', inventory_pool) %>
 
 			<tr>
 				<td>
-				<% if is_manager %>
+				<%# if is_manager %>
 					<%= link_to inventory_pool.name, backend_inventory_pool_path(inventory_pool) %>
-				<% else %>	
-					<%= inventory_pool.name %>
-				<% end %>
+				<%# else %>	
+					<%#= inventory_pool.name %>
+				<%# end %>
 				</td>
 				<td><%= inventory_pool.description %></td>
-				<td><%= inventory_pool.items.size %></td>
 				<td class="buttons">
-				<% if is_manager
+				<%# if is_manager %>
+				<%
 				      to_acknowledge_size = inventory_pool.orders.submitted.size
 				      to_hand_over_size = inventory_pool.hand_over_visits.size
 				      to_take_back_size = inventory_pool.take_back_visits.size
@@ -24,7 +24,7 @@
 				<%= link_to icon_tag("arrow_turn_right") + " " + _('Hand Over') + " (#{to_hand_over_size})", backend_inventory_pool_hand_over_path(inventory_pool) if to_hand_over_size > 0 %>
 				<%= link_to icon_tag("arrow_undo") + " " + _('Take Back') + " (#{to_take_back_size})", backend_inventory_pool_take_back_path(inventory_pool) if to_take_back_size > 0 %>
 				<%= link_to icon_tag("clock") + " " + _('Remind') + " (#{to_remind_size})", backend_inventory_pool_take_back_path(inventory_pool, :remind => true) if to_remind_size > 0 %>				
-				<% end %>
+				<%# end %>
 				</td>
 			</tr>
 

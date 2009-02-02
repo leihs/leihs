@@ -337,11 +337,6 @@ ul.model_group > li > div > span.add_button {
 }
 */
 
-/* Barcode */
-
-.barcode_pulldown {
-	color: #444;
-}
 
 /* Workdays */
 
@@ -411,10 +406,21 @@ Pagination
 Flash
  - - - - - - - - - - - - - */
 
-div.flash {
+div#flash {
+    position: fixed;
+    top: 3px; /* 40px */
+    right: 3px; /* 15px */
+}
+
+div#flash div {
     padding:10px;
 	margin-bottom: 10px; 
     font-weight:bold;
+}
+
+div#flash div ul {
+	list-style: square;
+	margin-left: 10px;
 }
 
 div.notice {
@@ -427,7 +433,59 @@ div.error {
 	background-color: #FFDDDD;    
 }
 
-div.flash ul {
-	list-style: square;
-	margin-left: 10px;
+
+/* 	- - - - - - - - - - - - -
+Autocomplete
+ - - - - - - - - - - - - - */
+
+div.autocomplete {
+  margin:0px;  
+  padding:0px;  
+  background:#fff;
+  border:1px solid #888;
+  position:absolute;
+}
+
+div.autocomplete ul {
+  margin:0px;
+  padding:0px;
+  list-style-type:none;
+}
+
+div.autocomplete ul li.selected { 
+  background-color:#ffb;
+}
+
+div.autocomplete ul li {
+  margin:0;
+  padding:2px;
+  display:block;
+  list-style-type:none;
+  cursor:pointer;
+}
+
+
+/* 	- - - - - - - - - - - - -
+Loading
+ - - - - - - - - - - - - - */
+
+div#loading_panel {
+    position: fixed;
+    background-color: #DDDDDD;
+	border: 6px groove #FAD163;
+    color: black;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 4px;
+    visibility: hidden;
+    text-align: center;
+	top: 50%; /* 3px */
+	right: 50%; /* 15px */
+	padding: 10px;
+ 	min-width: 100px;
+}
+
+img.loading_spinner {
+	vertical-align: middle;
+	padding: 0 4px 0 4px;	
 }

@@ -26,7 +26,7 @@ Name: <%= f.text_field(:name)%><%= submit_tag(_("Add"))%>
 <%if @holidays and @holidays.length > 0 %>
 <ul>
 	<% @holidays.each do |holiday| %>
-	<li class="holiday"><%= link_to(icon_tag("cancel"), :action => 'delete_holiday', :id => holiday.id) %> <%= short_date(holiday.start_date) %> - <%= short_date(holiday.end_date) %>: <%= holiday.name %></li>
+	<li class="holiday"><%= link_to(icon_tag("cancel"), :action => 'delete_holiday', :id => holiday.id) %> <%= dates_with_period(holiday.start_date, holiday.end_date) %>: <%= holiday.name %></li>
 	<% end %>
 </ul>
 <% end %>

@@ -1,6 +1,6 @@
 
 	<ul>
-	<li><b>Inventory Code:</b> <%= @item.inventory_code %></li>	
-	<li><b>Serial Number:</b> <%= @item.serial_number %></li>
-	<li><b>Required Level:</b> <%= AccessRight::LEVELS.find { |k, v| v == @item.required_level }[0] %></li>
+	<li><b><%= _("Inventory Code") %>:</b> <%= @item.inventory_code %></li>	
+	<li><b><%= _("Serial Number") %>:</b> <%= @item.serial_number %></li>
+	<li><b><%= _("Required Level") %>:</b> <%= AccessRight::LEVELS.find { |k, v| v == @item.required_level }[0] %></li>
 	</ul>

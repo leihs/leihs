@@ -12,6 +12,8 @@ class Array
       #ids = self.collect{|x| "id:#{x.id}"}.join(" OR ")
       #q = "(#{q}) AND (#{ids})"
   
+      #temp# c.find_id_by_contents(q).last.collect {|r| r[:id] }
+  
       find_options[:conditions] = ["#{c.table_name}.#{c.primary_key} IN (?)", self]
       c.find_by_contents(q, options, find_options)
     else

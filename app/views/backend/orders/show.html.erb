@@ -27,7 +27,7 @@
 						</tr>
 						<tr class="alt-row">
 							<td><%= _("Time window") %>:</td>
-							<td><%= short_date(@order.time_window_min) %> - <%= short_date(@order.time_window_max)%></td>
+							<td><%= dates_with_period(@order.time_window_min, @order.time_window_max) %></td>
 						</tr>
 						<tr class="alt-row">
 							<td>

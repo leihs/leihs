@@ -17,7 +17,7 @@
 <% end %>			
 
 
-<% table_with_search_and_pagination :columns => [_("Received at"), _("Reserver"), _("Number of items"), _("Action")],
+<% table_with_search_and_pagination :columns => [_("Received at"), _("Reserver"), _("Number of items"), _("Time window"), _("Action")],
 						   			:records => @orders do |order| %>	
 
 
@@ -32,6 +32,7 @@
 							 :class => "iconized-notxt edit-user" ) %>
 				</td>
 				<td><%= _("%{n} Items") % {:n => order.quantity} %></td>
+				<td><%= dates_with_period(order.time_window_min, order.time_window_max) %></td>
 				<td class="buttons">
 					<%= link_to icon_tag("tab_go") + _("View + Acknowledge"),
 							backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, order.user, order) %>

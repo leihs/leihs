@@ -26,7 +26,7 @@ class Backend::BackendController < ApplicationController
       model.add_to_document(document, params[:user_id], params[:quantity], nil, nil, current_inventory_pool)
 
       flash[:notice] = document.errors.full_messages unless document.save
-      redirect_to :action => 'show', :id => document.id
+      redirect_to :action => 'show', :id => document.id unless @prevent_redirect # TODO 29**
     else
       redirect_to :controller => 'models', 
                   :layout => 'modal',

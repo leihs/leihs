@@ -7,6 +7,6 @@
 		</td>
 		<% b = @line.available? %>
 		<td id="line_dates_<%= @line.id %>" class="valid_<%= b %>" title="<%= @line.available_tooltip unless b %>">
-			<%= "#{short_date(@line.start_date)} - #{short_date(@line.end_date)}" %>
+			<%= dates_with_period(@line.start_date, @line.end_date) %>
 		</td>
 	</tr>

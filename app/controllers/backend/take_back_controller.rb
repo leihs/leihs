@@ -61,9 +61,16 @@ class Backend::TakeBackController < Backend::BackendController
   
       contract_lines.sort! {|a,b| a.end_date <=> b.end_date} # TODO select first to take back
       @contract_line = contract_lines.detect {|cl| cl.item_id == item.id }
-      @contract_line.update_attribute :start_date, Date.today
+      @contract_line.update_attribute :end_date, Date.today # TODO refresh all lines? #old# :start_date (error?)
 
       @contract = @contract_line.contract # TODO optimize errors report
+      flash[:error] = @contract.errors.full_messages
+    else
+      # Inventory Code is not an item - might be an option...
+      @option = @contract.options.first(:conditions => { :barcode => params[:code] })
+      unless @option
+        flash[:error] = _("The Inventory Code was not found.")
+      end   
     end
     render :action => 'change_line'
   end

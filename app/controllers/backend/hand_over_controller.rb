@@ -51,7 +51,9 @@ class Backend::HandOverController < Backend::BackendController
       @contract_line.item = Item.first(:conditions => { :inventory_code => required_item_inventory_code})
       @contract_line.start_date = Date.today
       @contract_line.end_date = Date.today if @contract_line.end_date < @contract_line.start_date
-      @start_date_changed = @contract_line.start_date_changed?
+      #old# @start_date_changed = @contract_line.start_date_changed?
+      flash[:notice] = _("The start date has been changed") if @contract_line.start_date_changed?
+
       if @contract_line.save
         # TODO refactor in model: change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
         # TODO refactor in model: log_change(change, user_id)
@@ -59,9 +61,10 @@ class Backend::HandOverController < Backend::BackendController
         @contract_line.errors.each_full do |msg|
           @contract.errors.add_to_base msg
         end
+        flash[:error] = @contract.errors.full_messages
       end
       
-# TODO 28** update all lines
+# TODO 29** update all lines
 #      render :update do |page|
 #        page.replace_html  'lines', :partial => 'lines'
 #      end
@@ -75,6 +78,7 @@ class Backend::HandOverController < Backend::BackendController
     item = current_inventory_pool.items.first(:conditions => { :inventory_code => params[:code] })
     model = item.model unless item.nil?
     unless model.nil?
+      # TODO 29** check if the item is already assigned to the current contract (prevent double assign) and return the correct message
       contract_line = @contract.contract_lines.first(:conditions => { :model_id => model.id,
                                                                       :item_id => nil })
       unless contract_line.nil?
@@ -86,18 +90,27 @@ class Backend::HandOverController < Backend::BackendController
         change_line
       else
         flash[:error] = _("Inventory Code identifies an item that is not in this order.")
+        # TODO 29** open a greybox and select if really hand_over or cancel
+        @add_as_new_line = true
+        @item = item
       end
-
-      render :action => 'change_line'
       
     else 
-      #Inventory Code is not an item - might be an option...
-      om = OptionMap.find(:first, :conditions => { :barcode => params[:code] })
+      # Inventory Code is not an item - might be an option...
+      # Increment quantity if the option is already present
+      om = OptionMap.first(:conditions => { :barcode => params[:code] })
       if om
-        @option = Option.create(:barcode => om.barcode, :name => om.text, :quantity => 1, :contract => @contract)
-        render :action => 'add_option_to_list'
+        #old# @option = @contract.options.create(:barcode => om.barcode, :name => om.text, :quantity => 1)
+        @option = @contract.options.find_or_create_by_barcode(:barcode => om.barcode, :name => om.text)
+        @option.quantity ||= 0
+        @option.update_attribute :quantity, @option.quantity + 1
+#old#        render :action => 'add_option_to_list'
+      else
+        flash[:error] = _("The Inventory Code was not found.")
       end   
     end
+    
+    render :action => 'change_line' unless @prevent_redirect # TODO 29**
   end
 
   def add_option
@@ -123,6 +136,17 @@ class Backend::HandOverController < Backend::BackendController
       @options = Option.find(params[:options].split(',')) # TODO scope current_inventory_pool
       render :layout => $modal_layout_path
     end   
+  end
+
+  # TODO 29**
+  def add_line_with_item
+    @prevent_redirect = true
+    item = current_inventory_pool.items.find(params[:item_id])
+    params[:model_id] = item.model.id
+    add_line
+    params[:code] = item.inventory_code
+    assign_inventory_code
+    redirect_to :action => 'show'
   end
 
   def add_line

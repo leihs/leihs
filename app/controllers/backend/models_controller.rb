@@ -100,12 +100,19 @@ class Backend::ModelsController < Backend::BackendController
 
 #################################################################
 
+# TODO 29** where is still needed?
   def available_items
-    a_items = current_inventory_pool.items.all(:conditions => ["model_id IN (?) AND inventory_code LIKE ?",
-                                                                params[:model_ids],
-                                                                '%' + params[:code] + '%'])
+#old#    
+#    a_items = current_inventory_pool.items.all(:conditions => ["model_id IN (?) AND inventory_code LIKE ?",
+#                                                                params[:model_ids],
+#                                                                '%' + params[:code] + '%'])
+#    @items = a_items.select {|i| i.in_stock? }
+
     # OPTIMIZE check availability
-    @items = a_items.select {|i| i.in_stock? }
+    
+    @items = current_inventory_pool.items.in_stock.all(:conditions => ["model_id IN (?) AND inventory_code LIKE ?",
+                                                                        params[:model_ids],
+                                                                        '%' + params[:code] + '%'])
     
     render :inline => "<%= auto_complete_result(@items, :inventory_code) %>"
   end
