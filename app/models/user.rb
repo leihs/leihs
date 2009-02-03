@@ -168,24 +168,22 @@ class User < ActiveRecord::Base
 
 ####################################################################
 
-  # TODO call from cron >>> ./script/runner User.remind_all
   def self.remind_all
     User.all.each do |u|
-      puts u.remind
+      u.remind
     end
   end
 
   def remind(reminder_user = self)
     visits_to_remind = to_remind
-    m = ""
     unless visits_to_remind.empty?
       Notification.remind_user(self, visits_to_remind)
       histories.create(:text => _("Reminded %{q} items for contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
                                                                                 :c => visits_to_remind.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
                        :user_id => reminder_user,
                        :type_const => History::REMIND)
+      puts self.name
     end
-    m
   end
   
   def to_remind?

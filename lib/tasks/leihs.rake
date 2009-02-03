@@ -32,9 +32,19 @@ namespace :leihs do
     Contract.rebuild_index
     Order.rebuild_index
     
-    puts "Complete"    
+    puts "Maintenance complete ------------------------"    
   end
 
+  desc "Remind users"
+  task :remind => :environment do
+    puts "Reminding users..."    
+    User.remind_all
+
+    puts "Remind complete -----------------------------"    
+  end
+
+  desc "Cron: Remind & Maintenance"
+  task :cron => [:remind, :maintenance]
 
   desc "Run Rspec tests"
   task :test do
