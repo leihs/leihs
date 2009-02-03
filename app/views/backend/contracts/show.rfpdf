@@ -9,7 +9,7 @@
     end
 
     def user_address
-      @contract.user.login
+      @contract.user.firstname + " " + @contract.user.lastname
     end
 
     leftmargin = 25.0
@@ -26,14 +26,26 @@
 	pdf.Cell(40, 10, filter(_("Contract no. %d")) % @contract.id )
 	pdf.Ln()
 
+    
+    # Legal text for contract TODO: get this info from system configuration, i.e. the DB
+    pdf.SetFont('Arial', '', 10)
+    pdf.Write(5, filter(_('This lending contract covers borrowing the following items by the person (natural or legal) described as "borrowing party" above. Use of these items is only allowed for the purpose given below.')) )
+    pdf.Ln(8)
+
 
     # Information about the parties involved in the contract
 
+    if pdf.GetY < 51.0
+      # Move address to at least 54 mm from top so that the borrower address shows up
+      # in a standard C5 envelope with address window on the left
+      pdf.SetY(51.0)
+    end
+    
     parties_x = pdf.GetX
     parties_y = pdf.GetY
 
     pdf.SetFont('Arial', 'B', 10)
-    pdf.Cell(40, 5, filter(_("Lending party:")))
+    pdf.Cell(40, 5, filter(_("Borrowing party:")))
 
     # Width of the address blocks and distance between one another
     blockwidth = 80
@@ -41,32 +53,32 @@
 
     # Move below the previous cell
     pdf.SetXY( parties_x, parties_y + 5)
+
+    # Print borowing party
+    pdf.SetFont('Arial', '', 10)
+    pdf.MultiCell(blockwidth, 5, filter(user_address))
+
+    below_borrower_y = pdf.GetY
+
+
+    # Put some distance between the parties
+    pdf.SetXY(parties_x + blockwidth + blockspacing, parties_y)
+
+    # Print lending party
+    pdf.SetFont('Arial', 'B', 10)
+    pdf.Cell(40, 5, filter(_("Lending party:")))
+
+    pdf.SetXY( parties_x + blockwidth + blockspacing, parties_y + 5)
+
     pdf.SetFont('Arial', '', 10)
     pdf.MultiCell(blockwidth, 5, filter("Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8031 Zürich"))
     below_lender_y = pdf.GetY
-
-
-    pdf.SetFont('Arial', 'B', 10)
-    pdf.SetXY(parties_x + blockwidth + blockspacing, parties_y)
-    pdf.Cell(40, 5, filter(_("Borrowing party:")))
-
-    pdf.SetXY( parties_x + blockwidth + blockspacing, parties_y + 5)
-    pdf.SetFont('Arial', '', 10)
-    pdf.MultiCell(blockwidth, 5, filter(user_address))
-    below_borrower_y = pdf.GetY
 
 
     pdf.SetY( [below_borrower_y, below_lender_y].max)
     pdf.Ln
 
 
-    # Legal text for contract TODO: get this info from system configuration, i.e. the DB
-
-    #pdf.MultiCell(40, 5, _('This lending contract covers the borrowing of the following items by the person (natural or legal) described as "borrowing party" above. Use of these items is only allowed for the purpose given below.'))
-
-    pdf.Write(5, filter(_('This lending contract covers borrowing the following items by the person (natural or legal) described as "borrowing party" above. Use of these items is only allowed for the purpose given below.')) )
-
-    pdf.Ln(8)
 
     # Colors, line width and bold font
     pdf.SetTextColor(0)
@@ -194,7 +206,9 @@
     after_signature_x = pdf.GetX
 
     pdf.Cell(50, 0, Date.today.strftime("%d.%m.%Y"), 0, 0)
-    pdf.Line(after_signature_x, pdf.GetY + 3, pdf.GetX + 80, pdf.GetY + 3)
+
+
+    pdf.Line(after_signature_x, pdf.GetY + 3, 175.0, pdf.GetY + 3)
 
 
 %>
