@@ -3779,8 +3779,10 @@ Event.Methods = (function() {
     isRightClick:  function(event) { return isButton(event, 2) },
 
     element: function(event) {
+	try { //TODO: 04 try/catch added because IE complained about not having object
       var node = Event.extend(event).target;
       return Element.extend(node.nodeType == Node.TEXT_NODE ? node.parentNode : node);
+	} catch(ignored) {}
     },
 
     findElement: function(event, expression) {
