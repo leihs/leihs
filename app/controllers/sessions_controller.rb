@@ -40,6 +40,10 @@ class SessionsController < ApplicationController
     end
   end
 
+  def old_new
+    self.current_user = User.first
+  end
+
   def destroy
     cookies.delete :auth_token
     reset_session
