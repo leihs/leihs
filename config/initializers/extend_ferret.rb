@@ -3,7 +3,7 @@ class Array
   # TODO 06** optimize scoping directly to sql
   # Forward search query to Ferret search engine
   def search(q, options = {}, find_options = {})
-    q = "*" + q + "*" #if q.blank? # TODO 21** avoid using ferret (use directly paginate instead)
+    q = "*#{q}*" #if q.blank? # TODO 21** avoid using ferret (use directly paginate instead)
     unless q.blank? or self.empty?
       classes = self.collect(&:class).uniq
       c = classes.shift
@@ -30,7 +30,7 @@ class Class
   # Forward search query to Ferret search engine
   def search(q, options = {}, find_options = {})
     unless q.blank?
-      q = "*" + q + "*"
+      q = "*#{q}*"
       self.find_by_contents(q, options, find_options)
     else
       self.paginate options.merge(find_options)      
