@@ -29,6 +29,12 @@ task :link_config do
   run "ln -s #{db_config} #{release_path}/config/database.yml"
 end
 
+task :link_attachments do
+	run "rm -rf #{release_path}/public/images/attachments"
+	run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
+end
+
+
 task :remove_htaccess do
 	# Kill the .htaccess file as we are using mongrel, so this file
 	# will only confuse the web server if parsed.
@@ -58,6 +64,7 @@ end
 
 after "deploy:symlink", :link_config
 after "deploy:symlink", :chmod_ferret
+after "deploy:symlink", :link_attachments
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
 
