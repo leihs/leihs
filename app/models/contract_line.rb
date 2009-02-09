@@ -41,6 +41,10 @@ class ContractLine < DocumentLine
 
 ################################################## 
 
+  def to_s
+    "#{item} - #{end_date.strftime('%d.%m.%Y')}"
+  end
+
   def is_late?(current_date = Date.today)
     item and returned_date.nil? and end_date < current_date
   end

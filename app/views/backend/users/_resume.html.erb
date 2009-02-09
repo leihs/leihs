@@ -1,28 +1,30 @@
 <%
-to_acknowledge_size = (@current_inventory_pool.orders.submitted & @user.orders.submitted).size
+user_to_acknowledge_size = (@current_inventory_pool.orders.submitted & @user.orders.submitted).size
 
-to_hand_over_size = @current_inventory_pool.hand_over_visits.select { |v| v.user == @user }.collect(&:quantity).sum
-
-# OPTIMIZE collect only items with {:returned_date => nil}
-to_take_back_size = @current_inventory_pool.take_back_visits.select { |v| v.user == @user }.collect(&:quantity).sum
+user_to_hand_over_size = @current_inventory_pool.hand_over_visits.select { |v| v.user == @user }.collect(&:quantity).sum
 
 # OPTIMIZE collect only items with {:returned_date => nil}
-to_remind_size = @current_inventory_pool.remind_visits.select { |v| v.user == @user }.collect(&:quantity).sum
+user_to_take_back_size = @current_inventory_pool.take_back_visits.select { |v| v.user == @user }.collect(&:quantity).sum 
+
+# OPTIMIZE collect only items with {:returned_date => nil}
+user_to_remind_size = @current_inventory_pool.remind_visits.select { |v| v.user == @user }.collect(&:quantity).sum
+
+
 %>
 
 <ul class="buttons">
-	<li><%= link_to icon_tag("accept") + _("%{i} orders") % { :i => to_acknowledge_size },
+	<li><%= link_to icon_tag("accept") + _("%{i} orders") % { :i => user_to_acknowledge_size },
 			backend_inventory_pool_user_acknowledge_index_path(@current_inventory_pool, @user),
-			{ :target => '_top' } if to_acknowledge_size > 0 %></li>
-	<li><%= link_to icon_tag("arrow_turn_right") + _("%{i} items") % { :i => to_hand_over_size },
+			{ :target => '_top' } if user_to_acknowledge_size > 0 %></li>
+	<li><%= link_to icon_tag("arrow_turn_right") + _("%{i} items") % { :i => user_to_hand_over_size },
 			backend_inventory_pool_user_hand_over_path(@current_inventory_pool, @user),
-    	    { :target => '_top' } if to_hand_over_size > 0 %></li>
-	<li><%= link_to icon_tag("arrow_undo") + _("%{i} items") % { :i => to_take_back_size },
+    	    { :target => '_top' } if user_to_hand_over_size > 0 %></li>
+	<li><%= link_to icon_tag("arrow_undo") + _("%{i} items") % { :i => user_to_take_back_size },
 			backend_inventory_pool_user_take_back_path(@current_inventory_pool, @user),
-        	{ :target => '_top' } if to_take_back_size > 0 %></li>
-	<li><%= link_to icon_tag("clock") + _("%{i} items") % { :i => to_remind_size },
+        	{ :target => '_top' } if user_to_take_back_size > 0 %></li>
+	<li><%= link_to icon_tag("clock") + _("%{i} items") % { :i => user_to_remind_size },
         	backend_inventory_pool_user_take_back_path(@current_inventory_pool, @user, :remind => true),
-        	{ :target => '_top' } if to_remind_size > 0 %></li>
+        	{ :target => '_top' } if user_to_remind_size > 0 %></li>
 	<% if @user.to_remind? %>
 		<li><%= link_to icon_tag("clock_red") + _("Remind"),
 				{ :controller => 'users', :action => 'remind', :id => @user.id } %></li>

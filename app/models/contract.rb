@@ -39,7 +39,7 @@ class Contract < Document
   def sign(contract_lines = nil)
     update_attribute :status_const, Contract::SIGNED 
 
-    if contract_lines and contract_lines.any? { |cl| cl.item }
+    if options.size > 0 or (contract_lines and contract_lines.any? { |cl| cl.item })
 
       # Forces handover date to be today.
       contract_lines.each {|cl| cl.update_attribute :start_date, Date.today if cl.start_date != Date.today }

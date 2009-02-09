@@ -81,6 +81,7 @@ ActionController::Routing::Routes.draw do |map|
       inventory_pool.resources :users, :member => { :new_contract => :get,
                                                     :remind => :get,
                                                     :access_rights => :get,
+                                                    :things_to_return => :get,
                                                     :remove_access_right => :get,  # OPTIMIZE method
                                                     :add_access_right => :post } do |user|
                user.resources :acknowledge, :member => { :approve => :any,

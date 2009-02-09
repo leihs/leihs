@@ -23,6 +23,10 @@ class Backend::UsersController < Backend::BackendController
   def show
   end
 
+  def things_to_return
+    @user_things_to_return = @user.things_to_return.select { |t| t.returned_date.nil? }
+  end
+  
   def remind
     flash[:notice] = _("User %s has been reminded ") % @user.remind(current_user)
     redirect_to :action => 'index' 
