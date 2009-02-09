@@ -241,27 +241,46 @@
 					iconCls:'bt',
 		            icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
 			        handler: function(){
-						Ext.MessageBox.show({
-				           title: '<%= _("Do you want to submit this order?") %>',
-				           msg: '<%= _("Purpose") %>',
-				           width:300,
-				           buttons: Ext.MessageBox.OKCANCEL,
-				           multiline: true,
-				           animEl: this.id,
-				           fn: function (btn, text){
-								if(btn == "ok"){
-									order.layout.setActiveItem(1);
-									order.layout.activeItem.load({
-									    url: '/user/order/submit',
-										method: 'POST',
-										params: {"id": complete_order_store.reader.jsonData['id'],
-												 "purpose": text,
-												 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'}
-									});
-									// TODO 18** catch failure
-							}
-						   }
-				       });
+			            var purpose_win = new Ext.Window({
+								xtype: 'form',
+								layout: 'form',
+								title: '<%= _("Do you want to submit this order?") %>',
+								width: 600,
+								height: 200,
+								bodyStyle: 'padding:15px',
+								items: {
+									xtype: 'textarea',
+									fieldLabel: '<%= _("Purpose") %>',
+									name: 'purpose',
+									allowBlank: false,
+									anchor: '90%'
+								},
+								buttons: [{
+									text: '<%= _("Submit") %>',
+									type: 'submit',
+									// disabled : true,
+									handler: function(){
+										var b = true;
+										var parameters = new Hash({"id": complete_order_store.reader.jsonData['id'],
+																  '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'});
+										purpose_win.items.items._each(function(item){
+											b = b && item.validate();
+											parameters.set(item.name, item.getValue());
+										});
+										if (b) {
+											order.layout.setActiveItem(1);
+											order.layout.activeItem.load({
+												url: '/user/order/submit',
+												method: 'POST',
+												params: parameters.toObject()
+											});
+											purpose_win.hide();
+										}
+									}
+								}]
+							});
+						purpose_win.show();
+
 			       }
 			}]
     });
@@ -402,6 +421,7 @@
 				            handler: function(){
 								complete_order_store.load();
 								order.layout.setActiveItem(0);
+								models_grid.show();
 							}
 				        }
 				    ]
@@ -421,7 +441,7 @@
 
 	function toggle_submit_button(){
 		var a = (complete_order_store.data.length > 0);
-		var b = complete_order_store.reader.jsonData['approvable?'];
+		var b = complete_order_store.reader.jsonData['approvable?']; // OPTIMIZE
 		var c = !(a && b);
 		var t = " "; // NOTE title has to be present (not empty string)
 
