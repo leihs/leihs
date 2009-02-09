@@ -78,14 +78,39 @@ module ApplicationHelper
   
   ######## Flash #########
 
-  def flash_helper
-    content_tag :div, :id => "flash" do
-      flash_content
+  # OPTIMIZE
+  def flash_helper(floating = true)
+    if floating
+      r = javascript_tag do
+        "
+        function is_folded(element){
+          return (element.offsetLeft + element.offsetWidth > window.document.viewport.getWidth());
+        }
+        
+        function flash_toggle(element){
+          var goto = (is_folded(element) ? 3 : 20 - element.offsetWidth);
+          element.morph('right: '+ goto +'px;');
+        }
+  
+        function flash_open(element){
+          if(is_folded(element)) element.morph('right: 3px;');
+        }
+        "
+      end
+      r += content_tag :div, :id => "flash", :onclick => "flash_toggle(this);" do
+        flash_content
+      end
+    else
+      content_tag :div, :class => "flash" do
+        flash_content
+      end
     end
   end
 
   def flash_content
-    r = ""
+    r = javascript_tag do
+      "if($('flash')) flash_open($('flash'));" # OPTIMIZE
+    end
     [:notice, :error].map do |f|
       r += content_tag(:div, to_list(flash[f]), :class => "#{f}") unless flash[f].blank?
     end

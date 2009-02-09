@@ -26,11 +26,7 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def show
-    if @model.is_package?
-      redirect_to :action => 'package', :layout => params[:layout]
-    else
-      @chart = @model.chart(current_user, current_inventory_pool) 
-    end
+    redirect_to :action => 'package', :layout => params[:layout] if @model.is_package?
   end
   
   def create

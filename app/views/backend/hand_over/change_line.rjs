@@ -17,8 +17,6 @@ if @contract_line
   
   #old# page.alert("The start date has been changed") if @start_date_changed
 
-#old#  page.replace_html 'errors', :partial => 'errors'
-
 elsif @option
   page[:inventory_code].value = ""
   page.replace_html 'options', :partial => 'options'

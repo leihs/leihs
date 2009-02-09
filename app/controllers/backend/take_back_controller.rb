@@ -67,7 +67,7 @@ class Backend::TakeBackController < Backend::BackendController
       flash[:error] = @contract.errors.full_messages
     else
       # Inventory Code is not an item - might be an option...
-      @option = @contract.options.first(:conditions => { :barcode => params[:code] })
+      @option = @user.contracts.collect(&:options).flatten.detect{|o| o.barcode == params[:code] }
       unless @option
         flash[:error] = _("The Inventory Code was not found.")
       end   

@@ -121,11 +121,21 @@ class Model < ActiveRecord::Base
     GoogleChart.pie_3d_350x150(values).to_url
   end
 
+  # TODO 04** model chart
+  def chart(*args)
+    chart_google(*args)
+#    chart_gruff(*args)
+  end
+
 #old#
-  def chart(user, inventory_pool = nil, start_date = Date.today, offset_months = 3)
+  def chart_google(user, inventory_pool = nil, days_from_today = 0, days_from_start = 90)
     inventory_pool ||= (user.inventory_pools & self.inventory_pools).first # TODO 17** collect all available inventory_pools
+    days_from_today ||= 0 # OPTIMIZE
+    days_from_start ||= 90 # OPTIMIZE
+    start_date = Date.today + days_from_today.to_i.days
+    end_date = start_date + days_from_start.to_i.days
     
-    availabilities = available_dates_for_inventory_pool(start_date, start_date + offset_months.months, inventory_pool, user)
+    availabilities = available_dates_for_inventory_pool(start_date, end_date, inventory_pool, user)
     values = []
     days = []
     months = []
@@ -164,52 +174,54 @@ class Model < ActiveRecord::Base
     return "http://chart.apis.google.com/chart?#{args.join('&')}" 
   end
 
+# TODO
 #new#
-#  def chart(user, inventory_pool = nil, start_date = Date.today, offset_months = 3)
-#    values = []
-#    days = []
-#    months = []
-#    last_value = nil
-#    last_month = nil
-#
-#    inventory_pools = (inventory_pool ? [inventory_pool] : (user.inventory_pools & self.inventory_pools))
-#    inventory_pools.each do |ip|
-#      ip_values = []
-#      availabilities = available_dates_for_inventory_pool(start_date, start_date + offset_months.months, ip, user)
-#      availabilities.each do |a|
-#        ip_values << a[1]
-#        days << (last_value != a[1] ? a[0].day : nil)
-#        months << (last_month != a[0].month ? a[0].strftime('%b') : nil)      
-#        last_value = a[1] 
-#        last_month = a[0].month
-#      end
-#      values << ip_values.join(',')
-#    end
-#
-#    values_uniq = values.uniq
-#    values_max = values.max
-#
-#    x1_labels = days.join('|')
-#    x2_labels = months.join('|')
-##    y_labels = (0..values_max).to_a.collect{|v| values.include?(v) ? v : nil}.join('|')
-#    y_labels = values_uniq.join('|')
-#    y_positions = values_uniq.join(',')
-#
-#    args = []
-#    args << "cht=bvg" #"cht=bvs"
-#    args << "chs=800x200"
-#    args << "chxt=x,x,y,r"
-#    args << "chxtc=0,-200|1,5|2,-800"
-#    args << "chxs=1,000000,12,-1,lt,000000"
-#    args << "chxl=0:|#{x1_labels}|1:|#{x2_labels}|2:|#{y_labels}|3:|#{y_labels}"
-#    args << "chd=t:#{values.join('|')}"
-#    args << "chbh=7,1,2"
-#    args << "chds=0,#{values_max}"
-#    args << "chxr=2,0,#{values_max}|3,0,#{values_max}"
-#    args << "chxp=2,#{y_positions}|3,#{y_positions}"
-#    
-#    return "http://chart.apis.google.com/chart?#{args.join('&')}" 
-#  end
+  def chart_gruff(user, inventory_pool = nil, days_from_today = 0, days_from_start = 90)
+#### start copy-paste    
+    inventory_pool ||= (user.inventory_pools & self.inventory_pools).first # TODO 17** collect all available inventory_pools
+    days_from_today ||= 0 # OPTIMIZE
+    days_from_start ||= 90 # OPTIMIZE
+    start_date = Date.today + days_from_today.to_i.days
+    end_date = start_date + days_from_start.to_i.days
+    
+    availabilities = available_dates_for_inventory_pool(start_date, end_date, inventory_pool, user)
+    values = []
+    days = []
+    months = []
+    last_value = nil
+    last_month = nil
+    availabilities.each do |a|
+      values << a[1]
+      days << (last_value != a[1] ? a[0].day : nil)
+      months << (last_month != a[0].month ? a[0].strftime('%b') : nil)      
+      last_value = a[1] 
+      last_month = a[0].month
+    end
+#### end copy-paste
+    
+    require 'rubygems'
+    require 'gruff'
+    
+    g = Gruff::Bar.new("800x150")
+    g.font = '/Library/Fonts/Arial.ttf' # TODO define local fonts
+    g.title_font_size = g.marker_font_size = g.legend_font_size = 12
+    g.hide_legend = true
+    g.top_margin = -30
+    g.right_margin = 5
+#    g.bottom_margin = -10
+    g.left_margin = -5
+    g.data("Items", values)
+#    g.data("Oranges", [4, 8, 7, 9, 8, 9])
+#    g.data("Watermelon", [2, 3, 1, 5, 6, 8])
+#    g.data("Peaches", [9, 9, 10, 8, 7, 9])
+    
+    g.labels = {0 => 'Jan', 20 => 'Feb', 30 => 'Mar'}
+    g.minimum_value = 1
+    
+    g.theme_37signals
+    
+    return g    
+  end
 
 #############################################  
 
