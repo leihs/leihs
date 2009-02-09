@@ -47,6 +47,32 @@ class DocumentLine < ActiveRecord::Base
     self.start_date <=> other.start_date
   end
 
+###############################################  
+
+  # TODO 03** merge here available_tooltip and complete_tooltip
+  def tooltip
+    r = ""
+    r += self.available_tooltip
+    r += "<br/>"
+    r += self.complete_tooltip
+    # TODO 03** include errors?
+    # r += self.errors.full_messages
+    return r
+  end
+
+  # custom valid? method
+  # returns boolean
+  def complete?
+    self.valid? and self.available?
+  end
+
+  # TODO 04** merge in complete? 
+  def complete_tooltip
+    r = ""
+    r += _("not valid. ") unless self.valid? # TODO 04** self.errors.full_messages
+    r += _("not available. ") unless self.available?
+    return r
+  end
 
   def available?
     model.maximum_available_in_period_for_document_line(start_date, end_date, self) >= quantity and 
@@ -62,6 +88,7 @@ class DocumentLine < ActiveRecord::Base
     return r
   end
 
+###############################################  
 
   private
   

@@ -5,6 +5,7 @@
 		        totalProperty: 'results',
 		        id: 'id',
 		        fields: [
+					   {name: 'id', type: 'int'},
 					   {name: 'name', type: 'string'},
 					   {name: 'manufacturer', type: 'string'},
 					   {name: 'description', type: 'string'},
@@ -14,8 +15,7 @@
 					   {name: 'accessories'},
 					   {name: 'images'},
 					   {name: 'is_package', type: 'boolean'},
-					   {name: 'package_items'},
-   					   {name: 'chart', type: 'string'},
+					   {name: 'package_items'}
 		        ]
 		    });
 
@@ -225,8 +225,8 @@ function add_model_details(model_id, open_add_tab){
 				title: '<%= _("Details") %>',
 				loadingText: '<%= _("Loading") %>...',
                 tpl: new Ext.XTemplate('<tpl for=".">', 
-										 '<div class="model_images" style="float: right;"><tpl for="images">', '<img src="{public_filename_thumb}">', '</tpl>', '</div>',                
                                          '<div class="model_description">',
+										 '<div class="model_images"><tpl for="images">', '<img src="{public_filename_thumb}">', '</tpl>', '</div>',                
                                          '<h2>{name} ({manufacturer})</h2>',
                                          '<p>{description}</p>',
                                         
@@ -283,7 +283,8 @@ function add_model_details(model_id, open_add_tab){
 				xtype: 'dataview',
 				title: '<%= _("Chart") %>',
                 tpl: new Ext.XTemplate('<tpl for=".">', 
-                                         '<p><img src="{chart}"></p>',
+                                         '<img src="/models/{id}/chart" id="chart" alt="Chart...">',
+										 '<br/><a onclick="$(\'chart\').src=\'/models/{id}/chart?days_from_today=90\'; return false;" href="#">Next</a>',
 										'</tpl>')
 			}, {
 				id: 'add_tab_' + model_id,

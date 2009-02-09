@@ -146,7 +146,8 @@ module Backend::BackendHelper
     h = javascript_tag do
         "Ajax.Responders.register({
             onCreate: function(){ $('loading_panel').style.visibility='visible'; },
-            onComplete: function(){ $('loading_panel').style.visibility='hidden'; }
+            onComplete: function(){ decoGreyboxLinks();
+                                    $('loading_panel').style.visibility='hidden'; }
         });"
     end
     h += content_tag :div, :id => 'loading_panel' do

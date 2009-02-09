@@ -4,6 +4,11 @@
 				is_checked = (@line.item and @line.complete?) %>
 			<%= check_box_tag('contract_lines[]', @line.id, is_checked, :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'ghostable_group_1');" ) %>
 			<%= @line.quantity %>
+
+			<% # TODO 03** tooltip %>
+			<% tooltip icon_tag('error') do %>
+				<%= @line.tooltip %>
+			<% end unless @line.complete? %>
 		</td>
 		<td>
 			<%  if @line.location %>
@@ -12,37 +17,38 @@
 			<% end %>
 			<%= show_line_model(@line.model) %>
 		</td>
-		<td class="valid_<%= @line.available? %>" style="white-space: nowrap;">
+		<% b = @line.available? %>
+		<td class="valid_<%= b %>">
 			<%= greybox_link_to_page(dates_with_period(@line.start_date, @line.end_date),
 			 		{ :action => 'time_lines', :lines => @line.id },
 					:class => "thickbox iconized-notxt date-edit",
 					:id => "dates_#{@line.id}",
 					:title => _("Time Period") ) %>
 		</td>
-		<% b = @line.complete? %>
+		<%#old# b = @line.complete? %>
+		<% b = !@line.item.nil? %>
 		<td id="inventory_code_<%= @line.id %>" class="valid_<%= b %>">
-			<% @item = @line.item %>
-			<% # TODO 29** %>
+			<%	@item = @line.item
+				@item_inventory_code = (@item ? @item.inventory_code : "") %>
+			<% javascript_tag do %>
+				var line_<%= @line.id %>_item;
+			<% end %>
 			<%= text_field :item, :inventory_code,
 							{	:id => "line_item_inventory_code_#{@line.id}",
 								:size => 10,
 								:autocomplete => false,
-								:onclick => "if(this.value == ''){ item_inventory_codes_#{@line.id}_auto_completer.activate(); }",
-								:onkeyup => "if(event.keyCode == 13){ " + remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + this.value" ) + "}"
+ 							    :onblur => "if(this.value != '#{@item_inventory_code}' && this.value != line_#{@line.id}_item){ line_#{@line.id}_item = this.value; " + remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + this.value" ) + "}",
+ 							    :onchange => "if(this.value != '#{@item_inventory_code}' && this.value != line_#{@line.id}_item){ line_#{@line.id}_item = this.value; " + remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + this.value" ) + "}",
+ 							    :onfocus => "if(this.value != '#{@item_inventory_code}' && this.value != line_#{@line.id}_item){ line_#{@line.id}_item = this.value; " + remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + this.value" ) + "}"
 							} %>
 			<div class="autocomplete" id="line_item_inventory_code_<%= @line.id %>_list" style="display:none"></div>
 			<% javascript_tag do %>
-			var item_inventory_codes_<%= @line.id %> = <%= @current_inventory_pool.items.in_stock.by_model(@line.model).collect(&:inventory_code).inspect %>;
-			var item_inventory_codes_<%= @line.id %>_auto_completer = new Autocompleter.Local("line_item_inventory_code_<%= @line.id %>",
-																								"line_item_inventory_code_<%= @line.id %>_list",
-																								item_inventory_codes_<%= @line.id %>,
-																								{fullSearch: true});
-			<% end %>
-						
-			<% if @line.model.internal_description and not @line.model.internal_description.blank? %>
-				<% tooltip icon_tag("information") do%>
-					<%= @line.model.internal_description %>
-				<% end %>
+			$('line_item_inventory_code_<%= @line.id %>').observe('click', function(){ if(this.value == ''){ auto_completer_<%= @line.id %>.activate(); } });
+
+			var auto_completer_<%= "#{@line.id}" %> = new Autocompleter.Local("line_item_inventory_code_<%= @line.id %>",
+																				"line_item_inventory_code_<%= @line.id %>_list",
+																				<%= @current_inventory_pool.items.in_stock.by_model(@line.model).collect(&:inventory_code).inspect %>,
+																				{fullSearch: true});
 			<% end %>
 							
 		</td>

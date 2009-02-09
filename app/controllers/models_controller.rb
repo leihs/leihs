@@ -80,7 +80,6 @@ class ModelsController < FrontendController
                                                                          :maintenance_period,
                                                                          :created_at,
                                                                          :updated_at ],
-                                                            :methods => [[:chart, current_user]],
                                                             :include => {
                                                                 :package_items => { :except => [:created_at,
                                                                                                 :updated_at,
@@ -110,7 +109,11 @@ class ModelsController < FrontendController
 #################################################################
 
   def chart
-     # TODO 21** implement
+    # TODO 04** pass arguments
+    c = @model.chart(current_user, @inventory_pool, params[:days_from_today], params[:days_from_start])
+#old#    
+    redirect_to c
+#new#    send_data(c.to_blob, :filename => "model_#{@model.id}.png", :type => 'image/png')
   end
 
 #################################################################
@@ -118,9 +121,9 @@ class ModelsController < FrontendController
   private
   
   def pre_load
-#    params[:model_id] ||= params[:id] if params[:id]
-#    @model = current_user.models.find(params[:model_id]) if params[:model_id]
-    @model = current_user.models.find(params[:id]) if params[:id]
+    params[:model_id] ||= params[:id] if params[:id]
+    @model = current_user.models.find(params[:model_id]) if params[:model_id]
+    @inventory_pool = current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
   end
 
 

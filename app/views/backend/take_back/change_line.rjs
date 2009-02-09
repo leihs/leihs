@@ -9,8 +9,6 @@ if @contract_line
 #  css_class = "valid_#{@contract_line.complete?}"
 #  page << "$('inventory_code_#{params[:contract_line_id]}').className='#{css_class}'"
 
-#old#  page.replace_html 'errors', :partial => 'errors'
-
 elsif @option
   # TODO 29** select option checkbox. quantity counter???
 end

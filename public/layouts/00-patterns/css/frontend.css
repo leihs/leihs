@@ -33,3 +33,7 @@ table.orders th {
     padding: 12px;
     font-size: 12px;
 }
+
+.model_images {
+	float: right;
+}
