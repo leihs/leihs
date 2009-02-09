@@ -28,13 +28,14 @@ class Backend::HandOverController < Backend::BackendController
   
   # Sign definitely the contract
   def sign_contract
-    @lines = @contract.contract_lines.find(params[:lines].split(','))
+    @lines = @contract.contract_lines.find(params[:lines].split(',')) if params[:lines]
+    @lines ||= []
     if request.post?
       @contract.sign(@lines)
       render :action => 'print_contract', :layout => $modal_layout_path
     else
       @lines = @lines.delete_if {|l| l.item.nil? }
-      flash[:error] = _("No items to hand over specified. Please assign inventory codes to the items you want to hand over.") if @lines.empty?
+      flash[:error] = _("No items to hand over specified. Please assign inventory codes to the items you want to hand over.") if @lines.empty? and @contract.options.empty?
       render :layout => $modal_layout_path
     end    
   end

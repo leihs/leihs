@@ -76,6 +76,10 @@ class User < ActiveRecord::Base
 
 ################################################
 
+  def things_to_return
+    contracts.signed_contracts.collect(&:contract_lines).flatten + contracts.signed_contracts.collect(&:options).flatten
+  end
+
   # get or create a new order (among all inventory pools)
   def get_current_order
     order = current_order

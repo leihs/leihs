@@ -34,10 +34,11 @@ class Backend::TakeBackController < Backend::BackendController
     @options = Option.find(params[:options].split(',')) if params[:options]
     
     if request.post?
-      @lines = current_inventory_pool.contract_lines.find(params[:lines])
-      @contracts = @lines.collect(&:contract).uniq
+      @lines = current_inventory_pool.contract_lines.find(params[:lines]) if params[:lines]
+      @lines ||= []
+      @contracts = @lines.collect(&:contract).uniq + @options.collect(&:contract).uniq
       
-      # set the return dates to the given contract_lines
+      # set the return datesU to the given contract_lines
       @lines.each { |l| l.update_attribute :returned_date, Date.today }
       @options.each { |o| o.update_attribute :returned_date, Date.today } if @options
       
