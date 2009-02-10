@@ -283,8 +283,8 @@ function add_model_details(model_id, open_add_tab){
 				xtype: 'dataview',
 				title: '<%= _("Chart") %>',
                 tpl: new Ext.XTemplate('<tpl for=".">', 
-                                         '<img src="/models/{id}/chart" id="chart" alt="Chart...">',
-										 '<br/><a onclick="$(\'chart\').src=\'/models/{id}/chart?days_from_today=90\'; return false;" href="#">Next</a>',
+                                         '<img src="/models/{id}/chart?days_from_today=0" id="chart" alt="Chart...">',
+										 '<br/><a onclick="var c=$(\'chart\'); var q=c.src.toQueryParams(); var d = 1 * q.days_from_today - 90; c.src=\'/models/{id}/chart?days_from_today=\' + d; return false;" href="#">Prev</a> <a onclick="var c=$(\'chart\'); var q=c.src.toQueryParams(); var d = 1 * q.days_from_today + 90; c.src=\'/models/{id}/chart?days_from_today=\' + d; return false;" href="#">Next</a>',
 										'</tpl>')
 			}, {
 				id: 'add_tab_' + model_id,
