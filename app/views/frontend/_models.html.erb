@@ -282,9 +282,10 @@ function add_model_details(model_id, open_add_tab){
 				id: 'chart_tab_' + model_id,
 				xtype: 'dataview',
 				title: '<%= _("Chart") %>',
+				itemSelector: 'img.model_chart',
                 tpl: new Ext.XTemplate('<tpl for=".">', 
-                                         '<img src="/models/{id}/chart?days_from_today=0" id="chart" alt="Chart...">',
-										 '<br/><a onclick="var c=$(\'chart\'); var q=c.src.toQueryParams(); var d = 1 * q.days_from_today - 90; c.src=\'/models/{id}/chart?days_from_today=\' + d; return false;" href="#">Prev</a> <a onclick="var c=$(\'chart\'); var q=c.src.toQueryParams(); var d = 1 * q.days_from_today + 90; c.src=\'/models/{id}/chart?days_from_today=\' + d; return false;" href="#">Next</a>',
+                                         '<img src="/models/{id}/chart?days_from_today=0" id="chart_{id}" alt="Chart..." class="model_chart">',
+										 '<br/><a onclick="var c=$(\'chart_{id}\'); var q=c.src.toQueryParams(); var d = 1 * q.days_from_today - 90; c.src=\'/models/{id}/chart?days_from_today=\' + d; return false;" href="#">Prev</a> <a onclick="var c=$(\'chart_{id}\'); var q=c.src.toQueryParams(); var d = 1 * q.days_from_today + 90; c.src=\'/models/{id}/chart?days_from_today=\' + d; return false;" href="#">Next</a>',
 										'</tpl>')
 			}, {
 				id: 'add_tab_' + model_id,
