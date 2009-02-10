@@ -1,0 +1,5 @@
+#barcode -i /tmp/test.txt -u mm -e CODE128B -p A4 -t 5x13+98+106 -o /tmp/test.eps
+
+# For Avery Zweckform 3666 labels (A4)
+
+barcode -i /tmp/test.txt -e "CODE128B" -p "A4" -u "cm" -t "5x13+0.98+1.06" -u "cm" -m "0.4,0.4" -o /tmp/test.ps
