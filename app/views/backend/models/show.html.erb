@@ -4,15 +4,20 @@
 	<li><b>Manufacturer:</b> <%= @model.manufacturer %></li>
 	</ul>
 
-<% chart_path = chart_model_path(@model, :inventory_pool_id => @current_inventory_pool) %>
-<%= image_tag chart_path, :id => 'chart', :alt => 'Chart...' %>
-<br/>
-<% javascript_tag do %>
-var days_from_today = 0;
-<% end %>
-<%= link_to_function(_("Next"), "days_from_today += 90; $('chart').src='#{chart_path}&days_from_today='+days_from_today;") %>
+<div style="border: 1px solid black; margin: 10px; padding: 10px;">
+	<% chart_path = chart_model_path(@model, :inventory_pool_id => @current_inventory_pool) %>
+	<%= image_tag chart_path, :id => 'chart', :alt => 'Chart...' %>
+	<br/>
+	<% javascript_tag do %>
+	var days_from_today = 0;
+	<% end %>
+	<br/>
+	<div class='buttons'>
+	<%= link_to_function(_("Prev"), "days_from_today -= 90; $('chart').src='#{chart_path}&days_from_today='+days_from_today;") %>
+	<%= link_to_function(_("Next"), "days_from_today += 90; $('chart').src='#{chart_path}&days_from_today='+days_from_today;") %>
+	</div>
+</div>
 
-<hr/>
 <ul>
 <% @model.available_periods_for_inventory_pool(@current_inventory_pool, current_user).each do |a| %>
 	<li><%= a.start_date %> : <%= a.quantity %></li>
