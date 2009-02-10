@@ -47,7 +47,7 @@ end
 
 
 
-(1...200000).each do |i|
+(10000...25000).each do |i|
 	puts "Making barcode #{i.to_s}"
 	foo = BarcodeMaker.new("AVZ#{i.to_s}")
 	foo.make_png
