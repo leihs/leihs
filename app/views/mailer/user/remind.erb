@@ -1,6 +1,7 @@
 
 <%= _("The following items are overdue. Please return them as soon as possible:") %>
 
+<%= puts "\n" %>
 
 <% @visits.each do | v | %>
 
@@ -8,7 +9,7 @@
 														<%#= short_date(v.date) %>
 	<%= v.quantity %>
 	<% v.contract_lines.each do |l| %>
-		* <%= l.quantity %> - <%= l.model.name %> - <%= l.item.inventory_code %> - <%= l.start_date %> - <%= l.end_date %>
+		* <%= l.quantity %> - <%= l.model.name %> - <%= l.item.inventory_code %> - <%= l.start_date %> - <%= l.end_date %> <%= puts "\n" %>
 																					<%#= short_date(l.start_date) %> - <%#= short_date(l.end_date) %>
 	<% end %>
 <% end %>

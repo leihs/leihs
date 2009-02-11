@@ -8,9 +8,9 @@ class SessionsController < ApplicationController
   end
 
   # TODO 05** temporary
-#  def old_new
-#    render :action => 'new', :layout => 'layouts/backend/00-patterns/general'
-#  end
+  def old_new
+    render :action => 'new', :layout => 'layouts/backend/00-patterns/general'
+  end
 
   def authenticate(id = params[:id])
     @selected_system = AuthenticationSystem.active_systems.find(id) if id
