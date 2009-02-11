@@ -9,7 +9,7 @@
            width: 20,
            align: 'right',
  		   renderer:function(value,p,r){ return (r.data['available?'] == 'true')? value:'<div style="background-color: red;">'+ value +'</div>';},
-		   editor: new Ext.form.TextField({ // TODO fix rendering problem
+		   editor: new Ext.form.TextField({
                allowBlank: false
            })
         },{

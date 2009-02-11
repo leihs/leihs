@@ -36,7 +36,8 @@ class Backend::TakeBackController < Backend::BackendController
     if request.post?
       @lines = current_inventory_pool.contract_lines.find(params[:lines]) if params[:lines]
       @lines ||= []
-      @contracts = @lines.collect(&:contract).uniq + @options.collect(&:contract).uniq
+      @contracts = @lines.collect(&:contract).uniq
+      @contracts += @options.collect(&:contract).uniq if @options
       
       # set the return datesU to the given contract_lines
       @lines.each { |l| l.update_attribute :returned_date, Date.today }
@@ -62,7 +63,7 @@ class Backend::TakeBackController < Backend::BackendController
   
       contract_lines.sort! {|a,b| a.end_date <=> b.end_date} # TODO select first to take back
       @contract_line = contract_lines.detect {|cl| cl.item_id == item.id }
-      @contract_line.update_attribute :end_date, Date.today # TODO refresh all lines? #old# :start_date (error?)
+# FIXME      @contract_line.update_attribute :end_date, Date.today # TODO refresh all lines? #old# :start_date (error?)
 
       @contract = @contract_line.contract # TODO optimize errors report
       flash[:error] = @contract.errors.full_messages

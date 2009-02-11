@@ -61,7 +61,6 @@ class DocumentLine < ActiveRecord::Base
   end
 
   # custom valid? method
-  # returns boolean
   def complete?
     self.valid? and self.available?
   end

@@ -80,10 +80,10 @@
 		{
            header: "",
            dataIndex: 'quantity',
-           width: 20,
+           width: 10,
            align: 'right',
 // 		   renderer:function(value,p,r){ return (r.data['available?'] == 'true')? value:'<div style="background-color: red;">'+ value +'</div>';},
-		   editor: new Ext.form.TextField({ // TODO fix rendering problem
+		   editor: new Ext.form.TextField({
                allowBlank: false
            })
         },{
@@ -115,17 +115,17 @@
         },{
            header: "Available",
            dataIndex: 'available?',
+           width: 40,
 		   align: 'center',
 		// css: "background-color: red;",
 // 		   renderer:function(value,p,r){ return (r.data['available?'] == 'true')? value:'<div style="background-color: red;">'+ value +'</div>';},
  		   renderer:function(value,p,r){ var img = (value == 'true')?'accept':'exclamation';
 		   								 var qtip = (r.data['available?'] == 'true') ? '' : 'ext:qtip="' + r.data['available_tooltip'] +'"'; 
-		   							 	 return '<img ' + qtip + ' src="<%= $layout_public_path %>/images/icons/' + img + '.png" />';},
-           width: 40
+		   							 	 return '<img ' + qtip + ' src="<%= $layout_public_path %>/images/icons/' + img + '.png" />';}
         },{
 			header: "",
-			width: 20,
 			dataIndex: '',
+			width: 20,
 			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/bin_closed.png" %>" style="cursor: pointer;" />';}
         }]);
 
