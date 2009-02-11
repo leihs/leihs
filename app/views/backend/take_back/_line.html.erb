@@ -10,10 +10,10 @@
 		<td>
 			<%= show_line_model(@line.model) %>
 		</td>
-		<td class="valid_<%= @line.available? %>">
+		<td>
 			<%= dates_with_period(@line.start_date, @line.end_date) %>
 		</td>
-		<td id="inventory_code_<%= @line.id %>" class="valid_<%= @line.complete? %>">
+		<td id="inventory_code_<%= @line.id %>">
 			<%= greybox_link_to_page(@line.item.inventory_code,
 				 backend_inventory_pool_model_item_path(@current_inventory_pool, @line.item.model, @line.item, :layout => "modal"),
 				 :title => _("Item"),

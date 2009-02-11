@@ -305,11 +305,13 @@ function add_model_details(model_id, open_add_tab){
 				items: [{
 					layout: 'column',
 					items: [{
-						columnWidth: .1,
+						width: 60,
+						title: '<%= _("Quantity") %>',
 						layout: 'form',
 						items: [{
 							xtype: 'numberfield',
-							fieldLabel: '<%= _("Quantity") %>',
+//							fieldLabel: '<%= _("Quantity") %>',
+							hideLabel: true,
 							name: 'quantity',
 							value: '1',
 							anchor: '70%'
@@ -319,11 +321,13 @@ function add_model_details(model_id, open_add_tab){
 							value: model_id
 						}]
 					}, {
-						columnWidth: .2,
+						columnWidth: .25,
+						title: '<%= _("Inventory Pool") %>',
 						layout: 'form',
 						items: {
 							xtype: 'combo',
-							fieldLabel: '<%= _("Inventory Pool") %>',
+//							fieldLabel: '<%= _("Inventory Pool") %>',
+							hideLabel: true,
 							name: 'inventory_pool',
 							mode: 'local',
 							triggerAction: 'all',
@@ -339,11 +343,13 @@ function add_model_details(model_id, open_add_tab){
 							}
 						}
 					}, {
-						columnWidth: .2,
+						columnWidth: .25,
+						title: '<%= _("Start date") %>',
 						layout: 'form',
 						items: {
 							xtype: 'datefield',
-							fieldLabel: '<%= _("Start date") %>',
+//							fieldLabel: '<%= _("Start date") %>',
+							hideLabel: true,
 							id: 'start_date_' + model_id,
 							name: 'start_date',
 							value: new Date(),
@@ -357,11 +363,13 @@ function add_model_details(model_id, open_add_tab){
 							anchor: '90%'
 						}
 					}, {
-						columnWidth: .2,
+						columnWidth: .25,
+						title: '<%= _("End date") %>',
 						layout: 'form',
 						items: {
 							xtype: 'datefield',
-							fieldLabel: '<%= _("End date") %>',
+//							fieldLabel: '<%= _("End date") %>',
+							hideLabel: true,
 							id: 'end_date_' + model_id,
 							name: 'end_date',
 							value: new Date(),
@@ -379,12 +387,14 @@ function add_model_details(model_id, open_add_tab){
 							anchor: '90%'
 						}
 					}, {
-						columnWidth: .1,
+						width: 100,
+						bodyStyle:'padding-top:30px',
 						items: new Ext.Button({
 							text: '<%= _("Add") %>',
 							type: 'submit',
 							iconCls: 'bt',
 							icon: '<%= $layout_public_path + "/images/icons/add.png" %>',
+							minWidth: 90,
 							handler: function(){
 								this.findParentByType('form').form.submit({
 									waitMsg: '<%= _("Saving Data") %>...',
