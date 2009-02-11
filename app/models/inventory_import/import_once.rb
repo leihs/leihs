@@ -3,8 +3,8 @@ require 'user'
 class InventoryImport::ImportOnce
   
   def start(max = 999999)
-    #connect_dev
-    connect_prod
+    connect_dev
+    #connect_prod
     
     import_items(max)
     import_users

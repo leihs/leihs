@@ -6,8 +6,8 @@ class InventoryImport::Importer
   attr_accessor :messages
   
   def start(max = 999999)
-    #connect_dev
-    connect_prod
+    connect_dev
+    #connect_prod
     self.messages = []
     inventar = InventoryImport::ItHelp.find(:all, :conditions => "rental like 'yes'",	:order => 'Inv_Serienr')
     count = 0

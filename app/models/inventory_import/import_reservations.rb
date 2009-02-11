@@ -4,8 +4,8 @@ class InventoryImport::ImportReservations
 
   def start(pool)
     
-    #connect_dev
-    connect_prod
+    connect_dev
+    #connect_prod
     conditions = (pool == 0) ? ['status >=2'] : ['status >= 0 and geraetepark_id = ?', pool]
     reservations = InventoryImport::Reservation.find(:all, :conditions => conditions)
     

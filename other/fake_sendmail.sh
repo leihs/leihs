@@ -6,8 +6,10 @@ for argument in $@ ; do
 	echo $argument
 done
 
-read foo
 
-echo $foo
+while read data; do
+	echo $data
+done
+
 
 exit 0
