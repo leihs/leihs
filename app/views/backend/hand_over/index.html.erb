@@ -14,6 +14,7 @@
 				<td><%= _("%{n} Items") % {:n => visit.quantity} %></td>
 				<td width="200px" class="buttons">
 					<%= link_to icon_tag("tab_go") + _("Hand Over"), [:backend, @current_inventory_pool, visit.user, :hand_over] %>
+					<%= link_to(icon_tag("cancel") + _("Delete"), delete_visit_backend_inventory_pool_user_hand_over_path(@current_inventory_pool, visit.user, :lines => visit.contract_lines), :class => 'negative') if visit.date < Date.today %>
 				</td>
 			</tr>
 
