@@ -1,7 +1,16 @@
 
 	<ul>
-		<li><b>In stock?:</b> <%= icon_tag(@item.in_stock? ? "accept": "delete") %> </li>
-		<% # unless @item.in_stock?		TODO 29** currently borrowed by user %>
+		<li>
+			<b>In stock?:</b>
+			<%#old#= icon_tag(@item.in_stock? ? "accept": "delete") %>
+			<% if @item.in_stock? %>
+				<%= icon_tag('accept') %>
+			<% else %>
+				<% tooltip icon_tag('delete') do %>
+					<%= @item.current_borrowing_info %>
+				<% end %>
+			<% end %>
+		</li>
 	</ul>
 
 	<br />

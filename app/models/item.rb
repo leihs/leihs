@@ -35,12 +35,15 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   named_scope :borrowable, :conditions => {:is_borrowable => true, :parent_id => nil} 
-  named_scope :broken, :conditions => {:is_broken => true}
-  named_scope :incomplete, :conditions => {:is_incomplete => true}
   named_scope :unborrowable, :conditions => {:is_borrowable => false}
 
+  named_scope :broken, :conditions => {:is_broken => true}
+  named_scope :incomplete, :conditions => {:is_incomplete => true}
   named_scope :unfinished, :conditions => ['inventory_code IS NULL OR model_id IS NULL OR location_id IS NULL']
+  
+  # OPTIMIZE 1102** use contract_lines association
   named_scope :in_stock, :conditions => ['items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)']
+  named_scope :not_in_stock, :conditions => ['items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)']
 
   named_scope :by_model, lambda { |model| { :conditions => { :model_id => model } } }
 
@@ -67,14 +70,20 @@ class Item < ActiveRecord::Base
 
   def in_stock?(contract_line_id = nil)
     if contract_line_id
-      return !ContractLine.exists?(["id != ? AND item_id = ? AND returned_date IS NULL", contract_line_id, id])
+      return !contract_lines.to_take_back.exists?(["id != ?", contract_line_id])
     else
-      return !ContractLine.exists?(["item_id = ? AND returned_date IS NULL", id])
+      return contract_lines.to_take_back.empty?
     end
   end
 
   def borrowable_by?(user)
     user.level_for(inventory_pool) >= required_level
+  end
+
+  def current_borrowing_info
+    # TODO 1102** make sure is only max 1 contract_line
+    contract_line = contract_lines.first(:conditions => {:returned_date => nil})
+    _("Borrowed by %s until %s") % [contract_line.contract.user, contract_line.end_date.strftime("%d.%m.%Y")] # TODO 1102** patch Date.to_s
   end
 
   #######################

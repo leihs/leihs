@@ -108,7 +108,7 @@ ActionController::Routing::Routes.draw do |map|
                                                       :remove_options => :any,  # OPTIMIZE method
                                                       :assign_inventory_code => :post,
                                                       :timeline => :get,
-                                                      :delete_visit => :get,
+                                                      :delete_visit => :get, # OPTIMIZE method
                                                       :select_location => :any,
                                                       :auto_complete_for_location_building => :get,
                                                       :auto_complete_for_location_room => :get }

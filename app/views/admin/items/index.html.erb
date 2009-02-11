@@ -18,7 +18,15 @@
 				<td><%= item.serial_number %></td>
 				<td><%= item.location.to_s if item.location %></td>
 				<td><%= icon_tag(item.is_borrowable ? "accept": "delete") %></td>
-				<td><%= icon_tag(item.in_stock? ? "accept": "delete") %></td>
+				<td><%#old#= icon_tag(item.in_stock? ? "accept": "delete") %>
+					<% if item.in_stock? %>
+						<%= icon_tag('accept') %>
+					<% else %>
+						<% tooltip icon_tag('delete') do %>
+							<%= item.current_borrowing_info %>
+						<% end %>
+					<% end %>
+				</td>
 				<td class="buttons">
 					<ul>
 						<li><%= link_to icon_tag("magnifier") + _("Show"), record_path %></li>

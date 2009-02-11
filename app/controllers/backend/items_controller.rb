@@ -7,21 +7,30 @@ class Backend::ItemsController < Backend::BackendController
     params[:dir] ||= 'ASC'
 
     if @model
-      items = @model.items & current_inventory_pool.items # TODO 28** optimize intersection
+      items = current_inventory_pool.items.by_model(@model) #old# @model.items & current_inventory_pool.items
     elsif @location
       items = @location.items
     else
       items = current_inventory_pool.items
     end    
-    case params[:filter]
-      when "in_stock"
-        items = items.in_stock
-      when "broken"
-        items = items.broken
-      when "incomplete"
-        items = items.incomplete
-      when "unborrowable"
-        items = items.unborrowable
+
+#old#
+#    case params[:filter]
+#      when "in_stock"
+#        items = items.in_stock
+#      when "not_in_stock"
+#        items = items.not_in_stock
+#      when "broken"
+#        items = items.broken
+#      when "incomplete"
+#        items = items.incomplete
+#      when "unborrowable"
+#        items = items.unborrowable
+#    end
+    if params[:filter]
+      filter = params[:filter].to_sym
+      filters = Item.scopes.keys #['in_stock', 'not_in_stock', 'broken', 'incomplete', 'unborrowable']
+      items = items.send(filter) if filters.include?(filter)
     end
     
     @items = items.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir]), :include => [:model, :location]})

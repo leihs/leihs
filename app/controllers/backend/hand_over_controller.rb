@@ -53,7 +53,7 @@ class Backend::HandOverController < Backend::BackendController
       @contract_line.start_date = Date.today
       @contract_line.end_date = Date.today if @contract_line.end_date < @contract_line.start_date
       #old# @start_date_changed = @contract_line.start_date_changed?
-      flash[:notice] = _("The start date has been changed") if @contract_line.start_date_changed?
+      flash[:notice] = _("The start date has been changed") if @contract_line.start_date_changed? # TODO 1102** still not sure the @contract_line will be saved after validation!
 
       if @contract_line.save
         # TODO refactor in model: change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }

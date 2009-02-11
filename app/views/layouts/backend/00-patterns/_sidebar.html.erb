@@ -18,6 +18,7 @@
 		<ul>
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.items.count})", backend_inventory_pool_items_path() %></li>
 			<li><%= link_to _('In Stock') + " (#{@current_inventory_pool.items.in_stock.count})", backend_inventory_pool_items_path(:filter => 'in_stock') %></li>
+			<li><%= link_to _('Not In Stock') + " (#{@current_inventory_pool.items.not_in_stock.count})", backend_inventory_pool_items_path(:filter => 'not_in_stock') %></li>
 			<li><%= link_to _('Broken') + " (#{@current_inventory_pool.items.broken.size})", backend_inventory_pool_items_path(:filter => 'broken') %></li>
 			<li><%= link_to _('Incomplete') + " (#{@current_inventory_pool.items.incomplete.size})", backend_inventory_pool_items_path(:filter => 'incomplete') %></li>
 			<li><%= link_to _('Unborrowable') + " (#{@current_inventory_pool.items.unborrowable.size})", backend_inventory_pool_items_path(:filter => 'unborrowable') %></li>
