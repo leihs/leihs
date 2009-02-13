@@ -89,6 +89,11 @@ class Backend::TakeBackController < Backend::BackendController
     end
   end
 
+  def time_lines
+    contract = @user.contract_lines.find(Array(params[:lines]).first).contract # NOTE always assuming there is just 1 line
+    generic_time_lines(contract)
+  end    
+
   def timeline
     @timeline_xml = @user.timeline
     render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'

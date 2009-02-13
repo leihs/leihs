@@ -2,14 +2,9 @@
 	<ul>
 		<li>
 			<b>In stock?:</b>
-			<%#old#= icon_tag(@item.in_stock? ? "accept": "delete") %>
-			<% if @item.in_stock? %>
-				<%= icon_tag('accept') %>
-			<% else %>
-				<% tooltip icon_tag('delete') do %>
-					<%= @item.current_borrowing_info %>
-				<% end %>
-			<% end %>
+			<% b = @item.in_stock? %>
+			<%= icon_tag(b ? "accept": "delete") %>
+			<%= @item.current_borrowing_info unless b %>
 		</li>
 	</ul>
 

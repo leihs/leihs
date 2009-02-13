@@ -6,7 +6,7 @@ for @line in @contract_lines
   if @line.end_date > last_date
     last_date = @line.end_date
     	%>
-		<tr class="line_header"><td colspan="6" class="title"><%= short_date(@line.end_date) %></td></tr>
+		<tr class="line_header"><td colspan="5" class="title"><%= short_date(@line.end_date) %></td></tr>
 	<% end %>
 	<%= render :partial => 'line' %>
 <% end %>

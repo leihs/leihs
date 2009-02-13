@@ -65,6 +65,8 @@ class Document < ActiveRecord::Base
 
   def update_time_line(line_id, start_date, end_date, user_id)
     line = lines.find(line_id)
+    start_date ||= line.start_date
+    end_date ||= line.end_date
     original_start_date = line.start_date
     original_end_date = line.end_date
     line.start_date = start_date

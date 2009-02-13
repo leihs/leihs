@@ -5,13 +5,14 @@
 			<%= @line.quantity %>
 		</td>
 		<td>
-			<%= @line.contract.id %>
-		</td>
-		<td>
 			<%= show_line_model(@line.model) %>
 		</td>
 		<td>
-			<%= dates_with_period(@line.start_date, @line.end_date) %>
+			<%= greybox_link_to_page(dates_with_period(@line.start_date, @line.end_date),
+			 		{ :action => 'time_lines', :lines => @line.id },
+					:class => "thickbox iconized-notxt date-edit",
+					:id => "dates_#{@line.id}",
+					:title => _("Time Period") ) %>
 		</td>
 		<td id="inventory_code_<%= @line.id %>">
 			<%= greybox_link_to_page(@line.item.inventory_code,
@@ -20,6 +21,7 @@
 				 :class => "iconized-notxt", :width => 1000 ) %>
 		</td>
 		<td class="buttons">
+			<%=	link_to icon_tag("script") + " " + _("Contract %d") % @line.contract.id, formatted_backend_inventory_pool_contract_path(@current_inventory_pool, @line.contract, 'pdf') %>
 			<%= greybox_link_to_page(icon_tag("magnifier") + " " + _("Inspection"),
 					 	{ :action => 'inspection', :line_id => @line },
 						:title => _("Inspection") ) %>

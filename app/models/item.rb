@@ -80,21 +80,20 @@ class Item < ActiveRecord::Base
     user.level_for(inventory_pool) >= required_level
   end
 
+####################################################################
+
   def current_borrowing_info
     # TODO 1102** make sure is only max 1 contract_line
     contract_line = contract_lines.first(:conditions => {:returned_date => nil})
     _("Borrowed by %s until %s") % [contract_line.contract.user, contract_line.end_date.strftime("%d.%m.%Y")] # TODO 1102** patch Date.to_s
   end
 
-  #######################
-  #
+####################################################################
+
   def log_history(text, user_id)
     h = histories.create(:text => text, :user_id => user_id, :type_const => History::BROKEN)
     histories.reset if h.changed?
   end
-
-  #
-  #######################
   
   
 ####################################################################
