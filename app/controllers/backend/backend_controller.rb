@@ -55,12 +55,12 @@ class Backend::BackendController < ApplicationController
   def generic_time_lines(document)
     if request.post?
       begin
-        start_date = Date.new(params[:line]['start_date(1i)'].to_i, params[:line]['start_date(2i)'].to_i, params[:line]['start_date(3i)'].to_i)
-        end_date = Date.new(params[:line]['end_date(1i)'].to_i, params[:line]['end_date(2i)'].to_i, params[:line]['end_date(3i)'].to_i)
+        start_date = Date.new(params[:line]['start_date(1i)'].to_i, params[:line]['start_date(2i)'].to_i, params[:line]['start_date(3i)'].to_i) if params[:line]['start_date(1i)']
+        end_date = Date.new(params[:line]['end_date(1i)'].to_i, params[:line]['end_date(2i)'].to_i, params[:line]['end_date(3i)'].to_i) if params[:line]['end_date(1i)']
         params[:lines].each {|l| document.update_time_line(l, start_date, end_date, current_user.id) }
       rescue
-        flash[:notice] = document.errors.full_messages
       end 
+      flash[:notice] = document.errors.full_messages
       redirect_to :action => 'show', :id => document.id
     else
       @lines = document.lines.find(params[:lines].split(','))

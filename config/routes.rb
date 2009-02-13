@@ -116,6 +116,7 @@ ActionController::Routing::Routes.draw do |map|
                                           :member => { :close_contract => :any,
                                                        :assign_inventory_code => :post,
                                                        :inspection => :any,
+                                                       :time_lines => :any,
                                                        :remove_options => :any,  # OPTIMIZE method
                                                        :timeline => :get }
       end
