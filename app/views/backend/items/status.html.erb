@@ -12,10 +12,21 @@
 
 	<% form_for [:backend, @current_inventory_pool, @item.model, @item] do |f| %>
 	<table style="width: 500px;">
-		<tr><td><%= _("Working order") %>:</td><td><%= f.select :is_broken, {_("OK") => false, _("Broken") => true} %></td></tr>
-		<tr><td><%= _("Completeness") %>:</td><td><%= f.select :is_incomplete, {_("OK") => false, _("Incomplete") => true} %></td></tr>
-		<tr><td><%= _("Borrowable") %>:</td><td><%= f.select :is_borrowable, {_("OK") => true, _("Unborrowable") => false} %></td></tr>
-	
+		<tr><td><%= _("Working order") %>:</td>
+		<td>
+		<%= f.radio_button(:is_broken, false) + _("OK") %> 
+		<%= f.radio_button(:is_broken, true) + _("Broken") %>
+		</td></tr>
+		<tr><td><%= _("Completeness") %>:</td>
+		<td>
+		<%= f.radio_button(:is_incomplete, false) + _("OK") %> 
+		<%= f.radio_button(:is_incomplete, true) + _("Incomplete") %>
+		</td></tr>
+		<tr><td><%= _("Borrowable") %>:</td>
+		<td>
+		<%= f.radio_button(:is_borrowable, true) + _("OK") %> 
+		<%= f.radio_button(:is_borrowable, false) + _("Unborrowable") %>
+		</td></tr>
 		<tr><td colspan="2">
 			<%= f.submit _("Submit") %>
 		</td></tr>

@@ -93,7 +93,7 @@ class InventoryImport::ImportReservations
         
         item = Item.find(:first, :conditions => ['inventory_code = ?', "#{gegenstand.inventar_abteilung}#{gegenstand.original_id}"])
         if item
-          line = ContractLine.new(:contract => c,
+          line = ItemLine.new(:contract => c,
                           :item => ((reservation.status == 2) ? nil : item) ,
                           :model => item.model,
                           :start_date => reservation.startdatum,

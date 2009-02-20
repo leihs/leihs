@@ -1,0 +1,23 @@
+	<tr class="alt-row">
+		<td>
+			<% check_box_today = (@line.end_date <= Date.today ? "contract_line_check_today" : "")  %>
+			<%= check_box_tag('contract_lines[]', @line.id, false, :id => "contract_line_check_#{@line.id}", :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'ghostable_group_1');" ) %>
+			<%= @line.quantity %>
+		</td>
+		<td>
+			<%= @line.option.name %>
+		</td>
+		<td>
+			<%= greybox_link_to_page(dates_with_period(@line.start_date, @line.end_date),
+			 		{ :action => 'time_lines', :lines => @line.id },
+					:class => "thickbox iconized-notxt date-edit",
+					:id => "dates_#{@line.id}",
+					:title => _("Time Period") ) %>
+		</td>
+		<td id="inventory_code_<%= @line.id %>">
+			<%= @line.option.inventory_code %>
+		</td>
+		<td class="buttons">
+			<%=	link_to icon_tag("script") + " " + _("Contract %d") % @line.contract.id, formatted_backend_inventory_pool_contract_path(@current_inventory_pool, @line.contract, 'pdf') %>
+		</td>
+	</tr>

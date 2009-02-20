@@ -2,7 +2,7 @@ class OrderLine < DocumentLine
 
   belongs_to :order
   belongs_to :inventory_pool
-  belongs_to :model # common for sibling classes  
+  belongs_to :model  
 
 
   before_save :assign_inventory_pool

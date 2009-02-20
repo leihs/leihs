@@ -52,7 +52,10 @@ class Backend::BackendController < ApplicationController
   end
   
   # change time frame for OrderLines or ContractLines 
-  def generic_time_lines(document)
+  def generic_time_lines(document, write_start = true, write_end = true)
+    @write_start = write_start
+    @write_end = write_end
+
     if request.post?
       begin
         start_date = Date.new(params[:line]['start_date(1i)'].to_i, params[:line]['start_date(2i)'].to_i, params[:line]['start_date(3i)'].to_i) if params[:line]['start_date(1i)']

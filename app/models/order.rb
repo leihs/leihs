@@ -54,7 +54,7 @@ class Order < Document
 
   # TODO 13** forward purpose
   # TODO forward Options
-  # approves order then generates a new contract and contract_lines for each item
+  # approves order then generates a new contract and item_lines for each item
   def approve(comment, send_mail = true)
     if approvable?
       self.status_const = Order::APPROVED
@@ -66,10 +66,10 @@ class Order < Document
       contract = user.get_current_contract(self.inventory_pool)
       order_lines.each do |ol|
         ol.quantity.times do
-          contract.contract_lines.create(:model => ol.model,
-                                          :quantity => 1,
-                                          :start_date => ol.start_date,
-                                          :end_date => ol.end_date)
+          contract.item_lines.create( :model => ol.model,
+                                      :quantity => 1,
+                                      :start_date => ol.start_date,
+                                      :end_date => ol.end_date)
         end
       end   
       contract.save

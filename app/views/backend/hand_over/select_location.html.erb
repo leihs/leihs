@@ -27,12 +27,12 @@
 		<td><%= text_field_with_auto_complete :location, :room, {}, { :method => :get } %></td>
 	</tr>
 </table>
-<p>
+
+<br/>
+<br/>
+
 <div class="buttons">
 	<%= submit_button(_("Confirm Location"), {:class=> 'positive', :icon => "house"})%>
-</div>
-</p>
-<div class="buttons">
 	<%=	cancel_popup_button(_("Close") ) %>
 </div>
 <% end %>

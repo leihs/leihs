@@ -1,12 +1,13 @@
 class Option < ActiveRecord::Base
-  
-  belongs_to :contract
-  
-  validates_presence_of :name
-  validates_presence_of :quantity
-  
-  
+  belongs_to :inventory_pool
+
+  validates_presence_of :inventory_pool
+
+  acts_as_ferret :fields => [ :inventory_code, :name ], :store_class_name => true, :remote => true
+
   def to_s
-    "#{quantity} - #{name}"
+    name
   end
+ 
 end
+ 

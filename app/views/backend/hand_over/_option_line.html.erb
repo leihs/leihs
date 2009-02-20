@@ -1,0 +1,34 @@
+	<tr class="alt-row">
+		<td>
+			<%	check_box_today = (@line.start_date <= Date.today ? "contract_line_check_today" : "")
+				is_checked = @line.complete? %>
+			<%= check_box_tag('contract_lines[]', @line.id, is_checked, :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'ghostable_group_1');" ) %>
+			<%= @line.quantity %> <% # TODO 29** incrementer/decrementer %>
+
+			<% # TODO 03** tooltip %>
+			<% tooltip icon_tag('error') do %>
+				<%= @line.tooltip %>
+			<% end unless @line.complete? %>
+		</td>
+		<td>
+			<%= icon_tag("house", :title => _("Installed in: %s") % @line.location) if @line.location %>
+			<%= @line.option.name %>
+		</td>
+		<td>
+			<%= greybox_link_to_page(dates_with_period(@line.start_date, @line.end_date),
+			 		{ :action => 'time_lines', :lines => @line.id },
+					:class => "thickbox iconized-notxt date-edit",
+					:id => "dates_#{@line.id}",
+					:title => _("Time Period") ) %>
+		</td>
+		
+		<td>
+			<%= @line.option.inventory_code %>
+		</td>
+		
+		<td class="buttons">
+			<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete"),
+			 	{ :action => 'remove_lines', :lines => @line.id },
+				:title => _("Remove Model"), :class => 'negative' ) %>
+		</td>
+	</tr>

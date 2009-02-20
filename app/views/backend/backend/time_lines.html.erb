@@ -1,13 +1,3 @@
 
-<%
-write_end = true
-case request.parameters[:controller]
-	when "backend/hand_over"
-		write_start = true
-	when "backend/take_back"
-		write_start = false
-end
-%>
-   
-<%= time_line(@lines, write_start, write_end) %>
+<%= time_line(@lines, @write_start, @write_end) %>
 

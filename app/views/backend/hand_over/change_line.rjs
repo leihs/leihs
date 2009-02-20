@@ -1,31 +1,13 @@
-#page.insert_html :top, 'changes', "<li>#{@change}</li>" 
-#page.visual_effect :highlight, 'changes'
 
-if @contract_line
-#  if @contract_line.item
-#    page["line_item_inventory_code_#{@contract_line.id}"].value = @contract_line.item.inventory_code
-#    page["inventory_code"].value = ""
-#  end
-#
-#  bool = @contract_line.complete? 
-#  css_class = "valid_#{bool}"
-#  page << "$('inventory_code_#{@contract_line.id}').className='#{css_class}'"
-#  page["dates_#{@contract_line.id}"].innerHTML = dates_with_period(@contract_line.start_date, @contract_line.end_date) if bool
+if @contract_line or @option_line
 
+  page[:inventory_code].value = ""
   page.replace_html 'lines', :partial => 'lines'
-  page[:inventory_code].value = ""
-  
-  #old# page.alert("The start date has been changed") if @start_date_changed
 
-elsif @option
-  page[:inventory_code].value = ""
-  page.replace_html 'options', :partial => 'options'
-  page.visual_effect :highlight, 'options'
-
-elsif @add_as_new_line
-  # TODO 29** open grey box
-  flash[:error] += "<br/>" + link_to("Add Item #{@item.model.name} - #{@item.inventory_code}",
-                            add_line_with_item_backend_inventory_pool_user_hand_over_path(@current_inventory_pool, @contract.user, :item_id => @item), :method => 'post', :target=> '_top')
+elsif @new_item
+  flash[:error] = _("Inventory Code identifies an item that is not in this order:") +
+                  "<br/><i>#{@new_item.model.name} - #{@new_item.inventory_code}</i><br/>" +
+                  link_to(_("Add Item"), add_line_with_item_backend_inventory_pool_user_hand_over_path(@current_inventory_pool, @contract.user, :item_id => @new_item), :method => 'post', :target=> '_top')
 end
 
 if flash

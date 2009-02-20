@@ -19,7 +19,7 @@ steps_for(:availability) do
     contract = Factory.create_user.get_current_contract(model.items.first.inventory_pool)
     contract.add_line(quantity.to_i, model, nil, Date.today, Factory.parsedate(to))
     contract.save
-    line = contract.contract_lines.first
+    line = contract.item_lines.first
     line.item = model.items.first
     line.save
     contract.reload

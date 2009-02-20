@@ -2,10 +2,15 @@ class Contract < Document
 
   belongs_to :inventory_pool # common for sibling classes
   belongs_to :user
+  
+# TODO 1602**  
   has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC, created_at ASC'
-  has_many :models, :through => :contract_lines, :uniq => true
-  has_many :items, :through => :contract_lines, :uniq => false
-  has_many :options
+  has_many :item_lines, :dependent => :destroy, :order => 'start_date ASC, created_at ASC'
+  has_many :option_lines, :dependent => :destroy, :order => 'start_date ASC, created_at ASC'
+
+  has_many :models, :through => :item_lines, :uniq => true
+  has_many :items, :through => :item_lines, :uniq => false
+  has_many :options, :through => :option_lines, :uniq => true
 
   # TODO union of results :or_default => true
   acts_as_ferret :fields => [ :user_login, :lines_model_names ], :store_class_name => true, :remote => true
@@ -39,7 +44,7 @@ class Contract < Document
   def sign(contract_lines = nil)
     update_attribute :status_const, Contract::SIGNED 
 
-    if options.size > 0 or (contract_lines and contract_lines.any? { |cl| cl.item })
+    if contract_lines and contract_lines.any? { |cl| cl.item }
 
       # Forces handover date to be today.
       contract_lines.each {|cl| cl.update_attribute :start_date, Date.today if cl.start_date != Date.today }
@@ -58,13 +63,6 @@ class Contract < Document
 
   def close
     update_attribute :status_const, Contract::CLOSED
-  end
-
-  def remove_option(option_id, user_id)
-    option = Option.find(option_id.to_i)
-    change = _("Removed Option: %{o}") % { :o => ("(" + option.quantity.to_s + ") " + option.name) }
-    option.destroy
-    log_change(change, user_id)
   end
 
 
