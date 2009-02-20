@@ -266,7 +266,8 @@ module Backend::BackendHelper
       
       f += "<br/><br/><div id='select_notice' class='flash_notice'></div><br />"
       
-      if lines.length == 1
+      # TODO 1602**
+      if lines.length == 1 and lines.first.is_a?(ItemLine)
       
       f += "<table class='availability_overview'>
           <tr class='availability'>

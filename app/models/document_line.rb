@@ -13,18 +13,16 @@ class DocumentLine < ActiveRecord::Base
     is_order_line = (document_line and document_line.is_a?(OrderLine))
     is_contract_line = (document_line and document_line.is_a?(ContractLine))
     
-    cl = ContractLine.find(:all,
-                           :joins => :contract,
-                           :conditions => ["model_id = :model_id 
-                                              AND returned_date IS NULL
-                                              AND contract_lines.id <> :contract_line_id
-                                              AND contracts.inventory_pool_id = :inventory_pool_id",
-                                           { :model_id => model_id,
-                                             :contract_line_id => (is_contract_line ? document_line.id : 0),
-                                             :inventory_pool_id => inventory_pool.id }
+    cl = ItemLine.all( :joins => :contract,
+                       :conditions => ["model_id = :model_id 
+                                          AND returned_date IS NULL
+                                          AND contract_lines.id <> :contract_line_id
+                                          AND contracts.inventory_pool_id = :inventory_pool_id",
+                                       { :model_id => model_id,
+                                         :contract_line_id => (is_contract_line ? document_line.id : 0),
+                                         :inventory_pool_id => inventory_pool.id }
                                           ])
-    ol = OrderLine.find(:all,
-                        :joins => :order,
+    ol = OrderLine.all( :joins => :order,
                         :conditions => ["model_id = :model_id 
                                             AND ((start_date <= :date AND end_date >= :date) OR start_date > :date) 
                                             AND order_lines.id <> :order_line_id 

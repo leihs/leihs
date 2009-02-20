@@ -1,7 +1,7 @@
-	<tr class="alt-row" id="contract_line_<%= @line.id %>"> <% # TODO what for? %>
+	<tr class="alt-row">
 		<td>
 			<%	check_box_today = (@line.start_date <= Date.today ? "contract_line_check_today" : "")
-				is_checked = (@line.item and @line.complete?) %>
+				is_checked = @line.complete? %>
 			<%= check_box_tag('contract_lines[]', @line.id, is_checked, :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'ghostable_group_1');" ) %>
 			<%= @line.quantity %>
 
@@ -11,10 +11,7 @@
 			<% end unless @line.complete? %>
 		</td>
 		<td>
-			<%  if @line.location %>
-				<% location = @line.location.building + "," + @line.location.room %>
-				<%= icon_tag("house", :title => _("Installed in: ") + location) %>
-			<% end %>
+			<%= icon_tag("house", :title => _("Installed in: %s") % @line.location) if @line.location %>
 			<%= show_line_model(@line.model) %>
 		</td>
 		<% b = @line.available? %>
@@ -25,7 +22,7 @@
 					:id => "dates_#{@line.id}",
 					:title => _("Time Period") ) %>
 		</td>
-		<%#old# b = @line.complete? %>
+		
 		<% b = !@line.item.nil? %>
 		<td id="inventory_code_<%= @line.id %>" class="valid_<%= b %>">
 			<%	@item = @line.item
@@ -50,16 +47,15 @@
 																				<%= @current_inventory_pool.items.in_stock.by_model(@line.model).collect(&:inventory_code).inspect %>,
 																				{fullSearch: true});
 			<% end %>
-							
 		</td>
+		
 		<td class="buttons">
 
-			<%= greybox_link_to_page(icon_tag("arrow_switch") + " " + _("Swap"),
-					{ :action => 'swap_model_line', :line_id => @line.id },
-					:title => _("Swap Model"), :width => 1000 ) %>
-			<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete"),
-				 	{ :action => 'remove_lines', :lines => @line.id },
-					:title => _("Remove Model"), :class => 'negative' ) %>
-
+				<%= greybox_link_to_page(icon_tag("arrow_switch") + " " + _("Swap"),
+						{ :action => 'swap_model_line', :line_id => @line.id },
+						:title => _("Swap Model"), :width => 1000 ) %>
+				<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete"),
+					 	{ :action => 'remove_lines', :lines => @line.id },
+						:title => _("Remove Model"), :class => 'negative' ) %>
 		</td>
 	</tr>

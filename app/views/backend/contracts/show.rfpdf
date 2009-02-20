@@ -9,7 +9,7 @@
     end
 
     def user_address
-      @contract.user.firstname + " " + @contract.user.lastname
+      @contract.user.name
     end
 
     leftmargin = 25.0
@@ -89,9 +89,9 @@
 
     # Table Header
     # TODO: ugly filters. more elegant way?
-    item_table_header = [filter(_("Inventory Code")), filter(_("Model")),  filter(_("Start date")), filter(_("End date")), filter(_("Returned date"))]
+    item_table_header = [filter(_("Qt")), filter(_("Inventory Code")), filter(_("Model")),  filter(_("Start date")), filter(_("End date")), filter(_("Returned date"))]
 
-    w = [25.0, 75.0, 22.0, 22.0, 22.0]
+    w = [6.0, 25.0, 69.0, 22.0, 22.0, 22.0]
     0.upto(item_table_header.length - 1) do |i|
       pdf.Cell(w[i], 5, item_table_header[i], 1, 0, 'C', 1)
     end
@@ -107,71 +107,32 @@
       line_start_x = pdf.GetX
       line_start_y = pdf.GetY
 
-      pdf.SetXY(line_start_x + w[0], line_start_y)
+      pdf.SetXY(line_start_x + w[0] + w[1], line_start_y)
 
       before_description_x = pdf.GetX
       before_description_y = pdf.GetY
 
-      pdf.MultiCell(w[1], 5, l.model.name,  'LR', 'L', fill)
+      pdf.MultiCell(w[2], 5, l.model.name,  'LR', 'L', fill)
 
-      after_description_x = before_description_x + w[1]
+      after_description_x = before_description_x + w[2]
       after_description_y = pdf.GetY
 
       cell_height = after_description_y - before_description_y
 
       pdf.SetXY(line_start_x, line_start_y)
-      pdf.Cell(w[0], cell_height, l.item.inventory_code, 'LR', 0, 'L', fill)
+      pdf.Cell(w[0], cell_height, l.quantity.to_s, 'LR', 0, 'R', fill)
+      pdf.Cell(w[1], cell_height, l.item.inventory_code, 'LR', 0, 'L', fill)
 
       # Prints the rest of the cells where we'd expect them, after the MultiCell
       pdf.SetXY(after_description_x, line_start_y)
-      pdf.Cell(w[2], cell_height, short_date(l.start_date).to_s, 'LR', 0, 'R', fill)
-      pdf.Cell(w[3], cell_height, short_date(l.end_date).to_s, 'LR', 0, 'R', fill)
-      pdf.Cell(w[4], cell_height, short_date(l.returned_date).to_s, 'LR', 0, 'R', fill)
+      pdf.Cell(w[3], cell_height, short_date(l.start_date).to_s, 'LR', 0, 'R', fill)
+      pdf.Cell(w[4], cell_height, short_date(l.end_date).to_s, 'LR', 0, 'R', fill)
+      pdf.Cell(w[5], cell_height, short_date(l.returned_date).to_s, 'LR', 0, 'R', fill)
       pdf.Ln()
       fill = (fill == 0 ? 1 : 0)
     end
 
     pdf.Cell(w.sum, 0, '', 'T')
-
-
-    #pdf.Cell( filter(_("Options")) )
-    
-    # Options to hand over
-	if @contract.options.size > 0
-        item_table_header = [filter(_("Qt.")), filter(_("Name")), filter(_("Barcode")), filter(_("Start date")), filter(_("End date")), filter(_("Returned date"))]
-
-		pdf.Ln()
-		pdf.Cell(40, 10, _("Options:"))
-		pdf.Ln()
-        pdf.SetFillColor(200, 200, 200)
-        pdf.SetDrawColor(150, 150, 150)
-	    pdf.SetLineWidth(0.3)
-	    pdf.SetFont('Arial', '', 9)
-
-	    # Table Header for options
-        w = [10.0, 65.0, 25.0, 22.0, 22.0, 22.0]
-	    0.upto(item_table_header.length - 1) do |i|
-	      pdf.Cell(w[i], 5, item_table_header[i], 1, 0, 'C', 1)
-	    end
-	    pdf.Ln()
-
-		fill = 0
-
-	    @contract.options.each do |o|
-	      pdf.Cell(w[0], 6, o.quantity.to_s, 'LR', 0, 'L', fill)
-        
-          pdf.Cell(w[1], 6, o.name, 'LR', 0, 'L', fill)
-
-	      pdf.Cell(w[2], 6, o.barcode || '', 'LR', 0, 'L', fill)
-	      pdf.Cell(w[3], 6, short_date(@contract.time_window_min).to_s, 'LR', 0, 'R', fill)
-	      pdf.Cell(w[4], 6, short_date(@contract.time_window_max).to_s, 'LR', 0, 'R', fill)
-	      pdf.Cell(w[5], 6, short_date(o.returned_date).to_s, 'LR', 0, 'R', fill)
-	      pdf.Ln()
-	      fill = (fill == 0 ? 1 : 0)
-	    end
-
-	    pdf.Cell(w.sum, 0, '', 'T')
-	end
 
 
     pdf.SetFont('Arial', '', 10)

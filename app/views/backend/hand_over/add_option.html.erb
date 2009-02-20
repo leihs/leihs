@@ -1,10 +1,10 @@
-<% form_for :option, Option.new, :url => { :action => 'add_option'} do |f| %>
+<% # TODO 1602** %>
+
+<% form_for :option, @option_line, :url => { :action => 'add_option'} do |f| %>
 <table>
 	<tr><td><%= _("Quantity:")%></td><td><%= f.text_field :quantity %></td></tr>
 	<tr><td><%= _("Name:")%></td><td><%= f.text_field :name %></td></tr>
-	<tr><td></td><td><%= f.submit(_("Add Option"))%> <%= cancel_popup_button("Finished") %></td></tr>
+	<tr>><td colspan="2"><%= f.submit(_("Add Option"))%> <%= cancel_popup_button("Finished") %></td></tr>
 </table>
 
 <%end%>
-
-<%= render :partial => 'options'%>

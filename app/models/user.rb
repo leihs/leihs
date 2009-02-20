@@ -77,6 +77,7 @@ class User < ActiveRecord::Base
 ################################################
 
   def things_to_return
+    # TODO 1602**
     contracts.signed_contracts.collect(&:contract_lines).flatten + contracts.signed_contracts.collect(&:options).flatten
   end
 

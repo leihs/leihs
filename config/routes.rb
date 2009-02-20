@@ -57,7 +57,7 @@ ActionController::Routing::Routes.draw do |map|
       inventory_pool.resources :locations do |location|
         location.resources :items
       end
-      inventory_pool.resources :option_maps
+      inventory_pool.resources :options
       inventory_pool.resources :models, :collection => { :available_items => :any,
                                                          :new_package => :get,
                                                          :update_package => :post },
@@ -104,8 +104,7 @@ ActionController::Routing::Routes.draw do |map|
                                                       :swap_model_line => :any,
                                                       :time_lines => :any,
                                                       :sign_contract => :any,
-                                                      :add_option => :any,
-                                                      :remove_options => :any,  # OPTIMIZE method
+                                                      :add_option => :any, # TODO 1602**
                                                       :assign_inventory_code => :post,
                                                       :timeline => :get,
                                                       :delete_visit => :get, # OPTIMIZE method
@@ -117,7 +116,6 @@ ActionController::Routing::Routes.draw do |map|
                                                        :assign_inventory_code => :post,
                                                        :inspection => :any,
                                                        :time_lines => :any,
-                                                       :remove_options => :any,  # OPTIMIZE method
                                                        :timeline => :get }
       end
       inventory_pool.resources :workdays, :collection => { :close => :any,

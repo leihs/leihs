@@ -35,7 +35,7 @@ class Backend::HandOverController < Backend::BackendController
       render :action => 'print_contract', :layout => $modal_layout_path
     else
       @lines = @lines.delete_if {|l| l.item.nil? }
-      flash[:error] = _("No items to hand over specified. Please assign inventory codes to the items you want to hand over.") if @lines.empty? and @contract.options.empty?
+      flash[:error] = _("No items to hand over specified. Please assign inventory codes to the items you want to hand over.") if @lines.empty?
       render :layout => $modal_layout_path
     end    
   end
@@ -77,35 +77,32 @@ class Backend::HandOverController < Backend::BackendController
   # and if not found, adds an option
   def assign_inventory_code
     item = current_inventory_pool.items.first(:conditions => { :inventory_code => params[:code] })
-    model = item.model unless item.nil?
-    unless model.nil?
-      # TODO 29** check if the item is already assigned to the current contract (prevent double assign) and return the correct message
-      contract_line = @contract.contract_lines.first(:conditions => { :model_id => model.id,
-                                                                      :item_id => nil })
-      unless contract_line.nil?
-        params[:contract_line_id] = contract_line.id.to_s
-        flash[:notice] = _("Inventory Code assigned")
-        if item.required_level > current_user.level_for(item.inventory_pool)
-          flash[:error] = _("This item requires the user to be level %s") % item.required_level.to_s
-        end
-        change_line
+    
+    unless item.nil?
+      if @contract.items.include?(item)
+          # TODO 1802** clear barcode input field
+          flash[:error] = _("The item is already in the current contract.")
       else
-        flash[:error] = _("Inventory Code identifies an item that is not in this order.")
-        # TODO 29** open a greybox and select if really hand_over or cancel
-        @add_as_new_line = true
-        @item = item
+        contract_line = @contract.contract_lines.first(:conditions => { :model_id => item.model.id, :item_id => nil })
+        unless contract_line.nil?
+          params[:contract_line_id] = contract_line.id.to_s
+          flash[:notice] = _("Inventory Code assigned")
+          if item.required_level > current_user.level_for(item.inventory_pool)
+            flash[:error] = _("This item requires the user to be level %s") % item.required_level.to_s
+          end
+          change_line
+        else
+          @new_item = item
+        end
       end
-      
     else 
       # Inventory Code is not an item - might be an option...
       # Increment quantity if the option is already present
-      om = OptionMap.first(:conditions => { :barcode => params[:code] })
-      if om
-        #old# @option = @contract.options.create(:barcode => om.barcode, :name => om.text, :quantity => 1)
-        @option = @contract.options.find_or_create_by_barcode(:barcode => om.barcode, :name => om.text)
-        @option.quantity ||= 0
-        @option.update_attribute :quantity, @option.quantity + 1
-#old#        render :action => 'add_option_to_list'
+      option = current_inventory_pool.options.first(:conditions => { :inventory_code => params[:code] })
+      if option
+        @option_line = @contract.option_lines.find_or_create_by_option_id(:option_id => option, :quantity => 0)
+        @option_line.update_attribute :quantity, @option_line.quantity + 1
+        flash[:notice] = _("Option %s added.") % option.name
       else
         flash[:error] = _("The Inventory Code was not found.")
       end   
@@ -116,27 +113,14 @@ class Backend::HandOverController < Backend::BackendController
 
   def add_option
     if request.post?
-      om = OptionMap.find(:first, :conditions => { :barcode => params[:option][:name] })
-      if om
-        @option = Option.create(:barcode => om.barcode, :name => om.text, :quantity => params[:option][:quantity], :contract => @contract)
-      else
-        @option = Option.new(params[:option])
-        @option.contract = @contract
-        @option.save
-      end
-    end
-    @no_actions = true
-    render :layout => $modal_layout_path
-  end
-
-  def remove_options
-     if request.post?
-        params[:options].each {|o| @contract.remove_option(o, session[:user_id]) }
-        redirect_to :action => 'show'
+      option = current_inventory_pool.options.find(params[:option_id])
+      @contract.option_lines.create(:option => option, :quantity => 1)
+      redirect_to :action => 'show', :id => @contract
     else
-      @options = Option.find(params[:options].split(',')) # TODO scope current_inventory_pool
-      render :layout => $modal_layout_path
-    end   
+      redirect_to :controller => 'options', 
+                  :layout => 'modal',
+                  :source_path => request.env['REQUEST_URI']
+    end
   end
 
   # TODO 29**

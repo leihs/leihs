@@ -46,40 +46,6 @@
 						
 			</div>
 			
-
-			<div class="table-overview">
-								
-				<div class="toolbar-second">
-					<h3><%= _("Options") %></h3>
-					<div class="buttons">
-						<%= greybox_link_to_page(icon_tag("shape_align_left") + " " + _("Timeline"),
-						 	{ :action => 'timeline', :user_id => @user.id },
-							:title => _("Timeline"), :width => 1000 ) %>						
-					</div>
-				</div>
-				
-				<table cellspacing="0">
-        	<tr>
-        		<th scope="col"><input type="checkbox"  id="options" onClick="mark_all(this, 'option_check', 'ghostable_group_2');" /> <%= _("Check all") %> </th>
-        		<th scope="col"><%= _("Quantity") %></th>
-        		<th scope="col"><%= _("Description") %></th>
-        	</tr>
-
-          <% @user.contracts.signed_contracts.each do |c|
-    			  c.options.each do |option| 
-    			%>        		
-    			<tr class="alt-row">
-        			<td><%= check_box_tag('options[]', option.id, false, :class => "option_check", :onchange => "toggle_buttons('option_check', 'ghostable_group_2');" ) %>
-        			</td>
-        			<td><%= option.quantity %></td>
-        			<td><%= option.name %></td>
-        		</tr>
-        <%  end	
-          end	%>								
-        </table>
-				
-      </div>
-
 <%= render :partial => 'buttons' %>
 
 

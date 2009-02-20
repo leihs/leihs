@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090106104142) do
+ActiveRecord::Schema.define(:version => 20090210170000) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
@@ -95,12 +95,15 @@ ActiveRecord::Schema.define(:version => 20090106104142) do
     t.date     "returned_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "option_id"
+    t.string   "type",          :default => "ItemLine", :null => false
   end
 
   add_index "contract_lines", ["contract_id"], :name => "fk_contract_lines_contract_id"
   add_index "contract_lines", ["item_id"], :name => "fk_contract_lines_item_id"
   add_index "contract_lines", ["model_id"], :name => "fk_contract_lines_model_id"
   add_index "contract_lines", ["location_id"], :name => "fk_contract_lines_location_id"
+  add_index "contract_lines", ["option_id"], :name => "fk_contract_lines_option_id"
 
   create_table "contracts", :force => true do |t|
     t.integer  "user_id"
@@ -264,23 +267,13 @@ ActiveRecord::Schema.define(:version => 20090106104142) do
 
   add_index "notifications", ["user_id"], :name => "fk_notifications_user_id"
 
-  create_table "option_maps", :force => true do |t|
-    t.integer "inventory_pool_id"
-    t.string  "barcode"
-    t.string  "text"
-  end
-
-  add_index "option_maps", ["inventory_pool_id"], :name => "fk_option_maps_inventory_pool_id"
-
   create_table "options", :force => true do |t|
-    t.integer "contract_id"
-    t.integer "quantity"
-    t.string  "barcode"
+    t.integer "inventory_pool_id"
+    t.string  "inventory_code"
     t.string  "name"
-    t.date    "returned_date"
   end
 
-  add_index "options", ["contract_id"], :name => "fk_options_contract_id"
+  add_index "options", ["inventory_pool_id"], :name => "fk_option_maps_inventory_pool_id"
 
   create_table "order_lines", :force => true do |t|
     t.integer  "model_id"

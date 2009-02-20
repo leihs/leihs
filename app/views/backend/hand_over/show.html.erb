@@ -18,6 +18,10 @@
 							 	{ :action => 'add_line' },
 								:title => _("Add Model"), :width => 1000 ) %>						
 
+					    <%= greybox_link_to_page( icon_tag("package_add") + " " + _("Add Option"),
+							 	{ :action => 'add_option' },
+								:title => _("Add Option") ) %>
+
 						<%= greybox_link_to_page(icon_tag("date_edit") + " " + _("Change Timeframe for selection"),
 							 	{ :action => 'time_lines' },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",
@@ -75,26 +79,6 @@
 				<%= javascript_tag("$('inventory_code').focus()") %>
 						
 			</div>
-			
-  					<div class="table-overview">
 
-  						<div class="toolbar-second">
-  							<h3><%= _("Options") %></h3>
-  							<div class="buttons">
-	    <%= greybox_link( icon_tag("package_add") + " " + _("Add Option"),
-								 	{ :action => 'add_option' },
-									{:title => _("Add Option"), :callback => 'refresh_me' }) %>
-  		<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete selection"),
-  									{ :action => 'remove_options' },
-  									:onmouseup => "change_href(this, 'option', 'option');",
-  									:class => "ghostable_group_2 ghosted negative",
-  									:title => _("Remove Options") )
-  									%>
-  							</div>
-  						</div>
-    			    <div id="options">
-                <%= render :partial => 'options' %>
-  					</div>
-          </div>
 
 <%= render :partial => 'buttons' %>

@@ -31,17 +31,13 @@ class Backend::TakeBackController < Backend::BackendController
 
   # Close definitely the contract
   def close_contract
-    @options = Option.find(params[:options].split(',')) if params[:options]
-    
     if request.post?
       @lines = current_inventory_pool.contract_lines.find(params[:lines]) if params[:lines]
       @lines ||= []
       @contracts = @lines.collect(&:contract).uniq
-      @contracts += @options.collect(&:contract).uniq if @options
       
-      # set the return datesU to the given contract_lines
+      # set the return dates to the given contract_lines
       @lines.each { |l| l.update_attribute :returned_date, Date.today }
-      @options.each { |o| o.update_attribute :returned_date, Date.today } if @options
       
       @contracts.each do |c|
         c.close if c.lines.all? { |l| !l.returned_date.nil? }
@@ -57,23 +53,20 @@ class Backend::TakeBackController < Backend::BackendController
   
   # given an inventory_code, searches for the matching contract_line
   def assign_inventory_code
+    contract_lines = @user.get_signed_contract_lines
+    contract_lines.sort! {|a,b| a.end_date <=> b.end_date} # TODO select first to take back
+
     item = current_inventory_pool.items.first(:conditions => { :inventory_code => params[:code] })
     unless item.nil?
-      contract_lines = @user.get_signed_contract_lines
-  
-      contract_lines.sort! {|a,b| a.end_date <=> b.end_date} # TODO select first to take back
       @contract_line = contract_lines.detect {|cl| cl.item_id == item.id }
-# FIXME      @contract_line.update_attribute :end_date, Date.today # TODO refresh all lines? #old# :start_date (error?)
-
-      @contract = @contract_line.contract # TODO optimize errors report
-      flash[:error] = @contract.errors.full_messages
     else
       # Inventory Code is not an item - might be an option...
-      @option = @user.contracts.collect(&:options).flatten.detect{|o| o.barcode == params[:code] }
-      unless @option
-        flash[:error] = _("The Inventory Code was not found.")
-      end   
+      option = current_inventory_pool.options.first(:conditions => { :inventory_code => params[:code] })
+      unless option.nil?
+        @contract_line = contract_lines.detect {|cl| cl.option_id == option.id }
+      end
     end
+    flash[:error] = _("The Inventory Code was not found.") unless @contract_line
     render :action => 'change_line'
   end
 
@@ -91,7 +84,7 @@ class Backend::TakeBackController < Backend::BackendController
 
   def time_lines
     contract = @user.contract_lines.find(Array(params[:lines]).first).contract # NOTE always assuming there is just 1 line
-    generic_time_lines(contract)
+    generic_time_lines(contract, false, true)
   end    
 
   def timeline

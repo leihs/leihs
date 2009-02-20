@@ -8,6 +8,6 @@ for @line in @contract_lines
     	%>
 		<tr class="line_header"><td colspan="5" class="title"><%= short_date(@line.end_date) %></td></tr>
 	<% end %>
-	<%= render :partial => 'line' %>
+	<%= render :partial => @line.type.underscore %>
 <% end %>
 <!-- end iterator -->						

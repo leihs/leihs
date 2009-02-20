@@ -31,6 +31,7 @@ namespace :leihs do
     Location.rebuild_index
     Contract.rebuild_index
     Order.rebuild_index
+    Option.rebuild_index
     
     puts "Maintenance complete ------------------------"    
   end
