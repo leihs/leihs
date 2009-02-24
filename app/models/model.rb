@@ -67,6 +67,10 @@ class Model < ActiveRecord::Base
   def image_thumb
     ( images.empty? ? nil : images.first.public_filename(:thumb) )
   end
+
+  def lines
+    order_lines + contract_lines
+  end
   
 #############################################  
 # Availability

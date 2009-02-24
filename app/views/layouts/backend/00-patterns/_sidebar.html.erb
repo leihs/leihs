@@ -1,21 +1,21 @@
 <ul>
-	<li><%= icon_tag("page") + " " + _('Orders') %>
-		<ul>
+	<li><%= link_to_function(icon_tag("page") + " " + _('Orders'), nil) { |page| page.visual_effect :toggle_blind, 'menu_orders', :duration => 0.1 } %>
+		<ul id="menu_orders" style="display: none;">
 			<li><%= link_to _('Pending') + " (#{@current_inventory_pool.orders.submitted.size})", backend_inventory_pool_orders_path(:filter => 'submitted') %></li>
 			<li><%= link_to _('Approved') + " (#{@current_inventory_pool.orders.approved.size})", backend_inventory_pool_orders_path(:filter => 'approved') %></li>
 			<li><%= link_to _('Rejected') + " (#{@current_inventory_pool.orders.rejected.size})", backend_inventory_pool_orders_path(:filter => 'rejected') %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= icon_tag("page_green") + " " + _('Contracts') %>
-		<ul>
+	<li><%= link_to_function(icon_tag("page_green") + " " + _('Contracts'), nil) { |page| page.visual_effect :toggle_blind, 'menu_contracts', :duration => 0.1 } %>
+		<ul id="menu_contracts" style="display: none;">
 			<li><%= link_to _('Signed') + " (#{@current_inventory_pool.contracts.signed_contracts.size})", backend_inventory_pool_contracts_path(:filter => 'signed') %></li>
 			<li><%= link_to _('Closed') + " (#{@current_inventory_pool.contracts.closed_contracts.size})", backend_inventory_pool_contracts_path(:filter => 'closed') %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= icon_tag("camera") + " " + _('Items') %>
-		<ul>
+	<li><%= link_to_function(icon_tag("camera") + " " + _('Items'), nil) { |page| page.visual_effect :toggle_blind, 'menu_items', :duration => 0.1 } %>
+		<ul id="menu_items" style="display: none;">
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.items.count})", backend_inventory_pool_items_path() %></li>
 			<li><%= link_to _('In Stock') + " (#{@current_inventory_pool.items.in_stock.count})", backend_inventory_pool_items_path(:filter => 'in_stock') %></li>
 			<li><%= link_to _('Not In Stock') + " (#{@current_inventory_pool.items.not_in_stock.count})", backend_inventory_pool_items_path(:filter => 'not_in_stock') %></li>
@@ -25,22 +25,22 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= icon_tag("package") + " " + _('Models') %>
-		<ul>
+	<li><%= link_to_function(icon_tag("package") + " " + _('Models'), nil) { |page| page.visual_effect :toggle_blind, 'menu_models', :duration => 0.1 } %>
+		<ul id="menu_models" style="display: none;">
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.models.count})", backend_inventory_pool_models_path() %></li>
 			<li><%= link_to _('Packages') + " (#{@current_inventory_pool.models.packages.size})", backend_inventory_pool_models_path(:filter => 'packages') %></li>
 			<li><%= link_to _('Templates') + " (#{@current_inventory_pool.templates.size})", backend_inventory_pool_templates_path() %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= icon_tag("shape_group") + " " + _('Locations') %>
-		<ul>
+	<li><%= link_to_function(icon_tag("shape_group") + " " + _('Locations'), nil) { |page| page.visual_effect :toggle_blind, 'menu_locations', :duration => 0.1 } %>
+		<ul id="menu_locations" style="display: none;">
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.locations.size})", backend_inventory_pool_locations_path() %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= icon_tag("user") + " " + _('Users') %>
-		<ul>
+	<li><%= link_to_function(icon_tag("user") + " " + _('Users'), nil) { |page| page.visual_effect :toggle_blind, 'menu_users', :duration => 0.1 } %>
+		<ul id="menu_users" style="display: none;">
 			<li><%= link_to _('All') + " (#{@current_inventory_pool.users.size})", backend_inventory_pool_users_path() %></li>
 			<li><%= link_to _('Managers') + " (#{@current_inventory_pool.managers.size})", backend_inventory_pool_users_path(:filter => 'managers') %></li>
 			<li><%= link_to _('Customers') + " (#{@current_inventory_pool.customers.size})", backend_inventory_pool_users_path(:filter => 'customers') %></li>
@@ -48,15 +48,15 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= icon_tag("calendar") + " " + _("Opening Times")%>
-		<ul>
+	<li><%= link_to_function(icon_tag("calendar") + " " + _("Opening Times"), nil) { |page| page.visual_effect :toggle_blind, 'menu_opening_times', :duration => 0.1 } %>
+		<ul id="menu_opening_times" style="display: none;">
 			<li><%= link_to _("Opening Times"), backend_inventory_pool_workdays_path() %></li>
 		</ul>
 	</li>
 	<li><hr/></li>
-	<li><%= icon_tag("attach") + " " + _("Options")%>
-		<ul>
-			<li><%= link_to _("All"), backend_inventory_pool_options_path() %></li>
+	<li><%= link_to_function(icon_tag("attach") + " " + _("Options"), nil) { |page| page.visual_effect :toggle_blind, 'menu_options', :duration => 0.1 } %>
+		<ul id="menu_options" style="display: none;">
+			<li><%= link_to _("All") + " (#{@current_inventory_pool.options.count})", backend_inventory_pool_options_path() %></li>
 		</ul>
 	</li>
 </ul>

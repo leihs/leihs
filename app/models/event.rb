@@ -17,6 +17,11 @@ class Event < ActiveRecord::Base
   has_one :user
   has_many :contract_lines                
 
+  # alias
+  def lines
+    contract_lines
+  end
+
   #alias
   def date
     start

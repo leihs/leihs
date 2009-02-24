@@ -1,13 +1,9 @@
 <h2><%= _("Returned items") %></h2>
-
-<ul>
-<% @lines.each do |l| %>
-	<li><%= "#{l.quantity} #{l.model.name} - #{l.item.inventory_code}" %></li>
-<% end %>
-</ul>
-
 <br />
 
+<%= lines_summary(@lines) %>
+
+<br />		
 <div class="buttons">
 	<%=	link_to(icon_tag("door_out") + " " + _("Confirm"),
 				 { :action => 'close_contract', :lines => @lines  },

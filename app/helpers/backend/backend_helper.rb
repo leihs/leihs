@@ -384,4 +384,38 @@ module Backend::BackendHelper
     html
   end
 
+############################################################################################
+
+  def lines_preview(document)
+    s = 3
+    r = document.lines[0..s-1].collect {|l| l.model.name }
+    r << "..." if document.lines.size > s
+    r.join(', ')
+  end
+
+  def lines_summary(lines)
+    content_tag :table do
+      s = ""
+      lines.each do |l|
+        s += content_tag :tr do
+          r = ""
+          r += content_tag :td, :style => "text-align: right;" do
+            l.quantity
+          end
+          r += content_tag :td do
+            l.model.name
+          end
+          r += content_tag :td do
+            l.item.inventory_code
+          end unless l.item.nil?
+          r += content_tag :td do
+            dates_with_period(l.start_date, l.end_date)
+          end
+          r
+        end
+      end
+      s
+    end
+  end
+  
 end

@@ -38,6 +38,10 @@ class OrderLine < DocumentLine
   def document
     order
   end
+  
+  def item
+    nil
+  end
 
   private
   

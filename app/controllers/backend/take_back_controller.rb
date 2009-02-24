@@ -66,7 +66,7 @@ class Backend::TakeBackController < Backend::BackendController
         @contract_line = contract_lines.detect {|cl| cl.option_id == option.id }
       end
     end
-    flash[:error] = _("The Inventory Code was not found.") unless @contract_line
+    flash[:error] = _("The Inventory Code %s was not found.") % params[:code] unless @contract_line
     render :action => 'change_line'
   end
 

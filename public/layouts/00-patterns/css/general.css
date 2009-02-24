@@ -524,3 +524,8 @@ border-left: 2px solid black;
 .selected_date_end {
 border-right: 2px solid black;
 }
+
+
+hr {
+	border-color: #e2e2e2;
+}

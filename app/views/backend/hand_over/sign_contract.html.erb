@@ -1,11 +1,7 @@
 <h2><%= _("Items to hand over") %></h2>
+<br />
 
-<ul>
-<% @lines.each do |l| %>
-	<li><%= "#{l.quantity} #{l.model.name} - #{l.item.inventory_code}" %></li>
-<% end %>
-</ul>
-
+<%= lines_summary(@lines) %>
 
 <br/>
 

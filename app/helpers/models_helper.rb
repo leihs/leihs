@@ -101,6 +101,8 @@ module ModelsHelper
 
     today = Date.today
     x_ticks = [[today.jd, _("Today")]]
+    y_ticks = []
+    data = []
     
     dd = (today + config[:range][:start].days).at_beginning_of_month
     while dd.jd < today.jd + config[:range][:end] do
@@ -108,8 +110,6 @@ module ModelsHelper
       dd = dd.next_month
     end
     
-    y_ticks = []
-    data = []
     items.each_with_index do |item, index|
       j = index + 1
       y_ticks << [j, item.inventory_code]
@@ -121,15 +121,53 @@ module ModelsHelper
 #      end
     end
 
-    model.contract_lines.each do |cl|
-      s = cl.start_date.jd
-      e = cl.end_date.tomorrow.jd
-      j = if cl.item
-        items.index(cl.item) + 1
-      else
-        rand items.size + 1
+#old#
+#    model.lines.each do |l|
+#      s = l.start_date.jd
+#      e = l.end_date.tomorrow.jd
+#      if l.item
+#        j = items.index(l.item) + 1
+#        #old# data << [[s, j], [e, j]]
+#        data << {:data => [[s, j], [e, j]], :color => '#e3aa01'}
+#      else
+#        l.quantity.times do
+#          j = rand items.size + 1 # TODO
+#          data << {:data => [[s, j], [e, j]], :color => 'grey'}
+#        end
+#      end
+#    end
+
+
+    events = []
+    
+    lines = model.lines.select {|l| l.inventory_pool == @current_inventory_pool}
+    lines_with_item = lines.select {|l| l.item }
+    lines_without_item = lines - lines_with_item
+    
+    lines_with_item.each do |l|
+      start_date = l.start_date.jd
+      end_date = l.end_date.tomorrow.jd
+      j = items.index(l.item) + 1
+      events << {:start => start_date, :end => end_date, :y => j, :assigned => true}
+    end
+
+    lines_without_item.each do |l|
+      start_date = l.start_date.jd
+      end_date = l.end_date.tomorrow.jd
+      l.quantity.times do
+        j = nil
+        (1..items.size).each do |k|
+          unless events.any? {|e| e[:y] == k and e[:start] <= end_date and e[:end] >= start_date}
+            j = k
+            break
+          end
+        end
+        events << {:start => start_date, :end => end_date, :y => j, :assigned => false} unless j.nil?
       end
-      data << [[s, j], [e, j]]
+    end
+
+    events.each do |e|
+      data << {:data => [[e[:start], e[:y]], [e[:end], e[:y]]], :color => (e[:assigned] ? '#e3aa01' : 'grey')}
     end
 
     html = ""
@@ -187,6 +225,7 @@ module ModelsHelper
                                     sensibility: 2    // => the smaller this value, the more precise you've to point with the mouse
                                   }
                                 });
+            //console.log(f);
         });     
       </script>    
     quoted_block
