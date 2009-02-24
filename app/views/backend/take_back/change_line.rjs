@@ -2,7 +2,6 @@
 if @contract_line
     page["contract_line_check_#{@contract_line.id}"].checked = true
     page << "toggle_buttons('contract_line_check', 'ghostable_group_1');"
-    page[:inventory_code].value = ""
 end
 
 
@@ -11,4 +10,5 @@ if flash
   flash.discard
 end
 
+page[:inventory_code].value = ""
 page << "$('inventory_code').focus()"

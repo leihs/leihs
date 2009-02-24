@@ -104,7 +104,7 @@ ActionController::Routing::Routes.draw do |map|
                                                       :swap_model_line => :any,
                                                       :time_lines => :any,
                                                       :sign_contract => :any,
-                                                      :add_option => :any, # TODO 1602**
+                                                      :add_option => :any,
                                                       :assign_inventory_code => :post,
                                                       :timeline => :get,
                                                       :delete_visit => :get, # OPTIMIZE method

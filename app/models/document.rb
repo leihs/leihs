@@ -136,5 +136,4 @@ class Document < ActiveRecord::Base
     mn.uniq.join(" ")
   end
 
-  
 end

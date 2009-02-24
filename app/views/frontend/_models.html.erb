@@ -226,10 +226,11 @@ function add_model_details(model_id, open_add_tab){
 				loadingText: '<%= _("Loading") %>...',
                 tpl: new Ext.XTemplate('<tpl for=".">', 
                                          '<div class="model_description">',
-										 '<div class="model_images"><tpl for="images">', '<img src="{public_filename_thumb}">', '</tpl>', '</div>',                
+										 '<div class="model_images"><tpl for="images">',
+										 	'<img src="{public_filename_thumb}" onclick="new Ext.Window({width: {width}, height: {height}, html: \'<img src={public_filename}>\'}).show();"><br/>',
+										 '</tpl></div>',                
                                          '<h2>{name} ({manufacturer})</h2>',
                                          '<p>{description}</p>',
-                                        
 											'<tpl if="package_items.length">',
 												'<br />Package: <ul><tpl for="package_items">',
 							            			'<li>{inventory_code}, <tpl for="model">{name}, {manufacturer}</tpl></li>',

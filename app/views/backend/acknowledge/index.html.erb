@@ -17,7 +17,7 @@
 <% end %>			
 
 
-<% table_with_search_and_pagination :columns => [_("Received at"), _("Reserver"), _("Number of items"), _("Time window"), _("Action")],
+<% table_with_search_and_pagination :columns => [_("Received at"), _("Reserver"), _("Items"), _("Time window"), _("Action")],
 						   			:records => @orders do |order| %>	
 
 
@@ -31,7 +31,11 @@
 							 :title => _("User"),
 							 :class => "iconized-notxt edit-user" ) %>
 				</td>
-				<td><%= _("%{n} Items") % {:n => order.quantity} %></td>
+				<td>
+					<%= order.quantity %>
+					<br/>
+					<span style='font-size:smaller;'><%= lines_preview(order) %></span>
+				</td>
 				<td><%= dates_with_period(order.time_window_min, order.time_window_max) %></td>
 				<td class="buttons">
 					<%= link_to icon_tag("tab_go") + _("View + Acknowledge"),

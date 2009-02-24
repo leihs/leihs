@@ -1,4 +1,4 @@
-<% table_with_search_and_pagination :columns => [_("Visit at"), _("Reserver"), _("Number of items"), _("Action")],
+<% table_with_search_and_pagination :columns => [_("Visit at"), _("Reserver"), _("Items"), _("Action")],
 									:records => @visits do |visit| %>	
 
 
@@ -12,7 +12,11 @@
 							:title => _("User"),
 							:class => "iconized-notxt edit-user" ) %>
 				</td>
-				<td><%= _("%{n} Items") % {:n => visit.quantity} %></td>
+				<td>
+					<%= visit.quantity %>
+					<br/>
+					<span style='font-size:smaller;'><%= lines_preview(visit) %></span>
+				</td>
 				<td style="width:200px" class="buttons">
 					<%= link_to icon_tag("tab_go") + _("Take Back"), [:backend, @current_inventory_pool, visit.user, :take_back] %>
 				</td>

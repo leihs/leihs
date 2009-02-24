@@ -76,9 +76,9 @@ class User < ActiveRecord::Base
 
 ################################################
 
+  # OPTIMIZE
   def things_to_return
-    # TODO 1602**
-    contracts.signed_contracts.collect(&:contract_lines).flatten + contracts.signed_contracts.collect(&:options).flatten
+    contracts.signed_contracts.collect(&:contract_lines).flatten
   end
 
   # get or create a new order (among all inventory pools)

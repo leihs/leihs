@@ -1,8 +1,12 @@
 <ul>
-	<li><%= link_to icon_tag("shape_handles") + " " + _('InventoryPools') + " (#{InventoryPool.count})", admin_inventory_pools_path %></li>
+	<li><%= link_to_function(icon_tag("shape_handles") + " " + _('InventoryPools'), nil) { |page| page.visual_effect :toggle_blind, 'menu_inventory_pools', :duration => 0.1 } %>
+		<ul id="menu_inventory_pools" style="display: none;">
+		<li><%= link_to _('All') + " (#{InventoryPool.count})", admin_inventory_pools_path %></li>
+		</ul>	
+	</li>
 	<li><hr /></li>
-	<li><%= icon_tag("camera") + " " + _('Items') %>
-		<ul>
+	<li><%= link_to_function(icon_tag("camera") + " " + _('Items'), nil) { |page| page.visual_effect :toggle_blind, 'menu_items', :duration => 0.1 } %>
+		<ul id="menu_items" style="display: none;">
 		<li><%= link_to _('All') + " (#{Item.count})", admin_items_path %></li>
 		<li><%= link_to _('Broken') + " (#{Item.broken.size})", admin_items_path(:filter => 'broken') %></li>
 		<li><%= link_to _('Incomplete') + " (#{Item.incomplete.size})", admin_items_path(:filter => 'incomplete') %></li>
@@ -11,20 +15,20 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= icon_tag("package") + " " + _('Models') %>
-		<ul>
+	<li><%= link_to_function(icon_tag("package") + " " + _('Models'), nil) { |page| page.visual_effect :toggle_blind, 'menu_models', :duration => 0.1 } %>
+		<ul id="menu_models" style="display: none;">
 		<li><%= link_to _('All') + " (#{Model.count})", admin_models_path %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= icon_tag("chart_organisation") + " " + _('Categories') %>
-		<ul>
+	<li><%= link_to_function(icon_tag("chart_organisation") + " " + _('Categories'), nil) { |page| page.visual_effect :toggle_blind, 'menu_categories', :duration => 0.1 } %>
+		<ul id="menu_categories" style="display: none;">
 		<li><%= link_to _('All') + " (#{Category.count})", admin_categories_path %></li>
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= icon_tag("user") + " " + _('Users') %>
-		<ul>
+	<li><%= link_to_function(icon_tag("user") + " " + _('Users'), nil) { |page| page.visual_effect :toggle_blind, 'menu_users', :duration => 0.1 } %>
+		<ul id="menu_users" style="display: none;">
 		<li><%= link_to _('All') + " (#{User.count})", admin_users_path %></li>
 		<li><%= link_to _('Admins') + " (#{User.admins.size})", admin_users_path(:filter => 'admins') %></li>
 		<li><%= link_to _('Managers') + " (#{User.managers.size})", admin_users_path(:filter => 'managers') %></li>
@@ -32,8 +36,8 @@
 		</ul>	
 	</li>
 	<li><hr /></li>
-	<li><%= icon_tag("shape_square_key") + " " + _('Roles') %>
-		<ul>
+	<li><%= link_to_function(icon_tag("shape_square_key") + " " + _('Roles'), nil) { |page| page.visual_effect :toggle_blind, 'menu_roles', :duration => 0.1 } %>
+		<ul id="menu_roles" style="display: none;">
 		<li><%= link_to _('All') + " (#{Role.count})", admin_roles_path %></li>
 		</ul>	
 	</li>

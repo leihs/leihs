@@ -104,7 +104,7 @@ class Backend::HandOverController < Backend::BackendController
         @option_line.update_attribute :quantity, @option_line.quantity + 1
         flash[:notice] = _("Option %s added.") % option.name
       else
-        flash[:error] = _("The Inventory Code was not found.")
+        flash[:error] = _("The Inventory Code %s was not found.") % params[:code]
       end   
     end
     

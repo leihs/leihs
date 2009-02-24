@@ -1,7 +1,6 @@
 
 if @contract_line or @option_line
 
-  page[:inventory_code].value = ""
   page.replace_html 'lines', :partial => 'lines'
 
 elsif @new_item
@@ -15,4 +14,5 @@ if flash
   flash.discard
 end
 
-#page << "$('inventory_code').focus()"
+page[:inventory_code].value = ""
+page << "$('inventory_code').focus()"

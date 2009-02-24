@@ -5,6 +5,9 @@
 	<% form_tag( {:action => 'approve', :id => params[:id]}, :name => "f", :target => "_top") do %>
 	   	<%= _("Comments") %><br/>
 		<%= text_area_tag 'comment', nil, :size => "25x10" %>
+
+		<br />
+		<br />
 		
 		<div class="buttons">
 			<%=	submit_button(_("Save + Approve"), {:icon => "door", :class => 'positive'} ) %>
