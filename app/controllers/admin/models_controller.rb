@@ -20,7 +20,6 @@ class Admin::ModelsController < Admin::AdminController
   end
 
   def show
-    @graph = @model.graph 
   end
 
   def new

@@ -116,15 +116,6 @@ class Model < ActiveRecord::Base
 
 #############################################  
 
-  def graph
-    values = {}
-    inventory_pools.each do |ip|
-      n = ip.items_size(id)
-      values["#{ip.name} (#{n})"] = n
-    end
-    GoogleChart.pie_3d_350x150(values).to_url
-  end
-
   # TODO 04** model chart
   def chart(*args)
     chart_google(*args)

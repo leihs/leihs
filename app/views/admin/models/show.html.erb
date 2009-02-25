@@ -9,4 +9,4 @@
 		<%= submit_tag 'Submit' %>
 	<% end %>
 
-<%=	image_tag @graph if @graph %>
+<%= pie_for_model(@model) %>
