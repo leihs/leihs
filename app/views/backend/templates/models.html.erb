@@ -25,7 +25,7 @@
 			<td><%= image_tag(ml.model.image_thumb) if ml.model.image_thumb %></td>
 			<td><%= ml.model.name %></td>
 			
-			<%  c = @current_inventory_pool.items_size(ml.model.id)
+			<%  c = @current_inventory_pool.items.by_model(ml.model.id).count
 				b = (ml.quantity <= c) %>
 			<td class="valid_<%= b %>">
 				<%= ml.quantity %>

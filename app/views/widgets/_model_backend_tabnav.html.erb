@@ -25,7 +25,7 @@ render_tabnav :model_backend,
 	end
 
 	add_tab do |t|
-		t.named _("Items (%d)") % @current_inventory_pool.items_size(@model)
+		t.named _("Items (%d)") % @current_inventory_pool.items.by_model(@model).count
 #		t.links_to backend_inventory_pool_model_items_path(@current_inventory_pool, @model)
 		t.links_to :controller => 'backend/items', :action => 'index', :model_id => @model
 		t.highlights_on :controller => 'backend/items'
