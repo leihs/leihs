@@ -9,6 +9,12 @@
 			<% tooltip icon_tag('error') do %>
 				<%= @line.tooltip %>
 			<% end unless @line.complete? %>
+
+			<% if @line.model.internal_description and not @line.model.internal_description.blank? %>
+				<% tooltip icon_tag("information") do%>
+					<%= @line.model.internal_description %>
+				<% end %>
+			<% end %>
 		</td>
 		<td>
 			<%= icon_tag("house", :title => _("Installed in: %s") % @line.location) if @line.location %>

@@ -7,7 +7,8 @@ module ModelsHelper
 #    r += javascript_include_tag "flotr/lib/base64.js" # IE
 #    r += javascript_include_tag "flotr/lib/canvas2image.js"
 #    r += javascript_include_tag "flotr/lib/canvastext.js"
-    r += javascript_include_tag "flotr/flotr-0.2.0-alpha.js"
+
+    r += javascript_include_tag "flotr/flotr.js"
     r
   end
 
@@ -25,13 +26,16 @@ module ModelsHelper
   def canvas_for_model(model)
     config = {:canvas => {:width => 800, :height => 300},
               :line => {:height => 20},
-              :range => {:start => -50, :end => 150}}
+              :range => {:start => -50, :end => 150},
+              :title => {:xaxis => _('Time'), :x2axis => _('Available Quantity'), :yaxis => _('Items')}
+              }
     items = @current_inventory_pool.items.by_model(model)
     canvas_height = (items.size * config[:line][:height])
     config[:canvas][:height] = canvas_height if canvas_height > config[:canvas][:height]
 
     today = Date.today
     x_ticks = [[today.jd, _("Today")]]
+    x2_ticks = []
     y_ticks = []
     data = []
     
@@ -42,68 +46,57 @@ module ModelsHelper
     end
     
     items.each_with_index do |item, index|
-      j = index + 1
-      y_ticks << [j, item.inventory_code]
-#old#
-#      item.contract_lines.each do |cl|
-#        s = cl.start_date.jd
-#        e = cl.end_date.tomorrow.jd
-#        data << [[s, j], [e, j]]
-#      end
+      y = index + 1
+      y_ticks << [y, item.inventory_code]
     end
-
-#old#
-#    model.lines.each do |l|
-#      s = l.start_date.jd
-#      e = l.end_date.tomorrow.jd
-#      if l.item
-#        j = items.index(l.item) + 1
-#        #old# data << [[s, j], [e, j]]
-#        data << {:data => [[s, j], [e, j]], :color => '#e3aa01'}
-#      else
-#        l.quantity.times do
-#          j = rand items.size + 1 # TODO
-#          data << {:data => [[s, j], [e, j]], :color => 'grey'}
-#        end
-#      end
-#    end
 
 
     events = []
+    html = ""
     
     lines = model.lines.select {|l| l.inventory_pool == @current_inventory_pool}
     lines_with_item = lines.select {|l| l.item }
     lines_without_item = lines - lines_with_item
     
     lines_with_item.each do |l|
+      html += "<br>#{l.quantity}: #{l.start_date} - #{l.end_date} #{l.item.inventory_code}"
       start_date = l.start_date.jd
-      end_date = l.end_date.tomorrow.jd
-      j = items.index(l.item) + 1
-      events << {:start => start_date, :end => end_date, :y => j, :assigned => true}
+      end_date = l.end_date.jd #old# l.end_date.tomorrow.jd
+      y = items.index(l.item) + 1
+      events << {:start => start_date, :end => end_date, :y => y, :assigned => true}
     end
 
     lines_without_item.each do |l|
+      html += "<br>#{l.quantity}: #{l.start_date} - #{l.end_date}"
       start_date = l.start_date.jd
-      end_date = l.end_date.tomorrow.jd
+      end_date = l.end_date.jd #old# l.end_date.tomorrow.jd
       l.quantity.times do
-        j = nil
+        y = nil
         (1..items.size).each do |k|
-          unless events.any? {|e| e[:y] == k and e[:start] <= end_date and e[:end] >= start_date}
-            j = k
+          unless events.any? {|e| e[:y] == k and e[:start] < end_date and e[:end] > start_date} #old# <= and >=
+            y = k
             break
           end
         end
-        events << {:start => start_date, :end => end_date, :y => j, :assigned => false} unless j.nil?
+        events << {:start => start_date, :end => end_date, :y => y, :assigned => false} unless y.nil?
       end
     end
 
     events.each do |e|
       data << {:data => [[e[:start], e[:y]], [e[:end], e[:y]]], :color => (e[:assigned] ? '#e3aa01' : 'grey')}
     end
+    
+    data << {:data => [[today.jd, 0], [today.jd, 0]], :xaxis => 2} # NOTE forcing to render x2axis # TODO 2502** keep from events?
+    model.available_periods_for_inventory_pool(@current_inventory_pool, current_user).each do |a|
+      dd = a.start_date
+      x2_ticks << [dd.jd, a.quantity.to_s] if dd.jd > today.jd + config[:range][:start] and dd.jd < today.jd + config[:range][:end]
+    end
 
-    html = ""
     html += javascript_include_flotr
-  
+
+    html += content_tag :div, :id => 'mouse_monitor', :style => "width: 200px; height: 200px; border: 1px solid black; float: right;" do
+            end
+
     html += content_tag :div, :id => 'canvas_container', :style => "width:#{config[:canvas][:width]}px;height:#{config[:canvas][:height]}px;" do
             end
 
@@ -113,14 +106,19 @@ module ModelsHelper
 
             var options = {
                     xaxis:{
-                      //noTicks: 7,
-                      //tickFormatter: function(n){ return '('+n+')'; }, // => displays tick values between brackets.
-                      //labelsAngle: 45,
+                      title: '#{config[:title][:xaxis]}',
                       ticks: #{x_ticks.to_json},
                       min: #{today.jd + config[:range][:start]},
                       max: #{today.jd + config[:range][:end]}
                     },
+                    x2axis:{
+                      title: '#{config[:title][:x2axis]}',
+                      ticks: #{x2_ticks.to_json},
+                      min: #{today.jd + config[:range][:start]},
+                      max: #{today.jd + config[:range][:end]}
+                    },
                     yaxis:{
+                      title: '#{config[:title][:yaxis]}',
                       ticks: #{y_ticks.to_json},
                       min: 0,
                       max: #{y_ticks.size + 1}
@@ -165,16 +163,32 @@ module ModelsHelper
               
               f = drawGraph({
                 xaxis:{
+                  title: '#{config[:title][:xaxis]}',
                   ticks: #{x_ticks.to_json},
                   min:area.x1,
                   max:area.x2
                 },
+                x2axis:{
+                  title: '#{config[:title][:x2axis]}',
+                  ticks: #{x2_ticks.to_json},
+                  min:area.x1,
+                  max:area.x2
+                },
                 yaxis:{
+                  title: '#{config[:title][:yaxis]}',
                   ticks: #{y_ticks.to_json},
                   min:area.y1,
                   max:area.y2
                 }
               });
+            });
+
+            $('canvas_container').observe('flotr:mousemove', function(evt){
+//              console.log(evt);
+//              var x = floor(evt.memo[1].x2);
+//              var d = new Date(x * 1000);
+//              $('mouse_monitor').innerHTML = 'date: ' + d + '<br/>available: ' + evt.memo[1].y;
+              $('mouse_monitor').innerHTML = 'x2: ' + evt.memo[1].x2 + '<br/>y: ' + evt.memo[1].y;
             });
 
         });     
@@ -213,7 +227,7 @@ module ModelsHelper
                                     horizontalLines: false
                                   },
                                   xaxis: {showLabels: false},
-                                  yaxis: {showLabels: false}, 
+                                  yaxis: {showLabels: false},
                                   legend:{show: false},
                                   pie: {
                                     show: true,           // => setting to true will show bars, false will hide

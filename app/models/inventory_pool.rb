@@ -71,10 +71,9 @@ class InventoryPool < ActiveRecord::Base
     ["01.01.2009"] #TODO **24** Get the dates from Holidays, put them in the correct format (depends on DatePicker)
   end
   
-  # TODO 01** provide name_and_items_size directly in extjs
-  def name_and_items_size(model_id = nil)
-    n = items.borrowable.by_model(model_id).count
-    "#{name} (#{n})"
+  # OPTIMIZE
+  def items_size(model_id)
+    items.borrowable.by_model(model_id).count
   end
 
   def is_open_on?(date)

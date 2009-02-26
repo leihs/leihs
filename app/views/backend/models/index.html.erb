@@ -41,7 +41,16 @@
 				<td><%= link_to image_tag(model.image_thumb), record_path if model.image_thumb and !params[:source_path] %></td>
 				<td><%= model.name %></td>
 				<td><%= model.manufacturer %></td>
-				<td><%= @current_inventory_pool.items.count(:conditions => {:model_id => model.id}) %></td>
+				<td style="white-space: nowrap;">
+					<% items_count = @current_inventory_pool.items.by_model(model).count %>
+					<% if @line
+						max_available = model.maximum_available_in_period_for_document_line(@line.start_date, @line.end_date, @line)
+					%>
+						<%= "#{max_available} of " if max_available < items_count %>
+					<% end %>
+					<%= items_count %>
+				</td>
+				
 				<td><%= (model.compatibles & @current_inventory_pool.models).size %></td>
 				<td class="buttons">
 					<% if params[:source_path]
@@ -50,7 +59,7 @@
 							url = "#{params[:source_path]}#{glue}#{var_id}=#{model.id}"
 						%>
 						<%=	link_to(icon_tag("package_add") + " " + _("Select"), url,
-							:method => 'post', :target=> '_top') %>
+							:method => 'post', :target=> '_top') if @line.nil? or max_available > 0 %>
 					<% else %>						
 						<ul>
 							<li><%= link_to icon_tag("magnifier") + _("Show"), record_path %></li>

@@ -95,7 +95,7 @@ class ModelsController < FrontendController
                                                                                              :model_id,
                                                                                              :compatible_id] },
                                                                 :inventory_pools => { :records => current_inventory_pools,
-                                                                                      :methods => [[:name_and_items_size, @model.id]], # TODO 01** provide name_and_items_size directly in extjs
+                                                                                      :methods => [[:items_size, @model.id]],
                                                                                       :only => [:id, :name] },
                                                                 :images => { :methods => [:public_filename, :public_filename_thumb],
                                                                              :except => [:created_at,

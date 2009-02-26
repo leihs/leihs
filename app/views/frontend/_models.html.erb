@@ -201,8 +201,12 @@ function add_model_details(model_id, open_add_tab){
 				name: 'name',
 				type: 'string'
 			}, {
-				name: 'name_and_items_size', // TODO 01** provide name_and_items_size directly in extjs
-				type: 'string'
+				name: 'items_size',
+				type: 'int'
+			}, {
+				name: 'name_and_items_size',
+				type: 'string',
+				convert: function(v, rec){ return rec['name'] + ' (' + rec['items_size'] + ')'; }
 			}]
 		});
 		
