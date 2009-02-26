@@ -47,7 +47,8 @@ class Backend::BackendController < ApplicationController
     else
       redirect_to :controller => 'models', 
                   :layout => 'modal',
-                  :source_path => request.env['REQUEST_URI']
+                  :source_path => request.env['REQUEST_URI'],
+                  :line_id => params[:line_id]
     end
   end
   
@@ -64,7 +65,7 @@ class Backend::BackendController < ApplicationController
       rescue
       end 
       flash[:notice] = document.errors.full_messages
-      redirect_to :action => 'show', :id => document.id
+      redirect_to :action => 'show', :id => document.id # TODO 2602** do we need the id? check Acknowledge & HandOver & TakeBack
     else
       @lines = document.lines.find(params[:lines].split(','))
       render :template => 'backend/backend/time_lines', :layout => $modal_layout_path

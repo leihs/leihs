@@ -9,14 +9,15 @@ class ItemLine < ContractLine
     "#{item} - #{end_date.strftime('%d.%m.%Y')}"
   end
 
-  before_save { |record| 
-    unless record.returned_date
-      #TODO 27 Commented for import
-      # But what happens if an inventory manager sees on the next day that he put in the wrong number and wants to correct it?
-      # record.item = nil if record.start_date != Date.today
-      record.start_date = Date.today unless record.item.nil?
-    end
-  }
+# TODO 2602** important: check this method!!!
+#  before_save { |record| 
+#    unless record.returned_date
+#      #TODO 27 Commented for import
+#      # But what happens if an inventory manager sees on the next day that he put in the wrong number and wants to correct it?
+#      # record.item = nil if record.start_date != Date.today
+#      record.start_date = Date.today unless record.item.nil?
+#    end
+#  }
 
 ##################################################
 

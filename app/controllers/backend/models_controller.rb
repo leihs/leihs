@@ -19,6 +19,8 @@ class Backend::ModelsController < Backend::BackendController
       category = Category.find(params[:category_id].to_i)
       models = models & (category.children.recursive.to_a << category).collect(&:models).flatten
     end
+
+    @line = ItemLine.find(params[:line_id]) if params[:line_id]
     
     @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
 

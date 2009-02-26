@@ -53,7 +53,6 @@ class Order < Document
 
 
   # TODO 13** forward purpose
-  # TODO forward Options
   # approves order then generates a new contract and item_lines for each item
   def approve(comment, send_mail = true)
     if approvable?

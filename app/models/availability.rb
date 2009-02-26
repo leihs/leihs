@@ -14,6 +14,7 @@ class Availability
     end_date.nil?
   end
   
+  # TODO 2502** recheck this method
   def periods
     availabilities = []
     last_date = @start_date
@@ -26,6 +27,11 @@ class Availability
       else
         date_of_event = date_of_event - 1.day
       end
+
+      # TODO 2502** merge returning dates
+      availabilities.delete_if {|a| a.start_date == last_date }
+      #
+      
       availabilities << Availability.new(last_quantity, last_date, date_of_event)
       last_date = date_of_event + 1.day  
       last_quantity = last_quantity + event[1]

@@ -41,7 +41,7 @@ class Item < ActiveRecord::Base
   named_scope :incomplete, :conditions => {:is_incomplete => true}
   named_scope :unfinished, :conditions => ['inventory_code IS NULL OR model_id IS NULL OR location_id IS NULL']
   
-  # OPTIMIZE 1102** use contract_lines association
+  # OPTIMIZE 1102** use item_lines association
   named_scope :in_stock, :conditions => ['items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)']
   named_scope :not_in_stock, :conditions => ['items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)']
 
@@ -50,7 +50,8 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   def to_s
-    "#{model.name if model} #{inventory_code}" # TODO remove 'if model'
+    #old# "#{model.name if model} #{inventory_code}"
+    "#{model.name} #{inventory_code}"
   end
     
   # TODO remove this method when no more needed (it is used for Rspec tests)

@@ -64,12 +64,6 @@ class Backend::HandOverController < Backend::BackendController
         end
         flash[:error] = @contract.errors.full_messages
       end
-      
-# TODO 29** update all lines
-#      render :update do |page|
-#        page.replace_html  'lines', :partial => 'lines'
-#      end
-#      render :partial => 'lines'
     end
   end  
 
@@ -80,7 +74,6 @@ class Backend::HandOverController < Backend::BackendController
     
     unless item.nil?
       if @contract.items.include?(item)
-          # TODO 1802** clear barcode input field
           flash[:error] = _("The item is already in the current contract.")
       else
         contract_line = @contract.contract_lines.first(:conditions => { :model_id => item.model.id, :item_id => nil })
