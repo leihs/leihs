@@ -48,7 +48,7 @@ class Backend::BackendController < ApplicationController
       redirect_to :controller => 'models', 
                   :layout => 'modal',
                   :source_path => request.env['REQUEST_URI'],
-                  :line_id => params[:line_id]
+                  "#{document.class.to_s.underscore}_line_id" => params[:line_id]
     end
   end
   
