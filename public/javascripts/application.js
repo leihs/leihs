@@ -20,6 +20,30 @@ function change_href(a, checkbox_name, param_name){
 	decoGreyboxLinks();
 }
 
+/////////////////////////////////////////////////////////
+
+// TODO 2702** optimize
+function input_values(inputs){
+	s = "";
+	$$('body input.' + inputs).each(
+		function(input){
+			s += '&' + input.name + '=' + input.value;
+		}
+	);
+	return s;
+}
+
+// TODO 2702** optimize
+function change_href_input(a, input_name){
+	var s = input_values(input_name);
+	
+	a.href += s;
+	decoGreyboxLinks();
+}
+
+/////////////////////////////////////////////////////////
+
+
 function mark_all(master, boxes, buttons){
 	$$('body input.' + boxes).each(
 		function(box){

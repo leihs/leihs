@@ -2,7 +2,7 @@
 
 		<%= greybox_link_to_page(icon_tag("tab_go") + " " + _("Take Back"),
 			 	{ :action => 'close_contract' },
-				:onmouseup => "change_href(this, 'contract_line', 'line');",
+				:onmouseup => "change_href(this, 'contract_line', 'line'); change_href_input(this, 'returned_quantity');",
 				:class => "ghostable_group_1",
 				:title => _("Take Back") ) %>
 

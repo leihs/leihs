@@ -11,29 +11,29 @@
 
 <% unless request.xml_http_request? %>
 
-<% if @model %>
-	 <div class="toolbar-second">
-		<% form_tag backend_inventory_pool_model_compatibles_path(@current_inventory_pool, @model),
-					:onsubmit => "return ($('is_selected').value == 1);" do %>
-			<%= hidden_field_tag :is_selected, 0 %>
-			<%= _("Add compatible") %>:
-			<%= model_auto_completer ('query', nil, 'compatible[model_id]', nil,
-										{ :url => backend_inventory_pool_models_path(:format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
-										{ :size => 40 },
-										{ :method => :get, :select => :name }) %>
-			<%= submit_tag 'Submit' %>
-		<% end %>
-	 </div>
-<% elsif params[:filter] == "packages" %>
-	<div class="toolbar-second buttons">
-		<%= link_to _('New Package'), :action => 'new_package' %>
-	</div>
-<% end %>
+	<% if @model %>
+		 <div class="toolbar-second">
+			<% form_tag backend_inventory_pool_model_compatibles_path(@current_inventory_pool, @model),
+						:onsubmit => "return ($('is_selected').value == 1);" do %>
+				<%= hidden_field_tag :is_selected, 0 %>
+				<%= _("Add compatible") %>:
+				<%= model_auto_completer ('query', nil, 'compatible[model_id]', nil,
+											{ :url => backend_inventory_pool_models_path(:format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
+											{ :size => 40 },
+											{ :method => :get, :select => :name }) %>
+				<%= submit_tag _('Submit') %>
+			<% end %>
+		 </div>
+	<% elsif params[:filter] == "packages" %>
+		<div class="toolbar-second buttons">
+			<%= link_to _('New Package'), :action => 'new_package' %>
+		</div>
+	<% end %>
 
 <% end %>
 
 
-<% table_with_search_and_pagination :columns => ["", [_("Model"), 'models.name'], [_("Manufacturer"), 'models.manufacturer'], _("Items"), _("Compatibles"), _("Action")],
+<% table_with_search_and_pagination :columns => ["", [_("Model"), 'models.name'], [_("Manufacturer"), 'models.manufacturer'], _("Available Items"), _("Compatibles"), _("Action")],
 						   			:records => @models do |model| %>	
 
 			<% record_path = backend_inventory_pool_model_path(@current_inventory_pool, model) %>
@@ -42,13 +42,7 @@
 				<td><%= model.name %></td>
 				<td><%= model.manufacturer %></td>
 				<td style="white-space: nowrap;">
-					<% items_count = @current_inventory_pool.items.by_model(model).count %>
-					<% if @line
-						max_available = model.maximum_available_in_period_for_document_line(@line.start_date, @line.end_date, @line)
-					%>
-						<%= "#{max_available} of " if max_available < items_count %>
-					<% end %>
-					<%= items_count %>
+					<%= (params[:source_path] ? model.read_attribute(:max_available) : @current_inventory_pool.items.by_model(model).count) %>
 				</td>
 				
 				<td><%= (model.compatibles & @current_inventory_pool.models).size %></td>
@@ -59,7 +53,7 @@
 							url = "#{params[:source_path]}#{glue}#{var_id}=#{model.id}"
 						%>
 						<%=	link_to(icon_tag("package_add") + " " + _("Select"), url,
-							:method => 'post', :target=> '_top') if @line.nil? or max_available > 0 %>
+							:method => 'post', :target=> '_top') %>
 					<% else %>						
 						<ul>
 							<li><%= link_to icon_tag("magnifier") + _("Show"), record_path %></li>

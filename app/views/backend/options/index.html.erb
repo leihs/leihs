@@ -25,7 +25,7 @@
 						<ul>
 							<li><%= link_to icon_tag("magnifier") + _("Show"), {:action => 'show', :id => option} %></li>
 							<li><%= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => option.inventory_code}, :method => :post %></li>
-							<li><%= link_to _("Delete"), {:action => 'destroy', :id => option}, :confirm => _("Are you sure?"), :method => :delete %></li>
+							<li><%= link_to _("Delete"), {:action => 'destroy', :id => option}, :confirm => _("Are you sure?"), :method => :delete if option.option_lines.empty? %></li>
 						</ul>
 					<% end %>						
 				</td>

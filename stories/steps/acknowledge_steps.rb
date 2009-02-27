@@ -169,7 +169,7 @@ steps_for(:acknowledge) do
   end
   
   Then "Swap Item screen opens" do 
-    @response.redirect_url.should include("/backend/inventory_pools/#{@inventory_pool.id}/models?layout=modal&line_id=#{@order_line_id}&source_path=%2Fbackend%2Finventory_pools%2F#{@inventory_pool.id}%2Fusers%2F#{@order.user.id}%2Facknowledge%2F#{@order.id}%2Fswap_model_line%3Fline_id%3D#{@order_line_id}")
+    @response.redirect_url.should include("/backend/inventory_pools/#{@inventory_pool.id}/models?layout=modal&order_line_id=#{@order_line_id}&source_path=%2Fbackend%2Finventory_pools%2F#{@inventory_pool.id}%2Fusers%2F#{@order.user.id}%2Facknowledge%2F#{@order.id}%2Fswap_model_line%3Fline_id%3D#{@order_line_id}")
   end
   
   Then "a choice of $size item appears" do |size|

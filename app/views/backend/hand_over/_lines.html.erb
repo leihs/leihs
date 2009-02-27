@@ -11,5 +11,3 @@ for @line in @contract.lines
 	<%= render :partial => @line.type.underscore %>
 <% end %>
 <!-- end iterator -->						
-
-<%= javascript_tag("toggle_buttons('contract_line_check', 'ghostable_group_1');") %>

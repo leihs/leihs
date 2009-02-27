@@ -6,7 +6,7 @@
 <br />		
 <div class="buttons">
 	<%=	link_to(icon_tag("door_out") + " " + _("Confirm"),
-				 { :action => 'close_contract', :lines => @lines  },
+				 { :action => 'close_contract', :lines => @lines, :returned_quantity => params[:returned_quantity]  },
 				 :class => 'positive', :method => 'post') unless @lines.empty? %>
 				 
 	<%=	cancel_popup_button(_("Cancel") ) %>

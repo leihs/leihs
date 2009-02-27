@@ -20,9 +20,36 @@ class Backend::ModelsController < Backend::BackendController
       models = models & (category.children.recursive.to_a << category).collect(&:models).flatten
     end
 
-    @line = ItemLine.find(params[:line_id]) if params[:line_id]
+
     
     @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
+
+    # we are in a greybox
+    if params[:source_path]
+
+      if @line
+        @start_date = @line.start_date
+        @end_date = @line.end_date
+        @user = @line.document.user            
+      else
+        @start_date = Date.today
+        @end_date = @start_date + 2.days
+        @user = current_user
+      end
+  
+      # TODO 2702** use named_scope instead
+      # OPTIMIZE 2702** total_entries counter
+      @models.delete(@line.model) if @line
+      @models.each do |model|
+          max_available = model.maximum_available_in_period_for_inventory_pool(@start_date, @end_date, current_inventory_pool, @user)
+          
+          if max_available > 0
+            model.write_attribute(:max_available, max_available)
+          else
+            @models.delete(model)
+          end
+      end
+    end
 
     @show_categories_tree = !(request.xml_http_request? or params[:filter] == "packages")
   end
@@ -147,6 +174,8 @@ class Backend::ModelsController < Backend::BackendController
     @model = current_inventory_pool.models.find(params[:model_id]) if params[:model_id]
     @item = current_inventory_pool.items.find(params[:item_id]) if params[:item_id]
     @model = @item.model if @item and !@model
+    @line = current_inventory_pool.contract_lines.find(params[:contract_line_id]) if params[:contract_line_id]
+    @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
     
     @tabs = []
     @tabs << (@model.is_package ? :package_backend : :model_backend ) if @model
