@@ -5,6 +5,7 @@
 
   <%= v.quantity %> <%= _(" item(s) due on ") %><%= v.date %><%= _(" at the inventory pool ") %><%= v.inventory_pool.name %>
 	<% v.contract_lines.each do |l| %>
-	* <%= l.quantity %> <%= l.model.name %> (<%= l.item.inventory_code %>), <%= l.start_date %>-<%= l.end_date %> <%= puts "\n" %>
+	* <%= l.quantity %> <%= l.model.name %> (<%= l.item.inventory_code %>), <%= l.start_date %>-<%= l.end_date %>
+	
 	<% end %>
 <% end %>

@@ -1,3 +1,5 @@
+<%= @comment if @comment %>
+
 <% @order.order_lines.each do | line | %>
 	<%= line.quantity%> <%= line.model.name %>
 <% end %>

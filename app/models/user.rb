@@ -179,6 +179,7 @@ class User < ActiveRecord::Base
     end
   end
 
+
   def remind(reminder_user = self)
     visits_to_remind = to_remind
     unless visits_to_remind.empty?
@@ -187,12 +188,30 @@ class User < ActiveRecord::Base
                                                                                 :c => visits_to_remind.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
                        :user_id => reminder_user,
                        :type_const => History::REMIND)
-      puts self.name
+      puts "Reminded: #{self.name}"
     end
   end
   
   def to_remind?
     not to_remind.empty?
+  end
+
+  def self.send_deadline_soon_reminder_to_everybody
+    User.all.each do |u|
+      u.send_deadline_soon_reminder
+    end
+  end
+
+  def send_deadline_soon_reminder(reminder_user = self)
+    visits_to_remind = deadline_soon
+    unless visits_to_remind.empty?
+      Notification.deadline_soon_reminder(self, visits_to_remind)
+      histories.create(:text => _("Deadline soon reminder sent for %{q} items on contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
+                                                                                :c => visits_to_remind.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
+                       :user_id => reminder_user,
+                       :type_const => History::REMIND)
+      puts "Deadline soon: #{self.login}"
+    end    
   end
 
 #################### Start role_requirement
@@ -238,7 +257,7 @@ class User < ActiveRecord::Base
 #################### End role_requirement
 
     
-  private
+ # private
   
   def to_remind
     e = []
@@ -254,5 +273,20 @@ class User < ActiveRecord::Base
     end
     e.sort
   end
-    
+  
+  def deadline_soon(date = Date.tomorrow)
+    e = []
+    contracts.signed_contracts.each do |c|
+      c.lines.deadline_soon.each do |l|
+        v = e.detect { |w| w.date == l.end_date and w.inventory_pool == c.inventory_pool }
+        unless v
+          e << Event.new(:start => l.end_date, :end => l.end_date, :title => "#{self.login} - #{c.inventory_pool.name}", :isDuration => false, :action => "take_back", :inventory_pool => c.inventory_pool, :user => self, :contract_lines => [l])
+        else
+          v.contract_lines << l
+        end
+      end
+    end
+    e.sort    
+  end
+  
 end
