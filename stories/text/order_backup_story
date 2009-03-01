@@ -24,18 +24,18 @@ Scenario: Restore an order
 
 	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given a submitted order with 4 order lines
-	And the order has 4 changes
+	And the order has 1 changes
 	
 	When inventory_manager chooses the order
 	Then a backup for the order is generated
 	
 	When he deletes 3 order line
 	Then the order has 1 order lines
-	And the order has 7 changes
+	And the order has 4 changes
 	
 	When he restores the order
 	Then the restored order has the same 4 order lines as the original
-	And the restored order has the same 4 changes as the original
+	And the restored order has the same 1 changes as the original
 	
 	Then is redirected to 'acknowledge'
 	And he sees 1 submitted order and 0 draft orders

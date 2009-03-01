@@ -1,10 +1,12 @@
-<%= @comment %>
+<%= @comment if @comment %>
 
 <%= _("The following changes were made to your order:") %>
 
 <% @order.histories.each do | history |%>
 	<%= history.text if history.type_const == History::CHANGE %>
 <% end %>
+
+<%= _("The order now looks like this:") %>
 
 <% @order.order_lines.each do | line | %>
 	<%= line.quantity%> <%= line.model.name %>

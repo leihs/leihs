@@ -1,0 +1,10 @@
+<%= _("The following items are due to be returned tomorrow:") %>
+
+<% @visits.each do | v | %>
+  <%= v.quantity %> <%= _(" item(s)") %><%= _(" at the inventory pool ") %><%= v.inventory_pool.name %>
+	<% v.contract_lines.each do |l| %>
+	  * <%= l.quantity %> <%= l.model.name %> (<%= l.item.inventory_code %>), <%= l.start_date %>-<%= l.end_date %>
+	  
+	<% end %>
+<% end %>
+

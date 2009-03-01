@@ -9,8 +9,9 @@ class ContractLine < DocumentLine
   
 ##################################################
 
-  named_scope :to_take_back, :conditions => ["(item_id IS NOT NULL OR option_id IS NOT NULL) AND returned_date IS NULL"]
-  named_scope :to_remind,    :conditions => ["(item_id IS NOT NULL OR option_id IS NOT NULL) AND returned_date IS NULL AND end_date < CURDATE()"]
+  named_scope :to_take_back,  :conditions => ["(item_id IS NOT NULL OR option_id IS NOT NULL) AND returned_date IS NULL"]
+  named_scope :to_remind,     :conditions => ["(item_id IS NOT NULL OR option_id IS NOT NULL) AND returned_date IS NULL AND end_date < CURDATE()"]
+  named_scope :deadline_soon, :conditions => ["(item_id IS NOT NULL OR option_id IS NOT NULL) AND returned_date IS NULL AND end_date = ADDDATE(CURDATE(), 1)"]
 
 ################################################## 
 

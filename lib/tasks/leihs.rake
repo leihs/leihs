@@ -44,8 +44,15 @@ namespace :leihs do
     puts "Remind complete -----------------------------"    
   end
 
+  desc "Deadline soon reminder" 
+  task :deadline_soon_reminder => :environment do
+    puts "Sending a deadline soon reminder..."
+    User.send_deadline_soon_reminder_to_everybody
+    puts "Deadline soon reminded ----------------------"
+  end
+  
   desc "Cron: Remind & Maintenance"
-  task :cron => [:remind, :maintenance]
+  task :cron => [:remind, :maintenance, :deadline_soon_reminder]
 
   desc "Run Rspec tests"
   task :test do

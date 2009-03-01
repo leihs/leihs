@@ -7,7 +7,17 @@ class Mailer::User < ActionMailer::Base
     @from       = 'no-reply@zhdk.ch'
     @sent_on    = sent_at
     @headers    = {}
-    @content_type = "text/html"
   end
+  
+  def deadline_soon_reminder(user, visits, sent_at = Time.now)
+    @subject    = _('[leihs] Some items should be returned tomorrow')
+    @body["visits"] = visits
+    @recipients = "#{user.email}"
+    @from       = 'no-reply@zhdk.ch'
+    @sent_on    = sent_at
+    @headers    = {}
+  end
+  
+  
 
 end
