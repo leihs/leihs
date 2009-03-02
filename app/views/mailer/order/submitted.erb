@@ -1,3 +1,15 @@
+<%= _("Dear leihs user,") %>
+
+<%= _("This is an automatic e-mail sent to you by the leihs system.") %> 
+
+<%= _("Your order was successfully submitted as follows:") %> 
+
 <% @order.order_lines.each do | line | %>
 	<%= line.quantity%> <%= line.model.name %> 
 <% end %>
+
+<%= _("It has not yet been approved by an inventory manager. Once a manager approves your order, you will receive a separate e-mail. Also, you can view the status of your order through your leihs account.") %> 
+
+<%= _("Kind regards,") %>
+
+<%= _("The leihs system") %>
