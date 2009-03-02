@@ -1,6 +1,8 @@
-<%= @comment if @comment %>
+<%= _("Dear leihs user,") %>
 
-<%= _("The following changes were made to your order:") %>
+<%= _("This is an automatic e-mail sent to you by the leihs system.") %> 
+
+<%= _("Your order for the following items has been confirmed by the inventory manager") + " " + _("but a few changes were made to it") + ":" %>
 
 <% @order.histories.each do | history |%>
 	<%= history.text if history.type_const == History::CHANGE %>
@@ -11,3 +13,11 @@
 <% @order.order_lines.each do | line | %>
 	<%= line.quantity%> <%= line.model.name %>
 <% end %>
+
+<%= _("The inventory manager added the following comment about your order:") %>
+
+<%= @comment if @comment %>
+
+<%= _("Kind regards,") %>
+
+<%= _("The leihs system") %>

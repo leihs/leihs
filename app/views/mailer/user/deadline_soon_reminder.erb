@@ -1,3 +1,7 @@
+<%= _("Dear leihs user,") %>
+
+<%= _("This is an automatic e-mail sent to you by the leihs system.") %> 
+
 <%= _("The following items are due to be returned tomorrow:") %>
 
 <% @visits.each do | v | %>
@@ -8,3 +12,8 @@
 	<% end %>
 <% end %>
 
+<%= _("Someone else might already be waiting for some of these items, so we are just sending you this little reminder to make sure you don't forget.") %>
+
+<%= _("Kind regards,") %>
+
+<%= _("The leihs system") %>

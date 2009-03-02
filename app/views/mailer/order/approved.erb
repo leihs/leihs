@@ -1,5 +1,21 @@
-<%= @comment if @comment %>
+<%= _("Dear leihs user,") %>
+
+<%= _("This is an automatic e-mail sent to you by the leihs system.") %> 
+
+<%= _("Your order for the following items has been confirmed by the inventory manager") + ":" %>
 
 <% @order.order_lines.each do | line | %>
 	<%= line.quantity%> <%= line.model.name %>
 <% end %>
+
+<% if @comment %>
+
+<%= _("The inventory manager added the following comment about your order:") %>
+
+<%= @comment %>
+
+<% end %>
+
+<%= _("Kind regards,") %>
+
+<%= _("The leihs system") %>
