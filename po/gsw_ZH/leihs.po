@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2009-02-28 11:59+0100\n"
+"POT-Creation-Date: 2009-03-02 11:59+0100\n"
 "PO-Revision-Date: 2009-02-28 12:35+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: English\n"
@@ -74,8 +74,12 @@ msgid "The Inventory Code %s was not found."
 msgstr "Ich han dr inventarcode %s nöd gfunde"
 
 #: app/controllers/backend/hand_over_controller.rb:38
-msgid "No items to hand over specified. Please assign inventory codes to the items you want to hand over."
-msgstr "Chei sachä zum übergäh agwählt. Bitte tuen doch Inventarcodes für d sachä zuewiisä, wo du möchtisch ussegäh."
+msgid ""
+"No items to hand over specified. Please assign inventory codes to the items "
+"you want to hand over."
+msgstr ""
+"Chei sachä zum übergäh agwählt. Bitte tuen doch Inventarcodes für d sachä "
+"zuewiisä, wo du möchtisch ussegäh."
 
 #: app/controllers/backend/hand_over_controller.rb:56
 msgid "The start date has been changed"
@@ -129,30 +133,6 @@ msgstr "Absendä hät nöd funktioniert"
 msgid "access right"
 msgstr "Zuegriffsrächt"
 
-#: app/models/access_right.rb:-
-msgid "AccessRight|Role"
-msgstr ""
-
-#: app/models/access_right.rb:-
-msgid "AccessRight|User"
-msgstr ""
-
-#: app/models/access_right.rb:-
-msgid "AccessRight|Inventory pool"
-msgstr ""
-
-#: app/models/access_right.rb:-
-msgid "AccessRight|Level"
-msgstr ""
-
-#: app/models/access_right.rb:-
-msgid "AccessRight|Created at"
-msgstr ""
-
-#: app/models/access_right.rb:-
-msgid "AccessRight|Updated at"
-msgstr ""
-
 #: app/models/access_right.rb:7
 msgid "Customer"
 msgstr "Chund"
@@ -177,201 +157,29 @@ msgstr "Grätepark fählt"
 msgid "inventory pool"
 msgstr "Grätepark"
 
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Name"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Description"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Contact details"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Contract description"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Contract url"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Logo url"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
+#: app/models/role.rb:-
 msgid "role"
 msgstr "Rolle"
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Parent"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Lft"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Rgt"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Name"
-msgstr ""
 
 #: app/models/image.rb:-
 msgid "image"
 msgstr "Bild"
 
-#: app/models/image.rb:-
-msgid "Image|Model"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Is main"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Content type"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Filename"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Size"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Height"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Width"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Parent"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Thumbnail"
-msgstr ""
-
 #: app/models/history.rb:-
 msgid "history"
 msgstr "Gschicht"
-
-#: app/models/history.rb:-
-msgid "History|Text"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Type const"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Created at"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Target"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Target type"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|User"
-msgstr ""
 
 #: app/models/model.rb:-
 msgid "model"
 msgstr "Modell"
 
-#: app/models/model.rb:-
-msgid "Model|Name"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Manufacturer"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Description"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Internal description"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Info url"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Rental price"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Maintenance period"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Is package"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Created at"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Updated at"
-msgstr ""
-
 #: app/models/property.rb:-
 msgid "property"
 msgstr "Eigäschaft"
 
-#: app/models/property.rb:-
-msgid "Property|Model"
-msgstr ""
-
-#: app/models/property.rb:-
-msgid "Property|Key"
-msgstr ""
-
-#: app/models/property.rb:-
-msgid "Property|Value"
-msgstr ""
-
 #: app/models/location.rb:-
 msgid "location"
 msgstr "Ort"
-
-#: app/models/location.rb:-
-msgid "Location|Inventory pool"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Is main"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Building"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Room"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Shelf"
-msgstr ""
 
 #: app/models/event.rb:-
 msgid "event"
@@ -405,58 +213,35 @@ msgstr ""
 msgid "option"
 msgstr ""
 
-#: app/models/option.rb:-
-#, fuzzy
-msgid "Option|Inventory pool"
-msgstr "Grätepark"
-
-#: app/models/option.rb:-
-#, fuzzy
-msgid "Option|Inventory code"
-msgstr "Grätepark"
-
-#: app/models/option.rb:-
-msgid "Option|Name"
-msgstr ""
-
 #: app/models/notification.rb:-
 msgid "notification"
-msgstr ""
-
-#: app/models/notification.rb:-
-msgid "Notification|User"
-msgstr ""
-
-#: app/models/notification.rb:-
-msgid "Notification|Title"
-msgstr ""
-
-#: app/models/notification.rb:-
-msgid "Notification|Created at"
 msgstr ""
 
 #: app/models/notification.rb:7
 msgid "Order submitted"
 msgstr "Bstellig abgschickt"
 
-#: app/models/notification.rb:19
+#: app/models/notification.rb:21
 msgid "Order approved"
 msgstr "Bstellig bestätigt"
 
-#: app/models/notification.rb:25
+#: app/models/notification.rb:28
 msgid "Order rejected"
 msgstr "Bstellig abglehnt"
 
-#: app/models/notification.rb:31
+#: app/models/notification.rb:36
+msgid "Deadline soon"
+msgstr ""
+
+#: app/models/notification.rb:44
 msgid "Reminder"
 msgstr "Erinnerig"
 
-#: app/models/contract_line.rb:30
+#: app/models/contract_line.rb:31
 msgid "This inventory pool is closed on the proposed end date"
 msgstr "Dä grätepark isch an dem enddatum gschlosse"
 
-#: app/models/order.rb:22
-#: app/models/contract.rb:23
+#: app/models/order.rb:22 app/models/contract.rb:23
 msgid "New"
 msgstr "Nöi"
 
@@ -556,80 +341,29 @@ msgstr "[leihs] Reservation agnoh (mit änderige)"
 msgid "[leihs] Reminder"
 msgstr "[leihs] Erinnerig"
 
+#: app/models/mailer/user.rb:13
+msgid "[leihs] Some items should be returned tomorrow"
+msgstr ""
+
 #: app/models/holiday.rb:-
 msgid "holiday"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|Inventory pool"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|Start date"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|End date"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|Name"
 msgstr ""
 
 #: app/models/supplier.rb:-
 msgid "supplier"
 msgstr ""
 
-#: app/models/supplier.rb:-
-msgid "Supplier|Name"
-msgstr ""
-
-#: app/models/supplier.rb:-
-msgid "Supplier|Created at"
-msgstr ""
-
-#: app/models/supplier.rb:-
-msgid "Supplier|Updated at"
-msgstr ""
-
 #: app/models/authentication_system.rb:-
 msgid "authentication system"
 msgstr ""
 
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Name"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Class name"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Is default"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Is active"
-msgstr ""
-
 #: app/models/option_line.rb:39
-msgid "The option doesn't belong to the inventory pool related to this contract"
+msgid ""
+"The option doesn't belong to the inventory pool related to this contract"
 msgstr "Die option ghört nöd zum grätepark wo zu dem vertrag ghört"
 
 #: app/models/model_link.rb:-
 msgid "model link"
-msgstr ""
-
-#: app/models/model_link.rb:-
-msgid "ModelLink|Model group"
-msgstr ""
-
-#: app/models/model_link.rb:-
-msgid "ModelLink|Model"
-msgstr ""
-
-#: app/models/model_link.rb:-
-msgid "ModelLink|Quantity"
 msgstr ""
 
 #: app/models/model_link.rb:10
@@ -641,207 +375,28 @@ msgid "contract"
 msgstr ""
 
 #: app/models/user.rb:-
-msgid "Contract|User"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Inventory pool"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Status const"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Purpose"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Created at"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Updated at"
-msgstr ""
-
-#: app/models/user.rb:-
 msgid "user"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Login"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Firstname"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Lastname"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Phone"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Authentication system"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Unique"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Email"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Created at"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Updated at"
-msgstr ""
-
-#: app/models/user.rb:186
+#: app/models/user.rb:187
 msgid "Reminded %{q} items for contracts %{c}"
+msgstr "%{q} sachä für vertrag %{c} erinneret"
+
+#: app/models/user.rb:209
+#, fuzzy
+msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr "%{q} sachä für vertrag %{c} erinneret"
 
 #: app/models/model_group.rb:-
 msgid "model group"
 msgstr "Modellgruppe"
 
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Type"
-msgstr ""
-
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Name"
-msgstr ""
-
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Created at"
-msgstr ""
-
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Updated at"
-msgstr ""
-
 #: app/models/workday.rb:-
 msgid "workday"
 msgstr ""
 
-#: app/models/workday.rb:-
-msgid "Workday|Inventory pool"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Monday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Tuesday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Wednesday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Thursday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Friday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Saturday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Sunday"
-msgstr ""
-
 #: app/models/item.rb:-
 msgid "item"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Inventory code"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Serial number"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Model"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Location"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Supplier"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Owner"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Parent"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Required level"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Invoice number"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Invoice date"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Last check"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Retired"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Retired reason"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Price"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Is broken"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Is incomplete"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Is borrowable"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Created at"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Updated at"
 msgstr ""
 
 #: app/models/item.rb:89
@@ -865,18 +420,6 @@ msgstr "Gschlosse"
 #: app/models/accessory.rb:-
 msgid "accessory"
 msgstr "Zuebehör"
-
-#: app/models/accessory.rb:-
-msgid "Accessory|Model"
-msgstr ""
-
-#: app/models/accessory.rb:-
-msgid "Accessory|Name"
-msgstr ""
-
-#: app/models/accessory.rb:-
-msgid "Accessory|Quantity"
-msgstr ""
 
 #: app/models/item_line.rb:32
 msgid "item not assigned. "
@@ -902,8 +445,7 @@ msgstr "Ziit"
 msgid "Available Quantity"
 msgstr "Verfüegbari azahl"
 
-#: app/helpers/models_helper.rb:30
-#: app/views/admin/models/index.html.erb:21
+#: app/helpers/models_helper.rb:30 app/views/admin/models/index.html.erb:21
 #: app/views/admin/inventory_pools/index.html.erb:9
 #: app/views/admin/inventory_pools/locations.html.erb:19
 #: app/views/backend/hand_over/index.html.erb:1
@@ -918,8 +460,7 @@ msgstr "Verfüegbari azahl"
 msgid "Items"
 msgstr "Sachä"
 
-#: app/helpers/models_helper.rb:37
-#: app/helpers/backend/acknowledge_helper.rb:9
+#: app/helpers/models_helper.rb:37 app/helpers/backend/acknowledge_helper.rb:9
 #: app/views/backend/inventory_pools/show.html.erb:25
 #: app/views/backend/inventory_pools/show.html.erb:33
 msgid "Today"
@@ -987,16 +528,14 @@ msgstr "Benutzer"
 #: app/views/backend/models/package_items.html.erb:20
 #: app/views/backend/models/index.html.erb:36
 #: app/views/backend/templates/models.html.erb:21
-#: app/views/frontend/_basket.html.erb:16
-#: app/views/users/document.rfpdf:77
+#: app/views/frontend/_basket.html.erb:16 app/views/users/document.rfpdf:77
 #: app/views/users/show_document.rfpdf:7
 #: app/views/backend/contracts/show.rfpdf:92
 msgid "Model"
 msgstr "Modell"
 
 #: app/helpers/backend/backend_helper.rb:156
-#: app/views/users/account.html.erb:35
-#: app/views/frontend/_models.html.erb:227
+#: app/views/users/account.html.erb:35 app/views/frontend/_models.html.erb:227
 msgid "Loading"
 msgstr "Am lade"
 
@@ -1019,8 +558,7 @@ msgstr "Bestätige"
 msgid "Cancel"
 msgstr "Abbrechä"
 
-#: app/views/users/_orders.html.erb:44
-#: app/views/users/_contracts.html.erb:44
+#: app/views/users/_orders.html.erb:44 app/views/users/_contracts.html.erb:44
 msgid "Timeline Contracts"
 msgstr "Ziitliischte verträg"
 
@@ -1043,41 +581,127 @@ msgstr "Verträg (%d)"
 msgid "Visits"
 msgstr "Bsüech"
 
-#: app/views/mailer/user/remind.erb:2
-msgid "The following items are overdue. Please return them as soon as possible:"
-msgstr "Die sache sind überfällig. Bitte bring sie so schnell wie möglich zrugg."
-
-#: app/views/mailer/user/remind.erb:6
-msgid " item(s) due on "
-msgstr "Sachä fällig am"
-
-#: app/views/mailer/user/remind.erb:6
-msgid " at the inventory pool "
-msgstr " im grätepark "
-
-#: app/views/mailer/order/rejected.erb:1
+#: app/views/mailer/user/deadline_soon_reminder.erb:1
+#: app/views/mailer/user/remind.erb:1 app/views/mailer/order/rejected.erb:1
+#: app/views/mailer/order/changed.erb:1 app/views/mailer/order/approved.erb:1
+#: app/views/mailer/order/submitted.erb:1
 msgid "Dear leihs user,"
 msgstr "Liebe leihs-Benützer,"
 
-#: app/views/mailer/order/rejected.erb:3
-msgid "Your order was rejected for the following reason:"
-msgstr "Dini bstellig isch us em folgende grund abglehnt worde:"
+#: app/views/mailer/user/deadline_soon_reminder.erb:3
+#: app/views/mailer/user/remind.erb:3 app/views/mailer/order/rejected.erb:3
+#: app/views/mailer/order/changed.erb:3 app/views/mailer/order/approved.erb:3
+#: app/views/mailer/order/submitted.erb:3
+msgid "This is an automatic e-mail sent to you by the leihs system."
+msgstr ""
 
-#: app/views/mailer/order/rejected.erb:7
+#: app/views/mailer/user/deadline_soon_reminder.erb:5
+#, fuzzy
+msgid "The following items are due to be returned tomorrow:"
+msgstr ""
+"Die sache sind überfällig. Bitte bring sie so schnell wie möglich zrugg."
+
+#: app/views/mailer/user/deadline_soon_reminder.erb:8
+#, fuzzy
+msgid " item(s)"
+msgstr "Sachä fällig am"
+
+#: app/views/mailer/user/deadline_soon_reminder.erb:8
+#: app/views/mailer/user/remind.erb:9
+msgid " at the inventory pool "
+msgstr " im grätepark "
+
+#: app/views/mailer/user/deadline_soon_reminder.erb:15
+msgid ""
+"Someone else might already be waiting for some of these items, so we are "
+"just sending you this little reminder to make sure you don't forget."
+msgstr ""
+
+#: app/views/mailer/user/deadline_soon_reminder.erb:17
+#: app/views/mailer/user/remind.erb:22 app/views/mailer/order/rejected.erb:9
+#: app/views/mailer/order/changed.erb:21
+#: app/views/mailer/order/approved.erb:19
+#: app/views/mailer/order/submitted.erb:13
 msgid "Kind regards,"
 msgstr "Liebi grüess,"
 
-#: app/views/mailer/order/rejected.erb:9
+#: app/views/mailer/user/deadline_soon_reminder.erb:19
+#: app/views/mailer/user/remind.erb:24 app/views/mailer/order/rejected.erb:11
+#: app/views/mailer/order/changed.erb:23
+#: app/views/mailer/order/approved.erb:21
+#: app/views/mailer/order/submitted.erb:15
 msgid "The leihs system"
 msgstr "Z leihs-syschtem"
 
-#: app/views/mailer/order/changed.erb:3
-msgid "The following changes were made to your order:"
+#: app/views/mailer/user/remind.erb:5
+msgid ""
+"The following items are overdue. Please return them as soon as possible:"
+msgstr ""
+"Die sache sind überfällig. Bitte bring sie so schnell wie möglich zrugg."
+
+#: app/views/mailer/user/remind.erb:9
+msgid " item(s) due on "
+msgstr "Sachä fällig am"
+
+#: app/views/mailer/user/remind.erb:16
+msgid ""
+"By not returning these items, you might be blocking other people's "
+"reservations. This is very unfair to the others and you are causing a "
+"significant amount of work for the inventory managers."
+msgstr ""
+
+#: app/views/mailer/user/remind.erb:18
+msgid ""
+"Even if you return the items now, the inventory manager may fine or "
+"otherwise penalize you."
+msgstr ""
+
+#: app/views/mailer/user/remind.erb:20
+msgid ""
+"Please coordinate with the inventory managers in charge to find a date and "
+"time for the return."
+msgstr ""
+
+#: app/views/mailer/order/rejected.erb:5
+msgid "Your order was rejected for the following reason:"
+msgstr "Dini bstellig isch us em folgende grund abglehnt worde:"
+
+#: app/views/mailer/order/changed.erb:5 app/views/mailer/order/approved.erb:5
+msgid ""
+"Your order for the following items has been confirmed by the inventory "
+"manager"
+msgstr ""
+
+#: app/views/mailer/order/changed.erb:5
+#, fuzzy
+msgid "but a few changes were made to it"
 msgstr "Die folgendä veränderige sind an dinerä bstellig gmacht worde: "
+
+#: app/views/mailer/order/changed.erb:11
+msgid "The order now looks like this:"
+msgstr ""
+
+#: app/views/mailer/order/changed.erb:17
+#: app/views/mailer/order/approved.erb:13
+msgid "The inventory manager added the following comment about your order:"
+msgstr ""
+
+#: app/views/mailer/order/submitted.erb:5
+#, fuzzy
+msgid "Your order was successfully submitted as follows:"
+msgstr "Dini bstellig isch us em folgende grund abglehnt worde:"
+
+#: app/views/mailer/order/submitted.erb:11
+msgid ""
+"It has not yet been approved by an inventory manager. Once a manager "
+"approves your order, you will receive a separate e-mail. Also, you can view "
+"the status of your order through your leihs account."
+msgstr ""
 
 #: app/views/orders/_submit.html.erb:2
 msgid "The order has been successfully submitted, but is NOT YET CONFIRMED."
-msgstr "Dini bstellig isch erfolgrich abgschickt worde, isch aber NO NÖD BESTÄTIGET."
+msgstr ""
+"Dini bstellig isch erfolgrich abgschickt worde, isch aber NO NÖD BESTÄTIGET."
 
 #: app/views/orders/_submit.html.erb:6
 #: app/views/backend/acknowledge/_index.html.erb:3
@@ -1382,8 +1006,7 @@ msgstr "Bisch sicher?"
 #: app/views/backend/templates/index.html.erb:5
 #: app/views/backend/options/index.html.erb:10
 #: app/views/backend/options/show.html.erb:11
-#: app/views/frontend/_models.html.erb:275
-#: app/views/users/document.rfpdf:106
+#: app/views/frontend/_models.html.erb:275 app/views/users/document.rfpdf:106
 #: app/views/users/show_document.rfpdf:47
 msgid "Name"
 msgstr "Name"
@@ -1421,8 +1044,7 @@ msgstr "Neus Modell setzä"
 #: app/views/backend/items/index.html.erb:1
 #: app/views/backend/items/show.html.erb:3
 #: app/views/backend/models/package_items.html.erb:20
-#: app/views/users/document.rfpdf:77
-#: app/views/users/show_document.rfpdf:7
+#: app/views/users/document.rfpdf:77 app/views/users/show_document.rfpdf:7
 #: app/views/backend/contracts/show.rfpdf:92
 msgid "Inventory Code"
 msgstr "Inventarcode"
@@ -1757,8 +1379,7 @@ msgstr "Ziitfenschter"
 #: app/views/backend/options/index.html.erb:27
 #: app/views/backend/options/show.html.erb:5
 #: app/views/backend/options/show.html.erb:8
-#: app/views/users/document.rfpdf:106
-#: app/views/users/show_document.rfpdf:47
+#: app/views/users/document.rfpdf:106 app/views/users/show_document.rfpdf:47
 msgid "Barcode"
 msgstr "Barcode"
 
@@ -2133,8 +1754,12 @@ msgid "Are yo sure you want to reject the order?"
 msgstr "Wotsch diä bstellig würkli ablehnä?"
 
 #: app/views/backend/acknowledge/reject.html.erb:2
-msgid "You can enter an additional comment below, which will be sent to the user by e-mail."
-msgstr "Du chasch no meh kommentär drzueschriba. Diä werded denn au im mail verschickt."
+msgid ""
+"You can enter an additional comment below, which will be sent to the user by "
+"e-mail."
+msgstr ""
+"Du chasch no meh kommentär drzueschriba. Diä werded denn au im mail "
+"verschickt."
 
 #: app/views/backend/acknowledge/reject.html.erb:13
 msgid "Reject"
@@ -2200,10 +1825,8 @@ msgstr "Wötsch diä bstellig abschickä?"
 
 #: app/views/frontend/_complete_order.html.erb:338
 #: app/views/frontend/_models.html.erb:349
-#: app/views/frontend/_models.html.erb:353
-#: app/views/users/document.rfpdf:77
-#: app/views/users/document.rfpdf:106
-#: app/views/users/show_document.rfpdf:7
+#: app/views/frontend/_models.html.erb:353 app/views/users/document.rfpdf:77
+#: app/views/users/document.rfpdf:106 app/views/users/show_document.rfpdf:7
 #: app/views/users/show_document.rfpdf:47
 #: app/views/backend/contracts/show.rfpdf:92
 msgid "Start date"
@@ -2211,10 +1834,8 @@ msgstr "Startdatum"
 
 #: app/views/frontend/_complete_order.html.erb:350
 #: app/views/frontend/_models.html.erb:369
-#: app/views/frontend/_models.html.erb:373
-#: app/views/users/document.rfpdf:77
-#: app/views/users/document.rfpdf:106
-#: app/views/users/show_document.rfpdf:7
+#: app/views/frontend/_models.html.erb:373 app/views/users/document.rfpdf:77
+#: app/views/users/document.rfpdf:106 app/views/users/show_document.rfpdf:7
 #: app/views/users/show_document.rfpdf:47
 #: app/views/backend/contracts/show.rfpdf:92
 msgid "End date"
@@ -2346,42 +1967,38 @@ msgstr "Öffnigsziitä"
 msgid "Options"
 msgstr "Optionä"
 
-#: app/views/users/document.rfpdf:25
-#: app/views/backend/contracts/show.rfpdf:26
+#: app/views/users/document.rfpdf:25 app/views/backend/contracts/show.rfpdf:26
 msgid "Contract no. %d"
 msgstr ""
 
-#: app/views/users/document.rfpdf:35
-#: app/views/backend/contracts/show.rfpdf:69
+#: app/views/users/document.rfpdf:35 app/views/backend/contracts/show.rfpdf:69
 msgid "Lending party:"
 msgstr ""
 
-#: app/views/users/document.rfpdf:50
-#: app/views/backend/contracts/show.rfpdf:48
+#: app/views/users/document.rfpdf:50 app/views/backend/contracts/show.rfpdf:48
 msgid "Borrowing party:"
 msgstr ""
 
-#: app/views/users/document.rfpdf:64
-#: app/views/backend/contracts/show.rfpdf:32
-msgid "This lending contract covers borrowing the following items by the person (natural or legal) described as \"borrowing party\" above. Use of these items is only allowed for the purpose given below."
+#: app/views/users/document.rfpdf:64 app/views/backend/contracts/show.rfpdf:32
+msgid ""
+"This lending contract covers borrowing the following items by the person "
+"(natural or legal) described as \"borrowing party\" above. Use of these "
+"items is only allowed for the purpose given below."
 msgstr ""
 
-#: app/views/users/document.rfpdf:77
-#: app/views/users/document.rfpdf:106
+#: app/views/users/document.rfpdf:77 app/views/users/document.rfpdf:106
 #: app/views/users/show_document.rfpdf:7
 #: app/views/users/show_document.rfpdf:47
 msgid "Qt."
 msgstr ""
 
-#: app/views/users/document.rfpdf:77
-#: app/views/users/document.rfpdf:106
+#: app/views/users/document.rfpdf:77 app/views/users/document.rfpdf:106
 #: app/views/users/show_document.rfpdf:7
 #: app/views/backend/contracts/show.rfpdf:92
 msgid "Returned date"
 msgstr ""
 
-#: app/views/users/document.rfpdf:109
-#: app/views/users/show_document.rfpdf:50
+#: app/views/users/document.rfpdf:109 app/views/users/show_document.rfpdf:50
 msgid "Options:"
 msgstr ""
 
@@ -2409,11 +2026,20 @@ msgstr ""
 msgid "Access Denied"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Option|Inventory pool"
+#~ msgstr "Grätepark"
+
+#, fuzzy
+#~ msgid "Option|Inventory code"
+#~ msgstr "Grätepark"
+
 #~ msgid "Inventory Code identifies an item that is not in this order."
 #~ msgstr ""
 #~ "Dr Inventarcode ghört zumene Gägestand wo nöd in die Bstellig ghört."
+
 #~ msgid "Removed Option: %{o}"
 #~ msgstr "Option furtgnoh: %{o}"
+
 #~ msgid "Student"
 #~ msgstr "Student"
-

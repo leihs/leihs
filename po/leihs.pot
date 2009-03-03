@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2009-02-28 11:59+0100\n"
+"POT-Creation-Date: 2009-03-02 11:59+0100\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: English\n"
@@ -131,30 +131,6 @@ msgstr ""
 msgid "access right"
 msgstr ""
 
-#: app/models/access_right.rb:-
-msgid "AccessRight|Role"
-msgstr ""
-
-#: app/models/access_right.rb:-
-msgid "AccessRight|User"
-msgstr ""
-
-#: app/models/access_right.rb:-
-msgid "AccessRight|Inventory pool"
-msgstr ""
-
-#: app/models/access_right.rb:-
-msgid "AccessRight|Level"
-msgstr ""
-
-#: app/models/access_right.rb:-
-msgid "AccessRight|Created at"
-msgstr ""
-
-#: app/models/access_right.rb:-
-msgid "AccessRight|Updated at"
-msgstr ""
-
 #: app/models/access_right.rb:7
 msgid "Customer"
 msgstr ""
@@ -179,200 +155,28 @@ msgstr ""
 msgid "inventory pool"
 msgstr ""
 
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Name"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Description"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Contact details"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Contract description"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Contract url"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "InventoryPool|Logo url"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
+#: app/models/role.rb:-
 msgid "role"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Parent"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Lft"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Rgt"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Role|Name"
 msgstr ""
 
 #: app/models/image.rb:-
 msgid "image"
 msgstr ""
 
-#: app/models/image.rb:-
-msgid "Image|Model"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Is main"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Content type"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Filename"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Size"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Height"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Width"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Parent"
-msgstr ""
-
-#: app/models/image.rb:-
-msgid "Image|Thumbnail"
-msgstr ""
-
 #: app/models/history.rb:-
 msgid "history"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Text"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Type const"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Created at"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Target"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|Target type"
-msgstr ""
-
-#: app/models/history.rb:-
-msgid "History|User"
 msgstr ""
 
 #: app/models/model.rb:-
 msgid "model"
 msgstr ""
 
-#: app/models/model.rb:-
-msgid "Model|Name"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Manufacturer"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Description"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Internal description"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Info url"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Rental price"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Maintenance period"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Is package"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Created at"
-msgstr ""
-
-#: app/models/model.rb:-
-msgid "Model|Updated at"
-msgstr ""
-
 #: app/models/property.rb:-
 msgid "property"
 msgstr ""
 
-#: app/models/property.rb:-
-msgid "Property|Model"
-msgstr ""
-
-#: app/models/property.rb:-
-msgid "Property|Key"
-msgstr ""
-
-#: app/models/property.rb:-
-msgid "Property|Value"
-msgstr ""
-
 #: app/models/location.rb:-
 msgid "location"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Inventory pool"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Is main"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Building"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Room"
-msgstr ""
-
-#: app/models/location.rb:-
-msgid "Location|Shelf"
 msgstr ""
 
 #: app/models/event.rb:-
@@ -407,51 +211,31 @@ msgstr ""
 msgid "option"
 msgstr ""
 
-#: app/models/option.rb:-
-msgid "Option|Inventory pool"
-msgstr ""
-
-#: app/models/option.rb:-
-msgid "Option|Inventory code"
-msgstr ""
-
-#: app/models/option.rb:-
-msgid "Option|Name"
-msgstr ""
-
 #: app/models/notification.rb:-
 msgid "notification"
-msgstr ""
-
-#: app/models/notification.rb:-
-msgid "Notification|User"
-msgstr ""
-
-#: app/models/notification.rb:-
-msgid "Notification|Title"
-msgstr ""
-
-#: app/models/notification.rb:-
-msgid "Notification|Created at"
 msgstr ""
 
 #: app/models/notification.rb:7
 msgid "Order submitted"
 msgstr ""
 
-#: app/models/notification.rb:19
+#: app/models/notification.rb:21
 msgid "Order approved"
 msgstr ""
 
-#: app/models/notification.rb:25
+#: app/models/notification.rb:28
 msgid "Order rejected"
 msgstr ""
 
-#: app/models/notification.rb:31
+#: app/models/notification.rb:36
+msgid "Deadline soon"
+msgstr ""
+
+#: app/models/notification.rb:44
 msgid "Reminder"
 msgstr ""
 
-#: app/models/contract_line.rb:30
+#: app/models/contract_line.rb:31
 msgid "This inventory pool is closed on the proposed end date"
 msgstr ""
 
@@ -555,60 +339,20 @@ msgstr ""
 msgid "[leihs] Reminder"
 msgstr ""
 
+#: app/models/mailer/user.rb:13
+msgid "[leihs] Some items should be returned tomorrow"
+msgstr ""
+
 #: app/models/holiday.rb:-
 msgid "holiday"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|Inventory pool"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|Start date"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|End date"
-msgstr ""
-
-#: app/models/holiday.rb:-
-msgid "Holiday|Name"
 msgstr ""
 
 #: app/models/supplier.rb:-
 msgid "supplier"
 msgstr ""
 
-#: app/models/supplier.rb:-
-msgid "Supplier|Name"
-msgstr ""
-
-#: app/models/supplier.rb:-
-msgid "Supplier|Created at"
-msgstr ""
-
-#: app/models/supplier.rb:-
-msgid "Supplier|Updated at"
-msgstr ""
-
 #: app/models/authentication_system.rb:-
 msgid "authentication system"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Name"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Class name"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Is default"
-msgstr ""
-
-#: app/models/authentication_system.rb:-
-msgid "AuthenticationSystem|Is active"
 msgstr ""
 
 #: app/models/option_line.rb:39
@@ -620,18 +364,6 @@ msgstr ""
 msgid "model link"
 msgstr ""
 
-#: app/models/model_link.rb:-
-msgid "ModelLink|Model group"
-msgstr ""
-
-#: app/models/model_link.rb:-
-msgid "ModelLink|Model"
-msgstr ""
-
-#: app/models/model_link.rb:-
-msgid "ModelLink|Quantity"
-msgstr ""
-
 #: app/models/model_link.rb:10
 msgid "already in Category"
 msgstr ""
@@ -641,207 +373,27 @@ msgid "contract"
 msgstr ""
 
 #: app/models/user.rb:-
-msgid "Contract|User"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Inventory pool"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Status const"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Purpose"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Created at"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "Contract|Updated at"
-msgstr ""
-
-#: app/models/user.rb:-
 msgid "user"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Login"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Firstname"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Lastname"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Phone"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Authentication system"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Unique"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Email"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Created at"
-msgstr ""
-
-#: app/models/user.rb:-
-msgid "User|Updated at"
-msgstr ""
-
-#: app/models/user.rb:186
+#: app/models/user.rb:187
 msgid "Reminded %{q} items for contracts %{c}"
+msgstr ""
+
+#: app/models/user.rb:209
+msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr ""
 
 #: app/models/model_group.rb:-
 msgid "model group"
 msgstr ""
 
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Type"
-msgstr ""
-
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Name"
-msgstr ""
-
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Created at"
-msgstr ""
-
-#: app/models/model_group.rb:-
-msgid "ModelGroup|Updated at"
-msgstr ""
-
 #: app/models/workday.rb:-
 msgid "workday"
 msgstr ""
 
-#: app/models/workday.rb:-
-msgid "Workday|Inventory pool"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Monday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Tuesday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Wednesday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Thursday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Friday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Saturday"
-msgstr ""
-
-#: app/models/workday.rb:-
-msgid "Workday|Sunday"
-msgstr ""
-
 #: app/models/item.rb:-
 msgid "item"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Inventory code"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Serial number"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Model"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Location"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Supplier"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Owner"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Parent"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Required level"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Invoice number"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Invoice date"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Last check"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Retired"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Retired reason"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Price"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Is broken"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Is incomplete"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Is borrowable"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Created at"
-msgstr ""
-
-#: app/models/item.rb:-
-msgid "Item|Updated at"
 msgstr ""
 
 #: app/models/item.rb:89
@@ -864,18 +416,6 @@ msgstr ""
 
 #: app/models/accessory.rb:-
 msgid "accessory"
-msgstr ""
-
-#: app/models/accessory.rb:-
-msgid "Accessory|Model"
-msgstr ""
-
-#: app/models/accessory.rb:-
-msgid "Accessory|Name"
-msgstr ""
-
-#: app/models/accessory.rb:-
-msgid "Accessory|Quantity"
 msgstr ""
 
 #: app/models/item_line.rb:32
@@ -1038,37 +578,115 @@ msgstr ""
 msgid "Visits"
 msgstr ""
 
-#: app/views/mailer/user/remind.erb:2
+#: app/views/mailer/user/deadline_soon_reminder.erb:1
+#: app/views/mailer/user/remind.erb:1 app/views/mailer/order/rejected.erb:1
+#: app/views/mailer/order/changed.erb:1 app/views/mailer/order/approved.erb:1
+#: app/views/mailer/order/submitted.erb:1
+msgid "Dear leihs user,"
+msgstr ""
+
+#: app/views/mailer/user/deadline_soon_reminder.erb:3
+#: app/views/mailer/user/remind.erb:3 app/views/mailer/order/rejected.erb:3
+#: app/views/mailer/order/changed.erb:3 app/views/mailer/order/approved.erb:3
+#: app/views/mailer/order/submitted.erb:3
+msgid "This is an automatic e-mail sent to you by the leihs system."
+msgstr ""
+
+#: app/views/mailer/user/deadline_soon_reminder.erb:5
+msgid "The following items are due to be returned tomorrow:"
+msgstr ""
+
+#: app/views/mailer/user/deadline_soon_reminder.erb:8
+msgid " item(s)"
+msgstr ""
+
+#: app/views/mailer/user/deadline_soon_reminder.erb:8
+#: app/views/mailer/user/remind.erb:9
+msgid " at the inventory pool "
+msgstr ""
+
+#: app/views/mailer/user/deadline_soon_reminder.erb:15
+msgid ""
+"Someone else might already be waiting for some of these items, so we are "
+"just sending you this little reminder to make sure you don't forget."
+msgstr ""
+
+#: app/views/mailer/user/deadline_soon_reminder.erb:17
+#: app/views/mailer/user/remind.erb:22 app/views/mailer/order/rejected.erb:9
+#: app/views/mailer/order/changed.erb:21
+#: app/views/mailer/order/approved.erb:19
+#: app/views/mailer/order/submitted.erb:13
+msgid "Kind regards,"
+msgstr ""
+
+#: app/views/mailer/user/deadline_soon_reminder.erb:19
+#: app/views/mailer/user/remind.erb:24 app/views/mailer/order/rejected.erb:11
+#: app/views/mailer/order/changed.erb:23
+#: app/views/mailer/order/approved.erb:21
+#: app/views/mailer/order/submitted.erb:15
+msgid "The leihs system"
+msgstr ""
+
+#: app/views/mailer/user/remind.erb:5
 msgid ""
 "The following items are overdue. Please return them as soon as possible:"
 msgstr ""
 
-#: app/views/mailer/user/remind.erb:6
+#: app/views/mailer/user/remind.erb:9
 msgid " item(s) due on "
 msgstr ""
 
-#: app/views/mailer/user/remind.erb:6
-msgid " at the inventory pool "
+#: app/views/mailer/user/remind.erb:16
+msgid ""
+"By not returning these items, you might be blocking other people's "
+"reservations. This is very unfair to the others and you are causing a "
+"significant amount of work for the inventory managers."
 msgstr ""
 
-#: app/views/mailer/order/rejected.erb:1
-msgid "Dear leihs user,"
+#: app/views/mailer/user/remind.erb:18
+msgid ""
+"Even if you return the items now, the inventory manager may fine or "
+"otherwise penalize you."
 msgstr ""
 
-#: app/views/mailer/order/rejected.erb:3
+#: app/views/mailer/user/remind.erb:20
+msgid ""
+"Please coordinate with the inventory managers in charge to find a date and "
+"time for the return."
+msgstr ""
+
+#: app/views/mailer/order/rejected.erb:5
 msgid "Your order was rejected for the following reason:"
 msgstr ""
 
-#: app/views/mailer/order/rejected.erb:7
-msgid "Kind regards,"
+#: app/views/mailer/order/changed.erb:5 app/views/mailer/order/approved.erb:5
+msgid ""
+"Your order for the following items has been confirmed by the inventory "
+"manager"
 msgstr ""
 
-#: app/views/mailer/order/rejected.erb:9
-msgid "The leihs system"
+#: app/views/mailer/order/changed.erb:5
+msgid "but a few changes were made to it"
 msgstr ""
 
-#: app/views/mailer/order/changed.erb:3
-msgid "The following changes were made to your order:"
+#: app/views/mailer/order/changed.erb:11
+msgid "The order now looks like this:"
+msgstr ""
+
+#: app/views/mailer/order/changed.erb:17
+#: app/views/mailer/order/approved.erb:13
+msgid "The inventory manager added the following comment about your order:"
+msgstr ""
+
+#: app/views/mailer/order/submitted.erb:5
+msgid "Your order was successfully submitted as follows:"
+msgstr ""
+
+#: app/views/mailer/order/submitted.erb:11
+msgid ""
+"It has not yet been approved by an inventory manager. Once a manager "
+"approves your order, you will receive a separate e-mail. Also, you can view "
+"the status of your order through your leihs account."
 msgstr ""
 
 #: app/views/orders/_submit.html.erb:2
