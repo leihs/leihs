@@ -35,17 +35,17 @@ class Backend::TakeBackController < Backend::BackendController
       # TODO 2702** merge duplications
       @lines = current_inventory_pool.contract_lines.find(params[:lines]) if params[:lines]
       @lines ||= []
-      
-      params[:returned_quantity].each_pair do |k,v|
-        line = @lines.detect {|l| l.id == k.to_i }
-        if v.to_i < line.quantity
-          new_line = line.clone
-          new_line.quantity -= v.to_i
-          new_line.save
-          line.update_attribute :quantity, v.to_i
+      if params[:returned_quantity]
+        params[:returned_quantity].each_pair do |k,v|
+          line = @lines.detect {|l| l.id == k.to_i }
+          if v.to_i < line.quantity
+            new_line = line.clone
+            new_line.quantity -= v.to_i
+            new_line.save
+            line.update_attribute :quantity, v.to_i
+          end
         end
       end
-      
       
       @contracts = @lines.collect(&:contract).uniq
       
@@ -60,9 +60,11 @@ class Backend::TakeBackController < Backend::BackendController
     else
       # TODO 2702** merge duplications
       @lines = current_inventory_pool.contract_lines.find(params[:lines].split(',')) if params[:lines]
-      params[:returned_quantity].each_pair do |k,v|
-        line = @lines.detect {|l| l.id == k.to_i }
-        line.quantity = v.to_i if v.to_i < line.quantity
+      if params[:returned_quantity]
+        params[:returned_quantity].each_pair do |k,v|
+          line = @lines.detect {|l| l.id == k.to_i }
+          line.quantity = v.to_i if v.to_i < line.quantity
+        end
       end
       render :layout => $modal_layout_path
     end    
