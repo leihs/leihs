@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "POT-Creation-Date: 2009-03-02 11:59+0100\n"
-"PO-Revision-Date: 2009-03-03 14:49+0100\n"
+"PO-Revision-Date: 2009-03-04 16:21+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -83,7 +83,7 @@ msgstr "Es sind keine Gegenstände zur Übergabe markiert. Bitte weisen Sie den 
 
 #: app/controllers/backend/hand_over_controller.rb:56
 msgid "The start date has been changed"
-msgstr ""
+msgstr "Das Startdatum ist verändert worden"
 
 #: app/controllers/backend/hand_over_controller.rb:77
 msgid "The item is already in the current contract."
@@ -231,7 +231,7 @@ msgstr "Bestellung abgelehnt"
 
 #: app/models/notification.rb:36
 msgid "Deadline soon"
-msgstr ""
+msgstr "Bald Deadline"
 
 #: app/models/notification.rb:44
 msgid "Reminder"
@@ -344,7 +344,7 @@ msgstr "[leihs] Erinnerung"
 
 #: app/models/mailer/user.rb:13
 msgid "[leihs] Some items should be returned tomorrow"
-msgstr ""
+msgstr "[leihs] Einige Gegenstände sollten morgen zurückgebracht werden"
 
 #: app/models/holiday.rb:-
 msgid "holiday"
@@ -383,9 +383,8 @@ msgid "Reminded %{q} items for contracts %{c}"
 msgstr "%{q} Mal für Vertrag %{c} erinnert"
 
 #: app/models/user.rb:209
-#, fuzzy
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
-msgstr "%{q} Mal für Vertrag %{c} erinnert"
+msgstr "\"Deadline bald\" Erinnerung für %{q} Gegenstände gesendet aus den Verträgen %{c}"
 
 #: app/models/model_group.rb:-
 msgid "model group"
@@ -547,7 +546,7 @@ msgstr "Lade"
 #: app/views/backend/hand_over/sign_contract.html.erb:9
 #: app/views/backend/take_back/close_contract.html.erb:8
 msgid "Confirm"
-msgstr "Genehmigen"
+msgstr "Bestätigen"
 
 #: app/helpers/backend/backend_helper.rb:325
 #: app/views/backend/hand_over/sign_contract.html.erb:13
@@ -602,17 +601,15 @@ msgstr "Lieber leihs-Benutzer, liebe leihs-Benutzerin"
 #: app/views/mailer/order/approved.erb:3
 #: app/views/mailer/order/submitted.erb:3
 msgid "This is an automatic e-mail sent to you by the leihs system."
-msgstr ""
+msgstr "Dies ist ein automatisch generiertes E-Mail aus dem leihs-System."
 
 #: app/views/mailer/user/deadline_soon_reminder.erb:5
-#, fuzzy
 msgid "The following items are due to be returned tomorrow:"
-msgstr "Die folgenden Gegenstände sind überfällig. Bitte bringen Sie sie so schnell wie möglich zurück:"
+msgstr "Die folgenden Gegenstände müssen morgen zurückgebracht werden:"
 
 #: app/views/mailer/user/deadline_soon_reminder.erb:8
-#, fuzzy
 msgid " item(s)"
-msgstr "Artikel"
+msgstr "Gegenstände"
 
 #: app/views/mailer/user/deadline_soon_reminder.erb:8
 #: app/views/mailer/user/remind.erb:9
@@ -621,7 +618,7 @@ msgstr " aus dem Gerätepark "
 
 #: app/views/mailer/user/deadline_soon_reminder.erb:15
 msgid "Someone else might already be waiting for some of these items, so we are just sending you this little reminder to make sure you don't forget."
-msgstr ""
+msgstr "Jemand anderes wartet evtl. bereits auf einige dieser Gegenstände, also senden wir Ihnen diese kleine Erinnerung."
 
 #: app/views/mailer/user/deadline_soon_reminder.erb:17
 #: app/views/mailer/user/remind.erb:22
@@ -651,15 +648,15 @@ msgstr "Gegenstände zurückzubringen am "
 
 #: app/views/mailer/user/remind.erb:16
 msgid "By not returning these items, you might be blocking other people's reservations. This is very unfair to the others and you are causing a significant amount of work for the inventory managers."
-msgstr ""
+msgstr "Indem Sie diese Gegenstände nicht zurückbringen, blockieren Sie evtl. die Reservationen anderer Leute. Dies ist den anderen gegenüber sehr unfair. Ausserdem erzeugen Sie viel Arbeit für die Inventarverwalter."
 
 #: app/views/mailer/user/remind.erb:18
 msgid "Even if you return the items now, the inventory manager may fine or otherwise penalize you."
-msgstr ""
+msgstr "Auch wenn Sie die Geräte jetzt zurückbringen, könnte der Inventarverwalter Sie trotzdem verwarnen oder büssen."
 
 #: app/views/mailer/user/remind.erb:20
 msgid "Please coordinate with the inventory managers in charge to find a date and time for the return."
-msgstr ""
+msgstr "Bitte vereinbaren Sie einen Rückgabetermin mit dem Inventarverwalter."
 
 #: app/views/mailer/order/rejected.erb:5
 msgid "Your order was rejected for the following reason:"
@@ -668,30 +665,28 @@ msgstr "Ihre Bestellung wurde aus folgenden Gründen abgelehnt:"
 #: app/views/mailer/order/changed.erb:5
 #: app/views/mailer/order/approved.erb:5
 msgid "Your order for the following items has been confirmed by the inventory manager"
-msgstr ""
+msgstr "Ihre Bestellung für die folgenden Gegenstände wurde vom Inventarverwater genehmigt"
 
 #: app/views/mailer/order/changed.erb:5
-#, fuzzy
 msgid "but a few changes were made to it"
-msgstr "An der Bestellung wurden die folgenden Änderungen gemacht:"
+msgstr "aber es wurden einige Dinge daran verändert"
 
 #: app/views/mailer/order/changed.erb:11
 msgid "The order now looks like this:"
-msgstr ""
+msgstr "Ihre Bestellung sieht jetzt so aus:"
 
 #: app/views/mailer/order/changed.erb:17
 #: app/views/mailer/order/approved.erb:13
 msgid "The inventory manager added the following comment about your order:"
-msgstr ""
+msgstr "Der Inventarverwalter hat die folgenden Kommentare hinzugefügt:"
 
 #: app/views/mailer/order/submitted.erb:5
-#, fuzzy
 msgid "Your order was successfully submitted as follows:"
-msgstr "Ihre Bestellung wurde aus folgenden Gründen abgelehnt:"
+msgstr "Ihre Bestellung wurde folgendermassen empfangen:"
 
 #: app/views/mailer/order/submitted.erb:11
 msgid "It has not yet been approved by an inventory manager. Once a manager approves your order, you will receive a separate e-mail. Also, you can view the status of your order through your leihs account."
-msgstr ""
+msgstr "Sie wurde vom Inventarverwalter noch nicht bestätigt. Sobald jemand Ihre Bestellung bestätigt, erhalten Sie eine weitere Nachricht. Ausserdem können Sie den Status Ihrer Bestellungen auch in Ihrem leihs-Konto nachsehen."
 
 #: app/views/orders/_submit.html.erb:2
 msgid "The order has been successfully submitted, but is NOT YET CONFIRMED."
