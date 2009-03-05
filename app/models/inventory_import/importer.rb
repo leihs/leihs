@@ -29,6 +29,7 @@ class InventoryImport::Importer
           :info_url => gegenstand.info_url
         }
         model = Model.find_or_create_by_name attributes
+        model.update_attributes(attributes)
         
         add_picture(model, gegenstand.bild_url) if gegenstand.bild_url and not gegenstand.bild_url.blank? and model.images.size == 0
         
@@ -42,6 +43,7 @@ class InventoryImport::Importer
           :location => get_location(item.Stao_Abteilung, item.Stao_Raum),
           :owner => get_owner(item.Inv_Abteilung),
           :last_check => gegenstand.letzte_pruefung,
+          :required_level => (gegenstand.paket and gegenstand.paket.ausleihbefugnis > 1) ? AccessRight::EMPLOYEE : AccessRight::CUSTOMER,
           :retired => gegenstand.ausmusterdatum,
           :retired_reason => gegenstand.ausmustergrund,
           :invoice_number => item.Lief_Rechng_Nr,
@@ -53,6 +55,7 @@ class InventoryImport::Importer
           :supplier => Supplier.find_or_create_by_name({ :name => item.Lief_Firma })
         }
         i = Item.find_or_create_by_inventory_code item_attributes
+        i.update_attributes(item_attributes)
         count += 1
         break if count == max
       else
