@@ -74,3 +74,14 @@ function refresh_me()
 { 
 	window.location.reload();
 }
+
+function show_date(d){
+	var weekday=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
+	var monthname=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+	var r = "";
+	r += weekday[d.getDay()] + "<br/>";
+	r += d.getDate() + ". ";
+	r += monthname[d.getMonth()] + " ";
+	r += d.getFullYear();
+	return r;
+}

@@ -167,6 +167,13 @@ class Backend::ModelsController < Backend::BackendController
 
 #################################################################
 
+# TODO 0203** temp
+#  def chart
+#    render :inline => "<tr><td colspan='6'><%= canvas_for(@model) %></td></tr>"
+#  end
+
+#################################################################
+
   private
   
   def pre_load

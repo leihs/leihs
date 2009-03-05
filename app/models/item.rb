@@ -86,7 +86,7 @@ class Item < ActiveRecord::Base
   def current_borrowing_info
     # TODO 1102** make sure is only max 1 contract_line
     contract_line = contract_lines.first(:conditions => {:returned_date => nil})
-    _("Borrowed by %s until %s") % [contract_line.contract.user, contract_line.end_date.strftime("%d.%m.%Y")] # TODO 1102** patch Date.to_s
+    _("Borrowed by %s until %s") % [contract_line.contract.user, contract_line.end_date.strftime("%d.%m.%Y")] # TODO 1102** patch Date.to_s => to_s(:rfc822)
   end
 
 ####################################################################
