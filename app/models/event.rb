@@ -48,7 +48,7 @@ class Event < ActiveRecord::Base
     e.attributes["start"] = self.start.strftime("%c %Z")
     e.attributes["end"] = self.end.strftime("%c %Z")
     e.attributes["title"] = self.title
-    e.attributes["isDuration"] = self.isDuration
+    e.attributes["isDuration"] = self.isDuration.to_s
     e.attributes["icon"] = "api/images/dull-red-circle.png" if self.action == "take_back"
     e.text = "" # TODO description
     xml << e

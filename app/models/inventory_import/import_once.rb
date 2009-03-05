@@ -39,7 +39,8 @@ class InventoryImport::ImportOnce
             :info_url => gegenstand.info_url
           }
           model = Model.find_or_create_by_name attributes
-      
+          model.update_attributes(attributes)
+          
           add_picture(model, gegenstand.bild_url) if gegenstand.bild_url and not gegenstand.bild_url.blank? and model.images.size == 0
 
           cat_name ||= "Andere Hardware"
@@ -61,6 +62,7 @@ class InventoryImport::ImportOnce
               :location => get_location(gegenstand).main_location,
               :owner => get_owner(gegenstand.inventar_abteilung),
               :last_check => gegenstand.letzte_pruefung,
+              :required_level => (gegenstand.paket and gegenstand.paket.ausleihbefugnis > 1) ? AccessRight::EMPLOYEE : AccessRight::CUSTOMER,
               :retired => gegenstand.ausmusterdatum,
               :retired_reason => gegenstand.ausmustergrund,
               :invoice_number => gegenstand.kaufvorgang.nil? ? '' : gegenstand.kaufvorgang.rechnungsnr,
@@ -70,7 +72,10 @@ class InventoryImport::ImportOnce
               :is_borrowable => gegenstand.ausleihbar?, 
     					:price => (gegenstand.kaufvorgang.nil? or gegenstand.kaufvorgang.kaufpreis.nil?) ? 0 : gegenstand.kaufvorgang.kaufpreis / 100
             }
+ 
             item = Item.find_or_create_by_inventory_code item_attributes
+            item.update_attributes(item_attributes)
+            
             puts "Errors: #{item.errors.size}  #{item.errors}" if item.errors.size > 0
             successfull += 1
           end
