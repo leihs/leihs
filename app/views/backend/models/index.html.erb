@@ -37,7 +37,8 @@
 						   			:records => @models do |model| %>	
 
 			<% record_path = backend_inventory_pool_model_path(@current_inventory_pool, model) %>
-			<tr>
+			
+			<tr id="<%= "model_#{model.id}" %>">
 				<td><%= link_to image_tag(model.image_thumb), record_path if model.image_thumb and !params[:source_path] %></td>
 				<td><%= model.name %></td>
 				<td><%= model.manufacturer %></td>
@@ -57,6 +58,10 @@
 					<% else %>						
 						<ul>
 							<li><%= link_to icon_tag("magnifier") + _("Show"), record_path %></li>
+							<!--
+							<li><%#temp#= link_to_remote icon_tag("shape_align_left"), :url => backend_inventory_pool_model_items_path(@current_inventory_pool, model),
+													:update => "model_#{model.id}", :position => :after, :method => :get %></li>
+							-->
 							<li><%= link_to _("Remove"), backend_inventory_pool_model_compatible_path(@current_inventory_pool, @model, model),
 											:confirm => _("Are you sure?"),
 											:method => :delete if @model %></li>
@@ -64,7 +69,6 @@
 					<% end %>
 				</td>
 			</tr>
-
 
 <% end %>
 

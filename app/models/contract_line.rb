@@ -5,6 +5,7 @@ class ContractLine < DocumentLine
   
   delegate :inventory_pool, :to => :contract
   
+  validates_presence_of :contract
   validate :inventory_pool_open
   
 ##################################################

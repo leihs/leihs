@@ -68,7 +68,8 @@ ActionController::Routing::Routes.draw do |map|
                                                      :add_package_item => :put,
                                                      :remove_package_item => :get, # OPTIMIZE method
                                                      :package_location => :any,
-                                                     :images => :get } do |model|
+                                                     :images => :get,
+                                                     :chart => :get } do |model|  # TODO 0203** temp
             model.resources :categories
             model.resources :compatibles, :controller => 'models'
             model.resources :items, :member => { :location => :any,

@@ -4,6 +4,7 @@ class OrderLine < DocumentLine
   belongs_to :inventory_pool
   belongs_to :model  
 
+  validates_presence_of :order
 
   before_save :assign_inventory_pool
 
