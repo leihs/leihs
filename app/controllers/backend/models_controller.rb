@@ -19,8 +19,6 @@ class Backend::ModelsController < Backend::BackendController
       category = Category.find(params[:category_id].to_i)
       models = models & (category.children.recursive.to_a << category).collect(&:models).flatten
     end
-
-
     
     @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
 
@@ -32,8 +30,8 @@ class Backend::ModelsController < Backend::BackendController
         @end_date = @line.end_date
         @user = @line.document.user            
       else
-        @start_date = Date.today
-        @end_date = @start_date + 2.days
+        @start_date = params[:start_date] ? Date.parse(params[:start_date]) : Date.today
+        @end_date = params[:end_date] ? Date.parse(params[:end_date]) : @start_date + 2.days
         @user = current_user
       end
   

@@ -2,12 +2,25 @@
 <!-- start iterator -->
 <%
 last_date = Date.new
+last_end_date = nil
 for @line in @contract.lines  
 	if @line.start_date > last_date
+  	  if last_end_date %>
+  	    <tr><td colspan="4"><%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Line for") + " " + short_date(last_date) +" - " + short_date(last_end_date), 
+  	                                                  {:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
+  	                                                  :title => _("Add Model"), :width => 1000 ) %></td></tr>
+  	<% end
+
   		last_date = @line.start_date
+  		last_end_date = @line.end_date
     	%>
 		<tr class="line_header"><td colspan="5" class="title"><%= short_date(@line.start_date) %></td></tr>
 	<% end %>
 	<%= render :partial => @line.type.underscore %>
+<% end %>
+<% if last_end_date %>
+    <tr><td colspan="4"><%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Line for") + " " + short_date(last_date) +" - " + short_date(last_end_date), 
+                                                  {:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
+                                                  :title => _("Add Model"), :width => 1000 ) %></td></tr>
 <% end %>
 <!-- end iterator -->						
