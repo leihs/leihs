@@ -14,7 +14,7 @@ class Backend::BackendController < ApplicationController
 ###############################################################  
 
    # add a new line
-   def generic_add_line(document)
+   def generic_add_line(document, start_date = params[:start_date], end_date = params[:end_date])
     if request.post?
       if params[:model_group_id]
         model = ModelGroup.find(params[:model_group_id]) # TODO scope current_inventory_pool ?
@@ -23,14 +23,16 @@ class Backend::BackendController < ApplicationController
       end
       params[:user_id] ||= current_user.id # OPTIMIZE
       
-      model.add_to_document(document, params[:user_id], params[:quantity], nil, nil, current_inventory_pool)
+      model.add_to_document(document, params[:user_id], params[:quantity], start_date, end_date, current_inventory_pool)
 
       flash[:notice] = document.errors.full_messages unless document.save
       redirect_to :action => 'show', :id => document.id unless @prevent_redirect # TODO 29**
     else
       redirect_to :controller => 'models', 
                   :layout => 'modal',
-                  :source_path => request.env['REQUEST_URI']
+                  :source_path => request.env['REQUEST_URI'],
+                  :start_date => start_date,
+                  :end_date => end_date
     end
   end
 
