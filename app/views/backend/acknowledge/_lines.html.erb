@@ -1,7 +1,7 @@
 
 <!-- start iterator -->
 <%
-last_date = Date.new
+last_date = Date.today - 120.days
 last_end_date = nil
 for @line in @order.lines  
 	if @line.start_date > last_date
@@ -9,12 +9,22 @@ for @line in @order.lines
 	    <tr><td colspan="4"><%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Line for") + " " + short_date(last_date) +" - " + short_date(last_end_date), 
 	                                                  {:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
 	                                                  :title => _("Add Model"), :width => 1000 ) %></td></tr>
-	<% end %>
-  <%	last_date = @line.start_date
-  		last_end_date = @line.end_date
-    	%>
+	<% end 
+	   last_date = @line.start_date
+  	 last_end_date = @line.end_date
+	%>
 		<tr class="line_header"><td colspan="4" class="title"><%= short_date(@line.start_date) %></td></tr>
 	<% end %>
+
+
+	<% if last_end_date and last_end_date != @line.end_date	%>
+    <tr><td colspan="4"><%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Line for") + " " + short_date(last_date) +" - " + short_date(last_end_date), 
+                                                  {:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
+                                                  :title => _("Add Model"), :width => 1000 ) %></td></tr>	  
+	<% last_end_date = @line.end_date
+	end %>
+	
+
 	<%= render :partial => 'line' %>
 <% end %>
 <% if last_end_date %>
@@ -24,5 +34,3 @@ for @line in @order.lines
 <% end %>
 
 <!-- end iterator -->						
-
-

@@ -4,7 +4,7 @@ class Order < Document
 
   belongs_to :inventory_pool # common for sibling classes
   belongs_to :user
-  has_many :order_lines, :dependent => :destroy, :order => 'start_date ASC, created_at ASC'
+  has_many :order_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, created_at ASC'
   has_many :models, :through => :order_lines, :uniq => true
 
   has_one :backup, :class_name => "Backup::Order", :dependent => :destroy #TODO delete when nullify # TODO acts_as_backupable
