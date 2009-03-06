@@ -4,9 +4,9 @@ class Contract < Document
   belongs_to :user
   
 # TODO 1602**  
-  has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC, created_at ASC'
-  has_many :item_lines, :dependent => :destroy, :order => 'start_date ASC, created_at ASC'
-  has_many :option_lines, :dependent => :destroy, :order => 'start_date ASC, created_at ASC'
+  has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, created_at ASC'
+  has_many :item_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, created_at ASC'
+  has_many :option_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, created_at ASC'
 
   has_many :models, :through => :item_lines, :uniq => true
   has_many :items, :through => :item_lines, :uniq => false
