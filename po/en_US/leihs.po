@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2009-03-04 16:07+0100\n"
+"POT-Creation-Date: 2009-03-09 15:26+0100\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,19 +103,19 @@ msgstr ""
 msgid "Option %s added."
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:66
+#: app/controllers/backend/models_controller.rb:64
 msgid "Model successfully added as compatible"
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:68
+#: app/controllers/backend/models_controller.rb:66
 msgid "The model is already compatible"
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:77
+#: app/controllers/backend/models_controller.rb:75
 msgid "Compatible successfully removed"
 msgstr ""
 
-#: app/controllers/backend/backend_controller.rb:42
+#: app/controllers/backend/backend_controller.rb:44
 msgid "Model must be selected"
 msgstr ""
 
@@ -459,7 +459,7 @@ msgstr ""
 msgid "Reminder"
 msgstr ""
 
-#: app/models/contract_line.rb:31
+#: app/models/contract_line.rb:32
 msgid "This inventory pool is closed on the proposed end date"
 msgstr ""
 
@@ -910,15 +910,15 @@ msgstr ""
 msgid "The item doesn't belong to the inventory pool related to this contract"
 msgstr ""
 
-#: app/helpers/models_helper.rb:30
+#: app/helpers/models_helper.rb:32
 msgid "Time"
 msgstr ""
 
-#: app/helpers/models_helper.rb:30
+#: app/helpers/models_helper.rb:32
 msgid "Available Quantity"
 msgstr ""
 
-#: app/helpers/models_helper.rb:30 app/views/admin/models/index.html.erb:21
+#: app/helpers/models_helper.rb:32 app/views/admin/models/index.html.erb:21
 #: app/views/admin/inventory_pools/index.html.erb:9
 #: app/views/admin/inventory_pools/locations.html.erb:19
 #: app/views/backend/hand_over/index.html.erb:1
@@ -933,9 +933,18 @@ msgstr ""
 msgid "Items"
 msgstr ""
 
-#: app/helpers/models_helper.rb:37 app/helpers/backend/acknowledge_helper.rb:9
-#: app/views/backend/inventory_pools/show.html.erb:25
-#: app/views/backend/inventory_pools/show.html.erb:33
+#: app/helpers/models_helper.rb:110 app/views/backend/models/show.html.erb:17
+msgid "Prev"
+msgstr ""
+
+#: app/helpers/models_helper.rb:112 app/helpers/backend/backend_helper.rb:33
+#: app/views/backend/models/show.html.erb:18
+msgid "Next"
+msgstr ""
+
+#: app/helpers/backend/acknowledge_helper.rb:9
+#: app/views/backend/inventory_pools/show.html.erb:21
+#: app/views/backend/inventory_pools/show.html.erb:29
 msgid "Today"
 msgstr ""
 
@@ -957,11 +966,6 @@ msgstr ""
 
 #: app/helpers/backend/backend_helper.rb:33
 msgid "Previous"
-msgstr ""
-
-#: app/helpers/backend/backend_helper.rb:33
-#: app/views/backend/models/show.html.erb:17
-msgid "Next"
 msgstr ""
 
 #: app/helpers/backend/backend_helper.rb:91
@@ -996,10 +1000,10 @@ msgstr ""
 #: app/views/widgets/_model_backend_tabnav.html.erb:21
 #: app/views/admin/items/index.html.erb:10
 #: app/views/admin/models/index.html.erb:21
-#: app/views/backend/hand_over/show.html.erb:63
+#: app/views/backend/hand_over/show.html.erb:61
 #: app/views/backend/items/index.html.erb:1
 #: app/views/backend/models/package_items.html.erb:20
-#: app/views/backend/models/index.html.erb:36
+#: app/views/backend/models/index.html.erb:38
 #: app/views/backend/templates/models.html.erb:21
 #: app/views/frontend/_basket.html.erb:16 app/views/users/document.rfpdf:77
 #: app/views/users/show_document.rfpdf:7
@@ -1218,8 +1222,8 @@ msgstr ""
 #: app/views/widgets/_item_admin_tabnav.html.erb:14
 #: app/views/backend/orders/_lines.html.erb:5
 #: app/views/backend/take_back/_item_line.html.erb:20
-#: app/views/backend/take_back/show.html.erb:30
-#: app/views/backend/acknowledge/show.html.erb:89
+#: app/views/backend/take_back/show.html.erb:28
+#: app/views/backend/acknowledge/show.html.erb:87
 msgid "Item"
 msgstr ""
 
@@ -1352,7 +1356,7 @@ msgstr ""
 #: app/views/admin/inventory_pools/managers.html.erb:24
 #: app/views/backend/users/access_rights.html.erb:24
 #: app/views/backend/models/package_items.html.erb:28
-#: app/views/backend/models/index.html.erb:60
+#: app/views/backend/models/index.html.erb:66
 #: app/views/backend/categories/index.html.erb:29
 #: app/views/backend/templates/index.html.erb:15
 #: app/views/backend/templates/models.html.erb:39
@@ -1395,24 +1399,24 @@ msgstr ""
 #: app/views/admin/inventory_pools/locations.html.erb:19
 #: app/views/admin/inventory_pools/managers.html.erb:17
 #: app/views/backend/hand_over/index.html.erb:1
-#: app/views/backend/hand_over/show.html.erb:71
+#: app/views/backend/hand_over/show.html.erb:69
 #: app/views/backend/locations/index.html.erb:10
 #: app/views/backend/users/index.html.erb:1
 #: app/views/backend/items/location.html.erb:2
 #: app/views/backend/items/index.html.erb:1
 #: app/views/backend/models/package_items.html.erb:20
-#: app/views/backend/models/index.html.erb:36
+#: app/views/backend/models/index.html.erb:38
 #: app/views/backend/models/package_location.html.erb:2
 #: app/views/backend/orders/index.html.erb:1
 #: app/views/backend/categories/index.html.erb:16
 #: app/views/backend/inventory_pools/index.html.erb:1
 #: app/views/backend/take_back/index.html.erb:1
-#: app/views/backend/take_back/show.html.erb:37
+#: app/views/backend/take_back/show.html.erb:35
 #: app/views/backend/templates/index.html.erb:5
 #: app/views/backend/templates/models.html.erb:21
 #: app/views/backend/contracts/index.html.erb:1
 #: app/views/backend/acknowledge/index.html.erb:20
-#: app/views/backend/acknowledge/show.html.erb:91
+#: app/views/backend/acknowledge/show.html.erb:89
 #: app/views/backend/options/index.html.erb:10
 msgid "Action"
 msgstr ""
@@ -1425,7 +1429,7 @@ msgstr ""
 #: app/views/backend/locations/index.html.erb:22
 #: app/views/backend/users/index.html.erb:31
 #: app/views/backend/items/index.html.erb:22
-#: app/views/backend/models/index.html.erb:59
+#: app/views/backend/models/index.html.erb:62
 #: app/views/backend/templates/index.html.erb:14
 #: app/views/backend/templates/models.html.erb:38
 #: app/views/backend/options/index.html.erb:26
@@ -1455,7 +1459,7 @@ msgstr ""
 #: app/views/admin/categories/index.html.erb:61
 #: app/views/admin/categories/index.html.erb:64
 #: app/views/admin/inventory_pools/index.html.erb:21
-#: app/views/backend/models/index.html.erb:61
+#: app/views/backend/models/index.html.erb:67
 #: app/views/backend/categories/index.html.erb:30
 #: app/views/backend/templates/index.html.erb:16
 #: app/views/backend/templates/models.html.erb:40
@@ -1567,13 +1571,13 @@ msgstr ""
 
 #: app/views/admin/models/index.html.erb:21
 #: app/views/backend/models/package_items.html.erb:20
-#: app/views/backend/models/index.html.erb:36
+#: app/views/backend/models/index.html.erb:38
 #: app/views/frontend/_models.html.erb:279
 msgid "Manufacturer"
 msgstr ""
 
 #: app/views/admin/models/index.html.erb:21
-#: app/views/backend/models/index.html.erb:36
+#: app/views/backend/models/index.html.erb:38
 #: app/views/frontend/_models.html.erb:268
 msgid "Compatibles"
 msgstr ""
@@ -1770,7 +1774,13 @@ msgid "Add Line"
 msgstr ""
 
 #: app/views/backend/hand_over/show.html.erb:19
+#: app/views/backend/hand_over/_lines.html.erb:12
+#: app/views/backend/hand_over/_lines.html.erb:24
+#: app/views/backend/hand_over/_lines.html.erb:34
 #: app/views/backend/acknowledge/show.html.erb:60
+#: app/views/backend/acknowledge/_lines.html.erb:11
+#: app/views/backend/acknowledge/_lines.html.erb:23
+#: app/views/backend/acknowledge/_lines.html.erb:33
 msgid "Add Model"
 msgstr ""
 
@@ -1798,22 +1808,11 @@ msgstr ""
 msgid "Remove Models"
 msgstr ""
 
-#: app/views/backend/hand_over/show.html.erb:49
-#: app/views/backend/hand_over/show.html.erb:51
-#: app/views/backend/inventory_pools/show.html.erb:4
-#: app/views/backend/inventory_pools/show.html.erb:6
-#: app/views/backend/take_back/show.html.erb:16
-#: app/views/backend/take_back/show.html.erb:18
-#: app/views/backend/acknowledge/show.html.erb:77
-#: app/views/backend/acknowledge/show.html.erb:79
-msgid "Timeline"
-msgstr ""
-
-#: app/views/backend/hand_over/show.html.erb:58
+#: app/views/backend/hand_over/show.html.erb:56
 msgid "Mark"
 msgstr ""
 
-#: app/views/backend/hand_over/show.html.erb:59
+#: app/views/backend/hand_over/show.html.erb:57
 #: app/views/frontend/_models.html.erb:112
 #: app/views/frontend/_categories.html.erb:4
 #: app/views/layouts/admin/00-patterns/_sidebar.html.erb:4
@@ -1830,17 +1829,17 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: app/views/backend/hand_over/show.html.erb:61
+#: app/views/backend/hand_over/show.html.erb:59
 msgid "From today"
 msgstr ""
 
-#: app/views/backend/hand_over/show.html.erb:64
+#: app/views/backend/hand_over/show.html.erb:62
 msgid "Timeframe"
 msgstr ""
 
-#: app/views/backend/hand_over/show.html.erb:66
+#: app/views/backend/hand_over/show.html.erb:64
 #: app/views/backend/items/show.html.erb:3
-#: app/views/backend/take_back/show.html.erb:33
+#: app/views/backend/take_back/show.html.erb:31
 #: app/views/backend/options/index.html.erb:10
 #: app/views/backend/options/index.html.erb:27
 #: app/views/backend/options/show.html.erb:5
@@ -1885,6 +1884,15 @@ msgstr ""
 #: app/views/backend/hand_over/print_contract.html.erb:3
 #: app/views/backend/take_back/print_contract.html.erb:3
 msgid "Print contract"
+msgstr ""
+
+#: app/views/backend/hand_over/_lines.html.erb:10
+#: app/views/backend/hand_over/_lines.html.erb:22
+#: app/views/backend/hand_over/_lines.html.erb:32
+#: app/views/backend/acknowledge/_lines.html.erb:9
+#: app/views/backend/acknowledge/_lines.html.erb:21
+#: app/views/backend/acknowledge/_lines.html.erb:31
+msgid "Add Line for"
 msgstr ""
 
 #: app/views/backend/locations/index.html.erb:10
@@ -2005,16 +2013,16 @@ msgid "New Package"
 msgstr ""
 
 #: app/views/backend/models/index.html.erb:36
+msgid "From"
+msgstr ""
+
+#: app/views/backend/models/index.html.erb:38
 msgid "Available Items"
 msgstr ""
 
-#: app/views/backend/models/index.html.erb:55
+#: app/views/backend/models/index.html.erb:58
 #: app/views/backend/options/index.html.erb:22
 msgid "Select"
-msgstr ""
-
-#: app/views/backend/models/show.html.erb:16
-msgid "Prev"
 msgstr ""
 
 #: app/views/backend/models/package.html.erb:4
@@ -2068,8 +2076,8 @@ msgid "Quantity"
 msgstr ""
 
 #: app/views/backend/orders/_lines.html.erb:6
-#: app/views/backend/take_back/show.html.erb:31
-#: app/views/backend/acknowledge/show.html.erb:90
+#: app/views/backend/take_back/show.html.erb:29
+#: app/views/backend/acknowledge/show.html.erb:88
 msgid "Time frame"
 msgstr ""
 
@@ -2089,13 +2097,8 @@ msgstr ""
 msgid "Take Back"
 msgstr ""
 
-#: app/views/backend/inventory_pools/show.html.erb:8
-#: app/views/backend/inventory_pools/show.html.erb:10
-msgid "Timeline Visits"
-msgstr ""
-
-#: app/views/backend/inventory_pools/show.html.erb:22
-#: app/views/backend/inventory_pools/show.html.erb:30
+#: app/views/backend/inventory_pools/show.html.erb:18
+#: app/views/backend/inventory_pools/show.html.erb:26
 msgid "Overdue"
 msgstr ""
 
@@ -2110,12 +2113,12 @@ msgstr ""
 msgid "Inspection"
 msgstr ""
 
-#: app/views/backend/take_back/show.html.erb:26
-#: app/views/backend/acknowledge/show.html.erb:88
+#: app/views/backend/take_back/show.html.erb:24
+#: app/views/backend/acknowledge/show.html.erb:86
 msgid "Check all"
 msgstr ""
 
-#: app/views/backend/take_back/show.html.erb:28
+#: app/views/backend/take_back/show.html.erb:26
 msgid "Check today's"
 msgstr ""
 
