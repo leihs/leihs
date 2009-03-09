@@ -112,7 +112,7 @@
       before_description_x = pdf.GetX
       before_description_y = pdf.GetY
 
-      pdf.MultiCell(w[2], 5, l.model.name,  'LR', 'L', fill)
+      pdf.MultiCell(w[2], 5, filter(l.model.name),  'LR', 'L', fill)
 
       after_description_x = before_description_x + w[2]
       after_description_y = pdf.GetY
@@ -147,7 +147,7 @@
       purpose = @contract.purpose
     end
 
-    pdf.Write(5, filter(_("Purpose:")) + " " + purpose )
+    pdf.Write(5, filter(_("Purpose:")) + " " + filter(purpose) )
 
     pdf.Ln(10)
 
