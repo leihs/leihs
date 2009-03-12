@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2009-03-09 15:26+0100\n"
-"PO-Revision-Date: 2009-03-09 15:29+0100\n"
+"POT-Creation-Date: 2009-03-12 11:33+0100\n"
+"PO-Revision-Date: 2009-03-12 11:39+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -2314,8 +2314,8 @@ msgid "Basket"
 msgstr "Warenkorb"
 
 #: app/views/frontend/_basket.html.erb:81
-msgid "Complete Order"
-msgstr "Bestellung abschliessen"
+msgid "Continue with Order"
+msgstr "Weiter in Bestellung"
 
 #: app/views/frontend/_templates.html.erb:22
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:32
