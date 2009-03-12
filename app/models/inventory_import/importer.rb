@@ -56,6 +56,11 @@ class InventoryImport::Importer
         }
         i = Item.find_or_create_by_inventory_code item_attributes
         i.update_attributes(item_attributes)
+        
+        #If the item now belongs to a different Model - Remap existing contract lines to the new model.
+        i.contract_lines.each do | line |
+          line.update_attributes(:model => model)
+        end
         count += 1
         break if count == max
       else
