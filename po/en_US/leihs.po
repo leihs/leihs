@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2009-03-09 15:26+0100\n"
+"POT-Creation-Date: 2009-03-12 11:33+0100\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2249,7 +2249,7 @@ msgid "Basket"
 msgstr ""
 
 #: app/views/frontend/_basket.html.erb:81
-msgid "Complete Order"
+msgid "Continue with Order"
 msgstr ""
 
 #: app/views/frontend/_templates.html.erb:22
