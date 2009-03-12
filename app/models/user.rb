@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   # TODO 29** has_many :managed_inventory_pools
   has_many :items, :through => :inventory_pools, :uniq => true # (nested)
   has_many :models, :through => :inventory_pools, :uniq => true # do # (nested)
+
+
     #  def inventory_pools(ips = nil)
     #    find :all, :conditions => ["inventory_pools.id IN (?)", ips] if ips
     #  end
