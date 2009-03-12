@@ -17,7 +17,6 @@ class Model < ActiveRecord::Base
   
   # Packages
   has_many :package_items, :through => :items, :source => :children
-
                 
 ########
   has_and_belongs_to_many :compatibles,

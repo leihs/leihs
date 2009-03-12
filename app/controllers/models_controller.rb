@@ -19,8 +19,8 @@ class ModelsController < FrontendController
     else
 #old#      models = current_user.models & current_inventory_pools.collect(&:models).flatten.uniq 
 #old#2      models = current_user.models.all(:conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
-      models = current_user.models 
-      conditions.first << " AND inventory_pools.id IN (?)"
+      models = current_user.models
+      conditions.first << " AND inventory_pools.id IN (?) AND items.is_borrowable = 1 AND items.parent_id IS NULL AND access_rights.level >= items.required_level"
       conditions << current_inventory_pools 
     end
 
