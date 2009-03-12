@@ -21,7 +21,7 @@ class Backend::ModelsController < Backend::BackendController
     end
     
     @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
-
+    
     # we are in a greybox
     if params[:source_path]
 

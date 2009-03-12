@@ -3,8 +3,9 @@ class Array
   # TODO 06** optimize scoping directly to sql
   # Forward search query to Ferret search engine
   def search(q, options = {}, find_options = {})
-    q = "*#{q}*" #if q.blank? # TODO 21** avoid using ferret (use directly paginate instead)
+    
     unless q.blank? or self.empty?
+      q = "*#{q}*" #TODO 1003: This line was before the condition, but we don't know why it was there. Here it solves the problem, that not all packages appeared on the package list (packages without items weren't shown, unless there was a query)
       classes = self.collect(&:class).uniq
       c = classes.shift
       #options[:multi] = classes unless classes.empty? # TODO 06** where is it used?
