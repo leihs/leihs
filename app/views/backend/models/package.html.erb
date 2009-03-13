@@ -1,12 +1,11 @@
 
 <% form_tag :action => 'update_package', :id => @model.id do %>
-
-	<%= _("Package name") %>: <%= text_field_tag('name', @model.name) %>
-	<br />
-
-	<% ic = @model.items.empty? ? "" : @model.items.first.inventory_code %>
-	<%= _("Inventory code") %>: <%= text_field_tag('inventory_code', ic) %>
-	<br />
-						
-	<%= submit_tag 'Submit' %>
+<table>
+  <tr><td><%= _("Package name") %></td><td><%= text_field_tag('name', @model.name) %></td>
+  <tr><td><% ic = @model.items.empty? ? @proposed_inventory_code || "" : @model.items.first.inventory_code %>
+	    <%= _("Inventory code") %></td><td><%= text_field_tag('inventory_code', ic) %></td>
+	</tr>			
+	<tr><td></td><td><%= submit_tag 'Submit' %></td></tr>
+	
+</table>
 <% end %>
