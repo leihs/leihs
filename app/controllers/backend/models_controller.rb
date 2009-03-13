@@ -86,17 +86,29 @@ class Backend::ModelsController < Backend::BackendController
 
   def new_package
     @model = Model.new
+    @proposed_inventory_code = "#{current_inventory_pool.name}#{Model.last.id + 1}"
     render :action => 'package' #, :layout => false
   end
 
   def update_package(name = params[:name], inventory_code = params[:inventory_code])
     @model ||= Model.new
-    @model.is_package = true
-    @model.name = name
-    @model.save 
-    @model.items.create(:location => current_inventory_pool.main_location) if @model.items.empty?
-    @model.items.first.update_attribute(:inventory_code, inventory_code)
-    redirect_to :action => 'package', :id => @model
+    Model.transaction do
+      @model.is_package = true
+      @model.name = name
+      if @model.save 
+        @model.items.create(:location => current_inventory_pool.main_location) if @model.items.empty?
+        item = @model.items.first
+        item.inventory_code = inventory_code
+        item.save!
+      end
+    end
+    redirect_to package_backend_inventory_pool_model_path(current_inventory_pool, @model)
+  rescue
+    if @model.id == 0
+      redirect_to :action => 'new_package'
+    else
+      redirect_to package_backend_inventory_pool_model_path(current_inventory_pool, @model)
+    end
   end
 
   def package_items
