@@ -18,8 +18,13 @@ class Backend::ContractsController < Backend::BackendController
   
   def show
     respond_to do |format|
+			# Evil hack? We need the contract information in that other template as well
+			if params[:template] == "value_list"
+      format.pdf { send_data(render(:template => 'backend/contracts/value_list', :layout => false), :filename => "value_list_#{@contract.id}.pdf") }
+			else
       # format.html
       format.pdf { send_data(render(:layout => false), :filename => "contract_#{@contract.id}.pdf") }
+			end
     end
   end
 
