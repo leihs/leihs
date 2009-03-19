@@ -2,17 +2,19 @@ require 'user'
 
 class InventoryImport::ImportOnce
   
-  def start(max = 999999)
+  def start(pool = nil)
     connect_dev
     #connect_prod
-    
-    import_items(max)
-    import_users
+
+    import_items(pool)
     
   end
 
-  def import_items(max)
-    inventar = InventoryImport::Gegenstand.find(:all, :conditions => "original_id is null")
+  def import_items(pool)
+    condition = "original_id is null"
+    condition += " and herausgabe_abteilung = '#{pool}'" if pool
+    puts "Only importing inventory pool #{pool}" if pool
+    inventar = InventoryImport::Gegenstand.find(:all, :conditions => condition)
     count = 0
     successfull = 0
     
@@ -69,18 +71,17 @@ class InventoryImport::ImportOnce
               :invoice_date => gegenstand.kaufvorgang.nil? ? nil : gegenstand.kaufvorgang.kaufdatum,
               :is_incomplete => gegenstand.paket.nil? ? false : (gegenstand.paket.status == 0),
               :is_broken => gegenstand.paket.nil? ? false : (gegenstand.paket.status == -2),
-              :is_borrowable => gegenstand.ausleihbar?, 
     					:price => (gegenstand.kaufvorgang.nil? or gegenstand.kaufvorgang.kaufpreis.nil?) ? 0 : gegenstand.kaufvorgang.kaufpreis / 100
             }
  
             item = Item.find_or_create_by_inventory_code item_attributes
+            item.is_borrowable = gegenstand.ausleihbar? if item.id = 0
             item.update_attributes(item_attributes)
             
             puts "Errors: #{item.errors.size}  #{item.errors}" if item.errors.size > 0
             successfull += 1
           end
           count += 1
-          break if count == max
         end
       end
     end
@@ -139,58 +140,6 @@ class InventoryImport::ImportOnce
     end
   rescue
     puts "Couldn't append #{url} to #{model.name}"
-  end
-
-  def import_users
-    count = 0
-    ignored = 0
-    errors = 0
-    admins = 0
-    InventoryImport::User.all.each do |user|
-      count += 1
-      if user.geraeteparks_users.count > 0
-        if user.benutzerstufe == -3
-          u = User.find(:first, :conditions => ['email = ?', user.email])
-          u.destroy
-        else
-          u = User.find_or_create_by_email(:email => user.email, :login => user.login)
-          u.lastname = user.nachname
-          u.firstname = user.vorname
-          u.phone = user.telefon if user.telefon
-          if u.save
-            if user.benutzerstufe >= 5 
-              role = Role.find_by_name('admin')
-              u.access_rights << AccessRight.create(:user => u, :role => role)
-              admins += 1
-            end
-
-            user.geraeteparks_users.each do |geraetepark|
-              level = AccessRight::CUSTOMER 
-              level = AccessRight::EMPLOYEE if user.benutzerstufe == 2
-              level = AccessRight::SPECIAL if user.benutzerstufe == 3
-              
-              role = Role.find_by_name('customer')
-              role = Role.find_by_name('manager') if user.benutzerstufe == 4
-
-              u.access_rights.create(:role => role, :inventory_pool => convert_ip(geraetepark), :level => level)
-            end
-          else
-            errors += 1
-            puts "#{user.vorname} #{user.nachname} konnte nicht übernommen werden."
-          end
-        end
-      else
-        ignored += 1
-      end
-    end
-    
-    puts "Total:   #{count}"
-    puts "Ignored: #{ignored}"
-    puts "Admins:  #{admins}"
-  end
-
-  def convert_ip(ip)
-    InventoryPool.find(:first, :conditions => ['name = ?', ip.geraetepark.name])
   end
 
 

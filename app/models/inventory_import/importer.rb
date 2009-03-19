@@ -50,7 +50,7 @@ class InventoryImport::Importer
           :invoice_date => item.Lief_Rechng_Dat,
           :is_incomplete => gegenstand.paket.nil? ? false : (gegenstand.paket.status == 0),
           :is_broken => gegenstand.paket.nil? ? false : (gegenstand.paket.status == -2),
-          :is_borrowable => gegenstand.ausleihbar?,
+          :is_borrowable => (item.rental == 'yes' and gegenstand.ausleihbar?),
           :price => gegenstand.kaufvorgang.kaufpreis.nil? ? 0 : gegenstand.kaufvorgang.kaufpreis / 100,
           :supplier => Supplier.find_or_create_by_name({ :name => item.Lief_Firma })
         }
