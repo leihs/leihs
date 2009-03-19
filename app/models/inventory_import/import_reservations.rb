@@ -4,8 +4,8 @@ class InventoryImport::ImportReservations
 
   def start(pool)
     
-    connect_dev
-    #connect_prod
+    #connect_dev
+    connect_prod
     conditions = (pool == 0) ? ['status >=2'] : ['status >= 0 and geraetepark_id = ?', pool]
     reservations = InventoryImport::Reservation.find(:all, :conditions => conditions)
     
@@ -30,8 +30,11 @@ class InventoryImport::ImportReservations
     
     user = User.find_by_login(reservation.user.login)
     if user.nil?
-      puts "#{reservation.user.login} not found. Not importing order"
-      return
+      user = User.find_by_email(reservation.user.login)
+      if user.nil?
+      	puts "#{reservation.user.login} not found. Not importing order"
+      	return
+      end
     end
     
     o = Order.create(:user => user,
@@ -73,13 +76,16 @@ class InventoryImport::ImportReservations
 #  end
   
   def import_as_contract(reservation)
-    
-    user = User.find_by_login(reservation.user.login)
+   
+   user = User.find_by_login(reservation.user.login)
     if user.nil?
-      puts "#{reservation.user.login} not found. Not importing contract."
-      return
+      user = User.find_by_email(reservation.user.login)
+      if user.nil?
+        puts "#{reservation.user.login} not found. Not importing order"
+        return
+      end
     end
-    
+   
     c = Contract.create(:user => user,
                   :purpose => reservation.zweck,
                   :inventory_pool => get_inventory_pool(reservation.geraetepark.name),
