@@ -47,7 +47,10 @@ class InventoryImport::ImportReservations
           
     reservation.pakets.each do |paket|
       paket.gegenstands.each do |gegenstand|
-        item = Item.find(:first, :conditions => ['inventory_code = ?', "#{gegenstand.inventar_abteilung}#{gegenstand.original_id}"])
+	
+        inventory_code = (gegenstand.original_id.nil? ? gegenstand.inventar_abteilung + gegenstand.id.to_s : gegenstand.inventar_abteilung + gegenstand.original_id.to_s )
+
+        item = Item.find(:first, :conditions => ['inventory_code = ?', inventory_code])
         if item
           
           line = o.order_lines.build(:model => item.model,
@@ -60,7 +63,7 @@ class InventoryImport::ImportReservations
             puts "#{line.errors.full_messages}"
           end
         else
-          puts "#{gegenstand.inventar_abteilung}#{gegenstand.original_id} not found  (Contract: #{o.id} User: #{o.user.id})"
+          puts "#{inventory_code} not found  (Contract: #{o.id} User: #{o.user.id})"
         end
       end
     end
@@ -96,8 +99,10 @@ class InventoryImport::ImportReservations
     
     reservation.pakets.each do |paket|
       paket.gegenstands.each do |gegenstand|
-        
-        item = Item.find(:first, :conditions => ['inventory_code = ?', "#{gegenstand.inventar_abteilung}#{gegenstand.original_id}"])
+       
+        inventory_code = (gegenstand.original_id.nil? ? gegenstand.inventar_abteilung + gegenstand.id.to_s : gegenstand.inventar_abteilung + gegenstand.original_id.to_s )
+
+        item = Item.find(:first, :conditions => ['inventory_code = ?', inventory_code])
         if item
           line = ItemLine.new(:contract => c,
                           :item => ((reservation.status == 2) ? nil : item) ,
@@ -109,7 +114,7 @@ class InventoryImport::ImportReservations
             puts "#{line.errors.full_messages}"
           end
         else
-          puts "#{gegenstand.inventar_abteilung}#{gegenstand.original_id} not found  (Contract: #{c.id} User: #{c.user.id})"
+          puts "#{inventory_code} not found  (Contract: #{c.id} User: #{c.user.id})"
         end
       end
     end    
