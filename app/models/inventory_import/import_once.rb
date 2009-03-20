@@ -3,8 +3,8 @@ require 'user'
 class InventoryImport::ImportOnce
   
   def start(pool = nil)
-    connect_dev
-    #connect_prod
+    #connect_dev
+    connect_prod
 
     import_items(pool)
     
@@ -26,8 +26,10 @@ class InventoryImport::ImportOnce
       cat_name ||= gegenstand.art
       
       if cat_name.blank?
-        puts "Ignoring '#{gegenstand.modellbezeichnung}' because it belongs to empty category."
-      else 
+        puts "Assigning '#{gegenstand.modellbezeichnung}' to anonymous category because it belongs to empty category."
+	cat_name = "Andere Hardware" 
+      end
+
         if location.nil? 
           puts "Ignoring #{gegenstand.id} - '#{gegenstand.modellbezeichnung}' because no inventorypool was found."
         else
@@ -78,12 +80,11 @@ class InventoryImport::ImportOnce
             item.is_borrowable = gegenstand.ausleihbar? if item.id = 0
             item.update_attributes(item_attributes)
             
-            puts "Errors: #{item.errors.size}  #{item.errors}" if item.errors.size > 0
+            puts "Errors: #{item.errors.size}  #{item.errors.full_messages}" if item.errors.size > 0
             successfull += 1
           end
           count += 1
         end
-      end
     end
     puts "--------------"
     puts "Total: #{count}"
