@@ -3,6 +3,7 @@ class Document < ActiveRecord::Base
   self.abstract_class = true
   
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
+  has_many :actions, :as => :target, :class_name => "History", :order => 'created_at ASC', :conditions => "type_const = #{History::ACTIONHis}"
 
   # compares two objects in order to sort them
   def <=>(other)

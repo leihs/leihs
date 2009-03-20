@@ -1,17 +1,17 @@
+
+<% form_tag url_for({ }) do %>
+   	<%= _("Note") %><br/>
+	<%= text_area_tag 'note', nil, :size => "25x10" %>
+
+	<%= submit_tag _("Submit") %>		
+<% end %>
+
+
+<hr />
 	
 	<table>
 	<% @histories.each do |h| %>
-		<tr><td><%= h.user.login %></td><td><%= short_date h.created_at %>:</td><td><%= h.text %></td></tr>
+		<tr><td><%= h.user.login %></td><td><%= short_date h.created_at %></td><td><%= h.text %></td></tr>
 	<% end %>
 	</table>
-
-	<hr />
 	
-	<% form_tag url_for({ }) do %>
-	   	<%= _("Note") %><br/>
-		<%= text_area_tag 'note', nil, :size => "25x10" %>
-
-		<%= submit_tag _("Submit") %>		
-	<% end %>
-	
-		
