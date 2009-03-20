@@ -5,6 +5,7 @@ class Backend::HandOverController < Backend::BackendController
   def index
     visits = current_inventory_pool.hand_over_visits
     
+    # 0603**
     unless params[:query].blank?
       @contracts = current_inventory_pool.contracts.new_contracts.search(params[:query])
 
@@ -31,6 +32,7 @@ class Backend::HandOverController < Backend::BackendController
     @lines = @contract.contract_lines.find(params[:lines].split(',')) if params[:lines]
     @lines ||= []
     if request.post?
+      @contract.note = params[:note]
       @contract.sign(@lines)
       render :action => 'print_contract', :layout => $modal_layout_path
     else

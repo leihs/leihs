@@ -5,10 +5,17 @@
 
 <br/>
 
-<div class="buttons">
-	<%=	link_to(icon_tag("door_out") + " " + _("Confirm"),
-				 { :action => 'sign_contract', :lines => @lines },
-				 :class => 'positive', :method => 'post') unless @lines.empty? %>
-				 
-	<%=	cancel_popup_button(_("Cancel") ) %>
-</div>	
+<% form_tag( {:action => 'sign_contract', :lines => @lines}, :name => "f" ) do %>
+	<%= _("Contract Note") %>:
+	<br />
+	<%= text_area_tag :note, @contract.note, :size => "25x10" %>
+
+	<br />
+	<br />
+	
+	<div class="buttons">
+		<%=	submit_button(_("Confirm"), {:icon => "door_out", :class => 'positive'}) unless @lines.empty? %>
+				 		 
+		<%=	cancel_popup_button(_("Cancel") ) %>
+	</div>
+<% end %>
