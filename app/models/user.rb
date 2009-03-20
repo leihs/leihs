@@ -49,7 +49,16 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :phone
 
+# 0603**
   acts_as_ferret :fields => [ :login, :firstname, :lastname ], :store_class_name => true, :remote => true
+#  define_index do
+#    indexes login
+#    indexes firstname
+#    indexes lastname
+#    has :id
+#    has access_rights(:inventory_pool_id), :as => :inventory_pool_id
+## 0603** set_property :delta => true
+#  end
 
 ################################################
 
@@ -87,7 +96,7 @@ class User < ActiveRecord::Base
   def get_current_order
     order = current_order
     if order.nil?
-      order = Order.create(:user => self, :status_const => Order::NEW)
+      order = orders.create(:status_const => Order::NEW)
       reload
     end  
     order
@@ -102,7 +111,7 @@ class User < ActiveRecord::Base
   def get_current_contract(inventory_pool)
     contract = current_contract(inventory_pool)
     if contract.nil?
-      contract = Contract.create(:user => self, :status_const => Contract::NEW, :inventory_pool => inventory_pool)
+      contract = contracts.create(:status_const => Contract::NEW, :inventory_pool => inventory_pool, :note => inventory_pool.default_contract_note)
       reload
     end  
     contract
@@ -169,8 +178,8 @@ class User < ActiveRecord::Base
 
 
   def level_for(ip)
-    ar = access_rights.detect { |ar| ar.role.id > 1 and ar.inventory_pool.id == ip.id}
-    ar.nil? ? 0 : ar.level
+    access_right = access_rights.detect { |ar| ar.role.id > 1 and ar.inventory_pool.id == ip.id}
+    access_right.nil? ? 0 : access_right.level
   end
 
 ####################################################################
@@ -241,7 +250,7 @@ class User < ActiveRecord::Base
 
     # retrieve roles for a given inventory_pool hierarchically with betternestedset plugin #sellittf#
     role = Role.first(:conditions => {:name => role_in_question})
-    # OPTIMIZE 30**
+    # OPTIMIZE 1903**
     if inventory_pool_in_question
       roles = self.access_rights.collect{|a| a.role if a.inventory_pool and a.inventory_pool.id == inventory_pool_in_question.id }.compact
     else

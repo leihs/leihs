@@ -3,8 +3,9 @@
 	<% form_for [:admin, @inventory_pool] do |f| %>
 	
 		<ul>
-		<li><b>Name:</b> <%= f.text_field :name %></li>	
-		<li><b>Description:</b> <%= f.text_area :description, :rows => 6, :cols => 50 %></li>
+		<li><b><%= _("Name") %>:</b> <%= f.text_field :name %></li>	
+		<li><b><%= _("Description") %>:</b> <%= f.text_area :description, :rows => 6, :cols => 50 %></li>
+		<li><b><%= _("Default contract note") %>:</b> <%= f.text_area :default_contract_note, :rows => 6, :cols => 50 %></li>
 		</ul>
 	
 		<%= submit_tag 'Submit' %>
