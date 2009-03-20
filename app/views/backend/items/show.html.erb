@@ -1,6 +1,6 @@
 
-	<ul>
-	<li><b><%= _("Inventory Code") %>:</b> <%= @item.inventory_code %> (<%= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => @item.inventory_code}, :method => :post %>)</li>	
-	<li><b><%= _("Serial Number") %>:</b> <%= @item.serial_number %></li>
-	<li><b><%= _("Required Level") %>:</b> <%= AccessRight::LEVELS.find { |k, v| v == @item.required_level }[0] %></li>
-	</ul>
+	<table style="width:400px">
+	<tr><td style="width:100px"><%= _("Inventory Code") %>:</td><td><%= @item.inventory_code %> (<%= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => @item.inventory_code}, :method => :post %>)</td></tr>	
+	<tr><td><%= _("Serial Number") %>:</td><td><%= @item.serial_number %></td></tr>
+	<tr><td><%= _("Required Level") %>:</td><td><%= AccessRight::LEVELS.find { |k, v| v == @item.required_level }[0] %></td></tr>
+	</table>

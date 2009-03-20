@@ -33,7 +33,7 @@ class Backend::HandOverController < Backend::BackendController
     @lines ||= []
     if request.post?
       @contract.note = params[:note]
-      @contract.sign(@lines)
+      @contract.sign(@lines, current_user)
       render :action => 'print_contract', :layout => $modal_layout_path
     else
       @lines = @lines.delete_if {|l| l.item.nil? }

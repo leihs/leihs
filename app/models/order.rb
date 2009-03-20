@@ -54,13 +54,13 @@ class Order < Document
 
   # TODO 13** forward purpose
   # approves order then generates a new contract and item_lines for each item
-  def approve(comment, send_mail = true)
+  def approve(comment, send_mail = true, current_user = nil)
     if approvable?
       self.status_const = Order::APPROVED
       remove_backup
       save
 
-      Notification.order_approved(self, comment, send_mail)
+      Notification.order_approved(self, comment, send_mail, current_user)
       
       contract = user.get_current_contract(self.inventory_pool)
       order_lines.each do |ol|
@@ -89,7 +89,7 @@ class Order < Document
       split_and_assign_to_inventory_pool
       save
       
-      Notification.order_submitted(self, purpose)
+      Notification.order_submitted(self, purpose, false)
 
       return true
     else

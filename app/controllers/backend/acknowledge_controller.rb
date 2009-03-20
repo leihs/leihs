@@ -18,7 +18,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
   
   def approve
-    if request.post? and @order.approve(params[:comment])
+    if request.post? and @order.approve(params[:comment], current_user)
       # TODO test# @order.destroy # TODO remove old orders ?
       remove_order_from_session
       redirect_to :action => 'index'
@@ -32,7 +32,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order.status_const = Order::REJECTED
       @order.backup = nil
       @order.save
-      Notification.order_rejected(@order, params[:comment] )
+      Notification.order_rejected(@order, params[:comment], true, current_user )
       
       remove_order_from_session
       redirect_to :action => 'index'

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090210170000) do
+ActiveRecord::Schema.define(:version => 20090320104643) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(:version => 20090210170000) do
     t.string   "purpose"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "note"
   end
 
   add_index "contracts", ["status_const"], :name => "index_contracts_on_status_const"
@@ -159,6 +160,7 @@ ActiveRecord::Schema.define(:version => 20090210170000) do
     t.string "contract_description"
     t.string "contract_url"
     t.string "logo_url"
+    t.text   "default_contract_note"
   end
 
   create_table "inventory_pools_model_groups", :id => false, :force => true do |t|

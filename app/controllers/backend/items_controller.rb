@@ -64,6 +64,18 @@ class Backend::ItemsController < Backend::BackendController
     if request.post?
         @item.log_history(params[:note], current_user.id)
     end
+    @histories = @item.histories
+    @item.contract_lines.collect(&:contract).uniq.each do |contract|
+      @histories += contract.histories
+    end
+    @item.contract_lines.each do |cl|
+      @histories << History.new(:created_at => cl.start_date, :user => cl.contract.user, :text => _("Item handed over as part of contract %d.") % cl.contract.id) if cl.start_date
+      if cl.returned_date
+        @histories << History.new(:created_at => cl.returned_date, :user => cl.contract.user, :text => _("Item returned.")) 
+      else  
+        @histories << History.new(:created_at => cl.end_date, :user => cl.contract.user, :text => _("Expected to be returned.")) 
+      end
+    end
   end
 
 #################################################################

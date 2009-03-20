@@ -10,7 +10,8 @@ class Notification < ActiveRecord::Base
     #puts o
   end
   
-  def self.order_approved(order, comment, send_mail = true)
+  def self.order_approved(order, comment, send_mail = true, current_user = nil)
+    current_user ||= order.user
     if send_mail
       if order.has_changes?
         o = Mailer::Order.deliver_changed(order, comment)
@@ -20,14 +21,15 @@ class Notification < ActiveRecord::Base
     end
     title = (o.nil? ? _("Order approved") : o.subject)
     Notification.create(:user => order.user, :title => title)
-    order.log_history(title, order.user.id)
+    order.log_history(title, current_user.id)
   end
   
-  def self.order_rejected(order, comment, send_mail = true)
+  def self.order_rejected(order, comment, send_mail = true, current_user = nil)
+    current_user ||= order.user
     o = Mailer::Order.deliver_rejected(order, comment) if send_mail
     title = (o.nil? ? _("Order rejected") : o.subject)
     Notification.create(:user => order.user, :title => title)
-    order.log_history(title, order.user.id)
+    order.log_history(title, current_user.id)
     #puts o
   end
   

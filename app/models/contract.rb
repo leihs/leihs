@@ -41,13 +41,16 @@ class Contract < Document
 
 #########################################################################
 
-  def sign(contract_lines = nil)
+  def sign(contract_lines = nil, current_user = nil)
+    current_user ||= contract.user
     update_attribute :status_const, Contract::SIGNED 
 
     if contract_lines and contract_lines.any? { |cl| cl.item }
 
       # Forces handover date to be today.
       contract_lines.each {|cl| cl.update_attribute :start_date, Date.today if cl.start_date != Date.today }
+      
+      log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
       
       lines_for_new_contract = self.contract_lines - contract_lines
       if lines_for_new_contract

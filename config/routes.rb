@@ -29,8 +29,7 @@ ActionController::Routing::Routes.draw do |map|
       user.resources :orders
       user.resources :contracts
   end
-  map.resource :session, :member => { :authenticate => :any } #,
-                                      #:old_new => :get } # TODO 05** remove, only for offline login
+  map.resource :session, :member => { :authenticate => :any, :old_new => :get } # TODO 05** remove, only for offline login
   
   map.resource :frontend, :controller => 'frontend',
                           :member => { :get_inventory_pools => :any,
