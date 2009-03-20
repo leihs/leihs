@@ -1,10 +1,9 @@
 	
-	<ul>
-	<% @item.histories.each do |h| %>
-		<li><h4><%= h.user.login %> - <%= short_date h.created_at %>:</h4>
-			<%= h.text %></li>
+	<table>
+	<% @histories.each do |h| %>
+		<tr><td><%= h.user.login %></td><td><%= short_date h.created_at %>:</td><td><%= h.text %></td></tr>
 	<% end %>
-	</ul>
+	</table>
 
 	<hr />
 	

@@ -89,7 +89,7 @@ render_tabnav :item_backend,
 	end
 
 	add_tab do |t|
-		t.named _("Notes (%d)") % @item.histories.size
+		t.named _("Notes")
 		t.links_to :action => 'notes' # notes_backend_inventory_pool_model_item_path(@current_inventory_pool, @item.model, @item)
 #		t.highlights_on :action => 'notes'
 	end
