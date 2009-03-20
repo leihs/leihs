@@ -3,8 +3,8 @@ require 'user'
 class InventoryImport::ImportOnce
   
   def start(pool = nil)
-    #connect_dev
-    connect_prod
+    connect_dev
+    #connect_prod
 
     import_items(pool)
     
@@ -60,7 +60,7 @@ class InventoryImport::ImportOnce
             puts "Ignoring item with id: #{gegenstand.id} because I couldn't figure out to which inventory pool it belongs."
           else
             item_attributes = {
-              :inventory_code => (gegenstand.inventar_abteilung + gegenstand.id.to_s),
+              :inventory_code => (gegenstand.inventar_abteilung.upcase + gegenstand.id.to_s),
               :serial_number => gegenstand.seriennr,
               :model => model,
               :location => get_location(gegenstand).main_location,
@@ -76,11 +76,11 @@ class InventoryImport::ImportOnce
     					:price => (gegenstand.kaufvorgang.nil? or gegenstand.kaufvorgang.kaufpreis.nil?) ? 0 : gegenstand.kaufvorgang.kaufpreis / 100
             }
  
-            item = Item.find_or_create_by_inventory_code item_attributes
-            item.is_borrowable = gegenstand.ausleihbar? if item.id = 0
+            item = Item.find_or_create_by_inventory_code item_attributes[:inventory_code]
+            item.is_borrowable = gegenstand.ausleihbar? if item.id == 0
             item.update_attributes(item_attributes)
             
-            puts "Errors: #{item.errors.size}  #{item.errors.full_messages}" if item.errors.size > 0
+            puts "Errors: '#{item_attributes[:inventory_code]}' - #{item.inventory_code}  #{item.id} #{item.errors.full_messages}" if item.errors.size > 0
             successfull += 1
           end
           count += 1
