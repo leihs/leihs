@@ -50,7 +50,10 @@ class Backend::TakeBackController < Backend::BackendController
       @contracts = @lines.collect(&:contract).uniq
       
       # set the return dates to the given contract_lines
-      @lines.each { |l| l.update_attribute :returned_date, Date.today }
+      @lines.each { |l| 
+        l.update_attribute :returned_date, Date.today 
+        l.item.histories.create(:user => current_user, :text => _("Item taken back"), :type_const => History::ACTION)
+      }
       
       @contracts.each do |c|
         c.close if c.lines.all? { |l| !l.returned_date.nil? }
