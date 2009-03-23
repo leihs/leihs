@@ -30,6 +30,7 @@
         reader: model_reader,
 		listeners: {
 			beforeload: function(store, options){
+				// 2203** not working InventoryPool's Refresh button
 				if(store.lastOptions && store.lastOptions.params.category_id && !options.params.category_id){
 					options.params.category_id = store.lastOptions.params.category_id;
 				}
@@ -145,6 +146,10 @@
 
 		Ext.QuickTips.init();	
 	    Ext.form.Field.prototype.msgTarget = 'side';
+
+function get_last_inserted_line(){
+	return complete_order_store.data.items.sort(function (a,b){ return a.id - b.id; }).last();
+}
 
 function add_model_details(model_id, open_add_tab){
 	if (open_add_tab == null) open_add_tab = false;
@@ -354,7 +359,7 @@ function add_model_details(model_id, open_add_tab){
 							hideLabel: true,
 							id: 'start_date_' + model_id,
 							name: 'start_date',
-							value: new Date(),
+							value: (complete_order_store.data.length ? get_last_inserted_line().data.start_date : new Date()),
 							//minValue: new Date(),
 							disabledDays: [6, 0],
 							listeners: {
@@ -374,7 +379,7 @@ function add_model_details(model_id, open_add_tab){
 							hideLabel: true,
 							id: 'end_date_' + model_id,
 							name: 'end_date',
-							value: new Date(),
+							value: (complete_order_store.data.length ? get_last_inserted_line().data.end_date : new Date()),
 							//minValue: new Date(),
 							disabledDays: [6, 0],
 							validator: function(){
