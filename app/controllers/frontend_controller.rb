@@ -19,7 +19,7 @@ class FrontendController < ApplicationController
     end
   end
 
-  def set_inventory_pools(ips = params[:inventory_pool_ids].split(','))
+  def set_inventory_pools(ips = params[:inventory_pool_ids] || [])
     self.current_inventory_pools = current_user.inventory_pools.all(:conditions => ["inventory_pools.id IN (?)", ips])
     render :nothing => true
   end
