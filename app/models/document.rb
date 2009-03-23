@@ -3,7 +3,7 @@ class Document < ActiveRecord::Base
   self.abstract_class = true
   
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
-  has_many :actions, :as => :target, :class_name => "History", :order => 'created_at ASC', :conditions => "type_const = #{History::ACTIONHis}"
+  has_many :actions, :as => :target, :class_name => "History", :order => 'created_at ASC', :conditions => "type_const = #{History::ACTION}"
 
   # compares two objects in order to sort them
   def <=>(other)
@@ -124,11 +124,13 @@ class Document < ActiveRecord::Base
   end
 
 #  protected
-  
+
+  # 0603**
   def user_login
     user.login
   end
-  
+
+  # 0603**
   def lines_model_names
     mn = [] 
     lines.each do |l|
