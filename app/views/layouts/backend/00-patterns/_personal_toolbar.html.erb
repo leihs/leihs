@@ -15,7 +15,7 @@
 		<%= greybox_link_to_page(icon_tag("user") + current_user.login,
 				backend_inventory_pool_user_path(@current_inventory_pool, current_user, :layout => "modal"),
 				:title => _("User")) %> <% # TODO 29** provide account link for admin layout %>
-		<%= link_to icon_tag("application_delete") + _("Logout") + "?", '/logout' %>
+		<%= link_to icon_tag("application_delete") + _("Logout"), '/logout' %>
 	</li>
 <% else %>
 	<li>
