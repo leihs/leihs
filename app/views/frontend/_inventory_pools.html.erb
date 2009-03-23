@@ -1,4 +1,5 @@
 
+	var current_inventory_pools = <%= @current_inventory_pools.collect(&:id).to_json %>;
 
     // create the Data Store
     var inventory_pools_store = new Ext.data.Store({
@@ -24,7 +25,21 @@
     });
     inventory_pools_store.setDefaultSort('name', 'ASC');
 
-	var inventory_pools_sm = new Ext.grid.CheckboxSelectionModel();
+	var inventory_pools_sm = new Ext.grid.CheckboxSelectionModel({
+									listeners: {
+										rowselect: function(cmp, rowIndex, r){
+											if(!current_inventory_pools.include(r.id)) current_inventory_pools.push(r.id);
+										},
+										rowdeselect: function(cmp, rowIndex, r){
+											current_inventory_pools.remove(r.id);
+										},
+										selectionchange: function(cmp){
+										    inventory_pools.setTitle('<%= _("Inventory Pools") %> ('+ current_inventory_pools.length +'/'+ inventory_pools_store.data.length +')')
+											// TODO 2203** automatic refresh
+											// refresh_models();
+										}
+									}
+								});
 		
     // the column model has information about grid columns
     // dataIndex maps the column to the specific data field in
@@ -42,7 +57,7 @@
     inventory_pools_cm.defaultSortable = true;
 
     var inventory_pools = new Ext.grid.GridPanel({
-        title:'<%= _("Inventory Pools") %> (<%= _("%{a}/%{b}") % { :a => @current_inventory_pools.size, :b => current_user.inventory_pools.size } %>)',
+        title:'<%= _("Inventory Pools") %>',
 		border: false,
 		split: true,
         store: inventory_pools_store,
@@ -50,47 +65,33 @@
 		sm: inventory_pools_sm,
 		viewConfig: { forceFit: true },
         loadMask: true,
+		/* 2203** old
 		listeners: {
 			expand: function(e){
 				inventory_pools_store.load();
 			}
 		},
+		*/
+		// TODO 2203** automatic refresh
         tbar: ['->',
 			new Ext.Action({
 		        text: '<%= _("Refresh") %>',
 				iconCls:'bt',
 	            icon:'<%= $layout_public_path + "/images/icons/arrow_refresh.png" %>',
 		        handler: function(){
-					var selected = inventory_pools_sm.getSelections();
-					var lines = "";
-		
-					for(var i = 0; i < selected.length; i++){
-						if(lines != "") lines += ","; 
-						lines += selected[i].id;
-					}
-					
-	                Ext.Ajax.request({
-						method: 'GET',
-					    url: '/frontend/set_inventory_pools',
-						params: {"inventory_pool_ids": lines},
-	                    success: function(r) {
-							models_store.load(); //({params:{start:0, limit:25}});
-				            models_grid.show();
-							// TODO refresh the Frontend completely ??
-	                    }
-	                });					
-		        }
+					refresh_models();
+				}
 		    })
         ]
     });
 
 	
 	// trigger the data store load
-    //inventory_pools_store.load();
-
+    inventory_pools_store.load();
+	
+// OPTIMIZE 2203**
 	inventory_pools_store.on('load', function(store, records, options) {
 	    var recs = [];
-		var current_inventory_pools = <%= @current_inventory_pools.collect(&:id).to_json %>;
 	    store.each(function(rec){
 	        if(current_inventory_pools.include(rec.id)){
 	            recs.push(rec);
@@ -98,4 +99,27 @@
 	    });
 	    inventory_pools_sm.selectRecords(recs);		
 	});
+//	
 	
+	function refresh_models(){
+		/* 2203** old
+		var selected = inventory_pools_sm.getSelections();
+		var lines = "";
+
+		for(var i = 0; i < selected.length; i++){
+			if(lines != "") lines += ","; 
+			lines += selected[i].id;
+		}
+		*/
+		
+        Ext.Ajax.request({
+			method: 'GET',
+		    url: '/frontend/set_inventory_pools',
+			params: {"inventory_pool_ids[]": current_inventory_pools},
+            success: function(r) {
+				models_store.load(); //({params:{start:0, limit:25}});
+	            models_grid.show();
+				// TODO refresh the Frontend completely ??
+            }
+        });					
+    }

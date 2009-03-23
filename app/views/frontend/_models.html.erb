@@ -30,8 +30,7 @@
         reader: model_reader,
 		listeners: {
 			beforeload: function(store, options){
-				// 2203** not working InventoryPool's Refresh button
-				if(store.lastOptions && store.lastOptions.params.category_id && !options.params.category_id){
+				if(store.lastOptions && store.lastOptions.params && store.lastOptions.params.category_id && !options.params.category_id){
 					options.params.category_id = store.lastOptions.params.category_id;
 				}
 			},
