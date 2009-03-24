@@ -150,7 +150,7 @@
     pdf.Write(5, filter(_("Purpose:")) + " " + filter(purpose) )
 
     # Contract notes
-    unless @contract.note.nil?
+    unless @contract.note.nil? or @contract.note.empty?
       pdf.Ln(6)
       pdf.Write(5, filter(_("Additional notes:")) + " " + filter(@contract.note) )
      
