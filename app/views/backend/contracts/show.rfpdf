@@ -149,6 +149,13 @@
 
     pdf.Write(5, filter(_("Purpose:")) + " " + filter(purpose) )
 
+    # Contract notes
+    unless @contract.note.nil?
+      pdf.Ln(6)
+      pdf.Write(5, filter(_("Additional notes:")) + " " + filter(@contract.note) )
+     
+    end
+
     pdf.Ln(10)
 
     pdf.SetFont('Arial', '', 7)
