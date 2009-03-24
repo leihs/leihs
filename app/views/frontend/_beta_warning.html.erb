@@ -1,14 +1,38 @@
 
 var beta_warning_html = '\
-<div style="margin: 10px;"> \
-<%= icon_tag("wrench") %> \
-Beta warning \
-</div> \
+<div id="betawarning"> \
+<h3><%= icon_tag("wrench") %> Anmerkung zu dieser Betaversion</h3> \
+<p>Sie befinden sich hier in der Betaversion des Ausleihsystems leihs 2.0.</p>\
+<p>Bitte beachten Sie, dass <strong>noch nicht alle Geräteparks</strong> diese Betaversion von leihs verwenden. Aktuell nehmen die folgenden Geräteparks am Betatest teil:</p>\
+<ul>\
+  <li>ITZ</li>\
+  <li>VCA</li>\
+  <li>VIAD</li>\
+</ul>\
+<p>Die Reservationen innerhalb von leihs 2.0 sind also nur in diesen Geräteparks gültig. <strong>Für alle anderen Geräteparks gelten weiterhin nur Reservationen in der <a href="http://ausleihe.zhdk.ch">alten leihs-Version</a>!</strong></p>\
+<p>Anregungen zur leihs 2.0-Betaversion <a href="mailto:ramon.cahenzli@zhdk.ch">nimmt das ITZ-Team gerne entgegen</a>. Sie können auch direkt ins Projekt eingreifen, der <a href="http://code.zhdk.ch/projects/leihs">Quellcode steht allen offen</a>.</p>\
+<p>Wir rechnen damit, dass bis ca. Sommer 2009 alle Geräteparks leihs 2.0 verwenden werden. Dann wird die alte leihs-Version abgeschaltet.</p>\
+<p>Um mit Ihrer Gerätereservation weiterzufahren, wählen Sie links eine Kategorie oder klicken Sie oben auf &quot;Modelle&quot;.</p>\
+<hr />\
+<h3><%= icon_tag("wrench") %> Note about this beta version</h3> \
+<p>You have entered a beta version of the equipment borrowing and rental system leihs 2.0.</p>\
+<p>Please note that <strong>not all inventory pools</strong> are using this beta version. At the moment, the following inventory pools are taking part:</p>\
+<ul>\
+  <li>ITZ</li>\
+  <li>VCA</li>\
+  <li>VIAD</li>\
+</ul>\
+<p>Reservations in leihs 2.0 are therefore only valid for these pools. <strong>For all other pools, you must still use the <a href="http://ausleihe.zhdk.ch">old version of leihs</a>!</strong></p>\
+<p>If you have any suggestions for the leihs 2.0 beta, please <a href="mailto:ramon.cahenzli@zhdk.ch">contact the ITZ team</a>. You can also take part in the project directly, <a href="http://code.zhdk.ch/projects/leihs">the source code is open</a>.</p>\
+<p>Until summer 2009, all inventory pools will have switch to leihs 2.0. After that, we will disable the old version of leihs.</p>\
+<p>To continue with your reservation, please click &quot;Models&quot; or choose a category on the left.</p>\
+</div>\
 ';
 
 
 var beta_warning = new Ext.Panel({
 							title: 'Leihs 2.0 Beta',
 							html: beta_warning_html,
-							closable: true
+							closable: true,
+                            autoScroll: true
 						});
