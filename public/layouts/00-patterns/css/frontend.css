@@ -37,3 +37,42 @@ table.orders th {
 .model_images {
 	float: right;
 }
+
+
+/* It seems that ExtJS by default removes every single
+   style that makes sense from plain old normal text :(
+
+   So we have to add that now. */
+
+#betawarning {
+    font-family: arial,tahoma,helvetica,sans-serif;
+    font-size: 11pt;
+    padding: 20px;
+}
+
+#betawarning p, #betawarning ul {
+    margin-bottom: 12px;
+}
+
+#betawarning h3 {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+#betawarning strong {
+    font-weight: bold;
+}
+
+#betawarning ul {
+    list-style: disc;
+}
+
+#betawarning ul li {
+    margin-left: 22px;
+    margin-bottom: 4px;
+}
+
+#betawarning hr {
+    margin: 18px;
+}
