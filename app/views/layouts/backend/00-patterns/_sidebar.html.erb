@@ -62,5 +62,6 @@
 </ul>
 
 <% javascript_tag do %>
-	$('menu_<%= params[:controller] %>').style.display='block';
+	var m = $('menu_<%= params[:controller] %>');
+	if(m) m.style.display='block';
 <% end %>
