@@ -18,3 +18,7 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 config.action_mailer.perform_deliveries = false
 
+# Necessary to prevent this error:
+# http://www.viget.com/extend/rubyinline-in-shared-rails-environments/
+ENV['INLINEDIR'] = '/home/rails/leihs/'
+
