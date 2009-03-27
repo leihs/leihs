@@ -25,6 +25,10 @@
 				<td><%= i.model.manufacturer %></td>
 				<td><%= i.inventory_code %></td>
 				<td class="buttons">
+				  <%= greybox_link_to_page(icon_tag("magnifier") + _("Show"), 
+				                            show_backend_inventory_pool_model_item_path( @current_inventory_pool, i.model, i, :layout => 'modal'),
+				 	                          :title => _("Item"), :width => 1000) %>
+				 
 				 	<%= link_to _('Remove'),
 						:action => 'remove_package_item',
 						:id => @model,
