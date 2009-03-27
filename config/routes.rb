@@ -73,7 +73,8 @@ ActionController::Routing::Routes.draw do |map|
             model.resources :compatibles, :controller => 'models'
             model.resources :items, :member => { :location => :any,
                                                  :status => :get,
-                                                 :notes => :any }
+                                                 :notes => :any,
+                                                 :show => :any }
       end
       inventory_pool.resources :templates, :member => { :models => :get,
                                                         :add_model => :put }

@@ -33,7 +33,7 @@ module ApplicationHelper
   def greybox_link(content, link, options = {}, &block)
     content = capture(&block) if block_given?
     
-    on_click_attr = "return " << "GB_showCenter('#{options.delete(:title) || content}', this.href, #{options.delete(:height) || 500}, #{options.delete(:width) || 650}, #{options.delete(:callback) || null})"
+    on_click_attr = "return " << "GB_showCenter('#{options.delete(:title) || content}', this.href, #{options.delete(:height) || 500}, #{options.delete(:width) || 650}, #{options.delete(:callback) || 'null'})"
     
     link = link_to(content, link, options.merge(:onclick => on_click_attr))
     block_given? && block_is_within_action_view?(block) ? concat(link, block.binding) : link
