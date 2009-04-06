@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2.0.0\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2009-03-12 11:33+0100\n"
-"PO-Revision-Date: 2009-03-12 11:39+0100\n"
+"POT-Creation-Date: 2009-04-06 15:12+0200\n"
+"PO-Revision-Date: 2009-04-06 15:15+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -72,34 +72,46 @@ msgstr "Zugriffsrecht erfolgreich erstellt."
 msgid "Access Right successfully removed"
 msgstr "Zugriffsrecht erfolgreich entfernt"
 
-#: app/controllers/backend/take_back_controller.rb:89
-#: app/controllers/backend/hand_over_controller.rb:100
+#: app/controllers/backend/take_back_controller.rb:55
+msgid "Item taken back"
+msgstr "Gegenstand zurückgenommen"
+
+#: app/controllers/backend/take_back_controller.rb:92
+#: app/controllers/backend/hand_over_controller.rb:102
 msgid "The Inventory Code %s was not found."
 msgstr "Inventarcode %s nicht gefunden"
 
-#: app/controllers/backend/hand_over_controller.rb:38
+#: app/controllers/backend/hand_over_controller.rb:40
 msgid "No items to hand over specified. Please assign inventory codes to the items you want to hand over."
 msgstr "Es sind keine Gegenstände zur Übergabe markiert. Bitte weisen Sie den Gegenständen, die Sie übergeben wollen, Inventarcodes zu."
 
-#: app/controllers/backend/hand_over_controller.rb:56
+#: app/controllers/backend/hand_over_controller.rb:58
 msgid "The start date has been changed"
 msgstr "Das Startdatum ist verändert worden"
 
-#: app/controllers/backend/hand_over_controller.rb:77
+#: app/controllers/backend/hand_over_controller.rb:79
 msgid "The item is already in the current contract."
 msgstr "Dieser Artikel ist bereits Teil dieses Vertrags."
 
-#: app/controllers/backend/hand_over_controller.rb:82
+#: app/controllers/backend/hand_over_controller.rb:84
 msgid "Inventory Code assigned"
 msgstr "Inventarcode zugewiesen"
 
-#: app/controllers/backend/hand_over_controller.rb:84
+#: app/controllers/backend/hand_over_controller.rb:86
 msgid "This item requires the user to be level %s"
 msgstr "Dieses Gerät benötigt mindestens Benutzerstufe %s"
 
-#: app/controllers/backend/hand_over_controller.rb:98
+#: app/controllers/backend/hand_over_controller.rb:100
 msgid "Option %s added."
 msgstr "Option %s hinzugefügt."
+
+#: app/controllers/backend/items_controller.rb:72
+msgid "Item handed over as part of contract %d."
+msgstr "Gegenstand übergeben als Teil von Vertrag %d."
+
+#: app/controllers/backend/items_controller.rb:73
+msgid "Expected to be returned."
+msgstr "Zurückerwartet."
 
 #: app/controllers/backend/models_controller.rb:64
 msgid "Model successfully added as compatible"
@@ -214,6 +226,11 @@ msgstr "Gerätepark|Kontaktdetails"
 #, fuzzy
 msgid "InventoryPool|Logo url"
 msgstr "Gerätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Default contract note"
+msgstr "Gerätepark|Kontaktdetails"
 
 #: app/models/inventory_pool.rb:-
 msgid "role"
@@ -477,19 +494,19 @@ msgstr "Erinnerung"
 msgid "Order submitted"
 msgstr "Bestellung abgeschickt"
 
-#: app/models/notification.rb:21
+#: app/models/notification.rb:22
 msgid "Order approved"
 msgstr "Bestellung genehmigt"
 
-#: app/models/notification.rb:28
+#: app/models/notification.rb:30
 msgid "Order rejected"
 msgstr "Bestellung abgelehnt"
 
-#: app/models/notification.rb:36
+#: app/models/notification.rb:38
 msgid "Deadline soon"
 msgstr "Bald Deadline"
 
-#: app/models/notification.rb:44
+#: app/models/notification.rb:46
 msgid "Reminder"
 msgstr "Erinnerung"
 
@@ -536,19 +553,19 @@ msgstr "Zweck geändert von '%{from}' zu '%{to}'"
 msgid "User swapped %{from} for %{to}"
 msgstr "Benutzer geändert von %{from} zu %{to}"
 
-#: app/models/document.rb:51
+#: app/models/document.rb:52
 msgid "Added"
 msgstr "Hinzugefügt"
 
-#: app/models/document.rb:59
+#: app/models/document.rb:60
 msgid "Swapped %{from} for %{to}"
 msgstr "%{from} durch %{to} ersetzt"
 
-#: app/models/document.rb:75
+#: app/models/document.rb:76
 msgid "Changed dates for %{model} from %{from} to %{to}"
 msgstr "Datum für %{model} von %{from} auf %{to} gesetzt"
 
-#: app/models/document.rb:86
+#: app/models/document.rb:87
 msgid "Removed %{q} %{m}"
 msgstr "%{q} %{m} entfernt"
 
@@ -574,7 +591,7 @@ msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 
 #: app/models/document_line.rb:99
 #: app/views/frontend/_complete_order.html.erb:176
-#: app/views/frontend/_models.html.erb:384
+#: app/views/frontend/_models.html.erb:388
 msgid "Start Date must be before End Date"
 msgstr "Startdaum muss vor Enddatum liegen"
 
@@ -725,6 +742,11 @@ msgid "Contract|Updated at"
 msgstr "Vertrage %d"
 
 #: app/models/user.rb:-
+#, fuzzy
+msgid "Contract|Note"
+msgstr "Verträge"
+
+#: app/models/user.rb:-
 msgid "user"
 msgstr "Benutzer"
 
@@ -768,11 +790,11 @@ msgstr ""
 msgid "User|Updated at"
 msgstr ""
 
-#: app/models/user.rb:187
+#: app/models/user.rb:198
 msgid "Reminded %{q} items for contracts %{c}"
 msgstr "%{q} Mal für Vertrag %{c} erinnert"
 
-#: app/models/user.rb:209
+#: app/models/user.rb:220
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr "\"Deadline bald\" Erinnerung für %{q} Gegenstände gesendet aus den Verträgen %{c}"
 
@@ -942,6 +964,10 @@ msgstr "Unterschrieben"
 msgid "Closed"
 msgstr "Geschlossen"
 
+#: app/models/contract.rb:53
+msgid "Contract %d has been signed by %s"
+msgstr "Vertrag %d wurde unterschrieben von %s"
+
 #: app/models/accessory.rb:-
 msgid "accessory"
 msgstr "Zubehör"
@@ -1077,24 +1103,25 @@ msgstr "Benutzer"
 #: app/views/frontend/_basket.html.erb:16
 #: app/views/users/document.rfpdf:77
 #: app/views/users/show_document.rfpdf:7
+#: app/views/backend/contracts/value_list.rfpdf:79
 #: app/views/backend/contracts/show.rfpdf:92
 msgid "Model"
 msgstr "Modell"
 
 #: app/helpers/backend/backend_helper.rb:156
 #: app/views/users/account.html.erb:35
-#: app/views/frontend/_models.html.erb:227
+#: app/views/frontend/_models.html.erb:231
 msgid "Loading"
 msgstr "Lade"
 
 #: app/helpers/backend/backend_helper.rb:320
-#: app/views/backend/hand_over/sign_contract.html.erb:9
+#: app/views/backend/hand_over/sign_contract.html.erb:17
 #: app/views/backend/take_back/close_contract.html.erb:8
 msgid "Confirm"
 msgstr "Bestätigen"
 
 #: app/helpers/backend/backend_helper.rb:325
-#: app/views/backend/hand_over/sign_contract.html.erb:13
+#: app/views/backend/hand_over/sign_contract.html.erb:19
 #: app/views/backend/take_back/inspection.html.erb:24
 #: app/views/backend/take_back/close_contract.html.erb:12
 #: app/views/backend/backend/remove_lines.html.erb:14
@@ -1254,8 +1281,8 @@ msgstr "Empfangen "
 #: app/views/backend/items/location.html.erb:2
 #: app/views/backend/models/package_location.html.erb:2
 #: app/views/frontend/_basket.html.erb:19
-#: app/views/frontend/_models.html.erb:327
 #: app/views/frontend/_models.html.erb:331
+#: app/views/frontend/_models.html.erb:335
 #: app/views/layouts/backend/00-patterns/general.html.erb:25
 msgid "Inventory Pool"
 msgstr "Gerätepark"
@@ -1284,6 +1311,7 @@ msgstr "Zweck"
 
 #: app/views/widgets/_item_backend_tabnav.html.erb:74
 #: app/views/widgets/_item_admin_tabnav.html.erb:14
+#: app/views/backend/models/package_items.html.erb:30
 #: app/views/backend/orders/_lines.html.erb:5
 #: app/views/backend/take_back/_item_line.html.erb:20
 #: app/views/backend/take_back/show.html.erb:28
@@ -1304,14 +1332,17 @@ msgid "Status"
 msgstr "Status"
 
 #: app/views/widgets/_item_backend_tabnav.html.erb:92
-#: app/views/widgets/_item_admin_tabnav.html.erb:38
-msgid "Notes (%d)"
-msgstr "Notizen (%d)"
+msgid "Notes"
+msgstr "Notizen"
 
 #: app/views/widgets/_item_admin_tabnav.html.erb:31
 #: app/views/widgets/_inventory_pool_admin_tabnav.html.erb:20
 msgid "InventoryPool"
 msgstr "Gerätepark"
+
+#: app/views/widgets/_item_admin_tabnav.html.erb:38
+msgid "Notes (%d)"
+msgstr "Notizen (%d)"
 
 #: app/views/widgets/_template_backend_tabnav.html.erb:20
 #: app/views/frontend/_templates.html.erb:113
@@ -1407,8 +1438,8 @@ msgstr "Stufe"
 #: app/views/admin/users/access_rights.html.erb:21
 #: app/views/backend/users/access_rights.html.erb:12
 #: app/views/backend/workdays/index.html.erb:22
-#: app/views/frontend/_models.html.erb:295
-#: app/views/frontend/_models.html.erb:395
+#: app/views/frontend/_models.html.erb:299
+#: app/views/frontend/_models.html.erb:399
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -1419,7 +1450,7 @@ msgstr "Hinzufügen"
 #: app/views/admin/inventory_pools/locations.html.erb:29
 #: app/views/admin/inventory_pools/managers.html.erb:24
 #: app/views/backend/users/access_rights.html.erb:24
-#: app/views/backend/models/package_items.html.erb:28
+#: app/views/backend/models/package_items.html.erb:32
 #: app/views/backend/models/index.html.erb:66
 #: app/views/backend/categories/index.html.erb:29
 #: app/views/backend/templates/index.html.erb:15
@@ -1493,6 +1524,7 @@ msgstr "Aktion"
 #: app/views/backend/locations/index.html.erb:22
 #: app/views/backend/users/index.html.erb:31
 #: app/views/backend/items/index.html.erb:22
+#: app/views/backend/models/package_items.html.erb:28
 #: app/views/backend/models/index.html.erb:62
 #: app/views/backend/templates/index.html.erb:14
 #: app/views/backend/templates/models.html.erb:38
@@ -1535,12 +1567,13 @@ msgstr "Sind Sie sicher?"
 #: app/views/admin/roles/index.html.erb:1
 #: app/views/admin/categories/index.html.erb:43
 #: app/views/admin/inventory_pools/index.html.erb:9
+#: app/views/admin/inventory_pools/show.html.erb:6
 #: app/views/backend/categories/index.html.erb:16
 #: app/views/backend/inventory_pools/index.html.erb:1
 #: app/views/backend/templates/index.html.erb:5
 #: app/views/backend/options/index.html.erb:10
 #: app/views/backend/options/show.html.erb:11
-#: app/views/frontend/_models.html.erb:275
+#: app/views/frontend/_models.html.erb:279
 #: app/views/users/document.rfpdf:106
 #: app/views/users/show_document.rfpdf:47
 msgid "Name"
@@ -1555,14 +1588,14 @@ msgid "Phone"
 msgstr "Telefon"
 
 #: app/views/admin/items/notes.html.erb:12
-#: app/views/backend/items/notes.html.erb:12
+#: app/views/backend/items/notes.html.erb:3
 #: app/views/backend/take_back/inspection.html.erb:18
 msgid "Note"
 msgstr "Notiz"
 
 #: app/views/admin/items/notes.html.erb:15
 #: app/views/backend/locations/show.html.erb:10
-#: app/views/backend/items/notes.html.erb:15
+#: app/views/backend/items/notes.html.erb:6
 #: app/views/backend/items/status.html.erb:31
 #: app/views/backend/models/index.html.erb:24
 #: app/views/backend/take_back/inspection.html.erb:22
@@ -1581,6 +1614,7 @@ msgstr "Modell zuweisen"
 #: app/views/backend/models/package_items.html.erb:20
 #: app/views/users/document.rfpdf:77
 #: app/views/users/show_document.rfpdf:7
+#: app/views/backend/contracts/value_list.rfpdf:79
 #: app/views/backend/contracts/show.rfpdf:92
 msgid "Inventory Code"
 msgstr "Inventarcode"
@@ -1638,13 +1672,13 @@ msgstr "Zuweisen"
 #: app/views/admin/models/index.html.erb:21
 #: app/views/backend/models/package_items.html.erb:20
 #: app/views/backend/models/index.html.erb:38
-#: app/views/frontend/_models.html.erb:279
+#: app/views/frontend/_models.html.erb:283
 msgid "Manufacturer"
 msgstr "Hersteller"
 
 #: app/views/admin/models/index.html.erb:21
 #: app/views/backend/models/index.html.erb:38
-#: app/views/frontend/_models.html.erb:268
+#: app/views/frontend/_models.html.erb:272
 msgid "Compatibles"
 msgstr "Kompatible"
 
@@ -1727,9 +1761,14 @@ msgid "Remove Parent"
 msgstr "Eltern-Objekt entfernen"
 
 #: app/views/admin/inventory_pools/index.html.erb:9
+#: app/views/admin/inventory_pools/show.html.erb:7
 #: app/views/backend/inventory_pools/index.html.erb:1
 msgid "Description"
 msgstr "Beschreibung"
+
+#: app/views/admin/inventory_pools/show.html.erb:8
+msgid "Default contract note"
+msgstr ""
 
 #: app/views/admin/inventory_pools/locations.html.erb:2
 msgid "Add more locations"
@@ -1782,6 +1821,10 @@ msgstr "Login"
 #: app/views/backend/hand_over/sign_contract.html.erb:1
 msgid "Items to hand over"
 msgstr "Artikel zu übergeben"
+
+#: app/views/backend/hand_over/sign_contract.html.erb:9
+msgid "Contract Note"
+msgstr "Vertragsnotiz"
 
 #: app/views/backend/hand_over/_item_line.html.erb:20
 #: app/views/backend/hand_over/_option_line.html.erb:14
@@ -1953,6 +1996,14 @@ msgstr "Schließen"
 msgid "Print contract"
 msgstr "Vertrag drucken"
 
+#: app/views/backend/hand_over/print_contract.html.erb:18
+msgid "Other documents"
+msgstr "Andere Dokumente"
+
+#: app/views/backend/hand_over/print_contract.html.erb:22
+msgid "Value list"
+msgstr ""
+
 #: app/views/backend/hand_over/_lines.html.erb:10
 #: app/views/backend/hand_over/_lines.html.erb:22
 #: app/views/backend/hand_over/_lines.html.erb:32
@@ -2096,7 +2147,7 @@ msgstr "Auswählen"
 msgid "Package name"
 msgstr "Paketname"
 
-#: app/views/backend/models/package.html.erb:8
+#: app/views/backend/models/package.html.erb:6
 msgid "Inventory code"
 msgstr "Inventarcode"
 
@@ -2137,8 +2188,8 @@ msgstr "Änderungen"
 #: app/views/backend/orders/_lines.html.erb:4
 #: app/views/backend/templates/models.html.erb:12
 #: app/views/backend/templates/models.html.erb:21
-#: app/views/frontend/_models.html.erb:311
 #: app/views/frontend/_models.html.erb:315
+#: app/views/frontend/_models.html.erb:319
 msgid "Quantity"
 msgstr "Anzahl"
 
@@ -2298,6 +2349,7 @@ msgid "Reject"
 msgstr "Ablehnen"
 
 #: app/views/backend/workdays/index.html.erb:2
+#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:53
 msgid "Workdays"
 msgstr "Arbeitstage"
 
@@ -2305,7 +2357,7 @@ msgstr "Arbeitstage"
 msgid "Holidays"
 msgstr "Ferientage"
 
-#: app/views/frontend/index.html.erb:80
+#: app/views/frontend/index.html.erb:81
 msgid "Recent Models"
 msgstr "Angesehene Modelle"
 
@@ -2356,8 +2408,8 @@ msgid "Do you want to submit this order?"
 msgstr "Wollen Sie diese Bestellung abschicken?"
 
 #: app/views/frontend/_complete_order.html.erb:339
-#: app/views/frontend/_models.html.erb:349
 #: app/views/frontend/_models.html.erb:353
+#: app/views/frontend/_models.html.erb:357
 #: app/views/users/document.rfpdf:77
 #: app/views/users/document.rfpdf:106
 #: app/views/users/show_document.rfpdf:7
@@ -2367,8 +2419,8 @@ msgid "Start date"
 msgstr "Startdatum"
 
 #: app/views/frontend/_complete_order.html.erb:351
-#: app/views/frontend/_models.html.erb:369
 #: app/views/frontend/_models.html.erb:373
+#: app/views/frontend/_models.html.erb:377
 #: app/views/users/document.rfpdf:77
 #: app/views/users/document.rfpdf:106
 #: app/views/users/show_document.rfpdf:7
@@ -2394,15 +2446,12 @@ msgstr "Die Bestellung ist leer"
 msgid "The order is not yet approvable"
 msgstr "Diese Bestellung kann noch nicht genehmigt werden"
 
-#: app/views/frontend/_inventory_pools.html.erb:45
+#: app/views/frontend/_inventory_pools.html.erb:37
+#: app/views/frontend/_inventory_pools.html.erb:60
 msgid "Inventory Pools"
 msgstr "Geräteparks"
 
-#: app/views/frontend/_inventory_pools.html.erb:45
-msgid "%{a}/%{b}"
-msgstr "%{a}/%{b}"
-
-#: app/views/frontend/_inventory_pools.html.erb:60
+#: app/views/frontend/_inventory_pools.html.erb:78
 msgid "Refresh"
 msgstr "Aktualisieren"
 
@@ -2414,23 +2463,23 @@ msgstr "Suche"
 msgid "No models to display"
 msgstr "Keine Modelle anzuzeigen"
 
-#: app/views/frontend/_models.html.erb:226
+#: app/views/frontend/_models.html.erb:230
 msgid "Details"
 msgstr "Details"
 
-#: app/views/frontend/_models.html.erb:245
+#: app/views/frontend/_models.html.erb:249
 msgid "Properties"
 msgstr "Eigenschaften"
 
-#: app/views/frontend/_models.html.erb:252
+#: app/views/frontend/_models.html.erb:256
 msgid "Accessories"
 msgstr "Zubehör"
 
-#: app/views/frontend/_models.html.erb:286
+#: app/views/frontend/_models.html.erb:290
 msgid "Chart"
 msgstr "Chart"
 
-#: app/views/frontend/_models.html.erb:402
+#: app/views/frontend/_models.html.erb:406
 msgid "Saving Data"
 msgstr "Speichere Daten"
 
@@ -2495,7 +2544,6 @@ msgid "Unknown"
 msgstr "Unbekannt"
 
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:51
-#: app/views/layouts/backend/00-patterns/_sidebar.html.erb:53
 msgid "Opening Times"
 msgstr "Öffnungszeiten"
 
@@ -2509,11 +2557,13 @@ msgid "Contract no. %d"
 msgstr "Vertrag Nr. %d"
 
 #: app/views/users/document.rfpdf:35
+#: app/views/backend/contracts/value_list.rfpdf:56
 #: app/views/backend/contracts/show.rfpdf:69
 msgid "Lending party:"
 msgstr "Verleiher:"
 
 #: app/views/users/document.rfpdf:50
+#: app/views/backend/contracts/value_list.rfpdf:35
 #: app/views/backend/contracts/show.rfpdf:48
 msgid "Borrowing party:"
 msgstr "Ausleihende/r: "
@@ -2546,9 +2596,26 @@ msgstr "Optionen:"
 msgid "Returned Date"
 msgstr "Rückgabedatum"
 
+#: app/views/backend/contracts/value_list.rfpdf:26
+msgid "Value list no. %d"
+msgstr ""
+
+#: app/views/backend/contracts/value_list.rfpdf:79
 #: app/views/backend/contracts/show.rfpdf:92
 msgid "Qt"
 msgstr "Anz."
+
+#: app/views/backend/contracts/value_list.rfpdf:79
+msgid "Value"
+msgstr "Wert"
+
+#: app/views/backend/contracts/value_list.rfpdf:99
+msgid "unknown"
+msgstr "unbekannt"
+
+#: app/views/backend/contracts/value_list.rfpdf:134
+msgid "Total"
+msgstr "Total"
 
 #: app/views/backend/contracts/show.rfpdf:145
 msgid "No purpose given."
@@ -2558,7 +2625,11 @@ msgstr "Kein Zweck angegeben."
 msgid "Purpose:"
 msgstr "Zweck:"
 
-#: app/views/backend/contracts/show.rfpdf:163
+#: app/views/backend/contracts/show.rfpdf:155
+msgid "Additional notes:"
+msgstr ""
+
+#: app/views/backend/contracts/show.rfpdf:170
 msgid "Signature of borrower:"
 msgstr "Unterschrift des/der Ausleihenden:"
 
@@ -2566,6 +2637,8 @@ msgstr "Unterschrift des/der Ausleihenden:"
 msgid "Access Denied"
 msgstr "Zugriff verweigert"
 
+#~ msgid "%{a}/%{b}"
+#~ msgstr "%{a}/%{b}"
 #~ msgid "Timeline"
 #~ msgstr "Zeitleiste"
 #~ msgid "Timeline Visits"
@@ -2614,14 +2687,10 @@ msgstr "Zugriff verweigert"
 #~ msgstr "Anderen Ort setzen"
 #~ msgid "Logged in as %{u}."
 #~ msgstr "Eingeloggt als %{u}."
-#~ msgid "Notes"
-#~ msgstr "Notizen"
 #~ msgid "Set different inventory pool (default location)"
 #~ msgstr "Gerätepark ändern (Standard-Ort)"
 #~ msgid "Check + Acknowledge"
 #~ msgstr "Prüfen + genehmigen"
-#~ msgid "document"
-#~ msgstr "Dokument"
 #~ msgid "In Repair"
 #~ msgstr "In Reparatur"
 
