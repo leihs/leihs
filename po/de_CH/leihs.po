@@ -734,7 +734,7 @@ msgstr "Verträge"
 #: app/models/user.rb:-
 #, fuzzy
 msgid "Contract|Created at"
-msgstr "Vertrage %d"
+msgstr "Vertrag %d"
 
 #: app/models/user.rb:-
 #, fuzzy
@@ -1989,7 +1989,7 @@ msgstr "Ort bestätigen"
 #: app/views/backend/take_back/print_contract.html.erb:15
 #: app/views/backend/acknowledge/approve.html.erb:25
 msgid "Close"
-msgstr "Schließen"
+msgstr "Schliessen"
 
 #: app/views/backend/hand_over/print_contract.html.erb:3
 #: app/views/backend/take_back/print_contract.html.erb:3
