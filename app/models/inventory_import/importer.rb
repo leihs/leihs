@@ -117,10 +117,11 @@ class InventoryImport::Importer
   
   
   def use_new_name_for(inv_abt)
-    puts "Did the name change for: #{inv_abt}?"
+  #  puts "Did the name change for: #{inv_abt}?"
     return "VMK" if inv_abt.upcase == "SNM" 
     return "VMK" if inv_abt.upcase == "VNM"
     return "VIAD" if inv_abt.upcase == "IAD"
+    return "VTO" if inv_abt.upcase == "TMS"
     inv_abt
   end
   

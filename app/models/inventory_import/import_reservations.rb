@@ -134,6 +134,7 @@ class InventoryImport::ImportReservations
     return "VMK" if inv_abt.upcase == "SNM" 
     return "VMK" if inv_abt.upcase == "VNM"
     return "VIAD" if inv_abt.upcase == "IAD"
+    return "VTO" if inv_abt.upcase == "TMS"
     inv_abt
   end
   
