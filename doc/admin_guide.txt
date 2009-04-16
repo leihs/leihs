@@ -1,0 +1,93 @@
+leihs administration and installation guide
+===========================================
+Ramon Cahenzli <ramon.cahenzli@zhdk.ch>
+
+
+== Introduction ==
+
+leihs is web-based inventory handling and resource booking system. It allows users to view available equipment and place reservations through the frontend. Inventory managers and sysadmins use the backend to handle incoming reservations and manage items in the inventory.
+
+This guide shows you how to install a leihs server. The guide is written from the perspective of a system administrator or developer. If you are interested in running leihs in your own organization but aren't a sysadmin, talk to your IT department. leihs is not intended to be installed on a client, so any software installation on your own machine isn't necessary. All you need is a web browser.
+
+Consulting and installation services are also available from independent companies supporting Free Software all around the world. Ask around for a company or individual who knows Ruby on Rails applications, you will surely find someone who can help you install leihs.
+
+If you are such a person yourself and would like to have your services listed on the leihs project website and in this document, please write me an e-mail.
+
+
+== Quick Install ==
+
+This section is meant for admins experienced with installing Ruby on Rails applications. It lists the necessary installation steps in the briefest possible way, so you can get up and running quickly.
+
+=== Installation on Mac OS X ===
+
+The following steps were tested on Mac OS X 10.5 on an x86. They may also work for later versions.
+
+
+1. Install Apple Xcode. This is required because some modules may need a C/C++ compiler. XCode is http://developer.apple.com/Tools/[available from Apple] after a free developer registration.
+2. Install MySQL 5.0 32-bit. *Make absolutely sure to install the 32-bit version even if you are running a 64-bit operating system.* Some bugs in Mac OS X's MySQL and Ruby integration make it impossible to continue otherwise.
+3. Update the local gem system:
++
+ $ sudo gem update --system
++
+4. Install the required version of Rails as well as a few gems that cannot be installed automatically:
++
+ $ sudo gem install rails -v 2.1.1
+ $ sudo gem install gettext -v 1.93.0
+ $ sudo gem install inline
+
+5. Install the native MySQL gem:
++
+ $ sudo env ARCHFLAGS="-arch i386" gem install mysql -- \
+--with-mysql-dir=/usr/local/mysql --with-mysql-lib=/usr/local/mysql/lib
+\ --with-mysql-include=/usr/local/mysql/include 
+
+6. Try out if Rails works on your machine:
++
+ $ cd /tmp
+ $ rails test
+ $ cd test
+ $ ./script/server
++
+You should see a web page at http://localhost:3000. If not, please make sure that Rails is installed properly before continuing.
++
+If this works, stop the server again using Ctrl-C.
+
+7. Check out the latest leihs version from our Subversion repository. We use a new folder on the desktop in this example, but you can install leihs in any folder:
++
+ $ cd ~/Desktop
+ $ svn co http://code.zhdk.ch/svn/leihs/trunk leihs
+ $ cd leihs
+
+8. Delete any preinstalled gems from your newly checked out copy of leihs:
++
+ $ rm -rf vendor/gems
+ $ sudo rake gems:install
+
+9. Edit config/environments/development.rb. The path for Mac OS X can be any path that is writable for the user that will run the leihs server. In this example, we just use the leihs directory:
++
+ ENV['INLINEDIR'] = '/Users/___username___/Desktop/leihs'
+
+
+10. Edit config/database.yml and enter your database connection parameters (host, database name, username and password).
+
+11. Create and migrate the database:
++
+ $ rake db:migrate
+
+12. Start the server:
++
+ $ ./script/server
+
+Now you should see your local leihs server at http://localhost:3000
+
+=== Installation on Debian GNU/Linux ===
+
+Coming up shortly.
+
+== Free Software Statement ==
+
+The Zurich University of the Arts supports Free Software http://www.gnu.org/philosophy/free-sw.html[as defined by the Free Software Foundation]. That's why leihs is Free Software licensed under the GNU GPL version 3.0. 
+
+One of the advantages this freedom brings with it is that it enables anyone in the world to provide local support services for leihs at the same quality level as the Zurich University of the Arts can provide itself.
+
+If you would like to take part in the development of leihs, please see our http://code.zhdk.ch/projects/leihs[project page].
