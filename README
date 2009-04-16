@@ -3,27 +3,39 @@
     leihs - a borrowing/lending/resource management system 
             written in Ruby on Rails  
 
-+ General
+== General ==
 
-This is the development branch for version 2.0 of leihs.
+leihs is a web-based system to manage the circulation of items within an 
+organization or institution. In our case, we use it to keep track of who uses 
+our cameras, lighting equipment, speakers, microphones etc. 
 
-2.0 is an ambitious rewrite of 1.x, evading the errors we
-made the first time round and making everyone really really
-happy.
-
-We can hope, can't we?
-
-+ Dependencies
+== Dependencies ==
 
 leihs depends on the following gems or libraries:
 
 1. Barby 
 2. gettext
 3. ferret
-4. GraphViz (for the "dot" program to generate network graphs)
 
 The gems are included in the vendor directory, but if you see any 
 reason to use your own system-wide versions, please do.
+
+
+== Installation guide ==
+
+The install guide in asciidoc text and PDF format can be found in the doc 
+directory and on our wiki:
+
+http://code.zhdk.ch/projects/leihs/wiki/Help
+
+
+== Project web pages ==
+
+Please find our project webpage at: 
+http://code.zhdk.ch/projects/leihs
+
+You can also find major releases of leihs as file packages at SourceForge: 
+http://sf.net/projects/leihs
 
 --
 
