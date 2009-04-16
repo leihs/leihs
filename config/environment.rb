@@ -93,6 +93,7 @@ ActionMailer::Base.default_charset = 'utf-8'
 
 
 
+require 'ferret'
 # Prevent UTF-8 problems with acts_as_ferret
 ENV['LC_CTYPE'] = 'en_US.UTF-8'
 Ferret.locale = "en_US.UTF-8"
