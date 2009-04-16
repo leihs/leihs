@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
 
   # TODO 16** http://www.yotabanana.com/hiki/ruby-gettext-howto-rails.html
+  require 'gettext/rails'
   before_init_gettext :define_locale
   def define_locale
 
