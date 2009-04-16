@@ -1,3 +1,13 @@
+
+== About this readme ==
+
+This readme is mostly meant for developers. If you are looking for information
+on how to install leihs on your own server, please see the administration
+guide in this directory.
+
+
+== Developing leihs ==
+
 Please see our project page (especially the wiki) for information about leihs 
 that might be interesting for developers.
 
