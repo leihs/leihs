@@ -1,2 +1,18 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+Please see our project page (especially the wiki) for information about leihs 
+that might be interesting for developers.
+
+You can find the project page at:
+
+http://code.zhdk.ch/projects/leihs
+
+
+The pages about terminology and models might be the best starting place for
+new developers:
+
+http://code.zhdk.ch/projects/leihs/wiki/Terminology
+http://code.zhdk.ch/projects/leihs/wiki/Models
+
+
+For installation and system administration guides, please see the help page:
+
+http://code.zhdk.ch/projects/leihs/wiki/Help
