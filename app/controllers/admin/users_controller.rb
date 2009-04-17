@@ -35,7 +35,6 @@ class Admin::UsersController < Admin::AdminController
 
   def update
     if @user.update_attributes(params[:user])
-      
       redirect_to admin_user_path(@user)
     else
       # TODO 12 ** refactor to after_filter, then remove errors from tabnav views
@@ -57,7 +56,7 @@ class Admin::UsersController < Admin::AdminController
   end
   
   def add_access_right
-    r = Role.find(params[:access_right][:role_id]) if params[:access_right]
+    r = Role.find(params[:access_right][:role_id]) if params[:access_right] and not params[:access_right][:role_id].blank?
     r ||= Role.last
     
     if params[:access_right] and not params[:access_right][:inventory_pool_id].blank? 

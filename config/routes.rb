@@ -30,7 +30,9 @@ ActionController::Routing::Routes.draw do |map|
       user.resources :contracts
   end
   map.resource :session, :member => { :authenticate => :any, :old_new => :get } # TODO 05** remove, only for offline login
-  
+  map.resource :authenticator do | auth |
+    auth.login 'login', :controller => "Authenticator::DatabaseAuthentication", :action => 'login'
+  end
   map.resource :frontend, :controller => 'frontend',
                           :member => { :get_inventory_pools => :any,
                                        :set_inventory_pools => :any }
@@ -173,6 +175,7 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default routes as the lowest priority.
 # TODO 30** remove "map.connect" for authenticator, use named route instead
   map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
+  map.connect 'authenticator/db/:action/:id', :controller => 'authenticator/database_authentication'
 #  map.connect ':controller/:action/:id', :defaults => { :controller => 'frontend' }
 #  map.connect ':controller/:action/:id.:format'
 end

@@ -12,8 +12,9 @@ class ApplicationController < ActionController::Base
   # TODO 16** http://www.yotabanana.com/hiki/ruby-gettext-howto-rails.html
   require 'gettext/rails'
   before_init_gettext :define_locale
-  def define_locale
 
+  def define_locale
+  
     if params[:locale] 
       cookies['locale'] = params[:locale]
       set_locale params[:locale] 
@@ -23,9 +24,9 @@ class ApplicationController < ActionController::Base
       cookies['locale'] = 'de_CH' 
       set_locale 'de_CH'
     end
-
+  
   end 
-  init_gettext 'leihs'
+#  init_gettext 'leihs'
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store

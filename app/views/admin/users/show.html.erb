@@ -1,14 +1,18 @@
 
 	<% form_for [:admin, @user] do |f| %>
 	
-		<ul>
-		<li><b>Login:</b> <%= f.text_field :login %></li>	
-		<li><b>Unique ID:</b> <%= @user.unique_id %></li>
+		<table>
+		<tr><td><%= _("Login") %>:</td><td><%= f.text_field :login %></td></tr>	
+		<tr><td><%= _("Unique ID") %>:</td><td><%= @user.unique_id %></td></tr>
 		
-		<li><%= _("Name") %>: <%= @user.name %></li>
-		<li><%= _("Email") %>: <%= @user.email %></li>
-		<li><%= _("Phone") %>: <%= @user.phone %></li>
-		</ul>
-	
-		<%= submit_tag 'Submit' %>
+		<tr><td><%= _("Vorname/Nachname") %>:</td><td><%= f.text_field :firstname, :size => 15 %> <%= f.text_field :lastname, :size => 15 %></td></tr>
+		<tr><td><%= _("Email") %>:</td><td><%= f.text_field :email %></td></tr>
+		<tr><td><%= _("Phone") %>:</td><td><%= f.text_field :phone %></td></tr>
+		<tr><td><%= _("Authentication System") %>:</td><td><%= f.collection_select(:authentication_system_id, AuthenticationSystem.active_systems, :id, :name) %></td></tr>
+
+		<tr><td><%= submit_tag 'Submit' %></td><td></td></tr>
+		</table>
 	<% end %>
+	<% if @user.id  %>
+  <%= render :partial => "#{@user.authentication_system.class_name.underscore}" %>
+  <% end %>

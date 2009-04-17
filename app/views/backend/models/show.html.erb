@@ -1,9 +1,11 @@
 
-	<ul>
-	<li><b>Name:</b> <%= @model.name %></li>	
-	<li><b>Manufacturer:</b> <%= @model.manufacturer %></li>
-	</ul>
-	
+<table>
+<tr><td><b><%= _("Name") %>:</b></td><td><%= @model.name %></td></tr>	
+<tr><td><b><%= _("Manufacturer") %>:</b></td><td><%= @model.manufacturer %></td></tr>
+<tr><td><b><%= _("Description") %>:</b></td><td><%= @model.description %></td></tr>
+<tr><td><b><%= _("Internal Description") %>:</b></td><td><%= @model.internal_description %></td></tr>
+</table>
+
 <!-- #old#
 <div style="border: 1px solid black; margin: 10px; padding: 10px;">
 	<% chart_path = chart_model_path(@model, :inventory_pool_id => @current_inventory_pool) %>
