@@ -27,6 +27,7 @@ namespace :release do
     `rake makemo`
 
     puts "Generating user documentation"
+    # You need asciidoc and docbook2pdf installed for this to work
     `asciidoc -a toc -o doc/admin_guide.html doc/admin_guide.txt`
     `asciidoc -b docbook -a toc -o doc/admin_guide.xml doc/admin_guide.txt `
     `db2pdf doc/admin_guide.xml -o doc`
@@ -50,6 +51,11 @@ namespace :release do
     puts "Removing backup files"
     # Recursively looks for files ending in ~ and kills them
     Dir['**/*~'].each do |fn|
+      rm fn rescue nil
+    end
+
+    puts "Removing Subversion directories"
+    Dir['**/.svn'].each do |fn|
       rm fn rescue nil
     end
 
