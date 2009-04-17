@@ -35,6 +35,7 @@ class Admin::UsersController < Admin::AdminController
 
   def update
     if @user.update_attributes(params[:user])
+      
       redirect_to admin_user_path(@user)
     else
       # TODO 12 ** refactor to after_filter, then remove errors from tabnav views
@@ -56,13 +57,19 @@ class Admin::UsersController < Admin::AdminController
   end
   
   def add_access_right
-    r = Role.find(params[:access_right][:role_id])
-    ip = InventoryPool.find(params[:access_right][:inventory_pool_id]) unless params[:access_right][:inventory_pool_id].blank? 
-    ar = @user.access_rights.create(:role => r, :inventory_pool => ip, :level => params[:level])
-    unless ar.changed?
-      flash[:notice] = _("Access Right successfully created")
+    r = Role.find(params[:access_right][:role_id]) if params[:access_right]
+    r ||= Role.last
+    
+    if params[:access_right] and not params[:access_right][:inventory_pool_id].blank? 
+      ip = InventoryPool.find(params[:access_right][:inventory_pool_id]) 
+      ar = @user.access_rights.create(:role => r, :inventory_pool => ip, :level => params[:level])
+      unless ar.changed?
+        flash[:notice] = _("Access Right successfully created")
+      else
+        flash[:error] = ar.errors.full_messages
+      end
     else
-      flash[:error] = ar.errors.full_messages
+      flash[:error] = _("Inventorypool must be selected.")
     end
     redirect_to :action => 'access_rights', :id => @user
   end
