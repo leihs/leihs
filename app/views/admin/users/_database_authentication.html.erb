@@ -1,0 +1,13 @@
+<% group1 = "a e i o u y j".split
+   group2 = "b c d f g h k m n p q r s t v w x z".split
+%>
+
+<% @dbauth = Authenticator::DatabaseAuthentication.new(:user => @user, :login => @user.login, :password => "#{group1.rand}#{group2.rand}#{group1.rand}#{group2.rand}#{group1.rand}#{group2.rand}#{group1.rand}#{group2.rand}")
+  form_for :dbauth, :url => {:controller => 'authenticator/database_authentication', :action => 'change_password'} do |f|%>
+<h3><%= _("Database Authentication") %></h3>
+<%= f.hidden_field :user_id %>
+<%= f.hidden_field :login %>
+<table>
+  <tr><td><%= _("New Password") %>:</td><td><%= f.text_field :password %></td><td><%= f.submit(_("Set Password")) %></td></tr>
+</table>
+<% end %>

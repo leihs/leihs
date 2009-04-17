@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :phone
+  attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :phone, :authentication_system_id
 
 # 0603**
   acts_as_ferret :fields => [ :login, :firstname, :lastname ], :store_class_name => true, :remote => true

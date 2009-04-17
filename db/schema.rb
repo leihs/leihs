@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090320104643) do
+ActiveRecord::Schema.define(:version => 20090403085115) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
@@ -118,6 +118,15 @@ ActiveRecord::Schema.define(:version => 20090320104643) do
   add_index "contracts", ["status_const"], :name => "index_contracts_on_status_const"
   add_index "contracts", ["user_id"], :name => "fk_contracts_user_id"
   add_index "contracts", ["inventory_pool_id"], :name => "fk_contracts_inventory_pool_id"
+
+  create_table "database_authentications", :force => true do |t|
+    t.string   "login"
+    t.string   "crypted_password", :limit => 40
+    t.string   "salt",             :limit => 40
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "histories", :force => true do |t|
     t.string   "text",        :default => ""
