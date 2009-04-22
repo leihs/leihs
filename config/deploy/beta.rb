@@ -46,6 +46,7 @@ task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
 end
 
+# TODO 2104** remove Ferret completely
 task :chmod_ferret do
   run "chmod +x #{release_path}/script/ferret_server"
 end

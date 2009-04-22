@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.1.1' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -57,17 +57,23 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 
-  config.gem "acts_as_ferret", :version => '0.4.3'
+# TODO 0603** upgrade Gettext
+#  config.gem "gettext", :version => '1.93.0'
+  config.gem "gettext", :version => ">=2.0.1"
+  config.gem "locale", :version => ">=2.0.1"
+#  config.gem "locale_rails", :version => ">=2.0.1"
+#  config.gem "gettext_activerecord", :version => ">=2.0.1"
+#  config.gem "gettext_rails", :version => ">=2.0.1"
+ 
   config.gem "barby", :version => '0.2.0'
-  config.gem "ferret", :version => '0.11.6'
-  config.gem "gettext", :version => '1.93.0'
   config.gem "png", :version => '1.1.0'
-#  config.gem "rmagick", :version => '2.7.0'
-#  config.gem "rspec", :version => '1.1.12'
-#  config.gem "rgl", :version => '0.4.0'
-#  config.gem "newrelic_rpm", :version => '2.8.0'
 
-# TODO 18** unpack gem and remove plugin:  config.gem "mislav-will_paginate", :version => '2.3.6'
+#  config.gem "RubyInline", :version => '3.8.1'
+#  config.gem "topfunky-gruff", :version => '0.3.5'
+#  config.gem "rmagick", :version => '2.9.1'
+#  config.gem "rgl", :version => '0.4.0'
+  config.gem "mislav-will_paginate", :lib => "will_paginate", :source => 'http://gems.github.com', :version => '>= 2.3.8'
+  config.gem "freelancing-god-thinking-sphinx", :lib => "thinking_sphinx", :source => 'http://gems.github.com', :version => '>= 1.1.6'
 
   
 end
@@ -93,10 +99,8 @@ ActionMailer::Base.default_charset = 'utf-8'
 
 
 
-require 'ferret'
-# Prevent UTF-8 problems with acts_as_ferret
 ENV['LC_CTYPE'] = 'en_US.UTF-8'
-Ferret.locale = "en_US.UTF-8"
+# TODO 2104** Prevent UTF-8 problems with Sphinx
 
 # TODO **24 is this still right?
 # E-Mail uncaught exceptions to the devs.

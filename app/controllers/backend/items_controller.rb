@@ -3,8 +3,8 @@ class Backend::ItemsController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    params[:sort] ||= 'models.name'
-    params[:dir] ||= 'ASC'
+    params[:sort] ||= 'model_name'
+    params[:dir] ||= 'asc'
 
     if @model
       items = current_inventory_pool.items.by_model(@model) #old# @model.items & current_inventory_pool.items
@@ -33,7 +33,7 @@ class Backend::ItemsController < Backend::BackendController
       items = items.send(filter) if filters.include?(filter)
     end
     
-    @items = items.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir]), :include => [:model, :location]})
+    @items = items.search(params[:query], :page => params[:page], :order => params[:sort].to_sym, :sort_mode => params[:dir].to_sym, :include => [:model, :location])
   end
 
   def show

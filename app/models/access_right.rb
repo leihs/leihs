@@ -16,6 +16,9 @@ class AccessRight < ActiveRecord::Base
 
   before_validation_on_create :remove_old
 
+  named_scope :by_inventory_pool, lambda { |inventory_pool| { :conditions => {:inventory_pool_id => inventory_pool} } }
+
+####################################################################
 
   def to_s
     s = "#{role.name}"

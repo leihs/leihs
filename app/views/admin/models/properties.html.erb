@@ -3,9 +3,9 @@
 	<ul>
 	<% @model.properties.each do |p| %>
 		<li><b><%= p.key %>:</b> <%= p.value %> <%= link_to _('Remove'),
-														:action => 'remove_property',
-														:id => @model,
-														:property_id => p %></li>
+														remove_property_admin_model_path(@model, :property_id => p),
+														:confirm => _("Are you sure?"),
+														:method => :delete %></li>
 	<% end %>
 	</ul>
 

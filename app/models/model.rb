@@ -49,7 +49,16 @@ class Model < ActiveRecord::Base
   #validates_length_of :name, :minimum => 1 #, :too_short => "please enter at least %d character", :if => Proc.new {|i| i.step == :step_item}
   validates_presence_of :name #, :if => Proc.new {|i| i.step == :step_item}
 
-  acts_as_ferret :fields => [ :name, :manufacturer, :category_names, :properties_values, :items_inventory_codes ], :store_class_name => true, :remote => true
+  define_index do
+    indexes :name, :sortable => true
+    indexes :manufacturer, :sortable => true
+    indexes categories(:name), :as => :category_names
+# TODO 0603** indexes properties(:value), :as => :properties_values
+    indexes items(:inventory_code), :as => :items_inventory_codes
+    has :id
+    set_property :order => :name
+    set_property :delta => true
+  end
 
 #############################################  
 
@@ -238,16 +247,4 @@ class Model < ActiveRecord::Base
     a
   end
   
-  def category_names
-    categories.collect(&:name).uniq.join(" ")
-  end
-
-  def properties_values
-    properties.collect(&:value).uniq.join(" ")
-  end
-  
-  def items_inventory_codes
-    items.collect(&:inventory_code).join(" ")
-  end
-
 end

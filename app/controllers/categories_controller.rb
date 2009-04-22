@@ -15,7 +15,7 @@ class CategoriesController < FrontendController
   #old#      categories = current_user.all_categories.find(id).children
       end
     else
-      @categories = Category.search(params[:query], :page => params[:page], :per_page => $per_page)
+      @categories = Category.search(params[:query], :page => params[:page])
     end
 
     respond_to do |format|

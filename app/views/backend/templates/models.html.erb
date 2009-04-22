@@ -4,7 +4,7 @@
 		<%= hidden_field_tag :is_selected, 0 %>
 
 		<%= _("Add model") %>:
-		<%= model_auto_completer ('query', nil, 'model_link[model_id]', nil,
+		<%= model_auto_completer('query', nil, 'model_link[model_id]', nil,
 									{ :url => backend_inventory_pool_models_path(:format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
 									{ :size => 40 },
 									{ :method => :get, :select => :name }) %>

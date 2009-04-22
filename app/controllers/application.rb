@@ -9,12 +9,14 @@ class ApplicationController < ActionController::Base
 
   helper :all # include all helpers, all the time
 
-  # TODO 16** http://www.yotabanana.com/hiki/ruby-gettext-howto-rails.html
-  require 'gettext/rails'
-  before_init_gettext :define_locale
+# TODO 2703** upgrade to Rails 2.3.2
+# http://www.yotabanana.com/hiki/ruby-gettext-howto-rails.html
+# http://www.yotabanana.com/hiki/ruby-gettext-rails-migration.html
+  before_filter :define_locale
+#  require 'gettext/rails'
+#  before_init_gettext :define_locale
 
   def define_locale
-  
     if params[:locale] 
       cookies['locale'] = params[:locale]
       set_locale params[:locale] 
@@ -24,7 +26,6 @@ class ApplicationController < ActionController::Base
       cookies['locale'] = 'de_CH' 
       set_locale 'de_CH'
     end
-  
   end 
 #  init_gettext 'leihs'
 
@@ -38,9 +39,11 @@ class ApplicationController < ActionController::Base
   $general_layout_path = 'layouts/' + $theme + '/general'
   $layout_public_path = '/layouts/' + $theme
 
+# 1903** TODO do we need it?
+# layout $general_layout_path
+
   $per_page = 15 # OPTIMIZE keep per_page in user session?
   
-  layout $general_layout_path
  
 
  
@@ -53,12 +56,15 @@ class ApplicationController < ActionController::Base
     nil
   end
 
+# TODO 2703** upgrade to Rails 2.3.2
   # overriding
   # TODO 16** doesn't work for *_url and *_path 
   def default_url_options(options = nil)
     { :layout => params[:layout] }
   end
 
+# TODO 2703** upgrade to Rails 2.3.2
+  # overriding
   def render(args = {})
     default_args = {}
     if params[:layout] == "modal"
@@ -67,11 +73,6 @@ class ApplicationController < ActionController::Base
       default_args[:layout] = false
     end
     super default_args.merge(args)
-  end
-
-  def sanitize_order(*values)
-    statement = "%s %s"
-    statement % values.collect { |value| User.connection.quote_string(value.to_s) }
   end
   
 end

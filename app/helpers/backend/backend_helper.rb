@@ -2,7 +2,9 @@ module Backend::BackendHelper
 
   def table(options = {}, html_options = {}, &block)
     html = table_tag(options, html_options, &block)
+# TODO 2703** upgrade to Rails 2.3.2
     concat(html, block.binding)
+#new#    concat(html)
   end
 
   def table_with_search_and_pagination(options = {}, html_options = {}, &block)
@@ -10,7 +12,9 @@ module Backend::BackendHelper
         r = search_field_tag(options[:records])
         r += table_tag(options, html_options, &block)
     end
+# TODO 2703** upgrade to Rails 2.3.2
     concat(html, block.binding)
+#new#    concat(html)
   end 
 
 
@@ -26,8 +30,7 @@ module Backend::BackendHelper
             r += javascript_tag("$('search_field').focus()")
             
             r += content_tag :div, :class => "result", :style => "min-height: 200px;" do
-              total = (records.is_a?(ActsAsFerret::SearchResults) ? records.total_hits : records.total_entries)
-              s = _(" <b>%d</b> results") % total
+              s = _(" <b>%d</b> results") % records.total_entries
               s += _(" for <b>%s</b>") % query if query
               s += _(" filtering <b>%s</b>") % filter if filter
               w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:update => 'list_table', :loading => "Element.show('spinner')"}, :previous_label => _("Previous"), :next_label => _("Next")
@@ -50,14 +53,14 @@ module Backend::BackendHelper
             p = ""
             if column.is_a?(Array)
               b = (params[:sort] == column[1])
-              dir = (params[:dir] == "ASC" ? "DESC" : "ASC") if b
+              dir = (params[:dir] == "asc" ? "desc" : "asc") if b
               p += link_to_remote column[0],
                 :url => params.merge({ :sort => column[1], :dir => dir, :page => 1}),
                 :method => :get,
                 :form => true,
                 :update => 'list_table',
                 :loading => "Element.show('spinner')"
-              p += icon_tag("arrow_" + (params[:dir] == "ASC" ? "down" : "up")) if b
+              p += icon_tag("arrow_" + (params[:dir] == "asc" ? "down" : "up")) if b
             else
               p += column
             end

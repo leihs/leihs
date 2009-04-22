@@ -24,7 +24,7 @@ ActionController::Routing::Routes.draw do |map|
       user.resource :order, :member => { :submit => :post,
                                          :add_line => :post,
                                          :change_line => :post,
-                                         :remove_lines => :post,  # OPTIMIZE method
+                                         :remove_lines => :delete,
                                          :change_time_lines => :post }
       user.resources :orders
       user.resources :contracts
@@ -34,8 +34,8 @@ ActionController::Routing::Routes.draw do |map|
     auth.login 'login', :controller => "Authenticator::DatabaseAuthentication", :action => 'login'
   end
   map.resource :frontend, :controller => 'frontend',
-                          :member => { :get_inventory_pools => :any,
-                                       :set_inventory_pools => :any }
+                          :member => { :get_inventory_pools => :get,
+                                       :set_inventory_pools => :get }
                                       
   map.resources :models, :member => { :chart => :get }
   map.resources :categories
@@ -67,7 +67,7 @@ ActionController::Routing::Routes.draw do |map|
                                                      :package => :get,
                                                      :package_items => :get,
                                                      :add_package_item => :put,
-                                                     :remove_package_item => :get, # OPTIMIZE method
+                                                     :remove_package_item => :delete,
                                                      :package_location => :any,
                                                      :images => :get,
                                                      :chart => :get } do |model|  # TODO 0203** temp
@@ -85,14 +85,14 @@ ActionController::Routing::Routes.draw do |map|
                                                     :remind => :get,
                                                     :access_rights => :get,
                                                     :things_to_return => :get,
-                                                    :remove_access_right => :get,  # OPTIMIZE method
+                                                    :remove_access_right => :delete,
                                                     :add_access_right => :post } do |user|
                user.resources :acknowledge, :member => { :approve => :any,
                                                          :reject => :any,
                                                          :delete => :get,
                                                          :add_line => :any,
                                                          :change_line => :any,
-                                                         :remove_lines => :any,  # OPTIMIZE method
+                                                         :remove_lines => :any, # OPTIMIZE [:get, :delete] (from Rails 2.2)
                                                          :swap_model_line => :any,
                                                          :time_lines => :any,
                                                          :restore => :any,
@@ -103,14 +103,14 @@ ActionController::Routing::Routes.draw do |map|
                                          :member => { :add_line => :any,
                                                       :add_line_with_item => :post, # TODO 29**
                                                       :change_line => :any,
-                                                      :remove_lines => :any,  # OPTIMIZE method
+                                                      :remove_lines => :any, # OPTIMIZE [:get, :delete] (from Rails 2.2)
                                                       :swap_model_line => :any,
                                                       :time_lines => :any,
                                                       :sign_contract => :any,
                                                       :add_option => :any,
                                                       :assign_inventory_code => :post,
                                                       :timeline => :get,
-                                                      :delete_visit => :get, # OPTIMIZE method
+                                                      :delete_visit => :delete,
                                                       :select_location => :any,
                                                       :auto_complete_for_location_building => :get,
                                                       :auto_complete_for_location_room => :get }
@@ -134,20 +134,20 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resources :inventory_pools, :member => { :locations => :get,
                                                    :add_location => :post,
-                                                   :remove_location => :get,  # OPTIMIZE method
+                                                   :remove_location => :delete, # OPTIMIZE nest locations to inventory_pools ?
                                                    :managers => :get,
-                                                   :remove_manager => :get,  # OPTIMIZE method
+                                                   :remove_manager => :delete,
                                                    :add_manager => :put } do |inventory_pool|
         inventory_pool.resources :items
     end
     admin.items 'items', :controller => 'items', :action => 'index'
     admin.resources :models, :member => { :properties => :get,
                                           :add_property => :post,
-                                          :remove_property => :get,  # OPTIMIZE method
+                                          :remove_property => :delete,
                                           :images => :any,
                                           :accessories => :get,
                                           :add_accessory => :post,
-                                          :remove_accessory => :get } do |model|  # OPTIMIZE method
+                                          :remove_accessory => :delete } do |model|
         model.resources :items, :member => { :model => :get,  # TODO 12** remove and nest to models ??
                                              :inventory_pool => :any,
                                              :notes => :any }
@@ -160,7 +160,7 @@ ActionController::Routing::Routes.draw do |map|
         category.resources :models
     end
     admin.resources :users, :member => { :access_rights => :get,
-                                         :remove_access_right => :get,  # OPTIMIZE method
+                                         :remove_access_right => :delete,
                                          :add_access_right => :post }
     admin.resources :roles
   end

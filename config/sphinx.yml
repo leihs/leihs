@@ -1,0 +1,21 @@
+development:
+  address: 127.0.0.1
+  port: 3312
+  enable_star: 1
+  min_prefix_len: 3
+  delta: 1
+
+test:
+  listen: 127.0.0.1
+  port: 3313
+  enable_star: 1
+  min_prefix_len: 3
+  delta: 1
+
+production:
+  listen: 127.0.0.1
+  port: 3314
+  enable_star: 1
+  min_prefix_len: 3
+  delta: 1
+ 

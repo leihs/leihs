@@ -1,4 +1,4 @@
-<% table_with_search_and_pagination :columns => ["", [_("Model"), 'models.name'], [_("Inventory Code"), 'items.inventory_code'], [_("Serial Number"), 'items.serial_number'], _("Location"), [_("Borrowable"), 'items.is_borrowable'], _("In stock?"), _("Action")],
+<% table_with_search_and_pagination :columns => ["", [_("Model"), 'model_name'], [_("Inventory Code"), 'inventory_code'], [_("Serial Number"), 'serial_number'], _("Location"), [_("Borrowable"), 'is_borrowable'], _("In stock?"), _("Action")],
 						   			:records => @items do |item| %>	
 
 			<% record_path = [:backend, @current_inventory_pool, item.model, item] %>

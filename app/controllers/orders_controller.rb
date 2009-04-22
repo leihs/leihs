@@ -55,10 +55,8 @@ class OrdersController < FrontendController
   end
 
   def remove_lines
-    if request.post?
-      lines = @order.lines.find(params[:lines].split(','))
-      lines.each {|l| @order.remove_line(l, current_user.id) }
-    end
+    lines = @order.lines.find(params[:lines].split(','))
+    lines.each {|l| @order.remove_line(l, current_user.id) }
     render :nothing => true
   end  
 

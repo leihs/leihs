@@ -123,20 +123,4 @@ class Document < ActiveRecord::Base
     f_name
   end
 
-#  protected
-
-  # 0603**
-  def user_login
-    user.login
-  end
-
-  # 0603**
-  def lines_model_names
-    mn = [] 
-    lines.each do |l|
-      mn << l.model.name  
-    end
-    mn.uniq.join(" ")
-  end
-
 end
