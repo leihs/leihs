@@ -4,7 +4,7 @@ class Admin::UsersController < Admin::AdminController
 
   def index
     params[:sort] ||= 'login'
-    params[:dir] ||= 'ASC'
+    params[:dir] ||= 'asc'
 
     case params[:filter]
       when "admins"
@@ -17,7 +17,7 @@ class Admin::UsersController < Admin::AdminController
         users = User
     end
     
-    @users = users.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
+    @users = users.search(params[:query], :page => params[:page], :order => params[:sort].to_sym, :sort_mode => params[:dir].to_sym)
   end
   
   def show

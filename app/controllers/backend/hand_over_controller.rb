@@ -5,7 +5,6 @@ class Backend::HandOverController < Backend::BackendController
   def index
     visits = current_inventory_pool.hand_over_visits
     
-    # 0603**
     unless params[:query].blank?
       @contracts = current_inventory_pool.contracts.new_contracts.search(params[:query])
 

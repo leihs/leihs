@@ -11,7 +11,7 @@ class Backend::CategoriesController < Backend::BackendController
     end    
     
     # TODO 30** searching through backend/models
-    @categories = categories.search(params[:query], :page => params[:page], :per_page => $per_page)
+    @categories = categories.search(params[:query], :page => params[:page])
   end
   
   def show

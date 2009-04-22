@@ -17,7 +17,7 @@
 						:onsubmit => "return ($('is_selected').value == 1);" do %>
 				<%= hidden_field_tag :is_selected, 0 %>
 				<%= _("Add compatible") %>:
-				<%= model_auto_completer ('query', nil, 'compatible[model_id]', nil,
+				<%= model_auto_completer('query', nil, 'compatible[model_id]', nil,
 											{ :url => backend_inventory_pool_models_path(:format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
 											{ :size => 40 },
 											{ :method => :get, :select => :name }) %>
@@ -35,7 +35,7 @@
 <% if @start_date and @end_date %>
   <%= _("From") %> <%= short_date(@start_date) %> <%= ("to") %> <%= short_date(@end_date) %> 
 <% end %>
-<% table_with_search_and_pagination :columns => ["", [_("Model"), 'models.name'], [_("Manufacturer"), 'models.manufacturer'], _("Available Items"), _("Compatibles"), _("Action")],
+<% table_with_search_and_pagination :columns => ["", [_("Model"), 'name'], [_("Manufacturer"), 'manufacturer'], _("Available Items"), _("Compatibles"), _("Action")],
 						   			:records => @models do |model| %>	
 
 			<% record_path = backend_inventory_pool_model_path(@current_inventory_pool, model) %>

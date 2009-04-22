@@ -27,10 +27,18 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-  # OPTIMIZE
-  after_save :update_ferret_index
+  # update index on associated objects
+  after_save {|record| record.model.touch }
 
-  acts_as_ferret :fields => [ :model_name, :inventory_pool_name, :inventory_code, :serial_number ], :store_class_name => true, :remote => true
+  define_index do
+    indexes :inventory_code, :sortable => true
+    indexes :serial_number, :sortable => true
+    indexes :is_borrowable, :sortable => true
+    indexes model(:name), :as => :model_name, :sortable => true 
+    has :id
+    set_property :order => :model_name
+    set_property :delta => true
+  end
     
 ####################################################################
 
@@ -100,19 +108,6 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   private
-
-  # OPTIMIZE
-  def update_ferret_index
-    self.model.reload.ferret_update if self.model
-  end
-
-  def model_name
-    model.name
-  end
-  
-  def inventory_pool_name
-    inventory_pool.name
-  end
 
   def validates_if_is_package
     errors.add_to_base(_("Package error")) if children.size > 0 and !model.is_package

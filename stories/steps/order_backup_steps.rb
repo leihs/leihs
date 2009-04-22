@@ -44,7 +44,7 @@ steps_for(:order_backup) do
 
   When "$who deletes $size order line$s" do | who, size, s |
     @lines = @order.order_lines[0, size.to_i].collect(&:id)
-    post remove_lines_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :lines => @lines)
+    delete remove_lines_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :lines => @lines)
     @order = assigns(:order)
   end
 

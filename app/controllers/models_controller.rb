@@ -7,8 +7,8 @@ class ModelsController < FrontendController
              limit = (params[:limit] || 25).to_i,
              query = params[:query],
              recent = params[:recent],
-             sort =  "models.#{(params[:sort] || 'name')}",
-             dir =  params[:dir] || 'ASC' )
+             sort = params[:sort] || 'name',
+             dir = params[:dir] || 'asc' )
 
     # OPTIMIZE 21** conditions. avoid +&+ intersections because are breaking paginator, forcing to use Array instead of ActiveRecord
     conditions = ["1"] 
@@ -17,8 +17,6 @@ class ModelsController < FrontendController
       models = current_user.orders.sort.collect(&:models).flatten.uniq[start,limit]
       models ||= []
     else
-#old#      models = current_user.models & current_inventory_pools.collect(&:models).flatten.uniq 
-#old#2      models = current_user.models.all(:conditions => ["inventory_pools.id IN (?)", current_inventory_pools])
       models = current_user.models
       conditions.first << " AND inventory_pools.id IN (?) AND items.is_borrowable = 1 AND items.parent_id IS NULL AND access_rights.level >= items.required_level"
       conditions << current_inventory_pools 
@@ -26,26 +24,17 @@ class ModelsController < FrontendController
 
     if category_id > 0
       category = Category.find(category_id)
-#old#   models = (category.children.recursive.to_a << category).collect(&:models).flatten & models
       m_ids= (category.children.recursive.to_a << category).collect(&:models).flatten.uniq.collect(&:id)
       conditions.first << " AND models.id IN (?)"
       conditions << m_ids 
     end
 
-    # TODO 09** merge paginate to search
-    unless query.blank?
-      # TODO 18** include Templates: models += current_user.templates
-      models = models.all(:conditions => conditions)
-      @models = models.search(query, {:offset => start, :limit => limit}, {:order => sanitize_order(sort, dir)})
+    models = models.all(:conditions => conditions)
+    # TODO 18** include Templates: models += current_user.templates
+    # OPTIMIZE N+1 select problem, :include => :locations
+    @models = models.search(query, :page => ((start / limit) + 1), :per_page => limit, :order => sort.to_sym, :sort_mode => dir.downcase.to_sym)
       
-      c = @models.total_hits
-    else
-#old#    @models = models.paginate :page => ((start / limit) + 1), :per_page => limit, :order => "#{sort} #{dir}"
-#old#2    @models = Model.paginate :page => ((start / limit) + 1), :per_page => limit, :order => "#{sort} #{dir}", :conditions => ["models.id IN (?)", models.collect(&:id)] 
-      @models = models.paginate :page => ((start / limit) + 1), :per_page => limit, :order => sanitize_order(sort, dir), :conditions => conditions
-          # OPTIMIZE N+1 select problem, :include => :locations
-      c = @models.total_entries
-    end
+    c = @models.total_entries
 
     respond_to do |format|
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",

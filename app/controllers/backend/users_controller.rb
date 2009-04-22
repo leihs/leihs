@@ -4,7 +4,7 @@ class Backend::UsersController < Backend::BackendController
 
   def index
     params[:sort] ||= 'login'
-    params[:dir] ||= 'ASC'
+    params[:dir] ||= 'asc'
 
     case params[:filter]
       when "managers"
@@ -17,7 +17,7 @@ class Backend::UsersController < Backend::BackendController
         users = current_inventory_pool.users
     end
 
-    @users = users.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
+    @users = users.search(params[:query], :page => params[:page], :order => params[:sort].to_sym, :sort_mode => params[:dir].to_sym)
   end
 
   def show
@@ -56,6 +56,7 @@ class Backend::UsersController < Backend::BackendController
 
   def remove_access_right
     @user.access_rights.delete(@user.access_rights.find(params[:access_right_id]))
+    flash[:notice] = _("Access Right successfully removed")
     redirect_to :action => 'access_rights', :id => @user
   end
 

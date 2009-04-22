@@ -4,10 +4,9 @@ class Backend::LocationsController < Backend::BackendController
 
   def index
     params[:sort] ||= 'room'
-    params[:dir] ||= 'ASC'
+    params[:dir] ||= 'asc'
 
-    # TODO 21** refactor default options and find_options to search method
-    @locations = current_inventory_pool.locations.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
+    @locations = current_inventory_pool.locations.search(params[:query], :page => params[:page], :order => params[:sort].to_sym, :sort_mode => params[:dir].to_sym)
   end
 
   def show

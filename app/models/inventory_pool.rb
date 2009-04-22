@@ -15,12 +15,15 @@ class InventoryPool < ActiveRecord::Base
 #                                    ON ar.role_id = r.id
 #                            WHERE ar.inventory_pool_id = #{self.id} 
 #                              AND r.name = 'manager'"
+
+  # 2203** OPTIMIZE
   has_and_belongs_to_many :managers,
                           :class_name => "User",
                           :select => "users.*",
                           :join_table => "access_rights",
                           :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "manager"}).id]
 
+  # 2203** OPTIMIZE
   has_and_belongs_to_many :customers,
                           :class_name => "User",
                           :select => "users.*",
@@ -55,7 +58,13 @@ class InventoryPool < ActiveRecord::Base
 
   validates_presence_of :name
 
-  acts_as_ferret :fields => [ :name, :description ], :store_class_name => true, :remote => true
+  define_index do
+    indexes :name, :sortable => true
+    indexes :description, :sortable => true
+    has :id
+    set_property :order => :name
+    set_property :delta => true
+  end
 
 #######################################################################
 

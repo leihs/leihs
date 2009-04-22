@@ -3,7 +3,7 @@ class Backend::TemplatesController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    @templates = current_inventory_pool.templates.search(params[:query], :page => params[:page], :per_page => $per_page)
+    @templates = current_inventory_pool.templates.search(params[:query], :page => params[:page])
   end
 
   def show

@@ -16,20 +16,21 @@
 	
 <br />
 
-<% table :columns => [_("Building"), _("Room"), _("Shelf"), _("Items"), _("Action")],
+<% table :columns => [_("Building"), _("Room"), _("Shelf"), _("Main"), _("Items"), _("Action")],
 		 :records => @inventory_pool.locations do |location| %>	
 
 			<tr>
 				<td><%= location.building %></td>
 				<td><%= location.room %></td>
 				<td><%= location.shelf %></td>
+				<td><%= icon_tag("accept") if location.is_main %></td>
 				<td><%= location.items.size %></td>
 				<td class="buttons">
 					<ul>
 						<li><%= link_to _('Remove'),
-									:action => 'remove_location',
-									:id => @inventory_pool,
-									:location_id => location if location.items.empty? %></li>
+									remove_location_admin_inventory_pool_path(@inventory_pool, :location_id => location),
+									:confirm => _("Are you sure?"),
+									:method => :delete if location.items.empty? and !location.is_main %></li>
 					</ul>
 				</td>
 			</tr>

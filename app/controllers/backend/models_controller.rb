@@ -3,8 +3,8 @@ class Backend::ModelsController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    params[:sort] ||= 'models.name'
-    params[:dir] ||= 'ASC'
+    params[:sort] ||= 'name'
+    params[:dir] ||= 'asc'
 
     models = current_inventory_pool.models
 
@@ -20,7 +20,7 @@ class Backend::ModelsController < Backend::BackendController
       models = models & (category.children.recursive.to_a << category).collect(&:models).flatten
     end
     
-    @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
+    @models = models.search(params[:query], :page => params[:page], :order => params[:sort].to_sym, :sort_mode => params[:dir].to_sym)
     
     # we are in a greybox
     if params[:source_path]

@@ -3,9 +3,9 @@
 	<ul>
 	<% @model.accessories.each do |a| %>
 		<li><b><%= a.name %></b> <%= link_to _('Remove'),
-												:action => 'remove_accessory',
-												:id => @model,
-												:accessory_id => a %></li>
+											remove_accessory_admin_model_path(@model, :accessory_id => a),
+											:confirm => _("Are you sure?"),
+											:method => :delete %></li>
 	<% end %>
 	</ul>
 

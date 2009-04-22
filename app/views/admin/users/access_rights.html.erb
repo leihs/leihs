@@ -32,9 +32,9 @@
 				<td class="buttons">
 					<ul>
 						<li><%= link_to _('Remove'),
-									:action => 'remove_access_right',
-									:id => @user,
-									:access_right_id => a %></li>
+									remove_access_right_admin_user_path(@user, :access_right_id => a),
+									:confirm => _("Are you sure?"),
+									:method => :delete %></li>
 					</ul>
 				</td>
 			</tr>

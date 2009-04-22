@@ -11,8 +11,15 @@ class Order < Document
 
   
   acts_as_commentable
-  # TODO union of results :or_default => true
-  acts_as_ferret :fields => [ :user_login, :lines_model_names, :purpose ], :store_class_name => true, :remote => true
+
+  define_index do
+    indexes :purpose
+    indexes user(:login), :as => :user_login
+    indexes models(:name), :as => :model_names
+    has :id
+    set_property :delta => true
+  end
+
                  
   NEW = 1
   SUBMITTED = 2

@@ -126,9 +126,10 @@
 		   								 var qtip = (r.data['available?'] == 'true') ? '' : 'ext:qtip="' + r.data['available_tooltip'] +'"'; 
 		   							 	 return '<img ' + qtip + ' src="<%= $layout_public_path %>/images/icons/' + img + '.png" />';}
         },{
-			header: "",
+			header: "Delete",
 			dataIndex: '',
-			width: 20,
+			width: 40,
+		    align: 'center',
 			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/bin_closed.png" %>" style="cursor: pointer;" />';}
         }]);
 
@@ -160,7 +161,7 @@
 				}else if (columnIndex == 7){
 					x_id = grid.getStore().getAt(rowIndex).id;
 					Ext.Ajax.request({
-						method: 'POST',
+						method: 'DELETE',
 					    url: '/user/order/remove_lines',
 						params: {"lines": x_id,
 								 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},
@@ -226,7 +227,7 @@
 			           fn: function (btn, text){
 							if(btn == "yes"){
 				                Ext.Ajax.request({
-									method: 'POST',
+									method: 'DELETE',
 								    url: '/user/order/remove_lines',
 									params: {"lines": selected_lines(),
 											 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},

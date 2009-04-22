@@ -21,22 +21,12 @@ namespace :leihs do
     params = { :pool => ENV['pool']}
     import_reservations(params)
   end
-  
-  desc "Maintenance: rebuild ferret index"
-  task :maintenance => :environment do
+
+  desc "Maintenance: rebuild sphinx index"
+  task :maintenance do
     
-    puts "Rebuilding ferret index..."
-    User.rebuild_index
-    Role.rebuild_index
-    Category.rebuild_index
-    Template.rebuild_index
-    Model.rebuild_index
-    Item.rebuild_index
-    InventoryPool.rebuild_index
-    Location.rebuild_index
-    Contract.rebuild_index
-    Order.rebuild_index
-    Option.rebuild_index
+    puts "Rebuilding sphinx index..."
+      system "rake thinking_sphinx:index"
     
     puts "Maintenance complete ------------------------"    
   end
@@ -65,30 +55,37 @@ namespace :leihs do
       system "rm log/test.log"
     puts "Resetting database..."
       system "rake db:migrate:reset RAILS_ENV=test"
+    puts "Starting Sphinx server for test environment..."
+      FileUtils.remove_dir("#{RAILS_ROOT}/db/sphinx/test", true)
+      system "rake thinking_sphinx:configure RAILS_ENV=test"
+      system "rake thinking_sphinx:index RAILS_ENV=test"
+      system "rake thinking_sphinx:start RAILS_ENV=test"
     puts "Running all stories..."
       system "ruby stories/all.rb"
+    puts "Stopping Sphinx server for test environment..."
+      system "rake thinking_sphinx:stop RAILS_ENV=test"
   end
 
 
   # TODO remove this
-  desc "Random dataset generator"
-  task :dataset => :environment do
-#    params[:id] = 5
-#    params[:name] = "admin"
-#    create_some_users
-#    params[:name] = "customer"
-#    create_some_users
-
-    create_meaningful_users
-
-#temp#    create_some_submitted_orders(10)
-    
-#    create_beautiful_order
-#    scene_3a
-#    scene_3b
-
-    puts "Complete"    
-  end
+#  desc "Random dataset generator"
+#  task :dataset => :environment do
+##    params[:id] = 5
+##    params[:name] = "admin"
+##    create_some_users
+##    params[:name] = "customer"
+##    create_some_users
+#
+#    create_meaningful_users
+#
+##temp#    create_some_submitted_orders(10)
+#    
+##    create_beautiful_order
+##    scene_3a
+##    scene_3b
+#
+#    puts "Complete"    
+#  end
   
 ################################################################################################
 # Refactoring from Backend::TemporaryController

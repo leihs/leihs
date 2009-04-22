@@ -3,8 +3,8 @@ class Admin::ModelsController < Admin::AdminController
   before_filter :pre_load
 
   def index
-    params[:sort] ||= 'models.name'
-    params[:dir] ||= 'ASC'
+    params[:sort] ||= 'name'
+    params[:dir] ||= 'asc'
 
     if @category
       models = @category.models
@@ -14,7 +14,7 @@ class Admin::ModelsController < Admin::AdminController
       models = Model
     end    
 
-    @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
+    @models = models.search(params[:query], :page => params[:page], :order => params[:sort].to_sym, :sort_mode => params[:dir].to_sym)
 
     @show_categories_tree = !request.xml_http_request?
   end
