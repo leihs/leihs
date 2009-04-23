@@ -59,11 +59,11 @@ Rails::Initializer.run do |config|
 
 # TODO 0603** upgrade Gettext
 #  config.gem "gettext", :version => '1.93.0'
-  config.gem "gettext", :version => ">=2.0.1"
-  config.gem "locale", :version => ">=2.0.1"
-#  config.gem "locale_rails", :version => ">=2.0.1"
-#  config.gem "gettext_activerecord", :version => ">=2.0.1"
-#  config.gem "gettext_rails", :version => ">=2.0.1"
+#  config.gem "gettext", :version => ">=2.0.1"
+#  config.gem "locale", :version => ">=2.0.1"
+  config.gem "locale_rails", :version => ">=2.0.1"
+  config.gem "gettext_activerecord", :version => ">=2.0.1"
+  config.gem "gettext_rails", :version => ">=2.0.1"
  
   config.gem "barby", :version => '0.2.0'
   config.gem "png", :version => '1.1.0'
@@ -78,17 +78,23 @@ Rails::Initializer.run do |config|
   
 end
 
+######################################################
 # This ensures that a mongrel can start even if it's started
 # by a user that is not the same user the mongrel runs as. In other words,
 # if user 'leihs' should run the mongrel but you use user 'root' to start,
 # this would usually fail since that user can't write to /root/.ruby_inline.
 # This temp dir takes care of that.
 
-temp = Tempfile.new('ruby_inline', '/tmp')
-dir = temp.path
-temp.delete
-Dir.mkdir(dir, 0755)
-ENV['INLINEDIR'] = dir
+#temp = Tempfile.new('ruby_inline', '/tmp')
+#dir = temp.path
+#temp.delete
+#Dir.mkdir(dir, 0755)
+#ENV['INLINEDIR'] = dir
+
+# Necessary to prevent this error:
+# http://www.viget.com/extend/rubyinline-in-shared-rails-environments/
+ENV['INLINEDIR'] = "#{RAILS_ROOT}/tmp/"
+######################################################
 
 ActionMailer::Base.smtp_settings = {
   :address => "smtp.zhdk.ch",

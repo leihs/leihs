@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
         current_user.remember_me unless current_user.remember_token?
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      if current_user.access_rights > 0
+      if current_user.access_rights.size > 0
         render :text => "Hau ab" and return
       end
       redirect_back_or_default('/')
