@@ -12,9 +12,7 @@ class ApplicationController < ActionController::Base
 # TODO 2703** upgrade to Rails 2.3.2
 # http://www.yotabanana.com/hiki/ruby-gettext-howto-rails.html
 # http://www.yotabanana.com/hiki/ruby-gettext-rails-migration.html
-  before_filter :define_locale
-#  require 'gettext/rails'
-#  before_init_gettext :define_locale
+  before_init_gettext :define_locale
 
   def define_locale
     if params[:locale] 
@@ -27,7 +25,7 @@ class ApplicationController < ActionController::Base
       set_locale 'de_CH'
     end
   end 
-#  init_gettext 'leihs'
+  init_gettext 'leihs'
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -65,14 +63,14 @@ class ApplicationController < ActionController::Base
 
 # TODO 2703** upgrade to Rails 2.3.2
   # overriding
-  def render(args = {})
-    default_args = {}
-    if params[:layout] == "modal"
-      default_args[:layout] = $modal_layout_path
-    elsif request.xml_http_request?
-      default_args[:layout] = false
-    end
-    super default_args.merge(args)
-  end
+#  def render(args = {})
+#    default_args = {}
+#    if params[:layout] == "modal"
+#      default_args[:layout] = $modal_layout_path
+#    elsif request.xml_http_request?
+#      default_args[:layout] = false
+#    end
+#    super default_args.merge(args)
+#  end
   
 end
