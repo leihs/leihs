@@ -2,9 +2,7 @@ module Backend::BackendHelper
 
   def table(options = {}, html_options = {}, &block)
     html = table_tag(options, html_options, &block)
-# TODO 2703** upgrade to Rails 2.3.2
-    concat(html, block.binding)
-#new#    concat(html)
+    concat(html)
   end
 
   def table_with_search_and_pagination(options = {}, html_options = {}, &block)
@@ -12,9 +10,7 @@ module Backend::BackendHelper
         r = search_field_tag(options[:records])
         r += table_tag(options, html_options, &block)
     end
-# TODO 2703** upgrade to Rails 2.3.2
-    concat(html, block.binding)
-#new#    concat(html)
+    concat(html)
   end 
 
 
