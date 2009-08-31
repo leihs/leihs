@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   has_many :current_contracts, :class_name => "Contract", :conditions => ["status_const = ?", Contract::NEW]
 
   validates_presence_of     :login, :email
-  validates_length_of       :login,    :within => 3..100
+  validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
     
