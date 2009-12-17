@@ -4,14 +4,15 @@ class Role < ActiveRecord::Base
 
   acts_as_nested_set
 
-  define_index do
-    indexes :name
-    has :id
-    set_property :delta => false
-  end
+  acts_as_ferret :fields => [ :name ], :store_class_name => true, :remote => true
 
   def to_s
     "#{name}"
+  end
+
+  # compares two objects in order to sort them
+  def <=>(other)
+    self.name.casecmp other.name
   end
 
 end

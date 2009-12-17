@@ -4,7 +4,7 @@ class Backend::OrdersController < Backend::BackendController
   
   def index
     orders = current_inventory_pool.orders
-    orders = orders & @user.orders if @user
+    orders = orders & @user.orders if @user # TODO 1209** @user.orders.by_inventory_pool(current_inventory_pool)
 
     case params[:filter]
       when "submitted"
@@ -15,7 +15,7 @@ class Backend::OrdersController < Backend::BackendController
         orders = orders.rejected
     end
 
-    @orders = orders.search(params[:query], :page => params[:page])
+    @orders = orders.search(params[:query], :page => params[:page], :per_page => $per_page)
   end
 
   def show

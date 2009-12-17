@@ -1,36 +1,48 @@
 
-<div class="buttons">
-	
-<%#old#= greybox_link_to_page(icon_tag("shape_align_left") + " " + _("Timeline"),
- 	{ :action => 'timeline' },
-	:title => _("Timeline"), :width => 1000 ) %>						
-
-<%#old#= greybox_link_to_page(icon_tag("shape_align_left") + " " + _("Timeline Visits"),
- 	{ :action => 'timeline_visits' },
-	:title => _("Timeline Visits"), :width => 1000 ) %>						
-
-</div>
-
 <table style="margin: 15px 0 15px 0;"><tr>
-<td style="vertical-align:top; width: 33%;">
-	<% orders = @current_inventory_pool.orders.submitted.reverse[0..4] %>
+<td style="vertical-align:top; width: 25%;">
+<table>
+	<tr>
+	<th colspan="2"><%= _("Last Visitors") %></th>
+	</tr>
+	
+<% session[:last_visitors].reverse.each do |ui| %>	
+	<tr>
+		<td>
+			<b><%= ui[1] %></b>
+		</td>
+		<td class="buttons">
+			<%= link_to icon_tag("tab_go"),
+					backend_inventory_pool_user_path(current_inventory_pool, ui[0]) %>
+		</td>
+	</tr>
+<% end if session[:last_visitors]%>
+
+</table>	
+
+</td>
+
+
+<td style="vertical-align:top; width: 25%;">
+	<% orders = current_inventory_pool.orders.submitted.reverse[0..4] %>
 	<%= render :partial => "/backend/acknowledge/index", :locals => { :orders => orders } unless orders.empty? %>
 </td>
 
-<td style="vertical-align:top; width: 33%;">
-	<% visits = @current_inventory_pool.hand_over_visits.select {|v| v.start < Date.today } %>
-	<%= render :partial => "/backend/hand_over/index", :locals => { :visits => visits, :title => _("Overdue") } unless visits.empty? %>
-	<br />
-	<% visits = @current_inventory_pool.hand_over_visits.select {|v| v.start == Date.today } %>
+<td style="vertical-align:top; width: 25%;">
+	<% visits = current_inventory_pool.hand_over_visits.select {|v| v.start == Date.today } %>
 	<%= render :partial => "/backend/hand_over/index", :locals => { :visits => visits, :title => _("Today") } unless visits.empty? %>
+	<br />
+	<% visits = current_inventory_pool.hand_over_visits.select {|v| v.start < Date.today } %>
+	<%= render :partial => "/backend/hand_over/index", :locals => { :visits => visits, :title => _("Overdue") } unless visits.empty? %>
 </td>
 
-<td style="vertical-align:top; width: 33%;">
-	<% visits = @current_inventory_pool.remind_visits %>
-	<%= render :partial => "/backend/take_back/index", :locals => { :visits => visits, :title => _("Overdue") } unless visits.empty? %>
-	<br />
-	<% visits = @current_inventory_pool.take_back_visits.select {|v| v.start == Date.today } %>
+<td style="vertical-align:top; width: 25%;">
+	<% visits = current_inventory_pool.take_back_visits.select {|v| v.start == Date.today } %>
 	<%= render :partial => "/backend/take_back/index", :locals => { :visits => visits, :title => _("Today") } unless visits.empty? %>
+	<br />
+	<% visits = current_inventory_pool.remind_visits %>
+	<%= render :partial => "/backend/take_back/index", :locals => { :visits => visits, :title => _("Overdue") } unless visits.empty? %>
 </td>
 
 </tr></table>
+

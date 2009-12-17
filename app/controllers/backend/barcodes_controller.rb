@@ -11,8 +11,9 @@ class Backend::BarcodesController < Backend::BackendController
       @string = params[:string]
       @height = 25
       require 'barby'
-      require 'barby/outputter/png_outputter'
-      send_data(Barby::Code128B.new(@string.to_s).to_png(:height => @height.to_f), :filename => "barcode_#{@string}.png", :type => 'image/png')
+      require 'barby/outputter/cairo_outputter'
+      #require 'barby/outputter/png_outputter'
+      send_data(Barby::Code128B.new(@string.to_s).to_svg(:height => @height.to_f), :filename => "barcode_#{@string}.svg", :type => 'image/svg+xml')
   end
 
 end

@@ -1,15 +1,15 @@
 <% unless request.xml_http_request? %>
 
-<div id="meta" class="boxes">
+<% content_tag :div, :id => "meta", :class => "boxes" do %>
 	<h2><%= _("<em>%{n} new orders</em> to acknowledge.") % { :n => @submitted_orders.size } %></h2>
-</div>
+<% end unless @user %>
 
 	<% unless @working_orders.empty? %>		
 		<div id="drafts" class="boxes buttons">
 			<p style="float: left; line-height: 30px; margin-right: 20px;"><%= _("Orders you are editing (please complete)") %>:</p>
 			<% for order in @working_orders %>
 				<%=	link_to(icon_tag("tab_go") + "#{order.user.login} (#{today_or_yesterday_date(order.backup.updated_at)})",
-							backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, order.user, order)) %>
+							backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order)) %>
 			<% end %>
 		</div>
 	<% end %>
@@ -27,7 +27,7 @@
 				</td>
 				<td>
 					<%= greybox_link_to_page(order.user.login,
-							backend_inventory_pool_user_path(@current_inventory_pool, order.user, :layout => "modal"),
+							backend_inventory_pool_user_path(current_inventory_pool, order.user, :layout => "modal"),
 							 :title => _("User"),
 							 :class => "iconized-notxt edit-user" ) %>
 				</td>
@@ -39,7 +39,7 @@
 				<td><%= dates_with_period(order.time_window_min, order.time_window_max) %></td>
 				<td class="buttons">
 					<%= link_to icon_tag("tab_go") + _("View + Acknowledge"),
-							backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, order.user, order) %>
+							backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order) %>
 				</td>
 			</tr>
 

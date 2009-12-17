@@ -16,13 +16,6 @@ class BarcodeMaker
 			@bc = Barby::Code128B.new(@string.to_s)
 	end
 
-	def make_png
-		puts "Making PNG for #{@string}"
-		f = File.open("png/barcode_#{@string}.png", "w")
-	  f.write @bc.to_png(:height => @height, :margin => 5)
-		f.close
-	end
-
 	def make_eps
 		puts "Making EPS for #{@string}"
 		make_svg
@@ -47,12 +40,10 @@ end
 
 
 
-(10000...25000).each do |i|
+(25000...26000).each do |i|
 	puts "Making barcode #{i.to_s}"
 	foo = BarcodeMaker.new("AVZ#{i.to_s}")
-	foo.make_png
 	foo.make_eps rescue "EPS failed" 
-	foo.make_svg rescue "SVG failed"
 	puts "the world has ended"
 end
 

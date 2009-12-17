@@ -1,12 +1,74 @@
-<%= _("Login: ") + @user.login %><br/>
-<%= _("Name: ") + @user.name if @user.name %><br/>
-<%= _("Email: ") + @user.email if @user.email %><br/>
-<%= _("Phone: ") + @user.phone if @user.phone %><br/>
+<% content_tag :table do
+	content_tag :tr do
+		content_tag :th do %>
+			<%= _("Login") %>:
+		<% end
+		content_tag :td do %>
+			<%= @user.login %>
+		<% end
+	end
 
-<br />
-<br />
+	content_tag :tr do
+		content_tag :th do %>
+			<%= _("Name") %>:
+		<% end
+		content_tag :td do %>
+			<%= @user.name %>
+		<% end
+	end
 
-<%= render :partial => 'resume' %>
+	content_tag :tr do
+		content_tag :th do %>
+			<%= _("Email") %>:
+		<% end
+		content_tag :td do %>
+			<%= mail_to @user.email %>
+		<% end
+	end
 
-<br />
-<br />
+	content_tag :tr do
+		content_tag :th do %>
+			<%= _("Phone") %>:
+		<% end
+		content_tag :td do %>
+			<%= @user.phone %>
+		<% end
+	end
+		
+	content_tag :tr do
+		content_tag :th do %>
+			<%= _("Badge ID") %>:
+		<% end
+		content_tag :td do %>
+			<% form_tag :action => 'update_badge_id', :id => @user do %>
+				<%= icon_tag(@user.badge_id.blank? ? "delete": "accept") %>
+				<%= text_field_tag :badge_id, @user.badge_id %>
+				<%= submit_tag(_("OK")) %>
+			<% end %>
+		<% end
+	end
+end %>
+
+<%= javascript_tag("$('badge_id').focus()") %>
+
+
+
+<br/>
+		
+<% if current_inventory_pool
+	content_tag :ul, :class => "buttons" do
+		content_tag :li do %>
+			<%= link_to _("New Contract"),
+						new_contract_backend_inventory_pool_user_path(current_inventory_pool, @user.id),
+						{ :target => '_top' } %>
+		<% end
+	end if current_inventory_pool.users.include?(@user) %>
+
+	<br/>
+	<%= render :partial => 'resume' %>
+<% end %>
+
+<br/>
+<%= render :partial => "#{@user.authentication_system.class_name.underscore}" if @user.id %>
+
+

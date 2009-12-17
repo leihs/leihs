@@ -1,32 +1,40 @@
-<% table :columns => [_("Name"), _("Description"), _("Action")],
-									:records => @inventory_pools do |inventory_pool| %>	
+<% content_tag :div, :class => "toolbar-second buttons" do %>
+	<%= link_to _("Create New"), :action => 'new' %>
+<% end if is_admin?
 
-			<%# is_manager = current_user.has_role?('manager', inventory_pool) %>
+table :columns => [_("Name"), _("Description"), _("Action")],
+									:records => @inventory_pools do |inventory_pool|
 
-			<tr>
-				<td>
-				<%# if is_manager %>
-					<%= link_to inventory_pool.name, backend_inventory_pool_path(inventory_pool) %>
-				<%# else %>	
-					<%#= inventory_pool.name %>
-				<%# end %>
-				</td>
-				<td><%= inventory_pool.description %></td>
-				<td class="buttons">
-				<%# if is_manager %>
-				<%
-				      to_acknowledge_size = inventory_pool.orders.submitted.size
-				      to_hand_over_size = inventory_pool.hand_over_visits.size
-				      to_take_back_size = inventory_pool.take_back_visits.size
-				      to_remind_size = inventory_pool.remind_visits.size
-				 %>
-				<%= link_to icon_tag("accept") + " " + _('Acknowledge') + " (#{to_acknowledge_size})", backend_inventory_pool_acknowledge_path(inventory_pool) if to_acknowledge_size > 0 %>
-				<%= link_to icon_tag("arrow_turn_right") + " " + _('Hand Over') + " (#{to_hand_over_size})", backend_inventory_pool_hand_over_path(inventory_pool) if to_hand_over_size > 0 %>
-				<%= link_to icon_tag("arrow_undo") + " " + _('Take Back') + " (#{to_take_back_size})", backend_inventory_pool_take_back_path(inventory_pool) if to_take_back_size > 0 %>
-				<%= link_to icon_tag("clock") + " " + _('Remind') + " (#{to_remind_size})", backend_inventory_pool_take_back_path(inventory_pool, :remind => true) if to_remind_size > 0 %>				
-				<%# end %>
-				</td>
-			</tr>
+			content_tag :tr, :id => "inventory_pool_#{inventory_pool.id}" do
+				content_tag :td do
+					if is_apprentice?(inventory_pool) %>
+						<%= link_to inventory_pool.name, backend_inventory_pool_path(inventory_pool) %>
+					<% else %>
+						<%= inventory_pool.name %>
+					<% end
+				end
+				content_tag :td do %>
+					<%= simple_format(inventory_pool.description) %>
+				<% end
+				content_tag :td, :class => "buttons" do %>
+					 <%= link_to_remote _("Delete"),
+											:url => backend_inventory_pool_path(inventory_pool),
+											:confirm => _("Are you sure?"),
+											:method => :delete if inventory_pool.items.empty? if is_admin? %>
+							
+					<% if is_apprentice?(inventory_pool) 
+						  to_acknowledge_size = inventory_pool.orders.submitted.size
+					      to_hand_over_size = inventory_pool.hand_over_visits.size
+					      to_take_back_size = inventory_pool.take_back_visits.size
+					      to_remind_size = inventory_pool.remind_visits.size
+						 %>
+						<%= link_to icon_tag("accept") + " " + _('Acknowledge') + " (#{to_acknowledge_size})", backend_inventory_pool_acknowledge_path(inventory_pool) if to_acknowledge_size > 0 %>
+						<%= link_to icon_tag("arrow_turn_right") + " " + _('Hand Over') + " (#{to_hand_over_size})", backend_inventory_pool_hand_over_path(inventory_pool) if to_hand_over_size > 0 %>
+						<%= link_to icon_tag("arrow_undo") + " " + _('Take Back') + " (#{to_take_back_size})", backend_inventory_pool_take_back_path(inventory_pool) if to_take_back_size > 0 %>
+						<%= link_to icon_tag("clock") + " " + _('Remind') + " (#{to_remind_size})", backend_inventory_pool_take_back_path(inventory_pool, :remind => true) if to_remind_size > 0 %>				
+					<% end
+				end
+			end
 
-<% end %>
+end %>
 	

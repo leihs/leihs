@@ -1,23 +1,30 @@
-<% table_with_search_and_pagination :columns => [[_("User Login"), 'login'], _("Access Rights"), _("Documents"), _("Action")],
+<div class="toolbar-second buttons">
+	<%= link_to _("Create"), :action => 'new' %>
+</div>
+<% table_with_search_and_pagination :columns => [[_("User Login"), 'login'], _("Access Rights"), (current_inventory_pool ? _("Documents") : ""), _("Action")],
 						   			:records => @users do |user| %>	
 
 			<tr>
 				<td><%= user.login %></td>
 				<td>
-					<ul>
-					<% user.access_rights.select{|a| a.inventory_pool == @current_inventory_pool}.each do |a| %>
-						<li><%= a.to_s %></li>
-					<% end %>
-					</ul>					
+					<% content_tag :ul do
+						access_rights = user.access_rights
+						access_rights = access_rights.by_inventory_pool(current_inventory_pool) if current_inventory_pool
+						access_rights.each do |a|
+							content_tag :li do %>
+								<%= a.to_s %>
+							<% end
+						end
+					end %>
 				</td>
 				<td>
-					<ul>
-						<li>Orders: <%= user.orders.size %> (<%= link_to user.orders.submitted.size,
+					<% content_tag :ul do %>
+						<li>Orders: <%= link_to user.orders.submitted.by_inventory_pool(current_inventory_pool).count,
 														 :controller => 'acknowledge',
 														 :action => 'index',
-														 :user_id => user.id %>)</li>
+														 :user_id => user.id %></li>
 						<li>Contracts: <%= user.contracts.size %></li>
-					</ul>
+					<% end if current_inventory_pool %>
 				</td>
 				<td class="buttons">
 					<% if params[:source_path]
@@ -26,13 +33,17 @@
 						%>
 						<%=	link_to(icon_tag("arrow_switch") + " " + _("Swap"), url,
 							:method => 'post', :target=> '_top') %>
-					<% else %>
-						<ul>
-							<li><%= link_to icon_tag("magnifier") + _("Show"), :action => 'show', :id => user.id %></li>
-							<li><%= link_to _("New Contract"), :action => 'new_contract', :id => user.id if @current_inventory_pool.users.include?(user) %></li>
-							<li><%= link_to _("Remind"), :action => 'remind', :id => user.id if user.to_remind? %></li>
-						</ul>
-					<% end %>
+					<% else
+						content_tag :ul do %>
+							<li><%= link_to icon_tag("magnifier") + _("Show"), [:backend, current_inventory_pool, user].compact %></li>
+							<% if current_inventory_pool %>
+								<li><%= link_to icon_tag("arrow_turn_right") + _("New Contract"), :action => 'new_contract', :id => user.id if current_inventory_pool.users.include?(user) %></li>
+								<li>
+									<%= remind_user_link(user, current_inventory_pool) if user.to_remind? %>
+								</li>
+							<% end
+						end
+					end %>
 				</td>
 			</tr>
 

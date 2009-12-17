@@ -81,7 +81,7 @@ steps_for(:order_backup) do
 
 ###############################################
   
-  Given "inventory_manager works on one order" do
+  Given "lending_manager works on one order" do
     user = Factory.create_user(:login => "Joe")
     order = Factory.create_order({:user_id => user.id}, {:order_lines => 3})
     order.submit

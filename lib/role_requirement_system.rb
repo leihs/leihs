@@ -114,12 +114,12 @@ module RoleRequirementSystem
     
     def access_denied
       if logged_in?
-        #sellittf start# 
-        # render :nothing => true, :status => 401
-        flash[:notice] = _("Access Denied")
-        # redirect_to :controller => "/sessions", :action => "access_denied" and return false
-        redirect_to "/" and return false
-        #sellittf end# 
+         if current_user.access_rights.empty? 
+            render :text => _("You don't have any rights to access this application"), :status => 401
+         else
+            flash[:notice] = _("Access Denied")
+            redirect_to "/" and return false
+         end 
       else
         super
       end

@@ -2,7 +2,7 @@
 
     require 'iconv'
 
-    # TODO: move to helper
+    # TODO: move most of these functions (also to generate headers etc.) to helper
     def filter(text)
       ic = Iconv.new('iso-8859-1//IGNORE//TRANSLIT','utf-8')
       ic.iconv(text)
@@ -10,6 +10,10 @@
 
     def user_address
       @contract.user.name
+    end
+    
+    def lending_address
+      CONTRACT_LENDING_PARTY_STRING      
     end
 
     leftmargin = 25.0
@@ -58,7 +62,7 @@
     pdf.SetXY( parties_x + blockwidth + blockspacing, parties_y + 5)
 
     pdf.SetFont('Arial', '', 10)
-    pdf.MultiCell(blockwidth, 5, filter("Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8031 Zürich"))
+    pdf.MultiCell(blockwidth, 5, filter(lending_address))
     below_lender_y = pdf.GetY
 
 

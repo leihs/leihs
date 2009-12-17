@@ -1,0 +1,31 @@
+<h3><%= _("Pending orders") %>:</h3>
+<br />
+
+<table class="orders">
+	<tr>
+	<th><%= _("Received at") %></th>
+	<th><%= _("Inventory Pool") %></th>
+	<th><%= _("Number of items") %></th>
+	<th><%= _("Time window") %></th>
+	<th><%= _("Purpose") %></th>
+	<th><%= _("Documents") %></th>
+	<th><%= _("Delete") %></th>
+	</tr>
+	
+<% current_user.orders.submitted.each do |order| %>	
+	<tr>
+	<td><%= today_or_yesterday_date(order.created_at) %></td>
+	<td><%= order.inventory_pool %></td>
+	<td><%= order.quantity %></td>
+	<td><%= dates_with_period(order.time_window_min, order.time_window_max) %></td>
+	<td><%= h order.purpose %></td>
+	<td><%= link_to _("Value list"), user_order_path(order, :format => 'pdf', :template => 'value_list' ) %></td>
+	<td><%= link_to_remote icon_tag('bin_closed'),
+						   :url => user_order_path(order),
+						   :confirm => _("Are you sure?"),
+						   :method => :delete,
+						   :update => "pending_orders" if order.deletable_by_user? %></td>
+	</tr>
+<% end %>
+
+</table>

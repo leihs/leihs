@@ -1,11 +1,28 @@
 namespace :leihs do
+
+  # TODO :boot or :server_reboot ??
+  desc "Application boot (task called after server reboot)"
+  task :boot => :environment do
+#    system "./script/ferret_server -e production start"
+  end
+ 
   
   desc "Initialize"
   task :init => :environment do
     params = {:all => ENV['items']}
     create_some(params)
   end
-  
+
+  desc "Migrate/import only from ithelp"
+  task :import_ithelp => :environment do
+    import_ithelp
+  end
+
+  desc "Export Items to leihs1 - (würg)"
+  task :export => :environment do
+    export({:pool => ENV['pool']})
+  end
+
   desc "Migration from leihs1 - items that are not in ithelp and users in general"
   task :init_once => :environment do
     create_once({:pool => ENV['pool']})
@@ -21,12 +38,22 @@ namespace :leihs do
     params = { :pool => ENV['pool']}
     import_reservations(params)
   end
-
-  desc "Maintenance: rebuild sphinx index"
-  task :maintenance do
+  
+  desc "Maintenance: rebuild ferret index"
+  task :maintenance => :environment do
     
-    puts "Rebuilding sphinx index..."
-      system "rake thinking_sphinx:index"
+    puts "Rebuilding ferret index..."
+    User.rebuild_index
+    Role.rebuild_index
+    Category.rebuild_index
+    Template.rebuild_index
+    Model.rebuild_index
+    Item.rebuild_index
+    InventoryPool.rebuild_index
+    Location.rebuild_index
+    Contract.rebuild_index
+    Order.rebuild_index
+    Option.rebuild_index
     
     puts "Maintenance complete ------------------------"    
   end
@@ -55,15 +82,8 @@ namespace :leihs do
       system "rm log/test.log"
     puts "Resetting database..."
       system "rake db:migrate:reset RAILS_ENV=test"
-    puts "Starting Sphinx server for test environment..."
-      FileUtils.remove_dir("#{RAILS_ROOT}/db/sphinx/test", true)
-      system "rake thinking_sphinx:configure RAILS_ENV=test"
-      system "rake thinking_sphinx:index RAILS_ENV=test"
-      system "rake thinking_sphinx:start RAILS_ENV=test"
     puts "Running all stories..."
       system "ruby stories/all.rb"
-    puts "Stopping Sphinx server for test environment..."
-      system "rake thinking_sphinx:stop RAILS_ENV=test"
   end
 
 
@@ -96,6 +116,13 @@ namespace :leihs do
     puts "Done"
   end
   
+  def export(params = {})
+    puts "Exporting to leihs 1"
+    
+    InventoryImport::GianExporter.new.start(params[:pool])
+    puts "Done"
+  end
+  
   def import_reservations(params = {})
     puts "Importing Reservations"
     Importer.new.start_reservations_import(params[:pool].to_i)
@@ -107,7 +134,13 @@ namespace :leihs do
     Importer.new.start_user_import
     puts "Done"
   end
-  
+
+  def import_ithelp
+    puts "Importing from ithelp"
+    Importer.new.start_ithelp_import
+    puts "Done"
+  end
+
   def create_some(params = {})
     puts "Initializing #{params[:all]} items ..."
     

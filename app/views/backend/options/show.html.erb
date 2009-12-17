@@ -1,5 +1,5 @@
 
-<% form_for [:backend, @current_inventory_pool, @option] do |f| %>
+<% form_for [:backend, current_inventory_pool, @option] do |f| %>
 <%= hidden_field_tag :source_path, params[:source_path] if params[:source_path] %>
 	<table>
 	<tr><td><b><%= _("Barcode") %>:</b></td>

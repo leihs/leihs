@@ -1,1 +1,0 @@
-/Library/Ruby/Gems/1.8/gems/freelancing-god-thinking-sphinx-1.1.6/lib/thinking_sphinx/tasks.rb

@@ -6,8 +6,8 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   
   AUTHENTICATION_URL = 'http://www.zhdk.ch/?auth/leihs2'
   APPLICATION_IDENT = '7f6d33ca2ad44359c826e2337d9315b1'
-  DEFAULT_INVENTORY_POOLS = ["ITZ"]
-  SUPER_USERS = ["e157339|zhdk", "e159123|zhdk", "e10262|zhdk"] #Jerome, Franco, Ramon
+  DEFAULT_INVENTORY_POOLS = ["ITZ", "AV-Ausleihe"]
+  SUPER_USERS = ["e157339|zhdk", "e159123|zhdk", "e10262|zhdk", "e162205|zhdk"] #Jerome, Franco, Ramon
   AUTHENTICATION_SYSTEM_CLASS_NAME = "Zhdk"
   
   def login_form_path
@@ -50,6 +50,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     user.lastname = lastname
     user.phone = phone
     user.authentication_system = AuthenticationSystem.find(:first, :conditions => {:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME })
+    user.extended_info = xml["authresponse"]["person"]
     if user.new_record?
       user.save
       r = Role.find(:first, :conditions => {:name => "customer"})

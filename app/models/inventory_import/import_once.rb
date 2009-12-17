@@ -63,7 +63,7 @@ class InventoryImport::ImportOnce
               :inventory_code => (gegenstand.inventar_abteilung.upcase + gegenstand.id.to_s),
               :serial_number => gegenstand.seriennr,
               :model => model,
-              :location => get_location(gegenstand).main_location,
+              :inventory_pool => get_owner(gegenstand.inventar_abteilung),
               :owner => get_owner(gegenstand.inventar_abteilung),
               :last_check => gegenstand.letzte_pruefung,
               :required_level => (gegenstand.paket and gegenstand.paket.ausleihbefugnis > 1) ? AccessRight::EMPLOYEE : AccessRight::CUSTOMER,

@@ -3,7 +3,7 @@ class CreateOrders < ActiveRecord::Migration
     create_table :orders do |t|
       t.belongs_to :user
       t.belongs_to :inventory_pool
-      t.integer :status_const, :default => Order::NEW 
+      t.integer :status_const, :default => Order::UNSUBMITTED 
       t.string :purpose
       t.timestamps
     end
@@ -17,7 +17,7 @@ class CreateOrders < ActiveRecord::Migration
       t.belongs_to :order   # reference to orginal
       t.belongs_to :user
       t.belongs_to :inventory_pool
-      t.integer :status_const, :default => Order::NEW 
+      t.integer :status_const, :default => Order::UNSUBMITTED 
       t.string :purpose
       t.timestamps
     end

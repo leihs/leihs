@@ -3,54 +3,106 @@ class Backend::ItemsController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    params[:sort] ||= 'model_name'
-    params[:dir] ||= 'asc'
+    params[:sort] ||= 'models.name'
+    params[:dir] ||= 'ASC'
+    find_options = {:order => sanitize_order(params[:sort], params[:dir]), :include => [:model, :location]}
 
-    if @model
-      items = current_inventory_pool.items.by_model(@model) #old# @model.items & current_inventory_pool.items
+    if params[:model_id]
+      @model = Model.find(params[:model_id])
+      items = (current_inventory_pool.items.by_model(@model) + current_inventory_pool.own_items.by_model(@model)).uniq # TODO current_inventory_pool.all_items.by_model(@model)
     elsif @location
-      items = @location.items
+      items = current_inventory_pool.items.by_location(@location)
     else
       items = current_inventory_pool.items
     end    
 
-#old#
-#    case params[:filter]
-#      when "in_stock"
-#        items = items.in_stock
-#      when "not_in_stock"
-#        items = items.not_in_stock
-#      when "broken"
-#        items = items.broken
-#      when "incomplete"
-#        items = items.incomplete
-#      when "unborrowable"
-#        items = items.unborrowable
-#    end
-    if params[:filter]
-      filter = params[:filter].to_sym
-      filters = Item.scopes.keys #['in_stock', 'not_in_stock', 'broken', 'incomplete', 'unborrowable']
-      items = items.send(filter) if filters.include?(filter)
-    end
+    case params[:filter]
+      when "retired"
+        items = current_inventory_pool.own_items.all(:retired => true)
+        find_options[:retired] = true
+      when "responsible"
+        items = (current_inventory_pool.items - current_inventory_pool.own_items)
+      when "own_items"
+        items = current_inventory_pool.own_items
+      when "inventory_relevant"
+        items = current_inventory_pool.own_items.inventory_relevant
+      when "not_inventory_relevant"
+        items = current_inventory_pool.own_items.not_inventory_relevant
+      when "unallocated"
+        items = current_inventory_pool.own_items.unallocated
+      else        
+        filter = params[:filter].to_sym
+        filters = Item.scopes.keys #['in_stock', 'not_in_stock', 'broken', 'incomplete', 'unborrowable']
+        items = items.send(filter) if filters.include?(filter)
+    end if params[:filter]
+
+    items.delete_if {|i| not i.packageable? } if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
     
-    @items = items.search(params[:query], :page => params[:page], :order => params[:sort].to_sym, :sort_mode => params[:dir].to_sym, :include => [:model, :location])
+    @items = items.search(params[:query], {:page => params[:page], :per_page => $per_page}, find_options)
   end
 
-  def show
+  def new(id = params[:original_id])
+    if id.blank?
+      @item = Item.new
+      @item.model = @model if @model
+    else 
+      @item = Item.find(id).clone
+      @item.serial_number = nil
+    end
+    @proposed_inventory_code = Item.proposed_inventory_code
+    @item.inventory_code = "#{current_inventory_pool.shortname}#{@proposed_inventory_code}"
+    @item.owner = current_inventory_pool
+    @item.invoice_date = Date.yesterday
+    if @current_user.access_level_for(current_inventory_pool) < 2
+      @item.is_inventory_relevant = false
+      @item.inventory_pool = current_inventory_pool
+    end
+    render :action => 'show'
   end
 
+  def create
+    @item = Item.new(:owner => current_inventory_pool)
+    flash[:notice] = _("New item created.")
+    update
+  end
+    
   def update
-    @item.update_attributes(params[:item])
-    redirect_to :action => 'show', :id => @item # TODO 24** redirect to the right tab
+    @item.step = params[:item][:step]
+    @item.attributes = params[:item]
+    
+    get_histories
+    
+    if @item.save
+      @item.update_attributes(:location => Location.find_or_create(params[:location]))
+      
+      if params[:copy].blank?      
+        redirect_to backend_inventory_pool_item_path(current_inventory_pool, @item)
+      else 
+        redirect_to :action => 'new', :original_id => @item.id  
+      end
+      flash[:notice] = _("Item saved.") unless flash[:notice]
+    else
+      flash[:error] = @item.errors.full_messages
+      render :action => 'show'
+    end
+  end
+
+  
+  def show
+    get_histories
   end
 
 #################################################################
 
   def location
-    if request.post?
-      @item.update_attribute(:location, current_inventory_pool.locations.find(params[:location_id]))
-      redirect_to
+    if request.post? or request.put?
+      if @item.update_attributes(:location => Location.find_or_create(params[:location]))
+        flash[:notice] = _("Location successfully set")
+      else
+        flash[:error] = _("Error setting the location")
+      end
     end
+      @item.location ||= Location.new
   end
 
 #################################################################
@@ -60,10 +112,68 @@ class Backend::ItemsController < Backend::BackendController
 
 #################################################################
 
+  def toggle_permission
+    if request.post?
+      @item.needs_permission = (not @item.needs_permission?)
+      @item.save
+    end
+    redirect_to :action => 'show', :id => @item.id
+  end
+
+  def retire
+    if request.post?
+      # NOTE since it's a switch form, the hidden param ensures the correct action
+    if @item.retired and !params[:retired].blank?
+      @item.retired = nil
+    else
+      @item.retired = Date.today
+    end
+    @item.retired_reason = params[:reason]
+    @item.log_history(_("Item retired (%s)") % @item.retired_reason, current_user)
+    @item.save
+    redirect_to :action => 'index'
+    else
+      render :action => 'retire', :layout => $empty_layout_path
+    end
+  end
+
+  
+#################################################################
+
   def notes
     if request.post?
       @item.log_history(params[:note], current_user.id)
     end
+    @histories = @item.histories
+
+    get_histories
+    
+    render :layout => $modal_layout_path 
+  end
+
+  def get_notes
+    get_histories
+    render :partial => 'notes', :object => @histories
+  end
+  
+  def supplier
+    if request.post? and params[:supplier]
+      s = Supplier.create(params[:supplier])
+      search_term = s.name
+    end
+    if request.post? and (params[:search] || search_term)
+      search_term ||= params[:search][:name]
+      @results = Supplier.find(:all, :conditions => ['name like ?', "%#{search_term}%"], :order => :name)
+    end
+    render :layout => false
+  end
+  
+#################################################################
+
+
+  private
+
+  def get_histories
     @histories = @item.histories
     @item.contract_lines.collect(&:contract).uniq.each do |contract|
       @histories += contract.actions
@@ -72,26 +182,24 @@ class Backend::ItemsController < Backend::BackendController
       @histories << History.new(:created_at => cl.start_date, :user => cl.contract.user, :text => _("Item handed over as part of contract %d.") % cl.contract.id) if cl.start_date
       @histories << History.new(:created_at => cl.end_date, :user => cl.contract.user, :text => _("Expected to be returned.")) unless cl.returned_date
     end
-    
-    #@histories.sort! { |a,b| b.created_at <=> a.created_at }
-
   end
-
-#################################################################
-
-
-  private
   
   def pre_load
     params[:id] ||= params[:item_id] if params[:item_id]
-    @item = current_inventory_pool.items.find(params[:id]) if params[:id]
-    @model = current_inventory_pool.models.find(params[:model_id]) if params[:model_id]
-    @location = current_inventory_pool.locations.find(params[:location_id]) if params[:location_id]
-
+    @item = current_inventory_pool.items.first(:conditions => {:id => params[:id]}) if params[:id]
+    @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:id]}, :retired => :all) if params[:id]
+    
+    @location = Location.find(params[:location_id]) if params[:location_id]
+    
+    @model = if @item
+                @item.model
+             elsif params[:model_id]
+                Model.find(params[:model_id])
+             end
+  
     @tabs = []
-    @tabs << :location_backend if @location
-    @tabs << :model_backend if @model
-    @tabs << :item_backend if @item
+    @tabs << :model_backend if @model and not ["new", "show"].include?(action_name)
+
   end
 
 end

@@ -4,10 +4,13 @@
 	
 	<br />
 	<div class="buttons">
-		<%=	link_to(icon_tag("script") + " " + _("Print Contract #{params[:id]}"),
+
+
+		<%=	link_to(icon_tag("script") + " " + _("Print Contract %d") % @contract.id.to_i,
 					 { :controller => 'contracts', :action => 'show', :id => @contract, :format => 'pdf' },
-					 :class => 'positive') %>
-					 
+					 :class => 'positive') 
+					 %>
+
 		<%=	link_to(icon_tag("door_out") + " " + _("Close"),
 					 { :controller => 'hand_over', :action => 'index' },
 					 :target=> '_top') %>

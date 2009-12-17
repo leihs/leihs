@@ -1,14 +1,26 @@
-<% table_with_search_and_pagination :columns => [_("Visit at"), _("Reserver"), _("Items"), _("Action")],
+<%
+last_date = 0
+
+table_with_search_and_pagination :columns => [_("Visit at"), _("Reserver"), _("Items"), _("Action")],
 									:records => @visits do |visit| %>	
 
+			<% if visit.date > last_date
+				last_date = visit.date
+				content_tag :tr, :class => "line_header" do
+					style = (last_date < Date.today ? "color: red;" : nil)
+					content_tag :td, :colspan => 5, :class => "title", :style => style do %>
+						<%= short_date(last_date) %>
+					<% end
+				end
+			end %>
 
-			<tr>
-				<td>
+			<% content_tag :tr do %>
+				<% content_tag :td do %>
 					<%= short_date(visit.date) %>
-				</td>
+				<% end %>
 				<td>
 					<%= greybox_link_to_page(visit.user.login,
-							backend_inventory_pool_user_path(@current_inventory_pool, visit.user, :layout => "modal"),
+							backend_inventory_pool_user_path(current_inventory_pool, visit.user, :layout => "modal"),
 							:title => _("User"),
 							:class => "iconized-notxt edit-user" ) %>
 				</td>
@@ -18,9 +30,9 @@
 					<span style='font-size:smaller;'><%= lines_preview(visit) %></span>
 				</td>
 				<td style="width:200px" class="buttons">
-					<%= link_to icon_tag("tab_go") + _("Take Back"), [:backend, @current_inventory_pool, visit.user, :take_back] %>
-					<%= link_to icon_tag("clock_red") + _("Remind"), [:remind, :backend, @current_inventory_pool, visit.user] if visit.date < Date.today %>
+					<%= link_to icon_tag("tab_go") + _("Take Back"), [:backend, current_inventory_pool, visit.user, :take_back] %>
+					<%= remind_user_link(visit.user, current_inventory_pool) if visit.date < Date.today %>
 				</td>
-			</tr>
+			<% end %>
 
 <% end %>

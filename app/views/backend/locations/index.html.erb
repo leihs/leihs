@@ -1,29 +1,23 @@
-<% unless request.xml_http_request? %>
 
-<div class="toolbar-second buttons">
-	<%= link_to _("Create New"), :action => 'new' %>
-</div>
-
-<% end %>
-
-
-<% table_with_search_and_pagination :columns => [[_("Building"), 'building'], [_("Room"), 'room'], [_("Shelf"), 'shelf'], _("Inventory Pool"), [_("Main?"), 'is_main'], _("Items"), _("Action")],
+<% table_with_search_and_pagination :columns => [[_("Building"), 'building'], [_("Room"), 'room'], [_("Shelf"), 'shelf'], _("Items"), _("Action")],
 						   			:records => @locations do |location| %>	
 
 			<tr>
 				<td><%= location.building %></td>
 				<td><%= location.room %></td>
 				<td><%= location.shelf %></td>
-				<td><%= location.inventory_pool.name %></td>
-				<td><%= icon_tag("accept") if location.is_main %></td>
-				<td><%= location.items.size %></td>
+				<td><%= link_to location.items.size, backend_inventory_pool_location_items_path(current_inventory_pool, location) %></td>
 				<td class="buttons">
 					<ul>
-						<li><%= link_to icon_tag("magnifier") + _("Show"), {:action => 'show', :id => location} %></li>
-						<li><%= link_to _("Delete"),
+						<% content_tag :li do %>
+							<%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_location_path(current_inventory_pool, location) %>
+						<% end if false #old# %>
+						<% content_tag :li do %>
+							<%= link_to _("Delete"),
 										{:action => 'destroy', :id => location},
 										:confirm => 'Are you sure?',
-										:method => :delete if location.items.empty? and !location.is_main %></li>
+										:method => :delete if location.items.empty? %>
+						<% end %>
 					</ul>
 				</td>
 			</tr>

@@ -3,8 +3,7 @@
 <% if current_user %>	
 	<li>
 		<%= link_to icon_tag("application") + 'Frontend', '/' if current_user.has_role?('customer', nil, false) %>
-		<%= link_to icon_tag("application_edit") + 'Backend', '/backend' if current_user.has_role?('manager', nil, true) %>
-		<%= link_to icon_tag("application_key") + 'Admin', '/admin' if current_user.has_role?('admin', nil, true) %>
+		<%= link_to icon_tag("application_edit") + 'Backend', '/backend' if current_user.has_role?('lending manager', nil, false) %>
 	</li>
 <% end %>
 
@@ -14,8 +13,8 @@
 	<li>
 		<% # TODO 29** provide account link for admin layout %>
 		<%= greybox_link_to_page(icon_tag("user") + current_user.login,
-				backend_inventory_pool_user_path(@current_inventory_pool, current_user, :layout => "modal"),
-				:title => _("User")) if @current_inventory_pool %>
+				backend_inventory_pool_user_path(current_inventory_pool, current_user, :layout => "modal"),
+				:title => _("User")) if current_inventory_pool %>
 				
 		<%= link_to icon_tag("application_delete") + _("Logout"), '/logout' %>
 	</li>
@@ -28,10 +27,10 @@
 <li>|</li>
 
 <li>
-	<% locales.each do |k,v| %>
-		<%#old#= link_to icon_tag("comment") + v, :params => params.merge({:locale => k}) %>
-		<%= link_to icon_tag("comment") + v, :locale => k %>
-	<% end %>
+	<%= icon_tag("comment") %>
+	<select onchange="top.location.href=top.location.pathname + '?locale=' + this.value">
+		<%= options_for_select(Language.active_languages.map {|l| [l.name, l.locale_name]}, (current_user and current_user.language ? current_user.language.locale_name : Language.default_language.locale_name)) %>
+	</select>
 </li>
 
 </ul>

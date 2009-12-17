@@ -13,21 +13,10 @@ class CreateAccessRights < ActiveRecord::Migration
     foreign_key :access_rights, :user_id, :users
     foreign_key :access_rights, :inventory_pool_id, :inventory_pools
 
-    create_admin
   end
 
   def self.down
     drop_table :access_rights
   end
   
-  def self.create_admin
-    user = User.new(  :email => "super_user_1@leihs.zhdk.ch",
-                      :login => "super_user_1")
-
-    user.unique_id = "super_user_1"
-    user.save
-    r = Role.find(:first, :conditions => {:name => "admin"})
-    user.access_rights.create(:role => r, :inventory_pool => nil)
-    puts _("The administrator %{a} has been created ") % { :a => user.login }
-  end
 end

@@ -5,15 +5,38 @@ class Availability
   def initialize(max_quantity, start_date = Date.today, end_date = nil, current_date = nil)
     @start_date = start_date
     @end_date = end_date
+# TODO 0409**    
+#    @start_date = @end_date if !@end_date.nil? and @end_date < @start_date
     @quantity = max_quantity
     @current_date = current_date
     @events = []
   end
-  
-  def forever?
-    end_date.nil?
+
+  # compares two objects in order to sort them
+  def <=>(other)
+    if self.start_date == other.start_date
+      self.end_date <=> other.end_date
+    else
+      self.start_date <=> other.start_date
+    end
   end
-  
+
+#temp#
+#  def self.merge_periods(periods)
+#    periods.sort!
+#    periods.delete_if {|p| not periods.select {|x| x != p and x.start_date <= p.start_date and x.end_date >= p.end_date }.empty? } 
+#    #periods.each {|p| periods.select {|x| x != p and }}
+#    
+#    puts periods.inspect
+#  end
+#  
+#  def merge_with_period(period)
+#    self.start_date = [self.start_date, period.start_date].min
+#    self.end_date = [self.end_date, period.end_date].max
+#  end
+
+############################################################################
+
   # TODO 2502** recheck this method
   def periods
     availabilities = []
@@ -54,8 +77,6 @@ class Availability
     ret
   end
 
-
-
   def period_for(date)
     date = as_date(date)
     periods.each do |period|
@@ -78,6 +99,8 @@ class Availability
     maximum_available
   end
 
+############################################################################
+
   def is_part_of?(start_date, end_date)
     return false if self.end_date.nil?
     self.start_date >= start_date && self.end_date <= end_date
@@ -96,11 +119,22 @@ class Availability
     self.end_date >= start_date && self.end_date <= end_date
   end
 
+  # used by availability instances
+  def is_late?(date)
+    false
+  end
+
+  def forever?
+    end_date.nil?
+  end
+
   def reservations(reservations)
     reservations.each do | reservation |
       reserve(reservation)
     end
   end
+
+############################################################################
 
   private 
 
@@ -110,7 +144,7 @@ class Availability
     @events << [Date.new(on.year, on.month, on.day), -reservation.quantity]
 
     # add
-    on = reservation.end_date
+    on = reservation.end_date || 10.years.from_now.to_date # emulating infinite future
     @events << [Date.new(on.year, on.month, on.day), reservation.quantity] unless reservation.is_late?(@current_date)
 
     @events = @events.sort {|x, y| x[0] <=> y[0] }

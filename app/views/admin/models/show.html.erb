@@ -5,10 +5,13 @@
 		<tr><td><b><%= _("Name") %>:</b></td><td><%= f.text_field :name %></td></tr>	
 		<tr><td><b><%= _("Manufacturer") %>:</b></td><td><%= f.text_field :manufacturer %></td></tr>
 		<tr><td><b><%= _("Description") %>:</b></td><td><%= f.text_area :description, :rows => 4 %></td></tr>
+		<tr><td><b><%= _("Technical Details") %>:</b></td><td><%= f.text_area :technical_detail, :rows => 4 %></td></tr>
 		<tr><td><b><%= _("Internal Description") %>:</b></td><td><%= f.text_area :internal_description, :rows => 4 %></td></tr>
-		<tr><td></td><td><%= submit_tag 'Submit' %></td></tr>
+		<tr><td></td><td><%= submit_tag _('Submit') %></td></tr>
 		</table>
 	
 	<% end %>
 
-<%= pie_for_model(@model) %>
+
+
+	<%= pie_for_model(@model) unless @model.new_record? %>

@@ -23,13 +23,16 @@ class AccessRight < ActiveRecord::Base
   def to_s
     s = "#{role.name}"
     s += " for #{inventory_pool.name}" if inventory_pool
-    s += " (#{level_string})"
+    s += " (Borrow Level: #{level.to_i}, Access Level: #{access_level.to_i})"
     s
   end
 
-  def level_string
-    n = LEVELS.index(level)
-    n.nil? ? level : n
+  def suspended?
+    suspended_at != nil
+  end
+
+  def deactivate
+    update_attributes(:deleted_at => DateTime.now)
   end
 
   private

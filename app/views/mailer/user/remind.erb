@@ -1,24 +1,33 @@
-<%= _("Dear leihs user,") %>
+<%= _("Dear leihs client,") %>
 
-<%= _("This is an automatic e-mail sent to you by the leihs system.") %> 
+<%= _("** This is an automatically generated response **") %>
 
-<%= _("The following items are overdue. Please return them as soon as possible:") %>
-
+<%= _("The following items are overdue:") %>
+<% inventory_pools = [] %>
 <% @visits.each do | v | %>
 
   <%= v.quantity %> <%= _(" item(s) due on ") %><%= v.date %><%= _(" at the inventory pool ") %><%= v.inventory_pool.name %>
+  <% inventory_pools << v.inventory_pool unless inventory_pools.include?(v.inventory_pool) %>
 	<% v.contract_lines.each do |l| %>
-	* <%= l.quantity %> <%= l.model.name %> (<%= l.item.inventory_code %>), <%= l.start_date %>-<%= l.end_date %>
+	* <%= l.quantity %> <%= l.model.name %> (<%= l.item.inventory_code %>), <%= l.start_date %> - <%= l.end_date %>
 	
 	<% end %>
 <% end %>
 
-<%= _("By not returning these items, you might be blocking other people's reservations. This is very unfair to the others and you are causing a significant amount of work for the inventory managers.") %>
+<%= _("Since we did not receive any request for renewal, we consequently demand the return of the items without further delay.") %>
 
-<%= _("Even if you return the items now, the inventory manager may fine or otherwise penalize you.") %>
+<%= _("By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance.") %>
 
-<%= _("Please coordinate with the inventory managers in charge to find a date and time for the return.") %>
+<%= _("You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from leihs for up to 6 months.") %>
+
+<%= _("We therefore ask you to be fair and punctual! Thank you!") %>
 
 <%= _("Kind regards,") %>
 
-<%= _("The leihs system") %>
+<%= EMAIL_SIGNATURE %>
+
+--
+<% inventory_pools.each do |ip| %>
+<%= ip.name unless ip.name.blank? %>
+<%= ip.description unless ip.description.blank? %>
+<% end %>

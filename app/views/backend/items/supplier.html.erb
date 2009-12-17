@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de-CH" lang="de-CH">
+
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>leihs 2.1</title>
+	
+	<%= stylesheet_link_tag $layout_public_path +"/css/general.css", :media => "all" %>
+
+	<%= javascript_include_tag :defaults %>
+	
+	<style type="text/css">
+		body { padding: 50px;}
+	</style>	
+</head>
+<body>
+	<div style="margin-bottom: 20px">
+	<% form_for :search do |f| %>
+		<%= f.text_field :name %> <%= f.submit(_("Search")) %>
+	<% end%>
+	</div>
+	<% if @results %>
+	<% form_for :supplier do |f| %>
+	<table>
+		<tr><td><%= _("Name") %>:</td><td><%= f.text_field :name %></td><td><%= f.submit("Create New Supplier") %></td></tr>
+	</table>
+	<% end %>
+	<table>
+		<% @results.each do |r| %>
+		<tr><td><%= r.name %></td>
+			<td class="buttons">
+				<%= link_to(icon_tag("connect") + " " + _("Select"), "#", :onclick => "top.document.getElementById('item_supplier_id').value = '#{r.id}';top.document.getElementById('supplier_name').textContent = '#{r.name.gsub('"', '\"').gsub(/\r\n/,' ')}';parent.parent.GB_hide(); return false;") %></li>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+	<% end %>
+</body>
+</html>

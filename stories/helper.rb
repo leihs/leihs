@@ -75,19 +75,3 @@ end
 
 #
 ##############################################################
-
-# TODO 2104** merge this helper.rb to /spec/spec_helper.rb? currently is not included!
-
-#sellittf#
-# forces live update even in test environment (Rspec-Rails without transactions)
-class ActiveRecordSafetyListener
-  @@last_dump = nil
-  
-  def scenario_started(*args)
-    @@last_dump ||= ActiveRecord::Base.connection.dump_database
-  end
-
-  def scenario_succeeded(*args)
-    ActiveRecord::Base.connection.restore_database @@last_dump
-  end
-end

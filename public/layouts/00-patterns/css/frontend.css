@@ -44,35 +44,60 @@ table.orders th {
 
    So we have to add that now. */
 
-#betawarning {
+#blankpage {
     font-family: arial,tahoma,helvetica,sans-serif;
-    font-size: 11pt;
+    font-size: 10pt;
     padding: 20px;
 }
 
-#betawarning p, #betawarning ul {
+#blankpage p, #blankpage ul {
     margin-bottom: 12px;
 }
 
-#betawarning h3 {
-    font-size: 14pt;
+#blankpage h1 {
+  font-size: 14pt;
+	font-weight: bold;
+	margin-bottom: 0.4em;
+  border-bottom: 1px solid #ccc;
+}
+
+#blankpage h2 {
+  font-size: 12pt;
+	font-weight: bold;
+	margin-bottom: 0.5em;
+  margin-top: 1.2em;
+  background: #fff;
+  padding: 0.2em 0.4em 0.2em 0.4em;
+  border-bottom: 2px solid #ccc;
+}
+
+#blankpage h3 {
+    font-size: 10pt;
     font-weight: bold;
     margin-bottom: 8px;
+    margin-top: 0.3em;
 }
 
-#betawarning strong {
+#blankpage h4 {
+    font-size: 10pt;
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 8px;
+    margin-top: 0.3em;
+}
+
+
+#blankpage strong {
     font-weight: bold;
 }
 
-#betawarning ul {
+#blankpage ul {
     list-style: disc;
 }
 
-#betawarning ul li {
+#blankpage ul li {
     margin-left: 22px;
     margin-bottom: 4px;
 }
 
-#betawarning hr {
-    margin: 18px;
-}
+

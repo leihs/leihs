@@ -6,7 +6,7 @@ class Backend::HandOverController < Backend::BackendController
     visits = current_inventory_pool.hand_over_visits
     
     unless params[:query].blank?
-      @contracts = current_inventory_pool.contracts.new_contracts.search(params[:query])
+      @contracts = current_inventory_pool.contracts.unsigned.search(params[:query])
 
       # OPTIMIZE display only effective visits (i.e. for a given model name, ...)
       visits = visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } } # OPTIMIZE named_scope intersection?
@@ -19,6 +19,14 @@ class Backend::HandOverController < Backend::BackendController
 
   # get current open contract for a given user
   def show
+    add_visitor(@contract.user)
+  end
+  
+  def set_purpose
+    if request.post?
+      @contract.update_attribute(:purpose, params[:purpose])
+    end
+    redirect_to :action => 'show'
   end
   
   def delete_visit
@@ -41,6 +49,24 @@ class Backend::HandOverController < Backend::BackendController
     end    
   end
 
+  # change quantity: duplicating item_line or (TODO) changing quantity for option_line
+  # preventing quantity less than 1
+  def change_line_quantity(quantity = [params[:quantity].to_i, 1].max)
+    @contract_line = @contract.lines.find(params[:contract_line_id])
+    
+    if @contract_line.is_a?(ItemLine)
+      (quantity - @contract_line.quantity).times do
+        new_line = @contract_line.clone # OPTIMIZE keep contract history 
+        new_line.item = nil
+        new_line.save
+      end
+      flash[:notice] = _("New lines have been generated")
+    else
+      @contract_line.update_attributes(:quantity => quantity)
+      flash[:notice] = _("The quantity has been changed")
+    end
+  end
+
   # Changes the line according to the inserted inventory code
   def change_line
     if request.post?
@@ -53,7 +79,6 @@ class Backend::HandOverController < Backend::BackendController
       @contract_line.item = Item.first(:conditions => { :inventory_code => required_item_inventory_code})
       @contract_line.start_date = Date.today
       @contract_line.end_date = Date.today if @contract_line.end_date < @contract_line.start_date
-      #old# @start_date_changed = @contract_line.start_date_changed?
       flash[:notice] = _("The start date has been changed") if @contract_line.start_date_changed? # TODO 1102** still not sure the @contract_line will be saved after validation!
 
       if @contract_line.save
@@ -76,6 +101,8 @@ class Backend::HandOverController < Backend::BackendController
     unless item.nil?
       if @contract.items.include?(item)
           flash[:error] = _("The item is already in the current contract.")
+      elsif item.parent 
+        flash[:error] = _("This item is part of package %s.") % item.parent.inventory_code
       else
         contract_line = @contract.contract_lines.first(:conditions => { :model_id => item.model.id, :item_id => nil })
         unless contract_line.nil?
@@ -86,7 +113,17 @@ class Backend::HandOverController < Backend::BackendController
           end
           change_line
         else
-          @new_item = item
+          #2207: No question should be asked @new_item = item
+          #new from here
+          @prevent_redirect = true
+          params[:model_id] = item.model.id
+          add_line
+          params[:code] = item.inventory_code
+          assign_inventory_code
+          flash[:notice] = _("New item added to contract.")
+          @contract_line = @contract.contract_lines.first
+          render :action => 'change_line'
+          #to here
         end
       end
     else 
@@ -94,7 +131,10 @@ class Backend::HandOverController < Backend::BackendController
       # Increment quantity if the option is already present
       option = current_inventory_pool.options.first(:conditions => { :inventory_code => params[:code] })
       if option
-        @option_line = @contract.option_lines.find_or_create_by_option_id(:option_id => option, :quantity => 0)
+        @option_line = @contract.option_lines.find_or_create_by_option_id(:option_id => option,
+                                                                          :quantity => 0,
+                                                                          :start_date => @contract.time_window_min, # TODO @contract.latest_defined_time_window_min
+                                                                          :end_date => @contract.time_window_max) # TODO @contract.latest_defined_time_window_max
         @option_line.update_attribute :quantity, @option_line.quantity + 1
         flash[:notice] = _("Option %s added.") % option.name
       else
@@ -108,7 +148,17 @@ class Backend::HandOverController < Backend::BackendController
   def add_option
     if request.post?
       option = current_inventory_pool.options.find(params[:option_id])
-      @contract.option_lines.create(:option => option, :quantity => 1)
+      @start_date = Date.today
+      @end_date = @start_date + 2.days
+      if @contract.lines.size > 0 
+        @start_date = @contract.lines.first.start_date
+        @end_date = @contract.lines.first.end_date  
+      end
+      
+      o = @contract.option_lines.create(:option => option, :quantity => 1, :start_date => @start_date, :end_date => @end_date)
+      if o.errors.size > 0
+        flash[:error] = o
+      end
       redirect_to :action => 'show', :id => @contract
     else
       redirect_to :controller => 'options', 
@@ -149,19 +199,15 @@ class Backend::HandOverController < Backend::BackendController
     @timeline_xml = @contract.timeline
     render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'
   end
-  
+
+  # OPTIMIZE
   def select_location
     @lines = @contract.contract_lines.find(params[:lines].split(','))
     @location = Location.new
-    if request.post? and not (params[:location][:building].blank? and params[:location][:building].blank?)
-      @location = Location.find(:first, :conditions => {:building => params[:location][:building], :room => params[:location][:room]})
-      unless @location
-        @location = Location.create(params[:location])
-        @location.inventory_pool = current_inventory_pool
-      end
+    if request.post?
+      @location = Location.find_or_create(params[:location])
       @lines.each do |line|
-        line.location = @location
-        line.save  
+        line.update_attributes(:location => @location)
       end
     end
     
@@ -173,18 +219,32 @@ class Backend::HandOverController < Backend::BackendController
     end
     render :layout => 'backend/' + $theme + '/modal'
   end
-    
-  def auto_complete_for_location_building
-    @locations = Location.all(:conditions => ['building LIKE ?', params[:location][:building] + "%"])
-    @field = "building"
-    render :inline => "<%= auto_complete_result(@locations, :building) %>"
-  end
-  
-  def auto_complete_for_location_room
-    @locations = Location.all(:conditions => ['room LIKE ?', params[:location][:room] + "%"])
-    @field = "room"
-    render :inline => "<%= auto_complete_result(@locations, :room) %>"
-  end
+
+  def swap_user
+    if request.post?
+      to_user = @user
+      if params[:swap_user_id].nil?
+        flash[:notice] = _("User must be selected")
+      else
+        new_user = current_inventory_pool.users.find(params[:swap_user_id])
+        lines_for_new_contract = @contract.contract_lines.find(params[:lines].split(',')) if params[:lines]
+
+        if new_user and lines_for_new_contract
+          new_contract = new_user.get_current_contract(current_inventory_pool)
+          lines_for_new_contract.each do |cl|
+            cl.update_attributes(:contract => new_contract)
+          end
+          flash[:notice] = _("The selected lines have been moved")
+          to_user = new_user
+        end
+      end  
+      redirect_to [:backend, current_inventory_pool, to_user, :hand_over]
+    else
+      redirect_to :controller => 'users', 
+                  :layout => 'modal',
+                  :source_path => request.env['REQUEST_URI']
+    end
+  end   
   
   private
   

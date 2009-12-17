@@ -13,4 +13,6 @@ class Accessory < ActiveRecord::Base
 
   # TODO 13** implement quantity attribute
 
+  validates_presence_of :name
+
 end

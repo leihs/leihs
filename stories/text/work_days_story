@@ -88,7 +88,7 @@ Scenario: Hand Over on a Sunday
 	Then that should be possible
 	
 	When trying to set the end date to the same date
-	Then that should not be possible because the end date can't be on a Sunday
+	Then that should be possible because the inventory manager wants to be able to decide when he takes back things
 	
 Scenario: Hand Over during holiday
 
@@ -101,7 +101,7 @@ Scenario: Hand Over during holiday
 	Then that should be possible
 	
 	When trying to set the end date to the same date
-	Then that should not be possible because the end date can't be on a holiday
+	Then that should be possible because the inventory manager wants to be able to decide when he takes back things
 	
 Scenario: Changing Workdays
 

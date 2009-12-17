@@ -12,6 +12,9 @@ class InventoryImport::ImportReservations
     puts "#{reservations.size} reservations will be imported"
     orders = 0
     contracts = 0
+    
+    @claudio_pavan = User.find_by_email('claudio.pavan@zhdk.ch')
+    
     reservations.each do |reservation|
       if reservation.status < 2
         import_as_order(reservation)
@@ -32,9 +35,16 @@ class InventoryImport::ImportReservations
     if user.nil?
       user = User.find_by_email(reservation.user.login)
       if user.nil?
-      	puts "#{reservation.user.login} not found. Not importing order"
-      	return
+      	puts "#{reservation.user.login} not found. Using #{@claudio_pavan.login}"
+        user = @claudio_pavan
       end
+    end
+    
+    if user.access_rights.detect { |r| r.inventory_pool_id == get_inventory_pool(reservation.geraetepark.name)}.nil?
+      #puts "Adding Access Right."
+      user.access_rights.create(:role => Role.find_by_name('customer'), 
+                                 :inventory_pool => get_inventory_pool(reservation.geraetepark.name),
+                                 :level => 1)
     end
     
     o = Order.create(:user => user,
@@ -43,7 +53,10 @@ class InventoryImport::ImportReservations
                   :status_const => Order::SUBMITTED)
 
     o.created_at = reservation.created_at
-    o.save
+    if not o.save
+      puts "---> coulnd't save order:"
+      puts "#{o.errors_full_messages}" 
+    end
           
     reservation.pakets.each do |paket|
       paket.gegenstands.each do |gegenstand|
@@ -84,15 +97,22 @@ class InventoryImport::ImportReservations
     if user.nil?
       user = User.find_by_email(reservation.user.login)
       if user.nil?
-        puts "#{reservation.user.login} not found. Not importing order"
-        return
+        puts "#{reservation.user.login} not found. Using #{@claudio_pavan.login}"
+        user = @claudio_pavan
       end
+    end
+    
+    if user.access_rights.detect { |r| r.inventory_pool_id == get_inventory_pool(reservation.geraetepark.name)}.nil?
+      #puts "Adding Access Right."
+      user.access_rights.create(:role => Role.find_by_name('customer'), 
+                                 :inventory_pool => get_inventory_pool(reservation.geraetepark.name),
+                                 :level => 1)
     end
    
     c = Contract.create(:user => user,
                   :purpose => reservation.zweck,
                   :inventory_pool => get_inventory_pool(reservation.geraetepark.name),
-                  :status_const => (reservation.status == 2) ? Contract::NEW : Contract::SIGNED)
+                  :status_const => (reservation.status == 2) ? Contract::UNSIGNED : Contract::SIGNED)
     
     c.created_at = reservation.created_at
     c.save
@@ -122,8 +142,8 @@ class InventoryImport::ImportReservations
   end
   
   def get_inventory_pool(inv_abt)
-    o = InventoryPool.find(:first, :conditions => ['name = ?', inv_abt])
-    o = InventoryPool.find(:first, :conditions => ['name = ?', use_new_name_for(inv_abt)]) unless o
+    #o = InventoryPool.find(:first, :conditions => ['name = ?', inv_abt])
+    o = InventoryPool.find(:first, :conditions => ['name = ?', use_new_name_for(inv_abt)]) 
     o
   rescue
     puts "InventoryPool '#{inv_abt}' not found."
@@ -135,6 +155,7 @@ class InventoryImport::ImportReservations
     return "VMK" if inv_abt.upcase == "VNM"
     return "VIAD" if inv_abt.upcase == "IAD"
     return "VTO" if inv_abt.upcase == "TMS"
+    return "AV-Ausleihe" if inv_abt.upcase == "AVZ"
     inv_abt
   end
   

@@ -1,0 +1,28 @@
+<% content_tag :div, :id => 'blankpage' do %>
+
+	<h3><%= _("User") %></h3>
+	<table>
+		<tr><td><%= _("Login") %>:</td><td><%= @user.login %></td></tr>	
+		<tr><td><%= _("Unique ID") %>:</td><td><%= @user.unique_id %></td></tr>
+		<tr><td><%= _("Firstname/Lastname") %>:</td><td><%= @user.firstname %> <%= @user.lastname %></td></tr>
+		<tr><td><%= _("Email") %>:</td><td><%= @user.email %></td></tr>
+		<tr><td><%= _("Phone") %>:</td><td><%= @user.phone %></td></tr>
+	</table>
+
+
+	<hr />
+	<% content_tag :div, :id => "pending_orders" do %>
+		<%= render :partial => "/orders/pending" %>
+	<% end %>
+	<hr />
+	<% content_tag :div, :id => "pending_contracts" do %>
+		<%= render :partial => "/contracts/pending" %>
+	<% end %>
+	
+	<hr />
+	<h3><%= _("Inventory Pool(s)") %></h3>
+	<p><%= _("You have permission to access the following inventory pool(s):") %></p>
+	<%= render :partial => 'orders/inventory_pool_details', :collection => @user.access_rights.collect(&:inventory_pool).compact %>
+
+  <hr />				
+<% end %>				

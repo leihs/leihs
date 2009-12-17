@@ -26,7 +26,7 @@ class Backend::WorkdaysController < Backend::BackendController
   private 
   
   def update_workday(day, is_open)
-    @workday.update_attribute(params[:day], is_open) if Workday::DAYS.include?(params[:day])    
+    @workday.update_attributes(params[:day] => is_open) if Workday::DAYS.include?(params[:day])    
   end
   
   def load_workdays

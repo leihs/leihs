@@ -1,6 +1,25 @@
-<ul>
-	<li><%= link_to icon_tag("accept") + " " + _('Acknowledge') + " (#{@to_acknowledge_size})", :controller => 'acknowledge' %></li>
-	<li><%= link_to icon_tag("arrow_turn_right") + " " + _('Hand Over') + " (#{@to_hand_over_size})", :controller => 'hand_over' %></li>
-	<li><%= link_to icon_tag("arrow_undo") + " " + _('Take Back') + " (#{@to_take_back_size})", :controller => 'take_back' %></li>
-	<li><%= link_to icon_tag("clock") + " " + _('Remind') + " (#{@to_remind_size})", :controller => 'take_back', :remind => true %></li>				
-</ul>
+<% content_tag :ul, :class => "buttons" do
+	content_tag :li do %>
+		<%= link_to icon_tag("accept") + " " + _('Acknowledge'), [:backend, current_inventory_pool, :acknowledge] %>
+	<% end
+	content_tag :li do %>
+	<%= link_to icon_tag("arrow_turn_right") + " " + _('Hand Over'), backend_inventory_pool_hand_over_path(current_inventory_pool) %>
+	<% end
+	content_tag :li do %>
+	<%= link_to icon_tag("arrow_undo") + " " + _('Take Back'), [:backend, current_inventory_pool, :take_back] %>
+	<% end
+	content_tag :li do %>	
+	<%= link_to icon_tag("clock") + " " + _('Remind'), backend_inventory_pool_take_back_path(current_inventory_pool, :remind => true) %>
+	<% end 
+  if is_privileged_user? %>
+
+<% content_tag :li do %>
+		<%= link_to _('New model'), :controller => 'models', :action => 'new' %>
+	<% end
+  end
+  if is_inventory_manager? %>
+<% content_tag :li do %>
+		<%= link_to _('New Item'), :controller => 'items', :action => 'new' %>
+	<% end
+  end
+end %>

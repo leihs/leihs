@@ -9,17 +9,6 @@ leihs is a web-based system to manage the circulation of items within an
 organization or institution. In our case, we use it to keep track of who uses 
 our cameras, lighting equipment, speakers, microphones etc. 
 
-== Dependencies ==
-
-leihs depends on the following gems or libraries:
-
-1. Barby 
-2. gettext
-3. ferret
-
-The gems are included in the vendor directory, but if you see any 
-reason to use your own system-wide versions, please do.
-
 
 == Installation guide ==
 

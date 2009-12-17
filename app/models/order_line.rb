@@ -8,7 +8,9 @@ class OrderLine < DocumentLine
 
   before_save :assign_inventory_pool
 
-  
+  named_scope :submitted, :joins => :order,
+                          :conditions => ["orders.status_const = ?", Order::SUBMITTED]
+    
 ###############################################  
 # TODO named_scope with lambda
 
@@ -44,10 +46,18 @@ class OrderLine < DocumentLine
     nil
   end
 
+  def available?
+    av = (super and inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)) 
+    if order.user
+      av = (av and not order.user.access_right_for(inventory_pool).suspended?)
+    end
+    return av
+  end
+
   private
   
   # OPTIMIZE suggest best possible inventory pool according to the other order_lines
-  # TODO 08** in case of backend add_line, make sure is assigned to @current_inventory_pool
+  # TODO 08** in case of backend add_line, make sure is assigned to current_inventory_pool
   def assign_inventory_pool
     if self.inventory_pool.nil?
       inventory_pool = nil

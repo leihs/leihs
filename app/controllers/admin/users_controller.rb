@@ -4,7 +4,7 @@ class Admin::UsersController < Admin::AdminController
 
   def index
     params[:sort] ||= 'login'
-    params[:dir] ||= 'asc'
+    params[:dir] ||= 'ASC'
 
     case params[:filter]
       when "admins"
@@ -17,7 +17,7 @@ class Admin::UsersController < Admin::AdminController
         users = User
     end
     
-    @users = users.search(params[:query], :page => params[:page], :order => params[:sort].to_sym, :sort_mode => params[:dir].to_sym)
+    @users = users.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
   end
   
   def show
@@ -47,7 +47,14 @@ class Admin::UsersController < Admin::AdminController
 
   def destroy
     @user.destroy
-    redirect_to admin_users_path
+    respond_to do |format|
+      format.html { redirect_to admin_users_path }
+      format.js {
+        render :update do |page|
+          page.visual_effect :fade, "user_#{@user.id}" 
+        end
+      }
+    end
   end
 
 #################################################################
@@ -58,24 +65,57 @@ class Admin::UsersController < Admin::AdminController
   def add_access_right
     r = Role.find(params[:access_right][:role_id]) if params[:access_right] and not params[:access_right][:role_id].blank?
     r ||= Role.last
-    
+
     if params[:access_right] and not params[:access_right][:inventory_pool_id].blank? 
       ip = InventoryPool.find(params[:access_right][:inventory_pool_id]) 
-      ar = @user.access_rights.create(:role => r, :inventory_pool => ip, :level => params[:level])
-      unless ar.changed?
-        flash[:notice] = _("Access Right successfully created")
+      ar = @user.deleted_access_rights.detect { |ar| ar.inventory_pool_id == ip.id }
+    
+      if ar
+        if ar.deleted_at
+          ar.update_attributes(:deleted_at => nil, :level => params[:level], :access_level => params[:access_level])
+        else
+          ar.update_attributes(:level => params[:level], :access_level => params[:access_level])
+        end
+        flash[:notice] = _("Access Right successfully udpated")
       else
-        flash[:error] = ar.errors.full_messages
+        ar = AccessRight.create(:user => @user, :role => r, :inventory_pool => ip, :level => params[:level], :access_level => params[:access_level])
+        flash[:notice] = _("Access Right successfully created")
       end
     else
-      flash[:error] = _("Inventorypool must be selected.")
+      if r.id == 1
+        ar = @user.access_rights.create(:role => r)
+        flash[:notice] = _("Access Right successfully created")
+      else
+        flash[:error] = _("Inventorypool must be selected.")
+        redirect_to :action => 'access_rights', :id => @user
+        return
+      end
     end
+        
+    if ar.errors.size > 0
+      flash[:notice] = nil
+      flash[:error] = ar.errors.full_messages
+    end
+
     redirect_to :action => 'access_rights', :id => @user
   end
 
   def remove_access_right
-    @user.access_rights.delete(@user.access_rights.find(params[:access_right_id]))
+    ar = @user.access_rights.find(params[:access_right_id])
+    ar.deactivate
     flash[:notice] = _("Access Right successfully removed")
+    redirect_to :action => 'access_rights', :id => @user
+  end
+
+  def suspend_access_right
+    a = @user.access_rights.find(params[:access_right_id])
+    a.update_attributes(:suspended_at => DateTime.now)
+    redirect_to :action => 'access_rights', :id => @user
+  end
+
+  def reinstate_access_right
+    a = @user.access_rights.find(params[:access_right_id])
+    a.update_attributes(:suspended_at => nil)
     redirect_to :action => 'access_rights', :id => @user
   end
 

@@ -4,26 +4,23 @@ class Backend::LocationsController < Backend::BackendController
 
   def index
     params[:sort] ||= 'room'
-    params[:dir] ||= 'asc'
+    params[:dir] ||= 'ASC'
 
-    @locations = current_inventory_pool.locations.search(params[:query], :page => params[:page], :order => params[:sort].to_sym, :sort_mode => params[:dir].to_sym)
+    @locations = current_inventory_pool.locations.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
   end
 
   def show
+    @location ||= Location.new
   end
 
-  def new
-    @location = Location.new
-    render :action => 'show'
-  end
-
+  # TODO 1108** still used?
   def create
-    @location = Location.new(:inventory_pool => current_inventory_pool)
+    @location = Location.new
     update
   end
 
+  # TODO 1108** still used?
   def update
-    # TODO 22** set new main (default) location
     @location.update_attributes(params[:location])
     redirect_to(backend_inventory_pool_locations_path)
   end

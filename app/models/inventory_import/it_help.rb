@@ -8,6 +8,17 @@ class InventoryImport::ItHelp < ActiveRecord::Base
 					:conditions => "rental like 'yes'",
 					:order => 'Inv_Serienr')
   end
+
+  def retired?
+   
+    if self.Ausmuster_Dat.nil?
+      false
+    else
+      self.Ausmuster_Dat >= Date.new(1970, 1, 1)
+    end
+
+  end
+
 end
   
 

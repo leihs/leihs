@@ -23,7 +23,7 @@
 			header: "",
 			width: 20,
 			dataIndex: '',
-			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/bin_closed.png" %>" style="cursor: pointer;" />';}
+			renderer: function(){ return '<img src="<%= icon_path('bin_closed') %>" style="cursor: pointer;" />';}
 		}]);
 
     var basket = new Ext.grid.EditorGridPanel({ //old: GridPanel
@@ -47,7 +47,7 @@
 			},
 			afteredit: function(e){
 				Ext.Ajax.request({
-				    url: '/user/order/change_line',
+				    url: '/user/order/change_line_quantity',
  					method: 'POST',
 				    params: {"order_line_id": e.record.id, "quantity": e.value,
 					 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'},
@@ -80,7 +80,7 @@
 				new Ext.Action({
 			        text: '<%= _("Continue with Order") %>',
 					iconCls:'bt',
-		            icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
+		            icon:'<%= icon_path('tab_go') %>',
 			        handler: function(){
 			            center_tabs.activate(order);
 			        }

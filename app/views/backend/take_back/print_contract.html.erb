@@ -6,7 +6,7 @@
 	<div class="buttons">
 	  <ul>
 		<% @contracts.each do |c| %>
-			<li><%=	link_to(icon_tag("script") + " " + _("Print Contract #{c.id}"),
+			<li><%=	link_to(icon_tag("script") + " " + _("Print Contract %d") % c.id.to_i,
 						 { :controller => 'contracts', :action => 'show', :id => c.id, :format => 'pdf' },
 						 :class => 'positive') %>
 			</li>			 

@@ -1,10 +1,15 @@
 	
-	<ul>
-	<% @item.histories.each do |h| %>
-		<li><h4><%= h.user.login %> - <%= short_date h.created_at %>:</h4>
-			<%= h.text %></li>
-	<% end %>
-	</ul>
+	<% # OPTIMIZE History validates_presence_of :user
+	content_tag :ul do
+		@item.histories.each do |h|
+			content_tag :li do
+				content_tag :h4 do %>
+					<%= "#{h.user.login} -" if h.user %> <%= short_date h.created_at %>:
+				<% end %>
+				<%= h.text %>
+			<% end
+		end
+	end %>
 
 	<hr />
 	

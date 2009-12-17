@@ -3,7 +3,8 @@
 			<%	check_box_today = (@line.start_date <= Date.today ? "contract_line_check_today" : "")
 				is_checked = @line.complete? %>
 			<%= check_box_tag('contract_lines[]', @line.id, is_checked, :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'ghostable_group_1');" ) %>
-			<%= @line.quantity %>
+			
+			<%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line_quantity', :contract_line_id => @line.id}, :with => "'quantity=' + value" )) %>
 
 			<% # TODO 03** tooltip %>
 			<% tooltip icon_tag('error') do %>
@@ -17,7 +18,9 @@
 			<% end %>
 		</td>
 		<td>
-			<%= icon_tag("house", :title => _("Installed in: %s") % @line.location) if @line.location %>
+			<%= greybox_link_to_page(icon_tag("house") + " " + _("Installed in: %s") % @line.location,
+				 	{ :action => 'select_location', :lines => @line.id },
+					:title => _("Select Location")) if @line.location %>						
 			<%= show_line_model(@line.model) %>
 		</td>
 		<% b = @line.available? %>
@@ -26,7 +29,7 @@
 			 		{ :action => 'time_lines', :lines => @line.id },
 					:class => "thickbox iconized-notxt date-edit",
 					:id => "dates_#{@line.id}",
-					:title => _("Time Period") ) %>
+					:title => _("Time Period"), :width => 1000 ) %>
 		</td>
 		
 		<% b = !@line.item.nil? %>
@@ -40,19 +43,29 @@
 							{	:id => "line_item_inventory_code_#{@line.id}",
 								:size => 10,
 								:autocomplete => false,
- 							    :onblur => "if(this.value != '#{@item_inventory_code}' && this.value != line_#{@line.id}_item){ line_#{@line.id}_item = this.value; " + remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + this.value" ) + "}",
- 							    :onchange => "if(this.value != '#{@item_inventory_code}' && this.value != line_#{@line.id}_item){ line_#{@line.id}_item = this.value; " + remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + this.value" ) + "}",
- 							    :onfocus => "if(this.value != '#{@item_inventory_code}' && this.value != line_#{@line.id}_item){ line_#{@line.id}_item = this.value; " + remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + this.value" ) + "}"
+ 							    :onfocus => "if(this.value != '#{@item_inventory_code}' && this.value != line_#{@line.id}_item){ line_#{@line.id}_item = this.value; " + remote_function( :url => { :action => 'change_line', :contract_line_id => @line.id }, :with => "'code=' + this.value" ) + "}",
+ 							    :onblur => "this.onfocus()",
+ 							    :onchange => "this.onfocus()"
 							} %>
-			<div class="autocomplete" id="line_item_inventory_code_<%= @line.id %>_list" style="display:none"></div>
+			<div id="line_item_location_#{@line.id}" style="font-size: 75%"><%= @line.item.location if @line.item %></div>
+			<div class="autocomplete" id="line_item_inventory_code_<%= @line.id %>_list" style="display:none;min-width: 300px;"></div>
 			<% javascript_tag do %>
 			$('line_item_inventory_code_<%= @line.id %>').observe('click', function(){ if(this.value == ''){ auto_completer_<%= @line.id %>.activate(); } });
 
+			<%
+			items = current_inventory_pool.items.in_stock.by_model(@line.model)
+			styled_inventory_codes = items.collect {|i| i.is_borrowable? ? i.inventory_code : "<span style='color:red;'>#{i.inventory_code}</span>" }.to_json
+			%>
 			var auto_completer_<%= "#{@line.id}" %> = new Autocompleter.Local("line_item_inventory_code_<%= @line.id %>",
 																				"line_item_inventory_code_<%= @line.id %>_list",
-																				<%= @current_inventory_pool.items.in_stock.by_model(@line.model).collect(&:inventory_code).inspect %>,
+																				<%= styled_inventory_codes %>,
 																				{fullSearch: true});
 			<% end %>
+			
+			<% tooltip icon_tag('stop') do %>
+				<%= _("Item needs permission!") %>
+			<% end if @line.item and @line.item.needs_permission? %>
+			
 		</td>
 		
 		<td class="buttons">

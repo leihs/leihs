@@ -80,7 +80,10 @@
 		{
            header: "",
            dataIndex: 'quantity',
-           width: 10,
+           width: 30,
+		   fixed: true,
+		   sortable: false,
+		   menuDisabled: true,
            align: 'right',
 // 		   renderer:function(value,p,r){ return (r.data['available?'] == 'true')? value:'<div style="background-color: red;">'+ value +'</div>';},
 // 		   renderer:function(value,p,r){ return '<div class="x-small-editor"><input type="text" value="'+ value +'" class="x-form-text x-form-field x-form-focus" style="width: 64px;"></div>';},
@@ -91,46 +94,59 @@
            })
         },{
            header: "Model",
-           dataIndex: 'model.name'
+           dataIndex: 'model.name',
+		   sortable: false
         },{
            header: "Inventory Pool",
            dataIndex: 'inventory_pool.name',
-           width: 50
+           width: 110,
+		   fixed: true,
+		   sortable: false
         },{
            header: "Start date",
            dataIndex: 'start_date',
-           width: 50,
+           width: 80,
+		   fixed: true,
+		   sortable: false,
+		   menuDisabled: true,
            renderer: formatDate,
            editor: new Ext.form.DateField({
-				//, disabledDays: function() { var n = new Array();
-				//							console.log(complete_order_store.reader);
-				//							//n.push(complete_order_store.reader.jsonData['inventory_pool.closed_days']);
-				//							return n;
-				//	},
-				//disabledDates: ["10/30/08"]
-            })
+						//, disabledDays: function() { var n = new Array();
+						//							console.log(complete_order_store.reader);
+						//							//n.push(complete_order_store.reader.jsonData['inventory_pool.closed_days']);
+						//							return n;
+						//	},
+						//disabledDates: ["10/30/08"]
+		            })
         },{
            header: "End date",
            dataIndex: 'end_date',
-           width: 50,
+           width: 80,
+		   fixed: true,
+		   sortable: false,
+		   menuDisabled: true,
            renderer: formatDate,
            editor: new Ext.form.DateField({})
         },{
            header: "Available",
            dataIndex: 'available?',
-           width: 40,
+           width: 55,
+		   fixed: true,
+		   sortable: false,
+		   menuDisabled: true,
 		   align: 'center',
-		// css: "background-color: red;",
-// 		   renderer:function(value,p,r){ return (r.data['available?'] == 'true')? value:'<div style="background-color: red;">'+ value +'</div>';},
  		   renderer:function(value,p,r){ var img = (value == 'true')?'accept':'exclamation';
 		   								 var qtip = (r.data['available?'] == 'true') ? '' : 'ext:qtip="' + r.data['available_tooltip'] +'"'; 
 		   							 	 return '<img ' + qtip + ' src="<%= $layout_public_path %>/images/icons/' + img + '.png" />';}
         },{
 			header: "Delete",
 			dataIndex: '',
-			width: 40,
-		    align: 'center',
-			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/bin_closed.png" %>" style="cursor: pointer;" />';}
+			width: 55,
+			fixed: true,
+			sortable: false,
+		    menuDisabled: true,
+			align: 'center',
+			renderer: function(){ return '<img src="<%= icon_path('bin_closed') %>" style="cursor: pointer;" />';}
         }]);
 
     // by default columns are sortable
@@ -183,7 +199,7 @@
 						 "end_date": e.record.data.end_date.dateFormat('d.m.Y'),
 						 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'};
 				}else if(e.field == "quantity"){
-				    u = '/user/order/change_line';
+				    u = '/user/order/change_line_quantity';
 				    p = {"order_line_id": e.record.id,
 						 "quantity": e.value,
 						 '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'};
@@ -206,7 +222,7 @@
 	            text: '<%= _("Change Timeframe") %>',
 	            tooltip: '<%= _("Change the timeframe for the selected items") %>',
 				iconCls:'bt',
-	            icon:'<%= $layout_public_path + "/images/icons/date_edit.png" %>',
+	            icon:'<%= icon_path('date_edit') %>',
 				disabled: true,
 				handler: function(){ show_change_timeframe(); }
 	        },'-',{
@@ -214,7 +230,7 @@
 	            text: '<%= _("Remove") %>',
 	            tooltip: '<%= _("Remove the selected items") %>',
 				iconCls:'bt',
-	            icon:'<%= $layout_public_path + "/images/icons/delete.png" %>',
+	            icon:'<%= icon_path('delete') %>',
 				disabled: true,
 				handler: function(){
 					Ext.Msg.show({
@@ -239,54 +255,61 @@
 					   }
 					});
 				}
-	        }, '->', {
-					id: 'bt_submit',
-			        text: '<%= _("Submit Order") %>',
-					iconCls:'bt',
-		            icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
-			        handler: function(){
-			            var purpose_win = new Ext.Window({
-								xtype: 'form',
-								layout: 'form',
-								title: '<%= _("Do you want to submit this order?") %>',
-								width: 600,
-								height: 200,
-								bodyStyle: 'padding:15px',
-								items: {
-									xtype: 'textarea',
-									fieldLabel: '<%= _("Purpose") %>',
-									name: 'purpose',
-									allowBlank: false,
-									anchor: '90%'
-								},
-								buttons: [{
-									text: '<%= _("Submit") %>',
-									type: 'submit',
-									// disabled : true,
-									handler: function(){
-										var b = true;
-										var parameters = new Hash({"id": complete_order_store.reader.jsonData['id'],
-																  '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'});
-										purpose_win.items.items._each(function(item){
-											b = b && item.validate();
-											parameters.set(item.name, item.getValue());
-										});
-										if (b) {
-											order.layout.setActiveItem(1);
-											order.layout.activeItem.load({
-												url: '/user/order/submit',
-												method: 'POST',
-												params: parameters.toObject()
-											});
-											purpose_win.hide();
-										}
-									}
-								}]
-							});
-						purpose_win.show();
-
-			       }
-			}]
+	        }],
+	        bbar: new Ext.Toolbar({
+				style: "background: silver none; border: 10px solid white;",			
+				items: [ '->',
+						{
+							id: 'bt_submit',
+					        text: '<%= _("Submit Order") %>',
+							iconCls:'bt',
+				            icon:'<%= icon_path('tab_go') %>',
+					        handler: function(){
+					            var purpose_win = new Ext.Window({
+										xtype: 'form',
+										layout: 'form',
+										title: '<%= _("Do you want to submit this order?") %>',
+										width: 600,
+										height: 200,
+										bodyStyle: 'padding:15px',
+										items: {
+											xtype: 'textarea',
+											fieldLabel: '<%= _("Purpose") %>',
+											name: 'purpose',
+											allowBlank: false,
+											anchor: '90%'
+										},
+										buttons: [{
+											text: '<%= _("Submit") %>',
+											type: 'submit',
+											// disabled : true,
+											handler: function(){
+												var b = true;
+												var parameters = new Hash({"id": complete_order_store.reader.jsonData['id'],
+																		  '<%= request_forgery_protection_token %>': '<%= form_authenticity_token %>'});
+												purpose_win.items.items._each(function(item){
+													b = b && item.validate();
+													parameters.set(item.name, item.getValue());
+												});
+												if (b) {
+													order.layout.setActiveItem(1);
+													order.layout.activeItem.load({
+														url: '/user/order/submit',
+														method: 'POST',
+														params: parameters.toObject()
+													});
+													purpose_win.hide();
+													complete_order_store.load();
+												}
+											}
+										}]
+									});
+								purpose_win.show();
+		
+					       }
+					}
+	        	]
+			})
     });
 
 
@@ -340,7 +363,6 @@
 		                    fieldLabel: '<%= _("Start date") %>',
 		                    name: 'start_date',
 							value: get_selected_min_start_date(),
-							//minValue: new Date(),
 							disabledDays: [6,0],
 		                    anchor:'90%'
 		                }
@@ -352,7 +374,6 @@
 		                    fieldLabel: '<%= _("End date") %>',
 		                    name: 'end_date',
 							value: get_selected_max_end_date(),
-							//minValue: new Date(),
 							disabledDays: [6,0],
 		                    anchor:'90%'
 		                }
@@ -414,24 +435,22 @@
 					xtype: 'panel',
 				    autoScroll:true,
 					frame: true,
-				    tbar: [
-				        '->',
-				        {
-							//id: 'bt_new_order',
-				            text: 'New Order',
-							iconCls:'icon-add',
-							//iconCls:'bt',
-				            //icon:'<%= $layout_public_path + "/images/icons/tab_go.png" %>',
-				            handler: function(){
-								complete_order_store.load();
-								order.layout.setActiveItem(0);
-								models_grid.show();
-							}
-				        }
-				    ]
+			        bbar: new Ext.Toolbar({
+						style: "background: silver none; border: 10px solid white;",			
+						items: [ '->',
+						        {
+						            text: 'New Order',
+									iconCls:'icon-add',
+						            handler: function(){
+										models_grid.show();
+									}
+						        }
+						    ]
+					})
 	            }],
 			listeners: {
 				activate: function(cmp) {
+					cmp.layout.setActiveItem(0);
 					toggle_submit_button();
 					model_details.collapse();
 //					complete_order_store.load();

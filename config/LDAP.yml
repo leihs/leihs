@@ -1,0 +1,32 @@
+# configuration for the LDAP server
+# host: where to reach the DRb server (used by application processes to contact the server)
+# port: which port the server should listen on
+
+production:
+  host: hostname
+  port: port_number
+  encryption: simple_tls
+  base: dc=xyz,dc=abc,dc=ch
+  log_file: log/ldap_server.log
+  log_level: warn
+  search_field: userprincipalname
+
+#test:
+test:
+  host: hostname
+  port: port_number
+  encryption: simple_tls
+  base: dc=xyz,dc=abc,dc=ch
+  log_file: log/ldap_server.log
+  log_level: warn
+  search_field: userprincipalname
+  
+#dev:
+development:
+  host: hostname
+  port: port_number
+  encryption: simple_tls
+  base: dc=xyz,dc=abc,dc=ch
+  log_file: log/ldap_server.log
+  log_level: warn
+  search_field: userprincipalname

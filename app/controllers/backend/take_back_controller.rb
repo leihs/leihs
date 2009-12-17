@@ -10,7 +10,7 @@ class Backend::TakeBackController < Backend::BackendController
     end
                                               
     unless params[:query].blank?
-      @contracts = current_inventory_pool.contracts.signed_contracts.search(params[:query])
+      @contracts = current_inventory_pool.contracts.signed.search(params[:query])
 
       # TODO search by inventory_code
 
@@ -25,8 +25,9 @@ class Backend::TakeBackController < Backend::BackendController
 
   # get current contracts for a given user
   def show
-    @contract_lines = @user.get_signed_contract_lines
+    @contract_lines = @user.get_signed_contract_lines(current_inventory_pool.id)
     @contract_lines.sort! {|a,b| a.end_date <=> b.end_date}
+    add_visitor(@user)
   end
 
   # Close definitely the contract
@@ -38,7 +39,7 @@ class Backend::TakeBackController < Backend::BackendController
       if params[:returned_quantity]
         params[:returned_quantity].each_pair do |k,v|
           line = @lines.detect {|l| l.id == k.to_i }
-          if v.to_i < line.quantity
+          if line and v.to_i < line.quantity
             new_line = line.clone
             new_line.quantity -= v.to_i
             new_line.save
@@ -52,7 +53,7 @@ class Backend::TakeBackController < Backend::BackendController
       # set the return dates to the given contract_lines
       @lines.each { |l| 
         l.update_attribute :returned_date, Date.today 
-        l.item.histories.create(:user => current_user, :text => _("Item taken back"), :type_const => History::ACTION)
+        l.item.histories.create(:user => current_user, :text => _("Item taken back"), :type_const => History::ACTION) unless l.item.is_a? Option
       }
       
       @contracts.each do |c|
@@ -66,7 +67,7 @@ class Backend::TakeBackController < Backend::BackendController
       if params[:returned_quantity]
         params[:returned_quantity].each_pair do |k,v|
           line = @lines.detect {|l| l.id == k.to_i }
-          line.quantity = v.to_i if v.to_i < line.quantity
+          line.quantity = v.to_i if line and v.to_i < line.quantity
         end
       end
       render :layout => $modal_layout_path
@@ -76,7 +77,7 @@ class Backend::TakeBackController < Backend::BackendController
   
   # given an inventory_code, searches for the matching contract_line
   def assign_inventory_code
-    contract_lines = @user.get_signed_contract_lines
+    contract_lines = @user.get_signed_contract_lines(current_inventory_pool.id)
     contract_lines.sort! {|a,b| a.end_date <=> b.end_date} # TODO select first to take back
 
     item = current_inventory_pool.items.first(:conditions => { :inventory_code => params[:code] })
@@ -99,15 +100,15 @@ class Backend::TakeBackController < Backend::BackendController
       @contract_line.item.update_attributes(params[:item])
       
       @contract_line.item.log_history(params[:note], current_user.id)
-      redirect_to :action => 'show'
+      #old# redirect_to :action => 'show'
+      render :nothing => true
     else
       render :layout => $modal_layout_path
     end
   end
 
   def time_lines
-    contract = @user.contract_lines.find(Array(params[:lines]).first).contract # NOTE always assuming there is just 1 line
-    generic_time_lines(contract, false, true)
+    generic_time_lines(@user, false, true)
   end    
 
   def timeline

@@ -1,9 +1,7 @@
-
-<div id="tabs">	
-	<ul>
-		<li <%= 'class="active"' if controller.action_name == "index" %>><%= link_to "<span>" + _("Hand Over") + "<em> (#{@to_hand_over_size})</em></span>",
-																				:controller => 'hand_over' %></li>
-
-
-</ul>
-</div>
+<% content_tag :div, :id => "tabs" do
+	content_tag :ul do
+		content_tag :li, :class => (controller.action_name == "index" ? "active" : nil) do %>	
+			<%= link_to "<span>" + _("Hand Over") + "</span>", :controller => 'hand_over' %>
+		<% end
+	end
+end %>

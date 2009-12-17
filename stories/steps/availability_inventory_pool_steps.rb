@@ -16,9 +16,7 @@ steps_for(:availability_inventory_pool) do
   Given "this model has $number item$s in inventory pool $ip" do |number, s, ip|
     inventory_pool = InventoryPool.find_by_name(ip)
     number.to_i.times do | i |
-      l = Location.find(:first, :conditions => {:room => "main", :inventory_pool_id => inventory_pool.id})
-      l = Location.create(:room => "main", :inventory_pool => inventory_pool) unless l
-      Factory.create_item(:model => @model, :location => l)
+      Factory.create_item(:model => @model, :inventory_pool => inventory_pool)
     end
     inventory_pool.items.count(:conditions => {:model_id => @model.id}).should == number.to_i
   end

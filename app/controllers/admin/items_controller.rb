@@ -3,8 +3,9 @@ class Admin::ItemsController < Admin::AdminController
   before_filter :pre_load
   
   def index
-    params[:sort] ||= 'model_name'
-    params[:dir] ||= 'asc'
+    params[:sort] ||= 'models.name'
+    params[:dir] ||= 'ASC'
+    find_options = {:order => sanitize_order(params[:sort], params[:dir]), :include => [:model, :location]}
 
     if @inventory_pool
       items = @inventory_pool.items
@@ -23,17 +24,37 @@ class Admin::ItemsController < Admin::AdminController
         items = items.unborrowable
       when "unfinished"
         items = items.unfinished
+      when "retired"
+        items = items.all(:retired => true)
+        find_options[:retired] = true
     end
         
-    @items = items.search(params[:query], :page => params[:page], :order => params[:sort].to_sym, :sort_mode => params[:dir].to_sym, :include => [:model, :location])
+    @items = items.search(params[:query], {:page => params[:page], :per_page => $per_page}, find_options)
   end
 
+  def change_supplier(supplier_id = params[:supplier_id])
+    @item.update_attributes(:supplier => Supplier.find(supplier_id)) if supplier_id
+    redirect_to :action => 'show', :id => @item
+  end
+  
+  def supplier
+    if request.post? and params[:supplier]
+      s = Supplier.create(params[:supplier])
+      search_term = s.name
+    end
+    if request.post? and (params[:search] || search_term)
+      search_term ||= params[:search][:name]
+      @results = Supplier.find(:all, :conditions => ['name like ?', "%#{search_term}%"], :order => :name)
+    end
+    render :layout => false
+  end
+  
   def show
-    @item.step = 'step_item'
   end
 
   def new
     @item = Item.new(:model => @model)
+    @proposed_inventory_code = Item.proposed_inventory_code
     show and render :action => 'show'
   end
 
@@ -53,15 +74,9 @@ class Admin::ItemsController < Admin::AdminController
     end
   end
 
-  def destroy
-    @item.destroy
-    redirect_to admin_items_path
-  end
-
 #################################################################
 
   def model
-    #old# @item.step = 'step_model'
   end
 
 #################################################################
@@ -69,13 +84,12 @@ class Admin::ItemsController < Admin::AdminController
   def inventory_pool
     if request.post?
       ip = InventoryPool.find(params[:inventory_pool_id])
-      @item.location = ip.main_location
-      
+      @item.inventory_pool = ip      
+
       # if it's the first item of that model assigned to the inventory_pool,
       # then creates accessory associations
       @item.model.accessories.each {|a| ip.accessories << a unless ip.accessories.include?(a) } unless ip.models.include?(@item.model)
       
-      @item.step = 'step_location'
       @item.save
       redirect_to
     end
@@ -97,7 +111,7 @@ class Admin::ItemsController < Admin::AdminController
     params[:item_id] ||= params[:id] if params[:id]
     @inventory_pool = InventoryPool.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
     @model = Model.find(params[:model_id]) if params[:model_id]
-    @item = Item.find(params[:item_id]) if params[:item_id]
+    @item = Item.find(params[:item_id], :retired => :all) if params[:item_id]
 
     @tabs = []
     @tabs << :inventory_pool_admin if @inventory_pool

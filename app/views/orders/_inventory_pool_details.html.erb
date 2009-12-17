@@ -1,0 +1,9 @@
+<% content_tag :div do %>
+	<h4><%= inventory_pool_details.name %></h4>
+	<p>
+		<% ar = current_user.access_right_for(inventory_pool_details) %>
+		<%= ar.to_s if ar.role.name != "customer" %><br/>
+		<span style="font-size: 150%; color: red;"><%= _("YOU ARE SUSPENDED FOR THIS INVENTORY_POOL") if ar.suspended? %></span>
+	</p>
+	<p><%= simple_format(inventory_pool_details.description)%></p>
+<% end %>

@@ -1,5 +1,5 @@
 set :application, "leihs2beta"
-set :repository,  "http://code.zhdk.ch/svn/leihs/trunk"
+set :repository,  "http://code.zhdk.ch/svn/leihs/branches/2.0"
 set :db_config, "/home/rails/leihs/leihs2beta/database.yml"
 set :checkout, :export
 set :use_sudo, false
@@ -46,10 +46,21 @@ task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
 end
 
-# TODO 2104** remove Ferret completely
 task :chmod_ferret do
   run "chmod +x #{release_path}/script/ferret_server"
 end
+
+task :modify_config do
+  run "sed -i 's/FRONTEND_SPLASH_PAGE = false/FRONTEND_SPLASH_PAGE = true/g' #{release_path}/config/environment.rb"
+  run "sed -i 's/INVENTORY_CODE_PREFIX.*/INVENTORY_CODE_PREFIX = [[\"AVZ\", \"AV-Technik\"], [\"ITZS\", \"ITZ\"], [\"ITZV\", \"ITZ\"] ]/' #{release_path}/config/initializers/propose_inventory_code.rb"  
+  run "sed -i 's/CONTRACT_LENDING_PARTY_STRING.*/CONTRACT_LENDING_PARTY_STRING = \"Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich\"/' #{release_path}/config/environment.rb"
+end
+
+task :chmod_tmp do
+  run "chmod g-w #{release_path}/tmp"
+end
+
+
 
 namespace :deploy do
 	task :start do
@@ -60,12 +71,21 @@ namespace :deploy do
 	task :restart do
           run "pkill -SIGUSR2 -f -u leihs -- '-e production.*leihs2beta'"
 	end
+
+  desc "Cleanup older revisions"
+  task :after_deploy do
+    cleanup
+  end 
 end
+
+
 
 
 after "deploy:symlink", :link_config
 after "deploy:symlink", :chmod_ferret
 after "deploy:symlink", :link_attachments
+after "deploy:symlink", :modify_config
+after "deploy:symlink", :chmod_tmp
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
 

@@ -5,6 +5,11 @@ class ItemLine < ContractLine
 
   validate :validate_item
 
+  # OPTMIZE 0209** overriding the item getter in order to get a retired item as well if is the case
+  def item
+    Item.first(:conditions => {:id => item_id}, :retired => :all) if item_id
+  end  
+
   def to_s
     "#{item} - #{end_date.strftime('%d.%m.%Y')}"
   end
@@ -62,6 +67,9 @@ class ItemLine < ContractLine
    
       # inventory_pool matching
       errors.add_to_base(_("The item doesn't belong to the inventory pool related to this contract")) unless item.inventory_pool == contract.inventory_pool 
+
+      # package check 
+      errors.add_to_base(_("The item belongs to a package")) if item.parent
     end
   end
   

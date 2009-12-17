@@ -14,7 +14,7 @@ steps_for(:work_days) do
     inventory_pool.workday.sunday = false
     inventory_pool.workday.save
     days.split(",").each do |day|
-      inventory_pool.workday.update_attribute(day.strip.downcase, true)
+      inventory_pool.workday.update_attributes(day.strip.downcase => true)
     end
   end
   
@@ -90,7 +90,7 @@ steps_for(:work_days) do
     @order.approvable?.should == true
   end
 	
-	Then "that should be possible" do
+	Then "that should be possible$reason" do
     @contract.lines.size.should == 1
     line = @contract.lines.first
     line.start_date = Factory.parsedate(@date)

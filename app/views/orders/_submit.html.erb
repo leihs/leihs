@@ -1,28 +1,24 @@
+<div id="blankpage">
 <h2>
 <%= _("The order has been successfully submitted, but is NOT YET CONFIRMED.") %>
 </h2>
 
-<hr />
-<h3><%= _("Pending orders") %>:</h3>
-<br />
+<p>
+  <%= _("Your order has now been submitted to an inventory manager for approval. The inventory manager will check your order and either approve it, reject it or make changes to it. Once this is done, you will be notified by e-mail. You can also see your order status on your personal page (click your name in the top right corner of this page).") %>
+</p>
 
-<table class="orders">
-	<tr>
-	<th><%= _("Received at") %></th>
-	<th><%= _("Inventory Pool") %></th>
-	<th><%= _("Number of items") %></th>
-	<th><%= _("Time window") %></th>
-	<th><%= _("Purpose") %></th>
-	</tr>
-	
-<% current_user.orders.submitted.each do |order| %>	
-	<tr>
-	<td><%= today_or_yesterday_date(order.created_at) %></td>
-	<td><%= order.inventory_pool %></td>
-	<td><%= order.quantity %></td>
-	<td><%= dates_with_period(order.time_window_min, order.time_window_max) %></td>
-	<td><%= h order.purpose %></td>
-	</tr>
+<p>
+  <%= _("These are your current pending orders:") %>
+</p>
+
+<hr />
+<% content_tag :div, :id => "pending_orders" do %>
+	<%= render :partial => "pending" %>
 <% end %>
 
-</table>
+
+<h3><%= _("Details about the involved inventory pools") %></h3>
+
+<%= render :partial => "inventory_pool_details", :collection => current_user.orders.submitted.collect(&:inventory_pool).uniq  %>
+
+</div>

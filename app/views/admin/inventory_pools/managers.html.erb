@@ -21,6 +21,7 @@
 				<td><%= manager.login %></td>
 				<td class="buttons">
 					<ul>
+						<% # TODO 0607 ajax delete %>
 						<li><%= link_to _('Remove'),
 									remove_manager_admin_inventory_pool_path(@inventory_pool, :manager_id => manager),
 									:confirm => _("Are you sure?"),

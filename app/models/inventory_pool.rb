@@ -4,6 +4,9 @@ class InventoryPool < ActiveRecord::Base
   has_one :workday, :dependent => :delete
   has_many :holidays, :dependent => :delete_all
   has_many :users, :through => :access_rights, :uniq => true
+  has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.suspended_at is not null"
+
+
 ########
 #  has_many :managers, :through => :access_rights, :source => :user, :join_table => "access_rights", :conditions => ["access_rights.role_id = 2"]
 #  has_many :managers, :class_name => "User",
@@ -21,7 +24,7 @@ class InventoryPool < ActiveRecord::Base
                           :class_name => "User",
                           :select => "users.*",
                           :join_table => "access_rights",
-                          :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "manager"}).id]
+                          :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "lending manager"}).id]
 
   # 2203** OPTIMIZE
   has_and_belongs_to_many :customers,
@@ -32,11 +35,14 @@ class InventoryPool < ActiveRecord::Base
 ########
 
     
-  has_many :locations
+	has_many :locations, :through => :items, :uniq => true
+  has_many :items, :dependent => :nullify # OPTIMIZE prevent self.destroy unless self.items.empty?
+  has_many :own_items, :class_name => "Item", :foreign_key => "owner_id"
+  has_many :models, :through => :items, :uniq => true
+  has_many :models_active, :through => :items, :source => :model, :uniq => true, :conditions => "items.retired IS NULL" # OPTIMIZE models.active 
+  has_many :own_models, :through => :own_items, :source => :model, :uniq => true
+  has_many :own_models_active, :through => :own_items, :source => :model, :uniq => true, :conditions => "items.retired IS NULL" # OPTIMIZE own_models.active 
   has_many :options
-  has_one  :main_location, :class_name => "Location", :conditions => {:is_main => true}  
-  has_many :items, :through => :locations #, :uniq => true
-  has_many :models, :through => :items #, :uniq => true # TODO 2703** fix exception on Rails 2.3.2
 
   has_and_belongs_to_many :model_groups
   has_and_belongs_to_many :templates,
@@ -54,23 +60,25 @@ class InventoryPool < ActiveRecord::Base
   has_many :contract_lines, :through => :contracts, :uniq => true
 
 
-  before_create :assign_main_location, :create_workday
+  before_create :create_workday
 
   validates_presence_of :name
 
-  define_index do
-    indexes :name, :sortable => true
-    indexes :description, :sortable => true
-    has :id
-    set_property :order => :name
-    set_property :delta => true
-  end
+  acts_as_ferret :fields => [ :name, :description ], :store_class_name => true, :remote => true
+
 
 #######################################################################
 
   def to_s
     "#{name}"
   end
+
+  # compares two objects in order to sort them
+  def <=>(other)
+    self.name.casecmp other.name
+  end
+
+#######################################################################
   
   def closed_days
     workday.closed_days
@@ -100,7 +108,8 @@ class InventoryPool < ActiveRecord::Base
   def hand_over_visits
     #unless @ho_visits  # OPTIMIZE refresh if new contracts become available
       @ho_visits = []
-      contracts.new_contracts.each do |c|
+      #old#
+      contracts.unsigned.each do |c|
         c.lines.each do |l|
           v = @ho_visits.detect { |w| w.user == c.user and w.date == l.start_date }
           unless v
@@ -109,7 +118,24 @@ class InventoryPool < ActiveRecord::Base
             v.contract_lines << l
           end
         end
+      end if false
+      #end old#
+
+      #new#
+      ids = contracts.unsigned.collect(&:id)
+      lines = ContractLine.all(:conditions => {:contract_id => ids})
+
+      lines.each do |l|
+        v = @ho_visits.detect { |w| w.user == l.contract.user and w.date == l.start_date }
+        unless v
+          @ho_visits << Event.new(:start => l.start_date, :end => l.end_date, :title => l.contract.user.login, :isDuration => false, :action => "hand_over", :inventory_pool => l.contract.inventory_pool, :user => l.contract.user, :contract_lines => [l])
+        else
+          v.contract_lines << l
+        end
       end
+      #end new#
+      
+      
       @ho_visits.sort!
     #end
     @ho_visits
@@ -148,36 +174,39 @@ class InventoryPool < ActiveRecord::Base
   end
 
 ###################################################################################
+  def has_access?(user)
+    user.inventory_pools.include?(self)
+  end
+  
+  def is_blacklisted?(user)
+    suspended_users.count(:conditions => {:id => user.id}) > 0
+  end
+  
+
 
   private
   
-  def assign_main_location(location = nil)
-    location ||= Location.create(:room => "main")
-    #old# self.main_location = location
-    location.update_attribute :is_main, true
-    self.locations << location
-  end
-  
   def take_back_or_remind_visits(remind = false)
     visits = []
-    contracts.signed_contracts.each do |c|
-      if remind
-        lines = c.lines.to_remind
+    
+    ids = contracts.signed.collect(&:id)
+    if remind
+      lines = ContractLine.to_remind.all(:conditions => {:contract_id => ids})
+    else
+      lines = ContractLine.to_take_back.all(:conditions => {:contract_id => ids})
+    end
+
+    lines.each do |l|
+      v = visits.detect { |w| w.user == l.contract.user and w.date == l.end_date }
+      unless v
+        visits << Event.new(:start => l.end_date, :end => l.end_date, :title => l.contract.user.login, :isDuration => false, :action => "take_back", :inventory_pool => l.contract.inventory_pool, :user => l.contract.user, :contract_lines => [l])
       else
-        lines = c.lines.to_take_back
-      end
-      lines.each do |l|
-        v = visits.detect { |w| w.user == c.user and w.date == l.end_date }
-        unless v
-          visits << Event.new(:start => l.end_date, :end => l.end_date, :title => c.user.login, :isDuration => false, :action => "take_back", :inventory_pool => c.inventory_pool, :user => c.user, :contract_lines => [l])
-        else
-          v.contract_lines << l
-        end
+        v.contract_lines << l
       end
     end
+    
     visits.sort!
   end
-  
   
 end
 

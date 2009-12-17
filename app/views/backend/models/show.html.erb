@@ -1,25 +1,22 @@
+<%
+	
+form_for [:backend, current_inventory_pool, @model], :html => { :onsubmit => (is_privileged_user? ? nil : "return false;") } do |f|
 
-<table>
-<tr><td><b><%= _("Name") %>:</b></td><td><%= @model.name %></td></tr>	
-<tr><td><b><%= _("Manufacturer") %>:</b></td><td><%= @model.manufacturer %></td></tr>
-<tr><td><b><%= _("Description") %>:</b></td><td><%= @model.description %></td></tr>
-<tr><td><b><%= _("Internal Description") %>:</b></td><td><%= @model.internal_description %></td></tr>
-</table>
+	content_tag :table do %>
+		<tr><td><b><%= _("Name") %>:</b></td><td><%= f.text_field :name, :readonly => !is_privileged_user? %></td></tr>	
+		<tr><td><b><%= _("Manufacturer") %>:</b></td><td><%= f.text_field :manufacturer, :readonly => !is_privileged_user? %></td></tr>
+		<tr><td><b><%= _("Description") %>:</b></td><td><%= f.text_area :description, :readonly => !is_privileged_user?, :rows => 4 %></td></tr>
+		<tr><td><b><%= _("Technical Details") %>:</b></td><td><%= f.text_area :technical_detail, :readonly => !is_privileged_user?, :rows => 4 %></td></tr>
+		<tr><td><b><%= _("Internal Description") %>:</b></td><td><%= f.text_area :internal_description, :readonly => !is_privileged_user?, :rows => 4 %></td></tr>
+		<% content_tag :tr do %>
+			<td></td><td><%= submit_tag _('Submit') %></td>
+		<% end if is_privileged_user?
+	end
+end
 
-<!-- #old#
-<div style="border: 1px solid black; margin: 10px; padding: 10px;">
-	<% chart_path = chart_model_path(@model, :inventory_pool_id => @current_inventory_pool) %>
-	<%#old#= image_tag chart_path, :id => 'chart', :alt => 'Chart...' %>
-	<br/>
-	<% javascript_tag do %>
-	var days_from_today = 0;
-	<% end %>
-	<br/>
-	<div class='buttons'>
-	<%= link_to_function(_("Prev"), "days_from_today -= 90; $('chart').src='#{chart_path}&days_from_today='+days_from_today;") %>
-	<%= link_to_function(_("Next"), "days_from_today += 90; $('chart').src='#{chart_path}&days_from_today='+days_from_today;") %>
-	</div>
-</div>
--->
 
-<%= canvas_for(@model) %>
+unless @model.new_record? %>
+	<%= canvas_for(@model, current_inventory_pool) %>
+	
+	<%#temp#= pie_for_model(@model) if is_privileged_user? %>
+<% end %>

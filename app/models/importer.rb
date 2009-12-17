@@ -16,4 +16,9 @@ class Importer
   def start_user_import
     InventoryImport::ImportUsers.new.start
   end
+
+  def start_ithelp_import
+    InventoryImport::ImportIthelp.new.start
+  end
+
 end

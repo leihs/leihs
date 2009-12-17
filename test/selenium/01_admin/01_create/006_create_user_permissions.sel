@@ -1,0 +1,34 @@
+|open|/admin/users||
+|clickAndWait|//tr[@id='user_4']/td[4]/ul/li[1]/a/img||
+|clickAndWait|link=Access Rights (0)||
+|select|access_right_role_id|label=admin|
+|clickAndWait|commit||
+|clickAndWait|link=Users (5)||
+|clickAndWait|//tr[@id='user_5']/td[4]/ul/li[1]/a||
+|clickAndWait|link=Access Rights (0)||
+|select|access_right_role_id|label=inventory manager|
+|select|access_right_inventory_pool_id|label=Audio Equipment|
+|clickAndWait|commit||
+|select|access_right_role_id|label=inventory manager|
+|select|access_right_inventory_pool_id|label=Video Equipment|
+|clickAndWait|commit||
+|clickAndWait|link=Users (5)||
+|clickAndWait|//tr[@id='user_3']/td[4]/ul/li[1]/a||
+|clickAndWait|link=Access Rights (0)||
+|select|access_right_role_id|label=lending manager|
+|select|access_right_inventory_pool_id|label=Audio Equipment|
+|clickAndWait|commit||
+|select|access_right_role_id|label=lending manager|
+|select|access_right_inventory_pool_id|label=Video Equipment|
+|clickAndWait|commit||
+|clickAndWait|link=Users (5)||
+|clickAndWait|//tr[@id='user_2']/td[4]/ul/li[1]/a||
+|clickAndWait|link=Access Rights (0)||
+|select|access_right_role_id|label=customer|
+|select|access_right_inventory_pool_id|label=Audio Equipment|
+|select|level|label=Customer|
+|clickAndWait|commit||
+|select|access_right_role_id|label=customer|
+|select|access_right_inventory_pool_id|label=Video Equipment|
+|select|level|label=Customer|
+|clickAndWait|commit||

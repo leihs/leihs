@@ -20,7 +20,7 @@
 							</td> 
 							<td>
 								<%= greybox_link_to_page(@order.user.login,
-										backend_inventory_pool_user_path(@current_inventory_pool, @order.user, :layout => "modal"),
+										backend_inventory_pool_user_path(current_inventory_pool, @order.user, :layout => "modal"),
 										:title => _("User"),
 										:class => "iconized-notxt edit-user" ) %>
 							</td>

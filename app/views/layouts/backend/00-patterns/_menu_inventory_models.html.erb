@@ -1,0 +1,5 @@
+<li><%= link_to icon_tag("package") + " " + _('All Models') + " (#{Model.count})", backend_inventory_pool_models_path(:filter => 'all')  %>
+	<% content_tag :ul do %>
+		<li><%= link_to _('Own Models') + " (#{current_inventory_pool.own_models_active.size})", backend_inventory_pool_models_path(:filter => 'own') %></li>
+	<% end if controller.controller_name == "models" %>
+</li>

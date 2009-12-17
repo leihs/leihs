@@ -2,6 +2,32 @@
 # Patch http://dev.rubyonrails.org/ticket/11537
 module ActionView
   module Helpers
+    
+    module TextHelper
+      silence_warnings do
+        AUTO_LINK_RE = %r{
+                        (                          # leading text
+                          <\w+.*?>|                # leading HTML tag, or
+                          [^=!:'"/]|               # leading punctuation, or
+                          ^                        # beginning of line
+                        )
+                        (
+                          (?:https?://)|           # protocol spec, or
+                          (?:www\.)                # www.*
+                        )
+                        (
+                          [-\w]+                   # subdomain or domain
+                          (?:\.[-\w]+)*            # remaining subdomains or domain
+                          (?::\d+)?                # port
+                          (?:/(?:(?:[~\w\+@%=\(\)-]|(?:[,.;:'][^\s$]))+)?)* # path
+                          (?:\?[\/+\w\+@%&=.;-]+)?     # query string ## NOTE patch: \/+ 
+                          (?:\#[\w\-]*)?           # trailing anchor
+                        )
+                        ([[:punct:]]|<|$|)       # trailing text
+                       }x
+      end
+    end
+    
     module UrlHelper
 
         def convert_options_to_javascript!(html_options, url = '')

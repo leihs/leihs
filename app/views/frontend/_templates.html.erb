@@ -84,7 +84,7 @@
            dataIndex: 'manufacturer',
            width: 200,
  		   renderer: function(value, metadata, record){
-		   				return (record.data.is_package ? '<img src="<%= $layout_public_path + "/images/icons/package_green.png" %>" />' : value);
+		   				return (record.data.is_package ? '<img src="<%= icon_path('box') %>" />' : value);
 					 }
         },{
            header: "Inventory Pool",
@@ -103,7 +103,7 @@
 			fixed: true,
 			dataIndex: '',
 			align: 'center',
-			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/add.png" %>" style="cursor: pointer;" />';}
+			renderer: function(){ return '<img src="<%= icon_path('add') %>" style="cursor: pointer;" />';}
 		}]);
 
     // by default columns are sortable
@@ -132,7 +132,7 @@
 	        {
 	            text: '<%= _("Add all") %>',
 				iconCls:'bt',
-	          	icon:'<%= $layout_public_path + "/images/icons/add.png" %>',
+	          	icon:'<%= icon_path('add') %>',
 	            handler: function(){
 					Ext.Ajax.request({
 						url: '/user/order/add_line',
