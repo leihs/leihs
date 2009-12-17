@@ -31,13 +31,8 @@ The following steps were tested on Mac OS X 10.5 on an x86. They may also work f
 +
 4. Install the required version of Rails as well as a few gems that cannot be installed automatically:
 +
- $ sudo gem install rails -v 2.1.1
- $ sudo gem install gettext -v 1.93.0
- $ sudo gem install RubyInline
- $ sudo gem install ferret -v 0.11.6
- $ sudo gem install acts_as_ferret -v 0.4.3
- $ sudo gem install barby -v 0.2.0
- $ sudo gem install png -v 1.1.0
+ $ cd leihs-2.1
+ $ sudo rake gems:install 
 
 5. Install the native MySQL gem:
 +
@@ -109,13 +104,8 @@ Note that the URL above might change! Please visit the RubyGems site to find the
 
 3. Install the required version of Rails as well as a few gems that cannot be installed automatically:
 +
- # gem install rails -v 2.1.1
- # gem install gettext -v 1.93.0
- # gem install RubyInline
- # gem install ferret -v 0.11.6
- # gem install acts_as_ferret -v 0.4.3
- # gem install barby -v 0.2.0
- # gem install png -v 1.1.0
+ # cd leihs-2.1 
+ # rake gems:install 
 
 4. Install the MySQL header files and the MySQL gem:
 +
@@ -157,6 +147,41 @@ If this works, stop the server again using Ctrl-C.
 
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
 
+
+== Upgrading from leihs 2.0.x to leihs 2.1 ==
+
+We tried to make very sure that upgrading from earlier versions to leihs 2.1 is painless and safe. The largest differences are:
+
+1. Database changes
+1. New or changed options in config/environment.rb
+
+The former are quite easily handled by a database migration:
+
+ $ cd leihs-2.1
+ $ rake db:migrate
+ $ RAILS_ENV='production' rake db:migrate
+
+Please substitute "production" for those environments you actually use.
+
+The latter needs to be taken care of by hand. The default is presented here:
+
+ FRONTEND_SPLASH_PAGE = false
+ CONTRACT_LENDING_PARTY_STRING = "Your\nAddress\nHere"
+ EMAIL_SIGNATURE = "Das PZ-leihs Team"
+ LDAP_CONFIG = YAML::load_file(RAILS_ROOT+'/config/LDAP.yml')
+ DEFAULT_EMAIL = 'sender@example.com'
+
+The options are explained as follows:
+
+*FRONTEND_SPLASH_PAGE* sets whether a splash information page (with static, welcoming information for the user) is shown after a frontend user logs in. Can be true or false.
+
+*CONTRACT_LENDING_PARTY_STRING* is a string printed on every lending contract, in the top right, under the heading "lending party". Can be any valid Ruby string.
+
+*EMAIL_SIGNATURE* is a string printed at the end of any reminder or notification e-mail message. Can be any valid Ruby string.
+
+*LDAP_CONFIG* is a path pointing to the configuration file for your LDAP server.
+
+*DEFAULT_EMAIL* is the e-mail address used for sending reminder/notification e-mails when that particular inventory pool has no e-mail set in its own settings. Can be any valid Ruby string, but perhaps you should make sure it's a valid e-mail address ;)
 
 == Default admin username/password ==
 
