@@ -25,15 +25,13 @@ render_tabnav :model_admin,
 		t.named _("Items (%d)") % @model.items.size
 		t.links_to admin_model_items_path(@model)
 		t.highlights_on :controller => 'admin/items', :action => 'index'
-#temp#	t.html[:class] = 'active' if request.path_parameters[:controller] == 'admin/items' and request.path_parameters[:action] == 'index'
 		t.html[:style] = "background-color: red;" if @model.items.empty? 
 	end
 
 	add_tab do |t|
 		t.named _("Categories (%d)") % @model.categories.size
-		t.links_to admin_model_categories_path(@model)
-		t.highlights_on :controller => 'admin/categories', :action => 'index'
-#temp#	t.html[:class] = 'active' if request.path_parameters[:controller] == 'admin/categories' and request.path_parameters[:action] == 'index'
+		t.links_to categories_admin_model_path(@model)
+		t.highlights_on :controller => 'admin/models', :action => 'categories'
 		t.html[:style] = "background-color: red;" if @model.categories.empty?
 	end
 
@@ -62,7 +60,6 @@ render_tabnav :model_admin,
 		t.named _("Compatibles (%d)") % @model.compatibles.size
 		t.links_to admin_model_compatibles_path(@model)
 		t.highlights_on :controller => 'admin/models', :action => 'index'
-#temp#	t.html[:class] = 'active' if request.path_parameters[:controller] == 'admin/models' and request.path_parameters[:action] == 'index'
 	end
 
 end 

@@ -2,8 +2,8 @@ class Image < ActiveRecord::Base
 
     belongs_to :model
     
-    has_attachment :size => 4.kilobytes..500.kilobytes,
-                   :content_type => :image, :resize_to => '320x200>',
+    has_attachment :size => 4.kilobytes..8.megabytes,
+                   :content_type => :image, :resize_to => '640x480>',
                    :thumbnails => { :thumb => '100x100>' },
                    :storage => :file_system, :path_prefix => 'public/images/attachments'
 

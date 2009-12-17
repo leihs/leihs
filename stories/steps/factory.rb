@@ -5,20 +5,14 @@ module Factory
     inventory_pool = Factory.create_inventory_pool_default_workdays
         
 	  # Create User with role
-#old#	  user = Factory.create_user(:login => 'inv_man')
-#old#    Factory.define_role(user, "manager", inventory_pool.name)
-    user = Factory.create_user({:login => 'inv_man'},{:role => "manager", :inventory_pool => inventory_pool.name})
+    user = Factory.create_user({:login => 'inv_man'},{:role => "lending manager", :inventory_pool => inventory_pool.name})
 
 	  # Create Customer
-#old#	  customer = Factory.create_user(:login => 'customer')
-#old#	  Factory.define_role(customer, "customer", inventory_pool.name)
 	  customer = Factory.create_user({:login => 'customer'}, {:role => "customer", :inventory_pool => inventory_pool.name})
     
     # Create Model and Item
     model = Factory.create_model(:name => 'holey parachute')
-    l = Location.find(:first, :conditions => {:room => "main", :inventory_pool_id => inventory_pool.id})
-    l = Location.create(:room => "main", :inventory_pool => inventory_pool) unless l
-    Factory.create_item(:model => model, :location => l)
+    Factory.create_item(:model => model, :inventory_pool => inventory_pool)
     
     [inventory_pool, user, customer, model]
   end
@@ -27,6 +21,7 @@ module Factory
     default_attributes = {
       :login => "jerome",
       :email  => "jerome@example.com",
+      :language_id => 2
     }
     default_attributes[:email] = "#{attributes[:login].gsub(' ', '_')}@example.com" if attributes[:login]
     u = User.find_or_create_by_login default_attributes.merge(attributes)
@@ -39,7 +34,7 @@ module Factory
     u
   end
 
-  def self.define_role(user, role_name = "manager", inventory_pool_name = "ABC")
+  def self.define_role(user, role_name = "lending manager", inventory_pool_name = "ABC")
     role = Role.find_or_create_by_name(:name => role_name)
     inventory_pool = create_inventory_pool(:name => inventory_pool_name)
     begin
@@ -79,8 +74,8 @@ module Factory
   def self.create_item(attributes = {})
     default_attributes = {
       :inventory_code => Item.get_new_unique_inventory_code,
-      :location => Location.find_or_create_by_room(:room => "main_ABC",
-                                                   :inventory_pool => create_inventory_pool(:name => "ABC")) 
+      :inventory_pool => create_inventory_pool(:name => "ABC"),
+      :is_borrowable => true
     }
     i = Item.create default_attributes.merge(attributes)
     i

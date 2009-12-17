@@ -1,11 +1,35 @@
-
-	<% form_for [:admin, @item.model, @item] do |f| %>
+	<% 
+		@item.inventory_code ||= @proposed_inventory_code 
+		form_for [:admin, @item.model, @item] do |f| %>
 		<%= f.hidden_field :step %>
 	
 		<table>
-		<tr><td><b><%= _("Inventory Code:") %></b></td><td><%= f.text_field :inventory_code %></td></tr>
+		<tr><td><b><%= _("Inventory Code:") %></b></td>
+			<td>
+				<% if @proposed_inventory_code and INVENTORY_CODE_PREFIX %>
+					<% INVENTORY_CODE_PREFIX.each do |pair| %>
+						<input name="invcode" type="radio" onclick="document.getElementById('item_inventory_code').value = '<%= pair[0] %>' + '<%= @proposed_inventory_code %>'" ><%= pair[1] %></input>
+					<% end %>
+				<% end %>
+				<%= f.text_field :inventory_code %>
+				
+			</td>
+		</tr>
 		<tr><td><b><%= _("Serial Number:") %></b></td><td><%= f.text_field :serial_number %></td></tr>	
 		<tr><td><b><%= _("Required Level:") %></b></td><td><%= f.select :required_level, AccessRight::LEVELS %></td></tr>
+		
+		<tr><td><b><%= _("Invoice Number:") %></b></td><td><%= f.text_field :invoice_number %></td></tr>	
+		<tr><td><b><%= _("Invoice Date:") %></b></td><td><%= f.date_select :invoice_date, :order => [:day, :month, :year] %></td></tr>	
+		<tr><td><b><%= _("Initial Price:") %></b></td><td><%= f.text_field :price %></td></tr>	
+		<tr><td><b><%= _("Last Checked:") %></b></td><td><%= f.date_select :last_check, :order => [:year] %></td></tr>
+		<% if @item.id %>	
+		<tr><td><b><%= _("Supplier:") %></b></td><td><%= @item.supplier.name if @item.supplier %> <%= greybox_link_to_page(icon_tag("magnifier"),
+            {:controller => 'admin/items', :action => 'supplier', :id => @item }, :title => _("Supplier")) %>
+			</td>
+		</tr>	
+		<% end %>
+		<tr><td><b><%= _("Owner:") %></b></td><td><%= f.select :owner_id, InventoryPool.all.map { |i| [i.name, i.id] }   %></td></tr>
+
 		</table>
 
 		<br />	

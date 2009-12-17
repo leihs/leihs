@@ -3,28 +3,23 @@ class Contract < Document
   belongs_to :inventory_pool # common for sibling classes
   belongs_to :user
   
-# TODO 1602**  
-  has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, created_at ASC'
-  has_many :item_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, created_at ASC'
-  has_many :option_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, created_at ASC'
+  has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC'
+  has_many :item_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC'
+  has_many :option_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC'
 
   has_many :models, :through => :item_lines, :uniq => true
   has_many :items, :through => :item_lines, :uniq => false
   has_many :options, :through => :option_lines, :uniq => true
 
-  define_index do
-    indexes user(:login), :as => :user_login
-    indexes models(:name), :as => :model_names
-    has :id
-    set_property :delta => true
-  end
+  acts_as_ferret :fields => [ :_id, :user_login, :user_badge_id, :lines_model_names, :lines_inventory_codes ], :store_class_name => true, :remote => true
 
+  # TODO validates_uniqueness [user_id, inventory_pool_id, status_const] if status_consts == Contract::UNSIGNED
 
-  NEW = 1
+  UNSIGNED = 1
   SIGNED = 2
   CLOSED = 3
 
-  STATUS = {_("New") => NEW, _("Signed") => SIGNED, _("Closed") => CLOSED }
+  STATUS = {_("Unsigned") => UNSIGNED, _("Signed") => SIGNED, _("Closed") => CLOSED }
 
   def status_string
     n = STATUS.index(status_const)
@@ -39,9 +34,21 @@ class Contract < Document
 
 #########################################################################
 
-  named_scope :new_contracts, :conditions => {:status_const => Contract::NEW}
-  named_scope :signed_contracts, :conditions => {:status_const => Contract::SIGNED}
-  named_scope :closed_contracts, :conditions => {:status_const => Contract::CLOSED}
+  named_scope :unsigned, :conditions => {:status_const => Contract::UNSIGNED}
+  named_scope :signed, :conditions => {:status_const => Contract::SIGNED}
+  named_scope :closed, :conditions => {:status_const => Contract::CLOSED}
+  
+  # OPTIMIZE use INNER JOIN (:joins => :contract_lines) -OR- union :unsigned + :signed (with lines) 
+  named_scope :pending, :select => "DISTINCT contracts.*",
+                        :joins => "LEFT JOIN contract_lines ON contract_lines.contract_id = contracts.id",
+                        :conditions => ["contracts.status_const = :signed
+                                         OR (contracts.status_const = :unsigned AND
+                                             contract_lines.contract_id IS NOT NULL)",
+                                        {:signed => Contract::SIGNED,
+                                         :unsigned => Contract::UNSIGNED }]
+
+  
+  named_scope :by_inventory_pool,  lambda { |inventory_pool| { :conditions => { :inventory_pool_id => inventory_pool } } }
 
 #########################################################################
 
@@ -72,6 +79,22 @@ class Contract < Document
     update_attribute :status_const, Contract::CLOSED
   end
 
+
+  # collect inventory_codes for ferret
+  def lines_inventory_codes
+    ic = [] 
+    lines.each do |l|
+      ic << l.item.inventory_code if l.item
+    end
+    ic.uniq.join(" ")
+  end
+
+
+  private
+  
+  def _id
+    id
+  end
 
 
 end

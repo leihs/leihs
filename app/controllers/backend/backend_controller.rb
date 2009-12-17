@@ -1,5 +1,5 @@
 class Backend::BackendController < ApplicationController
-  require_role "manager", :for_current_inventory_pool => true
+  require_role "lending manager", :for_current_inventory_pool => true
   
   before_filter :init
   
@@ -8,6 +8,7 @@ class Backend::BackendController < ApplicationController
   $modal_timeline_layout_path = 'layouts/backend/' + $theme + '/modal_timeline'
   $general_layout_path = 'layouts/backend/' + $theme + '/general'
   $layout_public_path = '/layouts/' + $theme
+  $empty_layout_path = '/layouts/backend/' + $theme + '/empty'
   
   layout $general_layout_path
  
@@ -21,7 +22,7 @@ class Backend::BackendController < ApplicationController
       else
         model = current_inventory_pool.models.find(params[:model_id])
       end
-      params[:user_id] ||= current_user.id # OPTIMIZE
+      params[:user_id] = current_user.id
       
       model.add_to_document(document, params[:user_id], params[:quantity], start_date, end_date, current_inventory_pool)
 
@@ -32,7 +33,8 @@ class Backend::BackendController < ApplicationController
                   :layout => 'modal',
                   :source_path => request.env['REQUEST_URI'],
                   :start_date => start_date,
-                  :end_date => end_date
+                  :end_date => end_date,
+                  :user_id => document.user_id
     end
   end
 
@@ -49,6 +51,7 @@ class Backend::BackendController < ApplicationController
     else
       redirect_to :controller => 'models', 
                   :layout => 'modal',
+                  :user_id => document.user_id,
                   :source_path => request.env['REQUEST_URI'],
                   "#{document.class.to_s.underscore}_line_id" => params[:line_id]
     end
@@ -59,17 +62,24 @@ class Backend::BackendController < ApplicationController
     @write_start = write_start
     @write_end = write_end
 
+    line_ids = params[:lines].split(',')
+    if document.is_a?(User) # NOTE take_back process
+      @lines = document.contract_lines.find(line_ids)
+    else
+      @lines = document.lines.find(line_ids)
+    end
+
     if request.post?
       begin
         start_date = Date.new(params[:line]['start_date(1i)'].to_i, params[:line]['start_date(2i)'].to_i, params[:line]['start_date(3i)'].to_i) if params[:line]['start_date(1i)']
         end_date = Date.new(params[:line]['end_date(1i)'].to_i, params[:line]['end_date(2i)'].to_i, params[:line]['end_date(3i)'].to_i) if params[:line]['end_date(1i)']
-        params[:lines].each {|l| document.update_time_line(l, start_date, end_date, current_user.id) }
+        @lines.each {|l| l.document.update_time_line(l.id, start_date, end_date, current_user.id) }
       rescue
       end 
-      flash[:notice] = document.errors.full_messages
-      redirect_to :action => 'show', :id => document.id # TODO 2602** do we need the id? check Acknowledge & HandOver & TakeBack
+      flash[:error] = []
+      @lines.collect(&:document).uniq.each {|doc| flash[:error] += doc.errors.full_messages }
+      redirect_to :action => 'show', :id => @lines.first.document.id # NOTE only used for Acknowledge
     else
-      @lines = document.lines.find(params[:lines].split(','))
       render :template => 'backend/backend/time_lines', :layout => $modal_layout_path
     end   
   end    
@@ -87,14 +97,72 @@ class Backend::BackendController < ApplicationController
 ###############################################################  
 
   protected
-    
+
+    helper_method :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :is_apprentice?, :is_admin?
+      
     def current_inventory_pool
+      return @current_inventory_pool if @current_inventory_pool # OPTIMIZE
+      return nil if controller_name == "inventory_pools" and action_name != "show"
+      #working here#
       # TODO 28** patch to Rails: actionpack/lib/action_controller/...
-      if !params[:inventory_pool_id] and params[:id]
+      # i.e. /inventory_pools/123 generates automatically params[:inventory_pools_id] additionaly to params[:id]
+      if !params[:inventory_pool_id] and params[:id] and controller_name != "users"
         request.path_parameters[:inventory_pool_id] = params[:id]
         request.parameters[:inventory_pool_id] = params[:id]
       end
+      return nil if current_user.nil? #fixes http://leihs.hoptoadapp.com/errors/756097 (when a user is not logged in but tries to go to a certain action in an inventory pool (for example when clicking a link in hoptoad)
       @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
+    end
+
+    ##################################################
+    # ACL
+  
+    def authorized_admin_user?
+      not_authorized! unless is_admin?
+    end
+
+    def authorized_privileged_user?
+      not_authorized! unless is_privileged_user?
+    end
+    
+    def not_authorized!
+        msg = "You don't have appropriate permission to perform this operation."
+        respond_to do |format|
+          format.html { flash[:error] = msg
+                        redirect_to backend_inventory_pools_path
+                      } 
+          format.js { render :text => msg }
+        end
+    end
+  
+    ####### Helper Methods #######
+
+	  def is_admin?
+    	current_user.has_role?('admin')
+  	end
+
+    def is_privileged_user?
+      (current_user.access_level_for(current_inventory_pool) >= 2) and is_owner?
+    end
+    
+    def is_super_user?
+      is_inventory_manager? and is_owner?
+    end
+    
+    def is_inventory_manager?
+      current_user.access_level_for(current_inventory_pool) >= 3
+    end
+    
+    def is_lending_manager?(inventory_pool = current_inventory_pool)
+      (current_user.access_level_for(inventory_pool) >= 2)
+    end
+    
+    def is_apprentice?(inventory_pool = current_inventory_pool)
+      (current_user.access_level_for(inventory_pool) >= 1)
+    end
+    
+    def is_owner?
+      @item.nil? or (current_inventory_pool.id == @item.owner_id)
     end
 
 ####################################################  
@@ -106,26 +174,6 @@ class Backend::BackendController < ApplicationController
       store_location
       redirect_to :controller => '/session', :action => 'new' and return
     end
-
-    @current_inventory_pool = current_inventory_pool
-
-    if @current_inventory_pool
-      @to_acknowledge_size = @current_inventory_pool.orders.submitted.size
-      @to_hand_over_size = @current_inventory_pool.hand_over_visits.size
-      @to_take_back_size = @current_inventory_pool.take_back_visits.size
-      @to_remind_size = @current_inventory_pool.remind_visits.size
-    end
-
-  end
-  
-  def set_order_to_session(order)
-    session[:current_order] = { :id => order.id,
-                                :user_id => order.user.id,
-                                :user_login => order.user.login }
-  end
-  
-  def remove_order_from_session
-    session[:current_order] = nil
   end
   
 end

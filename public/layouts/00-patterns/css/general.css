@@ -3,9 +3,9 @@ Project: leihs 2.0
 Author: stefano.vannotti@zhdk.ch
 */
 
-@import url(tabs.css) all;
-@import url(buttons.css) all;
-@import url(tables.css) all;
+@import url(tabs.css);
+@import url(buttons.css);
+@import url(tables.css);
 
 /* 	- - - - - - - - - - - - -
 GENERAL
@@ -43,7 +43,7 @@ blockquote, q {
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
-	content: none;
+  content: none;
 }
 
 
@@ -109,11 +109,6 @@ MAIN STRUCTURE
 	background: #fff;
 }
 
-#banner {
-	background: #1089d9;
-	clear: both;
-}
-
 /*
 #comment {
 	font-size: 80%;
@@ -130,7 +125,7 @@ MAIN STRUCTURE
 
 #container {
 	min-width: 800px;
-	margin-left: 150px;
+	margin-left: 180px;
 }
 
 #inner-container {
@@ -158,7 +153,6 @@ MAIN STRUCTURE
 }
 
 #personal-toolbar {
-	float: right;
 	text-align: right;
 }
 
@@ -173,13 +167,18 @@ MAIN STRUCTURE
 
 #sidebar {
 	float: left;
-	width: 150px;
+	width: 180px;
 	overflow: auto;
 	margin-bottom: 2em;
 }
 
-#sidebar ul ul {
-	margin-left: 8px;
+#sidebar > div > ul > li > ul {
+	margin-left: 1.5em;
+}
+
+#sidebar > div > ul > li {
+	border-bottom: 1px solid #a4a4a4;
+	padding: 0.5em 0 0.5em 0; 
 }
 
 /*--------------------------------
@@ -187,20 +186,18 @@ MAIN STRUCTURE
 --------------------------------*/
 
 #banner {
-	padding-left: 240px;
-	margin-bottom: 20px;
+	background: #1089d9;
+	text-align: center;
+	margin: 2px 0 2px 0;
 	border: 1px solid #1089d9;
-	height: 50px;
-	clear: both;
+	padding: 15px;
 }
 
 #banner ul li {
-	float: left;
-	margin: 1em 2.5em 1em 0;
+	margin: 1em;
 }
 
 #banner ul li a {
-	display: block;
 	background: #09f;
 	padding: 0.5em;
 	color: #fff;
@@ -259,6 +256,11 @@ CONTENT
 #inner-container h2 em {
 	font-weight: bold;
 	font-style: normal;
+}
+
+tr.availability th {
+	white-space: nowrap;
+	padding: 4px;
 }
 
 tr.availability td {
@@ -367,6 +369,26 @@ ul.model_group > li > div > span.add_button {
 	margin-left: 20px;
 }
 
+#notes {
+	float: right;
+	font-size: 30px;
+	background-repeat: no-repeat;
+	color: black;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+}
+
+#notes_text {
+	float: right;
+	width: 400px;
+	font-size: 9px;
+	background-color: #DDDDDD;
+	padding: 3px;
+	border: 1px solid #CCCCCC;
+	opacity: 0.9;
+	
+}
 /* 	- - - - - - - - - - - - -
 Pagination
  - - - - - - - - - - - - - */
@@ -507,22 +529,42 @@ img.loading_spinner {
 Time Line
  - - - - - - - - - - - - - */
 
-/*
+.datepicker_date{
+	color: black;
+	font-weight: bold;	
+}
+
+.datepicker_nodate{
+	border-width: 0;
+}
+
 .selectable_date {
-cursor: hand;
+	border: 1px solid black;
+	background: green;
 }
-*/
-.selectable_date_over {
-background-color: #DDDDDD;
+
+.selectable_date:hover {
+	cursor: pointer;
+	background-color: #DDDDDD;
 }
+/*
 .selected_date {
 border-bottom: 2px solid black;
 }
+*/
 .selected_date_start {
-border-left: 2px solid black;
+	border-top-width: 4px;
+	border-left-width: 4px;
+	border-bottom-width: 4px;
 }
 .selected_date_end {
-border-right: 2px solid black;
+	border-top-width: 4px;
+	border-right-width: 4px;
+	border-bottom-width: 4px;
+}
+
+td.date_select {
+	width: 35%;
 }
 
 

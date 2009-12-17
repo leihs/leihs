@@ -6,11 +6,13 @@ ActionController::Routing::Routes.draw do |map|
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
+  map.ldap '/switch_to_ldap', :controller => 'sessions', :action => 'switch_to_ldap' #TODO 1009: Remove when not used anymore
   # For RESTful_ACL
   #map.error '/error', :controller => 'sessions', :action => 'error'
   #map.denied '/denied', :controller => 'sessions', :action => 'denied'
 
   map.backend '/backend', :controller => 'backend/inventory_pools'
+  map.inventory '/inventory', :controller => 'inventory/inventory_pools'
   map.admin '/admin', :controller => 'admin/inventory_pools'
 
 ############################################################################
@@ -23,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
                                    :account => :get } do |user|
       user.resource :order, :member => { :submit => :post,
                                          :add_line => :post,
-                                         :change_line => :post,
+                                         :change_line_quantity => :post,
                                          :remove_lines => :delete,
                                          :change_time_lines => :post }
       user.resources :orders
@@ -47,6 +49,14 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :backend do |backend|
     backend.resources :barcodes
 
+    backend.resources :users, :member => { :access_rights => :get,
+                                          :add_access_right => :post,
+                                          :remove_access_right => :delete,
+                                          #:suspend_access_right => :post,
+                                          #:reinstate_access_right => :post,
+                                          :extended_info => :get,
+                                          :update_badge_id => :post }
+                                                    
     backend.resources :inventory_pools, :member => { :timeline => :get,
                                                      :timeline_visits => :get } do |inventory_pool|
       inventory_pool.acknowledge 'acknowledge', :controller => 'acknowledge', :action => 'index'
@@ -58,40 +68,59 @@ ActionController::Routing::Routes.draw do |map|
       inventory_pool.resources :locations do |location|
         location.resources :items
       end
+      inventory_pool.resources :categories, :member => { :add_parent => :any } do |category|
+        category.resources :parents, :controller => 'categories'
+        category.resources :children, :controller => 'categories'
+        category.resources :models
+      end
       inventory_pool.resources :options
-      inventory_pool.resources :models, :collection => { :available_items => :any,
-                                                         :new_package => :get,
+      inventory_pool.resources :models, :collection => { :new_package => :get,
                                                          :update_package => :post },
-                                        :member => { :properties => :get,
+                                        :member => { :properties => :any,
                                                      :accessories => :any,
                                                      :package => :get,
-                                                     :package_items => :get,
-                                                     :add_package_item => :put,
-                                                     :remove_package_item => :delete,
-                                                     :package_location => :any,
-                                                     :images => :get,
-                                                     :chart => :get } do |model|  # TODO 0203** temp
-            model.resources :categories
+                                                     :destroy_package => :delete,
+                                                     :update_package => :put,
+                                                     :package_roots => :any,
+                                                     :package_item => :any,
+                                                     :categories => :any,
+                                                     :images => :any } do |model|
             model.resources :compatibles, :controller => 'models'
             model.resources :items, :member => { :location => :any,
                                                  :status => :get,
                                                  :notes => :any,
-                                                 :show => :any }
+                                                 :show => :any, 
+                                                 :toggle_permission => :post,
+                                                 :retire => :any,
+                                                 :get_notes => :any 
+                                                 }
       end
       inventory_pool.resources :templates, :member => { :models => :get,
                                                         :add_model => :put }
-      inventory_pool.items 'items', :controller => 'items', :action => 'index'
+      #inventory_pool.items 'items', :controller => 'items', :action => 'index'
+      inventory_pool.resources :items, :collection => { :supplier => :any },
+                                          :member => { :location => :any,
+                                                 :status => :get,
+                                                 :notes => :any,
+                                                 :show => :any, 
+                                                 :toggle_permission => :post,
+                                                 :get_notes => :any, :notes => :any 
+                                                 }
       inventory_pool.resources :users, :member => { :new_contract => :get,
                                                     :remind => :get,
                                                     :access_rights => :get,
-                                                    :things_to_return => :get,
+                                                    :add_access_right => :post,
                                                     :remove_access_right => :delete,
-                                                    :add_access_right => :post } do |user|
+                                                    :suspend_access_right => :post,
+                                                    :reinstate_access_right => :post,
+                                                    :extended_info => :get,
+                                                    :things_to_return => :get,
+                                                    :update_badge_id => :post } do |user|
                user.resources :acknowledge, :member => { :approve => :any,
                                                          :reject => :any,
                                                          :delete => :get,
                                                          :add_line => :any,
-                                                         :change_line => :any,
+                                                         :change_line_quantity => :any,
                                                          :remove_lines => :any, # OPTIMIZE [:get, :delete] (from Rails 2.2)
                                                          :swap_model_line => :any,
                                                          :time_lines => :any,
@@ -102,6 +131,7 @@ ActionController::Routing::Routes.draw do |map|
                user.resource :hand_over, :controller => 'hand_over',
                                          :member => { :add_line => :any,
                                                       :add_line_with_item => :post, # TODO 29**
+                                                      :change_line_quantity => :post,
                                                       :change_line => :any,
                                                       :remove_lines => :any, # OPTIMIZE [:get, :delete] (from Rails 2.2)
                                                       :swap_model_line => :any,
@@ -112,8 +142,8 @@ ActionController::Routing::Routes.draw do |map|
                                                       :timeline => :get,
                                                       :delete_visit => :delete,
                                                       :select_location => :any,
-                                                      :auto_complete_for_location_building => :get,
-                                                      :auto_complete_for_location_room => :get }
+                                                      :swap_user => :any, 
+                                                      :set_purpose => :post }
                 user.resource :take_back, :controller => 'take_back',
                                           :member => { :close_contract => :any,
                                                        :assign_inventory_code => :post,
@@ -128,42 +158,42 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
+    
 ############################################################################
 # Admin
 
-  map.namespace :admin do |admin|
-    admin.resources :inventory_pools, :member => { :locations => :get,
-                                                   :add_location => :post,
-                                                   :remove_location => :delete, # OPTIMIZE nest locations to inventory_pools ?
-                                                   :managers => :get,
-                                                   :remove_manager => :delete,
-                                                   :add_manager => :put } do |inventory_pool|
-        inventory_pool.resources :items
-    end
-    admin.items 'items', :controller => 'items', :action => 'index'
-    admin.resources :models, :member => { :properties => :get,
-                                          :add_property => :post,
-                                          :remove_property => :delete,
-                                          :images => :any,
-                                          :accessories => :get,
-                                          :add_accessory => :post,
-                                          :remove_accessory => :delete } do |model|
-        model.resources :items, :member => { :model => :get,  # TODO 12** remove and nest to models ??
-                                             :inventory_pool => :any,
-                                             :notes => :any }
-        model.resources :categories
-        model.resources :compatibles, :controller => 'models'
-    end
-    admin.resources :categories, :member => { :add_parent => :any } do |category|
-        category.resources :parents, :controller => 'categories'
-        category.resources :children, :controller => 'categories'
-        category.resources :models
-    end
-    admin.resources :users, :member => { :access_rights => :get,
-                                         :remove_access_right => :delete,
-                                         :add_access_right => :post }
-    admin.resources :roles
-  end
+#  map.namespace :admin do |admin|
+#    admin.resources :inventory_pools, :member => { :managers => :get,
+#                                                   :remove_manager => :delete,
+#                                                   :add_manager => :put } do |inventory_pool|
+#        inventory_pool.resources :items
+#    end
+#    admin.items 'items', :controller => 'items', :action => 'index'
+#    admin.resources :models, :member => { :properties => :any,
+#                                          :images => :any,
+#                                          :accessories => :get,
+#                                          :add_accessory => :post,
+#                                          :categories => :any,
+#                                          :remove_accessory => :delete }  do |model|
+#        model.resources :items, :member => { :model => :get,  # TODO 12** remove and nest to models ??
+#                                             :inventory_pool => :any,
+#                                             :notes => :any,
+#                                             :supplier => :any,
+#                                             :change_supplier => :post }
+#        model.resources :compatibles, :controller => 'models'
+#    end
+#    admin.resources :categories, :member => { :add_parent => :any } do |category|
+#        category.resources :parents, :controller => 'categories'
+#        category.resources :children, :controller => 'categories'
+#        category.resources :models
+#    end
+#    admin.resources :users, :member => { :access_rights => :get,
+#                                         :remove_access_right => :delete,
+#                                         :suspend_access_right => :post,
+#                                         :reinstate_access_right => :post,           
+#                                         :add_access_right => :post }
+#    admin.resources :roles
+#  end
 
 ############################################################################
 
@@ -176,6 +206,7 @@ ActionController::Routing::Routes.draw do |map|
 # TODO 30** remove "map.connect" for authenticator, use named route instead
   map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
   map.connect 'authenticator/db/:action/:id', :controller => 'authenticator/database_authentication'
+  map.connect 'authenticator/ldap/:action/:id', :controller => 'authenticator/ldap_authentication'
 #  map.connect ':controller/:action/:id', :defaults => { :controller => 'frontend' }
 #  map.connect ':controller/:action/:id.:format'
 end

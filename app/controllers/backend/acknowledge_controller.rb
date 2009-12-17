@@ -7,20 +7,18 @@ class Backend::AcknowledgeController < Backend::BackendController
     @submitted_orders = orders
     @working_orders = orders.select { |o| o.has_backup? }
 
-    orders = orders & @user.orders.submitted if @user
+    orders = orders & @user.orders.submitted if @user # TODO 1209** @user.orders.by_inventory_pool(current_inventory_pool).submitted
 
-    @orders = orders.search(params[:query], :page => params[:page])
+    @orders = orders.search(params[:query], :page => params[:page], :per_page => $per_page)
   end
   
   def show
     @order.to_backup unless @order.has_backup?
-    set_order_to_session(@order)
   end
   
   def approve
     if request.post? and @order.approve(params[:comment], current_user)
       # TODO test# @order.destroy # TODO remove old orders ?
-      remove_order_from_session
       redirect_to :action => 'index'
     else
       render :layout => $modal_layout_path
@@ -34,7 +32,6 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order.save
       Notification.order_rejected(@order, params[:comment], true, current_user )
       
-      remove_order_from_session
       redirect_to :action => 'index'
     else
       render :layout => $modal_layout_path
@@ -56,7 +53,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def destroy
       @order.destroy
-      remove_order_from_session
       redirect_to :controller=> 'acknowledge', :action => 'index'
   end
 
@@ -69,7 +65,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
   
   # change quantity for a given line
-  def change_line
+  def change_line_quantity
     if request.post?
       @order_line = current_inventory_pool.order_lines.find(params[:order_line_id])
       @order = @order_line.order
@@ -92,7 +88,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   def change_purpose
     if request.post?
       @order.change_purpose(params[:purpose], current_user.id)
-      redirect_to backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, @order.user, @order)
+      redirect_to backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order)
     else
       render :layout => $modal_layout_path
     end
@@ -105,7 +101,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       else
         @order.swap_user(params[:swap_user_id], current_user.id)
       end  
-      redirect_to backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, @order.user, @order)
+      redirect_to backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order)
     else
       redirect_to :controller => 'users', 
                   :layout => 'modal',

@@ -2,6 +2,9 @@ class UsersController < FrontendController
 
   before_filter :pre_load
 
+  def show
+    render :layout => false
+  end
 
   def account
     render :layout => false

@@ -10,7 +10,15 @@
 
 	<br />
 
-	<% form_for [:backend, @current_inventory_pool, @item.model, @item] do |f| %>
+<% if @item.retired %>
+	<%= _("Item was retired on") %> <%= short_date(@item.retired) %> <%= _("(%s)") % @item.retired_reason if @item.retired_reason%> 
+	<br/>
+	<%= _("Working order") %>: <%= @item.is_broken? ? _("Broken") : _("OK") %><br/>
+	<%= _("Completeness") %>: <%= @item.is_incomplete? ? _("Incomplete") : _("OK") %><br/>
+	<%= _("Borrowable") %>: <%= @item.is_borrowable ? _("OK") : _("Unborrowable") %><br/>
+<% else %>
+
+	<% form_for [:backend, current_inventory_pool, @item.model, @item] do |f| %>
 	<table style="width: 500px;">
 		<tr><td><%= _("Working order") %>:</td>
 		<td>
@@ -24,8 +32,8 @@
 		</td></tr>
 		<tr><td><%= _("Borrowable") %>:</td>
 		<td>
-		<%= f.radio_button(:is_borrowable, true) + _("OK") %> 
-		<%= f.radio_button(:is_borrowable, false) + _("Unborrowable") %>
+			<%= f.radio_button(:is_borrowable, true) + _("OK") %> 
+			<%= f.radio_button(:is_borrowable, false) + _("Unborrowable") %>
 		</td></tr>
 		<tr><td colspan="2">
 			<%= f.submit _("Submit") %>
@@ -34,6 +42,7 @@
 	<% end %>
 
 
+<% end %>
 	<br />
 	
 	<% # TODO 29** only accessories related to current_inventory_pool %>

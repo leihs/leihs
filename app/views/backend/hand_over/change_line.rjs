@@ -1,13 +1,14 @@
 
 if @contract_line or @option_line
 
+  @contract.reload
   page.replace_html 'lines', :partial => 'lines'
   page << "toggle_buttons('contract_line_check', 'ghostable_group_1');"
   
 elsif @new_item
   flash[:error] = _("Inventory Code identifies an item that is not in this order:") +
                   "<br/><i>#{@new_item.model.name} - #{@new_item.inventory_code}</i><br/>" +
-                  link_to(_("Add Item"), add_line_with_item_backend_inventory_pool_user_hand_over_path(@current_inventory_pool, @contract.user, :item_id => @new_item), :method => 'post', :target=> '_top')
+                  link_to(_("Add Item"), add_line_with_item_backend_inventory_pool_user_hand_over_path(current_inventory_pool, @contract.user, :item_id => @new_item), :method => 'post', :target=> '_top')
 end
 
 if flash

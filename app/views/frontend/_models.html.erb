@@ -8,6 +8,7 @@
 					   {name: 'id', type: 'int'},
 					   {name: 'name', type: 'string'},
 					   {name: 'manufacturer', type: 'string'},
+					   {name: 'needs_permission', type: 'boolean'},
 					   {name: 'description', type: 'string'},
 					   {name: 'properties'},
 					   {name: 'inventory_pools'},
@@ -15,7 +16,8 @@
 					   {name: 'accessories'},
 					   {name: 'images'},
 					   {name: 'is_package', type: 'boolean'},
-					   {name: 'package_items'}
+					   {name: 'package_models'},
+					   {name: 'image_thumb'}
 		        ]
 		    });
 
@@ -40,13 +42,21 @@
 	 	},
         remoteSort: true // turn on remote sorting
     });
-    models_store.setDefaultSort('name', 'asc');
+    models_store.setDefaultSort('name', 'ASC');
 
     // the column model has information about grid columns
     // dataIndex maps the column to the specific data field in
     // the data store
     var models_cm = new Ext.grid.ColumnModel([
 		{
+		   fixed: true,
+		   menuDisabled: true,
+		   dataIndex: 'image_thumb',
+           width: 60,
+		   renderer: function(value, metadata, record){
+		   				return (value != null ? '<img src="'+value+'" width="50px"/>' : value);
+					 }
+		},{
            header: "Name",
            dataIndex: 'name',
            width: 400
@@ -55,7 +65,7 @@
            dataIndex: 'manufacturer',
            width: 200,
  		   renderer: function(value, metadata, record){
-		   				return (record.data.is_package ? '<img src="<%= $layout_public_path + "/images/icons/package_green.png" %>" />' : value);
+		   				return (record.data.is_package ? '<img src="<%= icon_path('box') %>" />' : value);
 					 }
         },{
            header: "Inventory Pool",
@@ -72,9 +82,10 @@
         }, {header: "",
 			width: 50,
 			fixed: true,
+		    menuDisabled: true,
 			dataIndex: '',
 			align: 'center',
-			renderer: function(){ return '<img src="<%= $layout_public_path + "/images/icons/add.png" %>" style="cursor: pointer;" />';}
+			renderer: function(){ return '<img src="<%= icon_path('add') %>" style="cursor: pointer;" />';}
 		}]);
 
     // by default columns are sortable
@@ -106,10 +117,12 @@
 			}
 		},
         tbar: [
-            '<%= _("Search") %>: ',
-			models_search_field,
             ' <%= _("Category") %>: ',
-			models_tbar_label= new Ext.form.Label({ text: '<%= _("All") %>' })
+			models_tbar_label= new Ext.form.Label({ text: '<%= _("All") %>',
+													style: 'font-weight:bold;' }),
+			'-',
+            '<%= _("Search") %>: ',
+			models_search_field
         ],
 		bbar: new Ext.PagingToolbar({
             pageSize: 25,
@@ -235,10 +248,11 @@ function add_model_details(model_id, open_add_tab){
 										 	'<img src="{public_filename_thumb}" onclick="new Ext.Window({width: {width}, height: {height}, html: \'<img src={public_filename}>\'}).show();"><br/>',
 										 '</tpl></div>',                
                                          '<h2>{name} ({manufacturer})</h2>',
+										 '<tpl if="needs_permission"><p><%= _("This model may need permission!") %></p></tpl>',
                                          '<p>{description}</p>',
-											'<tpl if="package_items.length">',
-												'<br />Package: <ul><tpl for="package_items">',
-							            			'<li>{inventory_code}, <tpl for="model">{name}, {manufacturer}</tpl></li>',
+											'<tpl if="package_models.length">',
+												'<br /><b>Package:</b><ul><tpl for="package_models">',
+							            			'<li>{name}, {manufacturer}</li>',
 								        		'</tpl></ul>',
 							        		'</tpl>',
                                         '</div>',
@@ -287,11 +301,10 @@ function add_model_details(model_id, open_add_tab){
 			}, {
 				id: 'chart_tab_' + model_id,
 				xtype: 'dataview',
-				title: '<%= _("Chart") %>',
+				title: '<%= _("Availability") %>',
 				itemSelector: 'img.model_chart',
-                tpl: new Ext.XTemplate('<tpl for=".">', 
-                                         '<img src="/models/{id}/chart?days_from_today=0" id="chart_{id}" alt="Chart..." class="model_chart">',
-										 '<br/><a onclick="var c=$(\'chart_{id}\'); var q=c.src.toQueryParams(); var d = 1 * q.days_from_today - 90; c.src=\'/models/{id}/chart?days_from_today=\' + d; return false;" href="#">Prev</a> <a onclick="var c=$(\'chart_{id}\'); var q=c.src.toQueryParams(); var d = 1 * q.days_from_today + 90; c.src=\'/models/{id}/chart?days_from_today=\' + d; return false;" href="#">Next</a>',
+                tpl: new Ext.XTemplate('<tpl for=".">',
+										 '<iframe src="/models/{id}/chart" width="100%" height="100%" frameborder="0"></iframe>', 
 										'</tpl>')
 			}, {
 				id: 'add_tab_' + model_id,
@@ -359,7 +372,6 @@ function add_model_details(model_id, open_add_tab){
 							id: 'start_date_' + model_id,
 							name: 'start_date',
 							value: (complete_order_store.data.length ? get_last_inserted_line().data.start_date : new Date()),
-							//minValue: new Date(),
 							disabledDays: [6, 0],
 							listeners: {
 								valid: function(){
@@ -379,7 +391,6 @@ function add_model_details(model_id, open_add_tab){
 							id: 'end_date_' + model_id,
 							name: 'end_date',
 							value: (complete_order_store.data.length ? get_last_inserted_line().data.end_date : new Date()),
-							//minValue: new Date(),
 							disabledDays: [6, 0],
 							validator: function(){
 								var start_date = this.findParentByType('form').findById('start_date_' + model_id).getValue();
@@ -399,7 +410,7 @@ function add_model_details(model_id, open_add_tab){
 							text: '<%= _("Add") %>',
 							type: 'submit',
 							iconCls: 'bt',
-							icon: '<%= $layout_public_path + "/images/icons/add.png" %>',
+							icon: '<%= icon_path('add') %>',
 							minWidth: 90,
 							handler: function(){
 								this.findParentByType('form').form.submit({

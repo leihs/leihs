@@ -1,0 +1,21 @@
+
+var splash_page_html = '\
+<div id="blankpage"> \
+<h1>Geräte-Ausleihe an der ZHdK</h1> \
+<p>Dies ist das Geräte-Ausleihesystem der Zürcher Hochschule der Künste. Über dieses System haben Sie Zugriff auf mehrere Tausend Geräte, können sich einen Überblick über das Angebot verschaffen und Reservationen abschicken.</p>\
+<h2>Nach dem ersten Einloggen</h2>\
+<p>Falls Sie sich vorher noch nie in dieses System eingeloggt haben, besitzen Sie jetzt lediglich die Berechtigungen für die Geräteparks ITZ und AV-Ausleihe. Je nachdem, wo Sie studieren, sind Sie vielleicht für weitere Geräteparks berechtigt. Erkundigen Sie sich bei Ihrer Vertiefung, ob sie eine eigene Geräte-Ausleihe betreibt. Die für die Ausleihe zuständigen Personen der Vertiefung können Ihnen auch die entsprechenden Berechtigungen in leihs erteilen.</p>\
+<h2>Hilfe zum Ausleihvorgang</h2>\
+<p>Bitte vergessen Sie nicht, Ihre Bestellung jeweils abzuschliessen! Es sind mehrere Schritte nötig: Auswahl der gewünschten Geräte, Festlegung des Ausleih-Zeitraums bzw. der Geräteparks und Abschicken der Bestellung. Weitere Informationen finden Sie unter &quot;Hilfe&quot; (am oberen Seitenrand).</p>\
+<h2>Spezialregelung FFI und MFI</h2>\
+<p><strong>Die Geräteparks FFI und MFI sind aus technischen Gründen noch nicht über dieses System verfügbar.</strong> Bitte verwenden Sie für Ausleihen bei FFI und MFI das <a href="http://ffi.ausleihe.zhdk.ch">dortige System</a>.</p>\
+';
+
+
+var splash_page = new Ext.Panel({
+							title: '<%= _("Welcome") %>',
+							html: splash_page_html,
+              frame: true,
+							closable: true,
+                            autoScroll: true
+						});

@@ -1,0 +1,30 @@
+<%
+if @item.retired
+	action = _("Unretire")
+	description = _("The item %s will be unretired and be available for rentals.") % @item.inventory_code
+else
+	action = _("Retire")
+	description = _("The item %s will be retired and no longer be available for rentals.") % @item.inventory_code
+end
+%>
+
+<h3><%= action %></h3>
+<p><%= description %></p>
+<br/>
+<p><%= _("Reason") %>:</p>
+<br/>
+
+<% form_tag( {:action => 'retire', :id => params[:id]}, :name => "f", :target => "_top") do %>
+		<%= hidden_field_tag 'retired', @item.retired %>
+		<%= text_area_tag 'reason', @item.retired_reason, :size => "25x10" %>
+	  
+		<br />
+		<br />
+		
+		<div class="buttons">
+		  <%= submit_button(action, {:icon => "door", :class => 'positive'} ) %>
+		  <%= cancel_popup_button(_("Cancel") ) %>
+		</div>	
+	
+<% end %>
+  

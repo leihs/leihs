@@ -13,8 +13,17 @@ class Authenticator::DatabaseAuthenticationController < Authenticator::Authentic
   def login
     if request.post?
       l = DatabaseAuthentication.authenticate(params[:login][:user], params[:login][:password])
-      self.current_user = l.user
-      redirect_back_or_default("/")
+      if l
+        self.current_user = l.user
+        if current_user.access_rights.size == 0
+          render :text => _("You don't have any rights to access this application.") 
+          return
+        end
+        redirect_back_or_default("/")
+      else
+        flash[:notice] = _("Invalid username/password")
+        redirect_to :action => 'login'
+      end
     end
   end
 
@@ -25,9 +34,15 @@ class Authenticator::DatabaseAuthenticationController < Authenticator::Authentic
       d.password_confirmation = d.password
       unless d.save
         flash[:error] = d.errors.full_messages
+      else
+        flash[:notice] = _("Password changed")
       end
-      redirect_to :controller => 'admin/users', :action => 'show', :id => d.user.id
+      render :update do |page|
+        page.replace_html 'flash', flash_content
+        flash.discard
+      end
     end
+    
   end
   
 end

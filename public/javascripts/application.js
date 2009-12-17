@@ -22,18 +22,19 @@ function change_href(a, checkbox_name, param_name){
 
 /////////////////////////////////////////////////////////
 
-// TODO 2702** optimize
+// TODO prevent field for unchecked lines to be sent
 function input_values(inputs){
 	s = "";
 	$$('body input.' + inputs).each(
 		function(input){
+			// OPTIMIZE "contract_line" is hardcoded
+			// FIXME input.value is wrong!!! // if($('contract_line_check_' + input.value).checked)
 			s += '&' + input.name + '=' + input.value;
 		}
 	);
 	return s;
 }
 
-// TODO 2702** optimize
 function change_href_input(a, input_name){
 	var s = input_values(input_name);
 	
@@ -75,13 +76,24 @@ function refresh_me()
 	window.location.reload();
 }
 
-function show_date(d){
-	var weekday=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
-	var monthname=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+function show_date(d,f){
 	var r = "";
-	r += weekday[d.getDay()] + "<br/>";
-	r += d.getDate() + ". ";
-	r += monthname[d.getMonth()] + " ";
-	r += d.getFullYear();
+
+	if (f == true) // long format
+		{
+			var weekday=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
+			var monthname=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+			r += d.getDate() + ". ";
+			r += monthname[d.getMonth()] + " ";
+			r += d.getFullYear() + ", ";
+			r += weekday[d.getDay()];
+		}
+	else
+		{
+			r += d.getDate() + ".";
+			r += d.getMonth()+1 + ".";
+			r += d.getFullYear();
+		}
+	
 	return r;
 }

@@ -25,3 +25,7 @@ ActionMailer::Base.smtp_settings = {
   :domain => "ausleihe.zhdk.ch"
 }
 ActionMailer::Base.default_charset = 'utf-8'
+
+
+# For some reason, this setting does not propagate from environment.rb
+ENV['INLINEDIR'] = "#{RAILS_ROOT}/tmp/"

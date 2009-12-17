@@ -1,0 +1,751 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.2.7" />
+<style type="text/css">
+/* Debug borders */
+p, li, dt, dd, div, pre, h1, h2, h3, h4, h5, h6 {
+/*
+  border: 1px solid red;
+*/
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+tt {
+  color: navy;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  font-family: sans-serif;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+
+div.sectionbody {
+  font-family: serif;
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+span#author {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+span#email {
+}
+span#revision {
+  font-family: sans-serif;
+}
+
+div#footer {
+  font-family: sans-serif;
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+div#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+div#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+div#preamble,
+div.tableblock, div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-right: 10%;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+
+div.listingblock {
+  margin-right: 0%;
+}
+div.listingblock > div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock {
+  padding-left: 2.0em;
+}
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock {
+  padding-left: 2.0em;
+}
+div.verseblock > div.content {
+  white-space: pre;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 2px solid silver;
+}
+
+div.exampleblock > div.content {
+  border-left: 2px solid silver;
+  padding: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+div.imageblock img { border: 1px solid silver; }
+span.image img { border-style: none; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+div.olist > ol {
+  list-style-type: decimal;
+}
+div.olist2 > ol {
+  list-style-type: lower-alpha;
+}
+
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+tfoot {
+  font-weight: bold;
+}
+
+div.hlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hlist td {
+  padding-bottom: 15px;
+}
+td.hlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+}
+td.hlist2 {
+  vertical-align: top;
+}
+
+@media print {
+  div#footer-badges { display: none; }
+}
+
+div#toctitle {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+/* Workarounds for IE6's broken and incomplete CSS2. */
+
+div.sidebar-content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+div.sidebar-title, div.image-title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 0.0em;
+  margin-bottom: 0.5em;
+}
+
+div.listingblock div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock-attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock-content {
+  white-space: pre;
+}
+div.verseblock-attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+
+div.exampleblock-content {
+  border-left: 2px solid silver;
+  padding-left: 0.5em;
+}
+
+/* IE6 sets dynamically generated links as visited. */
+div#toc a:visited { color: blue; }
+
+/* Because IE6 child selector is broken. */
+div.olist2 ol {
+  list-style-type: lower-alpha;
+}
+div.olist2 div.olist ol {
+  list-style-type: decimal;
+}
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.onload = function(){generateToc(2)}
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, October 2006. License: GPL */
+
+function getText(el) {
+  var text = "";
+  for (var i = el.firstChild; i != null; i = i.nextSibling) {
+    if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+      text += i.data;
+    else if (i.firstChild != null)
+      text += getText(i);
+  }
+  return text;
+}
+
+function TocEntry(el, text, toclevel) {
+  this.element = el;
+  this.text = text;
+  this.toclevel = toclevel;
+}
+
+function tocEntries(el, toclevels) {
+  var result = new Array;
+  var re = new RegExp('[hH]([2-'+(toclevels+1)+'])');
+  // Function that scans the DOM tree for header elements (the DOM2
+  // nodeIterator API would be a better technique but not supported by all
+  // browsers).
+  var iterate = function (el) {
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+        var mo = re.exec(i.tagName)
+        if (mo)
+          result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+        iterate(i);
+      }
+    }
+  }
+  iterate(el);
+  return result;
+}
+
+// This function does the work. toclevels = 1..4.
+function generateToc(toclevels) {
+  var toc = document.getElementById("toc");
+  var entries = tocEntries(document.getElementsByTagName("body")[0], toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "toc" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    document.getElementById("header").removeChild(toc);
+}
+/*]]>*/
+</script>
+<title>leihs administration and installation guide</title>
+</head>
+<body>
+<div id="header">
+<h1>leihs administration and installation guide</h1>
+<span id="author">Ramon Cahenzli</span><br />
+<span id="email"><tt>&lt;<a href="mailto:ramon.cahenzli@zhdk.ch">ramon.cahenzli@zhdk.ch</a>&gt;</tt></span><br />
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="para"><p>leihs is web-based inventory handling and resource booking system. It allows users to view available equipment and place reservations through the frontend. Inventory managers and sysadmins use the backend to handle incoming reservations and manage items in the inventory.</p></div>
+<div class="para"><p>This guide shows you how to install a leihs server. The guide is written from the perspective of a system administrator or developer. If you are interested in running leihs in your own organization but aren't a sysadmin, talk to your IT department. leihs is not intended to be installed on a client, so any software installation on your own machine isn't necessary. All you need is a web browser.</p></div>
+<div class="para"><p>Consulting and installation services are also available from independent companies supporting Free Software all around the world. Ask around for a company or individual who knows Ruby on Rails applications, you will surely find someone who can help you install leihs.</p></div>
+<div class="para"><p>If you are such a person yourself and would like to have your services listed on the leihs project website and in this document, please write me an e-mail.</p></div>
+</div>
+<h2 id="_quick_install">Quick Install</h2>
+<div class="sectionbody">
+<div class="para"><p>This section is meant for admins experienced with installing Ruby on Rails applications. It lists the necessary installation steps in the briefest possible way, so you can get up and running quickly.</p></div>
+<h3 id="_installation_on_mac_os_x">Installation on Mac OS X</h3><div style="clear:left"></div>
+<div class="para"><p>The following steps were tested on Mac OS X 10.5 on an x86. They may also work for later versions.</p></div>
+<div class="olist"><ol>
+<li>
+<p>
+Install Apple Xcode. This is required because some modules may need a C/C++ compiler. XCode is <a href="http://developer.apple.com/Tools/">available from Apple</a> after a free developer registration.
+</p>
+</li>
+<li>
+<p>
+Install MySQL 5.0. Use the 32-bit version if you are running OS X Leopard (10.5) but use the 64-bit version if you're on Snow Leopard (10.6). <strong>Make absolutely sure to install the 32-bit version on Leopard (10.5) even if you are running a 64-bit operating system.</strong> Some bugs in Mac OS X's MySQL and Ruby integration make it impossible to continue otherwise.
+</p>
+</li>
+<li>
+<p>
+Update the local gem system:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ sudo gem update --system</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Install the required version of Rails as well as a few gems that cannot be installed automatically:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ sudo gem install rails -v 2.1.1
+$ sudo gem install gettext -v 1.93.0
+$ sudo gem install RubyInline
+$ sudo gem install ferret -v 0.11.6
+$ sudo gem install acts_as_ferret -v 0.4.3
+$ sudo gem install barby -v 0.2.0
+$ sudo gem install png -v 1.1.0</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Install the native MySQL gem:
+</p>
+<div class="para"><p>If you are installing on Snow Leopard (OS X 10.6) use the following installation options:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt> $ sudo env ARCHFLAGS='-arch x86_64' \
+gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config</tt></pre>
+</div></div>
+<div class="para"><p>If you are using Leopard (OS X 10.5) or below, use the following string instead:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt> $ sudo gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config \
+--with-mysql-dir=/usr/local/mysql --with-mysql-lib=/usr/local/mysql/lib
+\ --with-mysql-include=/usr/local/mysql/include</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Try out if Rails works on your machine:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd /tmp
+$ rails test
+$ cd test
+$ ./script/server</tt></pre>
+</div></div>
+<div class="para"><p>You should see a web page at <a href="http://localhost:3000">http://localhost:3000</a>. If not, please make sure that Rails is installed properly before continuing.</p></div>
+<div class="para"><p>If this works, stop the server again using Ctrl-C.</p></div>
+</li>
+<li>
+<p>
+Download the latest version of leihs from our <a href="http://sourceforge.net/projects/leihs">SourceForge project page</a>. Unpack it to a convenient directory. We use the home directory of the <em>leihs</em> user (/Users/leihs) to install leihs in. Of course you can use any directory.
+</p>
+</li>
+<li>
+<p>
+Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>development:
+   adapter: mysql
+   database: leihs2_development
+   encoding: utf8
+   username: root
+   password:
+   host: localhost
+   port: 3306</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Create and migrate the database:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ rake db:migrate</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Start the server:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ ./script/server</tt></pre>
+</div></div>
+</li>
+</ol></div>
+<div class="para"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
+<h3 id="_installation_on_debian_gnu_linux">Installation on Debian GNU/Linux</h3><div style="clear:left"></div>
+<div class="para"><p>These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny).</p></div>
+<div class="olist"><ol>
+<li>
+<p>
+Install Ruby and irb
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt># apt-get install ruby irb rdoc libopenssl-ruby ruby-dev</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Install RubyGems from <a href="http://rubygems.org/">the RubyGems website</a>. Make sure <strong>not to install</strong> the edition of RubyGems that is available from Debian's package archives. RubyGem development moves so quickly that we need to use the one from upstream.
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt># cd /tmp
+# wget http://rubyforge.org/frs/download.php/56227/rubygems-1.3.3.tgz
+# tar xvfz rubygems-1.3.3.tgz
+# cd rubygems-1.3.3
+# ruby setup.rb
+# ln -s /usr/bin/gem1.8 /usr/bin/gem</tt></pre>
+</div></div>
+<div class="para"><p>Note that the URL above might change! Please visit the RubyGems site to find the exact URL under "Downloads".</p></div>
+</li>
+<li>
+<p>
+Install the required version of Rails as well as a few gems that cannot be installed automatically:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt># gem install rails -v 2.1.1
+# gem install gettext -v 1.93.0
+# gem install RubyInline
+# gem install ferret -v 0.11.6
+# gem install acts_as_ferret -v 0.4.3
+# gem install barby -v 0.2.0
+# gem install png -v 1.1.0</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Install the MySQL header files and the MySQL gem:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt># apt-get install libmysqlclient15-dev make
+# gem install mysql</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Try out if Rails works on your machine:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd /tmp
+$ rails test
+$ cd test
+$ ./script/server</tt></pre>
+</div></div>
+<div class="para"><p>You should see a web page at <a href="http://localhost:3000">http://localhost:3000</a>. If not, please make sure that Rails is installed properly before continuing.</p></div>
+<div class="para"><p>If this works, stop the server again using Ctrl-C.</p></div>
+</li>
+<li>
+<p>
+Download the latest version of leihs from our <a href="http://sourceforge.net/projects/leihs">SourceForge project page</a>. Unpack it to a convenient directory. We use the home directory of the <em>leihs</em> user (/home/leihs) to install leihs in. Of course you can use any directory.
+</p>
+</li>
+<li>
+<p>
+Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>development:
+   adapter: mysql
+   database: leihs2_development
+   encoding: utf8
+   username: root
+   password:
+   host: localhost
+   port: 3306</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Create and migrate the database:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt># su - leihs
+$ rake db:migrate</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Start the server:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ ./script/server</tt></pre>
+</div></div>
+</li>
+</ol></div>
+<div class="para"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
+</div>
+<h2 id="_default_admin_username_password">Default admin username/password</h2>
+<div class="sectionbody">
+<div class="para"><p>After installation, a default user is created for the Database Authentication module. Username: super_user_1. Password: pass.</p></div>
+</div>
+<h2 id="_installing_a_production_environment">Installing a production environment</h2>
+<div class="sectionbody">
+<div class="para"><p>Please note that running the server in development mode as shown in the quick-start guide is not recommended for production. Once you have made sure that the server works in development mode and wish to start using leihs properly, please run it in production mode (<tt>RAILS_ENV=<em>production</em> ./script/server</tt>). Also, this quick-start guide does not cover running a Ruby on Rails application for production. Please look into <a href="http://www.modrails.com/">Phusion Passenger</a> or the Apache Mongrel cluster in the reference section for how to set up a production environment.</p></div>
+<div class="para"><p>Without a real production environment, leihs can handle upwards of 1000 users (not concurrently, of course!). If you need better performance, you must set up a proper production environment.</p></div>
+</div>
+<h2 id="_free_software_statement">Free Software Statement</h2>
+<div class="sectionbody">
+<div class="para"><p>The Zurich University of the Arts supports Free Software <a href="http://www.gnu.org/philosophy/free-sw.html">as defined by the Free Software Foundation</a>. That's why leihs is Free Software licensed under the GNU GPL version 3.0.</p></div>
+<div class="para"><p>One of the advantages this freedom brings with it is that it enables anyone in the world to provide local support services for leihs at the same quality level as the Zurich University of the Arts can provide itself.</p></div>
+<div class="para"><p>If you would like to take part in the development of leihs, please see our <a href="http://code.zhdk.ch/projects/leihs">project page</a>.</p></div>
+</div>
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="para"><p>Setting up production environments with Rails:</p></div>
+<div class="ilist"><ul>
+<li>
+<p>
+<a href="http://www.modrails.com/">http://www.modrails.com/</a>
+</p>
+</li>
+<li>
+<p>
+<a href="http://blog.codahale.com/2006/06/19/time-for-a-grown-up-server-rails-mongrel-apache-capistrano-and-you/">http://blog.codahale.com/2006/06/19/time-for-a-grown-up-server-rails-mongrel-apache-capistrano-and-you/</a>
+</p>
+</li>
+</ul></div>
+</div>
+<h2 id="_appendix_a_zhdk_configuration_file_for_mongrel_cluster">Appendix A: ZHdK configuration file for mongrel cluster</h2>
+<div class="sectionbody">
+<div class="para"><p>As an example to help you set up a production environment, here is the Apache configuration we use. You will need mod_proxy:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>&lt;VirtualHost *:80&gt;
+   ServerName ausleihe.zhdk.ch
+
+   DocumentRoot /home/rails/leihs/leihs/public/
+   ErrorLog /var/log/apache2/leihs/error.log
+
+   # Which Rails environment to use (production, testing, production)
+   DefaultInitEnv RAILS_ENV production
+   SetEnv RAILS_ENV production
+
+  # Proxy balancer for leihs
+  &lt;Proxy balancer://leihs_cluster&gt;
+    BalancerMember http://127.0.0.1:10010
+    BalancerMember http://127.0.0.1:10011
+    BalancerMember http://127.0.0.1:10012
+    BalancerMember http://127.0.0.1:10013
+  &lt;/Proxy&gt;
+
+
+   # We want to completely ignore the application's own
+   # .htaccess, as all relevant options are configured
+   # right here in this file.
+   &lt;Directory /home/rails/leihs/leihs/public&gt;
+      AllowOverride none
+   &lt;/Directory&gt;
+
+
+   # Don't do forward proxying
+   ProxyRequests Off
+
+   # Enable reverse proxying
+   &lt;Proxy *&gt;
+     Order deny,allow
+     Allow from all
+   &lt;/Proxy&gt;
+
+   RewriteEngine On
+
+   # Check for maintenance file. Let apache load it if it exists
+   RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+   RewriteRule . /system/maintenance.html [L]
+
+   # Rewrite index to check for static
+   RewriteRule ^/$ /index.html [QSA]
+
+   # Let apache serve static files (send everything via mod_proxy that
+   # is *no* static file (!-f)
+   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-f
+   RewriteRule .* balancer://leihs_cluster%{REQUEST_URI} [L,P,QSA]
+&lt;/VirtualHost&gt;</tt></pre>
+</div></div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2009-10-08 11:01:57 CEST
+</div>
+</div>
+</body>
+</html>

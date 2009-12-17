@@ -1,43 +1,50 @@
-	<tr class="alt-row" id="order_line_<%= @line.id %>">
-		<td>
-			<%= check_box_tag('order_lines[]', @line.id, false, :class => "order_line_check", :onchange => "toggle_buttons('order_line_check', 'ghostable_group_1');" ) %>
-				<%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %>
+<tr class="alt-row" id="order_line_<%= @line.id %>">
+	<td>
+		<%= check_box_tag('order_lines[]', @line.id, false, :class => "order_line_check", :onchange => "toggle_buttons('order_line_check', 'ghostable_group_1');" ) %>
+		<%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line_quantity', :order_line_id => @line.id}, :with => "'quantity=' + value" )) %>
 
-			<% # TODO 03** tooltip %>
-			<% tooltip icon_tag('error') do %>
-				<%= @line.tooltip %>
-			<% end unless @line.complete? %>
+		<% # TODO 03** tooltip %>
+		<% tooltip icon_tag('error') do %>
+			<%= @line.tooltip %>
+		<% end unless @line.complete? %>
 
-			<% # TODO temp start %>
-			  <ul>
-			  <% if @current_inventory_pool %>
-			  	<% ip = @current_inventory_pool %>
-				<li><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %></li>
-			  <% else %>
-				<li><%= "(max #{@line.model.maximum_available_in_period_for_document_line(@line.start_date, @line.end_date, @line)})" %></li>
-				<% for ip in @line.model.inventory_pools %>
-					<li <%= (@line.inventory_pool == ip ? "style='color: red;'" : "") %>><%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %></li>
-				<% end %>
-			  <% end %>
-			  </ul>
-			<% # TODO temp end %>							
-		</td>
-		<td>
-			<%= show_line_model(@line.model) %>
-		</td>
-		<% b = @line.available? %>
-		<td id="line_dates_<%= @line.id %>" class="valid_<%= b %>">
-			<%= greybox_link_to_page(dates_with_period(@line.start_date, @line.end_date),
-			 		{ :action => 'time_lines', :id => @order.id, :lines => @line.id },
-					:class => "thickbox iconized-notxt date-edit" ,
-					:title => _("Time Period") ) %>
-		</td>
-		<td class="buttons">
-			<%= greybox_link_to_page(icon_tag("arrow_switch") + " " + _("Swap"),
-			 		{ :action => 'swap_model_line', :id => @order.id, :line_id => @line.id },
-					:title => _("Swap Model"), :width => 1000 ) %>
-			<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete"),
-			 		{ :action => 'remove_lines', :id => @order.id, :lines => @line.id },
-					:title => _("Remove Model"), :class => 'negative' ) %>
-		</td>
-	</tr>
+		<% content_tag :ul do
+			if current_inventory_pool
+				ip = current_inventory_pool
+				content_tag :li do %>
+					<%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %>
+				<% end
+		  	else # TODO is this template ever read without a current_inventory_pool ??
+				content_tag :li do %>
+					<%= "(max #{@line.model.maximum_available_in_period_for_document_line(@line.start_date, @line.end_date, @line)})" %>
+				<% end
+				for ip in @line.model.inventory_pools
+					content_tag :li, :style => (@line.inventory_pool == ip ? "color: red;" : nil) do %>
+						<%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %>
+					<% end
+				end
+		  	end
+		end %>
+	</td>
+
+	<td>
+		<%= show_line_model(@line.model) %>
+	</td>
+
+	<% b = @line.available? %>
+	<td id="line_dates_<%= @line.id %>" class="valid_<%= b %>">
+		<%= greybox_link_to_page(dates_with_period(@line.start_date, @line.end_date),
+		 		{ :action => 'time_lines', :id => @order.id, :lines => @line.id },
+				:class => "thickbox iconized-notxt date-edit" ,
+				:title => _("Time Period"), :width => 1000 ) %>
+	</td>
+
+	<td class="buttons">
+		<%= greybox_link_to_page(icon_tag("arrow_switch") + " " + _("Swap"),
+		 		{ :action => 'swap_model_line', :id => @order.id, :line_id => @line.id },
+				:title => _("Swap Model"), :width => 1000 ) %>
+		<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete"),
+		 		{ :action => 'remove_lines', :id => @order.id, :lines => @line.id },
+				:title => _("Remove Model"), :class => 'negative' ) %>
+	</td>
+</tr>

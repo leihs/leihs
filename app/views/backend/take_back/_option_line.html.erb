@@ -16,12 +16,12 @@
 			 		{ :action => 'time_lines', :lines => @line.id },
 					:class => "thickbox iconized-notxt date-edit",
 					:id => "dates_#{@line.id}",
-					:title => _("Time Period") ) %>
+					:title => _("Time Period"), :width => 1000 ) %>
 		</td>
 		<td id="inventory_code_<%= @line.id %>">
 			<%= @line.option.inventory_code %>
 		</td>
 		<td class="buttons">
-			<%=	link_to icon_tag("script") + " " + _("Contract %d") % @line.contract.id, formatted_backend_inventory_pool_contract_path(@current_inventory_pool, @line.contract, 'pdf') %>
+			<%=	link_to icon_tag("script") + " " + _("Contract %d") % @line.contract.id, formatted_backend_inventory_pool_contract_path(current_inventory_pool, @line.contract, 'pdf') %>
 		</td>
 	</tr>

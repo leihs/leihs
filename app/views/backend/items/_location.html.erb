@@ -1,0 +1,4 @@
+<tr><td style="padding-top: 20px;font-weight: bold;background-color: white"><%= _("Location") %></td></tr>
+<tr><td><b><%= _("Building")%>:</b></td><td><%= select_tag_for_buildings(@item.location ? @item.location.building_id : nil) %></td></tr>
+<tr><td><b><%= _("Room")%>:</b></td><td><%= text_field_tag 'location[room]', @item.location ? @item.location.room : "" %></td></tr>
+<tr><td><b><%= _("Shelf")%>:</b></td><td><%= text_field_tag 'location[shelf]', @item.location ? @item.location.shelf : "" %></td></tr>

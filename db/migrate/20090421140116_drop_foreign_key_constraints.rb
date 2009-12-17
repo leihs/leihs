@@ -22,10 +22,25 @@ class DropForeignKeyConstraints < ActiveRecord::Migration
     remove_foreign_key_and_add_index :order_lines, :inventory_pool_id
     remove_foreign_key_and_add_index :contracts, :user_id
     remove_foreign_key_and_add_index :contracts, :inventory_pool_id
-    remove_foreign_key_and_add_index :contract_lines, :contract_id
-    remove_foreign_key_and_add_index :contract_lines, :item_id
-    remove_foreign_key_and_add_index :contract_lines, :model_id
-    remove_foreign_key_and_add_index :contract_lines, :location_id
+    # This breaks on our DB - quick fix is to not do it.
+    # 
+    # It's an error in MySQL. The real fix would be to use an explicit
+    #      alter table x drop foreign key y
+    #
+    #
+    # statement instead of going through AR, AND USING THE CONSTRAINT NAME as y, not the foreign key name
+    # (how braindead is that?).
+    #
+    # The error in question is:
+    #   Mysql::Error: Error on rename of './rails_leihs2_dev/contract_lines' to './rails_leihs2_dev/#sql2-1405-2cc'
+    #
+    # The bug is partially described here:
+    #   http://bugs.mysql.com/bug.php?id=14347
+    #
+    #remove_foreign_key_and_add_index :contract_lines, :contract_id
+    #remove_foreign_key_and_add_index :contract_lines, :item_id
+    #remove_foreign_key_and_add_index :contract_lines, :model_id
+    #remove_foreign_key_and_add_index :contract_lines, :location_id
     remove_foreign_key_and_add_index :accessories, :model_id
     remove_foreign_key_and_add_index :accessories_inventory_pools, :accessory_id
     remove_foreign_key_and_add_index :accessories_inventory_pools, :inventory_pool_id
@@ -43,7 +58,7 @@ class DropForeignKeyConstraints < ActiveRecord::Migration
     remove_foreign_key_and_add_index :notifications, :user_id
     remove_foreign_key_and_add_index :workdays, :inventory_pool_id
     remove_foreign_key_and_add_index :holidays, :inventory_pool_id
-    remove_foreign_key_and_add_index :contract_lines, :option_id
+    #remove_foreign_key_and_add_index :contract_lines, :option_id
   end
 
   def self.down
@@ -68,10 +83,10 @@ class DropForeignKeyConstraints < ActiveRecord::Migration
     remove_index_and_add_foreign_key :order_lines, :inventory_pool_id, :inventory_pools
     remove_index_and_add_foreign_key :contracts, :user_id, :users
     remove_index_and_add_foreign_key :contracts, :inventory_pool_id, :inventory_pools
-    remove_index_and_add_foreign_key :contract_lines, :contract_id, :contracts
-    remove_index_and_add_foreign_key :contract_lines, :item_id, :items
-    remove_index_and_add_foreign_key :contract_lines, :model_id, :models
-    remove_index_and_add_foreign_key :contract_lines, :location_id, :locations
+    #remove_index_and_add_foreign_key :contract_lines, :contract_id, :contracts
+    #remove_index_and_add_foreign_key :contract_lines, :item_id, :items
+    #remove_index_and_add_foreign_key :contract_lines, :model_id, :models
+    #remove_index_and_add_foreign_key :contract_lines, :location_id, :locations
     remove_index_and_add_foreign_key :accessories, :model_id, :models
     remove_index_and_add_foreign_key :accessories_inventory_pools, :accessory_id, :accessories
     remove_index_and_add_foreign_key :accessories_inventory_pools, :inventory_pool_id, :inventory_pools
@@ -89,6 +104,6 @@ class DropForeignKeyConstraints < ActiveRecord::Migration
     remove_index_and_add_foreign_key :notifications, :user_id, :users
     remove_index_and_add_foreign_key :workdays, :inventory_pool_id, :inventory_pools
     remove_index_and_add_foreign_key :holidays, :inventory_pool_id, :inventory_pools
-    remove_index_and_add_foreign_key :contract_lines, :option_id, :options
+    #remove_index_and_add_foreign_key :contract_lines, :option_id, :options
   end
 end

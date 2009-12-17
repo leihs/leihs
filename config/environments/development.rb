@@ -19,3 +19,7 @@ config.action_mailer.raise_delivery_errors = false
 config.action_mailer.perform_deliveries = false
 
 #  config.gem "newrelic_rpm", :version => '2.8.9'
+#
+
+# For some reason, this setting does not propagate from environment.rb
+ENV['INLINEDIR'] = "#{RAILS_ROOT}/tmp/"

@@ -1,0 +1,12 @@
+|open|/admin||
+|clickAndWait|link=Users (4)||
+|clickAndWait|link=Create New||
+|type|//input[@id='user_login']|test_inventory_manager_user|
+|type|//input[@id='user_lastname']|Inventory-Manager-Lastname|
+|type|//input[@id='user_firstname']|Inventory-Manager-Firstname|
+|type|//input[@id='user_email']|test-inventory-manager@zhdk.ch|
+|type|//input[@id='user_phone']|1234|
+|clickAndWait|commit||
+|type|dbauth_password|pass|
+|clickAndWait|dbauth_submit||
+|clickAndWait|commit||

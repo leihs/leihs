@@ -1,49 +1,31 @@
 <ul>
-	<li><%= link_to_function(icon_tag("shape_handles") + " " + _('InventoryPools'), nil) { |page| page.visual_effect :toggle_blind, 'menu_admin/inventory_pools', :duration => 0.1 } %>
-		<ul id="menu_admin/inventory_pools" style="display: none;">
-		<li><%= link_to _('All') + " (#{InventoryPool.count})", admin_inventory_pools_path %></li>
-		</ul>	
-	</li>
-	<li><hr /></li>
-	<li><%= link_to_function(icon_tag("camera") + " " + _('Items'), nil) { |page| page.visual_effect :toggle_blind, 'menu_admin/items', :duration => 0.1 } %>
-		<ul id="menu_admin/items" style="display: none;">
-		<li><%= link_to _('All') + " (#{Item.count})", admin_items_path %></li>
-		<li><%= link_to _('Broken') + " (#{Item.broken.size})", admin_items_path(:filter => 'broken') %></li>
-		<li><%= link_to _('Incomplete') + " (#{Item.incomplete.size})", admin_items_path(:filter => 'incomplete') %></li>
-		<li><%= link_to _('Unborrowable') + " (#{Item.unborrowable.size})", admin_items_path(:filter => 'unborrowable') %></li>
-		<li><%= link_to _('Unfinished') + " (#{Item.unfinished.count})", admin_items_path(:filter => 'unfinished') %></li>
-		</ul>	
-	</li>
-	<li><hr /></li>
-	<li><%= link_to_function(icon_tag("package") + " " + _('Models'), nil) { |page| page.visual_effect :toggle_blind, 'menu_admin/models', :duration => 0.1 } %>
-		<ul id="menu_admin/models" style="display: none;">
-		<li><%= link_to _('All') + " (#{Model.count})", admin_models_path %></li>
-		</ul>	
-	</li>
-	<li><hr /></li>
-	<li><%= link_to_function(icon_tag("chart_organisation") + " " + _('Categories'), nil) { |page| page.visual_effect :toggle_blind, 'menu_admin/categories', :duration => 0.1 } %>
-		<ul id="menu_admin/categories" style="display: none;">
-		<li><%= link_to _('All') + " (#{Category.count})", admin_categories_path %></li>
-		</ul>	
-	</li>
-	<li><hr /></li>
-	<li><%= link_to_function(icon_tag("user") + " " + _('Users'), nil) { |page| page.visual_effect :toggle_blind, 'menu_admin/users', :duration => 0.1 } %>
-		<ul id="menu_admin/users" style="display: none;">
-		<li><%= link_to _('All') + " (#{User.count})", admin_users_path %></li>
-		<li><%= link_to _('Admins') + " (#{User.admins.size})", admin_users_path(:filter => 'admins') %></li>
-		<li><%= link_to _('Managers') + " (#{User.managers.size})", admin_users_path(:filter => 'managers') %></li>
-		<li><%= link_to _('Customers') + " (#{User.customers.size})", admin_users_path(:filter => 'customers') %></li>
-		</ul>	
-	</li>
-	<li><hr /></li>
-	<li><%= link_to_function(icon_tag("shape_square_key") + " " + _('Roles'), nil) { |page| page.visual_effect :toggle_blind, 'menu_admin/roles', :duration => 0.1 } %>
-		<ul id="menu_admin/roles" style="display: none;">
-		<li><%= link_to _('All') + " (#{Role.count})", admin_roles_path %></li>
-		</ul>	
-	</li>
-</ul>
+	<li><%= link_to icon_tag("shape_handles") + " " + _('InventoryPools') + " (#{InventoryPool.count})", admin_inventory_pools_path %></li>
 
-<% javascript_tag do %>
-	var m = $('menu_<%= params[:controller] %>');
-	if(m) m.style.display='block';
-<% end %>
+	<li><%= link_to icon_tag("camera") + " " + _('Items') + " (#{Item.count})", admin_items_path %>
+		<% content_tag :ul do %>
+			<li><%= link_to _('Broken') + " (#{Item.broken.count})", admin_items_path(:filter => 'broken') %></li>
+			<li><%= link_to _('Incomplete') + " (#{Item.incomplete.count})", admin_items_path(:filter => 'incomplete') %></li>
+			<li><%= link_to _('Unborrowable') + " (#{Item.unborrowable.count})", admin_items_path(:filter => 'unborrowable') %></li>
+			<li><%= link_to _('Unfinished') + " (#{Item.unfinished.count})", admin_items_path(:filter => 'unfinished') %></li>
+			<li><%= link_to _('Retired') + " (#{Item.count(:retired => true)})", admin_items_path(:filter => 'retired') %></li>
+		<% end if params[:controller] == "admin/items" %>
+	</li>
+
+	<li><%= link_to icon_tag("package") + " " + _('Models') + " (#{Model.count})", admin_models_path %>
+		<% content_tag :ul do %>
+			<li><%= link_to _('Active') + " (#{Model.active.size})", admin_models_path(:filter => 'active') %></li>
+		<% end if params[:controller] == "admin/models" %>
+	</li>
+
+	<li><%= link_to icon_tag("chart_organisation") + " " + _('Categories') + " (#{Category.count})", admin_categories_path %></li>
+
+	<li><%= link_to icon_tag("user") + " " + _('Users') + " (#{User.count})", admin_users_path %>
+		<% content_tag :ul do %>
+			<li><%= link_to _('Admins') + " (#{User.admins.size})", admin_users_path(:filter => 'admins') %></li>
+			<li><%= link_to _('Managers') + " (#{User.managers.size})", admin_users_path(:filter => 'managers') %></li>
+			<li><%= link_to _('Customers') + " (#{User.customers.size})", admin_users_path(:filter => 'customers') %></li>
+		<% end if params[:controller] == "admin/users" %>
+	</li>
+
+	<li><%= link_to icon_tag("shape_square_key") + " " + _('Roles') + " (#{Role.count})", admin_roles_path %></li>
+</ul>

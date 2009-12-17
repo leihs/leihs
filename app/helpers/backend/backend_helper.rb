@@ -2,40 +2,43 @@ module Backend::BackendHelper
 
   def table(options = {}, html_options = {}, &block)
     html = table_tag(options, html_options, &block)
-    concat(html)
+    concat(html, block.binding)
   end
 
   def table_with_search_and_pagination(options = {}, html_options = {}, &block)
     html = content_tag :div, :class => "table-overview", :id => 'list_table' do
-        r = search_field_tag(options[:records])
-        r += table_tag(options, html_options, &block)
+      r = controller_bar(options[:records], true)
+      r += table_tag(options, html_options, &block)
+      r += controller_bar(options[:records])
     end
-    concat(html)
+    concat(html, block.binding)
   end 
 
+  def controller_bar(records, with_search_field = false, query = params[:query], filter = params[:filter])
+    query = nil if query.blank?
 
-  def search_field_tag(records, query = params[:query], filter = params[:filter])
-      query = nil if query.blank?
-
-      content_tag :div, :class => "table-overview", :id => "controller" do
-            filter_params = request.path_parameters.keys << "query" << "page"
-            parameters = ""
-            params.each {|k,v| parameters += ", #{k}: '#{v}'" unless filter_params.include?(k) }
-
-            r = text_field_tag :query, query, :onchange => "new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', onLoading:function(request){Element.show('spinner')}, parameters: {query: this.value #{parameters}}}); return false;", :id => 'search_field'
-            r += javascript_tag("$('search_field').focus()")
-            
-            r += content_tag :div, :class => "result", :style => "min-height: 200px;" do
-              s = _(" <b>%d</b> results") % records.total_entries
-              s += _(" for <b>%s</b>") % query if query
-              s += _(" filtering <b>%s</b>") % filter if filter
-              w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:update => 'list_table', :loading => "Element.show('spinner')"}, :previous_label => _("Previous"), :next_label => _("Next")
-              s += w if w
-              s += image_tag("spinner.gif", :id => 'spinner', :style => 'display: none;', :class => "loading_spinner")
-              s
-            end
-          r
+    content_tag :div, :class => "table-overview controller" do
+      r = ""
+      filter_params = request.path_parameters.keys << "query" << "page"
+      parameters = ""
+      params.each {|k,v| parameters += ", #{k}: '#{v}'" unless filter_params.include?(k) }
+      
+      if with_search_field
+        r += text_field_tag :query, query, :onchange => "new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', parameters: {query: this.value #{parameters}}}); return false;", :id => 'search_field'
+        r += javascript_tag("$('search_field').focus()")
       end
+      
+      r += content_tag :div, :class => "result", :style => "min-height: 200px;" do
+        total = (records.is_a?(ActsAsFerret::SearchResults) ? records.total_hits : records.total_entries)
+        s = _(" <b>%d</b> results") % total
+        s += _(" for <b>%s</b>") % query if query
+        s += _(" filtering <b>%s</b>") % filter if filter
+        w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:update => 'list_table'}, :previous_label => _("Previous"), :next_label => _("Next")
+        s += w if w
+        s
+      end
+      r
+    end
   end 
 
 
@@ -45,18 +48,17 @@ module Backend::BackendHelper
       s += content_tag :tr do
         r = ""
         options[:columns].each do |column|
-          r += content_tag :th, :style => "white-space:nowrap;" do
+          r += content_tag :th do #old# , :style => "white-space:nowrap;"
             p = ""
             if column.is_a?(Array)
               b = (params[:sort] == column[1])
-              dir = (params[:dir] == "asc" ? "desc" : "asc") if b
+              dir = (params[:dir] == "ASC" ? "DESC" : "ASC") if b
               p += link_to_remote column[0],
                 :url => params.merge({ :sort => column[1], :dir => dir, :page => 1}),
                 :method => :get,
                 :form => true,
-                :update => 'list_table',
-                :loading => "Element.show('spinner')"
-              p += icon_tag("arrow_" + (params[:dir] == "asc" ? "down" : "up")) if b
+                :update => 'list_table'
+              p += icon_tag("arrow_" + (params[:dir] == "ASC" ? "down" : "up")) if b
             else
               p += column
             end
@@ -89,7 +91,7 @@ module Backend::BackendHelper
         content_tag :td do
           r = _("Reserver") +': '
           r += greybox_link_to_page(user.login,
-                    backend_inventory_pool_user_path(@current_inventory_pool, user, :layout => "modal"),
+                    backend_inventory_pool_user_path(current_inventory_pool, user, :layout => "modal"),
                     :title => _("User"),
                     :class => "iconized-notxt edit-user" )
           r += '<br />'
@@ -105,15 +107,15 @@ module Backend::BackendHelper
 
   def show_line_model(model)
     html = greybox_link_to_page(model.name,
-            backend_inventory_pool_model_path(@current_inventory_pool, model, :layout => "modal"),
+            backend_inventory_pool_model_path(current_inventory_pool, model, :layout => "modal"),
             :title => _("Model"),
             :class => "thickbox iconized-notxt edit-package", :width => 1000 )
 
     html += content_tag :ul, :class => "model_group" do
       r = ""
-      model.package_items.each do |item|         
+      model.package_models.each do |model|         
         r += content_tag :li do
-          "#{item.model.name} (#{item.inventory_code})"
+          model.name
         end
       end
       r
@@ -160,12 +162,14 @@ module Backend::BackendHelper
 
 ############################################################################################
 
-  def extjs_model_tree
-    html = ""
-    html += stylesheet_link_tag "/javascripts/ext/resources/css/ext-all.css"
+  def extjs_include
+    html = stylesheet_link_tag "/javascripts/ext/resources/css/ext-all.css"
     html += javascript_include_tag "/javascripts/ext/adapter/prototype/ext-prototype-adapter.js"
     html += javascript_include_tag "/javascripts/ext/ext-all.js"
-    html += content_tag :style, :type => "text/css" do
+  end  
+
+  def extjs_tree_style
+    content_tag :style, :type => "text/css" do
       "
       .x-tree .x-panel-body {
         background-color: transparent;
@@ -175,6 +179,11 @@ module Backend::BackendHelper
       }
       "
     end
+  end
+
+  def extjs_model_tree(checkable = false, checked_nodes = [])
+    html = extjs_include
+    html += extjs_tree_style
 
     # TODO 04** prevent render modal layout inside another modal layout
     filter_params = request.path_parameters.keys << "category_id"
@@ -185,46 +194,57 @@ module Backend::BackendHelper
       "
       start = function(){
   
-      // create initial root node
-        var categories_root = new Ext.tree.AsyncTreeNode({
-          text: '#{_("All")}',
-          id:'ynode-0',
-      leaf: false,
-      real_id: '0'
+        var categories_loader = new Ext.tree.TreeLoader({
+          url: '#{url_for(:controller => :categories, :format => :ext_json)}',
+          requestMethod:'GET'
         });
-      
-      var categories_loader = new Ext.tree.TreeLoader({
-        url:'/categories.ext_json',
-        requestMethod:'GET'
-      });
+    
+        categories_loader.on('beforeload', function(treeLoader, node) {
+            treeLoader.baseParams.category_id = (node.attributes.real_id ? node.attributes.real_id : '');
+          }, this);
   
-      categories_loader.on('beforeload', function(treeLoader, node) {
-          treeLoader.baseParams.category_id = (node.attributes.real_id ? node.attributes.real_id : 0);
-        }, this);
-          
-      // create the tree
+        // create the tree
         var categories_panel = new Ext.tree.TreePanel({
           loader: categories_loader,
-      title: '#{_("Categories")}',
-      collapsible: false,
-      border: false,
-      animate:true,
-      autoScroll:true,
-          root: categories_root,
+          title: '#{_("Categories")}',
+          collapsible: false,
+          border: false,
+          animate:true,
+          autoScroll:true,
           rootVisible:true,
-      renderTo: 'categories',
-      hlColor: '#FF0000',
-      listeners: {
-        click: function( node, e ){
-          if(node.attributes.real_id != 0) node.toggle();
-          new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', onLoading:function(request){Element.show('spinner')}, parameters: {category_id: node.attributes.real_id #{parameters}}}); return false;
-        }
-      }
+          root: {
+              nodeType: 'async',
+              text: '#{_("All")}',
+              id:'ynode-0',
+              leaf: false,
+              real_id: ''
+          },
+          renderTo: 'categories',
+          hlColor: '#FF0000',
+          //frame: true,
+          listeners: {
+            click: function( node, e ){
+              if(node.attributes.real_id != '') node.toggle();
+              if(!#{checkable}) new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', parameters: {category_id: node.attributes.real_id #{parameters}}}); return false;
+            },
+            checkchange: function(node, checked){
+              new Ajax.Request('#{url_for()}', {method: (checked ? 'post' : 'delete'), parameters: {category_id: node.attributes.real_id, #{request_forgery_protection_token}: '#{escape_javascript form_authenticity_token}' #{parameters}}}); return false;
+            }
+          }
         });
-      
-      // expand invisible root node to trigger load
-        // of the first level of actual data
-        categories_root.expand();
+
+        categories_panel.on('beforechildrenrendered', function(node){
+          node.childNodes.each(function(element) {
+            element.attributes.icon = '#{icon_path('bullet_yellow')}';
+            if(#{checkable}){
+              element.attributes.checked = #{checked_nodes.collect(&:id).to_json}.include(element.attributes.real_id);
+              if(#{Array(checked_nodes).collect(&:all_parents).flatten.uniq.collect(&:id).to_json}.include(element.attributes.real_id)) element.expand();
+            }
+          });
+        }, this);
+
+        // expand root node to trigger load of the first level of actual data
+        categories_panel.getRootNode().expand();
       };
   
     Ext.onReady(start);
@@ -233,102 +253,195 @@ module Backend::BackendHelper
     return html
   end
 
+#temp#
+#  def extjs_datepicker
+#    html = extjs_include
+#    html += javascript_tag do
+#      "
+#      start = function(){
+#
+#        if(Ext.DatePicker){
+#          Ext.apply(Ext.DatePicker.prototype, {
+#            format          : 'd.m.Y',
+#            startDay        : 1
+#          });
+#        }
+#    
+#        if(Ext.form.DateField){
+#          Ext.apply(Ext.form.DateField.prototype, {
+#            format          : 'd.m.Y',
+#            altFormats      : 'd.m.Y|d.m.y|j.n.Y|j.n.y|d.m|j.n'
+#          });
+#        }
+#
+#      }
+#      
+#      Ext.onReady(start);
+#    "
+#    end
+#    html += "
+#      <span id='DatePicker'/>
+#      <script type='text/javascript'>
+#        var dateFrom = new Ext.form.DateField({
+#          renderTo: 'DatePicker',
+#          disabledDates: ['02\\.09\\.2009', '09\\.03\\.2009'] 
+#        });
+#      </script>
+#    "
+#    
+#    return html
+#  end
+
+
+
+#old# Availability.merge_periods(unavailable_periods)
+#temp# Using the calendar_date_select gem    
+#    valid_date_check = "date.getDay() != 0 && date.getDay() != 6 && date >= (new Date()).stripTime()"
+#    unavailable_periods.each do |u|
+#      valid_date_check << " && !(date >= new Date(#{u.start_date.to_json}) && date <= new Date(#{u.end_date.to_json}))"
+#    end
+#    
+#    CalendarDateSelect.format = :euro_24hr
+#    html += javascript_tag { "Date.first_day_of_week = 1;" }
+#    html += calendar_date_select_includes
+#    html += content_tag :table do
+#              content_tag :tr do
+#                  r = content_tag :td do
+#                    calendar_date_select_tag "e_start_date", nil,
+#                                                  :embedded => true,
+#                                                  :year_range => 0.years.ago..2.years.from_now,
+#                                                  :valid_date_check => valid_date_check
+#                  end
+#                  r += content_tag :td do
+#                    calendar_date_select_tag "e_end_date", nil,
+#                                              :embedded => true,
+#                                              :year_range => 0.years.ago..2.years.from_now,
+#                                              :valid_date_check => valid_date_check
+#                  end
+#                  r
+#              end #tr
+#    end #table
+
 ############################################################################################
 
   def time_line(lines, write_start = true, write_end = true)
     html = ""
+    summary = ""
     
     d1 = Array.new
     d2 = Array.new
+    unavailable_periods = []
       
     lines.each do |l|
-          d1 << l.start_date
-          d2 << l.end_date
+      d1 << l.start_date
+      d2 << l.end_date
+      unavailable_periods += l.model.unavailable_periods_for_document_line(l) unless l.is_a?(OptionLine)
           
-      html += "
-        Quantity: #{l.quantity}
-        <br />      
-        Model: #{l.model.name}
+      summary += content_tag :div, :style => "padding: 1em; border-bottom: 1px solid grey;" do
+        "Quantity: #{l.quantity} - Model: #{l.model.name}
         <br />
-        #{dates_with_period(l.start_date, l.end_date)}
-        <hr />
-      "
-    end
-    
-    html += form_tag( { :lines => lines }, :name => "f", :target=> '_top' )
-      f = ""
-      f += "Start: "
-      f += date_select("line", "start_date", { :default => d1.min, :order => [:day, :month, :year] }, { :onchange => "validate_date_sequence();", :disabled => !write_start })
-    
-      f += " - End: "
-      f += date_select("line", "end_date", { :default => d2.max, :order => [:day, :month, :year] }, { :onchange => "validate_date_sequence();", :disabled => !write_end })
-      
-      f += "<br/><br/><div id='select_notice' class='flash_notice'></div><br />"
-      
-      # TODO 1602**
-      if lines.length == 1 and lines.first.is_a?(ItemLine)
-      
-      f += "<table class='availability_overview'>
-          <tr class='availability'>
-          <td>#{_("Month")}</td>"
-          1.upto(31) do |i|
-            f += "<td>#{i}</td>"
-          end
-        f += "</tr>"
-        
-          l = lines.first
-
-          # TODO 1202** 
-#          d = l.max_end_date
-#          f += "Max extend until #{d}" if d
-
-          current_date = Date.today
-          availability = l.model.available_dates_for_document_line(current_date.beginning_of_month, (current_date + 6.month).end_of_month, l, current_date.beginning_of_month)
-          last_quantity = -1
-          availability.each do |a| 
-            f += "<tr class='availability'><td>#{a[0].strftime('%B')}" if 1 == a[0].day
-              if a[0] < current_date
-                f += "<td></td>"
-              else
-                  color = a[1]
-                  color = 0 if color < 0
-                  color = 5 if color > 5
-        
-                  c = "with_tooltip available_" + color.to_s + " selectable_date"
-                  c += " selected_date" if a[0].between?(d1.min, d2.max)
-                  c += " selected_date_start" if a[0].eql?(d1.min)
-                  c += " selected_date_end" if a[0].eql?(d2.max)
-  
-               f += "<td id='#{a[0].strftime('%Y%m%d')}' title='#{a[0].strftime('%d.%m.%Y')}' class='#{c}' 
-                      onclick='changeDate(#{a[0].year}, #{a[0].month}, #{a[0].day});'
-                      onmouseover=\"this.addClassName('selectable_date_over');\"
-                      onmouseout=\"this.removeClassName('selectable_date_over');\">"
-               f += "#{a[1]}" if a[1] != last_quantity
-               f += "</td>"
-               
-                last_quantity = a[1]
-              end
-            f +="</tr>" if a[0].end_of_month == a[0]
-          end
-      f += "</table>"
+        #{dates_with_period(l.start_date, l.end_date)}"
       end
-  
-      f += "<br /><div id='error' class='flash_error' style='display:none;'>#{_("Start Date must be before End Date")}</div>
-            <br />
-            <div class='buttons'>"
-      f += submit_button(_("Confirm"),
-                        :icon => "date_edit",
-                        :class => 'negative',
-                        :id => 'submit_button' )
-                 
-      f += cancel_popup_button(_("Cancel") )
-      f += "</div>"  
-    
+    end
+
+    html += form_tag( { :lines => lines }, :name => "f", :target=> '_top' )
+      f = content_tag :table do
+        content_tag :tr do
+          r = content_tag :td, :class => "date_select" do
+            s = "<b>#{_('Start')}:</b> "
+            s += content_tag :span, :id => 'start_weekday' do
+            end
+            s += "<br/>"
+            s += date_select :line, :start_date, { :default => d1.min, :order => [:day, :month, :year] }, { :onchange => "validate_date_sequence();", :disabled => !write_start }
+          end
+          r += content_tag :td, :class => "date_select" do
+            s = "<b>#{_('End')}:</b> "
+            s += content_tag :span, :id => 'end_weekday' do
+            end
+            s += "<br/>"
+            s += date_select :line, :end_date, { :default => d2.max, :order => [:day, :month, :year] }, { :onchange => "validate_date_sequence();", :disabled => !write_end }
+          end
+          r += content_tag :td, :class => 'buttons', :style => "width: 30%;" do
+            s = submit_button _("Confirm"),
+                              :icon => "date_edit",
+                              :class => 'negative',
+                              :id => 'submit_button'
+            #old# s += cancel_popup_button _("Cancel")
+            s += content_tag :span, :id => 'error', :style => 'display:none; color: red; font-weight: bold;' do
+              _("Start Date must be before End Date")
+            end
+          end
+          r
+        end
+      end
+        
+#      if lines.length == 1 and (lines.first.is_a?(ItemLine) or lines.first.is_a?(OrderLine))
+#        line = lines.first
+      
+        f += datepicker
+        
+        f += javascript_tag do
+          j = ""
+#temp#
+#          availability = line.model.available_periods_for_document_line(line)
+#          availability.each do |a|
+#            #old# next if a.end_date and a.start_date > a.end_date
+#            if a.end_date.nil?
+#              a.end_date = a.start_date.end_of_month
+#            elsif a.start_date > a.end_date
+#              a.start_date = a.end_date.beginning_of_month
+#            end
+#            d = a.start_date.to_formatted_s(:db)
+#            j += "if($('#{d}')) $('#{d}').innerHTML='#{a.quantity}';"
+#
+#            quantity_color = [[a.quantity, 0].max,5].min # OPTIMIZE max_color should be equal to quantity, then even 2 is green
+#
+#            (a.start_date..a.end_date).each do |d|
+#              d = d.to_formatted_s(:db)
+#              new_class = "available_#{quantity_color}"
+#              new_class += " selectable_date" if quantity_color > 0 # TODO workdays
+#              j += "if($('#{d}')) $('#{d}').addClassName('#{new_class}');"
+#            end
+#          end
+
+          j += "$$('.datepicker_date').each(function(element) {
+                  element.addClassName('selectable_date');
+                });"
+
+
+          unavailable_periods.sort!.each do |u|
+            (u.start_date..u.end_date).each do |d|
+              d = d.to_formatted_s(:db)
+              j += "if($('#{d}')){
+                      $('#{d}').removeClassName('selectable_date');
+                      $('#{d}').addClassName('available_0');
+                    }"
+            end
+          end
+          
+          j += "$$('.selectable_date').each(function(element) {
+                  element.observe('click', function(event){
+                    changeDate(event.target.id);
+                  });
+                });"
+          j
+        end
+        
+#      end # if 1 line
+
     html += f
     html += "</form>"
+    html += summary
 
     html += javascript_tag do
       "
+      Date.prototype.to_formatted_s_db = function () {
+        y = this.getFullYear();
+        m = this.getMonth() + 1;
+        d = this.getDate();
+        return [y, m > 9 ? m : '0' + m, d > 9 ? d : '0' + d].join('-')
+      }
+      
       var clicks = 0;
       var write_start = #{write_start};
       var write_end = #{write_end};
@@ -338,49 +451,106 @@ module Backend::BackendHelper
       
       function toggle_select_notice(){
         if(write_dates.length){
-          $('select_notice').innerHTML = 'Select ' + write_dates[clicks % write_dates.length] + ' date';
-          new Effect.Highlight('select_notice');
+          new Effect.Highlight(write_dates[clicks % write_dates.length] + '_weekday');
         }
       }
       
       function validate_date_sequence(){
-        var start_date = $('line_start_date_1i').value * 10000 + $('line_start_date_2i').value * 100 + $('line_start_date_3i').value * 1;
-        var end_date = $('line_end_date_1i').value * 10000 + $('line_end_date_2i').value * 100 + $('line_end_date_3i').value * 1;
+        var start_date = new Date($('line_start_date_1i').value, $('line_start_date_2i').value - 1, $('line_start_date_3i').value);
+        var end_date = new Date($('line_end_date_1i').value, $('line_end_date_2i').value - 1, $('line_end_date_3i').value);
+        var formatted_start_date = start_date.to_formatted_s_db();
+        var formatted_end_date = end_date.to_formatted_s_db();
+
+        var weekday = new Array('#{_('Sunday')}','#{_('Monday')}','#{_('Tuesday')}','#{_('Wednesday')}','#{_('Thursday')}','#{_('Friday')}','#{_('Saturday')}')
+        $('start_weekday').update(weekday[start_date.getDay()]);
+        $('end_weekday').update(weekday[end_date.getDay()]);
+
+        write_dates.each(function(type){
+          $$('.selected_date_' + type).each(function(element) {
+            element.removeClassName('selected_date_' + type);
+          });
+        });
+        if($(formatted_start_date)) $(formatted_start_date).addClassName('selected_date_start');
+        if($(formatted_end_date)) $(formatted_end_date).addClassName('selected_date_end');
+        // TODO validate dropdown selection
         
         if(end_date < start_date){
-          $('submit_button').fade();
-          $('error').appear();
-          new Effect.Highlight('error');
+          $('submit_button').hide();
+          $('error').show();
         }else{
-          $('submit_button').appear();
-          $('error').fade();
+          $('submit_button').show();
+          $('error').hide();
         }
       }
   
       
-      function changeDate(y, m, d){
+      function changeDate(date){
+        date_array = date.split('-');
+        
         if(write_dates.length){
           var type = write_dates[clicks % write_dates.length];
           
-          $('line_' + type + '_date_1i').value = y;
-          $('line_' + type + '_date_2i').value = m;
-          $('line_' + type + '_date_3i').value = d;
+          $('line_' + type + '_date_1i').value = parseInt(date_array[0], 10);
+          $('line_' + type + '_date_2i').value = parseInt(date_array[1], 10);
+          $('line_' + type + '_date_3i').value = parseInt(date_array[2], 10);
           
           clicks++;
           toggle_select_notice();
           validate_date_sequence();
-
-          // TODO 
-          //Element.removeClassName('20080911', 'selected_date');
-          //Element.addClassName('20080911', 'selected_date');
         }
       }
       
       toggle_select_notice();
+      validate_date_sequence();
       "
     end
     
     html
+  end
+
+  def datepicker
+    content_tag :table, :class => 'availability_overview' do
+      tr = content_tag :tr, :class => 'availability' do
+        th = content_tag :th do
+          _("Month")
+        end
+        1.upto(31) do |i|
+          th += content_tag :th, :style => "min-width: 2em; padding: 0; text-align: center;" do
+                  i
+                end
+        end
+        th
+      end
+
+      12.times do |i|
+        start_date = i.months.from_now.to_date.beginning_of_month
+        end_date = i.months.from_now.to_date.end_of_month
+
+        tr += content_tag :tr, :class => 'availability' do
+                td = content_tag :th do
+                  start_date.to_formatted_s(:month_and_year)
+                end
+                (start_date..end_date).each do |d|
+                  style = (current_inventory_pool.is_open_on?(d) ? nil : "background-color: grey;") if current_inventory_pool
+                  td += content_tag :td, :id => d.to_formatted_s(:db),
+                                         :title => d.to_formatted_s(:with_weekday_name),
+                                         :class => "datepicker_date",
+                                         :style => style do end
+                end
+                (31-end_date.day).times do
+                  td += content_tag :td, :class => "datepicker_nodate" do end
+                end
+                td
+              end
+      end
+      tr
+    end
+  end
+  
+############################################################################################
+
+  def select_tag_for_buildings(selected = nil)
+    select_tag 'location[building_id]', "<option value=''>#{_("None")}</option>" + options_from_collection_for_select(Building.all, :id, :name, selected)
   end
 
 ############################################################################################
@@ -398,11 +568,14 @@ module Backend::BackendHelper
       lines.each do |l|
         s += content_tag :tr do
           r = ""
+          permission_needed = (l.item and l.item.needs_permission?)
           r += content_tag :td, :style => "text-align: right;" do
+            
             l.quantity
           end
-          r += content_tag :td do
-            l.model.name
+          r += content_tag :td, :class => "#{permission_needed ? "closed" : ""}" do 
+            
+            "#{permission_needed ? _("Permission needed:<br/>") : ""}#{l.model.name}"
           end
           r += content_tag :td do
             l.item.inventory_code
@@ -416,5 +589,8 @@ module Backend::BackendHelper
       s
     end
   end
+  
+    
+  
   
 end

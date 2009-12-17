@@ -1,11 +1,38 @@
 
-<% form_tag :action => 'update_package', :id => @model.id do %>
-<table>
-  <tr><td><%= _("Package name") %></td><td><%= text_field_tag('name', @model.name) %></td>
-  <tr><td><% ic = @model.items.empty? ? @proposed_inventory_code || "" : @model.items.first.inventory_code %>
-	    <%= _("Inventory code") %></td><td><%= text_field_tag('inventory_code', ic) %></td>
-	</tr>			
-	<tr><td></td><td><%= submit_tag 'Submit' %></td></tr>
-	
-</table>
-<% end %>
+<%= error_messages_for :model %>
+
+<%
+readonly = @model.inventory_pools.count > 1
+
+form_for @model, :url => { :action => 'update_package', :id => @model.id } do |f|
+	content_tag :table do
+		content_tag :tr do
+			content_tag :td do %>
+				<%= _("Package name") %>:
+			<% end
+			content_tag :td do %>
+				<%= f.text_field :name, :size => 40, :readonly => readonly %>
+				<%= _("The package name cannot be changed because it's present in many inventory pools.") if readonly %>					
+			<% end
+		end
+		content_tag :tr do
+			content_tag :td do %>
+				<%= _("Inventory Pools") %>:
+			<% end
+			content_tag :td do
+				content_tag :ul, :style => "list-style: disc;" do
+					@model.inventory_pools.each do |inventory_pool|
+						content_tag :li do %>
+							<%= inventory_pool %>
+						<% end
+					end
+				end
+			end
+		end
+		content_tag :tr do
+			content_tag :td, :colspan => 2 do %>
+				<%= f.submit _("Submit") %>
+			<% end
+		end unless readonly
+	end
+end %>

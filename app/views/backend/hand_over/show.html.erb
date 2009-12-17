@@ -1,12 +1,32 @@
-
+<% if current_inventory_pool.has_access?(@contract.user) and not current_inventory_pool.is_blacklisted?(@contract.user) %>
 <%= render :partial => 'buttons' %>
 
 			<div id="meta" class="boxes">
 				<div id="meta-contract">
-					<h2><%= _("Contract Nr.") + " #{@contract.id}" %></h2>
+					<h2><%= _("Contract Nr.") + " #{@contract.id} - #{@contract.user}" %></h2>
 					<%= show_reserver(@contract.user) %>
-				</div>
-				
+					<% if @contract.user.suspended_inventory_pools.count > 0 %>
+						<div style="background-color: #EDF09F; padding: 10px;border: 1px solid #ccc;">
+						<%= _("Currently suspended at:") %> <%= @contract.user.suspended_inventory_pools.join(", ") %>
+						</div>
+					<% end %>
+		
+					<table>
+						<tr>
+							<td style="width: 100px"><%= _("Purpose") %>:</td>
+							<td>
+							 				
+							<% if @contract.purpose.nil? %>
+								<% form_for :purpose, :url => {:action => 'set_purpose'} do |f|%>
+									<%= text_area_tag :purpose %>
+									<%= submit_tag(_("Set Purpose")) %>
+								<% end %>
+							<% else%>
+								<%= @contract.purpose %>
+							<% end %>
+						</td></tr>
+					</table>					
+				</div>				
 			</div>
 
 			<div class="table-overview">
@@ -26,15 +46,20 @@
 							 	{ :action => 'time_lines' },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",
 								:class => "ghostable_group_1 ghosted",
-								:title => _("Time Period") ) %>						
+								:title => _("Time Period"), :width => 1000 ) %>						
 
+						<%= greybox_link_to_page(icon_tag("arrow_switch") + " " + _("Swap Reserver"),
+					 			{ :action => 'swap_user' },
+								:onmouseup => "change_href(this, 'contract_line', 'line');",
+								:class => "ghostable_group_1 ghosted",
+								:title => _("Reserver") ) %>
 
 						<%= greybox_link_to_page(icon_tag("house") + " " + _("Change Installation Location"),
 							 	{ :action => 'select_location' },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",
 								:class => "ghostable_group_1 ghosted",
-								:title => _("Time Period"),
-								:callback => 'refresh_me' ) %>						
+								:title => _("Select Location"),
+								:callback => 'refresh_me' ) if false %> <% # TODO remove association ContractLine <-> Location %>				
 
 
 						<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete selection"),
@@ -83,3 +108,6 @@
 
 <%= render :partial => 'buttons' %>
 <%= javascript_tag("toggle_buttons('contract_line_check', 'ghostable_group_1');") %>
+<% else %>
+<%= _("This user doesn't have access to your inventory pool or is on your Blacklist!") %><br/><%= link_to(_("edit %s") % @contract.user.name, access_rights_backend_inventory_pool_user_path(current_inventory_pool, @contract.user)) %>
+<% end %>

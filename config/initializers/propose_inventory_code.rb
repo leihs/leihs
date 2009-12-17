@@ -1,0 +1,3 @@
+#INVENTORY_CODE_PREFIX = [["AVZ", "AV-Technik"], ["ITZS", "ITZ"], ["ITZV", "ITZ"] ]
+
+INVENTORY_CODE_PREFIX = []

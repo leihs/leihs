@@ -13,6 +13,9 @@ class ModelGroup < ActiveRecord::Base
   def all_children
     children.recursive.to_a
   end
+  def all_parents
+    parents.recursive.to_a
+  end
 
   def all_models
     (all_children.collect(&:models) + models).flatten.uniq  
@@ -32,6 +35,11 @@ class ModelGroup < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  # compares two objects in order to sort them
+  def <=>(other)
+    self.name <=> other.name
   end
 
 ################################################
@@ -55,10 +63,9 @@ class ModelGroup < ActiveRecord::Base
                                     FROM model_groups_parents
                                     WHERE model_group_id = #{id}
                                       AND parent_id = #{parent.id}")
-      return l.first.attributes["label"] || name
-    else
-      return name
+      return l.first.attributes["label"] if l.first and l.first.attributes["label"] 
     end
+    return name
   end
 
   def set_label(parent, label)

@@ -58,6 +58,7 @@ class Document < ActiveRecord::Base
     if (line.model.id != model_id.to_i)
       model = Model.find(model_id.to_i)
       change = _("Swapped %{from} for %{to}") % { :from => line.model.name, :to => model.name}
+      line.item = nil if line.is_a?(ItemLine)
       line.model = model
       log_change(change, user_id)
       line.save
@@ -121,6 +122,26 @@ class Document < ActiveRecord::Base
     f_name = "/javascripts/timeline/document_#{self.id}.xml"
     File.open("public#{f_name}", 'w') { |f| f.puts xml }
     f_name
+  end
+
+#  protected
+
+  # 0603**
+  def user_login
+    user.login
+  end
+
+  def user_badge_id
+    user.badge_id
+  end
+
+  # 0603**
+  def lines_model_names
+    mn = [] 
+    lines.each do |l|
+      mn << l.model.name  
+    end
+    mn.uniq.join(" ")
   end
 
 end

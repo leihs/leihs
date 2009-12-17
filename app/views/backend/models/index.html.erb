@@ -4,16 +4,14 @@
 	  
 <table><tr>
 <td id="categories" style="vertical-align:top;" width="20%">
-
 </td>
 <td style="vertical-align:top;" width="80%">
 <% end %>  
-
 <% unless request.xml_http_request? %>
 
 	<% if @model %>
 		 <div class="toolbar-second">
-			<% form_tag backend_inventory_pool_model_compatibles_path(@current_inventory_pool, @model),
+			<% form_tag backend_inventory_pool_model_compatibles_path(current_inventory_pool, @model),
 						:onsubmit => "return ($('is_selected').value == 1);" do %>
 				<%= hidden_field_tag :is_selected, 0 %>
 				<%= _("Add compatible") %>:
@@ -28,6 +26,10 @@
 		<div class="toolbar-second buttons">
 			<%= link_to _('New Package'), :action => 'new_package' %>
 		</div>
+	<% elsif is_privileged_user? %>
+		<div class="toolbar-second buttons">
+			<%= link_to _("Create New"), :action => 'new' %>
+		</div>	
 	<% end %>
 
 <% end %>
@@ -35,21 +37,36 @@
 <% if @start_date and @end_date %>
   <%= _("From") %> <%= short_date(@start_date) %> <%= ("to") %> <%= short_date(@end_date) %> 
 <% end %>
-<% table_with_search_and_pagination :columns => ["", [_("Model"), 'name'], [_("Manufacturer"), 'manufacturer'], _("Available Items"), _("Compatibles"), _("Action")],
+<% table_with_search_and_pagination :columns => ["", [_("Model"), 'models.name'], (params[:source_path] ? [_("Manufacturer"), 'models.manufacturer'] : _("Categories")), _("Available Items"), _("Action")],
 						   			:records => @models do |model| %>	
 
-			<% record_path = backend_inventory_pool_model_path(@current_inventory_pool, model) %>
+			<% record_path = backend_inventory_pool_model_path(current_inventory_pool, model) %>
 			
 			<tr id="<%= "model_#{model.id}" %>">
-				<td><%= link_to image_tag(model.image_thumb), record_path if model.image_thumb and !params[:source_path] %></td>
+				<td>
+					<%#Not needed 0611 = link_to image_tag(model.image_thumb), record_path if model.image_thumb and !params[:source_path] %>
+					<%= icon_tag('package') if model.is_package? %>
+				</td>
 				<td><%= model.name %></td>
-				<td><%= model.manufacturer %></td>
+				<td>
+					<% if params[:source_path] %>
+						<%= model.manufacturer %>
+					<% else 
+						content_tag :ul, :style => "list-style: disc;" do
+							model.categories.each do |category|
+								content_tag :li do %>
+									<%= category.name %>
+								<% end
+							end
+						end
+					end %>
+				</td>
 				<td style="white-space: nowrap;">
-					<%= (params[:source_path] ? model.read_attribute(:max_available) : @current_inventory_pool.items.by_model(model).count) %>
+					<%= (params[:source_path] ? model.read_attribute(:max_available) : current_inventory_pool.items.by_model(model).count) %>
 				</td>
 				
-				<td><%= (model.compatibles & @current_inventory_pool.models).size %></td>
 				<td class="buttons">
+
 					<% if params[:source_path]
 							var_id = (model.is_a?(Model) ? "model_id" : "model_group_id")
 							glue = (params[:source_path].include?('?') ? '&' : '?' )
@@ -57,16 +74,19 @@
 						%>
 						<%=	link_to(icon_tag("package_add") + " " + _("Select"), url,
 							:method => 'post', :target=> '_top') %>
-					<% else %>						
+					<% elsif params[:layout] == "modal" %>
+	                    <%= link_to(icon_tag("connect") + " " + _("Select"), "#", :onclick => "top.document.getElementById('item_model_id').value = '#{model.id}';top.document.getElementById('model_name').textContent = '#{model.name.gsub('"', '\"').gsub(/\r\n/,' ')}';parent.parent.GB_hide(); return false;") %>
+	                <% else %>						
 						<ul>
 							<li><%= link_to icon_tag("magnifier") + _("Show"), record_path %></li>
-							<!--
-							<li><%#temp#= link_to_remote icon_tag("shape_align_left"), :url => backend_inventory_pool_model_items_path(@current_inventory_pool, model),
-													:update => "model_#{model.id}", :position => :after, :method => :get %></li>
-							-->
-							<li><%= link_to _("Remove"), backend_inventory_pool_model_compatible_path(@current_inventory_pool, @model, model),
+							<li><%= link_to _("Remove"), backend_inventory_pool_model_compatible_path(current_inventory_pool, @model, model),
 											:confirm => _("Are you sure?"),
 											:method => :delete if @model %></li>
+							<% content_tag :li do %>
+								<%= link_to _("Delete"), destroy_package_backend_inventory_pool_model_path(current_inventory_pool, model),
+											:confirm => _("Are you sure?"),
+											:method => :delete if model.package_items.empty? and model.order_lines.empty? and model.contract_lines.empty? %>
+							<% end if params[:filter] == "packages" %>
 						</ul>
 					<% end %>
 				</td>

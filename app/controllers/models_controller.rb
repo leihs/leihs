@@ -7,8 +7,8 @@ class ModelsController < FrontendController
              limit = (params[:limit] || 25).to_i,
              query = params[:query],
              recent = params[:recent],
-             sort = params[:sort] || 'name',
-             dir = params[:dir] || 'asc' )
+             sort =  "models.#{(params[:sort] || 'name')}",
+             dir =  params[:dir] || 'ASC' )
 
     # OPTIMIZE 21** conditions. avoid +&+ intersections because are breaking paginator, forcing to use Array instead of ActiveRecord
     conditions = ["1"] 
@@ -22,6 +22,7 @@ class ModelsController < FrontendController
       conditions << current_inventory_pools 
     end
 
+    # OPTIMIZE 0907
     if category_id > 0
       category = Category.find(category_id)
       m_ids= (category.children.recursive.to_a << category).collect(&:models).flatten.uniq.collect(&:id)
@@ -29,16 +30,23 @@ class ModelsController < FrontendController
       conditions << m_ids 
     end
 
-    models = models.all(:conditions => conditions)
-    # TODO 18** include Templates: models += current_user.templates
-    # OPTIMIZE N+1 select problem, :include => :locations
-    @models = models.search(query, :page => ((start / limit) + 1), :per_page => limit, :order => sort.to_sym, :sort_mode => dir.downcase.to_sym)
+    # TODO 09** merge paginate to search
+    unless query.blank?
+      # TODO 18** include Templates: models += current_user.templates
+      models = models.all(:conditions => conditions)
+      @models = models.search(query, {:offset => start, :limit => limit}, {:order => sanitize_order(sort, dir)})
       
-    c = @models.total_entries
+      c = @models.total_hits
+    else
+      @models = models.paginate :page => ((start / limit) + 1), :per_page => limit, :order => sanitize_order(sort, dir), :conditions => conditions
+          # OPTIMIZE N+1 select problem, :include => :locations
+      c = @models.total_entries
+    end
 
     respond_to do |format|
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
+                                                            :methods => :image_thumb,
                                                             :except => [ :internal_description,
                                                                          :info_url,
                                                                          :maintenance_period,
@@ -64,17 +72,13 @@ class ModelsController < FrontendController
     respond_to do |format|
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
+                                                            :methods => [:needs_permission, :package_models],
                                                             :except => [ :internal_description,
                                                                          :info_url,
                                                                          :maintenance_period,
                                                                          :created_at,
                                                                          :updated_at ],
                                                             :include => {
-                                                                :package_items => { :except => [:created_at,
-                                                                                                :updated_at,
-                                                                                                :parent_id,
-                                                                                                :model_id],
-                                                                                    :include => [:model]},
                                                                 :properties => { :except => [:created_at,
                                                                                              :updated_at] },
                                                                 :accessories => { :except => [:model_id] },
@@ -97,11 +101,7 @@ class ModelsController < FrontendController
 #################################################################
 
   def chart
-    # TODO 04** pass arguments
-    c = @model.chart(current_user, @inventory_pool, params[:days_from_today], params[:days_from_start])
-#old#    
-    redirect_to c
-#new#    send_data(c.to_blob, :filename => "model_#{@model.id}.png", :type => 'image/png')
+    render :inline => "<%= stylesheet_link_tag $layout_public_path + '/css/general.css' %><%= javascript_include_tag :defaults %><%= canvas_for_model_in_inventory_pools(@model, @current_inventory_pools) %>"
   end
 
 #################################################################

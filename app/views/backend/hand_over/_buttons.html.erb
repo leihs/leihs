@@ -6,6 +6,9 @@
 				:class => "ghostable_group_1 ",
 				:title => _("Hand Over") ) %>
 
+    <%=	link_to icon_tag("script") + " " + _("Value list"),
+								 { :controller => 'contracts', :action => 'show', :id => @contract, :format => 'pdf', :template => 'value_list_for_models' } %>
+
 		<%= link_to(icon_tag("door") + " " + _("Close"),
 								 { :controller => 'hand_over' }) %>
 

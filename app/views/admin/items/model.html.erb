@@ -6,8 +6,9 @@
 		</ul>
 	<% end %>	
 
-	<hr />
+	<br />
 
+<% if @item.contract_lines.empty? %>
 	<% form_for [:admin, @item.model, @item],
 				:html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
 		<%= f.hidden_field :step %>
@@ -20,3 +21,6 @@
 
 		<%= submit_tag 'Submit' %>
 	<% end %>
+<% else %>
+	<%= _("The model cannot be changed because the item is used in contracts already.") %>
+<% end %>

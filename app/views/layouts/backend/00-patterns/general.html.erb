@@ -5,7 +5,7 @@
 
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<title>Leihs 2.0 (Backend)</title>
+	<title>leihs 2.1 (Backend)</title>
 		
 	<%= stylesheet_link_tag $layout_public_path + "/css/general.css", :media => "all" %>
 	<%= stylesheet_link_tag "/javascripts/tooltips/tooltips.css", :media => "screen" %>
@@ -20,9 +20,9 @@
 	
 		<div id="header">
 			<div id="logo">
-				<h1><%= link_to "Leihs 2.0", backend_path %></h1>
-				<% if @current_inventory_pool %>
-					<p><%= _("Inventory Pool") %>: <%= link_to @current_inventory_pool.name, backend_inventory_pool_path(@current_inventory_pool) %>. (<%= link_to _("Change") + "?", backend_path %>)</p>
+				<h1><%= link_to "leihs 2.1", backend_path %></h1>
+				<% if current_inventory_pool %>
+					<p><%= _("Inventory Pool") %>: <%= link_to current_inventory_pool.name, backend_inventory_pool_path(current_inventory_pool) %>. (<%= link_to _("Change") + "?", backend_path %>)</p>
 				<% end %>
 			</div>
 			<div id="personal-toolbar">
@@ -30,11 +30,11 @@
 			</div>		
 		</div>
 		<div id="banner">
-			<%= render :partial => '/layouts/backend/00-patterns/banner_buttons' if @current_inventory_pool %>
+			<%= render :partial => '/layouts/backend/00-patterns/banner_buttons' if current_inventory_pool %>
 		</div> 
 
 		<div id="sidebar">
-			<%= render :partial => '/layouts/backend/00-patterns/sidebar' if @current_inventory_pool %>
+			<%= render :partial => '/layouts/backend/00-patterns/sidebar' %>
 		</div>
 		
 			

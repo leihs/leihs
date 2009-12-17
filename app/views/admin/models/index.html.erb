@@ -1,14 +1,3 @@
-<% if @show_categories_tree %>  
-
-	<%= extjs_model_tree %>
-	  
-<table><tr>
-<td id="categories" style="vertical-align:top;" width="20%">
-
-</td>
-<td style="vertical-align:top;" width="80%">
-<% end %>  
-
 <% unless request.xml_http_request? or @model %>
 
 <div class="toolbar-second buttons">
@@ -18,11 +7,11 @@
 <% end %>
 
 
-<% table_with_search_and_pagination :columns => ["", [_("Model"), 'name'], [_("Manufacturer"), 'manufacturer'], _("Items"), _("Compatibles"), _("Action")],
+<% table_with_search_and_pagination :columns => ["", [_("Model"), 'models.name'], [_("Manufacturer"), 'models.manufacturer'], _("Items"), _("Compatibles"), _("Action")],
 						   			:records => @models do |model| %>	
 
 			<% record_path = admin_model_path(model) %>
-			<tr>
+			<% content_tag :tr, :id => "model_#{model.id}" do %>
 				<td><%= link_to image_tag(model.image_thumb), record_path if model.image_thumb %></td>
 				<td><%= model.name %></td>
 				<td><%= model.manufacturer %></td>
@@ -31,17 +20,12 @@
 				<td class="buttons">
 					<ul>
 						<li><%= link_to icon_tag("magnifier") + _("Show"), record_path %></li>
-						<li><%= link_to _("Delete"), record_path,
+						<li><%= link_to_remote _("Delete"),
+										:url => record_path,
 										:confirm => _("Are you sure?"),
 										:method => :delete if model.items.empty? %></li>
 					</ul>
 				</td>
-			</tr>
-
+			<% end %>
 
 <% end %>
-
-<% if @show_categories_tree %>  
-</td>
-</tr></table>
-<% end %>  

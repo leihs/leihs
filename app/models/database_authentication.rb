@@ -13,7 +13,7 @@ class DatabaseAuthentication < ActiveRecord::Base
   before_save :encrypt_password
   
   belongs_to :user
-  
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find :first, :conditions => ['login = ?', login] # need to get the salt
@@ -44,5 +44,4 @@ class DatabaseAuthentication < ActiveRecord::Base
     crypted_password.blank? || !password.blank?
   end
 
-  
 end

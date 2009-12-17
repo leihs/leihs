@@ -1,0 +1,14 @@
+<h3><%=_("Create external user") %></h3>
+<% form_for @user, :url => url_for([:backend, current_inventory_pool, @user].compact) do |f| %>
+
+	<table>
+		<tr><td><%= _("Firstname/Lastname") %>:</td><td><%= f.text_field :firstname, :size => 15 %> <%= f.text_field :lastname, :size => 15 %></td></tr>
+		<tr><td><%= _("Email") %>:</td><td><%= f.text_field :email %></td></tr>
+		<tr><td><%= _("Phone") %>:</td><td><%= f.text_field :phone %></td></tr>
+		<tr><td><%= _("Address") %>:</td><td><%= f.text_field :address %></td></tr>
+		<tr><td><%= _("ZIP") %>/<%=_("City") %> :</td><td><%= f.text_field :zip, :size => 5 %> <%= f.text_field :city %></td></tr>
+		<tr><td><%= _("Country") %>:</td><td><%= f.text_field :country %></td></tr>
+	
+		<tr><td><%= submit_tag 'Submit' %></td><td></td></tr>
+	</table>
+<% end %>

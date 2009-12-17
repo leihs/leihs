@@ -10,13 +10,13 @@ render_tabnav :location_backend,
 
 	add_tab do |t|
 		t.named _("Location")
-		t.links_to backend_inventory_pool_location_path(@current_inventory_pool, @location)
+		t.links_to backend_inventory_pool_location_path(current_inventory_pool, @location)
 		t.highlights_on :action => 'show'
 	end
 
 	add_tab do |t|
-		t.named _("Items (%d)") % @location.items.size
-		t.links_to backend_inventory_pool_location_items_path(@current_inventory_pool, @location)
+		t.named _("Items (%d)") % current_inventory_pool.items.by_location(@location).count
+		t.links_to backend_inventory_pool_location_items_path(current_inventory_pool, @location)
 		t.highlights_on :controller => 'backend/items', :action => 'index'
 	end
 

@@ -6,15 +6,20 @@ class ContractLine < DocumentLine
   delegate :inventory_pool, :to => :contract
   
   validates_presence_of :contract
-  validate :inventory_pool_open
   
-##################################################
+####################################################
 
-  named_scope :to_take_back,  :conditions => ["(item_id IS NOT NULL OR option_id IS NOT NULL) AND returned_date IS NULL"]
-  named_scope :to_remind,     :conditions => ["(item_id IS NOT NULL OR option_id IS NOT NULL) AND returned_date IS NULL AND end_date < CURDATE()"]
-  named_scope :deadline_soon, :conditions => ["(item_id IS NOT NULL OR option_id IS NOT NULL) AND returned_date IS NULL AND end_date = ADDDATE(CURDATE(), 1)"]
+  named_scope :to_hand_over,  :include => :contract, :conditions => ["contracts.status_const = ?", Contract::UNSIGNED]
+  named_scope :to_take_back,  :include => :contract, :conditions => ["contracts.status_const = ? AND returned_date IS NULL", Contract::SIGNED]
+  named_scope :to_remind,     :include => :contract, :conditions => ["contracts.status_const = ? AND returned_date IS NULL AND end_date < CURDATE()", Contract::SIGNED]
+  named_scope :deadline_soon, :include => :contract, :conditions => ["contracts.status_const = ? AND returned_date IS NULL AND end_date = ADDDATE(CURDATE(), 1)", Contract::SIGNED]
 
-################################################## 
+  # TODO 1209** refactor to InventoryPool has_many :contract_lines_by_user(user) ??
+  # NOTE InventoryPool#contract_lines.by_user(user)
+  named_scope :by_user, lambda { |user| { :conditions => ["contracts.user_id = ?", user] } }
+  #temp# named_scope :by_user, lambda { |user| { :joins => :contract, :conditions => ["contracts.user_id = ?", user] } }
+
+##################################################### 
 
   def is_late?(current_date = Date.today)
     returned_date.nil? and end_date < current_date
@@ -24,13 +29,5 @@ class ContractLine < DocumentLine
     contract
   end
 
-##################################################
-
-  private
-      
-  def inventory_pool_open
-    errors.add_to_base(_("This inventory pool is closed on the proposed end date")) if end_date and not contract.inventory_pool.is_open_on?(end_date)
-  end
-    
 end
 

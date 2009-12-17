@@ -1,0 +1,15 @@
+|open|/admin||
+|clickAndWait|link=InventoryPools (0)||
+|clickAndWait|link=Create New||
+|type|inventory_pool_name|Audio Equipment|
+|type|inventory_pool_shortname|AUD|
+|type|inventory_pool_description|This inventory pool contains audio equipment.|
+|type|inventory_pool_default_contract_note|Please don't play too loudly.|
+|clickAndWait|commit||
+|clickAndWait|link=InventoryPools (1)||
+|clickAndWait|link=Create New||
+|type|inventory_pool_name|Video Equipment|
+|type|inventory_pool_shortname|VID|
+|type|inventory_pool_description|This inventory pool contains video equipment.|
+|type|inventory_pool_default_contract_note|Don't watch too long, or your eyes will become big ugly squares.|
+|clickAndWait|commit||

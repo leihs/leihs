@@ -1,20 +1,38 @@
 class Location < ActiveRecord::Base
 
-  belongs_to :inventory_pool
   has_many :items
-#  has_many :models, :through => :items, :uniq => true
+  belongs_to :building
+  
+  validates_uniqueness_of :building_id, :scope => [:room, :shelf]
 
-  define_index do
-    indexes :building, :sortable => true
-    indexes :room, :sortable => true
-    indexes :shelf, :sortable => true
-    has :id
-    set_property :order => :room
-    set_property :delta => true
+#temp# 1108**
+#  before_save do |record|
+#    attributes[:building_id] = nil if attributes[:building_id].blank?
+#    attributes[:room] = nil if attributes[:room].blank?
+#    attributes[:shelf] = nil if attributes[:shelf].blank?
+#  end
+
+  def self.find_or_create(attributes = {})
+    attributes.delete(:id)
+    attributes.delete("id")
+    attributes[:building_id] = nil if attributes[:building_id].blank?
+    attributes[:room] = nil if attributes[:room].blank?
+    attributes[:shelf] = nil if attributes[:shelf].blank?
+    
+    record = first(:conditions => attributes)
+    record ||= create(attributes)
   end
 
+  acts_as_ferret :fields => [ :building_name, :room, :shelf ], :store_class_name => true, :remote => true
+
   def to_s
-    "#{building} #{room} #{shelf}" #TODO: Removed inventory_pool.name because it throws an error on Location.new
+    "#{building} #{room} #{shelf}"
+  end
+
+  private
+  
+  def building_name
+    building.name
   end
 
 end

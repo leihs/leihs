@@ -4,7 +4,7 @@ Story: Handout
 	I want to hand out items
 	So that I can fulfill orders
 	
-	Scenario: Handout simple order with barcode scanner
+Scenario: Handout simple order with barcode scanner
 	
 	Given a user named Hans Meier
 	And he ordered 1 item starting from today
@@ -39,7 +39,7 @@ Story: Handout
 	
 	Then Hans Meier appears on the list
 	
-	Scenario: Handout simple order with miscellaneous stuff
+Scenario: Handout simple order with miscellaneous stuff
 	
 	Given a user named Hans Meier
 	And he ordered 1 item starting from today

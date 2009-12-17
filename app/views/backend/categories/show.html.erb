@@ -1,5 +1,9 @@
+<% form_for [:backend, current_inventory_pool, @category] do |f| %>
+	<b>Name:</b>
+	<%= f.text_field :name %>	
+	<%= submit_tag 'Submit' %>
+<% end %>
 
-		<ul>
-		<li><b>Name:</b> <%= @category.name %></li>	
-		</ul>
+
+<%= image_tag @graph if @graph %>
 	

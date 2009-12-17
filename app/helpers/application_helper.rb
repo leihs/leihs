@@ -41,8 +41,12 @@ module ApplicationHelper
 
   ######## Icon #########
 
+  def icon_path(icon)
+    $layout_public_path + "/images/icons/" + icon + ".png"
+  end
+
   def icon_tag(icon)
-    image_tag($layout_public_path + "/images/icons/" + icon + ".png", :style => "vertical-align: bottom;")
+    image_tag(icon_path(icon))#, :style => "vertical-align: bottom;")
   end
 
   ######## Date #########
@@ -57,24 +61,23 @@ module ApplicationHelper
 
   def dates_with_period(start_date, end_date)
     interval = (end_date - start_date).abs + 1
-    "#{short_date(start_date)} - #{short_date(end_date)}<br/><span style='font-size:smaller;'>#{pluralize(interval, _("Day"))}</span>" #old# _("%d Days") % interval
+    content_tag :span do
+      c = "valid_#{current_inventory_pool.is_open_on?(start_date)}" if current_inventory_pool
+      r = content_tag :span, :class => c do
+        short_date(start_date)
+      end
+      r += " - "
+      c = "valid_#{current_inventory_pool.is_open_on?(end_date)}" if current_inventory_pool
+      r += content_tag :span, :class => c do
+        short_date(end_date)
+      end
+      r += "<br/>"
+      r += content_tag :span, :style => "font-size: smaller;" do
+        pluralize(interval, _("Day"))
+      end
+      r
+    end
   end
-  
-#old#  
-#  ######## Search #########
-#
-#  ACTION_DICTIONARY = { "add_line" => ["Add", "package_add"],
-#                        "swap_model_line" => ["Swap", "arrow_switch"],
-#                        "swap_user" => ["Swap", "arrow_switch"]}
-#  
-#  def get_action_text(action)
-#    ACTION_DICTIONARY[action][0]
-#  end
-#
-#  def get_action_image(action)
-#    ACTION_DICTIONARY[action][1]
-#  end
-  
   
   ######## Flash #########
 
@@ -118,18 +121,49 @@ module ApplicationHelper
     r
   end
 
-  def to_list(msg = [])
-    content_tag :ul do
-      r = ""
-      msg.to_a.each do |e|
-        r += content_tag :li do
-          e
+  ######## Hash/Array to <ul> list #########
+
+#old#
+#  def to_list(msg = [])
+#    content_tag :ul do
+#      r = ""
+#      msg.to_a.each do |e|
+#        r += content_tag :li do
+#          e
+#        end
+#      end
+#      r
+#    end
+#  end
+  
+  def to_list(h)
+    case h.class.name
+      when "Hash"
+        content_tag :ul do
+          r = ""
+          h.each_pair do |key,value|
+            r += content_tag :li, :style => "padding: 0.5em 0 0 2em;" do
+              "<b>#{key}:</b> #{to_list(value)}"
+            end
+          end
+          r
         end
-      end
-      r
+      when "Array"
+        content_tag :ul do
+          r = ""
+          h.each do |value|
+            r += content_tag :li, :style => "padding: 0.5em 0 0 2em;" do
+              to_list(value)
+            end
+          end
+          r
+        end
+      else
+        #Rails 2.3# auto_link(h, :href_options => { :target => '_blank' })
+        auto_link(h, :all, :target => "_blank")
     end
   end
-  
+
   ######## Tabs #########
 
   # TODO 12** optimize rails-widgets overriding
@@ -155,11 +189,4 @@ module ApplicationHelper
       end
     end
   end
-  
-  ######## Gettext #########
-  
-  def locales
-    [['en_US', 'english'], ['de_CH', 'deutsch']]
-  end
-  
 end

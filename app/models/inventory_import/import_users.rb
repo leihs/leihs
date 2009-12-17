@@ -39,7 +39,7 @@ class InventoryImport::ImportUsers
               level = AccessRight::SPECIAL if user.benutzerstufe == 3
               
               role = Role.find_by_name('customer')
-              role = Role.find_by_name('manager') if user.benutzerstufe == 4
+              role = Role.find_by_name('lending manager') if user.benutzerstufe == 4
 
               u.access_rights.create(:role => role, :inventory_pool => convert_ip(geraetepark), :level => level)
             end

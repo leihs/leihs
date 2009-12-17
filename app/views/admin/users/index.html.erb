@@ -10,7 +10,7 @@
 <% table_with_search_and_pagination :columns => [[_("User Login"), 'login'], _("Access Rights"), _("Documents"), _("Action")],
 						   			:records => @users do |user| %>	
 
-			<tr>
+			<% content_tag :tr, :id => "user_#{user.id}" do %>
 				<td><%= user.login %></td>
 				<td>
 					<ul>
@@ -28,12 +28,13 @@
 				<td class="buttons">
 					<ul>
 						<li><%= link_to icon_tag("magnifier") + _("Show"), :action => 'show', :id => user.id %></li>
-						<li><%= link_to _("Delete"), admin_user_path(user),
+						<li><%= link_to_remote _("Delete"),
+										:url => admin_user_path(user),
 										:confirm => _("Are you sure?"),
 										:method => :delete %></li>
 					</ul>
 				</td>
-			</tr>
+			<% end %>
 
 <% end %>
 

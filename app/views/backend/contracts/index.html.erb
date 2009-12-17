@@ -6,21 +6,23 @@
 				<td><%= today_or_yesterday_date(contract.created_at) %></td>
 				<td>
 					<%= greybox_link_to_page(contract.user.login,
-							backend_inventory_pool_user_path(@current_inventory_pool, contract.user, :layout => "modal"),
+							backend_inventory_pool_user_path(current_inventory_pool, contract.user, :layout => "modal"),
 							:title => _("User"),
 							:class => "iconized-notxt edit-user" ) %>
 				</td>
 				<td><%= _("%{n} Items") % {:n => contract.quantity} %></td>
-				<td class="buttons">
-					<% case params[:filter]
-				    	 when "signed" %>
+				<% content_tag :td, :class => "buttons" do
+					unless contract.lines.empty? %>
+						<%=	link_to icon_tag("script") + " " + _("Print PDF"),
+									 { :controller => 'contracts', :action => 'show', :id => contract, :format => 'pdf' } %>
+
+            <%=	link_to icon_tag("script") + " " + _("Value list"),
+									 { :controller => 'contracts', :action => 'show', :id => contract, :format => 'pdf', :template => 'value_list' } %>
+
 						<%= link_to icon_tag("tab_go") + _("Take Back"),
-								[:backend, @current_inventory_pool, contract.user, :take_back] %>
-					<%	 when "closed" %>
-					<% end %>
-					<%=	link_to icon_tag("script") + " " + _("Print PDF"),
-								 { :controller => 'contracts', :action => 'show', :id => contract, :format => 'pdf' } %>
-				</td>
+								[:backend, current_inventory_pool, contract.user, :take_back] if contract.status_const == Contract::SIGNED %>
+					<% end
+				end %>
 			</tr>
 <% end %>
 

@@ -9,16 +9,15 @@ class InventoryImport::Importer
     connect_dev
     #connect_prod
     self.messages = []
-    inventar = InventoryImport::ItHelp.find(:all, :conditions => "rental like 'yes'",	:order => 'Inv_Serienr')
+    inventar = InventoryImport::ItHelp.find(:all,	:order => 'Inv_Serienr')
     count = 0
     
     import_inventory_pools
 
     inventar.each do |item|
-      
       gegenstand = InventoryImport::Gegenstand.find(:first, :conditions => ['original_id = ?', item.Inv_Serienr])
-
-      if gegenstand
+      #gegenstand = InventoryImport::Gegenstand.new unless gegenstand
+      if gegenstand and not ["ITZ"].include?(item.Stao_Abteilung)
        # puts "Found: #{item.Inv_Serienr} - #{item.Art_Bezeichnung} = #{gegenstand.modellbezeichnung}"
         attributes = {
           :name => item.Art_Bezeichnung,
@@ -34,7 +33,7 @@ class InventoryImport::Importer
         add_picture(model, gegenstand.bild_url) if gegenstand.bild_url and not gegenstand.bild_url.blank? and model.images.size == 0
         
         category = Category.find_or_create_by_name :name => item.Art_Gruppe_2
-        category.models << model unless category.models.include?(model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
+        category.models << model unless model.id == 0 || category.models.include?(model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
       
         item_attributes = {
           :inventory_code => (item.Inv_Abteilung + item.Inv_Serienr.to_s),
@@ -51,20 +50,42 @@ class InventoryImport::Importer
           :is_incomplete => gegenstand.paket.nil? ? false : (gegenstand.paket.status == 0),
           :is_broken => gegenstand.paket.nil? ? false : (gegenstand.paket.status == -2),
           :is_borrowable => (item.rental == 'yes' and gegenstand.ausleihbar?),
-          :price => gegenstand.kaufvorgang.kaufpreis.nil? ? 0 : gegenstand.kaufvorgang.kaufpreis / 100,
-          :supplier => Supplier.find_or_create_by_name({ :name => item.Lief_Firma })
+          :price => (gegenstand.kaufvorgang.nil? or gegenstand.kaufvorgang.kaufpreis.nil?) ? 0 : gegenstand.kaufvorgang.kaufpreis / 100,
+          :supplier => Supplier.find_or_create_by_name({ :name => item.Lief_Firma || item.Lief_Code })
         }
-        i = Item.find_or_create_by_inventory_code item_attributes
-        i.update_attributes(item_attributes)
         
-        #If the item now belongs to a different Model - Remap existing contract lines to the new model.
-        i.contract_lines.each do | line |
-          line.update_attributes(:model => model)
+        if gegenstand.ausmusterdatum.blank?
+          i = Item.find_or_create_by_inventory_code item_attributes
+          i.update_attributes(item_attributes)
+          
+          #Add misc. stuff as notes.
+          unless item.Art_Zusatz.blank? || item.Art_Zusatz == "-"
+            #puts "Artikel Zusatz: #{i.id} - #{item.Art_Zusatz}"
+            i.log_history(item.Art_Zusatz, nil)
+          end
+          
+          unless item.Eingebaut_in.blank?
+            #puts "Eingebaut: #{i.id} - #{item.Eingebaut_in}"
+            i.log_history("Eingebaut in: #{item.Eingebaut_in}", nil)
+          end
+          
+          #If the item now belongs to a different Model - Remap existing contract lines to the new model.
+          i.contract_lines.each do | line |
+            line.update_attributes(:model => model)
+          end
+          count += 1
+          break if count == max
+        else
+          i = Item.find_by_inventory_code(item_attributes[:inventory_code])
+          if i
+            puts "Retiring (i.e. deleting) #{i.inventory_code}"
+            i.destroy
+          end
         end
-        count += 1
-        break if count == max
       else
-        add_message "Not Found in leihs: #{item.Inv_Serienr} - #{item.Art_Bezeichnung}"
+        add_message "Not Found in leihs: #{item.Inv_Serienr} - #{item.Art_Bezeichnung}" unless gegenstand
+        add_message "#{item.Stao_Abteilung} Items are not being imported." if gegenstand
+        
       end
       
     end
@@ -99,12 +120,7 @@ class InventoryImport::Importer
   
   # TODO import building, room and shelf
   def get_location(inventory_pool_name, location_room)
-    inventory_pool = InventoryPool.find_by_name(inventory_pool_name)
-    inventory_pool = InventoryPool.find_by_name(use_new_name_for(inventory_pool_name)) unless inventory_pool
-    inventory_pool = InventoryPool.create(:name => inventory_pool_name) unless inventory_pool
-    location = Location.find(:first, :conditions => {:room => location_room, :inventory_pool_id => inventory_pool.id})
-    location = Location.create(:room => location_room, :inventory_pool => inventory_pool) unless location
-    return location
+    return Location.find_or_create(:room => location_room)
   end
   
   def get_owner(dept)

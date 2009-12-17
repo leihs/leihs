@@ -11,7 +11,7 @@
 				<td><%= template.total_quantity %></td>
 				<td class="buttons">
 					<ul>
-						<li><%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_template_path(@current_inventory_pool, template) %></li>
+						<li><%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_template_path(current_inventory_pool, template) %></li>
 						<li><%= link_to _("Remove"), {},
 										:confirm => _("Are you sure?"),
 										:method => :delete if @model %></li> <% # TODO %>

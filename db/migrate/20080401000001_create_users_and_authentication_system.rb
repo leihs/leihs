@@ -8,10 +8,6 @@ class CreateUsersAndAuthenticationSystem < ActiveRecord::Migration
       t.boolean :is_active, :default => false
     end
     
-    AuthenticationSystem.create(:name => "Database Authentication", :class_name => "DatabaseAuthentication")
-    AuthenticationSystem.create(:name => "LDAP Authentication", :class_name => "LDAPAuthentication")
-    AuthenticationSystem.create(:name => "ZHDK Authentication", :class_name => "Zhdk", :is_active => true, :is_default => true)
-    
     
     create_table :users do |t|
       t.string :login

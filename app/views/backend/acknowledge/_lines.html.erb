@@ -1,8 +1,7 @@
-
-<!-- start iterator -->
 <%
-last_date = Date.today - 120.days
+last_date = 0
 last_end_date = nil
+
 for @line in @order.lines  
 	if @line.start_date > last_date
 	  if last_end_date %>
@@ -32,5 +31,3 @@ for @line in @order.lines
                                                   {:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
                                                   :title => _("Add Model"), :width => 1000 ) %></td></tr>
 <% end %>
-
-<!-- end iterator -->						

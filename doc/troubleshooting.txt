@@ -1,0 +1,71 @@
+
+========================================================================================================
+Problem:
+
+	DRb::DRbConnError (druby://localhost:9010 - #<Errno::ECONNREFUSED: Connection refused - connect(2)>)
+
+Solution:
+
+	$ ssh leihs@webapp.zhdk.ch
+	$ cd /home/rails/leihs/leihs2beta/current
+	$ ./script/ferret_server -e production start
+	
+	TODO
+	Maybe we should make a rake task:
+		$ rake leihs:server_reboot
+	and run it automatically from the server reboot script
+
+========================================================================================================
+Problem:
+
+	The web server is not responding and there is an high CPU utilization by the ruby process
+
+Solution:
+
+	Rebuild the ferret index:
+	$ RAILS_ENV=production rake leihs:maintenance
+
+	
+========================================================================================================
+Problem:
+	The mongrel_cluster daemon on the production environment has to be restarted	
+
+Solution:
+	$ /etc/init.d/mongrel_cluster start
+
+
+========================================================================================================
+Problem:
+	Restart mongrel only for beta (ausleihe)?
+
+Solution:
+	Select the pids
+	$ ps auxw | grep leihs2 | grep production | grep -v demo | cut -c 6-15
+	  1
+	  2
+	  3
+	
+	Then kill the pids of each mongrel
+	$ kill -SIGUSR2 1 2 3
+
+	SIGUSR2 makes the mongrels restart.
+	Works as normal leihs user because the processes are owned by that user
+
+TODO implement an automatic rake task? (rake leihs:restart)
+
+========================================================================================================
+Problem:
+	Errors executing any rake command	
+
+Solution:
+	Any require or include in the lib/tasks/*.rake must be inside the task
+
+========================================================================================================
+Problem:
+	Sphinx doesn't reindex if `rake ts:in` is called through the mongrel process (via browser)	
+
+Solution:
+	Make sure indexer is reacheable by the current mongrel process user.
+	$ ln -s /usr/local/bin/indexer /usr/bin
+	????	
+

@@ -6,8 +6,11 @@ class FrontendController < ApplicationController
 
   layout 'frontend'
 
+  def index
+  end
+
   def get_inventory_pools
-    ips = current_user.inventory_pools
+    ips = current_user.active_inventory_pools
     c = ips.size
     respond_to do |format|
       format.ext_json { render :json => ips.to_ext_json(:class => "InventoryPool",
@@ -20,7 +23,7 @@ class FrontendController < ApplicationController
   end
 
   def set_inventory_pools(ips = params[:inventory_pool_ids] || [])
-    self.current_inventory_pools = current_user.inventory_pools.all(:conditions => ["inventory_pools.id IN (?)", ips])
+    self.current_inventory_pools = current_user.active_inventory_pools.all(:conditions => ["inventory_pools.id IN (?)", ips])
     render :nothing => true
   end
 

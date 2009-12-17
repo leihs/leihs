@@ -1,8 +1,10 @@
-<%= _("Dear leihs user,") %>
+<%= _("Dear leihs client,") %>
 
-<%= _("This is an automatic e-mail sent to you by the leihs system.") %> 
+<%= _("** This is an automatically generated response **") %> 
 
 <%= _("Your order for the following items has been confirmed by the inventory manager") + ":" %>
+
+<%= _("Inventory pool") + ": " + @order.inventory_pool.name unless @order.inventory_pool.nil? %>
 
 <% @order.order_lines.each do | line | %>
 	<%= line.quantity%> <%= line.model.name %>
@@ -10,7 +12,7 @@
 
 <% if @comment %>
 
-<%= _("The inventory manager added the following comment about your order:") %>
+<%= _("These are the comments of the inventory manager:") %>
 
 <%= @comment %>
 
@@ -18,4 +20,7 @@
 
 <%= _("Kind regards,") %>
 
-<%= _("The leihs system") %>
+<%= EMAIL_SIGNATURE %>
+
+--
+<%= @order.inventory_pool.description unless @order.inventory_pool.nil? %>

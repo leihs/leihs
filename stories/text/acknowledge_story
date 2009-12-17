@@ -6,12 +6,12 @@ Story: Acknowledge orders
 	
 Scenario: List with new orders
 
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given the list of new orders contains 0 elements
 	And a new order is placed by a user named 'Joe'
 	And the new order is submitted
 	
-	When inventory_manager clicks 'acknowledge'
+	When lending_manager clicks 'acknowledge'
 	
 	Then he sees 1 order
 	And the order was placed by a user named 'Joe'
@@ -20,21 +20,21 @@ Scenario: List with new orders
 
 Scenario: Count of new orders is shown
 
-  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+  Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given the list of new orders contains 0 elements
   And 5 new orders are placed
 
-  When inventory_manager looks at the screen
+  When lending_manager looks at the screen
 
-  Then he sees 'Acknowledge (5)'
+  Then he sees 'Acknowledge'
 
-  When inventory_manager clicks 'acknowledge'
+  When lending_manager clicks 'acknowledge'
 
-  Then the active tab is titled 'Acknowledge (5)'
+  Then the active tab is titled 'Acknowledge'
 
 Scenario: Acknowledge order
 
-  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+  Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And the list of new orders contains 0 elements
@@ -43,28 +43,27 @@ Scenario: Acknowledge order
   And Joe's email address is joe@test.ch
   And the new order is submitted
 
-  When the inventory_manager clicks 'acknowledge'
+  When the lending_manager clicks 'acknowledge'
   Then he sees 1 order
 
   When he chooses Joe's order
 
-  Then Joe's order is opened in tab
-  And the active tab is titled 'Order: Joe'
-  And inventory_manager can Save + Approve
-  And inventory_manager can Reject Order
+  Then Joe's order is shown
+  And lending_manager can Save + Approve
+  And lending_manager can Reject Order
 
-  When inventory_manager approves order
+  When lending_manager approves order
 
   Then joe@test.ch receives an email
   And its subject is '[leihs] Reservation Confirmation'
   And it contains information '5 NEC 245'
 
-  And inventory_manager sees 0 orders
+  And lending_manager sees 0 orders
 
 
 Scenario: Reject order
 
-  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+  Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And the list of new orders contains 0 elements
@@ -73,28 +72,28 @@ Scenario: Reject order
   And Joe's email address is joe@test.ch
   And the new order is submitted
 
-  When the inventory_manager clicks 'acknowledge'
+  When the lending_manager clicks 'acknowledge'
   Then he sees 1 order
 
   When he chooses Joe's order
 
-  Then Joe's order is opened in tab
-  And inventory_manager can Save + Approve
-  And inventory_manager can Reject Order
+  Then Joe's order is shown
+  And lending_manager can Save + Approve
+  And lending_manager can Reject Order
 
-  When inventory_manager rejects order with reason 'Because I don't like you.'
+  When lending_manager rejects order with reason 'Because I don't like you.'
  
   Then joe@test.ch receives an email
   And its subject is '[leihs] Reservation Rejected'
   And it contains information 'Because I don't like you.'
 
-  And inventory_manager sees 0 order
+  And lending_manager sees 0 order
 
 
 
 Scenario: Change amount and add Item
 
-  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+  Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And a model 'NEC 333' exists
@@ -104,17 +103,17 @@ Scenario: Change amount and add Item
   And Joe's email address is joe@test.ch
   And the new order is submitted
 
-  When the inventory_manager clicks 'acknowledge'
+  When the lending_manager clicks 'acknowledge'
   And he chooses Joe's order
 
-  Then Joe's order is opened in tab
+  Then Joe's order is shown
 
-  When inventory_manager changes number of items of model 'NEC 245' to 4
+  When lending_manager changes number of items of model 'NEC 245' to 4
   And he adds 1 item 'NEC 333'
   And he adds a personal message: 'NEC 333 is better in that situation'
-  And inventory_manager approves order
+  And lending_manager approves order
   
-  Then inventory_manager sees 0 order
+  Then lending_manager sees 0 order
 
 
   And joe@test.ch receives an email
@@ -128,7 +127,7 @@ Scenario: Change amount and add Item
 
 Scenario: Swap Model
 
-  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+  Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And a model 'NEC 333' exists
@@ -138,23 +137,23 @@ Scenario: Swap Model
   And Joe's email address is joe@test.ch
   And the new order is submitted
 
-  When the inventory_manager clicks 'acknowledge'
+  When the lending_manager clicks 'acknowledge'
   And he chooses Joe's order
 
-  Then Joe's order is opened in tab
+  Then Joe's order is shown
 
   When he chooses 'swap' on order line 'NEC 245' 
 
   Then Swap Item screen opens
 
-  When inventory_manager searches for 'NEC 333'
+  When lending_manager searches for 'NEC 333'
 
   Then a choice of 1 item appears
 
-  When inventory_manager selects 'NEC 333'
+  When lending_manager selects 'NEC 333'
   Then he sees 5 items of model 'NEC 333'
   When he adds a personal message: 'NEC 333 is better than NEC 245'
-  And inventory_manager approves order
+  And lending_manager approves order
 
   Then joe@test.ch receives an email
   And its subject is '[leihs] Reservation confirmed (with changes)'

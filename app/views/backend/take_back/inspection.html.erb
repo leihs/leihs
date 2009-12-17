@@ -3,7 +3,8 @@
 	<h4><%= @contract_line.item.model.name %> - <%= @contract_line.item.inventory_code %></h4>
 
 	<br />
-	<% form_tag( { :line_id => @contract_line }, :name => "f", :target => "_top") do %>
+	<% form_remote_tag :url => { :line_id => @contract_line },
+					   :complete => "parent.parent.GB_hide();" do %>
 		<%= _("Working order") %>: <%= select_tag 'item[is_broken]', options_for_select({_("OK") => false, _("Broken") => true}, @contract_line.item.is_broken) %>
 		<br />
 		<br />
@@ -19,8 +20,12 @@
 		<%= text_area_tag 'note', "User: #{@contract_line.contract.user.login}\nContract: #{@contract_line.contract.id}", :size => "25x10" %>
 		
 		<div class="buttons">
-			<%=	submit_button(_("Submit"), {:icon => "flag_red"} ) %>
-					 		 
+			<% # OPTIMIZE submit_button helper using the <button> tag %>
+			<%#old#=	submit_button(_("Submit"), {:icon => "flag_red"} ) %>
+			<% content_tag :button, :type => "submit" do %>
+				<%= "#{icon_tag('flag_red')} #{_("Submit")}" %>
+			<% end %>
+
 			<%=	cancel_popup_button(_("Cancel") ) %>
 		</div>
 	<% end %>

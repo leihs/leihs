@@ -1,0 +1,37 @@
+
+var help_html = '\
+<div id="blankpage"> \
+<h1>Hilfe zu leihs</h1>\
+<p>leihs lässt sich sehr ähnlich bedienen wie ein Online-Shop. Da man bei einer Reservation aber im Gegensatz zu einem Online-Shop auch Ausleihe- und Rückgabedatum angeben muss, und die gewünschten Gegenstände unter Umständen am Wunschdatum gar nicht verfügbar sind, unterscheidet sich die Bedienung in einigen Details.</p>\
+<p>Die folgenden Abschnitten führen Sie durch die wichtigsten Punkte.</p>\
+<h2>Modelle und Gegenstände</h2>\
+<p>leihs unterscheidet die verschiedenen verfügbaren Dinge hauptsächlich am Modell. Ein Beamer NEC LT 245 ist ein anderes Modell als ein Beamer NEC LT 260. Diese beiden Geräte werden also auch als zwei unterschiedliche Modelle aufgelistet. Reserviert wird jeweils nur das gewünschte Modell, nicht ein spezieller Gegenstand. Dies ermöglicht das einfache Austauschen eines Modells, sollte das gewünschte aus irgendeinem Grund am Abholtag doch nicht verfügbar sein.</p>\
+<h2>Ein Modell reservieren</h2>\
+<p>Um ein passendes Modell zu finden, stehen Ihnen mehrere Möglichkeiten zur Verfügung:</p>\
+<h3>Stöbern über den Kategoriebaum</h3>\
+<p>Auf der linken Seite finden Sie einen Baum mit Modellkategorien. Ähnlich wie bei einem Online-Shop sind dort die verschiedenen Modelle nach Kategorien geordnet auffindbar. Klicken Sie auf eine Kategorie, öffnet sich in der Mitte die Liste der entsprechenden Gegenstände. Wenn Sie auf eine Oberkategorie klicken (als Ordner dargestellt), werden auch alle Modelle der Unterkategorien dieses Ordners angezeigt.</p>\
+<p>Möchten Sie also einfach einmal sehen, was es im gesamten Bereich &quot;Audio&quot; so gibt, klicken Sie auf &quot;Audio&quot; und blättern Sie durch die Liste.</p>\
+<p>Alternativ können Sie sich auch sämtliche Modelle anzeigen lassen, auf die Sie Zugriff haben. Klicken Sie dazu entweder auf die Kategorie &quot;Alle&quot; oder am oberen Seitenrand auf &quot;Modelle&quot;.</p>\
+<h3>Suche über einen Suchbegriff</h3>\
+<p>Haben Sie irgendeine Kategorie ausgewählt, können Sie innerhalb dieser Kategorie suchen. Natürlich funktioniert das auch in der Gesamtliste aller Modelle, Sie müssen nicht zwingend eine Kategorie auswählen. Ob Ihre Suche auf eine Kategorie eingegrenzt wird, erkennen Sie am Kategorienamen rechts vom Suchfeld.</p>\
+<h3>Eingrenzung nach Gerätepark</h3>\
+<p>leihs kann mehrere Geräteparks verwalten, alle mit unterschiedlichen Modellen, Geräten und Berechtigungen. Die Geräteparks, bei Denen Sie für die Ausleihe berechtigt sind, sehen Sie links unterhalb des Kategoriebaums im Feld &quot;Geräteparks&quot;.</p>\
+<p>Klicken Sie das Plus-Symbol neben dem Feld, um zu bestimmen, auf welche Geräteparks sich Ihre Suchabfragen beziehen sollen. Wenn Sie diese Auswahl verändert haben, klicken Sie auf &quot;Aktualisieren&quot;, um die Liste von Modellen zu aktualisieren. Danach werden nur noch Modelle der angewählten Geräteparks angezeigt.</p>\
+<p>Dies ist dann nützlich, wenn Sie z.B. mehrere Besuche bei verschiedenen Geräteparks verhindern und alle Modelle nur bei einem bestimmten Park ausleihen möchten.</p>\
+<h2>Bestellungen zusammenstellen, bearbeiten und abschicken</h2>\
+<p>In der Liste der Modelle in der Seitenmitte sehen Sie eine grobe Übersicht darüber, was ausleihbar ist. Klicken Sie auf einen Modellnamen, erscheint im unteren Bildschirmbereich eine Detail-Ansicht. Dort können Sie bei den meisten Gegenständen weitere Informationen (Hersteller-Infos, Produkteigenschaften usw.) finden.</p>\
+<p>Möchten Sie versuchen, das jeweilige Modell zu reservieren, müssen Sie unter &quot;Hinzufügen&quot; weitere Details angeben: An welchen Gerätepark geht die Bestellung und wie lange benötigen Sie das Gerät? Im Menü &quot;Gerätepark&quot; bestimmen Sie den Empfänger -- dort sehen Sie übrigens auch die Anzahl der maximal verfügbaren Geräte. In den beiden Datumsfeldern können Sie Start- und Enddatum Ihrer Reservation angeben. Klicken Sie &quot;Hinzufügen&quot; und das Modell landet vorläufig in Ihrer Bestellung.</p>\
+<p>Haben Sie alle gewünschten Modelle ausgewählt, gelangen Sie mit dem Button &quot;Weiter in Bestellung&quot; oder mit dem Tab &quot;Bestellung&quot; zum Bestätigungs-Bildschirm für Ihre Bestellung. Hier können Sie nochmals Anzahl und Datum jedes Modells verändern, Modelle löschen usw. Falls es Probleme mit Ihrer Bestellung gibt (Terminkollisionen, Reservation ausserhalb der Öffnungszeiten usw.), sehen Sie diese im oberen Seitenbereich.</p>\
+<p>Ist alles in Ordnung, können Sie Ihre Bestellung mit dem Button &quot;Bestellung abschicken&quot; an den jeweiligen Geätepark übermitteln.</p>\
+<p><strong>Achtung:</strong> Ihre Bestellung ist noch nicht genehmigt! Ihre Reservation gilt erst, wenn der jeweilige Ausleihe-Verwalter die Bestellung genehmigt.</p>\
+</div>\
+';
+
+
+var help_panel = new Ext.Panel({
+							title: '<%= _("Help") %>',
+							html: help_html,
+							frame: true,
+							closable: true,
+                            autoScroll: true
+						});

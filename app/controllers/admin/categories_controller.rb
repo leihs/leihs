@@ -3,22 +3,32 @@ class Admin::CategoriesController < Admin::AdminController
   before_filter :pre_load
 
   def index
-    if @model
-      categories = @model.categories
-    elsif @category
+    # OPTIMIZE 0408** sorting 
+    params[:sort] ||= 'model_groups.name'
+    params[:dir] ||= 'ASC'
+
+    if @category
       # TODO 12** optimize filter
       if request.env['REQUEST_URI'].include?("parents")
           categories = @category.parents
-      elsif request.env['REQUEST_URI'].include?("children")
+      else #if request.env['REQUEST_URI'].include?("children")
           categories = @category.children
+          #temp# @categories = @category.children.sort
       end
     else
-      categories = Category
+      if request.format == :ext_json
+        @categories = Category.roots
+      else
+        categories = Category
+      end
+      @show_categories_tree = (!request.xml_http_request? and params[:source_path].blank?)
     end    
     
-    @categories = categories.search(params[:query], :page => params[:page])
-    
+    @categories ||= categories.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
+
+# TODO vertical tree
 #    ############ start graph
+#    # NOTE config.gem "rgl", :lib => "rgl/adjacency"
 #      unless @category
 #          edges = []
 #          Category.all.each do |p|
@@ -36,26 +46,36 @@ class Admin::CategoriesController < Admin::AdminController
 #          @graph = dg.write_to_graphic_file('png', 'public/images/graphs/categories').gsub('public', '')  
 #      end
 #    ############ stop graph
+
+    respond_to do |format|
+      format.html
+      format.ext_json { id = (@category ? @category.id : 0)
+                        render :json => @categories.sort.to_json(:methods => [[:text, id],
+                                                                          :leaf,
+                                                                          :real_id],
+                                                            :except => [:id]) }
+    end
   end
   
   def show
-#    ############ start graph
-#          edges = []
-#          @category.children.each do |c|
-#            edges << [@category, c] #[@category.id, c.id]
-#          end
-#          @category.parents.each do |p|
-#            edges << [p, @category] #[p.id, @category.id]
-#          end
-#          
-#          # http://rgl.rubyforge.org/
-#          # http://www.graphviz.org/Download_macos.php
-#          require 'rgl/adjacency'
-#          require 'rgl/dot'
-#          dg=RGL::DirectedAdjacencyGraph.new
-#          edges.each {|e| dg.add_edge(e[0], e[1]) }
-#          @graph = dg.write_to_graphic_file('png', "public/images/graphs/categories_#{@category.id}").gsub('public', '')  
-#    ############ stop graph
+    ############ start graph
+    # NOTE config.gem "rgl", :lib => "rgl/adjacency"
+      edges = []
+      @category.children.each do |c|
+        edges << [@category, c] #[@category.id, c.id]
+      end
+      @category.parents.each do |p|
+        edges << [p, @category] #[p.id, @category.id]
+      end
+      
+      # http://rgl.rubyforge.org/
+      # http://www.graphviz.org/Download_macos.php
+      require 'rgl/adjacency'
+      require 'rgl/dot'
+      dg=RGL::DirectedAdjacencyGraph.new
+      edges.each {|e| dg.add_edge(e[0], e[1]) }
+      @graph = dg.write_to_graphic_file('png', "public/images/graphs/categories_#{@category.id}").gsub('public', '')  
+    ############ stop graph
   end
 
   def new
@@ -64,18 +84,8 @@ class Admin::CategoriesController < Admin::AdminController
   end
 
   def create
-    if @model and @category
-      unless @category.models.include?(@model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
-        @category.models << @model
-        flash[:notice] = _("Category successfully assigned")
-      else
-        flash[:error] = _("The model is already assigned to this category")
-      end
-      redirect_to admin_model_categories_path(@model)
-    else
-      @category = Category.new
-      update
-    end
+    @category = Category.new
+    update
   end
 
   def update
@@ -87,18 +97,22 @@ class Admin::CategoriesController < Admin::AdminController
   end
 
   def destroy
-    if @model and @category
-        @category.models.delete(@model)
-        flash[:notice] = _("Category successfully removed")
-        redirect_to admin_model_categories_path(@model)
-    elsif @category and @parent
+    if @category and @parent
       @parent.children.delete(@category) #if @parent.children.include?(@category)
       redirect_to admin_category_parents_path(@category)
     else
       if @category.models.empty?
         @category.destroy
-        redirect_to admin_categories_path
+        respond_to do |format|
+          format.html { redirect_to admin_categories_path }
+          format.js {
+            render :update do |page|
+              page.visual_effect :fade, "category_#{@category.id}" 
+            end
+          }
+        end
       else
+        # TODO 0607 ajax delete
         @category.errors.add_to_base _("The Category must be empty")
         render :action => 'show' # TODO 24** redirect to the correct tabbed form
       end
@@ -124,12 +138,10 @@ class Admin::CategoriesController < Admin::AdminController
   
   def pre_load
     params[:id] ||= params[:category_id] if params[:category_id]
-    @category = Category.find(params[:id]) if params[:id]
-    @model = Model.find(params[:model_id]) if params[:model_id]
-    @parent = Category.find(params[:parent_id]) if params[:parent_id] 
+    @category = Category.find(params[:id]) unless params[:id].blank?
+    @parent = Category.find(params[:parent_id]) unless params[:parent_id].blank?
 
     @tabs = []
-    @tabs << :model_admin if @model
     @tabs << :category_admin if @category
   end
 

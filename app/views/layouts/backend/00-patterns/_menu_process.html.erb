@@ -1,0 +1,17 @@
+<li>
+<%= link_to icon_tag("page") + " " + _('Orders'), backend_inventory_pool_orders_path(current_inventory_pool, :filter => 'submitted') %>
+	<% content_tag :ul do %>
+		<li><%= link_to _('Pending') + " (#{current_inventory_pool.orders.submitted.count})", backend_inventory_pool_orders_path(current_inventory_pool, :filter => 'submitted') %></li>
+		<% content_tag :li do %>
+			<%= link_to _('Approved') + " (#{current_inventory_pool.orders.approved.count})", backend_inventory_pool_orders_path(current_inventory_pool, :filter => 'approved') %>
+		<% end %>
+		<li><%= link_to _('Rejected') + " (#{current_inventory_pool.orders.rejected.count})", backend_inventory_pool_orders_path(current_inventory_pool, :filter => 'rejected') %></li>
+	<% end if controller.controller_name == "orders" %>
+</li>
+
+<li><%= link_to icon_tag("page_green") + " " + _('Contracts'), backend_inventory_pool_contracts_path(current_inventory_pool) %>
+<% content_tag :ul do %>
+	<li><%= link_to _('Signed') + " (#{current_inventory_pool.contracts.signed.count})", backend_inventory_pool_contracts_path(current_inventory_pool, :filter => 'signed') %></li>
+	<li><%= link_to _('Closed') + " (#{current_inventory_pool.contracts.closed.count})", backend_inventory_pool_contracts_path(current_inventory_pool, :filter => 'closed') %></li>
+<% end if controller.controller_name == "contracts" %>
+</li>

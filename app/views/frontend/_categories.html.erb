@@ -40,6 +40,12 @@
 			}
 		}
       });
+
+      categories_panel.on('beforechildrenrendered', function(node){
+        node.childNodes.each(function(element) {
+          element.attributes.icon = '<%= icon_path('bullet_yellow') %>';
+        });
+      }, this);
 	  
 	  // expand invisible root node to trigger load
       // of the first level of actual data

@@ -1,43 +1,54 @@
+		var user_resume = new Ext.Panel({
+									title: '<%= current_user.login %>',
+									closable: true,
+		                            autoScroll: true,
+									frame: true,
+									listeners: {
+										activate: function(cmp) {
+											cmp.load({ url: '/user' });
+										}				
+									}			
+								});
 
 	    var topbar = new Ext.Toolbar({
 			height: 40,
 			style: 'color: navy;',
 	        items: [{
 					xtype: 'tbtext',
-					text:'<a href="/" id="logo">Leihs 2.0</a>'
+					text:'<a href="/" id="logo">leihs 2.1</a>'
 				}, '->',
-						<% if current_user.has_role?('manager', nil, true) %>
+						{text: '<%= _("Help") %>', 
+						  iconCls:'bt',
+				          icon:'<%= icon_path('help') %>',
+						  handler: function() {
+								  	center_tabs.add(help_panel);
+									center_tabs.activate(help_panel);
+								}
+						},
+					'-',
+						<% if current_user.has_role?('lending manager', nil, false) %>
 						{text: 'Backend', 
 						  iconCls:'bt',
-				          icon:'<%= $layout_public_path + "/images/icons/application_edit.png" %>',
+				          icon:'<%= icon_path('application_edit') %>',
 						  handler: function() {
 									window.location.href = '/backend';
 								}
 						},
 						<% end %>
-						<% if current_user.has_role?('admin', nil, true) %>
-						{text: 'Admin', 
-						  iconCls:'bt',
-				          icon:'<%= $layout_public_path + "/images/icons/application_key.png" %>',
-						  handler: function() {
-									window.location.href = '/admin';
-								}
-						},
-						<% end %>
 					'-',
-						<% locales.each do |k,v| %>
-	                        {text: '<%= v %>',
+						<% Language.active_languages.each do |l| %>
+	                        {text: '<%= l.name %>',
 							 iconCls:'bt',
-					         icon:'<%= $layout_public_path + "/images/icons/comment.png" %>',
+					         icon:'<%= icon_path('comment') %>',
 							 handler: function() {
-										window.location.href = '<%= url_for({:locale => k}) %>';
+										window.location.href = '<%= url_for({:locale => l.locale_name}) %>';
 									}
 							},
 						<% end %>
 					'-',
 						{text: '<%= current_user.login %>', 
 						  iconCls:'bt',
-				          icon:'<%= $layout_public_path + "/images/icons/user.png" %>',
+				          icon:'<%= icon_path('user') %>',
 						  handler: function() {
 									new Ext.data.ScriptTagProxy({
 										    url: '/user/account'
@@ -46,7 +57,7 @@
 						},
                         {text: '<%= _("Logout") %>',
 						 iconCls:'bt',
-				         icon:'<%= $layout_public_path + "/images/icons/application_delete.png" %>',
+				         icon:'<%= icon_path('application_delete') %>',
 						 handler: function() {
 									window.location.href = '/logout';
 								}

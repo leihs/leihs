@@ -1,0 +1,81 @@
+<%
+root_items = current_inventory_pool.items.by_model(@model)
+
+root_items.each do |root|
+	content_tag :table do
+		content_tag :tr do
+			content_tag :td, :class => 'buttons' do %>
+			<%= root.model.name %> <%= greybox_link_to_page(icon_tag("magnifier") + _("Show"), 
+				                            show_backend_inventory_pool_model_item_path( current_inventory_pool, root.model, root, :layout => 'modal'),
+				 	                          :title => _("Item"), :width => 1000) %>
+			<%= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => root.inventory_code}, :method => :post %>
+			
+			<% end
+			content_tag :td do
+			end
+			content_tag :td do
+			end
+			
+		end 
+		content_tag :tr do
+			content_tag :td do
+				form_for @model, :url => { :action => 'package_roots', :id => @model.id } do |f| %>
+					<%= hidden_field_tag :root_id, root.id %>
+					<%= _("Inventory code") %>: <%= text_field_tag('inventory_code', root.inventory_code) %>
+					<%= submit_tag _('Submit') %>
+          	<% end
+			end
+			content_tag :td do
+				form_for [:backend, @model], :url => { :action => 'package_item' },
+							:html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
+					<%= hidden_field_tag :is_selected, 0 %>
+					<%= hidden_field_tag :root_id, root.id %>
+					<%= _("Add item") %>:
+					<%= model_auto_completer("query", nil, "item_id", nil,
+												{ :url => backend_inventory_pool_items_path(:format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
+												{ :size => 30 },
+												{ :method => :get, :select => :name }) %>
+			
+			
+					<%= submit_tag _("Add") %>
+				<% end
+			end
+			content_tag :td, :class => "buttons" do
+				count = root.children.count
+				confirm = (count > 0 ? _("Are you sure?\nThe %d items associated with this package will be freed up and available as single items again.") % count : _("Are you sure?")) %>
+				<%= _("%d Items") % count %>
+				<%= link_to _("Delete"), package_roots_backend_inventory_pool_model_path(current_inventory_pool, @model, :root_id => root.id),
+							:confirm => confirm,
+							:method => :delete  %>
+			<% end
+		end
+	end %>
+	
+	<% table :columns => [_("Model"), _("Manufacturer"), _("Inventory Code"), _("Action")],
+			 :records => root.children do |i| %>	
+	
+			<tr>
+				<td><%= i.model.name %></td>
+				<td><%= i.model.manufacturer %></td>
+				<td><%= i.inventory_code %></td>
+				<td class="buttons">
+				  <%= greybox_link_to_page(icon_tag("magnifier") + _("Show"), 
+				                            show_backend_inventory_pool_model_item_path( current_inventory_pool, i.model, i, :layout => 'modal'),
+				 	                          :title => _("Item"), :width => 1000) %>
+				 
+					<%= link_to _("Remove"),
+								package_item_backend_inventory_pool_model_path(current_inventory_pool, @model, :item_id => i, :root_id => root.id),
+								:confirm => _("Are you sure?"),
+								:method => :delete %>
+				</td>
+			</tr>
+	<% end %>
+	
+	<br />
+	
+<% end %>
+
+<% content_tag :div, :class => "buttons" do %>
+	<%= link_to _("New Item Package"), package_roots_backend_inventory_pool_model_path(current_inventory_pool, @model), :method => :post %>
+<% end %>
+

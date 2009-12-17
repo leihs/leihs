@@ -9,6 +9,7 @@
 	   
     Frontend.start = function(){
 
+		var Today = new Date();
 
 		if(Ext.DatePicker){
 		  Ext.apply(Ext.DatePicker.prototype, {
@@ -19,7 +20,9 @@
 
 		if(Ext.form.DateField){
 		  Ext.apply(Ext.form.DateField.prototype, {
-		    format            : "d.m.Y"
+		  	minValue		  : Today.format("d.m.Y"),
+		    format            : "d.m.Y",
+			altFormats		  : 'd.m.Y|d.m.y|j.n.Y|j.n.y|d.m|j.n'
 		  });
 		}
 
@@ -31,7 +34,8 @@
 		<%# TODO: Caused problems in IE = render :partial => 'recent_models' %>
 		<%= render :partial => 'complete_order' %>
 		<%= render :partial => 'basket' %>
-		<%= render :partial => 'beta_warning' %>
+		<%= render :partial => 'splash_page' if FRONTEND_SPLASH_PAGE %>
+		<%= render :partial => 'help' %>
 		
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
@@ -40,7 +44,11 @@
                     region:'center',
                     activeTab:0,
 					border: false,
-                    items:[beta_warning, models_grid, order]
+					<% if FRONTEND_SPLASH_PAGE %>
+	                    items:[splash_page, user_resume, models_grid, order]
+					<% else %>
+	                    items:[user_resume, models_grid, order]
+					<% end %>
                 });
 				   
 	   var northPanel, southPanel, eastPanel, westPanel, centerPanel;				        

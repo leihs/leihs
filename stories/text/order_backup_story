@@ -7,26 +7,26 @@ Story: Backup orders
 	
 Scenario: List of new and draft orders
 	
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given the list of submitted orders contains 3 elements
 
-	When inventory_manager clicks 'acknowledge'	
+	When lending_manager clicks 'acknowledge'	
 	Then he sees 3 submitted orders and 0 draft orders 
 
 	When he chooses one order
 	Then a backup for the order is generated
 
-	When inventory_manager clicks 'acknowledge'	
+	When lending_manager clicks 'acknowledge'	
 	Then he sees 2 submitted orders and 1 draft order 
 
 
 Scenario: Restore an order
 
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given a submitted order with 4 order lines
 	And the order has 1 changes
 	
-	When inventory_manager chooses the order
+	When lending_manager chooses the order
 	Then a backup for the order is generated
 	
 	When he deletes 3 order line
@@ -44,8 +44,8 @@ Scenario: Restore an order
 
 Scenario: Approve order
 
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-	Given inventory_manager works on one order
+	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given lending_manager works on one order
 	
 	When he approves order
 	Then the order doesn't have a backup anymore	
@@ -53,8 +53,8 @@ Scenario: Approve order
 
 Scenario: Reject order
 
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-	Given inventory_manager works on one order
+	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given lending_manager works on one order
 	
 	When he rejects order
 	Then the order doesn't have a backup anymore
@@ -62,8 +62,8 @@ Scenario: Reject order
 	
 Scenario: Delete order
   
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-	Given inventory_manager works on one order
+	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given lending_manager works on one order
 	
 	When he deletes order
 	Then the order and the backup are deleted

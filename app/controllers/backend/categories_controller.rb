@@ -3,41 +3,81 @@ class Backend::CategoriesController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    if @model
-      # TODO 30** all_categories
-      categories = @model.categories
+    # OPTIMIZE 0408** sorting 
+    params[:sort] ||= 'model_groups.name'
+    params[:dir] ||= 'ASC'
+
+    if @category
+      # TODO 12** optimize filter
+      if request.env['REQUEST_URI'].include?("parents")
+          categories = @category.parents
+      else #if request.env['REQUEST_URI'].include?("children")
+          categories = @category.children
+      end
     else
-      categories = Category
+      if request.format == :ext_json
+        @categories = Category.roots
+      else
+        categories = Category
+      end
+      @show_categories_tree = (!request.xml_http_request? and params[:source_path].blank?)
     end    
     
-    # TODO 30** searching through backend/models
-    @categories = categories.search(params[:query], :page => params[:page])
+    @categories ||= categories.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
+
+    respond_to do |format|
+      format.html
+      format.ext_json { id = (@category ? @category.id : 0)
+                        render :json => @categories.sort.to_json(:methods => [[:text, id],
+                                                                          :leaf,
+                                                                          :real_id],
+                                                            :except => [:id]) }
+    end
   end
-  
+    
   def show
     @category = Category.find(params[:id])
   end
 
-#################################################################
-# Only for packages 
-
-  def create
-    if @model and @category and @model.is_package
-      unless @category.models.include?(@model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
-        @category.models << @model
-        flash[:notice] = _("Category successfully assigned")
-      else
-        flash[:error] = _("The model is already assigned to this category")
-      end
-      redirect_to :action => 'index'
-    end
+  def new
+    @category = Category.new
+    render :action => 'show'
   end
 
+  def create
+    @category = Category.new
+    update
+  end
+
+  def update
+    if @category.update_attributes(params[:category])
+      redirect_to backend_inventory_pool_category_path(current_inventory_pool, @category)
+    else
+      render :action => 'show' # TODO 24** redirect to the correct tabbed form
+    end
+  end
+  
+  
   def destroy
-    if @model and @category and @model.is_package
-        @category.models.delete(@model)
-        flash[:notice] = _("Category successfully removed")
-        redirect_to :action => 'index'
+    if @category and @parent
+      @parent.children.delete(@category) #if @parent.children.include?(@category)
+      redirect_to backend_inventory_pool_category_parents_path(current_inventory_pool, @category)
+    else
+      if @category.models.empty?
+        @category.destroy
+        respond_to do |format|
+          format.html { redirect_to backend_inventory_pool_categories_path(current_inventory_pool) }
+          format.js {
+            render :update do |page|
+              page.visual_effect :fade, "category_#{@category.id}" 
+            end
+          }
+        end
+      else
+        # TODO 0607 ajax delete
+        @category.errors.add_to_base _("The Category must be empty")
+        render :action => 'show' # TODO 24** redirect to the correct tabbed form
+      end
     end
   end
   
@@ -47,13 +87,17 @@ class Backend::CategoriesController < Backend::BackendController
   
   def pre_load
     params[:id] ||= params[:category_id] if params[:category_id]
-    @category = Category.find(params[:id]) if params[:id]
-    @model = current_inventory_pool.models.find(params[:model_id]) if params[:model_id]
+    @category = Category.find(params[:id]) unless params[:id].blank?
+    @parent = Category.find(params[:parent_id]) unless params[:parent_id].blank?
+
+    @model = current_inventory_pool.models.find(params[:model_id]) unless params[:model_id].blank?
 
     @tabs = []
-    @tabs << (@model.is_package ? :package_backend : :model_backend ) if @model
+    @tabs << :model_backend if @model
+
+    @tabs << :category_backend if @category
+
   end
-
-
+  
 end
   

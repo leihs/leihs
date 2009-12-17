@@ -13,7 +13,6 @@ class OrdersController < FrontendController
   def submit
     @order.created_at = DateTime.now
     if @order.submit(params[:purpose])
-      # TODO 18** List Inventory Pools ... and additional informations
       render :partial => 'submit'
     else
       # TODO 18** catch failure
@@ -29,7 +28,6 @@ class OrdersController < FrontendController
                end_date = params[:end_date],
                inventory_pool_id = params[:inventory_pool_id] )
     if model_group_id
-      #old# model = ModelGroup.find(model_group_id)
       model = Template.find(model_group_id)
       inventory_pool_id ||= model.inventory_pools.first.id
     else
@@ -61,8 +59,8 @@ class OrdersController < FrontendController
   end  
 
   # change quantity for a given line
-  def change_line(line_id = params[:order_line_id],
-                  required_quantity = params[:quantity].to_i)
+  def change_line_quantity(line_id = params[:order_line_id],
+                           required_quantity = params[:quantity].to_i)
     if request.post? 
       @order_line = OrderLine.find(line_id)
       @order = @order_line.order
@@ -111,9 +109,21 @@ class OrdersController < FrontendController
                                                                             :methods => [:available?, :available_tooltip],
                                                                             :except => [:created_at, :updated_at]}
                                                           } ) }
+
+      if params[:template] == "value_list"
+        format.pdf { send_data(render(:template => 'orders/value_list', :layout => false), :type => 'application/pdf', :filename => "value_list_#{@order.id}.pdf") }
+      end
+
     end
   end
 
+  def destroy
+    @order.destroy if @order.deletable_by_user?
+    respond_to do |format|
+      format.js { render :partial => "/orders/pending" }
+    end
+  end
+  
 ########################################################
   
   private

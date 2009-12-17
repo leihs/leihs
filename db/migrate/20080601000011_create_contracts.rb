@@ -3,7 +3,7 @@ class CreateContracts < ActiveRecord::Migration
     create_table :contracts do |t|
       t.belongs_to :user
       t.belongs_to :inventory_pool
-      t.integer :status_const, :default => Contract::NEW 
+      t.integer :status_const, :default => Contract::UNSIGNED 
       t.string :purpose
       t.timestamps
     end

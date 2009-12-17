@@ -1,10 +1,13 @@
-<%= _("Dear leihs user,") %>
+<%= _("Dear leihs client,") %>
 
-<%= _("This is an automatic e-mail sent to you by the leihs system.") %> 
+<%= _("** This is an automatically generated response **") %>
 
 <%= _("Your order for the following items has been confirmed by the inventory manager") + " " + _("but a few changes were made to it") + ":" %>
 
+<%= _("Inventory pool") + ": " + @order.inventory_pool.name unless @order.inventory_pool.nil? %>
+
 <% @order.histories.each do | history |%>
+
 	<%= history.text if history.type_const == History::CHANGE %>
 <% end %>
 
@@ -14,10 +17,12 @@
 	<%= line.quantity%> <%= line.model.name %>
 <% end %>
 
-<%= _("The inventory manager added the following comment about your order:") %>
+<%= _("These are the comments of the inventory manager:") %>
 
 <%= @comment if @comment %>
 
 <%= _("Kind regards,") %>
 
-<%= _("The leihs system") %>
+<%= EMAIL_SIGNATURE %>
+--
+<%= @order.inventory_pool.description unless @order.inventory_pool.nil? %>

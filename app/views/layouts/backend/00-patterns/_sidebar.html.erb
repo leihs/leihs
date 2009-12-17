@@ -1,67 +1,39 @@
-<ul>
-	<li><%= link_to_function(icon_tag("page") + " " + _('Orders'), nil) { |page| page.visual_effect :toggle_blind, 'menu_backend/orders', :duration => 0.1 } %>
-		<ul id="menu_backend/orders" style="display: none;">
-			<li><%= link_to _('Pending') + " (#{@current_inventory_pool.orders.submitted.size})", backend_inventory_pool_orders_path(:filter => 'submitted') %></li>
-			<li><%= link_to _('Approved') + " (#{@current_inventory_pool.orders.approved.size})", backend_inventory_pool_orders_path(:filter => 'approved') %></li>
-			<li><%= link_to _('Rejected') + " (#{@current_inventory_pool.orders.rejected.size})", backend_inventory_pool_orders_path(:filter => 'rejected') %></li>
-		</ul>	
-	</li>
-	<li><hr /></li>
-	<li><%= link_to_function(icon_tag("page_green") + " " + _('Contracts'), nil) { |page| page.visual_effect :toggle_blind, 'menu_backend/contracts', :duration => 0.1 } %>
-		<ul id="menu_backend/contracts" style="display: none;">
-			<li><%= link_to _('Signed') + " (#{@current_inventory_pool.contracts.signed_contracts.size})", backend_inventory_pool_contracts_path(:filter => 'signed') %></li>
-			<li><%= link_to _('Closed') + " (#{@current_inventory_pool.contracts.closed_contracts.size})", backend_inventory_pool_contracts_path(:filter => 'closed') %></li>
-		</ul>	
-	</li>
-	<li><hr /></li>
-	<li><%= link_to_function(icon_tag("camera") + " " + _('Items'), nil) { |page| page.visual_effect :toggle_blind, 'menu_backend/items', :duration => 0.1 } %>
-		<ul id="menu_backend/items" style="display: none;">
-			<li><%= link_to _('All') + " (#{@current_inventory_pool.items.count})", backend_inventory_pool_items_path() %></li>
-			<li><%= link_to _('In Stock') + " (#{@current_inventory_pool.items.in_stock.count})", backend_inventory_pool_items_path(:filter => 'in_stock') %></li>
-			<li><%= link_to _('Not In Stock') + " (#{@current_inventory_pool.items.not_in_stock.count})", backend_inventory_pool_items_path(:filter => 'not_in_stock') %></li>
-			<li><%= link_to _('Broken') + " (#{@current_inventory_pool.items.broken.size})", backend_inventory_pool_items_path(:filter => 'broken') %></li>
-			<li><%= link_to _('Incomplete') + " (#{@current_inventory_pool.items.incomplete.size})", backend_inventory_pool_items_path(:filter => 'incomplete') %></li>
-			<li><%= link_to _('Unborrowable') + " (#{@current_inventory_pool.items.unborrowable.size})", backend_inventory_pool_items_path(:filter => 'unborrowable') %></li>
-		</ul>	
-	</li>
-	<li><hr /></li>
-	<li><%= link_to_function(icon_tag("package") + " " + _('Models'), nil) { |page| page.visual_effect :toggle_blind, 'menu_backend/models', :duration => 0.1 } %>
-		<ul id="menu_backend/models" style="display: none;">
-			<li><%= link_to _('All') + " (#{@current_inventory_pool.models.count})", backend_inventory_pool_models_path() %></li>
-			<li><%= link_to _('Packages') + " (#{@current_inventory_pool.models.packages.size})", backend_inventory_pool_models_path(:filter => 'packages') %></li>
-			<li><%= link_to _('Templates') + " (#{@current_inventory_pool.templates.size})", backend_inventory_pool_templates_path() %></li>
-		</ul>	
-	</li>
-	<li><hr /></li>
-	<li><%= link_to_function(icon_tag("shape_group") + " " + _('Locations'), nil) { |page| page.visual_effect :toggle_blind, 'menu_backend/locations', :duration => 0.1 } %>
-		<ul id="menu_backend/locations" style="display: none;">
-			<li><%= link_to _('All') + " (#{@current_inventory_pool.locations.size})", backend_inventory_pool_locations_path() %></li>
-		</ul>	
-	</li>
-	<li><hr /></li>
-	<li><%= link_to_function(icon_tag("user") + " " + _('Users'), nil) { |page| page.visual_effect :toggle_blind, 'menu_backend/users', :duration => 0.1 } %>
-		<ul id="menu_backend/users" style="display: none;">
-			<li><%= link_to _('All') + " (#{@current_inventory_pool.users.size})", backend_inventory_pool_users_path() %></li>
-			<li><%= link_to _('Managers') + " (#{@current_inventory_pool.managers.size})", backend_inventory_pool_users_path(:filter => 'managers') %></li>
-			<li><%= link_to _('Customers') + " (#{@current_inventory_pool.customers.size})", backend_inventory_pool_users_path(:filter => 'customers') %></li>
-			<li><%= link_to _('Unknown'), backend_inventory_pool_users_path(:filter => 'unknown') %></li>
-		</ul>	
-	</li>
-	<li><hr /></li>
-	<li><%= link_to_function(icon_tag("calendar") + " " + _("Opening Times"), nil) { |page| page.visual_effect :toggle_blind, 'menu_backend/workdays', :duration => 0.1 } %>
-		<ul id="menu_backend/workdays" style="display: none;">
-			<li><%= link_to _("Workdays"), backend_inventory_pool_workdays_path() %></li>
-		</ul>
-	</li>
-	<li><hr/></li>
-	<li><%= link_to_function(icon_tag("attach") + " " + _("Options"), nil) { |page| page.visual_effect :toggle_blind, 'menu_backend/options', :duration => 0.1 } %>
-		<ul id="menu_backend/options" style="display: none;">
-			<li><%= link_to _("All") + " (#{@current_inventory_pool.options.count})", backend_inventory_pool_options_path() %></li>
-		</ul>
-	</li>
-</ul>
+<% if logged_in? %>
+  <% if current_inventory_pool %>
+    <h4 style="background-color: #1089D9;color: white; padding: 5px;">
+      <%= _("Booking") %>
+    </h4>
+    <div id="menu_booking" style="margin: 5px">
+    <ul>
+      
+      <%= render :partial => '/layouts/backend/00-patterns/menu_process' %>
+      <%= render :partial => '/layouts/backend/00-patterns/menu_items' %>
+      <%= render :partial => '/layouts/backend/00-patterns/menu_models' %>
+      <%= render :partial => '/layouts/backend/00-patterns/menu_packages' %>
+    
+      <li><%= link_to icon_tag("calendar") + " " + _("Workdays"), backend_inventory_pool_workdays_path(current_inventory_pool) %></li>
+    </ul>
+    </div>
+    
+    <% if is_inventory_manager? %>
+      <h4 style="background-color: #008209;color: white; padding: 5px;">
+        <%= _("Inventory") %>
+      </h4>
+      <% content_tag :div, :id => "menu_inventory", :style => "margin: 5px" do %>
+        <ul>
+          <%= render :partial => '/layouts/backend/00-patterns/menu_inventory_items' %>
+          <%= render :partial => '/layouts/backend/00-patterns/menu_inventory_models' %>
+        </ul>
+      <% end %>
+    <% end %>
+  <% end %>
 
-<% javascript_tag do %>
-	var m = $('menu_<%= params[:controller] %>');
-	if(m) m.style.display='block';
+ <% if current_inventory_pool or (current_user and is_admin?) %>
+    <h4 style="background-color: #D85925;color: white; padding: 5px;">
+      <%= _("Administration") %>
+    </h4>
+    <div id="menu_admin" style="margin:5px">
+      <%= render :partial => '/layouts/backend/00-patterns/menu_admin' %>
+    </div>
+  <% end %>
 <% end %>

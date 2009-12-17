@@ -1,5 +1,5 @@
 <div class="toolbar-second">
-	<% form_for [:add_model, :backend, @current_inventory_pool, @my_template],
+	<% form_for [:add_model, :backend, current_inventory_pool, @my_template],
 				 :html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
 		<%= hidden_field_tag :is_selected, 0 %>
 
@@ -25,7 +25,7 @@
 			<td><%= image_tag(ml.model.image_thumb) if ml.model.image_thumb %></td>
 			<td><%= ml.model.name %></td>
 			
-			<%  c = @current_inventory_pool.items.by_model(ml.model.id).count
+			<%  c = current_inventory_pool.items.by_model(ml.model.id).count
 				b = (ml.quantity <= c) %>
 			<td class="valid_<%= b %>">
 				<%= ml.quantity %>
@@ -35,8 +35,8 @@
 			</td>
 			<td class="buttons">
 				<ul>
-					<li><%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_model_path(@current_inventory_pool, ml.model) %></li>
-					<li><%= link_to _("Remove"), backend_inventory_pool_template_path(@current_inventory_pool, @my_template, :model_link_id => ml),
+					<li><%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_model_path(current_inventory_pool, ml.model) %></li>
+					<li><%= link_to _("Remove"), backend_inventory_pool_template_path(current_inventory_pool, @my_template, :model_link_id => ml),
 									:confirm => _("Are you sure?"),
 									:method => :delete %></li>
 				</ul>

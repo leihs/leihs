@@ -34,7 +34,7 @@ class DocumentLine < ActiveRecord::Base
                                            :order_line_id => (is_order_line ? document_line.id : 0), 
                                            :submitted => Order::SUBMITTED, 
                                            :current_order_id => (is_order_line ? document_line.order_id : 0),
-                                           :new_order => Order::NEW, 
+                                           :new_order => Order::UNSUBMITTED, 
                                            :inventory_pool_id => inventory_pool.id }
                                         ])
     cl + ol
@@ -72,8 +72,7 @@ class DocumentLine < ActiveRecord::Base
   end
 
   def available?
-    model.maximum_available_in_period_for_document_line(start_date, end_date, self) >= quantity and 
-                  inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)
+    model.maximum_available_in_period_for_document_line(start_date, end_date, self) >= quantity
   end
 
   # TODO 04** merge in available? 

@@ -24,7 +24,7 @@ The following steps were tested on Mac OS X 10.5 on an x86. They may also work f
 
 
 1. Install Apple Xcode. This is required because some modules may need a C/C++ compiler. XCode is http://developer.apple.com/Tools/[available from Apple] after a free developer registration.
-2. Install MySQL 5.0 32-bit. *Make absolutely sure to install the 32-bit version even if you are running a 64-bit operating system.* Some bugs in Mac OS X's MySQL and Ruby integration make it impossible to continue otherwise.
+2. Install MySQL 5.0. Use the 32-bit version if you are running OS X Leopard (10.5) but use the 64-bit version if you're on Snow Leopard (10.6). *Make absolutely sure to install the 32-bit version on Leopard (10.5) even if you are running a 64-bit operating system.* Some bugs in Mac OS X's MySQL and Ruby integration make it impossible to continue otherwise.
 3. Update the local gem system:
 +
  $ sudo gem update --system
@@ -33,13 +33,25 @@ The following steps were tested on Mac OS X 10.5 on an x86. They may also work f
 +
  $ sudo gem install rails -v 2.1.1
  $ sudo gem install gettext -v 1.93.0
- $ sudo gem install inline
+ $ sudo gem install RubyInline
+ $ sudo gem install ferret -v 0.11.6
+ $ sudo gem install acts_as_ferret -v 0.4.3
+ $ sudo gem install barby -v 0.2.0
+ $ sudo gem install png -v 1.1.0
 
 5. Install the native MySQL gem:
 +
- $ sudo env ARCHFLAGS="-arch i386" gem install mysql -- \
+If you are installing on Snow Leopard (OS X 10.6) use the following installation options:
++
+ $ sudo env ARCHFLAGS='-arch x86_64' \
+gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
++
+If you are using Leopard (OS X 10.5) or below, use the following string instead:
++
+ $ sudo gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config \
 --with-mysql-dir=/usr/local/mysql --with-mysql-lib=/usr/local/mysql/lib
 \ --with-mysql-include=/usr/local/mysql/include 
+
 
 6. Try out if Rails works on your machine:
 +
@@ -52,37 +64,110 @@ You should see a web page at http://localhost:3000. If not, please make sure tha
 +
 If this works, stop the server again using Ctrl-C.
 
-7. Check out the latest leihs version from our Subversion repository. We use a new folder on the desktop in this example, but you can install leihs in any folder:
+7. Download the latest version of leihs from our http://sourceforge.net/projects/leihs[SourceForge project page]. Unpack it to a convenient directory. We use the home directory of the 'leihs' user (/Users/leihs) to install leihs in. Of course you can use any directory.
+
+8. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
 +
- $ cd ~/Desktop
- $ svn co http://code.zhdk.ch/svn/leihs/trunk leihs
- $ cd leihs
+ development:
+    adapter: mysql
+    database: leihs2_development
+    encoding: utf8
+    username: root
+    password:
+    host: localhost
+    port: 3306
 
-8. Delete any preinstalled gems from your newly checked out copy of leihs:
-+
- $ rm -rf vendor/gems
- $ sudo rake gems:install
-
-9. Edit config/environments/development.rb. The path for Mac OS X can be any path that is writable for the user that will run the leihs server. In this example, we just use the leihs directory:
-+
- ENV['INLINEDIR'] = '/Users/___username___/Desktop/leihs'
-
-
-10. Edit config/database.yml and enter your database connection parameters (host, database name, username and password).
-
-11. Create and migrate the database:
+9. Create and migrate the database:
 +
  $ rake db:migrate
 
-12. Start the server:
+10. Start the server:
 +
  $ ./script/server
 
-Now you should see your local leihs server at http://localhost:3000
+Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
+ 
 
 === Installation on Debian GNU/Linux ===
 
-Coming up shortly.
+These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny).
+
+1. Install Ruby and irb
++
+ # apt-get install ruby irb rdoc libopenssl-ruby ruby-dev
+
+2. Install RubyGems from http://rubygems.org/[the RubyGems website]. Make sure *not to install* the edition of RubyGems that is available from Debian's package archives. RubyGem development moves so quickly that we need to use the one from upstream.
++
+ # cd /tmp
+ # wget http://rubyforge.org/frs/download.php/56227/rubygems-1.3.3.tgz 
+ # tar xvfz rubygems-1.3.3.tgz
+ # cd rubygems-1.3.3
+ # ruby setup.rb
+ # ln -s /usr/bin/gem1.8 /usr/bin/gem
++
+Note that the URL above might change! Please visit the RubyGems site to find the exact URL under "Downloads".
+
+3. Install the required version of Rails as well as a few gems that cannot be installed automatically:
++
+ # gem install rails -v 2.1.1
+ # gem install gettext -v 1.93.0
+ # gem install RubyInline
+ # gem install ferret -v 0.11.6
+ # gem install acts_as_ferret -v 0.4.3
+ # gem install barby -v 0.2.0
+ # gem install png -v 1.1.0
+
+4. Install the MySQL header files and the MySQL gem:
++
+ # apt-get install libmysqlclient15-dev make
+ # gem install mysql
+
+5. Try out if Rails works on your machine:
++
+ $ cd /tmp
+ $ rails test
+ $ cd test
+ $ ./script/server
++
+You should see a web page at http://localhost:3000. If not, please make sure that Rails is installed properly before continuing.
++
+If this works, stop the server again using Ctrl-C.
+
+6. Download the latest version of leihs from our http://sourceforge.net/projects/leihs[SourceForge project page]. Unpack it to a convenient directory. We use the home directory of the 'leihs' user (/home/leihs) to install leihs in. Of course you can use any directory.
+
+7. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
++
+ development:
+    adapter: mysql
+    database: leihs2_development
+    encoding: utf8
+    username: root
+    password:
+    host: localhost
+    port: 3306
+
+8. Create and migrate the database:
++
+ # su - leihs
+ $ rake db:migrate
+
+9. Start the server:
++
+ $ ./script/server
+
+Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
+
+
+== Default admin username/password ==
+
+After installation, a default user is created for the Database Authentication module. Username: super_user_1. Password: pass.
+
+== Installing a production environment ==
+
+Please note that running the server in development mode as shown in the quick-start guide is not recommended for production. Once you have made sure that the server works in development mode and wish to start using leihs properly, please run it in production mode (`RAILS_ENV='production' ./script/server`). Also, this quick-start guide does not cover running a Ruby on Rails application for production. Please look into http://www.modrails.com/[Phusion Passenger] or the Apache Mongrel cluster in the reference section for how to set up a production environment.
+
+Without a real production environment, leihs can handle upwards of 1000 users (not concurrently, of course!). If you need better performance, you must set up a proper production environment.
+
 
 == Free Software Statement ==
 
@@ -91,3 +176,68 @@ The Zurich University of the Arts supports Free Software http://www.gnu.org/phil
 One of the advantages this freedom brings with it is that it enables anyone in the world to provide local support services for leihs at the same quality level as the Zurich University of the Arts can provide itself.
 
 If you would like to take part in the development of leihs, please see our http://code.zhdk.ch/projects/leihs[project page].
+
+== References ==
+
+Setting up production environments with Rails:
+
+* http://www.modrails.com/
+* http://blog.codahale.com/2006/06/19/time-for-a-grown-up-server-rails-mongrel-apache-capistrano-and-you/
+
+== Appendix A: ZHdK configuration file for mongrel cluster ==
+
+As an example to help you set up a production environment, here is the Apache configuration we use. You will need mod_proxy:
+
+
+----------------------------
+<VirtualHost *:80>
+   ServerName ausleihe.zhdk.ch
+
+   DocumentRoot /home/rails/leihs/leihs/public/
+   ErrorLog /var/log/apache2/leihs/error.log
+
+   # Which Rails environment to use (production, testing, production)
+   DefaultInitEnv RAILS_ENV production
+   SetEnv RAILS_ENV production
+
+  # Proxy balancer for leihs
+  <Proxy balancer://leihs_cluster>
+    BalancerMember http://127.0.0.1:10010
+    BalancerMember http://127.0.0.1:10011
+    BalancerMember http://127.0.0.1:10012
+    BalancerMember http://127.0.0.1:10013
+  </Proxy>
+
+
+   # We want to completely ignore the application's own
+   # .htaccess, as all relevant options are configured
+   # right here in this file.
+   <Directory /home/rails/leihs/leihs/public>
+      AllowOverride none
+   </Directory>
+
+
+   # Don't do forward proxying
+   ProxyRequests Off
+
+   # Enable reverse proxying
+   <Proxy *>
+     Order deny,allow
+     Allow from all
+   </Proxy>
+
+   RewriteEngine On
+
+   # Check for maintenance file. Let apache load it if it exists
+   RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+   RewriteRule . /system/maintenance.html [L]
+
+   # Rewrite index to check for static
+   RewriteRule ^/$ /index.html [QSA]
+
+   # Let apache serve static files (send everything via mod_proxy that
+   # is *no* static file (!-f)
+   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-f
+   RewriteRule .* balancer://leihs_cluster%{REQUEST_URI} [L,P,QSA]
+</VirtualHost>
+----------------------------

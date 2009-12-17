@@ -2,7 +2,7 @@
 <p><%= _("You're changing the installation location for the following items:")%></p>
 <ul style="margin: 10px">
 <% @lines.each do |line| %>
-	<li><%= line.model.name %><b><%= " " + _("(Installed in: ")  + line.location.building + ", " + line.location.room + ")" if line.location%></b></li>
+	<li><%= line.model.name %><b><%= " #{_("(Installed in: ")} #{line.location.building}, #{line.location.room})" if line.location %></b></li>
 <% end %>
 </ul>
 <% x = @lines.find do |l|
@@ -16,15 +16,16 @@
 		 :class => 'negative', :method => 'delete', :style => 'float:none;margin: 5px;width: 280px') %>
 </div>
 <% end %>
+
 <% form_for [:backend, @location], :url => { :action => 'select_location', :lines => @lines }, :html => { :name => 'f' } do |f| %>
 <table>
 	<tr>
 		<td><%= _("Building") %>:</td>
-		<td><%= text_field_with_auto_complete :location, :building, {}, { :method => :get } %></td>
+		<td><%= select_tag_for_buildings(f.object.building_id) %></td>
 	</tr>
 	<tr>
 		<td><%= _("Room") %>:</td>
-		<td><%= text_field_with_auto_complete :location, :room, {}, { :method => :get } %></td>
+		<td><%= f.text_field :room %></td>
 	</tr>
 </table>
 

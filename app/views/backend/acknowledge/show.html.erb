@@ -1,3 +1,4 @@
+<% if current_inventory_pool.has_access?(@order.user) and not current_inventory_pool.is_blacklisted?(@order.user) %>
 
 <% if @order.errors.size > 0 %>
 	<ul style="border: 1px solid red; padding: 2px;">
@@ -14,7 +15,7 @@
 			<div id="meta" class="boxes">
 				
 				<div id="meta-bestellung">
-					<h2><%= _("Order No.") + " #{@order.id}" %></h2>
+					<h2><%= _("Order No.") + " #{@order.id} - #{@order.user}" %></h2>
 					<table cellspacing="0">
 						<tr class="alt-row">
 							<td>
@@ -25,11 +26,19 @@
 							</td> 
 							<td>
 								<%= greybox_link_to_page(@order.user.login,
-										backend_inventory_pool_user_path(@current_inventory_pool, @order.user, :layout => "modal"),
+										backend_inventory_pool_user_path(current_inventory_pool, @order.user, :layout => "modal"),
 										:title => _("User"),
 										:class => "iconized-notxt edit-user" ) %>
 							</td>
 						</tr>
+						<% if @order.user.suspended_inventory_pools.count > 0 %>
+						<tr>
+							<td style="background-color: #EDF09F"><%= _("Currently suspended at:") %></td>
+							<td style="background-color: #EDF09F">
+							<%= @order.user.suspended_inventory_pools.join(", ") %>
+							</td>
+						</tr>
+						<% end %>
 						<tr class="alt-row">
 							<td><%= _("Time window") %>:</td>
 							<td><%= dates_with_period(@order.time_window_min, @order.time_window_max) %></td>
@@ -63,7 +72,7 @@
 								{ :action => 'time_lines', :id => @order },
 								:onmouseup => "change_href(this, 'order_line', 'line');",
 								:class => "ghostable_group_1 ghosted",
-								:title => _("Time Period") ) %>						
+								:title => _("Time Period"), :width => 1000 ) %>						
 
 						<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete selection"),
 								{ :action => 'remove_lines', :id => @order },
@@ -95,4 +104,6 @@
 			</div>
 
 <%= render :partial => 'buttons' %>
-			
+<% else %>
+<%= _("This user doesn't have access to your inventory pool or is on your Blacklist!") %><br/><%= link_to(_("edit %s") % @order.user.name, access_rights_backend_inventory_pool_user_path(current_inventory_pool, @order.user)) %>
+<% end %>

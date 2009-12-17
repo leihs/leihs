@@ -1,13 +1,17 @@
 
-	<% form_for [:admin, @user] do |f| %>
+	<% form_for([:admin, @user]) do |f| %>
 	
 		<table>
 		<tr><td><%= _("Login") %>:</td><td><%= f.text_field :login %></td></tr>	
 		<tr><td><%= _("Unique ID") %>:</td><td><%= @user.unique_id %></td></tr>
 		
-		<tr><td><%= _("Vorname/Nachname") %>:</td><td><%= f.text_field :firstname, :size => 15 %> <%= f.text_field :lastname, :size => 15 %></td></tr>
+		<tr><td><%= _("Firstname/Lastname") %>:</td><td><%= f.text_field :firstname, :size => 15 %> <%= f.text_field :lastname, :size => 15 %></td></tr>
 		<tr><td><%= _("Email") %>:</td><td><%= f.text_field :email %></td></tr>
 		<tr><td><%= _("Phone") %>:</td><td><%= f.text_field :phone %></td></tr>
+		<tr><td><%= _("Address") %>:</td><td><%= f.text_field :address %></td></tr>
+		<tr><td><%= _("ZIP") %>/<%=_("City") %> :</td><td><%= f.text_field :zip %> <%= f.text_field :city %></td></tr>
+		<tr><td><%= _("Country") %>:</td><td><%= f.text_field :country %></td></tr>
+
 		<tr><td><%= _("Authentication System") %>:</td><td><%= f.collection_select(:authentication_system_id, AuthenticationSystem.active_systems, :id, :name) %></td></tr>
 
 		<tr><td><%= submit_tag 'Submit' %></td><td></td></tr>

@@ -6,6 +6,9 @@
 
 <% end %>
 
+<% if @start_date and @end_date %>
+  <%= _("From") %> <%= short_date(@start_date) %> <%= ("to") %> <%= short_date(@end_date) %> 
+<% end %>
 
 <% table_with_search_and_pagination :columns => [_("Barcode"), _("Name"), _("Action")],
 						   			:records => @options do |option| %>	

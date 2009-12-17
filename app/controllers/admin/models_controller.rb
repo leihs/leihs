@@ -3,20 +3,28 @@ class Admin::ModelsController < Admin::AdminController
   before_filter :pre_load
 
   def index
-    params[:sort] ||= 'name'
-    params[:dir] ||= 'asc'
+    params[:sort] ||= 'models.name'
+    params[:dir] ||= 'ASC'
+    find_options = {:order => sanitize_order(params[:sort], params[:dir])}
+
+    @show_categories_tree = !request.xml_http_request?
 
     if @category
       models = @category.models
+      @show_categories_tree = false
     elsif @model
       models = @model.compatibles
     else
       models = Model
     end    
 
-    @models = models.search(params[:query], :page => params[:page], :order => params[:sort].to_sym, :sort_mode => params[:dir].to_sym)
+    case params[:filter]
+      when "active"
+        models = models.active
+    end
 
-    @show_categories_tree = !request.xml_http_request?
+    @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}, find_options)
+
   end
 
   def show
@@ -36,6 +44,7 @@ class Admin::ModelsController < Admin::AdminController
     if @model.update_attributes(params[:model])
       redirect_to admin_model_path(@model)
     else
+      flash[:error] = _("Couldn't update ")
       render :action => 'show' # TODO 24** redirect to the correct tabbed form
     end
   end
@@ -43,8 +52,16 @@ class Admin::ModelsController < Admin::AdminController
   def destroy
     if @model.items.empty?
       @model.destroy
-      redirect_to admin_models_path
+      respond_to do |format|
+        format.html { redirect_to admin_models_path }
+        format.js {
+          render :update do |page|
+            page.visual_effect :fade, "model_#{@model.id}" 
+          end
+        }
+      end
     else
+      # TODO 0607 ajax delete
       @model.errors.add_to_base _("The model has items")
       render :action => 'show' # TODO 24** redirect to the correct tabbed form
     end
@@ -53,18 +70,16 @@ class Admin::ModelsController < Admin::AdminController
 #################################################################
 
   def properties
+    if request.post?
+        # TODO 0408** Rails 2.3: accepts_nested_attributes_for
+        @model.properties.destroy_all
+        @model.properties.create(params[:properties])
+        flash[:notice] = _("The properties have been updated.")
+    end
+    # TODO 0408** scope @model.categories
+    @properties_set = Model.with_properties.collect{|m| m.properties.collect(&:key)}.uniq
   end
   
-  def add_property
-    @model.properties.create(:key => params[:key], :value => params[:value])
-    redirect_to :action => 'properties', :id => @model
-  end
-
-  def remove_property
-    @model.properties.delete(@model.properties.find(params[:property_id]))
-    redirect_to :action => 'properties', :id => @model
-  end
-
 #################################################################
 
   def accessories
@@ -92,6 +107,28 @@ class Admin::ModelsController < Admin::AdminController
       else
         flash[:notice] = _("Upload error.")
       end
+    elsif request.delete?
+      @model.images.destroy(params[:image_id])
+    end
+  end
+  
+#################################################################
+
+  def categories
+    if request.post?
+      unless @category.models.include?(@model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
+        @category.models << @model
+        flash[:notice] = _("Category successfully assigned")
+      else
+        flash[:error] = _("The model is already assigned to this category")
+      end
+      render :nothing => true # TODO render flash
+    elsif request.delete?
+      @category.models.delete(@model)
+      flash[:notice] = _("Category successfully removed")
+      render :nothing => true # TODO render flash
+    else
+      @categories = @model.categories
     end
   end
 
@@ -101,8 +138,8 @@ class Admin::ModelsController < Admin::AdminController
   
   def pre_load
     params[:id] ||= params[:model_id] if params[:model_id]
-    @model = Model.find(params[:id]) if params[:id]
-    @category = Category.find(params[:category_id]) if params[:category_id]
+    @model = Model.find(params[:id]) unless params[:id].blank?
+    @category = Category.find(params[:category_id]) unless params[:category_id].blank?
 
     @tabs = []
     @tabs << :category_admin if @category

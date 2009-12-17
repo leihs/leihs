@@ -9,24 +9,15 @@ class Order < Document
 
   has_one :backup, :class_name => "Backup::Order", :dependent => :destroy #TODO delete when nullify # TODO acts_as_backupable
 
-  
   acts_as_commentable
-
-  define_index do
-    indexes :purpose
-    indexes user(:login), :as => :user_login
-    indexes models(:name), :as => :model_names
-    has :id
-    set_property :delta => true
-  end
-
+  acts_as_ferret :fields => [ :user_login, :user_badge_id, :lines_model_names, :purpose ], :store_class_name => true, :remote => true
                  
-  NEW = 1
+  UNSUBMITTED = 1
   SUBMITTED = 2
   APPROVED = 3
   REJECTED = 4
 
-  STATUS = {_("New") => NEW, _("Submitted") => SUBMITTED, _("Approved") => APPROVED, _("Rejected") => REJECTED }
+  STATUS = {_("Unsubmitted") => UNSUBMITTED, _("Submitted") => SUBMITTED, _("Approved") => APPROVED, _("Rejected") => REJECTED }
 
   def status_string
     n = STATUS.index(status_const)
@@ -42,10 +33,12 @@ class Order < Document
   # TODO 09** This feature is scheduled for: Rails v2.3/3.0
   # default_scope :order => 'created_at ASC'
   
-  named_scope :new_orders, :conditions => {:status_const => Order::NEW}, :order => 'created_at ASC'
-  named_scope :submitted, :conditions => {:status_const => Order::SUBMITTED}, :order => 'created_at ASC', :include => :backup # OPTIMIZE N+1 select problem
+  named_scope :unsubmitted, :conditions => {:status_const => Order::UNSUBMITTED}, :order => 'created_at ASC'
+  named_scope :submitted, :conditions => {:status_const => Order::SUBMITTED}, :include => :backup # OPTIMIZE N+1 select problem
   named_scope :approved, :conditions => {:status_const => Order::APPROVED}, :order => 'created_at ASC'
   named_scope :rejected, :conditions => {:status_const => Order::REJECTED}, :order => 'created_at ASC'
+
+  named_scope :by_inventory_pool,  lambda { |inventory_pool| { :conditions => { :inventory_pool_id => inventory_pool } } }
 
 
 #########################################################################
@@ -130,7 +123,8 @@ class Order < Document
     log_change(change, user_id)
     save
   end  
-  
+
+  # OPTIMIZE scope new_user_id by current_inventory_pool
   def swap_user(new_user_id, admin_user_id)
     user = User.find(new_user_id)
     if (user.id != self.user_id.to_i)
@@ -141,6 +135,10 @@ class Order < Document
     end
   end  
   
+ 
+  def deletable_by_user?
+    !has_backup? and status_const == Order::SUBMITTED 
+  end
     
   # TODO acts_as_backupable ##################
   def has_backup?

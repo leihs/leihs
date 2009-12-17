@@ -1,12 +1,7 @@
-
-<div id="tabs">	
-	<ul>
-		<li <%= 'class="active"' if controller.action_name == "index" %>><%= link_to "<span>" + _("Acknowledge") + "<em> (#{@to_acknowledge_size})</em></span>",
-																				:controller => 'acknowledge' %></li>
-
-<% if session[:current_order] %>
-		<li <%= 'class="active"' if controller.action_name == "show" %>><%= link_to "<span>" + _("Order:") + " " + session[:current_order][:user_login] + "</span>",
-																			 backend_inventory_pool_user_acknowledge_path(@current_inventory_pool, session[:current_order][:user_id], session[:current_order][:id]) %></li>
-<% end %>
-</ul>
-</div>
+<% content_tag :div, :id => "tabs" do
+	content_tag :ul do
+		content_tag :li, :class => (controller.action_name == "index" ? "active" : nil) do %>	
+			<%= link_to "<span>" + _("Acknowledge") + "</span>", :controller => 'acknowledge' %>
+		<% end
+	end
+end %>

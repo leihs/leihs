@@ -1,10 +1,21 @@
-
 <%= render :partial => 'buttons' %>
 
 			<div id="meta" class="boxes">
 				<div id="meta-contract">
 					<%= show_reserver(@user) %>
+					<% if current_inventory_pool.is_blacklisted?(@user) %>
+						<div style="background-color: #EDF09F; padding: 10px;border: 1px solid #ccc;">
+						<%= _("Currently suspended at:") %> <%= @user.suspended_inventory_pools.join(", ") %>
+						</div>
+					<% end %>
+
+					<% if not current_inventory_pool.has_access?(@user) %>
+						<div style="background-color: #EDF09F; padding: 10px;border: 1px solid #ccc;">
+						<%= _("User has no access to your inventory pool anymore") %>
+						</div>
+					<% end %>
 				</div>
+
 				
 			</div>
 
@@ -13,9 +24,11 @@
 				<div class="toolbar-second">
 					<h3><%= _("Items") %></h3>
 					<div class="buttons">
-						<%#old#= greybox_link_to_page(icon_tag("shape_align_left") + " " + _("Timeline"),
-						 		{ :action => 'timeline'},
-								:title => _("Timeline"), :width => 1000 ) %>						
+						<%= greybox_link_to_page(icon_tag("date_edit") + " " + _("Change Timeframe for selection"),
+							 	{ :action => 'time_lines' },
+								:onmouseup => "change_href(this, 'contract_line', 'line');",
+								:class => "ghostable_group_1 ghosted",
+								:title => _("Time Period"), :width => 1000 ) %>						
 					</div>
 				</div>
 				
@@ -48,5 +61,3 @@
 			
 <%= render :partial => 'buttons' %>
 <%= javascript_tag("toggle_buttons('contract_line_check', 'ghostable_group_1');") %>
-
-

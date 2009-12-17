@@ -42,7 +42,9 @@ steps_for(:acknowledge) do
   
   Given "$name's email address is $email" do |name, email|
     u = User.find_by_login(name)
-    u.update_attribute(:email, email)
+    u.update_attributes(:email => email)
+    u.language = Language.find(2)
+    u.save
   end
   
   When "$who looks at the screen" do | who |
@@ -52,7 +54,6 @@ steps_for(:acknowledge) do
      
   When "$who clicks '$action'" do | who, action |
     get send("backend_inventory_pool_#{action}_path", @inventory_pool)
-    @orders_size = assigns(:to_acknowledge_size)
     @orders = assigns(:submitted_orders)
     response.should render_template('backend/acknowledge/index')
     @response = response 
@@ -70,7 +71,6 @@ steps_for(:acknowledge) do
   When "$who rejects order with reason '$reason'" do |who, reason|
     post reject_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :comment => reason)
     @order = assigns(:order)
-    @orders_size = assigns(:to_acknowledge_size)
     @orders.should_not be_nil
     @order.should_not be_nil
     @response = response
@@ -80,8 +80,8 @@ steps_for(:acknowledge) do
   When "$who changes number of items of model '$model' to $quantity" do |who, model, quantity|
     id = find_line(model).id
     id.should > 0
-    post change_line_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :order_line_id => id, :quantity => quantity)
-    response.should render_template('backend/acknowledge/change_line')
+    post change_line_quantity_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :order_line_id => id, :quantity => quantity)
+    response.should render_template('backend/acknowledge/change_line_quantity')
     @order = assigns(:order)
     @order.has_changes?.should == true
     find_line(model).quantity.should == 4
@@ -111,7 +111,7 @@ steps_for(:acknowledge) do
   end
   
   When "$who searches for '$model'" do |who, model|
-    get backend_inventory_pool_models_path(@inventory_pool, :query => model, :source_path => swap_model_line_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :line_id => @order_line_id) )
+    get backend_inventory_pool_models_path(@inventory_pool, :query => model, :user_id => @order.user_id, :source_path => swap_model_line_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :line_id => @order_line_id) )
     @models = assigns(:models)
     @models.should_not be_nil
   end
@@ -125,7 +125,7 @@ steps_for(:acknowledge) do
   
   Then "$who sees $size order$s" do | who, size, s |
     get backend_inventory_pool_acknowledge_path(@inventory_pool)
-    @orders_size = assigns(:to_acknowledge_size)
+    @orders_size = @inventory_pool.orders.submitted.size
     
     @orders_size.should == size.to_i
   end
@@ -143,7 +143,7 @@ steps_for(:acknowledge) do
     @response.should have_tag("li.active", title)
   end
   
-  Then "$name's order is opened in tab" do |name|
+  Then "$name's order is shown" do |name|
     user = User.find_by_login(name)
     @order.user.login.should == user.login
     @order.user.id.should == user.id
