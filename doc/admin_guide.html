@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.2.7" />
+<meta name="generator" content="AsciiDoc 8.4.4" />
+<title>leihs administration and installation guide</title>
 <style type="text/css">
 /* Debug borders */
 p, li, dt, dd, div, pre, h1, h2, h3, h4, h5, h6 {
@@ -110,11 +111,13 @@ div#footer-badges {
   padding-bottom: 0.5em;
 }
 
-div#preamble,
+div#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
 div.tableblock, div.imageblock, div.exampleblock, div.verseblock,
 div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
 div.admonitionblock {
-  margin-right: 10%;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
 }
@@ -156,9 +159,6 @@ div.sidebarblock > div.content {
   padding: 0.5em;
 }
 
-div.listingblock {
-  margin-right: 0%;
-}
 div.listingblock > div.content {
   border: 1px solid silver;
   background: #f4f4f4;
@@ -167,6 +167,7 @@ div.listingblock > div.content {
 
 div.quoteblock {
   padding-left: 2.0em;
+  margin-right: 10%;
 }
 div.quoteblock > div.attribution {
   padding-top: 0.5em;
@@ -175,6 +176,7 @@ div.quoteblock > div.attribution {
 
 div.verseblock {
   padding-left: 2.0em;
+  margin-right: 10%;
 }
 div.verseblock > div.content {
   white-space: pre;
@@ -218,6 +220,7 @@ dt {
   margin-top: 0.5em;
   margin-bottom: 0;
   font-style: normal;
+  color: navy;
 }
 dd > *:first-child {
   margin-top: 0.1em;
@@ -226,11 +229,27 @@ dd > *:first-child {
 ul, ol {
     list-style-position: outside;
 }
-div.olist > ol {
+ol.arabic {
   list-style-type: decimal;
 }
-div.olist2 > ol {
+ol.loweralpha {
   list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
 }
 
 div.tableblock > table {
@@ -243,21 +262,52 @@ thead {
 tfoot {
   font-weight: bold;
 }
+td > div.verse {
+  white-space: pre;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
 
-div.hlist {
+
+div.hdlist {
   margin-top: 0.8em;
   margin-bottom: 0.8em;
 }
-div.hlist td {
+div.hdlist tr {
   padding-bottom: 15px;
 }
-td.hlist1 {
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
   vertical-align: top;
   font-style: normal;
   padding-right: 0.8em;
+  color: navy;
 }
-td.hlist2 {
+td.hdlist2 {
   vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
 }
 
 @media print {
@@ -330,14 +380,6 @@ div.exampleblock-content {
 
 /* IE6 sets dynamically generated links as visited. */
 div#toc a:visited { color: blue; }
-
-/* Because IE6 child selector is broken. */
-div.olist2 ol {
-  list-style-type: lower-alpha;
-}
-div.olist2 div.olist ol {
-  list-style-type: decimal;
-}
 </style>
 <script type="text/javascript">
 /*<![CDATA[*/
@@ -413,7 +455,6 @@ function generateToc(toclevels) {
 }
 /*]]>*/
 </script>
-<title>leihs administration and installation guide</title>
 </head>
 <body>
 <div id="header">
@@ -427,17 +468,17 @@ function generateToc(toclevels) {
 </div>
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
-<div class="para"><p>leihs is web-based inventory handling and resource booking system. It allows users to view available equipment and place reservations through the frontend. Inventory managers and sysadmins use the backend to handle incoming reservations and manage items in the inventory.</p></div>
-<div class="para"><p>This guide shows you how to install a leihs server. The guide is written from the perspective of a system administrator or developer. If you are interested in running leihs in your own organization but aren't a sysadmin, talk to your IT department. leihs is not intended to be installed on a client, so any software installation on your own machine isn't necessary. All you need is a web browser.</p></div>
-<div class="para"><p>Consulting and installation services are also available from independent companies supporting Free Software all around the world. Ask around for a company or individual who knows Ruby on Rails applications, you will surely find someone who can help you install leihs.</p></div>
-<div class="para"><p>If you are such a person yourself and would like to have your services listed on the leihs project website and in this document, please write me an e-mail.</p></div>
+<div class="paragraph"><p>leihs is web-based inventory handling and resource booking system. It allows users to view available equipment and place reservations through the frontend. Inventory managers and sysadmins use the backend to handle incoming reservations and manage items in the inventory.</p></div>
+<div class="paragraph"><p>This guide shows you how to install a leihs server. The guide is written from the perspective of a system administrator or developer. If you are interested in running leihs in your own organization but aren&#8217;t a sysadmin, talk to your IT department. leihs is not intended to be installed on a client, so any software installation on your own machine isn&#8217;t necessary. All you need is a web browser.</p></div>
+<div class="paragraph"><p>Consulting and installation services are also available from independent companies supporting Free Software all around the world. Ask around for a company or individual who knows Ruby on Rails applications, you will surely find someone who can help you install leihs.</p></div>
+<div class="paragraph"><p>If you are such a person yourself and would like to have your services listed on the leihs project website and in this document, please write me an e-mail.</p></div>
 </div>
 <h2 id="_quick_install">Quick Install</h2>
 <div class="sectionbody">
-<div class="para"><p>This section is meant for admins experienced with installing Ruby on Rails applications. It lists the necessary installation steps in the briefest possible way, so you can get up and running quickly.</p></div>
+<div class="paragraph"><p>This section is meant for admins experienced with installing Ruby on Rails applications. It lists the necessary installation steps in the briefest possible way, so you can get up and running quickly.</p></div>
 <h3 id="_installation_on_mac_os_x">Installation on Mac OS X</h3><div style="clear:left"></div>
-<div class="para"><p>The following steps were tested on Mac OS X 10.5 on an x86. They may also work for later versions.</p></div>
-<div class="olist"><ol>
+<div class="paragraph"><p>The following steps were tested on Mac OS X 10.5 on an x86. They may also work for later versions.</p></div>
+<div class="olist arabic"><ol class="arabic">
 <li>
 <p>
 Install Apple Xcode. This is required because some modules may need a C/C++ compiler. XCode is <a href="http://developer.apple.com/Tools/">available from Apple</a> after a free developer registration.
@@ -445,7 +486,7 @@ Install Apple Xcode. This is required because some modules may need a C/C++ comp
 </li>
 <li>
 <p>
-Install MySQL 5.0. Use the 32-bit version if you are running OS X Leopard (10.5) but use the 64-bit version if you're on Snow Leopard (10.6). <strong>Make absolutely sure to install the 32-bit version on Leopard (10.5) even if you are running a 64-bit operating system.</strong> Some bugs in Mac OS X's MySQL and Ruby integration make it impossible to continue otherwise.
+Install MySQL 5.0. Use the 32-bit version if you are running OS X Leopard (10.5) but use the 64-bit version if you&#8217;re on Snow Leopard (10.6). <strong>Make absolutely sure to install the 32-bit version on Leopard (10.5) even if you are running a 64-bit operating system.</strong> Some bugs in Mac OS X&#8217;s MySQL and Ruby integration make it impossible to continue otherwise.
 </p>
 </li>
 <li>
@@ -463,26 +504,21 @@ Install the required version of Rails as well as a few gems that cannot be insta
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ sudo gem install rails -v 2.1.1
-$ sudo gem install gettext -v 1.93.0
-$ sudo gem install RubyInline
-$ sudo gem install ferret -v 0.11.6
-$ sudo gem install acts_as_ferret -v 0.4.3
-$ sudo gem install barby -v 0.2.0
-$ sudo gem install png -v 1.1.0</tt></pre>
+<pre><tt>$ cd leihs-2.1
+$ sudo rake gems:install</tt></pre>
 </div></div>
 </li>
 <li>
 <p>
 Install the native MySQL gem:
 </p>
-<div class="para"><p>If you are installing on Snow Leopard (OS X 10.6) use the following installation options:</p></div>
+<div class="paragraph"><p>If you are installing on Snow Leopard (OS X 10.6) use the following installation options:</p></div>
 <div class="literalblock">
 <div class="content">
 <pre><tt> $ sudo env ARCHFLAGS='-arch x86_64' \
 gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config</tt></pre>
 </div></div>
-<div class="para"><p>If you are using Leopard (OS X 10.5) or below, use the following string instead:</p></div>
+<div class="paragraph"><p>If you are using Leopard (OS X 10.5) or below, use the following string instead:</p></div>
 <div class="literalblock">
 <div class="content">
 <pre><tt> $ sudo gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config \
@@ -501,8 +537,8 @@ $ rails test
 $ cd test
 $ ./script/server</tt></pre>
 </div></div>
-<div class="para"><p>You should see a web page at <a href="http://localhost:3000">http://localhost:3000</a>. If not, please make sure that Rails is installed properly before continuing.</p></div>
-<div class="para"><p>If this works, stop the server again using Ctrl-C.</p></div>
+<div class="paragraph"><p>You should see a web page at <a href="http://localhost:3000">http://localhost:3000</a>. If not, please make sure that Rails is installed properly before continuing.</p></div>
+<div class="paragraph"><p>If this works, stop the server again using Ctrl-C.</p></div>
 </li>
 <li>
 <p>
@@ -544,10 +580,10 @@ Start the server:
 </div></div>
 </li>
 </ol></div>
-<div class="para"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
+<div class="paragraph"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
 <h3 id="_installation_on_debian_gnu_linux">Installation on Debian GNU/Linux</h3><div style="clear:left"></div>
-<div class="para"><p>These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny).</p></div>
-<div class="olist"><ol>
+<div class="paragraph"><p>These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny).</p></div>
+<div class="olist arabic"><ol class="arabic">
 <li>
 <p>
 Install Ruby and irb
@@ -559,7 +595,7 @@ Install Ruby and irb
 </li>
 <li>
 <p>
-Install RubyGems from <a href="http://rubygems.org/">the RubyGems website</a>. Make sure <strong>not to install</strong> the edition of RubyGems that is available from Debian's package archives. RubyGem development moves so quickly that we need to use the one from upstream.
+Install RubyGems from <a href="http://rubygems.org/">the RubyGems website</a>. Make sure <strong>not to install</strong> the edition of RubyGems that is available from Debian&#8217;s package archives. RubyGem development moves so quickly that we need to use the one from upstream.
 </p>
 <div class="literalblock">
 <div class="content">
@@ -570,7 +606,7 @@ Install RubyGems from <a href="http://rubygems.org/">the RubyGems website</a>. M
 # ruby setup.rb
 # ln -s /usr/bin/gem1.8 /usr/bin/gem</tt></pre>
 </div></div>
-<div class="para"><p>Note that the URL above might change! Please visit the RubyGems site to find the exact URL under "Downloads".</p></div>
+<div class="paragraph"><p>Note that the URL above might change! Please visit the RubyGems site to find the exact URL under "Downloads".</p></div>
 </li>
 <li>
 <p>
@@ -578,13 +614,8 @@ Install the required version of Rails as well as a few gems that cannot be insta
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt># gem install rails -v 2.1.1
-# gem install gettext -v 1.93.0
-# gem install RubyInline
-# gem install ferret -v 0.11.6
-# gem install acts_as_ferret -v 0.4.3
-# gem install barby -v 0.2.0
-# gem install png -v 1.1.0</tt></pre>
+<pre><tt># cd leihs-2.1
+# rake gems:install</tt></pre>
 </div></div>
 </li>
 <li>
@@ -608,8 +639,8 @@ $ rails test
 $ cd test
 $ ./script/server</tt></pre>
 </div></div>
-<div class="para"><p>You should see a web page at <a href="http://localhost:3000">http://localhost:3000</a>. If not, please make sure that Rails is installed properly before continuing.</p></div>
-<div class="para"><p>If this works, stop the server again using Ctrl-C.</p></div>
+<div class="paragraph"><p>You should see a web page at <a href="http://localhost:3000">http://localhost:3000</a>. If not, please make sure that Rails is installed properly before continuing.</p></div>
+<div class="paragraph"><p>If this works, stop the server again using Ctrl-C.</p></div>
 </li>
 <li>
 <p>
@@ -652,27 +683,66 @@ Start the server:
 </div></div>
 </li>
 </ol></div>
-<div class="para"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
+<div class="paragraph"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
+</div>
+<h2 id="_upgrading_from_leihs_2_0_x_to_leihs_2_1">Upgrading from leihs 2.0.x to leihs 2.1</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>We tried to make very sure that upgrading from earlier versions to leihs 2.1 is painless and safe. The largest differences are:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Database changes
+</p>
+</li>
+<li>
+<p>
+New or changed options in config/environment.rb
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>The former are quite easily handled by a database migration:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd leihs-2.1
+$ rake db:migrate
+$ RAILS_ENV='production' rake db:migrate</tt></pre>
+</div></div>
+<div class="paragraph"><p>Please substitute "production" for those environments you actually use.</p></div>
+<div class="paragraph"><p>The latter needs to be taken care of by hand. The default is presented here:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>FRONTEND_SPLASH_PAGE = false
+CONTRACT_LENDING_PARTY_STRING = "Your\nAddress\nHere"
+EMAIL_SIGNATURE = "Das PZ-leihs Team"
+LDAP_CONFIG = YAML::load_file(RAILS_ROOT+'/config/LDAP.yml')
+DEFAULT_EMAIL = 'sender@example.com'</tt></pre>
+</div></div>
+<div class="paragraph"><p>The options are explained as follows:</p></div>
+<div class="paragraph"><p><strong>FRONTEND_SPLASH_PAGE</strong> sets whether a splash information page (with static, welcoming information for the user) is shown after a frontend user logs in. Can be true or false.</p></div>
+<div class="paragraph"><p><strong>CONTRACT_LENDING_PARTY_STRING</strong> is a string printed on every lending contract, in the top right, under the heading "lending party". Can be any valid Ruby string.</p></div>
+<div class="paragraph"><p><strong>EMAIL_SIGNATURE</strong> is a string printed at the end of any reminder or notification e-mail message. Can be any valid Ruby string.</p></div>
+<div class="paragraph"><p><strong>LDAP_CONFIG</strong> is a path pointing to the configuration file for your LDAP server.</p></div>
+<div class="paragraph"><p><strong>DEFAULT_EMAIL</strong> is the e-mail address used for sending reminder/notification e-mails when that particular inventory pool has no e-mail set in its own settings. Can be any valid Ruby string, but perhaps you should make sure it&#8217;s a valid e-mail address ;)</p></div>
 </div>
 <h2 id="_default_admin_username_password">Default admin username/password</h2>
 <div class="sectionbody">
-<div class="para"><p>After installation, a default user is created for the Database Authentication module. Username: super_user_1. Password: pass.</p></div>
+<div class="paragraph"><p>After installation, a default user is created for the Database Authentication module. Username: super_user_1. Password: pass.</p></div>
 </div>
 <h2 id="_installing_a_production_environment">Installing a production environment</h2>
 <div class="sectionbody">
-<div class="para"><p>Please note that running the server in development mode as shown in the quick-start guide is not recommended for production. Once you have made sure that the server works in development mode and wish to start using leihs properly, please run it in production mode (<tt>RAILS_ENV=<em>production</em> ./script/server</tt>). Also, this quick-start guide does not cover running a Ruby on Rails application for production. Please look into <a href="http://www.modrails.com/">Phusion Passenger</a> or the Apache Mongrel cluster in the reference section for how to set up a production environment.</p></div>
-<div class="para"><p>Without a real production environment, leihs can handle upwards of 1000 users (not concurrently, of course!). If you need better performance, you must set up a proper production environment.</p></div>
+<div class="paragraph"><p>Please note that running the server in development mode as shown in the quick-start guide is not recommended for production. Once you have made sure that the server works in development mode and wish to start using leihs properly, please run it in production mode (<tt>RAILS_ENV='production' ./script/server</tt>). Also, this quick-start guide does not cover running a Ruby on Rails application for production. Please look into <a href="http://www.modrails.com/">Phusion Passenger</a> or the Apache Mongrel cluster in the reference section for how to set up a production environment.</p></div>
+<div class="paragraph"><p>Without a real production environment, leihs can handle upwards of 1000 users (not concurrently, of course!). If you need better performance, you must set up a proper production environment.</p></div>
 </div>
 <h2 id="_free_software_statement">Free Software Statement</h2>
 <div class="sectionbody">
-<div class="para"><p>The Zurich University of the Arts supports Free Software <a href="http://www.gnu.org/philosophy/free-sw.html">as defined by the Free Software Foundation</a>. That's why leihs is Free Software licensed under the GNU GPL version 3.0.</p></div>
-<div class="para"><p>One of the advantages this freedom brings with it is that it enables anyone in the world to provide local support services for leihs at the same quality level as the Zurich University of the Arts can provide itself.</p></div>
-<div class="para"><p>If you would like to take part in the development of leihs, please see our <a href="http://code.zhdk.ch/projects/leihs">project page</a>.</p></div>
+<div class="paragraph"><p>The Zurich University of the Arts supports Free Software <a href="http://www.gnu.org/philosophy/free-sw.html">as defined by the Free Software Foundation</a>. That&#8217;s why leihs is Free Software licensed under the GNU GPL version 3.0.</p></div>
+<div class="paragraph"><p>One of the advantages this freedom brings with it is that it enables anyone in the world to provide local support services for leihs at the same quality level as the Zurich University of the Arts can provide itself.</p></div>
+<div class="paragraph"><p>If you would like to take part in the development of leihs, please see our <a href="http://code.zhdk.ch/projects/leihs">project page</a>.</p></div>
 </div>
 <h2 id="_references">References</h2>
 <div class="sectionbody">
-<div class="para"><p>Setting up production environments with Rails:</p></div>
-<div class="ilist"><ul>
+<div class="paragraph"><p>Setting up production environments with Rails:</p></div>
+<div class="ulist"><ul>
 <li>
 <p>
 <a href="http://www.modrails.com/">http://www.modrails.com/</a>
@@ -687,7 +757,7 @@ Start the server:
 </div>
 <h2 id="_appendix_a_zhdk_configuration_file_for_mongrel_cluster">Appendix A: ZHdK configuration file for mongrel cluster</h2>
 <div class="sectionbody">
-<div class="para"><p>As an example to help you set up a production environment, here is the Apache configuration we use. You will need mod_proxy:</p></div>
+<div class="paragraph"><p>As an example to help you set up a production environment, here is the Apache configuration we use. You will need mod_proxy:</p></div>
 <div class="listingblock">
 <div class="content">
 <pre><tt>&lt;VirtualHost *:80&gt;
@@ -744,7 +814,7 @@ Start the server:
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2009-10-08 11:01:57 CEST
+Last updated 2009-12-17 15:40:58 CEST
 </div>
 </div>
 </body>
