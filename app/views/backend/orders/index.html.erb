@@ -18,9 +18,13 @@
 						<%= link_to icon_tag("tab_go") + _("View + Acknowledge"),
 								backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order) %>
 					<%	 when "approved", "rejected" %>
-						<%= link_to icon_tag("tab_go") + _("View"),
+						<%= link_to icon_tag("tab_go") + _("View (readonly)"),
 								backend_inventory_pool_order_path(current_inventory_pool, order) %>
 					<% end %>
+				
+					<%= link_to icon_tag("tab_go") + _("Hand Over"),
+							new_contract_backend_inventory_pool_user_path(current_inventory_pool, order.user) if order.waiting_for_hand_over %>
+				
 				</td>
 			</tr>
 

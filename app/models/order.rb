@@ -43,8 +43,12 @@ class Order < Document
 
 #########################################################################
 
+  def is_approved?
+    self.status_const == Order::APPROVED
+  end
+
   def approvable?
-    if self.status_const == Order::APPROVED
+    if is_approved?
       return false
     else 
       return lines.all? {|l| l.available? }
@@ -174,6 +178,15 @@ class Order < Document
   def remove_backup
     self.backup = nil
   end
+
+  def waiting_for_hand_over
+    if is_approved? and lines.collect(&:start_date).max >= Date.today
+      contract = user.current_contract(inventory_pool)
+      return true if contract and not contract.lines.empty?
+    end
+    return false
+  end
+  
   ############################################
 
   private
