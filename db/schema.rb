@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.integer  "user_id"
     t.integer  "inventory_pool_id"
     t.integer  "status_const",      :default => 1
-    t.string   "purpose"
+    t.text     "purpose"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "note"
@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.text   "default_contract_note"
     t.string "shortname"
     t.string "email"
+    t.text   "color"
   end
 
   create_table "inventory_pools_model_groups", :id => false, :force => true do |t|
@@ -218,6 +219,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.string   "responsible"
     t.string   "insurance_number"
     t.text     "note"
+    t.text     "name"
   end
 
   add_index "items", ["inventory_code"], :name => "index_items_on_inventory_code", :unique => true
@@ -331,7 +333,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.integer  "user_id"
     t.integer  "inventory_pool_id"
     t.integer  "status_const",      :default => 1
-    t.string   "purpose"
+    t.text     "purpose"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
