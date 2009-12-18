@@ -13,7 +13,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.backend '/backend', :controller => 'backend/inventory_pools'
   map.inventory '/inventory', :controller => 'inventory/inventory_pools'
-  map.admin '/admin', :controller => 'admin/inventory_pools'
 
 ############################################################################
 # Frontend
@@ -159,43 +158,6 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
-    
-############################################################################
-# Admin
-
-#  map.namespace :admin do |admin|
-#    admin.resources :inventory_pools, :member => { :managers => :get,
-#                                                   :remove_manager => :delete,
-#                                                   :add_manager => :put } do |inventory_pool|
-#        inventory_pool.resources :items
-#    end
-#    admin.items 'items', :controller => 'items', :action => 'index'
-#    admin.resources :models, :member => { :properties => :any,
-#                                          :images => :any,
-#                                          :accessories => :get,
-#                                          :add_accessory => :post,
-#                                          :categories => :any,
-#                                          :remove_accessory => :delete }  do |model|
-#        model.resources :items, :member => { :model => :get,  # TODO 12** remove and nest to models ??
-#                                             :inventory_pool => :any,
-#                                             :notes => :any,
-#                                             :supplier => :any,
-#                                             :change_supplier => :post }
-#        model.resources :compatibles, :controller => 'models'
-#    end
-#    admin.resources :categories, :member => { :add_parent => :any } do |category|
-#        category.resources :parents, :controller => 'categories'
-#        category.resources :children, :controller => 'categories'
-#        category.resources :models
-#    end
-#    admin.resources :users, :member => { :access_rights => :get,
-#                                         :remove_access_right => :delete,
-#                                         :suspend_access_right => :post,
-#                                         :reinstate_access_right => :post,           
-#                                         :add_access_right => :post }
-#    admin.resources :roles
-#  end
-
 ############################################################################
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
