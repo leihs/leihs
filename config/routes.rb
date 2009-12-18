@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
                                           :update_badge_id => :post }
                                                     
     backend.resources :inventory_pools, :member => { :timeline => :get,
-                                                     :timeline_visits => :get } do |inventory_pool|
+                                                     :timeline_visits => :get} do |inventory_pool|
       inventory_pool.acknowledge 'acknowledge', :controller => 'acknowledge', :action => 'index'
       inventory_pool.hand_over 'hand_over', :controller => 'hand_over', :action => 'index'
       inventory_pool.take_back 'take_back', :controller => 'take_back', :action => 'index'
@@ -72,6 +72,7 @@ ActionController::Routing::Routes.draw do |map|
         category.resources :parents, :controller => 'categories'
         category.resources :children, :controller => 'categories'
         category.resources :models
+      
       end
       inventory_pool.resources :options
       inventory_pool.resources :models, :collection => { :new_package => :get,
