@@ -1,8 +1,0 @@
-<ul>
-<% for user in @users %>
-	<li id="<%= dom_id(user) %>" style="clear: both;">
-		<div class="name"><b><%=h user %></b></div>
-		<span class="informal"><i><%=h user.unique_id %></i></span>
-	</li>
-<% end %>
-</ul>
