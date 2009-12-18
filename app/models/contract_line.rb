@@ -9,10 +9,16 @@ class ContractLine < DocumentLine
   
 ####################################################
 
-  named_scope :to_hand_over,  :include => :contract, :conditions => ["contracts.status_const = ?", Contract::UNSIGNED]
-  named_scope :to_take_back,  :include => :contract, :conditions => ["contracts.status_const = ? AND returned_date IS NULL", Contract::SIGNED]
-  named_scope :to_remind,     :include => :contract, :conditions => ["contracts.status_const = ? AND returned_date IS NULL AND end_date < CURDATE()", Contract::SIGNED]
-  named_scope :deadline_soon, :include => :contract, :conditions => ["contracts.status_const = ? AND returned_date IS NULL AND end_date = ADDDATE(CURDATE(), 1)", Contract::SIGNED]
+  # NOTE using table alias to prevent "Not unique table/alias" Mysql error
+  # TODO default_scope :joins ??
+  named_scope :to_hand_over,  :joins => "INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id",
+                              :conditions => ["my_contract.status_const = ?", Contract::UNSIGNED]
+  named_scope :to_take_back,  :joins => "INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id",
+                              :conditions => ["my_contract.status_const = ? AND contract_lines.returned_date IS NULL", Contract::SIGNED]
+  named_scope :to_remind,  :joins => "INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id",
+                           :conditions => ["my_contract.status_const = ? AND contract_lines.returned_date IS NULL AND contract_lines.end_date < CURDATE()", Contract::SIGNED]
+  named_scope :deadline_soon,  :joins => "INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id",
+                               :conditions => ["my_contract.status_const = ? AND contract_lines.returned_date IS NULL AND contract_lines.end_date = ADDDATE(CURDATE(), 1)", Contract::SIGNED]
 
   # TODO 1209** refactor to InventoryPool has_many :contract_lines_by_user(user) ??
   # NOTE InventoryPool#contract_lines.by_user(user)
