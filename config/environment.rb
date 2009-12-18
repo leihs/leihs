@@ -59,8 +59,11 @@ Rails::Initializer.run do |config|
 
   config.gem "acts_as_ferret", :version => '>= 0.4.4'
   config.gem "ferret", :version => '>= 0.11.6'
-  config.gem "gettext", :version => '>= 2.1.0'
-
+  
+#  config.gem "gettext", :version => '>= 2.1.0'
+#  config.gem "gettext_activerecord", :version => '>= 2.1.0'
+  config.gem "gettext_rails", :version => '>= 2.1.0'
+  
   config.gem "barby", :version => '0.2.0'
   config.gem "png", :version => '1.1.0'
 #  config.gem "RubyInline", :version => '3.8.2', :lib => "inline"

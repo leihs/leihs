@@ -65,20 +65,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # TODO remove this method, find different solution without overriding framework methods
-  def render(args = {})
-    if args == :update
-      super args
-    else
-      default_args = {}
-      if params[:layout] == "modal"
-        default_args[:layout] = $modal_layout_path
-      elsif request.xml_http_request?
-        default_args[:layout] = false
-      end
-      super default_args.merge(args)
-    end
-  end
+#TODO rails 2.3
+#  # TODO remove this method, find different solution without overriding framework methods
+#  def render(args = {})
+#    if args == :update
+#      super args
+#    else
+#      default_args = {}
+#      if params[:layout] == "modal"
+#        default_args[:layout] = $modal_layout_path
+#      elsif request.xml_http_request?
+#        default_args[:layout] = false
+#      end
+#      super default_args.merge(args)
+#    end
+#  end
 
   def sanitize_order(*values)
     statement = "%s %s"

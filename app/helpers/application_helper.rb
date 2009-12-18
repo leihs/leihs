@@ -36,7 +36,7 @@ module ApplicationHelper
     on_click_attr = "return " << "GB_showCenter('#{options.delete(:title) || content}', this.href, #{options.delete(:height) || 500}, #{options.delete(:width) || 650}, #{options.delete(:callback) || 'null'})"
     
     link = link_to(content, link, options.merge(:onclick => on_click_attr))
-    block_given? && block_is_within_action_view?(block) ? concat(link, block.binding) : link
+    block_given? && block_is_within_action_view?(block) ? concat(link) : link
   end
 
   ######## Icon #########
@@ -159,8 +159,7 @@ module ApplicationHelper
           r
         end
       else
-        #Rails 2.3# auto_link(h, :href_options => { :target => '_blank' })
-        auto_link(h, :all, :target => "_blank")
+        auto_link(h, :href_options => { :target => '_blank' })
     end
   end
 

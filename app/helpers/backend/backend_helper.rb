@@ -2,7 +2,7 @@ module Backend::BackendHelper
 
   def table(options = {}, html_options = {}, &block)
     html = table_tag(options, html_options, &block)
-    concat(html, block.binding)
+    concat(html)
   end
 
   def table_with_search_and_pagination(options = {}, html_options = {}, &block)
@@ -11,7 +11,7 @@ module Backend::BackendHelper
       r += table_tag(options, html_options, &block)
       r += controller_bar(options[:records])
     end
-    concat(html, block.binding)
+    concat(html)
   end 
 
   def controller_bar(records, with_search_field = false, query = params[:query], filter = params[:filter])
