@@ -1,5 +1,0 @@
-This directory is a test application for RoR.
-
-$ rake createdb
-$ rake makemo
-$ rake test
