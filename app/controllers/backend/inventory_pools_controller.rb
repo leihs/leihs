@@ -9,6 +9,10 @@ class Backend::InventoryPoolsController < Backend::BackendController
     end
   end
 
+  def info
+    
+  end
+  
   def show
   end
   
@@ -29,9 +33,9 @@ class Backend::InventoryPoolsController < Backend::BackendController
   def update
     @inventory_pool ||= @inventory_pool = InventoryPool.find(params[:id]) 
     if @inventory_pool.update_attributes(params[:inventory_pool])
-      redirect_to backend_inventory_pools_path
+      redirect_to backend_inventory_pool_path(@inventory_pool)
     else
-      render :action => 'edit' # TODO 24** redirect to the correct tabbed form
+      render :action => 'show' # TODO 24** redirect to the correct tabbed form
     end
   end
 

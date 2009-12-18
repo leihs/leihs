@@ -1,6 +1,9 @@
+
+  <div style="background-color:<%= (current_inventory_pool and current_inventory_pool.color) ? current_inventory_pool.color : "#F2F2F2" %>">
 <% if logged_in? %>
   <% if current_inventory_pool %>
-    <h4 style="background-color: #1089D9;color: white; padding: 5px;">
+  
+    <h4 style="background-color: #1089D9 ;color: white; padding: 5px;">
       <%= _("Booking") %>
     </h4>
     <div id="menu_booking" style="margin: 5px">
@@ -27,7 +30,6 @@
       <% end %>
     <% end %>
   <% end %>
-
  <% if current_inventory_pool or (current_user and is_admin?) %>
     <h4 style="background-color: #D85925;color: white; padding: 5px;">
       <%= _("Administration") %>
@@ -37,3 +39,4 @@
     </div>
   <% end %>
 <% end %>
+</div>
