@@ -60,6 +60,11 @@ class Backend::ModelsController < Backend::BackendController
     end #if
 
     @show_categories_tree = !(request.xml_http_request? or params[:filter] == "packages")
+
+    respond_to do |format|
+      format.html
+      format.auto_complete { render :layout => false }
+    end
   end
 
   def show
@@ -277,6 +282,7 @@ class Backend::ModelsController < Backend::BackendController
     @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
     
     @tabs = []
+    @tabs << :category_backend if @category
     @tabs << :model_backend if @model
 
   end

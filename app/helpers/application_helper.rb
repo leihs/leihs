@@ -100,11 +100,11 @@ module ApplicationHelper
         }
         "
       end
-      r += content_tag :div, :id => "flash", :onclick => "flash_toggle(this);" do
+      r += content_tag :div, :id => "flash", :class => "floating", :onclick => "flash_toggle(this);" do
         flash_content
       end
     else
-      content_tag :div, :class => "flash" do
+      content_tag :div, :id => "flash" do
         flash_content
       end
     end
@@ -112,7 +112,7 @@ module ApplicationHelper
 
   def flash_content
     r = javascript_tag do
-      "if($('flash')) flash_open($('flash'));" # OPTIMIZE
+      "if($('flash').hasClassName('floating')) flash_open($('flash'));" # OPTIMIZE
     end
     [:notice, :error].map do |f|
       r += content_tag(:div, to_list(flash[f]), :class => "#{f}") unless flash[f].blank?

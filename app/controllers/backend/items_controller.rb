@@ -39,6 +39,11 @@ class Backend::ItemsController < Backend::BackendController
     items.delete_if {|i| not i.packageable? } if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
     
     @items = items.search(params[:query], {:page => params[:page], :per_page => $per_page}, find_options)
+
+    respond_to do |format|
+      format.html
+      format.auto_complete { render :layout => false }
+    end
   end
 
   def new(id = params[:original_id])
@@ -123,15 +128,15 @@ class Backend::ItemsController < Backend::BackendController
   def retire
     if request.post?
       # NOTE since it's a switch form, the hidden param ensures the correct action
-    if @item.retired and !params[:retired].blank?
-      @item.retired = nil
-    else
-      @item.retired = Date.today
-    end
-    @item.retired_reason = params[:reason]
-    @item.log_history(_("Item retired (%s)") % @item.retired_reason, current_user)
-    @item.save
-    redirect_to :action => 'index'
+      if @item.retired and !params[:retired].blank?
+        @item.retired = nil
+      else
+        @item.retired = Date.today
+      end
+      @item.retired_reason = params[:reason]
+      @item.log_history(_("Item retired (%s)") % @item.retired_reason, current_user)
+      @item.save
+      redirect_to :action => 'index'
     else
       render :action => 'retire', :layout => $empty_layout_path
     end
@@ -148,7 +153,7 @@ class Backend::ItemsController < Backend::BackendController
 
     get_histories
     
-    render :layout => $modal_layout_path 
+    params[:layout] = "modal" 
   end
 
   def get_notes

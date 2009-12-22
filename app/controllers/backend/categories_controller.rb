@@ -29,9 +29,10 @@ class Backend::CategoriesController < Backend::BackendController
       format.html
       format.ext_json { id = (@category ? @category.id : 0)
                         render :json => @categories.sort.to_json(:methods => [[:text, id],
-                                                                          :leaf,
-                                                                          :real_id],
+                                                                              :leaf,
+                                                                              :real_id],
                                                             :except => [:id]) }
+      format.auto_complete { render :layout => false }
     end
   end
     
@@ -80,7 +81,20 @@ class Backend::CategoriesController < Backend::BackendController
       end
     end
   end
+
+#################################################################
   
+  def add_parent(parent = params[:parent])
+    begin
+      @parent = Category.find(parent[:category_id])
+      @parent.children << @category unless @parent.children.include?(@category)
+      @category.set_label(@parent, parent[:label]) unless parent[:label].blank?
+    rescue
+      flash[:error] = _("Attempt to add node to own graph collection")
+    end
+    redirect_to backend_inventory_pool_category_parents_path(current_inventory_pool, @category)
+  end
+
 #################################################################
 
   private

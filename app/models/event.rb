@@ -1,5 +1,3 @@
-# Timeline event
-
 class Event < ActiveRecord::Base
   def self.columns() @columns ||= []; end
   def self.column(name, sql_type = nil, default = nil, null = true)
@@ -35,36 +33,6 @@ class Event < ActiveRecord::Base
   def <=>(other)
     self.date <=> other.date
   end  
-
-############################################################################
-# Timeline
-
-  require 'rexml/document'
-  include REXML
-
-  def to_xml
-    xml = Document.new()
-    e = Element.new("event")
-    e.attributes["start"] = self.start.strftime("%c %Z")
-    e.attributes["end"] = self.end.strftime("%c %Z")
-    e.attributes["title"] = self.title
-    e.attributes["isDuration"] = self.isDuration.to_s
-    e.attributes["icon"] = "api/images/dull-red-circle.png" if self.action == "take_back"
-    e.text = "" # TODO description
-    xml << e
-    xml
-  end
-
-
-  def self.xml_wrap(events)
-    xml = Document.new()
-    @d = Element.new("data")
-    events.each do |e|
-      @d << e.to_xml  
-    end
-    xml << @d
-    xml
-  end
 
 end
 

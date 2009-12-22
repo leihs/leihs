@@ -149,30 +149,6 @@ class InventoryPool < ActiveRecord::Base
    @r_visits ||= take_back_or_remind_visits(:remind => true)
   end
 
-
-  def timeline
-    events = []
-    contract_lines.each do |l|
-      events << Event.new(:start => l.start_date, :end => l.end_date, :title =>l.model.name)
-    end
-
-    xml = Event.xml_wrap(events)
-    
-    f_name = "/javascripts/timeline/inventory_pool_#{self.id}.xml"
-    File.open("public#{f_name}", 'w') { |f| f.puts xml }
-    f_name
-  end
-
-  def timeline_visits
-    events = hand_over_visits + take_back_visits 
-
-    xml = Event.xml_wrap(events)
-    
-    f_name = "/javascripts/timeline/inventory_pool_#{self.id}_visits.xml"
-    File.open("public#{f_name}", 'w') { |f| f.puts xml }
-    f_name
-  end
-
 ###################################################################################
   def has_access?(user)
     user.inventory_pools.include?(self)

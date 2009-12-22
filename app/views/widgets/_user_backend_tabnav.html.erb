@@ -9,32 +9,31 @@
 	</ul>
 <% end %>			
 
-<%  
-
+<% # TODO ajax ??
 render_tabnav :user_backend, 
               :generate_css => true do 
 
 	add_tab do |t|
 		t.named _('User')
-		t.links_to :action => 'show'
+		t.links_to :action => 'show', :layout => params[:layout]
 	end
 
 	add_tab do |t|
 		access_rights = @user.access_rights
 		access_rights = access_rights.by_inventory_pool(current_inventory_pool) if current_inventory_pool
 		t.named _("Access Rights (%d)") % access_rights.count
-		t.links_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
+		t.links_to polymorphic_path([:access_rights, :backend, current_inventory_pool, @user].compact, :layout => params[:layout])
 		t.highlights_on :controller => 'backend/users', :action => 'access_rights'
 	end
   
   	add_tab do |t|
 		t.named _("Things to return")
-		t.links_to :action => 'things_to_return'
+		t.links_to :action => 'things_to_return', :layout => params[:layout]
 	end if current_inventory_pool
 
   	add_tab do |t|
 		t.named _("Extended Info")
-		t.links_to :action => 'extended_info'
+		t.links_to :action => 'extended_info', :layout => params[:layout]
 	end if @user.extended_info
   
 

@@ -18,12 +18,12 @@ render_tabnav :template_backend,
 
 	add_tab do |t|
 		t.named _('Template')
-		t.links_to :action => 'show'
+		t.links_to :action => 'show', :layout => params[:layout]
 	end
 
 	add_tab do |t|
 		t.named _("Models (%{m}/%{i})") % { :m => @my_template.models.size, :i => @my_template.total_quantity }
-		t.links_to :action => 'models'
+		t.links_to :action => 'models', :layout => params[:layout]
 	end
 
 

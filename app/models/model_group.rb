@@ -4,6 +4,8 @@ class ModelGroup < ActiveRecord::Base
   has_many :models, :through => :model_links, :uniq => true
   has_and_belongs_to_many :inventory_pools
 
+  validates_presence_of :name
+
 ##################################################
 
   # OPTIMIZE use acts-as-dag instead ??

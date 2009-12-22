@@ -28,15 +28,11 @@ class ApplicationController < ActionController::Base
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => 'a51355e168a2870e8e42d11f9390b986'
   
-  # TODO temp
   $theme = '00-patterns'
-  $modal_layout_path = 'layouts/' + $theme + '/modal'
-  $general_layout_path = 'layouts/' + $theme + '/general'
   $layout_public_path = '/layouts/' + $theme
 
   $per_page = 50 #old# 15 # OPTIMIZE keep per_page in user session?
   
-  layout $general_layout_path
  
 
  
@@ -51,12 +47,6 @@ class ApplicationController < ActionController::Base
     nil
   end
 
-  # overriding
-  # TODO 16** doesn't work for *_url and *_path 
-  def default_url_options(options = nil)
-    { :layout => params[:layout] }
-  end
-
   def add_visitor(user)
     session[:last_visitors] ||= []
     unless session[:last_visitors].include?([user.id, user.name])
@@ -65,21 +55,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
-#TODO rails 2.3
-#  # TODO remove this method, find different solution without overriding framework methods
-#  def render(args = {})
-#    if args == :update
-#      super args
-#    else
-#      default_args = {}
-#      if params[:layout] == "modal"
-#        default_args[:layout] = $modal_layout_path
-#      elsif request.xml_http_request?
-#        default_args[:layout] = false
-#      end
-#      super default_args.merge(args)
-#    end
+  # TODO 2012 remove this method, find different solution without overriding framework methods
+  # overriding
+  # TODO 16** doesn't work for *_url and *_path 
+#  def default_url_options(options = nil)
+#    { :layout => params[:layout] }
 #  end
+
+  # TODO 2012 remove this method, find different solution without overriding framework methods
+  # overriding
+  def render(options = nil, extra_options = {}, &block)
+    if request.xml_http_request? and options != :update
+      options ||= {}
+      options[:layout] = false
+    end
+    super
+  end
 
   def sanitize_order(*values)
     statement = "%s %s"

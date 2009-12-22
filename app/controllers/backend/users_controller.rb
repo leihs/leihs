@@ -129,7 +129,12 @@ class Backend::UsersController < Backend::BackendController
     # OPTIMIZE rebuild index for related orders and contracts
     @user.documents.each {|d| d.save }
     flash[:notice] = _("Badge ID was updated")
-    redirect_to url_for([:backend, current_inventory_pool, @user].compact)
+
+    render :update do |page|
+                    page.replace "badge_id_form", :partial => "badge_id_form", :locals => { :user => @user }
+                    page.replace_html 'flash', flash_content
+                    flash.discard
+                  end
   end
 
 #################################################################

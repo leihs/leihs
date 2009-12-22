@@ -21,7 +21,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       # TODO test# @order.destroy # TODO remove old orders ?
       redirect_to :action => 'index'
     else
-      render :layout => $modal_layout_path
+      params[:layout] = "modal"
     end    
   end
   
@@ -34,7 +34,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       
       redirect_to :action => 'index'
     else
-      render :layout => $modal_layout_path
+      params[:layout] = "modal"
     end
   end 
 
@@ -43,12 +43,12 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order.from_backup      
       redirect_to :action => 'index'        
     else
-      render :layout => $modal_layout_path
+      params[:layout] = "modal"
     end
   end 
   
   def delete
-      render :layout => $modal_layout_path
+      params[:layout] = "modal"
   end
   
   def destroy
@@ -66,15 +66,13 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   # change quantity for a given line
   def change_line_quantity
-    if request.post?
-      @order_line = current_inventory_pool.order_lines.find(params[:order_line_id])
-      @order = @order_line.order
-      required_quantity = params[:quantity].to_i
+    @order_line = current_inventory_pool.order_lines.find(params[:order_line_id])
+    @order = @order_line.order
+    required_quantity = params[:quantity].to_i
 
-      @order_line, @change = @order.update_line(@order_line.id, required_quantity, current_user.id)
-      @maximum_exceeded = required_quantity != @order_line.quantity
-      @order.save
-    end
+    @order_line, @change = @order.update_line(@order_line.id, required_quantity, current_user.id)
+    @maximum_exceeded = required_quantity != @order_line.quantity
+    @order.save
   end
 
   def time_lines
@@ -90,7 +88,7 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order.change_purpose(params[:purpose], current_user.id)
       redirect_to backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order)
     else
-      render :layout => $modal_layout_path
+      params[:layout] = "modal"
     end
   end
     
@@ -108,12 +106,6 @@ class Backend::AcknowledgeController < Backend::BackendController
                   :source_path => request.env['REQUEST_URI']
     end
   end   
-
-  def timeline
-    @timeline_xml = @order.timeline
-    render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'
-  end
-    
     
   private
   
