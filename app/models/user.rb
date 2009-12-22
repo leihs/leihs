@@ -172,23 +172,6 @@ class User < ActiveRecord::Base
     e.sort   
   end
 
-  
-  def timeline
-    xml = Event.xml_wrap(events)
-    
-    f_name = "/javascripts/timeline/user_#{self.id}.xml"
-    File.open("public#{f_name}", 'w') { |f| f.puts xml }
-    f_name
-  end
-
-  def timeline_visits
-    xml = Event.xml_wrap(visits)
-    
-    f_name = "/javascripts/timeline/user_#{self.id}_visits.xml"
-    File.open("public#{f_name}", 'w') { |f| f.puts xml }
-    f_name
-  end
-
   def level_for(ip)
     access_right = access_rights.first(:conditions => ["inventory_pool_id = ? and role_id > ?", ip.id, 1]) #TODO: replace hardcoded 1 with Role name or something
     (access_right.nil? or access_right.suspended?) ? 0 : access_right.level.to_i

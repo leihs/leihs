@@ -3,11 +3,7 @@ class Backend::BackendController < ApplicationController
   
   before_filter :init
   
-  $theme = '00-patterns'
-  $modal_layout_path = 'layouts/backend/' + $theme + '/modal'
-  $modal_timeline_layout_path = 'layouts/backend/' + $theme + '/modal_timeline'
   $general_layout_path = 'layouts/backend/' + $theme + '/general'
-  $layout_public_path = '/layouts/' + $theme
   $empty_layout_path = '/layouts/backend/' + $theme + '/empty'
   
   layout $general_layout_path
@@ -80,7 +76,8 @@ class Backend::BackendController < ApplicationController
       @lines.collect(&:document).uniq.each {|doc| flash[:error] += doc.errors.full_messages }
       redirect_to :action => 'show', :id => @lines.first.document.id # NOTE only used for Acknowledge
     else
-      render :template => 'backend/backend/time_lines', :layout => $modal_layout_path
+      params[:layout] = "modal"
+      render :template => 'backend/backend/time_lines'
     end   
   end    
   
@@ -91,7 +88,8 @@ class Backend::BackendController < ApplicationController
       redirect_to :action => 'show', :id => document.id
     else
       @lines = document.lines.find(params[:lines].split(','))
-      render :template => 'backend/backend/remove_lines', :layout => $modal_layout_path
+      params[:layout] = "modal"
+      render :template => 'backend/backend/remove_lines'
     end   
   end    
 ###############################################################  

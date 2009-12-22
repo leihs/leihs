@@ -42,17 +42,6 @@ class UsersController < FrontendController
   end
 
 
-  def timeline
-    @timeline_xml = @user.timeline
-    render :nothing => true, :layout => '/layouts/backend/' + $theme + '/modal_timeline'
-  end
-
-  def timeline_visits
-    @timeline_xml = @user.timeline_visits
-    render :nothing => true, :layout => '/layouts/backend/' + $theme + '/modal_timeline'
-  end
-
-
 ########################################################################  
 
   # TODO 15** optimize routing 

@@ -9,17 +9,6 @@ class Template < ModelGroup
 
 ####################################################################################
 
-  def to_s
-    name
-  end
-
-  # compares two objects in order to sort them
-  def <=>(other)
-    self.name <=> other.name
-  end
-
-####################################################################################
-
 
   # TODO merge model_links with same models and sum quantities
 

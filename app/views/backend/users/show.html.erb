@@ -40,11 +40,7 @@
 			<%= _("Badge ID") %>:
 		<% end
 		content_tag :td do %>
-			<% form_tag :action => 'update_badge_id', :id => @user do %>
-				<%= icon_tag(@user.badge_id.blank? ? "delete": "accept") %>
-				<%= text_field_tag :badge_id, @user.badge_id %>
-				<%= submit_tag(_("OK")) %>
-			<% end %>
+			<%= render :partial => "badge_id_form", :locals => { :user => @user } %>
 		<% end
 	end
 end %>

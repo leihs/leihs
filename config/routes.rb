@@ -18,9 +18,6 @@ ActionController::Routing::Routes.draw do |map|
 # Frontend
 
   map.resource :user, :member => { :visits => :get,
-                                   :timeline => :get,
-                                   :timeline_visits => :get,
-                            #old#? :document => :get,
                                    :account => :get } do |user|
       user.resource :order, :member => { :submit => :post,
                                          :add_line => :post,
@@ -30,7 +27,8 @@ ActionController::Routing::Routes.draw do |map|
       user.resources :orders
       user.resources :contracts
   end
-  map.resource :session, :member => { :authenticate => :any, :old_new => :get } # TODO 05** remove, only for offline login
+  map.resource :session, :member => { :authenticate => [:get, :post], # TODO 2012 both needed? 
+                                      :old_new => :get } # TODO 05** remove, only for offline login
   map.resource :authenticator do | auth |
     auth.login 'login', :controller => "Authenticator::DatabaseAuthentication", :action => 'login'
   end
@@ -56,8 +54,7 @@ ActionController::Routing::Routes.draw do |map|
                                           :extended_info => :get,
                                           :update_badge_id => :post }
                                                     
-    backend.resources :inventory_pools, :member => { :timeline => :get,
-                                                     :timeline_visits => :get} do |inventory_pool|
+    backend.resources :inventory_pools do |inventory_pool|
       inventory_pool.acknowledge 'acknowledge', :controller => 'acknowledge', :action => 'index'
       inventory_pool.hand_over 'hand_over', :controller => 'hand_over', :action => 'index'
       inventory_pool.take_back 'take_back', :controller => 'take_back', :action => 'index'
@@ -67,7 +64,7 @@ ActionController::Routing::Routes.draw do |map|
       inventory_pool.resources :locations do |location|
         location.resources :items
       end
-      inventory_pool.resources :categories, :member => { :add_parent => :any } do |category|
+      inventory_pool.resources :categories, :member => { :add_parent => :post } do |category|
         category.resources :parents, :controller => 'categories'
         category.resources :children, :controller => 'categories'
         category.resources :models
@@ -76,36 +73,35 @@ ActionController::Routing::Routes.draw do |map|
       inventory_pool.resources :options
       inventory_pool.resources :models, :collection => { :new_package => :get,
                                                          :update_package => :post },
-                                        :member => { :properties => :any,
+                                        :member => { :properties => [:get, :post],
                                                      :accessories => :any,
                                                      :package => :get,
                                                      :destroy_package => :delete,
                                                      :update_package => :put,
                                                      :package_roots => :any,
-                                                     :package_item => :any,
-                                                     :categories => :any,
-                                                     :images => :any } do |model|
+                                                     :package_item => [:get, :put, :delete],
+                                                     :categories => [:get, :post, :delete],
+                                                     :images => [:get, :post, :delete] } do |model|
             model.resources :compatibles, :controller => 'models'
-            model.resources :items, :member => { :location => :any,
+            model.resources :items, :member => { :location => [:get, :post, :put],
                                                  :status => :get,
-                                                 :notes => :any,
-                                                 :show => :any, 
+                                                 :notes => [:get, :post],
+                                                 :show => :get, 
                                                  :toggle_permission => :post,
-                                                 :retire => :any,
-                                                 :get_notes => :any 
+                                                 :retire => [:get, :post],
+                                                 :get_notes => :post
                                                  }
       end
       inventory_pool.resources :templates, :member => { :models => :get,
                                                         :add_model => :put }
-      #inventory_pool.items 'items', :controller => 'items', :action => 'index'
-      inventory_pool.resources :items, :collection => { :supplier => :any },
-                                          :member => { :location => :any,
-                                                 :status => :get,
-                                                 :notes => :any,
-                                                 :show => :any, 
-                                                 :toggle_permission => :post,
-                                                 :get_notes => :any, :notes => :any 
-                                                 }
+      inventory_pool.resources :items, :collection => { :supplier => [:get, :post] },
+                                          :member => { :location => [:get, :post, :put],
+                                                       :status => :get,
+                                                       :notes => [:get, :post],
+                                                       :show => :get, 
+                                                       :toggle_permission => :post,
+                                                       :get_notes => :post
+                                                     }
       inventory_pool.resources :users, :member => { :new_contract => :get,
                                                     :remind => :get,
                                                     :access_rights => :get,
@@ -116,45 +112,42 @@ ActionController::Routing::Routes.draw do |map|
                                                     :extended_info => :get,
                                                     :things_to_return => :get,
                                                     :update_badge_id => :post } do |user|
-               user.resources :acknowledge, :member => { :approve => :any,
-                                                         :reject => :any,
+               user.resources :acknowledge, :member => { :approve => [:get, :post],
+                                                         :reject => [:get, :post],
                                                          :delete => :get,
-                                                         :add_line => :any,
-                                                         :change_line_quantity => :any,
-                                                         :remove_lines => :any, # OPTIMIZE [:get, :delete] (from Rails 2.2)
-                                                         :swap_model_line => :any,
-                                                         :time_lines => :any,
-                                                         :restore => :any,
-                                                         :swap_user => :any,
-                                                         :change_purpose => :any,
-                                                         :timeline => :get }
+                                                         :add_line => [:get, :post],
+                                                         :change_line_quantity => :post,
+                                                         :remove_lines => [:get, :delete],
+                                                         :swap_model_line => [:get, :post],
+                                                         :time_lines => [:get, :post],
+                                                         :restore => [:get, :post],
+                                                         :swap_user => [:get, :post],
+                                                         :change_purpose => [:get, :post] }
                user.resource :hand_over, :controller => 'hand_over',
-                                         :member => { :add_line => :any,
+                                         :member => { :add_line => [:get, :post],
                                                       :add_line_with_item => :post, # TODO 29**
                                                       :change_line_quantity => :post,
-                                                      :change_line => :any,
-                                                      :remove_lines => :any, # OPTIMIZE [:get, :delete] (from Rails 2.2)
-                                                      :swap_model_line => :any,
-                                                      :time_lines => :any,
-                                                      :sign_contract => :any,
-                                                      :add_option => :any,
+                                                      :change_line => :post,
+                                                      :remove_lines => [:get, :delete],
+                                                      :swap_model_line => [:get, :post],
+                                                      :time_lines => [:get, :post],
+                                                      :sign_contract => [:get, :post],
+                                                      :add_option => [:get, :post],
                                                       :assign_inventory_code => :post,
-                                                      :timeline => :get,
                                                       :delete_visit => :delete,
-                                                      :select_location => :any,
-                                                      :swap_user => :any, 
+                                                      :select_location => [:get, :post, :delete],
+                                                      :swap_user => [:get, :post], 
                                                       :set_purpose => :post }
                 user.resource :take_back, :controller => 'take_back',
-                                          :member => { :close_contract => :any,
+                                          :member => { :close_contract => [:get, :post],
                                                        :assign_inventory_code => :post,
-                                                       :inspection => :any,
-                                                       :time_lines => :any,
-                                                       :timeline => :get }
+                                                       :inspection => [:get, :post],
+                                                       :time_lines => [:get, :post] }
       end
-      inventory_pool.resources :workdays, :collection => { :close => :any,
-                                                           :open => :any,
+      inventory_pool.resources :workdays, :collection => { :close => :get, # OPTIMIZE post (ajax)
+                                                           :open => :get, # OPTIMIZE post (ajax)
                                                            :add_holiday => :post,
-                                                           :delete_holiday => :get }
+                                                           :delete_holiday => :get } # OPTIMIZE post (ajax)
     end
   end
   

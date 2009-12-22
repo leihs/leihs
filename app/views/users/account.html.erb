@@ -4,14 +4,6 @@ Ext.onReady(function(){
 	<%= render :partial => '/users/orders' %>
 	<%= render :partial => '/users/contracts' %>
 
-    var user_timeline = new Ext.Panel({
-        contentEl:'user_timeline',
-        title:'Timeline',
-		closable: true,
-	    autoScroll:true
-    });
-
-
 	center_tabs = Ext.getCmp('center_tabs');
 
 	account_panel = center_tabs.getComponent('account_panel');

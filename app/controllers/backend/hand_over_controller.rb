@@ -41,12 +41,12 @@ class Backend::HandOverController < Backend::BackendController
     if request.post?
       @contract.note = params[:note]
       @contract.sign(@lines, current_user)
-      render :action => 'print_contract', :layout => $modal_layout_path
+      render :action => 'print_contract'
     else
       @lines = @lines.delete_if {|l| l.item.nil? }
       flash[:error] = _("No items to hand over specified. Please assign inventory codes to the items you want to hand over.") if @lines.empty?
-      render :layout => $modal_layout_path
     end    
+    params[:layout] = "modal"
   end
 
   # change quantity: duplicating item_line or (TODO) changing quantity for option_line
@@ -114,7 +114,6 @@ class Backend::HandOverController < Backend::BackendController
           change_line
         else
           #2207: No question should be asked @new_item = item
-          #new from here
           @prevent_redirect = true
           params[:model_id] = item.model.id
           add_line
@@ -123,7 +122,6 @@ class Backend::HandOverController < Backend::BackendController
           flash[:notice] = _("New item added to contract.")
           @contract_line = @contract.contract_lines.first
           render :action => 'change_line'
-          #to here
         end
       end
     else 
@@ -194,11 +192,6 @@ class Backend::HandOverController < Backend::BackendController
   def remove_lines
     generic_remove_lines(@contract)
   end  
-
-  def timeline
-    @timeline_xml = @contract.timeline
-    render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'
-  end
 
   # OPTIMIZE
   def select_location

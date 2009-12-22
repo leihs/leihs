@@ -60,7 +60,8 @@ class Backend::TakeBackController < Backend::BackendController
         c.close if c.lines.all? { |l| !l.returned_date.nil? }
       end
       
-      render :action => 'print_contract', :layout => $modal_layout_path
+      params[:layout] = "modal"
+      render :action => 'print_contract'
     else
       # TODO 2702** merge duplications
       @lines = current_inventory_pool.contract_lines.find(params[:lines].split(',')) if params[:lines]
@@ -70,7 +71,7 @@ class Backend::TakeBackController < Backend::BackendController
           line.quantity = v.to_i if line and v.to_i < line.quantity
         end
       end
-      render :layout => $modal_layout_path
+      params[:layout] = "modal"
     end    
   end
   
@@ -103,18 +104,13 @@ class Backend::TakeBackController < Backend::BackendController
       #old# redirect_to :action => 'show'
       render :nothing => true
     else
-      render :layout => $modal_layout_path
+      params[:layout] = "modal"
     end
   end
 
   def time_lines
     generic_time_lines(@user, false, true)
   end    
-
-  def timeline
-    @timeline_xml = @user.timeline
-    render :nothing => true, :layout => 'backend/' + $theme + '/modal_timeline'
-  end
 
   private
   

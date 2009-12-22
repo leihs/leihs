@@ -57,19 +57,7 @@
 										add_order_details(record.data.id);
 									}
 								}
-							},
-					        tbar: ['->',
-								new Ext.Action({
-							        text: '<%= _("Timeline Contracts") %>',
-									iconCls:'bt',
-						            icon:'<%= icon_path('shape_align_left') %>',
-							        handler: function(){
-										account_panel.add(user_timeline);
-							            Ext.getDom('user_timeline').innerHTML = "<iframe src='/user/timeline' width='100%' height='500' frameborder='0'></iframe>";
-										account_panel.activate(user_timeline);
-							        }
-							    })
-					        ]
+							}
 	                    });
 
 ///////////////////////////////////////////////////////////////////////////

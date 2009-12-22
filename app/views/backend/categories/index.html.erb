@@ -14,13 +14,12 @@
 	<% if @category %>
 		<% if request.env['REQUEST_URI'].include?("parents") %>
 		 <div class="toolbar-second">
-			<% #0408 Fix: select from Admin (all) categories %>
-			<% form_for [:add_parent, :admin, @category],
+			<% form_for [:add_parent, :backend, current_inventory_pool, @category],
 						:html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
 				<%= hidden_field_tag :is_selected, 0 %>
 				<%= _("Add as subcategory of") %>:
 				<%= model_auto_completer('query', nil, 'parent[category_id]', nil,
-											{ :url => categories_path(:format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
+											{ :url => backend_inventory_pool_categories_path(current_inventory_pool, :format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
 											{ :size => 40 },
 											{ :method => :get, :select => :name }) %>
 				<%= _("Label") %>:

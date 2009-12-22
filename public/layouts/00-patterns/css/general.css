@@ -428,7 +428,7 @@ Pagination
 Flash
  - - - - - - - - - - - - - */
 
-div#flash {
+div#flash.floating {
     position: fixed;
     top: 3px;
     right: 3px;
@@ -436,23 +436,17 @@ div#flash {
 	border: 1px dashed silver;
 }
 
-div#flash:hover{
-/*
-	background-image: url('/layouts/00-patterns/images/icons/arrow_turn_right.png');
-	background-position: bottom right;
-	background-repeat: no-repeat;
-	border: 1px dotted black;
-*/
+div#flash.floating:hover{
 	background-color: #EEEEEE;
 }
 
-div#flash div, div.flash div  {
+div#flash div {
     padding: 10px;
 	margin-bottom: 10px; 
     font-weight:bold;
 }
 
-div#flash div ul, div.flash div ul {
+div#flash div ul {
 	list-style: square;
 	margin-left: 10px;
 }

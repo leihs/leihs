@@ -6,11 +6,18 @@
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>leihs 2.1 (Backend)</title>
-		
+
 	<%= stylesheet_link_tag $layout_public_path + "/css/general.css", :media => "all" %>
 	<%= stylesheet_link_tag "/javascripts/tooltips/tooltips.css", :media => "screen" %>
 
-	<%= greybox_head('/javascripts/greybox') %>
+	<% if params[:layout] == "modal" %>
+		<style type="text/css">
+			body { padding-top: 15px;}
+		</style>
+	<% else %>	
+		<%= greybox_head('/javascripts/greybox') %>
+	<% end %>
+	
 	<%= javascript_include_tag :defaults, "tooltips/tooltips", "tooltips/builder" %>
 </head>
 
@@ -18,35 +25,11 @@
 
 	<div id="wrap">
 	
-		<div id="header">
-			<div id="logo">
-				<h1><%= link_to "leihs 2.1", backend_path %></h1>
-				<% if current_inventory_pool %>
-					<p><%= _("Inventory Pool") %>: <%= link_to current_inventory_pool.name, backend_inventory_pool_path(current_inventory_pool) %>. (<%= link_to _("Change") + "?", backend_path %>)</p>
-				<% end %>
-			</div>
-			<div id="personal-toolbar">
-				<%= render :partial => '/layouts/backend/00-patterns/personal_toolbar' %>
-			</div>		
-		</div>
-		<div id="banner">
-			<%= render :partial => '/layouts/backend/00-patterns/banner_buttons' if current_inventory_pool %>
-		</div> 
-
-		<div id="sidebar">
-			<%= render :partial => '/layouts/backend/00-patterns/sidebar' %>
-		</div>
+		<% # TODO use nested layouts %>
 		
-			
-		<div id="container">
-			
-			<% begin # OPTIMIZE %>
-			<%= render :partial => 'tabs' %>
-			<% rescue; end %>
-			
-			<div id="inner-container">
-				
-			<%= flash_helper %>
+		<% if params[:layout] == "modal" %>
+
+			<%= flash_helper(false) %>
 			
 			<% # TODO 12** optimize nested tabs rendering %>
 			<% if @tabs %>
@@ -54,14 +37,54 @@
 			<% else %>
 				<%=  yield %>
 			<% end %>
-			
+
+		<% else %>
+
+			<div id="header">
+				<div id="logo">
+					<h1><%= link_to "leihs 2.1", backend_path %></h1>
+					<% if current_inventory_pool %>
+						<p><%= _("Inventory Pool") %>: <%= link_to current_inventory_pool.name, backend_inventory_pool_path(current_inventory_pool) %>. (<%= link_to _("Change") + "?", backend_path %>)</p>
+					<% end %>
+				</div>
+				<div id="personal-toolbar">
+					<%= render :partial => '/layouts/backend/00-patterns/personal_toolbar' %>
+				</div>		
 			</div>
-		</div>
+			<div id="banner">
+				<%= render :partial => '/layouts/backend/00-patterns/banner_buttons' if current_inventory_pool %>
+			</div> 
+	
+			<div id="sidebar">
+				<%= render :partial => '/layouts/backend/00-patterns/sidebar' %>
+			</div>
+
+			<div id="container">
+				
+				<% begin # TODO remove %>
+				<%= render :partial => 'tabs' %>
+				<% rescue; end %>
+				
+				<div id="inner-container">
+	
+					<%= flash_helper %>
+					
+					<% # TODO 12** optimize nested tabs rendering %>
+					<% if @tabs %>
+						<%= tabnavs @tabs, yield %>
+					<% else %>
+						<%=  yield %>
+					<% end %>
+				
+				</div>
+			</div>
+
+		<% end %>
 	
 	</div>
 
 	
-<%= enable_loading_panel %>
+<%= enable_loading_panel if params[:layout] != "modal" %>
 <%= enable_tooltip %>
 		
 </body>

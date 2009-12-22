@@ -110,20 +110,6 @@ class Document < ActiveRecord::Base
   #
   #######################
 
-
-  def timeline
-    events = []
-    lines.each do |l|
-      events << Event.new(:start => l.start_date, :end => l.end_date, :title =>l.model.name)
-    end
-
-    xml = Event.xml_wrap(events)
-    
-    f_name = "/javascripts/timeline/document_#{self.id}.xml"
-    File.open("public#{f_name}", 'w') { |f| f.puts xml }
-    f_name
-  end
-
 #  protected
 
   # 0603**

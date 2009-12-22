@@ -61,16 +61,14 @@ class OrdersController < FrontendController
   # change quantity for a given line
   def change_line_quantity(line_id = params[:order_line_id],
                            required_quantity = params[:quantity].to_i)
-    if request.post? 
-      @order_line = OrderLine.find(line_id)
-      @order = @order_line.order
+    @order_line = OrderLine.find(line_id)
+    @order = @order_line.order
 
-      @order_line, @change = @order.update_line(@order_line.id, required_quantity, current_user.id)
-      @maximum_exceeded = required_quantity != @order_line.quantity
-      @order.save
-      
-      render :nothing => true
-    end
+    @order_line, @change = @order.update_line(@order_line.id, required_quantity, current_user.id)
+    @maximum_exceeded = required_quantity != @order_line.quantity
+    @order.save
+    
+    render :nothing => true
   end
 
   # change time frame for OrderLines or ContractLines 

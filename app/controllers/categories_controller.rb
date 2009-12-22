@@ -20,7 +20,6 @@ class CategoriesController < FrontendController
                                                                          :leaf,
                                                                          :real_id],
                                                             :except => [:id]) }
-      format.auto_complete {}
     end
   end
 
