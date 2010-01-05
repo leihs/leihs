@@ -49,7 +49,11 @@ class UsersController < FrontendController
   def document(id = params[:id])
     @contract = @user.contracts.find(id)
     respond_to do |format|
-      format.pdf { send_data(render(:layout => false), :filename => "contract_#{@contract.id}.pdf", :disposition => 'inline') }
+      if params[:template] == "value_list"
+        format.pdf { send_data(render(:template => 'backend/contracts/value_list', :layout => false), :type => 'application/pdf', :filename => "value_list_#{@contract.id}.pdf") }
+      else
+        format.pdf { send_data(render(:layout => false), :filename => "contract_#{@contract.id}.pdf", :disposition => 'inline') }
+      end
     end
   end
 
