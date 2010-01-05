@@ -7,6 +7,7 @@
 	<th><%= _("Created at") %></th>
 	<th><%= _("Inventory Pool") %></th>
 	<th><%= _("Number of items") %></th>
+  <th><%= _("Documents") %></th>
 	<th><%= _("Time window") %></th>
 	</tr>
 
@@ -17,6 +18,7 @@
 	<td><%= today_or_yesterday_date(contract.created_at) %></td>
 	<td><%= contract.inventory_pool %></td>
 	<td><%= contract.quantity %></td>
+  <td><%= link_to _("Value list"), user_contract_path(contract, :format => 'pdf', :template => 'value_list' ) %></td>
 	<td><%= dates_with_period(contract.time_window_min, contract.time_window_max) %></td>
 	</tr>
 <% end %>
