@@ -23,16 +23,17 @@ class Location < ActiveRecord::Base
     record ||= create(attributes)
   end
 
-  acts_as_ferret :fields => [ :building_name, :room, :shelf ], :store_class_name => true, :remote => true
+  define_index do
+    indexes :room, :sortable => true
+    indexes :shelf, :sortable => true
+    indexes building(:name), :as => :building_name, :sortable => true 
+    has :building_id
+    #set_property :order => :room
+    set_property :delta => true
+  end
 
   def to_s
     "#{building} #{room} #{shelf}"
-  end
-
-  private
-  
-  def building_name
-    building.name
   end
 
 end

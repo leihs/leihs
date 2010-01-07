@@ -3,7 +3,7 @@ namespace :leihs do
   # TODO :boot or :server_reboot ??
   desc "Application boot (task called after server reboot)"
   task :boot => :environment do
-#    system "./script/ferret_server -e production start"
+    Rake::Task["thinking_sphinx:start"].invoke
   end
  
   
@@ -42,19 +42,9 @@ namespace :leihs do
   desc "Maintenance: rebuild ferret index"
   task :maintenance => :environment do
     
-    puts "Rebuilding ferret index..."
-    User.rebuild_index
-    Role.rebuild_index
-    Category.rebuild_index
-    Template.rebuild_index
-    Model.rebuild_index
-    Item.rebuild_index
-    InventoryPool.rebuild_index
-    Location.rebuild_index
-    Contract.rebuild_index
-    Order.rebuild_index
-    Option.rebuild_index
-    
+    puts "Rebuilding sphinx index..."
+    Rake::Task["thinking_sphinx:reindex"].invoke
+
     puts "Maintenance complete ------------------------"    
   end
 

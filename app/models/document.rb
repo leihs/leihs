@@ -110,24 +110,4 @@ class Document < ActiveRecord::Base
   #
   #######################
 
-#  protected
-
-  # 0603**
-  def user_login
-    user.login
-  end
-
-  def user_badge_id
-    user.badge_id
-  end
-
-  # 0603**
-  def lines_model_names
-    mn = [] 
-    lines.each do |l|
-      mn << l.model.name  
-    end
-    mn.uniq.join(" ")
-  end
-
 end

@@ -11,7 +11,14 @@ class Contract < Document
   has_many :items, :through => :item_lines, :uniq => false
   has_many :options, :through => :option_lines, :uniq => true
 
-  acts_as_ferret :fields => [ :_id, :user_login, :user_badge_id, :lines_model_names, :lines_inventory_codes ], :store_class_name => true, :remote => true
+  define_index do
+    indexes user(:login), :as => :user_login
+    indexes user(:badge_id), :as => :user_badge_id
+    indexes models(:name), :as => :model_names
+    indexes items(:inventory_code), :as => :items_inventory_code
+    has :inventory_pool_id, :user_id
+    set_property :delta => true
+  end
 
   # TODO validates_uniqueness [user_id, inventory_pool_id, status_const] if status_consts == Contract::UNSIGNED
 
@@ -78,23 +85,5 @@ class Contract < Document
   def close
     update_attribute :status_const, Contract::CLOSED
   end
-
-
-  # collect inventory_codes for ferret
-  def lines_inventory_codes
-    ic = [] 
-    lines.each do |l|
-      ic << l.item.inventory_code if l.item
-    end
-    ic.uniq.join(" ")
-  end
-
-
-  private
-  
-  def _id
-    id
-  end
-
 
 end

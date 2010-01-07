@@ -25,7 +25,9 @@ class Backend::ModelsController < Backend::BackendController
       models &= (category.children.recursive.to_a << category).collect(&:models).flatten
     end
     
-    @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
+    @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}
+                                          # TODO 0501, {:order => sanitize_order(params[:sort], params[:dir])}
+                                          )
     
     # we are in a greybox
     if params[:source_path]

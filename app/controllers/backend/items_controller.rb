@@ -38,7 +38,9 @@ class Backend::ItemsController < Backend::BackendController
 
     items.delete_if {|i| not i.packageable? } if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
     
-    @items = items.search(params[:query], {:page => params[:page], :per_page => $per_page}, find_options)
+    @items = items.search(params[:query], {:page => params[:page], :per_page => $per_page}
+                                        # TODO 0501, find_options
+                                        )
 
     respond_to do |format|
       format.html

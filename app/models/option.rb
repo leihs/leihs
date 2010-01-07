@@ -4,7 +4,12 @@ class Option < ActiveRecord::Base
 
   validates_presence_of :inventory_pool, :name
 
-  acts_as_ferret :fields => [ :inventory_code, :name ], :store_class_name => true, :remote => true
+  define_index do
+    indexes :inventory_code
+    indexes :name
+    has :inventory_pool_id
+    set_property :delta => true
+  end
 
   # TODO 2702** before_destroy: check if option_lines.empty?
 

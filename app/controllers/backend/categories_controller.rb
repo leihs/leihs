@@ -23,7 +23,9 @@ class Backend::CategoriesController < Backend::BackendController
       @show_categories_tree = (!request.xml_http_request? and params[:source_path].blank?)
     end    
     
-    @categories ||= categories.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
+    @categories ||= categories.search(params[:query], {:page => params[:page], :per_page => $per_page}
+                                                    # TODO 0501 , {:order => sanitize_order(params[:sort], params[:dir])}
+                                                    )
 
     respond_to do |format|
       format.html

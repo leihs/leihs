@@ -28,10 +28,22 @@ class Item < ActiveRecord::Base
     record.owner = record.inventory_pool if record.inventory_pool and !record.owner
   end
 
-  # OPTIMIZE
-  after_save :update_ferret_index
+# TODO 0501
+#  after_save :update_ferret_index
 
-  acts_as_ferret :fields => [ :model_name_and_manufacturer, :inventory_pool_name, :inventory_code, :serial_number ], :store_class_name => true, :remote => true
+  define_index do
+    indexes :inventory_code, :sortable => true
+    indexes :serial_number, :sortable => true
+    indexes model(:name), :as => :model_name, :sortable => true 
+    indexes model(:manufacturer), :as => :model_manufacturer, :sortable => true
+    indexes inventory_pool(:name), :as => :inventory_pool_name #, :sortable => true 
+    #indexes :is_borrowable, :sortable => true
+    
+    has :parent_id, :model_id, :location_id, :owner_id, :supplier_id, :inventory_pool_id
+    
+    set_property :order => :model_name
+    set_property :delta => true
+  end
 
 ####################################################################
 # preventing delete
@@ -175,19 +187,11 @@ class Item < ActiveRecord::Base
 
   private
 
-  # OPTIMIZE
-  def update_ferret_index
-    self.model.reload.ferret_update if self.model
-  end
-
-  def model_name_and_manufacturer
-    "#{model.name} #{model.manufacturer}"
-  end
+# TODO 0501
+#  def update_ferret_index
+#    self.model.reload.ferret_update if self.model
+#  end
   
-  def inventory_pool_name
-    inventory_pool.name
-  end
-
   def validates_if_is_package
     errors.add_to_base(_("Package error")) if children.size > 0 and !model.is_package
   end
