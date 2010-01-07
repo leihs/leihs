@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.string   "purpose"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "delta",             :default => true
   end
 
   add_index "backup_orders", ["inventory_pool_id"], :name => "index_backup_orders_on_inventory_pool_id"
@@ -123,6 +124,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "note"
+    t.boolean  "delta",             :default => true
   end
 
   add_index "contracts", ["inventory_pool_id"], :name => "index_contracts_on_inventory_pool_id"
@@ -173,16 +175,17 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
   add_index "images", ["model_id"], :name => "index_images_on_model_id"
 
   create_table "inventory_pools", :force => true do |t|
-    t.string "name"
-    t.text   "description"
-    t.string "contact_details"
-    t.string "contract_description"
-    t.string "contract_url"
-    t.string "logo_url"
-    t.text   "default_contract_note"
-    t.string "shortname"
-    t.string "email"
-    t.text   "color"
+    t.string  "name"
+    t.text    "description"
+    t.string  "contact_details"
+    t.string  "contract_description"
+    t.string  "contract_url"
+    t.string  "logo_url"
+    t.text    "default_contract_note"
+    t.string  "shortname"
+    t.string  "email"
+    t.text    "color"
+    t.boolean "delta",                 :default => true
   end
 
   create_table "inventory_pools_model_groups", :id => false, :force => true do |t|
@@ -220,6 +223,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.string   "insurance_number"
     t.text     "note"
     t.text     "name"
+    t.boolean  "delta",                                               :default => true
   end
 
   add_index "items", ["inventory_code"], :name => "index_items_on_inventory_code", :unique => true
@@ -243,6 +247,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.string  "room"
     t.string  "shelf"
     t.integer "building_id"
+    t.boolean "delta",       :default => true
   end
 
   create_table "model_groups", :force => true do |t|
@@ -250,6 +255,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "delta",      :default => true
   end
 
   create_table "model_groups_parents", :id => false, :force => true do |t|
@@ -282,6 +288,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "technical_detail"
+    t.boolean  "delta",                                              :default => true
   end
 
   add_index "models", ["is_package"], :name => "index_models_on_is_package"
@@ -310,6 +317,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.integer "inventory_pool_id"
     t.string  "inventory_code"
     t.string  "name"
+    t.boolean "delta",             :default => true
   end
 
   add_index "options", ["inventory_pool_id"], :name => "index_options_on_inventory_pool_id"
@@ -336,6 +344,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.text     "purpose"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "delta",             :default => true
   end
 
   add_index "orders", ["inventory_pool_id"], :name => "index_orders_on_inventory_pool_id"
@@ -355,6 +364,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.integer "lft"
     t.integer "rgt"
     t.string  "name"
+    t.boolean "delta",     :default => true
   end
 
   add_index "roles", ["lft"], :name => "index_roles_on_lft"
@@ -385,6 +395,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.string   "country"
     t.integer  "language_id",              :default => 1
     t.text     "extended_info"
+    t.boolean  "delta",                    :default => true
   end
 
   add_index "users", ["authentication_system_id"], :name => "index_users_on_authentication_system_id"

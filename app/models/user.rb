@@ -58,7 +58,15 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :phone, :address, :city, :zip, :country, :authentication_system_id, :badge_id
 
-  acts_as_ferret :fields => [ :login, :firstname, :lastname, :badge_id ], :store_class_name => true, :remote => true
+  define_index do
+    indexes :login, :sortable => true
+    indexes :firstname
+    indexes :lastname
+    indexes :badge_id
+    has access_rights(:inventory_pool_id), :as => :inventory_pool_ids
+    set_property :order => :login
+    set_property :delta => false
+  end
 
 ################################################
 

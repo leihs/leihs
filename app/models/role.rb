@@ -4,7 +4,10 @@ class Role < ActiveRecord::Base
 
   acts_as_nested_set
 
-  acts_as_ferret :fields => [ :name ], :store_class_name => true, :remote => true
+  define_index do
+    indexes :name
+    set_property :delta => false
+  end
 
   def to_s
     "#{name}"

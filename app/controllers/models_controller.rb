@@ -34,14 +34,15 @@ class ModelsController < FrontendController
     unless query.blank?
       # TODO 18** include Templates: models += current_user.templates
       models = models.all(:conditions => conditions)
-      @models = models.search(query, {:offset => start, :limit => limit}, {:order => sanitize_order(sort, dir)})
       
-      c = @models.total_hits
+      @models = models.search(query, {:offset => start, :limit => limit} # TODO 0501 {:page => params[:page], :per_page => $per_page}
+                                   # TODO 0501 , {:order => sanitize_order(sort, dir)}
+                                   )
     else
       @models = models.paginate :page => ((start / limit) + 1), :per_page => limit, :order => sanitize_order(sort, dir), :conditions => conditions
           # OPTIMIZE N+1 select problem, :include => :locations
-      c = @models.total_entries
     end
+    c = @models.total_entries
 
     respond_to do |format|
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",

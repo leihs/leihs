@@ -1,6 +1,9 @@
 class Category < ModelGroup
 
-  acts_as_ferret :fields => [ :name ], :store_class_name => true, :remote => true
+  define_index do
+    indexes :name
+    set_property :delta => true
+  end
 
   # for ext_json serialization
   def real_id

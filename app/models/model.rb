@@ -74,7 +74,19 @@ class Model < ActiveRecord::Base
   # validates_uniqueness_of :name
   validates_presence_of :name
   validates_uniqueness_of :name
-  acts_as_ferret :fields => [ :name, :manufacturer, :category_names, :properties_values, :items_inventory_codes ], :store_class_name => true, :remote => true
+
+  define_index do
+    indexes :name, :sortable => true
+    indexes :manufacturer, :sortable => true
+    indexes categories(:name), :as => :category_names
+    indexes properties(:value), :as => :properties_values
+    indexes items(:inventory_code), :as => :items_inventory_codes
+    
+    has items(:inventory_pool_id), :as => :inventory_pool_ids
+    
+    set_property :order => :name
+    set_property :delta => true
+  end
 
 #############################################  
 
@@ -180,16 +192,4 @@ class Model < ActiveRecord::Base
     a
   end
   
-  def category_names
-    categories.collect(&:name).uniq.join(" ")
-  end
-
-  def properties_values
-    properties.collect(&:value).uniq.join(" ")
-  end
-  
-  def items_inventory_codes
-    items.collect(&:inventory_code).join(" ")
-  end
-
 end

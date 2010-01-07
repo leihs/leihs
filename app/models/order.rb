@@ -10,7 +10,16 @@ class Order < Document
   has_one :backup, :class_name => "Backup::Order", :dependent => :destroy #TODO delete when nullify # TODO acts_as_backupable
 
   acts_as_commentable
-  acts_as_ferret :fields => [ :user_login, :user_badge_id, :lines_model_names, :purpose ], :store_class_name => true, :remote => true
+
+  define_index do
+    indexes :purpose
+    indexes user(:login), :as => :user_login
+    indexes user(:badge_id), :as => :user_badge_id
+    indexes models(:name), :as => :model_names
+    has :inventory_pool_id, :user_id
+    set_property :delta => true
+  end
+
                  
   UNSUBMITTED = 1
   SUBMITTED = 2

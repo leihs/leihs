@@ -6,7 +6,9 @@ class Backend::LocationsController < Backend::BackendController
     params[:sort] ||= 'room'
     params[:dir] ||= 'ASC'
 
-    @locations = current_inventory_pool.locations.search(params[:query], {:page => params[:page], :per_page => $per_page}, {:order => sanitize_order(params[:sort], params[:dir])})
+    @locations = current_inventory_pool.locations.search(params[:query], {:page => params[:page], :per_page => $per_page}
+                                                                       # TODO 0501 , {:order => sanitize_order(params[:sort], params[:dir])}
+                                                                        )
   end
 
   def show

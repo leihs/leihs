@@ -29,8 +29,7 @@ module Backend::BackendHelper
       end
       
       r += content_tag :div, :class => "result", :style => "min-height: 200px;" do
-        total = (records.is_a?(ActsAsFerret::SearchResults) ? records.total_hits : records.total_entries)
-        s = _(" <b>%d</b> results") % total
+        s = _(" <b>%d</b> results") % records.total_entries
         s += _(" for <b>%s</b>") % query if query
         s += _(" filtering <b>%s</b>") % filter if filter
         w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:update => 'list_table'}, :previous_label => _("Previous"), :next_label => _("Next")

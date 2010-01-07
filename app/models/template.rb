@@ -5,7 +5,10 @@ class Template < ModelGroup
   # TODO 12** validates all models are present to current inventory_pool
   # TODO 12** has_many :models through
 
-  acts_as_ferret :fields => [ :name ], :store_class_name => true, :remote => true
+  define_index do
+    indexes :name
+    set_property :delta => true
+  end
 
 ####################################################################################
 

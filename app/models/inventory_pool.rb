@@ -64,7 +64,12 @@ class InventoryPool < ActiveRecord::Base
 
   validates_presence_of :name
 
-  acts_as_ferret :fields => [ :name, :description ], :store_class_name => true, :remote => true
+  define_index do
+    indexes :name, :sortable => true
+    indexes :description, :sortable => true
+    set_property :order => :name
+    set_property :delta => true
+  end
 
 
 #######################################################################

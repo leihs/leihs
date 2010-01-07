@@ -59,9 +59,6 @@ Rails::Initializer.run do |config|
   # Run "rake -D time" for a list of tasks for finding time zone names.
   config.time_zone = 'Bern'
 
-  config.gem "acts_as_ferret", :version => '>= 0.4.4'
-  config.gem "ferret", :version => '>= 0.11.6'
-  
 #  config.gem "gettext", :version => '>= 2.1.0'
 #  config.gem "gettext_activerecord", :version => '>= 2.1.0'
   config.gem "gettext_rails", :version => '>= 2.1.0'
@@ -73,7 +70,9 @@ Rails::Initializer.run do |config|
 #  config.gem "rmagick", :version => '2.7.0'
   config.gem "rgl", :lib => "rgl/adjacency", :version => '0.4.0'
   config.gem "will_paginate", :source => 'http://gemcutter.org', :version => '>= 2.3.11'
-#  config.gem "thinking-sphinx", :lib => 'thinking_sphinx', :source => 'http://gemcutter.org', :version => '>= 1.3.12'
+  config.gem "thinking-sphinx", :lib => 'thinking_sphinx', :source => 'http://gemcutter.org', :version => '>= 1.3.14'
+
+# TODO 0501 # config.gem "fastercsv", :version => '>= 1.5.0'
  
   config.gem "prawn"
  
@@ -104,10 +103,11 @@ ActionMailer::Base.smtp_settings = {
 }
 ActionMailer::Base.default_charset = 'utf-8'
 
-require 'ferret'
-# Prevent UTF-8 problems with acts_as_ferret
-ENV['LC_CTYPE'] = 'en_US.UTF-8'
-Ferret.locale = "en_US.UTF-8"
+#old#
+#require 'ferret'
+## Prevent UTF-8 problems with acts_as_ferret
+#ENV['LC_CTYPE'] = 'en_US.UTF-8'
+#Ferret.locale = "en_US.UTF-8"
 
 # E-Mail uncaught exceptions to the devs.
 ExceptionNotifier.exception_recipients = %w( ramon.cahenzli@zhdk.ch errors@jeromemueller.ch )
