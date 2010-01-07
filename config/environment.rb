@@ -74,7 +74,9 @@ Rails::Initializer.run do |config|
   config.gem "rgl", :lib => "rgl/adjacency", :version => '0.4.0'
   config.gem "will_paginate", :source => 'http://gemcutter.org', :version => '>= 2.3.11'
 #  config.gem "thinking-sphinx", :lib => 'thinking_sphinx', :source => 'http://gemcutter.org', :version => '>= 1.3.12'
-  
+ 
+  config.gem "prawn"
+ 
 end
 
 ######################################################

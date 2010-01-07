@@ -109,6 +109,7 @@ class OrdersController < FrontendController
                                                           } ) }
 
       if params[:template] == "value_list"
+        prawnto :prawn => { :page_size => 'A4' }
         format.pdf { send_data(render(:template => 'orders/value_list', :layout => false), :type => 'application/pdf', :filename => "value_list_#{@order.id}.pdf") }
       end
 
