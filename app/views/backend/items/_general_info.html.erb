@@ -5,7 +5,7 @@
 <tr><td><b><%= _("Model")%>:</b></td>
 	<td><div id="model_name" style="display:inline"><%= link_to(@item.model.name, backend_inventory_pool_model_path(current_inventory_pool, @item.model)) if @item.model %></div>
 		<%= @f.hidden_field :model_id %>
-		<%= greybox_link(icon_tag('magnifier'), backend_inventory_pool_models_path(current_inventory_pool, :layout => "modal"),
+		<%= greybox_link(icon_tag('magnifier'), backend_inventory_pool_models_path(current_inventory_pool, :layout => "modal", :filter => 'all'),
 						:title => _("Search Model"),
 						:width => "800") if ((@item.contract_lines.empty? and is_privileged_user?) or @item.new_record?) %>
 	</td></tr>
