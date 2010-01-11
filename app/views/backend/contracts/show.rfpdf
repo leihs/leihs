@@ -13,7 +13,7 @@
     def user_address
       address = @contract.user.name
       address += "\n" + filter( @contract.user.address ) unless @contract.user.address.blank?
-      address += "\n" unless @contract.user.zip.blank? or @contract.user.city.blank?
+      address += "\n" unless @contract.user.zip.blank? and @contract.user.city.blank?
       address += @contract.user.zip + " " unless @contract.user.zip.blank?
       address += filter( @contract.user.city ) unless @contract.user.city.blank?
       address += "\n" + filter( @contract.user.country ) unless @contract.user.country.blank?
