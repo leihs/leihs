@@ -13,32 +13,6 @@ namespace :leihs do
     create_some(params)
   end
 
-  desc "Migrate/import only from ithelp"
-  task :import_ithelp => :environment do
-    import_ithelp
-  end
-
-  desc "Export Items to leihs1 - (würg)"
-  task :export => :environment do
-    export({:pool => ENV['pool']})
-  end
-
-  desc "Migration from leihs1 - items that are not in ithelp and users in general"
-  task :init_once => :environment do
-    create_once({:pool => ENV['pool']})
-  end
-  
-  desc "Migrate users"
-  task :init_users => :environment do
-    import_users
-  end
-  
-  desc "Migrate reservations from leihs1"
-  task :import_reservations => :environment do
-    params = { :pool => ENV['pool']}
-    import_reservations(params)
-  end
-  
   desc "Maintenance: rebuild ferret index"
   task :maintenance => :environment do
     
@@ -99,37 +73,6 @@ namespace :leihs do
   
 ################################################################################################
 # Refactoring from Backend::TemporaryController
-
-  def create_once(params = {})
-    puts "Importing from leihs 1"
-    Importer.new.start_once(params[:pool])
-    puts "Done"
-  end
-  
-  def export(params = {})
-    puts "Exporting to leihs 1"
-    
-    InventoryImport::GianExporter.new.start(params[:pool])
-    puts "Done"
-  end
-  
-  def import_reservations(params = {})
-    puts "Importing Reservations"
-    Importer.new.start_reservations_import(params[:pool].to_i)
-    puts "Done"
-  end
-  
-  def import_users
-    puts "importing users"
-    Importer.new.start_user_import
-    puts "Done"
-  end
-
-  def import_ithelp
-    puts "Importing from ithelp"
-    Importer.new.start_ithelp_import
-    puts "Done"
-  end
 
   def create_some(params = {})
     puts "Initializing #{params[:all]} items ..."
