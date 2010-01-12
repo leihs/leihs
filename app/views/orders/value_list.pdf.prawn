@@ -22,16 +22,20 @@ end
 
 
 pdf.font("Helvetica")
+pdf.font_size(10)
 
-pdf.bounding_box [4, 2], :width => 90 do
-  pdf.text _("Borrowing party:")
-  #pdf.move_down 10
-  pdf.text(filter(user_address))
+pdf.font_size(14) do
+  pdf.text _("Value list")
 end
 
-pdf.bounding_box [8, 2], :width => 90 do
-  pdf.text _("Lending party:")
-  #pdf.move_down 10
-  pdf.text(filter(lending_address))
-end
+pdf.text_box _("Borrowing party:") + "\n" + (filter(user_address)), 
+             :width => 150,
+             :overflow => :ellipses,
+             :at => [pdf.bounds.left, pdf.bounds.top - 25]
 
+pdf.text_box _("Lending party:") + "\n" + (filter(lending_address)), 
+             :width => 150,
+             :overflow => :ellipses,
+             :at => [pdf.bounds.left + 160, pdf.bounds.top - 25]
+
+pdf.text "Hello, World"
