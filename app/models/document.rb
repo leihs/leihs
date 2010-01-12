@@ -5,6 +5,17 @@ class Document < ActiveRecord::Base
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
   has_many :actions, :as => :target, :class_name => "History", :order => 'created_at ASC', :conditions => "type_const = #{History::ACTION}"
 
+# TODO 1201 make sure created_at and updated_at columns are never needed
+#           then drop them for contracts and orders
+#           use the followin getter instead
+#  def created_at
+#    if lines.empty?
+#      Time.now
+#    else
+#      lines.minimum(:created_at)
+#    end
+#  end
+
   # compares two objects in order to sort them
   def <=>(other)
     self.created_at <=> other.created_at
