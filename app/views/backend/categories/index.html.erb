@@ -14,12 +14,13 @@
 	<% if @category %>
 		<% if request.env['REQUEST_URI'].include?("parents") %>
 		 <div class="toolbar-second">
+			<% #0408 Fix: select from Admin (all) categories %>
 			<% form_for [:add_parent, :backend, current_inventory_pool, @category],
 						:html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
 				<%= hidden_field_tag :is_selected, 0 %>
 				<%= _("Add as subcategory of") %>:
 				<%= model_auto_completer('query', nil, 'parent[category_id]', nil,
-											{ :url => backend_inventory_pool_categories_path(current_inventory_pool, :format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
+											{ :url => categories_path(:format => :auto_complete), :submit_on_return => true, :after_update_element => "function(){ $('is_selected').value = 1; }" },
 											{ :size => 40 },
 											{ :method => :get, :select => :name }) %>
 				<%= _("Label") %>:
@@ -63,10 +64,13 @@
 											:url => backend_inventory_pool_category_path(current_inventory_pool, category),
 											:confirm => _("Are you sure?"),
 											:method => :delete if category.models.empty? and category.children.empty? %></li>
-							<% # TODO 0607 ajax delete %>
-							<li><%= link_to _("Remove"), admin_model_category_path(@model, category),
+							<% # TODO 0607 ajax delete 
+                 # Commented out -- not used anymore?
+ 							if false %>
+							<li><%= link_to _("Remove"), backend_inventory_pool_model_category_path(current_inventory_pool, @model, category),
 											:confirm => _("Are you sure?"),
-											:method => :delete if @model %></li>
+											:method => :delete if @model %></li> 
+              <% end %>
 							<% # TODO 0607 ajax delete %>
 							<li><%= link_to _("Remove Parent"), backend_inventory_pool_category_path(current_inventory_pool, @category, :parent_id => category.id),
 											:confirm => _("Are you sure?"),
