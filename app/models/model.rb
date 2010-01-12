@@ -69,6 +69,14 @@ class Model < ActiveRecord::Base
                                 :joins => "LEFT JOIN properties ON properties.model_id = models.id",
                                 :conditions => "properties.model_id IS NOT NULL"
 
+  named_scope :by_inventory_pool, lambda { |inventory_pool| { :select => "DISTINCT models.*",
+                                                              :joins => :items,
+                                                              :conditions => ["items.inventory_pool_id = ?", inventory_pool] } }
+
+  named_scope :by_categories, lambda { |categories| { :select => "DISTINCT models.*",
+                                                      :joins => "INNER JOIN model_links AS ml",
+                                                      :conditions => ["ml.model_group_id IN (?)", categories] } }
+
 #############################################  
 
   # validates_uniqueness_of :name

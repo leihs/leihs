@@ -19,11 +19,7 @@ class Backend::ModelsController < Backend::BackendController
     end
 
     models &= @model.compatibles if @model
-
-    if params[:category_id] and params[:category_id].to_i != 0
-      category = Category.find(params[:category_id].to_i)
-      models &= (category.children.recursive.to_a << category).collect(&:models).flatten
-    end
+    models &= @category.all_models if @category
     
     @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}
                                           # TODO 0501, {:order => sanitize_order(params[:sort], params[:dir])}
@@ -61,7 +57,7 @@ class Backend::ModelsController < Backend::BackendController
 
     end #if
 
-    @show_categories_tree = !(request.xml_http_request? or params[:filter] == "packages")
+    @show_categories_tree = (@category.nil? and (not request.xml_http_request?) and params[:filter] != "packages")
 
     respond_to do |format|
       format.html
@@ -276,7 +272,7 @@ class Backend::ModelsController < Backend::BackendController
 
     @model = Model.find(params[:model_id]) if params[:model_id]
 
-    @category = Category.find(params[:category_id]) unless params[:category_id].blank?
+    @category = Category.find(params[:category_id]) if not params[:category_id].blank? and params[:category_id].to_i != 0
 
     @item = current_inventory_pool.items.find(params[:item_id]) if params[:item_id]
     @model = @item.model if @item and !@model

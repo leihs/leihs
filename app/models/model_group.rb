@@ -19,8 +19,11 @@ class ModelGroup < ActiveRecord::Base
     parents.recursive.to_a
   end
 
+  # NOTE is now chainable for named_scopes
   def all_models
-    (all_children.collect(&:models) + models).flatten.uniq  
+    #old# (all_children.collect(&:models) + models).flatten.uniq
+    ids = all_children.collect(&:id) << id
+    models.by_categories(ids)
   end
   
 ##################################################
