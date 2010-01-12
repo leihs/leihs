@@ -103,7 +103,7 @@ class Backend::CategoriesController < Backend::BackendController
   
   def pre_load
     params[:id] ||= params[:category_id] if params[:category_id]
-    @category = Category.find(params[:id]) unless params[:id].blank?
+    @category = Category.find(params[:id]) if not params[:id].blank? and params[:id].to_i != 0 
     @parent = Category.find(params[:parent_id]) unless params[:parent_id].blank?
 
     @model = current_inventory_pool.models.find(params[:model_id]) unless params[:model_id].blank?

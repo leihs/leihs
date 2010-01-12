@@ -216,7 +216,7 @@ module Backend::BackendHelper
               text: '#{_("All")}',
               id:'ynode-0',
               leaf: false,
-              real_id: ''
+              real_id: '0'
           },
           renderTo: 'categories',
           hlColor: '#FF0000',
