@@ -39,6 +39,14 @@ class Backend::ContractsController < Backend::BackendController
   def show
     respond_to do |format|
 			# Evil hack? We need the contract information in that other template as well
+      require 'prawn/measurement_extensions'
+      prawnto :prawn => { :page_size => 'A4', 
+                          :left_margin => 25.mm,
+                          :right_margin => 15.mm,
+                          :bottom_margin => 15.mm,
+                          :top_margin => 15.mm
+                        }
+    
 			if params[:template] == "value_list"
         format.pdf { send_data(render(:template => 'backend/contracts/value_list', :layout => false), :type => 'application/pdf', :filename => "value_list_#{@contract.id}.pdf") }
 			elsif params[:template] == "value_list_for_models"

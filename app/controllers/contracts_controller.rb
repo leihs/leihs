@@ -10,6 +10,16 @@ class ContractsController < FrontendController
                                                                                              },
                                                                             :except => [:created_at, :updated_at]}
                                                           } ) }
+        require 'prawn/measurement_extensions'
+        prawnto :prawn => { :page_size => 'A4', 
+                            :left_margin => 25.mm,
+                            :right_margin => 15.mm,
+                            :bottom_margin => 15.mm,
+                            :top_margin => 15.mm
+                          }
+      
+       format.pdf { send_data(render(:layout => false), :type => 'application/pdf', :filename => "contract_#{@contract.id}.pdf") }
+ 
     end
   end
 

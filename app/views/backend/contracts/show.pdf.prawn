@@ -1,4 +1,8 @@
 
+# TODO: A lot of duplication could be removed between this and orders/value_list.pdf.prawn
+#       The principal difference is just that this operates on @contract and the other
+#       operates on @order.
+
 # TODO: Refactor all these to a helper, but not sure if prawn supports helpers like that
 def filter(text)
   ic = Iconv.new('iso-8859-1//IGNORE//TRANSLIT','utf-8')
@@ -6,7 +10,7 @@ def filter(text)
 end
 
 def user_address
-  @order.user.name
+  @contract.user.name
 end
 
 def lending_address
@@ -53,7 +57,7 @@ table_headers = [filter(_("Qt")), filter(_("Model")),  filter(_("Value")), filte
 total_value = 0
 table_data = []
 
-@order.lines.each do |l|
+@contract.lines.each do |l|
   
   if l.class.to_s == "OrderLine"
     model_value = maximum_item_price(l.model) 
@@ -71,7 +75,6 @@ table_data = []
 end
 
 table_data << [ "", _("Grand total"), "", sprintf("%.2f", total_value) ]
-
 
 # Table with values of the items in this order
 pdf.table(table_data, 
