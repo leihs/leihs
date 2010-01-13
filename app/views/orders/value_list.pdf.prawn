@@ -1,4 +1,5 @@
 
+# TODO: Refactor all these to a helper, but not sure if prawn supports helpers like that
 def filter(text)
   ic = Iconv.new('iso-8859-1//IGNORE//TRANSLIT','utf-8')
   ic.iconv(text)
@@ -28,14 +29,59 @@ pdf.font_size(14) do
   pdf.text _("Value list")
 end
 
-pdf.text_box _("Borrowing party:") + "\n" + (filter(user_address)), 
+borrowing_party = _("Borrowing party:") + "\n" + (filter(user_address))
+lending_party = _("Lending party:") + "\n" + (filter(lending_address))
+
+pdf.text_box borrowing_party, 
              :width => 150,
+             :height => pdf.height_of(borrowing_party),
              :overflow => :ellipses,
              :at => [pdf.bounds.left, pdf.bounds.top - 25]
 
-pdf.text_box _("Lending party:") + "\n" + (filter(lending_address)), 
+pdf.text_box lending_party,
              :width => 150,
+             :height => pdf.height_of(lending_party),
              :overflow => :ellipses,
              :at => [pdf.bounds.left + 160, pdf.bounds.top - 25]
 
-pdf.text "Hello, World"
+
+pdf.move_down [pdf.height_of(borrowing_party), pdf.height_of(lending_party)].max + 10.mm
+
+table_headers = [filter(_("Qt")), filter(_("Model")),  filter(_("Value")), filter(_("Total"))]
+
+
+total_value = 0
+table_data = []
+
+@order.lines.each do |l|
+  
+  if l.class.to_s == "OrderLine"
+    model_value = maximum_item_price(l.model) 
+    line_value = model_value * l.quantity 
+    total_value += line_value
+  else
+    model_value = _("unknown")
+    line_value = _("unknown")
+  end
+  
+  table_data << [ l.quantity, 
+                  filter(l.model.name), 
+                  sprintf("%.2f", model_value),
+                  sprintf("%.2f", line_value) ]
+end
+
+table_data << [ "", _("Grand total"), "", sprintf("%.2f", total_value) ]
+
+
+# Table with values of the items in this order
+pdf.table(table_data, 
+          :column_widths  => { 0 => 15.mm, 1 => 90.mm, 2 => 20.mm, 3 => 20.mm},
+          :align          => { 0 => :right, 1 => :left, 2 => :right, 3 => :right },
+          :headers        => table_headers,
+          :font_size      => 9,
+          :padding        => 3,
+          :row_colors     => ['ffffff','f1f1f1'])
+
+pdf.move_down 10.mm
+
+pdf.text(_("All prices in CHF."))
