@@ -56,6 +56,10 @@ pdf.text_box lending_party,
 
 pdf.move_down [pdf.height_of(borrowing_party), pdf.height_of(lending_party)].max + 10.mm
 
+
+
+# TODO: Give table for _contract_, not value list. Hook up 
+
 table_headers = [filter(_("Qt")), filter(_("Model")),  filter(_("Value")), filter(_("Total"))]
 
 
