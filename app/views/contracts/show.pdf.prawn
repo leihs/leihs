@@ -74,9 +74,9 @@ table_data = []
    table_data << [ l.quantity, 
                    l.item.inventory_code,
                    l.model.name, 
-                   l.start_date,
-                   l.end_date,
-                   l.returned_date ]
+                   short_date(l.start_date),
+                   short_date(l.end_date),
+                   short_date(l.returned_date) ]
   
 end
 
