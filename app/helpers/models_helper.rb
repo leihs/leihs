@@ -14,10 +14,10 @@ module ModelsHelper
     r
   end
 
-  def canvas_for(obj, inventory_pool)
+  def canvas_for(obj, inventory_pool, params = {})
     case obj.class.to_s
       when "Model"
-        canvas_for_model(obj, inventory_pool)
+        canvas_for_model(obj, inventory_pool, params)
       when "Category"
         # TODO
      end
@@ -25,13 +25,18 @@ module ModelsHelper
 
 
   # Flotr Javascript Library required
-  def canvas_for_model(model, inventory_pool)
+  def canvas_for_model(model, inventory_pool, params = {})
     config = {:canvas => {:width => 800, :height => 300},
               :line => {:height => 20},
               :range => {:start_days => -50, :end_days => 150},
               :title => {:xaxis => _('Time'), :x2axis => _('Available Quantity'), :yaxis => _('Items')}
               }
-    items = inventory_pool.items.by_model(model).all(:order => "is_borrowable DESC, inventory_code DESC")
+    items = case params[:filter]
+              when "own"
+                inventory_pool.own_items.by_model(model).all(:order => "is_borrowable DESC, inventory_code DESC")
+              else
+                inventory_pool.items.by_model(model).all(:order => "is_borrowable DESC, inventory_code DESC")
+            end
     canvas_height = (items.size * config[:line][:height])
     config[:canvas][:height] = canvas_height if canvas_height > config[:canvas][:height]
     config[:range][:start_sec] = config[:range][:start_days] * 86400
@@ -62,13 +67,16 @@ module ModelsHelper
     lines = model.lines.select {|l| l.inventory_pool == inventory_pool}
     lines_with_item = lines.select {|l| l.item }
     lines_without_item = lines - lines_with_item
-    
+
     lines_with_item.each do |l|
       next if l.item.retired?
+      y = items.index(l.item)
+      next if y.nil?
+      y += 1
       #debug# html += "<br>#{l.quantity}: #{l.start_date} - #{l.end_date} #{l.item.inventory_code}"
       start_date = l.start_date.to_time.to_i
       end_date = (l.returned_date ? (l.returned_date + 12.hours).to_time.to_i : (l.end_date + 12.hours).to_time.to_i)
-      y = items.index(l.item) + 1
+
       color = if l.returned_date
                 '#e1e157'
               elsif l.end_date < today

@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def define_locale
     if params[:locale] 
       set_locale params[:locale] 
-      current_user.update_attribute(:language_id, Language.first(:conditions => {:locale_name => params[:locale]})) if logged_in?
+      current_user.update_attributes(:language_id => Language.first(:conditions => {:locale_name => params[:locale]})) if logged_in?
     else
       locale = logged_in? ? current_user.language.locale_name : Language.default_language.locale_name
       set_locale locale

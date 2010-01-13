@@ -22,7 +22,7 @@
 				<%= submit_tag _('Submit') %>
 			<% end %>
 		 </div>
-	<% elsif params[:filter] == "packages" %>
+	<% elsif not params[:packages].blank? %>
 		<div class="toolbar-second buttons">
 			<%= link_to _('New Package'), :action => 'new_package' %>
 		</div>
@@ -40,7 +40,7 @@
 <% table_with_search_and_pagination :columns => ["", [_("Model"), 'models.name'], (params[:source_path] ? [_("Manufacturer"), 'models.manufacturer'] : _("Categories")), _("Available Items"), _("Action")],
 						   			:records => @models do |model| %>	
 
-			<% record_path = backend_inventory_pool_model_path(current_inventory_pool, model) %>
+			<% record_path = backend_inventory_pool_model_path(current_inventory_pool, model, :filter => params[:filter]) %>
 			
 			<tr id="<%= "model_#{model.id}" %>">
 				<td>
@@ -61,10 +61,19 @@
 						end
 					end %>
 				</td>
-				<td style="white-space: nowrap;">
-					<%= (params[:source_path] ? model.read_attribute(:max_available) : current_inventory_pool.items.by_model(model).count) %>
-				</td>
-				
+
+				<% content_tag :td do
+					if params[:source_path] %>
+						<%= model.read_attribute(:max_available) %>
+					<% else
+						if params[:filter] == "own" %>
+							<%= current_inventory_pool.own_items.by_model(model).count %>
+						<% else %>
+							<%= current_inventory_pool.items.by_model(model).count %>
+						<% end
+					end
+				end %>
+
 				<td class="buttons">
 
 					<% if params[:source_path]
@@ -86,7 +95,7 @@
 								<%= link_to _("Delete"), destroy_package_backend_inventory_pool_model_path(current_inventory_pool, model),
 											:confirm => _("Are you sure?"),
 											:method => :delete if model.package_items.empty? and model.order_lines.empty? and model.contract_lines.empty? %>
-							<% end if params[:filter] == "packages" %>
+							<% end unless params[:packages].blank? %>
 						</ul>
 					<% end %>
 				</td>

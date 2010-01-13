@@ -24,7 +24,7 @@ class Backend::HandOverController < Backend::BackendController
   
   def set_purpose
     if request.post?
-      @contract.update_attribute(:purpose, params[:purpose])
+      @contract.update_attributes(:purpose => params[:purpose])
     end
     redirect_to :action => 'show'
   end
@@ -133,7 +133,7 @@ class Backend::HandOverController < Backend::BackendController
                                                                           :quantity => 0,
                                                                           :start_date => @contract.time_window_min, # TODO @contract.latest_defined_time_window_min
                                                                           :end_date => @contract.time_window_max) # TODO @contract.latest_defined_time_window_max
-        @option_line.update_attribute :quantity, @option_line.quantity + 1
+        @option_line.update_attributes(:quantity => @option_line.quantity + 1)
         flash[:notice] = _("Option %s added.") % option.name
       else
         flash[:error] = _("The Inventory Code %s was not found.") % params[:code]
