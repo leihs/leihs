@@ -11,7 +11,7 @@
 desc "Create mo-files for L10n" 
 task :makemo => :environment do
   require 'gettext/utils'
-  GetText::ErbParser.init(:extnames => ['.rhtml', '.erb'])
+  GetText::ErbParser.init(:extnames => ['.rhtml', '.erb', '.prawn'])
 
  GetText.create_mofiles(true, "po", "locale")
 end
@@ -20,7 +20,7 @@ end
 desc "Update pot/po files to match new version." 
 task :updatepo => :environment do
   require 'gettext/utils'
-  GetText::ErbParser.init(:extnames => ['.rhtml', '.erb'])
+  GetText::ErbParser.init(:extnames => ['.rhtml', '.erb', '.prawn'])
 
  MY_APP_TEXT_DOMAIN = "leihs" 
  MY_APP_VERSION     = "leihs 2.0.0" 
