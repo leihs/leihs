@@ -19,12 +19,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :user, :member => { :visits => :get,
                                    :account => :get } do |user|
+      user.resources :orders #TODO#, :only => [:show, :destroy]
       user.resource :order, :member => { :submit => :post,
                                          :add_line => :post,
                                          :change_line_quantity => :post,
                                          :remove_lines => :delete,
                                          :change_time_lines => :post }
-      user.resources :orders
       user.resources :contracts
   end
   map.resource :session, :member => { :authenticate => [:get, :post], # TODO 2012 both needed? 
