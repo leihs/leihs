@@ -1,7 +1,4 @@
-<%
-root_items = current_inventory_pool.items.by_model(@model)
-
-root_items.each do |root|
+<% @root_items.each do |root|
 	content_tag :table do
 		content_tag :tr do
 			content_tag :td, :class => 'buttons' do %>
@@ -11,11 +8,11 @@ root_items.each do |root|
 			<%= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => root.inventory_code}, :method => :post %>
 			
 			<% end
+			content_tag :td do %>
+				<%= _("Responsible: %s") % root.inventory_pool %>
+			<% end
 			content_tag :td do
 			end
-			content_tag :td do
-			end
-			
 		end 
 		content_tag :tr do
 			content_tag :td do

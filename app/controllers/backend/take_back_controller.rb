@@ -43,7 +43,7 @@ class Backend::TakeBackController < Backend::BackendController
             new_line = line.clone
             new_line.quantity -= v.to_i
             new_line.save
-            line.update_attribute :quantity, v.to_i
+            line.update_attributes(:quantity => v.to_i)
           end
         end
       end
@@ -52,7 +52,7 @@ class Backend::TakeBackController < Backend::BackendController
       
       # set the return dates to the given contract_lines
       @lines.each { |l| 
-        l.update_attribute :returned_date, Date.today 
+        l.update_attributes(:returned_date => Date.today) 
         l.item.histories.create(:user => current_user, :text => _("Item taken back"), :type_const => History::ACTION) unless l.item.is_a? Option
       }
       

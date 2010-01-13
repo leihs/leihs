@@ -1,5 +1,5 @@
 <% content_tag :li do %>
-	<%= link_to icon_tag("box") + " " + _('Packages') + " (#{current_inventory_pool.models.packages.count})", backend_inventory_pool_models_path(current_inventory_pool, :filter => 'packages') %>
+	<%= link_to icon_tag("box") + " " + _('Packages') + " (#{current_inventory_pool.models.packages.count})", backend_inventory_pool_models_path(current_inventory_pool, :packages => true) %>
 <% end %>
 <% content_tag :li do %>
 	<%= link_to _('Templates') + " (#{current_inventory_pool.templates.count})", backend_inventory_pool_templates_path(current_inventory_pool) %>

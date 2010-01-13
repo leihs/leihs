@@ -10,13 +10,14 @@ class Backend::ModelsController < Backend::BackendController
     case params[:filter]
       when "own"
         models = current_inventory_pool.own_models_active
-      when "packages"
-        models = current_inventory_pool.models_active.packages
       when "all"
         models = Model.all
       else
         models = current_inventory_pool.models_active
     end
+
+    # OPTIMIZE
+    models = models.packages unless params[:packages].blank?
 
     models &= @model.compatibles if @model
     models &= @category.all_models if @category
@@ -57,7 +58,7 @@ class Backend::ModelsController < Backend::BackendController
 
     end #if
 
-    @show_categories_tree = (@category.nil? and (not request.xml_http_request?) and params[:filter] != "packages")
+    @show_categories_tree = (@category.nil? and (not request.xml_http_request?) and params[:packages].blank?)
 
     respond_to do |format|
       format.html
@@ -143,7 +144,7 @@ class Backend::ModelsController < Backend::BackendController
     else
       flash[:error] = _("Error destroying the package")
     end
-    redirect_to backend_inventory_pool_models_path(current_inventory_pool, :filter => "packages")
+    redirect_to backend_inventory_pool_models_path(current_inventory_pool, :packages => true)
   end
 
   def package_roots
@@ -162,6 +163,13 @@ class Backend::ModelsController < Backend::BackendController
     elsif request.post?
       new_package_root
     end
+
+    @root_items = case params[:filter]
+                    when "own"
+                      current_inventory_pool.own_items.by_model(@model)
+                    else
+                      current_inventory_pool.items.by_model(@model)
+                  end
   end
   
   def new_package_root

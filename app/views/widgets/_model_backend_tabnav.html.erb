@@ -19,22 +19,23 @@ render_tabnav :model_backend,
 
 	add_tab do |t|
 		t.named _('Model')
-#old#		t.links_to backend_inventory_pool_model_path(current_inventory_pool, @model, :layout => params[:layout]) # TODO 16** optimize :layout
-		t.links_to :controller => 'backend/models', :action => 'show', :id => @model, :layout => params[:layout]
+# TODO 16** optimize :layout
+#		t.links_to backend_inventory_pool_model_path(current_inventory_pool, @model, :layout => params[:layout])
+		t.links_to :controller => 'backend/models', :action => 'show', :id => @model, :layout => params[:layout], :filter => params[:filter]
 		t.highlights_on :controller => 'backend/models', :action => 'show'
 	end
 
 	if @model.is_package
 		add_tab do |t|
-			t.named _("Item Packages (%d)") % current_inventory_pool.items.by_model(@model).count
-			t.links_to package_roots_backend_inventory_pool_model_path(current_inventory_pool, @model)
+			t.named _("Item Packages (%d)") % (params[:filter] == "own" ? current_inventory_pool.own_items.by_model(@model).count : current_inventory_pool.items.by_model(@model).count)
+			t.links_to package_roots_backend_inventory_pool_model_path(current_inventory_pool, @model, :filter => params[:filter])
 			t.highlights_on :action => 'package_roots'
 		end
 	else
 		add_tab do |t|
 			t.named _("Items (%d)") % (current_inventory_pool.items.by_model(@model) + current_inventory_pool.own_items.by_model(@model)).uniq.size
 #			t.links_to backend_inventory_pool_model_items_path(current_inventory_pool, @model)
-			t.links_to :controller => 'backend/items', :action => 'index', :model_id => @model, :layout => params[:layout]
+			t.links_to :controller => 'backend/items', :action => 'index', :model_id => @model, :layout => params[:layout], :filter => params[:filter]
 			t.highlights_on :controller => 'backend/items'
 		end
 	end
@@ -42,34 +43,34 @@ render_tabnav :model_backend,
 	add_tab do |t|
 		t.named _("Categories (%d)") % @model.categories.size
 #		t.links_to backend_inventory_pool_model_categories_path(current_inventory_pool, @model)
-		t.links_to :controller => 'backend/models', :action => 'categories', :id => @model, :layout => params[:layout]
+		t.links_to :controller => 'backend/models', :action => 'categories', :id => @model, :layout => params[:layout], :filter => params[:filter]
 		t.highlights_on :controller => 'backend/models', :action => 'categories'
 	end
 
 	add_tab do |t|
 		t.named _("Properties (%d)") % @model.properties.size
 #		t.links_to properties_backend_inventory_pool_model_path(current_inventory_pool, @model)
-		t.links_to :controller => 'backend/models', :action => 'properties', :id => @model, :layout => params[:layout]
+		t.links_to :controller => 'backend/models', :action => 'properties', :id => @model, :layout => params[:layout], :filter => params[:filter]
 		t.highlights_on :action => 'properties'
 	end
 
 	add_tab do |t|
 		t.named _("Accessories (%d)") % @model.accessories.size
 #		t.links_to accessories_backend_inventory_pool_model_path(current_inventory_pool, @model)
-		t.links_to :controller => 'backend/models', :action => 'accessories', :id => @model, :layout => params[:layout]
+		t.links_to :controller => 'backend/models', :action => 'accessories', :id => @model, :layout => params[:layout], :filter => params[:filter]
 		t.highlights_on :action => 'accessories'
 	end
 
 	add_tab do |t|
 		t.named _("Images (%d)") % @model.images.size
 #		t.links_to images_backend_inventory_pool_model_path(current_inventory_pool, @model)
-		t.links_to :controller => 'backend/models', :action => 'images', :id => @model, :layout => params[:layout]
+		t.links_to :controller => 'backend/models', :action => 'images', :id => @model, :layout => params[:layout], :filter => params[:filter]
 		t.highlights_on :action => 'images'
 	end
 
 	add_tab do |t|
 		t.named _("Compatibles (%d)") % (@model.compatibles & current_inventory_pool.models).size
-		t.links_to backend_inventory_pool_model_compatibles_path(current_inventory_pool, @model, :layout => params[:layout])
+		t.links_to backend_inventory_pool_model_compatibles_path(current_inventory_pool, @model, :layout => params[:layout], :filter => params[:filter])
 		t.highlights_on :controller => 'backend/models', :action => 'index'
 	end
 

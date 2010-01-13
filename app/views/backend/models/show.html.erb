@@ -16,7 +16,7 @@ end
 
 
 unless @model.new_record? %>
-	<%= canvas_for(@model, current_inventory_pool) %>
+	<%= canvas_for(@model, current_inventory_pool, {:filter => params[:filter]}) %>
 	
 	<%#temp#= pie_for_model(@model) if is_privileged_user? %>
 <% end %>
