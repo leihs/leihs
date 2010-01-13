@@ -1,24 +1,28 @@
 
 # TODO: Refactor all these to a helper, but not sure if prawn supports helpers like that
 def filter(text)
-  ic = Iconv.new('iso-8859-1//IGNORE//TRANSLIT','utf-8')
+  ic = Iconv.new('ISO-8859-15//IGNORE//TRANSLIT','utf-8')
   ic.iconv(text)
 end
 
 def user_address
-  @order.user.name
+  address = "#{@contract.user.name}"
+  address += "\n#{filter( @contract.user.address )}" unless @contract.user.address.blank?
+  address += "\n" unless @contract.user.zip.blank? and @contract.user.city.blank?
+  address += "#{@contract.user.zip} " unless @contract.user.zip.blank?
+  address += "#{filter( @contract.user.city )}" unless @contract.user.city.blank?
+  address += "\n #{filter( @contract.user.country )}" unless @contract.user.country.blank?
+  address += "\n #{@contract.user.email}" unless @contract.user.email.blank?
+  address += "\n #{@contract.user.phone}" unless @contract.user.phone.blank?
+  address += "\n #{_("Badge ID:")} #{@contract.user.badge_id}" unless @contract.user.badge_id.blank?
+  return address
 end
 
 def lending_address
-  CONTRACT_LENDING_PARTY_STRING      
-end
-
-def maximum_item_price(model)
-  maximum = 0
-  model.items.each do |i|
-    maximum = i.price.to_f if i.price.to_f > maximum
-  end
-  return maximum
+  # Print something like: AV-Ausleihe (AVZ)
+  address = filter(@contract.inventory_pool.name) unless @contract.inventory_pool.name.blank?
+  address += " (" + filter(@contract.inventory_pool.shortname) + ")"
+  address += "\n" + CONTRACT_LENDING_PARTY_STRING
 end
 
 
@@ -26,8 +30,13 @@ pdf.font("Helvetica")
 pdf.font_size(10)
 
 pdf.font_size(14) do
-  pdf.text _("Value list")
+  pdf.text filter(_("Contract no. %d")) % @contract.id
 end
+
+pdf.move_down 3.mm
+
+pdf.text(filter(_("This lending contract covers borrowing the following items by the person (natural or legal) described as 'borrowing party' below. Use of these items is only allowed for the purpose given below.")) )
+
 
 borrowing_party = _("Borrowing party:") + "\n" + (filter(user_address))
 lending_party = _("Lending party:") + "\n" + (filter(lending_address))
@@ -36,13 +45,13 @@ pdf.text_box borrowing_party,
              :width => 150,
              :height => pdf.height_of(borrowing_party),
              :overflow => :ellipses,
-             :at => [pdf.bounds.left, pdf.bounds.top - 25]
+             :at => [pdf.bounds.left, pdf.bounds.top - 55]
 
 pdf.text_box lending_party,
              :width => 150,
              :height => pdf.height_of(lending_party),
              :overflow => :ellipses,
-             :at => [pdf.bounds.left + 160, pdf.bounds.top - 25]
+             :at => [pdf.bounds.left + 70.mm, pdf.bounds.top - 55]
 
 
 pdf.move_down [pdf.height_of(borrowing_party), pdf.height_of(lending_party)].max + 10.mm
@@ -53,7 +62,7 @@ table_headers = [filter(_("Qt")), filter(_("Model")),  filter(_("Value")), filte
 total_value = 0
 table_data = []
 
-@order.lines.each do |l|
+@contract.lines.each do |l|
   
   if l.class.to_s == "OrderLine"
     model_value = maximum_item_price(l.model) 
@@ -71,7 +80,6 @@ table_data = []
 end
 
 table_data << [ "", _("Grand total"), "", sprintf("%.2f", total_value) ]
-
 
 # Table with values of the items in this order
 pdf.table(table_data, 
