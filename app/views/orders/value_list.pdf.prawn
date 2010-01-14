@@ -1,9 +1,5 @@
 
 # TODO: Refactor all these to a helper, but not sure if prawn supports helpers like that
-def filter(text)
-  ic = Iconv.new('iso-8859-1//IGNORE//TRANSLIT','utf-8')
-  ic.iconv(text)
-end
 
 def user_address
   @order.user.name
@@ -29,8 +25,8 @@ pdf.font_size(14) do
   pdf.text _("Value list")
 end
 
-borrowing_party = _("Borrowing party:") + "\n" + (filter(user_address))
-lending_party = _("Lending party:") + "\n" + (filter(lending_address))
+borrowing_party = _("Borrowing party:") + "\n" + user_address
+lending_party = _("Lending party:") + "\n" + lending_address
 
 pdf.text_box borrowing_party, 
              :width => 150,
@@ -47,14 +43,14 @@ pdf.text_box lending_party,
 
 pdf.move_down [pdf.height_of(borrowing_party), pdf.height_of(lending_party)].max + 10.mm
 
-table_headers = [filter(_("Qt")), filter(_("Model")),  filter(_("Value")), filter(_("Total"))]
+table_headers = [_("Qt"), _("Model"),  _("Value"), _("Total")]
 
 
 total_value = 0
 table_data = []
 
 @order.lines.each do |l|
-  
+
   if l.class.to_s == "OrderLine"
     model_value = maximum_item_price(l.model) 
     line_value = model_value * l.quantity 
@@ -65,7 +61,7 @@ table_data = []
   end
   
   table_data << [ l.quantity, 
-                  filter(l.model.name), 
+                  l.model.name, 
                   sprintf("%.2f", model_value),
                   sprintf("%.2f", line_value) ]
 end

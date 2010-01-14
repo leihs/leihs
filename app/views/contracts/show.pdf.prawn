@@ -39,13 +39,24 @@ end
 pdf.font("Helvetica")
 pdf.font_size(10)
 
+
+require 'barby'
+require 'barby/outputter/prawn_outputter'
+
+pdf.bounding_box [pdf.bounds.left, pdf.bounds.top_left[1]], :width => 100 do
+  barcode = Barby::Code128B.new(@contract.id.to_s)
+  barcode.annotate_pdf(pdf, :height => 20)
+end
+
+pdf.move_down 8.mm
+
 pdf.font_size(14) do
   pdf.text _("Contract no. %d") % @contract.id
 end
 
 pdf.move_down 3.mm
 
-pdf.text(filter(_("This lending contract covers borrowing the following items by the person (natural or legal) described as 'borrowing party' below. Use of these items is only allowed for the purpose given below.")) )
+pdf.text _("This lending contract covers borrowing the following items by the person (natural or legal) described as 'borrowing party' below. Use of these items is only allowed for the purpose given below.")
 
 
 borrowing_party = _("Borrowing party:") + "\n" + user_address
@@ -55,13 +66,13 @@ pdf.text_box borrowing_party,
              :width => 150,
              :height => pdf.height_of(borrowing_party),
              :overflow => :ellipses,
-             :at => [pdf.bounds.left, pdf.bounds.top - 55]
+             :at => [pdf.bounds.left, pdf.bounds.top - 78]
 
 pdf.text_box lending_party,
              :width => 150,
              :height => pdf.height_of(lending_party),
              :overflow => :ellipses,
-             :at => [pdf.bounds.left + 70.mm, pdf.bounds.top - 55]
+             :at => [pdf.bounds.left + 70.mm, pdf.bounds.top - 78]
 
 
 pdf.move_down [pdf.height_of(borrowing_party), pdf.height_of(lending_party)].max + 10.mm
