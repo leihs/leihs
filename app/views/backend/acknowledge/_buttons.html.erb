@@ -16,8 +16,11 @@
 								{ :action => 'delete', :id => @order },
 								:title => _("Delete Order"), :class => 'negative') %>
 
+    <!-- TODO: Can't hook this up like that. How do we hook it up to some user's
+               currently open order? Need to adapt controller?
     <%= link_to icon_tag("script") + " " + _("Value list"),
                 user_order_path(@order, :format => 'pdf', :template => 'value_list' ) %>
+    -->
 
 	</div>
   <% end %>

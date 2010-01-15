@@ -30,7 +30,7 @@ pdf.font_size(14) do
 end
 
 borrowing_party = _("Borrowing party:") + "\n" + user_address
-lending_party = _("Lending pary:") + "\n" + lending_address
+lending_party = _("Lending party:") + "\n" + lending_address
 
 pdf.text_box borrowing_party, 
              :width => 150,
