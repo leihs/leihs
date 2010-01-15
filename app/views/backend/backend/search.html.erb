@@ -1,0 +1,11 @@
+<%= _("Found %s results") % @result.size %>
+<% 
+	@result.each do |r| 
+		name = r.class.to_s.downcase
+		name = "package" if ("item" == name) and (r.parent or  not r.children.empty?) 
+%>
+
+<div class="search_result" style="background: url(/images/<%= "#{name}.png" %>) no-repeat;">
+<%= render :partial => "backend/backend/search/#{name}", :object => r %>
+</div>
+<% end %>

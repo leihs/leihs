@@ -10,6 +10,12 @@ class Backend::BackendController < ApplicationController
  
 ###############################################################  
 
+  def search
+    if request.post?
+      @result = ThinkingSphinx.search params[:text], :order => :class_sort 
+    end
+  end
+
    # add a new line
    def generic_add_line(document, start_date = params[:start_date], end_date = params[:end_date])
     if request.post?
