@@ -164,14 +164,18 @@ class Backend::ModelsController < Backend::BackendController
       new_package_root
     end
 
-    @root_items = case params[:filter]
+    get_root_items
+  end
+  
+  def get_root_items
+        @root_items = case params[:filter]
                     when "own"
                       current_inventory_pool.own_items.by_model(@model)
                     else
                       current_inventory_pool.items.by_model(@model)
                   end
   end
-  
+
   def new_package_root
     ip_name = current_inventory_pool.shortname ? current_inventory_pool.shortname : current_inventory_pool.name
     @model.items.create(:inventory_code => "P-#{ip_name}#{Item.proposed_inventory_code}",
@@ -190,6 +194,7 @@ class Backend::ModelsController < Backend::BackendController
     elsif request.delete?
       root_item.children.delete(@item)
     end
+    get_root_items
     render :action => 'package_roots'
   end
 
