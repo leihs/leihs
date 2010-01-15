@@ -27,8 +27,11 @@ class Location < ActiveRecord::Base
     indexes :room, :sortable => true
     indexes :shelf, :sortable => true
     indexes building(:name), :as => :building_name, :sortable => true 
+
     has :building_id
-    #set_property :order => :room
+    has items(:inventory_pool_id), :as => :inventory_pool_ids
+
+    #set_property :order => :room # 0501
     set_property :delta => true
   end
 

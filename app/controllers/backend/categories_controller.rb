@@ -3,10 +3,12 @@ class Backend::CategoriesController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    # OPTIMIZE 0408** sorting 
-    params[:sort] ||= 'model_groups.name'
-    params[:dir] ||= 'ASC'
+    # OPTIMIZE 0501 
+    params[:sort] ||= 'name'
+    params[:sort_mode] ||= 'ASC'
+    params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
+    # TODO 0501 add parent_id to index, etc...
     if @category
       # TODO 12** optimize filter
       if request.env['REQUEST_URI'].include?("parents")
@@ -23,9 +25,10 @@ class Backend::CategoriesController < Backend::BackendController
       @show_categories_tree = (!request.xml_http_request? and params[:source_path].blank?)
     end    
     
-    @categories ||= categories.search(params[:query], {:page => params[:page], :per_page => $per_page}
-                                                    # TODO 0501 , {:order => sanitize_order(params[:sort], params[:dir])}
-                                                    )
+    @categories ||= categories.search(params[:query], { :page => params[:page],
+                                                        :per_page => $per_page,
+                                                        :order => params[:sort],
+                                                        :sort_mode => params[:sort_mode] } )
 
     respond_to do |format|
       format.html

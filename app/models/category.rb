@@ -1,9 +1,15 @@
 class Category < ModelGroup
 
   define_index do
-    indexes :name
+    indexes :name, :sortable => true
     set_property :delta => true
   end
+
+  # TODO 0501 doesn't work!
+  default_sphinx_scope :default_search
+  sphinx_scope(:default_search) { {:order => :name, :sort_mode => :asc} }
+
+#########################################################
 
   # for ext_json serialization
   def real_id

@@ -4,8 +4,10 @@ class Backend::ModelsController < Backend::BackendController
   before_filter :authorized_privileged_user?, :only => [:new, :update]
 
   def index
-    params[:sort] ||= 'models.name'
-    params[:dir] ||= 'ASC'
+    # OPTIMIZE 0501
+    params[:sort] ||= 'name'
+    params[:sort_mode] ||= 'ASC'
+    params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
     case params[:filter]
       when "own"
@@ -22,9 +24,10 @@ class Backend::ModelsController < Backend::BackendController
     models &= @model.compatibles if @model
     models &= @category.all_models if @category
     
-    @models = models.search(params[:query], {:page => params[:page], :per_page => $per_page}
-                                          # TODO 0501, {:order => sanitize_order(params[:sort], params[:dir])}
-                                          )
+    @models = models.search(params[:query], { :page => params[:page],
+                                              :per_page => $per_page,
+                                              :order => params[:sort],
+                                              :sort_mode => params[:sort_mode] } )
     
     # we are in a greybox
     if params[:source_path]

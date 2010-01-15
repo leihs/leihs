@@ -3,12 +3,15 @@ class Backend::LocationsController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    params[:sort] ||= 'room'
-    params[:dir] ||= 'ASC'
+    # OPTIMIZE 0501 
+    params[:sort] ||= 'building_name'
+    params[:sort_mode] ||= 'ASC'
+    params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
-    @locations = current_inventory_pool.locations.search(params[:query], {:page => params[:page], :per_page => $per_page}
-                                                                       # TODO 0501 , {:order => sanitize_order(params[:sort], params[:dir])}
-                                                                        )
+    @locations = current_inventory_pool.locations.search(params[:query], {:page => params[:page],
+                                                                          :per_page => $per_page,
+                                                                          :order => params[:sort],
+                                                                          :sort_mode => params[:sort_mode] } )
   end
 
   def show

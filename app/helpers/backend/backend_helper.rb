@@ -50,14 +50,14 @@ module Backend::BackendHelper
           r += content_tag :th do #old# , :style => "white-space:nowrap;"
             p = ""
             if column.is_a?(Array)
-              b = (params[:sort] == column[1])
-              dir = (params[:dir] == "ASC" ? "DESC" : "ASC") if b
+              b = (params[:sort] == "#{column[1]}_sort") # TODO 0501 why _sort ??
+              sort_mode = (params[:sort_mode] == :asc ? :desc : :asc) if b
               p += link_to_remote column[0],
-                :url => params.merge({ :sort => column[1], :dir => dir, :page => 1}),
+                :url => params.merge({ :sort => column[1], :sort_mode => sort_mode, :page => 1}),
                 :method => :get,
                 :form => true,
                 :update => 'list_table'
-              p += icon_tag("arrow_" + (params[:dir] == "ASC" ? "down" : "up")) if b
+              p += icon_tag("arrow_" + (params[:sort_mode] == :asc ? "down" : "up")) if b
             else
               p += column
             end
