@@ -50,7 +50,6 @@ class Document < ActiveRecord::Base
       o.inventory_pool = inventory_pool if inventory_pool and o.is_a?(OrderLine) # TODO: This is not very nice :-(
       
       log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id)
-      update_attribute(:created_at, Date.today) if lines.size == 0
       lines << o
   end
 
@@ -89,7 +88,6 @@ class Document < ActiveRecord::Base
     change = _("Removed %{q} %{m}") % { :q => line.quantity, :m => line.model.name }
     line.destroy
     lines.delete(line)
-    update_attribute(:created_at, Date.today) if lines.size == 0
     log_change(change, user_id)
   end  
   

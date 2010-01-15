@@ -1,3 +1,9 @@
+
+<div id="search" style="float:right">
+<% form_tag backend_inventory_pool_search_path(current_inventory_pool) do %>
+<%= text_field_tag :text %>
+<% end %>
+</div>
 <% content_tag :ul, :class => "buttons" do
 	content_tag :li do %>
 		<%= link_to icon_tag("accept") + " " + _('Acknowledge'), [:backend, current_inventory_pool, :acknowledge] %>

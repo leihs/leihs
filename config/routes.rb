@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.ldap '/switch_to_ldap', :controller => 'sessions', :action => 'switch_to_ldap' #TODO 1009: Remove when not used anymore
+  
   # For RESTful_ACL
   #map.error '/error', :controller => 'sessions', :action => 'error'
   #map.denied '/denied', :controller => 'sessions', :action => 'denied'
@@ -58,13 +59,14 @@ ActionController::Routing::Routes.draw do |map|
       inventory_pool.acknowledge 'acknowledge', :controller => 'acknowledge', :action => 'index'
       inventory_pool.hand_over 'hand_over', :controller => 'hand_over', :action => 'index'
       inventory_pool.take_back 'take_back', :controller => 'take_back', :action => 'index'
+      inventory_pool.search 'search', :controller => 'backend', :action => 'search'
   
       inventory_pool.resources :orders # TODO 07** also nest to user?
       inventory_pool.resources :contracts # TODO 07** also nest to user?
       inventory_pool.resources :locations do |location|
         location.resources :items
       end
-      inventory_pool.resources :categories, :member => { :add_parent => :post } do |category|
+      inventory_pool.resources :categories, :member => { :add_parent => :any } do |category|
         category.resources :parents, :controller => 'categories'
         category.resources :children, :controller => 'categories'
         category.resources :models
@@ -163,6 +165,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'authenticator/zhdk/:action/:id', :controller => 'authenticator/zhdk'
   map.connect 'authenticator/db/:action/:id', :controller => 'authenticator/database_authentication'
   map.connect 'authenticator/ldap/:action/:id', :controller => 'authenticator/ldap_authentication'
+
 #  map.connect ':controller/:action/:id', :defaults => { :controller => 'frontend' }
 #  map.connect ':controller/:action/:id.:format'
 end

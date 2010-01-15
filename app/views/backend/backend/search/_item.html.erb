@@ -1,0 +1,19 @@
+<%= image_tag(item.model.images.first.public_filename(:thumb), :style => 'vertical-align: text-top;margin-right: 15px') if item.model.images.first %>
+
+<h4><%= link_to item.inventory_code, backend_inventory_pool_item_path(current_inventory_pool, item) %></h4>
+<table>
+	<tr><td>
+		<ul>
+		<li><%= _("Model") %>: <%= item.model.name %></li>
+		<% content_tag(:li) { item.model.manufacturer } if item.model.manufacturer %>
+		</ul>
+	</td>
+	<% content_tag :td do %>
+	<%= _("Broken") if item.is_broken? %><br/>
+	<%= _("Incomplete") if item.is_incomplete? %><br/>
+	<%= _("In Stock") if item.in_stock? %><br/>
+	<% end if item.is_broken? or item.is_incomplete? or item.in_stock? %>
+	</td>	
+	</tr>
+	
+</table>

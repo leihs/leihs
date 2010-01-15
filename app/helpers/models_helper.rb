@@ -26,6 +26,9 @@ module ModelsHelper
 
   # Flotr Javascript Library required
   def canvas_for_model(model, inventory_pool, params = {})
+    
+    #return if items.empty?
+    
     config = {:canvas => {:width => 800, :height => 300},
               :line => {:height => 20},
               :range => {:start_days => -50, :end_days => 150},
@@ -58,6 +61,7 @@ module ModelsHelper
       dd = dd.next_month
     end
     
+ 
     items.each_with_index do |item, index|
       y = index + 1
       styled_inventory_code = (item.is_borrowable? ? item.inventory_code : "<span style='color:red;'>#{item.inventory_code}</span>") 

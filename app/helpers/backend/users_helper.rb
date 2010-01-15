@@ -9,9 +9,13 @@ module Backend::UsersHelper
   end
 
   def remind_user(user)
-    content_tag :span, :id => "remind_resume", :style => "padding: 0.5em;" do
-      _("%{i} reminders, last: %{d}") % { :i => user.reminders.size, :d => (short_time user.reminders.last.created_at) }
-    end unless user.reminders.empty?
+    unless user.reminders.empty?
+      content_tag :span, :id => "remind_resume", :style => "padding: 0.5em;" do
+        _("%{i} reminders, last: %{d}") % { :i => user.reminders.size, :d => (short_time user.reminders.last.created_at) }
+      end
+    else 
+      ""
+    end
   end
 
 end
