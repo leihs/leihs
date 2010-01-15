@@ -123,8 +123,10 @@ pdf.move_down 6.mm
 pdf.text "#{_("Purpose:")} #{purpose}"
 pdf.move_down 3.mm
 
-pdf.text "#{_("Additional notes:")} #{@contract.note}"
-pdf.move_down 3.mm
+unless @contract.note.blank?
+  pdf.text "#{_("Additional notes:")} #{@contract.note}"
+  pdf.move_down 3.mm
+end
 
 pdf.font_size(7) do 
   
