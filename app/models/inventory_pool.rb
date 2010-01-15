@@ -59,10 +59,15 @@ class InventoryPool < ActiveRecord::Base
   has_many :contracts
   has_many :contract_lines, :through => :contracts, :uniq => true
 
+#######################################################################
 
   before_create :create_workday
 
   validates_presence_of :name
+
+  default_scope :order => "name"
+
+#######################################################################
 
   define_index do
     indexes :name, :sortable => true
@@ -70,7 +75,6 @@ class InventoryPool < ActiveRecord::Base
     set_property :order => :name
     set_property :delta => true
   end
-
 
 #######################################################################
 

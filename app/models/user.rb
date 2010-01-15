@@ -63,8 +63,10 @@ class User < ActiveRecord::Base
     indexes :firstname
     indexes :lastname
     indexes :badge_id
+    
     has access_rights(:inventory_pool_id), :as => :inventory_pool_ids
-    set_property :order => :login
+    
+    set_property :order => :login # 0501
     set_property :delta => false
   end
 

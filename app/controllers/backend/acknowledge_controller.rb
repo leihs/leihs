@@ -7,7 +7,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     @submitted_orders = orders
     @working_orders = orders.select { |o| o.has_backup? }
 
-    orders = orders & @user.orders.submitted if @user # TODO 1209** @user.orders.by_inventory_pool(current_inventory_pool).submitted
+    orders &= @user.orders.submitted if @user # TODO 1209** @user.orders.by_inventory_pool(current_inventory_pool).submitted
 
     @orders = orders.search(params[:query], {:page => params[:page], :per_page => $per_page})
   end

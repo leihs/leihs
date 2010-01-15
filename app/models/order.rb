@@ -16,7 +16,9 @@ class Order < Document
     indexes user(:login), :as => :user_login
     indexes user(:badge_id), :as => :user_badge_id
     indexes models(:name), :as => :model_names
-    has :inventory_pool_id, :user_id
+    
+    has :inventory_pool_id, :user_id, :status_const
+    
     set_property :delta => true
   end
 
@@ -39,15 +41,18 @@ class Order < Document
   end
 
 #########################################################################
-  # TODO 09** This feature is scheduled for: Rails v2.3/3.0
-  # default_scope :order => 'created_at ASC'
   
-  named_scope :unsubmitted, :conditions => {:status_const => Order::UNSUBMITTED}, :order => 'created_at ASC'
+  default_scope :order => 'created_at ASC'
+  
+  named_scope :unsubmitted, :conditions => {:status_const => Order::UNSUBMITTED}
   named_scope :submitted, :conditions => {:status_const => Order::SUBMITTED}, :include => :backup # OPTIMIZE N+1 select problem
-  named_scope :approved, :conditions => {:status_const => Order::APPROVED}, :order => 'created_at ASC'
-  named_scope :rejected, :conditions => {:status_const => Order::REJECTED}, :order => 'created_at ASC'
+  named_scope :approved, :conditions => {:status_const => Order::APPROVED}
+  named_scope :rejected, :conditions => {:status_const => Order::REJECTED}
 
   named_scope :by_inventory_pool,  lambda { |inventory_pool| { :conditions => { :inventory_pool_id => inventory_pool } } }
+
+  # TODO 0501
+  # sphinx_scope(:sphinx_submitted) { { :with => {:status_const => Order::SUBMITTED}, :include => :backup } }
 
 
 #########################################################################

@@ -5,6 +5,8 @@ class ItemLine < ContractLine
 
   validate :validate_item
 
+# TODO 1301  default_scope :include => :model, :order => "models.name"
+
   # OPTMIZE 0209** overriding the item getter in order to get a retired item as well if is the case
   def item
     Item.first(:conditions => {:id => item_id}, :retired => :all) if item_id

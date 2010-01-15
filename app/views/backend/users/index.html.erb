@@ -1,6 +1,7 @@
-<div class="toolbar-second buttons">
+<% content_tag :div, :class => "toolbar-second buttons" do %>
 	<%= link_to _("Create"), :action => 'new' %>
-</div>
+<% end unless request.xml_http_request? %>
+
 <% table_with_search_and_pagination :columns => [[_("User Login"), 'login'], _("Access Rights"), (current_inventory_pool ? _("Documents") : ""), _("Action")],
 						   			:records => @users do |user| %>	
 

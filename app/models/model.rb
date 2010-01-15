@@ -92,7 +92,7 @@ class Model < ActiveRecord::Base
     
     has items(:inventory_pool_id), :as => :inventory_pool_ids
     
-    set_property :order => :name
+    set_property :order => :name # 0501
     set_property :delta => true
   end
 

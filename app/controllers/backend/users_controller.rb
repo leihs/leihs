@@ -4,8 +4,10 @@ class Backend::UsersController < Backend::BackendController
   before_filter :authorized_admin_user_unless_current_inventory_pool # OPTIMIZE
 
   def index
+    # OPTIMIZE 0501 
     params[:sort] ||= 'login'
-    params[:dir] ||= 'ASC'
+    params[:sort_mode] ||= 'ASC'
+    params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
     case params[:filter]
       when "admins"
@@ -22,9 +24,10 @@ class Backend::UsersController < Backend::BackendController
         users = (current_inventory_pool ? current_inventory_pool.users : User)
     end
 
-    @users = users.search(params[:query], {:page => params[:page], :per_page => $per_page}
-                                        # TODO 0501 , {:order => sanitize_order(params[:sort], params[:dir])}
-                                        )
+    @users = users.search(params[:query], { :page => params[:page],
+                                            :per_page => $per_page,
+                                            :order => params[:sort],
+                                            :sort_mode => params[:sort_mode] } )
   end
 
   def show

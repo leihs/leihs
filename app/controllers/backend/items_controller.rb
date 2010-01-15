@@ -3,9 +3,10 @@ class Backend::ItemsController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    params[:sort] ||= 'models.name'
-    params[:dir] ||= 'ASC'
-    find_options = {:order => sanitize_order(params[:sort], params[:dir]), :include => [:model, :location]}
+    # OPTIMIZE 0501 
+    params[:sort] ||= 'model_name'
+    params[:sort_mode] ||= 'ASC'
+    params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
     if params[:model_id]
       @model = Model.find(params[:model_id])
@@ -19,6 +20,7 @@ class Backend::ItemsController < Backend::BackendController
     case params[:filter]
       when "retired"
         items = current_inventory_pool.own_items.all(:retired => true)
+        # TODO 0501
         find_options[:retired] = true
       when "responsible"
         items = (current_inventory_pool.items - current_inventory_pool.own_items)
@@ -38,9 +40,11 @@ class Backend::ItemsController < Backend::BackendController
 
     items.delete_if {|i| not i.packageable? } if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
     
-    @items = items.search(params[:query], {:page => params[:page], :per_page => $per_page}
-                                        # TODO 0501, find_options
-                                        )
+    @items = items.search(params[:query], { :page => params[:page],
+                                            :per_page => $per_page,
+                                            :order => params[:sort],
+                                            :sort_mode => params[:sort_mode],
+                                            :include => [:model, :location]} )
 
     respond_to do |format|
       format.html

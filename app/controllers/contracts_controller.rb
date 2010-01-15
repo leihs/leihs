@@ -2,7 +2,7 @@ class ContractsController < FrontendController
 
   before_filter :pre_load
 
-  def show(sort =  params[:sort] || "model", dir =  params[:dir] || "ASC")
+  def show(sort =  params[:sort] || "model", dir =  params[:sort_mode] || "ASC")
     respond_to do |format|
       format.ext_json { render :json => @contract.to_json(:include => {
                                                             :contract_lines => { :include => { :model => {}, 

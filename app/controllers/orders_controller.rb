@@ -92,7 +92,7 @@ class OrdersController < FrontendController
 
 ########################################################
 
-  def show(sort =  params[:sort] || "model", dir =  params[:dir] || "ASC")
+  def show(sort =  params[:sort] || "model", dir =  params[:sort_mode] || "ASC")
     # TODO 13** send errors and notices
     respond_to do |format|
       format.ext_json { render :json => @order.to_json(:methods => :approvable?,

@@ -41,9 +41,12 @@ class Item < ActiveRecord::Base
     
     has :parent_id, :model_id, :location_id, :owner_id, :supplier_id, :inventory_pool_id
     
-    set_property :order => :model_name
+    set_property :order => :model_name # 0501 is working?
     set_property :delta => true
   end
+  
+  # TODO 0501
+  # default_sphinx_scope
 
 ####################################################################
 # preventing delete

@@ -39,7 +39,7 @@
 
 <% end %>
 
-<% table_with_search_and_pagination :columns => [[_("Name"), 'model_groups.name'], _("Type"), _("Models"), _("Models in %s") % current_inventory_pool, _("Children"), _("All Children"), _("Parents"), _("Action")],
+<% table_with_search_and_pagination :columns => [[_("Name"), 'name'], _("Type"), _("Models"), _("Models in %s") % current_inventory_pool, _("Children"), _("All Children"), _("Parents"), _("Action")],
 						   			:records => @categories do |category| %>	
 
 			<% content_tag :tr, :id => "category_#{category.id}" do %>
