@@ -30,6 +30,27 @@ class Backend::CategoriesController < Backend::BackendController
                                                         :order => params[:sort],
                                                         :sort_mode => params[:sort_mode] } )
 
+# TODO vertical tree
+#    ############ start graph
+#    # NOTE config.gem "rgl", :lib => "rgl/adjacency"
+#      unless @category
+#          edges = []
+#          Category.all.each do |p|
+#            p.children.each do |c|
+#              edges << [p, c] #[p.id, c.id]
+#            end
+#          end
+#         
+#          # http://rgl.rubyforge.org/
+#          # http://www.graphviz.org/Download_macos.php
+#          require 'rgl/adjacency'
+#          require 'rgl/dot'
+#          dg=RGL::DirectedAdjacencyGraph.new
+#          edges.each {|e| dg.add_edge(e[0], e[1]) }
+#          @graph = dg.write_to_graphic_file('png', 'public/images/graphs/categories').gsub('public', '') 
+#      end
+#    ############ stop graph
+
     respond_to do |format|
       format.html
       format.ext_json { id = (@category ? @category.id : 0)
@@ -42,7 +63,24 @@ class Backend::CategoriesController < Backend::BackendController
   end
     
   def show
-    @category = Category.find(params[:id])
+    ############ start graph
+    # NOTE config.gem "rgl", :lib => "rgl/adjacency"
+      edges = []
+      @category.children.each do |c|
+        edges << [@category, c] #[@category.id, c.id]
+      end
+      @category.parents.each do |p|
+        edges << [p, @category] #[p.id, @category.id]
+      end
+     
+      # http://rgl.rubyforge.org/
+      # http://www.graphviz.org/Download_macos.php
+      require 'rgl/adjacency'
+      require 'rgl/dot'
+      dg=RGL::DirectedAdjacencyGraph.new
+      edges.each {|e| dg.add_edge(e[0], e[1]) }
+      @graph = dg.write_to_graphic_file('png', "public/images/graphs/categories_#{@category.id}").gsub('public', '') 
+    ############ stop graph
   end
 
   def new
