@@ -54,6 +54,7 @@ task :chmod_tmp do
 end
 
 task :configure_sphinx do
+ run "cd #{release_path} && RAILS_ENV='production' rake ts:config"
  run "sed -i 's/listen = 127.0.0.1:3312/listen = 127.0.0.1:3342/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/listen = 127.0.0.1:3313/listen = 127.0.0.1:3343/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/listen = 127.0.0.1:3314/listen = 127.0.0.1:3344/' #{release_path}/config/production.sphinx.conf"
