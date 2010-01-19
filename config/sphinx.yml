@@ -1,0 +1,30 @@
+development:
+  port: 3342
+  address: 127.0.0.1
+  listen: 127.0.0.1:3342
+  enable_star: 1
+  min_prefix_len: 3
+  delta: 1
+  morphology: libstemmer_de, stem_en
+  bin_path: '/usr/local/bin'
+
+test:
+  port: 3343
+  address: 127.0.0.1
+  listen: 127.0.0.1:3343
+  enable_star: 1
+  min_prefix_len: 3
+  delta: 1
+  morphology: libstemmer_de, stem_en
+  bin_path: '/usr/local/bin'
+
+production:
+  port: 3344
+  address: 127.0.0.1
+  listen: 127.0.0.1:3344
+  enable_star: 1
+  min_prefix_len: 3
+  delta: 1
+  morphology: libstemmer_de, stem_en
+  bin_path: '/usr/local/bin'
+
