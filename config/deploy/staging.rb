@@ -4,7 +4,7 @@ set :db_config, "/home/rails/leihs/leihs2test/database.yml"
 set :checkout, :export
 set :use_sudo, false
 
-set :rails_env, "development"
+set :rails_env, "production"
 
 
 # If you aren't deploying to /u/apps/#{application} on the target
@@ -54,8 +54,6 @@ task :chmod_tmp do
 end
 
 task :configure_sphinx do
- run "cp #{release_path}/config/production.sphinx.conf_with_pipe #{release_path}/config/production.sphinx.conf"
-
  run "sed -i 's/listen = 127.0.0.1:3312/listen = 127.0.0.1:3342/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/listen = 127.0.0.1:3313/listen = 127.0.0.1:3343/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/listen = 127.0.0.1:3314/listen = 127.0.0.1:3344/' #{release_path}/config/production.sphinx.conf"
