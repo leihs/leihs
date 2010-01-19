@@ -2,6 +2,7 @@ class Category < ModelGroup
 
   define_index do
     indexes :name, :sortable => true
+     # TODO 0501 has :parent_ids, :child_ids
     set_property :delta => true
   end
 

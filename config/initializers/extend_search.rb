@@ -115,39 +115,40 @@ module ThinkingSphinx
   
   end
 
-  class Search
-    def populate
-      return if @populated
-      @populated = true
-      
-      retry_on_stale_index do
-        begin
-          log "Querying: '#{query}'"
-          runtime = Benchmark.realtime {
-            @results = client.query query, indexes, comment
-          }
-          log "Found #{@results[:total_found]} results", :debug,
-            "Sphinx (#{sprintf("%f", runtime)}s)"
-        rescue Errno::ECONNREFUSED => err
-          raise ThinkingSphinx::ConnectionError,
-            'Connection to Sphinx Daemon (searchd) failed.'
-        end
-      
-        if options[:ids_only]
-          replace @results[:matches].collect { |match|
-            match[:attributes]["sphinx_internal_id"]
-          }
-        else
-          # patch start # TODO 0501 prevent nil elements, but total_entries is still wrong!
-          replace instances_from_matches.compact
-          # patch end #
-          add_excerpter
-          add_sphinx_attributes
-          add_matching_fields if client.rank_mode == :fieldmask
-        end
-      end
-    end
-  end
+#old#
+#  class Search
+#    def populate
+#      return if @populated
+#      @populated = true
+#      
+#      retry_on_stale_index do
+#        begin
+#          log "Querying: '#{query}'"
+#          runtime = Benchmark.realtime {
+#            @results = client.query query, indexes, comment
+#          }
+#          log "Found #{@results[:total_found]} results", :debug,
+#            "Sphinx (#{sprintf("%f", runtime)}s)"
+#        rescue Errno::ECONNREFUSED => err
+#          raise ThinkingSphinx::ConnectionError,
+#            'Connection to Sphinx Daemon (searchd) failed.'
+#        end
+#      
+#        if options[:ids_only]
+#          replace @results[:matches].collect { |match|
+#            match[:attributes]["sphinx_internal_id"]
+#          }
+#        else
+#          # sellittf patch start # TODO 0501 prevent nil elements, but total_entries is still wrong!
+#          replace instances_from_matches.compact
+#          # sellittf patch end #
+#          add_excerpter
+#          add_sphinx_attributes
+#          add_matching_fields if client.rank_mode == :fieldmask
+#        end
+#      end
+#    end
+#  end
 
   # TODO 0501
   # forces lower case index, providing case insensitive sorting

@@ -24,7 +24,8 @@ class Backend::ModelsController < Backend::BackendController
     models &= @model.compatibles if @model
     models &= @category.all_models if @category
     
-    @models = models.search(params[:query], { :page => params[:page],
+    @models = models.search(params[:query], { :star => true,
+                                              :page => params[:page],
                                               :per_page => $per_page,
                                               :order => params[:sort],
                                               :sort_mode => params[:sort_mode] } )

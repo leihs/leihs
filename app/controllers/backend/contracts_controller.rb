@@ -33,7 +33,9 @@ class Backend::ContractsController < Backend::BackendController
         contracts = contracts.signed + contracts.closed
     end
 
-    @contracts = contracts.search(params[:query], {:page => params[:page], :per_page => $per_page})
+    @contracts = contracts.search(params[:query], { :star => true,
+                                                    :page => params[:page],
+                                                    :per_page => $per_page } )
   end
   
   def show

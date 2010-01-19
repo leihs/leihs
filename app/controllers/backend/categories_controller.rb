@@ -8,14 +8,13 @@ class Backend::CategoriesController < Backend::BackendController
     params[:sort_mode] ||= 'ASC'
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
-    # TODO 0501 add parent_id to index, etc...
     if @category
       # TODO 12** optimize filter
-      if request.env['REQUEST_URI'].include?("parents")
-          categories = @category.parents
-      else #if request.env['REQUEST_URI'].include?("children")
-          categories = @category.children
-      end
+      categories =  if request.env['REQUEST_URI'].include?("parents")
+                        @category.parents
+                    else #if request.env['REQUEST_URI'].include?("children")
+                        @category.children
+                    end
     else
       if request.format == :ext_json
         @categories = Category.roots
@@ -25,7 +24,8 @@ class Backend::CategoriesController < Backend::BackendController
       @show_categories_tree = (!request.xml_http_request? and params[:source_path].blank?)
     end    
     
-    @categories ||= categories.search(params[:query], { :page => params[:page],
+    @categories ||= categories.search(params[:query], { :star => true,
+                                                        :page => params[:page],
                                                         :per_page => $per_page,
                                                         :order => params[:sort],
                                                         :sort_mode => params[:sort_mode] } )
