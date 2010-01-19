@@ -4,7 +4,7 @@ class InventoryPool < ActiveRecord::Base
   has_one :workday, :dependent => :delete
   has_many :holidays, :dependent => :delete_all
   has_many :users, :through => :access_rights, :uniq => true
-  has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.suspended_at is not null"
+  has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.suspended_at IS NOT NULL"
 
 
 ########
@@ -71,8 +71,9 @@ class InventoryPool < ActiveRecord::Base
 
   define_index do
     indexes :name, :sortable => true
-    indexes :description, :sortable => true
-    set_property :order => :name
+    indexes :description
+    
+    # 0501 set_property :order => :name
     set_property :delta => true
   end
 

@@ -14,7 +14,6 @@
 	<% if @category %>
 		<% if request.env['REQUEST_URI'].include?("parents") %>
 		 <div class="toolbar-second">
-			<% #0408 Fix: select from Admin (all) categories %>
 			<% form_for [:add_parent, :backend, current_inventory_pool, @category],
 						:html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
 				<%= hidden_field_tag :is_selected, 0 %>

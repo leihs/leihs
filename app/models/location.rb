@@ -2,7 +2,8 @@ class Location < ActiveRecord::Base
 
   has_many :items
   belongs_to :building
-  
+
+# TODO 0501  validates_presence_of :room (prevent special chars such as ?-,...)  
   validates_uniqueness_of :building_id, :scope => [:room, :shelf]
 
 #temp# 1108**
@@ -31,7 +32,7 @@ class Location < ActiveRecord::Base
     has :building_id
     has items(:inventory_pool_id), :as => :inventory_pool_ids
 
-    #set_property :order => :room # 0501
+    # 0501 set_property :order => :room
     set_property :delta => true
   end
 

@@ -13,7 +13,10 @@ class Backend::BackendController < ApplicationController
   # OPTIMIZE 0501 routes :only => :post OR use :get post to 'bookmark' the result page (google style)
   def search
     if request.post?
-      @result = ThinkingSphinx.search params[:text], :order => :class_sort 
+      @result = ThinkingSphinx.search params[:text], { :star => true,
+                                                       :page => params[:page],
+                                                       :per_page => $per_page,
+                                                       :order => :class_sort } 
     end
   end
 

@@ -74,7 +74,7 @@ class Model < ActiveRecord::Base
                                                               :conditions => ["items.inventory_pool_id = ?", inventory_pool] } }
 
   named_scope :by_categories, lambda { |categories| { :select => "DISTINCT models.*",
-                                                      :joins => "INNER JOIN model_links AS ml",
+                                                      :joins => "INNER JOIN model_links AS ml", # OPTIMIZE no ON ??
                                                       :conditions => ["ml.model_group_id IN (?)", categories] } }
 
 #############################################  
@@ -92,7 +92,7 @@ class Model < ActiveRecord::Base
     
     has items(:inventory_pool_id), :as => :inventory_pool_ids
     
-    set_property :order => :name # 0501
+    # 0501 set_property :order => :name
     set_property :delta => true
   end
 

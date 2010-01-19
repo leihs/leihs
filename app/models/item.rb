@@ -32,21 +32,45 @@ class Item < ActiveRecord::Base
 #  after_save :update_ferret_index
 
   define_index do
+    # 0501 where "retired IS NULL"
+    
     indexes :inventory_code, :sortable => true
-    indexes :serial_number, :sortable => true
+    indexes :serial_number #, :sortable => true
     indexes model(:name), :as => :model_name, :sortable => true 
-    indexes model(:manufacturer), :as => :model_manufacturer, :sortable => true
+    indexes model(:manufacturer), :as => :model_manufacturer #, :sortable => true
     indexes inventory_pool(:name), :as => :inventory_pool_name #, :sortable => true 
     #indexes :is_borrowable, :sortable => true
     
     has :parent_id, :model_id, :location_id, :owner_id, :supplier_id, :inventory_pool_id
+    # 0501
+    has "retired IS NOT NULL", :as => :retired, :type => :boolean
     
-    set_property :order => :model_name # 0501 is working?
+    # 0501 set_property :order => :model_name
     set_property :delta => true
   end
   
-  # TODO 0501
-  # default_sphinx_scope
+#temp#
+#  define_index "retired_item" do
+#    where "retired IS NOT NULL"
+#    
+#    indexes :inventory_code, :sortable => true
+#    indexes :serial_number #, :sortable => true
+#    indexes model(:name), :as => :model_name, :sortable => true 
+#    indexes model(:manufacturer), :as => :model_manufacturer #, :sortable => true
+#    indexes inventory_pool(:name), :as => :inventory_pool_name #, :sortable => true 
+#    #indexes :is_borrowable, :sortable => true
+#    
+#    has :parent_id, :model_id, :location_id, :owner_id, :supplier_id, :inventory_pool_id
+#    # 0501 has "retired IS NOT NULL", :as => :retired, :type => :boolean
+#    
+#    # 0501 set_property :order => :model_name
+#    set_property :delta => true
+#  end
+
+  # TODO 0501 doesn't work!
+#  default_sphinx_scope :default_search
+#  sphinx_scope(:default_search) { {:with => {:retired => false}} }
+#  sphinx_scope(:retired) { {:with => {:retired => true}} }
 
 ####################################################################
 # preventing delete
@@ -88,6 +112,10 @@ class Item < ActiveRecord::Base
       end
     end
   end
+
+# TODO 0501
+#  default_scope :conditions => {:retired => nil}
+#  named_scope :retired, :conditions => "retired IS NOT NULL"
 
 ####################################################################
 

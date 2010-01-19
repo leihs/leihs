@@ -15,7 +15,9 @@ class Backend::OrdersController < Backend::BackendController
         orders = orders.rejected
     end
 
-    @orders = orders.search(params[:query], {:page => params[:page], :per_page => $per_page})
+    @orders = orders.search(params[:query], { :star => true,
+                                              :page => params[:page],
+                                              :per_page => $per_page } )
   end
 
   def show
