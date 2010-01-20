@@ -93,11 +93,11 @@ before "deploy:restart", :make_tmp
 
 
 before "deploy" do
-  run "cd #{previous_release} && ./script/ferret_server -e production stop"
+  run "cd #{previous_release} && ./script/ferret_server --root . -e production stop"
 end
 
 after "deploy" do
-  run "cd #{release_path} && ./script/ferret_server -e production start"
+  run "cd #{release_path} && ./script/ferret_server --root . -e production start"
 end
 
 
