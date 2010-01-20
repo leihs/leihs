@@ -1,5 +1,5 @@
 set :application, "leihs2demo"
-set :repository,  "http://code.zhdk.ch/svn/leihs/trunk"
+set :repository,  "http://code.zhdk.ch/svn/leihs/branches/2.0"
 set :db_config, "/home/rails/leihs/leihs2demo/database.yml"
 set :deploy_via, :export
 set :use_sudo, false
