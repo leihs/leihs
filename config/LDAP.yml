@@ -3,30 +3,34 @@
 # port: which port the server should listen on
 
 production:
-  host: hostname
-  port: port_number
+  host: ldapsrv.bfh.ch
+  port: 636
   encryption: simple_tls
-  base: dc=xyz,dc=abc,dc=ch
+  base: dc=bfh,dc=ch
   log_file: log/ldap_server.log
   log_level: warn
-  search_field: userprincipalname
+  search_field: uid
+  bind_dn: *****
+  bind_pwd: ******
 
 #test:
 test:
   host: hostname
   port: port_number
   encryption: simple_tls
-  base: dc=xyz,dc=abc,dc=ch
+  base: dc=xyz,dc=abcc,dc=ch
   log_file: log/ldap_server.log
   log_level: warn
   search_field: userprincipalname
-  
+ 
+
 #dev:
 development:
-  host: hostname
-  port: port_number
+  host: ldapsrv.bfh.ch
+  port: 636
   encryption: simple_tls
-  base: dc=xyz,dc=abc,dc=ch
+  base: dc=bfh,dc=ch
   log_file: log/ldap_server.log
   log_level: warn
-  search_field: userprincipalname
+  search_field: cn
+  bind_dn: cn=$username,ou=srv-account,dc=bfh,dc=ch	
