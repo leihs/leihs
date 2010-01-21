@@ -1,7 +1,7 @@
 <h4><%= _("Contract from %s") % contract.user.name %></h4>
 <table>
 	<tr><td><%= contract.status_string %></td>
-	<% content_tag :td, :class => "buttons" do %>
+	<% content_tag :td, :class => "buttons", :style => "text-align: right;" do %>
 			<%=	link_to icon_tag("script") + " " + _("Print PDF"),
 									 { :controller => 'contracts', :action => 'show', :id => contract, :format => 'pdf' } unless contract.lines.empty?%>
 
