@@ -84,7 +84,8 @@ h3 {
 
 /* 	- - - - - - - - - - - - -
  MAIN STRUCTURE
- - - - - - - - - - - - - - */ #header {
+ - - - - - - - - - - - - - */
+#header {
     padding-top: 2em;
     padding-bottom: 5em;
     background: #fff;
@@ -97,13 +98,18 @@ h3 {
  background:#EEFFA1;
  border-bottom: 3px solid black;
  }
- */ #wrap {
+ */
+#wrap {
     padding: 0 2em 2em 2em;
     background: #f2f2f2;
-} #container {
+}
+
+#container {
     min-width: 800px;
     margin-left: 180px;
-} #inner-container {
+}
+
+#inner-container {
     background: white;
     border-right: 1px solid #c2c2c2;
     border-left: 1px solid #c2c2c2;
@@ -114,49 +120,68 @@ h3 {
 
 /*--------------------------------
  Header
- --------------------------------*/ #logo {
+ --------------------------------*/
+#logo {
     float: left;
     width: 25%;
     padding-left: 3em;
-} #logo h1 {
+}
+
+#logo h1 {
     margin-bottom: 0.4em;
-} #personal-toolbar {
+}
+
+#personal-toolbar {
     text-align: right;
-} #personal-toolbar ul li {
+}
+
+#personal-toolbar ul li {
     display: inline;
     padding: 0.5em;
 }
 
 /*--------------------------------
  Sidebar
- --------------------------------*/ #sidebar {
+ --------------------------------*/
+#sidebar {
     float: left;
     width: 180px;
     overflow: auto;
     margin-bottom: 2em;
-} #sidebar > div > ul > li > ul {
+}
+
+#sidebar div > ul > li > ul {
     margin-left: 1.5em;
-} #sidebar > div > ul > li {
+}
+
+#sidebar div > ul > li {
     border-bottom: 1px solid #a4a4a4;
     padding: 0.5em 0 0.5em 0;
 }
 
 /*--------------------------------
  Banner
- --------------------------------*/ #banner {
+ --------------------------------*/
+#banner {
     background: #1089d9;
     text-align: center;
     margin: 2px 0 2px 0;
     border: 1px solid #1089d9;
     padding: 15px;
-} #banner ul li {
+}
+
+#banner ul li {
     margin: 1em;
-} #banner ul li a {
+}
+
+#banner ul li a {
     background: #09f;
     padding: 0.5em;
     color: #fff;
     border: 1px solid #fff;
-} #banner ul li a:hover {
+}
+
+#banner ul li a:hover {
     background: #1089d9;
     color: #fff;
     border: 1px solid #fff;
@@ -164,13 +189,16 @@ h3 {
 
 /* 	- - - - - - - - - - - - -
  Toolbars
- - - - - - - - - - - - - - */ .toolbar-main {
+ - - - - - - - - - - - - - */
+.toolbar-main {
     overflow: hidden;
     padding: 1.5em 1em;
     border-top: 1px solid #d2d2d2;
     border-bottom: 1px solid #d2d2d2;
     background: #E9F9F9;
-} .toolbar-second {
+}
+
+.toolbar-second {
     overflow: hidden;
     background: #e2e2e2;
     padding: 1em;
@@ -179,18 +207,25 @@ h3 {
 
 /* 	- - - - - - - - - - - - -
  CONTENT
- - - - - - - - - - - - - - */ .boxes {
+ - - - - - - - - - - - - - */
+.boxes {
     overflow: hidden;
     margin-bottom: 2em;
-} #inner-container h2 {
+}
+
+#inner-container h2 {
     font-weight: normal;
     margin-bottom: 1em;
-} #inner-container h3 {
+}
+
+#inner-container h3 {
     font-weight: normal;
     padding-bottom: 0.5em;
     border-bottom: 1px solid #b2b2b2;
     margin-bottom: 0.5em;
-} #inner-container h2 em {
+}
+
+#inner-container h2 em {
     font-weight: bold;
     font-style: normal;
 }
@@ -204,23 +239,39 @@ tr.availability td {
     padding: 2px;
     font-size: 10px;
     text-align: center;
-} .available_0 {
+}
+
+.available_0 {
     background: red;
-} .available_1 {
+}
+
+.available_1 {
     background: orange;
-} .available_2 {
+}
+
+.available_2 {
     background: yellow;
-} .available_3 {
+}
+
+.available_3 {
     background: lightgreen;
-} .available_4 {
+}
+
+.available_4 {
     background: green;
     color: white;
-} .available_5 {
+}
+
+.available_5 {
     background: darkgreen;
     color: white;
-} .valid_true {
+}
+
+.valid_true {
     /* background-color: #CCFF66; */
-} .valid_false {
+}
+
+.valid_false {
     background-color: #FFCCCC;
 }
 
@@ -259,9 +310,12 @@ ul.model_group > li {
  color: navy;
  }
  */
-/* Workdays */ .workdays {
+/* Workdays */
+.workdays {
     height: 100px;
-} .workday {
+}
+
+.workday {
     border: 1px solid lightgray;
     width: 100px;
     float: left;
@@ -269,14 +323,22 @@ ul.model_group > li {
     margin: 5px;
     padding: 5px;
     cursor: pointer;
-} .closed {
+}
+
+.closed {
     background-color: #FFCCCC;
-} .open {
+}
+
+.open {
     background-color: #CCFF66;
-} .holiday {
+}
+
+.holiday {
     padding-top: 15px;
     margin-left: 20px;
-} #notes {
+}
+
+#notes {
     float: right;
     font-size: 30px;
     background-repeat: no-repeat;
@@ -284,7 +346,9 @@ ul.model_group > li {
     width: 50px;
     height: 50px;
     text-align: center;
-} #notes_text {
+}
+
+#notes_text {
     float: right;
     width: 400px;
     font-size: 9px;
@@ -296,26 +360,35 @@ ul.model_group > li {
 
 /* 	- - - - - - - - - - - - -
  Pagination
- - - - - - - - - - - - - - */ .pagination {
+ - - - - - - - - - - - - - */
+.pagination {
     margin: 0.3em;
     padding: 0.3em;
-} .pagination a {
+}
+
+.pagination a {
     border: 1px solid #AAAADD;
     color: #336699;
     margin: 0.2em;
     padding: 0.1em 0.3em;
     text-decoration: none;
-} .pagination a:hover, .pagination a:active {
+}
+
+.pagination a:hover, .pagination a:active {
     border: 1px solid #336699;
     color: #000000;
-} .pagination span.current {
+}
+
+.pagination span.current {
     background-color: #336699;
     border: 1px solid #336699;
     color: #FFFFFF;
     font-weight: bold;
     margin: 0.2em;
     padding: 0.1em 0.3em;
-} .pagination span.disabled {
+}
+
+.pagination span.disabled {
     border: 1px solid #EEEEEE;
     color: #DDDDDD;
     margin: 0.2em;
@@ -324,21 +397,22 @@ ul.model_group > li {
 
 /******************
  * Search results
- */ 
- .search_result {
+ */
+.search_result {
     margin-top: 5px;
     padding-left: 64px;
     min-height: 64px;
-} 
+}
 
 .search_result:hover {
     background-color: #DDFFDD;
     cursor: hand;
-	
-} 
+}
+
 .search_result h4 {
     padding: 2px 5px 2px 5px;
-} 
+}
+
 .search_result table {
 }
 
@@ -433,15 +507,22 @@ img.loading_spinner {
 
 /* 	- - - - - - - - - - - - -
  Time Line
- - - - - - - - - - - - - - */ .datepicker_date {
+ - - - - - - - - - - - - - */
+.datepicker_date {
     color: black;
     font-weight: bold;
-} .datepicker_nodate {
+}
+
+.datepicker_nodate {
     border-width: 0;
-} .selectable_date {
+}
+
+.selectable_date {
     border: 1px solid black;
     background: green;
-} .selectable_date:hover {
+}
+
+.selectable_date:hover {
     cursor: pointer;
     background-color: #DDDDDD;
 }
@@ -450,11 +531,14 @@ img.loading_spinner {
  .selected_date {
  border-bottom: 2px solid black;
  }
- */ .selected_date_start {
+ */
+.selected_date_start {
     border-top-width: 4px;
     border-left-width: 4px;
     border-bottom-width: 4px;
-} .selected_date_end {
+}
+
+.selected_date_end {
     border-top-width: 4px;
     border-right-width: 4px;
     border-bottom-width: 4px;
