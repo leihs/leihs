@@ -125,7 +125,11 @@ class Model < ActiveRecord::Base
 #############################################  
 # Availability
 #############################################  
+# OPTIMIZE Cache
+#  [:inventory_pool_id][:model_id][:level ??][:periods]
+#  { 1 => { 1 => [["2010-01-20", "2010-01-22", 3], ["2010-01-23", "2010-01-27", 6]] } }
 
+# OPTIMIZE this method is only used as helper for the un... method ?? 
   def available_periods_for_document_line(document_line, current_time = Date.today)
     create_availability(current_time, document_line, document_line.inventory_pool, document_line.document.user).periods
   end
@@ -144,20 +148,22 @@ class Model < ActiveRecord::Base
     u
   end
   
-
   # TODO *e* inventory_pools array ??
   def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
     create_availability(current_time, nil, inventory_pool, user).periods
   end
 
-  def available_dates_for_document_line(start_date, end_date, document_line, current_time = Date.today)
-    create_availability(current_time, document_line, document_line.inventory_pool, document_line.document.user).dates(start_date, end_date)
-  end
+# OPTIMIZE this method is not used anymore ??
+#  def available_dates_for_document_line(start_date, end_date, document_line, current_time = Date.today)
+#    create_availability(current_time, document_line, document_line.inventory_pool, document_line.document.user).dates(start_date, end_date)
+#  end
 
-  def available_dates_for_inventory_pool(start_date, end_date, inventory_pool, user, current_time = Date.today)
-    create_availability(current_time, nil, inventory_pool, user).dates(start_date, end_date)
-  end  
-  
+# OPTIMIZE this method is not used anymore ??
+#  def available_dates_for_inventory_pool(start_date, end_date, inventory_pool, user, current_time = Date.today)
+#    create_availability(current_time, nil, inventory_pool, user).dates(start_date, end_date)
+#  end  
+
+# OPTIMIZE this method is only used for test ??  
   # TODO *e* maximum_available_for_document_line method ??
   def maximum_available_for_inventory_pool(date, inventory_pool, user, current_time = Date.today)
     create_availability(current_time, nil, inventory_pool, user).period_for(date).quantity

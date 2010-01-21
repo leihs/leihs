@@ -24,11 +24,8 @@ class Backend::UsersController < Backend::BackendController
         users = (current_inventory_pool ? current_inventory_pool.users : User)
     end
 
-    @users = users.search(params[:query], { :star => true,
-                                            :page => params[:page],
-                                            :per_page => $per_page,
-                                            :order => params[:sort],
-                                            :sort_mode => params[:sort_mode] } )
+    @users = users.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+                                            :order => params[:sort], :sort_mode => params[:sort_mode] }
   end
 
   def show

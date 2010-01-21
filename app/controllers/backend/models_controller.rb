@@ -24,11 +24,8 @@ class Backend::ModelsController < Backend::BackendController
     models &= @model.compatibles if @model
     models &= @category.all_models if @category
     
-    @models = models.search(params[:query], { :star => true,
-                                              :page => params[:page],
-                                              :per_page => $per_page,
-                                              :order => params[:sort],
-                                              :sort_mode => params[:sort_mode] } )
+    @models = models.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+                                              :order => params[:sort], :sort_mode => params[:sort_mode] }
     
     # we are in a greybox
     if params[:source_path]
