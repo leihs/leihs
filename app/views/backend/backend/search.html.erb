@@ -14,10 +14,16 @@ end%>
 <% 
 	@result.each do |r| 
 		name = r.class.to_s.downcase
-		name = "package" if ("item" == name) and (r.model.is_package?) 
+		name = "package" if ("item" == name) and (r.model.is_package?)
+		if r.respond_to?("images") and r.images.first
+			picture = r.images.first.public_filename(:thumb) 
+		else 
+			picture = "/images/#{name}.png"
+		end
+
 %>
 
-<div class="search_result" style="background: url(/images/<%= "#{name}.png" %>) no-repeat;">
+<div class="search_result" style="background: url(<%= "#{picture}" %>) no-repeat;">
 <%= render :partial => "backend/backend/search/#{name}", :object => r %>
 </div>
 <% end %>
