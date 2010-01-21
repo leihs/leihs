@@ -1,12 +1,24 @@
-<%# OPTIMIZE 0501= _("Found %d results") % @result.total_entries %>
-<%= _("Found %s results") % @result.size %>
+<p>
+<%= _("Found %d results for '%s'") % [@result.total_entries, params[:text]] %>
+</p>
+<p>
+	<%= _("Pages:") if @result.page_count > 1 %>
+<% (1..@result.page_count).each do |i| 
+	if @result.page_count > 1 %>
+<%= link_to i.to_s, backend_inventory_pool_search_path(current_inventory_pool, :page => i, :text => params[:text]) %>
+<% 
+	end
+end%>
+
+</p>
 <% 
 	@result.each do |r| 
 		name = r.class.to_s.downcase
-		name = "package" if ("item" == name) and (r.parent or  not r.children.empty?) 
+		name = "package" if ("item" == name) and (r.model.is_package?) 
 %>
 
 <div class="search_result" style="background: url(/images/<%= "#{name}.png" %>) no-repeat;">
 <%= render :partial => "backend/backend/search/#{name}", :object => r %>
 </div>
 <% end %>
+
