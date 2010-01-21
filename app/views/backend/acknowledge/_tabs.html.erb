@@ -1,7 +1,0 @@
-<% content_tag :div, :id => "tabs" do
-	content_tag :ul do
-		content_tag :li, :class => (controller.action_name == "index" ? "active" : nil) do %>	
-			<%= link_to "<span>" + _("Acknowledge") + "</span>", :controller => 'acknowledge' %>
-		<% end
-	end
-end %>
