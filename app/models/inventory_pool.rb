@@ -1,6 +1,6 @@
 class InventoryPool < ActiveRecord::Base
 
-  has_many :access_rights, :dependent => :delete_all
+  has_many :access_rights, :dependent => :delete_all, :conditions => 'deleted_at IS NULL'
   has_one :workday, :dependent => :delete
   has_many :holidays, :dependent => :delete_all
   has_many :users, :through => :access_rights, :uniq => true
@@ -72,7 +72,9 @@ class InventoryPool < ActiveRecord::Base
   define_index do
     indexes :name, :sortable => true
     indexes :description
-    
+
+    has access_rights(:user_id), :as => :user_id
+
     # 0501 set_property :order => :name
     set_property :delta => true
   end

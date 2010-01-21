@@ -1,9 +1,5 @@
 class Item < ActiveRecord::Base
   
-  attr_accessor :step
-
-####################################################################
-
   belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id'
   has_many :children, :class_name => "Item", :foreign_key => 'parent_id', :dependent => :nullify
   

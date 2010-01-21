@@ -90,7 +90,7 @@ class Model < ActiveRecord::Base
     indexes properties(:value), :as => :properties_values
     indexes items(:inventory_code), :as => :items_inventory_codes
     
-    has items(:inventory_pool_id), :as => :inventory_pool_ids
+    has items(:inventory_pool_id), :as => :inventory_pool_id
     
     # 0501 set_property :order => :name
     set_property :delta => true

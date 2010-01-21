@@ -2,7 +2,10 @@ class Category < ModelGroup
 
   define_index do
     indexes :name, :sortable => true
-     # TODO 0501 has :parent_ids, :child_ids
+    
+    # TODO 0501 has :parent_id, :child_id
+    has inventory_pools(:id), :as => :inventory_pool_id
+    
     set_property :delta => true
   end
 

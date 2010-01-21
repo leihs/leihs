@@ -7,7 +7,9 @@ class Option < ActiveRecord::Base
   define_index do
     indexes :inventory_code
     indexes :name
+    
     has :inventory_pool_id
+    
     set_property :delta => true
   end
 

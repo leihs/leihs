@@ -7,7 +7,8 @@ development:
   delta: 1
   morphology: libstemmer_de, stem_en
   bin_path: '/usr/local/bin'
-
+  sql_query_pre: ['set session group_concat_max_len = 16384']
+  
 test:
   port: 3343
   address: 127.0.0.1
@@ -17,6 +18,7 @@ test:
   delta: 1
   morphology: libstemmer_de, stem_en
   bin_path: '/usr/local/bin'
+  sql_query_pre: ['set session group_concat_max_len = 16384']
 
 production:
   port: 3344
@@ -27,4 +29,5 @@ production:
   delta: 1
   morphology: libstemmer_de, stem_en
   bin_path: '/usr/local/bin'
+  sql_query_pre: ['set session group_concat_max_len = 16384']
 
