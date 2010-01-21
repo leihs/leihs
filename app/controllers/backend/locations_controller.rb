@@ -10,7 +10,7 @@ class Backend::LocationsController < Backend::BackendController
 
     @locations = Location.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
                                                    :order => params[:sort], :sort_mode => params[:sort_mode],
-                                                   :with => { :inventory_pool_ids => current_inventory_pool.id } }
+                                                   :with => { :inventory_pool_id => current_inventory_pool.id } }
   end
 
   def show

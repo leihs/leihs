@@ -78,12 +78,10 @@ class Backend::ItemsController < Backend::BackendController
   end
     
   def update
-    @item.step = params[:item][:step]
-    @item.attributes = params[:item]
-    
     get_histories
-    
-    if @item.save
+
+    # working here #
+    if @item.update_attributes(params[:item])
       @item.update_attributes(:location => Location.find_or_create(params[:location]))
       
       if params[:copy].blank?      
