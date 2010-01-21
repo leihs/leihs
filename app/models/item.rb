@@ -35,8 +35,10 @@ class Item < ActiveRecord::Base
     indexes model(:name), :as => :model_name, :sortable => true 
     indexes model(:manufacturer), :as => :model_manufacturer #, :sortable => true
     indexes inventory_pool(:name), :as => :inventory_pool_name #, :sortable => true 
-    #indexes :is_borrowable, :sortable => true
-    
+    indexes :invoice_number
+    indexes :note
+
+    #has :is_borrowable, :type => :boolean
     has :parent_id, :model_id, :location_id, :owner_id, :supplier_id, :inventory_pool_id
     # 0501
     has "retired IS NOT NULL", :as => :retired, :type => :boolean
