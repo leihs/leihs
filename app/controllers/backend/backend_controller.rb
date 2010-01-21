@@ -10,11 +10,10 @@ class Backend::BackendController < ApplicationController
  
 ###############################################################  
   
-  # OPTIMIZE 0501 routes :only => :post OR use :get post to 'bookmark' the result page (google style)
   def search
-    @result = ThinkingSphinx.search params[:text], { :star => true,
-                                                     :page => params[:page],
-                                                     :per_page => $per_page, 
+    @result = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => $per_page,
+                                                     :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC",
+#                                                     :group_by => "class_crc",
                                                      :with => { :inventory_pool_id => [current_inventory_pool.id]} } 
 
   end

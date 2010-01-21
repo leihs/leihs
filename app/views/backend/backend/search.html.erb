@@ -2,15 +2,9 @@
 <%= _("Found %d results for '%s'") % [@result.total_entries, params[:text]] %>
 </p>
 <p>
-	<%= _("Pages:") if @result.page_count > 1 %>
-<% (1..@result.page_count).each do |i| 
-	if @result.page_count > 1 %>
-<%= link_to i.to_s, backend_inventory_pool_search_path(current_inventory_pool, :page => i, :text => params[:text]) %>
-<% 
-	end
-end%>
-
+	<%= will_paginate @result %>
 </p>
+
 <% 
 	@result.each do |r| 
 		name = r.class.to_s.downcase
@@ -19,12 +13,10 @@ end%>
 			picture = r.images.first.public_filename(:thumb) 
 		else 
 			picture = "/images/#{name}.png"
-		end
+		end %>
 
-%>
-
-<div class="search_result" style="background: url(<%= "#{picture}" %>) no-repeat;">
-<%= render :partial => "backend/backend/search/#{name}", :object => r %>
-</div>
-<% end %>
+		<div class="search_result" style="background: url(<%= "#{picture}" %>) no-repeat;">
+			<%= render :partial => "backend/backend/search/#{name}", :object => r %>
+		</div>
+	<% end %>
 
