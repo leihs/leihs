@@ -29,6 +29,8 @@ class Location < ActiveRecord::Base
     indexes :shelf, :sortable => true
     indexes building(:name), :as => :building_name, :sortable => true 
 
+    indexes :id # 0501 forcing indexer even if blank attributes
+
     has :building_id
     has items(:inventory_pool_id), :as => :inventory_pool_id
 

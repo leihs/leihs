@@ -80,10 +80,9 @@ class Backend::ItemsController < Backend::BackendController
   def update
     get_histories
 
-    # working here #
+    params[:item][:location] = Location.find_or_create(params[:location])
+    
     if @item.update_attributes(params[:item])
-      @item.update_attributes(:location => Location.find_or_create(params[:location]))
-      
       if params[:copy].blank?      
         redirect_to backend_inventory_pool_item_path(current_inventory_pool, @item)
       else 

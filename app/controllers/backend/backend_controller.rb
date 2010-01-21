@@ -149,7 +149,7 @@ class Backend::BackendController < ApplicationController
   	end
 
     def is_privileged_user?
-      (current_user.access_level_for(current_inventory_pool) >= 2) and is_owner?
+      has_at_least_access_level(2) and is_owner?
     end
     
     def is_super_user?
@@ -157,24 +157,29 @@ class Backend::BackendController < ApplicationController
     end
     
     def is_inventory_manager?
-      current_user.access_level_for(current_inventory_pool) >= 3
+      has_at_least_access_level 3
     end
     
     def is_lending_manager?(inventory_pool = current_inventory_pool)
-      (current_user.access_level_for(inventory_pool) >= 2)
+      has_at_least_access_level 2, inventory_pool
     end
     
     def is_apprentice?(inventory_pool = current_inventory_pool)
-      (current_user.access_level_for(inventory_pool) >= 1)
+      has_at_least_access_level 1, inventory_pool
     end
     
-    def is_owner?
-      @item.nil? or (current_inventory_pool.id == @item.owner_id)
-    end
 
 ####################################################  
   
   private
+  
+  def is_owner?
+    @item.nil? or (current_inventory_pool.id == @item.owner_id)
+  end
+  
+  def has_at_least_access_level(level, inventory_pool = current_inventory_pool)
+    (current_user.has_role?('lending manager', inventory_pool, false) and current_user.access_level_for(inventory_pool) >= level)
+  end
   
   def init
     unless logged_in?

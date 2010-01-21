@@ -11,9 +11,9 @@ class Backend::InventoryPoolsController < Backend::BackendController
     @inventory_pools = InventoryPool.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
                                                               :order => params[:sort], :sort_mode => params[:sort_mode],
                                                               :with => with }
-# working here #
+
     # OPTIMIZE 0501 the target inventory_pool could be on the second page, then the redirect isn't performed
-    unless is_admin?
+    if !is_admin? and params[:query].blank?
       inventory_pools = @inventory_pools.select {|ip| current_user.has_role?('lending manager', ip, false) }.compact
       redirect_to backend_inventory_pool_path(inventory_pools.first) if inventory_pools.size == 1
     end
