@@ -3,21 +3,20 @@ class Backend::OrdersController < Backend::BackendController
   before_filter :preload
   
   def index
-    orders = current_inventory_pool.orders
-    orders = orders & @user.orders if @user # TODO 1209** @user.orders.by_inventory_pool(current_inventory_pool)
-
-    case params[:filter]
-      when "submitted"
-        orders = orders.submitted
-      when "approved"
-        orders = orders.approved
-      when "rejected"
-        orders = orders.rejected
-    end
-
-    @orders = orders.search(params[:query], { :star => true,
-                                              :page => params[:page],
-                                              :per_page => $per_page } )
+    with = { :inventory_pool_id => current_inventory_pool.id }
+    with[:user_id] = @user.id if @user
+             
+    scope = case params[:filter]
+                when "submitted"
+                  :sphinx_submitted
+                when "approved"
+                  :sphinx_approved
+                when "rejected"
+                  :rejected
+              end
+    
+    @orders = Order.send(scope).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+                                                         :with => with }
   end
 
   def show

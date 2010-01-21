@@ -72,7 +72,6 @@ class User < ActiveRecord::Base
 
 ################################################
 
-  #working here#
   # NOTE working for User.customers but not working for InventoryPool.first.users.customers, use InventoryPool.first.customers instead  
   named_scope :admins, :select => "DISTINCT users.*",
                        :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",

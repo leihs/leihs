@@ -12,9 +12,7 @@ class CategoriesController < FrontendController
         @categories = (current_user.all_categories & Category.find(id).children).sort
       end
     else
-      @categories = Category.search(params[:query], { :star => true,
-                                                      :page => params[:page],
-                                                      :per_page => $per_page } )
+      @categories = Category.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page }
     end
 
     respond_to do |format|

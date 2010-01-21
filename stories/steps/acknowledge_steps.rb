@@ -54,7 +54,7 @@ steps_for(:acknowledge) do
      
   When "$who clicks '$action'" do | who, action |
     get send("backend_inventory_pool_#{action}_path", @inventory_pool)
-    @orders = assigns(:submitted_orders)
+    @orders = assigns(:orders)
     response.should render_template('backend/acknowledge/index')
     @response = response 
   end

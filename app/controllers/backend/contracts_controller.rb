@@ -5,6 +5,9 @@ class Backend::ContractsController < Backend::BackendController
   def index
     contracts = current_inventory_pool.contracts
     contracts = contracts & @user.contracts if @user # TODO 1209** @user.contracts.by_inventory_pool(current_inventory_pool)
+# TODO  0501
+#    with = { :inventory_pool_id => current_inventory_pool.id }
+#    with[:user_id] = @user.id if @user
 
     case params[:filter]
       when "signed"
@@ -33,9 +36,7 @@ class Backend::ContractsController < Backend::BackendController
         contracts = contracts.signed + contracts.closed
     end
 
-    @contracts = contracts.search(params[:query], { :star => true,
-                                                    :page => params[:page],
-                                                    :per_page => $per_page } )
+    @contracts = contracts.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page }
   end
   
   def show

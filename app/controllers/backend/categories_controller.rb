@@ -24,11 +24,8 @@ class Backend::CategoriesController < Backend::BackendController
       @show_categories_tree = (!request.xml_http_request? and params[:source_path].blank?)
     end    
     
-    @categories ||= categories.search(params[:query], { :star => true,
-                                                        :page => params[:page],
-                                                        :per_page => $per_page,
-                                                        :order => params[:sort],
-                                                        :sort_mode => params[:sort_mode] } )
+    @categories ||= categories.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+                                                        :order => params[:sort], :sort_mode => params[:sort_mode] }
 
 # TODO vertical tree
 #    ############ start graph

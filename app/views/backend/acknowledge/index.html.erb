@@ -1,20 +1,14 @@
-<% unless request.xml_http_request? %>
+<% unless request.xml_http_request?
 
-<% content_tag :div, :id => "meta", :class => "boxes" do %>
-	<h2><%= _("<em>%{n} new orders</em> to acknowledge.") % { :n => @submitted_orders.size } %></h2>
-<% end unless @user %>
+	content_tag :div, :class => "buttons" do %>
+		<%= _("Orders you are editing (please complete)") %>:
+		<% @working_orders.each do |order| %>
+			<%=	link_to(icon_tag("tab_go") + "#{order.user.login} (#{today_or_yesterday_date(order.backup.updated_at)})",
+						backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order)) %>
+		<% end
+	end unless @working_orders.empty?
 
-	<% unless @working_orders.empty? %>		
-		<div id="drafts" class="boxes buttons">
-			<p style="float: left; line-height: 30px; margin-right: 20px;"><%= _("Orders you are editing (please complete)") %>:</p>
-			<% for order in @working_orders %>
-				<%=	link_to(icon_tag("tab_go") + "#{order.user.login} (#{today_or_yesterday_date(order.backup.updated_at)})",
-							backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order)) %>
-			<% end %>
-		</div>
-	<% end %>
-
-<% end %>			
+end %>			
 
 
 <% table_with_search_and_pagination :columns => [_("Received at"), _("Reserver"), _("Items"), _("Time window"), _("Action")],

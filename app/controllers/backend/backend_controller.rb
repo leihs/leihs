@@ -111,7 +111,6 @@ class Backend::BackendController < ApplicationController
     def current_inventory_pool
       return @current_inventory_pool if @current_inventory_pool # OPTIMIZE
       return nil if controller_name == "inventory_pools" and action_name != "show"
-      #working here#
       # TODO 28** patch to Rails: actionpack/lib/action_controller/...
       # i.e. /inventory_pools/123 generates automatically params[:inventory_pools_id] additionaly to params[:id]
       if !params[:inventory_pool_id] and params[:id] and controller_name != "users"

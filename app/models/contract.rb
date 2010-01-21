@@ -16,7 +16,9 @@ class Contract < Document
     indexes user(:badge_id), :as => :user_badge_id
     indexes models(:name), :as => :model_names
     indexes items(:inventory_code), :as => :items_inventory_code
-    has :inventory_pool_id, :user_id
+    
+    has :inventory_pool_id, :user_id, :status_const
+    
     set_property :delta => true
   end
 
@@ -54,8 +56,12 @@ class Contract < Document
                                         {:signed => Contract::SIGNED,
                                          :unsigned => Contract::UNSIGNED }]
 
-  
   named_scope :by_inventory_pool,  lambda { |inventory_pool| { :conditions => { :inventory_pool_id => inventory_pool } } }
+
+# 0501 rename /sphinx_/ and remove relative named_scope
+  sphinx_scope(:sphinx_unsigned) { { :with => {:status_const => Contract::UNSIGNED} } }
+  sphinx_scope(:sphinx_signed) { { :with => {:status_const => Contract::SIGNED} } }
+  sphinx_scope(:sphinx_closed) { { :with => {:status_const => Contract::CLOSED} } }
 
 #########################################################################
 

@@ -41,13 +41,10 @@ class Backend::ItemsController < Backend::BackendController
 
     items.delete_if {|i| not i.packageable? } if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
     
-    @items = items.search(params[:query], { :star => true,
-                                            :page => params[:page],
-                                            :per_page => $per_page,
+    @items = items.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
                                             :with => {:retired => retired}, # TODO 0501 default_sphinx_scope
-                                            :order => params[:sort],
-                                            :sort_mode => params[:sort_mode],
-                                            :include => [:model, :location]} )
+                                            :order => params[:sort], :sort_mode => params[:sort_mode],
+                                            :include => [:model, :location]}
 
     respond_to do |format|
       format.html

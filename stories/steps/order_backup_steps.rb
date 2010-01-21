@@ -3,7 +3,7 @@ steps_for(:order_backup) do
   
   When "$who clicks '$action'" do | who, action |
     get send("backend_inventory_pool_#{action}_path", @inventory_pool)
-    @orders = assigns(:submitted_orders)
+    @orders = assigns(:orders)
     response.should render_template('backend/acknowledge/index')
   end
   
@@ -75,7 +75,7 @@ steps_for(:order_backup) do
 
   Then "is redirected to '$action'" do | action |
     get send("backend_inventory_pool_#{action}_path", @inventory_pool)
-    @orders = assigns(:submitted_orders)
+    @orders = assigns(:orders)
     response.should render_template('backend/acknowledge/index')   
   end
 

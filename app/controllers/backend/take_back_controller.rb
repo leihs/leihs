@@ -3,16 +3,15 @@ class Backend::TakeBackController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    if params[:remind]
-      visits = current_inventory_pool.remind_visits
-    else
-      visits = current_inventory_pool.take_back_visits
-    end
+    visits = if params[:remind]
+               current_inventory_pool.remind_visits
+             else
+               current_inventory_pool.take_back_visits
+             end
                                               
     unless params[:query].blank?
-      @contracts = current_inventory_pool.contracts.signed.search(params[:query], { :star => true,
-                                                                                    :page => params[:page],
-                                                                                    :per_page => $per_page } )
+      @contracts = Contract.sphinx_signed.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+                                                                   :with => { :inventory_pool_id => current_inventory_pool.id } }
 
       # TODO search by inventory_code
 

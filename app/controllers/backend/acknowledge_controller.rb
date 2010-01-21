@@ -3,15 +3,15 @@ class Backend::AcknowledgeController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    orders = current_inventory_pool.orders.submitted
-    @submitted_orders = orders
-    @working_orders = orders.select { |o| o.has_backup? }
+    with = { :inventory_pool_id => current_inventory_pool.id }
+    with[:user_id] = @user.id if @user
 
-    orders &= @user.orders.submitted if @user # TODO 1209** @user.orders.by_inventory_pool(current_inventory_pool).submitted
+    @orders = Order.sphinx_submitted.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+                                                              :with => with }
 
-    @orders = orders.search(params[:query], { :star => true,
-                                              :page => params[:page],
-                                              :per_page => $per_page } )
+    @working_orders = Order.sphinx_submitted.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+                                                                      :without => {:backup_id => 0},
+                                                                      :with => with }
   end
   
   def show
