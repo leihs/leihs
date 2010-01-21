@@ -1,7 +1,7 @@
 
 <div id="search" style="float:right">
 <% form_tag backend_inventory_pool_search_path(current_inventory_pool) do %>
-<%= text_field_tag :text %>
+<%= text_field_tag :text, params[:text] %>
 <% end %>
 </div>
 <% content_tag :ul, :class => "buttons" do
