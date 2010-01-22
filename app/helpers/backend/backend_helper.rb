@@ -47,7 +47,7 @@ module Backend::BackendHelper
       s += content_tag :tr do
         r = ""
         options[:columns].each do |column|
-          r += content_tag :th do #old# , :style => "white-space:nowrap;"
+          r += content_tag :th do
             p = ""
             if column.is_a?(Array)
               b = (params[:sort] == "#{column[1]}_sort") # TODO 0501 why _sort ??

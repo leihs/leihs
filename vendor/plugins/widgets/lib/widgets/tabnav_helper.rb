@@ -23,7 +23,7 @@ module Widgets
         html << tag('div', options, true)
         html << capture(&block)
         html << '</div>' 
-        concat( html, block.binding)
+        concat html #sellittf# concat( html, block.binding)
         nil # avoid duplication if called with <%= %>
       else
         return html
@@ -105,7 +105,8 @@ module Widgets
       out '</ul>'
     end  
      
-    def out(string); concat string, @_binding; end
+    #sellittf# def out(string); concat string, @_binding; end
+    def out(string); concat string; end
     
     # generate javascript function to use 
     # while loading remote tabs

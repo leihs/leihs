@@ -96,7 +96,7 @@ module ModelsHelper
         items_users[l.item.inventory_code].merge!(start_date => [l.document.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date])
       end
     end
-    lines_without_item.each do |l|
+    lines_without_item.sort.each do |l|
       #debug# html += "<br>#{l.quantity}: #{l.start_date} - #{l.end_date}"
       start_date = l.start_date.to_time.to_i
       end_date = (l.end_date + 12.hours).to_time.to_i

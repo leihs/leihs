@@ -12,6 +12,7 @@ class Contract < Document
   has_many :options, :through => :option_lines, :uniq => true
 
   define_index do
+    indexes :note
     indexes user(:login), :as => :user_login
     indexes user(:badge_id), :as => :user_badge_id
     indexes models(:name), :as => :model_names

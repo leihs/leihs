@@ -102,7 +102,6 @@ class Backend::TakeBackController < Backend::BackendController
       @contract_line.item.update_attributes(params[:item])
       
       @contract_line.item.log_history(params[:note], current_user.id)
-      #old# redirect_to :action => 'show'
       render :nothing => true
     else
       params[:layout] = "modal"

@@ -3,7 +3,6 @@ class Location < ActiveRecord::Base
   has_many :items
   belongs_to :building
 
-# TODO 0501  validates_presence_of :room (prevent special chars such as ?-,...)  
   validates_uniqueness_of :building_id, :scope => [:room, :shelf]
 
 #temp# 1108**
@@ -24,12 +23,18 @@ class Location < ActiveRecord::Base
     record ||= create(attributes)
   end
 
+  def to_s
+    "#{building} #{room} #{shelf}"
+  end
+
+#################################################################
+
   define_index do
     indexes :room, :sortable => true
     indexes :shelf, :sortable => true
     indexes building(:name), :as => :building_name, :sortable => true 
 
-    indexes :id # 0501 forcing indexer even if blank attributes
+    indexes :id # 0501 forcing indexer even if blank attributes, validates_presence_of :room ???
 
     has :building_id
     has items(:inventory_pool_id), :as => :inventory_pool_id
@@ -38,8 +43,9 @@ class Location < ActiveRecord::Base
     set_property :delta => true
   end
 
-  def to_s
-    "#{building} #{room} #{shelf}"
-  end
+  # TODO 0501
+  default_sphinx_scope :default_search
+  sphinx_scope(:default_search) { {:order => :room, :sort_mode => :asc} }
+
 
 end

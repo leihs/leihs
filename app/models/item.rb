@@ -39,7 +39,7 @@ class Item < ActiveRecord::Base
     indexes :note
 
     #has :is_borrowable, :type => :boolean
-    has :parent_id, :model_id, :location_id, :owner_id, :supplier_id, :inventory_pool_id
+    has :parent_id, :model_id, :location_id, :owner_id, :inventory_pool_id, :supplier_id
     # 0501
     has "retired IS NOT NULL", :as => :retired, :type => :boolean
     

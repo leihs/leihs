@@ -7,7 +7,9 @@ class Template < ModelGroup
   
   define_index do
     indexes :name
-    
+
+    indexes :id # 0501 forcing indexer even if blank attributes, validates_presence_of :name ???
+
     has inventory_pools(:id), :as => :inventory_pool_id
     
     set_property :delta => true

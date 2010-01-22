@@ -9,23 +9,27 @@ class Backend::ModelsController < Backend::BackendController
     params[:sort_mode] ||= 'ASC'
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
+    with = {}
+    scopes = []
     case params[:filter]
-      when "own"
-        models = current_inventory_pool.own_models_active
       when "all"
-        models = Model.all
+      when "own"
+        scopes << :sphinx_active
+        with[:owner_id] = current_inventory_pool.id
       else
-        models = current_inventory_pool.models_active
+        scopes << :sphinx_active
+        with[:inventory_pool_id] = current_inventory_pool.id
     end
 
-    # OPTIMIZE
-    models = models.packages unless params[:packages].blank?
-
-    models &= @model.compatibles if @model
-    models &= @category.all_models if @category
+    scopes << :sphinx_packages unless params[:packages].blank?
+    with[:compatible_id] = @model.id if @model
+    with[:category_id] = @category.self_and_all_child_ids if @category
     
-    @models = models.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
-                                              :order => params[:sort], :sort_mode => params[:sort_mode] }
+    string = "Model"
+    scopes.each {|s| string += ".#{s}"} 
+    @models = eval(string).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+                                                    :with => with,
+                                                    :order => params[:sort], :sort_mode => params[:sort_mode] }
     
     # we are in a greybox
     if params[:source_path]

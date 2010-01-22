@@ -2,6 +2,8 @@ class Category < ModelGroup
 
   define_index do
     indexes :name, :sortable => true
+
+    indexes :id # 0501 forcing indexer even if blank attributes, validates_presence_of :name ???
     
     # TODO 0501 has :parent_id, :child_id
     has inventory_pools(:id), :as => :inventory_pool_id

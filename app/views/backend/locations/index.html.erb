@@ -11,7 +11,7 @@
 					<ul>
 						<% content_tag :li do %>
 							<%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_location_path(current_inventory_pool, location) %>
-						<% end if false #old# %>
+						<% end if false %>
 						<% content_tag :li do %>
 							<%= link_to _("Delete"),
 										{:action => 'destroy', :id => location},
