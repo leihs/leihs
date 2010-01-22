@@ -31,10 +31,7 @@ class ApplicationController < ActionController::Base
   $theme = '00-patterns'
   $layout_public_path = '/layouts/' + $theme
 
-  $per_page = 50 #old# 15 # OPTIMIZE keep per_page in user session?
-  
- 
-
+  $per_page = 50 # OPTIMIZE keep per_page in user session?
  
 ####################################################  
 

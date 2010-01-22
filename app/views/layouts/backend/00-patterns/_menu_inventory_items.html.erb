@@ -7,7 +7,7 @@
 		
 		<% content_tag :li do %>
 			<%= link_to _('Responsible for') + " (#{(current_inventory_pool.items - current_inventory_pool.own_items).size})", backend_inventory_pool_items_path(:filter => 'responsible') %>
-		<% end if false #temp# %>
+		<% end if false %>
 		
 	<% end if controller.controller_name == "items" %>
 </li>

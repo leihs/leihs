@@ -8,21 +8,28 @@ class Backend::ItemsController < Backend::BackendController
     params[:sort_mode] ||= 'ASC'
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
-    retired = false # TODO 0501
-
     if params[:model_id]
       @model = Model.find(params[:model_id])
       items = (current_inventory_pool.items.by_model(@model) + current_inventory_pool.own_items.by_model(@model)).uniq # TODO current_inventory_pool.all_items.by_model(@model)
+      # 0501 working here
+#      sphinx_select = "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a"
+#      with = {:model_id => @model.id, :a => true}
     elsif @location
       items = current_inventory_pool.items.by_location(@location)
+      # 0501 
+#      with = {:location_id => @location.id, :inventory_pool_id => current_inventory_pool.id}
     else
       items = current_inventory_pool.items
+      # 0501 
+#      with = {:inventory_pool_id => current_inventory_pool.id}
     end    
+
+    with = {:retired => false} # TODO 0501
 
     case params[:filter]
       when "retired"
         items = current_inventory_pool.own_items.all(:retired => true)
-        retired = true # TODO 0501
+        with[:retired] = true # TODO 0501
       when "responsible"
         items = (current_inventory_pool.items - current_inventory_pool.own_items)
       when "own_items"
@@ -42,7 +49,9 @@ class Backend::ItemsController < Backend::BackendController
     items.delete_if {|i| not i.packageable? } if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
     
     @items = items.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
-                                            :with => {:retired => retired}, # TODO 0501 default_sphinx_scope
+# 0501 Item.
+#                                            :sphinx_select => sphinx_select,
+                                            :with => with,
                                             :order => params[:sort], :sort_mode => params[:sort_mode],
                                             :include => [:model, :location]}
 

@@ -18,10 +18,15 @@ class ModelGroup < ActiveRecord::Base
   def all_parents
     parents.recursive.to_a
   end
+#  def self_and_all_parent_ids
+#    ([id] + all_parents.collect(&:id)).flatten.uniq # OPTIMIZE flatten and unique really needed?
+#  end
+  def self_and_all_child_ids
+    ([id] + all_children.collect(&:id)).flatten.uniq # OPTIMIZE flatten and unique really 
+  end
 
   # NOTE is now chainable for named_scopes
   def all_models
-    #old# (all_children.collect(&:models) + models).flatten.uniq
     ids = all_children.collect(&:id) << id
     models.by_categories(ids)
   end

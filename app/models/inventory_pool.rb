@@ -100,7 +100,7 @@ class InventoryPool < ActiveRecord::Base
     ["01.01.2009"] #TODO **24** Get the dates from Holidays, put them in the correct format (depends on DatePicker)
   end
   
-  # OPTIMIZE
+  # OPTIMIZE used for extjs
   def items_size(model_id)
     items.borrowable.by_model(model_id).count
   end
@@ -120,20 +120,7 @@ class InventoryPool < ActiveRecord::Base
   def hand_over_visits
     #unless @ho_visits  # OPTIMIZE refresh if new contracts become available
       @ho_visits = []
-      #old#
-      contracts.unsigned.each do |c|
-        c.lines.each do |l|
-          v = @ho_visits.detect { |w| w.user == c.user and w.date == l.start_date }
-          unless v
-            @ho_visits << Event.new(:start => l.start_date, :end => l.end_date, :title => c.user.login, :isDuration => false, :action => "hand_over", :inventory_pool => c.inventory_pool, :user => c.user, :contract_lines => [l])
-          else
-            v.contract_lines << l
-          end
-        end
-      end if false
-      #end old#
 
-      #new#
       ids = contracts.unsigned.collect(&:id)
       lines = ContractLine.all(:conditions => {:contract_id => ids})
 
@@ -145,8 +132,6 @@ class InventoryPool < ActiveRecord::Base
           v.contract_lines << l
         end
       end
-      #end new#
-      
       
       @ho_visits.sort!
     #end
