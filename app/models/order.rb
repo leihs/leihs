@@ -48,14 +48,14 @@ class Order < Document
   named_scope :unsubmitted, :conditions => {:status_const => Order::UNSUBMITTED}
   named_scope :submitted, :conditions => {:status_const => Order::SUBMITTED}, :include => :backup # OPTIMIZE N+1 select problem
   named_scope :approved, :conditions => {:status_const => Order::APPROVED} # TODO 0501 remove
-  # 0501 named_scope :rejected, :conditions => {:status_const => Order::REJECTED}
+  named_scope :rejected, :conditions => {:status_const => Order::REJECTED}
 
   named_scope :by_inventory_pool,  lambda { |inventory_pool| { :conditions => { :inventory_pool_id => inventory_pool } } }
 
 # 0501 rename /sphinx_/ and remove relative named_scope
   sphinx_scope(:sphinx_submitted) { { :with => {:status_const => Order::SUBMITTED}, :include => :backup } }
   sphinx_scope(:sphinx_approved) { { :with => {:status_const => Order::APPROVED} } }
-  sphinx_scope(:rejected) { { :with => {:status_const => Order::REJECTED} } }
+  sphinx_scope(:sphinx_rejected) { { :with => {:status_const => Order::REJECTED} } }
 
 
 #########################################################################

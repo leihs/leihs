@@ -41,7 +41,7 @@
 
 <%
 access_rights = @user.access_rights
-access_rights = access_rights.by_inventory_pool(current_inventory_pool) if current_inventory_pool
+access_rights = access_rights.scoped_by_inventory_pool_id(current_inventory_pool) if current_inventory_pool
 table :records => access_rights do |a| %>	
 
 		<tr>

@@ -6,25 +6,24 @@ class ModelsController < FrontendController
              start = (params[:start] || 0).to_i,
              limit = (params[:limit] || 25).to_i,
              query = params[:query],
-             recent = params[:recent],
              sort = params[:sort] || 'name', # OPTIMIZE 0501
              sort_mode = params[:dir] || 'ASC' ) # OPTIMIZE 0501
     
     sort_mode = sort_mode.downcase.to_sym # OPTIMIZE 0501
-      
-    # OPTIMIZE 21** conditions. avoid +&+ intersections because are breaking paginator, forcing to use Array instead of ActiveRecord
+
+# working here #
+sphinx = true
+
+unless sphinx
     conditions = ["1"] 
     
-    if recent
-      models = current_user.orders.sort.collect(&:models).flatten.uniq[start,limit]
-      models ||= []
-    else
-      models = current_user.models
-      conditions.first << " AND inventory_pools.id IN (?) AND items.is_borrowable = 1 AND items.parent_id IS NULL AND access_rights.level >= items.required_level"
-      conditions << current_inventory_pools 
-    end
+    models = current_user.models
+    conditions.first << " AND inventory_pools.id IN (?)
+                          AND items.is_borrowable = 1
+                          AND items.parent_id IS NULL
+                          AND access_rights.level >= items.required_level"
+    conditions << current_inventory_pools 
 
-    # OPTIMIZE 0907
     if category_id > 0
       category = Category.find(category_id)
       m_ids= (category.children.recursive.to_a << category).collect(&:models).flatten.uniq.collect(&:id)
@@ -32,25 +31,35 @@ class ModelsController < FrontendController
       conditions << m_ids 
     end
 
-    # TODO 09** merge paginate to search
     unless query.blank?
-      # TODO 18** include Templates: models += current_user.templates
       models = models.all(:conditions => conditions)
-      
       @models = models.search query, { :star => true,
                                        :offset => start, :limit => limit,
-                                      # TODO 0501 { :page => params[:page],
-                                      #             :per_page => $per_page,
                                        :order => sort, :sort_mode => sort_mode }
     else
       @models = models.paginate :page => ((start / limit) + 1), :per_page => limit, :order => sanitize_order(sort, sort_mode), :conditions => conditions
-          # OPTIMIZE N+1 select problem, :include => :locations
     end
-    c = @models.total_entries
+  
+else
+  
+    with = {:borrowable_inventory_pool_id => current_inventory_pools.collect(&:id)}
+    # TODO 0501 access_rights.level >= items.required_level
+
+    if category_id > 0
+      category = Category.find(category_id)
+      with[:category_id] = category.self_and_all_child_ids
+    end
+
+    # TODO 0501 only search on "frontend_model" index
+    @models = Model.search query, { :star => true,
+                                    :offset => start, :limit => limit, # :page => (start / limit) + 1, :per_page => limit,
+                                    :with => with,
+                                    :order => sort, :sort_mode => sort_mode }
+end
 
     respond_to do |format|
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
-                                                            :count => c,
+                                                            :count => @models.total_entries,
                                                             :methods => :image_thumb,
                                                             :except => [ :internal_description,
                                                                          :info_url,

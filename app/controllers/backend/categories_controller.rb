@@ -8,6 +8,7 @@ class Backend::CategoriesController < Backend::BackendController
     params[:sort_mode] ||= 'ASC'
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
+# working here #
     if @category
       # TODO 12** optimize filter
       categories =  if request.env['REQUEST_URI'].include?("parents")

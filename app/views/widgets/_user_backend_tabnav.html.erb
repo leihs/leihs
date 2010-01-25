@@ -20,7 +20,7 @@ render_tabnav :user_backend,
 
 	add_tab do |t|
 		access_rights = @user.access_rights
-		access_rights = access_rights.by_inventory_pool(current_inventory_pool) if current_inventory_pool
+		access_rights = access_rights.scoped_by_inventory_pool_id(current_inventory_pool) if current_inventory_pool
 		t.named _("Access Rights (%d)") % access_rights.count
 		t.links_to polymorphic_path([:access_rights, :backend, current_inventory_pool, @user].compact, :layout => params[:layout])
 		t.highlights_on :controller => 'backend/users', :action => 'access_rights'

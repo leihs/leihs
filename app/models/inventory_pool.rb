@@ -75,7 +75,7 @@ class InventoryPool < ActiveRecord::Base
 
     has access_rights(:user_id), :as => :user_id
 
-    # 0501 set_property :order => :name
+    # set_property :order => :name
     set_property :delta => true
   end
 
