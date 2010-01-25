@@ -9,7 +9,6 @@ class Backend::UsersController < Backend::BackendController
     params[:sort_mode] ||= 'ASC'
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
-# working here #
     with = {}
     without = {}
 
@@ -24,15 +23,13 @@ class Backend::UsersController < Backend::BackendController
 ##        users = User.all - current_inventory_pool.users
         without.merge!(:inventory_pool_id => current_inventory_pool.id)
       when "suspended_users"
-# FIXME 0501
-        users = current_inventory_pool.suspended_users
-#        with.merge!(:suspended_inventory_pool_id => current_inventory_pool.id)
+##        users = current_inventory_pool.suspended_users
+        with.merge!(:suspended_inventory_pool_id => current_inventory_pool.id)
       else
 ##        users = (current_inventory_pool ? current_inventory_pool.users : User)
         with.merge!(:inventory_pool_id => current_inventory_pool.id) if current_inventory_pool
     end
 
-    # TODO 0501
     @users = (users ? users : User).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
                                            :with => with, :without => without,
                                            :order => params[:sort], :sort_mode => params[:sort_mode] }
