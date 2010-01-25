@@ -10,7 +10,9 @@ class Model < ActiveRecord::Base
   end
 
   has_many :items
-  has_many :active_items, :class_name => "Item", :conditions => {:retired => nil}
+  has_many :unretired_items, :class_name => "Item", :conditions => {:retired => nil}
+  has_many :borrowable_items, :class_name => "Item", :conditions => {:retired => nil, :is_borrowable => true, :parent_id => nil}
+  
   has_many :locations, :through => :items, :uniq => true  # OPTIMIZE N+1 select problem, :include => :inventory_pools
   has_many :inventory_pools, :through => :items, :uniq => true
   
@@ -94,18 +96,30 @@ class Model < ActiveRecord::Base
     indexes items(:inventory_code), :as => :items_inventory_codes
     
     has :is_package
-    has items(:inventory_pool_id), :as => :inventory_pool_id
-    has items(:owner_id), :as => :owner_id
-    has active_items(:id), :as => :active_item_id
     has compatibles(:id), :as => :compatible_id
     has categories(:id), :as => :category_id
+#    has items(:inventory_pool_id), :as => :inventory_pool_id
+#    has items(:owner_id), :as => :owner_id
+    has unretired_items(:inventory_pool_id), :as => :unretired_inventory_pool_id
+    has unretired_items(:owner_id), :as => :unretired_owner_id
+#    has borrowable_items(:inventory_pool_id), :as => :borrowable_inventory_pool_id
     
-    # 0501 set_property :order => :name
+    # set_property :order => :name
     set_property :delta => true
   end
 
-# working here #
-  sphinx_scope(:sphinx_active) { {:without => {:active_item_id => 0}} }
+  define_index "frontend_model" do
+    indexes :name, :sortable => true
+    indexes :manufacturer, :sortable => true
+    
+    has :is_package
+    has categories(:id), :as => :category_id
+    has borrowable_items(:inventory_pool_id), :as => :borrowable_inventory_pool_id
+    
+    set_property :delta => true
+  end
+
+#old#  sphinx_scope(:sphinx_active) { {:without => {:active_item_id => 0}} }
   sphinx_scope(:sphinx_packages) { {:with => {:is_package => true}} }
 
 #############################################  

@@ -31,14 +31,12 @@
 										:class => "iconized-notxt edit-user" ) %>
 							</td>
 						</tr>
-						<% if @order.user.suspended_inventory_pools.count > 0 %>
-						<tr>
+						<% content_tag :td do %>
 							<td style="background-color: #EDF09F"><%= _("Currently suspended at:") %></td>
 							<td style="background-color: #EDF09F">
-							<%= @order.user.suspended_inventory_pools.join(", ") %>
+								<%= @order.user.suspended_inventory_pools.join(", ") %>
 							</td>
-						</tr>
-						<% end %>
+						<% end unless @order.user.suspended_inventory_pools.empty? %>
 						<tr class="alt-row">
 							<td><%= _("Time window") %>:</td>
 							<td><%= dates_with_period(@order.time_window_min, @order.time_window_max) %></td>

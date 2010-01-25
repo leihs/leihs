@@ -11,15 +11,14 @@
 				<%= icon_tag('package') if item.model.is_package? %>
 			</td>
 			<td><%= item.model.name %>
-			<% if item.parent %>
-				<br/><%= _("Part of:") %>
-				<%= link_to(item.parent.model.name, :controller => 'models', :action => 'show', :id => item.parent.model.id) %>
-			<% end %>
-
+				<% if item.parent %>
+					<br/><%= _("Part of:") %>
+					<%= link_to(item.parent.model.name, :controller => 'models', :action => 'show', :id => item.parent.model.id) %>
+				<% end %>
 			</td>
 			<td><%= item.inventory_code %></td>
 			<td>
-				<% if item.inventory_pool != current_inventory_pool %>
+				<% if item.inventory_pool_id != current_inventory_pool.id %>
 					<%= item.inventory_pool %>
 					<br/>
 				<% end %>
@@ -42,15 +41,15 @@
 				end %>
 			</td>
 			<td>
-				<% if item.in_stock? %>
+				<% if item.in_stock? %><%# OPTIMIZE 0501 performance: named_scope or sphinx_scope in_stock?(item) %>
 					<%= icon_tag('accept') %>
 				<% else %>
-						<%= item.current_borrowing_info %>
+					<%= item.current_borrowing_info %>
 				<% end %>
 			</td>
 			<td class="buttons">
 				<%= link_to icon_tag("magnifier") + _("Show"), record_path %>
-				<% if is_privileged_user? and item.owner == current_inventory_pool %>
+				<% if is_privileged_user? and item.owner_id == current_inventory_pool.id %>
 					<% action = (item.retired ? _("Unretire") : _("Retire")) %>
 					<%= greybox_link action, retire_backend_inventory_pool_model_item_path(current_inventory_pool, item.model_id, item) %>
 				<% end %>

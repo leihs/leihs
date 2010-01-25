@@ -22,7 +22,7 @@ class ModelGroup < ActiveRecord::Base
 #    ([id] + all_parents.collect(&:id)).flatten.uniq # OPTIMIZE flatten and unique really needed?
 #  end
   def self_and_all_child_ids
-    ([id] + all_children.collect(&:id)).flatten.uniq # OPTIMIZE flatten and unique really 
+    ([id] + all_children.collect(&:id)).flatten.uniq # OPTIMIZE flatten and unique really needed?
   end
 
   # NOTE is now chainable for named_scopes

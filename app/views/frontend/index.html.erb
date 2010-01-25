@@ -31,7 +31,6 @@
 		<%= render :partial => 'templates' %>
 		<%= render :partial => 'inventory_pools' %>
 		<%= render :partial => 'models' %>
-		<%# TODO: Caused problems in IE = render :partial => 'recent_models' %>
 		<%= render :partial => 'complete_order' %>
 		<%= render :partial => 'basket' %>
 		<%= render :partial => 'splash_page' if FRONTEND_SPLASH_PAGE %>
@@ -84,18 +83,7 @@
                     layoutConfig:{
                         animate:true
                     },
-                    items: [categories_panel, templates_panel, inventory_pools
-						//TODO - didn't work on IE,{ // TODO refactor to _recent_models.html.erb
-//	                        title: '<%= _("Recent Models") %>',
-//	                        border: false,
-//							listeners: {
-//								expand: function(e){
-//									recent_models_store.load({params:{start:0, limit:5, recent:true}});
-//								}
-//							},
-//							items: recent_models
-//	                    }
-						]
+                    items: [categories_panel, templates_panel, inventory_pools]
                 }, centerPanel = {
 					xtype: 'panel',
 					region: 'center',
@@ -116,7 +104,6 @@
   <% end %>  
   
 	<div id="model_list"></div>
-	<div id="recent_models"></div>
 		
 	<div id="north"></div>	
 	        

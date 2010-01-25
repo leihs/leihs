@@ -10,7 +10,7 @@
 				<td>
 					<% content_tag :ul do
 						access_rights = user.access_rights
-						access_rights = access_rights.by_inventory_pool(current_inventory_pool) if current_inventory_pool
+						access_rights = access_rights.scoped_by_inventory_pool_id(current_inventory_pool) if current_inventory_pool
 						access_rights.each do |a|
 							content_tag :li do %>
 								<%= a.to_s %>

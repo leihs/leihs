@@ -16,7 +16,7 @@ content_tag :li do %>
 		content_tag :li do %>
 			<%= link_to _('Rejected') + " (#{current_inventory_pool.orders.rejected.count})", backend_inventory_pool_orders_path(current_inventory_pool, :filter => 'rejected') %>
 			<%# OPTIMIZE 0501 search_count %>
-			<%#= link_to _('Rejected') + " (#{Order.rejected.search(:with => with).total_entries})", backend_inventory_pool_orders_path(current_inventory_pool, :filter => 'rejected') %>
+			<%#= link_to _('Rejected') + " (#{Order.sphinx_rejected.search(:with => with).total_entries})", backend_inventory_pool_orders_path(current_inventory_pool, :filter => 'rejected') %>
 		<% end
 	end if controller.controller_name == "orders"
 end

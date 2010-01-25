@@ -143,27 +143,35 @@ class Backend::BackendController < ApplicationController
     ####### Helper Methods #######
 
 	  def is_admin?
-    	current_user.has_role?('admin')
+    	#@is_admin ||=
+      current_user.has_role?('admin')
   	end
 
     def is_privileged_user?
-      has_at_least_access_level(2) and is_owner?
+      #@is_privileged_user ||=
+      (has_at_least_access_level(2) and is_owner?)
     end
     
     def is_super_user?
-      is_inventory_manager? and is_owner?
+      #@is_super_user ||=
+      (is_inventory_manager? and is_owner?)
     end
     
     def is_inventory_manager?
-      has_at_least_access_level 3
+      #@is_inventory_manager ||=
+      has_at_least_access_level(3)
     end
     
     def is_lending_manager?(inventory_pool = current_inventory_pool)
-      has_at_least_access_level 2, inventory_pool
+      #@is_lending_manager ||= []
+      #@is_lending_manager[inventory_pool] ||=
+      has_at_least_access_level(2, inventory_pool)
     end
     
     def is_apprentice?(inventory_pool = current_inventory_pool)
-      has_at_least_access_level 1, inventory_pool
+      #@is_apprentice ||= []
+      #@is_apprentice[inventory_pool] ||=
+      has_at_least_access_level(1, inventory_pool)
     end
     
 

@@ -30,6 +30,9 @@ class Item < ActiveRecord::Base
   define_index do
     # 0501 where "retired IS NULL"
     
+    # 0501 where "parent_id IS NULL"
+    # 0501 indexes childen...
+    
     indexes :inventory_code, :sortable => true
     indexes :serial_number #, :sortable => true
     indexes model(:name), :as => :model_name, :sortable => true 
@@ -38,37 +41,27 @@ class Item < ActiveRecord::Base
     indexes :invoice_number
     indexes :note
 
-    #has :is_borrowable, :type => :boolean
+    has :is_borrowable, :is_broken, :is_incomplete, :is_inventory_relevant, :type => :boolean
     has :parent_id, :model_id, :location_id, :owner_id, :inventory_pool_id, :supplier_id
+    has "items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) AND parent_id IS NULL", :as => :in_stock, :type => :boolean
+#    has "items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)", :as => :not_in_stock, :type => :boolean
     # 0501
     has "retired IS NOT NULL", :as => :retired, :type => :boolean
     
-    # 0501 set_property :order => :model_name
+    # set_property :order => :model_name
     set_property :delta => true
   end
   
 #temp#
 #  define_index "retired_item" do
 #    where "retired IS NOT NULL"
-#    
-#    indexes :inventory_code, :sortable => true
-#    indexes :serial_number #, :sortable => true
-#    indexes model(:name), :as => :model_name, :sortable => true 
-#    indexes model(:manufacturer), :as => :model_manufacturer #, :sortable => true
-#    indexes inventory_pool(:name), :as => :inventory_pool_name #, :sortable => true 
-#    #indexes :is_borrowable, :sortable => true
-#    
-#    has :parent_id, :model_id, :location_id, :owner_id, :supplier_id, :inventory_pool_id
-#    # 0501 has "retired IS NOT NULL", :as => :retired, :type => :boolean
-#    
-#    # 0501 set_property :order => :model_name
-#    set_property :delta => true
+#    ...
 #  end
 
   # TODO 0501 doesn't work!
 #  default_sphinx_scope :default_search
 #  sphinx_scope(:default_search) { {:with => {:retired => false}} }
-#  sphinx_scope(:retired) { {:with => {:retired => true}} }
+  sphinx_scope(:retired) { {:with => {:retired => true}} }
 
 ####################################################################
 # preventing delete
@@ -133,12 +126,12 @@ class Item < ActiveRecord::Base
   named_scope :packages, :conditions => ['items.id IN (SELECT DISTINCT parent_id FROM items WHERE retired IS NULL)']
   #temp# named_scope :packaged, :conditions => "parent_id IS NOT NULL"
   
-  #Added parent_id to "in_stock" so items that are in packages are considered to not be available
+  # Added parent_id to "in_stock" so items that are in packages are considered to not be available
   named_scope :in_stock, :conditions => ['items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) AND parent_id IS NULL']
   named_scope :not_in_stock, :conditions => ['items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)']
 
+  # OPTIMIZE 0501 scoped_by_model_id
   named_scope :by_model, lambda { |model| { :conditions => { :model_id => model } } }
-  named_scope :by_location, lambda { |location| { :conditions => { :location_id => location } } }
 
 ####################################################################
 
@@ -180,6 +173,7 @@ class Item < ActiveRecord::Base
     code
   end
 
+  # OPTIMIZE 0501 performance: named_scope or sphinx_scope in_stock?(self)
   def in_stock?(contract_line_id = nil)
     if contract_line_id
       return contract_lines.to_take_back.count(:conditions => ["contract_lines.id != ?", contract_line_id]) == 0

@@ -14,11 +14,9 @@ class Backend::ModelsController < Backend::BackendController
     case params[:filter]
       when "all"
       when "own"
-        scopes << :sphinx_active
-        with[:owner_id] = current_inventory_pool.id
+        with[:unretired_owner_id] = current_inventory_pool.id
       else
-        scopes << :sphinx_active
-        with[:inventory_pool_id] = current_inventory_pool.id
+        with[:unretired_inventory_pool_id] = current_inventory_pool.id
     end
 
     scopes << :sphinx_packages unless params[:packages].blank?

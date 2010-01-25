@@ -7,12 +7,12 @@ class Backend::OrdersController < Backend::BackendController
     with[:user_id] = @user.id if @user
              
     scope = case params[:filter]
-                when "submitted"
-                  :sphinx_submitted
                 when "approved"
                   :sphinx_approved
                 when "rejected"
-                  :rejected
+                  :sphinx_rejected
+                else
+                  :sphinx_submitted
               end
     
     @orders = Order.send(scope).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,

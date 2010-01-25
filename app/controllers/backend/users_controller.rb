@@ -9,6 +9,10 @@ class Backend::UsersController < Backend::BackendController
     params[:sort_mode] ||= 'ASC'
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
+# working here #
+    with = {}
+    without = {}
+
     case params[:filter]
       when "admins"
         users = User.admins
@@ -17,15 +21,19 @@ class Backend::UsersController < Backend::BackendController
       when "customers"
         users = current_inventory_pool.customers
       when "unknown"
-        users = User.all - current_inventory_pool.users
+##        users = User.all - current_inventory_pool.users
+        without.merge!(:inventory_pool_id => current_inventory_pool.id)
       when "suspended_users"
         users = current_inventory_pool.suspended_users
       else
-        users = (current_inventory_pool ? current_inventory_pool.users : User)
+##        users = (current_inventory_pool ? current_inventory_pool.users : User)
+        with.merge!(:inventory_pool_id => current_inventory_pool.id) if current_inventory_pool
     end
 
-    @users = users.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
-                                            :order => params[:sort], :sort_mode => params[:sort_mode] }
+    # TODO 0501
+    @users = (users ? users : User).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+                                           :with => with, :without => without,
+                                           :order => params[:sort], :sort_mode => params[:sort_mode] }
   end
 
   def show

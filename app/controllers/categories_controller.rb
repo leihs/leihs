@@ -1,7 +1,8 @@
 class CategoriesController < FrontendController
 
   def index
-    
+
+# working here #    
     # OPTIMIZE 0907
     if params[:category_id]
       id = params[:category_id].to_i

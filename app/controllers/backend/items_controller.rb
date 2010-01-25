@@ -8,52 +8,60 @@ class Backend::ItemsController < Backend::BackendController
     params[:sort_mode] ||= 'ASC'
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
+    with = {:retired => false}
+#    without = {}
+    
     if params[:model_id]
-      @model = Model.find(params[:model_id])
-      items = (current_inventory_pool.items.by_model(@model) + current_inventory_pool.own_items.by_model(@model)).uniq # TODO current_inventory_pool.all_items.by_model(@model)
-      # 0501 working here
-#      sphinx_select = "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a"
-#      with = {:model_id => @model.id, :a => true}
+      sphinx_select = "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a"
+      with.merge!(:model_id => @model.id, :a => true)
     elsif @location
-      items = current_inventory_pool.items.by_location(@location)
-      # 0501 
-#      with = {:location_id => @location.id, :inventory_pool_id => current_inventory_pool.id}
-    else
-      items = current_inventory_pool.items
-      # 0501 
-#      with = {:inventory_pool_id => current_inventory_pool.id}
+      with.merge!(:location_id => @location.id, :inventory_pool_id => current_inventory_pool.id)
     end    
 
-    with = {:retired => false} # TODO 0501
-
+# working here #
     case params[:filter]
       when "retired"
-        items = current_inventory_pool.own_items.all(:retired => true)
-        with[:retired] = true # TODO 0501
-      when "responsible"
-        items = (current_inventory_pool.items - current_inventory_pool.own_items)
+##        items = current_inventory_pool.own_items.all(:retired => true)
+        with.merge!(:owner_id => current_inventory_pool.id, :retired => true)
+        # TODO 0501 Item.find(:retired => true)
       when "own_items"
-        items = current_inventory_pool.own_items
+        with.merge!(:owner_id => current_inventory_pool.id)
       when "inventory_relevant"
-        items = current_inventory_pool.own_items.inventory_relevant
+        with.merge!(:owner_id => current_inventory_pool.id, :is_inventory_relevant => true)
       when "not_inventory_relevant"
-        items = current_inventory_pool.own_items.not_inventory_relevant
+        with.merge!(:owner_id => current_inventory_pool.id, :is_inventory_relevant => false)
       when "unallocated"
-        items = current_inventory_pool.own_items.unallocated
-      else        
-        filter = params[:filter].to_sym
-        filters = Item.scopes.keys #['in_stock', 'not_in_stock', 'broken', 'incomplete', 'unborrowable']
-        items = items.send(filter) if filters.include?(filter)
-    end if params[:filter]
+        with.merge!(:owner_id => current_inventory_pool.id, :inventory_pool_id => 0)
+#      when "responsible"
+###        items = (current_inventory_pool.items - current_inventory_pool.own_items)
+#        with.merge!(:inventory_pool_id => current_inventory_pool.id)
+#        without.merge!(:owner_id => current_inventory_pool.id)
+      when "in_stock"
+##        items = current_inventory_pool.items.in_stock
+        with.merge!(:inventory_pool_id => current_inventory_pool.id, :in_stock => true)
+      when "not_in_stock"
+##        items = current_inventory_pool.items.not_in_stock
+        with.merge!(:inventory_pool_id => current_inventory_pool.id, :in_stock => false)
+      when "broken"
+        with.merge!(:inventory_pool_id => current_inventory_pool.id, :is_broken => true)
+      when "incomplete"
+        with.merge!(:inventory_pool_id => current_inventory_pool.id, :is_incomplete => true)
+      when "unborrowable"
+        with.merge!(:inventory_pool_id => current_inventory_pool.id, :is_borrowable => false)
+      else
+        with.merge!(:inventory_pool_id => current_inventory_pool.id)
+    end
 
-    items.delete_if {|i| not i.packageable? } if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
+## TODO 0501    items.delete_if {|i| not i.packageable? } if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
     
-    @items = items.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
-# 0501 Item.
-#                                            :sphinx_select => sphinx_select,
-                                            :with => with,
-                                            :order => params[:sort], :sort_mode => params[:sort_mode],
-                                            :include => [:model, :location]}
+##    @items = items.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+    @items = Item.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+                                           :sphinx_select => sphinx_select,
+                                           :with => with, #:without => without,
+                                           :order => params[:sort], :sort_mode => params[:sort_mode],
+                                           :include => { :model => nil,
+                                                         :location => :building,
+                                                         :parent => :model } }
 
     respond_to do |format|
       format.html

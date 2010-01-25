@@ -29,6 +29,10 @@ class Location < ActiveRecord::Base
 
 #################################################################
 
+  default_scope :include => :building
+
+#################################################################
+
   define_index do
     indexes :room, :sortable => true
     indexes :shelf, :sortable => true
@@ -39,7 +43,7 @@ class Location < ActiveRecord::Base
     has :building_id
     has items(:inventory_pool_id), :as => :inventory_pool_id
 
-    # 0501 set_property :order => :room
+    # set_property :order => :room
     set_property :delta => true
   end
 

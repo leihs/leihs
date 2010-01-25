@@ -3,10 +3,12 @@
 	<% content_tag :ul do
 		content_tag :li do %>
 			<%= link_to _('Own Models') + " (#{current_inventory_pool.own_models_active.count})", backend_inventory_pool_models_path(:filter => 'own') %>
+			<%# OPTIMIZE 0501 search_count %>
 		<% end
 	end if controller.controller_name == "models"
-end %>
+end
 
-<% content_tag :li do %>
+content_tag :li do %>
 	<%= link_to icon_tag("box") + " " + _('Own Packages') + " (#{current_inventory_pool.own_models_active.packages.count})", backend_inventory_pool_models_path(current_inventory_pool, :filter => 'own', :packages => true) %>
+	<%# OPTIMIZE 0501 search_count %>
 <% end %>
