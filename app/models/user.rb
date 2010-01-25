@@ -5,13 +5,13 @@ class User < ActiveRecord::Base
   belongs_to :authentication_system
   belongs_to :language
   
-  has_many :access_rights, :include => :role, :conditions => {:deleted_at => nil} # OPTIMIZE N+1 select problem
-  has_many :deleted_access_rights, :class_name => "AccessRight", :include => :role, :conditions => 'deleted_at is not null' # OPTIMIZE N+1 select problem
+  has_many :access_rights, :include => :role, :conditions => "access_rights.deleted_at IS NULL" #{:deleted_at => nil}
+  has_many :deleted_access_rights, :class_name => "AccessRight", :include => :role, :conditions => 'deleted_at IS NOT NULL'
   has_many :all_access_rights, :class_name => "AccessRight", :dependent => :delete_all, :include => :role
   
   has_many :inventory_pools, :through => :access_rights, :uniq => true
   has_many :active_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => { :access_rights => {:suspended_at => nil}}
-  has_many :suspended_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "access_rights.suspended_at is not null"
+  has_many :suspended_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "access_rights.suspended_at IS NOT NULL"
   
   # TODO 29** has_many :managed_inventory_pools
   has_many :items, :through => :inventory_pools, :uniq => true # (nested)
@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
     
     has access_rights(:inventory_pool_id), :as => :inventory_pool_id
     # has active_inventory_pools(:id), :as => :active_inventory_pool_id
-    # has suspended_inventory_pools(:id), :as => :suspended_inventory_pool_id
+    has suspended_inventory_pools(:id), :as => :suspended_inventory_pool_id
     
     #temp# has "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id", :as => :is_admin, :type => :boolean
     #temp# has access_rights.role(:name), :type => :string, :as => :role_name
