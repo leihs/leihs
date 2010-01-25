@@ -10,6 +10,7 @@ class Backend::ItemsController < Backend::BackendController
 
     with = {:retired => false}
 #    without = {}
+    retired = nil
     
     if params[:model_id]
       sphinx_select = "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a"
@@ -18,12 +19,10 @@ class Backend::ItemsController < Backend::BackendController
       with.merge!(:location_id => @location.id, :inventory_pool_id => current_inventory_pool.id)
     end    
 
-# working here #
     case params[:filter]
       when "retired"
-##        items = current_inventory_pool.own_items.all(:retired => true)
         with.merge!(:owner_id => current_inventory_pool.id, :retired => true)
-        # TODO 0501 Item.find(:retired => true)
+        retired = true
       when "own_items"
         with.merge!(:owner_id => current_inventory_pool.id)
       when "inventory_relevant"
@@ -36,12 +35,12 @@ class Backend::ItemsController < Backend::BackendController
 ###        items = (current_inventory_pool.items - current_inventory_pool.own_items)
 #        with.merge!(:inventory_pool_id => current_inventory_pool.id)
 #        without.merge!(:owner_id => current_inventory_pool.id)
-      when "in_stock"
-##        items = current_inventory_pool.items.in_stock
-        with.merge!(:inventory_pool_id => current_inventory_pool.id, :in_stock => true)
-      when "not_in_stock"
-##        items = current_inventory_pool.items.not_in_stock
-        with.merge!(:inventory_pool_id => current_inventory_pool.id, :in_stock => false)
+#      when "in_stock"
+###        items = current_inventory_pool.items.in_stock
+#        with.merge!(:inventory_pool_id => current_inventory_pool.id, :in_stock => true)
+#      when "not_in_stock"
+###        items = current_inventory_pool.items.not_in_stock
+#        with.merge!(:inventory_pool_id => current_inventory_pool.id, :in_stock => false)
       when "broken"
         with.merge!(:inventory_pool_id => current_inventory_pool.id, :is_broken => true)
       when "incomplete"
@@ -52,12 +51,11 @@ class Backend::ItemsController < Backend::BackendController
         with.merge!(:inventory_pool_id => current_inventory_pool.id)
     end
 
-## TODO 0501    items.delete_if {|i| not i.packageable? } if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
+## FIXME 0501    items.delete_if {|i| not i.packageable? } if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
     
-##    @items = items.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
     @items = Item.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
                                            :sphinx_select => sphinx_select,
-                                           :with => with, #:without => without,
+                                           :with => with, :retired => retired, #:without => without,
                                            :order => params[:sort], :sort_mode => params[:sort_mode],
                                            :include => { :model => nil,
                                                          :location => :building,

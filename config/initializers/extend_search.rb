@@ -51,7 +51,7 @@ module ActiveRecord
         options[:per_page] ||= 15
         
         options[:with] ||= {}
-        options[:with][:sphinx_internal_id] = find_for_ids #old# collect(&:id) 
+        options[:with][:sphinx_internal_id] = find_for_ids 
         
         args << options
         class_name.constantize.search(*args)
@@ -115,40 +115,53 @@ module ThinkingSphinx
   
   end
 
-#old#
-#  class Search
-#    def populate
-#      return if @populated
-#      @populated = true
-#      
-#      retry_on_stale_index do
-#        begin
-#          log "Querying: '#{query}'"
-#          runtime = Benchmark.realtime {
-#            @results = client.query query, indexes, comment
-#          }
-#          log "Found #{@results[:total_found]} results", :debug,
-#            "Sphinx (#{sprintf("%f", runtime)}s)"
-#        rescue Errno::ECONNREFUSED => err
-#          raise ThinkingSphinx::ConnectionError,
-#            'Connection to Sphinx Daemon (searchd) failed.'
-#        end
-#      
-#        if options[:ids_only]
-#          replace @results[:matches].collect { |match|
-#            match[:attributes]["sphinx_internal_id"]
-#          }
-#        else
-#          # sellittf patch start # TODO 0501 prevent nil elements, but total_entries is still wrong!
-#          replace instances_from_matches.compact
-#          # sellittf patch end #
-#          add_excerpter
-#          add_sphinx_attributes
-#          add_matching_fields if client.rank_mode == :fieldmask
-#        end
-#      end
-#    end
-#  end
+  class Search
+    def instances_from_class(klass, matches)
+      index_options = klass.sphinx_index_options
+
+      ids = matches.collect { |match| match[:attributes]["sphinx_internal_id"] }
+      
+      #sellittf#
+      if klass == Item
+        instances = ids.length > 0 ? klass.find(
+          :all,
+          :joins      => options[:joins],
+          :conditions => {klass.primary_key_for_sphinx.to_sym => ids},
+          :include    => (options[:include] || index_options[:include]),
+          :select     => (options[:select]  || index_options[:select]),
+          :retired    => options[:retired], #sellittf#
+          :order      => (options[:sql_order] || index_options[:sql_order])
+        ) : []
+      else
+       instances = ids.length > 0 ? klass.find(
+          :all,
+          :joins      => options[:joins],
+          :conditions => {klass.primary_key_for_sphinx.to_sym => ids},
+          :include    => (options[:include] || index_options[:include]),
+          :select     => (options[:select]  || index_options[:select]),
+          :order      => (options[:sql_order] || index_options[:sql_order])
+        ) : []
+      end
+
+      # Raise an exception if we find records in Sphinx but not in the DB, so
+      # the search method can retry without them. See 
+      # ThinkingSphinx::Search.retry_search_on_stale_index.
+      if options[:raise_on_stale] && instances.length < ids.length
+        stale_ids = ids - instances.map { |i| i.id }
+        raise StaleIdsException, stale_ids
+      end
+
+      # if the user has specified an SQL order, return the collection
+      # without rearranging it into the Sphinx order
+      return instances if (options[:sql_order] || index_options[:sql_order])
+
+      ids.collect { |obj_id|
+        instances.detect do |obj|
+          obj.primary_key_for_sphinx == obj_id
+        end
+      }
+    end
+  end
 
   # TODO 0501
   # forces lower case index, providing case insensitive sorting

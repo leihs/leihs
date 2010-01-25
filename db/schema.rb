@@ -88,8 +88,8 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.string   "title",            :limit => 50
     t.text     "comment"
     t.datetime "created_at"
-    t.integer  "commentable_id",                                 :null => false
-    t.string   "commentable_type",               :default => "", :null => false
+    t.integer  "commentable_id",                 :null => false
+    t.string   "commentable_type",               :null => false
     t.integer  "user_id"
   end
 
@@ -110,11 +110,32 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.string   "type",          :default => "ItemLine", :null => false
   end
 
-  add_index "contract_lines", ["contract_id"], :name => "fk_contract_lines_contract_id"
-  add_index "contract_lines", ["item_id"], :name => "fk_contract_lines_item_id"
-  add_index "contract_lines", ["location_id"], :name => "fk_contract_lines_location_id"
-  add_index "contract_lines", ["model_id"], :name => "fk_contract_lines_model_id"
-  add_index "contract_lines", ["option_id"], :name => "fk_contract_lines_option_id"
+  add_index "contract_lines", ["contract_id"], :name => "contract_lines_contract_id"
+  add_index "contract_lines", ["item_id"], :name => "contract_lines_item_id"
+  add_index "contract_lines", ["location_id"], :name => "contract_lines_location_id"
+  add_index "contract_lines", ["model_id"], :name => "contract_lines_model_id"
+  add_index "contract_lines", ["option_id"], :name => "contract_lines_option_id"
+
+  create_table "contract_lines_old", :force => true do |t|
+    t.integer  "contract_id"
+    t.integer  "item_id"
+    t.integer  "model_id"
+    t.integer  "location_id"
+    t.integer  "quantity",      :default => 1
+    t.date     "start_date"
+    t.date     "end_date"
+    t.date     "returned_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "option_id"
+    t.string   "type",          :default => "ItemLine", :null => false
+  end
+
+  add_index "contract_lines_old", ["contract_id"], :name => "fk_contract_lines_contract_id"
+  add_index "contract_lines_old", ["item_id"], :name => "fk_contract_lines_item_id"
+  add_index "contract_lines_old", ["location_id"], :name => "fk_contract_lines_location_id"
+  add_index "contract_lines_old", ["model_id"], :name => "fk_contract_lines_model_id"
+  add_index "contract_lines_old", ["option_id"], :name => "fk_contract_lines_option_id"
 
   create_table "contracts", :force => true do |t|
     t.integer  "user_id"
@@ -127,8 +148,10 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.boolean  "delta",             :default => true
   end
 
+  add_index "contracts", ["inventory_pool_id"], :name => "fk_contracts_inventory_pool_id"
   add_index "contracts", ["inventory_pool_id"], :name => "index_contracts_on_inventory_pool_id"
   add_index "contracts", ["status_const"], :name => "index_contracts_on_status_const"
+  add_index "contracts", ["user_id"], :name => "fk_contracts_user_id"
   add_index "contracts", ["user_id"], :name => "index_contracts_on_user_id"
 
   create_table "database_authentications", :force => true do |t|
@@ -145,7 +168,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.integer  "type_const"
     t.datetime "created_at",                  :null => false
     t.integer  "target_id",                   :null => false
-    t.string   "target_type", :default => "", :null => false
+    t.string   "target_type",                 :null => false
     t.integer  "user_id"
   end
 
@@ -277,7 +300,7 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
   add_index "model_links", ["model_id"], :name => "index_model_links_on_model_id"
 
   create_table "models", :force => true do |t|
-    t.string   "name",                                               :default => "",    :null => false
+    t.string   "name",                                                                  :null => false
     t.string   "manufacturer"
     t.string   "description"
     t.string   "internal_description"

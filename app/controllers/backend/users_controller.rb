@@ -24,7 +24,9 @@ class Backend::UsersController < Backend::BackendController
 ##        users = User.all - current_inventory_pool.users
         without.merge!(:inventory_pool_id => current_inventory_pool.id)
       when "suspended_users"
+# FIXME 0501
         users = current_inventory_pool.suspended_users
+#        with.merge!(:suspended_inventory_pool_id => current_inventory_pool.id)
       else
 ##        users = (current_inventory_pool ? current_inventory_pool.users : User)
         with.merge!(:inventory_pool_id => current_inventory_pool.id) if current_inventory_pool
