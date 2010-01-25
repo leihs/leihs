@@ -109,6 +109,8 @@ class Model < ActiveRecord::Base
   end
 
   define_index "frontend_model" do
+    # where "is_package = 1"
+    
     indexes :name, :sortable => true
     indexes :manufacturer, :sortable => true
     

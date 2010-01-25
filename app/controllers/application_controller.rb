@@ -68,11 +68,5 @@ class ApplicationController < ActionController::Base
     end
     super
   end
-
-  # TODO 0501 remove
-  def sanitize_order(*values)
-    statement = "%s %s"
-    statement % values.collect { |value| User.connection.quote_string(value.to_s) }
-  end
   
 end

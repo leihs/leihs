@@ -25,7 +25,8 @@ class Backend::ModelsController < Backend::BackendController
     
     string = "Model"
     scopes.each {|s| string += ".#{s}"} 
-    @models = eval(string).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+    @models = eval(string).search params[:query], { :index => "model",
+                                                    :star => true, :page => params[:page], :per_page => $per_page,
                                                     :with => with,
                                                     :order => params[:sort], :sort_mode => params[:sort_mode] }
     
@@ -171,11 +172,11 @@ class Backend::ModelsController < Backend::BackendController
   end
   
   def get_root_items
-        @root_items = case params[:filter]
+    @root_items = case params[:filter]
                     when "own"
-                      current_inventory_pool.own_items.by_model(@model)
+                      current_inventory_pool.own_items.scoped_by_model_id(@model)
                     else
-                      current_inventory_pool.items.by_model(@model)
+                      current_inventory_pool.items.scoped_by_model_id(@model)
                   end
   end
 
