@@ -59,10 +59,12 @@ Rails::Initializer.run do |config|
   # Run "rake -D time" for a list of tasks for finding time zone names.
   config.time_zone = 'Bern'
 
-#  config.gem "gettext", :version => '>= 2.1.0'
-#  config.gem "gettext_activerecord", :version => '>= 2.1.0'
+  config.gem "locale"
+  config.gem "gettext"
+  config.gem "locale_rails", :version => '>= 2.1.0'
+  config.gem "gettext_activerecord", :version => '>= 2.1.0'
   config.gem "gettext_rails", :version => '>= 2.1.0'
-  
+
   config.gem "barby", :version => '0.2.0'
   config.gem "png", :version => '1.1.0'
 #  config.gem "RubyInline", :version => '3.8.2', :lib => "inline"
