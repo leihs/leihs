@@ -2,8 +2,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2010-01-25 16:49+0100\n"
+"Project-Id-Version: leihs 2\n"
+"POT-Creation-Date: 2010-01-26 09:46+0100\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: English\n"
@@ -277,6 +277,46 @@ msgstr ""
 msgid "Submission failed"
 msgstr ""
 
+#: app/models/access_right.rb:-
+msgid "access right"
+msgstr ""
+
+#: app/models/access_right.rb:-
+msgid "AccessRight|Role"
+msgstr ""
+
+#: app/models/access_right.rb:-
+msgid "AccessRight|User"
+msgstr ""
+
+#: app/models/access_right.rb:-
+msgid "AccessRight|Inventory pool"
+msgstr ""
+
+#: app/models/access_right.rb:-
+msgid "AccessRight|Level"
+msgstr ""
+
+#: app/models/access_right.rb:-
+msgid "AccessRight|Created at"
+msgstr ""
+
+#: app/models/access_right.rb:-
+msgid "AccessRight|Updated at"
+msgstr ""
+
+#: app/models/access_right.rb:-
+msgid "AccessRight|Suspended at"
+msgstr ""
+
+#: app/models/access_right.rb:-
+msgid "AccessRight|Deleted at"
+msgstr ""
+
+#: app/models/access_right.rb:-
+msgid "AccessRight|Access level"
+msgstr ""
+
 #: app/models/access_right.rb:7
 msgid "Customer"
 msgstr ""
@@ -295,6 +335,1078 @@ msgstr ""
 
 #: app/models/access_right.rb:42
 msgid "Inventory Pool is missing"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "inventory pool"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Description"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Contact details"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Contract description"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Contract url"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Logo url"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Default contract note"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Shortname"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Email"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Color"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "InventoryPool|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "role"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Role|Parent"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Role|Lft"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Role|Rgt"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Role|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Role|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "database authentication"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "DatabaseAuthentication|Login"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "DatabaseAuthentication|Crypted password"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "DatabaseAuthentication|Salt"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "DatabaseAuthentication|User"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "DatabaseAuthentication|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "DatabaseAuthentication|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "image"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Image|Model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Image|Is main"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Image|Content type"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Image|Filename"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Image|Size"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Image|Height"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Image|Width"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Image|Parent"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Image|Thumbnail"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "history"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "History|Text"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "History|Type const"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "History|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "History|Target"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "History|Target type"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "History|User"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Manufacturer"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Description"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Internal description"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Info url"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Rental price"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Maintenance period"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Is package"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Technical detail"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Model|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "property"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Property|Model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Property|Key"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Property|Value"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "location"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Location|Room"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Location|Shelf"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Location|Building"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Location|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "event"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Event|Start"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Event|End"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Event|Title"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Event|Isduration"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Event|Action"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Event|Quantity"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "option"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Option|Inventory pool"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Option|Inventory code"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Option|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Option|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "notification"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Notification|User"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Notification|Title"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Notification|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "contract line"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|Contract"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|Item"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|Model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|Location"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|Quantity"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|Start date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|End date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|Returned date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|Option"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ContractLine|Type"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "contract"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Contract|User"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Contract|Inventory pool"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Contract|Status const"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Contract|Purpose"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Contract|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Contract|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Contract|Note"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Contract|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "order"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Order|User"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Order|Inventory pool"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Order|Status const"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Order|Purpose"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Order|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Order|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Order|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "building"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Building|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Building|Code"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "backup order"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "backup::order"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|Order"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|User"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|Inventory pool"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|Status const"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|Purpose"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "backup order line"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "backup::orderline"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|Model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|Order"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|Inventory pool"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|Quantity"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|Start date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|End date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "model group"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ModelGroup|Type"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ModelGroup|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ModelGroup|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ModelGroup|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ModelGroup|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "category"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Category|Type"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Category|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Category|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Category|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Category|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "template"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Template|Type"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Template|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Template|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Template|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Template|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "holiday"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Holiday|Inventory pool"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Holiday|Start date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Holiday|End date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Holiday|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "supplier"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Supplier|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Supplier|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Supplier|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "language"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Language|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Language|Locale name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Language|Default"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Language|Active"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "authentication system"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "AuthenticationSystem|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "AuthenticationSystem|Class name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "AuthenticationSystem|Is default"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "AuthenticationSystem|Is active"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "optionline"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Contract"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Item"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Location"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Quantity"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Start date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|End date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Returned date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Option"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Type"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "model link"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ModelLink|Model group"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ModelLink|Model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ModelLink|Quantity"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "order line"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OrderLine|Model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OrderLine|Order"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OrderLine|Inventory pool"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OrderLine|Quantity"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OrderLine|Start date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OrderLine|End date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OrderLine|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "OrderLine|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "user"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Login"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Firstname"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Lastname"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Phone"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Authentication system"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Unique"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Email"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Badge"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Address"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|City"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Zip"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Country"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Language"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Extended info"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "workday"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Workday|Inventory pool"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Workday|Monday"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Workday|Tuesday"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Workday|Wednesday"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Workday|Thursday"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Workday|Friday"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Workday|Saturday"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Workday|Sunday"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "item"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Inventory code"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Serial number"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Location"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Supplier"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Owner"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Parent"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Required level"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Invoice number"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Invoice date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Last check"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Retired"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Retired reason"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Price"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Is broken"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Is incomplete"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Is borrowable"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Needs permission"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Inventory pool"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Is inventory relevant"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Responsible"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Insurance number"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Note"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Item|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "accessory"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Accessory|Model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Accessory|Name"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Accessory|Quantity"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "itemline"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Contract"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Item"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Location"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Quantity"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Start date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|End date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Returned date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Created at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Updated at"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Option"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Type"
 msgstr ""
 
 #: app/models/notification.rb:7
@@ -601,7 +1713,7 @@ msgstr ""
 #: app/views/backend/models/package_roots.html.erb:51
 #: app/views/backend/templates/models.html.erb:21
 #: app/views/backend/backend/search/_item.html.erb:7
-#: app/views/frontend/_basket.html.erb:16 app/views/users/document.rfpdf:77
+#: app/views/frontend/_basket.html.erb:16
 msgid "Model"
 msgstr ""
 
@@ -1186,7 +2298,6 @@ msgstr ""
 #: app/views/backend/options/index.html.erb:30
 #: app/views/backend/options/show.html.erb:5
 #: app/views/backend/options/show.html.erb:8
-#: app/views/users/document.rfpdf:106
 msgid "Barcode"
 msgstr ""
 
@@ -1435,7 +2546,7 @@ msgstr ""
 #: app/views/backend/templates/index.html.erb:5
 #: app/views/backend/options/index.html.erb:13
 #: app/views/backend/options/show.html.erb:11
-#: app/views/frontend/_models.html.erb:295 app/views/users/document.rfpdf:106
+#: app/views/frontend/_models.html.erb:295
 msgid "Name"
 msgstr ""
 
@@ -1487,7 +2598,6 @@ msgstr ""
 
 #: app/views/backend/items/index.html.erb:5
 #: app/views/backend/models/package_roots.html.erb:51
-#: app/views/users/document.rfpdf:77
 msgid "Inventory Code"
 msgstr ""
 
@@ -2199,15 +3309,13 @@ msgstr ""
 
 #: app/views/frontend/_complete_order.html.erb:363
 #: app/views/frontend/_models.html.erb:368
-#: app/views/frontend/_models.html.erb:372 app/views/users/document.rfpdf:77
-#: app/views/users/document.rfpdf:106
+#: app/views/frontend/_models.html.erb:372
 msgid "Start date"
 msgstr ""
 
 #: app/views/frontend/_complete_order.html.erb:374
 #: app/views/frontend/_models.html.erb:387
-#: app/views/frontend/_models.html.erb:391 app/views/users/document.rfpdf:77
-#: app/views/users/document.rfpdf:106
+#: app/views/frontend/_models.html.erb:391
 msgid "End date"
 msgstr ""
 
@@ -2367,37 +3475,6 @@ msgstr ""
 
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:7
 msgid "Pending"
-msgstr ""
-
-#: app/views/users/document.rfpdf:25
-msgid "Contract no. %d"
-msgstr ""
-
-#: app/views/users/document.rfpdf:35
-msgid "Lending party:"
-msgstr ""
-
-#: app/views/users/document.rfpdf:50
-msgid "Borrowing party:"
-msgstr ""
-
-#: app/views/users/document.rfpdf:64
-msgid ""
-"This lending contract covers borrowing the following items by the person "
-"(natural or legal) described as \"borrowing party\" above. Use of these "
-"items is only allowed for the purpose given below."
-msgstr ""
-
-#: app/views/users/document.rfpdf:77 app/views/users/document.rfpdf:106
-msgid "Qt."
-msgstr ""
-
-#: app/views/users/document.rfpdf:77 app/views/users/document.rfpdf:106
-msgid "Returned date"
-msgstr ""
-
-#: app/views/users/document.rfpdf:109
-msgid "Options:"
 msgstr ""
 
 #: lib/role_requirement_system.rb:118
