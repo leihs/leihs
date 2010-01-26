@@ -2,13 +2,6 @@
 # TODO: Refactor all these to a helper, but not sure if prawn supports helpers like that
 
 
-# def filter(text)
-#   ic = Iconv.new('ISO-8859-15//IGNORE//TRANSLIT','utf-8')
-#   ic.iconv(text)
-# end
-
-
-# TODO: remove filter
 def user_address
   address = "#{@contract.user.name}"
   address += "\n#{@contract.user.address}" unless @contract.user.address.blank?
