@@ -2,8 +2,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: leihs 2.0.0\n"
-"POT-Creation-Date: 2010-01-25 16:49+0100\n"
+"Project-Id-Version: leihs 2\n"
+"POT-Creation-Date: 2010-01-26 09:46+0100\n"
 "PO-Revision-Date: 2009-10-08 17:15+0100\n"
 "Last-Translator: Ugo De Vito <ugo.devito@zhdk.ch>\n"
 "Language-Team: English\n"
@@ -286,6 +286,55 @@ msgstr ""
 msgid "Submission failed"
 msgstr "Abschicke hät nöd funktioniert"
 
+#: app/models/access_right.rb:-
+msgid "access right"
+msgstr "Zuegriffsrächt"
+
+#: app/models/access_right.rb:-
+#, fuzzy
+msgid "AccessRight|Role"
+msgstr "Zuegriffsrächt"
+
+#: app/models/access_right.rb:-
+#, fuzzy
+msgid "AccessRight|User"
+msgstr "Zuegriffsrächt"
+
+#: app/models/access_right.rb:-
+#, fuzzy
+msgid "AccessRight|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/access_right.rb:-
+#, fuzzy
+msgid "AccessRight|Level"
+msgstr "Zuegriffsrächt"
+
+#: app/models/access_right.rb:-
+#, fuzzy
+msgid "AccessRight|Created at"
+msgstr "Zuegriffsrächt"
+
+#: app/models/access_right.rb:-
+#, fuzzy
+msgid "AccessRight|Updated at"
+msgstr "Zuegriffsrächt"
+
+#: app/models/access_right.rb:-
+#, fuzzy
+msgid "AccessRight|Suspended at"
+msgstr "Zuegriffsrächt"
+
+#: app/models/access_right.rb:-
+#, fuzzy
+msgid "AccessRight|Deleted at"
+msgstr "Zuegriffsrächt"
+
+#: app/models/access_right.rb:-
+#, fuzzy
+msgid "AccessRight|Access level"
+msgstr "Zuegriffsrächt"
+
 #: app/models/access_right.rb:7
 msgid "Customer"
 msgstr "Chund"
@@ -305,6 +354,1302 @@ msgstr "D Admin-Rolle chan sich nöd uf en Grätepark beziehe"
 #: app/models/access_right.rb:42
 msgid "Inventory Pool is missing"
 msgstr "Grätepark fählt"
+
+#: app/models/inventory_pool.rb:-
+msgid "inventory pool"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Name"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Description"
+msgstr "Gräteparks"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Contact details"
+msgstr "Gräteparks"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Contract description"
+msgstr "Grätepark fählt"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Contract url"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Logo url"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Default contract note"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Shortname"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Email"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Color"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "InventoryPool|Delta"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+msgid "role"
+msgstr "Rolle"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Role|Parent"
+msgstr "Elterä-Element furtnäh"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Role|Lft"
+msgstr "Rolle"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Role|Rgt"
+msgstr "Rolle"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Role|Name"
+msgstr "Rolle"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Role|Delta"
+msgstr "Elterä-Element furtnäh"
+
+#: app/models/inventory_pool.rb:-
+msgid "database authentication"
+msgstr "Datebank Authentifizierig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|Login"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|Crypted password"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|Salt"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|User"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|Created at"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "DatabaseAuthentication|Updated at"
+msgstr "Datebank-Authentifizierig"
+
+#: app/models/inventory_pool.rb:-
+msgid "image"
+msgstr "Bild"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Image|Model"
+msgstr "Modell"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Image|Is main"
+msgstr "Eltere-Element"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Image|Content type"
+msgstr "Eltere-Element"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Image|Filename"
+msgstr "Eltere-Element"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Image|Size"
+msgstr "Modell"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Image|Height"
+msgstr "Eltere-Element"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Image|Width"
+msgstr "Modell"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Image|Parent"
+msgstr "Eltere-Element"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Image|Thumbnail"
+msgstr "Eltere-Element"
+
+#: app/models/inventory_pool.rb:-
+msgid "history"
+msgstr "Gschicht"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "History|Text"
+msgstr "Gschicht"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "History|Type const"
+msgstr "Gschicht"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "History|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "History|Target"
+msgstr "Gschicht"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "History|Target type"
+msgstr "Gschicht"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "History|User"
+msgstr "Gschicht"
+
+#: app/models/inventory_pool.rb:-
+msgid "model"
+msgstr "Modäll"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Name"
+msgstr "Modell"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Manufacturer"
+msgstr "Herschteller"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Description"
+msgstr "Beschribig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Internal description"
+msgstr "Gräteparks"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Info url"
+msgstr "Herschteller"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Rental price"
+msgstr "Herschteller"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Maintenance period"
+msgstr "Herschteller"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Is package"
+msgstr "Modell"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Technical detail"
+msgstr "Gräteparks"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Delta"
+msgstr "Modell"
+
+#: app/models/inventory_pool.rb:-
+msgid "property"
+msgstr "Eigäschaft"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Property|Model"
+msgstr "Eigäschaftä"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Property|Key"
+msgstr "Eigäschaftä"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Property|Value"
+msgstr "Eigäschaftä"
+
+#: app/models/inventory_pool.rb:-
+msgid "location"
+msgstr "Ort"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Location|Room"
+msgstr "Ort"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Location|Shelf"
+msgstr "Ort"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Location|Building"
+msgstr "Ort"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Location|Delta"
+msgstr "Ort"
+
+#: app/models/inventory_pool.rb:-
+msgid "event"
+msgstr "Aalass"
+
+#: app/models/inventory_pool.rb:-
+msgid "Event|Start"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Event|End"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Event|Title"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Event|Isduration"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Event|Action"
+msgstr "Aktion"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Event|Quantity"
+msgstr "Aazahl"
+
+#: app/models/inventory_pool.rb:-
+msgid "option"
+msgstr "Option"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Option|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Option|Inventory code"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Option|Name"
+msgstr "Optionä"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Option|Delta"
+msgstr "Optionä"
+
+#: app/models/inventory_pool.rb:-
+msgid "notification"
+msgstr "Mäldig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Notification|User"
+msgstr "Ört"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Notification|Title"
+msgstr "Ört"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Notification|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "contract line"
+msgstr "vertrag"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Contract"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Item"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Model"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Location"
+msgstr "Installationsort"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Quantity"
+msgstr "Azahl"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Start date"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|End date"
+msgstr "Vertragsbemerkig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Returned date"
+msgstr "Rückgabedatum"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Option"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Type"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+msgid "contract"
+msgstr "vertrag"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Contract|User"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Contract|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Contract|Status const"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Contract|Purpose"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Contract|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Contract|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Contract|Note"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Contract|Delta"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "order"
+msgstr "Bstellig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Order|User"
+msgstr "Bstellige"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Order|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Order|Status const"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Order|Purpose"
+msgstr "Zwäck"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Order|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Order|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Order|Delta"
+msgstr "Bstellig"
+
+#: app/models/inventory_pool.rb:-
+msgid "building"
+msgstr "Gebäude"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Building|Name"
+msgstr "Gebäude"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Building|Code"
+msgstr "Gebäude"
+
+#: app/models/inventory_pool.rb:-
+msgid "backup order"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "backup::order"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|Order"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|User"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Backup::Order|Inventory pool"
+msgstr "Inventarcode"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Backup::Order|Status const"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|Purpose"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Backup::Order|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Backup::Order|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::Order|Delta"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "backup order line"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "backup::orderline"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|Model"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|Order"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Backup::OrderLine|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Backup::OrderLine|Quantity"
+msgstr "Azahl"
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|Start date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+msgid "Backup::OrderLine|End date"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Backup::OrderLine|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Backup::OrderLine|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+msgid "model group"
+msgstr "Modällgruppe"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ModelGroup|Type"
+msgstr "Modellgruppe"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ModelGroup|Name"
+msgstr "Modellgruppe"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ModelGroup|Created at"
+msgstr "Modellgruppe"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ModelGroup|Updated at"
+msgstr "Modellgruppe"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ModelGroup|Delta"
+msgstr "Modellgruppe"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "category"
+msgstr "Kategorie"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Category|Type"
+msgstr "Kategorie"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Category|Name"
+msgstr "Kategorie"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Category|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Category|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Category|Delta"
+msgstr "Kategorie"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "template"
+msgstr "Vorlag"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Template|Type"
+msgstr "Vorlag"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Template|Name"
+msgstr "Name vo de Vorlag"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Template|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Template|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Template|Delta"
+msgstr "Vorlag"
+
+#: app/models/inventory_pool.rb:-
+msgid "holiday"
+msgstr "Fiirtig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Holiday|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Holiday|Start date"
+msgstr "Startdatum"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Holiday|End date"
+msgstr "Enddatum"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Holiday|Name"
+msgstr "Feriä"
+
+#: app/models/inventory_pool.rb:-
+msgid "supplier"
+msgstr "Liferant"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Supplier|Name"
+msgstr "Rolle"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Supplier|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Supplier|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+msgid "language"
+msgstr "Spraach"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Language|Name"
+msgstr "Verwalter"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Language|Locale name"
+msgstr "Verwalter"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Language|Default"
+msgstr "Verwalter"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Language|Active"
+msgstr "Verwalter"
+
+#: app/models/inventory_pool.rb:-
+msgid "authentication system"
+msgstr "Authentifizierigs-System"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "AuthenticationSystem|Name"
+msgstr "Authentifizierigs-System"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "AuthenticationSystem|Class name"
+msgstr "Authentifizierigs-System"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "AuthenticationSystem|Is default"
+msgstr "Authentifizierigs-System"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "AuthenticationSystem|Is active"
+msgstr "Authentifizierigs-System"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "optionline"
+msgstr "Option"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|Contract"
+msgstr "Ziitliischte Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|Item"
+msgstr "Optionä"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|Model"
+msgstr "Modellgruppe"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|Location"
+msgstr "Ort"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|Quantity"
+msgstr "Azahl"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|Start date"
+msgstr "Startdatum"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|End date"
+msgstr "Enddatum"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|Returned date"
+msgstr "Rückgabedatum"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+msgid "OptionLine|Option"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|Type"
+msgstr "Optionä"
+
+#: app/models/inventory_pool.rb:-
+msgid "model link"
+msgstr "Modäll-Link"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ModelLink|Model group"
+msgstr "Modellgruppe"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ModelLink|Model"
+msgstr "Modellgruppe"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ModelLink|Quantity"
+msgstr "Azahl"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "order line"
+msgstr "Modäll-Link"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OrderLine|Model"
+msgstr "Modellgruppe"
+
+#: app/models/inventory_pool.rb:-
+msgid "OrderLine|Order"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OrderLine|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OrderLine|Quantity"
+msgstr "Azahl"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OrderLine|Start date"
+msgstr "Startdatum"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OrderLine|End date"
+msgstr "Rückgabedatum"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OrderLine|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OrderLine|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+msgid "user"
+msgstr "Benutzer"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Login"
+msgstr "Benützer-Login"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Firstname"
+msgstr "Benützer-Login"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Lastname"
+msgstr "Benützer-Login"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Phone"
+msgstr "Telefon"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Authentication system"
+msgstr "Authentifizierigs-System"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Unique"
+msgstr "Telefon"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Email"
+msgstr "E-Mail"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Badge"
+msgstr "Benützer-Login"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Address"
+msgstr "Drzuetue"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|City"
+msgstr "Benützer-Login"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Zip"
+msgstr "Benützer-Login"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Country"
+msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Language"
+msgstr "Benützer-Login"
+
+#: app/models/inventory_pool.rb:-
+msgid "User|Extended info"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "User|Delta"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+msgid "workday"
+msgstr "Arbetstag"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Workday|Inventory pool"
+msgstr "Grätepark"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Workday|Monday"
+msgstr "Arbetstäg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Workday|Tuesday"
+msgstr "Arbetstäg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Workday|Wednesday"
+msgstr "Arbetstäg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Workday|Thursday"
+msgstr "Arbetstäg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Workday|Friday"
+msgstr "Arbetstäg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Workday|Saturday"
+msgstr "Arbetstäg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Workday|Sunday"
+msgstr "Arbetstäg"
+
+#: app/models/inventory_pool.rb:-
+msgid "item"
+msgstr "Gägestand"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Inventory code"
+msgstr "Inventarcode"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Serial number"
+msgstr "Serienummer"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Model"
+msgstr "Modell"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Location"
+msgstr "Ort"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Supplier"
+msgstr "Liferant"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Owner"
+msgstr "Bstellig: "
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Parent"
+msgstr "Eltere-Element"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Required level"
+msgstr "Mindescht-level"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Invoice number"
+msgstr "Seriänummerä:"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Invoice date"
+msgstr "Inventarcode"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Last check"
+msgstr "z'letscht überprüeft:"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Retired"
+msgstr "Mindescht-level"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Retired reason"
+msgstr "Mindescht-level"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Price"
+msgstr "Eltere-Element"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Is broken"
+msgstr "Nöd uslehnbar"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Is incomplete"
+msgstr "Nöd vollständig"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Is borrowable"
+msgstr "Nöd uslehnbar"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Needs permission"
+msgstr "Sach erforderet e Berächtigung!"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Inventory pool"
+msgstr "Inventarcode"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Is inventory relevant"
+msgstr "Inventarcode"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Responsible"
+msgstr "Mindescht-level"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Insurance number"
+msgstr "Seriänummerä:"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Note"
+msgstr "Modell"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Name"
+msgstr "Eltere-Element"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Item|Delta"
+msgstr "Modell"
+
+#: app/models/inventory_pool.rb:-
+msgid "accessory"
+msgstr "Zuebehör"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Accessory|Model"
+msgstr "Zuebehör"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Accessory|Name"
+msgstr "Zuebehör"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Accessory|Quantity"
+msgstr "Zuebehör"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "itemline"
+msgstr "Timeline"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ItemLine|Contract"
+msgstr "Ziitliischte Verträg"
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Item"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ItemLine|Model"
+msgstr "Modell"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ItemLine|Location"
+msgstr "Ort"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ItemLine|Quantity"
+msgstr "Azahl"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ItemLine|Start date"
+msgstr "Startdatum"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ItemLine|End date"
+msgstr "Inventarcode"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ItemLine|Returned date"
+msgstr "Rückgabedatum"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ItemLine|Created at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ItemLine|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ItemLine|Option"
+msgstr "Ort"
+
+#: app/models/inventory_pool.rb:-
+msgid "ItemLine|Type"
+msgstr ""
 
 #: app/models/notification.rb:7
 msgid "Order submitted"
@@ -615,7 +1960,7 @@ msgstr "Benutzer"
 #: app/views/backend/models/package_roots.html.erb:51
 #: app/views/backend/templates/models.html.erb:21
 #: app/views/backend/backend/search/_item.html.erb:7
-#: app/views/frontend/_basket.html.erb:16 app/views/users/document.rfpdf:77
+#: app/views/frontend/_basket.html.erb:16
 msgid "Model"
 msgstr "Modäll"
 
@@ -1223,7 +2568,6 @@ msgstr "Ziitfänschter"
 #: app/views/backend/options/index.html.erb:30
 #: app/views/backend/options/show.html.erb:5
 #: app/views/backend/options/show.html.erb:8
-#: app/views/users/document.rfpdf:106
 msgid "Barcode"
 msgstr "Barcode"
 
@@ -1474,7 +2818,7 @@ msgstr "Neue Vertrag"
 #: app/views/backend/templates/index.html.erb:5
 #: app/views/backend/options/index.html.erb:13
 #: app/views/backend/options/show.html.erb:11
-#: app/views/frontend/_models.html.erb:295 app/views/users/document.rfpdf:106
+#: app/views/frontend/_models.html.erb:295
 msgid "Name"
 msgstr "Name"
 
@@ -1526,7 +2870,6 @@ msgstr "Noii Sach"
 
 #: app/views/backend/items/index.html.erb:5
 #: app/views/backend/models/package_roots.html.erb:51
-#: app/views/users/document.rfpdf:77
 msgid "Inventory Code"
 msgstr "Inventarcode"
 
@@ -2262,15 +3605,13 @@ msgstr "Wotsch diä Bstellig abschickä?"
 
 #: app/views/frontend/_complete_order.html.erb:363
 #: app/views/frontend/_models.html.erb:368
-#: app/views/frontend/_models.html.erb:372 app/views/users/document.rfpdf:77
-#: app/views/users/document.rfpdf:106
+#: app/views/frontend/_models.html.erb:372
 msgid "Start date"
 msgstr "Startdatum"
 
 #: app/views/frontend/_complete_order.html.erb:374
 #: app/views/frontend/_models.html.erb:387
-#: app/views/frontend/_models.html.erb:391 app/views/users/document.rfpdf:77
-#: app/views/users/document.rfpdf:106
+#: app/views/frontend/_models.html.erb:391
 msgid "End date"
 msgstr "Änddatum"
 
@@ -2441,41 +3782,6 @@ msgstr "Optionä"
 msgid "Pending"
 msgstr "Nonig fertig"
 
-#: app/views/users/document.rfpdf:25
-msgid "Contract no. %d"
-msgstr "Vertrag Nr. %d"
-
-#: app/views/users/document.rfpdf:35
-msgid "Lending party:"
-msgstr "Verleiher:"
-
-#: app/views/users/document.rfpdf:50
-msgid "Borrowing party:"
-msgstr "Uusleihendi:"
-
-#: app/views/users/document.rfpdf:64
-msgid ""
-"This lending contract covers borrowing the following items by the person "
-"(natural or legal) described as \"borrowing party\" above. Use of these "
-"items is only allowed for the purpose given below."
-msgstr ""
-"Dä Leihvertrag deckt d'Uusleii von de folgende sache dur di natürlich oder "
-"rechtlich Person ab, wo obe als \"Uusleihende/i\" bezeichnet isch. "
-"D'Verwändig vo de Gegenständ isch nur im Rahme vom une aangähne Zwäck "
-"gstattet."
-
-#: app/views/users/document.rfpdf:77 app/views/users/document.rfpdf:106
-msgid "Qt."
-msgstr "Az."
-
-#: app/views/users/document.rfpdf:77 app/views/users/document.rfpdf:106
-msgid "Returned date"
-msgstr "Rückgabedatum"
-
-#: app/views/users/document.rfpdf:109
-msgid "Options:"
-msgstr "Optionä:"
-
 #: lib/role_requirement_system.rb:118
 msgid "You don't have any rights to access this application"
 msgstr "Sie händ kei Berächtigung für de Zuegang uf die Applikation"
@@ -2483,6 +3789,31 @@ msgstr "Sie händ kei Berächtigung für de Zuegang uf die Applikation"
 #: lib/role_requirement_system.rb:120
 msgid "Access Denied"
 msgstr "Zuegriff verweigeret"
+
+#~ msgid "Contract no. %d"
+#~ msgstr "Vertrag Nr. %d"
+
+#~ msgid "Lending party:"
+#~ msgstr "Verleiher:"
+
+#~ msgid "Borrowing party:"
+#~ msgstr "Uusleihendi:"
+
+#~ msgid ""
+#~ "This lending contract covers borrowing the following items by the person "
+#~ "(natural or legal) described as \"borrowing party\" above. Use of these "
+#~ "items is only allowed for the purpose given below."
+#~ msgstr ""
+#~ "Dä Leihvertrag deckt d'Uusleii von de folgende sache dur di natürlich "
+#~ "oder rechtlich Person ab, wo obe als \"Uusleihende/i\" bezeichnet isch. "
+#~ "D'Verwändig vo de Gegenständ isch nur im Rahme vom une aangähne Zwäck "
+#~ "gstattet."
+
+#~ msgid "Qt."
+#~ msgstr "Az."
+
+#~ msgid "Options:"
+#~ msgstr "Optionä:"
 
 #~ msgid "The model has items"
 #~ msgstr "Das Modäll hät no Gägeständ"
@@ -2493,573 +3824,11 @@ msgstr "Zuegriff verweigeret"
 #~ msgid "Access Right successfully removed"
 #~ msgstr "Zuegriffsrächt erfolgriich wäggnoh"
 
-#~ msgid "access right"
-#~ msgstr "Zuegriffsrächt"
-
-#, fuzzy
-#~ msgid "AccessRight|Role"
-#~ msgstr "Zuegriffsrächt"
-
-#, fuzzy
-#~ msgid "AccessRight|User"
-#~ msgstr "Zuegriffsrächt"
-
-#, fuzzy
-#~ msgid "AccessRight|Inventory pool"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "AccessRight|Level"
-#~ msgstr "Zuegriffsrächt"
-
-#, fuzzy
-#~ msgid "AccessRight|Created at"
-#~ msgstr "Zuegriffsrächt"
-
-#, fuzzy
-#~ msgid "AccessRight|Updated at"
-#~ msgstr "Zuegriffsrächt"
-
-#, fuzzy
-#~ msgid "AccessRight|Suspended at"
-#~ msgstr "Zuegriffsrächt"
-
-#, fuzzy
-#~ msgid "AccessRight|Deleted at"
-#~ msgstr "Zuegriffsrächt"
-
-#, fuzzy
-#~ msgid "AccessRight|Access level"
-#~ msgstr "Zuegriffsrächt"
-
-#~ msgid "inventory pool"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "InventoryPool|Name"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "InventoryPool|Description"
-#~ msgstr "Gräteparks"
-
-#, fuzzy
-#~ msgid "InventoryPool|Contact details"
-#~ msgstr "Gräteparks"
-
-#, fuzzy
-#~ msgid "InventoryPool|Contract description"
-#~ msgstr "Grätepark fählt"
-
-#, fuzzy
-#~ msgid "InventoryPool|Contract url"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "InventoryPool|Logo url"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "InventoryPool|Default contract note"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "InventoryPool|Shortname"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "InventoryPool|Email"
-#~ msgstr "Grätepark"
-
-#~ msgid "role"
-#~ msgstr "Rolle"
-
-#, fuzzy
-#~ msgid "Role|Parent"
-#~ msgstr "Elterä-Element furtnäh"
-
-#, fuzzy
-#~ msgid "Role|Lft"
-#~ msgstr "Rolle"
-
-#, fuzzy
-#~ msgid "Role|Rgt"
-#~ msgstr "Rolle"
-
-#, fuzzy
-#~ msgid "Role|Name"
-#~ msgstr "Rolle"
-
-#~ msgid "database authentication"
-#~ msgstr "Datebank Authentifizierig"
-
-#~ msgid "image"
-#~ msgstr "Bild"
-
-#, fuzzy
-#~ msgid "Image|Model"
-#~ msgstr "Modell"
-
-#, fuzzy
-#~ msgid "Image|Is main"
-#~ msgstr "Eltere-Element"
-
-#, fuzzy
-#~ msgid "Image|Content type"
-#~ msgstr "Eltere-Element"
-
-#, fuzzy
-#~ msgid "Image|Filename"
-#~ msgstr "Eltere-Element"
-
-#, fuzzy
-#~ msgid "Image|Size"
-#~ msgstr "Modell"
-
-#, fuzzy
-#~ msgid "Image|Height"
-#~ msgstr "Eltere-Element"
-
-#, fuzzy
-#~ msgid "Image|Width"
-#~ msgstr "Modell"
-
-#, fuzzy
-#~ msgid "Image|Parent"
-#~ msgstr "Eltere-Element"
-
-#~ msgid "history"
-#~ msgstr "Gschicht"
-
-#, fuzzy
-#~ msgid "History|Text"
-#~ msgstr "Gschicht"
-
-#, fuzzy
-#~ msgid "History|Type const"
-#~ msgstr "Gschicht"
-
-#, fuzzy
-#~ msgid "History|Created at"
-#~ msgstr "Vertrag %d"
-
-#, fuzzy
-#~ msgid "History|Target"
-#~ msgstr "Gschicht"
-
-#, fuzzy
-#~ msgid "History|Target type"
-#~ msgstr "Gschicht"
-
-#, fuzzy
-#~ msgid "History|User"
-#~ msgstr "Gschicht"
-
-#~ msgid "model"
-#~ msgstr "Modäll"
-
-#, fuzzy
-#~ msgid "Model|Name"
-#~ msgstr "Modell"
-
-#, fuzzy
-#~ msgid "Model|Manufacturer"
-#~ msgstr "Herschteller"
-
-#, fuzzy
-#~ msgid "Model|Description"
-#~ msgstr "Beschribig"
-
-#, fuzzy
-#~ msgid "Model|Internal description"
-#~ msgstr "Gräteparks"
-
-#, fuzzy
-#~ msgid "Model|Info url"
-#~ msgstr "Herschteller"
-
-#, fuzzy
-#~ msgid "Model|Maintenance period"
-#~ msgstr "Herschteller"
-
-#, fuzzy
-#~ msgid "Model|Is package"
-#~ msgstr "Modell"
-
-#, fuzzy
-#~ msgid "Model|Created at"
-#~ msgstr "Vertrag %d"
-
-#, fuzzy
-#~ msgid "Model|Updated at"
-#~ msgstr "Vertrag %d"
-
-#, fuzzy
-#~ msgid "Model|Technical detail"
-#~ msgstr "Gräteparks"
-
-#~ msgid "property"
-#~ msgstr "Eigäschaft"
-
-#, fuzzy
-#~ msgid "Property|Model"
-#~ msgstr "Eigäschaftä"
-
-#, fuzzy
-#~ msgid "Property|Key"
-#~ msgstr "Eigäschaftä"
-
-#, fuzzy
-#~ msgid "Property|Value"
-#~ msgstr "Eigäschaftä"
-
-#~ msgid "location"
-#~ msgstr "Ort"
-
-#, fuzzy
-#~ msgid "Location|Room"
-#~ msgstr "Ort"
-
-#, fuzzy
-#~ msgid "Location|Shelf"
-#~ msgstr "Ort"
-
-#, fuzzy
-#~ msgid "Location|Building"
-#~ msgstr "Ort"
-
-#~ msgid "event"
-#~ msgstr "Aalass"
-
-#~ msgid "option"
-#~ msgstr "Option"
-
-#, fuzzy
-#~ msgid "Option|Inventory pool"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "Option|Inventory code"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "Option|Name"
-#~ msgstr "Optionä"
-
-#~ msgid "notification"
-#~ msgstr "Mäldig"
-
-#, fuzzy
-#~ msgid "Notification|User"
-#~ msgstr "Ört"
-
-#, fuzzy
-#~ msgid "Notification|Title"
-#~ msgstr "Ört"
-
-#, fuzzy
-#~ msgid "Notification|Created at"
-#~ msgstr "Vertrag %d"
-
-#~ msgid "building"
-#~ msgstr "Gebäude"
-
-#, fuzzy
-#~ msgid "Building|Name"
-#~ msgstr "Gebäude"
-
-#, fuzzy
-#~ msgid "Building|Code"
-#~ msgstr "Gebäude"
-
-#~ msgid "holiday"
-#~ msgstr "Fiirtig"
-
-#, fuzzy
-#~ msgid "Holiday|Inventory pool"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "Holiday|Start date"
-#~ msgstr "Startdatum"
-
-#, fuzzy
-#~ msgid "Holiday|End date"
-#~ msgstr "Enddatum"
-
-#, fuzzy
-#~ msgid "Holiday|Name"
-#~ msgstr "Feriä"
-
-#~ msgid "supplier"
-#~ msgstr "Liferant"
-
-#, fuzzy
-#~ msgid "Supplier|Name"
-#~ msgstr "Rolle"
-
-#, fuzzy
-#~ msgid "Supplier|Created at"
-#~ msgstr "Vertrag %d"
-
-#, fuzzy
-#~ msgid "Supplier|Updated at"
-#~ msgstr "Vertrag %d"
-
-#~ msgid "language"
-#~ msgstr "Spraach"
-
-#, fuzzy
-#~ msgid "Language|Name"
-#~ msgstr "Verwalter"
-
-#, fuzzy
-#~ msgid "Language|Active"
-#~ msgstr "Verwalter"
-
-#~ msgid "authentication system"
-#~ msgstr "Authentifizierigs-System"
-
-#~ msgid "model link"
-#~ msgstr "Modäll-Link"
-
-#, fuzzy
-#~ msgid "ModelLink|Model group"
-#~ msgstr "Modellgruppe"
-
-#, fuzzy
-#~ msgid "ModelLink|Model"
-#~ msgstr "Modellgruppe"
-
-#, fuzzy
-#~ msgid "ModelLink|Quantity"
-#~ msgstr "Azahl"
-
-#~ msgid "user"
-#~ msgstr "Benutzer"
-
-#, fuzzy
-#~ msgid "User|Login"
-#~ msgstr "Benützer-Login"
-
-#, fuzzy
-#~ msgid "User|Lastname"
-#~ msgstr "Benützer-Login"
-
-#, fuzzy
-#~ msgid "User|Phone"
-#~ msgstr "Telefon"
-
-#, fuzzy
-#~ msgid "User|Unique"
-#~ msgstr "Telefon"
-
-#, fuzzy
-#~ msgid "User|Email"
-#~ msgstr "E-Mail"
-
-#, fuzzy
-#~ msgid "User|Created at"
-#~ msgstr "Vertrag %d"
-
-#, fuzzy
-#~ msgid "User|Updated at"
-#~ msgstr "Vertrag %d"
-
-#, fuzzy
-#~ msgid "User|Badge"
-#~ msgstr "Benützer-Login"
-
-#, fuzzy
-#~ msgid "User|Address"
-#~ msgstr "Drzuetue"
-
-#, fuzzy
-#~ msgid "User|City"
-#~ msgstr "Benützer-Login"
-
-#, fuzzy
-#~ msgid "User|Zip"
-#~ msgstr "Benützer-Login"
-
-#, fuzzy
-#~ msgid "User|Country"
-#~ msgstr "Verträg"
-
-#, fuzzy
-#~ msgid "User|Language"
-#~ msgstr "Benützer-Login"
-
-#~ msgid "model group"
-#~ msgstr "Modällgruppe"
-
-#, fuzzy
-#~ msgid "ModelGroup|Type"
-#~ msgstr "Modellgruppe"
-
-#, fuzzy
-#~ msgid "ModelGroup|Name"
-#~ msgstr "Modellgruppe"
-
-#, fuzzy
-#~ msgid "ModelGroup|Created at"
-#~ msgstr "Modellgruppe"
-
-#, fuzzy
-#~ msgid "ModelGroup|Updated at"
-#~ msgstr "Modellgruppe"
-
-#~ msgid "workday"
-#~ msgstr "Arbetstag"
-
-#, fuzzy
-#~ msgid "Workday|Inventory pool"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "Workday|Monday"
-#~ msgstr "Arbetstäg"
-
-#, fuzzy
-#~ msgid "Workday|Tuesday"
-#~ msgstr "Arbetstäg"
-
-#, fuzzy
-#~ msgid "Workday|Wednesday"
-#~ msgstr "Arbetstäg"
-
-#, fuzzy
-#~ msgid "Workday|Thursday"
-#~ msgstr "Arbetstäg"
-
-#, fuzzy
-#~ msgid "Workday|Friday"
-#~ msgstr "Arbetstäg"
-
-#, fuzzy
-#~ msgid "Workday|Saturday"
-#~ msgstr "Arbetstäg"
-
-#, fuzzy
-#~ msgid "Workday|Sunday"
-#~ msgstr "Arbetstäg"
-
-#~ msgid "item"
-#~ msgstr "Gägestand"
-
-#, fuzzy
-#~ msgid "Item|Inventory code"
-#~ msgstr "Inventarcode"
-
-#, fuzzy
-#~ msgid "Item|Serial number"
-#~ msgstr "Serienummer"
-
-#, fuzzy
-#~ msgid "Item|Model"
-#~ msgstr "Modell"
-
-#, fuzzy
-#~ msgid "Item|Location"
-#~ msgstr "Ort"
-
-#, fuzzy
-#~ msgid "Item|Owner"
-#~ msgstr "Bstellig: "
-
-#, fuzzy
-#~ msgid "Item|Parent"
-#~ msgstr "Eltere-Element"
-
-#, fuzzy
-#~ msgid "Item|Required level"
-#~ msgstr "Mindescht-level"
-
-#, fuzzy
-#~ msgid "Item|Invoice number"
-#~ msgstr "Seriänummerä:"
-
-#, fuzzy
-#~ msgid "Item|Invoice date"
-#~ msgstr "Inventarcode"
-
-#, fuzzy
-#~ msgid "Item|Retired"
-#~ msgstr "Mindescht-level"
-
-#, fuzzy
-#~ msgid "Item|Retired reason"
-#~ msgstr "Mindescht-level"
-
-#, fuzzy
-#~ msgid "Item|Price"
-#~ msgstr "Eltere-Element"
-
-#, fuzzy
-#~ msgid "Item|Is broken"
-#~ msgstr "Nöd uslehnbar"
-
-#, fuzzy
-#~ msgid "Item|Is incomplete"
-#~ msgstr "Nöd vollständig"
-
-#, fuzzy
-#~ msgid "Item|Is borrowable"
-#~ msgstr "Nöd uslehnbar"
-
-#, fuzzy
-#~ msgid "Item|Created at"
-#~ msgstr "Vertrag %d"
-
-#, fuzzy
-#~ msgid "Item|Updated at"
-#~ msgstr "Vertrag %d"
-
-#, fuzzy
-#~ msgid "Item|Inventory pool"
-#~ msgstr "Inventarcode"
-
-#, fuzzy
-#~ msgid "Item|Is inventory relevant"
-#~ msgstr "Inventarcode"
-
-#, fuzzy
-#~ msgid "Item|Responsible"
-#~ msgstr "Mindescht-level"
-
-#, fuzzy
-#~ msgid "Item|Insurance number"
-#~ msgstr "Seriänummerä:"
-
-#~ msgid "accessory"
-#~ msgstr "Zuebehör"
-
-#, fuzzy
-#~ msgid "Accessory|Model"
-#~ msgstr "Zuebehör"
-
-#, fuzzy
-#~ msgid "Accessory|Name"
-#~ msgstr "Zuebehör"
-
-#, fuzzy
-#~ msgid "Accessory|Quantity"
-#~ msgstr "Zuebehör"
-
-#~ msgid "Timeline Contracts"
-#~ msgstr "Ziitliischte Verträg"
-
-#~ msgid "InventoryPool"
-#~ msgstr "Grätepark"
-
 #~ msgid "Notes (%d)"
 #~ msgstr "Notize (%d)"
 
 #~ msgid "Managers (%d)"
 #~ msgstr "Verwalter (%d)"
-
-#~ msgid "Authentication System"
-#~ msgstr "Authentifizierigs-System"
 
 #~ msgid "Set new model"
 #~ msgstr "Neus Modäll setzä"
@@ -3069,9 +3838,6 @@ msgstr "Zuegriff verweigeret"
 
 #~ msgid "Required Level:"
 #~ msgstr "Stufä wo mä mindeschtens brucht:"
-
-#~ msgid "Supplier"
-#~ msgstr "Liferant"
 
 #~ msgid "Owner:"
 #~ msgstr "Bsitzer: "
@@ -3268,29 +4034,6 @@ msgstr "Zuegriff verweigeret"
 #~ msgid "Locations (%d)"
 #~ msgstr "Ort (%d)"
 
-#~ msgid "contract"
-#~ msgstr "vertrag"
-
-#, fuzzy
-#~ msgid "Contract|User"
-#~ msgstr "Verträg"
-
-#, fuzzy
-#~ msgid "Contract|Inventory pool"
-#~ msgstr "Grätepark"
-
-#, fuzzy
-#~ msgid "Contract|Status const"
-#~ msgstr "Verträg"
-
-#, fuzzy
-#~ msgid "Contract|Purpose"
-#~ msgstr "Verträg"
-
-#, fuzzy
-#~ msgid "Contract|Note"
-#~ msgstr "Verträg"
-
 #~ msgid "Prev"
 #~ msgstr "Zrugg"
 
@@ -3299,9 +4042,6 @@ msgstr "Zuegriff verweigeret"
 
 #~ msgid "%{a}/%{b}"
 #~ msgstr "%{a}/%{b"
-
-#~ msgid "Timeline"
-#~ msgstr "Timeline"
 
 #~ msgid "Timeline Visits"
 #~ msgstr "Ziitfenschter vo dä bsüech"
