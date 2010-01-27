@@ -504,8 +504,13 @@ Install the required version of Rails as well as a few gems that cannot be insta
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ cd leihs-2.1
-$ sudo rake gems:install</tt></pre>
+<pre><tt>$ sudo gem install rails -v 2.1.1
+$ sudo gem install gettext -v 1.93.0
+$ sudo gem install RubyInline
+$ sudo gem install ferret -v 0.11.6
+$ sudo gem install acts_as_ferret -v 0.4.3
+$ sudo gem install barby -v 0.2.0
+$ sudo gem install png -v 1.1.0</tt></pre>
 </div></div>
 </li>
 <li>
@@ -614,8 +619,13 @@ Install the required version of Rails as well as a few gems that cannot be insta
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt># cd leihs-2.1
-# rake gems:install</tt></pre>
+<pre><tt># gem install rails -v 2.1.1
+# gem install gettext -v 1.93.0
+# gem install RubyInline
+# gem install ferret -v 0.11.6
+# gem install acts_as_ferret -v 0.4.3
+# gem install barby -v 0.2.0
+# gem install png -v 1.1.0</tt></pre>
 </div></div>
 </li>
 <li>
@@ -685,48 +695,68 @@ Start the server:
 </ol></div>
 <div class="paragraph"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
 </div>
-<h2 id="_upgrading_from_leihs_2_0_x_to_leihs_2_1">Upgrading from leihs 2.0.x to leihs 2.1</h2>
-<div class="sectionbody">
-<div class="paragraph"><p>We tried to make very sure that upgrading from earlier versions to leihs 2.1 is painless and safe. The largest differences are:</p></div>
-<div class="olist arabic"><ol class="arabic">
-<li>
-<p>
-Database changes
-</p>
-</li>
-<li>
-<p>
-New or changed options in config/environment.rb
-</p>
-</li>
-</ol></div>
-<div class="paragraph"><p>The former are quite easily handled by a database migration:</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ cd leihs-2.1
-$ rake db:migrate
-$ RAILS_ENV='production' rake db:migrate</tt></pre>
-</div></div>
-<div class="paragraph"><p>Please substitute "production" for those environments you actually use.</p></div>
-<div class="paragraph"><p>The latter needs to be taken care of by hand. The default is presented here:</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><tt>FRONTEND_SPLASH_PAGE = false
-CONTRACT_LENDING_PARTY_STRING = "Your\nAddress\nHere"
-EMAIL_SIGNATURE = "Das PZ-leihs Team"
-LDAP_CONFIG = YAML::load_file(RAILS_ROOT+'/config/LDAP.yml')
-DEFAULT_EMAIL = 'sender@example.com'</tt></pre>
-</div></div>
-<div class="paragraph"><p>The options are explained as follows:</p></div>
-<div class="paragraph"><p><strong>FRONTEND_SPLASH_PAGE</strong> sets whether a splash information page (with static, welcoming information for the user) is shown after a frontend user logs in. Can be true or false.</p></div>
-<div class="paragraph"><p><strong>CONTRACT_LENDING_PARTY_STRING</strong> is a string printed on every lending contract, in the top right, under the heading "lending party". Can be any valid Ruby string.</p></div>
-<div class="paragraph"><p><strong>EMAIL_SIGNATURE</strong> is a string printed at the end of any reminder or notification e-mail message. Can be any valid Ruby string.</p></div>
-<div class="paragraph"><p><strong>LDAP_CONFIG</strong> is a path pointing to the configuration file for your LDAP server.</p></div>
-<div class="paragraph"><p><strong>DEFAULT_EMAIL</strong> is the e-mail address used for sending reminder/notification e-mails when that particular inventory pool has no e-mail set in its own settings. Can be any valid Ruby string, but perhaps you should make sure it&#8217;s a valid e-mail address ;)</p></div>
-</div>
 <h2 id="_default_admin_username_password">Default admin username/password</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>After installation, a default user is created for the Database Authentication module. Username: super_user_1. Password: pass.</p></div>
+</div>
+<h2 id="_upgrading_from_leihs_2_0_to_leihs_2_1">Upgrading from leihs 2.0 to leihs 2.1</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The upgrade should be painless.</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Download the new leihs version (in this example, the .tar.gz version is used) and unpack it to a new location:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ tar xvfz leihs-2.1.tar.gz
+$ cd leihs-2.1</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Copy any images uploaded to your old leihs version so they are also available in the new leihs:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ rm -rf public/images/attachments
+$ cp -pr ../leihs-2.0/public/images/attachments public/</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Copy your old database configuration file:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cp ../leihs-2.0/config/database.yml config/</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Look at your old config/environment.rb file in a text editor. Open the new config/environment.rb. Copy the configuration items from your old config to your new config as necessary. You might find new options in the new environment.rb that weren&#8217;t present in the old one. Save your new configuration.
+</p>
+</li>
+<li>
+<p>
+Run the database migration to get all your data up to the new version:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ rake db:migrate</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Run the server. Make sure you stop your previous leihs server!
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ ./script/server</tt></pre>
+</div></div>
+</li>
+</ol></div>
+<div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a>. <strong>Please note that for a production environment, you would of course run rake db:migrate and script/server with the production environment prepended:</strong> <tt>RAILS_ENV='production' rake db:migrate</tt> and <tt>RAILS_ENV='production' ./script/server</tt></p></div>
 </div>
 <h2 id="_installing_a_production_environment">Installing a production environment</h2>
 <div class="sectionbody">
@@ -814,7 +844,7 @@ DEFAULT_EMAIL = 'sender@example.com'</tt></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2009-12-17 15:40:58 CEST
+Last updated 2010-01-27 14:25:11 CEST
 </div>
 </div>
 </body>
