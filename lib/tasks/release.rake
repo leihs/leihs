@@ -49,6 +49,9 @@ namespace :release do
     puts "Removing our own rails version"
     rm_r "vendor/rails" rescue nil
 
+    puts "Removing unnecessary documentation."
+    rm_r "doc/plugins" rescue nil
+
     puts "Removing local gems"
     rm_r "vendor/gems" rescue nil
 
