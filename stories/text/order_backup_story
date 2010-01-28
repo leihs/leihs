@@ -7,7 +7,7 @@ Story: Backup orders
 	
 Scenario: List of new and draft orders
 	
-	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given the list of submitted orders contains 3 elements
 
 	When lending_manager clicks 'acknowledge'	
@@ -22,7 +22,7 @@ Scenario: List of new and draft orders
 
 Scenario: Restore an order
 
-	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given a submitted order with 4 order lines
 	And the order has 1 changes
 	
@@ -44,7 +44,7 @@ Scenario: Restore an order
 
 Scenario: Approve order
 
-	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given lending_manager works on one order
 	
 	When he approves order
@@ -53,7 +53,7 @@ Scenario: Approve order
 
 Scenario: Reject order
 
-	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given lending_manager works on one order
 	
 	When he rejects order
@@ -62,7 +62,7 @@ Scenario: Reject order
 	
 Scenario: Delete order
   
-	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given lending_manager works on one order
 	
 	When he deletes order

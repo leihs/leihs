@@ -5,7 +5,7 @@ module Factory
     inventory_pool = Factory.create_inventory_pool_default_workdays
         
 	  # Create User with role
-    user = Factory.create_user({:login => 'inv_man'},{:role => "lending manager", :inventory_pool => inventory_pool.name})
+    user = Factory.create_user({:login => 'inv_man'},{:role => "manager", :inventory_pool => inventory_pool.name})
 
 	  # Create Customer
 	  customer = Factory.create_user({:login => 'customer'}, {:role => "customer", :inventory_pool => inventory_pool.name})
@@ -34,7 +34,7 @@ module Factory
     u
   end
 
-  def self.define_role(user, role_name = "lending manager", inventory_pool_name = "ABC")
+  def self.define_role(user, role_name = "manager", inventory_pool_name = "ABC")
     role = Role.find_or_create_by_name(:name => role_name)
     inventory_pool = create_inventory_pool(:name => inventory_pool_name)
     begin

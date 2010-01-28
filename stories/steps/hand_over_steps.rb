@@ -29,7 +29,7 @@ steps_for(:hand_over) do
   end
   
   When "$who approves the order" do | who |
-    post "/session", :login => @last_lending_manager_login_name #new#
+    post "/session", :login => @last_manager_login_name #new#
     post approve_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :comment => "test comment")
     @order = assigns(:order)
     @order.should_not be_nil

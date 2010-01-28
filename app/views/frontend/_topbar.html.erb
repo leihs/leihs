@@ -26,7 +26,7 @@
 								}
 						},
 					'-',
-						<% if current_user.has_role?('lending manager', nil, false) %>
+						<% if current_user.has_role?('manager', nil, false) %>
 						{text: 'Backend', 
 						  iconCls:'bt',
 				          icon:'<%= icon_path('application_edit') %>',

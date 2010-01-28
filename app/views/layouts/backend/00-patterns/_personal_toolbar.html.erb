@@ -3,7 +3,7 @@
 <% if current_user %>	
 	<li>
 		<%= link_to icon_tag("application") + 'Frontend', '/' if current_user.has_role?('customer', nil, false) %>
-		<%= link_to icon_tag("application_edit") + 'Backend', '/backend' if current_user.has_role?('lending manager', nil, false) %>
+		<%= link_to icon_tag("application_edit") + 'Backend', '/backend' if current_user.has_role?('manager', nil, false) %>
 	</li>
 <% end %>
 

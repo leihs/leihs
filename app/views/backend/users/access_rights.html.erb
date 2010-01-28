@@ -1,71 +1,123 @@
-<% javascript_tag do %>
-	function changed_selection(v){
-		var visibility = (v == 1 ? "hidden" : "visible");
-		$('access_right_inventory_pool_id').style.visibility=visibility;			
-		$('level').style.visibility=visibility;
-		$('access_level').style.visibility= (v!=4 ? "hidden" : "visible");			
-	}
-<% end %>
+<%
+conditions = (current_inventory_pool ? "name != 'admin'" : nil)
+roles = Role.all(:conditions => conditions).sort
+inventory_pools = InventoryPool.all.sort
+admin_role = Role.find_by_name('admin')
+manager_role = Role.find_by_name('manager')
 
-<% form_tag url_for([:add_access_right, :backend, current_inventory_pool, @user].compact), :method => :post do %>
-	<table style="width: 400px">
-		<tr>
-			<th><%= _("Role") %></th>
-			<% content_tag :th do %>
+javascript_tag do %>
+	function changed_selection(row, v){
+		var visibility = (v == <%= admin_role.id %> ? "hidden" : "visible");
+		$$('tr#access_right_'+row+' #access_right_inventory_pool_id').each(function(item){item.style.visibility=visibility});			
+		$$('tr#access_right_'+row+' #level').each(function(item){item.style.visibility=visibility});
+		$$('tr#access_right_'+row+' #access_level').each(function(item){item.style.visibility=(v != <%= manager_role.id %> ? "hidden" : "visible")});			
+	}
+	
+	document.observe("dom:loaded", function() {
+	  $$('#access_right_role_id').invoke('onchange');
+	});
+<% end
+
+form_tag url_for([:add_access_right, :backend, current_inventory_pool, @user].compact), :method => :post do
+	content_tag :table do
+		content_tag :tr do
+			content_tag :th do %>
+				<%= _("Role") %>
+			<% end
+			content_tag :th do %>
 				<%= _("Inventory Pool") %>
-			<% end unless current_inventory_pool %>
-			<th><%= _("Borrow Level") %></th>
-			<th><%= _("Access Level") %></th>
-			<th></th>
-		</tr>
-		<tr>
-			<% content_tag :td do
-        conditions = (current_inventory_pool ? "name != 'admin'" : nil)  %>
-				<%= collection_select(:access_right, :role_id, Role.all(:conditions => conditions).sort, :id, :name, {}, {:size => 5, :onchange => "changed_selection(this.value);"}) %>
-			<% end %>
-			<% content_tag :td do %>
-				<%= collection_select(:access_right, :inventory_pool_id, InventoryPool.all.sort, :id, :name, {}, {:size => 5}) %>
-			<% end unless current_inventory_pool %>
-			<td><%= select_tag :level, options_for_select("1 2 3 4 5 6 7 8 9".split) %> </td>
-			<% 	max_levels = (current_inventory_pool ? current_user.access_right_for(current_inventory_pool).access_level : 3)
-			   	levels = ""
-			   	1.upto(max_levels) { | l | levels = "#{levels} #{l}" }
-			 %>
-			<td><%= select_tag :access_level, options_for_select(levels.split) %> </td>
-			<td><%= submit_tag _('Add') %></td>
-			</tr>
-	</table>
-<% end %>
+			<% end unless current_inventory_pool
+			content_tag :th do %>
+				<%= _("Borrow Level") %>
+			<% end
+			content_tag :th do %>
+				<%= _("Access Level") %>
+			<% end
+			content_tag :th do
+			end
+		end 
+		content_tag :tr, :id => "access_right_0" do
+			content_tag :td do %>
+				<%= collection_select(:access_right, :role_id, roles, :id, :name, {}, {:size => 5, :onchange => "changed_selection(0, this.value);"}) %>
+			<% end
+			content_tag :td do %>
+				<%= collection_select(:access_right, :inventory_pool_id, inventory_pools, :id, :name, {}, {:size => 5}) %>
+			<% end unless current_inventory_pool
+			content_tag :td do %>
+				<%= select_tag :level, options_for_select((1..9).to_a) %>
+			<% end
+			max_level = (current_inventory_pool ? current_user.access_right_for(current_inventory_pool).access_level : 3)
+			content_tag :td do %>
+				<%= select_tag :access_level, options_for_select((1..max_level).to_a) %>
+			<% end
+			content_tag :td do %>
+				<%= submit_tag _('Add') %>
+			<% end
+		end
+	end
+end %>
 
 <br />
 
 <%
-access_rights = @user.access_rights
-access_rights = access_rights.scoped_by_inventory_pool_id(current_inventory_pool) if current_inventory_pool
-table :records => access_rights do |a| %>	
+access_rights = if current_inventory_pool
+					@user.access_rights.scoped_by_inventory_pool_id(current_inventory_pool)
+				else
+					@user.access_rights
+				end
+table :records => access_rights do |access_right|	
 
-		<tr>
-			<td><%= a.to_s %></td>
-			<td class="buttons">
-				<% remove_link = if current_inventory_pool # OPTIMIZE
-									remove_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => a)
+	@access_right = access_right # only used by collection_select
+	form_tag url_for([:add_access_right, :backend, current_inventory_pool, @user].compact), :method => :post do
+		content_tag :tr, :id => "access_right_#{access_right.id}" do
+
+			if access_right.role == admin_role
+				content_tag :td, :colspan => 5 do %>
+					<%= access_right.role.name %>
+				<% end
+			else
+				content_tag :td do %>
+					<%= collection_select(:access_right, :role_id, roles - [admin_role], :id, :name, {}, {:onchange => "changed_selection(#{access_right.id}, this.value);"}) %>
+				<% end
+				content_tag :td do
+					if access_right.inventory_pool_id %>
+						<%= access_right.inventory_pool %>
+						<%= hidden_field_tag "access_right[inventory_pool_id]", access_right.inventory_pool_id %>
+					<% end
+				end
+				content_tag :td do %>
+					<%= select_tag :level, options_for_select((1..9).to_a, access_right.level) %>
+				<% end
+				max_level = (current_inventory_pool ? current_user.access_right_for(current_inventory_pool).access_level : 3)
+				content_tag :td do %>
+					<%= select_tag :access_level, options_for_select((1..max_level).to_a, access_right.access_level) %>
+				<% end
+				content_tag :td do %>
+					<%= submit_tag _('Save') %>
+				<% end
+			end
+
+			content_tag :td, :class => "buttons" do
+				remove_link = if current_inventory_pool # OPTIMIZE
+									remove_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right)
 								 else
-									remove_access_right_backend_user_path(@user, :access_right_id => a)
+									remove_access_right_backend_user_path(@user, :access_right_id => access_right)
 								 end %>
-				<%= link_to _('Remove'),
+				<%= link_to icon_tag("cancel") + " " + _('Remove'),
 							remove_link,
 							:confirm => _("Are you sure?"),
 							:method => :delete %>
 				<% if current_inventory_pool %>
-					<%= link_to(_("Suspend"), suspend_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => a), 
-								:confirm => _("The user will not be able to place any orders anymore."), :method => :post) unless a.suspended? %>
+					<%= link_to(icon_tag("flag_red") + " " + _("Suspend"), suspend_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right), 
+								:confirm => _("The user will not be able to place any orders anymore."), :method => :post) unless access_right.suspended? %>
 								
-					<%= link_to(icon_tag('emoticon_unhappy') + " " + _('Reinstate'), reinstate_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => a), 
-								 :method => :post) if a.suspended? %>
-				<% end %>
-			</td>
-		</tr>
-<% end %>
+					<%= link_to(icon_tag('emoticon_unhappy') + " " + _('Reinstate'), reinstate_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right), 
+								 :method => :post) if access_right.suspended? %>
+				<% end
+			end
+		end
+	end
+end %>
 
 <hr />
 <h4><%= _("Access levels and borrow levels") %></h4>

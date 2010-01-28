@@ -6,7 +6,7 @@ Story: Acknowledge orders
 	
 Scenario: List with new orders
 
-	Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given the list of new orders contains 0 elements
 	And a new order is placed by a user named 'Joe'
 	And the new order is submitted
@@ -20,7 +20,7 @@ Scenario: List with new orders
 
 Scenario: Count of new orders is shown
 
-  Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given the list of new orders contains 0 elements
   And 5 new orders are placed
 
@@ -34,7 +34,7 @@ Scenario: Count of new orders is shown
 
 Scenario: Acknowledge order
 
-  Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And the list of new orders contains 0 elements
@@ -63,7 +63,7 @@ Scenario: Acknowledge order
 
 Scenario: Reject order
 
-  Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And the list of new orders contains 0 elements
@@ -93,7 +93,7 @@ Scenario: Reject order
 
 Scenario: Change amount and add Item
 
-  Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And a model 'NEC 333' exists
@@ -127,7 +127,7 @@ Scenario: Change amount and add Item
 
 Scenario: Swap Model
 
-  Given a lending manager for inventory pool 'ABC' logs in as 'inv_man_0'
+  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
   Given a model 'NEC 245' exists
   And 7 items of model 'NEC 245' exist
   And a model 'NEC 333' exists

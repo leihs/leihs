@@ -9,7 +9,7 @@ steps_for(:login) do
     inventory_pool = InventoryPool.find_or_create_by_name(:name => ip)
     get backend_inventory_pool_path(inventory_pool, :locale => 'en_US')
     @inventory_pool = assigns(:current_inventory_pool)
-    @last_lending_manager_login_name = who
+    @last_manager_login_name = who
   end
   
   Given "User '$name' is a '$level' customer" do |name, level|

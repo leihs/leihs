@@ -24,7 +24,7 @@ class InventoryPool < ActiveRecord::Base
                           :class_name => "User",
                           :select => "users.*",
                           :join_table => "access_rights",
-                          :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "lending manager"}).id]
+                          :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "manager"}).id]
 
   # 2203** OPTIMIZE
   has_and_belongs_to_many :customers,
