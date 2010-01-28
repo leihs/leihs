@@ -79,7 +79,7 @@ task :configure_sphinx do
 
  run "sed -i 's/port: 3342/port: 3362/' #{release_path}/config/sphinx.yml"
  run "sed -i 's/port: 3343/port: 3363/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/port: 3344/port: 3364/' #{release_path}/config
+ run "sed -i 's/port: 3344/port: 3364/' #{release_path}/config/sphinx.yml"
 
 end
 
