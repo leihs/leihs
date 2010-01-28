@@ -46,10 +46,6 @@ task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
 end
 
-task :chmod_ferret do
-  run "chmod +x #{release_path}/script/ferret_server"
-end
-
 task :modify_config do
   run "sed -i 's/INVENTORY_CODE_PREFIX.*/INVENTORY_CODE_PREFIX = [[\"AVZ\", \"AV-Technik\"], [\"ITZS\", \"ITZ\"], [\"ITZV\", \"ITZ\"] ]/' #{release_path}/config/initializers/propose_inventory_code.rb"
   run "sed -i 's/CONTRACT_LENDING_PARTY_STRING.*/CONTRACT_LENDING_PARTY_STRING = \"Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich\"/' #{release_path}/config/environment.rb"
@@ -60,6 +56,36 @@ task :chmod_tmp do
   run "chmod g-w #{release_path}/tmp"
 end
 
+
+
+task :configure_sphinx do
+ run "cd #{release_path} && RAILS_ENV='production' rake ts:config"
+ run "sed -i 's/listen = 127.0.0.1:3312/listen = 127.0.0.1:3362/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3313/listen = 127.0.0.1:3363/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3314/listen = 127.0.0.1:3364/' #{release_path}/config/production.sphinx.conf"
+
+ run "sed -i 's/sql_host =.*/sql_host = db.zhdk.ch/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_user =.*/sql_user = leihs2prod/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_pass =.*/sql_pass = cueGbx5F3/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_db =.*/sql_db = rails_leihs2_prod/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_sock.*//' #{release_path}/config/production.sphinx.conf"
+
+ run "sed -i 's/port: 3312/port: 3362/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3313/port: 3363/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3314/port: 3364/' #{release_path}/config/sphinx.yml"
+
+end
+
+
+
+task :stop_sphinx do
+#  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
+end
+
+task :start_sphinx do
+  run "cd #{release_path} && RAILS_ENV='production' rake ts:reindex"
+  run "cd #{release_path} && RAILS_ENV='production' rake ts:start"
+end
 
 
 namespace :deploy do
@@ -83,18 +109,11 @@ end
 
 
 after "deploy:symlink", :link_config
-after "deploy:symlink", :chmod_ferret
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
+after "deploy:symlink", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
-
-before "deploy" do 
-  run "cd #{previous_release} && ./script/ferret_server -e production stop"
-end 
- 
-after "deploy" do 
-  run "cd #{release_path} && ./script/ferret_server -e production start"
-end
-
+before "deploy", :stop_sphinx
+after "deploy", :start_sphinx
