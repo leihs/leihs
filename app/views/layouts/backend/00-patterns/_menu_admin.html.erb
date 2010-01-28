@@ -12,7 +12,7 @@
 		end %>
 		<li><%= link_to icon_tag("shape_group") + " " + _("Locations") + " (#{current_inventory_pool.locations.count})", backend_inventory_pool_locations_path(current_inventory_pool) %></li>
 		<% content_tag :li do %>
-			<%= link_to icon_tag("chart_organisation") + " " + _("Categories"), backend_inventory_pool_categories_path(current_inventory_pool) if is_inventory_manager? %>
+			<%= link_to icon_tag("chart_organisation") + " " + _("Categories"), backend_inventory_pool_categories_path(current_inventory_pool) %>
 		<% end if is_inventory_manager? %>
 		
 		<% content_tag :li do %>

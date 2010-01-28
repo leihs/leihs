@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 90000000000010) do
+ActiveRecord::Schema.define(:version => 90000000000011) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
@@ -387,7 +387,6 @@ ActiveRecord::Schema.define(:version => 90000000000010) do
     t.integer "lft"
     t.integer "rgt"
     t.string  "name"
-    t.boolean "delta",     :default => true
   end
 
   add_index "roles", ["lft"], :name => "index_roles_on_lft"

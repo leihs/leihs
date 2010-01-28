@@ -1,5 +1,5 @@
 class Backend::BackendController < ApplicationController
-  require_role "lending manager", :for_current_inventory_pool => true
+  require_role "manager", :for_current_inventory_pool => true
   
   before_filter :init
   
@@ -184,7 +184,7 @@ class Backend::BackendController < ApplicationController
   end
   
   def has_at_least_access_level(level, inventory_pool = current_inventory_pool)
-    (current_user.has_role?('lending manager', inventory_pool, false) and current_user.access_level_for(inventory_pool) >= level)
+    (current_user.has_role?('manager', inventory_pool, false) and current_user.access_level_for(inventory_pool) >= level)
   end
   
   def init

@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
 
   named_scope :managers, :select => "DISTINCT users.*",
                        :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
-                       :conditions => ['roles.name = ? AND deleted_at IS NULL', 'lending manager']
+                       :conditions => ['roles.name = ? AND deleted_at IS NULL', 'manager']
 
   named_scope :customers, :select => "DISTINCT users.*",
                        :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",

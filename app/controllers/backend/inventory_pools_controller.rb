@@ -14,7 +14,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
 
     # OPTIMIZE 0501 the target inventory_pool could be on the second page, then the redirect isn't performed
     if !is_admin? and params[:query].blank?
-      inventory_pools = @inventory_pools.select {|ip| current_user.has_role?('lending manager', ip, false) }.compact
+      inventory_pools = @inventory_pools.select {|ip| current_user.has_role?('manager', ip, false) }.compact
       redirect_to backend_inventory_pool_path(inventory_pools.first) if inventory_pools.size == 1
     end
   end
@@ -34,7 +34,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
   def create
     @inventory_pool = InventoryPool.new
     update
-    current_user.access_rights.create(:role => Role.first(:conditions => {:name => 'inventory manager' }),
+    current_user.access_rights.create(:role => Role.first(:conditions => {:name => 'manager' }),
                                       :inventory_pool => @inventory_pool,
                                       :access_level => 3,
                                       :level => 1) unless @inventory_pool.new_record?
