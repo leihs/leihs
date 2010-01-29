@@ -9,6 +9,8 @@
 		<tr>
 			<td><%#= link_to image_tag(item.model.image_thumb), record_path if item.model.image_thumb %>
 				<%= icon_tag('package') if item.model.is_package? %>
+				<%= icon_tag('broken') if item.is_broken? %>
+				<%= icon_tag('incomplete') if item.is_incomplete? %>
 			</td>
 			<td><%= item.model.name %>
 				<% if item.parent %>

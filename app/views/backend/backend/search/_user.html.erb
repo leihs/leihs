@@ -1,8 +1,4 @@
-<%= link_to "#{user.name || user.login}", backend_inventory_pool_user_path(current_inventory_pool, user) %>
-<table>
-	<tr>
-		<td><%= _("Email") %>: <%= user.email %></td>
-		<td><%= _("Telefon")%>: <%= user.phone %></td>
-		<td><%= _("Badge") %>: <%= user.badge_id || _("None") %></td>
-	</tr>
-</table>
+<td><%= link_to "#{user.name || user.login}", backend_inventory_pool_user_path(current_inventory_pool, user) %></td>
+<td><%= _("Email") %>: <%= user.email %></td>
+<td><%= _("Telefon")%>: <%= user.phone %></td>
+<td><%= _("Badge") %>: <%= user.badge_id || _("None") %></td>

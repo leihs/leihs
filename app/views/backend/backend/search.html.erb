@@ -1,22 +1,22 @@
-<p>
-<%= _("Found %d results for '%s'") % [@result.total_entries, params[:text]] %>
-</p>
+<% 
+	@search.keys.each do |key|
+		values = @search[key]
+		next if key == "NilClass"
+%>
+
+<h3><a href="#" onclick="javascript:document.getElementById('results_<%= key %>').style.display= (document.getElementById('results_<%= key %>').style.display == 'none' ? 'block' : 'none')"><%= _(key) %> - <%= values.size %> <%= _("Result(s)") %></a></h3>
+<div id="results_<%= key %>" style="display:none">
+	<table>
+<% 		values.each do |line| 
+	
+			name = line.class.to_s.downcase
+%>
+		<tr><td><%= render :partial => "backend/backend/search/#{name}", :object => line %></td></tr>
+<% 		end %>
+	</table>
+</div>
+
+<% end %>
 <p>
 	<%= will_paginate @result %>
 </p>
-
-<% 
-	@result.each do |r| 
-		name = r.class.to_s.downcase
-		name = "package" if ("item" == name) and (r.model.is_package?)
-		if r.respond_to?("images") and r.images.first
-			picture = r.images.first.public_filename(:thumb) 
-		else 
-			picture = "/images/#{name}.png"
-		end %>
-
-		<div class="search_result" style="background: url(<%= "#{picture}" %>) no-repeat;">
-			<%= render :partial => "backend/backend/search/#{name}", :object => r %>
-		</div>
-	<% end %>
-
