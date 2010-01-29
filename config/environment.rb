@@ -49,10 +49,10 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
 
-# TODO 2012
+# 2901
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-  # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
-  # config.i18n.default_locale = :de
+#  config.i18n.load_path = Dir[File.join(RAILS_ROOT, 'config', 'locales', '*.{rb,yml}')]
+#  config.i18n.default_locale = :de_CH
 
 # TODO 2012
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
@@ -72,11 +72,12 @@ Rails::Initializer.run do |config|
 #  config.gem "rmagick", :version => '2.7.0'
   config.gem "rgl", :lib => "rgl/adjacency", :version => '0.4.0'
   config.gem "will_paginate", :source => 'http://gemcutter.org', :version => '>= 2.3.11'
-  config.gem "thinking-sphinx", :lib => 'thinking_sphinx', :source => 'http://gemcutter.org', :version => '>= 1.3.14'
+  config.gem "thinking-sphinx", :lib => 'thinking_sphinx', :source => 'http://gemcutter.org', :version => '>= 1.3.15'
 
 # TODO 0501 # config.gem "fastercsv", :version => '>= 1.5.0'
  
   config.gem "prawn"
+  config.gem "ruby-net-ldap", :lib => 'net/ldap', :version => ">= 0.0.4"
  
 end
 
