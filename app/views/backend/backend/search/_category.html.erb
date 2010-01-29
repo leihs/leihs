@@ -1,6 +1,1 @@
-<h4><%= _("Category") %>: <%= link_to category.name, backend_inventory_pool_category_path(current_inventory_pool, category) %></h4>
-<%= category.parents.join(",") unless category.parents.empty? %><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<%= category.name %><br/>
-<% category.children.each do |kid| %>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= kid.name%><br/>
-<% end %>
+<td><%= link_to category.name, backend_inventory_pool_category_path(current_inventory_pool, category) %></td>

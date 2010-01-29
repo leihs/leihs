@@ -11,11 +11,16 @@ class Backend::BackendController < ApplicationController
 ###############################################################  
   
   def search
-    @result = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => $per_page,
+    @result = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => 200,
                                                      :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC",
 #                                                     :group_by => "class_crc",
-                                                     :with => { :inventory_pool_id => [current_inventory_pool.id]} } 
-
+                                                     :with => { :inventory_pool_id => [current_inventory_pool.id]} }
+    @search = {}
+    @result.each do |r|
+      res = @search[r.class.to_s] || []
+      res << r
+      @search[r.class.to_s] = res
+    end
   end
 
    # add a new line

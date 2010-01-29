@@ -1,9 +1,3 @@
-<h4><%= link_to model.name, backend_inventory_pool_model_path(current_inventory_pool, model) %></h4>
-<table>
-	<tr>
-		<td><%= (_("Manufacturer") + ": " + model.manufacturer) if model.manufacturer %>
-		</td><td><%= model.description if model.description%></td>
-	</tr>
-
-</table>
+<td><%= link_to model.name, backend_inventory_pool_model_path(current_inventory_pool, model) %></td>
+<td><%= model.manufacturer if model.manufacturer %></td>
 
