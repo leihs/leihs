@@ -69,52 +69,6 @@ module ThinkingSphinx
 #  @@deltas_enabled = true
 #  @@updates_enabled = true
 
-  module ActiveRecord
-
-    module HasManyAssociation
-
-#old#
-#      # merge
-#      def search(*args)
-#        options = args.extract_options!
-#        options[:page] ||= 1
-#        options[:per_page] ||= 15
-#          # TODO merge conditions
-#          options[:conditions] = {:id => find_for_ids}
-#          class_name.constantize.search(args, options)
-#      end
-
-      # TODO 0501 remove this patch after gem update > 1.3.14
-      def search(*args)
-        foreign_key = @reflection.primary_key_name
-        stack = [@reflection.options[:through]].compact
-        
-        #patch start#
-        @reflection.klass.define_indexes
-        #patch end#
-        
-        attribute   = nil
-        (@reflection.klass.sphinx_indexes || []).each do |index|
-          attribute = index.attributes.detect { |attrib|
-            attrib.columns.length == 1 &&
-            attrib.columns.first.__name  == foreign_key.to_sym
-          }
-          break if attribute
-        end
-        
-        raise "Missing Attribute for Foreign Key #{foreign_key}" unless attribute
-        
-        options = args.extract_options!
-        options[:with] ||= {}
-        options[:with][attribute.unique_name] = @owner.id
-        
-        args << options
-        @reflection.klass.search(*args)
-      end
-    end
-  
-  end
-
   class Search
     def instances_from_class(klass, matches)
       index_options = klass.sphinx_index_options
