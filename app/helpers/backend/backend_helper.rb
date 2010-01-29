@@ -347,14 +347,18 @@ module Backend::BackendHelper
       f = content_tag :table do
         content_tag :tr do
           r = content_tag :td, :class => "date_select" do
-            s = "<b>#{_('Start')}:</b> "
+            s = content_tag :b do
+              "#{_('Start')}: "
+            end
             s += content_tag :span, :id => 'start_weekday' do
             end
             s += "<br/>"
             s += date_select :line, :start_date, { :default => d1.min, :order => [:day, :month, :year] }, { :onchange => "validate_date_sequence();", :disabled => !write_start }
           end
           r += content_tag :td, :class => "date_select" do
-            s = "<b>#{_('End')}:</b> "
+            s = content_tag :b do
+              "#{_('End')}: "
+            end
             s += content_tag :span, :id => 'end_weekday' do
             end
             s += "<br/>"

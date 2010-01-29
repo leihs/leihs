@@ -28,5 +28,5 @@
 		<%= @f.hidden_field :inventory_pool_id %>
 		<%= @item.inventory_pool ? @item.inventory_pool.name : "-" %>
 	<% end %>
-	<td><b><%= _("Responsible person") %>:</b> <%= (is_privileged_user? or @item.new_record?) ? @f.text_field (:responsible) : @item.responsible %></td>
+	<td><b><%= _("Responsible person") %>:</b> <%= (is_privileged_user? or @item.new_record?) ? @f.text_field(:responsible) : @item.responsible %></td>
 </tr>	
