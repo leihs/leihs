@@ -36,9 +36,9 @@ module ModelsHelper
               }
     items = case params[:filter]
               when "own"
-                inventory_pool.own_items.by_model(model).all(:order => "is_borrowable DESC, inventory_code DESC")
+                inventory_pool.own_items.scoped_by_model_id(model).all(:order => "is_borrowable DESC, inventory_code DESC")
               else
-                inventory_pool.items.by_model(model).all(:order => "is_borrowable DESC, inventory_code DESC")
+                inventory_pool.items.scoped_by_model_id(model).all(:order => "is_borrowable DESC, inventory_code DESC")
             end
     canvas_height = (items.size * config[:line][:height])
     config[:canvas][:height] = canvas_height if canvas_height > config[:canvas][:height]
@@ -497,7 +497,7 @@ module ModelsHelper
 
     data = []
     model.inventory_pools.each do |ip|
-      n = ip.items.by_model(model).count
+      n = ip.items.scoped_by_model_id(model).count
       data << {:data => [[0, n]], :label => ip.name}
     end
     

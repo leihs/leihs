@@ -67,9 +67,9 @@
 						<%= model.read_attribute(:max_available) %>
 					<% else
 						if params[:filter] == "own" %>
-							<%= current_inventory_pool.own_items.by_model(model).count %>
+							<%= current_inventory_pool.own_items.scoped_by_model_id(model).count %>
 						<% else %>
-							<%= current_inventory_pool.items.by_model(model).count %>
+							<%= current_inventory_pool.items.scoped_by_model_id(model).count %>
 						<% end
 					end
 				end %>

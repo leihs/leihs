@@ -130,9 +130,6 @@ class Item < ActiveRecord::Base
   named_scope :in_stock, :conditions => ['items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) AND parent_id IS NULL']
   named_scope :not_in_stock, :conditions => ['items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)']
 
-  # OPTIMIZE 0501 scoped_by_model_id
-  named_scope :by_model, lambda { |model| { :conditions => { :model_id => model } } }
-
 ####################################################################
 
   def to_s

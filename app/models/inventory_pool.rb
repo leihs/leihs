@@ -1,14 +1,15 @@
 class InventoryPool < ActiveRecord::Base
 
-  has_many :access_rights, :dependent => :delete_all, :conditions => 'deleted_at IS NULL'
+  has_many :access_rights, :dependent => :delete_all, :include => :role, :conditions => 'deleted_at IS NULL'
   has_one :workday, :dependent => :delete
   has_many :holidays, :dependent => :delete_all
   has_many :users, :through => :access_rights, :uniq => true
   has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.suspended_at IS NOT NULL"
 
 
+#working here#
 ########
-#  has_many :managers, :through => :access_rights, :source => :user, :join_table => "access_rights", :conditions => ["access_rights.role_id = 2"]
+#  has_many :managers, :through => :access_rights, :source => :user, :include => {:access_rights => :role}, :conditions => {:access_rights => {:roles => {:name => "manager"}}} #["access_rights.role_id = 4"]
 #  has_many :managers, :class_name => "User",
 #           :finder_sql => "SELECT DISTINCT u.*
 #                            FROM access_rights ar
@@ -19,19 +20,23 @@ class InventoryPool < ActiveRecord::Base
 #                            WHERE ar.inventory_pool_id = #{self.id} 
 #                              AND r.name = 'manager'"
 
-  # 2203** OPTIMIZE
+  # FIXME working here
+  role_manager = Role.first(:conditions => {:name => "manager"})
   has_and_belongs_to_many :managers,
                           :class_name => "User",
                           :select => "users.*",
                           :join_table => "access_rights",
-                          :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "manager"}).id]
+#                          :conditions => {:access_rights => {:roles => {:name => "manager"}}}
+                          :conditions => ["access_rights.role_id = ?", (role_manager ? role_manager.id : 0)]
 
-  # 2203** OPTIMIZE
+  # FIXME working here
+  role_customer = Role.first(:conditions => {:name => "customer"})
   has_and_belongs_to_many :customers,
                           :class_name => "User",
                           :select => "users.*",
                           :join_table => "access_rights",
-                          :conditions => ["access_rights.role_id = ?", Role.first(:conditions => {:name => "customer"}).id]
+#                          :conditions => {:access_rights => {:roles => {:name => "customer"}}}
+                          :conditions => ["access_rights.role_id = ?", (role_customer ? role_customer.id : 0)]
 ########
 
     
@@ -102,7 +107,7 @@ class InventoryPool < ActiveRecord::Base
   
   # OPTIMIZE used for extjs
   def items_size(model_id)
-    items.borrowable.by_model(model_id).count
+    items.borrowable.scoped_by_model_id(model_id).count
   end
 
   def is_open_on?(date)

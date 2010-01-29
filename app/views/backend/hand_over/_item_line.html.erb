@@ -1,15 +1,16 @@
 	<tr class="alt-row">
 		<td>
+			<% # working here TODO async post %>
 			<%	check_box_today = (@line.start_date <= Date.today ? "contract_line_check_today" : "")
 				is_checked = @line.complete? %>
 			<%= check_box_tag('contract_lines[]', @line.id, is_checked, :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'ghostable_group_1');" ) %>
 			
 			<%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line_quantity', :contract_line_id => @line.id}, :with => "'quantity=' + value" )) %>
 
-			<% # TODO 03** tooltip %>
+			<% # working here TODO async post %>
 			<% tooltip icon_tag('error') do %>
 				<%= @line.tooltip %>
-			<% end unless @line.complete? %>
+			<% end unless is_checked %>
 
 			<% if @line.model.internal_description and not @line.model.internal_description.blank? %>
 				<% tooltip icon_tag("information") do%>
@@ -23,6 +24,8 @@
 					:title => _("Select Location")) if @line.location %>						
 			<%= show_line_model(@line.model) %>
 		</td>
+
+		<% # working here TODO async post %>
 		<% b = @line.available? %>
 		<td class="valid_<%= b %>">
 			<%= greybox_link_to_page(dates_with_period(@line.start_date, @line.end_date),
@@ -53,7 +56,7 @@
 			$('line_item_inventory_code_<%= @line.id %>').observe('click', function(){ if(this.value == ''){ auto_completer_<%= @line.id %>.activate(); } });
 
 			<%
-			items = current_inventory_pool.items.in_stock.by_model(@line.model)
+			items = current_inventory_pool.items.in_stock.scoped_by_model_id(@line.model)
 			styled_inventory_codes = items.collect {|i| i.is_borrowable? ? i.inventory_code : "<span style='color:red;'>#{i.inventory_code}</span>" }.to_json
 			%>
 			var auto_completer_<%= "#{@line.id}" %> = new Autocompleter.Local("line_item_inventory_code_<%= @line.id %>",
@@ -65,11 +68,9 @@
 			<% tooltip icon_tag('stop') do %>
 				<%= _("Item needs permission!") %>
 			<% end if @line.item and @line.item.needs_permission? %>
-			
 		</td>
 		
 		<td class="buttons">
-
 				<%= greybox_link_to_page(icon_tag("arrow_switch") + " " + _("Swap"),
 						{ :action => 'swap_model_line', :line_id => @line.id },
 						:title => _("Swap Model"), :width => 1000 ) %>
