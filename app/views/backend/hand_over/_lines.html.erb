@@ -3,7 +3,7 @@
 <%
 last_date = Date.today - 120.days
 last_end_date = nil
-for @line in @contract.lines  
+for @line in @contract.lines.sort
 	if @line.start_date > last_date
 		content_tag :tr do
 	 		content_tag :td, :colspan => 5 do %>

@@ -42,7 +42,7 @@ class DocumentLine < ActiveRecord::Base
 
   # compares two objects in order to sort them
   def <=>(other)
-    self.start_date <=> other.start_date
+    [self.start_date, self.model.name] <=> [other.start_date, other.model.name]
   end
 
 ###############################################  

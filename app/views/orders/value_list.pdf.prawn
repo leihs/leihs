@@ -49,7 +49,7 @@ table_headers = [_("Qt"), _("Model"),  _("Value"), _("Total")]
 total_value = 0
 table_data = []
 
-@order.lines.each do |l|
+@order.lines.sort.each do |l|
 
   if l.class.to_s == "OrderLine"
     model_value = maximum_item_price(l.model) 

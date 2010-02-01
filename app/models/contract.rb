@@ -6,7 +6,6 @@ class Contract < Document
   has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC'
   has_many :item_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC'
   has_many :option_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC'
-  has_many :lines, :class_name => 'ContractLine', :finder_sql => 'SELECT contract_lines.* FROM `contract_lines`, models WHERE contract_lines.model_id = models.id AND (`contract_lines`.contract_id = #{id}) ORDER BY start_date ASC, end_date ASC, models.name ASC, contract_lines.created_at ASC'
   has_many :models, :through => :item_lines, :uniq => true, :order => 'contract_lines.start_date ASC, contract_lines.end_date ASC, models.name ASC'
   has_many :items, :through => :item_lines, :uniq => false
   has_many :options, :through => :option_lines, :uniq => true
@@ -37,7 +36,10 @@ class Contract < Document
     n.nil? ? status_const : n
   end
 
-
+  # alias
+  def lines
+    contract_lines
+  end
 
 #########################################################################
 

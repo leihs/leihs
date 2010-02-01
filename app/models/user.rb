@@ -238,7 +238,6 @@ class User < ActiveRecord::Base
     end
   end
   
-  # FIXME
   def to_remind?
     not to_remind.empty?
   end
