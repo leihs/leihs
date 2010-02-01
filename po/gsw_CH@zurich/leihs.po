@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
-"POT-Creation-Date: 2010-01-26 09:46+0100\n"
+"POT-Creation-Date: 2010-02-01 16:27+0100\n"
 "PO-Revision-Date: 2009-10-08 17:15+0100\n"
 "Last-Translator: Ugo De Vito <ugo.devito@zhdk.ch>\n"
 "Language-Team: English\n"
@@ -261,7 +261,7 @@ msgstr "Attachment erfolgriich erstellt."
 msgid "Upload error."
 msgstr "Upload-Fähler"
 
-#: app/controllers/backend/backend_controller.rb:50
+#: app/controllers/backend/backend_controller.rb:55
 msgid "Model must be selected"
 msgstr "S'Modäll muess uusgwählt sii"
 
@@ -347,11 +347,21 @@ msgstr "Mitarbeiter"
 msgid "Special"
 msgstr "Speziell"
 
-#: app/models/access_right.rb:40
+#: app/models/access_right.rb:30
+#, fuzzy
+msgid "Borrow Level: %d"
+msgstr "Uuslehnbar"
+
+#: app/models/access_right.rb:31
+#, fuzzy
+msgid "Access Level: %d"
+msgstr "Zuegriffsrächt"
+
+#: app/models/access_right.rb:51
 msgid "The admin role cannot be scoped to an inventory pool"
 msgstr "D Admin-Rolle chan sich nöd uf en Grätepark beziehe"
 
-#: app/models/access_right.rb:42
+#: app/models/access_right.rb:53
 msgid "Inventory Pool is missing"
 msgstr "Grätepark fählt"
 
@@ -1746,7 +1756,7 @@ msgstr "Grätepark isch am start_date zue."
 msgid "inventory pool is closed on end_date. "
 msgstr "Grätepark isch am end_date zue."
 
-#: app/models/document_line.rb:98 app/helpers/backend/backend_helper.rb:370
+#: app/models/document_line.rb:98 app/helpers/backend/backend_helper.rb:374
 #: app/views/frontend/_complete_order.html.erb:193
 #: app/views/frontend/_models.html.erb:401
 msgid "Start Date must be before End Date"
@@ -1785,50 +1795,50 @@ msgstr "Die Option ghört nöd zum Grätepark wo zu dem Vertrag ghört"
 msgid "already in Category"
 msgstr "Scho inere Karegorie"
 
-#: app/models/user.rb:220
+#: app/models/user.rb:226
 msgid "Reminded %{q} items for contracts %{c}"
 msgstr "%{q} Sachä für Vertrag %{c} erinneret"
 
-#: app/models/user.rb:226
+#: app/models/user.rb:232
 msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
 msgstr "Fehlgschlagne Reminder vo %{q} Sachä vom Vertrag %{c}"
 
-#: app/models/user.rb:250
+#: app/models/user.rb:257
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr "Reminder für baldigi Deadline für %{q} Sachä vom Vertrag %{c} gschickt"
 
-#: app/models/item.rb:198
+#: app/models/item.rb:193
 #, fuzzy
 msgid "%s until %s"
 msgstr "Vo %s bis am %s usglehnt"
 
-#: app/models/item.rb:219
+#: app/models/item.rb:209
 msgid "Package error"
 msgstr "Paketfähler"
 
-#: app/models/item.rb:223
+#: app/models/item.rb:213
 msgid ""
 "The model cannot be changed because the item is used in contracts already."
 msgstr ""
 "S Modäll chan nod gänderet werde will d'Sach scho imene Vertrag enthalte "
 "isch."
 
-#: app/models/contract.rb:32
+#: app/models/contract.rb:33
 #, fuzzy
 msgid "Unsigned"
 msgstr "Unterschribe"
 
-#: app/models/contract.rb:32
+#: app/models/contract.rb:33
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:28
 msgid "Signed"
 msgstr "Unterschribe"
 
-#: app/models/contract.rb:32
+#: app/models/contract.rb:33
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:33
 msgid "Closed"
 msgstr "Gschlosse"
 
-#: app/models/contract.rb:78
+#: app/models/contract.rb:75
 msgid "Contract %d has been signed by %s"
 msgstr "Vertrag %d isch vo %s underschribe worde"
 
@@ -1895,7 +1905,6 @@ msgid "Yesterday"
 msgstr "Geschter"
 
 #: app/helpers/backend/users_helper.rb:4
-#: app/views/backend/inventory_pools/index.html.erb:34
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:18
 msgid "Remind"
 msgstr "Erinnärä"
@@ -1959,8 +1968,10 @@ msgstr "Benutzer"
 #: app/views/backend/models/index.html.erb:40
 #: app/views/backend/models/package_roots.html.erb:51
 #: app/views/backend/templates/models.html.erb:21
-#: app/views/backend/backend/search/_item.html.erb:7
 #: app/views/frontend/_basket.html.erb:16
+#: app/views/orders/value_list.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+#: app/views/contracts/show.pdf.prawn:74
 msgid "Model"
 msgstr "Modäll"
 
@@ -1969,13 +1980,13 @@ msgstr "Modäll"
 msgid "Loading"
 msgstr "Am lade"
 
-#: app/helpers/backend/backend_helper.rb:364
+#: app/helpers/backend/backend_helper.rb:368
 #: app/views/backend/hand_over/sign_contract.html.erb:17
 #: app/views/backend/take_back/close_contract.html.erb:8
 msgid "Confirm"
 msgstr "Bestätige"
 
-#: app/helpers/backend/backend_helper.rb:514
+#: app/helpers/backend/backend_helper.rb:518
 msgid "Month"
 msgstr "Monet"
 
@@ -2015,7 +2026,7 @@ msgstr "Vorname/Nachname"
 #: app/views/backend/users/new.html.erb:6
 #: app/views/backend/inventory_pools/edit.html.erb:5
 #: app/views/backend/inventory_pools/_info.html.erb:6
-#: app/views/backend/backend/search/_user.html.erb:4
+#: app/views/backend/backend/search/_user.html.erb:2
 msgid "Email"
 msgstr "E-Mail"
 
@@ -2212,7 +2223,7 @@ msgid "Received at"
 msgstr "Empfange am"
 
 #: app/views/orders/_pending.html.erb:7
-#: app/views/backend/users/access_rights.html.erb:15
+#: app/views/backend/users/access_rights.html.erb:28
 #: app/views/contracts/_pending.html.erb:8
 #: app/views/frontend/_basket.html.erb:19
 #: app/views/frontend/_models.html.erb:346
@@ -2254,7 +2265,7 @@ msgid "Documents"
 msgstr "Dokument"
 
 #: app/views/orders/_pending.html.erb:12
-#: app/views/backend/hand_over/_item_line.html.erb:76
+#: app/views/backend/hand_over/_item_line.html.erb:77
 #: app/views/backend/hand_over/index.html.erb:34
 #: app/views/backend/hand_over/_option_line.html.erb:33
 #: app/views/backend/locations/index.html.erb:16
@@ -2276,12 +2287,14 @@ msgstr "Löschä"
 #: app/views/backend/contracts/index.html.erb:19
 #: app/views/backend/acknowledge/_buttons.html.erb:21
 #: app/views/contracts/_pending.html.erb:22
+#: app/views/orders/value_list.pdf.prawn:25
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:29
 msgid "Value list"
 msgstr "Wertelischte"
 
 #: app/views/orders/_pending.html.erb:25
 #: app/views/backend/hand_over/index.html.erb:36
-#: app/views/backend/users/access_rights.html.erb:57
+#: app/views/backend/users/access_rights.html.erb:108
 #: app/views/backend/models/index.html.erb:92
 #: app/views/backend/models/index.html.erb:96
 #: app/views/backend/models/package_roots.html.erb:42
@@ -2321,15 +2334,15 @@ msgstr "Ort"
 msgid "Items (%d)"
 msgstr "Sachä (%d)"
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:24
+#: app/views/widgets/_user_backend_tabnav.html.erb:25
 msgid "Access Rights (%d)"
 msgstr "Zuegriffsrächt (%d)"
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:30
+#: app/views/widgets/_user_backend_tabnav.html.erb:31
 msgid "Things to return"
 msgstr "Sache zum zruggäh"
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:35
+#: app/views/widgets/_user_backend_tabnav.html.erb:37
 msgid "Extended Info"
 msgstr ""
 
@@ -2364,7 +2377,6 @@ msgstr "Kompatibli Sachä (%d)"
 
 #: app/views/widgets/_category_backend_tabnav.html.erb:1
 #: app/views/widgets/_category_backend_tabnav.html.erb:20
-#: app/views/backend/backend/search/_category.html.erb:1
 #: app/views/frontend/_models.html.erb:122
 msgid "Category"
 msgstr "Kategorie"
@@ -2402,18 +2414,18 @@ msgstr "Vertragsbemerkig"
 msgid "Cancel"
 msgstr "Abbräche"
 
-#: app/views/backend/hand_over/_item_line.html.erb:21
+#: app/views/backend/hand_over/_item_line.html.erb:22
 #: app/views/backend/hand_over/_option_line.html.erb:15
 msgid "Installed in: %s"
 msgstr "Installiert in: %s"
 
-#: app/views/backend/hand_over/_item_line.html.erb:23
+#: app/views/backend/hand_over/_item_line.html.erb:24
 #: app/views/backend/hand_over/show.html.erb:61
 #: app/views/backend/hand_over/_option_line.html.erb:17
 msgid "Select Location"
 msgstr "Ort wähle"
 
-#: app/views/backend/hand_over/_item_line.html.erb:32
+#: app/views/backend/hand_over/_item_line.html.erb:35
 #: app/views/backend/hand_over/show.html.erb:49
 #: app/views/backend/hand_over/_option_line.html.erb:25
 #: app/views/backend/take_back/_item_line.html.erb:15
@@ -2424,22 +2436,22 @@ msgstr "Ort wähle"
 msgid "Time Period"
 msgstr "Ziitperiodä"
 
-#: app/views/backend/hand_over/_item_line.html.erb:66
+#: app/views/backend/hand_over/_item_line.html.erb:69
 msgid "Item needs permission!"
 msgstr "Sach erforderet e Berächtigung!"
 
-#: app/views/backend/hand_over/_item_line.html.erb:73
+#: app/views/backend/hand_over/_item_line.html.erb:74
 #: app/views/backend/users/index.html.erb:35
 #: app/views/backend/acknowledge/_line.html.erb:43
 msgid "Swap"
 msgstr "Tuusche"
 
-#: app/views/backend/hand_over/_item_line.html.erb:75
+#: app/views/backend/hand_over/_item_line.html.erb:76
 #: app/views/backend/acknowledge/_line.html.erb:45
 msgid "Swap Model"
 msgstr "Modäll tuusche"
 
-#: app/views/backend/hand_over/_item_line.html.erb:78
+#: app/views/backend/hand_over/_item_line.html.erb:79
 #: app/views/backend/hand_over/_option_line.html.erb:35
 #: app/views/backend/acknowledge/_line.html.erb:48
 msgid "Remove Model"
@@ -2475,7 +2487,6 @@ msgstr "Aktion"
 #: app/views/backend/hand_over/_buttons.html.erb:3
 #: app/views/backend/hand_over/_buttons.html.erb:7
 #: app/views/backend/orders/index.html.erb:25
-#: app/views/backend/inventory_pools/index.html.erb:32
 #: app/views/backend/backend/search/_contract.html.erb:14
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:12
 msgid "Hand Over"
@@ -2654,7 +2665,7 @@ msgstr "Gstell"
 
 #: app/views/backend/locations/index.html.erb:13
 #: app/views/backend/users/index.html.erb:39
-#: app/views/backend/items/index.html.erb:51
+#: app/views/backend/items/index.html.erb:53
 #: app/views/backend/models/index.html.erb:90
 #: app/views/backend/models/package_roots.html.erb:5
 #: app/views/backend/models/package_roots.html.erb:59
@@ -2703,21 +2714,21 @@ msgstr "OK"
 msgid "Currently has the following things"
 msgstr "Hat im Moment diä Sachä da"
 
-#: app/views/backend/users/access_rights.html.erb:13
+#: app/views/backend/users/access_rights.html.erb:25
 msgid "Role"
 msgstr "Rolle"
 
-#: app/views/backend/users/access_rights.html.erb:17
+#: app/views/backend/users/access_rights.html.erb:31
 #, fuzzy
 msgid "Borrow Level"
 msgstr "Uuslehnbar"
 
-#: app/views/backend/users/access_rights.html.erb:18
+#: app/views/backend/users/access_rights.html.erb:34
 #, fuzzy
 msgid "Access Level"
 msgstr "Zuegriffsrächt"
 
-#: app/views/backend/users/access_rights.html.erb:35
+#: app/views/backend/users/access_rights.html.erb:54
 #: app/views/backend/models/package_roots.html.erb:37
 #: app/views/backend/workdays/index.html.erb:23
 #: app/views/frontend/_models.html.erb:314
@@ -2725,7 +2736,13 @@ msgstr "Zuegriffsrächt"
 msgid "Add"
 msgstr "Dezuetue"
 
-#: app/views/backend/users/access_rights.html.erb:55
+#: app/views/backend/users/access_rights.html.erb:96
+#: app/views/backend/items/show.html.erb:29
+#: app/views/backend/acknowledge/change_purpose.html.erb:8
+msgid "Save"
+msgstr "Speicherä"
+
+#: app/views/backend/users/access_rights.html.erb:106
 #: app/views/backend/models/index.html.erb:91
 #: app/views/backend/models/package_roots.html.erb:63
 #: app/views/backend/models/accessories.html.erb:41
@@ -2737,36 +2754,36 @@ msgstr "Dezuetue"
 msgid "Remove"
 msgstr "Wägneh"
 
-#: app/views/backend/users/access_rights.html.erb:60
+#: app/views/backend/users/access_rights.html.erb:111
 msgid "Suspend"
 msgstr "Suschpendiere"
 
-#: app/views/backend/users/access_rights.html.erb:61
+#: app/views/backend/users/access_rights.html.erb:112
 msgid "The user will not be able to place any orders anymore."
 msgstr "De Benutzer chan kei Bstellige meh mache."
 
-#: app/views/backend/users/access_rights.html.erb:63
+#: app/views/backend/users/access_rights.html.erb:114
 msgid "Reinstate"
 msgstr "Wider iisetze"
 
-#: app/views/backend/users/access_rights.html.erb:71
+#: app/views/backend/users/access_rights.html.erb:123
 msgid "Access levels and borrow levels"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:72
+#: app/views/backend/users/access_rights.html.erb:124
 msgid ""
 "Access levels are used to determine what system functionality a user is "
 "allowed to see and use."
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:73
+#: app/views/backend/users/access_rights.html.erb:125
 msgid ""
 "Borrow levels are used to allow/disallow lending certain items to users that "
 "aren't of high enough level. For example: if an item has level 5, a user of "
 "borrow level 4 will never see it whereas a user of level 5 or higher will."
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:74
+#: app/views/backend/users/access_rights.html.erb:126
 msgid ""
 "Both levels are handled per inventory pool, so if one inventory pool only "
 "wants to deal with levels 1-3 of their items while another needs all 9 "
@@ -2870,6 +2887,7 @@ msgstr "Noii Sach"
 
 #: app/views/backend/items/index.html.erb:5
 #: app/views/backend/models/package_roots.html.erb:51
+#: app/views/contracts/show.pdf.prawn:74
 msgid "Inventory Code"
 msgstr "Inventarcode"
 
@@ -2883,31 +2901,31 @@ msgstr "Status"
 msgid "In stock?"
 msgstr "A Lager?"
 
-#: app/views/backend/items/index.html.erb:15
+#: app/views/backend/items/index.html.erb:17
 msgid "Part of:"
 msgstr ""
 
-#: app/views/backend/items/index.html.erb:32
+#: app/views/backend/items/index.html.erb:34
 #: app/views/backend/items/_status.html.erb:6
 #: app/views/backend/items/status.html.erb:16
 #: app/views/backend/items/status.html.erb:26
 #: app/views/backend/take_back/inspection.html.erb:8
-#: app/views/backend/backend/search/_item.html.erb:12
+#: app/views/backend/backend/search/_item.html.erb:3
 #: app/views/layouts/backend/00-patterns/_menu_items.html.erb:11
 msgid "Broken"
 msgstr "Kabutt"
 
-#: app/views/backend/items/index.html.erb:35
+#: app/views/backend/items/index.html.erb:37
 #: app/views/backend/items/_status.html.erb:13
 #: app/views/backend/items/status.html.erb:17
 #: app/views/backend/items/status.html.erb:31
 #: app/views/backend/take_back/inspection.html.erb:11
-#: app/views/backend/backend/search/_item.html.erb:13
+#: app/views/backend/backend/search/_item.html.erb:3
 #: app/views/layouts/backend/00-patterns/_menu_items.html.erb:14
 msgid "Incomplete"
 msgstr "Nöd vollständig"
 
-#: app/views/backend/items/index.html.erb:38
+#: app/views/backend/items/index.html.erb:40
 #: app/views/backend/items/_status.html.erb:19
 #: app/views/backend/items/status.html.erb:18
 #: app/views/backend/items/status.html.erb:36
@@ -2916,12 +2934,12 @@ msgstr "Nöd vollständig"
 msgid "Unborrowable"
 msgstr "Nöd uuslehnbar"
 
-#: app/views/backend/items/index.html.erb:53
+#: app/views/backend/items/index.html.erb:55
 #: app/views/backend/items/retire.html.erb:3
 msgid "Unretire"
 msgstr "nüme uusmuschtere"
 
-#: app/views/backend/items/index.html.erb:53
+#: app/views/backend/items/index.html.erb:55
 #: app/views/backend/items/retire.html.erb:6
 msgid "Retire"
 msgstr "Uusmuschtere"
@@ -2940,11 +2958,6 @@ msgstr "Sach"
 #, fuzzy
 msgid "This item was retired on %s because %s"
 msgstr "D Sach isch uusgmuschteret worde am"
-
-#: app/views/backend/items/show.html.erb:29
-#: app/views/backend/acknowledge/change_purpose.html.erb:8
-msgid "Save"
-msgstr "Speicherä"
 
 #: app/views/backend/items/show.html.erb:30
 msgid "Save and create a Copy"
@@ -3088,20 +3101,20 @@ msgstr "Relevant für s'Inventar"
 msgid "Owner"
 msgstr "Bsitzer: "
 
-#: app/views/backend/items/_inventory_info.html.erb:11
+#: app/views/backend/items/_inventory_info.html.erb:21
 msgid "Last Checked:"
 msgstr "z'letscht überprüeft:"
 
-#: app/views/backend/items/_inventory_info.html.erb:14
+#: app/views/backend/items/_inventory_info.html.erb:24
 msgid "Responsible department"
 msgstr "Verantwortlichs Departement"
 
-#: app/views/backend/items/_inventory_info.html.erb:16
-#: app/views/backend/backend/search/_user.html.erb:6
+#: app/views/backend/items/_inventory_info.html.erb:26
+#: app/views/backend/backend/search/_user.html.erb:4
 msgid "None"
 msgstr "kei"
 
-#: app/views/backend/items/_inventory_info.html.erb:21
+#: app/views/backend/items/_inventory_info.html.erb:31
 msgid "Responsible person"
 msgstr "Verantortlichi Person"
 
@@ -3141,7 +3154,6 @@ msgstr "Vo "
 #: app/views/backend/models/index.html.erb:40
 #: app/views/backend/models/show.html.erb:7
 #: app/views/backend/models/package_roots.html.erb:51
-#: app/views/backend/backend/search/_model.html.erb:4
 #: app/views/frontend/_models.html.erb:299
 msgid "Manufacturer"
 msgstr "Herschteller"
@@ -3157,7 +3169,6 @@ msgid "Available Items"
 msgstr "Verfüegbar"
 
 #: app/views/backend/models/show.html.erb:8
-#: app/views/backend/inventory_pools/index.html.erb:5
 #: app/views/backend/inventory_pools/edit.html.erb:6
 #: app/views/backend/inventory_pools/_info.html.erb:7
 msgid "Description"
@@ -3333,20 +3344,11 @@ msgstr "Elterä-Element"
 msgid "Remove Parent"
 msgstr "Elterä-Element wegnäh"
 
-#: app/views/backend/inventory_pools/index.html.erb:31
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:9
-msgid "Acknowledge"
-msgstr "Bestätige"
-
-#: app/views/backend/inventory_pools/index.html.erb:33
-#: app/views/backend/take_back/index.html.erb:33
-#: app/views/backend/take_back/_buttons.html.erb:3
-#: app/views/backend/take_back/_buttons.html.erb:7
-#: app/views/backend/backend/search/_contract.html.erb:11
-#: app/views/backend/contracts/index.html.erb:22
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:15
-msgid "Take Back"
-msgstr "Zruggnäh"
+#: app/views/backend/inventory_pools/index.html.erb:5
+#: app/views/backend/inventory_pools/edit.html.erb:4
+#: app/views/backend/inventory_pools/_info.html.erb:5
+msgid "Short Name"
+msgstr "Churzname"
 
 #: app/views/backend/inventory_pools/show.html.erb:6
 #, fuzzy
@@ -3358,15 +3360,30 @@ msgstr "Bsüech"
 msgid "Overdue"
 msgstr "Überfällig"
 
-#: app/views/backend/inventory_pools/edit.html.erb:4
-#: app/views/backend/inventory_pools/_info.html.erb:5
-msgid "Short Name"
-msgstr "Churzname"
-
 #: app/views/backend/inventory_pools/edit.html.erb:7
 #: app/views/backend/inventory_pools/_info.html.erb:8
 msgid "Default contract note"
 msgstr "Standart Vertrags-Bemerkig"
+
+#: app/views/backend/inventory_pools/_info.html.erb:5
+msgid ""
+"Whatever you enter here is prepended to all inventory numbers for this "
+"particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no "
+"alphabetic characters are used in the inventory numbers."
+msgstr ""
+
+#: app/views/backend/inventory_pools/_info.html.erb:6
+msgid ""
+"This e-mail address is used as sender when sending reminder or confirmation "
+"e-mails for this particular pool. If you enter nothing, the system default "
+"sender address is used."
+msgstr ""
+
+#: app/views/backend/inventory_pools/_info.html.erb:8
+msgid ""
+"This note is added to any contract, but can be changed individually before "
+"actually printing and signing each contract."
+msgstr ""
 
 #: app/views/backend/inventory_pools/_info.html.erb:9
 msgid "Menu background color"
@@ -3382,6 +3399,15 @@ msgstr "Vertrag %d"
 #: app/views/backend/take_back/inspection.html.erb:1
 msgid "Inspection"
 msgstr "Inspektion"
+
+#: app/views/backend/take_back/index.html.erb:33
+#: app/views/backend/take_back/_buttons.html.erb:3
+#: app/views/backend/take_back/_buttons.html.erb:7
+#: app/views/backend/backend/search/_contract.html.erb:11
+#: app/views/backend/contracts/index.html.erb:22
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:15
+msgid "Take Back"
+msgstr "Zruggnäh"
 
 #: app/views/backend/take_back/show.html.erb:14
 msgid "User has no access to your inventory pool anymore"
@@ -3420,8 +3446,8 @@ msgstr "Modäll dezuetue"
 msgid "Only %d items are present."
 msgstr "Nur %d Sachä sind da."
 
-#: app/views/backend/backend/search.html.erb:2
-msgid "Found %d results for '%s'"
+#: app/views/backend/backend/search.html.erb:7
+msgid "Result(s)"
 msgstr ""
 
 #: app/views/backend/backend/search/_contract.html.erb:1
@@ -3434,7 +3460,7 @@ msgstr "Vertrag Nr. %d"
 msgid "Print PDF"
 msgstr "PDF druckä"
 
-#: app/views/backend/backend/search/_item.html.erb:14
+#: app/views/backend/backend/search/_item.html.erb:3
 #: app/views/layouts/backend/00-patterns/_menu_items.html.erb:5
 msgid "In Stock"
 msgstr "A Lager"
@@ -3444,11 +3470,11 @@ msgstr "A Lager"
 msgid "Order from %s"
 msgstr "Bstellnummere"
 
-#: app/views/backend/backend/search/_user.html.erb:5
+#: app/views/backend/backend/search/_user.html.erb:3
 msgid "Telefon"
 msgstr ""
 
-#: app/views/backend/backend/search/_user.html.erb:6
+#: app/views/backend/backend/search/_user.html.erb:4
 #, fuzzy
 msgid "Badge"
 msgstr "Badge-ID"
@@ -3606,12 +3632,14 @@ msgstr "Wotsch diä Bstellig abschickä?"
 #: app/views/frontend/_complete_order.html.erb:363
 #: app/views/frontend/_models.html.erb:368
 #: app/views/frontend/_models.html.erb:372
+#: app/views/contracts/show.pdf.prawn:74
 msgid "Start date"
 msgstr "Startdatum"
 
 #: app/views/frontend/_complete_order.html.erb:374
 #: app/views/frontend/_models.html.erb:387
 #: app/views/frontend/_models.html.erb:391
+#: app/views/contracts/show.pdf.prawn:74
 msgid "End date"
 msgstr "Änddatum"
 
@@ -3733,6 +3761,10 @@ msgstr "Benutzer"
 msgid "Admins"
 msgstr "Administratorä"
 
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:9
+msgid "Acknowledge"
+msgstr "Bestätige"
+
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:23
 #, fuzzy
 msgid "New model"
@@ -3782,6 +3814,69 @@ msgstr "Optionä"
 msgid "Pending"
 msgstr "Nonig fertig"
 
+#: app/views/orders/value_list.pdf.prawn:28
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:32
+#: app/views/contracts/show.pdf.prawn:55
+msgid "Borrowing party:"
+msgstr "Uusleihendi:"
+
+#: app/views/orders/value_list.pdf.prawn:29
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:33
+#: app/views/contracts/show.pdf.prawn:56
+msgid "Lending party:"
+msgstr "Verleiher:"
+
+#: app/views/orders/value_list.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+#: app/views/contracts/show.pdf.prawn:74
+msgid "Qt"
+msgstr "Az."
+
+#: app/views/orders/value_list.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+msgid "Value"
+msgstr "Wert"
+
+#: app/views/orders/value_list.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+msgid "Total"
+msgstr "Total"
+
+#: app/views/orders/value_list.pdf.prawn:69
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:73
+msgid "Grand total"
+msgstr ""
+
+#: app/views/orders/value_list.pdf.prawn:83
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:86
+msgid "All prices in CHF."
+msgstr ""
+
+#: app/views/contracts/show.pdf.prawn:26
+msgid "No purpose given."
+msgstr "Kän Zwäck iitreit."
+
+#: app/views/contracts/show.pdf.prawn:47
+msgid "Contract no. %d"
+msgstr "Vertrag Nr. %d"
+
+#: app/views/contracts/show.pdf.prawn:52
+#, fuzzy
+msgid ""
+"This lending contract covers borrowing the following items by the person "
+"(natural or legal) described as 'borrowing party' below. Use of these items "
+"is only allowed for the purpose given below."
+msgstr ""
+"De Leihvertrag deckt d' Uusleihi vo de folgende Gegenständ dur di natürlich "
+"oder rächtlich Person ab, wo obe als \"Uusleihendi/e\" bezeichnet isch. "
+"D'Verwändig vo de Gegenstände isch nur im Rahme vom une aangähne Zwäck "
+"gestattet."
+
+#: app/views/contracts/show.pdf.prawn:74
+#, fuzzy
+msgid "Returned date"
+msgstr "Rückgabedatum"
+
 #: lib/role_requirement_system.rb:118
 msgid "You don't have any rights to access this application"
 msgstr "Sie händ kei Berächtigung für de Zuegang uf die Applikation"
@@ -3789,15 +3884,6 @@ msgstr "Sie händ kei Berächtigung für de Zuegang uf die Applikation"
 #: lib/role_requirement_system.rb:120
 msgid "Access Denied"
 msgstr "Zuegriff verweigeret"
-
-#~ msgid "Contract no. %d"
-#~ msgstr "Vertrag Nr. %d"
-
-#~ msgid "Lending party:"
-#~ msgstr "Verleiher:"
-
-#~ msgid "Borrowing party:"
-#~ msgstr "Uusleihendi:"
 
 #~ msgid ""
 #~ "This lending contract covers borrowing the following items by the person "
@@ -3884,34 +3970,12 @@ msgstr "Zuegriff verweigeret"
 #~ msgid "Value list no. %d"
 #~ msgstr "wertelischte No. %d"
 
-#~ msgid "Qt"
-#~ msgstr "Az."
-
-#~ msgid "Value"
-#~ msgstr "Wert"
-
 #, fuzzy
 #~ msgid "unknown"
 #~ msgstr "Unbekannt"
 
-#~ msgid "Total"
-#~ msgstr "Total"
-
 #~ msgid "Badge ID:"
 #~ msgstr "Badge-ID:"
-
-#~ msgid ""
-#~ "This lending contract covers borrowing the following items by the person "
-#~ "(natural or legal) described as \"borrowing party\" below. Use of these "
-#~ "items is only allowed for the purpose given below."
-#~ msgstr ""
-#~ "De Leihvertrag deckt d' Uusleihi vo de folgende Gegenständ dur di "
-#~ "natürlich oder rächtlich Person ab, wo obe als \"Uusleihendi/e\" "
-#~ "bezeichnet isch. D'Verwändig vo de Gegenstände isch nur im Rahme vom une "
-#~ "aangähne Zwäck gestattet."
-
-#~ msgid "No purpose given."
-#~ msgstr "Kän Zwäck iitreit."
 
 #~ msgid "Purpose:"
 #~ msgstr "Zwäck:"
@@ -4036,9 +4100,6 @@ msgstr "Zuegriff verweigeret"
 
 #~ msgid "Prev"
 #~ msgstr "Zrugg"
-
-#~ msgid "Returned Date"
-#~ msgstr "Rückgabedatum"
 
 #~ msgid "%{a}/%{b}"
 #~ msgstr "%{a}/%{b"
