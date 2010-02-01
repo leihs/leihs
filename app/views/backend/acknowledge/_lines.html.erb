@@ -2,7 +2,7 @@
 last_date = 0
 last_end_date = nil
 
-for @line in @order.lines  
+for @line in @order.lines.sort
 	if @line.start_date > last_date
 	  if last_end_date %>
 	    <tr><td colspan="4"><%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Line for") + " " + short_date(last_date) +" - " + short_date(last_end_date), 

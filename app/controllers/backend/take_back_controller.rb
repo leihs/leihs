@@ -27,7 +27,7 @@ class Backend::TakeBackController < Backend::BackendController
   # get current contracts for a given user
   def show
     @contract_lines = @user.get_signed_contract_lines(current_inventory_pool.id)
-    @contract_lines.sort! {|a,b| a.end_date <=> b.end_date}
+    @contract_lines.sort! {|a,b| [a.end_date, a.model.name] <=> [b.end_date, b.model.name] }
     add_visitor(@user)
   end
 
@@ -80,7 +80,7 @@ class Backend::TakeBackController < Backend::BackendController
   # given an inventory_code, searches for the matching contract_line
   def assign_inventory_code
     contract_lines = @user.get_signed_contract_lines(current_inventory_pool.id)
-    contract_lines.sort! {|a,b| a.end_date <=> b.end_date} # TODO select first to take back
+    contract_lines.sort! {|a,b| [a.end_date, a.model.name] <=> [b.end_date, b.model.name] } # TODO select first to take back
 
     item = current_inventory_pool.items.first(:conditions => { :inventory_code => params[:code] })
     unless item.nil?

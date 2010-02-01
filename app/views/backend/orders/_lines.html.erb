@@ -10,7 +10,7 @@
 <!-- start iterator -->
 <%
 last_date = Date.new
-for @line in @order.lines  
+for @line in @order.lines.sort
 	if @line.start_date > last_date
   		last_date = @line.start_date
     	%>

@@ -87,7 +87,7 @@
     # Items to hand over
     fill = 0
 
-    @contract.lines.each do |l|
+    @contract.lines.sort.each do |l|
       pdf.Cell(w[0], 6, l.quantity.to_s, 'LR', 0, 'L', fill)
       pdf.Cell(w[1], 6, l.model.name, 'LR', 0, 'L', fill)
       pdf.Cell(w[2], 6, l.item.inventory_code, 'LR', 0, 'L', fill)

@@ -53,7 +53,7 @@ table_headers = [_("Qt"), _("Model"),  _("Value"), _("Total")]
 total_value = 0
 table_data = []
 
-@contract.lines.each do |l|
+@contract.lines.sort.each do |l|
 
   if l.class.to_s == "ItemLine"
     model_value = maximum_item_price(l.model) 
