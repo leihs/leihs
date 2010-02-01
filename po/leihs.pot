@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
-"POT-Creation-Date: 2010-01-26 09:46+0100\n"
+"POT-Creation-Date: 2010-02-01 16:27+0100\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: English\n"
@@ -253,7 +253,7 @@ msgstr ""
 msgid "Upload error."
 msgstr ""
 
-#: app/controllers/backend/backend_controller.rb:50
+#: app/controllers/backend/backend_controller.rb:55
 msgid "Model must be selected"
 msgstr ""
 
@@ -329,11 +329,19 @@ msgstr ""
 msgid "Special"
 msgstr ""
 
-#: app/models/access_right.rb:40
+#: app/models/access_right.rb:30
+msgid "Borrow Level: %d"
+msgstr ""
+
+#: app/models/access_right.rb:31
+msgid "Access Level: %d"
+msgstr ""
+
+#: app/models/access_right.rb:51
 msgid "The admin role cannot be scoped to an inventory pool"
 msgstr ""
 
-#: app/models/access_right.rb:42
+#: app/models/access_right.rb:53
 msgid "Inventory Pool is missing"
 msgstr ""
 
@@ -1503,7 +1511,7 @@ msgstr ""
 msgid "inventory pool is closed on end_date. "
 msgstr ""
 
-#: app/models/document_line.rb:98 app/helpers/backend/backend_helper.rb:370
+#: app/models/document_line.rb:98 app/helpers/backend/backend_helper.rb:374
 #: app/views/frontend/_complete_order.html.erb:193
 #: app/views/frontend/_models.html.erb:401
 msgid "Start Date must be before End Date"
@@ -1542,46 +1550,46 @@ msgstr ""
 msgid "already in Category"
 msgstr ""
 
-#: app/models/user.rb:220
+#: app/models/user.rb:226
 msgid "Reminded %{q} items for contracts %{c}"
 msgstr ""
 
-#: app/models/user.rb:226
+#: app/models/user.rb:232
 msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
 msgstr ""
 
-#: app/models/user.rb:250
+#: app/models/user.rb:257
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr ""
 
-#: app/models/item.rb:198
+#: app/models/item.rb:193
 msgid "%s until %s"
 msgstr ""
 
-#: app/models/item.rb:219
+#: app/models/item.rb:209
 msgid "Package error"
 msgstr ""
 
-#: app/models/item.rb:223
+#: app/models/item.rb:213
 msgid ""
 "The model cannot be changed because the item is used in contracts already."
 msgstr ""
 
-#: app/models/contract.rb:32
+#: app/models/contract.rb:33
 msgid "Unsigned"
 msgstr ""
 
-#: app/models/contract.rb:32
+#: app/models/contract.rb:33
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:28
 msgid "Signed"
 msgstr ""
 
-#: app/models/contract.rb:32
+#: app/models/contract.rb:33
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:33
 msgid "Closed"
 msgstr ""
 
-#: app/models/contract.rb:78
+#: app/models/contract.rb:75
 msgid "Contract %d has been signed by %s"
 msgstr ""
 
@@ -1648,7 +1656,6 @@ msgid "Yesterday"
 msgstr ""
 
 #: app/helpers/backend/users_helper.rb:4
-#: app/views/backend/inventory_pools/index.html.erb:34
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:18
 msgid "Remind"
 msgstr ""
@@ -1712,8 +1719,10 @@ msgstr ""
 #: app/views/backend/models/index.html.erb:40
 #: app/views/backend/models/package_roots.html.erb:51
 #: app/views/backend/templates/models.html.erb:21
-#: app/views/backend/backend/search/_item.html.erb:7
 #: app/views/frontend/_basket.html.erb:16
+#: app/views/orders/value_list.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+#: app/views/contracts/show.pdf.prawn:74
 msgid "Model"
 msgstr ""
 
@@ -1722,13 +1731,13 @@ msgstr ""
 msgid "Loading"
 msgstr ""
 
-#: app/helpers/backend/backend_helper.rb:364
+#: app/helpers/backend/backend_helper.rb:368
 #: app/views/backend/hand_over/sign_contract.html.erb:17
 #: app/views/backend/take_back/close_contract.html.erb:8
 msgid "Confirm"
 msgstr ""
 
-#: app/helpers/backend/backend_helper.rb:514
+#: app/helpers/backend/backend_helper.rb:518
 msgid "Month"
 msgstr ""
 
@@ -1768,7 +1777,7 @@ msgstr ""
 #: app/views/backend/users/new.html.erb:6
 #: app/views/backend/inventory_pools/edit.html.erb:5
 #: app/views/backend/inventory_pools/_info.html.erb:6
-#: app/views/backend/backend/search/_user.html.erb:4
+#: app/views/backend/backend/search/_user.html.erb:2
 msgid "Email"
 msgstr ""
 
@@ -1944,7 +1953,7 @@ msgid "Received at"
 msgstr ""
 
 #: app/views/orders/_pending.html.erb:7
-#: app/views/backend/users/access_rights.html.erb:15
+#: app/views/backend/users/access_rights.html.erb:28
 #: app/views/contracts/_pending.html.erb:8
 #: app/views/frontend/_basket.html.erb:19
 #: app/views/frontend/_models.html.erb:346
@@ -1986,7 +1995,7 @@ msgid "Documents"
 msgstr ""
 
 #: app/views/orders/_pending.html.erb:12
-#: app/views/backend/hand_over/_item_line.html.erb:76
+#: app/views/backend/hand_over/_item_line.html.erb:77
 #: app/views/backend/hand_over/index.html.erb:34
 #: app/views/backend/hand_over/_option_line.html.erb:33
 #: app/views/backend/locations/index.html.erb:16
@@ -2008,12 +2017,14 @@ msgstr ""
 #: app/views/backend/contracts/index.html.erb:19
 #: app/views/backend/acknowledge/_buttons.html.erb:21
 #: app/views/contracts/_pending.html.erb:22
+#: app/views/orders/value_list.pdf.prawn:25
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:29
 msgid "Value list"
 msgstr ""
 
 #: app/views/orders/_pending.html.erb:25
 #: app/views/backend/hand_over/index.html.erb:36
-#: app/views/backend/users/access_rights.html.erb:57
+#: app/views/backend/users/access_rights.html.erb:108
 #: app/views/backend/models/index.html.erb:92
 #: app/views/backend/models/index.html.erb:96
 #: app/views/backend/models/package_roots.html.erb:42
@@ -2053,15 +2064,15 @@ msgstr ""
 msgid "Items (%d)"
 msgstr ""
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:24
+#: app/views/widgets/_user_backend_tabnav.html.erb:25
 msgid "Access Rights (%d)"
 msgstr ""
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:30
+#: app/views/widgets/_user_backend_tabnav.html.erb:31
 msgid "Things to return"
 msgstr ""
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:35
+#: app/views/widgets/_user_backend_tabnav.html.erb:37
 msgid "Extended Info"
 msgstr ""
 
@@ -2096,7 +2107,6 @@ msgstr ""
 
 #: app/views/widgets/_category_backend_tabnav.html.erb:1
 #: app/views/widgets/_category_backend_tabnav.html.erb:20
-#: app/views/backend/backend/search/_category.html.erb:1
 #: app/views/frontend/_models.html.erb:122
 msgid "Category"
 msgstr ""
@@ -2134,18 +2144,18 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: app/views/backend/hand_over/_item_line.html.erb:21
+#: app/views/backend/hand_over/_item_line.html.erb:22
 #: app/views/backend/hand_over/_option_line.html.erb:15
 msgid "Installed in: %s"
 msgstr ""
 
-#: app/views/backend/hand_over/_item_line.html.erb:23
+#: app/views/backend/hand_over/_item_line.html.erb:24
 #: app/views/backend/hand_over/show.html.erb:61
 #: app/views/backend/hand_over/_option_line.html.erb:17
 msgid "Select Location"
 msgstr ""
 
-#: app/views/backend/hand_over/_item_line.html.erb:32
+#: app/views/backend/hand_over/_item_line.html.erb:35
 #: app/views/backend/hand_over/show.html.erb:49
 #: app/views/backend/hand_over/_option_line.html.erb:25
 #: app/views/backend/take_back/_item_line.html.erb:15
@@ -2156,22 +2166,22 @@ msgstr ""
 msgid "Time Period"
 msgstr ""
 
-#: app/views/backend/hand_over/_item_line.html.erb:66
+#: app/views/backend/hand_over/_item_line.html.erb:69
 msgid "Item needs permission!"
 msgstr ""
 
-#: app/views/backend/hand_over/_item_line.html.erb:73
+#: app/views/backend/hand_over/_item_line.html.erb:74
 #: app/views/backend/users/index.html.erb:35
 #: app/views/backend/acknowledge/_line.html.erb:43
 msgid "Swap"
 msgstr ""
 
-#: app/views/backend/hand_over/_item_line.html.erb:75
+#: app/views/backend/hand_over/_item_line.html.erb:76
 #: app/views/backend/acknowledge/_line.html.erb:45
 msgid "Swap Model"
 msgstr ""
 
-#: app/views/backend/hand_over/_item_line.html.erb:78
+#: app/views/backend/hand_over/_item_line.html.erb:79
 #: app/views/backend/hand_over/_option_line.html.erb:35
 #: app/views/backend/acknowledge/_line.html.erb:48
 msgid "Remove Model"
@@ -2207,7 +2217,6 @@ msgstr ""
 #: app/views/backend/hand_over/_buttons.html.erb:3
 #: app/views/backend/hand_over/_buttons.html.erb:7
 #: app/views/backend/orders/index.html.erb:25
-#: app/views/backend/inventory_pools/index.html.erb:32
 #: app/views/backend/backend/search/_contract.html.erb:14
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:12
 msgid "Hand Over"
@@ -2384,7 +2393,7 @@ msgstr ""
 
 #: app/views/backend/locations/index.html.erb:13
 #: app/views/backend/users/index.html.erb:39
-#: app/views/backend/items/index.html.erb:51
+#: app/views/backend/items/index.html.erb:53
 #: app/views/backend/models/index.html.erb:90
 #: app/views/backend/models/package_roots.html.erb:5
 #: app/views/backend/models/package_roots.html.erb:59
@@ -2433,19 +2442,19 @@ msgstr ""
 msgid "Currently has the following things"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:13
+#: app/views/backend/users/access_rights.html.erb:25
 msgid "Role"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:17
+#: app/views/backend/users/access_rights.html.erb:31
 msgid "Borrow Level"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:18
+#: app/views/backend/users/access_rights.html.erb:34
 msgid "Access Level"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:35
+#: app/views/backend/users/access_rights.html.erb:54
 #: app/views/backend/models/package_roots.html.erb:37
 #: app/views/backend/workdays/index.html.erb:23
 #: app/views/frontend/_models.html.erb:314
@@ -2453,7 +2462,13 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:55
+#: app/views/backend/users/access_rights.html.erb:96
+#: app/views/backend/items/show.html.erb:29
+#: app/views/backend/acknowledge/change_purpose.html.erb:8
+msgid "Save"
+msgstr ""
+
+#: app/views/backend/users/access_rights.html.erb:106
 #: app/views/backend/models/index.html.erb:91
 #: app/views/backend/models/package_roots.html.erb:63
 #: app/views/backend/models/accessories.html.erb:41
@@ -2465,36 +2480,36 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:60
+#: app/views/backend/users/access_rights.html.erb:111
 msgid "Suspend"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:61
+#: app/views/backend/users/access_rights.html.erb:112
 msgid "The user will not be able to place any orders anymore."
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:63
+#: app/views/backend/users/access_rights.html.erb:114
 msgid "Reinstate"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:71
+#: app/views/backend/users/access_rights.html.erb:123
 msgid "Access levels and borrow levels"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:72
+#: app/views/backend/users/access_rights.html.erb:124
 msgid ""
 "Access levels are used to determine what system functionality a user is "
 "allowed to see and use."
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:73
+#: app/views/backend/users/access_rights.html.erb:125
 msgid ""
 "Borrow levels are used to allow/disallow lending certain items to users that "
 "aren't of high enough level. For example: if an item has level 5, a user of "
 "borrow level 4 will never see it whereas a user of level 5 or higher will."
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:74
+#: app/views/backend/users/access_rights.html.erb:126
 msgid ""
 "Both levels are handled per inventory pool, so if one inventory pool only "
 "wants to deal with levels 1-3 of their items while another needs all 9 "
@@ -2598,6 +2613,7 @@ msgstr ""
 
 #: app/views/backend/items/index.html.erb:5
 #: app/views/backend/models/package_roots.html.erb:51
+#: app/views/contracts/show.pdf.prawn:74
 msgid "Inventory Code"
 msgstr ""
 
@@ -2611,31 +2627,31 @@ msgstr ""
 msgid "In stock?"
 msgstr ""
 
-#: app/views/backend/items/index.html.erb:15
+#: app/views/backend/items/index.html.erb:17
 msgid "Part of:"
 msgstr ""
 
-#: app/views/backend/items/index.html.erb:32
+#: app/views/backend/items/index.html.erb:34
 #: app/views/backend/items/_status.html.erb:6
 #: app/views/backend/items/status.html.erb:16
 #: app/views/backend/items/status.html.erb:26
 #: app/views/backend/take_back/inspection.html.erb:8
-#: app/views/backend/backend/search/_item.html.erb:12
+#: app/views/backend/backend/search/_item.html.erb:3
 #: app/views/layouts/backend/00-patterns/_menu_items.html.erb:11
 msgid "Broken"
 msgstr ""
 
-#: app/views/backend/items/index.html.erb:35
+#: app/views/backend/items/index.html.erb:37
 #: app/views/backend/items/_status.html.erb:13
 #: app/views/backend/items/status.html.erb:17
 #: app/views/backend/items/status.html.erb:31
 #: app/views/backend/take_back/inspection.html.erb:11
-#: app/views/backend/backend/search/_item.html.erb:13
+#: app/views/backend/backend/search/_item.html.erb:3
 #: app/views/layouts/backend/00-patterns/_menu_items.html.erb:14
 msgid "Incomplete"
 msgstr ""
 
-#: app/views/backend/items/index.html.erb:38
+#: app/views/backend/items/index.html.erb:40
 #: app/views/backend/items/_status.html.erb:19
 #: app/views/backend/items/status.html.erb:18
 #: app/views/backend/items/status.html.erb:36
@@ -2644,12 +2660,12 @@ msgstr ""
 msgid "Unborrowable"
 msgstr ""
 
-#: app/views/backend/items/index.html.erb:53
+#: app/views/backend/items/index.html.erb:55
 #: app/views/backend/items/retire.html.erb:3
 msgid "Unretire"
 msgstr ""
 
-#: app/views/backend/items/index.html.erb:53
+#: app/views/backend/items/index.html.erb:55
 #: app/views/backend/items/retire.html.erb:6
 msgid "Retire"
 msgstr ""
@@ -2666,11 +2682,6 @@ msgstr ""
 
 #: app/views/backend/items/show.html.erb:9
 msgid "This item was retired on %s because %s"
-msgstr ""
-
-#: app/views/backend/items/show.html.erb:29
-#: app/views/backend/acknowledge/change_purpose.html.erb:8
-msgid "Save"
 msgstr ""
 
 #: app/views/backend/items/show.html.erb:30
@@ -2810,20 +2821,20 @@ msgstr ""
 msgid "Owner"
 msgstr ""
 
-#: app/views/backend/items/_inventory_info.html.erb:11
+#: app/views/backend/items/_inventory_info.html.erb:21
 msgid "Last Checked:"
 msgstr ""
 
-#: app/views/backend/items/_inventory_info.html.erb:14
+#: app/views/backend/items/_inventory_info.html.erb:24
 msgid "Responsible department"
 msgstr ""
 
-#: app/views/backend/items/_inventory_info.html.erb:16
-#: app/views/backend/backend/search/_user.html.erb:6
+#: app/views/backend/items/_inventory_info.html.erb:26
+#: app/views/backend/backend/search/_user.html.erb:4
 msgid "None"
 msgstr ""
 
-#: app/views/backend/items/_inventory_info.html.erb:21
+#: app/views/backend/items/_inventory_info.html.erb:31
 msgid "Responsible person"
 msgstr ""
 
@@ -2863,7 +2874,6 @@ msgstr ""
 #: app/views/backend/models/index.html.erb:40
 #: app/views/backend/models/show.html.erb:7
 #: app/views/backend/models/package_roots.html.erb:51
-#: app/views/backend/backend/search/_model.html.erb:4
 #: app/views/frontend/_models.html.erb:299
 msgid "Manufacturer"
 msgstr ""
@@ -2879,7 +2889,6 @@ msgid "Available Items"
 msgstr ""
 
 #: app/views/backend/models/show.html.erb:8
-#: app/views/backend/inventory_pools/index.html.erb:5
 #: app/views/backend/inventory_pools/edit.html.erb:6
 #: app/views/backend/inventory_pools/_info.html.erb:7
 msgid "Description"
@@ -3046,19 +3055,10 @@ msgstr ""
 msgid "Remove Parent"
 msgstr ""
 
-#: app/views/backend/inventory_pools/index.html.erb:31
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:9
-msgid "Acknowledge"
-msgstr ""
-
-#: app/views/backend/inventory_pools/index.html.erb:33
-#: app/views/backend/take_back/index.html.erb:33
-#: app/views/backend/take_back/_buttons.html.erb:3
-#: app/views/backend/take_back/_buttons.html.erb:7
-#: app/views/backend/backend/search/_contract.html.erb:11
-#: app/views/backend/contracts/index.html.erb:22
-#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:15
-msgid "Take Back"
+#: app/views/backend/inventory_pools/index.html.erb:5
+#: app/views/backend/inventory_pools/edit.html.erb:4
+#: app/views/backend/inventory_pools/_info.html.erb:5
+msgid "Short Name"
 msgstr ""
 
 #: app/views/backend/inventory_pools/show.html.erb:6
@@ -3070,14 +3070,29 @@ msgstr ""
 msgid "Overdue"
 msgstr ""
 
-#: app/views/backend/inventory_pools/edit.html.erb:4
-#: app/views/backend/inventory_pools/_info.html.erb:5
-msgid "Short Name"
-msgstr ""
-
 #: app/views/backend/inventory_pools/edit.html.erb:7
 #: app/views/backend/inventory_pools/_info.html.erb:8
 msgid "Default contract note"
+msgstr ""
+
+#: app/views/backend/inventory_pools/_info.html.erb:5
+msgid ""
+"Whatever you enter here is prepended to all inventory numbers for this "
+"particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no "
+"alphabetic characters are used in the inventory numbers."
+msgstr ""
+
+#: app/views/backend/inventory_pools/_info.html.erb:6
+msgid ""
+"This e-mail address is used as sender when sending reminder or confirmation "
+"e-mails for this particular pool. If you enter nothing, the system default "
+"sender address is used."
+msgstr ""
+
+#: app/views/backend/inventory_pools/_info.html.erb:8
+msgid ""
+"This note is added to any contract, but can be changed individually before "
+"actually printing and signing each contract."
 msgstr ""
 
 #: app/views/backend/inventory_pools/_info.html.erb:9
@@ -3093,6 +3108,15 @@ msgstr ""
 #: app/views/backend/take_back/_item_line.html.erb:27
 #: app/views/backend/take_back/inspection.html.erb:1
 msgid "Inspection"
+msgstr ""
+
+#: app/views/backend/take_back/index.html.erb:33
+#: app/views/backend/take_back/_buttons.html.erb:3
+#: app/views/backend/take_back/_buttons.html.erb:7
+#: app/views/backend/backend/search/_contract.html.erb:11
+#: app/views/backend/contracts/index.html.erb:22
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:15
+msgid "Take Back"
 msgstr ""
 
 #: app/views/backend/take_back/show.html.erb:14
@@ -3132,8 +3156,8 @@ msgstr ""
 msgid "Only %d items are present."
 msgstr ""
 
-#: app/views/backend/backend/search.html.erb:2
-msgid "Found %d results for '%s'"
+#: app/views/backend/backend/search.html.erb:7
+msgid "Result(s)"
 msgstr ""
 
 #: app/views/backend/backend/search/_contract.html.erb:1
@@ -3145,7 +3169,7 @@ msgstr ""
 msgid "Print PDF"
 msgstr ""
 
-#: app/views/backend/backend/search/_item.html.erb:14
+#: app/views/backend/backend/search/_item.html.erb:3
 #: app/views/layouts/backend/00-patterns/_menu_items.html.erb:5
 msgid "In Stock"
 msgstr ""
@@ -3154,11 +3178,11 @@ msgstr ""
 msgid "Order from %s"
 msgstr ""
 
-#: app/views/backend/backend/search/_user.html.erb:5
+#: app/views/backend/backend/search/_user.html.erb:3
 msgid "Telefon"
 msgstr ""
 
-#: app/views/backend/backend/search/_user.html.erb:6
+#: app/views/backend/backend/search/_user.html.erb:4
 msgid "Badge"
 msgstr ""
 
@@ -3310,12 +3334,14 @@ msgstr ""
 #: app/views/frontend/_complete_order.html.erb:363
 #: app/views/frontend/_models.html.erb:368
 #: app/views/frontend/_models.html.erb:372
+#: app/views/contracts/show.pdf.prawn:74
 msgid "Start date"
 msgstr ""
 
 #: app/views/frontend/_complete_order.html.erb:374
 #: app/views/frontend/_models.html.erb:387
 #: app/views/frontend/_models.html.erb:391
+#: app/views/contracts/show.pdf.prawn:74
 msgid "End date"
 msgstr ""
 
@@ -3433,6 +3459,10 @@ msgstr ""
 msgid "Admins"
 msgstr ""
 
+#: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:9
+msgid "Acknowledge"
+msgstr ""
+
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:23
 msgid "New model"
 msgstr ""
@@ -3475,6 +3505,63 @@ msgstr ""
 
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:7
 msgid "Pending"
+msgstr ""
+
+#: app/views/orders/value_list.pdf.prawn:28
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:32
+#: app/views/contracts/show.pdf.prawn:55
+msgid "Borrowing party:"
+msgstr ""
+
+#: app/views/orders/value_list.pdf.prawn:29
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:33
+#: app/views/contracts/show.pdf.prawn:56
+msgid "Lending party:"
+msgstr ""
+
+#: app/views/orders/value_list.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+#: app/views/contracts/show.pdf.prawn:74
+msgid "Qt"
+msgstr ""
+
+#: app/views/orders/value_list.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+msgid "Value"
+msgstr ""
+
+#: app/views/orders/value_list.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+msgid "Total"
+msgstr ""
+
+#: app/views/orders/value_list.pdf.prawn:69
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:73
+msgid "Grand total"
+msgstr ""
+
+#: app/views/orders/value_list.pdf.prawn:83
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:86
+msgid "All prices in CHF."
+msgstr ""
+
+#: app/views/contracts/show.pdf.prawn:26
+msgid "No purpose given."
+msgstr ""
+
+#: app/views/contracts/show.pdf.prawn:47
+msgid "Contract no. %d"
+msgstr ""
+
+#: app/views/contracts/show.pdf.prawn:52
+msgid ""
+"This lending contract covers borrowing the following items by the person "
+"(natural or legal) described as 'borrowing party' below. Use of these items "
+"is only allowed for the purpose given below."
+msgstr ""
+
+#: app/views/contracts/show.pdf.prawn:74
+msgid "Returned date"
 msgstr ""
 
 #: lib/role_requirement_system.rb:118
