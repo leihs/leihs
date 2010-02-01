@@ -24,8 +24,9 @@ class Item < ActiveRecord::Base
     record.owner = record.inventory_pool if record.inventory_pool and !record.owner
   end
 
-# TODO 0501
-#  after_save :update_ferret_index
+  after_save :update_index
+
+####################################################################
 
   define_index do
     # 0501 where "retired IS NULL"
@@ -47,6 +48,7 @@ class Item < ActiveRecord::Base
 #    has "items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)", :as => :not_in_stock, :type => :boolean
     # 0501
     has "retired IS NOT NULL", :as => :retired, :type => :boolean
+    has model(:is_package), :as => :model_is_package, :type => :boolean
     
     # set_property :order => :model_name
     set_property :delta => true
@@ -183,10 +185,6 @@ class Item < ActiveRecord::Base
     user.level_for(inventory_pool) >= required_level
   end
 
-  def packageable?
-    not (parent_id or model.is_package)
-  end
-
 ####################################################################
 
   def current_borrowing_info
@@ -206,11 +204,6 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   private
-
-# TODO 0501
-#  def update_ferret_index
-#    self.model.reload.ferret_update if self.model
-#  end
   
   def validates_if_is_package
     errors.add_to_base(_("Package error")) if children.size > 0 and !model.is_package
@@ -218,6 +211,14 @@ class Item < ActiveRecord::Base
   
   def validates_model_change
     errors.add_to_base(_("The model cannot be changed because the item is used in contracts already.")) if model_id_changed? and not contract_lines.empty? 
+  end
+
+  def update_index
+    model.touch
+    location.touch if location
+#    Contract.suspended_delta do
+#      contracts.each {|x| x.touch }
+#    end
   end
 
 end

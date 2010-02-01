@@ -1,4 +1,4 @@
-require 'net/ldap'
+#require 'net/ldap'
     
 class Authenticator::LdapAuthenticationController < Authenticator::AuthenticatorController
 

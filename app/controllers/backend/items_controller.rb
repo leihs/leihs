@@ -51,7 +51,7 @@ class Backend::ItemsController < Backend::BackendController
         with.merge!(:inventory_pool_id => current_inventory_pool.id)
     end
 
-## FIXME 0501    items.delete_if {|i| not i.packageable? } if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
+    with.merge!(:parent_id => 0, :model_is_package => 0) if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
     
     @items = Item.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
                                            :sphinx_select => sphinx_select,

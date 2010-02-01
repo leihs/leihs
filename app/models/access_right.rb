@@ -16,8 +16,9 @@ class AccessRight < ActiveRecord::Base
 
   before_validation_on_create :remove_old
   before_save :adjust_levels
+  after_save :update_index
 
-  default_scope :include => :inventory_pool, :order => "inventory_pools.name"
+  default_scope :include => :inventory_pool, :order => "inventory_pools.name", :conditions => "deleted_at IS NULL"
 
 ####################################################################
 
@@ -40,6 +41,8 @@ class AccessRight < ActiveRecord::Base
   def deactivate
     update_attributes(:deleted_at => DateTime.now)
   end
+
+####################################################################
 
   private
 
@@ -70,6 +73,11 @@ class AccessRight < ActiveRecord::Base
         self.level = [level.to_i, 1].max
         self.access_level = nil
     end
+  end
+
+  def update_index
+    user.touch
+    inventory_pool.touch if inventory_pool
   end
 
 end

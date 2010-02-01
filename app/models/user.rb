@@ -57,6 +57,12 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :phone, :address, :city, :zip, :country, :authentication_system_id, :badge_id, :language_id
 
+################################################
+
+# TODO ??  after_save :update_index
+
+################################################
+
   define_index do
     indexes :login, :sortable => true
     indexes :firstname
@@ -73,7 +79,7 @@ class User < ActiveRecord::Base
     # has ... :customer_of_inventory_pool_id
     
     # set_property :order => :login
-    set_property :delta => false
+    set_property :delta => true
   end
 
   # sphinx_scope(:sphinx_admins) {{ :is_admin => true }}
@@ -232,6 +238,7 @@ class User < ActiveRecord::Base
     end
   end
   
+  # FIXME
   def to_remind?
     not to_remind.empty?
   end
@@ -334,5 +341,15 @@ class User < ActiveRecord::Base
     end
     e.sort    
   end
-  
+
+# TODO ??
+#  def update_index
+#    Contract.suspended_delta do
+#      contracts.each {|x| x.touch }
+#    end
+#    Order.suspended_delta do
+#      orders.each {|x| x.touch }
+#    end
+#  end
+
 end
