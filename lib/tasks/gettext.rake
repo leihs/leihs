@@ -7,7 +7,7 @@ end
 desc "Update pot/po files to match new version."
 task :updatepo do
   require 'gettext_rails/tools'
-  GetText.update_pofiles("leihs", Dir.glob("{app,lib}/**/*.{rb,erb}"),
+  GetText.update_pofiles("leihs", Dir.glob("{app,lib}/**/*.{rb,erb,prawn}"),
                          "leihs 2")
 end
 
