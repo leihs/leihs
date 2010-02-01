@@ -61,7 +61,7 @@ Rails::Initializer.run do |config|
 
   config.gem "locale"
   config.gem "gettext"
-  config.gem "locale_rails", :version => '>= 2.0.5'
+# 2901 config.gem "locale_rails", :version => '>= 2.0.5'
   config.gem "gettext_activerecord", :version => '>= 2.1.0'
   config.gem "gettext_rails", :version => '>= 2.1.0'
 
