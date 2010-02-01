@@ -86,7 +86,11 @@ class Model < ActiveRecord::Base
                                                       :joins => "INNER JOIN model_links AS ml", # OPTIMIZE no ON ??
                                                       :conditions => ["ml.model_group_id IN (?)", categories] } }
 
-#############################################  
+#############################################
+
+# TODO ??  after_save :update_index
+
+#############################################
 
   define_index do
     indexes :name, :sortable => true
@@ -233,5 +237,18 @@ class Model < ActiveRecord::Base
     a.reservations(r)
     a
   end
-  
+
+# TODO ??
+#  def update_index
+#    Item.suspended_delta do
+#      items.each {|x| x.touch }
+#    end
+##    Contract.suspended_delta do
+##      contracts.each {|x| x.touch }
+##    end
+##    Order.suspended_delta do
+##      orders.each {|x| x.touch }
+##    end
+#  end
+
 end

@@ -27,7 +27,7 @@ class InventoryPool < ActiveRecord::Base
                           :select => "users.*",
                           :join_table => "access_rights",
 #                          :conditions => {:access_rights => {:roles => {:name => "manager"}}}
-                          :conditions => ["access_rights.role_id = ?", (role_manager ? role_manager.id : 0)]
+                          :conditions => ["access_rights.role_id = ? AND access_rights.deleted_at IS NULL", (role_manager ? role_manager.id : 0)]
 
   # FIXME working here
   role_customer = Role.first(:conditions => {:name => "customer"})
@@ -36,7 +36,7 @@ class InventoryPool < ActiveRecord::Base
                           :select => "users.*",
                           :join_table => "access_rights",
 #                          :conditions => {:access_rights => {:roles => {:name => "customer"}}}
-                          :conditions => ["access_rights.role_id = ?", (role_customer ? role_customer.id : 0)]
+                          :conditions => ["access_rights.role_id = ? AND access_rights.deleted_at IS NULL", (role_customer ? role_customer.id : 0)]
 ########
 
     
@@ -67,6 +67,7 @@ class InventoryPool < ActiveRecord::Base
 #######################################################################
 
   before_create :create_workday
+# TODO ??  after_save :update_index
 
   validates_presence_of :name
 
@@ -152,6 +153,7 @@ class InventoryPool < ActiveRecord::Base
   end
 
 ###################################################################################
+
   def has_access?(user)
     user.inventory_pools.include?(self)
   end
@@ -160,7 +162,7 @@ class InventoryPool < ActiveRecord::Base
     suspended_users.count(:conditions => {:id => user.id}) > 0
   end
   
-
+###################################################################################
 
   private
   
@@ -185,9 +187,18 @@ class InventoryPool < ActiveRecord::Base
     
     visits.sort!
   end
-  
+
+# TODO ??
+#  def update_index
+#    Item.suspended_delta do
+#      items.each {|x| x.touch }
+#    end
+#    User.suspended_delta do
+#      users.each {|x| x.touch }
+#    end
+#    ModelGroup.suspended_delta do
+#      model_groups.each {|x| x.touch }
+#    end
+#  end
+
 end
-
-
-
-

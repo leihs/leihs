@@ -4,10 +4,11 @@ class Role < ActiveRecord::Base
 
   acts_as_nested_set
 
-  define_index do
-    indexes :name
-    set_property :delta => false
-  end
+# TODO really needed ?
+#  define_index do
+#    indexes :name
+#    set_property :delta => false
+#  end
 
   def to_s
     "#{name}"
