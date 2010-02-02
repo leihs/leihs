@@ -10,7 +10,9 @@ class CreateLanguages < ActiveRecord::Migration
     Language.create(:name => 'Deutsch', :locale_name => 'de_CH', :default => true, :active => true)
     Language.create(:name => 'English', :locale_name => 'en_US', :default => false, :active => true)
     Language.create(:name => 'Castellano', :locale_name => 'es', :default => false, :active => true)
+    Language.create(:name => 'Züritüütsch', :locale_name => 'gsw_CH@zurich', :default => false, :active => true)
 
+    
     add_column :users, :language_id, :integer, :default => Language.first.id
   
   end
