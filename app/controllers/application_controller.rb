@@ -16,10 +16,12 @@ class ApplicationController < ActionController::Base
   def define_locale
     if params[:locale] 
       set_locale params[:locale] 
+      params[:lang] = params[:locale] # Bug? Gettext seems not to set the language properly unless this is set
       current_user.update_attributes(:language_id => Language.first(:conditions => {:locale_name => params[:locale]})) if logged_in?
     else
       locale = logged_in? ? current_user.language.locale_name : Language.default_language.locale_name
       set_locale locale
+      params[:lang] = locale # Bug? Gettext seems not to set the language properly unless this is set
     end
   end 
   init_gettext 'leihs'
