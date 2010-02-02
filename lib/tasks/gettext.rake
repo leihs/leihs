@@ -1,6 +1,8 @@
 desc "Create mo-files for L10n"
 task :makemo do
   require 'gettext_rails/tools'
+  ENV['LANG'] = 'en_US'
+  ENV['LANGUAGE'] = 'en_US'
   GetText.create_mofiles
 end
 
