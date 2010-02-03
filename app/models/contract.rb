@@ -65,6 +65,7 @@ class Contract < Document
 
 #########################################################################
 
+  #FIXME: Make sure whole operation is atomic, so that signed contracts can never contain weird lines
   def sign(contract_lines = nil, current_user = nil)
     current_user ||= contract.user
     update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now}) 
