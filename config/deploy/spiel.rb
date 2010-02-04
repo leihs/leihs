@@ -6,8 +6,6 @@ set :use_sudo, false
 
 set :rails_env, "production"
 
-default_run_options[:shell] = false
-
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
@@ -29,11 +27,10 @@ task :link_config do
   run "ln -s #{db_config} #{release_path}/config/database.yml"
 end
 
-task :link_attachments do
+task	:link_attachments do
 	run "rm -rf #{release_path}/public/images/attachments"
 	run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
 end
-
 
 task :remove_htaccess do
 	# Kill the .htaccess file as we are using mongrel, so this file
@@ -46,18 +43,41 @@ task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
 end
 
-task :chmod_ferret do
-  run "chmod +x #{release_path}/script/ferret_server"
-end
-
 task :modify_config do
+  run "sed -i 's/FRONTEND_SPLASH_PAGE = false/FRONTEND_SPLASH_PAGE = true/g' #{release_path}/config/environment.rb"
   run "sed -i 's/INVENTORY_CODE_PREFIX.*/INVENTORY_CODE_PREFIX = [[\"AVZ\", \"AV-Technik\"], [\"ITZS\", \"ITZ\"], [\"ITZV\", \"ITZ\"] ]/' #{release_path}/config/initializers/propose_inventory_code.rb"
   run "sed -i 's/CONTRACT_LENDING_PARTY_STRING.*/CONTRACT_LENDING_PARTY_STRING = \"Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich\"/' #{release_path}/config/environment.rb"
-  run "sed -i 's/DEFAULT_EMAIL = \'sender@example.com\'/DEFAULT_EMAIL = \'ausleihe.benachrichtigung@zhdk.ch\'/' #{release_path}/config/environment.rb"
 end
 
 task :chmod_tmp do
   run "chmod g-w #{release_path}/tmp"
+end
+
+task :configure_sphinx do
+ run "cd #{release_path} && RAILS_ENV='production' rake ts:config"
+ run "sed -i 's/listen = 127.0.0.1:3312/listen = 127.0.0.1:3372/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3313/listen = 127.0.0.1:3373/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3314/listen = 127.0.0.1:3374/' #{release_path}/config/production.sphinx.conf"
+
+ run "sed -i 's/sql_host =.*/sql_host = db.zhdk.ch/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_user =.*/sql_user = leihs2dev/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_pass =.*/sql_pass = 163ruby9/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_db =.*/sql_db = rails_leihs2_dev/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_sock.*//' #{release_path}/config/production.sphinx.conf"
+
+ run "sed -i 's/port: 3312/port: 3372/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3313/port: 3373/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3314/port: 3374/' #{release_path}/config/sphinx.yml"
+
+end
+
+task :stop_sphinx do
+#  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
+end
+
+task :start_sphinx do
+  run "cd #{release_path} && RAILS_ENV='production' rake ts:reindex"
+  run "cd #{release_path} && RAILS_ENV='production' rake ts:start"
 end
 
 
@@ -69,32 +89,24 @@ namespace :deploy do
 	end
 
 	task :restart do
-          run "pkill -SIGUSR2 -f -u leihs -- '-e production.*leihs2spiel.*'"
+          run "pkill -SIGUSR2 -f -u leihs -- '-e production.*leihs2spiel'"
 	end
 
   desc "Cleanup older revisions"
   task :after_deploy do
     cleanup
   end 
-
 end
 
-
-
-
 after "deploy:symlink", :link_config
-after "deploy:symlink", :chmod_ferret
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
+after "deploy:symlink", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
+before "deploy", :stop_sphinx
+after "deploy", :start_sphinx
 
-before "deploy" do 
-  run "cd #{previous_release} && ./script/ferret_server -e production stop"
-end 
- 
-after "deploy" do 
-  run "cd #{release_path} && ./script/ferret_server -e production start"
-end
+
 
