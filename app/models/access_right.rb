@@ -18,7 +18,7 @@ class AccessRight < ActiveRecord::Base
   before_save :adjust_levels
   after_save :update_index
 
-  default_scope :include => :inventory_pool, :order => "inventory_pools.name", :conditions => "deleted_at IS NULL"
+  default_scope :include => :inventory_pool, :order => "inventory_pools.name" # NOTE we cannot have the following :conditions => "deleted_at IS NULL"
 
 ####################################################################
 
