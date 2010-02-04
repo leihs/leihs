@@ -29,10 +29,8 @@ class Backend::ModelsController < Backend::BackendController
                                                     :star => true, :page => params[:page], :per_page => $per_page,
                                                     :with => with,
                                                     :order => params[:sort], :sort_mode => params[:sort_mode] }
-    
-    # we are in a greybox
-    if params[:source_path]
 
+    if params[:source_path] # we are in a greybox
       if @line
         @start_date = @line.start_date
         @end_date = @line.end_date
@@ -42,25 +40,7 @@ class Backend::ModelsController < Backend::BackendController
         @end_date = params[:end_date] ? Date.parse(params[:end_date]) : @start_date + 2.days
         @user = current_inventory_pool.users.find(params[:user_id])
       end
-
-      # TODO 2702** use named_scope instead
-      # OPTIMIZE 2702** total_entries counter
-      @models.delete(@line.model) if @line
-      models_to_delete = []
-      @models.each do |model|
-          max_available = model.maximum_available_in_period_for_inventory_pool(@start_date, @end_date, current_inventory_pool, @user)
-          
-          if max_available > 0
-            model.write_attribute(:max_available, max_available)
-          else
-            models_to_delete << model
-          end
-      end
-      models_to_delete.each do |model|
-        @models.delete(model)
-      end
-
-    end #if
+    end
 
     @show_categories_tree = (@category.nil? and (not request.xml_http_request?) and params[:packages].blank?)
 

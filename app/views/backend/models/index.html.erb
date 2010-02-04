@@ -34,13 +34,13 @@
 
 <% end %>
 
-<% if @start_date and @end_date %>
+<% if !request.xml_http_request? and @start_date and @end_date %>
   <%= _("From") %> <%= short_date(@start_date) %> <%= ("to") %> <%= short_date(@end_date) %> 
 <% end %>
-<% table_with_search_and_pagination :columns => ["", [_("Model"), 'name'], (params[:source_path] ? [_("Manufacturer"), 'manufacturer'] : _("Categories")), _("Available Items"), _("Action")],
-						   			:records => @models do |model| %>	
 
-			<% record_path = backend_inventory_pool_model_path(current_inventory_pool, model, :filter => params[:filter]) %>
+<% table_with_search_and_pagination :columns => ["", [_("Model"), 'name'], (params[:source_path] ? [_("Manufacturer"), 'manufacturer'] : _("Categories")), _("Available Items"), _("Action")],
+						   			:records => @models do |model|
+			record_path = backend_inventory_pool_model_path(current_inventory_pool, model, :filter => params[:filter]) %>
 			
 			<tr id="<%= "model_#{model.id}" %>">
 				<td>
@@ -62,10 +62,13 @@
 					end %>
 				</td>
 
-				<% content_tag :td do
-					if params[:source_path] %>
-						<%= model.read_attribute(:max_available) %>
-					<% else
+				<% if params[:source_path] # we are in a greybox
+			        max_available = model.maximum_available_in_period_for_inventory_pool(@start_date, @end_date, current_inventory_pool, @user)
+					content_tag :td, :class => "valid_#{(max_available > 0)}" do %>
+						<%= max_available %>
+					<% end
+				else
+					content_tag :td do
 						if params[:filter] == "own" %>
 							<%= current_inventory_pool.own_items.scoped_by_model_id(model).count %>
 						<% else %>
@@ -76,13 +79,14 @@
 
 				<td class="buttons">
 
-					<% if params[:source_path]
+					<% if params[:source_path] # we are in a greybox
 							var_id = (model.is_a?(Model) ? "model_id" : "model_group_id")
 							glue = (params[:source_path].include?('?') ? '&' : '?' )
 							url = "#{params[:source_path]}#{glue}#{var_id}=#{model.id}"
 						%>
 						<%=	link_to(icon_tag("package_add") + " " + _("Select"), url,
-							:method => 'post', :target=> '_top') %>
+							:method => 'post', :target=> '_top') if @line.nil? or @line.model != model %>
+							
 					<% elsif params[:layout] == "modal" %>
 	                    <%= link_to(icon_tag("connect") + " " + _("Select"), "#", :onclick => "top.document.getElementById('item_model_id').value = '#{model.id}';top.document.getElementById('model_name').textContent = '#{model.name.gsub('"', '\"').gsub(/\r\n/,' ')}';parent.parent.GB_hide(); return false;") %>
 	                <% else %>						
