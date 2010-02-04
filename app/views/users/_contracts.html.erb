@@ -1,3 +1,5 @@
+<%# old #%>
+
 <%	a = []
 	@user.contracts.all(:conditions => ['status_const != ?', Contract::UNSIGNED]).sort.each {|c| a << [c.id, c.created_at, c.status_string, c.inventory_pool.name]}
 %>
