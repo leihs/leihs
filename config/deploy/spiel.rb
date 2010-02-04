@@ -60,7 +60,7 @@ task :configure_sphinx do
  run "sed -i 's/listen = 127.0.0.1:3344/listen = 127.0.0.1:3374/' #{release_path}/config/production.sphinx.conf"
 
  run "sed -i 's/sql_host =.*/sql_host = db.zhdk.ch/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/sql_user =.*/sql_user = leihs2dev/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_user =.*/sql_user = leihs2spiel/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_pass =.*/sql_pass = 163ruby9/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_db =.*/sql_db = rails_leihs2_spiel/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_sock.*//' #{release_path}/config/production.sphinx.conf"
