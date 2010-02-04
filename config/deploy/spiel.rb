@@ -55,19 +55,19 @@ end
 
 task :configure_sphinx do
  run "cd #{release_path} && RAILS_ENV='production' rake ts:config"
- run "sed -i 's/listen = 127.0.0.1:3312/listen = 127.0.0.1:3372/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/listen = 127.0.0.1:3313/listen = 127.0.0.1:3373/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/listen = 127.0.0.1:3314/listen = 127.0.0.1:3374/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3342/listen = 127.0.0.1:3372/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3343/listen = 127.0.0.1:3373/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3344/listen = 127.0.0.1:3374/' #{release_path}/config/production.sphinx.conf"
 
  run "sed -i 's/sql_host =.*/sql_host = db.zhdk.ch/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_user =.*/sql_user = leihs2dev/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_pass =.*/sql_pass = 163ruby9/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/sql_db =.*/sql_db = rails_leihs2_dev/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_db =.*/sql_db = rails_leihs2_spiel/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_sock.*//' #{release_path}/config/production.sphinx.conf"
 
- run "sed -i 's/port: 3312/port: 3372/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/port: 3313/port: 3373/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/port: 3314/port: 3374/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3342/port: 3372/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3343/port: 3373/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3344/port: 3374/' #{release_path}/config/sphinx.yml"
 
 end
 
