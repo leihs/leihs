@@ -49,6 +49,7 @@ class DocumentLine < ActiveRecord::Base
 
   # TODO 03** merge here available_tooltip and complete_tooltip
   def tooltip
+    return "" #working here# 0402 optimize performance
     r = ""
     r += self.available_tooltip
     r += "<br/>"
