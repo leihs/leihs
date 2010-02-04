@@ -47,7 +47,7 @@ task :modify_config do
   run "sed -i 's/FRONTEND_SPLASH_PAGE = false/FRONTEND_SPLASH_PAGE = true/g' #{release_path}/config/environment.rb"
   run "sed -i 's/INVENTORY_CODE_PREFIX.*/INVENTORY_CODE_PREFIX = [[\"AVZ\", \"AV-Technik\"], [\"ITZS\", \"ITZ\"], [\"ITZV\", \"ITZ\"] ]/' #{release_path}/config/initializers/propose_inventory_code.rb"
   run "sed -i 's/CONTRACT_LENDING_PARTY_STRING.*/CONTRACT_LENDING_PARTY_STRING = \"Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich\"/' #{release_path}/config/environment.rb"
-  run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environment.rb"
+  run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environments/production.rb"
 end
 
 task :chmod_tmp do
