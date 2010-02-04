@@ -42,7 +42,8 @@ class Backend::HandOverController < Backend::BackendController
     if request.post?
       @contract.note = params[:note]
       @contract.sign(@lines, current_user)
-      render :action => 'print_contract'
+      params[:layout] = "modal"
+      render :action => 'print_contract' 
     else
       @lines = @lines.delete_if {|l| l.item.nil? }
       flash[:error] = _("No items to hand over specified. Please assign inventory codes to the items you want to hand over.") if @lines.empty?

@@ -68,24 +68,26 @@ class Contract < Document
   #FIXME: Make sure whole operation is atomic, so that signed contracts can never contain weird lines
   def sign(contract_lines = nil, current_user = nil)
     current_user ||= contract.user
-    update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now}) 
-
-    if contract_lines and contract_lines.any? { |cl| cl.item }
-
-      # Forces handover date to be today.
-      contract_lines.each {|cl| cl.update_attributes(:start_date, Date.today) if cl.start_date != Date.today }
-      
-      log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
-      
-      lines_for_new_contract = self.contract_lines - contract_lines
-      if lines_for_new_contract
-        new_contract = user.get_current_contract(self.inventory_pool)
+    
+    transaction do
+      update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now}) 
   
-        lines_for_new_contract.each do |cl|
-          cl.update_attributes(:contract => new_contract)
-        end
+      if contract_lines and contract_lines.any? { |cl| cl.item }
+  
+        # Forces handover date to be today.
+        contract_lines.each {|cl| cl.update_attributes(:start_date => Date.today) if cl.start_date != Date.today }
+        
+        log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
+        
+        lines_for_new_contract = self.contract_lines - contract_lines
+        if lines_for_new_contract
+          new_contract = user.get_current_contract(self.inventory_pool)
+    
+          lines_for_new_contract.each do |cl|
+            cl.update_attributes(:contract => new_contract)
+          end
+        end        
       end
-      
     end
   end
 
