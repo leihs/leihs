@@ -1,4 +1,5 @@
-		var user_resume = new Ext.Panel({
+		function get_user_resume_panel(){
+			return new Ext.Panel({	id: 'user_resume',
 									title: '<%= current_user.login %>',
 									closable: true,
 		                            autoScroll: true,
@@ -9,6 +10,9 @@
 										}				
 									}			
 								});
+		}
+
+		var user_resume = get_user_resume_panel();
 
 	    var topbar = new Ext.Toolbar({
 			height: 40,
@@ -50,9 +54,11 @@
 						  iconCls:'bt',
 				          icon:'<%= icon_path('user') %>',
 						  handler: function() {
-									new Ext.data.ScriptTagProxy({
-										    url: '/user/account'
-										}).load();
+										center_tabs = Ext.getCmp('center_tabs');
+										user_resume = center_tabs.getComponent('user_resume');
+										if(!user_resume) user_resume = get_user_resume_panel();
+										center_tabs.add(user_resume);
+										center_tabs.activate(user_resume);
 								}
 						},
                         {text: '<%= _("Logout") %>',
