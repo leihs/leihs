@@ -13,7 +13,7 @@ namespace :leihs do
     create_some(params)
   end
 
-  desc "Maintenance: rebuild ferret index"
+  desc "Maintenance"
   task :maintenance => :environment do
     
     puts "Rebuilding sphinx index..."
@@ -40,14 +40,22 @@ namespace :leihs do
   desc "Cron: Remind & Maintenance"
   task :cron => [:remind, :maintenance, :deadline_soon_reminder]
 
-  desc "Run Rspec tests"
-  task :test do
+  desc "Run cucumber tests. Run leihs:test[0] to only test failed scenarios"
+  task :test, :rerun do |t, args| # TODO force test, :needs => :environment
+    args.with_defaults(:rerun => 1)
+    
     puts "Removing log/test.log..."
       system "rm log/test.log"
-    puts "Resetting database..."
-      system "rake db:migrate:reset RAILS_ENV=test"
-    puts "Running all stories..."
-      system "ruby stories/all.rb"
+
+    if args.rerun.to_i > 0
+      puts "Removing rerun.txt..."
+        system "rm rerun.txt"
+    end
+
+      system "rake ts:in RAILS_ENV=test"
+      system "rake ts:start RAILS_ENV=test"
+      system "rake cucumber RAILS_ENV=test"
+      system "rake ts:stop RAILS_ENV=test"
   end
 
 ################################################################################################
