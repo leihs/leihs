@@ -44,7 +44,8 @@ class Item < ActiveRecord::Base
 
     has :is_borrowable, :is_broken, :is_incomplete, :is_inventory_relevant, :type => :boolean
     has :parent_id, :model_id, :location_id, :owner_id, :inventory_pool_id, :supplier_id
-#    has "items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) AND parent_id IS NULL", :as => :in_stock, :type => :boolean
+# OPTIMIZE
+    has "items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) AND parent_id IS NULL", :as => :in_stock, :type => :boolean
 #    has "items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)", :as => :not_in_stock, :type => :boolean
     # 0501
     has "retired IS NOT NULL", :as => :retired, :type => :boolean

@@ -3,7 +3,7 @@
 	<% content_tag :ul do
 		content_tag :li do %>
 			<%= link_to _('In Stock') + " (#{current_inventory_pool.items.in_stock.count})", backend_inventory_pool_items_path(current_inventory_pool, :filter => 'in_stock') %>
-		<% end if false
+		<% end
 		content_tag :li do %>
 			<%= link_to _('Not In Stock') + " (#{current_inventory_pool.items.not_in_stock.count})", backend_inventory_pool_items_path(current_inventory_pool, :filter => 'not_in_stock') %>
 		<% end if false

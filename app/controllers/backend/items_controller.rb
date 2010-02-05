@@ -35,9 +35,8 @@ class Backend::ItemsController < Backend::BackendController
 ###        items = (current_inventory_pool.items - current_inventory_pool.own_items)
 #        with.merge!(:inventory_pool_id => current_inventory_pool.id)
 #        without.merge!(:owner_id => current_inventory_pool.id)
-#      when "in_stock"
-###        items = current_inventory_pool.items.in_stock
-#        with.merge!(:inventory_pool_id => current_inventory_pool.id, :in_stock => true)
+      when "in_stock"
+        with.merge!(:inventory_pool_id => current_inventory_pool.id, :in_stock => true)
 #      when "not_in_stock"
 ###        items = current_inventory_pool.items.not_in_stock
 #        with.merge!(:inventory_pool_id => current_inventory_pool.id, :in_stock => false)
