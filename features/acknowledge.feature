@@ -1,0 +1,131 @@
+Feature: Acknowledge orders
+
+	As an Inventory Manager
+	I want to see all new orders and acknowledge them
+	in order to have control over who is receiving what
+
+
+Background:
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+
+	
+Scenario: List with new orders
+
+	Given the list of new orders contains 0 elements
+		And a new order is placed by a user named 'Joe'
+		And the new order is submitted
+	When lending_manager clicks on 'acknowledge'
+	Then he sees 1 order
+		And the order was placed by a user named 'Joe'
+	
+
+
+Scenario: Count of new orders is shown
+
+	Given the list of new orders contains 0 elements
+		And 5 new orders are placed
+	When lending_manager looks at the screen
+	Then he sees 'Acknowledge'
+	When lending_manager clicks on 'acknowledge'
+	Then he sees the 'acknowledge' list
+
+
+Scenario: Acknowledge order
+
+	Given a model 'NEC 245' exists
+		And 7 items of model 'NEC 245' exist
+		And the list of new orders contains 0 elements
+		And a new order is placed by a user named 'Joe'
+		And it asks for 5 items of model 'NEC 245'
+		And Joe's email address is joe@test.ch
+		And the new order is submitted
+	When the lending_manager clicks on 'acknowledge'
+	Then he sees 1 order
+	When he chooses Joe's order
+	Then Joe's order is shown
+		And lending_manager can Save + Approve
+		And lending_manager can Reject Order
+	When lending_manager approves order
+	Then joe@test.ch receives an email
+		And its subject is '[leihs] Reservation Confirmation'
+		And it contains information '5 NEC 245'
+		And lending_manager sees 0 orders
+
+
+Scenario: Reject order
+
+	Given a model 'NEC 245' exists
+		And 7 items of model 'NEC 245' exist
+		And the list of new orders contains 0 elements
+		And a new order is placed by a user named 'Joe'
+		And it asks for 5 items of model 'NEC 245'
+		And Joe's email address is joe@test.ch
+		And the new order is submitted
+	When the lending_manager clicks on 'acknowledge'
+	Then he sees 1 order
+	When he chooses Joe's order
+	Then Joe's order is shown
+		And lending_manager can Save + Approve
+		And lending_manager can Reject Order
+	When lending_manager rejects order with reason 'Because I don't like you.'
+	Then joe@test.ch receives an email
+		And its subject is '[leihs] Reservation Rejected'
+		And it contains information 'Because I don't like you.'
+		And lending_manager sees 0 order
+
+
+Scenario: Change amount and add Item
+
+	Given a model 'NEC 245' exists
+		And 7 items of model 'NEC 245' exist
+		And a model 'NEC 333' exists
+		And 5 items of model 'NEC 333' exist
+		And a new order is placed by a user named 'Joe'
+		And it asks for 5 items of model 'NEC 245'
+		And Joe's email address is joe@test.ch
+		And the new order is submitted
+	When the lending_manager clicks on 'acknowledge'
+		And he chooses Joe's order
+	Then Joe's order is shown
+	When lending_manager changes number of items of model 'NEC 245' to 4
+		And he adds 1 item 'NEC 333'
+		And he adds a personal message: 'NEC 333 is better in that situation'
+		And lending_manager approves order
+	Then lending_manager sees 0 order
+		And joe@test.ch receives an email
+		And its subject is '[leihs] Reservation confirmed (with changes)'
+		And it contains information '4 NEC 245'
+		And it contains information '1 NEC 333'
+		And it contains information 'Changed quantity for NEC 245 from 5 to 4'
+		And it contains information 'Added 1 NEC 333'
+		And it contains information 'NEC 333 is better in that situation'
+
+
+Scenario: Swap Model
+
+	Given a model 'NEC 245' exists
+		And 7 items of model 'NEC 245' exist
+		And a model 'NEC 333' exists
+		And 5 items of model 'NEC 333' exist
+		And a new order is placed by a user named 'Joe'
+		And it asks for 5 items of model 'NEC 245'
+		And Joe's email address is joe@test.ch
+		And the new order is submitted
+	When the lending_manager clicks on 'acknowledge'
+		And he chooses Joe's order
+	Then Joe's order is shown
+	When he chooses 'swap' on order line 'NEC 245' 
+	Then Swap Item screen opens
+	When lending_manager searches for 'NEC 333'
+	Then a choice of 1 item appears
+	When lending_manager selects 'NEC 333'
+	Then he sees 5 items of model 'NEC 333'
+	When he adds a personal message: 'NEC 333 is better than NEC 245'
+		And lending_manager approves order
+	Then joe@test.ch receives an email
+		And its subject is '[leihs] Reservation confirmed (with changes)'
+		And it contains information '5 NEC 333'
+		And it contains information 'Swapped NEC 245 for NEC 333'
+		And it contains information 'NEC 333 is better than NEC 245'
+
+	
