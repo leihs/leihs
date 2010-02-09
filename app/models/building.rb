@@ -1,6 +1,6 @@
 class Building < ActiveRecord::Base
 
   def to_s
-    self.name
+    "#{name} (#{code})"
   end
 end
