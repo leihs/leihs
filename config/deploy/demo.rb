@@ -1,5 +1,5 @@
 set :application, "leihs2demo"
-set :repository,  "http://code.zhdk.ch/svn/leihs/branches/2.0"
+set :repository,  "http://code.zhdk.ch/svn/leihs/trunk"
 set :db_config, "/home/rails/leihs/leihs2demo/database.yml"
 set :deploy_via, :export
 set :use_sudo, false
@@ -46,13 +46,10 @@ task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
 end
 
-task :chmod_ferret do
-  run "chmod +x #{release_path}/script/ferret_server"
-end
+
 
 task :modify_config do
   #run "sed -i 's/FRONTEND_BETA_WARNING = false/FRONTEND_BETA_WARNING = true/g' #{release_path}/config/environment.rb"
-  run "sed -i 's/9010/9020/g' #{release_path}/config/ferret_server.yml"
   run "sed -i 's/INVENTORY_CODE_PREFIX.*/INVENTORY_CODE_PREFIX = [[\"AVZ\", \"AV-Technik\"], [\"ITZS\", \"ITZ\"], [\"ITZV\", \"ITZ\"] ]/' #{release_path}/config/initializers/propose_inventory_code.rb"
   run "sed -i 's/CONTRACT_LENDING_PARTY_STRING.*/CONTRACT_LENDING_PARTY_STRING = \"Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich\"/' #{release_path}/config/environment.rb"
 end
@@ -61,6 +58,34 @@ task :chmod_tmp do
   run "chmod g-w #{release_path}/tmp"
 end
 
+
+
+task :configure_sphinx do
+ run "cd #{release_path} && RAILS_ENV='production' rake ts:config"
+ run "sed -i 's/listen = 127.0.0.1:3342/listen = 127.0.0.1:3382/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3343/listen = 127.0.0.1:3383/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3344/listen = 127.0.0.1:3384/' #{release_path}/config/production.sphinx.conf"
+
+ run "sed -i 's/sql_host =.*/sql_host = db.zhdk.ch/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_user =.*/sql_user = leihs2demo/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_pass =.*/sql_pass = l31hsd3m00/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_db =.*/sql_db = rails_leihs2_demo/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_sock.*//' #{release_path}/config/production.sphinx.conf"
+
+ run "sed -i 's/port: 3342/port: 3382/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3343/port: 3383/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3344/port: 3384/' #{release_path}/config/sphinx.yml"
+
+end
+
+task :stop_sphinx do
+#  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
+end
+
+task :start_sphinx do
+  run "cd #{release_path} && RAILS_ENV='production' rake ts:reindex"
+  run "cd #{release_path} && RAILS_ENV='production' rake ts:start"
+end
 
 
 namespace :deploy do
@@ -84,21 +109,15 @@ end
 
 
 after "deploy:symlink", :link_config
-after "deploy:symlink", :chmod_ferret
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
+after "deploy:symlink", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
+before "deploy", :stop_sphinx
+after "deploy", :start_sphinx
 
-
-before "deploy" do
-  run "cd #{previous_release} && ./script/ferret_server --root . -e production stop"
-end
-
-after "deploy" do
-  run "cd #{release_path} && ./script/ferret_server --root . -e production start"
-end
 
 
 
