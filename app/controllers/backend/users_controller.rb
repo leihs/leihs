@@ -55,6 +55,19 @@ class Backend::UsersController < Backend::BackendController
     end
   end
 
+  def edit
+  end
+  
+  def update
+    if @user.update_attributes(params[:user])
+      flash[:notice] = _("User details were updated successfully.")
+      redirect_to [:backend, current_inventory_pool, @user].compact
+    else
+      flash[:error] = _("The new user details could not be saved.")
+      redirect_to [:edit, :backend, current_inventory_pool, @user].compact
+    end
+  end
+  
 #################################################################
 
   # OPTIMIZE
