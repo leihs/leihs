@@ -17,6 +17,42 @@
 		<% end
 	end
 
+  content_tag :tr do
+    content_tag :th do %>
+      <%= _("Address") %>:
+    <% end
+    content_tag :td do %>
+      <%= @user.address %>
+    <% end
+  end
+
+  content_tag :tr do
+    content_tag :th do %>
+      <%= _("ZIP") %>:
+    <% end
+    content_tag :td do %>
+      <%= @user.zip %>
+    <% end
+  end
+
+  content_tag :tr do
+    content_tag :th do %>
+      <%= _("City") %>:
+    <% end
+    content_tag :td do %>
+      <%= @user.city %>
+    <% end
+  end
+
+  content_tag :tr do
+    content_tag :th do %>
+      <%= _("Country") %>:
+    <% end
+    content_tag :td do %>
+      <%= @user.country %>
+    <% end
+  end
+
 	content_tag :tr do
 		content_tag :th do %>
 			<%= _("Email") %>:
