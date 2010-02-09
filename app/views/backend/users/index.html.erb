@@ -37,6 +37,11 @@
 					<% else
 						content_tag :ul do %>
 							<li><%= link_to icon_tag("magnifier") + _("Show"), [:backend, current_inventory_pool, user].compact %></li>
+							
+							<% if is_admin? or (current_inventory_pool and (is_inventory_manager? or is_lending_manager?)) %>
+							  <li><%= link_to _("Edit"), [:edit, :backend, current_inventory_pool, user].compact %></li>
+							<% end %>
+							
 							<% if current_inventory_pool %>
 								<li><%= link_to icon_tag("arrow_turn_right") + _("New Contract"), :action => 'new_contract', :id => user.id if current_inventory_pool.users.include?(user) %></li>
 								<li>

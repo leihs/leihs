@@ -28,19 +28,10 @@
 
   content_tag :tr do
     content_tag :th do %>
-      <%= _("ZIP") %>:
+      <%= _("ZIP") + "/" + _("City") %>:
     <% end
     content_tag :td do %>
-      <%= @user.zip %>
-    <% end
-  end
-
-  content_tag :tr do
-    content_tag :th do %>
-      <%= _("City") %>:
-    <% end
-    content_tag :td do %>
-      <%= @user.city %>
+      <%= "#{@user.zip} #{@user.city}" %>
     <% end
   end
 
@@ -86,19 +77,22 @@ end %>
 
 
 <br/>
-		
-<% if current_inventory_pool
-	content_tag :ul, :class => "buttons" do
-		content_tag :li do %>
-			<%= link_to _("New Contract"),
-						new_contract_backend_inventory_pool_user_path(current_inventory_pool, @user.id),
-						{ :target => '_top' } %>
-		<% end
-	end if current_inventory_pool.users.include?(@user) %>
+
+<% content_tag :ul, :class => "buttons" do
+
+    content_tag :li do %>
+      <%= link_to _("Edit"), [:edit, :backend, current_inventory_pool, @user].compact %>
+    <% end if is_admin? or (current_inventory_pool and (is_inventory_manager? or is_lending_manager?))
+    
+    content_tag :li do %>
+      <%= link_to _("New Contract"),
+            new_contract_backend_inventory_pool_user_path(current_inventory_pool, @user.id),
+            { :target => '_top' } %>
+    <% end if current_inventory_pool and current_inventory_pool.users.include?(@user)   
+  end %>
 
 	<br/>
-	<%= render :partial => 'resume' %>
-<% end %>
+	<%= render :partial => 'resume' if current_inventory_pool %>
 
 <br/>
 <%= render :partial => "#{@user.authentication_system.class_name.underscore}" if @user.id %>
