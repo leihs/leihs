@@ -9,6 +9,23 @@
 						:title => _("Search Model"),
 						:width => "800") if ((@item.contract_lines.empty? and is_privileged_user?) or @item.new_record?) %>
 	</td></tr>
+	
+	
+  <% if @item.model %>
+    <tr><td><b><%= _("Categories")%>:</b></td><td>
+
+        <% content_tag :ul, :style => "list-style: disc;" do
+          @item.model.categories.each do |category|
+            content_tag :li do %>
+              <%= category.name %>
+            <% end
+          end
+        end %>
+        
+    </td></tr>
+  <% end %>
+	
+	
 <tr><td><b><%= _("Inventory Code:") %></b></td><td>
 		<% if is_super_user? %>
 		 	<%= @f.text_field :inventory_code %> 
