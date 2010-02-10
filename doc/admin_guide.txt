@@ -20,7 +20,7 @@ This section is meant for admins experienced with installing Ruby on Rails appli
 
 === Installation on Mac OS X ===
 
-The following steps were tested on Mac OS X 10.5 on an x86. They may also work for later versions.
+The following steps were tested on Mac OS X 10.5 and 10.6 on an x86. They may also work for later versions.
 
 
 1. Install Apple Xcode. This is required because some modules may need a C/C++ compiler. XCode is http://developer.apple.com/Tools/[available from Apple] after a free developer registration.
@@ -31,11 +31,16 @@ The following steps were tested on Mac OS X 10.5 on an x86. They may also work f
 +
 4. Install the required version of Rails as well as a few gems that cannot be installed automatically:
 +
- $ sudo gem install rails -v 2.1.1
- $ sudo gem install gettext -v 1.93.0
- $ sudo gem install RubyInline
- $ sudo gem install ferret -v 0.11.6
- $ sudo gem install acts_as_ferret -v 0.4.3
+ $ sudo gem install rails -v 2.3.5
+ $ sudo gem install gettext -v 2.1.0
+ $ sudo gem install gettext_rails -v 2.1.0
+ $ sudo gem install gettext_activerecord -v 2.1.0
+ $ sudo gem install hoptoad_notifier -v 2.1.3
+ $ sudo gem install rgl -v 0.4.0
+ $ sudo gem install will_paginate --source http://gemcutter.org -v 2.3.11
+ $ sudo gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15
+ $ sudo gem install prawn -v 0.7.1
+ $ sudo gem install ruby-net-ldap -v 0.0.4
  $ sudo gem install barby -v 0.2.0
  $ sudo gem install png -v 1.1.0
 
@@ -68,9 +73,9 @@ If this works, stop the server again using Ctrl-C.
 
 8. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
 +
- development:
+ production:
     adapter: mysql
-    database: leihs2_development
+    database: leihs2_production
     encoding: utf8
     username: root
     password:
@@ -79,15 +84,39 @@ If this works, stop the server again using Ctrl-C.
 
 9. Create and migrate the database:
 +
- $ rake db:migrate
+ $ RAILS_ENV='production' rake db:migrate
 
 10. Start the server:
 +
- $ ./script/server
+ $ RAILS_ENV='production' ./script/server
+ 
+11. Configure and start the Sphinx server:
++
+ $ RAILS_ENV='production' rake ts:config
+ $ RAILS_ENV='production' rake ts:reindex
+ $ RAILS_ENV='production' rake ts:start
+
+12. Download Sphinx (a fulltext search system). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
++ 
+ $ cd /tmp
+ $ wget http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
+ $ tar xvfz sphinx-0.9.9.tar.gz
+ $ cd sphinx-0.9.9
+ $ wget http://snowball.tartarus.org/dist/libstemmer_c.tgz
+ $ tar xvfz libstemmer_c.tgz
+ $ ./configure && make
+ $ sudo make install
+ 
+13. Configure and start the Sphinx server:
++
+ $ cd /home/leihs
+ $ RAILS_ENV='production' rake ts:config
+ $ RAILS_ENV='production' rake ts:reindex
+ $ RAILS_ENV='production' rake ts:start
 
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
  
-
+ 
 === Installation on Debian GNU/Linux ===
 
 These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny).
@@ -109,11 +138,16 @@ Note that the URL above might change! Please visit the RubyGems site to find the
 
 3. Install the required version of Rails as well as a few gems that cannot be installed automatically:
 +
- # gem install rails -v 2.1.1
- # gem install gettext -v 1.93.0
- # gem install RubyInline
- # gem install ferret -v 0.11.6
- # gem install acts_as_ferret -v 0.4.3
+ # gem install rails -v 2.3.5
+ # gem install gettext -v 2.1.0
+ # gem install gettext_rails -v 2.1.0
+ # gem install gettext_activerecord -v 2.1.0
+ # gem install hoptoad_notifier -v 2.1.3
+ # gem install rgl -v 0.4.0
+ # gem install will_paginate --source http://gemcutter.org -v 2.3.11
+ # gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15
+ # gem install prawn -v 0.7.1
+ # gem install ruby-net-ldap -v 0.0.4
  # gem install barby -v 0.2.0
  # gem install png -v 1.1.0
 
@@ -137,9 +171,9 @@ If this works, stop the server again using Ctrl-C.
 
 7. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
 +
- development:
+ production:
     adapter: mysql
-    database: leihs2_development
+    database: leihs2_production
     encoding: utf8
     username: root
     password:
@@ -149,11 +183,31 @@ If this works, stop the server again using Ctrl-C.
 8. Create and migrate the database:
 +
  # su - leihs
- $ rake db:migrate
+ $ RAILS_ENV='production' rake db:migrate
 
 9. Start the server:
 +
- $ ./script/server
+ $ RAILS_ENV='production' ./script/server
+ 
+10. Download Sphinx (a fulltext search system). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
++ 
+ $ cd /tmp
+ $ curl -C - -O http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
+ $ tar xvfz sphinx-0.9.9.tar.gz
+ $ cd sphinx-0.9.9
+ $ curl -C - -O http://snowball.tartarus.org/dist/libstemmer_c.tgz
+ $ tar xvfz libstemmer_c.tgz
+ $ ./configure && make
+ $ su
+ # make install
+ 
+10. Configure and start the Sphinx server:
++
+ $ cd /home/leihs
+ $ RAILS_ENV='production' rake ts:config
+ $ RAILS_ENV='production' rake ts:reindex
+ $ RAILS_ENV='production' rake ts:start
+
 
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
 
@@ -184,18 +238,17 @@ The upgrade should be painless.
 
 5. Run the database migration to get all your data up to the new version:
 +
- $ rake db:migrate
+ $ RAILS_ENV='production' rake db:migrate
 
 6. Run the server. Make sure you stop your previous leihs server!
 +
- $ ./script/server
+ $ RAILS_ENV='production' ./script/server
 
-If everything went correctly, you should see leihs coming up at http://localhost:3000. *Please note that for a production environment, you would of course run rake db:migrate and script/server with the production environment prepended:* `RAILS_ENV='production' rake db:migrate` and `RAILS_ENV='production' ./script/server` 
-
+If everything went correctly, you should see leihs coming up at http://localhost:3000. 
 
 == Installing a production environment ==
 
-Please note that running the server in development mode as shown in the quick-start guide is not recommended for production. Once you have made sure that the server works in development mode and wish to start using leihs properly, please run it in production mode (`RAILS_ENV='production' ./script/server`). Also, this quick-start guide does not cover running a Ruby on Rails application for production. Please look into http://www.modrails.com/[Phusion Passenger] or the Apache Mongrel cluster in the reference section for how to set up a production environment.
+Please note that this quick-start guide does not cover running a Ruby on Rails application for production. Please look into http://www.modrails.com/[Phusion Passenger] or the Apache Mongrel cluster in the reference section for how to set up a production environment.
 
 Without a real production environment, leihs can handle upwards of 1000 users (not concurrently, of course!). If you need better performance, you must set up a proper production environment.
 
