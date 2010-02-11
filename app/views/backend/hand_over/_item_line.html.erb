@@ -7,10 +7,10 @@
 			
 			<%= text_field(:line, :quantity, :id =>"line_quantity_#{@line.id}", :size => 3, :onchange => remote_function( :url => { :action => 'change_line_quantity', :contract_line_id => @line.id}, :with => "'quantity=' + value" )) %>
 
-			<% # working here TODO async post %>
 			<% tooltip icon_tag('error') do %>
 				<%= @line.tooltip %>
-			<% end unless is_checked %>
+			<% end if false #old# unless is_checked
+			 %>
 
 			<% if @line.model.internal_description and not @line.model.internal_description.blank? %>
 				<% tooltip icon_tag("information") do%>
