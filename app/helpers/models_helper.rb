@@ -40,8 +40,6 @@ module ModelsHelper
               else
                 inventory_pool.items.scoped_by_model_id(model).all(:order => "is_borrowable DESC, inventory_code DESC")
             end
-    canvas_height = (items.size * config[:line][:height])
-    config[:canvas][:height] = canvas_height if canvas_height > config[:canvas][:height]
     config[:range][:start_sec] = config[:range][:start_days] * 86400
     config[:range][:end_sec] = config[:range][:end_days] * 86400
 
@@ -109,26 +107,30 @@ module ModelsHelper
           end
         end
 
-        unless y.nil?
-          events << {:start => start_date, :end => end_date, :y => y, :color => 'grey'} 
+        if y.nil?
+          y = y_ticks.size + 1
+          y_ticks << [y, _("Overbooked")]
+        end
 
-          #TODO make less clunky
-          inventory_code = y_ticks[y-1][1]
-          if l.instance_of? OrderLine
-            #TODO further horrible data-structure, pending Flot implementation.
-            if items_users[inventory_code].nil?
-               items_users[inventory_code] = {start_date => [l.order.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date]}
-             else
-               items_users[inventory_code].merge!(start_date => [l.order.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date])
-             end
+        events << {:start => start_date, :end => end_date, :y => y, :color => 'grey'}
+
+        #TODO make less clunky
+        inventory_code = y_ticks[y-1][1]
+        if l.instance_of? OrderLine
+          #TODO further horrible data-structure, pending Flot implementation.
+          if items_users[inventory_code].nil?
+             items_users[inventory_code] = {start_date => [l.order.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date]}
+           else
+             items_users[inventory_code].merge!(start_date => [l.order.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date])
+           end
+        else
+          if items_users[inventory_code].nil?
+             items_users[inventory_code] = {start_date => [l.document.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date]}
           else
-            if items_users[inventory_code].nil?
-               items_users[inventory_code] = {start_date => [l.document.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date]}
-            else
-               items_users[inventory_code].merge!(start_date => [l.document.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date])
-            end
+             items_users[inventory_code].merge!(start_date => [l.document.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date])
           end
         end
+
       end
     end
 
@@ -144,12 +146,14 @@ module ModelsHelper
       x2_ticks << [dd.to_time.to_i, a.quantity.to_s, ] if dd.to_time.to_i > today.to_time.to_i + config[:range][:start_sec] and dd.to_time.to_i < today.to_time.to_i + config[:range][:end_sec]
     end
 
+    canvas_height = (y_ticks.size * config[:line][:height])
+    config[:canvas][:height] = canvas_height if canvas_height > config[:canvas][:height]
+
+
+
     html += javascript_include_flotr
-
     html += content_tag :div, :id => 'canvas_mouse_monitor', :style => "position: absolute; z-index: 9999; border: 1px solid black; width: 200px;" do end
-
     html += content_tag :div, :id => 'canvas_container', :style => "width:#{config[:canvas][:width]}px;height:#{config[:canvas][:height]}px;" do end
-
     html += content_tag :div, :class => 'buttons', :style => "text-align: center;" do
               r = ""
               r += content_tag :a, :id => 'canvas_prev' do "< #{_("Prev")}" end
@@ -314,6 +318,7 @@ module ModelsHelper
     end
   end
 
+  # TODO DRY with canvas_for_model method
   # Flotr Javascript Library required
   def canvas_for_model_in_inventory_pools(model, inventory_pools = [])
     config = {:canvas => {:width => 800, :height => 160},
