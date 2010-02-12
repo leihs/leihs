@@ -201,7 +201,7 @@ If this works, stop the server again using Ctrl-C.
  $ su
  # make install
  
-10. Configure and start the Sphinx server:
+11. Configure and start the Sphinx server:
 +
  $ cd /home/leihs
  $ RAILS_ENV='production' rake ts:config
