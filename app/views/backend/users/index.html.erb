@@ -2,11 +2,13 @@
 	<%= link_to _("Create"), :action => 'new' %>
 <% end unless request.xml_http_request? %>
 
-<% table_with_search_and_pagination :columns => [[_("User Login"), 'login'], _("Access Rights"), (current_inventory_pool ? _("Documents") : ""), _("Action")],
+<% table_with_search_and_pagination :columns => [[_("User Login"), 'login'], ["Full name", 'name'], _("Access Rights"), (current_inventory_pool ? _("Documents") : ""), _("Action")],
 						   			:records => @users do |user| %>	
 
 			<tr>
 				<td><%= user.login %></td>
+				<td><%= user.name %></td>
+
 				<td>
 					<% content_tag :ul do
 						access_rights = user.access_rights
