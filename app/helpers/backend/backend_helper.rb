@@ -370,8 +370,11 @@ module Backend::BackendHelper
                               :class => 'negative',
                               :id => 'submit_button'
             #old# s += cancel_popup_button _("Cancel")
-            s += content_tag :span, :id => 'error', :style => 'display:none; color: red; font-weight: bold;' do
+            s += content_tag :span, :id => 'error_end_before_start', :style => 'display:none; color: red; font-weight: bold;' do
               _("Start Date must be before End Date")
+            end
+            s += content_tag :span, :id => 'error_too_early',        :style => 'display:none; color: red; font-weight: bold;' do
+              _("You can't have a Start Date before today")
             end
           end
           r
@@ -459,8 +462,9 @@ module Backend::BackendHelper
       }
       
       function validate_date_sequence(){
+        var today = new Date();
         var start_date = new Date($('line_start_date_1i').value, $('line_start_date_2i').value - 1, $('line_start_date_3i').value);
-        var end_date = new Date($('line_end_date_1i').value, $('line_end_date_2i').value - 1, $('line_end_date_3i').value);
+        var end_date   = new Date($('line_end_date_1i').value,   $('line_end_date_2i').value   - 1, $('line_end_date_3i').value);
         var formatted_start_date = start_date.to_formatted_s_db();
         var formatted_end_date = end_date.to_formatted_s_db();
 
@@ -479,10 +483,14 @@ module Backend::BackendHelper
         
         if(end_date < start_date){
           $('submit_button').hide();
-          $('error').show();
+          $('error_end_before_start').show();
+        }else if(start_date < today){ // 
+          $('submit_button').hide();
+          $('error_too_early').show();
         }else{
           $('submit_button').show();
-          $('error').hide();
+          $('error_end_before_start').hide();
+          $('error_too_early').hide();
         }
       }
   

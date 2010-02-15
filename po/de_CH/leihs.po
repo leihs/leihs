@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2010-02-09 16:32+0100\n"
+"POT-Creation-Date: 2010-02-15 18:24+0100\n"
 "PO-Revision-Date: 2010-02-09 16:34+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
@@ -1745,6 +1745,10 @@ msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 #: app/views/frontend/_models.html.erb:401
 msgid "Start Date must be before End Date"
 msgstr "Startdaum muss vor Enddatum liegen"
+
+#: app/helpers/backend/backend_helper.rb:377
+msgid "You can't have a Start Date before today"
+msgstr "Das Startdatum kann nicht vor dem heutigen Datum liegen"
 
 #: app/models/mailer/order.rb:11
 msgid "[leihs] Reservation Confirmation"
