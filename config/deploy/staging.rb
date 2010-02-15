@@ -32,6 +32,11 @@ task	:link_attachments do
 	run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
 end
 
+task :link_sphinx do
+  run "rm -rf #{release_path}/db/sphinx"
+  run "ln -s #{deploy_to}/#{shared_dir}/sphinx #{release_path}/db/sphinx"
+end
+
 task :remove_htaccess do
 	# Kill the .htaccess file as we are using mongrel, so this file
 	# will only confuse the web server if parsed.
@@ -73,7 +78,7 @@ task :configure_sphinx do
 end
 
 task :stop_sphinx do
-#  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
+  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
 end
 
 task :start_sphinx do
@@ -106,5 +111,6 @@ after "deploy:symlink", :chmod_tmp
 after "deploy:symlink", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
+before "deploy", :link_sphinx
 before "deploy", :stop_sphinx
 after "deploy", :start_sphinx
