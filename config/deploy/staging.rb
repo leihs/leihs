@@ -111,6 +111,6 @@ after "deploy:symlink", :chmod_tmp
 after "deploy:symlink", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
-before "deploy", :link_sphinx
 before "deploy", :stop_sphinx
+before "start_sphinx", :link_sphinx
 after "deploy", :start_sphinx
