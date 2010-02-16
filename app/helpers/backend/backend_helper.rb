@@ -371,7 +371,7 @@ module Backend::BackendHelper
                               :id => 'submit_button'
             #old# s += cancel_popup_button _("Cancel")
             s += content_tag :span, :id => 'error_end_before_start', :style => 'display:none; color: red; font-weight: bold;' do
-              _("Start Date must be before End Date")
+              _("Start Date must be before End Date") + "<br />"
             end
             s += content_tag :span, :id => 'error_too_early',        :style => 'display:none; color: red; font-weight: bold;' do
               _("You can't have a Start Date before today")
