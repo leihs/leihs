@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2010-02-15 18:24+0100\n"
-"PO-Revision-Date: 2010-02-09 16:34+0100\n"
+"POT-Creation-Date: 2010-02-16 09:38+0100\n"
+"PO-Revision-Date: 2010-02-16 09:40+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -1719,36 +1719,32 @@ msgstr "Datum für %{model} von %{from} auf %{to} gesetzt"
 msgid "Removed %{q} %{m}"
 msgstr "%{q} %{m} entfernt"
 
-#: app/models/document_line.rb:70
+#: app/models/document_line.rb:69
 msgid "not valid. "
 msgstr "nicht gültig."
 
-#: app/models/document_line.rb:71
+#: app/models/document_line.rb:70
 msgid "not available. "
 msgstr "nicht verfügbar."
 
-#: app/models/document_line.rb:82
+#: app/models/document_line.rb:81
 msgid "quantity not available. "
 msgstr "Anzahl nicht verfügbar."
 
-#: app/models/document_line.rb:83
+#: app/models/document_line.rb:82
 msgid "inventory pool is closed on start_date. "
 msgstr "Der Gerätepark ist am gewünschten Starttag geschlossen"
 
-#: app/models/document_line.rb:84
+#: app/models/document_line.rb:83
 msgid "inventory pool is closed on end_date. "
 msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 
-#: app/models/document_line.rb:99
+#: app/models/document_line.rb:98
 #: app/helpers/backend/backend_helper.rb:374
 #: app/views/frontend/_complete_order.html.erb:193
 #: app/views/frontend/_models.html.erb:401
 msgid "Start Date must be before End Date"
 msgstr "Startdaum muss vor Enddatum liegen"
-
-#: app/helpers/backend/backend_helper.rb:377
-msgid "You can't have a Start Date before today"
-msgstr "Das Startdatum kann nicht vor dem heutigen Datum liegen"
 
 #: app/models/mailer/order.rb:11
 msgid "[leihs] Reservation Confirmation"
@@ -1845,12 +1841,12 @@ msgid "The item belongs to a package"
 msgstr "Der Gegenstand gehört zu einem Paket"
 
 #: app/helpers/models_helper.rb:35
-#: app/helpers/models_helper.rb:322
+#: app/helpers/models_helper.rb:327
 msgid "Time"
 msgstr "Zeit"
 
 #: app/helpers/models_helper.rb:35
-#: app/helpers/models_helper.rb:322
+#: app/helpers/models_helper.rb:327
 msgid "Available Quantity"
 msgstr "Verfügbar"
 
@@ -1867,7 +1863,11 @@ msgstr "Verfügbar"
 msgid "Items"
 msgstr "Gegenstände"
 
-#: app/helpers/models_helper.rb:322
+#: app/helpers/models_helper.rb:112
+msgid "Overbooked"
+msgstr "Überbucht"
+
+#: app/helpers/models_helper.rb:327
 #: app/views/backend/models/package.html.erb:20
 #: app/views/frontend/_inventory_pools.html.erb:37
 #: app/views/frontend/_inventory_pools.html.erb:60
@@ -1972,7 +1972,11 @@ msgstr "Lade"
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: app/helpers/backend/backend_helper.rb:518
+#: app/helpers/backend/backend_helper.rb:377
+msgid "You can't have a Start Date before today"
+msgstr "Das Startdatum kann nicht vor dem heutigen Datum liegen"
+
+#: app/helpers/backend/backend_helper.rb:526
 msgid "Month"
 msgstr "Monat"
 
@@ -2398,7 +2402,7 @@ msgid "Item needs permission!"
 msgstr "Gegenstand braucht Ausleih-Bewilligung!"
 
 #: app/views/backend/hand_over/_item_line.html.erb:74
-#: app/views/backend/users/index.html.erb:35
+#: app/views/backend/users/index.html.erb:37
 #: app/views/backend/acknowledge/_line.html.erb:43
 msgid "Swap"
 msgstr "Tauschen"
@@ -2464,14 +2468,11 @@ msgid "Set Purpose"
 msgstr "Zweck bestimmen"
 
 #: app/views/backend/hand_over/show.html.erb:37
-#: app/views/backend/acknowledge/show.html.erb:65
-msgid "Add Line"
-msgstr "Zeile hinzufügen"
-
 #: app/views/backend/hand_over/show.html.erb:39
 #: app/views/backend/hand_over/_lines.html.erb:12
 #: app/views/backend/hand_over/_lines.html.erb:32
 #: app/views/backend/hand_over/_lines.html.erb:47
+#: app/views/backend/acknowledge/show.html.erb:65
 #: app/views/backend/acknowledge/show.html.erb:67
 #: app/views/backend/acknowledge/_lines.html.erb:10
 #: app/views/backend/acknowledge/_lines.html.erb:22
@@ -2609,8 +2610,8 @@ msgstr "Andere Dokumente"
 #: app/views/backend/acknowledge/_lines.html.erb:8
 #: app/views/backend/acknowledge/_lines.html.erb:20
 #: app/views/backend/acknowledge/_lines.html.erb:30
-msgid "Add Line for"
-msgstr "Zeile hinzufügen für"
+msgid "Add Model for"
+msgstr "Modell hinzufügen für"
 
 #: app/views/backend/locations/index.html.erb:2
 #: app/views/backend/items/_location.html.erb:4
@@ -2618,7 +2619,7 @@ msgid "Shelf"
 msgstr "Gestell"
 
 #: app/views/backend/locations/index.html.erb:13
-#: app/views/backend/users/index.html.erb:39
+#: app/views/backend/users/index.html.erb:41
 #: app/views/backend/items/index.html.erb:53
 #: app/views/backend/models/index.html.erb:94
 #: app/views/backend/models/package_roots.html.erb:5
@@ -2759,12 +2760,12 @@ msgstr "Benutzer-Login"
 msgid "Access Rights"
 msgstr "Zugriffsrechte"
 
-#: app/views/backend/users/index.html.erb:42
+#: app/views/backend/users/index.html.erb:44
 #: app/views/backend/users/show.html.erb:84
 msgid "Edit"
 msgstr "Editieren"
 
-#: app/views/backend/users/index.html.erb:46
+#: app/views/backend/users/index.html.erb:48
 #: app/views/backend/users/show.html.erb:88
 msgid "New Contract"
 msgstr "Neuer Vertrag"
@@ -2977,7 +2978,6 @@ msgid "Search Model"
 msgstr "Modell suchen"
 
 #: app/views/backend/items/_general_info.html.erb:15
-#: app/views/backend/items/_categories.html.erb:3
 #: app/views/backend/models/index.html.erb:41
 #: app/views/frontend/_categories.html.erb:23
 #: app/views/layouts/backend/00-patterns/_menu_admin.html.erb:15
@@ -3404,8 +3404,8 @@ msgid "Order from %s"
 msgstr "Bestellung von %s"
 
 #: app/views/backend/backend/search/_user.html.erb:3
-msgid "Telefon"
-msgstr ""
+msgid "Telephone"
+msgstr "Telefon"
 
 #: app/views/backend/backend/search/_user.html.erb:4
 msgid "Badge"
@@ -3793,6 +3793,10 @@ msgstr "Sie sind nicht berechtigt, diese Applikation zu benutzen"
 msgid "Access Denied"
 msgstr "Zugriff verweigert"
 
+#~ msgid "Add Line"
+#~ msgstr "Zeile hinzufügen"
+#~ msgid "Add Line for"
+#~ msgstr "Zeile hinzufügen für"
 #~ msgid "Found %d results for '%s'"
 #~ msgstr "%d Resultate bei Suche nach '%s'"
 #~ msgid ""
@@ -4024,8 +4028,6 @@ msgstr "Zugriff verweigert"
 #~ msgstr "Studenten"
 #~ msgid "Line couldn't be added"
 #~ msgstr "Zeile konnte nicht hinzugefügt werden"
-#~ msgid "Everybody"
-#~ msgstr "Alle"
 #~ msgid "Privileged"
 #~ msgstr "Speziell Berechtigte"
 #~ msgid "Add more items"

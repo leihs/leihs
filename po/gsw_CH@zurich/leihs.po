@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
-"POT-Creation-Date: 2010-02-09 16:32+0100\n"
+"POT-Creation-Date: 2010-02-16 09:38+0100\n"
 "PO-Revision-Date: 2010-02-02 09:49+0100\n"
 "Last-Translator: Ugo De Vito <ugo.devito@zhdk.ch>\n"
 "Language-Team: English\n"
@@ -1726,27 +1726,27 @@ msgstr "Datum für %{model} vo %{from} uf %{to} gwächslet"
 msgid "Removed %{q} %{m}"
 msgstr "%{q} %{m} wäggnoh"
 
-#: app/models/document_line.rb:70
+#: app/models/document_line.rb:69
 msgid "not valid. "
 msgstr "nöd gültig."
 
-#: app/models/document_line.rb:71
+#: app/models/document_line.rb:70
 msgid "not available. "
 msgstr "nöd verfüegbar."
 
-#: app/models/document_line.rb:82
+#: app/models/document_line.rb:81
 msgid "quantity not available. "
 msgstr "Azahl nöd ume."
 
-#: app/models/document_line.rb:83
+#: app/models/document_line.rb:82
 msgid "inventory pool is closed on start_date. "
 msgstr "Grätepark isch am start_date zue."
 
-#: app/models/document_line.rb:84
+#: app/models/document_line.rb:83
 msgid "inventory pool is closed on end_date. "
 msgstr "Grätepark isch am end_date zue."
 
-#: app/models/document_line.rb:99 app/helpers/backend/backend_helper.rb:374
+#: app/models/document_line.rb:98 app/helpers/backend/backend_helper.rb:374
 #: app/views/frontend/_complete_order.html.erb:193
 #: app/views/frontend/_models.html.erb:401
 msgid "Start Date must be before End Date"
@@ -1850,11 +1850,11 @@ msgstr "Die Sach ghört nöd zum Grätepark wo zu dem Vertrag ghört"
 msgid "The item belongs to a package"
 msgstr ""
 
-#: app/helpers/models_helper.rb:35 app/helpers/models_helper.rb:322
+#: app/helpers/models_helper.rb:35 app/helpers/models_helper.rb:327
 msgid "Time"
 msgstr "Ziit"
 
-#: app/helpers/models_helper.rb:35 app/helpers/models_helper.rb:322
+#: app/helpers/models_helper.rb:35 app/helpers/models_helper.rb:327
 msgid "Available Quantity"
 msgstr "Verfüegbari Aazahl"
 
@@ -1871,7 +1871,11 @@ msgstr "Verfüegbari Aazahl"
 msgid "Items"
 msgstr "Sachä"
 
-#: app/helpers/models_helper.rb:322
+#: app/helpers/models_helper.rb:112
+msgid "Overbooked"
+msgstr ""
+
+#: app/helpers/models_helper.rb:327
 #: app/views/backend/models/package.html.erb:20
 #: app/views/frontend/_inventory_pools.html.erb:37
 #: app/views/frontend/_inventory_pools.html.erb:60
@@ -1974,7 +1978,11 @@ msgstr "Am lade"
 msgid "Confirm"
 msgstr "Bestätige"
 
-#: app/helpers/backend/backend_helper.rb:518
+#: app/helpers/backend/backend_helper.rb:377
+msgid "You can't have a Start Date before today"
+msgstr ""
+
+#: app/helpers/backend/backend_helper.rb:526
 msgid "Month"
 msgstr "Monet"
 
@@ -2431,7 +2439,7 @@ msgid "Item needs permission!"
 msgstr "Sach erforderet e Berächtigung!"
 
 #: app/views/backend/hand_over/_item_line.html.erb:74
-#: app/views/backend/users/index.html.erb:35
+#: app/views/backend/users/index.html.erb:37
 #: app/views/backend/acknowledge/_line.html.erb:43
 msgid "Swap"
 msgstr "Tuusche"
@@ -2497,14 +2505,11 @@ msgid "Set Purpose"
 msgstr "Zwäck setze"
 
 #: app/views/backend/hand_over/show.html.erb:37
-#: app/views/backend/acknowledge/show.html.erb:65
-msgid "Add Line"
-msgstr "Ziilä dezuetue"
-
 #: app/views/backend/hand_over/show.html.erb:39
 #: app/views/backend/hand_over/_lines.html.erb:12
 #: app/views/backend/hand_over/_lines.html.erb:32
 #: app/views/backend/hand_over/_lines.html.erb:47
+#: app/views/backend/acknowledge/show.html.erb:65
 #: app/views/backend/acknowledge/show.html.erb:67
 #: app/views/backend/acknowledge/_lines.html.erb:10
 #: app/views/backend/acknowledge/_lines.html.erb:22
@@ -2643,8 +2648,9 @@ msgstr "Wiiteri Dokument"
 #: app/views/backend/acknowledge/_lines.html.erb:8
 #: app/views/backend/acknowledge/_lines.html.erb:20
 #: app/views/backend/acknowledge/_lines.html.erb:30
-msgid "Add Line for"
-msgstr "Ziilä dezuetue für "
+#, fuzzy
+msgid "Add Model for"
+msgstr "Modäll dezuetue"
 
 #: app/views/backend/locations/index.html.erb:2
 #: app/views/backend/items/_location.html.erb:4
@@ -2652,7 +2658,7 @@ msgid "Shelf"
 msgstr "Gstell"
 
 #: app/views/backend/locations/index.html.erb:13
-#: app/views/backend/users/index.html.erb:39
+#: app/views/backend/users/index.html.erb:41
 #: app/views/backend/items/index.html.erb:53
 #: app/views/backend/models/index.html.erb:94
 #: app/views/backend/models/package_roots.html.erb:5
@@ -2804,12 +2810,12 @@ msgstr "Benutzer-Login"
 msgid "Access Rights"
 msgstr "Zuegriffsrächt"
 
-#: app/views/backend/users/index.html.erb:42
+#: app/views/backend/users/index.html.erb:44
 #: app/views/backend/users/show.html.erb:84
 msgid "Edit"
 msgstr ""
 
-#: app/views/backend/users/index.html.erb:46
+#: app/views/backend/users/index.html.erb:48
 #: app/views/backend/users/show.html.erb:88
 msgid "New Contract"
 msgstr "Neue Vertrag"
@@ -3023,7 +3029,6 @@ msgid "Search Model"
 msgstr "Modäll sueche"
 
 #: app/views/backend/items/_general_info.html.erb:15
-#: app/views/backend/items/_categories.html.erb:3
 #: app/views/backend/models/index.html.erb:41
 #: app/views/frontend/_categories.html.erb:23
 #: app/views/layouts/backend/00-patterns/_menu_admin.html.erb:15
@@ -3463,7 +3468,7 @@ msgid "Order from %s"
 msgstr "Bstellig vom: %s"
 
 #: app/views/backend/backend/search/_user.html.erb:3
-msgid "Telefon"
+msgid "Telephone"
 msgstr ""
 
 #: app/views/backend/backend/search/_user.html.erb:4
@@ -3862,6 +3867,12 @@ msgstr "Sie händ kei Berächtigung für de Zuegang uf die Applikation"
 #: lib/role_requirement_system.rb:120
 msgid "Access Denied"
 msgstr "Zuegriff verweigeret"
+
+#~ msgid "Add Line"
+#~ msgstr "Ziilä dezuetue"
+
+#~ msgid "Add Line for"
+#~ msgstr "Ziilä dezuetue für "
 
 #~ msgid ""
 #~ "This lending contract covers borrowing the following items by the person "
