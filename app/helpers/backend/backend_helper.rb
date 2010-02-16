@@ -374,7 +374,7 @@ module Backend::BackendHelper
               _("Start Date must be before End Date") + "<br />"
             end
             s += content_tag :span, :id => 'error_too_early',        :style => 'display:none; color: red; font-weight: bold;' do
-              _("You can't have a Start Date before today")
+              _("You can't have a Start Date before today") + "<br />"
             end
           end
           r
@@ -461,6 +461,16 @@ module Backend::BackendHelper
         }
       }
       
+      Date.prototype.daystart = function( ){
+        var _daystart = new Date(this.getTime());
+        _daystart.setHours(0);
+        _daystart.setMinutes(0);
+        _daystart.setSeconds(0);
+        _daystart.setMilliseconds(0);
+
+        return _daystart;
+      }
+
       function validate_date_sequence(){
         var today = new Date();
         var start_date = new Date($('line_start_date_1i').value, $('line_start_date_2i').value - 1, $('line_start_date_3i').value);
@@ -484,7 +494,7 @@ module Backend::BackendHelper
         if(end_date < start_date){
           $('submit_button').hide();
           $('error_end_before_start').show();
-        }else if(start_date < today){ // 
+        }else if(start_date < today.daystart()){
           $('submit_button').hide();
           $('error_too_early').show();
         }else{
