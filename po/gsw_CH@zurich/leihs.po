@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
-"POT-Creation-Date: 2010-02-16 09:38+0100\n"
+"POT-Creation-Date: 2010-02-17 11:06+0100\n"
 "PO-Revision-Date: 2010-02-02 09:49+0100\n"
 "Last-Translator: Ugo De Vito <ugo.devito@zhdk.ch>\n"
 "Language-Team: English\n"
@@ -1982,7 +1982,7 @@ msgstr "Bestätige"
 msgid "You can't have a Start Date before today"
 msgstr ""
 
-#: app/helpers/backend/backend_helper.rb:526
+#: app/helpers/backend/backend_helper.rb:536
 msgid "Month"
 msgstr "Monet"
 
@@ -3859,6 +3859,19 @@ msgstr ""
 #, fuzzy
 msgid "Returned date"
 msgstr "Rückgabedatum"
+
+#: app/views/contracts/show.pdf.prawn:126
+msgid ""
+"Die Benutzerin/der Benutzer ist bei unsachgemaesser Handhabung oder Verlust "
+"schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfaeltig "
+"zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder "
+"verspaeteter Rueckgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhaengt "
+"werden. Das geliehene Material bleibt jederzeit uneingeschraenktes Eigentum "
+"der Zuercher Hochschule der Kuenste und darf ausschliesslich fuer schulische "
+"Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die "
+"Benutzerin/der Benutzer diese Bedingungen sowie die 'Richtlinie zur Ausleihe "
+"von Sachen' der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien."
+msgstr ""
 
 #: lib/role_requirement_system.rb:118
 msgid "You don't have any rights to access this application"
