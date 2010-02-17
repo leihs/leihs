@@ -121,10 +121,8 @@ unless @contract.note.blank?
   pdf.move_down 3.mm
 end
 
-pdf.font_size(7) do 
-  
-  pdf.text _("Die Benutzerin/der Benutzer ist bei unsachgemaesser Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfaeltig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspaeteter Rueckgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhaengt werden. Das geliehene Material bleibt jederzeit uneingeschraenktes Eigentum der Zuercher Hochschule der Kuenste und darf ausschliesslich fuer schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die 'Richtlinie zur Ausleihe von Sachen' der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien.")
-  
+pdf.font_size(7) do
+  pdf.text _("Die Benutzerin/der Benutzer ist bei unsachgemaesser Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfaeltig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter order verspaeteter Rueckgabe kann eine Ausleihsparre (bis zu 6 Monaten) verhaengt werden. Das geliehene Material bleibt jederzeit uneingeschraenktes Eigentum der Zuercher Hochscule der Kuenste und darf ausschliesslich fuer schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die 'Richtlinie zur Ausleihe von Sachen der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien.")
 end
 
 
