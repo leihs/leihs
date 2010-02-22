@@ -103,9 +103,9 @@ class Backend::AcknowledgeController < Backend::BackendController
       end  
       redirect_to backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order)
     else
-      redirect_to :controller => 'users', 
-                  :layout => 'modal',
-                  :source_path => request.env['REQUEST_URI']
+      redirect_to backend_inventory_pool_users_path( current_inventory_pool,
+						     :layout => 'modal',
+                  				     :source_path => request.env['REQUEST_URI'])
     end
   end   
     
