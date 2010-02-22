@@ -235,9 +235,9 @@ class Backend::HandOverController < Backend::BackendController
       end  
       redirect_to [:backend, current_inventory_pool, to_user, :hand_over]
     else
-      redirect_to :controller => 'users', 
-                  :layout => 'modal',
-                  :source_path => request.env['REQUEST_URI']
+      redirect_to backend_inventory_pool_users_path( current_inventory_pool,
+						     :layout => 'modal',
+                  				     :source_path => request.env['REQUEST_URI'])
     end
   end   
   
