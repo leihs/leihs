@@ -1,5 +1,10 @@
 namespace :leihs do
 
+  desc "Build the Leihs RDOC HTML Files"
+  task :doc do
+    `rake doc:app title="Leihs Application Documentation"`
+  end
+
   # TODO :boot or :server_reboot ??
   desc "Application boot (task called after server reboot)"
   task :boot => :environment do
