@@ -10,5 +10,8 @@ class History < ActiveRecord::Base
 
   validates_presence_of :text
   
-  
+  # compares two objects in order to sort them
+  def <=>(other)
+    self.created_at <=> other.created_at
+  end  
 end
