@@ -204,6 +204,7 @@ class Backend::ItemsController < Backend::BackendController
       @histories << History.new(:created_at => cl.start_date, :user => cl.contract.user, :text => _("Item handed over as part of contract %d.") % cl.contract.id) if cl.start_date
       @histories << History.new(:created_at => cl.end_date, :user => cl.contract.user, :text => _("Expected to be returned.")) unless cl.returned_date
     end
+    @histories.sort!
   end
   
   def pre_load
