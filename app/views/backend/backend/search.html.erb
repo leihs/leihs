@@ -1,22 +1,52 @@
-<% 
-	@search.keys.each do |key|
-		values = @search[key]
-		next if key == "NilClass"
-%>
+<h4 style="background-color: #1089D9 ;color: white; padding: 5px; margin: 1em 0;">
+  <%= _("Booking") %>
+</h4>
 
-<h3><a href="#" onclick="javascript:document.getElementById('results_<%= key %>').style.display= (document.getElementById('results_<%= key %>').style.display == 'none' ? 'block' : 'none')"><%= _(key) %> - <%= values.size %> <%= _("Result(s)") %></a></h3>
-<div id="results_<%= key %>" style="display:none">
-	<table>
-<% 		values.each do |line| 
-	
-			name = line.class.to_s.downcase
-%>
-		<tr><td><%= render :partial => "backend/backend/search/#{name}", :object => line %></td></tr>
-<% 		end %>
-	</table>
-</div>
+<% @search.keys.each do |key|
+	values = @search[key]
+	next if key == "NilClass" %>
 
+	<h3><a href="#" onclick="javascript:document.getElementById('results_<%= key %>').style.display= (document.getElementById('results_<%= key %>').style.display == 'none' ? 'block' : 'none')"><%= _(key) %> - <%= values.size %> <%= _("Result(s)") %></a></h3>
+	<div id="results_<%= key %>" style="display:none">
+	    <table>
+	        <% values.each do |line|
+	        name = line.class.to_s.downcase %>
+	        <tr>
+	            <td>
+	                <%= render :partial => "backend/backend/search/#{name}", :object => line %>
+	            </td>
+	        </tr>
+	        <% end %>
+	    </table>
+	</div>
 <% end %>
 <p>
-	<%= will_paginate @result %>
+    <%= will_paginate @result %>
+</p>
+
+
+<h4 style="background-color: #008209;color: white; padding: 5px; margin: 1em 0;">
+<%= _("Inventory") %>
+</h4>
+
+<% @search_2.keys.each do |key|
+	values = @search_2[key]
+	next if key == "NilClass" %>
+
+	<h3><a href="#" onclick="javascript:document.getElementById('results_<%= key %>').style.display= (document.getElementById('results_<%= key %>').style.display == 'none' ? 'block' : 'none')"><%= _(key) %> - <%= values.size %> <%= _("Result(s)") %></a></h3>
+	<div id="results_<%= key %>" style="display:none">
+	    <table>
+	        <% values.each do |line|
+	        name = line.class.to_s.downcase %>
+	        <tr>
+	            <td>
+	                <%= render :partial => "backend/backend/search/#{name}", :object => line %>
+	            </td>
+	        </tr>
+	        <% end %>
+	    </table>
+	</div>
+<% end %>
+<p>
+    <%= will_paginate @result_2 %>
 </p>
