@@ -11,17 +11,40 @@ class Backend::BackendController < ApplicationController
 ###############################################################  
   
   def search
+# TODO use sphinx_select
+#    @result = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => 200,
+#                                                     :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC",
+##                                                     :group_by => "class_crc",
+#                                                     :sphinx_select => "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a",
+#                                                     :with => { :a => true } }
+
     @result = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => 200,
                                                      :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC",
 #                                                     :group_by => "class_crc",
-                                                     :sphinx_select => "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a",
-                                                     :with => { :a => true } }
+                                                     :with => { :inventory_pool_id => [current_inventory_pool.id]} }
+
+    
     @search = {}
     @result.each do |r|
       res = @search[r.class.to_s] || []
       res << r
       @search[r.class.to_s] = res
     end
+
+    ################# owner_id
+
+    @result_2 = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => 200,
+                                                     :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC",
+#                                                     :group_by => "class_crc",
+                                                     :with => { :owner_id => [current_inventory_pool.id]} }
+    
+    @search_2 = {}
+    @result_2.each do |r|
+      res = @search_2[r.class.to_s] || []
+      res << r
+      @search_2[r.class.to_s] = res
+    end
+
   end
 
    # add a new line
