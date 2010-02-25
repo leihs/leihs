@@ -14,7 +14,8 @@ class Backend::BackendController < ApplicationController
     @result = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => 200,
                                                      :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC",
 #                                                     :group_by => "class_crc",
-                                                     :with => { :inventory_pool_id => [current_inventory_pool.id]} }
+                                                     :sphinx_select => "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a",
+                                                     :with => { :a => true } }
     @search = {}
     @result.each do |r|
       res = @search[r.class.to_s] || []
