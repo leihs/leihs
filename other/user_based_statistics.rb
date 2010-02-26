@@ -1,3 +1,20 @@
+# sql for leihs1:
+#
+# select us.nachname, us.vorname, count(res.id)
+# 
+# from reservations as res
+# left join pakets_reservations as pr on res.id = pr.reservation_id
+# left join users as us on res.user_id = us.id
+# left join pakets as p on pr.paket_id = p.id
+# 
+# where 
+#   ( 
+#     YEAR(startdatum) = 2009 or YEAR(enddatum) = 2009
+#     and res.geraetepark_id = 4
+#   )
+# 
+# group by res.user_id
+
 
 
 def csv_counts_for_year(year)
