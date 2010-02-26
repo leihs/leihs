@@ -1,16 +1,7 @@
 
-items = Item.all
-
-#items = Item.find(:all, :conditions => { :inventory_pool_id => 3 } )
-
-items = Item.find(:all, :conditions => { :inventory_pool_id => 2, :owner_id => 51  } )
-
-exportable_items = []
+@exportable_items = Item.all
 
 
-items.each do |i| 
-    exportable_items << i
-end
 
 item_array = []
 item_array << ['inventory_code', 
@@ -37,72 +28,64 @@ item_array << ['inventory_code',
       'responsible',
       'supplier']
 
+@exportable_items.each do |i|
+    puts "Trying item " + i.inventory_code.to_s + " (ID: " + i.id.to_s + ")"
 
-exportable_items.each do |i|
-
-  puts "Trying item " + i.inventory_code.to_s + " (ID: " + i.id.to_s + ")"
-
-  if i.inventory_pool.nil?
-    ip = "UNBEKANNT"
-  else
-    ip = i.inventory_pool.name 
-  end
-
-  if i.model.nil?
-  mod = "UNBEKANNT/VERAENDERT"
-  else
-  mod = i.model.name.gsub(/\"/, '""')
-  end
-
-  if i.owner.nil?
-  own = "UNBEKANNT"
-  else
-    own = i.owner.name
-  end
-
-  categories = []
-  i.model.categories.each do |c|
-    categories << c.name + "|"
-  end
-
-  item_array << [ i.inventory_code,
-    ip,                 
-    i.serial_number,
-    mod,
-    i.is_borrowable,
-    own,
-    categories,
-    i.required_level,
-    i.invoice_number,
-    i.invoice_date,
-    i.last_check,
-    i.retired,
-    i.retired_reason,
-    i.price,
-    i.is_broken,
-    i.is_incomplete,
-    i.is_borrowable,
-    i.created_at,
-    i.updated_at,
-    i.needs_permission,
-    i.is_inventory_relevant,
-    i.responsible,
-    i.supplier.name
-  ]
-
-if i.in_stock? == false
-  if i.contract_lines.count > 0
-    i.contract_lines.each do |c|
-      item_array << [ i.inventory_code,
-          c.contract.user.name,
-          c.start_date.to_s,
-          c.end_date.to_s,
-          "null",
-          "null", 
-          "null" ]
+    if i.inventory_pool.nil? or i.inventory_pool.name.blank?
+      ip = "UNBEKANNT"
+    else
+      ip = i.inventory_pool.name 
     end
-  end
-end
+
+    if i.model.nil? or i.model.name.blank?
+    mod = "UNBEKANNT/VERAENDERT"
+    else
+    mod = i.model.name.gsub(/\"/, '""')
+    end
+
+    if i.owner.nil? or i.owner.name.blank?
+    own = "UNBEKANNT"
+    else
+      own = i.owner.name
+    end
+
+    unless i.model.categories.nil? or i.model.categories.count == 0
+      categories = []
+      i.model.categories.each do |c|
+        categories << c.name + "|"
+      end
+    end
+    
+    if i.supplier.blank?
+      supplier = "UNBEKANNT"
+    else
+      supplier = i.supplier.name
+    end
+    
+    item_array << [ i.inventory_code,
+      ip,                 
+      i.serial_number,
+      mod,
+      i.is_borrowable,
+      own,
+      categories,
+      i.required_level,
+      i.invoice_number,
+      i.invoice_date,
+      i.last_check,
+      i.retired,
+      i.retired_reason,
+      i.price,
+      i.is_broken,
+      i.is_incomplete,
+      i.is_borrowable,
+      i.created_at,
+      i.updated_at,
+      i.needs_permission,
+      i.is_inventory_relevant,
+      i.responsible,
+      supplier
+    ]
 
 end
 
@@ -110,7 +93,7 @@ end
 
 require 'faster_csv'
 
-FasterCSV.open("/tmp/ffi_von_av-technik.csv","w", { :col_sep => ";", :quote_char => "\"", :force_quotes => true } ) do |csv|
+FasterCSV.open("/tmp/alle_gegenstaende.csv","w", { :col_sep => ";", :quote_char => "\"", :force_quotes => true } ) do |csv|
   item_array.each do |i|
     csv << i
   end
