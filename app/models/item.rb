@@ -41,6 +41,7 @@ class Item < ActiveRecord::Base
     indexes inventory_pool(:name), :as => :inventory_pool_name #, :sortable => true 
     indexes :invoice_number
     indexes :note
+    indexes :name
 
     has :is_borrowable, :is_broken, :is_incomplete, :is_inventory_relevant, :type => :boolean
     has :parent_id, :model_id, :location_id, :owner_id, :inventory_pool_id, :supplier_id
