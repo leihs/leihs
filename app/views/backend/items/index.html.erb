@@ -13,6 +13,9 @@
 				<%= icon_tag('incomplete') if item.is_incomplete? %>
 			</td>
 			<td><%= item.model.name %>
+			  <% unless item.name.blank? %>
+			    <br /><%= _("Name") %>: <em><%= item.name %></em>
+			  <% end %>
 				<% if item.parent %>
 					<br/><%= _("Part of:") %>
 					<%= link_to(item.parent.model.name, :controller => 'models', :action => 'show', :id => item.parent.model.id) %>
