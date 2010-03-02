@@ -108,6 +108,7 @@ class Availability
     reservations.each do | reservation |
       reserve(reservation)
     end
+    @events = @events.sort {|x, y| x[0] <=> y[0] }
   end
 
 ############################################################################
@@ -122,8 +123,6 @@ class Availability
     # add
     on = reservation.end_date || 10.years.from_now.to_date # emulating infinite future
     @events << [Date.new(on.year, on.month, on.day), reservation.quantity] unless reservation.is_late?(@current_date)
-
-    @events = @events.sort {|x, y| x[0] <=> y[0] }
   end
   
   def is_returnal?(quantity)
