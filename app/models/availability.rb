@@ -50,6 +50,17 @@ class Availability
     availabilities
   end
 
+  # only used by cucumber tests when tpo wrote this comment
+  def period_for(date)
+    date = as_date(date)
+    periods.each do |period|
+      start_date = as_date(period.start_date)
+      end_date = as_date(period.end_date) if period.end_date
+      return period if start_date <= date && (end_date.nil? || end_date >= date)
+    end
+    nil
+  end
+
   def maximum_available_in_period(start_date, end_date)
     start_date = as_date(start_date)
     end_date = as_date(end_date)
@@ -86,6 +97,11 @@ class Availability
   # TODO: ?!?
   def is_late?(date)
     false
+  end
+
+  # only used by cucumber tests when tpo wrote this comment
+  def forever?
+    end_date.nil?
   end
 
   def reservations(reservations)
