@@ -95,8 +95,24 @@ class Backend::ItemsController < Backend::BackendController
     get_histories
 
     params[:item][:location] = Location.find_or_create(params[:location])
+
+# TODO: Move to before_save, this never fires this way, but in before_save we are lacking
+# a current_user
+#     if @item.inventory_pool_id_changed?
+#       @item.log_history(_("Item %s moved responsible department from %s to %s") % 
+#                         [@item, InventoryPool.find(@item.inventory_pool_id_was), @item.inventory_pool],
+#                         current_user)
+#     end
+#     
+#     if @item.owner_id_changed?
+#       @item.log_history(_("Item %s moved owner from %s to %s") % 
+#                         [@item, InventoryPool.find(@item.owner_id_was), @item.owner],
+#                         current_user)
+#     end
     
+
     if @item.update_attributes(params[:item])
+ 
       if params[:copy].blank?      
         redirect_to backend_inventory_pool_item_path(current_inventory_pool, @item)
       else 
@@ -111,7 +127,12 @@ class Backend::ItemsController < Backend::BackendController
 
   
   def show
-    get_histories
+    if @item.nil?
+      flash[:error] = _("You don't have access to this item.")
+      redirect_to backend_inventory_pool_items_path(current_inventory_pool)
+    else
+      get_histories
+    end
   end
 
 #################################################################
@@ -211,6 +232,8 @@ class Backend::ItemsController < Backend::BackendController
     params[:id] ||= params[:item_id] if params[:item_id]
     @item = current_inventory_pool.items.first(:conditions => {:id => params[:id]}) if params[:id]
     @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:id]}, :retired => :all) if params[:id]
+
+
     
     @location = Location.find(params[:location_id]) if params[:location_id]
     
