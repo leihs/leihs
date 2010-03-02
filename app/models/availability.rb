@@ -118,11 +118,11 @@ class Availability
   def reserve(reservation)
     # remove
     on = reservation.start_date
-    @events << [Date.new(on.year, on.month, on.day), -reservation.quantity]
+    @events << [on.to_date, -reservation.quantity]
 
     # add
     on = reservation.end_date || 10.years.from_now.to_date # emulating infinite future
-    @events << [Date.new(on.year, on.month, on.day), reservation.quantity] unless reservation.is_late?(@current_date)
+    @events << [on.to_date, reservation.quantity] unless reservation.is_late?(@current_date)
   end
   
   def is_returnal?(quantity)
