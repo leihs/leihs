@@ -185,16 +185,6 @@ class Model < ActiveRecord::Base
     create_availability(current_time, nil, inventory_pool, user).periods
   end
 
-# OPTIMIZE this method is not used anymore ??
-#  def available_dates_for_document_line(start_date, end_date, document_line, current_time = Date.today)
-#    create_availability(current_time, document_line, document_line.inventory_pool, document_line.document.user).dates(start_date, end_date)
-#  end
-
-# OPTIMIZE this method is not used anymore ??
-#  def available_dates_for_inventory_pool(start_date, end_date, inventory_pool, user, current_time = Date.today)
-#    create_availability(current_time, nil, inventory_pool, user).dates(start_date, end_date)
-#  end  
-
 # OPTIMIZE this method is only used for test ??  
   # TODO *e* maximum_available_for_document_line method ??
   def maximum_available_for_inventory_pool(date, inventory_pool, user, current_time = Date.today)

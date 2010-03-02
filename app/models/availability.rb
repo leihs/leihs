@@ -1,3 +1,5 @@
+# Availability of Models
+#
 class Availability
   
   attr_accessor :start_date, :end_date, :quantity, :model
@@ -20,22 +22,6 @@ class Availability
       self.start_date <=> other.start_date
     end
   end
-
-#temp#
-#  def self.merge_periods(periods)
-#    periods.sort!
-#    periods.delete_if {|p| not periods.select {|x| x != p and x.start_date <= p.start_date and x.end_date >= p.end_date }.empty? } 
-#    #periods.each {|p| periods.select {|x| x != p and }}
-#    
-#    puts periods.inspect
-#  end
-#  
-#  def merge_with_period(period)
-#    self.start_date = [self.start_date, period.start_date].min
-#    self.end_date = [self.end_date, period.end_date].max
-#  end
-
-############################################################################
 
   # TODO 2502** recheck this method
   def periods
@@ -62,29 +48,6 @@ class Availability
     
     availabilities << (availabilities.size == 0 ? self : Availability.new(last_quantity, last_date, nil))
     availabilities
-  end
-
-  def dates(start_date, end_date)
-    ret = []
-    start_date.upto(end_date) do |d|
-      period = period_for(d)
-      if period.nil?
-        ret << [d, 0]
-      else
-        ret << [d, period.quantity]
-      end
-    end
-    ret
-  end
-
-  def period_for(date)
-    date = as_date(date)
-    periods.each do |period|
-      start_date = as_date(period.start_date)
-      end_date = as_date(period.end_date) if period.end_date
-      return period if start_date <= date && (end_date.nil? || end_date >= date)
-    end
-    nil
   end
 
   def maximum_available_in_period(start_date, end_date)
@@ -120,12 +83,9 @@ class Availability
   end
 
   # used by availability instances
+  # TODO: ?!?
   def is_late?(date)
     false
-  end
-
-  def forever?
-    end_date.nil?
   end
 
   def reservations(reservations)
