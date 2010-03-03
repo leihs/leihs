@@ -19,7 +19,7 @@ table_with_search_and_pagination :columns => [_("Visit at"), _("Reserver"), _("I
 					<%= short_date(visit.date) %>
 				<% end %>
 				<td>
-					<%= greybox_link_to_page(visit.user.login,
+					<%= greybox_link_to_page("#{visit.user.name} (Login: #{visit.user.login})",
 							backend_inventory_pool_user_path(current_inventory_pool, visit.user, :layout => "modal"),
 							:title => _("User"),
 							:class => "iconized-notxt edit-user" ) %>
