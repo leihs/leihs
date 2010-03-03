@@ -89,7 +89,7 @@ module Backend::BackendHelper
       content_tag :tr do
         content_tag :td do
           r = _("Reserver") +': '
-          r += greybox_link_to_page(user.name),
+          r += greybox_link_to_page(user.name,
                     backend_inventory_pool_user_path(current_inventory_pool, user, :layout => "modal"),
                     :title => _("User"),
                     :class => "iconized-notxt edit-user" )
