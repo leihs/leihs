@@ -490,11 +490,11 @@ module Backend::BackendHelper
         if($(formatted_start_date)) $(formatted_start_date).addClassName('selected_date_start');
         if($(formatted_end_date)) $(formatted_end_date).addClassName('selected_date_end');
         // TODO validate dropdown selection
-        
+
         if(end_date < start_date){
           $('submit_button').hide();
           $('error_end_before_start').show();
-        }else if(start_date < today.daystart()){
+        }else if(#{write_start} && (start_date < today.daystart()) ){
           $('submit_button').hide();
           $('error_too_early').show();
         }else{
