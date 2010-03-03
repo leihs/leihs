@@ -10,14 +10,14 @@
 	</table>
 
 
-	<hr />
 	<% content_tag :div, :id => "pending_orders" do %>
 		<%= render :partial => "/orders/pending" %>
 	<% end %>
-	<hr />
-	<% content_tag :div, :id => "pending_contracts" do %>
-		<%= render :partial => "/contracts/pending" %>
-	<% end %>
+
+  <% content_tag :div, :id => "signed_contracts" do %>
+    <%= render :partial => "/contracts/signed" %>
+  <% end %>
+	
 	
 	<hr />
 	<h3><%= _("Inventory Pool(s)") %></h3>
