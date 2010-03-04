@@ -98,6 +98,11 @@ class Backend::UsersController < Backend::BackendController
 #################################################################
 
   def access_rights
+    @access_rights = if current_inventory_pool
+                        @user.access_rights.scoped_by_inventory_pool_id(current_inventory_pool)
+                      else
+                        @user.access_rights.all(:include => :inventory_pool, :order => "inventory_pools.name")
+                      end
   end
   
   def add_access_right

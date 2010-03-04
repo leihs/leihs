@@ -60,14 +60,8 @@ end %>
 <br />
 
 <%
-access_rights = if current_inventory_pool
-					@user.access_rights.scoped_by_inventory_pool_id(current_inventory_pool)
-				else
-					@user.access_rights
-				end
-table :records => access_rights do |access_right|	
+table :records => @access_rights do |access_right|	
 
-	@access_right = access_right # only used by collection_select
 	form_tag url_for([:add_access_right, :backend, current_inventory_pool, @user].compact), :method => :post do
 		content_tag :tr, :id => "access_right_#{access_right.id}" do
 
@@ -76,7 +70,8 @@ table :records => access_rights do |access_right|
 					<%= access_right.role.name %>
 				<% end
 			else
-				content_tag :td do %>
+				content_tag :td do
+					@access_right = access_right # only used by collection_select %>
 					<%= collection_select(:access_right, :role_id, roles - [admin_role], :id, :name, {}, {:onchange => "changed_selection(#{access_right.id}, this.value);"}) %>
 				<% end
 				content_tag :td do
