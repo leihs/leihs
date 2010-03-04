@@ -17,9 +17,10 @@ class AccessRight < ActiveRecord::Base
   before_validation_on_create :remove_old
   before_save :adjust_levels
   after_save :update_index
-
-  default_scope :include => :inventory_pool, :order => "inventory_pools.name" # NOTE we cannot have the following :conditions => "deleted_at IS NULL"
-
+  
+  named_scope :not_suspended, :conditions => { :suspended_at => nil }
+  named_scope :not_admin,     :conditions => "role_id > 1" #TODO: replace hardcoded 1 with Role name (Role.admin)
+  
 ####################################################################
 
   def to_s
