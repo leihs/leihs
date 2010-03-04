@@ -136,7 +136,6 @@ ActionController::Routing::Routes.draw do |map|
                                                       :add_option => [:get, :post],
                                                       :assign_inventory_code => :post,
                                                       :delete_visit => :delete,
-                                                      :select_location => [:get, :post, :delete],
                                                       :swap_user => [:get, :post], 
                                                       :set_purpose => :post }
                 user.resource :take_back, :controller => 'take_back',

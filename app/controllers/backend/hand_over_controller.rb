@@ -55,7 +55,8 @@ class Backend::HandOverController < Backend::BackendController
   # preventing quantity less than 1
   def change_line_quantity(quantity = [params[:quantity].to_i, 1].max)
     @contract_line = @contract.lines.find(params[:contract_line_id])
-    
+
+    # TODO refactor to model
     if @contract_line.is_a?(ItemLine)
       (quantity - @contract_line.quantity).times do
         new_line = @contract_line.clone # OPTIMIZE keep contract history 
@@ -193,26 +194,6 @@ class Backend::HandOverController < Backend::BackendController
   # remove a contract line for a given contract
   def remove_lines
     generic_remove_lines(@contract)
-  end  
-
-  # OPTIMIZE
-  def select_location
-    @lines = @contract.contract_lines.find(params[:lines].split(','))
-    @location = Location.new
-    if request.post?
-      @location = Location.find_or_create(params[:location])
-      @lines.each do |line|
-        line.update_attributes(:location => @location)
-      end
-    end
-    
-    if request.delete?
-      @lines.each do |line|
-        line.location = nil
-        line.save
-      end
-    end
-    render :layout => 'backend/' + $theme + '/modal'
   end
 
   def swap_user
@@ -235,9 +216,9 @@ class Backend::HandOverController < Backend::BackendController
       end  
       redirect_to [:backend, current_inventory_pool, to_user, :hand_over]
     else
-      redirect_to backend_inventory_pool_users_path( current_inventory_pool,
-						     :layout => 'modal',
-                  				     :source_path => request.env['REQUEST_URI'])
+      redirect_to backend_inventory_pool_users_path(current_inventory_pool,
+                                                    :layout => 'modal',
+                                                    :source_path => request.env['REQUEST_URI'])
     end
   end   
   

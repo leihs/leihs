@@ -18,10 +18,7 @@
 				<% end %>
 			<% end %>
 		</td>
-		<td>
-			<%= greybox_link_to_page(icon_tag("house") + " " + _("Installed in: %s") % @line.location,
-				 	{ :action => 'select_location', :lines => @line.id },
-					:title => _("Select Location")) if @line.location %>						
+		<td>						
 			<%= show_line_model(@line.model) %>
 		</td>
 
