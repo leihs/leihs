@@ -196,17 +196,15 @@ class User < ActiveRecord::Base
   end
 
   def level_for(ip)
-    access_right = access_rights.first(:conditions => ["inventory_pool_id = ? and role_id > ?", ip.id, 1]) #TODO: replace hardcoded 1 with Role name or something
-    (access_right.nil? or access_right.suspended?) ? 0 : access_right.level.to_i
+    AccessRight.scoped_by_user_id(self).scoped_by_inventory_pool_id(ip).not_suspended.not_admin.calculate("", :level).to_i
   end
 
   def access_level_for(ip)
-    access_right = access_rights.first(:conditions => ["inventory_pool_id = ? and role_id > ?", ip.id, 1]) #TODO: replace hardcoded 1 with Role name or something
-    access_right.nil? ? 0 : access_right.access_level.to_i
+    AccessRight.scoped_by_user_id(self).scoped_by_inventory_pool_id(ip).not_suspended.not_admin.calculate("", :access_level).to_i
   end
 
   def access_right_for(ip)
-    access_rights.first(:conditions => ["inventory_pool_id = ?", ip.id])
+    access_rights.scoped_by_inventory_pool_id(ip).first
   end
   
 ####################################################################
