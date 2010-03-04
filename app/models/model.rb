@@ -195,7 +195,9 @@ class Model < ActiveRecord::Base
     if (start_date.nil? && end_date.nil?)
       return items.size
     else
-      create_availability(current_time, document_line, document_line.inventory_pool, document_line.document.user).maximum_available_in_period(start_date, end_date)
+      create_availability(current_time, document_line,
+                          document_line.inventory_pool,
+                          document_line.document.user).maximum_available_in_period(start_date, end_date)
     end
   end  
 
