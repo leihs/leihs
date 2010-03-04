@@ -6,7 +6,7 @@
 	<tr><td><b><%= _("Email") %>:</b></td><td><%= is_inventory_manager? ? f.text_field(:email) : current_inventory_pool.email %><br /><%= _("This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used.") %></td></tr>
 	<tr><td><b><%= _("Description") %>:</b></td><td><%= is_inventory_manager? ? f.text_area(:description, :rows => 6, :cols => 50) : current_inventory_pool.description %></td></tr>	
 	<tr><td><b><%= _("Default contract note") %>:</b></td><td><%= is_inventory_manager? ? f.text_area(:default_contract_note, :rows => 6, :cols => 50) : current_inventory_pool.default_contract_note %><br /><%= _("This note is added to any contract, but can be changed individually before actually printing and signing each contract.") %></td></tr>
-	<tr><td><b><%= _("Menu background color") %>:</b></td><td><%= is_inventory_manager? ? f.text_field(:color) : current_inventory_pool.color %></td></td>
+	<tr><td><b><%= _("Menu background color") %>:</b></td><td><%= is_inventory_manager? ? f.text_field(:color) : current_inventory_pool.color %></td></tr>
 	<tr><td><%= submit_tag 'Submit' %></td><td></td></tr>
 	<% end %>
 </table>
