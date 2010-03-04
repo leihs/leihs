@@ -3,6 +3,7 @@ class ItemLine < ContractLine
   belongs_to :item
   belongs_to :model
 
+  # TODO validate quantity always 1
   validate :validate_item
 
 # TODO 1301  default_scope :include => :model, :order => "models.name"

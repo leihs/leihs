@@ -54,14 +54,6 @@
 								:class => "ghostable_group_1 ghosted",
 								:title => _("Reserver") ) %>
 
-						<%= greybox_link_to_page(icon_tag("house") + " " + _("Change Installation Location"),
-							 	{ :action => 'select_location' },
-								:onmouseup => "change_href(this, 'contract_line', 'line');",
-								:class => "ghostable_group_1 ghosted",
-								:title => _("Select Location"),
-								:callback => 'refresh_me' ) if false %> <% # TODO remove association ContractLine <-> Location %>				
-
-
 						<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete selection"),
 								{ :action => 'remove_lines' },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",
