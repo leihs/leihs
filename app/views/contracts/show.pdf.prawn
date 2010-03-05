@@ -22,6 +22,12 @@ def lending_address
   address += "\n" + CONTRACT_LENDING_PARTY_STRING
 end
 
+def filter(text)
+  ic = Iconv.new('iso-8859-1//IGNORE//TRANSLIT','utf-8')
+  ic.iconv(text)
+end
+
+
 if @contract.purpose.nil?
   purpose = _("No purpose given.")
 else
@@ -113,11 +119,11 @@ pdf.table(table_data,
 
 pdf.move_down 6.mm
 
-pdf.text "#{_("Purpose:")} #{purpose}"
+pdf.text "#{_("Purpose:")} #{filter(purpose)}"
 pdf.move_down 3.mm
 
 unless @contract.note.blank?
-  pdf.text "#{_("Additional notes:")} #{@contract.note}"
+  pdf.text "#{_("Additional notes:")} #{filter(@contract.note)}"
   pdf.move_down 3.mm
 end
 
