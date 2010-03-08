@@ -1,7 +1,8 @@
 
-@exportable_items = Item.all
+#@exportable_items = Item.all
+@exportable_items = Item.find(:conditions => { :inventory_code  })
 
-
+@exportable_items = Item.find(:all, :conditions => ["inventory_code LIKE ?", "AVZ%"])
 
 item_array = []
 item_array << ['inventory_code', 
@@ -93,7 +94,7 @@ end
 
 require 'faster_csv'
 
-FasterCSV.open("/tmp/alle_gegenstaende.csv","w", { :col_sep => ";", :quote_char => "\"", :force_quotes => true } ) do |csv|
+FasterCSV.open("/tmp/alle_mit_avz_nummern.csv","w", { :col_sep => ";", :quote_char => "\"", :force_quotes => true } ) do |csv|
   item_array.each do |i|
     csv << i
   end

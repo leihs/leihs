@@ -1,19 +1,19 @@
 # sql for leihs1:
-#
-# select us.nachname, us.vorname, count(res.id)
-# 
-# from reservations as res
-# left join pakets_reservations as pr on res.id = pr.reservation_id
-# left join users as us on res.user_id = us.id
-# left join pakets as p on pr.paket_id = p.id
+
+
+# select res.user_id, users.vorname, users.nachname, users.email, res.id, count(pak_res.paket_id) from reservations as res, pakets_reservations as pak_res, users
 # 
 # where 
 #   ( 
-#     YEAR(startdatum) = 2009 or YEAR(enddatum) = 2009
-#     and res.geraetepark_id = 4
+# pak_res.reservation_id = res.id and
+# res.user_id = users.id and
+# res.geraetepark_id = 1
+# 
+# and  (YEAR(startdatum) = 2009 or YEAR(enddatum) = 2009)
 #   )
 # 
-# group by res.user_id
+# group by res.id, res.user_id order by res.user_id
+
 
 
 
@@ -29,7 +29,7 @@ def csv_counts_for_year(year)
       interesting_contracts = us.contracts.select{|c|
         c.created_at.year == year
         c.lines.count > 0
-        c.inventory_pool_id = 4
+        c.inventory_pool_id == 1
       }
       contract_count = interesting_contracts.size.to_i
       
