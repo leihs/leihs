@@ -93,8 +93,8 @@ table_data = []
    mindate = l.end_date if ( l.end_date < mindate && l.returned_date.nil? )
 
    table_data << [ l.quantity, 
-                   l.item.inventory_code,
-                   l.model.name, 
+                   filter(l.item.inventory_code),
+                   filter(l.model.name),
                    short_date(l.start_date),
                    short_date(l.end_date),
                    short_date(l.returned_date) ]
