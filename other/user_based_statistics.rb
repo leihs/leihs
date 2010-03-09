@@ -28,7 +28,6 @@ def csv_counts_for_year(year)
       
       interesting_contracts = us.contracts.select{|c|
         c.created_at.year == year
-        c.lines.count > 0
         c.inventory_pool_id == 1
       }
       contract_count = interesting_contracts.size.to_i
