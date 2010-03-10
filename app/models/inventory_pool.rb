@@ -7,7 +7,6 @@ class InventoryPool < ActiveRecord::Base
   has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.suspended_at IS NOT NULL"
 
 
-#working here#
 ########
 #  has_many :managers, :through => :access_rights, :source => :user, :include => {:access_rights => :role}, :conditions => {:access_rights => {:roles => {:name => "manager"}}} #["access_rights.role_id = 4"]
 #  has_many :managers, :class_name => "User",
@@ -20,7 +19,7 @@ class InventoryPool < ActiveRecord::Base
 #                            WHERE ar.inventory_pool_id = #{self.id} 
 #                              AND r.name = 'manager'"
 
-  # FIXME working here
+  # OPTIMIZE
   role_manager = Role.first(:conditions => {:name => "manager"})
   has_and_belongs_to_many :managers,
                           :class_name => "User",
@@ -29,7 +28,7 @@ class InventoryPool < ActiveRecord::Base
 #                          :conditions => {:access_rights => {:roles => {:name => "manager"}}}
                           :conditions => ["access_rights.role_id = ? AND access_rights.deleted_at IS NULL", (role_manager ? role_manager.id : 0)]
 
-  # FIXME working here
+  # OPTIMIZE
   role_customer = Role.first(:conditions => {:name => "customer"})
   has_and_belongs_to_many :customers,
                           :class_name => "User",

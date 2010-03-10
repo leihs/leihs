@@ -28,7 +28,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
       xml = Hash.from_xml(response.body)
       #old# uid = xml["authresponse"]["person"]["uniqueid"]
       self.current_user = create_or_update_user(xml)
-      redirect_back_or_default("/")
+      redirect_back_or_default("/") # TODO #working here#24
     else
       render :text => "Authentication Failure. HTTP connection failed - response was #{response.code}" 
     end
