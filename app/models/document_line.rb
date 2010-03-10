@@ -76,6 +76,10 @@ class DocumentLine < ActiveRecord::Base
     model.maximum_available_in_period_for_document_line(start_date, end_date, self) >= quantity
   end
 
+  def maximum_available_quantity
+    model.maximum_available_in_period_for_document_line(start_date, end_date, self) # TODO + quantity
+  end
+
   # TODO 04** merge in available? 
   def available_tooltip
     r = ""

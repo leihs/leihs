@@ -123,7 +123,7 @@ class Order < Document
     order_line = order_lines.find(order_line_id)
     original_quantity = order_line.quantity
         
-    max_available = order_line.model.maximum_available_in_period_for_document_line(order_line.start_date, order_line.end_date, order_line)
+    max_available = order_line.maximum_available_quantity
 
     order_line.quantity = [required_quantity, 0].max
     
