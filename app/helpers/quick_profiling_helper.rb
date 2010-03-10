@@ -14,12 +14,16 @@ module QuickProfilingHelper
   # will output time elapsed between step "1" and step "2" if it was longer
   # than 0.03s.
   #
+  # The "t" method is fairly lightweight. It is far below noise level when
+  # profiling rails infrastructure.
+  #
   # The "t" method can also be used inside controllers etc.
   #
   def t(step_id)
     now = Time.now
     diff = now - @t_last
     if diff > @t_tresh
+      #logger.info "#{step_id} #{diff}"
       puts "#{step_id} #{diff}"
     end
     @t_last = now
