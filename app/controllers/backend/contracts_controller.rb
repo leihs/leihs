@@ -3,7 +3,8 @@ class Backend::ContractsController < Backend::BackendController
   before_filter :preload
 
   def index
-# working here #
+# working here # deposit_relevant
+
 #    contracts = current_inventory_pool.contracts
 #    contracts = contracts & @user.contracts if @user # TODO 1209** @user.contracts.by_inventory_pool(current_inventory_pool)
     with = { :inventory_pool_id => current_inventory_pool.id }
