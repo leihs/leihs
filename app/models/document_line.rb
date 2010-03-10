@@ -73,7 +73,7 @@ class DocumentLine < ActiveRecord::Base
   end
 
   def available?
-    model.maximum_available_in_period_for_document_line(start_date, end_date, self) >= quantity
+    maximum_available_quantity >= quantity
   end
 
   def maximum_available_quantity
