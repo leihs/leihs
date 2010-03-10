@@ -27,7 +27,7 @@ end
 # UTF-8 support
 def filter(text)
   ic = Iconv.new('iso-8859-1//IGNORE//TRANSLIT','ms-ansi')
-  return ic.iconv(text).strip
+  return ic.iconv(text)
 end
 
 
@@ -77,7 +77,7 @@ pdf.text_box lending_party,
              :at => [pdf.bounds.left + 70.mm, pdf.bounds.top - 78]
 
 
-pdf.move_down [pdf.height_of(borrowing_party), pdf.height_of(lending_party)].max + 10.mm
+pdf.move_down [pdf.height_of(borrowing_party), pdf.height_of(lending_party)].max + 15.mm
 
 
 table_headers = [ filter(_("Qt")), filter(_("Inventory Code")), filter(_("Model")),  filter(_("Start date")), filter(_("End date")), filter(_("Returned date"))]
@@ -88,7 +88,7 @@ mindate = @contract.lines[0].end_date
 
 table_data = []
 
-@contract.lines.each do |l|
+@contract.lines.sort.each do |l|
    
    mindate = l.end_date if ( l.end_date < mindate && l.returned_date.nil? )
 
