@@ -9,21 +9,9 @@
 		 %>
 
 		<% content_tag :ul do
-			if current_inventory_pool
-				ip = current_inventory_pool
-				content_tag :li do %>
-					<%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %>
-				<% end
-		  	else # TODO is this template ever read without a current_inventory_pool ??
-				content_tag :li do %>
-					<%= "(max #{@line.model.maximum_available_in_period_for_document_line(@line.start_date, @line.end_date, @line)})" %>
-				<% end
-				for ip in @line.model.inventory_pools
-					content_tag :li, :style => (@line.inventory_pool == ip ? "color: red;" : nil) do %>
-						<%= ip.name %>: <%= ip.items.count(:conditions => {:model_id => @line.model.id}) %>
-					<% end
-				end
-		  	end
+			content_tag :li do %>
+				<%= current_inventory_pool.name %>: <%= current_inventory_pool.items.count(:conditions => {:model_id => @line.model.id}) %>
+			<% end
 		end %>
 	</td>
 
