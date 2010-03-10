@@ -218,6 +218,20 @@ class Model < ActiveRecord::Base
 
   private
   
+  # :nodoc:
+  # create_availability is on a very critical code path, being called once per every document line.
+  # the "count" statement below takes about 0.1s to construct inside the rails framework and about
+  # 0.001s to execute for mysql. Thus cutting off the stack and going directly to mysql will
+  # accellerate that particular line 100-fold:
+  #
+  #    i = Item.connection.select_one("SELECT count(*) FROM items WHERE " \
+  #                              "required_level <= (#{user.nil? ? 1 : "SELECT level FROM access_rights WHERE role_id > 1 AND suspended_at IS NULL AND inventory_pool_id = #{inventory_pool.id} AND user_id = #{user.id}"}) AND " \
+  #                              "inventory_pool_id = #{inventory_pool.id} AND " \
+  #                              "is_borrowable = 1 AND " \
+  #                              "model_id = #{self.id} AND " \
+  #                              "retired IS NULL")["count(*)"].to_i      
+  # #                             "AND parent_id IS NULL # (this last line is taken from the development SQL log - I don't know what it's needed for)
+  #
   def create_availability(current_time, document_line, inventory_pool, user)
     i = self.items.borrowable.scoped_by_inventory_pool_id(inventory_pool).count(:conditions => ['required_level <= ?',
                                                                                                 (user.nil? ? 1 : user.level_for(inventory_pool))])    
