@@ -1,47 +1,45 @@
 <% if current_inventory_pool.has_access?(@contract.user) and not current_inventory_pool.is_blacklisted?(@contract.user) %>
-<%= render :partial => 'buttons' %>
 
 			<div id="meta" class="boxes">
 				<div id="meta-contract">
-					<h2><%= _("Contract Nr.") + " #{@contract.id} - #{@contract.user}" %></h2>
-					<%= show_reserver(@contract.user) %>
-					<% if @contract.user.suspended_inventory_pools.count > 0 %>
-						<div style="background-color: #EDF09F; padding: 10px;border: 1px solid #ccc;">
-						<%= _("Currently suspended at:") %> <%= @contract.user.suspended_inventory_pools.join(", ") %>
-						</div>
-					<% end %>
-		
-					<table>
-						<tr>
-							<td style="width: 100px"><%= _("Purpose") %>:</td>
-							<td>
-							 				
-							<% if @contract.purpose.nil? %>
-								<% form_for :purpose, :url => {:action => 'set_purpose'} do |f|%>
-									<%= text_area_tag :purpose %>
-									<%= submit_tag(_("Set Purpose")) %>
-								<% end %>
-							<% else%>
-								<%= @contract.purpose %>
+					<table><tr>
+						<td style="font-size: 1.6em;">
+							<%= _("Contract Nr.") + " #{@contract.id}" %>
+							<br/>
+							<%=  greybox_link_to_page(	@contract.user.name,
+									                    backend_inventory_pool_user_path(current_inventory_pool, @contract.user, :layout => "modal"),
+									                    :title => _("User"), :width => 1000 ) %>
+						</td>
+						<% # OPTIMIZE if suspended, it never enters here!
+						if @contract.user.suspended_inventory_pools.count > 0 %>
+							<td style="background-color: #EDF09F; padding: 10px; border: 1px solid #ccc;">
+								<%= _("Currently suspended at:") %> <%= @contract.user.suspended_inventory_pools.join(", ") %>
+							</td>
+						<% end %>
+						<td style="text-align: right;">
+							<%= _("Purpose") %>:
+							<% form_for :purpose, :url => {:action => 'set_purpose'} do |f|%>
+								<%= text_area_tag :purpose, @contract.purpose %>
+								<br/>
+								<%= submit_tag(_("Set Purpose")) %>
 							<% end %>
-						</td></tr>
-					</table>					
+						</td>
+					</tr></table>
 				</div>				
 			</div>
+
+			<%= render :partial => 'buttons' %>
 
 			<div class="table-overview">
 								
 				<div class="toolbar-second">
-					<h3><%= _("Items") %></h3>
 					<div class="buttons">
-						<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model"),
-							 	{ :action => 'add_line', :start_date => Date.today, :end_date => Date.today+2.days },
-								:title => _("Add Model"), :width => 1000 ) %>						
-
-					    <%= greybox_link_to_page( icon_tag("package_add") + " " + _("Add Option"),
-							 	{ :action => 'add_option', :start_date => Date.today, :end_date => Date.today+2.days },
-								:title => _("Add Option") ) %>
-
+						<span>
+							<%= _("Mark")%><br/>
+							<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check', 'ghostable_group_1');" /> <%= _("All") %>
+							<br />
+							<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check_today', 'ghostable_group_1');" /> <%= _("From today") %>
+						</span>
 						<%= greybox_link_to_page(icon_tag("date_edit") + " " + _("Change Timeframe for selection"),
 							 	{ :action => 'time_lines' },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",
@@ -69,11 +67,7 @@
 				<table cellspacing="0">
 					<!-- start header -->
 						<tr>
-							<th scope="col"><%= _("Mark")%><br/>
-								<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check', 'ghostable_group_1');" /> <%= _("All") %>
-								<br />
-								<input type="checkbox" id="contract_lines" onClick="mark_all(this, 'contract_line_check_today', 'ghostable_group_1');" /> <%= _("From today") %>
-							</th>
+							<th scope="col"></th>
 							<th scope="col"><%= _("Model") %></th>
 							<th scope="col"><%= _("Timeframe") %></th>
 							<th scope="col">
@@ -85,6 +79,24 @@
 							<th scope="col"><%= _("Action") %></th>
 						</tr>
 					<!-- end header -->
+					<% content_tag :tr do
+						start_date = Date.today
+						end_date = @contract.next_open_date(start_date + 2.days)
+						content_tag :td, :colspan => 5, :class => "buttons" do %>
+							<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model"),
+									{:action => 'add_line'},
+									:onmouseup => "change_href_with_dates(this, 'start_date', 'end_date');",
+									:title => _("Add Model"), :width => 1000 ) %>
+							<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Option"),
+									{:action => 'add_option'},
+									:onmouseup => "change_href_with_dates(this, 'start_date', 'end_date');",
+									:title => _("Add Option"), :width => 1000 ) %>
+							<%= _("for") %>
+							<%= date_select :start_date, nil, { :default => start_date, :order => [:day, :month, :year], :start_year => start_date.year } %>
+							-
+							<%= date_select :end_date, nil, { :default => end_date, :order => [:day, :month, :year], :start_year => start_date.year } %>
+						<% end
+					end %>
 					<tbody id='lines'>
 						<%= render :partial => 'lines' %>
 					</tbody>
