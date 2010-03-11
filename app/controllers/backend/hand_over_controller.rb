@@ -146,24 +146,20 @@ class Backend::HandOverController < Backend::BackendController
     render :action => 'change_line' unless @prevent_redirect # TODO 29**
   end
 
-  def add_option
+  def add_option(start_date = params[:start_date], end_date = params[:end_date])
     if request.post?
       option = current_inventory_pool.options.find(params[:option_id])
-      @start_date = Date.today
-      @end_date = @start_date + 2.days
-      if @contract.lines.size > 0 
-        @start_date = @contract.lines.first.start_date
-        @end_date = @contract.lines.first.end_date  
-      end
       
-      o = @contract.option_lines.create(:option => option, :quantity => 1, :start_date => @start_date, :end_date => @end_date)
-      if o.errors.size > 0
-        flash[:error] = o
+      option_line = @contract.option_lines.create(:option => option, :quantity => 1, :start_date => start_date, :end_date => end_date)
+      if option_line.errors.size > 0
+        flash[:error] = option_line
       end
       redirect_to :action => 'show', :id => @contract
     else
       redirect_to :controller => 'options', 
                   :layout => 'modal',
+                  :start_date => start_date,
+                  :end_date => end_date,
                   :source_path => request.env['REQUEST_URI']
     end
   end
