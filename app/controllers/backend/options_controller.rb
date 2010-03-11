@@ -4,6 +4,11 @@ class Backend::OptionsController < Backend::BackendController
 
   def index
     @options = current_inventory_pool.options.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page }
+
+    if params[:source_path] # we are in a greybox
+      @start_date = Date.parse(params[:start_date])
+      @end_date = Date.parse(params[:end_date])
+    end
   end
   
   def show

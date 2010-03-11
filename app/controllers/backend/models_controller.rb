@@ -31,13 +31,13 @@ class Backend::ModelsController < Backend::BackendController
                                                     :order => params[:sort], :sort_mode => params[:sort_mode] }
 
     if params[:source_path] # we are in a greybox
-      if @line
+      if @line # this is for swap model
         @start_date = @line.start_date
         @end_date = @line.end_date
         @user = @line.document.user            
-      else
-        @start_date = params[:start_date] ? Date.parse(params[:start_date]) : Date.today
-        @end_date = params[:end_date] ? Date.parse(params[:end_date]) : @start_date + 2.days
+      else # this is for add new model
+        @start_date = Date.parse(params[:start_date])
+        @end_date = Date.parse(params[:end_date])
         @user = current_inventory_pool.users.find(params[:user_id])
       end
     end

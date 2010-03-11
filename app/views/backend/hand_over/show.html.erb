@@ -35,11 +35,11 @@
 					<h3><%= _("Items") %></h3>
 					<div class="buttons">
 						<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model"),
-							 	{ :action => 'add_line' },
+							 	{ :action => 'add_line', :start_date => Date.today, :end_date => Date.today+2.days },
 								:title => _("Add Model"), :width => 1000 ) %>						
 
 					    <%= greybox_link_to_page( icon_tag("package_add") + " " + _("Add Option"),
-							 	{ :action => 'add_option' },
+							 	{ :action => 'add_option', :start_date => Date.today, :end_date => Date.today+2.days },
 								:title => _("Add Option") ) %>
 
 						<%= greybox_link_to_page(icon_tag("date_edit") + " " + _("Change Timeframe for selection"),
