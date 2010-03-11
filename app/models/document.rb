@@ -19,12 +19,13 @@ class Document < ActiveRecord::Base
   end
 
 ################################################################
+
   def time_window_min
-    self.lines.collect(&:start_date).min || Date.today
+    lines.minimum(:start_date) || Date.today
   end
   
   def time_window_max
-    self.lines.collect(&:end_date).max || Date.today
+    lines.maximum(:end_date) || Date.today
   end
   
   def next_open_date(x)

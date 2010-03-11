@@ -197,7 +197,7 @@ class Order < Document
   end
 
   def waiting_for_hand_over
-    if is_approved? and lines.collect(&:start_date).max >= Date.today
+    if is_approved? and lines.maximum(:start_date) >= Date.today
       contract = user.current_contract(inventory_pool)
       return true if contract and not contract.lines.empty?
     end
