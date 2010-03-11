@@ -21,7 +21,7 @@ class Backend::BackendController < ApplicationController
     @search = [ { :title => _("Booking"),
                   :color => "#1089D9",
                   :with => { :inventory_pool_id => [current_inventory_pool.id]} },
-                { :title => _("Inventory"),
+                { :title => _("Inventory"), # TODO prevent search for Inventory if current_user doesn't have enough permissions
                   :color => "#008209",
                   :with => { :owner_id => [current_inventory_pool.id]} }]
 
