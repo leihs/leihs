@@ -18,31 +18,24 @@ class Backend::BackendController < ApplicationController
 #                                                     :sphinx_select => "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a",
 #                                                     :with => { :a => true } }
 
-    @result = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => 200,
-                                                     :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC",
-#                                                     :group_by => "class_crc",
-                                                     :with => { :inventory_pool_id => [current_inventory_pool.id]} }
+    @search = [ { :title => _("Booking"),
+                  :color => "#1089D9",
+                  :with => { :inventory_pool_id => [current_inventory_pool.id]} },
+                { :title => _("Inventory"),
+                  :color => "#008209",
+                  :with => { :owner_id => [current_inventory_pool.id]} }]
 
-    
-    @search = {}
-    @result.each do |r|
-      res = @search[r.class.to_s] || []
-      res << r
-      @search[r.class.to_s] = res
-    end
-
-    ################# owner_id
-
-    @result_2 = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => 200,
-                                                     :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC",
-#                                                     :group_by => "class_crc",
-                                                     :with => { :owner_id => [current_inventory_pool.id]} }
-    
-    @search_2 = {}
-    @result_2.each do |r|
-      res = @search_2[r.class.to_s] || []
-      res << r
-      @search_2[r.class.to_s] = res
+    @search.each do |s|
+      s[:result] = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => 999,
+                                                          :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC", # :group_by => "class_crc",
+                                                          :with => s[:with] }
+      
+      s[:search] = {}
+      s[:result].each do |r|
+        res = s[:search][r.class.to_s] || []
+        res << r
+        s[:search][r.class.to_s] = res
+      end
     end
 
   end

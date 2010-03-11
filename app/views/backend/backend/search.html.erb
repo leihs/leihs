@@ -1,52 +1,28 @@
-<h4 style="background-color: #1089D9 ;color: white; padding: 5px; margin: 1em 0;">
-  <%= _("Booking") %>
-</h4>
+<% @search.each_with_index do |s, i|
+	content_tag :h4, :style => "background-color: #{s[:color]}; color: white; padding: 5px; margin: 1em 0;" do %>
+	  <%= s[:title] %>
+	<% end
 
-<% @search.keys.each do |key|
-	values = @search[key]
-	next if key == "NilClass" %>
+	s[:search].each_pair do |key, value|
+		next if key == "NilClass"
+		dom_id = "results_#{i}_#{key}" %>
+	
+		<h3><a href="#" onclick="$('<%= dom_id %>').toggle(); return false;"><%= _(key) %> - <%= value.size %> <%= _("Result(s)") %></a></h3>
+		<div id="<%= dom_id %>" style="display:none">
+		    <table>
+		        <% value.each do |line|
+			        name = line.class.to_s.downcase %>
+			        <tr>
+			            <td>
+			                <%= render :partial => "backend/backend/search/#{name}", :object => line %>
+			            </td>
+			        </tr>
+		        <% end %>
+		    </table>
+		</div>
+	<% end
 
-	<h3><a href="#" onclick="javascript:document.getElementById('results_<%= key %>').style.display= (document.getElementById('results_<%= key %>').style.display == 'none' ? 'block' : 'none')"><%= _(key) %> - <%= values.size %> <%= _("Result(s)") %></a></h3>
-	<div id="results_<%= key %>" style="display:none">
-	    <table>
-	        <% values.each do |line|
-	        name = line.class.to_s.downcase %>
-	        <tr>
-	            <td>
-	                <%= render :partial => "backend/backend/search/#{name}", :object => line %>
-	            </td>
-	        </tr>
-	        <% end %>
-	    </table>
-	</div>
-<% end %>
-<p>
-    <%= will_paginate @result %>
-</p>
-
-
-<h4 style="background-color: #008209;color: white; padding: 5px; margin: 1em 0;">
-<%= _("Inventory") %>
-</h4>
-
-<% @search_2.keys.each do |key|
-	values = @search_2[key]
-	next if key == "NilClass" %>
-
-	<h3><a href="#" onclick="javascript:document.getElementById('results_<%= key %>').style.display= (document.getElementById('results_<%= key %>').style.display == 'none' ? 'block' : 'none')"><%= _(key) %> - <%= values.size %> <%= _("Result(s)") %></a></h3>
-	<div id="results_<%= key %>" style="display:none">
-	    <table>
-	        <% values.each do |line|
-	        name = line.class.to_s.downcase %>
-	        <tr>
-	            <td>
-	                <%= render :partial => "backend/backend/search/#{name}", :object => line %>
-	            </td>
-	        </tr>
-	        <% end %>
-	    </table>
-	</div>
-<% end %>
-<p>
-    <%= will_paginate @result_2 %>
-</p>
+	content_tag :p do %>
+	    <%= will_paginate s[:result] %>
+	<% end
+end %>
