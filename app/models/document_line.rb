@@ -13,7 +13,6 @@ class DocumentLine < ActiveRecord::Base
     is_order_line = (document_line and document_line.is_a?(OrderLine))
     is_contract_line = (document_line and document_line.is_a?(ContractLine))
     
-    # TODO ignore closed contracts ??
     cl = ItemLine.all( :joins => :contract,
                        :conditions => ["model_id = :model_id 
                                           AND returned_date IS NULL
