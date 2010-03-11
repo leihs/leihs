@@ -20,6 +20,14 @@ function change_href(a, checkbox_name, param_name){
 	decoGreyboxLinks();
 }
 
+function change_href_with_dates(a, start_date, end_date){
+	sd = '' + $(start_date + '__1i').value + '-' + $(start_date + '__2i').value + '-' + $(start_date + '__3i').value
+	ed = '' + $(end_date + '__1i').value + '-' + $(end_date + '__2i').value + '-' + $(end_date + '__3i').value
+	b = a.href.split('?');
+	a.href = b[0] + '?start_date=' + sd + '&end_date=' + ed;
+	decoGreyboxLinks();
+}
+
 /////////////////////////////////////////////////////////
 
 // TODO prevent field for unchecked lines to be sent
