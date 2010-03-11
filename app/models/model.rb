@@ -233,12 +233,12 @@ class Model < ActiveRecord::Base
   # #                             "AND parent_id IS NULL # (this last line is taken from the development SQL log - I don't know what it's needed for)
   #
   def create_availability(current_time, document_line, inventory_pool, user)
-    i = self.items.borrowable.scoped_by_inventory_pool_id(inventory_pool).count(:conditions => ['required_level <= ?',
-                                                                                                (user.nil? ? 1 : user.level_for(inventory_pool))])    
+    max_quantity = self.items.borrowable.scoped_by_inventory_pool_id(inventory_pool).count(:conditions => ['required_level <= ?',
+                                                                                                           (user.nil? ? 1 : user.level_for(inventory_pool))])    
                              
     r = DocumentLine.current_and_future_reservations(id, inventory_pool, document_line, current_time)
     
-    a = Availability.new(i, Date.today, nil, current_time)
+    a = Availability.new(max_quantity, Date.today, nil, current_time)
     a.model = self
     a.reservations(r)
     a
