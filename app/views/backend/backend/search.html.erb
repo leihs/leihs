@@ -1,4 +1,6 @@
 <% @search.each_with_index do |s, i|
+	next if s[:search].empty? and i == 1 # TODO remove i == 1 check (1 is for Inventory results)
+
 	content_tag :h4, :style => "background-color: #{s[:color]}; color: white; padding: 5px; margin: 1em 0;" do %>
 	  <%= s[:title] %>
 	<% end
