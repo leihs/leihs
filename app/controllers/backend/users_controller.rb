@@ -49,7 +49,7 @@ class Backend::UsersController < Backend::BackendController
       @user.access_rights.create(:inventory_pool => current_inventory_pool,
                                  :role => Role.first(:conditions => {:name => "customer"}), 
                                  :level => 1) if current_inventory_pool
-      redirect_to :action => 'show', :id => @user.id
+      redirect_to [:backend, current_inventory_pool, @user].compact
     else
       flash[:error] = @user.errors.full_messages
     end
