@@ -14,7 +14,7 @@
 <%= _("The order now looks like this:") %>
 
 <% @order.order_lines.each do | line | %>
-	<%= line.quantity%> <%= line.model.name %>
+	<%= line.quantity%> <%= line.model.name %>,  <%= l.start_date %> - <%= l.end_date %>
 <% end %>
 
 <%= _("These are the comments of the inventory manager:") %>
