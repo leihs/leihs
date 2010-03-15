@@ -80,4 +80,8 @@ pdf.table(table_data,
 
 pdf.move_down 10.mm
 
+pdf.text( _("This value list covers an order lasting from %s to %s." % [short_date(@contract.time_window_min), short_date(@contract.time_window_max)]))
+
+pdf.move_down 10.mm
+
 pdf.text(_("All prices in CHF."))
