@@ -7,7 +7,7 @@
 <%= _("Inventory pool") + ": " + @order.inventory_pool.name unless @order.inventory_pool.nil? %>
 
 <% @order.order_lines.each do | line | %>
-	<%= line.quantity%> <%= line.model.name %> 
+	<%= line.quantity%> <%= line.model.name %>, <%= l.start_date %> - <%= l.end_date %>
 <% end %>
 
 <%= _("Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account.") %> 
