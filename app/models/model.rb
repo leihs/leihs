@@ -216,10 +216,27 @@ class Model < ActiveRecord::Base
     document.add_line(quantity, self, user_id, start_date, end_date, inventory_pool)
   end  
 
+                                                                                                      
   private
-  
+
+  def create_availability(current_time, document_line, inventory_pool, user)
+   max_quantity = in_principle_borrowable(inventory_pool, user)
+   r = DocumentLine.current_and_future_reservations(id, inventory_pool, document_line, current_time)
+    
+    a = Availability.new(max_quantity, Date.today, nil, current_time)
+    a.model = self
+    a.reservations(r)
+    a
+  end
+
+  # returns number of borrowable items of some model in a inventory_pool without
+  # taking into account any existing reservations 
+  #
+  # TODO: tpo: move to inventory pool? 
+  #
   # :nodoc:
-  # create_availability is on a very critical code path, being called once per every document line.
+  # borrowable_in_inventory_pool lies on a very critical path via create_availability,
+  # which is being called once per every document line.
   # the "count" statement below takes about 0.1s to construct inside the rails framework and about
   # 0.001s to execute for mysql. Thus cutting off the stack and going directly to mysql will
   # accellerate that particular line 100-fold:
@@ -232,18 +249,11 @@ class Model < ActiveRecord::Base
   #                              "retired IS NULL")["count(*)"].to_i      
   # #                             "AND parent_id IS NULL # (this last line is taken from the development SQL log - I don't know what it's needed for)
   #
-  def create_availability(current_time, document_line, inventory_pool, user)
-    max_quantity = self.items.borrowable.scoped_by_inventory_pool_id(inventory_pool).count(:conditions => ['required_level <= ?',
-                                                                                                           (user.nil? ? 1 : user.level_for(inventory_pool))])    
-                             
-    r = DocumentLine.current_and_future_reservations(id, inventory_pool, document_line, current_time)
-    
-    a = Availability.new(max_quantity, Date.today, nil, current_time)
-    a.model = self
-    a.reservations(r)
-    a
+  def in_principle_borrowable(inventory_pool, user)
+    items.borrowable.scoped_by_inventory_pool_id(inventory_pool).count(:conditions => ['required_level <= ?',
+                                                                                      (user.nil? ? 1 : user.level_for(inventory_pool))])
   end
-
+ 
 # TODO ??
 #  def update_index
 #    Item.suspended_delta do
