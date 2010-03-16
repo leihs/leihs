@@ -22,6 +22,12 @@ class ItHelp < ActiveRecord::Base
         :password => '2read.0nly!')
   end
   
+  
+  def self.find_by_inventory_code(code)
+    serienr = code.gsub(/[A-Z]/, "")
+    return self.find_by_Inv_Serienr(serienr)
+  end
+  
   def to_be_imported
       InventoryImport::ItHelp.find( :all,
           :conditions => "rental like 'yes'",
