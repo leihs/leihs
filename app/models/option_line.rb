@@ -1,3 +1,7 @@
+# an OptionLine can only contain #Option's and NOT #Item's
+# #Options don't have their own barcode and can be given out
+# by the manager in arbitrary numbers
+#
 class OptionLine < ContractLine
 
   belongs_to :option
