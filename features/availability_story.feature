@@ -39,6 +39,22 @@ Scenario: With mulitple reservations
 		And 5 should be available from 1.4.2100 to 5.4.2100
 		And 7 should be available from 6.4.2100 to the_end_of_time
 	
+Scenario: With mulitple one day reservations of a model having one single item
+	
+	Given a model 'NEC 245' exists
+		And 1 items of model 'NEC 245' exist
+	  	And a reservation exists for 1 'NEC 245' from 21.3.2100 to 21.3.2100
+	When lending_manager checks availability for 'NEC 245'
+	Then 0 should be available from 21.3.2100 to 21.3.2100
+
+Scenario: With mulitple one day reservations of a model having two items
+	
+	Given a model 'NEC 245' exists
+		And 2 items of model 'NEC 245' exist
+	  	And a reservation exists for 2 'NEC 245' from 21.3.2100 to 21.3.2100
+	When lending_manager checks availability for 'NEC 245'
+	Then 0 should be available from 21.3.2100 to 21.3.2100
+
 Scenario: With Maintenance Day
 	
 	Given a model 'NEC 245' exists
