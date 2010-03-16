@@ -66,6 +66,7 @@ module ModelsHelper
       y_ticks << [y, styled_inventory_code]
     end
 
+# TODO: don't select procedurally. use rather SQL or activerecord :conditions ...
     lines = model.lines.select {|l| l.inventory_pool == inventory_pool}
     lines_with_item = lines.select {|l| l.item }
     lines_without_item = lines - lines_with_item
