@@ -1,8 +1,10 @@
-<% if current_user.contracts.unsigned.count > 0 %>
+<% if current_user.contracts.unsigned.select{|x| x.lines.count > 0}.count > 0 %>
 
  <hr />
  
   <h3><%= _("Unsigned contracts") %>:</h3>
+
+  <p><%= _("Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items.")%></p>
   <br />
 
   <table class="orders">
@@ -16,7 +18,7 @@
     </tr>
 
 
-  <% current_user.contracts.unsigned.each do |contract| %>	
+  <% current_user.contracts.unsigned.select{|x| x.lines.count > 0}.each do |contract| %>	
     <tr>
     <td><%= contract.status_string %></td>
     <td><%= today_or_yesterday_date(contract.created_at) %></td>

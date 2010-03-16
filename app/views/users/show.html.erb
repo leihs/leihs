@@ -14,6 +14,10 @@
 		<%= render :partial => "/orders/pending" %>
 	<% end %>
 
+  <% content_tag :div, :id => "unsigned_contracts" do %>
+    <%= render :partial => "/contracts/unsigned" %>
+  <% end %>
+
   <% content_tag :div, :id => "signed_contracts" do %>
     <%= render :partial => "/contracts/signed" %>
   <% end %>
