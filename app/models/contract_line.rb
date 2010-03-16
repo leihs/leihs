@@ -1,3 +1,6 @@
+# a ContractLine is a line in a #Contract (based on an #Order) and
+# differentiated into its subclasses #ItemLine and #OptionLine
+#
 class ContractLine < DocumentLine
   
   belongs_to :contract
