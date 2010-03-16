@@ -1,7 +1,13 @@
+
 # Availability of Models
 #
 class Availability
-  
+
+  # "symbolic" array indexes
+  DATE=0
+  QUANTITY=1
+  PERIOD_END=2
+
   attr_accessor :start_date, :end_date, :quantity, :model
   
   def initialize(max_quantity, start_date = Date.today, end_date = nil, current_date = nil)
@@ -11,7 +17,7 @@ class Availability
 #    @start_date = @end_date if !@end_date.nil? and @end_date < @start_date
     @quantity = max_quantity
     @current_date = current_date
-    @events = []
+    @availability_changes = []    # [ [DATE, QUANTITY], [DATE, QUANTITY], .. ] f.ex. [ ["8-2-2010", -1], ... ]
   end
 
   # compares two objects in order to sort them
@@ -23,30 +29,33 @@ class Availability
     end
   end
 
-  # TODO 2502** recheck this method
+  # :nodoc:  @availability_changes needs to be sorted!
+  #
   def periods
     availabilities = []
-    last_date = @start_date
-    last_quantity = @quantity
+    start_of_period = @start_date
+    current_quantity = @quantity
     
-    @events.each do |event|
-      date_of_event = event[0]
-      if is_returnal?(event[1])
-        date_of_event = date_of_event + @model.maintenance_period.day 
+    @availability_changes.each do |availability_change|
+      end_of_period = availability_change[DATE]
+      if is_returning?(availability_change[QUANTITY])
+        # item will stay unavailable while being maintained
+        end_of_period = end_of_period + @model.maintenance_period.day 
       else
-        date_of_event = date_of_event - 1.day
+        # item got borrowed today so the old item quantity ends yesterday
+        end_of_period = end_of_period - 1.day
       end
 
       # TODO 2502** merge returning dates
-      availabilities.delete_if {|a| a.start_date == last_date }
-      #
+      availabilities.delete_if {|a| a.start_date == start_of_period }
       
-      availabilities << Availability.new(last_quantity, last_date, date_of_event)
-      last_date = date_of_event + 1.day  
-      last_quantity = last_quantity + event[1]
+      availabilities << Availability.new(current_quantity, start_of_period, end_of_period)
+      # item only becomes available again on next day
+      start_of_period = end_of_period + 1.day
+      current_quantity = current_quantity + availability_change[QUANTITY]
     end
     
-    availabilities << (availabilities.size == 0 ? self : Availability.new(last_quantity, last_date, nil))
+    availabilities << (availabilities.size == 0 ? self : Availability.new(current_quantity, start_of_period, nil))
     availabilities
   end
 
@@ -93,39 +102,32 @@ class Availability
     self.end_date >= start_date && self.end_date <= end_date
   end
 
-  # used by availability instances
-  # TODO: ?!?
-  def is_late?(date)
-    false
-  end
-
   # only used by cucumber tests when tpo wrote this comment
   def forever?
     end_date.nil?
   end
 
+  # TODO rename to ingest_reservations
   def reservations(reservations)
     reservations.each do | reservation |
-      reserve(reservation)
+      add_availability_change(reservation)
     end
-    @events = @events.sort {|x, y| x[0] <=> y[0] }
+    @availability_changes = @availability_changes.sort {|x, y| x[0] <=> y[0] }
   end
 
 ############################################################################
 
   private 
 
-  def reserve(reservation)
-    # remove
-    on = reservation.start_date
-    @events << [on.to_date, -reservation.quantity]
+  def add_availability_change(reservation)
+    # decrease
+    @availability_changes << [reservation.start_date.to_date, -reservation.quantity]
 
-    # add
-    on = reservation.end_date || 10.years.from_now.to_date # emulating infinite future
-    @events << [on.to_date, reservation.quantity] unless reservation.is_late?(@current_date)
+    # increase
+    @availability_changes << [ reservation.end_date.to_date, reservation.quantity] unless reservation.is_late?(@current_date)
   end
-  
-  def is_returnal?(quantity)
+
+  def is_returning?(quantity)
     quantity > 0
   end
   
