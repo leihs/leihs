@@ -1,5 +1,11 @@
-# a ContractLine is a line in a #Contract (based on an #Order) and
-# differentiated into its subclasses #ItemLine and #OptionLine
+# A ContractLine is a line in a #Contract (based on an #Order) and
+# differentiated into its subclasses #ItemLine and #OptionLine.
+#
+# Each ContractLine refers to some borrowable thing - which can either
+# be an #Option or a #Model. In the case of a #Model, it does not
+# have specific instances of that #Model in the begining and only gets
+# them once the manager chooses a specific #Item of the #Model that the
+# customer wants.
 #
 class ContractLine < DocumentLine
   

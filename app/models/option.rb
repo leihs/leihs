@@ -1,8 +1,10 @@
-# Options are things that can be borrowed, however don't have
-# their own barcode and thus dont have individual identities
-# (contrary to #Item s) and thus can be given out by the
-# manager in arbitrary quantities. Also Options are not an
-# instance of some #Model as #Item s are.
+# Options are things that can be borrowed. The are listed
+# within #OptionLines which can be added to a #Contract.
+# Options don't have their own barcode and thus don't have
+# individual identities (contrary to #Item s) and thus can
+# be given out by the #InventoryPool manager in arbitrary
+# quantities. Also Options are not an instance of some
+# #Model as id the case for #Item s.
 #
 class Option < ActiveRecord::Base
   belongs_to :inventory_pool

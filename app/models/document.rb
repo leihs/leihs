@@ -1,4 +1,6 @@
-# Superclass for Order and Contract
+# Document is an abstract superclass for #Order and #Contract.
+# A Document consists of #DocumentLine s.
+#
 class Document < ActiveRecord::Base
   self.abstract_class = true
   

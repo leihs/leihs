@@ -1,3 +1,11 @@
+# A Contract is a #Document containing #ContractLine s. It gets
+# created from an #Order, once the #Order is acknowledged by an
+# #InventoryPool manager.
+#
+# The page "Flow" inside the models.graffle document shows the
+# various steps though which a #Document goes from #Order to
+# finally closed Contract.
+#
 class Contract < Document
 
   belongs_to :inventory_pool # common for sibling classes

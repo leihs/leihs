@@ -1,3 +1,15 @@
+# An ItemLine is a line in a #Contract and as such derived from the
+# more general ContractLine. It only contains #Item s but NOT
+# #Option s. The latter ones are part of #OrderLine s.
+#
+# An ItemLine at first only contains a #Model and a desired quantity
+# of that #Model. It's only after the #InventoryPool manager has
+# picked specific instances of that #Model - which are called "#Items"
+# in _leihs_ - that the ItemLines get to contain #Items.
+#
+# See also the page "Flow" inside the models.graffle document for a
+# description of the various steps the lending process goes through.
+#
 class ItemLine < ContractLine
   
   belongs_to :item

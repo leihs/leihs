@@ -1,3 +1,13 @@
+# A Model is a type of a thing which is available inside
+# an #InventoryPool for borrowing. If a customer wants to
+# borrow a thing, he opens an #Order and chooses the
+# appropriate Model. The #InventoryPool manager then hands
+# him over an instance - an #Item - of that Model, in case
+# one is still available for borrowing.
+#
+# See description of the #Item class contains an example.
+#
+#
 class Model < ActiveRecord::Base
 
   def before_destroy
