@@ -1,5 +1,14 @@
-# An Item an instance of a #Model, has its own barcode
-# and thus its own identity and is potentially borrowable
+# An Item is a borrowable thing (unless being flagged as
+# not being borrowable), is an instance of a #Model, has
+# its own barcode and thus its own identity. This is in
+# contrast to an #Option, which does not have its own
+# barcode and identity.
+#
+# Example:
+# We can have a #Model "Wild Duck Black Pather snowboard"
+# and three #Items of that #Model, one which was borrowed
+# and two which are still available to be taken out for
+# riding pleasure. 
 #
 class Item < ActiveRecord::Base
   

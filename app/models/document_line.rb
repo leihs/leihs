@@ -1,4 +1,7 @@
-# Superclass for OrderLine and ContractLine
+# A DocumentLine is a line in a #Document and
+# serves as an abstract superclass for #OrderLine
+# and #ContractLine.
+#
 class DocumentLine < ActiveRecord::Base
   self.abstract_class = true
   
@@ -13,6 +16,7 @@ class DocumentLine < ActiveRecord::Base
     is_order_line = (document_line and document_line.is_a?(OrderLine))
     is_contract_line = (document_line and document_line.is_a?(ContractLine))
     
+    # only get item lines of non-returned items
     cl = ItemLine.all( :joins => :contract,
                        :conditions => ["model_id = :model_id 
                                           AND returned_date IS NULL

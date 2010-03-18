@@ -1,3 +1,16 @@
+# An Order is a #Document containing #OrderLine s.
+# It's created by a customer, that wants to borrow
+# some stuff. In the workflow of the lending process
+# once the Order gets to the #InventoryPool manager
+# it is copied over into a #Contract.
+#
+# An Order can not contain #Options - contrary to a
+# #Contract, that can have them.
+#
+# The page "Flow" inside the models.graffle document shows the
+# various steps though which a #Document goes from #Order to
+# finally closed Contract.
+#
 class Order < Document
 
   attr_protected :created_at
