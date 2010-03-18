@@ -1,6 +1,64 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+// Ajax Pagination :: http://wiki.github.com/mislav/will_paginate/ajax-pagination //
+// adapted by sellittf //
+
+document.observe("dom:loaded", function() {
+  // the element in which we will observe all clicks and capture
+  // ones originating from pagination links
+  var container = $(document.body)
+
+  if (container) {
+    container.observe('click', function(e) {
+      var el = e.element()
+      if (el.match('.pagination a')) {
+        new Ajax.Request(el.href, { method: 'get',
+									onSuccess: function(request) {
+										$('list_table').update(request.responseText);
+										dhtmlHistory.add(request.request.url, "new Ajax.Request('" + request.request.url + "', { method: 'get', onSuccess: function(request) { $('list_table').update(request.responseText); } });");
+									}
+		});
+        e.stop();
+      }
+    })
+  }
+  
+/*	
+	Ajax.Responders.register({
+	  onComplete: function(request) {
+	  	// Solution 1: just evaluating previous ajax request response
+		// dhtmlHistory.add(request.url, request.transport.responseText);
+		
+		// Solution 2: re-executing the ajax request getting new response
+        dhtmlHistory.add(request.url, "new Ajax.Request('" + request.url + "', " + Object.toJSON(request.options) + ");");
+	  }
+	});
+*/	
+});
+
+//////// Really Simple History //////////
+
+window.dhtmlHistory.create({
+  toJSON: function(o) {
+    return Object.toJSON(o);
+  },
+  fromJSON: function(s) {
+    return s.evalJSON();
+  }
+});
+
+var pageListener = function(newLocation, historyData) {
+  eval(historyData);
+};
+
+window.onload = function() {
+  dhtmlHistory.initialize();
+  dhtmlHistory.addListener(pageListener);
+}
+
+/////////////////////////////////////////////////////////
+
 function checkbox_values(boxes){
 	s = new Array();
 	$$('body input.' + boxes).each(
