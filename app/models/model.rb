@@ -5,7 +5,7 @@
 # him over an instance - an #Item - of that Model, in case
 # one is still available for borrowing.
 #
-# See description of the #Item class contains an example.
+# The description of the #Item class contains an example.
 #
 #
 class Model < ActiveRecord::Base
