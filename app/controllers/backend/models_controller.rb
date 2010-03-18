@@ -177,6 +177,7 @@ class Backend::ModelsController < Backend::BackendController
       end
     elsif request.delete?
       root_item.children.delete(@item)
+      @item.save # forcing delta index
     end
     get_root_items
     render :action => 'package_roots'
