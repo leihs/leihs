@@ -1,6 +1,5 @@
-# an OptionLine can only contain #Option's and NOT #Item's.
-# #Options don't have their own barcode and can be given out
-# by the manager in arbitrary numbers
+# an OptionLine is a line in a #Contract that can only contain
+# #Option's and NOT #Item's.
 #
 class OptionLine < ContractLine
 
