@@ -1,3 +1,8 @@
+# Options are things that can be borrowed, however don't have
+# their own barcode and thus dont have individual identities
+# (contrary to #Item s) and thus can be given out by the
+# manager in arbitrary quantities
+#
 class Option < ActiveRecord::Base
   belongs_to :inventory_pool
   has_many :option_lines
