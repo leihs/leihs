@@ -1,3 +1,6 @@
+# An Item an instance of a #Model, has its own barcode
+# and thus its own identity and is potentially borrowable
+#
 class Item < ActiveRecord::Base
   
   belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id'
