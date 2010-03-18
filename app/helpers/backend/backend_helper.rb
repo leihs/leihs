@@ -32,7 +32,7 @@ module Backend::BackendHelper
         s = _(" <b>%d</b> results") % records.total_entries
         s += _(" for <b>%s</b>") % query if query
         s += _(" filtering <b>%s</b>") % filter if filter
-        w = will_paginate records, :renderer => 'RemoteLinkRenderer' , :remote => {:update => 'list_table'}, :previous_label => _("Previous"), :next_label => _("Next")
+        w = will_paginate records, :previous_label => _("Previous"), :next_label => _("Next")
         s += w if w
         s
       end
