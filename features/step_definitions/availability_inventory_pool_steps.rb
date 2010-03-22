@@ -51,7 +51,7 @@ When "'$who' order$s $quantity '$model' from inventory pool $ip" do |who, s, qua
   inv_pool = InventoryPool.find_by_name(ip)
   post add_line_user_order_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id)
   @order = assigns(:order)
-  @line = @order.order_lines.last
+  @line = @order.order_lines.scoped_by_inventory_pool_id(ip).last
 end
 
 Then /([0-9]+) order(s?) exist(s?) for inventory pool (.*)/ do |size, s1, s2, ip|
