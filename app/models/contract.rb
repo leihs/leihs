@@ -73,8 +73,10 @@ class Contract < Document
 
 #########################################################################
 
+  # TODO: we don't have a single place where we call sign without a current_user, except in a new test
+  #       -> eliminate the default value and the assignement current_user ||=
   def sign(contract_lines = nil, current_user = nil)
-    current_user ||= contract.user
+    current_user ||= self.user
     
     transaction do
       update_attributes({:status_const => Contract::SIGNED, :created_at => Time.now}) 
