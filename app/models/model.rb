@@ -230,13 +230,10 @@ class Model < ActiveRecord::Base
   private
 
   def create_availability(current_time, document_line, inventory_pool, user)
-   max_quantity = in_principle_borrowable(inventory_pool, user)
-   r = DocumentLine.current_and_future_reservations(id, inventory_pool, document_line, current_time)
+    max_quantity = maximum_borrowable(inventory_pool, user)
+    reservations = DocumentLine.current_and_future_reservations(id, inventory_pool, document_line, current_time)
     
-    a = Availability.new(max_quantity, Date.today, nil, current_time)
-    a.model = self
-    a.reservations(r)
-    a
+    Availability.new(max_quantity, current_time, self, reservations)
   end
 
   # returns number of borrowable items of some model in a inventory_pool without
@@ -259,7 +256,7 @@ class Model < ActiveRecord::Base
   #                              "retired IS NULL")["count(*)"].to_i      
   # #                             "AND parent_id IS NULL # (this last line is taken from the development SQL log - I don't know what it's needed for)
   #
-  def in_principle_borrowable(inventory_pool, user)
+  def maximum_borrowable(inventory_pool, user)
     items.borrowable.scoped_by_inventory_pool_id(inventory_pool).count(:conditions => ['required_level <= ?',
                                                                                       (user.nil? ? 1 : user.level_for(inventory_pool))])
   end

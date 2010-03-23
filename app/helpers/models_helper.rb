@@ -365,9 +365,7 @@ module ModelsHelper
       end
     end
 
-    availability = Availability.new(0)
-    availability.model = model
-    availability.reservations(all_availabilities)
+    availability = Availability.new(0, Date.today, model, all_availabilities)
     quantity_periods = availability.periods
     quantity_periods.each do |a|
       dd = (a == quantity_periods.first ? first_date_in_chart + 1.day : a.start_date)
