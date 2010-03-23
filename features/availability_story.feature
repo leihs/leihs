@@ -91,15 +91,20 @@ Scenario: In Repair
 	When lending_manager checks availability for 'NEC 245'
 	Then the maximum available quantity on 20.3.2100 is 6
 		And the maximum available quantity on 21.3.2100 is 3
-	
+
 Scenario: Not Returned
 	
 	Given a model 'Lasersword Grendab' exists
 		And 1 items of model 'Lasersword Grendab' exist
 		And a contract exists for 1 'Lasersword Grendab' from 1.1.2100 to 5.1.2100
 	When lending_manager checks availability for 'Lasersword Grendab'
-	Then if I check the maximum available quantity for 8.1.2100 is 1 on 4.1.2100
-	Then if I check the maximum available quantity for 8.1.2100 is 0 on 6.1.2100
+	Then if I check the maximum available quantity for 8.1.2100 it is 1 on 4.1.2100
+	Then if I check the maximum available quantity for 8.1.2100 it is 1 on 6.1.2100
+	Given the lending_manager signs the contract
+	When lending_manager checks availability for 'Lasersword Grendab'
+	Then if I check the maximum available quantity for 8.1.2100 it is 1 on 4.1.2100
+	Then if I check the maximum available quantity for 8.1.2100 it is 0 on 6.1.2100
+	
 	
 Scenario: Reservations from the past
 	
