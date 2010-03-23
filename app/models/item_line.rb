@@ -56,7 +56,10 @@ class ItemLine < ContractLine
 ##################################################
 
   def is_late?(current_date = Date.today)
-    item and super
+    # an ItemLine can only be late if the Item has been
+    # handed out. And an Item can only be handed out, if
+    # the contract has been signed. Thus:
+    contract.status_const == Contract::SIGNED and super
   end
 
 # TODO 1602**

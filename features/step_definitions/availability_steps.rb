@@ -13,16 +13,16 @@ end
 
 Given "a contract exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
   model = Model.find_by_name(model)
-  contract = Factory.create_user.get_current_contract(model.items.first.inventory_pool)
-  contract.add_line(quantity.to_i, model, nil, Date.today, Factory.parsedate(to))
-  contract.save
-  line = contract.item_lines.first
+  @contract = Factory.create_user.get_current_contract(model.items.first.inventory_pool)
+  @contract.add_line(quantity.to_i, model, nil, Date.today, Factory.parsedate(to))
+  @contract.save
+  line = @contract.item_lines.first
   line.item = model.items.first
   line.save
-  contract.reload
-  contract.lines.size.should >= 1
-  contract.lines.first.item.should_not be_nil
-  DocumentLine.current_and_future_reservations(model.id, contract.inventory_pool).size.should >= 1
+  @contract.reload
+  @contract.lines.size.should >= 1
+  @contract.lines.first.item.should_not be_nil
+  DocumentLine.current_and_future_reservations(model.id, @contract.inventory_pool).size.should >= 1
 end
 
 
@@ -46,6 +46,12 @@ Given "$quantity items of this model are for '$level' customers only" do |quanti
     items[i].required_level = AccessRight::LEVELS[level]
     items[i].save
   end
+end
+
+# TODO: use $who
+Given "the $who signs the contract" do |who|
+  @contract.sign
+  @contract.save
 end
 
 When "$who checks availability for '$what'" do |who, model|
@@ -85,7 +91,7 @@ Then "the maximum available quantity on $date is $quantity" do |date, quantity|
   @model.maximum_available_for_inventory_pool(Factory.parsedate(date), InventoryPool.first, @user).should == quantity.to_i
 end
 
-Then "if I check the maximum available quantity for $date is $quantity on $current_date" do |date, quantity, current_date|
+Then "if I check the maximum available quantity for $date it is $quantity on $current_date" do |date, quantity, current_date|
   @model.maximum_available_for_inventory_pool(Factory.parsedate(date), InventoryPool.first, @user, Factory.parsedate(current_date)).should == quantity.to_i
 end
 
