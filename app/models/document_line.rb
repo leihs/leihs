@@ -16,13 +16,16 @@ class DocumentLine < ActiveRecord::Base
     is_order_line = (document_line and document_line.is_a?(OrderLine))
     is_contract_line = (document_line and document_line.is_a?(ContractLine))
     
-    # only get item lines of non-returned items
+    # Only get item lines of non-returned items. We don't care about ItemLines
+    # with end_dates in the past, where the item has neven been handed over.
     cl = ItemLine.all( :joins => :contract,
                        :conditions => ["model_id = :model_id 
                                           AND returned_date IS NULL
+                                          AND NOT (end_date < :date AND item_id IS NULL)
                                           AND contract_lines.id <> :contract_line_id
                                           AND contracts.inventory_pool_id = :inventory_pool_id",
                                        { :model_id => model_id,
+                                         :date => date,
                                          :contract_line_id => (is_contract_line ? document_line.id : 0),
                                          :inventory_pool_id => inventory_pool.id }
                                           ])
