@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Order</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Order</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/models/order_rb.html">
+                app/models/order.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Document.html">
+                Document
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+An <a href="Order.html">Order</a> is a <a href="Document.html">Document</a>
+containing <a href="OrderLine.html">OrderLine</a> s. It&#8216;s created by
+a customer, that wants to borrow some stuff. In the workflow of the lending
+process once the <a href="Order.html">Order</a> gets to the <a
+href="InventoryPool.html">InventoryPool</a> manager it is copied over into
+a <a href="Contract.html">Contract</a>.
+</p>
+<p>
+An <a href="Order.html">Order</a> can not contain Options - contrary to a
+<a href="Contract.html">Contract</a>, that can have them.
+</p>
+<p>
+The page &quot;Flow&quot; inside the models.graffle document shows the
+various steps though which a <a href="Document.html">Document</a> goes from
+<a href="Order.html">Order</a> to finally closed <a
+href="Contract.html">Contract</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000155">approvable?</a>&nbsp;&nbsp;
+      <a href="#M000156">approve</a>&nbsp;&nbsp;
+      <a href="#M000159">change_purpose</a>&nbsp;&nbsp;
+      <a href="#M000161">deletable_by_user?</a>&nbsp;&nbsp;
+      <a href="#M000164">from_backup</a>&nbsp;&nbsp;
+      <a href="#M000162">has_backup?</a>&nbsp;&nbsp;
+      <a href="#M000154">is_approved?</a>&nbsp;&nbsp;
+      <a href="#M000153">lines</a>&nbsp;&nbsp;
+      <a href="#M000165">remove_backup</a>&nbsp;&nbsp;
+      <a href="#M000152">status_string</a>&nbsp;&nbsp;
+      <a href="#M000157">submit</a>&nbsp;&nbsp;
+      <a href="#M000160">swap_user</a>&nbsp;&nbsp;
+      <a href="#M000163">to_backup</a>&nbsp;&nbsp;
+      <a href="#M000158">update_line</a>&nbsp;&nbsp;
+      <a href="#M000166">waiting_for_hand_over</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UNSUBMITTED</td>
+          <td>=</td>
+          <td class="context-item-value">1</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SUBMITTED</td>
+          <td>=</td>
+          <td class="context-item-value">2</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">APPROVED</td>
+          <td>=</td>
+          <td class="context-item-value">3</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">REJECTED</td>
+          <td>=</td>
+          <td class="context-item-value">4</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STATUS</td>
+          <td>=</td>
+          <td class="context-item-value">{_(&quot;Unsubmitted&quot;) =&gt; UNSUBMITTED, _(&quot;Submitted&quot;) =&gt; SUBMITTED, _(&quot;Approved&quot;) =&gt; APPROVED, _(&quot;Rejected&quot;) =&gt; REJECTED }</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000155" class="method-detail">
+        <a name="M000155"></a>
+
+        <div class="method-heading">
+          <a href="#M000155" class="method-signature">
+          <span class="method-name">approvable?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000155-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000155-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/order.rb, line 80</span>
+80:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">approvable?</span>
+81:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_approved?</span>
+82:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+83:     <span class="ruby-keyword kw">else</span> 
+84:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">all?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">available?</span> }
+85:     <span class="ruby-keyword kw">end</span>
+86:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000156" class="method-detail">
+        <a name="M000156"></a>
+
+        <div class="method-heading">
+          <a href="#M000156" class="method-signature">
+          <span class="method-name">approve</span><span class="method-args">(comment, send_mail = true, current_user = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+TODO 13** forward purpose approves order then generates a new contract and
+item_lines for each item
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000156-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000156-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/order.rb, line 91</span>
+ 91:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">approve</span>(<span class="ruby-identifier">comment</span>, <span class="ruby-identifier">send_mail</span> = <span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">current_user</span> = <span class="ruby-keyword kw">nil</span>)
+ 92:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">approvable?</span>
+ 93:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">status_const</span> = <span class="ruby-constant">Order</span><span class="ruby-operator">::</span><span class="ruby-constant">APPROVED</span>
+ 94:       <span class="ruby-identifier">remove_backup</span>
+ 95:       <span class="ruby-identifier">save</span>
+ 96: 
+ 97:       <span class="ruby-constant">Notification</span>.<span class="ruby-identifier">order_approved</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">comment</span>, <span class="ruby-identifier">send_mail</span>, <span class="ruby-identifier">current_user</span>)
+ 98:       
+ 99:       <span class="ruby-identifier">contract</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">get_current_contract</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inventory_pool</span>)
+100:       <span class="ruby-identifier">order_lines</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ol</span><span class="ruby-operator">|</span>
+101:         <span class="ruby-identifier">ol</span>.<span class="ruby-identifier">quantity</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span>
+102:           <span class="ruby-identifier">contract</span>.<span class="ruby-identifier">item_lines</span>.<span class="ruby-identifier">create</span>( <span class="ruby-identifier">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ol</span>.<span class="ruby-identifier">model</span>,
+103:                                       <span class="ruby-identifier">:quantity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>,
+104:                                       <span class="ruby-identifier">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ol</span>.<span class="ruby-identifier">start_date</span>,
+105:                                       <span class="ruby-identifier">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ol</span>.<span class="ruby-identifier">end_date</span>)
+106:         <span class="ruby-keyword kw">end</span>
+107:       <span class="ruby-keyword kw">end</span>   
+108:       <span class="ruby-identifier">contract</span>.<span class="ruby-identifier">save</span>
+109:       
+110:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+111:     <span class="ruby-keyword kw">else</span>
+112:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+113:     <span class="ruby-keyword kw">end</span>
+114:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000159" class="method-detail">
+        <a name="M000159"></a>
+
+        <div class="method-heading">
+          <a href="#M000159" class="method-signature">
+          <span class="method-name">change_purpose</span><span class="method-args">(new_purpose, user_id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000159-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000159-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/order.rb, line 154</span>
+154:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">change_purpose</span>(<span class="ruby-identifier">new_purpose</span>, <span class="ruby-identifier">user_id</span>)
+155:     <span class="ruby-identifier">change</span> = <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;Purpose changed '%{from}' for '%{to}'&quot;</span>) <span class="ruby-operator">%</span> { <span class="ruby-identifier">:from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">purpose</span>, <span class="ruby-identifier">:to</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_purpose</span>}
+156:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">purpose</span> = <span class="ruby-identifier">new_purpose</span>
+157:     <span class="ruby-identifier">log_change</span>(<span class="ruby-identifier">change</span>, <span class="ruby-identifier">user_id</span>)
+158:     <span class="ruby-identifier">save</span>
+159:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000161" class="method-detail">
+        <a name="M000161"></a>
+
+        <div class="method-heading">
+          <a href="#M000161" class="method-signature">
+          <span class="method-name">deletable_by_user?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000161-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000161-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/order.rb, line 173</span>
+173:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deletable_by_user?</span>
+174:     <span class="ruby-operator">!</span><span class="ruby-identifier">has_backup?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">status_const</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Order</span><span class="ruby-operator">::</span><span class="ruby-constant">SUBMITTED</span> 
+175:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000164" class="method-detail">
+        <a name="M000164"></a>
+
+        <div class="method-heading">
+          <a href="#M000164" class="method-signature">
+          <span class="method-name">from_backup</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000164-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000164-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/order.rb, line 192</span>
+192:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">from_backup</span>
+193:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span> = <span class="ruby-identifier">backup</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">reject</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;order_id&quot;</span> }
+194:     
+195:     <span class="ruby-identifier">order_lines</span>.<span class="ruby-identifier">clear</span>
+196:     
+197:     <span class="ruby-identifier">backup</span>.<span class="ruby-identifier">order_lines</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ol</span><span class="ruby-operator">|</span>
+198:       <span class="ruby-identifier">order_lines</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">ol</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">reject</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;order_id&quot;</span> }) 
+199:     <span class="ruby-keyword kw">end</span>
+200:         
+201:     <span class="ruby-identifier">histories</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">destroy</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">created_at</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">backup</span>.<span class="ruby-identifier">created_at</span>}
+202:     
+203:     <span class="ruby-identifier">remove_backup</span>
+204:     
+205:     <span class="ruby-identifier">save</span>
+206:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000162" class="method-detail">
+        <a name="M000162"></a>
+
+        <div class="method-heading">
+          <a href="#M000162" class="method-signature">
+          <span class="method-name">has_backup?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+TODO acts_as_backupable ##################
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000162-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000162-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/order.rb, line 178</span>
+178:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_backup?</span>
+179:     <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">backup</span>.<span class="ruby-identifier">nil?</span>
+180:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000154" class="method-detail">
+        <a name="M000154"></a>
+
+        <div class="method-heading">
+          <a href="#M000154" class="method-signature">
+          <span class="method-name">is_approved?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000154-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000154-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/order.rb, line 76</span>
+76:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_approved?</span>
+77:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">status_const</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Order</span><span class="ruby-operator">::</span><span class="ruby-constant">APPROVED</span>
+78:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000153" class="method-detail">
+        <a name="M000153"></a>
+
+        <div class="method-heading">
+          <a href="#M000153" class="method-signature">
+          <span class="method-name">lines</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+alias
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000153-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000153-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/order.rb, line 53</span>
+53:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">lines</span>
+54:     <span class="ruby-identifier">order_lines</span>
+55:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000165" class="method-detail">
+        <a name="M000165"></a>
+
+        <div class="method-heading">
+          <a href="#M000165" class="method-signature">
+          <span class="method-name">remove_backup</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000165-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000165-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/order.rb, line 208</span>
+208:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remove_backup</span>
+209:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">backup</span> = <span class="ruby-keyword kw">nil</span>
+210:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000152" class="method-detail">
+        <a name="M000152"></a>
+
+        <div class="method-heading">
+          <a href="#M000152" class="method-signature">
+          <span class="method-name">status_string</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000152-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000152-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/order.rb, line 47</span>
+47:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">status_string</span>
+48:     <span class="ruby-identifier">n</span> = <span class="ruby-constant">STATUS</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">status_const</span>)
+49:     <span class="ruby-identifier">n</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-identifier">status_const</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">n</span>
+50:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000157" class="method-detail">
+        <a name="M000157"></a>
+
+        <div class="method-heading">
+          <a href="#M000157" class="method-signature">
+          <span class="method-name">submit</span><span class="method-args">(purpose = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+submits order
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000157-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000157-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/order.rb, line 117</span>
+117:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">submit</span>(<span class="ruby-identifier">purpose</span> = <span class="ruby-keyword kw">nil</span>)
+118:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">purpose</span> = <span class="ruby-identifier">purpose</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">purpose</span>
+119:     <span class="ruby-identifier">save</span>
+120: 
+121:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">approvable?</span>
+122:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">status_const</span> = <span class="ruby-constant">Order</span><span class="ruby-operator">::</span><span class="ruby-constant">SUBMITTED</span>
+123:       <span class="ruby-identifier">split_and_assign_to_inventory_pool</span>
+124:       <span class="ruby-identifier">save</span>
+125:       
+126:       <span class="ruby-constant">Notification</span>.<span class="ruby-identifier">order_submitted</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">purpose</span>, <span class="ruby-keyword kw">false</span>)
+127: 
+128:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+129:     <span class="ruby-keyword kw">else</span>
+130:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+131:     <span class="ruby-keyword kw">end</span>
+132:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000160" class="method-detail">
+        <a name="M000160"></a>
+
+        <div class="method-heading">
+          <a href="#M000160" class="method-signature">
+          <span class="method-name">swap_user</span><span class="method-args">(new_user_id, admin_user_id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+OPTIMIZE scope new_user_id by current_inventory_pool
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000160-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000160-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/order.rb, line 162</span>
+162:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">swap_user</span>(<span class="ruby-identifier">new_user_id</span>, <span class="ruby-identifier">admin_user_id</span>)
+163:     <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">new_user_id</span>)
+164:     <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">user_id</span>.<span class="ruby-identifier">to_i</span>)
+165:       <span class="ruby-identifier">change</span> = <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;User swapped %{from} for %{to}&quot;</span>) <span class="ruby-operator">%</span> { <span class="ruby-identifier">:from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">login</span>, <span class="ruby-identifier">:to</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">login</span>}
+166:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">user</span>
+167:       <span class="ruby-identifier">log_change</span>(<span class="ruby-identifier">change</span>, <span class="ruby-identifier">admin_user_id</span>)
+168:       <span class="ruby-identifier">save</span>
+169:     <span class="ruby-keyword kw">end</span>
+170:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000163" class="method-detail">
+        <a name="M000163"></a>
+
+        <div class="method-heading">
+          <a href="#M000163" class="method-signature">
+          <span class="method-name">to_backup</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000163-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000163-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/order.rb, line 182</span>
+182:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_backup</span>
+183:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">backup</span> = <span class="ruby-constant">Backup</span><span class="ruby-operator">::</span><span class="ruby-constant">Order</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">attributes</span>)
+184:     
+185:     <span class="ruby-identifier">order_lines</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ol</span><span class="ruby-operator">|</span>
+186:       <span class="ruby-identifier">backup</span>.<span class="ruby-identifier">order_lines</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">ol</span>.<span class="ruby-identifier">attributes</span>)
+187:     <span class="ruby-keyword kw">end</span>
+188: 
+189:     <span class="ruby-identifier">save</span>
+190:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000158" class="method-detail">
+        <a name="M000158"></a>
+
+        <div class="method-heading">
+          <a href="#M000158" class="method-signature">
+          <span class="method-name">update_line</span><span class="method-args">(order_line_id, required_quantity, user_id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+keep the user required quantity, force positive quantity
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000158-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000158-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/order.rb, line 135</span>
+135:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_line</span>(<span class="ruby-identifier">order_line_id</span>, <span class="ruby-identifier">required_quantity</span>, <span class="ruby-identifier">user_id</span>)
+136:     <span class="ruby-identifier">order_line</span> = <span class="ruby-identifier">order_lines</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">order_line_id</span>)
+137:     <span class="ruby-identifier">original_quantity</span> = <span class="ruby-identifier">order_line</span>.<span class="ruby-identifier">quantity</span>
+138:         
+139:     <span class="ruby-identifier">max_available</span> = <span class="ruby-identifier">order_line</span>.<span class="ruby-identifier">maximum_available_quantity</span>
+140: 
+141:     <span class="ruby-identifier">order_line</span>.<span class="ruby-identifier">quantity</span> = [<span class="ruby-identifier">required_quantity</span>, <span class="ruby-value">0</span>].<span class="ruby-identifier">max</span>
+142:     
+143:     <span class="ruby-identifier">order_line</span>.<span class="ruby-identifier">save</span>
+144: 
+145:     <span class="ruby-identifier">change</span> = <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;Changed quantity for %{model} from %{from} to %{to}&quot;</span>) <span class="ruby-operator">%</span> { <span class="ruby-identifier">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order_line</span>.<span class="ruby-identifier">model</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">:from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">original_quantity</span>, <span class="ruby-identifier">:to</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order_line</span>.<span class="ruby-identifier">quantity</span> }
+146:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">required_quantity</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">max_available</span>
+147:       <span class="ruby-ivar">@flash_notice</span> = <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;Maximum number of items available at that time is %{max}&quot;</span>) <span class="ruby-operator">%</span> {<span class="ruby-identifier">:max</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">max_available</span>}
+148:       <span class="ruby-identifier">change</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;(maximum available: %{max})&quot;</span>) <span class="ruby-operator">%</span> {<span class="ruby-identifier">:max</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">max_available</span>}
+149:     <span class="ruby-keyword kw">end</span>
+150:     <span class="ruby-identifier">log_change</span>(<span class="ruby-identifier">change</span>, <span class="ruby-identifier">user_id</span>)
+151:     [<span class="ruby-identifier">order_line</span>, <span class="ruby-identifier">change</span>]
+152:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000166" class="method-detail">
+        <a name="M000166"></a>
+
+        <div class="method-heading">
+          <a href="#M000166" class="method-signature">
+          <span class="method-name">waiting_for_hand_over</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000166-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000166-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/order.rb, line 212</span>
+212:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">waiting_for_hand_over</span>
+213:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_approved?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">maximum</span>(<span class="ruby-identifier">:start_date</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>
+214:       <span class="ruby-identifier">contract</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">current_contract</span>(<span class="ruby-identifier">inventory_pool</span>)
+215:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">contract</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">contract</span>.<span class="ruby-identifier">lines</span>.<span class="ruby-identifier">empty?</span>
+216:     <span class="ruby-keyword kw">end</span>
+217:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+218:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
