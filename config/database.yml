@@ -5,7 +5,7 @@
 #   (on OS X: gem install mysql -- --include=/usr/local/lib)
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
-development:
+development: &DEVEL
   adapter: mysql
   database: leihs2_dev
   encoding: utf8
@@ -42,3 +42,6 @@ production:
 
 cucumber:
   <<: *TEST
+
+profiling:
+  <<: *DEVEL
