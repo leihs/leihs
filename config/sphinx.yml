@@ -1,4 +1,4 @@
-development:
+development: &DEVEL
   port: 3342
   address: 127.0.0.1
   listen: 127.0.0.1:3342
@@ -31,3 +31,5 @@ production:
   bin_path: '/usr/local/bin'
   sql_query_pre: ['set session group_concat_max_len = 16384']
 
+profiling:
+  <<: *DEVEL
