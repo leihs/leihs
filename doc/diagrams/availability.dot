@@ -1,0 +1,321 @@
+// generate for example with: dot -Tsvg availability.dot -o availability.svg
+digraph G {
+  rankdir=LR; // draw hierarchically from left to right
+  ranksep=2;
+  concentrate=true; // concentrate in one line same paths
+  //splines=ortho;
+
+  node [shape=box];
+
+  // sametail seems not to work
+  // edge [samehead,tailport=e,headport=w,tailclip];
+  edge [sametail tailport=e headport=w tailclip headclip];
+
+  subgraph cluster_cucumber {
+    label = "Cucumber: availability_steps";
+
+    it_should_always_be_available;
+  }
+
+  subgraph cluster_contract_line {
+    label = "ContractLine";
+
+    is_late;
+  }
+
+  subgraph cluster_models_helper {
+    label = "ModelsHelper";
+
+    canvas_for_model_in_inventory_pools;
+    canvas_for_model;
+    canvas_for;
+  }
+
+  subgraph cluster_model {
+    label = "Model";
+
+    create_availability;
+    maximum_borrowable;
+    available_periods_for_document_line;
+    available_periods_for_inventory_pool;
+    maximum_available_in_period_for_document_line;
+    maximum_available_in_period_for_inventory_pool;
+    maximum_available_for_inventory_pool;
+    unavailable_periods_for_document_line;
+  }
+
+  subgraph cluster_availability {
+    label = "Availability";
+
+    Availability_new;
+    periods;
+    maximum_available_in_period;
+    period_for;
+    add_availability_change;
+  }
+
+  subgraph cluster_qty_period {
+    label = "QtyPeriod";
+
+    is_part_of;
+    encloses;
+    start_date_in;
+    end_date_in;
+    forever;
+  }
+
+  subgraph cluster_models_controller {
+    label = "ModelsController";
+
+    chart;
+  }
+
+  subgraph cluster_acknowledge_controller {
+    label = "AcknowledgeController";
+
+    AcknowledgeController_change_line_quantity;
+  }
+
+  subgraph cluster_orders_controller {
+    label = "OrdersController";
+
+    OrdersController_change_line_quantity;
+  }
+
+  subgraph cluster_document_line {
+    label = "DocumentLine";
+
+    DocumentLine_available;
+    maximum_available_quantity;
+    available_tooltip;
+    complete;
+    complete_tooltip;
+    tooltip;
+    current_and_future_reservations;
+  }
+
+  subgraph cluster_ordert_line {
+    label = "OrderLine";
+
+    OrderLine_available;
+  }
+
+  subgraph cluster_order {
+    label = "Order";
+
+    update_line;
+    approvable;
+    approve; // TODO
+  }
+
+  subgraph cluster_acknowledge_line {
+    label = "backend/acknowledge/_line.html.erb";
+
+    acknowledge_line_erb;
+  }
+
+  subgraph cluster_acknowledge_approve {
+    label = "backend/acknowledge/approve.html.erb";
+
+    acknowledge_approve_erb;
+  }
+
+  subgraph cluster_models_index {
+    label = "backend/models/index.html.erb";
+
+    models_index_erb;
+  }
+
+  subgraph cluster_models_show {
+    label = "backend/models/show.html.erb";
+
+    models_show_erb;
+  }
+
+  subgraph cluster_frontend_models {
+    label = "frontend/_models.html.erb";
+
+    frontend_models_erb;
+  }
+
+  subgraph cluster_orders_view {
+    label = "app/controllers/orders_controller.rb";
+
+    orders_show;
+  }
+
+  subgraph cluster_acknowledge_change_line_quantity {
+    label = "backend/acknowledge/change_line_quantity.rjs";
+
+    acknowledge_change_line_quantity;
+  }
+
+  subgraph cluster_hand_over_item_line {
+    label = "backend/hand_over/_item_line.html.erb";
+
+    cluster_hand_over_item_line;
+  }
+
+  subgraph cluster_hand_over_option_line {
+    label = "backend/hand_over/_option_line.html.erb";
+
+    cluster_hand_over_option_line;
+  }
+
+  subgraph cluster_orders_line {
+    label = "backend/orders/_line.html.erb";
+
+    orders_line;
+  }
+
+  subgraph cluster_backend_helper {
+    label = "BackendHelper";
+
+     time_line -> unavailable_periods_for_document_line;
+  }
+
+  // Calling Availability methods
+  //-----------------------------
+
+    // ModelsHelper
+    canvas_for_model_in_inventory_pools -> Availability_new;
+    canvas_for_model_in_inventory_pools -> periods;
+  
+    // Model
+    create_availability -> Availability_new;
+    create_availability -> maximum_borrowable;
+    available_periods_for_document_line -> periods;
+    available_periods_for_inventory_pool -> periods;
+    maximum_available_for_inventory_pool -> period_for;
+    maximum_available_in_period_for_document_line -> maximum_available_in_period;
+    maximum_available_in_period_for_inventory_pool -> maximum_available_in_period;
+  
+    // Cucumber: availability_steps
+    it_should_always_be_available -> forever;
+    it_should_always_be_available -> maximum_available_for_inventory_pool;
+  
+    // Availability
+    periods -> Availability_new;
+    maximum_available_in_period -> periods;
+    period_for -> periods;
+    maximum_available_in_period -> is_part_of;
+    maximum_available_in_period -> encloses;
+    maximum_available_in_period -> start_date_in;
+    maximum_available_in_period -> end_date_in;
+    add_availability_change -> is_late;
+    Availability_new -> add_availability_change;
+
+  // Calling ModelsHelper methods
+  //-----------------------------
+
+    // ModelsController
+    chart -> canvas_for_model_in_inventory_pools;
+
+    // ModelsHelper
+    canvas_for -> canvas_for_model;
+
+    // backend/models/show.html.erb
+    models_show_erb -> canvas_for
+
+  // Calling Model methods
+  //-----------------------------
+
+    // Model
+    available_periods_for_document_line -> create_availability;
+    available_periods_for_inventory_pool -> create_availability;
+    maximum_available_for_inventory_pool -> create_availability;
+    maximum_available_in_period_for_document_line -> create_availability;
+    maximum_available_in_period_for_inventory_pool -> create_availability;
+    unavailable_periods_for_document_line -> available_periods_for_document_line;
+
+    // Cucumber: availability_steps
+    it_should_always_be_available -> available_periods_for_inventory_pool;
+
+    // ModelsHelper
+    canvas_for_model -> available_periods_for_inventory_pool;
+    canvas_for_model_in_inventory_pools -> available_periods_for_inventory_pool;
+
+    // DocumentLine
+    DocumentLine_available -> maximum_available_quantity;
+    maximum_available_quantity -> maximum_available_in_period_for_document_line;
+
+    // Order
+    update_line -> maximum_available_quantity;
+
+    // backend/models/index.html.erb
+    models_index_erb -> maximum_available_in_period_for_inventory_pool;
+
+    // BackendHelper
+    unavailable_periods_for_document_line;
+
+  // Calling ModelsControler methods
+  //-----------------------------
+
+    // BackendHelper
+    frontend_models_erb -> chart;
+    
+  // Calling DocumentLine methods
+  //-----------------------------
+
+    // app/controllers/orders_controller.rb
+    orders_show -> DocumentLine_available_tooltip;
+    orders_show -> approvable;
+
+    // DocumentLine
+    available_tooltip -> DocumentLine_available;
+    complete -> DocumentLine_available;
+    complete_tooltip -> DocumentLine_available;
+    tooltip -> available_tooltip;
+    tooltip -> complete_tooltip;
+    approve -> approvable;
+
+    // backend/acknowledge/_line.html.erb
+    acknowledge_line_erb -> OrderLine_available;
+    acknowledge_line_erb -> tooltip;
+
+    // backend/hand_over/_item_line.html.erb
+    cluster_hand_over_item_line -> DocumentLine_available;
+    cluster_hand_over_item_line -> complete;
+    cluster_hand_over_item_line -> tooltip;
+
+    // backend/hand_over/_option_line.html.erb
+    cluster_hand_over_option_line -> complete;
+    cluster_hand_over_option_line -> tooltip;
+
+    // backend/orders/_line.html.erb
+    orders_line -> available_tooltip;
+
+    // backend/acknowledge/approve.html.erb
+    acknowledge_approve_erb -> approvable;
+
+    // Order
+    OrderLine_available -> DocumentLine_available;
+
+    // Availability
+    create_availability -> current_and_future_reservations;
+
+  // Calling OrderLine methods
+  //-----------------------------
+
+    // app/controllers/orders_controller.rb
+    orders_show -> OrderLine_available;
+
+    // Order
+    approvable -> OrderLine_available;
+
+    // backend/acknowledge/change_line_quantity.rjs
+    acknowledge_change_line_quantity -> OrderLine_available;
+
+    // backend/orders/_line.html.erb
+    orders_line -> OrderLine_available;
+
+  // Calling Order methods
+  //-----------------------------
+
+    // AcknowledgeController
+    AcknowledgeController_change_line_quantity -> update_line;
+
+    // OrdersController
+    OrdersController_change_line_quantity -> update_line;
+}
+
