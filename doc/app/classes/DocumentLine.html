@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: DocumentLine</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">DocumentLine</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/models/document_line_rb.html">
+                app/models/document_line.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                ActiveRecord::Base
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A <a href="DocumentLine.html">DocumentLine</a> is a line in a <a
+href="Document.html">Document</a> and serves as an abstract superclass for
+<a href="OrderLine.html">OrderLine</a> and <a
+href="ContractLine.html">ContractLine</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000141">&lt;=&gt;</a>&nbsp;&nbsp;
+      <a href="#M000145">available?</a>&nbsp;&nbsp;
+      <a href="#M000147">available_tooltip</a>&nbsp;&nbsp;
+      <a href="#M000143">complete?</a>&nbsp;&nbsp;
+      <a href="#M000144">complete_tooltip</a>&nbsp;&nbsp;
+      <a href="#M000140">current_and_future_reservations</a>&nbsp;&nbsp;
+      <a href="#M000146">maximum_available_quantity</a>&nbsp;&nbsp;
+      <a href="#M000142">tooltip</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000140" class="method-detail">
+        <a name="M000140"></a>
+
+        <div class="method-heading">
+          <a href="#M000140" class="method-signature">
+          <span class="method-name">current_and_future_reservations</span><span class="method-args">(model_id, inventory_pool, document_line = nil, date = Date.today)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000140-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000140-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/document_line.rb, line 14</span>
+14:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">current_and_future_reservations</span>(<span class="ruby-identifier">model_id</span>, <span class="ruby-identifier">inventory_pool</span>, <span class="ruby-identifier">document_line</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>)
+15:     
+16:     <span class="ruby-identifier">is_order_line</span> = (<span class="ruby-identifier">document_line</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">document_line</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">OrderLine</span>))
+17:     <span class="ruby-identifier">is_contract_line</span> = (<span class="ruby-identifier">document_line</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">document_line</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ContractLine</span>))
+18:     
+19:     <span class="ruby-comment cmt"># Only get item lines of non-returned items. We don't care about ItemLines</span>
+20:     <span class="ruby-comment cmt"># with end_dates in the past, where the item has neven been handed over.</span>
+21:     <span class="ruby-identifier">cl</span> = <span class="ruby-constant">ItemLine</span>.<span class="ruby-identifier">all</span>( <span class="ruby-identifier">:joins</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:contract</span>,
+22:                        <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">&quot;model_id = :model_id 
+23:                                           AND returned_date IS NULL
+24:                                           AND NOT (end_date &lt; :date AND item_id IS NULL)
+25:                                           AND contract_lines.id &lt;&gt; :contract_line_id
+26:                                           AND contracts.inventory_pool_id = :inventory_pool_id&quot;</span>,
+27:                                        { <span class="ruby-identifier">:model_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model_id</span>,
+28:                                          <span class="ruby-identifier">:date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">date</span>,
+29:                                          <span class="ruby-identifier">:contract_line_id</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">is_contract_line</span> <span class="ruby-value">? </span><span class="ruby-identifier">document_line</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>),
+30:                                          <span class="ruby-identifier">:inventory_pool_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">inventory_pool</span>.<span class="ruby-identifier">id</span> }
+31:                                           ])
+32:     <span class="ruby-identifier">ol</span> = <span class="ruby-constant">OrderLine</span>.<span class="ruby-identifier">all</span>( <span class="ruby-identifier">:joins</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:order</span>,
+33:                         <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">&quot;model_id = :model_id 
+34:                                             AND ((start_date &lt;= :date AND end_date &gt;= :date) OR start_date &gt; :date) 
+35:                                             AND order_lines.id &lt;&gt; :order_line_id 
+36:                                             AND (orders.status_const = :submitted
+37:                                                             OR (orders.id = :current_order_id AND orders.status_const = :new_order))
+38:                                             AND order_lines.inventory_pool_id = :inventory_pool_id&quot;</span>,
+39:                                          { <span class="ruby-identifier">:model_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model_id</span>, 
+40:                                            <span class="ruby-identifier">:date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">date</span>,
+41:                                            <span class="ruby-identifier">:order_line_id</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">is_order_line</span> <span class="ruby-value">? </span><span class="ruby-identifier">document_line</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>), 
+42:                                            <span class="ruby-identifier">:submitted</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Order</span><span class="ruby-operator">::</span><span class="ruby-constant">SUBMITTED</span>, 
+43:                                            <span class="ruby-identifier">:current_order_id</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">is_order_line</span> <span class="ruby-value">? </span><span class="ruby-identifier">document_line</span>.<span class="ruby-identifier">order_id</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>),
+44:                                            <span class="ruby-identifier">:new_order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Order</span><span class="ruby-operator">::</span><span class="ruby-constant">UNSUBMITTED</span>, 
+45:                                            <span class="ruby-identifier">:inventory_pool_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">inventory_pool</span>.<span class="ruby-identifier">id</span> }
+46:                                         ])
+47:     <span class="ruby-identifier">cl</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ol</span>
+48:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000141" class="method-detail">
+        <a name="M000141"></a>
+
+        <div class="method-heading">
+          <a href="#M000141" class="method-signature">
+          <span class="method-name">&lt;=&gt;</span><span class="method-args">(other)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+compares two objects in order to sort them
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000141-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000141-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/document_line.rb, line 51</span>
+51:   <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;=&gt;</span>(<span class="ruby-identifier">other</span>)
+52:     [<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">start_date</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">model</span>.<span class="ruby-identifier">name</span>] <span class="ruby-operator">&lt;=&gt;</span> [<span class="ruby-identifier">other</span>.<span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">other</span>.<span class="ruby-identifier">model</span>.<span class="ruby-identifier">name</span>]
+53:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000145" class="method-detail">
+        <a name="M000145"></a>
+
+        <div class="method-heading">
+          <a href="#M000145" class="method-signature">
+          <span class="method-name">available?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000145-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000145-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/document_line.rb, line 81</span>
+81:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">available?</span>
+82:     <span class="ruby-identifier">maximum_available_quantity</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">quantity</span>
+83:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000147" class="method-detail">
+        <a name="M000147"></a>
+
+        <div class="method-heading">
+          <a href="#M000147" class="method-signature">
+          <span class="method-name">available_tooltip</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+TODO 04** merge in <a href="DocumentLine.html#M000145">available?</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000147-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000147-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/document_line.rb, line 90</span>
+90:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">available_tooltip</span>
+91:     <span class="ruby-identifier">r</span> = <span class="ruby-value str">&quot;&quot;</span>
+92:     <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;quantity not available. &quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">available?</span>
+93:     <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;inventory pool is closed on start_date. &quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">inventory_pool</span>.<span class="ruby-identifier">is_open_on?</span>(<span class="ruby-identifier">start_date</span>)
+94:     <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;inventory pool is closed on end_date. &quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">inventory_pool</span>.<span class="ruby-identifier">is_open_on?</span>(<span class="ruby-identifier">end_date</span>)
+95:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">r</span>
+96:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000143" class="method-detail">
+        <a name="M000143"></a>
+
+        <div class="method-heading">
+          <a href="#M000143" class="method-signature">
+          <span class="method-name">complete?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+custom valid? method
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000143-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000143-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/document_line.rb, line 69</span>
+69:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">complete?</span>
+70:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">valid?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">available?</span>
+71:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000144" class="method-detail">
+        <a name="M000144"></a>
+
+        <div class="method-heading">
+          <a href="#M000144" class="method-signature">
+          <span class="method-name">complete_tooltip</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+TODO 04** merge in <a href="DocumentLine.html#M000143">complete?</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000144-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000144-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/document_line.rb, line 74</span>
+74:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">complete_tooltip</span>
+75:     <span class="ruby-identifier">r</span> = <span class="ruby-value str">&quot;&quot;</span>
+76:     <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;not valid. &quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">valid?</span> <span class="ruby-comment cmt"># TODO 04** self.errors.full_messages</span>
+77:     <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;not available. &quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">available?</span>
+78:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">r</span>
+79:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000146" class="method-detail">
+        <a name="M000146"></a>
+
+        <div class="method-heading">
+          <a href="#M000146" class="method-signature">
+          <span class="method-name">maximum_available_quantity</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000146-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000146-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/document_line.rb, line 85</span>
+85:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">maximum_available_quantity</span>
+86:     <span class="ruby-identifier">model</span>.<span class="ruby-identifier">maximum_available_in_period_for_document_line</span>(<span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-keyword kw">self</span>) <span class="ruby-comment cmt"># TODO + quantity</span>
+87:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000142" class="method-detail">
+        <a name="M000142"></a>
+
+        <div class="method-heading">
+          <a href="#M000142" class="method-signature">
+          <span class="method-name">tooltip</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+TODO 03** merge here <a
+href="DocumentLine.html#M000147">available_tooltip</a> and <a
+href="DocumentLine.html#M000144">complete_tooltip</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000142-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000142-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/document_line.rb, line 58</span>
+58:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tooltip</span>
+59:     <span class="ruby-identifier">r</span> = <span class="ruby-value str">&quot;&quot;</span>
+60:     <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">available_tooltip</span>
+61:     <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;&lt;br/&gt;&quot;</span>
+62:     <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">complete_tooltip</span>
+63:     <span class="ruby-comment cmt"># TODO 03** include errors?</span>
+64:     <span class="ruby-comment cmt"># r += self.errors.full_messages</span>
+65:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">r</span>
+66:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

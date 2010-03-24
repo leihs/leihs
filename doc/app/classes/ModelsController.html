@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: ModelsController</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">ModelsController</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/controllers/models_controller_rb.html">
+                app/controllers/models_controller.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="FrontendController.html">
+                FrontendController
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000222">chart</a>&nbsp;&nbsp;
+      <a href="#M000220">index</a>&nbsp;&nbsp;
+      <a href="#M000221">show</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000222" class="method-detail">
+        <a name="M000222"></a>
+
+        <div class="method-heading">
+          <a href="#M000222" class="method-signature">
+          <span class="method-name">chart</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000222-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000222-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/models_controller.rb, line 85</span>
+85:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">chart</span>
+86:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:inline</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;&lt;%= stylesheet_link_tag $layout_public_path + '/css/general.css' %&gt;&lt;%= javascript_include_tag :defaults %&gt;&lt;%= canvas_for_model_in_inventory_pools(@model, @current_inventory_pools) %&gt;&quot;</span>
+87:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000220" class="method-detail">
+        <a name="M000220"></a>
+
+        <div class="method-heading">
+          <a href="#M000220" class="method-signature">
+          <span class="method-name">index</span><span class="method-args">( category_id = params[:category_id].to_i,</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000220-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000220-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/models_controller.rb, line 5</span>
+ 5:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>( <span class="ruby-identifier">category_id</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:category_id</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-comment cmt"># TODO 18** nested route ?</span>
+ 6:              <span class="ruby-identifier">start</span> = (<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:start</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>).<span class="ruby-identifier">to_i</span>,
+ 7:              <span class="ruby-identifier">limit</span> = (<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:limit</span>] <span class="ruby-operator">||</span> <span class="ruby-value">25</span>).<span class="ruby-identifier">to_i</span>,
+ 8:              <span class="ruby-identifier">query</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:query</span>],
+ 9:              <span class="ruby-identifier">sort</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:sort</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'name'</span>, <span class="ruby-comment cmt"># OPTIMIZE 0501</span>
+10:              <span class="ruby-identifier">sort_mode</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:dir</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'ASC'</span> ) <span class="ruby-comment cmt"># OPTIMIZE 0501</span>
+11:     
+12:     <span class="ruby-identifier">sort_mode</span> = <span class="ruby-identifier">sort_mode</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">to_sym</span> <span class="ruby-comment cmt"># OPTIMIZE 0501</span>
+13: 
+14:     <span class="ruby-identifier">with</span> = {<span class="ruby-identifier">:borrowable_inventory_pool_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:inventory_pool_ids</span>]} <span class="ruby-comment cmt"># current_inventory_pools.collect(&amp;:id)</span>
+15:     <span class="ruby-comment cmt"># FIXME 0501 access_rights.level &gt;= items.required_level</span>
+16: 
+17:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">category_id</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+18:       <span class="ruby-identifier">category</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">category_id</span>)
+19:       <span class="ruby-identifier">with</span>[<span class="ruby-identifier">:category_id</span>] = <span class="ruby-identifier">category</span>.<span class="ruby-identifier">self_and_all_child_ids</span>
+20:     <span class="ruby-keyword kw">end</span>
+21: 
+22:     <span class="ruby-ivar">@models</span> = <span class="ruby-constant">Model</span>.<span class="ruby-identifier">search</span> <span class="ruby-identifier">query</span>, { <span class="ruby-identifier">:index</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;frontend_model&quot;</span>,
+23:                                     <span class="ruby-identifier">:star</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>,
+24:                                     <span class="ruby-identifier">:offset</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">start</span>, <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">limit</span>, <span class="ruby-comment cmt"># :page =&gt; ((start / limit) + 1), :per_page =&gt; limit,</span>
+25:                                     <span class="ruby-identifier">:with</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">with</span>,
+26:                                     <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sort</span>, <span class="ruby-identifier">:sort_mode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sort_mode</span> }
+27: 
+28:     <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+29:       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">ext_json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@models</span>.<span class="ruby-identifier">to_ext_json</span>(<span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;Model&quot;</span>,
+30:                                                             <span class="ruby-identifier">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@models</span>.<span class="ruby-identifier">total_entries</span>,
+31:                                                             <span class="ruby-identifier">:methods</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:image_thumb</span>,
+32:                                                             <span class="ruby-identifier">:except</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-identifier">:internal_description</span>,
+33:                                                                          <span class="ruby-identifier">:info_url</span>,
+34:                                                                          <span class="ruby-identifier">:maintenance_period</span>,
+35:                                                                          <span class="ruby-identifier">:created_at</span>,
+36:                                                                          <span class="ruby-identifier">:updated_at</span> ],
+37:                                                             <span class="ruby-identifier">:include</span> =<span class="ruby-operator">&gt;</span> {
+38:                                                                 <span class="ruby-identifier">:inventory_pools</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:records</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_inventory_pools</span>,
+39:                                                                                       <span class="ruby-identifier">:except</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:description</span>,
+40:                                                                                                   <span class="ruby-identifier">:logo_url</span>,
+41:                                                                                                   <span class="ruby-identifier">:contract_url</span>,
+42:                                                                                                   <span class="ruby-identifier">:contract_description</span>,
+43:                                                                                                   <span class="ruby-identifier">:created_at</span>,
+44:                                                                                                   <span class="ruby-identifier">:updated_at</span>] } }
+45:                                                                  ) }
+46:     <span class="ruby-keyword kw">end</span>
+47:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000221" class="method-detail">
+        <a name="M000221"></a>
+
+        <div class="method-heading">
+          <a href="#M000221" class="method-signature">
+          <span class="method-name">show</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000221-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000221-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/models_controller.rb, line 51</span>
+51:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show</span>
+52:     <span class="ruby-ivar">@models</span> = [<span class="ruby-ivar">@model</span>]
+53:     <span class="ruby-identifier">c</span> = <span class="ruby-ivar">@models</span>.<span class="ruby-identifier">size</span>
+54:     <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+55:       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">ext_json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@models</span>.<span class="ruby-identifier">to_ext_json</span>(<span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;Model&quot;</span>,
+56:                                                             <span class="ruby-identifier">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">c</span>,
+57:                                                             <span class="ruby-identifier">:methods</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:needs_permission</span>, <span class="ruby-identifier">:package_models</span>],
+58:                                                             <span class="ruby-identifier">:except</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-identifier">:internal_description</span>,
+59:                                                                          <span class="ruby-identifier">:info_url</span>,
+60:                                                                          <span class="ruby-identifier">:maintenance_period</span>,
+61:                                                                          <span class="ruby-identifier">:created_at</span>,
+62:                                                                          <span class="ruby-identifier">:updated_at</span> ],
+63:                                                             <span class="ruby-identifier">:include</span> =<span class="ruby-operator">&gt;</span> {
+64:                                                                 <span class="ruby-identifier">:properties</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:except</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:created_at</span>,
+65:                                                                                              <span class="ruby-identifier">:updated_at</span>] },
+66:                                                                 <span class="ruby-identifier">:accessories</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:except</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:model_id</span>] },
+67:                                                                 <span class="ruby-identifier">:compatibles</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:records</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_inventory_pools</span>.<span class="ruby-identifier">collect</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">:models</span>).<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>,
+68:                                                                                   <span class="ruby-identifier">:except</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:created_at</span>,
+69:                                                                                              <span class="ruby-identifier">:updated_at</span>,
+70:                                                                                              <span class="ruby-identifier">:model_id</span>,
+71:                                                                                              <span class="ruby-identifier">:compatible_id</span>] },
+72:                                                                 <span class="ruby-identifier">:inventory_pools</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:records</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_inventory_pools</span>,
+73:                                                                                       <span class="ruby-identifier">:methods</span> =<span class="ruby-operator">&gt;</span> [[<span class="ruby-identifier">:items_size</span>, <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">id</span>]],
+74:                                                                                       <span class="ruby-identifier">:only</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:id</span>, <span class="ruby-identifier">:name</span>] },
+75:                                                                 <span class="ruby-identifier">:images</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:methods</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:public_filename</span>, <span class="ruby-identifier">:public_filename_thumb</span>],
+76:                                                                              <span class="ruby-identifier">:except</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:created_at</span>,
+77:                                                                                          <span class="ruby-identifier">:updated_at</span>] }
+78:                                                                         }
+79:                                                                  ) }
+80:     <span class="ruby-keyword kw">end</span>
+81:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

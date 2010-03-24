@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Contract</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Contract</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/models/contract_rb.html">
+                app/models/contract.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Document.html">
+                Document
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A <a href="Contract.html">Contract</a> is a <a
+href="Document.html">Document</a> containing <a
+href="ContractLine.html">ContractLine</a> s. It gets created from an <a
+href="Order.html">Order</a>, once the <a href="Order.html">Order</a> is
+acknowledged by an <a href="InventoryPool.html">InventoryPool</a> manager.
+</p>
+<p>
+The page &quot;Flow&quot; inside the models.graffle document shows the
+various steps though which a <a href="Document.html">Document</a> goes from
+<a href="Order.html">Order</a> to finally closed <a
+href="Contract.html">Contract</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000207">close</a>&nbsp;&nbsp;
+      <a href="#M000205">lines</a>&nbsp;&nbsp;
+      <a href="#M000206">sign</a>&nbsp;&nbsp;
+      <a href="#M000204">status_string</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UNSIGNED</td>
+          <td>=</td>
+          <td class="context-item-value">1</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+TODO validates_uniqueness [user_id, inventory_pool_id, status_const] if
+status_consts == Contract::UNSIGNED
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SIGNED</td>
+          <td>=</td>
+          <td class="context-item-value">2</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">CLOSED</td>
+          <td>=</td>
+          <td class="context-item-value">3</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STATUS</td>
+          <td>=</td>
+          <td class="context-item-value">{_(&quot;Unsigned&quot;) =&gt; UNSIGNED, _(&quot;Signed&quot;) =&gt; SIGNED, _(&quot;Closed&quot;) =&gt; CLOSED }</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000207" class="method-detail">
+        <a name="M000207"></a>
+
+        <div class="method-heading">
+          <a href="#M000207" class="method-signature">
+          <span class="method-name">close</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000207-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000207-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/contract.rb, line 103</span>
+103:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">close</span>
+104:     <span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">:status_const</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Contract</span><span class="ruby-operator">::</span><span class="ruby-constant">CLOSED</span>)
+105:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000205" class="method-detail">
+        <a name="M000205"></a>
+
+        <div class="method-heading">
+          <a href="#M000205" class="method-signature">
+          <span class="method-name">lines</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+alias
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000205-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000205-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/contract.rb, line 48</span>
+48:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">lines</span>
+49:     <span class="ruby-identifier">contract_lines</span>
+50:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000206" class="method-detail">
+        <a name="M000206"></a>
+
+        <div class="method-heading">
+          <a href="#M000206" class="method-signature">
+          <span class="method-name">sign</span><span class="method-args">(contract_lines = nil, current_user = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+TODO: we don&#8216;t have a single place where we call <a
+href="Contract.html#M000206">sign</a> without a current_user, except in a
+new test
+</p>
+<pre>
+      -&gt; eliminate the default value and the assignement current_user ||=
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000206-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000206-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/models/contract.rb, line 78</span>
+ 78:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sign</span>(<span class="ruby-identifier">contract_lines</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">current_user</span> = <span class="ruby-keyword kw">nil</span>)
+ 79:     <span class="ruby-identifier">current_user</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">user</span>
+ 80:     
+ 81:     <span class="ruby-identifier">transaction</span> <span class="ruby-keyword kw">do</span>
+ 82:       <span class="ruby-identifier">update_attributes</span>({<span class="ruby-identifier">:status_const</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Contract</span><span class="ruby-operator">::</span><span class="ruby-constant">SIGNED</span>, <span class="ruby-identifier">:created_at</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>}) 
+ 83:   
+ 84:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">contract_lines</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">contract_lines</span>.<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">cl</span><span class="ruby-operator">|</span> <span class="ruby-identifier">cl</span>.<span class="ruby-identifier">item</span> }
+ 85:   
+ 86:         <span class="ruby-comment cmt"># Forces handover date to be today.</span>
+ 87:         <span class="ruby-identifier">contract_lines</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">cl</span><span class="ruby-operator">|</span> <span class="ruby-identifier">cl</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cl</span>.<span class="ruby-identifier">start_date</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span> }
+ 88:         
+ 89:         <span class="ruby-identifier">log_history</span>(<span class="ruby-identifier">_</span>(<span class="ruby-value str">&quot;Contract %d has been signed by %s&quot;</span>) <span class="ruby-operator">%</span> [<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">name</span>], <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>)
+ 90:         
+ 91:         <span class="ruby-identifier">lines_for_new_contract</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">contract_lines</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">contract_lines</span>
+ 92:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">lines_for_new_contract</span>
+ 93:           <span class="ruby-identifier">new_contract</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">get_current_contract</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inventory_pool</span>)
+ 94:     
+ 95:           <span class="ruby-identifier">lines_for_new_contract</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cl</span><span class="ruby-operator">|</span>
+ 96:             <span class="ruby-identifier">cl</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">:contract</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_contract</span>)
+ 97:           <span class="ruby-keyword kw">end</span>
+ 98:         <span class="ruby-keyword kw">end</span>        
+ 99:       <span class="ruby-keyword kw">end</span>
+100:     <span class="ruby-keyword kw">end</span>
+101:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000204" class="method-detail">
+        <a name="M000204"></a>
+
+        <div class="method-heading">
+          <a href="#M000204" class="method-signature">
+          <span class="method-name">status_string</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000204-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000204-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/models/contract.rb, line 42</span>
+42:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">status_string</span>
+43:     <span class="ruby-identifier">n</span> = <span class="ruby-constant">STATUS</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">status_const</span>)
+44:     <span class="ruby-identifier">n</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-identifier">status_const</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">n</span>
+45:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
