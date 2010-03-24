@@ -188,7 +188,7 @@ common: &default_settings
 # NOTE if your application has other named environments, you should
 # provide newrelic conifguration settings for these enviromnents here.
 
-development:
+development: &DEVEL
   <<: *default_settings
   # Turn off communication to RPM service in development mode (also 
   # 'enabled').
@@ -205,6 +205,9 @@ development:
   
   # Enable textmate links
   # textmate: true
+
+profiling:
+  <<: *DEVEL
 
 test:
   <<: *default_settings
