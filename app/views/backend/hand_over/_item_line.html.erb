@@ -58,7 +58,7 @@
 				# OPTIMIZE
 				items = current_inventory_pool.items.in_stock.scoped_by_model_id(@line.model)
 				styled_inventory_codes = items.collect do |i|
-					 additional_info = "<br><span class='informal' style='padding-left: 2em; font-style: italic; color: #095d00;'>#{i.location}</span>"
+					 additional_info = (i.location ? "<br><span class='informal' style='padding-left: 2em; font-style: italic; color: #095d00;'>#{i.location}</span>" : nil)
 					 i.is_borrowable? ? "#{i.inventory_code}#{additional_info}" : "<span style='color:red;'>#{i.inventory_code}</span>#{additional_info}"
 				end
 			%>
