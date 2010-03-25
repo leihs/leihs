@@ -55,14 +55,16 @@
 			$('line_item_inventory_code_<%= @line.id %>').observe('click', function(){ if(this.value == ''){ auto_completer_<%= @line.id %>.activate(); } });
 
 			<%
-			# TODO: optimize! :
-			items = current_inventory_pool.items.in_stock.scoped_by_model_id(@line.model)
-			# TODO: optimize! :
-			styled_inventory_codes = items.collect {|i| i.is_borrowable? ? i.inventory_code : "<span style='color:red;'>#{i.inventory_code}</span>" }.to_json
+				# OPTIMIZE
+				items = current_inventory_pool.items.in_stock.scoped_by_model_id(@line.model)
+				styled_inventory_codes = items.collect do |i|
+					 additional_info = "<br><span class='informal' style='padding-left: 2em; font-style: italic; color: #095d00;'>#{i.location}</span>"
+					 i.is_borrowable? ? "#{i.inventory_code}#{additional_info}" : "<span style='color:red;'>#{i.inventory_code}</span>#{additional_info}"
+				end
 			%>
 			var auto_completer_<%= "#{@line.id}" %> = new Autocompleter.Local("line_item_inventory_code_<%= @line.id %>",
 																				"line_item_inventory_code_<%= @line.id %>_list",
-																				<%= styled_inventory_codes %>,
+																				<%= styled_inventory_codes.to_json %>,
 																				{fullSearch: true});
 			<% end %>
 			
