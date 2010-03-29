@@ -73,7 +73,6 @@ class Backend::AcknowledgeController < Backend::BackendController
     required_quantity = params[:quantity].to_i
 
     @order_line, @change = @order.update_line(@order_line.id, required_quantity, current_user.id)
-    @maximum_exceeded = required_quantity != @order_line.quantity
     @order.save
   end
 
