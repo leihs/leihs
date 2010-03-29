@@ -65,7 +65,6 @@ class OrdersController < FrontendController
     @order = @order_line.order
 
     @order_line, @change = @order.update_line(@order_line.id, required_quantity, current_user.id)
-    @maximum_exceeded = required_quantity != @order_line.quantity
     @order.save
     
     render :nothing => true
