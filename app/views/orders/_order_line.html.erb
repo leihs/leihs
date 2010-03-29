@@ -1,0 +1,5 @@
+    <tr>
+      <td><%= order_line.quantity %></td>
+      <td colspan="2"><%= order_line.model.name%></td>
+      <td colspan="4"><%= short_date(order_line.start_date) %> - <%= short_date(order_line.end_date) %></td>
+    </tr>
