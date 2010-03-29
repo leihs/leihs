@@ -29,6 +29,17 @@
                 :method => :delete,
                 :update => "pending_orders" if order.deletable_by_user? %></td>
     </tr>
+
+    <tr>
+      <td><strong><%= _("Qty.") %></strong></td>
+      <td colspan="2"><strong><%= _("Model") %></strong></td>
+      <td colspan="4"><strong><%= _("Time window") %></strong></td>
+    </tr>
+    <% order.lines.each do |line| %>
+    <%= render :partial => 'orders/order_line', :object => line %>
+    <% end %>
+
+
   <% end %>
 
   </table>
