@@ -10,7 +10,8 @@ class OrderLine < DocumentLine
 
   named_scope :submitted, :joins => :order,
                           :conditions => ["orders.status_const = ?", Order::SUBMITTED]
-    
+
+
 ###############################################  
 # TODO named_scope with lambda
 
