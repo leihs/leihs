@@ -28,11 +28,11 @@ class QtyPeriod
   def <=>(other)
     if self.start_date == other.start_date
       # end_dates can be nil
-      if self.start_date.nil && other.start_date.nil
+      if self.end_date.nil? && other.end_date.nil?
         return 0
-      elsif self.start_date.nil
+      elsif self.end_date.nil?
         return 1
-      elsif other.start_date.nil
+      elsif other.end_date.nil?
         return -1
       else
         self.end_date <=> other.end_date
