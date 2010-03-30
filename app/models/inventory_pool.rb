@@ -122,33 +122,30 @@ class InventoryPool < ActiveRecord::Base
   end
 ###################################################################################
   
-  def hand_over_visits
-    #unless @ho_visits  # OPTIMIZE refresh if new contracts become available
-      @ho_visits = []
+  def hand_over_visits(max_start_date = nil)
+    lines = contract_lines.to_hand_over.all(:select => "start_date, end_date, contract_id, SUM(quantity) AS quantity",
+                                            :include => {:contract => :user},
+                                            :conditions => (max_start_date ? ["start_date <= ?", max_start_date] : nil),
+                                            :order => "start_date",
+                                            :group => "contracts.user_id, start_date")
 
-      ids = contracts.unsigned.collect(&:id)
-      lines = ContractLine.all(:conditions => {:contract_id => ids})
-
-      lines.each do |l|
-        v = @ho_visits.detect { |w| w.user == l.contract.user and w.date == l.start_date }
-        unless v
-          @ho_visits << Event.new(:start => l.start_date, :end => l.end_date, :title => l.contract.user.login, :isDuration => false, :action => "hand_over", :inventory_pool => l.contract.inventory_pool, :user => l.contract.user, :contract_lines => [l])
-        else
-          v.contract_lines << l
-        end
-      end
-      
-      @ho_visits.sort!
-    #end
-    @ho_visits
+    lines.collect do |l|
+      Event.new(:start => l.start_date, :end => l.end_date, :title => l.contract.user.login, :quantity => l.quantity,
+                :isDuration => false, :action => "hand_over", :inventory_pool => self, :user => l.contract.user)
+    end
   end
 
-  def take_back_visits
-   @tb_visits ||= take_back_or_remind_visits
-  end
+  def take_back_visits(max_end_date = nil)
+    lines = contract_lines.to_take_back.all(:select => "start_date, end_date, contract_id, SUM(quantity) AS quantity",
+                                            :include => {:contract => :user},
+                                            :conditions => (max_end_date ? ["end_date <= ?", max_end_date] : nil),
+                                            :order => "end_date",
+                                            :group => "contracts.user_id, end_date")
 
-  def remind_visits
-   @r_visits ||= take_back_or_remind_visits(:remind => true)
+    lines.collect do |l|
+      Event.new(:start => l.end_date, :end => l.end_date, :title => l.contract.user.login, :quantity => l.quantity,
+                :isDuration => false, :action => "take_back", :inventory_pool => self, :user => l.contract.user)
+    end
   end
 
 ###################################################################################
@@ -163,30 +160,8 @@ class InventoryPool < ActiveRecord::Base
   
 ###################################################################################
 
-  private
+#  private
   
-  def take_back_or_remind_visits(remind = false)
-    visits = []
-    
-    ids = contracts.signed.collect(&:id)
-    if remind
-      lines = ContractLine.to_remind.all(:conditions => {:contract_id => ids})
-    else
-      lines = ContractLine.to_take_back.all(:conditions => {:contract_id => ids})
-    end
-
-    lines.each do |l|
-      v = visits.detect { |w| w.user == l.contract.user and w.date == l.end_date }
-      unless v
-        visits << Event.new(:start => l.end_date, :end => l.end_date, :title => l.contract.user.login, :isDuration => false, :action => "take_back", :inventory_pool => l.contract.inventory_pool, :user => l.contract.user, :contract_lines => [l])
-      else
-        v.contract_lines << l
-      end
-    end
-    
-    visits.sort!
-  end
-
 # TODO ??
 #  def update_index
 #    Item.suspended_delta do

@@ -32,7 +32,7 @@ When "$who clicks on 'hand_over'" do | who |
   response.should render_template("backend/hand_over/index")
 end
 
-Then "he sees $total line$s with a total quantity of $quantity" do | total, s, quantity |
+Then /he sees ([0-9]+) line(s?) with a total quantity of ([0-9]+)$/ do |total, s, quantity |
    @visits.size.should == total.to_i
    s = @visits.collect(&:quantity).sum
    s.should == quantity.to_i 

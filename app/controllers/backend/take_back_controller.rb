@@ -4,7 +4,7 @@ class Backend::TakeBackController < Backend::BackendController
 
   def index
     visits = if params[:remind]
-               current_inventory_pool.remind_visits
+               current_inventory_pool.take_back_visits(Date.yesterday)
              else
                current_inventory_pool.take_back_visits
              end

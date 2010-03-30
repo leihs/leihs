@@ -24,10 +24,6 @@ class Event < ActiveRecord::Base
   def date
     start
   end
-  
-  def quantity
-    self.contract_lines.collect(&:quantity).sum
-  end
 
   # compares two objects in order to sort them
   def <=>(other)

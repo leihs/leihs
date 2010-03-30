@@ -24,7 +24,7 @@
 			<td><%= item.inventory_code %></td>
 			<td>
 				<% if item.inventory_pool_id != current_inventory_pool.id %>
-					<%= item.inventory_pool %>
+					<%= link_to item.inventory_pool, params.merge(:allocated_inventory_pool_id => item.inventory_pool_id) %>
 					<br/>
 				<% end %>
 				<%= item.location if item.location %>

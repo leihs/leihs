@@ -15,6 +15,8 @@ class Backend::ItemsController < Backend::BackendController
     if params[:model_id]
       sphinx_select = "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a"
       with.merge!(:model_id => @model.id, :a => true)
+    elsif params[:allocated_inventory_pool_id]
+      with.merge!(:inventory_pool_id => params[:allocated_inventory_pool_id])
     elsif @location
       with.merge!(:location_id => @location.id, :inventory_pool_id => current_inventory_pool.id)
     end    
