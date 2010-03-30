@@ -9,8 +9,50 @@ class DocumentLine < ActiveRecord::Base
   validate :date_sequence  
   validates_numericality_of :quantity, :greater_than_or_equal_to => 0, :only_integer => true 
 
+  # expires cached_available attributes. See #available?
+  #
+  before_save do |record|
+#    puts "@@@@@@@ before_save: #{record.changed}"
+    # If we were updating the cached_availablity field of a #DocumentLine *only*, then
+    # we do not want to trigger an update, since no real property of the line has
+    # changed. We only want to trigger an updaten on changes of all the other fields.  
+    unless record.changed == [ "cached_available" ]
+#      puts "@@@@@@@ OK, we need to trigger an update"
+      record.void_cached_available_flag_of_same_model_and_in_same_ip
+    end
+  end
+
+  before_destroy :void_cached_available_flag_of_same_model_and_in_same_ip
+
 ###############################################  
-  
+
+  # this is a private method
+  def void_cached_available_flag_of_same_model_and_in_same_ip
+    # we do not want unsubmitted #Orders to have any influence on the state of foreign DocumentLines
+    if self.is_a?(OrderLine) and self.order.status_const == Order::UNSUBMITTED
+      ActiveRecord::Base.connection.update "UPDATE order_lines " \
+                                              "SET cached_available = NULL " \
+                                              "WHERE model_id = '#{self.model_id}' " \
+                                                "AND order_id = '#{self.order_id}' " \
+                                                "AND id != '#{self.id}' "
+    else
+      # TODO don't care about backup 
+      [ "contract", "order"].each do |document|
+        # we are JOINing the contract_ or order_lines table with the orders/contracts table
+        # in order to beeing able to compare with the inventory pool id, which lives in the
+        # orders/contracts table
+        #
+        # TODO: the update is too broad. We should limit it to orders containing our period
+        ActiveRecord::Base.connection.update "UPDATE #{document}_lines,#{document}s " \
+                                                "SET #{document}_lines.cached_available = NULL " \
+                                                "WHERE #{document}_lines.model_id = '#{self.model_id}' " \
+                                                  "AND #{document}_lines.#{document}_id = #{document}s.id " \
+                                                  "AND #{document}_lines.id != '#{self.id}' " \
+                                                  "AND #{document}s.inventory_pool_id = '#{self.inventory_pool.id}'"
+      end
+    end
+  end
+
   def self.current_and_future_reservations(model_id, inventory_pool, document_line = nil, date = Date.today)
     
     is_order_line = (document_line and document_line.is_a?(OrderLine))
@@ -29,6 +71,7 @@ class DocumentLine < ActiveRecord::Base
                                          :contract_line_id => (is_contract_line ? document_line.id : 0),
                                          :inventory_pool_id => inventory_pool.id }
                                           ])
+    # count all submittet orders and this order itself - ommit other non-submitted orders
     ol = OrderLine.all( :joins => :order,
                         :conditions => ["model_id = :model_id 
                                             AND ((start_date <= :date AND end_date >= :date) OR start_date > :date) 
@@ -78,8 +121,20 @@ class DocumentLine < ActiveRecord::Base
     return r
   end
 
+  # :nodoc: in case we've allready calculated whether an #DocumentLine instance is
+  #         available then reuse it. Otherwise recalculate and save it. In case the
+  #         the #DocumentLine is changed, then we need to drop the cached values of
+  #         the other #DocumentLines with the same #Model and inside the same
+  #         #InventoryPool. See #before_save.
+  # TODO: recheck - the numbers of updates done don't add up!
   def available?
-    maximum_available_quantity >= quantity
+#    puts "***** checking availablity...  #{self.inspect}"
+    if self.cached_available.nil?
+#      puts "**** OK, avail is nil and needs to be realculated"
+      self.cached_available = (maximum_available_quantity >= quantity)
+      save
+    end
+    self.cached_available
   end
 
   def maximum_available_quantity
