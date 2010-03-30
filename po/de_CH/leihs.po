@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2010-03-23 09:48+0100\n"
-"PO-Revision-Date: 2010-03-23 10:08+0100\n"
+"POT-Creation-Date: 2010-03-30 09:47+0200\n"
+"PO-Revision-Date: 2010-03-30 09:50+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -119,7 +119,7 @@ msgid "Option %s added."
 msgstr "Option %s hinzugefügt."
 
 #: app/controllers/backend/hand_over_controller.rb:199
-#: app/controllers/backend/acknowledge_controller.rb:100
+#: app/controllers/backend/acknowledge_controller.rb:99
 msgid "User must be selected"
 msgstr "Benutzer muss ausgewählt sein"
 
@@ -1646,19 +1646,23 @@ msgstr ""
 msgid "Order submitted"
 msgstr "Bestellung abgeschickt"
 
-#: app/models/notification.rb:22
+#: app/models/notification.rb:17
+msgid "Order received"
+msgstr "Bestellung eingetroffen"
+
+#: app/models/notification.rb:32
 msgid "Order approved"
 msgstr "Bestellung genehmigt"
 
-#: app/models/notification.rb:30
+#: app/models/notification.rb:40
 msgid "Order rejected"
 msgstr "Bestellung abgelehnt"
 
-#: app/models/notification.rb:38
+#: app/models/notification.rb:48
 msgid "Deadline soon"
 msgstr "Bald Deadline"
 
-#: app/models/notification.rb:46
+#: app/models/notification.rb:56
 msgid "Reminder"
 msgstr "Erinnerung"
 
@@ -1680,23 +1684,23 @@ msgstr "Genehmigt"
 msgid "Rejected"
 msgstr "Abgelehnt"
 
-#: app/models/order.rb:145
+#: app/models/order.rb:146
 msgid "Changed quantity for %{model} from %{from} to %{to}"
 msgstr "Anzahl für %{model} von %{from} auf %{to} geändert"
 
-#: app/models/order.rb:147
+#: app/models/order.rb:148
 msgid "Maximum number of items available at that time is %{max}"
 msgstr "Die maximale Anzahl verfügbarer Artikel für diese Zeit ist %{max}"
 
-#: app/models/order.rb:148
+#: app/models/order.rb:149
 msgid "(maximum available: %{max})"
 msgstr "(maximal verfügbar: %{max})"
 
-#: app/models/order.rb:155
+#: app/models/order.rb:156
 msgid "Purpose changed '%{from}' for '%{to}'"
 msgstr "Zweck geändert von '%{from}' zu '%{to}'"
 
-#: app/models/order.rb:165
+#: app/models/order.rb:166
 msgid "User swapped %{from} for %{to}"
 msgstr "Benutzer geändert von %{from} zu %{to}"
 
@@ -1716,27 +1720,27 @@ msgstr "Datum für %{model} von %{from} auf %{to} gesetzt"
 msgid "Removed %{q} %{m}"
 msgstr "%{q} %{m} entfernt"
 
-#: app/models/document_line.rb:73
+#: app/models/document_line.rb:76
 msgid "not valid. "
 msgstr "nicht gültig."
 
-#: app/models/document_line.rb:74
+#: app/models/document_line.rb:77
 msgid "not available. "
 msgstr "nicht verfügbar."
 
-#: app/models/document_line.rb:89
+#: app/models/document_line.rb:92
 msgid "quantity not available. "
 msgstr "Anzahl nicht verfügbar."
 
-#: app/models/document_line.rb:90
+#: app/models/document_line.rb:93
 msgid "inventory pool is closed on start_date. "
 msgstr "Der Gerätepark ist am gewünschten Starttag geschlossen"
 
-#: app/models/document_line.rb:91
+#: app/models/document_line.rb:94
 msgid "inventory pool is closed on end_date. "
 msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 
-#: app/models/document_line.rb:106
+#: app/models/document_line.rb:109
 #: app/helpers/backend/backend_helper.rb:374
 #: app/views/frontend/_complete_order.html.erb:193
 #: app/views/frontend/_models.html.erb:401
@@ -1752,10 +1756,14 @@ msgid "[leihs] Reservation Submitted"
 msgstr "[leihs] Reservation abgeschickt"
 
 #: app/models/mailer/order.rb:33
+msgid "[leihs] Order received"
+msgstr "[leihs] Bestellung eingetroffen"
+
+#: app/models/mailer/order.rb:44
 msgid "[leihs] Reservation Rejected"
 msgstr "[leihs] Reservation abgelehnt"
 
-#: app/models/mailer/order.rb:44
+#: app/models/mailer/order.rb:55
 msgid "[leihs] Reservation confirmed (with changes)"
 msgstr "[leihs] Reservation genehmigt (mit Änderungen)"
 
@@ -1813,7 +1821,7 @@ msgstr "Unterschrieben"
 msgid "Closed"
 msgstr "Geschlossen"
 
-#: app/models/contract.rb:87
+#: app/models/contract.rb:89
 msgid "Contract %d has been signed by %s"
 msgstr "Vertrag %d wurde unterschrieben von %s"
 
@@ -1821,19 +1829,19 @@ msgstr "Vertrag %d wurde unterschrieben von %s"
 msgid "item not assigned. "
 msgstr "Kein Gegenstand zugeordnet"
 
-#: app/models/item_line.rb:78
+#: app/models/item_line.rb:81
 msgid "The item doesn't match with the reserved model"
 msgstr "Dieser Artikel entspricht nicht dem reservierten Modell"
 
-#: app/models/item_line.rb:81
+#: app/models/item_line.rb:84
 msgid "The item is already handed over"
 msgstr "Dieser Artikel wurde bereits ausgehändigt"
 
-#: app/models/item_line.rb:84
+#: app/models/item_line.rb:87
 msgid "The item doesn't belong to the inventory pool related to this contract"
 msgstr "Das Gerät gehört nicht zum Gerätepark dieses Vertrags"
 
-#: app/models/item_line.rb:87
+#: app/models/item_line.rb:90
 msgid "The item belongs to a package"
 msgstr "Der Gegenstand gehört zu einem Paket"
 
@@ -1928,6 +1936,7 @@ msgstr "Reservierer"
 
 #: app/helpers/backend/backend_helper.rb:94
 #: app/views/users/show.html.erb:3
+#: app/views/mailer/order/received.erb:8
 #: app/views/widgets/_user_backend_tabnav.html.erb:17
 #: app/views/backend/hand_over/index.html.erb:24
 #: app/views/backend/hand_over/show.html.erb:11
@@ -1942,6 +1951,7 @@ msgid "User"
 msgstr "Benutzer"
 
 #: app/helpers/backend/backend_helper.rb:110
+#: app/views/orders/_pending.html.erb:35
 #: app/views/widgets/_model_backend_tabnav.html.erb:1
 #: app/views/widgets/_model_backend_tabnav.html.erb:21
 #: app/views/backend/hand_over/show.html.erb:71
@@ -2062,6 +2072,7 @@ msgstr "Liebe/r leihs-Kunde/in"
 #: app/views/mailer/order/changed.erb:3
 #: app/views/mailer/order/approved.erb:3
 #: app/views/mailer/order/submitted.erb:3
+#: app/views/mailer/order/received.erb:3
 msgid "** This is an automatically generated response **"
 msgstr "** Automatisch generierte E-Mail **"
 
@@ -2092,6 +2103,7 @@ msgstr "Im Interesse aller unserer Kunden/innen bitten wir Sie, die Termine drin
 #: app/views/mailer/order/changed.erb:24
 #: app/views/mailer/order/approved.erb:21
 #: app/views/mailer/order/submitted.erb:15
+#: app/views/mailer/order/received.erb:18
 msgid "Kind regards,"
 msgstr "Schöne Grüsse"
 
@@ -2127,6 +2139,7 @@ msgstr "Ihre Bestellung wurde aus folgenden Gründen abgelehnt:"
 #: app/views/mailer/order/changed.erb:7
 #: app/views/mailer/order/approved.erb:7
 #: app/views/mailer/order/submitted.erb:7
+#: app/views/mailer/order/received.erb:7
 msgid "Inventory pool"
 msgstr "Gerätepark"
 
@@ -2155,6 +2168,22 @@ msgstr "Ihre folgende Bestellung ist bei uns eingetroffen:"
 #: app/views/mailer/order/submitted.erb:13
 msgid "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account."
 msgstr "Leider konnte diese noch nicht bearbeitet werden. Sie werden zur Bestätigung eine weitere Nachricht erhalten. Es besteht die Möglichkeit, den Status Ihrer Bestellung im persönlichen leihs-Konto einzusehen."
+
+#: app/views/mailer/order/received.erb:1
+msgid "Dear leihs manager,"
+msgstr "Liebe/r leihs-Manager/in"
+
+#: app/views/mailer/order/received.erb:5
+msgid "An order for the following items listed below was received in an inventory pool you are responsible for."
+msgstr "Eine Bestellung für die folgenden Gegenstände ist in einem Inventarpool eingegangen, für den Sie verantwortlich sind."
+
+#: app/views/mailer/order/received.erb:14
+msgid "This order is still pending. Please log in to your leihs system and either approve or reject it."
+msgstr "Diese Bestellung ist noch hängig. Bitte loggen Sie sich in Ihr leihs-System ein, um sie zu genehmigen oder abzulehnen."
+
+#: app/views/mailer/order/received.erb:16
+msgid "The user who placed this order has received a similar e-mail message informing them that the order first needs to be approved before it is valid."
+msgstr "Die Person, die diese Bestellung durchgeführt hat, erhielt ein ähnliches E-Mail und würde darüber informiert, dass die Bestellung erst gültig ist, wenn sie genehmigt wird."
 
 #: app/views/orders/_submit.html.erb:3
 msgid "The order has been successfully submitted, but is NOT YET CONFIRMED."
@@ -2203,6 +2232,7 @@ msgid "Number of items"
 msgstr "Anzahl Gegenstände"
 
 #: app/views/orders/_pending.html.erb:12
+#: app/views/orders/_pending.html.erb:36
 #: app/views/backend/orders/show.html.erb:29
 #: app/views/backend/acknowledge/index.html.erb:14
 #: app/views/backend/acknowledge/show.html.erb:41
@@ -2233,7 +2263,7 @@ msgid "Documents"
 msgstr "Dokumente"
 
 #: app/views/orders/_pending.html.erb:15
-#: app/views/backend/hand_over/_item_line.html.erb:78
+#: app/views/backend/hand_over/_item_line.html.erb:80
 #: app/views/backend/hand_over/index.html.erb:34
 #: app/views/backend/hand_over/_option_line.html.erb:30
 #: app/views/backend/locations/index.html.erb:16
@@ -2279,6 +2309,12 @@ msgstr "Werteverzeichnis"
 #: app/views/backend/options/index.html.erb:31
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
+
+#: app/views/orders/_pending.html.erb:34
+#: app/views/contracts/_unsigned.html.erb:37
+#: app/views/contracts/_signed.html.erb:37
+msgid "Qty."
+msgstr "Anz."
 
 #: app/views/orders/_inventory_pool_details.html.erb:6
 msgid "YOU ARE SUSPENDED FOR THIS INVENTORY_POOL"
@@ -2395,22 +2431,22 @@ msgstr "Abbrechen"
 msgid "Time Period"
 msgstr "Zeitraum"
 
-#: app/views/backend/hand_over/_item_line.html.erb:70
+#: app/views/backend/hand_over/_item_line.html.erb:72
 msgid "Item needs permission!"
 msgstr "Gegenstand braucht Ausleih-Bewilligung!"
 
-#: app/views/backend/hand_over/_item_line.html.erb:75
+#: app/views/backend/hand_over/_item_line.html.erb:77
 #: app/views/backend/users/index.html.erb:37
 #: app/views/backend/acknowledge/_line.html.erb:31
 msgid "Swap"
 msgstr "Tauschen"
 
-#: app/views/backend/hand_over/_item_line.html.erb:77
+#: app/views/backend/hand_over/_item_line.html.erb:79
 #: app/views/backend/acknowledge/_line.html.erb:33
 msgid "Swap Model"
 msgstr "Modell tauschen"
 
-#: app/views/backend/hand_over/_item_line.html.erb:80
+#: app/views/backend/hand_over/_item_line.html.erb:82
 #: app/views/backend/hand_over/_option_line.html.erb:32
 #: app/views/backend/acknowledge/_line.html.erb:36
 msgid "Remove Model"
@@ -3481,11 +3517,6 @@ msgstr "Bitte beachten Sie, dass diese Verträge zwar zu genehmigten Bestellunge
 #: app/views/contracts/_signed.html.erb:11
 msgid "Created at"
 msgstr "Erstellt am"
-
-#: app/views/contracts/_unsigned.html.erb:37
-#: app/views/contracts/_signed.html.erb:37
-msgid "Qty."
-msgstr "Anz."
 
 #: app/views/contracts/_signed.html.erb:4
 msgid "Signed contracts"
