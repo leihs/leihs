@@ -140,7 +140,6 @@ class Order < Document
     max_available = order_line.maximum_available_quantity
 
     order_line.quantity = [required_quantity, 0].max
-    
     order_line.save
 
     change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => order_line.model.name, :from => original_quantity, :to => order_line.quantity }
@@ -184,7 +183,7 @@ class Order < Document
     self.backup = Backup::Order.new(attributes)
     
     order_lines.each do |ol|
-      backup.order_lines.create(ol.attributes)
+      backup.order_lines.create(ol.attributes.reject {|key, value| key == "cached_available" })
     end
 
     save
