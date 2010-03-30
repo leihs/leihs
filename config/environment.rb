@@ -132,6 +132,6 @@ DEFAULT_EMAIL = 'sender@example.com'
 # Send a notification to the e-mail address of the inventory
 # pool when this inventory pool receives an order? If the
 # inventory pool has no address set, messages go to DEFAULT_EMAIL
-DELIVER_ORDER_NOTIFICATIONS = true
+DELIVER_ORDER_NOTIFICATIONS = false
 
 ######################################################
