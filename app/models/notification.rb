@@ -7,7 +7,6 @@ class Notification < ActiveRecord::Base
     title = (o.nil? ? _("Order submitted") : o.subject)
     Notification.create(:user => order.user, :title => title)
     order.log_history(title, order.user.id) if order.user
-    #puts o
   end
 
   # Notify the person responsible for the inventory pool that an order
@@ -15,9 +14,6 @@ class Notification < ActiveRecord::Base
   def self.order_received(order, purpose, send_mail = false)
     o = Mailer::Order.deliver_received(order, purpose) if (send_mail and DELIVER_ORDER_NOTIFICATIONS)
     title = (o.nil? ? _("Order received") : o.subject)
-    #Notification.create(:user => order.user, :title => title)
-    order.log_history(title, order.user.id) if order.user
-    #puts o
   end
   
   def self.order_approved(order, comment, send_mail = true, current_user = nil)
@@ -40,7 +36,6 @@ class Notification < ActiveRecord::Base
     title = (o.nil? ? _("Order rejected") : o.subject)
     Notification.create(:user => order.user, :title => title)
     order.log_history(title, current_user.id)
-    #puts o
   end
   
   def self.deadline_soon_reminder(user, visits, send_mail = true)
