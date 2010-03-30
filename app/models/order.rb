@@ -124,6 +124,7 @@ class Order < Document
       save
       
       Notification.order_submitted(self, purpose, false)
+      Notification.order_received(self, purpose, true)
 
       return true
     else
