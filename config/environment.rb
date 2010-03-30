@@ -124,6 +124,14 @@ FRONTEND_SPLASH_PAGE = false
 CONTRACT_LENDING_PARTY_STRING = "Your\nAddress\nHere"
 EMAIL_SIGNATURE = "Das PZ-leihs Team"
 LDAP_CONFIG = YAML::load_file(RAILS_ROOT+'/config/LDAP.yml')
+
+# The email address that inventory pool related messages are sent to
+# if no inventory pool specific address has been set in the backend
 DEFAULT_EMAIL = 'sender@example.com'
+
+# Send a notification to the e-mail address of the inventory
+# pool when this inventory pool receives an order? If the
+# inventory pool has no address set, messages go to DEFAULT_EMAIL
+DELIVER_ORDER_NOTIFICATIONS = true
 
 ######################################################
