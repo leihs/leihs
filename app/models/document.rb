@@ -16,6 +16,11 @@ class Document < ActiveRecord::Base
     "#{id}"
   end
 
+  def lines
+    # abstract method implemented in #Order.lines or #Contract.lines
+    raise "Abstract method called"
+  end
+
   def quantity
     lines.collect(&:quantity).sum
   end
