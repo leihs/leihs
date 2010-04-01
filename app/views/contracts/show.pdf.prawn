@@ -26,8 +26,18 @@ end
 # we either need to filter all text like here or supply an external font file with full
 # UTF-8 support
 def filter(text)
+  
+  # First we discard invalid UTF-8 characters. This is so that
+  # prawn doesn't throw a hissy fit.
+  ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+  # These added bytes are to work around a bug in Iconv where
+  # trailing invalid byte sequences are not removed.
+  valid_text = ic.iconv(text + ' ')[0..-2]
+  
+  # And now we convert to ms-ansi because it's the only character set Prawn and PDFs
+  # are guaranteed to support.
   ic = Iconv.new('iso-8859-1//IGNORE//TRANSLIT','ms-ansi')
-  return ic.iconv(text)
+  return ic.iconv(valid_text)
 end
 
 
