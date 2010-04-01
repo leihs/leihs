@@ -76,7 +76,7 @@ Rails::Initializer.run do |config|
 
 # TODO 0501 # config.gem "fastercsv", :version => '>= 1.5.0'
  
-  config.gem "prawn"
+  config.gem "prawn", :version => '0.8.4'
   config.gem "ruby-net-ldap", :lib => 'net/ldap', :version => ">= 0.0.4"
  
 end
