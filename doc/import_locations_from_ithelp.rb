@@ -34,7 +34,11 @@ Item.all.each do |item|
    unless ithelp.nil? or ithelp.building.blank?
      item.location = Location.find(locations[ithelp.building])
      puts "Assigned location #{item.location} to #{item.to_s}"
-     #item.save
+     if item.save
+       puts "++ Assignment okay."
+     else
+       puts "-- Assignment failed for #{item.to_s}"
+     end
    end
  end
 end
