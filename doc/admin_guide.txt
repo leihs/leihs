@@ -197,7 +197,7 @@ If this works, stop the server again using Ctrl-C.
  $ cd sphinx-0.9.9
  $ curl -C - -O http://snowball.tartarus.org/dist/libstemmer_c.tgz
  $ tar xvfz libstemmer_c.tgz
- $ ./configure && make
+ $ ./configure --with-libstemmer && make
  $ su
  # make install
  
