@@ -12,12 +12,10 @@ class DocumentLine < ActiveRecord::Base
   # expires cached_available attributes. See #available?
   #
   before_save do |record|
-#    puts "@@@@@@@ before_save: #{record.changed}"
     # If we were updating the cached_availablity field of a #DocumentLine *only*, then
     # we do not want to trigger an update, since no real property of the line has
     # changed. We only want to trigger an updaten on changes of all the other fields.  
     unless record.changed == [ "cached_available" ]
-#      puts "@@@@@@@ OK, we need to trigger an update"
       record.void_cached_available_flag_of_same_model_and_in_same_ip
     end
   end
@@ -128,9 +126,7 @@ class DocumentLine < ActiveRecord::Base
   #         #InventoryPool. See #before_save.
   # TODO: recheck - the numbers of updates done don't add up!
   def available?
-#    puts "***** checking availablity...  #{self.inspect}"
     if self.cached_available.nil?
-#      puts "**** OK, avail is nil and needs to be realculated"
       self.cached_available = (maximum_available_quantity >= quantity)
       save
     end
