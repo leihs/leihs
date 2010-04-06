@@ -138,10 +138,10 @@ digraph G {
     frontend_models_erb;
   }
 
-  subgraph cluster_orders_view {
+  subgraph cluster_orders_controller {
     label = "app/controllers/orders_controller.rb";
 
-    orders_show;
+    show;
   }
 
   subgraph cluster_acknowledge_change_line_quantity {
@@ -258,8 +258,8 @@ digraph G {
   //-----------------------------
 
     // app/controllers/orders_controller.rb
-    orders_show -> DocumentLine_available_tooltip;
-    orders_show -> approvable;
+    show -> DocumentLine_available_tooltip;
+    show -> approvable;
 
     // DocumentLine
     available_tooltip -> DocumentLine_available;
@@ -298,7 +298,7 @@ digraph G {
   //-----------------------------
 
     // app/controllers/orders_controller.rb
-    orders_show -> OrderLine_available;
+    show -> OrderLine_available;
 
     // Order
     approvable -> OrderLine_available;
