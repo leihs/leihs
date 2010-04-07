@@ -71,7 +71,7 @@ When "$who changes number of items of model '$model' to $quantity" do |who, mode
   response.should render_template('backend/acknowledge/change_line_quantity')
   @order = assigns(:order)
   @order.has_changes?.should == true
-  find_line(model).quantity.should == 4
+  find_line(model).quantity.should == quantity.to_i
 end
 
 When "$who adds $quantity item '$model'" do |who, quantity, model|
