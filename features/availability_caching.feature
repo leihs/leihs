@@ -32,6 +32,30 @@ Scenario: Issue an Order
 	Then the availability of all order lines should be cached
 
 
+Scenario: Don't influence other Orders
+	
+	Given 1 inventory pool
+		And the list of new orders contains 0 elements
+		And a model 'Coffee Mug' exists
+		And this model has 3 items in inventory pool 1
+		And user 'Engelbart' has access to inventory pool 1
+		And a new order is placed by a user named 'Engelbart'
+		And it asks for 1 items of model 'Coffee Mug'
+		And user 'Toshi' has access to inventory pool 1
+		And a new order is placed by a user named 'Toshi'
+		And it asks for 1 items of model 'Coffee Mug'
+	When a customer for inventory pool '1' logs in as 'Engelbart'
+	 And he checks his basket
+	Then the availability of the respective orderline should be cached
+	When a customer for inventory pool '1' logs in as 'Toshi'
+	 And he checks his basket
+	Then the availability of all the order lines should be cached
+	When he deletes the first line
+	Then the availability cache of all order lines should have been invalidated
+	When a customer for inventory pool '1' logs in as 'Engelbart'
+	Then the availability of all the order lines should be cached
+
+
 Scenario: Manage a Contract
 
 	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
