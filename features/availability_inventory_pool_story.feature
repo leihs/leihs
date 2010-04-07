@@ -66,7 +66,7 @@ Scenario: User can't order things that user can't see
 	
 Scenario: User orders the same item multiple times, thus exceeding maximum quantity
 
-	Given 1 inventory pools
+	Given 1 inventory pool
 		And a model 'Pink Hairbrush' exists
 		And this model has 3 items in inventory pool 1
 		And user 'samantha' has access to inventory pool 1

@@ -6,6 +6,10 @@ Given "$size inventory pools" do | size |
   @inventory_pools.size.should == size.to_i
 end
 
+Given "1 inventory pool" do 
+  Given "1 inventory pools"
+end
+
 Given "this model has $number item$s in inventory pool $ip" do |number, s, ip|
   inventory_pool = InventoryPool.find_by_name(ip)
   number.to_i.times do | i |
