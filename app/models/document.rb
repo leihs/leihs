@@ -16,7 +16,7 @@ class Document < ActiveRecord::Base
     "#{id}"
   end
 
-  def lines
+  def lines( reload = false )
     # abstract method implemented in #Order.lines or #Contract.lines
     raise "Abstract method called"
   end

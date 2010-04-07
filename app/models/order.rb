@@ -50,8 +50,8 @@ class Order < Document
   end
 
   # alias
-  def lines
-    order_lines
+  def lines( reload = false )
+    order_lines( reload )
   end
 
 #########################################################################
