@@ -4,22 +4,37 @@ When "he checks his basket" do
   get "user/order.ext_json"
 end
 
-Then "the availability of all orderlines should be cached" do 
+When "$who deletes the first line" do | who|
+  # I tried to use order_backup_steps.rb -> When "$who deletes $size order line$s"
+  # but I couldn't get it to run
+  @order.remove_line( @order.order_lines.first.id, @order.user.id )
+end
+
+Then "the availability of all $document_type lines should be cached" do |document_type|
+  case document_type
+    when "order";    @document = @order
+    when "contract"; @document = @contract
+  end
   # we *must* reload here - thus the "true" - otherwise Rails will cache
   # the old order_lines values and muss the fact that one of them has been
   # updated. See Rails docu -> Associations -> Caching
-  @order.order_lines(true).each do |l|
+  @document.lines(true).each do |l|
     l.cached_available.should_not be_nil
   end
 end
 
 Then "the availability of the respective orderline should be cached" do 
   # uh, dirty...
-  Then "the availability of all orderlines should be cached"
+  Then "the availability of all order lines should be cached"
 end
 
-Then "then availability cache of both orderlines should have been invalidated" do
-  @order.order_lines(true).each do |l|
+Then "the availability cache of $quantifier $document_type lines should have been invalid$ated" do |quantifier,document_type,ated|
+  case document_type
+    when "order";    @document = @order
+    when "contract"; @document = @contract
+  end
+  @document.lines(true).each do |l|
     l.cached_available.should be_nil
   end
 end
+
