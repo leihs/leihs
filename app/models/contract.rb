@@ -45,8 +45,8 @@ class Contract < Document
   end
 
   # alias
-  def lines
-    contract_lines
+  def lines( reload = false )
+    contract_lines( reload )
   end
 
 #########################################################################
