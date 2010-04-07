@@ -25,6 +25,8 @@ class QtyPeriod
 
   # used for sorting
   #
+  # #Backend::BackendHelper#time_line sorts an array of #QtyPeriod s
+  #
   def <=>(other)
     if self.start_date == other.start_date
       # end_dates can be nil
