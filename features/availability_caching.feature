@@ -9,15 +9,19 @@ Feature: Caching of availabilities
 	
 	
 	
-Scenario: Add DocumentLine to a fresh Order
+Scenario: Add a few items of a model to a new order
 	
 	Given 1 inventory pools
 		And a model 'Coffee Mug' exists
-		And this model has 2 items in inventory pool 1
+		And this model has 3 items in inventory pool 1
 		And user 'joe' has access to inventory pool 1
 		And a new order is placed by a user named 'joe'
 		And it asks for 1 items of model 'Coffee Mug'
 		And a customer for inventory pool '1' logs in as 'joe'
 	When he checks his basket
 	Then the availability of the respective orderline should be cached
-	
+	When he asks for another 1 items of model 'Coffee Mug'
+	Then then availability cache of both orderlines should have been invalidated
+	When he checks his basket
+	Then the availability of all orderlines should be cached
+

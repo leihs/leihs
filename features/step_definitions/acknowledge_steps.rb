@@ -29,6 +29,10 @@ Given "$name's email address is $email" do |name, email|
   u.save
 end
 
+When "he asks for another $number items of model '$model'" do |number, model|
+	Given "it asks for #{number} items of model '#{model}'"
+end
+
 When "$who looks at the screen" do | who |
   get backend_inventory_pool_path(@inventory_pool)
   @response = response
