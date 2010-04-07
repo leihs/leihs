@@ -8,6 +8,7 @@ Given "a $role for inventory pool '$ip' logs in as '$who'" do | role, ip, who |
   get backend_inventory_pool_path(inventory_pool, :locale => 'en_US')
   @inventory_pool = assigns(:current_inventory_pool)
   @last_manager_login_name = who
+  @last_user = user
 end
 
 Given "User '$name' is a '$level' customer" do |name, level|
