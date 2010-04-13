@@ -73,7 +73,7 @@ module ApplicationHelper
       end
       r += "<br/>"
       r += content_tag :span, :style => "font-size: smaller;" do
-        pluralize(interval, _("Day"))
+        pluralize(interval, _("Day"), _("Days"))
       end
       r
     end
