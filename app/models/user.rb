@@ -160,41 +160,6 @@ class User < ActiveRecord::Base
 
 ####################################################################
 
-  def events
-    e = []
-    contract_lines.each do |l|
-      e << Event.new(:start => l.start_date, :end => l.end_date, :title =>l.model.name)
-    end
-    e.sort
-  end
-
-  def visits
-    e = []
-    contracts.unsigned.each do |c|
-      c.lines.each do |l|
-        v = e.detect { |w| w.date == l.start_date and w.inventory_pool == c.inventory_pool }
-        unless v
-          e << Event.new(:start => l.start_date, :end => l.start_date, :title => "#{self.login} - #{c.inventory_pool.name}", :isDuration => false, :action => "hand_over", :inventory_pool => c.inventory_pool, :user => self, :contract_lines => [l])
-        else
-          v.contract_lines << l
-        end
-      end
-    end
-
-    contracts.signed.each do |c|
-      c.lines.each do |l|
-        v = e.detect { |w| w.date == l.end_date and w.inventory_pool == c.inventory_pool }
-        unless v
-          e << Event.new(:start => l.end_date, :end => l.end_date, :title => "#{self.login} - #{c.inventory_pool.name}", :isDuration => false, :action => "take_back", :inventory_pool => c.inventory_pool, :user => self, :contract_lines => [l])
-        else
-          v.contract_lines << l
-        end
-      end
-    end
-
-    e.sort   
-  end
-
   def level_for(ip)
     AccessRight.scoped_by_user_id(self).scoped_by_inventory_pool_id(ip).not_suspended.not_admin.calculate("", :level).to_i
   end
@@ -308,35 +273,31 @@ class User < ActiveRecord::Base
 
     
  # private
-  
+
+  # TODO dry with deadline_soon
   def to_remind
-    e = []
-    contracts.signed.each do |c|
-      c.lines.to_remind.each do |l|
-        v = e.detect { |w| w.date == l.end_date and w.inventory_pool == c.inventory_pool }
-        unless v
-          e << Event.new(:start => l.end_date, :end => l.end_date, :title => "#{self.login} - #{c.inventory_pool}", :isDuration => false, :action => "take_back", :inventory_pool => c.inventory_pool, :user => self, :contract_lines => [l])
-        else
-          v.contract_lines << l
-        end
-      end
+    lines = contract_lines.to_remind.all(:select => "end_date, contract_id, SUM(quantity) AS quantity, GROUP_CONCAT(contract_lines.id SEPARATOR ',') AS contract_line_ids",
+                                         :include => {:contract => :inventory_pool},
+                                         :order => "end_date",
+                                         :group => "contracts.inventory_pool_id, end_date")
+
+    lines.collect do |l|
+      Event.new(:date => l.end_date, :title => "#{self.login} - #{l.contract.inventory_pool}", :quantity => l.quantity, :contract_line_ids => l.contract_line_ids.split(','),
+                :inventory_pool => l.contract.inventory_pool, :user => self)
     end
-    e.sort
   end
   
-  def deadline_soon(date = Date.tomorrow)
-    e = []
-    contracts.signed.each do |c|
-      c.lines.deadline_soon.each do |l|
-        v = e.detect { |w| w.date == l.end_date and w.inventory_pool == c.inventory_pool }
-        unless v
-          e << Event.new(:start => l.end_date, :end => l.end_date, :title => "#{self.login} - #{c.inventory_pool.name}", :isDuration => false, :action => "take_back", :inventory_pool => c.inventory_pool, :user => self, :contract_lines => [l])
-        else
-          v.contract_lines << l
-        end
-      end
+  # TODO dry with to_remind
+  def deadline_soon
+    lines = contract_lines.deadline_soon.all(:select => "end_date, contract_id, SUM(quantity) AS quantity, GROUP_CONCAT(contract_lines.id SEPARATOR ',') AS contract_line_ids",
+                                             :include => {:contract => :inventory_pool},
+                                             :order => "end_date",
+                                             :group => "contracts.inventory_pool_id, end_date")
+
+    lines.collect do |l|
+      Event.new(:date => l.end_date, :title => "#{self.login} - #{l.contract.inventory_pool}", :quantity => l.quantity, :contract_line_ids => l.contract_line_ids.split(','),
+                :inventory_pool => l.contract.inventory_pool, :user => self)
     end
-    e.sort    
   end
 
 # TODO ??

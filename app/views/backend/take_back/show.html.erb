@@ -1,23 +1,26 @@
-<%= render :partial => 'buttons' %>
-
-			<div id="meta" class="boxes">
-				<div id="meta-contract">
-					<%= show_reserver(@user) %>
+		<div id="meta" class="boxes">
+			<div id="meta-contract">
+				<table><tr>
+					<td style="font-size: 1.6em;">
+						<%=  greybox_link_to_page(	@user.name,
+								                    backend_inventory_pool_user_path(current_inventory_pool, @user, :layout => "modal"),
+								                    :title => _("User"), :width => 1000 ) %>
+					</td>
 					<% if current_inventory_pool.is_blacklisted?(@user) %>
-						<div style="background-color: #EDF09F; padding: 10px;border: 1px solid #ccc;">
-						<%= _("Currently suspended at:") %> <%= @user.suspended_inventory_pools.join(", ") %>
-						</div>
+						<td style="background-color: #EDF09F; padding: 10px; border: 1px solid #ccc;">
+							<%= _("Currently suspended at:") %> <%= @user.suspended_inventory_pools.join(", ") %>
+						</td>
 					<% end %>
-
 					<% if not current_inventory_pool.has_access?(@user) %>
-						<div style="background-color: #EDF09F; padding: 10px;border: 1px solid #ccc;">
-						<%= _("User has no access to your inventory pool anymore") %>
-						</div>
+						<td style="background-color: #EDF09F; padding: 10px;border: 1px solid #ccc;">
+							<%= _("User has no access to your inventory pool anymore") %>
+						</td>
 					<% end %>
-				</div>
+				</tr></table>
+			</div>				
+		</div>
 
-				
-			</div>
+	<%= render :partial => 'buttons' %>
 
 			<div class="table-overview">
 								

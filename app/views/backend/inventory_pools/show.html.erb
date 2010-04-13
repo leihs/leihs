@@ -30,19 +30,19 @@
 
 <td style="vertical-align:top; width: 25%;">
 	<% hand_over_visits = current_inventory_pool.hand_over_visits(Date.today) %>
-	<% visits = hand_over_visits.select {|v| v.start == Date.today } %>
+	<% visits = hand_over_visits.select {|v| v.date == Date.today } %>
 	<%= render :partial => "/backend/hand_over/index", :locals => { :visits => visits, :title => _("Today") } unless visits.empty? %>
 	<br />
-	<% visits = hand_over_visits.select {|v| v.start < Date.today } %>
+	<% visits = hand_over_visits.select {|v| v.date < Date.today } %>
 	<%= render :partial => "/backend/hand_over/index", :locals => { :visits => visits, :title => _("Overdue") } unless visits.empty? %>
 </td>
 
 <td style="vertical-align:top; width: 25%;">
 	<% take_back_visits = current_inventory_pool.take_back_visits(Date.today) %>
-	<% visits = take_back_visits.select {|v| v.start == Date.today } %>
+	<% visits = take_back_visits.select {|v| v.date == Date.today } %>
 	<%= render :partial => "/backend/take_back/index", :locals => { :visits => visits, :title => _("Today") } unless visits.empty? %>
 	<br />
-	<% visits = take_back_visits.select {|v| v.start < Date.today } %>
+	<% visits = take_back_visits.select {|v| v.date < Date.today } %>
 	<%= render :partial => "/backend/take_back/index", :locals => { :visits => visits, :title => _("Overdue") } unless visits.empty? %>
 </td>
 

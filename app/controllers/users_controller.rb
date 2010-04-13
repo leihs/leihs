@@ -6,42 +6,6 @@ class UsersController < FrontendController
     render :layout => false
   end
 
-#old#
-#  def account
-#    render :layout => false
-#  end
-#
-#
-#  def visits
-#    @visits = @user.visits
-#    respond_to do |format|
-#      format.ext_json { render :json => @visits.to_ext_json(:except => [:end, :isDuration],
-#                                                            :include => {
-#                                                                :inventory_pool => { :except => [:description,
-#                                                                                                  :logo_url,
-#                                                                                                  :contract_url,
-#                                                                                                  :contract_description,
-#                                                                                                  :created_at,
-#                                                                                                  :updated_at] },
-#                                                                :contract_lines => {
-#                                                                    :except => [:created_at,
-#                                                                                :updated_at],
-#                                                                    :include => { :model => { :except => [:maintenance_period,
-#                                                                                                          :created_at,
-#                                                                                                          :updated_at] },
-#                                                                                  :item => { :except => [:is_borrowable,
-#                                                                                                         :is_incomplete,
-#                                                                                                         :is_broken,
-#                                                                                                         :required_level,
-#                                                                                                         :created_at,
-#                                                                                                         :updated_at] } } 
-#                                                                }
-#                                                            }
-#                                                           ) }
-#    end
-#  end
-
-
 ########################################################################  
 
   # TODO 15** optimize routing 

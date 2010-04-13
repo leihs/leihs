@@ -578,8 +578,9 @@ module Backend::BackendHelper
 
   def lines_preview(document)
     s = 3
-    r = document.lines[0..s-1].collect {|l| l.model.name }
-    r << "..." if document.lines.size > s
+    lines = document.lines
+    r = lines[0..s-1].collect {|l| l.model.name }
+    r << "..." if lines.size > s
     r.join(', ')
   end
 

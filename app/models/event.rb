@@ -1,28 +1,27 @@
+# TODO drop completely this class!!!
 class Event < ActiveRecord::Base
   def self.columns() @columns ||= []; end
   def self.column(name, sql_type = nil, default = nil, null = true)
     columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
   end
   
-  column :start, :date, Date.today
-  column :end, :date, Date.today
+  column :date, :date, Date.today
   column :title, :string, ""
-  column :isDuration, :boolean, true
   column :action, :string, "hand_over"
   column :quantity, :integer, 0
+  column :contract_line_ids, :string, nil # Array
 
   has_one :inventory_pool
   has_one :user
-  has_many :contract_lines                
 
+  # OPTIMIZE
+  def contract_lines
+    @contract_lines ||= ContractLine.all(:conditions => {:id => contract_line_ids})
+  end
+  
   # alias
   def lines
     contract_lines
-  end
-
-  #alias
-  def date
-    start
   end
 
   # compares two objects in order to sort them
