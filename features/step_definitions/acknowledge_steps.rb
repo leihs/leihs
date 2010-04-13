@@ -170,3 +170,9 @@ Then "$who sees $quantity items of model '$model'" do |who, quantity, model|
   line.should_not be_nil
   line.quantity.should == quantity.to_i
 end
+
+Then "all '$what' order lines are marked as invalid" do |what|
+  # TODO: VERY ugly - we need have_tag "td.valid_false"
+  @response.body.should =~ /valid_false/
+end
+
