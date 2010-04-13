@@ -1,3 +1,4 @@
+require "date"
 # A DocumentLine is a line in a #Document and
 # serves as an abstract superclass for #OrderLine
 # and #ContractLine.
@@ -8,6 +9,10 @@ class DocumentLine < ActiveRecord::Base
   before_validation_on_create :set_defaults
   validate :date_sequence  
   validates_numericality_of :quantity, :greater_than_or_equal_to => 0, :only_integer => true 
+
+  before_create do |record|
+    record.cached_available = nil
+  end
 
   # expires cached_available attributes. See #available?
   #
@@ -31,8 +36,7 @@ class DocumentLine < ActiveRecord::Base
       ActiveRecord::Base.connection.update "UPDATE order_lines " \
                                               "SET cached_available = NULL " \
                                               "WHERE model_id = '#{self.model_id}' " \
-                                                "AND order_id = '#{self.order_id}' " \
-                                                "AND id != '#{self.id}' "
+                                                "AND order_id = '#{self.order_id}' "
     else
       # TODO don't care about backup 
       [ "contract", "order"].each do |document|
@@ -45,7 +49,6 @@ class DocumentLine < ActiveRecord::Base
                                                 "SET #{document}_lines.cached_available = NULL " \
                                                 "WHERE #{document}_lines.model_id = '#{self.model_id}' " \
                                                   "AND #{document}_lines.#{document}_id = #{document}s.id " \
-                                                  "AND #{document}_lines.id != '#{self.id}' " \
                                                   "AND #{document}s.inventory_pool_id = '#{self.inventory_pool.id}'"
       end
     end

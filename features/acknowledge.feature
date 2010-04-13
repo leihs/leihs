@@ -101,6 +101,20 @@ Scenario: Change amount and add Item
 		And it contains information 'NEC 333 is better in that situation'
 
 
+Scenario: Increase amount beyond the number of available Items
+
+	Given a model 'NEC 245' exists
+		And 1 items of model 'NEC 245' exist
+		And a new order is placed by a user named 'Joe'
+		And it asks for 1 items of model 'NEC 245'
+		And the new order is submitted
+	When the lending_manager clicks on 'acknowledge'
+		And he chooses Joe's order
+	Then Joe's order is shown
+	When lending_manager changes number of items of model 'NEC 245' to 2
+	Then all 'NEC 245' order lines are marked as invalid
+
+
 Scenario: Swap Model
 
 	Given a model 'NEC 245' exists
