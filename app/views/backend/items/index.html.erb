@@ -2,7 +2,7 @@
 	<%= link_to _('New Item'), [:new, :backend, current_inventory_pool, @model, :item].compact %>
 <% end if is_privileged_user? and not request.xml_http_request? %>
 
-<% table_with_search_and_pagination :columns => ["", [_("Model"), 'model_name'], [_("Inventory Code"), 'inventory_code'], _("Location"), _("Status"), _("In stock?"), _("Action")],
+<% table_with_search_and_pagination :columns => ["", [_("Model"), 'model_name'], [_("Inventory Code"), 'inventory_code'], _("Location"), _("Status"), _("Level"), _("In stock?"), _("Action")],
 						   			:records => @items do |item| %>	
 
 		<% record_path = [:backend, current_inventory_pool, item.model, item] %>
@@ -44,6 +44,9 @@
 						<% end unless item.is_borrowable?
 					end
 				end %>
+			</td>
+			<td>
+				<%= item.required_level %>
 			</td>
 			<td>
 				<% if item.in_stock? %><%# OPTIMIZE 0501 performance: named_scope or sphinx_scope in_stock?(item) %>
