@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
 ############################################################################
 # Frontend
 
-  map.resource :user do |user| #old#, :member => { :visits => :get, :account => :get }
+  map.resource :user do |user|
       user.resources :orders #TODO#, :only => [:show, :destroy]
       user.resource :order, :member => { :submit => :post,
                                          :add_line => :post,

@@ -122,29 +122,31 @@ class InventoryPool < ActiveRecord::Base
   end
 ###################################################################################
   
+  # TODO dry with take_back_visits
   def hand_over_visits(max_start_date = nil)
-    lines = contract_lines.to_hand_over.all(:select => "start_date, end_date, contract_id, SUM(quantity) AS quantity",
+    lines = contract_lines.to_hand_over.all(:select => "start_date, contract_id, SUM(quantity) AS quantity, GROUP_CONCAT(contract_lines.id SEPARATOR ',') AS contract_line_ids",
                                             :include => {:contract => :user},
                                             :conditions => (max_start_date ? ["start_date <= ?", max_start_date] : nil),
                                             :order => "start_date",
                                             :group => "contracts.user_id, start_date")
 
     lines.collect do |l|
-      Event.new(:start => l.start_date, :end => l.end_date, :title => l.contract.user.login, :quantity => l.quantity,
-                :isDuration => false, :action => "hand_over", :inventory_pool => self, :user => l.contract.user)
+      Event.new(:date => l.start_date, :title => l.contract.user.login, :quantity => l.quantity, :contract_line_ids => l.contract_line_ids.split(','),
+                :inventory_pool => self, :user => l.contract.user)
     end
   end
 
+  # TODO dry with hand_over_visits
   def take_back_visits(max_end_date = nil)
-    lines = contract_lines.to_take_back.all(:select => "start_date, end_date, contract_id, SUM(quantity) AS quantity",
+    lines = contract_lines.to_take_back.all(:select => "end_date, contract_id, SUM(quantity) AS quantity, GROUP_CONCAT(contract_lines.id SEPARATOR ',') AS contract_line_ids",
                                             :include => {:contract => :user},
                                             :conditions => (max_end_date ? ["end_date <= ?", max_end_date] : nil),
                                             :order => "end_date",
                                             :group => "contracts.user_id, end_date")
 
     lines.collect do |l|
-      Event.new(:start => l.end_date, :end => l.end_date, :title => l.contract.user.login, :quantity => l.quantity,
-                :isDuration => false, :action => "take_back", :inventory_pool => self, :user => l.contract.user)
+      Event.new(:date => l.end_date, :title => l.contract.user.login, :quantity => l.quantity, :contract_line_ids => l.contract_line_ids.split(','),
+                :inventory_pool => self, :user => l.contract.user)
     end
   end
 
