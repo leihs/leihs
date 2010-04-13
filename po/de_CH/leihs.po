@@ -1882,6 +1882,10 @@ msgstr "Geräteparks"
 msgid "Day"
 msgstr "Tag"
 
+#: app/helpers/application_helper.rb:76
+msgid "Days"
+msgstr "Tage"
+
 #: app/helpers/backend/acknowledge_helper.rb:9
 #: app/views/backend/inventory_pools/show.html.erb:33
 #: app/views/backend/inventory_pools/show.html.erb:41
