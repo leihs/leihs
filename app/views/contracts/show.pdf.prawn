@@ -103,10 +103,15 @@ table_data = []
 @contract.lines.sort.each do |l|
    
    mindate = l.end_date if ( l.end_date < mindate && l.returned_date.nil? )
-
+   
+   # Only print "broken" if the item actually is broken, otherwise a blank
+   # is more than enough
+   condition = ""
+   condition = ("[" + _("Broken") + "] ") if l.item.is_broken? == true
+   
    table_data << [ l.quantity, 
                    filter(l.item.inventory_code),
-                   filter(l.model.name),
+                   filter(condition) + filter(l.model.name),
                    short_date(l.start_date),
                    short_date(l.end_date),
                    short_date(l.returned_date) ]
