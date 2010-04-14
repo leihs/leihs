@@ -134,11 +134,11 @@ pdf.table(table_data,
 
 pdf.move_down 6.mm
 
-pdf.text "#{filter(_("Purpose:"))} #{filter(purpose)}"
+pdf.text filter(_("Purpose:")) + " " + filter(purpose)
 pdf.move_down 3.mm
 
 unless @contract.note.blank?
-  pdf.text "#{filter(_("Additional notes:"))} #{filter(@contract.note)}"
+  pdf.text filter(_("Additional notes:")) + " " + @contract.note
   pdf.move_down 3.mm
 end
 
@@ -151,7 +151,7 @@ today = Date.today.strftime("%d.%m.%Y")
 
 pdf.move_down 8.mm
 
-pdf.text "#{filter(_("Signature of borrower:"))} #{today}," 
+pdf.text filter(_("Signature of borrower:")) + " " + today 
 
 pdf.stroke do
   pdf.line_width 0.5
@@ -160,7 +160,7 @@ end
 
 pdf.move_down 8.mm
 
-pdf.text "#{filter(_("Signature of person taking back the item:"))}" 
+pdf.text filter(_("Signature of person taking back the item:")) 
 
 pdf.stroke do
   pdf.line_width 0.5
