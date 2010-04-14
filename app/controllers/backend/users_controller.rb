@@ -52,6 +52,7 @@ class Backend::UsersController < Backend::BackendController
       redirect_to [:backend, current_inventory_pool, @user].compact
     else
       flash[:error] = @user.errors.full_messages
+      render :action => :new
     end
   end
 
