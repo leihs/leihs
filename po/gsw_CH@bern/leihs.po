@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
-"POT-Creation-Date: 2010-03-30 09:47+0200\n"
+"POT-Creation-Date: 2010-04-14 10:51+0100\n"
 "PO-Revision-Date: 2010-03-09 14:43+0100\n"
 "Last-Translator: nobody\n"
 "Language-Team: Swiss-German (Bern area)\n"
@@ -127,36 +127,36 @@ msgstr "Benutzer muess usgwählt sii"
 msgid "The selected lines have been moved"
 msgstr "Di uusgwählte Linie sind verschobe worde"
 
-#: app/controllers/backend/items_controller.rb:90
+#: app/controllers/backend/items_controller.rb:92
 msgid "New item created."
 msgstr "Neui Gägestand erstellt."
 
-#: app/controllers/backend/items_controller.rb:121
+#: app/controllers/backend/items_controller.rb:123
 msgid "Item saved."
 msgstr "Sachä gspeicheret"
 
-#: app/controllers/backend/items_controller.rb:131
+#: app/controllers/backend/items_controller.rb:133
 #, fuzzy
 msgid "You don't have access to this item."
 msgstr "Sii händ kei Zuegriffsrächt für die Aawändig"
 
-#: app/controllers/backend/items_controller.rb:143
+#: app/controllers/backend/items_controller.rb:145
 msgid "Location successfully set"
 msgstr "Ort erfolgriich gsetzt"
 
-#: app/controllers/backend/items_controller.rb:145
+#: app/controllers/backend/items_controller.rb:147
 msgid "Error setting the location"
 msgstr "Error bim setze vom Ort"
 
-#: app/controllers/backend/items_controller.rb:175
+#: app/controllers/backend/items_controller.rb:177
 msgid "Item retired (%s)"
 msgstr "Sache uusgmuschteret (%s)"
 
-#: app/controllers/backend/items_controller.rb:225
+#: app/controllers/backend/items_controller.rb:227
 msgid "Item handed over as part of contract %d."
 msgstr "Sach als Teil vom Vertrag %d übergäh"
 
-#: app/controllers/backend/items_controller.rb:226
+#: app/controllers/backend/items_controller.rb:228
 msgid "Expected to be returned."
 msgstr "Rückgab erwartet"
 
@@ -696,19 +696,12 @@ msgid "event"
 msgstr "Aalass"
 
 #: app/models/inventory_pool.rb:-
-msgid "Event|Start"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Event|End"
-msgstr ""
+#, fuzzy
+msgid "Event|Date"
+msgstr "Aazahl"
 
 #: app/models/inventory_pool.rb:-
 msgid "Event|Title"
-msgstr ""
-
-#: app/models/inventory_pool.rb:-
-msgid "Event|Isduration"
 msgstr ""
 
 #: app/models/inventory_pool.rb:-
@@ -720,6 +713,11 @@ msgstr "Aktion"
 #, fuzzy
 msgid "Event|Quantity"
 msgstr "Aazahl"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Event|Contract line ids"
+msgstr "Vertragsziile"
 
 #: app/models/inventory_pool.rb:-
 msgid "option"
@@ -822,6 +820,11 @@ msgstr "Verträg"
 #, fuzzy
 msgid "ContractLine|Type"
 msgstr "Verträg"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ContractLine|Cached available"
+msgstr "Vertrag %d"
 
 #: app/models/inventory_pool.rb:-
 msgid "contract"
@@ -1245,6 +1248,11 @@ msgid "OptionLine|Type"
 msgstr "Optionä"
 
 #: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OptionLine|Cached available"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
 msgid "model link"
 msgstr "Modäll-Link"
 
@@ -1304,6 +1312,11 @@ msgstr "Vertrag %d"
 #: app/models/inventory_pool.rb:-
 #, fuzzy
 msgid "OrderLine|Updated at"
+msgstr "Vertrag %d"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "OrderLine|Cached available"
 msgstr "Vertrag %d"
 
 #: app/models/inventory_pool.rb:-
@@ -1653,28 +1666,33 @@ msgstr "Ort"
 msgid "ItemLine|Type"
 msgstr ""
 
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "ItemLine|Cached available"
+msgstr "Vertrag %d"
+
 #: app/models/notification.rb:7
 msgid "Order submitted"
 msgstr "Bstellig abgschickt"
 
-#: app/models/notification.rb:17
+#: app/models/notification.rb:16
 #, fuzzy
 msgid "Order received"
 msgstr "Bstellig abglehnt"
 
-#: app/models/notification.rb:32
+#: app/models/notification.rb:28
 msgid "Order approved"
 msgstr "Bstellig genehmigt"
 
-#: app/models/notification.rb:40
+#: app/models/notification.rb:36
 msgid "Order rejected"
 msgstr "Bstellig abglehnt"
 
-#: app/models/notification.rb:48
+#: app/models/notification.rb:43
 msgid "Deadline soon"
 msgstr "Baldigi Deadline"
 
-#: app/models/notification.rb:56
+#: app/models/notification.rb:51
 msgid "Reminder"
 msgstr "Erinnerig"
 
@@ -1696,63 +1714,63 @@ msgstr "Genehmigt"
 msgid "Rejected"
 msgstr "Abglehnt"
 
-#: app/models/order.rb:146
+#: app/models/order.rb:145
 msgid "Changed quantity for %{model} from %{from} to %{to}"
 msgstr "Mängi für %{model} vo %{from} uf %{to} gwächslet"
 
-#: app/models/order.rb:148
+#: app/models/order.rb:147
 msgid "Maximum number of items available at that time is %{max}"
 msgstr "Es sind zu däre Ziit nume %{max} Sachä ume"
 
-#: app/models/order.rb:149
+#: app/models/order.rb:148
 msgid "(maximum available: %{max})"
 msgstr "(högschtens ume: %{max})"
 
-#: app/models/order.rb:156
+#: app/models/order.rb:155
 msgid "Purpose changed '%{from}' for '%{to}'"
 msgstr "Zwäck gwächslet vo '%{from}' uf '%{to}'"
 
-#: app/models/order.rb:166
+#: app/models/order.rb:165
 msgid "User swapped %{from} for %{to}"
 msgstr "Benutzer gwächslet vo %{from} zu %{to}"
 
-#: app/models/document.rb:55
+#: app/models/document.rb:60
 msgid "Added"
 msgstr "Dezuetue"
 
-#: app/models/document.rb:63
+#: app/models/document.rb:68
 msgid "Swapped %{from} for %{to}"
 msgstr "%{from} dür %{to} ustuuschet"
 
-#: app/models/document.rb:80
+#: app/models/document.rb:85
 msgid "Changed dates for %{model} from %{from} to %{to}"
 msgstr "Datum für %{model} vo %{from} uf %{to} gwächslet"
 
-#: app/models/document.rb:91
+#: app/models/document.rb:96
 msgid "Removed %{q} %{m}"
 msgstr "%{q} %{m} wäggnoh"
 
-#: app/models/document_line.rb:76
+#: app/models/document_line.rb:120
 msgid "not valid. "
 msgstr "nöd gültig."
 
-#: app/models/document_line.rb:77
+#: app/models/document_line.rb:121
 msgid "not available. "
 msgstr "nöd verfüegbar."
 
-#: app/models/document_line.rb:92
+#: app/models/document_line.rb:146
 msgid "quantity not available. "
 msgstr "Azahl nöd ume."
 
-#: app/models/document_line.rb:93
+#: app/models/document_line.rb:147
 msgid "inventory pool is closed on start_date. "
 msgstr "Grätepark isch am start_date zue."
 
-#: app/models/document_line.rb:94
+#: app/models/document_line.rb:148
 msgid "inventory pool is closed on end_date. "
 msgstr "Grätepark isch am end_date zue."
 
-#: app/models/document_line.rb:109 app/helpers/backend/backend_helper.rb:374
+#: app/models/document_line.rb:163 app/helpers/backend/backend_helper.rb:374
 #: app/views/frontend/_complete_order.html.erb:193
 #: app/views/frontend/_models.html.erb:401
 msgid "Start Date must be before End Date"
@@ -1796,15 +1814,15 @@ msgstr "Die Option ghört nöd zum Grätepark wo zu dem Vertrag ghört"
 msgid "already in Category"
 msgstr "Scho inere Karegorie"
 
-#: app/models/user.rb:224
+#: app/models/user.rb:189
 msgid "Reminded %{q} items for contracts %{c}"
 msgstr "%{q} Sachä für Vertrag %{c} erinneret"
 
-#: app/models/user.rb:230
+#: app/models/user.rb:195
 msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
 msgstr "Fehlgschlagne Reminder vo %{q} Sachä vom Vertrag %{c}"
 
-#: app/models/user.rb:254
+#: app/models/user.rb:219
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr "Reminder für baldigi Deadline für %{q} Sachä vom Vertrag %{c} gschickt"
 
@@ -1873,7 +1891,7 @@ msgstr "Verfüegbari Aazahl"
 #: app/views/backend/hand_over/index.html.erb:4
 #: app/views/backend/locations/index.html.erb:2
 #: app/views/backend/take_back/index.html.erb:4
-#: app/views/backend/take_back/show.html.erb:25
+#: app/views/backend/take_back/show.html.erb:28
 #: app/views/backend/templates/index.html.erb:5
 #: app/views/backend/acknowledge/index.html.erb:14
 #: app/views/layouts/backend/00-patterns/_menu_inventory_items.html.erb:1
@@ -1896,9 +1914,13 @@ msgstr "Grätepark"
 msgid "Day"
 msgstr ""
 
+#: app/helpers/application_helper.rb:76
+msgid "Days"
+msgstr ""
+
 #: app/helpers/backend/acknowledge_helper.rb:9
-#: app/views/backend/inventory_pools/show.html.erb:33
-#: app/views/backend/inventory_pools/show.html.erb:41
+#: app/views/backend/inventory_pools/show.html.erb:34
+#: app/views/backend/inventory_pools/show.html.erb:43
 msgid "Today"
 msgstr "Hüt"
 
@@ -1956,6 +1978,7 @@ msgstr "Reservierer"
 #: app/views/backend/orders/index.html.erb:11
 #: app/views/backend/orders/show.html.erb:24
 #: app/views/backend/take_back/index.html.erb:24
+#: app/views/backend/take_back/show.html.erb:7
 #: app/views/backend/contracts/index.html.erb:10
 #: app/views/backend/acknowledge/index.html.erb:25
 #: app/views/backend/acknowledge/show.html.erb:30
@@ -1978,7 +2001,7 @@ msgstr "Benutzer"
 #: app/views/frontend/_basket.html.erb:16
 #: app/views/orders/value_list.pdf.prawn:46
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
-#: app/views/contracts/show.pdf.prawn:83
+#: app/views/contracts/show.pdf.prawn:95
 msgid "Model"
 msgstr "Modäll"
 
@@ -2475,7 +2498,7 @@ msgstr "Abbräche"
 #: app/views/backend/hand_over/show.html.erb:47
 #: app/views/backend/hand_over/_option_line.html.erb:22
 #: app/views/backend/take_back/_item_line.html.erb:15
-#: app/views/backend/take_back/show.html.erb:31
+#: app/views/backend/take_back/show.html.erb:34
 #: app/views/backend/take_back/_option_line.html.erb:19
 #: app/views/backend/acknowledge/_line.html.erb:27
 #: app/views/backend/acknowledge/show.html.erb:73
@@ -2519,7 +2542,7 @@ msgstr "Bsuech am"
 #: app/views/backend/categories/index.html.erb:41
 #: app/views/backend/inventory_pools/index.html.erb:5
 #: app/views/backend/take_back/index.html.erb:4
-#: app/views/backend/take_back/show.html.erb:50
+#: app/views/backend/take_back/show.html.erb:53
 #: app/views/backend/templates/index.html.erb:5
 #: app/views/backend/templates/models.html.erb:21
 #: app/views/backend/contracts/index.html.erb:1
@@ -2545,7 +2568,7 @@ msgid "Contract Nr."
 msgstr "Vertrag nr. "
 
 #: app/views/backend/hand_over/show.html.erb:16
-#: app/views/backend/take_back/show.html.erb:8
+#: app/views/backend/take_back/show.html.erb:11
 #: app/views/backend/acknowledge/show.html.erb:35
 msgid "Currently suspended at:"
 msgstr "Momentan suschpendiert bi:"
@@ -2569,7 +2592,7 @@ msgid "From today"
 msgstr "Vo hüt"
 
 #: app/views/backend/hand_over/show.html.erb:43
-#: app/views/backend/take_back/show.html.erb:27
+#: app/views/backend/take_back/show.html.erb:30
 #: app/views/backend/acknowledge/show.html.erb:69
 msgid "Change Timeframe for selection"
 msgstr "Ziitfenschter für Uuswahl veränderä"
@@ -2595,7 +2618,7 @@ msgstr "Ziitfänschter"
 #: app/views/backend/hand_over/show.html.erb:74
 #: app/views/backend/items/_general_info.html.erb:36
 #: app/views/backend/models/package_roots.html.erb:8
-#: app/views/backend/take_back/show.html.erb:46
+#: app/views/backend/take_back/show.html.erb:49
 #: app/views/backend/options/index.html.erb:13
 #: app/views/backend/options/index.html.erb:30
 #: app/views/backend/options/show.html.erb:5
@@ -2690,7 +2713,7 @@ msgstr "Gstell"
 
 #: app/views/backend/locations/index.html.erb:13
 #: app/views/backend/users/index.html.erb:41
-#: app/views/backend/items/index.html.erb:56
+#: app/views/backend/items/index.html.erb:59
 #: app/views/backend/models/index.html.erb:94
 #: app/views/backend/models/package_roots.html.erb:5
 #: app/views/backend/models/package_roots.html.erb:59
@@ -2929,7 +2952,7 @@ msgstr "Noii Sach"
 
 #: app/views/backend/items/index.html.erb:5
 #: app/views/backend/models/package_roots.html.erb:51
-#: app/views/contracts/show.pdf.prawn:83
+#: app/views/contracts/show.pdf.prawn:95
 msgid "Inventory Code"
 msgstr "Inventarcode"
 
@@ -2940,6 +2963,11 @@ msgstr "Inventarcode"
 #: app/views/contracts/_signed.html.erb:10
 msgid "Status"
 msgstr "Status"
+
+#: app/views/backend/items/index.html.erb:5
+#: app/views/backend/items/_status.html.erb:23
+msgid "Level"
+msgstr "Stufä"
 
 #: app/views/backend/items/index.html.erb:5
 msgid "In stock?"
@@ -2978,12 +3006,12 @@ msgstr "Nöd vollständig"
 msgid "Unborrowable"
 msgstr "Nöd uuslehnbar"
 
-#: app/views/backend/items/index.html.erb:58
+#: app/views/backend/items/index.html.erb:61
 #: app/views/backend/items/retire.html.erb:3
 msgid "Unretire"
 msgstr "nüme uusmuschtere"
 
-#: app/views/backend/items/index.html.erb:58
+#: app/views/backend/items/index.html.erb:61
 #: app/views/backend/items/retire.html.erb:6
 msgid "Retire"
 msgstr "Uusmuschtere"
@@ -2993,7 +3021,7 @@ msgstr "Uusmuschtere"
 #: app/views/backend/models/package_roots.html.erb:61
 #: app/views/backend/orders/_lines.html.erb:5
 #: app/views/backend/take_back/_item_line.html.erb:20
-#: app/views/backend/take_back/show.html.erb:43
+#: app/views/backend/take_back/show.html.erb:46
 #: app/views/backend/acknowledge/show.html.erb:92
 msgid "Item"
 msgstr "Sach"
@@ -3030,10 +3058,6 @@ msgstr "Vollständigkeit"
 #: app/views/backend/take_back/inspection.html.erb:14
 msgid "Borrowable"
 msgstr "Uuslehnbar"
-
-#: app/views/backend/items/_status.html.erb:23
-msgid "Level"
-msgstr "Stufä"
 
 #: app/views/backend/items/_status.html.erb:28
 msgid "Needs permission"
@@ -3336,7 +3360,7 @@ msgid "Quantity"
 msgstr "Aazahl"
 
 #: app/views/backend/orders/_lines.html.erb:6
-#: app/views/backend/take_back/show.html.erb:44
+#: app/views/backend/take_back/show.html.erb:47
 #: app/views/backend/acknowledge/show.html.erb:93
 msgid "Time frame"
 msgstr "Ziitfänschter"
@@ -3383,8 +3407,8 @@ msgstr "Churzname"
 msgid "Last Visitors"
 msgstr "Letschti Bsuecher"
 
-#: app/views/backend/inventory_pools/show.html.erb:36
-#: app/views/backend/inventory_pools/show.html.erb:44
+#: app/views/backend/inventory_pools/show.html.erb:37
+#: app/views/backend/inventory_pools/show.html.erb:46
 msgid "Overdue"
 msgstr "Überfällig"
 
@@ -3437,16 +3461,16 @@ msgstr "Inspektion"
 msgid "Take Back"
 msgstr "Zruggnäh"
 
-#: app/views/backend/take_back/show.html.erb:14
+#: app/views/backend/take_back/show.html.erb:16
 msgid "User has no access to your inventory pool anymore"
 msgstr "De Benutzer hät kein Zuegang meh zu Ihrem Grätepark"
 
-#: app/views/backend/take_back/show.html.erb:39
+#: app/views/backend/take_back/show.html.erb:42
 #: app/views/backend/acknowledge/show.html.erb:91
 msgid "Check all"
 msgstr "Ali aawählä"
 
-#: app/views/backend/take_back/show.html.erb:41
+#: app/views/backend/take_back/show.html.erb:44
 msgid "Check today's"
 msgstr "Vo hüt aawählä"
 
@@ -3671,14 +3695,14 @@ msgstr "Wotsch diä Bstellig abschickä?"
 #: app/views/frontend/_complete_order.html.erb:363
 #: app/views/frontend/_models.html.erb:368
 #: app/views/frontend/_models.html.erb:372
-#: app/views/contracts/show.pdf.prawn:83
+#: app/views/contracts/show.pdf.prawn:95
 msgid "Start date"
 msgstr "Startdatum"
 
 #: app/views/frontend/_complete_order.html.erb:374
 #: app/views/frontend/_models.html.erb:387
 #: app/views/frontend/_models.html.erb:391
-#: app/views/contracts/show.pdf.prawn:83
+#: app/views/contracts/show.pdf.prawn:95
 msgid "End date"
 msgstr "Enddatum"
 
@@ -3842,19 +3866,19 @@ msgstr "Nonig fertig"
 
 #: app/views/orders/value_list.pdf.prawn:28
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:32
-#: app/views/contracts/show.pdf.prawn:64
+#: app/views/contracts/show.pdf.prawn:76
 msgid "Borrowing party:"
 msgstr "Uusleihendi:"
 
 #: app/views/orders/value_list.pdf.prawn:29
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:33
-#: app/views/contracts/show.pdf.prawn:65
+#: app/views/contracts/show.pdf.prawn:77
 msgid "Lending party:"
 msgstr "Verleiher:"
 
 #: app/views/orders/value_list.pdf.prawn:46
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
-#: app/views/contracts/show.pdf.prawn:83
+#: app/views/contracts/show.pdf.prawn:95
 msgid "Qt"
 msgstr "Az"
 
@@ -3883,15 +3907,15 @@ msgstr ""
 msgid "All prices in CHF."
 msgstr ""
 
-#: app/views/contracts/show.pdf.prawn:35
+#: app/views/contracts/show.pdf.prawn:47
 msgid "No purpose given."
 msgstr "Kän Zwäck iitreit."
 
-#: app/views/contracts/show.pdf.prawn:56
+#: app/views/contracts/show.pdf.prawn:68
 msgid "Contract no. %d"
 msgstr "Vertrag Nr. %d"
 
-#: app/views/contracts/show.pdf.prawn:61
+#: app/views/contracts/show.pdf.prawn:73
 msgid ""
 "This lending contract covers borrowing the following items by the person "
 "(natural or legal) described as 'borrowing party' below. Use of these items "
@@ -3902,11 +3926,19 @@ msgstr ""
 "D'Verwändig vo de Gegenstände isch nur im Rahme vom une aangähne Zwäck "
 "gestattet."
 
-#: app/views/contracts/show.pdf.prawn:83
+#: app/views/contracts/show.pdf.prawn:95
 msgid "Returned date"
 msgstr "Rückgabedatum"
 
-#: app/views/contracts/show.pdf.prawn:134
+#: app/views/contracts/show.pdf.prawn:137
+msgid "Purpose:"
+msgstr "Zwäck:"
+
+#: app/views/contracts/show.pdf.prawn:141
+msgid "Additional notes:"
+msgstr "Wiiteri Bemerkige:"
+
+#: app/views/contracts/show.pdf.prawn:146
 msgid ""
 "Die Benutzerin/der Benutzer ist bei unsachgemaesser Handhabung oder Verlust "
 "schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfaeltig "
@@ -3917,6 +3949,14 @@ msgid ""
 "Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die "
 "Benutzerin/der Benutzer diese Bedingungen sowie die 'Richtlinie zur Ausleihe "
 "von Sachen der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien."
+msgstr ""
+
+#: app/views/contracts/show.pdf.prawn:154
+msgid "Signature of borrower:"
+msgstr "Unterschrift vom/vode Uusleihende/i:"
+
+#: app/views/contracts/show.pdf.prawn:163
+msgid "Signature of person taking back the item:"
 msgstr ""
 
 #: lib/role_requirement_system.rb:118
@@ -4054,15 +4094,6 @@ msgstr "Zuegriff verweigeret"
 
 #~ msgid "Badge ID:"
 #~ msgstr "Badge-ID:"
-
-#~ msgid "Purpose:"
-#~ msgstr "Zwäck:"
-
-#~ msgid "Additional notes:"
-#~ msgstr "Wiiteri Bemerkige:"
-
-#~ msgid "Signature of borrower:"
-#~ msgstr "Unterschrift vom/vode Uusleihende/i:"
 
 #, fuzzy
 #~ msgid "A model already exists with this name."
