@@ -107,8 +107,10 @@ table_data = []
    # Only print "broken" if the item actually is broken, otherwise a blank
    # is more than enough
    condition = ""
-   condition = ("[" + _("Broken") + "] ") if l.item.is_broken? == true
-   
+   if l.class.name == "ItemLine"
+     condition = ("[" + _("Broken") + "] ") if l.item.is_broken? == true
+   end
+  
    table_data << [ l.quantity, 
                    filter(l.item.inventory_code),
                    filter(condition) + filter(l.model.name),
