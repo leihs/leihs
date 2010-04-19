@@ -55,10 +55,35 @@ When "$who chooses one line" do | who |
   @contract = assigns(:contract)
 end
 
+# copied from 'When "$who chooses $name's order"'
+#
+When "$who chooses $name's visit" do | who, name |
+  @visit = @visits.detect { |c| c.user.login == name }
+  get backend_inventory_pool_user_hand_over_path(@inventory_pool, @visit.user)
+  response.should render_template('backend/hand_over/show')
+  @contract = assigns(:contract)
+  @response = response
+end
+
+When "$who assigns '$item' to the first line" do | who,item |
+  post change_line_backend_inventory_pool_user_hand_over_path(
+	 @inventory_pool, @visit.user,
+         :contract_line_id => @contract.contract_lines.first.id, :code => item )
+end
+
+When "he signs the contract" do
+  post sign_contract_backend_inventory_pool_user_hand_over_path(
+	 @inventory_pool, @visit.user, :lines => [@contract.contract_lines.first.id] )
+end
+
 Then "a new contract is generated" do
   @contract.nil?.should == false
 end
 
 Then /^he sees ([0-9]+) contract line(s?) for all approved order lines$/ do | size, s |
   @contract.contract_lines.size.should == size.to_i
+end
+
+Then "the total number of contracts is $n_contracts" do |n_contracts|
+	Contract.all.count.should == n_contracts.to_i
 end
