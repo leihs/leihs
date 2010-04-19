@@ -119,3 +119,25 @@ Scenario: Don't generate a new contract if all Items are handed over
          And he assigns 'AV_NEC245_1' to the first line
          And he signs the contract
 	Then the total number of contracts is 1
+
+Scenario: Bugfix: Don't allow handing over the same item twice
+
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a model 'NEC 245' exists
+	  	And items AV_NEC245_1,AV_NEC245_2 of model 'NEC 245' exist
+        Given there are no orders and no contracts
+	Given 'Joe' places a new order
+		And he asks for 1 'NEC 245' from 31.3.2100 
+		And he submits the new order
+		And lending_manager approves the order
+	Given 'Toshi' places a new order
+		And he asks for 1 'NEC 245' from 31.3.2100
+		And he submits the new order
+		And lending_manager approves the order
+	When lending_manager clicks on 'hand_over'
+	 And he chooses Joe's visit
+         And he assigns 'AV_NEC245_1' to the first line
+	When lending_manager clicks on 'hand_over'
+	 And he chooses Toshi's visit
+	When he tries to assign 'AV_NEC245_1' to the first line
+	Then he should see a flash error

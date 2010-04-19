@@ -20,10 +20,12 @@ class ContractLine < DocumentLine
 
   # NOTE using table alias to prevent "Not unique table/alias" Mysql error
   # TODO default_scope :joins ??
+  # these are the things we need to_take_back, to_hand_over, ...
   named_scope :to_hand_over,  :joins => "INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id",
                               :conditions => ["my_contract.status_const = ?", Contract::UNSIGNED]
   named_scope :to_take_back,  :joins => "INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id",
                               :conditions => ["my_contract.status_const = ? AND contract_lines.returned_date IS NULL", Contract::SIGNED]
+  named_scope :not_returned,  :conditions => {:returned_date => nil}
   named_scope :to_remind,  :joins => "INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id",
                            :conditions => ["my_contract.status_const = ? AND contract_lines.returned_date IS NULL AND contract_lines.end_date < CURDATE()", Contract::SIGNED]
   named_scope :deadline_soon,  :joins => "INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id",

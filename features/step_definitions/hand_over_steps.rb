@@ -66,9 +66,15 @@ When "$who chooses $name's visit" do | who, name |
 end
 
 When "$who assigns '$item' to the first line" do | who,item |
+  When "#{who} tries to assign '#{item}' to the first line"
+  Then "#{who} should not see a flash error"
+end
+
+When "$who tries to assign '$item' to the first line" do | who,item |
   post change_line_backend_inventory_pool_user_hand_over_path(
 	 @inventory_pool, @visit.user,
          :contract_line_id => @contract.contract_lines.first.id, :code => item )
+  @flash = flash
 end
 
 When "he signs the contract" do
@@ -86,4 +92,13 @@ end
 
 Then "the total number of contracts is $n_contracts" do |n_contracts|
 	Contract.all.count.should == n_contracts.to_i
+end
+
+Then /^the resulting contract lines are invalid$/ do
+	  pending # express the regexp above with the code you wish you had
+end
+
+Then /^he should (.*)see a flash error$/ do |shouldNot|
+  has_error = @flash.has_key?(:error)
+  shouldNot == "" ? has_error.should(be_true) : has_error.should_not(be_true)
 end

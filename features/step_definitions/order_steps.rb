@@ -10,6 +10,11 @@ Given "the list of submitted orders contains $total elements" do | total |
   Order.submitted.count.should == total.to_i
 end
 
+Given "there are no orders and no contracts" do
+  Order.destroy_all
+  Contract.destroy_all
+end
+
 When "$who chooses one order" do | who |
   order = @orders.first
   get backend_inventory_pool_user_acknowledge_path(@inventory_pool, order.user, order)
