@@ -186,14 +186,14 @@ class Item < ActiveRecord::Base
     code
   end
 
-  # OPTIMIZE 0501 performance: named_scope or sphinx_scope in_stock?(self)
-  def in_stock?(contract_line_id = nil)
-    if contract_line_id
-      return contract_lines.to_take_back.count(:conditions => ["contract_lines.id != ?", contract_line_id]) == 0
-    else
-      return contract_lines.to_take_back.empty?
-    end
+####################################################################
+
+  # an item is in stock if it's not handed over
+  def in_stock?
+    contract_lines.to_take_back.empty?
   end
+
+####################################################################
 
   def borrowable_by?(user)
     user.level_for(inventory_pool) >= required_level
