@@ -56,8 +56,17 @@ end
 # Items
 
 Given "$number items of model '$model' exist" do |number, model|
+  model_id = Model.find_by_name(model).id
   number.to_i.times do | i |
-    Factory.create_item(:model_id => Model.find_by_name(model).id)
+    Factory.create_item(:model_id => model_id)
+  end
+end
+
+Given /^item(s?) (\S+) of model '(.+)' exist(s?)$/ do |plural, inventory_codes, model, plural2|
+  inv_codes = inventory_codes.split /,/
+  model_id = Model.find_by_name(model).id
+  inv_codes.each do | inv_code |
+    Factory.create_item(:model_id => model_id, :inventory_code => inv_code)
   end
 end
 

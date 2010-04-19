@@ -102,3 +102,20 @@ Scenario: Select order lines to hand over
 #	When he selects to hand over the first 3 items
 #	And he clicks the button 'hand_over'
 
+
+Scenario: Don't generate a new contract if all Items are handed over
+
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given a model 'NEC 245' exists
+	  	And item AV_NEC245_1 of model 'NEC 245' exists
+	Given the list of approved orders contains 0 elements
+	When 'Joe' places a new order
+		And he asks for 1 'NEC 245' from 31.3.2101 
+		And he submits the new order
+		And lending_manager approves the order
+		And lending_manager clicks on 'hand_over'
+	Then he sees 1 line with a total quantity of 1
+	When he chooses Joe's visit
+         And he assigns 'AV_NEC245_1' to the first line
+         And he signs the contract
+	Then the total number of contracts is 1

@@ -89,7 +89,7 @@ class Contract < Document
         log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
         
         lines_for_new_contract = self.contract_lines - contract_lines
-        if lines_for_new_contract
+        if not lines_for_new_contract.empty?
           new_contract = user.get_current_contract(self.inventory_pool)
     
           lines_for_new_contract.each do |cl|
