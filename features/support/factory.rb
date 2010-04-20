@@ -60,6 +60,24 @@ module Factory
     o.save
     o
   end
+
+  # copied from create_order
+  def self.create_contract(attributes = {}, options = {})
+    default_attributes = {
+      :inventory_pool => create_inventory_pool(:name => "ABC")
+    }
+    c = Contract.create default_attributes.merge(attributes)
+    options[:contract_lines].times { |i|
+        model = Factory.create_model(:name => "model_#{i}" )
+        quantity = rand(3) + 1
+        quantity.times { Factory.create_item(:model => model)}
+        d = Array.new
+        2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
+        c.add_line(quantity, model, c.user_id, d.min, d.max )
+    } if options[:order_lines]
+    c.save
+    c
+  end
       
   def self.create_model(attributes = {})
     default_attributes = {
@@ -108,6 +126,26 @@ module Factory
                          :model_id => model.to_i,
                          :start_date => start_date,
                          :end_date => end_date)
+      ol              
+  end
+
+  def self.create_contract_line(options = {})
+      model = Factory.create_model :name => options[:model_name]
+
+      if options[:start_date]
+        start_date = parsedate(options[:start_date])
+        end_date = start_date + 2.days
+      else
+        d = Array.new
+        2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
+        start_date = d.min
+        end_date = d.max
+      end
+      
+      ol = ContractLine.new(:quantity => options[:quantity],
+                            :model_id => model.to_i,
+                            :start_date => start_date,
+                            :end_date => end_date)
       ol              
   end
 
