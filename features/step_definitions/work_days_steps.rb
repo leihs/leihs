@@ -123,13 +123,13 @@ Then "he sees that his inventory pool is currently open on $days" do |days|
   end
 end
 
-When "he deselects $days" do |days|
+When "he deselects the following day$s: $days" do |s,days|
   days.split(',').each do |day|
     get close_backend_inventory_pool_workdays_path(@inventory_pool, :day => day.strip)
   end
 end
 
-When "he selects $days" do |days|
+When "he selects the following day$s: $days" do |s,days|
   days.split(',').each do |day|
     get open_backend_inventory_pool_workdays_path(@inventory_pool, :day => day.strip)
   end
