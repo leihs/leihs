@@ -101,10 +101,10 @@ Scenario: Changing Workdays
 
 	When an inventory manager clicks 'Opening Times'
 	Then he sees that his inventory pool is currently open on monday, tuesday, wednesday, thursday, friday
-	When he deselects tuesday, thursday, friday
+	When he deselects the following days: tuesday, thursday, friday
 		And he clicks 'Opening Times'
 	Then he sees that his inventory pool is currently open on monday, wednesday
-	When he selects friday
+	When he selects the following day: friday
 		And he clicks 'Opening Times'
 	Then he sees that his inventory pool is currently open on monday, wednesday, friday
 	
