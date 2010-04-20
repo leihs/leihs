@@ -62,7 +62,9 @@ Given "$number items of model '$model' exist" do |number, model|
   end
 end
 
-Given /^item(s?) (\S+) of model '(.+)' exist(s?)$/ do |plural, inventory_codes, model, plural2|
+Given /^item(s?) (\S+) of model '(.+)' exist(s?)( only)?$/ \
+do |plural, inventory_codes, model, plural2, only|
+  Item.delete_all if only
   inv_codes = inventory_codes.split /,/
   model_id = Model.find_by_name(model).id
   inv_codes.each do | inv_code |
