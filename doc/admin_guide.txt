@@ -86,17 +86,25 @@ If this works, stop the server again using Ctrl-C.
 +
  $ RAILS_ENV='production' rake db:migrate
 
-10. Start the server:
+10. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
++
+ $ cd /home/leihs
+ $ mkdir -p public/images/attachments
+ $ mkdir -p tmp/sessions
+ $ mkdir tmp/cache
+ $ mkdir -p log
+
+11. Start the server:
 +
  $ RAILS_ENV='production' ./script/server
  
-11. Configure and start the Sphinx server:
+12. Configure and start the Sphinx server:
 +
  $ RAILS_ENV='production' rake ts:config
  $ RAILS_ENV='production' rake ts:reindex
  $ RAILS_ENV='production' rake ts:start
 
-12. Download Sphinx (a fulltext search system). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
+13. Download Sphinx (a fulltext search system). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
 + 
  $ cd /tmp
  $ wget http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
@@ -107,13 +115,8 @@ If this works, stop the server again using Ctrl-C.
  $ ./configure --with-libstemmer && make
  $ sudo make install
  
-13. Configure and start the Sphinx server:
-+
- $ cd /home/leihs
- $ RAILS_ENV='production' rake ts:config
- $ RAILS_ENV='production' rake ts:reindex
- $ RAILS_ENV='production' rake ts:start
 
+ 
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
  
  
@@ -185,11 +188,19 @@ If this works, stop the server again using Ctrl-C.
  # su - leihs
  $ RAILS_ENV='production' rake db:migrate
 
-9. Start the server:
+9. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
++
+ $ cd /home/leihs
+ $ mkdir -p public/images/attachments
+ $ mkdir -p tmp/sessions
+ $ mkdir tmp/cache
+ $ mkdir -p log
+
+10. Start the server:
 +
  $ RAILS_ENV='production' ./script/server
  
-10. Download Sphinx (a fulltext search system). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
+11. Download Sphinx (a fulltext search system). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
 + 
  $ cd /tmp
  $ curl -C - -O http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
@@ -201,7 +212,7 @@ If this works, stop the server again using Ctrl-C.
  $ su
  # make install
  
-11. Configure and start the Sphinx server:
+12. Configure and start the Sphinx server:
 +
  $ cd /home/leihs
  $ RAILS_ENV='production' rake ts:config
