@@ -91,7 +91,7 @@ Then /^he sees ([0-9]+) contract line(s?) for all approved order lines$/ do | si
 end
 
 Then "the total number of contracts is $n_contracts" do |n_contracts|
-	Contract.all.count.should == n_contracts.to_i
+	Contract.count.should == n_contracts.to_i
 end
 
 Then /^the resulting contract lines are invalid$/ do
