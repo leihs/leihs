@@ -1,4 +1,5 @@
-<% if current_user.contracts.unsigned.select{|x| x.lines.count > 0}.count > 0 %>
+<% unsigned_contracts = current_user.contracts.unsigned.select{|x| !x.lines.empty? }
+unless unsigned_contracts.empty? %>
 
  <hr />
  
@@ -17,7 +18,7 @@
     </tr>
 
 
-  <% current_user.contracts.unsigned.select{|x| x.lines.count > 0}.each do |contract| %>	
+  <% unsigned_contracts.each do |contract| %>	
   
     <tr>
       <th colspan="5"><strong><%= _("Contract Nr.") %> <%= contract.id %></strong></th>
@@ -39,7 +40,7 @@
       <td colspan="4"><strong><%= _("Time window") %></strong></td>
     </tr>
     <% contract.lines.each do |line| %>
-    <%= render :partial => 'contracts/contract_line', :object => line %>
+    	<%= render :partial => 'contracts/contract_line', :object => line %>
     <% end %>
     
   <% end %>
