@@ -37,8 +37,7 @@ The following steps were tested on Mac OS X 10.5 and 10.6 on an x86. They may al
  $ sudo gem install gettext_activerecord -v 2.1.0
  $ sudo gem install hoptoad_notifier -v 2.1.3
  $ sudo gem install rgl -v 0.4.0
- $ sudo gem install will_paginate --source http://gemcutter.org -v 2.3.11
- $ sudo gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15
+ $ sudo gem install will_paginate --source http://gemcutter.org -v 2.3.1
  $ sudo gem install prawn -v 0.8.4
  $ sudo gem install ruby-net-ldap -v 0.0.4
  $ sudo gem install barby -v 0.2.0
@@ -94,17 +93,7 @@ If this works, stop the server again using Ctrl-C.
  $ mkdir tmp/cache
  $ mkdir -p log
 
-11. Start the server:
-+
- $ RAILS_ENV='production' ./script/server
- 
-12. Configure and start the Sphinx server:
-+
- $ RAILS_ENV='production' rake ts:config
- $ RAILS_ENV='production' rake ts:reindex
- $ RAILS_ENV='production' rake ts:start
-
-13. Download Sphinx (a fulltext search system). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
+11. Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
 + 
  $ cd /tmp
  $ wget http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
@@ -114,10 +103,31 @@ If this works, stop the server again using Ctrl-C.
  $ tar xvfz libstemmer_c.tgz
  $ ./configure --with-libstemmer && make
  $ sudo make install
- 
+ $ sudo gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15
 
- 
+12. Configure and start the Sphinx server:
++
+ $ RAILS_ENV='production' rake ts:config
+ $ RAILS_ENV='production' rake ts:reindex
+ $ RAILS_ENV='production' rake ts:start
+
+13. Start the server:
++
+ $ RAILS_ENV='production' ./script/server
++
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
+
+14. Optional: If you want to use images of inventory items, install ImageMagick. On Mac OS X, we recommend using MacPorts and then installing the ImageMagick port:
++
+ $ sudo port install imagemagick
++
+Make sure that the ImageMagick binaries (e.g. convert) are in your $PATH. Please consult the Mac OS X documentation to find out how to add paths to your $PATH environment variable. It can be done e.g. by editing /etc/profile and adding the following lines:
++
+ PATH=$PATH:/opt/local/bin
+ export PATH
++
+But Apple may at any point recommend a different approach, so don't take our word for it.
+ 
  
  
 === Installation on Debian GNU/Linux ===
@@ -148,7 +158,6 @@ Note that the URL above might change! Please visit the RubyGems site to find the
  # gem install hoptoad_notifier -v 2.1.3
  # gem install rgl -v 0.4.0
  # gem install will_paginate --source http://gemcutter.org -v 2.3.11
- # gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15
  # gem install prawn -v 0.8.4
  # gem install ruby-net-ldap -v 0.0.4
  # gem install barby -v 0.2.0
@@ -200,7 +209,7 @@ If this works, stop the server again using Ctrl-C.
 +
  $ RAILS_ENV='production' ./script/server
  
-11. Download Sphinx (a fulltext search system). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
+11. Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
 + 
  $ cd /tmp
  $ curl -C - -O http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
@@ -211,6 +220,7 @@ If this works, stop the server again using Ctrl-C.
  $ ./configure --with-libstemmer && make
  $ su
  # make install
+ # gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15
  
 12. Configure and start the Sphinx server:
 +
@@ -218,9 +228,13 @@ If this works, stop the server again using Ctrl-C.
  $ RAILS_ENV='production' rake ts:config
  $ RAILS_ENV='production' rake ts:reindex
  $ RAILS_ENV='production' rake ts:start
-
-
++
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
+
+13. Optional: If you want to use images of inventory items, install ImageMagick:
++
+ # apt-get install imagemagick
+
 
 
 == Default admin username/password ==
@@ -256,6 +270,39 @@ The upgrade should be painless.
  $ RAILS_ENV='production' ./script/server
 
 If everything went correctly, you should see leihs coming up at http://localhost:3000. 
+
+
+== Upgrading from leihs 2.1 to leihs 2.2 ==
+
+The upgrade should be painless.
+
+1. Download the new leihs version (in this example, the .tar.gz version is used) and unpack it to a new location:
++
+ $ tar xvfz leihs-2.2.tar.gz
+ $ cd leihs-2.2
+
+2. Copy any images uploaded to your old leihs version so they are also available in the new leihs:
++
+ $ rm -rf public/images/attachments
+ $ cp -pr ../leihs-2.1/public/images/attachments public/images/
+
+3. Copy your old database configuration file:
++
+ $ cp ../leihs-2.1/config/database.yml config/
+
+4. Look at your old config/environment.rb file in a text editor. Open the new config/environment.rb. Copy the configuration items from your old config to your new config as necessary. You might find new options in the new environment.rb that weren't present in the old one. Save your new configuration.
+
+5. Run the database migration to get all your data up to the new version:
++
+ $ RAILS_ENV='production' rake db:migrate
+
+6. Run the server. Make sure you stop your previous leihs server!
++
+ $ RAILS_ENV='production' ./script/server
+
+If everything went correctly, you should see leihs coming up at http://localhost:3000. 
+
+
 
 == Installing a production environment ==
 
