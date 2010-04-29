@@ -54,7 +54,17 @@ class Backend::ItemsController < Backend::BackendController
 
     with.merge!(:parent_id => 0, :model_is_package => 0) if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
     
-    @items = Item.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+    
+    
+    if params[:format] == 'csv'
+      page = nil
+      per_page = Item.count
+    else
+      page = params[:page]
+      per_page = $per_page
+    end
+    
+    @items = Item.search params[:query], { :star => true, :page => page, :per_page => per_page,
                                            :sphinx_select => sphinx_select,
                                            :with => with, :retired => retired, #:without => without,
                                            :order => params[:sort], :sort_mode => params[:sort_mode],
@@ -65,6 +75,20 @@ class Backend::ItemsController < Backend::BackendController
     respond_to do |format|
       format.html
       format.auto_complete { render :layout => false }
+      
+      format.csv do
+       csv_string = FasterCSV.generate do |csv|
+         csv << Item.csv_header
+         @items.each do |i|
+           csv << i.to_csv_array unless i.nil? # How could an item ever be nil?
+         end
+       end
+       
+       send_data csv_string,
+                :type => 'text/csv; charset=utf-8; header=present',
+                :disposition => "attachment; filename=leihs_items.csv"
+      end
+      
     end
   end
 

@@ -151,6 +151,103 @@ class Item < ActiveRecord::Base
   def to_s
     "#{model.name} #{inventory_code}"
   end
+
+  # Generates an array suitable for outputting a line of CSV using FasterCSV
+  def to_csv_array    
+    if self.inventory_pool.nil? or self.inventory_pool.name.blank?
+      ip = "UNKNOWN"
+    else
+      ip = self.inventory_pool.name 
+    end
+
+    if self.model.nil? or self.model.name.blank?
+      model_name = "UNKNOWN/CHANGED"
+    else
+      model_name = self.model.name.gsub(/\"/, '""')
+    end
+
+    if self.owner.nil? or self.owner.name.blank?
+      owner = "UNKNOWN"
+    else
+      owner = self.owner.name
+    end
+
+    unless self.model.categories.nil? or self.model.categories.count == 0
+      categories = []
+      self.model.categories.each do |c|
+        categories << c.name + "|"
+      end
+    end
+    
+    if self.supplier.blank?
+      supplier = "UNKNOWN"
+    else
+      supplier = self.supplier.name
+    end
+    
+    if self.parent
+      part_of_package = "#{self.parent.id} #{self.parent.model.name}"
+    else
+      part_of_package = "NONE"
+    end
+    
+    return [ self.inventory_code,
+      ip,  
+      owner,
+      self.serial_number,
+      model_name,
+      self.is_borrowable,
+      categories,
+      self.required_level,
+      self.invoice_number,
+      self.invoice_date,
+      self.last_check,
+      self.retired,
+      self.retired_reason,
+      self.price,
+      self.is_broken,
+      self.is_incomplete,
+      self.is_borrowable,
+      part_of_package,
+      self.created_at,
+      self.updated_at,
+      self.needs_permission,
+      self.is_inventory_relevant,
+      self.responsible,
+      supplier
+    ]
+    
+  end
+  
+  # Returns an array of field headers for CSV, useful for including as first line
+  # using e.g. FasterCSV. Matches what's returned by to_csv_array
+  def self.csv_header    
+    ['inventory_code', 
+      'inventory_pool',
+      'owner',
+      'serial_number', 
+      'model_name', 
+      'borrowable',
+      'categories',
+      'required_level',
+      'invoice_number',
+      'invoice_date',
+      'last_check',
+      'retired',
+      'retired_reason',
+      'price',
+      'is_broken',
+      'is_incomplete',
+      'is_borrowable',
+      'part_of_package',
+      'created_at',
+      'updated_at',
+      'needs_permission',
+      'is_inventory_relevant',
+      'responsible',
+      'supplier']
+  end
+  
   
   def inventory_code
     s = read_attribute('inventory_code')
