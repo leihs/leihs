@@ -42,6 +42,7 @@ The following steps were tested on Mac OS X 10.5 and 10.6 on an x86. They may al
  $ sudo gem install ruby-net-ldap -v 0.0.4
  $ sudo gem install barby -v 0.2.0
  $ sudo gem install png -v 1.1.0
+ $ sudo gem install fastercsv -v 1.5.3
 
 5. Install the native MySQL gem:
 +
@@ -162,6 +163,7 @@ Note that the URL above might change! Please visit the RubyGems site to find the
  # gem install ruby-net-ldap -v 0.0.4
  # gem install barby -v 0.2.0
  # gem install png -v 1.1.0
+ # gem install fastercsv -v 1.5.3
 
 4. Install the MySQL header files and the MySQL gem:
 +
