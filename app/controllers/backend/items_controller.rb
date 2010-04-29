@@ -77,7 +77,7 @@ class Backend::ItemsController < Backend::BackendController
       format.auto_complete { render :layout => false }
       
       format.csv do
-       csv_string = FasterCSV.generate do |csv|
+       csv_string = FasterCSV.generate({ :col_sep => ";", :quote_char => "\"", :force_quotes => true }) do |csv|
          csv << Item.csv_header
          @items.each do |i|
            csv << i.to_csv_array unless i.nil? # How could an item ever be nil?
