@@ -74,7 +74,7 @@ Rails::Initializer.run do |config|
   config.gem "will_paginate", :source => 'http://gemcutter.org', :version => '>= 2.3.11'
   config.gem "thinking-sphinx", :lib => 'thinking_sphinx', :source => 'http://gemcutter.org', :version => '>= 1.3.15'
 
-# TODO 0501 # config.gem "fastercsv", :version => '>= 1.5.0'
+  config.gem "fastercsv", :version => '>= 1.5.3'
  
   config.gem "prawn", :version => '0.8.4'
   config.gem "ruby-net-ldap", :lib => 'net/ldap', :version => ">= 0.0.4"
