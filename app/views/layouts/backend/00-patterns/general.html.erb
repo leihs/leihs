@@ -81,7 +81,7 @@
 		<% content_tag :div do %>
     		<%= link_to_remote icon_tag("database_go") + _("Database Backup"),
 								:url => backend_database_backup_path %>
-		<% end if is_admin? %>
+		<% end %>
 	
 	</div>
 
