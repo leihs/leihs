@@ -44,6 +44,8 @@ ActionController::Routing::Routes.draw do |map|
 # Backend
 
   map.namespace :backend do |backend|
+    backend.database_backup 'database_backup', :controller => 'backend', :action => 'database_backup'
+    
     backend.resources :barcodes
 
     backend.resources :users, :member => { :access_rights => :get,

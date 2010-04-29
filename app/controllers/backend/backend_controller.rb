@@ -37,7 +37,22 @@ class Backend::BackendController < ApplicationController
         s[:search][r.class.to_s] = res
       end
     end
+  end
 
+  def database_backup
+    dir = "#{RAILS_ROOT}/db/backup"
+    timestamp = Time.now.to_formatted_s(:number)
+    src = "#{dir}/#{timestamp}.sql"
+    File.open(src, 'w') do |f|
+      f << ActiveRecord::Base.connection.structure_dump
+      f << ActiveRecord::Base.connection.data_dump
+    end
+    
+    flash[:notice] = _("Database backup successfully done.")
+    render :update do |page|
+      page.replace_html 'flash', flash_content
+      flash.discard
+    end
   end
 
    # add a new line
