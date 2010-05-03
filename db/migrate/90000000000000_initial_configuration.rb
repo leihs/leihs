@@ -5,7 +5,7 @@ class InitialConfiguration < ActiveRecord::Migration
     if AuthenticationSystem.count == 0
   
       AuthenticationSystem.create(:name => "Database Authentication", :class_name => "DatabaseAuthentication", :is_active => true, :is_default => true )
-      AuthenticationSystem.create(:name => "LDAP Authentication", :class_name => "LDAPAuthentication", :is_default => false)
+      AuthenticationSystem.create(:name => "LDAP Authentication", :class_name => "LdapAuthentication", :is_default => false)
       AuthenticationSystem.create(:name => "ZHDK Authentication", :class_name => "Zhdk", :is_default => false)
     end
     
