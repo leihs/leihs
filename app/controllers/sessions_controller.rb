@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
 #TODO 1009: Remove as soon as not needed anymore
   def switch_to_ldap
     AuthenticationSystem.update_all({:is_active => false, :is_default => false})
-    a=AuthenticationSystem.find_by_class_name "LDAPAuthentication"
+    a=AuthenticationSystem.find_by_class_name "LdapAuthentication"
     a.class_name="LdapAuthentication"
     a.is_default = true
     a.is_active =true
