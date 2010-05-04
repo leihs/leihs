@@ -28,7 +28,7 @@ Scenario: Items available in different pools
 		And this model has 1 item in inventory pool 1
 		And user 'jack' has access to inventory pool 1 and 2
 	When 'jack' orders 2 'Coffee Mug'
-		And 'jack' order 1 'Coffee Machine'
+		And 'jack' orders 1 'Coffee Machine'
 		And he submits the new order
 	Then 1 order exists for inventory pool 1
 		And it asks for 3 items
