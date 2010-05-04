@@ -98,9 +98,8 @@ class Availability
   # "symbolic" array indexes
   DATE=0
   QUANTITY=1
-  PERIOD_END=2
 
-  attr_accessor :quantity
+  attr_accessor :quantity, :availability_changes
   
   # :nodoc: TODO: it's ugly that one needs to give start_date to the constructor.
   #               It's only used to cut off stray periods that start before the
@@ -113,25 +112,22 @@ class Availability
     
     @availability_changes = [] # [ [DATE, QUANTITY], [DATE, QUANTITY], .. ] f.ex. [ ["8-2-2010", -1], ... ]
     reservations.each do | reservation |
-      add_availability_change( @availability_changes, reservation)
-    end
-    @availability_changes.sort! {|x, y| x[0] <=> y[0] }
-    
+      add_availability_change(reservation)
+    end    
   end
 
   # Answers the question "when do I have how many #Items of #Model available".
   # Returns #QtyPeriods of the availability of a model
-  # 
-  # @availability_changes must be in a sorted state before calling periods
-  # in order to function properly! This is usually assured by the constructor,
-  # but be ware when messing with this method or the class.
-  #
   def periods
     available_in_periods = QtyPeriods.new
     start_of_period = @start_date
     current_quantity = @quantity
-    
+
+    # first sort by DATE then by QUANTITY
+    @availability_changes.sort!
+
     @availability_changes.each do |availability_change|
+
       end_of_period = availability_change[DATE]
       if is_returning?(availability_change[QUANTITY])
         # item will stay unavailable while being maintained
@@ -182,16 +178,25 @@ class Availability
     maximum_available
   end
 
+  # removes a previously added reservation
+  #
+  def cancel_availability_change!(reservation)
+    to_delete_start = @availability_changes.index( [reservation.start_date.to_date, -reservation.quantity] )
+    @availability_changes.delete_at( to_delete_start ) if to_delete_start
+    
+    to_delete_end = @availability_changes.index( [reservation.end_date.to_date, reservation.quantity] ) 
+    @availability_changes.delete_at( to_delete_end ) if to_delete_end
+  end
+
 ############################################################################
 
   private 
 
-  def add_availability_change( availability_changes, reservation)
+  def add_availability_change(reservation)
     # decrease
-    availability_changes << [reservation.start_date.to_date, -reservation.quantity]
-
+    @availability_changes << [reservation.start_date.to_date, -reservation.quantity]
     # increase
-    availability_changes << [ reservation.end_date.to_date, reservation.quantity] unless reservation.is_late?(@start_date)
+    @availability_changes << [reservation.end_date.to_date, reservation.quantity] unless reservation.is_late?(@start_date)
   end
 
   def is_returning?(quantity)
