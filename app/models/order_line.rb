@@ -8,25 +8,17 @@ class OrderLine < DocumentLine
 
   before_save :assign_inventory_pool
 
-  named_scope :submitted, :joins => :order,
-                          :conditions => ["orders.status_const = ?", Order::SUBMITTED]
-
-
-###############################################  
-# TODO named_scope with lambda
-
-# TODO *d* remove??  
-#  def self.current_reservations(model_id, date = Date.today)
-#    find(:all, :conditions => ['model_id = ? and start_date < ? and end_date > ?', model_id, date, date])
-#  end
-#  
-#  def self.future_reservations(model_id, date = Date.today)
-#    find(:all, :conditions => ['model_id = ? and start_date > ?', model_id, date])
-#  end
-#  
-#  def self.current_and_future_reservations(model_id, order_line_id = 0, date = Date.today)
-#    find(:all, :conditions => ['model_id = ? and ((start_date < ? and end_date > ?) or start_date > ?) and id <> ?', model_id, date, date, date, order_line_id])
-#  end
+  named_scope :submitted,   :joins => :order,
+                            :conditions => ["orders.status_const = ?", Order::SUBMITTED]
+  named_scope :unsubmitted, :joins => :order,
+                            :conditions => ["orders.status_const = ?", Order::UNSUBMITTED]                          
+  named_scope :running,     lambda { |date|
+                                     { :conditions => ["end_date >= ?", date] }
+                                   }
+  named_scope :by_user,     lambda { |user|
+                                     { :joins => :order,
+                                       :conditions => {:orders => {:user_id => user}} }
+                                   }
 
 ###############################################
 
