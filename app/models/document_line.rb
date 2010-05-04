@@ -1,4 +1,3 @@
-require "date"
 # A DocumentLine is a line in a #Document and
 # serves as an abstract superclass for #OrderLine
 # and #ContractLine.
@@ -52,43 +51,6 @@ class DocumentLine < ActiveRecord::Base
                                                   "AND #{document}s.inventory_pool_id = '#{self.inventory_pool.id}'"
       end
     end
-  end
-
-  def self.current_and_future_reservations(model_id, inventory_pool, document_line = nil, date = Date.today)
-    
-    is_order_line = (document_line and document_line.is_a?(OrderLine))
-    is_contract_line = (document_line and document_line.is_a?(ContractLine))
-    
-    # Only get item lines of non-returned items. We don't care about ItemLines
-    # with end_dates in the past, where the item has neven been handed over.
-    cl = ItemLine.all( :joins => :contract,
-                       :conditions => ["model_id = :model_id 
-                                          AND returned_date IS NULL
-                                          AND NOT (end_date < :date AND item_id IS NULL)
-                                          AND contract_lines.id <> :contract_line_id
-                                          AND contracts.inventory_pool_id = :inventory_pool_id",
-                                       { :model_id => model_id,
-                                         :date => date,
-                                         :contract_line_id => (is_contract_line ? document_line.id : 0),
-                                         :inventory_pool_id => inventory_pool.id }
-                                          ])
-    # count all submittet orders and this order itself - ommit other non-submitted orders
-    ol = OrderLine.all( :joins => :order,
-                        :conditions => ["model_id = :model_id 
-                                            AND ((start_date <= :date AND end_date >= :date) OR start_date > :date) 
-                                            AND order_lines.id <> :order_line_id 
-                                            AND (orders.status_const = :submitted
-                                                            OR (orders.id = :current_order_id AND orders.status_const = :new_order))
-                                            AND order_lines.inventory_pool_id = :inventory_pool_id",
-                                         { :model_id => model_id, 
-                                           :date => date,
-                                           :order_line_id => (is_order_line ? document_line.id : 0), 
-                                           :submitted => Order::SUBMITTED, 
-                                           :current_order_id => (is_order_line ? document_line.order_id : 0),
-                                           :new_order => Order::UNSUBMITTED, 
-                                           :inventory_pool_id => inventory_pool.id }
-                                        ])
-    cl + ol
   end
 
   # compares two objects in order to sort them

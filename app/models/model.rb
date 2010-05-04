@@ -171,43 +171,40 @@ class Model < ActiveRecord::Base
 #  [:inventory_pool_id][:model_id][:level ??][:periods]
 #  { 1 => { 1 => [["2010-01-20", "2010-01-22", 3], ["2010-01-23", "2010-01-27", 6]] } }
 
-# OPTIMIZE this method is only used as helper for the un... method ?? 
-  def available_periods_for_document_line(document_line, current_time = Date.today)
-    create_availability(current_time, document_line, document_line.inventory_pool, document_line.document.user).periods
-  end
-
   def unavailable_periods_for_document_line(document_line, current_time = Date.today)
-    u = available_periods_for_document_line(document_line, current_time).select { |a| a.quantity < document_line.quantity }
+    availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user)
+    availability.cancel_availability_change!(document_line) # remove document_line itself preventing it to be counted
+    unavailable_periods = availability.periods.select { |a| a.quantity < document_line.quantity }
 
     # NOTE even if start_date or end_date are nil,
     # make sure they are set in order to have (it may occur when an item is unborrowable)
     # TODO refactor to Availability#periods ??
-    u.each do |a|
-      a.start_date = current_time unless a.start_date
-      a.end_date = a.start_date + 1.year unless a.end_date
+    unavailable_periods.each do |u|
+      u.start_date = current_time unless u.start_date
+      u.end_date = u.start_date + 1.year unless u.end_date
     end
 
-    u
+    unavailable_periods
   end
   
   # TODO *e* inventory_pools array ??
   def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
-    create_availability(current_time, nil, inventory_pool, user).periods
+    create_availability(current_time, inventory_pool, user).periods
   end
 
 # OPTIMIZE this method is only used for test ??  
   # TODO *e* maximum_available_for_document_line method ??
   def maximum_available_for_inventory_pool(date, inventory_pool, user, current_time = Date.today)
-    create_availability(current_time, nil, inventory_pool, user).period_for(date).quantity
+    create_availability(current_time, inventory_pool, user).period_for(date).quantity
   end
   
   def maximum_available_in_period_for_document_line(start_date, end_date, document_line, current_time = Date.today)
     if (start_date.nil? && end_date.nil?)
       return items.size
     else
-      create_availability(current_time, document_line,
-                          document_line.inventory_pool,
-                          document_line.document.user).maximum_available_in_period(start_date, end_date)
+      availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user)
+      availability.cancel_availability_change!(document_line) # remove document_line itself preventing it to be counted
+      return availability.maximum_available_in_period(start_date, end_date)
     end
   end  
 
@@ -215,7 +212,7 @@ class Model < ActiveRecord::Base
     if (start_date.nil? && end_date.nil?)
       return items.size
     else
-      create_availability(current_time, nil, inventory_pool, user).maximum_available_in_period(start_date, end_date)
+      create_availability(current_time, inventory_pool, user).maximum_available_in_period(start_date, end_date)
     end
   end  
 
@@ -226,13 +223,17 @@ class Model < ActiveRecord::Base
     document.add_line(quantity, self, user_id, start_date, end_date, inventory_pool)
   end  
 
+  def running_reservations(inventory_pool, current_time = Date.today)
+    return   self.contract_lines.by_inventory_pool(inventory_pool).handed_over_or_assigned_but_not_returned(current_time) \
+           + self.order_lines.scoped_by_inventory_pool_id(inventory_pool).submitted.running(current_time)    
+  end
                                                                                                       
   private
 
-  def create_availability(current_time, document_line, inventory_pool, user)
+  def create_availability(current_time, inventory_pool, user)
     max_quantity = maximum_borrowable(inventory_pool, user)
-    reservations = DocumentLine.current_and_future_reservations(id, inventory_pool, document_line, current_time)
-    
+    reservations = running_reservations(inventory_pool, current_time) \
+                   + self.order_lines.scoped_by_inventory_pool_id(inventory_pool).unsubmitted.running(current_time).by_user(user)
     Availability.new(max_quantity, current_time, self, reservations)
   end
 

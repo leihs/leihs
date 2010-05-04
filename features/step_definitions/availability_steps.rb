@@ -8,7 +8,7 @@ Given "a reservation exists for $quantity '$model' from $from to $to" do |quanti
   order.submit
   order.save
   order.lines.size.should >= 1
-  DocumentLine.current_and_future_reservations(model.id, order.inventory_pool).size.should >= 1
+  model.running_reservations(order.inventory_pool).size.should >= 1
 end
 
 Given "a contract exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
@@ -22,7 +22,7 @@ Given "a contract exists for $quantity '$model' from $from to $to" do |quantity,
   @contract.reload
   @contract.lines.size.should >= 1
   @contract.lines.first.item.should_not be_nil
-  DocumentLine.current_and_future_reservations(model.id, @contract.inventory_pool).size.should >= 1
+  model.running_reservations(@contract.inventory_pool).size.should >= 1
 end
 
 
@@ -79,7 +79,7 @@ Then "$quantity should be available from $from to $to" do |quantity, from, to|
     puts ""
     puts "Searching: #{from.day}.#{from.month}.#{from.year} - #{to.day}.#{to.month}.#{to.year}"
     @periods.each do |p|
-      puts "   -> #{p.start_date.day}.#{p.start_date.month}.#{p.start_date.year} - #{p.end_date.day}.#{p.end_date.month}.#{p.end_date.year}" unless p.end_date.nil?
+      puts "   -> #{p.start_date.day}.#{p.start_date.month}.#{p.start_date.year} - #{p.end_date.day}.#{p.end_date.month}.#{p.end_date.year} = #{p.quantity}" unless p.end_date.nil?
     end
   end
   period.should_not be_nil

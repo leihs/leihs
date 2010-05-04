@@ -36,12 +36,12 @@ digraph G {
 
     create_availability;
     maximum_borrowable;
-    available_periods_for_document_line;
     available_periods_for_inventory_pool;
     maximum_available_in_period_for_document_line;
     maximum_available_in_period_for_inventory_pool;
     maximum_available_for_inventory_pool;
     unavailable_periods_for_document_line;
+    running_reservations;
   }
 
   subgraph cluster_availability {
@@ -52,6 +52,7 @@ digraph G {
     maximum_available_in_period;
     period_for;
     add_availability_change;
+    cancel_availability_change;
   }
 
   subgraph cluster_qty_period {
@@ -91,7 +92,6 @@ digraph G {
     complete;
     complete_tooltip;
     tooltip;
-    current_and_future_reservations;
   }
 
   subgraph cluster_ordert_line {
@@ -177,18 +177,15 @@ digraph G {
   // Calling Availability methods
   //-----------------------------
 
-    // ModelsHelper
-    canvas_for_model_in_inventory_pools -> Availability_new;
-    canvas_for_model_in_inventory_pools -> periods;
-  
     // Model
     create_availability -> Availability_new;
     create_availability -> maximum_borrowable;
-    available_periods_for_document_line -> periods;
     available_periods_for_inventory_pool -> periods;
     maximum_available_for_inventory_pool -> period_for;
     maximum_available_in_period_for_document_line -> maximum_available_in_period;
     maximum_available_in_period_for_inventory_pool -> maximum_available_in_period;
+    unavailable_periods_for_document_line -> cancel_availability_change;
+    maximum_available_in_period_for_document_line -> cancel_availability_change;
   
     // Cucumber: availability_steps
     it_should_always_be_available -> forever;
@@ -221,12 +218,10 @@ digraph G {
   //-----------------------------
 
     // Model
-    available_periods_for_document_line -> create_availability;
     available_periods_for_inventory_pool -> create_availability;
     maximum_available_for_inventory_pool -> create_availability;
     maximum_available_in_period_for_document_line -> create_availability;
     maximum_available_in_period_for_inventory_pool -> create_availability;
-    unavailable_periods_for_document_line -> available_periods_for_document_line;
 
     // Cucumber: availability_steps
     it_should_always_be_available -> available_periods_for_inventory_pool;
@@ -292,7 +287,7 @@ digraph G {
     OrderLine_available -> DocumentLine_available;
 
     // Availability
-    create_availability -> current_and_future_reservations;
+    create_availability -> running_reservations;
 
   // Calling OrderLine methods
   //-----------------------------

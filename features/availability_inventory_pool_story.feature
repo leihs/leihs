@@ -71,9 +71,9 @@ Scenario: User orders the same item multiple times, thus exceeding maximum quant
 		And this model has 3 items in inventory pool 1
 		And user 'samantha' has access to inventory pool 1
 	When 'samantha' orders 3 'Pink Hairbrush'
-	Then they should be available
+	Then all order lines should be available
 	When 'samantha' orders another 2 'Pink Hairbrush' for the same time
-	Then they should not be available
+	Then some order lines should not be available
   
 Scenario: User can decide from which pool he orders
 
@@ -84,7 +84,7 @@ Scenario: User can decide from which pool he orders
 		And user 'jack' has access to inventory pool 1
 		And user 'jack' has access to inventory pool 2
 	When 'jack' orders 2 'Coffee Mug' from inventory pool 1
-	Then they should be available
+	Then all order lines should be available
   	When 'jack' orders 2 'Coffee Mug' from inventory pool 2
-  	Then they should not be available
+  	Then some order lines should not be available
   
