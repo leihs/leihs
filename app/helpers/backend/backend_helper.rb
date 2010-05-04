@@ -387,30 +387,7 @@ module Backend::BackendHelper
         f += datepicker
         
         f += javascript_tag do
-          j = ""
-#temp#
-#          availability = line.model.available_periods_for_document_line(line)
-#          availability.each do |a|
-#            #old# next if a.end_date and a.start_date > a.end_date
-#            if a.end_date.nil?
-#              a.end_date = a.start_date.end_of_month
-#            elsif a.start_date > a.end_date
-#              a.start_date = a.end_date.beginning_of_month
-#            end
-#            d = a.start_date.to_formatted_s(:db)
-#            j += "if($('#{d}')) $('#{d}').innerHTML='#{a.quantity}';"
-#
-#            quantity_color = [[a.quantity, 0].max,5].min # OPTIMIZE max_color should be equal to quantity, then even 2 is green
-#
-#            (a.start_date..a.end_date).each do |d|
-#              d = d.to_formatted_s(:db)
-#              new_class = "available_#{quantity_color}"
-#              new_class += " selectable_date" if quantity_color > 0 # TODO workdays
-#              j += "if($('#{d}')) $('#{d}').addClassName('#{new_class}');"
-#            end
-#          end
-
-          j += "$$('.datepicker_date').each(function(element) {
+          j = "$$('.datepicker_date').each(function(element) {
                   element.addClassName('selectable_date');
                 });"
 
@@ -433,7 +410,6 @@ module Backend::BackendHelper
           j
         end
         
-#      end # if 1 line
 
     html += f
     html += "</form>"
