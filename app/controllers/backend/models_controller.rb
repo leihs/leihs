@@ -23,6 +23,8 @@ class Backend::ModelsController < Backend::BackendController
     with[:compatible_id] = @model.id if @model
     with[:category_id] = @category.self_and_all_child_ids if @category
     
+    scopes << :sphinx_with_unpackaged_items if params[:source_path]
+    
     string = "Model"
     scopes.each {|s| string += ".#{s}"} 
     @models = eval(string).search params[:query], { :index => "model",
