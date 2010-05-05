@@ -22,6 +22,7 @@ class Model < ActiveRecord::Base
   has_many :items
   has_many :unretired_items, :class_name => "Item", :conditions => {:retired => nil}
   has_many :borrowable_items, :class_name => "Item", :conditions => {:retired => nil, :is_borrowable => true, :parent_id => nil}
+  has_many :unpackaged_items, :class_name => "Item", :conditions => {:parent_id => nil}
   
   has_many :locations, :through => :items, :uniq => true  # OPTIMIZE N+1 select problem, :include => :inventory_pools
   has_many :inventory_pools, :through => :items, :uniq => true
@@ -117,6 +118,10 @@ class Model < ActiveRecord::Base
     has unretired_items(:inventory_pool_id), :as => :unretired_inventory_pool_id
     has unretired_items(:owner_id), :as => :unretired_owner_id
 #    has borrowable_items(:inventory_pool_id), :as => :borrowable_inventory_pool_id
+
+    # item has at least one NULL parent_id and thus it has items that were not packaged
+    has "(SELECT true FROM items i WHERE i.model_id = models.id AND i.parent_id IS NULL LIMIT 1)",
+        :as => :has_unpackaged_items, :type => :boolean
     
     # set_property :order => :name
     set_property :delta => true
@@ -137,6 +142,7 @@ class Model < ActiveRecord::Base
 
 #old#  sphinx_scope(:sphinx_active) { {:without => {:active_item_id => 0}} }
   sphinx_scope(:sphinx_packages) { {:with => {:is_package => true}} }
+  sphinx_scope(:sphinx_with_unpackaged_items) { {:with => {:has_unpackaged_items => true}} }
 
 #############################################  
 
