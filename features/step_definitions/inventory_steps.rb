@@ -55,7 +55,8 @@ end
 ###############################################
 # Items
 
-Given "$number items of model '$model' exist" do |number, model|
+#Given "$number items of model '$model' exist" do |number, model|
+Given /(\d+) item(s?) of model '(.+)' exist(s?)/ do |number, plural1, model, plural2|
   model_id = Model.find_by_name(model).id
   number.to_i.times do | i |
     Factory.create_item(:model_id => model_id)
