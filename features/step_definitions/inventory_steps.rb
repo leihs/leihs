@@ -44,10 +44,10 @@ Given "the model '$model' belongs to the category '$category'" do |model, catego
 end
 
 When "the model '$model' is selected" do | model|
-    @model = Model.find(:first, :conditions => {:name => model})
-  end
+  @model = Model.find(:first, :conditions => {:name => model})
+end
  
-  Then "there are $size models belonging to that category" do |size|
+Then "there are $size models belonging to that category" do |size|
   @category.models.size.should == size.to_i
 end
 
