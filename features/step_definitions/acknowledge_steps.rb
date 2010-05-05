@@ -14,7 +14,7 @@ Given "$total new orders are placed" do | total |
   end
 end
 
-Given /it asks for ([0-9]+) items of model '(.*)'/ do |number, model|
+Given /it asks for ([0-9]+) item(s?) of model '(.*)'/ do |number, plural, model|
   @order.add_line(number, Model.find_by_name(model), 1)
   @order.log_history("user submits order", 1)
   @order.save
