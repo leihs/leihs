@@ -739,7 +739,12 @@ Optional: If you want to use images of inventory items, install ImageMagick. On 
 <pre><tt>PATH=$PATH:/opt/local/bin
 export PATH</tt></pre>
 </div></div>
-<div class="paragraph"><p>But Apple may at any point recommend a different approach, so don&#8217;t take our word for it.</p></div>
+<div class="paragraph"><p>But Apple may at any point recommend a different approach for configuring your PATH, so please don&#8217;t take our word for it.</p></div>
+<div class="paragraph"><p>Finally, install the rmagick gem:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ sudo gem install rmagick</tt></pre>
+</div></div>
 </li>
 </ol></div>
 <h3 id="_installation_on_debian_gnu_linux">Installation on Debian GNU/Linux</h3><div style="clear:left"></div>
@@ -903,7 +908,12 @@ Optional: If you want to use images of inventory items, install ImageMagick:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt># apt-get install imagemagick</tt></pre>
+<pre><tt># apt-get install imagemagick graphicsmagick-libmagick-dev-compat</tt></pre>
+</div></div>
+<div class="paragraph"><p>And then install the rmagick gem:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt># gem install rmagick</tt></pre>
 </div></div>
 </li>
 </ol></div>
@@ -1118,7 +1128,7 @@ Run the server. Make sure you stop your previous leihs server!
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2010-04-29 16:29:06 BST
+Last updated 2010-05-07 13:21:19 BST
 </div>
 </div>
 </body>

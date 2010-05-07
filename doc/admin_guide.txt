@@ -127,8 +127,11 @@ Make sure that the ImageMagick binaries (e.g. convert) are in your $PATH. Please
  PATH=$PATH:/opt/local/bin
  export PATH
 +
-But Apple may at any point recommend a different approach, so don't take our word for it.
- 
+But Apple may at any point recommend a different approach for configuring your PATH, so please don't take our word for it.
++
+Finally, install the rmagick gem:
++
+ $ sudo gem install rmagick
  
  
 === Installation on Debian GNU/Linux ===
@@ -235,8 +238,11 @@ Now you should see your local leihs server at http://localhost:3000. You can log
 
 13. Optional: If you want to use images of inventory items, install ImageMagick:
 +
- # apt-get install imagemagick
-
+ # apt-get install imagemagick graphicsmagick-libmagick-dev-compat
++
+And then install the rmagick gem:
++
+ # gem install rmagick
 
 
 == Default admin username/password ==
