@@ -35,7 +35,7 @@ Scenario: Issue an Order
 Scenario: Don't influence other Orders
 	
 	Given 1 inventory pool
-		And the list of new orders contains 0 elements
+		And there are no new orders
 		And a model 'Coffee Mug' exists
 		And this model has 3 items in inventory pool 1
 		And user 'Engelbart' has access to inventory pool 1
@@ -62,7 +62,7 @@ Scenario: Manage a Contract
 		And a model 'Coffee Mug' exists
 		And this model has 4 items in inventory pool ABC
 		And user 'Joe' has access to inventory pool ABC
-		And the list of new orders contains 0 elements
+		And there are no new orders
 		And a new order is placed by a user named 'Joe'
 		And it asks for 2 items of model 'Coffee Mug'
 	When a customer for inventory pool 'ABC' logs in as 'Joe'
