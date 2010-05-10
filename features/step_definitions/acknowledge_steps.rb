@@ -1,6 +1,5 @@
-Given "the list of new orders contains $total elements" do | total |
-  orders = Order.submitted
-  orders.size.should == total.to_i
+Given "there are no new orders" do
+  Order.delete_all :status_const => Order::SUBMITTED
 end
 
 Given "the new order is submitted" do

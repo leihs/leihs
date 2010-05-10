@@ -11,7 +11,7 @@ Background:
 	
 Scenario: List with new orders
 
-	Given the list of new orders contains 0 elements
+	Given there are no new orders
 		And a new order is placed by a user named 'Joe'
 		And the new order is submitted
 	When lending_manager clicks on 'acknowledge'
@@ -22,7 +22,7 @@ Scenario: List with new orders
 
 Scenario: Count of new orders is shown
 
-	Given the list of new orders contains 0 elements
+	Given there are no new orders
 		And 5 new orders are placed
 	When lending_manager looks at the screen
 	Then he sees 'Acknowledge'
@@ -34,7 +34,7 @@ Scenario: Acknowledge order
 
 	Given a model 'NEC 245' exists
 		And 7 items of model 'NEC 245' exist
-		And the list of new orders contains 0 elements
+		And there are no new orders
 		And a new order is placed by a user named 'Joe'
 		And it asks for 5 items of model 'NEC 245'
 		And Joe's email address is joe@test.ch
@@ -56,7 +56,7 @@ Scenario: Reject order
 
 	Given a model 'NEC 245' exists
 		And 7 items of model 'NEC 245' exist
-		And the list of new orders contains 0 elements
+		And there are no new orders
 		And a new order is placed by a user named 'Joe'
 		And it asks for 5 items of model 'NEC 245'
 		And Joe's email address is joe@test.ch
