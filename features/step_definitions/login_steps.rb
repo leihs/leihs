@@ -1,7 +1,9 @@
 Given "a $role for inventory pool '$ip' logs in as '$who'" do | role, ip, who |
   user = Factory.create_user({:login => who
                                 #, :password => "pass"
-                              }, {:role => role})
+                              },
+			      {:role => role,
+			       :inventory_pool => ip })
   post "/session", :login => user.login
                       #, :password => "pass"
   inventory_pool = InventoryPool.find_or_create_by_name(:name => ip)
