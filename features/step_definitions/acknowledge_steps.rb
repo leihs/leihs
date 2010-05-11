@@ -4,6 +4,7 @@ end
 
 Given "the new order is submitted" do
   @order.submit
+  @order.status_const.should == Order::SUBMITTED
 end
 
 Given "$total new orders are placed" do | total |
@@ -14,7 +15,7 @@ Given "$total new orders are placed" do | total |
 end
 
 Given /it asks for ([0-9]+) item(s?) of model '(.*)'/ do |number, plural, model|
-  @order.add_line(number, Model.find_by_name(model), 1)
+  @order.add_line(number, Model.find_by_name(model), @user)
   @order.log_history("user submits order", 1)
   @order.save
   @order.has_changes?.should == false
