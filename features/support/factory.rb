@@ -51,7 +51,10 @@ module Factory
     options[:order_lines].times { |i|
         model = Factory.create_model(:name => "model_#{i}" )
         quantity = rand(3) + 1
-        quantity.times { Factory.create_item(:model => model)}
+        quantity.times {
+	  Factory.create_item( :model => model,
+			       :inventory_pool => o.inventory_pool )
+	}
         d = Array.new
         2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
         o.add_line(quantity, model, o.user_id, d.min, d.max )
@@ -69,7 +72,10 @@ module Factory
     options[:contract_lines].times { |i|
         model = Factory.create_model(:name => "model_#{i}" )
         quantity = rand(3) + 1
-        quantity.times { Factory.create_item(:model => model)}
+        quantity.times {
+	  Factory.create_item( :model => model,
+			       :inventory_pool => c.inventory_pool)
+	}
         d = Array.new
         2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
         c.add_line(quantity, model, c.user_id, d.min, d.max )
@@ -91,7 +97,6 @@ module Factory
   def self.create_item(attributes = {})
     default_attributes = {
       :inventory_code => Item.get_new_unique_inventory_code,
-      :inventory_pool => create_inventory_pool(:name => "ABC"),
       :is_borrowable => true
     }
     i = Item.create default_attributes.merge(attributes)

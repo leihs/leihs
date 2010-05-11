@@ -3,6 +3,10 @@ Feature: Inventory
 	Describing Inventory Pools, Items, Models and Categories
 	
 	
+Background: As a Organisation we have some Inventory with things to lend out
+	Given inventory pool 'ABC'
+
+
 Scenario: Categories structure
 	
 	Given a category 'Cameras' exists

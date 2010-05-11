@@ -3,8 +3,12 @@ Feature: Availability of Models
 	As an Inventory Manager 
 	I want to know when things are available
 	In order to make sure that reservations can be met
-	
-	
+
+
+Background: As a Organisation we have some Inventory with things to lend out
+	Given inventory pool 'ABC'
+
+
 Scenario: No Reservations
 	
 	Given a model 'NEC 245' exists
