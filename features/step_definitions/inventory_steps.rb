@@ -1,4 +1,11 @@
 ###############################################
+# Inventory Pools
+
+Given "inventory pool '$name'" do | inventory_pool_name |
+  @inventory_pool = Factory.create_inventory_pool :name => inventory_pool_name
+end
+
+###############################################
 # Categories
 
 Given "a category '$category' exists" do | category |
