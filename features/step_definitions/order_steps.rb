@@ -1,6 +1,8 @@
 Given "a new order is placed by a user named '$who'" do | who |
-  user = Factory.create_user(:login => who)
-  @order = Factory.create_order(:user_id => user.id)
+  user = Factory.create_user( { :login => who },
+			      { :inventory_pool => @inventory_pool.name })
+  @order = Factory.create_order( :user_id => user.id,
+			         :inventory_pool => @inventory_pool )
 end
 
 Given "the list of submitted orders contains $total elements" do | total |
