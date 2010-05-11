@@ -13,7 +13,10 @@ When "'$who' places a new order" do | who |
 end
 
 When "he submits the new order" do
+  @order.status_const.should == Order::UNSUBMITTED
   post submit_user_order_path
+  @order = assigns(:order)
+  @order.status_const.should == Order::SUBMITTED
 end
 
 When "$who approves the order" do | who |
