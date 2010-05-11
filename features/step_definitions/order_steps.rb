@@ -28,7 +28,8 @@ end
 When "$who asks for $quantity '$what' from $from" do | who, quantity, what, from |
   @order.order_lines << Factory.create_order_line(:model_name => what,
                                                   :quantity => quantity,
-                                                  :start_date => from)
+                                                  :start_date => from,
+						  :inventory_pool => @inventory_pool)
   @order.save                                                
 end
 
