@@ -1,7 +1,7 @@
 Given "a new order is placed by a user named '$who'" do | who |
-  user = Factory.create_user( { :login => who },
-			      { :inventory_pool => @inventory_pool })
-  @order = Factory.create_order( :user_id => user.id,
+  @user = Factory.create_user( { :login => who },
+			       { :inventory_pool => @inventory_pool })
+  @order = Factory.create_order( :user_id => @user.id,
 			         :inventory_pool => @inventory_pool )
 end
 
