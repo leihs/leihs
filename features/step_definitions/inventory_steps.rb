@@ -66,7 +66,7 @@ end
 Given /(\d+) item(s?) of model '(.+)' exist(s?)/ do |number, plural1, model, plural2|
   model_id = Model.find_by_name(model).id
   number.to_i.times do | i |
-    Factory.create_item(:model_id => model_id)
+    Factory.create_item( :model_id => model_id, :inventory_pool => @inventory_pool )
   end
 end
 
@@ -76,13 +76,14 @@ do |plural, inventory_codes, model, plural2, only|
   inv_codes = inventory_codes.split /,/
   model_id = Model.find_by_name(model).id
   inv_codes.each do | inv_code |
-    Factory.create_item(:model_id => model_id, :inventory_code => inv_code)
+    Factory.create_item(:model_id => model_id, :inventory_code => inv_code,
+		        :inventory_pool => @inventory_pool )
   end
 end
 
 Given "$number items of this model exist" do |number|
   number.to_i.times do | i |
-    Factory.create_item(:model_id => @model.id)
+    Factory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool )
   end
   @model = Model.find(@model.id)
 end
