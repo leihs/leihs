@@ -58,3 +58,5 @@ Cucumber::Rails::World.use_transactional_fixtures = false #sellittf# true
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation, {:except => %w[authentication_systems languages roles]} #sellittf#
 
+# in case we want to debug our feature_step.rb files
+require 'ruby-debug'
