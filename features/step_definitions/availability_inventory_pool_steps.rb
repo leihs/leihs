@@ -18,12 +18,16 @@ Given "this model has $number item$s in inventory pool $ip" do |number, s, ip|
 end
 
 Given "user '$who' has access to inventory pool $ip_s" do |who, ip_s|
+  inventory_pools = ip_s.split(" and ").collect { | ip_name |
+	                                          InventoryPool.find_by_name ip_name
+                                                }
   user = Factory.create_user({:login => who
                                 #, :password => "pass"
-                              })
-  ip_s.split(" and ").each do |ip_name|
-    Factory.define_role(user, "customer", ip_name)
-    user.inventory_pools.include?(InventoryPool.find_by_name(ip_name)).should == true
+                              },
+			      { :inventory_pool => inventory_pools.first })
+  inventory_pools.each do |ip|
+    Factory.define_role(user, ip, "customer" )
+    user.inventory_pools.include?(ip).should == true
   end
 end
 
