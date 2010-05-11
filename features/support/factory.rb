@@ -5,10 +5,10 @@ module Factory
     inventory_pool = Factory.create_inventory_pool_default_workdays
         
 	  # Create User with role
-    user = Factory.create_user({:login => 'inv_man'},{:role => "manager", :inventory_pool => inventory_pool.name})
+    user = Factory.create_user({:login => 'inv_man'},{:role => "manager", :inventory_pool => inventory_pool})
 
 	  # Create Customer
-	  customer = Factory.create_user({:login => 'customer'}, {:role => "customer", :inventory_pool => inventory_pool.name})
+	  customer = Factory.create_user({:login => 'customer'}, {:role => "customer", :inventory_pool => inventory_pool})
     
     # Create Model and Item
     model = Factory.create_model(:name => 'holey parachute')
@@ -27,16 +27,15 @@ module Factory
     u = User.find_or_create_by_login default_attributes.merge(attributes)
     
     options[:role] ||= "customer"
-    options[:inventory_pool] ||= "ABC"
-    Factory.define_role(u, options[:role], options[:inventory_pool])
+    options[:inventory_pool] ||= InventoryPool.first
+    Factory.define_role(u, options[:inventory_pool], options[:role] )
 
     u.save
     u
   end
 
-  def self.define_role(user, role_name = "manager", inventory_pool_name = "ABC")
+  def self.define_role(user, inventory_pool, role_name = "manager" )
     role = Role.find_or_create_by_name(:name => role_name)
-    inventory_pool = create_inventory_pool(:name => inventory_pool_name)
     begin
       user.access_rights.create(:role => role, :inventory_pool => inventory_pool)
     rescue

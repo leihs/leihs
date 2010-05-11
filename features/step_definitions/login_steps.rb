@@ -1,13 +1,13 @@
-Given "a $role for inventory pool '$ip' logs in as '$who'" do | role, ip, who |
+Given "a $role for inventory pool '$ip_name' logs in as '$who'" do | role, ip_name, who |
+  Given "inventory pool '#{ip_name}'"
   user = Factory.create_user({:login => who
                                 #, :password => "pass"
                               },
 			      {:role => role,
-			       :inventory_pool => ip })
+			       :inventory_pool => @inventory_pool })
   post "/session", :login => user.login
                       #, :password => "pass"
-  inventory_pool = InventoryPool.find_or_create_by_name(:name => ip)
-  get backend_inventory_pool_path(inventory_pool, :locale => 'en_US')
+  get backend_inventory_pool_path(@inventory_pool, :locale => 'en_US')
   @inventory_pool = assigns(:current_inventory_pool)
   @last_manager_login_name = who
   @last_user = user
