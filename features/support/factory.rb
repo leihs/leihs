@@ -4,12 +4,12 @@ module Factory
     
     inventory_pool = Factory.create_inventory_pool_default_workdays
         
-	  # Create User with role
-    user = Factory.create_user({:login => 'inv_man'},{:role => "manager", :inventory_pool => inventory_pool})
-
-	  # Create Customer
-	  customer = Factory.create_user({:login => 'customer'}, {:role => "customer", :inventory_pool => inventory_pool})
-    
+    # Create User with role
+    user = Factory.create_user( {:login => 'inv_man'},
+			        {:role => "manager", :inventory_pool => inventory_pool})
+    # Create Customer
+    customer = Factory.create_user( {:login => 'customer'},
+				    {:role => "customer", :inventory_pool => inventory_pool})
     # Create Model and Item
     model = Factory.create_model(:name => 'holey parachute')
     Factory.create_item(:model => model, :inventory_pool => inventory_pool)
