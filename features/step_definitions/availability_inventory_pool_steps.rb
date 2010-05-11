@@ -1,13 +1,12 @@
-Given "$size inventory pools" do | size |
+Given /^(\d+) inventory pool(s?)$/ do | size, plural |
+  InventoryPool.delete_all
   size.to_i.times do |i|
     Factory.create_inventory_pool(:name => (i+1))
   end
   @inventory_pools = InventoryPool.all
   @inventory_pools.size.should == size.to_i
-end
-
-Given "1 inventory pool" do 
-  Given "1 inventory pools"
+  # default inventory pool
+  @inventory_pool = InventoryPool.first
 end
 
 Given "this model has $number item$s in inventory pool $ip" do |number, s, ip|
