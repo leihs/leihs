@@ -125,7 +125,8 @@ module Factory
       ol = OrderLine.new(:quantity => options[:quantity],
                          :model_id => model.to_i,
                          :start_date => start_date,
-                         :end_date => end_date)
+                         :end_date => end_date,
+                         :inventory_pool => options[:inventory_pool])
       ol              
   end
 
