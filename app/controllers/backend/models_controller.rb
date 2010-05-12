@@ -30,6 +30,11 @@ class Backend::ModelsController < Backend::BackendController
                                                     :with => with,
                                                     :order => params[:sort], :sort_mode => params[:sort_mode] }
 
+    min_query_len = ThinkingSphinx::Configuration.instance.index_options[:min_infix_len]
+    if @models.empty? && params[:query].length < min_query_len
+       flash[:notice] = _("Your search string must contain at least %s characters") % min_query_len.to_s
+    end
+  
     if params[:source_path] # we are in a greybox
       if @line # this is for swap model
         @start_date = @line.start_date

@@ -1,7 +1,10 @@
+<% if params[:query] %>
+	 <script type="text/javascript">$('flash').update('<%= escape_javascript(flash_content) %>');</script>
+<% end %>
+
 <% if @show_categories_tree %>  
 
 	<%= extjs_model_tree %>
-	  
 <table><tr>
 <td id="categories" style="vertical-align:top;" width="20%">
 </td>
