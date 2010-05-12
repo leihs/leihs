@@ -10,7 +10,7 @@ class Backend::ModelsController < Backend::BackendController
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
     with = {}
-    scopes = []
+    search_scope = Model
     case params[:filter]
       when "all"
       when "own"
@@ -19,15 +19,13 @@ class Backend::ModelsController < Backend::BackendController
         with[:unretired_inventory_pool_id] = current_inventory_pool.id
     end
 
-    scopes << :sphinx_packages unless params[:packages].blank?
+    search_scope = search_scope.sphinx_packages unless params[:packages].blank?
     with[:compatible_id] = @model.id if @model
     with[:category_id] = @category.self_and_all_child_ids if @category
     
-    scopes << :sphinx_with_unpackaged_items if params[:source_path]
+    search_scope = search_scope.sphinx_with_unpackaged_items(current_inventory_pool.id) if params[:source_path]
     
-    string = "Model"
-    scopes.each {|s| string += ".#{s}"} 
-    @models = eval(string).search params[:query], { :index => "model",
+    @models = search_scope.search params[:query], { :index => "model",
                                                     :star => true, :page => params[:page], :per_page => $per_page,
                                                     :with => with,
                                                     :order => params[:sort], :sort_mode => params[:sort_mode] }

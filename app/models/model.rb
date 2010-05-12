@@ -120,8 +120,11 @@ class Model < ActiveRecord::Base
 #    has borrowable_items(:inventory_pool_id), :as => :borrowable_inventory_pool_id
 
     # item has at least one NULL parent_id and thus it has items that were not packaged
-    has "(SELECT true FROM items i WHERE i.model_id = models.id AND i.parent_id IS NULL LIMIT 1)",
-        :as => :has_unpackaged_items, :type => :boolean
+    # we collect all the inventory pools for which this is the case
+#    has "(SELECT GROUP_CONCAT(DISTINCT i.inventory_pool_id ORDER BY i.inventory_pool_id) AS ip_ids FROM items i WHERE i.model_id = model_id AND i.parent_id IS NULL)",
+    has "(SELECT GROUP_CONCAT(DISTINCT i.inventory_pool_id) FROM items i WHERE i.model_id = models.id AND i.parent_id IS NULL)",
+        :as => :inventory_pools_with_unpackaged_items, :type => :multi
+#    has unpackaged_items(:inventory_pool_id), :as => :unpackaged_inventory_pool_id
     
     # set_property :order => :name
     set_property :delta => true
@@ -142,7 +145,8 @@ class Model < ActiveRecord::Base
 
 #old#  sphinx_scope(:sphinx_active) { {:without => {:active_item_id => 0}} }
   sphinx_scope(:sphinx_packages) { {:with => {:is_package => true}} }
-  sphinx_scope(:sphinx_with_unpackaged_items) { {:with => {:has_unpackaged_items => true}} }
+  sphinx_scope(:sphinx_with_unpackaged_items) { |inventory_pool_id|
+                                                {:with => {:inventory_pools_with_unpackaged_items => inventory_pool_id.to_s}} }
 
 #############################################  
 
