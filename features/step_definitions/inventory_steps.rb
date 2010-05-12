@@ -5,6 +5,22 @@ Given "inventory pool '$name'" do | inventory_pool_name |
   @inventory_pool = Factory.create_inventory_pool :name => inventory_pool_name
 end
 
+# Allow switching of the default inventory pool on which we are acting
+Given "we are using inventory pool '$inventory_pool' for now" do |inventory_pool_name|
+  @inventory_pool = InventoryPool.find_by_name inventory_pool_name
+end
+
+Given /^(\d+) inventory pool(s?)$/ do | size, plural |
+  InventoryPool.delete_all
+  size.to_i.times do |i|
+    Factory.create_inventory_pool(:name => (i+1))
+  end
+  @inventory_pools = InventoryPool.all
+  @inventory_pools.size.should == size.to_i
+  # default inventory pool
+  @inventory_pool = InventoryPool.first
+end
+
 ###############################################
 # Categories
 

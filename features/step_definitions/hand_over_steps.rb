@@ -35,6 +35,19 @@ When "$who clicks on 'hand_over'" do | who |
   response.should render_template("backend/hand_over/index")
 end
 
+When "he tries to hand over an item to a customer" do
+  get backend_inventory_pool_user_hand_over_path(@inventory_pool, @user)
+  
+  @contract = assigns(:contract)
+  @contract.lines.size.should == 0
+  
+  post add_line_backend_inventory_pool_user_hand_over_path(@inventory_pool, @user, :model_id => Model.first.id, :quantity => 1)
+                             
+  @contract = assigns(:contract)
+  @contract.lines.size.should == 1
+end
+
+
 Then /he sees ([0-9]+) line(s?) with a total quantity of ([0-9]+)$/ do |total, s, quantity |
    @visits.size.should == total.to_i
    s = @visits.collect(&:quantity).sum
@@ -59,7 +72,6 @@ When "$who chooses one line" do | who |
 end
 
 # copied from 'When "$who chooses $name's order"'
-#
 When "$who chooses $name's visit" do | who, name |
   @visit = @visits.detect { |c| c.user.login == name }
   get backend_inventory_pool_user_hand_over_path(@inventory_pool, @visit.user)

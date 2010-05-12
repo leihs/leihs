@@ -8,6 +8,7 @@ end
 When "$who deletes the first line" do | who|
   # I tried to use order_backup_steps.rb -> When "$who deletes $size order line$s"
   # but I couldn't get it to run
+  # TODO: we should be passing through the controller/view here
   @order.remove_line( @order.order_lines.first.id, @order.user.id )
 end
 

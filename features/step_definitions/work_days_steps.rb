@@ -67,28 +67,6 @@ When "$who clicks '$action'" do |who, action|
   @workday = assigns(:workday)
 end
 
-When "he tries to hand over an item to a customer" do
-  get backend_inventory_pool_user_hand_over_path(@inventory_pool, @user)
-  
-  @contract = assigns(:contract)
-  @contract.lines.size.should == 0
-  
-  post add_line_backend_inventory_pool_user_hand_over_path(@inventory_pool, @user, :model_id => Model.first.id, :quantity => 1)
-                             
-  @contract = assigns(:contract)
-  @contract.lines.size.should == 1
-  
-end
-
-
-Then "the order should not be approvable$reason" do |reason|
-  @order.approvable?.should == false
-end
-
-Then "the order should be approvable$reason" do |reason|
-  @order.approvable?.should == true
-end
-
 Then "that should be possible$reason" do |reason|
   @contract.lines.size.should == 1
   line = @contract.lines.first
