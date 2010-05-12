@@ -5,6 +5,18 @@ Given "a new order is placed by a user named '$who'" do | who |
 			         :inventory_pool => @inventory_pool )
 end
 
+Given "the new order is submitted" do
+  @order.submit
+  @order.status_const.should == Order::SUBMITTED
+end
+
+Given "$total new orders are placed" do | total |
+  total.to_i.times do | i |
+    user = Factory.create_user(:login => "user_#{i}")
+    order = Factory.create_order(:user_id => user.id).submit
+  end
+end
+
 Given "the list of submitted orders contains $total elements" do | total |
   Order.submitted.count.should == 0
   user = Factory.create_user
@@ -15,6 +27,22 @@ end
 Given "there are no orders and no contracts" do
   Order.destroy_all
   Contract.destroy_all
+end
+
+Given "there are no new orders" do
+  Order.delete_all :status_const => Order::SUBMITTED
+end
+
+Given /it asks for ([0-9]+) item(s?) of model '(.*)'/ do |number, plural, model|
+  @order.add_line(number, Model.find_by_name(model), @user)
+  @order.log_history("user submits order", 1)
+  @order.save
+  @order.has_changes?.should == false
+  @order.order_lines[0].model.name.should == model
+end
+
+When "he asks for another $number items of model '$model'" do |number, model|
+	Given "it asks for #{number} items of model '#{model}'"
 end
 
 When "$who chooses one order" do | who |
@@ -34,6 +62,7 @@ When "$who asks for $quantity '$what' from $from" do | who, quantity, what, from
 						  :inventory_pool => @inventory_pool)
   @order.save                                                
 end
+
 
 When "$who approves order" do |who|
   @comment ||= ""
@@ -61,3 +90,52 @@ When "he deletes order" do
   @order = assigns(:order)
   response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
 end
+
+When "'$who' orders $quantity '$model'" do |who, quantity, model|
+  post "/session", :login => who #, :password => "pass"
+  get '/user/order'
+  @order = assigns(:order)
+  model_id = Model.find_by_name(model).id
+  post add_line_user_order_path(:model_id => model_id, :quantity => quantity)
+  @order = assigns(:order)
+end
+
+When "'$user' orders another $quantity '$model' for the same time" do |user, quantity, model|
+  model_id = Model.find_by_name(model).id
+  post add_line_user_order_path(:model_id => model_id, :quantity => quantity)
+  @order = assigns(:order)
+end
+
+When "'$who' orders $quantity '$model' from inventory pool $ip" do |who, quantity, model, ip|
+  post "/session", :login => who #, :password => "pass"
+  get '/user/order'
+  @order = assigns(:order)
+  model_id = Model.find_by_name(model).id
+  inv_pool = InventoryPool.find_by_name(ip)
+  post add_line_user_order_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id)
+  @order = assigns(:order)
+end
+
+When "'$who' searches for '$model' on frontend" do |who, model|
+  post "/session", :login => who #, :password => "pass"
+  get models_path(:query => model)
+  @models = assigns(:models)
+end
+
+Then /([0-9]+) order(s?) exist(s?) for inventory pool (.*)/ do |size, s1, s2, ip|
+  inventory_pool = InventoryPool.find_by_name(ip)
+  @orders = inventory_pool.orders.submitted
+  @orders.size.should == size.to_i
+end
+
+Then "user '$user' gets notified that his order has been submitted" do |who|
+  user = Factory.create_user({:login => who })
+  user.notifications.size.should == 1
+  user.notifications.first.title = "Order submitted"
+end
+
+Then "the order was placed by a user named '$name'" do | name |
+  @order = @orders.first if @orders.size == 1 #temp#
+  @order.user.login.should == name
+end
+

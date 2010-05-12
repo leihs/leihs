@@ -1,43 +1,3 @@
-Given "there are no new orders" do
-  Order.delete_all :status_const => Order::SUBMITTED
-end
-
-Given "the new order is submitted" do
-  @order.submit
-  @order.status_const.should == Order::SUBMITTED
-end
-
-Given "$total new orders are placed" do | total |
-  total.to_i.times do | i |
-    user = Factory.create_user(:login => "user_#{i}")
-    order = Factory.create_order(:user_id => user.id).submit
-  end
-end
-
-Given /it asks for ([0-9]+) item(s?) of model '(.*)'/ do |number, plural, model|
-  @order.add_line(number, Model.find_by_name(model), @user)
-  @order.log_history("user submits order", 1)
-  @order.save
-  @order.has_changes?.should == false
-  @order.order_lines[0].model.name.should == model
-end
-
-Given "$name's email address is $email" do |name, email|
-  u = User.find_by_login(name)
-  u.update_attributes(:email => email)
-  u.language = Language.find(2)
-  u.save
-end
-
-When "he asks for another $number items of model '$model'" do |number, model|
-	Given "it asks for #{number} items of model '#{model}'"
-end
-
-When "$who looks at the screen" do | who |
-  get backend_inventory_pool_path(@inventory_pool)
-  @response = response
-end
-   
 When "$who clicks on 'acknowledge'" do | who |
   get backend_inventory_pool_acknowledge_path(@inventory_pool)
   @orders = assigns(:orders)
@@ -53,7 +13,6 @@ When "$who chooses $name's order" do | who, name |
   @order = assigns(:order)
   @response = response
 end
-
 
 When "$who rejects order with reason '$reason'" do |who, reason|
   post reject_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :comment => reason)
@@ -119,42 +78,11 @@ Then /^(.*) sees ([0-9]+) order(s?)$/ do | who, size, s |
   assigns(:orders).total_entries.should == size.to_i
 end
 
-Then "$who sees '$what'" do | who, what |
-  @response.should have_tag("a", what)
-end
-
-Then "the order was placed by a user named '$name'" do | name |
-  @order = @orders.first if @orders.size == 1 #temp#
-  @order.user.login.should == name
-end
-
-Then "he sees the '$title' list" do | title |
-  response.should render_template("backend/#{title}/index")
-end
-
 Then "$name's order is shown" do |name|
+  # TODO: we should be passing through the controller/view here!
   user = User.find_by_login(name)
   @order.user.login.should == user.login
   @order.user.id.should == user.id
-end
-
-Then "$who can $what" do |who, what|
-  @response.should have_tag("a", what)
-end
-
-Then "$email receives an email" do |email|
-  ActionMailer::Base.deliveries.size.should == 1
-  @mail = ActionMailer::Base.deliveries[0]  
-  @mail.to[0].should == email
-  ActionMailer::Base.deliveries.clear
-end
-
-Then "its subject is '$subject'" do |subject|
-  @mail.subject.should == subject
-end
-
-Then "it contains information '$line'" do |line|
-  @mail.body.should match(Regexp.new(line))
 end
 
 Then "Swap Item screen opens" do 
@@ -174,5 +102,13 @@ end
 Then "all '$what' order lines are marked as invalid" do |what|
   # TODO: VERY ugly - we need have_tag "td.valid_false"
   @response.body.should =~ /valid_false/
+end
+
+Then "the order should not be approvable$reason" do |reason|
+  @order.approvable?.should == false
+end
+
+Then "the order should be approvable$reason" do |reason|
+  @order.approvable?.should == true
 end
 
