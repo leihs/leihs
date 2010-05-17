@@ -51,6 +51,7 @@ class Backend::ModelsController < Backend::BackendController
 
     respond_to do |format|
       format.html
+      format.js # partial update of the page by way of a model search/match via an Ajax callback
       format.auto_complete { render :layout => false }
     end
   end
