@@ -15,6 +15,26 @@ name_groups = [names_doz, names_stud, names_pers]
 
 
 
+def add_permissions(user)
+   
+  ar = AccessRight.new
+  ar.role_id = 3 # Customer
+  ar.inventory_pool_id = InventoryPool.find_by_name("DMU").id
+  ar.access_level = 1
+  ar.level = 1
+  ar.user = user
+  puts "--> AccessRight created, do not need to assign to user" if ar.save
+  
+  if user.access_rights.include?(ar)
+    puts "--> User #{user.name} already has this access right"
+  else
+    user.access_rights << ar
+    puts "--> Access right added for #{user.name}" if user.save
+  end
+  
+end
+
+
 def process_names(names)
   
   not_unique = 0
@@ -33,6 +53,8 @@ def process_names(names)
       not_unique += 1
     elsif users.count == 1
       puts "#{firstname} #{lastname} is fine"
+      puts "--> Adding permissions."
+      add_permissions(users[0])
       fine += 1
     elsif users.nil? or users.count == 0
       puts "#{firstname} #{lastname} was not found"
@@ -41,26 +63,6 @@ def process_names(names)
     
     
     
-  #   if user
-  #    
-  #     ar = AccessRight.new
-  #     ar.role_id = 3 # Customer
-  #     ar.inventory_pool_id = 6 # VIAD
-  #     ar.access_level = 1
-  #     ar.level = 1
-  #     ar.user = user
-  #     puts "AccessRight created, do not need to assign to user" if ar.save
-  #     
-  #     if user.access_rights.include?(ar)
-  #       puts "User #{email} already has this access right"
-  #     else
-  #       user.access_rights << ar
-  #       user.save
-  #       puts "Access right added for #{email}" if user.save
-  #     end
-  #   else
-  #     puts "User with email #{email} not found"
-  #   end
 
   end
   puts "---------------------------"
