@@ -16,21 +16,22 @@ name_groups = [names_doz, names_stud, names_pers]
 
 
 def add_permissions(user)
-   
-  ar = AccessRight.new
-  ar.role_id = 3 # Customer
-  ar.inventory_pool_id = InventoryPool.find_by_name("DMU").id
-  ar.access_level = 1
-  ar.level = 1
-  ar.user = user
-  puts "--> AccessRight created, do not need to assign to user" if ar.save
   
-  if user.access_rights.include?(ar)
-    puts "--> User #{user.name} already has this access right"
-  else
-    user.access_rights << ar
-    puts "--> Access right added for #{user.name}" if user.save
+  if AccessRight.find(:all, :conditions => { :role_id => 3, 
+                                             :inventory_pool_id => InventoryPool.find_by_name("DMU").id,
+                                             :level => 1,
+                                             :user_id => user.id}).count == 0
+  
+    ar = AccessRight.new
+    ar.role = Role.find_by_name("customer")
+    ar.inventory_pool = InventoryPool.find_by_name("DMU")
+    #ar.access_level = 1
+    ar.level = 1
+    ar.user = user
+    puts "--> AccessRight created" if ar.save
+  
   end
+ 
   
 end
 
@@ -52,12 +53,12 @@ def process_names(names)
       puts "++++ WARNING: #{firstname} #{lastname} IS NOT UNIQUE"
       not_unique += 1
     elsif users.count == 1
-      puts "#{firstname} #{lastname} is fine"
+      puts "#{firstname} #{lastname} exists"
       puts "--> Adding permissions."
       add_permissions(users[0])
       fine += 1
     elsif users.nil? or users.count == 0
-      puts "#{firstname} #{lastname} was not found"
+      #puts "#{firstname} #{lastname} was not found"
       not_found += 1
     end
     
