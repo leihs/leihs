@@ -68,7 +68,12 @@ class Backend::BackendController < ApplicationController
       model.add_to_document(document, params[:user_id], params[:quantity], start_date, end_date, current_inventory_pool)
 
       flash[:notice] = document.errors.full_messages unless document.save
-      redirect_to :action => 'show', :id => document.id unless @prevent_redirect # TODO 29**
+      unless @prevent_redirect # TODO 29**
+        redirect_to :action => 'show',
+                    :id => document.id,
+                    :last_start_date => start_date,
+                    :last_end_date => end_date
+      end
     else
       redirect_to :controller => 'models', 
                   :layout => 'modal',
