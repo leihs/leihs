@@ -11,7 +11,7 @@
 <ul>
 <% @model.images.each do |image| %>
 	<li style="display: inline;border-bottom: 1px solid gray;border-right: 1px solid gray;border-left: 1px solid gray;padding-right:5px;margin-right:5px;">
-		<%= link_to(icon_tag("delete"), images_backend_inventory_pool_model_path(current_inventory_pool, @model, :image_id => image.id), :method => :delete) %> <%= link_to_function(image_tag(image.public_filename(:thumb)), "$('image_big').src='#{image.public_filename}'") %>
+		<%= link_to(icon_tag("delete"), images_backend_inventory_pool_model_path(current_inventory_pool, @model, :image_id => image.id), :method => :delete, :confirm => _("Are you sure?")) %> <%= link_to_function(image_tag(image.public_filename(:thumb)), "$('image_big').src='#{image.public_filename}'") %>
 	</li>
 <% end %>
 </ul>
