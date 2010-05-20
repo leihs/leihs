@@ -72,7 +72,8 @@ module Backend::BackendHelper
         r
       end unless options[:columns].blank?
   
-      options[:records].each do |record|
+      records = (options[:reorder] ? options[:reorder].call(options[:records].to_a) : options[:records])
+      records.each do |record|
         s += capture(record, &block)
       end
       
@@ -80,6 +81,9 @@ module Backend::BackendHelper
     end
   end
 
+  def reorder_inventory_pools(records)
+    records.partition {|ip| is_apprentice?(ip) }.flatten  
+  end
 
   # TODO 17** buttons_tag
   # <div class="buttons" onclick="if(event.target.hasClassName('ghosted')){ return false; }">
