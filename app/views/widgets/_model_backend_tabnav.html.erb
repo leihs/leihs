@@ -18,11 +18,17 @@ render_tabnav :model_backend,
               :generate_css => true do 
 
 	add_tab do |t|
-		t.named _('Model')
-# TODO 16** optimize :layout
-#		t.links_to backend_inventory_pool_model_path(current_inventory_pool, @model, :layout => params[:layout])
+		t.named _("Availability")
 		t.links_to :controller => 'backend/models', :action => 'show', :id => @model, :layout => params[:layout], :filter => params[:filter]
 		t.highlights_on :controller => 'backend/models', :action => 'show'
+	end
+
+	add_tab do |t|
+		t.named _("Details")
+# TODO 16** optimize :layout
+#		t.links_to backend_inventory_pool_model_path(current_inventory_pool, @model, :layout => params[:layout])
+		t.links_to :controller => 'backend/models', :action => 'details', :id => @model, :layout => params[:layout], :filter => params[:filter]
+		t.highlights_on :controller => 'backend/models', :action => 'details'
 	end
 
 	if @model.is_package

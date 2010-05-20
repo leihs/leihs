@@ -62,7 +62,7 @@ class Backend::ModelsController < Backend::BackendController
 
   def new
     @model = Model.new
-    render :action => 'show'
+    render :action => 'details'
   end
   
   def create
@@ -84,10 +84,10 @@ class Backend::ModelsController < Backend::BackendController
 
   def update
     if @model.update_attributes(params[:model])
-      redirect_to backend_inventory_pool_model_path(current_inventory_pool, @model)
+      redirect_to details_backend_inventory_pool_model_path(current_inventory_pool, @model)
     else
       flash[:error] = _("Couldn't update ")
-      render :action => 'show' # TODO 24** redirect to the correct tabbed form
+      render :action => 'details' # TODO 24** redirect to the correct tabbed form
     end
   end
 
@@ -99,6 +99,11 @@ class Backend::ModelsController < Backend::BackendController
     end
   end
   
+#################################################################
+
+  def details
+  end
+
 #################################################################
 # Packages
 
