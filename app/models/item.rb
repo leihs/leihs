@@ -261,9 +261,11 @@ class Item < ActiveRecord::Base
 
   def self.proposed_inventory_code
     last = 0
-    all.collect(&:inventory_code).each do |x| i = x.gsub(/[^\d]/, "").to_i
-      #TODO More generic so non-ZHdK users don't get brain explosions
-      last = i if i > last and i < 100000
+    all.each do |item|
+       code = item.read_attribute('inventory_code')
+       # extract *last* number sequence in string   
+       num = code.reverse.sub(/[^\d]*/,'').sub(/[^\d]+.*/,'').reverse.to_i
+       last = num if num > last
     end
     last + 1
   end
