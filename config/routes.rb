@@ -76,7 +76,8 @@ ActionController::Routing::Routes.draw do |map|
       inventory_pool.resources :options
       inventory_pool.resources :models, :collection => { :new_package => :get,
                                                          :update_package => :post },
-                                        :member => { :properties => [:get, :post],
+                                        :member => { :details => :get,
+                                                     :properties => [:get, :post],
                                                      :accessories => :any,
                                                      :package => :get,
                                                      :destroy_package => :delete,

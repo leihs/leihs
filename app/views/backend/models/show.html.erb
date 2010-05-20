@@ -1,22 +1,3 @@
-<%
-	
-form_for [:backend, current_inventory_pool, @model], :html => { :onsubmit => (is_privileged_user? ? nil : "return false;") } do |f|
+<%= canvas_for(@model, current_inventory_pool, {:filter => params[:filter]}) %>
 
-	content_tag :table do %>
-		<tr><td><b><%= _("Name") %>:</b></td><td><%= f.text_field :name, :readonly => !is_privileged_user? %></td></tr>	
-		<tr><td><b><%= _("Manufacturer") %>:</b></td><td><%= f.text_field :manufacturer, :readonly => !is_privileged_user? %></td></tr>
-		<tr><td><b><%= _("Description") %>:</b></td><td><%= f.text_area :description, :readonly => !is_privileged_user?, :rows => 4 %></td></tr>
-		<tr><td><b><%= _("Technical Details") %>:</b></td><td><%= f.text_area :technical_detail, :readonly => !is_privileged_user?, :rows => 4 %></td></tr>
-		<tr><td><b><%= _("Internal Description") %>:</b></td><td><%= f.text_area :internal_description, :readonly => !is_privileged_user?, :rows => 4 %></td></tr>
-		<% content_tag :tr do %>
-			<td></td><td><%= submit_tag _('Submit') %></td>
-		<% end if is_privileged_user?
-	end
-end
-
-
-unless @model.new_record? %>
-	<%= canvas_for(@model, current_inventory_pool, {:filter => params[:filter]}) %>
-	
-	<%#temp#= pie_for_model(@model) if is_privileged_user? %>
-<% end %>
+<%#temp#= pie_for_model(@model) if is_privileged_user? %>
