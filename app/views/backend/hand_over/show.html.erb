@@ -1,5 +1,4 @@
 <% if current_inventory_pool.has_access?(@contract.user) and not current_inventory_pool.is_blacklisted?(@contract.user) %>
-
 			<div id="meta" class="boxes">
 				<div id="meta-contract">
 					<table><tr>
@@ -80,8 +79,16 @@
 						</tr>
 					<!-- end header -->
 					<% content_tag :tr do
-						start_date = Date.today
-						end_date = @contract.next_open_date(start_date + 2.days)
+						if params[:last_start_date]
+						  start_date = Date.parse(params[:last_start_date])
+						else
+						  start_date = Date.today
+						end
+						if params[:last_end_date]
+						  end_date = Date.parse(params[:last_end_date])
+						else
+						  end_date = @contract.next_open_date(start_date + 2.days)
+						end
 						content_tag :td, :colspan => 5, :class => "buttons" do %>
 							<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model"),
 									{:action => 'add_line'},
