@@ -3,7 +3,8 @@
 <% end if is_admin? and not request.xml_http_request?
 
 table_with_search_and_pagination :columns => [[_("Name"), 'name'], _("Short Name"), _("Action")],
-								 :records => @inventory_pools do |inventory_pool|
+								 :records => @inventory_pools,
+								 :reorder => Proc.new {|records| reorder_inventory_pools(records) } do |inventory_pool|
 
 			content_tag :tr, :id => "inventory_pool_#{inventory_pool.id}" do
 				content_tag :td do

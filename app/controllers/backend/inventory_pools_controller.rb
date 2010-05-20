@@ -8,15 +8,11 @@ class Backend::InventoryPoolsController < Backend::BackendController
 
     with = {:user_id => current_user.id} unless is_admin?
     
-    @inventory_pools = InventoryPool.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
+    @inventory_pools = InventoryPool.search params[:query], { :star => true, :page => params[:page], :per_page => 9999, #$per_page,
                                                               :order => params[:sort], :sort_mode => params[:sort_mode],
                                                               :with => with }
 
-    # OPTIMIZE 0501 the target inventory_pool could be on the second page, then the redirect isn't performed
-    if !is_admin? and params[:query].blank?
-      inventory_pools = @inventory_pools.select {|ip| current_user.has_role?('manager', ip, false) }.compact
-      redirect_to backend_inventory_pool_path(inventory_pools.first) if inventory_pools.size == 1
-    end
+    redirect_to backend_inventory_pool_path(@inventory_pools.first) if !is_admin? and @inventory_pools.total_entries == 1
   end
 
   def info
