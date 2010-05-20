@@ -24,7 +24,7 @@ module Backend::BackendHelper
       params.each {|k,v| parameters += ", #{k}: '#{v}'" unless filter_params.include?(k) }
       
       if with_search_field
-        # evalJS must be set, since we are updating the page parts via JS - see index.js.rjs
+        # evalJS must be set, since we are updating the page parts via JS - see models/index.js.rjs 
         r += text_field_tag :query, query,
                             :onchange => "new Ajax.Request('', {asynchronous:true, evalJS:true, method:'get', " \
                                                                "parameters: {query: this.value #{parameters}}});" \
