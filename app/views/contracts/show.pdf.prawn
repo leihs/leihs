@@ -46,7 +46,7 @@ end
 if @contract.purpose.nil?
   purpose = filter(_("No purpose given."))
 else
-  purpose = @contract.purpose
+  purpose = filter(@contract.purpose)
 end
 
 
