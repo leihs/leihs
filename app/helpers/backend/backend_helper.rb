@@ -25,11 +25,13 @@ module Backend::BackendHelper
       
       if with_search_field
         # evalJS must be set, since we are updating the page parts via JS - see models/index.js.rjs 
-        r += text_field_tag :query, query,
-                            :onchange => "new Ajax.Request('', {asynchronous:true, evalJS:true, method:'get', " \
-                                                               "parameters: {query: this.value #{parameters}}});" \
-                                         "return false;",
-                            :id => 'search_field'
+#temp#
+#        r += text_field_tag :query, query,
+#                            :onchange => "new Ajax.Request('', {asynchronous:true, evalJS:true, method:'get', " \
+#                                                               "parameters: {query: this.value #{parameters}}});" \
+#                                         "return false;",
+#                            :id => 'search_field'
+        r += text_field_tag :query, query, :onchange => "new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', parameters: {query: this.value #{parameters}}}); return false;", :id => 'search_field'
         r += javascript_tag("$('search_field').focus()")
       end
       
