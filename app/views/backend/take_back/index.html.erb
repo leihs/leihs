@@ -1,7 +1,9 @@
-<h3><%= _("Take Back") %></h3>
+<% unless request.xml_http_request?
+	content_tag :h3 do %>
+		<%= _("Take Back") %>
+	<% end
+end
 
-
-<%
 last_date = 0
 
 table_with_search_and_pagination :columns => [_("Visit at"), _("Reserver"), _("Items"), _("Action")],

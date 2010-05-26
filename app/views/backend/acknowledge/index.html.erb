@@ -1,7 +1,9 @@
 
-<h3><%= _("Acknowledge") %></h3>
 
 <% unless request.xml_http_request?
+	content_tag :h3 do %>
+		<%= _("Acknowledge") %>
+	<% end
 
 	content_tag :div, :class => "buttons" do %>
 		<%= _("Orders you are editing (please complete)") %>:
