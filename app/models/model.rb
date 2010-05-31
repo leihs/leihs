@@ -121,7 +121,6 @@ class Model < ActiveRecord::Base
 
     # item has at least one NULL parent_id and thus it has items that were not packaged
     # we collect all the inventory pools for which this is the case
-#    has "(SELECT GROUP_CONCAT(DISTINCT i.inventory_pool_id ORDER BY i.inventory_pool_id) AS ip_ids FROM items i WHERE i.model_id = model_id AND i.parent_id IS NULL)",
     has "(SELECT GROUP_CONCAT(DISTINCT i.inventory_pool_id) FROM items i WHERE i.model_id = models.id AND i.parent_id IS NULL)",
         :as => :inventory_pools_with_unpackaged_items, :type => :multi
 #    has unpackaged_items(:inventory_pool_id), :as => :unpackaged_inventory_pool_id
