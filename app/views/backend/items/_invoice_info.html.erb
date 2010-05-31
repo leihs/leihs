@@ -10,7 +10,11 @@
 	</td>
 </tr>
 
-<% if is_privileged_user? and @item.owner_id == current_inventory_pool.id %>
+<% # !item.id.blank? ensures this is only shown for existing items, not unsaved items. Otherwise the form explodes
+   # when creating a new item 
+%>
+
+<% if !@item.id.blank? and is_privileged_user? and @item.owner_id == current_inventory_pool.id %>
 	<tr><td><b><%= _("Retirement:") %></b></td><td class="buttons">
 	        <% action = (@item.retired ? _("Unretire") : _("Retire")) %>
 	        <%= greybox_link action, retire_backend_inventory_pool_model_item_path(current_inventory_pool, @item.model_id, @item) %>
