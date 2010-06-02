@@ -259,7 +259,7 @@ class Item < ActiveRecord::Base
     "#{inventory_code}<br/><div>#{location}</div>"
   end
 
-  def self.proposed_inventory_code
+  def self.proposed_inventory_code(inventory_pool)
     last = 0
     all.each do |item|
        code = item.read_attribute('inventory_code')
@@ -267,22 +267,7 @@ class Item < ActiveRecord::Base
        num = code.reverse.sub(/[^\d]*/,'').sub(/[^\d]+.*/,'').reverse.to_i
        last = num if num > last
     end
-    last + 1
-  end
-    
-  # TODO remove this method when no more needed (it is used for Rspec tests)
-  # generates a new and unique inventory code
-  def self.get_new_unique_inventory_code
-    begin
-      chars_len = 1
-      nums_len = 2
-      chars = ("A".."Z").to_a
-      nums = ("0".."9").to_a
-      code = ""
-      1.upto(chars_len) { |i| code << chars[rand(chars.size-1)] }
-      1.upto(nums_len) { |i| code << nums[rand(nums.size-1)] }
-    end while exists?(:inventory_code => code)
-    code
+    return "#{inventory_pool.shortname}#{last + 1}"
   end
 
 ####################################################################

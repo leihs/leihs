@@ -22,6 +22,11 @@ class Backend::TakeBackController < Backend::BackendController
     visits = visits.select {|v| v.user == @user} if @user # OPTIMIZE named_scope intersection?
 
     @visits = visits.paginate :page => params[:page], :per_page => $per_page
+
+    respond_to do |format|
+      format.html
+      format.js { search_result_rjs(@contracts) }
+    end
   end
 
   # get current contracts for a given user

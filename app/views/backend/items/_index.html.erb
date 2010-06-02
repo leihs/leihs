@@ -1,0 +1,62 @@
+<% table_with_search_and_pagination :columns => ["", [_("Model"), 'model_name'], [_("Inventory Code"), 'inventory_code'], _("Location"), _("Status"), _("Level"), _("In stock?"), _("Action")],
+						   			:records => @items do |item| %>	
+
+		<% record_path = [:backend, current_inventory_pool, item.model, item] %>
+		<tr>
+			<td><%#= link_to image_tag(item.model.image_thumb), record_path if item.model.image_thumb %>
+				<%= icon_tag('package') if item.model.is_package? %>
+				<%= icon_tag('broken') if item.is_broken? %>
+				<%= icon_tag('incomplete') if item.is_incomplete? %>
+			</td>
+			<td><%= item.model.name %>
+			  <% unless item.name.blank? %>
+			    <br /><%= _("Name") %>: <em><%= item.name %></em>
+			  <% end %>
+				<% if item.parent %>
+					<br/><%= _("Part of:") %>
+					<%= link_to(item.parent.model.name, :controller => 'models', :action => 'show', :id => item.parent.model.id) %>
+				<% end %>
+			</td>
+			<td><%= item.inventory_code %></td>
+			<td>
+				<% if item.inventory_pool_id and item.inventory_pool_id != current_inventory_pool.id %>
+					<%= link_to item.inventory_pool, params.merge(:allocated_inventory_pool_id => item.inventory_pool_id) %>
+					<br/>
+				<% end %>
+				<%= item.location if item.location %>
+			</td>
+			<td><% if not item.is_broken? and not item.is_incomplete? and item.is_borrowable? %>
+					<%= icon_tag("accept") %>
+				<% else 
+					content_tag :ul, :style => "list-style: disc;" do
+						content_tag :li do %>
+							<%= _("Broken") %>
+						<% end if item.is_broken?
+						content_tag :li do %>
+							<%= _("Incomplete") %>
+						<% end if item.is_incomplete?
+						content_tag :li do %>
+							<%= _("Unborrowable") %>
+						<% end unless item.is_borrowable?
+					end
+				end %>
+			</td>
+			<td>
+				<%= item.required_level %>
+			</td>
+			<td>
+				<% if item.in_stock? %><%# OPTIMIZE 0501 performance: named_scope or sphinx_scope in_stock?(item) %>
+					<%= icon_tag('accept') %>
+				<% else %>
+					<%= item.current_borrowing_info %>
+				<% end %>
+			</td>
+			<td class="buttons">
+				<%= link_to icon_tag("magnifier") + _("Show"), record_path %>
+				<% if is_privileged_user? and item.owner_id == current_inventory_pool.id %>
+					<% action = (item.retired ? _("Unretire") : _("Retire")) %>
+					<%= greybox_link action, retire_backend_inventory_pool_model_item_path(current_inventory_pool, item.model_id, item) %>
+				<% end %>
+			</td>
+		</tr>
+<% end %>

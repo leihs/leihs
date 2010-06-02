@@ -33,6 +33,12 @@ class Backend::UsersController < Backend::BackendController
     @users = (users ? users : User).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
                                            :with => with, :without => without,
                                            :order => params[:sort], :sort_mode => params[:sort_mode] }
+
+    respond_to do |format|
+      format.html
+      format.js { search_result_rjs(@users) }
+    end
+
   end
 
   def show

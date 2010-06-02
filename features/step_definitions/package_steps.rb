@@ -5,7 +5,7 @@ Given "a package '$package' exists" do |package|
   model.save
 end
 
-Given "item $item is part of package item $package_item" do |item, package_item|
+Given "item '$item' is part of package item $package_item" do |item, package_item|
   package = Item.find_by_inventory_code package_item
   item    = Item.find_by_inventory_code item
   item.parent = package
@@ -20,7 +20,7 @@ end
 #Then /^he sees 0 lines 'Khil Remix'$/ do
 # the check actually doesn't bother about lines at all...
 Then /^(.*) sees (\d*) line(s?) '(.*)'$/ do |who, number, plural, text|
-  @response.body.scan(text).count.should == number.to_i
+  @response.body.scan(text).size.should == number.to_i
 end
 
 Then "even though 'Khil Remix' is not part of a package in inventory pool 2!" do

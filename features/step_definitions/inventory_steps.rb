@@ -1,8 +1,13 @@
 ###############################################
 # Inventory Pools
 
-Given "inventory pool '$name'" do | inventory_pool_name |
+Given "inventory pool '$inventory_pool_name'" do | inventory_pool_name |
   @inventory_pool = Factory.create_inventory_pool :name => inventory_pool_name
+end
+
+Given "inventory pool short name '$shortname'" do | shortname |
+  @inventory_pool.shortname = shortname
+  puts @inventory_pool.save
 end
 
 # Allow switching of the default inventory pool on which we are acting
@@ -86,7 +91,7 @@ Given /(\d+) item(s?) of model '(.+)' exist(s?)/ do |number, plural1, model, plu
   end
 end
 
-Given /^item(s?) (\S+) of model '(.+)' exist(s?)( only)?$/ \
+Given /^item(s?) '(\S*)' of model '(.+)' exist(s?)( only)?$/ \
 do |plural, inventory_codes, model, plural2, only|
   Item.delete_all if only
   inv_codes = inventory_codes.split /,/
@@ -103,3 +108,37 @@ Given "$number items of this model exist" do |number|
   end
   @model = Model.find(@model.id)
 end
+
+When "the broken alorithm proposes wrongly a duplicate inventory code '$code'" do |code|
+  Item.class_exec(code) do |code|
+    eval "
+      class << self
+        alias_method :proposed_inventory_code_orig, :proposed_inventory_code
+        def proposed_inventory_code(inventory)
+	  '#{code}'
+        end
+      end
+    "
+  end
+end
+
+When "the lending_manager creates a new package" do
+  post_via_redirect update_package_backend_inventory_pool_models_path( @inventory_pool, :model => { :name => "Crappodile" } )
+end
+
+Then "we need to fix the algorithm again so subsequent tests won't fail" do
+  Item.class_eval do
+    class << self
+      alias_method :proposed_inventory_code, :proposed_inventory_code_orig
+    end
+  end
+end
+
+When "leihs generates a new inventory code" do
+  @inventory_code = Item.proposed_inventory_code(@inventory_pool)
+end
+
+Then "the generated_code should look like this $result" do |result|
+  @inventory_code.should == result
+end
+

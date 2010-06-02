@@ -22,7 +22,7 @@ class Backend::CategoriesController < Backend::BackendController
       else
         categories = Category
       end
-      @show_categories_tree = (!request.xml_http_request? and params[:source_path].blank?)
+      @show_categories_tree = params[:source_path].blank?
     end    
     
     @categories ||= categories.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
@@ -51,6 +51,7 @@ class Backend::CategoriesController < Backend::BackendController
 
     respond_to do |format|
       format.html
+      format.js { search_result_rjs(@categories) }
       format.ext_json { id = (@category ? @category.id : 0)
                         render :json => @categories.sort.to_json(:methods => [[:text, id],
                                                                               :leaf,

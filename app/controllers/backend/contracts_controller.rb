@@ -45,6 +45,11 @@ class Backend::ContractsController < Backend::BackendController
     # TODO 0501
     @contracts = (contracts ? contracts : Contract).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
                                                                              :with => with, :without => without }
+    respond_to do |format|
+      format.html
+      format.js { search_result_rjs(@contracts) }
+    end
+                                                                             
   end
   
   def show

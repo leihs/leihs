@@ -107,7 +107,7 @@ Scenario: Don't generate a new contract if all Items are handed over
 
 	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given a model 'NEC 245' exists
-	  	And item AV_NEC245_1 of model 'NEC 245' exists
+	  	And item 'AV_NEC245_1' of model 'NEC 245' exists
 	Given the list of approved orders contains 0 elements
 	When 'Joe' places a new order
 		And he asks for 1 'NEC 245' from 31.3.2101 
@@ -124,7 +124,7 @@ Scenario: Bugfix: Don't allow handing over the same item twice
 
 	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given a model 'NEC 245' exists
-	  	And items AV_NEC245_1,AV_NEC245_2 of model 'NEC 245' exist
+	  	And items 'AV_NEC245_1,AV_NEC245_2' of model 'NEC 245' exist
         Given there are no orders and no contracts
 	Given 'Joe' places a new order
 		And he asks for 1 'NEC 245' from 31.3.2100 

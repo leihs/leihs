@@ -1,0 +1,28 @@
+<% if @start_date and @end_date %>
+  <%= _("From") %> <%= short_date(@start_date) %> <%= ("to") %> <%= short_date(@end_date) %> 
+<% end %>
+
+<% table_with_search_and_pagination :columns => [_("Barcode"), _("Name"), _("Action")],
+						   			:records => @options do |option| %>	
+
+			<tr>
+				<td><%= option.inventory_code %></td>
+				<td><%= option.name %></td>
+				<td class="buttons">
+					<% if params[:source_path]
+							var_id = "option_id"
+							glue = (params[:source_path].include?('?') ? '&' : '?' )
+							url = "#{params[:source_path]}#{glue}#{var_id}=#{option.id}"
+						%>
+						<%=	link_to(icon_tag("package_add") + " " + _("Select"), url,
+							:method => 'post', :target=> '_top') %>
+					<% else %>						
+						<ul>
+							<li><%= link_to icon_tag("magnifier") + _("Show"), {:action => 'show', :id => option} %></li>
+							<li><%= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => option.inventory_code}, :method => :post %></li>
+							<li><%= link_to _("Delete"), {:action => 'destroy', :id => option}, :confirm => _("Are you sure?"), :method => :delete if option.option_lines.empty? %></li>
+						</ul>
+					<% end %>						
+				</td>
+			</tr>
+<% end %>

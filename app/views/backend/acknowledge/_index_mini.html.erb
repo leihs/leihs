@@ -1,0 +1,20 @@
+<table>
+	<tr>
+	<th colspan="2"><%= icon_tag("accept") + " " + _("Pending orders") %></th>
+	</tr>
+	
+<% orders.each do |order| %>	
+	<tr>
+		<td>
+			<%= today_or_yesterday_date(order.created_at) %>
+			<br />
+			<b><%= order.user.login %></b>
+		</td>
+		<td class="buttons">
+			<%= link_to icon_tag("tab_go"),
+					backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order) %>
+		</td>
+	</tr>
+<% end %>
+
+</table>

@@ -17,6 +17,12 @@ class Backend::OrdersController < Backend::BackendController
     
     @orders = Order.send(scope).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
                                                          :with => with }
+
+    respond_to do |format|
+      format.html
+      format.js { search_result_rjs(@orders) }
+    end
+
   end
 
   def show
