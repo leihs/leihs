@@ -1,0 +1,24 @@
+<% table_with_search_and_pagination :columns => [[_("Name"), 'name'], _("Short Name"), _("Action")],
+								    :records => @inventory_pools,
+								    :reorder => Proc.new {|records| reorder_inventory_pools(records) } do |inventory_pool|
+
+			content_tag :tr, :id => "inventory_pool_#{inventory_pool.id}" do
+				content_tag :td do
+					if is_apprentice?(inventory_pool) %>
+						<%= link_to inventory_pool.name, backend_inventory_pool_path(inventory_pool) %>
+					<% else %>
+						<%= inventory_pool.name %>
+					<% end
+				end
+				content_tag :td do %>
+					<%= simple_format(inventory_pool.shortname) %>
+				<% end
+				content_tag :td, :class => "buttons" do %>
+					 <%= link_to_remote _("Delete"),
+											:url => backend_inventory_pool_path(inventory_pool),
+											:confirm => _("Are you sure?"),
+											:method => :delete if inventory_pool.items.empty? if is_admin? %>
+				<% end
+			end
+end %>
+

@@ -12,6 +12,10 @@ class Backend::AcknowledgeController < Backend::BackendController
     @working_orders = Order.sphinx_submitted.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
                                                                       :without => {:backup_id => 0},
                                                                       :with => with }
+    respond_to do |format|
+      format.html
+      format.js { search_result_rjs(@orders) }
+    end
   end
   
   def show

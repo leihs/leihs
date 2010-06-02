@@ -1,20 +1,42 @@
-<table>
-	<tr>
-	<th colspan="2"><%= icon_tag("arrow_turn_right") + " #{title} " + _("Hand Over visits") %></th>
-	</tr>
-	
-<% visits.each do |visit| %>	
-	<tr>
-		<td>
-			<%= short_date(visit.date) %>
-			<br />
-			<b><%= visit.user.login %></b>
-		</td>
-		<td class="buttons">
-			<%= link_to icon_tag("tab_go"),
-					backend_inventory_pool_user_hand_over_path(current_inventory_pool, visit.user) %>
-		</td>
-	</tr>
+<% last_date = 0
+
+   table_with_search_and_pagination :columns => [_("Visit at"), _("Reserver"), _("Items"), _("Action")],
+									:records => @visits do |visit| %>	
+
+			<% if visit.date > last_date
+				last_date = visit.date
+				content_tag :tr, :class => "line_header" do
+					style = (last_date < Date.today ? "color: red;" : nil)
+					content_tag :td, :colspan => 5, :class => "title", :style => style do %>
+						<%= short_date(last_date) %>
+					<% end
+				end
+			end %>
+
+			<% content_tag :tr do %>
+				<% content_tag :td do %>
+					<%= short_date(visit.date) %>
+				<% end %>
+				<td>
+					<%= greybox_link_to_page(visit.user.name,
+							backend_inventory_pool_user_path(current_inventory_pool, visit.user, :layout => "modal"),
+						 	:title => _("User"),
+						 	:class => "iconized-notxt edit-user" ) %>
+				</td>
+				<td>
+					<%= visit.quantity %>
+					<br/>
+					<span style='font-size:smaller;'><%= lines_preview(visit) %></span>
+				</td>
+				<td width="200px" class="buttons">
+					<%= link_to icon_tag("tab_go") + _("Hand Over"), [:backend, current_inventory_pool, visit.user, :hand_over] %>
+					<%= link_to(icon_tag("cancel") + _("Delete"),
+								delete_visit_backend_inventory_pool_user_hand_over_path(current_inventory_pool, visit.user, :lines => visit.contract_line_ids),
+								:confirm => _("Are you sure?"),
+								:method => :delete,
+								:class => 'negative') %>
+				</td>
+			<% end %>
+
 <% end %>
 
-</table>

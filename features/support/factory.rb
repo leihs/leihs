@@ -93,10 +93,22 @@ module Factory
     t
   end
 
+  def self.generate_new_unique_inventory_code
+    begin
+      chars_len = 1
+      nums_len = 2
+      chars = ("A".."Z").to_a
+      nums = ("0".."9").to_a
+      code = ""
+      1.upto(chars_len) { |i| code << chars[rand(chars.size-1)] }
+      1.upto(nums_len) { |i| code << nums[rand(nums.size-1)] }
+    end while Item.exists?(:inventory_code => code)
+    code
+  end
   
   def self.create_item(attributes = {})
     default_attributes = {
-      :inventory_code => Item.get_new_unique_inventory_code,
+      :inventory_code => generate_new_unique_inventory_code,
       :is_borrowable => true
     }
     i = Item.create default_attributes.merge(attributes)

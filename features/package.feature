@@ -12,19 +12,19 @@ Background: An inventory, a manager, a package with two items and a non-packaged
 	Given a manager for inventory pool '1' logs in as 'inv_man_0'
 	  And we are using inventory pool '1' for now
 	Given a package 'Trololo Complete Edition' exists
-	  And item TROLL of model 'Trololo Complete Edition' exists
+	  And item 'TROLL' of model 'Trololo Complete Edition' exists
 	      # 'Russian Singer Eduard Khil Remix'
 	  And a model 'Khil Remix' exists
-	  And item EKR of model 'Khil Remix' exists
-	  And item EKR is part of package item TROLL
+	  And item 'EKR' of model 'Khil Remix' exists
+	  And item 'EKR' is part of package item TROLL
 	      # 'I am very glad, because I'm finally returning back home (Trololo)'
 	  And a model 'Khil Original' exists
-	  And item EKO of model 'Khil Original' exists
-	  And item EKO is part of package item TROLL
+	  And item 'EKO' of model 'Khil Original' exists
+	  And item 'EKO' is part of package item TROLL
 	Given a model 'Jimi Hendrix for the Connaisseur' exists
 	  And 1 item of model 'Jimi Hendrix for the Connaisseur' exists
 	Given we are using inventory pool '2' for now
-	  And item EKR_PLUS of model 'Khil Remix' exists
+	  And item 'EKR_PLUS' of model 'Khil Remix' exists
 
 
 Scenario: Don't show Model if it belongs to Package in Greybox and don't be influenced by other inventory pools

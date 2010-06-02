@@ -4,6 +4,12 @@ class Backend::TemplatesController < Backend::BackendController
 
   def index
     @templates = current_inventory_pool.templates.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page }
+
+    respond_to do |format|
+      format.html
+      format.js { search_result_rjs(@templates) }
+    end
+
   end
 
   def show

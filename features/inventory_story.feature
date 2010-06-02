@@ -5,6 +5,7 @@ Feature: Inventory
 	
 Background: As a Organisation we have some Inventory with things to lend out
 	Given inventory pool 'ABC'
+	  And inventory pool short name 'ABC'
 
 
 Scenario: Categories structure
@@ -47,4 +48,30 @@ Scenario: Models organized in categories
 	Then there are 2 models belonging to that category
 	When the category 'Video' is selected	
 	Then there are 1 models belonging to that category
-		
+
+
+Scenario: Tell the user if we can't create a new Package
+	Given a model 'Book' exists
+	  And item 'P-ABC124' of model 'Book' exists
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	 # monkeypatch Item.proposed_inventory_code
+	 When the broken alorithm proposes wrongly a duplicate inventory code 'ABC124'
+	  And the lending_manager creates a new package
+	 Then it will fail with an error
+	 # un-monkeypatch Item.proposed_inventory_code
+	  And we need to fix the algorithm again so subsequent tests won't fail
+
+
+Scenario Outline: How we want new generated inventory codes to look like
+	Given a model 'Trumpet' exists
+	  And item '<inventory_code>' of model 'Trumpet' exists
+	 When leihs generates a new inventory code
+	 Then the generated_code should look like this <result>
+
+	Examples:
+	  | inventory_code | result  |
+	  | 123            | ABC124  |
+	  | ABC127         | ABC128  |
+	  | 123ABC999      | ABC1000 |
+	  |                | ABC1    |
+

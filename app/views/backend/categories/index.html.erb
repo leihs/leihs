@@ -9,7 +9,7 @@
 <td style="vertical-align:top;" width="80%">
 <% end %>  
 
-<% if !request.xml_http_request? and params[:source_path].blank? %>
+<% if params[:source_path].blank? %>
 
 	<% if @category %>
 		<% if request.env['REQUEST_URI'].include?("parents") %>
@@ -38,48 +38,7 @@
 
 <% end %>
 
-<% table_with_search_and_pagination :columns => [[_("Name"), 'name'], _("Type"), _("Models"), _("Models in %s") % current_inventory_pool, _("Children"), _("All Children"), _("Parents"), _("Action")],
-						   			:records => @categories do |category| %>	
-
-			<% content_tag :tr, :id => "category_#{category.id}" do %>
-				<td><%= category.name %></td>
-				<td><%= category.type %></td>
-				<td><%= category.all_models.active.count %></td><%# OPTIMIZE 0501 search_count %>
-				<td><%= category.all_models.active.by_inventory_pool(current_inventory_pool).count %></td><%# OPTIMIZE 0501 search_count %>
-				<td><%= category.children.count %></td>
-				<td><%= category.all_children.size %></td>
-				<td><%= category.parents.count %></td>
-				<td class="buttons">
-					<ul>
-						<% if params[:source_path]
-								glue = (params[:source_path].include?('?') ? '&' : '?' )
-								url = "#{params[:source_path]}#{glue}category_id=#{category.id}"
-							%>
-							<%=	link_to(icon_tag("connect") + " " + _("Select"), url,
-								:method => 'post', :target=> '_top') %>
-						<% else %>
-							<li><%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_category_path(current_inventory_pool, category) %></li>
-							<li><%= link_to_remote _("Delete"),
-											:url => backend_inventory_pool_category_path(current_inventory_pool, category),
-											:confirm => _("Are you sure?"),
-											:method => :delete if category.models.empty? and category.children.empty? %></li>
-							<% # TODO 0607 ajax delete 
-                 # Commented out -- not used anymore?
- 							if false %>
-							<li><%= link_to _("Remove"), backend_inventory_pool_model_category_path(current_inventory_pool, @model, category),
-											:confirm => _("Are you sure?"),
-											:method => :delete if @model %></li> 
-              <% end %>
-							<% # TODO 0607 ajax delete %>
-							<li><%= link_to _("Remove Parent"), backend_inventory_pool_category_path(current_inventory_pool, @category, :parent_id => category.id),
-											:confirm => _("Are you sure?"),
-											:method => :delete if @category and @category.parents.include?(category) %></li>
-						<% end %>
-					</ul>
-				</td>
-			<% end %>
-
-<% end %>
+<%= render :partial => 'index' %>
 
 <% if @show_categories_tree %>  
 </td>

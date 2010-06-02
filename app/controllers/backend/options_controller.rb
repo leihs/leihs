@@ -9,6 +9,12 @@ class Backend::OptionsController < Backend::BackendController
       @start_date = Date.parse(params[:start_date])
       @end_date = Date.parse(params[:end_date])
     end
+
+    respond_to do |format|
+      format.html
+      format.js { search_result_rjs(@options) }
+    end
+
   end
   
   def show

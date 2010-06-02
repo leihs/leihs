@@ -57,21 +57,4 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # TODO 2012 remove this method, find different solution without overriding framework methods
-  # overriding
-  # TODO 16** doesn't work for *_url and *_path 
-#  def default_url_options(options = nil)
-#    { :layout => params[:layout] }
-#  end
-
-  # TODO 2012 remove this method, find different solution without overriding framework methods
-  # overriding
-  def render(options = nil, extra_options = {}, &block)
-    if request.xml_http_request? and options != :update
-      options ||= {}
-      options[:layout] = false
-    end
-    super
-  end
-
 end

@@ -74,6 +74,7 @@ class Backend::ItemsController < Backend::BackendController
 
     respond_to do |format|
       format.html
+      format.js { search_result_rjs(@items) }
       format.auto_complete { render :layout => false }
       
       format.csv do
@@ -100,8 +101,7 @@ class Backend::ItemsController < Backend::BackendController
       @item = Item.find(id).clone
       @item.serial_number = nil
     end
-    @proposed_inventory_code = Item.proposed_inventory_code
-    @item.inventory_code = "#{current_inventory_pool.shortname}#{@proposed_inventory_code}"
+    @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)
     @item.owner = current_inventory_pool
     @item.invoice_date = Date.yesterday
     if @current_user.access_level_for(current_inventory_pool) < 2

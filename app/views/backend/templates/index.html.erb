@@ -2,22 +2,4 @@
 	<%= link_to _('New Template'), :action => 'new' %>
 </div>
  
-<% table_with_search_and_pagination :columns => [_("Name"), _("Models"), _("Items"), _("Action")],
-						   			:records => @templates do |template| %>	
-
-			<tr>
-				<td><%= template.name %></td>
-				<td><%= template.models.size %></td>
-				<td><%= template.total_quantity %></td>
-				<td class="buttons">
-					<ul>
-						<li><%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_template_path(current_inventory_pool, template) %></li>
-						<li><%= link_to _("Remove"), {},
-										:confirm => _("Are you sure?"),
-										:method => :delete if @model %></li> <% # TODO %>
-					</ul>
-				</td>
-			</tr>
-
-
-<% end %>
+<%= render :partial => 'index' %>

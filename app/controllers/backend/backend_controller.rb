@@ -10,6 +10,7 @@ class Backend::BackendController < ApplicationController
  
 ###############################################################  
   
+  # global search
   def search
 # TODO use sphinx_select
 #    @result = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => 200,
@@ -38,6 +39,8 @@ class Backend::BackendController < ApplicationController
       end
     end
   end
+
+###############################################################  
 
   def database_backup
     dir = "#{RAILS_ROOT}/db/backup"
@@ -159,6 +162,16 @@ class Backend::BackendController < ApplicationController
       end
       return nil if current_user.nil? #fixes http://leihs.hoptoadapp.com/errors/756097 (when a user is not logged in but tries to go to a certain action in an inventory pool (for example when clicking a link in hoptoad)
       @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
+    end
+
+    # helper for respond_to format.js called from derived controllers' indexes
+    def search_result_rjs(search_results)
+      render :update do |page|
+        flash_on_search_result(params[:query], search_results)
+        page.replace 'list_table', :partial => 'index' # will render derived controller's partial _index
+        page.replace_html 'flash', flash_content
+        flash.discard        
+      end
     end
 
     ##################################################

@@ -30,11 +30,6 @@ class Backend::ModelsController < Backend::BackendController
                                                     :with => with,
                                                     :order => params[:sort], :sort_mode => params[:sort_mode] }
 
-    min_query_len = ThinkingSphinx::Configuration.instance.index_options[:min_infix_len]
-    if @models.empty? && params[:query].length < min_query_len
-       flash[:notice] = _("Your search string must contain at least %s characters") % min_query_len.to_s
-    end
-  
     if params[:source_path] # we are in a greybox
       if @line # this is for swap model
         @start_date = @line.start_date
@@ -47,11 +42,11 @@ class Backend::ModelsController < Backend::BackendController
       end
     end
 
-    @show_categories_tree = (@category.nil? and (not request.xml_http_request?) and params[:packages].blank?)
+    @show_categories_tree = (@category.nil? and params[:packages].blank?)
 
     respond_to do |format|
       format.html
-#temp# format.js # partial update of the page by way of a model search/match via an Ajax callback
+      format.js { search_result_rjs(@models) }
       format.auto_complete { render :layout => false }
     end
   end
@@ -172,10 +167,11 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def new_package_root
-    ip_name = current_inventory_pool.shortname ? current_inventory_pool.shortname : current_inventory_pool.name
-    @model.items.create(:inventory_code => "P-#{ip_name}#{Item.proposed_inventory_code}",
-                        :inventory_pool => current_inventory_pool,
-                        :is_borrowable => true)
+    m = @model.items.build(:inventory_code => "P-#{Item.proposed_inventory_code(current_inventory_pool)}",
+                           :inventory_pool => current_inventory_pool,
+                           :is_borrowable => true)
+
+    flash[:error] = m.errors.full_messages unless m.save
   end
 
   def package_item

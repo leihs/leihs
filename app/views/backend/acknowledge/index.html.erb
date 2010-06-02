@@ -1,47 +1,11 @@
-
-
-<% unless request.xml_http_request?
-	content_tag :h3 do %>
-		<%= _("Acknowledge") %>
+<% content_tag :div, :class => "buttons" do %>
+	<%= _("Orders you are editing (please complete)") %>:
+	<% @working_orders.each do |order| %>
+		<%=	link_to(icon_tag("tab_go") + "#{order.user.login} (#{today_or_yesterday_date(order.backup.updated_at)})",
+					backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order)) %>
 	<% end
+   end unless @working_orders.empty?
+%>			
 
-	content_tag :div, :class => "buttons" do %>
-		<%= _("Orders you are editing (please complete)") %>:
-		<% @working_orders.each do |order| %>
-			<%=	link_to(icon_tag("tab_go") + "#{order.user.login} (#{today_or_yesterday_date(order.backup.updated_at)})",
-						backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order)) %>
-		<% end
-	end unless @working_orders.empty?
-
-end %>			
-
-
-<% table_with_search_and_pagination :columns => [_("Received at"), _("Reserver"), _("Items"), _("Time window"), _("Action")],
-						   			:records => @orders do |order| %>	
-
-
-			<tr class="<%= (order.has_backup? ? "alt-row" : "fresh" ) %>">
-				<td>
-					<%= today_or_yesterday_date(order.created_at) %>
-				</td>
-				<td>
-					<%= greybox_link_to_page(order.user.name,
-							backend_inventory_pool_user_path(current_inventory_pool, order.user, :layout => "modal"),
-							 :title => _("User"),
-							 :class => "iconized-notxt edit-user" ) %>
-				</td>
-				<td>
-					<%= order.quantity %>
-					<br/>
-					<span style='font-size:smaller;'><%= lines_preview(order) %></span>
-				</td>
-				<td><%= dates_with_period(order.time_window_min, order.time_window_max) %></td>
-				<td class="buttons">
-					<%= link_to icon_tag("tab_go") + _("View + Acknowledge"),
-							backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order) %>
-				</td>
-			</tr>
-
-<% end %>
-
+<%= render :partial => "index" %>
 			

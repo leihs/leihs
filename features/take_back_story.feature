@@ -16,7 +16,7 @@ Scenario: Because of a bug in leihs, we've handed over an Item twice, now we wan
 
 	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	Given a model 'NEC 245' exists
-	  	And item AV_NEC245_1 of model 'NEC 245' exists only
+	  And item 'AV_NEC245_1' of model 'NEC 245' exists only
         Given there are no orders and no contracts
 	Given a signed contract by 'Joe' for item 'AV_NEC245_1'
 	  # the following step introduces an invalid entry! 

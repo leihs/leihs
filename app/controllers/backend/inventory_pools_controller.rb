@@ -13,6 +13,11 @@ class Backend::InventoryPoolsController < Backend::BackendController
                                                               :with => with }
 
     redirect_to backend_inventory_pool_path(@inventory_pools.first) if !is_admin? and @inventory_pools.total_entries == 1
+
+    respond_to do |format|
+      format.html
+      format.js { search_result_rjs(@inventory_pools) }
+    end
   end
 
   def info
