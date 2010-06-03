@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "POT-Creation-Date: 2010-05-19 17:33+0100\n"
-"PO-Revision-Date: 2010-03-09 14:43+0100\n"
+"PO-Revision-Date: 2010-06-03 11:58+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: Swiss-German (Zürich area)\n"
 "MIME-Version: 1.0\n"
@@ -75,12 +75,8 @@ msgid "The Inventory Code %s was not found."
 msgstr "Ich han de Inventarcode %s nöd gfunde"
 
 #: app/controllers/backend/hand_over_controller.rb:49
-msgid ""
-"No items to hand over specified. Please assign inventory codes to the items "
-"you want to hand over."
-msgstr ""
-"Kei Sachä zum übergäh aagwählt. Bitte tuen doch Inventarcodes für d Sachä "
-"zuewiisä, wo Du wetsch ussegäh."
+msgid "No items to hand over specified. Please assign inventory codes to the items you want to hand over."
+msgstr "Kei Sachä zum übergäh aagwählt. Bitte tuen doch Inventarcodes für d Sachä zuewiisä, wo Du wetsch ussegäh."
 
 #: app/controllers/backend/hand_over_controller.rb:66
 msgid "New lines have been generated"
@@ -1779,7 +1775,8 @@ msgstr "Grätepark isch am start_date zue."
 msgid "inventory pool is closed on end_date. "
 msgstr "Grätepark isch am end_date zue."
 
-#: app/models/document_line.rb:125 app/helpers/backend/backend_helper.rb:379
+#: app/models/document_line.rb:125
+#: app/helpers/backend/backend_helper.rb:379
 #: app/views/frontend/_complete_order.html.erb:193
 #: app/views/frontend/_models.html.erb:401
 msgid "Start Date must be before End Date"
@@ -1812,11 +1809,10 @@ msgstr "[leihs] Erinnerig"
 
 #: app/models/mailer/user.rb:20
 msgid "[leihs] Some items should be returned tomorrow"
-msgstr "[leihs] Einige Sache sötted morn zurggäh werde"
+msgstr "[leihs] Einige Sache sötted morn zruggäh werde"
 
 #: app/models/option_line.rb:42
-msgid ""
-"The option doesn't belong to the inventory pool related to this contract"
+msgid "The option doesn't belong to the inventory pool related to this contract"
 msgstr "Die Option ghört nöd zum Grätepark wo zu dem Vertrag ghört"
 
 #: app/models/model_link.rb:10
@@ -1844,11 +1840,8 @@ msgid "Package error"
 msgstr "Paketfähler"
 
 #: app/models/item.rb:324
-msgid ""
-"The model cannot be changed because the item is used in contracts already."
-msgstr ""
-"S Modäll chan nod gänderet werde will d'Sach scho imene Vertrag enthalte "
-"isch."
+msgid "The model cannot be changed because the item is used in contracts already."
+msgstr "S Modäll chan nod gänderet werde will d'Sach scho imene Vertrag enthalte isch."
 
 #: app/models/contract.rb:40
 msgid "Unsigned"
@@ -1878,8 +1871,7 @@ msgstr "Die Sach passt nöd zum reserviertä Modäll"
 
 #: app/models/item_line.rb:84
 #, fuzzy
-msgid ""
-"The item is already handed over or assigned to a different contract line"
+msgid "The item is already handed over or assigned to a different contract line"
 msgstr "Dä Gägestand isch scho in dem Vertrag drin."
 
 #: app/models/item_line.rb:87
@@ -1890,11 +1882,13 @@ msgstr "Die Sach ghört nöd zum Grätepark wo zu dem Vertrag ghört"
 msgid "The item belongs to a package"
 msgstr ""
 
-#: app/helpers/models_helper.rb:35 app/helpers/models_helper.rb:328
+#: app/helpers/models_helper.rb:35
+#: app/helpers/models_helper.rb:328
 msgid "Time"
 msgstr "Ziit"
 
-#: app/helpers/models_helper.rb:35 app/helpers/models_helper.rb:328
+#: app/helpers/models_helper.rb:35
+#: app/helpers/models_helper.rb:328
 msgid "Available Quantity"
 msgstr "Verfüegbari Aazahl"
 
@@ -1981,7 +1975,8 @@ msgstr "Wiiter"
 msgid "Reserver"
 msgstr "Reservierer"
 
-#: app/helpers/backend/backend_helper.rb:99 app/views/users/show.html.erb:3
+#: app/helpers/backend/backend_helper.rb:99
+#: app/views/users/show.html.erb:3
 #: app/views/mailer/order/received.erb:8
 #: app/views/widgets/_user_backend_tabnav.html.erb:17
 #: app/views/backend/hand_over/index.html.erb:24
@@ -2017,7 +2012,8 @@ msgid "Model"
 msgstr "Modäll"
 
 #: app/helpers/backend/backend_helper.rb:161
-#: app/views/users/account.html.erb:29 app/views/frontend/_models.html.erb:246
+#: app/views/users/account.html.erb:29
+#: app/views/frontend/_models.html.erb:246
 msgid "Loading"
 msgstr "Am lade"
 
@@ -2039,7 +2035,8 @@ msgstr "Monet"
 #: app/views/authenticator/database_authentication/login.html.erb:6
 #: app/views/authenticator/ldap_authentication/login.html.erb:4
 #: app/views/authenticator/ldap_authentication/login.html.erb:6
-#: app/views/users/show.html.erb:5 app/views/backend/users/show.html.erb:4
+#: app/views/users/show.html.erb:5
+#: app/views/backend/users/show.html.erb:4
 #: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:23
 msgid "Login"
 msgstr "Login"
@@ -2063,12 +2060,14 @@ msgstr "Verträg"
 msgid "Unique ID"
 msgstr "Eidüütigi ID"
 
-#: app/views/users/show.html.erb:7 app/views/backend/users/new.html.erb:5
+#: app/views/users/show.html.erb:7
+#: app/views/backend/users/new.html.erb:5
 #: app/views/backend/users/edit.html.erb:5
 msgid "Firstname/Lastname"
 msgstr "Vorname/Nachname"
 
-#: app/views/users/show.html.erb:8 app/views/backend/users/show.html.erb:49
+#: app/views/users/show.html.erb:8
+#: app/views/backend/users/show.html.erb:49
 #: app/views/backend/users/new.html.erb:6
 #: app/views/backend/users/edit.html.erb:6
 #: app/views/backend/inventory_pools/edit.html.erb:5
@@ -2077,7 +2076,8 @@ msgstr "Vorname/Nachname"
 msgid "Email"
 msgstr "E-Mail"
 
-#: app/views/users/show.html.erb:9 app/views/backend/users/show.html.erb:58
+#: app/views/users/show.html.erb:9
+#: app/views/backend/users/show.html.erb:58
 #: app/views/backend/users/new.html.erb:7
 #: app/views/backend/users/edit.html.erb:7
 msgid "Phone"
@@ -2100,15 +2100,19 @@ msgid "My Orders"
 msgstr "Mini Bstellige"
 
 #: app/views/mailer/user/deadline_soon_reminder.erb:1
-#: app/views/mailer/user/remind.erb:1 app/views/mailer/order/rejected.erb:1
-#: app/views/mailer/order/changed.erb:1 app/views/mailer/order/approved.erb:1
+#: app/views/mailer/user/remind.erb:1
+#: app/views/mailer/order/rejected.erb:1
+#: app/views/mailer/order/changed.erb:1
+#: app/views/mailer/order/approved.erb:1
 #: app/views/mailer/order/submitted.erb:1
 msgid "Dear leihs client,"
 msgstr "Liebe leihs-Benutzer,"
 
 #: app/views/mailer/user/deadline_soon_reminder.erb:3
-#: app/views/mailer/user/remind.erb:3 app/views/mailer/order/rejected.erb:3
-#: app/views/mailer/order/changed.erb:3 app/views/mailer/order/approved.erb:3
+#: app/views/mailer/user/remind.erb:3
+#: app/views/mailer/order/rejected.erb:3
+#: app/views/mailer/order/changed.erb:3
+#: app/views/mailer/order/approved.erb:3
 #: app/views/mailer/order/submitted.erb:3
 #: app/views/mailer/order/received.erb:3
 msgid "** This is an automatically generated response **"
@@ -2128,20 +2132,16 @@ msgid " at the inventory pool "
 msgstr " im Grätepark "
 
 #: app/views/mailer/user/deadline_soon_reminder.erb:16
-msgid ""
-"We are just sending you this little reminder because someone else is already "
-"waiting for some of these items."
-msgstr ""
-"Mir schicked die churz Erinnerig, wil öpper anders scho uf einigi vo dene "
-"Sache warted."
+msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
+msgstr "Mir schicked die churz Erinnerig, wil öpper anders scho uf einigi vo dene Sache warted."
 
 #: app/views/mailer/user/deadline_soon_reminder.erb:18
-msgid ""
-"In the interest of all our clients we ask you to observe the return dates."
+msgid "In the interest of all our clients we ask you to observe the return dates."
 msgstr "Im Interässe vo allne Chunde bittemer Sie, d'Rückgabedate z'beachte"
 
 #: app/views/mailer/user/deadline_soon_reminder.erb:20
-#: app/views/mailer/user/remind.erb:25 app/views/mailer/order/rejected.erb:11
+#: app/views/mailer/user/remind.erb:25
+#: app/views/mailer/order/rejected.erb:11
 #: app/views/mailer/order/changed.erb:24
 #: app/views/mailer/order/approved.erb:21
 #: app/views/mailer/order/submitted.erb:15
@@ -2158,32 +2158,16 @@ msgid " item(s) due on "
 msgstr "Sachä fällig am"
 
 #: app/views/mailer/user/remind.erb:17
-msgid ""
-"Since we did not receive any request for renewal, we consequently demand the "
-"return of the items without further delay."
-msgstr ""
-"Will mir kei Aafrag um Verlängerig übercho händ, forderemer di sofortig "
-"Rückgab vom Gägestand."
+msgid "Since we did not receive any request for renewal, we consequently demand the return of the items without further delay."
+msgstr "Will mir kei Aafrag um Verlängerig übercho händ, forderemer di sofortig Rückgab vom Gägestand."
 
 #: app/views/mailer/user/remind.erb:19
-msgid ""
-"By not returning these items, you are blocking other people's reservations. "
-"This is very unfair to the other clients and to the inventory manager, since "
-"you are causing a significant amount of trouble and annoyance."
-msgstr ""
-"Will Sie die Gägeständ nöd zurgg bringed blockiered Sie andere Lüüt ihri "
-"Reservatione. Das isch de andere Chunde und am Inventar-Manager gägenüber "
-"sehr unfair will Sie vil lästige Ärger verursachet."
+msgid "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance."
+msgstr "Will Sie die Gägeständ nöd zurgg bringed blockiered Sie andere Lüüt ihri Reservatione. Das isch de andere Chunde und am Inventar-Manager gägenüber sehr unfair will Sie vil lästige Ärger verursachet."
 
 #: app/views/mailer/user/remind.erb:21
-msgid ""
-"You might receive an admonishment and be subject to late fees as well as the "
-"restriction of borrowing privileges. In case of recurrence you might be "
-"barred from leihs for up to 6 months."
-msgstr ""
-"Sie chömed allefalls en Ermahnig oder Strafgebühr über oder verlüüret "
-"d'Recht Sache uuszlehne. Im Wiederholigsfall chönd Sie bis zu 6 Mönet us em "
-"leihs uusgsperrt werdä."
+msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from leihs for up to 6 months."
+msgstr "Sie chömed allefalls en Ermahnig oder Strafgebühr über oder verlüüret d'Recht Sache uuszlehne. Im Wiederholigsfall chönd Sie bis zu 6 Mönet us em leihs uusgsperrt werdä."
 
 #: app/views/mailer/user/remind.erb:23
 msgid "We therefore ask you to be fair and punctual! Thank you!"
@@ -2193,19 +2177,18 @@ msgstr "Drum bittemer Sie fair und pünktlich z'sii! Danke!"
 msgid "Your order was rejected for the following reason:"
 msgstr "Ihri Bstellig isch us em folgende Grund abglehnt worde:"
 
-#: app/views/mailer/order/rejected.erb:7 app/views/mailer/order/changed.erb:7
+#: app/views/mailer/order/rejected.erb:7
+#: app/views/mailer/order/changed.erb:7
 #: app/views/mailer/order/approved.erb:7
 #: app/views/mailer/order/submitted.erb:7
 #: app/views/mailer/order/received.erb:7
 msgid "Inventory pool"
 msgstr "Grätepark"
 
-#: app/views/mailer/order/changed.erb:5 app/views/mailer/order/approved.erb:5
-msgid ""
-"Your order for the following items has been confirmed by the inventory "
-"manager"
-msgstr ""
-"Ihri Bstellig vo de folgende Sache isch vom Inventar-Manager bestätigt worde."
+#: app/views/mailer/order/changed.erb:5
+#: app/views/mailer/order/approved.erb:5
+msgid "Your order for the following items has been confirmed by the inventory manager"
+msgstr "Ihri Bstellig vo de folgende Sache isch vom Inventar-Manager bestätigt worde."
 
 #: app/views/mailer/order/changed.erb:5
 msgid "but a few changes were made to it"
@@ -2221,19 +2204,12 @@ msgid "These are the comments of the inventory manager:"
 msgstr "Das sind am Inventar-Manager sini Bemerkige:"
 
 #: app/views/mailer/order/submitted.erb:5
-msgid ""
-"Your order for the following items listed below was successfully submitted."
+msgid "Your order for the following items listed below was successfully submitted."
 msgstr "Ihri Bstellig vo de folgende Sache isch verschickt worde."
 
 #: app/views/mailer/order/submitted.erb:13
-msgid ""
-"Unfortunately your order is still pending, but you will soon receive a "
-"confirmation of order by separate e-mail. You can view the status of your "
-"order through your leihs account."
-msgstr ""
-"Leider isch Ihri Bstellig no offe, aber Sie chömed glii ä Bstellbestätigung "
-"imene separate E-Mail über. Sie chönd de Status vo ihrere Bstellig im leihs-"
-"Account gseh."
+msgid "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account."
+msgstr "Leider isch Ihri Bstellig no offe, aber Sie chömed glii ä Bstellbestätigung imene separate E-Mail über. Sie chönd de Status vo ihrere Bstellig im leihs-Account gseh."
 
 #: app/views/mailer/order/received.erb:1
 #, fuzzy
@@ -2242,41 +2218,24 @@ msgstr "Liebe leihs-Benutzer,"
 
 #: app/views/mailer/order/received.erb:5
 #, fuzzy
-msgid ""
-"An order for the following items listed below was received in an inventory "
-"pool you are responsible for."
+msgid "An order for the following items listed below was received in an inventory pool you are responsible for."
 msgstr "Ihri Bstellig vo de folgende Sache isch verschickt worde."
 
 #: app/views/mailer/order/received.erb:14
-msgid ""
-"This order is still pending. Please log in to your leihs system and either "
-"approve or reject it."
+msgid "This order is still pending. Please log in to your leihs system and either approve or reject it."
 msgstr ""
 
 #: app/views/mailer/order/received.erb:16
-msgid ""
-"The user who placed this order has received a similar e-mail message "
-"informing them that the order first needs to be approved before it is valid."
+msgid "The user who placed this order has received a similar e-mail message informing them that the order first needs to be approved before it is valid."
 msgstr ""
 
 #: app/views/orders/_submit.html.erb:3
 msgid "The order has been successfully submitted, but is NOT YET CONFIRMED."
-msgstr ""
-"Ihri Bstellig isch erfolgrich abgschickt worde, isch aber NO NÖD BESTÄTIGET."
+msgstr "Ihri Bstellig isch erfolgrich abgschickt worde, isch aber NO NÖD BESTÄTIGET."
 
 #: app/views/orders/_submit.html.erb:7
-msgid ""
-"Your order has now been submitted to an inventory manager for approval. The "
-"inventory manager will check your order and either approve it, reject it or "
-"make changes to it. Once this is done, you will be notified by e-mail. You "
-"can also see your order status on your personal page (click your name in the "
-"top right corner of this page)."
-msgstr ""
-"Ihri Bstellig isch an Inventar-Manager gschickt worde. De Inventar-Manager "
-"prüeft Ihri Bstellig und stimmt zue, lehnt ab oder änderet sie. Nachher "
-"werdet Sie via E-Mail informiert. Sie chönd de Status vo de Bstellig au uf "
-"Ihrere persönliche Siite gseh (klicked Sie obe rächts uf dere Siite uf Ihre "
-"Name)."
+msgid "Your order has now been submitted to an inventory manager for approval. The inventory manager will check your order and either approve it, reject it or make changes to it. Once this is done, you will be notified by e-mail. You can also see your order status on your personal page (click your name in the top right corner of this page)."
+msgstr "Ihri Bstellig isch an Inventar-Manager gschickt worde. De Inventar-Manager prüeft Ihri Bstellig und stimmt zue, lehnt ab oder änderet sie. Nachher werdet Sie via E-Mail informiert. Sie chönd de Status vo de Bstellig au uf Ihrere persönliche Siite gseh (klicked Sie obe rächts uf dere Siite uf Ihre Name)."
 
 #: app/views/orders/_submit.html.erb:11
 msgid "These are your current pending orders:"
@@ -2316,7 +2275,8 @@ msgstr "Grätepark"
 msgid "Number of items"
 msgstr "Azahl Sache"
 
-#: app/views/orders/_pending.html.erb:12 app/views/orders/_pending.html.erb:36
+#: app/views/orders/_pending.html.erb:12
+#: app/views/orders/_pending.html.erb:36
 #: app/views/backend/orders/show.html.erb:29
 #: app/views/backend/acknowledge/index.html.erb:14
 #: app/views/backend/acknowledge/show.html.erb:41
@@ -2661,8 +2621,7 @@ msgstr ""
 
 #: app/views/backend/hand_over/show.html.erb:113
 #: app/views/backend/acknowledge/show.html.erb:106
-msgid ""
-"This user doesn't have access to your inventory pool or is on your Blacklist!"
+msgid "This user doesn't have access to your inventory pool or is on your Blacklist!"
 msgstr "Sie Sach ghört nöd zum Grätepark wo zu dem Vertrag ghört"
 
 #: app/views/backend/hand_over/show.html.erb:113
@@ -2828,26 +2787,15 @@ msgid "Access levels and borrow levels"
 msgstr ""
 
 #: app/views/backend/users/access_rights.html.erb:119
-msgid ""
-"Access levels are used to determine what system functionality a user is "
-"allowed to see and use."
+msgid "Access levels are used to determine what system functionality a user is allowed to see and use."
 msgstr ""
 
 #: app/views/backend/users/access_rights.html.erb:120
-msgid ""
-"Borrow levels are used to allow/disallow lending certain items to users that "
-"aren't of high enough level. For example: if an item has level 5, a user of "
-"borrow level 4 will never see it whereas a user of level 5 or higher will."
+msgid "Borrow levels are used to allow/disallow lending certain items to users that aren't of high enough level. For example: if an item has level 5, a user of borrow level 4 will never see it whereas a user of level 5 or higher will."
 msgstr ""
 
 #: app/views/backend/users/access_rights.html.erb:121
-msgid ""
-"Both levels are handled per inventory pool, so if one inventory pool only "
-"wants to deal with levels 1-3 of their items while another needs all 9 "
-"levels, this can be done by assigning a maximum of level 3 to a user on the "
-"former inventory pool and a maximum level of 9 on the latter. The different "
-"levels won't get into each other's way, because one user's borrow level only "
-"applies to one single inventory pool, not to all pools."
+msgid "Both levels are handled per inventory pool, so if one inventory pool only wants to deal with levels 1-3 of their items while another needs all 9 levels, this can be done by assigning a maximum of level 3 to a user on the former inventory pool and a maximum level of 9 on the latter. The different levels won't get into each other's way, because one user's borrow level only applies to one single inventory pool, not to all pools."
 msgstr ""
 
 #: app/views/backend/users/_database_authentication.html.erb:7
@@ -3267,12 +3215,10 @@ msgstr "Sach dezuetue"
 #: app/views/backend/models/package_roots.html.erb:42
 msgid ""
 "Are you sure?\n"
-"The %d items associated with this package will be freed up and available as "
-"single items again."
+"The %d items associated with this package will be freed up and available as single items again."
 msgstr ""
 "Sind Sie sicher?\n"
-"Di %d Sache, wo mit dem Package verchnüpft sind werdet losglöst und chönd "
-"dänn als einzelni Pöschte uusgleit werde."
+"Di %d Sache, wo mit dem Package verchnüpft sind werdet losglöst und chönd dänn als einzelni Pöschte uusgleit werde."
 
 #: app/views/backend/models/package_roots.html.erb:43
 msgid "%d Items"
@@ -3315,11 +3261,8 @@ msgid "Package name"
 msgstr "Paketname"
 
 #: app/views/backend/models/package.html.erb:15
-msgid ""
-"The package name cannot be changed because it's present in many inventory "
-"pools."
-msgstr ""
-"S PAket chan nod gänderet werde will d'Sach scho i Grätepools enthalte isch."
+msgid "The package name cannot be changed because it's present in many inventory pools."
+msgstr "S PAket chan nod gänderet werde will d'Sach scho i Grätepools enthalte isch."
 
 #: app/views/backend/orders/index.html.erb:1
 #: app/views/backend/contracts/index.html.erb:1
@@ -3430,23 +3373,15 @@ msgid "Default contract note"
 msgstr "Standart Vertrags-Bemerkig"
 
 #: app/views/backend/inventory_pools/_info.html.erb:5
-msgid ""
-"Whatever you enter here is prepended to all inventory numbers for this "
-"particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no "
-"alphabetic characters are used in the inventory numbers."
+msgid "Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers."
 msgstr ""
 
 #: app/views/backend/inventory_pools/_info.html.erb:6
-msgid ""
-"This e-mail address is used as sender when sending reminder or confirmation "
-"e-mails for this particular pool. If you enter nothing, the system default "
-"sender address is used."
+msgid "This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used."
 msgstr ""
 
 #: app/views/backend/inventory_pools/_info.html.erb:8
-msgid ""
-"This note is added to any contract, but can be changed individually before "
-"actually printing and signing each contract."
+msgid "This note is added to any contract, but can be changed individually before actually printing and signing each contract."
 msgstr ""
 
 #: app/views/backend/inventory_pools/_info.html.erb:9
@@ -3601,12 +3536,8 @@ msgid "Are yo sure you want to reject the order?"
 msgstr "Wotsch diä Bstellig würkli ablehnä?"
 
 #: app/views/backend/acknowledge/reject.html.erb:2
-msgid ""
-"You can enter an additional comment below, which will be sent to the user by "
-"e-mail."
-msgstr ""
-"Du chasch no meh kommentär dezueschriibe. Diä werded dänn au im Mail "
-"verschickt."
+msgid "You can enter an additional comment below, which will be sent to the user by e-mail."
+msgstr "Du chasch no meh kommentär dezueschriibe. Diä werded dänn au im Mail verschickt."
 
 #: app/views/backend/acknowledge/reject.html.erb:13
 msgid "Reject"
@@ -3628,11 +3559,7 @@ msgid "Unsigned contracts"
 msgstr "Offeni Verträg"
 
 #: app/views/contracts/_unsigned.html.erb:8
-msgid ""
-"Please note that these contracts, while they do belong to approved orders, "
-"may be changed by the lending manager at any time. They represent only a "
-"current snapshot of the order and might not contain the same items as the "
-"final contract once you pick up your items."
+msgid "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items."
 msgstr ""
 
 #: app/views/contracts/_unsigned.html.erb:14
@@ -3662,7 +3589,8 @@ msgstr "Wiiter mit de Bstellig"
 msgid "Welcome"
 msgstr "Willkome"
 
-#: app/views/frontend/_help.html.erb:32 app/views/frontend/_topbar.html.erb:24
+#: app/views/frontend/_help.html.erb:32
+#: app/views/frontend/_topbar.html.erb:24
 msgid "Help"
 msgstr "Hilf"
 
@@ -3932,15 +3860,8 @@ msgid "Contract no. %d"
 msgstr "Vertrag Nr. %d"
 
 #: app/views/contracts/show.pdf.prawn:73
-msgid ""
-"This lending contract covers borrowing the following items by the person "
-"(natural or legal) described as 'borrowing party' below. Use of these items "
-"is only allowed for the purpose given below."
-msgstr ""
-"De Leihvertrag deckt d' Uusleihi vo de folgende Gegenständ dur di natürlich "
-"oder rächtlich Person ab, wo obe als 'Uusleihendi/e' bezeichnet isch. "
-"D'Verwändig vo de Gegenstände isch nur im Rahme vom une aangähne Zwäck "
-"gestattet."
+msgid "This lending contract covers borrowing the following items by the person (natural or legal) described as 'borrowing party' below. Use of these items is only allowed for the purpose given below."
+msgstr "De Leihvertrag deckt d' Uusleihi vo de folgende Gegenständ dur di natürlich oder rächtlich Person ab, wo obe als 'Uusleihendi/e' bezeichnet isch. D'Verwändig vo de Gegenstände isch nur im Rahme vom une aangähne Zwäck gestattet."
 
 #: app/views/contracts/show.pdf.prawn:95
 msgid "Returned date"
@@ -3955,16 +3876,7 @@ msgid "Additional notes:"
 msgstr "Wiiteri Bemerkige:"
 
 #: app/views/contracts/show.pdf.prawn:153
-msgid ""
-"Die Benutzerin/der Benutzer ist bei unsachgemaesser Handhabung oder Verlust "
-"schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfaeltig "
-"zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter order "
-"verspaeteter Rueckgabe kann eine Ausleihsparre (bis zu 6 Monaten) verhaengt "
-"werden. Das geliehene Material bleibt jederzeit uneingeschraenktes Eigentum "
-"der Zuercher Hochscule der Kuenste und darf ausschliesslich fuer schulische "
-"Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die "
-"Benutzerin/der Benutzer diese Bedingungen sowie die 'Richtlinie zur Ausleihe "
-"von Sachen der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien."
+msgid "Die Benutzerin/der Benutzer ist bei unsachgemaesser Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfaeltig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter order verspaeteter Rueckgabe kann eine Ausleihsparre (bis zu 6 Monaten) verhaengt werden. Das geliehene Material bleibt jederzeit uneingeschraenktes Eigentum der Zuercher Hochscule der Kuenste und darf ausschliesslich fuer schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die 'Richtlinie zur Ausleihe von Sachen der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien."
 msgstr ""
 
 #: app/views/contracts/show.pdf.prawn:161
@@ -3997,34 +3909,24 @@ msgstr "Zuegriff verweigeret"
 #, fuzzy
 #~ msgid "ItemLine|Location"
 #~ msgstr "Ort"
-
 #~ msgid "Installed in: %s"
 #~ msgstr "Installiert in: %s"
-
 #~ msgid "Select Location"
 #~ msgstr "Ort wähle"
-
 #~ msgid "Change Installation Location"
 #~ msgstr "Installationsort veränderä"
-
 #~ msgid "Installation Location"
 #~ msgstr "Installationsort"
-
 #~ msgid "You're changing the installation location for the following items:"
 #~ msgstr "Du veränderisch de Installationsort vo denä Sachä:"
-
 #~ msgid "Remove Location from the above models"
 #~ msgstr "Ort vo denä Modäll wägneh"
-
 #~ msgid "Confirm Location"
 #~ msgstr "Ort bestätige"
-
 #~ msgid "Add Line"
 #~ msgstr "Ziilä dezuetue"
-
 #~ msgid "Add Line for"
 #~ msgstr "Ziilä dezuetue für "
-
 #~ msgid ""
 #~ "This lending contract covers borrowing the following items by the person "
 #~ "(natural or legal) described as \"borrowing party\" above. Use of these "
@@ -4034,96 +3936,68 @@ msgstr "Zuegriff verweigeret"
 #~ "oder rechtlich Person ab, wo obe als \"Uusleihende/i\" bezeichnet isch. "
 #~ "D'Verwändig vo de Gegenständ isch nur im Rahme vom une aangähne Zwäck "
 #~ "gstattet."
-
 #~ msgid "Options:"
 #~ msgstr "Optionä:"
-
 #~ msgid "The model has items"
 #~ msgstr "Das Modäll hät no Gägeständ"
-
 #~ msgid "Inventorypool must be selected."
 #~ msgstr "Benutzer muess usgwählt sii"
-
 #~ msgid "Access Right successfully removed"
 #~ msgstr "Zuegriffsrächt erfolgriich wäggnoh"
-
 #~ msgid "Notes (%d)"
 #~ msgstr "Notize (%d)"
-
 #~ msgid "Managers (%d)"
 #~ msgstr "Verwalter (%d)"
-
 #~ msgid "Set new model"
 #~ msgstr "Neus Modäll setzä"
-
 #~ msgid "Serial Number"
 #~ msgstr "Serienummer"
-
 #~ msgid "Required Level:"
 #~ msgstr "Stufä wo mä mindeschtens brucht:"
-
 #~ msgid "Owner:"
 #~ msgstr "Bsitzer: "
-
 #~ msgid "Select model first"
 #~ msgstr "Suech zerscht s Modäll us"
-
 #~ msgid "Active"
 #~ msgstr "Aktiv"
-
 #~ msgid "Set"
 #~ msgstr "Setze"
-
 #~ msgid "Parent"
 #~ msgstr "Eltere-Element"
-
 #~ msgid "Add more locations"
 #~ msgstr "Meh Ort dezuetue"
-
 #~ msgid "room"
 #~ msgstr "Ruum"
-
 #~ msgid "shelf"
 #~ msgstr "Gstell"
-
 #~ msgid "Add as manager"
 #~ msgstr "Als Verwalter dezuetue"
-
 #~ msgid "View"
 #~ msgstr "Aaluege"
-
 #~ msgid "<em>%{n} new orders</em> to acknowledge."
 #~ msgstr "<em>%{n} neui Bstelligä</em> zum aaluegä."
-
 #~ msgid "Recent Models"
 #~ msgstr "Aagluegti Modäll"
-
 #~ msgid "Unfinished"
 #~ msgstr "Nöd fertig"
-
 #~ msgid "Roles"
 #~ msgstr "Rollä"
-
 #~ msgid "Value list no. %d"
 #~ msgstr "wertelischte No. %d"
 
 #, fuzzy
 #~ msgid "unknown"
 #~ msgstr "Unbekannt"
-
 #~ msgid "Badge ID:"
 #~ msgstr "Badge-ID:"
 
 #, fuzzy
 #~ msgid "A model already exists with this name."
 #~ msgstr "Das Modäll ghört scho i die Kategorie"
-
 #~ msgid "New"
 #~ msgstr "Neui"
-
 #~ msgid "Add to category"
 #~ msgstr "Zur Kategorie dezuetue"
-
 #~ msgid "Owned Items"
 #~ msgstr "Sach wo bsitzt werdet"
 
@@ -4134,37 +4008,26 @@ msgstr "Zuegriff verweigeret"
 #, fuzzy
 #~ msgid "Admin"
 #~ msgstr "Administratorä"
-
 #~ msgid "Earliest return date:"
 #~ msgstr "Früehschts Rückgabedatum:"
-
 #~ msgid "Notes"
 #~ msgstr "Notize"
-
 #~ msgid "Needs Permission?"
 #~ msgstr "Berächtigung erforderlich"
-
 #~ msgid "Required Level"
 #~ msgstr "Mindescht-Level"
-
 #~ msgid "This inventory pool is closed on the proposed end date"
 #~ msgstr "Dä Grätepark isch an dem Enddatum gschlosse"
-
 #~ msgid "Order:"
 #~ msgstr "Bstellig: "
-
 #~ msgid "Item: %s"
 #~ msgstr "Sachä: %s"
-
 #~ msgid "Login: "
 #~ msgstr "Login:"
-
 #~ msgid "Name: "
 #~ msgstr "Name: "
-
 #~ msgid "Email: "
 #~ msgstr "E-Mail: "
-
 #~ msgid "Phone: "
 #~ msgstr "Telefon: "
 
@@ -4179,15 +4042,12 @@ msgstr "Zuegriff verweigeret"
 #, fuzzy
 #~ msgid "Borrowing allowed"
 #~ msgstr "Uslehnbar"
-
 #~ msgid "The leihs system"
 #~ msgstr "Z leihs-syschtem"
-
 #~ msgid ""
 #~ "The following items are overdue. Please return them as soon as possible:"
 #~ msgstr ""
 #~ "Die sache sind überfällig. Bitte bring sie so schnell wie möglich zrugg."
-
 #~ msgid "Your order was successfully submitted as follows:"
 #~ msgstr "Dini bstellig isch folgendermasse igreicht worde:"
 
@@ -4206,41 +4066,31 @@ msgstr "Zuegriff verweigeret"
 #, fuzzy
 #~ msgid "Main"
 #~ msgstr "Haupt?"
-
 #~ msgid "(Installed in: "
 #~ msgstr "(Installiert in: "
-
 #~ msgid "Main?"
 #~ msgstr "Haupt?"
-
 #~ msgid "Add more properties"
 #~ msgstr "Eigäschaftä drzuetue"
-
 #~ msgid "Opening Times"
 #~ msgstr "Öffnigsziitä"
 
 #, fuzzy
 #~ msgid "Location|Inventory pool"
 #~ msgstr "Grätepark"
-
 #~ msgid "Locations (%d)"
 #~ msgstr "Ort (%d)"
-
 #~ msgid "Prev"
 #~ msgstr "Zrugg"
-
 #~ msgid "%{a}/%{b}"
 #~ msgstr "%{a}/%{b"
-
 #~ msgid "Timeline Visits"
 #~ msgstr "Ziitfenschter vo dä bsüech"
-
 #~ msgid "Inventory Code identifies an item that is not in this order."
 #~ msgstr ""
 #~ "Dr Inventarcode ghört zumene Gägestand wo nöd in die Bstellig ghört."
-
 #~ msgid "Removed Option: %{o}"
 #~ msgstr "Option furtgnoh: %{o}"
-
 #~ msgid "Student"
 #~ msgstr "Student"
+
