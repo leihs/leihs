@@ -28,7 +28,7 @@ def add_permissions(user)
     ar.level = 1
     ar.user = user
     if ar.save
-      puts "[YAY!] --> AccessRight created for #{user.firstname} #{user.lastname}"
+      puts "[YAY!] --> AccessRight DMU created for #{user.firstname} #{user.lastname}"
     else
       puts "[OH NOES!] --> AccessRight COULD NOT be created for #{user.firstname} #{user.lastname}"
     end
