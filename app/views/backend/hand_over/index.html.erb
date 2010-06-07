@@ -1,7 +1,5 @@
-<% unless request.xml_http_request?
-	content_tag :h3 do %>
-		<%= _("Hand Over") %>
-	<% end
-end 
+<% content_tag :h3 do %>
+	<%= _("Hand Over") %>
+<% end %>
 
 <%= render :partial => 'index' %>
