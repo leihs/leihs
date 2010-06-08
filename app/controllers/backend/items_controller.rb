@@ -100,6 +100,7 @@ class Backend::ItemsController < Backend::BackendController
     else 
       @item = Item.find(id).clone
       @item.serial_number = nil
+      @item.name = nil
     end
     @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)
     @item.owner = current_inventory_pool
