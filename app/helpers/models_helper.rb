@@ -62,7 +62,8 @@ module ModelsHelper
  
     items.each_with_index do |item, index|
       y = index + 1
-      styled_inventory_code = (item.is_borrowable? ? item.inventory_code : "<span style='color:red;'>#{item.inventory_code}</span>") 
+      icode = "#{item.inventory_code} (#{item.required_level})"
+      styled_inventory_code = (item.is_borrowable? ? icode : "<span style='color:red;'>#{icode}</span>") 
       y_ticks << [y, styled_inventory_code]
     end
 
@@ -79,6 +80,7 @@ module ModelsHelper
       #debug# html += "<br>#{l.quantity}: #{l.start_date} - #{l.end_date} #{l.item.inventory_code}"
       start_date = l.start_date.to_time.to_i
       end_date = (l.returned_date ? (l.returned_date + 12.hours).to_time.to_i : (l.end_date + 12.hours).to_time.to_i)
+      user_level = l.document.user.access_right_for(inventory_pool).level
 
       color = if l.returned_date
                 '#e1e157'
@@ -88,20 +90,20 @@ module ModelsHelper
                 '#e3aa01'
               end
       events << {:start => start_date, :end => end_date, :y => y, :color => color}
-      #TODO optimize the following horrible data-structure out and just use the Jquery oriented Flot library, which offers more flexibility in graph handling.
-      if items_users[l.item.inventory_code].nil?
-        items_users[l.item.inventory_code] = {start_date =>[ l.document.user.name.to_s, l.document.user.phone.to_s, end_date ], end_date => [start_date]}
-      else
-        items_users[l.item.inventory_code].merge!(start_date => [l.document.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date])
-      end
+
+      items_users[l.item.inventory_code] ||= {}
+      items_users[l.item.inventory_code].merge!(start_date => ["#{l.document.user.name} (#{user_level})", l.document.user.phone.to_s, end_date], end_date => [start_date])
     end
     lines_without_item.sort.each do |l|
       #debug# html += "<br>#{l.quantity}: #{l.start_date} - #{l.end_date}"
       start_date = l.start_date.to_time.to_i
       end_date = (l.end_date + 12.hours).to_time.to_i
+      user_level = l.document.user.access_right_for(inventory_pool).level
+
       l.quantity.times do
         y = nil
         (1..items.size).each do |k|
+          next unless items[k-1].is_borrowable? and items[k-1].required_level <= user_level
           unless events.any? {|e| e[:y] == k and e[:start] < end_date and e[:end] > start_date} #old# <= and >=
             y = k
             break
@@ -115,23 +117,9 @@ module ModelsHelper
 
         events << {:start => start_date, :end => end_date, :y => y, :color => 'grey'}
 
-        #TODO make less clunky
         inventory_code = y_ticks[y-1][1]
-        if l.instance_of? OrderLine
-          #TODO further horrible data-structure, pending Flot implementation.
-          if items_users[inventory_code].nil?
-             items_users[inventory_code] = {start_date => [l.order.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date]}
-           else
-             items_users[inventory_code].merge!(start_date => [l.order.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date])
-           end
-        else
-          if items_users[inventory_code].nil?
-             items_users[inventory_code] = {start_date => [l.document.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date]}
-          else
-             items_users[inventory_code].merge!(start_date => [l.document.user.name.to_s, l.document.user.phone.to_s, end_date], end_date => [start_date])
-          end
-        end
-
+        items_users[inventory_code] ||= {}
+        items_users[inventory_code].merge!(start_date => ["#{l.document.user.name} (#{user_level})", l.document.user.phone.to_s, end_date], end_date => [start_date])
       end
     end
 
