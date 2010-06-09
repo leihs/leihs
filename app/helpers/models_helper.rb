@@ -49,7 +49,6 @@ module ModelsHelper
     y_ticks = []
     data = []
     events = []
-    items_users = {}
     html = ""
     first_date_in_chart = (today + config[:range][:start_days].days)
     
@@ -89,10 +88,9 @@ module ModelsHelper
               else
                 '#e3aa01'
               end
-      events << {:start => start_date, :end => end_date, :y => y, :color => color}
-
-      items_users[l.item.inventory_code] ||= {}
-      items_users[l.item.inventory_code].merge!(start_date => ["#{l.document.user.name} (#{user_level})", l.document.user.phone.to_s, end_date], end_date => [start_date])
+      events << {:start => start_date, :end => end_date, :y => y, :color => color,
+                 :item_inventory_code => l.item.inventory_code,
+                 :user_name => "#{l.document.user.name} (#{user_level})", :user_phone => "#{l.document.user.phone}"}
     end
     lines_without_item.sort.each do |l|
       #debug# html += "<br>#{l.quantity}: #{l.start_date} - #{l.end_date}"
@@ -115,11 +113,9 @@ module ModelsHelper
           y_ticks << [y, _("Overbooked")]
         end
 
-        events << {:start => start_date, :end => end_date, :y => y, :color => 'grey'}
-
-        inventory_code = y_ticks[y-1][1]
-        items_users[inventory_code] ||= {}
-        items_users[inventory_code].merge!(start_date => ["#{l.document.user.name} (#{user_level})", l.document.user.phone.to_s, end_date], end_date => [start_date])
+        events << {:start => start_date, :end => end_date, :y => y, :color => 'grey',
+                   :item_inventory_code => y_ticks[y-1][1],
+                   :user_name => "#{l.document.user.name} (#{user_level})", :user_phone => "#{l.document.user.phone}"}
       end
     end
 
@@ -152,9 +148,9 @@ module ModelsHelper
               r += content_tag :a, :id => 'canvas_zoom_reset' do "#{_("Reset Zoom")}" end
             end
     
-    html += <<-HERECODE
-      <script type="text/javascript">
-        
+    html += javascript_tag do
+        <<-HERECODE
+
         var canvas_container = $('canvas_container');
         
         function draw_canvas(){
@@ -162,7 +158,7 @@ module ModelsHelper
             var x_ticks = #{x_ticks.sort.to_json};
             var x2_ticks = #{x2_ticks.sort.to_json};
             var y_ticks = #{y_ticks.to_json};
-            var items_users = #{items_users.to_json};
+            var events = #{events.to_json};
 
             //old//x2_ticks.sort();
 
@@ -203,26 +199,14 @@ module ModelsHelper
                       track: true,    // => true to track mouse
                       position: 'ne',   // => position to show the track value box
                       relative: false,
-                      trackFormatter: function(obj){ 
-                        if (items_users[y_ticks[(obj.y)-1][1]][obj.x].length > 1)
-                          {
-                            var username = items_users[y_ticks[(obj.y)-1][1]][obj.x][0];
-                            var userphone = items_users[y_ticks[(obj.y)-1][1]][obj.x][1];
-                            var other_val = items_users[y_ticks[(obj.y)-1][1]][obj.x][2];
-                          }
-                        else
-                          {
-                            var other_val = items_users[y_ticks[(obj.y)-1][1]][obj.x][0]
-                            var username = items_users[y_ticks[(obj.y)-1][1]][other_val][0];
-                            var userphone = items_users[y_ticks[(obj.y)-1][1]][other_val][1];
-                          }
-                        if (obj.x < other_val)
-                          { var from_date = obj.x;
-                            var to_date = other_val; }
-                        else
-                          { var from_date = other_val;
-                            var to_date = obj.x; }
-                        return y_ticks[(obj.y)-1][1] + '<br/>' + show_date(new Date(from_date * 1000),false) + ' - ' + show_date(new Date(to_date * 1000),false) + '<br/>Client: ' + username + '<br/>Phone: ' + userphone;
+                      trackFormatter: function(obj){
+                        // OPTIMIZE direct selection, avoid to iterate the whole array over and over
+                        var event = events.detect(function(item){
+                                      return item.y == obj.y && item.start <= obj.x && item.end >= obj.x
+                                    });
+                        return event.item_inventory_code
+                               + '<br/>' + show_date(new Date(event.start * 1000),false) + ' - ' + show_date(new Date(event.end * 1000),false)
+                               + '<br/>Client: ' + event.user_name + '<br/>Phone: ' + event.user_phone;
                        },
                       margin: 5,    // => margin for the track value box
                       color: '#ff3f19', // => color for the tracking points, null to hide points
@@ -299,9 +283,9 @@ module ModelsHelper
 
        document.observe('dom:loaded', function(evt){ draw_canvas(); }); 
 
-      </script>    
-    HERECODE
-    
+      HERECODE
+    end
+  
     content_tag :div, :id => 'flotr_container' do
       html
     end
