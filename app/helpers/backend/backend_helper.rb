@@ -102,7 +102,7 @@ module Backend::BackendHelper
                     backend_inventory_pool_user_path(current_inventory_pool, user, :layout => "modal"),
                     :title => _("User"),
                     :class => "iconized-notxt edit-user" )
-          r += '<br />'
+          r += tag :br
           r += render :partial => 'backend/users/resume'
           r
         end
@@ -233,7 +233,7 @@ module Backend::BackendHelper
           listeners: {
             click: function( node, e ){
               if(node.attributes.real_id != '') node.toggle();
-              if(!#{checkable}) new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', parameters: {category_id: node.attributes.real_id #{parameters}}}); return false;
+              if(!#{checkable}) new Ajax.Request('', {asynchronous:true, evalJS:true, method:'get', parameters: {category_id: node.attributes.real_id #{parameters}}}); return false;
             },
             checkchange: function(node, checked){
               new Ajax.Request('#{url_for()}', {method: (checked ? 'post' : 'delete'), parameters: {category_id: node.attributes.real_id, #{request_forgery_protection_token}: '#{escape_javascript form_authenticity_token}' #{parameters}}}); return false;
