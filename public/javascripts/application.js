@@ -13,11 +13,12 @@ document.observe("dom:loaded", function() {
     container.observe('click', function(e) {
       var el = e.element()
       if (el.match('.pagination a')) {
-        new Ajax.Request(el.href, { method: 'get',
+        new Ajax.Request(el.href, { method: 'get' , evalJS: true /*
+        							// TODO ajax history
 									onSuccess: function(request) {
-										$('list_table').update(request.responseText);
-										dhtmlHistory.add(request.request.url, "new Ajax.Request('" + request.request.url + "', { method: 'get', onSuccess: function(request) { $('list_table').update(request.responseText); } });");
-									}
+										// this will happen automatically: eval(request.responseText);
+										//dhtmlHistory.add(request.request.url, "location.assign('" + request.request.url + "');");
+									} */
 		});
         e.stop();
       }
@@ -38,7 +39,7 @@ document.observe("dom:loaded", function() {
 });
 
 //////// Really Simple History //////////
-
+/*
 window.dhtmlHistory.create({
   toJSON: function(o) {
     return Object.toJSON(o);
@@ -56,7 +57,7 @@ window.onload = function() {
   dhtmlHistory.initialize();
   dhtmlHistory.addListener(pageListener);
 }
-
+*/
 /////////////////////////////////////////////////////////
 
 function checkbox_values(boxes){
