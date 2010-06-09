@@ -131,9 +131,12 @@ module ApplicationHelper
       end
     end
 
-    if query.length < min_query_len
-       flash[:notice] = _("Possibly not all matches are being displayed because your search text was shorter than the minumum %s characters") % min_query_len.to_s
-    end    
+
+    unless query.blank?
+      if query.length < min_query_len
+         flash[:notice] = _("Possibly not all matches are being displayed because your search text was shorter than the minumum %s characters") % min_query_len.to_s
+      end    
+    end
   end
   
   ######## Hash/Array to <ul> list #########
