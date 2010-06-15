@@ -21,8 +21,8 @@ namespace :release do
         `git checkout master lib/tasks/release.rake`
 
         # Clean up the exported version
-        Dir.chdir("leihs-#{tag}")
 		    `rake release:clean`
+        Dir.chdir("..")
         `zip -r leihs-#{tag}.zip leihs-#{tag}`
         `tar cfz leihs-#{tag}.tar.gz leihs-#{tag}`
       end
