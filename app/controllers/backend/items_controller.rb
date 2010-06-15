@@ -237,13 +237,10 @@ class Backend::ItemsController < Backend::BackendController
     end
     render :layout => false
   end
-<<<<<<< HEAD
-=======
 
   def inventory_codes
     @free_ranges = Item.free_inventory_code_ranges(params)
   end
->>>>>>> origin/master
   
 #################################################################
 
