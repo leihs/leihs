@@ -1,7 +1,13 @@
 set :application, "leihs2test"
-set :repository,  "http://code.zhdk.ch/svn/leihs/trunk"
+
+# If you aren't using Subversion to manage your source code, specify
+# your SCM below:
+set :scm, :git
+set :repository,  "git://github.com/psy-q/leihs.git"
+set :branch, "master"
+set :deploy_via, :remote_cache
+
 set :db_config, "/home/rails/leihs/leihs2test/database.yml"
-set :checkout, :export
 set :use_sudo, false
 
 set :rails_env, "production"
@@ -12,10 +18,6 @@ set :rails_env, "production"
 # via the :deploy_to variable:
 set :deploy_to, "/home/rails/leihs/#{application}"
 
-
-# If you aren't using Subversion to manage your source code, specify
-# your SCM below:
-# set :scm, :subversion
 
 role :app, "leihs@webapp.zhdk.ch"
 role :web, "leihs@webapp.zhdk.ch"
