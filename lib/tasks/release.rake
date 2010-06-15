@@ -5,17 +5,27 @@ namespace :release do
     tag = ENV['tag']
 		
 		if tag.nil?
-			puts "A tag must be set, e.g. rake release:package tag=2.0b3"
+			puts "ERROR: A tag must be set, e.g. rake release:package tag=2.0b3"
 		else
-		  `svn export http://code.zhdk.ch/svn/leihs/tags/#{tag} leihs-#{tag}`
+      `git clone git://github.com/psy-q/leihs.git leihs-#{tag}`
+      Dir.chdir("leihs-#{tag}")
+      matching_tag = `git tag -l #{tag}`
+      if matching_tag.blank?
+        puts "ERROR: The tag #{tag} does not exist. Available tags are:"
+        tags = `git tag`
+        puts tags
+      else
+        `git checkout #{tag}`
 
-      # Copy latest release packaging tasks to a potentially old dir
-      `cp lib/tasks/release.rake leihs-#{tag}/lib/tasks/`
+        # Copy latest release packaging tasks to a potentially old dir
+        `git checkout master lib/tasks/release.rake`
 
-      # Clean up the exported version
-		  `cd leihs-#{tag} && rake release:clean`
-      `zip -r leihs-#{tag}.zip leihs-#{tag}`
-      `tar cfz leihs-#{tag}.tar.gz leihs-#{tag}`
+        # Clean up the exported version
+        Dir.chdir("leihs-#{tag}")
+		    `rake release:clean`
+        `zip -r leihs-#{tag}.zip leihs-#{tag}`
+        `tar cfz leihs-#{tag}.tar.gz leihs-#{tag}`
+      end
     end
 
   end
@@ -83,8 +93,8 @@ namespace :release do
       rm fn rescue nil
     end
 
-    puts "Removing Subversion directories"
-    Dir['**/.svn'].each do |fn|
+    puts "Removing git directories"
+    Dir['**/.git'].each do |fn|
       rm fn rescue nil
     end
 
