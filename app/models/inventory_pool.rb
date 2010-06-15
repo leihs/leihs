@@ -39,7 +39,7 @@ class InventoryPool < ActiveRecord::Base
 ########
 
     
-	has_many :locations, :through => :items, :uniq => true
+  has_many :locations, :through => :items, :uniq => true
   has_many :items, :dependent => :nullify # OPTIMIZE prevent self.destroy unless self.items.empty?
   has_many :own_items, :class_name => "Item", :foreign_key => "owner_id"
   has_many :models, :through => :items, :uniq => true
