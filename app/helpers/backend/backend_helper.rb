@@ -233,11 +233,7 @@ module Backend::BackendHelper
           listeners: {
             click: function( node, e ){
               if(node.attributes.real_id != '') node.toggle();
-<<<<<<< HEAD
-              if(!#{checkable}) new Ajax.Updater('list_table', '', {asynchronous:true, evalScripts:true, method:'get', parameters: {category_id: node.attributes.real_id #{parameters}}}); return false;
-=======
               if(!#{checkable}) new Ajax.Request('', {asynchronous:true, evalJS:true, method:'get', parameters: {category_id: node.attributes.real_id #{parameters}}}); return false;
->>>>>>> origin/master
             },
             checkchange: function(node, checked){
               new Ajax.Request('#{url_for()}', {method: (checked ? 'post' : 'delete'), parameters: {category_id: node.attributes.real_id, #{request_forgery_protection_token}: '#{escape_javascript form_authenticity_token}' #{parameters}}}); return false;
