@@ -26,7 +26,9 @@
   <% end %>
 	
 	
-<tr><td><b><%= _("Inventory Code:") %></b></td><td>
+<tr><td><b><%= _("Inventory Code") %>:</b>
+		<%= link_to _("Overview"), inventory_codes_backend_inventory_pool_items_path(current_inventory_pool), :target => "_blank" %>
+		</td><td>
 		<% if is_super_user? %>
 		 	<%= @f.text_field :inventory_code %> 
 		<% else %>

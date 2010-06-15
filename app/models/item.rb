@@ -259,15 +259,71 @@ class Item < ActiveRecord::Base
     "#{inventory_code}<br/><div>#{location}</div>"
   end
 
+####################################################################
+
+  # extract *last* number sequence in string   
+  def self.last_number(inventory_code)
+     inventory_code.reverse.sub(/[^\d]*/,'').sub(/[^\d]+.*/,'').reverse.to_i
+  end
+
+  # proposes the next available number based on the owner inventory_pool
   def self.proposed_inventory_code(inventory_pool)
-    last = 0
-    all.each do |item|
-       code = item.read_attribute('inventory_code')
-       # extract *last* number sequence in string   
-       num = code.reverse.sub(/[^\d]*/,'').sub(/[^\d]+.*/,'').reverse.to_i
-       last = num if num > last
+    last_inventory_code = Item.first(:conditions => {:owner_id => inventory_pool}, :order => "created_at DESC", :retired => :all).try(:inventory_code)
+    num = last_number(last_inventory_code)
+    next_num = free_inventory_code_ranges({:from => num}).first.first
+    return "#{inventory_pool.shortname}#{next_num}"
+  end
+
+  # if argument is false returns { 1 => 3, 2 => 1, 77 => 1, 79 => 2, ... }
+  # the key is the allocated inventory_code_number
+  # the value is the count of the allocated items
+  # if the value is larger than 1, then there is a allocation conflict
+  #   
+  # if argument is true returns { 1 => ["AVZ1", "ITZ1", "VMK1"], 2 => "AVZ2", 77 => "AVZ77", 79 => ["AVZ79", "ITZ79"], ... }
+  # the key is the allocated inventory_code_number
+  # the value is/are the inventory_code/s of the allocated items
+  # if the value is an Array, then there is a allocation conflict   
+  #
+  def self.allocated_inventory_code_numbers(with_allocated_codes = false)
+    h = {}
+    inventory_codes = ActiveRecord::Base.connection.select_values("SELECT inventory_code FROM items")
+    inventory_codes.each do |code|
+      num = last_number(code)
+      h[num] = if with_allocated_codes
+                 (h[num].nil? ? code : Array(h[num]) << code)
+               else
+                 h[num].to_i + 1
+               end
     end
-    return "#{inventory_pool.shortname}#{last + 1}"
+    h
+  end
+
+  def self.inventory_code_conflicts
+    allocated_inventory_code_numbers(true).delete_if {|k, v| not v.is_a? Array }
+  end
+
+  # returns [ [1, 2], [5, 23], [28, 29], ... [9990, 99999] ]
+  # all displayed numbers [from, to] included are available 
+  #
+  def self.free_inventory_code_ranges(params)
+    default_params = { :from => 1, :to => 99999, :min_gap => 1 }
+    params.reverse_merge!(default_params)
+
+    from = [params[:from].to_i, 1].max
+    to = [params[:to].to_i, 256 ** 3].min # OPTIMIZE sql maxint ?? or max digits ??
+    min_gap = [[params[:min_gap].to_i, 1].max, to].min
+
+    ranges = []
+    last_n = from-1
+
+    sorted_numbers = allocated_inventory_code_numbers.keys.select {|n| n >= from and n <= to}.sort
+    sorted_numbers.each do |n|
+      ranges << [last_n+1, n-1] if n-1 != last_n and (n-1 - last_n >= min_gap)
+      last_n = n
+    end
+    ranges << [last_n+1, to] if last_n+1 <= to and (to - last_n >= min_gap)
+  
+    ranges
   end
 
 ####################################################################

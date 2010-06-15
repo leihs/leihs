@@ -1,0 +1,40 @@
+<% content_tag :h3 do %>
+	<%= _("Free inventory codes") %>
+<% end %>
+
+<% form_tag nil, :method => :get do %>
+	<%= _("From") %>: <%= text_field_tag :from, (params[:from] || 1), :size => 5 %>
+	<%= _("To") %>: <%= text_field_tag :to, (params[:to] || 99999), :size => 5 %>
+	<%= _("Min Gap") %>: <%= text_field_tag :min_gap, (params[:min_gap] || 1), :size => 5 %>
+	<%= submit_tag _("Search") %>
+<% end %>
+
+<br />
+
+<% content_tag :table, :style => "width: 20em;" do
+	content_tag :tr do
+		content_tag :th do %>
+			<%= _("From") %>
+		<% end
+		content_tag :th do %>
+			<%= _("To") %>
+		<% end
+		content_tag :th do %>
+			<%= _("Gap") %>
+		<% end
+	end
+	@free_ranges.each do |range|
+		content_tag :tr do
+			content_tag :td do %>
+				<%= range[0] %>
+			<% end
+			content_tag :td do %>
+				<%= range[1] %>
+			<% end
+			content_tag :td do %>
+				<%= range[1] - range[0] + 1 %>
+			<% end
+		end
+	end
+end %>
+		

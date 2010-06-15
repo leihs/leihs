@@ -122,18 +122,20 @@ module ApplicationHelper
   end
 
   def flash_on_search_result(query, results = nil)
-    min_query_len = 0
-    if results.empty? or results.options[:classes].nil?
-      min_query_len = ThinkingSphinx::Configuration.instance.index_options[:min_infix_len]
-    else
-      results.options[:classes].each do |klass|
-        min_query_len = klass.sphinx_index_options[:min_infix_len] if klass.sphinx_index_options[:min_infix_len] > min_query_len
+    unless query.blank?
+      min_query_len = 0
+      if results.blank? or results.options[:classes].nil?
+        min_query_len = ThinkingSphinx::Configuration.instance.index_options[:min_infix_len]
+      else
+        results.options[:classes].each do |klass|
+          min_query_len = klass.sphinx_index_options[:min_infix_len] if klass.sphinx_index_options[:min_infix_len] > min_query_len
+        end
       end
-    end
 
-    if query.length < min_query_len
-       flash[:notice] = _("Possibly not all matches are being displayed because your search text was shorter than the minumum %s characters") % min_query_len.to_s
-    end    
+      if query.length < min_query_len
+         flash[:notice] = _("Possibly not all matches are being displayed because your search text was shorter than the minumum %s characters") % min_query_len.to_s
+      end    
+    end
   end
   
   ######## Hash/Array to <ul> list #########

@@ -98,7 +98,8 @@ ActionController::Routing::Routes.draw do |map|
       end
       inventory_pool.resources :templates, :member => { :models => :get,
                                                         :add_model => :put }
-      inventory_pool.resources :items, :collection => { :supplier => [:get, :post] },
+      inventory_pool.resources :items, :collection => { :supplier => [:get, :post],
+                                                        :inventory_codes => :get },
                                           :member => { :location => [:get, :post, :put],
                                                        :status => :get,
                                                        :notes => [:get, :post],
