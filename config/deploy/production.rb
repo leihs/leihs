@@ -34,6 +34,10 @@ task :link_attachments do
 	run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
 end
 
+task  :link_db_backups do
+  run "rm -rf #{release_path}/db/backups"
+  run "ln -s #{deploy_to}/#{shared_dir}/db_backups #{release_path}/db/backups"
+end
 
 task :remove_htaccess do
 	# Kill the .htaccess file as we are using mongrel, so this file
@@ -115,6 +119,7 @@ end
 
 
 
+after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :modify_config

@@ -34,6 +34,11 @@ task	:link_attachments do
 	run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
 end
 
+task	:link_db_backups do
+	run "rm -rf #{release_path}/db/backups"
+	run "ln -s #{deploy_to}/#{shared_dir}/db_backups #{release_path}/db/backups"
+end
+
 task :link_sphinx do
   run "rm -rf #{release_path}/db/sphinx"
   run "ln -s #{deploy_to}/#{shared_dir}/sphinx #{release_path}/db/sphinx"
@@ -108,6 +113,7 @@ end
 
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
+after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
 after "deploy:symlink", :configure_sphinx

@@ -263,6 +263,7 @@ class Item < ActiveRecord::Base
 
   # extract *last* number sequence in string   
   def self.last_number(inventory_code)
+    inventory_code ||= ""
     inventory_code.reverse.sub(/[^\d]*/,'').sub(/[^\d]+.*/,'').reverse.to_i
   end
 
@@ -270,7 +271,7 @@ class Item < ActiveRecord::Base
   # tries to take the next free inventory code after the previously created Item
   def self.proposed_inventory_code(inventory_pool)
     last_inventory_code = Item.first(:conditions => {:owner_id => inventory_pool}, :order => "created_at DESC", :retired => :all).try(:inventory_code)
-    num = last_number(last_inventory_code || "")
+    num = last_number(last_inventory_code)
     next_num = free_inventory_code_ranges({:from => num}).first.first
     return "#{inventory_pool.shortname}#{next_num}"
   end
