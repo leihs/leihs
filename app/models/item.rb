@@ -267,6 +267,7 @@ class Item < ActiveRecord::Base
   end
 
   # proposes the next available number based on the owner inventory_pool
+  # tries to take the next free inventory code after the previously created Item
   def self.proposed_inventory_code(inventory_pool)
     last_inventory_code = Item.first(:conditions => {:owner_id => inventory_pool}, :order => "created_at DESC", :retired => :all).try(:inventory_code)
     num = last_number(last_inventory_code || "")

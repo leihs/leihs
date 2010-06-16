@@ -109,6 +109,12 @@ Given "$number items of this model exist" do |number|
   @model = Model.find(@model.id)
 end
 
+Given "we have items with the following inventory_codes:" do |inventory_codes_table|
+  inventory_codes_table.hashes.each do |hash|
+    Factory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool, :inventory_code => hash[:inventory_code] )
+  end
+end
+
 When "the broken alorithm proposes wrongly a duplicate inventory code '$code'" do |code|
   Item.class_exec(code) do |code|
     eval "
@@ -138,7 +144,11 @@ When "leihs generates a new inventory code" do
   @inventory_code = Item.proposed_inventory_code(@inventory_pool)
 end
 
-Then "the generated_code should look like this $result" do |result|
+Then "the generated_code should look like this '$result'" do |result|
   @inventory_code.should == result
+end
+
+When "we add an item '$inventory_code'" do |inventory_code|
+  i = Factory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool, :inventory_code => inventory_code )
 end
 

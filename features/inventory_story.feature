@@ -66,7 +66,7 @@ Scenario Outline: How we want new generated inventory codes to look like
 	Given a model 'Trumpet' exists
 	  And item '<inventory_code>' of model 'Trumpet' exists
 	 When leihs generates a new inventory code
-	 Then the generated_code should look like this <result>
+	 Then the generated_code should look like this '<result>'
 
 	Examples:
 	  | inventory_code | result  |
@@ -74,4 +74,27 @@ Scenario Outline: How we want new generated inventory codes to look like
 	  | ABC127         | ABC128  |
 	  | 123ABC999      | ABC1000 |
 	  |                | ABC1    |
+
+Scenario: Fill in holes in existing inventory code ranges when proposing new codes
+	Given a model 'Trumpet' exists
+	  And we have items with the following inventory_codes:
+	      | inventory_code |
+	      |          ABC02 |
+	      |          ABC03 |
+	      |          ABC06 |
+	      |          ABC07 |
+	      |          ABC10 |
+	      |          ABC11 |
+         # we sleep one second, since mysql's datetime is only precise to a second
+         # and thus subsequently created items wouldn't get sorted right
+	 When we wait 1 second
+	  And we add an item 'ABC08'
+	  And leihs generates a new inventory code
+	 # first free inventory code after 'ABC08' is 'ABC9'
+	 Then the generated_code should look like this 'ABC9'
+	 When we wait 1 second
+	  And we add an item 'ABC01'
+	  And leihs generates a new inventory code
+	 # first free inventory code after 'ABC01' is 'ABC4'
+	 Then the generated_code should look like this 'ABC4'
 
