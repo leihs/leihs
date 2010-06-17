@@ -101,9 +101,9 @@ namespace :deploy do
 	# using a spinner script or anything of that sort.
 	end
 
-	task :restart do
-          run "pkill -SIGUSR2 -f -u leihs -- '-e production.*leihs2test'"
-	end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
 
   desc "Cleanup older revisions"
   task :after_deploy do
