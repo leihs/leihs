@@ -1,10 +1,14 @@
 set :application, "leihs2"
-set :repository,  "http://code.zhdk.ch/svn/leihs/trunk"
+set :scm, :git
+set :repository,  "git://github.com/psy-q/leihs.git"
+set :branch, "master"
+set :deploy_via, :remote_cache
+
 set :db_config, "/home/rails/leihs/leihs2/database.yml"
-set :checkout, :export
 set :use_sudo, false
 
 set :rails_env, "production"
+
 
 default_run_options[:shell] = false
 
