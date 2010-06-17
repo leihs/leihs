@@ -69,11 +69,13 @@ Scenario Outline: How we want new generated inventory codes to look like
 	 Then the generated_code should look like this '<result>'
 
 	Examples:
-	  | inventory_code | result  |
-	  | 123            | ABC124  |
-	  | ABC127         | ABC128  |
-	  | 123ABC999      | ABC1000 |
-	  |                | ABC1    |
+	  | inventory_code | result     |
+	  | 123            | ABC124     |
+	  | ABC127         | ABC128     |
+	  | 123ABC999      | ABC1000    |
+	  |                | ABC1       |
+	  | ABC2008012     | ABC2008013 |
+	  | ABC            | ABC1       |
 
 Scenario: Fill in holes in existing inventory code ranges when proposing new codes
 	Given a model 'Trumpet' exists

@@ -304,15 +304,22 @@ class Item < ActiveRecord::Base
     allocated_inventory_code_numbers(true).delete_if {|k, v| not v.is_a? Array }
   end
 
-  # returns [ [1, 2], [5, 23], [28, 29], ... [9990, 99999] ]
+  # returns [ [1, 2], [5, 23], [28, 29], ... [9990, Infinity] ]
   # all displayed numbers [from, to] included are available 
   #
+  # Attention: params could be negative!
+  #
   def self.free_inventory_code_ranges(params)
-    default_params = { :from => 1, :to => 99999, :min_gap => 1 }
+    infinity = 1/0.0
+    default_params = { :from => 1, :to => infinity, :min_gap => 1 }
     params.reverse_merge!(default_params)
 
-    from = [params[:from].to_i, 1].max
-    to = [params[:to].to_i, 256 ** 3].min # OPTIMIZE sql maxint ?? or max digits ??
+    from = [ params[:from].to_i, 1 ].max
+    if params[:to] == infinity
+      to = infinity
+    else
+      to = [[params[:to].to_i, from].max, infinity].min
+    end
     min_gap = [[params[:min_gap].to_i, 1].max, to].min
 
     ranges = []

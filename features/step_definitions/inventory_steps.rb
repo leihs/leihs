@@ -7,7 +7,7 @@ end
 
 Given "inventory pool short name '$shortname'" do | shortname |
   @inventory_pool.shortname = shortname
-  puts @inventory_pool.save
+  @inventory_pool.save
 end
 
 # Allow switching of the default inventory pool on which we are acting
