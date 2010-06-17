@@ -5,7 +5,6 @@ set :repository,  "git://github.com/psy-q/leihs.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 
-set :repository,  "http://code.zhdk.ch/svn/leihs/trunk"
 set :db_config, "/home/rails/leihs/leihs2spiel/database.yml"
 set :checkout, :export
 set :use_sudo, false
