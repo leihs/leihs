@@ -1,4 +1,10 @@
 set :application, "leihs2spiel"
+
+set :scm, :git
+set :repository,  "git://github.com/psy-q/leihs.git"
+set :branch, "master"
+set :deploy_via, :remote_cache
+
 set :repository,  "http://code.zhdk.ch/svn/leihs/trunk"
 set :db_config, "/home/rails/leihs/leihs2spiel/database.yml"
 set :checkout, :export
@@ -89,9 +95,9 @@ namespace :deploy do
 	# using a spinner script or anything of that sort.
 	end
 
-	task :restart do
-          run "pkill -SIGUSR2 -f -u leihs -- '-e production.*leihs2spiel'"
-	end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
 
   desc "Cleanup older revisions"
   task :after_deploy do
