@@ -1,0 +1,12 @@
+<% table_with_search_and_pagination :columns => [[_("Group"), 'group_name'], _("Action")],
+						   			:records => @groups do |group| %>	
+
+		<% record_path = [:backend, current_inventory_pool, group] %>
+		<tr>
+			<td><em><%= group.name %></em>
+			</td>
+			<td class="buttons">
+				<%= link_to icon_tag("magnifier") + _("Show"), record_path %>
+			</td>
+		</tr>
+<% end %>

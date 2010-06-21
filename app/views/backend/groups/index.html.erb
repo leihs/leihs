@@ -1,0 +1,5 @@
+<% content_tag :div, :class => "toolbar-second buttons" do %>
+	<%= link_to _('New Group'), [:new, :backend, current_inventory_pool, @group, :group].compact %>
+<% end if is_privileged_user? %>
+
+<%= render :partial => 'index' %>
