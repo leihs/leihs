@@ -63,6 +63,8 @@ class InventoryPool < ActiveRecord::Base
   has_many :contracts
   has_many :contract_lines, :through => :contracts, :uniq => true
 
+  has_many :groups
+
 #######################################################################
 
   before_create :create_workday

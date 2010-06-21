@@ -152,6 +152,7 @@ ActionController::Routing::Routes.draw do |map|
                                                            :open => :get, # OPTIMIZE post (ajax)
                                                            :add_holiday => :post,
                                                            :delete_holiday => :get } # OPTIMIZE post (ajax)
+      inventory_pool.resources :groups, :controller => 'groups'
     end
   end
   
