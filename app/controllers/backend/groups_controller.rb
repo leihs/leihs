@@ -17,19 +17,10 @@ class Backend::GroupsController < Backend::BackendController
     page = params[:page]
     per_page = $per_page
     
-    puts "***1***"
-    puts params[:query]
-    gaga = { :star => true, :page => page, :per_page => per_page,
-                                             :sphinx_select => sphinx_select,
-                                             :with => with,
-                                             :sort_mode => params[:sort_mode] }
-    puts gaga.inspect
     @groups = Group.search params[:query], { :star => true, :page => page, :per_page => per_page,
                                              :sphinx_select => sphinx_select,
                                              :with => with,
                                              :order => params[:sort], :sort_mode => params[:sort_mode]}
-    puts "***2***"
-    puts @groups.inspect
 
     respond_to do |format|
       format.html
