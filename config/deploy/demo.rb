@@ -18,11 +18,6 @@ default_run_options[:shell] = false
 # via the :deploy_to variable:
 set :deploy_to, "/home/rails/leihs/#{application}"
 
-
-# If you aren't using Subversion to manage your source code, specify
-# your SCM below:
-# set :scm, :subversion
-
 role :app, "leihs@webapp.zhdk.ch"
 role :web, "leihs@webapp.zhdk.ch"
 role :db,  "leihs@webapp.zhdk.ch", :primary => true

@@ -1,4 +1,5 @@
 set :application, "leihs2"
+
 set :scm, :git
 set :repository,  "git://github.com/psy-q/leihs.git"
 set :branch, "master"
@@ -9,7 +10,6 @@ set :use_sudo, false
 
 set :rails_env, "production"
 
-
 default_run_options[:shell] = false
 
 
@@ -17,11 +17,6 @@ default_run_options[:shell] = false
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
 set :deploy_to, "/home/rails/leihs/#{application}"
-
-
-# If you aren't using Subversion to manage your source code, specify
-# your SCM below:
-# set :scm, :subversion
 
 role :app, "leihs@webapp.zhdk.ch"
 role :web, "leihs@webapp.zhdk.ch"
