@@ -1,12 +1,15 @@
-<% table_with_search_and_pagination :columns => [[_("Group"), 'group_name'], _("Action")],
+<% table_with_search_and_pagination :columns => [[_("Group"), 'group_name'], _("Users"), _("Action")],
 						   			:records => @groups do |group| %>	
 
 		<% record_path = [:backend, current_inventory_pool, group] %>
 		<tr>
-			<td><em><%= group.name %></em>
-			</td>
+			<td><%= group.name %></td>
+			<td><%= group.users.size %></td>
 			<td class="buttons">
 				<%= link_to icon_tag("magnifier") + _("Show"), record_path %>
+				<% if is_admin? or (current_inventory_pool and (is_inventory_manager? or is_lending_manager?)) %>
+					  <%= link_to _("Edit"), [:edit, :backend, current_inventory_pool, group].compact %>
+				<% end %>
 			</td>
 		</tr>
 <% end %>
