@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-06-17 13:52+0100\n"
+"POT-Creation-Date: 2010-06-22 13:48+0100\n"
 "PO-Revision-Date: 2009-11-23 15:37+0000\n"
 "Last-Translator: Monkey <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -160,11 +160,11 @@ msgstr "Error al asignar la ubicación"
 msgid "Item retired (%s)"
 msgstr "Elemento retirado (%s)"
 
-#: app/controllers/backend/items_controller.rb:256
+#: app/controllers/backend/items_controller.rb:259
 msgid "Item handed over as part of contract %d."
 msgstr "Artículo entregado como parte del contrato %d."
 
-#: app/controllers/backend/items_controller.rb:257
+#: app/controllers/backend/items_controller.rb:260
 msgid "Expected to be returned."
 msgstr "Se espera su devolución."
 
@@ -319,7 +319,12 @@ msgstr "Derechos de Acceso actualizados correctamente"
 msgid "Access Right successfully created"
 msgstr "Derechos de Acceso creados correctamente"
 
-#: app/controllers/backend/users_controller.rb:166
+#: app/controllers/backend/users_controller.rb:159
+#, fuzzy
+msgid "Access right reinstated"
+msgstr "Derechos de Acceso|Creado en"
+
+#: app/controllers/backend/users_controller.rb:168
 #, fuzzy
 msgid "Badge ID was updated"
 msgstr "ID de Distintivo: "
@@ -381,21 +386,21 @@ msgstr "Empleado"
 msgid "Special"
 msgstr "Especial"
 
-#: app/models/access_right.rb:31
+#: app/models/access_right.rb:32
 msgid "Borrow Level: %d"
 msgstr ""
 
-#: app/models/access_right.rb:32
+#: app/models/access_right.rb:33
 #, fuzzy
 msgid "Access Level: %d"
 msgstr "Acceso Denegado"
 
-#: app/models/access_right.rb:52
+#: app/models/access_right.rb:53
 msgid "The admin role cannot be scoped to an inventory pool"
 msgstr ""
 "El rol de administrador no puede estar asignado a un grupo de inventario"
 
-#: app/models/access_right.rb:54
+#: app/models/access_right.rb:55
 msgid "Inventory Pool is missing"
 msgstr "Falta el Grupo de Inventario"
 
@@ -2209,7 +2214,7 @@ msgstr "Recibido"
 #: app/views/frontend/_models.html.erb:346
 #: app/views/frontend/_models.html.erb:350
 #: app/views/layouts/backend/00-patterns/_menu_admin.html.erb:19
-#: app/views/layouts/backend/00-patterns/general.html.erb:48
+#: app/views/layouts/backend/00-patterns/general.html.erb:51
 msgid "Inventory Pool"
 msgstr "Grupo de Inventario"
 
@@ -2255,7 +2260,7 @@ msgstr "Documentos"
 #: app/views/backend/hand_over/_index.html.erb:33
 #: app/views/backend/hand_over/_option_line.html.erb:30
 #: app/views/backend/locations/_index.html.erb:15
-#: app/views/backend/models/_index.html.erb:59
+#: app/views/backend/models/_index.html.erb:61
 #: app/views/backend/models/package_roots.html.erb:44
 #: app/views/backend/categories/_index.html.erb:22
 #: app/views/backend/inventory_pools/_index.html.erb:17
@@ -2282,9 +2287,9 @@ msgstr "Lista de precios"
 
 #: app/views/orders/_pending.html.erb:28
 #: app/views/backend/hand_over/_index.html.erb:35
-#: app/views/backend/users/access_rights.html.erb:103
-#: app/views/backend/models/_index.html.erb:56
-#: app/views/backend/models/_index.html.erb:60
+#: app/views/backend/users/access_rights.html.erb:102
+#: app/views/backend/models/_index.html.erb:58
+#: app/views/backend/models/_index.html.erb:62
 #: app/views/backend/models/package_roots.html.erb:42
 #: app/views/backend/models/package_roots.html.erb:65
 #: app/views/backend/models/accessories.html.erb:43
@@ -2632,7 +2637,7 @@ msgstr "Agregar Modelo"
 #: app/views/backend/items/notes.html.erb:6
 #: app/views/backend/items/location.html.erb:7
 #: app/views/backend/items/status.html.erb:39
-#: app/views/backend/models/index.html.erb:20
+#: app/views/backend/models/index.html.erb:19
 #: app/views/backend/models/package_roots.html.erb:22
 #: app/views/backend/models/properties.html.erb:49
 #: app/views/backend/models/details.html.erb:11
@@ -2660,7 +2665,7 @@ msgstr "Estantería"
 #: app/views/backend/locations/_index.html.erb:12
 #: app/views/backend/users/_index.html.erb:37
 #: app/views/backend/items/_index.html.erb:55
-#: app/views/backend/models/_index.html.erb:54
+#: app/views/backend/models/_index.html.erb:56
 #: app/views/backend/models/package_roots.html.erb:5
 #: app/views/backend/models/package_roots.html.erb:59
 #: app/views/backend/categories/_index.html.erb:21
@@ -2716,14 +2721,14 @@ msgstr "Derechos de Acceso|Nivel"
 msgid "Add"
 msgstr "Añadir"
 
-#: app/views/backend/users/access_rights.html.erb:91
+#: app/views/backend/users/access_rights.html.erb:90
 #: app/views/backend/items/show.html.erb:29
 #: app/views/backend/acknowledge/change_purpose.html.erb:8
 msgid "Save"
 msgstr "Guardar"
 
-#: app/views/backend/users/access_rights.html.erb:101
-#: app/views/backend/models/_index.html.erb:55
+#: app/views/backend/users/access_rights.html.erb:100
+#: app/views/backend/models/_index.html.erb:57
 #: app/views/backend/models/package_roots.html.erb:63
 #: app/views/backend/models/accessories.html.erb:41
 #: app/views/backend/categories/_index.html.erb:29
@@ -2735,35 +2740,53 @@ msgid "Remove"
 msgstr "Quitar"
 
 #: app/views/backend/users/access_rights.html.erb:106
-msgid "Suspend"
-msgstr "Suspender"
+#, fuzzy
+msgid "Suspended until %s"
+msgstr "Pedido por %s hasta %s"
 
 #: app/views/backend/users/access_rights.html.erb:107
-msgid "The user will not be able to place any orders anymore."
-msgstr "Este usuario ya no podrá hacer ningún pedido."
-
-#: app/views/backend/users/access_rights.html.erb:109
 msgid "Reinstate"
 msgstr "Reestablecer"
 
-#: app/views/backend/users/access_rights.html.erb:118
+#: app/views/backend/users/access_rights.html.erb:111
+#: app/views/backend/users/access_rights.html.erb:119
+#: app/views/backend/users/access_rights.html.erb:134
+msgid "Suspend"
+msgstr "Suspender"
+
+#: app/views/backend/users/access_rights.html.erb:122
+#, fuzzy
+msgid "The user will not be able to place any orders"
+msgstr "Este usuario ya no podrá hacer ningún pedido."
+
+#: app/views/backend/users/access_rights.html.erb:125
+#, fuzzy
+msgid "Suspended Until"
+msgstr "Suspender"
+
+#: app/views/backend/users/access_rights.html.erb:130
+#: app/views/backend/items/retire.html.erb:14
+msgid "Reason"
+msgstr "Motivo"
+
+#: app/views/backend/users/access_rights.html.erb:161
 msgid "Access levels and borrow levels"
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:119
+#: app/views/backend/users/access_rights.html.erb:162
 msgid ""
 "Access levels are used to determine what system functionality a user is "
 "allowed to see and use."
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:120
+#: app/views/backend/users/access_rights.html.erb:163
 msgid ""
 "Borrow levels are used to allow/disallow lending certain items to users that "
 "aren't of high enough level. For example: if an item has level 5, a user of "
 "borrow level 4 will never see it whereas a user of level 5 or higher will."
 msgstr ""
 
-#: app/views/backend/users/access_rights.html.erb:121
+#: app/views/backend/users/access_rights.html.erb:164
 msgid ""
 "Both levels are handled per inventory pool, so if one inventory pool only "
 "wants to deal with levels 1-3 of their items while another needs all 9 "
@@ -3052,10 +3075,6 @@ msgstr ""
 msgid "The item %s will be retired and no longer be available for rentals."
 msgstr "El artículo %s será retirado y no estará disponible para alquiler."
 
-#: app/views/backend/items/retire.html.erb:14
-msgid "Reason"
-msgstr "Motivo"
-
 #: app/views/backend/items/_invoice_info.html.erb:1
 msgid "Invoice Information"
 msgstr "Información de Factura"
@@ -3140,8 +3159,8 @@ msgid "Search"
 msgstr "Buscar"
 
 #: app/views/backend/items/supplier.html.erb:34
-#: app/views/backend/models/_index.html.erb:47
-#: app/views/backend/models/_index.html.erb:51
+#: app/views/backend/models/_index.html.erb:49
+#: app/views/backend/models/_index.html.erb:53
 #: app/views/backend/categories/_index.html.erb:18
 #: app/views/backend/options/_index.html.erb:17
 msgid "Select"
@@ -3154,7 +3173,7 @@ msgstr "Código de inventario"
 
 #: app/views/backend/items/inventory_codes.html.erb:6
 #: app/views/backend/items/inventory_codes.html.erb:17
-#: app/views/backend/models/index.html.erb:34
+#: app/views/backend/models/index.html.erb:49
 #: app/views/backend/options/_index.html.erb:2
 msgid "From"
 msgstr "De"
@@ -3172,20 +3191,25 @@ msgstr ""
 msgid "Gap"
 msgstr ""
 
-#: app/views/backend/models/index.html.erb:15
+#: app/views/backend/models/index.html.erb:14
 msgid "Add compatible"
 msgstr "Añadir compatible"
 
-#: app/views/backend/models/index.html.erb:25
+#: app/views/backend/models/index.html.erb:24
 msgid "New Package"
 msgstr "Nuevo Paquete"
 
-#: app/views/backend/models/index.html.erb:29
+#: app/views/backend/models/index.html.erb:44
 #: app/views/backend/categories/index.html.erb:35
 #: app/views/backend/inventory_pools/index.html.erb:2
 #: app/views/backend/options/index.html.erb:2
 msgid "Create New"
 msgstr "Crear Nuevo"
+
+#: app/views/backend/models/index.html.erb:55
+#, fuzzy
+msgid "Add Selected"
+msgstr "Seleccionar"
 
 #: app/views/backend/models/_index.html.erb:1
 #: app/views/backend/models/package_roots.html.erb:51
@@ -3689,7 +3713,7 @@ msgid "End date"
 msgstr "Fecha final"
 
 #: app/views/frontend/_complete_order.html.erb:383
-#: app/views/layouts/backend/00-patterns/general.html.erb:48
+#: app/views/layouts/backend/00-patterns/general.html.erb:51
 msgid "Change"
 msgstr "Cambiar"
 
@@ -3840,7 +3864,7 @@ msgstr "Paquetes"
 msgid "Options"
 msgstr "Opciones"
 
-#: app/views/layouts/backend/00-patterns/general.html.erb:82
+#: app/views/layouts/backend/00-patterns/general.html.erb:85
 msgid "Database Backup"
 msgstr ""
 

@@ -1,10 +1,9 @@
 <% if @show_categories_tree %>  
-
 	<%= extjs_model_tree %>
-<table><tr>
-<td id="categories" style="vertical-align:top;" width="20%">
-</td>
-<td style="vertical-align:top;" width="80%">
+	<table><tr>
+	<td id="categories" style="vertical-align:top;" width="20%">
+	</td>
+	<td style="vertical-align:top;" width="80%">
 <% end %>  
 
 <% if @model %>
@@ -24,19 +23,44 @@
 	<div class="toolbar-second buttons">
 		<%= link_to _('New Package'), :action => 'new_package' %>
 	</div>
-<% elsif is_privileged_user? %>
+<% elsif false #temp#multi-add# params[:source_path]
+	content_tag :style do %>
+		#list_table td.buttons {
+			visibility: hidden;
+		}
+	<% end
+	javascript_tag do %>
+	     jQuery(document).ready(function($){
+		   $("#list_table tr").live('mouseover', function(){
+				$(this).find(".buttons").css('visibility', 'visible');
+		   });
+		   $("#list_table tr").live('mouseout', function(){
+				$(this).find(".buttons").css('visibility', 'hidden');
+		   });
+	     });
+	<% end 
+elsif is_privileged_user? and !params[:source_path] %>
 	<div class="toolbar-second buttons">
 		<%= link_to _("Create New"), :action => 'new' %>
 	</div>	
 <% end %>
 
-<% if @start_date and @end_date %>
-  <%= _("From") %> <%= short_date(@start_date) %> <%= ("to") %> <%= short_date(@end_date) %> 
-<% end %>
+<% content_tag :div do %>
+	<%= _("From") %> <%= short_date(@start_date) %> <%= ("to") %> <%= short_date(@end_date) %> 
+<% end if @start_date and @end_date %>
+
+<% if false #temp#multi-add# params[:source_path]
+	form_tag params[:source_path], :name => "f", :target=> '_top' do
+		content_tag :div, :class => "buttons", :style => "text-align: right;" do %>
+			<%=	submit_button(_("Add Selected"), {:icon => "package_add"}) %>
+		<% end %>
+		<%= render :partial => "index" %>
+	<% end
+end %>
 
 <%= render :partial => "index" %>
 
-<% if @show_categories_tree %>  
-</td>
-</tr></table>
+<% if @show_categories_tree %>
+	</td>
+	</tr></table>
 <% end %>  

@@ -59,8 +59,7 @@ end %>
 
 <br />
 
-<%
-table :records => @access_rights do |access_right|	
+<% table :records => @access_rights do |access_right|	
 
 	form_tag url_for([:add_access_right, :backend, current_inventory_pool, @user].compact), :method => :post do
 		content_tag :tr, :id => "access_right_#{access_right.id}" do
@@ -102,17 +101,61 @@ table :records => @access_rights do |access_right|
 							remove_link,
 							:confirm => _("Are you sure?"),
 							:method => :delete %>
-				<% if current_inventory_pool %>
-					<%= link_to(icon_tag("flag_red") + " " + _("Suspend"), suspend_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right), 
-								:confirm => _("The user will not be able to place any orders anymore."), :method => :post) unless access_right.suspended? %>
-								
-					<%= link_to(icon_tag('emoticon_unhappy') + " " + _('Reinstate'), reinstate_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right), 
-								 :method => :post) if access_right.suspended? %>
-				<% end
+				<% if current_inventory_pool
+					if access_right.suspended? %>
+						<%= _("Suspended until %s") % access_right.suspended_until.strftime("%d.%m.%Y") %>
+						<%= link_to(icon_tag('emoticon_unhappy') + " " + _('Reinstate'),
+									reinstate_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right), 
+									:method => :post) %>
+					<% else %>
+						<%= link_to icon_tag("flag_red") + " " + _("Suspend"), suspend_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right), :id => "suspend" %>
+					<% end
+				end
 			end
 		end
 	end
-end %>
+end 
+
+content_tag :div, :id =>"dialog-form", :title => _("Suspend") do %>
+	<% form_tag do
+		content_tag :h4 do %>
+			<%= _("The user will not be able to place any orders") %>
+		<% end
+		content_tag :p, :style => "margin: 0.5em 0 0.5em 0;" do %>
+			<%= _("Suspended Until") %>:
+			<br />
+			<%= text_field_tag :suspended_until %>
+		<% end
+		content_tag :p, :style => "margin: 0.5em 0 0.5em 0;" do %>
+			<%= _("Reason") %>:
+			<br />
+			<%= text_area_tag :reason %>
+		<% end %>
+		<%= submit_tag _("Suspend") %>
+	<% end
+end
+
+javascript_tag do %>
+	jQuery(document).ready(function($){
+		$("#dialog-form").dialog({
+			autoOpen: false,
+			height: 300,
+			width: 500,
+			modal: true
+		 });
+		
+		$("#suspended_until").datepicker({
+			dateFormat: 'dd-mm-yy',
+			minDate: 0
+		});
+
+		$("#suspend").click(function(){
+			$("#dialog-form form").attr("action", $(this).attr("href"));
+			$("#dialog-form").dialog('open');
+			return false;
+		});
+	});
+<% end %>
 
 <hr />
 <h4><%= _("Access levels and borrow levels") %></h4>

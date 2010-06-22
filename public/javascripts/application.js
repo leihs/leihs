@@ -1,41 +1,63 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+/*	
 // Ajax Pagination :: http://wiki.github.com/mislav/will_paginate/ajax-pagination //
 // adapted by sellittf //
-
 document.observe("dom:loaded", function() {
   // the element in which we will observe all clicks and capture
   // ones originating from pagination links
   var container = $(document.body)
-
   if (container) {
     container.observe('click', function(e) {
       var el = e.element()
       if (el.match('.pagination a')) {
-        new Ajax.Request(el.href, { method: 'get' , evalJS: true /*
+        new Ajax.Request(el.href, { method: 'get' , evalJS: true
         							// TODO ajax history
-									onSuccess: function(request) {
+									//onSuccess: function(request) {
 										// this will happen automatically: eval(request.responseText);
 										//dhtmlHistory.add(request.request.url, "location.assign('" + request.request.url + "');");
-									} */
+									//}
 		});
         e.stop();
       }
     })
   }
-  
-/*	
-	Ajax.Responders.register({
-	  onComplete: function(request) {
+
+//	Ajax.Responders.register({
+//	  onComplete: function(request) {
 	  	// Solution 1: just evaluating previous ajax request response
 		// dhtmlHistory.add(request.url, request.transport.responseText);
 		
 		// Solution 2: re-executing the ajax request getting new response
-        dhtmlHistory.add(request.url, "new Ajax.Request('" + request.url + "', " + Object.toJSON(request.options) + ");");
-	  }
-	});
+//        dhtmlHistory.add(request.url, "new Ajax.Request('" + request.url + "', " + Object.toJSON(request.options) + ");");
+//	  }
+//	});
+
+});
 */	
+
+// TODO switch to jQuery
+jQuery(document).ready(function($){
+	// Ajax Pagination with jQuery
+	$(".pagination a").live("click", function() {
+		var target = $(this);
+		$.ajax({
+			url: target.attr("href"),
+			dataType: "script",
+			beforeSend: function(){
+				target.replaceWith("<img src='/images/spinner.gif'>");
+			}
+			/*
+		    success: function(response){
+				//old// $("#list_table").html(response);
+				$("#list_table").replaceWith(response);
+				//TODO// dhtmlHistory.add(request.request.url, "new Ajax.Request('" + request.request.url + "', { method: 'get', onSuccess: function(request) { $('list_table').update(request.responseText); } });");
+		    }
+		    */
+		});
+		return false;
+	});
 });
 
 //////// Really Simple History //////////
