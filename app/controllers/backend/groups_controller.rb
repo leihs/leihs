@@ -1,35 +1,66 @@
 class Backend::GroupsController < Backend::BackendController
+  
+  before_filter :pre_load
+
   def index
-    # OPTIMIZE 0501 
-    params[:sort] ||= 'name'
-    params[:sort_mode] ||= 'ASC'
-    params[:sort_mode] = params[:sort_mode].downcase.to_sym
-
-    with = {}
-    
-    if params[:group_id]
-      sphinx_select = "*, inventory_pool_id = #{current_inventory_pool.id} AS a"
-      with.merge!(:group_id => @group.id, :a => true)
-    end    
-
-    with.merge!(:inventory_pool_id => current_inventory_pool.id)
-    
-    page = params[:page]
-    per_page = $per_page
-    
-    @groups = Group.search params[:query], { :star => true, :page => page, :per_page => per_page,
-                                             :sphinx_select => sphinx_select,
-                                             :with => with,
-                                             :order => params[:sort], :sort_mode => params[:sort_mode]}
+    @groups = current_inventory_pool.groups.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page}
 
     respond_to do |format|
       format.html
       format.js { search_result_rjs(@groups) }
-      format.auto_complete { render :layout => false }
     end
   end
 
   def show
   end
 
+  def new
+    @group = Group.new
+    render :action => 'show'
+  end
+
+  def create
+    @group = Group.new
+    @group.inventory_pool = current_inventory_pool
+    update
+  end
+  
+  def update
+    @group.update_attributes(params[:group])
+    redirect_to :action => 'show', :id => @group
+  end
+
+  def destroy
+    if params[:user_id]
+      @group.users.delete(@group.users.find(params[:user_id])) # OPTIMIZE
+      redirect_to :action => 'users'
+    else
+      @group.destroy
+      redirect_to :action => 'show'
+    end
+  end
+
+#################################################################
+
+  def users 
+  end
+  
+  def add_user(user = params[:user])
+    @user = current_inventory_pool.users.find(user[:user_id])
+    @group.users << @user
+    @group.save!
+    redirect_to :action => 'users'
+  end
+
+#################################################################
+
+  private
+  
+  def pre_load
+    params[:group_id] ||= params[:id] if params[:id]
+    @group = current_inventory_pool.groups.find(params[:group_id]) if params[:group_id]
+    
+    @tabs = []
+    @tabs << :group_backend if @group
+  end
 end

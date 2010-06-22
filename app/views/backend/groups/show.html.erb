@@ -1,0 +1,7 @@
+<% form_for [:backend, current_inventory_pool, @group] do |f| %>
+
+	<%= _("Group name") %>: <%= f.text_field :name %>
+	<br />
+						
+	<%= submit_tag 'Submit' %>
+<% end %>

@@ -37,6 +37,7 @@ class Backend::UsersController < Backend::BackendController
     respond_to do |format|
       format.html
       format.js { search_result_rjs(@users) }
+      format.auto_complete { render :layout => false }
     end
 
   end

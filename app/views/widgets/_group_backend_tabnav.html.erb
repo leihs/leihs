@@ -1,0 +1,31 @@
+<i>Group</i>
+<hr />
+
+<% if @group.errors.size > 0 %>
+	<ul style="border: 1px solid red; padding: 2px;">
+	<% @group.errors.full_messages.each do |e| %>		
+		<li><%= e %></li>
+	<% end %>	
+	</ul>
+<% end %>			
+
+<h2><%= @group.name %></h2>
+
+<%  
+
+render_tabnav :group_backend, 
+              :generate_css => true do 
+
+	add_tab do |t|
+		t.named _('Group')
+		t.links_to :action => 'show', :layout => params[:layout]
+	end
+
+	add_tab do |t|
+		t.named _("Users (%{u})") % { :u => @group.users.size }
+		t.links_to :action => 'users', :layout => params[:layout]
+	end
+
+
+end 
+%>

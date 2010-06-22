@@ -1,3 +1,4 @@
+<% puts "****"; puts @groups.inspect %>
 <% table_with_search_and_pagination :columns => [[_("Group"), 'group_name'], _("Users"), _("Action")],
 						   			:records => @groups do |group| %>	
 
