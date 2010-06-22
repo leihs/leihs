@@ -1,16 +1,33 @@
-Given "a new order is placed by a user named '$who'" do | who |
-  @user = Factory.create_user( { :login => who },
-			       { :inventory_pool => @inventory_pool })
-  @order = Factory.create_order( :user_id => @user.id,
-			         :inventory_pool => @inventory_pool )
+Given /there is (only )?an order by (a user named )?'(.*)'/ do | only, bla, who |
+  Given "there are no orders" if only
+  if @inventory_pool
+    @user = Factory.create_user( { :login => who }, { :inventory_pool => @inventory_pool } )
+    @order = Factory.create_order( :user_id => @user.id, :inventory_pool => @inventory_pool )    
+  else
+    @user = Factory.create_user(:login => who)
+    @order = Factory.create_order({:user_id => @user.id})    
+  end
 end
 
-Given "the new order is submitted" do
+# TODO perform real post 
+When "'$who' places a new order" do | who |
+  Given "there is an order by '#{who}'"
+  post "/session", :login => who #new#
+end
+
+Given "the order was submitted" do
   @order.submit
   @order.status_const.should == Order::SUBMITTED
 end
 
-Given "$total new orders are placed" do | total |
+When "he submits the new order" do
+  @order.status_const.should == Order::UNSUBMITTED
+  post submit_user_order_path
+  @order = assigns(:order)
+  @order.status_const.should == Order::SUBMITTED
+end
+
+Given "there are only $total orders" do | total |
   total.to_i.times do | i |
     user = Factory.create_user(:login => "user_#{i}")
     order = Factory.create_order(:user_id => user.id).submit
@@ -24,8 +41,11 @@ Given "the list of submitted orders contains $total elements" do | total |
   Order.submitted.count.should == total.to_i
 end
 
-Given "there are no orders and no contracts" do
+Given "there are no orders" do
   Order.destroy_all
+end
+
+Given "there are no contracts" do
   Contract.destroy_all
 end
 

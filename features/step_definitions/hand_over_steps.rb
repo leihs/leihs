@@ -5,20 +5,6 @@ Given "the list of approved orders contains $total elements" do | total |
   orders.size.should == total.to_i
 end
 
-# TODO perform real post 
-When "'$who' places a new order" do | who |
-  user = Factory.create_user(:login => who)
-  @order = Factory.create_order({:user_id => user.id})    
-  post "/session", :login => who #new#
-end
-
-When "he submits the new order" do
-  @order.status_const.should == Order::UNSUBMITTED
-  post submit_user_order_path
-  @order = assigns(:order)
-  @order.status_const.should == Order::SUBMITTED
-end
-
 When "$who approves the order" do | who |
   post "/session", :login => @last_manager_login_name #new#
   post approve_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :comment => "test comment")

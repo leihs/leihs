@@ -4,14 +4,13 @@ Feature: Hand Over
 	I want to see all approved orders, grouped by user,
 	in order to generate contracts and hand over the physical items
 
+Background:
+	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	
 Scenario: List approved orders, grouped by same user and same start_date
 
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-	Given a model 'NEC 245' exists
-	  	And 15 items of model 'NEC 245' exist
-		And a model 'BENQ 19' exists
-	  	And 12 items of model 'BENQ 19' exist
+	Given 15 items of model 'NEC 245' exist
+	  And 12 items of model 'BENQ 19' exist
 	Given the list of approved orders contains 0 elements
 	When 'Joe' places a new order
 		And he asks for 5 'NEC 245' from 31.3.2100 
@@ -30,11 +29,8 @@ Scenario: List approved orders, grouped by same user and same start_date
 
 Scenario: List approved orders, grouped by different users and different start_dates
 
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-	Given a model 'NEC 245' exists
-	  	And 15 items of model 'NEC 245' exist
-		And a model 'BENQ 19' exists
-	  	And 12 items of model 'BENQ 19' exist
+	Given 15 items of model 'NEC 245' exist
+	  And 12 items of model 'BENQ 19' exist
 	Given the list of approved orders contains 0 elements
 	When 'Joe' places a new order
 		And he asks for 5 'NEC 245' from 31.3.2101 
@@ -61,11 +57,8 @@ Scenario: List approved orders, grouped by different users and different start_d
 	
 Scenario: Generation of contract lines based on the approved order lines of a given user
 
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-	Given a model 'NEC 245' exists
-	  	And 15 items of model 'NEC 245' exist
-		And a model 'BENQ 19' exists
-	  	And 12 items of model 'BENQ 19' exist
+	Given 15 items of model 'NEC 245' exist
+	  And 12 items of model 'BENQ 19' exist
 	Given the list of approved orders contains 0 elements
 	When 'Joe' places a new order
 		And he asks for 2 'NEC 245' from 31.3.2101 
@@ -81,11 +74,8 @@ Scenario: Generation of contract lines based on the approved order lines of a gi
 
 Scenario: Select order lines to hand over
 
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-	Given a model 'NEC 245' exists
-	  	And 15 items of model 'NEC 245' exist
-		And a model 'BENQ 19' exists
-	  	And 12 items of model 'BENQ 19' exist
+	Given 15 items of model 'NEC 245' exist
+	  And 12 items of model 'BENQ 19' exist
 	Given the list of approved orders contains 0 elements
 	When 'Joe' places a new order
 		And he asks for 2 'NEC 245' from 31.3.2101 
@@ -105,9 +95,7 @@ Scenario: Select order lines to hand over
 
 Scenario: Don't generate a new contract if all Items are handed over
 
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-	Given a model 'NEC 245' exists
-	  	And item 'AV_NEC245_1' of model 'NEC 245' exists
+	Given item 'AV_NEC245_1' of model 'NEC 245' exists
 	Given the list of approved orders contains 0 elements
 	When 'Joe' places a new order
 		And he asks for 1 'NEC 245' from 31.3.2101 
@@ -122,17 +110,15 @@ Scenario: Don't generate a new contract if all Items are handed over
 
 Scenario: Bugfix: Don't allow handing over the same item twice
 
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-	Given a model 'NEC 245' exists
-	  	And items 'AV_NEC245_1,AV_NEC245_2' of model 'NEC 245' exist
-        Given there are no orders and no contracts
-	Given 'Joe' places a new order
-		And he asks for 1 'NEC 245' from 31.3.2100 
-		And he submits the new order
+	Given items 'AV_NEC245_1,AV_NEC245_2' of model 'NEC 245' exist
+        Given there are no contracts
+	Given there is only an order by 'Joe'
+		And it asks for 1 'NEC 245' from 31.3.2100 
+		And the order was submitted
 		And lending_manager approves the order
-	Given 'Toshi' places a new order
-		And he asks for 1 'NEC 245' from 31.3.2100
-		And he submits the new order
+	Given there is an order by 'Toshi'
+		And it asks for 1 'NEC 245' from 31.3.2100
+		And the order was submitted
 		And lending_manager approves the order
 	When lending_manager clicks on 'hand_over'
 	 And he chooses Joe's visit

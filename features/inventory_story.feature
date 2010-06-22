@@ -51,8 +51,7 @@ Scenario: Models organized in categories
 
 
 Scenario: Tell the user if we can't create a new Package
-	Given a model 'Book' exists
-	  And item 'P-ABC124' of model 'Book' exists
+	Given item 'P-ABC124' of model 'Book' exists
 	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	 # monkeypatch Item.proposed_inventory_code
 	 When the broken alorithm proposes wrongly a duplicate inventory code 'ABC124'
@@ -63,8 +62,7 @@ Scenario: Tell the user if we can't create a new Package
 
 
 Scenario Outline: How we want new generated inventory codes to look like
-	Given a model 'Trumpet' exists
-	  And item '<inventory_code>' of model 'Trumpet' exists
+	Given item '<inventory_code>' of model 'Trumpet' exists
 	 When leihs generates a new inventory code
 	 Then the generated_code should look like this '<result>'
 

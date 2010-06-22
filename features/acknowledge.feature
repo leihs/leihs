@@ -11,9 +11,8 @@ Background:
 	
 Scenario: List with new orders
 
-	Given there are no new orders
-		And a new order is placed by a user named 'Joe'
-		And the new order is submitted
+	Given there is only an order by 'Joe'
+		And the order was submitted
 	When lending_manager clicks on 'acknowledge'
 	Then he sees 1 order
 		And the order was placed by a user named 'Joe'
@@ -22,8 +21,7 @@ Scenario: List with new orders
 
 Scenario: Count of new orders is shown
 
-	Given there are no new orders
-		And 5 new orders are placed
+	Given there are only 5 orders
 	When lending_manager looks at the screen
 	Then he sees 'Acknowledge'
 	When lending_manager clicks on 'acknowledge'
@@ -34,11 +32,10 @@ Scenario: Acknowledge order
 
 	Given a model 'NEC 245' exists
 		And 7 items of model 'NEC 245' exist
-		And there are no new orders
-		And a new order is placed by a user named 'Joe'
+		And there is only an order by 'Joe'
 		And it asks for 5 items of model 'NEC 245'
 		And Joe's email address is joe@test.ch
-		And the new order is submitted
+		And the order was submitted
 	When the lending_manager clicks on 'acknowledge'
 	Then he sees 1 order
 	When he chooses Joe's order
@@ -56,11 +53,10 @@ Scenario: Reject order
 
 	Given a model 'NEC 245' exists
 		And 7 items of model 'NEC 245' exist
-		And there are no new orders
-		And a new order is placed by a user named 'Joe'
+		And there is only an order by 'Joe'
 		And it asks for 5 items of model 'NEC 245'
 		And Joe's email address is joe@test.ch
-		And the new order is submitted
+		And the order was submitted
 	When the lending_manager clicks on 'acknowledge'
 	Then he sees 1 order
 	When he chooses Joe's order
@@ -80,10 +76,10 @@ Scenario: Change amount and add Item
 		And 7 items of model 'NEC 245' exist
 		And a model 'NEC 333' exists
 		And 5 items of model 'NEC 333' exist
-		And a new order is placed by a user named 'Joe'
+		And there is an order by 'Joe'
 		And it asks for 5 items of model 'NEC 245'
 		And Joe's email address is joe@test.ch
-		And the new order is submitted
+		And the order was submitted
 	When the lending_manager clicks on 'acknowledge'
 		And he chooses Joe's order
 	Then Joe's order is shown
@@ -105,9 +101,9 @@ Scenario: Increase amount beyond the number of available Items
 
 	Given a model 'NEC 245' exists
 		And 1 items of model 'NEC 245' exist
-		And a new order is placed by a user named 'Joe'
+		And there is an order by 'Joe'
 		And it asks for 1 items of model 'NEC 245'
-		And the new order is submitted
+		And the order was submitted
 	When the lending_manager clicks on 'acknowledge'
 		And he chooses Joe's order
 	Then Joe's order is shown
@@ -121,10 +117,10 @@ Scenario: Swap Model
 		And 7 items of model 'NEC 245' exist
 		And a model 'NEC 333' exists
 		And 5 items of model 'NEC 333' exist
-		And a new order is placed by a user named 'Joe'
+		And there is an order by 'Joe'
 		And it asks for 5 items of model 'NEC 245'
 		And Joe's email address is joe@test.ch
-		And the new order is submitted
+		And the order was submitted
 	When the lending_manager clicks on 'acknowledge'
 		And he chooses Joe's order
 	Then Joe's order is shown
