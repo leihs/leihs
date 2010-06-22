@@ -148,14 +148,16 @@ class Backend::UsersController < Backend::BackendController
   end
 
   def suspend_access_right
-    a = @user.access_rights.find(params[:access_right_id])
-    a.update_attributes(:suspended_at => DateTime.now)
+    ar = @user.access_rights.find(params[:access_right_id])
+    ar.update_attributes(:suspended_until => Date.parse(params[:suspended_until]))
+    ar.histories.create(:text => params[:reason], :user_id => current_user, :type_const => History::CHANGE)
     redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
   end
 
   def reinstate_access_right
-    a = @user.access_rights.find(params[:access_right_id])
-    a.update_attributes(:suspended_at => nil)
+    ar = @user.access_rights.find(params[:access_right_id])
+    ar.update_attributes(:suspended_until => Date.yesterday)
+    ar.histories.create(:text => _("Access right reinstated"), :user_id => current_user, :type_const => History::CHANGE)
     redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
   end
 

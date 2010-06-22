@@ -11,7 +11,10 @@
 	<%= stylesheet_link_tag "/javascripts/tooltips/tooltips.css", :media => "screen" %>
 
 	<%# NOTE rsh.js has to be defined before the greybox %>
-	<%= javascript_include_tag :defaults, "tooltips/tooltips", "tooltips/builder", "rsh.js" %>
+	<%= javascript_include_tag :defaults, "tooltips/tooltips", "tooltips/builder", "jquery/jquery", "jquery/jquery-ui" %> <%# , "rsh.js" %>
+	<% javascript_tag do %>
+		jQuery.noConflict();
+	<% end %>
 
 	<% if params[:layout] == "modal" %>
 		<style type="text/css">
@@ -78,10 +81,10 @@
 
 		<% end %>
 
-		<% content_tag :div do %>
+		<% content_tag :div, :style => "text-align: right;" do %>
     		<%= link_to_remote icon_tag("database_go") + _("Database Backup"),
 								:url => backend_database_backup_path %>
-		<% end %>
+		<% end if logged_in? %>
 	
 	</div>
 

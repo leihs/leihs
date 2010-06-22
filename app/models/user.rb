@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
   has_many :all_access_rights, :class_name => "AccessRight", :dependent => :delete_all, :include => :role
   
   has_many :inventory_pools, :through => :access_rights, :uniq => true
-  has_many :active_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => { :access_rights => {:suspended_at => nil}}
-  has_many :suspended_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "access_rights.suspended_at IS NOT NULL"
+  has_many :active_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "access_rights.suspended_until IS NULL OR access_rights.suspended_until < CURDATE()"
+  has_many :suspended_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()"
   
   # TODO 29** has_many :managed_inventory_pools
   has_many :items, :through => :inventory_pools, :uniq => true # (nested)

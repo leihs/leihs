@@ -4,7 +4,7 @@ class InventoryPool < ActiveRecord::Base
   has_one :workday, :dependent => :delete
   has_many :holidays, :dependent => :delete_all
   has_many :users, :through => :access_rights, :uniq => true
-  has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.suspended_at IS NOT NULL"
+  has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()"
 
 
 ########
@@ -39,7 +39,7 @@ class InventoryPool < ActiveRecord::Base
 ########
 
     
-  has_many :locations, :through => :items, :uniq => true
+	has_many :locations, :through => :items, :uniq => true
   has_many :items, :dependent => :nullify # OPTIMIZE prevent self.destroy unless self.items.empty?
   has_many :own_items, :class_name => "Item", :foreign_key => "owner_id"
   has_many :models, :through => :items, :uniq => true
