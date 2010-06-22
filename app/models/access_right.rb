@@ -9,6 +9,7 @@ class AccessRight < ActiveRecord::Base
   belongs_to :role
   belongs_to :user
   belongs_to :inventory_pool
+  has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
   validates_presence_of :user, :role
   validates_uniqueness_of :inventory_pool_id, :scope => :user_id
@@ -18,7 +19,7 @@ class AccessRight < ActiveRecord::Base
   before_save :adjust_levels
   after_save :update_index
   
-  named_scope :not_suspended, :conditions => { :suspended_at => nil }
+  named_scope :not_suspended, :conditions => "suspended_until IS NULL OR suspended_until < CURDATE()"
   named_scope :not_admin,     :conditions => "role_id > 1" #TODO: replace hardcoded 1 with Role name (Role.admin)
   
 ####################################################################
@@ -36,7 +37,7 @@ class AccessRight < ActiveRecord::Base
   end
 
   def suspended?
-    suspended_at != nil
+    !suspended_until.nil? and suspended_until >= Date.today
   end
 
   def deactivate

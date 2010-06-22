@@ -4,6 +4,8 @@
  */
 @import url(buttons.css);
 @import url(tables.css);
+@import url('/stylesheets/jquery/themes/start/jquery-ui.css');
+
 /* 	- - - - - - - - - - - - -
  GENERAL
  - - - - - - - - - - - - - */

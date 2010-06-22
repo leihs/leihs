@@ -201,9 +201,12 @@ class Backend::ItemsController < Backend::BackendController
       @item.retired_reason = params[:reason]
       @item.log_history(_("Item retired (%s)") % @item.retired_reason, current_user)
       @item.save
+      # TODO redirect back
       redirect_to :action => 'index'
     else
-      render :action => 'retire', :layout => $empty_layout_path
+      @tabs = nil
+      params[:layout] = "modal"
+      render :action => 'retire'
     end
   end
 

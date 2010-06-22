@@ -51,8 +51,6 @@ ActionController::Routing::Routes.draw do |map|
     backend.resources :users, :member => { :access_rights => :get,
                                           :add_access_right => :post,
                                           :remove_access_right => :delete,
-                                          #:suspend_access_right => :post,
-                                          #:reinstate_access_right => :post,
                                           :extended_info => :get,
                                           :update_badge_id => :post }
                                                     

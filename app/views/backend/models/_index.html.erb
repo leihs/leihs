@@ -5,6 +5,8 @@
 			<tr id="<%= "model_#{model.id}" %>">
 				<td>
 					<%#Not needed 0611 = link_to image_tag(model.image_thumb), record_path if model.image_thumb and !params[:source_path] %>
+					<%#= image_tag(model.image_thumb) if model.image_thumb %>
+					<%#temp#multi-add#= check_box_tag 'model_id[]', model.id, false %>
 					<%= icon_tag('package') if model.is_package? %>
 				</td>
 				<td><%= model.name %></td>
@@ -45,7 +47,7 @@
 							url = "#{params[:source_path]}#{glue}#{var_id}=#{model.id}"
 						%>
 						<%=	link_to(icon_tag("package_add") + " " + _("Select"), url,
-							:method => 'post', :target=> '_top') if @line.nil? or @line.model != model %>
+									:method => 'post', :target=> '_top') if @line.nil? or @line.model != model %>
 							
 					<% elsif params[:layout] == "modal" %>
 	                    <%= link_to(icon_tag("connect") + " " + _("Select"), "#", :onclick => "top.document.getElementById('item_model_id').value = '#{model.id}';top.document.getElementById('model_name').textContent = '#{model.name.gsub('"', '\"').gsub(/\r\n/,' ')}';parent.parent.GB_hide(); return false;") %>

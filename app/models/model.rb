@@ -17,6 +17,14 @@ class Model < ActiveRecord::Base
     else
       return false
     end
+
+# TODO allow to delete a model that doesn't have items
+#    if is_package? and order_lines.empty? and contract_lines.empty?
+#      items.destroy_all
+#    elsif items.count(:retired => :all) > 0
+#      errors.add_to_base "Model cannot be destroyed because related items are still present."
+#      return false
+#    end
   end
 
   has_many :items
