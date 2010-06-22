@@ -11,16 +11,14 @@ Background: As a Organisation we have some Inventory with things to lend out
 
 Scenario: No Reservations
 	
-	Given a model 'NEC 245' exists
-	  	And 7 items of model 'NEC 245' exist
+	Given 7 items of model 'NEC 245' exist
 		And 0 reservations exist for model 'NEC 245'
 	When lending_manager checks availability for 'NEC 245'
 	Then it should always be available
 	
 Scenario: With Reservation
 	
-	Given a model 'NEC 245' exists
-		And 7 items of model 'NEC 245' exist
+	Given 7 items of model 'NEC 245' exist
 	  	And a reservation exists for 3 'NEC 245' from 21.3.2100 to 31.3.2100
 	When lending_manager checks availability for 'NEC 245'
 	Then 7 should be available from now to 20.3.2100
@@ -29,8 +27,7 @@ Scenario: With Reservation
 	
 Scenario: With mulitple reservations
 	
-	Given a model 'NEC 245' exists
-		And 7 items of model 'NEC 245' exist
+	Given 7 items of model 'NEC 245' exist
 	  	And a reservation exists for 3 'NEC 245' from 21.3.2100 to 31.3.2100
 	  	And a reservation exists for 2 'NEC 245' from 10.3.2100 to 24.3.2100
 	  	And a reservation exists for 2 'NEC 245' from 23.3.2100 to 5.4.2100
@@ -45,16 +42,14 @@ Scenario: With mulitple reservations
 	
 Scenario: With mulitple one day reservations of a model having one single item
 	
-	Given a model 'NEC 245' exists
-		And 1 items of model 'NEC 245' exist
+	Given 1 items of model 'NEC 245' exist
 	  	And a reservation exists for 1 'NEC 245' from 21.3.2100 to 21.3.2100
 	When lending_manager checks availability for 'NEC 245'
 	Then 0 should be available from 21.3.2100 to 21.3.2100
 
 Scenario: With mulitple one day reservations of a model having two items
 	
-	Given a model 'NEC 245' exists
-		And 2 items of model 'NEC 245' exist
+	Given 2 items of model 'NEC 245' exist
 	  	And a reservation exists for 2 'NEC 245' from 21.3.2100 to 21.3.2100
 	When lending_manager checks availability for 'NEC 245'
 	Then 0 should be available from 21.3.2100 to 21.3.2100
@@ -88,8 +83,7 @@ Scenario: Maximum availabliltiy
 
 Scenario: In Repair
 	
-	Given a model 'NEC 245' exists
-		And 7 items of model 'NEC 245' exist
+	Given 7 items of model 'NEC 245' exist
 		And a reservation exists for 3 'NEC 245' from 21.3.2100 to 31.3.2100
 		And lending_manager marks 1 'NEC 245' as 'in-repair' on 18.3.2100
 	When lending_manager checks availability for 'NEC 245'
@@ -98,8 +92,7 @@ Scenario: In Repair
 
 Scenario: Not Returned
 	
-	Given a model 'Lasersword Grendab' exists
-		And 1 items of model 'Lasersword Grendab' exist
+	Given 1 items of model 'Lasersword Grendab' exist
 		And a contract exists for 1 'Lasersword Grendab' from 1.1.2100 to 5.1.2100
 	When lending_manager checks availability for 'Lasersword Grendab'
 	Then if I check the maximum available quantity for 8.1.2100 it is 1 on 4.1.2100
@@ -112,8 +105,7 @@ Scenario: Not Returned
 	
 Scenario: Reservations from the past
 	
-	Given a model 'Lasersword Grendab' exists
-		And 3 items of model 'Lasersword Grendab' exist
+	Given 3 items of model 'Lasersword Grendab' exist
 		And the maintenance period for this model is 2 days
 		And a reservation exists for 1 'Lasersword Grendab' from 1.1.1999 to 5.10.2100
 	When lending_manager checks availability for 'Lasersword Grendab' on 6.1.2100
@@ -122,8 +114,7 @@ Scenario: Reservations from the past
 	
 Scenario: Availability for a period of time
 	
-	Given a model 'Lasersword Grendab' exists
-		And 3 items of model 'Lasersword Grendab' exist
+	Given 3 items of model 'Lasersword Grendab' exist
 		And a reservation exists for 1 'Lasersword Grendab' from 17.1.2100 to 27.2.2100
 	When lending_manager checks availability for 'Lasersword Grendab'
 	Then the maximum available quantity from 16.1.2100 to 28.2.2100 is 2
@@ -136,8 +127,7 @@ Scenario: Availability for a period of time
 	
 Scenario: Availability for a period - complicated
 	
-	Given a model 'Lasersword Grendab' exists
-		And 3 items of model 'Lasersword Grendab' exist
+	Given 3 items of model 'Lasersword Grendab' exist
 		And a reservation exists for 1 'Lasersword Grendab' from 17.1.2100 to 27.2.2100
 		And a reservation exists for 1 'Lasersword Grendab' from 20.1.2100 to 5.2.2100
 		And a reservation exists for 1 'Lasersword Grendab' from 1.2.2100 to 9.3.2100
@@ -152,8 +142,7 @@ Scenario: Availability for a period - complicated
 
 Scenario: Availability for privileged customers
 
-	Given a model 'Lasersword Grendab' exists
-		And 3 items of this model exist
+	Given 3 items of model 'Lasersword Grendab' exist
 		And 2 items of this model are for 'Special' customers only
 		And User 'Regular Joe' is a 'Customer' customer
 		And User 'King Charles' is a 'Special' customer

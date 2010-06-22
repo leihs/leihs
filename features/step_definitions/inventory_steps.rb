@@ -85,19 +85,21 @@ end
 
 #Given "$number items of model '$model' exist" do |number, model|
 Given /(\d+) item(s?) of model '(.+)' exist(s?)/ do |number, plural1, model, plural2|
-  model_id = Model.find_by_name(model).id
+  @model = Factory.create_model(:name => model)
   number.to_i.times do | i |
-    Factory.create_item( :model_id => model_id, :inventory_pool => @inventory_pool )
+    Factory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool )
   end
 end
 
 Given /^item(s?) '(\S*)' of model '(.+)' exist(s?)( only)?$/ \
 do |plural, inventory_codes, model, plural2, only|
   Item.delete_all if only
+
+  @model = Factory.create_model(:name => model)
+
   inv_codes = inventory_codes.split /,/
-  model_id = Model.find_by_name(model).id
   inv_codes.each do | inv_code |
-    Factory.create_item(:model_id => model_id, :inventory_code => inv_code,
+    Factory.create_item(:model_id => @model.id, :inventory_code => inv_code,
 		        :inventory_pool => @inventory_pool )
   end
 end
