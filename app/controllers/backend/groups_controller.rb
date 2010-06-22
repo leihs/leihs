@@ -30,10 +30,6 @@ class Backend::GroupsController < Backend::BackendController
   end
 
   def show
-    if @group.nil?
-      flash[:error] = _("You don't have access to this group.")
-      redirect_to backend_inventory_pool_groups_path(current_inventory_pool)
-    end
   end
 
 end
