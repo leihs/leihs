@@ -114,6 +114,8 @@ ActionController::Routing::Routes.draw do |map|
                                                     :reinstate_access_right => :post,
                                                     :extended_info => :get,
                                                     :things_to_return => :get,
+                                                    :groups => :get,
+                                                    :add_group => :put,
                                                     :update_badge_id => :post } do |user|
                user.resources :acknowledge, :member => { :approve => [:get, :post],
                                                          :reject => [:get, :post],

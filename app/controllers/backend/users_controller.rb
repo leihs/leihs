@@ -85,6 +85,19 @@ class Backend::UsersController < Backend::BackendController
 
   def extended_info
   end
+
+  def groups
+  end
+  
+  def add_group(group = params[:group])
+    @group = current_inventory_pool.groups.find(group[:group_id])
+    unless @user.groups.include? @group
+      @user.groups << @group
+      @user.save!
+    end
+    redirect_to :action => 'groups'
+  end
+
   
   def remind
     flash[:notice] = _("User %s has been reminded ") % @user.remind(current_user)

@@ -8,6 +8,7 @@ class Backend::GroupsController < Backend::BackendController
     respond_to do |format|
       format.html
       format.js { search_result_rjs(@groups) }
+      format.auto_complete { render :layout => false }
     end
   end
 
@@ -47,8 +48,10 @@ class Backend::GroupsController < Backend::BackendController
   
   def add_user(user = params[:user])
     @user = current_inventory_pool.users.find(user[:user_id])
-    @group.users << @user
-    @group.save!
+    unless @group.users.include? @user
+      @group.users << @user
+      @group.save!
+    end
     redirect_to :action => 'users'
   end
 

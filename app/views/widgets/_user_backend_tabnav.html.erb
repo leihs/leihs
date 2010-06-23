@@ -27,6 +27,14 @@ render_tabnav :user_backend,
 		t.highlights_on :controller => 'backend/users', :action => 'access_rights'
 	end
   
+	add_tab do |t|
+		groups = @user.groups
+		groups = groups.scoped_by_inventory_pool_id(current_inventory_pool) if current_inventory_pool
+		t.named _("Groups (%d)") % groups.count
+		t.links_to polymorphic_path([:groups, :backend, current_inventory_pool, @user].compact, :layout => params[:layout])
+		t.highlights_on :controller => 'backend/users', :action => 'groups'
+	end
+
   	add_tab do |t|
 		t.named _("Things to return")
 		t.links_to polymorphic_path([:things_to_return, :backend, current_inventory_pool, @user].compact, :layout => params[:layout])

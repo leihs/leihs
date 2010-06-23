@@ -53,6 +53,8 @@ class User < ActiveRecord::Base
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
   has_many :reminders, :as => :target, :class_name => "History", :dependent => :destroy, :conditions => {:type_const => History::REMIND}, :order => 'created_at ASC'
 
+  has_and_belongs_to_many :groups
+
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :firstname, :lastname, :phone, :address, :city, :zip, :country, :authentication_system_id, :badge_id, :language_id
