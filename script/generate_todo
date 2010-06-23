@@ -28,7 +28,7 @@ TODO_DST=doc/todo.html
 		</style>
 	</head>
 	<body>
-		<div class="topcomment">Leihs todos from the round table: automatically generated from $TODO_SRC</div>
+		<div class="topcomment">Leihs todos from the round table: automatically generated from $TODO_SRC by "rake leihs:todo"</div>
 
 EOH
   cat $TODO_SRC \
