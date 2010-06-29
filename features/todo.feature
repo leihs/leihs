@@ -34,3 +34,9 @@ Scenario: Produce an audible beep when items are scanned, either a good beep or 
 
 Scenario: Evaluate htmlunit (including Cucumber integration) for a few days to see whether it's stable and useful for our project.
   Given pending - agreed on by tpo and rca on 29. June 2010
+
+Scenario: Display order history and add (if not already present): Who placed the reservation? Who Acknowledged the reservation?
+  Given pending - reported by Tilo on 29.June 2010
+
+Scenario: Add to item history: Who added this item to the inventory?
+  Given pending - reported by Tilo on 29.June 2010
