@@ -86,7 +86,9 @@ class Backend::ModelsController < Backend::BackendController
     end
   end
 
-  def destroy
+  # only for destroying compatibles (the "compatible" route maps to this models controller)
+  # at this moment models are *never* allowed to being destroyed from the GUI
+  def destroy 
     if @model and params[:id]
         @model.compatibles.delete(@model.compatibles.find(params[:id]))
         flash[:notice] = _("Compatible successfully removed")
@@ -207,17 +209,15 @@ class Backend::ModelsController < Backend::BackendController
 
   def categories
     if request.post?
-      unless @category.models.include?(@model) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink
-        @category.models << @model
-        flash[:notice] = _("Category successfully assigned")
-      else
-        flash[:error] = _("The model is already assigned to this category")
-      end
-      render :nothing => true # TODO render flash
+      @model.add_category(@category)
+      flash[:notice] = _("Model is now in category %s") % @category.name
+      # TODO render flash
+      render :nothing => true
     elsif request.delete?
-      @category.models.delete(@model)
-      flash[:notice] = _("Category successfully removed")
-      render :nothing => true # TODO render flash
+      @model.remove_category(@category)
+      flash[:notice] = _("Model is not in category %s now") % @category.name
+      # TODO render flash
+      render :nothing => true
     else
       @categories = @model.categories
     end

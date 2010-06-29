@@ -28,3 +28,6 @@ Scenario: Wenn Datum in der Zukunft, dann sollte Datum schon in der Handover Gre
 
 Scenario: Wenn Item nicht verfügbar irgendwann dazwischen (zwischen anfang und end-datum), dann sollte dies markiert werden in der Handover Greybox
 	Given pending - reported by all(C+P) on 22.June 2010
+
+Scenario: Produce an audible beep when items are scanned, either a good beep or a bad beep depending on whether the scanned item could be added succsessfully
+  Given pending - reported by Claudio on 24.June 2010 via e-mail
