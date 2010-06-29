@@ -40,8 +40,11 @@ production:
   username: rubylocal
   password: 163ruby9
 
-cucumber:
+cucumber: &CUCUMBER
   <<: *TEST
 
 profiling:
   <<: *DEVEL
+
+culerity:
+  <<: *CUCUMBER
