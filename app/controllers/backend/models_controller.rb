@@ -86,7 +86,9 @@ class Backend::ModelsController < Backend::BackendController
     end
   end
 
-  def destroy
+  # only for destroying compatibles (the "compatible" route maps to this models controller)
+  # at this moment models are *never* allowed to being destroyed from the GUI
+  def destroy 
     if @model and params[:id]
         @model.compatibles.delete(@model.compatibles.find(params[:id]))
         flash[:notice] = _("Compatible successfully removed")

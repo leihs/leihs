@@ -58,6 +58,7 @@ class Model < ActiveRecord::Base
   end
                 
 ########
+  # says which other Model one Model works with
   has_and_belongs_to_many :compatibles,
                           :class_name => "Model",
                           :join_table => "models_compatibles",
