@@ -211,13 +211,15 @@ class Backend::ModelsController < Backend::BackendController
     if request.post?
       @model.add_category(@category)
       flash[:notice] = _("Model is now in category %s") % @category.name
-      # TODO render flash
-      render :nothing => true
+      render :update do |page|
+        page.replace_html 'flash', flash_content
+      end
     elsif request.delete?
       @model.remove_category(@category)
       flash[:notice] = _("Model is not in category %s now") % @category.name
-      # TODO render flash
-      render :nothing => true
+      render :update do |page|
+        page.replace_html 'flash', flash_content
+      end
     else
       @categories = @model.categories
     end
