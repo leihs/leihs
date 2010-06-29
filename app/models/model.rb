@@ -181,6 +181,19 @@ class Model < ActiveRecord::Base
     end
     return false
   end
+
+#############################################
+
+  def add_category(category)
+    unless categories.include?(category) # OPTIMIZE 13** avoid condition, check uniqueness on ModelLink 
+      categories << category and touch # force sphinx indexing
+    end
+  end
+
+  def remove_category(category)
+    categories.delete(category) and touch # force sphinx indexing
+  end
+
 #############################################  
 # Availability
 #############################################  
