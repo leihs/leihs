@@ -32,9 +32,6 @@ Scenario: Wenn Item nicht verfügbar irgendwann dazwischen (zwischen anfang und 
 Scenario: Produce an audible beep when items are scanned, either a good beep or a bad beep depending on whether the scanned item could be added succsessfully
   Given pending - reported by Claudio on 24.June 2010 via e-mail
 
-Scenario: Evaluate htmlunit (including Cucumber integration) for a few days to see whether it's stable and useful for our project.
-  Given pending - agreed on by tpo and rca on 29. June 2010
-
 Scenario: Display order history and add (if not already present): Who placed the reservation? Who Acknowledged the reservation?
   Given pending - reported by Tilo on 29.June 2010
 
