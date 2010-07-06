@@ -11,12 +11,13 @@ class Backend::InventoryPoolsController < Backend::BackendController
     @inventory_pools = InventoryPool.search params[:query], { :star => true, :page => params[:page], :per_page => 9999, #$per_page,
                                                               :order => params[:sort], :sort_mode => params[:sort_mode],
                                                               :with => with }
-
-    redirect_to backend_inventory_pool_path(@inventory_pools.first) if !is_admin? and @inventory_pools.total_entries == 1
-
-    respond_to do |format|
-      format.html
-      format.js { search_result_rjs(@inventory_pools) }
+    if !is_admin? and @inventory_pools.total_entries == 1
+      redirect_to backend_inventory_pool_path(@inventory_pools.first)
+    else
+      respond_to do |format|
+        format.html
+        format.js { search_result_rjs(@inventory_pools) }
+      end
     end
   end
 
