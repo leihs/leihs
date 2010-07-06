@@ -23,8 +23,8 @@ config.gem "culerity"
 system("jruby -e 'true'") or \
   raise "You need to have jruby installed on your $PATH"
 
-`jruby -S gem list celerity` =~ /celerity/ or \
-  raise "Please run 'jruby -S gem install celerity' to install Celerity inside jruby"
+`jruby -e "require 'rubygems'; require 'celerity'; gem 'celerity', '>0.7.9'"` or \
+  raise "You need celerity > 0.8. Please run 'jruby -S gem install celerity --prerelease' to install Celerity inside jruby. You'll need jruby > 1.4 for this to work"
 
 config.after_initialize do
   require 'culerity/persistent_delivery'
