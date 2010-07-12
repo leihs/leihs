@@ -6,6 +6,7 @@ Feature: Hand Over
 
 Background:
 	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	  And his password is 'pass'
 	
 Scenario: List approved orders, grouped by same user and same start_date
 
@@ -127,3 +128,28 @@ Scenario: Bugfix: Don't allow handing over the same item twice
 	 And he chooses Toshi's visit
 	When he tries to assign 'AV_NEC245_1' to the first line
 	Then he should see a flash error
+
+# reported by Pius on 22.June 2010
+@wip
+Scenario: Only automatically check items and options for hand over that have a time period starting today
+	Given items 'AV_SOUNDGARDEN_1,AV_SOUNDGARDEN_2' of model 'The Day I tried to live - Single' exist
+        Given there are no contracts
+	Given there is only an order by 'Joe'
+		And it asks for 1 'The Day I tried to live - Single' from today
+		And it asks for 1 'The Day I tried to live - Single' from 31.3.2100 
+		And the order was submitted
+		And lending_manager approves the order
+	Given I am on the home page
+	 When I fill in "login_user" with "inv_man_0"
+	  And I fill in "login_password" with "pass"
+	  And I press "Login"
+	When I go to "backend"
+	 And I follow "Hand Over"
+	When I follow "Hand Over" inside 'list_table'
+         And I fill in 1st of "line_item_inventory_code_" with "AV_SOUNDGARDEN_1"
+	Then the "contract_lines_" checkbox should be checked
+	#Then that should check that line since it's from this day on
+        When he assigns 'AV_SOUNDGARDEN_2' to line 1
+	Then that should not check that line since it's not from this day on
+	When he signs the contract
+	Then the contract should only contain the item 'AV_SOUNDGARDEN_1'

@@ -2,9 +2,6 @@ Feature: Wishes and Bug Reports by our Users
 
 Background: noting down all that is reported at our round table
 
-Scenario: Only automatically check items and options for hand over that have a time period starting today
-	Given pending - reported by Pius on 22.June 2010
-
 Scenario: When opening a contract for hand over user the first available time period
 	Given pending - reported by Pius on 22.June 2010
 
