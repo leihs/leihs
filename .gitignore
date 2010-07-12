@@ -7,3 +7,4 @@ doc/todo.html
 tmp/*
 log/*
 db/sphinx/*
+public/images/graphs/*
