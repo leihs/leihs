@@ -25,6 +25,8 @@ Before do
     $browser.log_level = :info
     # see http://rubyforge.org/pipermail/celerity-users/2010-July/000406.html
     #$browser.webclient.setTimeout(5000) # milliseconds
+    # tpo: http://groups.google.com/group/culerity-dev/browse_thread/thread/cb9f49b90dc43990
+    $browser.css = false
   end
   @host = 'http://localhost:3001'
 end
