@@ -39,28 +39,31 @@ Scenario: Add to item history: Who added this item to the inventory?
   Given pending - reported by Tilo on 29.June 2010
 
 Scenario: Bei Paket Liste sollen Status, Stufe, Ort und 'an Lager' angezeigt werden
-  Given pending - reported by Claudio on 6.June 2010
+  Given pending - reported by Claudio on 6.July 2010
 
 Scenario: Wenn Status, Stufe, Ort und 'an Lager' eines Pakets ändern, dann müssen die entsprechenden Eigenschaften aller Gegenstände ändern
-  Given pending - reported by Claudio,Mike on 6.June 2010
+  Given pending - reported by Claudio,Mike on 6.July 2010
 
 Scenario: i.e. wenn Location ID, Inventory Pool eines Pakets ändern, dann müssen die entsprechenden Eigenschaften aller Gegenstände ändern
-  Given pending - reported by Claudio,Mike on 6.June 2010
+  Given pending - reported by Claudio,Mike on 6.July 2010
 
 Scenario: wenn Gegenstand einem Paket hinzugefügt wird, dann nimmt es seine Eigenschaftern Location und Inventory Pool an
-  Given pending - reported by Claudio,Mike on 6.June 2010
+  Given pending - reported by Claudio,Mike on 6.July 2010
 
 Scenario: wenn Gegenstand zu einem anderen Paket wechselt, dann nimmt es die Eigenschaftern Location und Inventory Pool des neuen Pakets an
-  Given pending - reported by Claudio,Mike on 6.June 2010
+  Given pending - reported by Claudio,Mike on 6.July 2010
 
 Scenario: bei Gegenständen, welche Teil eines Pakets sind, statt Status "is Teil eines Pakets" anzeigen
-  Given pending - reported by Claudio,Mike on 6.June 2010
+  Given pending - reported by Claudio,Mike on 6.July 2010
 
 Scenario: Wenn jemand gesperrt wird, dann sollte man angeben können warum
-  Given pending - reported by Claudio on 6.June 2010
+  Given pending - reported by Claudio on 6.July 2010
 
 Scenario: Verschiedene Modelle sollten im Frontend vergleichbar sein.
-  Given pending - reported by Marcello via Claudio on 6.June 2010
+  Given pending - reported by Marcello via Claudio on 6.July 2010
+
+Scenario: Wenn eine neue Gruppe hinzugefügt wird, dann muss sie in der Liste der Gruppen erscheinen
+  Given pending - reported by tpo on 6.July 2010
 
 Scenario: BUG: A manager of level 2 should not be able to create items flagged "inventory relevant". The default must be "not inventory relevant"
   Given pending - reported by Mike on 12.July 2010
