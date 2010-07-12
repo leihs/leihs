@@ -76,6 +76,7 @@ end
 
 # TODO test as Given 
 When "$who asks for $quantity '$what' from $from" do | who, quantity, what, from |
+  from = Date.today.strftime("%d.%m.%Y") if from == "today"
   @order.order_lines << Factory.create_order_line(:model_name => what,
                                                   :quantity => quantity,
                                                   :start_date => from,
