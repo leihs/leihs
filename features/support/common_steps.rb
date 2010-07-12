@@ -18,3 +18,7 @@ When "I switch off JavaScript because $reason" do |reason|
   # see https://sourceforge.net/tracker/index.php?func=detail&aid=2969230&group_id=47038&atid=448266
   $browser.javascript_enabled=false
 end
+
+Then "I want to see the current page content for debugging" do
+  puts $browser.html
+end
