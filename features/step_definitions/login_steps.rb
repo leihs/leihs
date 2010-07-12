@@ -12,3 +12,8 @@ Given "a $role for inventory pool '$ip_name' logs in as '$who'" do | role, ip_na
   @last_manager_login_name = who
   @last_user = user
 end
+
+Given "his password is '$password'" do |password|
+  DatabaseAuthentication.new(:user => @last_user, :login => @last_user.login,
+			     :password => password, :password_confirmation => password ).save
+end
