@@ -1,3 +1,9 @@
 *.swp
 .tmp_*~
 *~
+.loadpath
+.project
+log/*
+tmp/*
+config/development.sphinx.conf
+db/sphinx/
