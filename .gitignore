@@ -1,3 +1,9 @@
 *.swp
 .tmp_*~
 *~
+rerun.txt
+.project
+doc/todo.html
+tmp/*
+log/*
+db/sphinx/*
