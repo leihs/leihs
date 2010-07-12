@@ -111,3 +111,25 @@ Then /^he should (.*)see a flash error$/ do |shouldNot|
   has_error = @flash.has_key?(:error)
   shouldNot == "" ? has_error.should(be_true) : has_error.should_not(be_true)
 end
+
+Then "that should check that line since it's from this day on" do
+  find_by_label_or_id(:check_box, field).set(true)
+  $browser.include
+  # This is only a place holder - we don't do the check here but
+  # further down on the model
+end
+
+Then "that should not check that line since it's not from this day on" do
+  # This is only a place holder - we don't do the check here but
+  # further down on the model
+end
+
+Then "the contract should only contain the item '$item'" do |item|
+  @contract.contract_lines.size.should == 1
+  @contract.contract_lines.first.item.inventory_code.shoul == item
+end
+
+# see http://wiki.github.com/jarib/celerity/ajax
+When "I wait2 for the AJAX call to finish" do
+  $browser.wait
+end
