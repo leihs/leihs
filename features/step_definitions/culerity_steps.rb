@@ -21,7 +21,8 @@ Before do
       :resynchronize => true,
       :status_code_exceptions => true
     }
-    $browser.log_level = :warning
+    #$browser.log_level = :warning
+    $browser.log_level = :info
   end
   @host = 'http://localhost:3001'
 end
