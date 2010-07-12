@@ -10,7 +10,7 @@ Given /pending - (?!reported by)(.*)/ do |explanation|
   pending
 end
 
-When /we wait (\d+) second(s?)/ do |seconds, plural|
+When /(\w+) wait (\d+) second(s?)/ do |who, seconds, plural|
   sleep seconds.to_i
 end
 
