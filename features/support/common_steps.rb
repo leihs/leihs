@@ -30,3 +30,10 @@ When /I follow "([^\"]*)" inside '([^\"]*)'/ do |link, element_id|
   link.exists?.should be_true
   link.click
 end
+
+When /I fill in (\w+) of "([^\"]*)" with "([^\"]*)"/ do |order, field, value|
+  text_fields = $browser.text_fields
+  matching = text_fields.find_all { |t| t.id.match( field ) }
+  matching[order.to_i].set(value)
+end
+
