@@ -22,3 +22,11 @@ end
 Then "I want to see the current page content for debugging" do
   puts $browser.html
 end
+
+When /I follow "([^\"]*)" inside '([^\"]*)'/ do |link, element_id|
+  container = $browser.div(:id => element_id)
+  container.exists?.should be_true
+  link = container.link(:text => link)
+  link.exists?.should be_true
+  link.click
+end
