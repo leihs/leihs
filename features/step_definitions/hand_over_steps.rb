@@ -66,15 +66,23 @@ When "$who chooses $name's visit" do | who, name |
   @response = response
 end
 
-When "$who assigns '$item' to the first line" do | who,item |
-  When "#{who} tries to assign '#{item}' to the first line"
-  Then "#{who} should not see a flash error"
+When "$who assigns '$item' to the first line" do | who, item |
+  When "#{who} assigns '#{item}' to line 0"
 end
 
 When "$who tries to assign '$item' to the first line" do | who,item |
+  When "#{who} tries to assign '#{item}' to line 0"
+end
+
+When "$who assigns '$item' to line $number" do | who, item, number |
+  When "#{who} tries to assign '#{item}' to line #{number}"
+  Then "#{who} should not see a flash error"
+end
+
+When "$who tries to assign '$item' to line $number" do | who, item, number |
   post change_line_backend_inventory_pool_user_hand_over_path(
 	 @inventory_pool, @visit.user,
-         :contract_line_id => @contract.contract_lines.first.id, :code => item )
+         :contract_line_id => @contract.contract_lines[number.to_i].id, :code => item )
   @flash = flash
 end
 
