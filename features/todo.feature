@@ -61,3 +61,6 @@ Scenario: Wenn jemand gesperrt wird, dann sollte man angeben können warum
 
 Scenario: Verschiedene Modelle sollten im Frontend vergleichbar sein.
   Given pending - reported by Marcello via Claudio on 6.June 2010
+
+Scenario: BUG: A manager of level 2 should not be able to create items flagged "inventory relevant". The default must be "not inventory relevant"
+  Given pending - reported by Mike on 12.July 2010
