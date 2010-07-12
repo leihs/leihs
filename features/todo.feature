@@ -61,3 +61,6 @@ Scenario: Wenn jemand gesperrt wird, dann sollte man angeben können warum
 
 Scenario: Verschiedene Modelle sollten im Frontend vergleichbar sein.
   Given pending - reported by Marcello via Claudio on 6.June 2010
+
+Scenario: Wenn eine neue Gruppe hinzugefügt wird, dann muss sie in der Liste der Gruppen erscheinen
+  Given pending - reported by tpo on 6.June 2010
