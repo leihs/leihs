@@ -23,6 +23,8 @@ Before do
     }
     #$browser.log_level = :warning
     $browser.log_level = :info
+    # see http://rubyforge.org/pipermail/celerity-users/2010-July/000406.html
+    #$browser.webclient.setTimeout(5000) # milliseconds
   end
   @host = 'http://localhost:3001'
 end
