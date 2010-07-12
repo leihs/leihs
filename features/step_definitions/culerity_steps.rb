@@ -1,5 +1,17 @@
 require 'culerity'
 
+module Culerity
+  class RemoteObjectProxy
+    include Enumerable
+    def each
+      for i in (0 .. (send_remote(:length).to_i - 1))
+        element_in_collection = send_remote("[]", i)
+        yield element_in_collection 
+      end     
+    end
+  end
+end
+
 Before do
   $rails_server_pid ||= Culerity::run_rails(:environment => 'culerity', :port => 3001)
   $server ||= Culerity::run_server
