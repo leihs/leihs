@@ -41,7 +41,7 @@ Given /^(?:|I )am on (.+)$/ do |page_name|
   $browser.goto @host + path_to(page_name)
 end
 
-When /I follow "([^\"]*)"/ do |link|
+When /^I follow "([^\"]*)"$/ do |link|
   _link = [
     [:text, /^#{Regexp.escape(link)}$/ ], 
     [:id, link], 
