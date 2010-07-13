@@ -6,8 +6,8 @@ Given "pending - reported by $who on $date" do |who, date|
   pending
 end
 
-Given "pending - resolved by $who on $date" do |who, date|
-  pending
+Given "resolved by $who on $date" do |who, date|
+  # do nothing
 end
 
 Given /^reported by (.*) on (.*)$/ do |who, date|
@@ -15,6 +15,10 @@ Given /^reported by (.*) on (.*)$/ do |who, date|
 end
 
 Given /pending - (?!reported by)(.*)/ do |explanation|
+  pending
+end
+
+Given "test pending" do
   pending
 end
 
