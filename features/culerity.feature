@@ -1,6 +1,6 @@
 @ignore
-# this doesn't really test any of our features - thus the feature is disabled
 Feature: Ensure that Culerity is working as it should
+# this doesn't really test any of our features - thus the feature is disabled
 
 	Scenario: Go to the home page and make sure it gets displayed
 		Given I am on the home page

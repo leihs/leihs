@@ -106,9 +106,9 @@ class Backend::ItemsController < Backend::BackendController
     @item.owner = current_inventory_pool
     @item.invoice_date = Date.yesterday
     if @current_user.access_level_for(current_inventory_pool) < 2
-      @item.is_inventory_relevant = false
       @item.inventory_pool = current_inventory_pool
     end
+    @item.is_inventory_relevant = (is_super_user? ? true : false)
     render :action => 'show'
   end
 
