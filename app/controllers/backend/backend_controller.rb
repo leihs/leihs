@@ -4,7 +4,6 @@ class Backend::BackendController < ApplicationController
   before_filter :init
   
   $general_layout_path = 'layouts/backend/' + $theme + '/general'
-  $empty_layout_path = '/layouts/backend/' + $theme + '/empty'
   
   layout $general_layout_path
  
