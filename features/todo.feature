@@ -67,3 +67,9 @@ Scenario: Wenn eine neue Gruppe hinzugefügt wird, dann muss sie in der Liste de
 
 Scenario: BUG: A manager of level 2 should not be able to create items flagged "inventory relevant". The default must be "not inventory relevant"
   Given pending - reported by Mike on 12.July 2010
+
+Scenario: Add fields for "mobile phone number" and "alternative e-mail address" to user model
+  Given pending - reported by Claudio on 14.July 2010
+
+Scenario: Make it impossible for users to place reservations unless either phone number or mobile number as well as address and alternative e-mail fields are filled in
+  Given pending - reported by Claudio on 14.July 2010
