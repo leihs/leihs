@@ -156,6 +156,18 @@ Scenario: Availability for privileged customers
 	When King Charles checks availability for 'Lasersword Grendab'
 	Then the maximum available quantity on 8.1.2100 is 2
 	
+Scenario: A reservation of a single day should be blocking
+	Given reported by HKB on 1.June 2010 as #225
+	Given 1 item of model 'RepRap' exist
+		And a reservation exists for 1 'RepRap' from 17.1.2100 to 17.1.2100
+	When lending_manager checks availability for 'RepRap'
+	Then the maximum available quantity from 15.1.2100 to 20.1.2100 is 0
+		And the maximum available quantity from 15.1.2100 to 16.1.2100 is 1
+		And the maximum available quantity from 16.1.2100 to 17.1.2100 is 0
+		And the maximum available quantity from 17.1.2100 to 17.1.2100 is 0
+		And the maximum available quantity from 17.1.2100 to 18.1.2100 is 0
+		And the maximum available quantity from 18.1.2100 to 20.1.2100 is 1
+
 # TODO 0402
 #Scenario: Availability for level required items with pending orders
 #	Given 1 model named Keyboard exists
