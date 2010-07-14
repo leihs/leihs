@@ -65,9 +65,6 @@ Scenario: Verschiedene Modelle sollten im Frontend vergleichbar sein.
 Scenario: Wenn eine neue Gruppe hinzugefügt wird, dann muss sie in der Liste der Gruppen erscheinen
   Given pending - reported by tpo on 6.July 2010
 
-Scenario: BUG: A manager of level 2 should not be able to create items flagged "inventory relevant". The default must be "not inventory relevant"
-  Given pending - reported by Mike on 12.July 2010
-
 Scenario: Add fields for "mobile phone number" and "alternative e-mail address" to user model
   Given pending - reported by Claudio on 14.July 2010
 
