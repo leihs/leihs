@@ -12,3 +12,9 @@ Scenario: The inventory relevant flag should be 'no' by default and 'yes' for ma
   Given reported by Mike on 12.July 2010
   Given resolved by tpo on 13.July
   Given test pending
+
+Scenario: Wenn jemand gesperrt wird, dann sollte man angeben können warum
+  Given reported by Claudio on 6.July 2010
+  Given resolved by sellittf in ancient times
+  Given test pending
+

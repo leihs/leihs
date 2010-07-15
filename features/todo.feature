@@ -56,8 +56,6 @@ Scenario: wenn Gegenstand zu einem anderen Paket wechselt, dann nimmt es die Eig
 Scenario: bei Gegenständen, welche Teil eines Pakets sind, statt Status "is Teil eines Pakets" anzeigen
   Given pending - reported by Claudio,Mike on 6.July 2010
 
-Scenario: Wenn jemand gesperrt wird, dann sollte man angeben können warum
-  Given pending - reported by Claudio on 6.July 2010
 
 Scenario: Verschiedene Modelle sollten im Frontend vergleichbar sein.
   Given pending - reported by Marcello via Claudio on 6.July 2010
