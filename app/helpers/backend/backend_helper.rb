@@ -564,7 +564,13 @@ module Backend::BackendHelper
   def lines_preview(document)
     s = 3
     lines = document.lines
-    r = lines[0..s-1].collect {|l| l.model.name }
+    r = lines[0..s-1].collect {|l| 
+      str = l.model.name 
+      unless l.item.nil?
+        str += " (#{l.item.inventory_code})"
+      end
+      return str 
+    }
     r << "..." if lines.size > s
     r.join(', ')
   end
