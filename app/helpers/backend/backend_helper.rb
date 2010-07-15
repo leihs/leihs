@@ -567,7 +567,7 @@ module Backend::BackendHelper
     r = lines[0..s-1].collect {|l| 
       str = l.model.name 
       unless l.item.nil?
-        str += " (#{l.item.inventory_code})"
+        str += " (#{l.item.inventory_code})" unless l.item.inventory_code.blank?
       end
       return str 
     }
