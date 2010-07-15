@@ -11,6 +11,12 @@ set :use_sudo, false
 set :rails_env, "production"
 
 
+# DB credentials needed by Sphinx, mysqldump etc.
+set :sql_database, "rails_leihs2_dev"
+set :sql_host, "db.zhdk.ch"
+set :sql_username, "leihs2dev"
+set :sql_password, "163ruby9"
+
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
@@ -69,10 +75,10 @@ task :configure_sphinx do
  run "sed -i 's/listen = 127.0.0.1:3313/listen = 127.0.0.1:3343/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/listen = 127.0.0.1:3314/listen = 127.0.0.1:3344/' #{release_path}/config/production.sphinx.conf"
 
- run "sed -i 's/sql_host =.*/sql_host = db.zhdk.ch/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/sql_user =.*/sql_user = leihs2dev/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/sql_pass =.*/sql_pass = 163ruby9/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/sql_db =.*/sql_db = rails_leihs2_dev/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_host =.*/sql_host = #{sql_host}/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_user =.*/sql_user = #{sql_username}/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_pass =.*/sql_pass = #{sql_password}/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/sql_db =.*/sql_db = #{sql_database}/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_sock.*//' #{release_path}/config/production.sphinx.conf"
 
  run "sed -i 's/port: 3312/port: 3342/' #{release_path}/config/sphinx.yml"
@@ -90,7 +96,19 @@ task :start_sphinx do
   run "cd #{release_path} && RAILS_ENV='production' rake ts:start"
 end
 
+task :migrate_database do
+  # Produce a string like 2010-07-15T09-16-35+02-00
+  date_string = DateTime.now.to_s.gsub(":","-")
+  dump_dir = "#{deploy_to}/#{shared_dir}/db_backups"
+  dump_path =  "#{dump_dir}/#{sql_database}-#{date_string}.sql"
+  # If mysqldump fails for any reason, Capistrano will stop here
+  # because run catches the exit code of mysqldump
+  run "mysqldump -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -r #{dump_path} #{sql_database}"
+  run "bzip2 #{dump_path}"
 
+  # Migration here 
+  deploy.migrate
+end
 
 namespace :deploy do
 	task :start do
@@ -114,6 +132,7 @@ after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
 after "deploy:symlink", :configure_sphinx
+after "deploy:symlink", :migrate_database
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
 before "deploy", :stop_sphinx
