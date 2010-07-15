@@ -68,3 +68,40 @@ Scenario: Add fields for "mobile phone number" and "alternative e-mail address" 
 
 Scenario: Make it impossible for users to place reservations unless either phone number or mobile number as well as address and alternative e-mail fields are filled in
   Given pending - reported by Claudio on 14.July 2010
+
+# The following scenarios are extracted from Trac tickets that we
+# created at earlier round tables.
+
+Scenario: Allow saving sets of property keys under a name instead of just grouping properties namelessly.
+  Given pending - reported by Claudio on 22.10.2009
+
+Scenario: Send reminder e-mails also to alternative e-mail addresses, if the user has entered one. Need to add the "alternative e-mail" field for users anyway, see other todo.
+  Given pending - reported by Claudio on 4.1.2010
+
+Scenario: Allow level 3 managers to change the model of an existing item.
+  Given pending - reported by Mike on 27.8.2009
+
+Scenario: Make more columns sortable in the backend list views. Ask Claudio which ones.
+  Given pending - reported by Claudio before the dawn of time
+
+Scenario: Implement a maximum allowable lending time for models so that they can not be reserved for a longer time frame by users, and that inventory managers simply get a warning when they make longer reservations.
+  Given pending - reported by Claudio an aeon ago
+
+Scenario: Track missing parts of packages on package return.
+  Given pending - reported by Claudio (?) long ago
+
+Scenario: Allow duplicating an old order in the frontend as well as the backend, so that the models and quantities you ordered previously can be ordered again.
+  Given pending - reported by Claudio long ago
+
+Scenario: Backend: Highlight reservations whose start date is the same as another reservations' end date.
+  Given pending - reported by Claudio when dinosaurs still reigned
+
+Scenario: Display a warning when handing over items that are incomplete.
+  Given pending - reported by Claudio during the last ice age
+
+Scenario: Allow attaching any kind of binary file to a model, not just images.
+  Given pending - reported by Mike ages ago, repeated 14.07.2010
+
+Scenario: Maintenance periods for items. Ask rca for details, also see Trac ticket 72 (it's closed now because it's mentioned in this file instead)
+  Given pending - reported by Claudio when lizards were still fish
+
