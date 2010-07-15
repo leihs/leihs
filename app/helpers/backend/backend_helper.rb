@@ -564,13 +564,13 @@ module Backend::BackendHelper
   def lines_preview(document)
     s = 3
     lines = document.lines
-    r = lines[0..s-1].collect {|l| 
-      str = l.model.name 
-      unless l.item.nil?
-        str += " (#{l.item.inventory_code})" unless l.item.inventory_code.blank?
-      end
-      return str 
-    }
+    r = Array.new
+    
+    lines[0..s-1].each do |l|
+      str = l.model.name
+      str += " (#{l.item.inventory_code})" unless (l.item.nil? or l.item.inventory_code.blank?)
+      r << str
+    end
     r << "..." if lines.size > s
     r.join(', ')
   end
