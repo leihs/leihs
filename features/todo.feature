@@ -69,6 +69,18 @@ Scenario: Add fields for "mobile phone number" and "alternative e-mail address" 
 Scenario: Make it impossible for users to place reservations unless either phone number or mobile number as well as address and alternative e-mail fields are filled in
   Given pending - reported by Claudio on 14.July 2010
 
+
+Scenario: Do not copy the invoice date when using "save and copy" on the item creation form.
+  Given pending - reported by Tilo on 16. July 2010
+
+
+
+
+
+
+
+
+
 # The following scenarios are extracted from Trac tickets that we
 # created at earlier round tables.
 
