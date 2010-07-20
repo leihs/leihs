@@ -68,7 +68,7 @@ pdf.text_box filter(lending_party),
 
 pdf.move_down [pdf.height_of(borrowing_party), pdf.height_of(lending_party)].max + 10.mm
 
-table_headers = [_("Qt"), _("Model"),  _("Value"), _("Total")]
+table_headers = [_("Qt"), _("Item"),  _("Value"), _("Total")]
 
 
 total_value = 0
@@ -76,18 +76,22 @@ table_data = []
 
 @contract.lines.sort.each do |l|
 
+  name = l.model.name
+  
   if l.class.to_s == "ItemLine"
-    model_value = maximum_item_price(l.model) 
-    line_value = model_value * l.quantity 
+    item_value = l.item.price.to_f 
+    line_value = item_value * l.quantity 
     total_value += line_value
+    name += " (SN: #{l.item.serial_number})" unless l.item.serial_number.blank?
   else
-    model_value = 0.0
+    item_value = 0.0
     line_value = 0.0
+    serial = ""
   end
   
   table_data << [ l.quantity, 
-                  l.model.name, 
-                  sprintf("%.2f", model_value),
+                  name, 
+                  sprintf("%.2f", item_value),
                   sprintf("%.2f", line_value) ]
 end
 

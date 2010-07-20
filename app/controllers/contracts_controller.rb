@@ -18,7 +18,13 @@ class ContractsController < FrontendController
                             :top_margin => 15.mm
                           }
       if params[:template] == "value_list"
-        format.pdf { send_data(render(:template => 'backend/contracts/value_list_for_models', :layout => false), :type => 'application/pdf', :filename => "maximum_value_list_#{@contract.id}.pdf") }
+        
+        if @contract.status_const == Contract::SIGNED or @contract.status_const == Contract::CLOSED
+          format.pdf { send_data(render(:template => 'contracts/value_list_for_items', :layout => false), :type => 'application/pdf', :filename => "value_list_for_items#{@contract.id}.pdf") }
+        else
+          format.pdf { send_data(render(:template => 'backend/contracts/value_list_for_models', :layout => false), :type => 'application/pdf', :filename => "maximum_value_list_#{@contract.id}.pdf") }
+        end
+        
       else
        format.pdf { send_data(render(:layout => false), :type => 'application/pdf', :filename => "contract_#{@contract.id}.pdf") }
       end
