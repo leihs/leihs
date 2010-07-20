@@ -128,11 +128,6 @@ namespace :deploy do
      run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
    end
 
-  desc "Cleanup older revisions"
-  task :after_deploy do
-    cleanup
-  end 
-
 end
 
 
@@ -149,3 +144,4 @@ before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
 before "deploy", :stop_sphinx
 after "deploy", :start_sphinx
+after "deploy", "deploy:cleanup"
