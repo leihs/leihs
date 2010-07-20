@@ -18,3 +18,7 @@ Scenario: Wenn jemand gesperrt wird, dann sollte man angeben können warum
   Given resolved by sellittf in ancient times
   Given test pending
 
+Scenario: Verträge -> User -> Werteverzeichnis ausdrucken -> Seriennummer reinnehmen
+  Given pending - reported by Claudio on 22.June 2010
+  Given resolved by rca on 20. July 2010
+  Given automated test impossible? Manual testing was done.
