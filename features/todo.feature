@@ -11,9 +11,6 @@ Scenario: When opening a contract for hand over user the first available time pe
 Scenario: Highlight selected mode in UI (Hand over, Acknowledge etc.)
 	Given pending - reported by Pius on 22.June 2010
 
-Scenario: Optionen -> sollten Wert haben
-	Given pending - reported by Claudio on 22.June 2010
-
 Scenario: Genelec -> Paket -> Anzeige -> Greybox in Greybox
 	Given pending - reported by Claudio on 22.June 2010
 
@@ -29,7 +26,7 @@ Scenario: Wenn Item nicht verfügbar irgendwann dazwischen (zwischen anfang und 
 Scenario: Produce an audible beep when items are scanned, either a good beep or a bad beep depending on whether the scanned item could be added succsessfully
   Given pending - reported by Claudio on 24.June 2010 via e-mail
 
-Scenario: Display order history and add (if not already present): Who placed the reservation? Who Acknowledged the reservation?
+Scenario: Display order history and add (if not already present): Who placed the reservation? Who Acknowledged the reservation? Which item was added to the order and by whom? Who handed over the item(s)?
   Given pending - reported by Tilo on 29.June 2010
 
 Scenario: Add to item history: Who added this item to the inventory?
@@ -38,8 +35,8 @@ Scenario: Add to item history: Who added this item to the inventory?
 Scenario: Bei Paket Liste sollen Status, Stufe, Ort und 'an Lager' angezeigt werden
   Given pending - reported by Claudio on 6.July 2010
 
-Scenario: Wenn Status, Stufe, Ort und 'an Lager' eines Pakets ändern, dann müssen die entsprechenden Eigenschaften aller Gegenstände ändern
-  Given pending - reported by Claudio,Mike on 6.July 2010
+Scenario: Wenn Status, Stufe, Ort und 'an Lager' eines Pakets ändern, dann müssen die entsprechenden Eigenschaften aller Gegenstände ändern. Ausgenommen sind 'Vollständigkeit' und 'Defekt'
+  Given pending - reported by Claudio,Mike on 6.July 2010, note about vollständig and defekt added by Florian (HKB) on July 21
 
 Scenario: i.e. wenn Location ID, Inventory Pool eines Pakets ändern, dann müssen die entsprechenden Eigenschaften aller Gegenstände ändern
   Given pending - reported by Claudio,Mike on 6.July 2010
