@@ -7,7 +7,9 @@
 		<td>
 			<%= show_line_model(@line.model) %>
 		</td>
-		<td>
+		<%# TODO optimize, async post ?? %>
+		<% b = @line.available? %>
+		<td class="valid_<%= b %>">
 			<%= greybox_link_to_page(dates_with_period(@line.start_date, @line.end_date),
 			 		{ :action => 'time_lines', :lines => @line.id },
 					:class => "thickbox iconized-notxt date-edit",
