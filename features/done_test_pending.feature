@@ -22,3 +22,9 @@ Scenario: Verträge -> User -> Werteverzeichnis ausdrucken -> Seriennummer reinn
   Given pending - reported by Claudio on 22.June 2010
   Given resolved by rca on 20. July 2010
   Given automated test impossible? Manual testing was done.
+
+Scenario: Optionen -> sollten Wert haben
+  Given pending - reported by Claudio on 22.June 2010
+  Given resolved by rca on 21. July 2010
+  Given automated test not useful? Just a unit test?
+

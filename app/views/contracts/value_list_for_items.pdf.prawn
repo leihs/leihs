@@ -83,6 +83,10 @@ table_data = []
     line_value = item_value * l.quantity 
     total_value += line_value
     name += " (SN: #{l.item.serial_number})" unless l.item.serial_number.blank?
+  elsif l.class.to_s == "OptionLine"
+    item_value = l.option.price.to_f
+    line_value = item_value * l.quantity 
+    total_value += line_value
   else
     item_value = 0.0
     line_value = 0.0

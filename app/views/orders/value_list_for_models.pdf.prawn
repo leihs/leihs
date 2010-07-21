@@ -55,6 +55,10 @@ table_data = []
     model_value = maximum_item_price(l.model) 
     line_value = model_value * l.quantity 
     total_value += line_value
+  elsif l.class.to_s == "OptionLine"
+    item_value = l.option.price.to_f
+    model_value = model_value * l.quantity 
+    total_value += line_value
   else
     model_value = 0.0
     line_value = 0.0
