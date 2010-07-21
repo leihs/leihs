@@ -199,6 +199,7 @@ class Backend::ModelsController < Backend::BackendController
         # TODO 0408** Rails 2.3: accepts_nested_attributes_for
         @model.properties.destroy_all
         @model.properties.create(params[:properties])
+        @model.touch
         flash[:notice] = _("The properties have been updated.")
     end
     # TODO 0408** scope @model.categories
