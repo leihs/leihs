@@ -1,0 +1,26 @@
+	
+<p><%= _("Upload attachment for model") %> <%= @model.name %></p>
+
+<% form_for(:attachment, :url => {}, :html => { :multipart => true }) do |f| -%>
+    <%= f.file_field :uploaded_data %>
+    <%= f.submit 'Upload' %>
+<% end -%>
+
+
+
+<% if @model.attachments.size > 0 %>
+
+<hr />
+
+<h4><%= _("Attachments") %></h4>
+
+<ul>
+<% @model.attachments.each do |attachment| %>
+	<li>
+
+		<%= link_to(attachment.filename, attachment.public_filename) %> <%= link_to(icon_tag("delete"), attachments_backend_inventory_pool_model_path(current_inventory_pool, @model, :attachment_id => attachment.id), :method => :delete, :confirm => _("Are you sure?")) %> 
+	</li>
+<% end %>
+</ul>
+
+<% end %>

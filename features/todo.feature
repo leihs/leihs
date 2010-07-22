@@ -35,7 +35,7 @@ Scenario: Add to item history: Who added this item to the inventory?
 Scenario: Bei Paket Liste sollen Status, Stufe, Ort und 'an Lager' angezeigt werden
   Given pending - reported by Claudio on 6.July 2010
 
-Scenario: Wenn Status, Stufe, Ort und 'an Lager' eines Pakets ändern, dann müssen die entsprechenden Eigenschaften aller Gegenstände ändern. Ausgenommen sind 'Vollständigkeit' und 'Defekt'
+Scenario: Wenn Stufe, Ort und 'an Lager' eines Pakets ändern, dann müssen die entsprechenden Eigenschaften aller Gegenstände ändern.
   Given pending - reported by Claudio,Mike on 6.July 2010, note about vollständig and defekt added by Florian (HKB) on July 21
 
 Scenario: i.e. wenn Location ID, Inventory Pool eines Pakets ändern, dann müssen die entsprechenden Eigenschaften aller Gegenstände ändern

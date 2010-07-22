@@ -40,6 +40,7 @@ class Model < ActiveRecord::Base
   has_many :properties, :dependent => :destroy
   has_many :accessories, :dependent => :destroy
   has_many :images, :dependent => :destroy
+  has_many :attachments, :dependent => :destroy
 
   # ModelGroups
   has_many :model_links, :dependent => :destroy
