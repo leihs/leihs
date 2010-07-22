@@ -270,6 +270,22 @@ class Backend::ModelsController < Backend::BackendController
     end
   end
 
+  def attachments
+    if request.post?
+      @attachment = Attachment.new(params[:attachment])
+      @attachment.model = @model
+      if @attachment.save
+        flash[:notice] = _("Attachment was successfully created.")
+      else
+        flash[:error] = _("Upload error.")
+      end
+    elsif request.delete?
+      @model.attachments.destroy(params[:attachment_id])
+    end
+  end
+
+
+
 #################################################################
 
   private
