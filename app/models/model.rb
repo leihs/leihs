@@ -210,7 +210,7 @@ class Model < ActiveRecord::Base
 #  { 1 => { 1 => [["2010-01-20", "2010-01-22", 3], ["2010-01-23", "2010-01-27", 6]] } }
 
   def unavailable_periods_for_document_line(document_line, current_time = Date.today)
-    availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user)
+    availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user, document_line.is_a?(OrderLine))
     availability.cancel_availability_change!(document_line) # remove document_line itself preventing it to be counted
     unavailable_periods = availability.periods.select { |a| a.quantity < document_line.quantity }
 
@@ -240,7 +240,7 @@ class Model < ActiveRecord::Base
     if (start_date.nil? && end_date.nil?)
       return items.size
     else
-      availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user)
+      availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user, document_line.is_a?(OrderLine))
       availability.cancel_availability_change!(document_line) # remove document_line itself preventing it to be counted
       return availability.maximum_available_in_period(start_date, end_date)
     end
@@ -268,10 +268,10 @@ class Model < ActiveRecord::Base
                                                                                                       
   private
 
-  def create_availability(current_time, inventory_pool, user)
+  def create_availability(current_time, inventory_pool, user, with_unsubmitted_orders = true)
     max_quantity = maximum_borrowable(inventory_pool, user)
-    reservations = running_reservations(inventory_pool, current_time) \
-                   + self.order_lines.scoped_by_inventory_pool_id(inventory_pool).unsubmitted.running(current_time).by_user(user)
+    reservations = running_reservations(inventory_pool, current_time)
+    reservations += self.order_lines.scoped_by_inventory_pool_id(inventory_pool).unsubmitted.running(current_time).by_user(user) if with_unsubmitted_orders
     Availability.new(max_quantity, current_time, self, reservations)
   end
 
