@@ -149,6 +149,7 @@ class Model < ActiveRecord::Base
     
     indexes :name, :sortable => true
     indexes :manufacturer, :sortable => true
+    indexes properties(:value), :as => :properties_values
     
     has :is_package
     has categories(:id), :as => :category_id
