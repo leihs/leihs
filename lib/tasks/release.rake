@@ -65,6 +65,10 @@ namespace :release do
     puts "Removing local gems"
     rm_r "vendor/gems" rescue nil
 
+    puts "Removing 'other' directory"
+    rm_r "other" rescue nil
+
+
     puts "Generating latest locale files"
     `rake makemo`
    
