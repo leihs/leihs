@@ -97,10 +97,8 @@ namespace :release do
       rm fn rescue nil
     end
 
-    puts "Removing git directories"
-    Dir['**/.git'].each do |fn|
-      rm fn rescue nil
-    end
+    puts "Removing git directory"
+    rm_r ".git" rescue nil
 
   end
 
