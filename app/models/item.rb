@@ -36,7 +36,7 @@ class Item < ActiveRecord::Base
     record.owner = record.inventory_pool if record.inventory_pool and !record.owner
   end
 
-  after_save :update_index
+#  after_save :update_sphinx_index
 
 ####################################################################
 
@@ -376,7 +376,7 @@ class Item < ActiveRecord::Base
     errors.add_to_base(_("The model cannot be changed because the item is used in contracts already.")) if model_id_changed? and not contract_lines.empty? 
   end
 
-  def update_index
+  def update_sphinx_index
     model.touch
     location.touch if location
 #    Contract.suspended_delta do

@@ -67,8 +67,8 @@ class Model < ActiveRecord::Base
                           :association_foreign_key => "compatible_id",
                      #TODO :insert_sql => "INSERT INTO models_compatibles (model_id, compatible_id)
                      #                 VALUES (#{id}, #{record.id}), (#{record.id}, #{id})" 
-                          :after_add => [:add_bidirectional_compatibility, :update_index_compatibility],
-                          :after_remove => [:remove_bidirectional_compatibility, :update_index_compatibility]
+                          :after_add => [:add_bidirectional_compatibility, :update_sphinx_index_compatibility],
+                          :after_remove => [:remove_bidirectional_compatibility, :update_sphinx_index_compatibility]
   def add_bidirectional_compatibility(compatible)
     compatible.compatibles << self unless compatible.compatibles.include?(self)
   end
@@ -77,7 +77,7 @@ class Model < ActiveRecord::Base
     compatible.compatibles.delete(self) if compatible.compatibles.include?(self)
   end
   
-  def update_index_compatibility(compatible)
+  def update_sphinx_index_compatibility(compatible)
     self.touch
     compatible.touch
   end
@@ -114,7 +114,7 @@ class Model < ActiveRecord::Base
 
 #############################################
 
-# TODO ??  after_save :update_index
+# TODO ??  after_save :update_sphinx_index
 
 #############################################
 
@@ -301,7 +301,7 @@ class Model < ActiveRecord::Base
   end
  
 # TODO ??
-#  def update_index
+#  def update_sphinx_index
 #    Item.suspended_delta do
 #      items.each {|x| x.touch }
 #    end
