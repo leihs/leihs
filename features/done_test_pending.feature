@@ -19,12 +19,17 @@ Scenario: Wenn jemand gesperrt wird, dann sollte man angeben können warum
   Given test pending
 
 Scenario: Verträge -> User -> Werteverzeichnis ausdrucken -> Seriennummer reinnehmen
-  Given pending - reported by Claudio on 22.June 2010
+  Given reported by Claudio on 22.June 2010
   Given resolved by rca on 20. July 2010
   Given automated test impossible? Manual testing was done.
 
 Scenario: Optionen -> sollten Wert haben
-  Given pending - reported by Claudio on 22.June 2010
+  Given reported by Claudio on 22.June 2010
   Given resolved by rca on 21. July 2010
   Given automated test not useful? Just a unit test?
+
+Scenario: Allow attaching any kind of binary file to a model, not just images.
+  Given reported by Mike ages ago, repeated 14.07.2010
+  Given resolved by rca on 23. July 2010
+  Given test pending
 

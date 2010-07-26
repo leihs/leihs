@@ -105,9 +105,6 @@ Scenario: Backend: Highlight reservations whose start date is the same as anothe
 Scenario: Display a warning when handing over items that are incomplete.
   Given pending - reported by Claudio during the last ice age
 
-Scenario: Allow attaching any kind of binary file to a model, not just images.
-  Given pending - reported by Mike ages ago, repeated 14.07.2010
-
 Scenario: Maintenance periods for items. Ask rca for details, also see Trac ticket 72 (it's closed now because it's mentioned in this file instead)
   Given pending - reported by Claudio when lizards were still fish
 
