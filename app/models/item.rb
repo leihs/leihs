@@ -13,7 +13,8 @@
 class Item < ActiveRecord::Base
   
   belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id'
-  has_many :children, :class_name => "Item", :foreign_key => 'parent_id', :dependent => :nullify
+  has_many :children, :class_name => "Item", :foreign_key => 'parent_id', :dependent => :nullify,
+                      :after_add => :update_child_attributes
   
   belongs_to :model
   belongs_to :location
@@ -36,7 +37,7 @@ class Item < ActiveRecord::Base
     record.owner = record.inventory_pool if record.inventory_pool and !record.owner
   end
 
-#  after_save :update_sphinx_index
+  after_save :update_sphinx_index, :update_children_attributes
 
 ####################################################################
 
@@ -382,6 +383,20 @@ class Item < ActiveRecord::Base
 #    Contract.suspended_delta do
 #      contracts.each {|x| x.touch }
 #    end
+  end
+
+  def update_child_attributes(item)
+    item.update_attributes(:inventory_pool_id => self.inventory_pool_id,
+                           :location_id => self.location_id,
+                           :responsible => self.responsible)
+  end
+
+  def update_children_attributes
+    Item.suspended_delta do
+      children.each do |child|
+        update_child_attributes(child)
+      end
+    end unless children.empty?
   end
 
 end
