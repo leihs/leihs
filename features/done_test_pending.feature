@@ -33,3 +33,18 @@ Scenario: Allow attaching any kind of binary file to a model, not just images.
   Given resolved by rca on 23. July 2010
   Given test pending
 
+Scenario: i.e. wenn Location ID, Inventory Pool eines Pakets ändern, dann müssen die entsprechenden Eigenschaften aller Gegenstände ändern 
+  Given reported by Claudio,Mike on 6.July 2010 
+  Given resolved by sellittf on 26.July 2010
+  Given test pending
+ 
+Scenario: wenn Gegenstand einem Paket hinzugefügt wird, dann nimmt es seine Eigenschaftern Location und Inventory Pool an 
+  Given reported by Claudio,Mike on 6.July 2010 
+  Given resolved by sellittf on 26.July 2010
+  Given test pending
+
+Scenario: wenn Gegenstand zu einem anderen Paket wechselt, dann nimmt es die Eigenschaftern Location und Inventory Pool des neuen Pakets an 
+  Given reported by Claudio,Mike on 6.July 2010 
+  Given resolved by sellittf on 26.July 2010
+  Given test pending
+
