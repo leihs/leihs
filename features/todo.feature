@@ -58,9 +58,8 @@ Scenario: Make it impossible for users to place reservations unless either phone
 Scenario: Do not copy the invoice date when using "save and copy" on the item creation form.
   Given pending - reported by Tilo on 16. July 2010
 
-
-
-
+Scenario: Wenn ein Paket ausgemustert wird, sollte das System fragen, ob die dazugehörigen Gegenstände freigegeben oder ebenfalls ausgemustert werden sollen.
+  Given pending - reported by Florian (HKB) on 26. July 2010
 
 
 
