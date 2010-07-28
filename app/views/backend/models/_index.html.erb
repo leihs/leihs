@@ -31,10 +31,14 @@
 					<% end
 				else
 					content_tag :td do
+					
+					  maximum = model.maximum_available_in_period_for_inventory_pool(Date.today, Date.tomorrow, current_inventory_pool, current_user)
+
 						if params[:filter] == "own" %>
-							<%= current_inventory_pool.own_items.scoped_by_model_id(model).count %>
+						
+							<%= maximum %> <%= _("of")%> <%= current_inventory_pool.own_items.scoped_by_model_id(model).count %>
 						<% else %>
-							<%= current_inventory_pool.items.scoped_by_model_id(model).count %>
+							<%= maximum %> <%= _("of")%> <%= current_inventory_pool.items.scoped_by_model_id(model).count %>
 						<% end
 					end
 				end %>
