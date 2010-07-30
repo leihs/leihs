@@ -1,0 +1,7 @@
+<% content_tag :ul, :style => "border: 1px solid red; background-color: #FFDDDD; padding: 1em; margin: 1em;" do
+	@missing_fields.each do |missing_field|
+		content_tag :li do %>
+			<%= _("User details incomplete: %s is missing") % missing_field %>
+		<% end
+	end 
+end unless @missing_fields.blank? %>

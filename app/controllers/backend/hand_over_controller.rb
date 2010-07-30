@@ -25,7 +25,8 @@ class Backend::HandOverController < Backend::BackendController
 
   # get current open contract for a given user
   def show
-    add_visitor(@contract.user)
+    @missing_fields = @user.authentication_system.missing_required_fields(@user)
+    add_visitor(@user)
   end
   
   def set_purpose
