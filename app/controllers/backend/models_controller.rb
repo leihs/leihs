@@ -196,11 +196,12 @@ class Backend::ModelsController < Backend::BackendController
 
   def properties
     if request.post?
-        # TODO 0408** Rails 2.3: accepts_nested_attributes_for
-        @model.properties.destroy_all
-        @model.properties.create(params[:properties])
-        @model.touch
-        flash[:notice] = _("The properties have been updated.")
+      # TODO 0408** Rails 2.3: accepts_nested_attributes_for
+      @model.properties.destroy_all
+      params[:properties].delete_if {|p| p[:key].blank? or p[:value].blank? }
+      @model.properties.create(params[:properties])
+      @model.touch
+      flash[:notice] = _("The properties have been updated.")
     end
     # TODO 0408** scope @model.categories
     @properties_set = Model.with_properties.collect{|m| m.properties.collect(&:key)}.uniq
