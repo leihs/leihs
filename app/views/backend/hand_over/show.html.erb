@@ -8,7 +8,7 @@
 							<%=  greybox_link_to_page(	@contract.user.name,
 									                    backend_inventory_pool_user_path(current_inventory_pool, @contract.user, :layout => "modal"),
 									                    :title => _("User"), :width => 1000 ) %>
-							<%= render :partial => "/users/incomplete" %>
+							<%= render :partial => "/users/incomplete", :locals => {:user => @contract.user} %>
 						</td>
 						<% # OPTIMIZE if suspended, it never enters here!
 						if @contract.user.suspended_inventory_pools.count > 0 %>

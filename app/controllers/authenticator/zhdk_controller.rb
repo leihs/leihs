@@ -37,26 +37,20 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   def create_or_update_user(xml)
     uid = xml["authresponse"]["person"]["uniqueid"]
     email = xml["authresponse"]["person"]["email"] || uid + "@leihs.zhdk.ch"
-    firstname = "#{xml['authresponse']['person']['firstname']}"
-    lastname = "#{xml["authresponse"]["person"]["lastname"]}"
     phone = "#{xml["authresponse"]["person"]["phone_mobile"]}"
     phone = "#{xml["authresponse"]["person"]["phone_business"]}" if phone.blank?
     phone = "#{xml["authresponse"]["person"]["phone_private"]}" if phone.blank?
-    address = "#{xml["authresponse"]["person"]["address1"]} #{xml["authresponse"]["person"]["address2"]}"
-    zip = "#{xml["authresponse"]["person"]["countrycode"]}-#{xml["authresponse"]["person"]["zip"]}"
-    country = "#{xml["authresponse"]["person"]["country_de"]}"
-    city = "#{xml["authresponse"]["person"]["place"]}"
     user = User.find(:first, :conditions => { :unique_id => uid }) || User.find(:first, :conditions => { :email => email }) || User.new
     user.unique_id = uid
     user.email = email
-    user.login = "#{firstname} #{lastname}"
-    user.firstname = firstname
-    user.lastname = lastname
     user.phone = phone
-    user.address = address
-    user.zip = zip
-    user.country = country
-    user.city = city
+    user.firstname = "#{xml['authresponse']['person']['firstname']}"
+    user.lastname = "#{xml["authresponse"]["person"]["lastname"]}"
+    user.login = "#{user.firstname} #{user.lastname}"
+    user.address = "#{xml["authresponse"]["person"]["address1"]}, #{xml["authresponse"]["person"]["address2"]}"
+    user.zip = "#{xml["authresponse"]["person"]["countrycode"]}-#{xml["authresponse"]["person"]["zip"]}"
+    user.country = "#{xml["authresponse"]["person"]["country_de"]}"
+    user.city = "#{xml["authresponse"]["person"]["place"]}"
     user.authentication_system = AuthenticationSystem.find(:first, :conditions => {:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME })
     user.extended_info = xml["authresponse"]["person"]
     if user.new_record?

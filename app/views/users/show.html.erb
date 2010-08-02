@@ -1,6 +1,6 @@
 <% content_tag :div, :id => 'blankpage' do %>
 
-	<%= render :partial => "/users/incomplete" %>
+	<%= render :partial => "/users/incomplete", :locals => {:user => @user} %>
 
 	<h3><%= _("User") %></h3>
 	<table>

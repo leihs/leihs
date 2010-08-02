@@ -10,9 +10,9 @@ class AuthenticationSystem < ActiveRecord::Base
         required_fields = [:email, :phone, :address, :zip, :city]
         required_fields.delete(:email) if !user.email.blank? and !user.extended_info["email_alt"].blank?
         required_fields.delete(:phone) if !user.phone.blank? or !user.extended_info["phone_mobile"].blank?
-        required_fields.delete(:address) if !user.address.blank?
-        required_fields.delete(:zip) if !user.zip.blank?
-        required_fields.delete(:city) if !user.city.blank?
+        required_fields.delete(:address) unless user.address.blank?
+        required_fields.delete(:zip) unless user.zip.blank?
+        required_fields.delete(:city) unless user.city.blank?
         required_fields
       else
         []

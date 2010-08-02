@@ -1,7 +1,17 @@
-<% content_tag :ul, :style => "border: 1px solid red; background-color: #FFDDDD; padding: 1em; margin: 1em;" do
-	@missing_fields.each do |missing_field|
-		content_tag :li do %>
-			<%= _("User details incomplete: %s is missing") % missing_field %>
-		<% end
-	end 
-end unless @missing_fields.blank? %>
+<% unless @missing_fields.blank?
+
+	content_tag :ul, :style => "border: 1px solid red; background-color: #FFDDDD; padding: 1em; margin: 1em;" do
+		@missing_fields.each do |missing_field|
+			content_tag :li do %>
+				<%= _("User details incomplete: %s is missing") % missing_field %>
+			<% end
+		end 
+	end
+
+	case user.authentication_system.class_name
+		when "Zhdk"
+			content_tag :div do %>
+				<%= _("...") %>
+			<% end
+	end
+end %>
