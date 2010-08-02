@@ -42,6 +42,10 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     phone = "#{xml["authresponse"]["person"]["phone_mobile"]}"
     phone = "#{xml["authresponse"]["person"]["phone_business"]}" if phone.blank?
     phone = "#{xml["authresponse"]["person"]["phone_private"]}" if phone.blank?
+    address = "#{xml["authresponse"]["person"]["address1"]} #{xml["authresponse"]["person"]["address2"]}"
+    zip = "#{xml["authresponse"]["person"]["countrycode"]}-#{xml["authresponse"]["person"]["zip"]}"
+    country = "#{xml["authresponse"]["person"]["country_de"]}"
+    city = "#{xml["authresponse"]["person"]["place"]}"
     user = User.find(:first, :conditions => { :unique_id => uid }) || User.find(:first, :conditions => { :email => email }) || User.new
     user.unique_id = uid
     user.email = email
@@ -49,6 +53,10 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     user.firstname = firstname
     user.lastname = lastname
     user.phone = phone
+    user.address = address
+    user.zip = zip
+    user.country = country
+    user.city = city
     user.authentication_system = AuthenticationSystem.find(:first, :conditions => {:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME })
     user.extended_info = xml["authresponse"]["person"]
     if user.new_record?
