@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "POT-Creation-Date: 2010-08-02 10:46+0200\n"
-"PO-Revision-Date: 2010-08-02 10:50+0100\n"
+"PO-Revision-Date: 2010-08-02 11:25+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -225,7 +225,7 @@ msgstr "Modelle ist jetzt in Kategorie %s"
 
 #: app/controllers/backend/models_controller.rb:220
 msgid "Model is not in category %s now"
-msgstr ""
+msgstr "Modell ist jetzt nicht in Kategorie %s"
 
 #: app/controllers/backend/models_controller.rb:236
 msgid "Successfully set."
@@ -2118,7 +2118,7 @@ msgstr "Sie sind für die folgenden Geräteparks berechtigt:"
 
 #: app/views/users/_incomplete.html.erb:4
 msgid "User details incomplete: %s is missing"
-msgstr ""
+msgstr "Benutzer-Informationen nicht komplett: %s fehlt"
 
 #: app/views/users/_contracts.html.erb:7
 msgid "Contracts (%d)"
@@ -3282,7 +3282,7 @@ msgstr "Verfügbar"
 #: app/views/backend/models/_index.html.erb:35
 #: app/views/backend/models/_index.html.erb:37
 msgid "of"
-msgstr ""
+msgstr "von"
 
 #: app/views/backend/models/package_roots.html.erb:12
 msgid "Responsible: %s"
