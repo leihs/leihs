@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2010-08-02 10:46+0200\n"
-"PO-Revision-Date: 2010-08-02 11:25+0100\n"
+"POT-Creation-Date: 2010-08-02 15:11+0200\n"
+"PO-Revision-Date: 2010-08-02 15:23+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -2116,9 +2116,13 @@ msgstr "Gerätepark(s)"
 msgid "You have permission to access the following inventory pool(s):"
 msgstr "Sie sind für die folgenden Geräteparks berechtigt:"
 
-#: app/views/users/_incomplete.html.erb:4
+#: app/views/users/_incomplete.html.erb:6
 msgid "User details incomplete: %s is missing"
 msgstr "Benutzer-Informationen nicht komplett: %s fehlt"
+
+#: app/views/users/_incomplete.html.erb:14
+msgid "Unfortunately, we do not have all your personal information and therefore cannot grant you access to this system. Please log in to the Personensuche system (see link below) and complete the form under 'Meine persönlichen Daten'. If you cannot use the Personensuche system, please contact your department's office and give them your full details. The information we need is: Full name, address, landline phone number, mobile phone number and alternative e-mail address. This information will never be visible to the public unless you explicitly choose to make it visible."
+msgstr "Leider haben wir nicht genug Informationen zu Ihrer Person und müssen Ihnen deshalb den Zugang zu diesem System verweigern. Bitte loggen Sie in die Personensuche ein (siehe Link weiter unten) und vervollständigen Sie die Informationen unter 'Meine persönlichen Daten'. Falls Sie das Personensuche-System nicht benutzen können, wenden Sie sich an das Sekretariat Ihres Departements oder Ihrer Vertiefung. Die Informationen, die wir benötigen, sind: Voller Name, Adresse, Telefon (privat), Telefon (mobil) und E-Mail (privat). Diese Informationen werden niemals öffentlich sichtbar gemacht, ausser Sie erlauben dies explizit."
 
 #: app/views/users/_contracts.html.erb:7
 msgid "Contracts (%d)"

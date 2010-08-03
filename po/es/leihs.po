@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-08-02 10:46+0200\n"
+"POT-Creation-Date: 2010-08-02 15:11+0200\n"
 "PO-Revision-Date: 2009-11-23 15:37+0000\n"
 "Last-Translator: Monkey <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -2033,8 +2033,20 @@ msgstr "Grupo de Inventario"
 msgid "You have permission to access the following inventory pool(s):"
 msgstr ""
 
-#: app/views/users/_incomplete.html.erb:4
+#: app/views/users/_incomplete.html.erb:6
 msgid "User details incomplete: %s is missing"
+msgstr ""
+
+#: app/views/users/_incomplete.html.erb:14
+msgid ""
+"Unfortunately, we do not have all your personal information and therefore "
+"cannot grant you access to this system. Please log in to the Personensuche "
+"system (see link below) and complete the form under 'Meine persönlichen "
+"Daten'. If you cannot use the Personensuche system, please contact your "
+"department's office and give them your full details. The information we need "
+"is: Full name, address, landline phone number, mobile phone number and "
+"alternative e-mail address. This information will never be visible to the "
+"public unless you explicitly choose to make it visible."
 msgstr ""
 
 #: app/views/users/_contracts.html.erb:7
