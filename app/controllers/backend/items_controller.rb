@@ -97,6 +97,7 @@ class Backend::ItemsController < Backend::BackendController
     if id.blank?
       @item = Item.new
       @item.model = @model if @model
+      @item.invoice_date = Date.yesterday
     else 
       @item = Item.find(id).clone
       @item.serial_number = nil
@@ -104,7 +105,6 @@ class Backend::ItemsController < Backend::BackendController
     end
     @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)
     @item.owner = current_inventory_pool
-    @item.invoice_date = Date.yesterday
     if @current_user.access_level_for(current_inventory_pool) < 2
       @item.inventory_pool = current_inventory_pool
     end
