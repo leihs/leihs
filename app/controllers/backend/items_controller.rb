@@ -25,7 +25,7 @@ class Backend::ItemsController < Backend::BackendController
       when "retired"
         with.merge!(:owner_id => current_inventory_pool.id, :retired => true)
         retired = true
-      when "own_items"
+      when "own_items", "own", "all"
         with.merge!(:owner_id => current_inventory_pool.id)
       when "inventory_relevant"
         with.merge!(:owner_id => current_inventory_pool.id, :is_inventory_relevant => true)

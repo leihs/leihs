@@ -31,7 +31,7 @@
 					<% end
 				else
 					content_tag :td do
-						if params[:filter] == "own" %>
+						if ["own", "all"].include?(params[:filter]) %>
 							<%= current_inventory_pool.own_items.scoped_by_model_id(model).in_stock.count %> <%= _("of")%> <%= current_inventory_pool.own_items.scoped_by_model_id(model).count %>
 						<% else %>
 							<%= current_inventory_pool.items.scoped_by_model_id(model).in_stock.count %> <%= _("of")%> <%= current_inventory_pool.items.scoped_by_model_id(model).count %>
