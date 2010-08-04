@@ -11,9 +11,6 @@ Scenario: When opening a contract for hand over user the first available time pe
 Scenario: Genelec -> Paket -> Anzeige -> Greybox in Greybox
 	Given pending - reported by Claudio on 22.June 2010
 
-Scenario: externen Benutzer erstellen (hat weder Badge noch Passwort) (Pwd sollte nicht sichtbar sein, da wir nicht DB auth machen)
-	Given pending - reported by Claudio on 22.June 2010
-
 Scenario: Wenn Datum in der Zukunft, dann sollte Datum schon in der Handover Greybox angepasst sein und nicht erst im PDF
 	Given pending - reported by all(C+P) on 22.June 2010
 
