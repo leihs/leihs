@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
-"POT-Creation-Date: 2010-08-02 15:11+0200\n"
+"POT-Creation-Date: 2010-08-04 08:57+0200\n"
 "PO-Revision-Date: 2008-04-22 17:52+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -217,45 +217,45 @@ msgstr ""
 msgid "You can't add a package to a package."
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:203
+#: app/controllers/backend/models_controller.rb:204
 msgid "The properties have been updated."
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:214
+#: app/controllers/backend/models_controller.rb:215
 msgid "Model is now in category %s"
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:220
+#: app/controllers/backend/models_controller.rb:221
 msgid "Model is not in category %s now"
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:236
+#: app/controllers/backend/models_controller.rb:237
 msgid "Successfully set."
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:241
+#: app/controllers/backend/models_controller.rb:242
 msgid "The accessory was successfully created."
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:243
+#: app/controllers/backend/models_controller.rb:244
 msgid "Error creating the accessory."
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:248
+#: app/controllers/backend/models_controller.rb:249
 msgid "The accessory was successfully deleted."
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:250
+#: app/controllers/backend/models_controller.rb:251
 msgid "Error deleting the accessory."
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:265
-#: app/controllers/backend/models_controller.rb:279
+#: app/controllers/backend/models_controller.rb:266
+#: app/controllers/backend/models_controller.rb:280
 msgid "Attachment was successfully created."
 msgstr ""
 
-#: app/controllers/backend/models_controller.rb:267
-#: app/controllers/backend/models_controller.rb:281
+#: app/controllers/backend/models_controller.rb:268
+#: app/controllers/backend/models_controller.rb:282
 msgid "Upload error."
 msgstr ""
 
@@ -1902,11 +1902,12 @@ msgid ""
 "Unfortunately, we do not have all your personal information and therefore "
 "cannot grant you access to this system. Please log in to the Personensuche "
 "system (see link below) and complete the form under 'Meine persönlichen "
-"Daten'. If you cannot use the Personensuche system, please contact your "
-"department's office and give them your full details. The information we need "
-"is: Full name, address, landline phone number, mobile phone number and "
-"alternative e-mail address. This information will never be visible to the "
-"public unless you explicitly choose to make it visible."
+"Daten'. If you cannot use the Personensuche system, please contact Claudio "
+"Pavan (claudio.pavan@zhdk.ch or +41 43 446 21 48) and give him your full "
+"details. The information we need is: Full name, address, landline phone "
+"number, mobile phone number and alternative e-mail address. This information "
+"will never be visible to the public unless you explicitly choose to make it "
+"visible."
 msgstr ""
 
 #: app/views/users/_contracts.html.erb:7
