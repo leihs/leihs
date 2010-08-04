@@ -48,3 +48,16 @@ Scenario: wenn Gegenstand zu einem anderen Paket wechselt, dann nimmt es die Eig
   Given resolved by sellittf on 26.July 2010
   Given test pending
 
+Scenario: Add fields for "mobile phone number" and "alternative e-mail address" to user model
+  Given reported by Claudio on 14.July 2010
+  Given resolved by rca on 3. August 2010
+  Given test pending
+
+Scenario: Make it impossible for users to place reservations unless either phone number or mobile number as well as address and alternative e-mail fields are filled in
+  Given reported by Claudio on 14.July 2010
+  Given resolved by sellittf on 3. August 2010
+  Given test pending
+
+
+
+

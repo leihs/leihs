@@ -42,17 +42,11 @@ Scenario: bei Gegenständen, welche Teil eines Pakets sind, statt Status "is Tei
   Given pending - reported by Claudio,Mike on 6.July 2010
 
 
-Scenario: Verschiedene Modelle sollten im Frontend vergleichbar sein.
+Scenario: Neues Frontend: Verschiedene Modelle sollten im Frontend vergleichbar sein.
   Given pending - reported by Marcello via Claudio on 6.July 2010
 
 Scenario: Wenn eine neue Gruppe hinzugefügt wird, dann muss sie in der Liste der Gruppen erscheinen
   Given pending - reported by tpo on 6.July 2010
-
-Scenario: Add fields for "mobile phone number" and "alternative e-mail address" to user model
-  Given pending - reported by Claudio on 14.July 2010
-
-Scenario: Make it impossible for users to place reservations unless either phone number or mobile number as well as address and alternative e-mail fields are filled in
-  Given pending - reported by Claudio on 14.July 2010
 
 
 Scenario: Do not copy the invoice date when using "save and copy" on the item creation form.
@@ -61,7 +55,8 @@ Scenario: Do not copy the invoice date when using "save and copy" on the item cr
 Scenario: Wenn ein Paket ausgemustert wird, sollte das System fragen, ob die dazugehörigen Gegenstände freigegeben oder ebenfalls ausgemustert werden sollen.
   Given pending - reported by Florian (HKB) on 26. July 2010
 
-
+Scenario: Pakete können auch Optionen enthalten
+  Given pending - reported by Claudio & Pius on 3. August 2010
 
 
 
