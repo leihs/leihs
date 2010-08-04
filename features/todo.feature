@@ -8,9 +8,6 @@ Scenario: Only automatically check items and options for hand over that have a t
 Scenario: When opening a contract for hand over user the first available time period
 	Given pending - reported by Pius on 22.June 2010
 
-Scenario: Highlight selected mode in UI (Hand over, Acknowledge etc.)
-	Given pending - reported by Pius on 22.June 2010
-
 Scenario: Genelec -> Paket -> Anzeige -> Greybox in Greybox
 	Given pending - reported by Claudio on 22.June 2010
 
