@@ -64,7 +64,7 @@ Scenario: Send reminder e-mails also to alternative e-mail addresses, if the use
   Given pending - reported by Claudio on 4.1.2010
 
 Scenario: Allow level 3 managers to change the model of an existing item.
-  Given pending - reported by Mike on 27.8.2009
+  Given pending - reported by Mike on 27.8.2009, confirmed by Florian/HKB on 9.8.2010
 
 Scenario: Make more columns sortable in the backend list views. Ask Claudio which ones.
   Given pending - reported by Claudio before the dawn of time
