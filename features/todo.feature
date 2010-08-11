@@ -53,6 +53,9 @@ Scenario: Pakete können auch Optionen enthalten
   Given pending - reported by Claudio & Pius on 3. August 2010
 
 
+Scenario: Frontend: Mitteilung bei "Submit Order" anzeigen (nur für ZHdK-User): "Mit dem abschicken dieser Bestellung akzeptieren Sie die "Richtlinie zur Ausleihe von Sachen der ZHdK" sowie jegliche abteilungsspezifische Ausleih-Richtlinien. 
+  Given pending - reported by Mike on 10. August 2010
+
 
 # The following scenarios are extracted from Trac tickets that we
 # created at earlier round tables.
