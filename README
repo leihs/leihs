@@ -1,5 +1,4 @@
 
-
     leihs - a borrowing/lending/resource management system 
             written in Ruby on Rails  
 
@@ -31,6 +30,13 @@ Tickets/bug reports: http://code.zhdk.ch/projects/leihs/report
 Wiki:                http://code.zhdk.ch/projects/leihs/wiki
 Discussion group:    http://groups.google.com/group/leihs
 Downloads:           http://sourceforge.net/projects/leihs/
+
+
+== Forks and pull requests ==
+
+Please fork as much as you like (via GitHub), then send a pull request to
+psy-q. Please run the existing tests (rake leihs:test) before sending the request.
+If you want our extra special thanks, also include tests for your own new code.
 
 --
 
