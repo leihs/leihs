@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
 
   validates_uniqueness_of :inventory_code
   validates_presence_of :inventory_code, :model
-  validate :validates_if_is_package, :validates_model_change
+  validate :validates_package, :validates_model_change
 
 ####################################################################
 
@@ -367,10 +367,32 @@ class Item < ActiveRecord::Base
   
 ####################################################################
 
+  def update_children_attributes
+    Item.suspended_delta do
+      children.each do |child|
+        update_child_attributes(child)
+      end
+    end unless children.empty?
+  end
+
+####################################################################
+
   private
   
-  def validates_if_is_package
-    errors.add_to_base(_("Package error")) if children.size > 0 and !model.is_package
+  def validates_package
+    if parent_id
+      if parent.nil?
+        errors.add_to_base(_("The parent item doesn't exist (parent_id: %d)") % parent_id)
+      elsif not children.empty?
+        errors.add_to_base(_("A package cannot be nested to another package"))
+      else
+        errors.add(:inventory_pool_id, _("doesn‘t match parent's attribute")) unless inventory_pool_id == parent.inventory_pool_id
+        errors.add(:location_id, _("doesn‘t match parent's attribute")) unless location_id == parent.location_id
+        errors.add(:responsible, _("doesn‘t match parent's attribute")) unless responsible == parent.responsible
+      end
+    else
+      errors.add_to_base(_("Package error")) unless children.empty? or model.is_package
+    end
   end
   
   def validates_model_change
@@ -389,14 +411,6 @@ class Item < ActiveRecord::Base
     item.update_attributes(:inventory_pool_id => self.inventory_pool_id,
                            :location_id => self.location_id,
                            :responsible => self.responsible)
-  end
-
-  def update_children_attributes
-    Item.suspended_delta do
-      children.each do |child|
-        update_child_attributes(child)
-      end
-    end unless children.empty?
   end
 
 end

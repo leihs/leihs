@@ -264,11 +264,11 @@ class Backend::ItemsController < Backend::BackendController
   
   def pre_load
     params[:id] ||= params[:item_id] if params[:item_id]
-    @item = current_inventory_pool.items.first(:conditions => {:id => params[:id]}) if params[:id]
-    @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:id]}, :retired => :all) if params[:id]
+    if params[:id]
+      @item = current_inventory_pool.items.first(:conditions => {:id => params[:id]})
+      @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:id]}, :retired => :all)
+    end
 
-
-    
     @location = Location.find(params[:location_id]) if params[:location_id]
     
     @model = if @item

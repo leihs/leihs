@@ -161,7 +161,7 @@ class Backend::ModelsController < Backend::BackendController
   
   def get_root_items
     @root_items = case params[:filter]
-                    when "own"
+                    when "own", "own_items"
                       current_inventory_pool.own_items.scoped_by_model_id(@model)
                     else
                       current_inventory_pool.items.scoped_by_model_id(@model)
@@ -299,7 +299,11 @@ class Backend::ModelsController < Backend::BackendController
 
     @category = Category.find(params[:category_id]) if not params[:category_id].blank? and params[:category_id].to_i != 0
 
-    @item = current_inventory_pool.items.find(params[:item_id]) if params[:item_id]
+    if params[:item_id]
+      @item = current_inventory_pool.items.first(:conditions => {:id => params[:item_id]})
+      @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:item_id]}) #, :retired => :all
+    end
+    
     @model = @item.model if @item and !@model
     @line = current_inventory_pool.contract_lines.find(params[:contract_line_id]) if params[:contract_line_id]
     @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
