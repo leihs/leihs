@@ -75,6 +75,6 @@
 <% end %>
 
 <% content_tag :div, :class => "buttons" do %>
-	<%= link_to _("New Item Package"), package_roots_backend_inventory_pool_model_path(current_inventory_pool, @model), :method => :post %>
+	<%= link_to _("New Item Package"), package_roots_backend_inventory_pool_model_path(current_inventory_pool, @model, :filter => params[:filter]), :method => :post %>
 <% end %>
 
