@@ -22,10 +22,17 @@
 		<%= render :partial => 'status' %>
 		<%= render :partial => 'location' %>
 		<%= render :partial => 'inventory_info' %>
-		<%= render :partial => 'invoice_info' %>	
+		<%= render :partial => 'invoice_info' %>
 	<% end %>
+	<% unless @item.updater.blank? %>  
+    <tr>
+      <td><b><%= _("Last modification:") %></b></td>
+      <td> <%= short_date(@item.updated_at)%> <%= _("by") %> <%= @item.updater.to_s %></td>
+    </tr>
+  <% end %>
 </table>
 <br/>
+
 <% save_label = @item.id ? _("Save") : _("Create") %> 
 <% copy_label = @item.id ? _("Save and create a Copy") : _("Create and make a Copy") %>
 
