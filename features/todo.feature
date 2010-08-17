@@ -23,9 +23,6 @@ Scenario: Barcode scanner: Piepsen, wenn etwas hinzugefügt wurde. Böse piepsen
 Scenario: Bestellungs-History führen: Wer hat die Reservation gemacht? Wer hat sie genehmigt? Welche Gegenstände wurden hinzugefügt/entfernt und von wem? Wer hat die Gegenstände ausgehändigt?
   Given pending - reported by Tilo on 29.June 2010
 
-Scenario: Gegenstands-History: Wer hat diesen Gegenstand inventarisert?
-  Given pending - reported by Tilo on 29.June 2010
-
 Scenario: Bei Paket-Liste sollen Status, Stufe, Ort und 'an Lager' angezeigt werden
   Given pending - reported by Claudio on 6.July 2010
 

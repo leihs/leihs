@@ -58,6 +58,10 @@ Scenario: Make it impossible for users to place reservations unless either phone
   Given resolved by sellittf on 3. August 2010
   Given test pending
 
+Scenario: Gegenstands-History: Wer hat diesen Gegenstand inventarisert?
+  Given pending - reported by Tilo on 29.June 2010
+  Given resolved by rca on 17. August 2010
+  Given test pending
 
 
 
