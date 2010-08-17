@@ -22,9 +22,6 @@ class Item < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :inventory_pool
   
-  belongs_to :updater, :class_name => "User", :foreign_key => "updater_id"
-
-  
   has_many :contract_lines
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
@@ -40,9 +37,8 @@ class Item < ActiveRecord::Base
     record.owner = record.inventory_pool if record.inventory_pool and !record.owner
   end
 
-  after_save :update_sphinx_index, :update_children_attributes, :record_change
-  after_create :record_creation
-  
+  after_save :update_sphinx_index, :update_children_attributes
+
 ####################################################################
 
   define_index do
@@ -61,7 +57,7 @@ class Item < ActiveRecord::Base
     indexes :name
 
     has :is_borrowable, :is_broken, :is_incomplete, :is_inventory_relevant, :type => :boolean
-    has :parent_id, :model_id, :location_id, :owner_id, :inventory_pool_id, :supplier_id, :updater_id
+    has :parent_id, :model_id, :location_id, :owner_id, :inventory_pool_id, :supplier_id
 # OPTIMIZE
     has "items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) AND parent_id IS NULL", :as => :in_stock, :type => :boolean
 #    has "items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)", :as => :not_in_stock, :type => :boolean
@@ -363,17 +359,9 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-  def log_history(text, user_id, type_const = History::NOTE)
-    h = histories.create(:text => text, :user_id => user_id, :type_const => type_const)
+  def log_history(text, user_id)
+    h = histories.create(:text => text, :user_id => user_id, :type_const => History::BROKEN)
     histories.reset if h.changed?
-  end
-  
-  def record_change
-    log_history(_("Item modified by %s") % [self.updater.to_s], self.updater.id, History::CHANGE)
-  end
-  
-  def record_creation
-    log_history(_("Item '%s' created in inventory pool '%s' by %s") % [self.to_s, self.owner, self.updater.to_s], self.updater.id)
   end
   
   

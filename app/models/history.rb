@@ -1,10 +1,9 @@
 class History < ActiveRecord::Base
   
   ACTION = 1      # Order
-  CHANGE = 2      # Order, AccessRight, Item
+  CHANGE = 2      # Order, AccessRight
   REMIND = 3      # User
   BROKEN = 4      # Item
-  NOTE   = 5
   
   belongs_to :target, :polymorphic => true
   belongs_to :user

@@ -113,7 +113,7 @@ class Backend::ItemsController < Backend::BackendController
   end
 
   def create
-    @item = Item.new(:owner => current_inventory_pool, :updater => current_user)
+    @item = Item.new(:owner => current_inventory_pool)
     flash[:notice] = _("New item created.")
     update
   end
@@ -122,8 +122,7 @@ class Backend::ItemsController < Backend::BackendController
     get_histories
 
     params[:item][:location] = Location.find_or_create(params[:location])
-    params[:item][:updater] = current_user
-    
+
 # TODO: Move to before_save, this never fires this way, but in before_save we are lacking
 # a current_user
 #     if @item.inventory_pool_id_changed?
@@ -146,7 +145,6 @@ class Backend::ItemsController < Backend::BackendController
       else 
         redirect_to :action => 'new', :original_id => @item.id  
       end
-
       flash[:notice] = _("Item saved.") unless flash[:notice]
     else
       flash[:error] = @item.errors.full_messages

@@ -9,11 +9,10 @@
 
 <hr />
 	
-	<% # OPTIMIZE History validates_presence_of :user 
-	%>
+	<% # OPTIMIZE History validates_presence_of :user %>
 	<table>
 	<% @histories.each do |h| %>
-		<tr><td><%= "#{h.user.to_s} -" if h.user %></td><td><%= short_date h.created_at %></td><td><%= h.text %></td></tr>
+		<tr><td><%= "#{h.user.login} -" if h.user %></td><td><%= short_date h.created_at %></td><td><%= h.text %></td></tr>
 	<% end %>
 	</table>
 	
