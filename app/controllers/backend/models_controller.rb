@@ -161,7 +161,7 @@ class Backend::ModelsController < Backend::BackendController
   
   def get_root_items
     @root_items = case params[:filter]
-                    when "own"
+                    when "own", "own_items"
                       current_inventory_pool.own_items.scoped_by_model_id(@model)
                     else
                       current_inventory_pool.items.scoped_by_model_id(@model)
@@ -196,10 +196,12 @@ class Backend::ModelsController < Backend::BackendController
 
   def properties
     if request.post?
-        # TODO 0408** Rails 2.3: accepts_nested_attributes_for
-        @model.properties.destroy_all
-        @model.properties.create(params[:properties])
-        flash[:notice] = _("The properties have been updated.")
+      # TODO 0408** Rails 2.3: accepts_nested_attributes_for
+      @model.properties.destroy_all
+      params[:properties].delete_if {|p| p[:key].blank? or p[:value].blank? }
+      @model.properties.create(params[:properties])
+      @model.touch
+      flash[:notice] = _("The properties have been updated.")
     end
     # TODO 0408** scope @model.categories
     @properties_set = Model.with_properties.collect{|m| m.properties.collect(&:key)}.uniq
@@ -270,6 +272,22 @@ class Backend::ModelsController < Backend::BackendController
     end
   end
 
+  def attachments
+    if request.post?
+      @attachment = Attachment.new(params[:attachment])
+      @attachment.model = @model
+      if @attachment.save
+        flash[:notice] = _("Attachment was successfully created.")
+      else
+        flash[:error] = _("Upload error.")
+      end
+    elsif request.delete?
+      @model.attachments.destroy(params[:attachment_id])
+    end
+  end
+
+
+
 #################################################################
 
   private
@@ -281,7 +299,11 @@ class Backend::ModelsController < Backend::BackendController
 
     @category = Category.find(params[:category_id]) if not params[:category_id].blank? and params[:category_id].to_i != 0
 
-    @item = current_inventory_pool.items.find(params[:item_id]) if params[:item_id]
+    if params[:item_id]
+      @item = current_inventory_pool.items.first(:conditions => {:id => params[:item_id]})
+      @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:item_id]}) #, :retired => :all
+    end
+    
     @model = @item.model if @item and !@model
     @line = current_inventory_pool.contract_lines.find(params[:contract_line_id]) if params[:contract_line_id]
     @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]

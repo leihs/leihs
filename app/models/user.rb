@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
 
 ################################################
 
-# TODO ??  after_save :update_index
+# TODO ??  after_save :update_sphinx_index
 
 ################################################
 
@@ -303,7 +303,7 @@ class User < ActiveRecord::Base
   end
 
 # TODO ??
-#  def update_index
+#  def update_sphinx_index
 #    Contract.suspended_delta do
 #      contracts.each {|x| x.touch }
 #    end

@@ -65,7 +65,7 @@ Rails::Initializer.run do |config|
   config.gem "gettext_rails", :version => '>= 2.1.0'
 
   config.gem "barby", :version => '0.2.0'
-  config.gem "png", :version => '1.1.0'
+  config.gem "png", :version => '>= 1.1.0'
   config.gem "hoptoad_notifier", :version => '>= 2.1.3'
 #  config.gem "RubyInline", :version => '3.8.2', :lib => "inline"
 

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2010-06-22 13:48+0100\n"
-"PO-Revision-Date: 2010-06-22 13:51+0100\n"
+"POT-Creation-Date: 2010-08-04 08:57+0200\n"
+"PO-Revision-Date: 2010-08-04 08:58+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Die Kategorie muss leer sein"
 msgid "Attempt to add node to own graph collection"
 msgstr "Versuch, einen Zweig seiner eigenen Graph-Kollektion hinzuzufügen"
 
-#: app/controllers/backend/inventory_pools_controller.rb:68
+#: app/controllers/backend/inventory_pools_controller.rb:69
 msgid "The Inventory Pool must be empty"
 msgstr "Der Gerätepark muss leer sein"
 
@@ -74,56 +74,56 @@ msgid "Item taken back"
 msgstr "Gegenstand zurückgenommen"
 
 #: app/controllers/backend/take_back_controller.rb:100
-#: app/controllers/backend/hand_over_controller.rb:147
+#: app/controllers/backend/hand_over_controller.rb:148
 msgid "The Inventory Code %s was not found."
 msgstr "Inventarcode %s nicht gefunden"
 
-#: app/controllers/backend/hand_over_controller.rb:54
+#: app/controllers/backend/hand_over_controller.rb:55
 msgid "No items to hand over specified. Please assign inventory codes to the items you want to hand over."
 msgstr "Es sind keine Gegenstände zur Übergabe markiert. Bitte weisen Sie den Gegenständen, die Sie übergeben wollen, Inventarcodes zu."
 
-#: app/controllers/backend/hand_over_controller.rb:71
+#: app/controllers/backend/hand_over_controller.rb:72
 msgid "New lines have been generated"
 msgstr "Neue Zeilen wurden hinzugefügt"
 
-#: app/controllers/backend/hand_over_controller.rb:74
+#: app/controllers/backend/hand_over_controller.rb:75
 msgid "The quantity has been changed"
 msgstr "Die Menge ist verändert worden"
 
-#: app/controllers/backend/hand_over_controller.rb:90
+#: app/controllers/backend/hand_over_controller.rb:91
 msgid "The start date has been changed"
 msgstr "Das Startdatum ist verändert worden"
 
-#: app/controllers/backend/hand_over_controller.rb:111
+#: app/controllers/backend/hand_over_controller.rb:112
 msgid "The item is already in the current contract."
 msgstr "Dieser Artikel ist bereits Teil dieses Vertrags."
 
-#: app/controllers/backend/hand_over_controller.rb:113
+#: app/controllers/backend/hand_over_controller.rb:114
 msgid "This item is part of package %s."
 msgstr "Dieser Gegenstand ist Teil von Paket %s."
 
-#: app/controllers/backend/hand_over_controller.rb:118
+#: app/controllers/backend/hand_over_controller.rb:119
 msgid "Inventory Code assigned"
 msgstr "Inventarcode zugewiesen"
 
-#: app/controllers/backend/hand_over_controller.rb:120
+#: app/controllers/backend/hand_over_controller.rb:121
 msgid "This item requires the user to be level %s"
 msgstr "Dieses Gerät benötigt mindestens Benutzerstufe %s"
 
-#: app/controllers/backend/hand_over_controller.rb:130
+#: app/controllers/backend/hand_over_controller.rb:131
 msgid "New item added to contract."
 msgstr "Neuer Gegenstand zu Vertrag hinzufgefügt."
 
-#: app/controllers/backend/hand_over_controller.rb:145
+#: app/controllers/backend/hand_over_controller.rb:146
 msgid "Option %s added."
 msgstr "Option %s hinzugefügt."
 
-#: app/controllers/backend/hand_over_controller.rb:204
+#: app/controllers/backend/hand_over_controller.rb:205
 #: app/controllers/backend/acknowledge_controller.rb:103
 msgid "User must be selected"
 msgstr "Benutzer muss ausgewählt sein"
 
-#: app/controllers/backend/hand_over_controller.rb:214
+#: app/controllers/backend/hand_over_controller.rb:215
 msgid "The selected lines have been moved"
 msgstr "Die ausgewählten Zeilen wurden verschoben"
 
@@ -171,110 +171,108 @@ msgstr "Dieses Modell ist bereits kompatibel"
 msgid "Couldn't update "
 msgstr "Konnte nicht updaten"
 
-#: app/controllers/backend/models_controller.rb:92
+#: app/controllers/backend/models_controller.rb:94
 msgid "Compatible successfully removed"
 msgstr "Kompatibles Modell erfolgreich entfernt"
 
-#: app/controllers/backend/models_controller.rb:118
+#: app/controllers/backend/models_controller.rb:120
 msgid "The selected model is not a package"
 msgstr "Das ausgewählte Modell gehört nicht zu einem Paket"
 
-#: app/controllers/backend/models_controller.rb:123
+#: app/controllers/backend/models_controller.rb:125
 msgid "Package successfully saved"
 msgstr "Paket gespeichert"
 
-#: app/controllers/backend/models_controller.rb:126
+#: app/controllers/backend/models_controller.rb:128
 msgid "Error saving the package"
 msgstr "Fehler beim Speichern des Pakets"
 
-#: app/controllers/backend/models_controller.rb:133
+#: app/controllers/backend/models_controller.rb:135
 msgid "Package successfully destroyed"
 msgstr "Paket gelöscht"
 
-#: app/controllers/backend/models_controller.rb:135
+#: app/controllers/backend/models_controller.rb:137
 msgid "Error destroying the package"
 msgstr "Fehler beim Löschen dieses Pakets"
 
-#: app/controllers/backend/models_controller.rb:143
+#: app/controllers/backend/models_controller.rb:145
 msgid "Inventory code updated"
 msgstr "Invetarcode aktualisiert"
 
-#: app/controllers/backend/models_controller.rb:145
+#: app/controllers/backend/models_controller.rb:147
 msgid "Error updating inventory code"
 msgstr "Fehler beim aktualisieren des Inventarcodes"
 
-#: app/controllers/backend/models_controller.rb:149
+#: app/controllers/backend/models_controller.rb:151
 msgid "Item package successfully destroyed"
 msgstr "Paket gelöscht"
 
-#: app/controllers/backend/models_controller.rb:151
+#: app/controllers/backend/models_controller.rb:153
 msgid "Error destroying the item package"
 msgstr "Fehler beim Löschen des Pakets"
 
-#: app/controllers/backend/models_controller.rb:181
+#: app/controllers/backend/models_controller.rb:183
 msgid "You can't add a package to a package."
 msgstr "Ein Paket kann nicht einem Paket hinzugefügt werden."
 
-#: app/controllers/backend/models_controller.rb:200
+#: app/controllers/backend/models_controller.rb:204
 msgid "The properties have been updated."
 msgstr "Die Eigenschaften wurden aktualisiert."
 
-#: app/controllers/backend/models_controller.rb:212
-msgid "Category successfully assigned"
-msgstr "Kategorie erfolgreich zugewiesen"
+#: app/controllers/backend/models_controller.rb:215
+msgid "Model is now in category %s"
+msgstr "Modelle ist jetzt in Kategorie %s"
 
-#: app/controllers/backend/models_controller.rb:214
-msgid "The model is already assigned to this category"
-msgstr "Dieses Modell ist bereits dieser Kategorie zugewiesen"
+#: app/controllers/backend/models_controller.rb:221
+msgid "Model is not in category %s now"
+msgstr "Modell ist jetzt nicht in Kategorie %s"
 
-#: app/controllers/backend/models_controller.rb:219
-msgid "Category successfully removed"
-msgstr "Kategorie erfolgreich entfernt"
-
-#: app/controllers/backend/models_controller.rb:233
+#: app/controllers/backend/models_controller.rb:237
 msgid "Successfully set."
 msgstr "Erfolgreich zugewiesen"
 
-#: app/controllers/backend/models_controller.rb:238
+#: app/controllers/backend/models_controller.rb:242
 msgid "The accessory was successfully created."
 msgstr "Zubehör erstellt."
 
-#: app/controllers/backend/models_controller.rb:240
+#: app/controllers/backend/models_controller.rb:244
 msgid "Error creating the accessory."
 msgstr "Fehler beim erstellen des Zubehörs."
 
-#: app/controllers/backend/models_controller.rb:245
+#: app/controllers/backend/models_controller.rb:249
 msgid "The accessory was successfully deleted."
 msgstr "Zubehör gelöscht."
 
-#: app/controllers/backend/models_controller.rb:247
+#: app/controllers/backend/models_controller.rb:251
 msgid "Error deleting the accessory."
 msgstr "Fehler beim Löschen des Zubehörs."
 
-#: app/controllers/backend/models_controller.rb:262
+#: app/controllers/backend/models_controller.rb:266
+#: app/controllers/backend/models_controller.rb:280
 msgid "Attachment was successfully created."
 msgstr "Attachment erfolgreich erstellt."
 
-#: app/controllers/backend/models_controller.rb:264
+#: app/controllers/backend/models_controller.rb:268
+#: app/controllers/backend/models_controller.rb:282
 msgid "Upload error."
 msgstr "Fehler beim Hochladen."
 
-#: app/controllers/backend/backend_controller.rb:22
+#: app/controllers/backend/backend_controller.rb:21
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:7
 msgid "Booking"
 msgstr "Ausleihe"
 
-#: app/controllers/backend/backend_controller.rb:25
+#: app/controllers/backend/backend_controller.rb:24
 #: app/views/backend/items/_inventory_info.html.erb:1
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:23
 msgid "Inventory"
 msgstr "Inventar"
 
-#: app/controllers/backend/backend_controller.rb:54
+#: app/controllers/backend/backend_controller.rb:53
 msgid "Database backup successfully done."
 msgstr "Datenbank-Backup erstellt"
 
-#: app/controllers/backend/backend_controller.rb:95
+#: app/controllers/backend/backend_controller.rb:94
 msgid "Model must be selected"
 msgstr "Modell muss ausgewählt sein"
 
@@ -299,9 +297,8 @@ msgid "Access Right successfully created"
 msgstr "Zugriffsrecht erfolgreich erstellt."
 
 #: app/controllers/backend/users_controller.rb:159
-#, fuzzy
 msgid "Access right reinstated"
-msgstr "Zugriffsrechte"
+msgstr "Zugriffsrechte wiederhergestellt"
 
 #: app/controllers/backend/users_controller.rb:168
 msgid "Badge ID was updated"
@@ -346,7 +343,7 @@ msgstr "Zugriffsrechte"
 
 #: app/models/access_right.rb:-
 #, fuzzy
-msgid "AccessRight|Suspended at"
+msgid "AccessRight|Suspended until"
 msgstr "Zugriffsrechte"
 
 #: app/models/access_right.rb:-
@@ -654,6 +651,11 @@ msgid "Model|Delta"
 msgstr "Modell"
 
 #: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Model|Tags"
+msgstr "Modelle"
+
+#: app/models/inventory_pool.rb:-
 msgid "property"
 msgstr "Eigenschaft"
 
@@ -743,6 +745,11 @@ msgstr "Optionen"
 #: app/models/inventory_pool.rb:-
 #, fuzzy
 msgid "Option|Delta"
+msgstr "Optionen"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Option|Price"
 msgstr "Optionen"
 
 #: app/models/inventory_pool.rb:-
@@ -1604,6 +1611,34 @@ msgid "Accessory|Quantity"
 msgstr "Zubehör|Anzahl"
 
 #: app/models/inventory_pool.rb:-
+msgid "attachment"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Attachment|Model"
+msgstr "Angesehene Modelle"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Attachment|Is main"
+msgstr "Bild|Ist haupt"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Attachment|Content type"
+msgstr "Parent"
+
+#: app/models/inventory_pool.rb:-
+#, fuzzy
+msgid "Attachment|Filename"
+msgstr "Bild|Ist haupt"
+
+#: app/models/inventory_pool.rb:-
+msgid "Attachment|Size"
+msgstr ""
+
+#: app/models/inventory_pool.rb:-
 #, fuzzy
 msgid "itemline"
 msgstr "Zeitleiste"
@@ -1819,15 +1854,15 @@ msgstr "%{q} konnte nicht für Vertrag %{c} erinnert werden"
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr "\"Deadline bald\" Erinnerung für %{q} Gegenstände gesendet aus den Verträgen %{c}"
 
-#: app/models/item.rb:356
+#: app/models/item.rb:357
 msgid "%s until %s"
 msgstr "%s bis %s"
 
-#: app/models/item.rb:372
+#: app/models/item.rb:373
 msgid "Package error"
 msgstr "Paketfehler"
 
-#: app/models/item.rb:376
+#: app/models/item.rb:377
 msgid "The model cannot be changed because the item is used in contracts already."
 msgstr "Das Modell kann nicht verändert werden, da dieser Gegenstand bereits in Verträgen verwendet wurde."
 
@@ -1954,7 +1989,7 @@ msgid "Next"
 msgstr "Vorwärts"
 
 #: app/helpers/backend/backend_helper.rb:100
-#: app/views/backend/hand_over/show.html.erb:52
+#: app/views/backend/hand_over/show.html.erb:53
 #: app/views/backend/hand_over/_index.html.erb:3
 #: app/views/backend/orders/show.html.erb:19
 #: app/views/backend/orders/_index.html.erb:1
@@ -1967,7 +2002,7 @@ msgid "Reserver"
 msgstr "Reservierer"
 
 #: app/helpers/backend/backend_helper.rb:103
-#: app/views/users/show.html.erb:3
+#: app/views/users/show.html.erb:5
 #: app/views/mailer/order/received.erb:8
 #: app/views/widgets/_user_backend_tabnav.html.erb:17
 #: app/views/backend/hand_over/show.html.erb:10
@@ -1986,17 +2021,17 @@ msgstr "Benutzer"
 #: app/helpers/backend/backend_helper.rb:119
 #: app/views/orders/_pending.html.erb:35
 #: app/views/widgets/_model_backend_tabnav.html.erb:1
-#: app/views/backend/hand_over/show.html.erb:70
+#: app/views/backend/hand_over/show.html.erb:71
 #: app/views/backend/items/_general_info.html.erb:5
 #: app/views/backend/items/_index.html.erb:1
 #: app/views/backend/models/_index.html.erb:1
-#: app/views/backend/models/package_roots.html.erb:51
+#: app/views/backend/models/package_roots.html.erb:52
 #: app/views/backend/templates/models.html.erb:21
 #: app/views/contracts/_unsigned.html.erb:39
 #: app/views/contracts/_signed.html.erb:38
 #: app/views/frontend/_basket.html.erb:16
-#: app/views/orders/value_list.pdf.prawn:46
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+#: app/views/orders/value_list_for_models.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:71
 #: app/views/contracts/show.pdf.prawn:95
 msgid "Model"
 msgstr "Modell"
@@ -2025,7 +2060,7 @@ msgstr "Monat"
 #: app/views/authenticator/database_authentication/login.html.erb:6
 #: app/views/authenticator/ldap_authentication/login.html.erb:4
 #: app/views/authenticator/ldap_authentication/login.html.erb:6
-#: app/views/users/show.html.erb:5
+#: app/views/users/show.html.erb:7
 #: app/views/backend/users/show.html.erb:4
 #: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:23
 msgid "Login"
@@ -2046,17 +2081,17 @@ msgstr "Bestellungen"
 msgid "Contracts"
 msgstr "Verträge"
 
-#: app/views/users/show.html.erb:6
+#: app/views/users/show.html.erb:8
 msgid "Unique ID"
 msgstr "Unique-ID"
 
-#: app/views/users/show.html.erb:7
+#: app/views/users/show.html.erb:9
 #: app/views/backend/users/new.html.erb:5
 #: app/views/backend/users/edit.html.erb:5
 msgid "Firstname/Lastname"
 msgstr "Vorname/Nachname"
 
-#: app/views/users/show.html.erb:8
+#: app/views/users/show.html.erb:10
 #: app/views/backend/users/show.html.erb:49
 #: app/views/backend/users/new.html.erb:6
 #: app/views/backend/users/edit.html.erb:6
@@ -2066,20 +2101,28 @@ msgstr "Vorname/Nachname"
 msgid "Email"
 msgstr "E-Mail"
 
-#: app/views/users/show.html.erb:9
+#: app/views/users/show.html.erb:11
 #: app/views/backend/users/show.html.erb:58
 #: app/views/backend/users/new.html.erb:7
 #: app/views/backend/users/edit.html.erb:7
 msgid "Phone"
 msgstr "Telefon"
 
-#: app/views/users/show.html.erb:27
+#: app/views/users/show.html.erb:29
 msgid "Inventory Pool(s)"
 msgstr "Gerätepark(s)"
 
-#: app/views/users/show.html.erb:28
+#: app/views/users/show.html.erb:30
 msgid "You have permission to access the following inventory pool(s):"
 msgstr "Sie sind für die folgenden Geräteparks berechtigt:"
+
+#: app/views/users/_incomplete.html.erb:6
+msgid "User details incomplete: %s is missing"
+msgstr "Benutzer-Informationen nicht komplett: %s fehlt"
+
+#: app/views/users/_incomplete.html.erb:14
+msgid "Unfortunately, we do not have all your personal information and therefore cannot grant you access to this system. Please log in to the Personensuche system (see link below) and complete the form under 'Meine persönlichen Daten'. If you cannot use the Personensuche system, please contact Claudio Pavan (claudio.pavan@zhdk.ch or +41 43 446 21 48) and give him your full details. The information we need is: Full name, address, landline phone number, mobile phone number and alternative e-mail address. This information will never be visible to the public unless you explicitly choose to make it visible."
+msgstr "Leider haben wir nicht genug Informationen zu Ihrer Person und müssen Ihnen deshalb den Zugang zu diesem System verweigern. Bitte loggen Sie in die Personensuche ein (siehe Link weiter unten) und vervollständigen Sie die Informationen unter 'Meine persönlichen Daten'. Falls Sie das Personensuche-System nicht benutzen können, wenden Sie sich bitte an Claudio Pavan (claudio.pavan@zhdk.ch or 043 446 21 48). Die Informationen, die wir benötigen, sind: Voller Name, Adresse, Telefon (privat), Telefon (mobil) und E-Mail (privat). Diese Informationen werden niemals öffentlich sichtbar gemacht, ausser Sie erlauben dies explizit."
 
 #: app/views/users/_contracts.html.erb:7
 msgid "Contracts (%d)"
@@ -2277,7 +2320,7 @@ msgid "Time window"
 msgstr "Zeitfenster"
 
 #: app/views/orders/_pending.html.erb:13
-#: app/views/backend/hand_over/show.html.erb:19
+#: app/views/backend/hand_over/show.html.erb:20
 #: app/views/backend/orders/show.html.erb:34
 #: app/views/backend/acknowledge/show.html.erb:46
 #: app/views/backend/acknowledge/show.html.erb:48
@@ -2300,13 +2343,13 @@ msgstr "Dokumente"
 #: app/views/backend/hand_over/_option_line.html.erb:30
 #: app/views/backend/locations/_index.html.erb:15
 #: app/views/backend/models/_index.html.erb:61
-#: app/views/backend/models/package_roots.html.erb:44
+#: app/views/backend/models/package_roots.html.erb:45
 #: app/views/backend/categories/_index.html.erb:22
 #: app/views/backend/inventory_pools/_index.html.erb:17
 #: app/views/backend/backend/remove_lines.html.erb:9
 #: app/views/backend/acknowledge/_line.html.erb:34
 #: app/views/backend/acknowledge/delete.html.erb:5
-#: app/views/backend/options/_index.html.erb:23
+#: app/views/backend/options/_index.html.erb:24
 msgid "Delete"
 msgstr "Löschen"
 
@@ -2319,27 +2362,29 @@ msgstr "Löschen"
 #: app/views/contracts/_unsigned.html.erb:32
 #: app/views/contracts/_pending.html.erb:26
 #: app/views/contracts/_signed.html.erb:29
-#: app/views/orders/value_list.pdf.prawn:25
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:29
+#: app/views/orders/value_list_for_models.pdf.prawn:25
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+#: app/views/contracts/value_list_for_items.pdf.prawn:50
 msgid "Value list"
 msgstr "Werteverzeichnis"
 
 #: app/views/orders/_pending.html.erb:28
 #: app/views/backend/hand_over/_index.html.erb:35
 #: app/views/backend/users/access_rights.html.erb:102
+#: app/views/backend/models/attachments.html.erb:21
 #: app/views/backend/models/_index.html.erb:58
 #: app/views/backend/models/_index.html.erb:62
-#: app/views/backend/models/package_roots.html.erb:42
-#: app/views/backend/models/package_roots.html.erb:65
+#: app/views/backend/models/package_roots.html.erb:43
+#: app/views/backend/models/package_roots.html.erb:66
 #: app/views/backend/models/accessories.html.erb:43
-#: app/views/backend/models/images.html.erb:14
+#: app/views/backend/models/images.html.erb:15
 #: app/views/backend/categories/_index.html.erb:24
 #: app/views/backend/categories/_index.html.erb:30
 #: app/views/backend/categories/_index.html.erb:35
 #: app/views/backend/inventory_pools/_index.html.erb:19
 #: app/views/backend/templates/_index.html.erb:12
 #: app/views/backend/templates/models.html.erb:40
-#: app/views/backend/options/_index.html.erb:23
+#: app/views/backend/options/_index.html.erb:24
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
@@ -2421,6 +2466,10 @@ msgid "Images (%d)"
 msgstr "Bilder (%d)"
 
 #: app/views/widgets/_model_backend_tabnav.html.erb:78
+msgid "Attachments (%d)"
+msgstr "Attachments (%d)"
+
+#: app/views/widgets/_model_backend_tabnav.html.erb:85
 msgid "Compatibles (%d)"
 msgstr "Kompatible (%d)"
 
@@ -2464,9 +2513,9 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: app/views/backend/hand_over/_item_line.html.erb:33
-#: app/views/backend/hand_over/show.html.erb:46
+#: app/views/backend/hand_over/show.html.erb:47
 #: app/views/backend/hand_over/_option_line.html.erb:22
-#: app/views/backend/take_back/_item_line.html.erb:15
+#: app/views/backend/take_back/_item_line.html.erb:17
 #: app/views/backend/take_back/show.html.erb:34
 #: app/views/backend/take_back/_option_line.html.erb:19
 #: app/views/backend/acknowledge/_line.html.erb:27
@@ -2511,72 +2560,72 @@ msgstr "Aushändigen"
 msgid "Contract Nr."
 msgstr "Vertragsnummer"
 
-#: app/views/backend/hand_over/show.html.erb:15
+#: app/views/backend/hand_over/show.html.erb:16
 #: app/views/backend/take_back/show.html.erb:11
 #: app/views/backend/acknowledge/show.html.erb:35
 msgid "Currently suspended at:"
 msgstr "Im Moment gesperrt bei:"
 
-#: app/views/backend/hand_over/show.html.erb:23
+#: app/views/backend/hand_over/show.html.erb:24
 msgid "Set Purpose"
 msgstr "Zweck bestimmen"
 
-#: app/views/backend/hand_over/show.html.erb:37
+#: app/views/backend/hand_over/show.html.erb:38
 msgid "Mark"
 msgstr "Markieren"
 
-#: app/views/backend/hand_over/show.html.erb:38
+#: app/views/backend/hand_over/show.html.erb:39
 #: app/views/frontend/_models.html.erb:123
 #: app/views/frontend/_categories.html.erb:4
 msgid "All"
 msgstr "Alle"
 
-#: app/views/backend/hand_over/show.html.erb:40
+#: app/views/backend/hand_over/show.html.erb:41
 msgid "From today"
 msgstr "Von heute"
 
-#: app/views/backend/hand_over/show.html.erb:42
+#: app/views/backend/hand_over/show.html.erb:43
 #: app/views/backend/take_back/show.html.erb:30
 #: app/views/backend/acknowledge/show.html.erb:69
 msgid "Change Timeframe for selection"
 msgstr "Zeitfenster für Auswahl ändern"
 
-#: app/views/backend/hand_over/show.html.erb:48
+#: app/views/backend/hand_over/show.html.erb:49
 msgid "Swap Reserver"
 msgstr "Reservierenden ändern"
 
-#: app/views/backend/hand_over/show.html.erb:54
+#: app/views/backend/hand_over/show.html.erb:55
 #: app/views/backend/acknowledge/show.html.erb:75
 msgid "Delete selection"
 msgstr "Auswahl löschen"
 
-#: app/views/backend/hand_over/show.html.erb:58
+#: app/views/backend/hand_over/show.html.erb:59
 #: app/views/backend/acknowledge/show.html.erb:79
 msgid "Remove Models"
 msgstr "Modelle entfernen"
 
-#: app/views/backend/hand_over/show.html.erb:71
+#: app/views/backend/hand_over/show.html.erb:72
 msgid "Timeframe"
 msgstr "Zeitfenster"
 
-#: app/views/backend/hand_over/show.html.erb:73
+#: app/views/backend/hand_over/show.html.erb:74
 #: app/views/backend/items/_general_info.html.erb:38
 #: app/views/backend/models/package_roots.html.erb:8
 #: app/views/backend/take_back/show.html.erb:49
 #: app/views/backend/options/show.html.erb:5
 #: app/views/backend/options/show.html.erb:8
 #: app/views/backend/options/_index.html.erb:5
-#: app/views/backend/options/_index.html.erb:22
+#: app/views/backend/options/_index.html.erb:23
 msgid "Barcode"
 msgstr "Barcode"
 
-#: app/views/backend/hand_over/show.html.erb:78
+#: app/views/backend/hand_over/show.html.erb:79
 #: app/views/backend/hand_over/_index.html.erb:3
 #: app/views/backend/locations/_index.html.erb:1
 #: app/views/backend/users/_index.html.erb:1
 #: app/views/backend/items/_index.html.erb:1
 #: app/views/backend/models/_index.html.erb:1
-#: app/views/backend/models/package_roots.html.erb:51
+#: app/views/backend/models/package_roots.html.erb:52
 #: app/views/backend/orders/_index.html.erb:1
 #: app/views/backend/categories/_index.html.erb:1
 #: app/views/backend/inventory_pools/_index.html.erb:1
@@ -2591,8 +2640,8 @@ msgstr "Barcode"
 msgid "Action"
 msgstr "Aktion"
 
-#: app/views/backend/hand_over/show.html.erb:93
-#: app/views/backend/hand_over/show.html.erb:96
+#: app/views/backend/hand_over/show.html.erb:94
+#: app/views/backend/hand_over/show.html.erb:97
 #: app/views/backend/hand_over/_lines.html.erb:12
 #: app/views/backend/hand_over/_lines.html.erb:32
 #: app/views/backend/hand_over/_lines.html.erb:47
@@ -2604,21 +2653,21 @@ msgstr "Aktion"
 msgid "Add Model"
 msgstr "Modell hinzufügen"
 
-#: app/views/backend/hand_over/show.html.erb:97
-#: app/views/backend/hand_over/show.html.erb:100
+#: app/views/backend/hand_over/show.html.erb:98
+#: app/views/backend/hand_over/show.html.erb:101
 msgid "Add Option"
 msgstr "Option hinzufügen"
 
-#: app/views/backend/hand_over/show.html.erb:101
+#: app/views/backend/hand_over/show.html.erb:102
 msgid "for"
 msgstr "für"
 
-#: app/views/backend/hand_over/show.html.erb:120
+#: app/views/backend/hand_over/show.html.erb:121
 #: app/views/backend/acknowledge/show.html.erb:106
 msgid "This user doesn't have access to your inventory pool or is on your Blacklist!"
 msgstr "Dieser Benutzer hat keinen Zugriff auf Ihren Gerätepark oder er ist auf Ihrer schwarzen Liste!"
 
-#: app/views/backend/hand_over/show.html.erb:120
+#: app/views/backend/hand_over/show.html.erb:121
 #: app/views/backend/acknowledge/show.html.erb:106
 msgid "edit %s"
 msgstr "%s bearbeiten"
@@ -2670,10 +2719,10 @@ msgstr "Modell hinzufügen für"
 #: app/views/backend/items/status.html.erb:39
 #: app/views/backend/models/index.html.erb:19
 #: app/views/backend/models/package_roots.html.erb:22
-#: app/views/backend/models/properties.html.erb:49
+#: app/views/backend/models/properties.html.erb:51
 #: app/views/backend/models/details.html.erb:11
 #: app/views/backend/models/package.html.erb:34
-#: app/views/backend/options/show.html.erb:13
+#: app/views/backend/options/show.html.erb:15
 #: app/views/frontend/_complete_order.html.erb:283
 msgid "Submit"
 msgstr "Absenden"
@@ -2698,11 +2747,11 @@ msgstr "Gestell"
 #: app/views/backend/items/_index.html.erb:55
 #: app/views/backend/models/_index.html.erb:56
 #: app/views/backend/models/package_roots.html.erb:5
-#: app/views/backend/models/package_roots.html.erb:59
+#: app/views/backend/models/package_roots.html.erb:60
 #: app/views/backend/categories/_index.html.erb:21
 #: app/views/backend/templates/_index.html.erb:10
 #: app/views/backend/templates/models.html.erb:38
-#: app/views/backend/options/_index.html.erb:21
+#: app/views/backend/options/_index.html.erb:22
 msgid "Show"
 msgstr "Anzeigen"
 
@@ -2743,7 +2792,7 @@ msgid "Access Level"
 msgstr "Zugriffsstufe"
 
 #: app/views/backend/users/access_rights.html.erb:54
-#: app/views/backend/models/package_roots.html.erb:37
+#: app/views/backend/models/package_roots.html.erb:38
 #: app/views/backend/workdays/index.html.erb:23
 #: app/views/frontend/_models.html.erb:314
 #: app/views/frontend/_models.html.erb:412
@@ -2758,7 +2807,7 @@ msgstr "Speichern"
 
 #: app/views/backend/users/access_rights.html.erb:100
 #: app/views/backend/models/_index.html.erb:57
-#: app/views/backend/models/package_roots.html.erb:63
+#: app/views/backend/models/package_roots.html.erb:64
 #: app/views/backend/models/accessories.html.erb:41
 #: app/views/backend/categories/_index.html.erb:29
 #: app/views/backend/templates/_index.html.erb:11
@@ -2923,11 +2972,12 @@ msgstr "Neuer Gegenstand"
 
 #: app/views/backend/items/show.html.erb:5
 #: app/views/backend/models/package_roots.html.erb:7
-#: app/views/backend/models/package_roots.html.erb:61
+#: app/views/backend/models/package_roots.html.erb:62
 #: app/views/backend/orders/_lines.html.erb:5
-#: app/views/backend/take_back/_item_line.html.erb:20
+#: app/views/backend/take_back/_item_line.html.erb:22
 #: app/views/backend/take_back/show.html.erb:46
 #: app/views/backend/acknowledge/show.html.erb:92
+#: app/views/contracts/value_list_for_items.pdf.prawn:71
 msgid "Item"
 msgstr "Gegenstand"
 
@@ -3043,7 +3093,7 @@ msgstr "Kategorien"
 
 #: app/views/backend/items/_general_info.html.erb:29
 #: app/views/backend/items/_index.html.erb:1
-#: app/views/backend/models/package_roots.html.erb:51
+#: app/views/backend/models/package_roots.html.erb:52
 #: app/views/contracts/show.pdf.prawn:95
 msgid "Inventory Code"
 msgstr "Inventarcode"
@@ -3167,7 +3217,7 @@ msgstr "Suche"
 #: app/views/backend/models/_index.html.erb:49
 #: app/views/backend/models/_index.html.erb:53
 #: app/views/backend/categories/_index.html.erb:18
-#: app/views/backend/options/_index.html.erb:17
+#: app/views/backend/options/_index.html.erb:18
 msgid "Select"
 msgstr "Auswählen"
 
@@ -3214,8 +3264,16 @@ msgstr "Erstellen"
 msgid "Add Selected"
 msgstr "Ausgewählte hinzufügen"
 
+#: app/views/backend/models/attachments.html.erb:2
+msgid "Upload attachment for model"
+msgstr "Attachment hochladen für Modell"
+
+#: app/views/backend/models/attachments.html.erb:15
+msgid "Attachments"
+msgstr "Attachments"
+
 #: app/views/backend/models/_index.html.erb:1
-#: app/views/backend/models/package_roots.html.erb:51
+#: app/views/backend/models/package_roots.html.erb:52
 #: app/views/backend/models/details.html.erb:6
 #: app/views/frontend/_models.html.erb:299
 msgid "Manufacturer"
@@ -3225,6 +3283,11 @@ msgstr "Hersteller"
 msgid "Available Items"
 msgstr "Verfügbar"
 
+#: app/views/backend/models/_index.html.erb:35
+#: app/views/backend/models/_index.html.erb:37
+msgid "of"
+msgstr "von"
+
 #: app/views/backend/models/package_roots.html.erb:12
 msgid "Responsible: %s"
 msgstr "Verantwortlich: %s"
@@ -3233,11 +3296,11 @@ msgstr "Verantwortlich: %s"
 msgid "Inventory code"
 msgstr "Inventarcode"
 
-#: app/views/backend/models/package_roots.html.erb:30
+#: app/views/backend/models/package_roots.html.erb:31
 msgid "Add item"
 msgstr "Gegenstand hinzufügen"
 
-#: app/views/backend/models/package_roots.html.erb:42
+#: app/views/backend/models/package_roots.html.erb:43
 msgid ""
 "Are you sure?\n"
 "The %d items associated with this package will be freed up and available as single items again."
@@ -3245,11 +3308,11 @@ msgstr ""
 "Sind Sie sicher?\n"
 "Die %d mit diesem Paket verbundenen Gegenstände werden wieder freigegeben und stehen dann einzeln zur Ausleihe zur Verfügung."
 
-#: app/views/backend/models/package_roots.html.erb:43
+#: app/views/backend/models/package_roots.html.erb:44
 msgid "%d Items"
 msgstr "%d Gegenstände"
 
-#: app/views/backend/models/package_roots.html.erb:76
+#: app/views/backend/models/package_roots.html.erb:77
 msgid "New Item Package"
 msgstr "Neues Paket"
 
@@ -3273,11 +3336,24 @@ msgstr "Aktionen"
 msgid "Upload image for model"
 msgstr "Bild für Modell hochladen"
 
-#: app/views/backend/models/properties.html.erb:22
+#: app/views/backend/models/images.html.erb:11
+msgid "Images"
+msgstr "Bilder"
+
+#: app/views/backend/models/properties.html.erb:12
 msgid "key"
 msgstr "Schlüssel"
 
-#: app/views/backend/models/properties.html.erb:25
+#: app/views/backend/models/properties.html.erb:14
+msgid "Copy"
+msgstr "Kopieren"
+
+#: app/views/backend/models/properties.html.erb:15
+#: app/views/backend/models/properties.html.erb:110
+msgid "Paste"
+msgstr "Einfügen"
+
+#: app/views/backend/models/properties.html.erb:19
 msgid "value"
 msgstr "Wert"
 
@@ -3427,13 +3503,13 @@ msgstr "Diese Notiz wird standardmässig jedem Vertrag hinzufgefügt, kann beim 
 msgid "Menu background color"
 msgstr "Menü-Hintergrundfarbe"
 
-#: app/views/backend/take_back/_item_line.html.erb:24
+#: app/views/backend/take_back/_item_line.html.erb:26
 #: app/views/backend/take_back/_option_line.html.erb:25
 msgid "Contract %d"
 msgstr "Vertrag %d"
 
-#: app/views/backend/take_back/_item_line.html.erb:25
 #: app/views/backend/take_back/_item_line.html.erb:27
+#: app/views/backend/take_back/_item_line.html.erb:29
 #: app/views/backend/take_back/inspection.html.erb:1
 msgid "Inspection"
 msgstr "Inspektion"
@@ -3582,6 +3658,11 @@ msgstr "Sie können weitere Kommentare unten hinzufügen, die dem Benutzer per E
 #: app/views/backend/acknowledge/reject.html.erb:13
 msgid "Reject"
 msgstr "Ablehnen"
+
+#: app/views/backend/options/show.html.erb:12
+#: app/views/backend/options/_index.html.erb:5
+msgid "Price"
+msgstr "Preis"
 
 #: app/views/backend/workdays/index.html.erb:2
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:17
@@ -3838,46 +3919,54 @@ msgstr "Datenbank-Backup"
 msgid "Pending"
 msgstr "Offen"
 
-#: app/views/orders/value_list.pdf.prawn:28
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:32
+#: app/views/orders/value_list_for_models.pdf.prawn:28
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:53
+#: app/views/contracts/value_list_for_items.pdf.prawn:53
 #: app/views/contracts/show.pdf.prawn:76
 msgid "Borrowing party:"
 msgstr "Ausleihende/r: "
 
-#: app/views/orders/value_list.pdf.prawn:29
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:33
+#: app/views/orders/value_list_for_models.pdf.prawn:29
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:54
+#: app/views/contracts/value_list_for_items.pdf.prawn:54
 #: app/views/contracts/show.pdf.prawn:77
 msgid "Lending party:"
 msgstr "Verleiher:"
 
-#: app/views/orders/value_list.pdf.prawn:46
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+#: app/views/orders/value_list_for_models.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:71
+#: app/views/contracts/value_list_for_items.pdf.prawn:71
 #: app/views/contracts/show.pdf.prawn:95
 msgid "Qt"
 msgstr "Anz."
 
-#: app/views/orders/value_list.pdf.prawn:46
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+#: app/views/orders/value_list_for_models.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:71
+#: app/views/contracts/value_list_for_items.pdf.prawn:71
 msgid "Value"
 msgstr "Wert"
 
-#: app/views/orders/value_list.pdf.prawn:46
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:50
+#: app/views/orders/value_list_for_models.pdf.prawn:46
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:71
+#: app/views/contracts/value_list_for_items.pdf.prawn:71
 msgid "Total"
 msgstr "Total"
 
-#: app/views/orders/value_list.pdf.prawn:69
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:73
+#: app/views/orders/value_list_for_models.pdf.prawn:73
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:98
+#: app/views/contracts/value_list_for_items.pdf.prawn:102
 msgid "Grand total"
 msgstr "Gesamttotal"
 
-#: app/views/orders/value_list.pdf.prawn:83
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:86
+#: app/views/orders/value_list_for_models.pdf.prawn:87
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:111
+#: app/views/contracts/value_list_for_items.pdf.prawn:115
 msgid "This value list covers an order lasting from %s to %s."
 msgstr "Dieses Werteverzeichnis bezieht sich auf eine Bestellung für den Zeitraum %s bis %s."
 
-#: app/views/orders/value_list.pdf.prawn:87
-#: app/views/backend/contracts/value_list_for_models.pdf.prawn:91
+#: app/views/orders/value_list_for_models.pdf.prawn:91
+#: app/views/backend/contracts/value_list_for_models.pdf.prawn:116
+#: app/views/contracts/value_list_for_items.pdf.prawn:120
 msgid "All prices in CHF."
 msgstr "Alle Preise in CHF."
 
@@ -3925,6 +4014,12 @@ msgstr "Sie sind nicht berechtigt, diese Applikation zu benutzen"
 msgid "Access Denied"
 msgstr "Zugriff verweigert"
 
+#~ msgid "Category successfully assigned"
+#~ msgstr "Kategorie erfolgreich zugewiesen"
+#~ msgid "The model is already assigned to this category"
+#~ msgstr "Dieses Modell ist bereits dieser Kategorie zugewiesen"
+#~ msgid "Category successfully removed"
+#~ msgstr "Kategorie erfolgreich entfernt"
 #~ msgid "Your search string must contain at least %s characters"
 #~ msgstr "Ihr Suchbegriff muss mindestens %s Zeichen enthalten"
 #~ msgid "Inventory Code:"
@@ -4024,8 +4119,6 @@ msgstr "Zugriff verweigert"
 #~ msgstr "Ansehen"
 #~ msgid "<em>%{n} new orders</em> to acknowledge."
 #~ msgstr "<em>%{n} Neue Bestellungen</em> zu genehmigen."
-#~ msgid "Recent Models"
-#~ msgstr "Angesehene Modelle"
 #~ msgid "Unfinished"
 #~ msgstr "Nicht abgeschlossen"
 #~ msgid "Roles"

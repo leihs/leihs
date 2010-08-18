@@ -8,8 +8,10 @@ tmp/*
 config/development.sphinx.conf
 config/cucumber.sphinx.conf
 config/culerity.sphinx.conf
+config/database.yml
 db/sphinx/
 .DS_Store
 doc/todo.html
 public/images/graphs/*
 rerun.txt
+

@@ -1,70 +1,115 @@
-<% javascript_tag do %>
-	function text_fields_for(keys){
-		html = "";
-		keys.each(function(name, index) {
-			html += '<tr><td><input id="properties[][key]" name="properties[][key]" style="width: 100%;" type="text" value="'+name+'" /></td>\
-						 <td><input id="properties[][value]" name="properties[][value]" style="width: 100%;" type="text" /></td>\
-						 <td><a href="#" onclick="this.parentNode.parentNode.remove(); return false;"><%= icon_tag('delete') %></a></td></tr>';
-		});
-		$('last_row').insert({ before: html });
-	}
-<% end %>
-
-
 <% content_tag :table do
 	content_tag :tr do %>
 
-	<% content_tag :td, :style => "width: 65%; vertical-align: top;" do %>
-		<% form_tag [:properties, :backend, current_inventory_pool, @model] do %>
-			<% content_tag :table do
-				content_tag :tr do
-					content_tag :th, :style => "width: 30%;" do %>
-						<%= _("key") %>
-					<% end
-					content_tag :th, :style => "width: 65%;" do %>
-						<%= _("value") %>
-					<% end
-					content_tag :th, :style => "width: 5%;" do %>
-					<% end
-				end
-
-				@model.properties.each do |p|
-					content_tag :tr do
-						content_tag :td do %>
-							<%= hidden_field_tag 'properties[][id]', p.id %>
-							<%= text_field_tag 'properties[][key]', p.key, :style => "width: 100%;" %>
-						<% end
-						content_tag :td do %>
-							<%= text_field_tag 'properties[][value]', p.value, :style => "width: 100%;" %>
-						<% end
-						content_tag :td do %>
-							<%= link_to_function icon_tag('delete'), "this.parentNode.parentNode.remove()" %>
-						<% end
+		<% content_tag :td, :style => "width: 65%; vertical-align: top;" do %>
+			<% form_tag [:properties, :backend, current_inventory_pool, @model] do %>
+				<% content_tag :table do
+					content_tag :tbody do
+						content_tag :tr do
+							content_tag :th, :style => "width: 5%;" do
+							end
+							content_tag :th, :style => "width: 30%;" do %>
+								<%= _("key") %>
+								<% content_tag :span, :class => "buttons", :style => "margin-left: 2em; font-size: 0.7em;" do %>
+									<%= link_to _("Copy"), "#", :id => "copy_button" %>
+									<%= link_to _("Paste"), "#", :id => "paste_button" %>
+								<% end
+							end
+							content_tag :th, :style => "width: 60%;" do %>
+								<%= _("value") %>
+							<% end
+							content_tag :th, :style => "width: 5%;" do %>
+							<% end
+						end
+					end
+	
+					content_tag :tbody, :class => "sortable" do
+						@model.properties.each do |p|
+							content_tag :tr do
+								content_tag :td do %>
+									<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+								<% end
+								content_tag :td do %>
+									<%= hidden_field_tag 'properties[][id]', p.id %>
+									<%= text_field_tag 'properties[][key]', p.key, :style => "width: 100%;" %>
+								<% end
+								content_tag :td do %>
+									<%= text_field_tag 'properties[][value]', p.value, :style => "width: 100%;" %>
+								<% end
+								content_tag :td do %>
+									<%= link_to_function icon_tag('delete'), "this.parentNode.parentNode.remove()" %>
+								<% end
+							end
+						end
+					end
+	
+					content_tag :tbody do
+						content_tag :tr do
+							content_tag :td do
+							end
+							content_tag :td, :colspan => 2 do %>
+								<%= submit_tag _('Submit') %>
+							<% end
+							content_tag :td do %>
+								<%= link_to_function icon_tag('add'), "text_fields_for([''])" %>
+							<% end
+						end
 					end
 				end
-
-
-				content_tag :tr, :id => "last_row"do
-					content_tag :td, :colspan => 2 do %>
-						<%= submit_tag _('Submit') %>
-					<% end
-					content_tag :td do %>
-						<%= link_to_function icon_tag('add'), "text_fields_for([''])" %>
-					<% end
-				end %>
-			<% end %>
-		<% end %>
-	<% end %>
-	
-	<% content_tag :td, :style => "width: 35%; vertical-align: top;" do %>
-		<% content_tag :ul, :style => "list-style-type: disc;" do
-			@properties_set.each do |ps|
-				content_tag :li, :style => "margin-bottom: 1em;" do %>
-					<%= link_to_function ps.join(', '), "text_fields_for(#{ps.inspect})" %>
-				<% end
 			end
-		end %>
-	<% end %>
-
-<% end
+		end
+	
+		content_tag :td, :style => "width: 35%; vertical-align: top;" do
+			content_tag :ul, :style => "list-style-type: disc;" do
+				@properties_set.each do |ps|
+					content_tag :li, :style => "margin-bottom: 1em;" do %>
+						<%= link_to_function ps.join(', '), "text_fields_for(#{ps.inspect})" %>
+					<% end
+				end
+			end
+		end
+	
+	end
 end %>
+
+<% javascript_tag do %>
+	jQuery(document).ready(function($){
+		$("tbody.sortable").sortable(); //temp//.disableSelection();
+		
+		update_paste_button_count();
+		
+		$("#copy_button").click(function (){
+			var keys = $("tbody.sortable").find("input#properties__key").map(function(){
+				return $(this).val();
+			})
+			localStorage['properties'] = jQuery.makeArray(keys).toJSON();
+			update_paste_button_count();
+			return false;
+		});
+
+		$("#paste_button").click(function (){
+			text_fields_for(JSON.parse(localStorage['properties']));
+			return false;
+		});
+	});
+
+	function text_fields_for(keys){
+		html = "";
+		keys.each(function(name, index) {
+			html += '<tr><td><span class="ui-icon ui-icon-arrowthick-2-n-s"></span></td>\
+						 <td><input id="properties__key" name="properties[][key]" style="width: 100%;" type="text" value="'+name+'" /></td>\
+						 <td><input id="properties__value" name="properties[][value]" style="width: 100%;" type="text" /></td>\
+						 <td><a href="#" onclick="this.parentNode.parentNode.remove(); return false;"><%= icon_tag('delete') %></a></td></tr>';
+		});
+		jQuery("tbody.sortable").append(html);
+	}
+	
+	function update_paste_button_count(){
+		if(localStorage['properties']){
+			c = JSON.parse(localStorage['properties']).length
+			jQuery("#paste_button").show().html("<%= _("Paste") %> (" + c + ")");
+		}else{
+			jQuery("#paste_button").hide();
+		}
+	}
+<% end %>

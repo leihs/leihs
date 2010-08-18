@@ -79,7 +79,7 @@ module ModelsHelper
       #debug# html += "<br>#{l.quantity}: #{l.start_date} - #{l.end_date} #{l.item.inventory_code}"
       start_date = l.start_date.to_time.to_i
       end_date = (l.returned_date ? (l.returned_date + 12.hours).to_time.to_i : (l.end_date + 12.hours).to_time.to_i)
-      user_level = l.document.user.access_right_for(inventory_pool).level
+      user_level = l.document.user.access_right_for(inventory_pool).try(:level) || 0 # 0 means that the user does not have access to this pool
 
       color = if l.returned_date
                 '#e1e157'
@@ -96,7 +96,7 @@ module ModelsHelper
       #debug# html += "<br>#{l.quantity}: #{l.start_date} - #{l.end_date}"
       start_date = l.start_date.to_time.to_i
       end_date = (l.end_date + 12.hours).to_time.to_i
-      user_level = l.document.user.access_right_for(inventory_pool).level
+      user_level = l.document.user.access_right_for(inventory_pool).try(:level) || 0 # 0 means that the user does not have access to this pool
 
       l.quantity.times do
         y = nil

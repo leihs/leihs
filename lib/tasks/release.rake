@@ -65,6 +65,10 @@ namespace :release do
     puts "Removing local gems"
     rm_r "vendor/gems" rescue nil
 
+    puts "Removing 'other' directory"
+    rm_r "other" rescue nil
+
+
     puts "Generating latest locale files"
     `rake makemo`
    
@@ -93,10 +97,8 @@ namespace :release do
       rm fn rescue nil
     end
 
-    puts "Removing git directories"
-    Dir['**/.git'].each do |fn|
-      rm fn rescue nil
-    end
+    puts "Removing git directory"
+    rm_r ".git" rescue nil
 
   end
 

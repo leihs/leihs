@@ -189,6 +189,13 @@ h3 {
     border: 1px solid #fff;
 }
 
+#banner ul li a.activated {
+    background: #0C4F7C;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+
 /* 	- - - - - - - - - - - - -
  Toolbars
  - - - - - - - - - - - - - */

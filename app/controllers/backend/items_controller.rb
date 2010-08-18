@@ -25,7 +25,7 @@ class Backend::ItemsController < Backend::BackendController
       when "retired"
         with.merge!(:owner_id => current_inventory_pool.id, :retired => true)
         retired = true
-      when "own_items"
+      when "own_items", "own", "all"
         with.merge!(:owner_id => current_inventory_pool.id)
       when "inventory_relevant"
         with.merge!(:owner_id => current_inventory_pool.id, :is_inventory_relevant => true)
@@ -97,6 +97,7 @@ class Backend::ItemsController < Backend::BackendController
     if id.blank?
       @item = Item.new
       @item.model = @model if @model
+      @item.invoice_date = Date.yesterday
     else 
       @item = Item.find(id).clone
       @item.serial_number = nil
@@ -104,7 +105,6 @@ class Backend::ItemsController < Backend::BackendController
     end
     @item.inventory_code = Item.proposed_inventory_code(current_inventory_pool)
     @item.owner = current_inventory_pool
-    @item.invoice_date = Date.yesterday
     if @current_user.access_level_for(current_inventory_pool) < 2
       @item.inventory_pool = current_inventory_pool
     end
@@ -264,11 +264,11 @@ class Backend::ItemsController < Backend::BackendController
   
   def pre_load
     params[:id] ||= params[:item_id] if params[:item_id]
-    @item = current_inventory_pool.items.first(:conditions => {:id => params[:id]}) if params[:id]
-    @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:id]}, :retired => :all) if params[:id]
+    if params[:id]
+      @item = current_inventory_pool.items.first(:conditions => {:id => params[:id]})
+      @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:id]}, :retired => :all)
+    end
 
-
-    
     @location = Location.find(params[:location_id]) if params[:location_id]
     
     @model = if @item

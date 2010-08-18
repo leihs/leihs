@@ -10,7 +10,7 @@ Given "resolved by $who on $date" do |who, date|
   # do nothing
 end
 
-Given /^reported by (.*) on (.*)$/ do |who, date|
+Given /^reported by (.*) on (.*)/ do |who, date|
   # do nothing
 end
 

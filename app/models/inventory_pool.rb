@@ -68,7 +68,7 @@ class InventoryPool < ActiveRecord::Base
 #######################################################################
 
   before_create :create_workday
-# TODO ??  after_save :update_index
+# TODO ??  after_save :update_sphinx_index
 
   validates_presence_of :name
 
@@ -167,7 +167,7 @@ class InventoryPool < ActiveRecord::Base
 #  private
   
 # TODO ??
-#  def update_index
+#  def update_sphinx_index
 #    Item.suspended_delta do
 #      items.each {|x| x.touch }
 #    end

@@ -36,7 +36,7 @@ ActionController::Routing::Routes.draw do |map|
                           :member => { :get_inventory_pools => :get,
                                        :set_inventory_pools => :get }
                                       
-  map.resources :models, :member => { :chart => :get }
+  map.resources :models, :member => { :chart => :get } 
   map.resources :categories
   map.resources :templates
 
@@ -83,7 +83,8 @@ ActionController::Routing::Routes.draw do |map|
                                                      :package_roots => :any,
                                                      :package_item => [:get, :put, :delete],
                                                      :categories => [:get, :post, :delete],
-                                                     :images => [:get, :post, :delete] } do |model|
+                                                     :images => [:get, :post, :delete],
+                                                     :attachments => [:get, :post, :delete] } do |model|
             model.resources :compatibles, :controller => 'models'
             model.resources :items, :member => { :location => [:get, :post, :put],
                                                  :status => :get,

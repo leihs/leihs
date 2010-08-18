@@ -2,12 +2,13 @@
   <%= _("From") %> <%= short_date(@start_date) %> <%= ("to") %> <%= short_date(@end_date) %> 
 <% end %>
 
-<% table_with_search_and_pagination :columns => [_("Barcode"), _("Name"), _("Action")],
+<% table_with_search_and_pagination :columns => [_("Barcode"), _("Name"), _("Price"), _("Action")],
 						   			:records => @options do |option| %>	
 
 			<tr>
 				<td><%= option.inventory_code %></td>
 				<td><%= option.name %></td>
+				<td><%= option.price %></td>
 				<td class="buttons">
 					<% if params[:source_path]
 							var_id = "option_id"
