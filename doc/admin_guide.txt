@@ -24,27 +24,14 @@ The following steps were tested on Mac OS X 10.5 and 10.6 on an x86. They may al
 
 
 1. Install Apple Xcode. This is required because some modules may need a C/C++ compiler. XCode is http://developer.apple.com/Tools/[available from Apple] after a free developer registration.
+
 2. Install MySQL 5.0. Use the 32-bit version if you are running OS X Leopard (10.5) but use the 64-bit version if you're on Snow Leopard (10.6). *Make absolutely sure to install the 32-bit version on Leopard (10.5) even if you are running a 64-bit operating system.* Some bugs in Mac OS X's MySQL and Ruby integration make it impossible to continue otherwise.
+
 3. Update the local gem system:
 +
  $ sudo gem update --system
-+
-4. Install the required version of Rails as well as a few gems that cannot be installed automatically:
-+
- $ sudo gem install rails -v 2.3.5
- $ sudo gem install gettext -v 2.1.0
- $ sudo gem install gettext_rails -v 2.1.0
- $ sudo gem install gettext_activerecord -v 2.1.0
- $ sudo gem install hoptoad_notifier -v 2.1.3
- $ sudo gem install rgl -v 0.4.0
- $ sudo gem install will_paginate --source http://gemcutter.org -v 2.3.1
- $ sudo gem install prawn -v 0.8.4
- $ sudo gem install ruby-net-ldap -v 0.0.4
- $ sudo gem install barby -v 0.2.0
- $ sudo gem install png -v 1.1.0
- $ sudo gem install fastercsv -v 1.5.3
 
-5. Install the native MySQL gem:
+4. Install the native MySQL gem:
 +
 If you are installing on Snow Leopard (OS X 10.6) use the following installation options:
 +
@@ -57,21 +44,9 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
 --with-mysql-dir=/usr/local/mysql --with-mysql-lib=/usr/local/mysql/lib
 \ --with-mysql-include=/usr/local/mysql/include 
 
+5. Download the latest version of leihs from our http://sourceforge.net/projects/leihs[SourceForge project page]. Unpack it to a convenient directory. We use the home directory of the 'leihs' user (/Users/leihs) to install leihs in. Of course you can use any directory.
 
-6. Try out if Rails works on your machine:
-+
- $ cd /tmp
- $ rails test
- $ cd test
- $ ./script/server
-+
-You should see a web page at http://localhost:3000. If not, please make sure that Rails is installed properly before continuing.
-+
-If this works, stop the server again using Ctrl-C.
-
-7. Download the latest version of leihs from our http://sourceforge.net/projects/leihs[SourceForge project page]. Unpack it to a convenient directory. We use the home directory of the 'leihs' user (/Users/leihs) to install leihs in. Of course you can use any directory.
-
-8. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
+6. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
 +
  production:
     adapter: mysql
@@ -82,11 +57,11 @@ If this works, stop the server again using Ctrl-C.
     host: localhost
     port: 3306
 
-9. Create and migrate the database:
+7. Create and migrate the database:
 +
  $ RAILS_ENV='production' rake db:migrate
 
-10. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
+8. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
 +
  $ cd /home/leihs
  $ mkdir -p public/images/attachments
@@ -94,7 +69,7 @@ If this works, stop the server again using Ctrl-C.
  $ mkdir tmp/cache
  $ mkdir -p log
 
-11. Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
+9. Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
 + 
  $ cd /tmp
  $ wget http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
@@ -106,19 +81,28 @@ If this works, stop the server again using Ctrl-C.
  $ sudo make install
  $ sudo gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15
 
-12. Configure and start the Sphinx server:
+10. Install the required version of Rails as well as a few gems that cannot be installed automatically:
++
+ $ cd /home/leihs
+ $ sudo gem install -v=2.3.5 rails
+ $ sudo gem install thinking-sphinx -v 1.3.15
+ $ sudo gem install prawn -v 0.8.4
+ $ sudo gem install rake
+ $ sudo rake gems:install
+
+11. Configure and start the Sphinx server:
 +
  $ RAILS_ENV='production' rake ts:config
  $ RAILS_ENV='production' rake ts:reindex
  $ RAILS_ENV='production' rake ts:start
 
-13. Start the server:
+12. Start the server:
 +
  $ RAILS_ENV='production' ./script/server
 +
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
 
-14. Optional: If you want to use images of inventory items, install ImageMagick. On Mac OS X, we recommend using MacPorts and then installing the ImageMagick port:
+13. Optional: If you want to use images of inventory items, install ImageMagick. On Mac OS X, we recommend using MacPorts and then installing the ImageMagick port:
 +
  $ sudo port install imagemagick
 +
@@ -153,40 +137,14 @@ These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Len
 +
 Note that the URL above might change! Please visit the RubyGems site to find the exact URL under "Downloads".
 
-3. Install the required version of Rails as well as a few gems that cannot be installed automatically:
-+
- # gem install rails -v 2.3.5
- # gem install gettext -v 2.1.0
- # gem install gettext_rails -v 2.1.0
- # gem install gettext_activerecord -v 2.1.0
- # gem install hoptoad_notifier -v 2.1.3
- # gem install rgl -v 0.4.0
- # gem install will_paginate --source http://gemcutter.org -v 2.3.11
- # gem install prawn -v 0.8.4
- # gem install ruby-net-ldap -v 0.0.4
- # gem install barby -v 0.2.0
- # gem install png -v 1.1.0
- # gem install fastercsv -v 1.5.3
-
-4. Install the MySQL header files and the MySQL gem:
+3. Install the MySQL header files and the MySQL gem:
 +
  # apt-get install libmysqlclient15-dev make
  # gem install mysql
 
-5. Try out if Rails works on your machine:
-+
- $ cd /tmp
- $ rails test
- $ cd test
- $ ./script/server
-+
-You should see a web page at http://localhost:3000. If not, please make sure that Rails is installed properly before continuing.
-+
-If this works, stop the server again using Ctrl-C.
+4. Download the latest version of leihs from our http://sourceforge.net/projects/leihs[SourceForge project page]. Unpack it to a convenient directory. We use the home directory of the 'leihs' user (/home/leihs) to install leihs in. Of course you can use any directory.
 
-6. Download the latest version of leihs from our http://sourceforge.net/projects/leihs[SourceForge project page]. Unpack it to a convenient directory. We use the home directory of the 'leihs' user (/home/leihs) to install leihs in. Of course you can use any directory.
-
-7. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
+5. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
 +
  production:
     adapter: mysql
@@ -197,24 +155,20 @@ If this works, stop the server again using Ctrl-C.
     host: localhost
     port: 3306
 
-8. Create and migrate the database:
+6. Create and migrate the database:
 +
  # su - leihs
  $ RAILS_ENV='production' rake db:migrate
 
-9. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
+7. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
 +
  $ cd /home/leihs
  $ mkdir -p public/images/attachments
  $ mkdir -p tmp/sessions
  $ mkdir tmp/cache
  $ mkdir -p log
-
-10. Start the server:
-+
- $ RAILS_ENV='production' ./script/server
  
-11. Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
+8. Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
 + 
  $ cd /tmp
  $ curl -C - -O http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
@@ -226,17 +180,31 @@ If this works, stop the server again using Ctrl-C.
  $ su
  # make install
  # gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15
+
+9. Install the required version of Rails as well as a few gems that cannot be installed automatically:
++
+ # cd /home/leihs
+ # gem install -v=2.3.5 rails
+ # gem install thinking-sphinx -v 1.3.15
+ # gem install prawn -v 0.8.4
+ # gem install rake
+ # rake gems:install
  
-12. Configure and start the Sphinx server:
+10. Configure and start the Sphinx server:
 +
  $ cd /home/leihs
  $ RAILS_ENV='production' rake ts:config
  $ RAILS_ENV='production' rake ts:reindex
  $ RAILS_ENV='production' rake ts:start
+
+11. Start the leihs server:
++
+ $ cd /home/leihs
+ $ RAILS_ENV='production' ./script/server
 +
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
 
-13. Optional: If you want to use images of inventory items, install ImageMagick:
+12. Optional: If you want to use images of inventory items, install ImageMagick:
 +
  # apt-get install imagemagick graphicsmagick-libmagick-dev-compat
 +
