@@ -23,7 +23,7 @@
           	<% end
 			end
 			content_tag :td do
-				filter = (params[:filter] == "own" ? "own_items" : nil)
+				filter = (["own", "own_items"].include?(params[:filter]) ? "own_items" : nil)
 				form_for [:backend, @model], :url => { :action => 'package_item' },
 							:html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
 					<%= hidden_field_tag :is_selected, 0 %>
