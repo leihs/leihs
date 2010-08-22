@@ -22,6 +22,8 @@ class Order < Document
 
   has_one :backup, :class_name => "Backup::Order", :dependent => :destroy #TODO delete when nullify # TODO acts_as_backupable
 
+  validate :validates_order_lines
+
   acts_as_commentable
 
   define_index do
@@ -223,7 +225,6 @@ class Order < Document
   
   # TODO assign based on the order_lines' inventory_pools
   def split_and_assign_to_inventory_pool
-
       inventory_pools = lines.collect(&:inventory_pool).flatten.uniq
       inventory_pools.each do |ip|
         if ip == inventory_pools.first
@@ -236,7 +237,11 @@ class Order < Document
         to_split_lines.each {|l| o.lines << l }
         o.save        
       end
-    
+  end
+
+  def validates_order_lines
+    # TODO ?? model.inventory_pools.include?(order.inventory_pool)
+    errors.add_to_base(_("Invalid order_lines")) if lines.any? {|l| !l.valid? }
   end
   
 end

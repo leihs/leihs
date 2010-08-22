@@ -5,6 +5,7 @@ class OrderLine < DocumentLine
   belongs_to :model  
 
   validates_presence_of :order
+  validate :validates_inventory_pool
 
   before_save :assign_inventory_pool
 
@@ -26,11 +27,6 @@ class OrderLine < DocumentLine
     false #TODO 27 Not necessary anymore
   end
 
-  # TODO use as validation?
-#  def correct_inventory_pool?
-#    model.inventory_pools.include?(order.inventory_pool)
-#  end
-
   def document
     order
   end
@@ -46,6 +42,8 @@ class OrderLine < DocumentLine
     end
     return av
   end
+
+###############################################
 
   private
   
@@ -63,6 +61,11 @@ class OrderLine < DocumentLine
       end
       self.inventory_pool = inventory_pool
     end
+  end
+
+  def validates_inventory_pool
+    # TODO ?? model.inventory_pools.include?(order.inventory_pool)
+    errors.add_to_base(_("Inconsistent Inventory Pool")) if order.status_const != 1 and inventory_pool_id != order.inventory_pool_id
   end
   
 end
