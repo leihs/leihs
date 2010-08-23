@@ -9,5 +9,7 @@ class Group < ActiveRecord::Base
     indexes :name, :sortable => true
 
     has :inventory_pool_id
+
+    set_property :delta => true
   end
 end
