@@ -594,26 +594,6 @@ Update the local gem system:
 </li>
 <li>
 <p>
-Install the required version of Rails as well as a few gems that cannot be installed automatically:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ sudo gem install rails -v 2.3.5
-$ sudo gem install gettext -v 2.1.0
-$ sudo gem install gettext_rails -v 2.1.0
-$ sudo gem install gettext_activerecord -v 2.1.0
-$ sudo gem install hoptoad_notifier -v 2.1.3
-$ sudo gem install rgl -v 0.4.0
-$ sudo gem install will_paginate --source http://gemcutter.org -v 2.3.1
-$ sudo gem install prawn -v 0.8.4
-$ sudo gem install ruby-net-ldap -v 0.0.4
-$ sudo gem install barby -v 0.2.0
-$ sudo gem install png -v 1.1.0
-$ sudo gem install fastercsv -v 1.5.3</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
 Install the native MySQL gem:
 </p>
 <div class="paragraph"><p>If you are installing on Snow Leopard (OS X 10.6) use the following installation options:</p></div>
@@ -629,20 +609,6 @@ gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config</tt><
 --with-mysql-dir=/usr/local/mysql --with-mysql-lib=/usr/local/mysql/lib
 \ --with-mysql-include=/usr/local/mysql/include</tt></pre>
 </div></div>
-</li>
-<li>
-<p>
-Try out if Rails works on your machine:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ cd /tmp
-$ rails test
-$ cd test
-$ ./script/server</tt></pre>
-</div></div>
-<div class="paragraph"><p>You should see a web page at <a href="http://localhost:3000">http://localhost:3000</a>. If not, please make sure that Rails is installed properly before continuing.</p></div>
-<div class="paragraph"><p>If this works, stop the server again using Ctrl-C.</p></div>
 </li>
 <li>
 <p>
@@ -702,6 +668,20 @@ $ tar xvfz libstemmer_c.tgz
 $ ./configure --with-libstemmer &amp;&amp; make
 $ sudo make install
 $ sudo gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Install the required version of Rails as well as a few gems that cannot be installed automatically:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd /home/leihs
+$ sudo gem install -v=2.3.5 rails
+$ sudo gem install thinking-sphinx -v 1.3.15
+$ sudo gem install prawn -v 0.8.4
+$ sudo gem install rake
+$ sudo rake gems:install</tt></pre>
 </div></div>
 </li>
 <li>
@@ -776,26 +756,6 @@ Install RubyGems from <a href="http://rubygems.org/">the RubyGems website</a>. M
 </li>
 <li>
 <p>
-Install the required version of Rails as well as a few gems that cannot be installed automatically:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt># gem install rails -v 2.3.5
-# gem install gettext -v 2.1.0
-# gem install gettext_rails -v 2.1.0
-# gem install gettext_activerecord -v 2.1.0
-# gem install hoptoad_notifier -v 2.1.3
-# gem install rgl -v 0.4.0
-# gem install will_paginate --source http://gemcutter.org -v 2.3.11
-# gem install prawn -v 0.8.4
-# gem install ruby-net-ldap -v 0.0.4
-# gem install barby -v 0.2.0
-# gem install png -v 1.1.0
-# gem install fastercsv -v 1.5.3</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
 Install the MySQL header files and the MySQL gem:
 </p>
 <div class="literalblock">
@@ -803,20 +763,6 @@ Install the MySQL header files and the MySQL gem:
 <pre><tt># apt-get install libmysqlclient15-dev make
 # gem install mysql</tt></pre>
 </div></div>
-</li>
-<li>
-<p>
-Try out if Rails works on your machine:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ cd /tmp
-$ rails test
-$ cd test
-$ ./script/server</tt></pre>
-</div></div>
-<div class="paragraph"><p>You should see a web page at <a href="http://localhost:3000">http://localhost:3000</a>. If not, please make sure that Rails is installed properly before continuing.</p></div>
-<div class="paragraph"><p>If this works, stop the server again using Ctrl-C.</p></div>
 </li>
 <li>
 <p>
@@ -864,15 +810,6 @@ $ mkdir -p log</tt></pre>
 </li>
 <li>
 <p>
-Start the server:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ RAILS_ENV='production' ./script/server</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
 Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
 </p>
 <div class="literalblock">
@@ -891,6 +828,20 @@ $ su
 </li>
 <li>
 <p>
+Install the required version of Rails as well as a few gems that cannot be installed automatically:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt># cd /home/leihs
+# gem install -v=2.3.5 rails
+# gem install thinking-sphinx -v 1.3.15
+# gem install prawn -v 0.8.4
+# gem install rake
+# rake gems:install</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
 Configure and start the Sphinx server:
 </p>
 <div class="literalblock">
@@ -899,6 +850,16 @@ Configure and start the Sphinx server:
 $ RAILS_ENV='production' rake ts:config
 $ RAILS_ENV='production' rake ts:reindex
 $ RAILS_ENV='production' rake ts:start</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Start the leihs server:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd /home/leihs
+$ RAILS_ENV='production' ./script/server</tt></pre>
 </div></div>
 <div class="paragraph"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
 </li>
@@ -1128,7 +1089,7 @@ Run the server. Make sure you stop your previous leihs server!
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2010-05-07 13:21:19 BST
+Last updated 2010-08-18 09:16:00 CEST
 </div>
 </div>
 </body>

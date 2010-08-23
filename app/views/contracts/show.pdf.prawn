@@ -28,17 +28,13 @@ end
 def filter(text)
   
   unless text.nil?
-    # First we discard invalid UTF-8 characters. This is so that
-    # prawn doesn't throw a hissy fit.
-    ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
-    # These added bytes are to work around a bug in Iconv where
-    # trailing invalid byte sequences are not removed.
-    valid_text = ic.iconv(text + ' ')[0..-2]
-  
-    # And now we convert to ms-ansi because it's the only character set Prawn and PDFs
-    # are guaranteed to support.
-    ic = Iconv.new('iso-8859-1//IGNORE//TRANSLIT','ms-ansi')
-    return ic.iconv(valid_text)
+     # First we discard invalid UTF-8 characters. This is so that
+     # prawn doesn't throw a hissy fit.
+     ic = Iconv.new('utf-8//IGNORE//TRANSLIT', 'utf-8')
+     # These added bytes are to work around a bug in Iconv where
+     # trailing invalid byte sequences are not removed.
+     valid_text = ic.iconv(text + ' ')[0..-2]
+    return valid_text
   end
 end
 
@@ -70,7 +66,7 @@ end
 
 pdf.move_down 3.mm
 
-pdf.text filter(_("This lending contract covers borrowing the following items by the person (natural or legal) described as 'borrowing party' below. Use of these items is only allowed for the purpose given below."))
+#pdf.text filter(_("This lending contract covers borrowing the following items by the person (natural or legal) described as 'borrowing party' below. Use of these items is only allowed for the purpose given below."))
 
 
 borrowing_party = filter(_("Borrowing party:")) + "\n" + filter(user_address)

@@ -123,7 +123,7 @@ class Backend::ModelsController < Backend::BackendController
     
     if @model.update_attributes(params[:model])
       flash[:notice] = _("Package successfully saved")
-      redirect_to package_backend_inventory_pool_model_path(current_inventory_pool, @model)
+      redirect_to package_backend_inventory_pool_model_path(current_inventory_pool, @model, :filter => params[:filter])
     else
       flash[:error] = _("Error saving the package")
       render :action => 'package'

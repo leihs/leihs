@@ -21,7 +21,7 @@
 	 </div>
 <% elsif not params[:packages].blank? %>
 	<div class="toolbar-second buttons">
-		<%= link_to _('New Package'), :action => 'new_package' %>
+		<%= link_to _('New Package'), new_package_backend_inventory_pool_models_path(:filter => params[:filter]) %>
 	</div>
 <% elsif false #temp#multi-add# params[:source_path]
 	content_tag :style do %>

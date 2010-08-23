@@ -4,7 +4,7 @@
 <%
 readonly = @model.inventory_pools.count > 1
 
-form_for @model, :url => { :action => 'update_package', :id => @model.id } do |f|
+form_for @model, :url => { :action => 'update_package', :id => @model.id, :filter => params[:filter] } do |f|
 	content_tag :table do
 		content_tag :tr do
 			content_tag :td do %>
