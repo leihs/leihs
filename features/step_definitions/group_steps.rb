@@ -16,7 +16,14 @@ end
 
 Then /^(\w+) items of that Model should be (\w*) in Group '([^"]*)'( only)?$/ do |n, state, group, exclusivity|
   n = to_number(n)
-  pending # express the regexp above with the code you wish you had
+  quantities = AvailabilityChanges.maximum_in_state_in_period( @model,
+                                                               @inventory_pool,
+                                                               @inventory_pool.groups.find_by_name(group),
+                                                               DateTime.now,
+                                                               (DateTime.now + 10.years),
+                                                               AvailableQuantities.status_from(state) )
+  puts quantities.inspect
+  quantities[group].should == n
 end
 
 When /^I move one item of that Model from Group "([^"]*)" to Group "([^"]*)"$/ do |arg1, arg2|
