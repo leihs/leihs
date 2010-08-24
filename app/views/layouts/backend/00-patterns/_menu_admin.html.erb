@@ -11,16 +11,17 @@
 			<% end if controller.controller_name == "users"
 		end %>
 		<% content_tag :li do %>
-			<%= link_to icon_tag("group") + " " + _("Groups"), backend_inventory_pool_groups_path(current_inventory_pool) %>
-		<% end if is_inventory_manager? %>
-		<li><%= link_to icon_tag("shape_group") + " " + _("Locations") + " (#{current_inventory_pool.locations.count})", backend_inventory_pool_locations_path(current_inventory_pool) %></li>
+			<%= link_to icon_tag("group") + " " + _("Groups") + " (#{current_inventory_pool.groups.count})", backend_inventory_pool_groups_path(current_inventory_pool) %>
+		<% end %>
+		<% content_tag :li do %>
+			<%= link_to icon_tag("shape_group") + " " + _("Locations") + " (#{current_inventory_pool.locations.count})", backend_inventory_pool_locations_path(current_inventory_pool) %>
+		<% end %>
 		<% content_tag :li do %>
 			<%= link_to icon_tag("chart_organisation") + " " + _("Categories"), backend_inventory_pool_categories_path(current_inventory_pool) %>
 		<% end if is_inventory_manager? %>
-		
 		<% content_tag :li do %>
 			<%= link_to icon_tag("shape_handles") + " " + _("Inventory Pool"), backend_inventory_pool_path(current_inventory_pool) %>
-		<% end if is_inventory_manager? %>
+		<% end %>
 		
 	<% end
 
