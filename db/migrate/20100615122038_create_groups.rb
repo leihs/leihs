@@ -11,6 +11,18 @@ class CreateGroups < ActiveRecord::Migration
       t.belongs_to :user
       t.belongs_to :group
     end
+
+    # TODO: implement 'General' default group without putting data into the DB
+    #       see commented out section in model/user.rb
+    #
+    # create a 'General' group for every InventoryPool and make all users with
+    # access to the respective InventoryPool members of that's InventoryPools'
+    # 'General' group
+    InventoryPool.all.each do |inv_pool|
+      group = Group.create :name => "General",
+	                   :inventory_pool_id => inv_pool.id,
+			   :users => inv_pool.users
+    end
   end
 
   def self.down
