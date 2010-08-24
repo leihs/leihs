@@ -68,6 +68,8 @@ class InventoryPool < ActiveRecord::Base
 #######################################################################
 
   before_create :create_workday
+  after_create  :create_general_group
+  after_destroy :destroy_general_group
 # TODO ??  after_save :update_sphinx_index
 
   validates_presence_of :name
@@ -161,10 +163,14 @@ class InventoryPool < ActiveRecord::Base
   def is_blacklisted?(user)
     suspended_users.count(:conditions => {:id => user.id}) > 0
   end
+
+  def add_to_general_group( user )
+    groups.general.users << user unless groups.general.users.exisist?( user )
+  end
   
 ###################################################################################
 
-#  private
+private
   
 # TODO ??
 #  def update_sphinx_index
@@ -178,5 +184,13 @@ class InventoryPool < ActiveRecord::Base
 #      model_groups.each {|x| x.touch }
 #    end
 #  end
+
+  def create_general_group
+    Group.create :name => 'General', :inventory_pool_id => self.id
+  end
+  
+  def destroy_general_group
+    self.groups.general.destroy
+  end
 
 end
