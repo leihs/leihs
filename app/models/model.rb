@@ -57,7 +57,9 @@ class Model < ActiveRecord::Base
     end if is_package?
     return []
   end
-                
+
+  has_many :availability_changes
+
 ########
   # says which other Model one Model works with
   has_and_belongs_to_many :compatibles,
