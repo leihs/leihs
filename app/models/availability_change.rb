@@ -40,8 +40,9 @@ class AvailabilityChange < ActiveRecord::Base
     reservations.each do |r|
       groups = r.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) & defined_change.available_quantities.collect(&:group)
       # TODO sort groups by quantity desc
+      maximum = maximum_in_state_in_period(model, inventory_pool, groups, r.start_date, r.end_date, AvailableQuantity::AVAILABLE)
       groups.each do |g|
-        if true ##available from r.start_date to r.end_date
+        if maximum[g.name] >= r.quantity
           model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).create(:date => r.start_date)
           # TODO quantities
           model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).create(:date => r.end_date)
@@ -104,18 +105,15 @@ class AvailabilityChange < ActiveRecord::Base
   #
   # returns a hash à la: { 'General' => 4, 'CAST' => 2, ... }
   #
-  def self.maximum_in_state_in_period(model, inventory_pool, group_or_groups, start_date, end_date, state)
+  def self.maximum_in_state_in_period(model, inventory_pool, groups, start_date, end_date, state)
     start_date = start_date.to_date
     end_date = end_date.to_date
     # start from most recent entry we have, which is the last before start_date
     start_date = AvailabilityChange.maximum(:date, :conditions => [ "date > ?", start_date ]) \
                  || start_date
 
-    # if we got only a single group make an array out of it
-    groups = [ group_or_groups ] if group_or_groups.class != Array
-    
     max_per_group = Hash.new
-    groups.each do |group|
+    Array(groups).each do |group|
       # we don't save AvailableQuantities for Groups that have zero vailable Models for space efficiency
       # reasons thus when there's an AvailabilityChange and there's no associates AvailabilityQuantity
       # then we know it's zero. So if there are more AvailabilityChanges than associated

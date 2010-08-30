@@ -15,6 +15,17 @@
 				<%= _("Not In Stock (%d)") % @current_availability_change.borrowable_not_in_stock_total %>
 			<% end
 		end
+		content_tag :tr do
+			content_tag :td do %>
+				<%= _("General") %>:
+			<% end
+			content_tag :td, :id => "general_in_stock" do %>
+				<%= @current_availability_change.general_borrowable_in_stock_size %>
+			<% end
+			content_tag :td, :id => "general_not_in_stock" do %>
+				<%= @current_availability_change.general_borrowable_not_in_stock_size %>
+			<% end
+		end
 		current_inventory_pool.groups.each do |group|
 			content_tag :tr do
 				content_tag :td do %>
@@ -29,17 +40,6 @@
 					<%= quantity %>
 				<% end
 			end
-		end
-		content_tag :tr do
-			content_tag :td do %>
-				<%= _("General") %>:
-			<% end
-			content_tag :td, :id => "general_in_stock" do %>
-				<%= @current_availability_change.general_borrowable_in_stock_size %>
-			<% end
-			content_tag :td, :id => "general_not_in_stock" do %>
-				<%= @current_availability_change.general_borrowable_not_in_stock_size %>
-			<% end
 		end
 
 		content_tag :tr do
