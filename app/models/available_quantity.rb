@@ -1,4 +1,4 @@
-class AvailableQuantities < ActiveRecord::Base
+class AvailableQuantity < ActiveRecord::Base
   belongs_to :availability_change
   belongs_to :group
 
@@ -18,13 +18,13 @@ class AvailableQuantities < ActiveRecord::Base
     n.nil? ? status_const : n
   end
 
-  def AvailableQuantities.status_from( status_string )
+  def AvailableQuantity.status_from( status_string )
     normalized_status = status_string[0,1].upcase + status_string[1..-1].downcase
     return STATUS[normalized_status]
   end
 
-  named_scope :available,    :conditions => {:status_const => AvailableQuantities::AVAILABLE}
-  named_scope :borrowed,     :conditions => {:status_const => AvailableQuantities::BORROWED}
-  named_scope :unborrowable, :conditions => {:status_const => AvailableQuantities::UNBORROWABLE}
+  named_scope :available,    :conditions => {:status_const => AvailableQuantity::AVAILABLE}
+  named_scope :borrowed,     :conditions => {:status_const => AvailableQuantity::BORROWED}
+  named_scope :unborrowable, :conditions => {:status_const => AvailableQuantity::UNBORROWABLE}
 
 end

@@ -58,7 +58,16 @@ class Model < ActiveRecord::Base
     return []
   end
 
-  has_many :availability_changes
+  has_many :availability_changes do
+    def current_for_inventory_pool(inventory_pool)
+      r = scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", Date.today])
+      r ||= new_current_for_inventory_pool(inventory_pool)
+    end
+    
+    def new_current_for_inventory_pool(inventory_pool)
+      build(:inventory_pool => inventory_pool, :date => Date.today)
+    end
+  end
 
 ########
   # says which other Model one Model works with

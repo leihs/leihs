@@ -14,4 +14,11 @@ class Group < ActiveRecord::Base
 
     set_property :delta => true
   end
+
+##########################################
+
+  def to_s
+    name
+  end
+
 end

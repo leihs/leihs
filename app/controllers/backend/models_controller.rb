@@ -139,6 +139,7 @@ class Backend::ModelsController < Backend::BackendController
     redirect_to backend_inventory_pool_models_path(current_inventory_pool, :packages => true)
   end
 
+  #2408#
   def package_roots
     if request.put?
       if @model.items.find(params[:root_id]).update_attributes(:inventory_code => params[:inventory_code])
@@ -286,7 +287,24 @@ class Backend::ModelsController < Backend::BackendController
     end
   end
 
+#############################################################
 
+  def groups
+    if request.post?
+      @current_availability_change = @model.availability_changes.new_current_for_inventory_pool(current_inventory_pool)
+      @current_availability_change.save
+
+      # TODO update future records (or prevent completely if it's breaking future availabilities) 
+      params[:groups].each_pair do |group_id, quantity|
+        quantity = quantity.to_i
+        @current_availability_change.available_quantities.available.create(:group_id => group_id, :quantity => quantity) if quantity > 0
+      end
+
+      flash[:notice] = _("The group quantities were successfully saved.")
+    end
+
+    @current_availability_change ||= @model.availability_changes.current_for_inventory_pool(current_inventory_pool)
+  end
 
 #################################################################
 
