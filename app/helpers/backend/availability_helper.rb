@@ -25,10 +25,11 @@ module Backend::AvailabilityHelper
     x_ticks << [date_to_i(last.tomorrow), last.tomorrow]
     
     r = javascript_include_tag "jquery/flot/jquery.flot.min.js", "jquery/flot/jquery.flot.stack.min.js"
-      r += content_tag :h4 do
-        _("General")
-      end
-    r += content_tag :div, :id => "group_chart_general", :style => "height:300px;" do end
+    r += content_tag :h4 do
+      _("General")
+    end
+    general_borrowable_size = changes.first.general_borrowable_size # OPTIMIZE
+    r += content_tag :div, :id => "group_chart_general", :style => "height:#{(general_borrowable_size + 1) * 30}px;" do end
 
       
     groups.each do |group|
@@ -39,10 +40,11 @@ module Backend::AvailabilityHelper
         group
       end
       r += content_tag :div, :id => "group_chart_#{group.id}", :style => "height:#{(group_totals[group.id] + 1) * 30}px;" do end
-      values << { :color => "#009900", :data => changes.map {|c| [date_to_i(c.date), c.available_quantities.available.scoped_by_group_id(group).first.try(:quantity).to_i] } }
-      values << { :color => "#FF0000", :data => changes.map {|c| [date_to_i(c.date), c.available_quantities.borrowed.scoped_by_group_id(group).first.try(:quantity).to_i] } }
+      # TODO
+      #values << { :color => "#009900", :data => changes.map {|c| [date_to_i(c.date), c.available_quantities.available.scoped_by_group_id(group).first.try(:quantity).to_i] } }
+      #values << { :color => "#FF0000", :data => changes.map {|c| [date_to_i(c.date), c.available_quantities.borrowed.scoped_by_group_id(group).first.try(:quantity).to_i] } }
     end
-    values << { :color => "#009900", :data => changes.map {|c| [date_to_i(c.date), c.general_borrowable_in_stock_size] } }
+    #values << { :color => "#009900", :data => changes.map {|c| [date_to_i(c.date), c.general_borrowable_in_stock_size] } }
     values << { :color => "#FF0000", :data => changes.map {|c| [date_to_i(c.date), c.general_borrowable_not_in_stock_size] } }
       
     r += javascript_tag do
@@ -53,29 +55,29 @@ module Backend::AvailabilityHelper
                       #{values.to_json},
                       { series: {
                             stack: true,
-                            /*
-                            lines: { lineWidth: 1,
-                                     fill: false,
+                            lines: { lineWidth: 0,
+                                     fill: true,
                                      steps: true }
-                            */
-                            bars: { show: true,
-                                    lineWidth: 0,
-                                    barWidth: 1 }
                         },
                         xaxis: {
-                          min: #{(Date.today.to_time.to_i - (86400 * 1)) / 86400},
-                          max: #{(Date.today.to_time.to_i + (86400 * 10)) / 86400},
+                          min: #{date_to_i(changes.first.date)},
+                          max: #{date_to_i(changes.last.date)},
                           ticks: #{x_ticks.to_json}
                         },
                         yaxis: {
-                          ticks: #{(0..inventory_pool.items.borrowable.scoped_by_model_id(model).count).to_json} // OPTIMIZE changes.first
+                          min: 0,
+                          max: #{general_borrowable_size},
+                          ticks: #{(1..general_borrowable_size).to_json}
+                        },
+                        grid: {
+                          backgroundColor: "#79b567"
                         }
                       });
         HERECODE
 
           groups.each do |group|
             #next unless group_totals[group.id] > 0
-            data = changes.map {|c| [date_to_i(c.date), c.available_quantities.borrowed.scoped_by_group_id(group).first.try(:quantity).to_i] }
+            data = changes.map {|c| [date_to_i(c.date), c.available_quantities.scoped_by_group_id(group).first.try(:unavailable_quantity).to_i] }
             data << [date_to_i(last.tomorrow), 0]
 
             js += <<-HERECODE
@@ -83,13 +85,13 @@ module Backend::AvailabilityHelper
                       #{[{ :color => "#FF0000", :data => data }].to_json},
                       { series: {
                             stack: true,
-                            lines: { lineWidth: 1,
+                            lines: { lineWidth: 0,
                                      fill: true,
                                      steps: true }
                         },
                         xaxis: {
-                          min: #{(Date.today.to_time.to_i - (86400 * 1)) / 86400},
-                          max: #{(Date.today.to_time.to_i + (86400 * 10)) / 86400},
+                          min: #{date_to_i(changes.first.date)},
+                          max: #{date_to_i(changes.last.date)},
                           ticks: #{x_ticks.to_json}
                         },
                         yaxis: {
@@ -108,6 +110,61 @@ module Backend::AvailabilityHelper
           });
         HERECODE
     end
+  end
+
+  def availability_changes(changes)
+    changes.collect do |c|
+      content_tag :table do
+        a = content_tag :tr do
+          b = content_tag :th do
+            _("Borrowable %s") % c.date
+          end
+          b += content_tag :th do
+            _("In Stock (%d)") % c.borrowable_in_stock_total
+          end
+          b += content_tag :th do
+            _("Not In Stock (%d)") % c.borrowable_not_in_stock_total
+          end
+          b += content_tag :th do
+            _("DocumentLines")
+          end
+        end
+        a += content_tag :tr do
+          b = content_tag :td do
+            "#{_("General")}:"
+          end
+          b += content_tag :td do
+            c.general_borrowable_in_stock_size
+          end
+          b += content_tag :td do
+            c.general_borrowable_not_in_stock_size
+          end
+          b += content_tag :td do
+            # TODO
+          end
+        end
+        a += c.inventory_pool.groups.collect do |group|
+          aq = c.available_quantities.scoped_by_group_id(group).first
+          content_tag :tr do
+            b = content_tag :td do
+              "#{group}:"
+            end
+            b += content_tag :td do
+              aq.try(:available_quantity).to_i
+            end
+            b += content_tag :td do
+              aq.try(:unavailable_quantity).to_i
+            end
+            b += content_tag :td do
+              aq.documents.collect do |d|
+                d = "#{d[:type]} #{d[:id]}"
+                d += tag :br
+              end.join if aq.try(:documents)
+            end
+          end
+        end.join
+      end
+    end.join
   end
   
 end

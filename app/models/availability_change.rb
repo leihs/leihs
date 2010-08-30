@@ -30,23 +30,26 @@ class AvailabilityChange < ActiveRecord::Base
   def self.recompute(model, inventory_pool)
     # TODO keep manager definition and delete others 
     #model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).destroy_all
-    current_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool)
-    
-    # TODO the last change should describe all in_stock partition
-    defined_change = current_changes.last
-    defined_change ||= model.availability_changes.new_current_for_inventory_pool(inventory_pool)
+    changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool) # TODO filter out past changes ??
+    changes << model.availability_changes.new_current_for_inventory_pool(inventory_pool) if changes.blank?
     
     reservations = model.running_reservations(inventory_pool)
     reservations.each do |r|
-      groups = r.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) & defined_change.available_quantities.collect(&:group)
+      groups = r.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) & changes.first.available_quantities.collect(&:group)
       # TODO sort groups by quantity desc
-      maximum = maximum_in_state_in_period(model, inventory_pool, groups, r.start_date, r.end_date, AvailableQuantity::AVAILABLE)
+      maximum = maximum_available_in_period(model, inventory_pool, groups, r.start_date, r.end_date)
       groups.each do |g|
         if maximum[g.name] >= r.quantity
-          model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).create(:date => r.start_date)
-          # TODO quantities
-          model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).create(:date => r.end_date)
-          # TODO quantities
+          clone_change(model, inventory_pool, r.start_date).save
+          
+          inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (r.start_date..r.end_date)})
+          inner_changes.each do |ic|
+            ic.available_quantities.scoped_by_group_id(g).first.decrement(:available_quantity).increment(:unavailable_quantity).add_document(r).save
+          end
+          
+          c = clone_change(model, inventory_pool, r.end_date)
+          c.available_quantities.scoped_by_group_id(g).first.increment(:available_quantity).decrement(:unavailable_quantity).remove_document(r).save
+          
           break
         end
       end
@@ -54,15 +57,32 @@ class AvailabilityChange < ActiveRecord::Base
     
     # TODO compact on dates
   end
+  
+  def self.clone_change(model, inventory_pool, date)
+    # OPTIMIZE
+    c = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", date])
+    c ||= model.availability_changes.current_for_inventory_pool(inventory_pool)
+ 
+    if c.date != date
+      g = c.clone
+      g.date = date
+      c.available_quantities.each {|q| g.available_quantities << q.clone }
+      g.save
+      c = g
+    end
+    c
+  end
 
 #############################################
 
   def borrowable_in_stock_total
     inventory_pool.items.borrowable.in_stock.scoped_by_model_id(model).count
+    #tmp# inventory_pool.items.borrowable.scoped_by_model_id(model).count - borrowable_not_in_stock_total
   end
 
   def borrowable_not_in_stock_total
-    inventory_pool.items.borrowable.not_in_stock.scoped_by_model_id(model).count
+    #tmp# inventory_pool.items.borrowable.not_in_stock.scoped_by_model_id(model).count
+    model.running_reservations(inventory_pool, date).count
   end
 
   def unborrowable_in_stock_total
@@ -74,42 +94,48 @@ class AvailabilityChange < ActiveRecord::Base
   end
 
 
+  def general_borrowable_size
+    inventory_pool.items.borrowable.scoped_by_model_id(model).count - available_quantities.sum(:available_quantity).to_i - available_quantities.sum(:unavailable_quantity).to_i
+  end
+
   def general_borrowable_in_stock_size
-    borrowable_in_stock_total - available_quantities.available.sum(:quantity).to_i
+    borrowable_in_stock_total - available_quantities.sum(:available_quantity).to_i
   end
 
   def general_borrowable_not_in_stock_size
-    borrowable_not_in_stock_total - available_quantities.borrowed.sum(:quantity).to_i
+    borrowable_not_in_stock_total - available_quantities.sum(:unavailable_quantity).to_i
   end
   
   def total_in_group(group)
-    # TODO exclude unborrowable ??
-    available_quantities.scoped_by_group_id(group).sum(:quantity).to_i
+    # TODO one single query values("SUM(...) + SUM()")
+    available_quantities.scoped_by_group_id(group).sum(:available_quantity).to_i + available_quantities.scoped_by_group_id(group).sum(:unavailable_quantity).to_i
   end
 
 #############################################
 
-  def self.maximum_available_in_period(model, inventory_pool, group_or_groups, start_date, end_date)
-    maximum_in_state_in_period(model, inventory_pool, group_or_groups, start_date, end_date, AvailableQuantity::AVAILABLE)
-  end
-
-  def self.maximum_borrowed_in_period(model, inventory_pool, group_or_groups, start_date, end_date)
-    maximum_in_state_in_period(model, inventory_pool, group_or_groups, start_date, end_date, AvailableQuantity::BORROWED)
-  end
-
-  def self.maximum_borrowed_in_period(model, inventory_pool, group_or_groups, start_date, end_date)
-    maximum_in_state_in_period(model, inventory_pool, group_or_groups, start_date, end_date, AvailableQuantity::UNBORROWABLE)
-  end
+#old#
+#  def self.maximum_available_in_period(model, inventory_pool, group_or_groups, start_date, end_date)
+#    maximum_in_state_in_period(model, inventory_pool, group_or_groups, start_date, end_date, AvailableQuantity::AVAILABLE)
+#  end
+#
+#  def self.maximum_borrowed_in_period(model, inventory_pool, group_or_groups, start_date, end_date)
+#    maximum_in_state_in_period(model, inventory_pool, group_or_groups, start_date, end_date, AvailableQuantity::BORROWED)
+#  end
+#
+#  def self.maximum_borrowed_in_period(model, inventory_pool, group_or_groups, start_date, end_date)
+#    maximum_in_state_in_period(model, inventory_pool, group_or_groups, start_date, end_date, AvailableQuantity::UNBORROWABLE)
+#  end
 
   # how many items of #Model in a 'state' are there at most over the given period?
   #
   # returns a hash à la: { 'General' => 4, 'CAST' => 2, ... }
   #
-  def self.maximum_in_state_in_period(model, inventory_pool, groups, start_date, end_date, state)
+#old#  def self.maximum_in_state_in_period(model, inventory_pool, groups, start_date, end_date, state)
+  def self.maximum_available_in_period(model, inventory_pool, groups, start_date, end_date)
     start_date = start_date.to_date
     end_date = end_date.to_date
     # start from most recent entry we have, which is the last before start_date
-    start_date = AvailabilityChange.maximum(:date, :conditions => [ "date > ?", start_date ]) \
+    start_date = AvailabilityChange.maximum(:date, :conditions => [ "date <= ?", start_date ]) \
                  || start_date
 
     max_per_group = Hash.new
@@ -119,15 +145,14 @@ class AvailabilityChange < ActiveRecord::Base
       # then we know it's zero. So if there are more AvailabilityChanges than associated
       # AvailableQuantities then we know there are some that are null
       # TODO: move join up into has_many association
-      r = minimum("ifnull(quantity,0)",
+      r = minimum("ifnull(available_quantity,0)",
                   :joins => "LEFT JOIN available_quantities " \
                             "ON availability_changes.id = available_quantities.availability_change_id " \
                             "AND available_quantities.group_id = #{group.id}",
                   :conditions => [ "inventory_pool_id = ? " \
                                    "AND model_id = ? " \
-                                   "AND availability_changes.date BETWEEN ? AND ? " \
-                                   "AND available_quantities.status_const = ?",
-                                   inventory_pool.id, model.id, start_date, end_date, state ] )
+                                   "AND availability_changes.date BETWEEN ? AND ?",
+                                   inventory_pool.id, model.id, start_date, end_date ] )
       
       max_per_group[group.name] = r.to_i;                                   
     end

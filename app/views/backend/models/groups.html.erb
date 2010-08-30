@@ -32,11 +32,11 @@
 					<%= group %>:
 				<% end
 				content_tag :td do
-					quantity = @current_availability_change.available_quantities.available.scoped_by_group_id(group).first.try(:quantity).to_i %>
+					quantity = @current_availability_change.available_quantities.scoped_by_group_id(group).first.try(:available_quantity).to_i %>
 					<%= text_field_tag "groups[#{group.id}]", quantity %>
 				<% end
 				content_tag :td do
-					quantity = @current_availability_change.available_quantities.borrowed.scoped_by_group_id(group).first.try(:quantity).to_i %>
+					quantity = @current_availability_change.available_quantities.scoped_by_group_id(group).first.try(:unavailable_quantity).to_i %>
 					<%= quantity %>
 				<% end
 			end
@@ -81,3 +81,6 @@
 <% end %>
 
 <%= groups_chart(@model, current_inventory_pool) %>
+
+<% changes = @model.availability_changes.scoped_by_inventory_pool_id(current_inventory_pool) %>
+<%= availability_changes(changes) %>

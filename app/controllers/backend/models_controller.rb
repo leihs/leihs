@@ -297,7 +297,8 @@ class Backend::ModelsController < Backend::BackendController
       # TODO update future records (or prevent completely if it's breaking future availabilities) 
       params[:groups].each_pair do |group_id, quantity|
         quantity = quantity.to_i
-        @current_availability_change.available_quantities.available.create(:group_id => group_id, :quantity => quantity) if quantity > 0
+        # TODO get unavailable_quantity and store only if sum > 0
+        @current_availability_change.available_quantities.create(:group_id => group_id, :available_quantity => quantity) if quantity > 0
       end
 
       flash[:notice] = _("The group quantities were successfully saved.")

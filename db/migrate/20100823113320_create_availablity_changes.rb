@@ -8,11 +8,14 @@ class CreateAvailablityChanges < ActiveRecord::Migration
       t.timestamps
     end
 
+    # TODO unique [date, inventory_pool_id, model_id] 
+
     create_table :available_quantities do |t|
-      t.integer    :status_const         # available, borrowable, unborrowable - see model!
       t.belongs_to :availability_change
       t.belongs_to :group
-      t.integer    :quantity
+      t.integer    :available_quantity, :default => 0
+      t.integer    :unavailable_quantity, :default => 0
+      t.text       :documents # serialize
     end
 
     # TODO: Availability migration
