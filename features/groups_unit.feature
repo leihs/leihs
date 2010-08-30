@@ -1,5 +1,5 @@
 @ignore
-Feature: Unit Testing AvailabilityChanges
+Feature: Unit Testing AvailabilityChange
 
 	Background: Provide a minimal environment
 	        Given inventory pool 'AVZ'

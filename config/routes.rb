@@ -84,7 +84,8 @@ ActionController::Routing::Routes.draw do |map|
                                                      :package_item => [:get, :put, :delete],
                                                      :categories => [:get, :post, :delete],
                                                      :images => [:get, :post, :delete],
-                                                     :attachments => [:get, :post, :delete] } do |model|
+                                                     :attachments => [:get, :post, :delete],
+                                                     :groups => [:get, :post] } do |model|
             model.resources :compatibles, :controller => 'models'
             model.resources :items, :member => { :location => [:get, :post, :put],
                                                  :status => :get,

@@ -1,0 +1,83 @@
+<% content_tag :h3 do %>
+	<%= _("Current group quantities") %>
+<% end %>
+
+<% form_tag url_for({ }) do
+	content_tag :table, :id => "groups" do
+		content_tag :tr do
+			content_tag :th do %>
+				<%= _("Borrowable") %>
+			<% end
+			content_tag :th do %>
+				<%= _("In Stock (%d)") % @current_availability_change.borrowable_in_stock_total %>
+			<% end
+			content_tag :th do %>
+				<%= _("Not In Stock (%d)") % @current_availability_change.borrowable_not_in_stock_total %>
+			<% end
+		end
+		current_inventory_pool.groups.each do |group|
+			content_tag :tr do
+				content_tag :td do %>
+					<%= group %>:
+				<% end
+				content_tag :td do
+					quantity = @current_availability_change.available_quantities.available.scoped_by_group_id(group).first.try(:quantity).to_i %>
+					<%= text_field_tag "groups[#{group.id}]", quantity %>
+				<% end
+				content_tag :td do
+					quantity = @current_availability_change.available_quantities.borrowed.scoped_by_group_id(group).first.try(:quantity).to_i %>
+					<%= quantity %>
+				<% end
+			end
+		end
+		content_tag :tr do
+			content_tag :td do %>
+				<%= _("General") %>:
+			<% end
+			content_tag :td, :id => "general_in_stock" do %>
+				<%= @current_availability_change.general_borrowable_in_stock_size %>
+			<% end
+			content_tag :td, :id => "general_not_in_stock" do %>
+				<%= @current_availability_change.general_borrowable_not_in_stock_size %>
+			<% end
+		end
+
+		content_tag :tr do
+			content_tag :td, :colspan => 3, :style => "background-color: white; height: 2em;" do %>
+			<% end
+		end
+
+		content_tag :tr do
+			content_tag :th do %>
+				<%= _("Unborrowable") %>
+			<% end
+			content_tag :th do %>
+				<%= _("In Stock (%d)") % @current_availability_change.unborrowable_in_stock_total %>
+			<% end
+			content_tag :th do %>
+				<%= _("Not In Stock (%d)") % @current_availability_change.unborrowable_not_in_stock_total %>
+			<% end
+		end
+	end %>
+	
+	<%= submit_tag _("Submit") %>		
+<% end %>
+
+
+<% javascript_tag do %>
+	jQuery(document).ready(function($){
+		var general_in_stock = $("td#general_in_stock");
+		$("#groups input").change(function(){
+			var rest = <%= @current_availability_change.borrowable_in_stock_total %>;
+			$("#groups input").each(function(){
+				var val = $(this).val() * 1; 
+				rest -=  val;
+				(val < 0 ? $(this).addClass("valid_false") : $(this).removeClass("valid_false"));
+			});
+			general_in_stock.html(rest);
+			(rest < 0 ? general_in_stock.addClass("valid_false") : general_in_stock.removeClass("valid_false"));
+		});
+	});
+<% end %>
+
+<%= groups_chart(@model, current_inventory_pool) %>

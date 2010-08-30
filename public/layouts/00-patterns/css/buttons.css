@@ -181,5 +181,17 @@ a:hover.arrow_switch {
 	filter: alpha(opacity=40);	
 }
 
+/*** Form ***/
+input[type='submit'] {
+	color: #529214;
+	background-color: #F5F5F5;
+	border: 1px solid #529214;
+	padding: 0.5em;
+	margin: 1em;
+	font-size: 1em;
+	cursor: pointer;
+}
 
-
+input[type='submit']:hover {
+	background-color: #D4D4D4;
+}

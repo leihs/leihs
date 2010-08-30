@@ -16,12 +16,12 @@ end
 
 Then /^(\w+) items of that Model should be (\w*) in Group '([^"]*)'( only)?$/ do |n, state, group, exclusivity|
   n = to_number(n)
-  quantities = AvailabilityChanges.maximum_in_state_in_period( @model,
+  quantities = AvailabilityChange.maximum_in_state_in_period( @model,
                                                                @inventory_pool,
                                                                @inventory_pool.groups.find_by_name(group),
                                                                DateTime.now,
                                                                (DateTime.now + 10.years),
-                                                               AvailableQuantities.status_from(state) )
+                                                               AvailableQuantity.status_from(state) )
   puts quantities.inspect
   quantities[group].should == n
 end
