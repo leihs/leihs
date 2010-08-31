@@ -52,6 +52,7 @@ class AvailabilityChange < ActiveRecord::Base
     # OPTIMIZE
     model = document_line.model
     inventory_pool = document_line.inventory_pool
+    group_found = false
     
     maximum = maximum_available_in_period(model, inventory_pool, groups, document_line.start_date, document_line.end_date)
     # TODO sort groups by quantity desc
@@ -64,11 +65,17 @@ class AvailabilityChange < ActiveRecord::Base
           ic.available_quantities.scoped_by_group_id(group).first.decrement(:in_quantity).increment(:out_quantity).add_document(document_line).save
         end
         
-        c = clone_change(model, inventory_pool, document_line.end_date)
+        c = clone_change(model, inventory_pool, document_line.end_date.tomorrow)
         c.available_quantities.scoped_by_group_id(group).first.increment(:in_quantity).decrement(:out_quantity).remove_document(document_line).save
         
+        group_found = true
         break
       end
+    end
+    
+    unless group_found
+      clone_change(model, inventory_pool, document_line.start_date).save
+      clone_change(model, inventory_pool, document_line.end_date.tomorrow).save
     end
   end
   
@@ -96,7 +103,7 @@ class AvailabilityChange < ActiveRecord::Base
 
   def borrowable_not_in_stock
     # TODO named_scope
-    model.contract_lines.by_inventory_pool(inventory_pool).all(:conditions => ["start_date <= ? AND returned_date IS NULL AND NOT (end_date < ? AND item_id IS NULL)", date, date])  
+    model.contract_lines.by_inventory_pool(inventory_pool).all(:conditions => ["start_date <= ? AND end_date >= ? AND returned_date IS NULL", date, date])
   end
   
   def borrowable_not_in_stock_total
@@ -115,6 +122,11 @@ class AvailabilityChange < ActiveRecord::Base
 
   def general_borrowable_not_in_stock_size
     borrowable_not_in_stock_total - available_quantities.sum(:out_quantity).to_i
+  end
+
+  def general_borrowable_not_in_stock
+    documents = available_quantities.collect(&:documents).flatten.compact
+    borrowable_not_in_stock.collect {|d| {:type => d.class.to_s, :id => d.id} } - documents
   end
   
   def total_in_group(group)

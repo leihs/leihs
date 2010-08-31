@@ -56,7 +56,7 @@ module Backend::AvailabilityHelper
                         },
                         xaxis: {
                           min: #{date_to_i(changes.first.date)},
-                          max: #{date_to_i(changes.last.date)},
+                          max: #{date_to_i(changes.last.date.tomorrow)},
                           ticks: #{x_ticks.to_json}
                         },
                         yaxis: {
@@ -86,7 +86,7 @@ module Backend::AvailabilityHelper
                         },
                         xaxis: {
                           min: #{date_to_i(changes.first.date)},
-                          max: #{date_to_i(changes.last.date)},
+                          max: #{date_to_i(changes.last.date.tomorrow)},
                           ticks: #{x_ticks.to_json}
                         },
                         yaxis: {
@@ -136,8 +136,8 @@ module Backend::AvailabilityHelper
           end
           b += content_tag :td do
             # TODO
-            c.borrowable_not_in_stock.collect do |d|
-              d = "#{d.class} #{d.id}"
+            c.general_borrowable_not_in_stock.collect do |d|
+              d = "#{d[:type]} #{d[:id]}"
               d += tag :br
             end.join
           end
