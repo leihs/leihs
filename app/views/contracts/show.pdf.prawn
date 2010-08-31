@@ -66,7 +66,7 @@ end
 
 pdf.move_down 3.mm
 
-#pdf.text filter(_("This lending contract covers borrowing the following items by the person (natural or legal) described as 'borrowing party' below. Use of these items is only allowed for the purpose given below."))
+pdf.text filter(_("This lending contract covers borrowing the following items by the person (natural or legal) described as 'borrowing party' below. Use of these items is only allowed for the purpose given below."))
 
 
 borrowing_party = filter(_("Borrowing party:")) + "\n" + filter(user_address)
@@ -76,13 +76,13 @@ pdf.text_box borrowing_party,
              :width => 150,
              :height => pdf.height_of(borrowing_party),
              :overflow => :ellipses,
-             :at => [pdf.bounds.left, pdf.bounds.top - 78]
+             :at => [pdf.bounds.left, pdf.bounds.top - 90]
 
 pdf.text_box lending_party,
              :width => 150,
              :height => pdf.height_of(lending_party),
              :overflow => :ellipses,
-             :at => [pdf.bounds.left + 70.mm, pdf.bounds.top - 78]
+             :at => [pdf.bounds.left + 70.mm, pdf.bounds.top - 90]
 
 
 pdf.move_down [pdf.height_of(borrowing_party), pdf.height_of(lending_party)].max + 15.mm
@@ -154,14 +154,15 @@ today = Date.today.strftime("%d.%m.%Y")
 
 pdf.move_down 8.mm
 
-pdf.text filter(_("Signature of borrower:")) + " " + today 
+pdf.text filter(_("Signature of borrower:")) + "  " + today + ", " , :style => :bold
 
 pdf.stroke do
-  pdf.line_width 0.5
+  pdf.line_width 1.0
   pdf.horizontal_line pdf.bounds.left, 160.mm
 end
 
-pdf.move_down 8.mm
+pdf.move_down 18.mm
+
 
 pdf.text filter(_("Signature of person taking back the item:")) 
 
