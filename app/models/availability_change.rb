@@ -7,6 +7,8 @@ class AvailabilityChange < ActiveRecord::Base
   validates_presence_of :model_id
   validates_presence_of :date
 
+  validates_uniqueness_of :date, :scope => [:inventory_pool_id, :model_id]
+
 #############################################
 
   default_scope :order => "date ASC, created_at ASC"
@@ -28,34 +30,46 @@ class AvailabilityChange < ActiveRecord::Base
 #############################################
 
   def self.recompute(model, inventory_pool)
-    # TODO keep manager definition and delete others 
-    #model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).destroy_all
-    changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool) # TODO filter out past changes ??
-    changes << model.availability_changes.new_current_for_inventory_pool(inventory_pool) if changes.blank?
+    #old# TODO keep manager definition and delete others 
+    #model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => ["date != ?", Date.parse("2010-01-01")]).each {|x| x.destroy } # OPTIMIZE
+    #changes = [model.availability_changes.defined_for_inventory_pool(inventory_pool)]
+    
+    #changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool) # TODO filter out past changes ??
+    #changes << model.availability_changes.new_current_for_inventory_pool(inventory_pool) if changes.blank?
+
+    changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool)
+    changes << model.availability_changes.reset_for_inventory_pool(inventory_pool) if changes.blank?
     
     reservations = model.running_reservations(inventory_pool)
-    reservations.each do |r|
-      groups = r.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) & changes.first.available_quantities.collect(&:group)
-      # TODO sort groups by quantity desc
-      maximum = maximum_available_in_period(model, inventory_pool, groups, r.start_date, r.end_date)
-      groups.each do |g|
-        if maximum[g.name] >= r.quantity
-          clone_change(model, inventory_pool, r.start_date).save
-          
-          inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (r.start_date..r.end_date)})
-          inner_changes.each do |ic|
-            ic.available_quantities.scoped_by_group_id(g).first.decrement(:available_quantity).increment(:unavailable_quantity).add_document(r).save
-          end
-          
-          c = clone_change(model, inventory_pool, r.end_date)
-          c.available_quantities.scoped_by_group_id(g).first.increment(:available_quantity).decrement(:unavailable_quantity).remove_document(r).save
-          
-          break
+    reservations.each do |document_line|
+      # OPTIMIZE
+      groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) & changes.first.available_quantities.collect(&:group)
+      recompute_reservation(document_line, groups)
+    end
+  end
+
+  def self.recompute_reservation(document_line, groups)
+    # OPTIMIZE
+    model = document_line.model
+    inventory_pool = document_line.inventory_pool
+    
+    maximum = maximum_available_in_period(model, inventory_pool, groups, document_line.start_date, document_line.end_date)
+    # TODO sort groups by quantity desc
+    groups.each do |group|
+      if maximum[group.name] >= document_line.quantity
+        clone_change(model, inventory_pool, document_line.start_date).save
+        
+        inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (document_line.start_date..document_line.end_date)})
+        inner_changes.each do |ic|
+          ic.available_quantities.scoped_by_group_id(group).first.decrement(:in_quantity).increment(:out_quantity).add_document(document_line).save
         end
+        
+        c = clone_change(model, inventory_pool, document_line.end_date)
+        c.available_quantities.scoped_by_group_id(group).first.increment(:in_quantity).decrement(:out_quantity).remove_document(document_line).save
+        
+        break
       end
     end
-    
-    # TODO compact on dates
   end
   
   def self.clone_change(model, inventory_pool, date)
@@ -76,39 +90,38 @@ class AvailabilityChange < ActiveRecord::Base
 #############################################
 
   def borrowable_in_stock_total
-    inventory_pool.items.borrowable.in_stock.scoped_by_model_id(model).count
-    #tmp# inventory_pool.items.borrowable.scoped_by_model_id(model).count - borrowable_not_in_stock_total
+    #tmp# inventory_pool.items.borrowable.in_stock.scoped_by_model_id(model).count
+    inventory_pool.items.borrowable.scoped_by_model_id(model).count - borrowable_not_in_stock_total
   end
 
+  def borrowable_not_in_stock
+    # TODO named_scope
+    model.contract_lines.by_inventory_pool(inventory_pool).all(:conditions => ["start_date <= ? AND returned_date IS NULL AND NOT (end_date < ? AND item_id IS NULL)", date, date])  
+  end
+  
   def borrowable_not_in_stock_total
     #tmp# inventory_pool.items.borrowable.not_in_stock.scoped_by_model_id(model).count
-    model.running_reservations(inventory_pool, date).count
+    #temp# model.running_reservations(inventory_pool, date).count
+    borrowable_not_in_stock.count
   end
-
-  def unborrowable_in_stock_total
-    inventory_pool.items.unborrowable.in_stock.scoped_by_model_id(model).count
-  end
-
-  def unborrowable_not_in_stock_total
-    inventory_pool.items.unborrowable.not_in_stock.scoped_by_model_id(model).count
-  end
-
 
   def general_borrowable_size
-    inventory_pool.items.borrowable.scoped_by_model_id(model).count - available_quantities.sum(:available_quantity).to_i - available_quantities.sum(:unavailable_quantity).to_i
+    inventory_pool.items.borrowable.scoped_by_model_id(model).count - available_quantities.sum(:in_quantity).to_i - available_quantities.sum(:out_quantity).to_i
   end
 
   def general_borrowable_in_stock_size
-    borrowable_in_stock_total - available_quantities.sum(:available_quantity).to_i
+    borrowable_in_stock_total - available_quantities.sum(:in_quantity).to_i
   end
 
   def general_borrowable_not_in_stock_size
-    borrowable_not_in_stock_total - available_quantities.sum(:unavailable_quantity).to_i
+    borrowable_not_in_stock_total - available_quantities.sum(:out_quantity).to_i
   end
   
   def total_in_group(group)
     # TODO one single query values("SUM(...) + SUM()")
-    available_quantities.scoped_by_group_id(group).sum(:available_quantity).to_i + available_quantities.scoped_by_group_id(group).sum(:unavailable_quantity).to_i
+    #available_quantities.scoped_by_group_id(group).sum(:in_quantity).to_i + available_quantities.scoped_by_group_id(group).sum(:out_quantity).to_i
+    q = available_quantities.scoped_by_group_id(group).first
+    (q ? q.in_quantity + q.out_quantity : 0)
   end
 
 #############################################
@@ -145,7 +158,7 @@ class AvailabilityChange < ActiveRecord::Base
       # then we know it's zero. So if there are more AvailabilityChanges than associated
       # AvailableQuantities then we know there are some that are null
       # TODO: move join up into has_many association
-      r = minimum("ifnull(available_quantity,0)",
+      r = minimum("ifnull(in_quantity,0)",
                   :joins => "LEFT JOIN available_quantities " \
                             "ON availability_changes.id = available_quantities.availability_change_id " \
                             "AND available_quantities.group_id = #{group.id}",
