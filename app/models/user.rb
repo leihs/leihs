@@ -54,12 +54,6 @@ class User < ActiveRecord::Base
   has_many :reminders, :as => :target, :class_name => "History", :dependent => :destroy, :conditions => {:type_const => History::REMIND}, :order => 'created_at ASC'
 
   has_and_belongs_to_many :groups
-# TODO: add 'General' group automatically:
-#  has_and_belongs_to_many :groups do
-#    def for_inventory_pool(ip)
-#      all(:conditions => ["inventory_pool_id = ? OR (name = 'General' AND inventory_pool_id IS NULL)", ip.id]
-#    end
-#  end
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.

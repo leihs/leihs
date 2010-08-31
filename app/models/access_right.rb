@@ -17,7 +17,6 @@ class AccessRight < ActiveRecord::Base
 
   before_validation_on_create :remove_old
   before_save :adjust_levels
-  before_save :add_to_general_group
   after_save :update_sphinx_index
   
   named_scope :not_suspended, :conditions => "suspended_until IS NULL OR suspended_until < CURDATE()"
@@ -75,12 +74,6 @@ class AccessRight < ActiveRecord::Base
       when "customer"
         self.level = [level.to_i, 1].max
         self.access_level = nil
-    end
-  end
-
-  def add_to_general_group
-    if role.name != 'admin'
-      self.inventory_pool.add_to_general_group(self.user)
     end
   end
 

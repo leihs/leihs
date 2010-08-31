@@ -165,10 +165,15 @@ class InventoryPool < ActiveRecord::Base
   end
 
   def add_to_general_group( user )
-    groups.general.users << user unless groups.general.users.exisist?( user )
+    general_group << user unless groups.general.users.exisist?( user )
   end
   
 ###################################################################################
+
+  def general_group
+    groups.general.first
+  end
+
 
 private
   
@@ -186,7 +191,7 @@ private
 #  end
 
   def create_general_group
-    Group.create :name => 'General', :inventory_pool_id => self.id
+    Group.create( :name => 'General', :inventory_pool_id => id )
   end
   
   def destroy_general_group

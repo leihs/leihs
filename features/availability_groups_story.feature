@@ -14,7 +14,7 @@ Scenario: No Reservations
 	Given 7 items of model 'NEC 245' exist
 	 When 0 reservations exist for model 'NEC 245'
          Then 7 items of that Model should be available in Group 'General'
-          And that model should not be available in any other Group
+          And that Model should not be available in any other Group
 	
 # see also groups_unit.feature for some partial work
 
