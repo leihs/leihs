@@ -6,13 +6,12 @@
 	content_tag :table, :id => "groups" do
 		content_tag :tr do
 			content_tag :th do %>
-				<%= _("Borrowable") %>
 			<% end
 			content_tag :th do %>
-				<%= _("In Stock (%d)") % @current_availability_change.borrowable_in_stock_total %>
+				<%= _("Borrowable (%d)") % current_inventory_pool.items.borrowable.scoped_by_model_id(@model).count %>
 			<% end
 			content_tag :th do %>
-				<%= _("Not In Stock (%d)") % @current_availability_change.borrowable_not_in_stock_total %>
+				<%= _("Unborrowable (%d)") % current_inventory_pool.items.unborrowable.scoped_by_model_id(@model).count %>
 			<% end
 		end
 		content_tag :tr do
@@ -20,10 +19,9 @@
 				<%= _("General") %>:
 			<% end
 			content_tag :td, :id => "general_in_stock" do %>
-				<%= @current_availability_change.general_borrowable_in_stock_size %>
+				<%= @defined_change.general_borrowable_size %>
 			<% end
-			content_tag :td, :id => "general_not_in_stock" do %>
-				<%= @current_availability_change.general_borrowable_not_in_stock_size %>
+			content_tag :td do %>
 			<% end
 		end
 		current_inventory_pool.groups.each do |group|
@@ -32,31 +30,12 @@
 					<%= group %>:
 				<% end
 				content_tag :td do
-					quantity = @current_availability_change.available_quantities.scoped_by_group_id(group).first.try(:available_quantity).to_i %>
+					quantity = @defined_change.total_in_group(group) %>
 					<%= text_field_tag "groups[#{group.id}]", quantity %>
 				<% end
-				content_tag :td do
-					quantity = @current_availability_change.available_quantities.scoped_by_group_id(group).first.try(:unavailable_quantity).to_i %>
-					<%= quantity %>
+				content_tag :td do %>
 				<% end
 			end
-		end
-
-		content_tag :tr do
-			content_tag :td, :colspan => 3, :style => "background-color: white; height: 2em;" do %>
-			<% end
-		end
-
-		content_tag :tr do
-			content_tag :th do %>
-				<%= _("Unborrowable") %>
-			<% end
-			content_tag :th do %>
-				<%= _("In Stock (%d)") % @current_availability_change.unborrowable_in_stock_total %>
-			<% end
-			content_tag :th do %>
-				<%= _("Not In Stock (%d)") % @current_availability_change.unborrowable_not_in_stock_total %>
-			<% end
 		end
 	end %>
 	
@@ -68,7 +47,7 @@
 	jQuery(document).ready(function($){
 		var general_in_stock = $("td#general_in_stock");
 		$("#groups input").change(function(){
-			var rest = <%= @current_availability_change.borrowable_in_stock_total %>;
+			var rest = <%= current_inventory_pool.items.borrowable.scoped_by_model_id(@model).count %>;
 			$("#groups input").each(function(){
 				var val = $(this).val() * 1; 
 				rest -=  val;

@@ -67,6 +67,12 @@ class Model < ActiveRecord::Base
     def new_current_for_inventory_pool(inventory_pool)
       build(:inventory_pool => inventory_pool, :date => Date.today)
     end
+    
+    #tmp#
+    def reset_for_inventory_pool(inventory_pool)
+      scoped_by_inventory_pool_id(inventory_pool).destroy_all
+      scoped_by_inventory_pool_id(inventory_pool).create(:date => Date.today)
+    end
   end
 
 ########

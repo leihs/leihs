@@ -13,8 +13,8 @@ class CreateAvailablityChanges < ActiveRecord::Migration
     create_table :available_quantities do |t|
       t.belongs_to :availability_change
       t.belongs_to :group
-      t.integer    :available_quantity, :default => 0
-      t.integer    :unavailable_quantity, :default => 0
+      t.integer    :in_quantity, :default => 0
+      t.integer    :out_quantity, :default => 0
       t.text       :documents # serialize
     end
 

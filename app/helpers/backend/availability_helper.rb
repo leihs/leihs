@@ -34,25 +34,20 @@ module Backend::AvailabilityHelper
       
     groups.each do |group|
       group_totals[group.id] = changes.first.total_in_group(group) # TODO .try
-      #next unless group_totals[group.id] > 0
+      next unless group_totals[group.id] > 0
 
       r += content_tag :h4 do
         group
       end
       r += content_tag :div, :id => "group_chart_#{group.id}", :style => "height:#{(group_totals[group.id] + 1) * 30}px;" do end
-      # TODO
-      #values << { :color => "#009900", :data => changes.map {|c| [date_to_i(c.date), c.available_quantities.available.scoped_by_group_id(group).first.try(:quantity).to_i] } }
-      #values << { :color => "#FF0000", :data => changes.map {|c| [date_to_i(c.date), c.available_quantities.borrowed.scoped_by_group_id(group).first.try(:quantity).to_i] } }
     end
-    #values << { :color => "#009900", :data => changes.map {|c| [date_to_i(c.date), c.general_borrowable_in_stock_size] } }
-    values << { :color => "#FF0000", :data => changes.map {|c| [date_to_i(c.date), c.general_borrowable_not_in_stock_size] } }
       
     r += javascript_tag do
         js = <<-HERECODE
         
           jQuery(document).ready(function($){
               $.plot( $("#group_chart_general"),
-                      #{values.to_json},
+                      #{[{ :color => "#FF0000", :data => changes.map {|c| [date_to_i(c.date), c.general_borrowable_not_in_stock_size] }}].to_json},
                       { series: {
                             stack: true,
                             lines: { lineWidth: 0,
@@ -77,7 +72,7 @@ module Backend::AvailabilityHelper
 
           groups.each do |group|
             #next unless group_totals[group.id] > 0
-            data = changes.map {|c| [date_to_i(c.date), c.available_quantities.scoped_by_group_id(group).first.try(:unavailable_quantity).to_i] }
+            data = changes.map {|c| [date_to_i(c.date), c.available_quantities.scoped_by_group_id(group).first.try(:out_quantity).to_i] }
             data << [date_to_i(last.tomorrow), 0]
 
             js += <<-HERECODE
@@ -141,6 +136,10 @@ module Backend::AvailabilityHelper
           end
           b += content_tag :td do
             # TODO
+            c.borrowable_not_in_stock.collect do |d|
+              d = "#{d.class} #{d.id}"
+              d += tag :br
+            end.join
           end
         end
         a += c.inventory_pool.groups.collect do |group|
@@ -150,10 +149,10 @@ module Backend::AvailabilityHelper
               "#{group}:"
             end
             b += content_tag :td do
-              aq.try(:available_quantity).to_i
+              aq.try(:in_quantity).to_i
             end
             b += content_tag :td do
-              aq.try(:unavailable_quantity).to_i
+              aq.try(:out_quantity).to_i
             end
             b += content_tag :td do
               aq.documents.collect do |d|

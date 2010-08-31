@@ -291,20 +291,26 @@ class Backend::ModelsController < Backend::BackendController
 
   def groups
     if request.post?
-      @current_availability_change = @model.availability_changes.new_current_for_inventory_pool(current_inventory_pool)
-      @current_availability_change.save
+      #@defined_change = @model.availability_changes.new_current_for_inventory_pool(current_inventory_pool)
+      #@defined_change.save
+      defined_change = @model.availability_changes.reset_for_inventory_pool(current_inventory_pool)
 
       # TODO update future records (or prevent completely if it's breaking future availabilities) 
       params[:groups].each_pair do |group_id, quantity|
         quantity = quantity.to_i
-        # TODO get unavailable_quantity and store only if sum > 0
-        @current_availability_change.available_quantities.create(:group_id => group_id, :available_quantity => quantity) if quantity > 0
+        # TODO get out_quantity and store only if sum > 0
+        defined_change.available_quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
       end
+
+      # TODO
+      AvailabilityChange.recompute(@model, current_inventory_pool)
 
       flash[:notice] = _("The group quantities were successfully saved.")
     end
 
-    @current_availability_change ||= @model.availability_changes.current_for_inventory_pool(current_inventory_pool)
+    #old# @defined_change ||= @model.availability_changes.current_for_inventory_pool(current_inventory_pool)
+    @defined_change = @model.availability_changes.scoped_by_inventory_pool_id(current_inventory_pool).last
+    @defined_change ||= @model.availability_changes.reset_for_inventory_pool(current_inventory_pool)
   end
 
 #################################################################

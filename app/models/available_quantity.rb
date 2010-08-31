@@ -6,8 +6,8 @@ class AvailableQuantity < ActiveRecord::Base
   validates_presence_of :availability_change_id
   validates_presence_of :group_id
 #old#  validates_presence_of :quantity
-  validates_presence_of :available_quantity
-  validates_presence_of :unavailable_quantity
+  validates_presence_of :in_quantity
+  validates_presence_of :out_quantity
 
   serialize :documents, Array
 
