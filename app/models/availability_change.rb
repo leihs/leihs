@@ -37,22 +37,25 @@ class AvailabilityChange < ActiveRecord::Base
     #changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool) # TODO filter out past changes ??
     #changes << model.availability_changes.new_current_for_inventory_pool(inventory_pool) if changes.blank?
 
-    changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool)
-    changes << model.availability_changes.reset_for_inventory_pool(inventory_pool) if changes.blank?
+#tmp#
+#    changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool)
+#    changes << model.availability_changes.reset_for_inventory_pool(inventory_pool) if changes.blank?
     
     reservations = model.running_reservations(inventory_pool)
     reservations.each do |document_line|
-      # OPTIMIZE
-      groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) & changes.first.available_quantities.collect(&:group)
-      recompute_reservation(document_line, groups)
+#tmp#      groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) & changes.first.available_quantities.collect(&:group)
+      recompute_reservation(document_line) #tmp#, groups)
     end
   end
 
-  def self.recompute_reservation(document_line, groups)
+  def self.recompute_reservation(document_line) #tmp#, groups)
     # OPTIMIZE
     model = document_line.model
     inventory_pool = document_line.inventory_pool
     group_found = false
+
+    #tmp#
+    groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool)
     
     maximum = maximum_available_in_period(model, inventory_pool, groups, document_line.start_date, document_line.end_date)
     # TODO sort groups by quantity desc
@@ -60,19 +63,23 @@ class AvailabilityChange < ActiveRecord::Base
       if maximum[group.name] >= document_line.quantity
         clone_change(model, inventory_pool, document_line.start_date).save
         
-        inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (document_line.start_date..document_line.end_date)})
+        # OPTIMIZE increment .tomorrow is not needed if already exists
+        inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (document_line.start_date..document_line.end_date.tomorrow)})
         inner_changes.each do |ic|
-          ic.available_quantities.scoped_by_group_id(group).first.decrement(:in_quantity).increment(:out_quantity).add_document(document_line).save
+          a = ic.available_quantities.scoped_by_group_id(group).first
+          a.decrement(:in_quantity).increment(:out_quantity).add_document(document_line).save
         end
         
         c = clone_change(model, inventory_pool, document_line.end_date.tomorrow)
-        c.available_quantities.scoped_by_group_id(group).first.increment(:in_quantity).decrement(:out_quantity).remove_document(document_line).save
+        a = c.available_quantities.scoped_by_group_id(group).first
+        # OPTIMIZE decrement .tomorrow is not needed if already exists
+        a.increment(:in_quantity).decrement(:out_quantity).remove_document(document_line).save
         
         group_found = true
         break
       end
     end
-    
+
     unless group_found
       clone_change(model, inventory_pool, document_line.start_date).save
       clone_change(model, inventory_pool, document_line.end_date.tomorrow).save
@@ -157,11 +164,13 @@ class AvailabilityChange < ActiveRecord::Base
   #
 #old#  def self.maximum_in_state_in_period(model, inventory_pool, groups, start_date, end_date, state)
   def self.maximum_available_in_period(model, inventory_pool, group_or_groups, start_date, end_date)
-    start_date = start_date.to_date
-    end_date = end_date.to_date
     # start from most recent entry we have, which is the last before start_date
-    start_date = AvailabilityChange.maximum(:date, :conditions => [ "date <= ?", start_date ]) \
-                 || start_date
+    start_date = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:date, :conditions => [ "date <= ?", start_date ]) \
+                 || start_date.to_date
+    
+    end_date = end_date.to_date
+    tmp_end_date = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).minimum(:date, :conditions => [ "date >= ?", start_date ])
+    end_date = [tmp_end_date, end_date].max if tmp_end_date
 
     max_per_group = Hash.new
     Array(group_or_groups).each do |group|
@@ -178,7 +187,7 @@ class AvailabilityChange < ActiveRecord::Base
                                    "AND model_id = ? " \
                                    "AND availability_changes.date BETWEEN ? AND ?",
                                    inventory_pool.id, model.id, start_date, end_date ] )
-      
+
       max_per_group[group.name] = r.to_i
     end
 

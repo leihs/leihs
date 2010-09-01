@@ -111,35 +111,32 @@ module Backend::AvailabilityHelper
     changes.collect do |c|
       content_tag :table do
         a = content_tag :tr do
-          b = content_tag :th do
-            _("Borrowable %s") % c.date
-          end
-          b += content_tag :th do
-            _("In Stock (%d)") % c.borrowable_in_stock_total
-          end
-          b += content_tag :th do
-            _("Not In Stock (%d)") % c.borrowable_not_in_stock_total
-          end
-          b += content_tag :th do
-            _("DocumentLines")
-          end
+          [_("Borrowable %s") % c.date,
+           _("In Stock (%d)") % c.borrowable_in_stock_total,
+           _("Not In Stock (%d)") % c.borrowable_not_in_stock_total,
+           _("DocumentLines")].collect do |s|
+            content_tag :th do
+              s  
+            end
+          end.join
         end
         a += content_tag :tr do
           b = content_tag :td do
             "#{_("General")}:"
           end
+          b += [c.general_borrowable_in_stock_size, c.general_borrowable_not_in_stock_size].collect do |q|
+            content_tag :td, :class => (q < 0 ? "valid_false" : nil) do
+              q
+            end
+          end.join
           b += content_tag :td do
-            c.general_borrowable_in_stock_size
-          end
-          b += content_tag :td do
-            c.general_borrowable_not_in_stock_size
-          end
-          b += content_tag :td do
-            # TODO
-            c.general_borrowable_not_in_stock.collect do |d|
-              d = "#{d[:type]} #{d[:id]}"
-              d += tag :br
-            end.join
+            content_tag :ol do
+              c.general_borrowable_not_in_stock.collect do |d|
+                content_tag :li do
+                  "#{d[:type]} #{d[:id]}"
+                end
+              end.join
+            end
           end
         end
         a += c.inventory_pool.groups.collect do |group|
@@ -148,17 +145,19 @@ module Backend::AvailabilityHelper
             b = content_tag :td do
               "#{group}:"
             end
+            b += [aq.try(:in_quantity).to_i, aq.try(:out_quantity).to_i].collect do |q|
+              content_tag :td, :class => (q < 0 ? "valid_false" : nil) do
+                q
+              end
+            end.join
             b += content_tag :td do
-              aq.try(:in_quantity).to_i
-            end
-            b += content_tag :td do
-              aq.try(:out_quantity).to_i
-            end
-            b += content_tag :td do
-              aq.documents.collect do |d|
-                d = "#{d[:type]} #{d[:id]}"
-                d += tag :br
-              end.join if aq.try(:documents)
+              content_tag :ol do
+                aq.documents.collect do |d|
+                  content_tag :li do
+                    "#{d[:type]} #{d[:id]}"
+                  end
+                end.join if aq.try(:documents)
+              end
             end
           end
         end.join
