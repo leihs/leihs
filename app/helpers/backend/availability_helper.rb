@@ -135,11 +135,13 @@ module Backend::AvailabilityHelper
             c.general_borrowable_not_in_stock_size
           end
           b += content_tag :td do
-            # TODO
-            c.general_borrowable_not_in_stock.collect do |d|
-              d = "#{d[:type]} #{d[:id]}"
-              d += tag :br
-            end.join
+            content_tag :ol do
+              c.general_borrowable_not_in_stock.collect do |d|
+                content_tag :li do
+                  "#{d[:type]} #{d[:id]}"
+                end
+              end.join
+            end
           end
         end
         a += c.inventory_pool.groups.collect do |group|
@@ -155,10 +157,13 @@ module Backend::AvailabilityHelper
               aq.try(:out_quantity).to_i
             end
             b += content_tag :td do
-              aq.documents.collect do |d|
-                d = "#{d[:type]} #{d[:id]}"
-                d += tag :br
-              end.join if aq.try(:documents)
+              content_tag :ol do
+                aq.documents.collect do |d|
+                  content_tag :li do
+                    "#{d[:type]} #{d[:id]}"
+                  end
+                end.join if aq.try(:documents)
+              end
             end
           end
         end.join
