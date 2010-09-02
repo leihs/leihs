@@ -52,37 +52,27 @@ class AvailabilityChange < ActiveRecord::Base
     # OPTIMIZE
     model = document_line.model
     inventory_pool = document_line.inventory_pool
-    group_found = false
 
     #tmp#
     groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool)
-    
+
+    start_change = clone_change(model, inventory_pool, document_line.start_date)
+    end_change = clone_change(model, inventory_pool, document_line.end_date.tomorrow)
+
     maximum = maximum_available_in_period(model, inventory_pool, groups, document_line.start_date, document_line.end_date)
     # TODO sort groups by quantity desc
     groups.each do |group|
       if maximum[group.name] >= document_line.quantity
-        clone_change(model, inventory_pool, document_line.start_date).save
         
-        # OPTIMIZE increment .tomorrow is not needed if already exists
         inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (document_line.start_date..document_line.end_date.tomorrow)})
         inner_changes.each do |ic|
-          a = ic.available_quantities.scoped_by_group_id(group).first
-          a.decrement(:in_quantity).increment(:out_quantity).add_document(document_line).save
+          ic.available_quantities.scoped_by_group_id(group).first.decrement(:in_quantity, document_line.quantity).increment(:out_quantity, document_line.quantity).add_document(document_line).save
         end
         
-        c = clone_change(model, inventory_pool, document_line.end_date.tomorrow)
-        a = c.available_quantities.scoped_by_group_id(group).first
-        # OPTIMIZE decrement .tomorrow is not needed if already exists
-        a.increment(:in_quantity).decrement(:out_quantity).remove_document(document_line).save
+        end_change.available_quantities.scoped_by_group_id(group).first.increment(:in_quantity, document_line.quantity).decrement(:out_quantity, document_line.quantity).remove_document(document_line).save
         
-        group_found = true
         break
       end
-    end
-
-    unless group_found
-      clone_change(model, inventory_pool, document_line.start_date).save
-      clone_change(model, inventory_pool, document_line.end_date.tomorrow).save
     end
   end
   
@@ -110,13 +100,15 @@ class AvailabilityChange < ActiveRecord::Base
 
   def borrowable_not_in_stock
     # TODO named_scope
-    model.contract_lines.by_inventory_pool(inventory_pool).all(:conditions => ["start_date <= ? AND end_date >= ? AND returned_date IS NULL", date, date])
+    model.contract_lines.by_inventory_pool(inventory_pool).all(:conditions => ["start_date <= ? AND end_date >= ? AND returned_date IS NULL", date, date]) \
+    + model.order_lines.scoped_by_inventory_pool_id(inventory_pool).submitted.all(:conditions => ["start_date <= ? AND end_date >= ?", date, date]) # TODO filter out acknowledged
   end
   
   def borrowable_not_in_stock_total
     #tmp# inventory_pool.items.borrowable.not_in_stock.scoped_by_model_id(model).count
     #temp# model.running_reservations(inventory_pool, date).count
-    borrowable_not_in_stock.count
+    #old# borrowable_not_in_stock.count
+    borrowable_not_in_stock.sum(&:quantity)
   end
 
   def general_borrowable_size
