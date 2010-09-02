@@ -111,7 +111,7 @@ module Backend::AvailabilityHelper
     changes.collect do |c|
       content_tag :table do
         a = content_tag :tr do
-          [_("Borrowable %s") % c.date,
+          [_("Borrowable %s") % short_date(c.date),
            _("In Stock (%d)") % c.borrowable_in_stock_total,
            _("Not In Stock (%d)") % c.borrowable_not_in_stock_total,
            _("DocumentLines")].collect do |s|

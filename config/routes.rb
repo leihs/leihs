@@ -156,6 +156,7 @@ ActionController::Routing::Routes.draw do |map|
                                                            :delete_holiday => :get } # OPTIMIZE post (ajax)
       inventory_pool.resources :groups, :member => { :users => :get,
                                                      :add_user => :put }
+      inventory_pool.resource :availability, :controller => 'availability'
     end
   end
   

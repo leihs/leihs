@@ -8,6 +8,7 @@
     </h4>
     <div id="menu_booking" style="margin: 5px">
     <ul>
+      <li><%= link_to _("Availability"), backend_inventory_pool_availability_path(current_inventory_pool) %></li>
       
       <%= render :partial => '/layouts/backend/00-patterns/menu_process' %>
       <%= render :partial => '/layouts/backend/00-patterns/menu_items' %>

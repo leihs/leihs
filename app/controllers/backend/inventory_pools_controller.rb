@@ -21,9 +21,6 @@ class Backend::InventoryPoolsController < Backend::BackendController
     end
   end
 
-  def info
-  end
-  
   def show
   end
   

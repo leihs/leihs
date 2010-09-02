@@ -288,7 +288,7 @@ class Backend::ModelsController < Backend::BackendController
   end
 
 #############################################################
-
+# TODO refactor to availability_controller ??
   def groups
     if request.post?
       #@defined_change = @model.availability_changes.new_current_for_inventory_pool(current_inventory_pool)
@@ -308,8 +308,11 @@ class Backend::ModelsController < Backend::BackendController
       flash[:notice] = _("The group quantities were successfully saved.")
     end
 
+    @changes = @model.availability_changes.scoped_by_inventory_pool_id(current_inventory_pool)
+
     #old# @defined_change ||= @model.availability_changes.current_for_inventory_pool(current_inventory_pool)
-    @defined_change = @model.availability_changes.scoped_by_inventory_pool_id(current_inventory_pool).last
+    #old# @defined_change = @model.availability_changes.scoped_by_inventory_pool_id(current_inventory_pool).last
+    @defined_change = @changes.last
     @defined_change ||= @model.availability_changes.reset_for_inventory_pool(current_inventory_pool)
   end
 
