@@ -186,7 +186,7 @@ input[type='submit'] {
 	color: #529214;
 	background-color: #F5F5F5;
 	border: 1px solid #529214;
-	padding: 0.5em;
+	padding: 0.5em 1em 0.5em 1em;
 	margin: 1em;
 	font-size: 1em;
 	cursor: pointer;

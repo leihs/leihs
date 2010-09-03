@@ -5,7 +5,7 @@ class Group < ActiveRecord::Base
   validates_presence_of :inventory_pool_id
   validates_presence_of :name
 
-  named_scope :general, :conditions => {:name => 'General'}
+#old#with-general# named_scope :general, :conditions => {:name => 'General'}
 
   define_index do
     indexes :name, :sortable => true

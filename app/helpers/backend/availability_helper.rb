@@ -61,7 +61,7 @@ module Backend::AvailabilityHelper
                         },
                         yaxis: {
                           min: 0,
-                          max: #{general_borrowable_size},
+                          max: #{general_borrowable_size+1},
                           ticks: #{(1..general_borrowable_size).to_json}
                         },
                         grid: {
@@ -91,7 +91,7 @@ module Backend::AvailabilityHelper
                         },
                         yaxis: {
                           min: 0,
-                          max: #{group_totals[group.id]},
+                          max: #{group_totals[group.id]+1},
                           ticks: #{(1..group_totals[group.id]).to_json}
                         },
                         grid: {

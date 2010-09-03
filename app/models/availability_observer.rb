@@ -1,5 +1,5 @@
 class AvailabilityObserver < ActiveRecord::Observer
-  observe :item, :model, :access_right
+#old#with-general#  observe :item, :model, :access_right
 
   ##############################################################
   #

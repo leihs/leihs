@@ -18,6 +18,7 @@ class CreateAvailablityChanges < ActiveRecord::Migration
       t.text       :documents # serialize
     end
 
+    #old#with-general#
     # TODO: Availability migration
     # InventoryPool.all.each do |ip|
     #   ip.models.each do |m|
