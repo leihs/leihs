@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
 
   validates_uniqueness_of :inventory_code
   validates_presence_of :inventory_code, :model
-  validate :validates_package, :validates_model_change
+  validate :validates_package, :validates_model_change, :validates_retired
 
 ####################################################################
 
@@ -397,6 +397,10 @@ class Item < ActiveRecord::Base
   
   def validates_model_change
     errors.add_to_base(_("The model cannot be changed because the item is used in contracts already.")) if model_id_changed? and not contract_lines.empty? 
+  end
+
+  def validates_retired
+    errors.add_to_base(_("The item cannot be retired because it's not returned yet.")) if not retired.nil? and not in_stock? 
   end
 
   def update_sphinx_index

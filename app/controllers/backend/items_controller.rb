@@ -199,15 +199,19 @@ class Backend::ItemsController < Backend::BackendController
         @item.retired = Date.today
       end
       @item.retired_reason = params[:reason]
-      @item.log_history(_("Item retired (%s)") % @item.retired_reason, current_user)
-      @item.save
-      # TODO redirect back
-      redirect_to :action => 'index'
-    else
-      @tabs = nil
-      params[:layout] = "modal"
-      render :action => 'retire'
+      if @item.save
+        msg = _("Item retired (%s)") % @item.retired_reason
+        @item.log_history(msg, current_user)
+        flash[:notice] = msg
+        redirect_to params[:source_path] and return
+      else
+        flash[:error] = @item.errors.full_messages
+      end
     end
+    
+    @tabs = nil
+    params[:layout] = "modal"
+    render :action => 'retire'
   end
 
   
@@ -279,6 +283,7 @@ class Backend::ItemsController < Backend::BackendController
   
     @tabs = []
     @tabs << :model_backend if @model and not ["new", "show"].include?(action_name)
+    @tabs << :item_backend if ["new", "show"].include?(action_name)
 
   end
 

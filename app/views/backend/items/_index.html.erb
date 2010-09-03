@@ -54,8 +54,7 @@
 			<td class="buttons">
 				<%= link_to icon_tag("magnifier") + _("Show"), record_path %>
 				<% if is_privileged_user? and item.owner_id == current_inventory_pool.id %>
-					<% action = (item.retired ? _("Unretire") : _("Retire")) %>
-					<%= greybox_link action, retire_backend_inventory_pool_model_item_path(current_inventory_pool, item.model_id, item) %>
+					<%= retire_button(item) %>
 				<% end %>
 			</td>
 		</tr>
