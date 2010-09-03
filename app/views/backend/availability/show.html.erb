@@ -1,0 +1,30 @@
+<% content_tag :h3 do %>
+	<%= _("Overbooking") %>
+<% end %>
+
+<% content_tag :table do
+    content_tag :tr do
+      [_("Model"),
+       _("Period"),
+       _("Overbooked Quantity")].each do |s|
+        content_tag :th do %>
+          <%= s %>  
+        <% end
+      end
+    end
+
+	@overbooking.each do |ob|
+		content_tag :tr do
+			content_tag :td do %>
+	  			<%= ob[:model] %>  
+			<% end
+			content_tag :td do %>
+	  			<%= dates_with_period(ob[:start_date], ob[:end_date]) %>  
+			<% end
+			content_tag :td do %>
+	  			<%= ob[:quantity] %>  
+			<% end
+		end
+	end
+
+end %>

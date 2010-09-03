@@ -46,6 +46,8 @@ class AvailabilityChange < ActiveRecord::Base
 #tmp#      groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) & changes.first.available_quantities.collect(&:group)
       recompute_reservation(document_line) #tmp#, groups)
     end
+    
+    model.availability_changes.scoped_by_inventory_pool_id(inventory_pool)
   end
 
   def self.recompute_reservation(document_line) #tmp#, groups)
@@ -89,6 +91,43 @@ class AvailabilityChange < ActiveRecord::Base
       c = g
     end
     c
+  end
+
+  def self.overbooking(inventory_pool)
+    overbooking = []
+    inventory_pool.models.each do |model|
+      overbooking += overbooking_for_model(model, inventory_pool)
+    end
+    overbooking
+  end
+
+  def self.overbooking_for_model(model, inventory_pool)
+    changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool)
+
+    # OPTIMIZE
+    changes = recompute(model, inventory_pool) if changes.size <= 1
+
+    overbooking = []
+    changes.each do |c|
+      q = c.general_borrowable_in_stock_size
+      overbooking << {:model => model, :start_date => c.start_date, :end_date => c.end_date, :quantity => q } if q < 0
+    end
+    overbooking
+  end
+
+#############################################
+
+  def next_change
+    r = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).first(:conditions => ["date > ?", date])
+    r ||= model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).first
+  end
+
+  def start_date
+    date
+  end
+
+  def end_date
+    next_change.date.yesterday
   end
 
 #############################################

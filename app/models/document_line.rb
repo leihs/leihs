@@ -92,7 +92,8 @@ class DocumentLine < ActiveRecord::Base
   # TODO: recheck - the numbers of updates done don't add up!
   def available?
     if self.cached_available.nil?
-      self.cached_available = (maximum_available_quantity >= quantity)
+      #tmp# self.cached_available = (maximum_available_quantity >= quantity)
+      self.cached_available = AvailabilityChange.overbooking_for_model(model, inventory_pool).detect {|o| o[:start_date] <= end_date and o[:end_date] >= start_date }.nil?
       save
     end
     self.cached_available
