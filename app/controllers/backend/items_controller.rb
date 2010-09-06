@@ -283,7 +283,7 @@ class Backend::ItemsController < Backend::BackendController
   
     @tabs = []
     @tabs << :model_backend if @model and not ["new", "show"].include?(action_name)
-    @tabs << :item_backend if ["new", "show"].include?(action_name)
+    #tmp# @tabs << :item_backend if ["new", "show"].include?(action_name)
 
   end
 
