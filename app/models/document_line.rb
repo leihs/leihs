@@ -3,6 +3,8 @@
 # and #ContractLine.
 #
 class DocumentLine < ActiveRecord::Base
+  include Availability2::DocumentLine
+  
   self.abstract_class = true
   
   before_validation_on_create :set_defaults
@@ -90,14 +92,14 @@ class DocumentLine < ActiveRecord::Base
   #         the other #DocumentLines with the same #Model and inside the same
   #         #InventoryPool. See #before_save.
   # TODO: recheck - the numbers of updates done don't add up!
-  def available?
-    if self.cached_available.nil?
-      #tmp# self.cached_available = (maximum_available_quantity >= quantity)
-      self.cached_available = AvailabilityChange.overbooking_for_model(model, inventory_pool).detect {|o| o[:start_date] <= end_date and o[:end_date] >= start_date }.nil?
-      save
-    end
-    self.cached_available
-  end
+#  def available?
+#    if self.cached_available.nil?
+#      self.cached_available = (maximum_available_quantity >= quantity)
+#      #tmp#refactored-to-module# new-availability# self.cached_available = AvailabilityChange.overbooking_for_model(model, inventory_pool).detect {|o| o[:start_date] <= end_date and o[:end_date] >= start_date }.nil?
+#      save
+#    end
+#    self.cached_available
+#  end
 
   def maximum_available_quantity
     model.maximum_available_in_period_for_document_line(start_date, end_date, self) # TODO + quantity

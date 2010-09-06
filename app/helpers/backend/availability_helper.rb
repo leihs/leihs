@@ -72,7 +72,7 @@ module Backend::AvailabilityHelper
 
           groups.each do |group|
             #next unless group_totals[group.id] > 0
-            data = changes.map {|c| [date_to_i(c.date), c.available_quantities.scoped_by_group_id(group).first.try(:out_quantity).to_i] }
+            data = changes.map {|c| [date_to_i(c.date), c.availability_quantities.scoped_by_group_id(group).first.try(:out_quantity).to_i] }
             data << [date_to_i(last.tomorrow), 0]
 
             js += <<-HERECODE
@@ -140,7 +140,7 @@ module Backend::AvailabilityHelper
           end
         end
         a += c.inventory_pool.groups.collect do |group|
-          aq = c.available_quantities.scoped_by_group_id(group).first
+          aq = c.availability_quantities.scoped_by_group_id(group).first
           content_tag :tr do
             b = content_tag :td do
               "#{group}:"

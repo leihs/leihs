@@ -9,6 +9,7 @@
 #
 #
 class Model < ActiveRecord::Base
+  include Availability2::Model
 
   def before_destroy
     errors.add_to_base "Model cannot be destroyed because related items are still present." if items.count(:retired => :all) > 0
@@ -56,23 +57,6 @@ class Model < ActiveRecord::Base
       return item.children.collect(&:model) unless item.children.empty?
     end if is_package?
     return []
-  end
-
-  has_many :availability_changes do
-    def current_for_inventory_pool(inventory_pool)
-      r = scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", Date.today])
-      r ||= new_current_for_inventory_pool(inventory_pool)
-    end
-    
-    def new_current_for_inventory_pool(inventory_pool)
-      build(:inventory_pool => inventory_pool, :date => Date.today)
-    end
-    
-    #tmp#
-    def reset_for_inventory_pool(inventory_pool)
-      scoped_by_inventory_pool_id(inventory_pool).destroy_all
-      scoped_by_inventory_pool_id(inventory_pool).create(:date => Date.today)
-    end
   end
 
 ########
@@ -226,50 +210,51 @@ class Model < ActiveRecord::Base
 #  [:inventory_pool_id][:model_id][:level ??][:periods]
 #  { 1 => { 1 => [["2010-01-20", "2010-01-22", 3], ["2010-01-23", "2010-01-27", 6]] } }
 
-  def unavailable_periods_for_document_line(document_line, current_time = Date.today)
-    availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user, document_line.is_a?(OrderLine))
-    availability.cancel_availability_change!(document_line) # remove document_line itself preventing it to be counted
-    unavailable_periods = availability.periods.select { |a| a.quantity < document_line.quantity }
-
-    # NOTE even if start_date or end_date are nil,
-    # make sure they are set in order to have (it may occur when an item is unborrowable)
-    # TODO refactor to Availability#periods ??
-    unavailable_periods.each do |u|
-      u.start_date = current_time unless u.start_date
-      u.end_date = u.start_date + 1.year unless u.end_date
-    end
-
-    unavailable_periods
-  end
-  
-  # TODO *e* inventory_pools array ??
-  def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
-    create_availability(current_time, inventory_pool, user).periods
-  end
-
-# OPTIMIZE this method is only used for test ??  
-  # TODO *e* maximum_available_for_document_line method ??
-  def maximum_available_for_inventory_pool(date, inventory_pool, user, current_time = Date.today)
-    create_availability(current_time, inventory_pool, user).period_for(date).quantity
-  end
-  
-  def maximum_available_in_period_for_document_line(start_date, end_date, document_line, current_time = Date.today)
-    if (start_date.nil? && end_date.nil?)
-      return items.size
-    else
-      availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user, document_line.is_a?(OrderLine))
-      availability.cancel_availability_change!(document_line) # remove document_line itself preventing it to be counted
-      return availability.maximum_available_in_period(start_date, end_date)
-    end
-  end  
-
-  def maximum_available_in_period_for_inventory_pool(start_date, end_date, inventory_pool, user, current_time = Date.today)
-    if (start_date.nil? && end_date.nil?)
-      return items.size
-    else
-      create_availability(current_time, inventory_pool, user).maximum_available_in_period(start_date, end_date)
-    end
-  end  
+#old-availability#
+#  def unavailable_periods_for_document_line(document_line, current_time = Date.today)
+#    availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user, document_line.is_a?(OrderLine))
+#    availability.cancel_availability_change!(document_line) # remove document_line itself preventing it to be counted
+#    unavailable_periods = availability.periods.select { |a| a.quantity < document_line.quantity }
+#
+#    # NOTE even if start_date or end_date are nil,
+#    # make sure they are set in order to have (it may occur when an item is unborrowable)
+#    # TODO refactor to Availability#periods ??
+#    unavailable_periods.each do |u|
+#      u.start_date = current_time unless u.start_date
+#      u.end_date = u.start_date + 1.year unless u.end_date
+#    end
+#
+#    unavailable_periods
+#  end
+#  
+#  # TODO *e* inventory_pools array ??
+#  def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
+#    create_availability(current_time, inventory_pool, user).periods
+#  end
+#
+## OPTIMIZE this method is only used for test ??  
+#  # TODO *e* maximum_available_for_document_line method ??
+#  def maximum_available_for_inventory_pool(date, inventory_pool, user, current_time = Date.today)
+#    create_availability(current_time, inventory_pool, user).period_for(date).quantity
+#  end
+#  
+#  def maximum_available_in_period_for_document_line(start_date, end_date, document_line, current_time = Date.today)
+#    if (start_date.nil? && end_date.nil?)
+#      return items.size
+#    else
+#      availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user, document_line.is_a?(OrderLine))
+#      availability.cancel_availability_change!(document_line) # remove document_line itself preventing it to be counted
+#      return availability.maximum_available_in_period(start_date, end_date)
+#    end
+#  end  
+#
+#  def maximum_available_in_period_for_inventory_pool(start_date, end_date, inventory_pool, user, current_time = Date.today)
+#    if (start_date.nil? && end_date.nil?)
+#      return items.size
+#    else
+#      create_availability(current_time, inventory_pool, user).maximum_available_in_period(start_date, end_date)
+#    end
+#  end  
 
 
 #############################################  

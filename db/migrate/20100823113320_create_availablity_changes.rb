@@ -10,7 +10,7 @@ class CreateAvailablityChanges < ActiveRecord::Migration
 
     # TODO unique [date, inventory_pool_id, model_id] 
 
-    create_table :available_quantities do |t|
+    create_table :availability_quantities do |t|
       t.belongs_to :availability_change
       t.belongs_to :group
       t.integer    :in_quantity, :default => 0
@@ -32,7 +32,7 @@ class CreateAvailablityChanges < ActiveRecord::Migration
 
   def self.down
     drop_table :availability_changes
-    drop_table :available_quantities
+    drop_table :availability_quantities
   end
 end
 

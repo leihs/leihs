@@ -299,11 +299,11 @@ class Backend::ModelsController < Backend::BackendController
       params[:groups].each_pair do |group_id, quantity|
         quantity = quantity.to_i
         # TODO get out_quantity and store only if sum > 0
-        defined_change.available_quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
+        defined_change.availability_quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
       end
 
       # TODO
-      AvailabilityChange.recompute(@model, current_inventory_pool)
+      Availability2::Change.recompute(@model, current_inventory_pool)
 
       flash[:notice] = _("The group quantities were successfully saved.")
     end
