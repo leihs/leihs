@@ -33,7 +33,7 @@ render_tabnav :user_backend,
 		t.named _("Groups (%d)") % groups.count
 		t.links_to polymorphic_path([:groups, :backend, current_inventory_pool, @user].compact, :layout => params[:layout])
 		t.highlights_on :controller => 'backend/users', :action => 'groups'
-	end
+	end if current_inventory_pool
 
   	add_tab do |t|
 		t.named _("Things to return")
