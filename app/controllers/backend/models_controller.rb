@@ -294,13 +294,19 @@ class Backend::ModelsController < Backend::BackendController
       #@defined_change = @model.availability_changes.new_current_for_inventory_pool(current_inventory_pool)
       #@defined_change.save
       defined_change = @model.availability_changes.reset_for_inventory_pool(current_inventory_pool)
+      #tmp#1
+      general = defined_change.availability_quantities.general
 
       # TODO update future records (or prevent completely if it's breaking future availabilities) 
       params[:groups].each_pair do |group_id, quantity|
         quantity = quantity.to_i
         # TODO get out_quantity and store only if sum > 0
         defined_change.availability_quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
+        #tmp#1
+        general.in_quantity -= quantity
       end
+      #tmp#1
+      general.save
 
       # TODO
       Availability2::Change.recompute(@model, current_inventory_pool)

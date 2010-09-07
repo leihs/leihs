@@ -4,7 +4,14 @@ module Availability2
 
     belongs_to :inventory_pool
     belongs_to :model, :class_name => "::Model"
-    has_many :availability_quantities, :dependent => :destroy, :class_name => "Availability2::Quantity", :foreign_key => "availability_change_id"
+    has_many :availability_quantities, :dependent => :destroy,
+                                       :class_name => "Availability2::Quantity",
+                                       :foreign_key => "availability_change_id" do
+                                       #tmp#1
+                                         def general
+                                           scoped_by_group_id(nil).first
+                                         end
+                                       end
   
     validates_presence_of :inventory_pool_id
     validates_presence_of :model_id
@@ -29,6 +36,18 @@ module Availability2
                 }
                 
   #############################################
+  
+    def self.recompute_all
+      transaction do
+        InventoryPool.all.each do |inventory_pool|
+          inventory_pool.models.each do |model|
+            #tmp#1
+            c = model.availability_changes.reset_for_inventory_pool(inventory_pool)
+            recompute(model, inventory_pool)
+          end
+        end
+      end
+    end
   
     def self.recompute(model, inventory_pool)
       #old# TODO keep manager definition and delete others 
@@ -63,20 +82,28 @@ module Availability2
       # TODO user maximum_available_in_period_for_user instead ??
       groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) #tmp#
       maximum = maximum_available_in_period_for_groups(model, inventory_pool, groups, document_line.start_date, document_line.end_date)
+      
+      group_found = false
       # TODO sort groups by quantity desc
       groups.each do |group|
         if maximum[group.name] >= document_line.quantity
-          
-          inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (document_line.start_date..document_line.end_date.tomorrow)})
-          inner_changes.each do |ic|
-            ic.availability_quantities.scoped_by_group_id(group).first.decrement(:in_quantity, document_line.quantity).increment(:out_quantity, document_line.quantity).add_document(document_line).save
-          end
-          
-          end_change.availability_quantities.scoped_by_group_id(group).first.increment(:in_quantity, document_line.quantity).decrement(:out_quantity, document_line.quantity).remove_document(document_line).save
-          
+          update_changes(model, inventory_pool, group, document_line, start_change, end_change)
+          group_found = true
           break
         end
       end
+
+      #tmp#1
+      update_changes(model, inventory_pool, nil, document_line, start_change, end_change) unless group_found
+    end
+
+    def self.update_changes(model, inventory_pool, group, document_line, start_change, end_change)
+      inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (document_line.start_date..document_line.end_date.tomorrow)})
+      inner_changes.each do |ic|
+        ic.availability_quantities.scoped_by_group_id(group).first.decrement(:in_quantity, document_line.quantity).increment(:out_quantity, document_line.quantity).add_document(document_line).save
+      end
+      
+      end_change.availability_quantities.scoped_by_group_id(group).first.increment(:in_quantity, document_line.quantity).decrement(:out_quantity, document_line.quantity).remove_document(document_line).save
     end
     
     def self.clone_change(model, inventory_pool, date)
@@ -135,37 +162,50 @@ module Availability2
   
     def borrowable_in_stock_total
       #tmp# inventory_pool.items.borrowable.in_stock.scoped_by_model_id(model).count
-      inventory_pool.items.borrowable.scoped_by_model_id(model).count - borrowable_not_in_stock_total
+      # inventory_pool.items.borrowable.scoped_by_model_id(model).count - borrowable_not_in_stock_total
+      #tmp#1
+      availability_quantities.sum(:in_quantity)
     end
   
-    def borrowable_not_in_stock
-      # TODO named_scope
-      model.contract_lines.by_inventory_pool(inventory_pool).all(:conditions => ["start_date <= ? AND end_date >= ? AND returned_date IS NULL", date, date]) \
-      + model.order_lines.scoped_by_inventory_pool_id(inventory_pool).submitted.all(:conditions => ["start_date <= ? AND end_date >= ?", date, date]) # TODO filter out acknowledged
-    end
+    #tmp#1
+#    def borrowable_not_in_stock
+#      # TODO named_scope
+#      model.contract_lines.by_inventory_pool(inventory_pool).all(:conditions => ["start_date <= ? AND end_date >= ? AND returned_date IS NULL", date, date]) \
+#      + model.order_lines.scoped_by_inventory_pool_id(inventory_pool).submitted.all(:conditions => ["start_date <= ? AND end_date >= ?", date, date]) # TODO filter out acknowledged
+#    end
     
     def borrowable_not_in_stock_total
       #tmp# inventory_pool.items.borrowable.not_in_stock.scoped_by_model_id(model).count
       #temp# model.running_reservations(inventory_pool, date).count
       #old# borrowable_not_in_stock.count
-      borrowable_not_in_stock.sum(&:quantity)
+      # borrowable_not_in_stock.sum(&:quantity)
+      #tmp#1
+      availability_quantities.sum(:out_quantity)
     end
   
     def general_borrowable_size
-      inventory_pool.items.borrowable.scoped_by_model_id(model).count - availability_quantities.sum(:in_quantity).to_i - availability_quantities.sum(:out_quantity).to_i
+      # inventory_pool.items.borrowable.scoped_by_model_id(model).count - availability_quantities.sum(:in_quantity).to_i - availability_quantities.sum(:out_quantity).to_i
+      #tmp#1
+      general_borrowable_in_stock_size + general_borrowable_not_in_stock_size
     end
   
     def general_borrowable_in_stock_size
-      borrowable_in_stock_total - availability_quantities.sum(:in_quantity).to_i
+      # borrowable_in_stock_total - availability_quantities.sum(:in_quantity).to_i
+      #tmp#1
+      availability_quantities.general.in_quantity
     end
   
     def general_borrowable_not_in_stock_size
-      borrowable_not_in_stock_total - availability_quantities.sum(:out_quantity).to_i
+      # borrowable_not_in_stock_total - availability_quantities.sum(:out_quantity).to_i
+      #tmp#1
+      availability_quantities.general.out_quantity
     end
   
     def general_borrowable_not_in_stock
-      documents = availability_quantities.collect(&:documents).flatten.compact
-      borrowable_not_in_stock.collect {|d| {:type => d.class.to_s, :id => d.id} } - documents
+      # documents = availability_quantities.collect(&:documents).flatten.compact
+      # borrowable_not_in_stock.collect {|d| {:type => d.class.to_s, :id => d.id} } - documents
+      #tmp#1
+      availability_quantities.general.documents || []
     end
     
     def total_in_group(group)
