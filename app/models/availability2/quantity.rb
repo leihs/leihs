@@ -6,11 +6,16 @@ module Availability2
     belongs_to :group
   
     validates_presence_of :availability_change_id
-    validates_presence_of :group_id
+#tmp#1    validates_presence_of :group_id
     validates_presence_of :in_quantity
     validates_presence_of :out_quantity
   
     serialize :documents, Array
+    
+    # TODO
+#    def document
+#      || []
+#    end
   
     def add_document(d)
       self.documents ||= []
