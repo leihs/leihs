@@ -288,7 +288,7 @@ class Backend::ModelsController < Backend::BackendController
   end
 
 #############################################################
-# TODO refactor to availability_controller ??
+
   def groups
     if request.post?
       Availability2::Change.new_partition(@model, current_inventory_pool, params[:groups])
