@@ -16,7 +16,7 @@ Feature: Implement new Group feature
 		Then 3 items of that Model should be available to everybody
 		 And that Model should not be available in any Group
 
-		When I move one item of that Model from the general pool to Group "CAST"
+		When I assign one item to Group "CAST"
 		Then 2 items of that Model should be available to everybody
 		 And one item of that Model should be available in Group 'CAST'
 
@@ -43,7 +43,8 @@ Feature: Implement new Group feature
 		Then 2 items of that Model should be borrowed in Group 'CAST'
 
 		When I lend 2 items of that Model to "Franco"
-		Then 2 items of that Model should be borrowed in the general pool
+		Then 2 items of that Model should be borrowed
+		 But they should not be borrowed from any group
 
 		When "Tomáš" returns 2 items
 		Then 2 items of that Model should be available in Group 'CAST'
