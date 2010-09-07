@@ -266,7 +266,7 @@ class User < ActiveRecord::Base
     if exact_match
       return roles.include?(role)
     else
-      return ( roles.any? {|r| r.full_set.include?(role)} )
+      return ( roles.any? {|r| r.ancestors.include?(role)} )
     end
   end
   # ---------------------------------------
