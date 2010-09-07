@@ -256,15 +256,14 @@ module Availability2
     # can return nil!
     def self.most_recent_available_change(model, inventory_pool, at_or_before_date = Date.today)
        return model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).last(
-                    :conditions => [ "date <= ?", at_or_before_date ],
-                    :order => :date )
+                    :conditions => [ "date <= ?", at_or_before_date ] )
     end
 
     # how many items of #Model in a 'state' are there at most over the given period?
     #
     # returns a hash à la: { 'CAST' => 2, 'Video' => 1, ... }
     #
-    def self.maximum_available_in_period_for_groups(model, inventory_pool, group_or_groups, start_date, end_date)
+    def self.maximum_available_in_period_for_groups(model, inventory_pool, group_or_groups, start_date = Date.today, end_date = Availability2::ETERNITY)
       start_date =  self.most_recent_available_change(model, inventory_pool, start_date).try(:date) || start_date.to_date
       
       end_date = end_date.to_date
@@ -293,7 +292,12 @@ module Availability2
   
       return max_per_group
     end
-  
+
+    # only used in test for now...
+    def self.available_for_everybody(model, inventory_pool)
+        model.availability_changes.current_for_inventory_pool(inventory_pool).general_borrowable_in_stock_size
+    end
+
 #    # how is a model distributed in the various groups?
 #    #
 #    # returns a hash à la: { nil => 4, cast_group_id => 2, video_group_id => 1, ... }
@@ -305,7 +309,7 @@ module Availability2
 #      current_state.availability_quantities.map do |q|
 #        partitioning[q.group_id] = q.in_quantity + q.out_quantity
 #      end
-#
+#      
 #    end
   
   end

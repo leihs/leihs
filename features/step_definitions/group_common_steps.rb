@@ -9,9 +9,7 @@ Then "that Model should not be available in any other Group"  do
   quantities = Availabilita2::Change.maximum_available_in_period_for_groups( @model,
                                                                              @inventory_pool,
                                                                              @inventory_pool.groups.find( :all,
-                                                                                                          :conditions => ['id != ?',@group]),
-                                                                             DateTime.now,
-                                                                             (DateTime.now + 10.years))
+                                                                                                          :conditions => ['id != ?',@group]))
   quantities.values.reduce(:+).to_i.should == 0
 end
 
@@ -21,9 +19,7 @@ Then /^(\w+) item(s?) of that Model should be available in Group '([^"]*)'( only
   n = to_number(n)
   quantities = Availability2::Change.maximum_available_in_period_for_groups( @model,
                                                                              @inventory_pool,
-                                                                             all_groups,
-                                                                             DateTime.now,
-                                                                             (DateTime.now + 10.years))
+                                                                             all_groups)
   quantities[group_name].to_i.should == n
 
   if exclusivity

@@ -13,3 +13,7 @@ Given /^(\d+) items of that Model in Group "([^"]*)"$/ do |n, group_name|
   When "I assign #{n} items to Group \"#{group_name}\""
 end
 
+Given "$n items of that Model should be available to everybody" do |n|
+  Availability2::Change.available_for_everybody( @model, @inventory_pool ).should == n.to_i
+end
+
