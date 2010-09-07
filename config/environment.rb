@@ -80,8 +80,7 @@ Rails::Initializer.run do |config|
  
   config.gem "prawn", :version => '0.8.4'
   config.gem "ruby-net-ldap", :lib => 'net/ldap', :version => ">= 0.0.4"
-
-  config.gem "awesome_nested_set", :version => ">= 1.4.3"
+ 
 end
 
 ######################################################
