@@ -126,4 +126,3 @@ end
 When "I remove from user '$user' access to the inventory pool '$inventory_pool'" do |user, inventory_pool|
   pending # express the regexp above with the code you wish you had
 end
-		Then he must be not be in Group 'General' in inventory pool 'Lectures in comix'
