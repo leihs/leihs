@@ -63,7 +63,7 @@ class InventoryPool < ActiveRecord::Base
   has_many :contracts
   has_many :contract_lines, :through => :contracts, :uniq => true
 
-  has_many :groups
+  has_many :groups #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
 
 #######################################################################
 
