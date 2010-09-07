@@ -1,9 +1,9 @@
 @ignore
+Feature: Implement new Group feature
 # These tests were implemented with a 'General' group in mind, which
 # doesn't exist in Franco's design
 #
 # See groups-without-general.feature instead
-Feature: Implement new Group feature
 
 	Background: Provide a minimal lending environment
 	        Given inventory pool 'AVZ'
