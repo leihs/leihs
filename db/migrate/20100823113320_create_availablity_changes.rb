@@ -18,6 +18,8 @@ class CreateAvailablityChanges < ActiveRecord::Migration
       t.text       :documents # serialize
     end
 
+    Availability2::Change.recompute_all
+    
     #old#with-general#
     # TODO: Availability migration
     # InventoryPool.all.each do |ip|

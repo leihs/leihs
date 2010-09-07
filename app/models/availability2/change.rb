@@ -37,19 +37,40 @@ module Availability2
                 
   #############################################
   
+    def self.new_partition(model, inventory_pool, group_partitioning)
+      #@initial_change = @model.availability_changes.new_current_for_inventory_pool(current_inventory_pool)
+      #@initial_change.save
+      initial_change = model.availability_changes.reset_for_inventory_pool(inventory_pool)
+      #tmp#1
+      general_quantity = initial_change.availability_quantities.general
+      
+      # TODO update future records (or prevent completely if it's breaking future availabilities) 
+      group_partitioning.each_pair do |group_id, quantity|
+        quantity = quantity.to_i
+        # TODO get out_quantity and store only if sum > 0
+        initial_change.availability_quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
+        #tmp#1
+        general_quantity.in_quantity -= quantity
+      end if group_partitioning
+      #tmp#1
+      general_quantity.save
+      initial_change.save
+
+      # TODO
+      Availability2::Change.recompute(model, inventory_pool, false)
+    end
+  
     def self.recompute_all
       transaction do
         InventoryPool.all.each do |inventory_pool|
           inventory_pool.models.each do |model|
-            #tmp#1
-            c = model.availability_changes.reset_for_inventory_pool(inventory_pool)
             recompute(model, inventory_pool)
           end
         end
       end
     end
   
-    def self.recompute(model, inventory_pool)
+    def self.recompute(model, inventory_pool, with_reset = true)
       #old# TODO keep manager definition and delete others 
       #model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => ["date != ?", Date.parse("2010-01-01")]).each {|x| x.destroy } # OPTIMIZE
       #changes = [model.availability_changes.defined_for_inventory_pool(inventory_pool)]
@@ -60,7 +81,10 @@ module Availability2
   #tmp#
   #    changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool)
   #    changes << model.availability_changes.reset_for_inventory_pool(inventory_pool) if changes.blank?
-      
+
+      #tmp#1
+      model.availability_changes.reset_for_inventory_pool(inventory_pool) if with_reset
+     
       reservations = model.running_reservations(inventory_pool)
       reservations.each do |document_line|
   #tmp#      groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) & changes.first.availability_quantities.collect(&:group)
@@ -228,15 +252,20 @@ module Availability2
       end
       (maximum.values << maximum_general.min.to_i).max
     end
-  
+
+    # can return nil!
+    def self.most_recent_available_change(model, inventory_pool, at_or_before_date = Date.today)
+       return model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).last(
+                    :conditions => [ "date <= ?", at_or_before_date ],
+                    :order => :date )
+    end
+
     # how many items of #Model in a 'state' are there at most over the given period?
     #
-    # returns a hash à la: { 'General' => 4, 'CAST' => 2, ... }
+    # returns a hash à la: { 'CAST' => 2, 'Video' => 1, ... }
     #
     def self.maximum_available_in_period_for_groups(model, inventory_pool, group_or_groups, start_date, end_date)
-      # start from most recent entry we have, which is the last before start_date
-      start_date = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:date, :conditions => [ "date <= ?", start_date ]) \
-                   || start_date.to_date
+      start_date =  self.most_recent_available_change(model, inventory_pool, start_date).try(:date) || start_date.to_date
       
       end_date = end_date.to_date
       tmp_end_date = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).minimum(:date, :conditions => [ "date >= ?", start_date ])
@@ -265,5 +294,20 @@ module Availability2
       return max_per_group
     end
   
+#    # how is a model distributed in the various groups?
+#    #
+#    # returns a hash à la: { nil => 4, cast_group_id => 2, video_group_id => 1, ... }
+#    #
+#    def self.partitions_by_group(model, inventory_pool)
+#      current_state =  self.most_recent_available_change(model, inventory_pool)
+#
+#      partitioning = Hash.new
+#      current_state.availability_quantities.map do |q|
+#        partitioning[q.group_id] = q.in_quantity + q.out_quantity
+#      end
+#
+#    end
+  
   end
+
 end

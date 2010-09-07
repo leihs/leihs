@@ -9,18 +9,18 @@ module Availability2
     class Observer < ActiveRecord::Observer
       observe :order_line, :contract_line
       
-      def recompute
+      def recompute(record)
         if (record.is_a?(OrderLine) and record.order.status_const == Order::SUBMITTED) or record.is_a?(ContractLine)
           Availability2::Change.recompute(record.model, record.document.inventory_pool)
         end
       end
       
       def after_save(record)
-        recompute
+        recompute(record)
       end
 
       def after_destroy(record)
-        recompute
+        recompute(record)
       end
     end
 

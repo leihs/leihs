@@ -19,7 +19,7 @@
 				<%= _("General") %>:
 			<% end
 			content_tag :td, :id => "general_in_stock" do %>
-				<%= @defined_change.general_borrowable_size %>
+				<%= @initial_change.general_borrowable_size %>
 			<% end
 			content_tag :td do %>
 			<% end
@@ -30,7 +30,7 @@
 					<%= group %>:
 				<% end
 				content_tag :td do
-					quantity = @defined_change.total_in_group(group) %>
+					quantity = @initial_change.total_in_group(group) %>
 					<%= text_field_tag "groups[#{group.id}]", quantity %>
 				<% end
 				content_tag :td do %>

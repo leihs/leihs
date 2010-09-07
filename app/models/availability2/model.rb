@@ -15,11 +15,11 @@ module Availability2
         
         def reset_for_inventory_pool(inventory_pool)
           scoped_by_inventory_pool_id(inventory_pool).destroy_all
-          r = scoped_by_inventory_pool_id(inventory_pool).create(:date => Date.today)
+          initial_change = scoped_by_inventory_pool_id(inventory_pool).create(:date => Date.today)
           #tmp#1
-          q = inventory_pool.items.borrowable.scoped_by_model_id(r.model).count
-          r.availability_quantities.create(:group_id => nil, :in_quantity => q)
-          r
+          total_borrowable_items = inventory_pool.items.borrowable.scoped_by_model_id(initial_change.model).count
+          initial_change.availability_quantities.create(:group_id => nil, :in_quantity => total_borrowable_items)
+          initial_change
         end
       end
       
@@ -46,7 +46,7 @@ module Availability2
     
     def maximum_available_in_period_for_document_line(start_date, end_date, document_line, current_time = Date.today)
       # TODO
-      r = Availability2::Change.maximum_available_in_period_for_user(self, document_line.inventory_pool, document_line.document, start_date, end_date)
+      r = Availability2::Change.maximum_available_in_period_for_user(self, document_line.inventory_pool, document_line.document.user, start_date, end_date)
       r + document_line.quantity
     end  
   
