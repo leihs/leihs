@@ -1,4 +1,3 @@
-@ignore
 Feature: Implement new Group feature
 
 	Background: Provide a minimal lending environment
