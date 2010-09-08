@@ -298,19 +298,21 @@ module Availability2
         model.availability_changes.current_for_inventory_pool(inventory_pool).general_borrowable_in_stock_size
     end
 
-#    # how is a model distributed in the various groups?
-#    #
-#    # returns a hash à la: { nil => 4, cast_group_id => 2, video_group_id => 1, ... }
-#    #
-#    def self.partitions_by_group(model, inventory_pool)
-#      current_state =  self.most_recent_available_change(model, inventory_pool)
-#
-#      partitioning = Hash.new
-#      current_state.availability_quantities.map do |q|
-#        partitioning[q.group_id] = q.in_quantity + q.out_quantity
-#      end
-#      
-#    end
+    # how is a model distributed in the various groups?
+    #
+    # returns a hash à la: { general_group_id => 4, cast_group_id => 2, video_group_id => 1, ... }
+    #
+    # only used in a test for now...
+    #
+    def self.partitions(model, inventory_pool)
+      current_state =  self.most_recent_available_change(model, inventory_pool)
+
+      partitioning = Hash.new
+      current_state.availability_quantities.map do |q|
+        partitioning[q.group_id] = q.in_quantity + q.out_quantity
+      end
+      
+    end
   
   end
 
