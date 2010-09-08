@@ -201,6 +201,16 @@ module Availability2
       q = availability_quantities.scoped_by_group_id(group).first
       q.try(:out_quantity).to_i
     end
+
+    def in_quantity_in_group(group)
+      q = availability_quantities.scoped_by_group_id(group).first
+      q.try(:in_quantity).to_i
+    end
+
+    def out_quantity_in_group(group)
+      q = availability_quantities.scoped_by_group_id(group).first
+      q.try(:out_quantity).to_i
+    end
     
     def total_in_group(group)
       in_quantity_in_group(group) + out_quantity_in_group(group)
