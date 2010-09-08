@@ -8,6 +8,7 @@ module Availability2
           r = scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", Date.today])
 #          r ||= new_current_for_inventory_pool(inventory_pool)
           r ||= reset_for_inventory_pool(inventory_pool)
+          r
         end
         
 #        def new_current_for_inventory_pool(inventory_pool)

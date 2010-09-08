@@ -52,6 +52,7 @@ end
 When /^I add a new Group "([^"]*)"$/ do |name|
   Group.create :inventory_pool_id => @inventory_pool,
 	        :name => name
+  @inventory_pool.reload
 end
 
 Given /^a Group "([^"]*)"$/ do |name|

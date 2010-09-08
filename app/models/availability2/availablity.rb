@@ -1,3 +1,3 @@
 module Availability2
-  ETERNITY=Date.today + 1000.years
+  ETERNITY=Date.parse("3000-01-01")
 end

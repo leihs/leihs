@@ -24,9 +24,10 @@ When /^I assign (\w+) item(s?) to Group "([^"]*)"$/ do |n, plural, to_group_name
   n = to_number(n)
   to_group = @inventory_pool.groups.find_by_name to_group_name
   partitions = Availability2::Change.partitions(@model, @inventory_pool)
-  partitions[Group::GENERAL_GROUP_ID] = partitions[Group::GENERAL_GROUP_ID] - n
+  partitions[Group::GENERAL_GROUP_ID] -= n
+  partitions[to_group.id] = 0 if not partitions.has_key?(to_group.id)
   partitions[to_group.id] += n
-  Availability2::Change.new_partition(@model, partitions)
+  Availability2::Change.new_partition(@model, @inventory_pool, partitions)
   @inventory_pool.reload
 end
 

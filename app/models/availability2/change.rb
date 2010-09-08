@@ -170,8 +170,7 @@ module Availability2
   #############################################
   
     def next_change
-      r = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).first(:conditions => ["date > ?", date])
-      r ||= model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).first
+      model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).first(:conditions => ["date > ?", date])
     end
   
     def start_date
@@ -179,7 +178,7 @@ module Availability2
     end
   
     def end_date
-      next_change.date.yesterday
+      next_change.try(:date).try(:yesterday) || Availability2::ETERNITY
     end
   
   #############################################
@@ -286,6 +285,7 @@ module Availability2
         partitioning[q.group_id] = q.in_quantity + q.out_quantity
       end
       
+      partitioning
     end
   
   end
