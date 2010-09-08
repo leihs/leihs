@@ -8,7 +8,10 @@ Feature: Implement new Group feature
 		Then that Model should not be available to anybody
 		Then no items of that Model should be available in any group
 
-		When I add 3 items of that Model
+		When I add 2 items of that Model
+		Then 2 items of that Model should be available to everybody
+
+		When I add 1 items of that Model
 		Then 3 items of that Model should be available to everybody
 
 		When I add a new Group "CAST"
