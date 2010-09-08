@@ -120,6 +120,9 @@ module Backend::AvailabilityHelper
             end
           end.join
         end
+        
+        # TODO dry 
+        aq = c.availability_quantities.scoped_by_group_id(nil).first
         a += content_tag :tr do
           b = content_tag :td do
             "#{_("General")}:"
@@ -131,14 +134,15 @@ module Backend::AvailabilityHelper
           end.join
           b += content_tag :td do
             content_tag :ol do
-              c.general_borrowable_not_in_stock.collect do |d|
+              aq.documents.collect do |d|
                 content_tag :li do
                   "#{d[:type]} #{d[:id]}"
                 end
-              end.join
+              end.join if aq.try(:documents)
             end
           end
         end
+        
         a += c.inventory_pool.groups.collect do |group|
           aq = c.availability_quantities.scoped_by_group_id(group).first
           content_tag :tr do

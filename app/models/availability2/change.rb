@@ -190,10 +190,15 @@ module Availability2
     def borrowable_not_in_stock_total
       availability_quantities.sum(:out_quantity)
     end
-  
-    # TODO remove this
-    def general_borrowable_not_in_stock
-      availability_quantities.general.documents || []
+
+    def in_quantity_in_group(group)
+      q = availability_quantities.scoped_by_group_id(group).first
+      q.try(:in_quantity).to_i
+    end
+
+    def out_quantity_in_group(group)
+      q = availability_quantities.scoped_by_group_id(group).first
+      q.try(:out_quantity).to_i
     end
 
     def in_quantity_in_group(group)
@@ -207,8 +212,6 @@ module Availability2
     end
     
     def total_in_group(group)
-#      q = availability_quantities.scoped_by_group_id(group).first
-#      (q ? q.in_quantity + q.out_quantity : 0)
       in_quantity_in_group(group) + out_quantity_in_group(group)
     end
   
