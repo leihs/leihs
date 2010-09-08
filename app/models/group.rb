@@ -15,6 +15,8 @@ class Group < ActiveRecord::Base
     set_property :delta => true
   end
 
+  GENERAL_GROUP_ID = nil
+  
 ##########################################
 
   def to_s

@@ -6,7 +6,7 @@ end
 
 # Models in Groups
 Then "that Model should not be available in any other Group"  do
-  quantities = Availabilita2::Change.maximum_available_in_period_for_groups( @model,
+  quantities = Availability2::Change.maximum_available_in_period_for_groups( @model,
                                                                              @inventory_pool,
                                                                              @inventory_pool.groups.find( :all,
                                                                                                           :conditions => ['id != ?',@group]))
