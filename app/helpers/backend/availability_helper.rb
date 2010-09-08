@@ -28,7 +28,7 @@ module Backend::AvailabilityHelper
     r += content_tag :h4 do
       _("General")
     end
-    general_borrowable_size = changes.first.general_borrowable_size # OPTIMIZE
+    general_borrowable_size = changes.first.total_in_group(nil) # OPTIMIZE
     r += content_tag :div, :id => "group_chart_general", :style => "height:#{(general_borrowable_size + 1) * 30}px;" do end
 
       
@@ -47,7 +47,7 @@ module Backend::AvailabilityHelper
         
           jQuery(document).ready(function($){
               $.plot( $("#group_chart_general"),
-                      #{[{ :color => "#FF0000", :data => changes.map {|c| [date_to_i(c.date), c.general_borrowable_not_in_stock_size] }}].to_json},
+                      #{[{ :color => "#FF0000", :data => changes.map {|c| [date_to_i(c.date), c.out_quantity_in_group(nil)] }}].to_json},
                       { series: {
                             stack: true,
                             lines: { lineWidth: 0,
@@ -124,7 +124,7 @@ module Backend::AvailabilityHelper
           b = content_tag :td do
             "#{_("General")}:"
           end
-          b += [c.general_borrowable_in_stock_size, c.general_borrowable_not_in_stock_size].collect do |q|
+          b += [c.in_quantity_in_group(nil), c.out_quantity_in_group(nil)].collect do |q|
             content_tag :td, :class => (q < 0 ? "valid_false" : nil) do
               q
             end
