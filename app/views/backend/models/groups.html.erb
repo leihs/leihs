@@ -19,7 +19,7 @@
 				<%= _("General") %>:
 			<% end
 			content_tag :td, :id => "general_in_stock" do %>
-				<%= @initial_change.general_borrowable_size %>
+				<%= @initial_change.total_in_group(nil) %>
 			<% end
 			content_tag :td do %>
 			<% end
@@ -31,7 +31,7 @@
 				<% end
 				content_tag :td do
 					quantity = @initial_change.total_in_group(group) %>
-					<%= text_field_tag "groups[#{group.id}]", quantity %>
+					<%= text_field_tag "groups[#{group.id}]", quantity, :autocomplete => "off" %>
 				<% end
 				content_tag :td do %>
 				<% end
@@ -46,7 +46,7 @@
 <% javascript_tag do %>
 	jQuery(document).ready(function($){
 		var general_in_stock = $("td#general_in_stock");
-		$("#groups input").change(function(){
+		$("#groups input").keyup(function(){
 			var rest = <%= current_inventory_pool.items.borrowable.scoped_by_model_id(@model).count %>;
 			$("#groups input").each(function(){
 				var val = $(this).val() * 1; 
