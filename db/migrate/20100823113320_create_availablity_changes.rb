@@ -20,16 +20,6 @@ class CreateAvailablityChanges < ActiveRecord::Migration
 
     Availability2::Change.recompute_all
     
-    #old#with-general#
-    # TODO: Availability migration
-    # InventoryPool.all.each do |ip|
-    #   ip.models.each do |m|
-    #     n_items = m.items.scoped_by_inventory_pool_id(ip).count
-    #     AvailabilityChange.transaction do
-    #       # migrate Availabilites to new schema
-    #     end
-    #   end
-    # end
   end
 
   def self.down

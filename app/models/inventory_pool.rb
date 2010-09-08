@@ -69,10 +69,6 @@ class InventoryPool < ActiveRecord::Base
 
   before_create :create_workday
 
-#old#with-general#
-#  after_create  :create_general_group
-#  after_destroy :destroy_general_group
-
 # TODO ??  after_save :update_sphinx_index
 
   validates_presence_of :name
@@ -167,17 +163,8 @@ class InventoryPool < ActiveRecord::Base
     suspended_users.count(:conditions => {:id => user.id}) > 0
   end
 
-#old#with-general#
-#  def add_to_general_group( user )
-#    general_group << user unless groups.general.users.exisist?( user )
-#  end
   
 ###################################################################################
-
-#old#with-general#
-#  def general_group
-#    groups.general.first
-#  end
 
 
 private
@@ -193,15 +180,6 @@ private
 #    ModelGroup.suspended_delta do
 #      model_groups.each {|x| x.touch }
 #    end
-#  end
-
-#old#with-general#
-#  def create_general_group
-#    Group.create( :name => 'General', :inventory_pool_id => id )
-#  end
-#  
-#  def destroy_general_group
-#    self.groups.general.destroy
 #  end
 
 end
