@@ -19,7 +19,7 @@
 				<%= _("General") %>:
 			<% end
 			content_tag :td, :id => "general_in_stock" do %>
-				<%= @initial_change.total_in_group(nil) %>
+				<%= @initial_change.total_in_group(Group::GENERAL_GROUP_ID) %>
 			<% end
 			content_tag :td do %>
 			<% end

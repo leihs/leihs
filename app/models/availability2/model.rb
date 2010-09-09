@@ -6,21 +6,15 @@ module Availability2
       base.has_many :availability_changes, :class_name => "Availability2::Change" do
         def current_for_inventory_pool(inventory_pool)
           r = scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", Date.today])
-#          r ||= new_current_for_inventory_pool(inventory_pool)
           r ||= reset_for_inventory_pool(inventory_pool)
-          r
         end
-        
-#        def new_current_for_inventory_pool(inventory_pool)
-#          build(:inventory_pool => inventory_pool, :date => Date.today)
-#        end
         
         def reset_for_inventory_pool(inventory_pool)
           scoped_by_inventory_pool_id(inventory_pool).destroy_all
           initial_change = scoped_by_inventory_pool_id(inventory_pool).create(:date => Date.today)
           #tmp#1
           total_borrowable_items = inventory_pool.items.borrowable.scoped_by_model_id(initial_change.model).count
-          initial_change.availability_quantities.create(:group_id => nil, :in_quantity => total_borrowable_items)
+          initial_change.availability_quantities.create(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items)
           initial_change
         end
       end

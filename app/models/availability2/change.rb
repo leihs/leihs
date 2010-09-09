@@ -7,9 +7,8 @@ module Availability2
     has_many :availability_quantities, :dependent => :destroy,
                                        :class_name => "Availability2::Quantity",
                                        :foreign_key => "availability_change_id" do
-                                       #tmp#1
                                          def general
-                                           scoped_by_group_id(nil).first
+                                           scoped_by_group_id(Group::GENERAL_GROUP_ID).first
                                          end
                                        end
   
@@ -34,27 +33,40 @@ module Availability2
   
                          { :conditions => ["availability_changes.date BETWEEN ? AND ?", start_date, end_date] }
                 }
-                
+
+    named_scope :overbooking,
+                lambda { |inventory_pool, model|
+                  conditions = ["availability_quantities.group_id IS NULL AND availability_quantities.in_quantity < 0"]
+                  if inventory_pool
+                    conditions[0] += " AND inventory_pool_id = ?"
+                    conditions << inventory_pool
+                  end
+                  if model
+                    conditions[0] += " AND model_id = ?"
+                    conditions << model
+                  end
+                  { :select => "*, in_quantity",
+                    :joins => :availability_quantities,
+                    :conditions => conditions
+                  }
+                }
+                             
   #############################################
   
     def self.new_partition(model, inventory_pool, group_partitioning)
-      #@initial_change = @model.availability_changes.new_current_for_inventory_pool(current_inventory_pool)
-      #@initial_change.save
       initial_change = model.availability_changes.reset_for_inventory_pool(inventory_pool)
-      #tmp#1
       general_quantity = initial_change.availability_quantities.general
+
+      group_partitioning.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
       
       # TODO update future records (or prevent completely if it's breaking future availabilities) 
       group_partitioning.each_pair do |group_id, quantity|
         quantity = quantity.to_i
         # TODO get out_quantity and store only if sum > 0
         initial_change.availability_quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
-        #tmp#1
         general_quantity.in_quantity -= quantity
       end if group_partitioning
-      #tmp#1
       general_quantity.save
-      initial_change.save
 
       # TODO
       Availability2::Change.recompute(model, inventory_pool, false)
@@ -71,30 +83,17 @@ module Availability2
     end
   
     def self.recompute(model, inventory_pool, with_reset = true)
-      #old# TODO keep manager definition and delete others 
-      #model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => ["date != ?", Date.parse("2010-01-01")]).each {|x| x.destroy } # OPTIMIZE
-      #changes = [model.availability_changes.defined_for_inventory_pool(inventory_pool)]
-      
-      #changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool) # TODO filter out past changes ??
-      #changes << model.availability_changes.new_current_for_inventory_pool(inventory_pool) if changes.blank?
-  
-  #tmp#
-  #    changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool)
-  #    changes << model.availability_changes.reset_for_inventory_pool(inventory_pool) if changes.blank?
-
-      #tmp#1
       model.availability_changes.reset_for_inventory_pool(inventory_pool) if with_reset
      
       reservations = model.running_reservations(inventory_pool)
       reservations.each do |document_line|
-  #tmp#      groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) & changes.first.availability_quantities.collect(&:group)
-        recompute_reservation(document_line) #tmp#, groups)
+        recompute_reservation(document_line)
       end
       
       model.availability_changes.scoped_by_inventory_pool_id(inventory_pool)
     end
   
-    def self.recompute_reservation(document_line) #tmp#, groups)
+    def self.recompute_reservation(document_line)
       # OPTIMIZE
       model = document_line.model
       inventory_pool = document_line.inventory_pool
@@ -118,7 +117,7 @@ module Availability2
       end
 
       #tmp#1
-      update_changes(model, inventory_pool, nil, document_line, start_change, end_change) unless group_found
+      update_changes(model, inventory_pool, Group::GENERAL_GROUP_ID, document_line, start_change, end_change) unless group_found
     end
 
     def self.update_changes(model, inventory_pool, group, document_line, start_change, end_change)
@@ -145,28 +144,6 @@ module Availability2
       c
     end
   
-    def self.overbooking(inventory_pool)
-      overbooking = []
-      inventory_pool.models.each do |model|
-        overbooking += overbooking_for_model(model, inventory_pool)
-      end
-      overbooking
-    end
-  
-    def self.overbooking_for_model(model, inventory_pool)
-      changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool)
-  
-      # OPTIMIZE
-      changes = recompute(model, inventory_pool) if changes.size <= 1
-  
-      overbooking = []
-      changes.each do |c|
-        q = c.in_quantity_in_group(nil)
-        overbooking << {:model => model, :start_date => c.start_date, :end_date => c.end_date, :quantity => q } if q < 0
-      end
-      overbooking
-    end
-  
   #############################################
   
     def next_change
@@ -183,24 +160,6 @@ module Availability2
   
   #############################################
   
-    def borrowable_in_stock_total
-      availability_quantities.sum(:in_quantity)
-    end
-  
-    def borrowable_not_in_stock_total
-      availability_quantities.sum(:out_quantity)
-    end
-
-    def in_quantity_in_group(group)
-      q = availability_quantities.scoped_by_group_id(group).first
-      q.try(:in_quantity).to_i
-    end
-
-    def out_quantity_in_group(group)
-      q = availability_quantities.scoped_by_group_id(group).first
-      q.try(:out_quantity).to_i
-    end
-
     def in_quantity_in_group(group)
       q = availability_quantities.scoped_by_group_id(group).first
       q.try(:in_quantity).to_i
@@ -224,7 +183,7 @@ module Availability2
       changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).between(start_date, end_date)
       changes << model.availability_changes.reset_for_inventory_pool(inventory_pool) if changes.blank?
       maximum_general = changes.collect do |c|
-        c.in_quantity_in_group(nil)
+        c.in_quantity_in_group(Group::GENERAL_GROUP_ID)
       end
       (maximum.values << maximum_general.min.to_i).max
     end
@@ -267,11 +226,6 @@ module Availability2
   
   
       return max_per_group
-    end
-
-    # only used in test for now...
-    def self.available_for_everybody(model, inventory_pool)
-        model.availability_changes.current_for_inventory_pool(inventory_pool).in_quantity_in_group(nil)
     end
 
     # how is a model distributed in the various groups?

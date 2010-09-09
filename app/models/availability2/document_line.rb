@@ -1,11 +1,9 @@
 module Availability2
   module DocumentLine
     
-    # TODO cache ??
     def available?
-      Availability2::Change.overbooking_for_model(model, inventory_pool).detect {|o| o[:start_date] <= end_date and o[:end_date] >= start_date }.nil?
+      Availability2::Change.overbooking(inventory_pool, model).between(start_date, end_date).empty?
     end
 
   end
-
 end

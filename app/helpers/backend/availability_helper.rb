@@ -28,7 +28,7 @@ module Backend::AvailabilityHelper
     r += content_tag :h4 do
       _("General")
     end
-    general_borrowable_size = changes.first.total_in_group(nil) # OPTIMIZE
+    general_borrowable_size = changes.first.total_in_group(Group::GENERAL_GROUP_ID) # OPTIMIZE
     r += content_tag :div, :id => "group_chart_general", :style => "height:#{(general_borrowable_size + 1) * 30}px;" do end
 
       
@@ -47,7 +47,7 @@ module Backend::AvailabilityHelper
         
           jQuery(document).ready(function($){
               $.plot( $("#group_chart_general"),
-                      #{[{ :color => "#FF0000", :data => changes.map {|c| [date_to_i(c.date), c.out_quantity_in_group(nil)] }}].to_json},
+                      #{[{ :color => "#FF0000", :data => changes.map {|c| [date_to_i(c.date), c.out_quantity_in_group(Group::GENERAL_GROUP_ID)] }}].to_json},
                       { series: {
                             stack: true,
                             lines: { lineWidth: 0,
@@ -112,8 +112,8 @@ module Backend::AvailabilityHelper
       content_tag :table do
         a = content_tag :tr do
           [_("Borrowable %s") % short_date(c.date),
-           _("In Stock (%d)") % c.borrowable_in_stock_total,
-           _("Not In Stock (%d)") % c.borrowable_not_in_stock_total,
+           _("In Stock (%d)") % c.availability_quantities.sum(:in_quantity),
+           _("Not In Stock (%d)") % c.availability_quantities.sum(:out_quantity),
            _("DocumentLines")].collect do |s|
             content_tag :th do
               s  
@@ -121,33 +121,12 @@ module Backend::AvailabilityHelper
           end.join
         end
         
-        # TODO dry 
-        aq = c.availability_quantities.scoped_by_group_id(nil).first
-        a += content_tag :tr do
-          b = content_tag :td do
-            "#{_("General")}:"
-          end
-          b += [c.in_quantity_in_group(nil), c.out_quantity_in_group(nil)].collect do |q|
-            content_tag :td, :class => (q < 0 ? "valid_false" : nil) do
-              q
-            end
-          end.join
-          b += content_tag :td do
-            content_tag :ol do
-              aq.documents.collect do |d|
-                content_tag :li do
-                  "#{d[:type]} #{d[:id]}"
-                end
-              end.join if aq.try(:documents)
-            end
-          end
-        end
-        
-        a += c.inventory_pool.groups.collect do |group|
+        # OPTIMIZE nil is the rest
+        a += ([Group::GENERAL_GROUP_ID] + c.inventory_pool.groups).collect do |group|
           aq = c.availability_quantities.scoped_by_group_id(group).first
           content_tag :tr do
             b = content_tag :td do
-              "#{group}:"
+              "#{(group ? group : _("General"))}:"
             end
             b += [aq.try(:in_quantity).to_i, aq.try(:out_quantity).to_i].collect do |q|
               content_tag :td, :class => (q < 0 ? "valid_false" : nil) do

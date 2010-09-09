@@ -13,16 +13,16 @@
       end
     end
 
-	@overbooking.each do |ob|
+	@overbooking_changes.each do |ob|
 		content_tag :tr do
 			content_tag :td do %>
-	  			<%= ob[:model] %>  
+	  			<%= ob.model %>  
 			<% end
 			content_tag :td do %>
-	  			<%= dates_with_period(ob[:start_date], ob[:end_date]) %>  
+	  			<%= dates_with_period(ob.start_date, ob.end_date) %>  
 			<% end
 			content_tag :td do %>
-	  			<%= ob[:quantity] %>  
+	  			<%= ob.in_quantity %>  
 			<% end
 		end
 	end

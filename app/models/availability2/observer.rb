@@ -4,7 +4,7 @@ module Availability2
       observe :order_line, :contract_line, :item
       
       def recompute(record)
-        if record.is_a?(Item)
+        if record.is_a?(Item) and record.inventory_pool
             Availability2::Change.recompute(record.model, record.inventory_pool)
         elsif (record.is_a?(OrderLine) and record.order.status_const == Order::SUBMITTED) or record.is_a?(ContractLine)
             Availability2::Change.recompute(record.model, record.document.inventory_pool)
