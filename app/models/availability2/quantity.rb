@@ -2,11 +2,11 @@ module Availability2
   class Quantity < ActiveRecord::Base
     set_table_name "availability_quantities"
 
-    belongs_to :availability_change, :class_name => "Availability2::Change"
+    belongs_to :change
     belongs_to :group
   
-    validates_presence_of :availability_change_id
-#tmp#1    validates_presence_of :group_id
+    validates_presence_of :change_id
+#tmp#2    validates_presence_of :group_id
     validates_presence_of :in_quantity
     validates_presence_of :out_quantity
   

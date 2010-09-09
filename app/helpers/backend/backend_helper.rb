@@ -343,7 +343,7 @@ module Backend::BackendHelper
     lines.each do |l|
       d1 << l.start_date
       d2 << l.end_date
-      unavailable_periods += l.model.unavailable_periods_for_document_line(l) unless l.is_a?(OptionLine)
+      unavailable_periods += l.unavailable_periods unless l.is_a?(OptionLine)
           
       summary += content_tag :div, :style => "padding: 1em; border-bottom: 1px solid grey;" do
         "Quantity: #{l.quantity} - Model: #{l.model.name}
@@ -401,8 +401,8 @@ module Backend::BackendHelper
                 });"
 
 
-          unavailable_periods.sort!.each do |u|
-            (u.start_date..u.end_date).each do |d|
+          unavailable_periods.each do |u|
+            (u[:start_date]..u[:end_date]).each do |d|
               d = d.to_formatted_s(:db)
               j += "if($('#{d}')){
                       $('#{d}').removeClassName('selectable_date');

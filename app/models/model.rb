@@ -270,12 +270,13 @@ class Model < ActiveRecord::Base
                                                                                                       
   private
 
-  def create_availability(current_time, inventory_pool, user, with_unsubmitted_orders = true)
-    max_quantity = maximum_borrowable(inventory_pool, user)
-    reservations = running_reservations(inventory_pool, current_time)
-    reservations += self.order_lines.scoped_by_inventory_pool_id(inventory_pool).unsubmitted.running(current_time).by_user(user) if with_unsubmitted_orders
-    Availability.new(max_quantity, current_time, self, reservations)
-  end
+#old-availability#
+#  def create_availability(current_time, inventory_pool, user, with_unsubmitted_orders = true)
+#    max_quantity = maximum_borrowable(inventory_pool, user)
+#    reservations = running_reservations(inventory_pool, current_time)
+#    reservations += self.order_lines.scoped_by_inventory_pool_id(inventory_pool).unsubmitted.running(current_time).by_user(user) if with_unsubmitted_orders
+#    Availability.new(max_quantity, current_time, self, reservations)
+#  end
 
   # returns number of borrowable items of some model in a inventory_pool without
   # taking into account any existing reservations 
@@ -297,10 +298,11 @@ class Model < ActiveRecord::Base
   #                              "retired IS NULL")["count(*)"].to_i      
   # #                             "AND parent_id IS NULL # (this last line is taken from the development SQL log - I don't know what it's needed for)
   #
-  def maximum_borrowable(inventory_pool, user)
-    items.borrowable.scoped_by_inventory_pool_id(inventory_pool).count(:conditions => ['required_level <= ?',
-                                                                                      (user.nil? ? 1 : user.level_for(inventory_pool))])
-  end
+#old-availability#
+#  def maximum_borrowable(inventory_pool, user)
+#    items.borrowable.scoped_by_inventory_pool_id(inventory_pool).count(:conditions => ['required_level <= ?',
+#                                                                                      (user.nil? ? 1 : user.level_for(inventory_pool))])
+#  end
  
 # TODO ??
 #  def update_sphinx_index

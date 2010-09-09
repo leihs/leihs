@@ -3,6 +3,8 @@ module Availability2
     class Observer < ActiveRecord::Observer
       observe :order_line, :contract_line, :item
       
+      # TODO bulk recompute if many lines are updated together
+      
       def recompute(record)
         if record.is_a?(Item) and record.inventory_pool
             Availability2::Change.recompute(record.model, record.inventory_pool)

@@ -72,7 +72,7 @@ module Backend::AvailabilityHelper
 
           groups.each do |group|
             #next unless group_totals[group.id] > 0
-            data = changes.map {|c| [date_to_i(c.date), c.availability_quantities.scoped_by_group_id(group).first.try(:out_quantity).to_i] }
+            data = changes.map {|c| [date_to_i(c.date), c.quantities.scoped_by_group_id(group).first.try(:out_quantity).to_i] }
             data << [date_to_i(last.tomorrow), 0]
 
             js += <<-HERECODE
@@ -112,8 +112,8 @@ module Backend::AvailabilityHelper
       content_tag :table do
         a = content_tag :tr do
           [_("Borrowable %s") % short_date(c.date),
-           _("In Stock (%d)") % c.availability_quantities.sum(:in_quantity),
-           _("Not In Stock (%d)") % c.availability_quantities.sum(:out_quantity),
+           _("In Stock (%d)") % c.quantities.sum(:in_quantity),
+           _("Not In Stock (%d)") % c.quantities.sum(:out_quantity),
            _("DocumentLines")].collect do |s|
             content_tag :th do
               s  
@@ -123,7 +123,7 @@ module Backend::AvailabilityHelper
         
         # OPTIMIZE nil is the rest
         a += ([Group::GENERAL_GROUP_ID] + c.inventory_pool.groups).collect do |group|
-          aq = c.availability_quantities.scoped_by_group_id(group).first
+          aq = c.quantities.scoped_by_group_id(group).first
           content_tag :tr do
             b = content_tag :td do
               "#{(group ? group : _("General"))}:"

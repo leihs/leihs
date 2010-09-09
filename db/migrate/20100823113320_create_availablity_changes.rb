@@ -15,7 +15,7 @@ class CreateAvailablityChanges < ActiveRecord::Migration
 
 
     create_table :availability_quantities do |t|
-      t.belongs_to :availability_change
+      t.belongs_to :change
       t.belongs_to :group
       t.integer    :in_quantity, :default => 0
       t.integer    :out_quantity, :default => 0
@@ -23,7 +23,7 @@ class CreateAvailablityChanges < ActiveRecord::Migration
     end
 
     change_table :availability_quantities do |t|
-      t.index [:availability_change_id, :group_id, :in_quantity], :name => "index_on_availability_chang_and_group_and_in_quantity"
+      t.index [:change_id, :group_id, :in_quantity], :name => "index_on_change_and_group_and_in_quantity"
     end
 
 

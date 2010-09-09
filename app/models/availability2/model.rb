@@ -14,7 +14,7 @@ module Availability2
           initial_change = scoped_by_inventory_pool_id(inventory_pool).create(:date => Date.today)
           #tmp#1
           total_borrowable_items = inventory_pool.items.borrowable.scoped_by_model_id(initial_change.model).count
-          initial_change.availability_quantities.create(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items)
+          initial_change.quantities.create(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items)
           initial_change
         end
       end
@@ -23,16 +23,17 @@ module Availability2
 
 #############################################  
 
-    def unavailable_periods_for_document_line(document_line, current_time = Date.today)
-      # TODO
-      []
-    end
-    
     def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
-      # TODO
-#      groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
-#      availability_changes
-      []
+      # TODO include additional groups where the user belongs to
+      # groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
+
+      availability_changes.scoped_by_inventory_pool_id(inventory_pool).collect do |c|
+        q = c.in_quantity_in_group(Group::GENERAL_GROUP_ID)
+        { :start_date => c.start_date,
+          :end_date => c.end_date,
+          :quantity => q }        
+      end
+
     end
   
     # OPTIMIZE this method is only used for test ??  

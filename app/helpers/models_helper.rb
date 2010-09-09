@@ -126,9 +126,8 @@ module ModelsHelper
     data << {:data => [[today.to_time.to_i, 0], [today.to_time.to_i, 0]], :xaxis => 2} # NOTE forcing to render x2axis # TODO 2502** keep from events?
     availability = model.available_periods_for_inventory_pool(inventory_pool, current_user)
     availability.each do |a|
-      #debug# html += "<br>#{a.start_date}: #{a.quantity}"
-      dd = (a == availability.first ? first_date_in_chart + 1.day : a.start_date)
-      x2_ticks << [dd.to_time.to_i, a.quantity.to_s, ] if dd.to_time.to_i > today.to_time.to_i + config[:range][:start_sec] and dd.to_time.to_i < today.to_time.to_i + config[:range][:end_sec]
+      dd = (a == availability.first ? first_date_in_chart + 1.day : a[:start_date])
+      x2_ticks << [dd.to_time.to_i, a[:quantity].to_s, ] if dd.to_time.to_i > today.to_time.to_i + config[:range][:start_sec] and dd.to_time.to_i < today.to_time.to_i + config[:range][:end_sec]
     end
 
     canvas_height = (y_ticks.size * config[:line][:height])
@@ -328,18 +327,18 @@ module ModelsHelper
 
       availability = model.available_periods_for_inventory_pool(inventory_pool, current_user)
       availability.each do |a|
-        next if a.quantity < 1
-# TODO ????       next a.end_date < a.start_date if a.end_date
+        next if a[:quantity] < 1
+# TODO ????       next a[:end_date] < a[:start_date] if a[:end_date]
         all_availabilities << a
-        data << { :data => [[a.start_date.to_time.to_i, y], [(a.end_date || a.start_date + 1.year).tomorrow.to_time.to_i, y]],
+        data << { :data => [[a[:start_date].to_time.to_i, y], [(a[:end_date] || a[:start_date] + 1.year).tomorrow.to_time.to_i, y]],
                   :color => '#e3aa01',
-                  :lines => {:lineWidth => [a.quantity, config[:line][:height]].min} }
+                  :lines => {:lineWidth => [a[:quantity], config[:line][:height]].min} }
       end
     end
 
     all_availabilities.each do |a|
-      dd = (a == all_availabilities.first ? first_date_in_chart + 1.day : a.start_date)
-      x2_ticks << [dd.to_time.to_i, a.quantity.abs.to_s] if dd.to_time.to_i > today.to_time.to_i + config[:range][:start_sec] and dd.to_time.to_i < today.to_time.to_i + config[:range][:end_sec]
+      dd = (a == all_availabilities.first ? first_date_in_chart + 1.day : a[:start_date])
+      x2_ticks << [dd.to_time.to_i, a[:quantity].abs.to_s] if dd.to_time.to_i > today.to_time.to_i + config[:range][:start_sec] and dd.to_time.to_i < today.to_time.to_i + config[:range][:end_sec]
     end
 
 

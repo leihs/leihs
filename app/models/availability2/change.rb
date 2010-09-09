@@ -4,9 +4,7 @@ module Availability2
 
     belongs_to :inventory_pool
     belongs_to :model, :class_name => "::Model"
-    has_many :availability_quantities, :dependent => :destroy,
-                                       :class_name => "Availability2::Quantity",
-                                       :foreign_key => "availability_change_id" do
+    has_many :quantities, :dependent => :destroy do
                                          def general
                                            scoped_by_group_id(Group::GENERAL_GROUP_ID).first
                                          end
@@ -46,7 +44,7 @@ module Availability2
                     conditions << model
                   end
                   { :select => "*, in_quantity",
-                    :joins => :availability_quantities,
+                    :joins => :quantities,
                     :conditions => conditions
                   }
                 }
@@ -55,7 +53,7 @@ module Availability2
   
     def self.new_partition(model, inventory_pool, group_partitioning)
       initial_change = model.availability_changes.reset_for_inventory_pool(inventory_pool)
-      general_quantity = initial_change.availability_quantities.general
+      general_quantity = initial_change.quantities.general
 
       group_partitioning.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
       
@@ -63,7 +61,7 @@ module Availability2
       group_partitioning.each_pair do |group_id, quantity|
         quantity = quantity.to_i
         # TODO get out_quantity and store only if sum > 0
-        initial_change.availability_quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
+        initial_change.quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
         general_quantity.in_quantity -= quantity
       end if group_partitioning
       general_quantity.save
@@ -123,10 +121,10 @@ module Availability2
     def self.update_changes(model, inventory_pool, group, document_line, start_change, end_change)
       inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (start_change.date..end_change.date)})
       inner_changes.each do |ic|
-        ic.availability_quantities.scoped_by_group_id(group).first.decrement(:in_quantity, document_line.quantity).increment(:out_quantity, document_line.quantity).add_document(document_line).save
+        ic.quantities.scoped_by_group_id(group).first.decrement(:in_quantity, document_line.quantity).increment(:out_quantity, document_line.quantity).add_document(document_line).save
       end
       
-      end_change.availability_quantities.scoped_by_group_id(group).first.increment(:in_quantity, document_line.quantity).decrement(:out_quantity, document_line.quantity).remove_document(document_line).save
+      end_change.quantities.scoped_by_group_id(group).first.increment(:in_quantity, document_line.quantity).decrement(:out_quantity, document_line.quantity).remove_document(document_line).save
     end
     
     def self.clone_change(model, inventory_pool, date)
@@ -137,7 +135,7 @@ module Availability2
       if c.date != date
         g = c.clone
         g.date = date
-        c.availability_quantities.each {|q| g.availability_quantities << q.clone }
+        c.quantities.each {|q| g.quantities << q.clone }
         g.save
         c = g
       end
@@ -161,12 +159,12 @@ module Availability2
   #############################################
   
     def in_quantity_in_group(group)
-      q = availability_quantities.scoped_by_group_id(group).first
+      q = quantities.scoped_by_group_id(group).first
       q.try(:in_quantity).to_i
     end
 
     def out_quantity_in_group(group)
-      q = availability_quantities.scoped_by_group_id(group).first
+      q = quantities.scoped_by_group_id(group).first
       q.try(:out_quantity).to_i
     end
     
@@ -214,7 +212,7 @@ module Availability2
         # TODO: move join up into has_many association
         r = minimum("ifnull(in_quantity,0)",
                     :joins => "LEFT JOIN availability_quantities " \
-                              "ON availability_changes.id = availability_quantities.availability_change_id " \
+                              "ON availability_changes.id = availability_quantities.change_id " \
                               "AND availability_quantities.group_id = #{group.id}",
                     :conditions => [ "inventory_pool_id = ? " \
                                      "AND model_id = ? " \
@@ -235,10 +233,10 @@ module Availability2
     # only used in a test for now...
     #
     def self.partitions(model, inventory_pool)
-      current_state =  self.most_recent_available_change(model, inventory_pool)
+      current_change =  self.most_recent_available_change(model, inventory_pool)
 
       partitioning = Hash.new
-      current_state.availability_quantities.map do |q|
+      current_change.quantities.map do |q|
         partitioning[q.group_id] = q.in_quantity + q.out_quantity
       end
       
