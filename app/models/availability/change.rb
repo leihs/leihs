@@ -2,7 +2,7 @@ module Availability
   class Change < ActiveRecord::Base
     set_table_name "availability_changes"
 
-    belongs_to :inventory_pool
+    belongs_to :inventory_pool, :class_name => "::InventoryPool"
     belongs_to :model, :class_name => "::Model"
     has_many :quantities, :dependent => :destroy do
                                          def general
@@ -141,7 +141,9 @@ module Availability
   #############################################
   
     def next_change
-      model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).first(:conditions => ["date > ?", date])
+      puts "********", self.inspect
+      puts inventory_pool.inspect
+#      model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).first(:conditions => ["date > ?", date])
     end
   
     def start_date
