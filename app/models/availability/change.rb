@@ -128,12 +128,11 @@ module Availability
     def self.clone_change(model, inventory_pool, date)
       # OPTIMIZE
       c = model.availability_changes.current_for_inventory_pool(inventory_pool, date)
-   
       if c.date != date
         g = c.clone
         g.date = date
-        c.quantities.each {|q| g.quantities << q.clone }
         g.save
+        c.quantities.each {|q| g.quantities << q.clone }
         c = g
       end
       c
