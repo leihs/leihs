@@ -9,6 +9,8 @@ module Availability
 #tmp#2    validates_presence_of :group_id
     validates_presence_of :in_quantity
     validates_presence_of :out_quantity
+    
+    validates_uniqueness_of :group_id, :scope => :change_id
   
     serialize :out_document_lines, Array #tmp#5 has_and_belongs_to_many :out_document_lines
     

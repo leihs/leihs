@@ -14,7 +14,7 @@ Then "that Model should not be available in any other Group"  do
 end
 
 Then /^(\w+) item(s?) of that Model should be available in Group '([^"]*)'( only)?$/ do |n, plural, group_name, exclusivity|
-  @group = @inventory_pool.groups.find_by_name(group_name) ## ?? ##
+  @group = @inventory_pool.groups.find_by_name(group_name)
   all_groups = @inventory_pool.groups
   n = to_number(n)
   quantities = Availability::Change.maximum_available_in_period_for_groups( @model,
@@ -26,7 +26,6 @@ Then /^(\w+) item(s?) of that Model should be available in Group '([^"]*)'( only
     all_groups.each do |group|
       unless group.name == group_name
         quantities[group.name].should == 0
-	puts "yes"
       end
     end
   end

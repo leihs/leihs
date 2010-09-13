@@ -3,7 +3,15 @@ module Availability
 
     # if overdue, extend end_date to today
     def availability_end_date
-      d = (returned_date ?  returned_date : [end_date, Date.today].max )
+      d = if is_a?(ContractLine) and returned_date
+            returned_date
+          elsif is_late?
+            # TODO stammtisch
+            #Availability::ETERNITY
+            Date.today + Availability::REPLACEMENT_INTERVAL
+          else
+            end_date
+          end
       d + model.maintenance_period.day
     end
 
@@ -14,12 +22,13 @@ module Availability
 #################################
     
     def available?
+      # TODO is_late?
       if end_date < Date.today # check if was never handed over
         false
       elsif is_allocated_to_general_group?
-        Availability::Change.overbooking(inventory_pool, model).between(start_date, end_date).empty?
+        Availability::Change.overbooking(inventory_pool, model).between(start_date, end_date).empty? # TODO  availability_end_date
       else
-        true
+        true # TODO this is now wrong, because overdue document_lines, even groups could be negative
       end
     end
 
@@ -32,6 +41,10 @@ module Availability
         false
       end
     end
+
+# TODO
+#    def allocated_group
+#    end
 
     def unavailable_periods
       #tmp#4 TODO check if I'm already allocated to a Group (non-General)

@@ -107,15 +107,16 @@ module Availability
   
       # TODO user maximum_available_in_period_for_user instead ??
       groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) #tmp#
-      maximum = maximum_available_in_period_for_groups(model, inventory_pool, groups, document_line.start_date, document_line.end_date)
+      maximum = maximum_available_in_period_for_groups(model, inventory_pool, groups, document_line.start_date, document_line.availability_end_date)
 
       # TODO sort groups by quantity desc
       group = groups.detect(Group::GENERAL_GROUP_ID) {|group| maximum[group.name] >= document_line.quantity }
-      update_changes(model, inventory_pool, group, document_line, start_change, end_change)
+      lend_out_changes(model, inventory_pool, group, document_line, start_change, end_change)
     end
 
-    def self.update_changes(model, inventory_pool, group, document_line, start_change, end_change)
-      inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (start_change.date..end_change.date)})
+    # take a model and mark one of it as lent out, thus decrementing 'in' and incerementing 'out' 
+    def self.lend_out_changes(model, inventory_pool, group, document_line, start_change, end_change)
+      inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (start_change.date..end_change.date)}) # TODO yesterday
       inner_changes.each do |ic|
         ic.quantities.scoped_by_group_id(group).first.decrement(:in_quantity, document_line.quantity).increment(:out_quantity, document_line.quantity).add_document(document_line).save
       end
@@ -123,6 +124,7 @@ module Availability
       end_change.quantities.scoped_by_group_id(group).first.increment(:in_quantity, document_line.quantity).decrement(:out_quantity, document_line.quantity).remove_document(document_line).save
     end
     
+    # generate or fetch
     def self.clone_change(model, inventory_pool, date)
       # OPTIMIZE
       c = model.availability_changes.current_for_inventory_pool(inventory_pool, date)

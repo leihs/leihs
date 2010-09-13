@@ -13,10 +13,11 @@
       end
     end
 
+	last_model = nil
 	@overbooking_changes.each do |ob|
 		content_tag :tr do
 			content_tag :td do %>
-				<%= show_line_model(ob.model) %>
+				<%= show_line_model(ob.model) if ob.model != last_model %>
 			<% end
 			content_tag :td do %>
 	  			<%= dates_with_period(ob.start_date, ob.end_date) %>  
@@ -25,6 +26,7 @@
 	  			<%= ob.in_quantity %>  
 			<% end
 		end
+		last_model = ob.model
 	end
 
 end %>

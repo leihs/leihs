@@ -9,8 +9,8 @@ class NewAvailablityModule < ActiveRecord::Migration
     end
 
     change_table :availability_changes do |t|
-      t.index [:date, :inventory_pool_id, :model_id], :unique => true, :name => "index_on_date_and_inventory_pool_and_model"
-      t.index [:inventory_pool_id, :model_id], :name => "index_on_inventory_pool_and_model"
+      t.index [:date, :inventory_pool_id, :model_id], :unique => true
+      t.index [:inventory_pool_id, :model_id]
     end
 
 
@@ -23,7 +23,8 @@ class NewAvailablityModule < ActiveRecord::Migration
     end
 
     change_table :availability_quantities do |t|
-      t.index [:change_id, :group_id, :in_quantity], :name => "index_on_change_and_group_and_in_quantity"
+      t.index [:change_id, :group_id], :unique => true
+      t.index :in_quantity
     end
 
     remove_column :contract_lines, :cached_available
