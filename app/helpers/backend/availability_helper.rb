@@ -108,8 +108,8 @@ module Backend::AvailabilityHelper
   end
 
   def availability_changes(changes)
-    changes.collect do |c|
-      content_tag :table do
+    content_tag :table do
+      changes.collect do |c|
         a = content_tag :tr do
           [_("Borrowable %s") % short_date(c.date),
            _("In Stock (%d)") % c.quantities.sum(:in_quantity),
@@ -135,17 +135,17 @@ module Backend::AvailabilityHelper
             end.join
             b += content_tag :td do
               content_tag :ol do
-                aq.out_document_lines.collect do |d|
+                aq.out_document_lines.collect do |odl|
                   content_tag :li do
-                    "#{d[:type]} #{d[:id]}" #tmp#5
+                    "#{odl.document_line_type} #{odl.document_line_id}"
                   end
                 end.join if aq.try(:out_document_lines)
               end
             end
           end
         end.join
-      end
-    end.join
+      end.join
+    end
   end
   
 end

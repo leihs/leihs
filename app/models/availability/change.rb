@@ -1,4 +1,8 @@
 module Availability
+
+  ETERNITY = Date.parse("3000-01-01")
+  REPLACEMENT_INTERVAL = 1.year
+  
   class Change < ActiveRecord::Base
     set_table_name "availability_changes"
 
@@ -52,11 +56,11 @@ module Availability
   #############################################
   
     def self.new_partition(model, inventory_pool, group_partitioning)
-      initial_change = model.availability_changes.reset_for_inventory_pool(inventory_pool)
+###remove from here
+      initial_change = model.availability_changes.reset(inventory_pool)
       general_quantity = initial_change.quantities.general
 
       group_partitioning.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
-      
       # TODO update future records (or prevent completely if it's breaking future availabilities) 
       group_partitioning.each_pair do |group_id, quantity|
         quantity = quantity.to_i
@@ -65,6 +69,9 @@ module Availability
         general_quantity.in_quantity -= quantity
       end if group_partitioning
       general_quantity.save
+###remove to here
+      
+      #new# model.availability_changes.reset(inventory_pool, group_partitioning)
 
       # TODO
       recompute(model, inventory_pool, false)
@@ -84,13 +91,13 @@ module Availability
       reservations = model.running_reservations(inventory_pool)
 
       #tmp#3 bulk recompute if many lines are updated together
-      max_reservation = reservations.max {|a,b| a.updated_at <=> b.updated_at }.try(:updated_at)
-      if max_reservation and model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).count > 1
-        max_change = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:updated_at)
-        return if max_reservation.to_i <= max_change.to_i
-      end
+#      max_reservation = reservations.max {|a,b| a.updated_at <=> b.updated_at }.try(:updated_at)
+#      if max_reservation and model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).count > 1
+#        max_change = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:updated_at)
+#        return if max_reservation.to_i <= max_change.to_i
+#      end
 
-      model.availability_changes.reset_for_inventory_pool(inventory_pool) if with_reset
+      model.availability_changes.reset(inventory_pool) if with_reset
      
       reservations.each do |document_line|
         recompute_reservation(document_line)
@@ -118,10 +125,11 @@ module Availability
     def self.lend_out_changes(model, inventory_pool, group, document_line, start_change, end_change)
       inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).all(:conditions => {:date => (start_change.date..end_change.date)}) # TODO yesterday
       inner_changes.each do |ic|
-        ic.quantities.scoped_by_group_id(group).first.decrement(:in_quantity, document_line.quantity).increment(:out_quantity, document_line.quantity).add_document(document_line).save
+        ic.quantities.scoped_by_group_id(group).first.to_out(document_line).save
       end
       
-      end_change.quantities.scoped_by_group_id(group).first.increment(:in_quantity, document_line.quantity).decrement(:out_quantity, document_line.quantity).remove_document(document_line).save
+      #tmp#6 TODO really needed ??
+      end_change.quantities.scoped_by_group_id(group).first.to_in(document_line).save
     end
     
     # generate or fetch
@@ -175,7 +183,7 @@ module Availability
       maximum = maximum_available_in_period_for_groups(model, inventory_pool, groups, start_date, end_date)
       
       changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).between(start_date, end_date)
-      changes << model.availability_changes.reset_for_inventory_pool(inventory_pool) if changes.blank?
+      changes << model.availability_changes.reset(inventory_pool) if changes.blank?
       maximum_general = changes.collect do |c|
         c.in_quantity_in_group(Group::GENERAL_GROUP_ID)
       end
