@@ -9,7 +9,7 @@
 #
 #
 class Model < ActiveRecord::Base
-  include Availability2::Model
+  include Availability::Model
 
   def before_destroy
     errors.add_to_base "Model cannot be destroyed because related items are still present." if items.count(:retired => :all) > 0

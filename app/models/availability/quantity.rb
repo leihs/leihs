@@ -1,4 +1,4 @@
-module Availability2
+module Availability
   class Quantity < ActiveRecord::Base
     set_table_name "availability_quantities"
 
@@ -10,7 +10,7 @@ module Availability2
     validates_presence_of :in_quantity
     validates_presence_of :out_quantity
   
-    serialize :documents, Array
+    serialize :out_document_lines, Array #tmp#5 has_and_belongs_to_many :out_document_lines
     
     # TODO
 #    def document
@@ -18,14 +18,14 @@ module Availability2
 #    end
   
     def add_document(d)
-      self.documents ||= []
-      documents << {:type => d.class.to_s, :id => d.id}
+      self.out_document_lines ||= []
+      out_document_lines << {:type => d.class.to_s, :id => d.id} #tmp#5
       self
     end
     
     def remove_document(d)
-      self.documents ||= []
-      documents.delete({:type => d.class.to_s, :id => d.id})
+      self.out_document_lines ||= []
+      out_document_lines.delete({:type => d.class.to_s, :id => d.id}) #tmp#5
       self
     end
   end

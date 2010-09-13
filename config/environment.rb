@@ -48,7 +48,7 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
-  config.active_record.observers = :"availability2/observer"
+  config.active_record.observers = :"availability/observer"
 
 # 2901
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.

@@ -135,11 +135,11 @@ module Backend::AvailabilityHelper
             end.join
             b += content_tag :td do
               content_tag :ol do
-                aq.documents.collect do |d|
+                aq.out_document_lines.collect do |d|
                   content_tag :li do
-                    "#{d[:type]} #{d[:id]}"
+                    "#{d[:type]} #{d[:id]}" #tmp#5
                   end
-                end.join if aq.try(:documents)
+                end.join if aq.try(:out_document_lines)
               end
             end
           end

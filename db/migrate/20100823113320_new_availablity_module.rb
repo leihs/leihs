@@ -1,4 +1,4 @@
-class CreateAvailablityChanges < ActiveRecord::Migration
+class NewAvailablityModule < ActiveRecord::Migration
   def self.up
     create_table :availability_changes do |t|
       t.date       :date
@@ -19,21 +19,26 @@ class CreateAvailablityChanges < ActiveRecord::Migration
       t.belongs_to :group
       t.integer    :in_quantity, :default => 0
       t.integer    :out_quantity, :default => 0
-      t.text       :documents # serialize
+      t.text       :out_document_lines # serialize #tmp#5
     end
 
     change_table :availability_quantities do |t|
       t.index [:change_id, :group_id, :in_quantity], :name => "index_on_change_and_group_and_in_quantity"
     end
 
+    remove_column :contract_lines, :cached_available
+    remove_column :order_lines, :cached_available
 
-    Availability2::Change.recompute_all
+    Availability::Change.recompute_all
     
   end
 
   def self.down
     drop_table :availability_changes
     drop_table :availability_quantities
+
+    add_column :contract_lines, :cached_available, :boolean, :null => true, :default => nil
+    add_column :order_lines, :cached_available, :boolean, :null => true, :default => nil
   end
 end
 

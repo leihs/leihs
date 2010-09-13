@@ -1,4 +1,4 @@
-module Availability2
+module Availability
   class Change < ActiveRecord::Base
     set_table_name "availability_changes"
 
@@ -67,7 +67,7 @@ module Availability2
       general_quantity.save
 
       # TODO
-      Availability2::Change.recompute(model, inventory_pool, false)
+      recompute(model, inventory_pool, false)
     end
   
     def self.recompute_all
@@ -81,14 +81,20 @@ module Availability2
     end
   
     def self.recompute(model, inventory_pool, with_reset = true)
+      reservations = model.running_reservations(inventory_pool)
+
+      #tmp#3 bulk recompute if many lines are updated together
+      max_reservation = reservations.max {|a,b| a.updated_at <=> b.updated_at }.try(:updated_at)
+      if max_reservation and model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).count > 1
+        max_change = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:updated_at)
+        return if max_reservation.to_i <= max_change.to_i
+      end
+
       model.availability_changes.reset_for_inventory_pool(inventory_pool) if with_reset
      
-      reservations = model.running_reservations(inventory_pool)
       reservations.each do |document_line|
         recompute_reservation(document_line)
       end
-      
-      model.availability_changes.scoped_by_inventory_pool_id(inventory_pool)
     end
   
     def self.recompute_reservation(document_line)
@@ -96,26 +102,16 @@ module Availability2
       model = document_line.model
       inventory_pool = document_line.inventory_pool
   
-  
       start_change = clone_change(model, inventory_pool, document_line.start_date)
-      end_change = clone_change(model, inventory_pool, document_line.end_date.tomorrow + model.maintenance_period.day)
+      end_change = clone_change(model, inventory_pool, document_line.available_again_date)
   
       # TODO user maximum_available_in_period_for_user instead ??
       groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) #tmp#
       maximum = maximum_available_in_period_for_groups(model, inventory_pool, groups, document_line.start_date, document_line.end_date)
-      
-      group_found = false
-      # TODO sort groups by quantity desc
-      groups.each do |group|
-        if maximum[group.name] >= document_line.quantity
-          update_changes(model, inventory_pool, group, document_line, start_change, end_change)
-          group_found = true
-          break
-        end
-      end
 
-      #tmp#1
-      update_changes(model, inventory_pool, Group::GENERAL_GROUP_ID, document_line, start_change, end_change) unless group_found
+      # TODO sort groups by quantity desc
+      group = groups.detect(Group::GENERAL_GROUP_ID) {|group| maximum[group.name] >= document_line.quantity }
+      update_changes(model, inventory_pool, group, document_line, start_change, end_change)
     end
 
     def self.update_changes(model, inventory_pool, group, document_line, start_change, end_change)
@@ -129,8 +125,7 @@ module Availability2
     
     def self.clone_change(model, inventory_pool, date)
       # OPTIMIZE
-      c = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", date])
-      c ||= model.availability_changes.current_for_inventory_pool(inventory_pool)
+      c = model.availability_changes.current_for_inventory_pool(inventory_pool, date)
    
       if c.date != date
         g = c.clone
@@ -153,7 +148,7 @@ module Availability2
     end
   
     def end_date
-      next_change.try(:date).try(:yesterday) || Availability2::ETERNITY
+      next_change.try(:date).try(:yesterday) || Availability::ETERNITY
     end
   
   #############################################
@@ -186,23 +181,11 @@ module Availability2
       (maximum.values << maximum_general.min.to_i).max
     end
 
-    # can return nil!
-    def self.most_recent_available_change(model, inventory_pool, at_or_before_date = Date.today)
-       return model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).last(
-                    :conditions => [ "date <= ?", at_or_before_date ] )
-    end
-
     # how many items of #Model in a 'state' are there at most over the given period?
     #
     # returns a hash à la: { 'CAST' => 2, 'Video' => 1, ... }
     #
-    def self.maximum_available_in_period_for_groups(model, inventory_pool, group_or_groups, start_date = Date.today, end_date = Availability2::ETERNITY)
-      start_date =  self.most_recent_available_change(model, inventory_pool, start_date).try(:date) || start_date.to_date
-      
-      end_date = end_date.to_date
-      tmp_end_date = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).minimum(:date, :conditions => [ "date >= ?", start_date ])
-      end_date = [tmp_end_date, end_date].max if tmp_end_date
-  
+    def self.maximum_available_in_period_for_groups(model, inventory_pool, group_or_groups, start_date = Date.today, end_date = Availability::ETERNITY)
       max_per_group = Hash.new
       Array(group_or_groups).each do |group|
         # we don't save AvailableQuantities for Groups that have zero vailable Models for space efficiency
@@ -210,18 +193,13 @@ module Availability2
         # then we know it's zero. So if there are more AvailabilityChanges than associated
         # AvailableQuantities then we know there are some that are null
         # TODO: move join up into has_many association
-        r = minimum("ifnull(in_quantity,0)",
+        r = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).between(start_date, end_date).minimum("ifnull(in_quantity,0)",
                     :joins => "LEFT JOIN availability_quantities " \
                               "ON availability_changes.id = availability_quantities.change_id " \
-                              "AND availability_quantities.group_id = #{group.id}",
-                    :conditions => [ "inventory_pool_id = ? " \
-                                     "AND model_id = ? " \
-                                     "AND availability_changes.date BETWEEN ? AND ?",
-                                     inventory_pool.id, model.id, start_date, end_date ] )
+                              "AND availability_quantities.group_id = #{group.id}")
   
         max_per_group[group.name] = r.to_i
       end
-  
   
       return max_per_group
     end

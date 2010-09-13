@@ -16,7 +16,7 @@
 	@overbooking_changes.each do |ob|
 		content_tag :tr do
 			content_tag :td do %>
-	  			<%= ob.model %>  
+				<%= show_line_model(ob.model) %>
 			<% end
 			content_tag :td do %>
 	  			<%= dates_with_period(ob.start_date, ob.end_date) %>  

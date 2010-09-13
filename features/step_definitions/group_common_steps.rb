@@ -6,7 +6,7 @@ end
 
 # Models in Groups
 Then "that Model should not be available in any other Group"  do
-  quantities = Availability2::Change.maximum_available_in_period_for_groups( @model,
+  quantities = Availability::Change.maximum_available_in_period_for_groups( @model,
                                                                              @inventory_pool,
                                                                              @inventory_pool.groups.find( :all,
                                                                                                           :conditions => ['id != ?',@group]))
@@ -14,10 +14,10 @@ Then "that Model should not be available in any other Group"  do
 end
 
 Then /^(\w+) item(s?) of that Model should be available in Group '([^"]*)'( only)?$/ do |n, plural, group_name, exclusivity|
-  @group = @inventory_pool.groups.find_by_name(group_name)
+  @group = @inventory_pool.groups.find_by_name(group_name) ## ?? ##
   all_groups = @inventory_pool.groups
   n = to_number(n)
-  quantities = Availability2::Change.maximum_available_in_period_for_groups( @model,
+  quantities = Availability::Change.maximum_available_in_period_for_groups( @model,
                                                                              @inventory_pool,
                                                                              all_groups)
   quantities[group_name].to_i.should == n
@@ -37,7 +37,7 @@ When /^I move (\w+) item(s?) of that Model from Group "([^"]*)" to Group "([^"]*
   from_group = @inventory_pool.groups.find_by_name from_group_name
   to_group   = @inventory_pool.groups.find_by_name to_group_name
   n.times do
-    Availability2::Change.move(@model, from_group, to_group)
+    Availability::Change.move(@model, from_group, to_group)
   end
   @inventory_pool.reload
 end

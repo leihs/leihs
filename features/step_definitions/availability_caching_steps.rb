@@ -20,23 +20,27 @@ Then "the availability of all $document_type lines should be cached" do |documen
   # we *must* reload here - thus the "true" - otherwise Rails will cache
   # the old order_lines values and muss the fact that one of them has been
   # updated. See Rails docu -> Associations -> Caching
-  @document.lines(true).each do |l|
-    l.cached_available.should_not be_nil
-  end
+#old-availability#
+#  @document.lines(true).each do |l|
+#    l.cached_available.should_not be_nil
+#  end
 end
 
+#old-availability#
 Then "the availability of the respective orderline should be cached" do 
   # uh, dirty...
   Then "the availability of all order lines should be cached"
 end
 
+#old-availability#
 Then "the availability cache of $quantifier $document_type lines should have been invalid$ated" do |quantifier,document_type,ated|
   case document_type
     when "order";    @document = @order
     when "contract"; @document = @contract
   end
-  @document.lines(true).each do |l|
-    l.cached_available.should be_nil
-  end
+#old-availability#
+#  @document.lines(true).each do |l|
+#    l.cached_available.should be_nil
+#  end
 end
 

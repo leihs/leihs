@@ -291,14 +291,11 @@ class Backend::ModelsController < Backend::BackendController
 
   def groups
     if request.post?
-      Availability2::Change.new_partition(@model, current_inventory_pool, params[:groups])
+      Availability::Change.new_partition(@model, current_inventory_pool, params[:groups])
       flash[:notice] = _("The group quantities were successfully saved.")
     end
 
     @changes = @model.availability_changes.scoped_by_inventory_pool_id(current_inventory_pool)
-
-    #old# @initial_change ||= @model.availability_changes.current_for_inventory_pool(current_inventory_pool)
-    #old# @initial_change = @model.availability_changes.scoped_by_inventory_pool_id(current_inventory_pool).last
     @initial_change = @changes.last
     @initial_change ||= @model.availability_changes.reset_for_inventory_pool(current_inventory_pool)
   end
