@@ -70,7 +70,7 @@ class ModelsController < FrontendController
                                                                                              :model_id,
                                                                                              :compatible_id] },
                                                                 :inventory_pools => { :records => current_inventory_pools,
-                                                                                      :methods => [[:items_size, @model.id]],
+                                                                                      :methods => [[:items_size, @model, current_user]],
                                                                                       :only => [:id, :name] },
                                                                 :images => { :methods => [:public_filename, :public_filename_thumb],
                                                                              :except => [:created_at,

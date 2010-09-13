@@ -1,4 +1,5 @@
 class InventoryPool < ActiveRecord::Base
+  include Availability::InventoryPool
 
   has_many :access_rights, :dependent => :delete_all, :include => :role, :conditions => 'deleted_at IS NULL'
   has_one :workday, :dependent => :delete
@@ -108,11 +109,6 @@ class InventoryPool < ActiveRecord::Base
     ["01.01.2009"] #TODO **24** Get the dates from Holidays, put them in the correct format (depends on DatePicker)
   end
   
-  # OPTIMIZE used for extjs
-  def items_size(model_id)
-    items.borrowable.scoped_by_model_id(model_id).count
-  end
-
   def is_open_on?(date)
     workday.is_open_on?(date) and not holiday?(date)
   end
