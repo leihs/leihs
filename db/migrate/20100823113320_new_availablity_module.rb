@@ -9,10 +9,11 @@ class NewAvailablityModule < ActiveRecord::Migration
     end
 
     change_table :availability_changes do |t|
-      t.index [:date, :inventory_pool_id, :model_id], :unique => true
-      t.index [:inventory_pool_id, :model_id]
+      t.index [:date, :inventory_pool_id, :model_id], :unique => true, :name => "index_on_date_and_inventory_pool_and_model"
+      t.index [:inventory_pool_id, :model_id], :name => "index_on_inventory_pool_and_model"
     end
 
+    ######
 
     create_table :availability_quantities do |t|
       t.belongs_to :change
@@ -27,8 +28,12 @@ class NewAvailablityModule < ActiveRecord::Migration
       t.index :in_quantity
     end
 
+    ######
+
     remove_column :contract_lines, :cached_available
     remove_column :order_lines, :cached_available
+
+    ######
 
     Availability::Change.recompute_all
     
