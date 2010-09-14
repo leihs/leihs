@@ -81,3 +81,6 @@ Scenario: Warnung anzeigen, wenn unvollständige Gegenstände ausgehändigt werd
 Scenario: Wartungsfenster für Gegenstände. Ramon fragen zu Details, oder Ticket 72.
   Given pending - reported by Claudio when lizards were still fish
 
+Scenario: Absender-Mailadressen von Geräteparks validieren, sonst kann man irgendeinen Blödsinn eingeben und damit ActionMailer zum Verrecken bringen. 
+  Given pending - reported by Antony via Google Groups on 2010-09-14. 
+
