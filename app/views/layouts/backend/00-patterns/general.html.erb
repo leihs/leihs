@@ -5,7 +5,7 @@
 
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<title>leihs 2.2 (Backend)</title>
+	<title>leihs 2.3 (Backend)</title>
 
 	<%= stylesheet_link_tag $layout_public_path + "/css/general.css", :media => "all" %>
 	<%= stylesheet_link_tag "/javascripts/tooltips/tooltips.css", :media => "screen" %>
@@ -46,7 +46,7 @@
 
 			<div id="header">
 				<div id="logo">
-					<h1><%= link_to "leihs 2.2", backend_path %></h1>
+					<h1><%= link_to "leihs 2.3", backend_path %></h1>
 					<% if current_inventory_pool %>
 						<p><%= _("Inventory Pool") %>: <%= link_to current_inventory_pool.name, backend_inventory_pool_path(current_inventory_pool) %>. (<%= link_to _("Change") + "?", backend_path %>)</p>
 					<% end %>

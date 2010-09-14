@@ -23,10 +23,10 @@ end
 When /^I assign (\w+) item(s?) to Group "([^"]*)"$/ do |n, plural, to_group_name|
   n = to_number(n)
   to_group = @inventory_pool.groups.find_by_name to_group_name
-  partitions = Availability::Change.partitions(@model, @inventory_pool)
-  partitions[to_group.id] = 0 if not partitions.has_key?(to_group.id)
-  partitions[to_group.id] += n
-  Availability::Change.new_partition(@model, @inventory_pool, partitions)
+  partition = @model.availability_changes.current_partition(@inventory_pool)
+  partition[to_group.id] ||= 0
+  partition[to_group.id] += n
+  @model.availability_changes.init(@inventory_pool, partition)
 end
 
 Given "$n items of that Model should be available to everybody" do |n|

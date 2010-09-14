@@ -11,29 +11,41 @@ module Availability
         end
         
         def init(inventory_pool, new_partition = nil)
-#working here#
-#          if new_partition
-#            initial_change = scoped_by_inventory_pool_id(inventory_pool).first
-#            general_quantity = initial_change.quantities.general
-#      
-#            group_partitioning.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
-#            group_partitioning.each_pair do |group_id, quantity|
-#              quantity = quantity.to_i
-#              initial_change.quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
-#              general_quantity.in_quantity -= quantity
-#            end if group_partitioning
-#            general_quantity.save
-#          end
-          
-#          partitions = Availability::Change.partitions(self, inventory_pool)
-#          Availability::Change.new_partition(self, inventory_pool, partitions)
+          new_partition ||= current_partition(inventory_pool)
 
           scoped_by_inventory_pool_id(inventory_pool).destroy_all
           initial_change = scoped_by_inventory_pool_id(inventory_pool).create(:date => Date.today)
-          #tmp#1
           total_borrowable_items = inventory_pool.items.borrowable.scoped_by_model_id(initial_change.model).count
-          initial_change.quantities.create(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items)
+          general_quantity = initial_change.quantities.build(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items)
+    
+          new_partition.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
+          new_partition.each_pair do |group_id, quantity|
+            quantity = quantity.to_i
+            initial_change.quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
+            general_quantity.in_quantity -= quantity
+          end
+          general_quantity.save
+
           initial_change
+        end
+
+        # how is a model distributed in the various groups?
+        # returns a hash Ã  la: { nil => 4, cast_group_id => 2, video_group_id => 1, ... }
+        def current_partition(inventory_pool)
+          partitioning = {}
+          existing_change = scoped_by_inventory_pool_id(inventory_pool).first
+
+          if existing_change
+            existing_change.quantities.map do |q|
+              partitioning[q.group_id] = q.in_quantity + q.out_quantity
+            end
+          else
+            # TODO ??
+            # total_borrowable_items = inventory_pool.items.borrowable.scoped_by_model_id(initial_change.model).count
+            # partitioning[Group::GENERAL_GROUP_ID] = total_borrowable_items
+          end
+          
+          partitioning
         end
       end
       
