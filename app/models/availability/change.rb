@@ -79,7 +79,7 @@ module Availability
   
     def self.recompute_all
       transaction do
-        ::InventoryPool.all.each do |inventory_pool|
+        InventoryPool.all.each do |inventory_pool|
           inventory_pool.models.each do |model|
             recompute(model, inventory_pool)
           end
