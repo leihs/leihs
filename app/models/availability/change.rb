@@ -55,25 +55,9 @@ module Availability
                              
   #############################################
   
+    # TODO refactor completely to model.availability_change with_recompute argument ??
     def self.new_partition(model, inventory_pool, group_partitioning)
-###remove from here
-      initial_change = model.availability_changes.init(inventory_pool)
-      general_quantity = initial_change.quantities.general
-
-      group_partitioning.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
-      # TODO update future records (or prevent completely if it's breaking future availabilities) 
-      group_partitioning.each_pair do |group_id, quantity|
-        quantity = quantity.to_i
-        # TODO get out_quantity and store only if sum > 0
-        initial_change.quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
-        general_quantity.in_quantity -= quantity
-      end if group_partitioning
-      general_quantity.save
-###remove to here
-      
-      #new# model.availability_changes.init(inventory_pool, group_partitioning)
-
-      # TODO
+      model.availability_changes.init(inventory_pool, group_partitioning)
       recompute(model, inventory_pool, false)
     end
   
@@ -91,6 +75,7 @@ module Availability
       reservations = model.running_reservations(inventory_pool)
 
       #tmp#3 bulk recompute if many lines are updated together
+# OPTIMIZE
 #      max_reservation = reservations.max {|a,b| a.updated_at <=> b.updated_at }.try(:updated_at)
 #      if max_reservation and model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).count > 1
 #        max_change = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:updated_at)
@@ -192,7 +177,7 @@ module Availability
 
     # how many items of #Model in a 'state' are there at most over the given period?
     #
-    # returns a hash à la: { 'CAST' => 2, 'Video' => 1, ... }
+    # returns a hash Ã  la: { 'CAST' => 2, 'Video' => 1, ... }
     #
     def self.maximum_available_in_period_for_groups(model, inventory_pool, group_or_groups, start_date = Date.today, end_date = Availability::ETERNITY)
       max_per_group = Hash.new
@@ -213,23 +198,6 @@ module Availability
       return max_per_group
     end
 
-    # how is a model distributed in the various groups?
-    #
-    # returns a hash à la: { general_group_id => 4, cast_group_id => 2, video_group_id => 1, ... }
-    #
-    # only used in a test for now...
-    #
-    def self.partitions(model, inventory_pool)
-      current_change =  self.most_recent_available_change(model, inventory_pool)
-
-      partitioning = Hash.new
-      current_change.quantities.map do |q|
-        partitioning[q.group_id] = q.in_quantity + q.out_quantity
-      end
-      
-      partitioning
-    end
-  
   end
 
 end
