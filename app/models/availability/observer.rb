@@ -1,7 +1,7 @@
 module Availability
 
     class Observer < ActiveRecord::Observer
-      observe :order_line, :item_line, :item #TODO# , :group
+      observe :order_line, :item_line, :item
       
       #tmp#3 TODO bulk recompute if many lines are updated together
       
@@ -21,5 +21,4 @@ module Availability
         recompute(record)
       end
     end
-
 end

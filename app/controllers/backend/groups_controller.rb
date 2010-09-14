@@ -37,7 +37,7 @@ class Backend::GroupsController < Backend::BackendController
       redirect_to :action => 'users'
     else
       @group.destroy
-      redirect_to :action => 'show'
+      redirect_to :action => 'index'
     end
   end
 
