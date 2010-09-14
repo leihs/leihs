@@ -25,7 +25,7 @@ Then /^(\w+) item(s?) of that Model should be available in Group '([^"]*)'( only
   if exclusivity
     all_groups.each do |group|
       unless group.name == group_name
-        quantities[group.name].should == 0
+        quantities[group].should == 0
       end
     end
   end
