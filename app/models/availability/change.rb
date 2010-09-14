@@ -149,9 +149,7 @@ module Availability
   #############################################
   
     def next_change
-      puts "********", self.inspect
-      puts inventory_pool.inspect
-#      model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).first(:conditions => ["date > ?", date])
+      model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).first(:conditions => ["date > ?", date])
     end
   
     def start_date
