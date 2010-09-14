@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
 
   validates_uniqueness_of :inventory_code
   validates_presence_of :inventory_code, :model
-  validate :validates_package, :validates_model_change
+  validate :validates_package, :validates_model_change, :validates_retired
 
 ####################################################################
 
@@ -152,6 +152,36 @@ class Item < ActiveRecord::Base
   def to_s
     "#{model.name} #{inventory_code}"
   end
+ 
+  # Returns an array of field headers for CSV, useful for including as first line
+  # using e.g. FasterCSV. Matches what's returned by to_csv_array
+  def self.csv_header    
+    ['inventory_code', 
+      'inventory_pool',
+      'owner',
+      'serial_number',
+      'model_name', 
+      'borrowable',
+      'categories',
+      'required_level',
+      'invoice_number',
+      'invoice_date',
+      'last_check',
+      'retired',
+      'retired_reason',
+      'price',
+      'is_broken',
+      'is_incomplete',
+      'is_borrowable',
+      'part_of_package',
+      'created_at',
+      'updated_at',
+      'needs_permission',
+      'is_inventory_relevant',
+      'responsible',
+      'supplier',
+      'model_manufacturer']
+  end
 
   # Generates an array suitable for outputting a line of CSV using FasterCSV
   def to_csv_array    
@@ -163,8 +193,10 @@ class Item < ActiveRecord::Base
 
     if self.model.nil? or self.model.name.blank?
       model_name = "UNKNOWN/CHANGED"
+      model_manufacturer = "UNKNOWN" if self.model.manufacturer.blank?
     else
       model_name = self.model.name.gsub(/\"/, '""')
+      model_manufacturer = self.model.manufacturer.gsub(/\"/, '""') unless self.model.manufacturer.blank?
     end
 
     if self.owner.nil? or self.owner.name.blank?
@@ -191,64 +223,37 @@ class Item < ActiveRecord::Base
     else
       part_of_package = "NONE"
     end
-    
+   
+    # Using #{} notation to catch nils gracefully and silently 
     return [ self.inventory_code,
       ip,  
       owner,
-      self.serial_number,
+      "#{self.serial_number}",
       model_name,
-      self.is_borrowable,
+      "#{self.is_borrowable}",
       categories,
-      self.required_level,
-      self.invoice_number,
-      self.invoice_date,
-      self.last_check,
-      self.retired,
-      self.retired_reason,
-      self.price,
-      self.is_broken,
-      self.is_incomplete,
-      self.is_borrowable,
+      "#{self.required_level}",
+      "#{self.invoice_number}",
+      "#{self.invoice_date}",
+      "#{self.last_check}",
+      "#{self.retired}",
+      "#{self.retired_reason}",
+      "#{self.price}",
+      "#{self.is_broken}",
+      "#{self.is_incomplete}",
+      "#{self.is_borrowable}",
       part_of_package,
-      self.created_at,
-      self.updated_at,
-      self.needs_permission,
-      self.is_inventory_relevant,
-      self.responsible,
-      supplier
+      "#{self.created_at}",
+      "#{self.updated_at}",
+      "#{self.needs_permission}",
+      "#{self.is_inventory_relevant}",
+      "#{self.responsible}",
+      supplier,
+      model_manufacturer
     ]
     
   end
-  
-  # Returns an array of field headers for CSV, useful for including as first line
-  # using e.g. FasterCSV. Matches what's returned by to_csv_array
-  def self.csv_header    
-    ['inventory_code', 
-      'inventory_pool',
-      'owner',
-      'serial_number', 
-      'model_name', 
-      'borrowable',
-      'categories',
-      'required_level',
-      'invoice_number',
-      'invoice_date',
-      'last_check',
-      'retired',
-      'retired_reason',
-      'price',
-      'is_broken',
-      'is_incomplete',
-      'is_borrowable',
-      'part_of_package',
-      'created_at',
-      'updated_at',
-      'needs_permission',
-      'is_inventory_relevant',
-      'responsible',
-      'supplier']
-  end
-  
+   
   
   def inventory_code
     s = read_attribute('inventory_code')
@@ -397,6 +402,10 @@ class Item < ActiveRecord::Base
   
   def validates_model_change
     errors.add_to_base(_("The model cannot be changed because the item is used in contracts already.")) if model_id_changed? and not contract_lines.empty? 
+  end
+
+  def validates_retired
+    errors.add_to_base(_("The item cannot be retired because it's not returned yet.")) if not retired.nil? and not in_stock? 
   end
 
   def update_sphinx_index

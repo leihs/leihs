@@ -15,8 +15,12 @@
 %>
 
 <% if !@item.id.blank? and is_privileged_user? and @item.owner_id == current_inventory_pool.id %>
-	<tr><td><b><%= _("Retirement:") %></b></td><td class="buttons">
-	        <% action = (@item.retired ? _("Unretire") : _("Retire")) %>
-	        <%= greybox_link action, retire_backend_inventory_pool_model_item_path(current_inventory_pool, @item.model_id, @item) %>
-	</td></tr>
+	<tr>
+		<td>
+			<b><%= _("Retirement:") %></b>
+		</td>
+		<td class="buttons">
+			<%= retire_button(@item) %>
+		</td>
+	</tr>
 <% end %>
