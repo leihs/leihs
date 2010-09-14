@@ -7,10 +7,27 @@ module Availability
         def current_for_inventory_pool(inventory_pool, date = Date.today)
           r = scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", date])
           r ||= scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", Date.today]) if date != Date.today
-          r ||= reset_for_inventory_pool(inventory_pool)
+          r ||= reset(inventory_pool)
         end
         
-        def reset_for_inventory_pool(inventory_pool)
+        def reset(inventory_pool, new_partition = nil)
+#working here#
+#          if new_partition
+#            initial_change = scoped_by_inventory_pool_id(inventory_pool).first
+#            general_quantity = initial_change.quantities.general
+#      
+#            group_partitioning.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
+#            group_partitioning.each_pair do |group_id, quantity|
+#              quantity = quantity.to_i
+#              initial_change.quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
+#              general_quantity.in_quantity -= quantity
+#            end if group_partitioning
+#            general_quantity.save
+#          end
+          
+#          partitions = Availability::Change.partitions(self, inventory_pool)
+#          Availability::Change.new_partition(self, inventory_pool, partitions)
+
           scoped_by_inventory_pool_id(inventory_pool).destroy_all
           initial_change = scoped_by_inventory_pool_id(inventory_pool).create(:date => Date.today)
           #tmp#1
