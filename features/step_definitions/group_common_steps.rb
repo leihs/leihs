@@ -20,7 +20,7 @@ Then /^(\w+) item(s?) of that Model should be available in Group '([^"]*)'( only
   quantities = Availability::Change.maximum_available_in_period_for_groups( @model,
                                                                              @inventory_pool,
                                                                              all_groups)
-  quantities[group_name].to_i.should == n
+  quantities[@group].to_i.should == n
 
   if exclusivity
     all_groups.each do |group|
