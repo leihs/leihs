@@ -84,3 +84,5 @@ Scenario: Wartungsfenster für Gegenstände. Ramon fragen zu Details, oder Ticke
 Scenario: Absender-Mailadressen von Geräteparks validieren, sonst kann man irgendeinen Blödsinn eingeben und damit ActionMailer zum Verrecken bringen. 
   Given pending - reported by Antony via Google Groups on 2010-09-14. 
 
+Scenario: Take back: Verträge zusammengefasst nach Vertragsnummer anzeigen und jeweils auch Vertragsnotiz (falls vorhanden) anzeigen.
+  Given pending - reported by Pius on 2010-09-14.
