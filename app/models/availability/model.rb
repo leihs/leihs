@@ -19,7 +19,9 @@ module Availability
           general_quantity = initial_change.quantities.build(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items)
     
           new_partition.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
+          
           new_partition.each_pair do |group_id, quantity|
+            next if not Group.exists?( group_id )
             quantity = quantity.to_i
             initial_change.quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
             general_quantity.in_quantity -= quantity
