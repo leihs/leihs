@@ -57,7 +57,7 @@ module Availability
   
     def self.new_partition(model, inventory_pool, group_partitioning)
 ###remove from here
-      initial_change = model.availability_changes.reset(inventory_pool)
+      initial_change = model.availability_changes.init(inventory_pool)
       general_quantity = initial_change.quantities.general
 
       group_partitioning.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
@@ -71,7 +71,7 @@ module Availability
       general_quantity.save
 ###remove to here
       
-      #new# model.availability_changes.reset(inventory_pool, group_partitioning)
+      #new# model.availability_changes.init(inventory_pool, group_partitioning)
 
       # TODO
       recompute(model, inventory_pool, false)
@@ -79,7 +79,7 @@ module Availability
   
     def self.recompute_all
       transaction do
-        InventoryPool.all.each do |inventory_pool|
+        ::InventoryPool.all.each do |inventory_pool|
           inventory_pool.models.each do |model|
             recompute(model, inventory_pool)
           end
@@ -97,7 +97,7 @@ module Availability
 #        return if max_reservation.to_i <= max_change.to_i
 #      end
 
-      model.availability_changes.reset(inventory_pool) if with_reset
+      model.availability_changes.init(inventory_pool) if with_reset
      
       reservations.each do |document_line|
         recompute_reservation(document_line)
@@ -185,7 +185,7 @@ module Availability
       maximum = maximum_available_in_period_for_groups(model, inventory_pool, groups, start_date, end_date)
       
       changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).between(start_date, end_date)
-      changes << model.availability_changes.reset(inventory_pool) if changes.blank?
+      changes << model.availability_changes.init(inventory_pool) if changes.blank?
       maximum_general = changes.collect do |c|
         c.in_quantity_in_group(Group::GENERAL_GROUP_ID)
       end

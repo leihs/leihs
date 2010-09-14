@@ -7,10 +7,10 @@ module Availability
         def current_for_inventory_pool(inventory_pool, date = Date.today)
           r = scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", date])
           r ||= scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", Date.today]) if date != Date.today
-          r ||= reset(inventory_pool)
+          r ||= init(inventory_pool)
         end
         
-        def reset(inventory_pool, new_partition = nil)
+        def init(inventory_pool, new_partition = nil)
 #working here#
 #          if new_partition
 #            initial_change = scoped_by_inventory_pool_id(inventory_pool).first
