@@ -2,7 +2,7 @@
 	<%= _("Current group quantities") %>
 <% end %>
 
-<% form_tag url_for({ }) do
+<% form_tag set_group_partition_backend_inventory_pool_model_path(current_inventory_pool, @model) do
 	content_tag :table, :id => "groups" do
 		content_tag :tr do
 			content_tag :th do %>
@@ -59,6 +59,6 @@
 	});
 <% end %>
 
-<%= groups_chart(@model, current_inventory_pool) %>
+<%#tmp#= groups_chart(@model, current_inventory_pool) %>
 
 <%= availability_changes(@changes) %>

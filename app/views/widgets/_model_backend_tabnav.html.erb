@@ -93,11 +93,5 @@ render_tabnav :model_backend,
 		t.highlights_on :controller => 'backend/models', :action => 'index'
 	end
 
-	add_tab do |t|
-		t.named _("Groups")
-		t.links_to groups_backend_inventory_pool_model_path(current_inventory_pool, @model, :layout => params[:layout], :filter => params[:filter])
-		t.highlights_on :controller => 'backend/models', :action => 'groups'
-	end
-
 end 
 %>
