@@ -61,26 +61,26 @@ Rails::Initializer.run do |config|
   config.time_zone = 'Bern'
 
   config.gem "gettext", :version => "2.1.0"
-# 2901 config.gem "locale_rails", :version => '>= 2.0.5'
+# 2901 config.gem "locale_rails", :version => '>= 2.0.5' # see config/initializers/gettext.rb
   config.gem "gettext_activerecord", :version => '2.1.0'
   config.gem "gettext_rails", :version => '2.1.0'
 
   config.gem "barby", :version => '0.2.0'
-  config.gem "png", :version => '>= 1.1.0'
-  config.gem "hoptoad_notifier", :version => '>= 2.1.3'
+  config.gem "png", :version => '1.2.0'
+  config.gem "hoptoad_notifier", :version => '2.3.7'
 #  config.gem "RubyInline", :version => '3.8.2', :lib => "inline"
 
 #  config.gem "rmagick", :version => '2.7.0'
   config.gem "rgl", :lib => "rgl/adjacency", :version => '0.4.0'
-  config.gem "will_paginate", :source => 'http://gemcutter.org', :version => '>= 2.3.11'
-  config.gem "thinking-sphinx", :lib => 'thinking_sphinx', :source => 'http://gemcutter.org', :version => '>= 1.3.15'
+  config.gem "will_paginate", :version => '2.3.15'
+  config.gem "thinking-sphinx", :lib => 'thinking_sphinx', :source => 'http://gemcutter.org', :version => '1.3.20'
 
-  config.gem "fastercsv", :version => '>= 1.5.3'
+  config.gem "fastercsv", :version => '1.5.3'
  
   config.gem "prawn", :version => '0.8.4'
-  config.gem "ruby-net-ldap", :lib => 'net/ldap', :version => ">= 0.0.4"
+  config.gem "ruby-net-ldap", :lib => 'net/ldap', :version => "0.0.4"
 
-  config.gem "awesome_nested_set", :version => ">= 1.4.3"
+  config.gem "awesome_nested_set", :version => "1.4.3"
 end
 
 ######################################################
