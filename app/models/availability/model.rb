@@ -5,23 +5,29 @@ module Availability
 
       base.has_many :availability_changes, :class_name => "Availability::Change" do
         def current_for_inventory_pool(inventory_pool, date = Date.today)
-          r = scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", date])
-          r ||= scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", Date.today]) if date != Date.today
-          r ||= init(inventory_pool)
+          scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", date])
         end
         
-        def init(inventory_pool, new_partition = nil)
+        def init(inventory_pool, new_partition = nil, date = Date.today, with_destroy = true)
           new_partition ||= current_partition(inventory_pool)
 
-          scoped_by_inventory_pool_id(inventory_pool).destroy_all
-          initial_change = scoped_by_inventory_pool_id(inventory_pool).create(:date => Date.today)
+          if with_destroy and (existing_change = scoped_by_inventory_pool_id(inventory_pool).first)
+            # this is much faster than destroy_all or delete_all with associations
+            connection.execute("DELETE c, q, o FROM `availability_changes` AS c " \
+                               " INNER JOIN `availability_quantities` AS q ON q.`change_id` = c.`id` " \
+                               " INNER JOIN `availability_out_document_lines` AS o ON o.`quantity_id` = q.`id` " \
+                               " WHERE c.`inventory_pool_id` = '#{inventory_pool.id}' " \
+                               " AND c.`model_id` = '#{existing_change.model_id}'" )
+          end
+
+          initial_change = scoped_by_inventory_pool_id(inventory_pool).create(:date => date)
           total_borrowable_items = inventory_pool.items.borrowable.scoped_by_model_id(initial_change.model).count
           general_quantity = initial_change.quantities.build(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items)
     
           new_partition.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
           
           new_partition.each_pair do |group_id, quantity|
-            next if not Group.exists?( group_id )
+            next if not inventory_pool.groups.exists?(group_id)
             quantity = quantity.to_i
             initial_change.quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
             general_quantity.in_quantity -= quantity
@@ -36,7 +42,6 @@ module Availability
         def current_partition(inventory_pool)
           partitioning = {}
           existing_change = scoped_by_inventory_pool_id(inventory_pool).first
-
           if existing_change
             existing_change.quantities.map do |q|
               partitioning[q.group_id] = q.in_quantity + q.out_quantity
@@ -46,9 +51,30 @@ module Availability
             # total_borrowable_items = inventory_pool.items.borrowable.scoped_by_model_id(initial_change.model).count
             # partitioning[Group::GENERAL_GROUP_ID] = total_borrowable_items
           end
-          
           partitioning
         end
+
+        # generate or fetch
+        def clone_change(inventory_pool, to_date)
+          change = current_for_inventory_pool(inventory_pool, to_date)
+          if change.nil?
+            change = init(inventory_pool, nil, to_date, false)
+          elsif change.date < to_date
+            cloned = change.clone
+            cloned.date = to_date
+            cloned.save
+            change.quantities.each do |quantity|
+              cloned_quantity = quantity.clone
+              cloned.quantities << cloned_quantity
+              quantity.out_document_lines.each do |odl|
+                cloned_quantity.out_document_lines << odl.clone
+              end
+            end
+            change = cloned
+          end
+          change
+        end
+
       end
       
     end

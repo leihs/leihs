@@ -11,7 +11,6 @@ module Backend::AvailabilityHelper
     # TODO pass directly just (groups, changes) arguments ??
     groups = inventory_pool.groups
     changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool) # TODO filter out past changes ??
-    changes << model.availability_changes.new_current_for_inventory_pool(inventory_pool) if changes.blank?
     
     values = []
     x_ticks = []

@@ -76,14 +76,16 @@ module ModelsHelper
       y = items.index(l.item)
       next if y.nil?
       y += 1
-      #debug# html += "<br>#{l.quantity}: #{l.start_date} - #{l.end_date} #{l.item.inventory_code}"
       start_date = l.start_date.to_time.to_i
-      end_date = (l.returned_date ? (l.returned_date + 12.hours).to_time.to_i : (l.end_date + 12.hours).to_time.to_i)
+      
+      #old# end_date = (l.returned_date ? (l.returned_date + 12.hours).to_time.to_i : (l.end_date + 12.hours).to_time.to_i)
+      end_date = (l.availability_end_date + 12.hours).to_time.to_i
+      
       user_level = l.document.user.access_right_for(inventory_pool).try(:level) || 0 # 0 means that the user does not have access to this pool
 
       color = if l.returned_date
                 '#e1e157'
-              elsif l.end_date < today
+              elsif l.is_late?
                 'red'
               else
                 '#e3aa01'
@@ -93,9 +95,11 @@ module ModelsHelper
                  :user_name => "#{l.document.user.name} (#{user_level})", :user_phone => "#{l.document.user.phone}"}
     end
     lines_without_item.sort.each do |l|
-      #debug# html += "<br>#{l.quantity}: #{l.start_date} - #{l.end_date}"
       start_date = l.start_date.to_time.to_i
-      end_date = (l.end_date + 12.hours).to_time.to_i
+
+      #old# end_date = (l.end_date + 12.hours).to_time.to_i
+      end_date = (l.availability_end_date + 12.hours).to_time.to_i
+
       user_level = l.document.user.access_right_for(inventory_pool).try(:level) || 0 # 0 means that the user does not have access to this pool
 
       l.quantity.times do

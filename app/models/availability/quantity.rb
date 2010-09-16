@@ -22,15 +22,6 @@ module Availability
       self
     end
 
-    #tmp#6 TODO really needed ??
-    def to_in(document_line)
-      increment(:in_quantity, document_line.quantity)
-      decrement(:out_quantity, document_line.quantity)
-      odl = out_document_lines.scoped_by_document_line_type_and_document_line_id(document_line.class.class_name, document_line.id).first
-      out_document_lines.delete(odl)
-      self
-    end
-    
   end
 
 ####################################
