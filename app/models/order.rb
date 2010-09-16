@@ -185,8 +185,6 @@ class Order < Document
     self.backup = Backup::Order.new(attributes)
     
     order_lines.each do |ol|
-#old-availability#
-#      backup.order_lines.create(ol.attributes.reject {|key, value| key == "cached_available" })
       backup.order_lines.create(ol.attributes)
     end
 

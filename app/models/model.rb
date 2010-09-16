@@ -204,60 +204,6 @@ class Model < ActiveRecord::Base
   end
 
 #############################################  
-# Availability
-#############################################  
-# OPTIMIZE Cache
-#  [:inventory_pool_id][:model_id][:level ??][:periods]
-#  { 1 => { 1 => [["2010-01-20", "2010-01-22", 3], ["2010-01-23", "2010-01-27", 6]] } }
-
-#old-availability#
-#  def unavailable_periods_for_document_line(document_line, current_time = Date.today)
-#    availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user, document_line.is_a?(OrderLine))
-#    availability.cancel_availability_change!(document_line) # remove document_line itself preventing it to be counted
-#    unavailable_periods = availability.periods.select { |a| a.quantity < document_line.quantity }
-#
-#    # NOTE even if start_date or end_date are nil,
-#    # make sure they are set in order to have (it may occur when an item is unborrowable)
-#    # TODO refactor to Availability#periods ??
-#    unavailable_periods.each do |u|
-#      u.start_date = current_time unless u.start_date
-#      u.end_date = u.start_date + 1.year unless u.end_date
-#    end
-#
-#    unavailable_periods
-#  end
-#  
-#  # TODO *e* inventory_pools array ??
-#  def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
-#    create_availability(current_time, inventory_pool, user).periods
-#  end
-#
-## OPTIMIZE this method is only used for test ??  
-#  # TODO *e* maximum_available_for_document_line method ??
-#  def maximum_available_for_inventory_pool(date, inventory_pool, user, current_time = Date.today)
-#    create_availability(current_time, inventory_pool, user).period_for(date).quantity
-#  end
-#  
-#  def maximum_available_in_period_for_document_line(start_date, end_date, document_line, current_time = Date.today)
-#    if (start_date.nil? && end_date.nil?)
-#      return items.size
-#    else
-#      availability = create_availability(current_time, document_line.inventory_pool, document_line.document.user, document_line.is_a?(OrderLine))
-#      availability.cancel_availability_change!(document_line) # remove document_line itself preventing it to be counted
-#      return availability.maximum_available_in_period(start_date, end_date)
-#    end
-#  end  
-#
-#  def maximum_available_in_period_for_inventory_pool(start_date, end_date, inventory_pool, user, current_time = Date.today)
-#    if (start_date.nil? && end_date.nil?)
-#      return items.size
-#    else
-#      create_availability(current_time, inventory_pool, user).maximum_available_in_period(start_date, end_date)
-#    end
-#  end  
-
-
-#############################################  
 
   def add_to_document(document, user_id, quantity = nil, start_date = nil, end_date = nil, inventory_pool = nil)
     document.add_line(quantity, self, user_id, start_date, end_date, inventory_pool)
@@ -268,53 +214,4 @@ class Model < ActiveRecord::Base
            + self.order_lines.scoped_by_inventory_pool_id(inventory_pool).submitted.running(current_time)    
   end
                                                                                                       
-  private
-
-#old-availability#
-#  def create_availability(current_time, inventory_pool, user, with_unsubmitted_orders = true)
-#    max_quantity = maximum_borrowable(inventory_pool, user)
-#    reservations = running_reservations(inventory_pool, current_time)
-#    reservations += self.order_lines.scoped_by_inventory_pool_id(inventory_pool).unsubmitted.running(current_time).by_user(user) if with_unsubmitted_orders
-#    Availability.new(max_quantity, current_time, self, reservations)
-#  end
-
-  # returns number of borrowable items of some model in a inventory_pool without
-  # taking into account any existing reservations 
-  #
-  # TODO: tpo: move to inventory pool? 
-  #
-  # :nodoc:
-  # borrowable_in_inventory_pool lies on a very critical path via create_availability,
-  # which is being called once per every document line.
-  # the "count" statement below takes about 0.1s to construct inside the rails framework and about
-  # 0.001s to execute for mysql. Thus cutting off the stack and going directly to mysql will
-  # accellerate that particular line 100-fold:
-  #
-  #    i = Item.connection.select_one("SELECT count(*) FROM items WHERE " \
-  #                              "required_level <= (#{user.nil? ? 1 : "SELECT level FROM access_rights WHERE role_id > 1 AND suspended_at IS NULL AND inventory_pool_id = #{inventory_pool.id} AND user_id = #{user.id}"}) AND " \
-  #                              "inventory_pool_id = #{inventory_pool.id} AND " \
-  #                              "is_borrowable = 1 AND " \
-  #                              "model_id = #{self.id} AND " \
-  #                              "retired IS NULL")["count(*)"].to_i      
-  # #                             "AND parent_id IS NULL # (this last line is taken from the development SQL log - I don't know what it's needed for)
-  #
-#old-availability#
-#  def maximum_borrowable(inventory_pool, user)
-#    items.borrowable.scoped_by_inventory_pool_id(inventory_pool).count(:conditions => ['required_level <= ?',
-#                                                                                      (user.nil? ? 1 : user.level_for(inventory_pool))])
-#  end
- 
-# TODO ??
-#  def update_sphinx_index
-#    Item.suspended_delta do
-#      items.each {|x| x.touch }
-#    end
-##    Contract.suspended_delta do
-##      contracts.each {|x| x.touch }
-##    end
-##    Order.suspended_delta do
-##      orders.each {|x| x.touch }
-##    end
-#  end
-
 end
