@@ -163,7 +163,6 @@ class Item < ActiveRecord::Base
       'model_name', 
       'borrowable',
       'categories',
-      'required_level',
       'invoice_number',
       'invoice_date',
       'last_check',
@@ -232,7 +231,6 @@ class Item < ActiveRecord::Base
       model_name,
       "#{self.is_borrowable}",
       categories,
-      "#{self.required_level}",
       "#{self.invoice_number}",
       "#{self.invoice_date}",
       "#{self.last_check}",
@@ -351,7 +349,8 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   def borrowable_by?(user)
-    user.level_for(inventory_pool) >= required_level
+#tmp#9    user.level_for(inventory_pool) >= required_level
+    true
   end
 
 ####################################################################

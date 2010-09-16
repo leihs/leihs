@@ -1,11 +1,5 @@
 class AccessRight < ActiveRecord::Base
 
-  CUSTOMER = 1
-  EMPLOYEE = 3
-  SPECIAL = 5
-  
-  LEVELS = {_("Customer") => CUSTOMER, _("Employee") => EMPLOYEE, _("Special") => SPECIAL }
-
   belongs_to :role
   belongs_to :user
   belongs_to :inventory_pool
@@ -27,12 +21,7 @@ class AccessRight < ActiveRecord::Base
   def to_s
     s = "#{role.name}"
     s += " for #{inventory_pool.name}" if inventory_pool
-    unless role.name == "admin"
-      l = []
-      l << _("Borrow Level: %d") % level.to_i
-      l << _("Access Level: %d") % access_level.to_i unless role.name == "customer"
-      s += " (#{l.join(', ')})"
-    end
+    s += " (#{_("Access Level: %d") % access_level.to_i})" if role.name == "manager"
     s
   end
 
@@ -66,14 +55,10 @@ class AccessRight < ActiveRecord::Base
 
   def adjust_levels
     case role.name
-      when "admin"
-        self.access_level = self.level = nil
-      when "manager"
-        self.level = [level.to_i, 1].max
-        self.access_level = [access_level.to_i, 1].max
-      when "customer"
-        self.level = [level.to_i, 1].max
+      when "admin", "customer"
         self.access_level = nil
+      when "manager"
+        self.access_level = [access_level.to_i, 1].max
     end
   end
 

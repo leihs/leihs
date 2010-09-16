@@ -42,10 +42,11 @@ end
 
 Given "$quantity items of this model are for '$level' customers only" do |quantity, level|
   items = @model.items
-  quantity.to_i.times do |i|
-    items[i].required_level = AccessRight::LEVELS[level]
-    items[i].save
-  end
+#tmp#9
+#  quantity.to_i.times do |i|
+#    items[i].required_level = AccessRight::LEVELS[level]
+#    items[i].save
+#  end
 end
 
 # TODO: use $who

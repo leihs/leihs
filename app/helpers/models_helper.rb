@@ -61,7 +61,7 @@ module ModelsHelper
  
     items.each_with_index do |item, index|
       y = index + 1
-      icode = "#{item.inventory_code} (#{item.required_level})"
+      icode = "#{item.inventory_code}"
       styled_inventory_code = (item.is_borrowable? ? icode : "<span style='color:red;'>#{icode}</span>") 
       y_ticks << [y, styled_inventory_code]
     end
@@ -81,8 +81,6 @@ module ModelsHelper
       #old# end_date = (l.returned_date ? (l.returned_date + 12.hours).to_time.to_i : (l.end_date + 12.hours).to_time.to_i)
       end_date = (l.availability_end_date + 12.hours).to_time.to_i
       
-      user_level = l.document.user.access_right_for(inventory_pool).try(:level) || 0 # 0 means that the user does not have access to this pool
-
       color = if l.returned_date
                 '#e1e157'
               elsif l.is_late?
@@ -92,7 +90,7 @@ module ModelsHelper
               end
       events << {:start => start_date, :end => end_date, :y => y, :color => color,
                  :item_inventory_code => l.item.inventory_code,
-                 :user_name => "#{l.document.user.name} (#{user_level})", :user_phone => "#{l.document.user.phone}"}
+                 :user_name => "#{l.document.user.name}", :user_phone => "#{l.document.user.phone}"}
     end
     lines_without_item.sort.each do |l|
       start_date = l.start_date.to_time.to_i
@@ -100,12 +98,10 @@ module ModelsHelper
       #old# end_date = (l.end_date + 12.hours).to_time.to_i
       end_date = (l.availability_end_date + 12.hours).to_time.to_i
 
-      user_level = l.document.user.access_right_for(inventory_pool).try(:level) || 0 # 0 means that the user does not have access to this pool
-
       l.quantity.times do
         y = nil
         (1..items.size).each do |k|
-          next unless items[k-1].is_borrowable? and items[k-1].required_level <= user_level
+          next unless items[k-1].is_borrowable?
           unless events.any? {|e| e[:y] == k and e[:start] < end_date and e[:end] > start_date} #old# <= and >=
             y = k
             break
@@ -119,7 +115,7 @@ module ModelsHelper
 
         events << {:start => start_date, :end => end_date, :y => y, :color => 'grey',
                    :item_inventory_code => y_ticks[y-1][1],
-                   :user_name => "#{l.document.user.name} (#{user_level})", :user_phone => "#{l.document.user.phone}"}
+                   :user_name => "#{l.document.user.name}", :user_phone => "#{l.document.user.phone}"}
       end
     end
 

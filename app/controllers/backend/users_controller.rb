@@ -54,8 +54,7 @@ class Backend::UsersController < Backend::BackendController
     @user.login = @user.email
     if @user.save
       @user.access_rights.create(:inventory_pool => current_inventory_pool,
-                                 :role => Role.first(:conditions => {:name => "customer"}), 
-                                 :level => 1) if current_inventory_pool
+                                 :role => Role.first(:conditions => {:name => "customer"})) if current_inventory_pool
       redirect_to [:backend, current_inventory_pool, @user].compact
     else
       flash[:error] = @user.errors.full_messages
@@ -139,11 +138,11 @@ class Backend::UsersController < Backend::BackendController
     ar = @user.all_access_rights.first(:conditions => {:inventory_pool_id => inventory_pool_id })
    
     if ar
-      ar.update_attributes(:role => r, :level => params[:level], :access_level => params[:access_level])
+      ar.update_attributes(:role => r, :access_level => params[:access_level])
       ar.update_attributes(:deleted_at => nil) if ar.deleted_at
       flash[:notice] = _("Access Right successfully updated")
     else
-      ar = @user.access_rights.create(:role => r, :inventory_pool_id => inventory_pool_id, :level => params[:level], :access_level => params[:access_level])
+      ar = @user.access_rights.create(:role => r, :inventory_pool_id => inventory_pool_id, :access_level => params[:access_level])
       flash[:notice] = _("Access Right successfully created")
     end
 

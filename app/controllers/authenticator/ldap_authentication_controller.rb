@@ -46,7 +46,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
                   u = User.create(:login => user, :email => "#{email}")
                   role = Role.find_by_name("customer")
                   InventoryPool.all.each do |ip|
-                    u.access_rights.create(:inventory_pool_id => ip, :role => role, :level => 1)
+                    u.access_rights.create(:inventory_pool_id => ip, :role => role)
                   end
                 end
                 u.firstname = users.first["givenname"].to_s 

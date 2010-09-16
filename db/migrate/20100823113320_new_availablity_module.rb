@@ -45,12 +45,44 @@ class NewAvailablityModule < ActiveRecord::Migration
     remove_column :order_lines, :cached_available
 
     ######
+    
+    Group.suspended_delta do
+      InventoryPool.all.each do |ip|
+        (2..9).each do |i|
+          ar = ip.access_rights.all(:conditions => {:level => i})
+          unless ar.empty?
+            g = ip.groups.find_or_create_by_name(i)
+            g.users << ar.collect(&:user).compact
+          end
+        end
+        
+        ip.models.each do |m|
+          partition = {}
+          (2..9).each do |i|
+            c = m.items.borrowable.count(:conditions => {:required_level => i})
+            unless c.zero?
+              g = ip.groups.find_or_create_by_name(i)
+              partition[g.id] = c
+            end
+          end
+          m.availability_changes.init(ip, partition)
+        end
+      end
+    end
+    
+    remove_column :access_rights, :level
+    remove_column :items, :required_level
+
+    ######
 
     Availability::Change.recompute_all
     
   end
 
   def self.down
+    add_column :access_rights, :level, :integer, :default => 1
+    add_column :items, :required_level, :integer, :default => 1
+
     add_column :order_lines, :cached_available, :boolean, :null => true, :default => nil
     add_column :contract_lines, :cached_available, :boolean, :null => true, :default => nil
 

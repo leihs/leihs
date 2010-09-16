@@ -34,8 +34,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
     update
     current_user.access_rights.create(:role => Role.first(:conditions => {:name => 'manager' }),
                                       :inventory_pool => @inventory_pool,
-                                      :access_level => 3,
-                                      :level => 1) unless @inventory_pool.new_record?
+                                      :access_level => 3) unless @inventory_pool.new_record?
   end
 
   def update

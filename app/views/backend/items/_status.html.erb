@@ -19,12 +19,6 @@
 		<%= @f.radio_button(:is_borrowable, false) + _("Unborrowable") %>
 	</td>
 </tr>
-<tr>
-	<td><b><%= _("Level")%>:</b></td>
-	<td>
-		<%= (is_lending_manager? or @item.new_record?) ? @f.select(:required_level, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7", 7], ["8", 8], ["9", 9] ]) : @item.required_level %> 
-	</td>
-</tr>
 <tr><td><b><%= _("Needs permission") %>:</b></td>
 	<td>
 		<% if is_privileged_user? or @item.new_record? %>

@@ -20,7 +20,7 @@ module Availability
                                " AND c.`model_id` = '#{existing_change.model_id}'" )
           end
 
-          initial_change = scoped_by_inventory_pool_id(inventory_pool).create(:date => date)
+          initial_change = scoped_by_inventory_pool_id(inventory_pool).find_or_create_by_date(date)
           total_borrowable_items = inventory_pool.items.borrowable.scoped_by_model_id(initial_change.model).count
           general_quantity = initial_change.quantities.build(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items)
     

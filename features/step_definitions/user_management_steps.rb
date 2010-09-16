@@ -3,7 +3,7 @@ Given "User '$name' is a '$level' customer" do |name, level|
                                 #, :password => "pass"
                               }, {:role => 'customer'})
   r = @user.access_rights.first
-  r.level = AccessRight::LEVELS[level]
+#tmp#9  r.level = AccessRight::LEVELS[level]
   r.save
 end
 

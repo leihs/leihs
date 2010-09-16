@@ -9,7 +9,6 @@ javascript_tag do %>
 	function changed_selection(row, v){
 		var visibility = (v == <%= admin_role.id %> ? "hidden" : "visible");
 		$$('tr#access_right_'+row+' #access_right_inventory_pool_id').each(function(item){item.style.visibility=visibility});			
-		$$('tr#access_right_'+row+' #level').each(function(item){item.style.visibility=visibility});
 		$$('tr#access_right_'+row+' #access_level').each(function(item){item.style.visibility=(v != <%= manager_role.id %> ? "hidden" : "visible")});			
 	}
 	
@@ -28,9 +27,6 @@ form_tag url_for([:add_access_right, :backend, current_inventory_pool, @user].co
 				<%= _("Inventory Pool") %>
 			<% end unless current_inventory_pool
 			content_tag :th do %>
-				<%= _("Borrow Level") %>
-			<% end
-			content_tag :th do %>
 				<%= _("Access Level") %>
 			<% end
 			content_tag :th do
@@ -43,9 +39,6 @@ form_tag url_for([:add_access_right, :backend, current_inventory_pool, @user].co
 			content_tag :td do %>
 				<%= collection_select(:access_right, :inventory_pool_id, inventory_pools, :id, :name, {}, {:size => 5}) %>
 			<% end unless current_inventory_pool
-			content_tag :td do %>
-				<%= select_tag :level, options_for_select((1..9).to_a) %>
-			<% end
 			max_level = (current_inventory_pool ? current_user.access_right_for(current_inventory_pool).access_level : 3)
 			content_tag :td do %>
 				<%= select_tag :access_level, options_for_select((1..max_level).to_a) %>
@@ -79,9 +72,6 @@ end %>
 						<%= hidden_field_tag "access_right[inventory_pool_id]", access_right.inventory_pool_id %>
 					<% end
 				end
-				content_tag :td do %>
-					<%= select_tag :level, options_for_select((1..9).to_a, access_right.level) %>
-				<% end
 				max_level = (current_inventory_pool ? current_user.access_right_for(current_inventory_pool).access_level : 3)
 				content_tag :td do %>
 					<%= select_tag :access_level, options_for_select((1..max_level).to_a, access_right.access_level) %>
@@ -158,7 +148,5 @@ javascript_tag do %>
 <% end %>
 
 <hr />
-<h4><%= _("Access levels and borrow levels") %></h4>
-<p><%= _("Access levels are used to determine what system functionality a user is allowed to see and use.") %></p>
-<p><%= _("Borrow levels are used to allow/disallow lending certain items to users that aren't of high enough level. For example: if an item has level 5, a user of borrow level 4 will never see it whereas a user of level 5 or higher will.") %></p>
-<p><%= _("Both levels are handled per inventory pool, so if one inventory pool only wants to deal with levels 1-3 of their items while another needs all 9 levels, this can be done by assigning a maximum of level 3 to a user on the former inventory pool and a maximum level of 9 on the latter. The different levels won't get into each other's way, because one user's borrow level only applies to one single inventory pool, not to all pools.") %></p>
+<h4><%= _("Access levels") %></h4>
+<p><%= _("Access levels, handled per inventory pool, are used to determine what system functionality a user is allowed to see and use.") %></p>
