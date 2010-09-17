@@ -48,7 +48,7 @@ module Availability
     end
 
     def allocated_group
-      availability_out_document_lines.first.quantity.group
+      availability_out_document_lines.first.try(:quantity).try(:group)
     end
 
     def unavailable_periods

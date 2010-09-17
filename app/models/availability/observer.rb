@@ -3,7 +3,7 @@ module Availability
     class Observer < ActiveRecord::Observer
       observe :order_line, :item_line, :item
       
-      #tmp#3 TODO bulk recompute if many lines are updated together
+      #tmp#6 OPTIMIZE bulk recompute if many lines are updated together
       
       def recompute(record)
         if record.is_a?(Item) and record.inventory_pool
