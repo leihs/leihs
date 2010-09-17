@@ -22,6 +22,7 @@ class Backend::ModelsController < Backend::BackendController
     search_scope = search_scope.sphinx_packages unless params[:packages].blank?
     with[:compatible_id] = @model.id if @model
     with[:category_id] = @category.self_and_all_child_ids if @category
+    with[:sphinx_internal_id] = @group.models.collect(&:id) if @group
     
     search_scope = search_scope.sphinx_with_unpackaged_items(current_inventory_pool.id) if params[:source_path]
     
@@ -315,6 +316,8 @@ class Backend::ModelsController < Backend::BackendController
       @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:item_id]}) #, :retired => :all
     end
     
+    @group = current_inventory_pool.groups.find(params[:group_id]) if params[:group_id]
+    
     @model = @item.model if @item and !@model
     @line = current_inventory_pool.contract_lines.find(params[:contract_line_id]) if params[:contract_line_id]
     @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
@@ -322,6 +325,7 @@ class Backend::ModelsController < Backend::BackendController
     @tabs = []
     @tabs << :category_backend if @category
     @tabs << :model_backend if @model
+    @tabs << :group_backend if @group
 
   end
 

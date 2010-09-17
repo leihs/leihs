@@ -13,9 +13,10 @@ module Availability
 
           if with_destroy and (existing_change = scoped_by_inventory_pool_id(inventory_pool).first)
             # this is much faster than destroy_all or delete_all with associations
+            #tmp#6 scoped_by_inventory_pool_id(inventory_pool).destroy_all
             connection.execute("DELETE c, q, o FROM `availability_changes` AS c " \
-                               " INNER JOIN `availability_quantities` AS q ON q.`change_id` = c.`id` " \
-                               " INNER JOIN `availability_out_document_lines` AS o ON o.`quantity_id` = q.`id` " \
+                               " LEFT JOIN `availability_quantities` AS q ON q.`change_id` = c.`id` " \
+                               " LEFT JOIN `availability_out_document_lines` AS o ON o.`quantity_id` = q.`id` " \
                                " WHERE c.`inventory_pool_id` = '#{inventory_pool.id}' " \
                                " AND c.`model_id` = '#{existing_change.model_id}'" )
           end
@@ -27,9 +28,9 @@ module Availability
           new_partition.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
           
           new_partition.each_pair do |group_id, quantity|
-            next if not inventory_pool.groups.exists?(group_id)
             quantity = quantity.to_i
-            initial_change.quantities.create(:group_id => group_id, :in_quantity => quantity) if quantity > 0
+            next if quantity == 0 or !inventory_pool.groups.exists?(group_id)
+            initial_change.quantities.create(:group_id => group_id, :in_quantity => quantity)
             general_quantity.in_quantity -= quantity
           end
           general_quantity.save

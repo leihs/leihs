@@ -1,9 +1,10 @@
-<% table_with_search_and_pagination :columns => [_("Group"), _("Users"), _("Action")],
+<% table_with_search_and_pagination :columns => [_("Group"), _("Users"), _("Models"), _("Action")],
 						   			:records => @groups do |group| %>	
 
 		<tr>
 			<td><%= group.name %></td>
-			<td><%= group.users.size %></td>
+			<td><%= group.users.count %></td>
+			<td><%= group.models.count %></td>
 			<td class="buttons">
 				<%= link_to icon_tag("magnifier") + _("Show"),   backend_inventory_pool_group_path(current_inventory_pool, group) %>
 				<%= link_to icon_tag("cancel")    + _("Delete"), backend_inventory_pool_group_path(current_inventory_pool, group), :method => :delete %>

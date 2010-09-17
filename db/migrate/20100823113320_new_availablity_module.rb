@@ -51,7 +51,7 @@ class NewAvailablityModule < ActiveRecord::Migration
         (2..9).each do |i|
           ar = ip.access_rights.all(:conditions => {:level => i})
           unless ar.empty?
-            g = ip.groups.find_or_create_by_name(i)
+            g = ip.groups.find_or_create_by_name("Level #{i}")
             g.users << ar.collect(&:user).compact
           end
         end
@@ -61,7 +61,7 @@ class NewAvailablityModule < ActiveRecord::Migration
           (2..9).each do |i|
             c = m.items.borrowable.count(:conditions => {:required_level => i})
             unless c.zero?
-              g = ip.groups.find_or_create_by_name(i)
+              g = ip.groups.find_or_create_by_name("Level #{i}")
               partition[g.id] = c
             end
           end

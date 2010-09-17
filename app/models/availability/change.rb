@@ -71,10 +71,12 @@ module Availability
       reservations = model.running_reservations(inventory_pool)
 
       #tmp#6 OPTIMIZE bulk recompute if many lines are updated together
-      max_reservation = reservations.max {|a,b| a.updated_at <=> b.updated_at }.try(:updated_at)
-      if max_reservation and model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).count > 1
-        max_change = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:updated_at)
-        return if max_reservation.to_i <= max_change.to_i
+      if new_partition.nil?
+        max_reservation = reservations.max {|a,b| a.updated_at <=> b.updated_at }.try(:updated_at)
+        if max_reservation and model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).count > 1
+          max_change = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:updated_at)
+          return if max_reservation.to_i <= max_change.to_i
+        end
       end
 
       model.availability_changes.init(inventory_pool, new_partition)

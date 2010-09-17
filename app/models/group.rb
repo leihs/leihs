@@ -1,4 +1,6 @@
 class Group < ActiveRecord::Base
+  include Availability::Group
+
   belongs_to :inventory_pool
   has_and_belongs_to_many :users
 
@@ -15,8 +17,6 @@ class Group < ActiveRecord::Base
     set_property :delta => true
   end
 
-  GENERAL_GROUP_ID = nil
-  
 ##########################################
 
   def to_s

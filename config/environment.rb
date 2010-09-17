@@ -48,7 +48,7 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
-  config.active_record.observers = :"availability/observer", :"availability/group_observer"
+  config.active_record.observers = :"availability/observer"
 
 # 2901
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
@@ -73,7 +73,7 @@ Rails::Initializer.run do |config|
 #  config.gem "rmagick", :version => '2.7.0'
   config.gem "rgl", :lib => "rgl/adjacency", :version => '0.4.0'
   config.gem "will_paginate", :version => '2.3.15'
-  config.gem "thinking-sphinx", :lib => 'thinking_sphinx', :source => 'http://gemcutter.org', :version => '1.3.20'
+  config.gem "thinking-sphinx", :lib => 'thinking_sphinx', :source => 'http://gemcutter.org', :version => '>= 1.3.15'
 
   config.gem "fastercsv", :version => '1.5.3'
  
