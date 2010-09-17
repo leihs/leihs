@@ -17,6 +17,8 @@
 					<%= @line.model.internal_description %>
 				<% end %>
 			<% end %>
+
+			<%= allocated_group(@line) %>
 		</td>
 		<td>						
 			<%= show_line_model(@line.model) %>

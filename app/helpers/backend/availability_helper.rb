@@ -1,4 +1,11 @@
 module Backend::AvailabilityHelper
+
+  def allocated_group(document_line)
+    g = document_line.allocated_group
+    content_tag :div do
+      "#{_("Group")}: #{g}"
+    end if g    
+  end
   
   # TODO refactor to Date class
   # returns number of day from Unix epoch

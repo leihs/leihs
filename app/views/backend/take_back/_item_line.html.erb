@@ -3,6 +3,8 @@
 			<% check_box_today = (@line.end_date <= Date.today ? "contract_line_check_today" : "")  %>
 			<%= check_box_tag('contract_lines[]', @line.id, false, :id => "contract_line_check_#{@line.id}", :class => "contract_line_check #{check_box_today}", :onchange => "toggle_buttons('contract_line_check', 'ghostable_group_1');" ) %>
 			<%= @line.quantity %>
+
+			<%= allocated_group(@line) %>
 		</td>
 		<td>
 			<%= show_line_model(@line.model) %>

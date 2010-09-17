@@ -47,9 +47,9 @@ module Availability
       end
     end
 
-# TODO
-#    def allocated_group
-#    end
+    def allocated_group
+      availability_out_document_lines.first.quantity.group
+    end
 
     def unavailable_periods
       #tmp#4 TODO check if I'm already allocated to a Group (non-General)

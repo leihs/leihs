@@ -8,11 +8,11 @@
 		<% end if false #old# unless @line.complete?
 		 %>
 
-		<% content_tag :ul do
-			content_tag :li do %>
+		<% content_tag :div do %>
 				<%= current_inventory_pool.name %>: <%= current_inventory_pool.items.count(:conditions => {:model_id => @line.model.id}) %>
-			<% end
-		end %>
+		<% end %>
+
+		<%= allocated_group(@line) %>
 	</td>
 
 	<td>

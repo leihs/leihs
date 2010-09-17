@@ -3,7 +3,7 @@ module Availability
     set_table_name "availability_quantities"
 
     belongs_to :change
-    belongs_to :group
+    belongs_to :group, :class_name => "::Group"
   
     validates_presence_of :change_id
 #tmp#2    validates_presence_of :group_id
