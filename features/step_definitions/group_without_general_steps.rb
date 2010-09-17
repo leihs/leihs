@@ -11,7 +11,7 @@ end
 Then "that Model should not be available in any Group"  do
   quantities = Availability::Change.maximum_available_in_period_for_groups( @model,
                                                                              @inventory_pool,
-                                                                             @inventory_pool.groups.all)
+                                                                             @inventory_pool.groups)
   quantities.values.reduce(:+).to_i.should == 0
 end
 

@@ -8,19 +8,15 @@ end
 Then "that Model should not be available in any other Group"  do
   quantities = Availability::Change.maximum_available_in_period_for_groups( @model,
                                                                              @inventory_pool,
-                                                                             @inventory_pool.groups.find( :all,
-                                                                                                          :conditions => ['id != ?',@group]))
+                                                                             @inventory_pool.groups.all(:conditions => ['id != ?',@group]))
   quantities.values.reduce(:+).to_i.should == 0
 end
 
 Then /^(\w+) item(s?) of that Model should be available in Group '([^"]*)'( only)?$/ do |n, plural, group_name, exclusivity|
   @group = @inventory_pool.groups.find_by_name(group_name)
-  all_groups = @inventory_pool.groups
-  n = to_number(n)
-  quantities = Availability::Change.maximum_available_in_period_for_groups( @model,
-                                                                             @inventory_pool,
-                                                                             all_groups)
-  quantities[@group].to_i.should == n
+  all_groups = [Group::GENERAL_GROUP_ID] + @inventory_pool.groups
+  quantities = Availability::Change.maximum_available_in_period_for_groups(@model, @inventory_pool, all_groups)
+  quantities[@group].to_i.should == to_number(n)
 
   if exclusivity
     all_groups.each do |group|
