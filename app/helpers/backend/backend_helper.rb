@@ -402,7 +402,7 @@ module Backend::BackendHelper
 
 
           unavailable_periods.each do |u|
-            (u[:start_date]..u[:end_date]).each do |d|
+            (u.start_date..u.end_date).each do |d|
               d = d.to_formatted_s(:db)
               j += "if($('#{d}')){
                       $('#{d}').removeClassName('selectable_date');

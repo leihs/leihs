@@ -88,9 +88,7 @@ module Availability
 
       availability_changes.scoped_by_inventory_pool_id(inventory_pool).collect do |c|
         q = c.in_quantity_in_group(Group::GENERAL_GROUP_ID)
-        { :start_date => c.start_date,
-          :end_date => c.end_date,
-          :quantity => q }        
+        OpenStruct.new(:start_date => c.start_date, :end_date => c.end_date, :quantity => q)
       end
 
     end

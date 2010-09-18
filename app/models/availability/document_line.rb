@@ -56,8 +56,7 @@ module Availability
       
       changes = Availability::Change.overbooking(inventory_pool, model)
       changes.collect do |c|
-        { :start_date => c.start_date,
-          :end_date => c.end_date }
+        OpenStruct.new(:start_date => c.start_date, :end_date => c.end_date)
       end
     end
 
