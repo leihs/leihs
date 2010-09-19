@@ -119,9 +119,17 @@ module Availability
     def end_date
       next_change.try(:date).try(:yesterday) || Availability::ETERNITY
     end
-  
+
   #############################################
   
+    def in_quantity
+      quantities.sum(:in_quantity)
+    end
+
+    def out_quantity
+      quantities.sum(:out_quantity)
+    end
+    
     def in_quantity_in_group(group)
       q = quantities.scoped_by_group_id(group).first
       q.try(:in_quantity).to_i
@@ -139,7 +147,8 @@ module Availability
   #############################################
   
     def self.maximum_available_in_period_for_user(model, inventory_pool, user, start_date, end_date)
-      groups = [Group::GENERAL_GROUP_ID] + user.groups.scoped_by_inventory_pool_id(inventory_pool)
+      groups = [Group::GENERAL_GROUP_ID]
+      groups += user.groups.scoped_by_inventory_pool_id(inventory_pool) if user
       maximum_for_groups = maximum_available_in_period_for_groups(model, inventory_pool, groups, start_date, end_date)
       maximum_for_groups.values.sum
     end

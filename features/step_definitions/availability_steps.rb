@@ -3,10 +3,9 @@ end
 
 Given "a reservation exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
   model = Model.find_by_name(model)
-  order = Factory.create_order
+  order = Factory.create_order({:user_id => Factory.create_user.id})
   order.add_line(quantity.to_i, model, nil, Factory.parsedate(from), Factory.parsedate(to))
   order.submit
-  order.save
   order.lines.size.should >= 1
   model.running_reservations(order.inventory_pool).size.should >= 1
 end
@@ -57,7 +56,7 @@ end
 
 When "$who checks availability for '$what'" do |who, model|
   @user = User.find_by_login(who)
-  @periods = @model.available_periods_for_inventory_pool(InventoryPool.first, nil)
+  @periods = @model.available_periods_for_inventory_pool(InventoryPool.first, @user)
 end
 
 When "$who checks availability for '$what' on $date" do |who, model, date|
@@ -68,12 +67,12 @@ end
 Then "it should always be available" do
   @periods.size.should == 1
   @periods[0].start_date.should <= Date.today
-  @periods[0].forever?.should == true
+  @periods[0].end_date.should == Availability::ETERNITY
 end
 
 Then "$quantity should be available from $from to $to" do |quantity, from, to|
   from = ("now" == from) ? Date.today : Factory.parsedate(from)
-  to = ("the_end_of_time" == to) ? to = nil : to = Factory.parsedate(to)
+  to = ("the_end_of_time" == to) ? Availability::ETERNITY : Factory.parsedate(to)
 
   period = get_period(from, to, @periods)
   if period.nil?
@@ -84,7 +83,7 @@ Then "$quantity should be available from $from to $to" do |quantity, from, to|
     end
   end
   period.should_not be_nil
-  
+
   period.quantity.should == quantity.to_i
 end
 
@@ -93,6 +92,7 @@ Then "the maximum available quantity on $date is $quantity" do |date, quantity|
 end
 
 Then "if I check the maximum available quantity for $date it is $quantity on $current_date" do |date, quantity, current_date|
+  #tmp#1 test fails because uses current_time argument set in the future
   @model.maximum_available_for_inventory_pool(Factory.parsedate(date), InventoryPool.first, @user, Factory.parsedate(current_date)).should == quantity.to_i
 end
 

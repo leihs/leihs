@@ -123,7 +123,7 @@ class Order < Document
     if approvable?
       self.status_const = Order::SUBMITTED
       split_and_assign_to_inventory_pool
-      save
+#      save
       
       Notification.order_submitted(self, purpose, false)
       Notification.order_received(self, purpose, true)
@@ -237,6 +237,8 @@ class Order < Document
         to_split_lines.each {|l| o.lines << l }
         o.save        
       end
+      save
+      lines.reload.each {|l| l.touch } # to recompute availability
   end
 
   def validates_order_lines

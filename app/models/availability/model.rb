@@ -93,7 +93,8 @@ module Availability
 
     end
   
-    # OPTIMIZE this method is only used for test ??  
+    # TODO this method is only used for test ??
+    #tmp#1 test fails because uses current_time argument set in the future
     def maximum_available_for_inventory_pool(date, inventory_pool, user, current_time = Date.today)
       Availability::Change.maximum_available_in_period_for_user(self, inventory_pool, user, date, date)
     end
