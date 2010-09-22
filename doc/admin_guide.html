@@ -704,6 +704,18 @@ Start the server:
 <pre><tt>$ RAILS_ENV='production' ./script/server</tt></pre>
 </div></div>
 <div class="paragraph"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
+<div class="paragraph"><p>This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.</p></div>
+</li>
+<li>
+<p>
+Set up a system cronjob that sends nightly e-mail reminders and, more importantly, updates all the models' availability counts. There are many ways to schedule repeating tasks on Mac OS X. Please see Apple&#8217;s documentation on launchd for how to do this.
+</p>
+<div class="paragraph"><p>In crontab format, an example job for a production environment would look like this:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>1 00    * * *   cd /home/leihs &amp;&amp; RAILS_ENV='production' rake leihs:cron</tt></pre>
+</div></div>
+<div class="paragraph"><p>The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.</p></div>
 </li>
 <li>
 <p>
@@ -862,6 +874,17 @@ Start the leihs server:
 $ RAILS_ENV='production' ./script/server</tt></pre>
 </div></div>
 <div class="paragraph"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
+<div class="paragraph"><p>This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.</p></div>
+</li>
+<li>
+<p>
+Set up a system cronjob that sends nightly e-mail reminders and, more importantly, updates all the models' availability counts. There are many ways to schedule repeating tasks on GNU/Linux, but here&#8217;s a line in crontab-format that you can add to your leihs user&#8217;s crontab using e.g. <tt>crontab -e</tt>:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>1 00    * * *   cd /home/leihs &amp;&amp; RAILS_ENV='production' rake leihs:cron</tt></pre>
+</div></div>
+<div class="paragraph"><p>The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.</p></div>
 </li>
 <li>
 <p>
@@ -929,6 +952,11 @@ Run the database migration to get all your data up to the new version:
 <div class="content">
 <pre><tt>$ RAILS_ENV='production' rake db:migrate</tt></pre>
 </div></div>
+</li>
+<li>
+<p>
+Rerun the steps from the section "Configure and start the Sphinx server" relevant for your operating system in order to create/update your fulltext search index and make sure Sphinx is running.
+</p>
 </li>
 <li>
 <p>
@@ -1004,7 +1032,7 @@ Run the server. Make sure you stop your previous leihs server!
 <h2 id="_installing_a_production_environment">Installing a production environment</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Please note that this quick-start guide does not cover running a Ruby on Rails application for production. Please look into <a href="http://www.modrails.com/">Phusion Passenger</a> or the Apache Mongrel cluster in the reference section for how to set up a production environment.</p></div>
-<div class="paragraph"><p>Without a real production environment, leihs can handle upwards of 1000 users (not concurrently, of course!). If you need better performance, you must set up a proper production environment.</p></div>
+<div class="paragraph"><p>Without a real production environment, leihs can handle upwards of 1000 users (not concurrently, of course!). If you need better performance or want an easier to handle setup, you must set up a proper production environment.</p></div>
 </div>
 <h2 id="_free_software_statement">Free Software Statement</h2>
 <div class="sectionbody">
@@ -1089,7 +1117,7 @@ Run the server. Make sure you stop your previous leihs server!
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2010-08-18 09:16:00 CEST
+Last updated 2010-09-22 09:46:43 CEST
 </div>
 </div>
 </body>
