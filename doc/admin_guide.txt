@@ -101,8 +101,18 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
  $ RAILS_ENV='production' ./script/server
 +
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
++
+This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.
 
-13. Optional: If you want to use images of inventory items, install ImageMagick. On Mac OS X, we recommend using MacPorts and then installing the ImageMagick port:
+13. Set up a system cronjob that sends nightly e-mail reminders and, more importantly, updates all the models' availability counts. There are many ways to schedule repeating tasks on Mac OS X. Please see Apple's documentation on launchd for how to do this.
++
+In crontab format, an example job for a production environment would look like this:
++
+ 1 00    * * *   cd /home/leihs && RAILS_ENV='production' rake leihs:cron
++
+The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.
+
+14. Optional: If you want to use images of inventory items, install ImageMagick. On Mac OS X, we recommend using MacPorts and then installing the ImageMagick port:
 +
  $ sudo port install imagemagick
 +
@@ -203,8 +213,16 @@ Note that the URL above might change! Please visit the RubyGems site to find the
  $ RAILS_ENV='production' ./script/server
 +
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
++
+This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.
 
-12. Optional: If you want to use images of inventory items, install ImageMagick:
+12. Set up a system cronjob that sends nightly e-mail reminders and, more importantly, updates all the models' availability counts. There are many ways to schedule repeating tasks on GNU/Linux, but here's a line in crontab-format that you can add to your leihs user's crontab using e.g. +crontab -e+:
++
+ 1 00    * * *   cd /home/leihs && RAILS_ENV='production' rake leihs:cron
++
+The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.
+
+13. Optional: If you want to use images of inventory items, install ImageMagick:
 +
  # apt-get install imagemagick graphicsmagick-libmagick-dev-compat
 +
@@ -241,7 +259,9 @@ The upgrade should be painless.
 +
  $ RAILS_ENV='production' rake db:migrate
 
-6. Run the server. Make sure you stop your previous leihs server!
+6. Rerun the steps from the section "Configure and start the Sphinx server" relevant for your operating system in order to create/update your fulltext search index and make sure Sphinx is running.
+
+7. Run the server. Make sure you stop your previous leihs server!
 +
  $ RAILS_ENV='production' ./script/server
 
@@ -284,7 +304,7 @@ If everything went correctly, you should see leihs coming up at http://localhost
 
 Please note that this quick-start guide does not cover running a Ruby on Rails application for production. Please look into http://www.modrails.com/[Phusion Passenger] or the Apache Mongrel cluster in the reference section for how to set up a production environment.
 
-Without a real production environment, leihs can handle upwards of 1000 users (not concurrently, of course!). If you need better performance, you must set up a proper production environment.
+Without a real production environment, leihs can handle upwards of 1000 users (not concurrently, of course!). If you need better performance or want an easier to handle setup, you must set up a proper production environment.
 
 
 == Free Software Statement ==
