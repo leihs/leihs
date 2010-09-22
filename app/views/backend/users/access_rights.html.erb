@@ -58,7 +58,7 @@ end %>
 		content_tag :tr, :id => "access_right_#{access_right.id}" do
 
 			if access_right.role == admin_role
-				content_tag :td, :colspan => 5 do %>
+				content_tag :td, :colspan => 4 do %>
 					<%= access_right.role.name %>
 				<% end
 			else

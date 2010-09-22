@@ -75,6 +75,13 @@ module Availability
           end
           change
         end
+        
+        def between_for_inventory_pool(inventory_pool, start_date, end_date)
+          # start from most recent entry we have, which is the last before start_date
+          start_date = scoped_by_inventory_pool_id(inventory_pool).maximum(:date, :conditions => [ "date <= ?", start_date ]) || start_date
+
+          scoped_by_inventory_pool_id(inventory_pool).between(start_date, end_date)
+        end
 
       end
       

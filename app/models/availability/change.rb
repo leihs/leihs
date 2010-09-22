@@ -28,13 +28,6 @@ module Availability
   
     named_scope :between,
                 lambda { |start_date, end_date|
-                         # start from most recent entry we have, which is the last before start_date
-                         start_date = maximum(:date, :conditions => [ "date <= ?", start_date ]) || start_date.to_date
-  
-                         end_date = end_date.to_date
-                         tmp_end_date = minimum(:date, :conditions => [ "date >= ?", start_date ])
-                         end_date = [tmp_end_date, end_date].max if tmp_end_date
-  
                          { :conditions => ["availability_changes.date BETWEEN ? AND ?", start_date, end_date] }
                 }
 
@@ -58,11 +51,9 @@ module Availability
   #############################################
   
     def self.recompute_all
-      transaction do
-        ::InventoryPool.all.each do |inventory_pool|
-          inventory_pool.models.each do |model|
-            recompute(model, inventory_pool)
-          end
+      ::InventoryPool.all.each do |inventory_pool|
+        inventory_pool.models.each do |model|
+          recompute(model, inventory_pool)
         end
       end
     end
@@ -79,10 +70,12 @@ module Availability
         end
       end
 
-      model.availability_changes.init(inventory_pool, new_partition)
+      transaction do
+        model.availability_changes.init(inventory_pool, new_partition)
      
-      reservations.each do |document_line|
-        recompute_reservation(document_line)
+        reservations.each do |document_line|
+          recompute_reservation(document_line)
+        end
       end
     end
   
@@ -100,7 +93,7 @@ module Availability
       # TODO sort groups by quantity desc
       group = groups.detect(Group::GENERAL_GROUP_ID) {|group| maximum[group] >= document_line.quantity }
 
-      inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).between(start_change.date, end_change.date.yesterday)
+      inner_changes = model.availability_changes.between_for_inventory_pool(inventory_pool, start_change.date, end_change.date.yesterday)
       inner_changes.each do |ic|
         ic.quantities.scoped_by_group_id(group).first.to_out(document_line).save
       end
@@ -167,7 +160,7 @@ module Availability
         joins = "LEFT JOIN availability_quantities ON availability_changes.id = availability_quantities.change_id AND availability_quantities.group_id "
         joins += (group.nil? ? "IS NULL" : "= #{group.id}" )
         
-        r = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).between(start_date, end_date).minimum("ifnull(in_quantity,0)", :joins => joins)
+        r = model.availability_changes.between_for_inventory_pool(inventory_pool, start_date, end_date).minimum("ifnull(in_quantity,0)", :joins => joins)
   
         max_per_group[group] = r.to_i
       end
