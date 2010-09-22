@@ -24,7 +24,7 @@
 			<td class="buttons">
 				<ul>
 					<li><%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_group_path(current_inventory_pool, g) %></li>
-					<li><%= link_to _("Remove"), backend_inventory_pool_user_path(current_inventory_pool, @user, :group_id => g),
+					<li><%= link_to _("Remove"), remove_group_backend_inventory_pool_user_path(current_inventory_pool, @user, :group_id => g),
 									:confirm => _("Are you sure?"),
 									:method => :delete %></li>
 				</ul>
