@@ -18,23 +18,17 @@ Then /^(\w+) item(s?) of that Model should be available in Group '([^"]*)'( only
   quantities = Availability::Change.maximum_available_in_period_for_groups(@model, @inventory_pool, all_groups)
   quantities[@group].to_i.should == to_number(n)
 
-  if exclusivity
-    all_groups.each do |group|
-      unless group.name == group_name
-        quantities[group].should == 0
-      end
-    end
-  end
+  all_groups.each do |group|
+    quantities[group].should == 0 if (group ? group.name : "General") != group_name
+  end if exclusivity
 end
 
 When /^I move (\w+) item(s?) of that Model from Group "([^"]*)" to Group "([^"]*)"$/ do |n, plural, from_group_name, to_group_name|
-  n = to_number(n)
   from_group = @inventory_pool.groups.find_by_name from_group_name
   to_group   = @inventory_pool.groups.find_by_name to_group_name
-  n.times do
+  to_number(n).times do
     Availability::Change.move(@model, from_group, to_group)
   end
-  @inventory_pool.reload
 end
 
 # Items
@@ -45,9 +39,7 @@ end
 
 # Groups
 When /^I add a new Group "([^"]*)"$/ do |name|
-  Group.create :inventory_pool_id => @inventory_pool,
-	        :name => name
-  @inventory_pool.reload
+  @inventory_pool.groups.create(:name => name)
 end
 
 Given /^a Group "([^"]*)"$/ do |name|
@@ -57,13 +49,13 @@ end
 Then /^he must be in Group '(\w+)'( in inventory pool )?('[^']*')?$/ do |group, filler, inventory_pool|
   inventory_pools = []
   if inventory_pool
-   inventory_pool.gsub!(/'/,'') # remove quotes
-   inventory_pools << InventoryPool.find_by_name( inventory_pool )
+    inventory_pool.gsub!(/'/,'') # remove quotes
+    inventory_pools << InventoryPool.find_by_name( inventory_pool )
   else
     inventory_pools = @user.inventory_pools
   end
 
-  groups = @user.inventory_pools.collect { |ip| ip.groups.scoped_by_name(group).first }
+  groups = inventory_pools.collect { |ip| ip.groups.scoped_by_name(group).first }
   groups.each do |group|
     group.users.find_by_id( @user.id ).should_not be nil
   end

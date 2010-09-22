@@ -34,7 +34,11 @@ module Availability
 #################################
     
     def available?
-      # TODO is_late?
+      # TODO ??
+      #if is_late?
+      #  false
+
+      #tmp#1 doesn't work for tests
       if end_date < Date.today # check if it was never handed over
         false
       elsif is_a?(OrderLine) and order.status_const == Order::UNSUBMITTED
@@ -56,8 +60,7 @@ module Availability
       
       changes = Availability::Change.overbooking(inventory_pool, model)
       changes.collect do |c|
-        { :start_date => c.start_date,
-          :end_date => c.end_date }
+        OpenStruct.new(:start_date => c.start_date, :end_date => c.end_date)
       end
     end
 

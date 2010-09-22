@@ -26,6 +26,9 @@ namespace :leihs do
   desc "Maintenance"
   task :maintenance => :environment do
     
+    puts "Recomputing availability..."
+    system "./script/runner Availability::Change.recompute_all"
+
     puts "Rebuilding sphinx index..."
     Rake::Task["thinking_sphinx:reindex"].invoke
 

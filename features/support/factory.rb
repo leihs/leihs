@@ -48,17 +48,14 @@ module Factory
       :inventory_pool => create_inventory_pool(:name => "ABC")
     }
     o = Order.create default_attributes.merge(attributes)
-    options[:order_lines].times { |i|
+    options[:order_lines].times do |i|
         model = Factory.create_model(:name => "model_#{i}" )
         quantity = rand(3) + 1
-        quantity.times {
-	  Factory.create_item( :model => model,
-			       :inventory_pool => o.inventory_pool )
-	}
+        quantity.times { Factory.create_item( :model => model, :inventory_pool => o.inventory_pool ) }
         d = Array.new
         2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
         o.add_line(quantity, model, o.user_id, d.min, d.max )
-    } if options[:order_lines]
+    end if options[:order_lines]
     o.save
     o
   end
