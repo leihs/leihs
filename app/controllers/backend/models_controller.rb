@@ -295,7 +295,7 @@ class Backend::ModelsController < Backend::BackendController
 #############################################################
 
   def set_group_partition
-    Availability::Change.recompute(@model, current_inventory_pool, params[:groups])
+    @model.availability_changes.in(current_inventory_pool).recompute(params[:groups])
     flash[:notice] = _("The group quantities were successfully saved.")
     redirect_to :action => :show
   end

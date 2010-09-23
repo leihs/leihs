@@ -19,7 +19,7 @@ module Backend::ModelsHelper
     end
 
     events = {}
-    partition = model.availability_changes.current_partition(inventory_pool) #.sort {|a,b| a.first.to_i <=> b.first.to_i }
+    partition = model.availability_changes.in(inventory_pool).current_partition #.sort {|a,b| a.first.to_i <=> b.first.to_i }
 
     bandInfos_js = []
     bandNames_js = []

@@ -157,7 +157,7 @@ module Backend::AvailabilityHelper
     start_date = Date.today
     end_date = Availability::ETERNITY
     groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
-    changes = model.availability_changes.between_for_inventory_pool(inventory_pool, start_date, end_date).available_quantities_for_groups(groups)
+    changes = model.availability_changes.in(inventory_pool).between_from_most_recent_start_date(start_date, end_date).available_quantities_for_groups(groups)
 
     content_tag :table do
       changes.collect do |c|

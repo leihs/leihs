@@ -5,12 +5,12 @@ module Availability
     belongs_to :change
     belongs_to :group, :class_name => "::Group"
   
-    validates_presence_of :change_id
+#tmp#10    validates_presence_of :change_id
 #tmp#2    validates_presence_of :group_id
     validates_presence_of :in_quantity
     validates_presence_of :out_quantity
     
-    validates_uniqueness_of :group_id, :scope => :change_id
+#tmp#10    validates_uniqueness_of :group_id, :scope => :change_id
   
     has_many :out_document_lines, :dependent => :destroy, :class_name => "Availability::OutDocumentLine"
     #TODO# has_many :document_lines, :through => :out_document_lines
@@ -32,7 +32,7 @@ module Availability
     belongs_to :quantity
     belongs_to :document_line, :polymorphic => true
 
-    validates_uniqueness_of :quantity_id, :scope => [:document_line_type, :document_line_id]
+#tmp#10    validates_uniqueness_of :quantity_id, :scope => [:document_line_type, :document_line_id]
   end
 
 end

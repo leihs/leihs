@@ -13,7 +13,7 @@ module Availability
         
         base.after_destroy do |record|
           record.models.each do |model|
-            Availability::Change.recompute(model, record.inventory_pool) 
+            model.availability_changes.in(record.inventory_pool).recompute
           end      
         end
         
