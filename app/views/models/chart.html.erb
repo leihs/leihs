@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>leihs 2.3</title>
+
+	<%= javascript_include_tag "jquery/jquery", "jquery/jquery-ui" %>
+</head>
+<body>
+
+
+	<% content_tag :ul do
+	 	(@model.inventory_pools & @current_inventory_pools).each do |inventory_pool|
+			content_tag :li do %>
+				<%= inventory_pool %>
+				<br />
+				<%#= groups_chart(@model, inventory_pool) %>
+				<%= availability_periods_merged_groups(@model, inventory_pool, current_user) %>
+			<% end
+		end
+	end %>
+
+
+  
+</body>
+</html> 
+
+
+  

@@ -33,7 +33,7 @@ module Availability
 
     named_scope :overbooking,
                 lambda { |inventory_pool, model|
-                  conditions = ["availability_quantities.group_id IS NULL AND availability_quantities.in_quantity < 0"]
+                  conditions = ["availability_quantities.group_id IS NULL AND availability_quantities.in_quantity < 0"] # NULL is Group::GENERAL_GROUP_ID
                   if inventory_pool
                     conditions[0] += " AND inventory_pool_id = ?"
                     conditions << inventory_pool
@@ -46,6 +46,14 @@ module Availability
                     :joins => :quantities,
                     :conditions => conditions
                   }
+                }
+
+    named_scope :available_quantities_for_groups,
+                lambda { |groups|
+                  { :select => "*, SUM(in_quantity) AS available_quantity",
+                    :joins => :quantities,
+                    :conditions => ["availability_quantities.group_id IS NULL OR availability_quantities.group_id IN (?)", groups], # NULL is Group::GENERAL_GROUP_ID
+                    :group => "availability_changes.id" }
                 }
                              
   #############################################
@@ -84,7 +92,7 @@ module Availability
       model = document_line.model
       inventory_pool = document_line.inventory_pool
   
-      start_change = model.availability_changes.clone_change(inventory_pool, document_line.start_date)
+      start_change = model.availability_changes.clone_change(inventory_pool, [document_line.start_date, Date.today].max) # we don't recalculate the past
       end_change = model.availability_changes.clone_change(inventory_pool, document_line.available_again_date)
   
       groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool)
@@ -115,14 +123,6 @@ module Availability
 
   #############################################
   
-    def in_quantity
-      quantities.sum(:in_quantity)
-    end
-
-    def out_quantity
-      quantities.sum(:out_quantity)
-    end
-    
     def in_quantity_in_group(group)
       q = quantities.scoped_by_group_id(group).first
       q.try(:in_quantity).to_i

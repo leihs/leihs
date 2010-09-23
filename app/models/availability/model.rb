@@ -89,16 +89,17 @@ module Availability
 
 #############################################  
 
-    def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
-      # TODO include additional groups where the user belongs to
-      # groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
-
-      availability_changes.scoped_by_inventory_pool_id(inventory_pool).collect do |c|
-        q = c.in_quantity_in_group(Group::GENERAL_GROUP_ID)
-        OpenStruct.new(:start_date => c.start_date, :end_date => c.end_date, :quantity => q)
-      end
-
-    end
+    # TODO remove this method, we have now the named_scope :available_quantities_for_groups
+#    def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
+#      # TODO include additional groups where the user belongs to
+#      # groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
+#
+#      availability_changes.scoped_by_inventory_pool_id(inventory_pool).collect do |c|
+#        q = c.in_quantity_in_group(Group::GENERAL_GROUP_ID)
+#        OpenStruct.new(:start_date => c.start_date, :end_date => c.end_date, :quantity => q)
+#      end
+#
+#    end
   
     # TODO this method is only used for test ??
     #tmp#1 test fails because uses current_time argument set in the future
