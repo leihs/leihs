@@ -14,8 +14,10 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
   $general_layout_path = 'layouts/backend/' + $theme + '/general'
      
   layout $general_layout_path
-        
-  
+
+  def login_form_path
+    "/authenticator/shibboleth/login"
+  end
   
   def login
     # Handle Shibboleth environment variables here.
