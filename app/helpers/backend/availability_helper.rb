@@ -160,17 +160,27 @@ module Backend::AvailabilityHelper
     changes = model.availability_changes.between_for_inventory_pool(inventory_pool, start_date, end_date).available_quantities_for_groups(groups)
 
     content_tag :table do
-      changes.collect do |c|
-        a = content_tag :tr do
+      a = content_tag :tr do
+        [_("From date"),
+         _("Available quantity")].collect do |s|
+          content_tag :th do
+            s  
+          end
+        end.join
+      end
+      
+      a += changes.collect do |c|
+        content_tag :tr do
           [short_date(c.date),
            c.available_quantity].collect do |s|
-            content_tag :th do
+            content_tag :td, :style => "text-align: right;" do
               s  
             end
           end.join
         end
       end.join
     end
+    
   end
   
 end
