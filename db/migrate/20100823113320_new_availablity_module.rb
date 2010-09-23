@@ -65,7 +65,7 @@ class NewAvailablityModule < ActiveRecord::Migration
               partition[g.id] = c
             end
           end
-          m.availability_changes.init(ip, partition)
+          m.availability_changes.in(ip).recompute(partition)
         end
       end
     end
@@ -73,10 +73,6 @@ class NewAvailablityModule < ActiveRecord::Migration
     remove_column :access_rights, :level
     remove_column :items, :required_level
 
-    ######
-
-    Availability::Change.recompute_all
-    
   end
 
   def self.down
