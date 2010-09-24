@@ -15,12 +15,13 @@ module Availability
     has_many :out_document_lines, :dependent => :destroy, :class_name => "Availability::OutDocumentLine"
     #TODO# has_many :document_lines, :through => :out_document_lines
 
-    def to_out(document_line)
-      decrement(:in_quantity, document_line.quantity)
-      increment(:out_quantity, document_line.quantity)
-      out_document_lines.create(:document_line => document_line)
-      self
-    end
+#tmp#10 old
+#    def to_out(document_line)
+#      decrement(:in_quantity, document_line.quantity)
+#      increment(:out_quantity, document_line.quantity)
+#      out_document_lines.create(:document_line => document_line)
+#      self
+#    end
 
   end
 

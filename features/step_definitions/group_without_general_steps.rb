@@ -26,7 +26,7 @@ When /^I assign (\w+) item(s?) to Group "([^"]*)"$/ do |n, plural, to_group_name
   partition = @model.availability_changes.in(@inventory_pool).current_partition
   partition[to_group.id] ||= 0
   partition[to_group.id] += n
-  @model.availability_changes.in(@inventory_pool).init(partition)
+  @model.availability_changes.in(@inventory_pool).recompute(partition)
 end
 
 Given "$n items of that Model should be available to everybody" do |n|

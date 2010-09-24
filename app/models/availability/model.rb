@@ -33,6 +33,7 @@ module Availability
                            " AND c.`model_id` = '#{@model.id}'" )
       end
       
+      #tmp#11 TODO remove this method
       def init(new_partition = nil, date = Date.today, with_destroy = true)
         new_partition ||= current_partition
       
@@ -88,16 +89,13 @@ module Availability
             # AvailableQuantities then we know there are some that are null
             # TODO: move join up into has_many association
             minimum = nil
-            start_date = most_recent_change(start_date).try(:date) || start_date
-            @new_changes.each do |change|
-              if change.date >= start_date && change.date <= end_date
-                quantity = change.quantities.detect { |qty| qty.group == group }
-                unless quantity.nil?
-                  minimum = minimum.nil? ? change.in_quantity : [change.in_quantity, minimum].min
-                end
+            scoped_between(start_date, end_date).each do |change|
+              quantity = change.quantities.detect { |qty| qty.group == group }
+              unless quantity.nil?
+                minimum = (minimum.nil? ? quantity.in_quantity : [quantity.in_quantity, minimum].min)
               end
             end
-            minimim.to_i
+            minimum.to_i
           end
   
           # DUPLICATION OF CODE
@@ -108,29 +106,19 @@ module Availability
             end   
             max_per_group
           end
-  
+
           transaction do
               new_partition ||= current_partition     
               # DUPLICATED CODE ****   
               total_borrowable_items = @inventory_pool.items.borrowable.scoped_by_model_id(@model.id).count
               initial_change = build(:date => Date.today)
-              general_quantity = initial_change.quantities.build(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items, :out_quantity => 0)
+              initial_change.quantities.build(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items, :out_quantity => 0)
               @new_changes << initial_change
               # ****
             
               reservations.each do |document_line|
-                puts "2--------"
-@new_changes.each do |nc|
-  puts nc.inspect
-  nc.quantities.each do |qty|
-    puts qty.inspect
-    puts qty.out_document_lines.inspect
-  end
-end
                 start_change = clone_change([document_line.start_date, Date.today].max) # we don't recalculate the past
-                @new_changes << start_change
                 end_change = clone_change(document_line.available_again_date)
-                @new_changes << end_change
            
                 groups = document_line.document.user.groups.scoped_by_inventory_pool_id(@inventory_pool) # optimize!
                 # groups doesn't contain the general group!
@@ -139,16 +127,13 @@ end
                 # TODO sort groups by quantity desc
                 group = groups.detect(Group::GENERAL_GROUP_ID) {|group| maximum[group] >= document_line.quantity }
           
-                inner_changes = scoped_between(start_change.date, end_change.date.yesterday) # TODO: yesterday?
+                inner_changes = scoped_between(start_change.date, end_change.date.yesterday)
                 inner_changes.each do |ic|
-                  ic.quantities.each do |qty|
-                    if qty.group == group
-                      qty.in_quantity  -= document_line.quantity
-                      qty.out_quantity += document_line.quantity
-                      qty.out_document_lines.build(:document_line => document_line)
-                      break
-                    end
-		              end
+                  qty = ic.quantities.detect {|q| q.group == group}
+                  # TODO qty could be nil!!!!
+                  qty.in_quantity  -= document_line.quantity
+                  qty.out_quantity += document_line.quantity
+                  qty.out_document_lines.build(:document_line => document_line)
                 end
               end
 
@@ -180,18 +165,19 @@ end
         change = most_recent_change(to_date)
         if change.date < to_date
           cloned = build(:date => to_date)
-          debugger
           change.quantities.each do |quantity|
-            cloned.quantities.build( :out_quantity => quantity.out_quantity,
-                                     :in_quantity  => quantity.in_quantity,
-                                     :group_id     => quantity.group)
+            cloned_quantity = cloned.quantities.build( :out_quantity => quantity.out_quantity,
+                                                       :in_quantity  => quantity.in_quantity,
+                                                       :group_id     => quantity.group_id)
             quantity.out_document_lines.each do |odl|
               cloned_quantity.out_document_lines.build(:document_line => odl.document_line)
             end
           end
-          change = cloned
+          @new_changes << cloned
+          return cloned
+        else
+          return change
         end
-        change
       end
       
      def between_from_most_recent_start_date(start_date, end_date)
