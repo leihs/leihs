@@ -167,13 +167,16 @@ module Availability
         end
       end
       
-     def between_from_most_recent_start_date(start_date, end_date)
-       # start from most recent entry we have, which is the last before start_date
-       start_date = maximum(:date, :conditions => [ "date <= ?", start_date ]) || start_date
+      def between_from_most_recent_start_date(start_date, end_date)
+        # start from most recent entry we have, which is the last before start_date
+        start_date = maximum(:date, :conditions => [ "date <= ?", start_date ]) || start_date
+        between(start_date, end_date)
+      end
 
-       between(start_date, end_date)
-     end
-
+      def recompute_if_empty
+        recompute if empty?
+        all
+      end
     end
 
 #############################################  

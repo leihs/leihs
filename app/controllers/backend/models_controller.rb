@@ -55,8 +55,7 @@ class Backend::ModelsController < Backend::BackendController
   def show
    # redirect_to :action => 'package', :layout => params[:layout] if @model.is_package?
 
-    @changes = @model.availability_changes.scoped_by_inventory_pool_id(current_inventory_pool)
-    @model.availability_changes.in(current_inventory_pool).recompute if @changes.blank?
+    @changes = @model.availability_changes.in(current_inventory_pool).recompute_if_empty
   end
 
   def new
