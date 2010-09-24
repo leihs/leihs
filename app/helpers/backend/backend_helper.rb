@@ -393,7 +393,10 @@ module Backend::BackendHelper
 #      if lines.length == 1 and (lines.first.is_a?(ItemLine) or lines.first.is_a?(OrderLine))
 #        line = lines.first
       
-        f += datepicker
+        months = 12
+        bound_start_date = Date.today.end_of_month
+        bound_end_date = months.months.from_now.to_date.end_of_month
+        f += datepicker(months)
         
         f += javascript_tag do
           j = "$$('.datepicker_date').each(function(element) {
@@ -402,7 +405,7 @@ module Backend::BackendHelper
 
 
           unavailable_periods.each do |u|
-            (u.start_date..u.end_date).each do |d|
+            ([u.start_date, bound_start_date].max..[u.end_date, bound_end_date].min).each do |d|
               d = d.to_formatted_s(:db)
               j += "if($('#{d}')){
                       $('#{d}').removeClassName('selectable_date');
@@ -514,7 +517,7 @@ module Backend::BackendHelper
     html
   end
 
-  def datepicker
+  def datepicker(months)
     content_tag :table, :class => 'availability_overview' do
       tr = content_tag :tr, :class => 'availability' do
         th = content_tag :th do
@@ -528,7 +531,7 @@ module Backend::BackendHelper
         th
       end
 
-      12.times do |i|
+      months.times do |i|
         start_date = i.months.from_now.to_date.beginning_of_month
         end_date = i.months.from_now.to_date.end_of_month
 
