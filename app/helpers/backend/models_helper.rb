@@ -8,6 +8,9 @@ module Backend::ModelsHelper
         p += "Timeline_parameters='bundle=true';"
       end
       r += javascript_include_tag "simile_timeline/timeline_js/timeline-api.js"
+      r += javascript_tag do
+        "SimileAjax.History.enabled = false;"
+      end
       r += content_tag :style do
         <<-HERECODE
           #my_timeline table tr {
