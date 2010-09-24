@@ -19,7 +19,7 @@
 				<%= _("General") %>:
 			<% end
 			content_tag :td, :id => "general_in_stock" do %>
-				<%= @initial_change.total_in_group(Group::GENERAL_GROUP_ID) %>
+				<%= @changes.last.total_in_group(Group::GENERAL_GROUP_ID) %>
 			<% end
 			content_tag :td do %>
 			<% end
@@ -30,7 +30,7 @@
 					<%= group %>:
 				<% end
 				content_tag :td do
-					quantity = @initial_change.total_in_group(group) %>
+					quantity = @changes.last.total_in_group(group) %>
 					<%= text_field_tag "groups[#{group.id}]", quantity, :autocomplete => "off" %>
 				<% end
 				content_tag :td do %>

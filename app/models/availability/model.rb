@@ -33,42 +33,7 @@ module Availability
                            " AND c.`model_id` = '#{@model.id}'" )
       end
       
-      #tmp#11 TODO remove this method
-      def init(new_partition = nil, date = Date.today, with_destroy = true)
-        new_partition ||= current_partition
-      
-        drop_changes if with_destroy
-      
-        initial_change = find_or_create_by_date(date)
-        total_borrowable_items = @inventory_pool.items.borrowable.scoped_by_model_id(@model.id).count
-        general_quantity = initial_change.quantities.build(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items)
-      
-        new_partition.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
-        
-        new_partition.each_pair do |group_id, quantity|
-          quantity = quantity.to_i
-          next if quantity == 0 or !@inventory_pool.groups.exists?(group_id)
-          initial_change.quantities.create(:group_id => group_id, :in_quantity => quantity)
-          general_quantity.in_quantity -= quantity
-        end
-        general_quantity.save
-      
-        initial_change
-      end
-      
       def recompute(new_partition = nil)
-          reservations = @model.running_reservations(@inventory_pool)
-
-      #tmp#6 OPTIMIZE bulk recompute if many lines are updated together
-# TODO we really need a filter to prevent double/triple recomputations??
-#      if new_partition.nil?
-#        max_reservation = reservations.max {|a,b| a.updated_at <=> b.updated_at }.try(:updated_at)
-#        if max_reservation and model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).count > 1
-#          max_change = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:updated_at)
-#          return if max_reservation.to_i <= max_change.to_i
-#        end
-#      end
-
           @new_changes = []
        
           def most_recent_change(date)
@@ -108,37 +73,58 @@ module Availability
           end
 
           transaction do
-              new_partition ||= current_partition     
-              # DUPLICATED CODE ****   
-              total_borrowable_items = @inventory_pool.items.borrowable.scoped_by_model_id(@model.id).count
-              initial_change = build(:date => Date.today)
-              initial_change.quantities.build(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items, :out_quantity => 0)
-              @new_changes << initial_change
-              # ****
-            
-              reservations.each do |document_line|
-                start_change = clone_change([document_line.start_date, Date.today].max) # we don't recalculate the past
-                end_change = clone_change(document_line.available_again_date)
-           
-                groups = document_line.document.user.groups.scoped_by_inventory_pool_id(@inventory_pool) # optimize!
-                # groups doesn't contain the general group!
-                maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.availability_end_date)
-          
-                # TODO sort groups by quantity desc
-                group = groups.detect(Group::GENERAL_GROUP_ID) {|group| maximum[group] >= document_line.quantity }
-          
-                inner_changes = scoped_between(start_change.date, end_change.date.yesterday)
-                inner_changes.each do |ic|
-                  qty = ic.quantities.detect {|q| q.group == group}
-                  # TODO qty could be nil!!!!
-                  qty.in_quantity  -= document_line.quantity
-                  qty.out_quantity += document_line.quantity
-                  qty.out_document_lines.build(:document_line => document_line)
-                end
-              end
+            reservations = @model.running_reservations(@inventory_pool)
 
-              drop_changes
-              @new_changes.each {|x| x.save }
+            #tmp#6 OPTIMIZE bulk recompute if many lines are updated together
+            # TODO we really need a filter to prevent double/triple recomputations??
+            #      if new_partition.nil?
+            #        max_reservation = reservations.max {|a,b| a.updated_at <=> b.updated_at }.try(:updated_at)
+            #        if max_reservation and model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).count > 1
+            #          max_change = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:updated_at)
+            #          return if max_reservation.to_i <= max_change.to_i
+            #        end
+            #      end
+
+            new_partition ||= current_partition     
+
+            total_borrowable_items = @inventory_pool.items.borrowable.scoped_by_model_id(@model.id).count
+            initial_change = build(:date => Date.today)
+            general_quantity = initial_change.quantities.build(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items, :out_quantity => 0)
+
+            valid_group_ids = @inventory_pool.group_ids
+
+            new_partition.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
+            new_partition.each_pair do |group_id, quantity|
+              quantity = quantity.to_i
+              next if quantity == 0 or !valid_group_ids.include?(group_id)
+              initial_change.quantities.build(:group_id => group_id, :in_quantity => quantity)
+              general_quantity.in_quantity -= quantity
+            end
+
+            @new_changes << initial_change
+          
+            reservations.each do |document_line|
+              start_change = clone_change([document_line.start_date, Date.today].max) # we don't recalculate the past
+              end_change = clone_change(document_line.available_again_date)
+         
+              groups = document_line.document.user.groups.scoped_by_inventory_pool_id(@inventory_pool) # optimize!
+              # groups doesn't contain the general group!
+              maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.availability_end_date)
+        
+              # TODO sort groups by quantity desc
+              group = groups.detect(Group::GENERAL_GROUP_ID) {|group| maximum[group] >= document_line.quantity }
+        
+              inner_changes = scoped_between(start_change.date, end_change.date.yesterday)
+              inner_changes.each do |ic|
+                qty = ic.quantities.detect {|q| q.group == group}
+                qty.in_quantity  -= document_line.quantity
+                qty.out_quantity += document_line.quantity
+                qty.out_document_lines.build(:document_line => document_line) #tmp#12 if ic.date == start_change.date
+              end
+            end
+
+            drop_changes
+            @new_changes.each {|x| x.save }
           end # transaction          
       end # recompute
       
@@ -169,6 +155,7 @@ module Availability
             cloned_quantity = cloned.quantities.build( :out_quantity => quantity.out_quantity,
                                                        :in_quantity  => quantity.in_quantity,
                                                        :group_id     => quantity.group_id)
+#tmp#12
             quantity.out_document_lines.each do |odl|
               cloned_quantity.out_document_lines.build(:document_line => odl.document_line)
             end
