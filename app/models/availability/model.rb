@@ -95,6 +95,7 @@ module Availability
 
             new_partition.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
             new_partition.each_pair do |group_id, quantity|
+              group_id = group_id.to_i
               quantity = quantity.to_i
               next if quantity == 0 or !valid_group_ids.include?(group_id)
               initial_change.quantities.build(:group_id => group_id, :in_quantity => quantity)
