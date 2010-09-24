@@ -38,7 +38,7 @@ class OptimizeIndexes < ActiveRecord::Migration
     end
     
     change_table :groups_users do |t|
-      t.index         :user_id
+      t.index         [:user_id, :group_id], :unique => true
       t.index         :group_id
     end
     
