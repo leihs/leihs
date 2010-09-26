@@ -25,7 +25,6 @@ module Availability
               
       def drop_changes
         # this is much faster than destroy_all or delete_all with associations
-        #tmp#6 destroy_all
         connection.execute("DELETE c, q, o FROM `availability_changes` AS c " \
                            " LEFT JOIN `availability_quantities` AS q ON q.`change_id` = c.`id` " \
                            " LEFT JOIN `availability_out_document_lines` AS o ON o.`quantity_id` = q.`id` " \
