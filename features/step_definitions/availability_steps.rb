@@ -54,14 +54,21 @@ Given "the $who signs the contract" do |who|
   @contract.save
 end
 
+# TODO merge with next step
 When "$who checks availability for '$what'" do |who, model|
   @user = User.find_by_login(who)
-  @periods = @model.available_periods_for_inventory_pool(InventoryPool.first, @user)
+  inventory_pool = InventoryPool.first
+  groups = @user.groups.scoped_by_inventory_pool_id(inventory_pool)
+  @periods = @model.availability_changes.in(inventory_pool).available_quantities_for_groups(groups)
 end
 
+# TODO merge with previous step
 When "$who checks availability for '$what' on $date" do |who, model, date|
   date = Factory.parsedate(date)
-  @periods = @model.available_periods_for_inventory_pool(InventoryPool.first, @user, date)
+  @user = User.find_by_login(who)
+  inventory_pool = InventoryPool.first
+  groups = @user.groups.scoped_by_inventory_pool_id(inventory_pool)
+  @periods = @model.availability_changes.in(inventory_pool).between_from_most_recent_start_date(date, date).available_quantities_for_groups(groups)
 end
 
 Then "it should always be available" do
@@ -88,14 +95,22 @@ Then "$quantity should be available from $from to $to" do |quantity, from, to|
 end
 
 Then "the maximum available quantity on $date is $quantity" do |date, quantity|
-  @model.maximum_available_for_inventory_pool(Factory.parsedate(date), InventoryPool.first, @user).should == quantity.to_i
+  inventory_pool = InventoryPool.first
+  date = Factory.parsedate(date)
+  @model.availability_changes.in(inventory_pool).maximum_available_in_period_for_user(@user, date, date).should == quantity.to_i      
 end
 
 Then "if I check the maximum available quantity for $date it is $quantity on $current_date" do |date, quantity, current_date|
   #tmp#1 test fails because uses current_time argument set in the future
-  @model.maximum_available_for_inventory_pool(Factory.parsedate(date), InventoryPool.first, @user, Factory.parsedate(current_date)).should == quantity.to_i
+  inventory_pool = InventoryPool.first
+  date = Factory.parsedate(date)
+  current_date = Factory.parsedate(current_date)
+  @model.availability_changes.in(inventory_pool).maximum_available_in_period_for_user(@user, date, date).should == quantity.to_i      
 end
 
 Then "the maximum available quantity from $start_date to $end_date is $quantity" do |start_date, end_date, quantity|
-  @model.maximum_available_in_period_for_inventory_pool(Factory.parsedate(start_date), Factory.parsedate(end_date), InventoryPool.first, @user).should == quantity.to_i
+  start_date = Factory.parsedate(start_date)
+  end_date = Factory.parsedate(end_date)
+  inventory_pool = InventoryPool.first
+  @model.availability_changes.in(inventory_pool).maximum_available_in_period_for_user(@user, start_date, end_date).should == quantity.to_i
 end

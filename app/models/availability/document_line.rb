@@ -68,7 +68,7 @@ module Availability
 
     # this is only used for unsubmitted OrderLines
     def maximum_available_quantity
-      Availability::Change.maximum_available_in_period_for_user(model, inventory_pool, document.user, start_date, end_date)      
+      model.availability_changes.in(inventory_pool).maximum_available_in_period_for_user(document.user, start_date, end_date)      
     end
 
   end

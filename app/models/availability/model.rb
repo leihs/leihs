@@ -177,32 +177,14 @@ module Availability
         recompute if empty?
         all
       end
+
+      def maximum_available_in_period_for_user(user, start_date, end_date)
+        groups = user.groups.scoped_by_inventory_pool_id(@inventory_pool)
+        # OPTIMIZE use MIN() instead of ORDER BY ??
+        change = between_from_most_recent_start_date(start_date, end_date).available_quantities_for_groups(groups).first(:order => "available_quantity ASC")
+        change.try(:available_quantity).to_i
+      end
     end
-
-#############################################  
-
-    # TODO remove this method, we have now the named_scope :available_quantities_for_groups
-#    def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
-#      # TODO include additional groups where the user belongs to
-#      # groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
-#
-#      availability_changes.in(inventory_pool).collect do |c|
-#        q = c.in_quantity_in_group(Group::GENERAL_GROUP_ID)
-#        OpenStruct.new(:start_date => c.start_date, :end_date => c.end_date, :quantity => q)
-#      end
-#
-#    end
-
-  
-    # TODO this method is only used for test ??
-    #tmp#1 test fails because uses current_time argument set in the future
-    def maximum_available_for_inventory_pool(date, inventory_pool, user, current_time = Date.today)
-      Availability::Change.maximum_available_in_period_for_user(self, inventory_pool, user, date, date)
-    end
-  
-    def maximum_available_in_period_for_inventory_pool(start_date, end_date, inventory_pool, user, current_time = Date.today)
-      Availability::Change.maximum_available_in_period_for_user(self, inventory_pool, user, start_date, end_date)
-    end  
 
   end
 end

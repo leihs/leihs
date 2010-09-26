@@ -124,7 +124,9 @@ module ModelsHelper
 #    end
 #    
 #    data << {:data => [[today.to_time.to_i, 0], [today.to_time.to_i, 0]], :xaxis => 2} # NOTE forcing to render x2axis # TODO 2502** keep from events?
-#    availability = model.available_periods_for_inventory_pool(inventory_pool, current_user)
+#old#    availability = model.available_periods_for_inventory_pool(inventory_pool, current_user)
+#new#    groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
+#new#    changes = model.availability_changes.in(inventory_pool).between_from_most_recent_start_date(start_date, end_date).available_quantities_for_groups(groups)
 #    availability.each do |a|
 #      dd = (a == availability.first ? first_date_in_chart + 1.day : a.start_date)
 #      x2_ticks << [dd.to_time.to_i, a.quantity.to_s, ] if dd.to_time.to_i > today.to_time.to_i + config[:range][:start_sec] and dd.to_time.to_i < today.to_time.to_i + config[:range][:end_sec]
@@ -325,7 +327,9 @@ module ModelsHelper
 #      y = index + 1
 #      y_ticks << [y, inventory_pool.name]
 #
-#      availability = model.available_periods_for_inventory_pool(inventory_pool, current_user)
+#old#      availability = model.available_periods_for_inventory_pool(inventory_pool, current_user)
+#new#    groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
+#new#    changes = model.availability_changes.in(inventory_pool).between_from_most_recent_start_date(start_date, end_date).available_quantities_for_groups(groups)
 #      availability.each do |a|
 #        next if a.quantity < 1
 ## TODO ????       next a.end_date < a.start_date if a.end_date
