@@ -18,8 +18,6 @@ module Availability
       d = if is_a?(ContractLine) and returned_date
             returned_date
           elsif is_late?
-            # TODO stammtisch
-            #Availability::ETERNITY
             Date.today + Availability::REPLACEMENT_INTERVAL
           else
             end_date
@@ -56,9 +54,13 @@ module Availability
     end
 
     def unavailable_periods
-      #tmp#4 TODO check if I'm already allocated to a Group (non-General)
+      group = allocated_group
       
-      changes = Availability::Change.overbooking(inventory_pool, model)
+      conditions = ["group_id " + (group.nil? ? "IS NULL" : "= #{group.id}")]
+      conditions[0] += " AND ((in_quantity < 0 AND date BETWEEN :sd AND :ed) OR (in_quantity < :q AND date NOT BETWEEN :sd AND :ed))"
+      conditions << {:q => quantity, :sd => start_date, :ed => end_date}
+      
+      changes = model.availability_changes.in(inventory_pool).all(:joins => :quantities, :conditions => conditions)
       changes.collect do |c|
         OpenStruct.new(:start_date => c.start_date, :end_date => c.end_date)
       end

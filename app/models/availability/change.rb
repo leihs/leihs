@@ -31,22 +31,10 @@ module Availability
                          { :conditions => ["availability_changes.date BETWEEN ? AND ?", start_date, end_date] }
                 }
 
-    named_scope :overbooking,
-                lambda { |inventory_pool, model|
-                  conditions = ["availability_quantities.group_id IS NULL AND availability_quantities.in_quantity < 0"] # NULL is Group::GENERAL_GROUP_ID
-                  if inventory_pool
-                    conditions[0] += " AND inventory_pool_id = ?"
-                    conditions << inventory_pool
-                  end
-                  if model
-                    conditions[0] += " AND model_id = ?"
-                    conditions << model
-                  end
-                  { :select => "*, in_quantity",
-                    :joins => :quantities,
-                    :conditions => conditions
-                  }
-                }
+    named_scope :overbooking, :select => "*, SUM(in_quantity) AS available_quantity",
+                              :joins => :quantities,
+                              :conditions => ["availability_quantities.in_quantity < 0"],
+                              :group => "availability_changes.id"
 
     named_scope :available_quantities_for_groups,
                 lambda { |groups|

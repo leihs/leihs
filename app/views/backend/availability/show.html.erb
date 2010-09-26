@@ -23,7 +23,7 @@
 	  			<%= dates_with_period(ob.start_date, ob.end_date) %>  
 			<% end
 			content_tag :td do %>
-	  			<%= ob.in_quantity %>  
+	  			<%= ob.available_quantity %>  
 			<% end
 		end
 		last_model = ob.model

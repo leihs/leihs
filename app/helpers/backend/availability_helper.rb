@@ -129,11 +129,14 @@ module Backend::AvailabilityHelper
         
         a += ([Group::GENERAL_GROUP_ID] + c.inventory_pool.groups).collect do |group|
           aq = c.quantities.scoped_by_group_id(group).first
+          in_quantity = aq.try(:in_quantity).to_i
+          out_quantity = aq.try(:out_quantity).to_i
+          next if in_quantity.zero? and out_quantity.zero? 
           content_tag :tr do
             b = content_tag :td do
               "#{(group ? group : _("General"))}:"
             end
-            b += [aq.try(:in_quantity).to_i, aq.try(:out_quantity).to_i].collect do |q|
+            b += [in_quantity, out_quantity].collect do |q|
               content_tag :td, :class => (q < 0 ? "valid_false" : nil) do
                 q
               end

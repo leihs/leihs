@@ -394,7 +394,7 @@ module Backend::BackendHelper
 #        line = lines.first
       
         months = 12
-        bound_start_date = Date.today.end_of_month
+        bound_start_date = Date.today.beginning_of_month
         bound_end_date = months.months.from_now.to_date.end_of_month
         f += datepicker(months)
         

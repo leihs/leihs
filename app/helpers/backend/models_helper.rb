@@ -24,15 +24,6 @@ module Backend::ModelsHelper
     events = {}
     partition = model.availability_changes.in(inventory_pool).current_partition #.sort {|a,b| a.first.to_i <=> b.first.to_i }
 
-    bandInfos_js = []
-    bandNames_js = []
-    partition.each_pair do |group_id, count|
-      group_id = group_id.to_i
-      events[group_id] = []
-      bandInfos_js << "Timeline.createBandInfo({ eventSource: eventSource[#{group_id}], width: '#{count * 40 + 40}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 50, theme: theme })"
-      bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : "")
-    end
-
     model.running_reservations(inventory_pool).each do |line|
       color = if not line.item
                 'grey'
@@ -46,6 +37,7 @@ module Backend::ModelsHelper
       group_id = line.allocated_group.try(:id).to_i
       title = "#{line.document.user}"
       title += " (#{line.item.inventory_code})" if line.item
+      events[group_id] ||= []
       events[group_id] << {:start => line.start_date, :end => line.end_date, :durationEvent => true,
                            :title => title, :description => "Group: #{line.allocated_group}",
                            :color => color, :textColor => 'black' }
@@ -56,6 +48,19 @@ module Backend::ModelsHelper
       json = {:events => event}.to_json
       eventSource_js << "eventSource[#{group_id}] = new Timeline.DefaultEventSource(); eventSource[#{group_id}].loadJSON(#{json}, document.location.href);"
     end
+
+    bandInfos_js = []
+    bandNames_js = []
+    sum_w = 0
+    partition.each_pair do |group_id, count|
+      group_id = group_id.to_i
+      next unless events.keys.include?(group_id)
+      w = [0, count].max * 40 + 40
+      sum_w += w
+      bandInfos_js << "Timeline.createBandInfo({ eventSource: eventSource[#{group_id}], width: '#{w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 46, theme: theme })"
+      bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : "")
+    end
+
 
     r = javascript_tag do
       <<-HERECODE
@@ -95,8 +100,7 @@ module Backend::ModelsHelper
       HERECODE
     end
     
-    r += content_tag :div, :id => "my_timeline", :style => "height: #{partition.values.sum * 40}px; border: 1px solid #aaa" do
-      end
+    r += content_tag :div, :id => "my_timeline", :style => "height: #{sum_w}px; border: 1px solid #aaa" do end
   end
   
 end
