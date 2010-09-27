@@ -14,8 +14,9 @@ module Availability
     end
 
     def recompute
-      old_model = availability_out_document_lines.first.try(:quantity).try(:change).try(:model)
-      old_model.availability_changes.in(document.inventory_pool).recompute if old_model != model
+      if (old_model = availability_out_document_lines.first.try(:quantity).try(:change).try(:model)) and old_model != model
+        old_model.availability_changes.in(document.inventory_pool).recompute
+      end
       model.availability_changes.in(document.inventory_pool).recompute
     end
 
