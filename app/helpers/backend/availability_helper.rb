@@ -145,7 +145,8 @@ module Backend::AvailabilityHelper
               content_tag :ol do
                 aq.out_document_lines.collect do |odl|
                   content_tag :li do
-                    "#{odl.document_line_type} #{odl.document_line_id}"
+                    dl = odl.document_line 
+                    "#{dl.document.user} (#{dl.item.try(:inventory_code)}) -> #{short_date(dl.end_date)}"
                   end
                 end.join if aq.try(:out_document_lines)
               end

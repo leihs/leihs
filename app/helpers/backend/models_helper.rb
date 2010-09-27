@@ -39,25 +39,27 @@ module Backend::ModelsHelper
       title += " (#{line.item.inventory_code})" if line.item
       events[group_id] ||= []
       events[group_id] << {:start => line.start_date, :end => line.end_date, :durationEvent => true,
-                           :title => title, :description => "Group: #{line.allocated_group}",
+                           :title => title, :description => "Group: #{line.allocated_group}<br>Phone: #{line.document.user.phone}",
                            :color => color, :textColor => 'black' }
     end
 
+    #eventSource_js = ["eventSource[-1] = new Timeline.DefaultEventSource(); eventSource[-1].loadJSON(#{{:events => events.values.flatten}.to_json}, document.location.href);"]
     eventSource_js = []
     events.each_pair do |group_id, event|
       json = {:events => event}.to_json
       eventSource_js << "eventSource[#{group_id}] = new Timeline.DefaultEventSource(); eventSource[#{group_id}].loadJSON(#{json}, document.location.href);"
     end
 
-    bandInfos_js = []
-    bandNames_js = []
-    sum_w = 0
+    sum_w = 35
+    #bandInfos_js = ["Timeline.createBandInfo({ eventSource: eventSource[-1], overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top' })"]
+    bandInfos_js = ["Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top', theme: theme })"]
+    bandNames_js = [""] #_("Months")
     partition.each_pair do |group_id, count|
       group_id = group_id.to_i
       next unless events.keys.include?(group_id)
       w = [0, count].max * 40 + 40
       sum_w += w
-      bandInfos_js << "Timeline.createBandInfo({ eventSource: eventSource[#{group_id}], width: '#{w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 46, theme: theme })"
+      bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], width: '#{w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 46, align: 'Top', theme: theme })"
       bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : "")
     end
 
@@ -72,27 +74,33 @@ module Backend::ModelsHelper
       jQuery(document).ready(function($) {
 
         var theme = Timeline.ClassicTheme.create();
+        theme.firstDayOfWeek = 1;
         theme.autoWidth = true;
-        //theme.event.tape.height = 20;
+//        theme.event.track.height = 15;
+//        theme.event.tape.height = 8;
+        theme.event.track.offset = 25;
+        //theme.ether.highlightColor = 'red';
+        theme.event.overviewTrack.offset = 35;
         
         var bandNames = #{bandNames_js.to_json};
         
         var bandInfos = [
             #{bandInfos_js.join(',')}
         ];
-        for (var i = 1; i < bandInfos.length; i++)
-          bandInfos[i].syncWith = 0;
+        
+        bandInfos[0].highlight = true;
 
         for (var i = 0; i < bandInfos.length; i++) {
-            bandInfos[i].decorators = [
-                new Timeline.SpanHighlightDecorator({
-                    startDate:  #{Date.today.to_json},
-                    endDate:    #{Date.tomorrow.to_json},
-                    color:      "#FFC080",
-                    opacity:    50,
-                    startLabel: bandNames[i]
-                })
-            ];
+          if(i != 1) bandInfos[i].syncWith = 1;
+          bandInfos[i].decorators = [
+              new Timeline.SpanHighlightDecorator({
+                  startDate:  #{Date.today.to_json},
+                  endDate:    #{Date.tomorrow.to_json},
+                  color:      "#DD5",
+                  opacity:    50,
+                  startLabel: bandNames[i]
+              })
+          ];
         }
 
         Timeline.create(document.getElementById("my_timeline"), bandInfos);
