@@ -23,13 +23,14 @@ end
 When /^I assign (\w+) item(s?) to Group "([^"]*)"$/ do |n, plural, to_group_name|
   n = to_number(n)
   to_group = @inventory_pool.groups.find_by_name to_group_name
-  partition = @model.availability_changes.current_partition(@inventory_pool)
+  partition = @model.availability_changes.in(@inventory_pool).current_partition
   partition[to_group.id] ||= 0
   partition[to_group.id] += n
-  @model.availability_changes.init(@inventory_pool, partition)
+  @model.availability_changes.in(@inventory_pool).recompute(partition)
 end
 
 Given "$n items of that Model should be available to everybody" do |n|
+  # TODO: broken, needs to be redone
   @model.availability_changes.current_for_inventory_pool(@inventory_pool).in_quantity_in_group(Group::GENERAL_GROUP_ID).should == n.to_i
 end
 

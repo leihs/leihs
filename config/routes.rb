@@ -118,6 +118,7 @@ ActionController::Routing::Routes.draw do |map|
                                                     :things_to_return => :get,
                                                     :groups => :get,
                                                     :add_group => :put,
+                                                    :remove_group => :delete,
                                                     :update_badge_id => :post } do |user|
                user.resources :acknowledge, :member => { :approve => [:get, :post],
                                                          :reject => [:get, :post],

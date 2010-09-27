@@ -55,9 +55,7 @@ class Backend::ModelsController < Backend::BackendController
   def show
    # redirect_to :action => 'package', :layout => params[:layout] if @model.is_package?
 
-    @changes = @model.availability_changes.scoped_by_inventory_pool_id(current_inventory_pool)
-    @initial_change = @changes.last
-    @initial_change ||= @model.availability_changes.reset(current_inventory_pool)
+    @changes = @model.availability_changes.in(current_inventory_pool).recompute_if_empty
   end
 
   def new
@@ -295,7 +293,7 @@ class Backend::ModelsController < Backend::BackendController
 #############################################################
 
   def set_group_partition
-    Availability::Change.recompute(@model, current_inventory_pool, params[:groups])
+    @model.availability_changes.in(current_inventory_pool).recompute(params[:groups])
     flash[:notice] = _("The group quantities were successfully saved.")
     redirect_to :action => :show
   end

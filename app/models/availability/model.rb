@@ -1,97 +1,199 @@
 module Availability
   module Model
-
+  
     def self.included(base)
-
-      base.has_many :availability_changes, :class_name => "Availability::Change" do
-        def current_for_inventory_pool(inventory_pool, date = Date.today)
-          scoped_by_inventory_pool_id(inventory_pool).last(:conditions => ["date <= ?", date])
-        end
         
-        def init(inventory_pool, new_partition = nil, date = Date.today, with_destroy = true)
-          new_partition ||= current_partition(inventory_pool)
+      base.has_many :availability_changes, :class_name => "Availability::Change"  do
+        # 'in' is our named_scope that returns an object that is extended by methods
+        # allowing to work inside that named scope. I hope this gets garbage collected
+        # correctly...
+        def in(ip)
+          @inventory_pool = ip
+          @model = proxy_owner
 
-          if with_destroy and (existing_change = scoped_by_inventory_pool_id(inventory_pool).first)
-            # this is much faster than destroy_all or delete_all with associations
-            #tmp#6 scoped_by_inventory_pool_id(inventory_pool).destroy_all
-            connection.execute("DELETE c, q, o FROM `availability_changes` AS c " \
-                               " LEFT JOIN `availability_quantities` AS q ON q.`change_id` = c.`id` " \
-                               " LEFT JOIN `availability_out_document_lines` AS o ON o.`quantity_id` = q.`id` " \
-                               " WHERE c.`inventory_pool_id` = '#{inventory_pool.id}' " \
-                               " AND c.`model_id` = '#{existing_change.model_id}'" )
+          class << self # add methods to our scope
+            include AvailabilityScopedByInventoryPool
           end
 
-          initial_change = scoped_by_inventory_pool_id(inventory_pool).find_or_create_by_date(date)
-          total_borrowable_items = inventory_pool.items.borrowable.scoped_by_model_id(initial_change.model).count
-          general_quantity = initial_change.quantities.build(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items)
-    
-          new_partition.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
-          
-          new_partition.each_pair do |group_id, quantity|
-            quantity = quantity.to_i
-            next if quantity == 0 or !inventory_pool.groups.exists?(group_id)
-            initial_change.quantities.create(:group_id => group_id, :in_quantity => quantity)
-            general_quantity.in_quantity -= quantity
-          end
-          general_quantity.save
-
-          initial_change
+          scoped( { :conditions => {:inventory_pool_id => @inventory_pool} } )
         end
-
-        # how is a model distributed in the various groups?
-        # returns a hash: { nil => 4, cast_group_id => 2, video_group_id => 1, ... }
-        def current_partition(inventory_pool)
-          partitioning = {}
-          existing_change = scoped_by_inventory_pool_id(inventory_pool).first
-          if existing_change
-            existing_change.quantities.map do |q|
-              partitioning[q.group_id] = q.in_quantity + q.out_quantity
-            end
-          else
-            # TODO ??
-            # total_borrowable_items = inventory_pool.items.borrowable.scoped_by_model_id(initial_change.model).count
-            # partitioning[Group::GENERAL_GROUP_ID] = total_borrowable_items
-          end
-          partitioning
-        end
-
-        # generate or fetch
-        def clone_change(inventory_pool, to_date)
-          change = current_for_inventory_pool(inventory_pool, to_date)
-          if change.nil?
-            change = init(inventory_pool, nil, to_date, false)
-          elsif change.date < to_date
-            cloned = change.clone
-            cloned.date = to_date
-            cloned.save
-            change.quantities.each do |quantity|
-              cloned_quantity = quantity.clone
-              cloned.quantities << cloned_quantity
-              quantity.out_document_lines.each do |odl|
-                cloned_quantity.out_document_lines << odl.clone
-              end
-            end
-            change = cloned
-          end
-          change
-        end
-
+      end
+    end
+  
+    # depends on @inventory_pool and @model to be set, in order to work
+    module AvailabilityScopedByInventoryPool
+              
+      def drop_changes
+        # this is much faster than destroy_all or delete_all with associations
+        #tmp#6 destroy_all
+        connection.execute("DELETE c, q, o FROM `availability_changes` AS c " \
+                           " LEFT JOIN `availability_quantities` AS q ON q.`change_id` = c.`id` " \
+                           " LEFT JOIN `availability_out_document_lines` AS o ON o.`quantity_id` = q.`id` " \
+                           " WHERE c.`inventory_pool_id` = '#{@inventory_pool.id}' " \
+                           " AND c.`model_id` = '#{@model.id}'" )
       end
       
+      def recompute(new_partition = nil)
+          @new_changes = []
+       
+          def most_recent_change(date)
+             @new_changes.select {|c| c.date <= date}.sort {|a,b| a.date <=> b.date}.last
+          end
+  
+          def scoped_between(start_date, end_date)
+            start_date = most_recent_change(start_date).try(:date) || start_date
+            @new_changes.select do |change|
+              change.date >= start_date && change.date <= end_date
+            end
+          end
+  
+          def minimum_in_group_between(start_date, end_date, group)
+            # we don't save AvailableQuantities for Groups that have zero available Models for space efficiency
+            # reasons thus when there's an AvailabilityChange and there's no associates AvailabilityQuantity
+            # then we know it's zero. So if there are more AvailabilityChanges than associated
+            # AvailableQuantities then we know there are some that are null
+            # TODO: move join up into has_many association
+            minimum = nil
+            scoped_between(start_date, end_date).each do |change|
+              quantity = change.quantities.detect { |qty| qty.group == group }
+              unless quantity.nil?
+                minimum = (minimum.nil? ? quantity.in_quantity : [quantity.in_quantity, minimum].min)
+              end
+            end
+            minimum.to_i
+          end
+  
+          # DUPLICATION OF CODE
+          def scoped_maximum_available_in_period_for_groups(group_or_groups, start_date = Date.today, end_date = Availability::ETERNITY)
+            max_per_group = Hash.new
+            Array(group_or_groups).each do |group|
+              max_per_group[group] = minimum_in_group_between(start_date, end_date, group)
+            end   
+            max_per_group
+          end
+
+          transaction do
+            reservations = @model.running_reservations(@inventory_pool)
+
+            #tmp#6 OPTIMIZE bulk recompute if many lines are updated together
+            # TODO we really need a filter to prevent double/triple recomputations??
+            #      if new_partition.nil?
+            #        max_reservation = reservations.max {|a,b| a.updated_at <=> b.updated_at }.try(:updated_at)
+            #        if max_reservation and model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).count > 1
+            #          max_change = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:updated_at)
+            #          return if max_reservation.to_i <= max_change.to_i
+            #        end
+            #      end
+
+            new_partition ||= current_partition     
+
+            total_borrowable_items = @inventory_pool.items.borrowable.scoped_by_model_id(@model.id).count
+            initial_change = build(:date => Date.today)
+            general_quantity = initial_change.quantities.build(:group_id => Group::GENERAL_GROUP_ID, :in_quantity => total_borrowable_items, :out_quantity => 0)
+
+            valid_group_ids = @inventory_pool.group_ids
+
+            new_partition.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
+            new_partition.each_pair do |group_id, quantity|
+              group_id = group_id.to_i
+              quantity = quantity.to_i
+              next if quantity == 0 or !valid_group_ids.include?(group_id)
+              initial_change.quantities.build(:group_id => group_id, :in_quantity => quantity)
+              general_quantity.in_quantity -= quantity
+            end
+
+            @new_changes << initial_change
+          
+            reservations.each do |document_line|
+              start_change = clone_change([document_line.start_date, Date.today].max) # we don't recalculate the past
+              end_change = clone_change(document_line.available_again_date)
+         
+              groups = document_line.document.user.groups.scoped_by_inventory_pool_id(@inventory_pool) # optimize!
+              # groups doesn't contain the general group!
+              maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.availability_end_date)
+        
+              # TODO sort groups by quantity desc
+              group = groups.detect(Group::GENERAL_GROUP_ID) {|group| maximum[group] >= document_line.quantity }
+        
+              inner_changes = scoped_between(start_change.date, end_change.date.yesterday)
+              inner_changes.each do |ic|
+                qty = ic.quantities.detect {|q| q.group == group}
+                qty.in_quantity  -= document_line.quantity
+                qty.out_quantity += document_line.quantity
+                qty.out_document_lines.build(:document_line => document_line) #tmp#12 if ic.date == start_change.date
+              end
+            end
+
+            drop_changes
+            @new_changes.each {|x| x.save }
+          end # transaction          
+      end # recompute
+      
+      
+      # how is a model distributed in the various groups?
+      # returns a hash: { nil => 4, cast_group_id => 2, video_group_id => 1, ... }
+      def current_partition
+        partitioning = {}
+        existing_change = first
+        if existing_change
+          existing_change.quantities.map do |q|
+            partitioning[q.group_id] = q.in_quantity + q.out_quantity
+          end
+        else
+          # TODO ??
+          # total_borrowable_items = @inventory_pool.items.borrowable.scoped_by_model_id(@model.id).count
+          # partitioning[Group::GENERAL_GROUP_ID] = total_borrowable_items
+        end
+        partitioning
+      end
+      
+      # generate or fetch
+      def clone_change(to_date)
+        change = most_recent_change(to_date)
+        if change.date < to_date
+          cloned = build(:date => to_date)
+          change.quantities.each do |quantity|
+            cloned_quantity = cloned.quantities.build( :out_quantity => quantity.out_quantity,
+                                                       :in_quantity  => quantity.in_quantity,
+                                                       :group_id     => quantity.group_id)
+#tmp#12
+            quantity.out_document_lines.each do |odl|
+              cloned_quantity.out_document_lines.build(:document_line => odl.document_line)
+            end
+          end
+          @new_changes << cloned
+          return cloned
+        else
+          return change
+        end
+      end
+      
+      def between_from_most_recent_start_date(start_date, end_date)
+        # start from most recent entry we have, which is the last before start_date
+        start_date = maximum(:date, :conditions => [ "date <= ?", start_date ]) || start_date
+        between(start_date, end_date)
+      end
+
+      def recompute_if_empty
+        recompute if empty?
+        all
+      end
     end
 
 #############################################  
 
-    def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
-      # TODO include additional groups where the user belongs to
-      # groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
+    # TODO remove this method, we have now the named_scope :available_quantities_for_groups
+#    def available_periods_for_inventory_pool(inventory_pool, user, current_time = Date.today)
+#      # TODO include additional groups where the user belongs to
+#      # groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
+#
+#      availability_changes.in(inventory_pool).collect do |c|
+#        q = c.in_quantity_in_group(Group::GENERAL_GROUP_ID)
+#        OpenStruct.new(:start_date => c.start_date, :end_date => c.end_date, :quantity => q)
+#      end
+#
+#    end
 
-      availability_changes.scoped_by_inventory_pool_id(inventory_pool).collect do |c|
-        q = c.in_quantity_in_group(Group::GENERAL_GROUP_ID)
-        OpenStruct.new(:start_date => c.start_date, :end_date => c.end_date, :quantity => q)
-      end
-
-    end
   
     # TODO this method is only used for test ??
     #tmp#1 test fails because uses current_time argument set in the future

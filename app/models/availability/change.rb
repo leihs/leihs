@@ -20,7 +20,7 @@ module Availability
     validates_presence_of :model_id
     validates_presence_of :date
   
-    validates_uniqueness_of :date, :scope => [:inventory_pool_id, :model_id]
+#tmp#10    validates_uniqueness_of :date, :scope => [:inventory_pool_id, :model_id]
   
   #############################################
   
@@ -28,19 +28,12 @@ module Availability
   
     named_scope :between,
                 lambda { |start_date, end_date|
-                         # start from most recent entry we have, which is the last before start_date
-                         start_date = maximum(:date, :conditions => [ "date <= ?", start_date ]) || start_date.to_date
-  
-                         end_date = end_date.to_date
-                         tmp_end_date = minimum(:date, :conditions => [ "date >= ?", start_date ])
-                         end_date = [tmp_end_date, end_date].max if tmp_end_date
-  
                          { :conditions => ["availability_changes.date BETWEEN ? AND ?", start_date, end_date] }
                 }
 
     named_scope :overbooking,
                 lambda { |inventory_pool, model|
-                  conditions = ["availability_quantities.group_id IS NULL AND availability_quantities.in_quantity < 0"]
+                  conditions = ["availability_quantities.group_id IS NULL AND availability_quantities.in_quantity < 0"] # NULL is Group::GENERAL_GROUP_ID
                   if inventory_pool
                     conditions[0] += " AND inventory_pool_id = ?"
                     conditions << inventory_pool
@@ -54,58 +47,25 @@ module Availability
                     :conditions => conditions
                   }
                 }
+
+    named_scope :available_quantities_for_groups,
+                lambda { |groups|
+                  { :select => "*, SUM(in_quantity) AS available_quantity",
+                    :joins => :quantities,
+                    :conditions => ["availability_quantities.group_id IS NULL OR availability_quantities.group_id IN (?)", groups], # NULL is Group::GENERAL_GROUP_ID
+                    :group => "availability_changes.id" }
+                }
                              
   #############################################
   
     def self.recompute_all
-      transaction do
-        ::InventoryPool.all.each do |inventory_pool|
-          inventory_pool.models.each do |model|
-            recompute(model, inventory_pool)
-          end
+      ::InventoryPool.all.each do |inventory_pool|
+        inventory_pool.models.each do |model|
+          model.availability_changes.in(inventory_pool).recompute
         end
       end
     end
-  
-    def self.recompute(model, inventory_pool, new_partition = nil)
-      reservations = model.running_reservations(inventory_pool)
-
-      #tmp#6 OPTIMIZE bulk recompute if many lines are updated together
-      if new_partition.nil?
-        max_reservation = reservations.max {|a,b| a.updated_at <=> b.updated_at }.try(:updated_at)
-        if max_reservation and model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).count > 1
-          max_change = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).maximum(:updated_at)
-          return if max_reservation.to_i <= max_change.to_i
-        end
-      end
-
-      model.availability_changes.init(inventory_pool, new_partition)
-     
-      reservations.each do |document_line|
-        recompute_reservation(document_line)
-      end
-    end
-  
-    def self.recompute_reservation(document_line)
-      # OPTIMIZE
-      model = document_line.model
-      inventory_pool = document_line.inventory_pool
-  
-      start_change = model.availability_changes.clone_change(inventory_pool, document_line.start_date)
-      end_change = model.availability_changes.clone_change(inventory_pool, document_line.available_again_date)
-  
-      groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool)
-      maximum = maximum_available_in_period_for_groups(model, inventory_pool, groups, document_line.start_date, document_line.availability_end_date)
-
-      # TODO sort groups by quantity desc
-      group = groups.detect(Group::GENERAL_GROUP_ID) {|group| maximum[group] >= document_line.quantity }
-
-      inner_changes = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).between(start_change.date, end_change.date.yesterday)
-      inner_changes.each do |ic|
-        ic.quantities.scoped_by_group_id(group).first.to_out(document_line).save
-      end
-    end
-  
+    
   #############################################
   
     def next_change
@@ -122,14 +82,6 @@ module Availability
 
   #############################################
   
-    def in_quantity
-      quantities.sum(:in_quantity)
-    end
-
-    def out_quantity
-      quantities.sum(:out_quantity)
-    end
-    
     def in_quantity_in_group(group)
       q = quantities.scoped_by_group_id(group).first
       q.try(:in_quantity).to_i
@@ -167,7 +119,7 @@ module Availability
         joins = "LEFT JOIN availability_quantities ON availability_changes.id = availability_quantities.change_id AND availability_quantities.group_id "
         joins += (group.nil? ? "IS NULL" : "= #{group.id}" )
         
-        r = model.availability_changes.scoped_by_inventory_pool_id(inventory_pool).between(start_date, end_date).minimum("ifnull(in_quantity,0)", :joins => joins)
+        r = model.availability_changes.in(inventory_pool).between_from_most_recent_start_date(start_date, end_date).minimum("ifnull(in_quantity,0)", :joins => joins)
   
         max_per_group[group] = r.to_i
       end

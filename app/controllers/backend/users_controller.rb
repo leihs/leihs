@@ -97,6 +97,15 @@ class Backend::UsersController < Backend::BackendController
     redirect_to :action => 'groups'
   end
 
+  def remove_group(group_id = params[:group_id])
+    @group = current_inventory_pool.groups.find(group_id)
+    if @user.groups.include? @group
+      @user.groups.delete @group
+      @user.save!
+    end
+    redirect_to :action => 'groups'
+  end
+
   
   def remind
     flash[:notice] = _("User %s has been reminded ") % @user.remind(current_user)
