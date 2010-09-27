@@ -2,7 +2,7 @@ set :application, "leihs2"
 
 set :scm, :git
 set :repository,  "git://github.com/psy-q/leihs.git"
-set :branch, "master"
+set :branch, "leihs-without-general-group"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/rails/leihs/leihs2/database.yml"
@@ -141,8 +141,8 @@ after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
-after "deploy:symlink", :configure_sphinx
 after "deploy:symlink", :migrate_database
+after "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
 before "deploy", :stop_sphinx
