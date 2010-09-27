@@ -2,7 +2,7 @@ set :application, "leihs2demo"
 
 set :scm, :git
 set :repository,  "git://github.com/psy-q/leihs.git"
-set :branch, "master"
+set :branch, "leihs-without-general-group"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/rails/leihs/leihs2demo/database.yml"
@@ -97,7 +97,11 @@ task :migrate_database do
   run "mysqldump -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -r #{dump_path} #{sql_database}"
   run "bzip2 #{dump_path}"
   # Migration here 
-  deploy.migrate
+  # deploy.migrate should work, but is buggy and is run in the _previous_ release's
+  # directory, thus never runs anything? Strange.
+  #deploy.migrate
+  run "cd #{release_path} && RAILS_ENV='production' rake db:migrate"
+
 end
 
 task :stop_sphinx do
@@ -129,8 +133,8 @@ after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
-after "deploy:symlink", :configure_sphinx
 after "deploy:symlink", :migrate_database
+after "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
 before "deploy", :stop_sphinx
