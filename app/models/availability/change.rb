@@ -43,10 +43,17 @@ module Availability
                     :conditions => ["availability_quantities.group_id IS NULL OR availability_quantities.group_id IN (?)", groups], # NULL is Group::GENERAL_GROUP_ID
                     :group => "availability_changes.id" }
                 }
+
+    named_scope :dirty, :joins => "LEFT JOIN inventory_pools ON availability_changes.inventory_pool_id = inventory_pools.id " \
+                                  " LEFT JOIN models ON availability_changes.model_id = models.id",
+                        :conditions => "inventory_pools.id IS NULL OR models.id IS NULL"
+
                              
   #############################################
   
     def self.recompute_all
+      dirty.destroy_all
+      
       ::InventoryPool.all.each do |inventory_pool|
         inventory_pool.models.each do |model|
           model.availability_changes.in(inventory_pool).recompute

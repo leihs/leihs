@@ -4,7 +4,7 @@
 			content_tag :td, :class => 'buttons' do %>
 			<%= root.model.name %> <%= greybox_link_to_page(icon_tag("magnifier") + _("Show"), 
 				                            show_backend_inventory_pool_model_item_path( current_inventory_pool, root.model, root, :layout => 'modal', :filter => params[:filter]),
-				 	                          :title => _("Item"), :width => 1000) %>
+				 	                          :title => _("Item")) %>
 			<%= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => root.inventory_code}, :method => :post %>
 			
 			<% end
@@ -60,7 +60,7 @@
 				<td class="buttons">
 				  <%= greybox_link_to_page(icon_tag("magnifier") + _("Show"), 
 				                            show_backend_inventory_pool_model_item_path( current_inventory_pool, i.model, i, :layout => 'modal', :filter => params[:filter]),
-				 	                          :title => _("Item"), :width => 1000) %>
+				 	                          :title => _("Item")) %>
 				 
 					<%= link_to _("Remove"),
 								package_item_backend_inventory_pool_model_path(current_inventory_pool, @model, :item_id => i, :root_id => root.id, :filter => params[:filter]),

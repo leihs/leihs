@@ -13,6 +13,13 @@ module Availability
 #                    :class_name => "Availability::Quantity"
     end
 
+    def recompute
+      if (old_model = availability_out_document_lines.first.try(:quantity).try(:change).try(:model)) and old_model != model
+        old_model.availability_changes.in(document.inventory_pool).recompute
+      end
+      model.availability_changes.in(document.inventory_pool).recompute
+    end
+
     # if overdue, extend end_date to today
     def availability_end_date
       d = if is_a?(ContractLine) and returned_date

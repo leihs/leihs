@@ -7,7 +7,7 @@
 							<br/>
 							<%=  greybox_link_to_page(	@contract.user.name,
 									                    backend_inventory_pool_user_path(current_inventory_pool, @contract.user, :layout => "modal"),
-									                    :title => _("User"), :width => 1000 ) %>
+									                    :title => _("User") ) %>
 							<%= render :partial => "/users/incomplete", :locals => {:user => @contract.user} %>
 						</td>
 						<% # OPTIMIZE if suspended, it never enters here!
@@ -44,7 +44,7 @@
 							 	{ :action => 'time_lines' },
 								:onmouseup => "change_href(this, 'contract_line', 'line');",
 								:class => "ghostable_group_1 ghosted",
-								:title => _("Time Period"), :width => 1000 ) %>						
+								:title => _("Time Period") ) %>						
 
 						<%= greybox_link_to_page(icon_tag("arrow_switch") + " " + _("Swap Reserver"),
 					 			{ :action => 'swap_user' },
@@ -94,11 +94,11 @@
 							<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model"),
 									{:action => 'add_line'},
 									:onmouseup => "change_href_with_dates(this, 'start_date', 'end_date');",
-									:title => _("Add Model"), :width => 1000 ) %>
+									:title => _("Add Model") ) %>
 							<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Option"),
 									{:action => 'add_option'},
 									:onmouseup => "change_href_with_dates(this, 'start_date', 'end_date');",
-									:title => _("Add Option"), :width => 1000 ) %>
+									:title => _("Add Option") ) %>
 							<%= _("for") %>
 							<%= date_select :start_date, nil, { :default => start_date, :order => [:day, :month, :year], :start_year => start_date.year } %>
 							-

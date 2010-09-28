@@ -50,6 +50,11 @@ module Greybox
   def greybox_link_to_page(content, link, options = {}, &block)
     # <a href="http://google.com/" title="Google" rel="gb_page_center[500, 500]">Launch Google.com</a>
     # <a href="http://google.com/" title="Google" rel="gb_page_fs[]">Launch Google.com</a>
+    
+    #sellittf#
+    default_options = {:fullscreen => true}
+    options.reverse_merge!(default_options)    
+    
     content = capture(&block) if block_given?
     rel_attr = @greybox_group_name.nil? ? (options.delete(:fullscreen) ? 'gb_page_fs[]' : "gb_page_center[#{options.delete(:width) || 650}, #{options.delete(:height) || 500}]") : "gb_pageset[#{@greybox_group_name}]"
     link = link_to(content, link, options.merge(:rel => rel_attr))

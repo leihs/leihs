@@ -32,7 +32,7 @@
 			 		{ :action => 'time_lines', :lines => @line.id },
 					:class => "thickbox iconized-notxt date-edit",
 					:id => "dates_#{@line.id}",
-					:title => _("Time Period"), :width => 1000 ) %>
+					:title => _("Time Period") ) %>
 		</td>
 
 		<% b = !@line.item.nil? %>
@@ -78,7 +78,7 @@
 		<td class="buttons">
 				<%= greybox_link_to_page(icon_tag("arrow_switch") + " " + _("Swap"),
 						{ :action => 'swap_model_line', :line_id => @line.id },
-						:title => _("Swap Model"), :width => 1000 ) %>
+						:title => _("Swap Model") ) %>
 				<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete"),
 					 	{ :action => 'remove_lines', :lines => @line.id },
 						:title => _("Remove Model"), :class => 'negative' ) %>
