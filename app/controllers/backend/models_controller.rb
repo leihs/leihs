@@ -43,7 +43,7 @@ class Backend::ModelsController < Backend::BackendController
       end
     end
 
-    @show_categories_tree = (@category.nil? and params[:packages].blank?)
+    @show_categories_tree ||= (@category.nil? and params[:packages].blank?)
 
     respond_to do |format|
       format.html
@@ -319,9 +319,14 @@ class Backend::ModelsController < Backend::BackendController
     @model = @item.model if @item and !@model
     @line = current_inventory_pool.contract_lines.find(params[:contract_line_id]) if params[:contract_line_id]
     @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
+    if @line and not @category
+      puts "blllllllllllllllllllllllllllllllll"
+      @category = @line.model.categories.first
+      @show_categories_tree = true
+    end
     
     @tabs = []
-    @tabs << :category_backend if @category
+    @tabs << :category_backend if @category and not @show_categories_tree
     @tabs << :model_backend if @model
     @tabs << :group_backend if @group
 
