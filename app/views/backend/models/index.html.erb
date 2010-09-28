@@ -1,5 +1,6 @@
 <% if @show_categories_tree %>  
-	<%= extjs_model_tree %>
+    <% categories = (@line ? @line.model.categories : [] ) %>
+	<%= extjs_model_tree(false, [], categories) %>
 	<table><tr>
 	<td id="categories" style="vertical-align:top;" width="20%">
 	</td>

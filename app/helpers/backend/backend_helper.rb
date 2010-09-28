@@ -189,7 +189,9 @@ module Backend::BackendHelper
     end
   end
 
-  def extjs_model_tree(checkable = false, checked_nodes = [])
+  # categories_to_expand => first category will be selected/highlighted
+  #
+  def extjs_model_tree(checkable = false, checked_nodes = [], categories_to_expand = [])
     html = extjs_include
     html += extjs_tree_style
 
@@ -199,9 +201,12 @@ module Backend::BackendHelper
     params.each {|k,v| parameters += ", #{k}: '#{v}'" unless filter_params.include?(k) }
 
     html += javascript_tag do
-      "
+      <<-HERECODE
+      
       start = function(){
-  
+      
+        var highlight_category_id = #{categories_to_expand.first.try(:id).to_json}
+
         var categories_loader = new Ext.tree.TreeLoader({
           url: '#{url_for(:controller => :categories, :format => :ext_json)}',
           requestMethod:'GET'
@@ -247,16 +252,31 @@ module Backend::BackendHelper
             if(#{checkable}){
               element.attributes.checked = #{checked_nodes.collect(&:id).to_json}.include(element.attributes.real_id);
               if(#{Array(checked_nodes).collect(&:all_parents).flatten.uniq.collect(&:id).to_json}.include(element.attributes.real_id)) element.expand();
+            }else if(#{Array(categories_to_expand).collect(&:all_parents).flatten.uniq.collect(&:id).to_json}.include(element.attributes.real_id)){
+              element.expand();
             }
           });
         }, this);
 
+        /* select the highlight_category - this is only called once
+         * after the tree is rendered for the first time. After that
+         * the listener itself */
+        function select_highlight_category(node) {
+          node.eachChild( function(child) { 
+            if(child.attributes.real_id == highlight_category_id ) {
+              child.select();
+              categories_panel.un('expandnode', select_highlight_category);
+            }
+          });
+        };
+        categories_panel.on('expandnode', select_highlight_category);
+        
         // expand root node to trigger load of the first level of actual data
         categories_panel.getRootNode().expand();
       };
-  
-    Ext.onReady(start);
-    "
+
+      Ext.onReady(start);
+    HERECODE
     end
     return html
   end
