@@ -9,7 +9,7 @@ for @line in @contract.lines.sort
 	 		content_tag :td, :colspan => 5 do %>
           		<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model for") + " " + short_date(last_date) + " - " + short_date(last_end_date),
 				{:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
-                :title => _("Add Model"), :width => 1000 ) %>
+                :title => _("Add Model") ) %>
       		<% end
 		end if last_end_date
 
@@ -29,7 +29,7 @@ for @line in @contract.lines.sort
 			content_tag :td, :colspan => 5 do %>
 				<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model for") + " " + short_date(last_date) + " - " + short_date(last_end_date),
 				{:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
-				:title => _("Add Model"), :width => 1000 ) %>
+				:title => _("Add Model") ) %>
 		<% end
 		end
 		last_end_date = @line.end_date
@@ -44,7 +44,7 @@ for @line in @contract.lines.sort
 	content_tag :td, :colspan => 5 do %>
     	<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model for") + " " + short_date(last_date) + " - " + short_date(last_end_date),
 		{:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
-        :title => _("Add Model"), :width => 1000 ) %>
+        :title => _("Add Model") ) %>
 <% end
 end if last_end_date %>
 

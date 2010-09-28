@@ -17,12 +17,24 @@ module Backend::ModelsHelper
             background: none;
             border: none;
           }
+          #my_timeline table tr td {
+            vertical-align: top;
+            padding: 12px;
+          }
+          #my_timeline .timeline-ether-highlight {
+            background-color: #98d9e7;
+          }
+          /*
+          #my_timeline .timeline-event-tape {
+            height: 20px;
+          }
+          */
         HERECODE
       end
     end
 
     events = {}
-    partition = model.availability_changes.in(inventory_pool).current_partition #.sort {|a,b| a.first.to_i <=> b.first.to_i }
+    partition = model.availability_changes.in(inventory_pool).current_partition
 
     model.running_reservations(inventory_pool).each do |line|
       color = if not line.item
@@ -38,7 +50,7 @@ module Backend::ModelsHelper
       title = "#{line.document.user}"
       title += " (#{line.item.inventory_code})" if line.item
       events[group_id] ||= []
-      events[group_id] << {:start => line.start_date, :end => line.end_date, :durationEvent => true,
+      events[group_id] << {:start => line.start_date, :end => line.end_date.tomorrow - 1.second, :durationEvent => true,
                            :title => title, :description => "Group: #{line.allocated_group}<br>Phone: #{line.document.user.phone}",
                            :color => color, :textColor => 'black' }
     end
@@ -54,8 +66,9 @@ module Backend::ModelsHelper
     #bandInfos_js = ["Timeline.createBandInfo({ eventSource: eventSource[-1], overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top' })"]
     bandInfos_js = ["Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top', theme: theme })"]
     bandNames_js = [""] #_("Months")
-    partition.each_pair do |group_id, count|
-      group_id = group_id.to_i
+    partition.keys.sort {|a,b| a.to_i <=> b.to_i }.each do |k| # the to_i comparison is needed to convert nil to 0
+      group_id = k.to_i
+      count = partition[k]
       next unless events.keys.include?(group_id)
       w = [0, count].max * 40 + 40
       sum_w += w
@@ -76,11 +89,11 @@ module Backend::ModelsHelper
         var theme = Timeline.ClassicTheme.create();
         theme.firstDayOfWeek = 1;
         theme.autoWidth = true;
-//        theme.event.track.height = 15;
-//        theme.event.tape.height = 8;
-        theme.event.track.offset = 25;
-        //theme.ether.highlightColor = 'red';
+        theme.event.track.autoWidthMargin = 1.0;
+        theme.event.track.offset = 45;
+        theme.event.track.gap = -10;
         theme.event.overviewTrack.offset = 35;
+        theme.event.tape.height = 18;
         
         var bandNames = #{bandNames_js.to_json};
         

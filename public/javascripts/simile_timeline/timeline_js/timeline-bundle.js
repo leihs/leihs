@@ -1967,7 +1967,11 @@ var X=B;
 var C=X+I.width;
 var V=Math.max(C,A);
 var N=this._findFreeTrack(L,V);
-var U=Math.round(P.trackOffset+N*P.trackIncrement+T.event.tape.height);
+
+//sellittf//
+//var U=Math.round(P.trackOffset+N*P.trackIncrement+T.event.tape.height);
+var U=Math.round(P.trackOffset+N*P.trackIncrement);
+
 var Q=L.getColor();
 Q=Q!=null?Q:T.event.duration.color;
 var D=this._paintEventTape(L,N,B,A,Q,100,P,T,0);

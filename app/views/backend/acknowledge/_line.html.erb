@@ -24,13 +24,13 @@
 		<%= greybox_link_to_page(dates_with_period(@line.start_date, @line.end_date),
 		 		{ :action => 'time_lines', :id => @order.id, :lines => @line.id },
 				:class => "thickbox iconized-notxt date-edit" ,
-				:title => _("Time Period"), :width => 1000 ) %>
+				:title => _("Time Period") ) %>
 	</td>
 
 	<td class="buttons">
 		<%= greybox_link_to_page(icon_tag("arrow_switch") + " " + _("Swap"),
 		 		{ :action => 'swap_model_line', :id => @order.id, :line_id => @line.id },
-				:title => _("Swap Model"), :width => 1000 ) %>
+				:title => _("Swap Model") ) %>
 		<%= greybox_link_to_page(icon_tag("cancel") + " " + _("Delete"),
 		 		{ :action => 'remove_lines', :id => @order.id, :lines => @line.id },
 				:title => _("Remove Model"), :class => 'negative' ) %>

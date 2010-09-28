@@ -7,7 +7,7 @@ for @line in @order.lines.sort
 	  if last_end_date %>
 	    <tr><td colspan="4"><%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model for") + " " + short_date(last_date) +" - " + short_date(last_end_date), 
 	                                                  {:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
-	                                                  :title => _("Add Model"), :width => 1000 ) %></td></tr>
+	                                                  :title => _("Add Model") ) %></td></tr>
 	<% end 
 	   last_date = @line.start_date
   	 last_end_date = @line.end_date
@@ -19,7 +19,7 @@ for @line in @order.lines.sort
 	<% if last_end_date and last_end_date != @line.end_date	%>
     <tr><td colspan="4"><%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model for") + " " + short_date(last_date) +" - " + short_date(last_end_date), 
                                                   {:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
-                                                  :title => _("Add Model"), :width => 1000 ) %></td></tr>	  
+                                                  :title => _("Add Model") ) %></td></tr>	  
 	<% last_end_date = @line.end_date
 	end %>
 	
@@ -29,5 +29,5 @@ for @line in @order.lines.sort
 <% if last_end_date %>
     <tr><td colspan="4"><%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model for") + " " + short_date(last_date) +" - " + short_date(last_end_date), 
                                                   {:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
-                                                  :title => _("Add Model"), :width => 1000 ) %></td></tr>
+                                                  :title => _("Add Model") ) %></td></tr>
 <% end %>
