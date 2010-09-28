@@ -82,7 +82,13 @@ Scenario: Wartungsfenster für Gegenstände. Ramon fragen zu Details, oder Ticke
   Given pending - reported by Claudio when lizards were still fish
 
 Scenario: Absender-Mailadressen von Geräteparks validieren, sonst kann man irgendeinen Blödsinn eingeben und damit ActionMailer zum Verrecken bringen. 
-  Given pending - reported by Antony via Google Groups on 2010-09-14. 
+  Given pending - reported by Anthony via Google Groups on 2010-09-14. 
 
 Scenario: Take back: Verträge zusammengefasst nach Vertragsnummer anzeigen und jeweils auch Vertragsnotiz (falls vorhanden) anzeigen.
   Given pending - reported by Pius on 2010-09-14.
+
+Scenario: Mehrere Absender-Adressen für Geräteparks erlauben. Vielleicht einfach auf Komma splitten und ActionMailer den Rest machen lassen? inventory_pool.email.split(",")
+  Given pending - reported by Anthony via Google Groups around 2010-09-15.
+
+Scenario: Zusätzliches Feld bei Geräteparks: Reply-to. Pools z.B. in Worcester wollen eine andere Reply-Adresse, als bei diesen Parks im From-Feld steht.
+  Given pending - reported by Anthony via E-Mail around 2010-09-15.
