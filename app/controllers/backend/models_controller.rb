@@ -320,7 +320,6 @@ class Backend::ModelsController < Backend::BackendController
     @line = current_inventory_pool.contract_lines.find(params[:contract_line_id]) if params[:contract_line_id]
     @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
     if @line and not @category
-      puts "blllllllllllllllllllllllllllllllll"
       @category = @line.model.categories.first
       @show_categories_tree = true
     end
