@@ -24,11 +24,13 @@ module Backend::ModelsHelper
           #my_timeline .timeline-ether-highlight {
             background-color: #98d9e7;
           }
-          /*
-          #my_timeline .timeline-event-tape {
-            height: 20px;
+          #my_timeline .timeline-event-label {
+            padding-top: 0.2em;
+            padding-left: 0.2em;
           }
-          */
+          #my_timeline .tape-unavailable {
+            border: 1px solid red;
+          }
         HERECODE
       end
     end
@@ -52,7 +54,7 @@ module Backend::ModelsHelper
       events[group_id] ||= []
       events[group_id] << {:start => line.start_date, :end => line.end_date.tomorrow - 1.second, :durationEvent => true,
                            :title => title, :description => "Group: #{line.allocated_group}<br>Phone: #{line.document.user.phone}",
-                           :color => color, :textColor => 'black' }
+                           :color => color, :textColor => 'black', :classname => (line.available? ? "unavailable" : nil) }
     end
 
     #eventSource_js = ["eventSource[-1] = new Timeline.DefaultEventSource(); eventSource[-1].loadJSON(#{{:events => events.values.flatten}.to_json}, document.location.href);"]
