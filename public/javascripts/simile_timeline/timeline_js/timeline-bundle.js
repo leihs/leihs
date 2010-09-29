@@ -1784,7 +1784,10 @@ E=true;
 }break;
 case SimileAjax.DateTime.HOUR:C=B.getUTCHours()+"hr";
 break;
-case SimileAjax.DateTime.DAY:C=Timeline.GregorianDateLabeller.getMonthName(B.getUTCMonth(),this._locale)+" "+B.getUTCDate();
+//sellittf//
+//case SimileAjax.DateTime.DAY:C=Timeline.GregorianDateLabeller.getMonthName(B.getUTCMonth(),this._locale)+" "+B.getUTCDate();
+case SimileAjax.DateTime.DAY:C=Timeline.GregorianDateLabeller.getMonthName(B.getUTCMonth(),this._locale)+"<br />"+B.getUTCDate();
+
 break;
 case SimileAjax.DateTime.WEEK:C=Timeline.GregorianDateLabeller.getMonthName(B.getUTCMonth(),this._locale)+" "+B.getUTCDate();
 break;

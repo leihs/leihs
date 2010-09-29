@@ -3,9 +3,11 @@ module Backend::ModelsHelper
   def timeline(model, inventory_pool)
     content_for :head do
       r = javascript_tag do
-        p = "Timeline_ajax_url='/javascripts/simile_timeline/timeline_ajax/simile-ajax-api.js';"
-        p += "Timeline_urlPrefix='/javascripts/simile_timeline/timeline_js/';"       
-        p += "Timeline_parameters='bundle=true';"
+        <<-HERECODE
+          Timeline_ajax_url='/javascripts/simile_timeline/timeline_ajax/simile-ajax-api.js';
+          Timeline_urlPrefix='/javascripts/simile_timeline/timeline_js/';
+          Timeline_parameters='bundle=true&forceLocale=#{locale.language}';
+        HERECODE
       end
       r += javascript_include_tag "simile_timeline/timeline_js/timeline-api.js"
       r += javascript_tag do
@@ -24,11 +26,13 @@ module Backend::ModelsHelper
           #my_timeline .timeline-ether-highlight {
             background-color: #98d9e7;
           }
-          /*
-          #my_timeline .timeline-event-tape {
-            height: 20px;
+          #my_timeline .timeline-event-label {
+            padding-top: 0.2em;
+            padding-left: 0.2em;
           }
-          */
+          #my_timeline .tape-unavailable {
+            border: 1px solid red;
+          }
         HERECODE
       end
     end
@@ -38,7 +42,7 @@ module Backend::ModelsHelper
 
     model.running_reservations(inventory_pool).each do |line|
       color = if not line.item
-                'grey'
+                '#90c1c8'
               elsif line.is_late?
                 'red'
               elsif line.returned_date
@@ -47,21 +51,32 @@ module Backend::ModelsHelper
                 '#e3aa01'
               end
       group_id = line.allocated_group.try(:id).to_i
-      title = "#{line.document.user}"
-      title += " (#{line.item.inventory_code})" if line.item
+      title = "#{line.document.user} (#{line.item.try(:inventory_code) || _("Quantity: %d") % line.quantity})"
+      link_string, link_path = if line.is_a?(OrderLine)
+                                 [icon_tag("accept") + _("Acknowledge"), backend_inventory_pool_user_acknowledge_path(current_inventory_pool, line.document.user, line.document)]
+                               elsif line.document.status_const == Contract::UNSIGNED
+                                 [icon_tag("arrow_turn_right") + _("Hand Over"), backend_inventory_pool_user_hand_over_path(current_inventory_pool, line.document.user)]
+                               else
+                                 [icon_tag("arrow_undo") + _("Take Back"), backend_inventory_pool_user_take_back_path(current_inventory_pool, line.document.user)]
+                               end
+      document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
+                        link_to link_string, link_path, :target => :blank
+                      end
+      description = "Group: #{line.allocated_group}<br />Phone: #{line.document.user.phone}<br />#{document_link}"
       events[group_id] ||= []
-      events[group_id] << {:start => line.start_date, :end => line.end_date.tomorrow - 1.second, :durationEvent => true,
-                           :title => title, :description => "Group: #{line.allocated_group}<br>Phone: #{line.document.user.phone}",
-                           :color => color, :textColor => 'black' }
+      events[group_id] << {:start => line.start_date.to_time.rfc2822, :end => (line.end_date.tomorrow.to_time - 1.second).rfc2822, :durationEvent => true,
+                           :title => title, :description => description,
+                           :color => color, :textColor => 'black', :classname => (!line.item and !line.available? ? "unavailable" : nil) }
     end
 
     #eventSource_js = ["eventSource[-1] = new Timeline.DefaultEventSource(); eventSource[-1].loadJSON(#{{:events => events.values.flatten}.to_json}, document.location.href);"]
     eventSource_js = []
     events.each_pair do |group_id, event|
-      json = {:events => event}.to_json
+      json = {:events => event}.to_json 
       eventSource_js << "eventSource[#{group_id}] = new Timeline.DefaultEventSource(); eventSource[#{group_id}].loadJSON(#{json}, document.location.href);"
     end
 
+    # TODO dynamic timeZone, get rid of GMT in the bubble
     sum_w = 35
     #bandInfos_js = ["Timeline.createBandInfo({ eventSource: eventSource[-1], overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top' })"]
     bandInfos_js = ["Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top', theme: theme })"]
@@ -72,11 +87,11 @@ module Backend::ModelsHelper
       next unless events.keys.include?(group_id)
       w = [0, count].max * 40 + 40
       sum_w += w
-      bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], width: '#{w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 46, align: 'Top', theme: theme })"
+      bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], width: '#{w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
       bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : "")
     end
 
-
+    # TODO automatic autowidth
     r = javascript_tag do
       <<-HERECODE
       window.jQuery = SimileAjax.jQuery;
@@ -107,8 +122,8 @@ module Backend::ModelsHelper
           if(i != 1) bandInfos[i].syncWith = 1;
           bandInfos[i].decorators = [
               new Timeline.SpanHighlightDecorator({
-                  startDate:  #{Date.today.to_json},
-                  endDate:    #{Date.tomorrow.to_json},
+                  startDate:  "#{Date.today.to_time.rfc2822}",
+                  endDate:    "#{Date.tomorrow.to_time.rfc2822}",
                   color:      "#DD5",
                   opacity:    50,
                   startLabel: bandNames[i]

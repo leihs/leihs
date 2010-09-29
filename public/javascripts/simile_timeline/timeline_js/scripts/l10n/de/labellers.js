@@ -16,7 +16,9 @@ Timeline.GregorianDateLabeller.labelIntervalFunctions["de"] = function(date, int
     switch(intervalUnit) {
     case Timeline.DateTime.DAY:
     case Timeline.DateTime.WEEK:
-        text = date2.getUTCDate() + ". " +
+		//sellittf//
+        //text = date2.getUTCDate() + ". " +
+        text = date2.getUTCDate() + ".<br />" +
             Timeline.GregorianDateLabeller.getMonthName(date2.getUTCMonth(), this._locale);
         break;
     default:
