@@ -49,16 +49,15 @@ class Document < ActiveRecord::Base
 
   def add_line(quantity, model, user_id, start_date = nil, end_date = nil, inventory_pool = nil)
       end_date = start_date if end_date and start_date and end_date < start_date
-      
-      document_line = "#{self.class}Line".constantize
-      o = document_line.new(:quantity => quantity || 1,
-                            :model_id => model.to_i,
-                            :start_date => start_date || time_window_min,
-                            :end_date => end_date || next_open_date(time_window_max))
-      o.inventory_pool = inventory_pool if inventory_pool and o.is_a?(OrderLine) # TODO: This is not very nice :-(
-      
-      log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id)
-      lines << o
+
+      line = send(self.is_a?(Order) ? "order_lines" : "item_lines").create(:quantity => quantity || 1,
+                                                                           :model => model,
+                                                                           :start_date => start_date || time_window_min,
+                                                                           :end_date => end_date || next_open_date(time_window_max)) do |l|
+                          l.inventory_pool = inventory_pool if inventory_pool and self.is_a?(Order) # TODO: This is not very nice :-(
+                        end
+
+      log_change(_("Added") + " #{quantity} #{model.name} #{start_date} #{end_date}", user_id) unless line.new_record?             
   end
 
   def swap_line(line_id, model_id, user_id)
