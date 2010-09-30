@@ -35,14 +35,6 @@ class OrderLine < DocumentLine
     nil
   end
 
-  def available?
-    av = (super and inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)) 
-    if order.user
-      av = (av and not order.user.access_right_for(inventory_pool).suspended?)
-    end
-    return av
-  end
-
 ###############################################
 
   private

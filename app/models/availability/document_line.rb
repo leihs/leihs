@@ -44,7 +44,7 @@ module Availability
       #  false
 
       #tmp#1 doesn't work for tests
-      if end_date < Date.today # check if it was never handed over
+      av = if end_date < Date.today # check if it was never handed over
         false
       elsif is_a?(OrderLine) and order.status_const == Order::UNSUBMITTED
         # the user's unsubmitted order_lines should exclude each other
@@ -54,6 +54,14 @@ module Availability
         #tmp#5 use :availability_quantities through association
         availability_out_document_lines.count(:joins => :quantity, :conditions => "availability_quantities.in_quantity < 0").zero?
       end
+
+      # OPTIMIZE
+      if av and is_a?(OrderLine)
+        av = (av and inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)) 
+        av = (av and not order.user.access_right_for(inventory_pool).suspended?) if order.user # OPTIMIZE why checking for user ??
+      end
+      
+      return av
     end
 
     def allocated_group
