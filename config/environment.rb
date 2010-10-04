@@ -123,8 +123,22 @@ ExceptionNotifier.email_prefix = "[leihs:ERROR] "
 # Settings
 
 FRONTEND_SPLASH_PAGE = false
+
+# This currency string is used on value lists. leihs itself has no capability
+# to deal with currencies, any numbers used as values for items are just "n pieces of currency"
+LOCAL_CURRENCY_STRING = "CHF"
+
+# These terms are printed at the bottom of lending contracts.
+CONTRACT_TERMS = "Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die 'Richtlinie zur Ausleihe von Sachen' der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien."
+
+# This is used as address block on the top of contracts. Use \n if you
+# want to create a line break.
 CONTRACT_LENDING_PARTY_STRING = "Your\nAddress\nHere"
+
+# This is appended to the bottom of e-mails sent by the system
 EMAIL_SIGNATURE = "Das PZ-leihs Team"
+
+# The file we get our LDAP configuration from
 LDAP_CONFIG = YAML::load_file(RAILS_ROOT+'/config/LDAP.yml')
 
 # The email address that inventory pool related messages are sent to

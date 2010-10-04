@@ -88,4 +88,4 @@ pdf.text( _("This value list covers an order lasting from %s to %s." % [short_da
 
 pdf.move_down 10.mm
 
-pdf.text(_("All prices in CHF."))
+pdf.text(filter( _("All prices in %s." % LOCAL_CURRENCY_STRING)) )
