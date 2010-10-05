@@ -2,7 +2,7 @@ set :application, "leihs2"
 
 set :scm, :git
 set :repository,  "git://github.com/psy-q/leihs.git"
-set :branch, "leihs-without-general-group"
+set :branch, "master"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/rails/leihs/leihs2/database.yml"
