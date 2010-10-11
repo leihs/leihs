@@ -299,6 +299,50 @@ The upgrade should be painless.
 If everything went correctly, you should see leihs coming up at http://localhost:3000. 
 
 
+== Upgrading from leihs 2.2 to leihs 2.3 ==
+
+The upgrade should be painless, but please note that the access levels were replaced by user groups in this release. This can give you almost the same behavior, but it's different to manage. You now specify groups in the admin interface or your inventory pool's backend, and then specify how many items of each model that each group can have.
+
+If you had existing user levels in your system, these will be automatically converted to user groups during the database migration (db:migrate). This is documented below.
+
+1. Download the new leihs version (in this example, the .tar.gz version is used) and unpack it to a new location:
++
+ $ tar xvfz leihs-2.3.tar.gz
+ $ cd leihs-2.3
+
+2. Copy any images uploaded to your old leihs version so they are also available in the new leihs:
++
+ $ rm -rf public/images/attachments
+ $ cp -pr ../leihs-2.2/public/images/attachments public/images/
+
+3. Copy your old database configuration file:
++
+ $ cp ../leihs-2.2/config/database.yml config/
+
+4. Look at your old config/environment.rb file in a text editor. Open the new config/environment.rb. Copy the configuration items from your old config to your new config as necessary. You might find new options in the new environment.rb that weren't present in the old one. Save your new configuration.
+
+5. Run the database migration to get all your data up to the new version:
++
+ $ RAILS_ENV='production' rake db:migrate
+
+6. Run the server. Make sure you stop your previous leihs server! If you use mod_passenger, do +touch tmp/restart.txt+ instead.
++
+ $ RAILS_ENV='production' ./script/server
+
+7. Stop the Sphinx server that's running for leihs 2.2.:
++
+ $ cd leihs-2.2
+ $ RAILS_ENV=production rake ts:stop
+
+8. Reindex Sphinx at the new location and restart the Sphinx server: 
++
+ $ cd leihs-2.3
+ $ RAILS_ENV=production rake ts:config
+ $ RAILS_ENV=production rake ts:reindex
+ $ RAILS_ENV=production rake ts:start
+
+If everything went correctly, you should see leihs coming up at http://localhost:3000 or, if using mod_passenger, at the location you configured. 
+
 
 == Installing a production environment ==
 
