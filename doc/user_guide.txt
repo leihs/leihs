@@ -4,9 +4,12 @@ Your Name Here <your.email.here@example.com>
 
 == Introduction ==
 
-leihs is web-based inventory handling and resource booking system. It allows users to view available equipment and place reservations through the frontend. Inventory managers and sysadmins use the backend to handle incoming reservations and manage items in the inventory.
+leihs is web-based inventory handling and resource booking system. It allows users to view available equipment and
+place reservations through the frontend. Inventory managers and sysadmins use the backend to handle incoming
+reservations and manage items in the inventory.
 
-This guide shows you how to use leihs. You don't need to install anything on your own machine to use leihs, all you need is a web browser.
+This guide shows you how to use leihs. You don't need to install anything on your own machine to use leihs, all you
+need is a web browser.
 
 
 == Definitions ==
@@ -23,7 +26,9 @@ Customer:
 Inventory Pool:
     TODO
 Item:
-    a thing that can be borrowed. An Items is of a certrain "Model". An "Inventory Pool" can have several "Lenovo T40" laptops. Thus "Lenovo T40" would be the "Model" of which the "Inventory Pool" could have three "Items" labeled "T40-1", "T40-2", and "T40-3"
+    a thing that can be borrowed. An Items is of a certrain "Model". An "Inventory Pool" can have several "Lenovo T40"
+    laptops. Thus "Lenovo T40" would be the "Model" of which the "Inventory Pool" could have three "Items" labeled
+    "T40-1", "T40-2", and "T40-3"
 Manager:
     a "User" that has the right to lend "Items".
 Model:
@@ -31,16 +36,20 @@ Model:
 Order:
     TODO
 User:
-    can be a Customer and/or Manager or a Administrator. These "Access Rights" are given per "Inventory Pool" or in the case of the Administrator for the whole of leihs.
+    can be a Customer and/or Manager or a Administrator. These "Access Rights" are given per "Inventory Pool" or in the
+    case of the Administrator for the whole of leihs.
 
 
 == Management of the Borrowing Workflow ==
 
-When handing over items to the customer, leihs will by default produce a PDF contract and display it to the inventory pool manager that is executing the transaction, at which moment the manager can print out the PDF contract.
+When handing over items to the customer, leihs will by default produce a PDF contract and display it to the inventory
+pool manager that is executing the transaction, at which moment the manager can print out the PDF contract.
 
-He can now give the contract to the customer for signature or proceed with other offline (that is not part of leihs itself) steps in the borrowing process.
+He can now give the contract to the customer for signature or proceed with other offline (that is not part of leihs
+itself) steps in the borrowing process.
 
-If the inventory pool manager does not wish to see contracts when he hands over items, then he can configure that. There is a checkbox "Print contracts" in Backend->Administration->Inventory Pool->bottom of the page. 
+If the inventory pool manager does not wish to see contracts when he hands over items, then he can configure that.
+There is a checkbox "Print contracts" in Backend->Administration->Inventory Pool->bottom of the page. 
 
 
 == About this Document ==
