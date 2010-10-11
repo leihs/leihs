@@ -2,10 +2,6 @@ leihs user guide
 ================
 Your Name Here <your.email.here@example.com>
 
-=== Contributors ===
-
-Tomáš Pospíšek <tomas.pospisek@zhdk.ch>
-
 == Introduction ==
 
 leihs is web-based inventory handling and resource booking system. It allows users to view available equipment and place reservations through the frontend. Inventory managers and sysadmins use the backend to handle incoming reservations and manage items in the inventory.
@@ -43,5 +39,13 @@ When handing over items to the customer, leihs will by default produce a PDF con
 He can now give the contract to the customer for signature or proceed with other offline (that is not part of leihs itself) steps in the borrowing process.
 
 If the inventory pool manager does not wish to see contracts when he hands over items, then he can configure that. There is a checkbox "Print contracts" in Backend->Administration->Inventory Pool->bottom of the page. 
+
+== About this Document ==
+
+This document was written in Asciidoc: http://www.methods.co.nz/asciidoc/
+
+=== Contributors ===
+
+Tomáš Pospíšek <tomas.pospisek@zhdk.ch>
 
 == TODO: More Sections Go Here ==
