@@ -1,0 +1,11 @@
+leihs user guide 
+================
+Your Name Here <your.email.here@example.com>
+
+== Introduction ==
+
+leihs is web-based inventory handling and resource booking system. It allows users to view available equipment and place reservations through the frontend. Inventory managers and sysadmins use the backend to handle incoming reservations and manage items in the inventory.
+
+This guide shows you how to use leihs. You don't need to install anything on your own machine to use leihs, all you need is a web browser.
+
+== TODO: More Sections Go Here ==
