@@ -24,7 +24,7 @@ Contract:
 Customer:
     a "User" that has the right to borrow "Items". See also "User"
 Inventory Pool:
-    bla
+    TODO
 Item:
     a thing that can be borrowed. An Items is of a certrain "Model". An "Inventory Pool" can have several "Lenovo T40" laptops. Thus "Lenovo T40" would be the "Model" of which the "Inventory Pool" could have three "Items" labeled "T40-1", "T40-2", and "T40-3"
 Manager:
@@ -32,6 +32,7 @@ Manager:
 Model:
     see "Item"
 Order:
+    TODO
 User:
     can be a Customer and/or Manager or a Administrator. These "Access Rights" are given per "Inventory Pool" or in the case of the Administrator for the whole of leihs.
   
