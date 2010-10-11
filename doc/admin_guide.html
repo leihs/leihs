@@ -1029,6 +1029,88 @@ Run the server. Make sure you stop your previous leihs server!
 </ol></div>
 <div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a>.</p></div>
 </div>
+<h2 id="_upgrading_from_leihs_2_2_to_leihs_2_3">Upgrading from leihs 2.2 to leihs 2.3</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The upgrade should be painless, but please note that the access levels were replaced by user groups in this release. This can give you almost the same behavior, but it&#8217;s different to manage. You now specify groups in the admin interface or your inventory pool&#8217;s backend, and then specify how many items of each model that each group can have.</p></div>
+<div class="paragraph"><p>If you had existing user levels in your system, these will be automatically converted to user groups during the database migration (db:migrate). This is documented below.</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Download the new leihs version (in this example, the .tar.gz version is used) and unpack it to a new location:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ tar xvfz leihs-2.3.tar.gz
+$ cd leihs-2.3</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Copy any images uploaded to your old leihs version so they are also available in the new leihs:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ rm -rf public/images/attachments
+$ cp -pr ../leihs-2.2/public/images/attachments public/images/</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Copy your old database configuration file:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cp ../leihs-2.2/config/database.yml config/</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Look at your old config/environment.rb file in a text editor. Open the new config/environment.rb. Copy the configuration items from your old config to your new config as necessary. You might find new options in the new environment.rb that weren&#8217;t present in the old one. Save your new configuration.
+</p>
+</li>
+<li>
+<p>
+Run the database migration to get all your data up to the new version:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ RAILS_ENV='production' rake db:migrate</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Run the server. Make sure you stop your previous leihs server! If you use mod_passenger, do <tt>touch tmp/restart.txt</tt> instead.
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ RAILS_ENV='production' ./script/server</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Stop the Sphinx server that&#8217;s running for leihs 2.2.:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd leihs-2.2
+$ RAILS_ENV=production rake ts:stop</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Reindex Sphinx at the new location and restart the Sphinx server:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd leihs-2.3
+$ RAILS_ENV=production rake ts:config
+$ RAILS_ENV=production rake ts:reindex
+$ RAILS_ENV=production rake ts:start</tt></pre>
+</div></div>
+</li>
+</ol></div>
+<div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a> or, if using mod_passenger, at the location you configured.</p></div>
+</div>
 <h2 id="_installing_a_production_environment">Installing a production environment</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Please note that this quick-start guide does not cover running a Ruby on Rails application for production. Please look into <a href="http://www.modrails.com/">Phusion Passenger</a> or the Apache Mongrel cluster in the reference section for how to set up a production environment.</p></div>
@@ -1117,7 +1199,7 @@ Run the server. Make sure you stop your previous leihs server!
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2010-09-22 09:46:43 CEST
+Last updated 2010-10-11 13:47:12 CEST
 </div>
 </div>
 </body>
