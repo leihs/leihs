@@ -45,16 +45,19 @@ class Backend::HandOverController < Backend::BackendController
   def sign_contract
     @lines = @contract.contract_lines.find(params[:lines].split(',')) if params[:lines]
     @lines ||= []
+    params[:layout] = "modal"
     if request.post?
       @contract.note = params[:note]
       @contract.sign(@lines, current_user)
-      params[:layout] = "modal"
-      render :action => 'print_contract' 
+      if current_inventory_pool.print_contracts
+        render :action => 'print_contract'
+      else
+        redirect_to :action => 'index'
+      end
     else
       @lines = @lines.delete_if {|l| l.item.nil? }
       flash[:error] = _("No items to hand over specified. Please assign inventory codes to the items you want to hand over.") if @lines.empty?
     end    
-    params[:layout] = "modal"
   end
 
   # change quantity: duplicating item_line or (TODO) changing quantity for option_line
