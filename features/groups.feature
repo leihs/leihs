@@ -24,10 +24,12 @@ Feature: Implement new Group feature
 		 And one item of that model should be available in group 'CAST'
 
 		Given a customer "Tomáš" that belongs to group "CAST"
-		When I lend one item of model "Olympus PEN E-P2" to "Tomáš"
+		When I lend one item of that model to "Tomáš"
 		Then 2 items of that model should be available to everybody
-		 And no items of that model should be available in group 'CAST'
-		 And one item of that model should be borrowed in group 'CAST'
+
+		When I add a new group "Video"
+		 And I assign 2 items to group "Video"
+		Then no items of that model should be available to "Tomáš"
 
 		When "Tomáš" returns the item
 		Then 2 items of that model should be available to everybody

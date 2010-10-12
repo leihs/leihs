@@ -13,6 +13,7 @@ Then "that model should not be available in any other group"  do
 end
 
 Then /^(\w+) item(s?) of that model should be available in group '([^"]*)'( only)?$/ do |n, plural, group_name, exclusivity|
+  n = to_number(n)
   @group = @inventory_pool.groups.find_by_name(group_name)
   all_groups = [Group::GENERAL_GROUP_ID] + @inventory_pool.groups.map(&:id)
   quantities = @model.availability_changes.in(@inventory_pool).current_partition
@@ -35,10 +36,6 @@ Then /^no items of that model should be available in any group$/ do
   # will not find any group of that name, which is OK
   # this is an artifact of the olde days when the 'General' group existed...
   Then "0 items of that model should be available in group 'NotExistent' only"
-end
-
-Then "that model should not be available to anybody" do
-  Then "0 items of that model should be available to everybody"
 end
 
 Then "that model should not be available in any group"  do
@@ -67,12 +64,21 @@ When /^I assign (\w+) item(s?) to group "([^"]*)"$/ do |n, plural, to_group_name
   @model.availability_changes.in(@inventory_pool).recompute(partition)
 end
 
+Then "that model should not be available to anybody" do
+  Then "0 items of that model should be available to everybody"
+end
+
 Then "$n items of that model should be available to everybody" do |n|
   User.all.each do |user|
-    @model.availability_changes.in(@inventory_pool).
-	   maximum_available_in_period_for_user(@user, Date.today, Date.tomorrow ).\
-	   should == n.to_i
+    Then "#{n} items of that model should be available to \"#{user.login}\""
   end
+end
+
+Then "$n items of that model should be available to \"$user\"" do |n,user|
+  @user = User.find_by_login user
+  @model.availability_changes.in(@inventory_pool).
+         maximum_available_in_period_for_user(@user, Date.today, Date.tomorrow ).\
+	 should == n.to_i
 end
 
 # Groups
@@ -115,20 +121,35 @@ Given /^a customer "([^"]*)" that belongs to group "([^"]*)"$/ do |user, group|
   @group.save!
 end
 
-When /^I lend one item of model "([^"]*)" to "([^"]*)"$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
-end
-
-When /^"([^"]*)" returns the item$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
-
 Given /^(\d+) item of that model in the "([^"]*)" group$/ do |arg1, arg2|
   pending # express the regexp above with the code you wish you had
 end
 
-When /^I lend (\d+) items of that model to "([^"]*)"$/ do |n, user|
-  pending # express the regexp above with the code you wish you had
+When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user|
+  @user = User.find_by_login user
+  n = to_number(n)
+  o = Order.new
+  o.user = @user
+  o.inventory_pool = @inventory_pool
+  ol = OrderLine.new
+  ol.model = @model
+  ol.quantity = n
+  ol.inventory_pool = @inventory_pool
+  ol.start_date = Date.today
+  ol.end_date   = Date.tomorrow
+  o.lines << ol
+  ol.order = o
+  o.save.should == true
+  o.submit.should == true
+  o.approve("foo'lish comment") == true
+  c = Contract.find_by_user_id @user
+  c.sign
+end
+
+When /^"([^"]*)" returns the item$/ do |user|
+  @user = User.find_by_login user
+  c = Contract.find_by_user_id @user
+  c.close.should == true
 end
 
 # Inventory Pools
