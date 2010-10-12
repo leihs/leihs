@@ -1,18 +1,18 @@
 # Models
 
-When /^I register a new Model '([^']*)'$/ do |model|
+When /^I register a new model '([^']*)'$/ do |model|
   Given "a model '#{model}' exists"
 end
 
 # Models in Groups
-Then "that Model should not be available in any other Group"  do
+Then "that model should not be available in any other group"  do
   quantities = @model.in(@inventory_pool).\
 	       maximum_available_in_period_for_groups(
 		 @inventory_pool.groups.all(:conditions => ['id != ?',@group]))
   quantities.values.reduce(:+).to_i.should == 0
 end
 
-Then /^(\w+) item(s?) of that Model should be available in Group '([^"]*)'( only)?$/ do |n, plural, group_name, exclusivity|
+Then /^(\w+) item(s?) of that model should be available in group '([^"]*)'( only)?$/ do |n, plural, group_name, exclusivity|
   @group = @inventory_pool.groups.find_by_name(group_name)
   all_groups = [Group::GENERAL_GROUP_ID] + @inventory_pool.groups.map(&:id)
   quantities = @model.availability_changes.in(@inventory_pool).current_partition
@@ -23,7 +23,7 @@ Then /^(\w+) item(s?) of that Model should be available in Group '([^"]*)'( only
   end if exclusivity
 end
 
-When /^I move (\w+) item(s?) of that Model from Group "([^"]*)" to Group "([^"]*)"$/ do |n, plural, from_group_name, to_group_name|
+When /^I move (\w+) item(s?) of that model from group "([^"]*)" to group "([^"]*)"$/ do |n, plural, from_group_name, to_group_name|
   from_group = @inventory_pool.groups.find_by_name from_group_name
   to_group   = @inventory_pool.groups.find_by_name to_group_name
   to_number(n).times do
@@ -31,34 +31,34 @@ When /^I move (\w+) item(s?) of that Model from Group "([^"]*)" to Group "([^"]*
   end
 end
 
-Then /^no items of that Model should be available in any group$/ do
+Then /^no items of that model should be available in any group$/ do
   # will not find any group of that name, which is OK
   # this is an artifact of the olde days when the 'General' group existed...
-  Then "0 items of that Model should be available in Group 'NotExistent' only"
+  Then "0 items of that model should be available in group 'NotExistent' only"
 end
 
-Then "that Model should not be available to anybody" do
-  Then "0 items of that Model should be available to everybody"
+Then "that model should not be available to anybody" do
+  Then "0 items of that model should be available to everybody"
 end
 
-Then "that Model should not be available in any group"  do
+Then "that model should not be available in any group"  do
   @model.availability_changes.in(@inventory_pool).current_partition.\
 	 reject { |group_id, num| group_id == nil }.\
          reduce(:+).to_i.should == 0
 end
 
-Given /^(\d+) items of that Model in Group "([^"]*)"$/ do |n, group_name|
+Given /^(\d+) items of that model in group "([^"]*)"$/ do |n, group_name|
   Given "#{n} items of model '#{@model.name}' exist"
-  When "I assign #{n} items to Group \"#{group_name}\""
+  When "I assign #{n} items to group \"#{group_name}\""
 end
 
 # Items
 
-When /^I add (\d+) item(s?) of that Model$/ do |n, plural|
+When /^I add (\d+) item(s?) of that model$/ do |n, plural|
   Given "#{n} items of model '#{@model.name}' exist"
 end
 
-When /^I assign (\w+) item(s?) to Group "([^"]*)"$/ do |n, plural, to_group_name|
+When /^I assign (\w+) item(s?) to group "([^"]*)"$/ do |n, plural, to_group_name|
   n = to_number(n)
   to_group = @inventory_pool.groups.find_by_name to_group_name
   partition = @model.availability_changes.in(@inventory_pool).current_partition
@@ -67,7 +67,7 @@ When /^I assign (\w+) item(s?) to Group "([^"]*)"$/ do |n, plural, to_group_name
   @model.availability_changes.in(@inventory_pool).recompute(partition)
 end
 
-Then "$n items of that Model should be available to everybody" do |n|
+Then "$n items of that model should be available to everybody" do |n|
   User.all.each do |user|
     @model.availability_changes.in(@inventory_pool).
 	   maximum_available_in_period_for_user(@user, Date.today, Date.tomorrow ).\
@@ -76,15 +76,15 @@ Then "$n items of that Model should be available to everybody" do |n|
 end
 
 # Groups
-When /^I add a new Group "([^"]*)"$/ do |name|
+When /^I add a new group "([^"]*)"$/ do |name|
   @inventory_pool.groups.create(:name => name)
 end
 
-Given /^a Group "([^"]*)"$/ do |name|
-  When "I add a new Group \"#{name}\""
+Given /^a group "([^"]*)"$/ do |name|
+  When "I add a new group \"#{name}\""
 end
 
-Then /^he must be in Group '(\w+)'( in inventory pool )?('[^']*')?$/ \
+Then /^he must be in group '(\w+)'( in inventory pool )?('[^']*')?$/ \
 do |group, filler, inventory_pool|
   inventory_pools = []
   if inventory_pool
@@ -106,7 +106,7 @@ When "I create a user '$user_name'" do |user|
 			       { :inventory_pool => @inventory_pool } )
 end
 
-Given /^a customer "([^"]*)" that belongs to Group "([^"]*)"$/ do |user, group|
+Given /^a customer "([^"]*)" that belongs to group "([^"]*)"$/ do |user, group|
   @user = Factory.create_user( { :login => user },
 			       { :role => 'customer',
 			         :inventory_pool => @inventory_pool } )
@@ -115,7 +115,7 @@ Given /^a customer "([^"]*)" that belongs to Group "([^"]*)"$/ do |user, group|
   @group.save!
 end
 
-When /^I lend one item of Model "([^"]*)" to "([^"]*)"$/ do |arg1, arg2|
+When /^I lend one item of model "([^"]*)" to "([^"]*)"$/ do |arg1, arg2|
   pending # express the regexp above with the code you wish you had
 end
 
@@ -123,11 +123,11 @@ When /^"([^"]*)" returns the item$/ do |arg1|
   pending # express the regexp above with the code you wish you had
 end
 
-Given /^(\d+) item of that Model in the "([^"]*)" Group$/ do |arg1, arg2|
+Given /^(\d+) item of that model in the "([^"]*)" group$/ do |arg1, arg2|
   pending # express the regexp above with the code you wish you had
 end
 
-When /^I lend (\d+) items of that Model to "([^"]*)"$/ do |n, user|
+When /^I lend (\d+) items of that model to "([^"]*)"$/ do |n, user|
   pending # express the regexp above with the code you wish you had
 end
 
