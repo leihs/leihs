@@ -60,7 +60,7 @@ module Backend::ModelsHelper
                                  [icon_tag("arrow_undo") + _("Take Back"), backend_inventory_pool_user_take_back_path(current_inventory_pool, line.document.user)]
                                end
       document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
-                        link_to link_string, link_path, :target => :blank
+                        link_to link_string, link_path
                       end
       description = "Group: #{line.allocated_group}<br />Phone: #{line.document.user.phone}<br />#{document_link}"
       events[group_id] ||= []
@@ -85,7 +85,7 @@ module Backend::ModelsHelper
       group_id = k.to_i
       count = partition[k]
       next unless events.keys.include?(group_id)
-      w = [0, count].max * 40 + 40
+      w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
       sum_w += w
       bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], width: '#{w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
       bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : "")
