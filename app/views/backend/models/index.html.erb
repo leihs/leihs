@@ -1,8 +1,8 @@
-<% if @show_categories_tree %>  
-    <% categories = (@line ? @line.model.categories : [] ) %>
-	<%= extjs_model_tree(false, [], categories) %>
+<% if @show_categories_tree %>
 	<table><tr>
-	<td id="categories" style="vertical-align:top;" width="20%">
+	<td style="vertical-align:top; width: 250px;">
+	    <% categories = (@line ? @line.model.categories : [] ) %>
+		<%= category_tree(true, categories) %>
 	</td>
 	<td style="vertical-align:top;" width="80%">
 <% end %>  

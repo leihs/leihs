@@ -82,7 +82,7 @@ ActionController::Routing::Routes.draw do |map|
                                                      :update_package => :put,
                                                      :package_roots => :any,
                                                      :package_item => [:get, :put, :delete],
-                                                     :categories => [:get, :post, :delete],
+                                                     :categories => [:get, :post],
                                                      :images => [:get, :post, :delete],
                                                      :attachments => [:get, :post, :delete],
                                                      :set_group_partition => :post } do |model|

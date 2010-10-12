@@ -8,7 +8,7 @@ class ModelGroup < ActiveRecord::Base
 
 ##################################################
 
-  # OPTIMIZE use acts-as-dag instead ??
+  # OPTIMIZE use acts-as-dag plugin instead ?? or dagnabit gem ??
   acts_as_graph :edge_table => "model_groups_parents",
                 :child_col => "model_group_id"
   # TODO contribute to acts_as_graph

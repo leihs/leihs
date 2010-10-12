@@ -1,12 +1,9 @@
 <% if @show_categories_tree %>  
-
-	<%= extjs_model_tree %>
-	  
 <table><tr>
-<td id="categories" style="vertical-align:top;" width="20%">
-
+<td style="vertical-align:top; width: 250px;">
+	<%= category_tree %>
 </td>
-<td style="vertical-align:top;" width="80%">
+<td style="vertical-align:top;">
 <% end %>  
 
 <% if params[:source_path].blank? %>
