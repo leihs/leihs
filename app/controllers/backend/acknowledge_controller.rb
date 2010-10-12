@@ -20,6 +20,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def show
     @order.to_backup unless @order.has_backup?
+    add_visitor(@order.user)
   end
   
   def approve
