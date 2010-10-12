@@ -7,6 +7,7 @@
 	<tr><td><b><%= _("Description") %>:</b></td><td><%= is_inventory_manager? ? f.text_area(:description, :rows => 6, :cols => 50) : current_inventory_pool.description %></td></tr>	
 	<tr><td><b><%= _("Default contract note") %>:</b></td><td><%= is_inventory_manager? ? f.text_area(:default_contract_note, :rows => 6, :cols => 50) : current_inventory_pool.default_contract_note %><br /><%= _("This note is added to any contract, but can be changed individually before actually printing and signing each contract.") %></td></tr>
 	<tr><td><b><%= _("Menu background color") %>:</b></td><td><%= is_inventory_manager? ? f.text_field(:color) : current_inventory_pool.color %></td></tr>
+	<tr><td><b><%= _("Print contracts") %>:</b></td><td><%= check_box_tag "inventory_pool[print_contracts]", true, current_inventory_pool.print_contracts, :disabled => (! is_inventory_manager?) %></td></tr>
 	<tr><td><%= submit_tag 'Submit' %></td><td></td></tr>
 	<% end %>
 </table>
