@@ -65,6 +65,10 @@ end
 Given "a model '$model' exists" do | model |
   @model = Factory.create_model(:name => model)
 end
+
+When /^I register a new model '([^']*)'$/ do |model|
+  Given "a model '#{model}' exists"
+end
   
 Given "the model '$model' belongs to the category '$category'" do |model, category|
   @model = Model.find(:first, :conditions => {:name => model})
@@ -154,3 +158,11 @@ When "we add an item '$inventory_code'" do |inventory_code|
   i = Factory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool, :inventory_code => inventory_code )
 end
 
+# Customers
+# TODO: currently unused
+When "I give the customer '$user' access to the inventory pool '$inventory_pool'" \
+do |user, inventory_pool|
+  @user = User.find_by_login user
+  @nventory_pool = InventoryPool.find_by_name inventory_pool
+  Factory.define_role( @user, @inventory_pool )
+end

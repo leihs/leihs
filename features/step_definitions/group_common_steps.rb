@@ -1,9 +1,3 @@
-# Models
-
-When /^I register a new model '([^']*)'$/ do |model|
-  Given "a model '#{model}' exists"
-end
-
 # Models in Groups
 Then "that model should not be available in any other group"  do
   quantities = @model.in(@inventory_pool).\
@@ -24,6 +18,7 @@ Then /^(\w+) item(s?) of that model should be available in group '([^"]*)'( only
   end if exclusivity
 end
 
+# TODO: currently unused
 When /^I move (\w+) item(s?) of that model from group "([^"]*)" to group "([^"]*)"$/ do |n, plural, from_group_name, to_group_name|
   from_group = @inventory_pool.groups.find_by_name from_group_name
   to_group   = @inventory_pool.groups.find_by_name to_group_name
@@ -44,6 +39,7 @@ Then "that model should not be available in any group"  do
          reduce(:+).to_i.should == 0
 end
 
+# TODO: currently unused
 Given /^(\d+) items of that model in group "([^"]*)"$/ do |n, group_name|
   Given "#{n} items of model '#{@model.name}' exist"
   When "I assign #{n} items to group \"#{group_name}\""
@@ -74,7 +70,8 @@ Then "$n items of that model should be available to everybody" do |n|
   end
 end
 
-Then "$n items of that model should be available to \"$user\"" do |n,user|
+Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ \
+do |n, plural, user|
   @user = User.find_by_login user
   @model.availability_changes.in(@inventory_pool).
          maximum_available_in_period_for_user(@user, Date.today, Date.tomorrow ).\
@@ -82,14 +79,15 @@ Then "$n items of that model should be available to \"$user\"" do |n,user|
 end
 
 # Groups
-When /^I add a new group "([^"]*)"$/ do |name|
-  @inventory_pool.groups.create(:name => name)
-end
-
 Given /^a group "([^"]*)"$/ do |name|
   When "I add a new group \"#{name}\""
 end
 
+When /^I add a new group "([^"]*)"$/ do |name|
+  @inventory_pool.groups.create(:name => name)
+end
+
+# TODO: currently unused
 Then /^he must be in group '(\w+)'( in inventory pool )?('[^']*')?$/ \
 do |group, filler, inventory_pool|
   inventory_pools = []
@@ -107,11 +105,6 @@ do |group, filler, inventory_pool|
 end
 
 # Users
-When "I create a user '$user_name'" do |user|
-  @user = Factory.create_user( { :login => user },
-			       { :inventory_pool => @inventory_pool } )
-end
-
 Given /^a customer "([^"]*)" that belongs to group "([^"]*)"$/ do |user, group|
   @user = Factory.create_user( { :login => user },
 			       { :role => 'customer',
@@ -119,10 +112,6 @@ Given /^a customer "([^"]*)" that belongs to group "([^"]*)"$/ do |user, group|
   @group = @inventory_pool.groups.find_by_name(group)
   @group.users << @user
   @group.save!
-end
-
-Given /^(\d+) item of that model in the "([^"]*)" group$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
 end
 
 When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user|
@@ -150,17 +139,4 @@ When /^"([^"]*)" returns the item$/ do |user|
   @user = User.find_by_login user
   c = Contract.find_by_user_id @user
   c.close.should == true
-end
-
-# Inventory Pools
-When "I give the user '$user' access to the inventory pool '$inventory_pool'" \
-do |user, inventory_pool|
-  @user = User.find_by_login user
-  @nventory_pool = InventoryPool.find_by_name inventory_pool
-  Factory.define_role( @user, @inventory_pool )
-end
-
-When "I remove from user '$user' access to the inventory pool '$inventory_pool'" \
-do |user, inventory_pool|
-  pending # express the regexp above with the code you wish you had
 end
