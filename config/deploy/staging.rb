@@ -6,9 +6,12 @@ set :branch, "master"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/rails/leihs/leihs2test/database.yml"
+set :ldap_config, "/home/rails/leihs/leihs2test/LDAP.yml"
 set :use_sudo, false
 
 set :rails_env, "production"
+
+default_run_options[:shell] = false
 
 
 # DB credentials needed by Sphinx, mysqldump etc.
@@ -16,6 +19,25 @@ set :sql_database, "rails_leihs2_dev"
 set :sql_host, "db.zhdk.ch"
 set :sql_username, "leihs2dev"
 set :sql_password, "163ruby9"
+
+
+# User Variables and Settings
+set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
+set :default_email, "ausleihe.benachrichtigung\@zhdk.ch"
+set :email_server, "smtp.zhdk.ch"
+set :email_port, 25
+set :email_domain, "ausleihe.zhdk.ch"
+set :email_charset, "utf-8"
+set :email_content_type, "text/html"
+set :email_signature, "Das PZ-leihs Team"
+# These are false by default. TODO: Actually set them to true if this is true.
+set :deliver_order_notifications, false
+set :perform_deliveries, false
+set :local_currency, "CHF"
+# Escape double-quotes using triple-backslashes in this string: \\\"
+set :contract_terms, 'Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die \\\"Richtlinie zur Ausleihe von Sachen\\\" der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien.'
+
+
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
@@ -28,9 +50,13 @@ role :db,  "leihs@webapp.zhdk.ch", :primary => true
 
 task :link_config do
   on_rollback { run "rm #{release_path}/config/database.yml" }
+  on_rollback { run "rm #{release_path}/config/LDAP.yml" }
   run "rm #{release_path}/config/database.yml"
+  run "rm #{release_path}/config/LDAP.yml"
   run "ln -s #{db_config} #{release_path}/config/database.yml"
+  run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
 end
+
 
 task	:link_attachments do
 	run "rm -rf #{release_path}/public/images/attachments"
@@ -51,7 +77,7 @@ task :link_sphinx do
 end
 
 task :remove_htaccess do
-	# Kill the .htaccess file as we are using mongrel, so this file
+	# Kill the .htaccess file as we are using mongrel or passenger, so this file
 	# will only confuse the web server if parsed.
 
 	run "rm #{release_path}/public/.htaccess"
@@ -61,12 +87,31 @@ task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
 end
 
+# Old, hardcoded way
+# task :modify_config do
+#   run "sed -i 's/FRONTEND_SPLASH_PAGE = false/FRONTEND_SPLASH_PAGE = true/g' #{release_path}/config/environment.rb"
+#   run "sed -i 's/INVENTORY_CODE_PREFIX.*/INVENTORY_CODE_PREFIX = [[\"AVZ\", \"AV-Technik\"], [\"ITZS\", \"ITZ\"], [\"ITZV\", \"ITZ\"] ]/' #{release_path}/config/initializers/propose_inventory_code.rb"
+#   run "sed -i 's/CONTRACT_LENDING_PARTY_STRING.*/CONTRACT_LENDING_PARTY_STRING = \"Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich\"/' #{release_path}/config/environment.rb"
+#   run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environments/production.rb"
+# end
+
+# New way (Anthony's)
+
 task :modify_config do
-  run "sed -i 's/FRONTEND_SPLASH_PAGE = false/FRONTEND_SPLASH_PAGE = true/g' #{release_path}/config/environment.rb"
-  run "sed -i 's/INVENTORY_CODE_PREFIX.*/INVENTORY_CODE_PREFIX = [[\"AVZ\", \"AV-Technik\"], [\"ITZS\", \"ITZ\"], [\"ITZV\", \"ITZ\"] ]/' #{release_path}/config/initializers/propose_inventory_code.rb"
-  run "sed -i 's/CONTRACT_LENDING_PARTY_STRING.*/CONTRACT_LENDING_PARTY_STRING = \"Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich\"/' #{release_path}/config/environment.rb"
-  run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environments/production.rb"
+  set :configfile, "#{release_path}/config/environment.rb"
+  run "sed -i 's|CONTRACT_LENDING_PARTY_STRING.*|CONTRACT_LENDING_PARTY_STRING = \"#{contract_lending_party_string}\"|' #{configfile}"
+  run "sed -i 's|DEFAULT_EMAIL.* |DEFAULT_EMAIL = \"#{default_email}\"|' #{configfile}"
+  run "sed -i 's|:address.*|:address => \"#{email_server}\",|' #{configfile}"
+  run "sed -i 's|:port.*|:port => #{email_port},|' #{configfile}"
+  run "sed -i 's|:domain.*|:domain => \"#{email_domain}\"|' #{configfile}"
+  run "sed -i 's|ActionMailer::Base.default_charset.*|ActionMailer::Base.default_charset = \"#{email_charset}\"\nActionMailer::Base.default_content_type = \"#{email_content_type}\"|' #{configfile}"
+  run "sed -i 's|EMAIL_SIGNATURE.*|EMAIL_SIGNATURE = \"#{email_signature}\"|' #{configfile}"
+  run "sed -i 's|:encryption|#:encryption|' #{release_path}/app/controllers/authenticator/ldap_authentication_controller.rb"
+  run "sed -i 's|CONTRACT_TERMS.*|CONTRACT_TERMS = \"#{contract_terms}\"|' #{configfile}"
+  run "sed -i 's|LOCAL_CURRENCY_STRING.*|LOCAL_CURRENCY_STRING = \"#{local_currency}\"|' #{configfile}"
+  run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environments/production.rb" if perform_deliveries == false
 end
+
 
 task :chmod_tmp do
   run "chmod g-w #{release_path}/tmp"
