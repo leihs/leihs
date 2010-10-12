@@ -1,3 +1,11 @@
+Given /^a customer "([^"]*)"$/ do |name|
+  @user = Factory.create_user({:login => name
+                              }, {:role => 'customer'})
+  r = @user.access_rights.first
+  r.save
+end
+
+# TODO: drop this level stuff
 Given "User '$name' is a '$level' customer" do |name, level|
   @user = Factory.create_user({:login => name
                                 #, :password => "pass"
