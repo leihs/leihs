@@ -21,7 +21,7 @@ class Backend::ModelsController < Backend::BackendController
 
     search_scope = search_scope.sphinx_packages unless params[:packages].blank?
     with[:compatible_id] = @model.id if @model
-    with[:category_id] = @category.self_and_all_child_ids if @category
+    with[:category_id] = @categories.collect(&:self_and_all_child_ids).flatten.uniq if @categories
     with[:sphinx_internal_id] = @group.models.collect(&:id) if @group
     
     search_scope = search_scope.sphinx_with_unpackaged_items(current_inventory_pool.id) if params[:source_path]
@@ -43,7 +43,7 @@ class Backend::ModelsController < Backend::BackendController
       end
     end
 
-    @show_categories_tree ||= (@category.nil? and params[:packages].blank?)
+    @show_categories_tree = (@category.nil? and params[:packages].blank?)
 
     respond_to do |format|
       format.html
@@ -215,14 +215,11 @@ class Backend::ModelsController < Backend::BackendController
 
   def categories
     if request.post?
-      @model.add_category(@category)
-      flash[:notice] = _("Model is now in category %s") % @category.name
-      render :update do |page|
-        page.replace_html 'flash', flash_content
+      Model.suspended_delta do
+        @model.categories.delete_all
+        @model.categories << @categories
       end
-    elsif request.delete?
-      @model.remove_category(@category)
-      flash[:notice] = _("Model is not in category %s now") % @category.name
+      flash[:notice] = _("This model is now in %d categories") % @model.categories.count
       render :update do |page|
         page.replace_html 'flash', flash_content
       end
@@ -308,24 +305,22 @@ class Backend::ModelsController < Backend::BackendController
     @model = Model.find(params[:model_id]) if params[:model_id]
 
     @category = Category.find(params[:category_id]) if not params[:category_id].blank? and params[:category_id].to_i != 0
+    @categories = Category.find(params[:category_ids]) unless params[:category_ids].blank?
 
     if params[:item_id]
       @item = current_inventory_pool.items.first(:conditions => {:id => params[:item_id]})
       @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:item_id]}) #, :retired => :all
     end
+    @model ||= @item.model if @item
     
     @group = current_inventory_pool.groups.find(params[:group_id]) if params[:group_id]
     
-    @model = @item.model if @item and !@model
     @line = current_inventory_pool.contract_lines.find(params[:contract_line_id]) if params[:contract_line_id]
     @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
-    if @line and not @category
-      @category = @line.model.categories.first
-      @show_categories_tree = true
-    end
+    @categories ||= @line.model.categories if @line
     
     @tabs = []
-    @tabs << :category_backend if @category and not @show_categories_tree
+    @tabs << :category_backend if @category
     @tabs << :model_backend if @model
     @tabs << :group_backend if @group
 

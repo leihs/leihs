@@ -10,9 +10,6 @@ class OptimizeIndexes < ActiveRecord::Migration
       t.remove_index  :accessory_id
     end
 
-    # TODO ??
-    # remove_foreign_key_and_add_index :attachments, :model_id
-    
     change_table :backup_order_lines do |t|
       t.index         :order_id
     end
