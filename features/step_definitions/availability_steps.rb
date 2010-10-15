@@ -106,7 +106,7 @@ Then "$quantity should be available from $from to $to" do |quantity, from, to|
   end
   period.should_not be_nil
 
-  period.quantity.should == quantity.to_i
+  period.quantities.first.in_quantity.should == quantity.to_i
 end
 
 Then "the maximum available quantity on $date is $quantity" \
