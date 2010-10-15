@@ -317,7 +317,7 @@ class Backend::ModelsController < Backend::BackendController
     
     @line = current_inventory_pool.contract_lines.find(params[:contract_line_id]) if params[:contract_line_id]
     @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
-    @categories ||= @line.model.categories if @line
+    @categories ||= @line.model.categories if @line and !@line.model.categories.blank?
     
     @tabs = []
     @tabs << :category_backend if @category
