@@ -31,7 +31,7 @@ Scenario: Count of new orders is shown
 Scenario: Acknowledge order
 
 	Given a model 'NEC 245' exists
-		And 7 items of model 'NEC 245' exist
+		And 7 items of that model exist
 		And there is only an order by 'Joe'
 		And it asks for 5 items of model 'NEC 245'
 		And Joe's email address is joe@test.ch
@@ -52,7 +52,7 @@ Scenario: Acknowledge order
 Scenario: Reject order
 
 	Given a model 'NEC 245' exists
-		And 7 items of model 'NEC 245' exist
+		And 7 items of that model exist
 		And there is only an order by 'Joe'
 		And it asks for 5 items of model 'NEC 245'
 		And Joe's email address is joe@test.ch
@@ -73,9 +73,9 @@ Scenario: Reject order
 Scenario: Change amount and add Item
 
 	Given a model 'NEC 245' exists
-		And 7 items of model 'NEC 245' exist
+		And 7 items of that model exist
 		And a model 'NEC 333' exists
-		And 5 items of model 'NEC 333' exist
+		And 5 items of that model exist
 		And there is an order by 'Joe'
 		And it asks for 5 items of model 'NEC 245'
 		And Joe's email address is joe@test.ch
@@ -100,7 +100,7 @@ Scenario: Change amount and add Item
 Scenario: Increase amount beyond the number of available Items
 
 	Given a model 'NEC 245' exists
-		And 1 items of model 'NEC 245' exist
+		And one item of that model exists
 		And there is an order by 'Joe'
 		And it asks for 1 items of model 'NEC 245'
 		And the order was submitted
@@ -114,9 +114,9 @@ Scenario: Increase amount beyond the number of available Items
 Scenario: Swap Model
 
 	Given a model 'NEC 245' exists
-		And 7 items of model 'NEC 245' exist
+		And 7 items of that model exist
 		And a model 'NEC 333' exists
-		And 5 items of model 'NEC 333' exist
+		And 5 items of that model exist
 		And there is an order by 'Joe'
 		And it asks for 5 items of model 'NEC 245'
 		And Joe's email address is joe@test.ch
@@ -138,4 +138,3 @@ Scenario: Swap Model
 		And it contains information 'Swapped NEC 245 for NEC 333'
 		And it contains information 'NEC 333 is better than NEC 245'
 
-	

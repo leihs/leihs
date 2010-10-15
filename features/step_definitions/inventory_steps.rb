@@ -115,6 +115,12 @@ Given "$number items of this model exist" do |number|
   @model = Model.find(@model.id)
 end
 
+Given /^(\w+) item(s?) of that model exist(s?)/ \
+do |number, plural, plural2|
+  number = to_number(number)
+  Given "#{number} items of this model exist"
+end
+
 Given "we have items with the following inventory_codes:" do |inventory_codes_table|
   inventory_codes_table.hashes.each do |hash|
     Factory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool, :inventory_code => hash[:inventory_code] )

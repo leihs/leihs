@@ -58,7 +58,7 @@ Scenario: With Maintenance Day
 	
 	Given a model 'NEC 245' exists
 		And the maintenance period for this model is 4 days
-		And 7 items of model 'NEC 245' exist
+		And 7 items of that model exist
 		And a reservation exists for 3 'NEC 245' from 21.3.2100 to 31.3.2100
 		And a reservation exists for 2 'NEC 245' from 10.3.2100 to 24.3.2100
 	When lending_manager checks availability for 'NEC 245'
@@ -72,7 +72,7 @@ Scenario: Maximum availabliltiy
 	
 	Given a model 'NEC 245' exists
 		And the maintenance period for this model is 4 days
-		And 7 items of model 'NEC 245' exist
+		And 7 items of that model exist
 		And a reservation exists for 3 'NEC 245' from 21.3.2100 to 31.3.2100
 	When lending_manager checks availability for 'NEC 245'
 	Then the maximum available quantity on 20.3.2100 is 7
