@@ -7,6 +7,7 @@ Feature: Availability of Models
 
 Background: As a Organisation we have some Inventory with things to lend out
 	Given inventory pool 'ABC'
+	  And a manager for inventory pool 'ABC' logs in as 'lending_manager'
 
 
 Scenario: No Reservations
