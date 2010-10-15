@@ -100,12 +100,12 @@ Scenario: Change amount and add Item
 Scenario: Increase amount beyond the number of available Items
 
 	Given a model 'NEC 245' exists
-		And one item of that model exists
-		And there is an order by 'Joe'
-		And it asks for 1 items of model 'NEC 245'
-		And the order was submitted
+	  And one item of that model exists
+	  And there is an order by 'Joe'
+	  And it asks for 1 items of model 'NEC 245'
+	  And the order was submitted
 	When the lending_manager clicks on 'acknowledge'
-		And he chooses Joe's order
+	 And he chooses Joe's order
 	Then Joe's order is shown
 	When lending_manager changes number of items of model 'NEC 245' to 2
 	Then all 'NEC 245' order lines are marked as invalid
@@ -114,15 +114,15 @@ Scenario: Increase amount beyond the number of available Items
 Scenario: Swap Model
 
 	Given a model 'NEC 245' exists
-		And 7 items of that model exist
-		And a model 'NEC 333' exists
-		And 5 items of that model exist
-		And there is an order by 'Joe'
-		And it asks for 5 items of model 'NEC 245'
-		And Joe's email address is joe@test.ch
-		And the order was submitted
+	  And 7 items of that model exist
+	  And a model 'NEC 333' exists
+	  And 5 items of that model exist
+	  And there is an order by 'Joe'
+	  And it asks for 5 items of model 'NEC 245'
+	  And Joe's email address is joe@test.ch
+	  And the order was submitted
 	When the lending_manager clicks on 'acknowledge'
-		And he chooses Joe's order
+	 And he chooses Joe's order
 	Then Joe's order is shown
 	When he chooses 'swap' on order line 'NEC 245' 
 	Then Swap Item screen opens
@@ -131,10 +131,10 @@ Scenario: Swap Model
 	When lending_manager selects 'NEC 333'
 	Then he sees 5 items of model 'NEC 333'
 	When he adds a personal message: 'NEC 333 is better than NEC 245'
-		And lending_manager approves order
+	 And lending_manager approves order
 	Then joe@test.ch receives an email
-		And its subject is '[leihs] Reservation confirmed (with changes)'
-		And it contains information '5 NEC 333'
-		And it contains information 'Swapped NEC 245 for NEC 333'
-		And it contains information 'NEC 333 is better than NEC 245'
+	 And its subject is '[leihs] Reservation confirmed (with changes)'
+	 And it contains information '5 NEC 333'
+	 And it contains information 'Swapped NEC 245 for NEC 333'
+	 And it contains information 'NEC 333 is better than NEC 245'
 
