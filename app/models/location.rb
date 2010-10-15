@@ -51,5 +51,11 @@ class Location < ActiveRecord::Base
   default_sphinx_scope :default_search
   sphinx_scope(:default_search) { {:order => :room, :sort_mode => :asc} }
 
+  def touch_for_sphinx
+    @block_delta_indexing = true
+    touch
+  end
+
+#################################################################
 
 end

@@ -14,6 +14,8 @@ module Availability
       end
       
       def after_save(record)
+        # in case only unrelevant attributes are changed, we don't want to recompute
+        return if (record.changed - ["delta", "updated_at"]).empty? 
         recompute(record)
       end
 

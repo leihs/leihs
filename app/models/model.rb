@@ -79,8 +79,8 @@ class Model < ActiveRecord::Base
   end
   
   def update_sphinx_index_compatibility(compatible)
-    self.touch
-    compatible.touch
+    self.touch_for_sphinx
+    compatible.touch_for_sphinx
   end
 
 #############################################  
@@ -115,7 +115,7 @@ class Model < ActiveRecord::Base
 
 #############################################
 
-# TODO ??  after_save :update_sphinx_index
+  after_save :update_sphinx_index
 
 #############################################
 
@@ -163,6 +163,20 @@ class Model < ActiveRecord::Base
   sphinx_scope(:sphinx_packages) { {:with => {:is_package => true}} }
   sphinx_scope(:sphinx_with_unpackaged_items) { |inventory_pool_id|
                                                 {:with => {:inventory_pools_with_unpackaged_items => inventory_pool_id.to_s}} }
+
+  def touch_for_sphinx
+    @block_delta_indexing = true
+    touch
+  end
+
+  private
+  def update_sphinx_index
+    return if @block_delta_indexing
+    Item.suspended_delta do
+      items.each {|x| x.touch_for_sphinx }
+    end
+  end
+  public
 
 #############################################  
 

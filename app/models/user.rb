@@ -86,6 +86,24 @@ class User < ActiveRecord::Base
 
   # sphinx_scope(:sphinx_admins) {{ :is_admin => true }}
 
+  def touch_for_sphinx
+    @block_delta_indexing = true
+    touch
+  end
+
+# TODO ??
+#  private
+#  def update_sphinx_index
+#    return if @block_delta_indexing
+#    Contract.suspended_delta do
+#      contracts.each {|x| x.touch_for_sphinx }
+#    end
+#    Order.suspended_delta do
+#      orders.each {|x| x.touch_for_sphinx }
+#    end
+#  end
+#  public
+
 ################################################
 
   # NOTE working for User.customers but not working for InventoryPool.first.users.customers, use InventoryPool.first.customers instead  
@@ -297,15 +315,5 @@ class User < ActiveRecord::Base
                 :inventory_pool => l.contract.inventory_pool, :user => self)
     end
   end
-
-# TODO ??
-#  def update_sphinx_index
-#    Contract.suspended_delta do
-#      contracts.each {|x| x.touch }
-#    end
-#    Order.suspended_delta do
-#      orders.each {|x| x.touch }
-#    end
-#  end
 
 end

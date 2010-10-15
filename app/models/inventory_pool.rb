@@ -88,6 +88,27 @@ class InventoryPool < ActiveRecord::Base
     set_property :delta => true
   end
 
+  def touch_for_sphinx
+    @block_delta_indexing = true
+    touch
+  end
+
+# TODO ??
+#  private
+#  def update_sphinx_index
+#    return if @block_delta_indexing
+#    Item.suspended_delta do
+#      items.each {|x| x.touch_for_sphinx }
+#    end
+#    User.suspended_delta do
+#      users.each {|x| x.touch_for_sphinx }
+#    end
+#    ModelGroup.suspended_delta do
+#      model_groups.each {|x| x.touch_for_sphinx }
+#    end
+#  end
+#  public
+
 #######################################################################
 
   def to_s
@@ -158,24 +179,5 @@ class InventoryPool < ActiveRecord::Base
   def is_blacklisted?(user)
     suspended_users.count(:conditions => {:id => user.id}) > 0
   end
-
-  
-###################################################################################
-
-
-private
-  
-# TODO ??
-#  def update_sphinx_index
-#    Item.suspended_delta do
-#      items.each {|x| x.touch }
-#    end
-#    User.suspended_delta do
-#      users.each {|x| x.touch }
-#    end
-#    ModelGroup.suspended_delta do
-#      model_groups.each {|x| x.touch }
-#    end
-#  end
 
 end

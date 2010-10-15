@@ -63,8 +63,8 @@ class AccessRight < ActiveRecord::Base
   end
 
   def update_sphinx_index
-    user.touch
-    inventory_pool.touch if inventory_pool
+    user.touch_for_sphinx
+    inventory_pool.touch_for_sphinx if inventory_pool
   end
 
 end
