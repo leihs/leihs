@@ -33,7 +33,8 @@ module Availability
     end
 
     def available_again_date
-      availability_end_date.tomorrow
+      # TODO: Add maintenance period to Date.today
+      [availability_end_date, Date.today].max.tomorrow
     end
 
 #################################
