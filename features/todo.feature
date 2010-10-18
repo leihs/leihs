@@ -89,3 +89,6 @@ Scenario: Mehrere Absender-Adressen für Geräteparks erlauben. Vielleicht einfa
 
 Scenario: Zusätzliches Feld bei Geräteparks: Reply-to. Pools z.B. in Worcester wollen eine andere Reply-Adresse, als bei diesen Parks im From-Feld steht.
   Given pending - reported by Anthony via E-Mail around 2010-09-15.
+
+Scenario: Suche von "D 200" findet zwei Items (welche in einem Paket sind), aber Fotokameraset findet das Paket
+  Given pending - reported by Mike on 2010-10-12.

@@ -80,6 +80,22 @@ class Item < ActiveRecord::Base
 #  sphinx_scope(:default_search) { {:with => {:retired => false}} }
   sphinx_scope(:retired) { {:with => {:retired => true}} }
 
+  def touch_for_sphinx
+    @block_delta_indexing = true
+    touch
+  end
+
+  private
+  def update_sphinx_index
+    return if @block_delta_indexing
+    model.touch_for_sphinx
+    location.touch_for_sphinx if location
+#    Contract.suspended_delta do
+#      contracts.each {|x| x.touch_for_sphinx }
+#    end
+  end
+  public
+
 ####################################################################
 # preventing delete
 
@@ -343,7 +359,11 @@ class Item < ActiveRecord::Base
 
   # an item is in stock if it's not handed over
   def in_stock?
-    contract_lines.to_take_back.empty?
+    if parent_id
+      parent.in_stock?
+    else    
+      contract_lines.to_take_back.empty?
+    end
   end
 
 ####################################################################
@@ -405,14 +425,6 @@ class Item < ActiveRecord::Base
 
   def validates_retired
     errors.add_to_base(_("The item cannot be retired because it's not returned yet.")) if not retired.nil? and not in_stock? 
-  end
-
-  def update_sphinx_index
-    model.touch
-    location.touch if location
-#    Contract.suspended_delta do
-#      contracts.each {|x| x.touch }
-#    end
   end
 
   def update_child_attributes(item)
