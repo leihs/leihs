@@ -177,7 +177,7 @@ module Backend::AvailabilityHelper
         content_tag :tr do
           [short_date(c.date),
            c.available_quantity].collect do |s|
-            content_tag :td, :style => "text-align: right;" do
+            content_tag :td do
               s  
             end
           end.join

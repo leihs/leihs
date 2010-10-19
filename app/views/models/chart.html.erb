@@ -4,24 +4,22 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>leihs 2.3</title>
-
-	<%= javascript_include_tag "jquery/jquery", "jquery/jquery-ui" %>
+	<%= stylesheet_link_tag $layout_public_path + "/css/general.css", :media => "all" %>
+	<%#= javascript_include_tag "jquery/jquery", "jquery/jquery-ui" %>
 </head>
 <body>
 
-
-	<% content_tag :ul do
+	<% content_tag :ul, :style => "width: 300px; margin: 1em;" do
 	 	(@model.inventory_pools & @current_inventory_pools).each do |inventory_pool|
-			content_tag :li do %>
-				<%= inventory_pool %>
-				<br />
+			content_tag :li do
+				content_tag :h2, :style => "margin: 0.5em;" do %>
+					<%= inventory_pool %>
+				<% end %>
 				<%#= groups_chart(@model, inventory_pool) %>
 				<%= availability_periods_merged_groups(@model, inventory_pool, current_user) %>
 			<% end
 		end
 	end %>
-
-
   
 </body>
 </html> 
