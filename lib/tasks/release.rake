@@ -112,13 +112,16 @@ namespace :release do
 
   
   def generate_docs
-    puts "Generating user documentation"
     # You need asciidoc and dblatex installed for this to work
-    `asciidoc -a toc -o doc/admin_guide.html doc/admin_guide.txt`
-    `asciidoc -b docbook -a toc -o doc/admin_guide.xml doc/admin_guide.txt `
-    `dblatex --pdf doc/admin_guide.xml -o doc/admin_guide.pdf`
-    rm "doc/admin_guide.xml" rescue nil
-    rm "doc/admin_guide.fo" rescue nil
+    ["user", "admin"].each do |recipient|
+      puts "Generating #{recipient} documentation"
+      docu = "doc/#{recipient}_guide" 
+      `asciidoc -a toc -o #{docu}.html #{docu}.txt`
+      `asciidoc -b docbook -a toc -o #{docu}.xml #{docu}.txt `
+      `dblatex --pdf #{docu}.xml -o #{docu}.pdf`
+      rm "#{docu}.xml" rescue nil
+      rm "#{docu}.fo" rescue nil
+    end
   end 
 
 end
