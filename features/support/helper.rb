@@ -13,11 +13,18 @@ def find_line(model)
   nil
 end
 
-def get_period(from, to, periods)
-#  puts "Searching: #{from.day}.#{from.month}.#{from.year} - #{to.day}.#{to.month}.#{to.year}" if to != nil
-  periods.detect do |period|
-#    puts "Comparing: #{period.start_date.day}.#{period.start_date.month}.#{period.start_date.year} - #{period.end_date.day}.#{period.end_date.month}.#{period.end_date.year}" if period.end_date != nil
-    period.start_date == from and period.end_date == to 
+def available_quantities_between(from, to, available_quantities)
+  if available_quantities.count == 1
+    if from >= available_quantities.first.date
+      return available_quantities
+    else 
+      return []
+    end
+  else
+    aq = available_quantities.select do |available_quantity|
+           available_quantity.date >= from and available_quantity.date <= to 
+         end
+    return aq
   end
 end
 
@@ -30,6 +37,26 @@ def to_number( number )
     number.to_i
   end
 end
+
+# transform all kinds of date strings to Date objects
+# including:
+#  20_days_ago and 2_day_from_now
+def to_date( date )
+  # 20_days_from_now
+  if date =~ /(\d+)_(\w+)_from_now/
+    return eval("" + $1 + "." + $2 + ".from_now").to_date
+  # 20_years_ago
+  elsif date =~ /(\d+)_(\w+)_ago/
+    return eval("" + $1 + "." + $2 + ".ago").to_date
+  elsif date == "now"
+    return Date.today
+  elsif date == "the_end_of_time"
+    return Availability::ETERNITY
+  else
+    return Factory.parsedate( date )
+  end
+end
+
 
 ##############################################################
 #
@@ -61,3 +88,33 @@ end
 
 #
 ##############################################################
+#
+# Date changing hackery
+
+def back_to_the_future( date )
+  if Date.respond_to? :today_original
+    # just overwrite the current Date.today
+    # 'cause we still have the original
+  else
+    class << Date
+      alias_method :today_original, :today
+    end
+  end
+
+  Date.class_exec(date) do |date|
+    @@my_date = date
+    def self.today
+      @@my_date
+    end
+  end
+
+  Availability::Change.recompute_all # run nightly "cron job"
+end
+
+def back_to_the_present
+  class << Date
+    alias_method :today, :today_original
+  end
+
+  Availability::Change.recompute_all # run nightly "cron job"
+end

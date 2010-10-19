@@ -49,3 +49,11 @@ When /I fill in (\w+) of "([^\"]*)" with "([^\"]*)"/ do |order, field, value|
   matching[order.to_i].set(value)
 end
 
+# Date changing hackery
+When "I beam into the future to $date" do |date|
+  back_to_the_future( Factory.parsedate( date ) )
+end
+
+When "I beam back into the present" do
+  back_to_the_present
+end
