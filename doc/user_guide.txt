@@ -51,6 +51,27 @@ User::
     whole of leihs.
 
 
+== Availability ==
+
+A central element of leihs is management of availavilities of models i.e.
+the question:
+
+_Is some model available to be lent out from a certain day on to some end date?
+Or are all available items of that model allready reserved for other
+customers?_
+
+When lending out items, the inventory pool manager needs to be aware of the
+fact, that if he assigns an item to a contract that is in the future, then that
+item becomes immediately unavailable.
+
+This is based on the assumption, that if an item that is reserved in the future
+would be lent out before that date, then there would be a risk, that the
+anterior borrower would not return the item, which would break the promise
+previously given to the posterior borrower that he effectively will get the
+reserved item. This means that leihs gives precedence to fullfilling promises
+over optimal allocation utilization.
+
+
 == Management of the Borrowing Workflow ==
 
 When handing over items to the customer, leihs will by default produce a PDF
