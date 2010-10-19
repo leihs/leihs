@@ -20,8 +20,18 @@ module Availability
       model.availability_changes.in(document.inventory_pool).recompute
     end
 
+    def unavailable_from
+      if is_a?(ContractLine) and item_id
+        # if an item is already assigned,
+        # we block the availability even if the start_date is in the future 
+        Date.today
+      else
+        [start_date, Date.today].max
+      end
+    end
+    
     # if overdue, extend end_date to today
-    def availability_end_date
+    def unavailable_until
       d = if is_a?(ContractLine) and returned_date
             returned_date
           elsif is_late?
@@ -32,9 +42,12 @@ module Availability
       d + model.maintenance_period.day
     end
 
-    def available_again_date
+    # given a reservation is running until the 24th and maintenance period is 0 days:
+    # - if today is the 15th, thus the item is available again from the 25th
+    # - if today is the 27th, thus the item is available again from the 28th 
+    def available_again_after_today
       # TODO: Add maintenance period to Date.today
-      [availability_end_date, Date.today].max.tomorrow
+      [unavailable_until, Date.today].max.tomorrow
     end
 
 #################################
@@ -53,7 +66,13 @@ module Availability
         (maximum_available_quantity >= all_quantities)
       else
         #tmp#5 use :availability_quantities through association
-        availability_out_document_lines.count(:joins => :quantity, :conditions => "availability_quantities.in_quantity < 0").zero?
+        #old# availability_out_document_lines.count(:joins => :quantity, :conditions => "availability_quantities.in_quantity < 0").zero?
+        
+        # if an item is already assigned, but the start_date is in the future,
+        # we only consider the real start-end range dates
+        availability_out_document_lines.count(:joins => "INNER JOIN `availability_quantities` ON `availability_quantities`.id = `availability_out_document_lines`.quantity_id " \
+                                                        "INNER JOIN availability_changes ON availability_changes.id = `availability_quantities`.change_id",
+                                              :conditions => ["availability_quantities.in_quantity < 0 AND availability_changes.date >= ?", start_date ]).zero?
       end
 
       # OPTIMIZE

@@ -105,12 +105,12 @@ module Availability
             @new_changes << initial_change
           
             reservations.each do |document_line|
-              start_change = clone_change([document_line.start_date, Date.today].max) # we don't recalculate the past
-              end_change = clone_change(document_line.available_again_date)
+              start_change = clone_change(document_line.unavailable_from) # we don't recalculate the past
+              end_change = clone_change(document_line.available_again_after_today)
          
               groups = document_line.document.user.groups.scoped_by_inventory_pool_id(@inventory_pool) # optimize!
               # groups doesn't contain the general group!
-              maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.availability_end_date)
+              maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.unavailable_until)
         
               # TODO sort groups by quantity desc
               group = groups.detect(Group::GENERAL_GROUP_ID) {|group| maximum[group] >= document_line.quantity }
