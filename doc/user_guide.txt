@@ -16,28 +16,37 @@ need is a web browser.
 
 Below references to defined terms are capitalized and in quotes, as f.ex. "Manager".
 
-[glossary]
-Access Rights:
+Access Rights::
     see "User"
-Contract:
+
+Contract::
     is produced as soon as an "Order" is acknowledged by a "Manager"
-Customer:
+
+Customer::
     a "User" that has the right to borrow "Items". See also "User"
-Inventory Pool:
+
+Inventory Pool::
     TODO
-Item:
-    a thing that can be borrowed. An Items is of a certrain "Model". An "Inventory Pool" can have several "Lenovo T40"
-    laptops. Thus "Lenovo T40" would be the "Model" of which the "Inventory Pool" could have three "Items" labeled
-    "T40-1", "T40-2", and "T40-3"
-Manager:
+
+Item::
+    a thing that can be borrowed. An Items is of a certrain "Model". An
+    "Inventory Pool" can have several "Lenovo T40" laptops. Thus
+    "Lenovo T40" would be the "Model" of which the "Inventory Pool" could
+    have three "Items" labeled "T40-1", "T40-2", and "T40-3"
+
+Manager::
     a "User" that has the right to lend "Items".
-Model:
+
+Model::
     see "Item"
-Order:
+
+Order::
     TODO
-User:
-    can be a Customer and/or Manager or a Administrator. These "Access Rights" are given per "Inventory Pool" or in the
-    case of the Administrator for the whole of leihs.
+
+User::
+    can be a Customer and/or Manager or a Administrator. These "Access Rights"
+    are given per "Inventory Pool" or in the case of the Administrator for the
+    whole of leihs.
 
 
 == Management of the Borrowing Workflow ==
@@ -56,6 +65,13 @@ There is a checkbox "Print contracts" in Backend->Administration->Inventory Pool
 
 This document was written in Asciidoc: http://www.methods.co.nz/asciidoc/
 
+It can be generated from the user_guide.txt sources by cloning the git
+repository from http://github.com/psy-q/leihs and issuing:
+
+ $ rake release:gendoc
+
+from withing the leihs directory.
+
 
 === Contributors ===
 
@@ -63,3 +79,5 @@ Tomáš Pospíšek <tomas.pospisek@zhdk.ch>
 
 
 == TODO: More Sections Go Here ==
+
+TODO
