@@ -5,6 +5,15 @@
 
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+  <% autorefresh_controllers = ['acknowledge', 'hand_over', 'take_back']
+     if controller.action_name == 'index' and 
+        autorefresh_controllers.include?(controller.controller_name)
+  %>
+    <meta http-equiv="refresh" content="300" />
+  <% end %>
+
+
 	<title>leihs 2.3 (Backend)</title>
 
 	<%= stylesheet_link_tag $layout_public_path + "/css/general.css", :media => "all" %>
