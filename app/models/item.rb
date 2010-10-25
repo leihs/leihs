@@ -372,12 +372,6 @@ class Item < ActiveRecord::Base
     end
   end
 
-####################################################################
-
-  def borrowable_by?(user)
-#tmp#9    user.level_for(inventory_pool) >= required_level
-    true
-  end
 
 ####################################################################
 

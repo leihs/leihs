@@ -141,22 +141,6 @@ Scenario: Availability for a period - complicated
 	  And the maximum available quantity from 28.2.2100 to 31.3.2100 is 2
 	  And the maximum available quantity from 6.1.2100 to 1.2.2100 is 0
 
-Scenario: Availability for privileged customers
-
-	Given 3 items of model 'Lasersword Grendab' exist
-	  And 2 items of this model are for 'Special' customers only
-	  And User 'Regular Joe' is a 'Customer' customer
-	  And User 'King Charles' is a 'Special' customer
-	 When Regular Joe checks availability for 'Lasersword Grendab'
-	 Then the maximum available quantity on 8.1.2100 is 1
-	 When King Charles checks availability for 'Lasersword Grendab'
-	 Then the maximum available quantity on 8.1.2100 is 3
-	Given a reservation exists for 1 'Lasersword Grendab' from 1.1.2100 to 27.2.2100
-	 When Regular Joe checks availability for 'Lasersword Grendab'
-	 Then the maximum available quantity on 8.1.2100 is 0
-	 When King Charles checks availability for 'Lasersword Grendab'
-	 Then the maximum available quantity on 8.1.2100 is 2
-	
 Scenario: A reservation of a single day should be blocking
 	Given reported by HKB on 1.June 2010 as #225
 	Given 1 item of model 'RepRap' exist
