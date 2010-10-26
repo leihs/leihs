@@ -1,3 +1,11 @@
+# The Notification class is used as a proxy for sending mails
+# (and possibly other kinds of messages).
+#
+# The idea behind the Notification class is that leihs could
+# in principle keep "mailboxes" for users so that f.ex. upon
+# login into leihs they could be able to see all the communications
+# with the leihs system.
+#
 class Notification < ActiveRecord::Base
   belongs_to :user
   
