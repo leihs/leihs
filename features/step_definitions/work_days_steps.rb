@@ -34,8 +34,13 @@ end
 
 Given "today is Sunday $date" do |date|
   @date = date
+  back_to_the_future(date.to_date)
 end
 
+Given /today is today again/ do
+  @date = Date.today
+  back_to_the_present
+end
 When "$who try to order an item for $date" do |who, date|
   inventory_pool, inv_manager, user, model = Factory.create_dataset_simple
 
