@@ -43,6 +43,10 @@ module Factory
     end
   end
 
+  def self.random_future_date
+    Date.new( Date.today.year + rand(2), rand(12) + 1, rand(28) + 1)
+  end
+
   def self.create_order(attributes = {}, options = {})
     default_attributes = {
       :inventory_pool => create_inventory_pool(:name => "ABC")
@@ -52,8 +56,7 @@ module Factory
         model = Factory.create_model(:name => "model_#{i}" )
         quantity = rand(3) + 1
         quantity.times { Factory.create_item( :model => model, :inventory_pool => o.inventory_pool ) }
-        d = Array.new
-        2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
+        d = [ self.random_future_date, self.random_future_date ]
         o.add_line(quantity, model, o.user_id, d.min, d.max )
     end if options[:order_lines]
     o.save
@@ -73,8 +76,7 @@ module Factory
 	  Factory.create_item( :model => model,
 			       :inventory_pool => c.inventory_pool)
 	}
-        d = Array.new
-        2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
+        d = [ self.random_future_date, self.random_future_date ]
         c.add_line(quantity, model, c.user_id, d.min, d.max )
     } if options[:order_lines]
     c.save
@@ -129,8 +131,7 @@ module Factory
         start_date = parsedate(options[:start_date])
         end_date = start_date + 2.days
       else
-        d = Array.new
-        2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
+        d = [ self.random_future_date, self.random_future_date ]
         start_date = d.min
         end_date = d.max
       end
