@@ -12,7 +12,7 @@ end
 Given "a submitted order with $size order lines" do | size |
   user = Factory.create_user(:login => "Joe")
   @order = Factory.create_order({:user_id => user.id}, {:order_lines => size.to_i})
-  @order.submit
+  @order.submit.should == true
   @original_order = @order
   @original_order.has_backup?.should == false
   @order.order_lines.size.should == size.to_i
