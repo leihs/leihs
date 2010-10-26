@@ -26,5 +26,14 @@ class Mailer::User < ActionMailer::Base
   end
   
   
+  def email(from, to, subject, body)
+    @subject    = '[leihs] ' + subject
+    @body["email"] = body
+    @recipients = to
+    @from       = from
+    @sent_on    = Time.now
+    @headers    = {}
+  end
+  
 
 end

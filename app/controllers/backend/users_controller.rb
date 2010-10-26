@@ -34,6 +34,8 @@ class Backend::UsersController < Backend::BackendController
                                            :with => with, :without => without,
                                            :order => params[:sort], :sort_mode => params[:sort_mode] }
 
+    @source_path = request.env['REQUEST_URI']
+
     respond_to do |format|
       format.html
       format.js { search_result_rjs(@users) }
@@ -43,6 +45,7 @@ class Backend::UsersController < Backend::BackendController
   end
 
   def show
+    @source_path = request.env['REQUEST_URI']
   end
 
   def new

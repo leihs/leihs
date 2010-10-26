@@ -1,0 +1,33 @@
+<%# TODO: enforce body, subject %>
+<% form_tag({ :controller => :mails, :action => :create }) do -%>
+  <table class="email">
+  	
+    <tr id="from">
+  	  <td><%= _('From') + ' : ' %></td>
+      <td><%= h(@from) %></td>
+    </tr>
+	
+    <tr id="to">
+  	  <td><%= _('To')   + ' : ' %></td>
+	  <td><%= h(@to) %></td>
+	</tr>
+	
+    <tr id="subject">
+      <td><%= _('Subject') + ' : ' %></td>
+	  <td><%= text_field_tag 'subject', nil, :size => 80 %> </td>
+	</tr>
+	
+	<tr id="body">
+	  <td colspan="2">
+	  	  <%=text_area_tag   'body',    nil, :rows => 20 %>
+	  </td>
+	  <td></td>
+	</tr>
+  </table>
+  
+  <%= hidden_field_tag 'from', @from %>
+  <%= hidden_field_tag 'to',   @to %>
+  <%= hidden_field_tag 'source_path', @source_path %>
+  <%= hidden_field_tag 'user_id', @user.id %>
+  <div id="email_send"><%= submit_tag _('Send') %></div>
+<% end -%>

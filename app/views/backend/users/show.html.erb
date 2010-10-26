@@ -88,7 +88,13 @@ end %>
       <%= link_to _("New Contract"),
             new_contract_backend_inventory_pool_user_path(current_inventory_pool, @user.id),
             { :target => '_top' } %>
-    <% end if current_inventory_pool and current_inventory_pool.users.include?(@user)   
+    <% end if current_inventory_pool and current_inventory_pool.users.include?(@user)
+    
+    content_tag :li do %>
+	  <%= link_to icon_tag("email_edit") + _("Write Email"),
+            new_backend_inventory_pool_mail_path(current_inventory_pool, :user_id => @user.id, :source_path => @source_path),
+            { :target => '_top' } %>
+    <% end 
   end %>
 
 	<br/>

@@ -60,5 +60,10 @@ class Notification < ActiveRecord::Base
     Notification.create(:user => user, :title => title)
     user.histories.create(:text => title, :user_id => user.id, :type_const => History::ACTION)
   end
+
+  def self.user_email(from, to, subject, body)
+    Mailer::User.deliver_email from, to, subject, body
+    # we currently do *not* log emails to users
+  end
   
 end
