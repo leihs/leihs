@@ -46,16 +46,6 @@ do |who, quantity, model|
   end
 end
 
-Given "$quantity items of this model are for '$level' customers only" \
-do |quantity, level|
-  items = @model.items
-#tmp#9
-#  quantity.to_i.times do |i|
-#    items[i].required_level = AccessRight::LEVELS[level]
-#    items[i].save
-#  end
-end
-
 # TODO: use $who
 Given "the $who signs the contract" do |who|
   @contract.sign
