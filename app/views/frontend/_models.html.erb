@@ -265,7 +265,7 @@ function add_model_details(model_id, open_add_tab){
 				title: '<%= _("Properties") %>',
 				disabled: true,
 				itemSelector: 'div.model_property',
-				tpl: new Ext.XTemplate('<tpl for=".">', '<tpl for="properties">', '<div class="model_property">{key}: {value}</div>', '</tpl>', '</tpl>')
+				tpl: new Ext.XTemplate('<tpl for=".">', '<div class="model_description">','<tpl for="properties">', '<div class="model_property">{key}: {value}</div>', '</tpl>', '</div>','</tpl>')
 			},{
 				id: 'accessories_tab_' + model_id,
 				xtype: 'dataview',
