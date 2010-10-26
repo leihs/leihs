@@ -152,19 +152,3 @@ Scenario: A reservation of a single day should be blocking
 	  And the maximum available quantity from 17.1.2100 to 17.1.2100 is 0
 	  And the maximum available quantity from 17.1.2100 to 18.1.2100 is 0
 	  And the maximum available quantity from 18.1.2100 to 20.1.2100 is 1
-
-# TODO 0402
-#Scenario: Availability for level required items with pending orders
-#	Given 1 model named Keyboard exists
-#	  And 2 items of that model exist
-#	  And 1 item requires level 1 
-#	  And 1 item requires level 2
-#	  And no pending order exists for Keyboard
-#	Given 2 users named Pius and Claudio exist
-#	  And user Pius has borrowing level 1
-#	  And user Claudio has borrowing level 2
-#	 When Pius places an order for 1 Keyboard from 08.02.2010 to 12.02.2010
-#	 Then the Pius's order is approvable
-#	 When Claudio places an order for 1 Keyboard from 08.02.2010 to 12.02.2010
-#	 Then the Claudio's order is approvable
-#	  And the Pius's order is approvable [* here is the error!!!]	
