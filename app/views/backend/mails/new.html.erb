@@ -1,6 +1,14 @@
-<%# TODO: enforce body, subject %>
-<% form_tag({ :controller => :mails, :action => :create }) do -%>
-  <table class="email">
+<%= stylesheet_link_tag "/stylesheets/jquery/jquery.validate.css", :media => "screen" %>
+<%= javascript_include_tag "jquery/jquery.validate.min" %>
+
+<% javascript_tag do -%>
+	jQuery(document).ready( function() {
+		jQuery("#emailForm").validate();
+	});
+<% end %>
+
+<% form_tag({ :controller => :mails, :action => :create }, { :id => "emailForm" }) do -%>
+  <table>
   	
     <tr id="from">
   	  <td><%= _('From') + ' : ' %></td>
@@ -14,12 +22,14 @@
 	
     <tr id="subject">
       <td><%= _('Subject') + ' : ' %></td>
-	  <td><%= text_field_tag 'subject', nil, :size => 80 %> </td>
+	  <td>
+	  	  <%= text_field_tag 'subject', nil, :size => 80, :class => 'required' %>
+	  </td>
 	</tr>
 	
 	<tr id="body">
 	  <td colspan="2">
-	  	  <%=text_area_tag   'body',    nil, :rows => 20 %>
+	  	  <%=text_area_tag   'body',    nil, :rows => 20, :class => 'required' %>
 	  </td>
 	  <td></td>
 	</tr>
@@ -29,5 +39,5 @@
   <%= hidden_field_tag 'to',   @to %>
   <%= hidden_field_tag 'source_path', @source_path %>
   <%= hidden_field_tag 'user_id', @user.id %>
-  <div id="email_send"><%= submit_tag _('Send') %></div>
+  <%= submit_tag _("Send") %>
 <% end -%>

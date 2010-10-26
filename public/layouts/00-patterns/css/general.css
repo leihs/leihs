@@ -560,6 +560,6 @@ td.date_select {
 hr {
     border-color: #e2e2e2;
 }
-.email #body textarea{
+#emailForm #body textarea{
     width: 100%;
 }
