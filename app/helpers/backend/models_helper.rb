@@ -21,7 +21,9 @@ module Backend::ModelsHelper
           }
           #my_timeline table tr td {
             vertical-align: top;
-            padding: 12px;
+            padding-top: 30px;
+            font-size: 0.8em;
+            color: #555555;
           }
           #my_timeline .timeline-ether-highlight {
             background-color: #98d9e7;
@@ -38,7 +40,8 @@ module Backend::ModelsHelper
     end
 
     events = {}
-    partition = model.availability_changes.in(inventory_pool).current_partition
+    changes = model.availability_changes.in(inventory_pool)
+    partition = changes.current_partition
 
     model.running_reservations(inventory_pool).each do |line|
       color = if not line.item
@@ -65,7 +68,7 @@ module Backend::ModelsHelper
       description = "Group: #{line.allocated_group}<br />Phone: #{line.document.user.phone}<br />#{document_link}"
       events[group_id] ||= []
       events[group_id] << {:start => line.start_date.to_time.rfc2822, :end => (line.end_date.tomorrow.to_time - 1.second).rfc2822, :durationEvent => true,
-                           :title => title, :description => description,
+                           :title => title, :description => description, #:trackNum => (events[group_id].empty? ? 0 : (line.item ? events[group_id].collect {|e| e[:trackNum] }.compact.max.to_i.next : nil)),
                            :color => color, :textColor => 'black', :classname => (!line.item and !line.available? ? "unavailable" : nil) }
     end
 
@@ -80,7 +83,9 @@ module Backend::ModelsHelper
     sum_w = 35
     #bandInfos_js = ["Timeline.createBandInfo({ eventSource: eventSource[-1], overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top' })"]
     bandInfos_js = ["Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top', theme: theme })"]
+    # TODO total overview # bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
     bandNames_js = [""] #_("Months")
+    decorators_js = [""]
     partition.keys.sort {|a,b| a.to_i <=> b.to_i }.each do |k| # the to_i comparison is needed to convert nil to 0
       group_id = k.to_i
       count = partition[k]
@@ -89,6 +94,12 @@ module Backend::ModelsHelper
       sum_w += w
       bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], width: '#{w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
       bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : "")
+      decorators_js << changes.collect do |change|
+        in_quantity = change.in_quantity_in_group(k)
+        h = ""
+        h = "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.rfc2822}', endDate: '#{change.end_date.tomorrow.to_time.rfc2822}', color: '#f00', opacity: 50 }), " if in_quantity < 0
+        h += "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.rfc2822}', endDate: '#{(change.start_date.to_time + 2.hours).rfc2822}', color: '#555555', opacity: 50, endLabel: '#{in_quantity}' })"
+      end.compact
     end
 
     # TODO automatic autowidth
@@ -105,7 +116,7 @@ module Backend::ModelsHelper
         theme.firstDayOfWeek = 1;
         theme.autoWidth = true;
         theme.event.track.autoWidthMargin = 1.0;
-        theme.event.track.offset = 45;
+        theme.event.track.offset = 60;
         theme.event.track.gap = -10;
         theme.event.overviewTrack.offset = 35;
         theme.event.tape.height = 18;
@@ -124,12 +135,19 @@ module Backend::ModelsHelper
               new Timeline.SpanHighlightDecorator({
                   startDate:  "#{Date.today.to_time.rfc2822}",
                   endDate:    "#{Date.tomorrow.to_time.rfc2822}",
-                  color:      "#DD5",
+                  color:      "#98d9e7",
                   opacity:    50,
                   startLabel: bandNames[i]
               })
           ];
         }
+        
+        #{dec = ""
+        decorators_js.each_with_index do |d,i|
+          next if d.blank?
+          dec << "bandInfos[#{i}].decorators = bandInfos[#{i}].decorators.concat([#{d.join(', ')}]); "
+        end
+        dec}
 
         Timeline.create(document.getElementById("my_timeline"), bandInfos);
       });
