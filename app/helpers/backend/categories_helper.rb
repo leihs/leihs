@@ -7,8 +7,16 @@ module Backend::CategoriesHelper
      :children => category.children.map{|c| category_node(c, category.id) } }
   end
   
+  def category_root
+    {:data => {:title => _("All")},
+     :attr => {:id => 0},
+     :state => "open",
+     :children => Category.roots.map{|c| category_node(c, 0) } }
+  end
+  
   def category_tree(checkable = false, selected_categories = [], method = :get)
-    categories = Category.roots.map{|c| category_node(c, 0) }
+    # OPTIMIZE cache
+    categories = category_root
 
     initially_select_ids = []
     initially_open_ids = []
@@ -70,7 +78,11 @@ module Backend::CategoriesHelper
               var params = {"category_id": node.attr("id")};
             }
  
-            tree.toggle_node(node);
+            if(node.attr("id") == 0){
+              params = {} // we don't want to search for id 0
+            }else{
+              tree.toggle_node(node);
+            }
 
             //if(tree.is_closed(node)){
               //TODO use jQuery ajax instead of PrototypeJs
