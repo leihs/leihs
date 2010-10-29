@@ -94,11 +94,19 @@ module Backend::ModelsHelper
       sum_w += w
       bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], width: '#{w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
       bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : "")
+      
+      prev_in_quantity = nil
       decorators_js << changes.collect do |change|
+        d = []
         in_quantity = change.in_quantity_in_group(k)
-        h = ""
-        h = "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.rfc2822}', endDate: '#{change.end_date.tomorrow.to_time.rfc2822}', color: '#f00', opacity: 50 }), " if in_quantity < 0
-        h += "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.rfc2822}', endDate: '#{(change.start_date.to_time + 2.hours).rfc2822}', color: '#555555', opacity: 50, endLabel: '#{in_quantity}' })"
+        if in_quantity < 0 or change.quantities.sum(:in_quantity) < 0
+          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.rfc2822}', endDate: '#{change.end_date.tomorrow.to_time.rfc2822}', color: '#f00', opacity: 50 })"
+        end
+        if prev_in_quantity != in_quantity
+          prev_in_quantity = in_quantity
+          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.rfc2822}', endDate: '#{(change.start_date.to_time + 2.hours).rfc2822}', color: '#555555', opacity: 50, endLabel: '#{in_quantity}' })"
+        end
+        (d.empty? ? nil : d.join(', '))
       end.compact
     end
 
