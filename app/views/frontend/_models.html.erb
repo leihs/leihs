@@ -15,6 +15,7 @@
 					   {name: 'compatibles'},
 					   {name: 'accessories'},
 					   {name: 'images'},
+					   {name: 'attachments'},
 					   {name: 'is_package', type: 'boolean'},
 					   {name: 'package_models'},
 					   {name: 'image_thumb'}
@@ -257,6 +258,9 @@ function add_model_details(model_id, open_add_tab){
 							            			'<li>{name}, {manufacturer}</li>',
 								        		'</tpl></ul>',
 							        		'</tpl>',
+										 '<br/><ul><tpl for="attachments">',
+										 	'<li><a href="{public_filename}">{filename}</li>',
+										 '</tpl></ul>',                
                                         '</div>',
 										'</tpl>')
 			},{

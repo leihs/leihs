@@ -73,7 +73,11 @@ class ModelsController < FrontendController
                                                                                       :only => [:id, :name] },
                                                                 :images => { :methods => [:public_filename, :public_filename_thumb],
                                                                              :except => [:created_at,
-                                                                                         :updated_at] }
+                                                                                         :updated_at] },
+                                                                :attachments => { :methods => [:public_filename],
+                                                                                  :except => [:model_id,
+                                                                                              :is_main,
+                                                                                              :content_type] }
                                                                         }
                                                                  ) }
     end
