@@ -25,7 +25,7 @@
 										:class => "thickbox iconized-notxt arrow_switch" ) %>
 							</td> 
 							<td>
-								<%= greybox_link_to_page(@order.user.login,
+								<%= greybox_link_to_page(@order.user.name,
 										backend_inventory_pool_user_path(current_inventory_pool, @order.user, :layout => "modal"),
 										:title => _("User"),
 										:class => "iconized-notxt edit-user" ) %>
