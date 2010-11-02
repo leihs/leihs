@@ -44,7 +44,8 @@ module Factory
   end
 
   def self.random_future_date
-    Date.new( Date.today.year + rand(2), rand(12) + 1, rand(28) + 1)
+    # future date is within the next 3 years, at earliest tomorrow
+    Date.today + rand(3*365).days + 1.day
   end
 
   def self.create_order(attributes = {}, options = {})
