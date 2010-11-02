@@ -54,8 +54,6 @@ class Backend::ModelsController < Backend::BackendController
 
   def show
    # redirect_to :action => 'package', :layout => params[:layout] if @model.is_package?
-
-    @changes = @model.availability_changes.in(current_inventory_pool).recompute_if_empty
   end
 
   def new
@@ -102,6 +100,11 @@ class Backend::ModelsController < Backend::BackendController
 #################################################################
 
   def details
+  end
+
+  def groups
+    @changes = @model.availability_changes.in(current_inventory_pool).recompute_if_empty
+    render :partial => "groups"
   end
 
 #################################################################
