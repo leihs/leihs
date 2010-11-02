@@ -83,6 +83,8 @@ Rails::Initializer.run do |config|
   config.gem "awesome_nested_set", :version => "1.4.3"
 end
 
+require 'looks_like_email_addr'
+
 ######################################################
 # This ensures that a mongrel can start even if it's started
 # by a user that is not the same user the mongrel runs as. In other words,

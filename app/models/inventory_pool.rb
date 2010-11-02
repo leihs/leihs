@@ -76,6 +76,8 @@ class InventoryPool < ActiveRecord::Base
 
   default_scope :order => "name"
 
+  validates_format_of :email, :with => LooksLike::EMAIL_ADDR, :allow_nil => true
+
 #######################################################################
 
   define_index do

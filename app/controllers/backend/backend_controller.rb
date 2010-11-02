@@ -149,10 +149,11 @@ class Backend::BackendController < ApplicationController
   protected
 
     helper_method :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :is_apprentice?, :is_admin?
-      
+
+    # TODO: what's happening here? Explain the goal of this method
     def current_inventory_pool
       return @current_inventory_pool if @current_inventory_pool # OPTIMIZE
-      return nil if controller_name == "inventory_pools" and action_name != "show"
+      return nil if controller_name == "inventory_pools" and (action_name != "show" && action_name != "update")
       # TODO 28** patch to Rails: actionpack/lib/action_controller/...
       # i.e. /inventory_pools/123 generates automatically params[:inventory_pools_id] additionaly to params[:id]
       if !params[:inventory_pool_id] and params[:id] and controller_name != "users"

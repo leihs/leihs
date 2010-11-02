@@ -39,10 +39,13 @@ class Backend::InventoryPoolsController < Backend::BackendController
 
   def update
     @inventory_pool ||= @inventory_pool = InventoryPool.find(params[:id]) 
-    params[:inventory_pool][:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent 
+    params[:inventory_pool][:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent
+    params[:inventory_pool][:email] = nil if params[:inventory_pool][:email].blank?
     if @inventory_pool.update_attributes(params[:inventory_pool])
       redirect_to backend_inventory_pool_path(@inventory_pool)
     else
+      flash[:error] = @inventory_pool.errors.full_messages
+      # TODO: set @current_inventory_pool here? See Backend::BackendController#current_inventory_pool
       render :action => 'show' # TODO 24** redirect to the correct tabbed form
     end
   end
