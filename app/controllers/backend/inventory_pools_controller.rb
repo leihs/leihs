@@ -37,6 +37,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
                                       :access_level => 3) unless @inventory_pool.new_record?
   end
 
+  # TODO: this mess needs to be untangled and split up into functions called by new/create/update
   def update
     @inventory_pool ||= @inventory_pool = InventoryPool.find(params[:id]) 
     params[:inventory_pool][:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent
@@ -46,7 +47,11 @@ class Backend::InventoryPoolsController < Backend::BackendController
     else
       flash[:error] = @inventory_pool.errors.full_messages
       # TODO: set @current_inventory_pool here? See Backend::BackendController#current_inventory_pool
-      render :action => 'show' # TODO 24** redirect to the correct tabbed form
+      if action_name == "create"
+        render :action => 'edit'
+      else
+        render :action => 'show' # TODO 24** redirect to the correct tabbed form
+      end
     end
   end
 
