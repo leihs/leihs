@@ -15,7 +15,11 @@
 			<div id="meta" class="boxes">
 				
 				<div id="meta-bestellung">
-					<h2><%= _("Order No.") + " #{@order.id} - #{@order.user}" %></h2>
+					<h2><%= _("Order No.") + " #{@order.id} - #{@order.user}" %>
+					    <%= link_to icon_tag("email_edit"),
+					                new_backend_inventory_pool_mail_path( current_inventory_pool, :user_id => @order.user.id,						                                                   :source_path => @source_path),
+					                { :target => '_top', :style => "display: inline" } %>
+					</h2>
 					<table cellspacing="0">
 						<tr class="alt-row">
 							<td>
