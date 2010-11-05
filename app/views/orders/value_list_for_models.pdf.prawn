@@ -17,16 +17,32 @@ def maximum_item_price(model)
   return maximum
 end
 
+# The built-in fonts in PDF readers are only guaranteed to support WinANSI encoding, therefore
+# we either need to filter all text like here or supply an external font file with full
+# UTF-8 support
+def filter(text)
+  
+  unless text.nil?
+     # First we discard invalid UTF-8 characters. This is so that
+     # prawn doesn't throw a hissy fit.
+     ic = Iconv.new('utf-8//IGNORE//TRANSLIT', 'utf-8')
+     # These added bytes are to work around a bug in Iconv where
+     # trailing invalid byte sequences are not removed.
+     valid_text = ic.iconv(text + ' ')[0..-2]
+    return valid_text
+  end
+end
+
 
 pdf.font("Helvetica")
 pdf.font_size(10)
 
 pdf.font_size(14) do
-  pdf.text _("Value list")
+  pdf.text filter( _("Value list") ) 
 end
 
-borrowing_party = _("Borrowing party:") + "\n" + user_address
-lending_party = _("Lending party:") + "\n" + lending_address
+borrowing_party = filter( _("Borrowing party:") + "\n" + user_address )
+lending_party = filter( _("Lending party:") + "\n" + lending_address )
 
 pdf.text_box borrowing_party, 
              :width => 150,
@@ -84,7 +100,7 @@ pdf.table(table_data,
 
 pdf.move_down 10.mm
 
-pdf.text( _("This value list covers an order lasting from %s to %s." % [short_date(@order.time_window_min), short_date(@order.time_window_max)]))
+pdf.text( filter( _("This value list covers an order lasting from %s to %s." % [short_date(@order.time_window_min), short_date(@order.time_window_max)])))
 
 pdf.move_down 10.mm
 
