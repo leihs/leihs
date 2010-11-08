@@ -8,6 +8,8 @@ class MergingManagerRoles < ActiveRecord::Migration
     AccessRight.update_all({:role_id => inventory_manager}, {:role_id => lending_manager})
 
     customer.move_to_child_of(inventory_manager)
+    lending_manager.reload
+    inventory_manager.reload
     lending_manager.destroy
     
     inventory_manager.update_attributes(:name => 'manager')
