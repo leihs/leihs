@@ -22,15 +22,15 @@ class InitialConfiguration < ActiveRecord::Migration
   
     #create admin
     if User.count == 0 
-      user = User.new(  :email => "super_user_1@example.com",
-                        :login => "super_user_1")
+      superuser = User.new( :email => "super_user_1@example.com",
+                            :login => "super_user_1")
   
-      user.unique_id = "super_user_1"
-      user.save
-      r = Role.find(:first, :conditions => {:name => "admin"})
+      superuser.unique_id = "super_user_1"
+      superuser.save
+      admin = Role.find(:first, :conditions => {:name => "admin"})
       
-      user.access_rights.create(:role => r, :inventory_pool => nil)
-      puts _("The administrator %{a} has been created ") % { :a => user.login }
+      superuser.access_rights.create(:role => admin,    :inventory_pool => nil)
+      puts _("The administrator %{a} has been created ") % { :a => superuser.login }
     
       d = DatabaseAuthentication.find_or_create_by_login("super_user_1")
       d.password = "pass"
