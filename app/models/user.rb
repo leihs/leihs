@@ -48,7 +48,9 @@ class User < ActiveRecord::Base
   validates_presence_of     :login, :email
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :email
-  validates_format_of :email, :with => LooksLike::EMAIL_ADDR
+  # TODO: Externalize the regex to LooksLike::EMAIL_ADDR, which doesn't seem to work on some installations because
+  # the are unable to find the module LooksLike from the lib/ directory on their own.
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
     
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
   has_many :reminders, :as => :target, :class_name => "History", :dependent => :destroy, :conditions => {:type_const => History::REMIND}, :order => 'created_at ASC'
