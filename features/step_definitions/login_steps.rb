@@ -2,18 +2,19 @@ Given "a $role for inventory pool '$ip_name' logs in as '$who'" do | role, ip_na
   Given "inventory pool '#{ip_name}'"
   user = Factory.create_user({:login => who
                                 #, :password => "pass"
-                              },
-			      {:role => role,
-			       :inventory_pool => @inventory_pool })
+                             },
+			     {:role => role,
+			      :inventory_pool => @inventory_pool })
   post "/session", :login => user.login
-                      #, :password => "pass"
+                #, :password => "pass"
   get backend_inventory_pool_path(@inventory_pool, :locale => 'en_US')
   @inventory_pool = assigns(:current_inventory_pool)
   @last_manager_login_name = who
-  @last_user = user
+  @user = user
 end
 
 Given "his password is '$password'" do |password|
-  DatabaseAuthentication.new(:user => @last_user, :login => @last_user.login,
-			     :password => password, :password_confirmation => password ).save
+  DatabaseAuthentication.new(:user => @user, :login => @user.login,
+			     :password => password,
+			     :password_confirmation => password ).save
 end

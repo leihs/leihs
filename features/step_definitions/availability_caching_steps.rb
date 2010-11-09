@@ -2,7 +2,7 @@ When "he checks his basket" do
   # access a method, that is being called by the EJS frontend code to
   # update the OrderLine availabilites
   get "user/order.ext_json"
-  @order = @last_user.orders.first # TODO: .first => not nice
+  @order = @user.orders.first # TODO: .first => not nice
 end
 
 When "$who deletes the first line" do | who|
