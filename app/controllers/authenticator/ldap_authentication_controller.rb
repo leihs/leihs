@@ -51,7 +51,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
                 end
                 u.firstname = users.first["givenname"].to_s 
                 u.lastname = users.first["sn"].to_s
-                u.phone = users.first["telephonenumber"].to_s
+                u.phone = users.first["telephonenumber"].to_s unless users.first["telephonenumber"].blank?
 
                 u.save
                 self.current_user = u
