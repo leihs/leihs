@@ -13,7 +13,7 @@ class Backend::MailsController < Backend::BackendController
       # below, we use her email address only
       @to   = @user.email
       @from = if current_inventory_pool
-                to_full_email_address( current_inventory_pool.try(name) ,
+                to_full_email_address( current_inventory_pool.try(:name) ,
                                        current_inventory_pool.email || DEFAULT_EMAIL)
               else
                 DEFAULT_EMAIL
