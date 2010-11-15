@@ -14,7 +14,9 @@ class Backend::MailsController < Backend::BackendController
       @to   = @user.email
       @from = if current_inventory_pool
                 to_full_email_address( current_inventory_pool.name,
-                                       current_inventory_pool.email || DEFAULT_EMAIL)
+                                       (current_inventory_pool.email.blank? ?
+                                          DEFAULT_EMAIL :
+                                          current_inventory_pool.email.blank))
               else
                 DEFAULT_EMAIL
               end
