@@ -202,6 +202,7 @@ class Backend::BackendController < ApplicationController
       current_user.has_role?('admin')
   	end
 
+    # Allow operations on items. 'user' is *not* a customer!
     def is_privileged_user?
       #@is_privileged_user ||=
       (has_at_least_access_level(2) and is_owner?)
