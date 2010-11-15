@@ -17,7 +17,8 @@
 				<div id="meta-bestellung">
 					<h2><%= _("Order No.") + " #{@order.id} - #{@order.user}" %>
 					    <%= link_to icon_tag("email_edit"),
-					                new_backend_mail_path( current_inventory_pool, :user_id => @order.user.id,						                                                   :source_path => @source_path),
+					                new_backend_mail_path( :inventory_pool_id => current_inventory_pool.id,
+					                                       :user_id => @order.user.id, :source_path => @source_path),
 					                { :target => '_top', :style => "display: inline" } %>
 					</h2>
 					<table cellspacing="0">
