@@ -53,7 +53,9 @@ ActionController::Routing::Routes.draw do |map|
                                           :remove_access_right => :delete,
                                           :extended_info => :get,
                                           :update_badge_id => :post }
-                                                    
+ 
+    backend.resources :mails
+
     backend.resources :inventory_pools do |inventory_pool|
       inventory_pool.acknowledge 'acknowledge', :controller => 'acknowledge', :action => 'index'
       inventory_pool.hand_over 'hand_over', :controller => 'hand_over', :action => 'index'
@@ -62,7 +64,6 @@ ActionController::Routing::Routes.draw do |map|
   
       inventory_pool.resources :orders # TODO 07** also nest to user?
       inventory_pool.resources :contracts # TODO 07** also nest to user?
-      inventory_pool.resources :mails
       inventory_pool.resources :locations do |location|
         location.resources :items
       end

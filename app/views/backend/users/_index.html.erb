@@ -45,10 +45,11 @@
 								<li>
 									<%= remind_user_link(user, current_inventory_pool) if user.to_remind? %>
 								</li>
-								<li><%= link_to icon_tag("email_edit") + _("Write Email"),
-								                new_backend_inventory_pool_mail_path(current_inventory_pool, :user_id => user.id, :source_path => @source_path) %>
-								</li>
 							<% end %>
+
+							<li><%= link_to icon_tag("email_edit") + _("Write Email"),
+								                new_backend_mail_path(current_inventory_pool, :user_id => user.id, :source_path => @source_path) %>
+							</li>
 
 					<%  end %>
 				    <% end %>

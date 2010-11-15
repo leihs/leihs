@@ -1,7 +1,7 @@
 class Backend::MailsController < Backend::BackendController
 
   before_filter :pre_load
-  before_filter :authorized_privileged_user?
+  before_filter :authorized?
 
   def new
     if @user.email.blank?
@@ -12,8 +12,12 @@ class Backend::MailsController < Backend::BackendController
       # instead of sanitizing the user's name (see to_full_email_address
       # below, we use her email address only
       @to   = @user.email
-      @from = to_full_email_address( current_inventory_pool.name,
-                                     current_inventory_pool.email || DEFAULT_EMAIL)
+      @from = if current_inventory_pool
+                to_full_email_address( current_inventory_pool.try(name) ,
+                                       current_inventory_pool.email || DEFAULT_EMAIL)
+              else
+                DEFAULT_EMAIL
+              end
       @source_path = params[:source_path]                               
     end
   end
@@ -37,5 +41,8 @@ private
   def pre_load
     @user = User.find params[:user_id]
   end
-  
+
+  def authorized?
+    not_authorized! unless is_admin? or is_privileged_user?
+  end
 end
