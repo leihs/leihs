@@ -67,7 +67,7 @@ module Backend::ModelsHelper
                       end
       description = "Group: #{line.allocated_group}<br />Phone: #{line.document.user.phone}<br />#{document_link}"
       events[group_id] ||= []
-      events[group_id] << {:start => line.start_date.to_time.rfc2822, :end => (line.end_date.tomorrow.to_time - 1.second).rfc2822, :durationEvent => true,
+      events[group_id] << {:start => line.start_date.to_time.to_s(:rfc822), :end => (line.end_date.tomorrow.to_time - 1.second).to_s(:rfc822), :durationEvent => true,
                            :title => title, :description => description, #:trackNum => (events[group_id].empty? ? 0 : (line.item ? events[group_id].collect {|e| e[:trackNum] }.compact.max.to_i.next : nil)),
                            :color => color, :textColor => 'black', :classname => (!line.item and !line.available? ? "unavailable" : nil) }
     end
@@ -100,11 +100,11 @@ module Backend::ModelsHelper
         d = []
         in_quantity = change.in_quantity_in_group(k)
         if in_quantity < 0 or change.quantities.sum(:in_quantity) < 0
-          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.rfc2822}', endDate: '#{change.end_date.tomorrow.to_time.rfc2822}', color: '#f00', opacity: 50 })"
+          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.to_s(:rfc822)}', endDate: '#{change.end_date.tomorrow.to_time.to_s(:rfc822)}', color: '#f00', opacity: 50 })"
         end
         if prev_in_quantity != in_quantity
           prev_in_quantity = in_quantity
-          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.rfc2822}', endDate: '#{(change.start_date.to_time + 2.hours).rfc2822}', color: '#555555', opacity: 50, endLabel: '#{in_quantity}' })"
+          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.to_s(:rfc822)}', endDate: '#{(change.start_date.to_time + 2.hours).to_s(:rfc822)}', color: '#555555', opacity: 50, endLabel: '#{in_quantity}' })"
         end
         (d.empty? ? nil : d.join(', '))
       end.compact
@@ -141,8 +141,8 @@ module Backend::ModelsHelper
           if(i != 1) bandInfos[i].syncWith = 1;
           bandInfos[i].decorators = [
               new Timeline.SpanHighlightDecorator({
-                  startDate:  "#{Date.today.to_time.rfc2822}",
-                  endDate:    "#{Date.tomorrow.to_time.rfc2822}",
+                  startDate:  "#{Date.today.to_time.to_s(:rfc822)}",
+                  endDate:    "#{Date.tomorrow.to_time.to_s(:rfc822)}",
                   color:      "#98d9e7",
                   opacity:    50,
                   startLabel: bandNames[i]
