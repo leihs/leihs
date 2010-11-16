@@ -100,7 +100,7 @@ end
 task :modify_config do
   set :configfile, "#{release_path}/config/environment.rb"
   run "sed -i 's|CONTRACT_LENDING_PARTY_STRING.*|CONTRACT_LENDING_PARTY_STRING = \"#{contract_lending_party_string}\"|' #{configfile}"
-  run "sed -i 's|DEFAULT_EMAIL.* |DEFAULT_EMAIL = \"#{default_email}\"|' #{configfile}"
+  run "sed -i 's|DEFAULT_EMAIL.*|DEFAULT_EMAIL = \"#{default_email}\"|' #{configfile}"
   run "sed -i 's|:address.*|:address => \"#{email_server}\",|' #{configfile}"
   run "sed -i 's|:port.*|:port => #{email_port},|' #{configfile}"
   run "sed -i 's|:domain.*|:domain => \"#{email_domain}\"|' #{configfile}"
