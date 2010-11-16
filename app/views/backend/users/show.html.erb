@@ -91,9 +91,7 @@ end %>
     <% end if current_inventory_pool and current_inventory_pool.users.include?(@user)
     
     content_tag :li do %>
-	  <%= link_to icon_tag("email_edit") + _("Write Email"),
-            new_backend_mail_path(:inventory_pool_id => current_inventory_pool.try(:id), :user_id => @user.id, :source_path => @source_path),
-            { :target => '_top' } %>
+      <%= mail_link current_inventory_pool, @user, @source_path, {:target => '_top' } %>
     <% end 
   end %>
 
