@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "POT-Creation-Date: 2010-11-16 13:52+0100\n"
-"PO-Revision-Date: 2010-08-04 08:58+0100\n"
+"PO-Revision-Date: 2010-11-16 16:57+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -34,9 +34,7 @@ msgstr "Zu viele Benutzer gefunden"
 
 #: app/controllers/authenticator/ldap_authentication_controller.rb:68
 msgid "Invalid technical user - contact your leihs admin"
-msgstr ""
-"Ungültiger technischer Benutzer - wenden Sie sich an Ihren leihs-"
-"Administrator"
+msgstr "Ungültiger technischer Benutzer - wenden Sie sich an Ihren leihs-Administrator"
 
 #: app/controllers/authenticator/database_authentication_controller.rb:19
 #: app/controllers/sessions_controller.rb:50
@@ -61,12 +59,11 @@ msgstr "Sie sind nun ausgeloggt."
 
 #: app/controllers/backend/mails_controller.rb:8
 msgid "The user does not have an email address"
-msgstr ""
+msgstr "Der Benutzer hat keine E-Mail-Adresse"
 
 #: app/controllers/backend/mails_controller.rb:29
-#, fuzzy
 msgid "The mail was sent"
-msgstr "Das Modell hat Gegenstände"
+msgstr "Das E-Mail wurde verschickt"
 
 #: app/controllers/backend/categories_controller.rb:121
 msgid "The Category must be empty"
@@ -90,12 +87,8 @@ msgid "The Inventory Code %s was not found."
 msgstr "Inventarcode %s nicht gefunden"
 
 #: app/controllers/backend/hand_over_controller.rb:59
-msgid ""
-"No items to hand over specified. Please assign inventory codes to the items "
-"you want to hand over."
-msgstr ""
-"Es sind keine Gegenstände zur Übergabe markiert. Bitte weisen Sie den "
-"Gegenständen, die Sie übergeben wollen, Inventarcodes zu."
+msgid "No items to hand over specified. Please assign inventory codes to the items you want to hand over."
+msgstr "Es sind keine Gegenstände zur Übergabe markiert. Bitte weisen Sie den Gegenständen, die Sie übergeben wollen, Inventarcodes zu."
 
 #: app/controllers/backend/hand_over_controller.rb:75
 msgid "New lines have been generated"
@@ -231,9 +224,8 @@ msgid "The properties have been updated."
 msgstr "Die Eigenschaften wurden aktualisiert."
 
 #: app/controllers/backend/models_controller.rb:225
-#, fuzzy
 msgid "This model is now in %d categories"
-msgstr "Modelle ist jetzt in Kategorie %s"
+msgstr "Modell ist jetzt in Kategorie %s"
 
 #: app/controllers/backend/models_controller.rb:241
 msgid "Successfully set."
@@ -266,9 +258,8 @@ msgid "Upload error."
 msgstr "Fehler beim Hochladen."
 
 #: app/controllers/backend/models_controller.rb:297
-#, fuzzy
 msgid "The group quantities were successfully saved."
-msgstr "Zubehör erstellt."
+msgstr "Die Gruppen-Verteilungen wurden gespeichert."
 
 #: app/controllers/backend/backend_controller.rb:21
 #: app/views/layouts/backend/00-patterns/_sidebar.html.erb:7
@@ -322,9 +313,8 @@ msgid "Submission failed"
 msgstr "Abschicken schlug fehl."
 
 #: app/models/access_right.rb:-
-#, fuzzy
 msgid "order line"
-msgstr "Modell-Link"
+msgstr "Bestellungszeile"
 
 #: app/models/access_right.rb:-
 #, fuzzy
@@ -1689,7 +1679,7 @@ msgstr "Zubehör|Anzahl"
 
 #: app/models/access_right.rb:-
 msgid "attachment"
-msgstr ""
+msgstr "Attachment"
 
 #: app/models/access_right.rb:-
 #, fuzzy
@@ -1848,9 +1838,8 @@ msgid "User swapped %{from} for %{to}"
 msgstr "Benutzer geändert von %{from} zu %{to}"
 
 #: app/models/order.rb:260
-#, fuzzy
 msgid "Invalid order_lines"
-msgstr "Modell-Link"
+msgstr "Ungültige order_lines"
 
 #: app/models/document.rb:60
 msgid "Added"
@@ -1888,7 +1877,8 @@ msgstr "Der Gerätepark ist am gewünschten Starttag geschlossen"
 msgid "inventory pool is closed on end_date. "
 msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 
-#: app/models/document_line.rb:65 app/helpers/backend/backend_helper.rb:221
+#: app/models/document_line.rb:65
+#: app/helpers/backend/backend_helper.rb:221
 #: app/views/frontend/_complete_order.html.erb:193
 #: app/views/frontend/_models.html.erb:405
 msgid "Start Date must be before End Date"
@@ -1923,8 +1913,7 @@ msgid "[leihs] Some items should be returned tomorrow"
 msgstr "[leihs] Einige Gegenstände sollten morgen zurückgebracht werden"
 
 #: app/models/option_line.rb:60
-msgid ""
-"The option doesn't belong to the inventory pool related to this contract"
+msgid "The option doesn't belong to the inventory pool related to this contract"
 msgstr "Die Option gehört nicht zum Gerätepark dieses Vertrags"
 
 #: app/models/model_link.rb:20
@@ -1932,9 +1921,8 @@ msgid "already in Category"
 msgstr "bereits in Kategorie"
 
 #: app/models/order_line.rb:75
-#, fuzzy
 msgid "Inconsistent Inventory Pool"
-msgstr "Inventarcode"
+msgstr "Inkonsistenter Geräterpark"
 
 #: app/models/user.rb:231
 msgid "Reminded %{q} items for contracts %{c}"
@@ -1946,9 +1934,7 @@ msgstr "%{q} konnte nicht für Vertrag %{c} erinnert werden"
 
 #: app/models/user.rb:261
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
-msgstr ""
-"\"Deadline bald\" Erinnerung für %{q} Gegenstände gesendet aus den Verträgen "
-"%{c}"
+msgstr "\"Deadline bald\" Erinnerung für %{q} Gegenstände gesendet aus den Verträgen %{c}"
 
 #: app/models/item.rb:417
 msgid "%s until %s"
@@ -1956,33 +1942,29 @@ msgstr "%s bis %s"
 
 #: app/models/item.rb:446
 msgid "The parent item doesn't exist (parent_id: %d)"
-msgstr ""
+msgstr "Das Eltern-Objekt existiert nicht (parent_id: %d)"
 
 #: app/models/item.rb:448
 msgid "A package cannot be nested to another package"
-msgstr ""
+msgstr "Ein Paket kann nicht Teil eines Pakets sein"
 
-#: app/models/item.rb:450 app/models/item.rb:451 app/models/item.rb:452
+#: app/models/item.rb:450
+#: app/models/item.rb:451
+#: app/models/item.rb:452
 msgid "doesn‘t match parent's attribute"
-msgstr ""
+msgstr "stimmt nicht mit dem Attribut des Eltern-Objekts überein"
 
 #: app/models/item.rb:455
 msgid "Package error"
 msgstr "Paketfehler"
 
 #: app/models/item.rb:460
-msgid ""
-"The model cannot be changed because the item is used in contracts already."
-msgstr ""
-"Das Modell kann nicht verändert werden, da dieser Gegenstand bereits in "
-"Verträgen verwendet wurde."
+msgid "The model cannot be changed because the item is used in contracts already."
+msgstr "Das Modell kann nicht verändert werden, da dieser Gegenstand bereits in Verträgen verwendet wurde."
 
 #: app/models/item.rb:464
-#, fuzzy
 msgid "The item cannot be retired because it's not returned yet."
-msgstr ""
-"Das Modell kann nicht verändert werden, da dieser Gegenstand bereits in "
-"Verträgen verwendet wurde."
+msgstr "Das Gerät kann nicht ausgemustert werden, weil es noch nicht zurückgebracht worden ist"
 
 #: app/models/contract.rb:55
 msgid "Unsigned"
@@ -2011,8 +1993,7 @@ msgid "The item doesn't match with the reserved model"
 msgstr "Dieser Artikel entspricht nicht dem reservierten Modell"
 
 #: app/models/item_line.rb:102
-msgid ""
-"The item is already handed over or assigned to a different contract line"
+msgid "The item is already handed over or assigned to a different contract line"
 msgstr "Dieser Gegenstand ist bereits einem anderen Vertrag zugewiesen"
 
 #: app/models/item_line.rb:105
@@ -2032,18 +2013,13 @@ msgid "Days"
 msgstr "Tage"
 
 #: app/helpers/application_helper.rb:136
-msgid ""
-"Possibly not all matches are being displayed because your search text was "
-"shorter than the minumum %s characters"
-msgstr ""
-"Es werden evtl. nicht alle Resultate angezeigt, da Ihr Suchbegriff kürzer "
-"war als %s Zeichen"
+msgid "Possibly not all matches are being displayed because your search text was shorter than the minumum %s characters"
+msgstr "Es werden evtl. nicht alle Resultate angezeigt, da Ihr Suchbegriff kürzer war als %s Zeichen"
 
 #: app/helpers/backend/models_helper.rb:58
 #: app/helpers/backend/availability_helper.rb:149
-#, fuzzy
 msgid "Quantity: %d"
-msgstr "Anzahl:"
+msgstr "Anzahl: %d"
 
 #: app/helpers/backend/models_helper.rb:62
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:10
@@ -2102,34 +2078,28 @@ msgid "Retire"
 msgstr "Ausmustern"
 
 #: app/helpers/backend/availability_helper.rb:120
-#, fuzzy
 msgid "Borrowable %s"
-msgstr "Ausleihbar"
+msgstr "Ausleihbar %s"
 
 #: app/helpers/backend/availability_helper.rb:121
-#, fuzzy
 msgid "In Stock (%d)"
-msgstr "An Lager"
+msgstr "An Lager (%d)"
 
 #: app/helpers/backend/availability_helper.rb:122
-#, fuzzy
 msgid "Not In Stock (%d)"
-msgstr "Nicht an Lager"
+msgstr "Nicht an Lager (%d)"
 
 #: app/helpers/backend/availability_helper.rb:123
-#, fuzzy
 msgid "DocumentLines"
-msgstr "Dokumente"
+msgstr "DocumentLines"
 
 #: app/helpers/backend/availability_helper.rb:169
-#, fuzzy
 msgid "From date"
-msgstr "Von heute"
+msgstr "Von Datum"
 
 #: app/helpers/backend/availability_helper.rb:170
-#, fuzzy
 msgid "Available quantity"
-msgstr "Verfügbar"
+msgstr "Verfügbare Anzahl"
 
 #: app/helpers/backend/backend_helper.rb:37
 msgid " <b>%d</b> results"
@@ -2164,7 +2134,8 @@ msgstr "Vorwärts"
 msgid "Reserver"
 msgstr "Reservierer"
 
-#: app/helpers/backend/backend_helper.rb:103 app/views/users/show.html.erb:5
+#: app/helpers/backend/backend_helper.rb:103
+#: app/views/users/show.html.erb:5
 #: app/views/mailer/order/received.text.plain.erb:8
 #: app/views/mailer/order/received.text.html.erb:14
 #: app/views/widgets/_user_backend_tabnav.html.erb:17
@@ -2202,7 +2173,8 @@ msgid "Model"
 msgstr "Modell"
 
 #: app/helpers/backend/backend_helper.rb:165
-#: app/views/users/account.html.erb:29 app/views/frontend/_models.html.erb:247
+#: app/views/users/account.html.erb:29
+#: app/views/frontend/_models.html.erb:247
 msgid "Loading"
 msgstr "Lade"
 
@@ -2231,7 +2203,8 @@ msgstr "Alle"
 #: app/views/authenticator/database_authentication/login.html.erb:6
 #: app/views/authenticator/ldap_authentication/login.html.erb:4
 #: app/views/authenticator/ldap_authentication/login.html.erb:6
-#: app/views/users/show.html.erb:7 app/views/backend/users/show.html.erb:4
+#: app/views/users/show.html.erb:7
+#: app/views/backend/users/show.html.erb:4
 #: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:23
 msgid "Login"
 msgstr "Login"
@@ -2255,12 +2228,14 @@ msgstr "Verträge"
 msgid "Unique ID"
 msgstr "Unique-ID"
 
-#: app/views/users/show.html.erb:9 app/views/backend/users/new.html.erb:5
+#: app/views/users/show.html.erb:9
+#: app/views/backend/users/new.html.erb:5
 #: app/views/backend/users/edit.html.erb:5
 msgid "Firstname/Lastname"
 msgstr "Vorname/Nachname"
 
-#: app/views/users/show.html.erb:10 app/views/backend/users/show.html.erb:49
+#: app/views/users/show.html.erb:10
+#: app/views/backend/users/show.html.erb:49
 #: app/views/backend/users/new.html.erb:6
 #: app/views/backend/users/edit.html.erb:6
 #: app/views/backend/inventory_pools/edit.html.erb:5
@@ -2269,7 +2244,8 @@ msgstr "Vorname/Nachname"
 msgid "Email"
 msgstr "E-Mail"
 
-#: app/views/users/show.html.erb:11 app/views/backend/users/show.html.erb:58
+#: app/views/users/show.html.erb:11
+#: app/views/backend/users/show.html.erb:58
 #: app/views/backend/users/new.html.erb:7
 #: app/views/backend/users/edit.html.erb:7
 msgid "Phone"
@@ -2288,26 +2264,8 @@ msgid "User details incomplete: %s is missing"
 msgstr "Benutzer-Informationen nicht komplett: %s fehlt"
 
 #: app/views/users/_incomplete.html.erb:14
-msgid ""
-"Unfortunately, we do not have all your personal information and therefore "
-"cannot grant you access to this system. Please log in to the Personensuche "
-"system (see link below) and complete the form under 'Meine persönlichen "
-"Daten'. If you cannot use the Personensuche system, please contact Claudio "
-"Pavan (claudio.pavan@zhdk.ch or +41 43 446 21 48) and give him your full "
-"details. The information we need is: Full name, address, landline phone "
-"number, mobile phone number and alternative e-mail address. This information "
-"will never be visible to the public unless you explicitly choose to make it "
-"visible."
-msgstr ""
-"Leider haben wir nicht genug Informationen zu Ihrer Person und müssen Ihnen "
-"deshalb den Zugang zu diesem System verweigern. Bitte loggen Sie in die "
-"Personensuche ein (siehe Link weiter unten) und vervollständigen Sie die "
-"Informationen unter 'Meine persönlichen Daten'. Falls Sie das Personensuche-"
-"System nicht benutzen können, wenden Sie sich bitte an Claudio Pavan "
-"(claudio.pavan@zhdk.ch or 043 446 21 48). Die Informationen, die wir "
-"benötigen, sind: Voller Name, Adresse, Telefon (privat), Telefon (mobil) und "
-"E-Mail (privat). Diese Informationen werden niemals öffentlich sichtbar "
-"gemacht, ausser Sie erlauben dies explizit."
+msgid "Unfortunately, we do not have all your personal information and therefore cannot grant you access to this system. Please log in to the Personensuche system (see link below) and complete the form under 'Meine persönlichen Daten'. If you cannot use the Personensuche system, please contact Claudio Pavan (claudio.pavan@zhdk.ch or +41 43 446 21 48) and give him your full details. The information we need is: Full name, address, landline phone number, mobile phone number and alternative e-mail address. This information will never be visible to the public unless you explicitly choose to make it visible."
+msgstr "Leider haben wir nicht genug Informationen zu Ihrer Person und müssen Ihnen deshalb den Zugang zu diesem System verweigern. Bitte loggen Sie in die Personensuche ein (siehe Link weiter unten) und vervollständigen Sie die Informationen unter 'Meine persönlichen Daten'. Falls Sie das Personensuche-System nicht benutzen können, wenden Sie sich bitte an Claudio Pavan (claudio.pavan@zhdk.ch or 043 446 21 48). Die Informationen, die wir benötigen, sind: Voller Name, Adresse, Telefon (privat), Telefon (mobil) und E-Mail (privat). Diese Informationen werden niemals öffentlich sichtbar gemacht, ausser Sie erlauben dies explizit."
 
 #: app/views/users/_contracts.html.erb:7
 msgid "Contracts (%d)"
@@ -2367,34 +2325,18 @@ msgstr " aus dem Gerätepark "
 
 #: app/views/mailer/user/remind.text.plain.erb:17
 #: app/views/mailer/user/remind.text.html.erb:27
-msgid ""
-"Since we did not receive any request for renewal, we consequently demand the "
-"return of the items without further delay."
-msgstr ""
-"Da Sie keine Verlängerung beantragt haben, bitten wir Sie, die Artikel "
-"sofort zurückzubringen."
+msgid "Since we did not receive any request for renewal, we consequently demand the return of the items without further delay."
+msgstr "Da Sie keine Verlängerung beantragt haben, bitten wir Sie, die Artikel sofort zurückzubringen."
 
 #: app/views/mailer/user/remind.text.plain.erb:19
 #: app/views/mailer/user/remind.text.html.erb:29
-msgid ""
-"By not returning these items, you are blocking other people's reservations. "
-"This is very unfair to the other clients and to the inventory manager, since "
-"you are causing a significant amount of trouble and annoyance."
-msgstr ""
-"Das verspätete Retournieren der Artikel blockiert neue Reservationen und "
-"verursacht massiven Ärger und Umtriebe für unsere anderen Kunden/innen sowie "
-"den Verleiher!"
+msgid "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance."
+msgstr "Das verspätete Retournieren der Artikel blockiert neue Reservationen und verursacht massiven Ärger und Umtriebe für unsere anderen Kunden/innen sowie den Verleiher!"
 
 #: app/views/mailer/user/remind.text.plain.erb:21
 #: app/views/mailer/user/remind.text.html.erb:31
-msgid ""
-"You might receive an admonishment and be subject to late fees as well as the "
-"restriction of borrowing privileges. In case of recurrence you might be "
-"barred from leihs for up to 6 months."
-msgstr ""
-"Dies kann eine Verwarnung nach sich ziehen und Sie können im "
-"Wiederholungsfall vom Verleiher bis zu 6 Monaten von der Ausleihe gesperrt "
-"werden!"
+msgid "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from leihs for up to 6 months."
+msgstr "Dies kann eine Verwarnung nach sich ziehen und Sie können im Wiederholungsfall vom Verleiher bis zu 6 Monaten von der Ausleihe gesperrt werden!"
 
 #: app/views/mailer/user/remind.text.plain.erb:23
 #: app/views/mailer/user/remind.text.html.erb:33
@@ -2431,28 +2373,19 @@ msgstr "Gegenstände"
 
 #: app/views/mailer/user/deadline_soon_reminder.text.html.erb:27
 #: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:16
-msgid ""
-"We are just sending you this little reminder because someone else is already "
-"waiting for some of these items."
-msgstr ""
-"Wir senden Ihnen diese kleine Erinnerung, da für den/die genannten Artikel "
-"bereits eine neue Reservation besteht."
+msgid "We are just sending you this little reminder because someone else is already waiting for some of these items."
+msgstr "Wir senden Ihnen diese kleine Erinnerung, da für den/die genannten Artikel bereits eine neue Reservation besteht."
 
 #: app/views/mailer/user/deadline_soon_reminder.text.html.erb:29
 #: app/views/mailer/user/deadline_soon_reminder.text.plain.erb:18
-msgid ""
-"In the interest of all our clients we ask you to observe the return dates."
-msgstr ""
-"Im Interesse aller unserer Kunden/innen bitten wir Sie, die Termine dringend "
-"einzuhalten."
+msgid "In the interest of all our clients we ask you to observe the return dates."
+msgstr "Im Interesse aller unserer Kunden/innen bitten wir Sie, die Termine dringend einzuhalten."
 
 #: app/views/mailer/order/changed.text.plain.erb:5
 #: app/views/mailer/order/approved.text.html.erb:11
 #: app/views/mailer/order/approved.text.plain.erb:5
 #: app/views/mailer/order/changed.text.html.erb:11
-msgid ""
-"Your order for the following items has been confirmed by the inventory "
-"manager"
+msgid "Your order for the following items has been confirmed by the inventory manager"
 msgstr "Ihre Bestellung der folgenden Artikel wurde vom Verleiher genehmigt:"
 
 #: app/views/mailer/order/changed.text.plain.erb:5
@@ -2487,20 +2420,13 @@ msgstr "Vom Verleiher hinzugefügte Kommentare:"
 
 #: app/views/mailer/order/submitted.text.plain.erb:5
 #: app/views/mailer/order/submitted.text.html.erb:11
-msgid ""
-"Your order for the following items listed below was successfully submitted."
+msgid "Your order for the following items listed below was successfully submitted."
 msgstr "Ihre folgende Bestellung ist bei uns eingetroffen:"
 
 #: app/views/mailer/order/submitted.text.plain.erb:13
 #: app/views/mailer/order/submitted.text.html.erb:21
-msgid ""
-"Unfortunately your order is still pending, but you will soon receive a "
-"confirmation of order by separate e-mail. You can view the status of your "
-"order through your leihs account."
-msgstr ""
-"Leider konnte diese noch nicht bearbeitet werden. Sie werden zur Bestätigung "
-"eine weitere Nachricht erhalten. Es besteht die Möglichkeit, den Status "
-"Ihrer Bestellung im persönlichen leihs-Konto einzusehen."
+msgid "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account."
+msgstr "Leider konnte diese noch nicht bearbeitet werden. Sie werden zur Bestätigung eine weitere Nachricht erhalten. Es besteht die Möglichkeit, den Status Ihrer Bestellung im persönlichen leihs-Konto einzusehen."
 
 #: app/views/mailer/order/received.text.plain.erb:1
 #: app/views/mailer/order/received.text.html.erb:9
@@ -2509,31 +2435,18 @@ msgstr "Liebe/r leihs-Manager/in"
 
 #: app/views/mailer/order/received.text.plain.erb:5
 #: app/views/mailer/order/received.text.html.erb:11
-msgid ""
-"An order for the following items listed below was received in an inventory "
-"pool you are responsible for."
-msgstr ""
-"Eine Bestellung für die folgenden Gegenstände ist in einem Inventarpool "
-"eingegangen, für den Sie verantwortlich sind."
+msgid "An order for the following items listed below was received in an inventory pool you are responsible for."
+msgstr "Eine Bestellung für die folgenden Gegenstände ist in einem Inventarpool eingegangen, für den Sie verantwortlich sind."
 
 #: app/views/mailer/order/received.text.plain.erb:14
 #: app/views/mailer/order/received.text.html.erb:22
-msgid ""
-"This order is still pending. Please log in to your leihs system and either "
-"approve or reject it."
-msgstr ""
-"Diese Bestellung ist noch hängig. Bitte loggen Sie sich in Ihr leihs-System "
-"ein, um sie zu genehmigen oder abzulehnen."
+msgid "This order is still pending. Please log in to your leihs system and either approve or reject it."
+msgstr "Diese Bestellung ist noch hängig. Bitte loggen Sie sich in Ihr leihs-System ein, um sie zu genehmigen oder abzulehnen."
 
 #: app/views/mailer/order/received.text.plain.erb:16
 #: app/views/mailer/order/received.text.html.erb:24
-msgid ""
-"The user who placed this order has received a similar e-mail message "
-"informing them that the order first needs to be approved before it is valid."
-msgstr ""
-"Die Person, die diese Bestellung durchgeführt hat, erhielt ein ähnliches E-"
-"Mail und würde darüber informiert, dass die Bestellung erst gültig ist, wenn "
-"sie genehmigt wird."
+msgid "The user who placed this order has received a similar e-mail message informing them that the order first needs to be approved before it is valid."
+msgstr "Die Person, die diese Bestellung durchgeführt hat, erhielt ein ähnliches E-Mail und würde darüber informiert, dass die Bestellung erst gültig ist, wenn sie genehmigt wird."
 
 #: app/views/mailer/order/rejected.text.plain.erb:5
 #: app/views/mailer/order/rejected.text.html.erb:11
@@ -2542,28 +2455,15 @@ msgstr "Ihre Bestellung wurde aus folgenden Gründen abgelehnt:"
 
 #: app/views/orders/_submit.html.erb:3
 msgid "The order has been successfully submitted, but is NOT YET CONFIRMED."
-msgstr ""
-"Die Bestellung wurde erfolgreich eingereicht, ist aber NOCH NICHT GENEHMIGT."
+msgstr "Die Bestellung wurde erfolgreich eingereicht, ist aber NOCH NICHT GENEHMIGT."
 
 #: app/views/orders/_submit.html.erb:7
-msgid ""
-"Your order has now been submitted to an inventory manager for approval. The "
-"inventory manager will check your order and either approve it, reject it or "
-"make changes to it. Once this is done, you will be notified by e-mail. You "
-"can also see your order status on your personal page (click your name in the "
-"top right corner of this page)."
-msgstr ""
-"Ihre Bestellung wurde zur Bearbeitung an einen Inventarverwalter geschickt. "
-"Dieser wird sie überprüfen und entweder genehmigen, ablehnen oder verändern. "
-"Sobald dies passiert, werden Sie per E-Mail benachrichtigt. Sie können Ihre "
-"offenen Reservationen auch auf Ihrer persönlichen Liste abrufen (klicken Sie "
-"auf Ihren Namen, oben rechts auf dieser Seite)."
+msgid "Your order has now been submitted to an inventory manager for approval. The inventory manager will check your order and either approve it, reject it or make changes to it. Once this is done, you will be notified by e-mail. You can also see your order status on your personal page (click your name in the top right corner of this page)."
+msgstr "Ihre Bestellung wurde zur Bearbeitung an einen Inventarverwalter geschickt. Dieser wird sie überprüfen und entweder genehmigen, ablehnen oder verändern. Sobald dies passiert, werden Sie per E-Mail benachrichtigt. Sie können Ihre offenen Reservationen auch auf Ihrer persönlichen Liste abrufen (klicken Sie auf Ihren Namen, oben rechts auf dieser Seite)."
 
 #: app/views/orders/_submit.html.erb:11
 msgid "These are your current pending orders:"
-msgstr ""
-"Hier sind die Reservationen, die noch von einem Inventarverwalter bestätigt "
-"werden müssen:"
+msgstr "Hier sind die Reservationen, die noch von einem Inventarverwalter bestätigt werden müssen:"
 
 #: app/views/orders/_submit.html.erb:20
 msgid "Details about the involved inventory pools"
@@ -2599,7 +2499,8 @@ msgstr "Gerätepark"
 msgid "Number of items"
 msgstr "Anzahl Gegenstände"
 
-#: app/views/orders/_pending.html.erb:12 app/views/orders/_pending.html.erb:36
+#: app/views/orders/_pending.html.erb:12
+#: app/views/orders/_pending.html.erb:36
 #: app/views/backend/orders/show.html.erb:29
 #: app/views/backend/acknowledge/show.html.erb:46
 #: app/views/backend/acknowledge/_index.html.erb:1
@@ -2698,12 +2599,11 @@ msgstr "SIE SIND FÜR DIESEN GERÄTEPARK GESPERRT"
 #: app/views/backend/users/groups.html.erb:18
 #: app/views/backend/groups/_index.html.erb:1
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #: app/views/widgets/_group_backend_tabnav.html.erb:25
-#, fuzzy
 msgid "Users (%d)"
-msgstr "Gegenstände (%d)"
+msgstr "Benutzer (%d)"
 
 #: app/views/widgets/_group_backend_tabnav.html.erb:31
 #: app/views/widgets/_category_backend_tabnav.html.erb:27
@@ -2735,9 +2635,8 @@ msgid "Access Rights (%d)"
 msgstr "Zugriffsrechte (%d)"
 
 #: app/views/widgets/_user_backend_tabnav.html.erb:33
-#, fuzzy
 msgid "Groups (%d)"
-msgstr "Eigenschaften  (%d)"
+msgstr "Gruppen  (%d)"
 
 #: app/views/widgets/_user_backend_tabnav.html.erb:39
 msgid "Things to return"
@@ -2966,11 +2865,8 @@ msgstr "für"
 
 #: app/views/backend/hand_over/show.html.erb:121
 #: app/views/backend/acknowledge/show.html.erb:111
-msgid ""
-"This user doesn't have access to your inventory pool or is on your Blacklist!"
-msgstr ""
-"Dieser Benutzer hat keinen Zugriff auf Ihren Gerätepark oder er ist auf "
-"Ihrer schwarzen Liste!"
+msgid "This user doesn't have access to your inventory pool or is on your Blacklist!"
+msgstr "Dieser Benutzer hat keinen Zugriff auf Ihren Gerätepark oder er ist auf Ihrer schwarzen Liste!"
 
 #: app/views/backend/hand_over/show.html.erb:121
 #: app/views/backend/acknowledge/show.html.erb:111
@@ -3100,9 +2996,8 @@ msgid "Currently has the following things"
 msgstr "Hat momentan die folgenden Dinge"
 
 #: app/views/backend/users/groups.html.erb:6
-#, fuzzy
 msgid "Add group"
-msgstr "Modellgruppe"
+msgstr "Gruppe hinzufügen"
 
 #: app/views/backend/users/groups.html.erb:27
 #: app/views/backend/users/access_rights.html.erb:90
@@ -3168,18 +3063,12 @@ msgid "Reason"
 msgstr "Begründung"
 
 #: app/views/backend/users/access_rights.html.erb:151
-#, fuzzy
 msgid "Access levels"
-msgstr "Zugriffsstufe"
+msgstr "Zugriffsstufen"
 
 #: app/views/backend/users/access_rights.html.erb:152
-#, fuzzy
-msgid ""
-"Access levels, handled per inventory pool, are used to determine what system "
-"functionality a user is allowed to see and use."
-msgstr ""
-"Zugriffsstufen bestimmen, welche Funktionen ein Benutzer sieht/benutzen kann "
-"und welche nicht."
+msgid "Access levels, handled per inventory pool, are used to determine what system functionality a user is allowed to see and use."
+msgstr "Zugriffsstufen (pro Gerätepark) bestimmen, welche Funktionen ein Benutzer sieht/benutzen kann und welche nicht."
 
 #: app/views/backend/users/_database_authentication.html.erb:7
 msgid "Database Authentication"
@@ -3255,9 +3144,8 @@ msgstr "Neuer Vertrag"
 
 #: app/views/backend/users/show.html.erb:94
 #: app/views/backend/users/_index.html.erb:50
-#, fuzzy
 msgid "Write Email"
-msgstr "E-Mail"
+msgstr "E-Mail schreiben"
 
 #: app/views/backend/users/_index.html.erb:1
 msgid "User Login"
@@ -3438,19 +3326,15 @@ msgstr "Teil von:"
 
 #: app/views/backend/items/retire.html.erb:3
 msgid "The item %s will be unretired and be available for rentals."
-msgstr ""
-"Der Gegenstand %s wird nicht mehr ausgemustert und wieder für die Ausleihe "
-"verfügbar sein."
+msgstr "Der Gegenstand %s wird nicht mehr ausgemustert und wieder für die Ausleihe verfügbar sein."
 
 #: app/views/backend/items/retire.html.erb:6
 msgid "The item %s will be retired and no longer be available for rentals."
-msgstr ""
-"Der Gegenstand %s wird ausgemustert und nicht mehr für die Ausleihe "
-"verfügbar sein."
+msgstr "Der Gegenstand %s wird ausgemustert und nicht mehr für die Ausleihe verfügbar sein."
 
 #: app/views/backend/items/retire.html.erb:32
 msgid "Operation not permitted: the item is not returned yet."
-msgstr ""
+msgstr "Diese Aktion ist nicht erlaubt: Der Gegenstand wurde noch nicht zurückgegeben."
 
 #: app/views/backend/items/_invoice_info.html.erb:1
 msgid "Invoice Information"
@@ -3586,21 +3470,19 @@ msgstr "Ausgewählte hinzufügen"
 #: app/views/backend/models/show.html.erb:7
 #: app/views/backend/models/_groups.html.erb:2
 msgid "Current group quantities"
-msgstr ""
+msgstr "Gruppen-Verteilung"
 
 #: app/views/backend/models/_groups.html.erb:11
-#, fuzzy
 msgid "Borrowable (%d)"
-msgstr "Ausleihbar"
+msgstr "Ausleihbar (%d)"
 
 #: app/views/backend/models/_groups.html.erb:14
-#, fuzzy
 msgid "Unborrowable (%d)"
-msgstr "Nicht ausleihbar"
+msgstr "Nicht ausleihbar (%d)"
 
 #: app/views/backend/models/_groups.html.erb:19
 msgid "General"
-msgstr ""
+msgstr "Allgemein"
 
 #: app/views/backend/models/attachments.html.erb:2
 msgid "Upload attachment for model"
@@ -3641,12 +3523,10 @@ msgstr "Gegenstand hinzufügen"
 #: app/views/backend/models/package_roots.html.erb:44
 msgid ""
 "Are you sure?\n"
-"The %d items associated with this package will be freed up and available as "
-"single items again."
+"The %d items associated with this package will be freed up and available as single items again."
 msgstr ""
 "Sind Sie sicher?\n"
-"Die %d mit diesem Paket verbundenen Gegenstände werden wieder freigegeben "
-"und stehen dann einzeln zur Ausleihe zur Verfügung."
+"Die %d mit diesem Paket verbundenen Gegenstände werden wieder freigegeben und stehen dann einzeln zur Ausleihe zur Verfügung."
 
 #: app/views/backend/models/package_roots.html.erb:45
 msgid "%d Items"
@@ -3716,12 +3596,8 @@ msgid "Package name"
 msgstr "Paketname"
 
 #: app/views/backend/models/package.html.erb:15
-msgid ""
-"The package name cannot be changed because it's present in many inventory "
-"pools."
-msgstr ""
-"Der Paketname kann nicht verändert werden, weil er in mehreren Geräteparks "
-"vorkommt."
+msgid "The package name cannot be changed because it's present in many inventory pools."
+msgstr "Der Paketname kann nicht verändert werden, weil er in mehreren Geräteparks vorkommt."
 
 #: app/views/backend/models/package.html.erb:20
 #: app/views/frontend/_inventory_pools.html.erb:37
@@ -3839,71 +3715,48 @@ msgid "Default contract note"
 msgstr "Standard-Vertragsnotiz"
 
 #: app/views/backend/inventory_pools/_info.html.erb:5
-msgid ""
-"Whatever you enter here is prepended to all inventory numbers for this "
-"particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no "
-"alphabetic characters are used in the inventory numbers."
-msgstr ""
-"Was Sie hier eingeben, wird vorne an alle Inventarnummern dieses Geräteparks "
-"angehängt. z.B. ABC1, ABC2, ABC3 usw. Wenn Sie dies leer lassen, werden "
-"keine alphanumerischen Zeichen in den Inventarnummern verwendet."
+msgid "Whatever you enter here is prepended to all inventory numbers for this particular pool. e.g. ABC1, ABC2, ABC3 etc. If you leave this empty, no alphabetic characters are used in the inventory numbers."
+msgstr "Was Sie hier eingeben, wird vorne an alle Inventarnummern dieses Geräteparks angehängt. z.B. ABC1, ABC2, ABC3 usw. Wenn Sie dies leer lassen, werden keine alphanumerischen Zeichen in den Inventarnummern verwendet."
 
 #: app/views/backend/inventory_pools/_info.html.erb:6
-msgid ""
-"This e-mail address is used as sender when sending reminder or confirmation "
-"e-mails for this particular pool. If you enter nothing, the system default "
-"sender address is used."
-msgstr ""
-"Diese Mailadresse wird als Absender beim Senden von Erinnerungs- und "
-"Bestätigungsmails aus diesem Gerätepark verwendet. Wenn Sie nichts eingeben, "
-"wird die Standardadresse des Systems verwendet."
+msgid "This e-mail address is used as sender when sending reminder or confirmation e-mails for this particular pool. If you enter nothing, the system default sender address is used."
+msgstr "Diese Mailadresse wird als Absender beim Senden von Erinnerungs- und Bestätigungsmails aus diesem Gerätepark verwendet. Wenn Sie nichts eingeben, wird die Standardadresse des Systems verwendet."
 
 #: app/views/backend/inventory_pools/_info.html.erb:8
-msgid ""
-"This note is added to any contract, but can be changed individually before "
-"actually printing and signing each contract."
-msgstr ""
-"Diese Notiz wird standardmässig jedem Vertrag hinzufgefügt, kann beim Druck "
-"eines einzelnen Vertrags aber noch geändert werden."
+msgid "This note is added to any contract, but can be changed individually before actually printing and signing each contract."
+msgstr "Diese Notiz wird standardmässig jedem Vertrag hinzufgefügt, kann beim Druck eines einzelnen Vertrags aber noch geändert werden."
 
 #: app/views/backend/inventory_pools/_info.html.erb:9
 msgid "Menu background color"
 msgstr "Menü-Hintergrundfarbe"
 
 #: app/views/backend/inventory_pools/_info.html.erb:10
-#, fuzzy
 msgid "Print contracts"
-msgstr "Vertrag drucken"
+msgstr "Verträge drucken"
 
 #: app/views/backend/mails/new.html.erb:19
-#, fuzzy
 msgid "Recipient"
-msgstr "Empfangen "
+msgstr "Empfänger"
 
 #: app/views/backend/mails/new.html.erb:24
-#, fuzzy
 msgid "Subject"
-msgstr "Absenden"
+msgstr "Betreff"
 
 #: app/views/backend/mails/new.html.erb:42
-#, fuzzy
 msgid "Send"
-msgstr "Sperren"
+msgstr "Schicken"
 
 #: app/views/backend/availability/show.html.erb:2
-#, fuzzy
 msgid "Overbooking"
-msgstr "Überbucht"
+msgstr "Überbuchung"
 
 #: app/views/backend/availability/show.html.erb:8
-#, fuzzy
 msgid "Period"
 msgstr "Zeitraum"
 
 #: app/views/backend/availability/show.html.erb:9
-#, fuzzy
 msgid "Overbooked Quantity"
-msgstr "Überbucht"
+msgstr "Überbuchte Anzahl"
 
 #: app/views/backend/take_back/_item_line.html.erb:28
 #: app/views/backend/take_back/_option_line.html.erb:25
@@ -3989,14 +3842,12 @@ msgid "Do you really want to delete the object?"
 msgstr "Möchten Sie das Objekt wirklich löschen?"
 
 #: app/views/backend/groups/index.html.erb:2
-#, fuzzy
 msgid "New Group"
-msgstr "Modellgruppe"
+msgstr "Neue Gruppe"
 
 #: app/views/backend/groups/show.html.erb:3
-#, fuzzy
 msgid "Group name"
-msgstr "Modellgruppe"
+msgstr "Gruppenname"
 
 #: app/views/backend/groups/_index.html.erb:1
 #: app/views/layouts/backend/00-patterns/_menu_admin.html.erb:5
@@ -4004,9 +3855,8 @@ msgid "Users"
 msgstr "Benutzer"
 
 #: app/views/backend/groups/users.html.erb:6
-#, fuzzy
 msgid "Add user"
-msgstr "Benutzer"
+msgstr "Benutzer hinzufügen"
 
 #: app/views/backend/acknowledge/restore.html.erb:1
 msgid "Restore to the original order?"
@@ -4064,12 +3914,8 @@ msgid "Are yo sure you want to reject the order?"
 msgstr "Möchten Sie die Bestellung wirklich ablehnen?"
 
 #: app/views/backend/acknowledge/reject.html.erb:2
-msgid ""
-"You can enter an additional comment below, which will be sent to the user by "
-"e-mail."
-msgstr ""
-"Sie können weitere Kommentare unten hinzufügen, die dem Benutzer per E-Mail "
-"zugeschickt werden."
+msgid "You can enter an additional comment below, which will be sent to the user by e-mail."
+msgstr "Sie können weitere Kommentare unten hinzufügen, die dem Benutzer per E-Mail zugeschickt werden."
 
 #: app/views/backend/acknowledge/reject.html.erb:13
 msgid "Reject"
@@ -4095,16 +3941,8 @@ msgid "Unsigned contracts"
 msgstr "Hängige Verträge"
 
 #: app/views/contracts/_unsigned.html.erb:8
-msgid ""
-"Please note that these contracts, while they do belong to approved orders, "
-"may be changed by the lending manager at any time. They represent only a "
-"current snapshot of the order and might not contain the same items as the "
-"final contract once you pick up your items."
-msgstr ""
-"Bitte beachten Sie, dass diese Verträge zwar zu genehmigten Bestellungen "
-"gehören, die Bestellungen aber jederzeit von einem Inventarverwalter "
-"verändert werden können. Sie zeigen nur ein aktuelles Abbild der Bestellung. "
-"Diese kann bei Abholung durchaus andere Gegenstände enthalten."
+msgid "Please note that these contracts, while they do belong to approved orders, may be changed by the lending manager at any time. They represent only a current snapshot of the order and might not contain the same items as the final contract once you pick up your items."
+msgstr "Bitte beachten Sie, dass diese Verträge zwar zu genehmigten Bestellungen gehören, die Bestellungen aber jederzeit von einem Inventarverwalter verändert werden können. Sie zeigen nur ein aktuelles Abbild der Bestellung. Diese kann bei Abholung durchaus andere Gegenstände enthalten."
 
 #: app/views/contracts/_unsigned.html.erb:14
 #: app/views/contracts/_pending.html.erb:11
@@ -4132,7 +3970,8 @@ msgstr "Weiter in Bestellung"
 msgid "Welcome"
 msgstr "Willkommen"
 
-#: app/views/frontend/_help.html.erb:32 app/views/frontend/_topbar.html.erb:24
+#: app/views/frontend/_help.html.erb:32
+#: app/views/frontend/_topbar.html.erb:24
 msgid "Help"
 msgstr "Hilfe"
 
@@ -4215,8 +4054,7 @@ msgstr "Keine Modelle anzuzeigen"
 
 #: app/views/frontend/_models.html.erb:254
 msgid "This model may need permission!"
-msgstr ""
-"Um dieses Modell auszuleihen, benötigen Sie evtl. eine Ausleihbewilligung."
+msgstr "Um dieses Modell auszuleihen, benötigen Sie evtl. eine Ausleihbewilligung."
 
 #: app/views/frontend/_models.html.erb:269
 msgid "Properties"
@@ -4278,7 +4116,7 @@ msgstr "Unbekannt"
 
 #: app/views/layouts/backend/00-patterns/_menu_admin.html.erb:14
 msgid "Groups"
-msgstr ""
+msgstr "Gruppen"
 
 #: app/views/layouts/backend/00-patterns/_menu_admin.html.erb:17
 msgid "Locations"
@@ -4383,16 +4221,13 @@ msgstr "Gesamttotal"
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:107
 #: app/views/contracts/value_list_for_items.pdf.prawn:111
 msgid "This value list covers an order lasting from %s to %s."
-msgstr ""
-"Dieses Werteverzeichnis bezieht sich auf eine Bestellung für den Zeitraum %s "
-"bis %s."
+msgstr "Dieses Werteverzeichnis bezieht sich auf eine Bestellung für den Zeitraum %s bis %s."
 
 #: app/views/orders/value_list_for_models.pdf.prawn:107
 #: app/views/backend/contracts/value_list_for_models.pdf.prawn:112
 #: app/views/contracts/value_list_for_items.pdf.prawn:116
-#, fuzzy
 msgid "All prices in %s."
-msgstr "Alle Preise in CHF."
+msgstr "Alle Preise in %s."
 
 #: app/views/contracts/show.pdf.prawn:43
 msgid "No purpose given."
@@ -4403,15 +4238,8 @@ msgid "Contract no. %d"
 msgstr "Vertrag Nr. %d"
 
 #: app/views/contracts/show.pdf.prawn:69
-msgid ""
-"This lending contract covers borrowing the following items by the person "
-"(natural or legal) described as 'borrowing party' below. Use of these items "
-"is only allowed for the purpose given below."
-msgstr ""
-"Dieser Leihvertrag deckt die Ausleihe der folgenden Gegenstände durch die "
-"natürliche oder rechtliche Person ab, die oben als 'Ausleihende/r' "
-"bezeichnet ist. Die Verwendung der Gegenstände ist nur im Rahmen des unten "
-"angegebenen Zwecks gestattet."
+msgid "This lending contract covers borrowing the following items by the person (natural or legal) described as 'borrowing party' below. Use of these items is only allowed for the purpose given below."
+msgstr "Dieser Leihvertrag deckt die Ausleihe der folgenden Gegenstände durch die natürliche oder rechtliche Person ab, die oben als 'Ausleihende/r' bezeichnet ist. Die Verwendung der Gegenstände ist nur im Rahmen des unten angegebenen Zwecks gestattet."
 
 #: app/views/contracts/show.pdf.prawn:91
 msgid "Returned date"
@@ -4443,22 +4271,16 @@ msgstr "Zugriff verweigert"
 
 #~ msgid "This item requires the user to be level %s"
 #~ msgstr "Dieses Gerät benötigt mindestens Benutzerstufe %s"
-
 #~ msgid "Model is not in category %s now"
 #~ msgstr "Modell ist jetzt nicht in Kategorie %s"
-
 #~ msgid "AccessRight|Level"
 #~ msgstr "Zugriffsrechte"
-
 #~ msgid "Customer"
 #~ msgstr "Kunde"
-
 #~ msgid "Employee"
 #~ msgstr "Mitarbeiter"
-
 #~ msgid "Special"
 #~ msgstr "Speziell"
-
 #~ msgid "Borrow Level: %d"
 #~ msgstr "Ausleihe-Stufe: %d"
 
@@ -4485,16 +4307,12 @@ msgstr "Zugriff verweigert"
 #, fuzzy
 #~ msgid "ItemLine|Cached available"
 #~ msgstr "Vertrag %d"
-
 #~ msgid "Time"
 #~ msgstr "Zeit"
-
 #~ msgid "Borrow Level"
 #~ msgstr "Ausleihe-Stufe"
-
 #~ msgid "Access levels and borrow levels"
 #~ msgstr "Zugriffsstufen und Ausleihe-Stufen"
-
 #~ msgid ""
 #~ "Borrow levels are used to allow/disallow lending certain items to users "
 #~ "that aren't of high enough level. For example: if an item has level 5, a "
@@ -4504,7 +4322,6 @@ msgstr "Zugriff verweigert"
 #~ "Ausleihe-Stufen werden verwendet, damit ein Benutzer nur bestimmte "
 #~ "Gegenstände sieht, nämlich die, deren Ausleih-Stufe unter der des "
 #~ "Benutzers liegt."
-
 #~ msgid ""
 #~ "Both levels are handled per inventory pool, so if one inventory pool only "
 #~ "wants to deal with levels 1-3 of their items while another needs all 9 "
@@ -4516,10 +4333,8 @@ msgstr "Zugriff verweigert"
 #~ "Beide Stufen gelten pro Gerätepark. Wenn also ein Gerätepark nur Stufen 1 "
 #~ "- 3 anbieten möchte, während ein anderer alle neun Stufen nutzt, kommen "
 #~ "sich die beiden nicht in die Quere."
-
 #~ msgid "Level"
 #~ msgstr "Stufe"
-
 #~ msgid ""
 #~ "Die Benutzerin/der Benutzer ist bei unsachgemaesser Handhabung oder "
 #~ "Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material "
@@ -4542,22 +4357,16 @@ msgstr "Zugriff verweigert"
 #~ "Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen "
 #~ "sowie die 'Richtlinie zur Ausleihe von Sachen' der ZHdK und etwaige "
 #~ "abteilungsspezifische Ausleih-Richtlinien."
-
 #~ msgid "Category successfully assigned"
 #~ msgstr "Kategorie erfolgreich zugewiesen"
-
 #~ msgid "The model is already assigned to this category"
 #~ msgstr "Dieses Modell ist bereits dieser Kategorie zugewiesen"
-
 #~ msgid "Category successfully removed"
 #~ msgstr "Kategorie erfolgreich entfernt"
-
 #~ msgid "Your search string must contain at least %s characters"
 #~ msgstr "Ihr Suchbegriff muss mindestens %s Zeichen enthalten"
-
 #~ msgid "Inventory Code:"
 #~ msgstr "Inventarcode"
-
 #~ msgid "The item is already handed over"
 #~ msgstr "Dieser Artikel wurde bereits ausgehändigt"
 
@@ -4580,37 +4389,26 @@ msgstr "Zugriff verweigert"
 #, fuzzy
 #~ msgid "ItemLine|Location"
 #~ msgstr "Ort"
-
 #~ msgid "Installed in: %s"
 #~ msgstr "Installiert in: %s"
-
 #~ msgid "Select Location"
 #~ msgstr "Standort zuweisen"
-
 #~ msgid "Change Installation Location"
 #~ msgstr "Installationsort verändern"
-
 #~ msgid "Installation Location"
 #~ msgstr "Installationsort"
-
 #~ msgid "You're changing the installation location for the following items:"
 #~ msgstr "Sie verändern den Installationsort der folgenden Gegenstände:"
-
 #~ msgid "Remove Location from the above models"
 #~ msgstr "Ort von den obgenannten Modellen entfernen"
-
 #~ msgid "Confirm Location"
 #~ msgstr "Ort bestätigen"
-
 #~ msgid "Add Line"
 #~ msgstr "Zeile hinzufügen"
-
 #~ msgid "Add Line for"
 #~ msgstr "Zeile hinzufügen für"
-
 #~ msgid "Found %d results for '%s'"
 #~ msgstr "%d Resultate bei Suche nach '%s'"
-
 #~ msgid ""
 #~ "This lending contract covers borrowing the following items by the person "
 #~ "(natural or legal) described as \"borrowing party\" above. Use of these "
@@ -4620,213 +4418,154 @@ msgstr "Zugriff verweigert"
 #~ "natürliche oder rechtliche Person ab, die oben als \"Ausleihende/r\" "
 #~ "bezeichnet ist. Die Verwendung der Gegenstände ist nur im Rahmen des "
 #~ "unten angegebenen Zwecks gestattet."
-
 #~ msgid "Options:"
 #~ msgstr "Optionen:"
-
 #~ msgid "Inventorypool must be selected."
 #~ msgstr "Gerätepark muss ausgewählt sein"
-
 #~ msgid "Access Right successfully removed"
 #~ msgstr "Zugriffsrecht erfolgreich entfernt"
-
 #~ msgid "Notes (%d)"
 #~ msgstr "Notizen (%d)"
-
 #~ msgid "Managers (%d)"
 #~ msgstr "Verwalter (%d)"
-
 #~ msgid "Authentication System"
 #~ msgstr "Authentifizierungssystem"
-
 #~ msgid "Set new model"
 #~ msgstr "Modell zuweisen"
-
 #~ msgid "Serial Number"
 #~ msgstr "Seriennummer"
-
 #~ msgid "Required Level:"
 #~ msgstr "Benötigte Stufe:"
-
 #~ msgid "Supplier"
 #~ msgstr "Lieferant"
-
 #~ msgid "Owner:"
 #~ msgstr "Besitzer:"
-
 #~ msgid "Select model first"
 #~ msgstr "Zuerst Modell auswählen"
-
 #~ msgid "Active"
 #~ msgstr "Aktiv"
-
 #~ msgid "Set"
 #~ msgstr "Zuweisen"
-
 #~ msgid "Parent"
 #~ msgstr "Parent"
-
 #~ msgid "Add more locations"
 #~ msgstr "Mehr Orte hinzufügen"
-
 #~ msgid "room"
 #~ msgstr "Raum"
-
 #~ msgid "shelf"
 #~ msgstr "Gestell"
-
 #~ msgid "Add as manager"
 #~ msgstr "Als Verwalter hinzufügen"
-
 #~ msgid "View"
 #~ msgstr "Ansehen"
-
 #~ msgid "<em>%{n} new orders</em> to acknowledge."
 #~ msgstr "<em>%{n} Neue Bestellungen</em> zu genehmigen."
-
 #~ msgid "Unfinished"
 #~ msgstr "Nicht abgeschlossen"
-
 #~ msgid "Roles"
 #~ msgstr "Rollen"
-
 #~ msgid "Value list no. %d"
 #~ msgstr "Werteverzeichnis Nr. %d"
-
 #~ msgid "unknown"
 #~ msgstr "unbekannt"
-
 #~ msgid "Badge ID:"
 #~ msgstr "Badge-Nummer:"
-
 #~ msgid "A model (not a package) already exists with this name."
 #~ msgstr "Ein Modell (nicht ein Paket) mit diesem Namen existiert bereits."
 
 #, fuzzy
 #~ msgid "A model already exists with this name."
 #~ msgstr "Dieses Modell ist bereits dieser Kategorie zugewiesen"
-
 #~ msgid "New"
 #~ msgstr "Neu"
-
 #~ msgid "Add to category"
 #~ msgstr "Zu Kategorie hinzufügen"
-
 #~ msgid "Owned Items"
 #~ msgstr "Eigene Gegenstände"
-
 #~ msgid "Own"
 #~ msgstr "Eigenes"
-
 #~ msgid "Admin"
 #~ msgstr "Admin"
-
 #~ msgid "Earliest return date:"
 #~ msgstr "Frühestes Rückgabedatum:"
-
 #~ msgid "Notes"
 #~ msgstr "Notizen"
-
 #~ msgid "Needs Permission?"
 #~ msgstr "Braucht Ausleihbewilligung?"
-
 #~ msgid "Required Level"
 #~ msgstr "Benötigte Stufe"
-
 #~ msgid "This inventory pool is closed on the proposed end date"
 #~ msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
-
 #~ msgid "Order:"
 #~ msgstr "Bestellung:"
-
 #~ msgid "Item: %s"
 #~ msgstr "Gegenstand: %s"
-
 #~ msgid "Login: "
 #~ msgstr "Login:"
-
 #~ msgid "Name: "
 #~ msgstr "Name:"
-
 #~ msgid "Email: "
 #~ msgstr "E-Mail:"
-
 #~ msgid "Phone: "
 #~ msgstr "Telefon:"
 
 #, fuzzy
 #~ msgid "Item|Is borrowable allowed"
 #~ msgstr "Nicht ausleihbar"
-
 #~ msgid "Item cannot be borrowable."
 #~ msgstr "Dieser Gegenstand darf nicht ausleihbar sein."
-
 #~ msgid "The inventory manager decided that this item cannot be borrowed"
 #~ msgstr ""
 #~ "Der Inventarverwalter hat definiert, dass dieser Gegenstand nicht "
 #~ "ausgeliehen werden kann"
-
 #~ msgid "Borrowing allowed"
 #~ msgstr "Ausleihe erlaubt"
-
 #~ msgid "Allow borrowing"
 #~ msgstr "Ausleihe erlaubt"
-
 #~ msgid ""
 #~ "If you select 'No', this item can never be set to 'borrowable' by a "
 #~ "lending manager."
 #~ msgstr ""
 #~ "Wenn Sie 'Nein' wählen, dürfen Ausleihe-Verwalter diesen Gegenstand nicht "
 #~ "auf 'ausleihbar' setzen."
-
 #~ msgid "This is an automatic e-mail sent to you by the leihs system."
 #~ msgstr "* Automatisch generierte E-Mail *"
-
 #~ msgid ""
 #~ "Someone else might already be waiting for some of these items, so we are "
 #~ "just sending you this little reminder to make sure you don't forget."
 #~ msgstr ""
 #~ "Jemand anderes wartet evtl. bereits auf einige dieser Gegenstände, also "
 #~ "senden wir Ihnen diese kleine Erinnerung."
-
 #~ msgid "The leihs system"
 #~ msgstr "Das leihs-System"
-
 #~ msgid ""
 #~ "The following items are overdue. Please return them as soon as possible:"
 #~ msgstr ""
 #~ "Die folgenden Gegenstände sind überfällig. Bitte bringen Sie sie so "
 #~ "schnell wie möglich zurück:"
-
 #~ msgid ""
 #~ "Even if you return the items now, the inventory manager may fine or "
 #~ "otherwise penalize you."
 #~ msgstr ""
 #~ "Auch wenn Sie die Geräte jetzt zurückbringen, könnte der "
 #~ "Inventarverwalter Sie trotzdem verwarnen oder büssen."
-
 #~ msgid ""
 #~ "Please coordinate with the inventory managers in charge to find a date "
 #~ "and time for the return."
 #~ msgstr ""
 #~ "Bitte vereinbaren Sie einen Rückgabetermin mit dem Inventarverwalter."
-
 #~ msgid "The inventory manager added the following comment about your order:"
 #~ msgstr "Vom Verleiher hinzugefügte Kommentare:"
-
 #~ msgid "Your order was successfully submitted as follows:"
 #~ msgstr "Ihre Bestellung wurde folgendermassen empfangen:"
-
 #~ msgid "Reason for Retirement"
 #~ msgstr "Grund der Ausmusterung"
 
 #, fuzzy
 #~ msgid "Test"
 #~ msgstr "Text"
-
 #~ msgid "Location|Is main"
 #~ msgstr "Orte"
-
 #~ msgid "numerator"
 #~ msgstr "Numerator"
 
@@ -4837,96 +4576,68 @@ msgstr "Zugriff verweigert"
 #, fuzzy
 #~ msgid "Item|For rental"
 #~ msgstr "Zur Ausleihe"
-
 #~ msgid "Main"
 #~ msgstr "Haupt"
-
 #~ msgid "(Installed in: "
 #~ msgstr "(Installiert in: "
-
 #~ msgid "Main?"
 #~ msgstr "Haupt?"
-
 #~ msgid "For Rental"
 #~ msgstr "Zur Ausleihe"
-
 #~ msgid "Add more properties"
 #~ msgstr "Eigenschaften hinzufügen"
-
 #~ msgid "Opening Times"
 #~ msgstr "Öffnungszeiten"
 
 #, fuzzy
 #~ msgid "Location|Inventory pool"
 #~ msgstr "OptionMap|Gerätepark"
-
 #~ msgid "Locations (%d)"
 #~ msgstr "Orte (%d)"
-
 #~ msgid "Prev"
 #~ msgstr "Zurück"
-
 #~ msgid "Chart"
 #~ msgstr "Chart"
-
 #~ msgid "%{a}/%{b}"
 #~ msgstr "%{a}/%{b}"
-
 #~ msgid "Timeline Visits"
 #~ msgstr "Zeitleiste Besuche"
-
 #~ msgid "Inventory Code identifies an item that is not in this order."
 #~ msgstr ""
 #~ "Der Inventarcode gehört zu einem Gerät, das in dieser Bestellung nicht "
 #~ "auftaucht"
-
 #~ msgid "Removed Option: %{o}"
 #~ msgstr "Zubehör entfernt: %{o}"
-
 #~ msgid "Do you really want to delete the following options?"
 #~ msgstr "Möchten Sie die folgenden Optionen wirklich löschen?"
-
 #~ msgid "Remove Option"
 #~ msgstr "Zubehör entfernen"
-
 #~ msgid "Remove Options"
 #~ msgstr "Zubehör entfernen"
-
 #~ msgid "Name:"
 #~ msgstr "Name:"
-
 #~ msgid "Returned options"
 #~ msgstr "Retournierte Optionen"
-
 #~ msgid "Student"
 #~ msgstr "Student"
-
 #~ msgid "Students"
 #~ msgstr "Studenten"
-
 #~ msgid "Line couldn't be added"
 #~ msgstr "Zeile konnte nicht hinzugefügt werden"
-
 #~ msgid "Privileged"
 #~ msgstr "Speziell Berechtigte"
-
 #~ msgid "Add more items"
 #~ msgstr "Mehr Gegenstände hinzufügen"
-
 #~ msgid "My Account"
 #~ msgstr "Mein Konto"
-
 #~ msgid "Set different location"
 #~ msgstr "Anderen Ort setzen"
-
 #~ msgid "Logged in as %{u}."
 #~ msgstr "Eingeloggt als %{u}."
-
 #~ msgid "Set different inventory pool (default location)"
 #~ msgstr "Gerätepark ändern (Standard-Ort)"
-
 #~ msgid "Check + Acknowledge"
 #~ msgstr "Prüfen + genehmigen"
-
 #~ msgid "In Repair"
 #~ msgstr "In Reparatur"
+
