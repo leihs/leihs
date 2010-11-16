@@ -18,3 +18,10 @@ Given "his password is '$password'" do |password|
 			     :password => password,
 			     :password_confirmation => password ).save
 end
+
+When 'I log in as the admin' do
+  Given 'I am on the home page'
+  When  'I fill in "login_user" with "super_user_1"'
+   And  'I fill in "login_password" with "pass"'
+   And  'I press "Login"'
+end
