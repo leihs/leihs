@@ -54,7 +54,10 @@ module Backend::ModelsHelper
                 '#e3aa01'
               end
       group_id = line.allocated_group.try(:id).to_i
-      title = "#{line.document.user} (#{line.item.try(:inventory_code) || _("Quantity: %d") % line.quantity})"
+
+      extra_info = line.item.try(:inventory_code) || _("Quantity: %d") % line.quantity
+      title = "#{line.document.user} (#{extra_info})"
+
       link_string, link_path = if line.is_a?(OrderLine)
                                  [icon_tag("accept") + _("Acknowledge"), backend_inventory_pool_user_acknowledge_path(current_inventory_pool, line.document.user, line.document)]
                                elsif line.document.status_const == Contract::UNSIGNED
