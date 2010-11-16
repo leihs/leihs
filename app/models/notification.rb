@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: notifications
+#
+#  id         :integer(4)      not null, primary key
+#  user_id    :integer(4)
+#  title      :string(255)     default("")
+#  created_at :datetime        not null
+#
+
 # The Notification class is used as a proxy for sending mails
 # (and possibly other kinds of messages).
 #
@@ -67,3 +77,4 @@ class Notification < ActiveRecord::Base
   end
   
 end
+

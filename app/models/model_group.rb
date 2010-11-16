@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: model_groups
+#
+#  id         :integer(4)      not null, primary key
+#  type       :string(255)
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  delta      :boolean(1)      default(TRUE)
+#
+
 class ModelGroup < ActiveRecord::Base
 
   has_many :model_links
@@ -102,3 +114,4 @@ class ModelGroup < ActiveRecord::Base
 
   
 end
+

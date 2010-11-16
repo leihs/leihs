@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: database_authentications
+#
+#  id               :integer(4)      not null, primary key
+#  login            :string(255)
+#  crypted_password :string(40)
+#  salt             :string(40)
+#  user_id          :integer(4)
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 class DatabaseAuthentication < ActiveRecord::Base
 
   attr_accessor :password
@@ -45,3 +58,4 @@ class DatabaseAuthentication < ActiveRecord::Base
   end
 
 end
+

@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: holidays
+#
+#  id                :integer(4)      not null, primary key
+#  inventory_pool_id :integer(4)
+#  start_date        :date
+#  end_date          :date
+#  name              :string(255)
+#
+
 class Holiday < ActiveRecord::Base
   belongs_to :inventory_pool
   
@@ -10,3 +21,4 @@ class Holiday < ActiveRecord::Base
   end
   
 end
+

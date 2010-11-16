@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: models
+#
+#  id                   :integer(4)      not null, primary key
+#  name                 :string(255)     not null
+#  manufacturer         :string(255)
+#  description          :string(255)
+#  internal_description :string(255)
+#  info_url             :string(255)
+#  rental_price         :decimal(8, 2)
+#  maintenance_period   :integer(4)      default(0)
+#  is_package           :boolean(1)      default(FALSE)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  technical_detail     :string(255)
+#  delta                :boolean(1)      default(TRUE)
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
@@ -5,3 +24,4 @@ one:
 
 two:
   name: MyString
+

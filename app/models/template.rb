@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: model_groups
+#
+#  id         :integer(4)      not null, primary key
+#  type       :string(255)
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  delta      :boolean(1)      default(TRUE)
+#
+
 class Template < ModelGroup
   
   # TODO 12** belongs_to :inventory_pool through
@@ -32,3 +44,4 @@ class Template < ModelGroup
   
   
 end
+

@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                       :integer(4)      not null, primary key
+#  login                    :string(255)
+#  firstname                :string(255)
+#  lastname                 :string(255)
+#  phone                    :string(255)
+#  authentication_system_id :integer(4)      default(1)
+#  unique_id                :string(255)
+#  email                    :string(255)
+#  created_at               :datetime
+#  updated_at               :datetime
+#  badge_id                 :string(255)
+#  address                  :string(255)
+#  city                     :string(255)
+#  zip                      :string(255)
+#  country                  :string(255)
+#  language_id              :integer(4)      default(1)
+#  extended_info            :text
+#  delta                    :boolean(1)      default(TRUE)
+#
+
 class User < ActiveRecord::Base
 
   serialize :extended_info
@@ -319,3 +343,4 @@ class User < ActiveRecord::Base
   end
 
 end
+

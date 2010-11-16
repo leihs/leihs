@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: workdays
+#
+#  id                :integer(4)      not null, primary key
+#  inventory_pool_id :integer(4)
+#  monday            :boolean(1)      default(TRUE)
+#  tuesday           :boolean(1)      default(TRUE)
+#  wednesday         :boolean(1)      default(TRUE)
+#  thursday          :boolean(1)      default(TRUE)
+#  friday            :boolean(1)      default(TRUE)
+#  saturday          :boolean(1)      default(FALSE)
+#  sunday            :boolean(1)      default(FALSE)
+#
+
 class Workday < ActiveRecord::Base
   belongs_to :inventory_pool
   
@@ -39,3 +54,4 @@ class Workday < ActiveRecord::Base
     days
   end
 end
+

@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: accessories
+#
+#  id       :integer(4)      not null, primary key
+#  model_id :integer(4)
+#  name     :string(255)
+#  quantity :integer(4)
+#
+
+# == Schema Information
+#
+# Table name: accessories
+#
+#  id       :integer(4)      not null, primary key
+#  model_id :integer(4)
+#  name     :string(255)
+#  quantity :integer(4)
+#
 class Accessory < ActiveRecord::Base
   belongs_to :model
   has_and_belongs_to_many :inventory_pools

@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: availability_quantities
+#
+#  id           :integer(4)      not null, primary key
+#  change_id    :integer(4)
+#  group_id     :integer(4)
+#  in_quantity  :integer(4)      default(0)
+#  out_quantity :integer(4)      default(0)
+#
+
+# == Schema Information
+#
+# Table name: availability_quantities
+#
+#  id           :integer(4)      not null, primary key
+#  change_id    :integer(4)
+#  group_id     :integer(4)
+#  in_quantity  :integer(4)      default(0)
+#  out_quantity :integer(4)      default(0)
+#
 module Availability
   class Quantity < ActiveRecord::Base
     set_table_name "availability_quantities"

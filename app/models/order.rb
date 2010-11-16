@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id                :integer(4)      not null, primary key
+#  user_id           :integer(4)
+#  inventory_pool_id :integer(4)
+#  status_const      :integer(4)      default(1)
+#  purpose           :text
+#  created_at        :datetime
+#  updated_at        :datetime
+#  delta             :boolean(1)      default(TRUE)
+#
+
 # An Order is a #Document containing #OrderLine s.
 # It's created by a customer, that wants to borrow
 # some stuff. In the workflow of the lending process
@@ -247,3 +261,4 @@ class Order < Document
   end
   
 end
+

@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: availability_changes
+#
+#  id                :integer(4)      not null, primary key
+#  date              :date
+#  inventory_pool_id :integer(4)
+#  model_id          :integer(4)
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
+# == Schema Information
+#
+# Table name: availability_changes
+#
+#  id                :integer(4)      not null, primary key
+#  date              :date
+#  inventory_pool_id :integer(4)
+#  model_id          :integer(4)
+#  created_at        :datetime
+#  updated_at        :datetime
+#
 module Availability
 
   ETERNITY = Date.parse("3000-01-01")
@@ -119,3 +142,4 @@ module Availability
   end
 
 end
+
