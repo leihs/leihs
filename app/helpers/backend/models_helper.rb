@@ -29,8 +29,8 @@ module Backend::ModelsHelper
             background-color: #98d9e7;
           }
           #my_timeline .timeline-event-label {
-            padding-top: 0.2em;
-            padding-left: 0.2em;
+            padding-left: 0.4em;
+            font-size: 0.9em;
           }
           #my_timeline .tape-unavailable {
             border: 1px solid red;
@@ -85,7 +85,7 @@ module Backend::ModelsHelper
     # TODO dynamic timeZone, get rid of GMT in the bubble
     sum_w = 35
     #bandInfos_js = ["Timeline.createBandInfo({ eventSource: eventSource[-1], overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top' })"]
-    bandInfos_js = ["Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top', theme: theme })"]
+    bandInfos_js = ["Timeline.createBandInfo({ timeZone: 2, overview: true, intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top', theme: theme })"]
     # TODO total overview # bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
     bandNames_js = [""] #_("Months")
     decorators_js = [""]
@@ -93,9 +93,9 @@ module Backend::ModelsHelper
       group_id = k.to_i
       count = partition[k]
       next unless events.keys.include?(group_id)
-      w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
-      sum_w += w
-      bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], width: '#{w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
+      #w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
+      #sum_w += w
+      bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
       bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : "")
       
       prev_in_quantity = nil
@@ -128,9 +128,9 @@ module Backend::ModelsHelper
         theme.autoWidth = true;
         theme.event.track.autoWidthMargin = 1.0;
         theme.event.track.offset = 60;
-        theme.event.track.gap = -10;
-        theme.event.overviewTrack.offset = 35;
-        theme.event.tape.height = 18;
+        theme.event.track.gap = -13;
+        theme.event.overviewTrack.offset = #{sum_w};
+        theme.event.tape.height = 15;
         
         var bandNames = #{bandNames_js.to_json};
         
@@ -160,7 +160,8 @@ module Backend::ModelsHelper
         end
         dec}
 
-        Timeline.create(document.getElementById("my_timeline"), bandInfos);
+        var tl = Timeline.create(document.getElementById("my_timeline"), bandInfos);
+        tl.layout();
       });
       HERECODE
     end
