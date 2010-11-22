@@ -17,9 +17,6 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :persistent
 
-# http://github.com/langalex/culerity - enable testing of JavaScript views
-config.gem "culerity"
-
 system("jruby -e 'true'") or \
   raise "You need to have jruby installed on your $PATH"
 

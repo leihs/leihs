@@ -18,7 +18,5 @@ config.action_view.cache_template_loading            = true
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
-config.gem "newrelic_rpm", :version => '2.10.5'
-
 # For some reason, this setting does not propagate from environment.rb
 ENV['INLINEDIR'] = "#{RAILS_ROOT}/tmp/"
