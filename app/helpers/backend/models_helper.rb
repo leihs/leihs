@@ -141,7 +141,7 @@ module Backend::ModelsHelper
         bandInfos[0].highlight = true;
 
         for (var i = 0; i < bandInfos.length; i++) {
-          if(i != 1) bandInfos[i].syncWith = 1;
+          if(bandInfos.length > 1 && i != 1) bandInfos[i].syncWith = 1;
           bandInfos[i].decorators = [
               new Timeline.SpanHighlightDecorator({
                   startDate:  "#{Date.today.to_time.to_s(:rfc822)}",
