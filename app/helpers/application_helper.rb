@@ -121,6 +121,7 @@ module ApplicationHelper
     r
   end
 
+  # let the user know when the search was too short inside a ruby "flash"
   def flash_on_search_result(query, results = nil)
     unless query.blank?
       min_query_len = 0
