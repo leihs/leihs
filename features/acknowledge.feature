@@ -40,8 +40,8 @@ Scenario: Acknowledge order
 	Then he sees 1 order
 	When he chooses Joe's order
 	Then Joe's order is shown
-	 And lending_manager can Save + Approve
-	 And lending_manager can Reject Order
+	 And lending_manager can "Save + Approve"
+	 And lending_manager can "Reject Order"
 	When lending_manager approves order
 	Then joe@test.ch receives an email
 	 And its subject is '[leihs] Reservation Confirmation'
@@ -61,8 +61,8 @@ Scenario: Reject order
 	Then he sees 1 order
 	When he chooses Joe's order
 	Then Joe's order is shown
-	 And lending_manager can Save + Approve
-	 And lending_manager can Reject Order
+	 And lending_manager can "Save + Approve"
+	 And lending_manager can "Reject Order"
 	When lending_manager rejects order with reason 'Because I don't like you.'
 	Then joe@test.ch receives an email
 	 And its subject is '[leihs] Reservation Rejected'

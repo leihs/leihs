@@ -6,7 +6,7 @@ Then "he sees the '$title' list" do | title |
   response.should render_template("backend/#{title}/index")
 end
 
-Then "$who can $what" do |who, what|
+Then /^(\w+) can "([^\"]*)"$/ do |who, what|
   @response.should have_tag("a", what)
 end
 

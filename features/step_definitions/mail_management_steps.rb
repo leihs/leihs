@@ -8,7 +8,8 @@ end
 Then "$email receives an email" do |email|
   ActionMailer::Base.deliveries.size.should == 1
   @mail = ActionMailer::Base.deliveries[0]  
-  @mail.to[0].should == email
+  # ActiveMailer upcases the first letter?!
+  @mail.to[0].downcase.should == email.downcase
   ActionMailer::Base.deliveries.clear
 end
 
@@ -19,4 +20,3 @@ end
 Then "it contains information '$line'" do |line|
   @mail.body.should match(Regexp.new(line))
 end
-

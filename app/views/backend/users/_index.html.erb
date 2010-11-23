@@ -47,9 +47,7 @@
 								</li>
 							<% end %>
 
-							<li><%= link_to icon_tag("email_edit") + _("Write Email"),
-								                new_backend_mail_path(current_inventory_pool, :user_id => user.id, :source_path => @source_path) %>
-							</li>
+							<li><%= mail_link current_inventory_pool, user, @source_path %></li>
 
 					<%  end %>
 				    <% end %>
