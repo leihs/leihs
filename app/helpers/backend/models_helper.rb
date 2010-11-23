@@ -29,8 +29,8 @@ module Backend::ModelsHelper
             background-color: #98d9e7;
           }
           #my_timeline .timeline-event-label {
-            padding-top: 0.2em;
-            padding-left: 0.2em;
+            padding-left: 0.4em;
+            font-size: 0.9em;
           }
           #my_timeline .tape-unavailable {
             border: 1px solid red;
@@ -54,7 +54,10 @@ module Backend::ModelsHelper
                 '#e3aa01'
               end
       group_id = line.allocated_group.try(:id).to_i
-      title = "#{line.document.user} (#{line.item.try(:inventory_code) || _("Quantity: %d") % line.quantity})"
+
+      extra_info = line.item.try(:inventory_code) || _("Quantity: %d") % line.quantity
+      title = "#{line.document.user} (#{extra_info})"
+
       link_string, link_path = if line.is_a?(OrderLine)
                                  [icon_tag("accept") + _("Acknowledge"), backend_inventory_pool_user_acknowledge_path(current_inventory_pool, line.document.user, line.document)]
                                elsif line.document.status_const == Contract::UNSIGNED
@@ -82,7 +85,7 @@ module Backend::ModelsHelper
     # TODO dynamic timeZone, get rid of GMT in the bubble
     sum_w = 35
     #bandInfos_js = ["Timeline.createBandInfo({ eventSource: eventSource[-1], overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top' })"]
-    bandInfos_js = ["Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top', theme: theme })"]
+    bandInfos_js = ["Timeline.createBandInfo({ timeZone: 2, overview: true, intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top', theme: theme })"]
     # TODO total overview # bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
     bandNames_js = [""] #_("Months")
     decorators_js = [""]
@@ -90,9 +93,9 @@ module Backend::ModelsHelper
       group_id = k.to_i
       count = partition[k]
       next unless events.keys.include?(group_id)
-      w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
-      sum_w += w
-      bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], width: '#{w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
+      #w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
+      #sum_w += w
+      bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
       bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : "")
       
       prev_in_quantity = nil
@@ -125,9 +128,9 @@ module Backend::ModelsHelper
         theme.autoWidth = true;
         theme.event.track.autoWidthMargin = 1.0;
         theme.event.track.offset = 60;
-        theme.event.track.gap = -10;
-        theme.event.overviewTrack.offset = 35;
-        theme.event.tape.height = 18;
+        theme.event.track.gap = -13;
+        theme.event.overviewTrack.offset = #{sum_w};
+        theme.event.tape.height = 15;
         
         var bandNames = #{bandNames_js.to_json};
         
@@ -138,7 +141,7 @@ module Backend::ModelsHelper
         bandInfos[0].highlight = true;
 
         for (var i = 0; i < bandInfos.length; i++) {
-          if(i != 1) bandInfos[i].syncWith = 1;
+          if(bandInfos.length > 1 && i != 1) bandInfos[i].syncWith = 1;
           bandInfos[i].decorators = [
               new Timeline.SpanHighlightDecorator({
                   startDate:  "#{Date.today.to_time.to_s(:rfc822)}",
@@ -157,7 +160,8 @@ module Backend::ModelsHelper
         end
         dec}
 
-        Timeline.create(document.getElementById("my_timeline"), bandInfos);
+        var tl = Timeline.create(document.getElementById("my_timeline"), bandInfos);
+        tl.layout();
       });
       HERECODE
     end

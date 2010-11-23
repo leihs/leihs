@@ -228,7 +228,9 @@ this._moveEther(this._timeline.isHorizontal()?C:B);
 this._positionHighlight();
 }};
 Timeline._Band.prototype._onMouseUp=function(B,A,C){this._dragging=false;
-this._keyboardInput.focus();
+//sellittf// http://groups.google.com/group/simile-widgets/browse_thread/thread/01294f8f47537d00/4372c229bb323bbb
+//this._keyboardInput.focus();
+this._keyboardInput.select();
 };
 Timeline._Band.prototype._onMouseOut=function(B,A,D){var C=SimileAjax.DOM.getEventRelativeCoordinates(A,B);
 C.x+=this._viewOffset;
