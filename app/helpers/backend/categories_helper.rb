@@ -43,6 +43,13 @@ module Backend::CategoriesHelper
       end
     end
 
+    # remove params that are being set by the jstree javascript function below    
+    cleaned_params = params.reject do |key, value|
+      key == 'category_ids' ||
+      key == 'category_id'  ||
+      key == request_forgery_protection_token
+    end
+
     r = javascript_tag do
       <<-HERECODE
         jQuery(document).ready(function($) {
@@ -95,7 +102,8 @@ module Backend::CategoriesHelper
               //    $("#list_table").html(response);
               //  }
               //});
-              new Ajax.Request('#{url_for()}', {asynchronous: false, evalJS: true, method: '#{method}', parameters: params});
+              new Ajax.Request('#{url_for(:params => cleaned_params, :escape => false)}',
+                               {asynchronous: false, evalJS: true, method: '#{method}', parameters: params});
             //}
           });
         });
