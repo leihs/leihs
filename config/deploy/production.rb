@@ -114,6 +114,10 @@ task :migrate_database do
 
 end
 
+task :install_gems do
+  run "cd #{release_path} && bundle install --deployment"
+  run "sed -i 's/BUNDLE_DISABLE_SHARED_GEMS: \"1\"/BUNDLE_DISABLE_SHARED_GEMS: \"0\"/' #{release_path}/.bundle/config"
+end
 
 task :stop_sphinx do
   run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
@@ -146,6 +150,7 @@ after "deploy:symlink", :link_attachments
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
 after "deploy:symlink", :migrate_database
+before "migrate_database", :install_gems
 after "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
