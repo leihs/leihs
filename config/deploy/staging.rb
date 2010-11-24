@@ -162,6 +162,10 @@ task :migrate_database do
 
 end
 
+task :install_gems do
+  run "cd #{release_path} && bundle install --deployment"
+end
+
 namespace :deploy do
 	task :start do
 	# we do absolutely nothing here, as we currently aren't
@@ -179,6 +183,7 @@ after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
+before "migrate_database", :install_gems
 after "deploy:symlink", :migrate_database
 after "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess
