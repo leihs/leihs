@@ -16,7 +16,7 @@ class Backend::MailsController < Backend::BackendController
                 to_full_email_address( current_inventory_pool.name,
                                        (current_inventory_pool.email.blank? ?
                                           DEFAULT_EMAIL :
-                                          current_inventory_pool.email.blank))
+                                          current_inventory_pool.email))
               else
                 DEFAULT_EMAIL
               end
