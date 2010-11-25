@@ -6,6 +6,8 @@ set :branch, "master"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/rails/leihs/leihs2demo/database.yml"
+set :ldap_config, "/home/rails/leihs/leihs2demo/LDAP.yml"
+
 set :use_sudo, false
 
 set :rails_env, "production"
