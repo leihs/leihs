@@ -38,11 +38,10 @@ class Document < ActiveRecord::Base
   def next_open_date(x)
     x = Date.today if x.nil?
     if inventory_pool
-      while not inventory_pool.is_open_on?(x) do
-        x += 1.day
-      end
+      inventory_pool.next_open_date(x)
+    else
+      x
     end
-    x
   end
   
 ################################################################

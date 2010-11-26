@@ -144,6 +144,21 @@ class InventoryPool < ActiveRecord::Base
   end
 
 #######################################################################
+
+  def next_open_date(x = Date.today)
+    if closed_days.size < 7
+      while not is_open_on?(x) do
+        holiday = running_holiday_on(x)
+        if holiday
+          x = holiday.end_date.tomorrow
+        else
+          x += 1.day
+        end
+      end
+    end
+    x
+  end
+
   
   def closed_days
     workday.closed_days
@@ -154,15 +169,13 @@ class InventoryPool < ActiveRecord::Base
   end
   
   def is_open_on?(date)
-    workday.is_open_on?(date) and not holiday?(date)
+    workday.is_open_on?(date) and running_holiday_on(date).nil?
   end
 
-  def holiday?(date)
-    holidays.each do |h|
-      return true if date >= h.start_date and date <= h.end_date
-    end
-    return false
+  def running_holiday_on(date)
+    holidays.first(:conditions => ["start_date <= :d AND end_date >= :d", {:d => date}])
   end
+  
 ###################################################################################
   
   # TODO dry with take_back_visits
