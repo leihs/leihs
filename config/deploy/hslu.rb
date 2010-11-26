@@ -22,7 +22,7 @@ set :sql_password, "hU7G977hjTZk2"
 
 
 # User Variables and Settings
-set :contract_lending_party_string, "Hochschule Luzern\nDesign & Kunst\nSentimatt 1\nCH-6003 Luzern"
+set :contract_lending_party_string, "Hochschule Luzern\nDesign und Kunst\nSentimatt 1\nCH-6003 Luzern"
 set :default_email, "ausleihe.benachrichtigung@zhdk.ch"
 set :email_server, "smtp.zhdk.ch"
 set :email_port, 25
