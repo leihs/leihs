@@ -2,8 +2,8 @@
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.6.1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.5.2" />
 <title>leihs administration and installation guide</title>
 <style type="text/css">
 /* Debug borders */
@@ -180,8 +180,8 @@ div.quoteblock > div.attribution {
   text-align: right;
 }
 
-div.verseblock > pre.content {
-  font-family: inherit;
+div.verseblock > div.content {
+  white-space: pre;
 }
 div.verseblock > div.attribution {
   padding-top: 0.75em;
@@ -260,7 +260,6 @@ div.tableblock > table {
 thead, p.table.header {
   font-family: sans-serif;
   font-weight: bold;
-  color: #527bbd;
 }
 tfoot {
   font-weight: bold;
@@ -340,14 +339,6 @@ span.footnote, span.footnoteref {
   min-width: 100px;
 }
 
-div.colist td {
-  padding-right: 0.5em;
-  padding-bottom: 0.3em;
-  vertical-align: top;
-}
-div.colist td img {
-  margin-top: 0.3em;
-}
 
 @media print {
   div#footer-badges { display: none; }
@@ -382,7 +373,47 @@ div.toclevel4 {
   margin-left: 6em;
   font-size: 0.9em;
 }
+/* Workarounds for IE6's broken and incomplete CSS2. */
 
+div.sidebar-content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+div.sidebar-title, div.image-title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 0.0em;
+  margin-bottom: 0.5em;
+}
+
+div.listingblock div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock-attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock-content {
+  white-space: pre;
+}
+div.verseblock-attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+
+div.exampleblock-content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+/* IE6 sets dynamically generated links as visited. */
+div#toc a:visited { color: blue; }
 </style>
 <script type="text/javascript">
 /*<![CDATA[*/
@@ -518,7 +549,7 @@ footnotes: function () {
 /*]]>*/
 </script>
 </head>
-<body class="article">
+<body>
 <div id="header">
 <h1>leihs administration and installation guide</h1>
 <span id="author">Ramon Cahenzli</span><br />
@@ -529,7 +560,6 @@ footnotes: function () {
 </div>
 </div>
 <div id="content">
-<div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>leihs is web-based inventory handling and resource booking system. It allows users to view available equipment and place reservations through the frontend. Inventory managers and sysadmins use the backend to handle incoming reservations and manage items in the inventory.</p></div>
@@ -537,13 +567,10 @@ footnotes: function () {
 <div class="paragraph"><p>Consulting and installation services are also available from independent companies supporting Free Software all around the world. Ask around for a company or individual who knows Ruby on Rails applications, you will surely find someone who can help you install leihs.</p></div>
 <div class="paragraph"><p>If you are such a person yourself and would like to have your services listed on the leihs project website and in this document, please write me an e-mail.</p></div>
 </div>
-</div>
-<div class="sect1">
 <h2 id="_quick_install">Quick Install</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>This section is meant for admins experienced with installing Ruby on Rails applications. It lists the necessary installation steps in the briefest possible way, so you can get up and running quickly.</p></div>
-<div class="sect2">
-<h3 id="_installation_on_mac_os_x">Installation on Mac OS X</h3>
+<h3 id="_installation_on_mac_os_x">Installation on Mac OS X</h3><div style="clear:left"></div>
 <div class="paragraph"><p>The following steps were tested on Mac OS X 10.5 and 10.6 on an x86. They may also work for later versions.</p></div>
 <div class="olist arabic"><ol class="arabic">
 <li>
@@ -651,10 +678,9 @@ Install the required version of Rails as well as a few gems that cannot be insta
 <div class="content">
 <pre><tt>$ cd /home/leihs
 $ sudo gem install -v=2.3.5 rails
-$ sudo gem install thinking-sphinx -v 1.3.15
-$ sudo gem install prawn -v 0.8.4
+$ sudo gem install bundler
 $ sudo gem install rake
-$ sudo rake gems:install</tt></pre>
+$ bundle install</tt></pre>
 </div></div>
 </li>
 <li>
@@ -712,9 +738,7 @@ export PATH</tt></pre>
 </div></div>
 </li>
 </ol></div>
-</div>
-<div class="sect2">
-<h3 id="_installation_on_debian_gnu_linux">Installation on Debian GNU/Linux</h3>
+<h3 id="_installation_on_debian_gnu_linux">Installation on Debian GNU/Linux</h3><div style="clear:left"></div>
 <div class="paragraph"><p>These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny).</p></div>
 <div class="olist arabic"><ol class="arabic">
 <li>
@@ -821,10 +845,9 @@ Install the required version of Rails as well as a few gems that cannot be insta
 <div class="content">
 <pre><tt># cd /home/leihs
 # gem install -v=2.3.5 rails
-# gem install thinking-sphinx -v 1.3.15
-# gem install prawn -v 0.8.4
+# gem install bundler
 # gem install rake
-# rake gems:install</tt></pre>
+# bundle install</tt></pre>
 </div></div>
 </li>
 <li>
@@ -877,15 +900,10 @@ Optional: If you want to use images of inventory items, install ImageMagick:
 </li>
 </ol></div>
 </div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_default_admin_username_password">Default admin username/password</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>After installation, a default user is created for the Database Authentication module. Username: super_user_1. Password: pass.</p></div>
 </div>
-</div>
-<div class="sect1">
 <h2 id="_upgrading_from_leihs_2_0_to_leihs_2_1">Upgrading from leihs 2.0 to leihs 2.1</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The upgrade should be painless.</p></div>
@@ -950,8 +968,6 @@ Run the server. Make sure you stop your previous leihs server!
 </ol></div>
 <div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a>.</p></div>
 </div>
-</div>
-<div class="sect1">
 <h2 id="_upgrading_from_leihs_2_1_to_leihs_2_2">Upgrading from leihs 2.1 to leihs 2.2</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The upgrade should be painless.</p></div>
@@ -1011,9 +1027,7 @@ Run the server. Make sure you stop your previous leihs server!
 </ol></div>
 <div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a>.</p></div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_upgrading_from_leihs_2_2_to_leihs_2_3">Upgrading from leihs 2.2 to leihs 2.3</h2>
+<h2 id="_upgrading_from_leihs_2_2_to_leihs_2_9">Upgrading from leihs 2.2 to leihs 2.9</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The upgrade should be painless, but please note that the access levels were replaced by user groups in this release. This can give you almost the same behavior, but it&#8217;s different to manage. You now specify groups in the admin interface or your inventory pool&#8217;s backend, and then specify how many items of each model that each group can have.</p></div>
 <div class="paragraph"><p>If you had existing user levels in your system, these will be automatically converted to user groups during the database migration (db:migrate). This is documented below.</p></div>
@@ -1024,8 +1038,8 @@ Download the new leihs version (in this example, the .tar.gz version is used) an
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ tar xvfz leihs-2.3.tar.gz
-$ cd leihs-2.3</tt></pre>
+<pre><tt>$ tar xvfz leihs-2.9.tar.gz
+$ cd leihs-2.9</tt></pre>
 </div></div>
 </li>
 <li>
@@ -1086,7 +1100,7 @@ Reindex Sphinx at the new location and restart the Sphinx server:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ cd leihs-2.3
+<pre><tt>$ cd leihs-2.9
 $ RAILS_ENV=production rake ts:config
 $ RAILS_ENV=production rake ts:reindex
 $ RAILS_ENV=production rake ts:start</tt></pre>
@@ -1095,23 +1109,17 @@ $ RAILS_ENV=production rake ts:start</tt></pre>
 </ol></div>
 <div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a> or, if using mod_passenger, at the location you configured.</p></div>
 </div>
-</div>
-<div class="sect1">
 <h2 id="_installing_a_production_environment">Installing a production environment</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Please note that this quick-start guide does not cover running a Ruby on Rails application for production. Please look into <a href="http://www.modrails.com/">Phusion Passenger</a> or the Apache Mongrel cluster in the reference section for how to set up a production environment.</p></div>
 <div class="paragraph"><p>Without a real production environment, leihs can handle upwards of 1000 users (not concurrently, of course!). If you need better performance or want an easier to handle setup, you must set up a proper production environment.</p></div>
 </div>
-</div>
-<div class="sect1">
 <h2 id="_free_software_statement">Free Software Statement</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The Zurich University of the Arts supports Free Software <a href="http://www.gnu.org/philosophy/free-sw.html">as defined by the Free Software Foundation</a>. That&#8217;s why leihs is Free Software licensed under the GNU GPL version 3.0.</p></div>
 <div class="paragraph"><p>One of the advantages this freedom brings with it is that it enables anyone in the world to provide local support services for leihs at the same quality level as the Zurich University of the Arts can provide itself.</p></div>
 <div class="paragraph"><p>If you would like to take part in the development of leihs, please see our <a href="http://code.zhdk.ch/projects/leihs">project page</a>.</p></div>
 </div>
-</div>
-<div class="sect1">
 <h2 id="_references">References</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Setting up production environments with Rails:</p></div>
@@ -1128,8 +1136,6 @@ $ RAILS_ENV=production rake ts:start</tt></pre>
 </li>
 </ul></div>
 </div>
-</div>
-<div class="sect1">
 <h2 id="_appendix_a_zhdk_configuration_file_for_mongrel_cluster">Appendix A: ZHdK configuration file for mongrel cluster</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>As an example to help you set up a production environment, here is the Apache configuration we use. You will need mod_proxy:</p></div>
@@ -1188,11 +1194,10 @@ $ RAILS_ENV=production rake ts:start</tt></pre>
 </div></div>
 </div>
 </div>
-</div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2010-10-11 15:18:45 CEST
+Last updated 2010-11-25 12:03:12 CEST
 </div>
 </div>
 </body>

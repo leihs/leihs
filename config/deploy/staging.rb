@@ -66,9 +66,9 @@ task	:link_attachments do
 	run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/attachments"
 end
 
-task	:link_db_backups do
-	run "rm -rf #{release_path}/db/backups"
-	run "ln -s #{deploy_to}/#{shared_dir}/db_backups #{release_path}/db/backups"
+task :link_db_backups do
+  run "rm -rf #{release_path}/db/backups"
+  run "ln -s #{deploy_to}/#{shared_dir}/db_backups #{release_path}/db/backups"
 end
 
 task :link_sphinx do
@@ -77,7 +77,7 @@ task :link_sphinx do
 end
 
 task :remove_htaccess do
-	# Kill the .htaccess file as we are using mongrel or passenger, so this file
+	# Kill the .htaccess file as we are using passenger, so this file
 	# will only confuse the web server if parsed.
 
 	run "rm #{release_path}/public/.htaccess"
@@ -86,16 +86,6 @@ end
 task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
 end
-
-# Old, hardcoded way
-# task :modify_config do
-#   run "sed -i 's/FRONTEND_SPLASH_PAGE = false/FRONTEND_SPLASH_PAGE = true/g' #{release_path}/config/environment.rb"
-#   run "sed -i 's/INVENTORY_CODE_PREFIX.*/INVENTORY_CODE_PREFIX = [[\"AVZ\", \"AV-Technik\"], [\"ITZS\", \"ITZ\"], [\"ITZV\", \"ITZ\"] ]/' #{release_path}/config/initializers/propose_inventory_code.rb"
-#   run "sed -i 's/CONTRACT_LENDING_PARTY_STRING.*/CONTRACT_LENDING_PARTY_STRING = \"Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich\"/' #{release_path}/config/environment.rb"
-#   run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environments/production.rb"
-# end
-
-# New way (Anthony's)
 
 task :modify_config do
   set :configfile, "#{release_path}/config/environment.rb"
@@ -162,6 +152,11 @@ task :migrate_database do
 
 end
 
+task :install_gems do
+  run "cd #{release_path} && bundle install --deployment"
+  run "sed -i 's/BUNDLE_DISABLE_SHARED_GEMS: \"1\"/BUNDLE_DISABLE_SHARED_GEMS: \"0\"/' #{release_path}/.bundle/config"
+end
+
 namespace :deploy do
 	task :start do
 	# we do absolutely nothing here, as we currently aren't
@@ -179,6 +174,7 @@ after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
+before "migrate_database", :install_gems
 after "deploy:symlink", :migrate_database
 after "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess

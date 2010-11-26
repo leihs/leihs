@@ -6,6 +6,8 @@ set :branch, "master"
 set :deploy_via, :remote_cache
 
 set :db_config, "/home/rails/leihs/leihs2demo/database.yml"
+set :ldap_config, "/home/rails/leihs/leihs2demo/LDAP.yml"
+
 set :use_sudo, false
 
 set :rails_env, "production"
@@ -17,6 +19,23 @@ set :sql_database, "rails_leihs2_demo"
 set :sql_host, "db.zhdk.ch"
 set :sql_username, "leihs2demo"
 set :sql_password, "l31hsd3m00"
+
+
+# User Variables and Settings
+set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
+set :default_email, "ausleihe.benachrichtigung\@zhdk.ch"
+set :email_server, "smtp.zhdk.ch"
+set :email_port, 25
+set :email_domain, "ausleihe.zhdk.ch"
+set :email_charset, "utf-8"
+set :email_content_type, "text/html"
+set :email_signature, "Your leihs test installation"
+# These are false by default. TODO: Actually set them to true if this is true.
+set :deliver_order_notifications, false
+set :perform_deliveries, false
+set :local_currency, "CHF"
+# Escape double-quotes using triple-backslashes in this string: \\\"
+set :contract_terms, 'Put your legalese here.'
 
 
 # If you aren't deploying to /u/apps/#{application} on the target
@@ -31,7 +50,9 @@ role :db,  "leihs@webapp.zhdk.ch", :primary => true
 task :link_config do
   on_rollback { run "rm #{release_path}/config/database.yml" }
   run "rm #{release_path}/config/database.yml"
+  run "rm #{release_path}/config/LDAP.yml"
   run "ln -s #{db_config} #{release_path}/config/database.yml"
+  run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
 end
 
 task :link_attachments do
@@ -42,9 +63,18 @@ task :link_attachments do
   run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/attachments"
 end
 
+task :link_db_backups do
+  run "rm -rf #{release_path}/db/backups"
+  run "ln -s #{deploy_to}/#{shared_dir}/db_backups #{release_path}/db/backups"
+end
+
+task :link_sphinx do
+  run "rm -rf #{release_path}/db/sphinx"
+  run "ln -s #{deploy_to}/#{shared_dir}/sphinx #{release_path}/db/sphinx"
+end
 
 task :remove_htaccess do
-	# Kill the .htaccess file as we are using mongrel, so this file
+	# Kill the .htaccess file as we are using passenger, so this file
 	# will only confuse the web server if parsed.
 
 	run "rm #{release_path}/public/.htaccess"
@@ -54,19 +84,24 @@ task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
 end
 
-
-
 task :modify_config do
-  #run "sed -i 's/FRONTEND_BETA_WARNING = false/FRONTEND_BETA_WARNING = true/g' #{release_path}/config/environment.rb"
-  run "sed -i 's/INVENTORY_CODE_PREFIX.*/INVENTORY_CODE_PREFIX = [[\"AVZ\", \"AV-Technik\"], [\"ITZS\", \"ITZ\"], [\"ITZV\", \"ITZ\"] ]/' #{release_path}/config/initializers/propose_inventory_code.rb"
-  run "sed -i 's/CONTRACT_LENDING_PARTY_STRING.*/CONTRACT_LENDING_PARTY_STRING = \"Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich\"/' #{release_path}/config/environment.rb"
+  set :configfile, "#{release_path}/config/environment.rb"
+  run "sed -i 's|CONTRACT_LENDING_PARTY_STRING.*|CONTRACT_LENDING_PARTY_STRING = \"#{contract_lending_party_string}\"|' #{configfile}"
+  run "sed -i 's|DEFAULT_EMAIL.*|DEFAULT_EMAIL = \"#{default_email}\"|' #{configfile}"
+  run "sed -i 's|:address.*|:address => \"#{email_server}\",|' #{configfile}"
+  run "sed -i 's|:port.*|:port => #{email_port},|' #{configfile}"
+  run "sed -i 's|:domain.*|:domain => \"#{email_domain}\"|' #{configfile}"
+  run "sed -i 's|ActionMailer::Base.default_charset.*|ActionMailer::Base.default_charset = \"#{email_charset}\"\nActionMailer::Base.default_content_type = \"#{email_content_type}\"|' #{configfile}"
+  run "sed -i 's|EMAIL_SIGNATURE.*|EMAIL_SIGNATURE = \"#{email_signature}\"|' #{configfile}"
+  run "sed -i 's|:encryption|#:encryption|' #{release_path}/app/controllers/authenticator/ldap_authentication_controller.rb"
+  run "sed -i 's|CONTRACT_TERMS.*|CONTRACT_TERMS = \"#{contract_terms}\"|' #{configfile}"
+  run "sed -i 's|LOCAL_CURRENCY_STRING.*|LOCAL_CURRENCY_STRING = \"#{local_currency}\"|' #{configfile}"
+  run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environments/production.rb" if perform_deliveries == false
 end
 
 task :chmod_tmp do
   run "chmod g-w #{release_path}/tmp"
 end
-
-
 
 task :configure_sphinx do
  run "cd #{release_path} && RAILS_ENV='production' rake ts:config"
@@ -86,6 +121,14 @@ task :configure_sphinx do
 
 end
 
+task :stop_sphinx do
+  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
+end
+
+task :start_sphinx do
+  run "cd #{release_path} && RAILS_ENV='production' rake ts:reindex"
+  run "cd #{release_path} && RAILS_ENV='production' rake ts:start"
+end
 
 task :migrate_database do
   # Produce a string like 2010-07-15T09-16-35+02-00
@@ -104,15 +147,10 @@ task :migrate_database do
 
 end
 
-task :stop_sphinx do
-  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
+task :install_gems do
+  run "cd #{release_path} && bundle install --deployment"
+  run "sed -i 's/BUNDLE_DISABLE_SHARED_GEMS: \"1\"/BUNDLE_DISABLE_SHARED_GEMS: \"0\"/' #{release_path}/.bundle/config"
 end
-
-task :start_sphinx do
-  run "cd #{release_path} && RAILS_ENV='production' rake ts:reindex"
-  run "cd #{release_path} && RAILS_ENV='production' rake ts:start"
-end
-
 
 namespace :deploy do
 	task :start do
@@ -120,23 +158,23 @@ namespace :deploy do
 	# using a spinner script or anything of that sort.
 	end
 
-   task :restart, :roles => :app, :except => { :no_release => true } do
-     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-   end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
 
 end
 
-
-
-
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
+after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
+before "migrate_database", :install_gems
 after "deploy:symlink", :migrate_database
 after "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
 before "deploy", :stop_sphinx
+before "start_sphinx", :link_sphinx
 after "deploy", :start_sphinx
 after "deploy", "deploy:cleanup"
