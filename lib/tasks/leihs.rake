@@ -5,11 +5,6 @@ namespace :leihs do
     `rake doc:app title="Leihs Application Documentation"`
   end
 
-  desc "Generate doc/todo.html from features/todo.features"
-  task :todo do
-    `script/generate_todo`
-  end
-
   # TODO :boot or :server_reboot ??
   desc "Application boot (task called after server reboot)"
   task :boot => :environment do
