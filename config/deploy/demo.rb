@@ -171,7 +171,7 @@ after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
 before "migrate_database", :install_gems
 after "deploy:symlink", :migrate_database
-after "migrate_database", :configure_sphinx
+before "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
 before "deploy", :stop_sphinx
