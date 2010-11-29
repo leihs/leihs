@@ -86,6 +86,34 @@ If the inventory pool manager does not wish to see contracts when he hands over
 items, then he can configure that.  There is a checkbox "Print contracts" in
 Backend->Administration->Inventory Pool->bottom of the page. 
 
+== Groups ==
+
+If you immediately want to try out the "Groups" feature, then go to the
+backend of one of your inventory pools, then either to "Own models" or
+"Models" (anywhere you have models, really). Now edit some model. In the
+leftmost tab shows you the "Availability" of that model where you can
+choose to "Change group quantities".
+
+Let's explain the feature using an example. Let's we have the following
+situation:
+
+* there are 40 cameras of type Canon XYZ
+* 20 should be borrowable by everybody (through the "General Group",
+  which is being managed automatically by the system)
+* 10 should be available to users in "Photography students" "Group" only
+* and 10 should be in the "Group" "Web and videocasting students"
+
+Let's say you have 150 photography students and 3000 students in
+total. This makes sure that the photography students have a
+disproportianate number of cameras available to them, so they're more
+likely to get one when they do need to book a camera.
+
+Or you can use it to manage certification situations. One could make
+certain expensive cameras are only borrowable by people who took a
+course on how to correctly handle that camera. So we could create a
+"Group" "Certified for Big Camera" and add _all_ those cameras to
+that group. And then add users one by one, as they show up with a
+proof that they took the course.
 
 == About this Document ==
 
