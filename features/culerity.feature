@@ -4,7 +4,7 @@ Feature: Ensure that Culerity is working as it should
 
 	Scenario: Go to the home page and make sure it gets displayed
 		Given I am on the home page
-		Then I should see "leihs 2.3"
+		Then I should see "leihs 2.9"
 
 	Scenario: Enter some nonsensical credentials and see the flash warning be displayed
 		Given I am on the home page
