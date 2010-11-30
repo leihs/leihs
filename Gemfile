@@ -30,14 +30,19 @@ group :profiling do
 	gem "newrelic_rpm", '2.10.5'
 end
 
-group :cucumber do
-	gem 'cucumber-rails', '>=0.2.4', :require => false # unless File.directory?(File.join(Rails.root, 'vendor/plugins/cucumber-rails'))
-	gem 'database_cleaner', '>=0.4.3', :require => false # unless File.directory?(File.join(Rails.root, 'vendor/plugins/database_cleaner'))
-	gem 'rspec', '>=1.3.0', :require => false # unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
-	gem 'rspec-rails', '>=1.3.2', :require => false # unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
+group :cucumber, :development do
+	gem 'ruby-debug', :require => false
 end
 
-group :culerity do
-	# http://github.com/langalex/culerity - enable testing of JavaScript views
-	gem "culerity"
+group :cucumber do
+	gem 'cucumber-rails', '0.2.4', :require => false
+	gem 'database_cleaner', '0.4.3', :require => false
+	gem 'rspec', '1.3.0', :require => false
+	gem 'rspec-rails', '1.3.2', :require => false
+	gem 'nokogiri'
 end
+
+#group :culerity do
+#	# http://github.com/langalex/culerity - enable testing of JavaScript views
+#	gem "culerity"
+#end
