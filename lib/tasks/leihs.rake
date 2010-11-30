@@ -60,10 +60,10 @@ namespace :leihs do
         system "rm rerun.txt"
     end
 
-      system "rake ts:in RAILS_ENV=test"
-      system "rake ts:start RAILS_ENV=test"
-      system "rake cucumber RAILS_ENV=test"
-      system "rake ts:stop RAILS_ENV=test"
+      system "RAILS_ENV=test rake ts:in"
+      system "RAILS_ENV=test rake ts:start"
+      system "RAILS_ENV=test rake cucumber"
+      system "RAILS_ENV=test rake ts:stop"
   end
 
 ################################################################################################
