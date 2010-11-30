@@ -62,6 +62,8 @@ ActionController::Routing::Routes.draw do |map|
       inventory_pool.take_back 'take_back', :controller => 'take_back', :action => 'index'
       inventory_pool.search 'search', :controller => 'backend', :action => 'search'
   
+      inventory_pool.resources :mails
+
       inventory_pool.resources :orders # TODO 07** also nest to user?
       inventory_pool.resources :contracts # TODO 07** also nest to user?
       inventory_pool.resources :locations do |location|
