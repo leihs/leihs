@@ -148,7 +148,7 @@ task :migrate_database do
 end
 
 task :install_gems do
-  run "cd #{release_path} && bundle install --deployment"
+  run "cd #{release_path} && bundle install --deployment --without cucumber profiling"
   run "sed -i 's/BUNDLE_DISABLE_SHARED_GEMS: \"1\"/BUNDLE_DISABLE_SHARED_GEMS: \"0\"/' #{release_path}/.bundle/config"
 end
 
