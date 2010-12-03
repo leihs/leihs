@@ -43,6 +43,8 @@ class Order < Document
   define_index do
     indexes :purpose
     indexes user(:login), :as => :user_login
+    indexes user(:firstname), :as => :user_firstname
+    indexes user(:lastname), :as => :user_lastname
     indexes user(:badge_id), :as => :user_badge_id
     indexes models(:name), :as => :model_names
     
