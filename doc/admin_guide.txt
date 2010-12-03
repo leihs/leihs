@@ -87,7 +87,7 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
  $ sudo gem install -v=2.3.5 rails
  $ sudo gem install bundler
  $ sudo gem install rake
- $ bundle install
+ $ bundle install --deployment --without cucumber
 
 11. Configure and start the Sphinx server:
 +
@@ -196,7 +196,7 @@ Note that the URL above might change! Please visit the RubyGems site to find the
  # gem install -v=2.3.5 rails
  # gem install bundler
  # gem install rake
- # bundle install
+ # bundle install --deployment --without cucumber
  
 10. Configure and start the Sphinx server:
 +
