@@ -53,11 +53,11 @@ namespace :leihs do
     args.with_defaults(:rerun => 1)
     
     puts "Removing log/test.log..."
-      system "rm log/test.log"
+      system "rm -f log/test.log"
 
     if args.rerun.to_i > 0
       puts "Removing rerun.txt..."
-        system "rm rerun.txt"
+        system "rm -f rerun.txt"
     end
 
       system "RAILS_ENV=cucumber && rake ts:in"
