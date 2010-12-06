@@ -7,7 +7,7 @@ end
 
 Given /a (\w+) '([^']*)' for inventory pool '([^']*)'$/ do |role,who,ip_name|
   Given "inventory pool '#{ip_name}'"
-  @user = Factory.create_user({:login => who}, #, :password => "pass"
+  @user = Factory.create_user({:login => who},
                               {:role => role,
                               :inventory_pool => @inventory_pool })
   @user.save!
