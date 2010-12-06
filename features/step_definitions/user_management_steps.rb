@@ -15,8 +15,11 @@ end
 
 Given "a manager '$name' with access level $access_level" do |name,accs_level|
   Given "a manager '#{name}' for inventory pool '#{@inventory_pool.name}'"
-  @user.access_rights.first.access_level = accs_level.to_i
-  @user.save!
+  # TODO: very ugly
+  ar = @user.access_rights.first
+  ar.access_level = accs_level.to_i
+  ar.save!
+  @user.reload
 end
 
 Given "user '$who' has access to inventory pool $ip_s" do |who, ip_s|
