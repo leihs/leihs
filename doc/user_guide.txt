@@ -2,6 +2,17 @@ leihs user guide
 ================
 Your Name Here <your.email.here@example.com>
 
+
+== User Guide Warning ==
+
+WARNING: This user guide is a work in progress. Officially, leihs does not
+have user documentation yet, this is just a collection of copy/pasted
+information we assembled over the years.
+
+If you want to help the project and write a user guide for leihs, see
+the section "About this Document".
+
+
 == Introduction ==
 
 leihs is web-based inventory handling and resource booking system. It allows

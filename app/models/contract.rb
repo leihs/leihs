@@ -37,6 +37,8 @@ class Contract < Document
     indexes :id
     indexes :note
     indexes user(:login), :as => :user_login
+    indexes user(:firstname), :as => :user_firstname
+    indexes user(:lastname), :as => :user_lastname
     indexes user(:badge_id), :as => :user_badge_id
     indexes models(:name), :as => :model_names
     indexes items(:inventory_code), :as => :items_inventory_code

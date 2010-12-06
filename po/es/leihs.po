@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-11-16 13:52+0100\n"
+"POT-Creation-Date: 2010-12-02 13:06+0100\n"
 "PO-Revision-Date: 2009-11-23 15:37+0000\n"
 "Last-Translator: Monkey <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -1756,19 +1756,19 @@ msgstr "El Usuario intercambio %{from} por %{to}"
 msgid "Invalid order_lines"
 msgstr ""
 
-#: app/models/document.rb:60
+#: app/models/document.rb:59
 msgid "Added"
 msgstr "Añadido"
 
-#: app/models/document.rb:67
+#: app/models/document.rb:66
 msgid "Swapped %{from} for %{to}"
 msgstr "Intercambio %{from} por %{to}"
 
-#: app/models/document.rb:84
+#: app/models/document.rb:83
 msgid "Changed dates for %{model} from %{from} to %{to}"
 msgstr "Cambiar fechas para %{model} de %{from} a %{to}"
 
-#: app/models/document.rb:95
+#: app/models/document.rb:94
 msgid "Removed %{q} %{m}"
 msgstr "Remover %{q} %{m}"
 
@@ -1939,7 +1939,7 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
-#: app/helpers/application_helper.rb:136
+#: app/helpers/application_helper.rb:137
 msgid ""
 "Possibly not all matches are being displayed because your search text was "
 "shorter than the minumum %s characters"
@@ -2007,6 +2007,11 @@ msgstr "Devolver"
 msgid "Retire"
 msgstr "Retirar"
 
+#: app/helpers/backend/mails_helper.rb:14
+#, fuzzy
+msgid "Write Email"
+msgstr "Email"
+
 #: app/helpers/backend/availability_helper.rb:120
 #, fuzzy
 msgid "Borrowable %s"
@@ -2064,8 +2069,8 @@ msgstr "Siguiente"
 #: app/views/backend/orders/_index.html.erb:1
 #: app/views/backend/take_back/_index.html.erb:4
 #: app/views/backend/contracts/_index.html.erb:1
-#: app/views/backend/acknowledge/show.html.erb:27
-#: app/views/backend/acknowledge/show.html.erb:29
+#: app/views/backend/acknowledge/show.html.erb:24
+#: app/views/backend/acknowledge/show.html.erb:26
 #: app/views/backend/acknowledge/_index.html.erb:1
 msgid "Reserver"
 msgstr "Reservado"
@@ -2082,7 +2087,7 @@ msgstr "Reservado"
 #: app/views/backend/take_back/_index.html.erb:24
 #: app/views/backend/contracts/_index.html.erb:10
 #: app/views/backend/groups/users.html.erb:18
-#: app/views/backend/acknowledge/show.html.erb:35
+#: app/views/backend/acknowledge/show.html.erb:32
 #: app/views/backend/acknowledge/_index.html.erb:11
 #: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:17
 msgid "User"
@@ -2496,7 +2501,7 @@ msgstr "Número de artículos"
 
 #: app/views/orders/_pending.html.erb:12 app/views/orders/_pending.html.erb:36
 #: app/views/backend/orders/show.html.erb:29
-#: app/views/backend/acknowledge/show.html.erb:46
+#: app/views/backend/acknowledge/show.html.erb:43
 #: app/views/backend/acknowledge/_index.html.erb:1
 #: app/views/contracts/_unsigned.html.erb:17
 #: app/views/contracts/_unsigned.html.erb:40
@@ -2509,8 +2514,8 @@ msgstr "Período de Tiempo"
 #: app/views/orders/_pending.html.erb:13
 #: app/views/backend/hand_over/show.html.erb:20
 #: app/views/backend/orders/show.html.erb:34
-#: app/views/backend/acknowledge/show.html.erb:51
-#: app/views/backend/acknowledge/show.html.erb:53
+#: app/views/backend/acknowledge/show.html.erb:48
+#: app/views/backend/acknowledge/show.html.erb:50
 #: app/views/backend/acknowledge/change_purpose.html.erb:1
 #: app/views/frontend/_complete_order.html.erb:277
 msgid "Purpose"
@@ -2529,8 +2534,8 @@ msgstr "Documentos"
 #: app/views/backend/hand_over/_index.html.erb:33
 #: app/views/backend/hand_over/_option_line.html.erb:30
 #: app/views/backend/locations/_index.html.erb:15
-#: app/views/backend/models/_index.html.erb:61
 #: app/views/backend/models/package_roots.html.erb:46
+#: app/views/backend/models/_index_row_plain.html.erb:35
 #: app/views/backend/categories/_index.html.erb:22
 #: app/views/backend/inventory_pools/_index.html.erb:17
 #: app/views/backend/backend/remove_lines.html.erb:9
@@ -2561,12 +2566,12 @@ msgstr "Lista de precios"
 #: app/views/backend/users/groups.html.erb:28
 #: app/views/backend/users/access_rights.html.erb:92
 #: app/views/backend/models/attachments.html.erb:21
-#: app/views/backend/models/_index.html.erb:58
-#: app/views/backend/models/_index.html.erb:62
 #: app/views/backend/models/package_roots.html.erb:44
 #: app/views/backend/models/package_roots.html.erb:67
 #: app/views/backend/models/accessories.html.erb:43
 #: app/views/backend/models/images.html.erb:15
+#: app/views/backend/models/_index_row_plain.html.erb:31
+#: app/views/backend/models/_index_row_plain.html.erb:36
 #: app/views/backend/categories/_index.html.erb:24
 #: app/views/backend/categories/_index.html.erb:30
 #: app/views/backend/categories/_index.html.erb:35
@@ -2732,7 +2737,7 @@ msgstr "Cancelar"
 #: app/views/backend/take_back/show.html.erb:34
 #: app/views/backend/take_back/_option_line.html.erb:19
 #: app/views/backend/acknowledge/_line.html.erb:27
-#: app/views/backend/acknowledge/show.html.erb:78
+#: app/views/backend/acknowledge/show.html.erb:75
 msgid "Time Period"
 msgstr "Plazo"
 
@@ -2765,7 +2770,7 @@ msgstr "Contrato Nro."
 
 #: app/views/backend/hand_over/show.html.erb:16
 #: app/views/backend/take_back/show.html.erb:11
-#: app/views/backend/acknowledge/show.html.erb:40
+#: app/views/backend/acknowledge/show.html.erb:37
 msgid "Currently suspended at:"
 msgstr ""
 
@@ -2784,7 +2789,7 @@ msgstr "Desde hoy"
 
 #: app/views/backend/hand_over/show.html.erb:43
 #: app/views/backend/take_back/show.html.erb:30
-#: app/views/backend/acknowledge/show.html.erb:74
+#: app/views/backend/acknowledge/show.html.erb:71
 msgid "Change Timeframe for selection"
 msgstr "Cambiar la ventana de tiempo para la selección"
 
@@ -2794,12 +2799,12 @@ msgid "Swap Reserver"
 msgstr "Reservado"
 
 #: app/views/backend/hand_over/show.html.erb:55
-#: app/views/backend/acknowledge/show.html.erb:80
+#: app/views/backend/acknowledge/show.html.erb:77
 msgid "Delete selection"
 msgstr "Borrar selección"
 
 #: app/views/backend/hand_over/show.html.erb:59
-#: app/views/backend/acknowledge/show.html.erb:84
+#: app/views/backend/acknowledge/show.html.erb:81
 msgid "Remove Models"
 msgstr "Quitar Modelos"
 
@@ -2836,7 +2841,7 @@ msgstr "Código de barras"
 #: app/views/backend/contracts/_index.html.erb:1
 #: app/views/backend/groups/_index.html.erb:1
 #: app/views/backend/groups/users.html.erb:18
-#: app/views/backend/acknowledge/show.html.erb:99
+#: app/views/backend/acknowledge/show.html.erb:96
 #: app/views/backend/acknowledge/_index.html.erb:1
 #: app/views/backend/options/_index.html.erb:5
 msgid "Action"
@@ -2847,8 +2852,8 @@ msgstr "Acción"
 #: app/views/backend/hand_over/_lines.html.erb:12
 #: app/views/backend/hand_over/_lines.html.erb:32
 #: app/views/backend/hand_over/_lines.html.erb:47
-#: app/views/backend/acknowledge/show.html.erb:70
-#: app/views/backend/acknowledge/show.html.erb:72
+#: app/views/backend/acknowledge/show.html.erb:67
+#: app/views/backend/acknowledge/show.html.erb:69
 #: app/views/backend/acknowledge/_lines.html.erb:10
 #: app/views/backend/acknowledge/_lines.html.erb:22
 #: app/views/backend/acknowledge/_lines.html.erb:32
@@ -2865,7 +2870,7 @@ msgid "for"
 msgstr ""
 
 #: app/views/backend/hand_over/show.html.erb:121
-#: app/views/backend/acknowledge/show.html.erb:111
+#: app/views/backend/acknowledge/show.html.erb:108
 msgid ""
 "This user doesn't have access to your inventory pool or is on your Blacklist!"
 msgstr ""
@@ -2873,7 +2878,7 @@ msgstr ""
 "Negra!"
 
 #: app/views/backend/hand_over/show.html.erb:121
-#: app/views/backend/acknowledge/show.html.erb:111
+#: app/views/backend/acknowledge/show.html.erb:108
 msgid "edit %s"
 msgstr ""
 
@@ -2898,13 +2903,10 @@ msgid "Items"
 msgstr "Artículos"
 
 #: app/views/backend/hand_over/_buttons.html.erb:12
-#: app/views/backend/hand_over/print_contract.html.erb:14
-#: app/views/backend/items/_notes.html.erb:27
 #: app/views/backend/take_back/_buttons.html.erb:9
-#: app/views/backend/take_back/print_contract.html.erb:15
-#: app/views/backend/acknowledge/approve.html.erb:25
-msgid "Close"
-msgstr "Cerrar"
+#, fuzzy
+msgid "Back to list"
+msgstr "Lista Negra"
 
 #: app/views/backend/hand_over/print_contract.html.erb:3
 #: app/views/backend/take_back/print_contract.html.erb:3
@@ -2915,6 +2917,13 @@ msgstr "Imprimir Contrato"
 #: app/views/backend/take_back/print_contract.html.erb:9
 msgid "Print Contract %d"
 msgstr "Imprimir Contrato %d"
+
+#: app/views/backend/hand_over/print_contract.html.erb:14
+#: app/views/backend/items/_notes.html.erb:27
+#: app/views/backend/take_back/print_contract.html.erb:15
+#: app/views/backend/acknowledge/approve.html.erb:25
+msgid "Close"
+msgstr "Cerrar"
 
 #: app/views/backend/hand_over/print_contract.html.erb:21
 msgid "Other documents"
@@ -2964,9 +2973,9 @@ msgstr "Estantería"
 #: app/views/backend/users/groups.html.erb:26
 #: app/views/backend/users/_index.html.erb:37
 #: app/views/backend/items/_index.html.erb:52
-#: app/views/backend/models/_index.html.erb:56
 #: app/views/backend/models/package_roots.html.erb:5
 #: app/views/backend/models/package_roots.html.erb:61
+#: app/views/backend/models/_index_row_plain.html.erb:27
 #: app/views/backend/categories/_index.html.erb:21
 #: app/views/backend/templates/_index.html.erb:10
 #: app/views/backend/templates/models.html.erb:38
@@ -3007,9 +3016,9 @@ msgstr "Grupo modelo"
 
 #: app/views/backend/users/groups.html.erb:27
 #: app/views/backend/users/access_rights.html.erb:90
-#: app/views/backend/models/_index.html.erb:57
 #: app/views/backend/models/package_roots.html.erb:65
 #: app/views/backend/models/accessories.html.erb:41
+#: app/views/backend/models/_index_row_plain.html.erb:30
 #: app/views/backend/categories/_index.html.erb:29
 #: app/views/backend/templates/_index.html.erb:11
 #: app/views/backend/templates/models.html.erb:39
@@ -3158,12 +3167,6 @@ msgstr ""
 msgid "New Contract"
 msgstr "Nuevo Contrato"
 
-#: app/views/backend/users/show.html.erb:94
-#: app/views/backend/users/_index.html.erb:50
-#, fuzzy
-msgid "Write Email"
-msgstr "Email"
-
 #: app/views/backend/users/_index.html.erb:1
 msgid "User Login"
 msgstr "Nombre de usuario"
@@ -3208,7 +3211,7 @@ msgstr "Nuevo Artículo"
 #: app/views/backend/orders/_lines.html.erb:5
 #: app/views/backend/take_back/_item_line.html.erb:24
 #: app/views/backend/take_back/show.html.erb:46
-#: app/views/backend/acknowledge/show.html.erb:97
+#: app/views/backend/acknowledge/show.html.erb:94
 #: app/views/contracts/value_list_for_items.pdf.prawn:67
 msgid "Item"
 msgstr "Artículo"
@@ -3440,8 +3443,8 @@ msgid "Search"
 msgstr "Buscar"
 
 #: app/views/backend/items/supplier.html.erb:34
-#: app/views/backend/models/_index.html.erb:49
-#: app/views/backend/models/_index.html.erb:53
+#: app/views/backend/models/_index_row_greybox.html.erb:16
+#: app/views/backend/models/_index_row_plain.html.erb:24
 #: app/views/backend/categories/_index.html.erb:18
 #: app/views/backend/options/_index.html.erb:18
 msgid "Select"
@@ -3532,11 +3535,6 @@ msgstr "Fabricante"
 #: app/views/backend/models/_index.html.erb:1
 msgid "Available Items"
 msgstr "Artículos disponibles"
-
-#: app/views/backend/models/_index.html.erb:35
-#: app/views/backend/models/_index.html.erb:37
-msgid "of"
-msgstr ""
 
 #: app/views/backend/models/package_roots.html.erb:12
 #, fuzzy
@@ -3644,6 +3642,11 @@ msgstr ""
 msgid "Inventory Pools"
 msgstr "Grupo de Inventario"
 
+#: app/views/backend/models/_index_row_plain.html.erb:15
+#: app/views/backend/models/_index_row_plain.html.erb:17
+msgid "of"
+msgstr ""
+
 #: app/views/backend/orders/show.html.erb:15
 #: app/views/backend/acknowledge/show.html.erb:18
 msgid "Order No."
@@ -3653,7 +3656,7 @@ msgstr "Orden Nro."
 #: app/views/backend/categories/_index.html.erb:1
 #: app/views/backend/templates/_index.html.erb:1
 #: app/views/backend/groups/_index.html.erb:1
-#: app/views/backend/acknowledge/show.html.erb:68
+#: app/views/backend/acknowledge/show.html.erb:65
 #: app/views/frontend/_models.html.erb:103
 msgid "Models"
 msgstr "Modelos"
@@ -3697,7 +3700,7 @@ msgstr "Cantidad"
 
 #: app/views/backend/orders/_lines.html.erb:6
 #: app/views/backend/take_back/show.html.erb:47
-#: app/views/backend/acknowledge/show.html.erb:98
+#: app/views/backend/acknowledge/show.html.erb:95
 msgid "Time frame"
 msgstr "Ventana de tiempo"
 
@@ -3830,7 +3833,7 @@ msgid "User has no access to your inventory pool anymore"
 msgstr "El usuario ya no tiene acceso a su grupo de inventario"
 
 #: app/views/backend/take_back/show.html.erb:42
-#: app/views/backend/acknowledge/show.html.erb:96
+#: app/views/backend/acknowledge/show.html.erb:93
 msgid "Check all"
 msgstr "Marcar todo"
 

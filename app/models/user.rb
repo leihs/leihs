@@ -148,7 +148,7 @@ class User < ActiveRecord::Base
 ################################################
 
   def to_s
-    login
+    name
   end
 
   def name
