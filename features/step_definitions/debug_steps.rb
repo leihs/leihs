@@ -10,5 +10,6 @@ end
 
 When /^I start the debugger$/ do
   debugger
+  true
 end
 
