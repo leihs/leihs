@@ -7,3 +7,8 @@ When /^I dump the response to '([^']*)'$/ do |filename|
     f.puts body
   end
 end
+
+When /^I start the debugger$/ do
+  debugger
+end
+
