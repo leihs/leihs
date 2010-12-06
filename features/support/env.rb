@@ -46,6 +46,8 @@ ActionController::Base.allow_rescue = false
 # after each scenario, which can lead to hard-to-debug failures in 
 # subsequent scenarios. If you do this, we recommend you create a Before
 # block that will explicitly put your database in a known state.
+#
+# See also below the URL of the Cucumber::ThinkingSphinx::ExternalWorld.new config
 Cucumber::Rails::World.use_transactional_fixtures = false
 # How to clean your database when transactions are turned off. See
 # http://github.com/bmabey/database_cleaner for more info.
