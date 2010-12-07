@@ -1,6 +1,6 @@
 Given /^a customer "([^"]*)"$/ do |name|
-  @user = Factory.create_user({:login => name
-                              }, {:role => 'customer'})
+  @user = Factory.create_user({:login => name },
+                              {:role => 'customer'})
   r = @user.access_rights.first
   r.save
 end
