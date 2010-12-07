@@ -1,4 +1,6 @@
+#
 # Models in Groups
+#
 Then "that model should not be available in any other group"  do
   quantities = @model.in(@inventory_pool).\
 	       maximum_available_in_period_for_groups(
@@ -45,10 +47,15 @@ Given /^(\d+) items of that model in group "([^"]*)"$/ do |n, group_name|
   When "I assign #{n} items to group \"#{group_name}\""
 end
 
+#
 # Items
-
+#
 When /^I add (\d+) item(s?) of that model$/ do |n, plural|
   Given "#{n} items of model '#{@model.name}' exist"
+end
+
+When /^an item is assigned to group "([^"]*)"$/ do |to_group_name|
+  When "I assign one item to group \"#{to_group_name}\""
 end
 
 When /^I assign (\w+) item(s?) to group "([^"]*)"$/ do |n, plural, to_group_name|
@@ -78,7 +85,9 @@ do |n, plural, user|
 	 should == n.to_i
 end
 
+#
 # Groups
+#
 Given /^a group "([^"]*)"$/ do |name|
   When "I add a new group \"#{name}\""
 end
@@ -104,14 +113,19 @@ do |group, filler, inventory_pool|
   end
 end
 
+#
 # Users
-Given /^a customer "([^"]*)" that belongs to group "([^"]*)"$/ do |user, group|
-  @user = Factory.create_user( { :login => user },
-			       { :role => 'customer',
-			         :inventory_pool => @inventory_pool } )
+#
+Given /^the customer "([^"]*)" is added to group "([^"]*)"$/ do |user, group|
+  @user = User.find_by_login user
   @group = @inventory_pool.groups.find_by_name(group)
   @group.users << @user
   @group.save!
+end
+
+Given /^a customer "([^"]*)" that belongs to group "([^"]*)"$/ do |user, group|
+  Given "a customer '#{user}' for inventory pool '#{@inventory_pool.name}'"
+  Given "the customer \"#{user}\" is added to group \"#{group}\""
 end
 
 When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user|
