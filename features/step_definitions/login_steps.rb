@@ -7,7 +7,14 @@ Given "a $role for inventory pool '$ip_name' logs in as '$who'" do | role, ip_na
 end
 
 When /^he logs in$/ do
-  post "/session", :login => @user.login #, :password => "pass"
+  post "/session", :login => @user.login
+end
+
+When /^I log in as '([^']*)' with password '([^']*)'$/ do |who,password|
+  visit('/')
+  fill_in 'login_user',     :with => who
+  fill_in 'login_password', :with => password
+  click_button 'Login'
 end
 
 Given "his password is '$password'" do |password|

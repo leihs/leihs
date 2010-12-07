@@ -22,11 +22,19 @@
 	<td><%= (is_privileged_user? or @item.new_record?) ? @f.date_select(:last_check, :order => [:year]) : @item.last_check %></td>
 </tr>
 <tr><td><b><%= _("Responsible department") %>:</b>
-	<% if is_super_user? or @item.new_record? %>
-		<%= @f.select :inventory_pool_id, InventoryPool.all.map {|i| [i.name, i.id] }, {:include_blank => _("None")} %></td>
+	<% if is_super_user? or @item.new_record?
+		if current_user.access_level_for(current_inventory_pool) == 2
+		    selectable_inventories = [current_inventory_pool]
+			html_options = {}
+		else
+		    selectable_inventories = InventoryPool.all
+			html_options = {:include_blank => _("None")}
+		end %>			
+		<%= @f.select :inventory_pool_id, selectable_inventories.map {|i| [i.name, i.id] }, html_options %>
 	<% else %>
 		<%= @f.hidden_field :inventory_pool_id %>
 		<%= @item.inventory_pool ? @item.inventory_pool.name : "-" %>
 	<% end %>
+	</td>
 	<td><b><%= _("Responsible person") %>:</b> <%= (is_privileged_user? or @item.new_record?) ? @f.text_field(:responsible) : @item.responsible %></td>
 </tr>	

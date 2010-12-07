@@ -164,6 +164,19 @@ When "we add an item '$inventory_code'" do |inventory_code|
   i = Factory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool, :inventory_code => inventory_code )
 end
 
+# this test is specifically for the 'New Item' page
+Then /^the item should( only)? be assignable to the '([^']*)' departement$/ \
+do |only,name|
+  select = find("#item_inventory_pool_id")
+  options = select.all("option")
+  if only
+    options.size.should == 1
+  else
+    options.size.should > 1
+  end
+  options.detect { |option| option.text == name }.should_not == nil
+end
+
 # Customers
 # TODO: currently unused
 When "I give the customer '$user' access to the inventory pool '$inventory_pool'" \
