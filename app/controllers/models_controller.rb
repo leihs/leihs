@@ -11,7 +11,8 @@ class ModelsController < FrontendController
     
     sort_mode = sort_mode.downcase.to_sym # OPTIMIZE 0501
 
-    with = {:borrowable_inventory_pool_id => session[:inventory_pool_ids]} # current_inventory_pools.collect(&:id)
+    with = {:borrowable_inventory_pool_id => session[:inventory_pool_ids], # current_inventory_pools.collect(&:id)
+            :group_id => current_user.groups.ids_including_general_to_i}
 
     if category_id > 0
       category = Category.find(category_id)

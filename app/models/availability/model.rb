@@ -19,6 +19,17 @@ module Availability
           scoped( { :conditions => {:inventory_pool_id => @inventory_pool} } )
         end
       end
+      
+      # NOTE thinking_sphinx ignores the nested_has_many_through plugin, thatfore we have to provide the sql explicitly
+      #base.has_many :availability_quantities, :through => :availability_changes, :source => :quantities
+      #base.has_many :groups, :through => :availability_quantities, :uniq => true, :conditions => "(in_quantity + out_quantity) > 0"
+#tmp#2911 we provide the sql directly within the define_index
+#      base.has_many :groups, :finder_sql => 'SELECT DISTINCT `groups`.* ' +
+#                                            'FROM `groups` ' +
+#                                            ' INNER JOIN availability_quantities ON ( groups.id = availability_quantities.group_id ) ' +
+#                                            ' INNER JOIN availability_changes ON ( availability_quantities.change_id = availability_changes.id ) ' +
+#                                            'WHERE (availability_changes.model_id = #{id} ' +
+#                                            ' AND (in_quantity + out_quantity) > 0)'
     end
   
     # depends on @inventory_pool and @model to be set, in order to work
@@ -126,6 +137,9 @@ module Availability
 
             drop_changes
             @new_changes.each {|x| x.save }
+            # if there's no more items of a model in a group accessible to the customer, then he should be able
+            # to see it. Therefore we need to reindex
+            @model.save # trigger sphinx reindex   #OPTIMIZE: only reindex frontend data
           end # transaction          
       end # recompute
       

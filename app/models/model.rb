@@ -174,6 +174,14 @@ class Model < ActiveRecord::Base
     has :is_package
     has categories(:id), :as => :category_id
     has borrowable_items(:inventory_pool_id), :as => :borrowable_inventory_pool_id
+    #tmp#2911 has groups(:id), :as => :group_id
+    has "(SELECT GROUP_CONCAT(DISTINCT IFNULL(aq.group_id, '0') SEPARATOR ',') " \
+        " FROM availability_changes AS ac " \
+        "   INNER JOIN availability_quantities AS aq " \
+        "     ON aq.change_id = ac.id " \
+        " WHERE (aq.in_quantity + aq.out_quantity) > 0 " \
+        "   AND model_id = models.id)",
+        :as => :group_id, :type => :multi
     
     set_property :delta => true
   end
