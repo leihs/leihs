@@ -8,8 +8,17 @@ When /^I dump the response to '([^']*)'$/ do |filename|
   end
 end
 
+When /^I look at the page$/ do
+  save_and_open_page
+end
+
 When /^I start the debugger$/ do
   debugger
+  true
+end
+
+# this is for commenting or explaining inside Scenarios
+Given /^comment:/ do
   true
 end
 
