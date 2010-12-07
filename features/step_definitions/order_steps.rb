@@ -1,4 +1,4 @@
-Given /there is (only )?an order by (a user named )?'(.*)'/ do | only, bla, who |
+Given /there is (only )?an order by (a customer named )?'(.*)'/ do | only, bla, who |
   Given "there are no orders" if only
   if @inventory_pool
     @user = Factory.create_user( { :login => who }, { :inventory_pool => @inventory_pool } )
@@ -149,13 +149,13 @@ Then /([0-9]+) order(s?) exist(s?) for inventory pool (.*)/ do |size, s1, s2, ip
   @orders.size.should == size.to_i
 end
 
-Then "user '$user' gets notified that his order has been submitted" do |who|
+Then "customer '$user' gets notified that his order has been submitted" do |who|
   user = Factory.create_user({:login => who })
   user.notifications.size.should == 1
   user.notifications.first.title = "Order submitted"
 end
 
-Then "the order was placed by a user named '$name'" do | name |
+Then "the order was placed by a customer named '$name'" do | name |
   @order = @orders.first if @orders.size == 1 #temp#
   @order.user.login.should == name
 end
