@@ -42,7 +42,7 @@ end
 
 ###############################################
 
-Then "line $line has a quantity of $quantity for user '$who'" do | line, quantity, who |
+Then "line $line has a quantity of $quantity for customer '$who'" do | line, quantity, who |
   @visits[line.to_i - 1].quantity.should == quantity.to_i
   @visits[line.to_i - 1].user.login.should == who
 end

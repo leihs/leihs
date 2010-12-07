@@ -22,7 +22,7 @@ Given "a manager '$name' with access level $access_level" do |name,accs_level|
   @user.reload
 end
 
-Given "user '$who' has access to inventory pool $ip_s" do |who, ip_s|
+Given "customer '$who' has access to inventory pool $ip_s" do |who, ip_s|
   inventory_pools = ip_s.split(" and ").collect { | ip_name |
     InventoryPool.find_by_name ip_name
   }

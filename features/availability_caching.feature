@@ -16,7 +16,7 @@ Scenario: Issue an Order
 	Given 1 inventory pool
 		And a model 'Coffee Mug' exists
 		And this model has 3 items in inventory pool 1
-		And user 'joe' has access to inventory pool 1
+		And customer 'joe' has access to inventory pool 1
 	Given there is an order by 'joe'
 		And it asks for 1 items of model 'Coffee Mug'
 		And a customer for inventory pool '1' logs in as 'joe'
@@ -37,10 +37,10 @@ Scenario: Don't influence other Orders
 	Given 1 inventory pool
 		And a model 'Coffee Mug' exists
 		And this model has 3 items in inventory pool 1
-		And user 'Engelbart' has access to inventory pool 1
-	Given there is only an order by a user named 'Engelbart'
+		And customer 'Engelbart' has access to inventory pool 1
+	Given there is only an order by a customer named 'Engelbart'
 		And it asks for 1 items of model 'Coffee Mug'
-		And user 'Toshi' has access to inventory pool 1
+		And customer 'Toshi' has access to inventory pool 1
 	Given there is an order by 'Toshi'
 		And it asks for 1 items of model 'Coffee Mug'
 	When a customer for inventory pool '1' logs in as 'Engelbart'
@@ -60,7 +60,7 @@ Scenario: Manage a Contract
 	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 		And a model 'Coffee Mug' exists
 		And this model has 4 items in inventory pool ABC
-		And user 'Joe' has access to inventory pool ABC
+		And customer 'Joe' has access to inventory pool ABC
 		And there is only an order by 'Joe'
 		And it asks for 2 items of model 'Coffee Mug'
 	When a customer for inventory pool 'ABC' logs in as 'Joe'

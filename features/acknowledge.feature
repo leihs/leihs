@@ -15,7 +15,7 @@ Scenario: List with new orders
 	  And the order was submitted
 	When lending_manager clicks on 'acknowledge'
 	Then he sees 1 order
-	 And the order was placed by a user named 'Joe'
+	 And the order was placed by a customer named 'Joe'
 	
 
 
