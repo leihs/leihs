@@ -6,10 +6,12 @@ module Factory
         
     # Create User with role
     user = Factory.create_user( {:login => 'inv_man'},
-			        {:role => "manager", :inventory_pool => inventory_pool})
+                                {:role => "manager",
+                                 :inventory_pool => inventory_pool})
     # Create Customer
     customer = Factory.create_user( {:login => 'customer'},
-				    {:role => "customer", :inventory_pool => inventory_pool})
+				    {:role => "customer",
+                                     :inventory_pool => inventory_pool})
     # Create Model and Item
     model = Factory.create_model(:name => 'holey parachute')
     Factory.create_item(:model => model, :inventory_pool => inventory_pool)
@@ -37,7 +39,8 @@ module Factory
   def self.define_role(user, inventory_pool, role_name = "manager" )
     role = Role.find_or_create_by_name(:name => role_name)
     begin
-      user.access_rights.create(:role => role, :inventory_pool => inventory_pool)
+      user.access_rights.create(:role => role,
+                                :inventory_pool => inventory_pool)
     rescue
       # unique index, record already present
     end
@@ -56,7 +59,10 @@ module Factory
     options[:order_lines].times do |i|
         model = Factory.create_model(:name => "model_#{i}" )
         quantity = rand(3) + 1
-        quantity.times { Factory.create_item( :model => model, :inventory_pool => o.inventory_pool ) }
+        quantity.times {
+            Factory.create_item( :model => model,
+                                 :inventory_pool => o.inventory_pool )
+        }
         d = [ self.random_future_date, self.random_future_date ]
         o.add_line(quantity, model, o.user_id, d.min, d.max )
     end if options[:order_lines]
@@ -184,7 +190,8 @@ module Factory
     default_attributes = {
       :name => "ABC" 
     }
-    ip = InventoryPool.find_or_create_by_name default_attributes.merge(attributes)[:name]
+    ip = InventoryPool.find_or_create_by_name(
+             default_attributes.merge(attributes)[:name] )
     ip
   end
 

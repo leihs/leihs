@@ -1,14 +1,14 @@
 Feature: Hand Over
 
 	As an Inventory Manager
-	I want to see all approved orders, grouped by user,
+	I want to see all approved orders, grouped by customer,
 	in order to generate contracts and hand over the physical items
 
 Background:
 	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	  And his password is 'pass'
 	
-Scenario: List approved orders, grouped by same user and same start_date
+Scenario: List approved orders, grouped by same customer and same start_date
 
 	Given 15 items of model 'NEC 245' exist
 	  And 12 items of model 'BENQ 19' exist
@@ -28,7 +28,7 @@ Scenario: List approved orders, grouped by same user and same start_date
 		And lending_manager clicks on 'hand_over'
 	Then he sees 1 line with a total quantity of 10 
 
-Scenario: List approved orders, grouped by different users and different start_dates
+Scenario: List approved orders, grouped by different customers and different start_dates
 
 	Given 15 items of model 'NEC 245' exist
 	  And 12 items of model 'BENQ 19' exist
@@ -41,8 +41,8 @@ Scenario: List approved orders, grouped by different users and different start_d
 		And lending_manager approves the order
 		And lending_manager clicks on 'hand_over'
 	Then he sees 2 lines with a total quantity of 11
-		And line 1 has a quantity of 7 for user 'Joe' 
-		And line 2 has a quantity of 4 for user 'Joe'
+		And line 1 has a quantity of 7 for customer 'Joe' 
+		And line 2 has a quantity of 4 for customer 'Joe'
 	When 'Jack' places a new order
 		And he asks for 2 'NEC 245' from 31.3.2100 
 		And he asks for 1 'BENQ 19' from 31.3.2111 
@@ -51,12 +51,12 @@ Scenario: List approved orders, grouped by different users and different start_d
 		And lending_manager approves the order
 		And lending_manager clicks on 'hand_over'
 	Then he sees 4 lines with a total quantity of 17 
-		And line 1 has a quantity of 2 for user 'Jack' 
-		And line 2 has a quantity of 7 for user 'Joe' 
-		And line 3 has a quantity of 4 for user 'Jack'
-		And line 4 has a quantity of 4 for user 'Joe'
+		And line 1 has a quantity of 2 for customer 'Jack' 
+		And line 2 has a quantity of 7 for customer 'Joe' 
+		And line 3 has a quantity of 4 for customer 'Jack'
+		And line 4 has a quantity of 4 for customer 'Joe'
 	
-Scenario: Generation of contract lines based on the approved order lines of a given user
+Scenario: Generation of contract lines based on the approved order lines of a given customer
 
 	Given 15 items of model 'NEC 245' exist
 	  And 12 items of model 'BENQ 19' exist

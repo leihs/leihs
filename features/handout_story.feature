@@ -6,7 +6,7 @@ Feature: Handout
 	So that I can fulfill orders
 
 Background:
-	Given a user named Hans Meier
+	Given a customer named Hans Meier
 		And he ordered 1 item starting from today
 		And an object of that item with number 14 exists
 		And the order was accepted

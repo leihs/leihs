@@ -117,7 +117,9 @@ class Backend::ItemsController < Backend::BackendController
     flash[:notice] = _("New item created.")
     update
   end
-    
+
+  # TODO: we do not check here who is allowed to do what - i.e. a level 1 manager can
+  #       update items directly through the backend - even though the frontend wouldn't let him
   def update
     get_histories
 

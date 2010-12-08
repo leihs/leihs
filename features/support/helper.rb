@@ -31,6 +31,8 @@ end
 def to_number( number )
   case number
     when "no"  then 0
+    when "a"   then 1
+    when "an"  then 1
     when "one" then 1
     when "two" then 2
   else

@@ -98,3 +98,26 @@ Scenario: Fill in holes in existing inventory code ranges when proposing new cod
 	 # first free inventory code after 'ABC01' is 'ABC4'
 	 Then the generated_code should look like this 'ABC4'
 
+@javascript
+Scenario: Level 2 managers should only be able and allowed
+          to assign items to their own pool
+	Given a model 'Trumpet' exists
+	  And a manager 'George' with access level 2
+	  And his password is 'pass'
+	 When I log in as 'George' with password 'pass'
+	  And I press "Backend"
+	  And I follow "Items (0)"
+	  And I follow "New Item"
+         Then the item should only be assignable to the 'ABC' departement
+
+@javascript
+Scenario: Level 3 managers should be able and allowed
+          to assign items to whatever pool
+	Given a model 'Trumpet' exists
+	  And a manager 'George' with access level 3
+	  And his password is 'pass'
+	 When I log in as 'George' with password 'pass'
+	  And I press "Backend"
+	  And I follow "Items (0)"
+	  And I follow "New Item"
+         Then the item should be assignable to the 'None' departement

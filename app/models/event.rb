@@ -2,12 +2,7 @@
 #
 # Table name: events
 #
-#  date              :date            default(Tue, 16 Nov 2010)
-#  title             :string          default("")
-#  action            :string          default("hand_over")
-#  quantity          :integer         default(0)
-#  contract_line_ids :string
-#  date              :date            default(Tue, 16 Nov 2010)
+#  date              :date            default(Tue, 07 Dec 2010)
 #  title             :string          default("")
 #  action            :string          default("hand_over")
 #  quantity          :integer         default(0)
@@ -46,5 +41,3 @@ class Event < ActiveRecord::Base
   end  
 
 end
-
-
