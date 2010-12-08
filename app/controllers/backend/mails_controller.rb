@@ -37,7 +37,8 @@ private
   # Additionally, it's up to ActionMailer to encode the resulting string
   # correctly, which according to my tests it does
  def to_full_email_address(name, email)
-    '"%s" <%s>' % [name, email]
+    #'"%s" <%s>' % [name, email] # This breaks at HKB, Worcester, but not ZHdK
+    email
   end
  
   def pre_load
