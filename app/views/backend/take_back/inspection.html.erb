@@ -17,7 +17,7 @@
 		<hr />
 	
 	   	<%= _("Note") %><br/>
-		<%= text_area_tag 'note', "User: #{@contract_line.contract.user.login}\nContract: #{@contract_line.contract.id}", :size => "25x10" %>
+		<%= text_area_tag 'note', "User: #{@contract_line.contract.user}\nContract: #{@contract_line.contract.id}", :size => "25x10" %>
 		
 		<div class="buttons">
 			<% # OPTIMIZE submit_button helper using the <button> tag %>

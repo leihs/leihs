@@ -1,6 +1,6 @@
 		function get_user_resume_panel(){
 			return new Ext.Panel({	id: 'user_resume',
-									title: '<%= current_user.login %>',
+									title: '<%= current_user.to_s %>',
 									closable: true,
 		                            autoScroll: true,
 									frame: true,
@@ -50,7 +50,7 @@
 							},
 						<% end %>
 					'-',
-						{text: '<%= current_user.login %>', 
+						{text: '<%= current_user.to_s %>', 
 						  iconCls:'bt',
 				          icon:'<%= icon_path('user') %>',
 						  handler: function() {
