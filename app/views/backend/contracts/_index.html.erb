@@ -5,7 +5,7 @@
 				<td><%= contract.id %></td>
 				<td><%= today_or_yesterday_date(contract.created_at) %></td>
 				<td>
-					<%= greybox_link_to_page(contract.user.login,
+					<%= greybox_link_to_page(contract.user,
 							backend_inventory_pool_user_path(current_inventory_pool, contract.user, :layout => "modal"),
 							:title => _("User"),
 							:class => "iconized-notxt edit-user" ) %>
