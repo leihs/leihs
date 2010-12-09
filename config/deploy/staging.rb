@@ -30,18 +30,13 @@ set :email_domain, "ausleihe.zhdk.ch"
 set :email_charset, "utf-8"
 set :email_content_type, "text/html"
 set :email_signature, "Das PZ-leihs Team"
-# These are false by default. TODO: Actually set them to true if this is true.
-set :deliver_order_notifications, false
+set :deliver_order_notifications, false # This is false by default. TODO: Actually set them to true if this is true.
 set :perform_deliveries, false
 set :local_currency, "CHF"
 # Escape double-quotes using triple-backslashes in this string: \\\"
 set :contract_terms, 'Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die \\\"Richtlinie zur Ausleihe von Sachen\\\" der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien.'
 
 
-
-# If you aren't deploying to /u/apps/#{application} on the target
-# servers (which is the default), you can specify the actual location
-# via the :deploy_to variable:
 set :deploy_to, "/home/rails/leihs/#{application}"
 
 role :app, "leihs@webapp.zhdk.ch"
@@ -56,7 +51,6 @@ task :link_config do
   run "ln -s #{db_config} #{release_path}/config/database.yml"
   run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
 end
-
 
 task	:link_attachments do
 	run "rm -rf #{release_path}/public/images/attachments"
