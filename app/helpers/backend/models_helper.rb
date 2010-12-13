@@ -22,8 +22,16 @@ module Backend::ModelsHelper
           #my_timeline table tr td {
             vertical-align: top;
             padding-top: 30px;
-            font-size: 0.8em;
+            padding-left: 0.2em;
+            font-size: 0.7em;
             color: #555555;
+          }
+          #my_timeline .timeline-date-label {
+            color: #111111;
+            padding-left: 0.5em;
+          }
+          #my_timeline .timeline-band-0 .timeline-ether-bg {
+            background-color: #e9ef6f;
           }
           #my_timeline .timeline-ether-highlight {
             background-color: #98d9e7;
@@ -95,7 +103,7 @@ module Backend::ModelsHelper
       next unless events.keys.include?(group_id)
       #w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
       #sum_w += w
-      bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
+      bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], intervalUnit: Timeline.DateTime.DAY, intervalPixels: 70, align: 'Top', theme: theme })"
       bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : "")
       
       prev_in_quantity = nil
@@ -107,7 +115,7 @@ module Backend::ModelsHelper
         end
         if prev_in_quantity != in_quantity
           prev_in_quantity = in_quantity
-          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.to_s(:rfc822)}', endDate: '#{(change.start_date.to_time + 2.hours).to_s(:rfc822)}', color: '#555555', opacity: 50, endLabel: '#{in_quantity}' })"
+          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{(change.start_date.to_time - 1.hour).to_s(:rfc822)}', endDate: '#{(change.start_date.to_time + 1.hour).to_s(:rfc822)}', color: '#555555', opacity: 50, endLabel: '#{in_quantity}' })"
         end
         (d.empty? ? nil : d.join(', '))
       end.compact
@@ -144,9 +152,9 @@ module Backend::ModelsHelper
           if(bandInfos.length > 1 && i != 1) bandInfos[i].syncWith = 1;
           bandInfos[i].decorators = [
               new Timeline.SpanHighlightDecorator({
-                  startDate:  "#{Date.today.to_time.to_s(:rfc822)}",
-                  endDate:    "#{Date.tomorrow.to_time.to_s(:rfc822)}",
-                  color:      "#98d9e7",
+                  startDate:  "#{(Date.today.to_time - 1.hour).to_s(:rfc822)}",
+                  endDate:    "#{(Date.tomorrow.to_time - 1.hour).to_s(:rfc822)}",
+                  color:      "#1f71d7",
                   opacity:    50,
                   startLabel: bandNames[i]
               })
