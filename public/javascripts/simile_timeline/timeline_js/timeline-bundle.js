@@ -1794,9 +1794,12 @@ break;
 case SimileAjax.DateTime.WEEK:C=Timeline.GregorianDateLabeller.getMonthName(B.getUTCMonth(),this._locale)+" "+B.getUTCDate();
 break;
 case SimileAjax.DateTime.MONTH:var A=B.getUTCMonth();
-if(A!=0){C=Timeline.GregorianDateLabeller.getMonthName(A,this._locale);
+//sellittf start// if(A!=0){C=Timeline.GregorianDateLabeller.getMonthName(A,this._locale); break; }
+C=Timeline.GregorianDateLabeller.getMonthName(A,this._locale);
+if(A==0){C += "<br />"+B.getUTCFullYear();}
 break;
-}case SimileAjax.DateTime.YEAR:case SimileAjax.DateTime.DECADE:case SimileAjax.DateTime.CENTURY:case SimileAjax.DateTime.MILLENNIUM:var D=B.getUTCFullYear();
+//sellittf stop//
+case SimileAjax.DateTime.YEAR:case SimileAjax.DateTime.DECADE:case SimileAjax.DateTime.CENTURY:case SimileAjax.DateTime.MILLENNIUM:var D=B.getUTCFullYear();
 if(D>0){C=B.getUTCFullYear();
 }else{C=(1-D)+"BC";
 }E=(F==SimileAjax.DateTime.MONTH)||(F==SimileAjax.DateTime.DECADE&&D%100==0)||(F==SimileAjax.DateTime.CENTURY&&D%1000==0);
