@@ -37,6 +37,9 @@ private
   # Additionally, it's up to ActionMailer to encode the resulting string
   # correctly, which according to my tests it does
  def to_full_email_address(name, email)
+    # TODO: possibly re-anable adding the user's name one day...
+    #       see also https://www.pivotaltracker.com/story/show/7177325
+    #       it would be very nice to have test cases for failing name/email combinations
     #'"%s" <%s>' % [name, email] # This breaks at HKB, Worcester, but not ZHdK
     email
   end
