@@ -12,20 +12,6 @@
 #  deleted_at        :date
 #  access_level      :integer(4)
 #
-
-# == Schema Information
-#
-# Table name: access_rights
-#
-#  id                :integer(4)      not null, primary key
-#  role_id           :integer(4)
-#  user_id           :integer(4)
-#  inventory_pool_id :integer(4)
-#  created_at        :datetime
-#  updated_at        :datetime
-#  suspended_until   :date
-#  deleted_at        :date
-#  access_level      :integer(4)
 #
 class AccessRight < ActiveRecord::Base
 
