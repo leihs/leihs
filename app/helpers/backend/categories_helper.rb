@@ -78,7 +78,10 @@ module Backend::CategoriesHelper
             var node = source.closest("li");
             
             if(#{checkable}){
-              var category_ids = $.makeArray(tree.get_checked().map(function(){ return this.id }));
+              var category_ids = tree.get_checked().map(function(){ return this.id }).toArray();
+              if(category_ids.join("") == "0"){
+                category_ids = tree._get_children($("li#0")).map(function(){ return this.id }).toArray();
+              }
               var params = {"category_ids[]": category_ids};
               if("#{method}" == "post") params["#{request_forgery_protection_token}"] = "#{escape_javascript form_authenticity_token}";
             }else{

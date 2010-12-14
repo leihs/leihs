@@ -220,7 +220,7 @@ class Backend::ModelsController < Backend::BackendController
     if request.post?
       Model.suspended_delta do
         @model.categories.delete_all
-        @model.categories << @categories
+        @model.categories << @categories if @categories
       end
       flash[:notice] = _("This model is now in %d categories") % @model.categories.count
       render :update do |page|
