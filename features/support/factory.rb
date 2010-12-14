@@ -36,6 +36,17 @@ module Factory
   ##########################################
 
   #
+  # Language
+  # 
+  def self.create_language!(attributes = {}, options = {})
+    default_attributes = {
+      :default => false,
+      :active  => true
+    }
+    Language.create! default_attributes.merge(attributes)
+  end
+
+  #
   # User
   # 
   def self.create_user(attributes = {}, options = {})
