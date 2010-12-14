@@ -1,10 +1,20 @@
 module Factory
 
+  ##########################################
+  #
+  # Various sets of data for different uses
+  #
+  ##########################################
+
+  #
+  # Simple dataset with
+  # * manager, customer, model and an item
+  #
   def self.create_dataset_simple
     
     inventory_pool = Factory.create_inventory_pool_default_workdays
         
-    # Create User with role
+    # Create Manager
     user = Factory.create_user( {:login => 'inv_man'},
                                 {:role => "manager",
                                  :inventory_pool => inventory_pool})
@@ -19,6 +29,15 @@ module Factory
     [inventory_pool, user, customer, model]
   end
 
+  ##########################################
+  #
+  # Creating Models
+  #
+  ##########################################
+
+  #
+  # User
+  # 
   def self.create_user(attributes = {}, options = {})
     default_attributes = {
       :login => "jerome",
@@ -36,6 +55,9 @@ module Factory
     u
   end
 
+  #
+  # Role
+  # 
   def self.define_role(user, inventory_pool, role_name = "manager" )
     role = Role.find_or_create_by_name(:name => role_name)
     begin
@@ -46,11 +68,17 @@ module Factory
     end
   end
 
+  #
+  # Date
+  # 
   def self.random_future_date
     # future date is within the next 3 years, at earliest tomorrow
     Date.today + rand(3*365).days + 1.day
   end
 
+  #
+  # Order
+  # 
   def self.create_order(attributes = {}, options = {})
     default_attributes = {
       :inventory_pool => create_inventory_pool(:name => "ABC")
@@ -70,6 +98,9 @@ module Factory
     o
   end
 
+  #
+  # Contract
+  # 
   # copied from create_order
   def self.create_contract(attributes = {}, options = {})
     default_attributes = {
@@ -90,6 +121,9 @@ module Factory
     c
   end
       
+  #
+  # Model
+  # 
   def self.create_model(attributes = {})
     default_attributes = {
       :name => 'model_1'
@@ -99,6 +133,9 @@ module Factory
     t
   end
 
+  #
+  # inventory code
+  # 
   def self.generate_new_unique_inventory_code
     begin
       chars_len = 1
@@ -112,6 +149,9 @@ module Factory
     code
   end
   
+  #
+  # Item
+  # 
   def self.create_item(attributes = {})
     default_attributes = {
       :inventory_code => generate_new_unique_inventory_code,
@@ -121,6 +161,9 @@ module Factory
     i
   end
   
+  #
+  # parsedate
+  # 
   def self.parsedate(str)
     match = /(\d{1,2})\.(\d{1,2})\.(\d{2,4})\.?/.match(str)
     unless match
@@ -131,6 +174,9 @@ module Factory
     DateTime.new(ret[0], ret[1], ret[2]) # TODO Date
   end
 
+  #
+  # OrderLine
+  # 
   def self.create_order_line(options = {})
       model = Factory.create_model :name => options[:model_name]
 
@@ -151,6 +197,9 @@ module Factory
       ol              
   end
 
+  #
+  # ContractLine
+  # 
   def self.create_contract_line(options = {})
       model = Factory.create_model :name => options[:model_name]
 
@@ -171,6 +220,9 @@ module Factory
       ol              
   end
 
+  #
+  # InventoryPool
+  # 
   def self.create_inventory_pool(attributes = {})
     default_attributes = {
       :name => "ABC" 
@@ -186,6 +238,9 @@ module Factory
     ip
   end
 
+  #
+  # InventoryPool workdays
+  # 
   def self.create_inventory_pool_default_workdays(attributes = {})
     default_attributes = {
       :name => "ABC" 
@@ -196,6 +251,9 @@ module Factory
   end
 
 
+  #
+  # Category
+  # 
   def self.create_category(attributes = {})
     default_attributes = {
       :name => 'category'
