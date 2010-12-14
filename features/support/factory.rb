@@ -2,35 +2,6 @@ module Factory
 
   ##########################################
   #
-  # Various sets of data for different uses
-  #
-  ##########################################
-
-  #
-  # Simple dataset with
-  # * manager, customer, model and an item
-  #
-  def self.create_dataset_simple
-    
-    inventory_pool = Factory.create_inventory_pool_default_workdays
-        
-    # Create Manager
-    user = Factory.create_user( {:login => 'inv_man'},
-                                {:role => "manager",
-                                 :inventory_pool => inventory_pool})
-    # Create Customer
-    customer = Factory.create_user( {:login => 'customer'},
-				    {:role => "customer",
-                                     :inventory_pool => inventory_pool})
-    # Create Model and Item
-    model = Factory.create_model(:name => 'holey parachute')
-    Factory.create_item(:model => model, :inventory_pool => inventory_pool)
-    
-    [inventory_pool, user, customer, model]
-  end
-
-  ##########################################
-  #
   # Creating Models
   #
   ##########################################
@@ -271,6 +242,35 @@ module Factory
     }
     t = Category.find_or_create_by_name default_attributes.merge(attributes)
     t
+  end
+
+  ##########################################
+  #
+  # Various sets of data for different uses
+  #
+  ##########################################
+
+  #
+  # Simple dataset with
+  # * manager, customer, model and an item
+  #
+  def self.create_dataset_simple
+    
+    inventory_pool = Factory.create_inventory_pool_default_workdays
+        
+    # Create Manager
+    user = Factory.create_user( {:login => 'inv_man'},
+                                {:role => "manager",
+                                 :inventory_pool => inventory_pool})
+    # Create Customer
+    customer = Factory.create_user( {:login => 'customer'},
+				    {:role => "customer",
+                                     :inventory_pool => inventory_pool})
+    # Create Model and Item
+    model = Factory.create_model(:name => 'holey parachute')
+    Factory.create_item(:model => model, :inventory_pool => inventory_pool)
+    
+    [inventory_pool, user, customer, model]
   end
 
   
