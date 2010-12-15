@@ -57,6 +57,9 @@ namespace :zhdk do
       print_warning("Could not load database file #{filename}.")
       exit 1
     end
+    
+    Rake::Task["ts:reindex"].execute
+    
   end
   
 end
