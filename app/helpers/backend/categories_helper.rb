@@ -13,12 +13,54 @@ module Backend::CategoriesHelper
      :state => "open",
      :children => Category.roots.map{|c| category_node(c, 0) } }
   end
+
+################
+  def simple_category_tree_node(node, selected_categories)
+    content_tag :li do
+      a = check_box_tag "category_ids[]", node[:attr][:id], selected_categories.include?(node[:attr][:id])
+      a += " #{node[:data][:title]}"
+      a += simple_category_tree_root(node[:children], selected_categories) unless node[:children].empty?
+      a
+    end    
+  end
+
+  def simple_category_tree_root(nodes, selected_categories)
+    content_tag :ul, :class => "simple_tree" do
+      nodes.collect do |node|
+        simple_category_tree_node(node, selected_categories)
+      end.join
+    end
+  end
+
+  def simple_category_tree(selected_categories = [])
+    h = content_tag :style do
+      <<-HERECODE
+        .simple_tree ul {
+          margin-left: 2em;
+        }
+      HERECODE
+    end
+    h += javascript_tag do
+      <<-HERECODE
+        jQuery(document).ready(function($) {
+          $(".simple_tree input[type='checkbox']").click(function(){
+            var category_ids = $(".simple_tree input[type='checkbox']:checked").map(function(){ return this.value }).toArray();
+            var params = {"category_ids[]": category_ids};
+            params["#{request_forgery_protection_token}"] = "#{escape_javascript form_authenticity_token}";
+            new Ajax.Request('#{url_for({})}',
+                             {asynchronous: false, evalJS: true, method: 'post', parameters: params});
+          });
+        });
+      HERECODE
+    end
+    h += simple_category_tree_root(category_root[:children], selected_categories.collect(&:id))
+  end
+################
   
   def category_tree(checkable = false, selected_categories = [], method = :get)
-    # OPTIMIZE cache
     categories = category_root
-
     initially_select_ids = []
+
     initially_open_ids = []
     selected_categories.each do |c|
       initially_select_ids << c.id
@@ -78,9 +120,14 @@ module Backend::CategoriesHelper
             var node = source.closest("li");
             
             if(#{checkable}){
+              var parent_node = tree._get_parent(node);
               var category_ids = tree.get_checked().map(function(){ return this.id }).toArray();
               if(category_ids.join("") == "0"){
                 category_ids = tree._get_children($("li#0")).map(function(){ return this.id }).toArray();
+              //}else if(tree.is_checked(parent_node)){
+              //  category_ids.splice(category_ids.indexOf(parent_node.attr("id")),1);
+              //  var children_ids = tree._get_children(parent_node).map(function(){ return this.id }).toArray();
+              //  category_ids = category_ids.concat(children_ids);                
               }
               var params = {"category_ids[]": category_ids};
               if("#{method}" == "post") params["#{request_forgery_protection_token}"] = "#{escape_javascript form_authenticity_token}";
