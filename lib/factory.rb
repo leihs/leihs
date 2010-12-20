@@ -1,3 +1,7 @@
+# TODO: for some unknown reason find_or_create_by_ will be returning
+# nil within this module. A lot could be improved/simplified here,
+# if it actually worked.
+#
 module Factory
 
   ##########################################
@@ -32,7 +36,9 @@ module Factory
       :default => false,
       :active  => true
     }
-    Language.create! default_attributes.merge(attributes)
+    unless Language.find_by_name( attributes[:name])
+      Language.create! default_attributes.merge(attributes)
+    end
   end
 
   #
@@ -66,6 +72,7 @@ module Factory
     rescue
       # unique index, record already present
     end
+    role
   end
 
   #
@@ -305,10 +312,13 @@ module Factory
   # default language
   #
   def self.create_default_language
-    german = Factory.create_language!(:name => 'Deutsch',
-                                      :locale_name => 'de_CH',
-                                      :default => true)
-    ActiveRecord::Base.connection.change_column_default :users, :language_id, german.id
+    german = Language.find_by_name 'Deutsch'
+    if german.blank?
+      german = Factory.create_language!(:name => 'Deutsch',
+                                        :locale_name => 'de_CH',
+                                        :default => true)
+      ActiveRecord::Base.connection.change_column_default :users, :language_id, german.id
+    end
     german
   end
   
@@ -338,33 +348,37 @@ module Factory
   # create default roles
   #
   def self.create_default_roles
-    r_a = Role.create!(:name => "admin")
-    
-    r_m = Role.create!(:name => 'manager')
-    r_m.move_to_child_of r_a
+    unless Role.find_by_name( 'admin')
+      r_a = Role.create!( :name => 'admin')
+      
+      r_m = Role.create!( :name => 'manager')
+      r_m.move_to_child_of r_a
   
-    r_c = Role.create!(:name => "customer")
-    r_c.move_to_child_of r_m
+      r_c = Role.create!( :name => 'customer')
+      r_c.move_to_child_of r_m
+    end
   end
 
   #
   # create the super user aka admin
   #
   def self.create_super_user
-    superuser = User.new( :email => "super_user_1@example.com",
-                          :login => "super_user_1")
+    unless User.find_by_login "super_user_1"
+      superuser = User.new( :email => "super_user_1@example.com",
+                            :login => "super_user_1")
   
-    superuser.unique_id = "super_user_1"
-    superuser.save!
-    admin = Role.find(:first, :conditions => {:name => "admin"})
-    superuser.access_rights.create!(:role => admin, :inventory_pool => nil)
-    puts _("The administrator %{a} has been created ") % { :a => superuser.login }
+      superuser.unique_id = "super_user_1"
+      superuser.save!
+      admin = Role.find(:first, :conditions => {:name => "admin"})
+      superuser.access_rights.create!(:role => admin, :inventory_pool => nil)
+      puts _("The administrator %{a} has been created ") % { :a => superuser.login }
   
-    d = DatabaseAuthentication.create!(:login => "super_user_1",
-                                       :password => "pass",
-                                       :password_confirmation => "pass")
-    d.user = superuser
-    d.save!
+      d = DatabaseAuthentication.create!(:login => "super_user_1",
+                                         :password => "pass",
+                                         :password_confirmation => "pass")
+      d.user = superuser
+      d.save!
+    end
   end
 
   #
