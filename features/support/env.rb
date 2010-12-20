@@ -62,3 +62,6 @@ end
 # http://freelancing-god.github.com/ts/en/testing.html
 require 'cucumber/thinking_sphinx/external_world'
 Cucumber::ThinkingSphinx::ExternalWorld.new
+
+# require our factory
+require( RAILS_ROOT + '/lib/factory.rb')
