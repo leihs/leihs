@@ -8,5 +8,5 @@ Feature: Ensure that accessing through the frontend is working as it should
 		Given I am on the home page
 		 When I fill in "login_user" with "asdf1357"
 		  And I press "Login"
-		 Then I should see "Benutzername/Passwort ungültig"
+		 Then I should see "Invalid username/password"
 

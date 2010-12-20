@@ -48,7 +48,7 @@ module Factory
     default_attributes = {
       :login => "jerome",
       :email  => "jerome@example.com",
-      :language_id => 2
+      :language_id => Language.default_language.id
     }
     default_attributes[:email] = "#{attributes[:login].gsub(' ', '_')}@example.com" if attributes[:login]
     u = User.find_or_create_by_login default_attributes.merge(attributes)
@@ -303,7 +303,7 @@ module Factory
   #
   def self.create_default_languages
     self.create_default_language
-    [['English','en_US'], ['Castellano','es'], ['Züritüütsch','gsw_CH@zurich']].each do |lang|
+    [['Deutsch', 'de_CH'], ['Castellano','es'], ['Züritüütsch','gsw_CH@zurich']].each do |lang|
       Factory.create_language!(:name => lang[0], :locale_name => lang[1])
     end
   end
@@ -312,14 +312,14 @@ module Factory
   # default language
   #
   def self.create_default_language
-    german = Language.find_by_name 'Deutsch'
-    if german.blank?
-      german = Factory.create_language!(:name => 'Deutsch',
-                                        :locale_name => 'de_CH',
-                                        :default => true)
-      ActiveRecord::Base.connection.change_column_default :users, :language_id, german.id
+    lang = Language.find_by_name 'English'
+    if lang.blank?
+      lang = Factory.create_language!(:name => 'English',
+                                      :locale_name => 'en_US',
+                                      :default => true)
+      ActiveRecord::Base.connection.change_column_default :users, :language_id, lang.id
     end
-    german
+    lang
   end
   
   #
@@ -363,6 +363,7 @@ module Factory
   # create the super user aka admin
   #
   def self.create_super_user
+    superuser = 
     unless User.find_by_login "super_user_1"
       superuser = User.new( :email => "super_user_1@example.com",
                             :login => "super_user_1")
@@ -371,7 +372,6 @@ module Factory
       superuser.save!
       admin = Role.find(:first, :conditions => {:name => "admin"})
       superuser.access_rights.create!(:role => admin, :inventory_pool => nil)
-      puts _("The administrator %{a} has been created ") % { :a => superuser.login }
   
       d = DatabaseAuthentication.create!(:login => "super_user_1",
                                          :password => "pass",
@@ -379,6 +379,7 @@ module Factory
       d.user = superuser
       d.save!
     end
+    superuser
   end
 
   #

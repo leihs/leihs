@@ -63,10 +63,10 @@ do |name,email,filler,ip|
   # TODO: for some reason, cucumber sometimes won't properly clean up
   # the DB between runs
   User.find_by_login(name).try(:delete)
-  # the link is called "Alle Benutzer (1)" in the backend view
-  # and "Benutzer (1)" in the backend/inventory_pool view
-  click_link 'Benutzer ('
-  click_link_or_button 'Erstellen'
+  # the link is called "All Users (1)" in the backend view
+  # and "Users (1)" in the backend/inventory_pool view
+  click_link 'Users ('
+  click_link_or_button 'Create'
   fill_in 'user_lastname', :with => name
   fill_in 'user_email', :with => email
   click_button 'Submit'

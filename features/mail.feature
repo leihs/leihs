@@ -18,11 +18,11 @@ Scenario: Admin: create user and directly mail him
 	When I log in as the admin
 	When I press "Backend"
 	 And I create a new user 'Joe' at 'joe@example.com'
-	When I follow "E-Mail schreiben"
+	When I follow "Write Email"
 	Then I should be on the new backend mail page
 	When I fill in "subject" with "Welcome to leihs"
 	 And I fill in "body" with "Now you can borrow stuff"
-	 And I press "Schicken"
+	 And I press "Send"
 	Then joe@example.com receives an email
 	Then I follow "Logout"
 
@@ -37,10 +37,10 @@ Scenario: Admin: create user in an inventory pool and mail him from there
 	When I press "Backend"
 	When I follow "Central Park"
 	 And I create a new user 'Joe' at 'joe@example.com'
-	When I follow "E-Mail schreiben"
+	When I follow "Write Email"
 	 And I fill in "subject" with "Welcome to leihs"
 	 And I fill in "body" with "Now you can borrow stuff"
-	 And I press "Schicken"
+	 And I press "Send"
 	Then joe@example.com receives an email
 	Then I follow "Logout"
 
