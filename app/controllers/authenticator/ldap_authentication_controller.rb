@@ -58,7 +58,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
                 redirect_back_or_default("/")
                 return true
               else
-                flash[:notice] = _("Wrong Username/Password")
+                flash[:notice] = _("Invalid username/password")
               end
             else
               flash[:notice] = _("User unknown") if users.size == 0
