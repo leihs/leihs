@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
-"POT-Creation-Date: 2010-12-02 13:06+0100\n"
+"POT-Creation-Date: 2010-12-14 20:29+0100\n"
 "PO-Revision-Date: 2010-03-09 14:43+0100\n"
 "Last-Translator: nobody\n"
 "Language-Team: Swiss-German (Bern area)\n"
@@ -136,32 +136,32 @@ msgstr "Di uusgwählte Linie sind verschobe worde"
 msgid "New item created."
 msgstr "Neui Gägestand erstellt."
 
-#: app/controllers/backend/items_controller.rb:148
+#: app/controllers/backend/items_controller.rb:150
 msgid "Item saved."
 msgstr "Sachä gspeicheret"
 
-#: app/controllers/backend/items_controller.rb:158
+#: app/controllers/backend/items_controller.rb:160
 #, fuzzy
 msgid "You don't have access to this item."
 msgstr "Sii händ kei Zuegriffsrächt für die Aawändig"
 
-#: app/controllers/backend/items_controller.rb:170
+#: app/controllers/backend/items_controller.rb:172
 msgid "Location successfully set"
 msgstr "Ort erfolgriich gsetzt"
 
-#: app/controllers/backend/items_controller.rb:172
+#: app/controllers/backend/items_controller.rb:174
 msgid "Error setting the location"
 msgstr "Error bim setze vom Ort"
 
-#: app/controllers/backend/items_controller.rb:203
+#: app/controllers/backend/items_controller.rb:205
 msgid "Item retired (%s)"
 msgstr "Sache uusgmuschteret (%s)"
 
-#: app/controllers/backend/items_controller.rb:263
+#: app/controllers/backend/items_controller.rb:265
 msgid "Item handed over as part of contract %d."
 msgstr "Sach als Teil vom Vertrag %d übergäh"
 
-#: app/controllers/backend/items_controller.rb:264
+#: app/controllers/backend/items_controller.rb:266
 msgid "Expected to be returned."
 msgstr "Rückgab erwartet"
 
@@ -1782,15 +1782,15 @@ msgstr "Ort"
 msgid "ItemLine|Type"
 msgstr ""
 
-#: app/models/access_right.rb:54
+#: app/models/access_right.rb:39
 msgid "Access Level: %d"
 msgstr "Zuegriffsrächt: %d"
 
-#: app/models/access_right.rb:72
+#: app/models/access_right.rb:57
 msgid "The admin role cannot be scoped to an inventory pool"
 msgstr "D Admin-Rolle chan sich nöd uf en Grätepark beziehe"
 
-#: app/models/access_right.rb:74
+#: app/models/access_right.rb:59
 msgid "Inventory Pool is missing"
 msgstr "Grätepark fählt"
 
@@ -1819,45 +1819,45 @@ msgstr "Baldigi Deadline"
 msgid "Reminder"
 msgstr "Erinnerig"
 
-#: app/models/order.rb:61
+#: app/models/order.rb:49
 msgid "Unsubmitted"
 msgstr "Anöd agschickt"
 
-#: app/models/order.rb:61
+#: app/models/order.rb:49
 msgid "Submitted"
 msgstr "Abgschickt"
 
-#: app/models/order.rb:61
+#: app/models/order.rb:49
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:12
 msgid "Approved"
 msgstr "Genehmigt"
 
-#: app/models/order.rb:61
+#: app/models/order.rb:49
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:17
 msgid "Rejected"
 msgstr "Abglehnt"
 
-#: app/models/order.rb:161
+#: app/models/order.rb:149
 msgid "Changed quantity for %{model} from %{from} to %{to}"
 msgstr "Mängi für %{model} vo %{from} uf %{to} gwächslet"
 
-#: app/models/order.rb:163
+#: app/models/order.rb:151
 msgid "Maximum number of items available at that time is %{max}"
 msgstr "Es sind zu däre Ziit nume %{max} Sachä ume"
 
-#: app/models/order.rb:164
+#: app/models/order.rb:152
 msgid "(maximum available: %{max})"
 msgstr "(högschtens ume: %{max})"
 
-#: app/models/order.rb:171
+#: app/models/order.rb:159
 msgid "Purpose changed '%{from}' for '%{to}'"
 msgstr "Zwäck gwächslet vo '%{from}' uf '%{to}'"
 
-#: app/models/order.rb:181
+#: app/models/order.rb:169
 msgid "User swapped %{from} for %{to}"
 msgstr "Benutzer gwächslet vo %{from} zu %{to}"
 
-#: app/models/order.rb:260
+#: app/models/order.rb:248
 #, fuzzy
 msgid "Invalid order_lines"
 msgstr "Bstelligsziile"
@@ -1933,7 +1933,7 @@ msgstr "[leihs] Erinnerig"
 msgid "[leihs] Some items should be returned tomorrow"
 msgstr "[leihs] Einige Sache sötted morn zurggäh werde"
 
-#: app/models/option_line.rb:60
+#: app/models/option_line.rb:42
 msgid ""
 "The option doesn't belong to the inventory pool related to this contract"
 msgstr "Die Option ghört nöd zum Grätepark wo zu dem Vertrag ghört"
@@ -1947,89 +1947,89 @@ msgstr "Scho inere Karegorie"
 msgid "Inconsistent Inventory Pool"
 msgstr "Inventarcode"
 
-#: app/models/user.rb:231
+#: app/models/user.rb:212
 msgid "Reminded %{q} items for contracts %{c}"
 msgstr "%{q} Sachä für Vertrag %{c} erinneret"
 
-#: app/models/user.rb:237
+#: app/models/user.rb:218
 msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
 msgstr "Fehlgschlagne Reminder vo %{q} Sachä vom Vertrag %{c}"
 
-#: app/models/user.rb:261
+#: app/models/user.rb:242
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr "Reminder für baldigi Deadline für %{q} Sachä vom Vertrag %{c} gschickt"
 
-#: app/models/item.rb:417
+#: app/models/item.rb:384
 msgid "%s until %s"
 msgstr "Vom %s bis am %s "
 
-#: app/models/item.rb:446
+#: app/models/item.rb:413
 msgid "The parent item doesn't exist (parent_id: %d)"
 msgstr ""
 
-#: app/models/item.rb:448
+#: app/models/item.rb:415
 msgid "A package cannot be nested to another package"
 msgstr ""
 
-#: app/models/item.rb:450 app/models/item.rb:451 app/models/item.rb:452
+#: app/models/item.rb:417 app/models/item.rb:418 app/models/item.rb:419
 msgid "doesn‘t match parent's attribute"
 msgstr ""
 
-#: app/models/item.rb:455
+#: app/models/item.rb:422
 msgid "Package error"
 msgstr "Paketfähler"
 
-#: app/models/item.rb:460
+#: app/models/item.rb:427
 msgid ""
 "The model cannot be changed because the item is used in contracts already."
 msgstr ""
 "S Modäll chan nod gänderet werde will d'Sach scho imene Vertrag enthalte "
 "isch."
 
-#: app/models/item.rb:464
+#: app/models/item.rb:431
 #, fuzzy
 msgid "The item cannot be retired because it's not returned yet."
 msgstr ""
 "S Modäll chan nod gänderet werde will d'Sach scho imene Vertrag enthalte "
 "isch."
 
-#: app/models/contract.rb:55
+#: app/models/contract.rb:42
 msgid "Unsigned"
 msgstr "nöd unterschribe"
 
-#: app/models/contract.rb:55
+#: app/models/contract.rb:42
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:28
 msgid "Signed"
 msgstr "Unterschribe"
 
-#: app/models/contract.rb:55
+#: app/models/contract.rb:42
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:33
 msgid "Closed"
 msgstr "Gschlosse"
 
-#: app/models/contract.rb:104
+#: app/models/contract.rb:91
 msgid "Contract %d has been signed by %s"
 msgstr "Vertrag %d isch vo %s underschribe worde"
 
-#: app/models/item_line.rb:70
+#: app/models/item_line.rb:52
 msgid "item not assigned. "
 msgstr "Sach nöd zuegwiesä"
 
-#: app/models/item_line.rb:99
+#: app/models/item_line.rb:81
 msgid "The item doesn't match with the reserved model"
 msgstr "Die Sach passt nöd zum reserviertä Modäll"
 
-#: app/models/item_line.rb:102
+#: app/models/item_line.rb:84
 #, fuzzy
 msgid ""
 "The item is already handed over or assigned to a different contract line"
 msgstr "Dä Gägestand isch scho in dem Vertrag drin."
 
-#: app/models/item_line.rb:105
+#: app/models/item_line.rb:87
 msgid "The item doesn't belong to the inventory pool related to this contract"
 msgstr "Die Sach ghört nöd zum Grätepark wo zu dem Vertrag ghört"
 
-#: app/models/item_line.rb:108
+#: app/models/item_line.rb:90
 msgid "The item belongs to a package"
 msgstr ""
 
@@ -2047,18 +2047,18 @@ msgid ""
 "shorter than the minumum %s characters"
 msgstr ""
 
-#: app/helpers/backend/models_helper.rb:58
+#: app/helpers/backend/models_helper.rb:66
 #: app/helpers/backend/availability_helper.rb:149
 #, fuzzy
 msgid "Quantity: %d"
 msgstr "Aazahl"
 
-#: app/helpers/backend/models_helper.rb:62
+#: app/helpers/backend/models_helper.rb:70
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:10
 msgid "Acknowledge"
 msgstr "Bestätige"
 
-#: app/helpers/backend/models_helper.rb:64
+#: app/helpers/backend/models_helper.rb:72
 #: app/views/backend/hand_over/index.html.erb:2
 #: app/views/backend/hand_over/_index.html.erb:32
 #: app/views/backend/hand_over/_buttons.html.erb:3
@@ -2069,7 +2069,7 @@ msgstr "Bestätige"
 msgid "Hand Over"
 msgstr "Übergäh"
 
-#: app/helpers/backend/models_helper.rb:66
+#: app/helpers/backend/models_helper.rb:74
 #: app/views/backend/take_back/index.html.erb:2
 #: app/views/backend/take_back/_index.html.erb:33
 #: app/views/backend/take_back/_buttons.html.erb:3
@@ -2180,7 +2180,7 @@ msgstr "Reservierer"
 #: app/helpers/backend/backend_helper.rb:103 app/views/users/show.html.erb:5
 #: app/views/mailer/order/received.text.plain.erb:8
 #: app/views/mailer/order/received.text.html.erb:14
-#: app/views/widgets/_user_backend_tabnav.html.erb:17
+#: app/views/widgets/_user_backend_tabnav.html.erb:18
 #: app/views/backend/hand_over/show.html.erb:10
 #: app/views/backend/hand_over/_index.html.erb:23
 #: app/views/backend/orders/show.html.erb:24
@@ -2727,20 +2727,20 @@ msgstr "Ort"
 msgid "Items (%d)"
 msgstr "Sachä (%d)"
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:25
+#: app/views/widgets/_user_backend_tabnav.html.erb:26
 msgid "Access Rights (%d)"
 msgstr "Zuegriffsrächt (%d)"
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:33
+#: app/views/widgets/_user_backend_tabnav.html.erb:34
 #, fuzzy
 msgid "Groups (%d)"
 msgstr "Eigeschaftä (%d)"
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:39
+#: app/views/widgets/_user_backend_tabnav.html.erb:40
 msgid "Things to return"
 msgstr "Sache zum zruggäh"
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:45
+#: app/views/widgets/_user_backend_tabnav.html.erb:46
 msgid "Extended Info"
 msgstr ""
 
@@ -3171,17 +3171,6 @@ msgstr "Suschpendiere"
 msgid "Reason"
 msgstr "Grund"
 
-#: app/views/backend/users/access_rights.html.erb:151
-#, fuzzy
-msgid "Access levels"
-msgstr "Zuegriffsrächt"
-
-#: app/views/backend/users/access_rights.html.erb:152
-msgid ""
-"Access levels, handled per inventory pool, are used to determine what system "
-"functionality a user is allowed to see and use."
-msgstr ""
-
 #: app/views/backend/users/_database_authentication.html.erb:7
 msgid "Database Authentication"
 msgstr "Datebank-Authentifizierig"
@@ -3510,12 +3499,12 @@ msgstr "z'letscht überprüeft:"
 msgid "Responsible department"
 msgstr "Verantwortlichs Departement"
 
-#: app/views/backend/items/_inventory_info.html.erb:26
+#: app/views/backend/items/_inventory_info.html.erb:31
 #: app/views/backend/backend/search/_user.html.erb:4
 msgid "None"
 msgstr "kei"
 
-#: app/views/backend/items/_inventory_info.html.erb:31
+#: app/views/backend/items/_inventory_info.html.erb:39
 msgid "Responsible person"
 msgstr "Verantortlichi Person"
 
@@ -3758,7 +3747,6 @@ msgid "%{n} Items"
 msgstr "%{n} Sachä"
 
 #: app/views/backend/orders/_index.html.erb:18
-#: app/views/backend/acknowledge/_index.html.erb:21
 msgid "View + Acknowledge"
 msgstr "Aaluege + bestätigä"
 
@@ -4010,6 +3998,16 @@ msgstr "Rückgängig machä"
 #: app/views/backend/acknowledge/index.html.erb:2
 msgid "Orders you are editing (please complete)"
 msgstr "Bstelligä, wo du grad am aaluegä bisch (bitte fertig mache)"
+
+#: app/views/backend/acknowledge/_index.html.erb:21
+msgid "View and edit"
+msgstr ""
+
+#: app/views/backend/acknowledge/_index.html.erb:24
+#: app/views/backend/acknowledge/_index.html.erb:26
+#, fuzzy
+msgid "Acknowledge immediately"
+msgstr "Bestätige"
 
 #: app/views/backend/acknowledge/_buttons.html.erb:3
 #: app/views/backend/acknowledge/approve.html.erb:13
@@ -4426,6 +4424,10 @@ msgstr "Sie händ kei Berächtigung für de Zuegang uf die Applikation"
 #: lib/role_requirement_system.rb:120
 msgid "Access Denied"
 msgstr "Zuegriff verweigeret"
+
+#, fuzzy
+#~ msgid "Access levels"
+#~ msgstr "Zuegriffsrächt"
 
 #~ msgid "This item requires the user to be level %s"
 #~ msgstr "Für die Sach muess dä Benutzer mindeschtens Stufä %s ha"

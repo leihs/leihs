@@ -18,8 +18,13 @@
 				</td>
 				<td><%= dates_with_period(order.time_window_min, order.time_window_max) %></td>
 				<td class="buttons">
-					<%= link_to icon_tag("tab_go") + _("View + Acknowledge"),
+					<%= link_to icon_tag("tab_go") + _("View and edit"),
 							backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order) %>
+					
+					<%= greybox_link_to_page( icon_tag("door") + " " + _("Acknowledge immediately"),
+					       approve_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order),
+                 :title => _("Acknowledge immediately")
+                 ) %>
 				</td>
 			</tr>
 

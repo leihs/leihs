@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2010-12-02 13:06+0100\n"
-"PO-Revision-Date: 2010-12-02 13:11+0100\n"
+"POT-Creation-Date: 2010-12-14 20:29+0100\n"
+"PO-Revision-Date: 2010-12-14 20:32+0100\n"
 "Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "MIME-Version: 1.0\n"
@@ -135,31 +135,31 @@ msgstr "Die ausgewählten Zeilen wurden verschoben"
 msgid "New item created."
 msgstr "Neuer Gegenstand erstellt."
 
-#: app/controllers/backend/items_controller.rb:148
+#: app/controllers/backend/items_controller.rb:150
 msgid "Item saved."
 msgstr "Gegenstand gespeichert."
 
-#: app/controllers/backend/items_controller.rb:158
+#: app/controllers/backend/items_controller.rb:160
 msgid "You don't have access to this item."
 msgstr "Sie haben keinen Zugriff auf diesen Gegenstand."
 
-#: app/controllers/backend/items_controller.rb:170
+#: app/controllers/backend/items_controller.rb:172
 msgid "Location successfully set"
 msgstr "Ort erfolgreich zugewiesen"
 
-#: app/controllers/backend/items_controller.rb:172
+#: app/controllers/backend/items_controller.rb:174
 msgid "Error setting the location"
 msgstr "Fehler beim setzen des Ortes"
 
-#: app/controllers/backend/items_controller.rb:203
+#: app/controllers/backend/items_controller.rb:205
 msgid "Item retired (%s)"
 msgstr "Gerät ausgemustert (%s)"
 
-#: app/controllers/backend/items_controller.rb:263
+#: app/controllers/backend/items_controller.rb:265
 msgid "Item handed over as part of contract %d."
 msgstr "Gegenstand übergeben als Teil von Vertrag %d."
 
-#: app/controllers/backend/items_controller.rb:264
+#: app/controllers/backend/items_controller.rb:266
 msgid "Expected to be returned."
 msgstr "Zurückerwartet."
 
@@ -1763,15 +1763,15 @@ msgstr "Ort"
 msgid "ItemLine|Type"
 msgstr ""
 
-#: app/models/access_right.rb:54
+#: app/models/access_right.rb:39
 msgid "Access Level: %d"
 msgstr "Zugriffsstufe: %d"
 
-#: app/models/access_right.rb:72
+#: app/models/access_right.rb:57
 msgid "The admin role cannot be scoped to an inventory pool"
 msgstr "Die admin-Rolle kann sich nicht auf einen Gerätepark beziehen"
 
-#: app/models/access_right.rb:74
+#: app/models/access_right.rb:59
 msgid "Inventory Pool is missing"
 msgstr "Gerätepark fehlt"
 
@@ -1799,45 +1799,45 @@ msgstr "Bald Deadline"
 msgid "Reminder"
 msgstr "Erinnerung"
 
-#: app/models/order.rb:61
+#: app/models/order.rb:49
 msgid "Unsubmitted"
 msgstr "Nicht abgeschickt"
 
-#: app/models/order.rb:61
+#: app/models/order.rb:49
 msgid "Submitted"
 msgstr "Abgeschickt"
 
-#: app/models/order.rb:61
+#: app/models/order.rb:49
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:12
 msgid "Approved"
 msgstr "Genehmigt"
 
-#: app/models/order.rb:61
+#: app/models/order.rb:49
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:17
 msgid "Rejected"
 msgstr "Abgelehnt"
 
-#: app/models/order.rb:161
+#: app/models/order.rb:149
 msgid "Changed quantity for %{model} from %{from} to %{to}"
 msgstr "Anzahl für %{model} von %{from} auf %{to} geändert"
 
-#: app/models/order.rb:163
+#: app/models/order.rb:151
 msgid "Maximum number of items available at that time is %{max}"
 msgstr "Die maximale Anzahl verfügbarer Artikel für diese Zeit ist %{max}"
 
-#: app/models/order.rb:164
+#: app/models/order.rb:152
 msgid "(maximum available: %{max})"
 msgstr "(maximal verfügbar: %{max})"
 
-#: app/models/order.rb:171
+#: app/models/order.rb:159
 msgid "Purpose changed '%{from}' for '%{to}'"
 msgstr "Zweck geändert von '%{from}' zu '%{to}'"
 
-#: app/models/order.rb:181
+#: app/models/order.rb:169
 msgid "User swapped %{from} for %{to}"
 msgstr "Benutzer geändert von %{from} zu %{to}"
 
-#: app/models/order.rb:260
+#: app/models/order.rb:248
 msgid "Invalid order_lines"
 msgstr "Ungültige order_lines"
 
@@ -1912,7 +1912,7 @@ msgstr "[leihs] Erinnerung"
 msgid "[leihs] Some items should be returned tomorrow"
 msgstr "[leihs] Einige Gegenstände sollten morgen zurückgebracht werden"
 
-#: app/models/option_line.rb:60
+#: app/models/option_line.rb:42
 msgid "The option doesn't belong to the inventory pool related to this contract"
 msgstr "Die Option gehört nicht zum Gerätepark dieses Vertrags"
 
@@ -1924,83 +1924,83 @@ msgstr "bereits in Kategorie"
 msgid "Inconsistent Inventory Pool"
 msgstr "Inkonsistenter Geräterpark"
 
-#: app/models/user.rb:231
+#: app/models/user.rb:212
 msgid "Reminded %{q} items for contracts %{c}"
 msgstr "%{q} Mal für Vertrag %{c} erinnert"
 
-#: app/models/user.rb:237
+#: app/models/user.rb:218
 msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
 msgstr "%{q} konnte nicht für Vertrag %{c} erinnert werden"
 
-#: app/models/user.rb:261
+#: app/models/user.rb:242
 msgid "Deadline soon reminder sent for %{q} items on contracts %{c}"
 msgstr "\"Deadline bald\" Erinnerung für %{q} Gegenstände gesendet aus den Verträgen %{c}"
 
-#: app/models/item.rb:417
+#: app/models/item.rb:384
 msgid "%s until %s"
 msgstr "%s bis %s"
 
-#: app/models/item.rb:446
+#: app/models/item.rb:413
 msgid "The parent item doesn't exist (parent_id: %d)"
 msgstr "Das Eltern-Objekt existiert nicht (parent_id: %d)"
 
-#: app/models/item.rb:448
+#: app/models/item.rb:415
 msgid "A package cannot be nested to another package"
 msgstr "Ein Paket kann nicht Teil eines Pakets sein"
 
-#: app/models/item.rb:450
-#: app/models/item.rb:451
-#: app/models/item.rb:452
+#: app/models/item.rb:417
+#: app/models/item.rb:418
+#: app/models/item.rb:419
 msgid "doesn‘t match parent's attribute"
 msgstr "stimmt nicht mit dem Attribut des Eltern-Objekts überein"
 
-#: app/models/item.rb:455
+#: app/models/item.rb:422
 msgid "Package error"
 msgstr "Paketfehler"
 
-#: app/models/item.rb:460
+#: app/models/item.rb:427
 msgid "The model cannot be changed because the item is used in contracts already."
 msgstr "Das Modell kann nicht verändert werden, da dieser Gegenstand bereits in Verträgen verwendet wurde."
 
-#: app/models/item.rb:464
+#: app/models/item.rb:431
 msgid "The item cannot be retired because it's not returned yet."
 msgstr "Das Gerät kann nicht ausgemustert werden, weil es noch nicht zurückgebracht worden ist"
 
-#: app/models/contract.rb:55
+#: app/models/contract.rb:42
 msgid "Unsigned"
 msgstr "Nicht unterschrieben"
 
-#: app/models/contract.rb:55
+#: app/models/contract.rb:42
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:28
 msgid "Signed"
 msgstr "Unterschrieben"
 
-#: app/models/contract.rb:55
+#: app/models/contract.rb:42
 #: app/views/layouts/backend/00-patterns/_menu_process.html.erb:33
 msgid "Closed"
 msgstr "Geschlossen"
 
-#: app/models/contract.rb:104
+#: app/models/contract.rb:91
 msgid "Contract %d has been signed by %s"
 msgstr "Vertrag %d wurde unterschrieben von %s"
 
-#: app/models/item_line.rb:70
+#: app/models/item_line.rb:52
 msgid "item not assigned. "
 msgstr "Kein Gegenstand zugeordnet"
 
-#: app/models/item_line.rb:99
+#: app/models/item_line.rb:81
 msgid "The item doesn't match with the reserved model"
 msgstr "Dieser Artikel entspricht nicht dem reservierten Modell"
 
-#: app/models/item_line.rb:102
+#: app/models/item_line.rb:84
 msgid "The item is already handed over or assigned to a different contract line"
 msgstr "Dieser Gegenstand ist bereits einem anderen Vertrag zugewiesen"
 
-#: app/models/item_line.rb:105
+#: app/models/item_line.rb:87
 msgid "The item doesn't belong to the inventory pool related to this contract"
 msgstr "Das Gerät gehört nicht zum Gerätepark dieses Vertrags"
 
-#: app/models/item_line.rb:108
+#: app/models/item_line.rb:90
 msgid "The item belongs to a package"
 msgstr "Der Gegenstand gehört zu einem Paket"
 
@@ -2016,17 +2016,17 @@ msgstr "Tage"
 msgid "Possibly not all matches are being displayed because your search text was shorter than the minumum %s characters"
 msgstr "Es werden evtl. nicht alle Resultate angezeigt, da Ihr Suchbegriff kürzer war als %s Zeichen"
 
-#: app/helpers/backend/models_helper.rb:58
+#: app/helpers/backend/models_helper.rb:66
 #: app/helpers/backend/availability_helper.rb:149
 msgid "Quantity: %d"
 msgstr "Anzahl: %d"
 
-#: app/helpers/backend/models_helper.rb:62
+#: app/helpers/backend/models_helper.rb:70
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:10
 msgid "Acknowledge"
 msgstr "Genehmigen"
 
-#: app/helpers/backend/models_helper.rb:64
+#: app/helpers/backend/models_helper.rb:72
 #: app/views/backend/hand_over/index.html.erb:2
 #: app/views/backend/hand_over/_index.html.erb:32
 #: app/views/backend/hand_over/_buttons.html.erb:3
@@ -2037,7 +2037,7 @@ msgstr "Genehmigen"
 msgid "Hand Over"
 msgstr "Aushändigen"
 
-#: app/helpers/backend/models_helper.rb:66
+#: app/helpers/backend/models_helper.rb:74
 #: app/views/backend/take_back/index.html.erb:2
 #: app/views/backend/take_back/_index.html.erb:33
 #: app/views/backend/take_back/_buttons.html.erb:3
@@ -2142,7 +2142,7 @@ msgstr "Reservierer"
 #: app/views/users/show.html.erb:5
 #: app/views/mailer/order/received.text.plain.erb:8
 #: app/views/mailer/order/received.text.html.erb:14
-#: app/views/widgets/_user_backend_tabnav.html.erb:17
+#: app/views/widgets/_user_backend_tabnav.html.erb:18
 #: app/views/backend/hand_over/show.html.erb:10
 #: app/views/backend/hand_over/_index.html.erb:23
 #: app/views/backend/orders/show.html.erb:24
@@ -2634,19 +2634,19 @@ msgstr "Ort"
 msgid "Items (%d)"
 msgstr "Gegenstände (%d)"
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:25
+#: app/views/widgets/_user_backend_tabnav.html.erb:26
 msgid "Access Rights (%d)"
 msgstr "Zugriffsrechte (%d)"
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:33
+#: app/views/widgets/_user_backend_tabnav.html.erb:34
 msgid "Groups (%d)"
 msgstr "Gruppen  (%d)"
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:39
+#: app/views/widgets/_user_backend_tabnav.html.erb:40
 msgid "Things to return"
 msgstr "Dinge zurückzugeben"
 
-#: app/views/widgets/_user_backend_tabnav.html.erb:45
+#: app/views/widgets/_user_backend_tabnav.html.erb:46
 msgid "Extended Info"
 msgstr "Weitere Informationen"
 
@@ -3069,14 +3069,6 @@ msgstr "Gesperrt bis"
 msgid "Reason"
 msgstr "Begründung"
 
-#: app/views/backend/users/access_rights.html.erb:151
-msgid "Access levels"
-msgstr "Zugriffsstufen"
-
-#: app/views/backend/users/access_rights.html.erb:152
-msgid "Access levels, handled per inventory pool, are used to determine what system functionality a user is allowed to see and use."
-msgstr "Zugriffsstufen (pro Gerätepark) bestimmen, welche Funktionen ein Benutzer sieht/benutzen kann und welche nicht."
-
 #: app/views/backend/users/_database_authentication.html.erb:7
 msgid "Database Authentication"
 msgstr "Datenbankbasierte Authentifizierung"
@@ -3402,12 +3394,12 @@ msgstr "Geprüft:"
 msgid "Responsible department"
 msgstr "Verantwortliche Abteilung"
 
-#: app/views/backend/items/_inventory_info.html.erb:26
+#: app/views/backend/items/_inventory_info.html.erb:31
 #: app/views/backend/backend/search/_user.html.erb:4
 msgid "None"
 msgstr "Keine/r"
 
-#: app/views/backend/items/_inventory_info.html.erb:31
+#: app/views/backend/items/_inventory_info.html.erb:39
 msgid "Responsible person"
 msgstr "Verantwortliche Person"
 
@@ -3637,7 +3629,6 @@ msgid "%{n} Items"
 msgstr "%{n} Artikel"
 
 #: app/views/backend/orders/_index.html.erb:18
-#: app/views/backend/acknowledge/_index.html.erb:21
 msgid "View + Acknowledge"
 msgstr "Ansehen + genehmigen"
 
@@ -3871,6 +3862,15 @@ msgstr "Wiederherstellen"
 #: app/views/backend/acknowledge/index.html.erb:2
 msgid "Orders you are editing (please complete)"
 msgstr "Bestellungen, die Sie bearbeiten (bitte vervollständigen)"
+
+#: app/views/backend/acknowledge/_index.html.erb:21
+msgid "View and edit"
+msgstr "Öffnen und editieren"
+
+#: app/views/backend/acknowledge/_index.html.erb:24
+#: app/views/backend/acknowledge/_index.html.erb:26
+msgid "Acknowledge immediately"
+msgstr "Sofort genehmigen"
 
 #: app/views/backend/acknowledge/_buttons.html.erb:3
 #: app/views/backend/acknowledge/approve.html.erb:13
@@ -4271,6 +4271,14 @@ msgstr "Sie sind nicht berechtigt, diese Applikation zu benutzen"
 msgid "Access Denied"
 msgstr "Zugriff verweigert"
 
+#~ msgid "Access levels"
+#~ msgstr "Zugriffsstufen"
+#~ msgid ""
+#~ "Access levels, handled per inventory pool, are used to determine what "
+#~ "system functionality a user is allowed to see and use."
+#~ msgstr ""
+#~ "Zugriffsstufen (pro Gerätepark) bestimmen, welche Funktionen ein Benutzer "
+#~ "sieht/benutzen kann und welche nicht."
 #~ msgid "This item requires the user to be level %s"
 #~ msgstr "Dieses Gerät benötigt mindestens Benutzerstufe %s"
 #~ msgid "Model is not in category %s now"
