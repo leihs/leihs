@@ -61,7 +61,13 @@ namespace :leihs do
     end
 
     Rake::Task["db:reset"].invoke
-    system "bundle exec cucumber"
+    if ENV['CUCUMBER_FORMAT']
+      system "bundle exec cucumber"
+    else
+      ENV['CUCUMBER_FORMAT'] = 'pretty'
+      system "bundle exec cucumber"
+      ENV.delete('CUCUMBER_FORMAT')
+    end
   end
 
 ################################################################################################
