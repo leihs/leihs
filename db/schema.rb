@@ -9,13 +9,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 90000000000013) do
+ActiveRecord::Schema.define(:version => 90000000000014) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
     t.integer  "user_id"
     t.integer  "inventory_pool_id"
-    t.integer  "level",             :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "suspended_until"
@@ -23,10 +22,11 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.integer  "access_level"
   end
 
+  add_index "access_rights", ["deleted_at"], :name => "index_access_rights_on_deleted_at"
   add_index "access_rights", ["inventory_pool_id"], :name => "index_access_rights_on_inventory_pool_id"
   add_index "access_rights", ["role_id"], :name => "index_access_rights_on_role_id"
+  add_index "access_rights", ["suspended_until"], :name => "index_access_rights_on_suspended_until"
   add_index "access_rights", ["user_id", "inventory_pool_id"], :name => "index_access_rights_on_user_id_and_inventory_pool_id", :unique => true
-  add_index "access_rights", ["user_id"], :name => "index_access_rights_on_user_id"
 
   create_table "accessories", :force => true do |t|
     t.integer "model_id"
@@ -42,8 +42,17 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
   end
 
   add_index "accessories_inventory_pools", ["accessory_id", "inventory_pool_id"], :name => "index_accessories_inventory_pools", :unique => true
-  add_index "accessories_inventory_pools", ["accessory_id"], :name => "index_accessories_inventory_pools_on_accessory_id"
   add_index "accessories_inventory_pools", ["inventory_pool_id"], :name => "index_accessories_inventory_pools_on_inventory_pool_id"
+
+  create_table "attachments", :force => true do |t|
+    t.integer "model_id"
+    t.boolean "is_main",      :default => false
+    t.string  "content_type"
+    t.string  "filename"
+    t.integer "size"
+  end
+
+  add_index "attachments", ["model_id"], :name => "index_attachments_on_model_id"
 
   create_table "authentication_systems", :force => true do |t|
     t.string  "name"
@@ -51,6 +60,36 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.boolean "is_default", :default => false
     t.boolean "is_active",  :default => false
   end
+
+  create_table "availability_changes", :force => true do |t|
+    t.date     "date"
+    t.integer  "inventory_pool_id"
+    t.integer  "model_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "availability_changes", ["date", "inventory_pool_id", "model_id"], :name => "index_on_date_and_inventory_pool_and_model", :unique => true
+  add_index "availability_changes", ["inventory_pool_id", "model_id"], :name => "index_on_inventory_pool_and_model"
+
+  create_table "availability_out_document_lines", :force => true do |t|
+    t.integer "quantity_id",        :null => false
+    t.integer "document_line_id",   :null => false
+    t.string  "document_line_type", :null => false
+  end
+
+  add_index "availability_out_document_lines", ["document_line_type", "document_line_id"], :name => "index_on_document_line"
+  add_index "availability_out_document_lines", ["quantity_id", "document_line_type", "document_line_id"], :name => "index_on_quantity_document_line", :unique => true
+
+  create_table "availability_quantities", :force => true do |t|
+    t.integer "change_id"
+    t.integer "group_id"
+    t.integer "in_quantity",  :default => 0
+    t.integer "out_quantity", :default => 0
+  end
+
+  add_index "availability_quantities", ["change_id", "group_id"], :name => "index_availability_quantities_on_change_id_and_group_id", :unique => true
+  add_index "availability_quantities", ["in_quantity"], :name => "index_availability_quantities_on_in_quantity"
 
   create_table "backup_order_lines", :force => true do |t|
     t.integer  "model_id"
@@ -62,6 +101,8 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "backup_order_lines", ["order_id"], :name => "index_backup_order_lines_on_order_id"
 
   create_table "backup_orders", :force => true do |t|
     t.integer  "order_id"
@@ -93,27 +134,31 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.integer  "user_id"
   end
 
+  add_index "comments", ["commentable_type", "commentable_id"], :name => "index_comments_on_commentable_type_and_commentable_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "contract_lines", :force => true do |t|
     t.integer  "contract_id"
     t.integer  "item_id"
     t.integer  "model_id"
-    t.integer  "quantity",         :default => 1
+    t.integer  "quantity",      :default => 1
     t.date     "start_date"
     t.date     "end_date"
     t.date     "returned_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "option_id"
-    t.string   "type",             :default => "ItemLine", :null => false
-    t.boolean  "cached_available"
+    t.string   "type",          :default => "ItemLine", :null => false
   end
 
   add_index "contract_lines", ["contract_id"], :name => "fk_contract_lines_contract_id"
+  add_index "contract_lines", ["end_date"], :name => "index_contract_lines_on_end_date"
   add_index "contract_lines", ["item_id"], :name => "fk_contract_lines_item_id"
   add_index "contract_lines", ["model_id"], :name => "fk_contract_lines_model_id"
-  add_index "contract_lines", ["option_id"], :name => "fk_contract_lines_option_id"
+  add_index "contract_lines", ["option_id"], :name => "index_contract_lines_on_option_id"
+  add_index "contract_lines", ["returned_date"], :name => "index_contract_lines_on_returned_date"
+  add_index "contract_lines", ["start_date"], :name => "index_contract_lines_on_start_date"
+  add_index "contract_lines", ["type"], :name => "index_contract_lines_on_type"
 
   create_table "contracts", :force => true do |t|
     t.integer  "user_id"
@@ -126,6 +171,7 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.boolean  "delta",             :default => true
   end
 
+  add_index "contracts", ["delta"], :name => "index_contracts_on_delta"
   add_index "contracts", ["inventory_pool_id"], :name => "index_contracts_on_inventory_pool_id"
   add_index "contracts", ["status_const"], :name => "index_contracts_on_status_const"
   add_index "contracts", ["user_id"], :name => "index_contracts_on_user_id"
@@ -139,6 +185,25 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.datetime "updated_at"
   end
 
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.integer  "inventory_pool_id"
+    t.boolean  "delta",             :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["delta"], :name => "index_groups_on_delta"
+  add_index "groups", ["inventory_pool_id"], :name => "index_groups_on_inventory_pool_id"
+
+  create_table "groups_users", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "group_id"
+  end
+
+  add_index "groups_users", ["group_id"], :name => "index_groups_users_on_group_id"
+  add_index "groups_users", ["user_id", "group_id"], :name => "index_groups_users_on_user_id_and_group_id", :unique => true
+
   create_table "histories", :force => true do |t|
     t.string   "text",        :default => ""
     t.integer  "type_const"
@@ -148,6 +213,8 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.integer  "user_id"
   end
 
+  add_index "histories", ["target_type", "target_id"], :name => "index_histories_on_target_type_and_target_id"
+  add_index "histories", ["type_const"], :name => "index_histories_on_type_const"
   add_index "histories", ["user_id"], :name => "index_histories_on_user_id"
 
   create_table "holidays", :force => true do |t|
@@ -185,7 +252,10 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.string  "email"
     t.text    "color"
     t.boolean "delta",                 :default => true
+    t.boolean "print_contracts",       :default => true
   end
+
+  add_index "inventory_pools", ["delta"], :name => "index_inventory_pools_on_delta"
 
   create_table "inventory_pools_model_groups", :id => false, :force => true do |t|
     t.integer "inventory_pool_id"
@@ -203,7 +273,6 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.integer  "supplier_id"
     t.integer  "owner_id"
     t.integer  "parent_id"
-    t.integer  "required_level",                                      :default => 1
     t.string   "invoice_number"
     t.date     "invoice_date"
     t.date     "last_check"
@@ -225,7 +294,9 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.boolean  "delta",                                               :default => true
   end
 
+  add_index "items", ["delta"], :name => "index_items_on_delta"
   add_index "items", ["inventory_code"], :name => "index_items_on_inventory_code", :unique => true
+  add_index "items", ["inventory_pool_id"], :name => "index_items_on_inventory_pool_id"
   add_index "items", ["is_borrowable"], :name => "index_items_on_is_borrowable"
   add_index "items", ["is_broken"], :name => "index_items_on_is_broken"
   add_index "items", ["is_incomplete"], :name => "index_items_on_is_incomplete"
@@ -233,7 +304,7 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
   add_index "items", ["model_id"], :name => "index_items_on_model_id"
   add_index "items", ["owner_id"], :name => "index_items_on_owner_id"
   add_index "items", ["parent_id"], :name => "index_items_on_parent_id"
-  add_index "items", ["required_level"], :name => "index_items_on_required_level"
+  add_index "items", ["retired"], :name => "index_items_on_retired"
 
   create_table "languages", :force => true do |t|
     t.string  "name"
@@ -249,6 +320,9 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.boolean "delta",       :default => true
   end
 
+  add_index "locations", ["building_id"], :name => "index_locations_on_building_id"
+  add_index "locations", ["delta"], :name => "index_locations_on_delta"
+
   create_table "model_groups", :force => true do |t|
     t.string   "type"
     t.string   "name"
@@ -256,6 +330,8 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.datetime "updated_at"
     t.boolean  "delta",      :default => true
   end
+
+  add_index "model_groups", ["delta"], :name => "index_model_groups_on_delta"
 
   create_table "model_groups_parents", :id => false, :force => true do |t|
     t.integer "model_group_id"
@@ -290,6 +366,7 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.boolean  "delta",                                              :default => true
   end
 
+  add_index "models", ["delta"], :name => "index_models_on_delta"
   add_index "models", ["is_package"], :name => "index_models_on_is_package"
 
   create_table "models_compatibles", :id => false, :force => true do |t|
@@ -316,9 +393,11 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.integer "inventory_pool_id"
     t.string  "inventory_code"
     t.string  "name"
-    t.boolean "delta",             :default => true
+    t.boolean "delta",                                           :default => true
+    t.decimal "price",             :precision => 8, :scale => 2
   end
 
+  add_index "options", ["delta"], :name => "index_options_on_delta"
   add_index "options", ["inventory_pool_id"], :name => "index_options_on_inventory_pool_id"
 
   create_table "order_lines", :force => true do |t|
@@ -330,12 +409,13 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "cached_available"
   end
 
+  add_index "order_lines", ["end_date"], :name => "index_order_lines_on_end_date"
   add_index "order_lines", ["inventory_pool_id"], :name => "index_order_lines_on_inventory_pool_id"
   add_index "order_lines", ["model_id"], :name => "index_order_lines_on_model_id"
   add_index "order_lines", ["order_id"], :name => "index_order_lines_on_order_id"
+  add_index "order_lines", ["start_date"], :name => "index_order_lines_on_start_date"
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
@@ -347,6 +427,7 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.boolean  "delta",             :default => true
   end
 
+  add_index "orders", ["delta"], :name => "index_orders_on_delta"
   add_index "orders", ["inventory_pool_id"], :name => "index_orders_on_inventory_pool_id"
   add_index "orders", ["status_const"], :name => "index_orders_on_status_const"
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
@@ -367,6 +448,7 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
     t.boolean "delta",     :default => true
   end
 
+  add_index "roles", ["delta"], :name => "index_roles_on_delta"
   add_index "roles", ["lft"], :name => "index_roles_on_lft"
   add_index "roles", ["name"], :name => "index_roles_on_name"
   add_index "roles", ["parent_id"], :name => "index_roles_on_parent_id"
@@ -399,6 +481,7 @@ ActiveRecord::Schema.define(:version => 90000000000013) do
   end
 
   add_index "users", ["authentication_system_id"], :name => "index_users_on_authentication_system_id"
+  add_index "users", ["delta"], :name => "index_users_on_delta"
 
   create_table "workdays", :force => true do |t|
     t.integer "inventory_pool_id"
