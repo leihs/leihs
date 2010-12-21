@@ -60,10 +60,8 @@ namespace :leihs do
         system "rm -f rerun.txt"
     end
 
-      system "RAILS_ENV=cucumber && rake ts:in"
-      system "RAILS_ENV=cucumber && rake ts:start"
-      system "RAILS_ENV=cucumber && rake cucumber"
-      system "RAILS_ENV=cucumber && rake ts:stop"
+    Rake::Task["db:reset"].invoke
+    system "bundle exec cucumber"
   end
 
 ################################################################################################

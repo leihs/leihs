@@ -47,8 +47,7 @@ ActionController::Base.allow_rescue = false
 # subsequent scenarios. If you do this, we recommend you create a Before
 # block that will explicitly put your database in a known state.
 #
-# See also below the URL of the Cucumber::ThinkingSphinx::ExternalWorld.new config
-Cucumber::Rails::World.use_transactional_fixtures = false
+Cucumber::Rails::World.use_transactional_fixtures = true
 # How to clean your database when transactions are turned off. See
 # http://github.com/bmabey/database_cleaner for more info.
 if defined?(ActiveRecord::Base)
@@ -58,10 +57,3 @@ if defined?(ActiveRecord::Base)
   rescue LoadError => ignore_if_database_cleaner_not_present
   end
 end
-
-# http://freelancing-god.github.com/ts/en/testing.html
-require 'cucumber/thinking_sphinx/external_world'
-Cucumber::ThinkingSphinx::ExternalWorld.new
-
-# require our factory
-require( RAILS_ROOT + '/lib/factory.rb')
