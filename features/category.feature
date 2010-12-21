@@ -32,19 +32,19 @@ Feature: Creating and editing the category tree in the backend
      When I follow "ABC"
      Then the model "Hasenohr" should be in category "Hasenartige"
   
-  @javascript @logoutafter
-  Scenario: Assigning a model to a category when there are few categories (this should work in the system, but fails)
+  @javascript @logoutafter @kaka
+  Scenario: Assigning a model to a category when there are few categories
      When I follow "ABC"    
      And I follow the sloppy link "All Models"
      And I pick the model "Hasenohr" from the list
      And I follow "Categories (1)"
-     And I follow the sloppy link "Allgemein" within "#my_category_tree"
+     And I check the category "Allgemein"
     Then I should see "This model is now in 2 categories" within "#flash"
      And the model "Hasenohr" should be in category "Allgemein"
      And the model "Hasenohr" should be in category "Hasenartige"
 
-  @javascript @logoutafter
-  Scenario: Assigning a model to a category when there are more categories (this works for unexplicable reasons, even though the above doesn't)
+  @javascript @logoutafter @kaka
+  Scenario: Assigning a model to a category when there are more categories
    Given a category 'Fuchshafte' exists
      And the category 'Fuchshafte' is child of 'Tierkörperteile' with label 'Fuchshafte'
      And a model 'Fuchsschwanz' exists
@@ -53,7 +53,7 @@ Feature: Creating and editing the category tree in the backend
      And I follow the sloppy link "All Models"
      And I pick the model "Fuchsschwanz" from the list
      And I follow "Categories (1)"
-     And I follow the sloppy link "Allgemein" within "#my_category_tree"
+     And I check the category "Allgemein"
     Then I should see "This model is now in 2 categories" within "#flash"
      And the model "Fuchsschwanz" should be in category "Allgemein"
      And the model "Fuchsschwanz" should be in category "Fuchshafte"
