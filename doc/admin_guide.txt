@@ -59,7 +59,7 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
 
 7. Create and migrate the database:
 +
- $ RAILS_ENV='production' rake db:migrate
+ $ RAILS_ENV='production' rake db:migrate db:seed
 
 8. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
 +
@@ -167,7 +167,7 @@ Note that the URL above might change! Please visit the RubyGems site to find the
 6. Create and migrate the database:
 +
  # su - leihs
- $ RAILS_ENV='production' rake db:migrate
+ $ RAILS_ENV='production' rake db:migrate db:seed
 
 7. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
 +
