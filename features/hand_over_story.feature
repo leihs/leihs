@@ -145,7 +145,8 @@ Scenario: Only automatically check items and options for hand over that have a t
 	  And I press "Login"
 	When I go to "backend"
 	 And I follow "Hand Over"
-	When I follow "Hand Over" inside 'list_table'
+	When I follow "Hand Over" within "list_table"
+	 # TODO: the following line needs to be migrated to capybara:
          And I fill in 1st of "line_item_inventory_code_" with "AV_SOUNDGARDEN_1"
 	Then the "contract_lines_" checkbox should be checked
 	#Then that should check that line since it's from this day on
