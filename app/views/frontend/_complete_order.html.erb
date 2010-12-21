@@ -95,12 +95,14 @@
         },{
            header: "Model",
            dataIndex: 'model.name',
+		   menuDisabled: true,
 		   sortable: false
         },{
            header: "Inventory Pool",
            dataIndex: 'inventory_pool.name',
            width: 110,
 		   fixed: true,
+		   menuDisabled: true,
 		   sortable: false
         },{
            header: "Start date",
@@ -166,16 +168,18 @@
         }),
 		listeners: {
 			cellclick: function( grid, rowIndex, columnIndex, e ){
+				var store = grid.getStore();
+				var record = store.getById(store.data.keys[rowIndex]);
 				if (columnIndex == 2) {
-					model_id = grid.getStore().getAt(rowIndex).data['model.id'];
+					model_id = record.data['model.id'];
 					add_model_details(model_id);
 				}else if (columnIndex == 4 || columnIndex == 5) {
 						var field = grid.getColumnModel().getCellEditor(columnIndex, rowIndex).field;
-						field.setDisabledDays(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_days']);
-						field.setDisabledDates(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_dates']); // TODO: Maybe works with new ext.js
-						//field.menu.picker.setDisabledDates(grid.getStore().getAt(rowIndex).data['inventory_pool.closed_dates']);
+						field.setDisabledDays(record.data['inventory_pool.closed_days']);
+						field.setDisabledDates(record.data['inventory_pool.closed_dates']); // TODO: Maybe works with new ext.js
+						//field.menu.picker.setDisabledDates(record.data['inventory_pool.closed_dates']);
 				}else if (columnIndex == 7){
-					x_id = grid.getStore().getAt(rowIndex).id;
+					x_id = record.id;
 					Ext.Ajax.request({
 						method: 'DELETE',
 					    url: '/user/order/remove_lines',
