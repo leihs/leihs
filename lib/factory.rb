@@ -363,7 +363,7 @@ module Factory
   # create the super user aka admin
   #
   def self.create_super_user
-    superuser = 
+    superuser = nil
     unless User.find_by_login "super_user_1"
       superuser = User.new( :email => "super_user_1@example.com",
                             :login => "super_user_1")
