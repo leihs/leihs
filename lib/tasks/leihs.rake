@@ -49,25 +49,26 @@ namespace :leihs do
   task :cron => [:remind, :maintenance, :deadline_soon_reminder]
 
   desc "Run cucumber tests. Run leihs:test[0] to only test failed scenarios"
-  task :test, :rerun do |t, args| # TODO force test, :needs => :environment
+  task :test, :rerun do |t, args|
+    # force environment
+    RAILS_ENV='cucumber'
+    ENV['RAILS_ENV']='cucumber'
+    task :environment
     args.with_defaults(:rerun => 1)
     
     puts "Removing log/test.log..."
-      system "rm -f log/test.log"
+    system "rm -f log/test.log"
 
     if args.rerun.to_i > 0
       puts "Removing rerun.txt..."
-        system "rm -f rerun.txt"
+      system "rm -f rerun.txt"
     end
 
     Rake::Task["db:reset"].invoke
-    if ENV['CUCUMBER_FORMAT']
-      system "bundle exec cucumber"
-    else
-      ENV['CUCUMBER_FORMAT'] = 'pretty'
-      system "bundle exec cucumber"
-      ENV.delete('CUCUMBER_FORMAT')
-    end
+    ENV['CUCUMBER_FORMAT'] = 'pretty' unless ENV['CUCUMBER_FORMAT']
+    system "bundle exec cucumber"
+    exit_code = $? >> 8 # magic brainfuck
+    raise "Tests failed with: #{exit_code}" if exit_code != 0
   end
 
 ################################################################################################
