@@ -122,9 +122,10 @@
 		//closable: true,
 		listeners: {
 			cellclick: function( grid, rowIndex, columnIndex, e ){
-			  model_id = grid.getStore().getAt(rowIndex).id;
+			  var store = grid.getStore();
+			  var record = store.getById(store.data.keys[rowIndex]);
 			  add_tab = (columnIndex == grid.colModel.config.length - 1);
-			  model_tab = add_model_details(model_id, add_tab);
+			  model_tab = add_model_details(record.id, add_tab);
 			}
 		},
 	    tbar: [

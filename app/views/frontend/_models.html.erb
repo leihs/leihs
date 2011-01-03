@@ -114,7 +114,9 @@
 //				if(models_store.getCount() == 0) models_store.load(); //({params:{start:0, limit:25}});
 //			},
 			cellclick: function( grid, rowIndex, columnIndex, e ){
-			  model_id = grid.getStore().getAt(rowIndex).id;
+			  var store = grid.getStore();
+			  var record = store.getById(store.data.keys[rowIndex]);
+			  model_id = record.id;
 			  open_add_tab = (columnIndex == grid.colModel.config.length - 1);
 			  model_tab = add_model_details(model_id, open_add_tab);
 			}
@@ -285,8 +287,9 @@ function add_model_details(model_id, open_add_tab){
 						this.store.loadData(model_store[model_id].reader.jsonData['models'][0]);
 					}, // this.render(); */
 					rowclick: function(grid, rowIndex, e){
-						model_id = grid.getStore().getAt(rowIndex).id;
-						add_model_details(model_id);
+						var store = grid.getStore();
+						var record = store.getById(store.data.keys[rowIndex]);
+						add_model_details(record.id);
 					}
 				},
 				title: '<%= _("Compatibles") %>',
