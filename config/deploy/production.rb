@@ -124,6 +124,15 @@ task :configure_sphinx do
  run "sed -i 's/port: 3343/port: 3363/' #{release_path}/config/sphinx.yml"
  run "sed -i 's/port: 3344/port: 3364/' #{release_path}/config/sphinx.yml"
 
+ run "sed -i 's/listen: 127.0.0.1:3312/listen: 127.0.0.1:3362/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/listen: 127.0.0.1:3313/listen: 127.0.0.1:3363/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/listen: 127.0.0.1:3314/listen: 127.0.0.1:3364/' #{release_path}/config/sphinx.yml"
+
+ run "sed -i 's/listen: 127.0.0.1:3342/listen: 127.0.0.1:3362/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/listen: 127.0.0.1:3343/listen: 127.0.0.1:3363/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/listen: 127.0.0.1:3344/listen: 127.0.0.1:3364/' #{release_path}/config/sphinx.yml"
+
+
 end
 
 
