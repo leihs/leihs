@@ -9,7 +9,7 @@ module Availability
         if record.is_a?(Item) and record.inventory_pool
           record.model.availability_changes.in(record.inventory_pool).recompute
         elsif (record.is_a?(OrderLine) and record.order.status_const == Order::SUBMITTED) or record.is_a?(ItemLine)
-          record.recompute
+          record.recompute if record.should_recompute_after_update
         end
       end
       

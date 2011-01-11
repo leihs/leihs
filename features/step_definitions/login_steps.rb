@@ -17,7 +17,7 @@ When /^I log in as '([^']*)' with password '([^']*)'$/ do |who,password|
   click_button 'Login'
 end
 
-Given "his password is '$password'" do |password|
+Given /(his|her) password is '([^']*)'$/ do |foo,password|
   DatabaseAuthentication.new(:user => @user, :login => @user.login,
 			     :password => password,
 			     :password_confirmation => password ).save

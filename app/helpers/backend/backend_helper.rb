@@ -60,8 +60,7 @@ module Backend::BackendHelper
               p += link_to_remote column[0],
                 :url => params.merge({ :sort => column[1], :sort_mode => sort_mode, :page => 1}),
                 :method => :get,
-                :form => true,
-                :update => 'list_table'
+                :form => true
               p += icon_tag("arrow_" + (params[:sort_mode] == :asc ? "down" : "up")) if b
             else
               p += column
