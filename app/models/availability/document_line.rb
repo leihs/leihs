@@ -2,6 +2,10 @@ module Availability
   module DocumentLine
 
     def self.included(base)
+      
+      attr_accessor :should_recompute_after_update
+      #after_initialize see below
+      
       base.has_many :availability_out_document_lines,
                     :as => :document_line,
                     :class_name => "Availability::OutDocumentLine"
@@ -11,6 +15,10 @@ module Availability
 #                    :source => :quantity,
 #                    :source_type => "ContractLine", #'#{self.class.to_s}',
 #                    :class_name => "Availability::Quantity"
+    end
+
+    def after_initialize
+      @should_recompute_after_update = true # default
     end
 
     def recompute

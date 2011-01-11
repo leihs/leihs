@@ -2,7 +2,6 @@ module Availability
   module Model
   
     def self.included(base)
-        
       base.has_many :availability_changes, :class_name => "Availability::Change", 
                                            :dependent => :destroy do
         # 'in' is our named_scope that returns an object that is extended by methods
