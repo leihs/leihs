@@ -137,9 +137,9 @@ module Availability
 
             drop_changes
             @new_changes.each {|x| x.save }
-            # if there's no more items of a model in a group accessible to the customer, then he should be able
-            # to see it. Therefore we need to reindex
-            @model.save # trigger sphinx reindex   #OPTIMIZE: only reindex frontend data
+            # if there's no more items of a model in a group accessible to the customer,
+            # then he shouldn't be able to see the model in the frontend. Therefore we need to reindex
+            @model.touch_for_sphinx # trigger sphinx reindex   #OPTIMIZE: only reindex frontend data
           end # transaction          
       end # recompute
       
