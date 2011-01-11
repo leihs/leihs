@@ -5,8 +5,8 @@ namespace :zhdk do
   
     # These paths are hardcoded for now. Make them configurable if you
     # feel like it.
-    production_config = YAML.load_file("../../leihs2/database.yml")['production']
-    staging_config = YAML.load_file("../database.yml")['production']
+    production_config = YAML.load_file("/home/rails/leihs/leihs2/database.yml")['production']
+    staging_config = YAML.load_file("/home/rails/leihs/leihs2test/database.yml")['production']
     
     if staging_config['database'] =~ /.*prod.*/
       exit_with_production_warning
