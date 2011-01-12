@@ -50,6 +50,7 @@ class Backend::TakeBackController < Backend::BackendController
         params[:returned_quantity].each_pair do |k,v|
           line = @lines.detect {|l| l.id == k.to_i }
           if line and v.to_i < line.quantity
+            # NOTE: line is an OptionLine, since the ItemLine's quantity is always 1
             new_line = line.clone
             new_line.quantity -= v.to_i
             new_line.save

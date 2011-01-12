@@ -32,20 +32,21 @@ module Availability
     validates_presence_of :out_quantity
     
 #tmp#10    validates_uniqueness_of :group_id, :scope => :change_id
-  
-    has_many :out_document_lines, :dependent => :destroy, :class_name => "Availability::OutDocumentLine"
-    #TODO# has_many :document_lines, :through => :out_document_lines
-  end
 
-####################################
-
-  class OutDocumentLine < ActiveRecord::Base
-    set_table_name "availability_out_document_lines"
-
-    belongs_to :quantity
-    belongs_to :document_line, :polymorphic => true
-
-#tmp#10    validates_uniqueness_of :quantity_id, :scope => [:document_line_type, :document_line_id]
+    serialize :out_document_lines
+    def append_to_out_document_lines(type, id)
+      self.out_document_lines ||= {}
+      self.out_document_lines[type] ||= []
+      out_document_lines[type] << id unless out_document_lines[type].include?(id) 
+    end    
+    def document_lines
+      r = []
+      out_document_lines.each_pair do |k,v|
+        r += k.constantize.find(v)
+      end
+      r
+    end
+    
   end
 
 end
