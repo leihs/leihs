@@ -1,0 +1,13 @@
+This tool takes production.log's and makes a graph out of them
+==============================================================
+
+* how to do that
+
+1. on the production server:
+   $ (zcat production.log-*.gz; cat production.log) > /tmp/production.log-all
+
+2. wherever you want to process the logs:
+   cat /tmp/production.log-all | ./00_all.rb > means.csv
+
+3. open means.csv in Excel or OpenOffice or Numbers or Gnumeric or whatever
+   and produce a nice graph off that file
