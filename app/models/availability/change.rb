@@ -77,9 +77,11 @@ module Availability
     def self.recompute_all
       dirty.destroy_all
       
-      ::InventoryPool.all.each do |inventory_pool|
-        inventory_pool.models.each do |model|
-          model.availability_changes.in(inventory_pool).recompute
+      ::Model.suspended_delta do
+        ::InventoryPool.all.each do |inventory_pool|
+          inventory_pool.models.each do |model|
+            model.availability_changes.in(inventory_pool).recompute
+          end
         end
       end
     end
