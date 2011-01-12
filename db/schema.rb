@@ -75,8 +75,8 @@ ActiveRecord::Schema.define(:version => 90000000000014) do
   create_table "availability_quantities", :force => true do |t|
     t.integer "change_id"
     t.integer "group_id"
-    t.integer "in_quantity",        :default => 0
-    t.integer "out_quantity",       :default => 0
+    t.integer "in_quantity",          :default => 0
+    t.integer "out_quantity",         :default => 0
     t.text    "out_document_lines"
   end
 
