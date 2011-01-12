@@ -36,9 +36,8 @@ module Availability
               
       def drop_changes
         # this is much faster than destroy_all or delete_all with associations
-        connection.execute("DELETE c, q, o FROM `availability_changes` AS c " \
+        connection.execute("DELETE c, q FROM `availability_changes` AS c " \
                            " LEFT JOIN `availability_quantities` AS q ON q.`change_id` = c.`id` " \
-                           " LEFT JOIN `availability_out_document_lines` AS o ON o.`quantity_id` = q.`id` " \
                            " WHERE c.`inventory_pool_id` = '#{@inventory_pool.id}' " \
                            " AND c.`model_id` = '#{@model.id}'" )
       end
@@ -130,7 +129,7 @@ module Availability
                 qty = ic.quantities.detect {|q| q.group == group}
                 qty.in_quantity  -= document_line.quantity
                 qty.out_quantity += document_line.quantity
-                qty.out_document_lines.build(:document_line => document_line) #tmp#12 if ic.date == start_change.date
+                qty.append_to_out_document_lines(document_line.class.to_s, document_line.id)
               end
             end
 
@@ -168,11 +167,8 @@ module Availability
           change.quantities.each do |quantity|
             cloned_quantity = cloned.quantities.build( :out_quantity => quantity.out_quantity,
                                                        :in_quantity  => quantity.in_quantity,
-                                                       :group_id     => quantity.group_id)
-#tmp#12
-            quantity.out_document_lines.each do |odl|
-              cloned_quantity.out_document_lines.build(:document_line => odl.document_line)
-            end
+                                                       :group_id     => quantity.group_id,
+                                                       :out_document_lines => quantity.out_document_lines)
           end
           @new_changes << cloned
           return cloned

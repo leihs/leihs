@@ -143,9 +143,8 @@ module Backend::AvailabilityHelper
             end.join
             b += content_tag :td do
               content_tag :ol do
-                aq.out_document_lines.collect do |odl|
+                aq.document_lines.collect do |dl|
                   content_tag :li do
-                    dl = odl.document_line 
                     extra_info = dl.item.try(:inventory_code) || _("Quantity: %d") % dl.quantity
                     "#{dl.document.user} (#{extra_info}) => #{short_date(dl.end_date)}"
                   end

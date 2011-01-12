@@ -84,8 +84,9 @@ ActiveRecord::Schema.define(:version => 90000000000014) do
   create_table "availability_quantities", :force => true do |t|
     t.integer "change_id"
     t.integer "group_id"
-    t.integer "in_quantity",  :default => 0
-    t.integer "out_quantity", :default => 0
+    t.integer "in_quantity",          :default => 0
+    t.integer "out_quantity",         :default => 0
+    t.text    "out_document_lines"
   end
 
   add_index "availability_quantities", ["change_id", "group_id"], :name => "index_availability_quantities_on_change_id_and_group_id", :unique => true
@@ -151,14 +152,36 @@ ActiveRecord::Schema.define(:version => 90000000000014) do
     t.string   "type",          :default => "ItemLine", :null => false
   end
 
-  add_index "contract_lines", ["contract_id"], :name => "fk_contract_lines_contract_id"
+  add_index "contract_lines", ["contract_id"], :name => "contract_lines_contract_id"
   add_index "contract_lines", ["end_date"], :name => "index_contract_lines_on_end_date"
-  add_index "contract_lines", ["item_id"], :name => "fk_contract_lines_item_id"
-  add_index "contract_lines", ["model_id"], :name => "fk_contract_lines_model_id"
+  add_index "contract_lines", ["item_id"], :name => "contract_lines_item_id"
+  add_index "contract_lines", ["model_id"], :name => "contract_lines_model_id"
+  add_index "contract_lines", ["option_id"], :name => "contract_lines_option_id"
   add_index "contract_lines", ["option_id"], :name => "index_contract_lines_on_option_id"
   add_index "contract_lines", ["returned_date"], :name => "index_contract_lines_on_returned_date"
   add_index "contract_lines", ["start_date"], :name => "index_contract_lines_on_start_date"
   add_index "contract_lines", ["type"], :name => "index_contract_lines_on_type"
+
+  create_table "contract_lines_old", :force => true do |t|
+    t.integer  "contract_id"
+    t.integer  "item_id"
+    t.integer  "model_id"
+    t.integer  "location_id"
+    t.integer  "quantity",      :default => 1
+    t.date     "start_date"
+    t.date     "end_date"
+    t.date     "returned_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "option_id"
+    t.string   "type",          :default => "ItemLine", :null => false
+  end
+
+  add_index "contract_lines_old", ["contract_id"], :name => "fk_contract_lines_contract_id"
+  add_index "contract_lines_old", ["item_id"], :name => "fk_contract_lines_item_id"
+  add_index "contract_lines_old", ["location_id"], :name => "fk_contract_lines_location_id"
+  add_index "contract_lines_old", ["model_id"], :name => "fk_contract_lines_model_id"
+  add_index "contract_lines_old", ["option_id"], :name => "fk_contract_lines_option_id"
 
   create_table "contracts", :force => true do |t|
     t.integer  "user_id"
@@ -172,8 +195,10 @@ ActiveRecord::Schema.define(:version => 90000000000014) do
   end
 
   add_index "contracts", ["delta"], :name => "index_contracts_on_delta"
+  add_index "contracts", ["inventory_pool_id"], :name => "fk_contracts_inventory_pool_id"
   add_index "contracts", ["inventory_pool_id"], :name => "index_contracts_on_inventory_pool_id"
   add_index "contracts", ["status_const"], :name => "index_contracts_on_status_const"
+  add_index "contracts", ["user_id"], :name => "fk_contracts_user_id"
   add_index "contracts", ["user_id"], :name => "index_contracts_on_user_id"
 
   create_table "database_authentications", :force => true do |t|
@@ -286,7 +311,7 @@ ActiveRecord::Schema.define(:version => 90000000000014) do
     t.datetime "updated_at"
     t.boolean  "needs_permission",                                    :default => false
     t.integer  "inventory_pool_id"
-    t.boolean  "is_inventory_relevant",                               :default => true
+    t.boolean  "is_inventory_relevant",                               :default => false
     t.string   "responsible"
     t.string   "insurance_number"
     t.text     "note"

@@ -6,15 +6,15 @@ module Availability
       attr_accessor :should_recompute_after_update
       #after_initialize see below
       
-      base.has_many :availability_out_document_lines,
-                    :as => :document_line,
-                    :class_name => "Availability::OutDocumentLine"
-#tmp#5
-#      base.has_many :availability_quantities,
-#                    :through => :availability_out_document_lines,
-#                    :source => :quantity,
-#                    :source_type => "ContractLine", #'#{self.class.to_s}',
-#                    :class_name => "Availability::Quantity"
+    end
+
+    # manual association, reversing serialized references
+    def availability_quantities(sd = Date.today)
+      aq = Availability::Quantity.all(:joins => :change,
+                                      :conditions => {:availability_changes => {:date => (sd..end_date),
+                                                                                :inventory_pool_id => inventory_pool,
+                                                                                :model_id => model}})
+      aq.select {|x| x.out_document_lines and x.out_document_lines[self.class.to_s].try(:include?, id)}
     end
 
     def after_initialize
@@ -22,7 +22,8 @@ module Availability
     end
 
     def recompute
-      if (old_model = availability_out_document_lines.first.try(:quantity).try(:change).try(:model)) and old_model != model
+      # OPTIMIZE
+      if (old_model = availability_quantities.first.try(:change).try(:model)) and old_model != model
         old_model.availability_changes.in(document.inventory_pool).recompute
       end
       model.availability_changes.in(document.inventory_pool).recompute
@@ -73,14 +74,9 @@ module Availability
         all_quantities = model.order_lines.scoped_by_inventory_pool_id(inventory_pool).unsubmitted.running(start_date).by_user(order.user).sum(:quantity)
         (maximum_available_quantity >= all_quantities)
       else
-        #tmp#5 use :availability_quantities through association
-        #old# availability_out_document_lines.count(:joins => :quantity, :conditions => "availability_quantities.in_quantity < 0").zero?
-        
         # if an item is already assigned, but the start_date is in the future,
         # we only consider the real start-end range dates
-        availability_out_document_lines.count(:joins => "INNER JOIN `availability_quantities` ON `availability_quantities`.id = `availability_out_document_lines`.quantity_id " \
-                                                        "INNER JOIN availability_changes ON availability_changes.id = `availability_quantities`.change_id",
-                                              :conditions => ["availability_quantities.in_quantity < 0 AND availability_changes.date >= ?", start_date ]).zero?
+        availability_quantities(start_date).all? {|aq| aq.in_quantity >= 0 }
       end
 
       # OPTIMIZE
@@ -93,7 +89,7 @@ module Availability
     end
 
     def allocated_group
-      availability_out_document_lines.first.try(:quantity).try(:group)
+      availability_quantities.first.try(:group)
     end
 
     def unavailable_periods
