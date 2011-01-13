@@ -60,3 +60,17 @@ Feature: Creating and editing the category tree in the backend
   
   @javascript @logoutafter
   Scenario: Removing a model from a category
+   Given a category 'Fuchshafte' exists
+     And a category 'Benzinkanister' exists
+     And the category 'Fuchshafte' is child of 'Tierkörperteile' with label 'Fuchshafte'
+     And a model 'Fuchsschwanz' exists
+     And the model 'Fuchsschwanz' belongs to the category 'Fuchshafte'
+     And the model 'Fuchsschwanz' belongs to the category 'Benzinkanister'
+     When I follow "ABC"    
+     And I follow the sloppy link "All Models"
+     And I pick the model "Fuchsschwanz" from the list
+     And I follow "Categories (2)"
+     And I uncheck the category "Benzinkanister"
+    Then I should see "This model is now in 1 categories" within "#flash"
+     And the model "Fuchsschwanz" should be in category "Fuchshafte"
+     And the model "Fuchsschwanz" should not be in category "Benzinkanister"
