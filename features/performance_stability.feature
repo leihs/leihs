@@ -6,4 +6,4 @@ Feature: Leihs must perform acceptably for its users
   Scenario: Computing availability of a heavily booked model should remain acceptable
     Given the MacBook availability as of 2011-01-11
      When its availability is recalculate
-     Then it should take at maximum 5 seconds
+     Then it should take at maximum 14 seconds
