@@ -1,10 +1,13 @@
 Given /there is (only )?an order by (a customer named )?'(.*)'/ do | only, bla, who |
   Given "there are no orders" if only
+  firstname, lastname = who
+  firstname, lastname = who.split(" ") if who.include?(" ")
+  
   if @inventory_pool
-    @user = Factory.create_user( { :login => who }, { :inventory_pool => @inventory_pool } )
+    @user = Factory.create_user( { :login => who, :firstname => firstname, :lastname => lastname }, { :inventory_pool => @inventory_pool } )
     @order = Factory.create_order( :user_id => @user.id, :inventory_pool => @inventory_pool )    
   else
-    @user = Factory.create_user(:login => who)
+    @user = Factory.create_user(:login => who, :firstname => firstname, :lastname => lastname)
     @order = Factory.create_order({:user_id => @user.id})    
   end
 end

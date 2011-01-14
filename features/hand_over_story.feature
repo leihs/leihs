@@ -7,6 +7,11 @@ Feature: Hand Over
 Background:
 	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	  And his password is 'pass'
+  # For full-stack steps:
+  Given inventory pool 'ABC'
+    And a manager 'inv_man_0' with access level 3
+    And his password is 'pass'
+
 	
 Scenario: List approved orders, grouped by same customer and same start_date
 
@@ -29,7 +34,6 @@ Scenario: List approved orders, grouped by same customer and same start_date
 	Then he sees 1 line with a total quantity of 10 
 
 Scenario: List approved orders, grouped by different customers and different start_dates
-
 	Given 15 items of model 'NEC 245' exist
 	  And 12 items of model 'BENQ 19' exist
 	Given the list of approved orders contains 0 elements
@@ -128,6 +132,32 @@ Scenario: Bugfix: Don't allow handing over the same item twice
 	 And he chooses Toshi's visit
 	When he tries to assign 'AV_NEC245_1' to the first line
 	Then he should see a flash error
+
+@here @javascript
+Scenario: Pre-set the 'from' and 'to' date of a new line before adding it via 'add model' button
+  Given items 'GUN1,GUN2.5,GUN33.33' of model 'Naked Gun' exist
+  Given there are no contracts
+  Given there is only an order by 'Frank Drebbin'
+    And it asks for 1 'Naked Gun' from 31.3.2100
+    And the order was submitted
+   When I log in as 'inv_man_0' with password 'pass'
+    And I press "Backend"
+    And I follow "ABC"
+    And I follow "Acknowledge"
+    And I choose "View and edit" for the order by "Frank Drebbin"
+    And I follow the sloppy link "Save \+ Approve"
+    Then show me the page
+    # TODO: Capybara can't deal with the greybox we use, either switch
+    # to something that works (e.g. fancybox) or try to use the
+    # jQuery dialog instead.
+    #And I follow the sloppy link "Save \+ Approve" in the greybox
+    #And I follow "Hand Over"
+    #And I choose "Hand Over" for the order by "Frank Drebbin"
+    # TODO: Actually set a date and add something.
+
+@wip @javascript
+Scenario: Pre-set the 'from' and 'to' date of a new line before adding it via barcode scanner
+
 
 # reported by Pius on 22.June 2010
 @wip

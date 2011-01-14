@@ -130,6 +130,18 @@ Then "the contract should only contain the item '$item'" do |item|
 end
 
 # see http://wiki.github.com/jarib/celerity/ajax
-When "I wait2 for the AJAX call to finish" do
+When "I wait for the AJAX call to finish" do
   $browser.wait
 end
+
+# More full-stack-ish tests from here
+
+Then /^I choose "([^"]*)" for the order by "([^"]*)"$/ do |button, person|
+  all("#list_table tr").each do |row|
+    if row.text =~ /#{person.to_s}/
+      row.find("td.buttons").find('a', :text => /.*#{button}.*/i).click
+    end
+  end
+#   debugger
+#   puts "flarp"
+end  
