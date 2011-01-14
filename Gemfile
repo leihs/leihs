@@ -10,6 +10,7 @@ gem "gettext_activerecord", '2.1.0'
 gem "gettext_rails", '2.1.0'
 
 gem "barby", '0.2.0'
+gem "cairo" # Needed to print SVG barcodes
 gem "hoptoad_notifier", '2.3.8'
 # gem "RubyInline", '3.8.2', :require => "inline"
 
