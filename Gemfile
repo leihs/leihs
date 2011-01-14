@@ -42,6 +42,7 @@ group :cucumber do
 	gem 'rspec-rails', '1.3.2', :require => false
 	gem 'nokogiri'
 	gem 'capybara', '>=0.3.5'
+        gem 'launchy'
 end
 
 #group :culerity do
