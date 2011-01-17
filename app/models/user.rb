@@ -98,6 +98,7 @@ class User < ActiveRecord::Base
 
   define_index do
     indexes :login, :sortable => true
+    indexes [:firstname,:lastname], :as => :name, :sortable => true
     indexes :firstname
     indexes :lastname
     indexes :badge_id
