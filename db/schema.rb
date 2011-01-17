@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110111175705) do
+ActiveRecord::Schema.define(:version => 20110117113700) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
@@ -143,10 +143,10 @@ ActiveRecord::Schema.define(:version => 20110111175705) do
     t.datetime "updated_at"
   end
 
-  add_index "contract_lines", ["contract_id"], :name => "fk_contract_lines_contract_id"
+  add_index "contract_lines", ["contract_id"], :name => "index_contract_lines_on_contract_id"
   add_index "contract_lines", ["end_date"], :name => "index_contract_lines_on_end_date"
-  add_index "contract_lines", ["item_id"], :name => "fk_contract_lines_item_id"
-  add_index "contract_lines", ["model_id"], :name => "fk_contract_lines_model_id"
+  add_index "contract_lines", ["item_id"], :name => "index_contract_lines_on_item_id"
+  add_index "contract_lines", ["model_id"], :name => "index_contract_lines_on_model_id"
   add_index "contract_lines", ["option_id"], :name => "index_contract_lines_on_option_id"
   add_index "contract_lines", ["returned_date"], :name => "index_contract_lines_on_returned_date"
   add_index "contract_lines", ["start_date"], :name => "index_contract_lines_on_start_date"
