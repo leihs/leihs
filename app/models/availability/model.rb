@@ -94,7 +94,7 @@ module Availability
             #        end
             #      end
 
-            new_partition ||= current_partition     
+            partition = new_partition || current_partition     
 
             total_borrowable_items = @inventory_pool.items.borrowable.scoped_by_model_id(@model.id).count
             initial_change = build(:date => Date.today)
@@ -102,8 +102,8 @@ module Availability
 
             valid_group_ids = @inventory_pool.group_ids
 
-            new_partition.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
-            new_partition.each_pair do |group_id, quantity|
+            partition.delete(Group::GENERAL_GROUP_ID) # the general group is computed on the fly, then we ignore it
+            partition.each_pair do |group_id, quantity|
               group_id = group_id.to_i
               quantity = quantity.to_i
               next if quantity == 0 or !valid_group_ids.include?(group_id)
@@ -137,7 +137,7 @@ module Availability
             @new_changes.each {|x| x.save }
             # if there's no more items of a model in a group accessible to the customer,
             # then he shouldn't be able to see the model in the frontend. Therefore we need to reindex
-            @model.touch_for_sphinx # trigger sphinx reindex   #OPTIMIZE: only reindex frontend data
+            @model.touch_for_sphinx if new_partition # TODO ('frontend_delta_index') #OPTIMIZE: only reindex frontend data
           end # transaction          
       end # recompute
       

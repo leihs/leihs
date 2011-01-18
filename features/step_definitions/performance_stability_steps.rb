@@ -58,6 +58,6 @@ end
 
 Then /^it should take at maximum (\d+) seconds$/ do |seconds|
   puts "recomputations took #{@time.total} seconds. Please delete this line here!"
-  @time.total.should < seconds.to_f
+  @time.real.should < seconds.to_f
 end
 
