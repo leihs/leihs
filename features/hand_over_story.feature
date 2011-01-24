@@ -146,7 +146,7 @@ Scenario: Pre-set the 'from' and 'to' date of a new line before adding it via 'a
     And I follow "Acknowledge"
     And I choose "View and edit" for the order by "Frank Drebbin"
     And I follow the sloppy link "Save \+ Approve"
-    Then show me the page
+    #Then show me the page
     # TODO: Capybara can't deal with the greybox we use, either switch
     # to something that works (e.g. fancybox) or try to use the
     # jQuery dialog instead.
