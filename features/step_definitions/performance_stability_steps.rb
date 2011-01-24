@@ -25,7 +25,7 @@ Given /^the MacBook availability as of (\d+\-\d+\-\d+)$/ do |date|
               Item.suspended_delta do
                 Model.suspended_delta do
                   fixture.each do |fixture_instance|
-                    puts fixture_instance #debug
+                    #puts fixture_instance #debug
                     new_instance = fixture_instance.clone
                     new_instance.id = fixture_instance.id
                     new_instance.save!
