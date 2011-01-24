@@ -99,8 +99,6 @@ class User < ActiveRecord::Base
   define_index do
     indexes :login, :sortable => true
     indexes [:firstname,:lastname], :as => :name, :sortable => true
-    indexes :firstname
-    indexes :lastname
     indexes :badge_id
     
     has access_rights(:inventory_pool_id), :as => :inventory_pool_id

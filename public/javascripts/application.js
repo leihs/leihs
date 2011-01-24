@@ -101,9 +101,21 @@ function change_href(a, checkbox_name, param_name){
 	decoGreyboxLinks();
 }
 
+function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+    return str;
+}
+
+function date_select_to_param_string(date){
+	return '' + $(date + '__1i').value + '-' + pad($(date + '__2i').value, 2) + '-' + pad($(date + '__3i').value, 2);
+}
+
 function change_href_with_dates(a, start_date, end_date){
-	sd = '' + $(start_date + '__1i').value + '-' + $(start_date + '__2i').value + '-' + $(start_date + '__3i').value
-	ed = '' + $(end_date + '__1i').value + '-' + $(end_date + '__2i').value + '-' + $(end_date + '__3i').value
+	sd = date_select_to_param_string(start_date);
+	ed = date_select_to_param_string(end_date);
 	b = a.href.split('?');
 	a.href = b[0] + '?start_date=' + sd + '&end_date=' + ed;
 	decoGreyboxLinks();
