@@ -36,7 +36,7 @@ Feature: Implement new Group feature
 	Scenario: Lend from specific groups and return to the general pool
 		Given a model 'Olympus PEN E-P2' exists
 		  And a customer "Mongo Bill"
-		  And a group "CAST"
+		  And a group 'CAST'
 		  And a customer "Tomáš" that belongs to group "CAST"
 
 		When I add 1 item of that model
