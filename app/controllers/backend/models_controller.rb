@@ -23,9 +23,14 @@ class Backend::ModelsController < Backend::BackendController
     with[:compatible_id] = @model.id if @model
     with[:category_id] = @categories.collect(&:self_and_all_child_ids).flatten.uniq if @categories
     with[:sphinx_internal_id] = @group.models.collect(&:id) if @group
-    
+
     search_scope = search_scope.sphinx_with_unpackaged_items(current_inventory_pool.id) if params[:source_path]
-    
+
+#TODO 0124 - unless we access search_scope (that is don't do lazy evaluation, as we're doing here)
+#            search_scope.search will sometimes return no results. This seems to be a timing issue/a race.
+#            See features/search.feature. We hope that this will be fixed in thinking_sphinx 2/rails 3 and
+#            therefore, since we have no reports of this problem occuring in "real life" are deferring the
+#            solution of this race until after migrating to rails 3. Knock on wood :-/
     @models = search_scope.search params[:query], { :index => "model",
                                                     :star => true, :page => params[:page], :per_page => $per_page,
                                                     :with => with,
