@@ -27,6 +27,15 @@ Given /^(\d+) inventory pool(s?)$/ do | size, plural |
 end
 
 ###############################################
+# Locations
+
+Given "a location in building '$building' room '$room' and shelf '$shelf' exists" do | building, room, shelf |
+  @location = Factory.create_location(:building => building,
+                                      :room     => room,
+                                      :shelf    => shelf)
+end  
+  
+###############################################
 # Categories
 
 Given "a category '$category' exists" do | category |
@@ -95,8 +104,8 @@ Given /(\d+) item(s?) of model '(.+)' exist(s?)/ do |number, plural1, model, plu
   end
 end
 
-Given /^item(s?) '(\S*)' of model '(.+)' exist(s?)( only)?$/ \
-do |plural, inventory_codes, model, plural2, only|
+Given /^(a?n? ?)item(s?) '([^']*)' of model '([^']*)' exist(s?)( only)?$/ \
+do |particle,plural, inventory_codes, model, plural2, only|
   Item.delete_all if only
 
   @model = Factory.create_model(:name => model)
@@ -106,6 +115,13 @@ do |plural, inventory_codes, model, plural2, only|
     Factory.create_item(:model_id => @model.id, :inventory_code => inv_code,
 		        :inventory_pool => @inventory_pool )
   end
+end
+
+Given "at that location resides an item '$item' of model '$model'" do |item, model|
+  Given "an item '#{item}' of model '#{model}' exists"
+  our_item = Item.find_by_inventory_code(item)
+  our_item.location = @location
+  our_item.save!
 end
 
 Given "$number items of this model exist" do |number|
