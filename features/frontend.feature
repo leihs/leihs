@@ -4,7 +4,7 @@ Background: prepare a user and a few groups
 	Given inventory pool 'AVZ'
 	  And a customer "Pepe"
 	  And his password is 'pass'
-	  And a group "CAST"
+	  And a group 'CAST'
 	  And a model 'Prinzessin Lillifee Schaukel-Einhorn' exists
 	  And item 'KF1' of model 'Prinzessin Lillifee Schaukel-Einhorn' exists
 
