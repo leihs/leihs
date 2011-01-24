@@ -88,7 +88,7 @@ end
 #
 # Groups
 #
-Given /^a group "([^"]*)"$/ do |name|
+Given /^a group '([^']*)'( exists)?$/ do |name,foo|
   When "I add a new group \"#{name}\""
 end
 
