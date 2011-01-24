@@ -4,11 +4,15 @@ Given /^the admin$/ do
   @user = AccessRight.find_by_role_id(Role.find_by_name 'admin').user
 end
 
-Given /^a customer "([^"]*)"$/ do |name|
+Given /^a customer "([^"]*)"( exists)?$/ do |name,foo|
   @user = Factory.create_user({:login => name },
                               {:role => 'customer'})
   r = @user.access_rights.first
   r.save
+end
+
+Given /^a customer '([^']*)'( exists)?$/ do |name,foo|
+  Given "a customer \"#{name}\" exists"
 end
 
 #Given /^the user '(\w+)'$/ do |name|
