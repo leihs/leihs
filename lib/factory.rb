@@ -17,6 +17,16 @@ module Factory
     Building.create! attributes
   end
 
+  # Location
+  # 
+  def self.create_location(attributes) # needs a hash
+    b = Building.create! :name => attributes[:building]
+    attributes.delete :building
+    l = Location.create! attributes
+    l.building = b
+    b.save
+  end
+
   #
   # AuthenticationSystem
   # 
