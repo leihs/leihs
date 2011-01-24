@@ -24,7 +24,8 @@ module Factory
     attributes.delete :building
     l = Location.create! attributes
     l.building = b
-    b.save
+    l.save
+    l
   end
 
   #
