@@ -108,8 +108,14 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def groups
-    @changes = @model.availability_changes.in(current_inventory_pool).recompute_if_empty
+    @availability = @model.availability_changes_in(current_inventory_pool)
     render :partial => "groups"
+  end
+
+  def set_group_partition
+    @model.partitions.in(current_inventory_pool).set(params[:groups])
+    flash[:notice] = _("The group quantities were successfully saved.")
+    redirect_to :action => :show
   end
 
 #################################################################
@@ -293,14 +299,6 @@ class Backend::ModelsController < Backend::BackendController
     elsif request.delete?
       @model.attachments.destroy(params[:attachment_id])
     end
-  end
-
-#############################################################
-
-  def set_group_partition
-    @model.availability_changes.in(current_inventory_pool).recompute(params[:groups])
-    flash[:notice] = _("The group quantities were successfully saved.")
-    redirect_to :action => :show
   end
 
 #################################################################

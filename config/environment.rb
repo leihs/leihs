@@ -50,6 +50,8 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
   config.active_record.observers = :"availability/observer"
 
+  config.cache_store = :mem_cache_store, {:namespace => "leihs_#{RAILS_ENV}"}
+
 # 2901
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
 #  config.i18n.load_path = Dir[File.join(RAILS_ROOT, 'config', 'locales', '*.{rb,yml}')]

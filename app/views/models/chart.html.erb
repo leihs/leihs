@@ -15,7 +15,6 @@
 				content_tag :h2, :style => "margin: 0.5em;" do %>
 					<%= inventory_pool %>
 				<% end %>
-				<%#= groups_chart(@model, inventory_pool) %>
 				<%= availability_periods_merged_groups(@model, inventory_pool, current_user) %>
 			<% end
 		end

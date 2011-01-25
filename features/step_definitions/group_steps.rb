@@ -12,7 +12,7 @@ Then /^(\w+) item(s?) of that model should be available in group '([^"]*)'( only
   n = to_number(n)
   @group = @inventory_pool.groups.find_by_name(group_name)
   all_groups = [Group::GENERAL_GROUP_ID] + @inventory_pool.groups.map(&:id)
-  quantities = @model.availability_changes.in(@inventory_pool).current_partition
+  quantities = @model.partitions.in(@inventory_pool).current_partition
   quantities[@group.id].to_i.should == to_number(n)
 
   all_groups.each do |group|
@@ -36,8 +36,8 @@ Then /^no items of that model should be available in any group$/ do
 end
 
 Then "that model should not be available in any group"  do
-  @model.availability_changes.in(@inventory_pool).current_partition.\
-	 reject { |group_id, num| group_id == nil }.\
+  @model.partitions.in(@inventory_pool).current_partition.\
+	 reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.\
          reduce(:+).to_i.should == 0
 end
 
@@ -61,10 +61,10 @@ end
 When /^I assign (\w+) item(s?) to group "([^"]*)"$/ do |n, plural, to_group_name|
   n = to_number(n)
   to_group = @inventory_pool.groups.find_by_name to_group_name
-  partition = @model.availability_changes.in(@inventory_pool).current_partition
+  partition = @model.partitions.in(@inventory_pool).current_partition
   partition[to_group.id] ||= 0
   partition[to_group.id] += n
-  @model.availability_changes.in(@inventory_pool).recompute(partition)
+  @model.partitions.in(@inventory_pool).set(partition)
 end
 
 Then "that model should not be available to anybody" do
@@ -80,7 +80,7 @@ end
 Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ \
 do |n, plural, user|
   @user = User.find_by_login user
-  @model.availability_changes.in(@inventory_pool).
+  @model.availability_changes_in(@inventory_pool).
          maximum_available_in_period_for_user(@user, Date.today, Date.tomorrow ).\
 	 should == n.to_i
 end

@@ -20,7 +20,7 @@
 				<%= show_line_model(ob.model) if ob.model != last_model %>
 			<% end
 			content_tag :td do %>
-	  			<%= dates_with_period(ob.start_date, ob.end_date) %>  
+	  			<%= dates_with_period(ob.start_date, @overbooking_changes.end_date_of(ob)) %>  
 			<% end
 			content_tag :td do %>
 	  			<%= ob.available_quantity %>  
