@@ -4,7 +4,7 @@ Feature: Creating and editing the category tree in the backend
   to the system and manage the category tree (parents, children).
   
   Background: We have a manager as well as stuff in categories
-    Given inventory pool 'ABC'
+    Given inventory pool 'MyPool'
       And a manager 'inv_man_0' with access level 3
       And his password is 'pass'
       And a category 'Tierkörperteile' exists
@@ -18,23 +18,23 @@ Feature: Creating and editing the category tree in the backend
       And the model 'Hasenohr' belongs to the category 'Hasenartige'
       And I log in as 'inv_man_0' with password 'pass'
       And I press "Backend"  
-      And I follow "ABC"   
+      And I follow "MyPool"   
 
   @javascript @logoutafter
   Scenario: Browsing the category list to verify that there's something in it
-    When I follow "ABC"
+    When I follow "MyPool"
      And I follow the sloppy link "All Models"
     Then I should see "Hasenpfote"
      And I should see "Hasenohr"
       
   @javascript @logoutafter
   Scenario: Browsing a specific category
-     When I follow "ABC"
+     When I follow "MyPool"
      Then the model "Hasenohr" should be in category "Hasenartige"
   
   @javascript @logoutafter @kaka
   Scenario: Assigning a model to a category when there are few categories
-     When I follow "ABC"    
+     When I follow "MyPool"    
      And I follow the sloppy link "All Models"
      And I pick the model "Hasenohr" from the list
      And I follow "Categories (1)"
@@ -49,7 +49,7 @@ Feature: Creating and editing the category tree in the backend
      And the category 'Fuchshafte' is child of 'Tierkörperteile' with label 'Fuchshafte'
      And a model 'Fuchsschwanz' exists
      And the model 'Fuchsschwanz' belongs to the category 'Fuchshafte'  
-     When I follow "ABC"    
+     When I follow "MyPool"    
      And I follow the sloppy link "All Models"
      And I pick the model "Fuchsschwanz" from the list
      And I follow "Categories (1)"
@@ -66,7 +66,7 @@ Feature: Creating and editing the category tree in the backend
      And a model 'Fuchsschwanz' exists
      And the model 'Fuchsschwanz' belongs to the category 'Fuchshafte'
      And the model 'Fuchsschwanz' belongs to the category 'Benzinkanister'
-     When I follow "ABC"    
+     When I follow "MyPool"    
      And I follow the sloppy link "All Models"
      And I pick the model "Fuchsschwanz" from the list
      And I follow "Categories (2)"
