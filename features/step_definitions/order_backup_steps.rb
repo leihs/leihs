@@ -20,11 +20,9 @@ end
 
 When "$who chooses the order" do | who |
   @order.has_backup?.should == false
-  sleep 1
   get backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order)
   response.should render_template('backend/acknowledge/show')
   @order = assigns(:order)
-  sleep 1
   @order.has_backup?.should == true
   @order.backup.created_at.should >= @order.histories.first.created_at if @order.histories.first
 end
