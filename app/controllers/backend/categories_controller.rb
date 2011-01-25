@@ -52,11 +52,11 @@ class Backend::CategoriesController < Backend::BackendController
     respond_to do |format|
       format.html
       format.js { search_result_rjs(@categories) }
-      format.ext_json { id = (@category ? @category.id : 0)
-                        render :json => @categories.sort.to_json(:methods => [[:text, id],
-                                                                              :leaf,
-                                                                              :real_id],
-                                                            :except => [:id]) }
+      format.ext_json do
+        id = (@category ? @category.id : 0)
+        render :json => @categories.sort.to_json( :methods => [[:text, id], :leaf, :real_id],
+                                                  :except => [:id])
+      end
       format.auto_complete { render :layout => false }
     end
   end
