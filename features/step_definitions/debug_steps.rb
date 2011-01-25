@@ -45,7 +45,7 @@ end
 
 # When I switch on waiting
 # When I switch off waiting
-When "I switch $waitstate waiting" |waitstate|
+When "I switch $waitstate waiting" do |waitstate|
   @skip_wait = (waitstate == "off")
 end
 
