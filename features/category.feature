@@ -22,20 +22,17 @@ Feature: Creating and editing the category tree in the backend
 
   @javascript @logoutafter
   Scenario: Browsing the category list to verify that there's something in it
-    When I follow "MyPool"
-     And I follow the sloppy link "All Models"
+    When I follow the sloppy link "All Models"
     Then I should see "Hasenpfote"
      And I should see "Hasenohr"
       
   @javascript @logoutafter
   Scenario: Browsing a specific category
-     When I follow "MyPool"
      Then the model "Hasenohr" should be in category "Hasenartige"
   
   @javascript @logoutafter @kaka
   Scenario: Assigning a model to a category when there are few categories
-     When I follow "MyPool"    
-     And I follow the sloppy link "All Models"
+    When I follow the sloppy link "All Models"
      And I pick the model "Hasenohr" from the list
      And I follow "Categories (1)"
      And I check the category "Allgemein"
