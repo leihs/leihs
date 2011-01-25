@@ -33,11 +33,16 @@ When /^I click "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
   end
 end
 
-# using this step with 'within' is not tested!
+# using this step with 'within' has not been tested yet!
 Then /^"([^"]*)" should appear before "([^"]*)"(?: within "([^"]*)")?$/ do
 |first, second, selector|
+  When "I wait for the spinner to disappear"
   with_scope(selector) do
     page.body.index(first).should < page.body.index(second)
   end
 end
 
+When "I wait for the spinner to disappear" do
+  # capybara black magic - wait for div to become invisible
+  page.has_xpath?( "//div[@id='loading_panel']", :visible => false)
+end
