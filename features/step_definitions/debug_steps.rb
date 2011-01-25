@@ -22,3 +22,6 @@ Given /^comment:/ do
   true
 end
 
+When /(\w+) wait (\d+) second(s?)/ do |who, seconds, plural|
+  sleep seconds.to_i
+end

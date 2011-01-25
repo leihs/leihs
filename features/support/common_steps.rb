@@ -22,10 +22,6 @@ Given "test pending" do
   pending
 end
 
-When /(\w+) wait (\d+) second(s?)/ do |who, seconds, plural|
-  sleep seconds.to_i
-end
-
 # This step is not active currently, since it is used in a @wip feature.
 # It needs to be eventually migrated from culerity to capybara all the same 
 When /I fill in (\w+) of "([^\"]*)" with "([^\"]*)"/ do |order, field, value|
