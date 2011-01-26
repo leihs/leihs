@@ -5,7 +5,7 @@ module Availability
       # start from most recent entry we have, which is the last before start_date
       start_date = most_recent_before_or_equal(start_date).try(:date) || start_date
       r = select do |change|
-        change.date >= start_date && change.date <= end_date
+        (start_date..end_date).include?(change.date)
       end
       self.class.new(r)
     end

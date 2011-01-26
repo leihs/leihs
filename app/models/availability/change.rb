@@ -15,13 +15,6 @@ module Availability
   
   #############################################
   
-#    named_scope :overbooking, :select => "*, SUM(in_quantity) AS available_quantity",
-#                              :joins => :quantities,
-#                              :conditions => ["availability_quantities.in_quantity < 0"],
-#                              :group => "availability_changes.id"
-#                             
-  #############################################
-  
     def self.recompute_all
       ::Model.suspended_delta do
         ::InventoryPool.all.each do |inventory_pool|
@@ -55,11 +48,6 @@ module Availability
       q.try(:out_quantity).to_i
     end
 
-# not used anymore...    
-#    def total_in_group(group)
-#      in_quantity_in_group(group) + out_quantity_in_group(group)
-#    end
-  
   end
 
 end

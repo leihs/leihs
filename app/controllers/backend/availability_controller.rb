@@ -1,7 +1,7 @@
 class Backend::AvailabilityController < Backend::BackendController
   
   def show
-    @overbooking_changes = current_inventory_pool.overbooking_changes
+    @overbooking_availabilities = current_inventory_pool.overbooking_availabilities
   end
 
 end

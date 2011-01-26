@@ -14,19 +14,23 @@
     end
 
 	last_model = nil
-	@overbooking_changes.each do |ob|
-		content_tag :tr do
-			content_tag :td do %>
-				<%= show_line_model(ob.model) if ob.model != last_model %>
-			<% end
-			content_tag :td do %>
-	  			<%= dates_with_period(ob.start_date, @overbooking_changes.end_date_of(ob)) %>  
-			<% end
-			content_tag :td do %>
-	  			<%= ob.available_quantity %>  
-			<% end
+	@overbooking_availabilities.each do |ob|
+		ob.changes.each do |c|
+			quantities = c.quantities.select {|q| q.in_quantity < 0 } 
+			next if quantities.empty? 
+			content_tag :tr do
+				content_tag :td do %>
+					<%= show_line_model(ob.model) if ob.model != last_model %>
+				<% end
+				content_tag :td do %>
+		  			<%= dates_with_period(c.start_date, ob.changes.end_date_of(c)) %>  
+				<% end
+				content_tag :td do %>
+		  			<%= quantities.collect(&:in_quantity).sum %>  
+				<% end
+			end
+			last_model = ob.model
 		end
-		last_model = ob.model
 	end
 
 end %>

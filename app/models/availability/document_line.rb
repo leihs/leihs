@@ -85,16 +85,13 @@ module Availability
       availability_quantities.first.try(:group)
     end
 
-    #1901#
     def unavailable_periods
-      group = allocated_group
-      
-      conditions = ["group_id " + (group.nil? ? "IS NULL" : "= #{group.id}")]
-      conditions[0] += " AND ((in_quantity < 0 AND date BETWEEN :sd AND :ed) OR (in_quantity < :q AND date NOT BETWEEN :sd AND :ed))"
-      conditions << {:q => quantity, :sd => start_date, :ed => end_date}
-      
-      changes = model.availability_changes_in(inventory_pool).all(:joins => :quantities, :conditions => conditions)
-      changes.collect do |c|
+      changes = model.availability_changes_in(inventory_pool).changes
+      unavailable_changes = changes.select do |c|
+        ((start_date..end_date).include?(c.date) and c.quantities.any? {|q| q.in_quantity < 0 and q.group_id == allocated_group.try(:id)}) or
+          (!(start_date..end_date).include?(c.date) and c.quantities.any? {|q| q.in_quantity < quantity and q.group_id == allocated_group.try(:id)})
+      end
+      unavailable_changes.collect do |c|
         OpenStruct.new(:start_date => c.start_date, :end_date => changes.end_date_of(c))
       end
     end
