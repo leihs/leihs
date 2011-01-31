@@ -90,8 +90,9 @@ end %>
             { :target => '_top' } %>
     <% end if current_inventory_pool and current_inventory_pool.users.include?(@user)
     
-    content_tag :li do %>
-      <%= mail_link current_inventory_pool, @user, @source_path, {:target => '_top' } %>
+    content_tag :li do
+      options = params[:layout] == "modal" ? {:layout => "modal"} : {:target => '_top' } %>
+      <%= mail_link current_inventory_pool, @user, @source_path, options %>
     <% end 
   end %>
 
