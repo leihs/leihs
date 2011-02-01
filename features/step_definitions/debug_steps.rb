@@ -17,6 +17,10 @@ When /^I start the debugger$/ do
   true
 end
 
+When "I reindex" do
+  `rake ts:index`
+end
+
 # this is for commenting or explaining inside Scenarios
 Given /^comment:/ do
   true
