@@ -22,6 +22,13 @@
 		</td>
 		<td>						
 			<%= show_line_model(@line.model) %>
+
+      <% unless @line.model.hand_over_note.blank? %>
+        <div class="hand_over_note">
+          <%= @line.model.hand_over_note %>
+        </div>
+      <% end %>
+
 		</td>
 
 		<%# TODO optimize, async post ?? %>
