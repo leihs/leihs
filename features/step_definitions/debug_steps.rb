@@ -18,7 +18,7 @@ When /^I start the debugger$/ do
 end
 
 When "I reindex" do
-  `rake ts:index`
+  puts `rake ts:index`
 end
 
 # this is for commenting or explaining inside Scenarios
