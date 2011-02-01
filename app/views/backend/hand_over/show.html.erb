@@ -100,9 +100,29 @@
 									:onmouseup => "change_href_with_dates(this, 'start_date', 'end_date');",
 									:title => _("Add Option") ) %>
 							<%= _("for") %>
-							<%= date_select :start_date, nil, { :default => start_date, :order => [:day, :month, :year], :start_year => start_date.year } %>
+							<%= text_field_tag :start_date, short_date(start_date), :size => 10 %>
 							-
-							<%= date_select :end_date, nil, { :default => end_date, :order => [:day, :month, :year], :start_year => start_date.year } %>
+							<%= text_field_tag :end_date, short_date(end_date), :size => 10 %>
+
+				            <% locale = "de-CH" %>
+				            <%= javascript_include_tag "jquery/i18n/jquery.ui.datepicker-#{locale}" %>
+							<% javascript_tag do %>
+								jQuery(document).ready(function($) {
+									var dates = $("#start_date, #end_date").datepicker({
+										showWeek: true,
+										minDate: 0,
+										onSelect: function( selectedDate ) {
+											var option = this.id == "start_date" ? "minDate" : "maxDate",
+												instance = $( this ).data( "datepicker" );
+												date = $.datepicker.parseDate(
+													instance.settings.dateFormat ||
+													$.datepicker._defaults.dateFormat,
+													selectedDate, instance.settings );
+											dates.not( this ).datepicker( "option", option, date );
+										}
+									}, $.datepicker.regional["<%= locale %>"]);
+								});
+							<% end %>
 						<% end
 					end %>
 					<tbody id='lines'>
@@ -119,7 +139,6 @@
 										   				 end_date: date_select_to_param_string('end_date') }});
 					});
 				<% end %>
-						
 			</div>
 
 
