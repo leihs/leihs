@@ -20,6 +20,7 @@ module Availability
         ::InventoryPool.all.each do |inventory_pool|
           inventory_pool.models.each do |model|
             model.delete_availability_changes_in(inventory_pool)
+            model.availability_changes_in(inventory_pool)
           end
         end
       end
