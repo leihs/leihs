@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '2.3.5'
 
 gem 'mysql'
+#gem 'memcache-client' #gem 'dalli' #gem 'redis-store'
 
 gem "gettext", "2.1.0"
 # 2901 gem "locale_rails", '2.0.5' # see config/initializers/gettext.rb

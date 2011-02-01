@@ -3,7 +3,7 @@
 	<%= model.manufacturer %>
 </td>
 
-<% max_available = model.availability_changes.in(current_inventory_pool).maximum_available_in_period_for_user(@user, @start_date, @end_date) %>
+<% max_available = model.availability_changes_in(current_inventory_pool).maximum_available_in_period_for_user(@user, @start_date, @end_date) %>
 <% content_tag :td, :class => "valid_#{(max_available > 0)}" do %>
      <%= max_available %>
 <% end %>

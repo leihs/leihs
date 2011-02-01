@@ -427,8 +427,17 @@ module Backend::BackendHelper
             l.quantity
           end
           r += content_tag :td, :class => "#{permission_needed ? "closed" : ""}" do 
+            w = "<br />"
+            w += content_tag :div, :class => 'hand_over_note' do
+              "#{l.item.model.hand_over_note}"
+            end unless l.item.model.hand_over_note.blank?
             
-            "#{permission_needed ? _("Permission needed:<br/>") : ""}#{l.model.name}"
+            "#{permission_needed ? _("Permission needed:<br/>") : ""}#{l.model.name} #{w}"
+            
+            
+
+            
+
           end
           r += content_tag :td do
             l.item.inventory_code

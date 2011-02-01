@@ -563,3 +563,12 @@ hr {
 #emailForm #body textarea{
     width: 100%;
 }
+
+
+.hand_over_note {
+  margin-top: 0.8em;
+  padding: 0.4em;
+  border: 2px solid #ee2222;
+  background: #fff;
+}
+

@@ -8,7 +8,7 @@ Given /^the MacBook availability as of (\d+\-\d+\-\d+)$/ do |date|
   fixture = YAML::load( 
               File.open(
                 File.join( Rails.root,
-                           'test/fixtures/availabilit_calculation_performance.yml')))
+                           'test/fixtures/availability_calculation_performance.yml')))
 
   # suspend Availability recomputation - we only want to import data
   Availability::Observer.class_eval \
@@ -51,7 +51,8 @@ When /^its availability is recalculate$/ do
   require 'benchmark'
   @time = Benchmark.measure {
     @model.inventory_pools.each do |ip|
-      @model.availability_changes.in(ip).recompute
+      @model.delete_availability_changes_in(ip)
+      @model.availability_changes_in(ip)
     end
   }
 end
