@@ -7,7 +7,7 @@ module Availability
       
       def recompute(record)
         if record.is_a?(Item) and record.inventory_pool
-          record.model.availability_changes.in(record.inventory_pool).recompute
+          record.model.delete_availability_changes_in(record.inventory_pool)
         elsif (record.is_a?(OrderLine) and record.order.status_const == Order::SUBMITTED) or record.is_a?(ItemLine)
           record.recompute if record.should_recompute_after_update
         end

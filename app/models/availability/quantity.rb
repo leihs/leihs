@@ -1,48 +1,41 @@
-# == Schema Information
-#
-# Table name: availability_quantities
-#
-#  id           :integer(4)      not null, primary key
-#  change_id    :integer(4)
-#  group_id     :integer(4)
-#  in_quantity  :integer(4)      default(0)
-#  out_quantity :integer(4)      default(0)
-#
-
-# == Schema Information
-#
-# Table name: availability_quantities
-#
-#  id           :integer(4)      not null, primary key
-#  change_id    :integer(4)
-#  group_id     :integer(4)
-#  in_quantity  :integer(4)      default(0)
-#  out_quantity :integer(4)      default(0)
-#
 module Availability
-  class Quantity < ActiveRecord::Base
-    set_table_name "availability_quantities"
+  class Quantity
 
-    belongs_to :change
-    belongs_to :group, :class_name => "::Group"
-  
-#tmp#10    validates_presence_of :change_id
-#tmp#2    validates_presence_of :group_id
-    validates_presence_of :in_quantity
-    validates_presence_of :out_quantity
-    
-#tmp#10    validates_uniqueness_of :group_id, :scope => :change_id
+    attr_accessor :group_id
+    attr_accessor :in_quantity
+    attr_accessor :out_quantity
+    attr_accessor :out_document_lines
 
-    serialize :out_document_lines
+    ##############
+    def group
+      if @group_id
+        ::Group.find @group_id
+      else
+        Group::GENERAL_GROUP_ID
+      end
+    end
+    ##############
+
+    def initialize(attr)
+      @group_id = attr[:group_id]
+      @in_quantity = attr[:in_quantity] || 0
+      @out_quantity = attr[:out_quantity] || 0
+      @out_document_lines = attr[:out_document_lines] || {}
+    end
+      
     def append_to_out_document_lines(type, id)
-      self.out_document_lines ||= {}
-      self.out_document_lines[type] ||= []
-      out_document_lines[type] << id unless out_document_lines[type].include?(id) 
+      @out_document_lines[type] ||= []
+      @out_document_lines[type] << id unless @out_document_lines[type].include?(id) 
     end    
     def document_lines
       r = []
-      out_document_lines.each_pair do |k,v|
-        r += k.constantize.find(v)
+      @out_document_lines.each_pair do |k,v|
+        r += case k
+        when "OrderLine"
+          k.constantize.find(v, :include => {:order => :user})
+        else 
+          k.constantize.find(v, :include => {:contract => :user}) # TODO remove our Item#find and :include => [{:contract => :user}, :item]
+        end 
       end
       r
     end
