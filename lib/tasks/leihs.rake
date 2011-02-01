@@ -71,6 +71,15 @@ namespace :leihs do
     raise "Tests failed with: #{exit_code}" if exit_code != 0
   end
 
+  desc "Recreate DB and reindex" 
+  task :reset => :environment  do
+    Rake::Task["db:drop"].invoke
+    Rake::Task["db:create"].invoke
+    Rake::Task["db:migrate"].invoke
+    Rake::Task["db:seed"].invoke
+    Rake::Task["thinking_sphinx:reindex"].invoke
+  end
+  
 ################################################################################################
 # Refactoring from Backend::TemporaryController
 
