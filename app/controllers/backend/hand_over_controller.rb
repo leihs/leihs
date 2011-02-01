@@ -55,8 +55,21 @@ class Backend::HandOverController < Backend::BackendController
         redirect_to :action => 'index'
       end
     else
-      @lines = @lines.delete_if {|l| l.item.nil? }
-      flash[:error] = _("No items to hand over specified. Please assign inventory codes to the items you want to hand over.") if @lines.empty?
+      @lines = @lines.delete_if {|l| l.item_id.nil? }
+      if @lines.empty?
+        flash[:error] = _("No items to hand over specified. Please assign inventory codes to the items you want to hand over.")
+      else
+        today = Date.today
+        @lines.each do |line|
+          next if line.start_date == today
+          line.start_date = today
+          line.end_date = today if line.end_date < line.start_date
+          if line.start_date_changed? and line.save
+            flash[:notice] ||= []
+            flash[:notice] << _("The start date has been changed for item %s") % line.item.inventory_code
+          end
+        end
+      end
     end    
   end
 
@@ -89,9 +102,6 @@ class Backend::HandOverController < Backend::BackendController
       
       required_item_inventory_code = params[:code]
       @contract_line.item = Item.first(:conditions => { :inventory_code => required_item_inventory_code})
-      @contract_line.start_date = Date.today
-      @contract_line.end_date = Date.today if @contract_line.end_date < @contract_line.start_date
-      flash[:notice] = _("The start date has been changed") if @contract_line.start_date_changed? # TODO 1102** still not sure the @contract_line will be saved after validation!
 
       if @contract_line.save
         # TODO refactor in model: change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }

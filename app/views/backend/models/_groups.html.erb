@@ -19,7 +19,7 @@
 				<%= _("General") %>:
 			<% end
 			content_tag :td, :id => "general_in_stock" do %>
-				<%= @changes.last.total_in_group(Group::GENERAL_GROUP_ID) %>
+				<%= @model.partitions.in(current_inventory_pool).by_group(Group::GENERAL_GROUP_ID) %>
 			<% end
 			content_tag :td do %>
 			<% end
@@ -30,7 +30,7 @@
 					<%= group %>:
 				<% end
 				content_tag :td do
-					quantity = @changes.last.total_in_group(group) %>
+					quantity = @model.partitions.in(current_inventory_pool).by_group(group).try(:quantity).to_i %>
 					<%= text_field_tag "groups[#{group.id}]", quantity, :autocomplete => "off" %>
 				<% end
 				content_tag :td do %>
@@ -59,4 +59,4 @@
 	});
 <% end %>
 
-<%= availability_changes(@changes) %>
+<%= availability_changes(@availability) %>

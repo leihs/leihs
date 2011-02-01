@@ -48,8 +48,8 @@ module Backend::ModelsHelper
     end
 
     events = {}
-    changes = model.availability_changes.in(inventory_pool)
-    partition = changes.current_partition
+    partition = model.partitions.in(inventory_pool).current_partition
+    changes = model.availability_changes_in(inventory_pool).changes
 
     model.running_reservations(inventory_pool).each do |line|
       color = if not line.item
@@ -110,8 +110,8 @@ module Backend::ModelsHelper
       decorators_js << changes.collect do |change|
         d = []
         in_quantity = change.in_quantity_in_group(k)
-        if in_quantity < 0 or change.quantities.sum(:in_quantity) < 0
-          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.to_s(:rfc822)}', endDate: '#{change.end_date.tomorrow.to_time.to_s(:rfc822)}', color: '#f00', opacity: 50 })"
+        if in_quantity < 0 or change.quantities.collect(&:in_quantity).sum < 0
+          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.to_s(:rfc822)}', endDate: '#{changes.end_date_of(change).tomorrow.to_time.to_s(:rfc822)}', color: '#f00', opacity: 50 })"
         end
         if prev_in_quantity != in_quantity
           prev_in_quantity = in_quantity

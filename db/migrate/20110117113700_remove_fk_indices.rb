@@ -8,7 +8,7 @@ class RemoveFkIndices < ActiveRecord::Migration
                           "fk_contract_lines_model_id" ]
 
     # remove indices that are named with old fk_* name
-    old_style_indices.each { |index| remove_index :contract_lines, :name => index }
+    old_style_indices.each { |index| remove_index(:contract_lines, :name => index) if indexes(:contract_lines).any? {|i| i.name == index} }
 
     # use default name for indices
     change_table :contract_lines do |t|

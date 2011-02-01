@@ -54,6 +54,53 @@ class Model < ActiveRecord::Base
   
   has_many :locations, :through => :items, :uniq => true  # OPTIMIZE N+1 select problem, :include => :inventory_pools
   has_many :inventory_pools, :through => :items, :uniq => true
+
+  has_many :partitions, :dependent => :delete_all do
+    def in(inventory_pool)
+      @inventory_pool = inventory_pool
+      @model = proxy_owner
+
+      class << self
+        def set(new_partitions)
+          clear
+          new_partitions.delete(Group::GENERAL_GROUP_ID)
+          unless new_partitions.blank?
+            valid_group_ids = @inventory_pool.group_ids
+            new_partitions.each_pair do |group_id, quantity|
+              group_id = group_id.to_i
+              quantity = quantity.to_i
+              create(:group_id => group_id, :quantity => quantity) if valid_group_ids.include?(group_id) and quantity > 0
+            end
+          end
+          # if there's no more items of a model in a group accessible to the customer,
+          # then he shouldn't be able to see the model in the frontend. Therefore we need to reindex
+          @model.touch_for_sphinx # OPTIMIZE: only reindex frontend data
+          @model.delete_availability_changes_in(@inventory_pool)
+        end
+
+        def current_partition
+          r = {Group::GENERAL_GROUP_ID => by_group(Group::GENERAL_GROUP_ID)}
+          all.each {|p| r[p.group_id] = p.quantity }
+          r
+        end
+        
+        def by_group(group)
+          if group.nil?
+            @inventory_pool.items.borrowable.scoped_by_model_id(@model).count -
+              sum(:quantity)
+          else
+            scoped_by_group_id(group).first
+          end
+        end
+        
+        def by_groups(groups)
+          scoped( { :conditions => {:group_id => groups} } )
+        end
+      end
+      
+      scoped( { :conditions => {:inventory_pool_id => inventory_pool} } )
+    end
+  end
   
   has_many :order_lines
   has_many :contract_lines
@@ -174,14 +221,7 @@ class Model < ActiveRecord::Base
     has :is_package
     has categories(:id), :as => :category_id
     has borrowable_items(:inventory_pool_id), :as => :borrowable_inventory_pool_id
-    #tmp#2911 has groups(:id), :as => :group_id
-    has "(SELECT GROUP_CONCAT(DISTINCT IFNULL(aq.group_id, '0') SEPARATOR ',') " \
-        " FROM availability_changes AS ac " \
-        "   INNER JOIN availability_quantities AS aq " \
-        "     ON aq.change_id = ac.id " \
-        " WHERE (aq.in_quantity + aq.out_quantity) > 0 " \
-        "   AND model_id = models.id)",
-        :as => :group_id, :type => :multi
+    has partitions(:group_id), :as => :group_id
     
     set_property :delta => true
   end
@@ -199,7 +239,7 @@ class Model < ActiveRecord::Base
   private
   def update_sphinx_index
     return if @block_delta_indexing
-    Item.suspended_delta do
+    Item.suspended_delta do # FIXME doesn't work!!!
       items.each {|x| x.touch_for_sphinx }
     end
   end
