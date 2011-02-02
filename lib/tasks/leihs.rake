@@ -77,6 +77,7 @@ namespace :leihs do
     Rake::Task["db:create"].invoke
     Rake::Task["db:migrate"].invoke
     Rake::Task["db:seed"].invoke
+    Rake::Task["ts:conf"].invoke
     Rake::Task["thinking_sphinx:reindex"].invoke
   end
   
