@@ -13,15 +13,13 @@ GEM
     activesupport (2.3.5)
     after_commit (1.0.8)
       activerecord (< 3.0.0)
-    ar-simple-idmap (0.3.0)
-      activerecord
     awesome_nested_set (1.4.3)
       activerecord (>= 1.1)
     barby (0.2.0)
     builder (3.0.0)
     cairo (1.10.0)
       pkg-config
-    capybara (0.4.0)
+    capybara (0.4.1.1)
       celerity (>= 0.7.9)
       culerity (>= 0.2.4)
       mime-types (>= 1.16)
@@ -29,7 +27,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.27)
-      xpath (~> 0.1.2)
+      xpath (~> 0.1.3)
     celerity (0.8.7)
     childprocess (0.1.6)
       ffi (~> 0.6.3)
@@ -63,7 +61,7 @@ GEM
     hoptoad_notifier (2.3.8)
       activesupport
     json (1.4.6)
-    json_pure (1.4.6)
+    json_pure (1.5.1)
     launchy (0.3.7)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
@@ -75,7 +73,7 @@ GEM
     mysql (2.8.1)
     newrelic_rpm (2.10.5)
     nokogiri (1.4.4)
-    pkg-config (1.0.7)
+    pkg-config (1.0.8)
     prawn (0.8.4)
       prawn-core (>= 0.8.4, < 0.9)
       prawn-layout (>= 0.8.4, < 0.9)
@@ -129,7 +127,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ar-simple-idmap
   awesome_nested_set (= 1.4.3)
   barby (= 0.2.0)
   cairo
