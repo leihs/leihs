@@ -15,7 +15,7 @@ gem "cairo" # Needed to print SVG barcodes
 gem "hoptoad_notifier", '2.3.8'
 # gem "RubyInline", '3.8.2', :require => "inline"
 
-gem "rmagick", :require => 'RMagick' 
+gem "rmagick", '2.12.2', :require => 'RMagick' 
 gem "rgl", "0.4.0", :require => "rgl/adjacency"
 gem "will_paginate", '2.3.15'
 gem "thinking-sphinx", '1.3.20', :require => 'thinking_sphinx'
