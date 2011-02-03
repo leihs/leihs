@@ -361,6 +361,7 @@ ActiveRecord::Schema.define(:version => 90000000000014) do
     t.datetime "updated_at"
     t.string   "technical_detail"
     t.boolean  "delta",                                              :default => true
+    t.text     "hand_over_note"
   end
 
   add_index "models", ["delta"], :name => "index_models_on_delta"

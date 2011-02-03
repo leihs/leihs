@@ -55,7 +55,7 @@ class Backend::HandOverController < Backend::BackendController
         redirect_to :action => 'index'
       end
     else
-      @lines = @lines.delete_if {|l| l.item_id.nil? }
+      @lines = @lines.delete_if {|l| l.item.nil? } # NOTE l could be an option_line, then l.item_id.nil? doesn't work!
       if @lines.empty?
         flash[:error] = _("No items to hand over specified. Please assign inventory codes to the items you want to hand over.")
       else
