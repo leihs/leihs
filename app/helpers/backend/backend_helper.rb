@@ -423,25 +423,19 @@ module Backend::BackendHelper
           r = ""
           permission_needed = (l.item and l.item.needs_permission?)
           r += content_tag :td, :style => "text-align: right;" do
-            
             l.quantity
           end
-          r += content_tag :td, :class => "#{permission_needed ? "closed" : ""}" do 
-            w = "<br />"
-            if l.class.name == "ItemLine"
-              if !l.item.model.hand_over_note.blank?
-                w += content_tag :div, :class => 'hand_over_note' do
-                  "#{l.item.model.hand_over_note}"
-                end
-              end
+          r += content_tag :td, :class => "#{permission_needed ? "closed" : ""}" do
+            w = ""
+            if permission_needed
+              w += _("Permission needed:")
+              w += "<br />"
             end
-               
-            "#{permission_needed ? _("Permission needed:<br/>") : ""}#{l.model.name} #{w}"
-            
-            
-
-            
-
+            w += "#{l.model.name}<br />"
+            w += content_tag :div, :class => 'hand_over_note' do
+              "#{l.model.hand_over_note}"
+            end if l.class.name == "ItemLine" and not l.model.hand_over_note.blank?
+            w
           end
           r += content_tag :td do
             l.item.inventory_code
