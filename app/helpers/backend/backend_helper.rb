@@ -428,10 +428,14 @@ module Backend::BackendHelper
           end
           r += content_tag :td, :class => "#{permission_needed ? "closed" : ""}" do 
             w = "<br />"
-            w += content_tag :div, :class => 'hand_over_note' do
-              "#{l.item.model.hand_over_note}"
-            end unless l.item.nil? or l.item.model.nil? or l.item.model.hand_over_note.blank? # I know this is ugly -- it's only temporary until we get the redesign
-                                                                                              # Maybe determine the line's type and only use this if it's a model, not when it's an option?
+            if l.class.name == "ItemLine"
+              if !l.item.model.hand_over_note.blank?
+                w += content_tag :div, :class => 'hand_over_note' do
+                  "#{l.item.model.hand_over_note}"
+                end
+              end
+            end
+               
             "#{permission_needed ? _("Permission needed:<br/>") : ""}#{l.model.name} #{w}"
             
             
