@@ -72,9 +72,7 @@ class Backend::BackendController < ApplicationController
       flash[:notice] = document.errors.full_messages unless document.save
       unless @prevent_redirect # TODO 29**
         redirect_to :action => 'show',
-                    :id => document.id,
-                    :last_start_date => start_date,
-                    :last_end_date => end_date
+                    :id => document.id
       end
     else
       redirect_to :controller => 'models', 

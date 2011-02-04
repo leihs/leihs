@@ -80,16 +80,6 @@
 						</tr>
 					<!-- end header -->
 					<% content_tag :tr do
-						if params[:last_start_date]
-						  start_date = Date.parse(params[:last_start_date])
-						else
-						  start_date = Date.today
-						end
-						if params[:last_end_date]
-						  end_date = Date.parse(params[:last_end_date])
-						else
-						  end_date = @contract.next_open_date(start_date + 2.days)
-						end
 						content_tag :td, :colspan => 5, :class => "buttons" do %>
 							<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model"),
 									{:action => 'add_line'},
@@ -100,9 +90,9 @@
 									:onmouseup => "change_href_with_dates(this, 'start_date', 'end_date');",
 									:title => _("Add Option") ) %>
 							<%= _("for") %>
-							<%= text_field_tag :start_date, short_date(start_date), :size => 10 %>
+							<%= text_field_tag :start_date, nil, :size => 10 %>
 							-
-							<%= text_field_tag :end_date, short_date(end_date), :size => 10 %>
+							<%= text_field_tag :end_date, nil, :size => 10 %>
 
 				            <% locale = "de-CH" %>
 				            <%= javascript_include_tag "jquery/i18n/jquery.ui.datepicker-#{locale}" %>
@@ -112,16 +102,33 @@
 										showWeek: true,
 										minDate: 0,
 										onSelect: function( selectedDate ) {
-											var option = this.id == "start_date" ? "minDate" : "maxDate",
-												instance = $( this ).data( "datepicker" );
-												date = $.datepicker.parseDate(
-													instance.settings.dateFormat ||
-													$.datepicker._defaults.dateFormat,
-													selectedDate, instance.settings );
-											dates.not( this ).datepicker( "option", option, date );
+											setRange(selectedDate, this);
 										}
-									}, $.datepicker.regional["<%= locale %>"]);
-								});
+									}, $.datepicker.regional["<%= locale %>"]).change(function(){
+										setRange($(this).val(), this);
+									});
+									
+									var today = new Date(),
+										sd = sessionStorage.getItem('hand_over_start_date'),
+										ed = sessionStorage.getItem('hand_over_end_date');
+										
+									if(sd == null) sd = today;
+									$("#start_date").datepicker("setDate", sd);
+
+									if(ed == null) ed = today;
+									$("#end_date").datepicker("setDate", ed);
+									
+									function setRange(selectedDate, element){
+										sessionStorage.setItem('hand_over_'+element.id, selectedDate);
+										var option = element.id == "start_date" ? "minDate" : "maxDate",
+											instance = $( element ).data( "datepicker" );
+										date = $.datepicker.parseDate(
+												instance.settings.dateFormat ||
+												$.datepicker._defaults.dateFormat,
+												selectedDate, instance.settings );
+										dates.not( element ).datepicker( "option", option, date );
+									}
+								});								
 							<% end %>
 						<% end
 					end %>
