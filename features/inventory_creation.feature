@@ -25,6 +25,7 @@ Scenario: When an inventory is created, it should be visible in the frontend at 
          And I choose "item_is_borrowable_true"
          And I select "Poolice" from "item_inventory_pool_id"
          And I press "Create"
+         And I reindex # This shouldn't be necessary!
          And I follow the sloppy link "Frontend"
         When I wait for the spinner to disappear
          And I follow the sloppy link "Models"
