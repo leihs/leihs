@@ -65,6 +65,7 @@ namespace :leihs do
     end
 
     Rake::Task["db:reset"].invoke
+
     ENV['CUCUMBER_FORMAT'] = 'pretty' unless ENV['CUCUMBER_FORMAT']
     system "bundle exec cucumber"
     exit_code = $? >> 8 # magic brainfuck

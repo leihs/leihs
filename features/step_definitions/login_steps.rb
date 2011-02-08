@@ -25,7 +25,15 @@ end
 
 When 'I log in as the admin' do
   Given 'I am on the home page'
-  When  'I fill in "login_user" with "super_user_1"'
+  When 'I make sure I am logged out'
+  And  'I fill in "login_user" with "super_user_1"'
    And  'I fill in "login_password" with "pass"'
    And  'I press "Login"'
+end
+
+
+# It's possible that previous steps leave the running browser instance in a logged-in
+# state, which confuses tests that rely on "When I log in as the admin".
+When 'I make sure I am logged out' do
+  visit "/logout"
 end
