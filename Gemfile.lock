@@ -58,8 +58,6 @@ GEM
       rails (>= 2.3.2)
     gherkin (2.3.3)
       json (~> 1.4.6)
-    hoptoad_notifier (2.3.8)
-      activesupport
     json (1.4.6)
     json_pure (1.5.1)
     launchy (0.3.7)
@@ -137,7 +135,6 @@ DEPENDENCIES
   gettext (= 2.1.0)
   gettext_activerecord (= 2.1.0)
   gettext_rails (= 2.1.0)
-  hoptoad_notifier (= 2.3.8)
   launchy
   mysql
   newrelic_rpm (= 2.10.5)
