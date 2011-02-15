@@ -20,7 +20,7 @@
 			next if quantities.empty? 
 			content_tag :tr do
 				content_tag :td do %>
-					<%= show_line_model(ob.model) if ob.model != last_model %>
+					<%= ob.model == last_model ? '"' : show_line_model(ob.model)  %>
 				<% end
 				content_tag :td do %>
 		  			<%= dates_with_period(c.start_date, ob.changes.end_date_of(c)) %>  
