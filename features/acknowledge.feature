@@ -138,3 +138,21 @@ Scenario: Swap Model
 	 And it contains information 'Swapped NEC 245 for NEC 333'
 	 And it contains information 'NEC 333 is better than NEC 245'
 
+
+Scenario: Let the manager know when sending the confirmation mail fails
+
+	Given a model 'NEC 245' exists
+	  And 7 items of that model exist
+	  And there is only an order by 'Joe'
+	  And it asks for 5 items of model 'NEC 245'
+	  And Joe's email address is joe@test.ch
+	  And email delivery is broken
+	  And the order was submitted
+	When the lending_manager clicks on 'acknowledge'
+	Then he sees 1 order
+	When he chooses Joe's order
+	Then Joe's order is shown
+	When lending_manager approves order
+	Then lending_manager sees 0 orders
+	 And lending_manager sees an error message
+	 And email delivery is working again

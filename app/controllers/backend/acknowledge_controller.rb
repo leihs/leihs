@@ -27,6 +27,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   def approve
     if request.post? and @order.approve(params[:comment], current_user)
       # TODO test# @order.destroy # TODO remove old orders ?
+      flash[:error] = @order.errors.full_messages.join("\n") if @order.errors.size > 0
       redirect_to :action => 'index'
     else
       params[:layout] = "modal"

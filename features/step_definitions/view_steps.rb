@@ -16,6 +16,10 @@ When "lending_manager looks at the screen" do
 end
 
 Then "it will fail with an error" do
- # this is rails flash message... :
- @response.body.should =~ /class="error"/
+  Then "user sees an error message"
+end
+
+# Flash error message
+Then "$who sees an error message" do |who|
+  response.should have_tag('div.error')
 end

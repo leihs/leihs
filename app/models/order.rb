@@ -112,8 +112,6 @@ class Order < Document
       remove_backup
       save
 
-      Notification.order_approved(self, comment, send_mail, current_user)
-      
       contract = user.get_current_contract(self.inventory_pool)
       order_lines.each do |ol|
         ol.quantity.times do
@@ -124,7 +122,19 @@ class Order < Document
         end
       end   
       contract.save
-      
+
+      begin
+        Notification.order_approved(self, comment, send_mail, current_user)
+      rescue Exception => exception
+        # archive problem in the log, so the admin/developper
+        # can look up what happened
+        logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
+        self.errors.add_to_base(
+          _("The following error happened while sending a notification email to %{email}:\n") % { :user => user.email } +
+          "#{exception}.\n" +
+          _("That means that the user probably did not get the approval mail and you need to contact him/her in a different way."))
+      end
+
       return true
     else
       return false

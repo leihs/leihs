@@ -112,3 +112,16 @@ Then "the order should be approvable$reason" do |reason|
   @order.approvable?.should == true
 end
 
+###############################################
+
+require 'spec/mocks'
+
+Given "email delivery is broken" do
+  Notification.stub!(:order_approved).and_throw(:mail_is_borken)
+end
+
+Then "email delivery is working again" do
+  Spec::Mocks::Space#reset_all
+end
+
+###############################################
