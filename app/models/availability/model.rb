@@ -12,6 +12,9 @@ module Availability
     end
 
     def delete_availability_changes_in(inventory_pool)
+      #1402
+      partitions.in(inventory_pool).by_group(Group::GENERAL_GROUP_ID)
+
       Rails.cache.delete(availability_cache_key(inventory_pool))
     end
 

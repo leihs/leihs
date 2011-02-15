@@ -11,8 +11,23 @@ class ModelsController < FrontendController
     
     sort_mode = sort_mode.downcase.to_sym # OPTIMIZE 0501
 
-    with = {:borrowable_inventory_pool_id => current_inventory_pools.collect(&:id),
-            :group_id => current_user.groups.ids_including_general_to_i}
+    #1402 TODO refactor to User#accessible_models(current_inventory_pools)
+    model_ids = Model.all(:select => "DISTINCT models.id",
+                          :joins => [:items, :partitions],
+                          :conditions => ["items.inventory_pool_id IN (:ip_ids)
+                                             AND (partitions.group_id IN (:groups_ids)
+                                             OR (partitions.group_id IS NULL AND partitions.inventory_pool_id IN (:ip_ids)))",
+                                          {:ip_ids => current_inventory_pools.collect(&:id),
+                                           :groups_ids => current_user.group_ids}
+                                         ]).collect(&:id)
+#tmp#
+#    model_ids = Model.all(:select => "DISTINCT models.id",
+#                          :joins => :items,
+#                          :conditions => {:items => {:inventory_pool_id => current_inventory_pools.collect(&:id)}}).collect(&:id)
+#    group_ids = current_user.group_ids_including_general
+#    model_ids = model_ids.select {|m_id|  } or #model_ids.delete_if {|m|  }
+
+    with = {:sphinx_internal_id => model_ids }
 
     if category_id > 0
       category = Category.find(category_id)

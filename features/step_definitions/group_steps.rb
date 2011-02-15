@@ -38,7 +38,7 @@ end
 Then "that model should not be available in any group"  do
   @model.partitions.in(@inventory_pool).current_partition.\
 	 reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.\
-         reduce(:+).to_i.should == 0
+    size.should == 0
 end
 
 # TODO: currently unused

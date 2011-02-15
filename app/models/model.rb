@@ -78,16 +78,29 @@ class Model < ActiveRecord::Base
           @model.delete_availability_changes_in(@inventory_pool)
         end
 
+        # returns a hash {nil => 10, 41 => 3, 42 => 6, ...}
         def current_partition
-          r = {Group::GENERAL_GROUP_ID => by_group(Group::GENERAL_GROUP_ID)}
-          all.each {|p| r[p.group_id] = p.quantity }
+          r = {Group::GENERAL_GROUP_ID => by_group(Group::GENERAL_GROUP_ID)} # this are available for general group
+          all.each {|p| r[p.group_id] = p.quantity } # these are the partitions defined by the inventory manager
           r
         end
         
         def by_group(group)
           if group.nil?
-            @inventory_pool.items.borrowable.scoped_by_model_id(@model).count -
-              sum(:quantity)
+            #tmp#1402 @inventory_pool.items.borrowable.scoped_by_model_id(@model).count - sum(:quantity)
+            
+            quantity = @inventory_pool.items.borrowable.scoped_by_model_id(@model).count - sum(:quantity, :conditions => "group_id IS NOT NULL")
+            p = first(:conditions => {:group_id => Group::GENERAL_GROUP_ID})
+            if quantity > 0
+              if p
+                p.update_attributes(:quantity => quantity)
+              else
+                create(:group_id => Group::GENERAL_GROUP_ID, :quantity => quantity)
+              end
+            elsif p
+              p.destroy
+            end
+            quantity # TODO return p ??
           else
             scoped_by_group_id(group).first
           end
@@ -199,7 +212,6 @@ class Model < ActiveRecord::Base
 #    has items(:owner_id), :as => :owner_id
     has unretired_items(:inventory_pool_id), :as => :unretired_inventory_pool_id
     has unretired_items(:owner_id), :as => :unretired_owner_id
-#    has borrowable_items(:inventory_pool_id), :as => :borrowable_inventory_pool_id
 
     # item has at least one NULL parent_id and thus it has items that were not packaged
     # we collect all the inventory pools for which this is the case
@@ -220,8 +232,6 @@ class Model < ActiveRecord::Base
     
     has :is_package
     has categories(:id), :as => :category_id
-    has borrowable_items(:inventory_pool_id), :as => :borrowable_inventory_pool_id
-    has partitions(:group_id), :as => :group_id
     
     set_property :delta => true
   end

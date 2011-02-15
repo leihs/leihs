@@ -67,7 +67,11 @@ module Availability
       @changes = Changes.new
       reservations = model.running_reservations(inventory_pool)
       initial_change = Change.new(:date => Date.today)
-      model.partitions.in(inventory_pool).current_partition.each_pair do |group_id, quantity|
+      
+      current_partition = model.partitions.in(inventory_pool).current_partition
+      #1402 TODO write big model_ids partition hash ?? or keep it as instance variable ??
+      
+      current_partition.each_pair do |group_id, quantity|
         initial_change.quantities << Quantity.new(:group_id => group_id, :in_quantity => quantity)
       end
 

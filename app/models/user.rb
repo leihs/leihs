@@ -79,12 +79,11 @@ class User < ActiveRecord::Base
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
   has_many :reminders, :as => :target, :class_name => "History", :dependent => :destroy, :conditions => {:type_const => History::REMIND}, :order => 'created_at ASC'
 
-  #tmp#2#, :finder_sql => 'SELECT * FROM `groups` INNER JOIN `groups_users` ON `groups`.id = `groups_users`.group_id OR groups.inventory_pool_id IS NULL WHERE (`groups_users`.user_id = #{id})'
-  has_and_belongs_to_many :groups do
-     def ids_including_general_to_i
-       collect(&:id) + [Group::GENERAL_GROUP_ID.to_i]
-     end
-  end
+  has_and_belongs_to_many :groups #tmp#2#, :finder_sql => 'SELECT * FROM `groups` INNER JOIN `groups_users` ON `groups`.id = `groups_users`.group_id OR groups.inventory_pool_id IS NULL WHERE (`groups_users`.user_id = #{id})'
+#tmp#1402  
+#  def group_ids_including_general
+#    group_ids + [Group::GENERAL_GROUP_ID]
+#  end
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
