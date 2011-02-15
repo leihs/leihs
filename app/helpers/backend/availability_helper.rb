@@ -7,12 +7,6 @@ module Backend::AvailabilityHelper
     end if g    
   end
   
-  # TODO refactor to Date class
-  # returns number of day from Unix epoch
-  def date_to_i(date)
-    date.to_time.to_i / 86400
-  end
-  
   def availability_changes(availability)
     groups = [Group::GENERAL_GROUP_ID] + availability.inventory_pool.groups
     content_tag :table do
