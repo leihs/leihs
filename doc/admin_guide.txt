@@ -46,7 +46,26 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
 
 5. Download the latest version of leihs from our http://sourceforge.net/projects/leihs[SourceForge project page]. Unpack it to a convenient directory. We use the home directory of the 'leihs' user (/Users/leihs) to install leihs in. Of course you can use any directory.
 
-6. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
+6. Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
++
+ $ cd /tmp
+ $ wget http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
+ $ tar xvfz sphinx-0.9.9.tar.gz
+ $ cd sphinx-0.9.9
+ $ wget http://snowball.tartarus.org/dist/libstemmer_c.tgz
+ $ tar xvfz libstemmer_c.tgz
+ $ ./configure --with-libstemmer && make
+ $ sudo make install
+
+7. Install the required version of Rails as well as a few gems that cannot be installed automatically:
++
+ $ cd /home/leihs
+ $ sudo gem install -v=2.3.5 rails
+ $ sudo gem install bundler
+ $ sudo gem install rake
+ $ bundle install --deployment --without cucumber
+
+8. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
 +
  production:
     adapter: mysql
@@ -57,37 +76,17 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
     host: localhost
     port: 3306
 
-7. Create and migrate the database:
+9. Create and migrate the database:
 +
  $ RAILS_ENV='production' rake db:migrate db:seed
 
-8. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
+10. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
 +
  $ cd /home/leihs
  $ mkdir -p public/images/attachments
  $ mkdir -p tmp/sessions
  $ mkdir tmp/cache
  $ mkdir -p log
-
-9. Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
-+ 
- $ cd /tmp
- $ wget http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
- $ tar xvfz sphinx-0.9.9.tar.gz
- $ cd sphinx-0.9.9
- $ wget http://snowball.tartarus.org/dist/libstemmer_c.tgz
- $ tar xvfz libstemmer_c.tgz
- $ ./configure --with-libstemmer && make
- $ sudo make install
- $ sudo gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15
-
-10. Install the required version of Rails as well as a few gems that cannot be installed automatically:
-+
- $ cd /home/leihs
- $ sudo gem install -v=2.3.5 rails
- $ sudo gem install bundler
- $ sudo gem install rake
- $ bundle install --deployment --without cucumber
 
 11. Configure and start the Sphinx server:
 +
@@ -129,7 +128,7 @@ Finally, install the rmagick gem:
  
 === Installation on Debian GNU/Linux ===
 
-These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny).
+These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny) and Debian GNU/Linux 6.0 (Squeeze). They might also work on Ubuntu. You might have to substitute +sudo su+ for +su+ because Ubuntu does not configure a root password, thus +su+ would not work.
 
 1. Install Ruby and irb
 +
@@ -153,7 +152,27 @@ Note that the URL above might change! Please visit the RubyGems site to find the
 
 4. Download the latest version of leihs from our http://sourceforge.net/projects/leihs[SourceForge project page]. Unpack it to a convenient directory. We use the home directory of the 'leihs' user (/home/leihs) to install leihs in. Of course you can use any directory.
 
-5. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
+5. Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
++
+ $ cd /tmp
+ $ curl -C - -O http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
+ $ tar xvfz sphinx-0.9.9.tar.gz
+ $ cd sphinx-0.9.9
+ $ curl -C - -O http://snowball.tartarus.org/dist/libstemmer_c.tgz
+ $ tar xvfz libstemmer_c.tgz
+ $ ./configure --with-libstemmer && make
+ $ su
+ # make install
+
+6. Install the required version of Rails as well as a few gems that cannot be installed automatically:
++
+ # cd /home/leihs
+ # gem install -v=2.3.5 rails
+ # gem install bundler
+ # gem install rake
+ # bundle install --deployment --without cucumber
+
+7. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
 +
  production:
     adapter: mysql
@@ -164,39 +183,18 @@ Note that the URL above might change! Please visit the RubyGems site to find the
     host: localhost
     port: 3306
 
-6. Create and migrate the database:
+8. Create and migrate the database:
 +
  # su - leihs
  $ RAILS_ENV='production' rake db:migrate db:seed
 
-7. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
+9. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
 +
  $ cd /home/leihs
  $ mkdir -p public/images/attachments
  $ mkdir -p tmp/sessions
  $ mkdir tmp/cache
  $ mkdir -p log
- 
-8. Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
-+ 
- $ cd /tmp
- $ curl -C - -O http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
- $ tar xvfz sphinx-0.9.9.tar.gz
- $ cd sphinx-0.9.9
- $ curl -C - -O http://snowball.tartarus.org/dist/libstemmer_c.tgz
- $ tar xvfz libstemmer_c.tgz
- $ ./configure --with-libstemmer && make
- $ su
- # make install
- # gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15
-
-9. Install the required version of Rails as well as a few gems that cannot be installed automatically:
-+
- # cd /home/leihs
- # gem install -v=2.3.5 rails
- # gem install bundler
- # gem install rake
- # bundle install --deployment --without cucumber
  
 10. Configure and start the Sphinx server:
 +
@@ -419,5 +417,27 @@ As an example to help you set up a production environment, here is the Apache co
    # is *no* static file (!-f)
    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-f
    RewriteRule .* balancer://leihs_cluster%{REQUEST_URI} [L,P,QSA]
+</VirtualHost>
+----------------------------
+
+
+== Appendix B: ZHdK configuration file for mod_passenger ==
+
+This configuration is recommended for anyone who is already running an Apache or nginx web server.
+
+http://www.modrails.com[Download Phusion Passenger] and install it according to the http://modrails.com/install.html[installation instructions].
+
+Afterwards, a simple VirtualHost entry will be enough for Apache to pick up your leihs/Rails app:
+
+----------------------------
+<VirtualHost *:80>
+   ServerName your.leihs.example.com
+   DocumentRoot /home/leihs/public/
+
+   <Directory /home/leihs/public>
+      AllowOverride all
+      Options -MultiViews
+   </Directory>
+
 </VirtualHost>
 ----------------------------

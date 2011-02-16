@@ -617,6 +617,35 @@ Download the latest version of leihs from our <a href="http://sourceforge.net/pr
 </li>
 <li>
 <p>
+Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd /tmp
+$ wget http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
+$ tar xvfz sphinx-0.9.9.tar.gz
+$ cd sphinx-0.9.9
+$ wget http://snowball.tartarus.org/dist/libstemmer_c.tgz
+$ tar xvfz libstemmer_c.tgz
+$ ./configure --with-libstemmer &amp;&amp; make
+$ sudo make install</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Install the required version of Rails as well as a few gems that cannot be installed automatically:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd /home/leihs
+$ sudo gem install -v=2.3.5 rails
+$ sudo gem install bundler
+$ sudo gem install rake
+$ bundle install --deployment --without cucumber</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
 Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
 </p>
 <div class="literalblock">
@@ -637,7 +666,7 @@ Create and migrate the database:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ RAILS_ENV='production' rake db:migrate</tt></pre>
+<pre><tt>$ RAILS_ENV='production' rake db:migrate db:seed</tt></pre>
 </div></div>
 </li>
 <li>
@@ -651,36 +680,6 @@ $ mkdir -p public/images/attachments
 $ mkdir -p tmp/sessions
 $ mkdir tmp/cache
 $ mkdir -p log</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ cd /tmp
-$ wget http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
-$ tar xvfz sphinx-0.9.9.tar.gz
-$ cd sphinx-0.9.9
-$ wget http://snowball.tartarus.org/dist/libstemmer_c.tgz
-$ tar xvfz libstemmer_c.tgz
-$ ./configure --with-libstemmer &amp;&amp; make
-$ sudo make install
-$ sudo gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Install the required version of Rails as well as a few gems that cannot be installed automatically:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ cd /home/leihs
-$ sudo gem install -v=2.3.5 rails
-$ sudo gem install bundler
-$ sudo gem install rake
-$ bundle install</tt></pre>
 </div></div>
 </li>
 <li>
@@ -739,7 +738,7 @@ export PATH</tt></pre>
 </li>
 </ol></div>
 <h3 id="_installation_on_debian_gnu_linux">Installation on Debian GNU/Linux</h3><div style="clear:left"></div>
-<div class="paragraph"><p>These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny).</p></div>
+<div class="paragraph"><p>These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny) and Debian GNU/Linux 6.0 (Squeeze). They might also work on Ubuntu. You might have to substitute <tt>sudo su</tt> for <tt>su</tt> because Ubuntu does not configure a root password, thus <tt>su</tt> would not work.</p></div>
 <div class="olist arabic"><ol class="arabic">
 <li>
 <p>
@@ -782,6 +781,36 @@ Download the latest version of leihs from our <a href="http://sourceforge.net/pr
 </li>
 <li>
 <p>
+Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd /tmp
+$ curl -C - -O http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
+$ tar xvfz sphinx-0.9.9.tar.gz
+$ cd sphinx-0.9.9
+$ curl -C - -O http://snowball.tartarus.org/dist/libstemmer_c.tgz
+$ tar xvfz libstemmer_c.tgz
+$ ./configure --with-libstemmer &amp;&amp; make
+$ su
+# make install</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Install the required version of Rails as well as a few gems that cannot be installed automatically:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt># cd /home/leihs
+# gem install -v=2.3.5 rails
+# gem install bundler
+# gem install rake
+# bundle install --deployment --without cucumber</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
 Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
 </p>
 <div class="literalblock">
@@ -803,7 +832,7 @@ Create and migrate the database:
 <div class="literalblock">
 <div class="content">
 <pre><tt># su - leihs
-$ RAILS_ENV='production' rake db:migrate</tt></pre>
+$ RAILS_ENV='production' rake db:migrate db:seed</tt></pre>
 </div></div>
 </li>
 <li>
@@ -817,37 +846,6 @@ $ mkdir -p public/images/attachments
 $ mkdir -p tmp/sessions
 $ mkdir tmp/cache
 $ mkdir -p log</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ cd /tmp
-$ curl -C - -O http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
-$ tar xvfz sphinx-0.9.9.tar.gz
-$ cd sphinx-0.9.9
-$ curl -C - -O http://snowball.tartarus.org/dist/libstemmer_c.tgz
-$ tar xvfz libstemmer_c.tgz
-$ ./configure --with-libstemmer &amp;&amp; make
-$ su
-# make install
-# gem install thinking-sphinx --source http://gemcutter.org -v 1.3.15</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Install the required version of Rails as well as a few gems that cannot be installed automatically:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt># cd /home/leihs
-# gem install -v=2.3.5 rails
-# gem install bundler
-# gem install rake
-# bundle install</tt></pre>
 </div></div>
 </li>
 <li>
@@ -1193,11 +1191,30 @@ $ RAILS_ENV=production rake ts:start</tt></pre>
 &lt;/VirtualHost&gt;</tt></pre>
 </div></div>
 </div>
+<h2 id="_appendix_b_zhdk_configuration_file_for_mod_passenger">Appendix B: ZHdK configuration file for mod_passenger</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This configuration is recommended for anyone who is already running an Apache or nginx web server.</p></div>
+<div class="paragraph"><p><a href="http://www.modrails.com">Download Phusion Passenger</a> and install it according to the <a href="http://modrails.com/install.html">installation instructions</a>.</p></div>
+<div class="paragraph"><p>Afterwards, a simple VirtualHost entry will be enough for Apache to pick up your leihs/Rails app:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>&lt;VirtualHost *:80&gt;
+   ServerName your.leihs.example.com
+   DocumentRoot /home/leihs/public/
+
+   &lt;Directory /home/leihs/public&gt;
+      AllowOverride all
+      Options -MultiViews
+   &lt;/Directory&gt;
+
+&lt;/VirtualHost&gt;</tt></pre>
+</div></div>
+</div>
 </div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2010-11-25 12:03:12 CEST
+Last updated 2011-02-16 08:42:43 CEST
 </div>
 </div>
 </body>
