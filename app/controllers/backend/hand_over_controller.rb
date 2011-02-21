@@ -148,11 +148,14 @@ class Backend::HandOverController < Backend::BackendController
       # Increment quantity if the option is already present
       option = current_inventory_pool.options.first(:conditions => { :inventory_code => params[:code] })
       if option
-        @option_line = @contract.option_lines.find_or_create_by_option_id(:option_id => option,
-                                                                          :quantity => 0,
-                                                                          :start_date => @contract.time_window_min, # TODO @contract.latest_defined_time_window_min
-                                                                          :end_date => @contract.time_window_max) # TODO @contract.latest_defined_time_window_max
-        @option_line.update_attributes(:quantity => @option_line.quantity + 1)
+        conditions = {:option_id => option, :start_date => params[:start_date], :end_date => params[:end_date]}
+        @option_line = @contract.option_lines.first(:conditions => conditions)
+        if @option_line
+          @option_line.increment!(:quantity)
+        else
+          @option_line = @contract.option_lines.create(conditions)
+        end
+                                                                          
         flash[:notice] = _("Option %s added.") % option.name
       else
         flash[:error] = _("The Inventory Code %s was not found.") % params[:code]
