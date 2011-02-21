@@ -2,16 +2,20 @@
 	<%= _("Current group quantities") %>
 <% end %>
 
-<% form_tag set_group_partition_backend_inventory_pool_model_path(current_inventory_pool, @model) do
+<%
+borrowable_items = current_inventory_pool.items.borrowable.scoped_by_model_id(@model).count
+unborrowable_items = current_inventory_pool.items.unborrowable.scoped_by_model_id(@model).count
+
+form_tag set_group_partition_backend_inventory_pool_model_path(current_inventory_pool, @model) do
 	content_tag :table, :id => "groups" do
 		content_tag :tr do
 			content_tag :th do %>
 			<% end
 			content_tag :th do %>
-				<%= _("Borrowable (%d)") % current_inventory_pool.items.borrowable.scoped_by_model_id(@model).count %>
+				<%= _("Borrowable (%d)") % borrowable_items %>
 			<% end
 			content_tag :th do %>
-				<%= _("Unborrowable (%d)") % current_inventory_pool.items.unborrowable.scoped_by_model_id(@model).count %>
+				<%= _("Unborrowable (%d)") % unborrowable_items %>
 			<% end
 		end
 		content_tag :tr do
@@ -42,12 +46,14 @@
 	<%= submit_tag _("Submit") %>		
 <% end %>
 
-<% # TODO: please explain what this JS code does %>
-<% javascript_tag do %>
+<%
+# automatically computes the rest quantity for the general group
+# rest = borrowable_items - allocated_items_to_groups
+javascript_tag do %>
 	jQuery(document).ready(function($){
 		var general_in_stock = $("td#general_in_stock");
 		$("#groups input").keyup(function(){
-			var rest = <%= current_inventory_pool.items.borrowable.scoped_by_model_id(@model).count %>;
+			var rest = <%= borrowable_items %>;
 			$("#groups input").each(function(){
 				var val = $(this).val() * 1; 
 				rest -=  val;

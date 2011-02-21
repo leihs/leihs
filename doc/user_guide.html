@@ -560,6 +560,21 @@ footnotes: function () {
 </div>
 </div>
 <div id="content">
+<h2 id="_user_guide_warning">User Guide Warning</h2>
+<div class="sectionbody">
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">This user guide is a work in progress. Officially, leihs does not
+have user documentation yet, this is just a collection of copy/pasted
+information we assembled over the years.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>If you want to help the project and write a user guide for leihs, see
+the section "About this Document".</p></div>
+</div>
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>leihs is web-based inventory handling and resource booking system. It allows
@@ -682,6 +697,49 @@ process.</p></div>
 items, then he can configure that.  There is a checkbox "Print contracts" in
 Backend&#8594;Administration&#8594;Inventory Pool&#8594;bottom of the page.</p></div>
 </div>
+<h2 id="_groups">Groups</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>If you immediately want to try out the "Groups" feature, then go to the
+backend of one of your inventory pools, then either to "Own models" or
+"Models" (anywhere you have models, really). Now edit some model. In the
+leftmost tab shows you the "Availability" of that model where you can
+choose to "Change group quantities".</p></div>
+<div class="paragraph"><p>Let&#8217;s explain the feature using an example. Let&#8217;s we have the following
+situation:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+there are 40 cameras of type Canon XYZ
+</p>
+</li>
+<li>
+<p>
+20 should be borrowable by everybody (through the "General Group",
+  which is being managed automatically by the system)
+</p>
+</li>
+<li>
+<p>
+10 should be available to users in "Photography students" "Group" only
+</p>
+</li>
+<li>
+<p>
+and 10 should be in the "Group" "Web and videocasting students"
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Let&#8217;s say you have 150 photography students and 3000 students in
+total. This makes sure that the photography students have a
+disproportianate number of cameras available to them, so they&#8217;re more
+likely to get one when they do need to book a camera.</p></div>
+<div class="paragraph"><p>Or you can use it to manage certification situations. One could make
+certain expensive cameras are only borrowable by people who took a
+course on how to correctly handle that camera. So we could create a
+"Group" "Certified for Big Camera" and add <em>all</em> those cameras to
+that group. And then add users one by one, as they show up with a
+proof that they took the course.</p></div>
+</div>
 <h2 id="_about_this_document">About this Document</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>This document was written in Asciidoc: <a href="http://www.methods.co.nz/asciidoc/">http://www.methods.co.nz/asciidoc/</a></p></div>
@@ -703,7 +761,7 @@ repository from <a href="http://github.com/psy-q/leihs">http://github.com/psy-q/
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2010-11-04 10:12:20 CEST
+Last updated 2011-01-13 09:54:54 CEST
 </div>
 </div>
 </body>
