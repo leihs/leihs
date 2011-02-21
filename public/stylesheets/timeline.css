@@ -1,0 +1,28 @@
+#my_timeline table tr {
+	background: none;
+	border: none;
+}
+#my_timeline table tr td {
+	vertical-align: top;
+	padding-top: 30px;
+	padding-left: 0.2em;
+	font-size: 0.7em;
+	color: #555555;
+}
+#my_timeline .timeline-date-label {
+	color: #111111;
+	padding-left: 0.5em;
+}
+#my_timeline .timeline-band-0 .timeline-ether-bg {
+	background-color: #e9ef6f;
+}
+#my_timeline .timeline-ether-highlight {
+	background-color: #98d9e7;
+}
+#my_timeline .timeline-event-label {
+	padding-left: 0.4em;
+	font-size: 0.9em;
+}
+#my_timeline .tape-unavailable {
+	border: 1px solid red;
+}
