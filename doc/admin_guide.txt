@@ -137,9 +137,9 @@ These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Len
 2. Install RubyGems from http://rubygems.org/[the RubyGems website]. Make sure *not to install* the edition of RubyGems that is available from Debian's package archives. RubyGem development moves so quickly that we need to use the one from upstream.
 +
  # cd /tmp
- # wget http://rubyforge.org/frs/download.php/56227/rubygems-1.3.3.tgz 
- # tar xvfz rubygems-1.3.3.tgz
- # cd rubygems-1.3.3
+ # wget http://rubyforge.org/frs/download.php/56227/rubygems-1.5.2.tgz 
+ # tar xvfz rubygems-1.5.2.tgz
+ # cd rubygems-1.5.2
  # ruby setup.rb
  # ln -s /usr/bin/gem1.8 /usr/bin/gem
 +
