@@ -646,7 +646,7 @@ $ bundle install --deployment --without cucumber</tt></pre>
 </li>
 <li>
 <p>
-Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
+Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a production database configuration:
 </p>
 <div class="literalblock">
 <div class="content">
@@ -666,7 +666,8 @@ Create and migrate the database:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ RAILS_ENV='production' rake db:migrate db:seed</tt></pre>
+<pre><tt>$ RAILS_ENV=production rake db:migrate
+$ RAILS_ENV=production rake db:seed</tt></pre>
 </div></div>
 </li>
 <li>
@@ -688,9 +689,9 @@ Configure and start the Sphinx server:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ RAILS_ENV='production' rake ts:config
-$ RAILS_ENV='production' rake ts:reindex
-$ RAILS_ENV='production' rake ts:start</tt></pre>
+<pre><tt>$ RAILS_ENV=production rake ts:config
+$ RAILS_ENV=production rake ts:reindex
+$ RAILS_ENV=production rake ts:start</tt></pre>
 </div></div>
 </li>
 <li>
@@ -699,7 +700,7 @@ Start the server:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ RAILS_ENV='production' ./script/server</tt></pre>
+<pre><tt>$ RAILS_ENV=production ./script/server</tt></pre>
 </div></div>
 <div class="paragraph"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
 <div class="paragraph"><p>This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.</p></div>
@@ -711,7 +712,7 @@ Set up a system cronjob that sends nightly e-mail reminders and, more importantl
 <div class="paragraph"><p>In crontab format, an example job for a production environment would look like this:</p></div>
 <div class="literalblock">
 <div class="content">
-<pre><tt>1 00    * * *   cd /home/leihs &amp;&amp; RAILS_ENV='production' rake leihs:cron</tt></pre>
+<pre><tt>1 00    * * *   cd /home/leihs &amp;&amp; RAILS_ENV=production rake leihs:cron</tt></pre>
 </div></div>
 <div class="paragraph"><p>The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.</p></div>
 </li>
@@ -770,7 +771,7 @@ Install the MySQL header files and the MySQL gem:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt># apt-get install libmysqlclient15-dev make
+<pre><tt># apt-get install libmysqlclient15-dev make build-essential
 # gem install mysql</tt></pre>
 </div></div>
 </li>
@@ -786,10 +787,10 @@ Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). 
 <div class="literalblock">
 <div class="content">
 <pre><tt>$ cd /tmp
-$ curl -C - -O http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
+$ wget http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
 $ tar xvfz sphinx-0.9.9.tar.gz
 $ cd sphinx-0.9.9
-$ curl -C - -O http://snowball.tartarus.org/dist/libstemmer_c.tgz
+$ wget http://snowball.tartarus.org/dist/libstemmer_c.tgz
 $ tar xvfz libstemmer_c.tgz
 $ ./configure --with-libstemmer &amp;&amp; make
 $ su
@@ -811,7 +812,7 @@ Install the required version of Rails as well as a few gems that cannot be insta
 </li>
 <li>
 <p>
-Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
+Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a production database configuration:
 </p>
 <div class="literalblock">
 <div class="content">
@@ -832,7 +833,8 @@ Create and migrate the database:
 <div class="literalblock">
 <div class="content">
 <pre><tt># su - leihs
-$ RAILS_ENV='production' rake db:migrate db:seed</tt></pre>
+$ RAILS_ENV=production rake db:migrate
+$ RAILS_ENV=production rake db:seed</tt></pre>
 </div></div>
 </li>
 <li>
@@ -855,9 +857,9 @@ Configure and start the Sphinx server:
 <div class="literalblock">
 <div class="content">
 <pre><tt>$ cd /home/leihs
-$ RAILS_ENV='production' rake ts:config
-$ RAILS_ENV='production' rake ts:reindex
-$ RAILS_ENV='production' rake ts:start</tt></pre>
+$ RAILS_ENV=production rake ts:config
+$ RAILS_ENV=production rake ts:reindex
+$ RAILS_ENV=production rake ts:start</tt></pre>
 </div></div>
 </li>
 <li>
@@ -867,7 +869,7 @@ Start the leihs server:
 <div class="literalblock">
 <div class="content">
 <pre><tt>$ cd /home/leihs
-$ RAILS_ENV='production' ./script/server</tt></pre>
+$ RAILS_ENV=production ./script/server</tt></pre>
 </div></div>
 <div class="paragraph"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
 <div class="paragraph"><p>This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.</p></div>
@@ -878,7 +880,7 @@ Set up a system cronjob that sends nightly e-mail reminders and, more importantl
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>1 00    * * *   cd /home/leihs &amp;&amp; RAILS_ENV='production' rake leihs:cron</tt></pre>
+<pre><tt>1 00    * * *   cd /home/leihs &amp;&amp; RAILS_ENV=production rake leihs:cron</tt></pre>
 </div></div>
 <div class="paragraph"><p>The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.</p></div>
 </li>
@@ -946,7 +948,7 @@ Run the database migration to get all your data up to the new version:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ RAILS_ENV='production' rake db:migrate</tt></pre>
+<pre><tt>$ RAILS_ENV=production rake db:migrate</tt></pre>
 </div></div>
 </li>
 <li>
@@ -960,7 +962,7 @@ Run the server. Make sure you stop your previous leihs server!
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ RAILS_ENV='production' ./script/server</tt></pre>
+<pre><tt>$ RAILS_ENV=production ./script/server</tt></pre>
 </div></div>
 </li>
 </ol></div>
@@ -1010,7 +1012,7 @@ Run the database migration to get all your data up to the new version:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ RAILS_ENV='production' rake db:migrate</tt></pre>
+<pre><tt>$ RAILS_ENV=production rake db:migrate</tt></pre>
 </div></div>
 </li>
 <li>
@@ -1019,7 +1021,7 @@ Run the server. Make sure you stop your previous leihs server!
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ RAILS_ENV='production' ./script/server</tt></pre>
+<pre><tt>$ RAILS_ENV=production ./script/server</tt></pre>
 </div></div>
 </li>
 </ol></div>
@@ -1070,7 +1072,7 @@ Run the database migration to get all your data up to the new version:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ RAILS_ENV='production' rake db:migrate</tt></pre>
+<pre><tt>$ RAILS_ENV=production rake db:migrate</tt></pre>
 </div></div>
 </li>
 <li>
@@ -1079,7 +1081,7 @@ Run the server. Make sure you stop your previous leihs server! If you use mod_pa
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ RAILS_ENV='production' ./script/server</tt></pre>
+<pre><tt>$ RAILS_ENV=production ./script/server</tt></pre>
 </div></div>
 </li>
 <li>
@@ -1214,7 +1216,7 @@ $ RAILS_ENV=production rake ts:start</tt></pre>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2011-02-21 15:56:54 CEST
+Last updated 2011-02-21 16:49:12 CEST
 </div>
 </div>
 </body>

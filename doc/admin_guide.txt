@@ -65,7 +65,7 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
  $ sudo gem install rake
  $ bundle install --deployment --without cucumber
 
-8. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
+8. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a production database configuration:
 +
  production:
     adapter: mysql
@@ -78,7 +78,8 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
 
 9. Create and migrate the database:
 +
- $ RAILS_ENV='production' rake db:migrate db:seed
+ $ RAILS_ENV=production rake db:migrate
+ $ RAILS_ENV=production rake db:seed
 
 10. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
 +
@@ -90,13 +91,13 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
 
 11. Configure and start the Sphinx server:
 +
- $ RAILS_ENV='production' rake ts:config
- $ RAILS_ENV='production' rake ts:reindex
- $ RAILS_ENV='production' rake ts:start
+ $ RAILS_ENV=production rake ts:config
+ $ RAILS_ENV=production rake ts:reindex
+ $ RAILS_ENV=production rake ts:start
 
 12. Start the server:
 +
- $ RAILS_ENV='production' ./script/server
+ $ RAILS_ENV=production ./script/server
 +
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
 +
@@ -106,7 +107,7 @@ This gives you a test setup using the pure Ruby WebRick web server. For producti
 +
 In crontab format, an example job for a production environment would look like this:
 +
- 1 00    * * *   cd /home/leihs && RAILS_ENV='production' rake leihs:cron
+ 1 00    * * *   cd /home/leihs && RAILS_ENV=production rake leihs:cron
 +
 The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.
 
@@ -147,7 +148,7 @@ Note that the URL above might change! Please visit the RubyGems site to find the
 
 3. Install the MySQL header files and the MySQL gem:
 +
- # apt-get install libmysqlclient15-dev make
+ # apt-get install libmysqlclient15-dev make build-essential
  # gem install mysql
 
 4. Download the latest version of leihs from our http://sourceforge.net/projects/leihs[SourceForge project page]. Unpack it to a convenient directory. We use the home directory of the 'leihs' user (/home/leihs) to install leihs in. Of course you can use any directory.
@@ -155,10 +156,10 @@ Note that the URL above might change! Please visit the RubyGems site to find the
 5. Download Sphinx (a fulltext search system) and install thinking-sphinx (a gem). In this example we also include libstemmer, a library that allows for word stem searching in various languages. We use version 0.9.9:
 +
  $ cd /tmp
- $ curl -C - -O http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
+ $ wget http://sphinxsearch.com/downloads/sphinx-0.9.9.tar.gz
  $ tar xvfz sphinx-0.9.9.tar.gz
  $ cd sphinx-0.9.9
- $ curl -C - -O http://snowball.tartarus.org/dist/libstemmer_c.tgz
+ $ wget http://snowball.tartarus.org/dist/libstemmer_c.tgz
  $ tar xvfz libstemmer_c.tgz
  $ ./configure --with-libstemmer && make
  $ su
@@ -172,7 +173,7 @@ Note that the URL above might change! Please visit the RubyGems site to find the
  # gem install rake
  # bundle install --deployment --without cucumber
 
-7. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a development-mode database configuration:
+7. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a production database configuration:
 +
  production:
     adapter: mysql
@@ -186,7 +187,8 @@ Note that the URL above might change! Please visit the RubyGems site to find the
 8. Create and migrate the database:
 +
  # su - leihs
- $ RAILS_ENV='production' rake db:migrate db:seed
+ $ RAILS_ENV=production rake db:migrate
+ $ RAILS_ENV=production rake db:seed
 
 9. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
 +
@@ -199,14 +201,14 @@ Note that the URL above might change! Please visit the RubyGems site to find the
 10. Configure and start the Sphinx server:
 +
  $ cd /home/leihs
- $ RAILS_ENV='production' rake ts:config
- $ RAILS_ENV='production' rake ts:reindex
- $ RAILS_ENV='production' rake ts:start
+ $ RAILS_ENV=production rake ts:config
+ $ RAILS_ENV=production rake ts:reindex
+ $ RAILS_ENV=production rake ts:start
 
 11. Start the leihs server:
 +
  $ cd /home/leihs
- $ RAILS_ENV='production' ./script/server
+ $ RAILS_ENV=production ./script/server
 +
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
 +
@@ -214,7 +216,7 @@ This gives you a test setup using the pure Ruby WebRick web server. For producti
 
 12. Set up a system cronjob that sends nightly e-mail reminders and, more importantly, updates all the models' availability counts. There are many ways to schedule repeating tasks on GNU/Linux, but here's a line in crontab-format that you can add to your leihs user's crontab using e.g. +crontab -e+:
 +
- 1 00    * * *   cd /home/leihs && RAILS_ENV='production' rake leihs:cron
+ 1 00    * * *   cd /home/leihs && RAILS_ENV=production rake leihs:cron
 +
 The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.
 
@@ -253,13 +255,13 @@ The upgrade should be painless.
 
 5. Run the database migration to get all your data up to the new version:
 +
- $ RAILS_ENV='production' rake db:migrate
+ $ RAILS_ENV=production rake db:migrate
 
 6. Rerun the steps from the section "Configure and start the Sphinx server" relevant for your operating system in order to create/update your fulltext search index and make sure Sphinx is running.
 
 7. Run the server. Make sure you stop your previous leihs server!
 +
- $ RAILS_ENV='production' ./script/server
+ $ RAILS_ENV=production ./script/server
 
 If everything went correctly, you should see leihs coming up at http://localhost:3000. 
 
@@ -286,11 +288,11 @@ The upgrade should be painless.
 
 5. Run the database migration to get all your data up to the new version:
 +
- $ RAILS_ENV='production' rake db:migrate
+ $ RAILS_ENV=production rake db:migrate
 
 6. Run the server. Make sure you stop your previous leihs server!
 +
- $ RAILS_ENV='production' ./script/server
+ $ RAILS_ENV=production ./script/server
 
 If everything went correctly, you should see leihs coming up at http://localhost:3000. 
 
@@ -319,11 +321,11 @@ If you had existing user levels in your system, these will be automatically conv
 
 5. Run the database migration to get all your data up to the new version:
 +
- $ RAILS_ENV='production' rake db:migrate
+ $ RAILS_ENV=production rake db:migrate
 
 6. Run the server. Make sure you stop your previous leihs server! If you use mod_passenger, do +touch tmp/restart.txt+ instead.
 +
- $ RAILS_ENV='production' ./script/server
+ $ RAILS_ENV=production ./script/server
 
 7. Stop the Sphinx server that's running for leihs 2.2.:
 +
