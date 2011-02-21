@@ -6,7 +6,10 @@ module Backend::AvailabilityHelper
       "#{_("Group")}: #{g}"
     end if g    
   end
-  
+
+  # Display a table with the changes of availability of a model
+  # along with information on who the customer is that borrowed
+  # the item on that day 
   def availability_changes(availability)
     groups = [Group::GENERAL_GROUP_ID] + availability.inventory_pool.groups
     content_tag :table do
@@ -41,7 +44,9 @@ module Backend::AvailabilityHelper
                 aq.document_lines.collect do |dl|
                   content_tag :li do
                     extra_info = dl.item.try(:inventory_code) || _("Quantity: %d") % dl.quantity
-                    "#{dl.document.user} (#{extra_info}) => #{short_date(dl.end_date)}"
+                    link_to \
+                      "#{dl.document.user} (#{extra_info}) => #{short_date(dl.end_date)}",
+                      backend_inventory_pool_user_path(@current_inventory_pool, dl.document.user)
                   end
                 end.join
               end
@@ -51,7 +56,7 @@ module Backend::AvailabilityHelper
       end.join
     end
   end
-  
+
   def availability_periods_merged_groups(model, inventory_pool, user)
     start_date = Date.today
     end_date = Availability::ETERNITY
