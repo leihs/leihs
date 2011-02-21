@@ -18,6 +18,7 @@ jQuery(document).ready(function($){
 				target.html("Loading...");
 			},
 			success: function(response){
+				target.parent().removeClass("buttons"); /* not a button any more */
 				target.replaceWith(response);
 			}
 		});
