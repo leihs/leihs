@@ -4,25 +4,9 @@
 <%#temp#= pie_for_model(@model) if is_privileged_user? %>
 
 <% content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do %>
-	<%= link_to icon_tag("group") + " " + _("Current group quantities"), [:groups, :backend, current_inventory_pool, @model], :"data-remote" => true %>
+	<%= link_to icon_tag("group") + " " + _("Current group quantities"),
+                [:groups, :backend, current_inventory_pool, @model],
+                :"data-remote" => true,
+                :onClick => "replace_content(this); return false;" %>
 <% end %>
 
-<% javascript_tag do %>
-jQuery(document).ready(function($){
-	// OPTIMIZE use UJS rails.js
-	$("a[data-remote]").click(function() {
-		var target = $(this);
-		$.ajax({
-			url: target.attr("href"),
-			beforeSend: function(){
-				target.html("Loading...");
-			},
-			success: function(response){
-				target.parent().removeClass("buttons"); /* not a button any more */
-				target.replaceWith(response);
-			}
-		});
-		return false;
-	});
-});
-<% end %>

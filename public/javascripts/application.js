@@ -191,3 +191,19 @@ function show_date(d,f){
 	
 	return r;
 }
+
+function replace_content(element) {
+	// OPTIMIZE use UJS rails.js
+	var target = jQuery(element);
+	jQuery.ajax({
+		url: target.attr("href"),
+		beforeSend: function(){
+			target.html("Loading...");
+		},
+		success: function(response){
+			target.parent().removeClass("buttons"); /* not a button any more */
+			target.replaceWith(response);
+		}
+	});
+	return false;
+}
