@@ -1,5 +1,8 @@
 module Backend::ModelsHelper
-  
+
+  # creates a javascript widget that displays the
+  # availability and allocation of a model over time
+  #
   def timeline(model, inventory_pool)
     content_for :head do
       r = javascript_tag do
