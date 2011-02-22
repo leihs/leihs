@@ -59,7 +59,7 @@ module Availability
           new_change.quantities << Quantity.new( :out_quantity => quantity.out_quantity,
                                                  :in_quantity  => quantity.in_quantity,
                                                  :group_id     => quantity.group_id,
-                                                 :out_document_lines => quantity.out_document_lines)
+                                                 :out_document_lines => quantity.out_document_lines.clone)
         end
         self << new_change
         return new_change
