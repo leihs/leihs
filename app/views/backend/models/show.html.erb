@@ -7,6 +7,6 @@
 	<%= link_to icon_tag("group") + " " + _("Current group quantities"),
                 [:groups, :backend, current_inventory_pool, @model],
                 :"data-remote" => true,
-                :onClick => "replace_content(this); return false;" %>
+                :onClick => "replace_with_target(this); return false;" %>
 <% end %>
 

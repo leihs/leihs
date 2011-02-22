@@ -192,7 +192,7 @@ function show_date(d,f){
 	return r;
 }
 
-function replace_content(element) {
+function replace_with_target(element) {
 	// OPTIMIZE use UJS rails.js
 	var target = jQuery(element);
 	jQuery.ajax({
