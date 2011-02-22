@@ -9,7 +9,8 @@ module Backend::AvailabilityHelper
 
   # Display a table with the changes of availability of a model
   # along with information on who the customer is that borrowed
-  # the item on that day 
+  # the item on that day.
+  #
   def availability_changes(availability)
     groups = [Group::GENERAL_GROUP_ID] + availability.inventory_pool.groups
     content_tag :table do
