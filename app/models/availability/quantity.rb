@@ -5,8 +5,10 @@ module Availability
     attr_accessor :in_quantity
     attr_accessor :out_quantity
     attr_accessor :out_document_lines
+    # out_document_lines = { "ItemLine"        => [222, 432,  ...],
+    #                        "AnotherKindLine" => [987, 2232, ...],
+    #                      }
 
-    ##############
     def group
       if @group_id
         ::Group.find @group_id
@@ -14,7 +16,6 @@ module Availability
         Group::GENERAL_GROUP_ID
       end
     end
-    ##############
 
     def initialize(attr)
       @group_id = attr[:group_id]
@@ -26,7 +27,8 @@ module Availability
     def append_to_out_document_lines(type, id)
       @out_document_lines[type] ||= []
       @out_document_lines[type] << id unless @out_document_lines[type].include?(id) 
-    end    
+    end
+
     def document_lines
       r = []
       @out_document_lines.each_pair do |k,v|
