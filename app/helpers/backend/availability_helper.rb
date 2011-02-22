@@ -44,9 +44,9 @@ module Backend::AvailabilityHelper
               content_tag :ol do
                 aq.document_lines.collect do |dl|
                   content_tag :li do
-                    extra_info = dl.item.try(:inventory_code) || _("Quantity: %d") % dl.quantity
+                    extra_info = dl.item.try(:inventory_code) || _("Qty: %d") % dl.quantity
                     link_to \
-                      "#{dl.document.user} (#{extra_info}) => #{short_date(dl.end_date)}",
+                      "#{dl.document.user} (#{extra_info}) => #{short_date(dl.start_date)}-#{short_date(dl.end_date)}",
                       backend_inventory_pool_user_path(@current_inventory_pool, dl.document.user)
                   end
                 end.join
