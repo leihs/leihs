@@ -49,7 +49,7 @@ module Availability
     attr_reader :changes
     
     def initialize(attr)
-      @model_id = attr[:model_id]
+      @model_id          = attr[:model_id]
       @inventory_pool_id = attr[:inventory_pool_id]
       compute
     end
