@@ -54,14 +54,13 @@ module Availability
       compute
     end
 
-    ##############
     def model
       ::Model.find @model_id
     end
+
     def inventory_pool
       ::InventoryPool.find @inventory_pool_id
     end
-    ##############
         
     def compute
       @changes = Changes.new
@@ -77,9 +76,10 @@ module Availability
 
       @changes << initial_change
       reservations.each do |document_line|
-        start_change = clone_change(document_line.unavailable_from) # we don't recalculate the past
-        end_change = clone_change(document_line.available_again_after_today)
+        start_change = insert_or_fetch_change(@changes, document_line.unavailable_from) # we don't recalculate the past
+        end_change   = insert_or_fetch_change(@changes, document_line.available_again_after_today)
    
+        # groups that this particular reservation can be possibly assigned to
         groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) # optimize!
         # groups doesn't contain the general group!
         maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.unavailable_until)
@@ -106,20 +106,38 @@ module Availability
 ###########################################################
     private
     
-    # generate or fetch
-    def clone_change(to_date)
-      change = @changes.most_recent_before_or_equal(to_date)
-      if change.date < to_date
-        cloned = Change.new(:date => to_date)
+    # Ensure that there is a change with the given "new_change_date"
+    # inside the "changes" array.
+    #
+    # If there isn't a change on "new_change_date" within the "changes"
+    #   array then a new change will be added to the "changes" array with
+    #   the given "new_change_date".
+    #
+    #   The newly created change will have the same quantities associated
+    #   as the change preceding it.
+    #
+    #   The newly created change will be returned.
+    #
+    # If a change with a "new_change_date" however allready exists inside
+    #   the "changes" array, then that change will be returned.
+    #
+    # ATTENTION: The passing of the changes array to the method is
+    #            *intentional* in order for it not to have any side effects
+    #            and so to make the method easier to understand.
+    #
+    def insert_or_fetch_change(changes, new_change_date)
+      change = changes.most_recent_before_or_equal(new_change_date)
+      if change.date < new_change_date
+        new_change = Change.new(:date => new_change_date)
         change.quantities.each do |quantity|
-          cloned.quantities << Quantity.new( :out_quantity => quantity.out_quantity,
-                                             :in_quantity  => quantity.in_quantity,
-                                             :group_id     => quantity.group_id,
-                                             :out_document_lines => quantity.out_document_lines)
+          new_change.quantities << Quantity.new( :out_quantity => quantity.out_quantity,
+                                                 :in_quantity  => quantity.in_quantity,
+                                                 :group_id     => quantity.group_id,
+                                                 :out_document_lines => quantity.out_document_lines)
         end
-        @changes << cloned
-        return cloned
-      else
+        changes << new_change
+        return new_change
+      else #, when change.date == new_change_date
         return change
       end
     end
