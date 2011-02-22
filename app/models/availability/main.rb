@@ -44,9 +44,9 @@ module Availability
 
   # TODO change name ??
   class Main
-    attr_accessor :model_id
-    attr_accessor :inventory_pool_id
-    attr_accessor :changes
+    attr_reader :model_id
+    attr_reader :inventory_pool_id
+    attr_reader :changes
     
     def initialize(attr)
       @model_id = attr[:model_id]
@@ -87,7 +87,7 @@ module Availability
         # TODO sort groups by quantity desc
         group = groups.detect(Group::GENERAL_GROUP_ID) {|group| maximum[group] >= document_line.quantity }
   
-        inner_changes = changes.between(start_change.date, end_change.date.yesterday)
+        inner_changes = @changes.between(start_change.date, end_change.date.yesterday)
         inner_changes.each do |ic|
           qty = ic.quantities.detect {|q| q.group == group}
           qty.in_quantity  -= document_line.quantity
@@ -99,7 +99,7 @@ module Availability
 
     def maximum_available_in_period_for_user(user, start_date, end_date)
       groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
-      h = changes.between(start_date, end_date).available_quantities_for_groups(groups)
+      h = @changes.between(start_date, end_date).available_quantities_for_groups(groups)
       h.sort {|a,b| a[1]<=>b[1]}.first.try(:last).to_i
     end
 
@@ -108,7 +108,7 @@ module Availability
     
     # generate or fetch
     def clone_change(to_date)
-      change = changes.most_recent_before_or_equal(to_date)
+      change = @changes.most_recent_before_or_equal(to_date)
       if change.date < to_date
         cloned = Change.new(:date => to_date)
         change.quantities.each do |quantity|
@@ -117,7 +117,7 @@ module Availability
                                              :group_id     => quantity.group_id,
                                              :out_document_lines => quantity.out_document_lines)
         end
-        changes << cloned
+        @changes << cloned
         return cloned
       else
         return change
@@ -134,7 +134,7 @@ module Availability
 
     def minimum_in_group_between(start_date, end_date, group)
       minimum = nil
-      changes.between(start_date, end_date).each do |change|
+      @changes.between(start_date, end_date).each do |change|
         quantity = change.quantities.detect { |qty| qty.group_id == group.id }
         unless quantity.nil?
           minimum = (minimum.nil? ? quantity.in_quantity : [quantity.in_quantity, minimum].min)
