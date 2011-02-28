@@ -1,4 +1,5 @@
 module Availability
+
   class Changes < Array # TODO sorted by date ?? linked list ??
 
     def between(start_date, end_date)
@@ -75,7 +76,7 @@ module Availability
   class Main
     attr_reader :model_id
     attr_reader :inventory_pool_id
-    attr_reader :changes
+    attr_reader :changes # changes are allways sorted by date
     
     def initialize(attr)
       @model_id          = attr[:model_id]
@@ -124,6 +125,8 @@ module Availability
           qty.append_to_out_document_lines(document_line.class.to_s, document_line.id)
         end
       end
+      # ensure changes are sorted
+      @changes = Changes.new(@changes.sort_by(&:date)) # cast Array into Changes
     end
 
     def maximum_available_in_period_for_user(user, start_date, end_date)
