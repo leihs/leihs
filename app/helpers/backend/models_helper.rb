@@ -38,22 +38,33 @@ module Backend::ModelsHelper
       extra_info = line.item.try(:inventory_code) || _("Quantity: %d") % line.quantity
       title = "#{line.document.user} (#{extra_info})"
 
-      link_string, link_path = if line.is_a?(OrderLine)
-                                 [icon_tag("accept") + _("Acknowledge"), backend_inventory_pool_user_acknowledge_path(current_inventory_pool, line.document.user, line.document)]
-                               elsif line.document.status_const == Contract::UNSIGNED
-                                 [icon_tag("arrow_turn_right") + _("Hand Over"), backend_inventory_pool_user_hand_over_path(current_inventory_pool, line.document.user)]
-                               else
-                                 [icon_tag("arrow_undo") + _("Take Back"), backend_inventory_pool_user_take_back_path(current_inventory_pool, line.document.user)]
-                               end
+      link_string, link_path =
+        if line.is_a?(OrderLine)
+          [ icon_tag("accept") + _("Acknowledge"),
+            backend_inventory_pool_user_acknowledge_path(current_inventory_pool, line.document.user, line.document) ]
+        elsif line.document.status_const == Contract::UNSIGNED
+          [ icon_tag("arrow_turn_right") + _("Hand Over"),
+            backend_inventory_pool_user_hand_over_path(current_inventory_pool, line.document.user) ]
+        else
+          [ icon_tag("arrow_undo") + _("Take Back"),
+            backend_inventory_pool_user_take_back_path(current_inventory_pool, line.document.user) ]
+        end
+ 
       document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
                         link_to link_string, link_path
                       end
       description = "Group: #{line.allocated_group}<br />Phone: #{line.document.user.phone}<br />#{document_link}"
       events[group_id] ||= []
-      events[group_id] << {:start => line.start_date.to_time.to_s(:rfc822), :end => (line.end_date.tomorrow.to_time - 1.second).to_s(:rfc822), :durationEvent => true,
-                           :title => title, :description => description, #:trackNum => (events[group_id].empty? ? 0 : (line.item ? events[group_id].collect {|e| e[:trackNum] }.compact.max.to_i.next : nil)),
-                           :color => color, :textColor => 'black', :classname => (!line.item and !line.available? ? "unavailable" : nil) }
-    end
+      events[group_id] << {:start => line.start_date.to_time.to_s(:rfc822),
+                           :end => (line.end_date.tomorrow.to_time - 1.second).to_s(:rfc822),
+                           :durationEvent => true,
+                           :title => title,
+                           :description => description,
+                           #:trackNum => (events[group_id].empty? ? 0 : (line.item ? events[group_id].collect {|e| e[:trackNum] }.compact.max.to_i.next : nil)),
+                           :color => color,
+                           :textColor => 'black',
+                           :classname => (!line.item and !line.available? ? "unavailable" : nil) }
+    end # model.running_reser...
 
     #eventSource_js = ["eventSource[-1] = new Timeline.DefaultEventSource(); eventSource[-1].loadJSON(#{{:events => events.values.flatten}.to_json}, document.location.href);"]
     eventSource_js = []
