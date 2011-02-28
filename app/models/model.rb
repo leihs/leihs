@@ -75,6 +75,9 @@ class Model < ActiveRecord::Base
           # if there's no more items of a model in a group accessible to the customer,
           # then he shouldn't be able to see the model in the frontend. Therefore we need to reindex
           @model.touch_for_sphinx # OPTIMIZE: only reindex frontend data
+          # TODO: we're breaking the separation of concerns principle here:
+          #       availablity concerns should be exclusively dealt with inside
+          #       models/availabilit/* 
           @model.delete_availability_changes_in(@inventory_pool)
         end
 
