@@ -41,7 +41,7 @@ module Backend::ModelsHelper
       #w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
       #sum_w += w
       bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], intervalUnit: Timeline.DateTime.DAY, intervalPixels: 70, align: 'Top', theme: theme })"
-      bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : _("Allgemein"))
+      bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : _("General"))
       
       prev_in_quantity = nil
       decorators_js << changes.collect do |change|
