@@ -20,9 +20,9 @@ module Backend::ModelsHelper
     # TODO total overview # bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
     bandNames_js = [""] #_("Months")
     decorators_js = [""]
-    partition.keys.sort {|a,b| a.to_i <=> b.to_i }.each do |k| # the to_i comparison is needed to convert nil to 0
-      group_id = k.to_i
-      count = partition[k]
+    partition.keys.sort {|a,b| a.to_i <=> b.to_i }.each do |g| # the to_i comparison is needed to convert nil to 0
+      group_id = g.to_i
+      count = partition[g]
       next unless events.keys.include?(group_id)
       #w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
       #sum_w += w
@@ -32,7 +32,7 @@ module Backend::ModelsHelper
       prev_in_quantity = nil
       decorators_js << changes.collect do |change|
         d = []
-        in_quantity = change.in_quantity_in_group(k)
+        in_quantity = change.in_quantity_in_group(g)
         if in_quantity < 0 or change.quantities.collect(&:in_quantity).sum < 0
           d << "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.to_s(:rfc822)}', endDate: '#{changes.end_date_of(change).tomorrow.to_time.to_s(:rfc822)}', color: '#f00', opacity: 50 })"
         end
