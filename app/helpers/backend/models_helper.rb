@@ -6,22 +6,13 @@ module Backend::ModelsHelper
   def timeline(model, inventory_pool)
     set_timeline_headers()
 
-    events = {}
+    events = {} # these represent the horizontal bars containing 
     partition = model.partitions.in(inventory_pool).current_partition
     changes = model.availability_changes_in(inventory_pool).changes
 
     events = reservations_to_events( model.running_reservations(inventory_pool))
-   
-    # iterate through events and construct JS code that will instantiate
-    # each event
-    #eventSource_js = ["eventSource[-1] = new Timeline.DefaultEventSource(); eventSource[-1].loadJSON(#{{:events => events.values.flatten}.to_json}, document.location.href);"]
-    eventSource_js = []
-    events.each_pair do |group_id, event|
-      json = {:events => event}.to_json 
-      eventSource_js << "eventSource[#{group_id}] = new Timeline.DefaultEventSource(); eventSource[#{group_id}].loadJSON(#{json}, document.location.href);"
-    end
-
-
+    eventSource_js = events_to_JS_code(events)
+    
     # TODO dynamic timeZone, get rid of GMT in the bubble
     sum_w = 35
     #bandInfos_js = ["Timeline.createBandInfo({ eventSource: eventSource[-1], overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top' })"]
@@ -53,14 +44,13 @@ module Backend::ModelsHelper
       end.compact
     end
 
-
     # TODO automatic autowidth
     r = javascript_tag do
       <<-HERECODE
       window.jQuery = SimileAjax.jQuery;
 
       var eventSource = [];
-      #{eventSource_js.join}
+      #{eventSource_js}
 
       jQuery(document).ready(function($) {
 
@@ -159,6 +149,18 @@ private
                            :classname     => (!line.item and !line.available? ? "unavailable" : nil) }
     end
     events
+  end
+
+  # iterate through events and construct JS code that will instantiate them
+  # for Timeline
+  def events_to_JS_code(events)
+    #eventSource_js = ["eventSource[-1] = new Timeline.DefaultEventSource(); eventSource[-1].loadJSON(#{{:events => events.values.flatten}.to_json}, document.location.href);"]
+    eventSource_js = ""
+    events.each_pair do |group_id, event|
+      json = {:events => event}.to_json 
+      eventSource_js << "eventSource[#{group_id}] = new Timeline.DefaultEventSource(); eventSource[#{group_id}].loadJSON(#{json}, document.location.href);\n"
+    end
+    eventSource_js
   end
 
   def event_title(line)
