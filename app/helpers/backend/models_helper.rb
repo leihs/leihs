@@ -22,7 +22,7 @@ module Backend::ModelsHelper
     decorators_js = [""]
     partition.keys.sort {|a,b| a.to_i <=> b.to_i }.each do |g| # the to_i comparison is needed to convert nil to 0
       group_id = g.to_i
-      count = partition[g]
+      # count = partition[g]
       next unless events.keys.include?(group_id)
       #w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
       #sum_w += w
