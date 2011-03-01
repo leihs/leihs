@@ -11,7 +11,6 @@ module Backend::ModelsHelper
     changes = model.availability_changes_in(inventory_pool).changes
 
     events = reservations_to_events( model.running_reservations(inventory_pool))
-    eventSource_js = events_to_JS_code(events)
 
     # TODO dynamic timeZone, get rid of GMT in the bubble
     sum_w = 35
@@ -50,7 +49,11 @@ module Backend::ModelsHelper
       window.jQuery = SimileAjax.jQuery;
 
       var eventSource = [];
-      #{eventSource_js}
+      var events = #{events.to_json};
+      for( var group_id in events) {
+        eventSource[group_id] = new Timeline.DefaultEventSource();
+        eventSource[group_id].loadJSON({events: events[group_id]}, document.location.href);
+      }
 
       jQuery(document).ready(function($) {
 
@@ -149,18 +152,6 @@ private
                            :classname     => (!line.item and !line.available? ? "unavailable" : nil) }
     end
     events
-  end
-
-  # iterate through events and construct JS code that will instantiate them
-  # for Timeline
-  def events_to_JS_code(events)
-    #eventSource_js = ["eventSource[-1] = new Timeline.DefaultEventSource(); eventSource[-1].loadJSON(#{{:events => events.values.flatten}.to_json}, document.location.href);"]
-    eventSource_js = ""
-    events.each_pair do |group_id, event|
-      json = {:events => event}.to_json 
-      eventSource_js << "eventSource[#{group_id}] = new Timeline.DefaultEventSource(); eventSource[#{group_id}].loadJSON(#{json}, document.location.href);\n"
-    end
-    eventSource_js
   end
 
   def event_title(line)
