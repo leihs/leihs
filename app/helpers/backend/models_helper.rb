@@ -16,10 +16,23 @@ module Backend::ModelsHelper
 
     # TODO dynamic timeZone, get rid of GMT in the bubble
     sum_w = 35
+
+   # bands represent the horizontal bands inside Timeline. The first band is
+   # the scrollable "top" "month" band, the next one is the "General Group"
+   # band and then follow other groups that exist within an inventory pool
+   #
+   # bandNames contains the names of the bands starting with the "month" band
+   bandNames_js = [""]
+
+    # bandInfos contains JS initialisation code for Timeline bands
+    #
     #bandInfos_js = ["Timeline.createBandInfo({ eventSource: eventSource[-1], overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top' })"]
     bandInfos_js = ["Timeline.createBandInfo({ timeZone: 2, overview: true, intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top', theme: theme })"]
     # TODO total overview # bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
-    bandNames_js = [""] #_("Months")
+
+    # decorators are specially marked days inside a bar, which in leihs will display
+    # the available items inside a group on a certain day. We only display available
+    # numbers of items on days where the numbers change 
     decorators_js = [""]
     partition.keys.sort {|a,b| a.to_i <=> b.to_i }.each do |g| # the to_i comparison is needed to convert nil to 0
       group_id = g.to_i
@@ -28,7 +41,7 @@ module Backend::ModelsHelper
       #w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
       #sum_w += w
       bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], intervalUnit: Timeline.DateTime.DAY, intervalPixels: 70, align: 'Top', theme: theme })"
-      bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : "")
+      bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : _("Allgemein"))
       
       prev_in_quantity = nil
       decorators_js << changes.collect do |change|
