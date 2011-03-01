@@ -12,7 +12,6 @@ module Backend::ModelsHelper
 
     events = reservations_to_events( model.running_reservations(inventory_pool))
    
-
     # iterate through events and construct JS code that will instantiate
     # each event
     #eventSource_js = ["eventSource[-1] = new Timeline.DefaultEventSource(); eventSource[-1].loadJSON(#{{:events => events.values.flatten}.to_json}, document.location.href);"]
@@ -111,6 +110,10 @@ module Backend::ModelsHelper
     r += content_tag :div, :id => "my_timeline", :style => "height: #{sum_w}px; border: 1px solid #aaa" do end
   end
 
+###########################################################################
+
+private
+
   def set_timeline_headers()
     content_for :head do
       r = javascript_tag do
@@ -127,7 +130,6 @@ module Backend::ModelsHelper
       r += stylesheet_link_tag 'timeline'
     end
   end
-
 
   # iterate through model reservations and prepare necessary parameters
   # to construct events inside with Timeline
