@@ -12,7 +12,7 @@ module Backend::ModelsHelper
 
     events = reservations_to_events( model.running_reservations(inventory_pool))
     eventSource_js = events_to_JS_code(events)
-    
+
     # TODO dynamic timeZone, get rid of GMT in the bubble
     sum_w = 35
     #bandInfos_js = ["Timeline.createBandInfo({ eventSource: eventSource[-1], overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top' })"]
