@@ -17,12 +17,12 @@ module Backend::ModelsHelper
     # TODO dynamic timeZone, get rid of GMT in the bubble
     sum_w = 35
 
-   # bands represent the horizontal bands inside Timeline. The first band is
-   # the scrollable "top" "month" band, the next one is the "General Group"
-   # band and then follow other groups that exist within an inventory pool
-   #
-   # bandNames contains the names of the bands starting with the "month" band
-   bandNames_js = [""]
+    # bands represent the horizontal bands inside Timeline. The first band is
+    # the scrollable "top" "month" band, the next one is the "General Group"
+    # band and then follow other groups that exist within an inventory pool
+    #
+    # bandNames contains the names of the bands starting with the "month" band
+    bandNames_js = [""]
 
     # bandInfos contains JS initialisation code for Timeline bands
     #
