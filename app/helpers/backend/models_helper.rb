@@ -5,11 +5,13 @@ module Backend::ModelsHelper
   #
   def timeline(model, inventory_pool)
     set_timeline_headers()
-
-    events = {} # these represent the horizontal bars containing 
+    
     partition = model.partitions.in(inventory_pool).current_partition
     changes = model.availability_changes_in(inventory_pool).changes
 
+    # events represent the horizontal bars in Timeline
+    # that display how long an item is lent out
+    events = {}
     events = reservations_to_events( model.running_reservations(inventory_pool))
 
     # TODO dynamic timeZone, get rid of GMT in the bubble
