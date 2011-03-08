@@ -180,12 +180,12 @@ class InventoryPool < ActiveRecord::Base
   
   # Returns a list of hand_over events. See #visits for details
   def hand_over_visits(max_start_date = nil)
-    visits(max_start_date, "start_date")
+    visits(max_start_date, :to_hand_over)
   end
 
   # Returns a list of hand_over events. See #visits for details
   def take_back_visits(max_end_date = nil)
-    visits(max_end_date, "end_date")
+    visits(max_end_date, :to_take_back)
   end
 
 ###################################################################################
@@ -206,16 +206,26 @@ private
   # when an inventory pool manager should hand over some items to or get them back from
   # the customer.
   #
-  # date_field says which date field we are considering. It's :start_date for
-  # hand_over and end_date for take_back.
+  # 'target' says if we want to have hand_overs or take_backs. target can be either
+  # of those two:
+  #
+  # * :to_hand_over
+  # * :to_take_back
   # 
   # see #hand_over_visits and #take_back_visits for the primary API
   #
-  def visits(max_date = nil, date_field = "start_date")
-    lines = contract_lines.to_hand_over.all(:select => "contracts.user_id AS user_id, #{date_field} AS date, contract_id, quantity, contract_lines.id AS contract_line_id",
-                                            :include => {:contract => :user},
-                                            :conditions => (max_date ? ["#{date_field} <= ?", max_date] : nil),
-                                            :order => "contracts.user_id, #{date_field}")
+  def visits(max_date = nil, target = :to_hand_over)
+    date_field = case target
+                   when :to_hand_over then "start_date"
+                   when :to_take_back then "end_date"
+                   else raise "Wrong usage"
+                 end
+
+    lines = contract_lines.send(target).
+                           all(:select => "contracts.user_id AS user_id, #{date_field} AS date, contract_id, quantity, contract_lines.id AS contract_line_id",
+                               :include => {:contract => :user},
+                               :conditions => (max_date ? ["#{date_field} <= ?", max_date] : nil),
+                               :order => "contracts.user_id, #{date_field}")
 
     previous = Struct.new(:event, :user_id, :date).new(nil,nil,nil)
 
