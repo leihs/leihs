@@ -238,6 +238,6 @@ private
         previous.event      = event
         event # return event to collect
       end
-    end.compact
+    end.compact.sort_by { |e| e.date }
   end
 end
