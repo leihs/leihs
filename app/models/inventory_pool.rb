@@ -178,32 +178,14 @@ class InventoryPool < ActiveRecord::Base
   
 ###################################################################################
   
-  # TODO dry with take_back_visits
+  # Returns a list of hand_over events. See #visits for details
   def hand_over_visits(max_start_date = nil)
-    lines = contract_lines.to_hand_over.all(:select => "start_date, contract_id, SUM(quantity) AS quantity, GROUP_CONCAT(contract_lines.id SEPARATOR ',') AS contract_line_ids",
-                                            :include => {:contract => :user},
-                                            :conditions => (max_start_date ? ["start_date <= ?", max_start_date] : nil),
-                                            :order => "start_date",
-                                            :group => "contracts.user_id, start_date")
-
-    lines.collect do |l|
-      Event.new(:date => l.start_date, :title => l.contract.user.login, :quantity => l.quantity, :contract_line_ids => l.contract_line_ids.split(','),
-                :inventory_pool => self, :user => l.contract.user)
-    end
+    visits(max_start_date, "start_date")
   end
 
-  # TODO dry with hand_over_visits
+  # Returns a list of hand_over events. See #visits for details
   def take_back_visits(max_end_date = nil)
-    lines = contract_lines.to_take_back.all(:select => "end_date, contract_id, SUM(quantity) AS quantity, GROUP_CONCAT(contract_lines.id SEPARATOR ',') AS contract_line_ids",
-                                            :include => {:contract => :user},
-                                            :conditions => (max_end_date ? ["end_date <= ?", max_end_date] : nil),
-                                            :order => "end_date",
-                                            :group => "contracts.user_id, end_date")
-
-    lines.collect do |l|
-      Event.new(:date => l.end_date, :title => l.contract.user.login, :quantity => l.quantity, :contract_line_ids => l.contract_line_ids.split(','),
-                :inventory_pool => self, :user => l.contract.user)
-    end
+    visits(max_end_date, "end_date")
   end
 
 ###################################################################################
@@ -216,5 +198,46 @@ class InventoryPool < ActiveRecord::Base
     suspended_users.count(:conditions => {:id => user.id}) > 0
   end
 
-end
+###################################################################################
 
+private
+  # Returns a list of Events, where an Event is a particular date, on which a specific
+  # customer should come to pick up or return items - or from the other perspective:
+  # when an inventory pool manager should hand over some items to or get them back from
+  # the customer.
+  #
+  # date_field says which date field we are considering. It's :start_date for
+  # hand_over and end_date for take_back.
+  # 
+  # see #hand_over_visits and #take_back_visits for the primary API
+  #
+  def visits(max_date = nil, date_field = "start_date")
+    lines = contract_lines.to_hand_over.all(:select => "contracts.user_id AS user_id, #{date_field} AS date, contract_id, quantity, contract_lines.id AS contract_line_id",
+                                            :include => {:contract => :user},
+                                            :conditions => (max_date ? ["#{date_field} <= ?", max_date] : nil),
+                                            :order => "contracts.user_id, #{date_field}")
+
+    previous = Struct.new(:event, :user_id, :date).new(nil,nil,nil)
+
+    lines.collect do |l|
+      if l.user_id == previous.user_id && l.date == previous.date
+        previous.event[:quantity] += l.quantity 
+        previous.event[:contract_line_ids] << l.contract_line_id
+        nil # return nil to collect
+      else
+        user = User.find(l.user_id)
+        event = Event.new( :date              => l.date,
+                           :title             => user.login,
+                           :quantity          => l.quantity,
+                           :contract_line_ids => [ l.contract_line_id ],
+                           :inventory_pool    => self,
+                           :user              => user)
+
+        previous.date = l.date
+        previous.user_id    = l.user_id
+        previous.event      = event
+        event # return event to collect
+      end
+    end.compact
+  end
+end
