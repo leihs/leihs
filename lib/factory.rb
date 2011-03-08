@@ -134,7 +134,7 @@ module Factory
         }
         d = [ self.random_future_date, self.random_future_date ]
         c.add_line(quantity, model, c.user_id, d.min, d.max )
-    } if options[:order_lines]
+    } if options[:contract_lines]
     c.save
     c
   end
