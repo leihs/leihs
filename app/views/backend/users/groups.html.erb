@@ -1,3 +1,4 @@
+<%# ATTENTION: this view requires current_inventory_pool to be != nul ! %>
 <div class="toolbar-second">
 	<% form_for [:add_group, :backend, current_inventory_pool, @user],
 				 :html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
@@ -16,7 +17,7 @@
 <br />
 
 <% table :columns => [_("Group"), _("Action")],
-		 :records => @user.groups do |g| %>	
+		 :records => @user.groups.all( :conditions => { :inventory_pool_id => current_inventory_pool.id }) do |g| %>	
 
 		<tr>
 			<td><%= g.name %></td>
