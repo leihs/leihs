@@ -10,8 +10,8 @@
 									                    :title => _("User") ) %>
 							<%= render :partial => "/users/incomplete", :locals => {:user => @contract.user} %>
 						</td>
-						<% # OPTIMIZE if suspended, it never enters here!
-						if @contract.user.suspended_inventory_pools.count > 0 %>
+						<%# OPTIMIZE if suspended, it never enters here! %>
+						<% if @contract.user.suspended_inventory_pools.count > 0 %>
 							<td style="background-color: #EDF09F; padding: 10px; border: 1px solid #ccc;">
 								<%= _("Currently suspended at:") %> <%= @contract.user.suspended_inventory_pools.join(", ") %>
 							</td>

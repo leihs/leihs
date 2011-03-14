@@ -37,13 +37,13 @@
 
 	<div id="wrap">
 	
-		<% # TODO use nested layouts %>
+		<%# TODO use nested layouts %>
 		
 		<% if params[:layout] == "modal" %>
 
 			<%= flash_helper(false) %>
 			
-			<% # TODO 12** optimize nested tabs rendering %>
+			<%# TODO 12** optimize nested tabs rendering %>
 			<% if @tabs %>
 				<%= tabnavs @tabs, yield %>
 			<% else %>
@@ -77,12 +77,14 @@
 	
 					<%= flash_helper %>
 					
-					<% # TODO 12** optimize nested tabs rendering %>
+					<div id="prefoo"/>
+					<%# TODO 12** optimize nested tabs rendering %>
 					<% if @tabs %>
 						<%= tabnavs @tabs, yield %>
 					<% else %>
 						<%=  yield %>
 					<% end %>
+					<div id="postfoo"/>
 				
 				</div>
 			</div>

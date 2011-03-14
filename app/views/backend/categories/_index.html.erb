@@ -30,7 +30,7 @@
 											:confirm => _("Are you sure?"),
 											:method => :delete if @model %></li> 
               <% end %>
-							<% # TODO 0607 ajax delete %>
+							<%# TODO 0607 ajax delete %>
 							<li><%= link_to _("Remove Parent"), backend_inventory_pool_category_path(current_inventory_pool, @category, :parent_id => category.id),
 											:confirm => _("Are you sure?"),
 											:method => :delete if @category and @category.parents.include?(category) %></li>

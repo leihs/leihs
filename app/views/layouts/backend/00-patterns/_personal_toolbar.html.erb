@@ -11,7 +11,7 @@
 
 <% if current_user %>	
 	<li>
-		<% # TODO 29** provide account link for admin layout %>
+		<%# TODO 29** provide account link for admin layout %>
 		<%= greybox_link_to_page(icon_tag("user") + current_user.to_s,
 				backend_inventory_pool_user_path(current_inventory_pool, current_user, :layout => "modal"),
 				:title => _("User")) if current_inventory_pool %>
