@@ -1,4 +1,3 @@
-
 <% form_tag url_for({ }) do %>
    	<%= _("Note") %><br/>
 	<%= text_area_tag 'note', nil, :size => "25x10" %>
@@ -9,7 +8,7 @@
 
 <hr />
 	
-	<% # OPTIMIZE History validates_presence_of :user %>
+	<%# OPTIMIZE History validates_presence_of :user %>
 	<table>
 	<% @histories.each do |h| %>
 		<tr><td><%= "#{h.user} -" if h.user %></td><td><%= short_date h.created_at %></td><td><%= h.text %></td></tr>
