@@ -26,7 +26,7 @@ class Backend::LocationsController < Backend::BackendController
 
   def destroy
     @location.destroy
-    redirect_to(backend_inventory_pool_locations_path)
+    redirect_to(backend_inventory_pool_locations_path(current_inventory_pool))
   end
 
 #################################################################
