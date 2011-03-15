@@ -174,7 +174,7 @@ class Backend::ItemsController < Backend::BackendController
         flash[:error] = _("Error setting the location")
       end
     end
-      @item.location ||= Location.new
+    @item.location ||= Location.new
   end
 
 #################################################################
