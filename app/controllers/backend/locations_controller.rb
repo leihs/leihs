@@ -19,20 +19,9 @@ class Backend::LocationsController < Backend::BackendController
 
   end
 
+  # still used by search
   def show
     @location ||= Location.new
-  end
-
-  # TODO 1108** still used?
-  def create
-    @location = Location.new
-    update
-  end
-
-  # TODO 1108** still used?
-  def update
-    @location.update_attributes(params[:location])
-    redirect_to(backend_inventory_pool_locations_path)
   end
 
   def destroy
