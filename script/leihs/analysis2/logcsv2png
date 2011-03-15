@@ -1,0 +1,6 @@
+#!/bin/sh
+# see http://gnuplot.sourceforge.net/faq/faq.html#SECTION00091000000000000000
+#     http://www.libgd.org/DOC_INSTALL_OSX#Testing_GD
+#
+export GDFONTPATH=$HOME/Library/Fonts:/Library/Fonts:/System/Library/Fonts
+cat gnuplot.conf | gnuplot

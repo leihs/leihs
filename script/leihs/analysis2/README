@@ -1,0 +1,63 @@
+This directory contains further logfile execution time analysis tools
+
+ * means to generate a DB from the log files containing all useful data
+   from the logs
+
+ * means to generate graphs from the log DB
+
+How to:
+
+1. Generate the concatenated production log:
+   ssh production_server
+   prod $ cd logs
+   prod $ zcat production.log production*gz | gzip > /tmp/production.log.gz
+   prod $ exit
+
+3. Go where you want to do the analysis
+   $ mkdir analysis
+   $ cd analysis
+
+4. Get the logs to your local machine
+   $ scp production_server:/tmp/production.log.gz .
+   $ gunzip production.log.gz
+  
+5. Clean up on prod
+   $ ssh production_server -c "rm /tmp/production.log.gz"
+
+6. Install request-log-analyzer
+   $ sudo gem install request-log-analyzer
+
+7. Transform the log data into a local DB and produce a global report
+   $ mkdir reports
+   $ request-log-analyzer production.log --database production.log.db \
+                                         --output HTML --file reports/report.html
+
+   You can use a switch like "--after 2011-02-01" to restrict the analysis of
+   the log to an area of interest. See "request-log-analyzer --help"
+
+8. Transform the DB into CSV
+   $ path/to/logdb2csv
+
+   That script contains an SQL query that you can adapt to your area of interest.
+
+9. Install gnuplot
+   $ sudo apt-get install gnuplot # on Debian
+   $ sudo port install gnuplot    # on OSX
+
+9. Generate graphs from the CSV
+   $ ./logcsv2png
+
+10. Do manual research inside the log DB
+   Which is very enlightening and where you can drill down into specific requests.
+   See the logdb2csv for a template query that you can adapt to your needs.
+
+   $ sqlite3 production.log.db
+   sqlite> .schema completed_lines
+   ...
+   sqlite> .schema processing_lines
+   ...
+   sqlite> SELECT ... processing_lines ...
+
+11. Also have a look at gnuplot.conf 
+   If you want to reconfigure the graphs
+   That script contains an SQL query that you can adapt to your area of interest.
