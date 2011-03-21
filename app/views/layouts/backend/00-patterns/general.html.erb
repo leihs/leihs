@@ -77,14 +77,12 @@
 	
 					<%= flash_helper %>
 					
-					<div id="prefoo"/>
 					<%# TODO 12** optimize nested tabs rendering %>
 					<% if @tabs %>
 						<%= tabnavs @tabs, yield %>
 					<% else %>
 						<%=  yield %>
 					<% end %>
-					<div id="postfoo"/>
 				
 				</div>
 			</div>
