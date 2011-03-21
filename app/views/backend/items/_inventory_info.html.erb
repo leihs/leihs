@@ -18,6 +18,7 @@
 			<%= @item.owner.name %>
 		<% end %>
 	</td>
+</tr>
 <tr><td><b><%= _("Last Checked:") %></b></td>
 	<td><%= (is_privileged_user? or @item.new_record?) ? @f.date_select(:last_check, :order => [:year]) : @item.last_check %></td>
 </tr>
@@ -36,5 +37,15 @@
 		<%= @item.inventory_pool ? @item.inventory_pool.name : "-" %>
 	<% end %>
 	</td>
-	<td><b><%= _("Responsible person") %>:</b> <%= (is_privileged_user? or @item.new_record?) ? @f.text_field(:responsible) : @item.responsible %></td>
+	<td><b><%= _("Responsible person") %>:</b>  <%= (is_privileged_user? or @item.new_record?) ? @f.text_field(:responsible) : @item.responsible %></td>
 </tr>	
+
+<tr><td></td>
+  <td><b><%= _("User/Typical usage") %>:</b>
+    <% if is_super_user? or @item.new_record? %>
+      <%= @f.text_field :user_name %></td>
+    <% else %>
+      <%= @item.user_name %>
+    <% end %>
+  </td>
+</tr>

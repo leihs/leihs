@@ -45,10 +45,10 @@ def yearly_contracts(year)
 end
 
 def dump_all
-  [2007, 2008, 2007, 2010, 2011].each do |year|
+  [2007, 2008, 2009, 2010, 2011].each do |year|
     data = yearly_contracts(year)
     header = ["Geraetepark", "Jahr", "Vertraege", "Gegenstaende"]
-    save_to_file("/tmp/big_stats.csv", data, header)
+    save_to_file("/tmp/big_stats2.csv", data, header)
   end
 end
 
