@@ -38,6 +38,7 @@ class Backend::TakeBackController < Backend::BackendController
 
   # Close definitely the contract
   def close_contract
+    params[:layout] = "modal"
     if request.post?
       # TODO 2702** merge duplications
       @lines = current_inventory_pool.contract_lines.find(params[:lines]) if params[:lines]
@@ -81,9 +82,12 @@ class Backend::TakeBackController < Backend::BackendController
       @contracts.each do |c|
         c.close if c.lines.all? { |l| !l.returned_date.nil? }
       end
-      
-      params[:layout] = "modal"
-      render :action => 'print_contract'
+
+      if current_inventory_pool.print_contracts
+        render :action => 'print_contract'
+      else
+        redirect_to :action => 'index'
+      end
     else
       # TODO 2702** merge duplications
       @lines = current_inventory_pool.contract_lines.find(params[:lines].split(',')) if params[:lines]
@@ -93,7 +97,6 @@ class Backend::TakeBackController < Backend::BackendController
           line.quantity = v.to_i if line and v.to_i < line.quantity
         end
       end
-      params[:layout] = "modal"
     end    
   end
   
