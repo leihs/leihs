@@ -7,14 +7,15 @@ module Backend::BackendHelper
 
   def table_with_search_and_pagination(options = {}, html_options = {}, &block)
     html = content_tag :div, :class => "table-overview", :id => 'list_table' do
-      r = controller_bar(options[:records], true)
+      r = controller_bar(options[:records], true, options[:with_cvs_export] || false)
       r += table_tag(options, html_options, &block)
       r += controller_bar(options[:records])
     end
     concat(html)
   end 
 
-  def controller_bar(records, with_search_field = false, query = params[:query], filter = params[:filter])
+  def controller_bar(records, with_search_field = false, with_cvs_export = false,
+                              query = params[:query], filter = params[:filter])
     query = nil if query.blank?
 
     content_tag :div, :class => "table-overview controller" do
@@ -40,6 +41,12 @@ module Backend::BackendHelper
         w = will_paginate records, :previous_label => _("Previous"), :next_label => _("Next")
         s += w if w
         s
+      end
+      
+      if with_search_field
+        r += content_tag :div, :class => "csv_export buttons" do
+          link_to "CSV export", { :controller => :items, :action => :index, :query => query, :filter => filter, :format => :csv }
+        end
       end
       r
     end

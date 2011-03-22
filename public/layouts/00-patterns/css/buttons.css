@@ -53,10 +53,12 @@ div.buttons {
     width:16px;
     height:16px;
 }
-
 .buttons ul li, ul.buttons li {
 	display: inline;
     margin: 14px 0px 14px 0 !important;
+}
+.buttons.csv_export {
+    float:right;
 }
 
 
