@@ -1,4 +1,5 @@
 <% table_with_search_and_pagination :columns => ["", [_("Model"), 'model_name'], [_("Inventory Code"), 'inventory_code'], _("Location"), _("Status"), _("In stock?"), _("Action")],
+						   			:with_cvs_export => true,	
 						   			:records => @items do |item| %>	
 
 		<% record_path = [:backend, current_inventory_pool, item.model, item] %>
