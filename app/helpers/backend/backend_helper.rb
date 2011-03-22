@@ -43,7 +43,7 @@ module Backend::BackendHelper
         s
       end
       
-      if with_search_field
+      if with_cvs_export
         r += content_tag :div, :class => "csv_export buttons" do
           link_to "CSV export", { :controller => :items, :action => :index, :query => query, :filter => filter, :format => :csv }
         end
