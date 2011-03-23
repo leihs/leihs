@@ -17,8 +17,6 @@ GEM
       activerecord (>= 1.1)
     barby (0.2.0)
     builder (3.0.0)
-    cairo (1.10.0)
-      pkg-config
     capybara (0.4.1.1)
       celerity (>= 0.7.9)
       culerity (>= 0.2.4)
@@ -71,7 +69,6 @@ GEM
     mysql (2.8.1)
     newrelic_rpm (2.10.5)
     nokogiri (1.4.4)
-    pkg-config (1.0.8)
     prawn (0.8.4)
       prawn-core (>= 0.8.4, < 0.9)
       prawn-layout (>= 0.8.4, < 0.9)
@@ -127,7 +124,6 @@ PLATFORMS
 DEPENDENCIES
   awesome_nested_set (= 1.4.3)
   barby (= 0.2.0)
-  cairo
   capybara (>= 0.3.5)
   cucumber-rails (= 0.3.2)
   database_cleaner (= 0.5.0)

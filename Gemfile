@@ -11,7 +11,7 @@ gem "gettext_activerecord", '2.1.0'
 gem "gettext_rails", '2.1.0'
 
 gem "barby", '0.2.0'
-gem "cairo" # Needed to print SVG barcodes
+#gem "cairo" # Needed to print SVG barcodes
 # gem "RubyInline", '3.8.2', :require => "inline"
 
 gem "rmagick", '2.12.2', :require => 'RMagick' 
