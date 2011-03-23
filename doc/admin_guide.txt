@@ -57,7 +57,18 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
  $ ./configure --with-libstemmer && make
  $ sudo make install
 
-7. Install the required version of Rails as well as a few gems that cannot be installed automatically:
+7. Install ImageMagick. On Mac OS X, we recommend using MacPorts and then installing the ImageMagick port:
++
+ $ sudo port install imagemagick
++
+Make sure that the ImageMagick binaries (e.g. convert) are in your $PATH. Please consult the Mac OS X documentation to find out how to add paths to your $PATH environment variable. It can be done e.g. by editing /etc/profile and adding the following lines:
++
+ PATH=$PATH:/opt/local/bin
+ export PATH
++
+But Apple may at any point recommend a different approach for configuring your PATH, so please don't take our word for it.
+ 
+8. Install the required version of Rails as well as a few gems that cannot be installed automatically:
 +
  $ cd /home/leihs
  $ sudo gem install -v=2.3.5 rails
@@ -65,7 +76,7 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
  $ sudo gem install rake
  $ bundle install --deployment --without cucumber
 
-8. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a production database configuration:
+9. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a production database configuration:
 +
  production:
     adapter: mysql
@@ -76,12 +87,12 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
     host: localhost
     port: 3306
 
-9. Create and migrate the database:
+10. Create and migrate the database:
 +
  $ RAILS_ENV=production rake db:migrate
  $ RAILS_ENV=production rake db:seed
 
-10. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
+11. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
 +
  $ cd /home/leihs
  $ mkdir -p public/images/attachments
@@ -89,13 +100,13 @@ If you are using Leopard (OS X 10.5) or below, use the following string instead:
  $ mkdir tmp/cache
  $ mkdir -p log
 
-11. Configure and start the Sphinx server:
+12. Configure and start the Sphinx server:
 +
  $ RAILS_ENV=production rake ts:config
  $ RAILS_ENV=production rake ts:reindex
  $ RAILS_ENV=production rake ts:start
 
-12. Start the server:
+13. Start the server:
 +
  $ RAILS_ENV=production ./script/server
 +
@@ -103,29 +114,13 @@ Now you should see your local leihs server at http://localhost:3000. You can log
 +
 This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.
 
-13. Set up a system cronjob that sends nightly e-mail reminders and, more importantly, updates all the models' availability counts. There are many ways to schedule repeating tasks on Mac OS X. Please see Apple's documentation on launchd for how to do this.
+14. Set up a system cronjob that sends nightly e-mail reminders and, more importantly, updates all the models' availability counts. There are many ways to schedule repeating tasks on Mac OS X. Please see Apple's documentation on launchd for how to do this.
 +
 In crontab format, an example job for a production environment would look like this:
 +
  1 00    * * *   cd /home/leihs && RAILS_ENV=production rake leihs:cron
 +
 The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.
-
-14. Optional: If you want to use images of inventory items, install ImageMagick. On Mac OS X, we recommend using MacPorts and then installing the ImageMagick port:
-+
- $ sudo port install imagemagick
-+
-Make sure that the ImageMagick binaries (e.g. convert) are in your $PATH. Please consult the Mac OS X documentation to find out how to add paths to your $PATH environment variable. It can be done e.g. by editing /etc/profile and adding the following lines:
-+
- PATH=$PATH:/opt/local/bin
- export PATH
-+
-But Apple may at any point recommend a different approach for configuring your PATH, so please don't take our word for it.
-+
-Finally, install the rmagick gem:
-+
- $ sudo gem install rmagick
- 
  
 === Installation on Debian GNU/Linux ===
 
@@ -165,7 +160,11 @@ Note that the URL above might change! Please visit the RubyGems site to find the
  $ su
  # make install
 
-6. Install the required version of Rails as well as a few gems that cannot be installed automatically:
+6. Optional: If you want to use images of inventory items, install ImageMagick:
++
+ # apt-get install imagemagick graphicsmagick-libmagick-dev-compat
+
+7. Install the required version of Rails as well as a few gems that cannot be installed automatically:
 +
  # cd /home/leihs
  # gem install -v=2.3.5 rails
@@ -173,7 +172,7 @@ Note that the URL above might change! Please visit the RubyGems site to find the
  # gem install rake
  # bundle install --deployment --without cucumber
 
-7. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a production database configuration:
+8. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a production database configuration:
 +
  production:
     adapter: mysql
@@ -184,13 +183,13 @@ Note that the URL above might change! Please visit the RubyGems site to find the
     host: localhost
     port: 3306
 
-8. Create and migrate the database:
+9. Create and migrate the database:
 +
  # su - leihs
  $ RAILS_ENV=production rake db:migrate
  $ RAILS_ENV=production rake db:seed
 
-9. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
+10. Create any temporary directories that are necessary for e.g. image uploads, temporary files etc. Make sure to create these directories so that the leihs user has write permission to them.
 +
  $ cd /home/leihs
  $ mkdir -p public/images/attachments
@@ -198,14 +197,14 @@ Note that the URL above might change! Please visit the RubyGems site to find the
  $ mkdir tmp/cache
  $ mkdir -p log
  
-10. Configure and start the Sphinx server:
+11. Configure and start the Sphinx server:
 +
  $ cd /home/leihs
  $ RAILS_ENV=production rake ts:config
  $ RAILS_ENV=production rake ts:reindex
  $ RAILS_ENV=production rake ts:start
 
-11. Start the leihs server:
+12. Start the leihs server:
 +
  $ cd /home/leihs
  $ RAILS_ENV=production ./script/server
@@ -214,19 +213,11 @@ Now you should see your local leihs server at http://localhost:3000. You can log
 +
 This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.
 
-12. Set up a system cronjob that sends nightly e-mail reminders and, more importantly, updates all the models' availability counts. There are many ways to schedule repeating tasks on GNU/Linux, but here's a line in crontab-format that you can add to your leihs user's crontab using e.g. +crontab -e+:
+13. Set up a system cronjob that sends nightly e-mail reminders and, more importantly, updates all the models' availability counts. There are many ways to schedule repeating tasks on GNU/Linux, but here's a line in crontab-format that you can add to your leihs user's crontab using e.g. +crontab -e+:
 +
  1 00    * * *   cd /home/leihs && RAILS_ENV=production rake leihs:cron
 +
 The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.
-
-13. Optional: If you want to use images of inventory items, install ImageMagick:
-+
- # apt-get install imagemagick graphicsmagick-libmagick-dev-compat
-+
-And then install the rmagick gem:
-+
- # gem install rmagick
 
 
 == Default admin username/password ==
