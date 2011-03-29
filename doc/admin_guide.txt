@@ -121,7 +121,12 @@ In crontab format, an example job for a production environment would look like t
  1 00    * * *   cd /home/leihs && RAILS_ENV=production rake leihs:cron
 +
 The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.
- 
+
+15. Optional: Speed boost thanks to memcached
++
+You can install memcached in order to make leihs perform faster, especially for activities that require recalculations of item availability. Memcached can speed up the system by several orders of magnitude. Unfortunately, because Apple does not include an official packaging system with Mac OS X , we can't give  specific instructions for installing memcached on OS X.
+
+
 === Installation on Debian GNU/Linux ===
 
 These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny) and Debian GNU/Linux 6.0 (Squeeze). They might also work on Ubuntu. You might have to substitute +sudo su+ for +su+ because Ubuntu does not configure a root password, thus +su+ would not work.
@@ -218,6 +223,15 @@ This gives you a test setup using the pure Ruby WebRick web server. For producti
  1 00    * * *   cd /home/leihs && RAILS_ENV=production rake leihs:cron
 +
 The important bit here is to run the "leihs:cron" rake task. How you do this exactly is irrelevant.
+
+14. Optional: Speed boost thanks to memcached
++
+You can install memcached in order to make leihs perform faster, especially for activities that require recalculations of item availability. Memcached can speed up the system by several orders of magnitude.
++
+ # apt-get install memcached
++
+Don't forget to set ENABLE_MEMCACHED to "yes" in /etc/defaults/memcached
+
 
 
 == Default admin username/password ==

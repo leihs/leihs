@@ -633,6 +633,22 @@ $ sudo make install</tt></pre>
 </li>
 <li>
 <p>
+Install ImageMagick. On Mac OS X, we recommend using MacPorts and then installing the ImageMagick port:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ sudo port install imagemagick</tt></pre>
+</div></div>
+<div class="paragraph"><p>Make sure that the ImageMagick binaries (e.g. convert) are in your $PATH. Please consult the Mac OS X documentation to find out how to add paths to your $PATH environment variable. It can be done e.g. by editing /etc/profile and adding the following lines:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>PATH=$PATH:/opt/local/bin
+export PATH</tt></pre>
+</div></div>
+<div class="paragraph"><p>But Apple may at any point recommend a different approach for configuring your PATH, so please don&#8217;t take our word for it.</p></div>
+</li>
+<li>
+<p>
 Install the required version of Rails as well as a few gems that cannot be installed automatically:
 </p>
 <div class="literalblock">
@@ -718,24 +734,9 @@ Set up a system cronjob that sends nightly e-mail reminders and, more importantl
 </li>
 <li>
 <p>
-Optional: If you want to use images of inventory items, install ImageMagick. On Mac OS X, we recommend using MacPorts and then installing the ImageMagick port:
+Optional: Speed boost thanks to memcached
 </p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ sudo port install imagemagick</tt></pre>
-</div></div>
-<div class="paragraph"><p>Make sure that the ImageMagick binaries (e.g. convert) are in your $PATH. Please consult the Mac OS X documentation to find out how to add paths to your $PATH environment variable. It can be done e.g. by editing /etc/profile and adding the following lines:</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><tt>PATH=$PATH:/opt/local/bin
-export PATH</tt></pre>
-</div></div>
-<div class="paragraph"><p>But Apple may at any point recommend a different approach for configuring your PATH, so please don&#8217;t take our word for it.</p></div>
-<div class="paragraph"><p>Finally, install the rmagick gem:</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ sudo gem install rmagick</tt></pre>
-</div></div>
+<div class="paragraph"><p>You can install memcached in order to make leihs perform faster, especially for activities that require recalculations of item availability. Memcached can speed up the system by several orders of magnitude. Unfortunately, because Apple does not include an official packaging system with Mac OS X , we can&#8217;t give  specific instructions for installing memcached on OS X.</p></div>
 </li>
 </ol></div>
 <h3 id="_installation_on_debian_gnu_linux">Installation on Debian GNU/Linux</h3><div style="clear:left"></div>
@@ -795,6 +796,15 @@ $ tar xvfz libstemmer_c.tgz
 $ ./configure --with-libstemmer &amp;&amp; make
 $ su
 # make install</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Optional: If you want to use images of inventory items, install ImageMagick:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt># apt-get install imagemagick graphicsmagick-libmagick-dev-compat libmagickwand-dev</tt></pre>
 </div></div>
 </li>
 <li>
@@ -886,17 +896,14 @@ Set up a system cronjob that sends nightly e-mail reminders and, more importantl
 </li>
 <li>
 <p>
-Optional: If you want to use images of inventory items, install ImageMagick:
+Optional: Speed boost thanks to memcached
 </p>
+<div class="paragraph"><p>You can install memcached in order to make leihs perform faster, especially for activities that require recalculations of item availability. Memcached can speed up the system by several orders of magnitude.</p></div>
 <div class="literalblock">
 <div class="content">
-<pre><tt># apt-get install imagemagick graphicsmagick-libmagick-dev-compat</tt></pre>
+<pre><tt># apt-get install memcached</tt></pre>
 </div></div>
-<div class="paragraph"><p>And then install the rmagick gem:</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><tt># gem install rmagick</tt></pre>
-</div></div>
+<div class="paragraph"><p>Don&#8217;t forget to set ENABLE_MEMCACHED to "yes" in /etc/defaults/memcached</p></div>
 </li>
 </ol></div>
 </div>
@@ -1216,7 +1223,7 @@ $ RAILS_ENV=production rake ts:start</tt></pre>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2011-02-21 16:49:12 CEST
+Last updated 2011-03-29 09:52:47 CEST
 </div>
 </div>
 </body>
