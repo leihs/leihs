@@ -1,0 +1,39 @@
+- # Render a table with the changes of availability of a model
+- # along with information on who the customer is that borrowed
+- # the item on that day.
+- #
+- groups = [Group::GENERAL_GROUP_ID] + @availability.inventory_pool.groups
+%table
+  - @availability.changes.each do |change|
+    %tr
+      - [_("Borrowable %s") % short_date(change.date),                           |
+         _("In Stock (%d)") % change.quantities.collect(&:in_quantity).sum,      |
+         _("Not In Stock (%d)") % change.quantities.collect(&:out_quantity).sum, |
+         _("DocumentLines")].each do |row_description|                           |
+        %th
+          = row_description
+
+    - groups.each do |group|
+      - aq = change.quantities.detect {|q| q.group_id == group.try(:id) }
+      - in_quantity = aq.try(:in_quantity).to_i
+      - out_quantity = aq.try(:out_quantity).to_i
+      - next if in_quantity.zero? and out_quantity.zero? 
+
+      %tr
+        %td
+          = (group ? group.name : _("General")) + ":"
+
+        - [in_quantity, out_quantity].each do |quantity|
+          %td{ :class => "#{quantity < 0 ? "valid_false" : nil}" }
+            = quantity
+
+        %td
+          %ol
+            - aq.document_lines.each do |documentline|
+              %li
+                - user       = documentline.document.user
+                - extra_info = documentline.item.try(:inventory_code) || _("Qty: %d") % documentline.quantity
+                - from       = short_date(documentline.start_date)
+                - to         = short_date(documentline.end_date)
+                = link_to "#{user} (#{extra_info}) => #{from}-#{to}",
+                          backend_inventory_pool_user_path(@current_inventory_pool, user)
