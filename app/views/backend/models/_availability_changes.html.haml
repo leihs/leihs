@@ -29,11 +29,17 @@
 
         %td
           %ol
-            - aq.document_lines.each do |documentline|
+            - aq.document_lines.each do |document_line|
+              -# we don't care for reservations strictly in the future
+              -# that aren't assoiated item. We do not guarantee those
+              -# and thus they don't affect anything before them
+              - if document_line.start_date > change.date && |
+                   document_line.item.nil?                   |
+                - next
               %li
-                - user       = documentline.document.user
-                - extra_info = documentline.item.try(:inventory_code) || _("Qty: %d") % documentline.quantity
-                - from       = short_date(documentline.start_date)
-                - to         = short_date(documentline.end_date)
+                - user       = document_line.document.user
+                - extra_info = document_line.item.try(:inventory_code) || _("Qty: %d") % document_line.quantity
+                - from       = short_date(document_line.start_date)
+                - to         = short_date(document_line.end_date)
                 = link_to "#{user} (#{extra_info}) => #{from}-#{to}",
                           backend_inventory_pool_user_path(@current_inventory_pool, user)
