@@ -2,6 +2,8 @@
 # Configure your app in config/environment.rb and config/environments/*.rb
 
 RAILS_ROOT = "#{File.dirname(__FILE__)}/.." unless defined?(RAILS_ROOT)
+# http://makandra.com/notes/1051-fixing-uninitialized-constant-activesupport-dependencies-mutex-nameerror
+require 'thread'
 
 module Rails
   class << self

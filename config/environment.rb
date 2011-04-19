@@ -7,6 +7,9 @@
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
+# http://makandra.com/notes/1051-fixing-uninitialized-constant-activesupport-dependencies-mutex-nameerror
+require 'thread'
+
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 

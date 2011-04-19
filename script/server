@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
+#http://makandra.com/notes/1051-fixing-uninitialized-constant-activesupport-dependencies-mutex-nameerror
+require 'thread'
 require File.dirname(__FILE__) + '/../config/boot'
 require 'commands/server'
