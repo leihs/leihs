@@ -1,0 +1,52 @@
+%h3
+  = _("Current group quantities")
+
+- borrowable_items = current_inventory_pool.items.borrowable.scoped_by_model_id(@model).count
+- unborrowable_items = current_inventory_pool.items.unborrowable.scoped_by_model_id(@model).count
+
+-# render the "Partition Table" / form where the user can see and
+-# change the partitioning of the model between different groups 
+-#
+- form_tag set_group_partition_backend_inventory_pool_model_path(current_inventory_pool, @model) do
+  %table#groups
+    %tr
+      %th
+      %th
+        = _("Borrowable (%d)")   % borrowable_items
+      %th
+        = _("Unborrowable (%d)") % unborrowable_items
+    %tr
+      %td
+        = _("General") + ":"
+      %td#general_in_stock
+        = @model.partitions.in(current_inventory_pool).by_group(Group::GENERAL_GROUP_ID)
+      %td
+    - current_inventory_pool.groups.each do |group|
+      %tr
+        %td
+          = group.name + ":"
+        %td
+          - quantity = @model.partitions.in(current_inventory_pool).by_group(group).try(:quantity).to_i
+          = text_field_tag "groups[#{group.id}]", quantity, :autocomplete => "off"
+        %td
+        
+  = submit_tag _("Submit")
+
+-# automatically computes the rest quantity for the general group
+-# rest = borrowable_items - allocated_items_to_groups
+:javascript
+  jQuery(document).ready(function($){
+    var general_in_stock = $("td#general_in_stock");
+    $("#groups input").keyup(function(){
+      var rest = #{borrowable_items};
+      $("#groups input").each(function(){
+        var val = $(this).val() * 1; 
+        rest -=  val;
+        (val < 0 ? $(this).addClass("valid_false") : $(this).removeClass("valid_false"));
+      });
+      general_in_stock.html(String(rest));
+      (rest < 0 ? general_in_stock.addClass("valid_false") : general_in_stock.removeClass("valid_false"));
+    });
+  });
+
+= availability_changes(@availability)

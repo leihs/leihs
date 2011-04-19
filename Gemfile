@@ -26,6 +26,8 @@ gem "ruby-net-ldap", "0.0.4", :require => 'net/ldap'
 
 gem "awesome_nested_set", "1.4.3"
 
+gem "haml"
+
 
 group :profiling do
 	gem "newrelic_rpm", '2.10.5'
