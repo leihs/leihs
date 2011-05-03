@@ -107,3 +107,28 @@ do |start_date, end_date, quantity|
 	 maximum_available_in_period_for_user(@user, start_date, end_date).
 	 should == quantity.to_i
 end
+
+When "I check the availability changes for '$model'" do |model|
+  @model = Model.find_by_name model
+  visit groups_backend_inventory_pool_model_path(@inventory_pool,@model)
+end
+
+Then "no reservation should show an influence on today's borrowability" do
+  today = Date.today.strftime("%d.%m.%Y")
+  Then "0 reservation should show an influence on the borrowability on #{today}"
+end
+
+# the following is extremely markup structure dependent
+Then /^([^ ]*) reservation(.*)? should show an influence on the borrowability on (.*)/ do
+|number,plural,date|
+  number = to_number(number)
+
+  # find header line, that contains the date
+  th = page.first('th', :text => "Borrowable #{date}")
+  # parent 'tr' element
+  tr_head = th.first(:xpath,'..')
+  # next 'tr' element
+  tr = tr_head.first(:xpath,'following-sibling::*')
+  # all list entries inside that 'tr' element
+  tr.all('li').count().should == number
+end

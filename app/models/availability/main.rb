@@ -57,10 +57,7 @@ module Availability
       if change.date < new_change_date
         new_change = Change.new(:date => new_change_date)
         change.quantities.each do |quantity|
-          new_change.quantities << Quantity.new( :out_quantity => quantity.out_quantity,
-                                                 :in_quantity  => quantity.in_quantity,
-                                                 :group_id     => quantity.group_id,
-                                                 :out_document_lines => quantity.out_document_lines.clone)
+          new_change.quantities << quantity.deep_clone
         end
         self << new_change
         return new_change

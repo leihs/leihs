@@ -10,6 +10,7 @@ When /^he logs in$/ do
   post "/session", :login => @user.login
 end
 
+# This one 'really' goes through the auth process
 When /^I log in as '([^']*)' with password '([^']*)'$/ do |who,password|
   visit('/')
   fill_in 'login_user',     :with => who
@@ -17,6 +18,7 @@ When /^I log in as '([^']*)' with password '([^']*)'$/ do |who,password|
   click_button 'Login'
 end
 
+# TODO: move to Factory.create_db_auth in user_man_steps
 Given /(his|her) password is '([^']*)'$/ do |foo,password|
   DatabaseAuthentication.new(:user => @user, :login => @user.login,
 			     :password => password,

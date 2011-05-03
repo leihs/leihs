@@ -10,14 +10,14 @@ Background: As a Organisation we have some Inventory with things to lend out
 	  And a manager for inventory pool 'ABC' logs in as 'lending_manager'
 
 
-Scenario: No Reservations
+Scenario: No reservations
 	
 	Given 7 items of model 'NEC 245' exist
 	  And 0 reservations exist for model 'NEC 245'
 	 When lending_manager checks availability for 'NEC 245'
 	 Then it should always be available
 	
-Scenario: With Reservation
+Scenario: With reservation
 	
 	Given 7 items of model 'NEC 245' exist
 	  And a reservation exists for 3 'NEC 245' from 21.3.2100 to 31.3.2100
@@ -152,3 +152,14 @@ Scenario: A reservation of a single day should be blocking
 	  And the maximum available quantity from 17.1.2100 to 17.1.2100 is 0
 	  And the maximum available quantity from 17.1.2100 to 18.1.2100 is 0
 	  And the maximum available quantity from 18.1.2100 to 20.1.2100 is 1
+
+Scenario: Future, unassigned reservations should not influence present
+	Given 1 item of model 'RepRap' exist
+	  And a reservation exists for 1 'RepRap' from 17.1.2100 to 17.1.2100
+	  And a reservation exists for 1 'RepRap' from 20.1.2100 to 20.1.2100
+	Given 'lending_manager' has password 'foobar'
+	 When I log in as 'lending_manager' with password 'foobar'
+	 When I check the availability changes for 'RepRap'
+	 Then no reservation should show an influence on today's borrowability
+	 Then one reservation should show an influence on the borrowability on 17.01.2100
+	 Then no reservation should show an influence on the borrowability on 18.01.2100
