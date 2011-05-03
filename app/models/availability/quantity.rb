@@ -21,7 +21,17 @@ module Availability
       @group_id = attr[:group_id]
       @in_quantity = attr[:in_quantity] || 0
       @out_quantity = attr[:out_quantity] || 0
-      @out_document_lines = attr[:out_document_lines] || {}
+      # use deep_clone instead to produce a copy of a quantity 
+      @out_document_lines = {} 
+    end
+
+    def deep_clone()
+      new_qty = self.clone
+      new_qty.out_document_lines = {}
+      self.out_document_lines.each_pair do |document_line_class, document_lines|
+        new_qty.out_document_lines[document_line_class] = document_lines.clone
+      end
+      new_qty
     end
       
     def append_to_out_document_lines(type, id)
