@@ -153,7 +153,7 @@ Scenario: A reservation of a single day should be blocking
 	  And the maximum available quantity from 17.1.2100 to 18.1.2100 is 0
 	  And the maximum available quantity from 18.1.2100 to 20.1.2100 is 1
 
-Scenario: Future, unassigned reservations should not influence present
+Scenario: Future, unassigned reservations should not influence the present
 	Given 1 item of model 'RepRap' exist
 	  And a reservation exists for 1 'RepRap' from 17.1.2100 to 17.1.2100
 	  And a reservation exists for 1 'RepRap' from 20.1.2100 to 20.1.2100
@@ -162,4 +162,13 @@ Scenario: Future, unassigned reservations should not influence present
 	 When I check the availability changes for 'RepRap'
 	 Then no reservation should show an influence on today's borrowability
 	 Then one reservation should show an influence on the borrowability on 17.01.2100
+	 Then no reservation should show an influence on the borrowability on 18.01.2100
+
+Scenario: Future, assigned reservations should influence the present
+	Given 1 item of model 'RepRap' exist
+          And a contract exists for 1 'RepRap' from 17.1.2100 to 17.1.2100
+	Given 'lending_manager' has password 'foobar'
+	 When I log in as 'lending_manager' with password 'foobar'
+	 When I check the availability changes for 'RepRap'
+	 Then one reservation should show an influence on today's borrowability
 	 Then no reservation should show an influence on the borrowability on 18.01.2100

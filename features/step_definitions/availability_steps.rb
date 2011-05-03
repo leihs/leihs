@@ -113,9 +113,10 @@ When "I check the availability changes for '$model'" do |model|
   visit groups_backend_inventory_pool_model_path(@inventory_pool,@model)
 end
 
-Then "no reservation should show an influence on today's borrowability" do
+Then "$number reservation should show an influence on today's borrowability" \
+do |number|
   today = Date.today.strftime("%d.%m.%Y")
-  Then "0 reservation should show an influence on the borrowability on #{today}"
+  Then "#{to_number(number)} reservations should show an influence on the borrowability on #{today}"
 end
 
 # the following is extremely markup structure dependent
