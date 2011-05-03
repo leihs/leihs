@@ -76,3 +76,6 @@ do |name,email,filler,ip|
   click_button 'Submit'
 end
 
+Given "'$name' has password '$pass'" do |name,pass|
+  Factory.create_db_auth(:login => name, :password => pass)
+end
