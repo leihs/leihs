@@ -69,7 +69,33 @@ module Factory
     Factory.define_role(u, options[:inventory_pool], options[:role] )
 
     u.save
+
+    # if a password is provided, then we create the user in a way that she can log in
+    # for real
+    if options[:password]
+      Factory.create_db_auth(:login => u.login, :password => options[:password])
+    end
+
     u
+  end
+
+  #
+  # User
+  # 
+  def self.create_db_auth(attributes = {}, options = {})
+    default_attributes = {
+      :login => "jerome",
+      :password  => "pass"
+    }
+    merged_attributes = default_attributes.merge(attributes)
+    
+    u = User.find_by_login merged_attributes[:login]
+    
+    d = DatabaseAuthentication.create!(:login => u.login,
+                                       :password              => merged_attributes[:password],
+                                       :password_confirmation => merged_attributes[:password])
+    d.user = u
+    d.save!
   end
 
   #
@@ -373,6 +399,7 @@ module Factory
   #
   # create the super user aka admin
   #
+  # TODO tpo: reuse create_user and create_db_auth instead
   def self.create_super_user
     superuser = nil
     unless User.find_by_login "super_user_1"
