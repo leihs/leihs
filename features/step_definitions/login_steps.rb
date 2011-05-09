@@ -18,19 +18,17 @@ When /^I log in as '([^']*)' with password '([^']*)'$/ do |who,password|
   click_button 'Login'
 end
 
-# TODO: move to Factory.create_db_auth in user_man_steps
 Given /(his|her) password is '([^']*)'$/ do |foo,password|
-  DatabaseAuthentication.new(:user => @user, :login => @user.login,
-			     :password => password,
-			     :password_confirmation => password ).save
+  Factory.create_db_auth( :login => @user.login,
+			  :password => password)
 end
 
 When 'I log in as the admin' do
   Given 'I am on the home page'
-  When 'I make sure I am logged out'
-  And  'I fill in "login_user" with "super_user_1"'
-   And  'I fill in "login_password" with "pass"'
-   And  'I press "Login"'
+   When 'I make sure I am logged out'
+    And 'I fill in "login_user" with "super_user_1"'
+    And 'I fill in "login_password" with "pass"'
+    And 'I press "Login"'
 end
 
 
