@@ -27,7 +27,15 @@ module Backend::ModelsHelper
     # bandInfos contains JS initialisation code for Timeline bands
     #
     #bandInfos_js = ["Timeline.createBandInfo({ eventSource: eventSource[-1], overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top' })"]
-    bandInfos_js = ["Timeline.createBandInfo({ timeZone: 2, overview: true, intervalUnit: Timeline.DateTime.MONTH, intervalPixels: 100, align: 'Top', theme: theme })"]
+    bandInfos_js = [ <<-BAND1
+      Timeline.createBandInfo( { timeZone:       2,
+                                 overview:       true,
+                                 intervalUnit:   Timeline.DateTime.MONTH,
+                                 intervalPixels: 100,
+                                 align:          'Top',
+                                 theme:          theme })
+     BAND1
+    ]
     # TODO total overview # bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, overview: true, width: '#{sum_w}px', intervalUnit: Timeline.DateTime.DAY, intervalPixels: 32, align: 'Top', theme: theme })"
 
     # decorators are specially marked days inside a bar, which in leihs will display
@@ -40,7 +48,14 @@ module Backend::ModelsHelper
       next unless events.keys.include?(group_id)
       #w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
       #sum_w += w
-      bandInfos_js << "Timeline.createBandInfo({ timeZone: 2, eventSource: eventSource[#{group_id}], intervalUnit: Timeline.DateTime.DAY, intervalPixels: 70, align: 'Top', theme: theme })"
+      bandInfos_js << <<-BAND2
+        Timeline.createBandInfo( { timeZone:       2,
+                                   eventSource:    eventSource[#{group_id}],
+                                   intervalUnit:   Timeline.DateTime.DAY,
+                                   intervalPixels: 70,
+                                   align:         'Top',
+                                   theme:         theme } )
+        BAND2
       bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : _("General"))
       
       prev_in_quantity = nil
@@ -48,11 +63,24 @@ module Backend::ModelsHelper
         d = []
         in_quantity = change.in_quantity_in_group(g)
         if in_quantity < 0 or change.quantities.collect(&:in_quantity).sum < 0
-          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{change.start_date.to_time.to_s(:rfc822)}', endDate: '#{changes.end_date_of(change).tomorrow.to_time.to_s(:rfc822)}', color: '#f00', opacity: 50 })"
+          d << <<-BAND3
+               new Timeline.SpanHighlightDecorator(
+                     { startDate: '#{change.start_date.to_time.to_s(:rfc822)}',
+                       endDate:   '#{changes.end_date_of(change).tomorrow.to_time.to_s(:rfc822)}',
+                       color:     '#f00',
+                       opacity:   50 } )
+               BAND3
         end
         if prev_in_quantity != in_quantity
           prev_in_quantity = in_quantity
-          d << "new Timeline.SpanHighlightDecorator({ startDate: '#{(change.start_date.to_time - 1.hour).to_s(:rfc822)}', endDate: '#{(change.start_date.to_time + 1.hour).to_s(:rfc822)}', color: '#555555', opacity: 50, endLabel: '#{in_quantity}' })"
+          d << <<-BAND4
+               new Timeline.SpanHighlightDecorator(
+                     { startDate: '#{(change.start_date.to_time - 1.hour).to_s(:rfc822)}',
+                       endDate:   '#{(change.start_date.to_time + 1.hour).to_s(:rfc822)}',
+                       color:     '#555555',
+                       opacity:   50,
+                       endLabel:  '#{in_quantity}' } )
+               BAND4
         end
         (d.empty? ? nil : d.join(', '))
       end.compact
