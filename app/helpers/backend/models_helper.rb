@@ -172,14 +172,18 @@ private
   def reservations_to_events( running_reservations )
     events = {}
     running_reservations.each do |line|
-      color = if not line.item
-                '#90c1c8'
-              elsif line.is_late?
-                'red'
-              elsif line.returned_date
-                '#e1e157'
-              else
-                '#e3aa01'
+      classname = if not line.item
+                    if line.available?
+                      'no-assigned-item'
+                    else
+                      'unavailable'
+                    end 
+                  elsif line.is_late?
+                    'is-late'
+                  elsif line.returned_date
+                    'is-returned'
+                  else
+                    'without-conflict'
               end
       group_id = line.allocated_group.try(:id).to_i
 
@@ -190,9 +194,8 @@ private
                            :title         => event_title(line),
                            :description   => event_description(line),
                            #:trackNum     => (events[group_id].empty? ? 0 : (line.item ? events[group_id].collect {|e| e[:trackNum] }.compact.max.to_i.next : nil)),
-                           :color         => color,
                            :textColor     => 'black',
-                           :classname     => (!line.item and !line.available? ? "unavailable" : nil) }
+                           :classname     => classname }
     end
     events
   end
