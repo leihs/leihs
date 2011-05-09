@@ -44,3 +44,16 @@
 	background-color: #e3aa01;
 }
 
+div.timeline-legend {
+	margin-top: 2px;
+	border: 1px solid rgb(170, 170, 170);
+}
+
+.timeline-legend div {
+	height:  15px;
+	display: inline;
+	margin-right: 10px;
+	padding-left: 2px;
+	padding-right: 2px;
+	overflow: auto;
+}

@@ -3,6 +3,27 @@
 <%#= canvas_for(@model, current_inventory_pool, {:filter => params[:filter]}) %>
 <%#temp#= pie_for_model(@model) if is_privileged_user? %>
 
+<div class="timeline-legend">
+  <div class="title">
+  	<%= _("Legend") + ":"%>
+  </div>
+  <div class="tape-is-late">
+    <%= _("overdue") + " / " + _("is late") %>
+  </div>
+  <div class="tape-unavailable">
+    <%= _("unavailable") %>
+  </div>
+  <div class="tape-no-assigned-item">
+    <%= _("no item assigned") %>
+  </div>
+  <div class="tape-is-returned">
+    <%= _("is returned") %>
+  </div>
+  <div class="tape-without-conflict">
+    <%= _("without conflict") %>
+  </div>
+</div>
+
 <% content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do %>
 	<%= link_to icon_tag("group") + " " + _("Current group quantities"),
                 [:groups, :backend, current_inventory_pool, @model],
