@@ -113,6 +113,8 @@ But Apple may at any point recommend a different approach for configuring your P
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
 +
 This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.
++
+Please change the super_user_1 password immediately after logging in the first time. Otherwise other people will also be able to log in using the well known default password.
 
 14. Set up a system cronjob that sends nightly e-mail reminders and, more importantly, updates all the models' availability counts. There are many ways to schedule repeating tasks on Mac OS X. Please see Apple's documentation on launchd for how to do this.
 +
@@ -217,6 +219,8 @@ Note that the URL above might change! Please visit the RubyGems site to find the
 Now you should see your local leihs server at http://localhost:3000. You can log in with username "super_user_1" and password "pass".
 +
 This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.
++
+Please change the super_user_1 password immediately after logging in the first time. Otherwise other people will also be able to log in using the well known default password.
 
 13. Set up a system cronjob that sends nightly e-mail reminders and, more importantly, updates all the models' availability counts. There are many ways to schedule repeating tasks on GNU/Linux, but here's a line in crontab-format that you can add to your leihs user's crontab using e.g. +crontab -e+:
 +
@@ -237,6 +241,8 @@ Don't forget to set ENABLE_MEMCACHED to "yes" in /etc/defaults/memcached
 == Default admin username/password ==
 
 After installation, a default user is created for the Database Authentication module. Username: super_user_1. Password: pass.
++
+Please change the super_user_1 password immediately after logging in the first time. Otherwise other people will also be able to log in using the well known default password.
 
 == Upgrading from leihs 2.0 to leihs 2.1 ==
 
