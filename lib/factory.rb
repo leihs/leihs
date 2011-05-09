@@ -65,7 +65,7 @@ module Factory
     u = User.find_or_create_by_login default_attributes.merge(attributes)
     
     options[:role] ||= "customer"
-    options[:inventory_pool] ||= InventoryPool.first
+    options[:inventory_pool] = InventoryPool.first unless options.has_key?(:inventory_pool)
     Factory.define_role(u, options[:inventory_pool], options[:role] )
 
     u.save
@@ -408,23 +408,12 @@ module Factory
   #
   # TODO tpo: reuse create_user and create_db_auth instead
   def self.create_super_user
-    superuser = nil
-    unless User.find_by_login "super_user_1"
-      superuser = User.new( :email => "super_user_1@example.com",
-                            :login => "super_user_1")
-  
-      superuser.unique_id = "super_user_1"
-      superuser.save!
-      admin = Role.find(:first, :conditions => {:name => "admin"})
-      superuser.access_rights.create!(:role => admin, :inventory_pool => nil)
-  
-      d = DatabaseAuthentication.create!(:login => "super_user_1",
-                                         :password => "pass",
-                                         :password_confirmation => "pass")
-      d.user = superuser
-      d.save!
-    end
-    superuser
+    self.create_user( { :email          => "super_user_1@example.com",
+                        :login          => "super_user_1",
+                        :unique_id      => "super_user_1" },
+		      { :role           => "admin",
+		        :password       => "pass",
+		        :inventory_pool => nil,            })
   end
 
   #
