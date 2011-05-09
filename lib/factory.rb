@@ -89,12 +89,19 @@ module Factory
     }
     merged_attributes = default_attributes.merge(attributes)
     
+    password = merged_attributes[:password]
     u = User.find_by_login merged_attributes[:login]
     
-    d = DatabaseAuthentication.create!(:login => u.login,
-                                       :password              => merged_attributes[:password],
-                                       :password_confirmation => merged_attributes[:password])
-    d.user = u
+    d = DatabaseAuthentication.find_by_login u.login
+    if d
+      d.password = password
+      d.password_confirmation = password
+    else
+      d = DatabaseAuthentication.create!(:login => u.login,
+                                         :password              => password,
+                                         :password_confirmation => password)
+      d.user = u
+    end
     d.save!
   end
 
