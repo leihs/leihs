@@ -1,6 +1,3 @@
-Given "$number reservations exist for model '$model'" do |number, model|
-end
-
 Given "a reservation exists for $quantity '$model' from $from to $to" \
 do |quantity, model, from, to|
   model = Model.find_by_name(model)
