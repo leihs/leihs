@@ -229,9 +229,11 @@ private
       document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
                         link_to link_string, link_path
                       end
-      return ("Group: #{line.allocated_group}<br/>" +
-              "Phone: #{line.document.user.phone}<br/>" +
-              "Reservation: #{line.start_date} #{_('until')} #{line.end_date}<br/>" +
+
+
+      return ("#{_("Group")}: #{line.allocated_group}<br/>" +
+              "#{_("Phone")}: #{line.document.user.phone}<br/>" +
+              "#{_("Reservation")}: #{line.start_date} #{_('until')} #{line.end_date}<br/>" +
               "#{document_link}")
   end
 end
