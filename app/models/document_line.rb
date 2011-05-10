@@ -51,6 +51,10 @@ class DocumentLine < ActiveRecord::Base
     return r
   end
 
+  # abstract method - implemented by ContractLine
+  def is_reserved?
+    false
+  end
 ###############################################  
 
   private
