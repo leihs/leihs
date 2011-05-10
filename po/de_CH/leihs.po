@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2011-03-18 12:36+0100\n"
-"PO-Revision-Date: 2011-03-18 12:37+0100\n"
+"POT-Creation-Date: 2011-05-10 14:05+0200\n"
+"PO-Revision-Date: 2011-05-10 14:05+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "Language: \n"
@@ -134,9 +134,8 @@ msgid "Order|Updated at"
 msgstr "Vertrage %d"
 
 #: app/models/group.rb:-
-#, fuzzy
 msgid "group"
-msgstr "Modellgruppe"
+msgstr "Gruppe"
 
 #: app/models/group.rb:-
 #, fuzzy
@@ -482,9 +481,8 @@ msgid "Property|Value"
 msgstr "Eigenschaften"
 
 #: app/models/group.rb:-
-#, fuzzy
 msgid "partition"
-msgstr "Option"
+msgstr "Partitionierung"
 
 #: app/models/group.rb:-
 #, fuzzy
@@ -1498,7 +1496,7 @@ msgid "inventory pool is closed on end_date. "
 msgstr "Der Gerätepark ist am gewünschten Rückgabetag geschlossen"
 
 #: app/models/document_line.rb:65
-#: app/helpers/backend/backend_helper.rb:220
+#: app/helpers/backend/backend_helper.rb:227
 #: app/views/frontend/_models.html.erb:408
 #: app/views/frontend/_complete_order.html.erb:197
 msgid "Start Date must be before End Date"
@@ -1841,7 +1839,7 @@ msgid "Option %s added."
 msgstr "Option %s hinzugefügt."
 
 #: app/controllers/backend/hand_over_controller.rb:161
-#: app/controllers/backend/take_back_controller.rb:116
+#: app/controllers/backend/take_back_controller.rb:119
 msgid "The Inventory Code %s was not found."
 msgstr "Inventarcode %s nicht gefunden"
 
@@ -1873,7 +1871,7 @@ msgstr "Datenbank-Backup erstellt"
 msgid "Model must be selected"
 msgstr "Modell muss ausgewählt sein"
 
-#: app/controllers/backend/take_back_controller.rb:67
+#: app/controllers/backend/take_back_controller.rb:68
 msgid "Item taken back"
 msgstr "Gegenstand zurückgenommen"
 
@@ -1969,27 +1967,27 @@ msgstr "Tage"
 msgid "Possibly not all matches are being displayed because your search text was shorter than the minumum %s characters"
 msgstr "Es werden evtl. nicht alle Resultate angezeigt, da Ihr Suchbegriff kürzer war als %s Zeichen"
 
-#: app/helpers/backend/backend_helper.rb:37
+#: app/helpers/backend/backend_helper.rb:38
 msgid " <b>%d</b> results"
 msgstr " <b>%d</b> Resultate "
 
-#: app/helpers/backend/backend_helper.rb:38
+#: app/helpers/backend/backend_helper.rb:39
 msgid " for <b>%s</b>"
 msgstr " für Suche nach <b>%s</b>"
 
-#: app/helpers/backend/backend_helper.rb:39
+#: app/helpers/backend/backend_helper.rb:40
 msgid " filtering <b>%s</b>"
 msgstr " filtere nach <b>%s</b>"
 
-#: app/helpers/backend/backend_helper.rb:40
+#: app/helpers/backend/backend_helper.rb:41
 msgid "Previous"
 msgstr "Zurück"
 
-#: app/helpers/backend/backend_helper.rb:40
+#: app/helpers/backend/backend_helper.rb:41
 msgid "Next"
 msgstr "Vorwärts"
 
-#: app/helpers/backend/backend_helper.rb:99
+#: app/helpers/backend/backend_helper.rb:106
 #: app/views/backend/contracts/_index.html.erb:1
 #: app/views/backend/acknowledge/_index.html.erb:1
 #: app/views/backend/acknowledge/show.html.erb:24
@@ -2002,7 +2000,7 @@ msgstr "Vorwärts"
 msgid "Reserver"
 msgstr "Reservierer"
 
-#: app/helpers/backend/backend_helper.rb:102
+#: app/helpers/backend/backend_helper.rb:109
 #: app/views/layouts/backend/00-patterns/_personal_toolbar.html.erb:17
 #: app/views/widgets/_user_backend_tabnav.html.erb:18
 #: app/views/users/show.html.erb:5
@@ -2021,7 +2019,7 @@ msgstr "Reservierer"
 msgid "User"
 msgstr "Benutzer"
 
-#: app/helpers/backend/backend_helper.rb:118
+#: app/helpers/backend/backend_helper.rb:125
 #: app/views/contracts/_signed.html.erb:38
 #: app/views/contracts/_unsigned.html.erb:39
 #: app/views/widgets/_model_backend_tabnav.html.erb:1
@@ -2040,27 +2038,27 @@ msgstr "Benutzer"
 msgid "Model"
 msgstr "Modell"
 
-#: app/helpers/backend/backend_helper.rb:164
+#: app/helpers/backend/backend_helper.rb:171
 #: app/views/frontend/_models.html.erb:249
 #: app/views/users/account.html.erb:29
 msgid "Loading"
 msgstr "Lade"
 
-#: app/helpers/backend/backend_helper.rb:214
+#: app/helpers/backend/backend_helper.rb:221
 #: app/views/backend/hand_over/sign_contract.html.erb:18
 #: app/views/backend/take_back/close_contract.html.erb:8
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: app/helpers/backend/backend_helper.rb:223
+#: app/helpers/backend/backend_helper.rb:230
 msgid "You can't have a Start Date before today"
 msgstr "Das Startdatum kann nicht vor dem heutigen Datum liegen"
 
-#: app/helpers/backend/backend_helper.rb:361
+#: app/helpers/backend/backend_helper.rb:368
 msgid "Month"
 msgstr "Monat"
 
-#: app/helpers/backend/backend_helper.rb:431
+#: app/helpers/backend/backend_helper.rb:438
 msgid "Permission needed:"
 msgstr "Bewilligung nötig:"
 
@@ -2078,31 +2076,11 @@ msgstr "Gestern"
 msgid "Write Email"
 msgstr "E-Mail schreiben"
 
-#: app/helpers/backend/availability_helper.rb:19
-msgid "Borrowable %s"
-msgstr "Ausleihbar %s"
-
-#: app/helpers/backend/availability_helper.rb:20
-msgid "In Stock (%d)"
-msgstr "An Lager (%d)"
-
-#: app/helpers/backend/availability_helper.rb:21
-msgid "Not In Stock (%d)"
-msgstr "Nicht an Lager (%d)"
-
-#: app/helpers/backend/availability_helper.rb:22
-msgid "DocumentLines"
-msgstr "DocumentLines"
-
-#: app/helpers/backend/availability_helper.rb:47
-msgid "Qty: %d"
-msgstr "Anzahl: %d"
-
-#: app/helpers/backend/availability_helper.rb:69
+#: app/helpers/backend/availability_helper.rb:18
 msgid "From date"
 msgstr "Von Datum"
 
-#: app/helpers/backend/availability_helper.rb:70
+#: app/helpers/backend/availability_helper.rb:19
 msgid "Available quantity"
 msgstr "Verfügbare Anzahl"
 
@@ -2125,21 +2103,20 @@ msgstr "Ausmusterung zurücknehmen"
 msgid "Retire"
 msgstr "Ausmustern"
 
-#: app/helpers/backend/models_helper.rb:44
-#: app/views/backend/models/_groups.html.erb:23
+#: app/helpers/backend/models_helper.rb:59
 msgid "General"
 msgstr "Allgemein"
 
-#: app/helpers/backend/models_helper.rb:173
+#: app/helpers/backend/models_helper.rb:209
 msgid "Quantity: %d"
 msgstr "Anzahl: %d"
 
-#: app/helpers/backend/models_helper.rb:183
+#: app/helpers/backend/models_helper.rb:219
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:10
 msgid "Acknowledge"
 msgstr "Genehmigen"
 
-#: app/helpers/backend/models_helper.rb:186
+#: app/helpers/backend/models_helper.rb:222
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:14
 #: app/views/backend/hand_over/_index.html.erb:32
 #: app/views/backend/hand_over/index.html.erb:2
@@ -2150,7 +2127,7 @@ msgstr "Genehmigen"
 msgid "Hand Over"
 msgstr "Aushändigen"
 
-#: app/helpers/backend/models_helper.rb:189
+#: app/helpers/backend/models_helper.rb:225
 #: app/views/layouts/backend/00-patterns/_banner_buttons.html.erb:18
 #: app/views/backend/contracts/_index.html.erb:22
 #: app/views/backend/take_back/_index.html.erb:33
@@ -2160,6 +2137,10 @@ msgstr "Aushändigen"
 #: app/views/backend/backend/search/_contract.html.erb:11
 msgid "Take Back"
 msgstr "Zurücknehmen"
+
+#: app/helpers/backend/models_helper.rb:236
+msgid "until"
+msgstr "bis"
 
 #: app/helpers/backend/categories_helper.rb:11
 #: app/views/frontend/_models.html.erb:126
@@ -2310,7 +2291,7 @@ msgstr "Nicht an Lager"
 
 #: app/views/layouts/backend/00-patterns/_menu_items.html.erb:16
 #: app/views/backend/take_back/inspection.html.erb:8
-#: app/views/backend/items/_index.html.erb:33
+#: app/views/backend/items/_index.html.erb:34
 #: app/views/backend/items/_status.html.erb:6
 #: app/views/backend/items/status.html.erb:16
 #: app/views/backend/items/status.html.erb:26
@@ -2321,7 +2302,7 @@ msgstr "Defekt"
 
 #: app/views/layouts/backend/00-patterns/_menu_items.html.erb:19
 #: app/views/backend/take_back/inspection.html.erb:11
-#: app/views/backend/items/_index.html.erb:36
+#: app/views/backend/items/_index.html.erb:37
 #: app/views/backend/items/_status.html.erb:13
 #: app/views/backend/items/status.html.erb:17
 #: app/views/backend/items/status.html.erb:31
@@ -2331,7 +2312,7 @@ msgstr "Unvollständig"
 
 #: app/views/layouts/backend/00-patterns/_menu_items.html.erb:22
 #: app/views/backend/take_back/inspection.html.erb:14
-#: app/views/backend/items/_index.html.erb:39
+#: app/views/backend/items/_index.html.erb:40
 #: app/views/backend/items/_status.html.erb:19
 #: app/views/backend/items/status.html.erb:18
 #: app/views/backend/items/status.html.erb:36
@@ -2356,7 +2337,7 @@ msgstr "Optionen"
 msgid "Change"
 msgstr "Ändern"
 
-#: app/views/layouts/backend/00-patterns/general.html.erb:95
+#: app/views/layouts/backend/00-patterns/general.html.erb:93
 msgid "Database Backup"
 msgstr "Datenbank-Backup"
 
@@ -2717,7 +2698,7 @@ msgstr "Kompatible"
 #: app/views/backend/categories/_index.html.erb:1
 #: app/views/backend/users/show.html.erb:13
 #: app/views/backend/items/_general_info.html.erb:44
-#: app/views/backend/items/_index.html.erb:13
+#: app/views/backend/items/_index.html.erb:14
 #: app/views/backend/items/supplier.html.erb:24
 #: app/views/backend/inventory_pools/_index.html.erb:1
 #: app/views/backend/inventory_pools/_info.html.erb:4
@@ -2829,7 +2810,6 @@ msgstr "Wollen Sie diese Bestellung abschicken?"
 #: app/views/backend/models/package_roots.html.erb:22
 #: app/views/backend/models/index.html.erb:20
 #: app/views/backend/models/properties.html.erb:51
-#: app/views/backend/models/_groups.html.erb:46
 #: app/views/backend/options/show.html.erb:15
 #: app/views/backend/items/notes.html.erb:5
 #: app/views/backend/items/status.html.erb:39
@@ -3169,7 +3149,7 @@ msgstr "Wichtige Notizen zur Aushändigung"
 #: app/views/backend/users/_index.html.erb:37
 #: app/views/backend/users/groups.html.erb:27
 #: app/views/backend/locations/_index.html.erb:12
-#: app/views/backend/items/_index.html.erb:52
+#: app/views/backend/items/_index.html.erb:53
 msgid "Show"
 msgstr "Anzeigen"
 
@@ -3282,8 +3262,35 @@ msgstr "von"
 msgid "Select"
 msgstr "Auswählen"
 
-#: app/views/backend/models/show.html.erb:7
-#: app/views/backend/models/_groups.html.erb:2
+#: app/views/backend/models/show.html.erb:8
+msgid "Legend"
+msgstr "Erklärung"
+
+#: app/views/backend/models/show.html.erb:11
+msgid "without conflict"
+msgstr "ohne Konflikt"
+
+#: app/views/backend/models/show.html.erb:14
+msgid "is returned"
+msgstr "zurückgegeben"
+
+#: app/views/backend/models/show.html.erb:17
+msgid "no item assigned"
+msgstr "Kein Gegenstand zugeordnet"
+
+#: app/views/backend/models/show.html.erb:20
+msgid "unavailable"
+msgstr "nicht verfügbar"
+
+#: app/views/backend/models/show.html.erb:23
+msgid "overdue"
+msgstr "überfällig"
+
+#: app/views/backend/models/show.html.erb:23
+msgid "is late"
+msgstr "verspätet"
+
+#: app/views/backend/models/show.html.erb:28
 msgid "Current group quantities"
 msgstr "Gruppen-Verteilung"
 
@@ -3327,14 +3334,6 @@ msgstr "Aktiv für %s"
 #: app/views/backend/models/accessories.html.erb:26
 msgid "Actions"
 msgstr "Aktionen"
-
-#: app/views/backend/models/_groups.html.erb:15
-msgid "Borrowable (%d)"
-msgstr "Ausleihbar (%d)"
-
-#: app/views/backend/models/_groups.html.erb:18
-msgid "Unborrowable (%d)"
-msgstr "Nicht ausleihbar (%d)"
 
 #: app/views/backend/acknowledge/_line.html.erb:27
 #: app/views/backend/acknowledge/show.html.erb:75
@@ -3411,7 +3410,7 @@ msgstr "Möchten Sie das Objekt wirklich löschen?"
 #: app/views/backend/acknowledge/reject.html.erb:15
 #: app/views/backend/hand_over/sign_contract.html.erb:20
 #: app/views/backend/take_back/inspection.html.erb:29
-#: app/views/backend/take_back/close_contract.html.erb:12
+#: app/views/backend/take_back/close_contract.html.erb:16
 #: app/views/backend/items/retire.html.erb:25
 #: app/views/backend/items/retire.html.erb:37
 #: app/views/backend/backend/remove_lines.html.erb:14
@@ -3947,7 +3946,7 @@ msgstr "Seriennummer:"
 msgid "In stock?"
 msgstr "An Lager?"
 
-#: app/views/backend/items/_index.html.erb:16
+#: app/views/backend/items/_index.html.erb:17
 msgid "Part of:"
 msgstr "Teil von:"
 
@@ -4238,6 +4237,20 @@ msgstr "Sie sind nicht berechtigt, diese Applikation zu benutzen"
 msgid "Access Denied"
 msgstr "Zugriff verweigert"
 
+#~ msgid "Borrowable %s"
+#~ msgstr "Ausleihbar %s"
+#~ msgid "In Stock (%d)"
+#~ msgstr "An Lager (%d)"
+#~ msgid "Not In Stock (%d)"
+#~ msgstr "Nicht an Lager (%d)"
+#~ msgid "DocumentLines"
+#~ msgstr "DocumentLines"
+#~ msgid "Qty: %d"
+#~ msgstr "Anzahl: %d"
+#~ msgid "Borrowable (%d)"
+#~ msgstr "Ausleihbar (%d)"
+#~ msgid "Unborrowable (%d)"
+#~ msgstr "Nicht ausleihbar (%d)"
 #~ msgid "Wrong Username/Password"
 #~ msgstr "Benutzername/Passwort ungültig"
 

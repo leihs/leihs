@@ -237,15 +237,15 @@ private
  
       document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
                         link_to link_string, link_path
-                    end
+                      end
       comment = ""
       comment += ("<b>" + _("Item is overdue and therefore unavailable!") + "</b>") if line.is_late?
       comment += ("<b>" + _("Item is reserved in the future, therefore it's not available!") + "</b>") if line.is_reserved?
                 
       
-      return ("Group: #{line.allocated_group}<br/>" +
-              "Phone: #{line.document.user.phone}<br/>" +
-              "Reservation: #{line.start_date} #{_('until')} #{line.end_date}<br/>" +
+      return ("#{_("Group")}: #{line.allocated_group}<br/>" +
+              "#{_("Phone")}: #{line.document.user.phone}<br/>" +
+              "#{_("Reservation")}: #{line.start_date} " + _("until") + " #{line.end_date}<br/>" +
               comment + '<br/>' +  
               document_link)
   end
