@@ -1590,7 +1590,7 @@ msgstr "[leihs] Reservation genehmigt (mit Änderungen)"
 
 #: app/models/item_line.rb:70
 msgid "item not assigned. "
-msgstr "Kein Gegenstand zugeordnet"
+msgstr "kein Gegenstand zugeordnet"
 
 #: app/models/item_line.rb:99
 msgid "The item doesn't match with the reserved model"
