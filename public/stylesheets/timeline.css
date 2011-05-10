@@ -40,6 +40,10 @@
 	background-color: #e1e157;
 }
 
+.tape-is-reserved {
+	background-color: chocolate;
+}
+
 .tape-without-conflict {
 	background-color: #e3aa01;
 }

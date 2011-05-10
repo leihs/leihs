@@ -182,6 +182,8 @@ private
                     'is-late'
                   elsif line.returned_date
                     'is-returned'
+                  elsif line.is_reserved?
+                    'is-reserved'
                   else
                     'without-conflict'
                   end
@@ -191,10 +193,17 @@ private
       #                                      ( line.item ? events[group_id].collect {|e| e[:trackNum] }.compact.max.to_i.next :
       #                                                    nil)
 
+      # if line is late then it won't be available until the item is returned 
+      end_date = line.is_late? ? Availability::ETERNITY :
+                                 (line.end_date.tomorrow.to_time - 1.second)
+
+      # if line is reserved in the future and assigned an item, then the item will be
+      # reserved until then and not available from now on 
+      start_date = line.is_reserved? ? Date.today : line.start_date
+
       events[group_id] ||= []
-      events[group_id] << {:start         => line.start_date.to_time.to_s(:rfc822),
-                           :end           => (line.is_late? ? Availability::ETERNITY :
-                                                              (line.end_date.tomorrow.to_time - 1.second).to_s(:rfc822)),
+      events[group_id] << {:start         => start_date.to_time.to_s(:rfc822),
+                           :end           => end_date.to_time.to_s(:rfc822),
                            :durationEvent => true,
                            :title         => event_title(line),
                            :description   => event_description(line),
@@ -228,10 +237,16 @@ private
  
       document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
                         link_to link_string, link_path
-                      end
+                    end
+      comment = ""
+      comment += ("<b>" + _("Item is overdue and therefore unavailable!") + "</b>") if line.is_late?
+      comment += ("<b>" + _("Item is reserved in the future, therefore it's not available!") + "</b>") if line.is_reserved?
+                
+      
       return ("Group: #{line.allocated_group}<br/>" +
               "Phone: #{line.document.user.phone}<br/>" +
               "Reservation: #{line.start_date} #{_('until')} #{line.end_date}<br/>" +
-              "#{document_link}")
+              comment + '<br/>' +  
+              document_link)
   end
 end

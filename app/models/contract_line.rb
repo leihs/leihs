@@ -65,6 +65,9 @@ class ContractLine < DocumentLine
     returned_date.nil? and end_date < current_date
   end
   
+  def is_reserved?
+    start_date > Date.today && item
+  end
   def document
     contract
   end
