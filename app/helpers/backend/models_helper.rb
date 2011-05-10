@@ -184,16 +184,21 @@ private
                     'is-returned'
                   else
                     'without-conflict'
-              end
+                  end
       group_id = line.allocated_group.try(:id).to_i
+
+      #track_num = events[group_id].empty? ? 0 :
+      #                                      ( line.item ? events[group_id].collect {|e| e[:trackNum] }.compact.max.to_i.next :
+      #                                                    nil)
 
       events[group_id] ||= []
       events[group_id] << {:start         => line.start_date.to_time.to_s(:rfc822),
-                           :end           => (line.end_date.tomorrow.to_time - 1.second).to_s(:rfc822),
+                           :end           => (line.is_late? ? Availability::ETERNITY :
+                                                              (line.end_date.tomorrow.to_time - 1.second).to_s(:rfc822)),
                            :durationEvent => true,
                            :title         => event_title(line),
                            :description   => event_description(line),
-                           #:trackNum     => (events[group_id].empty? ? 0 : (line.item ? events[group_id].collect {|e| e[:trackNum] }.compact.max.to_i.next : nil)),
+                           #:trackNum     => track_num
                            :textColor     => 'black',
                            :classname     => classname }
     end
@@ -224,6 +229,9 @@ private
       document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
                         link_to link_string, link_path
                       end
-      return "Group: #{line.allocated_group}<br />Phone: #{line.document.user.phone}<br />#{document_link}"
+      return ("Group: #{line.allocated_group}<br/>" +
+              "Phone: #{line.document.user.phone}<br/>" +
+              "Reservation: #{line.start_date} #{_('until')} #{line.end_date}<br/>" +
+              "#{document_link}")
   end
 end

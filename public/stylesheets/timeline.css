@@ -57,3 +57,12 @@ div.timeline-legend {
 	padding-right: 2px;
 	overflow: auto;
 }
+
+/* we render the event times ourselves. The reason why we do
+ * this is, that we set the end date of overdue events to
+ * "ETERNITY"
+ * TODO: do not render the 'timeline-event-bubble-time' in the
+ *       first place */
+.timeline-event-bubble-time {
+	display: none;
+}
