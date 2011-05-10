@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
 "Report-Msgid-Bugs-To: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
-"POT-Creation-Date: 2011-05-10 13:45+0200\n"
-"PO-Revision-Date: 2011-05-10 13:49+0100\n"
+"POT-Creation-Date: 2011-05-10 14:05+0200\n"
+"PO-Revision-Date: 2011-05-10 14:05+0100\n"
 "Last-Translator: Ramón Cahenzli <rca@psy-q.ch>\n"
 "Language-Team: German (Switzerland) <ramon.cahenzli@zhdk.ch>\n"
 "Language: \n"
@@ -2137,6 +2137,10 @@ msgstr "Aushändigen"
 #: app/views/backend/backend/search/_contract.html.erb:11
 msgid "Take Back"
 msgstr "Zurücknehmen"
+
+#: app/helpers/backend/models_helper.rb:236
+msgid "until"
+msgstr "bis"
 
 #: app/helpers/backend/categories_helper.rb:11
 #: app/views/frontend/_models.html.erb:126

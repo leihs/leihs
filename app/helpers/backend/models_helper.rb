@@ -233,7 +233,7 @@ private
 
       return ("#{_("Group")}: #{line.allocated_group}<br/>" +
               "#{_("Phone")}: #{line.document.user.phone}<br/>" +
-              "#{_("Reservation")}: #{line.start_date} #{_('until')} #{line.end_date}<br/>" +
+              "#{_("Reservation")}: #{line.start_date} " + _("until") + " #{line.end_date}<br/>" +
               "#{document_link}")
   end
 end

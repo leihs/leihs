@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: leihs 2\n"
-"POT-Creation-Date: 2011-05-10 13:45+0200\n"
+"POT-Creation-Date: 2011-05-10 14:05+0200\n"
 "PO-Revision-Date: 2010-03-09 14:43+0100\n"
 "Last-Translator: nobody\n"
 "Language-Team: Swiss-German (Bern area)\n"
@@ -2178,6 +2178,11 @@ msgstr "Übergäh"
 #: app/views/backend/backend/search/_contract.html.erb:11
 msgid "Take Back"
 msgstr "Zruggnäh"
+
+#: app/helpers/backend/models_helper.rb:236
+#, fuzzy
+msgid "until"
+msgstr "Vom %s bis am %s "
 
 #: app/helpers/backend/categories_helper.rb:11
 #: app/views/frontend/_models.html.erb:126
