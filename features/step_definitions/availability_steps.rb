@@ -107,6 +107,10 @@ end
 
 When "I check the availability changes for '$model'" do |model|
   @model = Model.find_by_name model
+  # we have a look at the model on purpose, since in the pass this
+  # could fail - see 5bd28c92d157220a07dff1ba9a7f43b1fac3f5fd and its fix
+  #                  2f160defb39c94d489b0115653be5da4c10519c1
+  visit backend_inventory_pool_model_path(@inventory_pool,@model)
   visit groups_backend_inventory_pool_model_path(@inventory_pool,@model)
 end
 
