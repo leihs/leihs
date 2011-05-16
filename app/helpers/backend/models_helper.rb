@@ -42,27 +42,31 @@ module Backend::ModelsHelper
     # the available items inside a group on a certain day. We only display available
     # numbers of items on days where the numbers change 
     decorators_js = [""]
-    partition.keys.sort {|a,b| a.to_i <=> b.to_i }.each do |g| # the to_i comparison is needed to convert nil to 0
-      group_id = g.to_i
+    
+    # We color days according to whether the total in a particular group is above zero
+    # or no. In addition to each group we also do this for the overall total of available
+    # items in stock of a certain model.
+    #
+    # We use the "special" group id -1 for the total.
+    #
+    # the to_i comparison is needed to convert nil to 0 :
+    group_ids = (["-1"] + partition.keys).sort {|a,b| a.to_i <=> b.to_i }
+    group_ids.each do |g|
+      # next unless events.keys.include?(g.to_i) # skip empty groups
       # count = partition[g]
-      next unless events.keys.include?(group_id)
       #w = [0, count].max * 40 + 40 # TODO get max out_quantity among all changes
       #sum_w += w
-      bandInfos_js << <<-BAND2
-        Timeline.createBandInfo( { timeZone:       2,
-                                   eventSource:    eventSource[#{group_id}],
-                                   intervalUnit:   Timeline.DateTime.DAY,
-                                   intervalPixels: 70,
-                                   align:         'Top',
-                                   theme:         theme } )
-        BAND2
-      bandNames_js << (group_id > 0 ? inventory_pool.groups.find(group_id).to_s : _("General"))
+      add_timeband(inventory_pool, bandNames_js, bandInfos_js, g)
       
       prev_in_quantity = nil
       decorators_js << changes.collect do |change|
         d = []
-        in_quantity = change.in_quantity_in_group(g)
-        if in_quantity < 0 or change.quantities.collect(&:in_quantity).sum < 0
+        if g == "-1" # showing total
+          in_quantity = change.quantities.collect(&:in_quantity).sum
+        else
+          in_quantity = change.in_quantity_in_group(g)
+        end
+        if in_quantity < 0
           d << <<-BAND3
                new Timeline.SpanHighlightDecorator(
                      { startDate: '#{change.start_date.to_time.to_s(:rfc822)}',
@@ -131,11 +135,11 @@ module Backend::ModelsHelper
         }
         
         #{dec = ""
-        decorators_js.each_with_index do |d,i|
-          next if d.blank?
-          dec << "bandInfos[#{i}].decorators = bandInfos[#{i}].decorators.concat([#{d.join(', ')}]); "
-        end
-        dec}
+          decorators_js.each_with_index do |d,i|
+            next if d.blank?
+            dec << "bandInfos[#{i}].decorators = bandInfos[#{i}].decorators.concat([#{d.join(', ')}]); "
+          end
+          dec}
 
         var tl = Timeline.create(document.getElementById("my_timeline"), bandInfos);
         tl.layout();
@@ -149,6 +153,34 @@ module Backend::ModelsHelper
 ###########################################################################
 
 private
+
+  def add_timeband(inventory_pool, bandNames_js, bandInfos_js, group_id_as_string)
+    if group_id_as_string == "-1"
+      bandInfos_js << <<-BAND2A
+        Timeline.createBandInfo( { timeZone:       2,
+                                   eventSource:    null,
+                                   intervalUnit:   Timeline.DateTime.DAY,
+                                   intervalPixels: 70,
+                                   align:         'Top',
+                                   theme:         theme } )
+        BAND2A
+      bandNames_js << _("Available in total: ")
+   else
+      group_id = group_id_as_string.to_i
+
+      bandInfos_js << <<-BAND2B
+        Timeline.createBandInfo( { timeZone:       2,
+                                   eventSource:    eventSource[#{group_id}],
+                                   intervalUnit:   Timeline.DateTime.DAY,
+                                   intervalPixels: 70,
+                                   align:         'Top',
+                                   theme:         theme } )
+        BAND2B
+
+      group_name = group_id > 0 ? inventory_pool.groups.find(group_id).to_s : _("general")
+      bandNames_js << (_("Available in group '") + group_name + "' :")
+    end
+end
 
   def set_timeline_headers()
     content_for :head do
