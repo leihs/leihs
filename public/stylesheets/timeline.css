@@ -64,6 +64,7 @@ div.timeline-legend {
 	padding-left: 2px;
 	padding-right: 2px;
 	overflow: auto;
+	white-space: nowrap;
 }
 
 /* we render the event times ourselves. The reason why we do
