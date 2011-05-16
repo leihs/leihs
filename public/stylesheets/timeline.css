@@ -53,6 +53,10 @@ div.timeline-legend {
 	border: 1px solid rgb(170, 170, 170);
 }
 
+.timeline-legend .title {
+	font-weight: bold;
+}
+
 .timeline-legend div {
 	height:  15px;
 	display: inline;
