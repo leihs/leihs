@@ -1,0 +1,35 @@
+#blankpage
+  = render :partial => "/users/incomplete", :locals => {:user => @user}
+  %h3= _("User")
+  %table
+    %tr
+      %td= _("Login") + ":"
+      %td= @user.login
+    %tr
+      %td= _("Unique ID") + ":"
+      %td= @user.unique_id
+    %tr
+      %td= _("Firstname/Lastname") +":"
+      %td= @user.firstname + " " + @user.lastname
+    %tr
+      %td= _("Email") + ":"
+      %td= @user.email
+    %tr
+      %td= _("Phone") + ":"
+      %td= @user.phone
+
+  #pending_orders
+    = render :partial => "/orders/pending"
+  
+  #unsigned_contracts
+    = render :partial => "/contracts/unsigned"
+  
+  #signed_contracts
+    = render :partial => "/contracts/signed"
+
+  %hr
+  %h3= _("Inventory Pool(s)")
+  %p= _("You have permission to access the following inventory pool(s):")
+  = render :partial => 'orders/inventory_pool_details',
+           :collection => @user.access_rights.collect(&:inventory_pool).compact
+  %hr
