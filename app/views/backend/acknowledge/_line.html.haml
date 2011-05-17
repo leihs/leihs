@@ -16,9 +16,9 @@
   %td
     = show_line_model @line.model
 
-  - b = @line.available?
+  - b = @line.available?.to_s # -> true, false
 
-  %td.b{:class => "valid_<%= %>", :id => "line_dates_<%= @line.id %>"}
+  %td.b{:class => "valid_#{b}", :id => "line_dates_#{@line.id}"}
     = greybox_link_to_page( dates_with_period(@line.start_date, @line.end_date),
                             { :action => 'time_lines', :id => @order.id, :lines => @line.id },
                             :class => "thickbox iconized-notxt date-edit" ,
