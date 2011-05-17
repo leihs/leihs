@@ -1,0 +1,61 @@
+%table
+  %tr
+    %th= _("Login") + ":"
+    %td= @user.login
+  
+  %tr
+    %th= _("Name") + ":"
+    %td= @user.name
+  
+  %tr
+    %th= _("Address") + ":"
+    %td= @user.address
+  
+  %tr
+    %th= _("ZIP") + "/" + _("City") + ":"
+    %td= "#{@user.zip} #{@user.city}"
+  
+  %tr
+    %th= _("Country") + ":"
+    %td= @user.country
+  
+  %tr
+    %th= _("Email") + ":"
+    %td= mail_to @user.email
+  
+  %tr
+    %th= _("Phone") + ":"
+    %td= @user.phone
+  
+  %tr
+    %th= _("Badge ID") + ":"
+    %td
+      = render :partial => "badge_id_form", :locals => { :user => @user }
+
+
+= javascript_tag "$('badge_id').focus()"
+
+%br
+
+%ul.buttons
+  - if is_admin? or (current_inventory_pool and (is_inventory_manager? or is_lending_manager?))
+    %li
+      = link_to _("Edit"), [:edit, :backend, current_inventory_pool, @user].compact
+
+  - if current_inventory_pool and current_inventory_pool.users.include?(@user)
+    %li
+      = link_to _("New Contract"),
+                new_contract_backend_inventory_pool_user_path(current_inventory_pool, @user.id),
+                { :target => '_top' }
+
+  %li
+    - options = params[:layout] == "modal" ? {:layout => "modal"} : {:target => '_top' }
+    = mail_link current_inventory_pool, @user, @source_path, options
+
+%br
+
+= render :partial => 'resume' if current_inventory_pool
+
+%br
+
+= render :partial => "#{@user.authentication_system.class_name.underscore}" if @user.id
