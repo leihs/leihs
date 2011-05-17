@@ -1,0 +1,25 @@
+- if @order.status_const == Order::SUBMITTED
+  .toolbar-main.boxes.buttons
+    = greybox_link_to_page( icon_tag("door") + " " + _("Save + Approve"),
+                            { :action => 'approve', :id => @order },
+                            :title => _("Approve Order"),
+                            :class => "positive")
+
+    = greybox_link_to_page( icon_tag("door_out") + " " + _("Reject Order"),
+                            { :action => 'reject', :id => @order },
+                            :title => _("Reject Order"))
+    
+    = greybox_link_to_page( icon_tag("disk") + " " + _("Restore Original"),
+                            { :action => 'restore', :id => @order },
+                            :title => _("Restore Order"),
+                            :class => "thickbox")
+
+    = greybox_link_to_page( icon_tag("cancel") + " " + _("Delete Order"),
+                            { :action => 'delete', :id => @order },
+                            :title => _("Delete Order"),
+                            :class => 'negative')
+
+    -# TODO: Can't hook this up like that. How do we hook it up to some user's
+    -#       currently open order? Need to adapt controller?
+    = link_to icon_tag("script") + " " + _("Value list"),
+              user_order_path( @order, :format => 'pdf', :template => 'value_list' )
