@@ -1,0 +1,136 @@
+- conditions = (current_inventory_pool ? "name != 'admin'" : nil)
+- roles = Role.all(:conditions => conditions).sort
+- inventory_pools = InventoryPool.all.sort
+- admin_role = Role.find_by_name('admin')
+- manager_role = Role.find_by_name('manager')
+- max_level = current_inventory_pool ?                                               |
+              current_user.access_right_for(current_inventory_pool).access_level : 3 |
+
+:javascript
+  function changed_selection(row, v){
+    var visibility = (v == #{admin_role.id} ? "hidden" : "visible");
+    $$('tr#access_right_'+row+' #access_right_inventory_pool_id').each(
+      function(item) {
+        item.style.visibility=visibility} );
+    $$('tr#access_right_'+row+' #access_level').each(
+      function(item) {
+        item.style.visibility=(v != #{manager_role.id} ? "hidden" : "visible")});
+  }
+  document.observe("dom:loaded", function() {
+    $$('#access_right_role_id').invoke('onchange'); });
+
+- form_tag url_for([:add_access_right, :backend, current_inventory_pool, @user].compact),
+           :method => :post do
+  %table
+    %tr
+      %th= _("Role")
+
+      - unless current_inventory_pool
+        %th= _("Inventory Pool")
+
+      %th= _("Access Level")
+
+      %th
+
+    %tr#access_right_0
+      %td
+        = collection_select   :access_right, :role_id,
+                              roles, :id, :name, {},
+                              {:size => 5, :onchange => "changed_selection(0, this.value);"}
+      - unless current_inventory_pool
+        %td
+          = collection_select :access_right, :inventory_pool_id,
+                              inventory_pools, :id, :name, {},
+                              {:size => 5}
+      %td
+        = select_tag :access_level, options_for_select((1..max_level).to_a)
+
+      %td
+        = submit_tag _('Add')
+
+%br
+- table :records => @access_rights do |access_right|
+  - form_tag url_for( [:add_access_right, :backend, current_inventory_pool, @user].compact),
+             :method => :post do
+
+    %tr{ :id => "access_right_#{access_right.id}" }
+      - if access_right.role == admin_role
+        %td{ :colspan => 4 }
+          = access_right.role.name
+      - else
+        %td
+          - @access_right = access_right # only used by collection_select
+          = collection_select :access_right, :role_id,
+                              roles - [admin_role], :id, :name, {},
+                              {:onchange => "changed_selection(#{access_right.id}, this.value);"}
+
+      %td
+        - if access_right.inventory_pool_id
+          = access_right.inventory_pool
+          = hidden_field_tag "access_right[inventory_pool_id]",
+                             access_right.inventory_pool_id
+
+      %td
+        = select_tag :access_level,
+                     options_for_select((1..max_level).to_a, access_right.access_level)
+
+      %td
+        = submit_tag _('Save')
+
+      %td.buttons
+        - if current_inventory_pool # OPTIMIZE
+          - remove_link = remove_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right)
+        - else
+          - remove_link = remove_access_right_backend_user_path(@user, :access_right_id => access_right)
+
+        = link_to icon_tag("cancel") + " " + _('Remove'),
+                  remove_link, :confirm => _("Are you sure?"), :method  => :delete
+
+        - if current_inventory_pool
+          - if access_right.suspended?
+            = _("Suspended until %s") % access_right.suspended_until.strftime("%d.%m.%Y")
+            = link_to icon_tag('emoticon_unhappy') + " " + _('Reinstate'),
+                      reinstate_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right),
+                      :method => :post 
+          - else
+            = link_to icon_tag("flag_red") + " " + _("Suspend"),
+                      suspend_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right),
+                      :id => "suspend"
+
+#dialog-form{ :title => _("Suspend") }
+  - form_tag do
+    %h4
+      = _("The user will not be able to place any orders")
+
+    %p{ :style => "margin: 0.5em 0 0.5em 0;" }
+      = _("Suspended Until") + ":"
+      %br
+      = text_field_tag :suspended_until
+
+    %p{ :style => "margin: 0.5em 0 0.5em 0;" }
+      = _("Reason") + ":"
+      %br
+      = text_area_tag :reason
+
+    = submit_tag _("Suspend")
+
+:javascript
+  jQuery(document).ready( function($) {
+    $("#dialog-form").dialog( {
+                        autoOpen: false,
+                        height: 300,
+                        width: 500,
+                        modal: true
+                      });
+
+    $("#suspended_until").datepicker({
+                            dateFormat: 'dd-mm-yy',
+                            minDate: 0
+                          });
+
+    $("#suspend").click( function() {
+                           $("#dialog-form form").attr("action", $(this).attr("href"));
+                           $("#dialog-form").dialog('open');
+                           return false;
+                         });
+  });
