@@ -6,7 +6,7 @@
 	vertical-align: top;
 	padding-top: 30px;
 	padding-left: 0.2em;
-	font-size: 0.7em;
+	font-size: 0.6em;
 	color: #555555;
 }
 #my_timeline .timeline-date-label {
@@ -53,6 +53,10 @@ div.timeline-legend {
 	border: 1px solid rgb(170, 170, 170);
 }
 
+.timeline-legend .title {
+	font-weight: bold;
+}
+
 .timeline-legend div {
 	height:  15px;
 	display: inline;
@@ -60,6 +64,7 @@ div.timeline-legend {
 	padding-left: 2px;
 	padding-right: 2px;
 	overflow: auto;
+	white-space: nowrap;
 }
 
 /* we render the event times ourselves. The reason why we do
@@ -69,4 +74,8 @@ div.timeline-legend {
  *       first place */
 .timeline-event-bubble-time {
 	display: none;
+}
+
+.timeline-highlight-label.timeline-highlight-label-start td {
+	text-align: right;
 }
