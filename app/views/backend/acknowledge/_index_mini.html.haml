@@ -1,0 +1,13 @@
+%table
+  %tr
+    %th{:colspan => "2"}
+      = icon_tag("accept") + " " + _("Pending orders")
+  - orders.each do |order|
+    %tr
+      %td
+        = today_or_yesterday_date order.created_at
+        %br
+        %b= order.user.name
+      %td.buttons
+        = link_to icon_tag("tab_go"),
+                  backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order)
