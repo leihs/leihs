@@ -1,0 +1,8 @@
+.buttons
+  = _("Orders you are editing (please complete)")
+  - unless @working_orders.empty?
+    - @working_orders.each do |order|
+      = link_to( icon_tag("tab_go") + "#{order.user.name} (#{today_or_yesterday_date(order.backup.updated_at)})",
+                 backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order))
+
+= render :partial => "index"
