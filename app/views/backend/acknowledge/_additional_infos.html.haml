@@ -1,0 +1,16 @@
+#meta-tabs
+  #meta-tabs-container
+    %ul
+      %li.active
+        = link_to_function(_("Changes"), nil) do |page|
+          page.visual_effect :toggle_slide, 'meta-tabs-content'
+
+    #meta-tabs-content{:style => "display: none;"}
+      #changes
+        %ul
+          - @order.histories.reverse.each do |history|
+            %li
+              %b
+                = "[#{short_time(history.created_at)}]"
+                %br
+                = history.text
