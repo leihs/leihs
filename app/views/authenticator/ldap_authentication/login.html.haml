@@ -1,0 +1,12 @@
+= flash_helper(false)
+- form_for :login do |f|
+  %table{ :style => "width:30%" }
+    %tr
+      %td= _("Login")
+      %td= f.text_field :user
+    %tr
+      %td= _("Password")
+      %td= f.password_field :password
+    %tr
+      %td
+      %td= f.submit(_("Login"))

@@ -1,9 +1,0 @@
-<%= flash_helper(false) %>
-<% form_for :login do |f| %>
-<table style="width:30%">
-  <tr><td><%= _("Login")%></td><td><%= f.text_field :user %></td></tr>
-  <tr><td><%= _("Password")%></td><td><%= f.password_field :password %></td></tr>
-  <tr><td></td><td><%= f.submit(_("Login")) %></td></tr>
-</table>
-
-<% end %>
