@@ -1,0 +1,96 @@
+- if current_inventory_pool.has_access?(@order.user) and     |
+     not current_inventory_pool.is_blacklisted?(@order.user) |
+
+  - if @order.errors.size > 0
+    %ul{:style => "border: 1px solid red; padding: 2px;"}
+      - @order.errors.full_messages.each do |e|
+        %li= e
+  
+  = render :partial => 'buttons'
+  #meta.boxes
+    #meta-bestellung
+      %h2
+        = _("Order No.") + " #{@order.id} - #{@order.user}"
+        = mail_link current_inventory_pool, @order.user, @source_path,
+                    { :target => '_top', :style => "display: inline" }
+
+      %table{:cellspacing => "0"}
+        %tr.alt-row
+          %td
+            = greybox_link_to_page( _("Reserver") + ":",
+                                    { :action => 'swap_user', :id => @order },
+                                    :title => _("Reserver"),
+                                    :class => "thickbox iconized-notxt arrow_switch" )
+          %td
+            = greybox_link_to_page( @order.user.name,
+                                    backend_inventory_pool_user_path(current_inventory_pool, @order.user, :layout => "modal"),
+                                    :title => _("User"),
+                                    :class => "iconized-notxt edit-user" )
+        - unless @order.user.suspended_inventory_pools.empty?
+          %tr
+            %td{:style => "background-color: #EDF09F"}
+              = _("Currently suspended at:")
+            %td{:style => "background-color: #EDF09F"}
+              = @order.user.suspended_inventory_pools.join(", ")
+        %tr.alt-row
+          %td
+            = _("Time window") + ":"
+          %td
+            = dates_with_period @order.time_window_min, @order.time_window_max
+        %tr.alt-row
+          %td
+            = greybox_link_to_page( _("Purpose"),
+                                    { :action => 'change_purpose', :id => @order },
+                                    :title => _("Purpose"),
+                                    :class => "thickbox iconized-notxt edit-pencil" )
+          %td
+            = simple_format @order.purpose
+    = render :partial => 'additional_infos'
+
+  .table-overview
+    .toolbar-second
+      %h3= _("Models")
+      .buttons
+        = greybox_link_to_page( icon_tag("package_add") + " " + _("Add Model"), |
+                                { :action     => 'add_line',                    |
+                                  :id         => @order,                        |
+                                  :start_date => Date.today,                    |
+                                  :end_date   => Date.today+2.days },           |
+                                :title => _("Add Model") )                      |
+        
+        = greybox_link_to_page( icon_tag("date_edit") + " " + _("Change Timeframe for selection"),
+                                { :action => 'time_lines', :id => @order },
+                                :onmouseup => "change_href(this, 'order_line', 'line');",
+                                :class     => "ghostable_group_1 ghosted",
+                                :title     => _("Time Period") )
+        
+        = greybox_link_to_page( icon_tag("cancel") + " " + _("Delete selection"),
+                                { :action => 'remove_lines', :id => @order },
+                                :onmouseup => "change_href(this, 'order_line', 'line');",
+                                :class     => "ghostable_group_1 ghosted negative",
+                                :title     => _("Remove Models") )
+        -# TODO contribute :with in greybox
+        -# :with => "'order_lines=' + checkbox_values('order_line_check')"
+
+    %table{:cellspacing => "0"}
+      / start header
+      %tr
+        %th{:scope => "col"}
+          %input#order_lines{ :type => "checkbox",
+                              :onclick => "mark_all(this, 'order_line_check', 'ghostable_group_1');"}
+          = _("Check all")
+        %th{:scope => "col"}
+          = _("Item")
+        %th{:scope => "col"}
+          = _("Time frame")
+        %th{:scope => "col"}
+          = _("Action")
+      / end header
+      %tbody#lines
+        = render :partial => 'lines'
+  = render :partial => 'buttons'
+
+- else
+  = _("This user doesn't have access to your inventory pool or is on your Blacklist!")
+  %br
+  = link_to(_("edit %s") % @order.user.name, access_rights_backend_inventory_pool_user_path(current_inventory_pool, @order.user))
