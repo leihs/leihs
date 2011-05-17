@@ -1,0 +1,36 @@
+- last_date = 0
+- last_end_date = nil
+
+- for @line in @order.lines.sort
+  - if @line.start_date > last_date
+    - if last_end_date
+      %tr
+        %td{:colspan => "4"}
+          = greybox_link_to_page( icon_tag("package_add") + " " + _("Add Model for") + " " + short_date(last_date) +" - " + short_date(last_end_date),
+                                  {:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
+                                  :title => _("Add Model") )
+                                    
+    - last_date = @line.start_date
+    - last_end_date = @line.end_date
+
+    %tr.line_header
+      %td.title{:colspan => "4"}
+        = short_date @line.start_date
+
+
+  - if last_end_date and last_end_date != @line.end_date
+    %tr
+      %td{:colspan => "4"}
+        = greybox_link_to_page( icon_tag("package_add") + " " + _("Add Model for") + " " + short_date(last_date) +" - " + short_date(last_end_date),
+                                {:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
+                                :title => _("Add Model") )
+    - last_end_date = @line.end_date
+
+  = render :partial => 'line'
+
+- if last_end_date
+  %tr
+    %td{:colspan => "4"}
+      = greybox_link_to_page( icon_tag("package_add") + " " + _("Add Model for") + " " + short_date(last_date) +" - " + short_date(last_end_date),
+                              {:action => 'add_line', :start_date => last_date, :end_date => last_end_date},
+                              :title => _("Add Model") )
