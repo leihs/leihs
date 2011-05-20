@@ -3,29 +3,33 @@
 <%#= canvas_for(@model, current_inventory_pool, {:filter => params[:filter]}) %>
 <%#temp#= pie_for_model(@model) if is_privileged_user? %>
 
-<div class="timeline-legend">
-  <div class="title">
+<table class="timeline-legend">
+  <tr>
+    <td class="title">
   	<%= _("Legend") + ":"%>
-  </div>
-  <div class="tape-is-returned">
-    <%= _("is returned") %>
-  </div>
-  <div class="tape-without-conflict">
-    <%= _("without conflict") %>
-  </div>
-  <div class="tape-is-reserved">
-    <%= _("reserved / item assigned in future") %>
-  </div>
-  <div class="tape-no-assigned-item">
-    <%= _("no item assigned") %>
-  </div>
-  <div class="tape-unavailable">
-    <%=_("unavailable / can't be guaranteed")%>
-  </div>
-  <div class="tape-is-late">
-    <%= _("overdue") + " / " + _("is late") %>
-  </div>
-</div>
+    </td>
+    <td class="kinds">
+      <div class="tape-is-returned">
+        <%= _("is returned") %>
+      </div>
+      <div class="tape-without-conflict">
+        <%= _("without conflict") %>
+      </div>
+      <div class="tape-is-reserved">
+        <%= _("reserved / item assigned in future") %>
+      </div>
+      <div class="tape-no-assigned-item">
+        <%= _("no item assigned") %>
+      </div>
+      <div class="tape-unavailable">
+        <%=_("unavailable / can't be guaranteed")%>
+      </div>
+      <div class="tape-is-late">
+        <%= _("overdue") + " / " + _("is late") %>
+      </div>
+    </td>
+  </tr>
+</table>
 
 <% content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do %>
 	<%= link_to icon_tag("group") + " " + _("Current group quantities"),
