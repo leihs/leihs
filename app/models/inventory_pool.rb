@@ -39,23 +39,24 @@ class InventoryPool < ActiveRecord::Base
 #                            WHERE ar.inventory_pool_id = #{self.id} 
 #                              AND r.name = 'manager'"
 
-  # OPTIMIZE
-  role_manager = Role.first(:conditions => {:name => "manager"})
-  has_and_belongs_to_many :managers,
-                          :class_name => "User",
-                          :select => "users.*",
-                          :join_table => "access_rights",
-#                          :conditions => {:access_rights => {:roles => {:name => "manager"}}}
-                          :conditions => ["access_rights.role_id = ? AND access_rights.deleted_at IS NULL", (role_manager ? role_manager.id : 0)]
-
-  # OPTIMIZE
-  role_customer = Role.first(:conditions => {:name => "customer"})
-  has_and_belongs_to_many :customers,
-                          :class_name => "User",
-                          :select => "users.*",
-                          :join_table => "access_rights",
-#                          :conditions => {:access_rights => {:roles => {:name => "customer"}}}
-                          :conditions => ["access_rights.role_id = ? AND access_rights.deleted_at IS NULL", (role_customer ? role_customer.id : 0)]
+#rails3#tmp#
+#  # OPTIMIZE
+#  role_manager = Role.first(:conditions => {:name => "manager"})
+#  has_and_belongs_to_many :managers,
+#                          :class_name => "User",
+#                          :select => "users.*",
+#                          :join_table => "access_rights",
+##                          :conditions => {:access_rights => {:roles => {:name => "manager"}}}
+#                          :conditions => ["access_rights.role_id = ? AND access_rights.deleted_at IS NULL", (role_manager ? role_manager.id : 0)]
+#
+#  # OPTIMIZE
+#  role_customer = Role.first(:conditions => {:name => "customer"})
+#  has_and_belongs_to_many :customers,
+#                          :class_name => "User",
+#                          :select => "users.*",
+#                          :join_table => "access_rights",
+##                          :conditions => {:access_rights => {:roles => {:name => "customer"}}}
+#                          :conditions => ["access_rights.role_id = ? AND access_rights.deleted_at IS NULL", (role_customer ? role_customer.id : 0)]
 ########
 
     
