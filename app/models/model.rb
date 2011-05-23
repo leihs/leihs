@@ -191,9 +191,8 @@ class Model < ActiveRecord::Base
                                                               :joins => :items,
                                                               :conditions => ["items.inventory_pool_id = ?", inventory_pool] } }
 
-  scope :by_categories, lambda { |categories| { :select => "DISTINCT models.*",
-                                                      :joins => "INNER JOIN model_links AS ml", # OPTIMIZE no ON ??
-                                                      :conditions => ["ml.model_group_id IN (?)", categories] } }
+  scope :by_categories, lambda { |categories| { :joins => "INNER JOIN model_links AS ml", # OPTIMIZE no ON ??
+                                                :conditions => ["ml.model_group_id IN (?)", categories] } }
 
 #############################################
 

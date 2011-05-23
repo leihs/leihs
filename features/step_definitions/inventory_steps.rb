@@ -55,7 +55,7 @@ end
 
 Then "there are $d_size direct children and $t_size total children" do | d_size, t_size | 
   @category.children.size.should == d_size.to_i
-  @category.children.recursive.to_a.size.should == t_size.to_i
+  @category.descendants.size.should == t_size.to_i
 end
 
 Then "the label of the direct children are '$labels'" do | labels |

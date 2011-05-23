@@ -31,7 +31,7 @@ class ModelsController < FrontendController
 
     if category_id > 0
       category = Category.find(category_id)
-      with[:category_id] = category.self_and_all_child_ids
+      with[:category_id] = category.self_and_descendant_ids
     end
 
     @models = Model.search query, { :index => "frontend_model",

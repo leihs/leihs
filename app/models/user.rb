@@ -48,10 +48,7 @@ class User < ActiveRecord::Base
   has_many :categories, :through => :models, :uniq => true # (nested)
   # OPTIMIZE 0907
   def all_categories
-    @c = []
-    categories.each do |c|
-       @c << c.parents.recursive.to_a
-    end
+    @c = categories.collect(&:ancestors)
     [categories, @c].flatten.uniq
   end
 

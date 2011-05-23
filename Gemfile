@@ -32,11 +32,13 @@ gem 'attachment_fu', :git => 'git://github.com/jmoses/attachment_fu.git', :branc
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency'
 gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
 gem 'fastercsv', '~> 1.5.4'
+#tmp# gem 'png', '~> 1.2.0'
 
 gem 'prawn', '~> 0.11.1'
 gem 'prawnto', '~> 0.0.4'
 
 gem 'nested_set', '~> 1.6.4'
+gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
 group :profiling do
 	gem 'newrelic_rpm', '~> 3.0.0'

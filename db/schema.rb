@@ -1,10 +1,11 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of Active Record to incrementally modify your database, and
-# then regenerate this schema definition.
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your database schema. If you need
-# to create the application database on another system, you should be using db:schema:load, not running
-# all the migrations from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
@@ -289,6 +290,7 @@ ActiveRecord::Schema.define(:version => 90000000000014) do
     t.text     "note"
     t.text     "name"
     t.boolean  "delta",                                               :default => true
+    t.string   "user_name"
   end
 
   add_index "items", ["delta"], :name => "index_items_on_delta"
@@ -320,6 +322,29 @@ ActiveRecord::Schema.define(:version => 90000000000014) do
   add_index "locations", ["building_id"], :name => "index_locations_on_building_id"
   add_index "locations", ["delta"], :name => "index_locations_on_delta"
 
+  create_table "model_group_links", :force => true do |t|
+    t.integer "ancestor_id"
+    t.integer "descendant_id"
+    t.boolean "direct"
+    t.integer "count"
+    t.string  "label"
+  end
+
+  add_index "model_group_links", ["ancestor_id"], :name => "index_model_group_links_on_ancestor_id"
+  add_index "model_group_links", ["descendant_id"], :name => "index_model_group_links_on_descendant_id"
+  add_index "model_group_links", ["direct"], :name => "index_model_group_links_on_direct"
+
+  create_table "model_group_links_copy", :force => true do |t|
+    t.integer "ancestor_id"
+    t.integer "descendant_id"
+    t.string  "label"
+    t.boolean "direct"
+    t.integer "count"
+  end
+
+  add_index "model_group_links_copy", ["ancestor_id"], :name => "index_model_groups_parents_on_model_group_id"
+  add_index "model_group_links_copy", ["descendant_id"], :name => "index_model_groups_parents_on_parent_id"
+
   create_table "model_groups", :force => true do |t|
     t.string   "type"
     t.string   "name"
@@ -330,14 +355,14 @@ ActiveRecord::Schema.define(:version => 90000000000014) do
 
   add_index "model_groups", ["delta"], :name => "index_model_groups_on_delta"
 
-  create_table "model_groups_parents", :id => false, :force => true do |t|
+  create_table "model_groups_parents_copy", :id => false, :force => true do |t|
     t.integer "model_group_id"
     t.integer "parent_id"
     t.string  "label"
   end
 
-  add_index "model_groups_parents", ["model_group_id"], :name => "index_model_groups_parents_on_model_group_id"
-  add_index "model_groups_parents", ["parent_id"], :name => "index_model_groups_parents_on_parent_id"
+  add_index "model_groups_parents_copy", ["model_group_id"], :name => "index_model_groups_parents_on_model_group_id"
+  add_index "model_groups_parents_copy", ["parent_id"], :name => "index_model_groups_parents_on_parent_id"
 
   create_table "model_links", :force => true do |t|
     t.integer "model_group_id"
