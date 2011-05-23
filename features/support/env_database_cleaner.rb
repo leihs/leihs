@@ -4,4 +4,4 @@ require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation, {:except => %w[authentication_systems languages roles]} #sellittf#
 
 # require our factory
-require( RAILS_ROOT + '/lib/factory.rb')
+require("#{Rails.root}/lib/factory.rb")

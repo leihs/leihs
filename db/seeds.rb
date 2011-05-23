@@ -1,4 +1,4 @@
-require( RAILS_ROOT + '/lib/factory.rb')
+require("#{Rails.root}/lib/factory.rb")
 Factory.create_default_languages
 Factory.create_default_authentication_systems
 Factory.create_default_roles

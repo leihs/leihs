@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.7'
 gem 'builder', '~> 2.1.2'
 #gem 'i18n'
+gem 'rake', '~> 0.8.7' # version 0.9.0 is broken!
 
 gem 'mysql2', '~> 0.2.7'
 #gem 'memcache-client' #gem 'dalli' #gem 'redis-store'

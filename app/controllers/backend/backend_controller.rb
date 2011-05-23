@@ -42,7 +42,7 @@ class Backend::BackendController < ApplicationController
 ###############################################################  
 
   def database_backup
-    dir = "#{RAILS_ROOT}/db/backups"
+    dir = "#{Rails.root}/db/backups"
     timestamp = Time.now.to_formatted_s(:number)
     src = "#{dir}/#{timestamp}.sql"
     File.open(src, 'w') do |f|

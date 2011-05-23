@@ -17,26 +17,26 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
       if user == "" || password == ""
         flash[:notice] = _("Empty Username and/or Password")
       else
-        bind_dn = LDAP_CONFIG[RAILS_ENV]["bind_dn"]
-        bind_pwd = LDAP_CONFIG[RAILS_ENV]["bind_pwd"]
-        ldap = Net::LDAP.new :host => LDAP_CONFIG[RAILS_ENV]["host"],
-                          :port => LDAP_CONFIG[RAILS_ENV]["port"].to_i,
-                          :encryption => LDAP_CONFIG[RAILS_ENV]["encryption"].to_sym,
-                          :base => LDAP_CONFIG[RAILS_ENV]["base"],
+        bind_dn = LDAP_CONFIG[Rails.env]["bind_dn"]
+        bind_pwd = LDAP_CONFIG[Rails.env]["bind_pwd"]
+        ldap = Net::LDAP.new :host => LDAP_CONFIG[Rails.env]["host"],
+                          :port => LDAP_CONFIG[Rails.env]["port"].to_i,
+                          :encryption => LDAP_CONFIG[Rails.env]["encryption"].to_sym,
+                          :base => LDAP_CONFIG[Rails.env]["base"],
                           :auth=>{:method=>:simple, :username => bind_dn, :password => bind_pwd } 
       
         begin
           if ldap.bind
-            users = ldap.search(:base => LDAP_CONFIG[RAILS_ENV]["base"], :filter => Net::LDAP::Filter.eq(LDAP_CONFIG[RAILS_ENV]["search_field"], "#{user}"))
+            users = ldap.search(:base => LDAP_CONFIG[Rails.env]["base"], :filter => Net::LDAP::Filter.eq(LDAP_CONFIG[Rails.env]["search_field"], "#{user}"))
 
             if users.size == 1
               email = users.first.mail if users.first.mail
               email ||= "#{user}@hkb.bfh.ch"
               bind_dn = users.first.dn
-              ldap = Net::LDAP.new :host => LDAP_CONFIG[RAILS_ENV]["host"],
-                          :port => LDAP_CONFIG[RAILS_ENV]["port"].to_i,
-                          :encryption => LDAP_CONFIG[RAILS_ENV]["encryption"].to_sym,
-                          :base => LDAP_CONFIG[RAILS_ENV]["base"],
+              ldap = Net::LDAP.new :host => LDAP_CONFIG[Rails.env]["host"],
+                          :port => LDAP_CONFIG[Rails.env]["port"].to_i,
+                          :encryption => LDAP_CONFIG[Rails.env]["encryption"].to_sym,
+                          :base => LDAP_CONFIG[Rails.env]["base"],
                           :auth=>{:method=>:simple, :username => bind_dn, :password => password } 
               if ldap.bind
              
