@@ -7,7 +7,7 @@ class DocumentLine < ActiveRecord::Base
   
   self.abstract_class = true
   
-  before_validation_on_create :set_defaults
+  before_validation :set_defaults, :on => :create
   validate :date_sequence  
   validates_numericality_of :quantity, :greater_than_or_equal_to => 0, :only_integer => true 
 

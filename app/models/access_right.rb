@@ -24,7 +24,7 @@ class AccessRight < ActiveRecord::Base
   validates_uniqueness_of :inventory_pool_id, :scope => :user_id
   validate :validates_inventory_pool
 
-  before_validation_on_create :remove_old
+  before_validation :remove_old, :on => :create
   before_save :adjust_levels
   after_save :update_sphinx_index
   

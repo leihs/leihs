@@ -142,7 +142,7 @@ class Item < ActiveRecord::Base
     false
   end
 
-  def before_destroy
+  before_destroy do
     unless model.is_package?
       errors.add_to_base "Item cannot be deleted"
       return false
