@@ -1,0 +1,37 @@
+= table_with_search_and_pagination :columns => [[_("User Login"), 'login'], ["Full name", 'name'], _("Access Rights"), (current_inventory_pool ? _("Documents") : ""), _("Action")],
+                                    :records => @users do |user|	
+  %tr
+    %td= user.login
+    %td= user.name
+    %td
+      %ul
+        - access_rights = user.access_rights
+        - access_rights = access_rights.scoped_by_inventory_pool_id(current_inventory_pool) if current_inventory_pool
+        - access_rights.each do |a|
+          %li= a.to_s
+    %td
+      - if current_inventory_pool
+        %ul
+          %li
+            Orders:
+            = link_to user.orders.submitted.by_inventory_pool(current_inventory_pool).count,
+      										 :controller => 'acknowledge', :action => 'index', :user_id => user.id
+          %li
+            Contracts:
+            = user.contracts.size
+    %td.buttons
+      - if params[:source_path]
+        - glue = (params[:source_path].include?('?') ? '&' : '?' )
+        - url = "#{params[:source_path]}#{glue}swap_user_id=#{user.id}"
+        = link_to(icon_tag("arrow_switch") + " " + _("Swap"), url, :method => 'post', :target=> '_top')
+      - else
+        %ul
+          %li= link_to icon_tag("magnifier") + _("Show"), [:backend, current_inventory_pool, user].compact
+          - if is_admin? or (current_inventory_pool and (is_inventory_manager? or is_lending_manager?))
+            %li= link_to _("Edit"), [:edit, :backend, current_inventory_pool, user].compact
+          - if current_inventory_pool
+            %li= link_to icon_tag("arrow_turn_right") + _("New Contract"), :action => 'new_contract', :id => user.id if current_inventory_pool.users.include?(user)
+            - if user.to_remind?
+              %li= remind_user_link(user, current_inventory_pool)
+          %li= mail_link current_inventory_pool, user, @source_path
+

@@ -1,0 +1,20 @@
+= table_with_search_and_pagination :columns => [_("Id"), _("Date"), _("Reserver"), _("Number of items"), _("Action")],
+									:records => @orders do |order|
+  %tr{:class => (order.has_backup? ? "alt-row" : "fresh" )}
+    %td= order.id
+    %td= today_or_yesterday_date(order.created_at)
+    %td= greybox_link_to_page(order.user.name,
+          backend_inventory_pool_user_path(current_inventory_pool, order.user, :layout => "modal"),
+          :title => _("User"), :class => "iconized-notxt edit-user" )
+    %td= _("%{n} Items") % {:n => order.quantity}
+    %td.buttons
+      - case params[:filter]
+        - when "submitted"
+          = link_to icon_tag("tab_go") + _("View + Acknowledge"),
+              backend_inventory_pool_user_acknowledge_path(current_inventory_pool, order.user, order)
+        - when "approved", "rejected"
+          = link_to icon_tag("tab_go") + _("View (readonly)"),
+              backend_inventory_pool_order_path(current_inventory_pool, order)
+      = link_to icon_tag("tab_go") + _("Hand Over"),
+          new_contract_backend_inventory_pool_user_path(current_inventory_pool, order.user) if order.waiting_for_hand_over
+  
