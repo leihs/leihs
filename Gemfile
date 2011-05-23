@@ -1,12 +1,23 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
-gem 'builder', '~> 2.1.2'
-#gem 'i18n'
+gem 'rails', '3.1.0.rc1' #Rails3.1# '3.0.7' 
+gem 'builder', '~> 3.0' #Rails3.1# '~> 2.1.2' 
+gem 'i18n' # Need this explicitly, otherwise can't deploy
 gem 'rake', '~> 0.8.7' # version 0.9.0 is broken!
 
-gem 'mysql2', '~> 0.2.7'
+gem 'mysql2', '~> 0.3.2' #Rails3.1# '~> 0.2.7' 
 #gem 'memcache-client' #gem 'dalli' #gem 'redis-store'
+
+gem 'haml', '~> 3.1.1'
+gem 'sass', '~> 3.1.1'
+#tmp# gem 'coffee-script' #Rails3.1#
+#tmp# gem 'uglifier' #Rails3.1#
+
+#tmp# gem 'jquery-rails', '~> 1.0'
+#tmp# gem 'rails_autolink', '~> 1.0.1' #Rails3.1#
+
+gem 'will_paginate', :git => 'git://github.com/JackDanger/will_paginate.git' #Rails3.1# fix for CollectionAssociation # '~> 3.0.pre2' 
+gem 'thinking-sphinx', :git => 'git://github.com/sylogix/thinking-sphinx.git', :branch => "rails3", :require => 'thinking_sphinx' #Rails 3.1# fix for JoinDependency # '~> 2.0.4'
 
 gem 'gettext', '~> 2.1.0', :require => false
 gem 'gettext_i18n_rails', '~> 0.2.19'
@@ -16,19 +27,16 @@ gem 'barby', '~> 0.4.3'
 # gem "RubyInline", '3.8.2', :require => "inline"
 
 gem 'rmagick', '~> 2.13.1', :require => 'RMagick' 
-gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency'
-gem 'will_paginate', '~> 3.0.pre2'
-gem 'thinking-sphinx', '~> 2.0.4', :require => 'thinking_sphinx'
+gem 'attachment_fu', :git => 'git://github.com/jmoses/attachment_fu.git', :branch => "rails3"
 
+gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency'
+gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
 gem 'fastercsv', '~> 1.5.4'
 
 gem 'prawn', '~> 0.11.1'
-gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
+gem 'prawnto', '~> 0.0.4'
 
 gem 'nested_set', '~> 1.6.4'
-
-gem 'haml', '~> 3.1.1'
-gem 'sass', '~> 3.1.1'
 
 group :profiling do
 	gem 'newrelic_rpm', '~> 3.0.0'
