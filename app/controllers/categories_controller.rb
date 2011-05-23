@@ -20,7 +20,7 @@ class CategoriesController < FrontendController
       format.ext_json { render :json => @categories.to_json(:methods => [[:text, id],
                                                                          :leaf,
                                                                          :real_id],
-                                                            :except => [:id]) }
+                                                            :except => [:id, :created_at, :updated_at, :delta]) }
     end
   end
 

@@ -1,9 +1,8 @@
 module Backend::UsersHelper
 
   def remind_user_link(user, inventory_pool = nil, with_resume = false)
-    h = link_to_remote icon_tag("email") + _("Remind"),
-                :url => url_for([:remind, :backend, inventory_pool, user].compact),
-                :method => :get
+    h = link_to icon_tag("email") + _("Remind"), url_for([:remind, :backend, inventory_pool, user].compact),
+                :method => :get, :remote => true
     h += remind_user(user) if with_resume
     h
   end

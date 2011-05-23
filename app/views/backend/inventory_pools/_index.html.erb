@@ -15,10 +15,8 @@
 						<%= simple_format(inventory_pool.shortname) %>
 					<% end
 					content_tag :td, :class => "buttons" do %>
-						 <%= link_to_remote _("Delete"),
-												:url => backend_inventory_pool_path(inventory_pool),
-												:confirm => _("Are you sure?"),
-												:method => :delete if inventory_pool.items.empty? if is_admin? %>
+						 <%= link_to _("Delete"), backend_inventory_pool_path(inventory_pool),
+									:confirm => _("Are you sure?"), :method => :delete, :remote => true if inventory_pool.items.empty? if is_admin? %>
 					<% end
 				end
 			end

@@ -64,10 +64,7 @@ module Backend::BackendHelper
             if column.is_a?(Array)
               b = (params[:sort] == "#{column[1]}_sort") # TODO 0501 why _sort ??
               sort_mode = (params[:sort_mode] == :asc ? :desc : :asc) if b
-              p += link_to_remote column[0],
-                :url => params.merge({ :sort => column[1], :sort_mode => sort_mode, :page => 1}),
-                :method => :get,
-                :form => true
+              p += link_to column[0], params.merge({ :sort => column[1], :sort_mode => sort_mode, :page => 1}), :remote => true
               p += icon_tag("arrow_" + (params[:sort_mode] == :asc ? "down" : "up")) if b
             else
               p += column

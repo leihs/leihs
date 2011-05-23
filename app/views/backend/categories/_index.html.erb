@@ -19,10 +19,9 @@
 								:method => 'post', :target=> '_top') %>
 						<% else %>
 							<li><%= link_to icon_tag("magnifier") + _("Show"), backend_inventory_pool_category_path(current_inventory_pool, category) %></li>
-							<li><%= link_to_remote _("Delete"),
-											:url => backend_inventory_pool_category_path(current_inventory_pool, category),
+							<li><%= link_to _("Delete"), backend_inventory_pool_category_path(current_inventory_pool, category),
 											:confirm => _("Are you sure?"),
-											:method => :delete if category.models.empty? and category.children.empty? %></li>
+											:method => :delete, :remote => true if category.models.empty? and category.children.empty? %></li>
 							<% # TODO 0607 ajax delete 
                  # Commented out -- not used anymore?
  							if false %>

@@ -90,8 +90,7 @@
 		<% end %>
 
 		<% content_tag :div, :style => "text-align: right;" do %>
-    		<%= link_to_remote icon_tag("database_go") + _("Database Backup"),
-								:url => backend_database_backup_path %>
+    		<%= link_to icon_tag("database_go") + _("Database Backup"), backend_database_backup_path, :remote => true %>
 		<% end if logged_in? %>
 	
 	</div>
