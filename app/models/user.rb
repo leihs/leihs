@@ -136,15 +136,15 @@ class User < ActiveRecord::Base
 ################################################
 
   # NOTE working for User.customers but not working for InventoryPool.first.users.customers, use InventoryPool.first.customers instead  
-  named_scope :admins, :select => "DISTINCT users.*",
+  scope :admins, :select => "DISTINCT users.*",
                        :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
                        :conditions => ['roles.name = ? AND deleted_at IS NULL', 'admin']
 
-  named_scope :managers, :select => "DISTINCT users.*",
+  scope :managers, :select => "DISTINCT users.*",
                        :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
                        :conditions => ['roles.name = ? AND deleted_at IS NULL', 'manager']
 
-  named_scope :customers, :select => "DISTINCT users.*",
+  scope :customers, :select => "DISTINCT users.*",
                        :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
                        :conditions => ['roles.name = ? AND deleted_at IS NULL', 'customer']
 

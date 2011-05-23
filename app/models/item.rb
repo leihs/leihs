@@ -178,29 +178,29 @@ class Item < ActiveRecord::Base
 
 # TODO 0501
 #  default_scope :conditions => {:retired => nil}
-#  named_scope :retired, :conditions => "retired IS NOT NULL"
+#  scope :retired, :conditions => "retired IS NOT NULL"
 
 ####################################################################
 
-  named_scope :borrowable, :conditions => {:is_borrowable => true, :parent_id => nil} 
-  named_scope :unborrowable, :conditions => {:is_borrowable => false}
+  scope :borrowable, :conditions => {:is_borrowable => true, :parent_id => nil} 
+  scope :unborrowable, :conditions => {:is_borrowable => false}
 
-  named_scope :broken, :conditions => {:is_broken => true}
-  named_scope :incomplete, :conditions => {:is_incomplete => true}
+  scope :broken, :conditions => {:is_broken => true}
+  scope :incomplete, :conditions => {:is_incomplete => true}
 
-  named_scope :unfinished, :conditions => ['inventory_code IS NULL OR model_id IS NULL']
-  named_scope :unallocated, :conditions => ['inventory_pool_id IS NULL']
+  scope :unfinished, :conditions => ['inventory_code IS NULL OR model_id IS NULL']
+  scope :unallocated, :conditions => ['inventory_pool_id IS NULL']
  
-  named_scope :inventory_relevant, :conditions => {:is_inventory_relevant => true}
-  named_scope :not_inventory_relevant, :conditions => {:is_inventory_relevant => false}
+  scope :inventory_relevant, :conditions => {:is_inventory_relevant => true}
+  scope :not_inventory_relevant, :conditions => {:is_inventory_relevant => false}
  
   # OPTIMIZE 1102** use item_lines association
-  named_scope :packages, :conditions => ['items.id IN (SELECT DISTINCT parent_id FROM items WHERE retired IS NULL)']
-  #temp# named_scope :packaged, :conditions => "parent_id IS NOT NULL"
+  scope :packages, :conditions => ['items.id IN (SELECT DISTINCT parent_id FROM items WHERE retired IS NULL)']
+  #temp# scope :packaged, :conditions => "parent_id IS NOT NULL"
   
   # Added parent_id to "in_stock" so items that are in packages are considered to not be available
-  named_scope :in_stock, :conditions => ['items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) AND parent_id IS NULL']
-  named_scope :not_in_stock, :conditions => ['items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)']
+  scope :in_stock, :conditions => ['items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) AND parent_id IS NULL']
+  scope :not_in_stock, :conditions => ['items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)']
 
 ####################################################################
 

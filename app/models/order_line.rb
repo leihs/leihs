@@ -24,14 +24,14 @@ class OrderLine < DocumentLine
 
   before_save :assign_inventory_pool
 
-  named_scope :submitted,   :joins => :order,
+  scope :submitted,   :joins => :order,
                             :conditions => ["orders.status_const = ?", Order::SUBMITTED]
-  named_scope :unsubmitted, :joins => :order,
+  scope :unsubmitted, :joins => :order,
                             :conditions => ["orders.status_const = ?", Order::UNSUBMITTED]                          
-  named_scope :running,     lambda { |date|
+  scope :running,     lambda { |date|
                                      { :conditions => ["end_date >= ?", date] }
                                    }
-  named_scope :by_user,     lambda { |user|
+  scope :by_user,     lambda { |user|
                                      { :joins => :order,
                                        :conditions => {:orders => {:user_id => user}} }
                                    }

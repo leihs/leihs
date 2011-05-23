@@ -68,12 +68,12 @@ class Contract < Document
 
 #########################################################################
 
-  named_scope :unsigned, :conditions => {:status_const => Contract::UNSIGNED}
-  named_scope :signed, :conditions => {:status_const => Contract::SIGNED}
-  named_scope :closed, :conditions => {:status_const => Contract::CLOSED}
+  scope :unsigned, :conditions => {:status_const => Contract::UNSIGNED}
+  scope :signed, :conditions => {:status_const => Contract::SIGNED}
+  scope :closed, :conditions => {:status_const => Contract::CLOSED}
   
   # OPTIMIZE use INNER JOIN (:joins => :contract_lines) -OR- union :unsigned + :signed (with lines) 
-  named_scope :pending, :select => "DISTINCT contracts.*",
+  scope :pending, :select => "DISTINCT contracts.*",
                         :joins => "LEFT JOIN contract_lines ON contract_lines.contract_id = contracts.id",
                         :conditions => ["contracts.status_const = :signed
                                          OR (contracts.status_const = :unsigned AND
@@ -81,9 +81,9 @@ class Contract < Document
                                         {:signed => Contract::SIGNED,
                                          :unsigned => Contract::UNSIGNED }]
 
-  named_scope :by_inventory_pool,  lambda { |inventory_pool| { :conditions => { :inventory_pool_id => inventory_pool } } }
+  scope :by_inventory_pool,  lambda { |inventory_pool| { :conditions => { :inventory_pool_id => inventory_pool } } }
 
-# 0501 rename /sphinx_/ and remove relative named_scope
+# 0501 rename /sphinx_/ and remove relative scope
   sphinx_scope(:sphinx_unsigned) { { :with => {:status_const => Contract::UNSIGNED} } }
   sphinx_scope(:sphinx_signed) { { :with => {:status_const => Contract::SIGNED} } }
   sphinx_scope(:sphinx_closed) { { :with => {:status_const => Contract::CLOSED} } }

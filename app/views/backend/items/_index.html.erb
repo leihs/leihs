@@ -43,7 +43,7 @@
 				end %>
 			</td>
 			<td>
-				<% if item.in_stock? %><%# OPTIMIZE 0501 performance: named_scope or sphinx_scope in_stock?(item) %>
+				<% if item.in_stock? %><%# OPTIMIZE 0501 performance: scope or sphinx_scope in_stock?(item) %>
 					<%= icon_tag('accept') %>
 				<% else %>
 					<%= item.current_borrowing_info %>

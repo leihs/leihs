@@ -37,7 +37,7 @@ class ModelGroup < ActiveRecord::Base
     ([id] + all_children.collect(&:id)).flatten.uniq # OPTIMIZE flatten and unique really needed?
   end
 
-  # NOTE is now chainable for named_scopes
+  # NOTE is now chainable for scopes
   def all_models
     ids = all_children.collect(&:id) << id
     models.by_categories(ids)
@@ -47,10 +47,10 @@ class ModelGroup < ActiveRecord::Base
   
 
   # TODO define roots explicitly?
-  named_scope :roots, :joins => "LEFT JOIN model_groups_parents AS mgp ON mgp.model_group_id = model_groups.id",
+  scope :roots, :joins => "LEFT JOIN model_groups_parents AS mgp ON mgp.model_group_id = model_groups.id",
                       :conditions => ['mgp.model_group_id IS NULL']
 
-  named_scope :leafs, :joins => "LEFT JOIN model_groups_parents AS mgp ON mgp.parent_id = model_groups.id",
+  scope :leafs, :joins => "LEFT JOIN model_groups_parents AS mgp ON mgp.parent_id = model_groups.id",
                       :conditions => ['mgp.parent_id IS NULL']
 
 ################################################

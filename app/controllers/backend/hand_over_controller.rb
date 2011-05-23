@@ -10,10 +10,10 @@ class Backend::HandOverController < Backend::BackendController
                                                                      :with => { :inventory_pool_id => current_inventory_pool.id } }
 
       # OPTIMIZE display only effective visits (i.e. for a given model name, ...)
-      visits = visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } } # OPTIMIZE named_scope intersection?
+      visits = visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } } # OPTIMIZE scope intersection?
     end
 
-    visits = visits.select {|v| v.user == @user} if @user # OPTIMIZE named_scope intersection?
+    visits = visits.select {|v| v.user == @user} if @user # OPTIMIZE scope intersection?
     
     @visits = visits.paginate :page => params[:page], :per_page => $per_page
     

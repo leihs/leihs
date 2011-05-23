@@ -15,11 +15,11 @@ class Backend::TakeBackController < Backend::BackendController
 
       # TODO search by inventory_code
 
-      # OPTIMIZE named_scope intersection?
+      # OPTIMIZE scope intersection?
       visits = visits.select {|v| v.contract_lines.any? {|l| @contracts.include?(l.contract) } }
     end
 
-    visits = visits.select {|v| v.user == @user} if @user # OPTIMIZE named_scope intersection?
+    visits = visits.select {|v| v.user == @user} if @user # OPTIMIZE scope intersection?
 
     @visits = visits.paginate :page => params[:page], :per_page => $per_page
 

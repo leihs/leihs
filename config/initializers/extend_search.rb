@@ -2,7 +2,7 @@
 
 # This is an extension of the Thinking-Sphinx plugin (http://github.com/freelancing-god/thinking-sphinx).
 # It preloads the ids of the elements to search for,
-# so then the scoping of the associations and named_scopes is relying on the model definition.
+# so then the scoping of the associations and scopes is relying on the model definition.
 # No need to store foreign keys or additional attributes on the index definition.
 
 # TODO remove this

@@ -28,8 +28,8 @@ class AccessRight < ActiveRecord::Base
   before_save :adjust_levels
   after_save :update_sphinx_index
   
-  named_scope :not_suspended, :conditions => "suspended_until IS NULL OR suspended_until < CURDATE()"
-  named_scope :not_admin,     :conditions => "role_id > 1" #TODO: replace hardcoded 1 with Role name (Role.admin)
+  scope :not_suspended, :conditions => "suspended_until IS NULL OR suspended_until < CURDATE()"
+  scope :not_admin,     :conditions => "role_id > 1" #TODO: replace hardcoded 1 with Role name (Role.admin)
   
 ####################################################################
 

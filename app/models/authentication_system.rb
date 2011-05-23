@@ -21,8 +21,8 @@
 #
 class AuthenticationSystem < ActiveRecord::Base
 
-  named_scope :default_system, :conditions => { :is_default => true }
-  named_scope :active_systems, :conditions => { :is_active => true }
+  scope :default_system, :conditions => { :is_default => true }
+  scope :active_systems, :conditions => { :is_active => true }
 
   # TODO single table inheritance
   def missing_required_fields(user)

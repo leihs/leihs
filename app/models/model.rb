@@ -173,25 +173,25 @@ class Model < ActiveRecord::Base
 #############################################  
 
   # OPTIMIZE Mysql::Error: Not unique table/alias: 'items'
-  named_scope :active, :select => "DISTINCT models.*",
+  scope :active, :select => "DISTINCT models.*",
                        :joins => :items,
                        :conditions => "items.retired IS NULL"
 
-  named_scope :without_items, :select => "models.*",
+  scope :without_items, :select => "models.*",
                               :joins => "LEFT JOIN items ON items.model_id = models.id",
                               :conditions => ['items.model_id IS NULL']
                               
-  named_scope :packages, :conditions => { :is_package => true }
+  scope :packages, :conditions => { :is_package => true }
   
-  named_scope :with_properties, :select => "DISTINCT models.*",
+  scope :with_properties, :select => "DISTINCT models.*",
                                 :joins => "LEFT JOIN properties ON properties.model_id = models.id",
                                 :conditions => "properties.model_id IS NOT NULL"
 
-  named_scope :by_inventory_pool, lambda { |inventory_pool| { :select => "DISTINCT models.*",
+  scope :by_inventory_pool, lambda { |inventory_pool| { :select => "DISTINCT models.*",
                                                               :joins => :items,
                                                               :conditions => ["items.inventory_pool_id = ?", inventory_pool] } }
 
-  named_scope :by_categories, lambda { |categories| { :select => "DISTINCT models.*",
+  scope :by_categories, lambda { |categories| { :select => "DISTINCT models.*",
                                                       :joins => "INNER JOIN model_links AS ml", # OPTIMIZE no ON ??
                                                       :conditions => ["ml.model_group_id IN (?)", categories] } }
 

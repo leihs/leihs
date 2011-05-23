@@ -1,44 +1,38 @@
-# MySQL (default setup).  Versions 4.1 and 5.0 are recommended.
+# MySQL. Versions 4.1 and 5.0 are recommended.
 #
-# Get the fast C bindings:
-#   gem install mysql
-#   (on OS X: gem install mysql -- --include=/usr/local/lib)
+# Install the MySQL driver:
+# gem install mysql2
+#
 # And be sure to use new-style password hashing:
-#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+# http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 development: &DEVEL
-  adapter: mysql
-  database: leihs2_dev
+  adapter: mysql2
   encoding: utf8
+  reconnect: false
+  database: leihs2_dev
+  pool: 5
   username: root
-  password: 
-
-  # for Debian and Ubuntu
+  password:
+  # for Debian and Ubuntu:
   #socket: /var/run/mysqld/mysqld.sock
-  
-  # for Mac OS X
-  socket: /tmp/mysql.sock 
+  # for Mac OS X:
+  socket: /tmp/mysql.sock
 
-  # Connect on a TCP socket.  If omitted, the adapter will connect on the
-  # domain socket given by socket instead.
-  #host: localhost
-  #port: 3306
-  
-# Warning: The database defined as 'test' will be erased and
-# re-generated from your development database when you run 'rake'.
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test: &TEST
-  adapter: mysql
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
   database: leihs2_test
-  encoding: utf8
+  pool: 5
   username: root
-  password: 
-  
+  password:
+  socket: /tmp/mysql.sock
+
 production:
-  adapter: mysql
-  database: leihs2_dev
-  encoding: utf8
-  username: rubylocal
-  password: 163ruby9
+  <<: *DEVEL
 
 cucumber: &CUCUMBER
   <<: *TEST
