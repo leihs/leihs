@@ -1,3 +1,6 @@
+=begin
+#Rails3.1#
+
 #sellittf#
 
 # This is an extension of the Thinking-Sphinx plugin (http://github.com/freelancing-god/thinking-sphinx).
@@ -163,3 +166,4 @@ module ThinkingSphinx
 #  end
 end
 
+=end

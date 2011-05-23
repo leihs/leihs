@@ -159,7 +159,8 @@ class Item < ActiveRecord::Base
     if retired == :all
       super(*args)  
     else
-      with_scope( :find => { :conditions=> "#{class_name.downcase.pluralize}.retired IS #{retired ? "NOT" : ""} NULL" }) do
+      #Rails3.1# with_scope( :find => { :conditions=> "#{class_name.downcase.pluralize}.retired IS #{retired ? "NOT" : ""} NULL" }) do
+      with_scope( :find => { :conditions=> "#{name.downcase.pluralize}.retired IS #{retired ? "NOT" : ""} NULL" }) do
         super(*args)
       end
     end
@@ -170,7 +171,8 @@ class Item < ActiveRecord::Base
     if retired == :all
       super(*args)  
     else
-      with_scope( :find => { :conditions=> "#{class_name.downcase.pluralize}.retired IS #{retired ? "NOT" : ""} NULL" }) do
+      #Rails3.1# with_scope( :find => { :conditions=> "#{class_name.downcase.pluralize}.retired IS #{retired ? "NOT" : ""} NULL" }) do
+      with_scope( :find => { :conditions=> "#{name.downcase.pluralize}.retired IS #{retired ? "NOT" : ""} NULL" }) do
         super(*args)
       end
     end

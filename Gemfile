@@ -43,7 +43,7 @@ group :profiling do
 end
 
 group :cucumber, :development do
-	gem 'ruby-debug', '~> 0.10.4', :require => false
+	gem 'ruby-debug', '~> 0.10.4' #Rails3.1# , :require => false
 end
 
 group :cucumber, :test do
