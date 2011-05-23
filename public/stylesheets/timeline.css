@@ -60,7 +60,7 @@ table.timeline-legend {
 }
 
 table.timeline-legend td {
-	padding: 2px 0 0 0;
+	padding: 2px 0 2px 0;
 }
 .timeline-legend .title {
 	font-weight: bold;
@@ -72,10 +72,11 @@ table.timeline-legend td {
 .timeline-legend .kinds div {
 	height:  15px;
 	display: inline-block;
-	margin-right: 10px;
-	padding-left: 2px;
+	margin-right: 1px;
+	margin-bottom: 1px;
+	padding: 1px 2px 2px 2px;
 	padding-right: 2px;
-	overflow: auto;
+	overflow: visible;
 	white-space: nowrap;
 }
 
