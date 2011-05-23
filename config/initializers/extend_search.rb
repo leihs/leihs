@@ -32,6 +32,7 @@ end
 module ActiveRecord
 
   class Base
+    #sellittf#
     def self.find_for_ids(*args)
       sql = construct_finder_sql({:select => "DISTINCT #{table_name}.id"})
       result = connection.select_all(sanitize_sql(sql), "#{name} Load")
@@ -152,4 +153,13 @@ module ThinkingSphinx
     end
   end
 
+#tmp#
+#  #sellittf# since our General Group doesn't have any id, then we treat it as id=0
+#  class MysqlAdapter < AbstractAdapter
+#    def group_concatenate(clause, separator = ' ')
+#      #original# "GROUP_CONCAT(DISTINCT IFNULL(#{clause}, '0') SEPARATOR '#{separator}')"
+#      "GROUP_CONCAT(DISTINCT IFNULL(#{clause}, '-1') SEPARATOR '#{separator}')"
+#    end
+#  end
 end
+
