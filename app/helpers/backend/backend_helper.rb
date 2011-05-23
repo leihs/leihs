@@ -1,86 +1,77 @@
 module Backend::BackendHelper
 
   def table(options = {}, html_options = {}, &block)
-    html = table_tag(options, html_options, &block)
-    concat(html)
+    table_tag(options, html_options, &block)
   end
 
   def table_with_search_and_pagination(options = {}, html_options = {}, &block)
-    html = content_tag :div, :class => "table-overview", :id => 'list_table' do
-      r = controller_bar(options[:records], true, options[:with_cvs_export] || false)
-      r += table_tag(options, html_options, &block)
-      r += controller_bar(options[:records])
+    capture_haml do
+      haml_tag :div, :class => "table-overview", :id => 'list_table' do
+        haml_concat controller_bar(options[:records], true, options[:with_cvs_export] || false)
+        haml_concat table_tag(options, html_options, &block)
+        haml_concat controller_bar(options[:records])
+      end
     end
-    concat(html)
   end 
 
-  def controller_bar(records, with_search_field = false, with_cvs_export = false,
-                              query = params[:query], filter = params[:filter])
+  def controller_bar(records, with_search_field = false, with_cvs_export = false, query = params[:query], filter = params[:filter])
     query = nil if query.blank?
 
-    content_tag :div, :class => "table-overview controller" do
-      r = ""
-      filter_params = request.path_parameters.keys << "query" << "page"
-      parameters = ""
-      params.each {|k,v| parameters += ", #{k}: '#{v}'" unless filter_params.include?(k) }
-      
-      if with_search_field
-        # evalJS must be set, since we are updating the page parts via JS - see models/index.js.rjs 
-        r += text_field_tag :query, query,
-                            :onchange => "new Ajax.Request('', {asynchronous:true, evalJS:true, method:'get', " \
-                                                               "parameters: {query: this.value #{parameters}}});" \
-                                         "return false;",
-                            :id => 'search_field'
-        r += javascript_tag("$('search_field').focus()")
-      end
-      
-      r += content_tag :div, :class => "result", :style => "min-height: 200px;" do
-        s = _(" <b>%d</b> results") % records.total_entries
-        s += _(" for <b>%s</b>") % query if query
-        s += _(" filtering <b>%s</b>") % filter if filter
-        w = will_paginate records, :previous_label => _("Previous"), :next_label => _("Next")
-        s += w if w
-        s
-      end
-      
-      if with_cvs_export
-        r += content_tag :div, :class => "csv_export buttons" do
-          link_to "CSV export", { :controller => :items, :action => :index, :query => query, :filter => filter, :format => :csv }
+    capture_haml do
+      haml_tag :div, :class => "table-overview controller" do
+        filter_params = request.path_parameters.keys << "query" << "page"
+        parameters = ""
+        params.each {|k,v| parameters += ", #{k}: '#{v}'" unless filter_params.include?(k) }
+        
+        if with_search_field
+          # evalJS must be set, since we are updating the page parts via JS - see models/index.js.rjs 
+          haml_concat text_field_tag :query, query,
+                              :onchange => "new Ajax.Request('', {asynchronous:true, evalJS:true, method:'get', " \
+                                                                 "parameters: {query: this.value #{parameters}}});" \
+                                           "return false;",
+                              :id => 'search_field'
+          haml_concat javascript_tag("$('search_field').focus()")
         end
+        
+        haml_tag :div, :class => "result", :style => "min-height: 200px;" do
+          haml_concat _(" <b>%d</b> results") % records.total_entries
+          haml_concat _(" for <b>%s</b>") % query if query
+          haml_concat _(" filtering <b>%s</b>") % filter if filter
+          w = will_paginate records, :previous_label => _("Previous"), :next_label => _("Next")
+          haml_concat w if w
+        end
+        
+        haml_tag :div, :class => "csv_export buttons" do
+          link_to "CSV export", { :controller => :items, :action => :index, :query => query, :filter => filter, :format => :csv }
+        end if with_cvs_export
       end
-      r
     end
   end 
 
 
   def table_tag(options = {}, html_options = {}, &block)
-    content_tag :table do
-      s = ""
-      s += content_tag :tr do
-        r = ""
-        options[:columns].each do |column|
-          r += content_tag :th do
-            p = ""
-            if column.is_a?(Array)
-              b = (params[:sort] == "#{column[1]}_sort") # TODO 0501 why _sort ??
-              sort_mode = (params[:sort_mode] == :asc ? :desc : :asc) if b
-              p += link_to column[0], params.merge({ :sort => column[1], :sort_mode => sort_mode, :page => 1}), :remote => true
-              p += icon_tag("arrow_" + (params[:sort_mode] == :asc ? "down" : "up")) if b
-            else
-              p += column
+    capture_haml do
+      haml_tag :table do
+        haml_tag :tr do
+          options[:columns].each do |column|
+            haml_tag :th do
+              if column.is_a?(Array)
+                b = (params[:sort] == "#{column[1]}_sort") # TODO 0501 why _sort ??
+                sort_mode = (params[:sort_mode] == :asc ? :desc : :asc) if b
+                haml_concat link_to column[0], params.merge({ :sort => column[1], :sort_mode => sort_mode, :page => 1}), :remote => true
+                haml_concat icon_tag("arrow_" + (params[:sort_mode] == :asc ? "down" : "up")) if b
+              else
+                haml_concat column
+              end
             end
-            p
           end
+        end unless options[:columns].blank?
+    
+        records = (options[:reorder] ? options[:reorder].call(options[:records].to_a) : options[:records])
+        records.each do |record|
+          haml_concat capture(record, &block)
         end
-        r
-      end unless options[:columns].blank?
-  
-      records = (options[:reorder] ? options[:reorder].call(options[:records].to_a) : options[:records])
-      records.each do |record|
-        s += capture(record, &block)
       end
-      
-      s
     end
   end
 

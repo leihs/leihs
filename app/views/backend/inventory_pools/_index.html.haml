@@ -1,0 +1,16 @@
+= table_with_search_and_pagination :columns => [[_("Name"), 'name'], _("Short Name"), _("Action")],
+								    :records => @inventory_pools,
+								    :reorder => Proc.new {|records| reorder_inventory_pools(records) } do |inventory_pool|
+  - unless inventory_pool.nil?
+    %tr{:id => "inventory_pool_#{inventory_pool.id}"}
+      %td
+        - if is_apprentice?(inventory_pool)
+          = link_to inventory_pool.name, backend_inventory_pool_path(inventory_pool)
+        - else
+          = inventory_pool.name
+      %td
+        = simple_format(inventory_pool.shortname)
+      %td.buttons
+        = link_to _("Delete"), backend_inventory_pool_path(inventory_pool),
+            :confirm => _("Are you sure?"), :method => :delete, :remote => true if inventory_pool.items.empty? if is_admin?
+
