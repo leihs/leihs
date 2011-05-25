@@ -293,7 +293,7 @@ class Item < ActiveRecord::Base
       "#{self.retired}",
       "#{self.retired_reason}",
       "#{self.price}",
-      "#{self.current_borrowing_info},
+      "#{self.current_borrowing_info}",
       "#{self.is_broken}",
       "#{self.is_incomplete}",
       "#{self.is_borrowable}",
