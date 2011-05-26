@@ -29,7 +29,9 @@ The following steps were tested on Mac OS X 10.5 and 10.6 on an x86. They may al
 
 3. Update the local gem system:
 +
- $ sudo gem update --system
+ $ sudo gem update --system 1.5.3
++
+It is important that you use version 1.5.2 or 1.5.3 or RubyGems because newer versions don't work with Rails 2.3.5, which leihs uses.
 
 4. Install the native MySQL gem:
 +
@@ -73,7 +75,7 @@ But Apple may at any point recommend a different approach for configuring your P
  $ cd /home/leihs
  $ sudo gem install -v=2.3.5 rails
  $ sudo gem install bundler
- $ sudo gem install rake
+ $ sudo gem install rake -v 0.8.7
  $ bundle install --deployment --without cucumber
 
 9. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a production database configuration:
@@ -146,7 +148,7 @@ These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Len
  # ruby setup.rb
  # ln -s /usr/bin/gem1.8 /usr/bin/gem
 +
-Note that the URL above might change! Please visit the RubyGems site to find the exact URL under "Downloads".
+Note that the URL above might change! Please visit the RubyGems site to find the exact URL under "Downloads". It is important that you use version 1.5.2 or 1.5.3 or RubyGems because newer versions don't work with Rails 2.3.5, which leihs uses.
 
 3. Install the MySQL header files and the MySQL gem:
 +
@@ -176,7 +178,7 @@ Note that the URL above might change! Please visit the RubyGems site to find the
  # cd /home/leihs
  # gem install -v=2.3.5 rails
  # gem install bundler
- # gem install rake
+ # gem install rake -v 0.8.7
  # bundle install --deployment --without cucumber
 
 8. Configure database access for this installation of leihs. Copy the file config/database.yml.example to config/database.yml and set things up according to your needs. You will need a MySQL database for leihs. Here is an example of a production database configuration:
@@ -243,6 +245,73 @@ Don't forget to set ENABLE_MEMCACHED to "yes" in /etc/defaults/memcached
 After installation, a default user is created for the Database Authentication module. Username: super_user_1. Password: pass.
 +
 Please change the super_user_1 password immediately after logging in the first time. Otherwise other people will also be able to log in using the well known default password.
+
+
+== Hooking up to LDAP for logins ==
+
+Currently, leihs contains only a very rudimentary LDAP login adapter. It was developed by the Zurich University of the Arts specifically for the Hochschule der Künste Bern, Switzerland, and some parts of it are hardcoded to fit the environment there.
+
+However, it's not impossible to get leihs to authenticate against your own LDAP server if you are willing to modify two files in leihs.
+
+=== Modifying config/LDAP.yml ===
+
+Open config/LDAP.yml and adapt the configuration to your own LDAP server:
+
+ production:
+  host: your.ldap.server
+  port: 636
+  encryption: simple_tls
+  base: dc=yourcompany,dc=com
+  log_file: log/ldap_server.log
+  log_level: warn
+  search_field: uid
+  bind_dn: *****
+  bind_pwd: ******
+
+You may have to adapt the +search_field+ option to point at the LDAP attribute that contains your usernames. The +search_field+ dictates what users will have to write in the "Login" field on login.
+
+=== Modifying app/controllers/authenticator/ldap_authentication_controller.rb ===
+
+This controller handles the login itself. You will have to modify a few strings to point at the right attributes for your own LDAP server.
+
+On line 33:
+
+ email = users.first.mail if users.first.mail
+ email ||= "#{user}@hkb.bfh.ch"
+
+If your LDAP server does not store the e-mail address in the field "mail", change +users.first.mail+ to +users.first.your_email_field_name+. You can also change +"#{user}@hkb.bfh.ch"+ to +"#{user}@your.domain.com"+ so that such an e-mail is automatically constructed out of the user's login plus your domain name. This is useful in case you don't store any e-mail addresses in your LDAP server at all.
+
+On line 52:
+
+ u.firstname = users.first["givenname"].to_s
+ u.lastname = users.first["sn"].to_s
+ u.phone = users.first["telephonenumber"].to_s unless users.first["telephonenumber"].blank?
+
+You can add any Ruby code here that extracts this user information from your LDAP. Currently things are set up to point at the default fields from the InetOrgPerson class (givenname, sn, telephonenumber, etc.). This should be okay for most LDAP servers, but feel free to change the strings in e.g. +users.first["givenname"].to_s+ to your own field names. For a field called "firstname", that would change to: +users.first["firstname"].to_s+.
+
+=== Enabling LDAP authentication in the system ===
+
+Finally, you need to tell leihs that you want to use LDAP, not local database authentication. Start a Rails console inside your leihs directory:
+
+ $ RAILS_ENV=production bundle exec ./script/server
+
+Then enable LDAP authentication and switch off database authentication:
+
+ >> ldap = AuthenticationSystem.find_by_class_name("LDAPAuthentication")
+ >> ldap.is_default = true
+ >> ldap.is_active = true
+ >> ldap.save
+
+ >> db = AuthenticationSystem.find_by_class_name("DatabaseAuthentication")
+ >> db.is_default = false
+ >> db.is_active = false
+ >> db.save
+
+Now restart your Rails application and next time you try to access it, you should be forwarded to /authenticator/ldap/login instead of /authenticator/db/login, and then you can log in via LDAP.
+
+Do you want to be able to configure all these settings directly in LDAP.yml so it's easier to hook up to your LDAP server? Feel free to improve our LDAP connector and send us a pull request on GitHub. Alternatively, you could also pay some Rails developers (even us!) to develop this feature for you.
+
+Warning: Please make sure that your Rails application server has SSL enabled before you put this configuration into production. You don't want to send passwords unencrypted over the web.
 
 == Upgrading from leihs 2.0 to leihs 2.1 ==
 
