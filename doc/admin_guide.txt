@@ -293,7 +293,7 @@ You can add any Ruby code here that extracts this user information from your LDA
 
 Finally, you need to tell leihs that you want to use LDAP, not local database authentication. Start a Rails console inside your leihs directory:
 
- $ RAILS_ENV=production bundle exec ./script/server
+ $ RAILS_ENV=production bundle exec ./script/console
 
 Then enable LDAP authentication and switch off database authentication:
 
