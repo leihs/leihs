@@ -295,6 +295,17 @@ ul.model_group > li {
     list-style-type: square;
 }
 
+/* styling of Sciptaculous' Autocomplete selection menu */
+.informal {
+    padding-left: 2em;
+    font-style: italic;
+    color: #095d00;
+}
+
+.smaller {
+    font-size: 75%;
+}
+
 /* OLD
  ul.model_group > li > span {
  }

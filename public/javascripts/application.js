@@ -207,3 +207,55 @@ function replace_with_target(element) {
 	});
 	return false;
 }
+
+
+/////////////////////////////////////////////////////////
+
+// Handover handling for a user's contract
+
+
+// returns the id of the line that an input element refers to
+function line_id(input_id) {
+  return (input_id.replace("line_item_inventory_code_",""));
+}
+
+
+var line_items = {};
+
+function on_item_code_input_focus(element, item_inventory_code) {
+  var l_id = line_id(element.id);
+
+  if( element.value != item_inventory_code &&
+      element.value != line_items[l_id]       ) {
+    line_items[l_id] = element.value;
+
+    var url = '/backend/inventory_pools/' + current_inventory_pool_id +
+	      '/users/' + current_user_id +
+	      '/hand_over/change_line?contract_line_id=' + l_id;
+
+    var parameters = 'code=' + element.value + 
+	             '&authenticity_token=' + 
+		     encodeURIComponent($$('input[name=authenticity_token]')[0].value);
+
+    new Ajax.Request( url,
+                      { asynchronous:true,
+                        evalScripts: true,
+                        parameters:  parameters
+                      });
+  }
+}
+
+var autocompleters = {};
+
+function autocomplete(element) {
+  var l_id = line_id(element.id);
+  // only create a new autocompleter if there isn't one yet
+  if(element.value == '' && ! autocompleters[l_id]) {
+    autocompleters[l_id] =
+      new Autocompleter.Local( element.id,
+                               element.id + "_list",
+                               styled_inventory_codes[l_id],
+                               {fullSearch: true} );
+  }
+  if(autocompleters[l_id]) autocompleters[l_id].activate();
+}
