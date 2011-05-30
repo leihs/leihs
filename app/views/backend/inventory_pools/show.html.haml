@@ -1,0 +1,37 @@
+%table{:style => "margin: 15px 0 15px 0;"}
+  %tr
+    %td{:style => "vertical-align:top; width: 25%;"}
+      %table
+        %tr
+          %th{:colspan => 2}
+            = _("Last Visitors")
+    
+        - if session[:last_visitors]
+          - session[:last_visitors].reverse.each do |ui|
+            %tr
+              %td
+                %b= ui[1]
+              %td.buttons
+                = link_to icon_tag("tab_go"), backend_inventory_pool_user_path(current_inventory_pool, ui[0])
+
+    %td{:style => "vertical-align:top; width: 25%;"}
+      - orders = current_inventory_pool.orders.submitted.reverse[0..4]
+      = render :partial => "/backend/acknowledge/index_mini", :locals => { :orders => orders } unless orders.empty?
+    
+    %td{:style => "vertical-align:top; width: 25%;"}
+      - hand_over_visits = current_inventory_pool.hand_over_visits(Date.today)
+      - visits = hand_over_visits.select {|v| v.date == Date.today }
+      = render :partial => "/backend/hand_over/index_mini", :locals => { :visits => visits, :title => _("Today") } unless visits.empty?
+      %br
+      - visits = hand_over_visits.select {|v| v.date < Date.today }
+      = render :partial => "/backend/hand_over/index_mini", :locals => { :visits => visits, :title => _("Overdue") } unless visits.empty?
+    
+    %td{:style => "vertical-align:top; width: 25%;"}
+      - take_back_visits = current_inventory_pool.take_back_visits(Date.today)
+      - visits = take_back_visits.select {|v| v.date == Date.today }
+      = render :partial => "/backend/take_back/index_mini", :locals => { :visits => visits, :title => _("Today") } unless visits.empty?
+      %br
+      - visits = take_back_visits.select {|v| v.date < Date.today }
+      = render :partial => "/backend/take_back/index_mini", :locals => { :visits => visits, :title => _("Overdue") } unless visits.empty?
+
+= render :partial => 'info'

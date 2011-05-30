@@ -87,13 +87,15 @@ Leihs::Application.routes.draw do
 
     resources :inventory_pools do
       resources :acknowledge, :only => :index
-#      match 'hand_over', :to => 'hand_over#index'
       resources :hand_over, :only => :index
-#      match 'take_back', :to => 'take_back#index'
       resources :take_back, :only => :index
-#      match 'search', :to => 'backend#search'
+      match 'search', :to => 'backend#search'
   
       resources :mails
+
+      resources :orders
+      resources :contracts
+      
       resources :locations do
         resources :items
       end

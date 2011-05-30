@@ -82,7 +82,7 @@ class InventoryPool < ActiveRecord::Base
   has_many :order_lines #old#, :through => :orders
 
   has_many :contracts
-  has_many :contract_lines, :through => :contracts, :uniq => true
+  has_many :contract_lines, :through => :contracts, :uniq => true #Rails3.1# TODO still needed?
 
   has_many :groups #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
 
@@ -223,17 +223,17 @@ private
                  end
 
     lines = contract_lines.send(target).
-                           all(:select => "contracts.user_id AS user_id, #{date_field} AS date, contract_id, quantity, contract_lines.id AS contract_line_id",
-                               :include => {:contract => :user},
-                               :conditions => (max_date ? ["#{date_field} <= ?", max_date] : nil),
-                               :order => "contracts.user_id, #{date_field}")
+                select("contracts.user_id AS user_id, #{date_field} AS date, contract_id, quantity, contract_lines.id AS contract_line_id").
+                includes(:contract => :user).
+                order("contracts.user_id, #{date_field}")
+    lines = lines.where(["#{date_field} <= ?", max_date]) if max_date
 
     previous = Struct.new(:event, :user_id, :date).new(nil,nil,nil)
 
     lines.collect do |l|
       if l.user_id == previous.user_id && l.date == previous.date
-        previous.event[:quantity] += l.quantity 
-        previous.event[:contract_line_ids] << l.contract_line_id
+        previous.event.quantity += l.quantity 
+        previous.event.contract_line_ids << l.contract_line_id
         nil # return nil to collect
       else
         user = User.find(l.user_id)

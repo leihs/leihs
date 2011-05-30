@@ -1,0 +1,23 @@
+#search{:style => "float:right"}
+  = form_tag backend_inventory_pool_search_path(current_inventory_pool), :method => :get do
+    = text_field_tag :text, params[:text]
+
+%ul.buttons
+  %li
+    - acknowledge_class = "activated" if controller.controller_name == 'acknowledge'
+    = link_to icon_tag("accept") + " " + _('Acknowledge'), [:backend, current_inventory_pool, :acknowledge, :index], :class => acknowledge_class
+  %li
+    - hand_over_class = "activated" if controller.controller_name == 'hand_over'
+    = link_to icon_tag("arrow_turn_right") + " " + _('Hand Over'), [:backend, current_inventory_pool, :hand_over, :index], :class => hand_over_class
+  %li
+    - take_back_class = "activated" if (controller.controller_name == 'take_back' and params[:remind] != "true")
+    = link_to icon_tag("arrow_undo") + " " + _('Take Back'), [:backend, current_inventory_pool, :take_back, :index], :class => take_back_class
+  %li
+    - remind_class = "activated" if (controller.controller_name == 'take_back' and params[:remind] == "true")
+    = link_to icon_tag("clock") + " " + _('Remind'), backend_inventory_pool_take_back_index_path(current_inventory_pool, :remind => true), :class => remind_class
+
+  - if is_privileged_user?
+    %li= link_to _('New model'), :controller => 'models', :action => 'new'
+
+  - if is_inventory_manager?
+    %li= link_to _('New Item'), :controller => 'items', :action => 'new'

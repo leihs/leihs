@@ -26,7 +26,7 @@ class Contract < Document
   belongs_to :inventory_pool # common for sibling classes
   belongs_to :user
   
-  has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC'
+  has_many :contract_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC' #Rails3.1# TODO ContractLin#default_scope
   has_many :item_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC'
   has_many :option_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, contract_lines.created_at ASC'
   has_many :models, :through => :item_lines, :uniq => true, :order => 'contract_lines.start_date ASC, contract_lines.end_date ASC, models.name ASC'
@@ -68,9 +68,9 @@ class Contract < Document
 
 #########################################################################
 
-  scope :unsigned, :conditions => {:status_const => Contract::UNSIGNED}
-  scope :signed, :conditions => {:status_const => Contract::SIGNED}
-  scope :closed, :conditions => {:status_const => Contract::CLOSED}
+  scope :unsigned, where(:status_const => Contract::UNSIGNED)
+  scope :signed, where(:status_const => Contract::SIGNED)
+  scope :closed, where(:status_const => Contract::CLOSED)
   
   # OPTIMIZE use INNER JOIN (:joins => :contract_lines) -OR- union :unsigned + :signed (with lines) 
   scope :pending, :select => "DISTINCT contracts.*",

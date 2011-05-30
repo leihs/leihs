@@ -36,13 +36,19 @@ class ContractLine < DocumentLine
   
 ####################################################
 
-  # NOTE using table alias to prevent "Not unique table/alias" Mysql error
   # TODO default_scope :joins ??
+  #Rails3.1# default_scope order("start_date ASC, end_date ASC, contract_lines.created_at ASC")
+  
   # these are the things we need to_take_back, to_hand_over, ...
-  scope :to_hand_over,  :joins => "INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id",
-                              :conditions => ["my_contract.status_const = ?", Contract::UNSIGNED]
-  scope :to_take_back,  :joins => "INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id",
-                              :conditions => ["my_contract.status_const = ? AND contract_lines.returned_date IS NULL", Contract::SIGNED]
+  # NOTE using table alias to prevent "Not unique table/alias" Mysql error
+  scope :to_hand_over,  lambda {
+                          joins("INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id").
+                          where(["my_contract.status_const = ?", Contract::UNSIGNED])
+                        }
+  scope :to_take_back,  lambda {
+                          joins("INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id").
+                          where(["my_contract.status_const = ? AND contract_lines.returned_date IS NULL", Contract::SIGNED])
+                        }
   scope :handed_over_or_assigned_but_not_returned,
                               lambda { |date|
                                        { :conditions => ["returned_date IS NULL AND NOT (end_date < ? AND item_id IS NULL)", date] }

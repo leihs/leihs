@@ -28,21 +28,27 @@
 # a accordingly are not persistent!
 #
 # TODO drop completely this class!!!
-class Event < ActiveRecord::Base
-  def self.columns() @columns ||= []; end
-  def self.column(name, sql_type = nil, default = nil, null = true)
-    columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
+class Event
+  
+  attr_accessor :date, # :date, Date.today
+                :title, # :string, ""
+                :action, # :string, "hand_over"
+                :quantity, # :integer, 0
+                :contract_line_ids, # :string, nil # Array
+                :inventory_pool,
+                :user
+
+  def initialize(attributes = {})
+    attributes.each do |name, value|
+      send("#{name}=", value)
+    end
+    @date ||= Date.today
+    @title ||= ""
+    @action ||= "hand_over"
+    @quantity ||= 0
+    @contract_line_ids ||= []
   end
   
-  column :date, :date, Date.today
-  column :title, :string, ""
-  column :action, :string, "hand_over"
-  column :quantity, :integer, 0
-  column :contract_line_ids, :string, nil # Array
-
-  has_one :inventory_pool
-  has_one :user
-
   # OPTIMIZE
   def contract_lines
     @contract_lines ||= ContractLine.all(:conditions => {:id => contract_line_ids})
