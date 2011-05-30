@@ -589,8 +589,9 @@ Update the local gem system:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt>$ sudo gem update --system</tt></pre>
+<pre><tt>$ sudo gem update --system 1.5.3</tt></pre>
 </div></div>
+<div class="paragraph"><p>It is important that you use version 1.5.2 or 1.5.3 or RubyGems because newer versions don&#8217;t work with Rails 2.3.5, which leihs uses.</p></div>
 </li>
 <li>
 <p>
@@ -656,7 +657,7 @@ Install the required version of Rails as well as a few gems that cannot be insta
 <pre><tt>$ cd /home/leihs
 $ sudo gem install -v=2.3.5 rails
 $ sudo gem install bundler
-$ sudo gem install rake
+$ sudo gem install rake -v 0.8.7
 $ bundle install --deployment --without cucumber</tt></pre>
 </div></div>
 </li>
@@ -720,6 +721,7 @@ Start the server:
 </div></div>
 <div class="paragraph"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
 <div class="paragraph"><p>This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.</p></div>
+<div class="paragraph"><p>Please change the super_user_1 password immediately after logging in the first time. Otherwise other people will also be able to log in using the well known default password.</p></div>
 </li>
 <li>
 <p>
@@ -764,7 +766,7 @@ Install RubyGems from <a href="http://rubygems.org/">the RubyGems website</a>. M
 # ruby setup.rb
 # ln -s /usr/bin/gem1.8 /usr/bin/gem</tt></pre>
 </div></div>
-<div class="paragraph"><p>Note that the URL above might change! Please visit the RubyGems site to find the exact URL under "Downloads".</p></div>
+<div class="paragraph"><p>Note that the URL above might change! Please visit the RubyGems site to find the exact URL under "Downloads". It is important that you use version 1.5.2 or 1.5.3 or RubyGems because newer versions don&#8217;t work with Rails 2.3.5, which leihs uses.</p></div>
 </li>
 <li>
 <p>
@@ -816,7 +818,7 @@ Install the required version of Rails as well as a few gems that cannot be insta
 <pre><tt># cd /home/leihs
 # gem install -v=2.3.5 rails
 # gem install bundler
-# gem install rake
+# gem install rake -v 0.8.7
 # bundle install --deployment --without cucumber</tt></pre>
 </div></div>
 </li>
@@ -883,6 +885,7 @@ $ RAILS_ENV=production ./script/server</tt></pre>
 </div></div>
 <div class="paragraph"><p>Now you should see your local leihs server at <a href="http://localhost:3000">http://localhost:3000</a>. You can log in with username "super_user_1" and password "pass".</p></div>
 <div class="paragraph"><p>This gives you a test setup using the pure Ruby WebRick web server. For production setups, we recommend mod_passenger. See the "Installing a production environment" section of this guide for more information.</p></div>
+<div class="paragraph"><p>Please change the super_user_1 password immediately after logging in the first time. Otherwise other people will also be able to log in using the well known default password.</p></div>
 </li>
 <li>
 <p>
@@ -910,6 +913,70 @@ Optional: Speed boost thanks to memcached
 <h2 id="_default_admin_username_password">Default admin username/password</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>After installation, a default user is created for the Database Authentication module. Username: super_user_1. Password: pass.</p></div>
+<div class="paragraph"><p>+
+Please change the super_user_1 password immediately after logging in the first time. Otherwise other people will also be able to log in using the well known default password.</p></div>
+</div>
+<h2 id="_hooking_up_to_ldap_for_logins">Hooking up to LDAP for logins</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Currently, leihs contains only a very rudimentary LDAP login adapter. It was developed by the Zurich University of the Arts specifically for the Hochschule der Künste Bern, Switzerland, and some parts of it are hardcoded to fit the environment there.</p></div>
+<div class="paragraph"><p>However, it&#8217;s not impossible to get leihs to authenticate against your own LDAP server if you are willing to modify two files in leihs.</p></div>
+<h3 id="_modifying_config_ldap_yml">Modifying config/LDAP.yml</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Open config/LDAP.yml and adapt the configuration to your own LDAP server:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>production:
+ host: your.ldap.server
+ port: 636
+ encryption: simple_tls
+ base: dc=yourcompany,dc=com
+ log_file: log/ldap_server.log
+ log_level: warn
+ search_field: uid
+ bind_dn: *****
+ bind_pwd: ******</tt></pre>
+</div></div>
+<div class="paragraph"><p>You may have to adapt the <tt>search_field</tt> option to point at the LDAP attribute that contains your usernames. The <tt>search_field</tt> dictates what users will have to write in the "Login" field on login.</p></div>
+<h3 id="_modifying_app_controllers_authenticator_ldap_authentication_controller_rb">Modifying app/controllers/authenticator/ldap_authentication_controller.rb</h3><div style="clear:left"></div>
+<div class="paragraph"><p>This controller handles the login itself. You will have to modify a few strings to point at the right attributes for your own LDAP server.</p></div>
+<div class="paragraph"><p>On line 33:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>email = users.first.mail if users.first.mail
+email ||= "#{user}@hkb.bfh.ch"</tt></pre>
+</div></div>
+<div class="paragraph"><p></p></div>
+<div class="paragraph"><p>On line 52:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>u.firstname = users.first["givenname"].to_s
+u.lastname = users.first["sn"].to_s
+u.phone = users.first["telephonenumber"].to_s unless users.first["telephonenumber"].blank?</tt></pre>
+</div></div>
+<div class="paragraph"><p>You can add any Ruby code here that extracts this user information from your LDAP. Currently things are set up to point at the default fields from the InetOrgPerson class (givenname, sn, telephonenumber, etc.). This should be okay for most LDAP servers, but feel free to change the strings in e.g. <tt>users.first["givenname"].to_s</tt> to your own field names. For a field called "firstname", that would change to: <tt>users.first["firstname"].to_s</tt>.</p></div>
+<h3 id="_enabling_ldap_authentication_in_the_system">Enabling LDAP authentication in the system</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Finally, you need to tell leihs that you want to use LDAP, not local database authentication. Start a Rails console inside your leihs directory:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ RAILS_ENV=production bundle exec ./script/console</tt></pre>
+</div></div>
+<div class="paragraph"><p>Then enable LDAP authentication and switch off database authentication:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>&gt;&gt; ldap = AuthenticationSystem.find_by_class_name("LDAPAuthentication")
+&gt;&gt; ldap.is_default = true
+&gt;&gt; ldap.is_active = true
+&gt;&gt; ldap.save</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>&gt;&gt; db = AuthenticationSystem.find_by_class_name("DatabaseAuthentication")
+&gt;&gt; db.is_default = false
+&gt;&gt; db.is_active = false
+&gt;&gt; db.save</tt></pre>
+</div></div>
+<div class="paragraph"><p>Now restart your Rails application and next time you try to access it, you should be forwarded to /authenticator/ldap/login instead of /authenticator/db/login, and then you can log in via LDAP.</p></div>
+<div class="paragraph"><p>Do you want to be able to configure all these settings directly in LDAP.yml so it&#8217;s easier to hook up to your LDAP server? Feel free to improve our LDAP connector and send us a pull request on GitHub. Alternatively, you could also pay some Rails developers (even us!) to develop this feature for you.</p></div>
+<div class="paragraph"><p>Warning: Please make sure that your Rails application server has SSL enabled before you put this configuration into production. You don&#8217;t want to send passwords unencrypted over the web.</p></div>
 </div>
 <h2 id="_upgrading_from_leihs_2_0_to_leihs_2_1">Upgrading from leihs 2.0 to leihs 2.1</h2>
 <div class="sectionbody">
@@ -1223,7 +1290,7 @@ $ RAILS_ENV=production rake ts:start</tt></pre>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2011-03-29 09:52:47 CEST
+Last updated 2011-05-30 09:41:38 CEST
 </div>
 </div>
 </body>
