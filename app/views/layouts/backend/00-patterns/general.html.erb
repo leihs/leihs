@@ -17,7 +17,7 @@
 	<%= stylesheet_link_tag "/javascripts/tooltips/tooltips.css", :media => "screen" %>
 
 	<%# NOTE rsh.js has to be defined before the greybox %>
-	<%= javascript_include_tag :defaults, "tooltips/tooltips", "tooltips/builder", "jquery/jquery", "jquery/jquery-ui" %> <%# , "rsh.js" %>
+	<%= javascript_include_tag "jquery/jquery", "jquery/jquery-ui", :defaults, "tooltips/tooltips", "tooltips/builder" %> <%# , "rsh.js" %>
 	<% javascript_tag do %>
 		jQuery.noConflict();
 	<% end %>
@@ -27,7 +27,7 @@
 			body { padding-top: 15px;}
 		</style>
 	<% else %>	
-		<%= greybox_head('/javascripts/greybox') %>
+		<%= raw greybox_head('/javascripts/greybox') %>
 	<% end %>
 	
 	<%= yield :head %>

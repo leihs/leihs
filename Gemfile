@@ -13,13 +13,15 @@ gem 'sass', '~> 3.1.1'
 #tmp# gem 'coffee-script' #Rails3.1#
 #tmp# gem 'uglifier' #Rails3.1#
 
+gem 'prototype-rails', '~> 0.3.1'
 #tmp# gem 'jquery-rails', '~> 1.0'
-#tmp# gem 'rails_autolink', '~> 1.0.1' #Rails3.1#
+gem 'rails_autolink', '~> 1.0.1' #Rails3.1#
 
 gem 'will_paginate', :git => 'git://github.com/JackDanger/will_paginate.git' #Rails3.1# fix for CollectionAssociation # '~> 3.0.pre2' 
-gem 'thinking-sphinx', :git => 'git://github.com/sylogix/thinking-sphinx.git', :branch => "rails3", :require => 'thinking_sphinx' #Rails 3.1# fix for JoinDependency # '~> 2.0.4'
+#gem 'thinking-sphinx', :git => 'git://github.com/sylogix/thinking-sphinx.git', :branch => "rails3", :require => 'thinking_sphinx' #Rails 3.1# fix for JoinDependency
+gem 'thinking-sphinx', '~> 2.0.5', :require => 'thinking_sphinx'
 
-gem 'gettext', '~> 2.1.0', :require => false
+gem 'gettext', '~> 2.1.0', :require => false # TODO only for development ??
 gem 'gettext_i18n_rails', '~> 0.2.19'
 
 gem 'barby', '~> 0.4.3'

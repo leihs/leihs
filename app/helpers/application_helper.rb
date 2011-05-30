@@ -85,20 +85,20 @@ module ApplicationHelper
   def flash_helper(floating = true)
     if floating
       r = javascript_tag do
-        "
-        function is_folded(element){
-          return (element.offsetLeft + element.offsetWidth > window.document.viewport.getWidth());
-        }
-        
-        function flash_toggle(element){
-          var goto = (is_folded(element) ? 3 : 20 - element.offsetWidth);
-          element.morph('right: '+ goto +'px;');
-        }
-  
-        function flash_open(element){
-          if(is_folded(element)) element.morph('right: 3px;');
-        }
-        "
+        begin
+        <<-HERECODE
+          function is_folded(element){
+            return (element.offsetLeft + element.offsetWidth > window.document.viewport.getWidth());
+          }          
+          function flash_toggle(element){
+            var goto = (is_folded(element) ? 3 : 20 - element.offsetWidth);
+            element.morph('right: '+ goto +'px;');
+          }    
+          function flash_open(element){
+            if(is_folded(element)) element.morph('right: 3px;');
+          }
+        HERECODE
+        end.html_safe
       end
       r += content_tag :div, :id => "flash", :class => "floating", :onclick => "flash_toggle(this);" do
         flash_content
@@ -112,7 +112,11 @@ module ApplicationHelper
 
   def flash_content
     r = javascript_tag do
-      "if($('flash').hasClassName('floating')) flash_open($('flash'));" # OPTIMIZE
+      begin
+      <<-HERECODE
+        if($('flash').hasClassName('floating')) flash_open($('flash'));
+      HERECODE
+      end.html_safe
     end
     [:notice, :error].map do |f|
       r += content_tag(:div, to_list(flash[f]), :class => "#{f}") unless flash[f].blank?
