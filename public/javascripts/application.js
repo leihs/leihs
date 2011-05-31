@@ -247,7 +247,7 @@ function on_item_code_input_focus(element, item_inventory_code) {
 
 var autocompleters = {};
 
-function autocomplete(element) {
+function do_autocomplete(element) {
   var l_id = line_id(element.id);
   // only create a new autocompleter if there isn't one yet
   if(element.value == '' && ! autocompleters[l_id]) {

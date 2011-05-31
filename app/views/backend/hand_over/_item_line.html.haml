@@ -46,7 +46,7 @@
         { :id           => "line_item_inventory_code_#{@line.id}",       |
           :size         => 10,                                           |
           :autocomplete => false,                                        |
-          :onclick      => "autocomplete(this)",                         |
+          :onclick      => "do_autocomplete(this)",                      |
           :onfocus      =>                                               | 
             "on_item_code_input_focus(this, '#{@item_inventory_code}')", |
           :onblur       => "this.onfocus()",                             |
