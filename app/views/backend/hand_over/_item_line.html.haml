@@ -9,9 +9,7 @@
     
     = text_field :line, :quantity,                                                            |
                  :id       =>"line_quantity_#{@line.id}", :size => 3,                         |
-                 :onchange => remote_function( :url  => { :action => 'change_line_quantity',  |
-                                                          :contract_line_id => @line.id },    |
-                                               :with => "'quantity=' + value" )               |
+                 :onchange => "on_model_count_input_focus(this, '#{@item_inventory_code}')"   |
     
     - if @line.model.internal_description and not @line.model.internal_description.blank?
       - tooltip icon_tag("information") do

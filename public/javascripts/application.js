@@ -216,12 +216,15 @@ function replace_with_target(element) {
 
 // returns the id of the line that an input element refers to
 function line_id(input_id) {
-  return (input_id.replace("line_item_inventory_code_",""));
+  // line_item_inventory_code_12345 or
+  // line_quantity_12345
+  return (input_id.replace(/line_.*_/,""));
 }
 
 
 var line_items = {};
 
+// react on change of the item code
 function on_item_code_input_focus(element, item_inventory_code) {
   var l_id = line_id(element.id);
 
@@ -245,6 +248,24 @@ function on_item_code_input_focus(element, item_inventory_code) {
   }
 }
 
+function on_model_count_input_focus(element, item_quantity) {
+  var l_id = line_id(element.id);
+
+  var url = '/backend/inventory_pools/' + current_inventory_pool_id +
+            '/users/' + current_user_id +
+            '/hand_over/change_line_quantity?contract_line_id=' + l_id;
+
+  var parameters = 'quantity=' + element.value + 
+                   '&authenticity_token=' + 
+      	           encodeURIComponent($$('input[name=authenticity_token]')[0].value);
+
+  new Ajax.Request( url,
+                    { asynchronous:true,
+                      evalScripts: true,
+                      parameters:  parameters
+                    });
+}
+
 var autocompleters = {};
 
 function do_autocomplete(element) {
@@ -259,3 +280,4 @@ function do_autocomplete(element) {
   }
   if(autocompleters[l_id]) autocompleters[l_id].activate();
 }
+
