@@ -6,14 +6,14 @@
     * application.js
       * on_item_code_input_focus()
       * autocomplete
- %>
+
+    we must reset autocompleters below, since the corresponding elements
+    are being re-rendered! %>
 <% javascript_tag do %>
   var current_inventory_pool_id = <%= current_inventory_pool.id %>;
   var current_user_id           = <%= @contract.user.id %>;
   var styled_inventory_codes = {};
-  // we must reset autocompleters here, since the corresponding elements
-  // are being re-rendered!
-  autocompleters            = {}; // we must reset 
+  autocompleters             = {};
 <% end %>
 <%
 last_date = Date.today - 120.days
