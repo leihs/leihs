@@ -225,7 +225,7 @@ function line_id(input_id) {
 var line_items = {};
 
 // react on change of the item code
-function on_item_code_input_focus(element, item_inventory_code) {
+function change_item_code(element, item_inventory_code) {
   var l_id = line_id(element.id);
 
   if( element.value != item_inventory_code &&
@@ -248,7 +248,7 @@ function on_item_code_input_focus(element, item_inventory_code) {
   }
 }
 
-function on_model_count_input_focus(element, item_quantity) {
+function change_model_quantity(element) {
   var l_id = line_id(element.id);
 
   var url = '/backend/inventory_pools/' + current_inventory_pool_id +

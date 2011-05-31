@@ -3,13 +3,17 @@
     -# working here TODO async post
     - check_box_today = @line.start_date <= Date.today ? "contract_line_check_today" : ""
     - is_checked = @line.complete?
-    = check_box_tag 'contract_lines[]', @line.id, is_checked,
+    = check_box_tag 'contract_lines[]',
+                    @line.id,
+                    is_checked,
                     :class    => "contract_line_check #{check_box_today}",
                     :onchange => "toggle_buttons('contract_line_check', 'ghostable_group_1');"
     
-    = text_field :line, :quantity,                                                            |
-                 :id       =>"line_quantity_#{@line.id}", :size => 3,                         |
-                 :onchange => "on_model_count_input_focus(this, '#{@item_inventory_code}')"   |
+    = text_field :line,                                     |
+                 :quantity,                                 |
+                 :id       =>"line_quantity_#{@line.id}",   |
+                 :size     => 3,                            |
+                 :onchange => "change_model_quantity(this)" |
     
     - if @line.model.internal_description and not @line.model.internal_description.blank?
       - tooltip icon_tag("information") do
@@ -40,16 +44,15 @@
     - @item_inventory_code = (@item ? @item.inventory_code : "")
 
     -# TODO: optimize! :
-    = text_field :item, :inventory_code,                                 |
-        { :id           => "line_item_inventory_code_#{@line.id}",       |
-          :size         => 10,                                           |
-          :autocomplete => false,                                        |
-          :onclick      => "do_autocomplete(this)",                      |
-          :onfocus      =>                                               | 
-            "on_item_code_input_focus(this, '#{@item_inventory_code}')", |
-          :onblur       => "this.onfocus()",                             |
-          :onchange     => "this.onfocus()"                              |
-        }                                                                |
+    = text_field :item, :inventory_code,                                        |
+        { :id           => "line_item_inventory_code_#{@line.id}",              |
+          :size         => 10,                                                  |
+          :autocomplete => false,                                               |
+          :onclick      => "do_autocomplete(this)",                             |
+          :onfocus      => "change_item_code(this, '#{@item_inventory_code}')", |
+          :onblur       => "this.onfocus()",                                    |
+          :onchange     => "this.onfocus()"                                     |
+        }                                                                       |
 
     .smaller{ :id => "line_item_location_#{@line.id}" }
       = @line.item.location if @line.item
