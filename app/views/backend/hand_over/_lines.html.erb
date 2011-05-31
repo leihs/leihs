@@ -11,6 +11,9 @@
   var current_inventory_pool_id = <%= current_inventory_pool.id %>;
   var current_user_id           = <%= @contract.user.id %>;
   var styled_inventory_codes = {};
+  // we must reset autocompleters here, since the corresponding elements
+  // are being re-rendered!
+  autocompleters            = {}; // we must reset 
 <% end %>
 <%
 last_date = Date.today - 120.days
