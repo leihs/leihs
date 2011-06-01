@@ -110,11 +110,11 @@ class Model < ActiveRecord::Base
         end
         
         def by_groups(groups)
-          scoped( { :conditions => {:group_id => groups} } )
+          scoped( where(:conditions => {:group_id => groups}) )
         end
       end
       
-      scoped( { :conditions => {:inventory_pool_id => inventory_pool} } )
+      scoped( where(:inventory_pool_id => inventory_pool) )
     end
   end
   
