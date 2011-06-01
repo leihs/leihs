@@ -1,5 +1,20 @@
 
 <!-- start iterator -->
+<%# these are global variables for autocompletion.
+    See:
+    * _item_line.html.haml
+    * application.js
+      * on_item_code_input_focus()
+      * autocomplete
+
+    we must reset autocompleters below, since the corresponding elements
+    are being re-rendered! %>
+<% javascript_tag do %>
+  var current_inventory_pool_id = <%= current_inventory_pool.id %>;
+  var current_user_id           = <%= @contract.user.id %>;
+  var styled_inventory_codes = {};
+  autocompleters             = {};
+<% end %>
 <%
 last_date = Date.today - 120.days
 last_end_date = nil
@@ -36,7 +51,7 @@ for @line in @contract.lines.sort
 	end %>
 	
 	<%= render :partial => @line.type.underscore %>
-
+	
 	<%# TODO 0909** prototype delegate for item_line's onfocus, onblur, onchange %>
 
 <% end %>
