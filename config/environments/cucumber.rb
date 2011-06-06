@@ -21,4 +21,7 @@ Leihs::Application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+
+  # How should Rails report deprecation notices for our cucumber environment,
+  config.active_support.deprecation = :stderr # :log, :notify or :stderr
 end
