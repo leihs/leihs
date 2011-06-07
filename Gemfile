@@ -3,15 +3,17 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.0.rc1' #Rails3.1# '3.0.7' 
 gem 'builder', '~> 3.0' #Rails3.1# '~> 2.1.2' 
 gem 'i18n' # Need this explicitly, otherwise can't deploy
-gem 'rake', '~> 0.8.7' # version 0.9.0 is broken!
+gem 'rake', '~> 0.9.2'
 
 gem 'mysql2', '~> 0.3.2' #Rails3.1# '~> 0.2.7' 
 #gem 'memcache-client' #gem 'dalli' #gem 'redis-store'
 
+# Asset template engines
+gem 'json', '~> 1.5.1'
 gem 'haml', '~> 3.1.1'
-gem 'sass', '~> 3.1.1'
-#tmp# gem 'coffee-script' #Rails3.1#
-#tmp# gem 'uglifier' #Rails3.1#
+gem 'sass', '~> 3.1.2'
+#Rails3.1# gem 'coffee-script'
+#Rails3.1# gem 'uglifier'
 
 gem 'prototype-rails', '~> 0.3.1'
 #tmp# gem 'jquery-rails', '~> 1.0'
@@ -22,7 +24,7 @@ gem 'will_paginate', :git => 'git://github.com/JackDanger/will_paginate.git' #Ra
 gem 'thinking-sphinx', '~> 2.0.5', :require => 'thinking_sphinx'
 
 gem 'gettext', '~> 2.1.0', :require => false # TODO only for development ??
-gem 'gettext_i18n_rails', '~> 0.2.19'
+gem 'gettext_i18n_rails', '~> 0.2.20'
 
 gem 'barby', '~> 0.4.3'
 #gem "cairo" # Needed to print SVG barcodes
@@ -39,11 +41,11 @@ gem 'fastercsv', '~> 1.5.4'
 gem 'prawn', '~> 0.11.1'
 gem 'prawnto', '~> 0.0.4'
 
-gem 'nested_set', '~> 1.6.4'
+gem 'nested_set', '~> 1.6.6'
 gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
 group :profiling do
-	gem 'newrelic_rpm', '~> 3.0.0'
+	gem 'newrelic_rpm', '~> 3.0.1'
 end
 
 group :cucumber, :development do
@@ -54,7 +56,7 @@ group :cucumber, :test do
 	gem 'cucumber-rails', '~> 0.5.0', :require => false
 	gem 'database_cleaner', '~> 0.6.7', :require => false
 	gem 'rspec', '~> 2.6.0', :require => false
-	gem 'rspec-rails', '~> 2.6.0', :require => false
+	gem 'rspec-rails', '~> 2.6.1', :require => false
 	gem 'nokogiri', '~> 1.4.4'
 	gem 'capybara', '1.0.0.beta1'
   gem 'launchy', '~> 0.4.0'

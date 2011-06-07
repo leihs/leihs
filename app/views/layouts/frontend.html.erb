@@ -5,8 +5,7 @@
   <title>leihs 2.9</title>
 
   <%= stylesheet_link_tag "/javascripts/ext/resources/css/ext-all.css" %>
-  <%#= stylesheet_link_tag "/javascripts/ext/resources/css/xtheme-gray.css" %>
-  <%= stylesheet_link_tag $layout_public_path +"/css/frontend.css" %>
+  <%= stylesheet_link_tag "#{$layout_public_path}/css/frontend.css" %>
   
   <%= javascript_include_tag "prototype", "effects", "dragdrop", "controls", "widgets/tooltip" %>
   
@@ -14,7 +13,10 @@
   <%= javascript_include_tag "/javascripts/ext/ext-all.js" %>
 
   <%= javascript_include_tag "/javascripts/ext/plugins/SearchField.js" %>
-  <%#= javascript_include_tag "/javascripts/ext/plugins/RowExpander.js" %>
+
+  <%#Rails3.1#= stylesheet_link_tag    "application" %>
+  <%#Rails3.1#= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
 
 </head>
 <body>
