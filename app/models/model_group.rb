@@ -11,6 +11,8 @@
 #
 
 class ModelGroup < ActiveRecord::Base
+  
+  attr_accessor :current_parent_id
 
   has_many :model_links
   has_many :models, :through => :model_links, :uniq => true
@@ -37,10 +39,10 @@ class ModelGroup < ActiveRecord::Base
 ################################################
 # Edge Label
 
-  def label(parent = nil)
-    if parent
-      l = links_as_descendant.where(:ancestor_id => parent.id).first
-      return l.try(:label) # TODO return name if nil ??
+  def label(parent_id = nil)
+    if parent_id
+      l = links_as_descendant.where(:ancestor_id => parent_id).first
+      return l.try(:label) || name
     end
     return name
   end
@@ -54,10 +56,12 @@ class ModelGroup < ActiveRecord::Base
 # aliases for Ext.Tree
 
   def text(parent_id = 0)
-    parent = (parent_id == 0 ? nil : ModelGroup.find(parent_id))
-    # "#{label(parent)} (#{models.size})" # TODO intersection with current_user.models
-    label(parent)
-    #"#{label(parent)} (id #{id})" # TODO temp
+    parent_id = if parent_id == 0 and current_parent_id > 0
+      current_parent_id
+    else
+      nil
+    end
+    label(parent_id)
   end
   
   def leaf

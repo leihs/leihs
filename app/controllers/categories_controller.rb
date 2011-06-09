@@ -2,7 +2,6 @@ class CategoriesController < FrontendController
 
   def index
 
-# working here #    
     # OPTIMIZE 0907
     if params[:category_id]
       id = params[:category_id].to_i
@@ -12,14 +11,13 @@ class CategoriesController < FrontendController
         # TODO scope only children Category (not ModelGroup)
         @categories = (current_user.all_categories & Category.find(id).children).sort
       end
+      @categories.each {|c| c.current_parent_id = id }
     else
       @categories = Category.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page }
     end
 
     respond_to do |format|
-      format.ext_json { render :json => @categories.to_json(:methods => [[:text, id],
-                                                                         :leaf,
-                                                                         :real_id],
+      format.ext_json { render :json => @categories.to_json(:methods => [:text, :leaf, :real_id],
                                                             :except => [:id, :created_at, :updated_at, :delta]) }
     end
   end

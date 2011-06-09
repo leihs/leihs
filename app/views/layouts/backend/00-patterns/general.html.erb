@@ -16,8 +16,7 @@
 	<%= stylesheet_link_tag $layout_public_path + "/css/general.css", :media => "all" %>
 	<%= stylesheet_link_tag "/javascripts/tooltips/tooltips.css", :media => "screen" %>
 
-	<%# NOTE rsh.js has to be defined before the greybox %>
-	<%= javascript_include_tag "jquery/jquery", "jquery/jquery-ui", :defaults, "tooltips/tooltips", "tooltips/builder" %> <%# , "rsh.js" %>
+	<%= javascript_include_tag "jquery/jquery", "jquery/jquery-ui", :defaults, "tooltips/tooltips", "tooltips/builder" %>
 	<% javascript_tag do %>
 		jQuery.noConflict();
 	<% end %>

@@ -49,7 +49,7 @@ Given "the category '$category' is child of '$parent' with label '$label'" do | 
   c.set_label(p, label)
 end
 
-When "the category '$category' is selected" do | category|
+When "the category '$category' is selected" do |category|
   @category = Category.find(:first, :conditions => {:name => category})
 end
 
@@ -59,10 +59,7 @@ Then "there are $d_size direct children and $t_size total children" do | d_size,
 end
 
 Then "the label of the direct children are '$labels'" do | labels |
-  @category_labels = [] 
-  @category.children.each do |c|
-    @category_labels << c.label(@category)
-  end
+  @category_labels = @category.children.map {|c| c.label(@category.id) }
   labels.split(',').each do |l|
     @category_labels.include?(l).should == true
   end
