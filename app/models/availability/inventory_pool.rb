@@ -11,7 +11,8 @@ module Availability
     end
    
     # OPTIMIZE used for extjs
-    def items_size(model, user)
+    def items_size
+      model, user = [self.class.current_model, self.class.current_user]
       model.partitions.in(self).by_groups(user.groups).sum(:quantity).to_i +
         model.partitions.in(self).by_group(Group::GENERAL_GROUP_ID)
     end

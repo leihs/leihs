@@ -56,8 +56,8 @@ class ModelGroup < ActiveRecord::Base
 # aliases for Ext.Tree
 
   def text(parent_id = 0)
-    parent_id = if parent_id == 0 and current_parent_id > 0
-      current_parent_id
+    parent_id = if parent_id == 0 and current_parent_id.to_i > 0
+      current_parent_id.to_i
     else
       nil
     end

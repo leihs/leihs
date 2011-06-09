@@ -110,7 +110,7 @@ class Model < ActiveRecord::Base
         end
         
         def by_groups(groups)
-          scoped( where(:conditions => {:group_id => groups}) )
+          scoped( where(:group_id => groups) )
         end
       end
       

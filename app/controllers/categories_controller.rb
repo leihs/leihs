@@ -10,8 +10,8 @@ class CategoriesController < FrontendController
       else
         # TODO scope only children Category (not ModelGroup)
         @categories = (current_user.all_categories & Category.find(id).children).sort
+        @categories.each {|c| c.current_parent_id = id }
       end
-      @categories.each {|c| c.current_parent_id = id }
     else
       @categories = Category.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page }
     end

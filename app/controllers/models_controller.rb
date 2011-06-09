@@ -67,6 +67,9 @@ class ModelsController < FrontendController
     @models = [@model]
     c = @models.size
     respond_to do |format|
+      # OPTIMIZE used for InventoryPool#items_size
+      InventoryPool.current_model, InventoryPool.current_user = [@model, current_user]
+      
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
                                                             :methods => [:needs_permission, :package_models],
@@ -85,7 +88,7 @@ class ModelsController < FrontendController
                                                                                              :model_id,
                                                                                              :compatible_id] },
                                                                 :inventory_pools => { :records => current_inventory_pools,
-                                                                                      :methods => [[:items_size, @model, current_user]],
+                                                                                      :methods => :items_size,
                                                                                       :only => [:id, :name] },
                                                                 :images => { :methods => [:public_filename, :public_filename_thumb],
                                                                              :except => [:created_at,

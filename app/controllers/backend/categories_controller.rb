@@ -53,8 +53,8 @@ class Backend::CategoriesController < Backend::BackendController
       format.html
       format.js { search_result_rjs(@categories) }
       format.ext_json do
-        id = (@category ? @category.id : 0)
-        render :json => @categories.sort.to_json( :methods => [[:text, id], :leaf, :real_id],
+        @categories.each {|c| c.current_parent_id = @category.id } if @category
+        render :json => @categories.sort.to_json( :methods => [:text, :leaf, :real_id],
                                                   :except => [:id])
       end
       format.auto_complete { render :layout => false }

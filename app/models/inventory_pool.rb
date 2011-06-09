@@ -20,6 +20,11 @@
 class InventoryPool < ActiveRecord::Base
   include Availability::InventoryPool
 
+  # OPTIMIZE used for InventoryPool#items_size
+  class << self
+    attr_accessor :current_model, :current_user
+  end
+
   has_many :access_rights, :dependent => :delete_all, :include => :role, :conditions => 'deleted_at IS NULL'
   has_one :workday, :dependent => :delete
   has_many :holidays, :dependent => :delete_all
