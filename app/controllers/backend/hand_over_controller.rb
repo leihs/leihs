@@ -108,7 +108,7 @@ class Backend::HandOverController < Backend::BackendController
         # TODO refactor in model: log_change(change, user_id)
       else
         @contract_line.errors.each_full do |msg|
-          @contract.errors.add_to_base msg
+          @contract.errors.add(:base, msg)
         end
         flash[:error] = @contract.errors.full_messages
       end

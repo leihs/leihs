@@ -31,7 +31,7 @@ class Model < ActiveRecord::Base
   include Availability::Model
 
   before_destroy do
-    errors.add_to_base "Model cannot be destroyed because related items are still present." if items.count(:retired => :all) > 0
+    errors.add(:base, "Model cannot be destroyed because related items are still present.") if items.count(:retired => :all) > 0
     if is_package? and order_lines.empty? and contract_lines.empty?
       items.destroy_all
     else
@@ -42,7 +42,7 @@ class Model < ActiveRecord::Base
 #    if is_package? and order_lines.empty? and contract_lines.empty?
 #      items.destroy_all
 #    elsif items.count(:retired => :all) > 0
-#      errors.add_to_base "Model cannot be destroyed because related items are still present."
+#      errors.add(:base, "Model cannot be destroyed because related items are still present.")
 #      return false
 #    end
   end

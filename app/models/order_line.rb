@@ -72,7 +72,7 @@ class OrderLine < DocumentLine
 
   def validates_inventory_pool
     # TODO ?? model.inventory_pools.include?(order.inventory_pool)
-    errors.add_to_base(_("Inconsistent Inventory Pool")) if order.status_const != 1 and inventory_pool_id != order.inventory_pool_id
+    errors.add(:base, _("Inconsistent Inventory Pool")) if order.status_const != 1 and inventory_pool_id != order.inventory_pool_id
   end
   
 end

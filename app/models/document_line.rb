@@ -66,8 +66,8 @@ class DocumentLine < ActiveRecord::Base
 
   def date_sequence
     # OPTIMIZE strange behavior: in some cases, this error raises when shouldn't 
-    errors.add_to_base(_("Start Date must be before End Date")) if end_date < start_date
-   #TODO: Think about this a little bit more.... errors.add_to_base(_("Start Date cannot be a past date")) if start_date < Date.today
+    errors.add(:base, _("Start Date must be before End Date")) if end_date < start_date
+   #TODO: Think about this a little bit more.... errors.add(:base, _("Start Date cannot be a past date")) if start_date < Date.today
   end
 
 

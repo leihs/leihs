@@ -57,7 +57,7 @@ class OptionLine < ContractLine
     
   # inventory_pool matching validator
   def validate_inventory_pool
-    errors.add_to_base(_("The option doesn't belong to the inventory pool related to this contract")) unless option.inventory_pool == contract.inventory_pool 
+    errors.add(:base, _("The option doesn't belong to the inventory pool related to this contract")) unless option.inventory_pool == contract.inventory_pool 
   end
 
 

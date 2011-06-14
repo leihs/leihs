@@ -129,7 +129,7 @@ class Order < Document
         # archive problem in the log, so the admin/developper
         # can look up what happened
         logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
-        self.errors.add_to_base(
+        self.errors.add(:base,
           _("The following error happened while sending a notification email to %{email}:\n") % { :user => user.email } +
           "#{exception}.\n" +
           _("That means that the user probably did not get the approval mail and you need to contact him/her in a different way."))
@@ -269,7 +269,7 @@ class Order < Document
 
   def validates_order_lines
     # TODO ?? model.inventory_pools.include?(order.inventory_pool)
-    errors.add_to_base(_("Invalid order_lines")) if lines.any? {|l| !l.valid? }
+    errors.add(:base, _("Invalid order_lines")) if lines.any? {|l| !l.valid? }
   end
   
 end

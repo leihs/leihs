@@ -84,7 +84,7 @@ class Document < ActiveRecord::Base
       log_change(change, user_id)
     else
       line.errors.each_full do |msg|
-        errors.add_to_base msg
+        errors.add(:base, msg)
       end
     end
   end 

@@ -71,7 +71,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
       end
     else
       # TODO 0607 ajax delete
-      @inventory_pool.errors.add_to_base _("The Inventory Pool must be empty")
+      @inventory_pool.errors.add(:base, _("The Inventory Pool must be empty"))
       render :action => 'show' # TODO 24** redirect to the correct tabbed form
     end
   end

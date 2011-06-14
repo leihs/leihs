@@ -57,9 +57,9 @@ class AccessRight < ActiveRecord::Base
 
   def validates_inventory_pool
     if role.name == 'admin'
-      errors.add_to_base(_("The admin role cannot be scoped to an inventory pool")) unless inventory_pool.nil?
+      errors.add(:base, _("The admin role cannot be scoped to an inventory pool")) unless inventory_pool.nil?
     else
-      errors.add_to_base(_("Inventory Pool is missing")) if inventory_pool.nil?
+      errors.add(:base, _("Inventory Pool is missing")) if inventory_pool.nil?
     end
   end
 

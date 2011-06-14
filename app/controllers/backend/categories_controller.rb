@@ -118,7 +118,7 @@ class Backend::CategoriesController < Backend::BackendController
         end
       else
         # TODO 0607 ajax delete
-        @category.errors.add_to_base _("The Category must be empty")
+        @category.errors.add(:base, _("The Category must be empty"))
         render :action => 'show' # TODO 24** redirect to the correct tabbed form
       end
     end
