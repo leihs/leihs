@@ -56,12 +56,24 @@ class Model < ActiveRecord::Base
   has_many :inventory_pools, :through => :items, :uniq => true
 
   has_many :partitions, :dependent => :delete_all do
-      def set_in(inventory_pool, new_partitions)
-        with_scope(where(:inventory_pool_id => inventory_pool)) do
+    def in(inventory_pool)
+      # At this point self is an array of partitions. We want to be able
+      # to do some relational operation on that set thus we first make
+      # it an ActiveRecord::Relation by scoping it. Then we extend that
+      # Relation by adding methods to it.
+      # Using this approach we make sure that we only have our newly added 
+      # methods such as by_groups available on the scoped (by inventory pool
+      # and model) set of partitions. 
+      extended_scope = scoped
+      extended_scope.instance_variable_set(:@inventory_pool, inventory_pool)
+      extended_scope.instance_variable_set(:@model, proxy_owner)
+
+      class << extended_scope
+        def set(new_partitions)
           clear
           new_partitions.delete(Group::GENERAL_GROUP_ID)
           unless new_partitions.blank?
-            valid_group_ids = inventory_pool.group_ids
+            valid_group_ids = @inventory_pool.group_ids
             new_partitions.each_pair do |group_id, quantity|
               group_id = group_id.to_i
               quantity = quantity.to_i
@@ -70,27 +82,25 @@ class Model < ActiveRecord::Base
           end
           # if there's no more items of a model in a group accessible to the customer,
           # then he shouldn't be able to see the model in the frontend. Therefore we need to reindex
-          proxy_owner.touch_for_sphinx # OPTIMIZE: only reindex frontend data
+          @model.touch_for_sphinx # OPTIMIZE: only reindex frontend data
           # TODO: we're breaking the separation of concerns principle here:
-          # availablity concerns should be exclusively dealt with inside
-          # models/availabilit/*
-          proxy_owner.delete_availability_changes_in(inventory_pool)
+          #       availablity concerns should be exclusively dealt with inside
+          #       models/availabilit/* 
+          @model.delete_availability_changes_in(@inventory_pool)
         end
-      end
 
-      # returns a hash {nil => 10, 41 => 3, 42 => 6, ...}
-      def current_partition_in(inventory_pool)
-        with_scope(where(:inventory_pool_id => inventory_pool)) do
-          r = {Group::GENERAL_GROUP_ID => by_group_in(inventory_pool, Group::GENERAL_GROUP_ID)} # this are available for general group
+        # returns a hash {nil => 10, 41 => 3, 42 => 6, ...}
+        def current_partition
+          r = {Group::GENERAL_GROUP_ID => by_group(Group::GENERAL_GROUP_ID)} # this are available for general group
           all.each {|p| r[p.group_id] = p.quantity } # these are the partitions defined by the inventory manager
           r
         end
-      end
-              
-      def by_group_in(inventory_pool, group)
-        with_scope(where(:inventory_pool_id => inventory_pool)) do
+        
+        def by_group(group)
           if group.nil?
-            quantity = inventory_pool.items.borrowable.scoped_by_model_id(proxy_owner).count - sum(:quantity, :conditions => "group_id IS NOT NULL")
+            #tmp#1402 @inventory_pool.items.borrowable.scoped_by_model_id(@model).count - sum(:quantity)
+            
+            quantity = @inventory_pool.items.borrowable.scoped_by_model_id(@model).count - sum(:quantity, :conditions => "group_id IS NOT NULL")
             p = where(:group_id => Group::GENERAL_GROUP_ID).first
             if quantity > 0
               if p
@@ -106,14 +116,14 @@ class Model < ActiveRecord::Base
             scoped_by_group_id(group).first
           end
         end
-      end
-    
-      def by_groups_in(inventory_pool, groups)
-        with_scope(where(:inventory_pool_id => inventory_pool)) do
+        
+        def by_groups(groups)
           where(:group_id => groups)
         end
       end
-    
+      
+      extended_scope.where(:inventory_pool_id => inventory_pool)
+    end
   end
   
   has_many :order_lines

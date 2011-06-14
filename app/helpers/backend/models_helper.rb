@@ -6,7 +6,7 @@ module Backend::ModelsHelper
   def timeline(model, inventory_pool)
     set_timeline_headers()
     
-    partition = model.partitions.current_partition_in(inventory_pool)
+    partition = model.partitions.in(inventory_pool).current_partition
     changes = model.availability_changes_in(inventory_pool).changes
 
     # events represent the horizontal bars in Timeline

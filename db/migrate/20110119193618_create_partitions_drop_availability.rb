@@ -26,7 +26,7 @@ class CreatePartitionsDropAvailability < ActiveRecord::Migration
           v = q.in_quantity + q.out_quantity
           partitions[q.group_id] = v if q.group_id != Group::GENERAL_GROUP_ID and v > 0
         end
-        change.model.partitions.set_in(change.inventory_pool, partitions) unless partitions.blank?
+        change.model.partitions.in(change.inventory_pool).set(partitions) unless partitions.blank?
       end
     end
 

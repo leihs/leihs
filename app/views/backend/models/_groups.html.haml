@@ -19,14 +19,14 @@
       %td
         = _("General") + ":"
       %td#general_in_stock
-        = @model.partitions.by_group_in(current_inventory_pool, Group::GENERAL_GROUP_ID)
+        = @model.partitions.in(current_inventory_pool).by_group(Group::GENERAL_GROUP_ID)
       %td
     - current_inventory_pool.groups.each do |group|
       %tr
         %td
           = group.name + ":"
         %td
-          - quantity = @model.partitions.by_group_in(current_inventory_pool, group).try(:quantity).to_i
+          - quantity = @model.partitions.in(current_inventory_pool).by_group(group).try(:quantity).to_i
           = text_field_tag "groups[#{group.id}]", quantity, :autocomplete => "off"
         %td
         
