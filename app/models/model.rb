@@ -101,7 +101,7 @@ class Model < ActiveRecord::Base
             #tmp#1402 @inventory_pool.items.borrowable.scoped_by_model_id(@model).count - sum(:quantity)
             
             quantity = @inventory_pool.items.borrowable.scoped_by_model_id(@model).count - sum(:quantity, :conditions => "group_id IS NOT NULL")
-            p = first(:conditions => {:group_id => Group::GENERAL_GROUP_ID})
+            p = where(:group_id => Group::GENERAL_GROUP_ID).first
             if quantity > 0
               if p
                 p.update_attributes(:quantity => quantity)

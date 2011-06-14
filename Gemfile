@@ -1,9 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc1' #Rails3.1# '3.0.7' 
+gem 'rails', '3.1.0.rc4' #Rails3.1# '3.0.7' 
 gem 'builder', '~> 3.0' #Rails3.1# '~> 2.1.2' 
 gem 'i18n' # Need this explicitly, otherwise can't deploy
-gem 'rake', '~> 0.9.2'
 
 gem 'mysql2', '~> 0.3.2' #Rails3.1# '~> 0.2.7' 
 #gem 'memcache-client' #gem 'dalli' #gem 'redis-store'
@@ -15,7 +14,7 @@ gem 'sass', '~> 3.1.2'
 #Rails3.1# gem 'coffee-script'
 #Rails3.1# gem 'uglifier'
 
-gem 'prototype-rails', '~> 0.3.1'
+#tmp# gem 'prototype-rails', '~> 0.3.1'
 #tmp# gem 'jquery-rails', '~> 1.0'
 gem 'rails_autolink', '~> 1.0.1' #Rails3.1#
 
