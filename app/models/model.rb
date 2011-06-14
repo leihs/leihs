@@ -57,72 +57,11 @@ class Model < ActiveRecord::Base
 
   has_many :partitions, :dependent => :delete_all do
     def in(inventory_pool)
-      # At this point self is an array of partitions. We want to be able
-      # to do some relational operation on that set thus we first make
-      # it an ActiveRecord::Relation by scoping it. Then we extend that
-      # Relation by adding methods to it.
-      # Using this approach we make sure that we only have our newly added 
-      # methods such as by_groups available on the scoped (by inventory pool
-      # and model) set of partitions. 
-      extended_scope = scoped
-      extended_scope.instance_variable_set(:@inventory_pool, inventory_pool)
-      extended_scope.instance_variable_set(:@model, proxy_owner)
-
-      class << extended_scope
-        def set(new_partitions)
-          clear
-          new_partitions.delete(Group::GENERAL_GROUP_ID)
-          unless new_partitions.blank?
-            valid_group_ids = @inventory_pool.group_ids
-            new_partitions.each_pair do |group_id, quantity|
-              group_id = group_id.to_i
-              quantity = quantity.to_i
-              create(:group_id => group_id, :quantity => quantity) if valid_group_ids.include?(group_id) and quantity > 0
-            end
-          end
-          # if there's no more items of a model in a group accessible to the customer,
-          # then he shouldn't be able to see the model in the frontend. Therefore we need to reindex
-          @model.touch_for_sphinx # OPTIMIZE: only reindex frontend data
-          # TODO: we're breaking the separation of concerns principle here:
-          #       availablity concerns should be exclusively dealt with inside
-          #       models/availabilit/* 
-          @model.delete_availability_changes_in(@inventory_pool)
-        end
-
-        # returns a hash {nil => 10, 41 => 3, 42 => 6, ...}
-        def current_partition
-          r = {Group::GENERAL_GROUP_ID => by_group(Group::GENERAL_GROUP_ID)} # this are available for general group
-          all.each {|p| r[p.group_id] = p.quantity } # these are the partitions defined by the inventory manager
-          r
-        end
-        
-        def by_group(group)
-          if group.nil?
-            #tmp#1402 @inventory_pool.items.borrowable.scoped_by_model_id(@model).count - sum(:quantity)
-            
-            quantity = @inventory_pool.items.borrowable.scoped_by_model_id(@model).count - sum(:quantity, :conditions => "group_id IS NOT NULL")
-            p = where(:group_id => Group::GENERAL_GROUP_ID).first
-            if quantity > 0
-              if p
-                p.update_attributes(:quantity => quantity)
-              else
-                create(:group_id => Group::GENERAL_GROUP_ID, :quantity => quantity)
-              end
-            elsif p
-              p.destroy
-            end
-            quantity # TODO return p ??
-          else
-            scoped_by_group_id(group).first
-          end
-        end
-        
-        def by_groups(groups)
-          where(:group_id => groups)
-        end
-      end
-      
-      extended_scope.where(:inventory_pool_id => inventory_pool)
+      # At this point self is an array of partitions. Sine we will want to be
+      # able to do some relational operations on those partitions, we make
+      # them an ActiveRecord::Relation by scoping them.
+      ScopedPartitions.new(inventory_pool, proxy_owner,
+                           self.scoped.where(:inventory_pool_id => inventory_pool))
     end
   end
   
