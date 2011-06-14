@@ -50,6 +50,7 @@ end
 
 group :cucumber, :development do
 	gem 'ruby-debug', '~> 0.10.4' #Rails3.1# , :require => false
+	gem 'require_relative' # ruby-debug requires linecache requires require_relative
 end
 
 group :cucumber, :test do
