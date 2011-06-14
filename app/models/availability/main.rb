@@ -94,7 +94,7 @@ module Availability
       reservations = model.running_reservations(inventory_pool)
       initial_change = Change.new(:date => Date.today)
       
-      current_partition = model.partitions.in(inventory_pool).current_partition
+      current_partition = model.partitions.current_partition_in(inventory_pool)
       #1402 TODO write big model_ids partition hash ?? or keep it as instance variable ??
       
       current_partition.each_pair do |group_id, quantity|

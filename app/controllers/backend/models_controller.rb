@@ -113,7 +113,7 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def set_group_partition
-    @model.partitions.in(current_inventory_pool).set(params[:groups])
+    @model.partitions.set_in(current_inventory_pool, params[:groups])
     flash[:notice] = _("The group quantities were successfully saved.")
     redirect_to :action => :show
   end

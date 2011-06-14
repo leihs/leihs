@@ -17,8 +17,8 @@ module Availability
     # serialize data - where we can not pass any arguments
     def items_size
       model, user = [self.class.current_model, self.class.current_user]
-      model.partitions.in(self).by_groups(user.groups).sum(:quantity).to_i +
-        model.partitions.in(self).by_group(Group::GENERAL_GROUP_ID)
+      model.partitions.by_groups_in(self, user.groups).sum(:quantity).to_i +
+        model.partitions.by_group_in(self, Group::GENERAL_GROUP_ID)
     end
   end
 end
