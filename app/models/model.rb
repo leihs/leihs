@@ -57,9 +57,8 @@ class Model < ActiveRecord::Base
 
   has_many :partitions, :dependent => :delete_all do
     def in(inventory_pool)
-      # At this point self is an array of partitions. Sine we will want to be
-      # able to do some relational operations on those partitions, we make
-      # them an ActiveRecord::Relation by scoping them.
+      # At this point partitions are model scoped, additionally
+      # we want to scope them for inventory pool too (double scope).
       ScopedPartitions.new(inventory_pool, proxy_owner,
                            self.scoped.where(:inventory_pool_id => inventory_pool))
     end
@@ -120,26 +119,22 @@ class Model < ActiveRecord::Base
 #############################################  
 
   # OPTIMIZE Mysql::Error: Not unique table/alias: 'items'
-  scope :active, :select => "DISTINCT models.*",
-                       :joins => :items,
-                       :conditions => "items.retired IS NULL"
+  scope :active, select("DISTINCT models.*").joins(:items).where("items.retired IS NULL")
 
-  scope :without_items, :select => "models.*",
-                              :joins => "LEFT JOIN items ON items.model_id = models.id",
-                              :conditions => ['items.model_id IS NULL']
+  scope :without_items, select("models.*").joins("LEFT JOIN items ON items.model_id = models.id").
+                        where(['items.model_id IS NULL'])
                               
-  scope :packages, :conditions => { :is_package => true }
+  scope :packages, where(:is_package => true)
   
-  scope :with_properties, :select => "DISTINCT models.*",
-                                :joins => "LEFT JOIN properties ON properties.model_id = models.id",
-                                :conditions => "properties.model_id IS NOT NULL"
+  scope :with_properties, select("DISTINCT models.*").
+                          joins("LEFT JOIN properties ON properties.model_id = models.id").
+                          where("properties.model_id IS NOT NULL")
 
-  scope :by_inventory_pool, lambda { |inventory_pool| { :select => "DISTINCT models.*",
-                                                              :joins => :items,
-                                                              :conditions => ["items.inventory_pool_id = ?", inventory_pool] } }
+  scope :by_inventory_pool, lambda { |inventory_pool| select("DISTINCT models.*").joins(:items).
+                                                      where(["items.inventory_pool_id = ?", inventory_pool]) }
 
-  scope :by_categories, lambda { |categories| { :joins => "INNER JOIN model_links AS ml", # OPTIMIZE no ON ??
-                                                :conditions => ["ml.model_group_id IN (?)", categories] } }
+  scope :by_categories, lambda { |categories| joins("INNER JOIN model_links AS ml"). # OPTIMIZE no ON ??
+                                              where(["ml.model_group_id IN (?)", categories]) }
 
 #############################################
 

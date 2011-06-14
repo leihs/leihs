@@ -40,7 +40,7 @@ class Location < ActiveRecord::Base
 
 #################################################################
 
-  default_scope :include => :building
+  default_scope includes(:building)
 
 #################################################################
 

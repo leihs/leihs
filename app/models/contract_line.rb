@@ -64,7 +64,7 @@ class ContractLine < DocumentLine
   # TODO 1209** refactor to InventoryPool has_many :contract_lines_by_user(user) ??
   # NOTE InventoryPool#contract_lines.by_user(user)
   scope :by_user, lambda { |user| where(["contracts.user_id = ?", user]) }
-  #temp# scope :by_user, lambda { |user| { :joins => :contract, :conditions => ["contracts.user_id = ?", user] } }
+  #temp# scope :by_user, lambda { |user| joins(:contract).where(["contracts.user_id = ?", user]) }
   scope :by_inventory_pool, lambda { |inventory_pool|
                               joins(:contract).
                               where(:contracts => {:inventory_pool_id => inventory_pool})

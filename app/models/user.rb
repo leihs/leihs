@@ -133,17 +133,17 @@ class User < ActiveRecord::Base
 ################################################
 
   # NOTE working for User.customers but not working for InventoryPool.first.users.customers, use InventoryPool.first.customers instead  
-  scope :admins, :select => "DISTINCT users.*",
-                       :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
-                       :conditions => ['roles.name = ? AND deleted_at IS NULL', 'admin']
+  scope :admins, select("DISTINCT users.*").
+                  joins("LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id").
+                  where(['roles.name = ? AND deleted_at IS NULL', 'admin'])
 
-  scope :managers, :select => "DISTINCT users.*",
-                       :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
-                       :conditions => ['roles.name = ? AND deleted_at IS NULL', 'manager']
+  scope :managers, select("DISTINCT users.*").
+                    joins("LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id").
+                    where(['roles.name = ? AND deleted_at IS NULL', 'manager'])
 
-  scope :customers, :select => "DISTINCT users.*",
-                       :joins => "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id",
-                       :conditions => ['roles.name = ? AND deleted_at IS NULL', 'customer']
+  scope :customers, select("DISTINCT users.*").
+                    joins("LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id").
+                    where(['roles.name = ? AND deleted_at IS NULL', 'customer'])
 
 ################################################
 

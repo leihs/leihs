@@ -74,14 +74,14 @@ class Order < Document
 
 #########################################################################
   
-  default_scope :order => 'created_at ASC'
+  default_scope order('created_at ASC')
   
-  scope :unsubmitted, :conditions => {:status_const => Order::UNSUBMITTED}
-  scope :submitted, :conditions => {:status_const => Order::SUBMITTED}, :include => :backup # OPTIMIZE N+1 select problem
-  scope :approved, :conditions => {:status_const => Order::APPROVED} # TODO 0501 remove
-  scope :rejected, :conditions => {:status_const => Order::REJECTED}
+  scope :unsubmitted, where(:status_const => Order::UNSUBMITTED)
+  scope :submitted, where(:status_const => Order::SUBMITTED).includes(:backup) # OPTIMIZE N+1 select problem
+  scope :approved, where(:status_const => Order::APPROVED) # TODO 0501 remove
+  scope :rejected, where(:status_const => Order::REJECTED)
 
-  scope :by_inventory_pool,  lambda { |inventory_pool| { :conditions => { :inventory_pool_id => inventory_pool } } }
+  scope :by_inventory_pool,  lambda { |inventory_pool| where(:inventory_pool_id => inventory_pool) }
 
 # 0501 rename /sphinx_/ and remove relative scope
   sphinx_scope(:sphinx_submitted) { { :with => {:status_const => Order::SUBMITTED}, :include => :backup } }

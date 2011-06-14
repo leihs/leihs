@@ -11,10 +11,10 @@
 
 class Language < ActiveRecord::Base
   
-  scope :active_languages, :conditions => { :active => true }
+  scope :active_languages, where(:active => true)
   
   def self.default_language 
-    Language.first(:conditions => { :default => true }) || Language.first
+    Language.where(:default => true).first || Language.first
   end
   
   
