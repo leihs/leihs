@@ -5,9 +5,9 @@ Leihs::Application.routes.draw do
 #rails3#
   # Install the default routes as the lowest priority.
   match '/authenticator/zhdk/login', :to => 'authenticator/zhdk#login'
-    match '/authenticator/zhdk/login_successful/:id', :to => 'authenticator/zhdk#login_successful'
-  match '/authenticator/db/:action/:id', :to => 'authenticator/database_authentication'
-  match '/authenticator/ldap/:action/:id', :to => 'authenticator/ldap_authentication'
+  match '/authenticator/zhdk/login_successful/:id', :to => 'authenticator/zhdk#login_successful'
+  match '/authenticator/db/:action', :to => 'authenticator/database_authentication'
+  match '/authenticator/ldap/:action', :to => 'authenticator/ldap_authentication'
   match '/authenticator/shibboleth/:action/:id', :to => 'authenticator/shibboleth_authentication'
 
 
