@@ -14,7 +14,7 @@ gem 'sass', '~> 3.1.2'
 #Rails3.1# gem 'coffee-script'
 #Rails3.1# gem 'uglifier'
 
-#tmp# gem 'prototype-rails', '~> 0.3.1'
+gem 'prototype-rails', '~> 0.3.1', :git => 'git://github.com/rubychan/prototype-rails.git'
 #tmp# gem 'jquery-rails', '~> 1.0'
 gem 'rails_autolink', '~> 1.0.1' #Rails3.1#
 
