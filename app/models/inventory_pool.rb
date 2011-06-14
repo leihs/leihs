@@ -21,6 +21,8 @@ class InventoryPool < ActiveRecord::Base
   include Availability::InventoryPool
 
   # OPTIMIZE used for InventoryPool#items_size
+  # used for items_size in app/models/availability/inventory_pool.rb
+  # TODO: drop
   class << self
     attr_accessor :current_model, :current_user
   end
