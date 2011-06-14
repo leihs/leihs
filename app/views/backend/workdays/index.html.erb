@@ -17,7 +17,7 @@
 </div>
 <h4><%= _("Holidays")%></h4>
 <%# TODO 2012 gettext date_select %>
-<% form_for :holiday, :url => { :action => 'add_holiday' } do |f| %>
+<%= form_for :holiday, :url => { :action => 'add_holiday' } do |f| %>
 <p>Start Date: <%= f.date_select(:start_date, :order => [:day, :month, :year])%>
 End Date: <%= f.date_select(:end_date, :order => [:day, :month, :year])%>
 Name: <%= f.text_field(:name)%><%= submit_tag(_("Add"))%>

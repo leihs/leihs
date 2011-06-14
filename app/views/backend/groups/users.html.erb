@@ -1,5 +1,5 @@
 <div class="toolbar-second">
-	<% form_for [:add_user, :backend, current_inventory_pool, @group],
+	<%= form_for [:add_user, :backend, current_inventory_pool, @group],
 				 :html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
 		<%= hidden_field_tag :is_selected, 0 %>
 

@@ -1,5 +1,5 @@
 <h3><%=_("Edit external user") %></h3>
-<% form_for @user, :url => url_for([:backend, current_inventory_pool, @user].compact) do |f| %>
+<%= form_for @user, :url => url_for([:backend, current_inventory_pool, @user].compact) do |f| %>
 
 	<table>
 		<tr><td><%= _("Firstname/Lastname") %>:</td><td><%= f.text_field :firstname, :size => 15 %> <%= f.text_field :lastname, :size => 15 %></td></tr>

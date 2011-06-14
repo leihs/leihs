@@ -18,7 +18,7 @@
 	<%= _("Borrowable") %>: <%= @item.is_borrowable ? _("OK") : _("Unborrowable") %><br/>
 <% else %>
 
-	<% form_for [:backend, current_inventory_pool, @item.model, @item] do |f| %>
+	<%= form_for [:backend, current_inventory_pool, @item.model, @item] do |f| %>
 	<table style="width: 500px;">
 		<tr><td><%= _("Working order") %>:</td>
 		<td>

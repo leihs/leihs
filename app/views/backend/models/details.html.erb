@@ -1,4 +1,4 @@
-<%
+<%=
 form_for [:backend, current_inventory_pool, @model], :html => { :onsubmit => (is_privileged_user? ? nil : "return false;") } do |f|
 
 	content_tag :table do %>

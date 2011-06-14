@@ -1,6 +1,6 @@
 <%# ATTENTION: this view requires current_inventory_pool to be != nul ! %>
 <div class="toolbar-second">
-	<% form_for [:add_group, :backend, current_inventory_pool, @user],
+	<%= form_for [:add_group, :backend, current_inventory_pool, @user],
 				 :html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
 		<%= hidden_field_tag :is_selected, 0 %>
 

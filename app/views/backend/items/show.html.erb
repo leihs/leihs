@@ -10,7 +10,7 @@
 </div>
 <% end %>
 
-<% form_for [:backend, current_inventory_pool, @item] do |@f| f = @f%>
+<%= form_for [:backend, current_inventory_pool, @item] do |@f| f = @f%>
 <table>
 	<%= render :partial => 'general_info' %>
 	<% if is_inventory_manager? %>

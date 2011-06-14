@@ -1,4 +1,4 @@
-<% form_for [:backend, @inventory_pool] do |f| %>
+<%= form_for [:backend, @inventory_pool] do |f| %>
 	<table>	
 		<tr><td><b><%= _("Name") %>:</b></td><td><%= f.text_field :name %></td></tr> 	
 		<tr><td><b><%= _("Short Name") %>:</b></td><td><%= f.text_field :shortname %></td></tr> 	

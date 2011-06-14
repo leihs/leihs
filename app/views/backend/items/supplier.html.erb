@@ -14,12 +14,12 @@
 </head>
 <body>
 	<div style="margin-bottom: 20px">
-	<% form_for :search do |f| %>
+	<%= form_for :search do |f| %>
 		<%= f.text_field :name %> <%= f.submit(_("Search")) %>
 	<% end%>
 	</div>
 	<% if @results %>
-	<% form_for :supplier do |f| %>
+	<%= form_for :supplier do |f| %>
 	<table>
 		<tr><td><%= _("Name") %>:</td><td><%= f.text_field :name %></td><td><%= f.submit("Create New Supplier") %></td></tr>
 	</table>

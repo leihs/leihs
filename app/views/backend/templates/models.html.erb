@@ -1,5 +1,5 @@
 <div class="toolbar-second">
-	<% form_for [:add_model, :backend, current_inventory_pool, @my_template],
+	<%= form_for [:add_model, :backend, current_inventory_pool, @my_template],
 				 :html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
 		<%= hidden_field_tag :is_selected, 0 %>
 

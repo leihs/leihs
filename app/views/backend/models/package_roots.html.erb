@@ -15,16 +15,16 @@
 			end
 		end 
 		content_tag :tr do
-			content_tag :td do
-				form_for @model, :url => { :action => 'package_roots', :id => @model.id } do |f| %>
+			content_tag :td do %>
+				<%= form_for @model, :url => { :action => 'package_roots', :id => @model.id } do |f| %>
 					<%= hidden_field_tag :root_id, root.id %>
 					<%= _("Inventory code") %>: <%= text_field_tag('inventory_code', root.inventory_code) %>
 					<%= submit_tag _('Submit') %>
           	<% end
 			end
 			content_tag :td do
-				filter = (["own", "own_items"].include?(params[:filter]) ? "own_items" : nil)
-				form_for [:backend, @model], :url => { :action => 'package_item' },
+				filter = (["own", "own_items"].include?(params[:filter]) ? "own_items" : nil) %>
+				<%= form_for [:backend, @model], :url => { :action => 'package_item' },
 							:html => { :onsubmit => "return ($('is_selected').value == 1);" } do |f| %>
 					<%= hidden_field_tag :is_selected, 0 %>
 					<%= hidden_field_tag :root_id, root.id %>
