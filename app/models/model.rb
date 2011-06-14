@@ -57,10 +57,18 @@ class Model < ActiveRecord::Base
 
   has_many :partitions, :dependent => :delete_all do
     def in(inventory_pool)
-      @inventory_pool = inventory_pool
-      @model = proxy_owner
+      # At this point self is an array of partitions. We want to be able
+      # to do some relational operation on that set thus we first make
+      # it an ActiveRecord::Relation by scoping it. Then we extend that
+      # Relation by adding methods to it.
+      # Using this approach we make sure that we only have our newly added 
+      # methods such as by_groups available on the scoped (by inventory pool
+      # and model) set of partitions. 
+      extended_scope = scoped
+      extended_scope.instance_variable_set(:@inventory_pool, inventory_pool)
+      extended_scope.instance_variable_set(:@model, proxy_owner)
 
-      class << self
+      class << extended_scope
         def set(new_partitions)
           clear
           new_partitions.delete(Group::GENERAL_GROUP_ID)
@@ -110,11 +118,11 @@ class Model < ActiveRecord::Base
         end
         
         def by_groups(groups)
-          scoped( where(:group_id => groups) )
+          where(:group_id => groups)
         end
       end
       
-      scoped( where(:inventory_pool_id => inventory_pool) )
+      extended_scope.where(:inventory_pool_id => inventory_pool)
     end
   end
   
