@@ -21,7 +21,7 @@ class Group < ActiveRecord::Base
   validates_presence_of :inventory_pool_id #tmp#2
   validates_presence_of :name
 
-#tmp#2 scope :general, :conditions => {:name => 'General', :inventory_pool_id => nil}
+#tmp#2 scope :general, where(:name => 'General', :inventory_pool_id => nil)
 
   define_index do
     indexes :name, :sortable => true

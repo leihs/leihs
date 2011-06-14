@@ -101,7 +101,7 @@ class InventoryPool < ActiveRecord::Base
 
   validates_presence_of :name
 
-  default_scope :order => "name"
+  default_scope order("name")
 
   # TODO: Externalize the regex to LooksLike::EMAIL_ADDR, which doesn't seem to work on some installations because
   # the are unable to find the module LooksLike from the lib/ directory on their own.

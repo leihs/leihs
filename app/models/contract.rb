@@ -73,15 +73,15 @@ class Contract < Document
   scope :closed, where(:status_const => Contract::CLOSED)
   
   # OPTIMIZE use INNER JOIN (:joins => :contract_lines) -OR- union :unsigned + :signed (with lines) 
-  scope :pending, :select => "DISTINCT contracts.*",
-                        :joins => "LEFT JOIN contract_lines ON contract_lines.contract_id = contracts.id",
-                        :conditions => ["contracts.status_const = :signed
+  scope :pending, select("DISTINCT contracts.*").
+                  joins("LEFT JOIN contract_lines ON contract_lines.contract_id = contracts.id").
+                  where(["contracts.status_const = :signed
                                          OR (contracts.status_const = :unsigned AND
                                              contract_lines.contract_id IS NOT NULL)",
                                         {:signed => Contract::SIGNED,
-                                         :unsigned => Contract::UNSIGNED }]
+                                         :unsigned => Contract::UNSIGNED }])
 
-  scope :by_inventory_pool,  lambda { |inventory_pool| { :conditions => { :inventory_pool_id => inventory_pool } } }
+  scope :by_inventory_pool, lambda { |inventory_pool| where(:inventory_pool_id => inventory_pool) }
 
 # 0501 rename /sphinx_/ and remove relative scope
   sphinx_scope(:sphinx_unsigned) { { :with => {:status_const => Contract::UNSIGNED} } }

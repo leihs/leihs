@@ -179,30 +179,30 @@ class Item < ActiveRecord::Base
   end
 
 # TODO 0501
-#  default_scope :conditions => {:retired => nil}
-#  scope :retired, :conditions => "retired IS NOT NULL"
+#  default_scope where(:retired => nil)
+#  scope :retired, where("retired IS NOT NULL")
 
 ####################################################################
 
-  scope :borrowable, :conditions => {:is_borrowable => true, :parent_id => nil} 
-  scope :unborrowable, :conditions => {:is_borrowable => false}
+  scope :borrowable, where(:is_borrowable => true, :parent_id => nil) 
+  scope :unborrowable, where(:is_borrowable => false)
 
-  scope :broken, :conditions => {:is_broken => true}
-  scope :incomplete, :conditions => {:is_incomplete => true}
+  scope :broken, where(:is_broken => true)
+  scope :incomplete, where(:is_incomplete => true)
 
-  scope :unfinished, :conditions => ['inventory_code IS NULL OR model_id IS NULL']
-  scope :unallocated, :conditions => ['inventory_pool_id IS NULL']
+  scope :unfinished, where(['inventory_code IS NULL OR model_id IS NULL'])
+  scope :unallocated, where(['inventory_pool_id IS NULL'])
  
-  scope :inventory_relevant, :conditions => {:is_inventory_relevant => true}
-  scope :not_inventory_relevant, :conditions => {:is_inventory_relevant => false}
+  scope :inventory_relevant, where(:is_inventory_relevant => true)
+  scope :not_inventory_relevant, where(:is_inventory_relevant => false)
  
   # OPTIMIZE 1102** use item_lines association
-  scope :packages, :conditions => ['items.id IN (SELECT DISTINCT parent_id FROM items WHERE retired IS NULL)']
-  #temp# scope :packaged, :conditions => "parent_id IS NOT NULL"
+  scope :packages, where(['items.id IN (SELECT DISTINCT parent_id FROM items WHERE retired IS NULL)'])
+  #temp# scope :packaged, where("parent_id IS NOT NULL")
   
   # Added parent_id to "in_stock" so items that are in packages are considered to not be available
-  scope :in_stock, :conditions => ['items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) AND parent_id IS NULL']
-  scope :not_in_stock, :conditions => ['items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)']
+  scope :in_stock, where(['items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) AND parent_id IS NULL'])
+  scope :not_in_stock, where(['items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)'])
 
 ####################################################################
 
