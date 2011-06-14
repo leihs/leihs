@@ -1,0 +1,16 @@
+!!! 5
+%html{:lang => "de-CH"}
+
+  %head
+    %meta{:charset => 'utf-8'}
+    %title
+      leihs 2.9
+    = stylesheet_link_tag "#{$layout_public_path}/css/general.css"
+
+  %body
+    %ul{:style => "width: 300px; margin: 1em;"}
+      - (@model.inventory_pools & @current_inventory_pools).each do |inventory_pool|
+        %li
+          %h2{:style => "margin: 0.5em;"}
+            = inventory_pool
+          = availability_periods_merged_groups(@model, inventory_pool, current_user)

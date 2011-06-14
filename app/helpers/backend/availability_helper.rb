@@ -13,28 +13,28 @@ module Backend::AvailabilityHelper
     groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
     changes = model.availability_changes_in(inventory_pool).changes.between(start_date, end_date).available_quantities_for_groups(groups)
 
-    content_tag :table do
-      a = content_tag :tr do
-        [_("From date"),
-         _("Available quantity")].collect do |s|
-          content_tag :th do
-            s  
-          end
-        end.join
-      end
-      
-      a += changes.collect do |c|
-        content_tag :tr do
-          [short_date(c[0]),
-           c[1]].collect do |s|
-            content_tag :td do
-              s  
+    capture_haml do
+      haml_tag :table do
+        haml_tag :tr do
+          [_("From date"),
+           _("Available quantity")].collect do |s|
+            haml_tag :th do
+              haml_concat s  
             end
-          end.join
+          end
         end
-      end.join
+        changes.collect do |c|
+          haml_tag :tr do
+            [short_date(c[0]),
+             c[1]].collect do |s|
+              haml_tag :td do
+                haml_concat s  
+              end
+            end
+          end
+        end
+      end
     end
-    
   end
   
 end
