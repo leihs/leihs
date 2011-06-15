@@ -11,6 +11,13 @@ GIT
   specs:
     attachment_fu (0.0.3)
 
+GIT
+  remote: git://github.com/rubychan/prototype-rails.git
+  revision: e7fa1feb1c533ab33cfe0ac193b703d79bf81616
+  specs:
+    prototype-rails (0.3.1)
+      rails (~> 3.1.0.beta1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -217,6 +224,7 @@ DEPENDENCIES
   nokogiri (~> 1.4.4)
   prawn (~> 0.11.1)
   prawnto (~> 0.0.4)
+  prototype-rails (~> 0.3.1)!
   rails (= 3.1.0.rc4)
   rails_autolink (~> 1.0.1)
   require_relative
