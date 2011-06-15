@@ -1,4 +1,4 @@
-<% content_tag :div, :class => "toolbar-second buttons" do %>
+<%= content_tag :div, :class => "toolbar-second buttons" do %>
 	<%= link_to _('New Item'), [:new, :backend, current_inventory_pool, @model, :item].compact %>
 <% end if is_privileged_user? %>
 

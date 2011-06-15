@@ -1,13 +1,13 @@
 <%= stylesheet_link_tag "/stylesheets/jquery/jquery.validate.css", :media => "screen" %>
 <%= javascript_include_tag "jquery/jquery.validate.min" %>
 
-<% javascript_tag do -%>
+<%= javascript_tag do -%>
 	jQuery(document).ready( function() {
 		jQuery("#emailForm").validate();
 	});
 <% end %>
 
-<% form_tag({ :controller => :mails, :action => :create }, { :id => "emailForm" }) do -%>
+<%= form_tag({ :controller => :mails, :action => :create }, { :id => "emailForm" }) do -%>
   <table>
   	
     <tr id="from">

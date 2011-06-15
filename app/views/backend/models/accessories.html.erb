@@ -1,5 +1,5 @@
 <%= _("Add more accessories") %>:
-<% form_tag url_for(:id => @model) do %>
+<%= form_tag url_for(:id => @model) do %>
 
 	<%= text_field_tag('name', _("name"),
 					:size => 40,

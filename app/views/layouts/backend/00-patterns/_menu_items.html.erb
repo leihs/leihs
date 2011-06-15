@@ -1,6 +1,6 @@
-<% content_tag :li do %>
+<%= content_tag :li do %>
 	<%= link_to icon_tag("camera") + " " + _('Items') + " (#{current_inventory_pool.items.count})", backend_inventory_pool_items_path(current_inventory_pool) %>
-	<% content_tag :ul do
+	<%= content_tag :ul do
 		content_tag :li do %>
 			<%= link_to _('In Stock') + " (#{current_inventory_pool.items.in_stock.count})", backend_inventory_pool_items_path(current_inventory_pool, :filter => 'in_stock') %>
 		<% end

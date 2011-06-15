@@ -79,7 +79,7 @@
 							<th scope="col"><%= _("Action") %></th>
 						</tr>
 					<!-- end header -->
-					<% content_tag :tr do
+					<%= content_tag :tr do
 						content_tag :td, :colspan => 5, :class => "buttons" do %>
 							<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model"),
 									{:action => 'add_line'},
@@ -96,7 +96,7 @@
 
 				            <% locale = "de-CH" %>
 				            <%= javascript_include_tag "jquery/i18n/jquery.ui.datepicker-#{locale}" %>
-							<% javascript_tag do %>
+							<%= javascript_tag do %>
 								jQuery(document).ready(function($) {
 									var dates = $("#start_date, #end_date").datepicker({
 										showWeek: true,
@@ -137,7 +137,7 @@
 					</tbody>
 				</table>	
 				
-				<% javascript_tag do %>
+				<%= javascript_tag do %>
 					$("inventory_code").focus();
 					$("inventory_code").observe('change', function(event){
 						new Ajax.Request('<%= url_for(:action => 'assign_inventory_code') %>',

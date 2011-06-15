@@ -9,7 +9,7 @@
 
     we must reset autocompleters below, since the corresponding elements
     are being re-rendered! %>
-<% javascript_tag do %>
+<%= javascript_tag do %>
   var current_inventory_pool_id = <%= current_inventory_pool.id %>;
   var current_user_id           = <%= @contract.user.id %>;
   var styled_inventory_codes = {};
@@ -55,7 +55,7 @@ for @line in @contract.lines.sort
 	<%# TODO 0909** prototype delegate for item_line's onfocus, onblur, onchange %>
 
 <% end %>
-<% content_tag :tr do
+<%= content_tag :tr do
 	content_tag :td, :colspan => 5 do %>
     	<%= greybox_link_to_page(icon_tag("package_add") + " " + _("Add Model for") + " " + short_date(last_date) + " - " + short_date(last_end_date),
 		{:action => 'add_line', :start_date => last_date, :end_date => last_end_date},

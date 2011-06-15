@@ -1,4 +1,4 @@
-<% content_tag :div do %>
+<%= content_tag :div do %>
 	<h4><%= inventory_pool_details.name %></h4>
 	<p>
 		<% ar = current_user.access_right_for(inventory_pool_details) %>
