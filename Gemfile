@@ -23,6 +23,8 @@ gem 'will_paginate', :git => 'git://github.com/JackDanger/will_paginate.git' #Ra
 gem 'thinking-sphinx', '~> 2.0.5', :require => 'thinking_sphinx'
 
 gem 'gettext_i18n_rails', '~> 0.2.20'
+gem 'ruby_parser' # gettext dependency that Bundler seems unable to resolve
+
 
 gem 'barby', '~> 0.4.3'
 #gem "cairo" # Needed to print SVG barcodes
