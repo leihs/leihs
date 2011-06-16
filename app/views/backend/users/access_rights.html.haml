@@ -19,7 +19,7 @@
   document.observe("dom:loaded", function() {
     $$('#access_right_role_id').invoke('onchange'); });
 
-- form_tag url_for([:add_access_right, :backend, current_inventory_pool, @user].compact),
+= form_tag url_for([:add_access_right, :backend, current_inventory_pool, @user].compact),
            :method => :post do
   %table
     %tr
@@ -49,8 +49,8 @@
         = submit_tag _('Add')
 
 %br
-- table :records => @access_rights do |access_right|
-  - form_tag url_for( [:add_access_right, :backend, current_inventory_pool, @user].compact),
+= table :records => @access_rights do |access_right|
+  = form_tag url_for( [:add_access_right, :backend, current_inventory_pool, @user].compact),
              :method => :post do
 
     %tr{ :id => "access_right_#{access_right.id}" }
@@ -98,7 +98,7 @@
                       :id => "suspend"
 
 #dialog-form{ :title => _("Suspend") }
-  - form_tag do
+  = form_tag do
     %h4
       = _("The user will not be able to place any orders")
 

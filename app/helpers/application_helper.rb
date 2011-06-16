@@ -71,7 +71,7 @@ module ApplicationHelper
       r += content_tag :span, :class => c do
         short_date(end_date)
       end
-      r += "<br/>"
+      r += content_tag :br
       r += content_tag :span, :style => "font-size: smaller;" do
         pluralize(interval, _("Day"), _("Days"))
       end

@@ -114,7 +114,7 @@ module Backend::BackendHelper
             :class => "thickbox iconized-notxt edit-package" )
 
     html += content_tag :ul, :class => "model_group" do
-      r = ""
+      r = "".html_safe
       model.package_models.each do |model|         
         r += content_tag :li do
           model.name
