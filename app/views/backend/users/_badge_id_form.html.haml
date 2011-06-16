@@ -1,0 +1,6 @@
+= form_tag url_for([:update_badge_id, :backend, current_inventory_pool, user].compact),
+            :id => "badge_id_form",
+            :remote => true do
+  = icon_tag(user.badge_id.blank? ? "delete": "accept")
+  = text_field_tag :badge_id, user.badge_id
+  = submit_tag(_("OK"))

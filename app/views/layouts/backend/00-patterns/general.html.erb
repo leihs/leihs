@@ -16,7 +16,7 @@
 	<%= stylesheet_link_tag "#{$layout_public_path}/css/general.css", :media => "all" %>
 	<%= stylesheet_link_tag "/javascripts/tooltips/tooltips.css", :media => "screen" %>
 
-	<%= javascript_include_tag :defaults, "jquery/jquery", "jquery/jquery-ui", "tooltips/tooltips", "tooltips/builder" %>
+	<%= javascript_include_tag :defaults, "jquery/jquery.min", "jquery/jquery-ui.min", "jquery/jquery_ujs", "tooltips/tooltips", "tooltips/builder" %>
 	<%= javascript_tag do %>
 		jQuery.noConflict();
 	<% end %>
