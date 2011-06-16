@@ -22,8 +22,9 @@ gem 'will_paginate', :git => 'git://github.com/JackDanger/will_paginate.git' #Ra
 #gem 'thinking-sphinx', :git => 'git://github.com/sylogix/thinking-sphinx.git', :branch => "rails3", :require => 'thinking_sphinx' #Rails 3.1# fix for JoinDependency
 gem 'thinking-sphinx', '~> 2.0.5', :require => 'thinking_sphinx'
 
-gem 'gettext', '~> 2.1.0', :require => false # TODO only for development ??
 gem 'gettext_i18n_rails', '~> 0.2.20'
+gem 'ruby_parser' # gettext dependency that Bundler seems unable to resolve
+
 
 gem 'barby', '~> 0.4.3'
 #gem "cairo" # Needed to print SVG barcodes
@@ -45,6 +46,10 @@ gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
 group :profiling do
 	gem 'newrelic_rpm', '~> 3.0.1'
+end
+
+group :development do 
+  gem 'gettext', '~> 2.1.0', :require => false 
 end
 
 group :cucumber, :development do

@@ -175,6 +175,8 @@ GEM
     ruby-debug-base (0.10.4)
       linecache (>= 0.3)
     ruby-net-ldap (0.0.4)
+    ruby_parser (2.0.6)
+      sexp_processor (~> 3.0)
     rubyzip (0.9.4)
     sass (3.1.2)
     selenium-webdriver (0.2.1)
@@ -182,6 +184,7 @@ GEM
       ffi (>= 1.0.7)
       json_pure
       rubyzip
+    sexp_processor (3.0.5)
     sprockets (2.0.0.beta.10)
       hike (~> 1.0)
       rack (~> 1.0)
@@ -234,6 +237,7 @@ DEPENDENCIES
   rspec-rails (~> 2.6.1)
   ruby-debug (~> 0.10.4)
   ruby-net-ldap (~> 0.0.4)
+  ruby_parser
   sass (~> 3.1.2)
   thinking-sphinx (~> 2.0.5)
   will_paginate!

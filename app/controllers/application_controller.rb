@@ -11,23 +11,6 @@ class ApplicationController < ActionController::Base
   require File.join(Rails.root, 'lib', 'role_requirement_system.rb')
   include RoleRequirementSystem
 
-#rails3#
-## http://www.yotabanana.com/hiki/ruby-gettext-howto-rails.html
-## http://www.yotabanana.com/hiki/ruby-gettext-rails-migration.html
-# before_init_gettext :define_locale
-#
-# def define_locale
-# if params[:locale]
-# set_locale params[:locale]
-# params[:lang] = params[:locale] # Bug? Gettext seems not to set the language properly unless this is set
-# current_user.update_attributes(:language_id => Language.first(:conditions => {:locale_name => params[:locale]})) if logged_in?
-# else
-# locale = logged_in? ? current_user.language.locale_name : Language.default_language.locale_name
-# set_locale locale
-# params[:lang] = locale # Bug? Gettext seems not to set the language properly unless this is set
-# end
-# end
-# init_gettext 'leihs'
   before_filter :set_gettext_locale
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
