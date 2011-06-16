@@ -41,6 +41,8 @@ class Backend::BackendController < ApplicationController
 
 ###############################################################  
 
+#tmp#
+=begin
   def database_backup
     dir = "#{Rails.root}/db/backups"
     timestamp = Time.now.to_formatted_s(:number)
@@ -56,6 +58,7 @@ class Backend::BackendController < ApplicationController
       flash.discard
     end
   end
+=end
 
    # add a new line
    def generic_add_line(document, start_date = params[:start_date], end_date = params[:end_date])
