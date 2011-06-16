@@ -10,14 +10,13 @@
      %>
 </td>
 
-<%= content_tag :td do
-		if ["own", "all"].include?(params[:filter]) %>
+<%= content_tag :td do %>
+	<%	if ["own", "all"].include?(params[:filter]) %>
 			<%= current_inventory_pool.own_items.scoped_by_model_id(model).in_stock.count %> <%= _("of")%> <%= current_inventory_pool.own_items.scoped_by_model_id(model).count %>
 		<% else %>
 			<%= current_inventory_pool.items.scoped_by_model_id(model).in_stock.count %> <%= _("of")%> <%= current_inventory_pool.items.scoped_by_model_id(model).count %>
-		<% end
-   end
-%>
+		<% end %>
+ <%  end %>
 
 <td class="buttons">
 	<% if params[:layout] == "modal" %>
