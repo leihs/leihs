@@ -347,7 +347,7 @@ module Factory
   #
   def self.create_default_languages
     self.create_default_language
-    [['Deutsch', 'de_CH'], ['Castellano','es'], ['Züritüütsch','gsw_CH@zurich']].each do |lang|
+    [['Deutsch', 'de_CH'], ['Castellano','es'], ['Schwizertüütsch','gsw_CH']].each do |lang|
       Factory.create_language!(:name => lang[0], :locale_name => lang[1])
     end
   end

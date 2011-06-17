@@ -40,15 +40,30 @@ class ApplicationController < ActionController::Base
   end
 
   def set_gettext_locale
+    if current_user.language.nil?
+      current_user.language = Language.default_language
+      current_user.save
+    end
+    
     if params[:locale]
       language = Language.where(:locale_name => params[:locale]).first
-      language = Language.default_language if language.nil?
-      current_user.language = language # Language is a protected attribute, it can't be mass-asigned via update_attributes
+      language ||= Language.default_language
+      current_user.language = language # language is a protected attribute, it can't be mass-asigned via update_attributes
       current_user.save
-      I18n.locale = current_user.language.locale_name
-    else
-      I18n.locale = Language.default_language
-    end    
+    end
+    
+    
+
+    FastGettext.available_locales = ['en_US', 'de_CH', 'gsw_CH'] #all you want to allow
+    FastGettext.text_domain = 'leihs'
+    
+    I18n.locale = :gsw_CH
+    locale = :gsw_CH
+    FastGettext.locale = 'gsw_CH'
+
+    debugger; puts "lala"
+#I18n.locale = current_user.language.locale_name.to_sym
+    
   end
 
 end
