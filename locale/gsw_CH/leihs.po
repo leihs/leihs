@@ -2,10 +2,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: leihs 2\n"
+"Project-Id-Version: leihs\n"
 "POT-Creation-Date: 2011-05-10 14:05+0200\n"
 "PO-Revision-Date: 2010-06-03 11:58+0100\n"
-"Last-Translator: Ramon Cahenzli <ramon.cahenzli@zhdk.ch>\n"
+"Last-Translator: Ugo De Vito <ugo.de_vito@zhdk.ch>\n"
 "Language-Team: Swiss-German (Zürich area)\n"
 "Language: \n"
 "MIME-Version: 1.0\n"

@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: leihs 2\n"
+"Project-Id-Version: leihs\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-05-10 14:05+0200\n"
 "PO-Revision-Date: 2009-11-23 15:37+0000\n"
