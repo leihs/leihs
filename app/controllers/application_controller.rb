@@ -39,4 +39,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_gettext_locale
+    if params[:locale]
+      language = Language.where(:locale_name => params[:locale]).first
+      language = Language.default_language if language.nil?
+      current_user.language = language # Language is a protected attribute, it can't be mass-asigned via update_attributes
+      current_user.save
+      I18n.locale = current_user.language.locale_name
+    else
+      I18n.locale = Language.default_language
+    end
+  end
+
 end
