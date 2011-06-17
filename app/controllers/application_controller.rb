@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
       I18n.locale = current_user.language.locale_name
     else
       I18n.locale = Language.default_language
-    end
+    end    
   end
 
 end
