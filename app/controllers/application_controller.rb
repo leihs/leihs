@@ -51,18 +51,8 @@ class ApplicationController < ActionController::Base
       current_user.language = language # language is a protected attribute, it can't be mass-asigned via update_attributes
       current_user.save
     end
-    
-    
 
-    FastGettext.available_locales = ['en_US', 'de_CH', 'gsw_CH'] #all you want to allow
-    FastGettext.text_domain = 'leihs'
-    
-    I18n.locale = :gsw_CH
-    locale = :gsw_CH
-    FastGettext.locale = 'gsw_CH'
-
-    debugger; puts "lala"
-#I18n.locale = current_user.language.locale_name.to_sym
+    I18n.locale = current_user.language.locale_name.to_sym
     
   end
 
