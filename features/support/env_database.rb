@@ -5,3 +5,5 @@ DatabaseCleaner.strategy = :truncation, {:except => %w[authentication_systems la
 
 # require our factory
 require("#{Rails.root}/lib/factory.rb")
+
+Factory.create_minimal_setup
