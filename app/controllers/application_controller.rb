@@ -40,20 +40,23 @@ class ApplicationController < ActionController::Base
   end
 
   def set_gettext_locale
-    if current_user.language.nil?
-      current_user.language = Language.default_language
-      current_user.save
+    if current_user
+      if current_user.language.nil?
+        current_user.language = Language.default_language
+        current_user.save
+      end
+      
+      if params[:locale]
+        language = Language.where(:locale_name => params[:locale]).first
+        language ||= Language.default_language
+        current_user.language = language # language is a protected attribute, it can't be mass-asigned via update_attributes
+        current_user.save
+      end
+  
+      I18n.locale = current_user.language.locale_name.to_sym
+    else
+      I18n.locale = Language.default_language.locale_name.to_sym
     end
-    
-    if params[:locale]
-      language = Language.where(:locale_name => params[:locale]).first
-      language ||= Language.default_language
-      current_user.language = language # language is a protected attribute, it can't be mass-asigned via update_attributes
-      current_user.save
-    end
-
-    I18n.locale = current_user.language.locale_name.to_sym
-    
   end
 
 end
