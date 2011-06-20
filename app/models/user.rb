@@ -294,7 +294,7 @@ class User < ActiveRecord::Base
 #    (@_list.include?(role_in_question.to_s) )
 
     # retrieve roles for a given inventory_pool hierarchically with betternestedset plugin #sellittf#
-    role = Role.first(:conditions => {:name => role_in_question})
+    role = Role.where( :name => role_in_question ).first
     # OPTIMIZE 1903**
     if inventory_pool_in_question
       roles = access_rights.scoped_by_inventory_pool_id(inventory_pool_in_question).collect(&:role)
