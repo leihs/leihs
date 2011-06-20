@@ -159,7 +159,6 @@ Then "customer '$user' gets notified that his order has been submitted" do |who|
 end
 
 Then "the order was placed by a customer named '$name'" do | name |
-  @order = @orders.first if @orders.size == 1 #temp#
-  @order.user.login.should == name
+  page.find(".table-overview .fresh").should have_content(name)
 end
 

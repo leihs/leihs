@@ -15,24 +15,24 @@ Given /^a customer '([^']*)'( exists)?$/ do |name,foo|
   Given "a customer \"#{name}\" exists"
 end
 
-#Given /^the user '(\w+)'$/ do |name|
-#  @user = User.find_by_login name
-#end
-
-Given /a (\w+) '([^']*)' for inventory pool '([^']*)'$/ do |role,who,ip_name|
+Given /a (\w+) '([^']*)' for inventory pool '([^']*)'( with access level )?(\d)?$/ do |role,who,ip_name,foo,access_level|
   Given "inventory pool '#{ip_name}'"
+  access_level = access_level ? access_level.to_i : 0
   @user = Factory.create_user({:login => who},
                               {:role => role,
-                              :inventory_pool => @inventory_pool })
+                              :inventory_pool => @inventory_pool,
+                              :password => 'pass',
+                              :access_level => access_level })
   @role = Role.find_by_name role
+  assert_not_nil @role
   @user.save!
 end
 
-Given "a manager '$name' with access level $access_level" do |name,access_level|
-  Given "a manager '#{name}' for inventory pool '#{@inventory_pool.name}'"
-  Given "he has access level #{access_level}"
-  @user.reload
-end
+#Given "a manager '$name' with access level $access_level" do |name,access_level|
+#  Given "a manager '#{name}' for inventory pool '#{@inventory_pool.name}'"
+#  Given "he has access level #{access_level}"
+#  @user.reload
+#end
 
 Given /^he is a (\w+)$/ do |role|
   @role = Factory.define_role @user, @inventory_pool, role

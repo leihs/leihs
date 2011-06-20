@@ -6,16 +6,19 @@ Feature: Acknowledge orders
 
 
 Background:
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+	Given I log in as a manager for inventory pool 'ABC' with access level 3
 
 	
 Scenario: List with new orders
 
 	Given there is only an order by 'Joe'
 	  And the order was submitted
-	When lending_manager clicks on 'acknowledge'
-	Then he sees 1 order
-	 And the order was placed by a customer named 'Joe'
+	Given comment: TODO: remove following step
+	 Then reindex
+	 When I go to the backend
+	  And I follow "Acknowledge"
+	 Then he sees 1 order
+	  And the order was placed by a customer named 'Joe'
 	
 
 

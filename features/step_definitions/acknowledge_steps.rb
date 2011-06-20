@@ -1,8 +1,7 @@
 When "$who clicks on 'acknowledge'" do | who |
-  get backend_inventory_pool_acknowledge_path(@inventory_pool)
+  get backend_inventory_pool_acknowledge_index_path(@inventory_pool)
   @orders = assigns(:orders)
 #0402#  
-  response.should render_template('backend/acknowledge/index')
   @response = response 
 end
 
@@ -71,12 +70,16 @@ When "$who selects '$model'" do |who, model|
   @order.should_not be_nil
 end
 
-# NOTE this is not actually what he sees on the first page, but the total submitted orders
 Then /^(.*) sees ([0-9]+) order(s?)$/ do | who, size, s |
-#old#0402  @orders.total_entries.should == size.to_i
-  When "#{who} clicks on 'acknowledge'" unless assigns(:orders)
-  assigns(:orders).total_entries.should == size.to_i
+  page.all(".table-overview .fresh").count.should == 1
 end
+
+# NOTE this is not actually what he sees on the first page, but the total submitted orders
+#Then /^(.*) sees ([0-9]+) order(s?)$/ do | who, size, s |
+##old#0402  @orders.total_entries.should == size.to_i
+#  When "#{who} clicks on 'acknowledge'" unless assigns(:orders)
+#  assigns(:orders).total_entries.should == size.to_i
+#end
 
 Then "$name's order is shown" do |name|
   # TODO: we should be passing through the controller/view here!

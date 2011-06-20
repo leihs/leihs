@@ -1,18 +1,20 @@
-Given "a $role for inventory pool '$ip_name' logs in as '$who'" do | role, ip_name, who |
-  Given "a #{role} '#{who}' for inventory pool '#{ip_name}'"
-  When "he logs in"
-  get backend_inventory_pool_path(@inventory_pool, :locale => 'en_US')
-  @inventory_pool = assigns(:current_inventory_pool)
-  @last_manager_login_name = who
-end
+#Given "a $role for inventory pool '$ip_name' logs in as '$who'" do | role, ip_name, who |
+#  Given "a #{role} '#{who}' for inventory pool '#{ip_name}'"
+#  When "I log in as '#{who}' with password 'pass'" # use default pw
+#  @last_manager_login_name = who
+#end
 
-When /^he logs in$/ do
-  post "/session", :login => @user.login
+Given "I log in as a $role for inventory pool '$ip_name'$with_access_level" do |role, ip_name,with_access_level|
+  # use default user name
+  Given "a #{role} 'inv_man_0' for inventory pool '#{ip_name}'#{with_access_level}"
+
+  When "I log in as 'inv_man_0' with password 'pass'" # use default pw
+  @last_manager_login_name = 'inv_man_0'
 end
 
 # This one 'really' goes through the auth process
 When /^I log in as '([^']*)' with password '([^']*)'$/ do |who,password|
-  visit('/')
+  When 'I go to the home page'
   fill_in 'login_user',     :with => who
   fill_in 'login_password', :with => password
   click_button 'Login'

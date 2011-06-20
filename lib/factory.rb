@@ -65,8 +65,9 @@ module Factory
     u = User.find_or_create_by_login default_attributes.merge(attributes)
     
     options[:role] ||= "customer"
+    options[:access_level] ||= 0
     options[:inventory_pool] = InventoryPool.first unless options.has_key?(:inventory_pool)
-    Factory.define_role(u, options[:inventory_pool], options[:role] )
+    Factory.define_role(u, options[:inventory_pool], options[:role], options[:access_level])
 
     u.save
 
@@ -108,11 +109,12 @@ module Factory
   #
   # Role
   # 
-  def self.define_role(user, inventory_pool, role_name = "manager" )
+  def self.define_role(user, inventory_pool, role_name = "manager", access_level = 0 )
     role = Role.find_or_create_by_name(:name => role_name)
     begin
       user.access_rights.create(:role => role,
-                                :inventory_pool => inventory_pool)
+                                :inventory_pool => inventory_pool,
+                              :access_level => access_level)
     rescue
       # unique index, record already present
     end
