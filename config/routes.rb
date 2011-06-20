@@ -69,7 +69,7 @@ Leihs::Application.routes.draw do
 # Backend
 
   namespace :backend do
-    match 'database_backup', :to => 'backend#database_backup'
+    #tmp# match 'database_backup', :to => 'backend#database_backup'
     
     resources :barcodes
 

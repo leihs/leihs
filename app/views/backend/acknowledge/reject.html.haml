@@ -1,7 +1,7 @@
 %h2= _("Are yo sure you want to reject the order?")
 %p= _("You can enter an additional comment below, which will be sent to the user by e-mail.")
 %br
-- form_tag( {:action => 'reject', :id => params[:id]},
+= form_tag( {:action => 'reject', :id => params[:id]},
             :name => "f", :target => "_top") do
   Comments
   %br

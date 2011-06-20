@@ -1,42 +1,42 @@
-<% if current_inventory_pool
+<% if current_inventory_pool %>
 
-	content_tag :ul do
-		content_tag :li do %>
+<%=	content_tag :ul do %>
+<%=	content_tag :li do %>
 			<%= link_to icon_tag("user") + " " + _("Users") + " (#{current_inventory_pool.users.count})", backend_inventory_pool_users_path(current_inventory_pool) %>
-			<% content_tag :ul do %>
+			<%= content_tag :ul do %>
 				<li><%= link_to _("Managers") + " (#{current_inventory_pool.managers.count})", backend_inventory_pool_users_path(current_inventory_pool, :filter => 'managers') %></li>
 				<li><%= link_to _("Customers") + " (#{current_inventory_pool.customers.count})", backend_inventory_pool_users_path(current_inventory_pool, :filter => 'customers') %></li>
 				<li><%= link_to _("Blacklist") + " (#{current_inventory_pool.suspended_users.count})",backend_inventory_pool_users_path(current_inventory_pool, :filter => 'suspended_users'), {:style => 'color: black'} if current_inventory_pool.suspended_users.count > 0 %></li>
 				<li><%= link_to _("Unknown"), backend_inventory_pool_users_path(current_inventory_pool, :filter => 'unknown') %></li>
 			<% end if controller.controller_name == "users"
 		end %>
-		<% content_tag :li do %>
+		<%= content_tag :li do %>
 			<%= link_to icon_tag("group") + " " + _("Groups") + " (#{current_inventory_pool.groups.count})", backend_inventory_pool_groups_path(current_inventory_pool) %>
 		<% end %>
-		<% content_tag :li do %>
+		<%= content_tag :li do %>
 			<%= link_to icon_tag("shape_group") + " " + _("Locations") + " (#{current_inventory_pool.locations.count})", backend_inventory_pool_locations_path(current_inventory_pool) %>
 		<% end %>
-		<% content_tag :li do %>
+		<%= content_tag :li do %>
 			<%= link_to icon_tag("chart_organisation") + " " + _("Categories"), backend_inventory_pool_categories_path(current_inventory_pool) %>
 		<% end if is_inventory_manager? %>
-		<% content_tag :li do %>
+		<%= content_tag :li do %>
 			<%= link_to icon_tag("shape_handles") + " " + _("Inventory Pool"), backend_inventory_pool_path(current_inventory_pool) %>
 		<% end %>
 		
-	<% end
+	<% end %>
 
-elsif is_admin?
+<% elsif is_admin? %>
 
-	content_tag :ul do
-		content_tag :li do %>
+<%=	content_tag :ul do %>
+	<%=	content_tag :li do %>
 			<%= link_to icon_tag("shape_handles") + " " + _('InventoryPools') + " (#{InventoryPool.count})", backend_inventory_pools_path %>
-		<% end
-		content_tag :li do %>
+		<% end %>
+		<%= content_tag :li do %>
 			<%= link_to icon_tag("user") + " " + _("All Users") + " (#{User.count})", backend_users_path %>
-			<% content_tag :ul do %>
+			<%= content_tag :ul do %>
 				<li><%= link_to _("Admins") + " (#{User.admins.count})", backend_users_path(:filter => 'admins') %></li>
 			<% end if controller.controller_name == "users" %>
-		<% end
-	end
+		<% end %>
+	<% end %>
 
-end %>
+<% end %>

@@ -13,11 +13,11 @@
 
 	<title>leihs 2.9 (Backend)</title>
 
-	<%= stylesheet_link_tag $layout_public_path + "/css/general.css", :media => "all" %>
+	<%= stylesheet_link_tag "#{$layout_public_path}/css/general.css", :media => "all" %>
 	<%= stylesheet_link_tag "/javascripts/tooltips/tooltips.css", :media => "screen" %>
 
-	<%= javascript_include_tag "jquery/jquery", "jquery/jquery-ui", :defaults, "tooltips/tooltips", "tooltips/builder" %>
-	<% javascript_tag do %>
+	<%= javascript_include_tag :defaults, "jquery/jquery.min", "jquery/jquery-ui.min", "jquery/jquery_ujs", "tooltips/tooltips", "tooltips/builder" %>
+	<%= javascript_tag do %>
 		jQuery.noConflict();
 	<% end %>
 
@@ -88,9 +88,10 @@
 
 		<% end %>
 
-		<% content_tag :div, :style => "text-align: right;" do %>
+		<%= content_tag :div, :style => "text-align: right;" do %>
     		<%= link_to icon_tag("database_go") + _("Database Backup"), backend_database_backup_path, :remote => true %>
-		<% end if logged_in? %>
+		<% end if logged_in? and false #tmp#
+		%>
 	
 	</div>
 

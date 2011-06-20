@@ -14,7 +14,7 @@
   <% if @item.model %>
     <tr><td><b><%= _("Categories")%>:</b></td><td>
 
-        <% content_tag :ul, :style => "list-style: disc;" do
+        <%= content_tag :ul, :style => "list-style: disc;" do
           @item.model.categories.each do |category|
             content_tag :li do %>
               <%= category.name %>

@@ -4,12 +4,12 @@ gem 'rails', '3.1.0.rc4' #Rails3.1# '3.0.7'
 gem 'builder', '~> 3.0' #Rails3.1# '~> 2.1.2' 
 gem 'i18n' # Need this explicitly, otherwise can't deploy
 
-gem 'mysql2', '~> 0.3.2' #Rails3.1# '~> 0.2.7' 
+gem 'mysql2', '~> 0.3.5' #Rails3.1# '~> 0.2.7' 
 #gem 'memcache-client' #gem 'dalli' #gem 'redis-store'
 
 # Asset template engines
-gem 'json', '~> 1.5.1'
-gem 'haml', '~> 3.1.1'
+gem 'json', '~> 1.5.2'
+gem 'haml', '~> 3.1.2'
 gem 'sass', '~> 3.1.2'
 #Rails3.1# gem 'coffee-script'
 #Rails3.1# gem 'uglifier'
@@ -22,8 +22,9 @@ gem 'will_paginate', :git => 'git://github.com/JackDanger/will_paginate.git' #Ra
 #gem 'thinking-sphinx', :git => 'git://github.com/sylogix/thinking-sphinx.git', :branch => "rails3", :require => 'thinking_sphinx' #Rails 3.1# fix for JoinDependency
 gem 'thinking-sphinx', '~> 2.0.5', :require => 'thinking_sphinx'
 
-gem 'gettext', '~> 2.1.0', :require => false # TODO only for development ??
 gem 'gettext_i18n_rails', '~> 0.2.20'
+gem 'ruby_parser' # gettext dependency that Bundler seems unable to resolve
+
 
 gem 'barby', '~> 0.4.3'
 #gem "cairo" # Needed to print SVG barcodes
@@ -44,7 +45,11 @@ gem 'nested_set', '~> 1.6.6'
 gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
 group :profiling do
-	gem 'newrelic_rpm', '~> 3.0.1'
+	gem 'newrelic_rpm', '~> 3.1'
+end
+
+group :development do 
+  gem 'gettext', '~> 2.1.0', :require => false 
 end
 
 group :cucumber, :development do
@@ -58,7 +63,7 @@ group :cucumber, :test do
 	gem 'rspec', '~> 2.6.0', :require => false
 	gem 'rspec-rails', '~> 2.6.1', :require => false
 	gem 'nokogiri', '~> 1.4.4'
-	gem 'capybara', '1.0.0.beta1'
+	gem 'capybara', '~> 1.0.0'
   gem 'launchy', '~> 0.4.0'
 end
 

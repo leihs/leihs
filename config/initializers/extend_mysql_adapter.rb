@@ -1,3 +1,6 @@
+#tmp#
+=begin
+#sellittf#
 module ActiveRecord
   module ConnectionAdapters
     class MysqlAdapter < AbstractAdapter
@@ -38,3 +41,4 @@ module ActiveRecord
     end
   end
 end
+=end

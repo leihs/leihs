@@ -14,7 +14,7 @@ end %>
 
 	<p><%= _("Reason") %>:</p>
 	<br/>
-	<% form_tag( {:action => 'retire', :id => params[:id]}, :name => "f", :target => "_top") do %>
+	<%= form_tag( {:action => 'retire', :id => params[:id]}, :name => "f", :target => "_top") do %>
 		<%= hidden_field_tag :retired, @item.retired %>
 		<%= hidden_field_tag :source_path, params[:source_path] %>
 		<%= text_area_tag :reason, @item.retired_reason, :size => "25x10" %>
@@ -28,7 +28,7 @@ end %>
 
 <% else %>
 
-	<% content_tag :h4, :class => "valid_false" do %>
+	<%= content_tag :h4, :class => "valid_false" do %>
 		<%= _("Operation not permitted: the item is not returned yet.") %>
 	<% end %>
 	<br />

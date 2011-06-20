@@ -5,7 +5,7 @@
 
 <br/>
 
-<% form_tag( {:action => 'sign_contract', :lines => @lines}, :name => "f",
+<%= form_tag( {:action => 'sign_contract', :lines => @lines}, :name => "f",
              :target => (current_inventory_pool.print_contracts ? "_self" : "_top") ) do %>
 	<%= _("Contract Note") %>:
 	<br />

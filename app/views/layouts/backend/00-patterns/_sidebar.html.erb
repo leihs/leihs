@@ -23,7 +23,7 @@
       <h4 style="background-color: #008209;color: white; padding: 5px;">
         <%= _("Inventory") %>
       </h4>
-      <% content_tag :div, :id => "menu_inventory", :style => "margin: 5px" do %>
+      <%= content_tag :div, :id => "menu_inventory", :style => "margin: 5px" do %>
         <ul>
           <%= render :partial => '/layouts/backend/00-patterns/menu_inventory_items' %>
           <%= render :partial => '/layouts/backend/00-patterns/menu_inventory_models' %>

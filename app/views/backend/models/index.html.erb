@@ -9,7 +9,7 @@
 
 <% if @model %>
 	 <div class="toolbar-second">
-		<% form_tag backend_inventory_pool_model_compatibles_path(current_inventory_pool, @model),
+		<%= form_tag backend_inventory_pool_model_compatibles_path(current_inventory_pool, @model),
 					:onsubmit => "return ($('is_selected').value == 1);" do %>
 			<%= hidden_field_tag :is_selected, 0 %>
 			<%= _("Add compatible") %>:
@@ -46,7 +46,7 @@ elsif is_privileged_user? and !params[:source_path] %>
 	</div>	
 <% end %>
 
-<% content_tag :div do %>
+<%= content_tag :div do %>
 	<%= _("From") %> <%= short_date(@start_date) %> <%= ("to") %> <%= short_date(@end_date) %> 
 <% end if @start_date and @end_date %>
 

@@ -1,6 +1,6 @@
-<% content_tag :li do %>
+<%= content_tag :li do %>
 	<%= link_to icon_tag("package") + " " + _('All Models') + " (#{Model.count})", backend_inventory_pool_models_path(:filter => 'all')  %>
-	<% content_tag :ul do
+	<%= content_tag :ul do
 		content_tag :li do %>
 			<%= link_to _('Own Models') + " (#{current_inventory_pool.own_models_active.count})", backend_inventory_pool_models_path(:filter => 'own') %>
 			<%# OPTIMIZE 0501 search_count %>

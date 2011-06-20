@@ -25,12 +25,10 @@ module Backend::BackendHelper
         
         if with_search_field
           # evalJS must be set, since we are updating the page parts via JS - see models/index.js.rjs 
-          haml_concat text_field_tag :query, query,
+          haml_concat text_field_tag :query, query, :id => 'search_field',
                               :onchange => "new Ajax.Request('', {asynchronous:true, evalJS:true, method:'get', " \
                                                                  "parameters: {query: this.value #{parameters}}});" \
-                                           "return false;",
-                              :id => 'search_field'
-          haml_concat javascript_tag("$('search_field').focus()")
+                                           "return false;" # TODO move to application.js                              
         end
         
         haml_tag :div, :class => "result", :style => "min-height: 200px;" do
@@ -114,7 +112,7 @@ module Backend::BackendHelper
             :class => "thickbox iconized-notxt edit-package" )
 
     html += content_tag :ul, :class => "model_group" do
-      r = ""
+      r = "".html_safe
       model.package_models.each do |model|         
         r += content_tag :li do
           model.name

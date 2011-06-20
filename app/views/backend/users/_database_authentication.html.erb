@@ -1,5 +1,5 @@
-<% group1 = "a e i o u y j".split
-   group2 = "b c d f g h k m n p q r s t v w x z".split
+<% group1 = %w(a e i o u y j)
+   group2 = %w(b c d f g h k m n p q r s t v w x z)
 %>
 
 <% @dbauth = DatabaseAuthentication.new(:user => @user, :login => @user.login, :password => "#{group1.rand}#{group2.rand}#{group1.rand}#{group2.rand}#{group1.rand}#{group2.rand}#{group1.rand}#{group2.rand}")

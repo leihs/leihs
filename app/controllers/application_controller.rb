@@ -11,23 +11,6 @@ class ApplicationController < ActionController::Base
   require File.join(Rails.root, 'lib', 'role_requirement_system.rb')
   include RoleRequirementSystem
 
-#rails3#
-## http://www.yotabanana.com/hiki/ruby-gettext-howto-rails.html
-## http://www.yotabanana.com/hiki/ruby-gettext-rails-migration.html
-# before_init_gettext :define_locale
-#
-# def define_locale
-# if params[:locale]
-# set_locale params[:locale]
-# params[:lang] = params[:locale] # Bug? Gettext seems not to set the language properly unless this is set
-# current_user.update_attributes(:language_id => Language.first(:conditions => {:locale_name => params[:locale]})) if logged_in?
-# else
-# locale = logged_in? ? current_user.language.locale_name : Language.default_language.locale_name
-# set_locale locale
-# params[:lang] = locale # Bug? Gettext seems not to set the language properly unless this is set
-# end
-# end
-# init_gettext 'leihs'
   before_filter :set_gettext_locale
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -53,6 +36,26 @@ class ApplicationController < ActionController::Base
     unless session[:last_visitors].include?([user.id, user.name])
       session[:last_visitors].delete_at(0) if session[:last_visitors].size > 5 
       session[:last_visitors] << [user.id, user.name]
+    end
+  end
+
+  def set_gettext_locale
+    if current_user
+      if current_user.language.nil?
+        current_user.language = Language.default_language
+        current_user.save
+      end
+      
+      if params[:locale]
+        language = Language.where(:locale_name => params[:locale]).first
+        language ||= Language.default_language
+        current_user.language = language # language is a protected attribute, it can't be mass-asigned via update_attributes
+        current_user.save
+      end
+  
+      I18n.locale = current_user.language.locale_name.to_sym
+    else
+      I18n.locale = Language.default_language.locale_name.to_sym
     end
   end
 

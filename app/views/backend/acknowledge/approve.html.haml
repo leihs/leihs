@@ -1,7 +1,7 @@
 - if @order.approvable?
   %h2= _("Do you want to approve this order?")
   %br
-  - form_tag( {:action => 'approve', :id => params[:id]}, :name => "f", :target => "_top") do
+  = form_tag( {:action => 'approve', :id => params[:id]}, :name => "f", :target => "_top") do
     = _("Comments")
     %br
     = text_area_tag 'comment', nil, :size => "25x10"

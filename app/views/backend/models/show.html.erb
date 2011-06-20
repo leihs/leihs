@@ -31,7 +31,7 @@
   </tr>
 </table>
 
-<% content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do %>
+<%= content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do %>
 	<%= link_to icon_tag("group") + " " + _("Current group quantities"),
                 [:groups, :backend, current_inventory_pool, @model],
                 :"data-remote" => true,

@@ -1,0 +1,30 @@
+- - Tableizer - -
+	<% tableize :customers, @customers,
+							:header => 'Listing Customers',
+							:generate_css => 'true' do |customer| %>
+							
+							<h3><%= customer.name %></h3>
+							<p>
+								Code: <%= customer.code %>
+								Place order: <%= customer.order %>
+								<%= link_to 'show', .... %>
+								<%= link_to 'Edit', .... %>
+								<%= link_to 'Destroy', .... %>
+							</p>
+	<% end %>	
+							
+- - ShowHide - -
+
+usage in view, array usage
+
+<% for user in @users %>
+	<%=h user.login %>
+		<%= show_detail_for user %>
+			
+			<% detail_for user do %>
+			 details ....
+			 <%=h user.email %>
+			 more details....
+			 <%= hide_detail_for user %>
+		 <% end %>
+<% end %>

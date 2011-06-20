@@ -4,8 +4,7 @@
   = ("to")
   = short_date(@end_date)
 
-= table_with_search_and_pagination :columns => [_("Barcode"), _("Name"), _("Price"), _("Action")],
-						   			:records => @options do |option|
+= table_with_search_and_pagination :columns => [_("Barcode"), _("Name"), _("Price"), _("Action")], :records => @options do |option|
   %tr
     %td= option.inventory_code
     %td= option.name
@@ -19,5 +18,5 @@
       - else
         %ul
           %li= link_to icon_tag("magnifier") + _("Show"), {:action => 'show', :id => option}
-    			%li= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => option.inventory_code}, :method => :post
-    			%li= link_to _("Delete"), {:action => 'destroy', :id => option}, :confirm => _("Are you sure?"), :method => :delete if option.option_lines.empty?
+          %li= link_to _("Barcode"), {:controller => 'barcodes', :action => 'create', :string => option.inventory_code}, :method => :post
+          %li= link_to _("Delete"), {:action => 'destroy', :id => option}, :confirm => _("Are you sure?"), :method => :delete if option.option_lines.empty?

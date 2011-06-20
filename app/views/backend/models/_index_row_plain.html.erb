@@ -1,6 +1,6 @@
 <%= render :partial => 'index_row_common', :locals => { :model => model } %>
 <td>
-	<% content_tag :ul, :style => "list-style: disc;" do
+	<%= content_tag :ul, :style => "list-style: disc;" do
 			model.categories.each do |category|
 				content_tag :li do %>
 					<%= category.name %>
@@ -10,14 +10,13 @@
      %>
 </td>
 
-<% content_tag :td do
-		if ["own", "all"].include?(params[:filter]) %>
+<%= content_tag :td do %>
+	<%	if ["own", "all"].include?(params[:filter]) %>
 			<%= current_inventory_pool.own_items.scoped_by_model_id(model).in_stock.count %> <%= _("of")%> <%= current_inventory_pool.own_items.scoped_by_model_id(model).count %>
 		<% else %>
 			<%= current_inventory_pool.items.scoped_by_model_id(model).in_stock.count %> <%= _("of")%> <%= current_inventory_pool.items.scoped_by_model_id(model).count %>
-		<% end
-   end
-%>
+		<% end %>
+ <%  end %>
 
 <td class="buttons">
 	<% if params[:layout] == "modal" %>
@@ -31,7 +30,7 @@
 							:confirm => _("Are you sure?"),
 							:method => :delete if @model %>
 			</li>
-			<% content_tag :li do %>
+			<%= content_tag :li do %>
 				<%= link_to _("Delete"), destroy_package_backend_inventory_pool_model_path(current_inventory_pool, model),
 							:confirm => _("Are you sure?"),
 							:method => :delete if model.package_items.empty? and model.order_lines.empty? and model.contract_lines.empty? %>

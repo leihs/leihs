@@ -22,7 +22,7 @@
 		<div class="buttons">
 			<%# OPTIMIZE submit_button helper using the <button> tag %>
 			<%#old#=	submit_button(_("Submit"), {:icon => "flag_red"} ) %>
-			<% content_tag :button, :type => "submit" do %>
+			<%= content_tag :button, :type => "submit" do %>
 				<%= "#{icon_tag('flag_red')} #{_("Submit")}" %>
 			<% end %>
 

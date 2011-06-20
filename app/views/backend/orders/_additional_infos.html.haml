@@ -1,0 +1,24 @@
+#meta-tabs
+  #meta-tabs-container
+    %ul
+      %li.active
+        %a#meta-tabs-content-toggler{:href => "#"}
+          = _("Changes")
+
+    #meta-tabs-content{:style => "display: none;"}
+      #changes
+        %ul
+          - @order.histories.reverse.each do |history|
+            %li
+              = "[#{short_time(history.created_at)}]"
+              %br
+              &nbsp;&nbsp;&nbsp;
+              = history.text
+
+:javascript
+  jQuery(document).ready(function($) {
+    $("#meta-tabs-content-toggler").click(function(){
+      $("#meta-tabs-content").slideToggle();
+      return false;
+    });
+  });
