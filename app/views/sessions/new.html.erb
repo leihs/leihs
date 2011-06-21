@@ -11,7 +11,7 @@
 <p><label for="login">Login</label><br/>
 <%= text_field_tag 'login' %><br/>
 Existing users:
-<%= User.find(:all).collect(&:login).inspect %>
+<%= User.all.collect(&:login).inspect %>
 </p>
 
 <br/>

@@ -101,7 +101,7 @@ class Backend::HandOverController < Backend::BackendController
       @contract = @contract_line.contract
       
       required_item_inventory_code = params[:code]
-      @contract_line.item = Item.first(:conditions => { :inventory_code => required_item_inventory_code})
+      @contract_line.item = Item.where(:inventory_code => required_item_inventory_code).first
 
       if @contract_line.save
         # TODO refactor in model: change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
@@ -118,7 +118,7 @@ class Backend::HandOverController < Backend::BackendController
   # given an inventory_code, searches for a matching contract_line
   # and if not found, adds an option
   def assign_inventory_code
-    item = current_inventory_pool.items.first(:conditions => { :inventory_code => params[:code] })
+    item = current_inventory_pool.items.where(:inventory_code => params[:code]).first
     
     unless item.nil?
       if @contract.items.include?(item)
@@ -126,7 +126,7 @@ class Backend::HandOverController < Backend::BackendController
       elsif item.parent 
         flash[:error] = _("This item is part of package %s.") % item.parent.inventory_code
       else
-        contract_line = @contract.contract_lines.first(:conditions => { :model_id => item.model.id, :item_id => nil })
+        contract_line = @contract.contract_lines.where(:model_id => item.model.id, :item_id => nil).first
         unless contract_line.nil?
           params[:contract_line_id] = contract_line.id.to_s
           flash[:notice] = _("Inventory Code assigned")
@@ -146,10 +146,10 @@ class Backend::HandOverController < Backend::BackendController
     else 
       # Inventory Code is not an item - might be an option...
       # Increment quantity if the option is already present
-      option = current_inventory_pool.options.first(:conditions => { :inventory_code => params[:code] })
+      option = current_inventory_pool.options.where(:inventory_code => params[:code]).first
       if option
         conditions = {:option_id => option, :start_date => params[:start_date], :end_date => params[:end_date]}
-        @option_line = @contract.option_lines.first(:conditions => conditions)
+        @option_line = @contract.option_lines.where(conditions).first
         if @option_line
           @option_line.increment!(:quantity)
         else

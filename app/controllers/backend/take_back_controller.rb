@@ -106,12 +106,12 @@ class Backend::TakeBackController < Backend::BackendController
     contract_lines = @user.get_signed_contract_lines(current_inventory_pool.id)
     contract_lines.sort! {|a,b| [a.end_date, a.model.name] <=> [b.end_date, b.model.name] } # TODO select first to take back
 
-    item = current_inventory_pool.items.first(:conditions => { :inventory_code => params[:code] })
+    item = current_inventory_pool.items.where(:inventory_code => params[:code]).first
     unless item.nil?
       @contract_line = contract_lines.detect {|cl| cl.item_id == item.id }
     else
       # Inventory Code is not an item - might be an option...
-      option = current_inventory_pool.options.first(:conditions => { :inventory_code => params[:code] })
+      option = current_inventory_pool.options.where(:inventory_code => params[:code]).first
       unless option.nil?
         @contract_line = contract_lines.detect {|cl| cl.option_id == option.id }
       end

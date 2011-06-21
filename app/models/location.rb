@@ -30,7 +30,7 @@ class Location < ActiveRecord::Base
     attributes[:room] = nil if attributes[:room].blank?
     attributes[:shelf] = nil if attributes[:shelf].blank?
     
-    record = first(:conditions => attributes)
+    record = where(attributes).first
     record ||= create(attributes)
   end
 

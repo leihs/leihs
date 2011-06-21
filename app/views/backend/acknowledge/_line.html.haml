@@ -9,7 +9,7 @@
     
     %div
       = current_inventory_pool.name + ": " +                                                  |
-        current_inventory_pool.items.count(:conditions => {:model_id => @line.model.id}).to_s |
+        current_inventory_pool.items.where(:model_id => @line.model.id).count.to_s |
     
     = allocated_group @line
 

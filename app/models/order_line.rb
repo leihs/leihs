@@ -32,7 +32,7 @@ class OrderLine < DocumentLine
       inventory_pool = nil
       inventory_pools = model.inventory_pools #temp# & order.user.inventory_pools # TODO 08** also scope to the selected frontend inventory_pools ?? 
       inventory_pools.each do |ip|
-         if ip.items.count(:conditions => {:model_id => model.id}) >= quantity
+         if ip.items.where(:model_id => model.id).count >= quantity
            inventory_pool = ip
            break
          end

@@ -131,7 +131,7 @@ class Backend::ModelsController < Backend::BackendController
   end
 
   def update_package
-    @model ||= Model.first(:conditions => ['name = ?', params[:model][:name]])
+    @model ||= Model.where(:name => params[:model][:name]).first
     @model ||= Model.new(:is_package => true)
     if not @model.is_package?
       flash[:error] = _("The selected model is not a package")
@@ -314,8 +314,8 @@ class Backend::ModelsController < Backend::BackendController
     @categories = Category.find(params[:category_ids]) unless params[:category_ids].blank?
 
     if params[:item_id]
-      @item = current_inventory_pool.items.first(:conditions => {:id => params[:item_id]})
-      @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:item_id]}) #, :retired => :all
+      @item = current_inventory_pool.items.where(:id => params[:item_id]).first
+      @item ||= current_inventory_pool.own_items.where(:id => params[:item_id]).first #, :retired => :all
     end
     @model ||= @item.model if @item
     

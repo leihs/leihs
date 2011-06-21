@@ -57,7 +57,7 @@ class Backend::UsersController < Backend::BackendController
     @user.login = @user.email
     if @user.save
       @user.access_rights.create(:inventory_pool => current_inventory_pool,
-                                 :role => Role.first(:conditions => {:name => "customer"})) if current_inventory_pool
+                                 :role => Role.where(:name => "customer").first) if current_inventory_pool
       redirect_to [:backend, current_inventory_pool, @user].compact
     else
       flash[:error] = @user.errors.full_messages
@@ -133,7 +133,7 @@ class Backend::UsersController < Backend::BackendController
     @access_rights = if current_inventory_pool
                         @user.access_rights.scoped_by_inventory_pool_id(current_inventory_pool)
                       else
-                        @user.access_rights.all(:include => :inventory_pool, :order => "inventory_pools.name")
+                        @user.access_rights.includes(:inventory_pool).order("inventory_pools.name")
                       end
   end
   
@@ -147,7 +147,7 @@ class Backend::UsersController < Backend::BackendController
     r = Role.find(params[:access_right][:role_id]) if params[:access_right]
     r ||= Role.find_by_name("customer") # OPTIMIZE
   
-    ar = @user.all_access_rights.first(:conditions => {:inventory_pool_id => inventory_pool_id })
+    ar = @user.all_access_rights.where(:inventory_pool_id => inventory_pool_id).first
    
     if ar
       ar.update_attributes(:role => r, :access_level => params[:access_level])

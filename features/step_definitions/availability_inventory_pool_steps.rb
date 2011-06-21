@@ -3,13 +3,13 @@ Given "this model has $number item$s in inventory pool $ip" do |number, s, ip|
   number.to_i.times do | i |
     Factory.create_item(:model => @model, :inventory_pool => inventory_pool)
   end
-  inventory_pool.items.count(:conditions => {:model_id => @model.id}).should == number.to_i
+  inventory_pool.items.where(:model_id => @model.id).count.should == number.to_i
 end
 
 Then "the maximum number of available '$model' for '$who' is $size" do |model, who, size|
   user = User.find_by_login(who)
   @model = Model.find_by_name(model)
-  user.items.count(:conditions => {:model_id => @model.id}).should == size.to_i
+  user.items.where(:model_id => @model.id).count.should == size.to_i
 end
 
 ###########################################################################

@@ -32,7 +32,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
   def create
     @inventory_pool = InventoryPool.new
     update
-    current_user.access_rights.create(:role => Role.first(:conditions => {:name => 'manager' }),
+    current_user.access_rights.create(:role => Role.where(:name => 'manager').first,
                                       :inventory_pool => @inventory_pool,
                                       :access_level => 3) unless @inventory_pool.new_record?
   end

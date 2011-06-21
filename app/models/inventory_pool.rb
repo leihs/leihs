@@ -48,7 +48,7 @@ class InventoryPool < ActiveRecord::Base
 
 #rails3#tmp#
 #  # OPTIMIZE
-#  role_manager = Role.first(:conditions => {:name => "manager"})
+#  role_manager = Role.where(:name => "manager").first
 #  has_and_belongs_to_many :managers,
 #                          :class_name => "User",
 #                          :select => "users.*",
@@ -57,7 +57,7 @@ class InventoryPool < ActiveRecord::Base
 #                          :conditions => ["access_rights.role_id = ? AND access_rights.deleted_at IS NULL", (role_manager ? role_manager.id : 0)]
 #
 #  # OPTIMIZE
-#  role_customer = Role.first(:conditions => {:name => "customer"})
+#  role_customer = Role.where(:name => "customer").first
 #  has_and_belongs_to_many :customers,
 #                          :class_name => "User",
 #                          :select => "users.*",
@@ -181,7 +181,7 @@ class InventoryPool < ActiveRecord::Base
   end
 
   def running_holiday_on(date)
-    holidays.first(:conditions => ["start_date <= :d AND end_date >= :d", {:d => date}])
+    holidays.where(["start_date <= :d AND end_date >= :d", {:d => date}]).first
   end
   
 ###################################################################################
@@ -203,7 +203,7 @@ class InventoryPool < ActiveRecord::Base
   end
   
   def is_blacklisted?(user)
-    suspended_users.count(:conditions => {:id => user.id}) > 0
+    suspended_users.where(:id => user.id).count > 0
   end
 
 ###################################################################################

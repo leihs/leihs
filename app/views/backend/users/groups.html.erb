@@ -17,7 +17,7 @@
 <br />
 
 <% table :columns => [_("Group"), _("Action")],
-		 :records => @user.groups.all( :conditions => { :inventory_pool_id => current_inventory_pool.id }) do |g| %>	
+		 :records => @user.groups.where(:inventory_pool_id => current_inventory_pool.id) do |g| %>	
 
 		<tr>
 			<td><%= g.name %></td>

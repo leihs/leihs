@@ -64,7 +64,7 @@ When "$who searches for '$model'" do |who, model|
 end
 
 When "$who selects '$model'" do |who, model|
-  model_id = Model.first(:conditions => { :name => model}).id
+  model_id = Model.where(:name => model).first.id
   post swap_model_line_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :line_id => @order_line_id, :model_id => model_id)
   @order = assigns(:order)
   @order.should_not be_nil

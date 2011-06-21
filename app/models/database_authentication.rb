@@ -29,7 +29,7 @@ class DatabaseAuthentication < ActiveRecord::Base
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
-    u = find :first, :conditions => ['login = ?', login] # need to get the salt
+    u = where(['login = ?', login]).first # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 

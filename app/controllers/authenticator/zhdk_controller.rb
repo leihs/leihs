@@ -40,7 +40,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     phone = "#{xml["authresponse"]["person"]["phone_mobile"]}"
     phone = "#{xml["authresponse"]["person"]["phone_business"]}" if phone.blank?
     phone = "#{xml["authresponse"]["person"]["phone_private"]}" if phone.blank?
-    user = User.find(:first, :conditions => { :unique_id => uid }) || User.find(:first, :conditions => { :email => email }) || User.new
+    user = User.where(:unique_id => uid).first || User.where(:email => email).first || User.new
     user.unique_id = uid
     user.email = email
     user.phone = phone
@@ -51,12 +51,12 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     user.zip = "#{xml["authresponse"]["person"]["countrycode"]}-#{xml["authresponse"]["person"]["zip"]}"
     user.country = "#{xml["authresponse"]["person"]["country_de"]}"
     user.city = "#{xml["authresponse"]["person"]["place"]}"
-    user.authentication_system = AuthenticationSystem.find(:first, :conditions => {:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME })
+    user.authentication_system = AuthenticationSystem.where(:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME).first
     user.extended_info = xml["authresponse"]["person"]
     if user.new_record?
       user.save
-      r = Role.find(:first, :conditions => {:name => "customer"})
-      ips = InventoryPool.find(:all, :conditions => {:name => DEFAULT_INVENTORY_POOLS})
+      r = Role.where(:name => "customer").first
+      ips = InventoryPool.where(:name => DEFAULT_INVENTORY_POOLS)
       ips.each do |ip|
         user.access_rights.create(:role => r, :inventory_pool => ip)
       end
@@ -65,7 +65,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
     end
     
     if SUPER_USERS.include?(user.unique_id)
-      r = Role.find(:first, :conditions => {:name => "admin"})    
+      r = Role.where(:name => "admin").first    
       user.access_rights.create(:role => r, :inventory_pool => nil)
     end
     user
