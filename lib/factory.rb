@@ -114,7 +114,7 @@ module Factory
     begin
       user.access_rights.create(:role => role,
                                 :inventory_pool => inventory_pool,
-                              :access_level => access_level)
+                                :access_level => access_level)
     rescue
       # unique index, record already present
     end
