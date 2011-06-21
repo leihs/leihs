@@ -70,7 +70,7 @@ When "$who selects '$model'" do |who, model|
   @order.should_not be_nil
 end
 
-Then /^(.*) sees ([0-9]+) order(s?)$/ do | who, size, s |
+Then /^(.*) see(s)? ([0-9]+) order(s?)$/ do | who, foo, size, s |
   page.all(".table-overview .fresh").count.should == 1
 end
 
