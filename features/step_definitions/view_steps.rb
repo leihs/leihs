@@ -1,9 +1,14 @@
-Then "$who sees '$what'" do | who, what |
-  @response.should have_tag("a", what)
-end
+#Then "$who sees '$what'" do | who, what |
+#  @response.should have_tag("a", what)
+#end
 
-Then "he sees the '$title' list" do | title |
-  response.should render_template("backend/#{title}/index")
+#Then "he sees the '$title' list" do | title |
+#  response.should render_template("backend/#{title}/index")
+#end
+
+Then "I see the '$title' list" do | title |
+  page.should have_selector(".buttons .activated", :text => title)
+  page.should have_selector(".table-overview .fresh")
 end
 
 Then /^(\w+) can "([^\"]*)"$/ do |who, what|

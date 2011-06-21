@@ -24,9 +24,9 @@ Scenario: Count of new orders is shown
 
 	Given there are only 5 orders
 	When lending_manager looks at the screen
-	Then he sees 'Acknowledge'
-	When lending_manager clicks on 'acknowledge'
-	Then he sees the 'acknowledge' list
+	 When I go to the backend
+	  And I follow "Acknowledge"
+	Then I see the 'Acknowledge' list
 
 
 Scenario: Acknowledge order
@@ -37,9 +37,10 @@ Scenario: Acknowledge order
 	  And it asks for 5 items of model 'NEC 245'
 	  And Joe's email address is joe@test.ch
 	  And the order was submitted
-	When the lending_manager clicks on 'acknowledge'
-	Then he sees 1 order
-	When he chooses Joe's order
+	 When I go to the backend
+	  And I follow "Acknowledge"
+	Then I see 1 order
+	When I choose Joe's order
 	Then Joe's order is shown
 	 And lending_manager can "Save + Approve"
 	 And lending_manager can "Reject Order"
