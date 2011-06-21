@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
 
   def touch_for_sphinx
     @block_delta_indexing = true
-    touch
+    save # trigger reindex
   end
 
 # TODO ??

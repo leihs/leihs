@@ -13,8 +13,6 @@ Scenario: List with new orders
 
 	Given there is only an order by 'Joe'
 	  And the order was submitted
-	Given comment: TODO: remove following step
-	 Then reindex
 	 When I go to the backend
 	  And I follow "Acknowledge"
 	 Then he sees 1 order

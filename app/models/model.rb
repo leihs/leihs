@@ -187,7 +187,7 @@ class Model < ActiveRecord::Base
 
   def touch_for_sphinx
     @block_delta_indexing = true
-    touch
+    save # trigger reindex
   end
 
   private
