@@ -15,7 +15,7 @@ Scenario: List with new orders
 	  And the order was submitted
 	 When I go to the backend
 	  And I follow "Acknowledge"
-	 Then he sees 1 order
+	 Then I see 1 order
 	  And the order was placed by a customer named 'Joe'
 	
 
