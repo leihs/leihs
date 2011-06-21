@@ -3,8 +3,7 @@
 #
 Then "that model should not be available in any other group"  do
   quantities = @model.in(@inventory_pool).\
-	       maximum_available_in_period_for_groups(
-		 @inventory_pool.groups.all(:conditions => ['id != ?',@group]))
+	       maximum_available_in_period_for_groups(@inventory_pool.groups.where(['id != ?',@group]))
   quantities.values.reduce(:+).to_i.should == 0
 end
 

@@ -26,8 +26,8 @@ class Backend::ContractsController < Backend::BackendController
       when "deposit_relevant"
         day = Date.yesterday
         day = params[:day] if params[:day]
-        #lines = ContractLine.find(:all, :conditions => { :returned_date => day } )
-        #lines += ContractLine.find(:all, :conditions => { :start_date => day } )
+        #lines = ContractLine.where(:returned_date => day)
+        #lines += ContractLine.where(:start_date => day)
         #ids = []
         #lines.each do |l|
         #  ids << l.contract_id if l.contract.inventory_pool = current_inventory_pool
@@ -36,7 +36,7 @@ class Backend::ContractsController < Backend::BackendController
 
         # Why the heck does the ugly SQL below work and the beautiful (*cough*, ahem) Ruby above doesn't?
         sql = "id in ( select distinct(contract_id) from contract_lines where (returned_date = ? or start_date = ?) and contract_id in ( select id from contracts where inventory_pool_id = ? ))"
-        contracts = Contract.find(:all, :conditions => [sql, day, day, current_inventory_pool.id] )
+        contracts = Contract.where([sql, day, day, current_inventory_pool.id]).first
       else
 ##        contracts = contracts.signed + contracts.closed
         without.merge!(:status_const => Contract::UNSIGNED)

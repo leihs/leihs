@@ -1,7 +1,7 @@
 <%# old #%>
 
 <%	a = []
-	@user.contracts.all(:conditions => ['status_const != ?', Contract::UNSIGNED]).sort.each {|c| a << [c.id, c.created_at, c.status_string, c.inventory_pool.name]}
+	@user.contracts.where(['status_const != ?', Contract::UNSIGNED]).sort.each {|c| a << [c.id, c.created_at, c.status_string, c.inventory_pool.name]}
 %>
     var contracts_grid = new Ext.grid.GridPanel({
 							title: '<%= _("Contracts (%d)") % a.size %>',

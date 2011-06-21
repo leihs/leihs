@@ -242,7 +242,7 @@ class Backend::ItemsController < Backend::BackendController
     end
     if request.post? and (params[:search] || search_term)
       search_term ||= params[:search][:name]
-      @results = Supplier.all(:conditions => ['name like ?', "%#{search_term}%"], :order => :name)
+      @results = Supplier.where(['name like ?', "%#{search_term}%"]).order(:name)
     end
     render :layout => false
   end
@@ -271,7 +271,7 @@ class Backend::ItemsController < Backend::BackendController
   def pre_load
     params[:id] ||= params[:item_id] if params[:item_id]
     if params[:id]
-      @item = current_inventory_pool.items.first(:conditions => {:id => params[:id]})
+      @item = current_inventory_pool.items.where(:id => params[:id]).first
       @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:id]}, :retired => :all)
     end
 

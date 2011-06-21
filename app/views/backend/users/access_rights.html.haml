@@ -1,5 +1,5 @@
 - conditions = (current_inventory_pool ? "name != 'admin'" : nil)
-- roles = Role.all(:conditions => conditions).sort
+- roles = Role.where(conditions).sort
 - inventory_pools = InventoryPool.all.sort
 - admin_role = Role.find_by_name('admin')
 - manager_role = Role.find_by_name('manager')

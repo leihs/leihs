@@ -62,17 +62,17 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
 
     uid = ENV['uniqueID'] 
     email = ENV['mail'] || uid + "@leihs.zhdk.ch"
-    user = User.find(:first, :conditions => { :unique_id => uid }) || User.find(:first, :conditions => { :email => email }) || User.new
+    user = User.where(:unique_id => uid).first || User.where(:email => email).first || User.new
     user.unique_id = uid
     user.email = email
     user.firstname = "#{ENV['givenName']}"
     user.lastname = "#{ENV['surname']}"
     user.login = "#{user.firstname} #{user.lastname}"
-    user.authentication_system = AuthenticationSystem.find(:first, :conditions => {:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME })
+    user.authentication_system = AuthenticationSystem.where(:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME).first
     if user.new_record?
       user.save
-      r = Role.find(:first, :conditions => {:name => "customer"})
-      ips = InventoryPool.find(:all, :conditions => {:name => DEFAULT_INVENTORY_POOLS})
+      r = Role.where(:name => "customer").first
+      ips = InventoryPool.where(:name => DEFAULT_INVENTORY_POOLS)
       ips.each do |ip|
         user.access_rights.create(:role => r, :inventory_pool => ip)
       end
@@ -81,7 +81,7 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
     end
 
     if SUPER_USERS.include?(user.unique_id)
-      r = Role.find(:first, :conditions => {:name => "admin"})
+      r = Role.where(:name => "admin").first
       user.access_rights.create(:role => r, :inventory_pool => nil)
     end
     user

@@ -1,7 +1,7 @@
 <%# old #%>
 
 <%	a = []
-	@user.orders.all(:conditions => ['status_const != ?', Order::UNSUBMITTED]).sort.each {|o| a << [o.id, o.created_at, o.status_string, o.inventory_pool.name, o.deletable_by_user?]}
+	@user.orders.where(['status_const != ?', Order::UNSUBMITTED]).sort.each {|o| a << [o.id, o.created_at, o.status_string, o.inventory_pool.name, o.deletable_by_user?]}
 %>
     var orders_grid = new Ext.grid.GridPanel({
 							title: 'Orders (<%= a.size %>)',

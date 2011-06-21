@@ -51,7 +51,7 @@ class Event
   
   # OPTIMIZE
   def contract_lines
-    @contract_lines ||= ContractLine.all(:conditions => {:id => contract_line_ids})
+    @contract_lines ||= ContractLine.where(:id => contract_line_ids)
   end
   
   # alias

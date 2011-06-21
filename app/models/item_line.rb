@@ -110,7 +110,7 @@ class ItemLine < ContractLine
   end
   
   def item_already_handed_over_or_assigned?
-    item.contract_lines.handed_over_or_assigned_but_not_returned(Date.today).count(:conditions => ["id != ?", id]) > 0
+    item.contract_lines.handed_over_or_assigned_but_not_returned(Date.today).where(["id != ?", id]).count > 0
   end
   
 end

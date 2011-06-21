@@ -43,14 +43,14 @@ Given "a category '$category' exists" do | category |
 end  
   
 Given "the category '$category' is child of '$parent' with label '$label'" do | category, parent, label |
-  c = Category.find(:first, :conditions => {:name => category})
-  p = Category.find(:first, :conditions => {:name => parent})
+  c = Category.where(:name => category).first
+  p = Category.where(:name => parent).first
   c.parents << p
   c.set_label(p, label)
 end
 
 When "the category '$category' is selected" do |category|
-  @category = Category.find(:first, :conditions => {:name => category})
+  @category = Category.where(:name => category).first
 end
 
 Then "there are $d_size direct children and $t_size total children" do | d_size, t_size | 
@@ -77,12 +77,12 @@ When /^I register a new model '([^']*)'$/ do |model|
 end
   
 Given "the model '$model' belongs to the category '$category'" do |model, category|
-  @model = Model.find(:first, :conditions => {:name => model})
-  @model.categories << Category.find(:first, :conditions => {:name => category})    
+  @model = Model.where(:name => model).first
+  @model.categories << Category.where(:name => category).first    
 end
 
 When "the model '$model' is selected" do | model|
-  @model = Model.find(:first, :conditions => {:name => model})
+  @model = Model.where(:name => model).first
 end
  
 Then "there are $size models belonging to that category" do |size|
