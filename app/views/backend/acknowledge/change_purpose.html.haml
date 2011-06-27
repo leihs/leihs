@@ -3,5 +3,5 @@
 = form_tag( { }, :name => "f", :target => "_top") do
   = text_area_tag 'purpose', @order.purpose, :size => "40x10"
   .buttons
-    = submit_button( _("Save"), {:icon => "arrow_switch", :class => 'positive'})
-    = cancel_popup_button(_("Cancel") )
+    != submit_button( _("Save"), {:icon => "arrow_switch", :class => 'positive'})
+    != cancel_popup_button(_("Cancel") )
