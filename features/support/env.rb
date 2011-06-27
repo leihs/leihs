@@ -48,5 +48,5 @@ end
 #     DatabaseCleaner.strategy = :transaction
 #   end
 #
-require "/home/tpo/src/_ruby/reflect.rb"
-include Reflection
+#require "/home/tpo/src/_ruby/reflect.rb"
+#include Reflection
