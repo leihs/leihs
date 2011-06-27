@@ -81,12 +81,12 @@ end
 #  assigns(:orders).total_entries.should == size.to_i
 #end
 
-Then "$name's order is shown" do |name|
-  # TODO: we should be passing through the controller/view here!
-  user = User.find_by_login(name)
-  @order.user.login.should == user.login
-  @order.user.id.should == user.id
-end
+#Then "$name's order is shown" do |name|
+#  # TODO: we should be passing through the controller/view here!
+#  user = User.find_by_login(name)
+#  @order.user.login.should == user.login
+#  @order.user.id.should == user.id
+#end
 
 Then "Swap Item screen opens" do 
   @response.redirect_url.should include("/backend/inventory_pools/#{@inventory_pool.id}/models?layout=modal&order_line_id=#{@order_line_id}&source_path=%2Fbackend%2Finventory_pools%2F#{@inventory_pool.id}%2Fusers%2F#{@order.user.id}%2Facknowledge%2F#{@order.id}%2Fswap_model_line%3Fline_id%3D#{@order_line_id}")
