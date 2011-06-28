@@ -1,0 +1,203 @@
+/* TOPBAR */
+#topbar {
+  background: url(../images/slices-h.png) repeat-x;
+  display: block;
+  height: 45px;
+  margin: 0 auto;
+  position: relative;
+  width: 950px;
+  z-index: 999;
+}
+
+#topbar .borderleft {
+	background: url(../images/image-sprite.png) no-repeat;
+	display: block;
+	height: 45px;
+	left: -6px;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
+
+#topbar .borderright {
+	background: url(../images/image-sprite.png) no-repeat -7px 0;
+	display: block;
+	height: 45px;
+	right: -6px;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
+
+#topbar .light {
+	background: url(../images/image-sprite.png) no-repeat 0 -46px;
+	height: 44px;
+	left: -6px;
+	position: absolute;
+	width: 215px;
+}
+
+#topbar .logo {
+	background: url(../images/image-sprite.png) no-repeat -111px 0;
+	height: 40px;
+	float: left;
+	position: relative;
+	top: 1px;
+	width: 103px;
+}
+
+#topbar .logo a {
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+
+/* TOPBAR NAVIGATION */
+#topbar .navigation {
+	float: right;
+}
+
+#topbar .navigation ul li {
+	display: inline;
+}
+
+#topbar .navigation .seperator {
+	background: url(../images/image-sprite.png) no-repeat -14px 0;
+	display: block;
+	float: left;
+	height: 40px;
+	left: 4px;
+	position: relative;
+	top: 2px;
+	width: 3px;
+}
+
+/* TOPBAR NAVIGATION ITEM */
+#topbar .navigation .item {
+	float: left;
+	height: 45px;
+	left: 4px;
+	position: relative;
+}
+
+#topbar .navigation .item .anchor {
+	color: #727272;
+	display: block;
+	font-weight: bold;
+	font-size: 1.2em;
+	height: 26px;
+	padding: 13px 16px 0 16px;
+	position: relative;
+	top: 2px;
+}
+
+#topbar .navigation .last .anchor {
+	margin-right: -2px;
+	z-index: 999;
+}
+
+#topbar .navigation .item:hover .anchor {
+	background: url(../images/slices-h.png) repeat-x 0 -46px;
+	color: #515151;
+}
+
+#topbar .navigation .last:hover .anchor {
+	background: url(../images/image-sprite.png) no-repeat right -268px;
+}
+
+/* TOPBAR NAVIGATION HOVER */
+#topbar .navigation .item .hover {
+	display: none;
+	left: -1px;
+	max-width: 197px;
+	position: absolute;
+	top: 43px;
+	z-index: 999;
+}
+
+#topbar .navigation .item:hover .hover {
+	display: block;
+}
+
+/* TOPBAR NAVIGATION HOVER INNER */
+#topbar .navigation .item .hover .inner {
+	background: #FFF;
+	height: 100%;
+	padding: 9px 11px 11px 10px;
+	position: relative;
+}
+
+#topbar .navigation .item .hover .inner strong {
+	white-space: nowrap;
+}
+
+#topbar .navigation .item .hover .inner .borderleft {
+	background: url(../images/slices-v.png) repeat-y 0px 0px;
+	height: 100%;
+	left: -2px;
+	position: absolute;
+	top: 0;
+	width: 2px;
+}
+
+#topbar .navigation .item .hover .inner .borderright{
+	background: url(../images/slices-v.png) repeat-y -3px 0;
+	height: 100%;
+	right: -5px;
+	position: absolute;
+	top: 0;
+	width: 5px;
+}
+
+/* TOPBAR NAVIGATION HOVER HEADER */
+#topbar .navigation .item .header {
+	background: url(../images/slices-h.png) repeat-x 0 -94px;
+	height: 2px;
+	position: relative;
+	width: 100%;
+}
+
+#topbar .navigation .item .hover .header .borderleft {
+	background: url(../images/slices-v.png) repeat-y 0px 0px;
+	height: 100%;
+	left: -2px;
+	position: absolute;
+	top: 0;
+	width: 2px;
+}
+
+#topbar .navigation .item .hover .header .borderright{
+	background: url(../images/slices-v.png) repeat-y -3px 0;
+	height: 100%;
+	right: -5px;
+	position: absolute;
+	top: 0;
+	width: 5px;
+}
+
+/* TOPBAR NAVIGATION HOVER FOOTER */
+#topbar .navigation .item .footer {
+	background: url(../images/slices-h.png) repeat-x 0 -87px;
+	height: 6px;
+	position: relative;
+	width: 100%;
+}
+
+#topbar .navigation .item .hover .footer .borderleft {
+	background: url(../images/image-sprite.png) no-repeat -18px 0;
+	height: 6px;
+	left: -2px;
+	position: absolute;
+	top: 0;
+	width: 2px;
+}
+
+#topbar .navigation .item .hover .footer .borderright{
+	background: url(../images/image-sprite.png) no-repeat -18px -7px;
+	height: 6px;
+	right: -5px;
+	position: absolute;
+	top: 0;
+	width: 5px;
+	z-index: 1;
+}

@@ -62,7 +62,9 @@ Leihs::Application.routes.draw do
     end
   end
   
-  resources :categories
+  resources :categories do 
+    resources :models
+  end
   resources :templates
 
 ############################################################################

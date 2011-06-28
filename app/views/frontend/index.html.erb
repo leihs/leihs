@@ -1,111 +1,159 @@
-  <%= javascript_tag do %>
 
-    function formatDate(value){
-        return value ? value.dateFormat('d.m.Y') : '';
-    };
-
-
-	Ext.namespace('Frontend');
-	   
-    Frontend.start = function(){
-
-		var Today = new Date();
-
-		if(Ext.DatePicker){
-		  Ext.apply(Ext.DatePicker.prototype, {
-		    format            : "d.m.Y",
-		    startDay          : 1
-		  });
-		}
-
-		if(Ext.form.DateField){
-		  Ext.apply(Ext.form.DateField.prototype, {
-		  	minValue		  : Today.format("d.m.Y"),
-		    format            : "d.m.Y",
-			altFormats		  : 'd.m.Y|d.m.y|j.n.Y|j.n.y|d.m|j.n'
-		  });
-		}
-
-		<%= render :partial => 'topbar' %>
-		<%= render :partial => 'categories' %>
-		<%= render :partial => 'templates' %>
-		<%= render :partial => 'inventory_pools' %>
-		<%= render :partial => 'models' %>
-		<%= render :partial => 'complete_order' %>
-		<%= render :partial => 'basket' %>
-		<%= render :partial => 'splash_page' if FRONTEND_SPLASH_PAGE %>
-		<%= render :partial => 'help' %>
-		
-        Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
-
-		var center_tabs = new Ext.TabPanel({
-					id: 'center_tabs',
-                    region:'center',
-                    activeTab:0,
-					border: false,
-					<% if FRONTEND_SPLASH_PAGE %>
-	                    items:[splash_page, user_resume, models_grid, order]
-					<% else %>
-	                    items:[user_resume, models_grid, order]
-					<% end %>
-                });
-				   
-	   var northPanel, southPanel, eastPanel, westPanel, centerPanel;				        
-       var viewport = new Ext.Viewport({
-            layout:'border',
-            items:[northPanel = {
-                    region:'north',
-                    contentEl: 'north',
-                    height: 40,
-                    margins:'5 5 5 5',
-					items: topbar
-                 }, eastPanel = {
-                    region:'east',
-                    split:true,
-                    width: 200,
-                    minSize: 175,
-                    maxSize: 300,
-                    margins:'0 5 5 0',
-                    layout:'accordion',
-                    layoutConfig:{
-                        animate:true
-                    },
-                    items: [ basket ] 
-                 }, westPanel = {
-                    region:'west',
-                    split:true,
-                    width: 200,
-                    minSize: 175,
-                    maxSize: 300,
-                    margins:'0 0 5 5',
-					autoScroll:true,
-                    layout:'accordion',
-                    layoutConfig:{
-                        animate:true
-                    },
-                    items: [categories_panel, templates_panel, inventory_pools]
-                }, centerPanel = {
-					xtype: 'panel',
-					region: 'center',
-					deferredRender:true,
-					layout: 'border',
-					items: [center_tabs,
-							model_details]
-				}
-             ]
-        });
-		
-		Ext.QuickTips.init();
-
-    };
-
-	Ext.onReady(Frontend.start);
-
-  <% end %>  
-  
-	<div id="model_list"></div>
-		
-	<div id="north"></div>	
-	        
+	<%= render :partial => '/layouts/frontend/00-patterns/tabs' %>
 	
-	
+	<section id="content" class="box">
+		
+		<div class="header">
+			<div class="borderleft"></div>
+			<div class="borderright"></div>
+		</div><!-- .header -->
+		
+		<div class="inner">
+				<h1><%= _("Welcome") %> Max Mustermann</h1>
+				<p class="subtitle"><%= _("You have access to the following Equipment Parks") %>: <a href="">AV-Ausleihe</a>, <a href="">ITZ-Ausleihe</a></p><!-- .subtitle -->
+				
+				<div class="hr"></div>
+				
+				<h3><%= _("Rented Equipment") %></h3>
+				<ul>
+					<li>Example Object 1 <a href=""><%= _("Extend") %></a></li>
+					<li>Example Object 2 <a href=""><%= _("Extend") %></a></li>
+					<li>Example Object 3 <a href=""><%= _("Extend") %></a></li>
+				</ul>
+				
+				<div class="hr"></div>
+				
+				<div class="row">
+				
+					<div class="cell">
+						<a href=""><img src="http://leihs.interaction-designer.ch/images/startscreen/speaker.png" alt=""/></a> <!-- Category Image -->
+						
+							<ul class="cell_list">
+								<li><h2><a href="">Category1</a></h2></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+			
+							</ul><!-- cell_list -->
+					</div><!-- .cell -->
+					
+					<div class="cell">
+						<a href=""><img src="http://leihs.interaction-designer.ch/images/startscreen/camera.png" alt=""/></a> <!-- Category Image -->
+						
+							<ul class="cell_list">
+								<li><h2><a href="">Category1</a></h2></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+			
+							</ul><!-- cell_list -->
+					</div><!-- .cell -->
+					
+					<div class="cell">
+						<a href=""><img src="http://leihs.interaction-designer.ch/images/startscreen/foto.png" alt=""/></a> <!-- Category Image -->
+						
+							<ul class="cell_list">
+								<li><h2><a href="">Category1</a></h2></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								
+			
+							</ul><!-- cell_list -->
+					</div><!-- .cell -->
+					
+					<div class="cell_last">
+						<a href=""><img src="http://leihs.interaction-designer.ch/images/startscreen/stand.png" alt=""/></a> <!-- Category Image -->
+						
+							<ul class="cell_list">
+								<li><h2><a href="">Category1</a></h2></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+			
+							</ul><!-- cell_list -->
+					</div><!-- .cell -->
+					
+					<div class="clear"></div>
+					
+					</div><!-- .row -->	
+					
+					<div class="row">
+				
+					<div class="cell">
+						<a href=""><img src="http://leihs.interaction-designer.ch/images/startscreen/speaker.png" alt=""/></a> <!-- Category Image -->
+						
+							<ul class="cell_list">
+								<li><h2><a href="">Category1</a></h2></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+			
+							</ul><!-- cell_list -->
+					</div><!-- .cell -->
+					
+					<div class="cell">
+						<a href=""><img src="http://leihs.interaction-designer.ch/images/startscreen/camera.png" alt=""/></a> <!-- Category Image -->
+						
+							<ul class="cell_list">
+								<li><h2><a href="">Category1</a></h2></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+			
+							</ul><!-- cell_list -->
+					</div><!-- .cell -->
+					
+					<div class="cell">
+						<a href=""><img src="http://leihs.interaction-designer.ch/images/startscreen/foto.png" alt=""/></a> <!-- Category Image -->
+						
+							<ul class="cell_list">
+								<li><h2><a href="">Category1</a></h2></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+								
+			
+							</ul><!-- cell_list -->
+					</div><!-- .cell -->
+					
+					<div class="cell_last">
+						<a href=""><img src="http://leihs.interaction-designer.ch/images/startscreen/stand.png" alt=""/></a> <!-- Category Image -->
+						
+							<ul class="cell_list">
+								<li><h2><a href="">Category1</a></h2></li>
+								<li><a href="">SubCategory</a></li>
+								<li><a href="">SubCategory</a></li>
+			
+							</ul><!-- cell_list -->
+					</div><!-- .cell -->
+					
+					<div class="clear"></div>
+					
+					</div><!-- .row -->	
+					
+					
+				
+			</div><!-- inner -->
+		
+		<div class="footer">
+			<div class="borderleft"></div>
+			<div class="borderright"></div>
+		</div><!-- .footer -->
+		
+	</section><!-- #content -->
+
+<%= render :partial => '/layouts/frontend/00-patterns/basket' %>

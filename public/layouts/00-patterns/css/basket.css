@@ -1,0 +1,168 @@
+/* BASKET */
+#basket {
+  display: block;
+  float: right;
+  margin-right: 14px;
+  width: 198px;
+}
+
+/* BASKET HEADER */
+#basket .header {
+	background: url(../images/slices-h.png) repeat-x 0 -97px;
+	display: block;
+  	height: 12px;
+  	position: relative;
+}
+
+#basket .header .borderright {
+	background: url(../images/image-sprite.png) no-repeat -18px -14px;
+	display: block;
+	height: 12px;
+	right: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
+
+#basket .header .borderleft {
+	background: url(../images/image-sprite.png) no-repeat -25px -30px;
+	display: block;
+	height: 12px;
+	left: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
+
+/* BASKET INNER */
+#basket .inner {
+	background: #FFF;
+	border-left: 1px solid #c9c7c3;
+	border-right: 1px solid #c9c7c3;
+	display: block;
+	padding: 0 4px 0 9px;
+  	position: relative;
+}
+
+/* BASKET INNER TITLE */
+#basket .inner .title {
+	float: left;
+	font-size: 1.1em;
+}
+
+/* BASKET INNER EDIT */
+#basket .inner .edit {
+	color: #C0C0C0;
+	display: none;
+	float: right;
+	margin-right: 4px;
+}
+
+#basket:hover .inner .edit {
+	display: inline;
+}
+
+#basket .inner .edit:hover {
+	color: #515151;
+}
+
+/* BASKET INNER TABLE */
+#basket .inner table {
+	border-spacing: 0;
+	float: left;
+	table-layout: fixed;
+	top: 6px;
+	position: relative;
+	margin-bottom: 15px;
+	width: 100%;
+}
+
+#basket .inner table tr td {
+	padding: 1px 0;
+}
+
+#basket .inner table tr td a {
+	display: block;
+	padding: 3px 0;
+	width: 100%;
+}
+
+/* BASKET INNER TABLE AMOUNT */
+#basket .inner table tr .amount {
+	width: 20px;
+}
+
+#basket .inner table tr .amount a {
+	color: #727272;
+}
+
+#basket .inner table tr .amount a:hover, #basket .inner table tr:hover .amount a {
+	color: #515151;
+}
+
+/* BASKET INNER TABLE NAME */
+#basket .inner table tr .name {
+	overflow: hidden;
+	width: 130px;
+}
+
+#basket .inner table tr .name a {
+	color: #727272;
+	padding-left: 5px;
+}
+
+#basket .inner table tr .name a:hover, #basket .inner table tr:hover .name a {
+	color: #515151;
+}
+
+/* BASKET INNER TABLE DELETE */
+#basket .inner table tr .delete {
+	text-align: center;
+	padding-left: 5px;
+	width: 14px;
+}
+
+#basket .inner table tr .delete a {
+	color:#FFAAAA;
+}
+
+#basket .inner table tr .delete a:hover {
+	color:#FF0000;
+}
+
+/* BASKET INNER BUTTON */
+#basket .inner .button {
+	margin-right: 4px;
+	margin-bottom: -4px;
+	position: relative;
+	z-index: 2;
+}
+
+/* BASKET FOOTER */
+#basket .footer {
+	background: url(../images/slices-h.png) repeat-x 0 -110px;
+	display: block;
+  	height: 14px;
+  	position: relative;
+  	z-index: 1;
+}
+
+#basket .footer .borderright {
+	background: url(../images/image-sprite.png) no-repeat -25px -15px;
+	display: block;
+	height: 14px;
+	right: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
+
+#basket .footer .borderleft {
+	background: url(../images/image-sprite.png) no-repeat -25px 0;
+	display: block;
+	height: 14px;
+	left: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
