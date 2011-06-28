@@ -1,0 +1,95 @@
+html, body { 
+  margin: 0;
+  padding: 0;
+}
+
+html {
+	background: #f5f3ee;
+	color: #515151;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+	font-size: 62.5%;
+	letter-spacing: 0;
+	overflow-y: scroll;
+	padding-top: 22px;
+}
+
+* {
+	outline-width: 0px;
+	outline-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+a, a:link, a:visited {   
+	color: #6091d9;
+	text-decoration: none;
+}
+
+a:hover, a:active {
+	color: #1d62c9;
+	text-decoration: none;
+}
+
+img { 
+    border:none;
+}
+
+.clear {
+  	clear: both;
+}
+
+p {
+	font-size: 1.1em;
+}
+
+.subtitle {
+	font-size: 1.3em;
+}
+
+strong {
+	font-weight: bold;
+}
+
+h1 {
+	color: #2d2d2d;
+	font-size: 1.7em;
+	font-weight: normal;
+	margin-bottom: 5px;
+}
+
+h2 {
+	font-size: 1.5em;
+	font-weight: normal;
+}
+
+h3 {
+	font-size: 1.3em;
+	font-weight: normal;
+	margin-top: 1px;
+	margin-bottom: 9px;
+}
+
+.hr {
+	border : 0;
+	height : 15px;
+	background : url(../images/slices-h.png) repeat-x 0 -182px;
+	margin: 14px 0 0 0;
+}
+
+/* WRAPPER */
+.wrapper {
+ 	clear: both;
+ 	display: block;
+	margin: 0 auto;
+	min-width: 990px;
+	padding: 0;
+	position: relative;
+	width: 990px;
+}
+
+/* HEADER */
+#header {
+	display: block;
+}
+
+

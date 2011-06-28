@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<meta charset="utf-8">
+	<title>LEIHS 3.0</title>
+	
+	<%= stylesheet_link_tag "#{$layout_public_path}/css/global.css" %>
+	<%= stylesheet_link_tag "#{$layout_public_path}/css/topbar.css" %>
+	<%= stylesheet_link_tag "#{$layout_public_path}/css/tabs.css" %>
+	<%= stylesheet_link_tag "#{$layout_public_path}/css/search.css" %>
+	<%= stylesheet_link_tag "#{$layout_public_path}/css/navigation.css" %>
+	<%= stylesheet_link_tag "#{$layout_public_path}/css/content.css" %>
+	<%= stylesheet_link_tag "#{$layout_public_path}/css/basket.css" %>
+</head>
+<body>
+
+<header class="wrapper">
+	<%= render :partial => '/layouts/frontend/00-patterns/topbar' %>
+</header>
+
+<section id="main" class="wrapper">
+	<%= yield %>
+</section><!-- #main -->
+	
+</body>
+</html>
+

@@ -1,0 +1,93 @@
+/* BASKET */
+#basket {
+  display: block;
+  float: right;
+  margin-right: 14px;
+  width: 198px;
+}
+
+/* BASKET HEADER */
+#basket .header {
+	background: url(../images/slices-h.png) repeat-x 0 -97px;
+	display: block;
+  	height: 12px;
+  	position: relative;
+}
+
+#basket .header .borderright {
+	background: url(../images/image-sprite.png) no-repeat -18px -14px;
+	display: block;
+	height: 12px;
+	right: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
+
+#basket .header .borderleft {
+	background: url(../images/image-sprite.png) no-repeat -25px -30px;
+	display: block;
+	height: 12px;
+	left: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
+
+/* BASKET INNER */
+#basket .inner {
+	background: #FFF;
+	border-left: 1px solid #c9c7c3;
+	border-right: 1px solid #c9c7c3;
+	display: block;
+	padding: 2px 8px 2px 5px;
+  	position: relative;
+}
+
+#basket .inner strong {
+	float: left;
+	font-size: 1.1em;
+	padding-left: 5px;
+}
+
+#basket .inner .edit {
+	float: right;
+}
+
+/* BASKET INNER TABLE */
+#basket .inner table {
+	float: left;
+}
+
+#basket .inner table tr .amount {
+	padding-right: 2px;
+}
+
+
+/* BASKET FOOTER */
+#basket .footer {
+	background: url(../images/slices-h.png) repeat-x 0 -110px;
+	display: block;
+  	height: 14px;
+  	position: relative;
+}
+
+#basket .footer .borderright {
+	background: url(../images/image-sprite.png) no-repeat -25px -15px;
+	display: block;
+	height: 14px;
+	right: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
+
+#basket .footer .borderleft {
+	background: url(../images/image-sprite.png) no-repeat -25px 0;
+	display: block;
+	height: 14px;
+	left: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}

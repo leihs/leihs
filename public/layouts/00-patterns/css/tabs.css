@@ -1,39 +1,11 @@
-
-#meta-bestellung {
-	float: left;
-	width: 50%;
-}
-
-#meta-tabs {
-	float: left;
-	padding-left: 10%;
-	width: 40%;
-}
-
-#meta-tabs ul {
-	overflow: hidden;
-	background: transparent url(../images/bg-tabs.png) bottom left repeat-x;
-}
-
-#meta-tabs ul li a {
+/* TABS */
+#tabs {
 	display: block;
 	float: left;
-	margin-right: 0.5em;
-	border: 1px solid #b2b2b2;
-	padding: 0.25em 0.5em;
-	background: #e2e2e2;
-	color: #777;
-}
-
-#meta-tabs ul li.active a {
-	border-bottom: 1px solid white;
-	background: white;
-}
-
-#meta-tabs-content {
-	border: 1px solid #b2b2b2;
-	border-top: none;
-	padding: 1em;
-	height: 100px;
-	overflow: auto;
+	height: 34px;
+	left: 14px;
+	margin-bottom: -7px;
+	margin-top: 18px;
+	position: relative;
+	width: 785px;
 }

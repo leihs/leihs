@@ -1,0 +1,41 @@
+/* NAVIGATION */
+#navigation {
+	position: relative;
+	z-index: 2;
+}
+
+#navigation ul {
+	position: relative;
+}
+
+#navigation ul li {
+	display: inline;
+	position: relative;
+}
+
+/* NAVIGATION ITEM */
+#navigation .item {
+	display: inline-block;
+	font-size: 1.2em;
+	font-weight: bold;
+	position: relative;
+}
+
+#navigation .item .anchor {
+	background: url(../images/image-sprite.png) no-repeat right -91px;
+	color: #727272;
+	display: block;
+	padding: 7px 15px 0 15px;
+	position: relative;
+	height: 29px;
+}
+
+#navigation .item:hover .anchor {
+	background: url(../images/image-sprite.png) no-repeat right -128px;
+	color: #515151;
+}
+
+#navigation .active .anchor, #navigation .active:hover .anchor {
+	background: url(../images/image-sprite.png) no-repeat right -165px;
+	color: #515151;
+}

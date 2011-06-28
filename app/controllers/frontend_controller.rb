@@ -7,7 +7,7 @@ class FrontendController < ApplicationController
   before_filter :current_inventory_pools 
 
 
-  layout "frontend"
+  layout "frontend3"
 
   def index
     @user = current_user

@@ -1,0 +1,140 @@
+/* CONTENT */
+#content {
+  display: block;
+  float: left;
+  left: 14px;
+  position: relative;
+  width: 755px;
+}
+
+/* CONTENT HEADER */
+#content .header {
+	background: url(../images/slices-h.png) repeat-x 0 -97px;
+	display: block;
+  	height: 12px;
+  	position: relative;
+}
+
+#content .header .borderright {
+	background: url(../images/image-sprite.png) no-repeat -18px -14px;
+	display: block;
+	height: 12px;
+	right: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
+
+#content .header .borderleft {
+	background: url(../images/image-sprite.png) no-repeat -18px -27px;
+	display: block;
+	height: 12px;
+	left: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
+
+/* CONTENT INNER */
+#content .inner {
+	background: #FFF;
+	border-left: 1px solid #c9c7c3;
+	border-right: 1px solid #c9c7c3;
+	display: block;
+	padding: 11px 16px 16px 16px;
+  	position: relative;
+}
+
+#content .inner ul {
+	margin-top: 3px;
+	margin-bottom: 8px;
+}
+
+#content .inner ul li {
+	display: block;
+	margin-bottom: 8px;
+	padding-left: 8px;
+}
+	
+#content .inner p {
+	margin-bottom: 6px;
+}
+
+/* CONTENT INNER ROW */
+#content .inner .row {
+	clear: both;
+	padding-top: 20px;
+}
+
+#content .inner .row .cell {
+	width: 180px;
+	float: left;
+	margin-right: 9px; 
+}
+	
+#content .inner .row .cell img, #content .inner .row .cell_last img {
+	width: auto;
+	height: 80px;		
+}
+	
+#content .inner .row .cell_last {
+	float: left;
+}
+	
+	
+#content .inner .row .cell_list {
+	margin-right: 20px;
+	list-style-type: none;
+	padding-left: 20px;
+}
+	
+#content .inner .row .cell_list li {
+	padding-bottom: 5px;
+	padding-left: 0;
+}
+	
+#content .inner .row .cell_list h2 a, #content .inner .row .cell_list h2 a:link, #content .inner .row .cell_list h2 a:visited {
+	color:#2D2D2D;
+}
+	
+#content .inner .row .cell_list h2 a:hover {
+	color:#999999;
+}
+	
+#content .inner .row .cell_list a, #content .inner .row .cell_list a:link, #content .inner .row .cell_list a:visited {   
+	color:#999999;
+	text-decoration: none;
+}
+
+#content .inner .row .cell_list a:hover {
+	color: #1d62c9;
+	text-decoration: none;
+}
+
+/* CONTENT FOOTER */
+#content .footer {
+	background: url(../images/slices-h.png) repeat-x 0 -110px;
+	display: block;
+  	height: 14px;
+  	position: relative;
+}
+
+#content .footer .borderright {
+	background: url(../images/image-sprite.png) no-repeat -25px -15px;
+	display: block;
+	height: 14px;
+	right: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
+
+#content .footer .borderleft {
+	background: url(../images/image-sprite.png) no-repeat -25px 0;
+	display: block;
+	height: 14px;
+	left: 0;
+	position: absolute; 
+	top: 0;
+	width: 6px;
+}
