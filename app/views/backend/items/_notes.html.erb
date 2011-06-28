@@ -11,7 +11,7 @@
 
 <div id="notes" style="background-image: url('/images/notes.png') ">
 	<% if notes.size > 0 %>
-		<%= link_to_remote notes.size, :update => 'history', :url => {:action => 'get_notes'}, :complete => "document.getElementById('notes_text').style.display ='inline';" %>
+		<%= link_to notes.size, :update => 'history', :url => {:action => 'get_notes'}, :complete => "document.getElementById('notes_text').style.display ='inline';", :remote => true %>
 	<% else %>
 		0
 	<% end %>
