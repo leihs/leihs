@@ -6,7 +6,7 @@
   margin: 0 auto;
   position: relative;
   width: 950px;
-  z-index: 1;
+  z-index: 999;
 }
 
 #topbar .borderleft {
@@ -78,7 +78,6 @@
 	height: 45px;
 	left: 4px;
 	position: relative;
-	z-index: 1;
 }
 
 #topbar .navigation .item .anchor {
@@ -104,6 +103,7 @@
 	max-width: 197px;
 	position: absolute;
 	top: 43px;
+	z-index: 999;
 }
 
 #topbar .navigation .item:hover .hover {
