@@ -8,9 +8,9 @@
     %br
     %br/
     .buttons
-      = submit_button(_("Save + Approve"), {:icon => "door", :class => 'positive'} )
+      != submit_button(_("Save + Approve"), {:icon => "door", :class => 'positive'} )
       
-      = cancel_popup_button(_("Cancel") )
+      != cancel_popup_button(_("Cancel") )
   
 - else
   
@@ -18,4 +18,4 @@
   %h2= _("This order is not yet approvable")
   %br
   .buttons
-    = cancel_popup_button(_("Close") )
+    != cancel_popup_button(_("Close") )

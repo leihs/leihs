@@ -115,7 +115,7 @@ class Document < ActiveRecord::Base
   end
   
   def has_changes?
-    history = histories.where(:order => 'created_at DESC, id DESC').first
+    history = histories.order('created_at DESC, id DESC').first
     history.nil? ? false : history.type_const == History::CHANGE
   end
   #

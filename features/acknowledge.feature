@@ -40,11 +40,12 @@ Scenario: Acknowledge order
 	 When I go to the backend
 	  And I follow "Acknowledge"
 	Then I see 1 order
-	When I choose Joe's order
+	When I choose to process Joe's order
 	Then Joe's order is shown
-	 And lending_manager can "Save + Approve"
-	 And lending_manager can "Reject Order"
-	When lending_manager approves order
+	 And I should see "Save + Approve"
+	 And I should see "Reject Order"
+	When I click "Save + Approve"
+	Then show me the page
 	Then joe@test.ch receives an email
 	 And its subject is '[leihs] Reservation Confirmation'
 	 And it contains information '5 NEC 245'

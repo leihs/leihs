@@ -75,6 +75,16 @@ When "$who chooses one order" do | who |
   @order = assigns(:order)
 end
 
+When "I choose to process $who's order" do | who |
+  el = page.find(:xpath, "//tr[contains(.,'#{who}')]")
+  el.click_link("View and edit")
+end
+
+Then "$name's order is shown" do |who|
+  # body =~ /.*Order.*Joe.*/
+  page.should have_xpath("//body[contains(.,'#{who}')][contains(.,'Order')]")
+end
+
 ###############################################
 
 # TODO test as Given 
@@ -88,18 +98,17 @@ When "$who asks for $quantity '$what' from $from" do | who, quantity, what, from
 end
 
 
-When "$who approves order" do |who|
-  @comment ||= ""
-  @order.approvable?.should be_true
-#0402  post "/session", :login => @last_manager_login_name #new#
-  post approve_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :comment => @comment)
-  @order = assigns(:order)
-  @order.should_not be_nil
-  @order.approvable?.should be_false
-  response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
-  @response = response
-end
-
+#When "$who approves order" do |who|
+#  @comment ||= ""
+#  @order.approvable?.should be_true
+##0402  post "/session", :login => @last_manager_login_name #new#
+#  post approve_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :comment => @comment)
+#  @order = assigns(:order)
+#  @order.should_not be_nil
+#  @order.approvable?.should be_false
+#  response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
+#  @response = response
+#end
 
 When "$who rejects order" do |who|
   @comment ||= ""
