@@ -96,6 +96,9 @@
 
 #basket .button {
 	margin-right: 4px;
+	margin-bottom: -4px;
+	position: relative;
+	z-index: 2;
 }
 
 
@@ -105,6 +108,7 @@
 	display: block;
   	height: 14px;
   	position: relative;
+  	z-index: 1;
 }
 
 #basket .footer .borderright {
