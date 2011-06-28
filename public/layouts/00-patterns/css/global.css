@@ -92,4 +92,25 @@ h3 {
 	display: block;
 }
 
+/* BUTTON */
+.button {
+	font-size: 1.2em;
+	font-weight: bold;
+	height: 31px;
+	text-align: center;
+}
 
+.button a {
+	color: #515151;
+	display: block;
+	height: 25px;
+	padding-top: 7px;
+}
+
+.button.green {
+	background: url(../images/image-sprite.png) no-repeat 0 -202px;
+}
+
+.button.green a {
+	background: url(../images/image-sprite.png) no-repeat right -234px;
+}

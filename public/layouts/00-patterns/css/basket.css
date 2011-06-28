@@ -40,27 +40,62 @@
 	border-left: 1px solid #c9c7c3;
 	border-right: 1px solid #c9c7c3;
 	display: block;
-	padding: 2px 8px 2px 5px;
+	padding: 0 4px 0 9px;
   	position: relative;
 }
 
-#basket .inner strong {
+#basket .inner .title {
 	float: left;
 	font-size: 1.1em;
-	padding-left: 5px;
 }
 
 #basket .inner .edit {
 	float: right;
+	margin-right: 4px;
 }
 
 /* BASKET INNER TABLE */
 #basket .inner table {
+	border-spacing: 0;
 	float: left;
+	table-layout: fixed;
+	top: 6px;
+	position: relative;
+	margin-bottom: 15px;
+	width: 100%;
+}
+
+#basket .inner table tr td {
+	padding: 1px 0;
+}
+
+#basket .inner table tr td a {
+	display: block;
+	padding: 3px 0;
+	width: 100%;
 }
 
 #basket .inner table tr .amount {
-	padding-right: 2px;
+	width: 20px;
+}
+
+#basket .inner table tr .name {
+	overflow: hidden;
+	width: 130px;
+}
+
+#basket .inner table tr .name a {
+	padding-left: 5px;
+}
+
+#basket .inner table tr .delete {
+	text-align: center;
+	padding-left: 5px;
+	width: 14px;
+}
+
+#basket .button {
+	margin-right: 4px;
 }
 
 
