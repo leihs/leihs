@@ -91,9 +91,18 @@
 	top: 2px;
 }
 
+#topbar .navigation .last .anchor {
+	margin-right: -2px;
+	z-index: 999;
+}
+
 #topbar .navigation .item:hover .anchor {
 	background: url(../images/slices-h.png) repeat-x 0 -46px;
 	color: #515151;
+}
+
+#topbar .navigation .last:hover .anchor {
+	background: url(../images/image-sprite.png) no-repeat right -268px;
 }
 
 /* TOPBAR NAVIGATION HOVER */
@@ -190,8 +199,5 @@
 	position: absolute;
 	top: 0;
 	width: 5px;
+	z-index: 1;
 }
-
-
-
-
