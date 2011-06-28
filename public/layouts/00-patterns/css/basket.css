@@ -44,14 +44,26 @@
   	position: relative;
 }
 
+/* BASKET INNER TITLE */
 #basket .inner .title {
 	float: left;
 	font-size: 1.1em;
 }
 
+/* BASKET INNER EDIT */
 #basket .inner .edit {
+	color: #C0C0C0;
+	display: none;
 	float: right;
 	margin-right: 4px;
+}
+
+#basket:hover .inner .edit {
+	display: inline;
+}
+
+#basket .inner .edit:hover {
+	color: #515151;
 }
 
 /* BASKET INNER TABLE */
@@ -75,32 +87,56 @@
 	width: 100%;
 }
 
+/* BASKET INNER TABLE AMOUNT */
 #basket .inner table tr .amount {
 	width: 20px;
 }
 
+#basket .inner table tr .amount a {
+	color: #727272;
+}
+
+#basket .inner table tr .amount a:hover, #basket .inner table tr:hover .amount a {
+	color: #515151;
+}
+
+/* BASKET INNER TABLE NAME */
 #basket .inner table tr .name {
 	overflow: hidden;
 	width: 130px;
 }
 
 #basket .inner table tr .name a {
+	color: #727272;
 	padding-left: 5px;
 }
 
+#basket .inner table tr .name a:hover, #basket .inner table tr:hover .name a {
+	color: #515151;
+}
+
+/* BASKET INNER TABLE DELETE */
 #basket .inner table tr .delete {
 	text-align: center;
 	padding-left: 5px;
 	width: 14px;
 }
 
-#basket .button {
+#basket .inner table tr .delete a {
+	color:#FFAAAA;
+}
+
+#basket .inner table tr .delete a:hover {
+	color:#FF0000;
+}
+
+/* BASKET INNER BUTTON */
+#basket .inner .button {
 	margin-right: 4px;
 	margin-bottom: -4px;
 	position: relative;
 	z-index: 2;
 }
-
 
 /* BASKET FOOTER */
 #basket .footer {
