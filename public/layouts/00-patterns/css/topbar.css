@@ -105,7 +105,28 @@
 	background: url(../images/image-sprite.png) no-repeat right -268px;
 }
 
-/* TOPBAR NAVIGATION HOVER */
+/* TOPBAR NAVIGATION LANGUAGE (ITEM) */
+#topbar .navigation .language .anchor {
+	padding-right: 33px;
+}
+
+/* TOPBAR NAVIGATION ITEM SPEECHBUBBLE */
+#topbar .navigation .item .speechbubble {
+	background: url(../images/image-sprite.png) no-repeat -83px 0;
+	display: block;
+	height: 14px;
+	position: absolute;
+	top: 9px;
+	right: 12px;
+	width: 18px;
+}
+
+#topbar .navigation .item:hover .speechbubble {
+	background: url(../images/image-sprite.png) no-repeat -83px -15px;
+}
+
+
+/* TOPBAR NAVIGATION ITEM HOVER */
 #topbar .navigation .item .hover {
 	display: none;
 	left: -1px;
@@ -119,7 +140,7 @@
 	display: block;
 }
 
-/* TOPBAR NAVIGATION HOVER INNER */
+/* TOPBAR NAVIGATION ITEM HOVER INNER */
 #topbar .navigation .item .hover .inner {
 	background: #FFF;
 	height: 100%;
@@ -149,7 +170,7 @@
 	width: 5px;
 }
 
-/* TOPBAR NAVIGATION HOVER HEADER */
+/* TOPBAR NAVIGATION ITEM HOVER HEADER */
 #topbar .navigation .item .header {
 	background: url(../images/slices-h.png) repeat-x 0 -94px;
 	height: 2px;
@@ -175,7 +196,7 @@
 	width: 5px;
 }
 
-/* TOPBAR NAVIGATION HOVER FOOTER */
+/* TOPBAR NAVIGATION ITEM HOVER FOOTER */
 #topbar .navigation .item .footer {
 	background: url(../images/slices-h.png) repeat-x 0 -87px;
 	height: 6px;
