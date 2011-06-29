@@ -9,7 +9,7 @@
 			<ul>
 				<li class="seperator"></li>
 				
-				<li class="item"><a href="#" class="anchor"><%= _("Profile") %></a>
+				<li class="item"><a href="#" title="<%= _('Profile') %>" class="anchor">Max Mustermann</a>
 				  <div class="hover">
 				       		<div class="header">
 				       			<div class="borderleft"></div>
@@ -17,7 +17,38 @@
 				       		</div><!-- .footer -->
 				       		<div class="inner">
 				       			<div class="borderleft"></div>
-				       			<strong><%= _("Profile Information") %> <%= _("Admin") %></strong><p><br>Unique-ID     e170371|zhdk<br>E-Mail     max.mustermann@zhdk.ch<br>Telefon     0800 800 800</p>
+				       			
+				       			<strong class="floatleft"><%= _("Profile Information") %></strong>
+				       			<a href="#" class="floatright"><%= _("edit") %></a>
+				       			
+				       			<div class="clear"></div>
+				       			
+				       			<table>
+				       				<tr>
+				       					<td>Unique-ID</td>
+				       					<td>e170371|zhdk</td>
+				       				</tr>
+				       				<tr>
+				       					<td>E-Mail</td>
+				       					<td>max.mustermann@zhdk.ch</td>
+				       				</tr>					       			
+				       			</table>
+				       			
+				       			<p>Unique-ID     <br>    <br>Telefon     0800 800 800</p>
+				       			
+				       			<div class="hr"></div>
+				       			
+				       			<strong><%= _("Inventory Pools") %></strong>
+				       			<p><a href="#"><%= _("AV-Ausleihe") %></a>, <a href="#"><%= _("ITZ-Ausleihe") %></a></p>
+				       			<div class="hr"></div>
+				       			<strong><%= _("Templates") %></strong>
+				       			<p><a href="#"><%= _("Filmprojekt") %></a></p>
+				       			<p><a href="#"><%= _("Sommerkurs") %></a></p>
+				       			<div class="hr"></div>
+				       			<strong><%= _("Outstanding Reservations") %></strong>
+				       			<p>14.04.11-16.04.11  <a href="#"><%= _("2 Geräte") %></a></p>
+				       			<p>14.04.11-16.04.11  <a href="#"><%= _("2 Geräte") %></a></p>
+				       			
 				       			<div class="borderright"></div>
 				       		</div><!-- .inner -->
 				       		<div class="footer">
@@ -44,9 +75,9 @@
 				       			<div class="borderleft"></div>
 				       			
 				       			<ul>
-				                   <li><a href="#"><%= _("English") %></a></li>
-				                   <li><a href="#"><%= _("Castellan") %></a></li>
-				                   <li><a href="#"><%= _("Zurich Slang") %></a></li>
+				                   <li><a href="#"><%= _("English") %><br></a></li>
+				                   <li><a href="#"><%= _("Castellan") %><br></a></li>
+				                   <li><a href="#"><%= _("Zurich Slang") %><br></a></li>
 				               	</ul>
 				       			
 				       			<div class="borderright"></div>
@@ -71,8 +102,8 @@
 				       			
 				       			<div class="inner">
 					       			<ul>
-						               <li><strong>AV-Ausleihe</strong><p>Opening Times<br>Monday to Friday 8:30-9:30 and 12:30-16:30<br>Zurich School of Arts<br>Room K11<br>Austellungsstrasse 60<br>CH- 8005 Zurich<br>Tel: +41 43 446 44 45<br>Email: mailto:ausleihe.pz@zhdk.ch</p><hr/></li>
-						               <li><strong>ITZ-Ausleihe</strong><p>Opening Times<br>Monday to Friday 12-18:00<br>Zurich School of Arts<br>IT Center (Room SQ3)<br>Austellungstrasse 60<br>Postfact CH-8031 Zurich<br>Tel: +41 43 446 21 21<br>Email: mailto:itz@zhdk.ch</p></li>
+						               <li><strong>AV-Ausleihe</strong><p>Opening Times<br>Monday to Friday 8:30-9:30 and 12:30-16:30<br>Zurich School of Arts<br>Room K11<br>Ausstellungsstrasse 60<br>CH-8005 Zurich<br>Tel: +41 43 446 44 45<br>Email: mailto:ausleihe.pz@zhdk.ch</p><hr/></li>
+						               <li><strong>ITZ-Ausleihe</strong><p>Opening Times<br>Monday to Friday 12:00-18:00<br>Zurich School of Arts<br>IT Center (Room SQ3)<br>Ausstellungstrasse 60<br>Postfach<br>CH-8031 Zurich<br>Tel: +41 43 446 21 21<br>Email: mailto:itz@zhdk.ch</p></li>
 						           	</ul>
 						        </div>
 				       			
