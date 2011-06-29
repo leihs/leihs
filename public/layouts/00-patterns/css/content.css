@@ -90,11 +90,11 @@
 }
 	
 #content .inner .row .cell ul li {
-	margin-bottom: 0px;
+	margin-bottom: 6px;
 }
 	
 #content .inner .row .cell_list li h2{
-	padding: 0px 0px 10px 0px;
+	padding: 0px 0px 2px 0px;
 }
 		
 #content .inner .row .cell_list h2 a, #content .inner .row .cell_list h2 a:link, #content .inner .row .cell_list h2 a:visited {
@@ -106,7 +106,7 @@
 }
 	
 #content .inner .row .cell_list a, #content .inner .row .cell_list a:link, #content .inner .row .cell_list a:visited {   
-	color:#c0c0c0;
+	color:#999999;
 	text-decoration: none;
 }
 
