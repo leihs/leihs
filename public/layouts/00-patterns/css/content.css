@@ -41,7 +41,7 @@
 	border-left: 1px solid #c9c7c3;
 	border-right: 1px solid #c9c7c3;
 	display: block;
-	padding: 11px 16px 16px 16px;
+	padding: 18px 16px 16px 16px;
   	position: relative;
 }
 
@@ -52,7 +52,7 @@
 /* CONTENT INNER ROW */
 #content .inner .row {
 	clear: both;
-	padding: 2px 0px 6px 0px;
+	padding: 2px 0px 19px 0px;
 }
 
 /* CONTENT INNER ROW CELL*/
@@ -67,12 +67,10 @@
 }
 */
 
-#content .inner .row .cell a img{
+#content .inner .row .cell a img {
 	height: 80px;	
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	padding-right: 20px;
+	margin-left: 10px;
 	padding-bottom: 15px;
 }
 
