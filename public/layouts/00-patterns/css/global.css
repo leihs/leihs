@@ -85,6 +85,14 @@ h3 {
 	margin: 14px 0 0 0;
 }
 
+.floatright {
+	float: right;
+}
+
+.floatleft {
+	float: left;
+}
+
 /* WRAPPER */
 .wrapper {
  	clear: both;
