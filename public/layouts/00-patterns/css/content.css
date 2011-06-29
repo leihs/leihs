@@ -45,16 +45,6 @@
   	position: relative;
 }
 
-#content .inner ul {
-	margin-top: 3px;
-}
-
-#content .inner ul li {
-	display: block;
-	margin-bottom: 6px; 
-	padding-left: 8px;
-}
-	
 #content .inner p {
 	margin-bottom: 6px;
 }
@@ -83,11 +73,14 @@
 /* CONTENT INNER ROW CELL UL */
 #content .inner .row .cell ul {
 	margin-right: 20px;
+	margin-top: 5px;
 	list-style-type: none;
 }
 
 #content .inner .row .cell ul li {
+	display: block;
 	margin-bottom: 6px;
+	padding-left: 8px;
 }
 
 #content .inner .row .cell ul li a, #content .inner .row .cell ul li a:link, #content .inner .row .cell ul li a:visited {

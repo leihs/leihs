@@ -1,11 +1,20 @@
-/* CATEGORYLIST */
-#categorylist {
+/* CATEGORIES */
+#categories {
 	border-right: 1px solid #f0f0f0;
 	left: -7px;
 	padding-top: 30px;
 	position: relative;
 	top: -23px;
 	width: 175px;
+}
+
+#categories li ul li a, #categories li ul li a:link, #categories li ul li a:visited {
+	font-size: 1.2em;
+	color:#999999;
+}
+
+#categories li ul li a:hover, #categories li ul li a:active {
+	color: #515151;
 }
 
 /* TOPFILTER */
