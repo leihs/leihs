@@ -130,6 +130,7 @@
 #topbar .navigation .item .hover {
 	display: none;
 	left: -1px;
+	line-height: 1.5em;
 	max-width: 200px;
 	position: absolute;
 	top: 43px;
@@ -144,16 +145,32 @@
 #topbar .navigation .item .hover .inner {
 	background: #FFF;
 	height: 100%;
-	line-height: 2em;
 	padding: 9px 11px 11px 10px;
 	position: relative;
-	white-space: nowrap;
-
 }
 
 #topbar .navigation .item .hover .inner strong {
+	display: block;
 	font-size: 1.1em;
+	padding-bottom: 4px;
 	white-space: nowrap;
+}
+
+#topbar .navigation .item .hover .inner p {
+	max-width: 180px;
+	overflow: hidden;
+}
+
+
+/* TOPBAR NAVIGATION ITEMS (SEPERATED) */
+#topbar .navigation .item .profile {
+	width: 200px;
+}
+
+#topbar .navigation .item .profile .edit {
+	position: absolute;
+	right: 9px;
+	top: 9px;
 }
 
 #topbar .navigation .item .hover .inner .borderleft {
@@ -172,14 +189,6 @@
 	position: absolute;
 	top: 0;
 	width: 5px;
-}
-
-#topbar .navigation .item .hover .inner table {
-	width: 100px;
-}
-
-#topbar .navigation .item .hover .inner table tr td {
-	padding-right: 10px;
 }
 
 /* TOPBAR NAVIGATION ITEM HOVER HEADER */
@@ -233,13 +242,4 @@
 	top: 0;
 	width: 5px;
 	z-index: 1;
-}
-
-/* TOPBAR NAVIGATION ITEM HOVER LANGUAGE */
-
-#topbar .navigation .item .hover .language {
-	line-height: 1.4em;
-	text-align: left;
-	white-space: normal;
-	
 }
