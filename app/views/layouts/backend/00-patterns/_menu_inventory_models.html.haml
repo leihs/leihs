@@ -1,0 +1,10 @@
+%li
+  = link_to icon_tag("package") + " " + _('All Models') + " (#{Model.count})", backend_inventory_pool_models_path(:filter => 'all')
+  - if controller.controller_name == "models"
+    %ul
+      %li
+        = link_to _('Own Models') + " (#{current_inventory_pool.own_models_active.count})", backend_inventory_pool_models_path(:filter => 'own')
+
+%li
+  = link_to icon_tag("box") + " " + _('Own Packages') + " (#{current_inventory_pool.own_models_active.packages.count})", backend_inventory_pool_models_path(current_inventory_pool, :filter => 'own', :packages => true)
+  -#OPTIMIZE 0501 search_count
