@@ -58,8 +58,17 @@ h1 {
 }
 
 h2 {
-	font-size: 1.5em;
+	font-size: 1.7em;
 	font-weight: normal;
+	margin-bottom: 2px;
+}
+
+h2 a, h2 a:link, h2 a:visited {
+	color: #717171;
+}
+
+h2 a:hover, h2 a:active {
+	color: #515151;
 }
 
 h3 {

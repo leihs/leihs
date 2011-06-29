@@ -53,7 +53,6 @@
 	display: block;
 	margin-bottom: 6px; 
 	padding-left: 8px;
-	font-size: 1.2em;
 }
 	
 #content .inner p {
@@ -66,11 +65,10 @@
 	padding-top: 2px;
 }
 
+/* CONTENT INNER ROW CELL*/
 #content .inner .row .cell {
-	width: 180px;
 	float: left;
-	/* margin-right: 9px; */
-	/* text-align: center; */
+	width: 180px;
 }	
 
 #content .inner .row .cell img {
@@ -78,41 +76,27 @@
 	
 }
 
-#content .inner .row .cell .last {
-	float: left;
-	width: 180px;
-} 
-	
-#content .inner .row .cell_list {
+#content .inner .row .cell h2 {
+	padding-left: 8px;
+}
+
+/* CONTENT INNER ROW CELL UL */
+#content .inner .row .cell ul {
 	margin-right: 20px;
 	list-style-type: none;
-	/*padding-left: 20px;*/
 }
-	
+
 #content .inner .row .cell ul li {
 	margin-bottom: 6px;
 }
-	
-#content .inner .row .cell_list li h2{
-	padding: 0px 0px 2px 0px;
-}
-		
-#content .inner .row .cell_list h2 a, #content .inner .row .cell_list h2 a:link, #content .inner .row .cell_list h2 a:visited {
-	color:#727272;
-}
-	
-#content .inner .row .cell_list h2 a:hover {
-	color:#515151;
-}
-	
-#content .inner .row .cell_list a, #content .inner .row .cell_list a:link, #content .inner .row .cell_list a:visited {   
+
+#content .inner .row .cell ul li a, #content .inner .row .cell ul li a:link, #content .inner .row .cell ul li a:visited {
+	font-size: 1.2em;
 	color:#999999;
-	text-decoration: none;
 }
 
-#content .inner .row .cell_list a:hover {
+#content .inner .row .cell ul li a:hover, #content .inner .row .cell ul li a:active {
 	color: #515151;
-	text-decoration: none;
 }
 
 #content .inner .row .cell:hover h2 a {

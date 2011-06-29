@@ -1,0 +1,31 @@
+/* CATEGORYLIST */
+#categorylist {
+	border-right: 1px solid #f0f0f0;
+	left: -7px;
+	padding-top: 30px;
+	position: relative;
+	top: -23px;
+	width: 175px;
+}
+
+/* TOPFILTER */
+#topfilter {
+	border-bottom: 1px solid #e3e3e3;
+	height: 38px;
+	position: absolute;
+	top: -10px;
+	right: 1px;
+	width: 566px;
+}
+
+/* TOPFILTER SORT */
+#topfilter .sort {
+	float: right;
+	position: relative;
+	top: 10px;
+}
+
+#topfilter .sort select {
+	border: 0;
+	padding: 4px 4px 2px 4px;
+}

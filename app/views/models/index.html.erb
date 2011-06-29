@@ -1,1 +1,71 @@
-MODELS
+
+	<%= render :partial => '/layouts/frontend/00-patterns/tabs' %>
+	
+	<section id="content" class="box">
+		
+		<div class="header">
+			<div class="borderleft"></div>
+			<div class="borderright"></div>
+		</div><!-- .header -->
+		
+		<div class="inner">
+			
+					<ul id="categorylist">
+						<li><h2><a href="#" title="">Analog/Digital Schnittstellen</a></h2>
+							<ul>
+								<li><a href="" title="">Audio Interface</a></li>	
+							</ul>
+						</li>
+						<li><h2><a href="#" title="">Analoge Peripheriegeräte</a></h2>
+							<ul>
+								<li><a href="" title="">Analog Converter/Weiche etc.</a></li>	
+							</ul>
+						</li>
+						<li><h2><a href="#" title="">Audio Anlagen</a></h2>
+							<ul>
+								<li><a href="" title="">Einfache Lautsprecher Anlagen</a></li>	
+								<li><a href="" title="">PA</li>		
+							</ul>
+						</li>
+						<li><h2><a href="#" title="">Recorder/Player</a></h2>
+							<ul>
+								<li><a href="" title="">Nichtportable Audio Recorder/Player</a></li>	
+								<li><a href="" title="">Portable Audio Recorder/Player</a></li>			
+							</ul>
+						</li>
+						<li><h2><a href="#" title="">Kopfhörer</a></h2>
+							<ul>
+								<li><a href="" title="">Studiokopfhörer</a></li>	
+								<li><a href="" title="">Kopfhörer Broadcast</a></li>
+								<li><a href="" title="">Kopfhörer für Ausstellungen</a></li>
+								<li><a href="" title="">Kopfhörerverstärker</a></li>				
+							</ul>
+						</li>
+						<li><h2><a href="#" title="">Lautsprecher</a></h2>
+							<ul>
+								<li><a href="" title="">Lautsprecher Aktiv</a></li>	
+								<li><a href="" title="">Lautsprecher Passiv</a></li>			
+							</ul>
+						</li>
+					</ul><!-- category list -->
+					
+					<section id="topfilter">
+							<form class="sort" action="">
+								<select name="sort">
+									<option value="productname-a-z"><%= _("Productname (A-Z)") %></option>
+									<option value="productname-z-a"><%= _("Productname (Z-A)") %></option>
+									<option value="manufactor-a-z"><%= _("Manufactor (A-Z)") %></option>
+									<option value="manufactor-z-a"><%= _("Manufactor (Z-A)") %></option>
+								</select>
+							</form><!-- sort -->
+					</section><!-- #topfilter -->
+		</div><!-- inner -->
+		
+		<div class="footer">
+			<div class="borderleft"></div>
+			<div class="borderright"></div>
+		</div><!-- .footer -->
+		
+	</section><!-- #content -->
+
+<%= render :partial => '/layouts/frontend/00-patterns/basket' %>
