@@ -2,9 +2,10 @@ class UsersController < FrontendController
 
   before_filter :pre_load
 
-  def show
-    render :layout => false
+  def edit
+    @user = User.find(params[:id])
   end
+  
 
 ########################################################################  
 
