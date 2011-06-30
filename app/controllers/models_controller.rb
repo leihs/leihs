@@ -10,7 +10,7 @@ class ModelsController < FrontendController
              sort_mode = params[:dir] || 'ASC' ) # OPTIMIZE 0501
     
     sort_mode = sort_mode.downcase.to_sym # OPTIMIZE 0501
-
+    
     #1402 TODO refactor to User#accessible_models(current_inventory_pools)
     model_ids = Model.all(:select => "DISTINCT models.id",
                           :joins => [:items, :partitions],
@@ -106,6 +106,7 @@ class ModelsController < FrontendController
 
   def index
     # get models here, scope by category (categories/2/models...)
+    @user = current_user
   end
 
   def chart
