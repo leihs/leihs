@@ -165,13 +165,16 @@ module ApplicationHelper
 
 
   ######## User-related methods ###########
-  def profile_block(user)
-    address = "#{user.name}"
-    address += "<br>#{user.address}" unless user.address.blank?
-    address += "<br>#{user.zip} #{user.city}" unless (user.zip.blank? and user.city.blank?)
-    address += "<br>#{user.country}" unless user.country.blank?
-    address += "<br>#{user.phone}" unless user.phone.blank?
-    address += "<br>#{user.email}" unless user.email.blank?
+  def address_block(user)
+    address = ""
+    address += "#{user.address}<br>" unless user.address.blank?
+    address += "#{user.zip} #{user.city}<br>" unless (user.zip.blank? and user.city.blank?)
+  end
+  
+  def contact_block(user)
+    contact = ""
+    contact += "#{user.phone}<br>" unless user.phone.blank?
+    contact += "#{user.email}<br>" unless user.email.blank?
   end
 
   ######## Tabs #########

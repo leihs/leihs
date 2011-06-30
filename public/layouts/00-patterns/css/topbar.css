@@ -162,15 +162,33 @@
 }
 
 
-/* TOPBAR NAVIGATION ITEMS (SEPERATED) */
+/* TOPBAR NAVIGATION ITEMS (SEPARATED) PROFILE */
+
 #topbar .navigation .item .profile {
 	width: 200px;
 }
 
+/* TOPBAR NAVIGATION ITEMS (SEPARATED) PROFILE EDIT */
+
 #topbar .navigation .item .profile .edit {
 	position: absolute;
-	right: 9px;
-	top: 9px;
+	right: 0;
+}
+
+#topbar .navigation .item .profile .address, #topbar .navigation .item .profile .contact {
+	position: relative;
+}
+
+/* TOPBAR NAVIGATION ITEMS (SEPARATED) LANGUAGE */
+
+#topbar .navigation .item .language {
+	width: 109px;
+}
+
+/* TOPBAR NAVIGATION ITEMS (SEPARATED) CONTACT */
+
+#topbar .navigation .item .contact {
+	width: 180px;
 }
 
 #topbar .navigation .item .hover .inner .borderleft {
