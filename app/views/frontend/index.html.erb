@@ -9,19 +9,37 @@
 		</div><!-- .header -->
 		
 		<div class="inner">
-				<h1><%= _("Welcome") %> Max Mustermann</h1>
+				<h1><%= _("Welcome") %> <%= @user.name %></h1>
 				<p class="subtitle"><%= _("You have access to the following Equipment Parks") %>: <a href="">AV-Ausleihe</a>, <a href="">ITZ-Ausleihe</a></p><!-- .subtitle -->
 				
 				<div class="hr"></div>
 				
 				<h3><%= _("Rented Equipment") %></h3>
-				<ul>
-					<li>Example Object 1 <a href=""><%= _("Extend") %></a></li>
-					<li>Example Object 2 <a href=""><%= _("Extend") %></a></li>
-					<li>Example Object 3 <a href=""><%= _("Extend") %></a></li>
-				</ul>
 				
-				<div class="hr"></div>
+				<table class="grey">
+					<tr> 
+						<td><a href=""><strong>"Project Typography bei Barmett..." </strong></a>&nbsp;</td>
+						<td>Digital Recorder Zo...</td>
+						<td>GP Akkubatterie AA ...</td>
+						<td>GP PowerBank Akkula...</td>
+						<td><a href=""><%= _("Extend") %></a></td>
+
+
+					<tr>
+						<td><a href=""><strong>"Fotoproject bei Hans Rudolf Me..." </strong></a>&nbsp;</td>
+						<td>Beamerhalterung Ma...</td>
+						<td>Beamer Acer P527W</td>
+						<td>Medienwagen (TV-Ge...</td>						
+						<td><a href=""><%= _("Extend") %></a></td>
+					<tr>
+						<td><a href=""><strong>"Video Camera fuer Siebdruck K..." </strong></a>&nbsp;</td>
+						<td>C-Stand Lichtstat...</td>
+						<td>Handleuchte Lowel...</td>
+						<td>Lichtstativ Lowel...</td>
+						<td><a href=""><%= _("Extend") %></a></td>
+				</table>
+				
+				<div class="hr itemspace"></div>
 				
 				<div class="row">
 				
