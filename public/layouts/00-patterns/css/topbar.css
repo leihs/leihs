@@ -168,10 +168,15 @@
 	width: 200px;
 }
 
+/* TOPBAR NAVIGATION ITEMS (SEPARATED) PROFILE EDIT */
+
 #topbar .navigation .item .profile .edit {
 	position: absolute;
-	right: 9px;
-	top: 9px;
+	right: 0;
+}
+
+#topbar .navigation .item .profile .address, #topbar .navigation .item .profile .contact {
+	position: relative;
 }
 
 /* TOPBAR NAVIGATION ITEMS (SEPARATED) LANGUAGE */
@@ -185,9 +190,6 @@
 #topbar .navigation .item .contact {
 	width: 180px;
 }
-
-
-
 
 #topbar .navigation .item .hover .inner .borderleft {
 	background: url(../images/slices-v.png) repeat-y 0px 0px;
