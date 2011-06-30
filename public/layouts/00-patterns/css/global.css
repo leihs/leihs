@@ -78,6 +78,10 @@ h3 {
 	margin-bottom: 9px;
 }
 
+ul {
+	list-style-type: none;	
+}
+
 .hr {
 	border : 0;
 	height : 15px;
@@ -130,4 +134,9 @@ h3 {
 
 .button.green a {
 	background: url(../images/image-sprite.png) no-repeat right -234px;
+}
+
+.grey {
+	color: #999; 
+	
 }
