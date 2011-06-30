@@ -50,14 +50,23 @@
 					</ul><!-- category list -->
 					
 					<section id="topfilter">
-							<form class="sort" action="">
-								<select name="sort">
-									<option value="productname-a-z"><%= _("Productname (A-Z)") %></option>
-									<option value="productname-z-a"><%= _("Productname (Z-A)") %></option>
-									<option value="manufactor-a-z"><%= _("Manufactor (A-Z)") %></option>
-									<option value="manufactor-z-a"><%= _("Manufactor (Z-A)") %></option>
-								</select>
-							</form><!-- sort -->
+						
+						<form class="availability" action="">
+							<input class="date start"/>
+							<input class="date end"/>
+							<input type="checkbox" name="available-only" value="available-only"/>
+							<%= _("Show Available") %>
+						</form><!-- availability -->
+						
+						<form class="sort" action="">
+							<select name="sort">
+								<option value="productname-a-z"><%= _("Productname (A-Z)") %></option>
+								<option value="productname-z-a"><%= _("Productname (Z-A)") %></option>
+								<option value="manufactor-a-z"><%= _("Manufactor (A-Z)") %></option>
+								<option value="manufactor-z-a"><%= _("Manufactor (Z-A)") %></option>
+							</select>
+						</form><!-- sort -->
+
 					</section><!-- #topfilter -->
 		</div><!-- inner -->
 		

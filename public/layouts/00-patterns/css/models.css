@@ -1,11 +1,29 @@
 /* CATEGORIES */
 #categories {
 	border-right: 1px solid #f0f0f0;
-	left: -7px;
-	padding-top: 30px;
+	left: -5px;
+	padding-top: 28px;
+	padding-right: 6px;
 	position: relative;
 	top: -23px;
-	width: 175px;
+	width: 167px;
+}
+
+#categories li {
+	list-style-type: none;
+}
+
+#categories h2 {
+	font-size: 1.6em;
+	padding-bottom: 3px;
+}
+
+#categories ul {
+	padding-bottom: 14px;
+}
+
+#categories li ul li {
+	margin-bottom: 6px;	
 }
 
 #categories li ul li a, #categories li ul li a:link, #categories li ul li a:visited {
@@ -20,7 +38,7 @@
 /* TOPFILTER */
 #topfilter {
 	border-bottom: 1px solid #e3e3e3;
-	height: 38px;
+	height: 36px;
 	position: absolute;
 	top: -10px;
 	right: 1px;
@@ -29,6 +47,7 @@
 
 /* TOPFILTER SORT */
 #topfilter .sort {
+	background: none;
 	float: right;
 	position: relative;
 	top: 10px;
@@ -38,3 +57,11 @@
 	border: 0;
 	padding: 4px 4px 2px 4px;
 }
+
+/* TOPFILTER AVAILABILITY */
+#topfilter .availability {
+	float: right;
+	position: relative;
+	top: 10px;
+}
+
