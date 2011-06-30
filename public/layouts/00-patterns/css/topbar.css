@@ -159,6 +159,7 @@
 #topbar .navigation .item .hover .inner p {
 	max-width: 180px;
 	overflow: hidden;
+	padding-bottom: 6px;
 }
 
 
@@ -183,7 +184,8 @@
 /* TOPBAR NAVIGATION ITEMS (SEPARATED) LANGUAGE */
 
 #topbar .navigation .item .language {
-	width: 109px;
+	font-size: 1.2em;
+	width: 110px;
 }
 
 /* TOPBAR NAVIGATION ITEMS (SEPARATED) CONTACT */
