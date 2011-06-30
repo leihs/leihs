@@ -9,7 +9,7 @@
 			<ul>
 				<li class="seperator"></li>
 				
-				<li class="item"><a href="#" title="<%= _('Profile') %>" class="anchor">Max Mustermann</a>
+				<li class="item"><a href="#" title="<%= _('Profile') %>" class="anchor"><%= @user.name %></a>
 				  <div class="hover profile">
 				       		<div class="header">
 				       			<div class="borderleft"></div>
@@ -19,12 +19,10 @@
 				       			<div class="borderleft"></div>
 				       			
 				       			<strong><%= _("Profile") %></strong>
-				       			<a href="#" class="edit"><%= _("edit") %></a>
+				       			<%= link_to _("edit"), edit_user_path(@user), :class => 'edit' %></a>
 				       			
 				       			<p>
-									Max Mustermann<br/>
-									Musterstrasse 26<br/>
-									CH-1000 Musterlingen
+									<%= profile_block(@user).html_safe %>
 								</p>
 				       								       			
 				       			<div class="hr"></div>
