@@ -173,6 +173,7 @@
 #topbar .navigation .item .profile .edit {
 	position: absolute;
 	right: 0;
+	top: 0;
 }
 
 #topbar .navigation .item .profile .address, #topbar .navigation .item .profile .contact {
@@ -226,7 +227,7 @@
 	width: 2px;
 }
 
-#topbar .navigation .item .hover .header .borderright{
+#topbar .navigation .item .hover .header .borderright {
 	background: url(../images/slices-v.png) repeat-y -3px 0;
 	height: 100%;
 	right: -5px;
