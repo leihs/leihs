@@ -162,7 +162,8 @@
 }
 
 
-/* TOPBAR NAVIGATION ITEMS (SEPERATED) */
+/* TOPBAR NAVIGATION ITEMS (SEPARATED) PROFILE */
+
 #topbar .navigation .item .profile {
 	width: 200px;
 }
@@ -172,6 +173,21 @@
 	right: 9px;
 	top: 9px;
 }
+
+/* TOPBAR NAVIGATION ITEMS (SEPARATED) LANGUAGE */
+
+#topbar .navigation .item .language {
+	width: 109px;
+}
+
+/* TOPBAR NAVIGATION ITEMS (SEPARATED) CONTACT */
+
+#topbar .navigation .item .contact {
+	width: 180px;
+}
+
+
+
 
 #topbar .navigation .item .hover .inner .borderleft {
 	background: url(../images/slices-v.png) repeat-y 0px 0px;
