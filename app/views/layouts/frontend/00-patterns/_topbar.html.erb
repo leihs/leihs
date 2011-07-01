@@ -35,19 +35,7 @@
 					       		</div><!-- .contact -->
 				       						       			
 				       			<div class="hr"></div>
-				       			
-				       			<strong><%= _("Inventory Pools") %></strong>
-				       			
-				       			<p><%= linked_inventory_pools(@user.inventory_pools).html_safe %></p>
-				       			
-				       			<div class="hr"></div>
-				       			
-				       			<strong><%= _("Templates") %></strong>
-				       			<% @user.templates.each do |tmp| %>
-				       				<p><%= tmp.inventory_pools.first.name %>: <%= link_to tmp.name, template_path(tmp) %></p>
-				       			<% end %>
-				       			
-				       			<div class="hr"></div>
+
 				       			
 				       			<strong><%= _("Reservations") %></strong>
 				       			
@@ -83,7 +71,9 @@
 				       			
 				       			<ul>
 				                   <li><a href="#"><%= _("English") %><br></a></li>
+				                   <div class="hr"></div>
 				                   <li><a href="#"><%= _("Castellan") %><br></a></li>
+				                   <div class="hr"></div>
 				                   <li><a href="#"><%= _("Zurich Slang") %><br></a></li>
 				               	</ul>
 				       			

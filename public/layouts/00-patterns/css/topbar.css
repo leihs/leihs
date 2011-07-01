@@ -159,7 +159,7 @@
 #topbar .navigation .item .hover .inner p {
 	max-width: 290px;
 	overflow: hidden;
-	padding-bottom: 6px;
+	padding-bottom: 0px;
 }
 
 
@@ -177,6 +177,7 @@
 	top: 0;
 }
 
+/* FIX TO GET THE RIGHT POSITION FOR THE EDIT LINK */
 #topbar .navigation .item .profile .address, #topbar .navigation .item .profile .contact {
 	position: relative;
 }
@@ -185,8 +186,10 @@
 
 #topbar .navigation .item .language {
 	font-size: 1.2em;
+	font-weight: bold;
 	width: 110px;
 }
+
 
 /* TOPBAR NAVIGATION ITEMS (SEPARATED) CONTACT */
 
