@@ -114,5 +114,17 @@
 	top: 19px;
 	position: relative;
 	right: 7px;
-	width: 568px;
+	vertical-align: center;
+	width: 569px;
+}
+
+#modellist .item {
+	border-bottom: 1px solid #e3e3e3;
+	height: 70px;
+	display: block;
+}
+
+#modellist .image img {
+	height: 50px;
+	width: auto;
 }
