@@ -1,12 +1,15 @@
 /* CATEGORIES */
 #categories {
-	border-right: 1px solid #f0f0f0;
+	border-right: 1px solid #e3e3e3;
+	float: left;
 	left: -5px;
-	padding-top: 28px;
+	margin-bottom: -46px;
+	padding-top: 23px;
 	padding-right: 6px;
 	position: relative;
-	top: -23px;
+	top: -18px;
 	width: 167px;
+	z-index: 99;
 }
 
 #categories li {
@@ -38,16 +41,19 @@
 /* TOPFILTER */
 #topfilter {
 	border-bottom: 1px solid #e3e3e3;
+	color: #858585;
 	height: 36px;
+	padding-right: 12px;
 	position: absolute;
 	top: -10px;
 	right: 1px;
-	width: 566px;
+	width: 554px;
 }
 
 /* TOPFILTER SORT */
 #topfilter .sort {
 	background: none;
+	border-right: 1px solid #e2e0de;
 	float: right;
 	position: relative;
 	top: 10px;
@@ -57,19 +63,18 @@
 #topfilter .sort .select {
 	position: absolute;
 	height: 20px;
-	color: #858585;
 	overflow: hidden;
-	padding: 0 0 0 20px;
+	padding: 4px 25px 0 0;
 	text-align: right;
-	width: 120px;
+	width: 115px;
 }
 
 #topfilter .sort .arrow {
 	background: url(../images/image-sprite.png) no-repeat -53px -37px;
 	height: 6px;
 	position: absolute;
-	top: 5px;
-	right: 6px;
+	top: 8px;
+	right: 10px;
 	width: 7px;
 }
 
@@ -81,7 +86,33 @@
 /* TOPFILTER AVAILABILITY */
 #topfilter .availability {
 	float: right;
+	margin: 0 0 0 15px;
+	padding: 1px 0 0 0;
 	position: relative;
 	top: 10px;
 }
 
+#topfilter .availability .date {
+	background: url(../images/image-sprite.png) no-repeat 0 -312px;
+	border: none;
+	color: #858585;
+	font-size: 1.0em;
+	height: 18px;
+	padding: 0 10px 0 7px;
+	width: 57px;
+}
+
+#topfilter .availability .check {
+	margin-left: 8px;
+}
+
+/* MODEELIST */
+#modellist {
+	border-left: 1px solid #e3e3e3;
+	float: right;
+	margin-right: -23px;
+	top: 19px;
+	position: relative;
+	right: 7px;
+	width: 568px;
+}
