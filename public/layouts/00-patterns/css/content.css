@@ -49,6 +49,10 @@
 	margin-bottom: 6px;
 }
 
+#content .inner .textright {
+	text-align: right;
+}
+
 #content .inner .itemspace {
 	margin-bottom: 10px;
 	
@@ -56,6 +60,16 @@
 
 #content .inner table tr td{
 	padding: 0px 15px 5px 0px;
+	width: 180px;
+}
+
+/* BASKET INNER EDIT */
+#content .inner .row .cell .edit {
+	color: #999;
+}
+
+#content .inner .row .cell .edit:hover {
+	color: #515151;
 }
 
 /* CONTENT INNER ROW */
@@ -70,11 +84,15 @@
 	width: 180px;
 }	
 
-/*
-#content .inner .row .cell img {
-	width: 140px;
+
+#content .inner .row .doublecell {
+	float: left;
+	padding-left: 10px;
+	width: 350px;
+	white-space:nowrap;
+	overflow: hidden;
 }
-*/
+
 
 #content .inner .row .cell a img {
 	height: 80px;	
