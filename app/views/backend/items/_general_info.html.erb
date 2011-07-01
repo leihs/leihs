@@ -7,7 +7,7 @@
 		<%= @f.hidden_field :model_id %>
 		<%= greybox_link(icon_tag('magnifier'), backend_inventory_pool_models_path(current_inventory_pool, :layout => "modal", :filter => 'all'),
 						:title => _("Search Model"),
-						:width => "800") if ((@item.contract_lines.empty? and is_privileged_user?) or @item.new_record?) %>
+						:width => "800") if (is_privileged_user? or @item.new_record?) %>
 	</td></tr>
 	
 	
