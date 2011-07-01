@@ -19,10 +19,10 @@
 				       			<div class="borderleft"></div>
 				       			
 					       		<div class= "address">
-					       			<strong><%= _("Address") %></strong>
+					       			<strong><a href="#"><%= _("Address") %></a></strong>
 					       			<%= link_to _("edit"), edit_user_path(@user), :class => 'edit' %>
 					       			
-					       			<p><%= address_block(@user).html_safe %></p>
+					       			<p><a href="#"><%= address_block(@user).html_safe %></a></p>
 					       		</div><!-- .address -->
 					       								       			
 					       		<div class="hr"></div>
