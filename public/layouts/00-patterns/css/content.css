@@ -49,85 +49,96 @@
 	margin-bottom: 6px;
 }
 
-#content .inner .textright {
-	text-align: right;
+/* CONTENT INNER RENTED */
+#content .inner #rented {
+	font-size: 1.1em;
 }
 
-#content .inner .itemspace {
-	margin-bottom: 10px;
-	
+#content .inner #rented ul li {
+	display: inline-block;
+	padding: 0 0 8px 0;	
 }
 
-#content .inner table tr td{
-	padding: 0px 15px 5px 0px;
-	width: 180px;
+#content .inner #rented .purpose {
+	max-width: 460px;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
-/* BASKET INNER EDIT */
-#content .inner .row .cell .edit {
-	color: #999;
+#content .inner #rented .timeframe {
+	color: #717171;
+	padding-right: 10px;
 }
 
-#content .inner .row .cell .edit:hover {
-	color: #515151;
+#content .inner #rented .timeframe a {
+	color: #999999;	
+	padding-right: 8px;
 }
 
-/* CONTENT INNER ROW */
-#content .inner .row {
+#content .inner #rented .timeframe a:hover {
+	color: #515151;	
+}
+
+#content .inner #rented .extend button {
+	padding: 2px 4px 4px 4px;
+}
+
+/* CONTENT INNER STARTCATEGORIES */
+#content .inner #startcategories {
+	padding-top: 10px;
+}
+
+#content .inner #startcategories .row {
 	clear: both;
 	padding: 2px 0px 19px 0px;
 }
 
-/* CONTENT INNER ROW CELL*/
-#content .inner .row .cell {
+#content .inner #startcategories .row .cell {
 	float: left;
 	width: 180px;
 }	
 
-
-#content .inner .row .doublecell {
-	float: left;
-	padding-left: 10px;
-	width: 350px;
-	white-space:nowrap;
-	overflow: hidden;
+#content .inner #startcategories .row .cell .edit {
+	color: #999;
 }
 
+#content .inner #startcategories .row .cell .edit:hover {
+	color: #515151;
+}
 
-#content .inner .row .cell a img {
+#content .inner #startcategories .row .cell a img {
 	height: 80px;	
 	display: block;
 	margin-left: 10px;
 	padding-bottom: 15px;
 }
 
-#content .inner .row .cell h2 {
+#content .inner #startcategories .row .cell h2 {
 	padding-left: 8px;
 }
 
-/* CONTENT INNER ROW CELL UL */
-#content .inner .row .cell ul {
+#content .inner #startcategories .row .cell ul {
 	margin-right: 20px;
 	margin-top: 5px;
 	list-style-type: none;
 }
 
-#content .inner .row .cell ul li {
+#content .inner #startcategories .row .cell ul li {
 	display: block;
 	margin-bottom: 6px;
 	padding-left: 8px;
 }
 
-#content .inner .row .cell ul li a, #content .inner .row .cell ul li a:link, #content .inner .row .cell ul li a:visited {
+#content .inner #startcategories .row .cell ul li a, #content .inner #startcategories .row .cell ul li a:link, #content .inner #startcategories .row .cell ul li a:visited {
 	font-size: 1.2em;
 	color:#999999;
 }
 
-#content .inner .row .cell ul li a:hover, #content .inner .row .cell ul li a:active {
+#content .inner #startcategories .row .cell ul li a:hover, #content .inner #startcategories .row .cell ul li a:active {
 	color: #515151;
 }
 
-#content .inner .row .cell:hover h2 a {
+#content .inner #startcategories .row .cell:hover h2 a {
 	color: #515151;
 }
 
