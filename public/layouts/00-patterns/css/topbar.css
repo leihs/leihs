@@ -125,7 +125,6 @@
 	background: url(../images/image-sprite.png) no-repeat -83px -15px;
 }
 
-
 /* TOPBAR NAVIGATION ITEM HOVER */
 #topbar .navigation .item .hover {
 	display: none;
@@ -183,16 +182,37 @@
 }
 
 /* TOPBAR NAVIGATION ITEMS (SEPARATED) LANGUAGE */
-
 #topbar .navigation .item .language {
-	font-size: 1.2em;
+	font-size: 1.1em;
 	font-weight: bold;
-	width: 110px;
 }
 
+#topbar .navigation .item .language .inner {
+	padding: 0;
+}
+
+#topbar .navigation .item .language .inner a {
+	color: #999999;
+}
+
+#topbar .navigation .item .language .inner a:hover {
+	color: #515151;
+}
+
+#topbar .navigation .item .language .hr {
+	position: relative;
+	margin: 0 0 -15px 0;
+}
+
+#topbar .navigation .item .language a {
+	display: block;
+	height: 27px;
+	padding: 11px 25px 0 25px;
+	position: relative;
+	white-space: nowrap;
+}
 
 /* TOPBAR NAVIGATION ITEMS (SEPARATED) CONTACT */
-
 #topbar .navigation .item .contact {
 	width: 180px;
 }
