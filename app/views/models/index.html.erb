@@ -50,12 +50,12 @@
 					</ul><!-- category list -->
 					
 					<section id="topfilter">
-						
 						<form class="availability" action="">
-							<input class="date start"/>
-							<input class="date end"/>
-							<input type="checkbox" name="available-only" value="available-only"/>
-							<%= _("Show Available") %>
+							<input class="date start" name="startdate" value="01.07.11"/>
+							-
+							<input class="date end" name="enddate" value="02.07.11" />
+							<input class="check" type="checkbox" name="available-only" value="available-only" id="available-only"/>
+							<label for="available-only"><%= _("Show Available") %></label>
 						</form><!-- availability -->
 						
 						<form class="sort" action="">
@@ -66,8 +66,33 @@
 								<option value="manufactor-z-a"><%= _("Manufactor (Z-A)") %></option>
 							</select>
 						</form><!-- sort -->
-
 					</section><!-- #topfilter -->
+					
+					<table id="modellist">
+						<tr>
+							<td class="image">
+								IMAGE
+							</td>
+							<td class="name">
+								NAME
+							</td>
+							<td class="manufactor">
+								MANU
+							</td>
+							<td class="pool">
+								POOL
+							</td>
+							<td class="availability">
+								3/4
+							</td>
+							<td class="add">
+								+
+							</td>
+						</tr>
+					</table><!-- modellist -->
+					
+					<div class="clear"></div>
+					
 		</div><!-- inner -->
 		
 		<div class="footer">
