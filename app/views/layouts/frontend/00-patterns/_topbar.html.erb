@@ -37,7 +37,8 @@
 				       			<div class="hr"></div>
 				       			
 				       			<strong><%= _("Inventory Pools") %></strong>
-				       			<p><a href="#"><%= _("AV-Ausleihe") %></a>, <a href="#"><%= _("ITZ-Ausleihe") %></a></p>
+				       			
+				       			<p><%= linked_inventory_pools(@user.inventory_pools).html_safe %></p>
 				       			
 				       			<div class="hr"></div>
 				       			
