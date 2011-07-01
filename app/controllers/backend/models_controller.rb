@@ -315,7 +315,8 @@ class Backend::ModelsController < Backend::BackendController
 
     if params[:item_id]
       @item = current_inventory_pool.items.where(:id => params[:item_id]).first
-      @item ||= current_inventory_pool.own_items.where(:id => params[:item_id]).first #, :retired => :all
+      #@item ||= Item.unscoped { current_inventory_pool.own_items.where(:id => params[:item_id]).first }
+      @item ||= current_inventory_pool.own_items.where(:id => params[:item_id]).first
     end
     @model ||= @item.model if @item
     

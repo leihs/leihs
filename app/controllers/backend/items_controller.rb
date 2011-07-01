@@ -10,7 +10,6 @@ class Backend::ItemsController < Backend::BackendController
 
     with = {:retired => false}
 #    without = {}
-    retired = nil
     
     if params[:model_id]
       sphinx_select = "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a"
@@ -24,7 +23,6 @@ class Backend::ItemsController < Backend::BackendController
     case params[:filter]
       when "retired"
         with.merge!(:owner_id => current_inventory_pool.id, :retired => true)
-        retired = true
       when "own_items", "own", "all"
         with.merge!(:owner_id => current_inventory_pool.id)
       when "inventory_relevant"
@@ -54,8 +52,6 @@ class Backend::ItemsController < Backend::BackendController
 
     with.merge!(:parent_id => 0, :model_is_package => 0) if request.format == :auto_complete # OPTIMIZE use params[:filter] == "packageable"
     
-    
-    
     if params[:format] == 'csv'
       page = nil
       per_page = Item.count
@@ -63,14 +59,22 @@ class Backend::ItemsController < Backend::BackendController
       page = params[:page]
       per_page = $per_page
     end
+
+    search_options = { :star => true, :page => page, :per_page => per_page,
+                       :sphinx_select => sphinx_select,
+                       :with => with, #:without => without,
+                       :order => params[:sort], :sort_mode => params[:sort_mode],
+                       :include => { :model => nil,
+                                     :location => :building,
+                                     :parent => :model } }    
     
-    @items = Item.search params[:query], { :star => true, :page => page, :per_page => per_page,
-                                           :sphinx_select => sphinx_select,
-                                           :with => with, :retired => retired, #:without => without,
-                                           :order => params[:sort], :sort_mode => params[:sort_mode],
-                                           :include => { :model => nil,
-                                                         :location => :building,
-                                                         :parent => :model } }
+    # OPTIMIZE
+    @items = if params[:filter] == "retired"
+      search_options[:per_page] = (2**30) 
+      Item.unscoped { Item.where(:id => Item.search_for_ids(params[:query], search_options)) }.paginate(:per_page => per_page)
+    else
+      Item.search(params[:query], search_options)
+    end
 
     respond_to do |format|
       format.html
@@ -272,7 +276,7 @@ class Backend::ItemsController < Backend::BackendController
     params[:id] ||= params[:item_id] if params[:item_id]
     if params[:id]
       @item = current_inventory_pool.items.where(:id => params[:id]).first
-      @item ||= current_inventory_pool.own_items.first(:conditions => {:id => params[:id]}, :retired => :all)
+      @item ||= Item.unscoped { current_inventory_pool.own_items.where(:id => params[:id]).first }
     end
 
     @location = Location.find(params[:location_id]) if params[:location_id]
