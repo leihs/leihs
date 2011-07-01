@@ -131,7 +131,7 @@
 	display: none;
 	left: -1px;
 	line-height: 1.5em;
-	max-width: 200px;
+	max-width: 350px;
 	position: absolute;
 	top: 43px;
 	z-index: 999;
@@ -157,7 +157,7 @@
 }
 
 #topbar .navigation .item .hover .inner p {
-	max-width: 180px;
+	max-width: 290px;
 	overflow: hidden;
 	padding-bottom: 6px;
 }

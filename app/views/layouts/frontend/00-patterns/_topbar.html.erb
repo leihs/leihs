@@ -43,14 +43,18 @@
 				       			<div class="hr"></div>
 				       			
 				       			<strong><%= _("Templates") %></strong>
-				       			<p><a href="#"><%= _("Filmprojekt") %></a></p>
-				       			<p><a href="#"><%= _("Sommerkurs") %></a></p>
+				       			<% @user.templates.each do |tmp| %>
+				       				<p><%= tmp.inventory_pools.first.name %>: <%= link_to tmp.name, template_path(tmp) %></p>
+				       			<% end %>
 				       			
 				       			<div class="hr"></div>
 				       			
 				       			<strong><%= _("Reservations") %></strong>
-				       			<p>14.04.11-16.04.11  <a href="#"><%= _("2 Geräte") %></a></p>
-				       			<p>14.04.11-16.04.11  <a href="#"><%= _("2 Geräte") %></a></p>
+				       			
+				       			<% @user.orders.submitted.each do |o| %>
+				       				<p><%= short_date(o.created_at) %> <%= link_to o.purpose, user_order_path(@user, o) %></p>
+				       			<% end %>
+				       			
 				       			
 				       			<div class="borderright"></div>
 				       		</div><!-- .inner -->
