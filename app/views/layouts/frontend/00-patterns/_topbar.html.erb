@@ -3,7 +3,7 @@
 	<div class="inner">
 		<div class="light"></div>
 		<div class="logo">
-			<a href="#" title="LEIHS 3.0"></a>
+			<a href="" title="Zur Startseite"></a>
 		</div><!-- logo -->
 		<nav class="navigation">
 			<ul>
@@ -33,24 +33,16 @@
 					       			
 					       			<p><%= contact_block(@user).html_safe %></p>
 					       		</div><!-- .contact -->
-				       						       			
-				       			<div class="hr"></div>
+				       						  
+                               <% if @user.orders.submitted.count > 0 %>
+				       			    <div class="hr"></div>
+					       			<strong><%= _("Reservations") %></strong>
+					       			
+					       			<% @user.orders.submitted.each do |o| %>
+					       				<p><%= short_date(o.created_at) %> <%= link_to o.purpose, user_order_path(@user, o) %></p>
+					       			<% end %>
+				       			<% end %>
 				       			
-				       			<strong><%= _("Inventory Pools") %></strong>
-				       			
-				       			<p><%= linked_inventory_pools(@user.inventory_pools).html_safe %></p>
-				       			
-				       			<div class="hr"></div>
-				       			
-				       			<strong><%= _("Templates") %></strong>
-				       			<p><a href="#"><%= _("Filmprojekt") %></a></p>
-				       			<p><a href="#"><%= _("Sommerkurs") %></a></p>
-				       			
-				       			<div class="hr"></div>
-				       			
-				       			<strong><%= _("Reservations") %></strong>
-				       			<p>14.04.11-16.04.11  <a href="#"><%= _("2 Geräte") %></a></p>
-				       			<p>14.04.11-16.04.11  <a href="#"><%= _("2 Geräte") %></a></p>
 				       			
 				       			<div class="borderright"></div>
 				       		</div><!-- .inner -->
@@ -68,7 +60,7 @@
 				<li class="seperator"></li>
 				
 				<li class="item language">
-				  <a href="#" class="anchor"><%= _("Language") %><span class="speechbubble"></span></a>
+				  <a href="#" class="anchor"><%= @user.language.name %><span class="speechbubble"></span></a>
 				  <div class="hover language">
 				       		<div class="header">
 				       			<div class="borderleft"></div>
@@ -76,12 +68,13 @@
 				       		</div><!-- .footer -->
 				       		<div class="inner">
 				       			<div class="borderleft"></div>
-				       			
 				       			<ul>
-				                   <li><a href="#"><%= _("English") %><br></a></li>
-				                   <li><a href="#"><%= _("Castellan") %><br></a></li>
-				                   <li><a href="#"><%= _("Zurich Slang") %><br></a></li>
-				               	</ul>
+				       			 <% (Language.active_languages - [current_user.language]).each do |l| %>
+				       			 	<li><a href="?locale=<%=l.locale_name%>"><%= l.name %></a></li>
+				       			 	<%= '<div class="hr"></div>'.html_safe unless l == (Language.active_languages - [current_user.language]).last %> 
+				       			 <% end %>
+				       			 </ul>
+				       		
 				       			
 				       			<div class="borderright"></div>
 				       		</div><!-- .inner -->

@@ -125,13 +125,12 @@
 	background: url(../images/image-sprite.png) no-repeat -83px -15px;
 }
 
-
 /* TOPBAR NAVIGATION ITEM HOVER */
 #topbar .navigation .item .hover {
 	display: none;
 	left: -1px;
 	line-height: 1.5em;
-	max-width: 200px;
+	max-width: 350px;
 	position: absolute;
 	top: 43px;
 	z-index: 999;
@@ -157,9 +156,9 @@
 }
 
 #topbar .navigation .item .hover .inner p {
-	max-width: 180px;
+	max-width: 290px;
 	overflow: hidden;
-	padding-bottom: 6px;
+	padding-bottom: 0px;
 }
 
 
@@ -177,19 +176,43 @@
 	top: 0;
 }
 
+/* FIX TO GET THE RIGHT POSITION FOR THE EDIT LINK */
 #topbar .navigation .item .profile .address, #topbar .navigation .item .profile .contact {
 	position: relative;
 }
 
 /* TOPBAR NAVIGATION ITEMS (SEPARATED) LANGUAGE */
-
 #topbar .navigation .item .language {
-	font-size: 1.2em;
-	width: 110px;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+#topbar .navigation .item .language .inner {
+	padding: 0;
+}
+
+#topbar .navigation .item .language .inner a {
+	color: #999999;
+}
+
+#topbar .navigation .item .language .inner a:hover {
+	color: #515151;
+}
+
+#topbar .navigation .item .language .hr {
+	position: relative;
+	margin: 0 0 -15px 0;
+}
+
+#topbar .navigation .item .language a {
+	display: block;
+	height: 27px;
+	padding: 11px 25px 0 25px;
+	position: relative;
+	white-space: nowrap;
 }
 
 /* TOPBAR NAVIGATION ITEMS (SEPARATED) CONTACT */
-
 #topbar .navigation .item .contact {
 	width: 180px;
 }

@@ -39,6 +39,11 @@
 				
 				<div class="row">
 				
+				<% Category.roots.each do |c| %>
+				  <%= #category_cell(c).html_safe 
+				  %>
+				<% end %>
+				
 					<div class="cell">
 						<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/audio.jpg" alt=""/></a> <!-- Category Image -->
 						
@@ -103,6 +108,7 @@
 					
 				<div class="row">
 				
+				    
 					<div class="cell">
 						<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/photo.jpg" alt=""/></a> <!-- Category Image -->
 						

@@ -47,7 +47,7 @@
 /* BASKET INNER TITLE */
 #basket .inner .title {
 	float: left;
-	font-size: 1.1em;
+	font-size: 1.2em;
 }
 
 /* BASKET INNER EDIT */
@@ -78,6 +78,7 @@
 }
 
 #basket .inner table tr td {
+	font-size: 1.1em;
 	padding: 1px 0;
 }
 
