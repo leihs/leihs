@@ -51,6 +51,26 @@
 	float: right;
 	position: relative;
 	top: 10px;
+	width: 140px;
+}
+
+#topfilter .sort .select {
+	position: absolute;
+	height: 20px;
+	color: #858585;
+	overflow: hidden;
+	padding: 0 0 0 20px;
+	text-align: right;
+	width: 120px;
+}
+
+#topfilter .sort .arrow {
+	background: url(../images/image-sprite.png) no-repeat -53px -37px;
+	height: 6px;
+	position: absolute;
+	top: 5px;
+	right: 6px;
+	width: 7px;
 }
 
 #topfilter .sort select {

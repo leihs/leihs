@@ -25,13 +25,11 @@ Visit http://ryanfait.com/ for more information.
 
 var checkboxHeight = "25";
 var radioHeight = "25";
-var selectWidth = "190";
-
 
 /* No need to change anything after this */
 
 
-document.write('<style type="text/css">input.styled { display: none; } select.styled { position: relative; width: ' + selectWidth + 'px; opacity: 0; filter: alpha(opacity=0); z-index: 5; } .disabled { opacity: 0.5; filter: alpha(opacity=50); }</style>');
+document.write('<style type="text/css">input.styled { display: none; } select.styled { position: relative; opacity: 0; filter: alpha(opacity=0); z-index: 5; } .disabled { opacity: 0.5; filter: alpha(opacity=50); }</style>');
 
 var Custom = {
 	init: function() {
@@ -76,6 +74,11 @@ var Custom = {
 				span[a].id = "select" + inputs[a].name;
 				span[a].appendChild(textnode);
 				inputs[a].parentNode.insertBefore(span[a], inputs[a]);
+				
+				var arrow = document.createElement("div");
+				arrow.setAttribute("class", "arrow");
+				inputs[a].parentNode.insertBefore(arrow, inputs[a]);
+				
 				if(!inputs[a].getAttribute("disabled")) {
 					inputs[a].onchange = Custom.choose;
 				} else {
