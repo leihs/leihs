@@ -65,6 +65,8 @@ Leihs::Application.routes.draw do
   resources :categories do 
     resources :models
   end
+  
+  resources :inventory_pools
   resources :templates
 
 ############################################################################
