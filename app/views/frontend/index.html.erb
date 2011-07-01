@@ -10,8 +10,9 @@
 		
 		<div class="inner">
 				<h1><%= _("Welcome") %> <%= @user.name %></h1>
-				<p class="subtitle"><%= _("You have access to the following Equipment Parks") %>: <a href="">AV-Ausleihe</a>, <a href="">ITZ-Ausleihe</a></p><!-- .subtitle -->
-				
+				<p class="subtitle"><%= _("You have access to the following Equipment Parks") %>: 
+					<%= linked_inventory_pools(@user.inventory_pools).html_safe %>
+								
 				<div class="hr"></div>
 				
 				<h3><%= _("Rented Equipment") %></h3>
