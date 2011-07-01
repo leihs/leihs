@@ -33,14 +33,14 @@
 					       			
 					       			<p><%= contact_block(@user).html_safe %></p>
 					       		</div><!-- .contact -->
-				       						       			
-				       			<div class="hr"></div>
-
-				       			
-				       			<strong><%= _("Reservations") %></strong>
-				       			
-				       			<% @user.orders.submitted.each do |o| %>
-				       				<p><%= short_date(o.created_at) %> <%= link_to o.purpose, user_order_path(@user, o) %></p>
+				       						  
+                               <% if @user.orders.submitted.count > 0 %>
+				       			    <div class="hr"></div>
+					       			<strong><%= _("Reservations") %></strong>
+					       			
+					       			<% @user.orders.submitted.each do |o| %>
+					       				<p><%= short_date(o.created_at) %> <%= link_to o.purpose, user_order_path(@user, o) %></p>
+					       			<% end %>
 				       			<% end %>
 				       			
 				       			
@@ -60,7 +60,7 @@
 				<li class="seperator"></li>
 				
 				<li class="item language">
-				  <a href="#" class="anchor"><%= _("English") %><span class="speechbubble"></span></a>
+				  <a href="#" class="anchor"><%= @user.language.name %><span class="speechbubble"></span></a>
 				  <div class="hover language">
 				       		<div class="header">
 				       			<div class="borderleft"></div>
@@ -68,12 +68,13 @@
 				       		</div><!-- .footer -->
 				       		<div class="inner">
 				       			<div class="borderleft"></div>
-				       			
 				       			<ul>
-				                   <li><a href="#"><%= _("Castellan") %><br></a></li>
-				                   <div class="hr"></div>
-				                   <li><a href="#"><%= _("Zurich Slang") %><br></a></li>
-				               	</ul>
+				       			 <% (Language.active_languages - [current_user.language]).each do |l| %>
+				       			 	<li><a href="?locale=<%=l.locale_name%>"><%= l.name %></a></li>
+				       			 	<%= '<div class="hr"></div>'.html_safe unless l == (Language.active_languages - [current_user.language]).last %> 
+				       			 <% end %>
+				       			 </ul>
+				       		
 				       			
 				       			<div class="borderright"></div>
 				       		</div><!-- .inner -->
