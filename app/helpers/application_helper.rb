@@ -91,11 +91,12 @@ module ApplicationHelper
   def compact_inventory_pool_info(inventory_pools)
     html = ""
     inventory_pools.each do |inventory_pool|
-      html += "<li>"
-      html += "<strong>#{inventory_pool.name}</strong>"
+      html += "<section>"
+      html += "<h3>#{inventory_pool.name}</h3>"
+      html += link_to _("show"), "show_pool_path(inventory_pool)", :class => 'topright'
       html += "<p>#{inventory_pool.opening_hours.gsub('\n','<br>')}</p>" unless inventory_pool.opening_hours.blank?
       html += "<p>#{inventory_pool.address.gsub('\n','<br>')}</p>" unless inventory_pool.address.blank?
-      html += "</li>"
+      html += "</section>"
       html += "<div class='hr'></div>" unless inventory_pool == inventory_pools.last
     end
     return html

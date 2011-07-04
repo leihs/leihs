@@ -9,6 +9,10 @@
 			<ul>
 				<li class="seperator"></li>
 				
+				<li class="item"><a href="backend" class="anchor" title="<%= _("Backend") %>"><%= _("Backend") %></a></li><!-- .item -->
+				
+				<li class="seperator"></li>
+				
 				<li class="item"><a href="#" title="<%= _('Profile') %>" class="anchor"><%= @user.name %></a>
 				  <div class="hover profile">
 				       		<div class="header">
@@ -18,31 +22,28 @@
 				       		<div class="inner">
 				       			<div class="borderleft"></div>
 				       			
-					       		<div class= "address">
-					       			<strong><a href="#"><%= _("Address") %></a></strong>
-					       			<%= link_to _("edit"), edit_user_path(@user), :class => 'edit' %>
-					       			
-					       			<p><a href="#"><%= address_block(@user).html_safe %></a></p>
-					       		</div><!-- .address -->
+					       		<section class= "address">
+					       			<h3><%= _("Address") %></h3>
+					       			<%= link_to _("edit"), edit_user_path(@user), :class => 'topright' %>
+					       			<p><%= address_block(@user).html_safe %></p>
+					       		</section><!-- .address -->
 					       								       			
 					       		<div class="hr"></div>
 					       			
-					       		<div class= "contact">
-					       			<strong><%= _("Contact") %></strong>
-					       			<%= link_to _("edit"), edit_user_path(@user), :class => 'edit' %>
-					       			
+					       		<section class= "contact">
+					       			<h3><%= _("Contact") %></h3>
+					       			<%= link_to _("edit"), edit_user_path(@user), :class => 'topright' %>
 					       			<p><%= contact_block(@user).html_safe %></p>
-					       		</div><!-- .contact -->
+					       		</section><!-- .contact -->
 				       						  
                                <% if @user.orders.submitted.count > 0 %>
 				       			    <div class="hr"></div>
-					       			<strong><%= _("Reservations") %></strong>
+					       			<h3><%= _("Reservations") %></h3>
 					       			
 					       			<% @user.orders.submitted.each do |o| %>
 					       				<p><%= short_date(o.created_at) %> <%= link_to o.purpose, user_order_path(@user, o) %></p>
 					       			<% end %>
 				       			<% end %>
-				       			
 				       			
 				       			<div class="borderright"></div>
 				       		</div><!-- .inner -->
@@ -55,7 +56,25 @@
 				
 				<li class="seperator"></li>
 				
-				<li class="item"><a href="#" class="anchor"><%= _("Backend") %></a></li><!-- .item -->
+				<li class="item"><a href="#" class="anchor"><%= _("Pools") %></a>
+				  <div class="hover pools">
+				       		<div class="header">
+				       			<div class="borderleft"></div>
+				       			<div class="borderright"></div>
+				       		</div><!-- .footer -->
+				       		<div class="inner">
+				       			<div class="borderleft"></div>
+				       			
+					       			<%= compact_inventory_pool_info(@user.active_inventory_pools).html_safe %>
+				       			
+				       			<div class="borderright"></div>
+				       		</div><!-- .inner -->
+				       		<div class="footer">
+				       			<div class="borderleft"></div>
+				       			<div class="borderright"></div>
+				       		</div><!-- .footer -->
+				  </div><!-- hover -->
+				</li><!-- .item -->
 				
 				<li class="seperator"></li>
 				
@@ -86,38 +105,12 @@
 				</li><!-- .item -->
 				
 				<li class="seperator"></li>
-				
-				<li class="item"><a href="#" class="anchor"><%= _("Pools") %></a>
-				  <div class="hover contact">
-				       		<div class="header">
-				       			<div class="borderleft"></div>
-				       			<div class="borderright"></div>
-				       		</div><!-- .footer -->
-				       		<div class="inner">
-				       			<div class="borderleft"></div>
-				       			
-				       			<div class="inner">
-					       			<ul>
-					       				<%= compact_inventory_pool_info(@user.active_inventory_pools).html_safe %>
-						           	</ul>
-						        </div>
-				       			
-				       			<div class="borderright"></div>
-				       		</div><!-- .inner -->
-				       		<div class="footer">
-				       			<div class="borderleft"></div>
-				       			<div class="borderright"></div>
-				       		</div><!-- .footer -->
-				  </div><!-- hover -->
-				</li><!-- .item -->
-				
-				<li class="seperator"></li>
 			
 				<li class="item"><a href="#" class="anchor"><%= _("Help") %></a></li><!-- .item -->
 				
 				<li class="seperator"></li>
 				
-				<li class="item last"><a href="#" class="anchor"><%= _("Logout") %></a></li><!-- .item -->
+				<li class="item last"><a href="logout" class="anchor" title="<%= _("Logout") %>"><%= _("Logout") %></a></li><!-- .item -->
 				
 			</ul>	
 		</nav><!-- .navigation -->

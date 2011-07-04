@@ -61,6 +61,15 @@
 	display: inline;
 }
 
+#topbar .navigation .item .inner a {
+	color: #999999;
+}
+
+#topbar .navigation .item .inner a:hover {
+	color: #515151;
+}
+
+
 #topbar .navigation .seperator {
 	background: url(../images/image-sprite.png) no-repeat -14px 0;
 	display: block;
@@ -148,38 +157,42 @@
 	position: relative;
 }
 
-#topbar .navigation .item .hover .inner strong {
+#topbar .navigation .item .hover .inner h3 {
 	display: block;
 	font-size: 1.1em;
-	padding-bottom: 4px;
+	font-weight: bold;
+	padding: 0 0 4px 0;
+	margin: 0;
 	white-space: nowrap;
 }
 
 #topbar .navigation .item .hover .inner p {
-	max-width: 290px;
+	max-width: 250px;
 	overflow: hidden;
 	padding-bottom: 0px;
 }
 
-
-/* TOPBAR NAVIGATION ITEMS (SEPARATED) PROFILE */
-
-#topbar .navigation .item .profile {
-	width: 200px;
-}
-
-
-/* TOPBAR NAVIGATION ITEMS (SEPARATED) PROFILE EDIT */
-
-#topbar .navigation .item .profile .edit {
+#topbar .navigation .item .topright {
+	padding: 10px 10px 10px 15px;
 	position: absolute;
-	right: 0;
-	top: 0;
+	right: -10px;
+	top: -9px;
 }
 
-/* FIX TO GET THE RIGHT POSITION FOR THE EDIT LINK */
-#topbar .navigation .item .profile .address, #topbar .navigation .item .profile .contact {
+#topbar .navigation .item section {
+	padding-left: 8px;
+	padding-right: 16px;
 	position: relative;
+	min-width: 150px;
+}
+
+#topbar .navigation .item section p {
+	padding-bottom: 5px !important;
+}
+
+#topbar .navigation .item .profile .inner, #topbar .navigation .item .pools .inner {
+	padding-top: 12px;
+	padding-bottom: 13px;
 }
 
 /* TOPBAR NAVIGATION ITEMS (SEPARATED) LANGUAGE */
@@ -192,14 +205,6 @@
 	padding: 0;
 }
 
-#topbar .navigation .item .language .inner a {
-	color: #999999;
-}
-
-#topbar .navigation .item .language .inner a:hover {
-	color: #515151;
-}
-
 #topbar .navigation .item .language .hr {
 	position: relative;
 	margin: 0 0 -15px 0;
@@ -208,14 +213,9 @@
 #topbar .navigation .item .language a {
 	display: block;
 	height: 27px;
-	padding: 11px 25px 0 25px;
+	padding: 11px 25px 0 20px;
 	position: relative;
 	white-space: nowrap;
-}
-
-/* TOPBAR NAVIGATION ITEMS (SEPARATED) CONTACT */
-#topbar .navigation .item .contact {
-	width: 180px;
 }
 
 #topbar .navigation .item .hover .inner .borderleft {
