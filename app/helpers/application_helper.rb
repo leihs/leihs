@@ -91,13 +91,25 @@ module ApplicationHelper
   def compact_inventory_pool_info(inventory_pools)
     html = "".html_safe
     inventory_pools.each do |inventory_pool|
-      html += "<section>"
-      html += "<h3>#{inventory_pool.name}</h3>"
-      html += link_to _("show"), "", :class => 'topright'
-      html += "<p>#{inventory_pool.opening_hours.gsub('\n','<br>')}</p>" unless inventory_pool.opening_hours.blank?
-      html += "<p>#{inventory_pool.address.gsub('\n','<br>')}</p>" unless inventory_pool.address.blank?
-      html += "</section>"
-      html += "<div class='hr'></div>" unless inventory_pool == inventory_pools.last
+      html += content_tag :section do
+        a = content_tag :h3 do
+          inventory_pool.name
+        end 
+        
+        a += link_to _("show"), "", :class => 'topright'
+        
+        a += content_tag :p do
+          inventory_pool.opening_hours.gsub('\n','<br>')
+        end unless inventory_pool.opening_hours.blank?
+        
+        a += content_tag :p do
+          inventory_pool.address.gsub('\n','<br>')
+        end unless inventory_pool.address.blank?
+        
+        a
+      end
+      html += content_tag :div, :class => "hr" do
+      end unless inventory_pool == inventory_pools.last
     end
     return html
   end
@@ -190,15 +202,27 @@ module ApplicationHelper
   ######## User-related methods ###########
   def address_block(user)
     address = "".html_safe
-    address += "#{user.address}<br>" unless user.address.blank?
-    address += "#{user.zip} #{user.city}<br>" unless (user.zip.blank? and user.city.blank?)
+    unless user.address.blank?
+      address += user.address
+      address += tag :br
+    end
+    unless (user.zip.blank? and user.city.blank?)
+      address += "#{user.zip} #{user.city}"
+      address += tag :br
+    end
     address
   end
   
   def contact_block(user)
     contact = "".html_safe
-    contact += "#{user.phone}<br>" unless user.phone.blank?
-    contact += "#{user.email}<br>" unless user.email.blank?
+    unless user.phone.blank?
+      contact += user.phone
+      contact += tag :br
+    end
+    unless user.email.blank?
+      contact += user.email
+      contact += tag :br
+    end 
     contact
   end
 
