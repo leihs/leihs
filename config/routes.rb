@@ -24,7 +24,7 @@ Leihs::Application.routes.draw do
 ############################################################################
 # Frontend
 
-  resources :users do
+  resource :user do
       resources :orders #TODO#, :only => [:show, :destroy]
       resource :order do
         member do
