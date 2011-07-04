@@ -22,7 +22,7 @@
 					       			<strong><a href="#"><%= _("Address") %></a></strong>
 					       			<%= link_to _("edit"), edit_user_path(@user), :class => 'edit' %>
 					       			
-					       			<p><a href="#"><%= address_block(@user).html_safe %></a></p>
+					       			<p><a href="#"><%= address_block(@user) %></a></p>
 					       		</div><!-- .address -->
 					       								       			
 					       		<div class="hr"></div>
@@ -31,7 +31,7 @@
 					       			<strong><%= _("Contact") %></strong>
 					       			<%= link_to _("edit"), edit_user_path(@user), :class => 'edit' %>
 					       			
-					       			<p><%= contact_block(@user).html_safe %></p>
+					       			<p><%= contact_block(@user) %></p>
 					       		</div><!-- .contact -->
 				       						  
                                <% if @user.orders.submitted.count > 0 %>
@@ -71,7 +71,9 @@
 				       			<ul>
 				       			 <% (Language.active_languages - [current_user.language]).each do |l| %>
 				       			 	<li><a href="?locale=<%=l.locale_name%>"><%= l.name %></a></li>
-				       			 	<%= '<div class="hr"></div>'.html_safe unless l == (Language.active_languages - [current_user.language]).last %> 
+				       			 	<% unless l == (Language.active_languages - [current_user.language]).last %>
+				       			 		<div class="hr"></div>
+				       			 	<% end %> 
 				       			 <% end %>
 				       			 </ul>
 				       		
@@ -98,7 +100,7 @@
 				       			
 				       			<div class="inner">
 					       			<ul>
-					       				<%= compact_inventory_pool_info(@user.active_inventory_pools).html_safe %>
+					       				<%= compact_inventory_pool_info(@user.active_inventory_pools) %>
 						           	</ul>
 						        </div>
 				       			
