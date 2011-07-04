@@ -1,21 +1,22 @@
 %li
-  = link_to icon_tag("camera") + " " + _('Items') + " (#{current_inventory_pool.own_items.count})", |
-            backend_inventory_pool_items_path(:filter => 'own_items')                               |
+  - c = current_inventory_pool.own_items.count
+  = link_to icon_tag("camera") + " " + _('Items') + " (#{c})", backend_inventory_pool_items_path(:filter => 'own_items')
+
   - if controller.controller_name == "items"
     %ul
       - if is_inventory_manager?
         %li
-          = link_to _('Unallocated') + " (#{current_inventory_pool.own_items.unallocated.count})",                       |
-                    backend_inventory_pool_items_path(:filter => 'unallocated')                                          |
+          - c = current_inventory_pool.own_items.unallocated.count
+          = link_to _('Unallocated') + " (#{c})", backend_inventory_pool_items_path(:filter => 'unallocated')
 
         %li
-          = link_to _('Inventory Relevant') + " (#{current_inventory_pool.own_items.inventory_relevant.count})",         |
-                    backend_inventory_pool_items_path(:filter => 'inventory_relevant')                                   |
+          - c = current_inventory_pool.own_items.inventory_relevant.count
+          = link_to _('Inventory Relevant') + " (#{c})", backend_inventory_pool_items_path(:filter => 'inventory_relevant')
 
         %li
-          = link_to _('Not Inventory Relevant') + " (#{current_inventory_pool.own_items.not_inventory_relevant.count})", |
-                    backend_inventory_pool_items_path(:filter => 'not_inventory_relevant')                               |
+          - c = current_inventory_pool.own_items.not_inventory_relevant.count
+          = link_to _('Not Inventory Relevant') + " (#{c})", backend_inventory_pool_items_path(:filter => 'not_inventory_relevant')
 
       %li
-        = link_to _('Retired') + " (#{current_inventory_pool.own_items.where(:retired => true).count})",                 |
-                  backend_inventory_pool_items_path(:filter => 'retired')                                                |
+        - c = Item.unscoped { current_inventory_pool.own_items.where('retired IS NOT NULL').count }
+        = link_to _('Retired') + " (#{c})", backend_inventory_pool_items_path(:filter => 'retired')

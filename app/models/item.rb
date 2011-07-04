@@ -150,37 +150,10 @@ class Item < ActiveRecord::Base
   end
     
 ####################################################################
-# OPTIMIZE retired filter, default_scope
 
-  def self.find(*args)
-    retired = args.last.delete(:retired) if args.last.is_a?(Hash)
-    # OPTIMIZE in case of Ferret rebuild_index, reindex all items, 1000 is the limit default used by ferret
-    retired ||= :all if args.last.is_a?(Hash) and args.last[:limit] == 1000
-    if retired == :all
-      super(*args)  
-    else
-      #Rails3.1# with_scope( :find => { :conditions=> "#{class_name.downcase.pluralize}.retired IS #{retired ? "NOT" : ""} NULL" }) do
-      with_scope( :find => { :conditions=> "#{name.downcase.pluralize}.retired IS #{retired ? "NOT" : ""} NULL" }) do
-        super(*args)
-      end
-    end
-  end
-
-  def self.count(*args)
-    retired = args.last.delete(:retired) if args.last.is_a?(Hash)
-    if retired == :all
-      super(*args)  
-    else
-      #Rails3.1# with_scope( :find => { :conditions=> "#{class_name.downcase.pluralize}.retired IS #{retired ? "NOT" : ""} NULL" }) do
-      with_scope( :find => { :conditions=> "#{name.downcase.pluralize}.retired IS #{retired ? "NOT" : ""} NULL" }) do
-        super(*args)
-      end
-    end
-  end
-
-# TODO 0501
-#  default_scope where(:retired => nil)
-#  scope :retired, where("retired IS NOT NULL")
+  default_scope where(:retired => nil)
+  #scope :retired, unscoped { where{{retired.not_eq => nil}} } # NOTE using squeel gem # where(arel_table[:retired].not_eq(nil))
+  #scope :retired_and_unretired, unscoped {}
 
 ####################################################################
 
@@ -333,7 +306,7 @@ class Item < ActiveRecord::Base
   # proposes the next available number based on the owner inventory_pool
   # tries to take the next free inventory code after the previously created Item
   def self.proposed_inventory_code(inventory_pool)
-    last_inventory_code = Item.first(:conditions => {:owner_id => inventory_pool}, :order => "created_at DESC", :retired => :all).try(:inventory_code)
+    last_inventory_code = Item.unscoped { Item.where(:owner_id => inventory_pool).order("created_at DESC").first.try(:inventory_code) }
     num = last_number(last_inventory_code)
     next_num = free_inventory_code_ranges({:from => num}).first.first
     return "#{inventory_pool.shortname}#{next_num}"
@@ -414,7 +387,7 @@ class Item < ActiveRecord::Base
 
   def current_borrowing_info
     # TODO 1102** make sure is only max 1 contract_line
-    contract_line = contract_lines.first(:conditions => {:returned_date => nil})
+    contract_line = contract_lines.where(:returned_date => nil).first
     
     # FIXME this is a quick fix
     if contract_line

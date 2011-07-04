@@ -40,7 +40,7 @@ class ItemLine < ContractLine
 
   # OPTMIZE 0209** overriding the item getter in order to get a retired item as well if is the case
   def item
-    Item.first(:conditions => {:id => item_id}, :retired => :all) if item_id
+    Item.unscoped { Item.where(:id => item_id).first } if item_id   
   end  
 
   def to_s
