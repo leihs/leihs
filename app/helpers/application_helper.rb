@@ -88,6 +88,19 @@ module ApplicationHelper
     return html
   end
   
+  def compact_inventory_pool_info(inventory_pools)
+    html = ""
+    inventory_pools.each do |inventory_pool|
+      html += "<li>"
+      html += "<strong>#{inventory_pool.name}</strong>"
+      html += "<p>#{inventory_pool.opening_hours.gsub('\n','<br>')}</p>" unless inventory_pool.opening_hours.blank?
+      html += "<p>#{inventory_pool.address.gsub('\n','<br>')}</p>" unless inventory_pool.address.blank?
+      html += "</li>"
+      html += "<div class='hr'></div>" unless inventory_pool == inventory_pools.last
+    end
+    return html
+  end
+  
   ######## Flash #########
 
   # OPTIMIZE

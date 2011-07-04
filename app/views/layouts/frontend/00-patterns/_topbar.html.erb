@@ -87,7 +87,7 @@
 				
 				<li class="seperator"></li>
 				
-				<li class="item"><a href="#" class="anchor"><%= _("Contact") %></a>
+				<li class="item"><a href="#" class="anchor"><%= _("Pools") %></a>
 				  <div class="hover contact">
 				       		<div class="header">
 				       			<div class="borderleft"></div>
@@ -98,36 +98,7 @@
 				       			
 				       			<div class="inner">
 					       			<ul>
-						               <li><strong><%= _("AV-Pool") %></strong>
-						               	    <p><%= _("Opening Hours:") %><br>
-						               		   <%= _("Monday to Friday") %><br> 
-						               		   <%= _("8:30-9:30 and 12:30-16:30") %></p>
-						               		   
-						               		<p><%= _("Zurich School of Arts") %><br>
-						               		   <%= _("Room K11") %><br>
-						               		   <%= _("Ausstellungsstrasse 60") %><br>
-						               		   <%= _("CH-8005 Zurich") %></p>
-						               			
-						               	    <p>Tel: +41 43 446 44 45<br>
-						               			ausleihe.pz@zhdk.ch</p>
-						               </li>
-						               			
-						               <div class="hr"></div>			
-						               			
-						               <li><strong><%= _("ITZ-Pool") %></strong>
-							               	<p><%= _("Opening Hours:") %><br>
-							               		<%= _("Monday to Friday") %><br>
-							               		<%= _("12:00-18:00") %><br>
-							               		
-							               	 <p><%= _("Zurich School of Arts") %><br>
-							               		<%= _("IT Center (Room SQ3)") %><br>
-							               		<%= _("Ausstellungsstrasse 60") %><br>
-							               		<%= _("CH-8005 Zurich") %></p>
-						               		
-							               	<p>Tel: +41 43 446 21 21<br>
-							               		itz@zhdk.ch</p>
-						               	</li>
-						               		
+					       				<%= compact_inventory_pool_info(@user.active_inventory_pools).html_safe %>
 						           	</ul>
 						        </div>
 				       			

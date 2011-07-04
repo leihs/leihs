@@ -10,17 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110318110901) do
+ActiveRecord::Schema.define(:version => 90000000000014) do
 
   create_table "access_rights", :force => true do |t|
     t.integer  "role_id"
     t.integer  "user_id"
     t.integer  "inventory_pool_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.date     "suspended_until"
     t.date     "deleted_at"
     t.integer  "access_level"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "access_rights", ["deleted_at"], :name => "index_access_rights_on_deleted_at"
@@ -44,6 +44,106 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
 
   add_index "accessories_inventory_pools", ["accessory_id", "inventory_pool_id"], :name => "index_accessories_inventory_pools", :unique => true
   add_index "accessories_inventory_pools", ["inventory_pool_id"], :name => "index_accessories_inventory_pools_on_inventory_pool_id"
+
+  create_table "accounting_events", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "event_type"
+    t.datetime "event_occurred_at"
+    t.integer  "accounting_user_id"
+    t.integer  "accounting_model_id"
+    t.integer  "accounting_item_id"
+    t.integer  "accounting_inventory_pool_id"
+  end
+
+  create_table "accounting_groups", :force => true do |t|
+    t.string   "name"
+    t.integer  "accounting_inventory_pool_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "accounting_inventory_pools", :force => true do |t|
+    t.integer  "original_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.text     "description"
+    t.string   "contact_details"
+    t.string   "contract_description"
+    t.string   "contract_url"
+    t.string   "logo_url"
+    t.text     "default_contract_note"
+    t.string   "shortname"
+    t.string   "email"
+  end
+
+  create_table "accounting_items", :force => true do |t|
+    t.integer  "original_id"
+    t.string   "inventory_code"
+    t.string   "serial_number"
+    t.integer  "accounting_model_id"
+    t.string   "location"
+    t.string   "supplier"
+    t.integer  "owner_id"
+    t.integer  "parent_id"
+    t.string   "invoice_number"
+    t.date     "invoice_date"
+    t.date     "last_check"
+    t.date     "retired"
+    t.string   "retired_reason"
+    t.decimal  "price",                        :precision => 8, :scale => 2
+    t.boolean  "is_broken",                                                  :default => false
+    t.boolean  "is_incomplete",                                              :default => false
+    t.boolean  "is_borrowable",                                              :default => false
+    t.boolean  "needs_permission",                                           :default => false
+    t.integer  "accounting_inventory_pool_id"
+    t.boolean  "is_inventory_relevant",                                      :default => false
+    t.string   "responsible"
+    t.string   "insurance_number"
+    t.text     "note"
+    t.text     "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "user_name"
+  end
+
+  create_table "accounting_models", :force => true do |t|
+    t.integer  "original_id"
+    t.string   "name",                                                                  :null => false
+    t.string   "manufacturer"
+    t.string   "description"
+    t.string   "internal_description"
+    t.string   "info_url"
+    t.decimal  "rental_price",         :precision => 8, :scale => 2
+    t.boolean  "is_package",                                         :default => false
+    t.string   "technical_detail"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "accounting_users", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "login"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "phone"
+    t.string   "unique_id"
+    t.string   "email"
+    t.string   "badge_id"
+    t.string   "address"
+    t.string   "city"
+    t.string   "zip"
+    t.string   "country"
+    t.integer  "language_id",   :default => 1
+    t.text     "extended_info"
+  end
+
+  create_table "accounting_users_accounting_groups", :id => false, :force => true do |t|
+    t.integer "accounting_user_id"
+    t.integer "accounting_group_id"
+  end
 
   create_table "attachments", :force => true do |t|
     t.integer "model_id"
@@ -81,9 +181,9 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
     t.integer  "inventory_pool_id"
     t.integer  "status_const",      :default => 1
     t.string   "purpose"
-    t.boolean  "delta",             :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "delta",             :default => true
   end
 
   add_index "backup_orders", ["inventory_pool_id"], :name => "index_backup_orders_on_inventory_pool_id"
@@ -105,46 +205,73 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
     t.integer  "user_id"
   end
 
-  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
+  add_index "comments", ["commentable_type", "commentable_id"], :name => "index_comments_on_commentable_type_and_commentable_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "contract_lines", :force => true do |t|
     t.integer  "contract_id"
-    t.string   "type",          :default => "ItemLine", :null => false
     t.integer  "item_id"
     t.integer  "model_id"
     t.integer  "quantity",      :default => 1
     t.date     "start_date"
     t.date     "end_date"
     t.date     "returned_date"
-    t.integer  "option_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "option_id"
+    t.string   "type",          :default => "ItemLine", :null => false
   end
 
+  add_index "contract_lines", ["contract_id"], :name => "contract_lines_contract_id"
   add_index "contract_lines", ["contract_id"], :name => "index_contract_lines_on_contract_id"
   add_index "contract_lines", ["end_date"], :name => "index_contract_lines_on_end_date"
+  add_index "contract_lines", ["item_id"], :name => "contract_lines_item_id"
   add_index "contract_lines", ["item_id"], :name => "index_contract_lines_on_item_id"
+  add_index "contract_lines", ["model_id"], :name => "contract_lines_model_id"
   add_index "contract_lines", ["model_id"], :name => "index_contract_lines_on_model_id"
+  add_index "contract_lines", ["option_id"], :name => "contract_lines_option_id"
   add_index "contract_lines", ["option_id"], :name => "index_contract_lines_on_option_id"
   add_index "contract_lines", ["returned_date"], :name => "index_contract_lines_on_returned_date"
   add_index "contract_lines", ["start_date"], :name => "index_contract_lines_on_start_date"
   add_index "contract_lines", ["type"], :name => "index_contract_lines_on_type"
+
+  create_table "contract_lines_old", :force => true do |t|
+    t.integer  "contract_id"
+    t.integer  "item_id"
+    t.integer  "model_id"
+    t.integer  "location_id"
+    t.integer  "quantity",      :default => 1
+    t.date     "start_date"
+    t.date     "end_date"
+    t.date     "returned_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "option_id"
+    t.string   "type",          :default => "ItemLine", :null => false
+  end
+
+  add_index "contract_lines_old", ["contract_id"], :name => "fk_contract_lines_contract_id"
+  add_index "contract_lines_old", ["item_id"], :name => "fk_contract_lines_item_id"
+  add_index "contract_lines_old", ["location_id"], :name => "fk_contract_lines_location_id"
+  add_index "contract_lines_old", ["model_id"], :name => "fk_contract_lines_model_id"
+  add_index "contract_lines_old", ["option_id"], :name => "fk_contract_lines_option_id"
 
   create_table "contracts", :force => true do |t|
     t.integer  "user_id"
     t.integer  "inventory_pool_id"
     t.integer  "status_const",      :default => 1
     t.text     "purpose"
-    t.text     "note"
-    t.boolean  "delta",             :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "note"
+    t.boolean  "delta",             :default => true
   end
 
   add_index "contracts", ["delta"], :name => "index_contracts_on_delta"
+  add_index "contracts", ["inventory_pool_id"], :name => "fk_contracts_inventory_pool_id"
   add_index "contracts", ["inventory_pool_id"], :name => "index_contracts_on_inventory_pool_id"
   add_index "contracts", ["status_const"], :name => "index_contracts_on_status_const"
+  add_index "contracts", ["user_id"], :name => "fk_contracts_user_id"
   add_index "contracts", ["user_id"], :name => "index_contracts_on_user_id"
 
   create_table "database_authentications", :force => true do |t|
@@ -222,8 +349,10 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
     t.string  "shortname"
     t.string  "email"
     t.text    "color"
-    t.boolean "print_contracts",       :default => true
     t.boolean "delta",                 :default => true
+    t.boolean "print_contracts",       :default => true
+    t.text    "opening_hours"
+    t.text    "address"
   end
 
   add_index "inventory_pools", ["delta"], :name => "index_inventory_pools_on_delta"
@@ -253,6 +382,8 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
     t.boolean  "is_broken",                                           :default => false
     t.boolean  "is_incomplete",                                       :default => false
     t.boolean  "is_borrowable",                                       :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "needs_permission",                                    :default => false
     t.integer  "inventory_pool_id"
     t.boolean  "is_inventory_relevant",                               :default => false
@@ -261,8 +392,6 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
     t.text     "note"
     t.text     "name"
     t.boolean  "delta",                                               :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "user_name"
   end
 
@@ -307,35 +436,15 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
   add_index "model_group_links", ["descendant_id"], :name => "index_model_group_links_on_descendant_id"
   add_index "model_group_links", ["direct"], :name => "index_model_group_links_on_direct"
 
-  create_table "model_group_links_copy", :force => true do |t|
-    t.integer "ancestor_id"
-    t.integer "descendant_id"
-    t.string  "label"
-    t.boolean "direct"
-    t.integer "count"
-  end
-
-  add_index "model_group_links_copy", ["ancestor_id"], :name => "index_model_groups_parents_on_model_group_id"
-  add_index "model_group_links_copy", ["descendant_id"], :name => "index_model_groups_parents_on_parent_id"
-
   create_table "model_groups", :force => true do |t|
     t.string   "type"
     t.string   "name"
-    t.boolean  "delta",      :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "delta",      :default => true
   end
 
   add_index "model_groups", ["delta"], :name => "index_model_groups_on_delta"
-
-  create_table "model_groups_parents_copy", :id => false, :force => true do |t|
-    t.integer "model_group_id"
-    t.integer "parent_id"
-    t.string  "label"
-  end
-
-  add_index "model_groups_parents_copy", ["model_group_id"], :name => "index_model_groups_parents_on_model_group_id"
-  add_index "model_groups_parents_copy", ["parent_id"], :name => "index_model_groups_parents_on_parent_id"
 
   create_table "model_links", :force => true do |t|
     t.integer "model_group_id"
@@ -355,10 +464,10 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
     t.decimal  "rental_price",         :precision => 8, :scale => 2
     t.integer  "maintenance_period",                                 :default => 0
     t.boolean  "is_package",                                         :default => false
-    t.string   "technical_detail"
-    t.boolean  "delta",                                              :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "technical_detail"
+    t.boolean  "delta",                                              :default => true
     t.text     "hand_over_note"
   end
 
@@ -389,8 +498,8 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
     t.integer "inventory_pool_id"
     t.string  "inventory_code"
     t.string  "name"
-    t.decimal "price",             :precision => 8, :scale => 2
     t.boolean "delta",                                           :default => true
+    t.decimal "price",             :precision => 8, :scale => 2
   end
 
   add_index "options", ["delta"], :name => "index_options_on_delta"
@@ -418,9 +527,9 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
     t.integer  "inventory_pool_id"
     t.integer  "status_const",      :default => 1
     t.text     "purpose"
-    t.boolean  "delta",             :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "delta",             :default => true
   end
 
   add_index "orders", ["delta"], :name => "index_orders_on_delta"
@@ -473,6 +582,8 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
     t.integer  "authentication_system_id", :default => 1
     t.string   "unique_id"
     t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "badge_id"
     t.string   "address"
     t.string   "city"
@@ -481,8 +592,6 @@ ActiveRecord::Schema.define(:version => 20110318110901) do
     t.integer  "language_id",              :default => 1
     t.text     "extended_info"
     t.boolean  "delta",                    :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "users", ["authentication_system_id"], :name => "index_users_on_authentication_system_id"
