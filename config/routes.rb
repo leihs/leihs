@@ -62,6 +62,8 @@ Leihs::Application.routes.draw do
     end
   end
   
+  resources :model
+  
   resources :categories do 
     resources :models
   end
