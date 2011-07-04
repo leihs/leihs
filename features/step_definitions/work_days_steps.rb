@@ -66,7 +66,7 @@ When "$who clicks '$action'" do |who, action|
   
   #Login as User
   post "/session", :login => inv_manager.login
-  get backend_inventory_pool_hand_over_path(@inventory_pool) if action == 'hand over'
+  get backend_inventory_pool_hand_over_index_path(@inventory_pool) if action == 'hand over'
   get backend_inventory_pool_workdays_path(@inventory_pool) if action == 'Opening Times'
 
   @workday = assigns(:workday)

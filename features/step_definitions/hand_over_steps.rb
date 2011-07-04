@@ -16,7 +16,7 @@ end
 
 # OPTIMIZE 0402
 When "$who clicks on 'hand_over'" do | who |
-  get send("backend_inventory_pool_hand_over_path", @inventory_pool)
+  get send("backend_inventory_pool_hand_over_index_path", @inventory_pool)
   @visits = assigns(:visits)
   response.should render_template("backend/hand_over/index")
 end
