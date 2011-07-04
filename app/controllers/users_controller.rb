@@ -3,7 +3,6 @@ class UsersController < FrontendController
   before_filter :pre_load
 
   def edit
-    @user = User.find(params[:id])
   end
   
 
