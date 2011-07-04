@@ -93,7 +93,7 @@ module ApplicationHelper
     inventory_pools.each do |inventory_pool|
       html += "<section>"
       html += "<h3>#{inventory_pool.name}</h3>"
-      html += link_to _("show"), "show_pool_path(inventory_pool)", :class => 'topright'
+      html += link_to _("show"), "", :class => 'topright'
       html += "<p>#{inventory_pool.opening_hours.gsub('\n','<br>')}</p>" unless inventory_pool.opening_hours.blank?
       html += "<p>#{inventory_pool.address.gsub('\n','<br>')}</p>" unless inventory_pool.address.blank?
       html += "</section>"
