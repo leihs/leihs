@@ -64,8 +64,20 @@
 				       		</div><!-- .footer -->
 				       		<div class="inner">
 				       			<div class="borderleft"></div>
+<<<<<<< HEAD
 				       			
 					       			<%= compact_inventory_pool_info(@user.active_inventory_pools).html_safe %>
+=======
+				       			<ul>
+				       			 <% (Language.active_languages - [current_user.language]).each do |l| %>
+				       			 	<li><a href="?locale=<%=l.locale_name%>"><%= l.name %></a></li>
+				       			 	<% unless l == (Language.active_languages - [current_user.language]).last %>
+				       			 		<div class="hr"></div>
+				       			 	<% end %> 
+				       			 <% end %>
+				       			 </ul>
+				       		
+>>>>>>> 4f77d35dcfde9fe96effe66f69f9da4cbba10743
 				       			
 				       			<div class="borderright"></div>
 				       		</div><!-- .inner -->
@@ -87,6 +99,7 @@
 				       		</div><!-- .footer -->
 				       		<div class="inner">
 				       			<div class="borderleft"></div>
+<<<<<<< HEAD
 				       			<ul>
 				       			 <% (Language.active_languages - [current_user.language]).each do |l| %>
 				       			 	<li><a href="?locale=<%=l.locale_name%>"><%= l.name %></a></li>
@@ -94,6 +107,14 @@
 				       			 <% end %>
 				       			 </ul>
 				       		
+=======
+				       			
+				       			<div class="inner">
+					       			<ul>
+					       				<%= compact_inventory_pool_info(@user.active_inventory_pools) %>
+						           	</ul>
+						        </div>
+>>>>>>> 4f77d35dcfde9fe96effe66f69f9da4cbba10743
 				       			
 				       			<div class="borderright"></div>
 				       		</div><!-- .inner -->

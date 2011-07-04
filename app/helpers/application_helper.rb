@@ -89,7 +89,7 @@ module ApplicationHelper
   end
   
   def compact_inventory_pool_info(inventory_pools)
-    html = ""
+    html = "".html_safe
     inventory_pools.each do |inventory_pool|
       html += "<section>"
       html += "<h3>#{inventory_pool.name}</h3>"
@@ -189,15 +189,17 @@ module ApplicationHelper
 
   ######## User-related methods ###########
   def address_block(user)
-    address = ""
+    address = "".html_safe
     address += "#{user.address}<br>" unless user.address.blank?
     address += "#{user.zip} #{user.city}<br>" unless (user.zip.blank? and user.city.blank?)
+    address
   end
   
   def contact_block(user)
-    contact = ""
+    contact = "".html_safe
     contact += "#{user.phone}<br>" unless user.phone.blank?
     contact += "#{user.email}<br>" unless user.email.blank?
+    contact
   end
 
   ######## Tabs #########
