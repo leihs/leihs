@@ -66,10 +66,11 @@ class ModelsController < FrontendController
   def show
     @models = [@model]
     c = @models.size
+    # OPTIMIZE used for InventoryPool#items_size
+    InventoryPool.current_model, InventoryPool.current_user = [@model, current_user]
+    
     respond_to do |format|
-      # OPTIMIZE used for InventoryPool#items_size
-      InventoryPool.current_model, InventoryPool.current_user = [@model, current_user]
-      
+      format.html
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => c,
                                                             :methods => [:needs_permission, :package_models],
