@@ -52,10 +52,15 @@
 
 /* BASKET INNER EDIT */
 #basket .inner .edit {
+	display: block;
 	color: #C0C0C0;
 	display: none;
-	float: right;
-	margin-right: 4px;
+	right: 0;
+	padding: 10px 4px 6px 0;
+	position: absolute;
+	text-align: right;
+	top: -10px;
+	width: 99%;
 }
 
 #basket:hover .inner .edit {
