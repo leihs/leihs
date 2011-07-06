@@ -173,10 +173,14 @@
 }
 
 #topbar .navigation .item .topright {
+	display: block;
+	height: 100%;
 	padding: 10px 10px 10px 15px;
 	position: absolute;
+	text-align: right;
 	right: -10px;
 	top: -9px;
+	width: 100%;
 }
 
 #topbar .navigation .item section {

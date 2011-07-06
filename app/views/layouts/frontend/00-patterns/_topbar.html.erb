@@ -24,16 +24,16 @@
 				       			
 					       		<section class= "address">
 					       			<h3><%= _("Address") %></h3>
-					       			<%= link_to _("edit"), edit_user_path, :class => 'topright' %>
 					       			<p><%= address_block(current_user) %></p>
+					       			<%= link_to _("edit"), edit_user_path, :class => 'topright' %>
 					       		</section><!-- .address -->
 					       								       			
 					       		<div class="hr"></div>
 					       			
 					       		<section class= "contact">
 					       			<h3><%= _("Contact") %></h3>
-					       			<%= link_to _("edit"), edit_user_path, :class => 'topright' %>
 					       			<p><%= contact_block(current_user) %></p>
+					       			<%= link_to _("edit"), edit_user_path, :class => 'topright' %>
 					       		</section><!-- .contact -->
 				       						  
                                <% if current_user.orders.submitted.count > 0 %>
