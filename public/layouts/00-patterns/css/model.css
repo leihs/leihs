@@ -1,28 +1,10 @@
 /* MODEL */
 
-
-#image {
-	
-	
-}
-
-
-#itemdetails {
-	
-	
-}
-
-
-#suggesteditems {
-	
-	
-}
-
-
 .itemhead {
 	padding-top: 20px;
 	position: relative;
 }
+
 
 /* MAIN.WRAPPER CONTENT.BOX INNER ITEMHEAD */
 
@@ -40,6 +22,10 @@
 
 #main.wrapper #content.box .inner .suggesteditems {
 	padding-top: 10px;
+}
+
+#main.wrapper #content.box .inner .suggesteditems p {
+	font-size: 1.1em;
 }
 
 #main.wrapper #content.box .inner .row {
