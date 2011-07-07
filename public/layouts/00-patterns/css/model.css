@@ -1,85 +1,84 @@
 /* MODEL */
 
-
-#image {
-	
-	
+.itemhead {
+	padding-top: 20px;
+	position: relative;
 }
 
 
-#itemhead {
-	
-	
+/* MAIN.WRAPPER CONTENT.BOX INNER ITEMHEAD */
+
+#content .inner .itemhead .button{
+	position: relative;
+	top: 10px;	
 }
 
-
-#itemdetails {
-	
-	
+#content .inner .itemhead .button a{
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
+/* MAIN.WRAPPER CONTENT.BOX INNER SUGGESTEDITEMS */
 
-#suggesteditems {
-	
-	
-}
-
-
-/* CONTENT INNER /
-#content .inner {
+#main.wrapper #content.box .inner .suggesteditems {
 	padding-top: 10px;
 }
 
-#content .inner .row {
+#main.wrapper #content.box .inner .suggesteditems p {
+	font-size: 1.1em;
+}
+
+#main.wrapper #content.box .inner .row {
 	clear: both;
 	padding: 2px 0px 19px 0px;
 }
 
-#content .inner #startcategories .row .cell {
+#main.wrapper #content.box .inner .row .cell {
 	float: left;
 	width: 180px;
 }	
 
-#content .inner #startcategories .row .cell .edit {
+#main.wrapper #content.box .inner .row .cell .edit {
 	color: #999;
 }
 
-#content .inner #startcategories .row .cell .edit:hover {
+#main.wrapper #content.box .inner .row .cell .edit:hover {
 	color: #515151;
 }
 
-#content .inner #startcategories .row .cell a img {
+#main.wrapper #content.box .inner .row .cell a img {
 	height: 80px;	
 	display: block;
 	margin-left: 10px;
 	padding-bottom: 15px;
 }
 
-#content .inner #startcategories .row .cell h2 {
+#main.wrapper #content.box .inner .row .cell h2 {
 	padding-left: 8px;
 }
 
-#content .inner #startcategories .row .cell ul {
+#main.wrapper #content.box .inner .row .cell ul {
 	margin-right: 20px;
 	margin-top: 5px;
 	list-style-type: none;
 }
 
-#content .inner #startcategories .row .cell ul li {
+#main.wrapper #content.box .inner .row .cell ul li {
 	display: block;
 	margin-bottom: 6px;
 	padding-left: 8px;
 }
 
-#content .inner #startcategories .row .cell ul li a, #content .inner #startcategories .row .cell ul li a:link, #content .inner #startcategories .row .cell ul li a:visited {
+#main.wrapper #content.box .inner .row .cell ul li a, #main.wrapper #content.box .inner .suggesteditems .row .cell ul li a:link, #main.wrapper #content.box .inner .suggesteditems .row .cell ul li a:visited {
 	font-size: 1.2em;
 	color:#999999;
 }
 
-#content .inner #startcategories .row .cell ul li a:hover, #content .inner #startcategories .row .cell ul li a:active {
+#main.wrapper #content.box .inner .row .cell ul li a:hover, #main.wrapper #content.box .inner .suggesteditems .row .cell ul li a:active {
 	color: #515151;
 }
 
-#content .inner #startcategories .row .cell:hover h2 a {
+#main.wrapper #content.box .inner .row .cell:hover h2 a {
 	color: #515151;
+}
 }
