@@ -49,6 +49,7 @@
 	margin-bottom: 6px;
 }
 
+
 /* CONTENT INNER RENTED */
 #content .inner #rented {
 	font-size: 1.1em;
@@ -91,64 +92,6 @@
 	color: #515151;	
 }
 
-/* CONTENT INNER STARTCATEGORIES */
-#content .inner #startcategories {
-	padding-top: 10px;
-}
-
-#content .inner #startcategories .row {
-	clear: both;
-	padding: 2px 0px 19px 0px;
-}
-
-#content .inner #startcategories .row .cell {
-	float: left;
-	width: 180px;
-}	
-
-#content .inner #startcategories .row .cell .edit {
-	color: #999;
-}
-
-#content .inner #startcategories .row .cell .edit:hover {
-	color: #515151;
-}
-
-#content .inner #startcategories .row .cell a img {
-	height: 80px;	
-	display: block;
-	margin-left: 10px;
-	padding-bottom: 15px;
-}
-
-#content .inner #startcategories .row .cell h2 {
-	padding-left: 8px;
-}
-
-#content .inner #startcategories .row .cell ul {
-	margin-right: 20px;
-	margin-top: 5px;
-	list-style-type: none;
-}
-
-#content .inner #startcategories .row .cell ul li {
-	display: block;
-	margin-bottom: 6px;
-	padding-left: 8px;
-}
-
-#content .inner #startcategories .row .cell ul li a, #content .inner #startcategories .row .cell ul li a:link, #content .inner #startcategories .row .cell ul li a:visited {
-	font-size: 1.2em;
-	color:#999999;
-}
-
-#content .inner #startcategories .row .cell ul li a:hover, #content .inner #startcategories .row .cell ul li a:active {
-	color: #515151;
-}
-
-#content .inner #startcategories .row .cell:hover h2 a {
-	color: #515151;
-}
 
 /* CONTENT FOOTER */
 #content .footer {
