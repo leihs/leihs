@@ -34,6 +34,54 @@
 	width: 6px;
 }
 
+#basket .header .navigation {
+	position: absolute;
+	left: 8px;
+	top: -20px;
+}
+
+#basket .header .navigation li {
+	display: block;
+	float: left;
+	margin-right: 1px;
+}
+
+#basket .header .navigation li a .icon {
+	height: 15px;
+	margin: 0 auto;
+	opacity: .6;
+	position: relative;
+	top: 3px;
+	width: 15px;
+}
+
+#basket .header .navigation li a:hover .icon, #basket .header .navigation .active a .icon {
+	opacity: 1;
+}
+
+#basket .header .navigation li a .basket {
+	background: url(../images/image-sprite.png) no-repeat -156px -312px; 
+}
+
+#basket .header .navigation li a .list {
+	background: url(../images/image-sprite.png) no-repeat -172px -312px; 
+}
+
+#basket .header .navigation li a {
+	background: url(../images/image-sprite.png) no-repeat -75px -312px; 
+	display: block;
+	height: 27px;
+	width: 26px;
+}
+
+#basket .header .navigation li:hover a {
+	background: url(../images/image-sprite.png) no-repeat -102px -312px; 
+}
+
+#basket .header .navigation .active a, #basket .header .navigation .active:hover a  {
+	background: url(../images/image-sprite.png) no-repeat -129px -312px; 
+}
+
 /* BASKET INNER */
 #basket .inner {
 	background: #FFF;
@@ -52,10 +100,15 @@
 
 /* BASKET INNER EDIT */
 #basket .inner .edit {
+	display: block;
 	color: #C0C0C0;
 	display: none;
-	float: right;
-	margin-right: 4px;
+	right: 0;
+	padding: 10px 9px 6px 0;
+	position: absolute;
+	text-align: right;
+	top: -10px;
+	width: 99%;
 }
 
 #basket:hover .inner .edit {
