@@ -89,7 +89,7 @@
 	border-left: 1px solid #c9c7c3;
 	border-right: 1px solid #c9c7c3;
 	display: block;
-	padding: 0 4px 0 9px;
+	padding: 0 4px 28px 9px;
   	position: relative;
 }
 
@@ -177,14 +177,6 @@
 	color:#FF0000;
 }
 
-/* BASKET INNER BUTTON */
-#basket .inner .button {
-	margin-right: 4px;
-	margin-bottom: -4px;
-	position: relative;
-	z-index: 2;
-}
-
 /* BASKET FOOTER */
 #basket .footer {
 	background: url(../images/slices-h.png) repeat-x 0 -110px;
@@ -192,6 +184,14 @@
   	height: 14px;
   	position: relative;
   	z-index: 1;
+}
+
+/* BASKET FOOTER BUTTON */
+#basket .footer button {
+    margin-left: 8px;
+    position: absolute;
+    top: -27px;
+    width: 184px;
 }
 
 #basket .footer .borderright {
