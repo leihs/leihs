@@ -21,6 +21,10 @@
 	padding-bottom: 3px;
 }
 
+#categories li:hover h2 a {
+    color:#515151;
+}
+
 #categories ul {
 	padding-bottom: 14px;
 }
@@ -115,7 +119,7 @@
 	position: relative;
 	right: 7px;
 	vertical-align: middle;
-	width: 569px;
+	width: 568px;
 }
 
 #modellist .item {
@@ -124,7 +128,49 @@
 	display: block;
 }
 
-#modellist .image img {
+#modellist .item ul li {
+    display: block;
+    font-size: 1.2em;
+    float: left;
+    overflow: hidden;
+    margin-right: 10px;
+    padding-top: 28px;
+    white-space: nowrap;
+}
+
+/* MODEELIST IMAGE */
+#modellist .item ul .image {
+    padding-top: 10px; 
+    margin-left: 10px;
+    margin-right: 15px;
+    width: 50px;   
+}
+
+#modellist .item ul .image a {
+    display: block;
+    text-align: center;
+}
+
+#modellist .item ul .image a img {
 	height: 50px;
+	max-width: 50px;
 	width: auto;
+}
+
+/* MODEELIST NAME */
+#modellist .name {
+    width: 180px;
+}
+
+/* MODEELIST ADD */
+#modellist .add {
+    padding-top: 26px !important;    
+}
+
+#modellist .add a span {
+    font-size: 1.3em;
+    font-weight: normal;
+    padding: 0 4px;
+    position: relative;
+    top: -2px;
 }

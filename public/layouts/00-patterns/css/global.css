@@ -113,30 +113,82 @@ ul {
 	display: block;
 }
 
+/* BUTTONS */
+button {
+    background: none;
+    border: none;
+    padding-right: 2px;
+}
+
+button div {
+    position: relative;
+}
+
+button div a {
+    display: block;
+    position: relative;
+}
+
 /* BUTTON */
-.button {
+button.normal {
+    display: block;
+    height: 32px;
+    overflow: hidden;
+}
+
+button.normal div {
+	height: 31px;	
+}
+
+button.normal div a {
 	font-size: 1.2em;
 	font-weight: bold;
-	height: 31px;
+	height: 27px;
+	padding: 6px 8px 0 8px;
 	text-align: center;
 }
 
-.button a {
-	color: #515151;
-	display: block;
-	height: 25px;
-	padding-top: 7px;
-}
-
-.button.green {
+button.normal.green div {
 	background: url(../images/image-sprite.png) no-repeat 0 -202px;
 }
 
-.button.green a {
+button.normal.green div a {
 	background: url(../images/image-sprite.png) no-repeat right -234px;
+	color: #4d9148;
 }
 
+button.normal.green div a:hover {
+    color: #515151;
+}
+
+/* SMALL BUTTON */
+button.small div {
+    font-weight: bold;
+    height: 22px;
+    text-align: center; 
+}
+
+button.small div a {
+    font-size: 1.2em;
+    color: #727272;
+    display: block;
+    height: 20px;
+}
+
+button.small.green div {
+    background: url(../images/image-sprite.png) no-repeat 0 -340px;
+}
+
+button.small.green div a {
+    background: url(../images/image-sprite.png) no-repeat right -361px;
+    color: #4d9148;
+}
+
+button.small.green div a:hover {
+    color: #515151;
+}
+
+/* GREY */
 .grey {
 	color: #999; 
-	
 }

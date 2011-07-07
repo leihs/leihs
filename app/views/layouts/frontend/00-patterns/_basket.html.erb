@@ -3,17 +3,15 @@
 	<div class="header">
 		<div class="borderright"></div>
 			<ul class="navigation">
-				<li class="active"><a href="#" title="<%= _("Checkout") %>"><div class="icon basket"></div></a></li>
-				<li><a href="#" title="<%= _("Templates") %>"><div class="icon list"></div></a></li>
+				<li class="active"><a href="#" title="<%= _("Edit Basket") %>"><span class="icon basket"></span></a></li>
+				<li><a href="#" title="<%= _("Templates") %>"><span class="icon list"></span></a></li>
 			</ul><!-- .navigation -->
 		<div class="borderleft"></div>
 	</div><!-- header -->
 	
 	<div class="inner">
 	
-		<strong class="title"><%= _("Checkout") %></strong>
-					
-		<a class="edit" href="bearbeiten"><%= _("edit")%></a>
+		<h3><a href="#" title="<%= _("Edit Basket") %>"><%= _("Basket") %></a></h3>
 		
 		<div class="clear"></div>
 		
@@ -41,13 +39,13 @@
 		</table>
 		
 		<div class="clear"></div>
-	
-		<div class="button green">
-			<a href="#">Bestellung abschicken</a>
-		</div><!-- .button -->
-	
+
 	</div><!-- inner -->
 	
-	<div class="footer"><div class="borderright"></div><div class="borderleft"></div></div><!-- footer -->
+	<div class="footer">
+	    <div class="borderright"></div>
+	    <div class="borderleft"></div>
+	    <button class="normal green"><div><a href="#basket"><%= _("Checkout") %></a></div></button><!-- .button -->
+	</div><!-- footer -->
 	
 </aside><!-- basket -->
