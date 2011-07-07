@@ -113,6 +113,14 @@ ul {
 	display: block;
 }
 
+/* BUTTONS */
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding-right: 2px;
+}
+
 /* BUTTON */
 .button {
 	font-size: 1.2em;
@@ -136,7 +144,34 @@ ul {
 	background: url(../images/image-sprite.png) no-repeat right -234px;
 }
 
+/* SMALL BUTTON */
+.smallbutton div {
+    font-weight: bold;
+    height: 22px;
+    text-align: center; 
+}
+
+.smallbutton div a {
+    font-size: 1.2em;
+    color: #515151;
+    display: block;
+    height: 22px;
+}
+
+.smallbutton.green div {
+    background: url(../images/image-sprite.png) no-repeat 0 -340px;
+}
+
+.smallbutton.green div a {
+    background: url(../images/image-sprite.png) no-repeat right -363px;
+    color: #727272;
+}
+
+.smallbutton.green div a:hover {
+    color: #515151;
+}
+
+/* GREY */
 .grey {
 	color: #999; 
-	
 }

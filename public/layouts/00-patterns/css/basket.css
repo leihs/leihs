@@ -47,6 +47,7 @@
 }
 
 #basket .header .navigation li a .icon {
+    display: block;
 	height: 15px;
 	margin: 0 auto;
 	opacity: .6;
@@ -92,31 +93,23 @@
   	position: relative;
 }
 
-/* BASKET INNER TITLE */
-#basket .inner .title {
+/* BASKET INNER h3 */
+#basket .inner h3 {
 	float: left;
 	font-size: 1.2em;
+	font-weight: bold;
+	margin-bottom: 0;
 }
 
-/* BASKET INNER EDIT */
-#basket .inner .edit {
-	display: block;
-	color: #C0C0C0;
-	display: none;
-	right: 0;
-	padding: 10px 9px 6px 0;
-	position: absolute;
-	text-align: right;
-	top: -10px;
-	width: 99%;
-}
-
-#basket:hover .inner .edit {
-	display: inline;
-}
-
-#basket .inner .edit:hover {
-	color: #515151;
+#basket .inner h3 a, #basket .inner h3 a:link, #basket .inner h3 a:hover, #basket .inner h3 a:active {
+    display: block;
+    color: #515151;
+    left: -8px;
+    margin-bottom: -23px;
+    padding: 10px 0 8px 8px;
+    position: relative;
+    top: -11px;
+    width: 184px;
 }
 
 /* BASKET INNER TABLE */

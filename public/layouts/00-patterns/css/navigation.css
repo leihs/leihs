@@ -2,6 +2,7 @@
 #navigation {
 	position: relative;
 	z-index: 2;
+	width: 750px;
 }
 
 #navigation ul {
