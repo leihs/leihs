@@ -13,7 +13,7 @@
 				
 				<li class="seperator"></li>
 				
-				<li class="item"><a href="#" title="<%= _('Profile') %>" class="anchor"><%= current_user.name %></a>
+				<li class="item<%=current_page?(:controller => 'users', :action => 'show')?" active":""%>"><a href="#" title="<%= _('Profile') %>" class="anchor"><%= current_user.name %></a>
 				  <div class="hover profile">
 				       		<div class="header">
 				       			<div class="borderleft"></div>

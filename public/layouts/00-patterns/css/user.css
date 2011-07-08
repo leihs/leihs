@@ -37,6 +37,15 @@
 	font-weight: bold;
 }
 
+#user .line li {
+    display: inline-block;
+    margin-right: 7px;
+    max-width: 415px;
+    overflow: hidden;
+    padding: 0 0 8px;
+    position: relative;
+}
+
 
 /*booked items*/
 
@@ -52,13 +61,7 @@
 	color: #515151;
 }
 
-#user #booked .line li {
-    display: inline-block;
-    margin-right: 7px;
-    max-width: 415px;
-    overflow: hidden;
-    position: relative;
-}
+
 
 /*overdue items*/
 
@@ -80,13 +83,6 @@
 	color: #EE0000;
 }
 
-#user #overdue .line li {
-    display: inline-block;
-    margin-right: 7px;
-    max-width: 415px;
-    overflow: hidden;
-    position: relative;
-}
 
 /*rented items*/
 
