@@ -113,6 +113,11 @@ ul {
 	display: block;
 }
 
+/* INDENT */
+.indent {
+	padding-left: 1px;
+}
+
 /* BUTTONS */
 button {
     background: none;

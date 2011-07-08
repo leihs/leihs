@@ -1,26 +1,18 @@
 /* USER */
 #user table {
-	font-size: 1.2em;
+	font-size: 1.1em;
 }
 
 #user table tr .label {
-	width: 200px;
-}
-
-#user label {
-	float: left;
-	font-size: 1.2em;
-	display: block;
-	width: 180px;
+	color: #717171;
+	padding-right: 10px;
+	text-align: right;
+	width: 107px;
 }
 
 #user .value {
+	font-weight: bold;
 	width: 200px;
-}
-
-#user input {
-	float: left;
-	display: inline;
 }
 
 #user section {

@@ -16,159 +16,166 @@
                 
         <div class="hr"></div>
         
-        <section class="address">
-          <table>
-            <tr>
-              <td class="label"><%= _("Street") %> & <%= _("No.") %></td>
-              <td class="value"><%= @user.address %></td>
-            </tr>
-            
-            <tr>
-              <td class="label"><%= _("Postal Code") %> & <%= _("Location") %></td>
-              <td class="value"><%= @user.zip %> <%= @user.city %></td>
-            </tr>
-          </table>
-        </section>
+        <h3><%= _("User Data") %></h3>
         
-        <section class="contact">
-          <table>
-            <tr>
-              <td class="label"><%= _("Mobile") %></td>
-              <td class="value"><%= @user.phone %></td>
-            </tr>
-            <tr>
-              <td class="label"><%= _("Phone") %></td>
-              <td class="value"><%= @user.phone %></td>
-            </tr>
-            <tr>
-              <td class="label"><%= _("E-Mail") %></td>
-              <td class="value"><%= @user.email %></td>
-            </tr>
-          </table>
-        </section>
+        <div class="indent">
+	        <section class="address">
+	          <table>
+	            <tr>
+	              <td class="label"><%= _("Street") %> & <%= _("No.") %></td>
+	              <td class="value"><%= @user.address %></td>
+	            </tr>
+	            
+	            <tr>
+	              <td class="label"><%= _("Postal Code") %> & <%= _("Location") %></td>
+	              <td class="value"><%= @user.zip %> <%= @user.city %></td>
+	            </tr>
+	          </table>
+	        </section>
+	        
+	        <section class="contact">
+	          <table>
+	            <tr>
+	              <td class="label"><%= _("Mobile") %></td>
+	              <td class="value"><%= @user.phone %></td>
+	            </tr>
+	            <tr>
+	              <td class="label"><%= _("Phone") %></td>
+	              <td class="value"><%= @user.phone %></td>
+	            </tr>
+	            <tr>
+	              <td class="label"><%= _("E-Mail") %></td>
+	              <td class="value"><%= @user.email %></td>
+	            </tr>
+	          </table>
+	        </section>
+	     </div><!-- .inden -->
         
         <div class="hr"></div>
         
-        
         <h3><%= _("Booked") %></h3>
-        <ul id="booked">
-          
-          <li class="line">
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">School Project Filmkurs</a></li>
-              <li class="cancel"><a href="">Cancel</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">School Project Tra Tra Trallalla</a></li>
-              <li class="cancel"><a href="">Cancel</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">School Project Black Light Installation with White Noise</a></li>
-              <li class="cancel"><a href="">Cancel</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">School Project</a></li>
-              <li class="cancel"><a href="">Cancel</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">School Project</a></li>
-              <li class="cancel"><a href="">Cancel</a></li>
-            </ul>
-          </li>
-        </ul>
+        
+        <div class="indent">
+	        <ul id="booked">
+	          <li class="line">
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">School Project Filmkurs</a></li>
+	              <li class="cancel"><a href="">Cancel</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">School Project Tra Tra Trallalla</a></li>
+	              <li class="cancel"><a href="">Cancel</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">School Project Black Light Installation with White Noise</a></li>
+	              <li class="cancel"><a href="">Cancel</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">School Project</a></li>
+	              <li class="cancel"><a href="">Cancel</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">School Project</a></li>
+	              <li class="cancel"><a href="">Cancel</a></li>
+	            </ul>
+	          </li>
+	        </ul>
+	    </div><!-- .inden -->
 
         
         <div class="hr"></div>
         
         <h3><%= _("Overdue") %></h3>
-        <ul id="overdue">
-          
-          <li class="line">
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Animation Workshop</a></li>
-              <li class="overdue">Overdue</li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Action Never Give Back An Item</a></li>
-              <li class="overdue">Overdue</li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Animation Workshop</a></li>
-              <li class="overdue">Overdue</li>
-            </ul>
-       
-       
-          </li>
-        </ul>
+        
+        <div class="indent">
+	        <ul id="overdue">
+	          <li class="line">
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Animation Workshop</a></li>
+	              <li class="overdue">Overdue</li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Action Never Give Back An Item</a></li>
+	              <li class="overdue">Overdue</li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Animation Workshop</a></li>
+	              <li class="overdue">Overdue</li>
+	            </ul>
+	          </li>
+	        </ul>
+	    </div><!-- .inden -->
  
 
         <div class="hr"></div>
         
         
         <h3><%= _("Recently Rented") %></h3>
-        <ul id="rented">
-          
-          <li class="line">
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
-              <li class="extend"><a href="">Extend</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
-              <li class="extend"><a href="">Extend</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Photography</a></li>
-              <li class="extend"><a href="">Extend</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Photography</a></li>
-              <li class="extend"><a href="">Extend</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
-              <li class="extend"><a href="">Extend</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
-              <li class="extend"><a href="">Extend</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
-              <li class="extend"><a href="">Extend</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Photography</a></li>
-              <li class="extend"><a href="">Extend</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Photography</a></li>
-              <li class="extend"><a href="">Extend</a></li>
-            </ul>
-            <ul>
-              <li class="timeframe">22.06.11 - 06.07.11</li>
-              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
-              <li class="extend"><a href="">Extend</a></li>
-            </ul>
-          </li>
-        </ul>
+        <div class="indent">
+	        <ul id="rented">
+	          
+	          <li class="line">
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	          </li>
+	        </ul>
+	   </div><!-- .inden -->
     
     
     </div><!-- inner -->
