@@ -1,35 +1,190 @@
-#blankpage
-  = render :partial => "/users/incomplete", :locals => {:user => @user}
-  %h3= _("User")
-  %table
-    %tr
-      %td= _("Login") + ":"
-      %td= @user.login
-    %tr
-      %td= _("Unique ID") + ":"
-      %td= @user.unique_id
-    %tr
-      %td= _("Firstname/Lastname") +":"
-      %td= @user.name
-    %tr
-      %td= _("Email") + ":"
-      %td= @user.email
-    %tr
-      %td= _("Phone") + ":"
-      %td= @user.phone
 
-  #pending_orders
-    = render :partial => "/orders/pending"
+  <%= render :partial => '/layouts/frontend/00-patterns/tabs' %>
   
-  #unsigned_contracts
-    = render :partial => "/contracts/unsigned"
-  
-  #signed_contracts
-    = render :partial => "/contracts/signed"
+  <section id="content" class="box">
+    
+    <div class="header">
+      <div class="borderleft"></div>
+      <div class="borderright"></div>
+    </div><!-- .header -->
+    
+    <div class="inner" id="user">
 
-  %hr
-  %h3= _("Inventory Pool(s)")
-  %p= _("You have permission to access the following inventory pool(s):")
-  = render :partial => 'orders/inventory_pool_details',
-           :collection => @user.access_rights.collect(&:inventory_pool).compact
-  %hr
+    <h1><%= @user.name %></h1>
+        <p class="subtitle"><%= _("You have access to the following Equipment Parks") %>: 
+          <%= linked_inventory_pools(@user.inventory_pools).html_safe %>
+                
+        <div class="hr"></div>
+        
+        <h3><%= _("User Data") %></h3>
+        
+        <div class="indent">
+	        <section class="address">
+	          <table>
+	            <tr>
+	              <td class="label"><%= _("Street") %> & <%= _("No.") %></td>
+	              <td class="value"><%= @user.address %></td>
+	            </tr>
+	            
+	            <tr>
+	              <td class="label"><%= _("Postal Code") %> & <%= _("Location") %></td>
+	              <td class="value"><%= @user.zip %> <%= @user.city %></td>
+	            </tr>
+	          </table>
+	        </section>
+	        
+	        <section class="contact">
+	          <table>
+	            <tr>
+	              <td class="label"><%= _("Mobile") %></td>
+	              <td class="value"><%= @user.phone %></td>
+	            </tr>
+	            <tr>
+	              <td class="label"><%= _("Phone") %></td>
+	              <td class="value"><%= @user.phone %></td>
+	            </tr>
+	            <tr>
+	              <td class="label"><%= _("E-Mail") %></td>
+	              <td class="value"><%= @user.email %></td>
+	            </tr>
+	          </table>
+	        </section>
+	     </div><!-- .inden -->
+        
+        <div class="hr"></div>
+        
+        <h3><%= _("Booked") %></h3>
+        
+        <div class="indent">
+	        <ul id="booked">
+	          <li class="line">
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">School Project Filmkurs</a></li>
+	              <li class="cancel"><a href="">Cancel</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">School Project Tra Tra Trallalla</a></li>
+	              <li class="cancel"><a href="">Cancel</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">School Project Black Light Installation with White Noise</a></li>
+	              <li class="cancel"><a href="">Cancel</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">School Project</a></li>
+	              <li class="cancel"><a href="">Cancel</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">School Project</a></li>
+	              <li class="cancel"><a href="">Cancel</a></li>
+	            </ul>
+	          </li>
+	        </ul>
+	    </div><!-- .inden -->
+
+        
+        <div class="hr"></div>
+        
+        <h3><%= _("Overdue") %></h3>
+        
+        <div class="indent">
+	        <ul id="overdue">
+	          <li class="line">
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Animation Workshop</a></li>
+	              <li class="overdue">Overdue</li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Action Never Give Back An Item</a></li>
+	              <li class="overdue">Overdue</li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Animation Workshop</a></li>
+	              <li class="overdue">Overdue</li>
+	            </ul>
+	          </li>
+	        </ul>
+	    </div><!-- .inden -->
+ 
+
+        <div class="hr"></div>
+        
+        
+        <h3><%= _("Recently Rented") %></h3>
+        <div class="indent">
+	        <ul id="rented">
+	          
+	          <li class="line">
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	            <ul>
+	              <li class="timeframe">22.06.11 - 06.07.11</li>
+	              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
+	              <li class="extend"><a href="">Extend</a></li>
+	            </ul>
+	          </li>
+	        </ul>
+	   </div><!-- .inden -->
+    
+    
+    </div><!-- inner -->
+    
+    <div class="footer">
+      <div class="borderleft"></div>
+      <div class="borderright"></div>
+    </div><!-- .footer -->
+    
+  </section><!-- #content -->
+
+<%= render :partial => '/layouts/frontend/00-patterns/basket' %>

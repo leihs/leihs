@@ -13,45 +13,47 @@
 				
 				<li class="seperator"></li>
 				
-				<li class="item"><a href="#" title="<%= _('Profile') %>" class="anchor"><%= current_user.name %></a>
-				  <div class="hover profile">
-				       		<div class="header">
-				       			<div class="borderleft"></div>
-				       			<div class="borderright"></div>
-				       		</div><!-- .footer -->
-				       		<div class="inner">
-				       			<div class="borderleft"></div>
-				       			
-					       		<section class= "address">
-					       			<h3><%= _("Address") %></h3>
-					       			<p><%= address_block(current_user) %></p>
-					       			<%= link_to _("edit"), edit_user_path, :class => 'topright' %>
-					       		</section><!-- .address -->
-					       								       			
-					       		<div class="hr"></div>
+				<li class="item<%=current_page?(:controller => 'users', :action => 'show')?" active":""%>"><a href="user" title="<%= _('User Page') %>" class="anchor"><%= current_user.name %></a>
+				  <% current_page?(:controller => 'users', :action => 'show') do %>
+					  <div class="hover profile">
+					       		<div class="header">
+					       			<div class="borderleft"></div>
+					       			<div class="borderright"></div>
+					       		</div><!-- .footer -->
+					       		<div class="inner">
+					       			<div class="borderleft"></div>
 					       			
-					       		<section class= "contact">
-					       			<h3><%= _("Contact") %></h3>
-					       			<p><%= contact_block(current_user) %></p>
-					       			<%= link_to _("edit"), edit_user_path, :class => 'topright' %>
-					       		</section><!-- .contact -->
-				       						  
-                               <% if current_user.orders.submitted.count > 0 %>
-				       			    <div class="hr"></div>
-					       			<h3><%= _("Reservations") %></h3>
-					       			
-					       			<% current_user.orders.submitted.each do |o| %>
-					       				<p><%= short_date(o.created_at) %> <%= link_to o.purpose, user_order_path(current_user, o) %></p>
+						       		<section class= "address">
+						       			<h3><%= _("Address") %></h3>
+						       			<p><%= address_block(current_user) %></p>
+						       			<%= link_to _("edit"), edit_user_path, :class => 'topright' %>
+						       		</section><!-- .address -->
+						       								       			
+						       		<div class="hr"></div>
+						       			
+						       		<section class= "contact">
+						       			<h3><%= _("Contact") %></h3>
+						       			<p><%= contact_block(current_user) %></p>
+						       			<%= link_to _("edit"), edit_user_path, :class => 'topright' %>
+						       		</section><!-- .contact -->
+					       						  
+	                               <% if current_user.orders.submitted.count > 0 %>
+					       			    <div class="hr"></div>
+						       			<h3><%= _("Reservations") %></h3>
+						       			
+						       			<% current_user.orders.submitted.each do |o| %>
+						       				<p><%= short_date(o.created_at) %> <%= link_to o.purpose, user_order_path(current_user, o) %></p>
+						       			<% end %>
 					       			<% end %>
-				       			<% end %>
-				       			
-				       			<div class="borderright"></div>
-				       		</div><!-- .inner -->
-				       		<div class="footer">
-				       			<div class="borderleft"></div>
-				       			<div class="borderright"></div>
-				       		</div><!-- .footer -->
-				  </div><!-- hover -->
+					       			
+					       			<div class="borderright"></div>
+					       		</div><!-- .inner -->
+					       		<div class="footer">
+					       			<div class="borderleft"></div>
+					       			<div class="borderright"></div>
+					       		</div><!-- .footer -->
+					  </div><!-- hover -->
+					<% end %>
 				</li><!-- .item -->
 				
 				<li class="seperator"></li>

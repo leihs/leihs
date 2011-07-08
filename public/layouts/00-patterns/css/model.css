@@ -2,8 +2,19 @@
 
 .itemhead {
 	padding-top: 20px;
+	padding-bottom: 20px;
 	position: relative;
 }
+
+
+#content .inner .line {
+	display: block;
+}
+
+#content .inner .image img{
+	padding: 0 50px 0 50px;
+}
+
 
 
 /* MAIN.WRAPPER CONTENT.BOX INNER ITEMHEAD */
@@ -17,6 +28,27 @@
 	padding-left: 10px;
 	padding-right: 10px;
 }
+
+
+#content .inner .itemdetails ul li {
+	font-size: 1.1em;
+	color: #515151;
+	padding-bottom: 2px;
+}
+
+
+#content .inner .itemdetails .value {
+	margin-left: 190px;
+}
+  
+#content .inner .itemdetails .label {
+	color: #999;
+	float: left;
+	margin-left: 20px;
+	margin-right: 20px;
+	width: 150px;
+}
+
 
 /* MAIN.WRAPPER CONTENT.BOX INNER SUGGESTEDITEMS */
 

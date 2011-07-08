@@ -81,11 +81,6 @@ class OrdersController < FrontendController
         lines.each {|l| order.update_time_line(l, sd, ed, current_user.id) }
         
         render :text => order.errors.full_messages.to_s, :status => (order.errors.empty? ? 200 : 400)
-#        if order.errors.empty?
-#          render :text => ""
-#        else
-#          render :json => order.errors.full_messages.to_ext_json(:success => false)
-#        end
     end   
   end      
 
@@ -94,19 +89,6 @@ class OrdersController < FrontendController
   def show(sort =  params[:sort] || "model", dir =  params[:sort_mode] || "ASC")
     # TODO 13** send errors and notices
     respond_to do |format|
-      format.ext_json { render :json => @order.to_json(:methods => :approvable?,
-                                                       :include => {
-                                                          :order_lines => { :include => {:model => {},
-                                                                                         :inventory_pool => {:except => [:description,
-                                                                                                                         :logo_url,
-                                                                                                                         :contract_url,
-                                                                                                                         :contract_description],
-                                                                                                              :methods => [:closed_days, 
-                                                                                                                           :closed_dates] } },
-                                                                            :methods => [:available?, :available_tooltip],
-                                                                            :except => [:created_at, :updated_at]}
-                                                          } ) }
-
       if params[:template] == "value_list"
         require 'prawn/measurement_extensions'
         prawnto :prawn => { :page_size => 'A4', 

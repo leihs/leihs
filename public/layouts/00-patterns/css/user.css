@@ -1,26 +1,18 @@
 /* USER */
 #user table {
-	font-size: 1.2em;
+	font-size: 1.1em;
 }
 
 #user table tr .label {
-	width: 200px;
-}
-
-#user label {
-	float: left;
-	font-size: 1.2em;
-	display: block;
-	width: 180px;
+	color: #717171;
+	padding-right: 10px;
+	text-align: right;
+	width: 107px;
 }
 
 #user .value {
+	font-weight: bold;
 	width: 200px;
-}
-
-#user input {
-	float: left;
-	display: inline;
 }
 
 #user section {
@@ -35,6 +27,15 @@
 
 #user .purpose {
 	font-weight: bold;
+}
+
+#user .line li {
+    display: inline-block;
+    margin-right: 7px;
+    max-width: 415px;
+    overflow: hidden;
+    padding: 0 0 8px;
+    position: relative;
 }
 
 
@@ -52,13 +53,7 @@
 	color: #515151;
 }
 
-#user #booked .line li {
-    display: inline-block;
-    margin-right: 7px;
-    max-width: 415px;
-    overflow: hidden;
-    position: relative;
-}
+
 
 /*overdue items*/
 
@@ -80,13 +75,6 @@
 	color: #EE0000;
 }
 
-#user #overdue .line li {
-    display: inline-block;
-    margin-right: 7px;
-    max-width: 415px;
-    overflow: hidden;
-    position: relative;
-}
 
 /*rented items*/
 

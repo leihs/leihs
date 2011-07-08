@@ -15,11 +15,6 @@ class CategoriesController < FrontendController
     else
       @categories = Category.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page }
     end
-
-    respond_to do |format|
-      format.ext_json { render :json => @categories.to_json(:methods => [:text, :leaf, :real_id],
-                                                            :except => [:id, :created_at, :updated_at, :delta]) }
-    end
   end
 
 end
