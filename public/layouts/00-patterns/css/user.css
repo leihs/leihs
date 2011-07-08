@@ -1,4 +1,11 @@
-/* USER */
+/* USER SECTION */
+#user section {
+	float: left;
+	margin-bottom: 14px;
+	width: 250px;
+}
+
+/* USER TABLE */
 #user table {
 	font-size: 1.1em;
 }
@@ -7,20 +14,20 @@
 	color: #717171;
 	padding-right: 10px;
 	text-align: right;
-	width: 107px;
+	width: 180px;
 }
 
-#user .value {
+#user table tr .value {
 	font-weight: bold;
 	width: 200px;
 }
 
-#user section {
-	margin-bottom: 14px;
+#user table tr td {
+	padding-bottom: 6px;
 }
 
-/* ITEMS */
 
+/* ITEMS */
 #user .timeframe {
     color: #717171;
 }

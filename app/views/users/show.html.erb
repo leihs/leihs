@@ -30,6 +30,12 @@
 	              <td class="label"><%= _("Postal Code") %> & <%= _("Location") %></td>
 	              <td class="value"><%= @user.zip %> <%= @user.city %></td>
 	            </tr>
+	            
+	            <tr>
+	              <td class="label"><%= _("Country") %></td>
+	              <td class="value"><%= @user.country %></td>
+	            </tr>
+	            
 	          </table>
 	        </section>
 	        
@@ -49,7 +55,9 @@
 	            </tr>
 	          </table>
 	        </section>
-	     </div><!-- .inden -->
+	        
+	        <div class="clear"></div>
+	     </div><!-- .indent -->
         
         <div class="hr"></div>
         
