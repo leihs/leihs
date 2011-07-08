@@ -4,12 +4,6 @@ class ContractsController < FrontendController
 
   def show(sort =  params[:sort] || "model", dir =  params[:sort_mode] || "ASC")
     respond_to do |format|
-      format.ext_json { render :json => @contract.to_json(:include => {
-                                                            :contract_lines => { :include => { :model => {}, 
-                                                                                               :item => { } # TODO 17** :include => :inventory_pool (delegate in item.rb is not working)
-                                                                                             },
-                                                                            :except => [:created_at, :updated_at]}
-                                                          } ) }
         require 'prawn/measurement_extensions'
         prawnto :prawn => { :page_size => 'A4', 
                             :left_margin => 25.mm,

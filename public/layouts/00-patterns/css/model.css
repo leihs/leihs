@@ -29,13 +29,22 @@
 	padding-right: 10px;
 }
 
+
 #content .inner .itemdetails ul li {
 	font-size: 1.1em;
-	color: #999;
+	color: #515151;
+	padding-bottom: 2px;
+}
+
+
+#content .inner .itemdetails .value {
+	margin-left: 190px;
 }
   
 #content .inner .itemdetails .label {
+	color: #999;
 	float: left;
+	margin-left: 20px;
 	margin-right: 20px;
 	width: 150px;
 }
