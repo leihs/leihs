@@ -47,7 +47,7 @@
 	border-bottom: 1px solid #e3e3e3;
 	color: #858585;
 	height: 36px;
-	padding-right: 12px;
+	padding-right: 10px;
 	position: absolute;
 	top: -10px;
 	right: 1px;
@@ -129,20 +129,26 @@
 }
 
 #modellist .item ul li {
+    color: #717171;
     display: block;
     font-size: 1.2em;
     float: left;
     overflow: hidden;
-    margin-right: 10px;
+    margin-right: 16px;
     padding-top: 28px;
     white-space: nowrap;
 }
 
+#modellist .item ul li strong {
+    color: #515151;
+}
+
 /* MODEELIST IMAGE */
 #modellist .item ul .image {
+    float: left;
     padding-top: 10px; 
     margin-left: 10px;
-    margin-right: 15px;
+    margin-right: 12px;
     width: 50px;   
 }
 
@@ -158,16 +164,45 @@
 }
 
 /* MODEELIST NAME */
-#modellist .name {
-    width: 180px;
+#modellist .item ul .name {
+    float: left;
+    width: 175px;
+}
+
+/* MODEELIST NAME */
+#modellist .item ul .manufactor {
+    float: left;
+    width: 120px;
+}
+
+/* MODEELIST POOL */
+#modellist .item ul .pool {
+    color: #999999 !important;
+    float: right;
+    font-size: 1.1em;
+    margin-right: 8px !important;
+    padding-top: 29px;
+    text-align: right;
+    width: 70px;
+}
+
+/* MODEELIST AVAILABILITY */
+#modellist .item ul .availability {
+    color: #999999 !important;
+    font-size: 1.1em;
+    float: right;
+    margin-right: 8px !important;
+    padding-top: 29px;
 }
 
 /* MODEELIST ADD */
-#modellist .add {
-    padding-top: 26px !important;    
+#modellist .item ul .add {
+    float: right;
+    margin-right: 9px !important;
+    padding-top: 26px !important;  
 }
 
-#modellist .add a span {
+#modellist .item ul .add a span {
     font-size: 1.3em;
     font-weight: normal;
     padding: 0 4px;

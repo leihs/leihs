@@ -188,7 +188,7 @@ button.small.green div a:hover {
     color: #515151;
 }
 
-/* GREY */
+/* GREY BACKGROUND */
 .grey {
-	color: #999; 
+    background: #f0f0f0;
 }
