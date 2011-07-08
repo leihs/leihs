@@ -17,7 +17,7 @@ class Backend::CategoriesController < Backend::BackendController
                         @category.children
                     end
     else
-      if request.format == :ext_json
+      if request.format == :ext_json # TODO remove
         @categories = Category.roots
       else
         categories = Category
@@ -52,11 +52,6 @@ class Backend::CategoriesController < Backend::BackendController
     respond_to do |format|
       format.html
       format.js { search_result_rjs(@categories) }
-      format.ext_json do
-        @categories.each {|c| c.current_parent_id = @category.id } if @category
-        render :json => @categories.sort.to_json( :methods => [:text, :leaf, :real_id],
-                                                  :except => [:id])
-      end
       format.auto_complete { render :layout => false }
     end
   end

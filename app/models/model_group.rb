@@ -53,7 +53,7 @@ class ModelGroup < ActiveRecord::Base
   end
   
 ##################################################
-# aliases for Ext.Tree
+# aliases for Ext.Tree # TODO remove ??
 
   def text(parent_id = 0)
     parent_id = if parent_id == 0 and current_parent_id.to_i > 0
@@ -64,10 +64,6 @@ class ModelGroup < ActiveRecord::Base
     label(parent_id)
   end
   
-  def leaf
-    leaf?
-  end
-
 ################################################
 
   def to_s
@@ -78,7 +74,6 @@ class ModelGroup < ActiveRecord::Base
   def <=>(other)
     self.name <=> other.name
   end
-
   
 end
 

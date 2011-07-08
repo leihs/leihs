@@ -18,14 +18,6 @@ class FrontendController < ApplicationController
   def get_inventory_pools
     ips = current_user.active_inventory_pools
     c = ips.size
-    respond_to do |format|
-      format.ext_json { render :json => ips.to_ext_json(:class => "InventoryPool",
-                                                        :count => c,
-                                                        :except => [:description,
-                                                                    :logo_url,
-                                                                    :contract_url,
-                                                                    :contract_description]) }
-    end
   end
 
   def set_inventory_pools(ips = params[:inventory_pool_ids] || [])

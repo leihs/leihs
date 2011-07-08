@@ -27,12 +27,5 @@ class Category < ModelGroup
   default_sphinx_scope :default_search
   sphinx_scope(:default_search) { {:order => :name, :sort_mode => :asc} }
 
-#########################################################
-
-  # for ext_json serialization
-  def real_id
-    id
-  end
-  
 end
 
