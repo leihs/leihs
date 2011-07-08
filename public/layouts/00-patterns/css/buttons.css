@@ -1,0 +1,103 @@
+/* BUTTON */
+a.button {
+    display: block;
+    font-size: 1.2em;
+    font-weight: bold;
+    height: 31px;
+    text-align: center;
+    position: relative;
+}
+
+a.button:hover {
+    color: #515151 !important;
+}
+
+/* BUTTON SPAN */
+a.button span {
+    display: block;
+    height: 24px;  
+    padding: 7px 8px 0 8px; 
+}
+
+a.button:active span {
+    height: 23px;
+    padding-top: 8px;
+}
+
+/* BUTTON GREEN */
+a.button.green {
+    background: url(../images/image-sprite.png) no-repeat 0 -202px;
+    color: #4d9148;
+}
+
+a.button.green:hover {
+    background: url(../images/image-sprite.png) no-repeat 0 -382px;
+}
+
+a.button.green:active {
+    background: url(../images/image-sprite.png) no-repeat 0 -446px;
+}
+
+a.button.green span {
+    background: url(../images/image-sprite.png) no-repeat right -234px;
+}
+
+a.button.green:hover span {
+    background: url(../images/image-sprite.png) no-repeat right -414px;
+}
+
+a.button.green:active span {
+    background: url(../images/image-sprite.png) no-repeat right -478px;
+}
+
+/* 
+ *  SMALLBUTTON 
+*/
+a.smallbutton {
+    display: block;
+    height: 20px;
+    text-align: center;
+    position: relative;
+}
+
+a.smallbutton:hover {
+    color: #515151 !important;
+}
+
+/* BUTTON SPAN */
+a.smallbutton span {
+    display: block;
+    height: 20px;  
+    padding: 0 4px 0 4px; 
+}
+
+a.smallbutton:active span {
+    height: 19px;
+    padding-top: 1px;
+}
+
+/* BUTTON GREEN */
+a.smallbutton.green {
+    background: url(../images/image-sprite.png) no-repeat 0 -340px;
+    color: #4d9148;
+}
+
+a.smallbutton.green:hover {
+    background: url(../images/image-sprite.png) no-repeat 0 -552px;
+}
+
+a.smallbutton.green:active {
+    background: url(../images/image-sprite.png) no-repeat 0 -510px;
+}
+
+a.smallbutton.green span {
+    background: url(../images/image-sprite.png) no-repeat right -361px;
+}
+
+a.smallbutton.green:hover span {
+    background: url(../images/image-sprite.png) no-repeat right -573px;
+}
+
+a.smallbutton.green:active span {
+    background: url(../images/image-sprite.png) no-repeat right -531px;
+}

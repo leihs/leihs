@@ -30,8 +30,8 @@ class ModelsController < FrontendController
     with = {:sphinx_internal_id => model_ids }
 
     if category_id > 0
-      category = Category.find(category_id)
-      with[:category_id] = category.self_and_descendant_ids
+      @category = Category.find(category_id)
+      with[:category_id] = @category.self_and_descendant_ids
     end
 
     @models = Model.search query, { :index => "frontend_model",
@@ -41,6 +41,7 @@ class ModelsController < FrontendController
                                     :order => sort, :sort_mode => sort_mode }
 
     respond_to do |format|
+      format.html
       format.ext_json { render :json => @models.to_ext_json(:class => "Model",
                                                             :count => @models.total_entries,
                                                             :methods => :image_thumb,
@@ -104,11 +105,6 @@ class ModelsController < FrontendController
   end
 
 #################################################################
-
-  def index
-    # get models here, scope by category (categories/2/models...)
-    @user = current_user
-  end
 
   def chart
     #render :inline => "<%= stylesheet_link_tag $layout_public_path + '/css/general.css' %><%= javascript_include_tag :defaults %><%= canvas_for_model_in_inventory_pools(@model, @current_inventory_pools) %>"

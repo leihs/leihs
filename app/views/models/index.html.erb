@@ -1,4 +1,3 @@
-    
     	<%= render :partial => '/layouts/frontend/00-patterns/tabs' %>
     	
     	<section id="content" class="box">
@@ -9,182 +8,57 @@
     		</div><!-- .header -->
     		
     		<div class="inner">
-    			        <%= @models %>
-    			        
-    					<ul id="categories">
-    						<li><h2><a href="#" title="">Analog/Digital Schnittstellen</a></h2>
-    							<ul>
-    								<li><a href="" title="">Audio Interface</a></li>	
-    							</ul>
-    						</li>
-    						<li><h2><a href="#" title="">Analoge Peripheriegeräte</a></h2>
-    							<ul>
-    								<li><a href="" title="">Analog Converter/Weiche etc.</a></li>	
-    							</ul>
-    						</li>
-    						<li><h2><a href="#" title="">Audio Anlagen</a></h2>
-    							<ul>
-    								<li><a href="" title="">Einfache Lautsprecher Anlagen</a></li>	
-    								<li><a href="" title="">PA</li>		
-    							</ul>
-    						</li>
-    						<li><h2><a href="#" title="">Recorder/Player</a></h2>
-    							<ul>
-    								<li><a href="" title="">Nichtportable Audio Recorder/Player</a></li>	
-    								<li><a href="" title="">Portable Audio Recorder/Player</a></li>			
-    							</ul>
-    						</li>
-    						<li><h2><a href="#" title="">Kopfhörer</a></h2>
-    							<ul>
-    								<li><a href="" title="">Studiokopfhörer</a></li>	
-    								<li><a href="" title="">Kopfhörer Broadcast</a></li>
-    								<li><a href="" title="">Kopfhörer für Ausstellungen</a></li>
-    								<li><a href="" title="">Kopfhörerverstärker</a></li>				
-    							</ul>
-    						</li>
-    						<li><h2><a href="#" title="">Lautsprecher</a></h2>
-    							<ul>
-    								<li><a href="" title="">Lautsprecher Aktiv</a></li>	
-    								<li><a href="" title="">Lautsprecher Passiv</a></li>			
-    							</ul>
-    						</li>
-    					</ul><!-- category list -->
+
+    			<ul id="categories">
+    			    <% @category.children.each do |c| %>
+                         <li>
+                             <h2><%= link_to c, category_models_path(c), :title => c %></h2>
+                             <ul>
+                                 <% c.children.each do |child| %>
+                                    <li><%= link_to child, category_models_path(child) , :title => child %></li>
+                                 <% end %>
+                             </ul>
+                         </li>
+                    <% end %>
+    			</ul><!-- category list -->
     					
-    					<section id="topfilter">
-    						<form class="availability" action="">
-    							<input class="date start" name="startdate" value="01.07.11"/>
-    							-
-    							<input class="date end" name="enddate" value="02.07.11" />
-    							<input class="check" type="checkbox" name="available-only" value="available-only" id="available-only"/>
-    							<label for="available-only"><%= _("Show Available") %></label>
-    						</form><!-- availability -->
-    						
-    						<form class="sort" action="">
-    							<select name="sort" class="styled">
-    								<option value="productname-a-z"><%= _("Productname (A-Z)") %></option>
-    								<option value="productname-z-a"><%= _("Productname (Z-A)") %></option>
-    								<option value="manufactor-a-z"><%= _("Manufactor (A-Z)") %></option>
-    								<option value="manufactor-z-a"><%= _("Manufactor (Z-A)") %></option>
-    							</select>
-    						</form><!-- sort -->
-    					</section><!-- #topfilter -->
-    					
-    					<ul id="modellist">
-    						
-    						<li class="item grey">
-                                <ul>
-                                    <li class="image">
-                                        <a href="#" title="Mikrophone Shure Beta 58A"><img src="http://leihs.interaction-designer.ch/images/modellist/audio/Mikrophone-Shure-Beta-58A.png" alt="Mikrophone Shure Beta 58A" /></a>
-                                    </li>
-                                    <li class="name">
-                                        <strong>Mikrophone Shure Beta 58AShure Beta 58A</strong>
-                                    </li>
-                                    <li class="manufactor">Laney / BLT Industries
-                                    </li>
-                                    <li class="add">
-                                        <button class="small green"><div><a href="#" title=""><span>+</span></a></div></button>
-                                    </li>
-                                    <li class="availability">
-                                        3/4
-                                    </li>                               
-                                    <li class="pool">
-                                        AV-Ausleihe AV-Ausleihe
-                                    </li>
-                                </ul>
-                            </li>
-                            
-                            <li class="item">
-                                <ul>
-                                    <li class="image">
-                                        <a href="#" title="Mikrophone Shure Beta 58A"><img src="http://leihs.interaction-designer.ch/images/modellist/audio/Aktivlautsprecher-db-L160.png" alt="Mikrophone Shure Beta 58A" /></a>
-                                    </li>
-                                    <li class="name">
-                                        <strong>Mikrophone Shure Beta 58A</strong>
-                                    </li>
-                                    <li class="manufactor">Laney / BLT Industries
-                                    <li class="add">
-                                        <button class="small green"><div><a href="#" title=""><span>+</span></a></div></button>
-                                    </li>
-                                    </li>
-                                    <li class="availability">
-                                        3/4
-                                    </li>                                
-                                    <li class="pool">
-                                        AV-Ausleihe
-                                    </li>
-                                </ul>
-                            </li>
-                            
-                            <li class="item grey">
-                                <ul>
-                                    <li class="image">
-                                        <a href="#" title="Mikrophone Shure Beta 58A"><img src="http://leihs.interaction-designer.ch/images/modellist/audio/Aktivlautsprecher-Sony-SRS-Z750.png" alt="Mikrophone Shure Beta 58A" /></a>
-                                    </li>
-                                    <li class="name">
-                                        <strong>Mikrophone Shure Beta 58A</strong>
-                                    </li>
-                                    <li class="manufactor">Laney / BLT Industries
-                                    </li>
-                                    <li class="add">
-                                        <button class="small green"><div><a href="#" title=""><span>+</span></a></div></button>
-                                    </li>                                
-                                    <li class="availability">
-                                        3/4
-                                    </li>
-                                    <li class="pool">
-                                        AV-Ausleihe
-                                    </li>
-                                </ul>
-                            </li>
-                            
-                            <li class="item">
-                                <ul>
-                                    <li class="image">
-                                        <a href="#" title="Mikrophone Shure Beta 58A"><img src="http://leihs.interaction-designer.ch/images/modellist/audio/Mikrophone-Shure-Beta-58A.png" alt="Mikrophone Shure Beta 58A" /></a>
-                                    </li>
-                                    <li class="name">
-                                        <strong>Mikrophone Shure Beta 58A</strong>
-                                    </li>
-                                    <li class="manufactor">Laney / BLT Industries
-                                    </li>    
-                                    <li class="add">
-                                        <button class="small green"><div><a href="#" title=""><span>+</span></a></div></button>
-                                    </li>                            
-                                    <li class="availability">
-                                        10/20
-                                    </li>
-                                    <li class="pool">
-                                        AV-Ausleihe
-                                    </li>
-                                </ul>
-                            </li>
-                            
-                            <li class="item grey">
-                                <ul>
-                                    <li class="image">
-                                        <a href="#" title="Mikrophone Shure Beta 58A"><img src="http://leihs.interaction-designer.ch/images/modellist/audio/Mikrophone-Shure-Beta-58A.png" alt="Mikrophone Shure Beta 58A" /></a>
-                                    </li>
-                                    <li class="name">
-                                        <strong>Mikrophone Shure Beta 58A</strong>
-                                    </li>
-                                    <li class="manufactor">Laney / BLT Industries
-                                    </li>    
-                                    <li class="add">
-                                        <button class="small green"><div><a href="#" title=""><span>+</span></a></div></button>
-                                    </li>                            
-                                    <li class="availability">
-                                        13/24
-                                    </li>
-                                    <li class="pool">
-                                        AV-Ausleihe
-                                    </li>
-                                </ul>
-                            </li>
-                            
-                            
-    					</ul><!-- modellist -->
-    					
-    					<div class="clear"></div>
+				<section id="topfilter">
+					<form class="availability" action="">
+						<input class="date start" name="startdate" value="01.07.11"/>
+						-
+						<input class="date end" name="enddate" value="02.07.11" />
+						<input class="check" type="checkbox" name="available-only" value="available-only" id="available-only"/>
+						<label for="available-only"><%= _("Show Available") %></label>
+					</form><!-- availability -->
+					
+					<form class="sort" action="">
+						<select name="sort" class="styled">
+							<option value="productname-a-z"><%= _("Productname (A-Z)") %></option>
+							<option value="productname-z-a"><%= _("Productname (Z-A)") %></option>
+							<option value="manufactor-a-z"><%= _("Manufactor (A-Z)") %></option>
+							<option value="manufactor-z-a"><%= _("Manufactor (Z-A)") %></option>
+						</select>
+					</form><!-- sort -->
+				</section><!-- #topfilter -->
+				
+				<ul id="modellist">
+					
+                    <% @models.each do |m| %>
+                        <li class="item">
+				            <ul>
+				                <li class="image"><%= m.images[0] %></li>
+				                <li class="name"><%= m.name %></li>
+				                <li class="manufactor"><%= m.manufacturer %></li>
+				                <li class="add"><a class="smallbutton green" href="#"><span><strong>+</strong></span></a></li>
+				                <li class="availability">20/99</li>
+				                <li class="pool">ITZ</li>
+				            </ul>
+                        </li><!-- .item -->
+                    <% end %>
+                    
+				</ul><!-- modellist -->
+				
+				<div class="clear"></div>
     					
     		</div><!-- inner -->
     		

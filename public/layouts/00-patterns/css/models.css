@@ -14,6 +14,7 @@
 
 #categories li {
 	list-style-type: none;
+	overflow: hidden;
 }
 
 #categories h2 {
@@ -202,10 +203,8 @@
     padding-top: 26px !important;  
 }
 
-#modellist .item ul .add a span {
+#modellist .item ul .add a span strong {
     font-size: 1.3em;
-    font-weight: normal;
-    padding: 0 4px;
     position: relative;
     top: -2px;
 }

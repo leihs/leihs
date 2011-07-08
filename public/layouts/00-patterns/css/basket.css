@@ -187,11 +187,11 @@
 }
 
 /* BASKET FOOTER BUTTON */
-#basket .footer button {
-    margin-left: 8px;
+#basket .footer .button {
+    margin-left: 9px;
     position: absolute;
     top: -27px;
-    width: 184px;
+    width: 180px;
 }
 
 #basket .footer .borderright {
