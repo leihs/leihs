@@ -105,7 +105,7 @@
 	z-index: 999;
 }
 
-#topbar .navigation .item:hover .anchor {
+#topbar .navigation .item:hover .anchor, #topbar .navigation .active .anchor {
 	background: url(../images/slices-h.png) repeat-x 0 -46px;
 	color: #515151;
 }
