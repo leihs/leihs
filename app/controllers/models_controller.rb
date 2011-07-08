@@ -39,27 +39,6 @@ class ModelsController < FrontendController
                                     :offset => start, :limit => limit, # :page => ((start / limit) + 1), :per_page => limit,
                                     :with => with,
                                     :order => sort, :sort_mode => sort_mode }
-
-    respond_to do |format|
-      format.html
-      format.ext_json { render :json => @models.to_ext_json(:class => "Model",
-                                                            :count => @models.total_entries,
-                                                            :methods => :image_thumb,
-                                                            :except => [ :internal_description,
-                                                                         :info_url,
-                                                                         :maintenance_period,
-                                                                         :created_at,
-                                                                         :updated_at ],
-                                                            :include => {
-                                                                :inventory_pools => { :records => current_inventory_pools,
-                                                                                      :except => [:description,
-                                                                                                  :logo_url,
-                                                                                                  :contract_url,
-                                                                                                  :contract_description,
-                                                                                                  :created_at,
-                                                                                                  :updated_at] } }
-                                                                 ) }
-    end
   end  
 
 #######################################################  
@@ -72,35 +51,6 @@ class ModelsController < FrontendController
     
     respond_to do |format|
       format.html
-      format.ext_json { render :json => @models.to_ext_json(:class => "Model",
-                                                            :count => c,
-                                                            :methods => [:needs_permission, :package_models],
-                                                            :except => [ :internal_description,
-                                                                         :info_url,
-                                                                         :maintenance_period,
-                                                                         :created_at,
-                                                                         :updated_at ],
-                                                            :include => {
-                                                                :properties => { :except => [:created_at,
-                                                                                             :updated_at] },
-                                                                :accessories => { :except => [:model_id] },
-                                                                :compatibles => { :records => current_inventory_pools.collect(&:models).flatten.uniq,
-                                                                                  :except => [:created_at,
-                                                                                             :updated_at,
-                                                                                             :model_id,
-                                                                                             :compatible_id] },
-                                                                :inventory_pools => { :records => current_inventory_pools,
-                                                                                      :methods => :items_size,
-                                                                                      :only => [:id, :name] },
-                                                                :images => { :methods => [:public_filename, :public_filename_thumb],
-                                                                             :except => [:created_at,
-                                                                                         :updated_at] },
-                                                                :attachments => { :methods => [:public_filename],
-                                                                                  :except => [:model_id,
-                                                                                              :is_main,
-                                                                                              :content_type] }
-                                                                        }
-                                                                 ) }
     end
   end
 
