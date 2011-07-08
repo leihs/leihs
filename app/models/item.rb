@@ -62,7 +62,7 @@ class Item < ActiveRecord::Base
 
   validates_uniqueness_of :inventory_code
   validates_presence_of :inventory_code, :model
-  validate :validates_package, :validates_model_change, :validates_retired
+  validate :validates_package, :validates_retired
 
 ####################################################################
 
@@ -456,10 +456,6 @@ class Item < ActiveRecord::Base
     else
       errors.add_to_base(_("Package error")) unless children.empty? or model.is_package
     end
-  end
-  
-  def validates_model_change
-    errors.add_to_base(_("The model cannot be changed because the item is used in contracts already.")) if model_id_changed? and not contract_lines.empty? 
   end
 
   def validates_retired
