@@ -164,16 +164,13 @@
 
 /* MODEELIST ADD */
 #modellist .add {
-    padding-top: 25px !important;    
-}
-
-#modellist .add a {
-    padding: 0 4px 0 5px;
+    padding-top: 26px !important;    
 }
 
 #modellist .add a span {
     font-size: 1.3em;
     font-weight: normal;
+    padding: 0 4px;
     position: relative;
-    top: -1px;
+    top: -2px;
 }

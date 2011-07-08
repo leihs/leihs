@@ -1,0 +1,96 @@
+/* USER */
+#user table {
+	font-size: 1.2em;
+}
+
+#user table tr .label {
+	width: 200px;
+}
+
+#user label {
+	float: left;
+	font-size: 1.2em;
+	display: block;
+	width: 180px;
+}
+
+#user .value {
+	width: 200px;
+}
+
+#user input {
+	float: left;
+	display: inline;
+}
+
+#user section {
+	margin-bottom: 14px;
+}
+
+/* ITEMS */
+
+#user .timeframe {
+    color: #717171;
+}
+
+#user .purpose {
+	font-weight: bold;
+}
+
+
+/*booked items*/
+
+#user #booked {
+	font-size: 1.1em;
+}
+
+#user #booked .cancel a {
+    color: #999999;
+}
+
+#user #booked .cancel a:hover {
+	color: #515151;
+}
+
+#user #booked .line li {
+    display: inline-block;
+    margin-right: 7px;
+    max-width: 415px;
+    overflow: hidden;
+    position: relative;
+}
+
+/*overdue items*/
+
+
+#user #overdue {
+	font-size: 1.1em;
+	color: #999999;
+}
+
+#user #overdue .timeframe {
+	color: #EE0000;
+}
+
+#user #overdue .purpose a {
+	color: #EE0000;
+}
+
+#user #overdue .overdue {
+	color: #EE0000;
+}
+
+#user #overdue .line li {
+    display: inline-block;
+    margin-right: 7px;
+    max-width: 415px;
+    overflow: hidden;
+    position: relative;
+}
+
+/*rented items*/
+
+#user #rented {
+	font-size: 1.1em;
+}
+
