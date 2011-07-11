@@ -1,131 +1,95 @@
 <%= render :partial => '/layouts/frontend/00-patterns/tabs' %>
 
-
 <section id="content" class="box">
 
+	<div class="header"><div class="borderleft"></div><div class="borderright"></div></div><!-- .header -->
 
-<div class="header">
-<div class="borderleft"></div>
-<div class="borderright"></div>
-</div><!-- .header -->
+	<div class="inner" id="model">
+		
+		<h1><%= @model.name %></h1>
+		<h3><%= @model.manufacturer %></h3>
+		<a href="#" class="button green"><span>Add to Cart</span></a>
 
+		<section class="images">
+			<% @model.images.each do |i| %>
+				<img src="http://leihs.zhdk.ch/<%= @model.images.first.public_filename %>" alt="<%= @model.name %>" />
+			<% end %>
+		</section><!-- .images -->
+		
+		<p class="description"><%= @model.description %></p>
+		
+		<div class="hr"></div>
+		
+		<table class="details">
+			<% @model.properties.each_with_index do |p, i| %>
+				<tr class="line<%= i%2?"":" grey" %>">
+					<td class="label"><%= p.key %></td>
+					<td class="value"><%= p.value %></td>
+				</tr>
+			<% end %>
+		</table><!-- .details -->
 
-<div class="inner">
+		<div class="hr"></div>
 
+		<div class="row">
+			<div class="cell">
+				<section class="suggesteditems">
+					<a href="">
+					<img src="http://dl.dropbox.com/u/9864549/final_cat_pics/presentation.jpg"/>
+					</a>
+					<h3>Suggested Item Nr. 1</h3>
+					<p>
+						Blah Blah Blah Blah Blah
+					</p>
+				</section><!-- .suggesteditems -->
+			</div><!-- cell -->
+			<div class="cell">
+				<section class="suggesteditems">
+					<a href="">
+					<img src="http://dl.dropbox.com/u/9864549/final_cat_pics/photo.jpg"/>
+					</a>
+					<h3>Suggested Item Nr. 2</h3>
+					<p>
+						Blah Blah Blah Blah Blah
+					</p>
+				</section><!-- .suggesteditems -->
+			</div><!-- cell -->
+			<div class="cell">
+				<section class="suggesteditems">
+					<a href="">
+					<img src="http://dl.dropbox.com/u/9864549/final_cat_pics/video.jpg"/>
+					</a>
+					<h3>Suggested Item Nr. 3</h3>
+					<p>
+						Blah Blah Blah Blah Blah
+					</p>
+				</section><!-- .suggesteditems -->
+			</div><!-- cell -->
 
-<section class="itemhead">
-<div class="floatleft">
-<h1>Aktivlautsprecher Laney CPC10</h1>
-<h3>Laney / BLT Industrie</h3>
-</div><!-- floatleft -->
-<div class="button green floatright">
-<a href="#">Add to Cart</a>
-</div><!-- button green -->
-<div class="clear"></div>
-</section><!-- .itemhead -->
+			<div class="cell">
+				<section class="suggesteditems">
+					<a href="">
+					<img src="http://dl.dropbox.com/u/9864549/final_cat_pics/electro.jpg"/>
+					</a>
+					<h3>Suggested Item Nr. 4</h3>
+					<p>
+						Blah Blah Blah Blah Blah
+					</p>
+				</section><!-- .suggesteditems -->
+			</div><!-- cell -->
+		</div><!-- row -->
 
+		<div class="clear">
+		</div>
 
-<section class="image">
-<img src="http://dl.dropbox.com/u/9864549/ModelPage/front.png"></img>
-<img src="http://dl.dropbox.com/u/9864549/ModelPage/left.png"></img>
-<img src="http://dl.dropbox.com/u/9864549/ModelPage/right.png"></img>
-</section><!-- .image -->
+	</div><!-- inner -->
 
-
-<div class="hr"></div>
-
-
-<section class="itemdetails">
-<h3>Kleiner PA-Aktivlautsprecher. Ursprünglich in Kombination mit Basslautsprecher konzipiert. Für kleine und mittlere Vorführungen geeignet.</h3>
-<ul>
-<li class="line">
-<ul>
-<li class="label">Leistung </li>
-<li class="value">65 W</li>
-</ul>
-</li>
-<li class="line">
-<ul>
-<li class="label">Eingänge </li>
-<li class="value">Line in 1 (mit Lautstärkeregler): Chinch Stereo, Jack 6.3mm; Mic/Line in 2 (mit Lautstärkeregler): XLR (mIc), Jack 6.3mm (Line)</li>
-</ul>
-</li>
-<li class="line">
-<ul>
-<li class="label">Ausgänge </li>
-<li class="value">Line Out: Jack 6.3mm; Ext.Speaker out (8Ω min): Jack 6.3mmv</li>
-</ul>
-</li>
-<li class="line">
-<ul>
-<li class="label">Zusätliche Regler </li>
-<li class="value">Höhen, Tiefen</li>
-</ul>
-</li>
-<li class="line">
-<ul>
-<li class="label">Allgemeine Information </li>
-<li class="value"><a href="" alt="PDF">LaneyCPC10.pdf</a></li>
-</ul>
-</li>
-</ul>
-
-
-
-
-</section><!-- .itemdetails -->
-
-<div class="hr"></div>
-
-
-<div class="row">
-<div class="cell">
-<section class="suggesteditems">
-<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/presentation.jpg"/></a>
-<h3>Suggested Item Nr. 1</h3>
-<p>Blah Blah Blah Blah Blah</p>
-</section><!-- .suggesteditems -->
-</div><!-- cell -->
-<div class="cell">
-<section class="suggesteditems">
-<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/photo.jpg"/></a>
-<h3>Suggested Item Nr. 2</h3>
-<p>Blah Blah Blah Blah Blah</p>
-</section><!-- .suggesteditems -->
-</div><!-- cell -->
-<div class="cell">
-<section class="suggesteditems">
-<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/video.jpg"/></a>
-<h3>Suggested Item Nr. 3</h3>
-<p>Blah Blah Blah Blah Blah</p>
-</section><!-- .suggesteditems -->
-</div><!-- cell -->
-
-
-<div class="cell">
-<section class="suggesteditems">
-<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/electro.jpg"/></a>
-<h3>Suggested Item Nr. 4</h3>
-<p>Blah Blah Blah Blah Blah</p>
-</section><!-- .suggesteditems -->
-</div><!-- cell -->
-
-
-</div><!-- row -->
-
-
-<div class="clear"></div>
-
-
-</div><!-- inner -->
-
-
-<div class="footer">
-<div class="borderleft"></div>
-<div class="borderright"></div>
-</div><!-- .footer -->
-
-
+	<div class="footer">
+		<div class="borderleft">
+		</div>
+		<div class="borderright">
+		</div>
+	</div><!-- .footer -->
 </section><!-- #content -->
 
 <%= render :partial => '/layouts/frontend/00-patterns/basket' %>
