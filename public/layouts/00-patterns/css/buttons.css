@@ -1,6 +1,6 @@
 /* BUTTON */
 a.button {
-    display: block;
+    display: inline-block;
     font-size: 1.2em;
     font-weight: bold;
     height: 31px;
@@ -16,7 +16,8 @@ a.button:hover {
 a.button span {
     display: block;
     height: 24px;  
-    padding: 7px 8px 0 8px; 
+    padding: 7px 8px 0 8px;
+    position: relative;
 }
 
 a.button:active span {
@@ -60,7 +61,7 @@ a.button.white:hover {
     background: url(../images/image-sprite.png) no-repeat 0 -722px;
 }
 
-a.button.green:active {
+a.button.white:active {
     background: url(../images/image-sprite.png) no-repeat 0 -658px;
 }
 
@@ -69,18 +70,18 @@ a.button.white span {
 }
 
 a.button.white:hover span {
-    background: url(../images/image-sprite.png) no-repeat right -690px;
+    background: url(../images/image-sprite.png) no-repeat right -754px;
 }
 
 a.button.white:active span {
-    background: url(../images/image-sprite.png) no-repeat right -754px;
+    background: url(../images/image-sprite.png) no-repeat right -690px;
 }
 
 /* 
  *  SMALLBUTTON 
 */
 a.smallbutton {
-    display: block;
+    display: inline-block;
     height: 20px;
     text-align: center;
     position: relative;
@@ -93,8 +94,9 @@ a.smallbutton:hover {
 /* BUTTON SPAN */
 a.smallbutton span {
     display: block;
-    height: 20px;  
-    padding: 0 4px 0 4px; 
+    height: 17px;  
+    padding: 3px 5px 0 5px;
+    position: relative;
 }
 
 a.smallbutton:active span {
