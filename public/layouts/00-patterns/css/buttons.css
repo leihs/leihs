@@ -50,6 +50,32 @@ a.button.green:active span {
     background: url(../images/image-sprite.png) no-repeat right -478px;
 }
 
+/* BUTTON WHITE */
+a.button.white {
+    background: url(../images/image-sprite.png) no-repeat 0 -594px;
+    color: #a3a3a3;
+}
+
+a.button.white:hover {
+    background: url(../images/image-sprite.png) no-repeat 0 -722px;
+}
+
+a.button.green:active {
+    background: url(../images/image-sprite.png) no-repeat 0 -658px;
+}
+
+a.button.white span {
+    background: url(../images/image-sprite.png) no-repeat right -626px;
+}
+
+a.button.white:hover span {
+    background: url(../images/image-sprite.png) no-repeat right -690px;
+}
+
+a.button.white:active span {
+    background: url(../images/image-sprite.png) no-repeat right -754px;
+}
+
 /* 
  *  SMALLBUTTON 
 */
