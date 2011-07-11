@@ -33,6 +33,10 @@
 	vertical-align: top;
 }
 
+#model .details .line:nth-child(odd)  {
+    background: #f0f0f0;
+}
+
 #model .details .label {
 	color: #999;
 	margin-right: 8px;

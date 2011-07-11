@@ -21,8 +21,8 @@
 		<div class="hr"></div>
 		
 		<table class="details">
-			<% @model.properties.each_with_index do |p, i| %>
-				<tr class="line<%= i%2?"":" grey" %>">
+			<% @model.properties.each do |p| %>
+				<tr class="line">
 					<td class="label"><%= p.key %></td>
 					<td class="value"><%= p.value %></td>
 				</tr>
