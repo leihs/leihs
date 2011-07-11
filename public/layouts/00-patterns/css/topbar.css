@@ -210,6 +210,7 @@
 }
 
 #topbar .navigation .item .language .hr {
+    display: block;
 	position: relative;
 	margin: 0 0 -15px 0;
 }
