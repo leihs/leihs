@@ -16,44 +16,32 @@
                 
         <div class="hr"></div>
         
-        <h3><%= _("User Data") %></h3>
+        <section class="userdata">
         
-        <div class="indent userdata">
-        	
-          	<table>
-	            <tr>
-	              	<td class="label"><%= _("Street") %> & <%= _("No.") %></td>
-	              	<td class="value"><%= @user.address %></td>
-	            </tr>
-	            <tr>
-		              <td class="label"><%= _("Postal Code") %> & <%= _("Location") %></td>
-		              <td class="value"><%= @user.zip %> <%= @user.city %></td>
-	            </tr>
-	            <tr>
-	              	<td class="label"><%= _("Country") %></td>
-	              	<td class="value"><%= @user.country %></td>
-	            </tr>
-          	</table>
+	        <h3><%= _("User Data") %></h3>
+	        <a class="edit" href="#"><%= _("Edit") %></a>
+	        <div class="clear"></div>
+	        	
+	        <dl>
+	        	<dt><%= _("Address") %></dt>
+	        	<dd><%= @user.address %></dd>
+	        	<dt><%= _("Location") %></dt>
+	        	<dd><%= @user.zip %> <%= @user.city %></dt>
+	        	<dt><%= _("Country") %></dt>
+	        	<dd><%= @user.country %></dt>
+	        </dl>
 	        
-          	<table>
-            	<tr>
-	              	<td class="label"><%= _("Mobile") %></td>
-	              	<td class="value"><%= @user.phone %></td>
-            	</tr>
-            	<tr>
-              		<td class="label"><%= _("Phone") %></td>
-            	  	<td class="value"><%= @user.phone %></td>
-        	    </tr>
-        	    <tr>
-    	          	<td class="label"><%= _("E-Mail") %></td>
-	              	<td class="value"><%= @user.email %></td>
-            	</tr>
-          	</table>
-	        
-        	<a href="#" class="button white" title="<%= _("Edit Profile") %>"><span><%= _("Edit Profile") %></span></a>
+	        <dl>
+	        	<dt><%= _("Mobile") %></dt>
+	        	<dd><%= @user.phone %></dd>
+	        	<dt><%= _("Phone") %></dt>
+	        	<dd><%= @user.phone %></dt>
+	        	<dt><%= _("E-Mail") %></dt>
+	        	<dd><%= @user.email %></dt>
+	        </dl>
 	        
 	     	<div class="clear"></div>
-	     </div><!-- .indent -->
+        </section><!-- userdata -->
         
         <div class="hr"></div>
         

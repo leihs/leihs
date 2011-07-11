@@ -1,34 +1,43 @@
 /* USER USERDATA */
-#user .userdata table {
+#user .userdata h3 {
+	display: inline-block;
 	float: left;
-	margin-bottom: 0px;
-	width: 270px;
 }
 
-#user .userdata a.button.white {
-	margin-left: 85px;
-	margin-top: 38px;
+/* USER USERDATA EDIT */
+#user .userdata .edit {
+	color: #999999;
+	float: left;
+	padding: 6px 0 0 10px;
 }
 
-/* USER TABLE */
-#user table {
+#user .userdata .edit:hover {
+	color: #515151;
+}
+
+/* USER USERDATA DL */
+#user .userdata dl {
+	display: inline-block;
+	float: left;
+	width: 300px;
+}
+
+#user .userdata dl * {
 	font-size: 1.1em;
+	float: left;
+	padding-bottom: 6px;
 }
 
-#user table tr .label {
+#user .userdata dl dt {
 	color: #717171;
 	padding-right: 10px;
 	text-align: right;
-	width: 180px;
+	width: 111px;
 }
 
-#user table tr .value {
+#user .userdata dl dd {
 	font-weight: bold;
-	width: 200px;
-}
-
-#user table tr td {
-	padding-bottom: 6px;
+	width: 179px;
 }
 
 
