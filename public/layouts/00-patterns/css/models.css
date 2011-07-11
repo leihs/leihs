@@ -127,6 +127,11 @@
 	border-bottom: 1px solid #e3e3e3;
 	height: 70px;
 	display: block;
+	position: relative;
+}
+
+#modellist .item:nth-child(odd) {
+    background: #f0f0f0;
 }
 
 #modellist .item ul li {
@@ -158,7 +163,7 @@
     text-align: center;
 }
 
-#modellist .item ul .image a img {
+#modellist .item ul .image img {
 	height: 50px;
 	max-width: 50px;
 	width: auto;
@@ -170,7 +175,7 @@
     width: 175px;
 }
 
-/* MODEELIST NAME */
+/* MODEELIST MANUFACTOR */
 #modellist .item ul .manufactor {
     float: left;
     width: 120px;
@@ -200,11 +205,21 @@
 #modellist .item ul .add {
     float: right;
     margin-right: 9px !important;
-    padding-top: 26px !important;  
+    padding-top: 26px !important; 
+    width: 31px;
 }
 
-#modellist .item ul .add a span strong {
-    font-size: 1.3em;
-    position: relative;
-    top: -2px;
+#modellist .item ul .add a {
+    font-size: 1.4em;   
+    font-weight: bold;
+    line-height: 10px;
 }
+
+/* MODEELIST HOVER */
+#modellist .item ul .hover {
+    background: #FFF;
+    position: absolute; 
+    width: 265px;
+}
+
+
