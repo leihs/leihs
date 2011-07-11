@@ -1,115 +1,96 @@
-/* MODEL */
-
-.itemhead {
-padding-bottom: 20px;
-position: relative;
+/* MODEL  */
+#model h3 {
+	padding-bottom: 8px;	
 }
 
-
-#content .inner .line {
-display: block;
+#model .button {
+	position: absolute;
+	top: 8px;
+	right: 11px;
 }
 
-#content .inner .image img{
-padding: 0 50px 0 50px;
+/* MODEL IMAGES */
+#model .images img {
+	width: 722px;
+	height: auto;
 }
 
-
-
-/* MAIN.WRAPPER CONTENT.BOX INNER ITEMHEAD */
-
-#content .inner .itemhead .button{
-position: relative;
-top: 10px;
+/* MODEL DESCRIPTION */
+#model p.description {
+	color: #515151;
+	font-size: 1.5em;
+	padding-top: 8px;
 }
 
-#content .inner .itemhead .button a{
-padding-left: 10px;
-padding-right: 10px;
+/* MODEL DETAILS */
+#model .details tr td {
+	color: #515151;
+	display: inline-block;
+	font-size: 1.1em;
+	padding: 8px 0;
+	position: relative;
+	top: 0;
+	vertical-align: top;
 }
 
-
-#content .inner .itemdetails ul li {
-font-size: 1.1em;
-color: #515151;
-padding-bottom: 2px;
+#model .details .label {
+	color: #999;
+	margin-right: 8px;
+	padding-left: 8px;
+	width: 180px;
 }
 
-
-#content .inner .itemdetails .value {
-margin-left: 190px;
+#model .details .value {
+	width: 480px
 }
-
-  
-#content .inner .itemdetails .label {
-color: #999;
-float: left;
-margin-left: 20px;
-margin-right: 20px;
-width: 150px;
-}
-
 
 /* MAIN.WRAPPER CONTENT.BOX INNER SUGGESTEDITEMS */
-
 #main.wrapper #content.box .inner .suggesteditems {
-padding-top: 10px;
+	padding-top: 10px;
 }
-
 #main.wrapper #content.box .inner .suggesteditems p {
-font-size: 1.1em;
+	font-size: 1.1em;
 }
-
 #main.wrapper #content.box .inner .row {
-clear: both;
-padding: 2px 0px 19px 0px;
+	clear: both;
+	padding: 2px 0px 19px 0px;
 }
-
 #main.wrapper #content.box .inner .row .cell {
-float: left;
-width: 180px;
+	float: left;
+	width: 180px;
 }
-
 #main.wrapper #content.box .inner .row .cell .edit {
-color: #999;
+	color: #999;
 }
-
 #main.wrapper #content.box .inner .row .cell .edit:hover {
-color: #515151;
+	color: #515151;
 }
-
 #main.wrapper #content.box .inner .row .cell a img {
-height: 80px;
-display: block;
-margin-left: 10px;
-padding-bottom: 15px;
+	height: 80px;
+	display: block;
+	margin-left: 10px;
+	padding-bottom: 15px;
 }
-
 #main.wrapper #content.box .inner .row .cell h2 {
-padding-left: 8px;
+	padding-left: 8px;
 }
-
 #main.wrapper #content.box .inner .row .cell ul {
-margin-right: 20px;
-margin-top: 5px;
-list-style-type: none;
+	margin-right: 20px;
+	margin-top: 5px;
+	list-style-type: none;
 }
-
 #main.wrapper #content.box .inner .row .cell ul li {
-display: block;
-margin-bottom: 6px;
-padding-left: 8px;
+	display: block;
+	margin-bottom: 6px;
+	padding-left: 8px;
 }
-
 #main.wrapper #content.box .inner .row .cell ul li a, #main.wrapper #content.box .inner .suggesteditems .row .cell ul li a:link, #main.wrapper #content.box .inner .suggesteditems .row .cell ul li a:visited {
-font-size: 1.2em;
-color:#999999;
+	font-size: 1.2em;
+	color:#999999;
 }
-
 #main.wrapper #content.box .inner .row .cell ul li a:hover, #main.wrapper #content.box .inner .suggesteditems .row .cell ul li a:active {
-color: #515151;
+	color: #515151;
 }
-
 #main.wrapper #content.box .inner .row .cell:hover h2 a {
-color: #515151;
+	color: #515151;
 }
