@@ -45,70 +45,70 @@
 
 /* TOPFILTER */
 #topfilter {
-	border-bottom: 1px solid #e3e3e3;
-	color: #858585;
-	height: 36px;
-	padding-right: 10px;
-	position: absolute;
-	top: -10px;
-	right: 1px;
-	width: 554px;
+    border-bottom: 1px solid #e3e3e3;
+    color: #858585;
+    height: 36px;
+    padding-right: 10px;
+    position: absolute;
+    top: -10px;
+    right: 1px;
+    width: 554px;
 }
 
 /* TOPFILTER SORT */
 #topfilter .sort {
-	background: none;
-	border-right: 1px solid #e2e0de;
-	float: right;
-	position: relative;
-	top: 10px;
-	width: 140px;
+    background: none;
+    border-right: 1px solid #e2e0de;
+    float: right;
+    position: relative;
+    top: 10px;
+    width: 140px;
 }
 
 #topfilter .sort .select {
-	position: absolute;
-	height: 20px;
-	overflow: hidden;
-	padding: 4px 25px 0 0;
-	text-align: right;
-	width: 115px;
+    position: absolute;
+    height: 20px;
+    overflow: hidden;
+    padding: 4px 25px 0 0;
+    text-align: right;
+    width: 115px;
 }
 
 #topfilter .sort .arrow {
-	background: url(../images/image-sprite.png) no-repeat -53px -37px;
-	height: 6px;
-	position: absolute;
-	top: 8px;
-	right: 10px;
-	width: 7px;
+    background: url(../images/image-sprite.png) no-repeat -53px -37px;
+    height: 6px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 7px;
 }
 
 #topfilter .sort select {
-	border: 0;
-	padding: 4px 4px 2px 4px;
+    border: 0;
+    padding: 4px 4px 2px 4px;
 }
 
 /* TOPFILTER AVAILABILITY */
 #topfilter .availability {
-	float: right;
-	margin: 0 0 0 15px;
-	padding: 1px 0 0 0;
-	position: relative;
-	top: 10px;
+    float: right;
+    margin: 0 0 0 15px;
+    padding: 1px 0 0 0;
+    position: relative;
+    top: 10px;
 }
 
 #topfilter .availability .date {
-	background: url(../images/image-sprite.png) no-repeat 0 -312px;
-	border: none;
-	color: #858585;
-	font-size: 1.0em;
-	height: 18px;
-	padding: 0 10px 0 7px;
-	width: 57px;
+    background: url(../images/image-sprite.png) no-repeat 0 -312px;
+    border: none;
+    color: #858585;
+    font-size: 1.0em;
+    height: 18px;
+    padding: 0 10px 0 7px;
+    width: 57px;
 }
 
 #topfilter .availability .check {
-	margin-left: 8px;
+    margin-left: 8px;
 }
 
 /* MODEELIST */
@@ -172,13 +172,13 @@
 /* MODEELIST NAME */
 #modellist .item ul .name {
     float: left;
-    width: 175px;
+    width: 200px;
 }
 
 /* MODEELIST MANUFACTOR */
 #modellist .item ul .manufactor {
     float: left;
-    width: 120px;
+    width: 100px;
 }
 
 /* MODEELIST POOL */
@@ -221,5 +221,3 @@
     position: absolute; 
     width: 265px;
 }
-
-
