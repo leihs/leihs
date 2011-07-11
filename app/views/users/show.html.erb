@@ -18,50 +18,41 @@
         
         <h3><%= _("User Data") %></h3>
         
-        <div class="indent">
-	        <section class="address">
-	          <table>
+        <div class="indent userdata">
+        	
+          	<table>
 	            <tr>
-	              <td class="label"><%= _("Street") %> & <%= _("No.") %></td>
-	              <td class="value"><%= @user.address %></td>
+	              	<td class="label"><%= _("Street") %> & <%= _("No.") %></td>
+	              	<td class="value"><%= @user.address %></td>
 	            </tr>
-	            
 	            <tr>
-	              <td class="label"><%= _("Postal Code") %> & <%= _("Location") %></td>
-	              <td class="value"><%= @user.zip %> <%= @user.city %></td>
+		              <td class="label"><%= _("Postal Code") %> & <%= _("Location") %></td>
+		              <td class="value"><%= @user.zip %> <%= @user.city %></td>
 	            </tr>
-	            
 	            <tr>
-	              <td class="label"><%= _("Country") %></td>
-	              <td class="value"><%= @user.country %></td>
+	              	<td class="label"><%= _("Country") %></td>
+	              	<td class="value"><%= @user.country %></td>
 	            </tr>
-	            
-	          </table>
-	        </section>
+          	</table>
 	        
-	        <section class="contact">
-	          <table>
-	            <tr>
-	              <td class="label"><%= _("Mobile") %></td>
-	              <td class="value"><%= @user.phone %></td>
-	            </tr>
-	            <tr>
-	              <td class="label"><%= _("Phone") %></td>
-	              <td class="value"><%= @user.phone %></td>
-	            </tr>
-	            <tr>
-	              <td class="label"><%= _("E-Mail") %></td>
-	              <td class="value"><%= @user.email %></td>
-	            </tr>
-	          </table>
-	        </section>
+          	<table>
+            	<tr>
+	              	<td class="label"><%= _("Mobile") %></td>
+	              	<td class="value"><%= @user.phone %></td>
+            	</tr>
+            	<tr>
+              		<td class="label"><%= _("Phone") %></td>
+            	  	<td class="value"><%= @user.phone %></td>
+        	    </tr>
+        	    <tr>
+    	          	<td class="label"><%= _("E-Mail") %></td>
+	              	<td class="value"><%= @user.email %></td>
+            	</tr>
+          	</table>
 	        
-	        <section class="edit">
-	        	<a href="#" class="button white" title="<%= _("Edit Profile") %>"><span><%= _("Edit Profile") %></span></a>
-	        	
-	        </section>
+        	<a href="#" class="button white" title="<%= _("Edit Profile") %>"><span><%= _("Edit Profile") %></span></a>
 	        
-	        <div class="clear"></div>
+	     	<div class="clear"></div>
 	     </div><!-- .indent -->
         
         <div class="hr"></div>

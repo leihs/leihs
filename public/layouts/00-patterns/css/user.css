@@ -1,8 +1,13 @@
-/* USER SECTION */
-#user section {
+/* USER USERDATA */
+#user .userdata table {
 	float: left;
-	margin-bottom: 14px;
-	width: 250px;
+	margin-bottom: 0px;
+	width: 230px;
+}
+
+#user .userdata a.button.white {
+	margin-left: 60px;
+	margin-top: 30px;
 }
 
 /* USER TABLE */
