@@ -52,7 +52,9 @@
 					       
 					       <% s.each do |c| %>
         					   <div class="cell">
-                                   <a href="<%= category_models_path(c) %>" title="<%= c.name %>"><img src="<%# TODO Franco: first image of first model inside this category or first model of first child category that contains models %>" alt="<%= c.name %>"/></a>
+                                   <a href="<%= category_models_path(c) %>" title="<%= c.name %>">
+									<img src="http://leihs.zhdk.ch<%= c.image_thumb %>" alt="<%= c.name %>"/>
+                                   </a>
                                    <h2><%= link_to c, category_models_path(c) %></h2>
                                     <ul>
                                         <% c.children.each do |child| %>
