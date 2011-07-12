@@ -1,0 +1,97 @@
+/* http://sass-lang.com/ */
+/* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
+
+#start {
+
+   #rented {
+    font-size: 1.1em;
+    
+    .line {
+      display: block;
+      padding: 0 0 8px 0; 
+      
+      li {
+        display: inline-block;
+        margin-right: 7px;
+        max-width: 415px;
+        overflow: hidden;
+        position: relative;
+      }
+    }
+    
+    .purpose {
+      white-space: nowrap;
+      
+      a {
+        font-weight: bold;
+      }
+    }
+    
+    .timeframe {
+      color: #717171;
+    }
+    
+    .extend {
+      display: inline-block;
+      
+      a {
+        color: #999999; 
+      }
+      
+      a:hover {
+        color: #515151; 
+      }
+    }
+  }
+  
+  #categories {
+    padding-top: 8px;
+    
+    .row {
+      padding-bottom: 24px;    
+    }
+    
+    .cell {
+      float: left;
+      width: 180px;
+      
+      img {
+        height: 80px;
+        display: block;
+        margin-left: 10px;
+        padding-bottom: 15px;
+      }
+      
+      h2 {
+        padding-left: 8px;
+      }
+      
+      ul {
+        margin-right: 20px;
+        margin-top: 5px;
+        list-style-type: none;
+        
+        li {
+          display: block;
+          margin-bottom: 6px;
+          padding-left: 8px;
+          
+          a {
+            font-size: 1.2em;
+            color:#999999;
+          }
+          
+          a:hover {
+            color: #515151;
+          }
+        }
+      }
+    }
+    
+    .cell:hover {
+      h2 a {
+        color: #515151;
+      }
+    }
+  }
+}

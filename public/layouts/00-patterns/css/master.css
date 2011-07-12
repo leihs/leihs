@@ -1,0 +1,81 @@
+/* http://sass-lang.com/ */
+/* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
+html {
+  background: #f5f3ee;
+  color: #515151;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  font-size: 62.5%;
+  padding-top: 22px; }
+
+a, a:link, a:visited {
+  color: #6091d9;
+  text-decoration: none; }
+
+a:hover, a:active {
+  color: #1d62c9;
+  text-decoration: none; }
+
+.clear {
+  clear: both; }
+
+p {
+  font-size: 1.1em; }
+
+.subtitle {
+  font-size: 1.3em; }
+
+strong {
+  font-weight: bold; }
+
+h1 {
+  color: #2d2d2d;
+  font-size: 1.8em;
+  font-weight: normal;
+  margin-bottom: 5px; }
+
+h2 {
+  font-size: 1.6em;
+  font-weight: normal;
+  margin-bottom: 2px; }
+
+h2 a, h2 a:link, h2 a:visited {
+  color: #717171; }
+
+h2 a:hover, h2 a:active {
+  color: #515151; }
+
+h3 {
+  font-size: 1.5em;
+  font-weight: normal;
+  margin-top: 1px;
+  margin-bottom: 9px; }
+
+ul {
+  list-style-type: none; }
+
+.hr {
+  border: 0;
+  height: 15px;
+  background: url(../images/slices-h.png) repeat-x 0 -182px;
+  margin: 14px 0 0 0; }
+
+.floatright {
+  float: right; }
+
+.floatleft {
+  float: left; }
+
+.wrapper {
+  clear: both;
+  display: block;
+  margin: 0 auto;
+  min-width: 990px;
+  padding: 0;
+  position: relative;
+  width: 990px; }
+
+#header {
+  display: block; }
+
+.indent {
+  padding-left: 1px; }

@@ -1,0 +1,94 @@
+/* http://sass-lang.com/ */
+/* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
+
+#model {
+  .button {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+  }
+  
+  #images {
+    float: left;
+    padding-top: 10px;
+    width: 50px;
+    
+    a {
+      cursor: -webkit-zoom-in;
+      cursor: -moz-zoom-in;
+    } 
+    
+    img {
+      height: auto;
+      margin-bottom: 5px;
+      width: 50px;
+    }
+  }
+  
+  #bigimage {
+    padding-top: 10px;
+    position: relative;
+    float: right;
+    width: 660px;
+    
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  
+  .description {
+    color: #515151;
+    font-size: 1.3em;
+    padding: 0 0 12px 6px;
+  }
+  
+  .details {
+    tr td {
+      color: #515151;
+      display: inline-block;
+      font-size: 1.1em;
+      line-height: 1.5em;
+      padding: 8px 0;
+      position: relative;
+      top: 0;
+      vertical-align: top;
+    }
+    
+    tr:nth-child(odd)  {
+      background: #f0f0f0;
+    }
+    
+    .key {
+      color: #999;
+      margin-right: 8px;
+      padding-left: 12px;
+      width: 180px;
+    }
+    
+    .value {
+      border-left: 1px solid #FFF;
+      padding-left: 12px;
+      padding-right: 12px;
+      width: 488px
+    }
+  }
+  
+  #suggested {
+    .row {
+      padding-bottom: 24px;
+      
+      .cell {
+        float: left;
+        padding-right: 10px;
+        width: 170px;
+        
+        img {
+          height: 80px;
+          max-width: 160px;
+        }
+      }
+    }
+  }
+  
+}

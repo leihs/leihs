@@ -45,12 +45,6 @@
   	position: relative;
 }
 
-#content .inner p {
-	color: #999;
-	font-size: 1.2em;
-	margin-bottom: 6px;
-}
-
 /* CONTENT FOOTER */
 #content .footer {
 	background: url(../images/slices-h.png) repeat-x 0 -110px;

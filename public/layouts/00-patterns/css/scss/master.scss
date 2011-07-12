@@ -1,23 +1,12 @@
-html, body { 
-  margin: 0;
-  padding: 0;
-}
+/* http://sass-lang.com/ */
+/* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
 
 html {
 	background: #f5f3ee;
 	color: #515151;
 	font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 	font-size: 62.5%;
-	letter-spacing: 0;
-	overflow-y: scroll;
 	padding-top: 22px;
-}
-
-* {
-	outline-width: 0px;
-	outline-style: none;
-	margin: 0;
-	padding: 0;
 }
 
 a, a:link, a:visited {   
@@ -28,10 +17,6 @@ a, a:link, a:visited {
 a:hover, a:active {
 	color: #1d62c9;
 	text-decoration: none;
-}
-
-img { 
-    border:none;
 }
 
 .clear {
@@ -97,7 +82,6 @@ ul {
 	float: left;
 }
 
-/* WRAPPER */
 .wrapper {
  	clear: both;
  	display: block;
@@ -108,12 +92,10 @@ ul {
 	width: 990px;
 }
 
-/* HEADER */
 #header {
 	display: block;
 }
 
-/* INDENT */
 .indent {
 	padding-left: 1px;
 }
