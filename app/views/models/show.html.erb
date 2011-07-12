@@ -11,9 +11,9 @@
 		<a href="#" class="button green"><span>Add to Cart</span></a>
 
 		<section class="images">
-			<% @model.images.each do |i| %>
+			<% # @model.images.each do |i| %>
 				<img src="http://leihs.zhdk.ch/<%= @model.images.first.public_filename %>" alt="<%= @model.name %>" />
-			<% end %>
+			<% # end %>
 		</section><!-- .images -->
 		
 		<p class="description"><%= @model.description %></p>
