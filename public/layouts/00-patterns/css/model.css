@@ -23,6 +23,7 @@
 }
 
 /* MODEL DETAILS */
+
 #model .details tr td {
 	color: #515151;
 	display: inline-block;
@@ -45,7 +46,7 @@
 }
 
 #model .details .value {
-	width: 480px
+	width: 520px
 }
 
 /* MAIN.WRAPPER CONTENT.BOX INNER SUGGESTEDITEMS */
