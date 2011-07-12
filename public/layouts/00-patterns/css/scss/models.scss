@@ -1,0 +1,227 @@
+/* http://sass-lang.com/ */
+/* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
+
+/* CATEGORIES */
+#models #categories {
+	border-right: 1px solid #e3e3e3;
+	float: left;
+	left: -5px;
+	margin-bottom: -46px;
+	padding-top: 23px;
+	padding-right: 6px;
+	position: relative;
+	top: -18px;
+	width: 167px;
+	z-index: 11111199;
+	
+	li {
+		list-style-type: none;
+		overflow: hidden;
+	}
+	
+	li:hover h2 a {
+	    color:#515151;
+	}
+	
+	h2 {
+		font-size: 1.6em;
+		padding-bottom: 3px;
+	}
+	
+}
+
+#models #categories ul {
+	padding-bottom: 14px;
+}
+
+#models #categories li ul li {
+	margin-bottom: 6px;	
+}
+
+#models #categories li ul li a, #models #categories li ul li a:link, #models #categories li ul li a:visited {
+	font-size: 1.2em;
+	color:#999999;
+}
+
+#models #categories li ul li a:hover, #categories li ul li a:active {
+	color: #515151;
+}
+
+/* TOPFILTER */
+#models #topfilter {
+    border-bottom: 1px solid #e3e3e3;
+    color: #858585;
+    height: 36px;
+    padding-right: 10px;
+    position: absolute;
+    top: -10px;
+    right: 1px;
+    width: 554px;
+}
+
+/* TOPFILTER SORT */
+#models #topfilter .sort {
+    background: none;
+    border-right: 1px solid #e2e0de;
+    float: right;
+    position: relative;
+    top: 10px;
+    width: 140px;
+}
+
+#models #topfilter .sort .select {
+    position: absolute;
+    height: 20px;
+    overflow: hidden;
+    padding: 4px 25px 0 0;
+    text-align: right;
+    width: 115px;
+}
+
+#models #topfilter .sort .arrow {
+    background: url(../images/image-sprite.png) no-repeat -53px -37px;
+    height: 6px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 7px;
+}
+
+#models #topfilter .sort select {
+    border: 0;
+    padding: 4px 4px 2px 4px;
+}
+
+/* TOPFILTER AVAILABILITY */
+#models #topfilter .availability {
+    float: right;
+    margin: 0 0 0 15px;
+    padding: 1px 0 0 0;
+    position: relative;
+    top: 10px;
+}
+
+#models #topfilter .availability .date {
+    background: url(../images/image-sprite.png) no-repeat 0 -312px;
+    border: none;
+    color: #858585;
+    font-size: 1.0em;
+    height: 18px;
+    padding: 0 10px 0 7px;
+    width: 57px;
+}
+
+#models #topfilter .availability .check {
+    margin-left: 8px;
+}
+
+/* MODEELIST */
+#models #modellist {
+	border-left: 1px solid #e3e3e3;
+	float: right;
+	margin-right: -23px;
+	top: 19px;
+	position: relative;
+	right: 7px;
+	vertical-align: middle;
+	width: 568px;
+}
+
+#models #modellist .item {
+	border-bottom: 1px solid #e3e3e3;
+	height: 70px;
+	display: block;
+	position: relative;
+}
+
+#models #modellist .item:nth-child(odd) {
+    background: #f0f0f0;
+}
+
+#models #modellist .item ul li {
+    color: #717171;
+    display: block;
+    font-size: 1.2em;
+    float: left;
+    overflow: hidden;
+    margin-right: 16px;
+    padding-top: 28px;
+    white-space: nowrap;
+}
+
+#models #modellist .item ul li strong {
+    color: #515151;
+}
+
+/* MODEELIST IMAGE */
+#models #modellist .item ul .image {
+    float: left;
+    padding-top: 10px; 
+    margin-left: 10px;
+    margin-right: 12px;
+    width: 50px;   
+}
+
+#models #modellist .item ul .image a {
+    display: block;
+    text-align: center;
+}
+
+#models #modellist .item ul .image img {
+	height: 50px;
+	max-width: 50px;
+	width: auto;
+}
+
+/* MODEELIST NAME */
+#modellist .item ul .name {
+    float: left;
+    width: 200px;
+}
+
+/* MODEELIST MANUFACTOR */
+#models #modellist .item ul .manufactor {
+    float: left;
+    width: 100px;
+}
+
+/* MODEELIST POOL */
+#models #modellist .item ul .pool {
+    color: #999999 !important;
+    float: right;
+    font-size: 1.1em;
+    margin-right: 8px !important;
+    padding-top: 29px;
+    text-align: right;
+    width: 70px;
+}
+
+/* MODEELIST AVAILABILITY */
+#models #modellist .item ul .availability {
+    color: #999999 !important;
+    font-size: 1.1em;
+    float: right;
+    margin-right: 8px !important;
+    padding-top: 29px;
+}
+
+/* MODEELIST ADD */
+#models #modellist .item ul .add {
+    float: right;
+    margin-right: 9px !important;
+    padding-top: 26px !important; 
+    width: 31px;
+}
+
+#models #modellist .item ul .add a {
+    font-size: 1.4em;   
+    font-weight: bold;
+    line-height: 10px;
+}
+
+/* MODEELIST HOVER */
+#models #modellist .item ul .hover {
+    background: #FFF;
+    position: absolute; 
+    width: 265px;
+}
