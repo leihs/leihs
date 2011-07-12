@@ -96,7 +96,7 @@ module ApplicationHelper
           inventory_pool.name
         end 
         
-        a += link_to _("show"), "", :class => 'topright'
+        a += link_to _("view"), "", :class => 'topright'
         
         a += content_tag :p do
           inventory_pool.opening_hours.gsub('\n','<br>')
