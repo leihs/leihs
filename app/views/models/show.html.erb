@@ -8,12 +8,10 @@
 		
 		<h1><%= @model.name %></h1>
 		<h3><%= @model.manufacturer %></h3>
-		<a href="#" class="button green"><span>Add to Cart</span></a>
+		<div class="button green"><a href="#">Add to Cart</a></div>
 
 		<section class="images">
-			<% # @model.images.each do |i| %>
-				<img src="http://leihs.zhdk.ch/<%= @model.images.first.public_filename %>" alt="<%= @model.name %>" />
-			<% # end %>
+			<img src="http://leihs.zhdk.ch<%= @model.images.first.public_filename %>" alt="<%= @model.name %>" />
 		</section><!-- .images -->
 		
 		<p class="description"><%= @model.description %></p>
@@ -22,14 +20,18 @@
 		
 		<table class="details">
 			<% @model.properties.each do |p| %>
-				<tr class="line">
-					<td class="label"><%= p.key %></td>
+				<tr>
+					<td class="key"><%= p.key %></td>
 					<td class="value"><%= p.value %></td>
 				</tr>
 			<% end %>
 		</table><!-- .details -->
 
 		<div class="hr"></div>
+		
+		<section id="suggested">
+		
+		</section>
 
 		<div class="row">
 			<div class="cell">

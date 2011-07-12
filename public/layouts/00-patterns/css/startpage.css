@@ -41,43 +41,43 @@
 }
 
 /* CATEGORIES */
-#start #categories .cell {
+#start #categories .row .cell {
     float: left;
     width: 180px;
 }
 
-#start #categories .cell a img {
+#start #categories .row .cell a img {
     height: 80px;
     display: block;
     margin-left: 10px;
     padding-bottom: 15px;
 }
 
-#start #categories .cell h2 {
+#start #categories .row .cell h2 {
     padding-left: 8px;
 }
 
-#start #categories .cell ul {
+#start #categories .row .cell ul {
     margin-right: 20px;
     margin-top: 5px;
     list-style-type: none;
 }
 
-#start #categories .cell ul li {
+#start #categories .row .cell ul li {
     display: block;
     margin-bottom: 6px;
     padding-left: 8px;
 }
 
-#start #categories .cell ul li a {
+#start #categories .row .cell ul li a {
     font-size: 1.2em;
     color:#999999;
 }
 
-#start #categories .cell ul li a:hover {
+#start #categories .row .cell ul li a:hover {
     color: #515151;
 }
 
-#start #categories .cell:hover h2 a {
+#start #categories .row .cell:hover h2 a {
     color: #515151;
 }

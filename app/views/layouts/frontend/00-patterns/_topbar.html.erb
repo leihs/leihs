@@ -3,18 +3,22 @@
 	<div class="inner">
 		<div class="light"></div>
 		<div class="logo">
-			<a href="" title="Zur Startseite"></a>
+			<%= link_to "", root_path, :title=>_("Homepage") %>
 		</div><!-- logo -->
 		<nav class="navigation">
 			<ul>
 				<li class="seperator"></li>
 				
-				<li class="item"><a href="backend" class="anchor" title="<%= _("Backend") %>"><%= _("Backend") %></a></li><!-- .item -->
+				<%#TODO Franco if condition %>
+    				<li class="item">
+    				    <%= link_to _("Backend") , backend_path, :class=>"anchor" %>
+    				</li><!-- .item -->
 				
 				<li class="seperator"></li>
 				
-				<li class="item<%=current_page?(:controller => 'users', :action => 'show')?" active":""%>"><a href="user" title="<%= _('User Page') %>" class="anchor"><%= current_user.name %></a>
-				  <% current_page?(:controller => 'users', :action => 'show') do %>
+				<li class="item<%=current_page?(:controller => 'users', :action => 'show')?" active":""%>">
+				  <%= link_to current_user, user_path , :class => "anchor" %>
+				  <% unless current_page?(:controller => 'users', :action => 'show') %>
 					  <div class="hover profile">
 					       		<div class="header">
 					       			<div class="borderleft"></div>

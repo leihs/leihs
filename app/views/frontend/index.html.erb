@@ -46,22 +46,27 @@
 				<div class="hr"></div>
 				
 				<section id="categories">
-					<% Category.roots.each_with_index do |c, i| %>
+				    
+					<% Category.roots.each_slice(4) do |s| %>
+					   <div class="row">
+					       
+					       <% s.each do |c| %>
+        					   <div class="cell">
+                                   <a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/audio.jpg" alt=""/></a>
+                                   <h2><a href="" title="<%= c.name %>"><%= c.name %></a></h2>
+                                    <ul>
+                                        <% c.children.each do |child| %>
+                                            <li><a href=""><%= child %></a></li>
+                                        <% end %>
+                                    </ul>
+                               </div><!-- .cell -->
+					       <% end %>
 					   
-					   <div class="cell">
-					       <a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/audio.jpg" alt=""/></a>
-					       <h2><a href="" title="<%= c.name %>"><%= c.name %></a></h2>
-                            <ul>
-                                <% c.children.each do |child| %>
-                                    <li><a href=""><%= child %></a></li>
-                                <% end %>
-                            </ul>
-					   </div><!-- .cell -->
-					   
+					    </div><!-- .row -->
+        				<div class="clear"></div>	 
 					<% end %>
-			    <div class="clear"></div>
 				</section><!-- #categories -->
-			
+			     
 			</div><!-- inner -->
 		
 		<div class="footer"><div class="borderleft"></div><div class="borderright"></div></div><!-- .footer -->

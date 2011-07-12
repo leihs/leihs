@@ -4,9 +4,9 @@
     		
     		<div class="header"><div class="borderleft"></div><div class="borderright"></div></div><!-- .header -->
     		
-    		<div class="inner<%= @category.children.size.zero? ? " fullwidth" : "" %>" id="models">
+    		<div class="inner<%= @category.children.empty? ? " fullwidth" : "" %>" id="models">
 
-                <% @category.children.size.zero? do %>
+                <% unless @category.children.empty? %>
     			<ul id="categories">
     			    <% @category.children.each do |c| %>
                          <li>
@@ -45,7 +45,7 @@
                     <% @models.each do |m| %>
                         <li class="item">
 				            <ul>
-				                <li class="image"><a href="#"><img src="http://leihs.zhdk.ch/<%= m.images[0].public_filename %>" alt="<%= m.name %>"/></a></li>
+				                <li class="image"><a href="#"><img src="http://leihs.zhdk.ch/<%= m.image_thumb %>" alt="<%= m.name %>"/></a></li>
 				                <li class="name"><%= m.name %></li>
 				                <li class="manufactor"><%= m.manufacturer %></li>
 				                <li class="add"><div class="smallbutton green"><a href="#" title="<%= _("Add to Basket") %>">+</a></div></li>
