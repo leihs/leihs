@@ -41,6 +41,14 @@
 }
 
 /* CATEGORIES */
+#start #categories {
+    padding-top: 8px;    
+}
+
+#start #categories .row {
+    padding-bottom: 24px;    
+}
+
 #start #categories .row .cell {
     float: left;
     width: 180px;

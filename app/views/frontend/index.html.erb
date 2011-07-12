@@ -52,18 +52,18 @@
 					       
 					       <% s.each do |c| %>
         					   <div class="cell">
-                                   <a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/audio.jpg" alt=""/></a>
-                                   <h2><a href="" title="<%= c.name %>"><%= c.name %></a></h2>
+                                   <a href="<%= category_models_path(c) %>" title="<%= c.name %>"><img src="<%# TODO Franco: first image of first model inside this category or first model of first child category that contains models %>" alt="<%= c.name %>"/></a>
+                                   <h2><%= link_to c, category_models_path(c) %></h2>
                                     <ul>
                                         <% c.children.each do |child| %>
-                                            <li><a href=""><%= child %></a></li>
+                                            <li><%= link_to child, category_models_path(child) %></li>
                                         <% end %>
                                     </ul>
                                </div><!-- .cell -->
 					       <% end %>
-					   
+					    <div class="clear"></div>   
 					    </div><!-- .row -->
-        				<div class="clear"></div>	 
+        				 
 					<% end %>
 				</section><!-- #categories -->
 			     
