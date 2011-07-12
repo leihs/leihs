@@ -3,15 +3,12 @@
 	
 	<section id="content" class="box">
 		
-		<div class="header">
-			<div class="borderleft"></div>
-			<div class="borderright"></div>
-		</div><!-- .header -->
+		<div class="header"><div class="borderleft"></div><div class="borderright"></div></div><!-- .header -->
 		
-		<div class="inner">
+		<div class="inner" id="start">
+				
 				<h1><%= _("Welcome") %> <%= @user.name %></h1>
-				<p class="subtitle"><%= _("You have access to the following Equipment Parks") %>: 
-					<%= linked_inventory_pools(@user.inventory_pools).html_safe %>
+				<p class="subtitle"><%= _("You have access to the following Equipment Parks") %>: <%= linked_inventory_pools(@user.inventory_pools).html_safe %></p>
 								
 				<div class="hr"></div>
 				
@@ -48,210 +45,26 @@
 				
 				<div class="hr"></div>
 				
-				<section id="startcategories">
-				
-					<div class="row">
-					
-					<% Category.roots.each do |c| %>
-					  <%= #category_cell(c).html_safe 
-					  %>
+				<section id="categories">
+					<% Category.roots.each_with_index do |c, i| %>
+					   
+					   <div class="cell">
+					       <a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/audio.jpg" alt=""/></a>
+					       <h2><a href="" title="<%= c.name %>"><%= c.name %></a></h2>
+                            <ul>
+                                <% c.children.each do |child| %>
+                                    <li><a href=""><%= child %></a></li>
+                                <% end %>
+                            </ul>
+					   </div><!-- .cell -->
+					   
 					<% end %>
-					
-						<div class="cell">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/audio.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">Audio</a></h2>
-								<ul>
-									<li><a href="">Analog/Digital Schnittstellen</a></li>
-									<li><a href="">Analoge Peripheriegeräte</a></li>
-									<li><a href="">Audio Anlagen</a></li>
-									<li><a href="">Recorder/Player</a></li>
-									<li><a href="">Kopfhörer</a></li>
-									<li><a href="">Lautsprecher</a></li>
-									<li><a href="">Mikrofon Zubehör</a></li>
-									<li><a href="">Mikrofon</a></li>
-									<li><a href="">Verstärker</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="cell">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/av.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">AV Produktions...</a></h2>
-								<ul>
-									<li><a href="">Elektronische Anzeige, Boards, Wegweiser</a></li>
-									<li><a href="">Funkgeräte</a></li>
-									<li><a href="">Megaphon</a></li>
-									<li><a href="">andere Produktionshilsmittel</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="cell">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/stativ.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">Stative</a></h2>
-								<ul>
-									<li><a href="">Stative Foto</a></li>
-									<li><a href="">Stative Video</a></li>
-									<li><a href="">Stative Lautsprecher</a></li>
-									<li><a href="">Stative Mikrophon</a></li>
-									<li><a href="">Stative Licht</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="cell last">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/video.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">Video</a></h2>
-								<ul>
-									<li><a href="">Beamer</a></li>
-									<li><a href="">Beamer Zubehör</a></li>
-									<li><a href="">Medien Rack</a></li>
-									<li><a href="">Mini Kameras</a></li>
-									<li><a href="">Stative</a></li>
-									<li><a href="">Video Kamera</a></li>
-									<li><a href="">Kamerazubehör</a></li>
-									<li><a href="">Monitore / TV</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="clear"></div>
-						
-					</div><!-- .row -->	
-						
-					<div class="row">
-					
-					    
-						<div class="cell">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/photo.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">Foto</a></h2>
-								<ul>
-									<li><a href="">Adapter & Zubehör</a></li>
-									<li><a href="">Blitz / Anlagen</a></li>
-									<li><a href="">Diaprojektoren</a></li>
-									<li><a href="">Digital</a></li>
-									<li><a href="">Leuchtpult</a></li>
-									<li><a href="">Objektive</a></li>
-									<li><a href="">Referenzmonitore</a></li>
-									<li><a href="">Stative</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="cell">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/elektronic.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">IT & Elektronik</a></h2>
-								<ul>
-									<li><a href="">Zubehör</a></li>
-									<li><a href="">Anzeige</a></li>
-									<li><a href="">Computer</a></li>
-									<li><a href="">Eingabegeräte</a></li>
-									<li><a href="">Interface</a></li>
-									<li><a href="">Massenspeicher</a></li>
-									<li><a href="">Kameras</a></li>
-									<li><a href="">Mobile Computing</a></li>
-									<li><a href="">Software & Dongles</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="cell">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/electro.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">Elektromaterial</a></h2>
-								<ul>
-									<li><a href="">SubCategory</a></li>
-									<li><a href="">SubCategory</a></li>
-									<li><a href="">SubCategory</a></li>
-									<li><a href="">SubCategory</a></li>
-									<li><a href="">SubCategory</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="cell last">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/stagelight.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">Licht</a></h2>
-								<ul>
-									<li><a href="">SubCategory</a></li>
-									<li><a href="">SubCategory</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="clear"></div>
-						
-					</div><!-- .row -->
-							
-					<div class="row">
-					
-						<div class="cell">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/presentation.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">Presentation</a></h2>
-								<ul>
-									<li><a href="">Adapter & Zubehör</a></li>
-									<li><a href="">Blitz / Anlagen</a></li>
-									<li><a href="">Diaprojektoren</a></li>
-									<li><a href="">Digital</a></li>
-									<li><a href="">Leuchtpult</a></li>
-									<li><a href="">Objektive</a></li>
-									<li><a href="">Referenzmonitore</a></li>
-									<li><a href="">Stative</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="cell">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/rig.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">IT & Elektronik</a></h2>
-								<ul>
-									<li><a href="">Zubehör</a></li>
-									<li><a href="">Anzeige</a></li>
-									<li><a href="">Computer</a></li>
-									<li><a href="">Eingabegeräte</a></li>
-									<li><a href="">Interface</a></li>
-									<li><a href="">Massenspeicher</a></li>
-									<li><a href="">Kameras</a></li>
-									<li><a href="">Mobile Computing</a></li>
-									<li><a href="">Software & Dongles</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="cell">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/electro.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">Elektromaterial</a></h2>
-								<ul>
-									<li><a href="">SubCategory</a></li>
-									<li><a href="">SubCategory</a></li>
-									<li><a href="">SubCategory</a></li>
-									<li><a href="">SubCategory</a></li>
-									<li><a href="">SubCategory</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="cell last">
-							<a href=""><img src="http://dl.dropbox.com/u/9864549/final_cat_pics/stagelight.jpg" alt=""/></a> <!-- Category Image -->
-							
-								<h2><a href="">Licht</a></h2>
-								<ul>
-									<li><a href="">SubCategory</a></li>
-									<li><a href="">SubCategory</a></li>
-								</ul>
-						</div><!-- .cell -->
-						
-						<div class="clear"></div>
-						
-					</div><!-- .row -->	
-					
-				</section>
+			    <div class="clear"></div>
+				</section><!-- #categories -->
 			
 			</div><!-- inner -->
 		
-		<div class="footer">
-			<div class="borderleft"></div>
-			<div class="borderright"></div>
-		</div><!-- .footer -->
+		<div class="footer"><div class="borderleft"></div><div class="borderright"></div></div><!-- .footer -->
 		
 	</section><!-- #content -->
 

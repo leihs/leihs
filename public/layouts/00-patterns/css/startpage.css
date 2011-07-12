@@ -1,0 +1,83 @@
+/* RENTED */
+#start #rented {
+    font-size: 1.1em;
+}
+
+#start #rented .line {
+    display: block;
+    padding: 0 0 8px 0; 
+}
+
+#start #rented .line li {
+    display: inline-block;
+    margin-right: 7px;
+    max-width: 415px;
+    overflow: hidden;
+    position: relative;
+}
+
+#start #rented .purpose {
+    white-space: nowrap;
+}
+
+#start #rented .purpose a {
+    font-weight: bold;
+}
+
+#start #rented .timeframe {
+    color: #717171;
+}
+
+#start #rented .extend {
+    display: inline-block;
+}
+
+#start #rented .extend a {
+    color: #999999; 
+}
+
+#start #rented .extend a:hover {
+    color: #515151; 
+}
+
+/* CATEGORIES */
+#start #categories .cell {
+    float: left;
+    width: 180px;
+}
+
+#start #categories .cell a img {
+    height: 80px;
+    display: block;
+    margin-left: 10px;
+    padding-bottom: 15px;
+}
+
+#start #categories .cell h2 {
+    padding-left: 8px;
+}
+
+#start #categories .cell ul {
+    margin-right: 20px;
+    margin-top: 5px;
+    list-style-type: none;
+}
+
+#start #categories .cell ul li {
+    display: block;
+    margin-bottom: 6px;
+    padding-left: 8px;
+}
+
+#start #categories .cell ul li a {
+    font-size: 1.2em;
+    color:#999999;
+}
+
+#start #categories .cell ul li a:hover {
+    color: #515151;
+}
+
+#start #categories .cell:hover h2 a {
+    color: #515151;
+}

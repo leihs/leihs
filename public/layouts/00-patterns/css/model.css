@@ -55,46 +55,4 @@
 #main.wrapper #content.box .inner .suggesteditems p {
 	font-size: 1.1em;
 }
-#main.wrapper #content.box .inner .row {
-	clear: both;
-	padding: 2px 0px 19px 0px;
-}
-#main.wrapper #content.box .inner .row .cell {
-	float: left;
-	width: 180px;
-}
-#main.wrapper #content.box .inner .row .cell .edit {
-	color: #999;
-}
-#main.wrapper #content.box .inner .row .cell .edit:hover {
-	color: #515151;
-}
-#main.wrapper #content.box .inner .row .cell a img {
-	height: 80px;
-	display: block;
-	margin-left: 10px;
-	padding-bottom: 15px;
-}
-#main.wrapper #content.box .inner .row .cell h2 {
-	padding-left: 8px;
-}
-#main.wrapper #content.box .inner .row .cell ul {
-	margin-right: 20px;
-	margin-top: 5px;
-	list-style-type: none;
-}
-#main.wrapper #content.box .inner .row .cell ul li {
-	display: block;
-	margin-bottom: 6px;
-	padding-left: 8px;
-}
-#main.wrapper #content.box .inner .row .cell ul li a, #main.wrapper #content.box .inner .suggesteditems .row .cell ul li a:link, #main.wrapper #content.box .inner .suggesteditems .row .cell ul li a:visited {
-	font-size: 1.2em;
-	color:#999999;
-}
-#main.wrapper #content.box .inner .row .cell ul li a:hover, #main.wrapper #content.box .inner .suggesteditems .row .cell ul li a:active {
-	color: #515151;
-}
-#main.wrapper #content.box .inner .row .cell:hover h2 a {
-	color: #515151;
-}
+

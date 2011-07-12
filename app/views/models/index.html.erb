@@ -2,12 +2,9 @@
     	
     	<section id="content" class="box">
     		
-    		<div class="header">
-    			<div class="borderleft"></div>
-    			<div class="borderright"></div>
-    		</div><!-- .header -->
+    		<div class="header"><div class="borderleft"></div><div class="borderright"></div></div><!-- .header -->
     		
-    		<div class="inner<%= @category.children.size.zero? ? " fullwidth" : "" %>">
+    		<div class="inner<%= @category.children.size.zero? ? " fullwidth" : "" %>" id="models">
 
                 <% @category.children.size.zero? do %>
     			<ul id="categories">

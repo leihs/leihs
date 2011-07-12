@@ -1,5 +1,5 @@
 /* CATEGORIES */
-#categories {
+#models #categories {
 	border-right: 1px solid #e3e3e3;
 	float: left;
 	left: -5px;
@@ -12,39 +12,39 @@
 	z-index: 99;
 }
 
-#categories li {
+#models #categories li {
 	list-style-type: none;
 	overflow: hidden;
 }
 
-#categories h2 {
+#models #categories h2 {
 	font-size: 1.6em;
 	padding-bottom: 3px;
 }
 
-#categories li:hover h2 a {
+#models #categories li:hover h2 a {
     color:#515151;
 }
 
-#categories ul {
+#models #categories ul {
 	padding-bottom: 14px;
 }
 
-#categories li ul li {
+#models #categories li ul li {
 	margin-bottom: 6px;	
 }
 
-#categories li ul li a, #categories li ul li a:link, #categories li ul li a:visited {
+#models #categories li ul li a, #models #categories li ul li a:link, #models #categories li ul li a:visited {
 	font-size: 1.2em;
 	color:#999999;
 }
 
-#categories li ul li a:hover, #categories li ul li a:active {
+#models #categories li ul li a:hover, #categories li ul li a:active {
 	color: #515151;
 }
 
 /* TOPFILTER */
-#topfilter {
+#models #topfilter {
     border-bottom: 1px solid #e3e3e3;
     color: #858585;
     height: 36px;
@@ -56,7 +56,7 @@
 }
 
 /* TOPFILTER SORT */
-#topfilter .sort {
+#models #topfilter .sort {
     background: none;
     border-right: 1px solid #e2e0de;
     float: right;
@@ -65,7 +65,7 @@
     width: 140px;
 }
 
-#topfilter .sort .select {
+#models #topfilter .sort .select {
     position: absolute;
     height: 20px;
     overflow: hidden;
@@ -74,7 +74,7 @@
     width: 115px;
 }
 
-#topfilter .sort .arrow {
+#models #topfilter .sort .arrow {
     background: url(../images/image-sprite.png) no-repeat -53px -37px;
     height: 6px;
     position: absolute;
@@ -83,13 +83,13 @@
     width: 7px;
 }
 
-#topfilter .sort select {
+#models #topfilter .sort select {
     border: 0;
     padding: 4px 4px 2px 4px;
 }
 
 /* TOPFILTER AVAILABILITY */
-#topfilter .availability {
+#models #topfilter .availability {
     float: right;
     margin: 0 0 0 15px;
     padding: 1px 0 0 0;
@@ -97,7 +97,7 @@
     top: 10px;
 }
 
-#topfilter .availability .date {
+#models #topfilter .availability .date {
     background: url(../images/image-sprite.png) no-repeat 0 -312px;
     border: none;
     color: #858585;
@@ -107,12 +107,12 @@
     width: 57px;
 }
 
-#topfilter .availability .check {
+#models #topfilter .availability .check {
     margin-left: 8px;
 }
 
 /* MODEELIST */
-#modellist {
+#models #modellist {
 	border-left: 1px solid #e3e3e3;
 	float: right;
 	margin-right: -23px;
@@ -123,18 +123,18 @@
 	width: 568px;
 }
 
-#modellist .item {
+#models #modellist .item {
 	border-bottom: 1px solid #e3e3e3;
 	height: 70px;
 	display: block;
 	position: relative;
 }
 
-#modellist .item:nth-child(odd) {
+#models #modellist .item:nth-child(odd) {
     background: #f0f0f0;
 }
 
-#modellist .item ul li {
+#models #modellist .item ul li {
     color: #717171;
     display: block;
     font-size: 1.2em;
@@ -145,12 +145,12 @@
     white-space: nowrap;
 }
 
-#modellist .item ul li strong {
+#models #modellist .item ul li strong {
     color: #515151;
 }
 
 /* MODEELIST IMAGE */
-#modellist .item ul .image {
+#models #modellist .item ul .image {
     float: left;
     padding-top: 10px; 
     margin-left: 10px;
@@ -158,12 +158,12 @@
     width: 50px;   
 }
 
-#modellist .item ul .image a {
+#models #modellist .item ul .image a {
     display: block;
     text-align: center;
 }
 
-#modellist .item ul .image img {
+#models #modellist .item ul .image img {
 	height: 50px;
 	max-width: 50px;
 	width: auto;
@@ -176,13 +176,13 @@
 }
 
 /* MODEELIST MANUFACTOR */
-#modellist .item ul .manufactor {
+#models #modellist .item ul .manufactor {
     float: left;
     width: 100px;
 }
 
 /* MODEELIST POOL */
-#modellist .item ul .pool {
+#models #modellist .item ul .pool {
     color: #999999 !important;
     float: right;
     font-size: 1.1em;
@@ -193,7 +193,7 @@
 }
 
 /* MODEELIST AVAILABILITY */
-#modellist .item ul .availability {
+#models #modellist .item ul .availability {
     color: #999999 !important;
     font-size: 1.1em;
     float: right;
@@ -202,21 +202,21 @@
 }
 
 /* MODEELIST ADD */
-#modellist .item ul .add {
+#models #modellist .item ul .add {
     float: right;
     margin-right: 9px !important;
     padding-top: 26px !important; 
     width: 31px;
 }
 
-#modellist .item ul .add a {
+#models #modellist .item ul .add a {
     font-size: 1.4em;   
     font-weight: bold;
     line-height: 10px;
 }
 
 /* MODEELIST HOVER */
-#modellist .item ul .hover {
+#models #modellist .item ul .hover {
     background: #FFF;
     position: absolute; 
     width: 265px;
