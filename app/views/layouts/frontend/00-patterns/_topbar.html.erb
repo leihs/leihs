@@ -9,12 +9,12 @@
 			<ul>
 				<li class="seperator"></li>
 				
-				<%#TODO Franco if condition %>
+				<% if current_user.has_role?('manager', nil, false) %>
     				<li class="item">
     				    <%= link_to _("Backend") , backend_path, :class=>"anchor" %>
     				</li><!-- .item -->
-				
-				<li class="seperator"></li>
+					<li class="seperator"></li>
+    			<% end %>
 				
 				<li class="item<%=current_page?(:controller => 'users', :action => 'show')?" active":""%>">
 				  <%= link_to current_user, user_path , :class => "anchor" %>
