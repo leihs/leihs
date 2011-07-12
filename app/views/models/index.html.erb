@@ -7,8 +7,9 @@
     			<div class="borderright"></div>
     		</div><!-- .header -->
     		
-    		<div class="inner">
+    		<div class="inner<%= @category.children.size.zero? ? " fullwidth" : "" %>">
 
+                <% @category.children.size.zero? do %>
     			<ul id="categories">
     			    <% @category.children.each do |c| %>
                          <li>
@@ -21,6 +22,7 @@
                          </li>
                     <% end %>
     			</ul><!-- category list -->
+    			<% end %>
     					
 				<section id="topfilter">
 					<form class="availability" action="">
@@ -46,12 +48,14 @@
                     <% @models.each do |m| %>
                         <li class="item">
 				            <ul>
-				                <li class="image"><%= m.images[0] %></li>
+				                <li class="image"><a href="#"><img src="http://leihs.zhdk.ch/<%= m.images[0].public_filename %>" alt="<%= m.name %>"/></a></li>
 				                <li class="name"><%= m.name %></li>
 				                <li class="manufactor"><%= m.manufacturer %></li>
-				                <li class="add"><a class="smallbutton green" href="#"><span><strong>+</strong></span></a></li>
+				                <li class="add"><div class="smallbutton green"><a href="#" title="<%= _("Add to Basket") %>">+</a></div></li>
 				                <li class="availability">20/99</li>
-				                <li class="pool">ITZ</li>
+				                <li class="pool">
+				                    <%= (m.inventory_pools & current_user.inventory_pools).collect(&:shortname).join(', ') %>
+				                </li>
 				            </ul>
                         </li><!-- .item -->
                     <% end %>

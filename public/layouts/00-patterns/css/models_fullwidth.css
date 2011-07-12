@@ -1,0 +1,25 @@
+/* FULLWIDTH TOPFILTER */
+.fullwidth #topfilter {
+    width: 741px;
+}
+
+/* FULLWIDTH MODEELIST */
+.fullwidth #modellist {
+    border-left: 0;
+    width: 752px;
+}
+
+/* FULLWIDTH MODEELIST NAME */
+.fullwidth #modellist .item ul .name {
+    width: 300px;
+}
+
+/* FULLWIDTH MODEELIST MANUFACTOR */
+.fullwidth #modellist .item ul .manufactor {
+    width: 150px;
+}
+
+/* MODEELIST POOL */
+.fullwidth #modellist .item ul .pool {
+    width: 105px;
+}
