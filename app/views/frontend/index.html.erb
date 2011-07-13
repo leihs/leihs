@@ -47,15 +47,15 @@
 				
 				<section id="categories">
 				    
-					<% Category.roots.each_slice(4) do |s| %>
+					<% @current_categories.each_slice(4) do |s| %>
 					   <div class="row">
 					       
 					       <% s.each do |c| %>
         					   <div class="cell">
                                    <a href="<%= category_models_path(c) %>" title="<%= c.name %>">
-									<img src="http://leihs.zhdk.ch<%= c.image_thumb %>" alt="<%= c.name %>"/>
+								   <img src="http://leihs.zhdk.ch<%= c.image_thumb %>" alt="<%= c.name %>"/>
                                    </a>
-                                   <h2><%= link_to c, category_models_path(c) %></h2>
+                                   <h2><%= link_to truncate(c.name, 25), category_models_path(c) %></h2>
                                     <ul>
                                         <% c.children.each do |child| %>
                                             <li><%= link_to child, category_models_path(child) %></li>
