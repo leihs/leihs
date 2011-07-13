@@ -36,14 +36,7 @@
         line-height: 1.6em;
         margin-bottom: 8px;
         
-        a, a:link, a:visited {
-          font-size: 1.2em;
-          color:#999999;
-        }
-        
-        a:hover, a:active {
-          color: #515151;
-        }
+        /* @mixin grey-links; */
       }
     }
   }

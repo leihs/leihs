@@ -38,12 +38,6 @@ h2 {
   font-weight: normal;
   margin-bottom: 2px; }
 
-h2 a, h2 a:link, h2 a:visited {
-  color: #717171; }
-
-h2 a:hover, h2 a:active {
-  color: #515151; }
-
 h3 {
   font-size: 1.5em;
   font-weight: normal;
@@ -79,3 +73,21 @@ ul {
 
 .indent {
   padding-left: 1px; }
+
+/* @mixin grey-links {
+  h2 a, h2 a:link, h2 a:visited {
+    color: $grey;
+  }
+  
+  h2 a:hover, h2 a:active {
+    color: $darkgrey;
+  }
+  
+  a, a:link, a:visited {   
+    color: $lightgrey;
+  }
+  
+  a:hover, a:active {
+    color: $darkgrey;
+  }
+} */

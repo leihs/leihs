@@ -23,12 +23,8 @@
     padding-bottom: 14px; }
     #models #categories ul li {
       line-height: 1.6em;
-      margin-bottom: 8px; }
-      #models #categories ul li a, #models #categories ul li a:link, #models #categories ul li a:visited {
-        font-size: 1.2em;
-        color: #999999; }
-      #models #categories ul li a:hover, #models #categories ul li a:active {
-        color: #515151; }
+      margin-bottom: 8px;
+      /* @mixin grey-links; */ }
 #models #topfilter {
   border-bottom: 1px solid #e3e3e3;
   color: #858585;

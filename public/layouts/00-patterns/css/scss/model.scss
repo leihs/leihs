@@ -76,17 +76,34 @@
   
   #suggested {
     .row {
-      padding-bottom: 24px;
+      padding-top: 8px;
+      padding-bottom: 32px;
       
       .cell {
         float: left;
-        padding-right: 10px;
-        width: 170px;
+        margin-right: 20px;
+        width: 164px;
         
         img {
           height: 80px;
           max-width: 160px;
         }
+        
+        h3 {
+          height: 36px;
+          padding-top: 6px;
+          overflow: hidden;
+        }
+        
+        p {
+          height: 40px;
+          overflow: hidden;
+        }
+        
+      }
+      
+      .cell:nth-child(4n) {
+         margin-right: 0;
       }
     }
   }

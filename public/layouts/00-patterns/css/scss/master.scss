@@ -1,9 +1,13 @@
 /* http://sass-lang.com/ */
 /* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
 
+$darkgrey: #515151;
+$grey: #717171;
+$lightgrey: #999;
+
 html {
 	background: #f5f3ee;
-	color: #515151;
+	color: $darkgrey;
 	font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 	font-size: 62.5%;
 	padding-top: 22px;
@@ -46,14 +50,6 @@ h2 {
 	font-size: 1.6em;
 	font-weight: normal;
 	margin-bottom: 2px;
-}
-
-h2 a, h2 a:link, h2 a:visited {
-	color: #717171;
-}
-
-h2 a:hover, h2 a:active {
-	color: #515151;
 }
 
 h3 {
@@ -99,3 +95,21 @@ ul {
 .indent {
 	padding-left: 1px;
 }
+
+/* @mixin grey-links {
+  h2 a, h2 a:link, h2 a:visited {
+    color: $grey;
+  }
+  
+  h2 a:hover, h2 a:active {
+    color: $darkgrey;
+  }
+  
+  a, a:link, a:visited {   
+    color: $lightgrey;
+  }
+  
+  a:hover, a:active {
+    color: $darkgrey;
+  }
+} */

@@ -49,11 +49,21 @@
   padding-right: 12px;
   width: 488px; }
 #model #suggested .row {
-  padding-bottom: 24px; }
+  padding-top: 8px;
+  padding-bottom: 32px; }
   #model #suggested .row .cell {
     float: left;
-    padding-right: 10px;
-    width: 170px; }
+    margin-right: 20px;
+    width: 164px; }
     #model #suggested .row .cell img {
       height: 80px;
       max-width: 160px; }
+    #model #suggested .row .cell h3 {
+      height: 36px;
+      padding-top: 6px;
+      overflow: hidden; }
+    #model #suggested .row .cell p {
+      height: 40px;
+      overflow: hidden; }
+  #model #suggested .row .cell:nth-child(4n) {
+    margin-right: 0; }
