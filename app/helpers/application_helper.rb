@@ -114,6 +114,14 @@ module ApplicationHelper
     return html
   end
   
+  def truncate (str, length, suffix = "...")
+    if str.is_a?(String) && str.size > length
+      str = str[0..length]
+      str += suffix
+    end
+    return str
+  end
+  
   ######## Flash #########
 
   # OPTIMIZE

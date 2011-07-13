@@ -46,7 +46,7 @@
                     <% s.each do |c| %>
                         <table class="cell">
                             <tr><td><%= link_to image_tag("http://leihs.zhdk.ch#{ c.image_thumb }"), c, :title=>c.name %></td></tr>
-                            <tr><td><h3><%= link_to truncate(c, 25, "..."), c, :title=>c.name %></h3></td></tr>
+                            <tr><td><h3><%= link_to truncate(c.name, 25), c, :title=>c.name %></h3></td></tr>
                             <tr><td><p><%= link_to c.description, c, :title=>c.description %></p></td></tr>
                         </table><!-- .cell -->
                     <% end %>
