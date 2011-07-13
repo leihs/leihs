@@ -1,6 +1,8 @@
 /* http://sass-lang.com/ */
 /* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
 
+@import "reset.scss";
+
 $darkgrey: #515151;
 $grey: #717171;
 $lightgrey: #999;
@@ -96,7 +98,7 @@ ul {
 	padding-left: 1px;
 }
 
-/* @mixin grey-links {
+@mixin grey-links {
   h2 a, h2 a:link, h2 a:visited {
     color: $grey;
   }
@@ -112,4 +114,17 @@ ul {
   a:hover, a:active {
     color: $darkgrey;
   }
-} */
+}
+
+@import "buttons.scss";
+@import "topbar.scss";
+@import "tabs.scss";
+@import "search.scss";
+@import "navigation.scss";
+@import "content.scss";
+@import "start.scss";
+@import "basket.scss";
+@import "models.scss";
+@import "models_fullwidth.scss";
+@import "model.scss";
+@import "user.scss";

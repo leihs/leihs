@@ -1,0 +1,105 @@
+/* USER USERDATA */
+#user .userdata h3 {
+	display: inline-block;
+	float: left;
+}
+
+/* USER USERDATA EDIT */
+#user .userdata .edit {
+	color: #999999;
+	float: left;
+	padding: 6px 0 0 10px;
+}
+
+#user .userdata .edit:hover {
+	color: #515151;
+}
+
+/* USER USERDATA DL */
+#user .userdata dl {
+	display: inline-block;
+	float: left;
+	width: 300px;
+}
+
+#user .userdata dl * {
+	font-size: 1.1em;
+	float: left;
+	padding-bottom: 6px;
+}
+
+#user .userdata dl dt {
+	color: #717171;
+	padding-right: 10px;
+	text-align: right;
+	width: 111px;
+}
+
+#user .userdata dl dd {
+	font-weight: bold;
+	width: 179px;
+}
+
+
+/* ITEMS */
+#user .timeframe {
+    color: #717171;
+}
+
+#user .purpose {
+	font-weight: bold;
+}
+
+#user .line li {
+    display: inline-block;
+    margin-right: 7px;
+    max-width: 415px;
+    overflow: hidden;
+    padding: 0 0 8px;
+    position: relative;
+}
+
+
+/*booked items*/
+
+#user #booked {
+	font-size: 1.1em;
+}
+
+#user #booked .cancel a {
+    color: #999999;
+}
+
+#user #booked .cancel a:hover {
+	color: #515151;
+}
+
+
+
+/*overdue items*/
+
+
+#user #overdue {
+	font-size: 1.1em;
+	color: #999999;
+}
+
+#user #overdue .timeframe {
+	color: #EE0000;
+}
+
+#user #overdue .purpose a {
+	color: #EE0000;
+}
+
+#user #overdue .overdue {
+	color: #EE0000;
+}
+
+
+/*rented items*/
+
+#user #rented {
+	font-size: 1.1em;
+}
+

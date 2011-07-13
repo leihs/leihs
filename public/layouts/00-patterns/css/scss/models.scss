@@ -36,7 +36,7 @@
         line-height: 1.6em;
         margin-bottom: 8px;
         
-        /* @mixin grey-links; */
+        @include grey-links;
       }
     }
   }
