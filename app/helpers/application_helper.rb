@@ -108,7 +108,7 @@ module ApplicationHelper
         
         a
       end
-      html += content_tag :div, :class => "hr" do
+      html += content_tag :hr do
       end unless inventory_pool == inventory_pools.last
     end
     return html

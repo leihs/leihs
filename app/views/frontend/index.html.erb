@@ -10,7 +10,7 @@
 				<h1><%= _("Welcome") %> <%= @user.name %></h1>
 				<p class="subtitle"><%= _("You have access to the following Equipment Parks") %>: <%= linked_inventory_pools(@user.inventory_pools).html_safe %></p>
 								
-				<div class="hr"></div>
+				<hr/>
 				
 				<h3><%= _("Recently Rented") %></h3>
 				<div class="indent">
@@ -43,8 +43,8 @@
 					</ul><!-- #rented -->
 				</div><!-- .indent -->
 				
-				<div class="hr"></div>
-				
+                <hr/>
+                				
 				<section id="categories">
 				    
 					<% @current_categories.each_slice(4) do |s| %>

@@ -233,7 +233,7 @@ h3 {
 ul {
   list-style-type: none; }
 
-.hr {
+hr {
   border: 0;
   height: 15px;
   background: url(../images/slices-h.png) repeat-x 0 -182px;
@@ -549,7 +549,7 @@ ul {
 #topbar .navigation .item .language .inner {
   padding: 0; }
 
-#topbar .navigation .item .language .hr {
+#topbar .navigation .item .language hr {
   display: block;
   position: relative;
   margin: 0 0 -15px 0; }
@@ -840,8 +840,6 @@ ul {
   top: 0;
   width: 6px; }
 
-/* http://sass-lang.com/ */
-/* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
 #start #rented {
   font-size: 1.1em; }
   #start #rented .line {
@@ -895,14 +893,12 @@ ul {
   #start #categories .cell:hover h2 a {
     color: #515151; }
 
-/* BASKET */
 #basket {
   display: block;
   float: right;
   margin-right: 14px;
   width: 198px; }
 
-/* BASKET HEADER */
 #basket .header {
   background: url(../images/slices-h.png) repeat-x 0 -97px;
   display: block;
@@ -1079,8 +1075,6 @@ ul {
   top: 0;
   width: 6px; }
 
-/* http://sass-lang.com/ */
-/* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
 #models #categories {
   border-right: 1px solid #e3e3e3;
   float: left;
@@ -1254,8 +1248,6 @@ ul {
 .fullwidth #modellist .item ul .pool {
   width: 105px; }
 
-/* http://sass-lang.com/ */
-/* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
 #model .button {
   position: absolute;
   right: 20px;

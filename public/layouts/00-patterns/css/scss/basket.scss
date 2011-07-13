@@ -1,4 +1,3 @@
-/* BASKET */
 #basket {
   display: block;
   float: right;
@@ -6,12 +5,12 @@
   width: 198px;
 }
 
-/* BASKET HEADER */
 #basket .header {
 	background: url(../images/slices-h.png) repeat-x 0 -97px;
 	display: block;
   	height: 12px;
   	position: relative;
+  	
 }
 
 #basket .header .borderright {

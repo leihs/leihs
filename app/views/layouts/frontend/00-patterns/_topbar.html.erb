@@ -33,7 +33,7 @@
 						       			<%= link_to _("edit"), edit_user_path, :class => 'topright' %>
 						       		</section><!-- .address -->
 						       								       			
-						       		<div class="hr"></div>
+						       		<hr/>
 						       			
 						       		<section class= "contact">
 						       			<h3><%= _("Contact") %></h3>
@@ -42,7 +42,7 @@
 						       		</section><!-- .contact -->
 					       						  
 	                               <% if current_user.orders.submitted.count > 0 %>
-					       			    <div class="hr"></div>
+					       			    <hr/>
 						       			<h3><%= _("Reservations") %></h3>
 						       			
 						       			<% current_user.orders.submitted.each do |o| %>
@@ -98,7 +98,7 @@
 					       			 <% (Language.active_languages - [current_user.language]).each do |l| %>
 					       			 	<li><a href="?locale=<%=l.locale_name%>"><%= l.name %></a></li>
 					       			 	<% unless l == (Language.active_languages - [current_user.language]).last %>
-					       			 		<li class="hr"></li>
+					       			 		<hr/>
 					       			 	<% end %> 
 					       			 <% end %>
 				       			</ul>
