@@ -16,6 +16,10 @@ class ModelGroup < ActiveRecord::Base
 
   has_many :model_links
   has_many :models, :through => :model_links, :uniq => true
+  
+  #has_many :all_model_links, :class_name => "ModelLink", :finder_sql => proc { ModelLink.where(["model_group_id IN (?)", descendant_ids]).to_sql }
+  #has_many :all_models, :class_name => "Model", :through => :all_model_links, :source => :model, :uniq => true
+  
   has_and_belongs_to_many :inventory_pools
 
   validates_presence_of :name
@@ -30,8 +34,7 @@ class ModelGroup < ActiveRecord::Base
 
   # NOTE is now chainable for scopes
   def all_models
-    ids = descendant_ids << id
-    models.by_categories(ids)
+    Model.select("DISTINCT models.*").joins(:model_links).where(:model_links => {:model_group_id => self_and_descendant_ids})
   end
   
   def image_thumb
