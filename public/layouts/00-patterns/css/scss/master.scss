@@ -7,6 +7,8 @@ $darkgrey: #515151;
 $grey: #717171;
 $lightgrey: #999;
 $red: #DD2222;
+$lightblue: #6091d9;
+$blue: #1d62c9;
 
 html {
 	background: #f5f3ee;
@@ -17,12 +19,12 @@ html {
 }
 
 a, a:link, a:visited {   
-	color: #6091d9;
+	color: $lightblue;
 	text-decoration: none;
 }
 
 a:hover, a:active {
-	color: #1d62c9;
+	color: $blue;
 	text-decoration: none;
 }
 
@@ -110,6 +112,16 @@ hr {
   
   a:hover, a:active {
     color: $darkgrey;
+  }
+}
+
+@mixin bluelinks {
+  a, a:link, a:visited {   
+    color: $lightblue;
+  }
+  
+  a:hover, a:active {
+    color: $blue;
   }
 }
 

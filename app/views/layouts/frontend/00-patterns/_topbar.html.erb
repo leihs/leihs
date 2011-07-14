@@ -2,72 +2,24 @@
 	<div class="borderleft"></div>
 	<div class="inner">
 		<div class="light"></div>
-		<div class="logo">
-			<%= link_to "", root_path, :title=>_("Homepage") %>
-		</div><!-- logo -->
+		<div class="logo"><%= link_to "", root_path, :title=>_("Homepage") %></div>
+		
 		<nav class="navigation">
 			<ul>
 				<li class="seperator"></li>
 				
 				<% if current_user.has_role?('manager', nil, false) %>
-    				<li class="item">
-    				    <%= link_to _("Backend") , backend_path, :class=>"anchor" %>
-    				</li><!-- .item -->
+    				<li class="item"><%= link_to _("Backend") , backend_path, :class=>"anchor" %></li>
 					<li class="seperator"></li>
     			<% end %>
 				
-				<li class="item<%=current_page?(:controller => 'users', :action => 'show')?" active":""%>">
-				  <%= link_to current_user, user_path , :class => "anchor" %>
-				  <% unless current_page?(:controller => 'users', :action => 'show') %>
-					  <div class="hover profile">
-					       		<div class="header">
-					       			<div class="borderleft"></div>
-					       			<div class="borderright"></div>
-					       		</div><!-- .header -->
-					       		<div class="inner">
-					       			<div class="borderleft"></div>
-					       			
-						       		<section class= "address">
-						       			<h3><%= _("Address") %></h3>
-						       			<p><%= address_block(current_user) %></p>
-						       			<%= link_to _("edit"), edit_user_path, :class => 'topright' %>
-						       		</section><!-- .address -->
-						       								       			
-						       		<hr/>
-						       			
-						       		<section class= "contact">
-						       			<h3><%= _("Contact") %></h3>
-						       			<p><%= contact_block(current_user) %></p>
-						       			<%= link_to _("edit"), edit_user_path, :class => 'topright' %>
-						       		</section><!-- .contact -->
-					       						  
-	                               <% if current_user.orders.submitted.count > 0 %>
-					       			    <hr/>
-						       			<h3><%= _("Reservations") %></h3>
-						       			
-						       			<% current_user.orders.submitted.each do |o| %>
-						       				<p><%= short_date(o.created_at) %> <%= link_to o.purpose, user_order_path(current_user, o) %></p>
-						       			<% end %>
-					       			<% end %>
-					       			
-					       			<div class="borderright"></div>
-					       		</div><!-- .inner -->
-					       		<div class="footer">
-					       			<div class="borderleft"></div>
-					       			<div class="borderright"></div>
-					       		</div><!-- .footer -->
-					  </div><!-- hover -->
-					<% end %>
-				</li><!-- .item -->
+				<li class="item<%=current_page?(:controller => 'users', :action => 'show')?" active":""%>"><%= link_to current_user, user_path , :class => "anchor", :title=> _("User Page") %></li>
 				
 				<li class="seperator"></li>
 				
-				<li class="item"><a href="#" class="anchor"><%= _("Contact") %></a>
+				<li class="item"><a href="#" class="anchor"><%= _("Equipment Parks") %></a>
 				  <div class="hover pools">
-				       		<div class="header">
-				       			<div class="borderleft"></div>
-				       			<div class="borderright"></div>
-				       		</div><!-- .header -->
+				       		<div class="header"><div class="borderleft"></div><div class="borderright"></div></div>
 				       		<div class="inner">
 				       			<div class="borderleft"></div>
 
@@ -75,10 +27,7 @@
 				       			
 				       			<div class="borderright"></div>
 				       		</div><!-- .inner -->
-				       		<div class="footer">
-				       			<div class="borderleft"></div>
-				       			<div class="borderright"></div>
-				       		</div><!-- .footer -->
+				       		<div class="footer"><div class="borderleft"></div><div class="borderright"></div></div>
 				  </div><!-- hover -->
 				</li><!-- .item -->
 				
@@ -114,11 +63,11 @@
 				
 				<li class="seperator"></li>
 			
-				<li class="item"><a href="#" class="anchor"><%= _("Help") %></a></li><!-- .item -->
+				<li class="item"><a href="#" class="anchor"><%= _("Help") %></a></li>
 				
 				<li class="seperator"></li>
 				
-				<li class="item last"><a href="logout" class="anchor" title="<%= _("Logout") %>"><%= _("Logout") %></a></li><!-- .item -->
+				<li class="item last"><a href="logout" class="anchor" title="<%= _("Logout") %>"><%= _("Logout") %></a></li>
 				
 			</ul>	
 		</nav><!-- .navigation -->
