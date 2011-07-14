@@ -42,130 +42,54 @@
 	        
 	     	<div class="clear"></div>
         </section><!-- userdata -->
-        
-        <hr/>
-                
-        <h3><%= _("Overdue") %></h3>
-        
-        <div class="indent">
-            <ul id="overdue">
-              <li class="line">
-                <ul>
-                  <li class="timeframe">22.06.11 - 06.07.11</li>
-                  <li class="purpose"><a href="">Animation Workshop</a></li>
-                  <li class="overdue">Overdue</li>
-                </ul>
-                <ul>
-                  <li class="timeframe">22.06.11 - 06.07.11</li>
-                  <li class="purpose"><a href="">Action Never Give Back An Item</a></li>
-                  <li class="overdue">Overdue</li>
-                </ul>
-                <ul>
-                  <li class="timeframe">22.06.11 - 06.07.11</li>
-                  <li class="purpose"><a href="">Animation Workshop</a></li>
-                  <li class="overdue">Overdue</li>
-                </ul>
-              </li>
-            </ul>
-        </div><!-- .indent -->
-        
-        <hr/>
-        
-        <h3><%= _("Booked") %></h3>
-        
-        <div class="indent">
-	        <ul id="booked">
-	          <li class="line">
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">School Project Filmkurs</a></li>
-	              <li class="cancel"><a href="">Cancel</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">School Project Tra Tra Trallalla</a></li>
-	              <li class="cancel"><a href="">Cancel</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">School Project Black Light Installation with White Noise</a></li>
-	              <li class="cancel"><a href="">Cancel</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">School Project</a></li>
-	              <li class="cancel"><a href="">Cancel</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">School Project</a></li>
-	              <li class="cancel"><a href="">Cancel</a></li>
-	            </ul>
-	          </li>
-	        </ul>
-	    </div><!-- .inden -->
 
-        <hr/>
-        
-        <h3><%= _("Recently Rented") %></h3>
-        <div class="indent">
-	        <ul id="rented">
-	          
-	          <li class="line">
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
-	              <li class="extend"><a href="">Extend</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
-	              <li class="extend"><a href="">Extend</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">Photography</a></li>
-	              <li class="extend"><a href="">Extend</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">Photography</a></li>
-	              <li class="extend"><a href="">Extend</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
-	              <li class="extend"><a href="">Extend</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
-	              <li class="extend"><a href="">Extend</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">Photography Workshop with friends at the Lago Maggiore</a></li>
-	              <li class="extend"><a href="">Extend</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">Photography</a></li>
-	              <li class="extend"><a href="">Extend</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">Photography</a></li>
-	              <li class="extend"><a href="">Extend</a></li>
-	            </ul>
-	            <ul>
-	              <li class="timeframe">22.06.11 - 06.07.11</li>
-	              <li class="purpose"><a href="">Photography is a beautiful thing</a></li>
-	              <li class="extend"><a href="">Extend</a></li>
-	            </ul>
-	          </li>
-	        </ul>
-	   </div><!-- .inden -->
-    
+        <% unless current_user.contract_lines.to_remind.empty? %>
+            <hr/>
+            <h3><%= _("Overdue") %></h3>
+            <ul id="overdue">
+            <% current_user.contract_lines.to_remind.each do |o| %>
+                <li class="line">
+                  <ul>
+                      <li class="timeframe"><%= short_date(o.start_date, true) %> - <%= short_date(o.end_date, true) %></li>
+                      <li class="purpose"><a href=""><%= link_to o.model, user_contract_path(o.contract) %></a></li>
+                      <li class="cancel"><a href="">extend</a></li>
+                  </ul>
+                </li>
+            <% end %>
+            </ul><!-- #overdue -->
+        <% end %>
+
+        <% unless current_user.orders.submitted.empty? %>
+            <hr/>
+            <h3><%= _("Booked") %></h3>
+            <ul id="booked">
+            <% current_user.orders.submitted.each do |o| %>
+                <li class="line">
+                  <ul>
+                      <li class="timeframe"><%= short_date(o.time_window_min, true) %> - <%= short_date(o.time_window_max, true) %></li>
+                      <li class="purpose"><a href=""><%= link_to o.purpose, user_order_path(o) %></a></li>
+                      <li class="cancel"><a href="">cancel</a></li>
+                  </ul>
+                </li>
+            <% end %>
+            </ul><!-- #booked -->
+        <% end %>
+       
+        <% unless current_user.contracts.signed.empty? %>
+            <hr/>
+            <h3><%= _("Rented") %></h3>
+            <ul id="rented">
+            <% current_user.contracts.signed.each do |o| %>
+                <li class="line">
+                  <ul>
+                      <li class="timeframe"><%= short_date(o.time_window_min, true) %> - <%= short_date(o.time_window_max, true) %></li>
+                      <li class="purpose"><a href=""><%= link_to lines_preview(o), user_contract_path(o) %></a></li>
+                      <li class="cancel"><a href="">extend</a></li>
+                  </ul>
+                </li>
+            <% end %>
+            </ul><!-- #rented -->
+        <% end %>
     
     </div><!-- inner -->
     

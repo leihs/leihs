@@ -1,24 +1,24 @@
 /*
-Syntax error: Undefined mixin 'grey-links'.
-        on line 6 of public/layouts/00-patterns/css/scss/start.scss, in `grey-links'
-        from line 6 of public/layouts/00-patterns/css/scss/start.scss
+Syntax error: Undefined variable: "$lightgrey".
+        on line 20 of public/layouts/00-patterns/css/scss/orderlist.scss
 
-1: #start {
-2: 
-3:    .subtitle {
-4:    
-5:       .pools {
-6:         @include grey-links;
-7:       }
-8:    }
-9:    
-10:   #categories {
-11:     padding-top: 8px;
+15:       overflow: hidden;
+16:       position: relative;
+17:     }
+18:   
+19:     .time {
+20:       color: $lightgrey;
+21:     }
+22:   
+23:     .name {
+24:       margin-right: 2px;
+25:       white-space: nowrap;
 
 Backtrace:
-public/layouts/00-patterns/css/scss/start.scss:6:in `grey-links'
-public/layouts/00-patterns/css/scss/start.scss:6
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
+public/layouts/00-patterns/css/scss/orderlist.scss:20
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/script/variable.rb:45:in `_perform'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/script/node.rb:40:in `perform'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:215:in `visit_prop'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
@@ -110,4 +110,4 @@ public/layouts/00-patterns/css/scss/start.scss:6
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'grey-links'.\A         on line 6 of public/layouts/00-patterns/css/scss/start.scss, in `grey-links'\A         from line 6 of public/layouts/00-patterns/css/scss/start.scss\A \A 1: #start {\A 2: \A 3:    .subtitle {\A 4:    \A 5:       .pools {\A 6:         @include grey-links;\A 7:       }\A 8:    }\A 9:    \A 10:   #categories {\A 11:     padding-top: 8px;"; }
+  content: "Syntax error: Undefined variable: \"$lightgrey\".\A         on line 20 of public/layouts/00-patterns/css/scss/orderlist.scss\A \A 15:       overflow: hidden;\A 16:       position: relative;\A 17:     }\A 18:   \A 19:     .time {\A 20:       color: $lightgrey;\A 21:     }\A 22:   \A 23:     .name {\A 24:       margin-right: 2px;\A 25:       white-space: nowrap;"; }

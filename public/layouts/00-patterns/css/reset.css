@@ -91,13 +91,11 @@ xmp {
   border: 0;
   margin: 0;
   padding: 0;
-  font-size: 100%;
-}
+  font-size: 100%; }
 
 html,
 body {
-  height: 100%;
-}
+  height: 100%; }
 
 article,
 aside,
@@ -110,91 +108,78 @@ hgroup,
 menu,
 nav,
 section {
-/*
-  Override the default (display: inline) for
-  browsers that do not recognize HTML5 tags.
-
-  IE8 (and lower) requires a shiv:
-  http://ejohn.org/blog/html5-shiv
-*/
-  display: block;
-}
+  /*
+    Override the default (display: inline) for
+    browsers that do not recognize HTML5 tags.
+  
+    IE8 (and lower) requires a shiv:
+    http://ejohn.org/blog/html5-shiv
+  */
+  display: block; }
 
 b,
 strong {
-/*
-  Makes browsers agree.
-  IE + Opera = font-weight: bold.
-  Gecko + WebKit = font-weight: bolder.
-*/
-  font-weight: bold;
-}
+  /*
+    Makes browsers agree.
+    IE + Opera = font-weight: bold.
+    Gecko + WebKit = font-weight: bolder.
+  */
+  font-weight: bold; }
 
 img {
   color: transparent;
   font-size: 0;
   vertical-align: middle;
-/*
-  For IE.
-  http://css-tricks.com/ie-fix-bicubic-scaling-for-images
-*/
-  -ms-interpolation-mode: bicubic;
-}
+  /*
+    For IE.
+    http://css-tricks.com/ie-fix-bicubic-scaling-for-images
+  */
+  -ms-interpolation-mode: bicubic; }
 
 li {
-/*
-  For IE6 + IE7.
-*/
-  display: list-item;
-}
+  /*
+    For IE6 + IE7.
+  */
+  display: list-item; }
 
 table {
   border-collapse: collapse;
-  border-spacing: 0;
-}
+  border-spacing: 0; }
 
 th,
 td,
 caption {
   font-weight: normal;
   vertical-align: top;
-  text-align: left;
-}
+  text-align: left; }
 
 q {
-  quotes: none;
-}
+  quotes: none; }
 
 q:before,
 q:after {
   content: '';
-  content: none;
-}
+  content: none; }
 
 sub,
 sup,
 small {
-  font-size: 75%;
-}
+  font-size: 75%; }
 
 sub,
 sup {
   line-height: 0;
   position: relative;
-  vertical-align: baseline;
-}
+  vertical-align: baseline; }
 
 sub {
-  bottom: -0.25em;
-}
+  bottom: -0.25em; }
 
 sup {
-  top: -0.5em;
-}
+  top: -0.5em; }
 
 svg {
-/*
-  For IE9.
-*/
-  overflow: hidden;
-}
+  /*
+    For IE9.
+  */
+  overflow: hidden; }

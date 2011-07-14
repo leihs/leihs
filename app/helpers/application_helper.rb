@@ -55,8 +55,8 @@ module ApplicationHelper
     date.strftime("%d.%m.%Y - %H:%M") if date
   end
   
-  def short_date(date)
-    date.strftime("%d.%m.%Y") if date
+  def short_date(date, tiny = false)
+    date.strftime(tiny ? "%d.%m.%y" : "%d.%m.%Y") if date
   end
 
   def dates_with_period(start_date, end_date)

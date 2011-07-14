@@ -225,7 +225,7 @@ h2 {
   margin-bottom: 2px; }
 
 h3 {
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-weight: normal;
   margin-top: 1px;
   margin-bottom: 9px; }
@@ -368,6 +368,30 @@ hr {
 
 .smallbutton.green:active a {
   background: url(../images/image-sprite.png) no-repeat right -531px; }
+
+#orderlist .line {
+  display: block;
+  padding: 0 0 8px 0; }
+  #orderlist .line ul {
+    display: inline-block; }
+  #orderlist .line li {
+    display: inline-block;
+    margin-right: 7px;
+    max-width: 415px;
+    overflow: hidden;
+    position: relative; }
+  #orderlist .line .time {
+    color: #999999; }
+  #orderlist .line .name {
+    margin-right: 2px;
+    white-space: nowrap; }
+    #orderlist .line .name a {
+      color: #717171;
+      font-weight: bold; }
+    #orderlist .line .name a:hover, #orderlist .line .name a:active {
+      color: #515151; }
+  #orderlist .line .action {
+    display: inline-block; }
 
 /* TOPBAR */
 #topbar {
@@ -840,43 +864,27 @@ hr {
   top: 0;
   width: 6px; }
 
-#start #rented {
-  font-size: 1.1em; }
-  #start #rented .line {
-    display: block;
-    padding: 0 0 8px 0; }
-    #start #rented .line li {
-      display: inline-block;
-      margin-right: 7px;
-      max-width: 415px;
-      overflow: hidden;
-      position: relative; }
-  #start #rented .purpose {
-    white-space: nowrap; }
-    #start #rented .purpose a {
-      font-weight: bold; }
-  #start #rented .timeframe {
-    color: #717171; }
-  #start #rented .extend {
-    display: inline-block; }
-    #start #rented .extend a {
-      color: #999999; }
-    #start #rented .extend a:hover {
-      color: #515151; }
+#start .subtitle .pools h2 a, #start .subtitle .pools h2 a:link, #start .subtitle .pools h2 a:visited {
+  color: #717171; }
+#start .subtitle .pools h2 a:hover, #start .subtitle .pools h2 a:active {
+  color: #515151; }
+#start .subtitle .pools a, #start .subtitle .pools a:link, #start .subtitle .pools a:visited {
+  color: #999999; }
+#start .subtitle .pools a:hover, #start .subtitle .pools a:active {
+  color: #515151; }
 #start #categories {
   padding-top: 8px; }
   #start #categories .row {
     padding-bottom: 24px; }
   #start #categories .cell {
     float: left;
-    width: 180px; }
+    padding-left: 6px;
+    width: 175px; }
     #start #categories .cell img {
       height: 80px;
       display: block;
       margin-left: 10px;
       padding-bottom: 15px; }
-    #start #categories .cell h2 {
-      padding-left: 8px; }
     #start #categories .cell ul {
       margin-right: 20px;
       margin-top: 5px;
@@ -884,13 +892,23 @@ hr {
       #start #categories .cell ul li {
         display: block;
         margin-bottom: 6px;
-        padding-left: 8px; }
+        padding-right: 8px; }
         #start #categories .cell ul li a {
           font-size: 1.2em;
           color: #999999; }
         #start #categories .cell ul li a:hover {
           color: #515151; }
   #start #categories .cell:hover h2 a {
+    color: #515151; }
+  #start #categories .cell:nth-child(4n) {
+    padding-left: 0; }
+  #start #categories h2 a, #start #categories h2 a:link, #start #categories h2 a:visited {
+    color: #717171; }
+  #start #categories h2 a:hover, #start #categories h2 a:active {
+    color: #515151; }
+  #start #categories a, #start #categories a:link, #start #categories a:visited {
+    color: #999999; }
+  #start #categories a:hover, #start #categories a:active {
     color: #515151; }
 
 #basket {
@@ -1080,48 +1098,51 @@ hr {
   float: left;
   left: -5px;
   margin-bottom: -46px;
-  padding-top: 23px;
+  padding-top: 16px;
   padding-right: 6px;
   position: relative;
   top: -18px;
   width: 167px;
   z-index: 99; }
+  #models #categories h2 a, #models #categories h2 a:link, #models #categories h2 a:visited {
+    color: #717171; }
+  #models #categories h2 a:hover, #models #categories h2 a:active {
+    color: #515151; }
+  #models #categories a, #models #categories a:link, #models #categories a:visited {
+    color: #999999; }
+  #models #categories a:hover, #models #categories a:active {
+    color: #515151; }
   #models #categories li {
     list-style-type: none;
     overflow: hidden; }
   #models #categories h2 {
-    font-size: 1.6em;
-    padding-bottom: 6px; }
+    font-size: 1.2em;
+    font-weight: bold; }
   #models #categories li:hover h2 a {
     color: #515151; }
   #models #categories ul {
     padding-bottom: 14px; }
-    #models #categories ul li {
+    #models #categories ul a {
+      display: block;
       line-height: 1.6em;
-      margin-bottom: 8px; }
-      #models #categories ul li h2 a, #models #categories ul li h2 a:link, #models #categories ul li h2 a:visited {
-        color: #717171; }
-      #models #categories ul li h2 a:hover, #models #categories ul li h2 a:active {
-        color: #515151; }
-      #models #categories ul li a, #models #categories ul li a:link, #models #categories ul li a:visited {
-        color: #999999; }
-      #models #categories ul li a:hover, #models #categories ul li a:active {
-        color: #515151; }
+      padding-top: 3px;
+      padding-bottom: 3px; }
 #models #topfilter {
   border-bottom: 1px solid #e3e3e3;
   color: #858585;
-  height: 36px;
+  height: 34px;
   padding-right: 10px;
   position: absolute;
   top: -10px;
   right: 1px;
-  width: 554px; }
+  width: 558px; }
   #models #topfilter .sort {
     background: none;
     border-right: 1px solid #e2e0de;
     float: right;
+    height: 20px;
     position: relative;
-    top: 10px;
+    top: 8px;
     width: 140px; }
     #models #topfilter .sort .select {
       position: absolute;
@@ -1145,7 +1166,7 @@ hr {
     margin: 0 0 0 15px;
     padding: 1px 0 0 0;
     position: relative;
-    top: 10px; }
+    top: 7px; }
     #models #topfilter .availability .date {
       background: url(../images/image-sprite.png) no-repeat 0 -312px;
       border: none;
@@ -1160,63 +1181,37 @@ hr {
   border-left: 1px solid #e3e3e3;
   float: right;
   margin-right: -23px;
-  top: 19px;
+  top: 17px;
   position: relative;
   right: 7px;
-  vertical-align: middle;
-  width: 568px; }
+  width: 569px; }
   #models #modellist .item {
     border-bottom: 1px solid #e3e3e3;
-    height: 70px;
-    display: block;
-    position: relative; }
-    #models #modellist .item ul li {
-      color: #717171;
-      display: block;
-      font-size: 1.2em;
-      float: left;
-      overflow: hidden;
-      margin-right: 16px;
-      white-space: nowrap; }
-      #models #modellist .item ul li strong {
-        color: #515151;
-        font-weight: bold; }
+    height: 70px; }
     #models #modellist .item .image {
-      display: table-cell;
-      float: left;
-      margin-left: 10px;
-      margin-right: 12px;
+      height: 70px;
+      padding: 0 10px;
+      text-align: center;
       vertical-align: middle;
       width: 50px; }
-      #models #modellist .item .image a {
-        display: block;
-        text-align: center; }
       #models #modellist .item .image img {
         max-height: 50px;
-        max-width: 50px;
-        width: auto; }
+        max-width: 50px; }
     #models #modellist .item .name {
-      float: left;
+      font-size: 1.2em;
+      height: 70px;
+      vertical-align: middle;
       width: 200px; }
     #models #modellist .item .manufactor {
-      float: left;
+      font-size: 1.2em;
+      vertical-align: middle;
       width: 100px; }
-    #models #modellist .item .pool {
-      color: #999999 !important;
-      float: right;
-      font-size: 1.1em;
-      margin-right: 8px !important;
-      padding-top: 29px;
-      text-align: right;
-      width: 70px; }
     #models #modellist .item .availability {
       color: #999999 !important;
       font-size: 1.1em;
-      float: right;
       margin-right: 8px !important;
       padding-top: 29px; }
     #models #modellist .item .add {
-      float: right;
       margin-right: 9px !important;
       padding-top: 26px !important;
       width: 31px; }
@@ -1227,26 +1222,17 @@ hr {
   #models #modellist .item:nth-child(odd) {
     background: #f0f0f0; }
 
-/* FULLWIDTH TOPFILTER */
-.fullwidth #topfilter {
+#models.fullwidth #topfilter {
   width: 741px; }
-
-/* FULLWIDTH MODEELIST */
-.fullwidth #modellist {
+#models.fullwidth #modellist {
   border-left: 0;
   width: 752px; }
-
-/* FULLWIDTH MODEELIST NAME */
-.fullwidth #modellist .item ul .name {
-  width: 300px; }
-
-/* FULLWIDTH MODEELIST MANUFACTOR */
-.fullwidth #modellist .item ul .manufactor {
-  width: 150px; }
-
-/* MODEELIST POOL */
-.fullwidth #modellist .item ul .pool {
-  width: 105px; }
+  #models.fullwidth #modellist .item .name {
+    width: 300px; }
+  #models.fullwidth #modellist .item .manufactor {
+    width: 150px; }
+  #models.fullwidth #modellist .item .pool {
+    width: 105px; }
 
 #model .button {
   position: absolute;

@@ -4,6 +4,7 @@ class ContractsController < FrontendController
 
   def show(sort =  params[:sort] || "model", dir =  params[:sort_mode] || "ASC")
     respond_to do |format|
+        format.html
         require 'prawn/measurement_extensions'
         prawnto :prawn => { :page_size => 'A4', 
                             :left_margin => 25.mm,

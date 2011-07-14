@@ -1,46 +1,24 @@
 /*
 Syntax error: Undefined mixin 'grey-links'.
-        on line 36 of public/layouts/00-patterns/css/scss/models.scss, in `grey-links'
-        from line 36 of public/layouts/00-patterns/css/scss/models.scss
+        on line 14 of public/layouts/00-patterns/css/scss/models.scss, in `grey-links'
+        from line 14 of public/layouts/00-patterns/css/scss/models.scss
 
-31:       
-32:       li {
-33:         line-height: 1.6em;
-34:         margin-bottom: 8px;
-35:         
-36:         @include grey-links;
-37:       }
-38:     }
-39:   }
-40:   
-41:   #topfilter {
+9:     padding-right: 6px;
+10:     position: relative;
+11:     top: -18px;
+12:     width: 167px;
+13:     z-index: 99;
+14:     @include grey-links;
+15: 
+16:     li {
+17:       list-style-type: none;
+18:       overflow: hidden;
+19:     }
 
 Backtrace:
-public/layouts/00-patterns/css/scss/models.scss:36:in `grey-links'
-public/layouts/00-patterns/css/scss/models.scss:36
+public/layouts/00-patterns/css/scss/models.scss:14:in `grey-links'
+public/layouts/00-patterns/css/scss/models.scss:14
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
@@ -121,4 +99,4 @@ public/layouts/00-patterns/css/scss/models.scss:36
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'grey-links'.\A         on line 36 of public/layouts/00-patterns/css/scss/models.scss, in `grey-links'\A         from line 36 of public/layouts/00-patterns/css/scss/models.scss\A \A 31:       \A 32:       li {\A 33:         line-height: 1.6em;\A 34:         margin-bottom: 8px;\A 35:         \A 36:         @include grey-links;\A 37:       }\A 38:     }\A 39:   }\A 40:   \A 41:   #topfilter {"; }
+  content: "Syntax error: Undefined mixin 'grey-links'.\A         on line 14 of public/layouts/00-patterns/css/scss/models.scss, in `grey-links'\A         from line 14 of public/layouts/00-patterns/css/scss/models.scss\A \A 9:     padding-right: 6px;\A 10:     position: relative;\A 11:     top: -18px;\A 12:     width: 167px;\A 13:     z-index: 99;\A 14:     @include grey-links;\A 15: \A 16:     li {\A 17:       list-style-type: none;\A 18:       overflow: hidden;\A 19:     }"; }

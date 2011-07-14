@@ -1,46 +1,12 @@
 #start {
 
-   #rented {
-    font-size: 1.1em;
-    
-    .line {
-      display: block;
-      padding: 0 0 8px 0; 
-      
-      li {
-        display: inline-block;
-        margin-right: 7px;
-        max-width: 415px;
-        overflow: hidden;
-        position: relative;
+   .subtitle {
+   
+      .pools {
+        @include grey-links;
       }
-    }
-    
-    .purpose {
-      white-space: nowrap;
-      
-      a {
-        font-weight: bold;
-      }
-    }
-    
-    .timeframe {
-      color: #717171;
-    }
-    
-    .extend {
-      display: inline-block;
-      
-      a {
-        color: #999999; 
-      }
-      
-      a:hover {
-        color: #515151; 
-      }
-    }
-  }
-  
+   }
+   
   #categories {
     padding-top: 8px;
     
@@ -50,17 +16,14 @@
     
     .cell {
       float: left;
-      width: 180px;
+      padding-left: 6px;
+      width: 175px;
       
       img {
         height: 80px;
         display: block;
         margin-left: 10px;
         padding-bottom: 15px;
-      }
-      
-      h2 {
-        padding-left: 8px;
       }
       
       ul {
@@ -71,7 +34,7 @@
         li {
           display: block;
           margin-bottom: 6px;
-          padding-left: 8px;
+          padding-right: 8px;
           
           a {
             font-size: 1.2em;
@@ -90,5 +53,11 @@
         color: #515151;
       }
     }
+    
+    .cell:nth-child(4n) {
+      padding-left: 0;
+    }
+    
+    @include grey-links;
   }
 }

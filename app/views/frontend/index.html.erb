@@ -8,35 +8,34 @@
 		<div class="inner" id="start">
 				
 				<h1><%= _("Welcome") %> <%= @user.name %></h1>
-				<p class="subtitle"><%= _("You have access to the following Equipment Parks") %>: <%= linked_inventory_pools(@user.inventory_pools).html_safe %></p>
+				<p class="subtitle"><%= _("You have access to the following Equipment Parks") %>: <span class="pools"><%= linked_inventory_pools(@user.inventory_pools).html_safe %></span> <a href="#"><%= _("show all")%></a></p>
 								
 				<hr/>
 				
 				<h3><%= _("Recently Rented") %></h3>
 				<div class="indent">
-					<ul id="rented">
-						
+					<ul id="orderlist">
 						<li class="line">
 							<ul>
-								<li class="timeframe">22.06.11 - 06.07.11</li>
-								<li class="purpose"><a href="">Fotographi</a></li>
-								<li class="extend"><a href="">Extend</a></li>
+								<li class="time">22.06.11 - 06.07.11</li>
+								<li class="name"><a href="">Fotographi</a></li>
+								<li class="action"><a href="">extend</a></li>
 							</ul>
 						</li>
 						
 						<li class="line">
 							<ul>
-								<li class="timeframe">25.06.11 - 27.07.11</li>
-								<li class="purpose"><a href="">Ja meine mamam Ja meine mamam Ja meine mamam Ja meine mamam Ja  meine mamam J meine mamam J</a></li>
-								<li class="extend"><a href="">Extend</a></li>
+								<li class="time">25.06.11 - 27.07.11</li>
+								<li class="name"><a href="" title="complete purpose here">Ja meine mamam Ja meine mamam Ja meine mamam Ja meine mamam...</a></li>
+								<li class="action"><a href="">extend</a></li>
 							</ul>
 						</li>
 						
 						<li class="line">
 							<ul>
-								<li class="timeframe">01.07.11 - 05.07.11</li>
-								<li class="purpose"><a href="">Project Typography bei Barmettler</a></li>
-								<li class="extend"><a href="">Extend</a></li>
+								<li class="time">01.07.11 - 05.07.11</li>
+								<li class="name"><a href="">Project Typography bei Barmettler</a></li>
+								<li class="action"><a href="">extend</a></li>
 							</ul>
 						</li>
 							
@@ -53,12 +52,12 @@
 					       <% s.each do |c| %>
         					   <div class="cell">
                                    <a href="<%= category_models_path(c) %>" title="<%= c.name %>">
-								   <img src="http://leihs.zhdk.ch<%= c.image_thumb %>" alt="<%= c.name %>"/>
+								    <img src="http://leihs.zhdk.ch<%= c.image_thumb %>" alt="<%= c.name %>"/>
                                    </a>
-                                   <h2><%= link_to truncate(c.name, 25), category_models_path(c) %></h2>
+                                   <h2><%= link_to truncate(c.name, 17), category_models_path(c), :title=>c %></h2>
                                     <ul>
                                         <% c.children.each do |child| %>
-                                            <li><%= link_to child, category_models_path(child) %></li>
+                                            <li><%= link_to child, category_models_path(child), :title=>child %></li>
                                         <% end %>
                                     </ul>
                                </div><!-- .cell -->
