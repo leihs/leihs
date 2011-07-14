@@ -1141,12 +1141,19 @@ hr {
   #models #modellist .item {
     border-bottom: 1px solid #e3e3e3;
     height: 70px; }
+    #models #modellist .item td {
+      padding-right: 12px; }
     #models #modellist .item .image {
       height: 70px;
-      padding: 0 10px;
+      padding: 0 14px 0 10px;
       text-align: center;
       vertical-align: middle;
       width: 50px; }
+      #models #modellist .item .image a, #models #modellist .item .image a:link, #models #modellist .item .image a:visited, #models #modellist .item .image a:hover, #models #modellist .item .image a:active {
+        color: #515151;
+        display: block;
+        padding: 10px 0;
+        width: 100%; }
       #models #modellist .item .image img {
         max-height: 50px;
         max-width: 50px; }
@@ -1154,26 +1161,42 @@ hr {
       font-size: 1.2em;
       height: 70px;
       vertical-align: middle;
-      width: 200px; }
-    #models #modellist .item .manufactor {
+      width: 240px; }
+      #models #modellist .item .name a, #models #modellist .item .name a:link, #models #modellist .item .name a:visited, #models #modellist .item .name a:hover, #models #modellist .item .name a:active {
+        color: #515151;
+        display: block;
+        padding: 10px 0;
+        width: 100%; }
+    #models #modellist .item .manufacturer {
       font-size: 1.2em;
       vertical-align: middle;
-      width: 100px; }
+      width: 135px; }
+      #models #modellist .item .manufacturer a, #models #modellist .item .manufacturer a:link, #models #modellist .item .manufacturer a:visited, #models #modellist .item .manufacturer a:hover, #models #modellist .item .manufacturer a:active {
+        color: #515151;
+        display: block;
+        padding: 10px 0;
+        width: 100%; }
     #models #modellist .item .availability {
-      color: #999999 !important;
+      color: #999999;
       font-size: 1.1em;
-      margin-right: 8px !important;
-      padding-top: 29px; }
+      text-align: right;
+      padding-right: 0;
+      vertical-align: middle; }
     #models #modellist .item .add {
-      margin-right: 9px !important;
-      padding-top: 26px !important;
-      width: 31px; }
+      width: 24px;
+      padding-right: 16px;
+      text-align: right;
+      vertical-align: middle; }
       #models #modellist .item .add a {
         font-size: 1.4em;
         font-weight: bold;
-        line-height: 10px; }
+        line-height: 10px;
+        padding-left: 1px;
+        padding-right: 1px; }
   #models #modellist .item:nth-child(odd) {
-    background: #f0f0f0; }
+    background: #f8f8f8; }
+  #models #modellist .item:hover {
+    background: #E9E9E9; }
 
 #models.fullwidth #topfilter {
   width: 741px; }
@@ -1182,7 +1205,7 @@ hr {
   width: 752px; }
   #models.fullwidth #modellist .item .name {
     width: 300px; }
-  #models.fullwidth #modellist .item .manufactor {
+  #models.fullwidth #modellist .item .manufacturer {
     width: 150px; }
   #models.fullwidth #modellist .item .pool {
     width: 105px; }
@@ -1223,7 +1246,7 @@ hr {
   color: #515151;
   font-size: 1.3em;
   line-height: 1.6em;
-  padding: 10px 0 18px 6px; }
+  padding: 18px 0 20px 6px; }
 #model .details tr td {
   color: #515151;
   display: inline-block;

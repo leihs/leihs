@@ -1,23 +1,23 @@
 /*
 Syntax error: Undefined mixin 'greylinks'.
-        on line 14 of public/layouts/00-patterns/css/scss/models.scss, in `greylinks'
-        from line 14 of public/layouts/00-patterns/css/scss/models.scss
+        on line 23 of public/layouts/00-patterns/css/scss/models.scss, in `greylinks'
+        from line 23 of public/layouts/00-patterns/css/scss/models.scss
 
-9:     padding-right: 6px;
-10:     position: relative;
-11:     top: -18px;
-12:     width: 167px;
-13:     z-index: 99;
-14:     @include greylinks;
-15: 
-16:     li {
-17:       list-style-type: none;
-18:       overflow: hidden;
-19:     }
+18:     padding-right: 6px;
+19:     position: relative;
+20:     top: -18px;
+21:     width: 167px;
+22:     z-index: 99;
+23:     @include greylinks;
+24: 
+25:     li {
+26:       list-style-type: none;
+27:       overflow: hidden;
+28:     }
 
 Backtrace:
-public/layouts/00-patterns/css/scss/models.scss:14:in `greylinks'
-public/layouts/00-patterns/css/scss/models.scss:14
+public/layouts/00-patterns/css/scss/models.scss:23:in `greylinks'
+public/layouts/00-patterns/css/scss/models.scss:23
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
@@ -99,4 +99,4 @@ public/layouts/00-patterns/css/scss/models.scss:14
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'greylinks'.\A         on line 14 of public/layouts/00-patterns/css/scss/models.scss, in `greylinks'\A         from line 14 of public/layouts/00-patterns/css/scss/models.scss\A \A 9:     padding-right: 6px;\A 10:     position: relative;\A 11:     top: -18px;\A 12:     width: 167px;\A 13:     z-index: 99;\A 14:     @include greylinks;\A 15: \A 16:     li {\A 17:       list-style-type: none;\A 18:       overflow: hidden;\A 19:     }"; }
+  content: "Syntax error: Undefined mixin 'greylinks'.\A         on line 23 of public/layouts/00-patterns/css/scss/models.scss, in `greylinks'\A         from line 23 of public/layouts/00-patterns/css/scss/models.scss\A \A 18:     padding-right: 6px;\A 19:     position: relative;\A 20:     top: -18px;\A 21:     width: 167px;\A 22:     z-index: 99;\A 23:     @include greylinks;\A 24: \A 25:     li {\A 26:       list-style-type: none;\A 27:       overflow: hidden;\A 28:     }"; }
