@@ -1,66 +1,57 @@
-    	<%= render :partial => '/layouts/frontend/00-patterns/tabs' %>
-    	
-    	<section id="content" class="box">
+<%= render :partial => '/layouts/frontend/00-patterns/tabs' %>
+<%= render :partial => '/layouts/frontend/00-patterns/content_box_head' %>
     		
-    		<div class="header"><div class="borderleft"></div><div class="borderright"></div></div><!-- .header -->
-    		
-    		<div class="inner<%= @category.children.empty? ? " fullwidth" : "" %>" id="models">
+	<div class="inner<%= @category.children.empty? ? " fullwidth" : "" %>" id="models">
 
-                <% unless @category.children.empty? %>
-    			<ul id="categories">
-    			    <% @category.children.each do |c| %>
-                         <li>
-                             <h2><%= link_to c, category_models_path(c), :title => c %></h2>
-                             <ul>
-                                 <% c.children.each do |child| %>
-                                    <li><%= link_to child, category_models_path(child) , :title => child %></li>
-                                 <% end %>
-                             </ul>
-                         </li>
-                    <% end %>
-    			</ul><!-- category list -->
-    			<% end %>
-    					
-				<section id="topfilter">
-					<form class="availability" action="">
-						<input class="date start" name="startdate" value="01.07.11"/>
-						-
-						<input class="date end" name="enddate" value="02.07.11" />
-						<input class="check" type="checkbox" name="available-only" value="available-only" id="available-only"/>
-						<label for="available-only"><%= _("Show Available") %></label>
-					</form><!-- availability -->
-					
-					<form class="sort" action="">
-						<select name="sort" class="styled">
-							<option value="productname-a-z"><%= _("Productname (A-Z)") %></option>
-							<option value="productname-z-a"><%= _("Productname (Z-A)") %></option>
-							<option value="manufactor-a-z"><%= _("Manufactor (A-Z)") %></option>
-							<option value="manufactor-z-a"><%= _("Manufactor (Z-A)") %></option>
-						</select>
-					</form><!-- sort -->
-				</section><!-- #topfilter -->
+        <% unless @category.children.empty? %>
+		<ul id="categories">
+		    <% @category.children.each do |c| %>
+                 <li>
+                     <h2><%= link_to c, category_models_path(c), :title => c %></h2>
+                     <ul>
+                         <% c.children.each do |child| %>
+                            <li><%= link_to child, category_models_path(child) , :title => child %></li>
+                         <% end %>
+                     </ul>
+                 </li>
+            <% end %>
+		</ul><!-- category list -->
+		<% end %>
 				
-				<table id="modellist">
-                    <% @models.each do |m| %>
-                        <tr class="item">
-		                    <td class="image"><img src="http://leihs.zhdk.ch/<%= m.image_thumb %>" alt="<%= m.name %>"/></td>
-		                    <td class="name"><%= m.name %></td>
-                            <td class="manufactor"><%= m.manufacturer %></td></div>
-		                    <td class="availability">20/99<%#TODO Franco: add availability here (amount available / total amount)%></td>
-		                    <td class="add"><div class="smallbutton green"><a href="#" title="<%= _("Add to Basket") %>">+</a></div></td>
-                        </tr>
-                    <% end %>
-				</table><!-- modellist -->
+		<section id="topfilter">
+			<form class="availability" action="">
+				<input class="date start" name="startdate" value="01.07.11"/>
+				-
+				<input class="date end" name="enddate" value="02.07.11" />
+				<input class="check" type="checkbox" name="available-only" value="available-only" id="available-only"/>
+				<label for="available-only"><%= _("Show Available") %></label>
+			</form><!-- availability -->
+			
+			<form class="sort" action="">
+				<select name="sort" class="styled">
+					<option value="productname-a-z"><%= _("Productname (A-Z)") %></option>
+					<option value="productname-z-a"><%= _("Productname (Z-A)") %></option>
+					<option value="manufactor-a-z"><%= _("Manufacturer (A-Z)") %></option>
+					<option value="manufactor-z-a"><%= _("Manufacturer (Z-A)") %></option>
+				</select>
+			</form><!-- sort -->
+		</section><!-- #topfilter -->
+		
+		<table id="modellist">
+            <% @models.each do |m| %>
+                <tr class="item">
+                    <td class="image"><img src="http://leihs.zhdk.ch/<%= m.image_thumb %>" alt="<%= m.name %>"/></td>
+                    <td class="name"><%= m.name %></td>
+                    <td class="manufactor"><%= m.manufacturer %></td></div>
+                    <td class="availability">20/99<%#TODO Franco: add availability here (amount available / total amount)%></td>
+                    <td class="add"><div class="smallbutton green"><a href="#" title="<%= _("Add to Basket") %>">+</a></div></td>
+                </tr>
+            <% end %>
+		</table><!-- modellist -->
+		
+		<div class="clear"></div>
 				
-				<div class="clear"></div>
-    					
-    		</div><!-- inner -->
-    		
-    		<div class="footer">
-    			<div class="borderleft"></div>
-    			<div class="borderright"></div>
-    		</div><!-- .footer -->
-    		
-    	</section><!-- #content -->
-    
-    <%= render :partial => '/layouts/frontend/00-patterns/basket' %>
+	</div><!-- inner -->
+	
+<%= render :partial => '/layouts/frontend/00-patterns/content_box_foot' %>
+<%= render :partial => '/layouts/frontend/00-patterns/basket' %>

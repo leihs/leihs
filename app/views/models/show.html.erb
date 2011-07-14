@@ -1,21 +1,20 @@
 <%= render :partial => '/layouts/frontend/00-patterns/tabs' %>
-
-<section id="content" class="box">
-
-	<div class="header"><div class="borderleft"></div><div class="borderright"></div></div><!-- .header -->
+<%= render :partial => '/layouts/frontend/00-patterns/content_box_head' %>
 
 	<div class="inner" id="model">
 		
 		<h1><%= @model.name %></h1>
 		<h3><%= @model.manufacturer %></h3>
-		<div class="button green"><a href="#"><%= _("Add to Cart") %></a></div>
+		<div class="button green"><a href="#"><%= _("Book") %></a></div>
         
         <% unless @model.images.empty? %>
             <% if @model.images.size > 1 %>
                 <section id="images">
-                    <% @model.images.each do |i| %>
+                    <% @model.images.each_with_index do |i, index| %>
+                        <% unless index.zero? %>
                          <% #TODO Franco: is there any image name?? like front, back etc. ?? place it inside title attribute please %>
                          <a href="http://leihs.zhdk.ch<%= i.public_filename() %>" title="<%= @model.name %>" target="_blank"><img src="http://leihs.zhdk.ch<%= i.public_filename(:thumb) %>" alt="<%= @model.name %>"/></a>
+                        <% end %>
                     <% end %>
                 </section><!-- .images -->
             <% end %>
@@ -44,11 +43,10 @@
             <% @model.compatibles.each_slice(4) do |s| %>
                 <div class="row">
                     <% s.each do |c| %>
-                        <table class="cell">
-                            <tr><td><%= link_to image_tag("http://leihs.zhdk.ch#{ c.image_thumb }"), c, :title=>c.name %></td></tr>
-                            <tr><td><h3><%= link_to truncate(c.name, 25), c, :title=>c.name %></h3></td></tr>
-                            <tr><td><p><%= link_to c.description, c, :title=>c.description %></p></td></tr>
-                        </table><!-- .cell -->
+                        <div class="cell">
+                            <%= link_to image_tag("http://leihs.zhdk.ch#{ c.image_thumb }"), c, :title=>c.name %>
+                            <h3><%= link_to truncate(c.name, 32), c, :title=>c.name %></h3>
+                        </div><!-- .cell -->
                     <% end %>
                 <div class="clear"></div>
                 </div><!-- .row -->
@@ -57,7 +55,5 @@
 
 	</div><!-- inner -->
 
-	<div class="footer"><div class="borderleft"></div><div class="borderright"></div></div><!-- .footer -->
-</section><!-- #content -->
-
+<%= render :partial => '/layouts/frontend/00-patterns/content_box_foot' %>
 <%= render :partial => '/layouts/frontend/00-patterns/basket' %>

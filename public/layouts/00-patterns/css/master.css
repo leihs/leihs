@@ -254,11 +254,8 @@ hr {
   position: relative;
   width: 990px; }
 
-#header {
-  display: block; }
-
-.indent {
-  padding-left: 1px; }
+.red {
+  color: #dd2222; }
 
 /* BUTTON */
 .button {
@@ -369,29 +366,33 @@ hr {
 .smallbutton.green:active a {
   background: url(../images/image-sprite.png) no-repeat right -531px; }
 
-#orderlist .line {
+.linelist .line {
   display: block;
   padding: 0 0 8px 0; }
-  #orderlist .line ul {
+  .linelist .line ul {
     display: inline-block; }
-  #orderlist .line li {
+  .linelist .line li {
     display: inline-block;
     margin-right: 7px;
     max-width: 415px;
     overflow: hidden;
     position: relative; }
-  #orderlist .line .time {
+  .linelist .line .time {
     color: #999999; }
-  #orderlist .line .name {
+  .linelist .line .name {
+    font-weight: bold;
     margin-right: 2px;
     white-space: nowrap; }
-    #orderlist .line .name a {
-      color: #717171;
-      font-weight: bold; }
-    #orderlist .line .name a:hover, #orderlist .line .name a:active {
+    .linelist .line .name a {
+      color: #717171; }
+    .linelist .line .name a:hover, .linelist .line .name a:active {
       color: #515151; }
-  #orderlist .line .action {
+  .linelist .line .action {
+    color: #999999;
     display: inline-block; }
+
+.linelist.overdue ul li {
+  color: #dd2222 !important; }
 
 /* TOPBAR */
 #topbar {
@@ -864,9 +865,9 @@ hr {
   top: 0;
   width: 6px; }
 
-#start .subtitle .pools h2 a, #start .subtitle .pools h2 a:link, #start .subtitle .pools h2 a:visited {
+#start .subtitle .pools h2 a, #start .subtitle .pools h2 a:link, #start .subtitle .pools h2 a:visited, #start .subtitle .pools h3 a, #start .subtitle .pools h3 a:link, #start .subtitle .pools h3 a:visited {
   color: #717171; }
-#start .subtitle .pools h2 a:hover, #start .subtitle .pools h2 a:active {
+#start .subtitle .pools h2 a:hover, #start .subtitle .pools h2 a:active, #start .subtitle .pools h3 a:hover, #start .subtitle .pools h3 a:active {
   color: #515151; }
 #start .subtitle .pools a, #start .subtitle .pools a:link, #start .subtitle .pools a:visited {
   color: #999999; }
@@ -874,8 +875,16 @@ hr {
   color: #515151; }
 #start #categories {
   padding-top: 8px; }
+  #start #categories h2 a, #start #categories h2 a:link, #start #categories h2 a:visited, #start #categories h3 a, #start #categories h3 a:link, #start #categories h3 a:visited {
+    color: #717171; }
+  #start #categories h2 a:hover, #start #categories h2 a:active, #start #categories h3 a:hover, #start #categories h3 a:active {
+    color: #515151; }
+  #start #categories a, #start #categories a:link, #start #categories a:visited {
+    color: #999999; }
+  #start #categories a:hover, #start #categories a:active {
+    color: #515151; }
   #start #categories .row {
-    padding-bottom: 24px; }
+    padding-bottom: 34px; }
   #start #categories .cell {
     float: left;
     padding-left: 6px;
@@ -883,8 +892,7 @@ hr {
     #start #categories .cell img {
       height: 80px;
       display: block;
-      margin-left: 10px;
-      padding-bottom: 15px; }
+      padding-bottom: 8px; }
     #start #categories .cell ul {
       margin-right: 20px;
       margin-top: 5px;
@@ -898,17 +906,9 @@ hr {
           color: #999999; }
         #start #categories .cell ul li a:hover {
           color: #515151; }
-  #start #categories .cell:hover h2 a {
-    color: #515151; }
   #start #categories .cell:nth-child(4n) {
     padding-left: 0; }
-  #start #categories h2 a, #start #categories h2 a:link, #start #categories h2 a:visited {
-    color: #717171; }
-  #start #categories h2 a:hover, #start #categories h2 a:active {
-    color: #515151; }
-  #start #categories a, #start #categories a:link, #start #categories a:visited {
-    color: #999999; }
-  #start #categories a:hover, #start #categories a:active {
+  #start #categories .cell:hover h2 a {
     color: #515151; }
 
 #basket {
@@ -1104,9 +1104,9 @@ hr {
   top: -18px;
   width: 167px;
   z-index: 99; }
-  #models #categories h2 a, #models #categories h2 a:link, #models #categories h2 a:visited {
+  #models #categories h2 a, #models #categories h2 a:link, #models #categories h2 a:visited, #models #categories h3 a, #models #categories h3 a:link, #models #categories h3 a:visited {
     color: #717171; }
-  #models #categories h2 a:hover, #models #categories h2 a:active {
+  #models #categories h2 a:hover, #models #categories h2 a:active, #models #categories h3 a:hover, #models #categories h3 a:active {
     color: #515151; }
   #models #categories a, #models #categories a:link, #models #categories a:visited {
     color: #999999; }
@@ -1245,10 +1245,19 @@ hr {
   #model #images a {
     cursor: -webkit-zoom-in;
     cursor: -moz-zoom-in; }
-  #model #images img {
-    height: auto;
-    margin-bottom: 5px;
-    width: 50px; }
+    #model #images a img {
+      height: auto;
+      margin-bottom: 5px;
+      filter: alpha(opacity=0.5);
+      -moz-opacity: 0.5;
+      -khtml-opacity: 0.5;
+      opacity: 0.5;
+      width: 50px; }
+  #model #images a:hover img {
+    filter: alpha(opacity=1);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1; }
 #model #bigimage {
   padding-top: 10px;
   position: relative;
@@ -1260,7 +1269,8 @@ hr {
 #model .description {
   color: #515151;
   font-size: 1.3em;
-  padding: 0 0 12px 6px; }
+  line-height: 1.6em;
+  padding: 10px 0 18px 6px; }
 #model .details tr td {
   color: #515151;
   display: inline-block;
@@ -1282,100 +1292,72 @@ hr {
   padding-left: 12px;
   padding-right: 12px;
   width: 488px; }
+#model #suggested h2 a, #model #suggested h2 a:link, #model #suggested h2 a:visited, #model #suggested h3 a, #model #suggested h3 a:link, #model #suggested h3 a:visited {
+  color: #717171; }
+#model #suggested h2 a:hover, #model #suggested h2 a:active, #model #suggested h3 a:hover, #model #suggested h3 a:active {
+  color: #515151; }
+#model #suggested a, #model #suggested a:link, #model #suggested a:visited {
+  color: #999999; }
+#model #suggested a:hover, #model #suggested a:active {
+  color: #515151; }
 #model #suggested .row {
-  padding-top: 8px;
-  padding-bottom: 32px; }
+  padding-bottom: 28px;
+  padding-top: 8px; }
   #model #suggested .row .cell {
     float: left;
-    margin-right: 20px;
-    width: 164px; }
+    padding-left: 6px;
+    padding-right: 12px;
+    width: 165px; }
+    #model #suggested .row .cell a {
+      display: block; }
     #model #suggested .row .cell img {
       height: 80px;
-      max-width: 160px; }
+      filter: alpha(opacity=0.5);
+      -moz-opacity: 0.5;
+      -khtml-opacity: 0.5;
+      opacity: 0.5;
+      max-width: 160px;
+      margin-bottom: 10px; }
     #model #suggested .row .cell h3 {
       height: 36px;
-      padding-top: 6px;
-      overflow: hidden; }
-    #model #suggested .row .cell p {
-      height: 40px;
+      padding: 0;
+      margin: 0;
       overflow: hidden; }
   #model #suggested .row .cell:nth-child(4n) {
-    margin-right: 0; }
+    padding-left: 0;
+    padding-right: 0; }
+  #model #suggested .row .cell:hover img {
+    filter: alpha(opacity=1);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1; }
+  #model #suggested .row .cell:hover a {
+    color: #515151; }
 
-/* USER USERDATA */
-#user .userdata h3 {
-  display: inline-block;
-  float: left; }
-
-/* USER USERDATA EDIT */
-#user .userdata .edit {
-  color: #999999;
-  float: left;
-  padding: 6px 0 0 10px; }
-
-#user .userdata .edit:hover {
-  color: #515151; }
-
-/* USER USERDATA DL */
-#user .userdata dl {
-  display: inline-block;
-  float: left;
-  width: 300px; }
-
-#user .userdata dl * {
-  font-size: 1.1em;
-  float: left;
-  padding-bottom: 6px; }
-
-#user .userdata dl dt {
-  color: #717171;
-  padding-right: 10px;
-  text-align: right;
-  width: 111px; }
-
-#user .userdata dl dd {
-  font-weight: bold;
-  width: 179px; }
-
-/* ITEMS */
-#user .timeframe {
+#user .userdata {
+  padding-left: 1px; }
+  #user .userdata h3 {
+    display: inline-block;
+    float: left; }
+  #user .userdata .edit {
+    float: left;
+    padding: 5px 12px 8px 6px; }
+  #user .userdata dl {
+    display: inline-block;
+    float: left; }
+    #user .userdata dl dt {
+      color: #999999;
+      padding-bottom: 2px;
+      padding-right: 16px; }
+    #user .userdata dl dd {
+      font-weight: bold;
+      line-height: 1.4em;
+      padding-right: 34px; }
+#user .pools h2 a, #user .pools h2 a:link, #user .pools h2 a:visited, #user .pools h3 a, #user .pools h3 a:link, #user .pools h3 a:visited {
   color: #717171; }
-
-#user .purpose {
-  font-weight: bold; }
-
-#user .line li {
-  display: inline-block;
-  margin-right: 7px;
-  max-width: 415px;
-  overflow: hidden;
-  padding: 0 0 8px;
-  position: relative; }
-
-/*booked items*/
-#user #booked {
-  font-size: 1.1em; }
-
-#user #booked .cancel a {
-  color: #999999; }
-
-#user #booked .cancel a:hover {
+#user .pools h2 a:hover, #user .pools h2 a:active, #user .pools h3 a:hover, #user .pools h3 a:active {
   color: #515151; }
-
-/*overdue items*/
-#user #overdue {
-  font-size: 1.1em;
+#user .pools a, #user .pools a:link, #user .pools a:visited {
   color: #999999; }
-
-#user #overdue .timeframe {
-  color: #EE0000; }
-
-#user #overdue .purpose a {
-  color: #EE0000; }
-
-#user #overdue .overdue {
-  color: #EE0000; }
-
-/*rented items*/
-#user #rented {
-  font-size: 1.1em; }
+#user .pools a:hover, #user .pools a:active {
+  color: #515151; }

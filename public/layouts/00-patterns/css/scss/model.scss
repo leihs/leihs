@@ -13,12 +13,19 @@
     a {
       cursor: -webkit-zoom-in;
       cursor: -moz-zoom-in;
+      
+      img {
+        height: auto;
+        margin-bottom: 5px;
+        @include opacity(0.5);
+        width: 50px;
+      }
     } 
     
-    img {
-      height: auto;
-      margin-bottom: 5px;
-      width: 50px;
+    a:hover {
+      img {
+        @include opacity(1.0); 
+      }
     }
   }
   
@@ -37,7 +44,8 @@
   .description {
     color: #515151;
     font-size: 1.3em;
-    padding: 0 0 12px 6px;
+    line-height: 1.6em;
+    padding: 10px 0 18px 6px;
   }
   
   .details {
@@ -72,35 +80,50 @@
   }
   
   #suggested {
+     @include greylinks;
+  
     .row {
+      padding-bottom: 28px;
       padding-top: 8px;
-      padding-bottom: 32px;
       
       .cell {
         float: left;
-        margin-right: 20px;
-        width: 164px;
+        padding-left: 6px;
+        padding-right: 12px;
+        width: 165px;
+        
+        a {
+          display: block;
+        }
         
         img {
           height: 80px;
+          @include opacity(0.5);
           max-width: 160px;
+          margin-bottom: 10px;
         }
         
         h3 {
           height: 36px;
-          padding-top: 6px;
+          padding: 0;
+          margin: 0;
           overflow: hidden;
         }
-        
-        p {
-          height: 40px;
-          overflow: hidden;
-        }
-        
       }
       
       .cell:nth-child(4n) {
-         margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      
+      .cell:hover {
+        img {
+          @include opacity(1);
+        }
+        
+        a {
+          color: $darkgrey;
+        }
       }
     }
   }

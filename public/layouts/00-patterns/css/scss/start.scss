@@ -3,27 +3,27 @@
    .subtitle {
    
       .pools {
-        @include grey-links;
+        @include greylinks;
       }
    }
    
   #categories {
     padding-top: 8px;
+    @include greylinks;
     
     .row {
-      padding-bottom: 24px;    
+      padding-bottom: 34px;
     }
     
     .cell {
       float: left;
       padding-left: 6px;
       width: 175px;
-      
+    
       img {
         height: 80px;
         display: block;
-        margin-left: 10px;
-        padding-bottom: 15px;
+        padding-bottom: 8px;
       }
       
       ul {
@@ -48,16 +48,14 @@
       }
     }
     
+    .cell:nth-child(4n) {
+      padding-left: 0;
+    }
+    
     .cell:hover {
       h2 a {
         color: #515151;
       }
     }
-    
-    .cell:nth-child(4n) {
-      padding-left: 0;
-    }
-    
-    @include grey-links;
   }
 }

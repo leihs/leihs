@@ -1,6 +1,6 @@
 /*
 Syntax error: Undefined variable: "$lightgrey".
-        on line 20 of public/layouts/00-patterns/css/scss/orderlist.scss
+        on line 20 of public/layouts/00-patterns/css/scss/linelist.scss
 
 15:       overflow: hidden;
 16:       position: relative;
@@ -11,11 +11,11 @@ Syntax error: Undefined variable: "$lightgrey".
 21:     }
 22:   
 23:     .name {
-24:       margin-right: 2px;
-25:       white-space: nowrap;
+24:       font-weight: bold;
+25:       margin-right: 2px;
 
 Backtrace:
-public/layouts/00-patterns/css/scss/orderlist.scss:20
+public/layouts/00-patterns/css/scss/linelist.scss:20
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/script/variable.rb:45:in `_perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/script/node.rb:40:in `perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:215:in `visit_prop'
@@ -110,4 +110,4 @@ public/layouts/00-patterns/css/scss/orderlist.scss:20
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$lightgrey\".\A         on line 20 of public/layouts/00-patterns/css/scss/orderlist.scss\A \A 15:       overflow: hidden;\A 16:       position: relative;\A 17:     }\A 18:   \A 19:     .time {\A 20:       color: $lightgrey;\A 21:     }\A 22:   \A 23:     .name {\A 24:       margin-right: 2px;\A 25:       white-space: nowrap;"; }
+  content: "Syntax error: Undefined variable: \"$lightgrey\".\A         on line 20 of public/layouts/00-patterns/css/scss/linelist.scss\A \A 15:       overflow: hidden;\A 16:       position: relative;\A 17:     }\A 18:   \A 19:     .time {\A 20:       color: $lightgrey;\A 21:     }\A 22:   \A 23:     .name {\A 24:       font-weight: bold;\A 25:       margin-right: 2px;"; }

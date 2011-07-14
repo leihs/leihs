@@ -1,4 +1,4 @@
-#orderlist {
+.linelist {
     
   .line {
     display: block;
@@ -21,12 +21,12 @@
     }
   
     .name {
+      font-weight: bold;
       margin-right: 2px;
       white-space: nowrap;
       
       a {
         color: $grey;
-        font-weight: bold;
       }
       
       a:hover, a:active {
@@ -35,7 +35,18 @@
     }
     
     .action {
+      color: $lightgrey;
       display: inline-block;
+    }
+  }
+}
+
+.linelist.overdue {
+  
+  ul {
+    
+    li {
+      color: $red !important;
     }
   }
 }

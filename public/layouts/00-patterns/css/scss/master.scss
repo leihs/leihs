@@ -6,6 +6,7 @@
 $darkgrey: #515151;
 $grey: #717171;
 $lightgrey: #999;
+$red: #DD2222;
 
 html {
 	background: #f5f3ee;
@@ -90,20 +91,16 @@ hr {
 	width: 990px;
 }
 
-#header {
-	display: block;
+.red {
+  color: $red;
 }
 
-.indent {
-	padding-left: 1px;
-}
-
-@mixin grey-links {
-  h2 a, h2 a:link, h2 a:visited {
+@mixin greylinks {
+  h2 a, h2 a:link, h2 a:visited, h3 a, h3 a:link, h3 a:visited {
     color: $grey;
   }
   
-  h2 a:hover, h2 a:active {
+  h2 a:hover, h2 a:active, h3 a:hover, h3 a:active {
     color: $darkgrey;
   }
   
@@ -116,8 +113,15 @@ hr {
   }
 }
 
+@mixin opacity($value) {
+  filter: alpha(opacity=$value); // IE5-7
+  -moz-opacity: $value; // NETSCAPE & MOZILLA
+  -khtml-opacity: $value; // OLD SAFARI
+  opacity: $value; // THE REST
+}
+
 @import "buttons.scss";
-@import "orderlist.scss";
+@import "linelist.scss";
 @import "topbar.scss";
 @import "tabs.scss";
 @import "search.scss";

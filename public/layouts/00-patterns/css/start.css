@@ -1,6 +1,6 @@
 /*
-Syntax error: Undefined mixin 'grey-links'.
-        on line 6 of public/layouts/00-patterns/css/scss/start.scss, in `grey-links'
+Syntax error: Undefined mixin 'greylinks'.
+        on line 6 of public/layouts/00-patterns/css/scss/start.scss, in `greylinks'
         from line 6 of public/layouts/00-patterns/css/scss/start.scss
 
 1: #start {
@@ -8,7 +8,7 @@ Syntax error: Undefined mixin 'grey-links'.
 3:    .subtitle {
 4:    
 5:       .pools {
-6:         @include grey-links;
+6:         @include greylinks;
 7:       }
 8:    }
 9:    
@@ -16,7 +16,7 @@ Syntax error: Undefined mixin 'grey-links'.
 11:     padding-top: 8px;
 
 Backtrace:
-public/layouts/00-patterns/css/scss/start.scss:6:in `grey-links'
+public/layouts/00-patterns/css/scss/start.scss:6:in `greylinks'
 public/layouts/00-patterns/css/scss/start.scss:6
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
@@ -110,4 +110,4 @@ public/layouts/00-patterns/css/scss/start.scss:6
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'grey-links'.\A         on line 6 of public/layouts/00-patterns/css/scss/start.scss, in `grey-links'\A         from line 6 of public/layouts/00-patterns/css/scss/start.scss\A \A 1: #start {\A 2: \A 3:    .subtitle {\A 4:    \A 5:       .pools {\A 6:         @include grey-links;\A 7:       }\A 8:    }\A 9:    \A 10:   #categories {\A 11:     padding-top: 8px;"; }
+  content: "Syntax error: Undefined mixin 'greylinks'.\A         on line 6 of public/layouts/00-patterns/css/scss/start.scss, in `greylinks'\A         from line 6 of public/layouts/00-patterns/css/scss/start.scss\A \A 1: #start {\A 2: \A 3:    .subtitle {\A 4:    \A 5:       .pools {\A 6:         @include greylinks;\A 7:       }\A 8:    }\A 9:    \A 10:   #categories {\A 11:     padding-top: 8px;"; }
