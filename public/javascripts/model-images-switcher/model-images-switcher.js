@@ -5,16 +5,23 @@
  *
  * @name Model Images Switcher
  * @author Sebastian Pape <email@sebastianpape.com>
- * @last-change 15.07 11:27
+ * @last-change 15.07 14:39
 */
 
 $(document).ready(function(){
+    setupSameDimensions();
 	setupBindings();
 });
 
+function setupSameDimensions() {
+    $('#model #bigimages .hidden').each(function(){
+        $(this).attr("height", $('#model #bigimages .first').height());
+    });
+}
+
 function setupBindings() {
     // MOUSEENTER
-    $('#model #images img').bind('mouseenter', function(){
+    $('#model #smallimages img').bind('mouseenter', function(){
         hoveredItem = $(this);
         $('#model #bigimages img').each(function() {
             if($(this).attr('src') == hoveredItem.attr('src').replace(/_thumb/g, "")) {
@@ -27,7 +34,7 @@ function setupBindings() {
     });
     
     // MOUSELEAVE
-    $('#model #images img').bind('mouseleave', function(){
+    $('#model #smallimages img').bind('mouseleave', function(){
         hoveredItem = $(this);
         $('#model #bigimages img').each(function() {
             if($(this).attr('src') == hoveredItem.attr('src').replace(/_thumb/g, "")) {

@@ -4,71 +4,63 @@
   float: left;
   left: 14px;
   position: relative;
-  width: 755px;
-}
+  width: 755px; }
 
 /* CONTENT HEADER */
 #content .header {
-	background: url(../images/slices-h.png) repeat-x 0 -97px;
-	display: block;
-  	height: 12px;
-  	position: relative;
-}
+  background: url(../images/slices-h.png) repeat-x 0 -97px;
+  display: block;
+  height: 12px;
+  position: relative; }
 
 #content .header .borderright {
-	background: url(../images/image-sprite.png) no-repeat -18px -14px;
-	display: block;
-	height: 12px;
-	right: 0;
-	position: absolute; 
-	top: 0;
-	width: 6px;
-}
+  background: url(../images/image-sprite.png) no-repeat -18px -14px;
+  display: block;
+  height: 12px;
+  right: 0;
+  position: absolute;
+  top: 0;
+  width: 6px; }
 
 #content .header .borderleft {
-	background: url(../images/image-sprite.png) no-repeat -18px -27px;
-	display: block;
-	height: 12px;
-	left: 0;
-	position: absolute; 
-	top: 0;
-	width: 6px;
-}
+  background: url(../images/image-sprite.png) no-repeat -18px -27px;
+  display: block;
+  height: 12px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 6px; }
 
 /* CONTENT INNER */
 #content .inner {
-	background: #FFF;
-	border-left: 1px solid #c9c7c3;
-	border-right: 1px solid #c9c7c3;
-	display: block;
-	padding: 8px 16px 16px 16px;
-  	position: relative;
-}
+  background: #FFF;
+  border-left: 1px solid #c9c7c3;
+  border-right: 1px solid #c9c7c3;
+  display: block;
+  padding: 8px 16px 16px 16px;
+  position: relative; }
 
 /* CONTENT FOOTER */
 #content .footer {
-	background: url(../images/slices-h.png) repeat-x 0 -110px;
-	display: block;
-  	height: 14px;
-  	position: relative;
-}
+  background: url(../images/slices-h.png) repeat-x 0 -110px;
+  display: block;
+  height: 14px;
+  position: relative; }
 
 #content .footer .borderright {
-	background: url(../images/image-sprite.png) no-repeat -25px -15px;
-	display: block;
-	height: 14px;
-	right: 0;
-	position: absolute; 
-	top: 0;
-	width: 6px;
-}
+  background: url(../images/image-sprite.png) no-repeat -25px -15px;
+  display: block;
+  height: 14px;
+  right: 0;
+  position: absolute;
+  top: 0;
+  width: 6px; }
 
 #content .footer .borderleft {
-	background: url(../images/image-sprite.png) no-repeat -25px 0;
-	display: block;
-	height: 14px;
-	left: 0;
-	position: absolute; 
-	top: 0;
-	width: 6px;
-}
+  background: url(../images/image-sprite.png) no-repeat -25px 0;
+  display: block;
+  height: 14px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 6px; }

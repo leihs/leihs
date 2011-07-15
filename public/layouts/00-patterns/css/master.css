@@ -1217,39 +1217,45 @@ hr {
   right: 20px;
   top: 10px; }
 #model #images {
-  float: left;
-  padding-top: 10px;
-  padding-right: 14px;
-  width: 50px; }
-  #model #images a {
-    cursor: -webkit-zoom-in;
-    cursor: -moz-zoom-in; }
-    #model #images a img {
-      height: auto;
-      margin-bottom: 5px;
-      filter: alpha(opacity=0.5);
-      -moz-opacity: 0.5;
-      -khtml-opacity: 0.5;
-      opacity: 0.5;
-      width: 50px; }
-  #model #images a:hover img {
-    filter: alpha(opacity=0.9);
-    -moz-opacity: 0.9;
-    -khtml-opacity: 0.9;
-    opacity: 0.9; }
-#model #bigimages {
-  padding-top: 10px;
-  position: relative;
-  float: left;
-  width: 650px; }
-  #model #bigimages img {
-    width: 100%;
-    height: auto;
-    max-height: 550px;
-    width: auto; }
-  #model #bigimages .hidden {
-    display: none;
-    position: absolute; }
+  position: relative; }
+  #model #images #smallimages {
+    float: left;
+    padding-top: 10px;
+    position: absolute;
+    top: 0;
+    width: 50px;
+    z-index: 999; }
+    #model #images #smallimages a {
+      cursor: -webkit-zoom-in;
+      cursor: -moz-zoom-in; }
+      #model #images #smallimages a img {
+        height: auto;
+        margin-bottom: 5px;
+        filter: alpha(opacity=0.5);
+        -moz-opacity: 0.5;
+        -khtml-opacity: 0.5;
+        opacity: 0.5;
+        width: 50px; }
+    #model #images #smallimages a:hover img {
+      filter: alpha(opacity=0.9);
+      -moz-opacity: 0.9;
+      -khtml-opacity: 0.9;
+      opacity: 0.9; }
+  #model #images #bigimages {
+    display: block;
+    margin: 0 auto;
+    padding-left: 65px;
+    padding-top: 10px;
+    position: relative;
+    width: 657px; }
+    #model #images #bigimages img {
+      margin: 0 auto;
+      max-height: 550px;
+      width: auto;
+      max-width: 595px; }
+    #model #images #bigimages .hidden {
+      display: none;
+      position: absolute; }
 #model .description {
   color: #515151;
   font-size: 1.3em;

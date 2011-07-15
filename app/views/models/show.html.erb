@@ -8,28 +8,30 @@
 		<div class="button green"><a href="#"><%= _("Book") %></a></div>
         
         <% unless @model.images.empty? %>
-            <% if @model.images.size > 1 %>
-                <section id="images">
-                    <% @model.images.each_with_index do |i, index| %>
-                        <% unless index.zero? %>
-                         <% #TODO Franco: is there any image name?? like front, back etc. ?? place it inside title attribute please %>
-                         <a href="http://leihs.zhdk.ch<%= i.public_filename() %>" title="<%= @model.name %>" target="_blank"><img src="http://leihs.zhdk.ch<%= i.public_filename(:thumb) %>" alt="<%= @model.name %>"/></a>
+            <section id="images">
+        		<div id="bigimages">
+        		    <% if @model.images.size > 1 %>
+                        <% @model.images.each_with_index do |i, index| %>
+                            <% unless index.zero? %>
+                             <img class="hidden" src="http://leihs.zhdk.ch<%= i.public_filename %>" alt="<%= @model.name %>"/></a>
+                            <% end %>
                         <% end %>
                     <% end %>
-                </section><!-- .images -->
-            <% end %>
-            
-    		<section id="bigimages">
-    		    <% if @model.images.size > 1 %>
-                    <% @model.images.each_with_index do |i, index| %>
-                        <% unless index.zero? %>
-                         <img class="hidden" src="http://leihs.zhdk.ch<%= i.public_filename %>" alt="<%= @model.name %>"/></a>
+        			<img class="first" src="http://leihs.zhdk.ch<%= @model.images.first.public_filename %>" alt="<%= @model.name %>" />
+        		</div><!-- #image -->
+        		
+        		<% if @model.images.size > 1 %>
+                    <div id="smallimages">
+                        <% @model.images.each_with_index do |i, index| %>
+                            <% unless index.zero? %>
+                             <% #TODO Franco: is there any image name?? like front, back etc. ?? place it inside title attribute please %>
+                             <a href="http://leihs.zhdk.ch<%= i.public_filename() %>" title="<%= @model.name %>" target="_blank"><img src="http://leihs.zhdk.ch<%= i.public_filename(:thumb) %>" alt="<%= @model.name %>"/></a>
+                            <% end %>
                         <% end %>
-                    <% end %>
+                    </div><!-- .images -->
                 <% end %>
-    			<img class="first" src="http://leihs.zhdk.ch<%= @model.images.first.public_filename %>" alt="<%= @model.name %>" />
-    		</section><!-- #image -->
-    		<div class="clear"></div>
+            </section><!-- .images -->
+        <div class="clear"></div>
 		<% end %>
         
         <% unless @model.description.empty? %>

@@ -1,24 +1,35 @@
 /*
 Syntax error: Undefined mixin 'opacity'.
-        on line 25 of public/layouts/00-patterns/css/scss/model.scss, in `opacity'
-        from line 25 of public/layouts/00-patterns/css/scss/model.scss
+        on line 30 of public/layouts/00-patterns/css/scss/model.scss, in `opacity'
+        from line 30 of public/layouts/00-patterns/css/scss/model.scss
 
-20:       cursor: -moz-zoom-in;
-21:             
-22:       img {
-23:         height: auto;
-24:         margin-bottom: 5px;
-25:         @include opacity(0.5);
-26:         width: 50px;
-27:       }
-28:     } 
-29:     
-30:     a:hover {
+25:         cursor: -moz-zoom-in;
+26:               
+27:         img {
+28:           height: auto;
+29:           margin-bottom: 5px;
+30:           @include opacity(0.5);
+31:           width: 50px;
+32:         }
+33:       } 
+34:       
+35:       a:hover {
 
 Backtrace:
-public/layouts/00-patterns/css/scss/model.scss:25:in `opacity'
-public/layouts/00-patterns/css/scss/model.scss:25
+public/layouts/00-patterns/css/scss/model.scss:30:in `opacity'
+public/layouts/00-patterns/css/scss/model.scss:30
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
@@ -121,4 +132,4 @@ public/layouts/00-patterns/css/scss/model.scss:25
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 25 of public/layouts/00-patterns/css/scss/model.scss, in `opacity'\A         from line 25 of public/layouts/00-patterns/css/scss/model.scss\A \A 20:       cursor: -moz-zoom-in;\A 21:             \A 22:       img {\A 23:         height: auto;\A 24:         margin-bottom: 5px;\A 25:         @include opacity(0.5);\A 26:         width: 50px;\A 27:       }\A 28:     } \A 29:     \A 30:     a:hover {"; }
+  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 30 of public/layouts/00-patterns/css/scss/model.scss, in `opacity'\A         from line 30 of public/layouts/00-patterns/css/scss/model.scss\A \A 25:         cursor: -moz-zoom-in;\A 26:               \A 27:         img {\A 28:           height: auto;\A 29:           margin-bottom: 5px;\A 30:           @include opacity(0.5);\A 31:           width: 50px;\A 32:         }\A 33:       } \A 34:       \A 35:       a:hover {"; }
