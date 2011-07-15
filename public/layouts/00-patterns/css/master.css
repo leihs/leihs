@@ -1196,7 +1196,7 @@ hr {
   #models #modellist .item:nth-child(odd) {
     background: #f8f8f8; }
   #models #modellist .item:hover {
-    background: #E9E9E9; }
+    background: #ebebeb; }
 
 #models.fullwidth #topfilter {
   width: 741px; }
@@ -1204,12 +1204,14 @@ hr {
   border-left: 0;
   width: 752px; }
   #models.fullwidth #modellist .item .name {
-    width: 300px; }
+    width: 310px; }
   #models.fullwidth #modellist .item .manufacturer {
-    width: 150px; }
+    width: 250px; }
   #models.fullwidth #modellist .item .pool {
     width: 105px; }
 
+#model h1, #model h3 {
+  width: 600px; }
 #model .button {
   position: absolute;
   right: 20px;
@@ -1217,6 +1219,7 @@ hr {
 #model #images {
   float: left;
   padding-top: 10px;
+  padding-right: 14px;
   width: 50px; }
   #model #images a {
     cursor: -webkit-zoom-in;
@@ -1230,18 +1233,23 @@ hr {
       opacity: 0.5;
       width: 50px; }
   #model #images a:hover img {
-    filter: alpha(opacity=1);
-    -moz-opacity: 1;
-    -khtml-opacity: 1;
-    opacity: 1; }
-#model #bigimage {
+    filter: alpha(opacity=0.9);
+    -moz-opacity: 0.9;
+    -khtml-opacity: 0.9;
+    opacity: 0.9; }
+#model #bigimages {
   padding-top: 10px;
   position: relative;
-  float: right;
-  width: 660px; }
-  #model #bigimage img {
+  float: left;
+  width: 650px; }
+  #model #bigimages img {
     width: 100%;
-    height: auto; }
+    height: auto;
+    max-height: 550px;
+    width: auto; }
+  #model #bigimages .hidden {
+    display: none;
+    position: absolute; }
 #model .description {
   color: #515151;
   font-size: 1.3em;
@@ -1257,7 +1265,11 @@ hr {
   top: 0;
   vertical-align: top; }
 #model .details tr:nth-child(odd) {
-  background: #f0f0f0; }
+  background: #f8f8f8; }
+#model .details tr:hover {
+  background: #ebebeb; }
+  #model .details tr:hover .key {
+    color: #717171; }
 #model .details .key {
   color: #999;
   margin-right: 8px;
@@ -1268,47 +1280,51 @@ hr {
   padding-left: 12px;
   padding-right: 12px;
   width: 488px; }
-#model #suggested h2 a, #model #suggested h2 a:link, #model #suggested h2 a:visited, #model #suggested h3 a, #model #suggested h3 a:link, #model #suggested h3 a:visited {
-  color: #717171; }
-#model #suggested h2 a:hover, #model #suggested h2 a:active, #model #suggested h3 a:hover, #model #suggested h3 a:active {
-  color: #515151; }
-#model #suggested a, #model #suggested a:link, #model #suggested a:visited {
-  color: #999999; }
-#model #suggested a:hover, #model #suggested a:active {
-  color: #515151; }
-#model #suggested .row {
-  padding-bottom: 28px;
-  padding-top: 8px; }
-  #model #suggested .row .cell {
-    float: left;
-    padding-left: 6px;
-    padding-right: 12px;
-    width: 165px; }
-    #model #suggested .row .cell a {
-      display: block; }
-    #model #suggested .row .cell img {
-      height: 80px;
-      filter: alpha(opacity=0.5);
-      -moz-opacity: 0.5;
-      -khtml-opacity: 0.5;
-      opacity: 0.5;
-      max-width: 160px;
-      margin-bottom: 10px; }
-    #model #suggested .row .cell h3 {
-      height: 36px;
-      padding: 0;
-      margin: 0;
-      overflow: hidden; }
-  #model #suggested .row .cell:nth-child(4n) {
-    padding-left: 0;
-    padding-right: 0; }
-  #model #suggested .row .cell:hover img {
-    filter: alpha(opacity=1);
-    -moz-opacity: 1;
-    -khtml-opacity: 1;
-    opacity: 1; }
-  #model #suggested .row .cell:hover a {
+#model #suggested {
+  padding-top: 12px; }
+  #model #suggested h2 a, #model #suggested h2 a:link, #model #suggested h2 a:visited, #model #suggested h3 a, #model #suggested h3 a:link, #model #suggested h3 a:visited {
+    color: #717171; }
+  #model #suggested h2 a:hover, #model #suggested h2 a:active, #model #suggested h3 a:hover, #model #suggested h3 a:active {
     color: #515151; }
+  #model #suggested a, #model #suggested a:link, #model #suggested a:visited {
+    color: #999999; }
+  #model #suggested a:hover, #model #suggested a:active {
+    color: #515151; }
+  #model #suggested .row {
+    padding-bottom: 28px;
+    padding-top: 8px; }
+    #model #suggested .row .cell {
+      float: left;
+      padding-left: 6px;
+      padding-right: 12px;
+      width: 165px; }
+      #model #suggested .row .cell h1, #model #suggested .row .cell h3 {
+        width: 147px; }
+      #model #suggested .row .cell a {
+        display: block; }
+      #model #suggested .row .cell img {
+        height: 80px;
+        filter: alpha(opacity=0.5);
+        -moz-opacity: 0.5;
+        -khtml-opacity: 0.5;
+        opacity: 0.5;
+        max-width: 160px;
+        margin-bottom: 10px; }
+      #model #suggested .row .cell h3 {
+        height: 36px;
+        padding: 0;
+        margin: 0;
+        overflow: hidden; }
+    #model #suggested .row .cell:nth-child(4n) {
+      padding-left: 0;
+      padding-right: 0; }
+    #model #suggested .row .cell:hover img {
+      filter: alpha(opacity=1);
+      -moz-opacity: 1;
+      -khtml-opacity: 1;
+      opacity: 1; }
+    #model #suggested .row .cell:hover a {
+      color: #515151; }
 
 #user .userdata {
   padding-left: 1px; }

@@ -19,39 +19,50 @@
                 </section><!-- .images -->
             <% end %>
             
-    		<section id="bigimage">
-    			<img src="http://leihs.zhdk.ch<%= @model.images.first.public_filename %>" alt="<%= @model.name %>" />
+    		<section id="bigimages">
+    		    <% if @model.images.size > 1 %>
+                    <% @model.images.each_with_index do |i, index| %>
+                        <% unless index.zero? %>
+                         <img class="hidden" src="http://leihs.zhdk.ch<%= i.public_filename %>" alt="<%= @model.name %>"/></a>
+                        <% end %>
+                    <% end %>
+                <% end %>
+    			<img class="first" src="http://leihs.zhdk.ch<%= @model.images.first.public_filename %>" alt="<%= @model.name %>" />
     		</section><!-- #image -->
+    		<div class="clear"></div>
 		<% end %>
         
-		<div class="hr clear"></div>
-		
-		<p class="description"><%= @model.description %></p>
-		
-		<table class="details">
-			<% @model.properties.each do |p| %>
-				<tr>
-					<td class="key"><%= p.key %></td>
-					<td class="value"><%= p.value %></td>
-				</tr>
-			<% end %>
-		</table><!-- .details -->
+        <% unless @model.description.empty? %>
+		  <p class="description"><%= @model.description %></p>
+		<% end %>
+	    
+	    <% unless @model.properties.empty? %>
+    		<table class="details">
+    			<% @model.properties.each do |p| %>
+    				<tr>
+    					<td class="key"><%= p.key %></td>
+    					<td class="value"><%= p.value %></td>
+    				</tr>
+    			<% end %>
+    		</table><!-- .details -->
+		<% end %>
 
-	    <hr/>
-        
-        <section id="suggested">
-            <% @model.compatibles.each_slice(4) do |s| %>
-                <div class="row">
-                    <% s.each do |c| %>
-                        <div class="cell">
-                            <%= link_to image_tag("http://leihs.zhdk.ch#{ c.image_thumb }"), c, :title=>c.name %>
-                            <h3><%= link_to truncate(c.name, 32), c, :title=>c.name %></h3>
-                        </div><!-- .cell -->
-                    <% end %>
-                <div class="clear"></div>
-                </div><!-- .row -->
-            <% end %>
-        </section><!-- #suggested -->
+        <% unless @model.compatibles.empty? %>
+    	    <hr/>        
+            <section id="suggested">
+                <% @model.compatibles.each_slice(4) do |s| %>
+                    <div class="row">
+                        <% s.each do |c| %>
+                            <div class="cell">
+                                <%= link_to image_tag("http://leihs.zhdk.ch#{ c.image_thumb }"), c, :title=>c.name %>
+                                <h3><%= link_to truncate(c.name, 32), c, :title=>c.name %></h3>
+                            </div><!-- .cell -->
+                        <% end %>
+                    <div class="clear"></div>
+                    </div><!-- .row -->
+                <% end %>
+            </section><!-- #suggested -->
+         <% end %>
 
 	</div><!-- inner -->
 

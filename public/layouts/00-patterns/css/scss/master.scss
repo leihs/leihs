@@ -2,13 +2,15 @@
 /* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
 
 @import "reset.scss";
-
 $darkgrey: #515151;
 $grey: #717171;
 $lightgrey: #999;
+$highlight-grey: #f8f8f8;
+$highlight-darkgrey: #EBEBEB;
 $red: #DD2222;
 $lightblue: #6091d9;
 $blue: #1d62c9;
+
 
 html {
 	background: #f5f3ee;

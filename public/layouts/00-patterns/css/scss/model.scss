@@ -1,4 +1,8 @@
 #model {
+  h1, h3 {
+    width: 600px;
+  }
+  
   .button {
     position: absolute;
     right: 20px;
@@ -8,12 +12,13 @@
   #images {
     float: left;
     padding-top: 10px;
+    padding-right: 14px;
     width: 50px;
     
     a {
       cursor: -webkit-zoom-in;
       cursor: -moz-zoom-in;
-      
+            
       img {
         height: auto;
         margin-bottom: 5px;
@@ -24,20 +29,27 @@
     
     a:hover {
       img {
-        @include opacity(1.0); 
+        @include opacity(0.9); 
       }
     }
   }
   
-  #bigimage {
+  #bigimages {
     padding-top: 10px;
     position: relative;
-    float: right;
-    width: 660px;
+    float: left;
+    width: 650px;
     
     img {
       width: 100%;
       height: auto;
+      max-height: 550px;
+      width: auto;
+    }
+    
+    .hidden {
+      display: none;
+      position: absolute;
     }
   }
   
@@ -61,7 +73,15 @@
     }
     
     tr:nth-child(odd)  {
-      background: #f0f0f0;
+     background: $highlight-grey;
+    }
+    
+    tr:hover  {
+     background: $highlight-darkgrey;
+     
+      .key {
+        color: $grey;
+      }
     }
     
     .key {
@@ -80,6 +100,7 @@
   }
   
   #suggested {
+     padding-top: 12px;
      @include greylinks;
   
     .row {
@@ -91,6 +112,10 @@
         padding-left: 6px;
         padding-right: 12px;
         width: 165px;
+        
+        h1, h3 {
+          width: 147px;
+        }
         
         a {
           display: block;

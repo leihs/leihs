@@ -185,11 +185,11 @@
     }
     
     .item:nth-child(odd) {
-      background: #f8f8f8;
+      background: $highlight-grey;
     }
     
     .item:hover {
-      background: #E9E9E9;
+      background: $highlight-darkgrey;
     }
     
   }
@@ -208,11 +208,11 @@
     .item {
     
       .name {
-        width: 300px;
+        width: 310px;
       }
       
       .manufacturer {
-        width: 150px;
+        width: 250px;
       }
       
       .pool {
