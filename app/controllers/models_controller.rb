@@ -3,8 +3,6 @@ class ModelsController < FrontendController
   before_filter :pre_load
 
   def index( category_id = params[:category_id].to_i, # TODO 18** nested route ?
-             start = (params[:start] || 0).to_i,
-             limit = (params[:limit] || 25).to_i,
              query = params[:query],
              sort = params[:sort] || 'name', # OPTIMIZE 0501
              sort_mode = params[:dir] || 'ASC' ) # OPTIMIZE 0501
@@ -36,7 +34,7 @@ class ModelsController < FrontendController
 
     @models = Model.search query, { :index => "frontend_model",
                                     :star => true,
-                                    :offset => start, :limit => limit, # :page => ((start / limit) + 1), :per_page => limit,
+                                    :per_page => 9999999,
                                     :with => with,
                                     :order => sort, :sort_mode => sort_mode }
   end  

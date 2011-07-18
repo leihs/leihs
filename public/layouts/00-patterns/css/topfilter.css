@@ -1,24 +1,46 @@
 /*
-Syntax error: Undefined mixin 'greylinks'.
-        on line 23 of public/layouts/00-patterns/css/scss/models.scss, in `greylinks'
-        from line 23 of public/layouts/00-patterns/css/scss/models.scss
+Syntax error: Undefined variable: "$grey".
+        on line 47 of public/layouts/00-patterns/css/scss/topfilter.scss
 
-18:     padding-right: 6px;
-19:     position: relative;
-20:     top: -18px;
-21:     width: 167px;
-22:     z-index: 99;
-23:     @include greylinks;
-24: 
-25:     li {
-26:       list-style-type: none;
-27:       overflow: hidden;
-28:     }
+42:       width: 7px;
+43:     }
+44:     
+45:     select {
+46:       border: 0;
+47:       color: $grey;
+48:       margin-right: 10px;
+49:       padding: 4px 12px 2px 8px;
+50:       position: relative;
+51:       text-align: right;
+52:       width: 140px;
 
 Backtrace:
-public/layouts/00-patterns/css/scss/models.scss:23:in `greylinks'
-public/layouts/00-patterns/css/scss/models.scss:23
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
+public/layouts/00-patterns/css/scss/topfilter.scss:47
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/script/variable.rb:45:in `_perform'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/script/node.rb:40:in `perform'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:215:in `visit_prop'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
@@ -66,7 +88,26 @@ public/layouts/00-patterns/css/scss/models.scss:23
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:175:in `update_stylesheets'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `each'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `update_stylesheets'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:214:in `watch'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:252:in `watch'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:71:in `call'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:71:in `run_callback'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:54:in `callback_action'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:34:in `update'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:32:in `modified'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:31:in `each'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:31:in `modified'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:16:in `refresh'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:15:in `add_handler'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:14:in `each'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:14:in `add_handler'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/rubycocoa/fsevents.rb:107:in `call'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/rubycocoa/fsevents.rb:107:in `initialize'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `call'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `CFRunLoopRun'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `run'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/monitor.rb:24:in `run'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm.rb:17:in `monitor'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:245:in `watch'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin.rb:111:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin.rb:111:in `method_missing'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/exec.rb:408:in `watch_or_update'
@@ -80,4 +121,4 @@ public/layouts/00-patterns/css/scss/models.scss:23
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'greylinks'.\A         on line 23 of public/layouts/00-patterns/css/scss/models.scss, in `greylinks'\A         from line 23 of public/layouts/00-patterns/css/scss/models.scss\A \A 18:     padding-right: 6px;\A 19:     position: relative;\A 20:     top: -18px;\A 21:     width: 167px;\A 22:     z-index: 99;\A 23:     @include greylinks;\A 24: \A 25:     li {\A 26:       list-style-type: none;\A 27:       overflow: hidden;\A 28:     }"; }
+  content: "Syntax error: Undefined variable: \"$grey\".\A         on line 47 of public/layouts/00-patterns/css/scss/topfilter.scss\A \A 42:       width: 7px;\A 43:     }\A 44:     \A 45:     select {\A 46:       border: 0;\A 47:       color: $grey;\A 48:       margin-right: 10px;\A 49:       padding: 4px 12px 2px 8px;\A 50:       position: relative;\A 51:       text-align: right;\A 52:       width: 140px;"; }
