@@ -1,181 +1,113 @@
-#basket {
-  display: block;
-  float: right;
-  margin-right: 14px;
-  width: 198px; }
+/*
+Syntax error: Undefined mixin 'opacity'.
+        on line 135 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'
+        from line 135 of public/layouts/00-patterns/css/scss/basket.scss
 
-#basket .header {
-  background: url(../images/slices-h.png) repeat-x 0 -97px;
-  display: block;
-  height: 12px;
-  position: relative; }
+130:       position: absolute;
+131:       text-align: right;
+132:       padding-bottom: 2px;
+133:       top: 3px;
+134:       width: 190px;
+135:       @include opacity(0);
+136:     }
+137:     
+138:     table {
+139:       border-spacing: 0;
+140:       float: left;
 
-#basket .header .borderright {
-  background: url(../images/image-sprite.png) no-repeat -18px -14px;
-  display: block;
-  height: 12px;
-  right: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
-
-#basket .header .borderleft {
-  background: url(../images/image-sprite.png) no-repeat -25px -30px;
-  display: block;
-  height: 12px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
-
-#basket .header .navigation {
-  position: absolute;
-  left: 8px;
-  top: -20px; }
-
-#basket .header .navigation li {
-  display: block;
-  float: left;
-  margin-right: 1px; }
-
-#basket .header .navigation li a .icon {
-  display: block;
-  height: 15px;
-  margin: 0 auto;
-  opacity: .6;
-  position: relative;
-  top: 3px;
-  width: 15px; }
-
-#basket .header .navigation li a:hover .icon, #basket .header .navigation .active a .icon {
-  opacity: 1; }
-
-#basket .header .navigation li a .basket {
-  background: url(../images/image-sprite.png) no-repeat -156px -312px; }
-
-#basket .header .navigation li a .list {
-  background: url(../images/image-sprite.png) no-repeat -172px -312px; }
-
-#basket .header .navigation li a {
-  background: url(../images/image-sprite.png) no-repeat -75px -312px;
-  display: block;
-  height: 27px;
-  width: 26px; }
-
-#basket .header .navigation li:hover a {
-  background: url(../images/image-sprite.png) no-repeat -102px -312px; }
-
-#basket .header .navigation .active a, #basket .header .navigation .active:hover a {
-  background: url(../images/image-sprite.png) no-repeat -129px -312px; }
-
-/* BASKET INNER */
-#basket .inner {
-  background: #FFF;
-  border-left: 1px solid #c9c7c3;
-  border-right: 1px solid #c9c7c3;
-  display: block;
-  padding: 0 4px 28px 9px;
-  position: relative; }
-
-/* BASKET INNER h3 */
-#basket .inner h3 {
-  float: left;
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-bottom: 0; }
-
-#basket .inner h3 a, #basket .inner h3 a:link, #basket .inner h3 a:hover, #basket .inner h3 a:active {
-  display: block;
-  color: #515151;
-  left: -8px;
-  margin-bottom: -23px;
-  padding: 10px 0 8px 8px;
-  position: relative;
-  top: -11px;
-  width: 184px; }
-
-/* BASKET INNER TABLE */
-#basket .inner table {
-  border-spacing: 0;
-  float: left;
-  table-layout: fixed;
-  top: 6px;
-  position: relative;
-  margin-bottom: 15px;
-  width: 100%; }
-
-#basket .inner table tr td {
-  font-size: 1.1em;
-  padding: 1px 0; }
-
-#basket .inner table tr td a {
-  display: block;
-  padding: 3px 0;
-  width: 100%; }
-
-/* BASKET INNER TABLE AMOUNT */
-#basket .inner table tr .amount {
-  width: 20px; }
-
-#basket .inner table tr .amount a {
-  color: #727272; }
-
-#basket .inner table tr .amount a:hover, #basket .inner table tr:hover .amount a {
-  color: #515151; }
-
-/* BASKET INNER TABLE NAME */
-#basket .inner table tr .name {
-  overflow: hidden;
-  width: 130px; }
-
-#basket .inner table tr .name a {
-  color: #727272;
-  padding-left: 5px; }
-
-#basket .inner table tr .name a:hover, #basket .inner table tr:hover .name a {
-  color: #515151; }
-
-/* BASKET INNER TABLE DELETE */
-#basket .inner table tr .delete {
-  text-align: center;
-  padding-left: 5px;
-  width: 14px; }
-
-#basket .inner table tr .delete a {
-  color: #FFAAAA; }
-
-#basket .inner table tr .delete a:hover {
-  color: #FF0000; }
-
-/* BASKET FOOTER */
-#basket .footer {
-  background: url(../images/slices-h.png) repeat-x 0 -110px;
-  display: block;
-  height: 14px;
-  position: relative;
-  z-index: 1; }
-
-/* BASKET FOOTER BUTTON */
-#basket .footer .button {
-  margin-left: 9px;
-  position: absolute;
-  top: -27px;
-  width: 175px; }
-
-#basket .footer .borderright {
-  background: url(../images/image-sprite.png) no-repeat -25px -15px;
-  display: block;
-  height: 14px;
-  right: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
-
-#basket .footer .borderleft {
-  background: url(../images/image-sprite.png) no-repeat -25px 0;
-  display: block;
-  height: 14px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
+Backtrace:
+public/layouts/00-patterns/css/scss/basket.scss:135:in `opacity'
+public/layouts/00-patterns/css/scss/basket.scss:135
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:47:in `visit_root'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:7:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:7:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/root_node.rb:20:in `render'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/engine.rb:291:in `_render'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/engine.rb:238:in `render'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:319:in `update_stylesheet'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:181:in `update_stylesheets'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:175:in `each'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:175:in `update_stylesheets'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `each'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `update_stylesheets'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:252:in `watch'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:71:in `call'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:71:in `run_callback'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:54:in `callback_action'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:34:in `update'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:32:in `modified'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:31:in `each'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:31:in `modified'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:16:in `refresh'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:15:in `add_handler'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:14:in `each'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:14:in `add_handler'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/rubycocoa/fsevents.rb:107:in `call'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/rubycocoa/fsevents.rb:107:in `initialize'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `call'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `CFRunLoopRun'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `run'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/monitor.rb:24:in `run'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm.rb:17:in `monitor'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:245:in `watch'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin.rb:111:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin.rb:111:in `method_missing'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/exec.rb:408:in `watch_or_update'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/exec.rb:294:in `process_result'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/exec.rb:41:in `parse'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/exec.rb:21:in `parse!'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/sass:8
+/usr/bin/sass:19:in `load'
+/usr/bin/sass:19
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 135 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'\A         from line 135 of public/layouts/00-patterns/css/scss/basket.scss\A \A 130:       position: absolute;\A 131:       text-align: right;\A 132:       padding-bottom: 2px;\A 133:       top: 3px;\A 134:       width: 190px;\A 135:       @include opacity(0);\A 136:     }\A 137:     \A 138:     table {\A 139:       border-spacing: 0;\A 140:       float: left;"; }

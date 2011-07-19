@@ -3,7 +3,7 @@
 	<div class="header">
 		<div class="borderright"></div>
 			<ul class="navigation">
-				<li class="active"><a href="#" title="<%= _("Edit Order") %>"><span class="icon basket"></span></a></li>
+				<li class="active"><a href="#" title="<%= _("Order") %>"><span class="icon basket"></span></a></li>
 				<li><a href="#" title="<%= _("Templates") %>"><span class="icon list"></span></a></li>
 			</ul><!-- .navigation -->
 		<div class="borderleft"></div>
@@ -11,31 +11,32 @@
 	
 	<div class="inner">
 	
-		<h3><a href="#" title="<%= _("Edit Order") %>"><%= _("Order") %></a></h3>
+		<h3><%= _("Order") %></h3>
+		<a class="edit" href=""><%= _("edit") %></a>
 		
 		<div class="clear"></div>
 		
 		<table>
 			<tr>
-				<td class="amount"><a href="Anzahl" title="<%= _("Show") %>">1</a></td>
-				<td class="name"><a href="Item_Beschreibung" title="<%= _("Show") %>">Item_Beschreibung_Item</a></td>
+				<td class="amount"><a href="Anzahl">1</a></td>
+				<td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item Item_Beschreibung_Item</a></td>
 				<td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
 			</tr>
 			<tr>
-				<td class="amount"><a href="Anzahl" title="<%= _("Show in Basket") %>">123</a></td>
-				<td class="name"><a href="Item_Beschreibung" title="<%= _("Show in Basket") %>">Item_Beschreibung_Item</a></td>
+				<td class="amount"><a href="Anzahl">123</a></td>
+				<td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item</a></td>
 				<td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
 			</tr>
 			<tr>
-				<td class="amount"><a href="Anzahl" title="<%= _("Show in Basket") %>">123</a></td>
-				<td class="name"><a href="Item_Beschreibung" title="<%= _("Show in Basket") %>">Item_Beschreibung_Item</a></td>
-				<td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
-			</tr>
-			<tr>
-				<td class="amount"><a href="Anzahl" title="<%= _("Show in Basket") %>">123</a></td>
-				<td class="name"><a href="Item_Beschreibung" title="<%= _("Show in Basket") %>">Item_Beschreibung_Item</a></td>
-				<td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
-			</tr>
+                <td class="amount"><a href="Anzahl">123</a></td>
+                <td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item</a></td>
+                <td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
+            </tr>
+            <tr>
+                <td class="amount"><a href="Anzahl">123</a></td>
+                <td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item</a></td>
+                <td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
+            </tr>
 		</table>
 		
 		<div class="clear"></div>

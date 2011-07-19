@@ -869,182 +869,168 @@ hr {
   float: right;
   margin-right: 14px;
   width: 198px; }
+  #basket .header {
+    background: url(../images/slices-h.png) repeat-x 0 -97px;
+    display: block;
+    height: 12px;
+    position: relative; }
+    #basket .header .borderright {
+      background: url(../images/image-sprite.png) no-repeat -18px -14px;
+      display: block;
+      height: 12px;
+      right: 0;
+      position: absolute;
+      top: 0;
+      width: 6px; }
+    #basket .header .borderleft {
+      background: url(../images/image-sprite.png) no-repeat -25px -30px;
+      display: block;
+      height: 12px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 6px; }
+  #basket .navigation {
+    position: absolute;
+    left: 8px;
+    top: -20px; }
+    #basket .navigation li {
+      display: block;
+      float: left;
+      margin-right: 1px; }
+      #basket .navigation li a {
+        background: url(../images/image-sprite.png) no-repeat -75px -312px;
+        display: block;
+        height: 27px;
+        width: 26px; }
+        #basket .navigation li a .icon {
+          display: block;
+          height: 15px;
+          margin: 0 auto;
+          opacity: .6;
+          position: relative;
+          top: 3px;
+          width: 15px; }
+        #basket .navigation li a .icon.basket {
+          background: url(../images/image-sprite.png) no-repeat -156px -312px; }
+        #basket .navigation li a .icon.list {
+          background: url(../images/image-sprite.png) no-repeat -172px -312px; }
+      #basket .navigation li a:hover .icon {
+        opacity: 1; }
+    #basket .navigation li:hover a {
+      background: url(../images/image-sprite.png) no-repeat -102px -312px; }
+    #basket .navigation li.active a {
+      background: url(../images/image-sprite.png) no-repeat -129px -312px; }
+      #basket .navigation li.active a .icon {
+        opacity: 1; }
+    #basket .navigation li.active:hover a {
+      background: url(../images/image-sprite.png) no-repeat -129px -312px; }
+  #basket .inner {
+    background: #FFF;
+    border-left: 1px solid #c9c7c3;
+    border-right: 1px solid #c9c7c3;
+    display: block;
+    padding-bottom: 28px;
+    position: relative; }
+    #basket .inner h3 {
+      float: left;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding-left: 8px;
+      margin-bottom: 0; }
+      #basket .inner h3 a, #basket .inner h3 a:link, #basket .inner h3 a:hover, #basket .inner h3 a:active {
+        display: block;
+        color: #515151;
+        margin-bottom: -23px;
+        padding: 10px 0 8px 8px;
+        position: relative;
+        top: -11px;
+        width: 184px; }
+    #basket .inner .edit {
+      left: 0;
+      position: absolute;
+      text-align: right;
+      padding-bottom: 2px;
+      top: 3px;
+      width: 190px;
+      filter: alpha(opacity=0);
+      -moz-opacity: 0;
+      -khtml-opacity: 0;
+      opacity: 0; }
+    #basket .inner table {
+      border-spacing: 0;
+      float: left;
+      table-layout: fixed;
+      top: 6px;
+      position: relative;
+      margin-bottom: 15px;
+      width: 100%; }
+      #basket .inner table tr td {
+        font-size: 1.1em;
+        padding: 1px 0; }
+        #basket .inner table tr td a {
+          color: #717171;
+          display: block;
+          padding: 3px 0;
+          width: 100%; }
+        #basket .inner table tr td a:hover {
+          color: #515151; }
+      #basket .inner table tr td.amount {
+        letter-spacing: -1px;
+        padding-left: 10px;
+        width: 10px; }
+      #basket .inner table tr td.name {
+        overflow: hidden;
+        width: 90px; }
+      #basket .inner table tr td.delete {
+        width: 10px; }
+        #basket .inner table tr td.delete a {
+          color: #ffaaaa;
+          padding-bottom: 5px;
+          padding-left: 5px; }
+        #basket .inner table tr td.delete a:hover {
+          color: #dd2222; }
+      #basket .inner table tr:nth-child(odd) {
+        background: #f8f8f8; }
+      #basket .inner table tr:hover {
+        background: #ebebeb; }
+        #basket .inner table tr:hover a {
+          color: #515151; }
+        #basket .inner table tr:hover .delete a {
+          color: #dd2222; }
+  #basket .footer {
+    background: url(../images/slices-h.png) repeat-x 0 -110px;
+    display: block;
+    height: 14px;
+    position: relative;
+    z-index: 1; }
+    #basket .footer .button {
+      margin-left: 9px;
+      position: absolute;
+      top: -27px;
+      width: 175px; }
+    #basket .footer .borderright {
+      background: url(../images/image-sprite.png) no-repeat -25px -15px;
+      display: block;
+      height: 14px;
+      right: 0;
+      position: absolute;
+      top: 0;
+      width: 6px; }
+    #basket .footer .borderleft {
+      background: url(../images/image-sprite.png) no-repeat -25px 0;
+      display: block;
+      height: 14px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 6px; }
 
-#basket .header {
-  background: url(../images/slices-h.png) repeat-x 0 -97px;
-  display: block;
-  height: 12px;
-  position: relative; }
-
-#basket .header .borderright {
-  background: url(../images/image-sprite.png) no-repeat -18px -14px;
-  display: block;
-  height: 12px;
-  right: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
-
-#basket .header .borderleft {
-  background: url(../images/image-sprite.png) no-repeat -25px -30px;
-  display: block;
-  height: 12px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
-
-#basket .header .navigation {
-  position: absolute;
-  left: 8px;
-  top: -20px; }
-
-#basket .header .navigation li {
-  display: block;
-  float: left;
-  margin-right: 1px; }
-
-#basket .header .navigation li a .icon {
-  display: block;
-  height: 15px;
-  margin: 0 auto;
-  opacity: .6;
-  position: relative;
-  top: 3px;
-  width: 15px; }
-
-#basket .header .navigation li a:hover .icon, #basket .header .navigation .active a .icon {
+#basket:hover .edit {
+  filter: alpha(opacity=1);
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
   opacity: 1; }
-
-#basket .header .navigation li a .basket {
-  background: url(../images/image-sprite.png) no-repeat -156px -312px; }
-
-#basket .header .navigation li a .list {
-  background: url(../images/image-sprite.png) no-repeat -172px -312px; }
-
-#basket .header .navigation li a {
-  background: url(../images/image-sprite.png) no-repeat -75px -312px;
-  display: block;
-  height: 27px;
-  width: 26px; }
-
-#basket .header .navigation li:hover a {
-  background: url(../images/image-sprite.png) no-repeat -102px -312px; }
-
-#basket .header .navigation .active a, #basket .header .navigation .active:hover a {
-  background: url(../images/image-sprite.png) no-repeat -129px -312px; }
-
-/* BASKET INNER */
-#basket .inner {
-  background: #FFF;
-  border-left: 1px solid #c9c7c3;
-  border-right: 1px solid #c9c7c3;
-  display: block;
-  padding: 0 4px 28px 9px;
-  position: relative; }
-
-/* BASKET INNER h3 */
-#basket .inner h3 {
-  float: left;
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-bottom: 0; }
-
-#basket .inner h3 a, #basket .inner h3 a:link, #basket .inner h3 a:hover, #basket .inner h3 a:active {
-  display: block;
-  color: #515151;
-  left: -8px;
-  margin-bottom: -23px;
-  padding: 10px 0 8px 8px;
-  position: relative;
-  top: -11px;
-  width: 184px; }
-
-/* BASKET INNER TABLE */
-#basket .inner table {
-  border-spacing: 0;
-  float: left;
-  table-layout: fixed;
-  top: 6px;
-  position: relative;
-  margin-bottom: 15px;
-  width: 100%; }
-
-#basket .inner table tr td {
-  font-size: 1.1em;
-  padding: 1px 0; }
-
-#basket .inner table tr td a {
-  display: block;
-  padding: 3px 0;
-  width: 100%; }
-
-/* BASKET INNER TABLE AMOUNT */
-#basket .inner table tr .amount {
-  width: 20px; }
-
-#basket .inner table tr .amount a {
-  color: #727272; }
-
-#basket .inner table tr .amount a:hover, #basket .inner table tr:hover .amount a {
-  color: #515151; }
-
-/* BASKET INNER TABLE NAME */
-#basket .inner table tr .name {
-  overflow: hidden;
-  width: 130px; }
-
-#basket .inner table tr .name a {
-  color: #727272;
-  padding-left: 5px; }
-
-#basket .inner table tr .name a:hover, #basket .inner table tr:hover .name a {
-  color: #515151; }
-
-/* BASKET INNER TABLE DELETE */
-#basket .inner table tr .delete {
-  text-align: center;
-  padding-left: 5px;
-  width: 14px; }
-
-#basket .inner table tr .delete a {
-  color: #FFAAAA; }
-
-#basket .inner table tr .delete a:hover {
-  color: #FF0000; }
-
-/* BASKET FOOTER */
-#basket .footer {
-  background: url(../images/slices-h.png) repeat-x 0 -110px;
-  display: block;
-  height: 14px;
-  position: relative;
-  z-index: 1; }
-
-/* BASKET FOOTER BUTTON */
-#basket .footer .button {
-  margin-left: 9px;
-  position: absolute;
-  top: -27px;
-  width: 175px; }
-
-#basket .footer .borderright {
-  background: url(../images/image-sprite.png) no-repeat -25px -15px;
-  display: block;
-  height: 14px;
-  right: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
-
-#basket .footer .borderleft {
-  background: url(../images/image-sprite.png) no-repeat -25px 0;
-  display: block;
-  height: 14px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
 
 #models #categories {
   border-right: 1px solid #e3e3e3;
