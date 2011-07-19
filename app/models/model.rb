@@ -214,6 +214,10 @@ class Model < ActiveRecord::Base
   def image_thumb
     ( images.empty? ? nil : images.first.public_filename(:thumb) )
   end
+  
+  def image
+    ( images.empty? ? nil : images.first.public_filename() )
+  end
 
   def lines
     order_lines.submitted + contract_lines

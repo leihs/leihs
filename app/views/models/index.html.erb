@@ -45,7 +45,35 @@
 		<table id="modellist">
             <% @models.each do |m| %>
                 <tr class="item">
-                    <td class="image"><%= link_to image_tag("http://leihs.zhdk.ch/#{m.image_thumb}"), m %></td>
+                    <td class="image">
+                        <%= link_to image_tag("http://leihs.zhdk.ch/#{m.image_thumb}"), m %>
+                    </td><!-- .image -->
+                    <td class="imagehover">
+                      <div class="hover">
+                        <div class="header"><div class="borderleft"></div><div class="borderright"></div></div>
+                        <div class="inner">
+                            <%= link_to image_tag("http://leihs.zhdk.ch/#{m.image}") + content_tag(:span, _("view"), :class=>"topright"), m %>
+                            <% unless m.description.empty? %>
+                              <p class="description"><%= truncate(m.description, 120) %></p>
+                            <% end %>
+                            <% unless m.properties.empty? %>
+                                <table class="details">
+                                    <% m.properties.each_with_index do |p, i| %>
+                                        <% if i < 5 %>
+                                        <tr>
+                                            <td class="key"><%= p.key %></td>
+                                            <td class="value"><%= p.value %></td>
+                                        </tr>
+                                        <% end %>
+                                    <% end %>
+                                </table><!-- .details -->
+                            <% end %>
+                            <div class="borderleft"></div>
+                           <div class="borderright"></div>
+                        </div><!-- .inner -->
+                       <div class="footer"><div class="borderleft"></div><div class="borderright"></div></div>
+                      </div><!-- .hover -->
+                    </td>
                     <td class="name"><%= link_to m.name, m %></td>
                     <td class="manufacturer"><%= link_to m.manufacturer, m%></td></div>
                     <td class="availability">20/99<%#TODO Franco: add availability here (amount available / total amount)%></td>

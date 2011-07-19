@@ -67,7 +67,7 @@
       
       .image {
         height: 70px;
-        padding: 0 14px 0 10px;
+        padding: 0 16px 0 12px;
         position: relative;
         text-align: center;
         vertical-align: middle;
@@ -78,13 +78,22 @@
           max-height: 50px;
           max-width: 50px;
         }
+      }
+      
+      .imagehover {
+        display: inline-block;
+        height: 70px;
+        left: 0;
+        position: absolute;
+        width: 65px;
         
         .hover {
+          display: none;
           height: 250px;
-          left: 70px;
+          left: 78px;
           position: absolute;
-          top: -15px;
-          z-index: 1;
+          top: -50px;
+          z-index: 9999;
           
           .header {
             background: url(../images/slices-h.png) repeat-x 0 -94px;
@@ -115,6 +124,66 @@
             background: #FFF;
             padding: 9px 11px 11px 10px;
             position: relative;
+            width: 363px;
+            
+            a {
+              display: block;
+              height: 100%;
+              width: 100%;
+              
+              .topright {
+                position: absolute;
+                top: 10px;
+                right: 12px;
+              }
+            }
+            
+            img {
+              max-height: 150px;
+              width: auto;
+              max-width: 230px;
+              margin-bottom: 15px;
+            }
+            
+            .description {
+              font-size: 1.2em;
+              line-height: 1.5em;
+              margin-bottom: 12px;
+            }
+            
+            .details {
+              tr td {
+                color: #515151;
+                display: inline-block;
+                line-height: 1.5em;
+                padding: 8px 0;
+                position: relative;
+                top: 0;
+                vertical-align: top;
+              }
+              
+              tr:nth-child(odd)  {
+               background: $highlight-darkgrey;
+              }
+              
+              tr:nth-child(even)  {
+               background: $highlight-grey;
+              }
+              
+              .key {
+                color: $grey;
+                margin-right: 8px;
+                padding-left: 10px;
+                width: 105px;
+              }
+              
+              .value {
+                border-left: 1px solid #FFF;
+                padding-left: 10px;
+                padding-right: 10px;
+                width: 215px
+              }
+            }
             
             .borderleft {
               background: url(../images/slices-v.png) repeat-y 0px 0px;
@@ -163,6 +232,13 @@
         }
       }
       
+      .imagehover:hover {
+        
+        .hover {
+          display: inline-block;
+        }
+      }
+      
       .name {
         font-size: 1.2em;
         height: 70px;
@@ -189,6 +265,7 @@
       .add {
         width: 24px;
         padding-right: 16px;
+        padding-top: 1px;
         text-align: right;
         vertical-align: middle;
         
