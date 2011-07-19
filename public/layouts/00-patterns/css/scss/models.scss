@@ -68,6 +68,7 @@
       .image {
         height: 70px;
         padding: 0 14px 0 10px;
+        position: relative;
         text-align: center;
         vertical-align: middle;
         width: 50px;
@@ -76,6 +77,89 @@
         img {
           max-height: 50px;
           max-width: 50px;
+        }
+        
+        .hover {
+          height: 250px;
+          left: 70px;
+          position: absolute;
+          top: -15px;
+          z-index: 1;
+          
+          .header {
+            background: url(../images/slices-h.png) repeat-x 0 -94px;
+            height: 2px;
+            position: relative;
+            width: 100%;
+            
+            .borderleft {
+              background: url(../images/slices-v.png) repeat-y 0px 0px;
+              height: 100%;
+              left: -1px;
+              position: absolute;
+              top: 0;
+              width: 2px;
+            }
+            
+            .borderright {
+              background: url(../images/slices-v.png) repeat-y -3px 0;
+              height: 100%;
+              right: -4px;
+              position: absolute;
+              top: 0;
+              width: 5px;
+            }
+          }
+          
+          .inner {
+            background: #FFF;
+            padding: 9px 11px 11px 10px;
+            position: relative;
+            
+            .borderleft {
+              background: url(../images/slices-v.png) repeat-y 0px 0px;
+              height: 100%;
+              left: -2px;
+              position: absolute;
+              top: 0;
+              width: 2px;
+            }
+            
+            .borderright{
+              background: url(../images/slices-v.png) repeat-y -3px 0;
+              height: 100%;
+              right: -5px;
+              position: absolute;
+              top: 0;
+              width: 5px;
+            }
+          }
+          
+          .footer {
+            background: url(../images/slices-h.png) repeat-x 0 -87px;
+            height: 6px;
+            position: relative;
+            width: 100%;
+            
+            .borderleft {
+              background: url(../images/image-sprite.png) no-repeat -18px 0;
+              height: 6px;
+              left: -1px;
+              position: absolute;
+              top: 0;
+              width: 2px;
+            }
+            
+            .borderright{
+              background: url(../images/image-sprite.png) no-repeat -18px -7px;
+              height: 6px;
+              right: -4px;
+              position: absolute;
+              top: 0;
+              width: 5px;
+              z-index: 1;
+            }
+          }
         }
       }
       

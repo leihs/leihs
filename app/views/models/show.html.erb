@@ -9,23 +9,24 @@
         
         <% unless @model.images.empty? %>
             <section id="images">
-        		<div id="bigimages">
-        		    <% if @model.images.size > 1 %>
+        		<table id="bigimage"><tr><td>
+        			<img src="http://leihs.zhdk.ch<%= @model.images.first.public_filename %>" alt="<%= @model.name %>" />
+        		</td></tr></table><!-- #bigimage -->
+        		<table id="hiddenimages"><tr><td>
+                    <% if @model.images.size > 1 %>
                         <% @model.images.each_with_index do |i, index| %>
                             <% unless index.zero? %>
                              <img class="hidden" src="http://leihs.zhdk.ch<%= i.public_filename %>" alt="<%= @model.name %>"/></a>
                             <% end %>
                         <% end %>
                     <% end %>
-        			<img class="first" src="http://leihs.zhdk.ch<%= @model.images.first.public_filename %>" alt="<%= @model.name %>" />
-        		</div><!-- #image -->
+                </td></tr></table><!-- #hiddenimages -->
         		
         		<% if @model.images.size > 1 %>
                     <div id="smallimages">
                         <% @model.images.each_with_index do |i, index| %>
                             <% unless index.zero? %>
-                             <% #TODO Franco: is there any image name?? like front, back etc. ?? place it inside title attribute please %>
-                             <a href="http://leihs.zhdk.ch<%= i.public_filename() %>" title="<%= @model.name %>" target="_blank"><img src="http://leihs.zhdk.ch<%= i.public_filename(:thumb) %>" alt="<%= @model.name %>"/></a>
+                             <a href="http://leihs.zhdk.ch<%= i.public_filename() %>" target="_blank"><img src="http://leihs.zhdk.ch<%= i.public_filename(:thumb) %>" alt="<%= @model.name %>"/></a>
                             <% end %>
                         <% end %>
                     </div><!-- .images -->

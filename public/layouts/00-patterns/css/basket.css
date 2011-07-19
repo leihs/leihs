@@ -6,7 +6,7 @@ Syntax error: Undefined mixin 'opacity'.
 130:       position: absolute;
 131:       text-align: right;
 132:       padding-bottom: 2px;
-133:       top: 3px;
+133:       top: 2px;
 134:       width: 190px;
 135:       @include opacity(0);
 136:     }
@@ -110,4 +110,4 @@ public/layouts/00-patterns/css/scss/basket.scss:135
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 135 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'\A         from line 135 of public/layouts/00-patterns/css/scss/basket.scss\A \A 130:       position: absolute;\A 131:       text-align: right;\A 132:       padding-bottom: 2px;\A 133:       top: 3px;\A 134:       width: 190px;\A 135:       @include opacity(0);\A 136:     }\A 137:     \A 138:     table {\A 139:       border-spacing: 0;\A 140:       float: left;"; }
+  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 135 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'\A         from line 135 of public/layouts/00-patterns/css/scss/basket.scss\A \A 130:       position: absolute;\A 131:       text-align: right;\A 132:       padding-bottom: 2px;\A 133:       top: 2px;\A 134:       width: 190px;\A 135:       @include opacity(0);\A 136:     }\A 137:     \A 138:     table {\A 139:       border-spacing: 0;\A 140:       float: left;"; }

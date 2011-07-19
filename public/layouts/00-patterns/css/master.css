@@ -951,7 +951,7 @@ hr {
       position: absolute;
       text-align: right;
       padding-bottom: 2px;
-      top: 3px;
+      top: 2px;
       width: 190px;
       filter: alpha(opacity=0);
       -moz-opacity: 0;
@@ -1082,6 +1082,7 @@ hr {
     #models #modellist .item .image {
       height: 70px;
       padding: 0 14px 0 10px;
+      position: relative;
       text-align: center;
       vertical-align: middle;
       width: 50px; }
@@ -1093,6 +1094,69 @@ hr {
       #models #modellist .item .image img {
         max-height: 50px;
         max-width: 50px; }
+      #models #modellist .item .image .hover {
+        height: 250px;
+        left: 70px;
+        position: absolute;
+        top: -15px;
+        z-index: 1; }
+        #models #modellist .item .image .hover .header {
+          background: url(../images/slices-h.png) repeat-x 0 -94px;
+          height: 2px;
+          position: relative;
+          width: 100%; }
+          #models #modellist .item .image .hover .header .borderleft {
+            background: url(../images/slices-v.png) repeat-y 0px 0px;
+            height: 100%;
+            left: -1px;
+            position: absolute;
+            top: 0;
+            width: 2px; }
+          #models #modellist .item .image .hover .header .borderright {
+            background: url(../images/slices-v.png) repeat-y -3px 0;
+            height: 100%;
+            right: -4px;
+            position: absolute;
+            top: 0;
+            width: 5px; }
+        #models #modellist .item .image .hover .inner {
+          background: #FFF;
+          padding: 9px 11px 11px 10px;
+          position: relative; }
+          #models #modellist .item .image .hover .inner .borderleft {
+            background: url(../images/slices-v.png) repeat-y 0px 0px;
+            height: 100%;
+            left: -2px;
+            position: absolute;
+            top: 0;
+            width: 2px; }
+          #models #modellist .item .image .hover .inner .borderright {
+            background: url(../images/slices-v.png) repeat-y -3px 0;
+            height: 100%;
+            right: -5px;
+            position: absolute;
+            top: 0;
+            width: 5px; }
+        #models #modellist .item .image .hover .footer {
+          background: url(../images/slices-h.png) repeat-x 0 -87px;
+          height: 6px;
+          position: relative;
+          width: 100%; }
+          #models #modellist .item .image .hover .footer .borderleft {
+            background: url(../images/image-sprite.png) no-repeat -18px 0;
+            height: 6px;
+            left: -1px;
+            position: absolute;
+            top: 0;
+            width: 2px; }
+          #models #modellist .item .image .hover .footer .borderright {
+            background: url(../images/image-sprite.png) no-repeat -18px -7px;
+            height: 6px;
+            right: -4px;
+            position: absolute;
+            top: 0;
+            width: 5px;
+            z-index: 1; }
     #models #modellist .item .name {
       font-size: 1.2em;
       height: 70px;
@@ -1205,7 +1269,7 @@ hr {
       opacity: 0.9; }
   #topfilter .availability {
     float: right;
-    margin: 0 0 0 15px;
+    margin: 0 0 0 12px;
     padding: 1px 0 0 0;
     position: relative;
     top: 7px; }
@@ -1226,127 +1290,129 @@ hr {
     #topfilter .availability .checkarea.active {
       color: #515151; }
 
-#model h1, #model h3 {
-  width: 600px; }
-#model .button {
-  position: absolute;
-  right: 20px;
-  top: 10px; }
-#model #images {
-  position: relative; }
-  #model #images #smallimages {
-    float: left;
-    padding-top: 10px;
+#model {
+  padding-bottom: 0; }
+  #model h1, #model h3 {
+    width: 600px; }
+  #model .button {
     position: absolute;
-    top: 0;
-    width: 50px;
-    z-index: 999; }
-    #model #images #smallimages a {
-      cursor: -webkit-zoom-in;
-      cursor: -moz-zoom-in; }
-      #model #images #smallimages a img {
-        height: auto;
-        margin-bottom: 5px;
-        filter: alpha(opacity=0.5);
-        -moz-opacity: 0.5;
-        -khtml-opacity: 0.5;
-        opacity: 0.5;
-        width: 50px; }
-    #model #images #smallimages a:hover img {
-      filter: alpha(opacity=0.9);
-      -moz-opacity: 0.9;
-      -khtml-opacity: 0.9;
-      opacity: 0.9; }
-  #model #images #bigimages {
-    display: block;
-    margin: 0 auto;
-    padding-left: 65px;
-    padding-top: 10px;
-    position: relative;
-    width: 657px; }
-    #model #images #bigimages img {
-      margin: 0 auto;
-      max-height: 550px;
-      width: auto;
-      max-width: 595px; }
-    #model #images #bigimages .hidden {
-      display: none;
-      position: absolute; }
-#model .description {
-  color: #515151;
-  font-size: 1.3em;
-  line-height: 1.6em;
-  padding: 18px 0 20px 6px; }
-#model .details tr td {
-  color: #515151;
-  display: inline-block;
-  font-size: 1.1em;
-  line-height: 1.5em;
-  padding: 8px 0;
-  position: relative;
-  top: 0;
-  vertical-align: top; }
-#model .details tr:nth-child(odd) {
-  background: #f8f8f8; }
-#model .details tr:hover {
-  background: #ebebeb; }
-  #model .details tr:hover .key {
-    color: #717171; }
-#model .details .key {
-  color: #999;
-  margin-right: 8px;
-  padding-left: 12px;
-  width: 180px; }
-#model .details .value {
-  border-left: 1px solid #FFF;
-  padding-left: 12px;
-  padding-right: 12px;
-  width: 488px; }
-#model #suggested {
-  padding-top: 12px; }
-  #model #suggested h2 a, #model #suggested h2 a:link, #model #suggested h2 a:visited, #model #suggested h3 a, #model #suggested h3 a:link, #model #suggested h3 a:visited {
-    color: #717171; }
-  #model #suggested h2 a:hover, #model #suggested h2 a:active, #model #suggested h3 a:hover, #model #suggested h3 a:active {
-    color: #515151; }
-  #model #suggested a, #model #suggested a:link, #model #suggested a:visited {
-    color: #999999; }
-  #model #suggested a:hover, #model #suggested a:active {
-    color: #515151; }
-  #model #suggested .row {
-    padding-bottom: 28px;
-    padding-top: 8px; }
-    #model #suggested .row .cell {
+    right: 20px;
+    top: 10px; }
+  #model #images {
+    position: relative; }
+    #model #images #smallimages {
       float: left;
-      padding-left: 6px;
-      padding-right: 12px;
-      width: 165px; }
-      #model #suggested .row .cell h1, #model #suggested .row .cell h3 {
-        width: 147px; }
-      #model #suggested .row .cell a {
-        display: block; }
-      #model #suggested .row .cell img {
-        height: 80px;
-        filter: alpha(opacity=0.5);
-        -moz-opacity: 0.5;
-        -khtml-opacity: 0.5;
-        opacity: 0.5;
-        max-width: 160px;
-        margin-bottom: 10px; }
-      #model #suggested .row .cell h3 {
-        height: 36px;
-        padding: 0;
-        margin: 0;
-        overflow: hidden; }
-    #model #suggested .row .cell:nth-child(4n) {
-      padding-left: 0;
-      padding-right: 0; }
-    #model #suggested .row .cell:hover img {
-      filter: alpha(opacity=1);
-      -moz-opacity: 1;
-      -khtml-opacity: 1;
-      opacity: 1; }
-    #model #suggested .row .cell:hover a {
+      padding-top: 10px;
+      position: absolute;
+      top: 0;
+      width: 50px;
+      z-index: 999; }
+      #model #images #smallimages a {
+        cursor: -webkit-zoom-in;
+        cursor: -moz-zoom-in; }
+        #model #images #smallimages a img {
+          height: auto;
+          margin-bottom: 5px;
+          filter: alpha(opacity=0.5);
+          -moz-opacity: 0.5;
+          -khtml-opacity: 0.5;
+          opacity: 0.5;
+          width: 50px; }
+      #model #images #smallimages a:hover img {
+        filter: alpha(opacity=0.9);
+        -moz-opacity: 0.9;
+        -khtml-opacity: 0.9;
+        opacity: 0.9; }
+    #model #images table tr td {
+      height: 520px;
+      position: relative;
+      text-align: center;
+      vertical-align: middle;
+      width: 721px; }
+      #model #images table tr td img {
+        max-height: 520px;
+        width: auto;
+        max-width: 580px; }
+    #model #images #hiddenimages {
+      position: absolute;
+      top: 0; }
+      #model #images #hiddenimages img {
+        display: none; }
+  #model .description {
+    color: #515151;
+    font-size: 1.3em;
+    line-height: 1.6em;
+    padding: 18px 10px 20px 10px; }
+  #model .details tr td {
+    color: #515151;
+    display: inline-block;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    padding: 8px 0;
+    position: relative;
+    top: 0;
+    vertical-align: top; }
+  #model .details tr:nth-child(odd) {
+    background: #f8f8f8; }
+  #model .details tr:hover {
+    background: #ebebeb; }
+    #model .details tr:hover .key {
+      color: #717171; }
+  #model .details .key {
+    color: #999;
+    margin-right: 8px;
+    padding-left: 12px;
+    width: 180px; }
+  #model .details .value {
+    border-left: 1px solid #FFF;
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 488px; }
+  #model #suggested {
+    padding-top: 12px; }
+    #model #suggested h2 a, #model #suggested h2 a:link, #model #suggested h2 a:visited, #model #suggested h3 a, #model #suggested h3 a:link, #model #suggested h3 a:visited {
+      color: #717171; }
+    #model #suggested h2 a:hover, #model #suggested h2 a:active, #model #suggested h3 a:hover, #model #suggested h3 a:active {
       color: #515151; }
+    #model #suggested a, #model #suggested a:link, #model #suggested a:visited {
+      color: #999999; }
+    #model #suggested a:hover, #model #suggested a:active {
+      color: #515151; }
+    #model #suggested .row {
+      padding-bottom: 28px;
+      padding-top: 8px; }
+      #model #suggested .row .cell {
+        float: left;
+        padding-left: 6px;
+        padding-right: 12px;
+        width: 165px; }
+        #model #suggested .row .cell h1, #model #suggested .row .cell h3 {
+          width: 147px; }
+        #model #suggested .row .cell a {
+          display: block; }
+        #model #suggested .row .cell img {
+          height: 80px;
+          filter: alpha(opacity=0.5);
+          -moz-opacity: 0.5;
+          -khtml-opacity: 0.5;
+          opacity: 0.5;
+          max-width: 160px;
+          margin-bottom: 10px; }
+        #model #suggested .row .cell h3 {
+          height: 36px;
+          padding: 0;
+          margin: 0;
+          overflow: hidden; }
+      #model #suggested .row .cell:nth-child(4n) {
+        padding-left: 0;
+        padding-right: 0; }
+      #model #suggested .row .cell:hover img {
+        filter: alpha(opacity=1);
+        -moz-opacity: 1;
+        -khtml-opacity: 1;
+        opacity: 1; }
+      #model #suggested .row .cell:hover a {
+        color: #515151; }
 
 #user .userdata {
   padding-left: 1px; }

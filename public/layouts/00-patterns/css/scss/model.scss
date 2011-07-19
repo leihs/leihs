@@ -1,4 +1,6 @@
 #model {
+  padding-bottom: 0;
+
   h1, h3 {
     width: 600px;
   }
@@ -38,25 +40,30 @@
         }
       }
     }
-  
-    #bigimages {
-      display: block;
-      margin: 0 auto;
-      padding-left: 65px;
-      padding-top: 10px;
-      position: relative;
-      width: 657px;
-      
-      img {
-        margin: 0 auto;
-        max-height: 550px;
-        width: auto;
-        max-width: 595px;
+    
+    table {
+      tr td {
+        height: 520px;
+        position: relative;
+        text-align: center;
+        vertical-align: middle;
+        width: 721px;
+        
+        img {
+          max-height: 520px;
+          width: auto;
+          max-width: 580px;
+        }
+        
       }
-      
-      .hidden {
+    }
+    
+    #hiddenimages {
+      position: absolute;
+      top: 0;
+        
+      img {
         display: none;
-        position: absolute;
       }
     }
   }
@@ -65,7 +72,7 @@
     color: #515151;
     font-size: 1.3em;
     line-height: 1.6em;
-    padding: 18px 0 20px 6px;
+    padding: 18px 10px 20px 10px;
   }
   
   .details {
