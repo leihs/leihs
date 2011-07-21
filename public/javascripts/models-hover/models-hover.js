@@ -18,6 +18,10 @@ function ModelsHover() {
     this.hovering = "false";
     this.hoveringMode = "false";
     
+    this.checkPosition = function (_object) {
+        alert("CHECK");
+    }
+    
     this.setupBindings = function() {
         // MOUSEENTER
         $('#models #modellist .imagehover').bind('mouseenter', function(){
@@ -26,6 +30,7 @@ function ModelsHover() {
             if(ModelsHover.hoveringMode == "true") {
                 $(this).find(".hover").hide(0, function(){
                     if($(this).parent().attr("over") == "true") {
+                        ModelsHover.checkPosition($(this));
                         $(this).stop().show();
                     } else {
                         $(this).stop().hide();                    
@@ -35,6 +40,7 @@ function ModelsHover() {
                 $(this).find(".hover").delay(600).hide(0, function(){
                     ModelsHover.hoveringMode = "true";
                     if($(this).parent().attr("over") == "true") {
+                        ModelsHover.checkPosition($(this));
                         $(this).stop().show();
                     } else {
                         $(this).stop().hide();                    
