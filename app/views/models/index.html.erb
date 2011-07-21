@@ -55,7 +55,7 @@
                             <div class="header"><div class="borderleft"></div><div class="headerinner"></div><div class="borderright"></div></div>
                             <div class="inner">
                                 <%= link_to image_tag("http://leihs.zhdk.ch/#{m.image}") + content_tag(:span, _("view"), :class=>"topright"), m %>
-                                <% unless m.description.empty? %>
+                                <% unless m.description.blank? %>
                                   <p class="description"><%= truncate(m.description, 120) %></p>
                                 <% end %>
                                 <% unless m.properties.empty? %>
