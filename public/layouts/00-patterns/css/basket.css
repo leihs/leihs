@@ -1,23 +1,23 @@
 /*
 Syntax error: Undefined mixin 'opacity'.
-        on line 135 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'
-        from line 135 of public/layouts/00-patterns/css/scss/basket.scss
+        on line 142 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'
+        from line 142 of public/layouts/00-patterns/css/scss/basket.scss
 
-130:       position: absolute;
-131:       text-align: right;
-132:       padding-bottom: 2px;
-133:       top: 2px;
-134:       width: 190px;
-135:       @include opacity(0);
-136:     }
-137:     
-138:     table {
-139:       border-spacing: 0;
-140:       float: left;
+137:       position: absolute;
+138:       text-align: right;
+139:       padding-bottom: 2px;
+140:       top: 2px;
+141:       width: 190px;
+142:       @include opacity(0);
+143:     }
+144:     
+145:     table {
+146:       border-spacing: 0;
+147:       float: left;
 
 Backtrace:
-public/layouts/00-patterns/css/scss/basket.scss:135:in `opacity'
-public/layouts/00-patterns/css/scss/basket.scss:135
+public/layouts/00-patterns/css/scss/basket.scss:142:in `opacity'
+public/layouts/00-patterns/css/scss/basket.scss:142
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
@@ -110,4 +110,4 @@ public/layouts/00-patterns/css/scss/basket.scss:135
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 135 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'\A         from line 135 of public/layouts/00-patterns/css/scss/basket.scss\A \A 130:       position: absolute;\A 131:       text-align: right;\A 132:       padding-bottom: 2px;\A 133:       top: 2px;\A 134:       width: 190px;\A 135:       @include opacity(0);\A 136:     }\A 137:     \A 138:     table {\A 139:       border-spacing: 0;\A 140:       float: left;"; }
+  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 142 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'\A         from line 142 of public/layouts/00-patterns/css/scss/basket.scss\A \A 137:       position: absolute;\A 138:       text-align: right;\A 139:       padding-bottom: 2px;\A 140:       top: 2px;\A 141:       width: 190px;\A 142:       @include opacity(0);\A 143:     }\A 144:     \A 145:     table {\A 146:       border-spacing: 0;\A 147:       float: left;"; }

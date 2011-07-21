@@ -5,10 +5,17 @@
   width: 198px;
   
   .header {
-    background: url(../images/slices-h.png) repeat-x 0 -97px;
     display: block;
     height: 12px;
     position: relative;
+    
+    .headerinner {
+      background: url(../images/slices-h.png) repeat-x 0 -97px;
+      display: block;
+      height: 12px;
+      margin-left: 6px;
+      margin-right: 6px;
+    }
     
     .borderright {
       background: url(../images/image-sprite.png) no-repeat -18px -14px;
@@ -148,6 +155,7 @@
       
         td {
           font-size: 1.1em;
+          line-height: 1.4em;
           padding: 1px 0;
           
           a {
@@ -210,17 +218,24 @@
   }
   
   .footer {
-    background: url(../images/slices-h.png) repeat-x 0 -110px;
     display: block;
     height: 14px;
     position: relative;
     z-index: 1;
     
-    .button {
-      margin-left: 9px;
-      position: absolute;
-      top: -27px;
-      width: 175px;
+    .footerinner {
+      background: url(../images/slices-h.png) repeat-x 0 -110px;
+      display: block;
+      height: 14px;
+      margin-left: 6px;
+      margin-right: 6px;
+      
+      .button {
+        position: absolute;
+        top: -27px;
+        left: 9px;
+        width: 175px;
+      }
     }
     
     .borderright {

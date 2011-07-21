@@ -2,10 +2,12 @@
 	
 	<div class="header">
 		<div class="borderright"></div>
-			<ul class="navigation">
-				<li class="active"><a href="#" title="<%= _("Order") %>"><span class="icon basket"></span></a></li>
-				<li><a href="#" title="<%= _("Templates") %>"><span class="icon list"></span></a></li>
-			</ul><!-- .navigation -->
+		  <div class="headerinner">
+		    <ul class="navigation">
+                <li class="active"><a href="#" title="<%= _("Order") %>"><span class="icon basket"></span></a></li>
+                <li><a href="#" title="<%= _("Templates") %>"><span class="icon list"></span></a></li>
+            </ul><!-- .navigation -->
+          </div><!-- .headinner -->
 		<div class="borderleft"></div>
 	</div><!-- header -->
 	
@@ -44,9 +46,11 @@
 	</div><!-- inner -->
 	
 	<div class="footer">
-	    <div class="borderright"></div>
 	    <div class="borderleft"></div>
-	    <div class="button green"><a href="#" title="<%= _("Submit") %>"><%= _("Submit") %></a></div><!-- .button -->
+	    <div class="footerinner">
+	         <div class="button green"><a href="#" title="<%= _("Submit") %>"><%= _("Submit") %></a></div><!-- .button -->
+	    </div><!-- .footinner -->
+	    <div class="borderright"></div>
 	</div><!-- footer -->
 	
 </aside><!-- basket -->

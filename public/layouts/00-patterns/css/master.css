@@ -751,72 +751,71 @@ hr {
   #navigation .item.active:hover .leftend {
     background: url(../images/image-sprite.png) no-repeat -53px 0; }
 
-/* CONTENT */
 #content {
   display: block;
   float: left;
   left: 14px;
   position: relative;
   width: 755px; }
-
-/* CONTENT HEADER */
-#content .header {
-  background: url(../images/slices-h.png) repeat-x 0 -97px;
-  display: block;
-  height: 12px;
-  position: relative; }
-
-#content .header .borderright {
-  background: url(../images/image-sprite.png) no-repeat -18px -14px;
-  display: block;
-  height: 12px;
-  right: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
-
-#content .header .borderleft {
-  background: url(../images/image-sprite.png) no-repeat -18px -27px;
-  display: block;
-  height: 12px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
-
-/* CONTENT INNER */
-#content .inner {
-  background: #FFF;
-  border-left: 1px solid #c9c7c3;
-  border-right: 1px solid #c9c7c3;
-  display: block;
-  padding: 8px 16px 16px 16px;
-  position: relative; }
-
-/* CONTENT FOOTER */
-#content .footer {
-  background: url(../images/slices-h.png) repeat-x 0 -110px;
-  display: block;
-  height: 14px;
-  position: relative; }
-
-#content .footer .borderright {
-  background: url(../images/image-sprite.png) no-repeat -25px -15px;
-  display: block;
-  height: 14px;
-  right: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
-
-#content .footer .borderleft {
-  background: url(../images/image-sprite.png) no-repeat -25px 0;
-  display: block;
-  height: 14px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 6px; }
+  #content .header {
+    display: block;
+    height: 12px;
+    position: relative; }
+    #content .header .headerinner {
+      background: url(../images/slices-h.png) repeat-x 0 -97px;
+      display: block;
+      height: 12px;
+      margin-left: 6px;
+      margin-right: 6px; }
+    #content .header .borderright {
+      background: url(../images/image-sprite.png) no-repeat -18px -14px;
+      display: block;
+      height: 12px;
+      right: 0;
+      position: absolute;
+      top: 0;
+      width: 6px; }
+    #content .header .borderleft {
+      background: url(../images/image-sprite.png) no-repeat -18px -27px;
+      display: block;
+      height: 12px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 6px; }
+  #content .inner {
+    background: #FFF;
+    border-left: 1px solid #c9c7c3;
+    border-right: 1px solid #c9c7c3;
+    display: block;
+    padding: 8px 16px 16px 16px;
+    position: relative; }
+  #content .footer {
+    display: block;
+    height: 14px;
+    position: relative; }
+    #content .footer .footerinner {
+      background: url(../images/slices-h.png) repeat-x 0 -110px;
+      display: block;
+      height: 14px;
+      margin-left: 6px;
+      margin-right: 6px; }
+    #content .footer .borderright {
+      background: url(../images/image-sprite.png) no-repeat -25px -15px;
+      display: block;
+      height: 14px;
+      right: 0;
+      position: absolute;
+      top: 0;
+      width: 6px; }
+    #content .footer .borderleft {
+      background: url(../images/image-sprite.png) no-repeat -25px 0;
+      display: block;
+      height: 14px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 6px; }
 
 #start .subtitle .pools h2 a, #start .subtitle .pools h2 a:link, #start .subtitle .pools h2 a:visited, #start .subtitle .pools h3 a, #start .subtitle .pools h3 a:link, #start .subtitle .pools h3 a:visited {
   color: #717171; }
@@ -870,10 +869,15 @@ hr {
   margin-right: 14px;
   width: 198px; }
   #basket .header {
-    background: url(../images/slices-h.png) repeat-x 0 -97px;
     display: block;
     height: 12px;
     position: relative; }
+    #basket .header .headerinner {
+      background: url(../images/slices-h.png) repeat-x 0 -97px;
+      display: block;
+      height: 12px;
+      margin-left: 6px;
+      margin-right: 6px; }
     #basket .header .borderright {
       background: url(../images/image-sprite.png) no-repeat -18px -14px;
       display: block;
@@ -967,6 +971,7 @@ hr {
       width: 100%; }
       #basket .inner table tr td {
         font-size: 1.1em;
+        line-height: 1.4em;
         padding: 1px 0; }
         #basket .inner table tr td a {
           color: #717171;
@@ -999,16 +1004,21 @@ hr {
         #basket .inner table tr:hover .delete a {
           color: #dd2222; }
   #basket .footer {
-    background: url(../images/slices-h.png) repeat-x 0 -110px;
     display: block;
     height: 14px;
     position: relative;
     z-index: 1; }
-    #basket .footer .button {
-      margin-left: 9px;
-      position: absolute;
-      top: -27px;
-      width: 175px; }
+    #basket .footer .footerinner {
+      background: url(../images/slices-h.png) repeat-x 0 -110px;
+      display: block;
+      height: 14px;
+      margin-left: 6px;
+      margin-right: 6px; }
+      #basket .footer .footerinner .button {
+        position: absolute;
+        top: -27px;
+        left: 9px;
+        width: 175px; }
     #basket .footer .borderright {
       background: url(../images/image-sprite.png) no-repeat -25px -15px;
       display: block;
@@ -1060,23 +1070,28 @@ hr {
   #models #categories li:hover h2 a {
     color: #515151; }
   #models #categories ul {
-    padding-bottom: 14px; }
+    padding-bottom: 16px; }
     #models #categories ul a {
       display: block;
-      line-height: 1.6em;
+      font-size: 1.1em;
+      line-height: 1.4em;
       padding-top: 3px;
       padding-bottom: 3px; }
 #models #modellist {
   border-left: 1px solid #e3e3e3;
+  display: block;
   float: right;
-  margin-right: -23px;
   top: 17px;
+  margin-right: -16px;
+  margin-left: -12px;
   position: relative;
-  right: 7px;
-  width: 569px; }
+  width: 568px; }
   #models #modellist .item {
     border-bottom: 1px solid #e3e3e3;
-    height: 70px; }
+    margin-bottom: 1px;
+    height: 70px;
+    position: relative;
+    width: 100%; }
     #models #modellist .item td {
       padding-right: 12px; }
     #models #modellist .item .image {
@@ -1095,42 +1110,58 @@ hr {
         max-height: 50px;
         max-width: 50px; }
     #models #modellist .item .imagehover {
+      background: transparent;
+      border: none;
       display: inline-block;
       height: 70px;
       left: 0;
       position: absolute;
       width: 65px; }
+      #models #modellist .item .imagehover .anchor {
+        display: block;
+        height: 100%;
+        width: 100%; }
       #models #modellist .item .imagehover .hover {
         display: none;
         height: 250px;
-        left: 78px;
+        left: 70px;
         position: absolute;
         top: -50px;
+        width: 400px;
         z-index: 9999; }
         #models #modellist .item .imagehover .hover .header {
-          background: url(../images/slices-h.png) repeat-x 0 -94px;
-          height: 2px;
-          position: relative;
-          width: 100%; }
-          #models #modellist .item .imagehover .hover .header .borderleft {
-            background: url(../images/slices-v.png) repeat-y 0px 0px;
-            height: 100%;
-            left: -1px;
-            position: absolute;
-            top: 0;
-            width: 2px; }
+          display: block;
+          height: 10px;
+          position: relative; }
+          #models #modellist .item .imagehover .hover .header .headerinner {
+            background: url(../images/slices-h.png) repeat-x 0 -196px;
+            display: block;
+            height: 10px;
+            margin-left: 10px;
+            margin-right: 10px; }
           #models #modellist .item .imagehover .hover .header .borderright {
-            background: url(../images/slices-v.png) repeat-y -3px 0;
-            height: 100%;
-            right: -4px;
+            background: url(../images/image-sprite.png) no-repeat -167px -328px;
+            display: block;
+            height: 10px;
+            right: 0;
             position: absolute;
             top: 0;
-            width: 5px; }
+            width: 10px; }
+          #models #modellist .item .imagehover .hover .header .borderleft {
+            background: url(../images/image-sprite.png) no-repeat -156px -328px;
+            display: block;
+            height: 10px;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 10px; }
         #models #modellist .item .imagehover .hover .inner {
           background: #FFF;
+          border: none;
+          margin: 0 auto;
           padding: 9px 11px 11px 10px;
           position: relative;
-          width: 363px; }
+          width: 369px; }
           #models #modellist .item .imagehover .hover .inner a {
             display: block;
             height: 100%;
@@ -1147,6 +1178,7 @@ hr {
           #models #modellist .item .imagehover .hover .inner .description {
             font-size: 1.2em;
             line-height: 1.5em;
+            margin-left: 3px;
             margin-bottom: 12px; }
           #models #modellist .item .imagehover .hover .inner .details tr td {
             color: #515151;
@@ -1164,53 +1196,73 @@ hr {
             color: #717171;
             margin-right: 8px;
             padding-left: 10px;
-            width: 105px; }
+            width: 109px; }
           #models #modellist .item .imagehover .hover .inner .details .value {
             border-left: 1px solid #FFF;
             padding-left: 10px;
             padding-right: 10px;
-            width: 215px; }
-          #models #modellist .item .imagehover .hover .inner .borderleft {
-            background: url(../images/slices-v.png) repeat-y 0px 0px;
-            height: 100%;
-            left: -2px;
-            position: absolute;
-            top: 0;
-            width: 2px; }
+            width: 226px; }
           #models #modellist .item .imagehover .hover .inner .borderright {
-            background: url(../images/slices-v.png) repeat-y -3px 0;
+            background: url(../images/slices-v.png) repeat-y -9px 0;
             height: 100%;
+            position: absolute;
+            top: 0;
             right: -5px;
+            width: 10px; }
+            #models #modellist .item .imagehover .hover .inner .borderright .arrow {
+              background: url(../images/image-sprite.png) no-repeat -21px -786px;
+              display: block;
+              height: 42px;
+              right: -14px;
+              position: absolute;
+              top: 54px;
+              width: 20px; }
+          #models #modellist .item .imagehover .hover .inner .borderleft {
+            background: url(../images/slices-v.png) repeat-y -20px 0;
+            height: 100%;
             position: absolute;
             top: 0;
-            width: 5px; }
+            left: -5px;
+            width: 10px; }
+            #models #modellist .item .imagehover .hover .inner .borderleft .arrow {
+              background: url(../images/image-sprite.png) no-repeat 0 -786px;
+              display: block;
+              height: 42px;
+              left: -14px;
+              position: absolute;
+              top: 54px;
+              width: 20px; }
         #models #modellist .item .imagehover .hover .footer {
-          background: url(../images/slices-h.png) repeat-x 0 -87px;
-          height: 6px;
-          position: relative;
-          width: 100%; }
-          #models #modellist .item .imagehover .hover .footer .borderleft {
-            background: url(../images/image-sprite.png) no-repeat -18px 0;
-            height: 6px;
-            left: -1px;
-            position: absolute;
-            top: 0;
-            width: 2px; }
+          display: block;
+          height: 14px;
+          position: relative; }
+          #models #modellist .item .imagehover .hover .footer .footerinner {
+            background: url(../images/slices-h.png) repeat-x 0 -207px;
+            display: block;
+            height: 10px;
+            margin-left: 10px;
+            margin-right: 10px; }
           #models #modellist .item .imagehover .hover .footer .borderright {
-            background: url(../images/image-sprite.png) no-repeat -18px -7px;
-            height: 6px;
-            right: -4px;
+            background: url(../images/image-sprite.png) no-repeat -189px -328px;
+            display: block;
+            height: 10px;
+            right: 0;
             position: absolute;
             top: 0;
-            width: 5px;
-            z-index: 1; }
-    #models #modellist .item .imagehover:hover .hover {
-      display: inline-block; }
+            width: 10px; }
+          #models #modellist .item .imagehover .hover .footer .borderleft {
+            background: url(../images/image-sprite.png) no-repeat -178px -328px;
+            display: block;
+            height: 10px;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 10px; }
     #models #modellist .item .name {
       font-size: 1.2em;
       height: 70px;
       vertical-align: middle;
-      width: 240px; }
+      width: 250px; }
       #models #modellist .item .name a, #models #modellist .item .name a:link, #models #modellist .item .name a:visited, #models #modellist .item .name a:hover, #models #modellist .item .name a:active {
         color: #515151;
         display: block;
@@ -1219,7 +1271,7 @@ hr {
     #models #modellist .item .manufacturer {
       font-size: 1.2em;
       vertical-align: middle;
-      width: 135px; }
+      width: 115px; }
       #models #modellist .item .manufacturer a, #models #modellist .item .manufacturer a:link, #models #modellist .item .manufacturer a:visited, #models #modellist .item .manufacturer a:hover, #models #modellist .item .manufacturer a:active {
         color: #515151;
         display: block;
