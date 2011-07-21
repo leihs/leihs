@@ -1,0 +1,1676 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Module: Factory</title>
+
+  <link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+  <script src="./js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="module">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="./lib/factory_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/factory.rb">lib/factory.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-c-create_authentication_system-21">::create_authentication_system!</a></li>
+          
+          <li><a href="#method-c-create_building-21">::create_building!</a></li>
+          
+          <li><a href="#method-c-create_category">::create_category</a></li>
+          
+          <li><a href="#method-c-create_contract">::create_contract</a></li>
+          
+          <li><a href="#method-c-create_contract_line">::create_contract_line</a></li>
+          
+          <li><a href="#method-c-create_dataset_simple">::create_dataset_simple</a></li>
+          
+          <li><a href="#method-c-create_db_auth">::create_db_auth</a></li>
+          
+          <li><a href="#method-c-create_default_authentication_system">::create_default_authentication_system</a></li>
+          
+          <li><a href="#method-c-create_default_authentication_systems">::create_default_authentication_systems</a></li>
+          
+          <li><a href="#method-c-create_default_building">::create_default_building</a></li>
+          
+          <li><a href="#method-c-create_default_language">::create_default_language</a></li>
+          
+          <li><a href="#method-c-create_default_languages">::create_default_languages</a></li>
+          
+          <li><a href="#method-c-create_default_roles">::create_default_roles</a></li>
+          
+          <li><a href="#method-c-create_inventory_pool">::create_inventory_pool</a></li>
+          
+          <li><a href="#method-c-create_inventory_pool_default_workdays">::create_inventory_pool_default_workdays</a></li>
+          
+          <li><a href="#method-c-create_item">::create_item</a></li>
+          
+          <li><a href="#method-c-create_language-21">::create_language!</a></li>
+          
+          <li><a href="#method-c-create_location">::create_location</a></li>
+          
+          <li><a href="#method-c-create_minimal_setup">::create_minimal_setup</a></li>
+          
+          <li><a href="#method-c-create_model">::create_model</a></li>
+          
+          <li><a href="#method-c-create_order">::create_order</a></li>
+          
+          <li><a href="#method-c-create_order_line">::create_order_line</a></li>
+          
+          <li><a href="#method-c-create_super_user">::create_super_user</a></li>
+          
+          <li><a href="#method-c-create_user">::create_user</a></li>
+          
+          <li><a href="#method-c-create_zhdk_building">::create_zhdk_building</a></li>
+          
+          <li><a href="#method-c-define_role">::define_role</a></li>
+          
+          <li><a href="#method-c-generate_new_unique_inventory_code">::generate_new_unique_inventory_code</a></li>
+          
+          <li><a href="#method-c-parsedate">::parsedate</a></li>
+          
+          <li><a href="#method-c-random_future_date">::random_future_date</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="./Backend.html">Backend</a></li>
+        
+          <li><a href="./Backend/AcknowledgeController.html">Backend::AcknowledgeController</a></li>
+        
+          <li><a href="./Backend/AcknowledgeHelper.html">Backend::AcknowledgeHelper</a></li>
+        
+          <li><a href="./Backend/AvailabilityController.html">Backend::AvailabilityController</a></li>
+        
+          <li><a href="./Backend/AvailabilityHelper.html">Backend::AvailabilityHelper</a></li>
+        
+          <li><a href="./Backend/BackendController.html">Backend::BackendController</a></li>
+        
+          <li><a href="./Backend/BackendHelper.html">Backend::BackendHelper</a></li>
+        
+          <li><a href="./Backend/BarcodesController.html">Backend::BarcodesController</a></li>
+        
+          <li><a href="./Backend/CategoriesController.html">Backend::CategoriesController</a></li>
+        
+          <li><a href="./Backend/CategoriesHelper.html">Backend::CategoriesHelper</a></li>
+        
+          <li><a href="./Backend/ContractsController.html">Backend::ContractsController</a></li>
+        
+          <li><a href="./Backend/GroupsController.html">Backend::GroupsController</a></li>
+        
+          <li><a href="./Backend/HandOverController.html">Backend::HandOverController</a></li>
+        
+          <li><a href="./Backend/HandOverHelper.html">Backend::HandOverHelper</a></li>
+        
+          <li><a href="./Backend/InventoryImport.html">Backend::InventoryImport</a></li>
+        
+          <li><a href="./Backend/InventoryImport/ImporterController.html">Backend::InventoryImport::ImporterController</a></li>
+        
+          <li><a href="./Backend/InventoryPoolsController.html">Backend::InventoryPoolsController</a></li>
+        
+          <li><a href="./Backend/ItemsController.html">Backend::ItemsController</a></li>
+        
+          <li><a href="./Backend/ItemsHelper.html">Backend::ItemsHelper</a></li>
+        
+          <li><a href="./Backend/LocationsController.html">Backend::LocationsController</a></li>
+        
+          <li><a href="./Backend/MailsController.html">Backend::MailsController</a></li>
+        
+          <li><a href="./Backend/MailsHelper.html">Backend::MailsHelper</a></li>
+        
+          <li><a href="./Backend/ModelsController.html">Backend::ModelsController</a></li>
+        
+          <li><a href="./Backend/ModelsHelper.html">Backend::ModelsHelper</a></li>
+        
+          <li><a href="./Backend/OptionsController.html">Backend::OptionsController</a></li>
+        
+          <li><a href="./Backend/OrdersController.html">Backend::OrdersController</a></li>
+        
+          <li><a href="./Backend/TakeBackController.html">Backend::TakeBackController</a></li>
+        
+          <li><a href="./Backend/TemplatesController.html">Backend::TemplatesController</a></li>
+        
+          <li><a href="./Backend/UsersController.html">Backend::UsersController</a></li>
+        
+          <li><a href="./Backend/UsersHelper.html">Backend::UsersHelper</a></li>
+        
+          <li><a href="./Backend/WorkdaysController.html">Backend::WorkdaysController</a></li>
+        
+          <li><a href="./Availability.html">Availability</a></li>
+        
+          <li><a href="./Availability/Change.html">Availability::Change</a></li>
+        
+          <li><a href="./Availability/Changes.html">Availability::Changes</a></li>
+        
+          <li><a href="./Availability/DocumentLine.html">Availability::DocumentLine</a></li>
+        
+          <li><a href="./Availability/Group.html">Availability::Group</a></li>
+        
+          <li><a href="./Availability/InventoryPool.html">Availability::InventoryPool</a></li>
+        
+          <li><a href="./Availability/Main.html">Availability::Main</a></li>
+        
+          <li><a href="./Availability/Model.html">Availability::Model</a></li>
+        
+          <li><a href="./Availability/Observer.html">Availability::Observer</a></li>
+        
+          <li><a href="./Availability/Quantity.html">Availability::Quantity</a></li>
+        
+          <li><a href="./Authenticator.html">Authenticator</a></li>
+        
+          <li><a href="./Authenticator/AuthenticatorController.html">Authenticator::AuthenticatorController</a></li>
+        
+          <li><a href="./Authenticator/DatabaseAuthenticationController.html">Authenticator::DatabaseAuthenticationController</a></li>
+        
+          <li><a href="./Authenticator/LdapAuthenticationController.html">Authenticator::LdapAuthenticationController</a></li>
+        
+          <li><a href="./Authenticator/ShibbolethAuthenticationController.html">Authenticator::ShibbolethAuthenticationController</a></li>
+        
+          <li><a href="./Authenticator/ZhdkController.html">Authenticator::ZhdkController</a></li>
+        
+          <li><a href="./Backup.html">Backup</a></li>
+        
+          <li><a href="./Backup/Order.html">Backup::Order</a></li>
+        
+          <li><a href="./Backup/OrderLine.html">Backup::OrderLine</a></li>
+        
+          <li><a href="./Mailer.html">Mailer</a></li>
+        
+          <li><a href="./Mailer/Order.html">Mailer::Order</a></li>
+        
+          <li><a href="./Mailer/User.html">Mailer::User</a></li>
+        
+          <li><a href="./RoleRequirementSystem.html">RoleRequirementSystem</a></li>
+        
+          <li><a href="./RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a></li>
+        
+          <li><a href="./RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a></li>
+        
+          <li><a href="./AccessRight.html">AccessRight</a></li>
+        
+          <li><a href="./Accessory.html">Accessory</a></li>
+        
+          <li><a href="./ApplicationController.html">ApplicationController</a></li>
+        
+          <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
+        
+          <li><a href="./Attachment.html">Attachment</a></li>
+        
+          <li><a href="./AuthenticatedSystem.html">AuthenticatedSystem</a></li>
+        
+          <li><a href="./AuthenticatedTestHelper.html">AuthenticatedTestHelper</a></li>
+        
+          <li><a href="./AuthenticationSystem.html">AuthenticationSystem</a></li>
+        
+          <li><a href="./Building.html">Building</a></li>
+        
+          <li><a href="./CategoriesController.html">CategoriesController</a></li>
+        
+          <li><a href="./Category.html">Category</a></li>
+        
+          <li><a href="./Contract.html">Contract</a></li>
+        
+          <li><a href="./ContractLine.html">ContractLine</a></li>
+        
+          <li><a href="./ContractsController.html">ContractsController</a></li>
+        
+          <li><a href="./DatabaseAuthentication.html">DatabaseAuthentication</a></li>
+        
+          <li><a href="./Document.html">Document</a></li>
+        
+          <li><a href="./DocumentLine.html">DocumentLine</a></li>
+        
+          <li><a href="./Event.html">Event</a></li>
+        
+          <li><a href="./Factory.html">Factory</a></li>
+        
+          <li><a href="./FrontendController.html">FrontendController</a></li>
+        
+          <li><a href="./FrontendHelper.html">FrontendHelper</a></li>
+        
+          <li><a href="./Group.html">Group</a></li>
+        
+          <li><a href="./Hijacker.html">Hijacker</a></li>
+        
+          <li><a href="./History.html">History</a></li>
+        
+          <li><a href="./Holiday.html">Holiday</a></li>
+        
+          <li><a href="./Image.html">Image</a></li>
+        
+          <li><a href="./Importer.html">Importer</a></li>
+        
+          <li><a href="./InventoryPool.html">InventoryPool</a></li>
+        
+          <li><a href="./Item.html">Item</a></li>
+        
+          <li><a href="./ItemLine.html">ItemLine</a></li>
+        
+          <li><a href="./Language.html">Language</a></li>
+        
+          <li><a href="./Location.html">Location</a></li>
+        
+          <li><a href="./LooksLike.html">LooksLike</a></li>
+        
+          <li><a href="./Model.html">Model</a></li>
+        
+          <li><a href="./ModelGroup.html">ModelGroup</a></li>
+        
+          <li><a href="./ModelGroupLink.html">ModelGroupLink</a></li>
+        
+          <li><a href="./ModelLink.html">ModelLink</a></li>
+        
+          <li><a href="./ModelsController.html">ModelsController</a></li>
+        
+          <li><a href="./Notification.html">Notification</a></li>
+        
+          <li><a href="./Option.html">Option</a></li>
+        
+          <li><a href="./OptionLine.html">OptionLine</a></li>
+        
+          <li><a href="./Order.html">Order</a></li>
+        
+          <li><a href="./OrderLine.html">OrderLine</a></li>
+        
+          <li><a href="./OrdersController.html">OrdersController</a></li>
+        
+          <li><a href="./Partition.html">Partition</a></li>
+        
+          <li><a href="./Property.html">Property</a></li>
+        
+          <li><a href="./QuickProfilingHelper.html">QuickProfilingHelper</a></li>
+        
+          <li><a href="./Role.html">Role</a></li>
+        
+          <li><a href="./RoleRequirementTestHelper.html">RoleRequirementTestHelper</a></li>
+        
+          <li><a href="./ScopedPartitions.html">ScopedPartitions</a></li>
+        
+          <li><a href="./SessionsController.html">SessionsController</a></li>
+        
+          <li><a href="./Supplier.html">Supplier</a></li>
+        
+          <li><a href="./Template.html">Template</a></li>
+        
+          <li><a href="./TemplatesController.html">TemplatesController</a></li>
+        
+          <li><a href="./User.html">User</a></li>
+        
+          <li><a href="./UsersController.html">UsersController</a></li>
+        
+          <li><a href="./Workday.html">Workday</a></li>
+        
+          <li><a href="./WorkdaysHelper.html">WorkdaysHelper</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="module">Factory</h1>
+
+    <div id="description" class="description">
+      
+<p>TODO: for some unknown reason find_or_create_by_ will be returning nil
+within this module. A lot could be improved/simplified here, if it actually
+worked.</p>
+
+    </div><!-- description -->
+
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="public-class-method-details" class="method-section section">
+        <h3 class="section-header">Public Class Methods</h3>
+
+      
+        <div id="create_authentication_system-21-method" class="method-detail ">
+          <a name="method-c-create_authentication_system-21"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_authentication_system!</span><span
+              class="method-args">(attributes)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="AuthenticationSystem.html">AuthenticationSystem</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_authentication_system-21-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_authentication_system!</span>(<span class="ruby-identifier">attributes</span>) <span class="ruby-comment"># needs a hash</span>
+  <span class="ruby-identifier">default_attributes</span> = {
+    <span class="ruby-value">:is_default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
+    <span class="ruby-value">:is_active</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>
+  }
+  <span class="ruby-constant">AuthenticationSystem</span>.<span class="ruby-identifier">create!</span> <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_authentication_system-21-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_authentication_system-21-method -->
+
+      
+        <div id="create_building-21-method" class="method-detail ">
+          <a name="method-c-create_building-21"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_building!</span><span
+              class="method-args">(attributes)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="Building.html">Building</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_building-21-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_building!</span>(<span class="ruby-identifier">attributes</span>) <span class="ruby-comment"># needs a hash</span>
+  <span class="ruby-constant">Building</span>.<span class="ruby-identifier">create!</span> <span class="ruby-identifier">attributes</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_building-21-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_building-21-method -->
+
+      
+        <div id="create_category-method" class="method-detail ">
+          <a name="method-c-create_category"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_category</span><span
+              class="method-args">(attributes = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="Category.html">Category</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_category-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 310</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_category</span>(<span class="ruby-identifier">attributes</span> = {})
+  <span class="ruby-identifier">default_attributes</span> = {
+    <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'category'</span>
+  }
+  <span class="ruby-identifier">t</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find_or_create_by_name</span> <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)
+  <span class="ruby-identifier">t</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_category-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_category-method -->
+
+      
+        <div id="create_contract-method" class="method-detail ">
+          <a name="method-c-create_contract"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_contract</span><span
+              class="method-args">(attributes = {}, options = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="Contract.html">Contract</a></p>
+
+<p>copied from <a href="Factory.html#method-c-create_order">create_order</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_contract-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 158</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_contract</span>(<span class="ruby-identifier">attributes</span> = {}, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">default_attributes</span> = {
+    <span class="ruby-value">:inventory_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">create_inventory_pool</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;ABC&quot;</span>)
+  }
+  <span class="ruby-identifier">c</span> = <span class="ruby-constant">Contract</span>.<span class="ruby-identifier">create</span> <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)
+  <span class="ruby-identifier">options</span>[<span class="ruby-value">:contract_lines</span>].<span class="ruby-identifier">times</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">model</span> = <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_model</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;model_#{i}&quot;</span> )
+      <span class="ruby-identifier">quantity</span> = <span class="ruby-identifier">rand</span>(<span class="ruby-value">3</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">quantity</span>.<span class="ruby-identifier">times</span> {
+        <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_item</span>(<span class="ruby-value">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>,
+                            <span class="ruby-value">:inventory_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">inventory_pool</span>)
+      }
+      <span class="ruby-identifier">d</span> = [ <span class="ruby-keyword">self</span>.<span class="ruby-identifier">random_future_date</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">random_future_date</span> ]
+      <span class="ruby-identifier">c</span>.<span class="ruby-identifier">add_line</span>(<span class="ruby-identifier">quantity</span>, <span class="ruby-identifier">model</span>, <span class="ruby-identifier">c</span>.<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">d</span>.<span class="ruby-identifier">min</span>, <span class="ruby-identifier">d</span>.<span class="ruby-identifier">max</span> )
+  } <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:contract_lines</span>]
+  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-identifier">c</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_contract-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_contract-method -->
+
+      
+        <div id="create_contract_line-method" class="method-detail ">
+          <a name="method-c-create_contract_line"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_contract_line</span><span
+              class="method-args">(options = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="ContractLine.html">ContractLine</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_contract_line-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 256</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_contract_line</span>(<span class="ruby-identifier">options</span> = {})
+    <span class="ruby-identifier">model</span> = <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_model</span> <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:model_name</span>]
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:start_date</span>]
+      <span class="ruby-identifier">start_date</span> = <span class="ruby-identifier">parsedate</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:start_date</span>])
+      <span class="ruby-identifier">end_date</span> = <span class="ruby-identifier">start_date</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>.<span class="ruby-identifier">days</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">d</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-value">2</span>.<span class="ruby-identifier">times</span> { <span class="ruby-identifier">d</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">rand</span>(<span class="ruby-value">2</span>)<span class="ruby-operator">+</span><span class="ruby-value">2008</span>, <span class="ruby-identifier">rand</span>(<span class="ruby-value">12</span>)<span class="ruby-operator">+</span><span class="ruby-value">1</span>, <span class="ruby-identifier">rand</span>(<span class="ruby-value">28</span>)<span class="ruby-operator">+</span><span class="ruby-value">1</span>) }
+      <span class="ruby-identifier">start_date</span> = <span class="ruby-identifier">d</span>.<span class="ruby-identifier">min</span>
+      <span class="ruby-identifier">end_date</span> = <span class="ruby-identifier">d</span>.<span class="ruby-identifier">max</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-identifier">ol</span> = <span class="ruby-constant">ContractLine</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:quantity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:quantity</span>],
+                          <span class="ruby-value">:model_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">to_i</span>,
+                          <span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">start_date</span>,
+                          <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">end_date</span>)
+    <span class="ruby-identifier">ol</span>              
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_contract_line-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_contract_line-method -->
+
+      
+        <div id="create_dataset_simple-method" class="method-detail ">
+          <a name="method-c-create_dataset_simple"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_dataset_simple</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Simple dataset with</p>
+<ul><li>
+<p>manager, customer, model and an item</p>
+</li></ul>
+            
+
+            
+            <div class="method-source-code" id="create_dataset_simple-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 328</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_dataset_simple</span>
+  
+  <span class="ruby-identifier">inventory_pool</span> = <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_inventory_pool_default_workdays</span>
+      
+  <span class="ruby-comment"># Create Manager</span>
+  <span class="ruby-identifier">user</span> = <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_user</span>( {<span class="ruby-value">:login</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'inv_man'</span>},
+                              {<span class="ruby-value">:role</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;manager&quot;</span>,
+                               <span class="ruby-value">:inventory_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">inventory_pool</span>})
+  <span class="ruby-comment"># Create Customer</span>
+  <span class="ruby-identifier">customer</span> = <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_user</span>( {<span class="ruby-value">:login</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'customer'</span>},
+                                  {<span class="ruby-value">:role</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;customer&quot;</span>,
+                                   <span class="ruby-value">:inventory_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">inventory_pool</span>})
+  <span class="ruby-comment"># Create Model and Item</span>
+  <span class="ruby-identifier">model</span> = <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_model</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'holey parachute'</span>)
+  <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_item</span>(<span class="ruby-value">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>, <span class="ruby-value">:inventory_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">inventory_pool</span>)
+  
+  [<span class="ruby-identifier">inventory_pool</span>, <span class="ruby-identifier">user</span>, <span class="ruby-identifier">customer</span>, <span class="ruby-identifier">model</span>]
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_dataset_simple-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_dataset_simple-method -->
+
+      
+        <div id="create_db_auth-method" class="method-detail ">
+          <a name="method-c-create_db_auth"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_db_auth</span><span
+              class="method-args">(attributes = {}, options = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="User.html">User</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_db_auth-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_db_auth</span>(<span class="ruby-identifier">attributes</span> = {}, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">default_attributes</span> = {
+    <span class="ruby-value">:login</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;jerome&quot;</span>,
+    <span class="ruby-value">:password</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;pass&quot;</span>
+  }
+  <span class="ruby-identifier">merged_attributes</span> = <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)
+  
+  <span class="ruby-identifier">password</span> = <span class="ruby-identifier">merged_attributes</span>[<span class="ruby-value">:password</span>]
+  <span class="ruby-identifier">u</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_login</span> <span class="ruby-identifier">merged_attributes</span>[<span class="ruby-value">:login</span>]
+  
+  <span class="ruby-identifier">d</span> = <span class="ruby-constant">DatabaseAuthentication</span>.<span class="ruby-identifier">find_by_login</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">login</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">d</span>
+    <span class="ruby-identifier">d</span>.<span class="ruby-identifier">password</span> = <span class="ruby-identifier">password</span>
+    <span class="ruby-identifier">d</span>.<span class="ruby-identifier">password_confirmation</span> = <span class="ruby-identifier">password</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">d</span> = <span class="ruby-constant">DatabaseAuthentication</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-value">:login</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">login</span>,
+                                       <span class="ruby-value">:password</span>              =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">password</span>,
+                                       <span class="ruby-value">:password_confirmation</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">password</span>)
+    <span class="ruby-identifier">d</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">u</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">d</span>.<span class="ruby-identifier">save!</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_db_auth-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_db_auth-method -->
+
+      
+        <div id="create_default_authentication_system-method" class="method-detail ">
+          <a name="method-c-create_default_authentication_system"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_default_authentication_system</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>default authentication systems</p>
+            
+
+            
+            <div class="method-source-code" id="create_default_authentication_system-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 386</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_default_authentication_system</span>
+  <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_authentication_system!</span> <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Database Authentication&quot;</span>,
+                                        <span class="ruby-value">:class_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;DatabaseAuthentication&quot;</span>,
+                                        <span class="ruby-value">:is_active</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+                                        <span class="ruby-value">:is_default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_default_authentication_system-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_default_authentication_system-method -->
+
+      
+        <div id="create_default_authentication_systems-method" class="method-detail ">
+          <a name="method-c-create_default_authentication_systems"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_default_authentication_systems</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Authentication systems supported by default</p>
+            
+
+            
+            <div class="method-source-code" id="create_default_authentication_systems-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 374</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_default_authentication_systems</span>
+  <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_default_authentication_system</span>
+  <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_authentication_system!</span> <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;LDAP Authentication&quot;</span>,
+                                        <span class="ruby-value">:class_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;LdapAuthentication&quot;</span>
+
+  <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_authentication_system!</span> <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;ZHDK Authentication&quot;</span>,
+                                        <span class="ruby-value">:class_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Zhdk&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_default_authentication_systems-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_default_authentication_systems-method -->
+
+      
+        <div id="create_default_building-method" class="method-detail ">
+          <a name="method-c-create_default_building"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_default_building</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>default buildings</p>
+            
+
+            
+            <div class="method-source-code" id="create_default_building-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 424</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_default_building</span>
+  <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_building!</span> <span class="ruby-value">:code</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'ZZZ'</span>, <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Great Pyramid of Giza'</span>
+      <span class="ruby-keyword">end</span></pre>
+            </div><!-- create_default_building-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_default_building-method -->
+
+      
+        <div id="create_default_language-method" class="method-detail ">
+          <a name="method-c-create_default_language"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_default_language</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>default language</p>
+            
+
+            
+            <div class="method-source-code" id="create_default_language-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 360</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_default_language</span>
+  <span class="ruby-identifier">lang</span> = <span class="ruby-constant">Language</span>.<span class="ruby-identifier">find_by_name</span> <span class="ruby-string">'English'</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">lang</span>.<span class="ruby-identifier">blank?</span>
+    <span class="ruby-identifier">lang</span> = <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_language!</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'English'</span>,
+                                    <span class="ruby-value">:locale_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'en_US'</span>,
+                                    <span class="ruby-value">:default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>)
+    <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">change_column_default</span> <span class="ruby-value">:users</span>, <span class="ruby-value">:language_id</span>, <span class="ruby-identifier">lang</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">lang</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_default_language-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_default_language-method -->
+
+      
+        <div id="create_default_languages-method" class="method-detail ">
+          <a name="method-c-create_default_languages"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_default_languages</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Languages shipped by default</p>
+            
+
+            
+            <div class="method-source-code" id="create_default_languages-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 350</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_default_languages</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_default_language</span>
+  [[<span class="ruby-string">'Deutsch'</span>, <span class="ruby-string">'de_CH'</span>], [<span class="ruby-string">'Castellano'</span>,<span class="ruby-string">'es'</span>], [<span class="ruby-string">'Schwizertüütsch'</span>,<span class="ruby-string">'gsw_CH'</span>]].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">lang</span><span class="ruby-operator">|</span>
+    <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_language!</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lang</span>[<span class="ruby-value">0</span>], <span class="ruby-value">:locale_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">lang</span>[<span class="ruby-value">1</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_default_languages-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_default_languages-method -->
+
+      
+        <div id="create_default_roles-method" class="method-detail ">
+          <a name="method-c-create_default_roles"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_default_roles</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>create default roles</p>
+            
+
+            
+            <div class="method-source-code" id="create_default_roles-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 396</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_default_roles</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find_by_name</span>( <span class="ruby-string">'admin'</span>)
+    <span class="ruby-identifier">r_a</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">create!</span>( <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'admin'</span>)
+    
+    <span class="ruby-identifier">r_m</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">create!</span>( <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'manager'</span>)
+    <span class="ruby-identifier">r_m</span>.<span class="ruby-identifier">move_to_child_of</span> <span class="ruby-identifier">r_a</span>
+
+    <span class="ruby-identifier">r_c</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">create!</span>( <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'customer'</span>)
+    <span class="ruby-identifier">r_c</span>.<span class="ruby-identifier">move_to_child_of</span> <span class="ruby-identifier">r_m</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_default_roles-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_default_roles-method -->
+
+      
+        <div id="create_inventory_pool-method" class="method-detail ">
+          <a name="method-c-create_inventory_pool"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_inventory_pool</span><span
+              class="method-args">(attributes = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="InventoryPool.html">InventoryPool</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_inventory_pool-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 279</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_inventory_pool</span>(<span class="ruby-identifier">attributes</span> = {})
+  <span class="ruby-identifier">default_attributes</span> = {
+    <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;ABC&quot;</span> 
+  }
+  <span class="ruby-identifier">ip</span> = <span class="ruby-constant">InventoryPool</span>.<span class="ruby-identifier">find_by_name</span> <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)[<span class="ruby-value">:name</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ip</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">ip</span> = <span class="ruby-constant">InventoryPool</span>.<span class="ruby-identifier">create</span> <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)
+    <span class="ruby-identifier">w</span> = <span class="ruby-identifier">ip</span>.<span class="ruby-identifier">workday</span>
+    <span class="ruby-identifier">w</span>.<span class="ruby-identifier">sunday</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-identifier">w</span>.<span class="ruby-identifier">saturday</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-identifier">w</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">ip</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_inventory_pool-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_inventory_pool-method -->
+
+      
+        <div id="create_inventory_pool_default_workdays-method" class="method-detail ">
+          <a name="method-c-create_inventory_pool_default_workdays"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_inventory_pool_default_workdays</span><span
+              class="method-args">(attributes = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="InventoryPool.html">InventoryPool</a> workdays</p>
+            
+
+            
+            <div class="method-source-code" id="create_inventory_pool_default_workdays-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 297</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_inventory_pool_default_workdays</span>(<span class="ruby-identifier">attributes</span> = {})
+  <span class="ruby-identifier">default_attributes</span> = {
+    <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;ABC&quot;</span> 
+  }
+  <span class="ruby-identifier">ip</span> = <span class="ruby-constant">InventoryPool</span>.<span class="ruby-identifier">find_or_create_by_name</span>(
+           <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)[<span class="ruby-value">:name</span>] )
+  <span class="ruby-identifier">ip</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_inventory_pool_default_workdays-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_inventory_pool_default_workdays-method -->
+
+      
+        <div id="create_item-method" class="method-detail ">
+          <a name="method-c-create_item"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_item</span><span
+              class="method-args">(attributes = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="Item.html">Item</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_item-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 208</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_item</span>(<span class="ruby-identifier">attributes</span> = {})
+  <span class="ruby-identifier">default_attributes</span> = {
+    <span class="ruby-value">:inventory_code</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">generate_new_unique_inventory_code</span>,
+    <span class="ruby-value">:is_borrowable</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+  }
+  <span class="ruby-identifier">i</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">create</span> <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)
+  <span class="ruby-identifier">i</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_item-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_item-method -->
+
+      
+        <div id="create_language-21-method" class="method-detail ">
+          <a name="method-c-create_language-21"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_language!</span><span
+              class="method-args">(attributes)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="Language.html">Language</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_language-21-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_language!</span>(<span class="ruby-identifier">attributes</span>) <span class="ruby-comment"># needs a hash</span>
+  <span class="ruby-identifier">default_attributes</span> = {
+    <span class="ruby-value">:default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
+    <span class="ruby-value">:active</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+  }
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">Language</span>.<span class="ruby-identifier">find_by_name</span>( <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:name</span>])
+    <span class="ruby-constant">Language</span>.<span class="ruby-identifier">create!</span> <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_language-21-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_language-21-method -->
+
+      
+        <div id="create_location-method" class="method-detail ">
+          <a name="method-c-create_location"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_location</span><span
+              class="method-args">(attributes)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="Location.html">Location</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_location-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_location</span>(<span class="ruby-identifier">attributes</span>) <span class="ruby-comment"># needs a hash</span>
+  <span class="ruby-identifier">b</span> = <span class="ruby-constant">Building</span>.<span class="ruby-identifier">create!</span> <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:building</span>]
+  <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">delete</span> <span class="ruby-value">:building</span>
+  <span class="ruby-identifier">l</span> = <span class="ruby-constant">Location</span>.<span class="ruby-identifier">create!</span> <span class="ruby-identifier">attributes</span>
+  <span class="ruby-identifier">l</span>.<span class="ruby-identifier">building</span> = <span class="ruby-identifier">b</span>
+  <span class="ruby-identifier">l</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-identifier">l</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_location-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_location-method -->
+
+      
+        <div id="create_minimal_setup-method" class="method-detail ">
+          <a name="method-c-create_minimal_setup"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_minimal_setup</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="create_minimal_setup-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 492</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_minimal_setup</span>
+  <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_default_languages</span>
+  <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_default_authentication_systems</span>
+  <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_default_roles</span>
+  <span class="ruby-identifier">superuser</span> = <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_super_user</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;The administrator %{a} has been created &quot;</span>) <span class="ruby-operator">%</span> { <span class="ruby-value">:a</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">superuser</span>.<span class="ruby-identifier">login</span> }
+  <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_default_building</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_minimal_setup-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_minimal_setup-method -->
+
+      
+        <div id="create_model-method" class="method-detail ">
+          <a name="method-c-create_model"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_model</span><span
+              class="method-args">(attributes = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="Model.html">Model</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_model-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 180</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_model</span>(<span class="ruby-identifier">attributes</span> = {})
+  <span class="ruby-identifier">default_attributes</span> = {
+    <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'model_1'</span>
+  }
+  <span class="ruby-identifier">t</span> = <span class="ruby-constant">Model</span>.<span class="ruby-identifier">find_or_create_by_name</span> <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)
+  <span class="ruby-identifier">t</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-identifier">t</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_model-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_model-method -->
+
+      
+        <div id="create_order-method" class="method-detail ">
+          <a name="method-c-create_order"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_order</span><span
+              class="method-args">(attributes = {}, options = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="Order.html">Order</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_order-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_order</span>(<span class="ruby-identifier">attributes</span> = {}, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">default_attributes</span> = {
+    <span class="ruby-value">:inventory_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">create_inventory_pool</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;ABC&quot;</span>)
+  }
+  <span class="ruby-identifier">o</span> = <span class="ruby-constant">Order</span>.<span class="ruby-identifier">create</span> <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)
+  <span class="ruby-identifier">options</span>[<span class="ruby-value">:order_lines</span>].<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">model</span> = <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_model</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;model_#{i}&quot;</span> )
+      <span class="ruby-identifier">quantity</span> = <span class="ruby-identifier">rand</span>(<span class="ruby-value">3</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">quantity</span>.<span class="ruby-identifier">times</span> {
+          <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_item</span>( <span class="ruby-value">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>,
+                               <span class="ruby-value">:inventory_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">inventory_pool</span> )
+      }
+      <span class="ruby-identifier">d</span> = [ <span class="ruby-keyword">self</span>.<span class="ruby-identifier">random_future_date</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">random_future_date</span> ]
+      <span class="ruby-identifier">o</span>.<span class="ruby-identifier">add_line</span>(<span class="ruby-identifier">quantity</span>, <span class="ruby-identifier">model</span>, <span class="ruby-identifier">o</span>.<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">d</span>.<span class="ruby-identifier">min</span>, <span class="ruby-identifier">d</span>.<span class="ruby-identifier">max</span> )
+  <span class="ruby-keyword">end</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:order_lines</span>]
+  <span class="ruby-identifier">o</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-identifier">o</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_order-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_order-method -->
+
+      
+        <div id="create_order_line-method" class="method-detail ">
+          <a name="method-c-create_order_line"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_order_line</span><span
+              class="method-args">(options = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="OrderLine.html">OrderLine</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_order_line-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 233</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_order_line</span>(<span class="ruby-identifier">options</span> = {})
+    <span class="ruby-identifier">model</span> = <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_model</span> <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:model_name</span>]
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:start_date</span>]
+      <span class="ruby-identifier">start_date</span> = <span class="ruby-identifier">parsedate</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:start_date</span>])
+      <span class="ruby-identifier">end_date</span> = <span class="ruby-identifier">start_date</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>.<span class="ruby-identifier">days</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">d</span> = [ <span class="ruby-keyword">self</span>.<span class="ruby-identifier">random_future_date</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">random_future_date</span> ]
+      <span class="ruby-identifier">start_date</span> = <span class="ruby-identifier">d</span>.<span class="ruby-identifier">min</span>
+      <span class="ruby-identifier">end_date</span> = <span class="ruby-identifier">d</span>.<span class="ruby-identifier">max</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-identifier">ol</span> = <span class="ruby-constant">OrderLine</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:quantity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:quantity</span>],
+                       <span class="ruby-value">:model_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">to_i</span>,
+                       <span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">start_date</span>,
+                       <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">end_date</span>,
+                       <span class="ruby-value">:inventory_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:inventory_pool</span>])
+    <span class="ruby-identifier">ol</span>              
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_order_line-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_order_line-method -->
+
+      
+        <div id="create_super_user-method" class="method-detail ">
+          <a name="method-c-create_super_user"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_super_user</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>create the super user aka admin</p>
+
+<p>TODO tpo: reuse <a href="Factory.html#method-c-create_user">create_user</a>
+and <a href="Factory.html#method-c-create_db_auth">create_db_auth</a>
+instead</p>
+            
+
+            
+            <div class="method-source-code" id="create_super_user-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 412</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_super_user</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_user</span>( { <span class="ruby-value">:email</span>          =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;super_user_1@example.com&quot;</span>,
+                      <span class="ruby-value">:login</span>          =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;super_user_1&quot;</span>,
+                      <span class="ruby-value">:unique_id</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;super_user_1&quot;</span> },
+                    { <span class="ruby-value">:role</span>           =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;admin&quot;</span>,
+                      <span class="ruby-value">:password</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;pass&quot;</span>,
+                      <span class="ruby-value">:inventory_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,            })
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_super_user-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_super_user-method -->
+
+      
+        <div id="create_user-method" class="method-detail ">
+          <a name="method-c-create_user"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_user</span><span
+              class="method-args">(attributes = {}, options = {})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="User.html">User</a></p>
+            
+
+            
+            <div class="method-source-code" id="create_user-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_user</span>(<span class="ruby-identifier">attributes</span> = {}, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">default_attributes</span> = {
+    <span class="ruby-value">:login</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;jerome&quot;</span>,
+    <span class="ruby-value">:email</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;jerome@example.com&quot;</span>,
+    <span class="ruby-value">:language_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Language</span>.<span class="ruby-identifier">default_language</span>.<span class="ruby-identifier">id</span>
+  }
+  <span class="ruby-identifier">default_attributes</span>[<span class="ruby-value">:email</span>] = <span class="ruby-node">&quot;#{attributes[:login].gsub(' ', '_')}@example.com&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:login</span>]
+  <span class="ruby-identifier">u</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_or_create_by_login</span> <span class="ruby-identifier">default_attributes</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)
+  
+  <span class="ruby-identifier">options</span>[<span class="ruby-value">:role</span>] <span class="ruby-operator">||=</span> <span class="ruby-string">&quot;customer&quot;</span>
+  <span class="ruby-identifier">options</span>[<span class="ruby-value">:access_level</span>] <span class="ruby-operator">||=</span> <span class="ruby-value">0</span>
+  <span class="ruby-identifier">options</span>[<span class="ruby-value">:inventory_pool</span>] = <span class="ruby-constant">InventoryPool</span>.<span class="ruby-identifier">first</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:inventory_pool</span>)
+  <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">define_role</span>(<span class="ruby-identifier">u</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:inventory_pool</span>], <span class="ruby-identifier">options</span>[<span class="ruby-value">:role</span>], <span class="ruby-identifier">options</span>[<span class="ruby-value">:access_level</span>])
+
+  <span class="ruby-identifier">u</span>.<span class="ruby-identifier">save</span>
+
+  <span class="ruby-comment"># if a password is provided, then we create the user in a way that she can log in</span>
+  <span class="ruby-comment"># for real</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:password</span>]
+    <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_db_auth</span>(<span class="ruby-value">:login</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">login</span>, <span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:password</span>])
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">u</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_user-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_user-method -->
+
+      
+        <div id="create_zhdk_building-method" class="method-detail ">
+          <a name="method-c-create_zhdk_building"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">create_zhdk_building</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>zhdk buildings</p>
+            
+
+            
+            <div class="method-source-code" id="create_zhdk_building-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 431</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_zhdk_building</span>
+  [[<span class="ruby-string">&quot;ZO&quot;</span>,  <span class="ruby-string">&quot;Andere Non-ZHDK Addresse&quot;</span>],
+   [<span class="ruby-string">&quot;ZP&quot;</span>,  <span class="ruby-string">&quot;Heimadresse des Benutzern&quot;</span>],
+   [<span class="ruby-string">&quot;ZZ&quot;</span>,  <span class="ruby-string">&quot;Nicht spezifizierte Adresse&quot;</span>],
+   [<span class="ruby-string">&quot;SQ&quot;</span>,  <span class="ruby-string">&quot;Ausstellungsstrasse, 60&quot;</span>],
+   [<span class="ruby-string">&quot;AU&quot;</span>,  <span class="ruby-string">&quot;Ausstellungsstrasse, 100&quot;</span>],
+   [<span class="ruby-string">&quot;MC&quot;</span>,  <span class="ruby-string">&quot;Baslerstrasse, 30 (Mediacampus)&quot;</span>],
+   [<span class="ruby-string">&quot;FH&quot;</span>,  <span class="ruby-string">&quot;Florhofgasse, 6&quot;</span>],
+   [<span class="ruby-string">&quot;FB&quot;</span>,  <span class="ruby-string">&quot;Förrlibuckstrasse&quot;</span>],
+   [<span class="ruby-string">&quot;FR&quot;</span>,  <span class="ruby-string">&quot;Freiestrasse, 56&quot;</span>],
+   [<span class="ruby-string">&quot;GE&quot;</span>,  <span class="ruby-string">&quot;Gessnerallee, 11&quot;</span>],
+   [<span class="ruby-string">&quot;HF&quot;</span>,  <span class="ruby-string">&quot;Hafnerstrasse, 27&quot;</span>],
+   [<span class="ruby-string">&quot;HS&quot;</span>,  <span class="ruby-string">&quot;Hafnerstrasse, 31&quot;</span>],
+   [<span class="ruby-string">&quot;HA&quot;</span>,  <span class="ruby-string">&quot;Herostrasse, 5&quot;</span>],
+   [<span class="ruby-string">&quot;HB&quot;</span>,  <span class="ruby-string">&quot;Herostrasse, 10&quot;</span>],
+   [<span class="ruby-string">&quot;HI&quot;</span>,  <span class="ruby-string">&quot;Hirschengraben, 46&quot;</span>],
+   [<span class="ruby-string">&quot;KO&quot;</span>,  <span class="ruby-string">&quot;Limmatstrasse, 57&quot;</span>],
+   [<span class="ruby-string">&quot;LH&quot;</span>,  <span class="ruby-string">&quot;Limmatstrasse, 47&quot;</span>],
+   [<span class="ruby-string">&quot;LI&quot;</span>,  <span class="ruby-string">&quot;Limmatstrasse, 65&quot;</span>],
+   [<span class="ruby-string">&quot;LS&quot;</span>,  <span class="ruby-string">&quot;Limmatstrasse, 45&quot;</span>],
+   [<span class="ruby-string">&quot;PF&quot;</span>,  <span class="ruby-string">&quot;Pfingstweidstrasse, 6&quot;</span>],
+   [<span class="ruby-string">&quot;SE&quot;</span>,  <span class="ruby-string">&quot;Seefeldstrasse, 225&quot;</span>],
+   [<span class="ruby-string">&quot;FI&quot;</span>,  <span class="ruby-string">&quot;Sihlquai, 125&quot;</span>],
+   [<span class="ruby-string">&quot;PI&quot;</span>,  <span class="ruby-string">&quot;Sihlquai, 131&quot;</span>],
+   [<span class="ruby-string">&quot;TP&quot;</span>,  <span class="ruby-string">&quot;Technoparkstrasse, 1&quot;</span>],
+   [<span class="ruby-string">&quot;TT&quot;</span>,  <span class="ruby-string">&quot;Tössertobelstrasse, 1&quot;</span>],
+   [<span class="ruby-string">&quot;WA&quot;</span>,  <span class="ruby-string">&quot;Waldmannstrasse, 12&quot;</span>],
+   <span class="ruby-comment">#</span>
+   [<span class="ruby-string">&quot;DG&quot;</span>,  <span class="ruby-string">&quot;Hafnerstrasse, 41&quot;</span>],
+   [<span class="ruby-string">&quot;DI&quot;</span>,  <span class="ruby-string">&quot;Hafnerstrasse, 39&quot;</span>],
+   [<span class="ruby-string">&quot;FOE&quot;</span>, <span class="ruby-string">&quot;Förrlibuckstrasse, 62&quot;</span>],
+   [<span class="ruby-string">&quot;P5&quot;</span>,  <span class="ruby-string">&quot;Hardturmstrasse, 11&quot;</span>],
+   [<span class="ruby-string">&quot;MB&quot;</span>,  <span class="ruby-string">&quot;Höschgasse 3&quot;</span>],
+   [<span class="ruby-string">&quot;VE&quot;</span>,  <span class="ruby-string">&quot;Höschgasse 4&quot;</span>],
+   [<span class="ruby-string">&quot;MCA&quot;</span>, <span class="ruby-string">&quot;Baslerstrasse, 30&quot;</span>],
+   [<span class="ruby-string">&quot;FLG&quot;</span>, <span class="ruby-string">&quot;Florhofgasse, 6&quot;</span>],
+   [<span class="ruby-string">&quot;HI1&quot;</span>, <span class="ruby-string">&quot;Hirschengraben, 1&quot;</span>],
+   [<span class="ruby-string">&quot;HI20&quot;</span>,<span class="ruby-string">&quot;Hirschengraben, 20&quot;</span>],
+   [<span class="ruby-string">&quot;HI46&quot;</span>,<span class="ruby-string">&quot;Hirschengraben, 46&quot;</span>],
+   [<span class="ruby-string">&quot;FRS&quot;</span>, <span class="ruby-string">&quot;Freiestrasse, 56&quot;</span>],
+   [<span class="ruby-string">&quot;SFS&quot;</span>, <span class="ruby-string">&quot;Seefeldstrasse, 225&quot;</span>],
+   [<span class="ruby-string">&quot;GA9&quot;</span>, <span class="ruby-string">&quot;Gessnerallee, 9&quot;</span>],
+   [<span class="ruby-string">&quot;GA11&quot;</span>,<span class="ruby-string">&quot;Gessnerallee, 11&quot;</span>],
+   [<span class="ruby-string">&quot;GA13&quot;</span>,<span class="ruby-string">&quot;Gessnerallee, 13&quot;</span>],
+   [<span class="ruby-string">&quot;Z3&quot;</span>,  <span class="ruby-string">&quot;Militärstrasse, 47&quot;</span>],
+   [<span class="ruby-string">&quot;FLS&quot;</span>, <span class="ruby-string">&quot;Florastrasse, 52&quot;</span>],
+   [<span class="ruby-string">&quot;MES&quot;</span>, <span class="ruby-string">&quot;Merkurstrasse, 61&quot;</span>],
+   [<span class="ruby-string">&quot;FLU&quot;</span>, <span class="ruby-string">&quot;Flurstrasse, 85&quot;</span>],
+   [<span class="ruby-string">&quot;ARS&quot;</span>, <span class="ruby-string">&quot;Albisriederstr. 184B&quot;</span>],
+   [<span class="ruby-string">&quot;TOE&quot;</span>, <span class="ruby-string">&quot;Tösstobelstrasse, 1&quot;</span>],
+   [<span class="ruby-string">&quot;RY82&quot;</span>,<span class="ruby-string">&quot;Rychenberg, 82&quot;</span>],
+   [<span class="ruby-string">&quot;RY94&quot;</span>,<span class="ruby-string">&quot;Rychenberg, 94&quot;</span>],
+   [<span class="ruby-string">&quot;RY96&quot;</span>,<span class="ruby-string">&quot;Rychenberg, 96-100&quot;</span>],
+   [<span class="ruby-string">&quot;IFS&quot;</span>, <span class="ruby-string">&quot;Ifangstrasse, 2&quot;</span>],
+   [<span class="ruby-string">&quot;BU&quot;</span>,  <span class="ruby-string">&quot;Schützenmattstrsse, 1B&quot;</span>],
+   [<span class="ruby-string">&quot;KST&quot;</span>, <span class="ruby-string">&quot;Kart-Stauffer-Strasse, 26&quot;</span>]].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">building</span><span class="ruby-operator">|</span>
+  
+     <span class="ruby-constant">Factory</span>.<span class="ruby-identifier">create_building!</span> <span class="ruby-value">:code</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">building</span>[<span class="ruby-value">0</span>], <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">building</span>[<span class="ruby-value">1</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- create_zhdk_building-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- create_zhdk_building-method -->
+
+      
+        <div id="define_role-method" class="method-detail ">
+          <a name="method-c-define_role"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">define_role</span><span
+              class="method-args">(user, inventory_pool, role_name = "manager", access_level = 0 )</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p><a href="Role.html">Role</a></p>
+            
+
+            
+            <div class="method-source-code" id="define_role-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">define_role</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">inventory_pool</span>, <span class="ruby-identifier">role_name</span> = <span class="ruby-string">&quot;manager&quot;</span>, <span class="ruby-identifier">access_level</span> = <span class="ruby-value">0</span> )
+  <span class="ruby-identifier">role</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find_or_create_by_name</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">role_name</span>)
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">access_rights</span>.<span class="ruby-identifier">create</span>(<span class="ruby-value">:role</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">role</span>,
+                              <span class="ruby-value">:inventory_pool</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">inventory_pool</span>,
+                              <span class="ruby-value">:access_level</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">access_level</span>)
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-comment"># unique index, record already present</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">role</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- define_role-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- define_role-method -->
+
+      
+        <div id="generate_new_unique_inventory_code-method" class="method-detail ">
+          <a name="method-c-generate_new_unique_inventory_code"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">generate_new_unique_inventory_code</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>inventory code</p>
+            
+
+            
+            <div class="method-source-code" id="generate_new_unique_inventory_code-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 192</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">generate_new_unique_inventory_code</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">chars_len</span> = <span class="ruby-value">1</span>
+    <span class="ruby-identifier">nums_len</span> = <span class="ruby-value">2</span>
+    <span class="ruby-identifier">chars</span> = (<span class="ruby-string">&quot;A&quot;</span><span class="ruby-operator">..</span><span class="ruby-string">&quot;Z&quot;</span>).<span class="ruby-identifier">to_a</span>
+    <span class="ruby-identifier">nums</span> = (<span class="ruby-string">&quot;0&quot;</span><span class="ruby-operator">..</span><span class="ruby-string">&quot;9&quot;</span>).<span class="ruby-identifier">to_a</span>
+    <span class="ruby-identifier">code</span> = <span class="ruby-string">&quot;&quot;</span>
+    <span class="ruby-value">1</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">chars_len</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">chars</span>[<span class="ruby-identifier">rand</span>(<span class="ruby-identifier">chars</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)] }
+    <span class="ruby-value">1</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">nums_len</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">nums</span>[<span class="ruby-identifier">rand</span>(<span class="ruby-identifier">nums</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)] }
+  <span class="ruby-keyword">end</span> <span class="ruby-keyword">while</span> <span class="ruby-constant">Item</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-value">:inventory_code</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">code</span>)
+  <span class="ruby-identifier">code</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- generate_new_unique_inventory_code-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- generate_new_unique_inventory_code-method -->
+
+      
+        <div id="parsedate-method" class="method-detail ">
+          <a name="method-c-parsedate"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">parsedate</span><span
+              class="method-args">(str)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>parsedate</p>
+            
+
+            
+            <div class="method-source-code" id="parsedate-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 220</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">parsedate</span>(<span class="ruby-identifier">str</span>)
+  <span class="ruby-identifier">match</span> = <span class="ruby-regexp">/(\d{1,2})\.(\d{1,2})\.(\d{2,4})\.?/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">str</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">match</span>
+    <span class="ruby-identifier">ret</span> = <span class="ruby-constant">ParseDate</span>.<span class="ruby-identifier">old_parsedate</span>(<span class="ruby-identifier">str</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">ret</span> = [<span class="ruby-identifier">match</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">match</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">match</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">nil</span>] 
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ret</span>[<span class="ruby-value">0</span>], <span class="ruby-identifier">ret</span>[<span class="ruby-value">1</span>], <span class="ruby-identifier">ret</span>[<span class="ruby-value">2</span>]) <span class="ruby-comment"># TODO Date</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- parsedate-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- parsedate-method -->
+
+      
+        <div id="random_future_date-method" class="method-detail ">
+          <a name="method-c-random_future_date"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">random_future_date</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Date</p>
+            
+
+            
+            <div class="method-source-code" id="random_future_date-source">
+<pre>
+<span class="ruby-comment"># File lib/factory.rb, line 127</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">random_future_date</span>
+  <span class="ruby-comment"># future date is within the next 3 years, at earliest tomorrow</span>
+  <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">rand</span>(<span class="ruby-value">3</span>*<span class="ruby-value">365</span>).<span class="ruby-identifier">days</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>.<span class="ruby-identifier">day</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- random_future_date-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- random_future_date-method -->
+
+      
+      </div><!-- public-class-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+

@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: Backend::HandOverController</title>
+
+  <link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+  <script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="class">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="../app/controllers/backend/hand_over_controller_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="app/controllers/backend/hand_over_controller.rb">app/controllers/backend/hand_over_controller.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+      <!-- Parent Class -->
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        
+        <p class="link"><a href="BackendController.html">Backend::BackendController</a></p>
+        
+      </div>
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-i-add_line">#add_line</a></li>
+          
+          <li><a href="#method-i-add_line_with_item">#add_line_with_item</a></li>
+          
+          <li><a href="#method-i-add_option">#add_option</a></li>
+          
+          <li><a href="#method-i-assign_inventory_code">#assign_inventory_code</a></li>
+          
+          <li><a href="#method-i-change_line">#change_line</a></li>
+          
+          <li><a href="#method-i-change_line_quantity">#change_line_quantity</a></li>
+          
+          <li><a href="#method-i-delete_visit">#delete_visit</a></li>
+          
+          <li><a href="#method-i-index">#index</a></li>
+          
+          <li><a href="#method-i-remove_lines">#remove_lines</a></li>
+          
+          <li><a href="#method-i-set_purpose">#set_purpose</a></li>
+          
+          <li><a href="#method-i-show">#show</a></li>
+          
+          <li><a href="#method-i-sign_contract">#sign_contract</a></li>
+          
+          <li><a href="#method-i-swap_model_line">#swap_model_line</a></li>
+          
+          <li><a href="#method-i-swap_user">#swap_user</a></li>
+          
+          <li><a href="#method-i-time_lines">#time_lines</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../doc/README_FOR_APP.html">README_FOR_APP</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../Backend.html">Backend</a></li>
+        
+          <li><a href="../Backend/AcknowledgeController.html">Backend::AcknowledgeController</a></li>
+        
+          <li><a href="../Backend/AcknowledgeHelper.html">Backend::AcknowledgeHelper</a></li>
+        
+          <li><a href="../Backend/AvailabilityController.html">Backend::AvailabilityController</a></li>
+        
+          <li><a href="../Backend/AvailabilityHelper.html">Backend::AvailabilityHelper</a></li>
+        
+          <li><a href="../Backend/BackendController.html">Backend::BackendController</a></li>
+        
+          <li><a href="../Backend/BackendHelper.html">Backend::BackendHelper</a></li>
+        
+          <li><a href="../Backend/BarcodesController.html">Backend::BarcodesController</a></li>
+        
+          <li><a href="../Backend/CategoriesController.html">Backend::CategoriesController</a></li>
+        
+          <li><a href="../Backend/CategoriesHelper.html">Backend::CategoriesHelper</a></li>
+        
+          <li><a href="../Backend/ContractsController.html">Backend::ContractsController</a></li>
+        
+          <li><a href="../Backend/GroupsController.html">Backend::GroupsController</a></li>
+        
+          <li><a href="../Backend/HandOverController.html">Backend::HandOverController</a></li>
+        
+          <li><a href="../Backend/HandOverHelper.html">Backend::HandOverHelper</a></li>
+        
+          <li><a href="../Backend/InventoryImport.html">Backend::InventoryImport</a></li>
+        
+          <li><a href="../Backend/InventoryImport/ImporterController.html">Backend::InventoryImport::ImporterController</a></li>
+        
+          <li><a href="../Backend/InventoryPoolsController.html">Backend::InventoryPoolsController</a></li>
+        
+          <li><a href="../Backend/ItemsController.html">Backend::ItemsController</a></li>
+        
+          <li><a href="../Backend/ItemsHelper.html">Backend::ItemsHelper</a></li>
+        
+          <li><a href="../Backend/LocationsController.html">Backend::LocationsController</a></li>
+        
+          <li><a href="../Backend/MailsController.html">Backend::MailsController</a></li>
+        
+          <li><a href="../Backend/MailsHelper.html">Backend::MailsHelper</a></li>
+        
+          <li><a href="../Backend/ModelsController.html">Backend::ModelsController</a></li>
+        
+          <li><a href="../Backend/ModelsHelper.html">Backend::ModelsHelper</a></li>
+        
+          <li><a href="../Backend/OptionsController.html">Backend::OptionsController</a></li>
+        
+          <li><a href="../Backend/OrdersController.html">Backend::OrdersController</a></li>
+        
+          <li><a href="../Backend/TakeBackController.html">Backend::TakeBackController</a></li>
+        
+          <li><a href="../Backend/TemplatesController.html">Backend::TemplatesController</a></li>
+        
+          <li><a href="../Backend/UsersController.html">Backend::UsersController</a></li>
+        
+          <li><a href="../Backend/UsersHelper.html">Backend::UsersHelper</a></li>
+        
+          <li><a href="../Backend/WorkdaysController.html">Backend::WorkdaysController</a></li>
+        
+          <li><a href="../Availability.html">Availability</a></li>
+        
+          <li><a href="../Availability/Change.html">Availability::Change</a></li>
+        
+          <li><a href="../Availability/Changes.html">Availability::Changes</a></li>
+        
+          <li><a href="../Availability/DocumentLine.html">Availability::DocumentLine</a></li>
+        
+          <li><a href="../Availability/Group.html">Availability::Group</a></li>
+        
+          <li><a href="../Availability/InventoryPool.html">Availability::InventoryPool</a></li>
+        
+          <li><a href="../Availability/Main.html">Availability::Main</a></li>
+        
+          <li><a href="../Availability/Model.html">Availability::Model</a></li>
+        
+          <li><a href="../Availability/Observer.html">Availability::Observer</a></li>
+        
+          <li><a href="../Availability/Quantity.html">Availability::Quantity</a></li>
+        
+          <li><a href="../Authenticator.html">Authenticator</a></li>
+        
+          <li><a href="../Authenticator/AuthenticatorController.html">Authenticator::AuthenticatorController</a></li>
+        
+          <li><a href="../Authenticator/DatabaseAuthenticationController.html">Authenticator::DatabaseAuthenticationController</a></li>
+        
+          <li><a href="../Authenticator/LdapAuthenticationController.html">Authenticator::LdapAuthenticationController</a></li>
+        
+          <li><a href="../Authenticator/ShibbolethAuthenticationController.html">Authenticator::ShibbolethAuthenticationController</a></li>
+        
+          <li><a href="../Authenticator/ZhdkController.html">Authenticator::ZhdkController</a></li>
+        
+          <li><a href="../Backup.html">Backup</a></li>
+        
+          <li><a href="../Backup/Order.html">Backup::Order</a></li>
+        
+          <li><a href="../Backup/OrderLine.html">Backup::OrderLine</a></li>
+        
+          <li><a href="../Mailer.html">Mailer</a></li>
+        
+          <li><a href="../Mailer/Order.html">Mailer::Order</a></li>
+        
+          <li><a href="../Mailer/User.html">Mailer::User</a></li>
+        
+          <li><a href="../RoleRequirementSystem.html">RoleRequirementSystem</a></li>
+        
+          <li><a href="../RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a></li>
+        
+          <li><a href="../RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a></li>
+        
+          <li><a href="../AccessRight.html">AccessRight</a></li>
+        
+          <li><a href="../Accessory.html">Accessory</a></li>
+        
+          <li><a href="../ApplicationController.html">ApplicationController</a></li>
+        
+          <li><a href="../ApplicationHelper.html">ApplicationHelper</a></li>
+        
+          <li><a href="../Attachment.html">Attachment</a></li>
+        
+          <li><a href="../AuthenticatedSystem.html">AuthenticatedSystem</a></li>
+        
+          <li><a href="../AuthenticatedTestHelper.html">AuthenticatedTestHelper</a></li>
+        
+          <li><a href="../AuthenticationSystem.html">AuthenticationSystem</a></li>
+        
+          <li><a href="../Building.html">Building</a></li>
+        
+          <li><a href="../CategoriesController.html">CategoriesController</a></li>
+        
+          <li><a href="../Category.html">Category</a></li>
+        
+          <li><a href="../Contract.html">Contract</a></li>
+        
+          <li><a href="../ContractLine.html">ContractLine</a></li>
+        
+          <li><a href="../ContractsController.html">ContractsController</a></li>
+        
+          <li><a href="../DatabaseAuthentication.html">DatabaseAuthentication</a></li>
+        
+          <li><a href="../Document.html">Document</a></li>
+        
+          <li><a href="../DocumentLine.html">DocumentLine</a></li>
+        
+          <li><a href="../Event.html">Event</a></li>
+        
+          <li><a href="../Factory.html">Factory</a></li>
+        
+          <li><a href="../FrontendController.html">FrontendController</a></li>
+        
+          <li><a href="../FrontendHelper.html">FrontendHelper</a></li>
+        
+          <li><a href="../Group.html">Group</a></li>
+        
+          <li><a href="../Hijacker.html">Hijacker</a></li>
+        
+          <li><a href="../History.html">History</a></li>
+        
+          <li><a href="../Holiday.html">Holiday</a></li>
+        
+          <li><a href="../Image.html">Image</a></li>
+        
+          <li><a href="../Importer.html">Importer</a></li>
+        
+          <li><a href="../InventoryPool.html">InventoryPool</a></li>
+        
+          <li><a href="../Item.html">Item</a></li>
+        
+          <li><a href="../ItemLine.html">ItemLine</a></li>
+        
+          <li><a href="../Language.html">Language</a></li>
+        
+          <li><a href="../Location.html">Location</a></li>
+        
+          <li><a href="../LooksLike.html">LooksLike</a></li>
+        
+          <li><a href="../Model.html">Model</a></li>
+        
+          <li><a href="../ModelGroup.html">ModelGroup</a></li>
+        
+          <li><a href="../ModelGroupLink.html">ModelGroupLink</a></li>
+        
+          <li><a href="../ModelLink.html">ModelLink</a></li>
+        
+          <li><a href="../ModelsController.html">ModelsController</a></li>
+        
+          <li><a href="../Notification.html">Notification</a></li>
+        
+          <li><a href="../Option.html">Option</a></li>
+        
+          <li><a href="../OptionLine.html">OptionLine</a></li>
+        
+          <li><a href="../Order.html">Order</a></li>
+        
+          <li><a href="../OrderLine.html">OrderLine</a></li>
+        
+          <li><a href="../OrdersController.html">OrdersController</a></li>
+        
+          <li><a href="../Partition.html">Partition</a></li>
+        
+          <li><a href="../Property.html">Property</a></li>
+        
+          <li><a href="../QuickProfilingHelper.html">QuickProfilingHelper</a></li>
+        
+          <li><a href="../Role.html">Role</a></li>
+        
+          <li><a href="../RoleRequirementTestHelper.html">RoleRequirementTestHelper</a></li>
+        
+          <li><a href="../ScopedPartitions.html">ScopedPartitions</a></li>
+        
+          <li><a href="../SessionsController.html">SessionsController</a></li>
+        
+          <li><a href="../Supplier.html">Supplier</a></li>
+        
+          <li><a href="../Template.html">Template</a></li>
+        
+          <li><a href="../TemplatesController.html">TemplatesController</a></li>
+        
+          <li><a href="../User.html">User</a></li>
+        
+          <li><a href="../UsersController.html">UsersController</a></li>
+        
+          <li><a href="../Workday.html">Workday</a></li>
+        
+          <li><a href="../WorkdaysHelper.html">WorkdaysHelper</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="class">Backend::HandOverController</h1>
+
+    <div id="description" class="description">
+      
+    </div><!-- description -->
+
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="add_line-method" class="method-detail ">
+          <a name="method-i-add_line"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">add_line</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="add_line-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 197</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_line</span>
+  <span class="ruby-identifier">generic_add_line</span>(<span class="ruby-ivar">@contract</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- add_line-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- add_line-method -->
+
+      
+        <div id="add_line_with_item-method" class="method-detail ">
+          <a name="method-i-add_line_with_item"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">add_line_with_item</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>TODO 29**</p>
+            
+
+            
+            <div class="method-source-code" id="add_line_with_item-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 187</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_line_with_item</span>
+  <span class="ruby-ivar">@prevent_redirect</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-identifier">item</span> = <span class="ruby-identifier">current_inventory_pool</span>.<span class="ruby-identifier">items</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:item_id</span>])
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:model_id</span>] = <span class="ruby-identifier">item</span>.<span class="ruby-identifier">model</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-identifier">add_line</span>
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:code</span>] = <span class="ruby-identifier">item</span>.<span class="ruby-identifier">inventory_code</span>
+  <span class="ruby-identifier">assign_inventory_code</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'show'</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- add_line_with_item-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- add_line_with_item-method -->
+
+      
+        <div id="add_option-method" class="method-detail ">
+          <a name="method-i-add_option"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">add_option</span><span
+              class="method-args">(start_date = params[:start_date], end_date = params[:end_date])</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="add_option-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 168</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_option</span>(<span class="ruby-identifier">start_date</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:start_date</span>], <span class="ruby-identifier">end_date</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:end_date</span>])
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
+    <span class="ruby-identifier">option</span> = <span class="ruby-identifier">current_inventory_pool</span>.<span class="ruby-identifier">options</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:option_id</span>])
+    
+    <span class="ruby-identifier">option_line</span> = <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">option_lines</span>.<span class="ruby-identifier">create</span>(<span class="ruby-value">:option</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">option</span>, <span class="ruby-value">:quantity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">start_date</span>, <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">end_date</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">option_line</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-identifier">option_line</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'show'</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@contract</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'options'</span>, 
+                <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'modal'</span>,
+                <span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">start_date</span>,
+                <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">end_date</span>,
+                <span class="ruby-value">:source_path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">env</span>[<span class="ruby-string">'REQUEST_URI'</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- add_option-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- add_option-method -->
+
+      
+        <div id="assign_inventory_code-method" class="method-detail ">
+          <a name="method-i-assign_inventory_code"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">assign_inventory_code</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>given an inventory_code, searches for a matching contract_line and if not
+found, adds an option</p>
+            
+
+            
+            <div class="method-source-code" id="assign_inventory_code-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 120</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">assign_inventory_code</span>
+  <span class="ruby-identifier">item</span> = <span class="ruby-identifier">current_inventory_pool</span>.<span class="ruby-identifier">items</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:inventory_code</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:code</span>]).<span class="ruby-identifier">first</span>
+  
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">items</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">item</span>)
+        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;The item is already in the current contract.&quot;</span>)
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">parent</span> 
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;This item is part of package %s.&quot;</span>) <span class="ruby-operator">%</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">inventory_code</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">contract_line</span> = <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">contract_lines</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:model_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">model</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:item_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>).<span class="ruby-identifier">first</span>
+      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">contract_line</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">params</span>[<span class="ruby-value">:contract_line_id</span>] = <span class="ruby-identifier">contract_line</span>.<span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;Inventory Code assigned&quot;</span>)
+        <span class="ruby-identifier">change_line</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-comment">#2207: No question should be asked @new_item = item</span>
+        <span class="ruby-ivar">@prevent_redirect</span> = <span class="ruby-keyword">true</span>
+        <span class="ruby-identifier">params</span>[<span class="ruby-value">:model_id</span>] = <span class="ruby-identifier">item</span>.<span class="ruby-identifier">model</span>.<span class="ruby-identifier">id</span>
+        <span class="ruby-identifier">add_line</span>
+        <span class="ruby-identifier">params</span>[<span class="ruby-value">:code</span>] = <span class="ruby-identifier">item</span>.<span class="ruby-identifier">inventory_code</span>
+        <span class="ruby-identifier">assign_inventory_code</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;New item added to contract.&quot;</span>)
+        <span class="ruby-ivar">@contract_line</span> = <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">contract_lines</span>.<span class="ruby-identifier">first</span>
+        <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'change_line'</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span> 
+    <span class="ruby-comment"># Inventory Code is not an item - might be an option...</span>
+    <span class="ruby-comment"># Increment quantity if the option is already present</span>
+    <span class="ruby-identifier">option</span> = <span class="ruby-identifier">current_inventory_pool</span>.<span class="ruby-identifier">options</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:inventory_code</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:code</span>]).<span class="ruby-identifier">first</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">option</span>
+      <span class="ruby-identifier">conditions</span> = {<span class="ruby-value">:option_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">option</span>, <span class="ruby-value">:start_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:start_date</span>], <span class="ruby-value">:end_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:end_date</span>]}
+      <span class="ruby-ivar">@option_line</span> = <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">option_lines</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">conditions</span>).<span class="ruby-identifier">first</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-ivar">@option_line</span>
+        <span class="ruby-ivar">@option_line</span>.<span class="ruby-identifier">increment!</span>(<span class="ruby-value">:quantity</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-ivar">@option_line</span> = <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">option_lines</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">conditions</span>)
+      <span class="ruby-keyword">end</span>
+                                                                        
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;Option %s added.&quot;</span>) <span class="ruby-operator">%</span> <span class="ruby-identifier">option</span>.<span class="ruby-identifier">name</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;The Inventory Code %s was not found.&quot;</span>) <span class="ruby-operator">%</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:code</span>]
+    <span class="ruby-keyword">end</span>   
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'change_line'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@prevent_redirect</span> <span class="ruby-comment"># TODO 29**</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- assign_inventory_code-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- assign_inventory_code-method -->
+
+      
+        <div id="change_line-method" class="method-detail ">
+          <a name="method-i-change_line"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">change_line</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Changes the line according to the inserted inventory code</p>
+            
+
+            
+            <div class="method-source-code" id="change_line-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 96</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">change_line</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
+    <span class="ruby-comment"># TODO refactor in the Contract model and keep track of changes</span>
+
+    <span class="ruby-ivar">@contract_line</span> = <span class="ruby-identifier">current_inventory_pool</span>.<span class="ruby-identifier">contract_lines</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:contract_line_id</span>])
+    <span class="ruby-ivar">@contract</span> = <span class="ruby-ivar">@contract_line</span>.<span class="ruby-identifier">contract</span>
+    
+    <span class="ruby-identifier">required_item_inventory_code</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:code</span>]
+    <span class="ruby-ivar">@contract_line</span>.<span class="ruby-identifier">item</span> = <span class="ruby-constant">Item</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:inventory_code</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">required_item_inventory_code</span>).<span class="ruby-identifier">first</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@contract_line</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-comment"># TODO refactor in model: change = _(&quot;Changed dates for %{model} from %{from} to %{to}&quot;) % { :model =&gt; line.model.name, :from =&gt; &quot;#{original_start_date} - #{original_end_date}&quot;, :to =&gt; &quot;#{line.start_date} - #{line.end_date}&quot; }</span>
+      <span class="ruby-comment"># TODO refactor in model: log_change(change, user_id)</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@contract_line</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">each_full</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">msg</span><span class="ruby-operator">|</span>
+        <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:base</span>, <span class="ruby-identifier">msg</span>)
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- change_line-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- change_line-method -->
+
+      
+        <div id="change_line_quantity-method" class="method-detail ">
+          <a name="method-i-change_line_quantity"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">change_line_quantity</span><span
+              class="method-args">(quantity = [params[:quantity].to_i, 1].max)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>change quantity: duplicating item_line or (TODO) changing quantity for
+option_line preventing quantity less than 1</p>
+            
+
+            
+            <div class="method-source-code" id="change_line_quantity-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">change_line_quantity</span>(<span class="ruby-identifier">quantity</span> = [<span class="ruby-identifier">params</span>[<span class="ruby-value">:quantity</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-value">1</span>].<span class="ruby-identifier">max</span>)
+  <span class="ruby-ivar">@contract_line</span> = <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">lines</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:contract_line_id</span>])
+
+  <span class="ruby-comment"># TODO refactor to model</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@contract_line</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ItemLine</span>)
+    (<span class="ruby-identifier">quantity</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@contract_line</span>.<span class="ruby-identifier">quantity</span>).<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">new_line</span> = <span class="ruby-ivar">@contract_line</span>.<span class="ruby-identifier">clone</span> <span class="ruby-comment"># OPTIMIZE keep contract history </span>
+      <span class="ruby-identifier">new_line</span>.<span class="ruby-identifier">item</span> = <span class="ruby-keyword">nil</span>
+      <span class="ruby-identifier">new_line</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;New lines have been generated&quot;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@contract_line</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:quantity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">quantity</span>)
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;The quantity has been changed&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- change_line_quantity-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- change_line_quantity-method -->
+
+      
+        <div id="delete_visit-method" class="method-detail ">
+          <a name="method-i-delete_visit"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">delete_visit</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="delete_visit-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete_visit</span>
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:lines</span>].<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">remove_line</span>(<span class="ruby-identifier">l</span>, <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>) }
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'index'</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- delete_visit-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- delete_visit-method -->
+
+      
+        <div id="index-method" class="method-detail ">
+          <a name="method-i-index"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">index</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="index-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-identifier">visits</span> = <span class="ruby-identifier">current_inventory_pool</span>.<span class="ruby-identifier">hand_over_visits</span>
+  
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>].<span class="ruby-identifier">blank?</span>
+    <span class="ruby-ivar">@contracts</span> = <span class="ruby-constant">Contract</span>.<span class="ruby-identifier">sphinx_unsigned</span>.<span class="ruby-identifier">search</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>], { <span class="ruby-value">:star</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>], <span class="ruby-value">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">$per_page</span>,
+                                                                   <span class="ruby-value">:with</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-value">:inventory_pool_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_inventory_pool</span>.<span class="ruby-identifier">id</span> } }
+
+    <span class="ruby-comment"># OPTIMIZE display only effective visits (i.e. for a given model name, ...)</span>
+    <span class="ruby-identifier">visits</span> = <span class="ruby-identifier">visits</span>.<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">contract_lines</span>.<span class="ruby-identifier">any?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@contracts</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">l</span>.<span class="ruby-identifier">contract</span>) } } <span class="ruby-comment"># OPTIMIZE scope intersection?</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">visits</span> = <span class="ruby-identifier">visits</span>.<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">user</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@user</span>} <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span> <span class="ruby-comment"># OPTIMIZE scope intersection?</span>
+  
+  <span class="ruby-ivar">@visits</span> = <span class="ruby-identifier">visits</span>.<span class="ruby-identifier">paginate</span> <span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>], <span class="ruby-value">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">$per_page</span>
+  
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">js</span> { <span class="ruby-identifier">search_result_rjs</span>(<span class="ruby-ivar">@contracts</span>) }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- index-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- index-method -->
+
+      
+        <div id="remove_lines-method" class="method-detail ">
+          <a name="method-i-remove_lines"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">remove_lines</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>remove a contract line for a given contract</p>
+            
+
+            
+            <div class="method-source-code" id="remove_lines-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 210</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remove_lines</span>
+  <span class="ruby-identifier">generic_remove_lines</span>(<span class="ruby-ivar">@contract</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- remove_lines-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- remove_lines-method -->
+
+      
+        <div id="set_purpose-method" class="method-detail ">
+          <a name="method-i-set_purpose"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">set_purpose</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="set_purpose-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_purpose</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
+    <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:purpose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:purpose</span>])
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'show'</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- set_purpose-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- set_purpose-method -->
+
+      
+        <div id="show-method" class="method-detail ">
+          <a name="method-i-show"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">show</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>get current open contract for a given user</p>
+            
+
+            
+            <div class="method-source-code" id="show-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
+  <span class="ruby-ivar">@missing_fields</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">authentication_system</span>.<span class="ruby-identifier">missing_required_fields</span>(<span class="ruby-ivar">@user</span>)
+  <span class="ruby-identifier">add_visitor</span>(<span class="ruby-ivar">@user</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- show-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- show-method -->
+
+      
+        <div id="sign_contract-method" class="method-detail ">
+          <a name="method-i-sign_contract"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">sign_contract</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Sign definitely the contract</p>
+            
+
+            
+            <div class="method-source-code" id="sign_contract-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sign_contract</span>
+  <span class="ruby-ivar">@lines</span> = <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">contract_lines</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:lines</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">','</span>)) <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:lines</span>]
+  <span class="ruby-ivar">@lines</span> <span class="ruby-operator">||=</span> []
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:layout</span>] = <span class="ruby-string">&quot;modal&quot;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
+    <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">note</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:note</span>]
+    <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">sign</span>(<span class="ruby-ivar">@lines</span>, <span class="ruby-identifier">current_user</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_inventory_pool</span>.<span class="ruby-identifier">print_contracts</span>
+      <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'print_contract'</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'index'</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@lines</span> = <span class="ruby-ivar">@lines</span>.<span class="ruby-identifier">delete_if</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">item</span>.<span class="ruby-identifier">nil?</span> } <span class="ruby-comment"># NOTE l could be an option_line, then l.item_id.nil? doesn't work!</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@lines</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;No items to hand over specified. Please assign inventory codes to the items you want to hand over.&quot;</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">today</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>
+      <span class="ruby-ivar">@lines</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">start_date</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">today</span>
+        <span class="ruby-identifier">line</span>.<span class="ruby-identifier">start_date</span> = <span class="ruby-identifier">today</span>
+        <span class="ruby-identifier">line</span>.<span class="ruby-identifier">end_date</span> = <span class="ruby-identifier">today</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">end_date</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">start_date</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">start_date_changed?</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">save</span>
+          <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] <span class="ruby-operator">||=</span> []
+          <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;The start date has been changed for item %s&quot;</span>) <span class="ruby-operator">%</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">item</span>.<span class="ruby-identifier">inventory_code</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>    
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- sign_contract-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- sign_contract-method -->
+
+      
+        <div id="swap_model_line-method" class="method-detail ">
+          <a name="method-i-swap_model_line"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">swap_model_line</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="swap_model_line-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 201</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">swap_model_line</span>
+  <span class="ruby-identifier">generic_swap_model_line</span>(<span class="ruby-ivar">@contract</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- swap_model_line-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- swap_model_line-method -->
+
+      
+        <div id="swap_user-method" class="method-detail ">
+          <a name="method-i-swap_user"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">swap_user</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="swap_user-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 214</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">swap_user</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
+    <span class="ruby-identifier">to_user</span> = <span class="ruby-ivar">@user</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:swap_user_id</span>].<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;User must be selected&quot;</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">new_user</span> = <span class="ruby-identifier">current_inventory_pool</span>.<span class="ruby-identifier">users</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:swap_user_id</span>])
+      <span class="ruby-identifier">lines_for_new_contract</span> = <span class="ruby-ivar">@contract</span>.<span class="ruby-identifier">contract_lines</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:lines</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">','</span>)) <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:lines</span>]
+
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">new_user</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">lines_for_new_contract</span>
+        <span class="ruby-identifier">new_contract</span> = <span class="ruby-identifier">new_user</span>.<span class="ruby-identifier">get_current_contract</span>(<span class="ruby-identifier">current_inventory_pool</span>)
+        <span class="ruby-identifier">lines_for_new_contract</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cl</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">cl</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:contract</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_contract</span>)
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">_</span>(<span class="ruby-string">&quot;The selected lines have been moved&quot;</span>)
+        <span class="ruby-identifier">to_user</span> = <span class="ruby-identifier">new_user</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>  
+    <span class="ruby-identifier">redirect_to</span> [<span class="ruby-value">:backend</span>, <span class="ruby-identifier">current_inventory_pool</span>, <span class="ruby-identifier">to_user</span>, <span class="ruby-value">:hand_over</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">backend_inventory_pool_users_path</span>(<span class="ruby-identifier">current_inventory_pool</span>,
+                                                  <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'modal'</span>,
+                                                  <span class="ruby-value">:source_path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">env</span>[<span class="ruby-string">'REQUEST_URI'</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- swap_user-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- swap_user-method -->
+
+      
+        <div id="time_lines-method" class="method-detail ">
+          <a name="method-i-time_lines"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">time_lines</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="time_lines-source">
+<pre>
+<span class="ruby-comment"># File app/controllers/backend/hand_over_controller.rb, line 205</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">time_lines</span>
+  <span class="ruby-identifier">generic_time_lines</span>(<span class="ruby-ivar">@contract</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- time_lines-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- time_lines-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+

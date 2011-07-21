@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Module: AuthenticatedSystem</title>
+
+  <link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+  <script src="./js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="module">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="./lib/authenticated_system_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/authenticated_system.rb">lib/authenticated_system.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-c-included">::included</a></li>
+          
+          <li><a href="#method-i-access_denied">#access_denied</a></li>
+          
+          <li><a href="#method-i-authorized-3F">#authorized?</a></li>
+          
+          <li><a href="#method-i-current_user">#current_user</a></li>
+          
+          <li><a href="#method-i-current_user-3D">#current_user=</a></li>
+          
+          <li><a href="#method-i-logged_in-3F">#logged_in?</a></li>
+          
+          <li><a href="#method-i-login_from_basic_auth">#login_from_basic_auth</a></li>
+          
+          <li><a href="#method-i-login_from_cookie">#login_from_cookie</a></li>
+          
+          <li><a href="#method-i-login_from_session">#login_from_session</a></li>
+          
+          <li><a href="#method-i-login_required">#login_required</a></li>
+          
+          <li><a href="#method-i-redirect_back_or_default">#redirect_back_or_default</a></li>
+          
+          <li><a href="#method-i-store_location">#store_location</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="./Backend.html">Backend</a></li>
+        
+          <li><a href="./Backend/AcknowledgeController.html">Backend::AcknowledgeController</a></li>
+        
+          <li><a href="./Backend/AcknowledgeHelper.html">Backend::AcknowledgeHelper</a></li>
+        
+          <li><a href="./Backend/AvailabilityController.html">Backend::AvailabilityController</a></li>
+        
+          <li><a href="./Backend/AvailabilityHelper.html">Backend::AvailabilityHelper</a></li>
+        
+          <li><a href="./Backend/BackendController.html">Backend::BackendController</a></li>
+        
+          <li><a href="./Backend/BackendHelper.html">Backend::BackendHelper</a></li>
+        
+          <li><a href="./Backend/BarcodesController.html">Backend::BarcodesController</a></li>
+        
+          <li><a href="./Backend/CategoriesController.html">Backend::CategoriesController</a></li>
+        
+          <li><a href="./Backend/CategoriesHelper.html">Backend::CategoriesHelper</a></li>
+        
+          <li><a href="./Backend/ContractsController.html">Backend::ContractsController</a></li>
+        
+          <li><a href="./Backend/GroupsController.html">Backend::GroupsController</a></li>
+        
+          <li><a href="./Backend/HandOverController.html">Backend::HandOverController</a></li>
+        
+          <li><a href="./Backend/HandOverHelper.html">Backend::HandOverHelper</a></li>
+        
+          <li><a href="./Backend/InventoryImport.html">Backend::InventoryImport</a></li>
+        
+          <li><a href="./Backend/InventoryImport/ImporterController.html">Backend::InventoryImport::ImporterController</a></li>
+        
+          <li><a href="./Backend/InventoryPoolsController.html">Backend::InventoryPoolsController</a></li>
+        
+          <li><a href="./Backend/ItemsController.html">Backend::ItemsController</a></li>
+        
+          <li><a href="./Backend/ItemsHelper.html">Backend::ItemsHelper</a></li>
+        
+          <li><a href="./Backend/LocationsController.html">Backend::LocationsController</a></li>
+        
+          <li><a href="./Backend/MailsController.html">Backend::MailsController</a></li>
+        
+          <li><a href="./Backend/MailsHelper.html">Backend::MailsHelper</a></li>
+        
+          <li><a href="./Backend/ModelsController.html">Backend::ModelsController</a></li>
+        
+          <li><a href="./Backend/ModelsHelper.html">Backend::ModelsHelper</a></li>
+        
+          <li><a href="./Backend/OptionsController.html">Backend::OptionsController</a></li>
+        
+          <li><a href="./Backend/OrdersController.html">Backend::OrdersController</a></li>
+        
+          <li><a href="./Backend/TakeBackController.html">Backend::TakeBackController</a></li>
+        
+          <li><a href="./Backend/TemplatesController.html">Backend::TemplatesController</a></li>
+        
+          <li><a href="./Backend/UsersController.html">Backend::UsersController</a></li>
+        
+          <li><a href="./Backend/UsersHelper.html">Backend::UsersHelper</a></li>
+        
+          <li><a href="./Backend/WorkdaysController.html">Backend::WorkdaysController</a></li>
+        
+          <li><a href="./Availability.html">Availability</a></li>
+        
+          <li><a href="./Availability/Change.html">Availability::Change</a></li>
+        
+          <li><a href="./Availability/Changes.html">Availability::Changes</a></li>
+        
+          <li><a href="./Availability/DocumentLine.html">Availability::DocumentLine</a></li>
+        
+          <li><a href="./Availability/Group.html">Availability::Group</a></li>
+        
+          <li><a href="./Availability/InventoryPool.html">Availability::InventoryPool</a></li>
+        
+          <li><a href="./Availability/Main.html">Availability::Main</a></li>
+        
+          <li><a href="./Availability/Model.html">Availability::Model</a></li>
+        
+          <li><a href="./Availability/Observer.html">Availability::Observer</a></li>
+        
+          <li><a href="./Availability/Quantity.html">Availability::Quantity</a></li>
+        
+          <li><a href="./Authenticator.html">Authenticator</a></li>
+        
+          <li><a href="./Authenticator/AuthenticatorController.html">Authenticator::AuthenticatorController</a></li>
+        
+          <li><a href="./Authenticator/DatabaseAuthenticationController.html">Authenticator::DatabaseAuthenticationController</a></li>
+        
+          <li><a href="./Authenticator/LdapAuthenticationController.html">Authenticator::LdapAuthenticationController</a></li>
+        
+          <li><a href="./Authenticator/ShibbolethAuthenticationController.html">Authenticator::ShibbolethAuthenticationController</a></li>
+        
+          <li><a href="./Authenticator/ZhdkController.html">Authenticator::ZhdkController</a></li>
+        
+          <li><a href="./Backup.html">Backup</a></li>
+        
+          <li><a href="./Backup/Order.html">Backup::Order</a></li>
+        
+          <li><a href="./Backup/OrderLine.html">Backup::OrderLine</a></li>
+        
+          <li><a href="./Mailer.html">Mailer</a></li>
+        
+          <li><a href="./Mailer/Order.html">Mailer::Order</a></li>
+        
+          <li><a href="./Mailer/User.html">Mailer::User</a></li>
+        
+          <li><a href="./RoleRequirementSystem.html">RoleRequirementSystem</a></li>
+        
+          <li><a href="./RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a></li>
+        
+          <li><a href="./RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a></li>
+        
+          <li><a href="./AccessRight.html">AccessRight</a></li>
+        
+          <li><a href="./Accessory.html">Accessory</a></li>
+        
+          <li><a href="./ApplicationController.html">ApplicationController</a></li>
+        
+          <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
+        
+          <li><a href="./Attachment.html">Attachment</a></li>
+        
+          <li><a href="./AuthenticatedSystem.html">AuthenticatedSystem</a></li>
+        
+          <li><a href="./AuthenticatedTestHelper.html">AuthenticatedTestHelper</a></li>
+        
+          <li><a href="./AuthenticationSystem.html">AuthenticationSystem</a></li>
+        
+          <li><a href="./Building.html">Building</a></li>
+        
+          <li><a href="./CategoriesController.html">CategoriesController</a></li>
+        
+          <li><a href="./Category.html">Category</a></li>
+        
+          <li><a href="./Contract.html">Contract</a></li>
+        
+          <li><a href="./ContractLine.html">ContractLine</a></li>
+        
+          <li><a href="./ContractsController.html">ContractsController</a></li>
+        
+          <li><a href="./DatabaseAuthentication.html">DatabaseAuthentication</a></li>
+        
+          <li><a href="./Document.html">Document</a></li>
+        
+          <li><a href="./DocumentLine.html">DocumentLine</a></li>
+        
+          <li><a href="./Event.html">Event</a></li>
+        
+          <li><a href="./Factory.html">Factory</a></li>
+        
+          <li><a href="./FrontendController.html">FrontendController</a></li>
+        
+          <li><a href="./FrontendHelper.html">FrontendHelper</a></li>
+        
+          <li><a href="./Group.html">Group</a></li>
+        
+          <li><a href="./Hijacker.html">Hijacker</a></li>
+        
+          <li><a href="./History.html">History</a></li>
+        
+          <li><a href="./Holiday.html">Holiday</a></li>
+        
+          <li><a href="./Image.html">Image</a></li>
+        
+          <li><a href="./Importer.html">Importer</a></li>
+        
+          <li><a href="./InventoryPool.html">InventoryPool</a></li>
+        
+          <li><a href="./Item.html">Item</a></li>
+        
+          <li><a href="./ItemLine.html">ItemLine</a></li>
+        
+          <li><a href="./Language.html">Language</a></li>
+        
+          <li><a href="./Location.html">Location</a></li>
+        
+          <li><a href="./LooksLike.html">LooksLike</a></li>
+        
+          <li><a href="./Model.html">Model</a></li>
+        
+          <li><a href="./ModelGroup.html">ModelGroup</a></li>
+        
+          <li><a href="./ModelGroupLink.html">ModelGroupLink</a></li>
+        
+          <li><a href="./ModelLink.html">ModelLink</a></li>
+        
+          <li><a href="./ModelsController.html">ModelsController</a></li>
+        
+          <li><a href="./Notification.html">Notification</a></li>
+        
+          <li><a href="./Option.html">Option</a></li>
+        
+          <li><a href="./OptionLine.html">OptionLine</a></li>
+        
+          <li><a href="./Order.html">Order</a></li>
+        
+          <li><a href="./OrderLine.html">OrderLine</a></li>
+        
+          <li><a href="./OrdersController.html">OrdersController</a></li>
+        
+          <li><a href="./Partition.html">Partition</a></li>
+        
+          <li><a href="./Property.html">Property</a></li>
+        
+          <li><a href="./QuickProfilingHelper.html">QuickProfilingHelper</a></li>
+        
+          <li><a href="./Role.html">Role</a></li>
+        
+          <li><a href="./RoleRequirementTestHelper.html">RoleRequirementTestHelper</a></li>
+        
+          <li><a href="./ScopedPartitions.html">ScopedPartitions</a></li>
+        
+          <li><a href="./SessionsController.html">SessionsController</a></li>
+        
+          <li><a href="./Supplier.html">Supplier</a></li>
+        
+          <li><a href="./Template.html">Template</a></li>
+        
+          <li><a href="./TemplatesController.html">TemplatesController</a></li>
+        
+          <li><a href="./User.html">User</a></li>
+        
+          <li><a href="./UsersController.html">UsersController</a></li>
+        
+          <li><a href="./Workday.html">Workday</a></li>
+        
+          <li><a href="./WorkdaysHelper.html">WorkdaysHelper</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="module">AuthenticatedSystem</h1>
+
+    <div id="description" class="description">
+      
+    </div><!-- description -->
+
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="protected-class-method-details" class="method-section section">
+        <h3 class="section-header">Protected Class Methods</h3>
+
+      
+        <div id="included-method" class="method-detail ">
+          <a name="method-c-included"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">included</span><span
+              class="method-args">(base)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Inclusion hook to make <a
+href="AuthenticatedSystem.html#method-i-current_user">current_user</a> and
+<a href="AuthenticatedSystem.html#method-i-logged_in-3F">logged_in?</a>
+available as ActionView helper methods.</p>
+            
+
+            
+            <div class="method-source-code" id="included-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 92</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
+  <span class="ruby-identifier">base</span>.<span class="ruby-identifier">send</span> <span class="ruby-value">:helper_method</span>, <span class="ruby-value">:current_user</span>, <span class="ruby-value">:logged_in?</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- included-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- included-method -->
+
+      
+      </div><!-- protected-class-method-details -->
+    
+      <div id="protected-instance-method-details" class="method-section section">
+        <h3 class="section-header">Protected Instance Methods</h3>
+
+      
+        <div id="access_denied-method" class="method-detail ">
+          <a name="method-i-access_denied"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">access_denied</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Redirect as appropriate when an access request fails.</p>
+
+<p>The default action is to redirect to the login screen.</p>
+
+<p>Override this method in your controllers if you want to have special
+behavior in case the user is not authorized to access the requested action.
+For example, a popup window might simply close itself.</p>
+            
+
+            
+            <div class="method-source-code" id="access_denied-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 63</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">access_denied</span>
+<span class="ruby-comment">#sellittf#      </span>
+<span class="ruby-comment">#      respond_to do |format|</span>
+<span class="ruby-comment">#        format.html do</span>
+          <span class="ruby-identifier">store_location</span>
+          <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_session_path</span>
+<span class="ruby-comment">#        end</span>
+<span class="ruby-comment">#        format.any do</span>
+<span class="ruby-comment">#          request_http_basic_authentication 'Web Password'</span>
+<span class="ruby-comment">#        end</span>
+<span class="ruby-comment">#      end</span>
+    <span class="ruby-keyword">end</span></pre>
+            </div><!-- access_denied-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- access_denied-method -->
+
+      
+        <div id="authorized-3F-method" class="method-detail ">
+          <a name="method-i-authorized-3F"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">authorized?</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Check if the user is authorized</p>
+
+<p>Override this method in your controllers if you want to restrict access to
+only a few actions or if you want to check if the user has the correct
+rights.</p>
+
+<p>Example:</p>
+
+<pre># only allow nonbobs
+def authorized?
+  current_user.login != &quot;bob&quot;
+end</pre>
+            
+
+            
+            <div class="method-source-code" id="authorized-3F-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">authorized?</span>
+  <span class="ruby-identifier">logged_in?</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- authorized-3F-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- authorized-3F-method -->
+
+      
+        <div id="current_user-method" class="method-detail ">
+          <a name="method-i-current_user"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">current_user</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Accesses the current user from the session.  Future calls avoid the
+database because nil is not equal to false.</p>
+            
+
+            
+            <div class="method-source-code" id="current_user-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">current_user</span>
+  <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">||=</span> (<span class="ruby-identifier">login_from_session</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">login_from_basic_auth</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">login_from_cookie</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- current_user-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- current_user-method -->
+
+      
+        <div id="current_user-3D-method" class="method-detail ">
+          <a name="method-i-current_user-3D"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">current_user=</span><span
+              class="method-args">(new_user)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Store the given user id in the session.</p>
+            
+
+            
+            <div class="method-source-code" id="current_user-3D-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">current_user=</span>(<span class="ruby-identifier">new_user</span>)
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:user_id</span>] = <span class="ruby-identifier">new_user</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">new_user</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@current_user</span> = <span class="ruby-identifier">new_user</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- current_user-3D-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- current_user-3D-method -->
+
+      
+        <div id="logged_in-3F-method" class="method-detail ">
+          <a name="method-i-logged_in-3F"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">logged_in?</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Returns true or false if the user is logged in. Preloads @<a
+href="AuthenticatedSystem.html#method-i-current_user">current_user</a> with
+the user model if they’re logged in.</p>
+            
+
+            
+            <div class="method-source-code" id="logged_in-3F-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">logged_in?</span>
+  <span class="ruby-identifier">current_user</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- logged_in-3F-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- logged_in-3F-method -->
+
+      
+        <div id="login_from_basic_auth-method" class="method-detail ">
+          <a name="method-i-login_from_basic_auth"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">login_from_basic_auth</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Called from <a
+href="AuthenticatedSystem.html#method-i-current_user">current_user</a>. 
+Now, attempt to login by basic authentication information.</p>
+            
+
+            
+            <div class="method-source-code" id="login_from_basic_auth-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">login_from_basic_auth</span>
+  <span class="ruby-identifier">authenticate_with_http_basic</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">username</span>, <span class="ruby-identifier">password</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">current_user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">authenticate</span>(<span class="ruby-identifier">username</span>, <span class="ruby-identifier">password</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- login_from_basic_auth-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- login_from_basic_auth-method -->
+
+      
+        <div id="login_from_cookie-method" class="method-detail ">
+          <a name="method-i-login_from_cookie"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">login_from_cookie</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Called from <a
+href="AuthenticatedSystem.html#method-i-current_user">current_user</a>. 
+Finaly, attempt to login by an expiring token in the cookie.</p>
+            
+
+            
+            <div class="method-source-code" id="login_from_cookie-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 109</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">login_from_cookie</span>
+  <span class="ruby-identifier">user</span> = <span class="ruby-identifier">cookies</span>[<span class="ruby-value">:auth_token</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_remember_token</span>(<span class="ruby-identifier">cookies</span>[<span class="ruby-value">:auth_token</span>])
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">remember_token?</span>
+    <span class="ruby-identifier">cookies</span>[<span class="ruby-value">:auth_token</span>] = { <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">remember_token</span>, <span class="ruby-value">:expires</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">remember_token_expires_at</span> }
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">current_user</span> = <span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- login_from_cookie-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- login_from_cookie-method -->
+
+      
+        <div id="login_from_session-method" class="method-detail ">
+          <a name="method-i-login_from_session"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">login_from_session</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Called from <a
+href="AuthenticatedSystem.html#method-i-current_user">current_user</a>. 
+First attempt to login by the user id stored in the session.</p>
+            
+
+            
+            <div class="method-source-code" id="login_from_session-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">login_from_session</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">current_user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">session</span>[<span class="ruby-value">:user_id</span>]) <span class="ruby-keyword">if</span> <span class="ruby-identifier">session</span>[<span class="ruby-value">:user_id</span>]
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- login_from_session-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- login_from_session-method -->
+
+      
+        <div id="login_required-method" class="method-detail ">
+          <a name="method-i-login_required"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">login_required</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Filter method to enforce a login requirement.</p>
+
+<p>To require logins for all actions, use this in your controllers:</p>
+
+<pre>before_filter :login_required</pre>
+
+<p>To require logins for specific actions, use this in your controllers:</p>
+
+<pre>before_filter :login_required, :only =&gt; [ :edit, :update ]</pre>
+
+<p>To skip this in a subclassed controller:</p>
+
+<pre>skip_before_filter :login_required</pre>
+            
+
+            
+            <div class="method-source-code" id="login_required-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">login_required</span>
+  <span class="ruby-identifier">authorized?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">access_denied</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- login_required-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- login_required-method -->
+
+      
+        <div id="redirect_back_or_default-method" class="method-detail ">
+          <a name="method-i-redirect_back_or_default"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">redirect_back_or_default</span><span
+              class="method-args">(default)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Redirect to the URI stored by the most recent <a
+href="AuthenticatedSystem.html#method-i-store_location">store_location</a>
+call or to the passed default.</p>
+            
+
+            
+            <div class="method-source-code" id="redirect_back_or_default-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">redirect_back_or_default</span>(<span class="ruby-identifier">default</span>)
+  <span class="ruby-identifier">redirect_to</span>(<span class="ruby-identifier">session</span>[<span class="ruby-value">:return_to</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">default</span>)
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:return_to</span>] = <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- redirect_back_or_default-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- redirect_back_or_default-method -->
+
+      
+        <div id="store_location-method" class="method-detail ">
+          <a name="method-i-store_location"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">store_location</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Store the URI of the current request in the session.</p>
+
+<p>We can return to this location by calling <a
+href="AuthenticatedSystem.html#method-i-redirect_back_or_default">redirect_back_or_default</a>.</p>
+            
+
+            
+            <div class="method-source-code" id="store_location-source">
+<pre>
+<span class="ruby-comment"># File lib/authenticated_system.rb, line 79</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">store_location</span>
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:return_to</span>] = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> <span class="ruby-comment">#sellittf#Rails3.1# request.request_uri</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- store_location-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- store_location-method -->
+
+      
+      </div><!-- protected-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+

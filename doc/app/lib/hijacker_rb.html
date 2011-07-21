@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>File: hijacker.rb [Leihs Application Documentation]</title>
+
+  <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet" />
+
+  <script src="../js/jquery.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../js/thickbox-compressed.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../js/quicksearch.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../js/darkfish.js" type="text/javascript"
+    charset="utf-8"></script>
+</head>
+
+<body class="file file-popup">
+  <div id="metadata">
+    <dl>
+      <dt class="modified-date">Last Modified</dt>
+      <dd class="modified-date">Mon Jul 12 13:02:45 +0200 2010</dd>
+
+      
+      <dt class="requires">Requires</dt>
+      <dd class="requires">
+        <ul>
+        
+        </ul>
+      </dd>
+      
+
+      
+    </dl>
+  </div>
+
+  <div id="documentation">
+    
+    <div class="description">
+      <h2>Description</h2>
+      
+<p><a href="../Hijacker.html">Hijacker</a> class</p>
+
+<p>This class is used by <a
+href="../RoleRequirementTestHelper.html">RoleRequirementTestHelper</a> to
+temporarily hijack a controller action for testing</p>
+
+<p>It can be used for other tests as well.</p>
+
+<p>You can contract the author with questions</p>
+
+<pre>Tim C. Harper - irb(main):001:0&gt; ( 'tim_see_harperATgmail._see_om'.gsub('_see_', 'c').gsub('AT', '@') )</pre>
+
+<p>Example usage:</p>
+
+<pre>hijacker = Hijacker.new(ListingsController)
+hijacker.hijack_instance_method(&quot;index&quot;, &quot;render :text =&gt; 'hello world!'&quot; )
+get :index        # will return &quot;hello world&quot;
+hijacker.restore  # put things back the way you found it</pre>
+
+    </div>
+    
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>File: item.rb [Leihs Application Documentation]</title>
+
+  <link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet" />
+
+  <script src="../../js/jquery.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../../js/thickbox-compressed.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../../js/quicksearch.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../../js/darkfish.js" type="text/javascript"
+    charset="utf-8"></script>
+</head>
+
+<body class="file file-popup">
+  <div id="metadata">
+    <dl>
+      <dt class="modified-date">Last Modified</dt>
+      <dd class="modified-date">Sat Jul 02 00:28:20 +0200 2011</dd>
+
+      
+      <dt class="requires">Requires</dt>
+      <dd class="requires">
+        <ul>
+        
+        </ul>
+      </dd>
+      
+
+      
+    </dl>
+  </div>
+
+  <div id="documentation">
+    
+    <div class="description">
+      <h2>Description</h2>
+      
+<h2>Schema Information</h2>
+
+<p>Table name: items</p>
+
+<pre>id                    :integer(4)      not null, primary key
+inventory_code        :string(255)
+serial_number         :string(255)
+model_id              :integer(4)
+location_id           :integer(4)
+supplier_id           :integer(4)
+owner_id              :integer(4)
+parent_id             :integer(4)
+invoice_number        :string(255)
+invoice_date          :date
+last_check            :date
+retired               :date
+retired_reason        :string(255)
+price                 :decimal(8, 2)
+is_broken             :boolean(1)      default(FALSE)
+is_incomplete         :boolean(1)      default(FALSE)
+is_borrowable         :boolean(1)      default(FALSE)
+created_at            :datetime
+updated_at            :datetime
+needs_permission      :boolean(1)      default(FALSE)
+inventory_pool_id     :integer(4)
+is_inventory_relevant :boolean(1)      default(TRUE)
+responsible           :string(255)
+insurance_number      :string(255)
+note                  :text
+name                  :text
+delta                 :boolean(1)      default(TRUE)</pre>
+
+    </div>
+    
+  </div>
+</body>
+</html>
+

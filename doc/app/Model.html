@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: Model</title>
+
+  <link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+  <script src="./js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="class">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="./app/models/model_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="app/models/model.rb">app/models/model.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+      <!-- Parent Class -->
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        
+        <p class="link">ActiveRecord::Base</p>
+        
+      </div>
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-i-3C-3D-3E">#<=></a></li>
+          
+          <li><a href="#method-i-add_bidirectional_compatibility">#add_bidirectional_compatibility</a></li>
+          
+          <li><a href="#method-i-add_to_document">#add_to_document</a></li>
+          
+          <li><a href="#method-i-image">#image</a></li>
+          
+          <li><a href="#method-i-image_thumb">#image_thumb</a></li>
+          
+          <li><a href="#method-i-in">#in</a></li>
+          
+          <li><a href="#method-i-lines">#lines</a></li>
+          
+          <li><a href="#method-i-needs_permission">#needs_permission</a></li>
+          
+          <li><a href="#method-i-package_models">#package_models</a></li>
+          
+          <li><a href="#method-i-remove_bidirectional_compatibility">#remove_bidirectional_compatibility</a></li>
+          
+          <li><a href="#method-i-running_reservations">#running_reservations</a></li>
+          
+          <li><a href="#method-i-to_s">#to_s</a></li>
+          
+          <li><a href="#method-i-touch_for_sphinx">#touch_for_sphinx</a></li>
+          
+          <li><a href="#method-i-update_sphinx_index_compatibility">#update_sphinx_index_compatibility</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <!-- Included Modules -->
+      <div id="includes-section" class="section">
+        <h3 class="section-header">Included Modules</h3>
+        <ul class="link-list">
+        
+        
+          <li><a class="include" href="Availability/Model.html">Availability::Model</a></li>
+        
+        
+        </ul>
+      </div>
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="./Backend.html">Backend</a></li>
+        
+          <li><a href="./Backend/AcknowledgeController.html">Backend::AcknowledgeController</a></li>
+        
+          <li><a href="./Backend/AcknowledgeHelper.html">Backend::AcknowledgeHelper</a></li>
+        
+          <li><a href="./Backend/AvailabilityController.html">Backend::AvailabilityController</a></li>
+        
+          <li><a href="./Backend/AvailabilityHelper.html">Backend::AvailabilityHelper</a></li>
+        
+          <li><a href="./Backend/BackendController.html">Backend::BackendController</a></li>
+        
+          <li><a href="./Backend/BackendHelper.html">Backend::BackendHelper</a></li>
+        
+          <li><a href="./Backend/BarcodesController.html">Backend::BarcodesController</a></li>
+        
+          <li><a href="./Backend/CategoriesController.html">Backend::CategoriesController</a></li>
+        
+          <li><a href="./Backend/CategoriesHelper.html">Backend::CategoriesHelper</a></li>
+        
+          <li><a href="./Backend/ContractsController.html">Backend::ContractsController</a></li>
+        
+          <li><a href="./Backend/GroupsController.html">Backend::GroupsController</a></li>
+        
+          <li><a href="./Backend/HandOverController.html">Backend::HandOverController</a></li>
+        
+          <li><a href="./Backend/HandOverHelper.html">Backend::HandOverHelper</a></li>
+        
+          <li><a href="./Backend/InventoryImport.html">Backend::InventoryImport</a></li>
+        
+          <li><a href="./Backend/InventoryImport/ImporterController.html">Backend::InventoryImport::ImporterController</a></li>
+        
+          <li><a href="./Backend/InventoryPoolsController.html">Backend::InventoryPoolsController</a></li>
+        
+          <li><a href="./Backend/ItemsController.html">Backend::ItemsController</a></li>
+        
+          <li><a href="./Backend/ItemsHelper.html">Backend::ItemsHelper</a></li>
+        
+          <li><a href="./Backend/LocationsController.html">Backend::LocationsController</a></li>
+        
+          <li><a href="./Backend/MailsController.html">Backend::MailsController</a></li>
+        
+          <li><a href="./Backend/MailsHelper.html">Backend::MailsHelper</a></li>
+        
+          <li><a href="./Backend/ModelsController.html">Backend::ModelsController</a></li>
+        
+          <li><a href="./Backend/ModelsHelper.html">Backend::ModelsHelper</a></li>
+        
+          <li><a href="./Backend/OptionsController.html">Backend::OptionsController</a></li>
+        
+          <li><a href="./Backend/OrdersController.html">Backend::OrdersController</a></li>
+        
+          <li><a href="./Backend/TakeBackController.html">Backend::TakeBackController</a></li>
+        
+          <li><a href="./Backend/TemplatesController.html">Backend::TemplatesController</a></li>
+        
+          <li><a href="./Backend/UsersController.html">Backend::UsersController</a></li>
+        
+          <li><a href="./Backend/UsersHelper.html">Backend::UsersHelper</a></li>
+        
+          <li><a href="./Backend/WorkdaysController.html">Backend::WorkdaysController</a></li>
+        
+          <li><a href="./Availability.html">Availability</a></li>
+        
+          <li><a href="./Availability/Change.html">Availability::Change</a></li>
+        
+          <li><a href="./Availability/Changes.html">Availability::Changes</a></li>
+        
+          <li><a href="./Availability/DocumentLine.html">Availability::DocumentLine</a></li>
+        
+          <li><a href="./Availability/Group.html">Availability::Group</a></li>
+        
+          <li><a href="./Availability/InventoryPool.html">Availability::InventoryPool</a></li>
+        
+          <li><a href="./Availability/Main.html">Availability::Main</a></li>
+        
+          <li><a href="./Availability/Model.html">Availability::Model</a></li>
+        
+          <li><a href="./Availability/Observer.html">Availability::Observer</a></li>
+        
+          <li><a href="./Availability/Quantity.html">Availability::Quantity</a></li>
+        
+          <li><a href="./Authenticator.html">Authenticator</a></li>
+        
+          <li><a href="./Authenticator/AuthenticatorController.html">Authenticator::AuthenticatorController</a></li>
+        
+          <li><a href="./Authenticator/DatabaseAuthenticationController.html">Authenticator::DatabaseAuthenticationController</a></li>
+        
+          <li><a href="./Authenticator/LdapAuthenticationController.html">Authenticator::LdapAuthenticationController</a></li>
+        
+          <li><a href="./Authenticator/ShibbolethAuthenticationController.html">Authenticator::ShibbolethAuthenticationController</a></li>
+        
+          <li><a href="./Authenticator/ZhdkController.html">Authenticator::ZhdkController</a></li>
+        
+          <li><a href="./Backup.html">Backup</a></li>
+        
+          <li><a href="./Backup/Order.html">Backup::Order</a></li>
+        
+          <li><a href="./Backup/OrderLine.html">Backup::OrderLine</a></li>
+        
+          <li><a href="./Mailer.html">Mailer</a></li>
+        
+          <li><a href="./Mailer/Order.html">Mailer::Order</a></li>
+        
+          <li><a href="./Mailer/User.html">Mailer::User</a></li>
+        
+          <li><a href="./RoleRequirementSystem.html">RoleRequirementSystem</a></li>
+        
+          <li><a href="./RoleRequirementSystem/RoleSecurityClassMethods.html">RoleRequirementSystem::RoleSecurityClassMethods</a></li>
+        
+          <li><a href="./RoleRequirementSystem/RoleSecurityInstanceMethods.html">RoleRequirementSystem::RoleSecurityInstanceMethods</a></li>
+        
+          <li><a href="./AccessRight.html">AccessRight</a></li>
+        
+          <li><a href="./Accessory.html">Accessory</a></li>
+        
+          <li><a href="./ApplicationController.html">ApplicationController</a></li>
+        
+          <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
+        
+          <li><a href="./Attachment.html">Attachment</a></li>
+        
+          <li><a href="./AuthenticatedSystem.html">AuthenticatedSystem</a></li>
+        
+          <li><a href="./AuthenticatedTestHelper.html">AuthenticatedTestHelper</a></li>
+        
+          <li><a href="./AuthenticationSystem.html">AuthenticationSystem</a></li>
+        
+          <li><a href="./Building.html">Building</a></li>
+        
+          <li><a href="./CategoriesController.html">CategoriesController</a></li>
+        
+          <li><a href="./Category.html">Category</a></li>
+        
+          <li><a href="./Contract.html">Contract</a></li>
+        
+          <li><a href="./ContractLine.html">ContractLine</a></li>
+        
+          <li><a href="./ContractsController.html">ContractsController</a></li>
+        
+          <li><a href="./DatabaseAuthentication.html">DatabaseAuthentication</a></li>
+        
+          <li><a href="./Document.html">Document</a></li>
+        
+          <li><a href="./DocumentLine.html">DocumentLine</a></li>
+        
+          <li><a href="./Event.html">Event</a></li>
+        
+          <li><a href="./Factory.html">Factory</a></li>
+        
+          <li><a href="./FrontendController.html">FrontendController</a></li>
+        
+          <li><a href="./FrontendHelper.html">FrontendHelper</a></li>
+        
+          <li><a href="./Group.html">Group</a></li>
+        
+          <li><a href="./Hijacker.html">Hijacker</a></li>
+        
+          <li><a href="./History.html">History</a></li>
+        
+          <li><a href="./Holiday.html">Holiday</a></li>
+        
+          <li><a href="./Image.html">Image</a></li>
+        
+          <li><a href="./Importer.html">Importer</a></li>
+        
+          <li><a href="./InventoryPool.html">InventoryPool</a></li>
+        
+          <li><a href="./Item.html">Item</a></li>
+        
+          <li><a href="./ItemLine.html">ItemLine</a></li>
+        
+          <li><a href="./Language.html">Language</a></li>
+        
+          <li><a href="./Location.html">Location</a></li>
+        
+          <li><a href="./LooksLike.html">LooksLike</a></li>
+        
+          <li><a href="./Model.html">Model</a></li>
+        
+          <li><a href="./ModelGroup.html">ModelGroup</a></li>
+        
+          <li><a href="./ModelGroupLink.html">ModelGroupLink</a></li>
+        
+          <li><a href="./ModelLink.html">ModelLink</a></li>
+        
+          <li><a href="./ModelsController.html">ModelsController</a></li>
+        
+          <li><a href="./Notification.html">Notification</a></li>
+        
+          <li><a href="./Option.html">Option</a></li>
+        
+          <li><a href="./OptionLine.html">OptionLine</a></li>
+        
+          <li><a href="./Order.html">Order</a></li>
+        
+          <li><a href="./OrderLine.html">OrderLine</a></li>
+        
+          <li><a href="./OrdersController.html">OrdersController</a></li>
+        
+          <li><a href="./Partition.html">Partition</a></li>
+        
+          <li><a href="./Property.html">Property</a></li>
+        
+          <li><a href="./QuickProfilingHelper.html">QuickProfilingHelper</a></li>
+        
+          <li><a href="./Role.html">Role</a></li>
+        
+          <li><a href="./RoleRequirementTestHelper.html">RoleRequirementTestHelper</a></li>
+        
+          <li><a href="./ScopedPartitions.html">ScopedPartitions</a></li>
+        
+          <li><a href="./SessionsController.html">SessionsController</a></li>
+        
+          <li><a href="./Supplier.html">Supplier</a></li>
+        
+          <li><a href="./Template.html">Template</a></li>
+        
+          <li><a href="./TemplatesController.html">TemplatesController</a></li>
+        
+          <li><a href="./User.html">User</a></li>
+        
+          <li><a href="./UsersController.html">UsersController</a></li>
+        
+          <li><a href="./Workday.html">Workday</a></li>
+        
+          <li><a href="./WorkdaysHelper.html">WorkdaysHelper</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="class">Model</h1>
+
+    <div id="description" class="description">
+      
+<p>A <a href="Model.html">Model</a> is a type of a thing which is available
+inside an #<a href="InventoryPool.html">InventoryPool</a> for borrowing. If
+a customer wants to borrow a thing, he opens an #<a
+href="Order.html">Order</a> and chooses the appropriate <a
+href="Model.html">Model</a>. The #<a
+href="InventoryPool.html">InventoryPool</a> manager then hands him over an
+instance - an #<a href="Item.html">Item</a> - of that <a
+href="Model.html">Model</a>, in case one is still available for borrowing.</p>
+
+<p>The description of the #<a href="Item.html">Item</a> class contains an
+example.</p>
+
+    </div><!-- description -->
+
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="3C-3D-3E-method" class="method-detail ">
+          <a name="method-i-3C-3D-3E"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">&lt;=&gt;</span><span
+              class="method-args">(other)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>compares two objects in order to sort them</p>
+            
+
+            
+            <div class="method-source-code" id="3C-3D-3E-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 209</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">&lt;=&gt;</span>(<span class="ruby-identifier">other</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">name</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- 3C-3D-3E-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- 3C-3D-3E-method -->
+
+      
+        <div id="add_bidirectional_compatibility-method" class="method-detail ">
+          <a name="method-i-add_bidirectional_compatibility"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">add_bidirectional_compatibility</span><span
+              class="method-args">(compatible)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="add_bidirectional_compatibility-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_bidirectional_compatibility</span>(<span class="ruby-identifier">compatible</span>)
+  <span class="ruby-identifier">compatible</span>.<span class="ruby-identifier">compatibles</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">self</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">compatible</span>.<span class="ruby-identifier">compatibles</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- add_bidirectional_compatibility-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- add_bidirectional_compatibility-method -->
+
+      
+        <div id="add_to_document-method" class="method-detail ">
+          <a name="method-i-add_to_document"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">add_to_document</span><span
+              class="method-args">(document, user_id, quantity = nil, start_date = nil, end_date = nil, inventory_pool = nil)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="add_to_document-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 235</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_to_document</span>(<span class="ruby-identifier">document</span>, <span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">quantity</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">start_date</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">end_date</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">inventory_pool</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">document</span>.<span class="ruby-identifier">add_line</span>(<span class="ruby-identifier">quantity</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">start_date</span>, <span class="ruby-identifier">end_date</span>, <span class="ruby-identifier">inventory_pool</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- add_to_document-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- add_to_document-method -->
+
+      
+        <div id="image-method" class="method-detail ">
+          <a name="method-i-image"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">image</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="image-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 218</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">image</span>
+  ( <span class="ruby-identifier">images</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">images</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">public_filename</span>() )
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- image-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- image-method -->
+
+      
+        <div id="image_thumb-method" class="method-detail ">
+          <a name="method-i-image_thumb"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">image_thumb</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>TODO 06** define main image</p>
+            
+
+            
+            <div class="method-source-code" id="image_thumb-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 214</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">image_thumb</span>
+  ( <span class="ruby-identifier">images</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">images</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">public_filename</span>(<span class="ruby-value">:thumb</span>) )
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- image_thumb-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- image_thumb-method -->
+
+      
+        <div id="in-method" class="method-detail ">
+          <a name="method-i-in"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">in</span><span
+              class="method-args">(inventory_pool)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="in-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">in</span>(<span class="ruby-identifier">inventory_pool</span>)
+  <span class="ruby-comment"># At this point partitions are model scoped, additionally</span>
+  <span class="ruby-comment"># we want to scope them for inventory pool too (double scope).</span>
+  <span class="ruby-constant">ScopedPartitions</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">inventory_pool</span>, <span class="ruby-identifier">proxy_owner</span>,
+                       <span class="ruby-keyword">self</span>.<span class="ruby-identifier">scoped</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:inventory_pool_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">inventory_pool</span>))
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- in-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- in-method -->
+
+      
+        <div id="lines-method" class="method-detail ">
+          <a name="method-i-lines"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">lines</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="lines-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 222</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">lines</span>
+  <span class="ruby-identifier">order_lines</span>.<span class="ruby-identifier">submitted</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">contract_lines</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- lines-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- lines-method -->
+
+      
+        <div id="needs_permission-method" class="method-detail ">
+          <a name="method-i-needs_permission"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">needs_permission</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="needs_permission-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 226</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">needs_permission</span>
+  <span class="ruby-identifier">items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">needs_permission</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- needs_permission-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- needs_permission-method -->
+
+      
+        <div id="package_models-method" class="method-detail ">
+          <a name="method-i-package_models"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">package_models</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="package_models-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 82</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">package_models</span>
+  <span class="ruby-comment"># NOTE assuming all roots have the same children structure</span>
+  <span class="ruby-identifier">items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">collect</span>(&amp;<span class="ruby-value">:model</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-keyword">end</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">is_package?</span>
+  <span class="ruby-keyword">return</span> []
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- package_models-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- package_models-method -->
+
+      
+        <div id="remove_bidirectional_compatibility-method" class="method-detail ">
+          <a name="method-i-remove_bidirectional_compatibility"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">remove_bidirectional_compatibility</span><span
+              class="method-args">(compatible)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="remove_bidirectional_compatibility-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 105</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remove_bidirectional_compatibility</span>(<span class="ruby-identifier">compatible</span>)
+  <span class="ruby-identifier">compatible</span>.<span class="ruby-identifier">compatibles</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-keyword">self</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">compatible</span>.<span class="ruby-identifier">compatibles</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- remove_bidirectional_compatibility-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- remove_bidirectional_compatibility-method -->
+
+      
+        <div id="running_reservations-method" class="method-detail ">
+          <a name="method-i-running_reservations"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">running_reservations</span><span
+              class="method-args">(inventory_pool, current_time = Date.today)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="running_reservations-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 239</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">running_reservations</span>(<span class="ruby-identifier">inventory_pool</span>, <span class="ruby-identifier">current_time</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>)
+  <span class="ruby-keyword">return</span>   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">contract_lines</span>.<span class="ruby-identifier">by_inventory_pool</span>(<span class="ruby-identifier">inventory_pool</span>).<span class="ruby-identifier">handed_over_or_assigned_but_not_returned</span>(<span class="ruby-identifier">current_time</span>)             <span class="ruby-operator">+</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_lines</span>.<span class="ruby-identifier">scoped_by_inventory_pool_id</span>(<span class="ruby-identifier">inventory_pool</span>).<span class="ruby-identifier">submitted</span>.<span class="ruby-identifier">running</span>(<span class="ruby-identifier">current_time</span>)    
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- running_reservations-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- running_reservations-method -->
+
+      
+        <div id="to_s-method" class="method-detail ">
+          <a name="method-i-to_s"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">to_s</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="to_s-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 204</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-node">&quot;#{name}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- to_s-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- to_s-method -->
+
+      
+        <div id="touch_for_sphinx-method" class="method-detail ">
+          <a name="method-i-touch_for_sphinx"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">touch_for_sphinx</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="touch_for_sphinx-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 188</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">touch_for_sphinx</span>
+  <span class="ruby-ivar">@block_delta_indexing</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-identifier">save</span> <span class="ruby-comment"># trigger reindex</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- touch_for_sphinx-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- touch_for_sphinx-method -->
+
+      
+        <div id="update_sphinx_index_compatibility-method" class="method-detail ">
+          <a name="method-i-update_sphinx_index_compatibility"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">update_sphinx_index_compatibility</span><span
+              class="method-args">(compatible)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="update_sphinx_index_compatibility-source">
+<pre>
+<span class="ruby-comment"># File app/models/model.rb, line 109</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_sphinx_index_compatibility</span>(<span class="ruby-identifier">compatible</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">touch_for_sphinx</span>
+  <span class="ruby-identifier">compatible</span>.<span class="ruby-identifier">touch_for_sphinx</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- update_sphinx_index_compatibility-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- update_sphinx_index_compatibility-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+
