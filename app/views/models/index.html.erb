@@ -29,14 +29,14 @@
 		        </div>
 			</form><!-- availability -->
 			
-			<form class="sort" action="" method="post">
-			    <input class="submit" type="submit" value="sortieren" />
+			<form class="sort" action="" method="get">
+			    <input class="submit" type="submit" value="<%= _("Sort") %>" />
 			    <div class="container">
-    				<select name="sortname" class="styled">
-    					<option value="name"><%= _("Productname (A-Z)") %></option>
-    					<option value="name"><%= _("Productname (Z-A)") %></option>
-    					<option value="manufacturer"><%= _("Manufacturer (A-Z)") %></option>
-    					<option value="manufacturer"><%= _("Manufacturer (Z-A)") %></option>
+    				<select name="sort_and_sort_mode" class="styled">
+    					<option value="name ASC"><%= _("Productname (A-Z)") %></option>
+    					<option value="name DESC"><%= _("Productname (Z-A)") %></option>
+    					<option value="manufacturer ASC"><%= _("Manufacturer (A-Z)") %></option>
+    					<option value="manufacturer DESC"><%= _("Manufacturer (Z-A)") %></option>
     				</select>
     		    </div><!-- .container -->
 			</form><!-- sort -->
@@ -47,35 +47,39 @@
                 <table class="item">
                     <tr>
                         <td class="image">
-                            <%= link_to image_tag("http://leihs.zhdk.ch/#{m.image_thumb}"), m %>
+                            <% unless m.images.empty? %>
+                                <%= link_to image_tag("http://leihs.zhdk.ch/#{m.image_thumb}"), m %>
+                            <% end %>
                         </td><!-- .image -->
-                        <td class="imagehover">
-                          <%= link_to content_tag(:span), m, :class=>"anchor" %>
-                          <div class="hover">
-                            <div class="header"><div class="borderleft"></div><div class="headerinner"></div><div class="borderright"></div></div>
-                            <div class="inner">
-                                <%= link_to image_tag("http://leihs.zhdk.ch/#{m.image}") + content_tag(:span, _("view"), :class=>"topright"), m %>
-                                <% unless m.description.blank? %>
-                                  <p class="description"><%= truncate(m.description, 120) %></p>
-                                <% end %>
-                                <% unless m.properties.empty? %>
-                                    <table class="details">
-                                        <% m.properties.each_with_index do |p, i| %>
-                                            <% if i < 5 %>
-                                            <tr>
-                                                <td class="key"><%= p.key %></td>
-                                                <td class="value"><%= p.value %></td>
-                                            </tr>
+                        <% unless m.images.empty? %>
+                            <td class="imagehover">
+                              <%= link_to content_tag(:span), m, :class=>"anchor" %>
+                              <div class="hover">
+                                <div class="header"><div class="borderleft"></div><div class="headerinner"></div><div class="borderright"></div></div>
+                                <div class="inner">
+                                    <%= link_to image_tag("http://leihs.zhdk.ch/#{m.image}") + content_tag(:span, _("view"), :class=>"topright"), m %>
+                                    <% unless m.description.blank? %>
+                                      <p class="description"><%= truncate(m.description, 120) %></p>
+                                    <% end %>
+                                    <% unless m.properties.empty? %>
+                                        <table class="details">
+                                            <% m.properties.each_with_index do |p, i| %>
+                                                <% if i < 5 %>
+                                                <tr>
+                                                    <td class="key"><%= p.key %></td>
+                                                    <td class="value"><%= p.value %></td>
+                                                </tr>
+                                                <% end %>
                                             <% end %>
-                                        <% end %>
-                                    </table><!-- .details -->
-                                <% end %>
-                                <div class="borderleft"><div class="arrow"></div></div>
-                               <div class="borderright"><div class="arrow"></div></div>
-                            </div><!-- .inner -->
-                           <div class="footer"><div class="borderleft"></div><div class="footerinner"></div><div class="borderright"></div></div>
-                          </div><!-- .hover -->
-                        </td>
+                                        </table><!-- .details -->
+                                    <% end %>
+                                    <div class="borderleft"><div class="arrow"></div></div>
+                                   <div class="borderright"><div class="arrow"></div></div>
+                                </div><!-- .inner -->
+                               <div class="footer"><div class="borderleft"></div><div class="footerinner"></div><div class="borderright"></div></div>
+                              </div><!-- .hover -->
+                            </td>
+                        <% end %>
                         <td class="name"><%= link_to m.name, m %></td>
                         <td class="manufacturer"><%= link_to m.manufacturer, m %></td></div>
                         <td class="availability">

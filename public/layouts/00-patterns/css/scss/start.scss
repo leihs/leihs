@@ -20,10 +20,21 @@
       padding-left: 6px;
       width: 175px;
     
-      img {
-        height: 80px;
-        display: block;
-        padding-bottom: 8px;
+      table.image {
+        margin-bottom: 8px;
+        
+        tr td {
+          height: 120px;
+          text-align: left;
+          vertical-align: bottom;
+          width: 150px;
+          
+          img {
+            max-height: 100px;
+            width: auto;
+            max-width: 120px;
+          }
+        }
       }
       
       ul {

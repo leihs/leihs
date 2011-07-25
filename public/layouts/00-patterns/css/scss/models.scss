@@ -89,7 +89,7 @@
         background: transparent;
         border: none;
         display: inline-block;
-        height: 70px;
+        height: 72px;
         left: 0;
         position: absolute;
         width: 65px;
@@ -102,7 +102,6 @@
         
         .hover {
           display: none;
-          height: 250px;
           left: 70px;
           position: absolute;
           top: -50px;
@@ -145,8 +144,9 @@
           
           .inner {
             background: #FFF;
-            border: none;
+            border: none; 
             margin: 0 auto;
+            min-height: 100px;
             padding: 9px 11px 11px 10px;
             position: relative;
             width: 369px;
@@ -200,14 +200,14 @@
                 color: $grey;
                 margin-right: 8px;
                 padding-left: 10px;
-                width: 109px;
+                width: 103px;
               }
               
               .value {
                 border-left: 1px solid #FFF;
                 padding-left: 10px;
                 padding-right: 10px;
-                width: 226px
+                width: 222px
               }
             }
             
@@ -311,11 +311,12 @@
       }
       
       .add {
-        width: 24px;
         padding-right: 16px;
         padding-top: 1px;
         text-align: right;
         vertical-align: middle;
+        width: 24px;
+        @include opacity(0.4);
         
         a {
           font-size: 1.4em;   
@@ -333,6 +334,10 @@
     
     .item:hover {
       background: $highlight-darkgrey;
+      
+      .add {
+        @include opacity(1);
+      }
     }
     
   }

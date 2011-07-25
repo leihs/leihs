@@ -6,6 +6,8 @@ class ModelsController < FrontendController
              query = params[:query],
              sort = params[:sort] || 'name', # OPTIMIZE 0501
              sort_mode = params[:dir] || 'ASC' ) # OPTIMIZE 0501
+             
+    sort, sort_mode = params[:sort_and_sort_mode].split unless params[:sort_and_sort_mode].blank?
     
     sort_mode = sort_mode.downcase.to_sym # OPTIMIZE 0501
     

@@ -841,10 +841,17 @@ hr {
     float: left;
     padding-left: 6px;
     width: 175px; }
-    #start #categories .cell img {
-      height: 80px;
-      display: block;
-      padding-bottom: 8px; }
+    #start #categories .cell table.image {
+      margin-bottom: 8px; }
+      #start #categories .cell table.image tr td {
+        height: 120px;
+        text-align: left;
+        vertical-align: bottom;
+        width: 150px; }
+        #start #categories .cell table.image tr td img {
+          max-height: 100px;
+          width: auto;
+          max-width: 120px; }
     #start #categories .cell ul {
       margin-right: 20px;
       margin-top: 5px;
@@ -1113,7 +1120,7 @@ hr {
       background: transparent;
       border: none;
       display: inline-block;
-      height: 70px;
+      height: 72px;
       left: 0;
       position: absolute;
       width: 65px; }
@@ -1123,7 +1130,6 @@ hr {
         width: 100%; }
       #models #modellist .item .imagehover .hover {
         display: none;
-        height: 250px;
         left: 70px;
         position: absolute;
         top: -50px;
@@ -1159,6 +1165,7 @@ hr {
           background: #FFF;
           border: none;
           margin: 0 auto;
+          min-height: 100px;
           padding: 9px 11px 11px 10px;
           position: relative;
           width: 369px; }
@@ -1196,12 +1203,12 @@ hr {
             color: #717171;
             margin-right: 8px;
             padding-left: 10px;
-            width: 109px; }
+            width: 103px; }
           #models #modellist .item .imagehover .hover .inner .details .value {
             border-left: 1px solid #FFF;
             padding-left: 10px;
             padding-right: 10px;
-            width: 226px; }
+            width: 222px; }
           #models #modellist .item .imagehover .hover .inner .borderright {
             background: url(../images/slices-v.png) repeat-y -9px 0;
             height: 100%;
@@ -1284,11 +1291,15 @@ hr {
       padding-right: 0;
       vertical-align: middle; }
     #models #modellist .item .add {
-      width: 24px;
       padding-right: 16px;
       padding-top: 1px;
       text-align: right;
-      vertical-align: middle; }
+      vertical-align: middle;
+      width: 24px;
+      filter: alpha(opacity=0.4);
+      -moz-opacity: 0.4;
+      -khtml-opacity: 0.4;
+      opacity: 0.4; }
       #models #modellist .item .add a {
         font-size: 1.4em;
         font-weight: bold;
@@ -1299,6 +1310,11 @@ hr {
     background: #f8f8f8; }
   #models #modellist .item:hover {
     background: #ebebeb; }
+    #models #modellist .item:hover .add {
+      filter: alpha(opacity=1);
+      -moz-opacity: 1;
+      -khtml-opacity: 1;
+      opacity: 1; }
 
 #models.fullwidth #topfilter {
   width: 741px; }

@@ -40,6 +40,10 @@ class ModelGroup < ActiveRecord::Base
   def image_thumb
     all_models.detect {|m| not m.image_thumb.blank? }.try(:image_thumb)
   end
+  
+  def image
+    all_models.detect {|m| not m.image.blank? }.try(:image)
+  end
 
   scope :roots, joins("LEFT JOIN model_group_links AS mgl ON mgl.descendant_id = model_groups.id").where("mgl.descendant_id IS NULL")
 
