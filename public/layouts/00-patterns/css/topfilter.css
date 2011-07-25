@@ -1,21 +1,21 @@
 /*
 Syntax error: Undefined variable: "$grey".
-        on line 47 of public/layouts/00-patterns/css/scss/topfilter.scss
+        on line 51 of public/layouts/00-patterns/css/scss/topfilter.scss
 
-42:       width: 7px;
-43:     }
-44:     
-45:     select {
-46:       border: 0;
-47:       color: $grey;
-48:       margin-right: 10px;
-49:       padding: 4px 12px 2px 8px;
-50:       position: relative;
-51:       text-align: right;
-52:       width: 140px;
+46:         width: 7px;
+47:       }
+48:       
+49:       select {
+50:         border: 0;
+51:         color: $grey;
+52:         margin-right: 10px;
+53:         padding: 4px 12px 2px 8px;
+54:         position: relative;
+55:         text-align: right;
+56:         width: 140px;
 
 Backtrace:
-public/layouts/00-patterns/css/scss/topfilter.scss:47
+public/layouts/00-patterns/css/scss/topfilter.scss:51
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/script/variable.rb:45:in `_perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/script/node.rb:40:in `perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/tree/visitors/perform.rb:215:in `visit_prop'
@@ -88,26 +88,7 @@ public/layouts/00-patterns/css/scss/topfilter.scss:47
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:175:in `update_stylesheets'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `each'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `update_stylesheets'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:252:in `watch'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:71:in `call'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:71:in `run_callback'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:54:in `callback_action'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/path.rb:34:in `update'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:32:in `modified'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:31:in `each'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:31:in `modified'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/state/directory.rb:16:in `refresh'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:15:in `add_handler'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:14:in `each'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:14:in `add_handler'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/rubycocoa/fsevents.rb:107:in `call'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/rubycocoa/fsevents.rb:107:in `initialize'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `call'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `CFRunLoopRun'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `run'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm/monitor.rb:24:in `run'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/vendor/fssm/lib/fssm.rb:17:in `monitor'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:245:in `watch'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin/compiler.rb:214:in `watch'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin.rb:111:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/plugin.rb:111:in `method_missing'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.4/bin/../lib/sass/../sass/exec.rb:408:in `watch_or_update'
@@ -121,4 +102,4 @@ public/layouts/00-patterns/css/scss/topfilter.scss:47
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$grey\".\A         on line 47 of public/layouts/00-patterns/css/scss/topfilter.scss\A \A 42:       width: 7px;\A 43:     }\A 44:     \A 45:     select {\A 46:       border: 0;\A 47:       color: $grey;\A 48:       margin-right: 10px;\A 49:       padding: 4px 12px 2px 8px;\A 50:       position: relative;\A 51:       text-align: right;\A 52:       width: 140px;"; }
+  content: "Syntax error: Undefined variable: \"$grey\".\A         on line 51 of public/layouts/00-patterns/css/scss/topfilter.scss\A \A 46:         width: 7px;\A 47:       }\A 48:       \A 49:       select {\A 50:         border: 0;\A 51:         color: $grey;\A 52:         margin-right: 10px;\A 53:         padding: 4px 12px 2px 8px;\A 54:         position: relative;\A 55:         text-align: right;\A 56:         width: 140px;"; }

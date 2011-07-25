@@ -1346,6 +1346,8 @@ hr {
     position: relative;
     top: 8px;
     width: 250px; }
+    #topfilter .sort .submit {
+      margin-left: 12px; }
     #topfilter .sort .container {
       float: right;
       position: relative;

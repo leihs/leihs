@@ -1,9 +1,9 @@
 /*
- * Models Hover
+ * Models List Hover
  *
  * This script provides functionalities for the hover pop up on the "Models Index View"
  *
- * @name Models Hover
+ * @name Models List Hover
  * @author Sebastian Pape <email@sebastianpape.com>
 */
 
@@ -19,7 +19,7 @@ function ModelsHover() {
     this.hoveringMode = "false";
    
     this.checkPosition = function (_object) {
-        $(_object).css("display", "block")
+        $(_object).css("display", "block");
         
         if(window.pageYOffset > $(_object).offset().top){
             // top is higher then viewport
