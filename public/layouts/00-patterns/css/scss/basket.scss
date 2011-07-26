@@ -169,31 +169,6 @@
             color: $darkgrey;
           }
         }
-        
-        td.amount {
-          letter-spacing: -1px;
-          padding-left: 10px;
-          width: 10px;
-        }
-        
-        td.name {
-          overflow: hidden;
-          width: 90px;
-        }
-        
-        td.delete {
-          width: 10px;
-          
-          a {
-            color: $lightred;
-            padding-bottom: 5px;
-            padding-left: 5px;
-          }
-          
-          a:hover {
-            color: $red;
-          }
-        }
       }
       
       tr:nth-child(odd) {
@@ -206,15 +181,45 @@
         a {
           color: $darkgrey;
         }
+      }
+    }
+    
+    #compactOrder {
+    
+      td.amount {
+        letter-spacing: -1px;
+        padding-left: 10px;
+        width: 10px;
+      }
+      
+      td.name {
+        overflow: hidden;
+        width: 90px;
+      }
+      
+      td.delete {
+        width: 10px;
         
+        a {
+          color: $lightred;
+          padding-bottom: 5px;
+          padding-left: 5px;
+        }
+        
+        a:hover {
+          color: $red;
+        }
+      }
+      
+      tr:hover {
         .delete {
           
           a {
             color: $red;
           }
         }
-      }
-    }  
+      }  
+    }    
   }
   
   .footer {

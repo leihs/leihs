@@ -1,134 +1,108 @@
 /* BUTTON */
 .button {
-    display: inline-block;
-    height: 31px;
-    position: relative;
-}
+  display: inline-block;
+  height: 31px;
+  position: relative; }
 
 /* BUTTON ANCHOR */
 .button a {
-    display: block;
-    font-size: 1.3em;
-    font-weight: bold;
-    height: 24px;  
-    margin-right: -5px;
-    padding: 6px 8px 0 8px;
-    position: relative;
-    text-align: center;
-}
+  display: block;
+  font-size: 1.3em;
+  font-weight: bold;
+  height: 24px;
+  margin-right: -5px;
+  padding: 6px 8px 0 8px;
+  position: relative;
+  text-align: center; }
 
 .button a:hover {
-    color: #515151 !important;
-}
+  color: #515151 !important; }
 
 .button a:active {
-    height: 23px;
-    padding-top: 8px;
-}
+  height: 23px;
+  padding-top: 8px; }
 
 /* BUTTON GREEN */
 .button.green {
-    background: url(../images/image-sprite.png) no-repeat 0 -202px;
-}
+  background: url(../images/image-sprite.png) no-repeat 0 -202px; }
 
 .button.green a {
-    background: url(../images/image-sprite.png) no-repeat right -234px;
-    color: #4d9148;
-}
+  background: url(../images/image-sprite.png) no-repeat right -234px;
+  color: #4d9148; }
 
 .button.green:hover {
-    background: url(../images/image-sprite.png) no-repeat 0 -382px;
-}
+  background: url(../images/image-sprite.png) no-repeat 0 -382px; }
 
 .button.green:hover a {
-    background: url(../images/image-sprite.png) no-repeat right -414px;
-}
+  background: url(../images/image-sprite.png) no-repeat right -414px; }
 
 .button.green:active {
-    background: url(../images/image-sprite.png) no-repeat 0 -446px;
-}
+  background: url(../images/image-sprite.png) no-repeat 0 -446px; }
 
 .button.green:active a {
-    background: url(../images/image-sprite.png) no-repeat right -478px;
-}
+  background: url(../images/image-sprite.png) no-repeat right -478px; }
 
 /* BUTTON WHITE */
 .button.white {
-    background: url(../images/image-sprite.png) no-repeat 0 -594px;  
-}
+  background: url(../images/image-sprite.png) no-repeat 0 -594px; }
 
 .button.white a {
-    background: url(../images/image-sprite.png) no-repeat right -626px;
-    color: #a3a3a3;
-}
+  background: url(../images/image-sprite.png) no-repeat right -626px;
+  color: #a3a3a3; }
 
 .button.white:hover {
-    background: url(../images/image-sprite.png) no-repeat 0 -722px;
-}
+  background: url(../images/image-sprite.png) no-repeat 0 -722px; }
 
 .button.white:hover a {
-    background: url(../images/image-sprite.png) no-repeat right -754px;
-}
+  background: url(../images/image-sprite.png) no-repeat right -754px; }
 
 .button.white:active {
-    background: url(../images/image-sprite.png) no-repeat 0 -658px;
-}
+  background: url(../images/image-sprite.png) no-repeat 0 -658px; }
 
 .button.white:active a {
-    background: url(../images/image-sprite.png) no-repeat right -690px;
-}
+  background: url(../images/image-sprite.png) no-repeat right -690px; }
 
 /* 
  *  SMALLBUTTON 
 */
 .smallbutton {
-    display: inline-block;
-    height: 20px;
-    position: relative;
-}
+  display: inline-block;
+  height: 20px;
+  position: relative; }
 
 /* SMALLBUTTON ANCHOR */
 .smallbutton a {
-    display: block;
-    height: 17px;  
-    margin-right: -5px;
-    padding: 3px 2px 0 2px;
-    position: relative;
-    text-align: center;
-    width: 20px;
-}
-    
+  display: block;
+  height: 17px;
+  margin-right: -5px;
+  padding: 3px 2px 0 2px;
+  position: relative;
+  text-align: center;
+  width: 20px; }
+
 .smallbutton a:hover {
-    color: #515151 !important;
-}
+  color: #515151 !important; }
 
 .smallbutton a:active {
-    height: 16px;
-    padding-top: 4px;
-}
+  height: 16px;
+  padding-top: 4px; }
 
 /* BUTTON GREEN */
 .smallbutton.green {
-    background: url(../images/image-sprite.png) no-repeat 0 -340px;
-}
+  background: url(../images/image-sprite.png) no-repeat 0 -340px; }
 
 .smallbutton.green a {
-    background: url(../images/image-sprite.png) no-repeat right -361px;
-    color: #4d9148; 
-}
+  background: url(../images/image-sprite.png) no-repeat right -361px;
+  color: #4d9148; }
 
 .smallbutton.green:hover {
-    background: url(../images/image-sprite.png) no-repeat 0 -552px;
-}
+  background: url(../images/image-sprite.png) no-repeat 0 -552px; }
 
 .smallbutton.green:hover a {
-    background: url(../images/image-sprite.png) no-repeat right -573px;
-}
+  background: url(../images/image-sprite.png) no-repeat right -573px; }
 
 .smallbutton.green:active {
-    background: url(../images/image-sprite.png) no-repeat 0 -510px;
-}
+  background: url(../images/image-sprite.png) no-repeat 0 -510px; }
 
 .smallbutton.green:active a {
-    background: url(../images/image-sprite.png) no-repeat right -531px;
-}
+  background: url(../images/image-sprite.png) no-repeat right -531px; }

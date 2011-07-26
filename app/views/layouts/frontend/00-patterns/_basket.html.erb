@@ -1,3 +1,19 @@
+<style>
+ #compactTemplates {
+ 	
+ }
+ 
+ #compactTemplates table tr td a:hover {
+ 	color: #515151;
+ }
+ 
+ #compactTemplates table tr td {
+ 	display: block;
+ 	width: 100%;
+ }
+ 
+</style>
+
 <aside id="basket">
 	
 	<div class="header">
@@ -12,36 +28,67 @@
 	</div><!-- header -->
 	
 	<div class="inner">
+		
+		<div id="compactOrder">
 	
-		<h3><%= _("Order") %></h3>
-		<a class="edit" href=""><%= _("edit") %></a>
+			<h3><%= _("Order") %></h3>
+			<a class="edit" href=""><%= _("edit") %></a>
+			
+			<div class="clear"></div>
+			
+			<table>
+				<tr>
+					<td class="amount"><a href="Anzahl">1</a></td>
+					<td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item Item_Beschreibung_Item</a></td>
+					<td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
+				</tr>
+				<tr>
+					<td class="amount"><a href="Anzahl">123</a></td>
+					<td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item</a></td>
+					<td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
+				</tr>
+				<tr>
+	                <td class="amount"><a href="Anzahl">123</a></td>
+	                <td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item</a></td>
+	                <td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
+	            </tr>
+	            <tr>
+	                <td class="amount"><a href="Anzahl">123</a></td>
+	                <td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item</a></td>
+	                <td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
+	            </tr>
+			</table>
+			
+			<div class="clear"></div>
+			
+		</div>
 		
-		<div class="clear"></div>
-		
-		<table>
-			<tr>
-				<td class="amount"><a href="Anzahl">1</a></td>
-				<td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item Item_Beschreibung_Item</a></td>
-				<td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
-			</tr>
-			<tr>
-				<td class="amount"><a href="Anzahl">123</a></td>
-				<td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item</a></td>
-				<td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
-			</tr>
-			<tr>
-                <td class="amount"><a href="Anzahl">123</a></td>
-                <td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item</a></td>
-                <td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
-            </tr>
-            <tr>
-                <td class="amount"><a href="Anzahl">123</a></td>
-                <td class="name"><a href="Item_Beschreibung">Item_Beschreibung_Item</a></td>
-                <td class="delete"><a href="delete" title="<%= _("Delete Item") %>">x</a></td>
-            </tr>
-		</table>
-		
-		<div class="clear"></div>
+		<div id="compactTemplates">
+	
+			<h3><%= _("Order Templates") %></h3>
+			<a class="edit" href=""><%= _("edit") %></a>
+			
+			<div class="clear"></div>
+			
+			<table>
+				<tr>
+					<td class="template"><a href="">FilmkursvorlageFilmkursvorlageFilmkursvorlage</a></td>
+					<td><a href="">6 Geräte</a></td>
+				</tr>
+				<tr>
+					<td><a href="">Interaction Design</a></td>
+					<td><a href="">22 Geräte</a></td>
+				</tr>
+				<tr>
+					<td><a href="">Team Muffin</a></td>
+					<td><a href="">700 Geräte</a></td>				
+				</tr>
+					
+			</table>
+			
+			<div class="clear"></div>
+			
+		</div>
 
 	</div><!-- inner -->
 	
