@@ -1,0 +1,9 @@
+#ui-datepicker-div {
+  background: #FFF;
+  text-align: center;
+  width: 150px; }
+  #ui-datepicker-div .ui-datepicker-header {
+    height: 20px;
+    position: relative; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-title {
+      display: inline-block; }

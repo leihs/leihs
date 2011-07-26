@@ -1,74 +1,55 @@
 /*
-Syntax error: Undefined mixin 'opacity'.
-        on line 142 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'
-        from line 142 of public/layouts/00-patterns/css/scss/basket.scss
+Syntax error: Invalid CSS after "        }": expected "}", was "<<<<<<< HEAD"
+        on line 172 of public/layouts/00-patterns/css/scss/basket.scss
 
-137:       position: absolute;
-138:       text-align: right;
-139:       padding-bottom: 2px;
-140:       top: 2px;
-141:       width: 190px;
-142:       @include opacity(0);
-143:     }
-144:     
-145:     table {
-146:       border-spacing: 0;
-147:       float: left;
+167:           
+168:           a:hover {
+169:             color: $darkgrey;
+170:           }
+171:         }
+172: <<<<<<< HEAD
+173: =======
+174:         
+175:         td.amount {
+176:           display: inline-block;
+177:           letter-spacing: -1px;
 
 Backtrace:
-public/layouts/00-patterns/css/scss/basket.scss:142:in `opacity'
-public/layouts/00-patterns/css/scss/basket.scss:142
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:47:in `visit_root'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:7:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:7:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/root_node.rb:20:in `render'
+public/layouts/00-patterns/css/scss/basket.scss:172
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:898:in `expected'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:841:in `expected'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:836:in `tok!'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:362:in `block'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:355:in `ruleset'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:417:in `declaration_or_ruleset'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:872:in `call'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:872:in `rethrow'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:418:in `declaration_or_ruleset'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:380:in `block_child'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:372:in `block_contents'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:361:in `block'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:355:in `ruleset'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:417:in `declaration_or_ruleset'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:872:in `call'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:872:in `rethrow'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:418:in `declaration_or_ruleset'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:380:in `block_child'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:372:in `block_contents'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:361:in `block'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:355:in `ruleset'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:417:in `declaration_or_ruleset'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:872:in `call'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:872:in `rethrow'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:418:in `declaration_or_ruleset'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:380:in `block_child'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:372:in `block_contents'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:361:in `block'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:355:in `ruleset'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:379:in `block_child'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:369:in `block_contents'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:57:in `stylesheet'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/scss/parser.rb:26:in `parse'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/engine.rb:319:in `_to_tree'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/engine.rb:291:in `_render'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/engine.rb:238:in `render'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/plugin/compiler.rb:319:in `update_stylesheet'
@@ -110,4 +91,4 @@ public/layouts/00-patterns/css/scss/basket.scss:142
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 142 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'\A         from line 142 of public/layouts/00-patterns/css/scss/basket.scss\A \A 137:       position: absolute;\A 138:       text-align: right;\A 139:       padding-bottom: 2px;\A 140:       top: 2px;\A 141:       width: 190px;\A 142:       @include opacity(0);\A 143:     }\A 144:     \A 145:     table {\A 146:       border-spacing: 0;\A 147:       float: left;"; }
+  content: "Syntax error: Invalid CSS after \"        }\": expected \"}\", was \"<<<<<<< HEAD\"\A         on line 172 of public/layouts/00-patterns/css/scss/basket.scss\A \A 167:           \A 168:           a:hover {\A 169:             color: $darkgrey;\A 170:           }\A 171:         }\A 172: <<<<<<< HEAD\A 173: =======\A 174:         \A 175:         td.amount {\A 176:           display: inline-block;\A 177:           letter-spacing: -1px;"; }

@@ -169,6 +169,38 @@
             color: $darkgrey;
           }
         }
+<<<<<<< HEAD
+=======
+        
+        td.amount {
+          display: inline-block;
+          letter-spacing: -1px;
+          padding-left: 10px;
+          padding-right: 4px;
+          width: 20px;
+            
+        }
+        
+        td.name {
+          display: inline-block;
+          overflow: hidden;
+          width: 139px;
+        }
+        
+        td.delete {
+        width: 18px;
+          
+          a {
+            color: $lightred;
+            padding-bottom: 5px;
+            padding-left: 5px;
+          }
+          
+          a:hover {
+            color: $red;
+          }
+        }
+>>>>>>> 12e7438356aee290d160dc33771fd9ac007eb61a
       }
       
       tr:nth-child(odd) {
