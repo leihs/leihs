@@ -1,5 +1,5 @@
 /* http://sass-lang.com/ */
-/* $ sass --watch public/layouts/00-patterns/css/scss:public/layouts/00-patterns/css */
+/* $ sass --watch public/layouts/00-patterns/css/scss/:public/layouts/00-patterns/css */
 /* XHTML, HTML4, HTML5 Reset */
 a,
 abbr,
@@ -988,14 +988,17 @@ hr {
         #basket .inner table tr td a:hover {
           color: #515151; }
       #basket .inner table tr td.amount {
+        display: inline-block;
         letter-spacing: -1px;
         padding-left: 10px;
-        width: 10px; }
+        padding-right: 4px;
+        width: 20px; }
       #basket .inner table tr td.name {
+        display: inline-block;
         overflow: hidden;
-        width: 90px; }
+        width: 139px; }
       #basket .inner table tr td.delete {
-        width: 10px; }
+        width: 18px; }
         #basket .inner table tr td.delete a {
           color: #ffaaaa;
           padding-bottom: 5px;
@@ -1399,7 +1402,7 @@ hr {
       color: #858585;
       font-size: 1.0em;
       height: 18px;
-      padding: 0 10px 0 7px;
+      padding: 0 10px 0 6px;
       width: 57px; }
     #topfilter .availability .checkarea {
       cursor: pointer;
@@ -1561,3 +1564,13 @@ hr {
   color: #999999; }
 #user .pools a:hover, #user .pools a:active {
   color: #515151; }
+
+#ui-datepicker-div {
+  background: #FFF;
+  text-align: center;
+  width: 150px; }
+  #ui-datepicker-div .ui-datepicker-header {
+    height: 20px;
+    position: relative; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-title {
+      display: inline-block; }

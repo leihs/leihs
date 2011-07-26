@@ -171,18 +171,22 @@
         }
         
         td.amount {
+          display: inline-block;
           letter-spacing: -1px;
           padding-left: 10px;
-          width: 10px;
+          padding-right: 4px;
+          width: 20px;
+            
         }
         
         td.name {
+          display: inline-block;
           overflow: hidden;
-          width: 90px;
+          width: 139px;
         }
         
         td.delete {
-          width: 10px;
+        width: 18px;
           
           a {
             color: $lightred;
