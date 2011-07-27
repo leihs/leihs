@@ -2,9 +2,9 @@
 /* By Douglas Jose & Juerg Meier. */
 jQuery(function($){
 	$.datepicker.regional['de-CH'] = {
-		closeText: 'schliessen',
-		prevText: '&lt;',
-		nextText: '&gt;',
+		closeText: 'Schliessen',
+		prevText: 'Vorherigen Monat',
+		nextText: 'Nächsten Monat',
 		currentText: 'heute',
 		monthNames: ['Januar','Februar','März','April','Mai','Juni',
 		'Juli','August','September','Oktober','November','Dezember'],
@@ -14,10 +14,6 @@ jQuery(function($){
 		dayNamesShort: ['So','Mo','Di','Mi','Do','Fr','Sa'],
 		dayNamesMin: ['So','Mo','Di','Mi','Do','Fr','Sa'],
 		weekHeader: 'Wo',
-		dateFormat: 'dd.mm.yy',
-		firstDay: 1,
-		isRTL: false,
-		showMonthAfterYear: false,
-		yearSuffix: ''};
+		dateFormat: 'dd.mm.y'};
 	$.datepicker.setDefaults($.datepicker.regional['de-CH']);
 });

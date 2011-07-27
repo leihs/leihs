@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de-CH">
+<html lang="<%= current_user.language.locale_name.to_sym %>">
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<meta charset="utf-8">
@@ -10,7 +10,7 @@
 	<%= javascript_include_tag "/javascripts/jquery/jquery.min.js" %>
 	<%= javascript_include_tag "/javascripts/jquery/jquery-ui.min.js" %>
 	
-	<%= javascript_include_tag "/javascripts/jquery/i18n/jquery.ui.datepicker-en-GB.js" %>
+	<%= javascript_include_tag "/javascripts/jquery/i18n/jquery.ui.datepicker-#{current_user.language.locale_name.to_sym}.js" %>
 	
 	<%= javascript_include_tag "/javascripts/models-list-datepicker/models-list-datepicker.js" %>
 	<%= javascript_include_tag "/javascripts/custom-form-elements/custom-form-elements.js" %>

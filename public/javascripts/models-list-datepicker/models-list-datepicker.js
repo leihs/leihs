@@ -8,18 +8,14 @@
 */
 
 $(document).ready(function(){
-	$('#topfilter .availability .date').datepicker();
-	
-	$('#topfilter .availability .date').bind("click", function() {
-        // modify position of prev and next inside the dom
-        var _prev = $(".ui-datepicker-header").find(".ui-datepicker-prev").get();
-        $(".ui-datepicker-header").find(".ui-datepicker-prev").remove();
-        var _next = $(".ui-datepicker-header").find(".ui-datepicker-next").get();
-        $(".ui-datepicker-header").find(".ui-datepicker-next").remove(); 
-        
-        $(_prev).appendTo(".ui-datepicker-title");
-        $(_next).appendTo(".ui-datepicker-title");
+    // setup jquery ui datepicker
+	$('#topfilter .availability .date').datepicker({
+	    firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        showButtonPanel: true
 	});
-	
-	
 });

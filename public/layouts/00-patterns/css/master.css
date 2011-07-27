@@ -619,81 +619,70 @@ hr {
   position: relative;
   width: 785px; }
 
-/* SEARCH */
 #search {
   position: relative;
   width: 150px;
   z-index: 3; }
-
-#search .borderleftround {
-  background: url(../images/image-sprite.png) no-repeat -32px 0;
-  display: block;
-  float: left;
-  height: 28px;
-  position: relative;
-  width: 6px; }
-
-#search .borderrightstraight {
-  background: url(../images/image-sprite.png) no-repeat -39px 0;
-  display: block;
-  float: left;
-  height: 28px;
-  position: relative;
-  width: 6px; }
-
-#search .inner {
-  background: url(../images/slices-h.png) repeat-x 0 -125px;
-  height: 34px;
-  float: left; }
-
-/* SEARCH CONTAINER */
-#search .inner .container {
-  background: url(../images/slices-h.png) repeat-x 0 -160px;
-  height: 21px;
-  margin-left: 6px;
-  margin-right: 6px;
-  position: relative;
-  top: 4px; }
-
-#search .inner .container .borderleft {
-  background: url(../images/image-sprite.png) no-repeat -46px 0;
-  display: block;
-  height: 21px;
-  left: -6px;
-  position: absolute;
-  top: 0;
-  width: 6px; }
-
-#search .inner .container .borderright {
-  background: url(../images/image-sprite.png) no-repeat -46px -22px;
-  display: block;
-  height: 21px;
-  right: -6px;
-  position: absolute;
-  top: 0;
-  width: 6px; }
-
-#search .inner .container .input {
-  background: none;
-  border: none;
-  height: 19px;
-  margin-left: -4px;
-  padding-left: 6px;
-  padding-right: 16px;
-  position: relative;
-  top: 2px;
-  width: 90px;
-  z-index: 1; }
-
-#search .inner .container .button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  height: 21px;
-  position: absolute;
-  right: -6px;
-  top: 0;
-  width: 20px; }
+  #search .borderleftround {
+    background: url(../images/image-sprite.png) no-repeat -32px 0;
+    display: block;
+    float: left;
+    height: 28px;
+    position: relative;
+    width: 6px; }
+  #search .borderrightstraight {
+    background: url(../images/image-sprite.png) no-repeat -39px 0;
+    display: block;
+    float: left;
+    height: 28px;
+    position: relative;
+    width: 6px; }
+  #search .inner {
+    background: url(../images/slices-h.png) repeat-x 0 -125px;
+    height: 34px;
+    float: left; }
+    #search .inner .container {
+      background: url(../images/slices-h.png) repeat-x 0 -160px;
+      height: 21px;
+      margin-left: 6px;
+      margin-right: 6px;
+      position: relative;
+      top: 4px; }
+      #search .inner .container .borderleft {
+        background: url(../images/image-sprite.png) no-repeat -46px 0;
+        display: block;
+        height: 21px;
+        left: -6px;
+        position: absolute;
+        top: 0;
+        width: 6px; }
+      #search .inner .container .borderright {
+        background: url(../images/image-sprite.png) no-repeat -46px -22px;
+        display: block;
+        height: 21px;
+        right: -6px;
+        position: absolute;
+        top: 0;
+        width: 6px; }
+      #search .inner .container .input {
+        background: none;
+        border: none;
+        height: 19px;
+        margin-left: -4px;
+        padding-left: 6px;
+        padding-right: 16px;
+        position: relative;
+        width: 90px;
+        z-index: 1; }
+      #search .inner .container .button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        height: 21px;
+        position: absolute;
+        right: -6px;
+        top: 0;
+        width: 20px; }
 
 #navigation {
   position: relative;
@@ -825,50 +814,48 @@ hr {
   color: #999999; }
 #start .subtitle .pools a:hover, #start .subtitle .pools a:active {
   color: #515151; }
-#start #categories {
-  padding-top: 8px; }
-  #start #categories h2 a, #start #categories h2 a:link, #start #categories h2 a:visited, #start #categories h3 a, #start #categories h3 a:link, #start #categories h3 a:visited {
-    color: #717171; }
-  #start #categories h2 a:hover, #start #categories h2 a:active, #start #categories h3 a:hover, #start #categories h3 a:active {
-    color: #515151; }
-  #start #categories a, #start #categories a:link, #start #categories a:visited {
-    color: #999999; }
-  #start #categories a:hover, #start #categories a:active {
-    color: #515151; }
-  #start #categories .row {
-    padding-bottom: 34px; }
-  #start #categories .cell {
-    float: left;
-    padding-left: 6px;
-    width: 175px; }
-    #start #categories .cell table.image {
-      margin-bottom: 8px; }
-      #start #categories .cell table.image tr td {
-        height: 120px;
-        text-align: left;
-        vertical-align: bottom;
-        width: 150px; }
-        #start #categories .cell table.image tr td img {
-          max-height: 100px;
-          width: auto;
-          max-width: 120px; }
-    #start #categories .cell ul {
-      margin-right: 20px;
-      margin-top: 5px;
-      list-style-type: none; }
-      #start #categories .cell ul li {
-        display: block;
-        margin-bottom: 6px;
-        padding-right: 8px; }
-        #start #categories .cell ul li a {
-          font-size: 1.2em;
-          color: #999999; }
-        #start #categories .cell ul li a:hover {
-          color: #515151; }
-  #start #categories .cell:nth-child(4n) {
-    padding-left: 0; }
-  #start #categories .cell:hover h2 a {
-    color: #515151; }
+#start #categories h2 a, #start #categories h2 a:link, #start #categories h2 a:visited, #start #categories h3 a, #start #categories h3 a:link, #start #categories h3 a:visited {
+  color: #717171; }
+#start #categories h2 a:hover, #start #categories h2 a:active, #start #categories h3 a:hover, #start #categories h3 a:active {
+  color: #515151; }
+#start #categories a, #start #categories a:link, #start #categories a:visited {
+  color: #999999; }
+#start #categories a:hover, #start #categories a:active {
+  color: #515151; }
+#start #categories .row {
+  padding-bottom: 34px; }
+#start #categories .cell {
+  float: left;
+  padding-left: 6px;
+  width: 175px; }
+  #start #categories .cell table.image {
+    margin-bottom: 8px; }
+    #start #categories .cell table.image tr td {
+      height: 120px;
+      text-align: left;
+      vertical-align: bottom;
+      width: 150px; }
+      #start #categories .cell table.image tr td img {
+        max-height: 100px;
+        width: auto;
+        max-width: 120px; }
+  #start #categories .cell ul {
+    margin-right: 20px;
+    margin-top: 5px;
+    list-style-type: none; }
+    #start #categories .cell ul li {
+      display: block;
+      margin-bottom: 6px;
+      padding-right: 8px; }
+      #start #categories .cell ul li a {
+        font-size: 1.2em;
+        color: #999999; }
+      #start #categories .cell ul li a:hover {
+        color: #515151; }
+#start #categories .cell:nth-child(4n) {
+  padding-left: 0; }
+#start #categories .cell:hover h2 a {
+  color: #515151; }
 
 #basket {
   display: block;
@@ -1348,7 +1335,7 @@ hr {
     padding-right: 12px;
     position: relative;
     top: 8px;
-    width: 250px; }
+    width: 240px; }
     #topfilter .sort .submit {
       margin-left: 12px; }
     #topfilter .sort .container {
@@ -1403,11 +1390,11 @@ hr {
       font-size: 1.0em;
       height: 18px;
       padding: 0 10px 0 6px;
-      width: 57px; }
+      width: 58px; }
     #topfilter .availability .checkarea {
       cursor: pointer;
       display: inline-block;
-      margin-left: 8px; }
+      margin-left: 2px; }
     #topfilter .availability .checkarea:hover {
       color: #515151; }
     #topfilter .availability .checkarea.active {
@@ -1566,11 +1553,94 @@ hr {
   color: #515151; }
 
 #ui-datepicker-div {
-  background: #FFF;
+  left: -75px;
   text-align: center;
-  width: 150px; }
+  margin-left: -40px;
+  position: absolute;
+  width: 158px; }
+  #ui-datepicker-div h2 a, #ui-datepicker-div h2 a:link, #ui-datepicker-div h2 a:visited, #ui-datepicker-div h3 a, #ui-datepicker-div h3 a:link, #ui-datepicker-div h3 a:visited {
+    color: #717171; }
+  #ui-datepicker-div h2 a:hover, #ui-datepicker-div h2 a:active, #ui-datepicker-div h3 a:hover, #ui-datepicker-div h3 a:active {
+    color: #515151; }
+  #ui-datepicker-div a, #ui-datepicker-div a:link, #ui-datepicker-div a:visited {
+    color: #999999; }
+  #ui-datepicker-div a:hover, #ui-datepicker-div a:active {
+    color: #515151; }
   #ui-datepicker-div .ui-datepicker-header {
-    height: 20px;
-    position: relative; }
+    background: url(../images/image-sprite.png) no-repeat -42px -786px;
+    height: 28px; }
     #ui-datepicker-div .ui-datepicker-header .ui-datepicker-title {
-      display: inline-block; }
+      color: #515151;
+      font-size: 1.1em;
+      font-weight: bold;
+      display: inline-block;
+      position: relative;
+      top: 9px; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-prev {
+      background: url(../images/image-sprite.png) no-repeat -26px -829px;
+      cursor: pointer;
+      display: block;
+      height: 12px;
+      left: 10px;
+      position: absolute;
+      top: 10px;
+      width: 12px; }
+      #ui-datepicker-div .ui-datepicker-header .ui-datepicker-prev span {
+        display: none; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-prev:hover {
+      background: url(../images/image-sprite.png) no-repeat -13px -829px; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-prev:active {
+      background: url(../images/image-sprite.png) no-repeat 0 -829px; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-next {
+      background: url(../images/image-sprite.png) no-repeat -68px -826px;
+      cursor: pointer;
+      display: block;
+      height: 12px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 12px; }
+      #ui-datepicker-div .ui-datepicker-header .ui-datepicker-next span {
+        display: none; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-next:hover {
+      background: url(../images/image-sprite.png) no-repeat -55px -826px; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-next:active {
+      background: url(../images/image-sprite.png) no-repeat -42px -826px; }
+  #ui-datepicker-div .ui-datepicker-calendar {
+    background: url(../images/slices-v.png) repeat-y -31px 0px;
+    display: block;
+    padding-left: 4px;
+    padding-top: 3px; }
+    #ui-datepicker-div .ui-datepicker-calendar thead tr {
+      background: none; }
+      #ui-datepicker-div .ui-datepicker-calendar thead tr th {
+        text-align: right;
+        padding: 3px 4px; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr td a {
+      border-right: 1px solid #FFF;
+      display: block;
+      padding: 3px 4px;
+      text-align: right; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr td a:hover {
+      background: #ebebeb !important; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr td .ui-state-active {
+      background: #ebebeb !important;
+      color: #717171 !important;
+      font-weight: bold; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr td:nth-last-child(1) a {
+      border-right: none;
+      padding-right: 5px; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr .ui-datepicker-other-month a {
+      background: none !important;
+      color: #cccccc !important; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr .ui-datepicker-other-month a:hover {
+      color: #717171 !important; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr:nth-child(odd) td a {
+      background: #f8f8f8; }
+  #ui-datepicker-div .ui-datepicker-buttonpane {
+    background: url(../images/image-sprite.png) no-repeat -42px -816px;
+    display: block;
+    height: 10px;
+    width: 158px; }
+    #ui-datepicker-div .ui-datepicker-buttonpane button {
+      display: none; }

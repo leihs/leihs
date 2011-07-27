@@ -1,10 +1,10 @@
 ﻿/* English/UK initialisation for the jQuery UI date picker plugin. */
 /* Written by Stuart. */
 jQuery(function($){
-	$.datepicker.regional['en-GB'] = {
+	$.datepicker.regional['en-US'] = {
 		closeText: 'Done',
-		prevText: '&lt;',
-		nextText: '&gt;',
+		prevText: 'Previous Month',
+		nextText: 'Next Month',
 		currentText: 'Today',
 		monthNames: ['January','February','March','April','May','June',
 		'July','August','September','October','November','December'],
@@ -14,10 +14,6 @@ jQuery(function($){
 		dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 		dayNamesMin: ['Su','Mo','Tu','We','Th','Fr','Sa'],
 		weekHeader: 'Wk',
-		dateFormat: 'dd/mm/yy',
-		firstDay: 1,
-		isRTL: false,
-		showMonthAfterYear: false,
-		yearSuffix: ''};
-	$.datepicker.setDefaults($.datepicker.regional['en-GB']);
+		dateFormat: 'dd/mm/y'};
+	$.datepicker.setDefaults($.datepicker.regional['en-US']);
 });
