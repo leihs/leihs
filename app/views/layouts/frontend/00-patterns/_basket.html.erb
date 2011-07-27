@@ -1,15 +1,26 @@
 <style>
- #compactTemplates {
+
+ #compactTemplates table {
+ 	display: block;
+ 	width: 100%;
+ }
+
+ 
+ #compactTemplates table tr td.template a {
+ 	overflow: hidden;
+ 	padding-left: 10px;
+ 	table-layout: auto;
  	
+ }
+ 
+ #compactTemplates table tr td.amounttemplate a {
+ 	overflow: hidden;
+ 	padding-left: 5px;
+ 	table-layout: auto;
  }
  
  #compactTemplates table tr td a:hover {
  	color: #515151;
- }
- 
- #compactTemplates table tr td {
- 	display: block;
- 	width: 100%;
  }
  
 </style>
@@ -59,11 +70,16 @@
 	            </tr>
 			</table>
 			
-			<div class="clear"></div>
+			<div id="orderPurpose">
+				<hr/>
+				
+				<h3><%= _("Purpose") %></h3>
+				Purpose input here...
+			</div><!-- #orderPurpose -->
 			
+			<div class="clear"></div>
 		</div>
 		
-<<<<<<< HEAD
 		<div id="compactTemplates">
 	
 			<h3><%= _("Order Templates") %></h3>
@@ -73,30 +89,22 @@
 			
 			<table>
 				<tr>
-					<td class="template"><a href="">FilmkursvorlageFilmkursvorlageFilmkursvorlage</a></td>
-					<td><a href="">6 Geräte</a></td>
+					<td class="template"><a href="">FilmkursvorlageFilmkurs</a></td>
+					<td class="amounttemplate"><a href="">6 Geräte</a></td>
 				</tr>
 				<tr>
-					<td><a href="">Interaction Design</a></td>
-					<td><a href="">22 Geräte</a></td>
+					<td class="template"><a href="">Interaction Design</a></td>
+					<td class="amounttemplate"><a href="">22 Geräte</a></td>
 				</tr>
 				<tr>
-					<td><a href="">Team Muffin</a></td>
-					<td><a href="">700 Geräte</a></td>				
+					<td class="template"><a href="">Team Muffin</a></td>
+					<td class="amounttemplate"><a href="">700 Geräte</a></td>				
 				</tr>
 					
 			</table>
 			
 			<div class="clear"></div>
-			
-		</div>
-=======
-		<hr/>
-		
-		<h3><%= _("Purpose") %></h3>
-		
-		<div class="clear"></div>
->>>>>>> 12e7438356aee290d160dc33771fd9ac007eb61a
+		</div><!-- #compactTemplates -->
 
 	</div><!-- inner -->
 	
