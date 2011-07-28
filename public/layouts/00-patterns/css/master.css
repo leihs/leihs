@@ -1,5 +1,5 @@
 /* http://sass-lang.com/ */
-/* $ sass --watch public/layouts/00-patterns/css/scss/:public/layouts/00-patterns/css */
+/* $ sass --watch public/layouts/00-patterns/css/scss/:public/layouts/00-patterns/css/ */
 /* XHTML, HTML4, HTML5 Reset */
 a,
 abbr,
@@ -1624,488 +1624,97 @@ hr {
   color: #515151; }
 
 #ui-datepicker-div {
-  background: #FFF;
+  left: -75px;
   text-align: center;
-  width: 150px; }
+  margin-left: -40px;
+  position: absolute;
+  width: 158px; }
+  #ui-datepicker-div h2 a, #ui-datepicker-div h2 a:link, #ui-datepicker-div h2 a:visited, #ui-datepicker-div h3 a, #ui-datepicker-div h3 a:link, #ui-datepicker-div h3 a:visited {
+    color: #717171; }
+  #ui-datepicker-div h2 a:hover, #ui-datepicker-div h2 a:active, #ui-datepicker-div h3 a:hover, #ui-datepicker-div h3 a:active {
+    color: #515151; }
+  #ui-datepicker-div a, #ui-datepicker-div a:link, #ui-datepicker-div a:visited {
+    color: #999999; }
+  #ui-datepicker-div a:hover, #ui-datepicker-div a:active {
+    color: #515151; }
   #ui-datepicker-div .ui-datepicker-header {
-    height: 20px;
-    position: relative; }
+    background: url(../images/image-sprite.png) no-repeat -42px -786px;
+    height: 28px; }
     #ui-datepicker-div .ui-datepicker-header .ui-datepicker-title {
-      display: inline-block; }
-
-#book {
-  padding-bottom: 0; }
-  #book h1, #book h3 {
-    width: 600px; }
-  #book .button {
-    position: absolute;
-    right: 20px;
-    top: 10px; }
-  #book .bar {
-    background: url(../images/slices-h.png) repeat-x 0 -218px;
-    border: 1px solid #bfbfbd;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    display: block;
-    height: 26px;
-    margin-top: 28px;
-    margin-bottom: 22px; }
-    #book .bar label {
+      color: #515151;
+      font-size: 1.1em;
+      font-weight: bold;
+      display: inline-block;
+      position: relative;
+      top: 9px; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-prev {
+      background: url(../images/image-sprite.png) no-repeat -26px -829px;
       cursor: pointer;
-      color: #999999;
-      position: absolute;
-      top: -16px; }
-    #book .bar .inputcontainer {
-      background: url(../images/image-sprite.png) no-repeat 0 -842px;
       display: block;
-      height: 21px;
-      position: relative;
-      top: 3px; }
-      #book .bar .inputcontainer input {
-        background: url(../images/image-sprite.png) no-repeat right -864px;
-        border: none;
-        display: block;
-        height: 21px;
-        text-align: center;
-        position: absolute;
-        top: 0; }
-    #book .bar div.amount {
-      display: inline-block;
-      border-right: 1px solid #bfbfbe;
-      float: left;
-      height: 27px;
-      position: relative;
-      padding: 0 11px 0 3px; }
-      #book .bar div.amount .inputcontainer {
-        width: 46px; }
-        #book .bar div.amount .inputcontainer input {
-          font-size: 1.6em;
-          height: 19px;
-          width: 50px; }
-    #book .bar .date {
-      border-right: 1px solid #bfbfbe;
-      float: left;
-      height: 27px;
-      margin-left: 6px;
-      position: relative; }
-      #book .bar .date input {
-        width: 76px; }
-      #book .bar .date .inputcontainer {
-        width: 66px; }
-        #book .bar .date .inputcontainer input {
-          font-size: 1.2em;
-          width: 70px; }
-      #book .bar .date div.from {
-        float: left;
-        position: relative;
-        padding: 0 12px 0 0; }
-      #book .bar .date div.to {
-        float: left;
-        position: relative;
-        padding: 0 12px 0 0; }
-    #book .bar .reset {
-      float: left;
-      position: relative; }
-      #book .bar .reset h2 a, #book .bar .reset h2 a:link, #book .bar .reset h2 a:visited, #book .bar .reset h3 a, #book .bar .reset h3 a:link, #book .bar .reset h3 a:visited {
-        color: #717171; }
-      #book .bar .reset h2 a:hover, #book .bar .reset h2 a:active, #book .bar .reset h3 a:hover, #book .bar .reset h3 a:active {
-        color: #515151; }
-      #book .bar .reset a, #book .bar .reset a:link, #book .bar .reset a:visited {
-        color: #999999; }
-      #book .bar .reset a:hover, #book .bar .reset a:active {
-        color: #515151; }
-      #book .bar .reset a {
-        border-right: 1px solid #bfbfbe;
-        display: inline-block;
-        font-size: 1.2em;
-        font-weight: bold;
-        height: 20px;
-        padding: 6px 12px 0 12px; }
-  #book #calendar {
-    /* Header
-    ------------------------------------------------------------------------*/
-    /* buttons edges butting together */
-    /* button layering (for border precedence) */
-    /* Content
-    ------------------------------------------------------------------------*/
-    /* Cell Styles
-    ------------------------------------------------------------------------*/
-    /* Buttons
-    ------------------------------------------------------------------------*/
-    /* icon (for jquery ui) */
-    /* gloss effect */
-    /* button states (determines colors)  */
-    /* Global Event Styles
-    ------------------------------------------------------------------------*/
-    /* Horizontal Events
-    ------------------------------------------------------------------------*/
-    /* resizable */
-    /* Fake Rounded Corners (for buttons and events)
-    ------------------------------------------------------------*/
-    /* Fake Rounded Corners SPECIFICALLY FOR EVENTS
-    -----------------------------------------------------------------*/
-    /* Reusable Separate-border Table
-    ------------------------------------------------------------*/
-    /* Month View, Basic Week View, Basic Day View
-    ------------------------------------------------------------------------*/
-    /* event styles */
-    /* right-to-left */
-    /* Agenda Week View, Agenda Day View
-    ------------------------------------------------------------------------*/
-    /* make axis border take precedence */
-    /* all-day area */
-    /* divider (between all-day and slots) */
-    /* slot rows */
-    /* Vertical Events
-    ------------------------------------------------------------------------*/
-    /* resizable */ }
-    #book #calendar .fc {
-      direction: ltr;
-      text-align: left; }
-    #book #calendar .fc table {
-      border-collapse: collapse;
-      border-spacing: 0; }
-    #book #calendar html .fc,
-    #book #calendar .fc table {
-      font-size: 1em; }
-    #book #calendar .fc td,
-    #book #calendar .fc th {
-      padding: 0;
-      vertical-align: top; }
-    #book #calendar .fc-header td {
-      white-space: nowrap; }
-    #book #calendar .fc-header-left {
-      width: 25%;
-      text-align: left; }
-    #book #calendar .fc-header-center {
-      text-align: center; }
-    #book #calendar .fc-header-right {
-      width: 25%;
-      text-align: right; }
-    #book #calendar .fc-header-title {
-      display: inline-block;
-      vertical-align: top; }
-    #book #calendar .fc-header-title h2 {
-      margin-top: 0;
-      white-space: nowrap; }
-    #book #calendar .fc .fc-header-space {
-      padding-left: 10px; }
-    #book #calendar .fc-header .fc-button {
-      margin-bottom: 1em;
-      vertical-align: top; }
-    #book #calendar .fc-header .fc-button {
-      margin-right: -1px; }
-    #book #calendar .fc-header .fc-corner-right {
-      margin-right: 1px;
-      /* back to normal */ }
-    #book #calendar .fc-header .ui-corner-right {
-      margin-right: 0;
-      /* back to normal */ }
-    #book #calendar .fc-header .fc-state-hover,
-    #book #calendar .fc-header .ui-state-hover {
-      z-index: 2; }
-    #book #calendar .fc-header .fc-state-down {
-      z-index: 3; }
-    #book #calendar .fc-header .fc-state-active,
-    #book #calendar .fc-header .ui-state-active {
-      z-index: 4; }
-    #book #calendar .fc-content {
-      clear: both; }
-    #book #calendar .fc-view {
-      width: 100%;
-      /* needed for view switching (when view is absolute) */
-      overflow: hidden; }
-    #book #calendar .fc-widget-header,
-    #book #calendar .fc-widget-content {
-      /* <td>, usually */
-      border: 1px solid #ccc; }
-    #book #calendar .fc-state-highlight {
-      /* <td> today cell */
-      /* TODO: add .fc-today to <th> */
-      background: #ffc; }
-    #book #calendar .fc-cell-overlay {
-      /* semi-transparent rectangle while dragging */
-      background: #9cf;
-      opacity: .2;
-      filter: alpha(opacity=20);
-      /* for IE */ }
-    #book #calendar .fc-button {
-      position: relative;
-      display: inline-block;
-      cursor: pointer; }
-    #book #calendar .fc-state-default {
-      /* non-theme */
-      border-style: solid;
-      border-width: 1px 0; }
-    #book #calendar .fc-button-inner {
-      position: relative;
-      float: left;
-      overflow: hidden; }
-    #book #calendar .fc-state-default .fc-button-inner {
-      /* non-theme */
-      border-style: solid;
-      border-width: 0 1px; }
-    #book #calendar .fc-button-content {
-      position: relative;
-      float: left;
-      height: 1.9em;
-      line-height: 1.9em;
-      padding: 0 .6em;
-      white-space: nowrap; }
-    #book #calendar .fc-button-content .fc-icon-wrap {
-      position: relative;
-      float: left;
-      top: 50%; }
-    #book #calendar .fc-button-content .ui-icon {
-      position: relative;
-      float: left;
-      margin-top: -50%;
-      *margin-top: 0;
-      *top: -50%; }
-    #book #calendar .fc-state-default .fc-button-effect {
+      height: 12px;
+      left: 10px;
       position: absolute;
-      top: 50%;
-      left: 0; }
-    #book #calendar .fc-state-default .fc-button-effect span {
-      position: absolute;
-      top: -100px;
-      left: 0;
-      width: 500px;
-      height: 100px;
-      border-width: 100px 0 0 1px;
-      border-style: solid;
-      border-color: #fff;
-      background: #444;
-      opacity: .09;
-      filter: alpha(opacity=9); }
-    #book #calendar .fc-state-default,
-    #book #calendar .fc-state-default .fc-button-inner {
-      border-style: solid;
-      border-color: #ccc #bbb #aaa;
-      background: #F3F3F3;
-      color: #000; }
-    #book #calendar .fc-state-hover,
-    #book #calendar .fc-state-hover .fc-button-inner {
-      border-color: #999; }
-    #book #calendar .fc-state-down,
-    #book #calendar .fc-state-down .fc-button-inner {
-      border-color: #555;
-      background: #777; }
-    #book #calendar .fc-state-active,
-    #book #calendar .fc-state-active .fc-button-inner {
-      border-color: #555;
-      background: #777;
-      color: #fff; }
-    #book #calendar .fc-state-disabled,
-    #book #calendar .fc-state-disabled .fc-button-inner {
-      color: #999;
-      border-color: #ddd; }
-    #book #calendar .fc-state-disabled {
-      cursor: default; }
-    #book #calendar .fc-state-disabled .fc-button-effect {
-      display: none; }
-    #book #calendar .fc-event {
-      border-style: solid;
-      border-width: 0;
-      font-size: .85em;
-      cursor: default; }
-    #book #calendar a.fc-event,
-    #book #calendar .fc-event-draggable {
-      cursor: pointer; }
-    #book #calendar a.fc-event {
-      text-decoration: none; }
-    #book #calendar .fc-rtl .fc-event {
-      text-align: right; }
-    #book #calendar .fc-event-skin {
-      border-color: #36c;
-      /* default BORDER color */
-      background-color: #36c;
-      /* default BACKGROUND color */
-      color: #fff;
-      /* default TEXT color */ }
-    #book #calendar .fc-event-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-style: solid;
-      border-width: 0;
-      overflow: hidden; }
-    #book #calendar .fc-event-time,
-    #book #calendar .fc-event-title {
-      padding: 0 1px; }
-    #book #calendar .fc .ui-resizable-handle {
-      /*** TODO: don't use ui-resizable anymore, change class ***/
+      top: 10px;
+      width: 12px; }
+      #ui-datepicker-div .ui-datepicker-header .ui-datepicker-prev span {
+        display: none; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-prev:hover {
+      background: url(../images/image-sprite.png) no-repeat -13px -829px; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-prev:active {
+      background: url(../images/image-sprite.png) no-repeat 0 -829px; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-next {
+      background: url(../images/image-sprite.png) no-repeat -68px -826px;
+      cursor: pointer;
       display: block;
+      height: 12px;
       position: absolute;
-      z-index: 99999;
-      overflow: hidden;
-      /* hacky spaces (IE6/7) */
-      font-size: 300%;
-      /* */
-      line-height: 50%;
-      /* */ }
-    #book #calendar .fc-event-hori {
-      border-width: 1px 0;
-      margin-bottom: 1px; }
-    #book #calendar .fc-event-hori .ui-resizable-e {
-      top: 0           !important;
-      /* importants override pre jquery ui 1.7 styles */
-      right: -3px !important;
-      width: 7px       !important;
-      height: 100%     !important;
-      cursor: e-resize; }
-    #book #calendar .fc-event-hori .ui-resizable-w {
-      top: 0           !important;
-      left: -3px !important;
-      width: 7px       !important;
-      height: 100%     !important;
-      cursor: w-resize; }
-    #book #calendar .fc-event-hori .ui-resizable-handle {
-      _padding-bottom: 14px;
-      /* IE6 had 0 height */ }
-    #book #calendar .fc-corner-left {
-      margin-left: 1px; }
-    #book #calendar .fc-corner-left .fc-button-inner,
-    #book #calendar .fc-corner-left .fc-event-inner {
-      margin-left: -1px; }
-    #book #calendar .fc-corner-right {
-      margin-right: 1px; }
-    #book #calendar .fc-corner-right .fc-button-inner,
-    #book #calendar .fc-corner-right .fc-event-inner {
-      margin-right: -1px; }
-    #book #calendar .fc-corner-top {
-      margin-top: 1px; }
-    #book #calendar .fc-corner-top .fc-event-inner {
-      margin-top: -1px; }
-    #book #calendar .fc-corner-bottom {
-      margin-bottom: 1px; }
-    #book #calendar .fc-corner-bottom .fc-event-inner {
-      margin-bottom: -1px; }
-    #book #calendar .fc-corner-left .fc-event-inner {
-      border-left-width: 1px; }
-    #book #calendar .fc-corner-right .fc-event-inner {
-      border-right-width: 1px; }
-    #book #calendar .fc-corner-top .fc-event-inner {
-      border-top-width: 1px; }
-    #book #calendar .fc-corner-bottom .fc-event-inner {
-      border-bottom-width: 1px; }
-    #book #calendar table.fc-border-separate {
-      border-collapse: separate; }
-    #book #calendar .fc-border-separate th,
-    #book #calendar .fc-border-separate td {
-      border-width: 1px 0 0 1px; }
-    #book #calendar .fc-border-separate th.fc-last,
-    #book #calendar .fc-border-separate td.fc-last {
-      border-right-width: 1px; }
-    #book #calendar .fc-border-separate tr.fc-last th,
-    #book #calendar .fc-border-separate tr.fc-last td {
-      border-bottom-width: 1px; }
-    #book #calendar .fc-border-separate tbody tr.fc-first td,
-    #book #calendar .fc-border-separate tbody tr.fc-first th {
-      border-top-width: 0; }
-    #book #calendar .fc-grid th {
-      text-align: center; }
-    #book #calendar .fc-grid .fc-day-number {
-      float: right;
-      padding: 0 2px; }
-    #book #calendar .fc-grid .fc-other-month .fc-day-number {
-      opacity: 0.3;
-      filter: alpha(opacity=30);
-      /* for IE */
-      /* opacity with small font can sometimes look too faded
-         might want to set the 'color' property instead
-         making day-numbers bold also fixes the problem */ }
-    #book #calendar .fc-grid .fc-day-content {
-      clear: both;
-      padding: 2px 2px 1px;
-      /* distance between events and day edges */ }
-    #book #calendar .fc-grid .fc-event-time {
-      font-weight: bold; }
-    #book #calendar .fc-rtl .fc-grid .fc-day-number {
-      float: left; }
-    #book #calendar .fc-rtl .fc-grid .fc-event-time {
-      float: right; }
-    #book #calendar .fc-agenda table {
-      border-collapse: separate; }
-    #book #calendar .fc-agenda-days th {
-      text-align: center; }
-    #book #calendar .fc-agenda .fc-agenda-axis {
-      width: 50px;
-      padding: 0 4px;
-      vertical-align: middle;
-      text-align: right;
-      white-space: nowrap;
-      font-weight: normal; }
-    #book #calendar .fc-agenda .fc-day-content {
-      padding: 2px 2px 1px; }
-    #book #calendar .fc-agenda-days .fc-agenda-axis {
-      border-right-width: 1px; }
-    #book #calendar .fc-agenda-days .fc-col0 {
-      border-left-width: 0; }
-    #book #calendar .fc-agenda-allday th {
-      border-width: 0 1px; }
-    #book #calendar .fc-agenda-allday .fc-day-content {
-      min-height: 34px;
-      /* TODO: doesnt work well in quirksmode */
-      _height: 34px; }
-    #book #calendar .fc-agenda-divider-inner {
-      height: 2px;
-      overflow: hidden; }
-    #book #calendar .fc-widget-header .fc-agenda-divider-inner {
-      background: #eee; }
-    #book #calendar .fc-agenda-slots th {
-      border-width: 1px 1px 0; }
-    #book #calendar .fc-agenda-slots td {
-      border-width: 1px 0 0;
+      top: 10px;
+      right: 10px;
+      width: 12px; }
+      #ui-datepicker-div .ui-datepicker-header .ui-datepicker-next span {
+        display: none; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-next:hover {
+      background: url(../images/image-sprite.png) no-repeat -55px -826px; }
+    #ui-datepicker-div .ui-datepicker-header .ui-datepicker-next:active {
+      background: url(../images/image-sprite.png) no-repeat -42px -826px; }
+  #ui-datepicker-div .ui-datepicker-calendar {
+    background: url(../images/slices-v.png) repeat-y -31px 0px;
+    display: block;
+    padding-left: 4px;
+    padding-top: 3px; }
+    #ui-datepicker-div .ui-datepicker-calendar thead tr {
       background: none; }
-    #book #calendar .fc-agenda-slots td div {
-      height: 20px; }
-    #book #calendar .fc-agenda-slots tr.fc-slot0 th,
-    #book #calendar .fc-agenda-slots tr.fc-slot0 td {
-      border-top-width: 0; }
-    #book #calendar .fc-agenda-slots tr.fc-minor th,
-    #book #calendar .fc-agenda-slots tr.fc-minor td {
-      border-top-style: dotted; }
-    #book #calendar .fc-agenda-slots tr.fc-minor th.ui-widget-header {
-      *border-top-style: solid;
-      /* doesn't work with background in IE6/7 */ }
-    #book #calendar .fc-event-vert {
-      border-width: 0 1px; }
-    #book #calendar .fc-event-vert .fc-event-head,
-    #book #calendar .fc-event-vert .fc-event-content {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      overflow: hidden; }
-    #book #calendar .fc-event-vert .fc-event-time {
-      white-space: nowrap;
-      font-size: 10px; }
-    #book #calendar .fc-event-vert .fc-event-bg {
-      /* makes the event lighter w/ a semi-transparent overlay  */
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #fff;
-      opacity: .3;
-      filter: alpha(opacity=30); }
-    #book #calendar .fc .ui-draggable-dragging .fc-event-bg,
-    #book #calendar .fc-select-helper .fc-event-bg {
-      display: none\9;
-      /* for IE6/7/8. nested opacity filters while dragging don't work */ }
-    #book #calendar .fc-event-vert .ui-resizable-s {
-      bottom: 0        !important;
-      /* importants override pre jquery ui 1.7 styles */
-      width: 100%      !important;
-      height: 8px      !important;
-      overflow: hidden !important;
-      line-height: 8px !important;
-      font-size: 11px  !important;
-      font-family: monospace;
-      text-align: center;
-      cursor: s-resize; }
-    #book #calendar .fc-agenda .ui-resizable-resizing {
-      /* TODO: better selector */
-      _overflow: hidden; }
+      #ui-datepicker-div .ui-datepicker-calendar thead tr th {
+        text-align: right;
+        padding: 3px 4px; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr td a {
+      border-right: 1px solid #FFF;
+      display: block;
+      padding: 3px 4px;
+      text-align: right; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr td a:hover {
+      background: #ebebeb !important; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr td .ui-state-active {
+      background: #ebebeb !important;
+      color: #717171 !important;
+      font-weight: bold; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr td:nth-last-child(1) a {
+      border-right: none;
+      padding-right: 5px; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr .ui-datepicker-other-month a {
+      background: none !important;
+      color: #cccccc !important; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr .ui-datepicker-other-month a:hover {
+      color: #717171 !important; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr .ui-datepicker-unselectable {
+      color: #cccccc;
+      padding: 3px 4px; }
+    #ui-datepicker-div .ui-datepicker-calendar tbody tr:nth-child(odd) td a {
+      background: #f8f8f8; }
+  #ui-datepicker-div .ui-datepicker-buttonpane {
+    background: url(../images/image-sprite.png) no-repeat -42px -816px;
+    display: block;
+    height: 10px;
+    width: 158px; }
+    #ui-datepicker-div .ui-datepicker-buttonpane button {
+      display: none; }

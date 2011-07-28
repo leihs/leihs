@@ -1,10 +1,11 @@
 /* http://sass-lang.com/ */
-/* $ sass --watch public/layouts/00-patterns/css/scss/:public/layouts/00-patterns/css */
+/* $ sass --watch public/layouts/00-patterns/css/scss/:public/layouts/00-patterns/css/ */
 
 @import "reset.scss";
 $darkgrey: #515151;
 $grey: #717171;
 $lightgrey: #999;
+$lightergrey: #CCC;
 $highlight-grey: #f8f8f8;
 $highlight-darkgrey: #EBEBEB;
 $lightred: #FFAAAA;
@@ -14,86 +15,86 @@ $blue: #1d62c9;
 
 
 html {
-	background: #f5f3ee;
-	color: $darkgrey;
-	font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
-	font-size: 62.5%;
-	padding-top: 22px;
+  background: #f5f3ee;
+  color: $darkgrey;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  font-size: 62.5%;
+  padding-top: 22px;
 }
 
 a, a:link, a:visited {   
-	color: $lightblue;
-	text-decoration: none;
+  color: $lightblue;
+  text-decoration: none;
 }
 
 a:hover, a:active {
-	color: $blue;
-	text-decoration: none;
+  color: $blue;
+  text-decoration: none;
 }
 
 .clear {
-	clear: both;
+  clear: both;
 }
 
 p {
-	font-size: 1.1em;
+  font-size: 1.1em;
 }
 
 .subtitle {
-	font-size: 1.3em;
+  font-size: 1.3em;
 }
 
 strong {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 h1 {
-	color: #2d2d2d;
-	font-size: 1.8em;
-	font-weight: normal;
-	margin-bottom: 5px;
+  color: #2d2d2d;
+  font-size: 1.8em;
+  font-weight: normal;
+  margin-bottom: 5px;
 }
 
 h2 {
-	font-size: 1.6em;
-	font-weight: normal;
-	margin-bottom: 2px;
+  font-size: 1.6em;
+  font-weight: normal;
+  margin-bottom: 2px;
 }
 
 h3 {
-	font-size: 1.4em;
-	font-weight: normal;
-	margin-top: 1px;
-	margin-bottom: 9px;
+  font-size: 1.4em;
+  font-weight: normal;
+  margin-top: 1px;
+  margin-bottom: 9px;
 }
 
 ul {
-	list-style-type: none;	
+  list-style-type: none;  
 }
 
 hr {
-	border : 0;
-	height : 15px;
-	background : url(../images/slices-h.png) repeat-x 0 -182px;
-	margin: 14px 0 0 0;
+  border : 0;
+  height : 15px;
+  background : url(../images/slices-h.png) repeat-x 0 -182px;
+  margin: 14px 0 0 0;
 }
 
 .floatright {
-	float: right;
+  float: right;
 }
 
 .floatleft {
-	float: left;
+  float: left;
 }
 
 .wrapper {
- 	clear: both;
- 	display: block;
-	margin: 0 auto;
-	min-width: 990px;
-	padding: 0;
-	position: relative;
-	width: 990px;
+  clear: both;
+  display: block;
+  margin: 0 auto;
+  min-width: 990px;
+  padding: 0;
+  position: relative;
+  width: 990px;
 }
 
 .red {
@@ -149,4 +150,3 @@ hr {
 @import "model.scss";
 @import "user.scss";
 @import "datepicker.scss";
-@import "book.scss"
