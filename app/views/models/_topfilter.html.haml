@@ -1,27 +1,20 @@
-:plain
-  <section id="topfilter">
-    <form class="availability" action="">
-      <input class="date start" id="date_from" name="startdate" value="01.07.11"/>
-      -
-      <input class="date end" id="date_to" name="enddate" value="02.07.11" />
-      <div class="checkarea">
-          <input class="check" type="checkbox" name="available-only" value="available-only" id="available-only"/>
-          <label for="available-only">#{_("Show Available")}</label>
-          </div>
-    </form><!-- availability -->
-    
-    <form class="sort" action="" method="get">
-        <input class="submit" type="submit" value="#{_("Sort")}" />
-        <div class="container">
-          <select name="sort_and_sort_mode" class="styled">
-            <option value="name ASC">#{_("Productname (A-Z)")}</option>
-            <option value="name DESC">#{_("Productname (Z-A)")}</option>
-            <option value="manufacturer ASC">#{_("Manufacturer (A-Z)")}</option>
-            <option value="manufacturer DESC">#{_("Manufacturer (Z-A)")}</option>
-          </select>
-          </div><!-- .container -->
-    </form><!-- sort -->
-  </section><!-- #topfilter -->
+%section#topfilter
+  %form.availability
+    %input#date_from.date.start{:name => "startdate", :value => "01.07.11"}
+    -
+    %input#date_to.date.end{:name => "enddate", :value => "02.07.11"}
+    .checkarea
+      %input#available-only.check{:type => "checkbox", :name => "available-only", :value => "available-only"}
+        %label{:for => "available-only"}
+          = _("Show Available")
+  %form.sort{:method => "get"}
+    %input.submit{:type => "submit", :value => _("Sort")}
+      .container
+        %select.styled{:name => "sort_and_sort_mode"}
+          %option{:value => "name ASC"}= _("Productname (A-Z)")
+          %option{:value => "name DESC"}= _("Productname (Z-A)")
+          %option{:value => "manufacturer ASC"}= _("Manufacturer (A-Z)")
+          %option{:value => "manufacturer DESC"}= _("Manufacturer (Z-A)")
 
 :javascript
   function update_availability(){
