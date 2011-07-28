@@ -47,12 +47,14 @@
     					<td class="value"><%= p.value %></td>
     				</tr>
     			<% end %>
+    			<tr class="detailsswitcher"><td colspan="2"><a class="showmore" href="javascript:void(0)" title="<%= _("show more details") %>">+ <%= _("show more details") %><a class="showless" href="javascript:void(0)" title="<%= _("show less details") %>">- <%= _("show less details") %></a></td></tr>
     		</table><!-- .details -->
 		<% end %>
 
         <% unless @model.compatibles.empty? %>
     	    <hr/>        
             <section id="suggested">
+                <h2><%= _("Accessories") %></h2>
                 <% @model.compatibles.each_slice(4) do |s| %>
                     <div class="row">
                         <% s.each do |c| %>

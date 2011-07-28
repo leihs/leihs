@@ -63,7 +63,10 @@
                         <td class="availability">
                         	<%= render :partial => 'availability', :locals => {:model => m} %>
                         </td>
-                        <td class="add"><div class="smallbutton green"><a href="#" title="<%= _("Book") %>">+</a></div></td>
+                        <%
+                            #TODO Franco: we need link to "book" view for this item in the following link
+                        %>
+                        <td class="add"><div class="smallbutton green"><%= link_to "+", m, :title=>_("Book") + " " + m.name %></div></td>
                     </tr>
                 </table><!-- item -->
             <% end %>

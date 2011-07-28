@@ -54,7 +54,6 @@
           width: auto;
           max-width: 580px;
         }
-        
       }
     }
     
@@ -72,7 +71,7 @@
     color: #515151;
     font-size: 1.3em;
     line-height: 1.6em;
-    padding: 18px 10px 20px 10px;
+    padding: 12px 4px 12px 4px;
   }
   
   .details {
@@ -85,6 +84,7 @@
       position: relative;
       top: 0;
       vertical-align: top;
+      width: 100%;
     }
     
     tr:nth-child(odd)  {
@@ -99,6 +99,34 @@
       }
     }
     
+    tr.detailsswitcher {
+      background: none;
+      display: none;
+        
+      td {
+        text-align: left;
+        padding-bottom: 0;
+        padding-left: 4px;
+        width: 100%;
+        
+        a {
+          padding: 2px 2px;
+        }
+        
+        .showmore {
+          display: none;
+        }
+        
+        .showless {
+          display: none;
+        }
+      }
+    }
+    
+    tr.detailsswitcher:hover {
+      background: none;
+    }
+    
     .key {
       color: $lightgrey;
       margin-right: 8px;
@@ -110,13 +138,17 @@
       border-left: 1px solid #FFF;
       padding-left: 12px;
       padding-right: 12px;
-      width: 488px
+      width: 492px
     }
   }
   
   #suggested {
-     padding-top: 12px;
+     padding-top: 6px;
      @include greylinks;
+     
+     h2 {
+      padding: 0 0 14px 6px;
+     }
   
     .row {
       padding-bottom: 28px;

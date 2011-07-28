@@ -171,12 +171,14 @@
         }
       }
       
-      tr:nth-child(odd) {
+      tr:nth-child(even) {
         background: $highlight-grey;
       }
       
       tr:hover {
-        background: $highlight-darkgrey;
+        td {
+          background: $highlight-darkgrey;
+        }
         
         a {
           color: $darkgrey;
@@ -185,6 +187,14 @@
     }
     
     #compactOrder {
+    
+      td.pool {
+        background: none !important;
+        color: $darkgrey;
+        font-weight: bold;
+        padding-left: 9px;
+        padding-bottom: 4px;
+      }
     
       td.amount {
         letter-spacing: -1px;

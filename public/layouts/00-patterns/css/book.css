@@ -1,24 +1,24 @@
 /*
-Syntax error: Undefined mixin 'opacity'.
-        on line 142 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'
-        from line 142 of public/layouts/00-patterns/css/scss/basket.scss
+Syntax error: Undefined variable: "$lightgrey".
+        on line 26 of public/layouts/00-patterns/css/scss/book.scss
 
-137:       position: absolute;
-138:       text-align: right;
-139:       padding-bottom: 2px;
-140:       top: 2px;
-141:       width: 190px;
-142:       @include opacity(0);
-143:     }
-144:     
-145:     table {
-146:       border-spacing: 0;
-147:       float: left;
+21:     margin-top: 28px;
+22:     margin-bottom: 22px;
+23:     
+24:     label {
+25:       cursor: pointer;
+26:       color: $lightgrey;
+27:       position: absolute;
+28:       top: -16px;
+29:     }
+30:     
+31:     .inputcontainer {
 
 Backtrace:
-public/layouts/00-patterns/css/scss/basket.scss:142:in `opacity'
-public/layouts/00-patterns/css/scss/basket.scss:142
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
+public/layouts/00-patterns/css/scss/book.scss:26
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/script/variable.rb:45:in `_perform'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/script/node.rb:40:in `perform'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:215:in `visit_prop'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
@@ -107,4 +107,4 @@ public/layouts/00-patterns/css/scss/basket.scss:142
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 142 of public/layouts/00-patterns/css/scss/basket.scss, in `opacity'\A         from line 142 of public/layouts/00-patterns/css/scss/basket.scss\A \A 137:       position: absolute;\A 138:       text-align: right;\A 139:       padding-bottom: 2px;\A 140:       top: 2px;\A 141:       width: 190px;\A 142:       @include opacity(0);\A 143:     }\A 144:     \A 145:     table {\A 146:       border-spacing: 0;\A 147:       float: left;"; }
+  content: "Syntax error: Undefined variable: \"$lightgrey\".\A         on line 26 of public/layouts/00-patterns/css/scss/book.scss\A \A 21:     margin-top: 28px;\A 22:     margin-bottom: 22px;\A 23:     \A 24:     label {\A 25:       cursor: pointer;\A 26:       color: $lightgrey;\A 27:       position: absolute;\A 28:       top: -16px;\A 29:     }\A 30:     \A 31:     .inputcontainer {"; }
