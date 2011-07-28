@@ -31,5 +31,16 @@ module Availability
       end.sum
     end
 
+    def availability_periods_for_user(user)
+      start_date = Date.today
+      end_date = Availability::ETERNITY
+      
+      (inventory_pools & user.inventory_pools).collect do |inventory_pool|
+        groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
+        {:inventory_pool_id => inventory_pool.id,
+         :availability => availability_changes_in(inventory_pool).changes.available_quantities_for_groups(groups) }
+      end
+    end
+
   end
 end
