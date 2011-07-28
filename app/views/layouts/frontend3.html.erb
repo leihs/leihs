@@ -10,7 +10,7 @@
 	<%= javascript_include_tag "/javascripts/jquery/jquery.min.js" %>
 	<%= javascript_include_tag "/javascripts/jquery/jquery-ui.min.js" %>
 	
-	<%= javascript_include_tag "/javascripts/jquery/i18n/jquery.ui.datepicker-#{current_user.language.locale_name.to_sym}.js" %>
+	<%= javascript_include_tag "/javascripts/jquery/i18n/jquery.ui.datepicker-#{current_user.language.locale_name.dasherize}.js" %>
 	
 	<%= javascript_include_tag "/javascripts/custom-form-elements/custom-form-elements.js" %>
 	<%= javascript_include_tag "/javascripts/model-images-switcher/model-images-switcher.js" %>

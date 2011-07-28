@@ -1,8 +1,8 @@
 %section#topfilter
   %form.availability
-    %input#date_from.date.start{:name => "startdate", :value => "01.07.11"}
+    %input#date_from.date.start{:name => "startdate", :value => Date.today.strftime("%d.%m.%Y")}
     -
-    %input#date_to.date.end{:name => "enddate", :value => "02.07.11"}
+    %input#date_to.date.end{:name => "enddate", :value => Date.tomorrow.strftime("%d.%m.%Y")}
     .checkarea
       %input#available-only.check{:type => "checkbox", :name => "available-only", :value => "available-only"}
         %label{:for => "available-only"}
@@ -50,7 +50,6 @@
   $(document).ready(function () {
     var dates = $('#topfilter .availability .date').datepicker({
       minDate: 0,
-      firstDay: 1,
       showOtherMonths: true,
       selectOtherMonths: true,
       showButtonPanel: true,

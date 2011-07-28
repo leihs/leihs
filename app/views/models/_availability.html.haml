@@ -1,4 +1,3 @@
 %span.max_available{:"data-availability" => model.availability_periods_for_user(current_user).to_json}
-  = model.total_available_in_period_for_user(current_user)
 \/
 = model.total_borrowable_items_for_user(current_user)
