@@ -1,8 +1,8 @@
 %section#topfilter
   %form.availability
-    %input#date_from.date.start{:name => "startdate", :value => Date.today.strftime("%d.%m.%Y")}
+    %input#date_from.date.start{:name => "startdate", :value => Date.today.strftime("%d.%m.%y")}
     -
-    %input#date_to.date.end{:name => "enddate", :value => Date.tomorrow.strftime("%d.%m.%Y")}
+    %input#date_to.date.end{:name => "enddate", :value => Date.tomorrow.strftime("%d.%m.%y")}
     .checkarea
       %input#available-only.check{:type => "checkbox", :name => "available-only", :value => "available-only"}
         %label{:for => "available-only"}
@@ -48,6 +48,9 @@
   }
 
   $(document).ready(function () {
+
+    $.datepicker.setDefaults($.datepicker.regional['#{current_user.language.locale_name.dasherize}']);
+    
     var dates = $('#topfilter .availability .date').datepicker({
       minDate: 0,
       showOtherMonths: true,
@@ -59,7 +62,8 @@
         dates.not( this ).datepicker( "option", option, date );
 
         update_availability();
-      }
+      },
+      dateFormat: '#{current_user.language.locale_name.dasherize=="de-CH" ? "dd.mm.y" : "dd/mm/y"}'
     });
 
     update_availability();
