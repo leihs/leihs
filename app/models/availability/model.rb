@@ -18,11 +18,11 @@ module Availability
       Rails.cache.delete(availability_cache_key(inventory_pool))
     end
 
-    def total_available_in_period_for_user(user, start_date = Date.today, end_date = Date.today)
-      inventory_pools.collect do |ip|
-        availability_changes_in(ip).maximum_available_in_period_for_user(user, start_date, end_date)
-      end.sum
-    end
+    #def total_available_in_period_for_user(user, start_date = Date.today, end_date = Date.today)
+    #  inventory_pools.collect do |ip|
+    #    availability_changes_in(ip).maximum_available_in_period_for_user(user, start_date, end_date)
+    #  end.sum
+    #end
 
     def total_borrowable_items_for_user(user)
       inventory_pools.collect do |ip|
@@ -31,14 +31,13 @@ module Availability
       end.sum
     end
 
-    def availability_periods_for_user(user)
-      start_date = Date.today
-      end_date = Availability::ETERNITY
-      
+    def availability_periods_for_user(user, start_date = Date.today, end_date = Availability::ETERNITY)
       (inventory_pools & user.inventory_pools).collect do |inventory_pool|
         groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
         {:inventory_pool_id => inventory_pool.id,
-         :availability => availability_changes_in(inventory_pool).changes.available_quantities_for_groups(groups) }
+         #:borrowable => partitions.in(inventory_pool).by_groups(groups.collect(&:id)).sum(:quantity).to_i +
+         #                 partitions.in(inventory_pool).by_group(Group::GENERAL_GROUP_ID),
+         :availability => availability_changes_in(inventory_pool).changes.available_quantities_for_groups(groups, true) }
       end
     end
 

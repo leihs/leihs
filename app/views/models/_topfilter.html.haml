@@ -18,10 +18,8 @@
 
 :javascript
   function update_availability(){
-    var sd = $("#date_from").datepicker( "getDate" );
-    var ed = $("#date_to").datepicker( "getDate" );
-    // TODO .getTime() ??
-    //if (sd == null || ed == null) return;
+    var sd = $("#date_from").datepicker("getDate").getTime() / 1000;
+    var ed = $("#date_to").datepicker("getDate").getTime() / 1000;
     
     $("[data-availability]").each(function(){
       var availability_ips = $(this).data('availability');
@@ -29,15 +27,9 @@
       var min_ips = $.map(availability_ips, function(elem){
         var min = 0;
         var to_min = [];
-        var f1 = elem.availability.filter(function(x){
-          var d = new Date(x[0]);
-          return (d < sd);
-        });
+        var f1 = elem.availability.filter(function(x){ return (x[0] < sd); });
         if(f1.length) to_min.push(f1[f1.length-1][1]);
-        var f2 = elem.availability.filter(function(x){
-          var d = new Date(x[0]);
-          return (sd <= d && d <= ed);
-        });
+        var f2 = elem.availability.filter(function(x){ return (sd <= x[0] && x[0] <= ed); });
         if(f2.length) to_min.push(Math.min.apply(Math, $.map(f2, function(x){ return x[1]; })));
         if(to_min.length) min = Math.min.apply(Math, to_min);
         return Math.max.apply(Math, [min, 0]);
@@ -56,7 +48,7 @@
       showOtherMonths: true,
       selectOtherMonths: true,
       showButtonPanel: true,
-      onSelect: function(selectedDate, instance) {
+      onClose: function(selectedDate, instance) {
         var option = this.id == "date_from" ? "minDate" : "maxDate",
             date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
         dates.not( this ).datepicker( "option", option, date );
