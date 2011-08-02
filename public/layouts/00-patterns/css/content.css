@@ -1,20 +1,20 @@
-#content {
+#content.box {
   display: block;
   float: left;
   left: 14px;
   position: relative;
   width: 755px; }
-  #content .header {
+  #content.box .header {
     display: block;
     height: 12px;
     position: relative; }
-    #content .header .headerinner {
+    #content.box .header .headerinner {
       background: url(../images/slices-h.png) repeat-x 0 -97px;
       display: block;
       height: 12px;
       margin-left: 6px;
       margin-right: 6px; }
-    #content .header .borderright {
+    #content.box .header .borderright {
       background: url(../images/image-sprite.png) no-repeat -18px -14px;
       display: block;
       height: 12px;
@@ -22,7 +22,7 @@
       position: absolute;
       top: 0;
       width: 6px; }
-    #content .header .borderleft {
+    #content.box .header .borderleft {
       background: url(../images/image-sprite.png) no-repeat -18px -27px;
       display: block;
       height: 12px;
@@ -30,24 +30,24 @@
       position: absolute;
       top: 0;
       width: 6px; }
-  #content .inner {
+  #content.box .inner {
     background: #FFF;
     border-left: 1px solid #c9c7c3;
     border-right: 1px solid #c9c7c3;
     display: block;
     padding: 8px 16px 16px 16px;
     position: relative; }
-  #content .footer {
+  #content.box .footer {
     display: block;
     height: 14px;
     position: relative; }
-    #content .footer .footerinner {
+    #content.box .footer .footerinner {
       background: url(../images/slices-h.png) repeat-x 0 -110px;
       display: block;
       height: 14px;
       margin-left: 6px;
       margin-right: 6px; }
-    #content .footer .borderright {
+    #content.box .footer .borderright {
       background: url(../images/image-sprite.png) no-repeat -25px -15px;
       display: block;
       height: 14px;
@@ -55,7 +55,7 @@
       position: absolute;
       top: 0;
       width: 6px; }
-    #content .footer .borderleft {
+    #content.box .footer .borderleft {
       background: url(../images/image-sprite.png) no-repeat -25px 0;
       display: block;
       height: 14px;
@@ -63,3 +63,10 @@
       position: absolute;
       top: 0;
       width: 6px; }
+
+#content.box.fullwidth {
+  display: block;
+  float: left;
+  left: 14px;
+  position: relative;
+  width: 963px; }
