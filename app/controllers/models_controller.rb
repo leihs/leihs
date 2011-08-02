@@ -63,6 +63,11 @@ class ModelsController < FrontendController
 
 #################################################################
 
+  def book
+  end
+
+#################################################################
+
   private
   
   def pre_load

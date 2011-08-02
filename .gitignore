@@ -3,6 +3,7 @@
 *~
 .loadpath
 .project
+.sass-cache
 log/*
 tmp/*
 config/environments/development_mail.rb
@@ -15,4 +16,3 @@ db/sphinx/
 doc/todo.html
 public/images/graphs/*
 rerun.txt
-

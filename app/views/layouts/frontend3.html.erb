@@ -8,10 +8,19 @@
 	<%= stylesheet_link_tag "#{$layout_public_path}/css/master.css" %>
 	
 	<%= javascript_include_tag "/javascripts/jquery/jquery.min.js" %>
+	<%= javascript_include_tag "/javascripts/jquery/jquery-ui.min.js" %>
+	
+	<%= javascript_include_tag "/javascripts/jquery/i18n/jquery.ui.datepicker-#{current_user.language.locale_name.dasherize}.js" %>
+	
 	<%= javascript_include_tag "/javascripts/custom-form-elements/custom-form-elements.js" %>
 	<%= javascript_include_tag "/javascripts/model-images-switcher/model-images-switcher.js" %>
+	<%= javascript_include_tag "/javascripts/model-details-switcher/model-details-switcher.js" %>
 	<%= javascript_include_tag "/javascripts/models-list-hover/models-list-hover.js" %>
 	<%= javascript_include_tag "/javascripts/models-list-sort/models-list-sort.js" %>
+	
+	
+	<%= javascript_include_tag "/javascripts/full-calendar/full-calendar.js" %>
+	<%= javascript_include_tag "/javascripts/booking-calendar/booking-calendar.js" %>
 	
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">

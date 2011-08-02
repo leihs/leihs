@@ -1,46 +1,24 @@
 /*
 Syntax error: Undefined mixin 'greylinks'.
-        on line 72 of public/layouts/00-patterns/css/scss/topbar.scss, in `greylinks'
-        from line 72 of public/layouts/00-patterns/css/scss/topbar.scss
+        on line 7 of public/layouts/00-patterns/css/scss/datepicker.scss, in `greylinks'
+        from line 7 of public/layouts/00-patterns/css/scss/datepicker.scss
 
-67:     .item {
-68:       float: left;
-69:       height: 45px;
-70:       left: 4px;
-71:       position: relative;
-72:       @include greylinks;
-73:       
-74:       .anchor {
-75:         display: block;
-76:         font-weight: bold;
-77:         font-size: 1.2em;
+2:   left: -75px;
+3:   text-align: center;
+4:   margin-left: -40px;
+5:   position: absolute;
+6:   width: 158px;
+7:   @include greylinks;
+8:   
+9:   .ui-datepicker-header {
+10:     background: url(../images/image-sprite.png) no-repeat -42px -786px;
+11:     height: 28px;
+12:     
 
 Backtrace:
-public/layouts/00-patterns/css/scss/topbar.scss:72:in `greylinks'
-public/layouts/00-patterns/css/scss/topbar.scss:72
+public/layouts/00-patterns/css/scss/datepicker.scss:7:in `greylinks'
+public/layouts/00-patterns/css/scss/datepicker.scss:7
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:230:in `visit_rule'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
@@ -107,4 +85,4 @@ public/layouts/00-patterns/css/scss/topbar.scss:72
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'greylinks'.\A         on line 72 of public/layouts/00-patterns/css/scss/topbar.scss, in `greylinks'\A         from line 72 of public/layouts/00-patterns/css/scss/topbar.scss\A \A 67:     .item {\A 68:       float: left;\A 69:       height: 45px;\A 70:       left: 4px;\A 71:       position: relative;\A 72:       @include greylinks;\A 73:       \A 74:       .anchor {\A 75:         display: block;\A 76:         font-weight: bold;\A 77:         font-size: 1.2em;"; }
+  content: "Syntax error: Undefined mixin 'greylinks'.\A         on line 7 of public/layouts/00-patterns/css/scss/datepicker.scss, in `greylinks'\A         from line 7 of public/layouts/00-patterns/css/scss/datepicker.scss\A \A 2:   left: -75px;\A 3:   text-align: center;\A 4:   margin-left: -40px;\A 5:   position: absolute;\A 6:   width: 158px;\A 7:   @include greylinks;\A 8:   \A 9:   .ui-datepicker-header {\A 10:     background: url(../images/image-sprite.png) no-repeat -42px -786px;\A 11:     height: 28px;\A 12:     "; }

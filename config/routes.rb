@@ -59,6 +59,7 @@ Leihs::Application.routes.draw do
   resources :models do
     member do
       get :chart
+      get :book
     end
   end
   
