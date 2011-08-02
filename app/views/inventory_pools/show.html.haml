@@ -1,0 +1,18 @@
+= render :partial => '/layouts/frontend/00-patterns/tabs'
+= render :partial => '/layouts/frontend/00-patterns/content_box_head'
+
+#inventoryPool.inner
+  %h1= @inventory_pool
+  %h3= @inventory_pool.address
+  
+  .map
+    = "KARTE"
+  
+  .details
+    = "DETAILS"
+  
+  .description
+    = "DESCRIPTION"
+
+= render :partial => '/layouts/frontend/00-patterns/content_box_foot'
+= render :partial => '/layouts/frontend/00-patterns/basket'
