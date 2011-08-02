@@ -825,50 +825,48 @@ hr {
   color: #999999; }
 #start .subtitle .pools a:hover, #start .subtitle .pools a:active {
   color: #515151; }
-#start #categories {
-  padding-top: 8px; }
-  #start #categories h2 a, #start #categories h2 a:link, #start #categories h2 a:visited, #start #categories h3 a, #start #categories h3 a:link, #start #categories h3 a:visited {
-    color: #717171; }
-  #start #categories h2 a:hover, #start #categories h2 a:active, #start #categories h3 a:hover, #start #categories h3 a:active {
-    color: #515151; }
-  #start #categories a, #start #categories a:link, #start #categories a:visited {
-    color: #999999; }
-  #start #categories a:hover, #start #categories a:active {
-    color: #515151; }
-  #start #categories .row {
-    padding-bottom: 34px; }
-  #start #categories .cell {
-    float: left;
-    padding-left: 6px;
-    width: 175px; }
-    #start #categories .cell table.image {
-      margin-bottom: 8px; }
-      #start #categories .cell table.image tr td {
-        height: 120px;
-        text-align: left;
-        vertical-align: bottom;
-        width: 150px; }
-        #start #categories .cell table.image tr td img {
-          max-height: 100px;
-          width: auto;
-          max-width: 120px; }
-    #start #categories .cell ul {
-      margin-right: 20px;
-      margin-top: 5px;
-      list-style-type: none; }
-      #start #categories .cell ul li {
-        display: block;
-        margin-bottom: 6px;
-        padding-right: 8px; }
-        #start #categories .cell ul li a {
-          font-size: 1.2em;
-          color: #999999; }
-        #start #categories .cell ul li a:hover {
-          color: #515151; }
-  #start #categories .cell:nth-child(4n) {
-    padding-left: 0; }
-  #start #categories .cell:hover h2 a {
-    color: #515151; }
+#start #categories h2 a, #start #categories h2 a:link, #start #categories h2 a:visited, #start #categories h3 a, #start #categories h3 a:link, #start #categories h3 a:visited {
+  color: #717171; }
+#start #categories h2 a:hover, #start #categories h2 a:active, #start #categories h3 a:hover, #start #categories h3 a:active {
+  color: #515151; }
+#start #categories a, #start #categories a:link, #start #categories a:visited {
+  color: #999999; }
+#start #categories a:hover, #start #categories a:active {
+  color: #515151; }
+#start #categories .row {
+  padding-bottom: 34px; }
+#start #categories .cell {
+  float: left;
+  padding-left: 6px;
+  width: 175px; }
+  #start #categories .cell table.image {
+    margin-bottom: 8px; }
+    #start #categories .cell table.image tr td {
+      height: 120px;
+      text-align: left;
+      vertical-align: bottom;
+      width: 150px; }
+      #start #categories .cell table.image tr td img {
+        max-height: 100px;
+        width: auto;
+        max-width: 120px; }
+  #start #categories .cell ul {
+    margin-right: 20px;
+    margin-top: 5px;
+    list-style-type: none; }
+    #start #categories .cell ul li {
+      display: block;
+      margin-bottom: 6px;
+      padding-right: 8px; }
+      #start #categories .cell ul li a {
+        font-size: 1.2em;
+        color: #999999; }
+      #start #categories .cell ul li a:hover {
+        color: #515151; }
+#start #categories .cell:nth-child(4n) {
+  padding-left: 0; }
+#start #categories .cell:hover h2 a {
+  color: #515151; }
 
 #basket {
   display: block;
@@ -993,7 +991,7 @@ hr {
         background: #ebebeb; }
       #basket .inner table tr:hover a {
         color: #515151; }
-    #basket .inner #compactOrder td.pool {
+    #basket .inner #compactOrder th.pool {
       background: none !important;
       color: #515151;
       font-weight: bold;

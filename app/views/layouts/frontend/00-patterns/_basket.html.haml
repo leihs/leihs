@@ -1,0 +1,75 @@
+%aside#basket
+  %div.header
+    %div.borderright
+    %div.headerinner
+      %ul.navigation
+        %li.active
+          %a{:href => "#", :title => _("Order")}
+            %span{:class => "icon basket"}
+        %li
+          %a{:href => "#", :title => _("Order Templates")}
+            %span{:class => "icon list"}
+    %div.borderleft
+  
+  %div.inner
+    %div#compactOrder
+      %h3 
+        = _("Order")
+      %a.edit{:href => ""} 
+        = _("edit")
+      %div.clear
+      %table
+        - this_ip_id = nil
+        - current_user.get_current_order.order_lines.sort {|a,b| [a.inventory_pool_id, a.created_at] <=> [b.inventory_pool_id, b.created_at]}.each do |order_line|
+          - unless order_line.inventory_pool_id == this_ip_id
+            - this_ip_id = order_line.inventory_pool_id
+            %tr
+              %th.pool{:colspan => "3"} 
+                = order_line.inventory_pool
+          %tr
+            %td.amount
+              %a
+                = order_line.quantity
+            %td.name
+              %a
+                =#TODO Franco: check why this cause an error: order_line.model
+            %td.delete
+              %a
+                = "x"
+              
+      %div.orderPurpose
+        %hr
+        %h3
+          = _("Purpose")
+          
+    %div#compactTemplates
+      %h3 
+        = _("Order Templates")
+      %a.edit{:href => ""} = _("edit")
+      %div.clear
+    
+    %div.clear      
+  
+  %div.footer
+    %div.borderleft
+    %div.footerinner
+      %div{:class => "button green"}
+        %a{:href => "#", :title => _("Submit")} 
+          = _("Submit")
+    %div.borderright
+    
+:javascript
+
+$(document).ready(function () {
+  AsideNavigation.setupBindings();
+}
+
+var AsideNavigation = new AsideNavigation();
+
+function AsideNavigation () {
+  
+  this.setUpBindings = function () {
+    // Order
+    
+  }
+}
