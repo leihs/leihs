@@ -1,4 +1,4 @@
-#content {
+#content.box {
   display: block;
   float: left;
   left: 14px;
@@ -81,4 +81,12 @@
       width: 6px;
     }
   }
+}
+
+#content.box.fullwidth {
+  display: block;
+  float: left;
+  left: 14px;
+  position: relative;
+  width: 963px;
 }

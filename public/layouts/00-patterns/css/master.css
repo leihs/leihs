@@ -751,23 +751,23 @@ hr {
   #navigation .item.active:hover .leftend {
     background: url(../images/image-sprite.png) no-repeat -53px 0; }
 
-#content {
+#content.box {
   display: block;
   float: left;
   left: 14px;
   position: relative;
   width: 755px; }
-  #content .header {
+  #content.box .header {
     display: block;
     height: 12px;
     position: relative; }
-    #content .header .headerinner {
+    #content.box .header .headerinner {
       background: url(../images/slices-h.png) repeat-x 0 -97px;
       display: block;
       height: 12px;
       margin-left: 6px;
       margin-right: 6px; }
-    #content .header .borderright {
+    #content.box .header .borderright {
       background: url(../images/image-sprite.png) no-repeat -18px -14px;
       display: block;
       height: 12px;
@@ -775,7 +775,7 @@ hr {
       position: absolute;
       top: 0;
       width: 6px; }
-    #content .header .borderleft {
+    #content.box .header .borderleft {
       background: url(../images/image-sprite.png) no-repeat -18px -27px;
       display: block;
       height: 12px;
@@ -783,24 +783,24 @@ hr {
       position: absolute;
       top: 0;
       width: 6px; }
-  #content .inner {
+  #content.box .inner {
     background: #FFF;
     border-left: 1px solid #c9c7c3;
     border-right: 1px solid #c9c7c3;
     display: block;
     padding: 8px 16px 16px 16px;
     position: relative; }
-  #content .footer {
+  #content.box .footer {
     display: block;
     height: 14px;
     position: relative; }
-    #content .footer .footerinner {
+    #content.box .footer .footerinner {
       background: url(../images/slices-h.png) repeat-x 0 -110px;
       display: block;
       height: 14px;
       margin-left: 6px;
       margin-right: 6px; }
-    #content .footer .borderright {
+    #content.box .footer .borderright {
       background: url(../images/image-sprite.png) no-repeat -25px -15px;
       display: block;
       height: 14px;
@@ -808,7 +808,7 @@ hr {
       position: absolute;
       top: 0;
       width: 6px; }
-    #content .footer .borderleft {
+    #content.box .footer .borderleft {
       background: url(../images/image-sprite.png) no-repeat -25px 0;
       display: block;
       height: 14px;
@@ -816,6 +816,13 @@ hr {
       position: absolute;
       top: 0;
       width: 6px; }
+
+#content.box.fullwidth {
+  display: block;
+  float: left;
+  left: 14px;
+  position: relative;
+  width: 963px; }
 
 #start .subtitle .pools h2 a, #start .subtitle .pools h2 a:link, #start .subtitle .pools h2 a:visited, #start .subtitle .pools h3 a, #start .subtitle .pools h3 a:link, #start .subtitle .pools h3 a:visited {
   color: #717171; }
@@ -1620,6 +1627,70 @@ hr {
   color: #999999; }
 #user .pools a:hover, #user .pools a:active {
   color: #515151; }
+
+#order #orderlist {
+  /* border-left: 1px solid #e3e3e3; */
+  display: block;
+  top: 17px;
+  position: relative; }
+  #order #orderlist tr:nth-child(odd) {
+    background: #f8f8f8; }
+  #order #orderlist tr:hover {
+    background: #ebebeb; }
+  #order #orderlist .item {
+    border-bottom: 1px solid #e3e3e3;
+    margin-bottom: 1px;
+    height: 40px;
+    position: relative;
+    width: 100%; }
+    #order #orderlist .item .image {
+      height: 40px;
+      padding: 0 16px 0 12px;
+      position: relative;
+      text-align: center;
+      vertical-align: middle;
+      width: 15%; }
+      #order #orderlist .item .image a, #order #orderlist .item .image a:link, #order #orderlist .item .image a:visited, #order #orderlist .item .image a:hover, #order #orderlist .item .image a:active {
+        color: #515151;
+        display: block;
+        padding: 10px 0;
+        width: 100%; }
+      #order #orderlist .item .image img {
+        max-height: 50px;
+        max-width: 50px; }
+    #order #orderlist .item .name {
+      font-size: 1.2em;
+      height: 40px;
+      vertical-align: middle;
+      width: 20%; }
+      #order #orderlist .item .name a, #order #orderlist .item .name a:link, #order #orderlist .item .name a:visited, #order #orderlist .item .name a:hover, #order #orderlist .item .name a:active {
+        color: #515151;
+        display: block;
+        padding: 10px 0;
+        width: 100%; }
+    #order #orderlist .item .manufacturer {
+      font-size: 1.2em;
+      vertical-align: middle;
+      width: 20%; }
+    #order #orderlist .item .amount {
+      font-size: 1.2em;
+      vertical-align: middle;
+      width: 10%; }
+    #order #orderlist .item .date {
+      font-size: 1 em;
+      vertical-align: middle;
+      width: 15%; }
+#order .orderoption {
+  margin-bottom: 6px;
+  height: 40px;
+  position: relative;
+  width: 100%; }
+#order h4 {
+  padding-bottom: 4px; }
+#order .underline {
+  border-bottom: 1px solid #e3e3e3;
+  margin-top: 6px;
+  margin-bottom: 1px; }
 
 #ui-datepicker-div {
   left: -75px;

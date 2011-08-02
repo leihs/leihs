@@ -1,0 +1,85 @@
+#order {
+
+  #orderlist {
+    /* border-left: 1px solid #e3e3e3; */
+    display: block;
+    top: 17px;
+    position: relative;
+
+    tr:nth-child(odd)  {
+               background: $highlight-grey;
+              }
+              
+      tr:hover {
+       background: $highlight-darkgrey;
+      }
+
+    .item {
+      border-bottom: 1px solid #e3e3e3;
+      margin-bottom: 1px;
+      height: 40px;
+      position: relative;
+      width: 100%;
+        
+      .image {
+          height: 40px;
+          padding: 0 16px 0 12px;
+          position: relative;
+          text-align: center;
+          vertical-align: middle;
+          width: 15%;
+          @include listanchor;
+          
+          img {
+            max-height: 50px;
+            max-width: 50px;
+          }
+        }
+        
+      .name {
+        font-size: 1.2em;
+        height: 40px;
+        vertical-align: middle;
+        width: 20%;
+        @include listanchor;
+      }
+      
+      .manufacturer {
+        font-size: 1.2em;
+        vertical-align: middle;
+        width: 20%;
+      }
+      
+      .amount {
+        font-size: 1.2em;
+        vertical-align: middle;
+        width: 10%;
+      }
+      
+      
+      .date {
+        font-size: 1 em;
+        vertical-align: middle;
+        width: 15%;
+      }
+   
+    }
+  }
+  
+  .orderoption {
+      margin-bottom: 6px;
+      height: 40px;
+      position: relative;
+      width: 100%;
+  }
+  
+  h4 {
+    padding-bottom: 4px; 
+  }
+  
+  .underline {
+    border-bottom: 1px solid #e3e3e3;
+    margin-top:6px;
+    margin-bottom: 1px;
+  }
+}
