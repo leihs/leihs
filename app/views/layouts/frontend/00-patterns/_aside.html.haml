@@ -1,30 +1,30 @@
-%aside#basket
-  %div.header
-    %div.borderright
-    %div.headerinner
+%aside#aside
+  .header
+    .borderright
+    .headerinner
       %ul.navigation
-        %li.active
+        %li.active{:class => "order"}
           %a{:href => "#", :title => _("Order")}
-            %span{:class => "icon basket"}
-        %li
+            %span{:class => "icon"}
+        %li{:class => "templates"}
           %a{:href => "#", :title => _("Order Templates")}
-            %span{:class => "icon list"}
-    %div.borderleft
+            %span{:class => "icon"}
+    .borderleft
   
-  %div.inner
-    %div#compactOrder
-      %h3 
+  .inner
+    #compactOrder
+      %h3
         = _("Order")
       %a.edit{:href => ""} 
         = _("edit")
-      %div.clear
+      .clear
       %table
         - this_ip_id = nil
         - current_user.get_current_order.order_lines.sort {|a,b| [a.inventory_pool_id, a.created_at] <=> [b.inventory_pool_id, b.created_at]}.each do |order_line|
           - unless order_line.inventory_pool_id == this_ip_id
             - this_ip_id = order_line.inventory_pool_id
             %tr
-              %th.pool{:colspan => "3"} 
+              %td.pool{:colspan => "3"} 
                 = order_line.inventory_pool
           %tr
             %td.amount
@@ -37,39 +37,57 @@
               %a
                 = "x"
               
-      %div.orderPurpose
+      .orderPurpose
         %hr
         %h3
           = _("Purpose")
           
-    %div#compactTemplates
+    #compactTemplates
       %h3 
         = _("Order Templates")
       %a.edit{:href => ""} = _("edit")
-      %div.clear
+      .clear
     
-    %div.clear      
+    .clear      
   
-  %div.footer
-    %div.borderleft
-    %div.footerinner
-      %div{:class => "button green"}
+  .footer
+    .borderleft
+    .footerinner
+      .button{:class => "green"}
         %a{:href => "#", :title => _("Submit")} 
           = _("Submit")
-    %div.borderright
+    .borderright
     
 :javascript
-
-$(document).ready(function () {
-  AsideNavigation.setupBindings();
-}
-
-var AsideNavigation = new AsideNavigation();
-
-function AsideNavigation () {
   
-  this.setUpBindings = function () {
-    // Order
+  $(document).ready(function () {
+    AsideNavigation.setupBindings();
+  });
+
+  var AsideNavigation = new AsideNavigation();
+  
+  function AsideNavigation () {
     
+    this.setupBindings = function () {
+      // Order Tab
+      $('#aside .navigation .order a').bind('click', function(){
+        $('#compactOrder').stop().show();
+        $('#aside .footer .button').stop().show();
+        $('#compactTemplates').stop().hide();
+        AsideNavigation.switchActive($(this).parent());
+      });
+      
+      // Templates Tab
+      $('#aside .navigation .templates a').bind('click', function(){
+        $('#compactOrder').stop().hide();
+        $('#aside .footer .button').stop().hide();
+        $('#compactTemplates').stop().show();
+        AsideNavigation.switchActive($(this).parent());
+      });
+    }
+    
+    this.switchActive = function(_newActive) {
+      $("#aside .navigation .active").removeClass("active");
+      $(_newActive).addClass("active");
+    }
   }
-}
