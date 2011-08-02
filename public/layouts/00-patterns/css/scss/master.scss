@@ -80,6 +80,7 @@ hr {
 
 .floatright {
 	float: right;
+	margin-left: 10px;
 }
 
 .floatleft {
@@ -135,6 +136,15 @@ hr {
   opacity: $value; // THE REST
 }
 
+@mixin listanchor {
+  a, a:link, a:visited, a:hover, a:active {
+    color: $darkgrey;
+    display: block;
+    padding: 10px 0;
+    width: 100%;
+  }
+}
+
 @import "buttons.scss";
 @import "linelist.scss";
 @import "topbar.scss";
@@ -148,3 +158,4 @@ hr {
 @import "topfilter.scss";
 @import "model.scss";
 @import "user.scss";
+@import "order.scss";
