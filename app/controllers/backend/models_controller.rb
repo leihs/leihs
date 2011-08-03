@@ -21,7 +21,7 @@ class Backend::ModelsController < Backend::BackendController
 
     search_scope = search_scope.sphinx_packages unless params[:packages].blank?
     with[:compatible_id] = @model.id if @model
-    with[:category_id] = @categories.collect(&:self_and_descendant_ids).flatten.uniq if @categories
+    with[:model_group_id] = @categories.collect(&:self_and_descendant_ids).flatten.uniq if @categories
     with[:sphinx_internal_id] = @group.models.collect(&:id) if @group
 
     search_scope = search_scope.sphinx_with_unpackaged_items(current_inventory_pool.id) if params[:source_path]

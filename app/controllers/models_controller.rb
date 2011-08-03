@@ -2,8 +2,7 @@ class ModelsController < FrontendController
 
   before_filter :pre_load
 
-  def index( category_id = params[:category_id].to_i, # TODO 18** nested route ?
-             query = params[:query],
+  def index( query = params[:query],
              sort = params[:sort] || 'name', # OPTIMIZE 0501
              sort_mode = params[:dir] || 'ASC' ) # OPTIMIZE 0501
              
@@ -12,7 +11,7 @@ class ModelsController < FrontendController
     sort_mode = sort_mode.downcase.to_sym # OPTIMIZE 0501
     
     #1402 TODO refactor to User#accessible_models(current_inventory_pools)
-    model_ids = Model.all(:select => "DISTINCT models.id",
+    model_ids = Model.all(:group => "models.id", #tmp#Rails3.1 is this select kept also for next Model query??# :select => "DISTINCT models.id",
                           :joins => [:items, :partitions],
                           :conditions => ["items.inventory_pool_id IN (:ip_ids)
                                              AND (partitions.group_id IN (:groups_ids)
@@ -29,9 +28,12 @@ class ModelsController < FrontendController
 
     with = {:sphinx_internal_id => model_ids }
 
-    if category_id > 0
-      @category = Category.find(category_id)
-      with[:category_id] = @category.self_and_descendant_ids
+    if params[:category_id]
+      @category = Category.find(params[:category_id])
+      with[:model_group_id] = @category.self_and_descendant_ids
+    elsif params[:template_id]
+      @template = Template.find(params[:template_id])
+      with[:model_group_id] = @template.self_and_descendant_ids
     end
 
     @models = Model.search query, { :index => "frontend_model",

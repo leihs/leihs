@@ -1,22 +1,58 @@
 <%= render :partial => '/layouts/frontend/00-patterns/tabs' %>
 <%= render :partial => '/layouts/frontend/00-patterns/content_box_head' %>
     		
-	<div class="inner<%= @category.children.empty? ? " fullwidth" : "" %>" id="models">
+	<div class="inner<%= (@category.try(:children).blank? and @template.try(:children).blank?) ? " fullwidth" : "" %>" id="models">
 
-        <% unless @category.children.empty? %>
-		<ul id="categories">
-		    <% @category.children.each do |c| %>
-                 <li>
-                     <h2><%= link_to c, category_models_path(c), :title => c %></h2>
-                     <ul>
-                         <% c.children.each do |child| %>
-                            <li><%= link_to child, category_models_path(child) , :title => child %></li>
-                         <% end %>
-                     </ul>
-                 </li>
-            <% end %>
-		</ul><!-- category list -->
+		<% if @category %>
+	        <% unless @category.children.empty? %>
+				<ul id="categories">
+				    <% @category.children.each do |c| %>
+		                 <li>
+		                     <h2><%= link_to c, category_models_path(c), :title => c %></h2>
+		                     <ul>
+		                         <% c.children.each do |child| %>
+		                            <li><%= link_to child, category_models_path(child) , :title => child %></li>
+		                         <% end %>
+		                     </ul>
+		                 </li>
+		            <% end %>
+				</ul><!-- category list -->
+			<% end %>
+	
+	        <% unless @category.all_templates.empty? %>
+				<ul id="templates">
+				    <% @category.all_templates.each do |t| %>
+		                 <li>
+		                     <h2><%= link_to t, template_models_path(t), :title => t %></h2>
+		                     <ul>
+		                         <% t.children.each do |child| %>
+		                            <li><%= link_to child, template_models_path(child) , :title => child %></li>
+		                         <% end %>
+		                     </ul>
+		                 </li>
+		            <% end %>
+				</ul><!-- template list -->
+			<% end %>
+			
+		<% elsif @template %>
+
+	        <% unless @template.children.empty? %>
+				<ul id="categories">
+				    <% @template.children.each do |t| %>
+		                 <li>
+		                     <h2><%= link_to t, template_models_path(t), :title => t %></h2>
+		                     <ul>
+		                         <% t.children.each do |child| %>
+		                            <li><%= link_to child, template_models_path(child) , :title => child %></li>
+		                         <% end %>
+		                     </ul>
+		                 </li>
+		            <% end %>
+				</ul><!-- template list -->
+			<% end %>
+
 		<% end %>
+
 
 		<%= render :partial => 'topfilter' %>
 				

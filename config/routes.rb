@@ -67,8 +67,11 @@ Leihs::Application.routes.draw do
     resources :models
   end
   
+  resources :templates do 
+    resources :models
+  end
+  
   resources :inventory_pools
-  resources :templates
 
 ############################################################################
 # Backend

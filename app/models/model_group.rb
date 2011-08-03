@@ -32,7 +32,7 @@ class ModelGroup < ActiveRecord::Base
     ([id] + descendant_ids).flatten.uniq # OPTIMIZE flatten and unique really needed?
   end
 
-  # NOTE is now chainable for scopes
+  # NOTE it's now chainable for scopes
   def all_models
     Model.select("DISTINCT models.*").joins(:model_links).where(:model_links => {:model_group_id => self_and_descendant_ids})
   end

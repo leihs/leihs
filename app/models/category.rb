@@ -12,6 +12,14 @@
 
 class Category < ModelGroup
 
+  has_many :templates, :through => :models, :uniq => true
+  # has_many :all_templates, :through => :all_models, :uniq => true
+  def all_templates
+    all_models.collect(&:templates).flatten.uniq
+  end
+
+  ######################################################
+
   define_index do
     indexes :name, :sortable => true
 

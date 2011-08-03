@@ -151,7 +151,7 @@ class Model < ActiveRecord::Base
     
     has :is_package
     has compatibles(:id), :as => :compatible_id
-    has categories(:id), :as => :category_id
+    has model_groups(:id), :as => :model_group_id
 #    has items(:inventory_pool_id), :as => :inventory_pool_id
 #    has items(:owner_id), :as => :owner_id
     has unretired_items(:inventory_pool_id), :as => :unretired_inventory_pool_id
@@ -175,7 +175,7 @@ class Model < ActiveRecord::Base
     indexes properties(:value), :as => :properties_values
     
     has :is_package
-    has categories(:id), :as => :category_id
+    has model_groups(:id), :as => :model_group_id
     
     set_property :delta => true
   end
