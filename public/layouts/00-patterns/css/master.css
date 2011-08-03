@@ -1090,7 +1090,7 @@ hr {
       top: 0;
       width: 6px; }
 
-#basket:hover .edit {
+#aside:hover .edit {
   filter: alpha(opacity=1);
   -moz-opacity: 1;
   -khtml-opacity: 1;
