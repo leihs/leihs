@@ -12,8 +12,8 @@ Syntax error: Undefined mixin 'greylinks'.
 7:       }
 8:    }
 9:    
-10:   #categories {
-11:     @include greylinks;
+10:   #rentedItems {
+11:     
 
 Backtrace:
 public/layouts/00-patterns/css/scss/start.scss:6:in `greylinks'
@@ -107,4 +107,4 @@ public/layouts/00-patterns/css/scss/start.scss:6
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'greylinks'.\A         on line 6 of public/layouts/00-patterns/css/scss/start.scss, in `greylinks'\A         from line 6 of public/layouts/00-patterns/css/scss/start.scss\A \A 1: #start {\A 2: \A 3:    .subtitle {\A 4:    \A 5:       .pools {\A 6:         @include greylinks;\A 7:       }\A 8:    }\A 9:    \A 10:   #categories {\A 11:     @include greylinks;"; }
+  content: "Syntax error: Undefined mixin 'greylinks'.\A         on line 6 of public/layouts/00-patterns/css/scss/start.scss, in `greylinks'\A         from line 6 of public/layouts/00-patterns/css/scss/start.scss\A \A 1: #start {\A 2: \A 3:    .subtitle {\A 4:    \A 5:       .pools {\A 6:         @include greylinks;\A 7:       }\A 8:    }\A 9:    \A 10:   #rentedItems {\A 11:     "; }

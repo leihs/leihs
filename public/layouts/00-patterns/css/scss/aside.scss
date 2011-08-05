@@ -118,18 +118,9 @@
       float: left;
       font-size: 1.2em;
       font-weight: bold;
-      padding-left: 8px;
       margin-bottom: 0;
-      
-      a, a:link, a:hover, a:active {
-        display: block;
-        color: #515151;
-        margin-bottom: -23px;
-        padding: 10px 0 8px 8px;
-        position: relative;
-        top: -11px;
-        width: 184px;
-      }
+      padding-left: 8px;
+      padding-bottom: 6px;
     }
     
     .edit {
@@ -143,57 +134,52 @@
     }
     
     ul {
-        @include greylinks;
-        margin-top: 6px;
+      margin-bottom: 8px;
+      @include greylinks;
+      
+      li {
+        display: inline-block;
+        font-size: 1.1em;
+        line-height: 1.4em;
+        position: relative;
+        width: 100%;
         
-        li {
-          display: inline-block;
-          font-size: 1.1em;
-          line-height: 1.4em;
-          position: relative;
-          width: 100%;
-          
-          span {
-            display: block;
-            float: left;
-            overflow: hidden;
-                        
-            a {
-              display: block;
-              position: relative;
-              padding-top: 3px;
-              padding-bottom: 4px;
-            }
-          }
-        }
-        
-        li.item:nth-child(even) {
-          background: $highlight-grey;
-        }
-        
-        li.item:hover {
-          background: $highlight-darkgrey;
-          
+        span {
+          display: block;
+          float: left;
+          overflow: hidden;
+                      
           a {
-            color: $darkgrey;
+            display: block;
+            position: relative;
+            padding-top: 3px;
+            padding-bottom: 4px;
           }
         }
       }
+      
+      li.item:nth-child(odd) {
+        background: $highlight-grey;
+      }
+      
+      li.item:hover {
+        background: $highlight-darkgrey;
+        
+        a {
+          color: $darkgrey;
+        }
+      }
+    }
     
     #compactOrder {
     
-      ul {
+      section.pool {
+        @include greylinks;
         
-        li.pool {
-          color: $darkgrey;
+        a.pool {
+          display: block;
           font-weight: bold;
-          padding-left: 9px;
-          padding-bottom: 4px;
-          padding-top: 8px;
-        }
-        
-        li.pool:nth-child(1) {
-          padding-top: 0;
+          padding: 0 0 4px 8px;
         }
       
         li.item {
@@ -201,16 +187,24 @@
           margin-bottom: 1px;
         
           span.name {
-            width: 176px;
+            width: 178px;
             
             a {
+              display: block;
               padding-left: 10px;
+            }
+            
+            span.amount {
+              display: inline;
+              float: none;
+              letter-spacing: -1px;
+              padding: 0;
             }
           }
           
           span.delete {
             float: right;
-            width: 18px;
+            width: 17px;
             
             a {
               color: $lightred;
@@ -231,7 +225,7 @@
               color: $red;
             }
           }
-        }  
+        }
       }
       
       .orderPurpose {
@@ -241,10 +235,6 @@
           margin-bottom: -2px;
         }
       
-        h3 {
-          padding-bottom: 6px;
-        }
-        
         textarea {
           background: transparent;
           border: 1px solid $lightergrey;

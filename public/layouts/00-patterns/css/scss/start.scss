@@ -7,6 +7,13 @@
       }
    }
    
+  #rentedItems {
+    
+    hr {
+      margin-top: 6px;
+    }
+  }
+   
   #categories {
     @include greylinks;
     

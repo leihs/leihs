@@ -1,23 +1,23 @@
 /*
 Syntax error: Undefined mixin 'opacity'.
-        on line 142 of public/layouts/00-patterns/css/scss/aside.scss, in `opacity'
-        from line 142 of public/layouts/00-patterns/css/scss/aside.scss
+        on line 133 of public/layouts/00-patterns/css/scss/aside.scss, in `opacity'
+        from line 133 of public/layouts/00-patterns/css/scss/aside.scss
 
-137:       position: absolute;
-138:       text-align: right;
-139:       padding-bottom: 2px;
-140:       top: 2px;
-141:       width: 190px;
-142:       @include opacity(0);
-143:     }
-144:     
-145:     ul {
-146:         @include greylinks;
-147:         margin-top: 6px;
+128:       position: absolute;
+129:       text-align: right;
+130:       padding-bottom: 2px;
+131:       top: 2px;
+132:       width: 190px;
+133:       @include opacity(0);
+134:     }
+135:     
+136:     ul {
+137:       margin-bottom: 8px;
+138:       @include greylinks;
 
 Backtrace:
-public/layouts/00-patterns/css/scss/aside.scss:142:in `opacity'
-public/layouts/00-patterns/css/scss/aside.scss:142
+public/layouts/00-patterns/css/scss/aside.scss:133:in `opacity'
+public/layouts/00-patterns/css/scss/aside.scss:133
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:169:in `visit_mixin'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
@@ -107,4 +107,4 @@ public/layouts/00-patterns/css/scss/aside.scss:142
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 142 of public/layouts/00-patterns/css/scss/aside.scss, in `opacity'\A         from line 142 of public/layouts/00-patterns/css/scss/aside.scss\A \A 137:       position: absolute;\A 138:       text-align: right;\A 139:       padding-bottom: 2px;\A 140:       top: 2px;\A 141:       width: 190px;\A 142:       @include opacity(0);\A 143:     }\A 144:     \A 145:     ul {\A 146:         @include greylinks;\A 147:         margin-top: 6px;"; }
+  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 133 of public/layouts/00-patterns/css/scss/aside.scss, in `opacity'\A         from line 133 of public/layouts/00-patterns/css/scss/aside.scss\A \A 128:       position: absolute;\A 129:       text-align: right;\A 130:       padding-bottom: 2px;\A 131:       top: 2px;\A 132:       width: 190px;\A 133:       @include opacity(0);\A 134:     }\A 135:     \A 136:     ul {\A 137:       margin-bottom: 8px;\A 138:       @include greylinks;"; }

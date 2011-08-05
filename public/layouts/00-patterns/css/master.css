@@ -834,6 +834,8 @@ header {
   color: #999999; }
 #start .subtitle .pools a:hover, #start .subtitle .pools a:active {
   color: #515151; }
+#start #rentedItems hr {
+  margin-top: 6px; }
 #start #categories h2 a, #start #categories h2 a:link, #start #categories h2 a:visited, #start #categories h3 a, #start #categories h3 a:link, #start #categories h3 a:visited {
   color: #717171; }
 #start #categories h2 a:hover, #start #categories h2 a:active, #start #categories h3 a:hover, #start #categories h3 a:active {
@@ -954,16 +956,9 @@ header {
       float: left;
       font-size: 1.2em;
       font-weight: bold;
+      margin-bottom: 0;
       padding-left: 8px;
-      margin-bottom: 0; }
-      #aside .inner h3 a, #aside .inner h3 a:link, #aside .inner h3 a:hover, #aside .inner h3 a:active {
-        display: block;
-        color: #515151;
-        margin-bottom: -23px;
-        padding: 10px 0 8px 8px;
-        position: relative;
-        top: -11px;
-        width: 184px; }
+      padding-bottom: 6px; }
     #aside .inner .edit {
       left: 0;
       position: absolute;
@@ -976,7 +971,7 @@ header {
       -khtml-opacity: 0;
       opacity: 0; }
     #aside .inner ul {
-      margin-top: 6px; }
+      margin-bottom: 8px; }
       #aside .inner ul h2 a, #aside .inner ul h2 a:link, #aside .inner ul h2 a:visited, #aside .inner ul h3 a, #aside .inner ul h3 a:link, #aside .inner ul h3 a:visited {
         color: #717171; }
       #aside .inner ul h2 a:hover, #aside .inner ul h2 a:active, #aside .inner ul h3 a:hover, #aside .inner ul h3 a:active {
@@ -1000,43 +995,51 @@ header {
             position: relative;
             padding-top: 3px;
             padding-bottom: 4px; }
-      #aside .inner ul li.item:nth-child(even) {
+      #aside .inner ul li.item:nth-child(odd) {
         background: #f8f8f8; }
       #aside .inner ul li.item:hover {
         background: #ebebeb; }
         #aside .inner ul li.item:hover a {
           color: #515151; }
-    #aside .inner #compactOrder ul li.pool {
-      color: #515151;
+    #aside .inner #compactOrder section.pool h2 a, #aside .inner #compactOrder section.pool h2 a:link, #aside .inner #compactOrder section.pool h2 a:visited, #aside .inner #compactOrder section.pool h3 a, #aside .inner #compactOrder section.pool h3 a:link, #aside .inner #compactOrder section.pool h3 a:visited {
+      color: #717171; }
+    #aside .inner #compactOrder section.pool h2 a:hover, #aside .inner #compactOrder section.pool h2 a:active, #aside .inner #compactOrder section.pool h3 a:hover, #aside .inner #compactOrder section.pool h3 a:active {
+      color: #515151; }
+    #aside .inner #compactOrder section.pool a, #aside .inner #compactOrder section.pool a:link, #aside .inner #compactOrder section.pool a:visited {
+      color: #999999; }
+    #aside .inner #compactOrder section.pool a:hover, #aside .inner #compactOrder section.pool a:active {
+      color: #515151; }
+    #aside .inner #compactOrder section.pool a.pool {
+      display: block;
       font-weight: bold;
-      padding-left: 9px;
-      padding-bottom: 4px;
-      padding-top: 8px; }
-    #aside .inner #compactOrder ul li.pool:nth-child(1) {
-      padding-top: 0; }
-    #aside .inner #compactOrder ul li.item {
+      padding: 0 0 4px 8px; }
+    #aside .inner #compactOrder section.pool li.item {
       clear: both;
       margin-bottom: 1px; }
-      #aside .inner #compactOrder ul li.item span.name {
-        width: 176px; }
-        #aside .inner #compactOrder ul li.item span.name a {
+      #aside .inner #compactOrder section.pool li.item span.name {
+        width: 178px; }
+        #aside .inner #compactOrder section.pool li.item span.name a {
+          display: block;
           padding-left: 10px; }
-      #aside .inner #compactOrder ul li.item span.delete {
+        #aside .inner #compactOrder section.pool li.item span.name span.amount {
+          display: inline;
+          float: none;
+          letter-spacing: -1px;
+          padding: 0; }
+      #aside .inner #compactOrder section.pool li.item span.delete {
         float: right;
-        width: 18px; }
-        #aside .inner #compactOrder ul li.item span.delete a {
+        width: 17px; }
+        #aside .inner #compactOrder section.pool li.item span.delete a {
           color: #ffaaaa;
           padding-left: 4px;
           padding-right: 6px; }
-        #aside .inner #compactOrder ul li.item span.delete a:hover {
+        #aside .inner #compactOrder section.pool li.item span.delete a:hover {
           color: #dd2222; }
-    #aside .inner #compactOrder ul li.item:hover span.delete a {
+    #aside .inner #compactOrder section.pool li.item:hover span.delete a {
       color: #dd2222; }
     #aside .inner #compactOrder .orderPurpose hr {
       margin-top: 8px;
       margin-bottom: -2px; }
-    #aside .inner #compactOrder .orderPurpose h3 {
-      padding-bottom: 6px; }
     #aside .inner #compactOrder .orderPurpose textarea {
       background: transparent;
       border: 1px solid #cccccc;
