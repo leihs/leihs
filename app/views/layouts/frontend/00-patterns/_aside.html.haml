@@ -18,23 +18,28 @@
       %a.edit{:href => ""} 
         = _("edit")
       .clear
-      %ul
+        -# TODO Franco: Perhaps this doubled iteration is not efficent??
         - this_ip_id = nil
-        - current_user.get_current_order.order_lines.sort {|a,b| [a.inventory_pool_id, a.created_at] <=> [b.inventory_pool_id, b.created_at]}.each do |order_line|
+        - order_lines = current_user.get_current_order.order_lines.sort {|a,b| [a.inventory_pool_id, a.created_at] <=> [b.inventory_pool_id, b.created_at]}
+        - order_lines.each do |order_line|
           - unless order_line.inventory_pool_id == this_ip_id
-          %li.pool
             - this_ip_id = order_line.inventory_pool_id
-              = link_to order_line.inventory_pool, order_line.inventory_pool, :title => _("View %s") % order_line.inventory_pool
-            %li.item
-              %span.name
-                %a{:href => "#", :title => _("%s (View in Order)") % order_line.model.name}
-                  = truncate(order_line.model.name, 22)
-                  - unless order_line.quantity <= 1
-                    =  "(#{order_line.quantity})"
-              %span.delete
-                %a{:href => "#", :title => _("Delete this Line")}
-                  = "x"
-              %span.clear
+            %section.pool
+              = link_to order_line.inventory_pool, order_line.inventory_pool, :class => "pool", :title => _("View %s") % order_line.inventory_pool
+              %ul
+                - order_lines.each do |line|
+                  - if line.inventory_pool_id == this_ip_id
+                    %li.item
+                      %span.name
+                        %a{:href => "#", :title => _("%s (View in Order)") % line.model.name}
+                          = truncate(line.model.name, 22)
+                          - unless line.quantity <= 1
+                            %span.amount
+                              = "(#{line.quantity})"
+                      %span.delete
+                        %a{:href => "#", :title => _("Delete this Line")}
+                          = "x"
+                      %span.clear
               
       .orderPurpose
         %hr
