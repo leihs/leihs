@@ -1,7 +1,7 @@
 %section#topfilter
   %form.availability
     %input#date_from.date.start{:name => "startdate", :value => Date.today.strftime("%d.%m.%y")}
-    -
+    = "-"
     %input#date_to.date.end{:name => "enddate", :value => Date.tomorrow.strftime("%d.%m.%y")}
     .checkarea
       %input#available-only.check{:type => "checkbox", :name => "available-only", :value => "available-only"}
