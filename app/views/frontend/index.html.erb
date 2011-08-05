@@ -9,7 +9,7 @@
 		<hr/>
 		
 		<% unless current_user.contracts.signed.empty? && current_user.contract_lines.to_remind.empty? %>
-    		<h3><%= _("Rented") %></h3>
+    		<h3><%= _("Rented Items") %></h3>
     		<% unless current_user.contract_lines.to_remind.empty? %>
                 <ul class="linelist overdue">
                     <% current_user.contract_lines.to_remind.each do |o| %>
@@ -25,6 +25,7 @@
     		<% end %>
     		<% unless current_user.contracts.signed.empty? %>
             <ul class="linelist">
+            <% #TODO Franco: one line for each item / not each contract %>
             <% current_user.contracts.signed.each do |o| %>
                 <li class="line">
                   <ul>
