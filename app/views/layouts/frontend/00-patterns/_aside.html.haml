@@ -18,36 +18,36 @@
       %a.edit{:href => ""} 
         = _("edit")
       .clear
-      %table
+      %ul
         - this_ip_id = nil
         - current_user.get_current_order.order_lines.sort {|a,b| [a.inventory_pool_id, a.created_at] <=> [b.inventory_pool_id, b.created_at]}.each do |order_line|
           - unless order_line.inventory_pool_id == this_ip_id
+          %li.pool
             - this_ip_id = order_line.inventory_pool_id
-            %tr
-              %td.pool{:colspan => "3"} 
-                = link_to order_line.inventory_pool, order_line.inventory_pool, :title => _("View %s") % order_line.inventory_pool
-          %tr
-            %td.amount
-              %a
-                = order_line.quantity
-            %td.name
-              %a
-                = order_line.model
-            %td.delete
-              %a
-                = "x"
+              = link_to order_line.inventory_pool, order_line.inventory_pool, :title => _("View %s") % order_line.inventory_pool
+            %li.item
+              %span.name
+                %a{:href => "#", :title => _("%s (View in Order)") % order_line.model.name}
+                  = truncate(order_line.model.name, 22)
+                  - unless order_line.quantity <= 1
+                    =  "(#{order_line.quantity})"
+              %span.delete
+                %a{:href => "#", :title => _("Delete this Line")}
+                  = "x"
+              %span.clear
               
       .orderPurpose
         %hr
         %h3
           = _("Purpose")
-        %input
+        %textarea{}
+          = _("Please specify your order purpose here...")
           
     #compactTemplates
       %h3 
         = _("Order Templates")
       %a.edit{:href => ""}
-      = _("edit")
+        = _("edit")
       .clear
     
     .clear      
@@ -63,15 +63,15 @@
 :javascript
   
   $(document).ready(function () {
-    AsideNavigation.setupBindings();
+    AsideNavigation.setup();
+    CompactOrder.setup();
   });
 
+  // ASIDE NAVIGATION
   var AsideNavigation = new AsideNavigation();
-  
   function AsideNavigation () {
     
-    this.setupBindings = function () {
-      // Order Tab
+    this.setup = function () {
       $('#aside .navigation .order a').bind('click', function(){
         $('#compactOrder').stop().show();
         $('#aside .footer .button').stop().show();
@@ -79,7 +79,6 @@
         AsideNavigation.switchActive($(this).parent());
       });
       
-      // Templates Tab
       $('#aside .navigation .templates a').bind('click', function(){
         $('#compactOrder').stop().hide();
         $('#aside .footer .button').stop().hide();
@@ -91,5 +90,46 @@
     this.switchActive = function(_newActive) {
       $("#aside .navigation .active").removeClass("active");
       $(_newActive).addClass("active");
+    }
+  }
+  
+  // COMPACT ORDER
+  var CompactOrder = new CompactOrder();
+  function CompactOrder () {
+  
+    this.purposeMin = 6;
+    
+    this.setup = function () {
+      $('#compactOrder .orderPurpose textarea').bind('focus', function(){
+        // save startText in data if it is not set yet
+        if(!$(this).data("startText") && !$(this).text()) {
+          $(this).data("startText", $(this).text());
+        } else if (!$(this).data("startText") && $(this).text()) {
+          $(this).data("startText", $(this).val());
+        }
+        
+        // clear the start value/text
+        if($(this).val() == $(this).data("startText")) {
+          $(this).val("");
+        } else {
+          $(this).text("");
+        }
+      });
+      
+      $('#compactOrder .orderPurpose textarea').bind('blur', function(){
+        // set start text if value is empty after blur
+        if(!$(this).val()) {
+          $(this).val($(this).data("startText"));
+        }
+        
+        // check count of value
+        if($(this).val().length < CompactOrder.purposeMin) {
+          Dialog.add($(this), "<p>TEST</p>", {title: "TITLE"});
+        }
+      });
+      
+      $('#compactOrder .orderPurpose textarea').bind('blur change mousedown keydown', function(){
+        
+      });
     }
   }
