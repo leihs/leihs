@@ -13,13 +13,11 @@ $red: #DD2222;
 $lightblue: #6091d9;
 $blue: #1d62c9;
 
-
 html {
   background: #f5f3ee;
   color: $darkgrey;
   font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
   font-size: 62.5%;
-  padding-top: 22px;
 }
 
 a, a:link, a:visited {   
@@ -97,6 +95,10 @@ hr {
   width: 990px;
 }
 
+header {
+  padding-top: 18px !important;
+}
+
 .red {
   color: $red;
 }
@@ -136,6 +138,12 @@ hr {
   opacity: $value; // THE REST
 }
 
+@mixin borderRadius($value) {
+  -moz-border-radius: $value; /* Firefox */
+  -webkit-border-radius: $value; /* Safari, Chrome */
+  border-radius: $value; /* CSS3 */
+}
+
 @mixin listanchor {
   a, a:link, a:visited, a:hover, a:active {
     color: $darkgrey;
@@ -143,6 +151,12 @@ hr {
     padding: 10px 0;
     width: 100%;
   }
+}
+
+@mixin boxShadow ($value) {
+  -moz-box-shadow: $value;
+  -webkit-box-shadow: $value;
+  box-shadow: $value;
 }
 
 @import "buttons.scss";
@@ -160,4 +174,5 @@ hr {
 @import "user.scss";
 @import "order.scss";
 @import "datepicker.scss";
-@import "book.scss"
+@import "book.scss";
+@import "dialog.scss";

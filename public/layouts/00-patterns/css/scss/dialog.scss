@@ -1,0 +1,72 @@
+.dialog {
+  display: none;
+}
+
+.ui-dialog {
+  background: #FFF;
+  border: 1px solid $lightgrey;
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  width: 300px;
+  @include borderRadius(6px);
+  @include boxShadow (0 0 8px #AAA);
+  
+  .ui-dialog-titlebar {
+    background: url(../images/slices-h.png) repeat-x 0 -218px;
+    height: 20px;
+    padding: 3px;
+    position: relative;
+    @include borderRadius(6px);
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .ui-dialog-title { 
+    float: left;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 3px 0 0 6px;
+  }
+  
+  .ui-dialog-titlebar-close {
+    position: absolute;
+    right: .3em; top: 50%;
+    width: 19px;
+    margin: -10px 0 0 0;
+    padding: 1px;
+    height: 18px;
+  }
+  
+  .ui-dialog-titlebar-close span {
+    display: block;
+    margin: 1px;
+   }
+   
+  .ui-dialog-titlebar-close:hover, .ui-dialog-titlebar-close:focus { padding: 0; }
+  
+  .ui-dialog-content {
+    border-top: 1px solid $lightergrey;    
+    position: relative;
+    padding: .5em 1em;
+    overflow: auto;
+    zoom: 1;
+   }
+   
+  .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+  .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
+  .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+  .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+  .ui-draggable .ui-dialog-titlebar { cursor: move; }
+}
+
+.ui-widget-overlay {
+  background: #f4f2ed;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100% !important;
+  width: 100% !important;
+  @include opacity(0.3);
+}
+
