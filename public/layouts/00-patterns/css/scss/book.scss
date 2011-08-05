@@ -14,12 +14,11 @@
   .bar {
     background: url(../images/slices-h.png) repeat-x 0 -218px;
     border: 1px solid #bfbfbd;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
     display: block;
     height: 26px;
     margin-top: 28px;
     margin-bottom: 22px;
+    @include borderRadius(4px);
     
     label {
       cursor: pointer;

@@ -190,8 +190,7 @@ html {
   background: #f5f3ee;
   color: #515151;
   font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
-  font-size: 62.5%;
-  padding-top: 22px; }
+  font-size: 62.5%; }
 
 a, a:link, a:visited {
   color: #6091d9;
@@ -253,6 +252,9 @@ hr {
   padding: 0;
   position: relative;
   width: 990px; }
+
+header {
+  padding-top: 18px !important; }
 
 .red {
   color: #dd2222; }
@@ -973,90 +975,97 @@ hr {
       -moz-opacity: 0;
       -khtml-opacity: 0;
       opacity: 0; }
-    #aside .inner table {
-      border-spacing: 0;
-      float: left;
-      table-layout: fixed;
-      position: relative;
-      margin-bottom: 15px;
-      width: 100%; }
-      #aside .inner table tr td {
+    #aside .inner ul {
+      margin-top: 6px; }
+      #aside .inner ul h2 a, #aside .inner ul h2 a:link, #aside .inner ul h2 a:visited, #aside .inner ul h3 a, #aside .inner ul h3 a:link, #aside .inner ul h3 a:visited {
+        color: #717171; }
+      #aside .inner ul h2 a:hover, #aside .inner ul h2 a:active, #aside .inner ul h3 a:hover, #aside .inner ul h3 a:active {
+        color: #515151; }
+      #aside .inner ul a, #aside .inner ul a:link, #aside .inner ul a:visited {
+        color: #999999; }
+      #aside .inner ul a:hover, #aside .inner ul a:active {
+        color: #515151; }
+      #aside .inner ul li {
+        display: inline-block;
         font-size: 1.1em;
         line-height: 1.4em;
-        padding: 1px 0; }
-        #aside .inner table tr td a {
-          color: #717171;
+        position: relative;
+        width: 100%; }
+        #aside .inner ul li span {
           display: block;
-          padding: 3px 0;
-          width: 100%; }
-        #aside .inner table tr td a:hover {
-          color: #515151; }
-      #aside .inner table tr:nth-child(even) {
+          float: left;
+          overflow: hidden; }
+          #aside .inner ul li span a {
+            display: block;
+            position: relative;
+            padding-top: 3px;
+            padding-bottom: 4px; }
+      #aside .inner ul li.item:nth-child(even) {
         background: #f8f8f8; }
-      #aside .inner table tr:hover td {
+      #aside .inner ul li.item:hover {
         background: #ebebeb; }
-      #aside .inner table tr:hover a {
-        color: #515151; }
-    #aside .inner #compactOrder table td.pool {
-      background: none !important;
+        #aside .inner ul li.item:hover a {
+          color: #515151; }
+    #aside .inner #compactOrder ul li.pool {
       color: #515151;
       font-weight: bold;
       padding-left: 9px;
       padding-bottom: 4px;
-      padding-top: 6px; }
-    #aside .inner #compactOrder table td.amount {
-      letter-spacing: -1px;
-      padding-left: 10px;
-      width: 10px; }
-    #aside .inner #compactOrder table td.name {
-      overflow: hidden;
-      width: 90px; }
-    #aside .inner #compactOrder table td.delete {
-      width: 10px; }
-      #aside .inner #compactOrder table td.delete a {
-        color: #ffaaaa;
-        padding-bottom: 5px;
-        padding-left: 5px; }
-      #aside .inner #compactOrder table td.delete a:hover {
-        color: #dd2222; }
-    #aside .inner #compactOrder table tr:hover .delete a {
+      padding-top: 8px; }
+    #aside .inner #compactOrder ul li.pool:nth-child(1) {
+      padding-top: 0; }
+    #aside .inner #compactOrder ul li.item {
+      clear: both;
+      margin-bottom: 1px; }
+      #aside .inner #compactOrder ul li.item span.name {
+        width: 176px; }
+        #aside .inner #compactOrder ul li.item span.name a {
+          padding-left: 10px; }
+      #aside .inner #compactOrder ul li.item span.delete {
+        float: right;
+        width: 18px; }
+        #aside .inner #compactOrder ul li.item span.delete a {
+          color: #ffaaaa;
+          padding-left: 4px;
+          padding-right: 6px; }
+        #aside .inner #compactOrder ul li.item span.delete a:hover {
+          color: #dd2222; }
+    #aside .inner #compactOrder ul li.item:hover span.delete a {
       color: #dd2222; }
+    #aside .inner #compactOrder .orderPurpose hr {
+      margin-top: 8px;
+      margin-bottom: -2px; }
+    #aside .inner #compactOrder .orderPurpose h3 {
+      padding-bottom: 6px; }
+    #aside .inner #compactOrder .orderPurpose textarea {
+      background: transparent;
+      border: 1px solid #cccccc;
+      color: #999999;
+      height: 31px;
+      line-height: 1.4em;
+      overflow-y: auto;
+      margin-left: 7px;
+      margin-bottom: 10px;
+      padding: 4px 6px;
+      scrollbar-track-color: #FFF;
+      width: 166px;
+      -moz-border-radius: 4px;
+      /* Firefox */
+      -webkit-border-radius: 4px;
+      /* Safari, Chrome */
+      border-radius: 4px;
+      /* CSS3 */ }
     #aside .inner #compactTemplates {
       display: none; }
-      #aside .inner #compactTemplates ul {
-        margin-top: 6px; }
-        #aside .inner #compactTemplates ul h2 a, #aside .inner #compactTemplates ul h2 a:link, #aside .inner #compactTemplates ul h2 a:visited, #aside .inner #compactTemplates ul h3 a, #aside .inner #compactTemplates ul h3 a:link, #aside .inner #compactTemplates ul h3 a:visited {
-          color: #717171; }
-        #aside .inner #compactTemplates ul h2 a:hover, #aside .inner #compactTemplates ul h2 a:active, #aside .inner #compactTemplates ul h3 a:hover, #aside .inner #compactTemplates ul h3 a:active {
-          color: #515151; }
-        #aside .inner #compactTemplates ul a, #aside .inner #compactTemplates ul a:link, #aside .inner #compactTemplates ul a:visited {
-          color: #999999; }
-        #aside .inner #compactTemplates ul a:hover, #aside .inner #compactTemplates ul a:active {
-          color: #515151; }
-        #aside .inner #compactTemplates ul li {
-          display: block;
-          position: relative; }
-          #aside .inner #compactTemplates ul li a {
-            font-size: 1.1em;
-            display: block;
-            line-height: 1.4em;
-            padding: 6px 0px 6px 10px;
-            position: relative; }
-            #aside .inner #compactTemplates ul li a span.name {
-              color: #717171;
-              display: inline-block;
-              width: 100px; }
-            #aside .inner #compactTemplates ul li a span.amount {
-              display: inline-block;
-              position: absolute;
-              top: 6px;
-              right: 6px; }
-        #aside .inner #compactTemplates ul li:nth-child(odd) {
-          background: #f8f8f8; }
-        #aside .inner #compactTemplates ul li:hover {
-          background: #ebebeb; }
-          #aside .inner #compactTemplates ul li:hover a {
-            color: #515151; }
+      #aside .inner #compactTemplates span.name {
+        color: #717171;
+        display: inline-block;
+        width: 100px; }
+      #aside .inner #compactTemplates span.amount {
+        display: inline-block;
+        position: absolute;
+        top: 6px;
+        right: 6px; }
   #aside .footer {
     display: block;
     height: 14px;
@@ -1447,11 +1456,11 @@ hr {
       font-size: 1.0em;
       height: 18px;
       padding: 0 10px 0 6px;
-      width: 57px; }
+      width: 58px; }
     #topfilter .availability .checkarea {
       cursor: pointer;
       display: inline-block;
-      margin-left: 8px; }
+      margin-left: 2px; }
     #topfilter .availability .checkarea:hover {
       color: #515151; }
     #topfilter .availability .checkarea.active {
@@ -1602,12 +1611,6 @@ hr {
 
 #user .userdata {
   padding-left: 1px; }
-  #user .userdata h3 {
-    display: inline-block;
-    float: left; }
-  #user .userdata .edit {
-    float: left;
-    padding: 5px 12px 8px 6px; }
   #user .userdata dl {
     display: inline-block;
     float: left; }
@@ -1619,14 +1622,6 @@ hr {
       font-weight: bold;
       line-height: 1.4em;
       padding-right: 34px; }
-#user .pools h2 a, #user .pools h2 a:link, #user .pools h2 a:visited, #user .pools h3 a, #user .pools h3 a:link, #user .pools h3 a:visited {
-  color: #717171; }
-#user .pools h2 a:hover, #user .pools h2 a:active, #user .pools h3 a:hover, #user .pools h3 a:active {
-  color: #515151; }
-#user .pools a, #user .pools a:link, #user .pools a:visited {
-  color: #999999; }
-#user .pools a:hover, #user .pools a:active {
-  color: #515151; }
 
 #order #orderlist {
   /* border-left: 1px solid #e3e3e3; */
@@ -1799,12 +1794,16 @@ hr {
   #book .bar {
     background: url(../images/slices-h.png) repeat-x 0 -218px;
     border: 1px solid #bfbfbd;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
     display: block;
     height: 26px;
     margin-top: 28px;
-    margin-bottom: 22px; }
+    margin-bottom: 22px;
+    -moz-border-radius: 4px;
+    /* Firefox */
+    -webkit-border-radius: 4px;
+    /* Safari, Chrome */
+    border-radius: 4px;
+    /* CSS3 */ }
     #book .bar label {
       cursor: pointer;
       color: #999999;
@@ -2266,3 +2265,90 @@ hr {
     #book #calendar .fc-agenda .ui-resizable-resizing {
       /* TODO: better selector */
       _overflow: hidden; }
+
+.dialog {
+  display: none; }
+
+.ui-dialog {
+  background: #FFF;
+  border: 1px solid #999999;
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  width: 300px;
+  -moz-border-radius: 6px;
+  /* Firefox */
+  -webkit-border-radius: 6px;
+  /* Safari, Chrome */
+  border-radius: 6px;
+  /* CSS3 */
+  -moz-box-shadow: 0 0 8px #aaaaaa;
+  -webkit-box-shadow: 0 0 8px #aaaaaa;
+  box-shadow: 0 0 8px #aaaaaa; }
+  .ui-dialog .ui-dialog-titlebar {
+    background: url(../images/slices-h.png) repeat-x 0 -218px;
+    height: 20px;
+    padding: 3px;
+    position: relative;
+    -moz-border-radius: 6px;
+    /* Firefox */
+    -webkit-border-radius: 6px;
+    /* Safari, Chrome */
+    border-radius: 6px;
+    /* CSS3 */
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0; }
+  .ui-dialog .ui-dialog-title {
+    float: left;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 3px 0 0 6px; }
+  .ui-dialog .ui-dialog-titlebar-close {
+    position: absolute;
+    right: .3em;
+    top: 50%;
+    width: 19px;
+    margin: -10px 0 0 0;
+    padding: 1px;
+    height: 18px; }
+  .ui-dialog .ui-dialog-titlebar-close span {
+    display: block;
+    margin: 1px; }
+  .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
+    padding: 0; }
+  .ui-dialog .ui-dialog-content {
+    border-top: 1px solid #cccccc;
+    position: relative;
+    padding: .5em 1em;
+    overflow: auto;
+    zoom: 1; }
+  .ui-dialog .ui-dialog-buttonpane {
+    text-align: left;
+    border-width: 1px 0 0 0;
+    background-image: none;
+    margin: .5em 0 0 0;
+    padding: .3em 1em .5em .4em; }
+  .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    float: right; }
+  .ui-dialog .ui-dialog-buttonpane button {
+    margin: .5em .4em .5em 0;
+    cursor: pointer; }
+  .ui-dialog .ui-resizable-se {
+    width: 14px;
+    height: 14px;
+    right: 3px;
+    bottom: 3px; }
+  .ui-dialog .ui-draggable .ui-dialog-titlebar {
+    cursor: move; }
+
+.ui-widget-overlay {
+  background: #f4f2ed;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100% !important;
+  width: 100% !important;
+  filter: alpha(opacity=0.3);
+  -moz-opacity: 0.3;
+  -khtml-opacity: 0.3;
+  opacity: 0.3; }

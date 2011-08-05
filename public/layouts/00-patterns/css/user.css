@@ -1,21 +1,21 @@
 /*
 Syntax error: Undefined variable: "$lightgrey".
-        on line 21 of public/layouts/00-patterns/css/scss/user.scss
+        on line 11 of public/layouts/00-patterns/css/scss/user.scss
 
-16:     dl {
-17:       display: inline-block;
-18:       float: left;
-19:       
-20:       dt {
-21:         color: $lightgrey;
-22:         padding-bottom: 2px;
-23:         padding-right: 16px;
-24:       }
-25:       
-26:       dd {
+6:     dl {
+7:       display: inline-block;
+8:       float: left;
+9:       
+10:       dt {
+11:         color: $lightgrey;
+12:         padding-bottom: 2px;
+13:         padding-right: 16px;
+14:       }
+15:       
+16:       dd {
 
 Backtrace:
-public/layouts/00-patterns/css/scss/user.scss:21
+public/layouts/00-patterns/css/scss/user.scss:11
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/script/variable.rb:45:in `_perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/script/node.rb:40:in `perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/tree/visitors/perform.rb:215:in `visit_prop'
@@ -88,15 +88,15 @@ public/layouts/00-patterns/css/scss/user.scss:21
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/plugin/compiler.rb:175:in `update_stylesheets'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `each'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/plugin/compiler.rb:173:in `update_stylesheets'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/plugin/compiler.rb:257:in `watch'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/bin/../lib/sass/../sass/plugin/compiler.rb:252:in `watch'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/path.rb:73:in `call'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/path.rb:73:in `run_callback'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/path.rb:55:in `callback_action'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/path.rb:31:in `create'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/state/directory.rb:26:in `created'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/state/directory.rb:25:in `each'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/state/directory.rb:25:in `created'
-/Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/state/directory.rb:17:in `refresh'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/path.rb:35:in `update'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/state/directory.rb:39:in `modified'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/state/directory.rb:37:in `each'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/state/directory.rb:37:in `modified'
+/Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/state/directory.rb:18:in `refresh'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/backends/polling.rb:17:in `run'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/backends/polling.rb:17:in `each'
 /Library/Ruby/Gems/1.8/gems/sass-3.1.5/vendor/fssm/lib/fssm/backends/polling.rb:17:in `run'
@@ -118,4 +118,4 @@ public/layouts/00-patterns/css/scss/user.scss:21
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$lightgrey\".\A         on line 21 of public/layouts/00-patterns/css/scss/user.scss\A \A 16:     dl {\A 17:       display: inline-block;\A 18:       float: left;\A 19:       \A 20:       dt {\A 21:         color: $lightgrey;\A 22:         padding-bottom: 2px;\A 23:         padding-right: 16px;\A 24:       }\A 25:       \A 26:       dd {"; }
+  content: "Syntax error: Undefined variable: \"$lightgrey\".\A         on line 11 of public/layouts/00-patterns/css/scss/user.scss\A \A 6:     dl {\A 7:       display: inline-block;\A 8:       float: left;\A 9:       \A 10:       dt {\A 11:         color: $lightgrey;\A 12:         padding-bottom: 2px;\A 13:         padding-right: 16px;\A 14:       }\A 15:       \A 16:       dd {"; }

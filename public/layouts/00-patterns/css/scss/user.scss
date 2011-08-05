@@ -2,16 +2,6 @@
   
   .userdata {
     padding-left: 1px;
-  
-    h3 {
-      display: inline-block;
-      float: left;
-    }
-    
-    .edit {
-      float: left;
-      padding: 5px 12px 8px 6px;
-    }
     
     dl {
       display: inline-block;
@@ -29,9 +19,5 @@
         padding-right: 34px;
       }
     }
-  }
-  
-  .pools {
-    @include greylinks;
   }
 }

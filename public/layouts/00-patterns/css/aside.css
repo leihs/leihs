@@ -11,9 +11,9 @@ Syntax error: Undefined mixin 'opacity'.
 142:       @include opacity(0);
 143:     }
 144:     
-145:     table {
-146:       border-spacing: 0;
-147:       float: left;
+145:     ul {
+146:         @include greylinks;
+147:         margin-top: 6px;
 
 Backtrace:
 public/layouts/00-patterns/css/scss/aside.scss:142:in `opacity'
@@ -107,4 +107,4 @@ public/layouts/00-patterns/css/scss/aside.scss:142
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 142 of public/layouts/00-patterns/css/scss/aside.scss, in `opacity'\A         from line 142 of public/layouts/00-patterns/css/scss/aside.scss\A \A 137:       position: absolute;\A 138:       text-align: right;\A 139:       padding-bottom: 2px;\A 140:       top: 2px;\A 141:       width: 190px;\A 142:       @include opacity(0);\A 143:     }\A 144:     \A 145:     table {\A 146:       border-spacing: 0;\A 147:       float: left;"; }
+  content: "Syntax error: Undefined mixin 'opacity'.\A         on line 142 of public/layouts/00-patterns/css/scss/aside.scss, in `opacity'\A         from line 142 of public/layouts/00-patterns/css/scss/aside.scss\A \A 137:       position: absolute;\A 138:       text-align: right;\A 139:       padding-bottom: 2px;\A 140:       top: 2px;\A 141:       width: 190px;\A 142:       @include opacity(0);\A 143:     }\A 144:     \A 145:     ul {\A 146:         @include greylinks;\A 147:         margin-top: 6px;"; }
