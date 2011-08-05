@@ -8,37 +8,39 @@
 						
 		<hr/>
 		
-		<% unless current_user.contracts.signed.empty? && current_user.contract_lines.to_remind.empty? %>
-    		<h3><%= _("Rented Items") %></h3>
-    		<% unless current_user.contract_lines.to_remind.empty? %>
-                <ul class="linelist overdue">
-                    <% current_user.contract_lines.to_remind.each do |o| %>
-                        <li class="line">
-                          <ul>
-                              <li class="time"><%= short_date(o.start_date, true) %> - <%= short_date(o.end_date, true) %></li>
-                              <li class="name"><%= o.model %></li>
-                              <li class="action"><%= _("overdue") %></li>
-                          </ul>
-                        </li>
-                    <% end %>
+		<section id="rentedItems">
+        	<% unless current_user.contracts.signed.empty? && current_user.contract_lines.to_remind.empty? %>
+        		<h3><%= _("Rented Items") %></h3>
+        		<% unless current_user.contract_lines.to_remind.empty? %>
+                    <ul class="linelist overdue">
+                        <% current_user.contract_lines.to_remind.each do |o| %>
+                            <li class="line">
+                              <ul>
+                                  <li class="time"><%= short_date(o.start_date, true) %> - <%= short_date(o.end_date, true) %></li>
+                                  <li class="name"><%= o.model %></li>
+                                  <li class="action"><%= _("overdue") %></li>
+                              </ul>
+                            </li>
+                        <% end %>
+                    </ul>
+        		<% end %>
+        		<% unless current_user.contracts.signed.empty? %>
+                <ul class="linelist">
+                <% #TODO Franco: one line for each item / not each contract %>
+                <% current_user.contracts.signed.each do |o| %>
+                    <li class="line">
+                      <ul>
+                          <li class="time"><%= short_date(o.time_window_min, true) %> - <%= short_date(o.time_window_max, true) %></li>
+                          <li class="name"><a href=""><%= link_to lines_preview(o), user_contract_path(o) %></a></li>
+                          <li class="action"><a href=""><%= _("extend") %></a></li>
+                      </ul>
+                    </li>
+                <% end %>
                 </ul>
-    		<% end %>
-    		<% unless current_user.contracts.signed.empty? %>
-            <ul class="linelist">
-            <% #TODO Franco: one line for each item / not each contract %>
-            <% current_user.contracts.signed.each do |o| %>
-                <li class="line">
-                  <ul>
-                      <li class="time"><%= short_date(o.time_window_min, true) %> - <%= short_date(o.time_window_max, true) %></li>
-                      <li class="name"><a href=""><%= link_to lines_preview(o), user_contract_path(o) %></a></li>
-                      <li class="action"><a href=""><%= _("extend") %></a></li>
-                  </ul>
-                </li>
             <% end %>
-            </ul>
-        <% end %>
-            <hr/>
-        <% end %>
+                <hr/>
+            <% end %>
+        </section><!-- #rentedItems -->
         				
 		<section id="categories">
 			<% @current_categories.each_slice(4) do |s| %>
