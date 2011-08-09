@@ -19,11 +19,12 @@ var Dialog = new Dialog();
 
 function Dialog() {
     
-    this.add = function(_trigger, _content, _nativeParams) {
-        var _dialog = $(document.createElement("div")).addClass("dialog").html(_content);
+    this.add = function(_ownParams, _nativeParams) {
+        var _dialog = $(document.createElement("div")).addClass("dialog").html(_ownParams.content);
         $("body").append(_dialog);
-        $(_dialog).data("startLeft", ($(_trigger).offset().left + $(_trigger).width()/2));
-        $(_dialog).data("startTop", ($(_trigger).offset().top + $(_trigger).height()/2));
+        $(_dialog).data("startLeft", ($(_ownParams.trigger).offset().left + $(_ownParams.trigger).width()/2));
+        $(_dialog).data("startTop", ($(_ownParams.trigger).offset().top + $(_ownParams.trigger).height()/2));
+        $(_dialog).data("callback", _ownParams.callback);
         Dialog.setup(_dialog);
         _dialog.dialog(_nativeParams);
     }
@@ -33,6 +34,7 @@ function Dialog() {
             $(this).dialog("option", "modal", true);
             $(this).dialog("option", "draggable", false);
             $(this).dialog("option", "resizable", false);
+            $(this).parent().css({opacity: 0});
         });
         
         $(_dialog).bind("dialogopen", function(event, ui) {
@@ -55,11 +57,14 @@ function Dialog() {
             
             $(this).parent().stop().hide().fadeIn().animate({
                 top: _top,
-                left: _left
+                left: _left,
+                opacity: 1
             }, {queue: false});
         });
         
         $(_dialog).bind("dialogclose", function(event, ui) {
+            if ($(this).data("callback")) $(this).data("callback").apply();
+            
             // remove dialog on close
             $(this).remove();
         });
