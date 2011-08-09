@@ -9,11 +9,18 @@ class OrdersController < FrontendController
   def new
     render :nothing => true
   end
-
+  
+  def show
+    
+  end
+  
+###########################################################################
+  
   def submit
     @order.created_at = DateTime.now
     if @order.submit(params[:purpose])
-      render :partial => 'submit'
+      # OLD render :partial => 'submit'
+      redirect_to user_order_path(@order)     
     else
       # TODO 18** catch failure
       render :text => _("Submission failed"), :status => 400
@@ -24,9 +31,9 @@ class OrdersController < FrontendController
                model_group_id = params[:model_group_id],
                user_id = params[:user_id] || current_user.id, # OPTIMIZE
                quantity = params[:quantity] || 1,
-               start_date = params[:start_date],
-               end_date = params[:end_date],
-               inventory_pool_id = params[:inventory_pool_id] )
+               start_date = params[:start_date] || Date.today,
+               end_date = params[:end_date] || Date.tomorrow,
+               inventory_pool_id = params[:inventory_pool_id])
     if model_group_id
       model = Template.find(model_group_id)
       inventory_pool_id ||= model.inventory_pools.first.id
