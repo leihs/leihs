@@ -66,8 +66,9 @@
                             <% end %>
                         </td><!-- .image -->
                         <% unless m.images.empty? %>
-                            <td class="imagehover">
-                              <%= link_to content_tag(:span), m, :class=>"anchor" %>
+                            <td class="overlay">
+                              <%= link_to content_tag(:span), m, :class=>"imageanchor" %>
+                              <%= link_to content_tag(:span), m, :class=>"itemanchor" %>
                               <div class="hover">
                                 <div class="header"><div class="borderleft"></div><div class="headerinner"></div><div class="borderright"></div></div>
                                 <div class="inner">
@@ -102,7 +103,9 @@
                         <%
                             #TODO Franco: we need link to "book" view for this item in the following link
                         %>
-                        <td class="add"><div class="smallbutton green"><%= link_to "+", m, :title=>_("Book") + " " + m.name %></div></td>
+                        <td class="add">
+                          <a class="smallbutton green">+</a>
+                        </td>
                     </tr>
                 </table><!-- item -->
             <% end %>
