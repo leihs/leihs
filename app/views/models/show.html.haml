@@ -1,0 +1,139 @@
+= render :partial => '/layouts/frontend/00-patterns/tabs'
+= render :partial => '/layouts/frontend/00-patterns/content_box_head'
+
+.inner#model
+  %h1
+    = @model.name
+  %h3
+    = @model.manufacturer
+  %button.button.green
+    = _("Book")
+  
+  - unless @model.images.empty?
+    %section#images
+      %table#bigimage
+        %tr
+          %td
+            = image_tag "http://leihs.zhdk.ch#{@model.images.first.public_filename}", :alt => @model.name
+      %table#hiddenimages
+        - if @model.images.size > 1
+          - @model.images.each_with_index do |i, index|
+            - unless index.zero?
+              = image_tag "http://leihs.zhdk.ch#{i.public_filename}", :class => "hidden", :alt => @model.name
+              
+      - if @model.images.size > 1
+        .smallimages
+          - @model.images.each_with_index do |i, index|
+            - unless index.zero?
+              = link_to image_tag("http://leihs.zhdk.ch#{i.public_filename(:thumb)}"), "http://leihs.zhdk.ch#{i.public_filename()}", :target => "_blank"
+              
+    .clear
+    
+  - unless @model.description.empty?
+    %p.description
+      = @model.description
+  
+  - unless @model.properties.empty?
+    %table.details
+      - @model.properties.each do |p|
+        %tr
+          %td.key
+            = p.key
+          %td.value
+            = p.value
+      %tr.detailsswitcher
+        %td{:colspan => "2"}
+          = link_to "+ #{_('show more details')}", "javascript:void(0)", :title => _('show more details'), :class => "showmore"
+          = link_to "- #{_('show less details')}", "javascript:void(0)", :title => _('show less details'), :class => "showless"
+        
+  - unless @model.compatibles.empty?
+    %hr
+    %section#accessories
+      %h2
+        = _("Recommended Accessories")
+      - @model.compatibles.each_slice(4) do |s|
+        .row
+          - s.each do |c|
+            .cell
+              = link_to image_tag("http://leihs.zhdk.ch#{ c.image_thumb }"), c, :title=>c.name
+              %h3
+                = link_to truncate(c.name, 32), c, :title=>c.name
+          
+          .clear
+              
+= render :partial => '/layouts/frontend/00-patterns/content_box_foot'
+= render :partial => '/layouts/frontend/00-patterns/aside'
+
+:javascript
+  
+  $(document).ready(function(){
+    DetailsSwitcher.setup();
+  });
+  
+  var DetailsSwitcher = new DetailsSwitcher();
+  
+  function DetailsSwitcher() {
+      
+      this.min = 7;
+      this.max = 15;
+      this.animationAcceleration = 50;
+      
+      this.setup = function() {
+        console.log("setup");
+          if($("#model .details tr").length > DetailsSwitcher.min) {
+              // hide details until min
+              $("#model .details tr").each(function(index, value){
+                  if(index > DetailsSwitcher.min + 1) {
+                      $(value).hide();
+                  }
+              });
+              
+              // show and bind the showmore button
+              $("#model .details .detailsswitcher .showmore").show();
+              $("#model .details .detailsswitcher .showmore").bind("click", function() {
+                  
+                  // show more details animation
+                  var _delay = 0;
+                  $("#model .details tr").each(function(index, value){
+                      if(index > DetailsSwitcher.min + 1) {
+                          $(value).stop().delay(_delay).show(1);
+                          _delay += DetailsSwitcher.animationAcceleration;
+                      }
+                  });
+                  
+                  // switch button to less
+                  $("#model .details .detailsswitcher .showmore").hide();
+                  $("#model .details .detailsswitcher .showless").show();
+              });
+              
+              // bind the show less button
+              DetailsSwitcher.bindShowLess($("#model .details .detailsswitcher .showless"));
+              
+              // show details switcher
+              $("#model .details .detailsswitcher").show();
+          }
+      }
+      
+      this.bindShowLess = function(_object) {
+          
+          // bind the showless button
+          $(_object).bind("click", function() {
+              
+              // show less details animation
+              var _delay = 0;
+              $("#model .details tr").each(function(index, value){
+                  if(index > DetailsSwitcher.min + 1) {
+                      $(value).stop().delay(_delay).hide();
+                      _delay += DetailsSwitcher.animationAcceleration;
+                  }
+              });
+              
+              // switch button to less
+              $("#model .details .detailsswitcher .showless").hide();
+              $("#model .details .detailsswitcher .showmore").show();
+              
+              // show details switcher
+              $("#model .details .detailsswitcher").show();
+          });
+      }
+  }
