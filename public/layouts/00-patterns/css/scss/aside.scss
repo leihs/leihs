@@ -111,7 +111,6 @@
     border-left: 1px solid #c9c7c3;
     border-right: 1px solid #c9c7c3;
     display: block;
-    padding-bottom: 28px;
     position: relative;
     
     h3 {
@@ -239,6 +238,9 @@
           background: transparent;
           border: 1px solid $lightergrey;
           color: $lightgrey;
+          display: block;
+          font-size: 1.1em;
+          font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
           height: 31px;
           line-height: 1.4em;
           overflow-y: auto;
@@ -249,6 +251,18 @@
           width: 166px;
           @include borderRadius(4px);
         }
+        
+        textarea:focus {
+          color: $darkgrey;
+          @include boxShadow (0 0 8px #CCC);
+        }
+      }
+      
+      .button {
+        left: 7px;
+        margin-bottom: -3px;
+        width: 180px;
+        z-index: 1001;
       }
     }
     
@@ -282,13 +296,6 @@
       height: 14px;
       margin-left: 6px;
       margin-right: 6px;
-      
-      .button {
-        position: absolute;
-        top: -27px;
-        left: 9px;
-        width: 175px;
-      }
     }
     
     .borderright {

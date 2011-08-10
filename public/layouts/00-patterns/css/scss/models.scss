@@ -106,7 +106,7 @@
           position: absolute;
           top: -50px;
           width: 400px;
-          z-index: 9999;
+          z-index: 9999; 
           
          .header {
             display: block;
@@ -198,6 +198,7 @@
               
               .key {
                 color: $grey;
+                font-weight: bold;
                 margin-right: 8px;
                 padding-left: 10px;
                 width: 103px;

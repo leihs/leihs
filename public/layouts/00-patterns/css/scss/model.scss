@@ -7,7 +7,7 @@
   
   .button {
     position: absolute;
-    right: 20px;
+    right: 18px;
     top: 10px;
   }
   
@@ -75,16 +75,22 @@
   }
   
   .details {
-    tr td {
-      color: #515151;
-      display: inline-block;
-      font-size: 1.1em;
-      line-height: 1.5em;
-      padding: 8px 0;
-      position: relative;
-      top: 0;
-      vertical-align: top;
-      width: 100%;
+    tr {
+      td {
+        color: #515151;
+        display: inline-block;
+        font-size: 1.1em;
+        line-height: 1.5em;
+        padding: 8px 0;
+        position: relative;
+        top: 0;
+        vertical-align: top;
+        width: 100%;
+      }
+      
+      .key {
+        font-weight: bold;
+      }
     }
     
     tr:nth-child(odd)  {
@@ -142,7 +148,7 @@
     }
   }
   
-  #suggested {
+  #accessories {
      padding-top: 6px;
      @include greylinks;
      
@@ -151,8 +157,8 @@
      }
   
     .row {
-      padding-bottom: 28px;
-      padding-top: 8px;
+      padding-bottom: 34px;
+      padding-top: 10px;
       
       .cell {
         float: left;
@@ -199,5 +205,4 @@
       }
     }
   }
-  
 }
