@@ -239,6 +239,8 @@ The following steps were tested on Mac OS X 10.5 and 10.6 on an x86. They may al
 
 *Running leihs on Mac OS X is unsupported* at this time. You may try the following steps, but they are not guaranteed to work and no longer updated since Apple stopped producing servers. If you manage to get leihs to work well, feel free to update this installation guide. leihs usually isn't the problem, the problems start when installing all the dependencies on OS X. Environment variables, bundler, compiling native extensions etc. is more easily done on a Linux distribution.
 
+*Make sure you are running Ruby 1.8.x, not Ruby 1.9.x* since leihs is a Rails 2.x project for now and Ruby 1.9.x is not supported by Rails 2.
+
 1. Install Apple Xcode. This is required because some modules may need a C/C++ compiler. XCode is http://developer.apple.com/Tools/[available from Apple] after a free developer registration.
 
 2. Install MySQL 5.0. Use the 32-bit version if you are running OS X Leopard (10.5) but use the 64-bit version if you're on Snow Leopard (10.6). *Make absolutely sure to install the 32-bit version on Leopard (10.5) even if you are running a 64-bit operating system.* Some bugs in Mac OS X's MySQL and Ruby integration make it impossible to continue otherwise.
