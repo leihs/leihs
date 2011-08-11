@@ -108,10 +108,10 @@
   
   .inner {
     background: #FFF;
-    border-left: 1px solid #c9c7c3;
-    border-right: 1px solid #c9c7c3;
     display: block;
     position: relative;
+    left: 1px;
+    width: 196px;
     
     h3 {
       float: left;
@@ -281,6 +281,24 @@
         top: 6px;
         right: 6px;
       }
+    }
+    
+    .borderleft {
+      background: url(../images/slices-v.png) repeat-y -193px 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: -1px;
+      width: 1px;
+    }
+    
+    .borderright {
+      background: url(../images/slices-v.png) repeat-y -193px 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: -1px;
+      width: 1px;
     }    
   }
   

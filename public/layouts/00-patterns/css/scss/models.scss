@@ -5,46 +5,49 @@
     padding: 10px 0;
     width: 100%;
   }
-}
+} 
 
 #models {
 
-  #categories {
-    border-right: 1px solid #e3e3e3;
+  .aside {
     float: left;
-    left: -5px;
-    margin-bottom: -46px;
-    padding-top: 16px;
-    padding-right: 6px;
+    left: -4px;
     position: relative;
     top: -18px;
     width: 167px;
     z-index: 99;
-    @include greylinks;
-
-    li {
-      list-style-type: none;
-      overflow: hidden;
-    }
-    
-    h2 {
-      font-size: 1.2em;
-      font-weight: bold;
-    }
-    
-    li:hover h2 a {
-        color:#515151;
-    }
-    
-    ul {
-      padding-bottom: 16px;
+  
+    #categories, #templates {
+      border-right: 1px solid #e3e3e3;
+      margin-bottom: -46px;
+      padding-top: 16px;
+      padding-right: 6px;
+      @include greylinks;
+  
+      li {
+        list-style-type: none;
+        overflow: hidden;
+      }
       
-      a {
-        display: block;
-        font-size: 1.1em;
-        line-height: 1.4em;
-        padding-top: 3px;
-        padding-bottom: 3px;
+      h2 {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+      
+      li:hover h2 a {
+          color:#515151;
+      }
+      
+      ul {
+        padding-bottom: 16px;
+        
+        a {
+          display: block;
+          font-size: 1.1em;
+          line-height: 1.4em;
+          padding-top: 3px;
+          padding-bottom: 3px;
+        }
       }
     }
   }
@@ -57,7 +60,7 @@
     margin-right: -16px;
     margin-left: -12px;
     position: relative;
-    width: 568px;
+    width: 571px;
     
     .item {
       border-bottom: 1px solid #e3e3e3;
@@ -85,7 +88,13 @@
         }
       }
       
-      .imagehover {
+      .anchor, .itemanchor {
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+      
+      .imageanchor {
         background: transparent;
         border: none;
         display: inline-block;
@@ -93,12 +102,6 @@
         left: 0;
         position: absolute;
         width: 65px;
-        
-        .anchor {
-          display: block;
-          height: 100%;
-          width: 100%;
-        }
         
         .hover {
           display: none;
@@ -249,7 +252,6 @@
                 width: 20px;
               }
             }
-            
           }
           
           .footer {
@@ -307,24 +309,21 @@
         color: $lightgrey;
         font-size: 1.1em;
         text-align: right;
-        padding-right: 0;
+        padding-right: 6px;
         vertical-align: middle;
       }
       
       .add {
-        padding-right: 16px;
+        padding-right: 12px;
         padding-top: 1px;
         text-align: right;
         vertical-align: middle;
         width: 24px;
         @include opacity(0.4);
         
-        a {
-          font-size: 1.4em;   
+        .smallbutton {
+          font-size: 1.5em;   
           font-weight: bold;
-          line-height: 10px;
-          padding-left: 1px;
-          padding-right: 1px;
         }
       }
     }

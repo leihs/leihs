@@ -56,7 +56,9 @@
         = _("edit")
       .clear
     
-    .clear      
+    .clear
+    .borderleft
+    .borderright      
   
   .footer
     .borderleft
@@ -104,7 +106,6 @@
     
     this.setup = function () {
       CompactOrder.setupTextArea();
-      // CompactOrder.setupDisableSubmitButtonOverlay();
       CompactOrder.disableSubmitButton();
       CompactOrder.setupDeleteButtons();
     }
@@ -125,31 +126,12 @@
       }); 
     }
     
-    this.setupDisableSubmitButtonOverlay = function() {
-      $("#submitButtonOverlay").css("position", "absolute");
-      $("#submitButtonOverlay").css("z-index", (parseInt($("#compactOrder .button").css("z-index"))+1));
-      $("#submitButtonOverlay").height($("#compactOrder .button").height());
-      $("#submitButtonOverlay").width(parseInt($("#compactOrder .button").width())+6);
-      $("#submitButtonOverlay").position({of: $("#compactOrder .button"), at: "left top", my: "left top"});
-      $("#submitButtonOverlay").hide();
-    }
-    
     this.disableSubmitButton = function() {
-      /*if(CompactOrder.submitButtonEnabled) {
-        CompactOrder.submitButtonEnabled = false;
-        $("#compactOrder .button").css("opacity", "0.5");
-        $("#submitButtonOverlay").show();
-      }*/
+      $("#compactOrder .button").attr("disabled", true);
     }
     
     this.enableSubmitButton = function() {
-      if(!CompactOrder.submitButtonEnabled) {
-        CompactOrder.submitButtonEnabled = true;
-        $("#compactOrder .button").stop().animate({
-          opacity: 1
-        });
-        $("#submitButtonOverlay").hide();
-      }
+      $("#compactOrder .button").removeAttr("disabled");
     }
     
     this.setupTextArea = function() {

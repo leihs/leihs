@@ -2,6 +2,7 @@
   background: none;
   border: 0;
   border-right: 1px solid $lightgrey;
+  border-left: 1px solid $lightgrey;
   border-bottom: 1px solid $lightgrey;
   cursor: pointer;
   display: inline-block;
@@ -19,11 +20,12 @@
 .smallbutton {
   background: none;
   border: 0;
+  border-right: 1px solid $lightgrey;
   cursor: pointer;
   display: inline-block;
   height: 22px;
   text-align: center;
-  padding: 0 4px;
+  padding: 0 5px;
   position: relative;
   vertical-align: middle;
   
@@ -57,6 +59,10 @@
 
 .button.green:active {
   background: url(../images/image-sprite.png) no-repeat 0 -234px;
+}
+
+.button.green[disabled = "disabled"], .button.green[disabled = "disabled"]:hover, .button.green[disabled = "disabled"]:active {
+  background: url(../images/image-sprite.png) no-repeat 0 -202px;
 }
 
 .smallbutton.green {

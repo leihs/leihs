@@ -60,6 +60,9 @@
                 = link_to truncate(c.name, 32), c, :title=>c.name
           
           .clear
+          
+  .borderleft
+  .borderright
               
 = render :partial => '/layouts/frontend/00-patterns/content_box_foot'
 = render :partial => '/layouts/frontend/00-patterns/aside'
@@ -79,11 +82,10 @@
       this.animationAcceleration = 50;
       
       this.setup = function() {
-        console.log("setup");
-          if($("#model .details tr").length > DetailsSwitcher.min) {
+          if(($("#model .details tr").length-1) > DetailsSwitcher.min) {
               // hide details until min
               $("#model .details tr").each(function(index, value){
-                  if(index > DetailsSwitcher.min + 1) {
+                  if(index > (DetailsSwitcher.min - 1)) {
                       $(value).hide();
                   }
               });
@@ -95,7 +97,7 @@
                   // show more details animation
                   var _delay = 0;
                   $("#model .details tr").each(function(index, value){
-                      if(index > DetailsSwitcher.min + 1) {
+                      if(index > (DetailsSwitcher.min - 1)) {
                           $(value).stop().delay(_delay).show(1);
                           _delay += DetailsSwitcher.animationAcceleration;
                       }
@@ -122,7 +124,7 @@
               // show less details animation
               var _delay = 0;
               $("#model .details tr").each(function(index, value){
-                  if(index > DetailsSwitcher.min + 1) {
+                  if(index > (DetailsSwitcher.min - 1)) {
                       $(value).stop().delay(_delay).hide();
                       _delay += DetailsSwitcher.animationAcceleration;
                   }

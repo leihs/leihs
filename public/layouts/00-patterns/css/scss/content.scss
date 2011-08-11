@@ -41,11 +41,29 @@
   
   .inner {
     background: #FFF;
-    border-left: 1px solid #c9c7c3;
-    border-right: 1px solid #c9c7c3;
     display: block;
-    padding: 8px 16px 16px 16px;
+    padding: 8px 16px 16px 12px;
     position: relative;
+    left: 1px;
+    width: 725px;
+    
+    .borderleft {
+      background: url(../images/slices-v.png) repeat-y -193px 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: -1px;
+      width: 1px;
+    }
+    
+    .borderright {
+      background: url(../images/slices-v.png) repeat-y -193px 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: -1px;
+      width: 1px;
+    }
   }
   
   .footer {

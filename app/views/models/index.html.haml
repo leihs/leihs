@@ -1,98 +1,101 @@
 = render :partial => '/layouts/frontend/00-patterns/tabs'
 = render :partial => '/layouts/frontend/00-patterns/content_box_head'
 
-- if @category.try(:children).blank? and @template.try(:children).blank?
-  .inner.fullwidth#models
-- else
-  .inner#models
-  
-    - if @category
-      - unless @category.children.empty?
-        %ul#categories
-          - @category.children.each do |c|
-            %li
-              %h2
-                = link_to c, category_models_path(c), :title => c
-              %ul
-                - c.children.each do |child|
-                  %li
-                    = link_to child, category_models_path(child) , :title => child
-                    
-      - unless @category.all_templates.empty?
-        %ul#templates
-          - @category.all_templates.each do |t|
-            %li
-              %h2
-                = link_to t, template_models_path(t), :title => t
-              %ul
-                - t.children.each do |child|
-                  %li
-                    = link_to child, template_models_path(child) , :title => child
+.inner#models{:class => (@category.try(:children).blank? and @template.try(:children).blank?) ? "fullwidth" : nil} 
     
-    - elsif @template
-      - unless @template.children.empty?
-        %ul#categories
-          - @template.children.each do |t|
-            %li
-              %h2
-                = link_to t, template_models_path(t), :title => t
-              %ul
-                - t.children.each do |child|
-                  %li
-                    = link_to child, template_models_path(child) , :title => child
-                    
-    = render :partial => 'topfilter'
+  - unless @category.try(:children).blank? and @template.try(:children).blank?
+    .aside  
     
-    %section#modellist
-      - @models.each do |m|
-        %table.item
-          %tr
-            %td.image
-              - unless m.images.empty?
-                = link_to image_tag("http://leihs.zhdk.ch/#{m.image_thumb}"), m
-            %td.name
-              = link_to m.name, m
-            %td.manufacturer
-              = link_to m.manufacturer, m
-            %td.overlay
-              .imageanchorContainer                           
-                = link_to "", m, :class=>"imageanchor"
-                .hover
-                  .header 
-                    .borderleft
-                    .headerinner
-                    .borderright
-                  .inner
-                    - unless m.images.empty?
-                      = link_to image_tag("http://leihs.zhdk.ch/#{m.image}") + content_tag(:span, _("view"), :class=>"topright"), m
-                    - unless m.description.blank?
-                      %p.description
-                        = truncate(m.description, 120)
-                    - unless m.properties.empty?
-                      %table.details
-                        - m.properties.each_with_index do |p, i|
-                          - if i < 5
-                            %tr
-                              %td.key
-                                = p.key
-                              %td.value
-                                = p.value
-                    .borderleft
-                      .arrow
-                    .borderright
-                      .arrow
+      - if @category
+        - unless @category.children.empty?
+          %ul#categories
+            - @category.children.each do |c|
+              %li
+                %h2
+                  = link_to c, category_models_path(c), :title => c
+                %ul
+                  - c.children.each do |child|
+                    %li
+                      = link_to child, category_models_path(child) , :title => child
+                      
+        - unless @category.all_templates.empty?
+          %ul#templates
+            - @category.all_templates.each do |t|
+              %li
+                %h2
+                  = link_to t, template_models_path(t), :title => t
+                %ul
+                  - t.children.each do |child|
+                    %li
+                      = link_to child, template_models_path(child) , :title => child
+      
+      - elsif @template
+        - unless @template.children.empty?
+          %ul#categories
+            - @template.children.each do |t|
+              %li
+                %h2
+                  = link_to t, template_models_path(t), :title => t
+                %ul
+                  - t.children.each do |child|
+                    %li
+                      = link_to child, template_models_path(child) , :title => child
                   
-                  .footer
-                    .borderleft
-                    .footerinner
-                    .borderright
-              = link_to "", m, :class=>"itemanchor"
-            %td.availability
-              = render :partial => 'availability', :locals => {:model => m}
-            %td.add
-              = link_to "+", book_model_path(m), :class => "smallbutton green"
+  = render :partial => 'topfilter'
+  
+  %section#modellist
+    - @models.each do |m|
+      %table.item
+        %tr
+          %td.image
+            - unless m.images.empty?
+              = link_to image_tag("http://leihs.zhdk.ch/#{m.image_thumb}"), m
+          %td.name
+            = link_to m.name, m
+          %td.manufacturer
+            = link_to m.manufacturer, m
+          %td.overlay
+            .imageanchor                         
+              = link_to "", m, :class=>"anchor"
+              .hover
+                .header 
+                  .borderleft
+                  .headerinner
+                  .borderright
+                .inner
+                  - unless m.images.empty?
+                    = link_to image_tag("http://leihs.zhdk.ch/#{m.image}") + content_tag(:span, _("view"), :class=>"topright"), m
+                  - unless m.description.blank?
+                    %p.description
+                      = truncate(m.description, 120)
+                  - unless m.properties.empty?
+                    %table.details
+                      - m.properties.each_with_index do |p, i|
+                        - if i < 5
+                          %tr
+                            %td.key
+                              = p.key
+                            %td.value
+                              = p.value
+                  .borderleft
+                    .arrow
+                  .borderright
+                    .arrow
+                
+                .footer
+                  .borderleft
+                  .footerinner
+                  .borderright
+            = link_to "", m, :class=>"itemanchor"
+          %td.availability
+            = render :partial => 'availability', :locals => {:model => m}
+          %td.add
+            = link_to "+", book_model_path(m), :class => "smallbutton green", :title => _("Book: %s") % m.name
 
-    .clear
+  .clear
+  
+  .borderleft
+  .borderright
       
 = render :partial => '/layouts/frontend/00-patterns/content_box_foot'
 = render :partial => '/layouts/frontend/00-patterns/aside'
@@ -115,8 +118,8 @@
             
       this.setup = function() {
         
-        // MOUSEENTER (imageanchorContainer)
-        $('#models #modellist .item .overlay .imageanchorContainer').bind('mouseenter', function(){
+        // MOUSEENTER (imageanchor)
+        $('#models #modellist .item .overlay .imageanchor').bind('mouseenter', function(){
           var _this = $(this);
           $(this).data("over", true);
           ModelsListItems.hovering = true;
@@ -149,8 +152,8 @@
           }
         });
         
-        // MOUSELEAVE (imageanchorContainer)
-        $('#models #modellist .item .overlay .imageanchorContainer').bind('mouseleave', function(){
+        // MOUSELEAVE (imageanchor)
+        $('#models #modellist .item .overlay .imageanchor').bind('mouseleave', function(){
             $(this).data("over", false);
             ModelsListItems.hovering = false;
             clearTimeout(ModelsListItems.showDelayTimer);

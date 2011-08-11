@@ -119,6 +119,19 @@ section {
   */
   display: block; }
 
+*,
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {
+  /*
+    Remove Firefox dotted borders 
+  */
+  border: 0;
+  outline: none;
+  -moz-outline-style: none; }
+
 b,
 strong {
   /*
@@ -259,114 +272,78 @@ header {
 .red {
   color: #dd2222; }
 
-/* BUTTON */
 .button {
+  background: none;
+  border: 0;
+  border-right: 1px solid #999999;
+  border-left: 1px solid #999999;
+  border-bottom: 1px solid #999999;
+  cursor: pointer;
   display: inline-block;
-  height: 31px;
-  position: relative; }
-
-/* BUTTON ANCHOR */
-.button a {
-  display: block;
   font-size: 1.3em;
   font-weight: bold;
-  height: 24px;
-  margin-right: -5px;
-  padding: 6px 8px 0 8px;
+  height: 31px;
+  text-align: center;
+  padding: 0 8px;
   position: relative;
-  text-align: center; }
+  vertical-align: middle;
+  -moz-border-radius: 6px;
+  /* Firefox */
+  -webkit-border-radius: 6px;
+  /* Safari, Chrome */
+  border-radius: 6px;
+  /* CSS3 */ }
 
-.button a:hover {
+.smallbutton {
+  background: none;
+  border: 0;
+  border-right: 1px solid #999999;
+  cursor: pointer;
+  display: inline-block;
+  height: 22px;
+  text-align: center;
+  padding: 0 5px;
+  position: relative;
+  vertical-align: middle;
+  -moz-border-radius: 6px;
+  /* Firefox */
+  -webkit-border-radius: 6px;
+  /* Safari, Chrome */
+  border-radius: 6px;
+  /* CSS3 */ }
+
+.button:hover, .smallbutton:hover {
   color: #515151 !important; }
 
-.button a:active {
-  height: 23px;
-  padding-top: 8px; }
+.button:active {
+  line-height: 1.5em; }
 
-/* BUTTON GREEN */
+.smallbutton:active {
+  line-height: 1.3em; }
+
+.button.green, .smallbutton.green {
+  color: #4d9148 !important; }
+
 .button.green {
   background: url(../images/image-sprite.png) no-repeat 0 -202px; }
 
-.button.green a {
-  background: url(../images/image-sprite.png) no-repeat right -234px;
-  color: #4d9148; }
-
 .button.green:hover {
-  background: url(../images/image-sprite.png) no-repeat 0 -382px; }
-
-.button.green:hover a {
-  background: url(../images/image-sprite.png) no-repeat right -414px; }
-
-.button.green:active {
-  background: url(../images/image-sprite.png) no-repeat 0 -446px; }
-
-.button.green:active a {
-  background: url(../images/image-sprite.png) no-repeat right -478px; }
-
-/* BUTTON WHITE */
-.button.white {
-  background: url(../images/image-sprite.png) no-repeat 0 -594px; }
-
-.button.white a {
-  background: url(../images/image-sprite.png) no-repeat right -626px;
-  color: #a3a3a3; }
-
-.button.white:hover {
-  background: url(../images/image-sprite.png) no-repeat 0 -722px; }
-
-.button.white:hover a {
-  background: url(../images/image-sprite.png) no-repeat right -754px; }
-
-.button.white:active {
-  background: url(../images/image-sprite.png) no-repeat 0 -658px; }
-
-.button.white:active a {
-  background: url(../images/image-sprite.png) no-repeat right -690px; }
-
-/* 
- *  SMALLBUTTON 
-*/
-.smallbutton {
-  display: inline-block;
-  height: 20px;
-  position: relative; }
-
-/* SMALLBUTTON ANCHOR */
-.smallbutton a {
-  display: block;
-  height: 17px;
-  margin-right: -5px;
-  padding: 3px 2px 0 2px;
-  position: relative;
-  text-align: center;
-  width: 20px; }
-
-.smallbutton a:hover {
-  color: #515151 !important; }
-
-.smallbutton a:active {
-  height: 16px;
-  padding-top: 4px; }
-
-/* BUTTON GREEN */
-.smallbutton.green {
   background: url(../images/image-sprite.png) no-repeat 0 -340px; }
 
-.smallbutton.green a {
-  background: url(../images/image-sprite.png) no-repeat right -361px;
-  color: #4d9148; }
+.button.green:active {
+  background: url(../images/image-sprite.png) no-repeat 0 -234px; }
+
+.button.green[disabled="disabled"], .button.green[disabled="disabled"]:hover, .button.green[disabled="disabled"]:active {
+  background: url(../images/image-sprite.png) no-repeat 0 -202px; }
+
+.smallbutton.green {
+  background: url(../images/image-sprite.png) no-repeat 0 -372px; }
 
 .smallbutton.green:hover {
-  background: url(../images/image-sprite.png) no-repeat 0 -552px; }
-
-.smallbutton.green:hover a {
-  background: url(../images/image-sprite.png) no-repeat right -573px; }
+  background: url(../images/image-sprite.png) no-repeat 0 -395px; }
 
 .smallbutton.green:active {
-  background: url(../images/image-sprite.png) no-repeat 0 -510px; }
-
-.smallbutton.green:active a {
-  background: url(../images/image-sprite.png) no-repeat right -531px; }
+  background: url(../images/image-sprite.png) no-repeat 0 -418px; }
 
 .linelist .line {
   display: block;
@@ -787,11 +764,25 @@ header {
       width: 6px; }
   #content.box .inner {
     background: #FFF;
-    border-left: 1px solid #c9c7c3;
-    border-right: 1px solid #c9c7c3;
     display: block;
-    padding: 8px 16px 16px 16px;
-    position: relative; }
+    padding: 8px 16px 16px 12px;
+    position: relative;
+    left: 1px;
+    width: 725px; }
+    #content.box .inner .borderleft {
+      background: url(../images/slices-v.png) repeat-y -193px 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: -1px;
+      width: 1px; }
+    #content.box .inner .borderright {
+      background: url(../images/slices-v.png) repeat-y -193px 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: -1px;
+      width: 1px; }
   #content.box .footer {
     display: block;
     height: 14px;
@@ -867,6 +858,7 @@ header {
     list-style-type: none; }
     #start #categories .cell ul li {
       display: block;
+      line-height: 1.6em;
       margin-bottom: 6px;
       padding-right: 8px; }
       #start #categories .cell ul li a {
@@ -947,11 +939,10 @@ header {
       background: url(../images/image-sprite.png) no-repeat -129px -312px; }
   #aside .inner {
     background: #FFF;
-    border-left: 1px solid #c9c7c3;
-    border-right: 1px solid #c9c7c3;
     display: block;
-    padding-bottom: 28px;
-    position: relative; }
+    position: relative;
+    left: 1px;
+    width: 196px; }
     #aside .inner h3 {
       float: left;
       font-size: 1.2em;
@@ -1044,6 +1035,9 @@ header {
       background: transparent;
       border: 1px solid #cccccc;
       color: #999999;
+      display: block;
+      font-size: 1.1em;
+      font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
       height: 31px;
       line-height: 1.4em;
       overflow-y: auto;
@@ -1058,6 +1052,16 @@ header {
       /* Safari, Chrome */
       border-radius: 4px;
       /* CSS3 */ }
+    #aside .inner #compactOrder .orderPurpose textarea:focus {
+      color: #515151;
+      -moz-box-shadow: 0 0 8px #cccccc;
+      -webkit-box-shadow: 0 0 8px #cccccc;
+      box-shadow: 0 0 8px #cccccc; }
+    #aside .inner #compactOrder .button {
+      left: 7px;
+      margin-bottom: -3px;
+      width: 180px;
+      z-index: 1001; }
     #aside .inner #compactTemplates {
       display: none; }
       #aside .inner #compactTemplates span.name {
@@ -1069,6 +1073,20 @@ header {
         position: absolute;
         top: 6px;
         right: 6px; }
+    #aside .inner .borderleft {
+      background: url(../images/slices-v.png) repeat-y -193px 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: -1px;
+      width: 1px; }
+    #aside .inner .borderright {
+      background: url(../images/slices-v.png) repeat-y -193px 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: -1px;
+      width: 1px; }
   #aside .footer {
     display: block;
     height: 14px;
@@ -1080,11 +1098,6 @@ header {
       height: 14px;
       margin-left: 6px;
       margin-right: 6px; }
-      #aside .footer .footerinner .button {
-        position: absolute;
-        top: -27px;
-        left: 9px;
-        width: 175px; }
     #aside .footer .borderright {
       background: url(../images/image-sprite.png) no-repeat -25px -15px;
       display: block;
@@ -1108,41 +1121,42 @@ header {
   -khtml-opacity: 1;
   opacity: 1; }
 
-#models #categories {
-  border-right: 1px solid #e3e3e3;
+#models .aside {
   float: left;
-  left: -5px;
-  margin-bottom: -46px;
-  padding-top: 16px;
-  padding-right: 6px;
+  left: -4px;
   position: relative;
   top: -18px;
   width: 167px;
   z-index: 99; }
-  #models #categories h2 a, #models #categories h2 a:link, #models #categories h2 a:visited, #models #categories h3 a, #models #categories h3 a:link, #models #categories h3 a:visited {
-    color: #717171; }
-  #models #categories h2 a:hover, #models #categories h2 a:active, #models #categories h3 a:hover, #models #categories h3 a:active {
-    color: #515151; }
-  #models #categories a, #models #categories a:link, #models #categories a:visited {
-    color: #999999; }
-  #models #categories a:hover, #models #categories a:active {
-    color: #515151; }
-  #models #categories li {
-    list-style-type: none;
-    overflow: hidden; }
-  #models #categories h2 {
-    font-size: 1.2em;
-    font-weight: bold; }
-  #models #categories li:hover h2 a {
-    color: #515151; }
-  #models #categories ul {
-    padding-bottom: 16px; }
-    #models #categories ul a {
-      display: block;
-      font-size: 1.1em;
-      line-height: 1.4em;
-      padding-top: 3px;
-      padding-bottom: 3px; }
+  #models .aside #categories, #models .aside #templates {
+    border-right: 1px solid #e3e3e3;
+    margin-bottom: -46px;
+    padding-top: 16px;
+    padding-right: 6px; }
+    #models .aside #categories h2 a, #models .aside #categories h2 a:link, #models .aside #categories h2 a:visited, #models .aside #categories h3 a, #models .aside #categories h3 a:link, #models .aside #categories h3 a:visited, #models .aside #templates h2 a, #models .aside #templates h2 a:link, #models .aside #templates h2 a:visited, #models .aside #templates h3 a, #models .aside #templates h3 a:link, #models .aside #templates h3 a:visited {
+      color: #717171; }
+    #models .aside #categories h2 a:hover, #models .aside #categories h2 a:active, #models .aside #categories h3 a:hover, #models .aside #categories h3 a:active, #models .aside #templates h2 a:hover, #models .aside #templates h2 a:active, #models .aside #templates h3 a:hover, #models .aside #templates h3 a:active {
+      color: #515151; }
+    #models .aside #categories a, #models .aside #categories a:link, #models .aside #categories a:visited, #models .aside #templates a, #models .aside #templates a:link, #models .aside #templates a:visited {
+      color: #999999; }
+    #models .aside #categories a:hover, #models .aside #categories a:active, #models .aside #templates a:hover, #models .aside #templates a:active {
+      color: #515151; }
+    #models .aside #categories li, #models .aside #templates li {
+      list-style-type: none;
+      overflow: hidden; }
+    #models .aside #categories h2, #models .aside #templates h2 {
+      font-size: 1.2em;
+      font-weight: bold; }
+    #models .aside #categories li:hover h2 a, #models .aside #templates li:hover h2 a {
+      color: #515151; }
+    #models .aside #categories ul, #models .aside #templates ul {
+      padding-bottom: 16px; }
+      #models .aside #categories ul a, #models .aside #templates ul a {
+        display: block;
+        font-size: 1.1em;
+        line-height: 1.4em;
+        padding-top: 3px;
+        padding-bottom: 3px; }
 #models #modellist {
   border-left: 1px solid #e3e3e3;
   display: block;
@@ -1151,7 +1165,7 @@ header {
   margin-right: -16px;
   margin-left: -12px;
   position: relative;
-  width: 568px; }
+  width: 571px; }
   #models #modellist .item {
     border-bottom: 1px solid #e3e3e3;
     margin-bottom: 1px;
@@ -1175,7 +1189,11 @@ header {
       #models #modellist .item .image img {
         max-height: 50px;
         max-width: 50px; }
-    #models #modellist .item .imagehover {
+    #models #modellist .item .anchor, #models #modellist .item .itemanchor {
+      display: block;
+      height: 100%;
+      width: 100%; }
+    #models #modellist .item .imageanchor {
       background: transparent;
       border: none;
       display: inline-block;
@@ -1183,28 +1201,24 @@ header {
       left: 0;
       position: absolute;
       width: 65px; }
-      #models #modellist .item .imagehover .anchor {
-        display: block;
-        height: 100%;
-        width: 100%; }
-      #models #modellist .item .imagehover .hover {
+      #models #modellist .item .imageanchor .hover {
         display: none;
         left: 70px;
         position: absolute;
         top: -50px;
         width: 400px;
         z-index: 9999; }
-        #models #modellist .item .imagehover .hover .header {
+        #models #modellist .item .imageanchor .hover .header {
           display: block;
           height: 10px;
           position: relative; }
-          #models #modellist .item .imagehover .hover .header .headerinner {
+          #models #modellist .item .imageanchor .hover .header .headerinner {
             background: url(../images/slices-h.png) repeat-x 0 -196px;
             display: block;
             height: 10px;
             margin-left: 10px;
             margin-right: 10px; }
-          #models #modellist .item .imagehover .hover .header .borderright {
+          #models #modellist .item .imageanchor .hover .header .borderright {
             background: url(../images/image-sprite.png) no-repeat -167px -328px;
             display: block;
             height: 10px;
@@ -1212,7 +1226,7 @@ header {
             position: absolute;
             top: 0;
             width: 10px; }
-          #models #modellist .item .imagehover .hover .header .borderleft {
+          #models #modellist .item .imageanchor .hover .header .borderleft {
             background: url(../images/image-sprite.png) no-repeat -156px -328px;
             display: block;
             height: 10px;
@@ -1220,7 +1234,7 @@ header {
             position: absolute;
             top: 0;
             width: 10px; }
-        #models #modellist .item .imagehover .hover .inner {
+        #models #modellist .item .imageanchor .hover .inner {
           background: #FFF;
           border: none;
           margin: 0 auto;
@@ -1228,25 +1242,25 @@ header {
           padding: 9px 11px 11px 10px;
           position: relative;
           width: 369px; }
-          #models #modellist .item .imagehover .hover .inner a {
+          #models #modellist .item .imageanchor .hover .inner a {
             display: block;
             height: 100%;
             width: 100%; }
-            #models #modellist .item .imagehover .hover .inner a .topright {
+            #models #modellist .item .imageanchor .hover .inner a .topright {
               position: absolute;
               top: 10px;
               right: 12px; }
-          #models #modellist .item .imagehover .hover .inner img {
+          #models #modellist .item .imageanchor .hover .inner img {
             max-height: 150px;
             width: auto;
             max-width: 230px;
             margin-bottom: 15px; }
-          #models #modellist .item .imagehover .hover .inner .description {
+          #models #modellist .item .imageanchor .hover .inner .description {
             font-size: 1.2em;
             line-height: 1.5em;
             margin-left: 3px;
             margin-bottom: 12px; }
-          #models #modellist .item .imagehover .hover .inner .details tr td {
+          #models #modellist .item .imageanchor .hover .inner .details tr td {
             color: #515151;
             display: inline-block;
             line-height: 1.5em;
@@ -1254,28 +1268,29 @@ header {
             position: relative;
             top: 0;
             vertical-align: top; }
-          #models #modellist .item .imagehover .hover .inner .details tr:nth-child(odd) {
+          #models #modellist .item .imageanchor .hover .inner .details tr:nth-child(odd) {
             background: #ebebeb; }
-          #models #modellist .item .imagehover .hover .inner .details tr:nth-child(even) {
+          #models #modellist .item .imageanchor .hover .inner .details tr:nth-child(even) {
             background: #f8f8f8; }
-          #models #modellist .item .imagehover .hover .inner .details .key {
+          #models #modellist .item .imageanchor .hover .inner .details .key {
             color: #717171;
+            font-weight: bold;
             margin-right: 8px;
             padding-left: 10px;
             width: 103px; }
-          #models #modellist .item .imagehover .hover .inner .details .value {
+          #models #modellist .item .imageanchor .hover .inner .details .value {
             border-left: 1px solid #FFF;
             padding-left: 10px;
             padding-right: 10px;
             width: 222px; }
-          #models #modellist .item .imagehover .hover .inner .borderright {
+          #models #modellist .item .imageanchor .hover .inner .borderright {
             background: url(../images/slices-v.png) repeat-y -9px 0;
             height: 100%;
             position: absolute;
             top: 0;
             right: -5px;
             width: 10px; }
-            #models #modellist .item .imagehover .hover .inner .borderright .arrow {
+            #models #modellist .item .imageanchor .hover .inner .borderright .arrow {
               background: url(../images/image-sprite.png) no-repeat -21px -786px;
               display: block;
               height: 42px;
@@ -1283,14 +1298,14 @@ header {
               position: absolute;
               top: 54px;
               width: 20px; }
-          #models #modellist .item .imagehover .hover .inner .borderleft {
+          #models #modellist .item .imageanchor .hover .inner .borderleft {
             background: url(../images/slices-v.png) repeat-y -20px 0;
             height: 100%;
             position: absolute;
             top: 0;
             left: -5px;
             width: 10px; }
-            #models #modellist .item .imagehover .hover .inner .borderleft .arrow {
+            #models #modellist .item .imageanchor .hover .inner .borderleft .arrow {
               background: url(../images/image-sprite.png) no-repeat 0 -786px;
               display: block;
               height: 42px;
@@ -1298,17 +1313,17 @@ header {
               position: absolute;
               top: 54px;
               width: 20px; }
-        #models #modellist .item .imagehover .hover .footer {
+        #models #modellist .item .imageanchor .hover .footer {
           display: block;
           height: 14px;
           position: relative; }
-          #models #modellist .item .imagehover .hover .footer .footerinner {
+          #models #modellist .item .imageanchor .hover .footer .footerinner {
             background: url(../images/slices-h.png) repeat-x 0 -207px;
             display: block;
             height: 10px;
             margin-left: 10px;
             margin-right: 10px; }
-          #models #modellist .item .imagehover .hover .footer .borderright {
+          #models #modellist .item .imageanchor .hover .footer .borderright {
             background: url(../images/image-sprite.png) no-repeat -189px -328px;
             display: block;
             height: 10px;
@@ -1316,7 +1331,7 @@ header {
             position: absolute;
             top: 0;
             width: 10px; }
-          #models #modellist .item .imagehover .hover .footer .borderleft {
+          #models #modellist .item .imageanchor .hover .footer .borderleft {
             background: url(../images/image-sprite.png) no-repeat -178px -328px;
             display: block;
             height: 10px;
@@ -1347,10 +1362,10 @@ header {
       color: #999999;
       font-size: 1.1em;
       text-align: right;
-      padding-right: 0;
+      padding-right: 6px;
       vertical-align: middle; }
     #models #modellist .item .add {
-      padding-right: 16px;
+      padding-right: 12px;
       padding-top: 1px;
       text-align: right;
       vertical-align: middle;
@@ -1359,12 +1374,9 @@ header {
       -moz-opacity: 0.4;
       -khtml-opacity: 0.4;
       opacity: 0.4; }
-      #models #modellist .item .add a {
-        font-size: 1.4em;
-        font-weight: bold;
-        line-height: 10px;
-        padding-left: 1px;
-        padding-right: 1px; }
+      #models #modellist .item .add .smallbutton {
+        font-size: 1.5em;
+        font-weight: bold; }
   #models #modellist .item:nth-child(odd) {
     background: #f8f8f8; }
   #models #modellist .item:hover {
@@ -1475,7 +1487,7 @@ header {
     width: 600px; }
   #model .button {
     position: absolute;
-    right: 20px;
+    right: 18px;
     top: 10px; }
   #model #images {
     position: relative; }
@@ -1532,6 +1544,8 @@ header {
     top: 0;
     vertical-align: top;
     width: 100%; }
+  #model .details tr .key {
+    font-weight: bold; }
   #model .details tr:nth-child(odd) {
     background: #f8f8f8; }
   #model .details tr:hover {
@@ -1564,31 +1578,31 @@ header {
     padding-left: 12px;
     padding-right: 12px;
     width: 492px; }
-  #model #suggested {
+  #model #accessories {
     padding-top: 6px; }
-    #model #suggested h2 a, #model #suggested h2 a:link, #model #suggested h2 a:visited, #model #suggested h3 a, #model #suggested h3 a:link, #model #suggested h3 a:visited {
+    #model #accessories h2 a, #model #accessories h2 a:link, #model #accessories h2 a:visited, #model #accessories h3 a, #model #accessories h3 a:link, #model #accessories h3 a:visited {
       color: #717171; }
-    #model #suggested h2 a:hover, #model #suggested h2 a:active, #model #suggested h3 a:hover, #model #suggested h3 a:active {
+    #model #accessories h2 a:hover, #model #accessories h2 a:active, #model #accessories h3 a:hover, #model #accessories h3 a:active {
       color: #515151; }
-    #model #suggested a, #model #suggested a:link, #model #suggested a:visited {
+    #model #accessories a, #model #accessories a:link, #model #accessories a:visited {
       color: #999999; }
-    #model #suggested a:hover, #model #suggested a:active {
+    #model #accessories a:hover, #model #accessories a:active {
       color: #515151; }
-    #model #suggested h2 {
+    #model #accessories h2 {
       padding: 0 0 14px 6px; }
-    #model #suggested .row {
-      padding-bottom: 28px;
-      padding-top: 8px; }
-      #model #suggested .row .cell {
+    #model #accessories .row {
+      padding-bottom: 34px;
+      padding-top: 10px; }
+      #model #accessories .row .cell {
         float: left;
         padding-left: 6px;
         padding-right: 12px;
         width: 165px; }
-        #model #suggested .row .cell h1, #model #suggested .row .cell h3 {
+        #model #accessories .row .cell h1, #model #accessories .row .cell h3 {
           width: 147px; }
-        #model #suggested .row .cell a {
+        #model #accessories .row .cell a {
           display: block; }
-        #model #suggested .row .cell img {
+        #model #accessories .row .cell img {
           height: 80px;
           filter: alpha(opacity=0.5);
           -moz-opacity: 0.5;
@@ -1596,20 +1610,20 @@ header {
           opacity: 0.5;
           max-width: 160px;
           margin-bottom: 10px; }
-        #model #suggested .row .cell h3 {
+        #model #accessories .row .cell h3 {
           height: 36px;
           padding: 0;
           margin: 0;
           overflow: hidden; }
-      #model #suggested .row .cell:nth-child(4n) {
+      #model #accessories .row .cell:nth-child(4n) {
         padding-left: 0;
         padding-right: 0; }
-      #model #suggested .row .cell:hover img {
+      #model #accessories .row .cell:hover img {
         filter: alpha(opacity=1);
         -moz-opacity: 1;
         -khtml-opacity: 1;
         opacity: 1; }
-      #model #suggested .row .cell:hover a {
+      #model #accessories .row .cell:hover a {
         color: #515151; }
 
 #user .userdata {
@@ -2275,7 +2289,6 @@ header {
 .ui-dialog {
   background: #FFF;
   border: 1px solid #999999;
-  display: block;
   overflow: hidden;
   position: absolute;
   width: 300px;
@@ -2288,6 +2301,8 @@ header {
   -moz-box-shadow: 0 0 8px #aaaaaa;
   -webkit-box-shadow: 0 0 8px #aaaaaa;
   box-shadow: 0 0 8px #aaaaaa; }
+  .ui-dialog p {
+    line-height: 1.5em; }
   .ui-dialog .ui-dialog-titlebar {
     background: url(../images/slices-h.png) repeat-x 0 -218px;
     height: 20px;
@@ -2307,42 +2322,39 @@ header {
     font-weight: bold;
     margin: 3px 0 0 6px; }
   .ui-dialog .ui-dialog-titlebar-close {
-    position: absolute;
-    right: .3em;
-    top: 50%;
-    width: 19px;
-    margin: -10px 0 0 0;
-    padding: 1px;
-    height: 18px; }
-  .ui-dialog .ui-dialog-titlebar-close span {
+    background: url(../images/image-sprite.png) no-repeat -114px -826px;
     display: block;
-    margin: 1px; }
-  .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
-    padding: 0; }
+    height: 15px;
+    position: absolute;
+    right: 3px;
+    top: 5px;
+    width: 15px; }
+    .ui-dialog .ui-dialog-titlebar-close span {
+      display: none; }
+  .ui-dialog .ui-dialog-titlebar-close:hover {
+    background: url(../images/image-sprite.png) no-repeat -97px -826px; }
+  .ui-dialog .ui-dialog-titlebar-close:active {
+    background: url(../images/image-sprite.png) no-repeat -81px -826px; }
   .ui-dialog .ui-dialog-content {
     border-top: 1px solid #cccccc;
     position: relative;
-    padding: .5em 1em;
+    padding: 4px 10px 2px 8px;
     overflow: auto;
     zoom: 1; }
   .ui-dialog .ui-dialog-buttonpane {
-    text-align: left;
-    border-width: 1px 0 0 0;
-    background-image: none;
-    margin: .5em 0 0 0;
-    padding: .3em 1em .5em .4em; }
-  .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
-    float: right; }
-  .ui-dialog .ui-dialog-buttonpane button {
-    margin: .5em .4em .5em 0;
-    cursor: pointer; }
-  .ui-dialog .ui-resizable-se {
-    width: 14px;
-    height: 14px;
-    right: 3px;
-    bottom: 3px; }
-  .ui-dialog .ui-draggable .ui-dialog-titlebar {
-    cursor: move; }
+    text-align: left; }
+    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+      float: right;
+      padding: 0 6px 4px 0; }
+    .ui-dialog .ui-dialog-buttonpane button {
+      cursor: pointer;
+      padding: 2px 10px;
+      -moz-border-radius: 4px;
+      /* Firefox */
+      -webkit-border-radius: 4px;
+      /* Safari, Chrome */
+      border-radius: 4px;
+      /* CSS3 */ }
 
 .ui-widget-overlay {
   background: #f4f2ed;
