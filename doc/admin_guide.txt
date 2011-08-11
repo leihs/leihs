@@ -2,7 +2,6 @@ leihs administration and installation guide
 ===========================================
 Ramon Cahenzli <ramon.cahenzli@zhdk.ch>
 
-
 == Introduction ==
 
 leihs is web-based inventory handling and resource booking system. It allows users to view available equipment and place reservations through the frontend. Inventory managers and sysadmins use the backend to handle incoming reservations and manage items in the inventory.
@@ -254,8 +253,10 @@ It is important that you use version 1.5.2 or 1.5.3 or RubyGems because newer ve
 +
 If you are installing on Snow Leopard (OS X 10.6) use the following installation options:
 +
- $ sudo env ARCHFLAGS='-arch x86_64' \
-gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+ $ sudo env ARCHFLAGS='-arch x86_64' gem install \ 
+ mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
++
+Please do not copy/paste the above, as that might copy typographic apostrophes instead of single quotes around the "-arch x86_64" option. Please type the lines above into a single line in your terminal instead.
 +
 If you are using Leopard (OS X 10.5) or below, use the following string instead:
 +
