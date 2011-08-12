@@ -10,8 +10,8 @@ production:
   log_file: log/ldap_server.log
   log_level: warn
   search_field: uid
-  bind_dn: *****
-  bind_pwd: ******
+  bind_dn: -----
+  bind_pwd: -----
 
 #test:
 test:

@@ -424,9 +424,9 @@ class Item < ActiveRecord::Base
       elsif not children.empty?
         errors.add(:base, _("A package cannot be nested to another package"))
       else
-        errors.add(:inventory_pool_id, _("doesn‘t match parent's attribute")) unless inventory_pool_id == parent.inventory_pool_id
-        errors.add(:location_id, _("doesn‘t match parent's attribute")) unless location_id == parent.location_id
-        errors.add(:responsible, _("doesn‘t match parent's attribute")) unless responsible == parent.responsible
+        errors.add(:inventory_pool_id, _("doesn't match parent's attribute")) unless inventory_pool_id == parent.inventory_pool_id
+        errors.add(:location_id, _("doesn't match parent's attribute")) unless location_id == parent.location_id
+        errors.add(:responsible, _("doesn't match parent's attribute")) unless responsible == parent.responsible
       end
     else
       errors.add(:base, _("Package error")) unless children.empty? or model.is_package

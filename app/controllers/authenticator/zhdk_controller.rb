@@ -79,7 +79,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
      uri = URI.parse(uri_str)
      http = Net::HTTP.new(uri.host, uri.port)
      http.use_ssl = true if uri.port == 443
-     response = http.get(uri.path + "?" + uri.query, nil)
+     response = http.get(uri.path + "?" + uri.query)
      case response
      when Net::HTTPSuccess     then response
      when Net::HTTPRedirection then fetch(response['location'], limit - 1)

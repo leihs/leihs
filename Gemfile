@@ -1,25 +1,26 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc4' #Rails3.1# '3.0.7' 
-gem 'builder', '~> 3.0' #Rails3.1# '~> 2.1.2' 
-gem 'i18n' # Need this explicitly, otherwise can't deploy
+gem 'rails', '3.1.0.rc5' 
+gem 'builder', '~> 3.0' 
+gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
-gem 'mysql2', '~> 0.3.5' #Rails3.1# '~> 0.2.7' 
-#gem 'memcache-client' #gem 'dalli' #gem 'redis-store'
+gem 'mysql2', '~> 0.3.6' 
+
+#gem 'squeel', '~> 0.8.4'
 
 # Asset template engines
-gem 'json', '~> 1.5.2'
+gem 'json', '~> 1.5.3'
 gem 'haml', '~> 3.1.2'
-gem 'sass', '~> 3.1.2'
+gem 'sass', '~> 3.1.5'
 #Rails3.1# gem 'coffee-script'
 #Rails3.1# gem 'uglifier'
 
 gem 'prototype-rails', '~> 0.3.1', :git => 'git://github.com/rubychan/prototype-rails.git'
 #tmp# gem 'jquery-rails', '~> 1.0'
-gem 'rails_autolink', '~> 1.0.1' #Rails3.1#
+gem 'rails_autolink', '~> 1.0.2'
 
+#tmp# gem 'will_paginate', '~> 3.0'
 gem 'will_paginate', :git => 'git://github.com/JackDanger/will_paginate.git' #Rails3.1# fix for CollectionAssociation # '~> 3.0.pre2' 
-#gem 'thinking-sphinx', :git => 'git://github.com/sylogix/thinking-sphinx.git', :branch => "rails3", :require => 'thinking_sphinx' #Rails 3.1# fix for JoinDependency
 gem 'thinking-sphinx', '~> 2.0.5', :require => 'thinking_sphinx'
 
 gem 'gettext_i18n_rails', '~> 0.2.20'
@@ -41,7 +42,7 @@ gem 'fastercsv', '~> 1.5.4'
 gem 'prawn', '~> 0.11.1'
 gem 'prawnto', '~> 0.0.4'
 
-gem 'nested_set', '~> 1.6.6'
+gem 'nested_set', '~> 1.6.7'
 gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
 group :profiling do
@@ -53,18 +54,18 @@ group :development do
 end
 
 group :cucumber, :development do
-	gem 'ruby-debug', '~> 0.10.4' #Rails3.1# , :require => false
+  gem 'ruby-debug19', :require => 'ruby-debug' # for Ruby 1.8.x: gem 'ruby-debug'
 	gem 'require_relative' # ruby-debug requires linecache requires require_relative
 end
 
 group :cucumber, :test do
-	gem 'cucumber-rails', '~> 0.5.0', :require => false
+	gem 'cucumber-rails', '~> 1.0.2', :require => false
 	gem 'database_cleaner', '~> 0.6.7', :require => false
 	gem 'rspec', '~> 2.6.0', :require => false
 	gem 'rspec-rails', '~> 2.6.1', :require => false
-	gem 'nokogiri', '~> 1.4.4'
+	gem 'nokogiri', '~> 1.5.0'
 	gem 'capybara', '~> 1.0.0'
-  gem 'launchy', '~> 0.4.0'
+  gem 'launchy', '~> 2.0.4'
 end
 
 #group :culerity do

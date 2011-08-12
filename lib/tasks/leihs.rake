@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 namespace :leihs do
 
   desc "Build the Leihs RDOC HTML Files"
