@@ -60,7 +60,8 @@ class OrdersController < FrontendController
   end
 
   def remove_lines
-    lines = @order.lines.find(params[:lines].split(','))
+    # using where() instead of find() to ignore line_ids of already deleted lines 
+    lines = @order.lines.where(:id => params[:lines].split(','))
     lines.each {|l| @order.remove_line(l, current_user.id) }
     render :nothing => true
   end  
