@@ -55,37 +55,36 @@
           %td.manufacturer
             = link_to m.manufacturer, m
           %td.overlay
-            .imageanchor                         
-              = link_to "", m, :class=>"anchor"
-              .hover
-                .header 
-                  .borderleft
-                  .headerinner
-                  .borderright
-                .inner
-                  - unless m.images.empty?
-                    = link_to image_tag("http://leihs.zhdk.ch/#{m.image}") + content_tag(:span, _("view"), :class=>"topright"), m
-                  - unless m.description.blank?
-                    %p.description
-                      = truncate(m.description, 120)
-                  - unless m.properties.empty?
-                    %table.details
-                      - m.properties.each_with_index do |p, i|
-                        - if i < 5
-                          %tr
-                            %td.key
-                              = p.key
-                            %td.value
-                              = p.value
-                  .borderleft
-                    .arrow
-                  .borderright
-                    .arrow
-                
-                .footer
-                  .borderleft
-                  .footerinner
-                  .borderright
+            .hover
+              .header 
+                .borderleft
+                .headerinner
+                .borderright
+              .inner
+                - unless m.images.empty?
+                  = image_tag("http://leihs.zhdk.ch/#{m.image}")
+                - unless m.description.blank?
+                  %p.description
+                    = truncate(m.description, :length => 120)
+                - unless m.properties.empty?
+                  %table.details
+                    - m.properties.each_with_index do |p, i|
+                      - if i < 5
+                        %tr
+                          %td.key
+                            = p.key
+                          %td.value
+                            = p.value
+                .borderleft
+                  .arrow
+                .borderright
+                  .arrow
+              
+              .footer
+                .borderleft
+                .footerinner
+                .borderright
+            = link_to "", m, :class=>"imageanchor"
             = link_to "", m, :class=>"itemanchor"
           %td.availability
             = render :partial => 'availability', :locals => {:model => m}
@@ -112,7 +111,7 @@
       this.hovering = false;
       this.hoveringMode = false;
       this.showDelayTimer;
-      this.showDelay = 800;
+      this.showDelay = 400;
       this.hoveringModeTimer;
       this.hoveringModeTimeout = 400;
             
@@ -126,8 +125,8 @@
           
           if(ModelsListItems.hoveringMode) {
             // in hovering mode popup hover immediately
-            $(this).find(".hover").hide(0, function(){
-                if($(this).parent().data("over")) {
+            $(this).parent().find(".hover").hide(0, function(){
+                if(_this.data("over")) {
                     $(this).stop().show(0, function() {
                         ModelsListItems.checkPosition($(this));
                     });
@@ -138,9 +137,9 @@
           } else {
             // normaly having a timer delaying showing the hover
             ModelsListItems.showDelayTimer = setTimeout(function(){
-              _this.find(".hover").hide(0, function(){
+              _this.parent().find(".hover").hide(0, function(){
                 ModelsListItems.hoveringMode = true;
-                if($(this).parent().data("over")) {
+                if(_this.data("over")) {
                   $(this).stop().show(0, function() {
                       ModelsListItems.checkPosition($(this));
                   });
@@ -157,13 +156,13 @@
             $(this).data("over", false);
             ModelsListItems.hovering = false;
             clearTimeout(ModelsListItems.showDelayTimer);
-            $(this).find(".hover").stop().hide(0, function() {
+            $(this).parent().find(".hover").stop().hide(0, function() {
                 $(this).position({top: 0});
                 $(this).removeAttr("style");
                 $(this).find(".inner .borderleft .arrow").removeAttr("style");
                 $(this).find(".inner .borderright .arrow").removeAttr("style");
             });
-            $(this).find(".hover").delay(ModelsListItems.hoveringModeTimeout).hide(0, function() {
+            $(this).parent().find(".hover").delay(ModelsListItems.hoveringModeTimeout).hide(0, function() {
                 if(!ModelsListItems.hovering) {
                     ModelsListItems.hoveringMode = false;
                 }

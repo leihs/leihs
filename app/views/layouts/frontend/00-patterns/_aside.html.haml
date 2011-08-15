@@ -12,42 +12,7 @@
     .borderleft
   
   .inner
-    #compactOrder
-      %h3
-        = _("Order")
-      = link_to _("edit"), "/user/order", :class => "edit"
-      .clear
-      :ruby
-        order_lines = current_user.get_current_order.order_lines.sort {|a,b| [a.inventory_pool_id, a.created_at] <=> [b.inventory_pool_id, b.created_at]}
-        h = {}
-        order_lines.each do |order_line|
-          h[order_line.inventory_pool] ||= []
-          h[order_line.inventory_pool] << order_line
-        end
-          
-      - h.each_pair do |inventory_pool, lines|
-        %section.pool
-          = link_to inventory_pool, inventory_pool, :class => "pool", :title => _("View %s") % inventory_pool
-          %ul
-            - lines.each do |line|
-              %li.item
-                %span.name
-                  %a{:href => "#", :title => _("%s (View in Order)") % line.model.name}
-                    = truncate(line.model.name, 22)
-                    - if line.quantity > 1
-                      %span.amount
-                        = "(#{line.quantity})"
-                %span.delete
-                  = link_to "x", remove_lines_user_order_path(:lines => line.id), :title => _("Delete this Line"), :method => :delete, :remote => true
-                %span.clear
-              
-      = form_tag submit_user_order_path do
-        .orderPurpose
-          %hr
-          %h3
-            = _("Purpose")
-          = text_area_tag "purpose", _("Please specify your order purpose here...")
-        = button_tag _("Submit"), :class => "button green"
+    = render :partial => "orders/compact_order"
           
     #compactTemplates
       %h3 
@@ -69,7 +34,6 @@
   
   $(document).ready(function () {
     AsideNavigation.setup();
-    CompactOrder.setup();
   });
 
   // ASIDE NAVIGATION
@@ -93,115 +57,5 @@
     this.switchActive = function(_newActive) {
       $("#aside .navigation .active").removeClass("active");
       $(_newActive).addClass("active");
-    }
-  }
-  
-  // COMPACT ORDER
-  var CompactOrder = new CompactOrder();
-  function CompactOrder () {
-  
-    this.purposeMin = 6;
-    this.submitButtonOverlay = $("#compactOrder").append($(document.createElement("div")).attr("id", "submitButtonOverlay"));
-    this.submitButtonEnabled = true;
-    
-    this.setup = function () {
-      CompactOrder.setupTextArea();
-      CompactOrder.disableSubmitButton();
-      CompactOrder.setupDeleteButtons();
-    }
-    
-    this.setupDeleteButtons = function() {
-      $("#compactOrder .item .delete a[data-method='delete']").bind("ajax:before", function(){
-        alert("BEFORE");
-      }).bind("ajax:success", function(){
-        $(this).closest(".item").fadeOut(400, function(){$(this).remove()});
-      }).bind("ajax:error", function(){
-        Dialog.add({
-            trigger: $(this),
-            content: '<p>#{_("AJAX ERORR")}</p>'
-          },{
-            title: '#{_("AJAX ERROR")}',
-            buttons: { "Ok": function() {$(this).dialog("close");} }
-        });
-      }); 
-    }
-    
-    this.disableSubmitButton = function() {
-      $("#compactOrder .button").attr("disabled", true);
-    }
-    
-    this.enableSubmitButton = function() {
-      $("#compactOrder .button").removeAttr("disabled");
-    }
-    
-    this.setupTextArea = function() {
-      
-      CompactOrder.bindTextAreaForStartTextReplacement();
-      CompactOrder.bindTextAreaForCountPurposeChars();
-      CompactOrder.bindTextAreaForEnableTheSubmitButton();
-      
-      $("#compactOrder .orderPurpose textarea").autoResize({animateDuration : 200, extraSpace : 20, limit: 250});
-    }
-    
-    this.bindTextAreaForStartTextReplacement = function() {
-      
-      $('#compactOrder .orderPurpose textarea').bind('focus', function(){
-        // save startText in data if it is not set yet
-        if(!$(this).data("startText") && !$(this).text()) {
-          $(this).data("startText", $(this).text());
-        } else if (!$(this).data("startText") && $(this).text()) {
-          $(this).data("startText", $(this).val());
-        }
-        
-        if($(this).val() == $(this).data("startText")) {
-          $(this).val("");
-        } else {
-          $(this).text("");
-        }
-        
-        // save startHeight in data if it is not set yet
-        if(!$(this).data("startHeight")) {
-          $(this).data("startHeight", $(this).height());
-        }
-      });
-      
-      $('#compactOrder .orderPurpose textarea').bind('blur', function(){
-        // set start text if value is empty after blur
-        if(!$(this).val()) {
-          $(this).val($(this).data("startText"));
-          $(this).animate({
-            height: $(this).data("startHeight")
-          });
-        }
-      });  
-    }
-    
-    this.bindTextAreaForCountPurposeChars = function() {
-      
-      $('#compactOrder .orderPurpose textarea').bind('blur', function(){
-        if($(this).val().length <= CompactOrder.purposeMin) {
-          Dialog.add({
-              trigger: $(this),
-              content: '<p>#{_("Please elaborate on your order purpose. It is currently to short.")}</p>',
-              callback: function() {$("#compactOrder .orderPurpose textarea").focus()}
-            },{
-              title: '#{_("Order Purpose Input")}',
-              buttons: { "Ok": function() {$(this).dialog("close");} }
-          });
-        }
-      });
-    }
-    
-    this.bindTextAreaForEnableTheSubmitButton = function () {
-    
-      $('#compactOrder .orderPurpose textarea').bind('keyup', function(){
-        if($(this).data("startText")) {
-          if($(this).val().length > CompactOrder.purposeMin && $(this).val() != $(this).data("startText")) {
-            CompactOrder.enableSubmitButton();
-          } else {
-            CompactOrder.disableSubmitButton();
-          }
-        }
-      });
     }
   }

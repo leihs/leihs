@@ -1,0 +1,185 @@
+:ruby
+  ## TODO Franco: 
+  #<div class="inner">
+  #Sphinx 0.9.9-release (r2117) Copyright (c) 2001-2009, Andrew Aksyonoff using config file '/Users/Sebastian/Work/Aufträge/ZHdK/Leihs Redesign - ZHdK 2011/GITHUB - Leihs 3/leihs/config/development.sphinx.conf'... indexing index 'order_delta'... WARNING: index 'order_delta': invalid morphology option 'libstemmer_de, stem_en' - IGNORED collected 38 docs, 0.0 MB sorted 0.0 Mhits, 99.8% done total 38 docs, 3150 bytes total 0.034 sec, 91668 bytes/sec, 1105.84 docs/sec total 2 reads, 0.000 sec, 31.5 kb/call avg, 0.0 msec/call avg total 7 writes, 0.000 sec, 23.4 kb/call avg, 0.0 msec/call avg rotating indices: succesfully sent SIGHUP to searchd (pid=87688). 
+  #<div id="compactOrder">
+  
+  order = current_user.get_current_order
+  order_lines = order.order_lines.sort {|a,b| [a.inventory_pool_id, a.created_at] <=> [b.inventory_pool_id, b.created_at]}
+  h = {}
+  order_lines.each do |order_line|
+    h[order_line.inventory_pool] ||= []
+    h[order_line.inventory_pool] << order_line
+  end
+
+#compactOrder{:"data-is_valid" => (order_lines.size > 0 and order.approvable?)}
+  %h3
+    = _("Order")
+  = link_to _("edit"), "/user/order", :class => "edit"
+  .clear
+  
+  - h.each_pair do |inventory_pool, lines|
+    %section.pool
+      = link_to inventory_pool, inventory_pool, :class => "pool", :title => _("View %s") % inventory_pool
+      %ul
+        = render :partial => "orders/compact_order_line", :collection => order_lines
+  
+  - if order_lines.size == 0
+    %p
+      = _("Currently you have no items in your order.")
+          
+  = form_tag submit_user_order_path do
+    .purpose
+      %hr
+      %h3
+        = _("Purpose")
+      = text_area_tag "purpose", _("Please specify your order purpose here...")
+    = button_tag _("Submit"), :class => "button green"
+
+:javascript
+  
+  $(document).ready(function () {
+    CompactOrder.setup();
+  });
+  
+  var CompactOrder = new CompactOrder();
+  
+  function CompactOrder () {
+
+    this.purposeMin = 6;
+    this.submitButtonOverlay = $("#compactOrder").append($(document.createElement("div")).attr("id", "submitButtonOverlay"));
+    this.submitButtonEnabled = true;
+    this.purpose;
+    
+    this.setup = function () {
+      CompactOrder.setupOrderLines();
+      CompactOrder.setupPurpose();
+      CompactOrder.validate();
+    }
+    
+    this.setupOrderLines = function() {
+      CompactOrder.setupDeleteButtons();
+    }
+    
+    this.setupDeleteButtons = function() {
+      
+      $("#compactOrder .item .delete a").live("ajax:before", function(){
+        $(this).hide();
+        $(this).data("deleting", true);
+        $(this).parent().append('#{image_tag $layout_public_path + "/images/loading.gif", :class => "loading"}');
+        $(this).parents(".item").find(".name").css("text-decoration", "line-through");
+        
+      }).live("ajax:success", function(){
+        var _this = $(this).closest(".item");
+        var to_remove = (_this.siblings("li").length) ? _this : _this.closest(".pool");
+        
+        to_remove.fadeOut(400, function(){
+          $(this).remove();
+        });
+        
+        CompactOrder.validate();
+        
+      }).live("ajax:error", function(){
+        $(this).parents(".item").find(".name").css("text-decoration", "none");
+        $(this).data("deleting", false);
+        $(this).parent().find("img").remove();
+        $(this).show();
+        
+        Dialog.add({
+            trigger: $(this),
+            content: '<p>#{_("Something went wrong!")}</p><p>#{_("You shold redo your action or reload the page!")}</p>',
+            title: '#{_("ERROR")}',
+            buttons: { "Ok": function() {$(this).dialog("close");} }
+        });
+        
+      }).live("mouseenter", function(){
+        if(!$(this).data("deleting")) {
+          $(this).parents(".item").find(".name").css("text-decoration", "line-through");
+        }
+        
+      }).live("mouseleave", function(){
+        if(!$(this).data("deleting")) {
+          $(this).parents(".item").find(".name").css("text-decoration", "none");
+        }
+      });
+    }
+    
+    this.disableSubmitButton = function() {
+      $("#compactOrder .button").attr("disabled", true);
+      $("#compactOrder .button").fadeTo(0,0.5);
+    }
+    
+    this.enableSubmitButton = function() {
+      $("#compactOrder .button").removeAttr("disabled");
+      $("#compactOrder .button").fadeTo(400,1);
+    }
+    
+    this.validate = function() {
+      _validation = true;
+      
+      $("#compactOrder").data("is_valid") ? "" : _validation = false;
+      
+      CompactOrder.validatePurpose() ? "" : _validation = false;
+      
+      _validation ? CompactOrder.enableSubmitButton() : CompactOrder.disableSubmitButton();
+    }
+    
+    this.setupPurpose = function() {
+      CompactOrder.purpose = $("#compactOrder #purpose");
+      CompactOrder.purpose.data("start_text", CompactOrder.purpose.text());
+      CompactOrder.purpose.data("start_height", CompactOrder.purpose.height());
+      CompactOrder.purpose.autoResize({animateDuration : 200, extraSpace : 20, limit: 250});
+      
+      CompactOrder.bindTextAreaForStartTextClarAndFallBack();
+      CompactOrder.bindTextAreaForRunOrderValidation();
+    }
+    
+    this.validatePurpose = function() {
+      _validation = CompactOrder.validatePurposeLength();
+      
+      return _validation;
+    }
+    
+    this.validatePurposeLength = function() {
+      _validation = ( CompactOrder.purpose.val().length > CompactOrder.purposeMin && CompactOrder.purpose.val() != CompactOrder.purpose.data("start_text") ) ? true : false;
+      
+      return _validation;
+    }
+    
+    this.bindTextAreaForStartTextClarAndFallBack = function() {
+      
+      CompactOrder.purpose.bind('focus', function(){
+        if($(this).val() == $(this).data("start_text")) {
+          $(this).val("");
+        }
+      });  
+      
+      CompactOrder.purpose.bind('blur', function(){
+        // save start text and height in data
+        if(!$(this).val()) {
+          $(this).val($(this).data("start_text"));
+          $(this).animate({
+            height: $(this).data("start_height")
+          });
+        }
+        
+        // validate purpose length
+        if(!CompactOrder.validatePurposeLength() && CompactOrder.purpose.val().length > 0) {
+          Dialog.add({
+              trigger: $(this),
+              content: '<p>#{_("Please elaborate on your order purpose. It is currently to short.")}</p>',
+              callback: function() {$("#compactOrder .orderPurpose textarea").focus()},
+              title: '#{_("Order Purpose Input")}',
+              buttons: { "Ok": function() {$(this).dialog("close");} }
+          });
+        }
+      });  
+    }
+    
+    this.bindTextAreaForRunOrderValidation = function () {
+      
+      CompactOrder.purpose.bind('keyup', function(){
+          CompactOrder.validate();
+      });
+    }
+  }

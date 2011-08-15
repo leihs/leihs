@@ -14,14 +14,14 @@
     left: -4px;
     position: relative;
     top: -18px;
-    width: 167px;
+    width: 174px;
     z-index: 99;
   
     #categories, #templates {
       border-right: 1px solid #e3e3e3;
       margin-bottom: -46px;
       padding-top: 16px;
-      padding-right: 6px;
+      padding-right: 8px;
       @include greylinks;
   
       li {
@@ -88,20 +88,28 @@
         }
       }
       
-      .anchor, .itemanchor {
-        display: block;
-        height: 100%;
-        width: 100%;
-      }
-      
-      .imageanchor {
+      .overlay {
         background: transparent;
         border: none;
         display: inline-block;
         height: 72px;
         left: 0;
         position: absolute;
-        width: 65px;
+        width: 82%;
+        
+        .imageanchor {
+          display: block;
+          float: left;
+          height: 100%;
+          width: 70px;
+        }
+        
+        .itemanchor {
+          display: block;
+          float: left;
+          height: 100%;
+          width: 398px;
+        }
         
         .hover {
           display: none;
@@ -309,12 +317,12 @@
         color: $lightgrey;
         font-size: 1.1em;
         text-align: right;
-        padding-right: 6px;
+        padding-right: 7px;
         vertical-align: middle;
       }
       
       .add {
-        padding-right: 12px;
+        padding-right: 10px;
         padding-top: 1px;
         text-align: right;
         vertical-align: middle;

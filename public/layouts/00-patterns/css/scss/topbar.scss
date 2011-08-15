@@ -255,14 +255,14 @@
       }
     }
     
-    .item.last {
+    .item:nth-last-child(1) {
       .anchor {
         margin-right: -2px;
         z-index: 999;
       }
     }
     
-    .item.last:hover {
+    .item:nth-last-child(1):hover {
       .anchor {
         background: url(../images/image-sprite.png) no-repeat right -268px;
       }

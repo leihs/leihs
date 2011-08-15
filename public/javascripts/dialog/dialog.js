@@ -19,14 +19,14 @@ var Dialog = new Dialog();
 
 function Dialog() {
     
-    this.add = function(_ownParams, _nativeParams) {
-        var _dialog = $(document.createElement("div")).addClass("dialog").html(_ownParams.content);
+    this.add = function(_params) {
+        var _dialog = $(document.createElement("div")).addClass("dialog").html(_params.content);
         $("body").append(_dialog);
-        $(_dialog).data("startLeft", ($(_ownParams.trigger).offset().left + $(_ownParams.trigger).width()/2));
-        $(_dialog).data("startTop", ($(_ownParams.trigger).offset().top + $(_ownParams.trigger).height()/2));
-        $(_dialog).data("callback", _ownParams.callback);
+        $(_dialog).data("startLeft", ($(_params.trigger).offset().left + $(_params.trigger).width()/2));
+        $(_dialog).data("startTop", ($(_params.trigger).offset().top + $(_params.trigger).height()/2));
+        $(_dialog).data("callback", _params.callback);
         Dialog.setup(_dialog);
-        _dialog.dialog(_nativeParams);
+        _dialog.dialog(_params);
     }
     
     this.setup = function(_dialog) {

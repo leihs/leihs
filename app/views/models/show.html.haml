@@ -16,13 +16,15 @@
           %td
             = image_tag "http://leihs.zhdk.ch#{@model.images.first.public_filename}", :alt => @model.name
       %table#hiddenimages
-        - if @model.images.size > 1
-          - @model.images.each_with_index do |i, index|
-            - unless index.zero?
-              = image_tag "http://leihs.zhdk.ch#{i.public_filename}", :class => "hidden", :alt => @model.name
+        %tr
+          - if @model.images.size > 1
+            - @model.images.each_with_index do |i, index|
+              - unless index.zero?
+                %td
+                  = image_tag "http://leihs.zhdk.ch#{i.public_filename}", :class => "hidden", :alt => @model.name
               
       - if @model.images.size > 1
-        .smallimages
+        #smallimages
           - @model.images.each_with_index do |i, index|
             - unless index.zero?
               = link_to image_tag("http://leihs.zhdk.ch#{i.public_filename(:thumb)}"), "http://leihs.zhdk.ch#{i.public_filename()}", :target => "_blank"
@@ -57,7 +59,7 @@
             .cell
               = link_to image_tag("http://leihs.zhdk.ch#{ c.image_thumb }"), c, :title=>c.name
               %h3
-                = link_to truncate(c.name, 32), c, :title=>c.name
+                = link_to truncate(c.name, :length => 32), c, :title=>c.name
           
           .clear
           

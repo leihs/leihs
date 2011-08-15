@@ -1,0 +1,10 @@
+u = User.find 4021 # SET YOUR USER ID HERE
+order = u.get_current_order
+
+m = u.models.find 2189 # SET THE MODEL ID HERE
+ip = (u.inventory_pools & m.inventory_pools).first
+start_date = Date.new(2011, 8, 15)
+end_date = Date.new(2011, 9, 10)
+quantity = 100 # SET QUANTITY HERE
+
+m.add_to_document(order, u.id, quantity, start_date, end_date, ip)

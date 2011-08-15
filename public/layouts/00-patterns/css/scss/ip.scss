@@ -1,0 +1,49 @@
+#ip {
+  
+  #map {
+    float: left;
+    height: 300px;
+    width: 500px;
+  }
+  
+  .aside {
+    float: left;
+    margin-left: 16px;
+    
+    table {
+      font-size: 1.2em;
+      line-height: 1.4em;
+      width: 200px;
+      
+      tr {
+        
+        td {
+          padding-top: 2px;
+          padding-bottom: 12px;
+        }
+      }
+    }
+    
+    section {
+      margin-bottom: 14px;
+    }
+    
+    section.openingHours {
+    
+      .today td {
+        font-weight: bold;
+      }
+    }
+  }
+  
+  .description {
+    font-size: 1.1em;
+    line-height: 1.4em;
+    margin-top: 18px;
+    
+    p {
+      margin-bottom: 12px;
+    }
+  }
+  
+}

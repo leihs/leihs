@@ -1,21 +1,92 @@
+= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false"
+
 = render :partial => '/layouts/frontend/00-patterns/tabs'
 = render :partial => '/layouts/frontend/00-patterns/content_box_head'
 
-#inventoryPool.inner
+#ip.inner
   %h1= @inventory_pool
   %h3= @inventory_pool.address
   
-  .map
-    = "KARTE"
+  %hr
   
-  .details
-    = "DETAILS"
+  #map
+  
+  .aside
+    
+    %section.openingHours
+    
+      %h3
+        = _("Opening Hours")
+        
+      %table
+        %tr.today
+          %td.days
+            = _("Today")
+          %td.time
+            = "08.30 - 09.30 Uhr"
+            %br
+            = "12.30 - 16.30 Uhr"
+        %tr
+          %td.days
+            = "Mo - Do"
+          %td.time
+            = "08.30 - 09.30 Uhr"
+            %br
+            = "12.30 - 16.30 Uhr"
+        %tr
+          %td.days
+            = "Fr"
+          %td.time
+            = "08.30 - 12.00 Uhr"
+            
+    %section.contact
+    
+      %h3
+        = _("Contact")
+      %p
+        = @inventory_pool.email
+            
+  .clear
   
   .description
-    = "DESCRIPTION"
+    = simple_format(@inventory_pool.description)
   
   .borderright
   .borderleft
   
 = render :partial => '/layouts/frontend/00-patterns/content_box_foot'
 = render :partial => '/layouts/frontend/00-patterns/aside'
+
+:javascript
+  
+  $(document).ready(function () {
+    Map.setup();
+    Map.addMarker(new google.maps.LatLng(47.383576,8.534853), "#{@inventory_pool}");
+  });
+  
+  // MAP
+  var Map = new Map();
+  function Map () {
+    
+    this.map;
+    this.position;
+    
+    this.setup = function () {
+      Map.position = new google.maps.LatLng(47.383576,8.534853);
+      
+      Map.map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 14  ,
+        center: Map.position,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      });
+    }
+    
+    this.addMarker = function (_position, _title) {
+      var marker = new google.maps.Marker({
+        position: _position,
+        title: _title
+      });
+      
+      marker.setMap(Map.map);  
+    }
+  }

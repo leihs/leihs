@@ -42,17 +42,21 @@
     }
     
     table {
-      tr td {
-        height: 520px;
-        position: relative;
-        text-align: center;
-        vertical-align: middle;
-        width: 721px;
+      width: 721px;
+      
+      tr {
         
-        img {
-          max-height: 520px;
-          width: auto;
-          max-width: 580px;
+        td {
+          height: 520px;
+          position: relative;
+          text-align: center;
+          vertical-align: middle;
+          
+          img {
+            max-height: 520px;
+            width: auto;
+            max-width: 580px;
+          }
         }
       }
     }
