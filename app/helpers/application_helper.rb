@@ -88,40 +88,6 @@ module ApplicationHelper
     return html
   end
   
-  def compact_inventory_pool_info(inventory_pools)
-    html = "".html_safe
-    inventory_pools.each do |inventory_pool|
-      html += content_tag :section do
-        a = content_tag :h3 do
-          inventory_pool.name
-        end 
-        
-        a += link_to _("view"), inventory_pool, :class => 'topright', :title => _("view")
-        
-        a += content_tag :p do
-          inventory_pool.opening_hours.gsub('\n','<br>')
-        end unless inventory_pool.opening_hours.blank?
-        
-        a += content_tag :p do
-          inventory_pool.address.gsub('\n','<br>')
-        end unless inventory_pool.address.blank?
-        
-        a
-      end
-      html += content_tag :hr do
-      end unless inventory_pool == inventory_pools.last
-    end
-    return html
-  end
-  
-  def truncate (str, length, suffix = "...")
-    if str.is_a?(String) && str.size > length
-      str = str[0..length]
-      str += suffix
-    end
-    return str
-  end
-  
   ######## Flash #########
 
   # OPTIMIZE
