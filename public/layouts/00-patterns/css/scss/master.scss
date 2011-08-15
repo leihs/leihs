@@ -159,6 +159,61 @@ header {
   box-shadow: $value;
 }
 
+@mixin modelsGrid () {
+  h2 {
+    padding: 0 0 14px 6px;
+  }
+
+  .row {
+    padding-bottom: 34px;
+    padding-top: 10px;
+  
+    .cell {
+      float: left;
+      padding-left: 6px;
+      padding-right: 12px;
+      width: 165px;
+    
+      h1, h3 {
+        width: 147px;
+      }
+      
+      a {
+        display: block;
+      }
+    
+      img {
+        height: 80px;
+        @include opacity(0.5);
+        max-width: 160px;
+        margin-bottom: 10px;
+      }
+      
+      h3 {
+        height: 36px;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+      }
+    }
+  
+    .cell:nth-child(4n) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  
+    .cell:hover {
+      img {
+        @include opacity(1);
+      }
+    
+      a {
+        color: $darkgrey;
+      }
+    }
+  }
+}
+
 @import "buttons.scss";
 @import "linelist.scss";
 @import "topbar.scss";
