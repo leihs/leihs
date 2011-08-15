@@ -45,6 +45,8 @@ gem 'prawnto', '~> 0.0.4'
 gem 'nested_set', '~> 1.6.7'
 gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
+gem 'geocoder', '~> 1.0.2'
+
 group :profiling do
 	gem 'newrelic_rpm', '~> 3.1'
 end

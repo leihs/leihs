@@ -27,12 +27,13 @@ class InventoryPool < ActiveRecord::Base
     attr_accessor :current_model, :current_user
   end
 
-  has_many :access_rights, :dependent => :delete_all, :include => :role, :conditions => 'deleted_at IS NULL'
+  belongs_to :address
   has_one :workday, :dependent => :delete
   has_many :holidays, :dependent => :delete_all
+
+  has_many :access_rights, :dependent => :delete_all, :include => :role, :conditions => 'deleted_at IS NULL'
   has_many :users, :through => :access_rights, :uniq => true
   has_many :suspended_users, :through => :access_rights, :uniq => true, :source => :user, :conditions => "access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()"
-
 
 ########
 #  has_many :managers, :through => :access_rights, :source => :user, :include => {:access_rights => :role}, :conditions => {:access_rights => {:roles => {:name => "manager"}}} #["access_rights.role_id = 4"]

@@ -45,105 +45,16 @@ ActiveRecord::Schema.define(:version => 90000000000014) do
   add_index "accessories_inventory_pools", ["accessory_id", "inventory_pool_id"], :name => "index_accessories_inventory_pools", :unique => true
   add_index "accessories_inventory_pools", ["inventory_pool_id"], :name => "index_accessories_inventory_pools_on_inventory_pool_id"
 
-  create_table "accounting_events", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "event_type"
-    t.datetime "event_occurred_at"
-    t.integer  "accounting_user_id"
-    t.integer  "accounting_model_id"
-    t.integer  "accounting_item_id"
-    t.integer  "accounting_inventory_pool_id"
+  create_table "addresses", :force => true do |t|
+    t.string "street"
+    t.string "zip_code"
+    t.string "city"
+    t.string "country_code"
+    t.float  "latitude"
+    t.float  "longitude"
   end
 
-  create_table "accounting_groups", :force => true do |t|
-    t.string   "name"
-    t.integer  "accounting_inventory_pool_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "accounting_inventory_pools", :force => true do |t|
-    t.integer  "original_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name"
-    t.text     "description"
-    t.string   "contact_details"
-    t.string   "contract_description"
-    t.string   "contract_url"
-    t.string   "logo_url"
-    t.text     "default_contract_note"
-    t.string   "shortname"
-    t.string   "email"
-  end
-
-  create_table "accounting_items", :force => true do |t|
-    t.integer  "original_id"
-    t.string   "inventory_code"
-    t.string   "serial_number"
-    t.integer  "accounting_model_id"
-    t.string   "location"
-    t.string   "supplier"
-    t.integer  "owner_id"
-    t.integer  "parent_id"
-    t.string   "invoice_number"
-    t.date     "invoice_date"
-    t.date     "last_check"
-    t.date     "retired"
-    t.string   "retired_reason"
-    t.decimal  "price",                        :precision => 8, :scale => 2
-    t.boolean  "is_broken",                                                  :default => false
-    t.boolean  "is_incomplete",                                              :default => false
-    t.boolean  "is_borrowable",                                              :default => false
-    t.boolean  "needs_permission",                                           :default => false
-    t.integer  "accounting_inventory_pool_id"
-    t.boolean  "is_inventory_relevant",                                      :default => false
-    t.string   "responsible"
-    t.string   "insurance_number"
-    t.text     "note"
-    t.text     "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "user_name"
-  end
-
-  create_table "accounting_models", :force => true do |t|
-    t.integer  "original_id"
-    t.string   "name",                                                                  :null => false
-    t.string   "manufacturer"
-    t.string   "description"
-    t.string   "internal_description"
-    t.string   "info_url"
-    t.decimal  "rental_price",         :precision => 8, :scale => 2
-    t.boolean  "is_package",                                         :default => false
-    t.string   "technical_detail"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "accounting_users", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "login"
-    t.string   "firstname"
-    t.string   "lastname"
-    t.string   "phone"
-    t.string   "unique_id"
-    t.string   "email"
-    t.string   "badge_id"
-    t.string   "address"
-    t.string   "city"
-    t.string   "zip"
-    t.string   "country"
-    t.integer  "language_id",   :default => 1
-    t.text     "extended_info"
-  end
-
-  create_table "accounting_users_accounting_groups", :id => false, :force => true do |t|
-    t.integer "accounting_user_id"
-    t.integer "accounting_group_id"
-  end
+  add_index "addresses", ["street", "zip_code", "city", "country_code"], :name => "index_addresses_on_street_and_zip_code_and_city_and_country_code", :unique => true
 
   create_table "attachments", :force => true do |t|
     t.integer "model_id"
@@ -352,7 +263,7 @@ ActiveRecord::Schema.define(:version => 90000000000014) do
     t.boolean "delta",                 :default => true
     t.boolean "print_contracts",       :default => true
     t.text    "opening_hours"
-    t.text    "address"
+    t.integer "address_id"
   end
 
   add_index "inventory_pools", ["delta"], :name => "index_inventory_pools_on_delta"
