@@ -569,10 +569,10 @@ header {
     #topbar .navigation .item.active .anchor {
       background: url(../images/slices-h.png) repeat-x 0 -46px;
       color: #515151; }
-    #topbar .navigation .item.last .anchor {
+    #topbar .navigation .item:nth-last-child(1) .anchor {
       margin-right: -2px;
       z-index: 999; }
-    #topbar .navigation .item.last:hover .anchor {
+    #topbar .navigation .item:nth-last-child(1):hover .anchor {
       background: url(../images/image-sprite.png) no-repeat right -268px; }
     #topbar .navigation .item.language .anchor {
       padding-right: 33px; }
@@ -876,6 +876,10 @@ header {
   float: right;
   margin-right: 14px;
   width: 198px; }
+  #aside p {
+    color: #999999;
+    line-height: 1.4em;
+    padding: 0 8px 4px 8px; }
   #aside .header {
     display: block;
     height: 12px;
@@ -962,7 +966,7 @@ header {
       -khtml-opacity: 0;
       opacity: 0; }
     #aside .inner ul {
-      margin-bottom: 8px; }
+      padding-bottom: 8px; }
       #aside .inner ul h2 a, #aside .inner ul h2 a:link, #aside .inner ul h2 a:visited, #aside .inner ul h3 a, #aside .inner ul h3 a:link, #aside .inner ul h3 a:visited {
         color: #717171; }
       #aside .inner ul h2 a:hover, #aside .inner ul h2 a:active, #aside .inner ul h3 a:hover, #aside .inner ul h3 a:active {
@@ -990,8 +994,8 @@ header {
         background: #f8f8f8; }
       #aside .inner ul li.item:hover {
         background: #ebebeb; }
-        #aside .inner ul li.item:hover a {
-          color: #515151; }
+        #aside .inner ul li.item:hover span a {
+          color: #515151 !important; }
     #aside .inner #compactOrder section.pool h2 a, #aside .inner #compactOrder section.pool h2 a:link, #aside .inner #compactOrder section.pool h2 a:visited, #aside .inner #compactOrder section.pool h3 a, #aside .inner #compactOrder section.pool h3 a:link, #aside .inner #compactOrder section.pool h3 a:visited {
       color: #717171; }
     #aside .inner #compactOrder section.pool h2 a:hover, #aside .inner #compactOrder section.pool h2 a:active, #aside .inner #compactOrder section.pool h3 a:hover, #aside .inner #compactOrder section.pool h3 a:active {
@@ -1026,12 +1030,19 @@ header {
           padding-right: 6px; }
         #aside .inner #compactOrder section.pool li.item span.delete a:hover {
           color: #dd2222; }
+        #aside .inner #compactOrder section.pool li.item span.delete img.loading {
+          height: 14px;
+          margin-left: -2px;
+          position: absolute;
+          top: 4px;
+          width: 14px;
+          z-index: 1001; }
     #aside .inner #compactOrder section.pool li.item:hover span.delete a {
       color: #dd2222; }
-    #aside .inner #compactOrder .orderPurpose hr {
+    #aside .inner #compactOrder form .purpose hr {
       margin-top: 8px;
       margin-bottom: -2px; }
-    #aside .inner #compactOrder .orderPurpose textarea {
+    #aside .inner #compactOrder form .purpose textarea {
       background: transparent;
       border: 1px solid #cccccc;
       color: #999999;
@@ -1052,16 +1063,14 @@ header {
       /* Safari, Chrome */
       border-radius: 4px;
       /* CSS3 */ }
-    #aside .inner #compactOrder .orderPurpose textarea:focus {
+    #aside .inner #compactOrder form .purpose textarea:focus {
       color: #515151;
       -moz-box-shadow: 0 0 8px #cccccc;
       -webkit-box-shadow: 0 0 8px #cccccc;
       box-shadow: 0 0 8px #cccccc; }
-    #aside .inner #compactOrder .button {
+    #aside .inner #compactOrder form .button {
       left: 7px;
-      margin-bottom: -3px;
-      width: 180px;
-      z-index: 1001; }
+      width: 180px; }
     #aside .inner #compactTemplates {
       display: none; }
       #aside .inner #compactTemplates span.name {
@@ -1089,27 +1098,28 @@ header {
       width: 1px; }
   #aside .footer {
     display: block;
-    height: 14px;
+    height: 10px;
     position: relative;
     z-index: 1; }
     #aside .footer .footerinner {
-      background: url(../images/slices-h.png) repeat-x 0 -110px;
+      background: url(../images/slices-h.png) repeat-x 0 -114px;
       display: block;
-      height: 14px;
+      height: 10px;
       margin-left: 6px;
-      margin-right: 6px; }
+      margin-right: 6px;
+      position: relative; }
     #aside .footer .borderright {
-      background: url(../images/image-sprite.png) no-repeat -25px -15px;
+      background: url(../images/image-sprite.png) no-repeat -25px -19px;
       display: block;
-      height: 14px;
+      height: 10px;
       right: 0;
       position: absolute;
       top: 0;
       width: 6px; }
     #aside .footer .borderleft {
-      background: url(../images/image-sprite.png) no-repeat -25px 0;
+      background: url(../images/image-sprite.png) no-repeat -25px -4px;
       display: block;
-      height: 14px;
+      height: 10px;
       left: 0;
       position: absolute;
       top: 0;
@@ -1126,13 +1136,13 @@ header {
   left: -4px;
   position: relative;
   top: -18px;
-  width: 167px;
+  width: 174px;
   z-index: 99; }
   #models .aside #categories, #models .aside #templates {
     border-right: 1px solid #e3e3e3;
     margin-bottom: -46px;
     padding-top: 16px;
-    padding-right: 6px; }
+    padding-right: 8px; }
     #models .aside #categories h2 a, #models .aside #categories h2 a:link, #models .aside #categories h2 a:visited, #models .aside #categories h3 a, #models .aside #categories h3 a:link, #models .aside #categories h3 a:visited, #models .aside #templates h2 a, #models .aside #templates h2 a:link, #models .aside #templates h2 a:visited, #models .aside #templates h3 a, #models .aside #templates h3 a:link, #models .aside #templates h3 a:visited {
       color: #717171; }
     #models .aside #categories h2 a:hover, #models .aside #categories h2 a:active, #models .aside #categories h3 a:hover, #models .aside #categories h3 a:active, #models .aside #templates h2 a:hover, #models .aside #templates h2 a:active, #models .aside #templates h3 a:hover, #models .aside #templates h3 a:active {
@@ -1189,36 +1199,42 @@ header {
       #models #modellist .item .image img {
         max-height: 50px;
         max-width: 50px; }
-    #models #modellist .item .anchor, #models #modellist .item .itemanchor {
-      display: block;
-      height: 100%;
-      width: 100%; }
-    #models #modellist .item .imageanchor {
+    #models #modellist .item .overlay {
       background: transparent;
       border: none;
       display: inline-block;
       height: 72px;
       left: 0;
       position: absolute;
-      width: 65px; }
-      #models #modellist .item .imageanchor .hover {
+      width: 82%; }
+      #models #modellist .item .overlay .imageanchor {
+        display: block;
+        float: left;
+        height: 100%;
+        width: 70px; }
+      #models #modellist .item .overlay .itemanchor {
+        display: block;
+        float: left;
+        height: 100%;
+        width: 398px; }
+      #models #modellist .item .overlay .hover {
         display: none;
         left: 70px;
         position: absolute;
         top: -50px;
         width: 400px;
         z-index: 9999; }
-        #models #modellist .item .imageanchor .hover .header {
+        #models #modellist .item .overlay .hover .header {
           display: block;
           height: 10px;
           position: relative; }
-          #models #modellist .item .imageanchor .hover .header .headerinner {
+          #models #modellist .item .overlay .hover .header .headerinner {
             background: url(../images/slices-h.png) repeat-x 0 -196px;
             display: block;
             height: 10px;
             margin-left: 10px;
             margin-right: 10px; }
-          #models #modellist .item .imageanchor .hover .header .borderright {
+          #models #modellist .item .overlay .hover .header .borderright {
             background: url(../images/image-sprite.png) no-repeat -167px -328px;
             display: block;
             height: 10px;
@@ -1226,7 +1242,7 @@ header {
             position: absolute;
             top: 0;
             width: 10px; }
-          #models #modellist .item .imageanchor .hover .header .borderleft {
+          #models #modellist .item .overlay .hover .header .borderleft {
             background: url(../images/image-sprite.png) no-repeat -156px -328px;
             display: block;
             height: 10px;
@@ -1234,7 +1250,7 @@ header {
             position: absolute;
             top: 0;
             width: 10px; }
-        #models #modellist .item .imageanchor .hover .inner {
+        #models #modellist .item .overlay .hover .inner {
           background: #FFF;
           border: none;
           margin: 0 auto;
@@ -1242,25 +1258,25 @@ header {
           padding: 9px 11px 11px 10px;
           position: relative;
           width: 369px; }
-          #models #modellist .item .imageanchor .hover .inner a {
+          #models #modellist .item .overlay .hover .inner a {
             display: block;
             height: 100%;
             width: 100%; }
-            #models #modellist .item .imageanchor .hover .inner a .topright {
+            #models #modellist .item .overlay .hover .inner a .topright {
               position: absolute;
               top: 10px;
               right: 12px; }
-          #models #modellist .item .imageanchor .hover .inner img {
+          #models #modellist .item .overlay .hover .inner img {
             max-height: 150px;
             width: auto;
             max-width: 230px;
             margin-bottom: 15px; }
-          #models #modellist .item .imageanchor .hover .inner .description {
+          #models #modellist .item .overlay .hover .inner .description {
             font-size: 1.2em;
             line-height: 1.5em;
             margin-left: 3px;
             margin-bottom: 12px; }
-          #models #modellist .item .imageanchor .hover .inner .details tr td {
+          #models #modellist .item .overlay .hover .inner .details tr td {
             color: #515151;
             display: inline-block;
             line-height: 1.5em;
@@ -1268,29 +1284,29 @@ header {
             position: relative;
             top: 0;
             vertical-align: top; }
-          #models #modellist .item .imageanchor .hover .inner .details tr:nth-child(odd) {
+          #models #modellist .item .overlay .hover .inner .details tr:nth-child(odd) {
             background: #ebebeb; }
-          #models #modellist .item .imageanchor .hover .inner .details tr:nth-child(even) {
+          #models #modellist .item .overlay .hover .inner .details tr:nth-child(even) {
             background: #f8f8f8; }
-          #models #modellist .item .imageanchor .hover .inner .details .key {
+          #models #modellist .item .overlay .hover .inner .details .key {
             color: #717171;
             font-weight: bold;
             margin-right: 8px;
             padding-left: 10px;
             width: 103px; }
-          #models #modellist .item .imageanchor .hover .inner .details .value {
+          #models #modellist .item .overlay .hover .inner .details .value {
             border-left: 1px solid #FFF;
             padding-left: 10px;
             padding-right: 10px;
             width: 222px; }
-          #models #modellist .item .imageanchor .hover .inner .borderright {
+          #models #modellist .item .overlay .hover .inner .borderright {
             background: url(../images/slices-v.png) repeat-y -9px 0;
             height: 100%;
             position: absolute;
             top: 0;
             right: -5px;
             width: 10px; }
-            #models #modellist .item .imageanchor .hover .inner .borderright .arrow {
+            #models #modellist .item .overlay .hover .inner .borderright .arrow {
               background: url(../images/image-sprite.png) no-repeat -21px -786px;
               display: block;
               height: 42px;
@@ -1298,14 +1314,14 @@ header {
               position: absolute;
               top: 54px;
               width: 20px; }
-          #models #modellist .item .imageanchor .hover .inner .borderleft {
+          #models #modellist .item .overlay .hover .inner .borderleft {
             background: url(../images/slices-v.png) repeat-y -20px 0;
             height: 100%;
             position: absolute;
             top: 0;
             left: -5px;
             width: 10px; }
-            #models #modellist .item .imageanchor .hover .inner .borderleft .arrow {
+            #models #modellist .item .overlay .hover .inner .borderleft .arrow {
               background: url(../images/image-sprite.png) no-repeat 0 -786px;
               display: block;
               height: 42px;
@@ -1313,17 +1329,17 @@ header {
               position: absolute;
               top: 54px;
               width: 20px; }
-        #models #modellist .item .imageanchor .hover .footer {
+        #models #modellist .item .overlay .hover .footer {
           display: block;
           height: 14px;
           position: relative; }
-          #models #modellist .item .imageanchor .hover .footer .footerinner {
+          #models #modellist .item .overlay .hover .footer .footerinner {
             background: url(../images/slices-h.png) repeat-x 0 -207px;
             display: block;
             height: 10px;
             margin-left: 10px;
             margin-right: 10px; }
-          #models #modellist .item .imageanchor .hover .footer .borderright {
+          #models #modellist .item .overlay .hover .footer .borderright {
             background: url(../images/image-sprite.png) no-repeat -189px -328px;
             display: block;
             height: 10px;
@@ -1331,7 +1347,7 @@ header {
             position: absolute;
             top: 0;
             width: 10px; }
-          #models #modellist .item .imageanchor .hover .footer .borderleft {
+          #models #modellist .item .overlay .hover .footer .borderleft {
             background: url(../images/image-sprite.png) no-repeat -178px -328px;
             display: block;
             height: 10px;
@@ -1362,10 +1378,10 @@ header {
       color: #999999;
       font-size: 1.1em;
       text-align: right;
-      padding-right: 6px;
+      padding-right: 7px;
       vertical-align: middle; }
     #models #modellist .item .add {
-      padding-right: 12px;
+      padding-right: 10px;
       padding-top: 1px;
       text-align: right;
       vertical-align: middle;
@@ -1514,16 +1530,17 @@ header {
         -moz-opacity: 0.9;
         -khtml-opacity: 0.9;
         opacity: 0.9; }
-    #model #images table tr td {
-      height: 520px;
-      position: relative;
-      text-align: center;
-      vertical-align: middle;
+    #model #images table {
       width: 721px; }
-      #model #images table tr td img {
-        max-height: 520px;
-        width: auto;
-        max-width: 580px; }
+      #model #images table tr td {
+        height: 520px;
+        position: relative;
+        text-align: center;
+        vertical-align: middle; }
+        #model #images table tr td img {
+          max-height: 520px;
+          width: auto;
+          max-width: 580px; }
     #model #images #hiddenimages {
       position: absolute;
       top: 0; }
@@ -2367,3 +2384,92 @@ header {
   -moz-opacity: 0.3;
   -khtml-opacity: 0.3;
   opacity: 0.3; }
+
+#ip h1 {
+  width: 500px; }
+#ip #contactEmail {
+  font-size: 1.4em;
+  position: absolute;
+  right: 15px;
+  top: 9px; }
+#ip #map {
+  float: left;
+  border: 1px solid #FFF;
+  height: 300px;
+  width: 500px;
+  -moz-box-shadow: 0 0 8px #aaaaaa;
+  -webkit-box-shadow: 0 0 8px #aaaaaa;
+  box-shadow: 0 0 8px #aaaaaa;
+  -moz-border-radius: 12px;
+  /* Firefox */
+  -webkit-border-radius: 12px;
+  /* Safari, Chrome */
+  border-radius: 12px;
+  /* CSS3 */ }
+#ip .aside {
+  float: left;
+  margin-left: 18px;
+  margin-top: 6px; }
+  #ip .aside table {
+    font-size: 1.2em;
+    line-height: 1.4em;
+    margin-left: 2px;
+    width: 200px; }
+    #ip .aside table tr td {
+      padding-top: 2px;
+      padding-bottom: 12px; }
+  #ip .aside section {
+    margin-bottom: 14px; }
+  #ip .aside section.openingHours .today td {
+    font-weight: bold; }
+#ip .description {
+  font-size: 1.1em;
+  line-height: 1.4em;
+  margin-top: 20px; }
+  #ip .description p {
+    margin-bottom: 14px; }
+#ip section.models h2 a, #ip section.models h2 a:link, #ip section.models h2 a:visited, #ip section.models h3 a, #ip section.models h3 a:link, #ip section.models h3 a:visited {
+  color: #717171; }
+#ip section.models h2 a:hover, #ip section.models h2 a:active, #ip section.models h3 a:hover, #ip section.models h3 a:active {
+  color: #515151; }
+#ip section.models a, #ip section.models a:link, #ip section.models a:visited {
+  color: #999999; }
+#ip section.models a:hover, #ip section.models a:active {
+  color: #515151; }
+#ip section.models h2 {
+  padding: 0 0 14px 6px; }
+#ip section.models .row {
+  padding-bottom: 34px;
+  padding-top: 10px; }
+  #ip section.models .row .cell {
+    float: left;
+    padding-left: 6px;
+    padding-right: 12px;
+    width: 165px; }
+    #ip section.models .row .cell h1, #ip section.models .row .cell h3 {
+      width: 147px; }
+    #ip section.models .row .cell a {
+      display: block; }
+    #ip section.models .row .cell img {
+      height: 80px;
+      filter: alpha(opacity=0.5);
+      -moz-opacity: 0.5;
+      -khtml-opacity: 0.5;
+      opacity: 0.5;
+      max-width: 160px;
+      margin-bottom: 10px; }
+    #ip section.models .row .cell h3 {
+      height: 36px;
+      padding: 0;
+      margin: 0;
+      overflow: hidden; }
+  #ip section.models .row .cell:nth-child(4n) {
+    padding-left: 0;
+    padding-right: 0; }
+  #ip section.models .row .cell:hover img {
+    filter: alpha(opacity=1);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1; }
+  #ip section.models .row .cell:hover a {
+    color: #515151; }

@@ -15,12 +15,12 @@
           %li.seperator
           
         %li.item{:class => current_page?(:controller => 'users', :action => 'show') ? "active" : nil}
-          = link_to current_user, user_path, :class => "anchor", :title => _("User Page")
+          = link_to current_user, user_path, :class => "anchor"
           
         %li.seperator
         
         %li.item{:class => request['controller'] == "inventory_pools" ? "active" : nil}
-          = link_to _("Equipment Parks"), inventory_pools_path , :class => "anchor", :title=> _("Equipment Parks")
+          = link_to _("Equipment Parks"), inventory_pools_path , :class => "anchor"
         
         %li.seperator
         

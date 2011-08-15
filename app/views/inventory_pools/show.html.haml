@@ -5,7 +5,8 @@
 
 #ip.inner
   %h1= @inventory_pool
-  %h3= simple_format(@inventory_pool.address)
+  %h3= @inventory_pool.address
+  = link_to @inventory_pool.email, "#", :id => "contactEmail"
   
   %hr
   
@@ -39,17 +40,23 @@
           %td.time
             = "08.30 - 12.00 Uhr"
             
-    %section.contact
-    
-      %h3
-        = _("Contact")
-      %p
-        = @inventory_pool.email
-            
   .clear
   
   .description
     = simple_format(@inventory_pool.description)
+    
+  - unless (models = @inventory_pool.models.limit(8)).blank?
+    %hr
+    %section.models
+      - models.each_slice(4) do |s|
+        .row
+          - s.each do |c|
+            .cell
+              = link_to image_tag("http://leihs.zhdk.ch#{ c.image_thumb }"), c, :title=>c.name
+              %h3
+                = link_to truncate(c.name, :length => 32), c, :title=>c.name
+        .clear
+    
   
   .borderright
   .borderleft
@@ -60,8 +67,8 @@
 :javascript
   
   $(document).ready(function () {
-    Map.setup();
-    Map.addMarker(new google.maps.LatLng(47.383576,8.534853), "#{@inventory_pool}");
+    Map.setup(#{@inventory_pool.address.coordinates});
+    Map.addMarker(new google.maps.LatLng(#{@inventory_pool.address.coordinates.join(", ")}), "#{@inventory_pool}");
   });
   
   // MAP
@@ -71,11 +78,11 @@
     this.map;
     this.position;
     
-    this.setup = function () {
-      Map.position = new google.maps.LatLng(47.383576,8.534853);
+    this.setup = function (_coordinates) {
+      Map.position = new google.maps.LatLng(_coordinates[0],_coordinates[1]);
       
       Map.map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 14  ,
+        zoom: 14,
         center: Map.position,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       });
