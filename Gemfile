@@ -13,21 +13,20 @@ gem 'json', '~> 1.5.3'
 gem 'haml', '~> 3.1.2'
 gem 'sass', '~> 3.1.5'
 #Rails3.1# gem 'coffee-script'
-#Rails3.1# gem 'uglifier'
+#Rails3.1# gem 'uglifier', '~> 1.0.1'
 
 gem 'prototype-rails', '~> 0.3.1', :git => 'git://github.com/rubychan/prototype-rails.git'
-#tmp# gem 'jquery-rails', '~> 1.0'
+#tmp# gem 'jquery-rails', '~> 1.0.13'
 gem 'rails_autolink', '~> 1.0.2'
 
-#tmp# gem 'will_paginate', '~> 3.0'
-gem 'will_paginate', :git => 'git://github.com/JackDanger/will_paginate.git' #Rails3.1# fix for CollectionAssociation # '~> 3.0.pre2' 
+gem 'will_paginate', '~> 3.0'
 gem 'thinking-sphinx', '~> 2.0.5', :require => 'thinking_sphinx'
 
 gem 'gettext_i18n_rails', '~> 0.2.20'
-gem 'ruby_parser' # gettext dependency that Bundler seems unable to resolve
+gem 'ruby_parser', '~> 2.1.0' # gettext dependency that Bundler seems unable to resolve
 
 
-gem 'barby', '~> 0.4.3'
+gem 'barby', '0.4.3'
 #gem "cairo" # Needed to print SVG barcodes
 # gem "RubyInline", '3.8.2', :require => "inline"
 
@@ -39,7 +38,7 @@ gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
 gem 'fastercsv', '~> 1.5.4'
 #tmp# gem 'png', '~> 1.2.0'
 
-gem 'prawn', '~> 0.11.1'
+gem 'prawn', '~> 0.12.0'
 gem 'prawnto', '~> 0.0.4'
 
 gem 'nested_set', '~> 1.6.7'
@@ -66,7 +65,7 @@ group :cucumber, :test do
 	gem 'rspec', '~> 2.6.0', :require => false
 	gem 'rspec-rails', '~> 2.6.1', :require => false
 	gem 'nokogiri', '~> 1.5.0'
-	gem 'capybara', '~> 1.0.0'
+	gem 'capybara', '~> 1.0.1'
   gem 'launchy', '~> 2.0.4'
 end
 
