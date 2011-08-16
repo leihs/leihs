@@ -37,55 +37,43 @@
         = @user.email
         
     .clear
-    
-  -unless current_user.contract_lines.to_remind.empty?
+
+  //////////////////////////////////////////////////////////////////////
+
+  - overdue_lines, not_overdue_lines =  current_user.things_to_return.partition {|l| l.end_date < Date.today }
+  - unless overdue_lines.empty?
     %hr
     %h3.red
       %strong= _("Overdue Returns")
     %ul.linelist.overdue
-      -current_user.contract_lines.to_remind.each do |o|
-        %li.line
-          %ul
-            %li.time
-              = short_date(o.start_date, true)
-              = " - "
-              = short_date(o.end_date, true)
-            %li.name
-              = o.model
-              
-  -unless current_user.contracts.signed.empty?
+      = render :partial => "documents/line_li", :collection => overdue_lines, :as => :line
+
+  - unless not_overdue_lines.empty?
     %hr
     %h3
       = _("Rented Items")
     %ul.linelist
-      -current_user.contracts.signed.each do |o|
-        %li.line
-          %ul
-            %li.time
-              = short_date(o.time_window_min, true)
-              = " - "
-              = short_date(o.time_window_max, true)
-            %li.name
-              = link_to lines_preview(o), user_contract_path(o)
-            %li.action
-              = link_to _("Extend"), "#"
-              
-  -unless current_user.orders.submitted.empty?
+      = render :partial => "documents/line_li", :collection => not_overdue_lines, :as => :line
+
+  //////////////////////////////////////////////////////////////////////
+
+  - unless (lines = current_user.contract_lines.to_hand_over).empty?
     %hr
     %h3
-      = _("Orders")
+      = _("Approved Items")
     %ul.linelist
-      -current_user.orders.submitted.each do |o|
-        %li.line
-          %ul
-            %li.time
-              = short_date(o.time_window_min, true)
-              = " - "
-              = short_date(o.time_window_max, true)
-            %li.name
-              = link_to o.purpose, user_order_path(o)
-            %li.action
-              = link_to _("Delete"), "#"
+      = render :partial => "documents/line_li", :collection => lines, :as => :line
+
+  //////////////////////////////////////////////////////////////////////
+
+  - unless (lines = current_user.orders.submitted.collect(&:lines).flatten).empty?
+    %hr
+    %h3
+      = _("Requested Items")
+    %ul.linelist
+      = render :partial => "documents/line_li", :collection => lines, :as => :line
+              
+
               
   .borderleft
   .borderright

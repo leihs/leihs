@@ -82,7 +82,7 @@ class Backend::UsersController < Backend::BackendController
 
   # OPTIMIZE
   def things_to_return
-    @user_things_to_return = @user.things_to_return.select { |t| t.returned_date.nil? }
+    @user_things_to_return = @user.things_to_return
   end
 
   def extended_info
