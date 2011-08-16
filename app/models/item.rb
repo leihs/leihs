@@ -400,7 +400,7 @@ class Item < ActiveRecord::Base
 
   # an item is in stock if it's not handed over
   def in_stock?
-    if parent_id
+    if parent
       parent.in_stock?
     else    
       contract_lines.to_take_back.empty?
