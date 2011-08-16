@@ -161,10 +161,8 @@ class User < ActiveRecord::Base
 
 ################################################
 
-  # OPTIMIZE
   def things_to_return
-    contracts.signed.collect(&:contract_lines).flatten.select {|t| t.returned_date.nil? }.sort {|a,b| a.end_date <=> b.end_date }
-    # TODO contact_lines.to_take_back.sort {|a,b| a.end_date <=> b.end_date }
+    contract_lines.to_take_back.sort {|a,b| a.end_date <=> b.end_date }
   end
 
   # get or create a new order (among all inventory pools)
