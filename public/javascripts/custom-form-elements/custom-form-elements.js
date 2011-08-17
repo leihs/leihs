@@ -72,11 +72,12 @@ var Custom = {
 				span[a].className = "select";
 				span[a].id = "select" + inputs[a].name;
 				span[a].appendChild(textnode);
-				inputs[a].parentNode.insertBefore(span[a], inputs[a]);
 				
 				var arrow = document.createElement("div");
-				arrow.setAttribute("class", "arrow");
-				inputs[a].parentNode.insertBefore(arrow, inputs[a]);
+        arrow.setAttribute("class", "arrow");
+        span[a].appendChild(arrow);
+        
+				inputs[a].parentNode.insertBefore(span[a], inputs[a]);
 				
 				if(!inputs[a].getAttribute("disabled")) {
 					inputs[a].onchange = Custom.choose;
