@@ -79,15 +79,6 @@ module ApplicationHelper
     end
   end
   
-  def linked_inventory_pools(inventory_pools)
-    html = ""
-    inventory_pools.each do |ip|
-      html += link_to ip.name, inventory_pool_path(ip)
-      html += ", " unless ip == inventory_pools.last
-    end
-    return html
-  end
-  
   ######## Flash #########
 
   # OPTIMIZE
