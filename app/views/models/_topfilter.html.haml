@@ -1,21 +1,33 @@
 %section#topfilter
+  
   %form.availability
     %input#date_from.date.start{:name => "startdate", :value => Date.today.strftime("%d.%m.%y")}
     = "-"
     %input#date_to.date.end{:name => "enddate", :value => Date.tomorrow.strftime("%d.%m.%y")}
     .checkarea
       %input#available-only.check{:type => "checkbox", :name => "available-only", :value => "available-only"}
-        %label{:for => "available-only"}
-          = _("Show Available")
+      %label{:for => "available-only"}
+        = _("Show Available")
+          
   %form.sort{:method => "get"}
-    %input.submit{:type => "submit", :value => _("Sort")}
-      .container
-        %select.styled{:name => "sort_and_sort_mode"}
-          %option{:value => "name ASC"}= _("Productname (A-Z)")
-          %option{:value => "name DESC"}= _("Productname (Z-A)")
-          %option{:value => "manufacturer ASC"}= _("Manufacturer (A-Z)")
-          %option{:value => "manufacturer DESC"}= _("Manufacturer (Z-A)")
-
+    .container
+      %select.styled{:name => "sort_and_sort_mode"}
+        %option{:value => "name ASC"}= _("Productname (A-Z)")
+        %option{:value => "name DESC"}= _("Productname (Z-A)")
+        %option{:value => "manufacturer ASC"}= _("Manufacturer (A-Z)")
+        %option{:value => "manufacturer DESC"}= _("Manufacturer (Z-A)")
+  
+  .ipSelection
+    = link_to _("javascript: void(0)") do
+      = _("Parks (#{current_user.inventory_pools.length})")
+      %span.icon
+    %form.hover
+      - current_user.inventory_pools.each do |ip|
+        .line
+          %input{:type => "checkbox"}
+          %label
+            = ip.name
+          
 :javascript
   function update_availability(){
     var sd = $("#date_from").datepicker("getDate").getTime() / 1000;
