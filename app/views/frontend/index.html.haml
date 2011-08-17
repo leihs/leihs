@@ -1,0 +1,112 @@
+= render :partial => '/layouts/frontend/00-patterns/tabs'
+= render :partial => '/layouts/frontend/00-patterns/content_box_head'
+
+#start.inner
+  
+  %h1
+    = _("Welcome") 
+    = @user.name
+    
+  %p.subtitle
+    = _("You have access to the following Equipment Parks:")
+    - @pools = []
+    - current_user.inventory_pools.each do |ip|
+      - @pools.push(link_to ip.name, inventory_pool_path(ip))
+    %span.pools{:"data-pools" => @pools}
+      = @pools.join(", ").html_safe
+    = link_to_function _("show all"), :class => "showall"
+
+  %hr
+  
+  %section#rentedItems
+    - unless (lines = current_user.things_to_return).empty?
+      - overdue_lines, not_overdue_lines =  lines.partition {|l| l.end_date < Date.today }
+      %h3
+        = _("Rented Items")
+      - unless overdue_lines.empty?
+        %ul.linelist.overdue
+          = render :partial => "documents/line_li", :collection => overdue_lines, :as => :line
+      - unless not_overdue_lines.empty?
+        %ul.linelist
+          = render :partial => "documents/line_li", :collection => not_overdue_lines, :as => :line
+      %hr
+      
+  %section#categories
+    - @current_categories.each_slice(4) do |s|
+      .row
+        - s.each do |c|
+          .cell
+            %table.image
+              %tr
+                %td
+                  = link_to image_tag("http://leihs.zhdk.ch#{ c.image }", :alt=>c.name ), category_models_path(c), :title=>c.name
+            %h2
+              = link_to truncate(c.name, :length => 17), category_models_path(c), :title=>c
+            %ul
+              - c.children.each do |child|
+                %li
+                  = link_to child, category_models_path(child), :title=>child
+        .clear
+    
+  .borderleft
+  .borderright
+  
+= render :partial => '/layouts/frontend/00-patterns/content_box_foot'
+= render :partial => '/layouts/frontend/00-patterns/aside'
+
+:javascript
+  
+  $(document).ready(function(){
+    ShowAllPoolsSwitcher.setup();
+  });
+  
+  var ShowAllPoolsSwitcher = new ShowAllPoolsSwitcher();
+  
+  function ShowAllPoolsSwitcher() {
+  
+    this.min = 3;
+    this.animationDelay = 100;
+  
+    this.setup = function() {
+      ShowAllPoolsSwitcher.setupVisiblePools();
+      ShowAllPoolsSwitcher.bindButtons();
+    }
+    
+    this.setupVisiblePools = function() {
+      if($("#start .subtitle .pools").data("pools").length > ShowAllPoolsSwitcher.min) {
+        $("#start .subtitle .pools").html("");
+        $("#start .subtitle .showall").show();
+        $.each($("#start .subtitle .pools").data("pools"), function(index, value) {
+          if(index < ShowAllPoolsSwitcher.min) {
+            $("#start .subtitle .pools").append(value);
+            if(index != (ShowAllPoolsSwitcher.min-1)) {
+              $("#start .subtitle .pools").append(", ");
+            }
+          }
+        });
+      }
+    }
+    
+    this.bindButtons = function() {
+      $("#start .subtitle .showall").bind("click", function(){
+        $("#start .subtitle .showall").hide();
+        $.each($("#start .subtitle .pools").data("pools"), function(index, value) {
+          if(index >= ShowAllPoolsSwitcher.min) {
+            if(index == (ShowAllPoolsSwitcher.min)) {
+              $("#start .subtitle .pools").append(", ");
+            }
+            var _object = $(value);
+            _object.stop().hide();
+            $("#start .subtitle .pools").append(_object);
+            _object.delay(ShowAllPoolsSwitcher.animationDelay*(index-ShowAllPoolsSwitcher.min)).fadeOut(0, function(){
+              if(index != ($("#start .subtitle .pools").data("pools").length-1)) {
+                $(this).after(", ");
+              }
+            }).fadeIn();
+          }
+        });
+      });
+    }
+  
+  }
+  
