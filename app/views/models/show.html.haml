@@ -35,8 +35,17 @@
     %p.description
       = @model.description
   
-  - unless @model.properties.empty?
+  - unless @model.properties.empty? and @model.attachments.empty?
     %table.details
+      - unless @model.attachments.empty?
+        %tr
+          %td.key
+            = _("Documents")
+          %td.value
+            - attachments = []
+            - @model.attachments.each do |a|
+              - attachments.push(link_to a.filename, a.filename, :title => a.filename, :target => "_blank")
+            != attachments.join(", ")
       - @model.properties.each do |p|
         %tr
           %td.key
@@ -45,8 +54,8 @@
             = p.value
       %tr.detailsswitcher
         %td{:colspan => "2"}
-          = link_to "+ #{_('show more details')}", "javascript:void(0)", :title => _('show more details'), :class => "showmore"
-          = link_to "- #{_('show less details')}", "javascript:void(0)", :title => _('show less details'), :class => "showless"
+          = link_to_function "+ #{_('show more details')}", :title => _('show more details'), :class => "showmore"
+          = link_to_function "- #{_('show less details')}", :title => _('show less details'), :class => "showless"
         
   - unless @model.compatibles.empty?
     %hr
