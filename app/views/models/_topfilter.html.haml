@@ -18,7 +18,7 @@
         %option{:value => "manufacturer DESC"}= _("Manufacturer (Z-A)")
   
   .ipSelection
-    = link_to _("javascript: void(0)") do
+    = link_to "javascript: void(0)" do
       = _("Parks (#{current_user.inventory_pools.length})")
       %span.icon
     %form.hover
