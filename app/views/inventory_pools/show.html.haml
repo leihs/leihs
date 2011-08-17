@@ -1,12 +1,15 @@
-= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false"
+- content_for :head do
+  = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false"
 
 = render :partial => '/layouts/frontend/00-patterns/tabs'
 = render :partial => '/layouts/frontend/00-patterns/content_box_head'
 
 #ip.inner
   %h1= @inventory_pool
-  %h3= @inventory_pool.address
-  = link_to @inventory_pool.email, "#", :id => "contactEmail"
+  %h3
+    - output = [@inventory_pool.address]
+    - output << mail_to(@inventory_pool.email, @inventory_pool.email, :encode => "javascript") unless @inventory_pool.email.blank?
+    != output.join(', ')
   
   %hr
   
@@ -14,6 +17,7 @@
   
   .aside
     
+    - #TODO Franco: Opening Hours here
     %section.openingHours
     
       %h3
@@ -45,7 +49,7 @@
   .description
     = simple_format(@inventory_pool.description)
     
-  - unless (models = @inventory_pool.models.limit(8)).blank?
+  - unless (models = @inventory_pool.models.limit(12)).blank?
     %hr
     %section.models
       - models.each_slice(4) do |s|
@@ -55,7 +59,7 @@
               = link_to image_tag("http://leihs.zhdk.ch#{ c.image_thumb }"), c, :title=>c.name
               %h3
                 = link_to truncate(c.name, :length => 32), c, :title=>c.name
-        .clear
+          .clear
     
   
   .borderright

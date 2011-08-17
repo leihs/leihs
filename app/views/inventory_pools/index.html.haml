@@ -1,0 +1,27 @@
+= render :partial => '/layouts/frontend/00-patterns/tabs'
+= render :partial => '/layouts/frontend/00-patterns/content_box_head'
+
+#iplist.inner
+
+  %h1
+    = _("Equipment Parks") 
+    
+  %p.subtitle
+    = _("You have access to the following Equipment Parks")
+    
+  %hr
+  
+  - current_user.inventory_pools.each do |ip|
+    - center = ip.address.coordinates.blank? ? ip.address : "#{ip.address.latitude},#{ip.address.longitude}"
+    = image_tag "http://maps.google.com/maps/api/staticmap?center=#{center}&zoom=16&size=140x140&maptype=roadmap&markers=color:blue|label:S|40.702147,-74.015794&markers=color:green|label:G|40.711614,-74.012318&markers=color:red|color:red|label:C|40.718217,-73.998284&sensor=false", :class => "map"
+    %h3
+      = ip.name
+    .clear
+    - unless ip == current_user.inventory_pools.last
+      %hr
+  
+  .borderright
+  .borderleft
+
+= render :partial => '/layouts/frontend/00-patterns/content_box_foot'
+= render :partial => '/layouts/frontend/00-patterns/aside'
