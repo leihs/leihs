@@ -66,7 +66,7 @@
       $("#compactOrder .item .delete a").live("ajax:before", function(){
         $(this).hide();
         $(this).data("deleting", true);
-        $(this).parent().append('#{image_tag $layout_public_path + "/images/loading.gif", :class => "loading"}');
+        $(this).parent().append('<img src="/assets/images/loading.gif" class="loading" />');
         $(this).parents(".item").find(".name").css("text-decoration", "line-through");
         
       }).live("ajax:success", function(){

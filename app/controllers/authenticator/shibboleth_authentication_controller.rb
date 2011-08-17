@@ -15,9 +15,7 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
   SUPER_USERS = ["e157339@zhdk.ch", "e159123@zhdk.ch", "e10262@zhdk.ch", "e162205@zhdk.ch", "e171014@zhdk.ch"] #Jerome, Franco, Ramon, Tomáš
   AUTHENTICATION_SYSTEM_CLASS_NAME = "ShibbolethAuthentication"
 
-  $general_layout_path = 'layouts/backend/' + $theme + '/general'
-     
-  layout $general_layout_path
+  layout 'layouts/backend/general'
 
   def login_form_path
     "/authenticator/shibboleth/login"

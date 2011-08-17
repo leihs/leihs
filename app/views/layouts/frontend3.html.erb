@@ -5,22 +5,9 @@
 	<meta charset="utf-8">
 	<title>LEIHS 3.0</title>
 	
-	<%= stylesheet_link_tag "#{$layout_public_path}/css/master.css" %>
+	<%= stylesheet_link_tag "frontend" %>
 	
-	<%= javascript_include_tag "/javascripts/jquery/jquery.min.js" %>
-	<%= javascript_include_tag "/javascripts/jquery/jquery-ui.min.js" %>
-	<%= javascript_include_tag "/javascripts/jquery/jquery-ujs.js" %>
-	
-	<%= javascript_include_tag "/javascripts/jquery/i18n/jquery.ui.datepicker-#{current_user.language.locale_name.dasherize}.js" %>
-	
-	<%= javascript_include_tag "/javascripts/custom-form-elements/custom-form-elements.js" %>
-	<%= javascript_include_tag "/javascripts/model-images-switcher/model-images-switcher.js" %>
-	<%= javascript_include_tag "/javascripts/models-list-sort/models-list-sort.js" %>
-	<%= javascript_include_tag "/javascripts/dialog/dialog.js" %>
-	<%= javascript_include_tag "/javascripts/textarea-autoresize/autoresize.jquery.min.js" %>
-	
-	<%= javascript_include_tag "/javascripts/full-calendar/full-calendar.js" %>
-	<%= javascript_include_tag "/javascripts/booking-calendar/booking-calendar.js" %>
+	<%= javascript_include_tag "frontend" %>
 	
 	<%= csrf_meta_tag %>
 	
@@ -32,7 +19,7 @@
 <body>
 
 <header class="wrapper">
-	<%= render :partial => '/layouts/frontend/00-patterns/topbar' %>
+	<%= render :partial => '/layouts/frontend/topbar' %>
 </header>
 
 <section id="main" class="wrapper">

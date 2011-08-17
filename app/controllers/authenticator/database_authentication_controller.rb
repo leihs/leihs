@@ -2,9 +2,7 @@ require 'digest/sha1'
 
 class Authenticator::DatabaseAuthenticationController < Authenticator::AuthenticatorController
 
-  $general_layout_path = 'layouts/backend/' + $theme + '/general'
-     
-  layout $general_layout_path
+  layout 'layouts/backend/general'
         
   def login_form_path
     "/authenticator/db/login"

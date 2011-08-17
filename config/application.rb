@@ -31,9 +31,6 @@ module Leihs
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # JavaScript files you want as :defaults (application.js is always included).
-    config.action_view.javascript_expansions[:defaults] = %w(prototype effects dragdrop controls)
-
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
@@ -41,11 +38,11 @@ module Leihs
     config.filter_parameters += [:password]
 
     # Enable the asset pipeline
-    config.assets.enabled = false #Rails3.1# true
+    config.assets.enabled = true
 
     # Enable IdentityMap for Active Record, to disable set to false or remove the line below.  
     config.active_record.identity_map = true
-    ActiveRecord::IdentityMap.enabled = true 
+    ActiveRecord::IdentityMap.enabled = true #Rails3.1# TODO remove this line
   end
 end
 

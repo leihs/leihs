@@ -27,6 +27,9 @@
           %input{:type => "checkbox"}
           %label
             = ip.name
+
+- content_for :head do
+  = javascript_include_tag "jquery/i18n/jquery.ui.datepicker-#{current_user.language.locale_name.dasherize}.js"
           
 :javascript
   function update_availability(){
@@ -46,8 +49,11 @@
         if(to_min.length) min = Math.min.apply(Math, to_min);
         return Math.max.apply(Math, [min, 0]);
       });
+      // TODO get min, max or sum ???
       var absolute_min = Math.min.apply(Math, min_ips);
       $(this).html(absolute_min);
+      //var max_from_one_ip = Math.max.apply(Math, min_ips);
+      //$(this).html(max_from_one_ip);
     });
   }
 

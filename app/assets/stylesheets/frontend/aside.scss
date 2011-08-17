@@ -1,0 +1,362 @@
+#aside {
+  display: block;
+  float: right;
+  margin-right: 14px;
+  width: 198px;
+  
+  p {
+    color: $lightgrey;
+    line-height: 1.4em;
+    padding: 0 8px 4px 8px;
+  }
+  
+  .header {
+    display: block;
+    height: 12px;
+    position: relative;
+    
+    .headerinner {
+      background: url($slices-h) repeat-x 0 -97px;
+      display: block;
+      height: 12px;
+      margin-left: 6px;
+      margin-right: 6px;
+    }
+    
+    .borderright {
+      background: url($image-sprite) no-repeat -18px -14px;
+      display: block;
+      height: 12px;
+      right: 0;
+      position: absolute; 
+      top: 0;
+      width: 6px;
+    }
+    
+    .borderleft {
+      background: url($image-sprite) no-repeat -25px -30px;
+      display: block;
+      height: 12px;
+      left: 0;
+      position: absolute; 
+      top: 0;
+      width: 6px;
+    }
+  }
+  
+  .navigation {
+    position: absolute;
+    left: 8px;
+    top: -20px;
+    
+     li {
+      display: block;
+      float: left;
+      margin-right: 1px;
+      
+      a {
+        background: url($image-sprite) no-repeat -75px -312px; 
+        display: block;
+        height: 27px;
+        width: 26px;
+        
+        .icon {
+          display: block;
+          height: 15px;
+          margin: 0 auto;
+          opacity: .6;
+          position: relative;
+          top: 3px;
+          width: 15px;
+        }
+      }
+      
+      a:hover {
+        .icon {
+          opacity: 1;
+        }
+      }
+    }
+     
+    li.order .icon {
+      background: url($image-sprite) no-repeat -156px -312px; 
+    }
+     
+    li.templates .icon {
+      background: url($image-sprite) no-repeat -172px -312px; 
+    }  
+      
+    li:hover {
+      
+      a {
+        background: url($image-sprite) no-repeat -102px -312px; 
+      }
+    }
+    
+    li.active {
+    
+      a {
+        background: url($image-sprite) no-repeat -129px -312px; 
+       
+        .icon {
+          opacity: 1;
+        }
+      }
+    }
+    
+    li.active:hover {
+    
+      a {
+        background: url($image-sprite) no-repeat -129px -312px;
+      }
+    } 
+  }
+  
+  .inner {
+    background: #FFF;
+    display: block;
+    position: relative;
+    left: 1px;
+    width: 196px;
+    
+    h3 {
+      float: left;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 0;
+      padding-left: 8px;
+      padding-bottom: 6px;
+    }
+    
+    .edit {
+      left: 0;
+      position: absolute;
+      text-align: right;
+      padding-bottom: 2px;
+      top: 2px;
+      width: 190px;
+      @include opacity(0);
+    }
+    
+    ul {
+      padding-bottom: 8px;
+      @include greylinks;
+      
+      li {
+        display: inline-block;
+        font-size: 1.1em;
+        line-height: 1.4em;
+        position: relative;
+        width: 100%;
+        
+        span {
+          display: block;
+          float: left;
+          overflow: hidden;
+                      
+          a {
+            display: block;
+            position: relative;
+            padding-top: 3px;
+            padding-bottom: 4px;
+          }
+        }
+      }
+      
+      li.item:nth-child(odd) {
+        background: $highlight-grey;
+      }
+      
+      li.item:hover {
+        background: $highlight-darkgrey;
+        
+        span a {
+          color: $darkgrey !important;
+        }
+      }
+    }
+    
+    #compactOrder {
+    
+      section.pool {
+        @include greylinks;
+        
+        a.pool {
+          display: block;
+          font-weight: bold;
+          padding: 0 0 4px 8px;
+        }
+      
+        li.item {
+          clear: both;
+          margin-bottom: 1px;
+        
+          span.name {
+            width: 178px;
+            
+            a {
+              display: block;
+              padding-left: 10px;
+            }
+            
+            span.amount {
+              display: inline;
+              float: none;
+              letter-spacing: -1px;
+              padding: 0;
+            }
+          }
+          
+          span.delete {
+            float: right;
+            width: 17px;
+            
+            a {
+              color: $lightred;
+              padding-left: 4px;
+              padding-right: 6px;
+            }
+            
+            a:hover {
+              color: $red;
+            }
+            
+            img.loading {
+              height: 14px;
+              margin-left: -2px;
+              position: absolute;
+              top: 4px;
+              width: 14px;
+              z-index: 1001;
+            }
+          }
+        }
+      
+        li.item:hover {
+          span.delete {
+            
+            a {
+              color: $red;
+            }
+          }
+        }
+      }
+      
+      form {
+        
+        .purpose {
+      
+          hr {
+            margin-top: 8px;
+            margin-bottom: -2px;
+          }
+        
+          textarea {
+            background: transparent;
+            border: 1px solid $lightergrey;
+            color: $lightgrey;
+            display: block;
+            font-size: 1.1em;
+            font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+            height: 31px;
+            line-height: 1.4em;
+            overflow-y: auto;
+            margin-left: 7px;
+            margin-bottom: 10px;
+            padding: 4px 6px;
+            scrollbar-track-color: #FFF;
+            width: 166px;
+            @include borderRadius(4px);
+          }
+          
+          textarea:focus {
+            color: $darkgrey;
+            @include boxShadow (0 0 8px #CCC);
+          }
+        }
+        
+        .button {
+          left: 7px;
+          width: 180px;
+        }
+      }
+    }
+    
+    #compactTemplates {
+      display: none;
+    
+      span.name {
+        color: $grey;
+        display: inline-block;
+        width: 100px;
+      }
+      
+      span.amount {
+        display: inline-block;
+        position: absolute;
+        top: 6px;
+        right: 6px;
+      }
+    }
+    
+    .borderleft {
+      background: url($slices-v) repeat-y -193px 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: -1px;
+      width: 1px;
+    }
+    
+    .borderright {
+      background: url($slices-v) repeat-y -193px 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: -1px;
+      width: 1px;
+    }    
+  }
+  
+  .footer {
+    display: block;
+    height: 10px;
+    position: relative;
+    z-index: 1;
+    
+    .footerinner {
+      background: url($slices-h) repeat-x 0 -114px;
+      display: block;
+      height: 10px;
+      margin-left: 6px;
+      margin-right: 6px;
+      position: relative;
+    }
+    
+    .borderright {
+      background: url($image-sprite) no-repeat -25px -19px;
+      display: block;
+      height: 10px;
+      right: 0;
+      position: absolute; 
+      top: 0;
+      width: 6px;
+    }
+    
+    .borderleft {
+      background: url($image-sprite) no-repeat -25px -4px;
+      display: block;
+      height: 10px;
+      left: 0;
+      position: absolute; 
+      top: 0;
+      width: 6px;
+    }
+  }
+}
+
+#aside:hover {
+  .edit {
+    @include opacity(1.0);
+  }
+}

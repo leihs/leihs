@@ -42,7 +42,7 @@ module ApplicationHelper
   ######## Icon #########
 
   def icon_path(icon)
-    $layout_public_path + "/images/icons/" + icon + ".png"
+    "/assets/icons/" + icon + ".png"
   end
 
   def icon_tag(icon)

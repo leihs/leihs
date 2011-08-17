@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 
   # TODO 05** temporary
   def old_new
-    render :action => 'new', :layout => 'layouts/backend/00-patterns/general'
+    render :action => 'new', :layout => 'layouts/backend/general'
   end
 
   def authenticate(id = params[:id])

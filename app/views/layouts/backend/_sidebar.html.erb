@@ -1,0 +1,43 @@
+
+  <div style="background-color:<%= (current_inventory_pool and current_inventory_pool.color) ? current_inventory_pool.color : "#F2F2F2" %>">
+<% if logged_in? %>
+  <% if current_inventory_pool %>
+  
+    <h4 style="background-color: #1089D9 ;color: white; padding: 5px;">
+      <%= _("Booking") %>
+    </h4>
+    <div id="menu_booking" style="margin: 5px">
+    <ul>
+      <li><%= link_to _("Availability"), backend_inventory_pool_availability_path(current_inventory_pool) %></li>
+      
+      <%= render :partial => '/layouts/backend/menu_process' %>
+      <%= render :partial => '/layouts/backend/menu_items' %>
+      <%= render :partial => '/layouts/backend/menu_models' %>
+      <%= render :partial => '/layouts/backend/menu_packages' %>
+    
+      <li><%= link_to icon_tag("calendar") + " " + _("Workdays"), backend_inventory_pool_workdays_path(current_inventory_pool) %></li>
+    </ul>
+    </div>
+    
+    <% if is_inventory_manager? %>
+      <h4 style="background-color: #008209;color: white; padding: 5px;">
+        <%= _("Inventory") %>
+      </h4>
+      <%= content_tag :div, :id => "menu_inventory", :style => "margin: 5px" do %>
+        <ul>
+          <%= render :partial => '/layouts/backend/menu_inventory_items' %>
+          <%= render :partial => '/layouts/backend/menu_inventory_models' %>
+        </ul>
+      <% end %>
+    <% end %>
+  <% end %>
+ <% if current_inventory_pool or (current_user and is_admin?) %>
+    <h4 style="background-color: #D85925;color: white; padding: 5px;">
+      <%= _("Administration") %>
+    </h4>
+    <div id="menu_admin" style="margin:5px">
+      <%= render :partial => '/layouts/backend/menu_admin' %>
+    </div>
+  <% end %>
+<% end %>
+</div>

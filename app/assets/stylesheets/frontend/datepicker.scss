@@ -1,0 +1,154 @@
+#ui-datepicker-div {
+  left: -75px;
+  text-align: center;
+  margin-left: -40px;
+  position: absolute;
+  width: 158px;
+  @include greylinks;
+  
+  .ui-datepicker-header {
+    background: url($image-sprite) no-repeat -42px -786px;
+    height: 28px;
+    
+    .ui-datepicker-title {
+      color: $darkgrey;
+      font-size: 1.1em;
+      font-weight: bold;
+      display: inline-block;
+      position: relative;
+      top: 9px;
+    }
+    
+    .ui-datepicker-prev {
+      background: url($image-sprite) no-repeat -26px -829px;
+      cursor: pointer;
+      display: block;
+      height: 12px;
+      left: 10px;
+      position: absolute;
+      top: 10px;
+      width: 12px;
+      
+      span {
+        display: none;
+      }
+    }
+    
+    .ui-datepicker-prev:hover {
+      background: url($image-sprite) no-repeat -13px -829px;
+    }
+    
+    .ui-datepicker-prev:active {
+      background: url($image-sprite) no-repeat 0 -829px;
+    }
+    
+    .ui-datepicker-next {
+      background: url($image-sprite) no-repeat -68px -826px;
+      cursor: pointer;
+      display: block;
+      height: 12px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 12px;
+      
+      span {
+        display: none;
+      }
+    }
+    
+    .ui-datepicker-next:hover {
+      background: url($image-sprite) no-repeat -55px -826px;
+    }
+    
+    .ui-datepicker-next:active {
+      background: url($image-sprite) no-repeat -42px -826px;
+    }
+  }
+  
+  .ui-datepicker-calendar {
+    background: url($slices-v) repeat-y -31px 0px;
+    display: block;
+    padding-left: 4px;
+    padding-top: 3px;
+    
+    thead {
+      tr {
+        background: none;
+        
+        th {
+          text-align: right;
+          padding: 3px 4px;
+        }
+      }
+    }
+    
+    tbody {
+      tr {
+        td {
+          a {
+            border-right: 1px solid #FFF;
+            display: block;
+            padding: 3px 4px;
+            text-align: right;
+          }
+          
+          a:hover {
+            background: $highlight-darkgrey !important;
+          }
+          
+          .ui-state-active {
+           
+            background: $highlight-darkgrey !important;
+             color: $grey !important;
+
+            font-weight: bold;
+          }
+        }
+        
+        td:nth-last-child(1) {
+          a {
+            border-right: none;
+            padding-right: 5px;
+          }
+        }
+        
+        .ui-datepicker-other-month {
+        
+            a {
+              background: none !important;
+              color: $lightergrey !important;
+            }
+            
+            a:hover {
+              color: $grey !important;
+            }
+         }
+         
+         .ui-datepicker-unselectable {
+            color: $lightergrey;
+            padding: 3px 4px;
+         } 
+      }
+      
+      tr:nth-child(odd) {
+        td {
+          a {
+            background: $highlight-grey;  
+          }
+        }
+      }
+    }
+  }
+  
+  .ui-datepicker-buttonpane {
+    background: url($image-sprite) no-repeat -42px -816px;
+    display: block;
+    height: 10px;
+    width: 158px;
+    
+    button {
+      display: none;
+    }
+  }
+}

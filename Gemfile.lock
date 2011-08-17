@@ -61,6 +61,10 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.2.1)
       ffi (~> 1.0.6)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.1.2)
     columnize (0.3.4)
     cucumber (1.0.2)
       builder (>= 2.1.2)
@@ -75,6 +79,8 @@ GEM
     database_cleaner (0.6.7)
     diff-lcs (1.1.2)
     erubis (2.7.0)
+    execjs (1.2.4)
+      multi_json (~> 1.0)
     fast_gettext (0.5.13)
     fastercsv (1.5.4)
     ffi (1.0.9)
@@ -83,11 +89,14 @@ GEM
       locale (>= 2.0.5)
     gettext_i18n_rails (0.2.20)
       fast_gettext
-    gherkin (2.4.8)
+    gherkin (2.4.11)
       json (>= 1.4.6)
     haml (3.1.2)
     hike (1.2.0)
     i18n (0.6.0)
+    jquery-rails (1.0.13)
+      railties (~> 3.0)
+      thor (~> 0.14)
     json (1.5.3)
     json_pure (1.5.3)
     kgio (2.6.0)
@@ -202,6 +211,9 @@ GEM
       polyglot (>= 0.3.1)
     ttfunk (1.0.2)
     tzinfo (0.3.29)
+    uglifier (1.0.1)
+      execjs (>= 0.3.0)
+      multi_json (>= 1.0.2)
     unicorn (4.0.1)
       kgio (~> 2.4)
       rack
@@ -219,6 +231,7 @@ DEPENDENCIES
   barby (= 0.4.3)
   builder (~> 3.0)
   capybara (~> 1.0.1)
+  coffee-script
   cucumber-rails (~> 1.0.2)
   database_cleaner (~> 0.6.7)
   fastercsv (~> 1.5.4)
@@ -227,6 +240,7 @@ DEPENDENCIES
   gettext_i18n_rails (~> 0.2.20)
   haml (~> 3.1.2)
   i18n (~> 0.6.0)
+  jquery-rails (~> 1.0.13)
   json (~> 1.5.3)
   launchy (~> 2.0.4)
   mysql2 (~> 0.3.7)
@@ -248,5 +262,6 @@ DEPENDENCIES
   ruby_parser (~> 2.1.0)
   sass (~> 3.1.5)
   thinking-sphinx (~> 2.0.5)
+  uglifier (~> 1.0.1)
   unicorn
   will_paginate (~> 3.0)

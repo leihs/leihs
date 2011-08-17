@@ -1,20 +1,53 @@
-- content_for :head do
-  = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false"
-
-= render :partial => '/layouts/frontend/00-patterns/tabs'
-= render :partial => '/layouts/frontend/00-patterns/content_box_head'
+= render :partial => '/layouts/frontend/tabs'
+= render :partial => '/layouts/frontend/content_box_head'
 
 #ip.inner
   %h1= @inventory_pool
   %h3
     - output = [@inventory_pool.address]
     - output << mail_to(@inventory_pool.email, @inventory_pool.email, :encode => "javascript") unless @inventory_pool.email.blank?
-    != output.join(', ')
+    != output.compact.join(', ')
   
   %hr
-  
-  #map
-  
+
+  - if @inventory_pool.address
+    - content_for :head do
+      = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false"
+
+    #map
+    :javascript
+      $(document).ready(function () {
+        Map.setup(#{@inventory_pool.address.coordinates});
+        Map.addMarker(new google.maps.LatLng(#{@inventory_pool.address.coordinates.join(", ")}), "#{@inventory_pool}");
+      });
+      
+      // MAP
+      var Map = new Map();
+      function Map () {
+        
+        this.map;
+        this.position;
+        
+        this.setup = function (_coordinates) {
+          Map.position = new google.maps.LatLng(_coordinates[0],_coordinates[1]);
+          
+          Map.map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 14,
+            center: Map.position,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          });
+        }
+        
+        this.addMarker = function (_position, _title) {
+          var marker = new google.maps.Marker({
+            position: _position,
+            title: _title
+          });
+          
+          marker.setMap(Map.map);  
+        }
+      }
+
   .aside
     
     - #TODO Franco: Opening Hours here
@@ -65,39 +98,5 @@
   .borderright
   .borderleft
   
-= render :partial => '/layouts/frontend/00-patterns/content_box_foot'
-= render :partial => '/layouts/frontend/00-patterns/aside'
-
-:javascript
-  
-  $(document).ready(function () {
-    Map.setup(#{@inventory_pool.address.coordinates});
-    Map.addMarker(new google.maps.LatLng(#{@inventory_pool.address.coordinates.join(", ")}), "#{@inventory_pool}");
-  });
-  
-  // MAP
-  var Map = new Map();
-  function Map () {
-    
-    this.map;
-    this.position;
-    
-    this.setup = function (_coordinates) {
-      Map.position = new google.maps.LatLng(_coordinates[0],_coordinates[1]);
-      
-      Map.map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 14,
-        center: Map.position,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      });
-    }
-    
-    this.addMarker = function (_position, _title) {
-      var marker = new google.maps.Marker({
-        position: _position,
-        title: _title
-      });
-      
-      marker.setMap(Map.map);  
-    }
-  }
+= render :partial => '/layouts/frontend/content_box_foot'
+= render :partial => '/layouts/frontend/aside'

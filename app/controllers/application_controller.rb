@@ -15,9 +15,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   
-  $theme = '00-patterns'
-  $layout_public_path = '/layouts/' + $theme
-
   $per_page = 50 # OPTIMIZE keep per_page in user session?
  
 ####################################################  

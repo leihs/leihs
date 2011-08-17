@@ -1,0 +1,79 @@
+.button {
+  background: none;
+  border: 0;
+  border-right: 1px solid $lightgrey;
+  border-left: 1px solid $lightgrey;
+  border-bottom: 1px solid $lightgrey;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.3em;
+  font-weight: bold;
+  height: 31px;
+  text-align: center;
+  padding: 0 8px;
+  position: relative;
+  vertical-align: middle;
+  
+  @include borderRadius(6px);
+}
+
+.smallbutton {
+  background: none;
+  border: 0;
+  border-right: 1px solid $lightgrey;
+  cursor: pointer;
+  display: inline-block;
+  height: 22px;
+  text-align: center;
+  padding: 0 5px;
+  position: relative;
+  vertical-align: middle;
+  
+  @include borderRadius(6px);
+}
+
+.button:hover, .smallbutton:hover {
+  color: #515151 !important;
+}
+
+.button:active {
+  line-height: 1.5em;
+}
+
+.smallbutton:active {
+  line-height: 1.3em;
+}
+
+// GREEN
+.button.green, .smallbutton.green {
+  color: #4d9148 !important;
+}
+
+.button.green {
+  background: url($image-sprite) no-repeat 0 -202px;
+}
+
+.button.green:hover {
+  background: url($image-sprite) no-repeat 0 -340px;
+}
+
+.button.green:active {
+  background: url($image-sprite) no-repeat 0 -234px;
+}
+
+.button.green[disabled = "disabled"], .button.green[disabled = "disabled"]:hover, .button.green[disabled = "disabled"]:active {
+  background: url($image-sprite) no-repeat 0 -202px;
+}
+
+.smallbutton.green {
+  background: url($image-sprite) no-repeat 0 -372px;
+}
+
+.smallbutton.green:hover {
+  background: url($image-sprite) no-repeat 0 -395px;
+}
+
+.smallbutton.green:active {
+  background: url($image-sprite) no-repeat 0 -418px;
+}
+

@@ -1,0 +1,380 @@
+@mixin listanchor {
+  a, a:link, a:visited, a:hover, a:active {
+    color: $darkgrey;
+    display: block;
+    padding: 10px 0;
+    width: 100%;
+  }
+} 
+
+#models {
+
+  .aside {
+    float: left;
+    left: -4px;
+    position: relative;
+    top: -18px;
+    width: 174px;
+    z-index: 99;
+  
+    #categories, #templates {
+      border-right: 1px solid #e3e3e3;
+      margin-bottom: -46px;
+      padding-top: 16px;
+      padding-right: 8px;
+      @include greylinks;
+  
+      li {
+        list-style-type: none;
+        overflow: hidden;
+      }
+      
+      h2 {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+      
+      li:hover h2 a {
+          color:#515151;
+      }
+      
+      ul {
+        padding-bottom: 16px;
+        
+        a {
+          display: block;
+          font-size: 1.1em;
+          line-height: 1.4em;
+          padding-top: 3px;
+          padding-bottom: 3px;
+        }
+      }
+    }
+  }
+  
+  #modellist {
+    border-left: 1px solid #e3e3e3;
+    display: block;
+    float: right;
+    top: 17px;
+    margin-right: -16px;
+    margin-left: -12px;
+    position: relative;
+    width: 571px;
+    
+    .item {
+      border-bottom: 1px solid #e3e3e3;
+      margin-bottom: 1px;
+      height: 70px;
+      position: relative;
+      width: 100%;
+      
+      td {
+        padding-right: 12px;
+      }
+      
+      .image {
+        height: 70px;
+        padding: 0 16px 0 12px;
+        position: relative;
+        text-align: center;
+        vertical-align: middle;
+        width: 50px;
+        @include listanchor;
+        
+        img {
+          max-height: 50px;
+          max-width: 50px;
+        }
+      }
+      
+      .overlay {
+        background: transparent;
+        border: none;
+        display: inline-block;
+        height: 72px;
+        left: 0;
+        position: absolute;
+        width: 82%;
+        
+        .imageanchor {
+          display: block;
+          float: left;
+          height: 100%;
+          width: 70px;
+        }
+        
+        .itemanchor {
+          display: block;
+          float: left;
+          height: 100%;
+          width: 398px;
+        }
+        
+        .hover {
+          display: none;
+          left: 70px;
+          position: absolute;
+          top: -50px;
+          width: 400px;
+          z-index: 9999; 
+          
+         .header {
+            display: block;
+            height: 10px;
+            position: relative;
+            
+            .headerinner {
+              background: url($slices-h) repeat-x 0 -196px;
+              display: block;
+              height: 10px;
+              margin-left: 10px;
+              margin-right: 10px;
+            }
+            
+            .borderright {
+              background: url($image-sprite) no-repeat -167px -328px;
+              display: block;
+              height: 10px;
+              right: 0;
+              position: absolute; 
+              top: 0;
+              width: 10px;
+            }
+            
+            .borderleft {
+              background: url($image-sprite) no-repeat -156px -328px;
+              display: block;
+              height: 10px;
+              left: 0;
+              position: absolute; 
+              top: 0;
+              width: 10px;
+            }
+          }
+          
+          .inner {
+            background: #FFF;
+            border: none; 
+            margin: 0 auto;
+            min-height: 100px;
+            padding: 9px 11px 11px 10px;
+            position: relative;
+            width: 369px;
+            
+            a {
+              display: block;
+              height: 100%;
+              width: 100%;
+              
+              .topright {
+                position: absolute;
+                top: 10px;
+                right: 12px;
+              }
+            }
+            
+            img {
+              max-height: 150px;
+              width: auto;
+              max-width: 230px;
+              margin-bottom: 15px;
+            }
+            
+            .description {
+              font-size: 1.2em;
+              line-height: 1.5em;
+              margin-left: 3px;
+              margin-bottom: 12px;
+            }
+            
+            .details {
+              tr td {
+                color: #515151;
+                display: inline-block;
+                line-height: 1.5em;
+                padding: 8px 0;
+                position: relative;
+                top: 0;
+                vertical-align: top;
+              }
+              
+              tr:nth-child(odd)  {
+               background: $highlight-darkgrey;
+              }
+              
+              tr:nth-child(even)  {
+               background: $highlight-grey;
+              }
+              
+              .key {
+                color: $grey;
+                font-weight: bold;
+                margin-right: 8px;
+                padding-left: 10px;
+                width: 103px;
+              }
+              
+              .value {
+                border-left: 1px solid #FFF;
+                padding-left: 10px;
+                padding-right: 10px;
+                width: 222px
+              }
+            }
+            
+            .borderright {
+              background: url($slices-v) repeat-y -9px 0;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              right: -5px;
+              width: 10px;
+              
+              .arrow {
+                background: url($image-sprite) no-repeat -21px -786px;
+                display: block;
+                height: 42px;
+                right: -14px;
+                position: absolute;
+                top: 54px;
+                width: 20px;
+              }
+            }
+            
+            .borderleft {
+              background: url($slices-v) repeat-y -20px 0;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              left: -5px;
+              width: 10px;
+              
+              .arrow {
+                background: url($image-sprite) no-repeat 0 -786px;
+                display: block;
+                height: 42px;
+                left: -14px;
+                position: absolute;
+                top: 54px;
+                width: 20px;
+              }
+            }
+          }
+          
+          .footer {
+            display: block;
+            height: 14px;
+            position: relative;
+            
+             .footerinner {
+                background: url($slices-h) repeat-x 0 -207px;
+                display: block;
+                height: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+             }
+            
+            .borderright {
+              background: url($image-sprite) no-repeat -189px -328px;
+              display: block;
+              height: 10px;
+              right: 0;
+              position: absolute; 
+              top: 0;
+              width: 10px;
+            }
+            
+            .borderleft {
+              background: url($image-sprite) no-repeat -178px -328px;
+              display: block;
+              height: 10px;
+              left: 0;
+              position: absolute; 
+              top: 0;
+              width: 10px;
+            }
+          }
+        }
+      }
+      
+      .name {
+        font-size: 1.2em;
+        height: 70px;
+        vertical-align: middle;
+        width: 250px;
+        @include listanchor;
+      }
+      
+      .manufacturer {
+        font-size: 1.2em;
+        vertical-align: middle;
+        width: 115px;
+        @include listanchor;
+      }
+      
+      .availability {
+        color: $lightgrey;
+        font-size: 1.1em;
+        text-align: right;
+        padding-right: 7px;
+        vertical-align: middle;
+      }
+      
+      .add {
+        padding-right: 10px;
+        padding-top: 1px;
+        text-align: right;
+        vertical-align: middle;
+        width: 24px;
+        @include opacity(0.4);
+        
+        .smallbutton {
+          font-size: 1.5em;   
+          font-weight: bold;
+        }
+      }
+    }
+    
+    .item:nth-child(odd) {
+      background: $highlight-grey;
+    }
+    
+    .item:hover {
+      background: $highlight-darkgrey;
+      
+      .add {
+        @include opacity(1);
+      }
+    }
+    
+  }
+}
+
+#models.fullwidth {
+  
+  #topfilter {
+    width: 741px;
+  }
+  
+  #modellist {
+    border-left: 0;
+    width: 752px;
+    
+    .item {
+    
+      .name {
+        width: 310px;
+      }
+      
+      .manufacturer {
+        width: 250px;
+      }
+      
+      .pool {
+        width: 105px;
+      }
+    }
+   
+  }
+}
