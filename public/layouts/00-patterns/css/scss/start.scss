@@ -5,6 +5,10 @@
       .pools {
         @include greylinks;
       }
+      
+      .showall {
+        display: none;
+      }
    }
    
   #rentedItems {

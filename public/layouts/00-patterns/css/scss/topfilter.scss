@@ -8,65 +8,110 @@
   right: 1px;
   width: 558px;
   
+  .ipSelection {
+    display: inline-block;
+    float: right; 
+    font-size: 1.1em;
+    padding: 11px 16px 0 0;
+    @include greylinks();
+    
+    a {
+      color: $grey !important;
+      padding: 2px 0 8px 0;
+      position: relative;
+      
+      .icon {
+        background: url(../images/image-sprite.png) no-repeat -63px -37px;
+        height: 9px;
+        position: absolute;
+        top: 5px;
+        right: -8px;
+        width: 9px;
+        @include opacity(0.7);
+      }
+    }
+    
+    a:hover {
+      color: $darkgrey !important;
+      
+      .icon {
+        @include opacity(1);
+      }
+    }
+    
+    .hover {
+      background: #fff;
+      display: block;
+      padding: 6px 12px;
+      position: absolute;
+      z-index: 1001;
+      
+        .line {
+          display: block;
+          clear: both;
+        }
+    }
+  }
+  
   .sort {
     background: none;
     border-right: 1px solid #e2e0de;
+    border-left: 1px solid #e2e0de;
     float: right;
     height: 20px;
-    padding-right: 12px;
+    padding-left: 6px;
     position: relative;
     top: 8px;
-    width: 250px;
-    
-    .submit {
-      margin-left: 12px;
-    }
     
     .container {
       float: right;
+      padding-right: 6px;
       position: relative;
-      width: 140px;
     
       .select {
-        float: right;
-        position: absolute;
+        font-size: 1.1em;
+        color: $grey;
+        cursor: pointer;
+        display: inline-block;
         height: 20px;
-        overflow: hidden;
-        padding: 4px 25px 0 0;
-        text-align: right;
-        width: 125px;
-      }
-      
-      .arrow {
-        background: url(../images/image-sprite.png) no-repeat -53px -37px;
-        height: 6px;
+        padding-top: 3px;
+        padding-right: 10px;
         position: absolute;
-        top: 8px;
-        left: 135px;
-        width: 7px;
+        right: 0;
+        text-align: right;
+        width: 120px;
+        
+        .arrow {
+          background: url(../images/image-sprite.png) no-repeat -53px -37px;
+          display: inline-block;
+          height: 6px;
+          margin-left: 4px;
+          width: 7px;
+          @include opacity(0.6);
+        }
       }
       
       select {
         border: 0;
         color: $grey;
-        margin-right: 10px;
-        padding: 4px 12px 2px 8px;
+        cursor: pointer;
+        height: 23px;
+        padding: 5px 0 0 0;
         position: relative;
         text-align: right;
-        width: 140px;
+        width: 125px;
       }
+    }
+  }
+  
+  .sort:hover {
+    .select {
+      color: $darkgrey;
       
+      .arrow {
+        @include opacity(1);
+      }
     }
-    
-    .submit {
-      float: right;
-      cursor: pointer;
-      @include opacity(0.5);
-    }
-    
-    .submit:hover {
-      @include opacity(0.9);
-     }
   }
   
   .availability {
@@ -87,9 +132,14 @@
     }
     
     .checkarea {
+      font-size: 1.1em;
       cursor: pointer;
       display: inline-block;
       margin-left: 2px;
+      
+      label {
+        padding: 4px 0 9px 0;
+      }
     }
     
     .checkarea:hover {

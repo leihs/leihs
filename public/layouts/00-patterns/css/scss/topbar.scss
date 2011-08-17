@@ -202,26 +202,42 @@
         }
       }
       
-      .hover.language {
+      .hover {
         font-size: 1.1em;
         font-weight: bold;
         
         .inner {
           padding: 0;
           
-            hr {
-              display: block;
-              position: relative;
-              margin: 0 0 -15px 0;
-            }
-            
-            a {
-              display: block;
-              height: 27px;
-              padding: 11px 25px 0 20px;
-              position: relative;
-              white-space: nowrap;
-            }
+          hr {
+            display: block;
+            position: relative;
+            margin: 0 0 -15px 0;
+          }
+          
+          a {
+            display: block;
+            overflow: hidden;
+            padding: 11px 25px 10px 20px;
+            position: relative;
+            white-space: nowrap;
+          }
+        }
+      }
+      
+      .hover.parks {
+        .openinghours {
+          font-size: 1.0em;
+          font-weight: normal;
+          letter-spacing: 0px;
+          padding-left: 4px;
+        }
+        
+        .address {
+          display: block;
+          font-size: 1.0em;
+          font-weight: normal;
+          letter-spacing: 0px;
         }
       }
       

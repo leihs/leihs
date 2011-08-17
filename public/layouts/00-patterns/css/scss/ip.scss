@@ -1,3 +1,14 @@
+#iplist {
+  .map {
+    float: left;
+    @include borderRadius (8px);
+  }
+  
+  h3 {
+    float: left;
+  }
+}
+
 #ip {
   
   h1 {
@@ -35,7 +46,7 @@
         
         td {
           padding-top: 2px;
-          padding-bottom: 12px;
+          padding-bottom: 8px;
         }
       }
     }
