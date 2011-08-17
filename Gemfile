@@ -4,6 +4,8 @@ gem 'rails', '3.1.0.rc6'
 gem 'builder', '~> 3.0' 
 gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
+gem 'unicorn'
+
 gem 'mysql2', '~> 0.3.7'
 
 #gem 'squeel', '~> 0.8.4'
