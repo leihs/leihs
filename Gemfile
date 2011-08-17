@@ -1,10 +1,10 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc5' 
+gem 'rails', '3.1.0.rc6'
 gem 'builder', '~> 3.0' 
 gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
-gem 'mysql2', '~> 0.3.6' 
+gem 'mysql2', '~> 0.3.7'
 
 #gem 'squeel', '~> 0.8.4'
 
@@ -46,7 +46,7 @@ gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
 gem 'geocoder', '~> 1.0.2'
 
-group :profiling do
+group :profiling, :development do
 	gem 'newrelic_rpm', '~> 3.1'
 end
 
