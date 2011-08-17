@@ -89,7 +89,7 @@
           %td.availability
             = render :partial => 'availability', :locals => {:model => m}
           %td.add
-            = link_to "+", book_model_path(m), :class => "smallbutton green", :title => _("Book: %s") % m.name
+            = link_to "+", book_model_path(m), :class => "smallbutton green", :title => _("Book %s") % m.name
 
   .clear
   
