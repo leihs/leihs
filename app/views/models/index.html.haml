@@ -1,7 +1,7 @@
 = render :partial => '/layouts/frontend/tabs'
 = render :partial => '/layouts/frontend/content_box_head'
 
-.inner#models{:class => (@category.try(:children).blank? and @template.try(:children).blank?) ? "fullwidth" : nil} 
+#models.innercontent{:class => (@category.try(:children).blank? and @template.try(:children).blank?) ? "fullwidth" : nil} 
     
   - unless @category.try(:children).blank? and @template.try(:children).blank?
     .aside  
@@ -42,9 +42,10 @@
                       = link_to child, template_models_path(child) , :title => child
                   
   = render :partial => 'topfilter'
-  
+
   %section#modellist
-    - @models.each do |m|
+    -#TODO Franco: FOLLOWIN LINE CAUSES ERROR
+    -# @models.each do |m|
       %table.item
         %tr
           %td.image
