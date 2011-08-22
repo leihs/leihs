@@ -5,6 +5,12 @@ class ModelsController < FrontendController
   def index( query = params[:query],
              sort = params[:sort] || 'name', # OPTIMIZE 0501
              sort_mode = params[:dir] || 'ASC' ) # OPTIMIZE 0501
+    
+    cookie_expire = 1.hour.from_now
+    cookies[:active_ips] ||= {:value => current_user.active_inventory_pool_ids.to_json, :expires => cookie_expire }
+    cookies[:start_date] ||= {:value => Date.today.to_json, :expires => cookie_expire }
+    cookies[:end_date] ||= {:value => Date.tomorrow.to_json, :expires => cookie_expire }
+    cookies[:show_available] ||= {:value => false.to_json, :expires => cookie_expire }
              
     sort, sort_mode = params[:sort_and_sort_mode].split unless params[:sort_and_sort_mode].blank?
     
