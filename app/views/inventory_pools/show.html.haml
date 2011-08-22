@@ -1,7 +1,8 @@
 = render :partial => '/layouts/frontend/tabs'
 = render :partial => '/layouts/frontend/content_box_head'
 
-#ip.inner
+#ip.innercontent
+
   %h1= @inventory_pool
   %h3
     - output = [@inventory_pool.address]
@@ -76,8 +77,9 @@
             = "Fr"
           %td.time
             = "08.30 - 12.00 Uhr"
-            
   .clear
+  
+  %hr
   
   .description
     = simple_format(@inventory_pool.description)
