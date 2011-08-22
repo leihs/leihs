@@ -4,10 +4,10 @@
     .headerinner
       %ul.navigation
         %li.active{:class => "order"}
-          %a{:href => "#", :title => _("Order")}
+          = link_to "javascript: void(0)", :title => _("Order") do
             %span{:class => "icon"}
         %li{:class => "templates"}
-          %a{:href => "#", :title => _("Order Templates")}
+          = link_to "javascript: void(0)", :title => _("Order Templates") do
             %span{:class => "icon"}
     .borderleft
   
@@ -33,24 +33,54 @@
 :javascript
   
   $(document).ready(function () {
-    AsideNavigation.setup();
+    Aside.setup();
   });
 
   // ASIDE NAVIGATION
-  var AsideNavigation = new AsideNavigation();
-  function AsideNavigation () {
+  var Aside = new Aside();
+  function Aside () {
+  
+    this.marginTop = 25;
+    this.delayTimer;
     
     this.setup = function () {
+      Aside.setupNavigation();
+      Aside.setupViewportFollowing();
+    }
+    
+    this.setupViewportFollowing = function() {
+      $(window).resize(function(){
+        Aside.checkPosition();
+      });
+      
+      $(window).scroll(function(){
+        Aside.checkPosition();
+      });
+    }
+    
+    this.checkPosition = function() {
+      $('#aside').css("position", "fixed");
+      
+      if(window.pageYOffset < $("#content").offset().top){
+        $('#aside').offset({top: $("#content").offset().top});     
+      } else {
+        $('#aside').css("top", Aside.marginTop);
+      }
+      
+      $('#aside').offset({left: ($("#content").offset().left + $("#content").width() + $("#aside").outerWidth(true) - $("#aside").outerWidth())});
+    }
+    
+    this.setupNavigation = function() {
       $('#aside .navigation .order a').bind('click', function(){
         $('#compactOrder').stop().show();
         $('#compactTemplates').stop().hide();
-        AsideNavigation.switchActive($(this).parent());
+        Aside.switchActive($(this).parent());
       });
       
       $('#aside .navigation .templates a').bind('click', function(){
         $('#compactOrder').stop().hide();
         $('#compactTemplates').stop().show();
-        AsideNavigation.switchActive($(this).parent());
+        Aside.switchActive($(this).parent());
       });
     }
     
