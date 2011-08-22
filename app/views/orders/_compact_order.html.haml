@@ -164,11 +164,11 @@
         }
         
         // validate purpose length
-        if(!CompactOrder.validatePurposeLength() && CompactOrder.purpose.val().length > 0) {
+        if(!CompactOrder.validatePurposeLength() && CompactOrder.purpose.val().length > 0 && CompactOrder.purpose.val() != CompactOrder.purpose.data("start_text")) {
           Dialog.add({
               trigger: $(this),
               content: '<p>#{_("Please elaborate on your order purpose. It is currently to short.")}</p>',
-              callback: function() {$("#compactOrder .orderPurpose textarea").focus()},
+              callback: function() {CompactOrder.purpose.focus()},
               title: '#{_("Order Purpose Input")}',
               buttons: { "Ok": function() {$(this).dialog("close");} }
           });
