@@ -96,6 +96,12 @@ class InventoryPool < ActiveRecord::Base
 
 #######################################################################
 
+  def used_root_categories
+    models.map(&:categories).flatten.map{|x| x.ancestors.roots }.flatten.uniq
+  end
+  
+#######################################################################
+
   before_create :create_workday
 
 # TODO ??  after_save :update_sphinx_index
