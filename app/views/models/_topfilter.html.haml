@@ -17,21 +17,200 @@
         %option{:value => "manufacturer ASC"}= _("Manufacturer (A-Z)")
         %option{:value => "manufacturer DESC"}= _("Manufacturer (Z-A)")
   
-  .ipSelection
+  #ipSelector
     = link_to "javascript: void(0)" do
-      = _("Parks (#{current_user.inventory_pools.length})")
+      %span.text
+        != _("Parks (#{content_tag(:span, current_user.inventory_pools.length, :class => 'amount')})")
       %span.icon
-    %form.hover
-      - current_user.inventory_pools.each do |ip|
-        .line
-          %input{:type => "checkbox"}
-          %label
-            = ip.name
+    .container
+      %form.hover
+        .header
+          .borderleft
+          .inner
+          .borderright
+        .inner
+          - current_user.inventory_pools.each do |ip|
+            .line{:"data-id" => ip.id}
+              %input{:type => "checkbox", :id => "ip-#{ip.id}", :"data-id" => ip.id}
+              %label{:for => "ip-#{ip.id}", :title => ip.name, :"data-id" => ip.id}
+                = truncate(ip.name, :length => 14)
+          .borderleft
+          .borderright
+        .footer
+          .borderleft
+          .borderright
+      
 
 - content_for :head do
   = javascript_include_tag "jquery/i18n/jquery.ui.datepicker-#{current_user.language.locale_name.dasherize}.js"
+  = javascript_include_tag "jquery/cookie/cookie.js"
           
 :javascript
+  
+  $(document).ready(function(){
+    ipSelector.setup();
+  });
+  
+  var ipSelector = new ipSelector();
+  
+  function ipSelector() {
+  
+    this.hover;
+    this.animating;
+    this.container;
+    this.hight;
+    this.width;
+    this.activeIPs;
+    
+    this.setup = function() {
+      ipSelector.setupHover();
+      ipSelector.setupContainer();
+      ipSelector.setupBindings();
+      ipSelector.readCookieSettings();
+      ipSelector.setIpSelector();
+    }
+    
+    this.readCookieSettings = function() {
+      ipSelector.activeIPs = $.parseJSON($.cookie('active_ips'));
+    }
+    
+    this.setIpSelector = function() {
+      $("#ipSelector .line").each(function(){
+        if( $.inArray( $(this).data("id"), ipSelector.activeIPs ) >= 0 ) {
+          $(this).find("input").attr("checked", true);
+          $(this).find("label").addClass("checked");
+        } else {
+          $(this).find("input").removeAttr("checked");
+          $(this).find("label").removeClass("checked");
+        }
+      });
+      
+      $("#ipSelector .text .amount").html(ipSelector.activeIPs.length);
+      ipSelector.updateCookie();
+      ipSelector.manipulateModelList();
+    }
+    
+    this.manipulateModelList = function() {
+      $("#modellist .item").each(function(i, v){
+        var _ips = $(this).data("attributes").inventory_pool_ids;
+        var r = $.intersection(_ips, ipSelector.activeIPs);
+        if(r.length) {
+          $(this).show(); 
+        } else {
+          $(this).hide();
+        }
+      });
+    }
+    
+    this.updateCookie = function() {
+      $.cookie('active_ips', JSON.stringify(ipSelector.activeIPs), { path: '/', expires: 1 });
+    }
+    
+    this.setupBindings = function() {
+      $("#topfilter #ipSelector a").bind("click", function() {
+        ipSelector.toggle();
+      });
+      
+      $("#topfilter #ipSelector .line input").bind("change", function() {
+        if($(this).is(':checked')) {
+          ipSelector.addActiveIP($(this).data("id"));
+        } else {
+          if(ipSelector.activeIPs.length > 1) {
+            ipSelector.removeActiveIP($(this).data("id"));
+          } else {
+            $(this).attr("checked", true);
+          }
+        }
+      });
+    }
+    
+    this.addActiveIP = function(_id) {
+      ipSelector.activeIPs.push(_id);
+      ipSelector.setIpSelector();
+    }
+    
+    this.removeActiveIP = function(_id) {
+      ipSelector.activeIPs = ipSelector.activeIPs.remove(_id);
+      ipSelector.setIpSelector();
+    }
+    
+    /* This function provides functionality to remove a specific element inside an array (only works with jquery) */
+    Array.prototype.remove = function(v) {
+      return $.grep(this, function(e) {
+          return e !== v;
+      });
+    };
+    
+    /* TODO: THIS IS NOT WORKING YET!! This function returns the intersection of two arrays (only works with jquery) */
+    jQuery.intersection = function(a, b) {
+      var result = new Array();
+      $.each(b, function(i, v){
+        if($.inArray(parseInt(v), a)){
+          console.log("MATCH: " + v)
+          result.push(v);
+        }
+      });
+      console.log(a);
+      console.log(b);
+      console.log(result);
+      console.log("---------");
+      
+      return result;
+    }
+    
+    this.setupHover = function() {
+      ipSelector.hover = $("#topfilter #ipSelector .container .hover");
+    }
+    
+    this.setupContainer = function() {
+      ipSelector.container =  $("#topfilter #ipSelector .container");
+      ipSelector.hover.show();
+      ipSelector.container.show();
+      ipSelector.height = ipSelector.hover.height();
+      ipSelector.container.height(ipSelector.height);
+      ipSelector.width = ipSelector.hover.outerWidth();
+      ipSelector.container.width(ipSelector.width);
+      ipSelector.hover.hide();
+      ipSelector.container.hide();
+    }
+    
+    this.toggle = function() {
+      if(ipSelector.container.css("display") == "block") {
+        ipSelector.close();
+      } else {
+        ipSelector.open();
+      }
+    }
+    
+    this.open = function() {
+      ipSelector.container.show();
+      $("#ipSelector .text").addClass("open");
+      ipSelector.hover.offset({top: -ipSelector.height});
+      ipSelector.hover.stop(true, true).show().animate({
+        top: 0
+      }, function(){
+        $(document).bind("click", ipSelector.checkClickWhileOpen);
+      });
+    }
+    
+    this.close = function() {
+      $("#ipSelector .text").removeClass("open");
+      ipSelector.hover.stop(true, true).show().animate({
+        top: -ipSelector.height
+      }, function() {
+        ipSelector.container.hide();
+        ipSelector.hover.hide();
+        $(document).unbind("click", ipSelector.checkClickWhileOpen);
+      });
+    }
+    
+    this.checkClickWhileOpen = function(event){
+      if($(event.target).closest("#ipSelector").length == 0) {
+        ipSelector.close();
+      }
+    }
+  }
+  
   function update_availability(){
     var sd = $("#date_from").datepicker("getDate").getTime() / 1000;
     var ed = $("#date_to").datepicker("getDate").getTime() / 1000;
