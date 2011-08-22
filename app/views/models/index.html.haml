@@ -44,9 +44,8 @@
   = render :partial => 'topfilter'
 
   %section#modellist
-    -#TODO Franco: FOLLOWIN LINE CAUSES ERROR
-    -# @models.each do |m|
-      %table.item
+    - @models.each do |m|
+      %table.item{:"data-attributes" => {:inventory_pool_ids => m.inventory_pool_ids}.to_json}
         %tr
           %td.image
             - unless m.images.empty?
