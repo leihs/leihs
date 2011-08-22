@@ -1,0 +1,277 @@
+#topfilter {
+  border-bottom: 1px solid #e3e3e3;
+  color: #858585;
+  height: 34px;
+  padding-right: 10px;
+  position: absolute;
+  top: -10px;
+  right: 1px;
+  width: 558px;
+  
+  #ipSelector{
+    display: inline-block;
+    float: right; 
+    font-size: 1.1em;
+    padding: 11px 10px 0 0;
+    position: relative;
+    @include greylinks();
+    
+    a {
+      .text {
+        color: $grey !important;
+        padding: 2px 0 8px 0;
+        position: relative;
+      }
+      
+      .text.open {
+        color: $darkgrey;
+        font-weight: bold;
+        right: -1px;
+      }
+      
+      .icon {
+        background: url($image-sprite) no-repeat -63px -37px;
+        display: inline-block;
+        height: 9px;
+        position: relative;
+        top: 1px;
+        width: 9px;
+        @include opacity(0.7);
+      }
+    }
+    
+    a:hover {
+    
+      .text {
+        color: $darkgrey !important;
+      }
+      
+      .icon {
+        @include opacity(1);
+      }
+    }
+    
+    .container {
+      display: none;
+      overflow: hidden;
+      padding: 0 5px;
+      position: absolute;
+      top: 34px;
+      right: -4px;
+    
+      .hover {
+        display: none;
+        position: absolute;
+        right: 0;
+        padding-right: 5px;
+        z-index: 1001;
+        
+        .header {
+          background: url($slices-h) repeat-x 0 -94px;
+          height: 2px;
+          position: relative;
+          width: 100%;
+          
+          .borderleft {
+            background: url($slices-v) repeat-y 0px 0px;
+            height: 100%;
+            left: -2px;
+            position: absolute;
+            top: 0;
+            width: 2px;
+          }
+          
+          .borderright {
+            background: url($slices-v) repeat-y -3px 0;
+            height: 100%;
+            right: -5px;
+            position: absolute;
+            top: 0;
+            width: 5px;
+          }
+        }
+        
+        .inner {
+          background: #FFF;
+          height: 100%;
+          position: relative;
+          padding: 0 4px;
+          
+          .line {
+            display: block;
+            padding: 4px 0;
+            white-space: nowrap;
+            clear: both;
+            
+            input {
+              cursor: pointer;
+            }
+            
+            label {
+              cursor: pointer;
+              color: $lightgrey;
+              padding: 4px;
+              position: relative;
+              top: -1px;
+              left: -4px;
+            }
+            
+            label.checked {
+              color: $grey;
+            }
+          }
+          
+          .line:hover {
+            
+            label {
+              color: $darkgrey;
+            }
+          }
+          
+          .borderleft {
+            background: url($slices-v) repeat-y 0px 0px;
+            height: 100%;
+            left: -2px;
+            position: absolute;
+            top: 0;
+            width: 2px;
+          }
+          
+          .borderright{
+            background: url($slices-v) repeat-y -3px 0;
+            height: 100%;
+            right: -5px;
+            position: absolute;
+            top: 0;
+            width: 5px;
+          }
+        }
+        
+        .footer {
+          background: url($slices-h) repeat-x 0 -87px;
+          height: 6px;
+          position: relative;
+          width: 100%;
+          
+          .borderleft {
+            background: url($image-sprite) no-repeat -18px 0;
+            height: 6px;
+            left: -2px;
+            position: absolute;
+            top: 0;
+            width: 2px;
+          }
+          
+          .borderright{
+            background: url($image-sprite) no-repeat -18px -7px;
+            height: 6px;
+            right: -5px;
+            position: absolute;
+            top: 0;
+            width: 5px;
+            z-index: 1;
+          }
+        }
+      }
+    }
+  }
+  
+  .sort {
+    background: none;
+    border-right: 1px solid #e2e0de;
+    border-left: 1px solid #e2e0de;
+    float: right;
+    height: 20px;
+    padding-left: 6px;
+    position: relative;
+    top: 8px;
+    
+    .container {
+      float: right;
+      padding-right: 6px;
+      position: relative;
+    
+      .select {
+        font-size: 1.1em;
+        color: $grey;
+        cursor: pointer;
+        display: inline-block;
+        height: 20px;
+        padding-top: 3px;
+        padding-right: 10px;
+        position: absolute;
+        right: 0;
+        text-align: right;
+        width: 120px;
+        
+        .arrow {
+          background: url($image-sprite) no-repeat -53px -37px;
+          display: inline-block;
+          height: 6px;
+          margin-left: 4px;
+          width: 7px;
+          @include opacity(0.6);
+        }
+      }
+      
+      select {
+        border: 0;
+        color: $grey;
+        cursor: pointer;
+        height: 23px;
+        padding: 5px 0 0 0;
+        position: relative;
+        text-align: right;
+        width: 125px;
+      }
+    }
+  }
+  
+  .sort:hover {
+    .select {
+      color: $darkgrey;
+      
+      .arrow {
+        @include opacity(1);
+      }
+    }
+  }
+  
+  .availability {
+    float: right;
+    margin: 0 0 0 12px;
+    padding: 1px 0 0 0;
+    position: relative;
+    top: 7px;
+    
+    .date {
+      background: url($image-sprite) no-repeat 0 -312px;
+      border: none;
+      color: #858585;
+      font-size: 1.0em;
+      height: 18px;
+      padding: 0 10px 0 6px;
+      width: 58px;
+    }
+    
+    .checkarea {
+      font-size: 1.1em;
+      cursor: pointer;
+      display: inline-block;
+      margin-left: 2px;
+      
+      label {
+        padding: 4px 0 9px 0;
+      }
+    }
+    
+    .checkarea:hover {
+      color: $darkgrey;
+    }
+    
+    .checkarea.active {
+      color: $darkgrey;
+    }
+    
+  }
+}

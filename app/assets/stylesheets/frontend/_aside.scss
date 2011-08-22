@@ -1,13 +1,13 @@
 #aside {
   display: block;
-  float: right;
-  margin-right: 14px;
+  margin-left: 10px;
+  float: left;
   width: 198px;
   
   p {
     color: $lightgrey;
     line-height: 1.4em;
-    padding: 0 8px 4px 8px;
+    padding: 0 8px 4px 10px;
   }
   
   .header {

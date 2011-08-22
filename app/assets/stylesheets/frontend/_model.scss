@@ -81,7 +81,6 @@
   .details {
     tr {
       td {
-        color: #515151;
         display: inline-block;
         font-size: 1.1em;
         line-height: 1.5em;
@@ -103,10 +102,6 @@
     
     tr:hover  {
      background: $highlight-darkgrey;
-     
-      .key {
-        color: $grey;
-      }
     }
     
     tr.detailsswitcher {
@@ -138,7 +133,6 @@
     }
     
     .key {
-      color: $lightgrey;
       margin-right: 8px;
       padding-left: 12px;
       width: 180px;

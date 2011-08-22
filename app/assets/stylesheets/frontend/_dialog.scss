@@ -79,12 +79,10 @@
 }
 
 .ui-widget-overlay {
-  background: #f4f2ed;
+  background: #c3c0ba;
   position: absolute;
   top: 0;
   left: 0;
-  height: 100% !important;
-  width: 100% !important;
-  @include opacity(0.3);
+  @include opacity(0.5);
 }
 
