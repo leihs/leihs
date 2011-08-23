@@ -1,0 +1,100 @@
+:ruby
+  order = current_user.get_current_order
+  order_lines = order.order_lines.sort {|a,b| [a.inventory_pool_id, a.created_at] <=> [b.inventory_pool_id, b.created_at]}
+  h = {}
+  order_lines.each do |order_line|
+    h[order_line.inventory_pool] ||= []
+    h[order_line.inventory_pool] << order_line
+  end
+
+= render :partial => '/layouts/frontend/tabs'
+= render :partial => '/layouts/frontend/content_box_head_fullwidth'
+
+#order.innercontent{:"data-is_valid" => (order_lines.size > 0 and order.approvable?)}
+
+  %h1
+    = _("Current Order")
+    
+  %p.subtitle
+    != _("This is your current list of pre-reserved items. To complete this order please %s it.") % content_tag(:strong, "submit")
+  
+  %hr
+
+  = form_tag submit_user_order_path, :method => :post do
+    %section.orderlist{:"data-is_valid" => (order_lines.size > 0 and order.approvable?)}
+      
+      - h.each_pair do |inventory_pool, lines|
+        .pool
+          %h3
+            = link_to inventory_pool, :class => "pool", :title => _("View %s") % inventory_pool do
+              = inventory_pool
+              %span.address
+                = inventory_pool.address
+          = render :partial => "orders/order_line", :collection => lines
+              
+    %section.actions
+      
+      %button.button.white
+        = _("Save as Template")
+      
+      %button.button.white
+        = _("Value List")
+      
+      %button.button.green{:type => "submit"}
+        = _("Submit Order")
+      
+  .borderleft
+  .borderright
+
+= render :partial => '/layouts/frontend/content_box_foot'
+
+:javascript
+  $(document).ready(function(){
+    OrderListItems.setup();
+  });
+  
+  var OrderListItems = new OrderListItems();
+  
+  function OrderListItems() {
+    
+    this.setup = function() {
+      OrderListItems.setupEditButtons();
+      OrderListItems.setupDeleteButtons();
+    }
+    
+    this.setupEditButtons = function() {
+    
+      $(".orderlist .item .actions .edit").bind("click", function(){
+        Dialog.add({
+            trigger: $(this),
+            content: '<p>#{_("Something went wrong!")}</p><p>#{_("You shold redo your action or reload the page!")}</p>',
+            title: '#{_("ERROR")}',
+            buttons: { "Ok": function() {$(this).dialog("close");} }
+        });
+      });
+    }
+    
+    this.setupDeleteButtons = function() {
+    
+      $(".orderlist .item .actions .delete").bind("ajax:before", function(){
+       $(this).attr("href", "javascript:void()").removeAttr("data-method").removeAttr("data-remote").attr("disabled", true);
+       $(this).css("width", $(this).width());
+       $(this).html("").append('<img src="/assets/loading.gif" class="loading" />');
+       $(this).animate({
+        width: $(this).find("img").width()
+       }) 
+        
+      }).bind("ajax:success", function(){
+        
+        
+      }).bind("ajax:error", function(){
+       
+        
+      }).bind("mouseenter", function(){
+        
+        
+      }).bind("mouseleave", function(){
+        
+      });
+    }
+  }
