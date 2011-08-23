@@ -82,71 +82,121 @@
   
   $(document).ready(function(){
     DetailsSwitcher.setup();
+    ImageSwitcher.setup();
   });
+  
+  /////// DETAILS SWITCHER ////////
   
   var DetailsSwitcher = new DetailsSwitcher();
   
   function DetailsSwitcher() {
       
-      this.min = 7;
-      this.max = 15;
-      this.animationAcceleration = 50;
+    this.min = 7;
+    this.max = 15;
+    this.animationAcceleration = 50;
       
-      this.setup = function() {
-          if(($("#model .details tr").length-1) > DetailsSwitcher.min) {
-              // hide details until min
-              $("#model .details tr").each(function(index, value){
-                  if(index > (DetailsSwitcher.min - 1)) {
-                      $(value).hide();
-                  }
-              });
-              
-              // show and bind the showmore button
-              $("#model .details .detailsswitcher .showmore").show();
-              $("#model .details .detailsswitcher .showmore").bind("click", function() {
-                  
-                  // show more details animation
-                  var _delay = 0;
-                  $("#model .details tr").each(function(index, value){
-                      if(index > (DetailsSwitcher.min - 1)) {
-                          $(value).stop().delay(_delay).show(1);
-                          _delay += DetailsSwitcher.animationAcceleration;
-                      }
-                  });
-                  
-                  // switch button to less
-                  $("#model .details .detailsswitcher .showmore").hide();
-                  $("#model .details .detailsswitcher .showless").show();
-              });
-              
-              // bind the show less button
-              DetailsSwitcher.bindShowLess($("#model .details .detailsswitcher .showless"));
-              
-              // show details switcher
-              $("#model .details .detailsswitcher").show();
+    this.setup = function() {
+      if(($("#model .details tr").length-1) > DetailsSwitcher.min) {
+        
+        // hide details until min
+        $("#model .details tr").each(function(index, value){
+          if(index > (DetailsSwitcher.min - 1)) {
+            $(value).hide();
           }
+        });
+              
+        // show and bind the showmore button
+        $("#model .details .detailsswitcher .showmore").show();
+        $("#model .details .detailsswitcher .showmore").bind("click", function() {
+                  
+            // show more details animation
+            var _delay = 0;
+            $("#model .details tr").each(function(index, value){
+                if(index > (DetailsSwitcher.min - 1)) {
+                    $(value).stop().delay(_delay).show(1);
+                    _delay += DetailsSwitcher.animationAcceleration;
+                }
+            });
+            
+            // switch button to less
+            $("#model .details .detailsswitcher .showmore").hide();
+            $("#model .details .detailsswitcher .showless").show();
+        });
+              
+        // bind the show less button
+        DetailsSwitcher.bindShowLess($("#model .details .detailsswitcher .showless"));
+        
+        // show details switcher
+        $("#model .details .detailsswitcher").show();
       }
+    }
       
-      this.bindShowLess = function(_object) {
+    this.bindShowLess = function(_object) {
           
-          // bind the showless button
-          $(_object).bind("click", function() {
+      // bind the showless button
+      $(_object).bind("click", function() {
               
-              // show less details animation
-              var _delay = 0;
-              $("#model .details tr").each(function(index, value){
-                  if(index > (DetailsSwitcher.min - 1)) {
-                      $(value).stop().delay(_delay).hide();
-                      _delay += DetailsSwitcher.animationAcceleration;
-                  }
-              });
+        // show less details animation
+        var _delay = 0;
+        $("#model .details tr").each(function(index, value){
+            if(index > (DetailsSwitcher.min - 1)) {
+                $(value).stop().delay(_delay).hide();
+                _delay += DetailsSwitcher.animationAcceleration;
+            }
+        });
               
-              // switch button to less
-              $("#model .details .detailsswitcher .showless").hide();
-              $("#model .details .detailsswitcher .showmore").show();
-              
-              // show details switcher
-              $("#model .details .detailsswitcher").show();
+        // switch button to less
+        $("#model .details .detailsswitcher .showless").hide();
+        $("#model .details .detailsswitcher .showmore").show();
+        
+        // show details switcher
+        $("#model .details .detailsswitcher").show();
+      });
+    }
+  }
+  
+  /////// IMAGE SWITCHER ////////
+  
+  var ImageSwitcher = new ImageSwitcher();
+  
+  function ImageSwitcher() {
+  
+    this.leaveTimer;
+    
+    this.setup = function() {
+      // MOUSEENTER
+      $('#model #smallimages img').bind('mouseenter', function(){
+          hoveredItem = $(this);
+          clearTimeout(ImageSwitcher.leaveTimer);
+          $('#model #hiddenimages img').each(function() {
+              $(this).stop().hide();
+              if($(this).attr('src') == hoveredItem.attr('src').replace(/_thumb/g, "")) {
+                  $(this).stop().fadeIn();
+                  $('#model #bigimage img').stop().animate({
+                      opacity: 0
+                  });
+              }
           });
-      }
+      });
+      
+      // MOUSELEAVE
+      $('#model #smallimages img').bind('mouseleave', function(){
+          hoveredItem = $(this);
+          $('#model #hiddenimages img').each(function() {
+              if($(this).attr('src') == hoveredItem.attr('src').replace(/_thumb/g, "")) {
+                  if($(this).css("opacity") != 1) {
+                      $(this).removeAttr("style");
+                  }
+                  $(this).stop().fadeOut(400, function(){
+                      $(this).removeAttr("style");
+                  });
+                  ImageSwitcher.leaveTimer = setTimeout(function(){
+                    $('#model #bigimage img').stop().animate({
+                      opacity: 1
+                    });
+                  }, 100);
+              }
+          });
+      });
+    }
   }
