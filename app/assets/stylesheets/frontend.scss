@@ -244,6 +244,71 @@ header {
   }
 }
 
+@mixin categoriesGrid() {
+  .row {
+    padding-bottom: 34px;
+  }
+  
+  .row:nth-last-child(1) {
+    padding-bottom: 0;
+  }
+  
+  .cell {
+    float: left;
+    padding-left: 6px;
+    width: 175px;
+  
+    table.image {
+      margin-bottom: 8px;
+      
+      tr td {
+        height: 120px;
+        text-align: left;
+        vertical-align: bottom;
+        width: 150px;
+        
+        img {
+          max-height: 100px;
+          width: auto;
+          max-width: 120px;
+        }
+      }
+    }
+    
+    ul {
+      margin-right: 20px;
+      margin-top: 5px;
+      list-style-type: none;
+      
+      li {
+        display: block;
+        line-height: 1.6em;
+        margin-bottom: 6px;
+        padding-right: 8px;
+        
+        a {
+          font-size: 1.2em;
+          color:#999999;
+        }
+        
+        a:hover {
+          color: #515151;
+        }
+      }
+    }
+  }
+  
+  .cell:nth-child(4n) {
+    padding-left: 0;
+  }
+  
+  .cell:hover {
+    h2 a {
+      color: #515151;
+    }
+  }
+}
+
 @import "frontend/buttons.scss";
 @import "frontend/linelist.scss";
 @import "frontend/topbar.scss";

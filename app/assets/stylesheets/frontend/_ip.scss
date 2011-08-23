@@ -1,11 +1,93 @@
 #iplist {
-  .map {
-    float: left;
-    @include borderRadius (8px);
-  }
   
-  h3 {
-    float: left;
+  .ip{
+  
+    .map {
+      background: #EEE;
+      border: 1px solid #FFF;
+      cursor: pointer;
+      float: left;
+      height: 140px;
+      margin-right: 14px;
+      position: relative;
+      width: 140px;
+      @include boxShadow (0 0 8px #EEE);
+      
+      table tr td {
+        color: #DDD;
+        font-size: 3.5em;
+        height: 130px;
+        text-align: center;
+        vertical-align: middle;
+        width: 140px;
+        
+        a.overlay {
+          display: block;
+          height: 140px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 140px;
+        }
+      }
+    }
+    
+    .map:hover {
+      table tr td {
+        color: $lightblue;
+      }
+    }
+    
+    .informations {
+      float: left;
+      width: 540px;
+      
+      h3 {
+        margin-bottom: 2px;
+        
+        a {
+          color: $grey;
+        }
+        
+        a:hover {
+          color: $darkgrey;
+        }
+      }
+      
+      p.address {
+        margin-bottom: 10px;
+      }
+      
+      .openingHours {
+      
+        .day {
+          float: left;
+          margin-right: 22px;
+          padding-top: 12px;
+        
+          h4 {
+            font-weight: bold;
+          }
+          
+          .hours {
+            
+            p {
+              padding-top: 2px;
+            }
+          }
+        }
+      }
+      
+      .categories {
+        @include greylinks();
+        
+        a {
+          font-size: 1.2em;
+          line-height: 1.4em;
+          padding: 1px 3px 0 0;
+        }
+      }
+    }
   }
 }
 
@@ -74,8 +156,12 @@
     }
   }
   
-  section.models {
+  #categories {
     @include greylinks;
-    @include modelsGrid;
+    @include categoriesGrid;
+    
+    .row { 
+      padding-bottom: 14px;
+    }
   }  
 }

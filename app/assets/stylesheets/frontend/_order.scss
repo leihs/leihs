@@ -1,85 +1,117 @@
 #order {
 
-  #orderlist {
-    /* border-left: 1px solid #e3e3e3; */
-    display: block;
-    top: 17px;
-    position: relative;
-
-    tr:nth-child(odd)  {
-               background: $highlight-grey;
-              }
-              
-      tr:hover {
-       background: $highlight-darkgrey;
+  p {
+    margin-bottom: 12px;
+  }
+  
+  .orderlist {
+    margin-top: 12px;
+    
+    .pool {
+      display: block;
+      margin-top: 14px;
+      padding-bottom: 6px;
+      
+      h3 {
+        border-bottom: 1px solid #e3e3e3;
+        display: block;
+        padding-bottom: 4px;
+        margin-bottom: 1px;
+        @include greylinks();
+        
+        a {
+          display: inline-block;
+          
+          span.address {
+            font-weight: normal;
+            font-size: 0.7em;
+          }
+        }
       }
-
+    }
+    
     .item {
       border-bottom: 1px solid #e3e3e3;
       margin-bottom: 1px;
-      height: 40px;
+      height: 70px;
       position: relative;
       width: 100%;
+      
+      td {
+        font-size: 1.2em;
+        height: 70px;
+        padding-right: 24px;
+        position: relative;
+        vertical-align: middle;
+      }
+      
+      td.image {
+        height: 70px;
+        padding: 0 12px 0 4px;
+        position: relative;
+        text-align: center;
+        vertical-align: middle;
+        width: 50px;
         
-      .image {
-          height: 40px;
-          padding: 0 16px 0 12px;
-          position: relative;
-          text-align: center;
-          vertical-align: middle;
-          width: 15%;
-          @include listanchor;
-          
+        img {
+          max-height: 50px;
+          max-width: 50px;
+        }
+      }
+      
+      td.amount {
+        text-align: right;
+        width: 40px;
+      }
+      
+      td.name {
+        width: 250px;
+      }
+      
+      td.manufacturer {
+        width: 110px;
+      }
+      
+      td.actions {
+        text-align: right;
+        @include opacity(0.7);
+        
+        .delete {
+        
           img {
-            max-height: 50px;
-            max-width: 50px;
+            height: 14px;
+            width: 14px;
           }
         }
-        
-      .name {
-        font-size: 1.2em;
-        height: 40px;
-        vertical-align: middle;
-        width: 20%;
-        @include listanchor;
       }
       
-      .manufacturer {
-        font-size: 1.2em;
-        vertical-align: middle;
-        width: 20%;
+      td.timerange {
+        font-size: 1.1em;
+        letter-spacing: 0;
       }
+    }
+    
+    .item:nth-child(even) {
+      background: $highlight-grey;
+    }
+    
+    .item:hover {
+      background: $highlight-darkgrey;
       
-      .amount {
-        font-size: 1.2em;
-        vertical-align: middle;
-        width: 10%;
+      td.actions {
+        @include opacity(1);
       }
-      
-      
-      .date {
-        font-size: 1 em;
-        vertical-align: middle;
-        width: 15%;
-      }
-   
     }
   }
   
-  .orderoption {
-      margin-bottom: 6px;
-      height: 40px;
-      position: relative;
-      width: 100%;
-  }
-  
-  h4 {
-    padding-bottom: 4px; 
-  }
-  
-  .underline {
-    border-bottom: 1px solid #e3e3e3;
-    margin-top:6px;
-    margin-bottom: 1px;
+  section.actions {
+    display: block;
+    margin-top: 28px;
+    margin-bottom: 4px;
+    text-align: right;
+    
+    .button {
+      margin-left: 6px;
+    }
   }
 }

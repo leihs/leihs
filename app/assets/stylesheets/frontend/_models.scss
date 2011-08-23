@@ -10,17 +10,16 @@
 #models {
 
   .aside {
+    border-right: 1px solid #e3e3e3;
     float: left;
     left: -4px;
     position: relative;
     top: -18px;
-    width: 174px;
+    width: 173px;
     z-index: 99;
   
     #categories, #templates {
-      border-right: 1px solid #e3e3e3;
-      margin-bottom: -46px;
-      padding-top: 20px;
+      padding-top: 18px;
       padding-right: 8px;
       @include greylinks;
   
@@ -49,6 +48,30 @@
           padding-bottom: 3px;
         }
       }
+    }
+    
+    h2.templates {
+      font-size: 1.2em;
+      font-weight: 700;
+      margin-top: 2px;
+      
+      .icon {
+        background: url($image-sprite) no-repeat -172px -312px;
+        border: 1px solid #e3e3e3;
+        display: inline-block;
+        height: 15px;
+        padding: 0 2px 1px 0;
+        position: relative;
+        top: 4px;
+        left: -2px;        
+        width: 15px;
+      }
+    }
+    
+    hr {
+      left: -6px;
+      margin-top: 6px;
+      position: relative;
     }
   }
   
@@ -332,6 +355,8 @@
         .smallbutton {
           font-size: 1.5em;   
           font-weight: bold;
+          height: 21px;
+          padding: 1px 6px 0 6px;
         }
       }
     }

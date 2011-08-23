@@ -42,10 +42,10 @@
   .innercontent {
     background: #FFF;
     display: block;
-    padding: 8px 16px 16px 12px;
+    padding: 8px 16px 8px 12px;
     position: relative;
+    margin-right: 2px;
     left: 1px;
-    width: 725px;
     
     .borderleft {
       background: url($slices-v) repeat-y -193px 0;
@@ -104,7 +104,6 @@
 #content.box.fullwidth {
   display: block;
   float: left;
-  left: 14px;
   position: relative;
   width: 963px;
 }
