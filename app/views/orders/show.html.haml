@@ -29,11 +29,9 @@
               
     %section.actions
       
-      %button.button.white
-        = _("Save as Template")
+      = link_to_function _("Save as Template"), :class => "button white"
       
-      %button.button.white
-        = _("Value List")
+      = link_to_function _("Value List"), :class => "button white"
       
       %button.button.green{:type => "submit"}
         = _("Submit Order")
@@ -62,7 +60,7 @@
       $(".orderlist .item .actions .edit").bind("click", function(){
         Dialog.add({
             trigger: $(this),
-            content: '<p>#{_("Something went wrong!")}</p><p>#{_("You shold redo your action or reload the page!")}</p>',
+            content: '<p>#{_("Something went wrong!")}</p><p>#{_("You should redo your action or reload the page!")}</p>',
             title: '#{_("ERROR")}',
             buttons: { "Ok": function() {$(this).dialog("close");} }
         });
@@ -72,24 +70,40 @@
     this.setupDeleteButtons = function() {
     
       $(".orderlist .item .actions .delete").bind("ajax:before", function(){
-       $(this).attr("href", "javascript:void()").removeAttr("data-method").removeAttr("data-remote").attr("disabled", true);
-       $(this).css("width", $(this).width());
-       $(this).html("").append('<img src="/assets/loading.gif" class="loading" />');
-       $(this).animate({
-        width: $(this).find("img").width()
-       }) 
+        $(this).attr("disabled", true);
+        $(this).data("deleting", true)
+        $(this).css("width", $(this).width());
+        $(this).html("").append('<img src="/assets/loading.gif" class="loading" />');
+        $(this).animate({
+         width: $(this).find("img").width()
+        }) 
+        $(this).parent().find("a:not(.delete)").fadeOut();
         
       }).bind("ajax:success", function(){
+        var _this = $(this).closest(".item");
+        var to_remove = (_this.siblings(".item").length) ? _this : _this.closest(".pool");
         
+        to_remove.fadeOut(400, function(){
+          $(this).remove();
+        });
         
       }).bind("ajax:error", function(){
-       
+        Dialog.add({
+          trigger: $(this),
+          content: '<p>#{_("Something went wrong!")}</p><p>#{_("You should redo your action or reload the page!")}</p>',
+          title: '#{_("ERROR")}',
+          buttons: { "Ok": function() {$(this).dialog("close");} }
+        });
         
       }).bind("mouseenter", function(){
-        
+        if(!$(this).data("deleting")) {
+          $(this).parents(".item").find("td:not(.actions)").css("text-decoration", "line-through");
+        }
         
       }).bind("mouseleave", function(){
-        
+        if(!$(this).data("deleting")) {
+          $(this).parents(".item").find("td:not(.actions)").css("text-decoration", "none");
+        }
       });
     }
   }
