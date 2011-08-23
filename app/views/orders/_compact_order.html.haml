@@ -22,7 +22,7 @@
     %section.pool
       = link_to inventory_pool, inventory_pool, :class => "pool", :title => _("View %s") % inventory_pool
       %ul
-        = render :partial => "orders/compact_order_line", :collection => order_lines
+        = render :partial => "orders/compact_order_line", :collection => lines
   
   - if order_lines.size == 0
     %p
@@ -66,7 +66,7 @@
       $("#compactOrder .item .delete a").live("ajax:before", function(){
         $(this).hide();
         $(this).data("deleting", true);
-        $(this).parent().append('<img src="/assets/images/loading.gif" class="loading" />');
+        $(this).parent().append('<img src="/assets/loading.gif" class="loading" />');
         $(this).parents(".item").find(".name").css("text-decoration", "line-through");
         
       }).live("ajax:success", function(){
