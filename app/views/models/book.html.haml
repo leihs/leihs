@@ -1,0 +1,37 @@
+= render :partial => '/layouts/frontend/tabs'
+= render :partial => '/layouts/frontend/content_box_head'
+
+#book.innercontent
+  %h1= @model.name
+  %h3= @model.manufacturer
+  .button.green
+    = link_to _("Add to Order"), "#"
+
+  .bar
+    .amount
+      %label{:for => "amount"}
+        = _("Amount")
+      .inputcontainer
+        %input#amount{:name => "amount", :value => 1}
+    .date
+      .from
+        %label{:for => "from"}
+          = _("From")
+        .inputcontainer
+          %input#from{:name => "from", :value => short_date(Date.today) }
+      .to
+        %label{:for => "to"}
+          = _("To")
+        .inputcontainer
+          %input#to{:name => "to", :value => short_date(Date.tomorrow) }
+    .reset
+      = link_to _("Reset"), "#"
+
+  #fullcalendar{:"data-availability_dates" => @model.availability_periods_for_user(current_user).to_json}
+  
+  .borderleft
+  .borderright
+      
+
+= render :partial => '/layouts/frontend/content_box_foot'
+= render :partial => '/layouts/frontend/aside'
