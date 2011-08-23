@@ -61,7 +61,7 @@
     this.checkPosition = function() {
       $('#aside').css("position", "fixed");
       
-      if(window.pageYOffset < $("#content").offset().top){
+      if(window.pageYOffset < $("#content").offset().top-Aside.marginTop){
         $('#aside').offset({top: $("#content").offset().top});     
       } else {
         $('#aside').css("top", Aside.marginTop);

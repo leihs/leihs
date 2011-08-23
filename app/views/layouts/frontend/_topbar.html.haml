@@ -21,31 +21,6 @@
         
         %li.item{:class => request['controller'] == "inventory_pools" ? "active" : nil}
           = link_to _("Equipment Parks"), inventory_pools_path , :class => "anchor"
-          .hover.parks
-            .header
-              .borderleft
-              .borderright
-            .inner
-              .borderleft
-              %ul
-                - # TODO Franco: please add opening hours and address
-                - current_user.inventory_pools.each do |ip|
-                  %li
-                    = link_to ip, :title => ip.name do
-                      - unless ip.shortname.blank?
-                        = truncate(ip.shortname, :length => 15)
-                      - else
-                        = truncate(ip.name, :length => 15)
-                      %span.openinghours
-                        = truncate("Today 9:30 - 12, 13 - 16 Uhr", :length => 38)
-                      %span.address
-                        = truncate("Austellungsstrasse 60, 8005 Zürich", :length => 55)
-                    - unless ip == current_user.inventory_pools.last
-                      %hr
-              .borderright
-            .footer
-              .borderleft
-              .borderright
         
         %li.seperator
         
