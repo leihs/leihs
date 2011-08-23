@@ -1,30 +1,20 @@
 :ruby
-  ## TODO Franco: 
-  #<div class="inner">
-  #Sphinx 0.9.9-release (r2117) Copyright (c) 2001-2009, Andrew Aksyonoff using config file '/Users/Sebastian/Work/Aufträge/ZHdK/Leihs Redesign - ZHdK 2011/GITHUB - Leihs 3/leihs/config/development.sphinx.conf'... indexing index 'order_delta'... WARNING: index 'order_delta': invalid morphology option 'libstemmer_de, stem_en' - IGNORED collected 38 docs, 0.0 MB sorted 0.0 Mhits, 99.8% done total 38 docs, 3150 bytes total 0.034 sec, 91668 bytes/sec, 1105.84 docs/sec total 2 reads, 0.000 sec, 31.5 kb/call avg, 0.0 msec/call avg total 7 writes, 0.000 sec, 23.4 kb/call avg, 0.0 msec/call avg rotating indices: succesfully sent SIGHUP to searchd (pid=87688). 
-  #<div id="compactOrder">
-  
   order = current_user.get_current_order
-  order_lines = order.order_lines.sort {|a,b| [a.inventory_pool_id, a.created_at] <=> [b.inventory_pool_id, b.created_at]}
-  h = {}
-  order_lines.each do |order_line|
-    h[order_line.inventory_pool] ||= []
-    h[order_line.inventory_pool] << order_line
-  end
+  grouped_order_lines = current_user.get_current_grouped_order_lines
 
-#compactOrder{:"data-is_valid" => (order_lines.size > 0 and order.approvable?)}
+#compactOrder{:"data-is_valid" => (!grouped_order_lines.blank? and order.approvable?)}
   %h3
     = _("Order")
   = link_to _("edit"), "/user/order", :class => "edit"
   .clear
   
-  - h.each_pair do |inventory_pool, lines|
+  - grouped_order_lines.each_pair do |inventory_pool, lines|
     %section.pool
       = link_to inventory_pool, inventory_pool, :class => "pool", :title => _("View %s") % inventory_pool
       %ul
         = render :partial => "orders/compact_order_line", :collection => lines
   
-  - if order_lines.size == 0
+  - if grouped_order_lines.blank?
     %p
       = _("Currently you have no items in your order.")
           

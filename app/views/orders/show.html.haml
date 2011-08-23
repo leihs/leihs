@@ -1,16 +1,11 @@
 :ruby
   order = current_user.get_current_order
-  order_lines = order.order_lines.sort {|a,b| [a.inventory_pool_id, a.created_at] <=> [b.inventory_pool_id, b.created_at]}
-  h = {}
-  order_lines.each do |order_line|
-    h[order_line.inventory_pool] ||= []
-    h[order_line.inventory_pool] << order_line
-  end
+  grouped_order_lines = current_user.get_current_grouped_order_lines
 
 = render :partial => '/layouts/frontend/tabs'
 = render :partial => '/layouts/frontend/content_box_head_fullwidth'
 
-#order.innercontent{:"data-is_valid" => (order_lines.size > 0 and order.approvable?)}
+#order.innercontent{:"data-is_valid" => (!grouped_order_lines.blank? and order.approvable?)}
 
   %h1
     = _("Current Order")
@@ -21,9 +16,9 @@
   %hr
 
   = form_tag submit_user_order_path, :method => :post do
-    %section.orderlist{:"data-is_valid" => (order_lines.size > 0 and order.approvable?)}
+    %section.orderlist{:"data-is_valid" => (!grouped_order_lines.blank? and order.approvable?)}
       
-      - h.each_pair do |inventory_pool, lines|
+      - grouped_order_lines.each_pair do |inventory_pool, lines|
         .pool
           %h3
             = link_to inventory_pool, :class => "pool", :title => _("View %s") % inventory_pool do

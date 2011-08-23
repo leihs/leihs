@@ -175,6 +175,12 @@ class User < ActiveRecord::Base
     order
   end
 
+  # get unsubmitted order lines, grouped by inventory_pool and sorted by created_at 
+  def get_current_grouped_order_lines
+    order_lines = get_current_order.order_lines.sort {|a,b| a.created_at <=> b.created_at }
+    order_lines.group_by {|order_line| order_line.inventory_pool }
+  end
+
   # a user has at most one new contract for each inventory pool
   def current_contract(inventory_pool)
     contracts = current_contracts.where(:inventory_pool_id => inventory_pool)
