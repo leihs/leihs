@@ -1,0 +1,18 @@
+%table.item{:"data-attributes" => order_line.to_json}
+  %tr
+    %td.image
+      - unless order_line.model.images.empty?
+        = link_to image_tag("http://leihs.zhdk.ch/#{order_line.model.image_thumb}"), order_line.model, :target => "_blank"
+    %td.amount
+      = "#{order_line.quantity}x"
+    %td.name
+      = order_line.model.name
+    %td.manufacturer
+      = order_line.model.manufacturer
+    %td.timerange
+      = short_date(order_line.start_date)
+      = "-"
+      = short_date(order_line.end_date)
+    %td.actions
+      = link_to_function _("Edit"), :class => "smallbutton white edit"
+      = link_to _("Delete"), remove_lines_user_order_path(:lines => order_line.id), :class => "smallbutton red delete", :title => _("Delete this Line"), :method => :delete, :remote => true

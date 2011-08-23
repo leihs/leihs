@@ -1,0 +1,95 @@
+= render :partial => '/layouts/frontend/tabs'
+= render :partial => '/layouts/frontend/content_box_head_fullwidth'
+
+#order.innercontent
+
+  %h1
+    = _("Successful Order")
+    
+  %p.subtitle
+    != _("Your list of pre-reserved items was successfully sent to those responsible and is awaiting %s.") % content_tag(:strong, "approval")
+  
+  %hr
+
+  %section.orderlist
+    
+    .pool
+      %h4
+        = "ITZ Ausleihe"
+        
+      %table.item
+        %tr
+          %td.image
+            -# unless m.images.empty?
+            = link_to image_tag("http://leihs.zhdk.ch//images/attachments/0000/0489/site_img_us_pro_Beta58A_m_thumb.jpg"), "#"
+          %td.amount
+            = "1x"
+          %td.name
+            = "Aktivlautsprecher Laney CPC10"
+          %td.manufacturer
+            = "Laney / BLT Industries"
+          %td.timerange
+            = "16.08.2011 - 17.08.2011"
+      
+      %table.item
+        %tr
+          %td.image
+            -# unless m.images.empty?
+            = link_to image_tag("http://leihs.zhdk.ch//images/attachments/0000/0489/site_img_us_pro_Beta58A_m_thumb.jpg"), "#"
+          %td.amount
+            = "1x"
+          %td.name
+            = "Aktivlautsprecher Laney CPC10"
+          %td.manufacturer
+            = "Laney / BLT Industries"
+          %td.timerange
+            = "16.08.2011 - 17.08.2011"
+            
+    .pool
+      %h4
+        = "AV Ausleihe"
+        
+      %table.item
+        %tr
+          %td.image
+            -# unless m.images.empty?
+            = link_to image_tag("http://leihs.zhdk.ch//images/attachments/0000/0489/site_img_us_pro_Beta58A_m_thumb.jpg"), "#"
+          %td.amount
+            = "1x"
+          %td.name
+            = "Aktivlautsprecher Laney CPC10"
+          %td.manufacturer
+            = "Laney / BLT Industries"
+          %td.timerange
+            = "16.08.2011 - 17.08.2011"
+      
+      %table.item
+        %tr
+          %td.image
+            -# unless m.images.empty?
+            = link_to image_tag("http://leihs.zhdk.ch//images/attachments/0000/0489/site_img_us_pro_Beta58A_m_thumb.jpg"), "#"
+          %td.amount
+            = "1x"
+          %td.name
+            = "Aktivlautsprecher Laney CPC10"
+          %td.manufacturer
+            = "Laney / BLT Industries"
+          %td.timerange
+            = "16.08.2011 - 17.08.2011"
+            
+
+  %section.actions
+    
+    %button.button.white
+      = _("Save as Template")
+    
+    %button.button.white
+      = _("Value List")
+    
+    %button.button.green
+      = _("Logout")
+      
+  .borderleft
+  .borderright
+
+= render :partial => '/layouts/frontend/content_box_foot'
