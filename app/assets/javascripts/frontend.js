@@ -10,9 +10,10 @@
 
 /////////// Lib /////////////
 //= require jquery/dialog/dialog
+//= require jquery/booking-calendar/booking-calendar
 
 /////////// Vendor /////////////
 //= require custom-form-elements/custom-form-elements
-//= require jquery/full-calendar/full-calendar
+//= require jquery/fullcalendar/fullcalendar.min
 //= require jquery/textarea-autoresize/autoresize.min
 
