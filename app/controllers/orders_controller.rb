@@ -18,11 +18,7 @@ class OrdersController < FrontendController
   
   def submit
     @order.created_at = DateTime.now
-    if @order.submit(params[:purpose])
-      # OLD render :partial => 'submit'
-      redirect_to user_order_path(@order)     
-    else
-      # TODO 18** catch failure
+    unless @order.submit(params[:purpose])
       render :text => _("Submission failed"), :status => 400
     end
   end
