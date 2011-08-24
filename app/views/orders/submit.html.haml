@@ -1,93 +1,36 @@
 = render :partial => '/layouts/frontend/tabs'
 = render :partial => '/layouts/frontend/content_box_head_fullwidth'
 
-#order.innercontent
+#order.innercontent{:"data-is_valid" => (!@grouped_order_lines.blank? and @order.approvable?)}
 
   %h1
     = _("Successful Order")
     
   %p.subtitle
-    != _("Your list of pre-reserved items was successfully sent to those responsible and is awaiting %s.") % content_tag(:strong, "approval")
+    != _("Your list of pre-reserved items was successfully sent to those responsible and is %s.") % content_tag(:strong, _("awaiting approval"))
   
   %hr
 
-  %section.orderlist
-    
-    .pool
-      %h4
-        = "ITZ Ausleihe"
-        
-      %table.item
-        %tr
-          %td.image
-            -# unless m.images.empty?
-            = link_to image_tag("http://leihs.zhdk.ch//images/attachments/0000/0489/site_img_us_pro_Beta58A_m_thumb.jpg"), "#"
-          %td.amount
-            = "1x"
-          %td.name
-            = "Aktivlautsprecher Laney CPC10"
-          %td.manufacturer
-            = "Laney / BLT Industries"
-          %td.timerange
-            = "16.08.2011 - 17.08.2011"
+  = form_tag submit_user_order_path, :method => :post do
+    %section.orderlist{:"data-is_valid" => (!@grouped_order_lines.blank? and @order.approvable?)}
       
-      %table.item
-        %tr
-          %td.image
-            -# unless m.images.empty?
-            = link_to image_tag("http://leihs.zhdk.ch//images/attachments/0000/0489/site_img_us_pro_Beta58A_m_thumb.jpg"), "#"
-          %td.amount
-            = "1x"
-          %td.name
-            = "Aktivlautsprecher Laney CPC10"
-          %td.manufacturer
-            = "Laney / BLT Industries"
-          %td.timerange
-            = "16.08.2011 - 17.08.2011"
-            
-    .pool
-      %h4
-        = "AV Ausleihe"
-        
-      %table.item
-        %tr
-          %td.image
-            -# unless m.images.empty?
-            = link_to image_tag("http://leihs.zhdk.ch//images/attachments/0000/0489/site_img_us_pro_Beta58A_m_thumb.jpg"), "#"
-          %td.amount
-            = "1x"
-          %td.name
-            = "Aktivlautsprecher Laney CPC10"
-          %td.manufacturer
-            = "Laney / BLT Industries"
-          %td.timerange
-            = "16.08.2011 - 17.08.2011"
+      - @grouped_order_lines.each_pair do |inventory_pool, lines|
+        .pool
+          %h3
+            = link_to inventory_pool, :class => "pool", :title => _("View %s") % inventory_pool do
+              = inventory_pool
+              %span.address
+                = inventory_pool.address
+          = render :partial => "orders/order_line", :collection => lines
       
-      %table.item
-        %tr
-          %td.image
-            -# unless m.images.empty?
-            = link_to image_tag("http://leihs.zhdk.ch//images/attachments/0000/0489/site_img_us_pro_Beta58A_m_thumb.jpg"), "#"
-          %td.amount
-            = "1x"
-          %td.name
-            = "Aktivlautsprecher Laney CPC10"
-          %td.manufacturer
-            = "Laney / BLT Industries"
-          %td.timerange
-            = "16.08.2011 - 17.08.2011"
-            
-
-  %section.actions
-    
-    %button.button.white
-      = _("Save as Template")
-    
-    %button.button.white
-      = _("Value List")
-    
-    %button.button.green
-      = _("Logout")
+    %section.actions
+      
+      = link_to_function _("Save as Template"), :class => "button white"
+      
+      = link_to_function _("Value List"), :class => "button white"
+      
+      %button.button.green{:type => "submit"}
+        = _("Submit Order")
       
   .borderleft
   .borderright
