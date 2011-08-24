@@ -13,7 +13,5 @@
 //= require jquery/booking-calendar/booking-calendar
 
 /////////// Vendor /////////////
-//= require custom-form-elements/custom-form-elements
 //= require jquery/fullcalendar/fullcalendar.min
 //= require jquery/textarea-autoresize/autoresize.min
-
