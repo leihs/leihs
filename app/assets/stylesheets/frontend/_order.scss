@@ -47,7 +47,7 @@
       
       td.image {
         height: 70px;
-        padding: 0 12px 0 4px;
+        padding: 0 12px 0 12px;
         position: relative;
         text-align: center;
         vertical-align: middle;
@@ -95,7 +95,7 @@
       background: $highlight-grey;
     }
     
-    .item:hover {
+    .item.with_hover:hover {
       background: $highlight-darkgrey;
       
       td.actions {

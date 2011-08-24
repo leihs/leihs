@@ -114,34 +114,21 @@
     @include borderRadius (12px);
   }
   
-  .aside {
-    float: left;
-    margin-top: 6px;
-    
-    table {
+  section.openingHours {
+  
+    .group {
+      float: left;
       font-size: 1.2em;
-      line-height: 1.4em;
-      margin-left: 2px;
-      width: 200px;
+      margin-bottom: 12px;
+      margin-right: 34px;
       
-      tr {
-        
-        td {
-          padding-top: 2px;
-          padding-bottom: 8px;
-        }
+      .days {
+        margin-bottom: 2px;
       }
     }
     
-    section {
-      margin-bottom: 14px;
-    }
-    
-    section.openingHours {
-    
-      .today td {
-        font-weight: bold;
-      }
+    .group.today {
+      font-weight: bold;
     }
   }
   

@@ -53,16 +53,16 @@
     
     .container {
       display: none;
+      left: -14px;
       overflow: hidden;
-      padding: 0 5px;
+      padding-right: 5px;
       position: absolute;
       top: 34px;
-      right: -4px;
     
       .hover {
         display: none;
         position: absolute;
-        right: 0;
+        left: 7px;
         padding-right: 5px;
         z-index: 1001;
         
@@ -182,7 +182,7 @@
     border-left: 1px solid #e2e0de;
     float: right;
     height: 20px;
-    padding-left: 6px;
+    padding-left: 4px;
     position: relative;
     top: 8px;
     
@@ -198,7 +198,7 @@
         display: inline-block;
         height: 20px;
         padding-top: 3px;
-        padding-right: 10px;
+        padding-right: 8px;
         position: absolute;
         right: 0;
         text-align: right;
@@ -208,7 +208,8 @@
           background: url($image-sprite) no-repeat -53px -37px;
           display: inline-block;
           height: 6px;
-          margin-left: 4px;
+          margin-left: 2px;
+          margin-right: 1px;
           width: 7px;
           @include opacity(0.6);
         }
@@ -223,6 +224,7 @@
         position: relative;
         text-align: right;
         width: 125px;
+        @include opacity(0);
       }
     }
   }

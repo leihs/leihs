@@ -25,18 +25,31 @@
       a {
         cursor: -webkit-zoom-in;
         cursor: -moz-zoom-in;
-              
-        img {
-          height: auto;
-          margin-bottom: 5px;
-          @include opacity(0.5);
-          width: 50px;
-        }
-      } 
-      
-      a:hover {
-        img {
-          @include opacity(0.9); 
+        display: block;
+        
+        table {
+          min-height: 30px;
+          width: 100%;
+          
+          tr {
+            
+            td {
+              height: auto;
+              vertical-align: middle;
+            
+                img {
+                  height: auto;
+                  @include opacity(0.5);
+                  width: 50px;
+                }
+              }
+            }
+          } 
+            
+        a:hover {
+          img {
+            @include opacity(0.9); 
+          }
         }
       }
     }

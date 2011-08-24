@@ -84,6 +84,7 @@ a.smallbutton {
 
 .button.green[disabled=disabled] {
   background: url($image-sprite) no-repeat 0 -202px;
+  color: #4d9148 !important;
 }
 
 // SMALLBUTTON GREEN
@@ -101,6 +102,7 @@ a.smallbutton {
 
 .smallbutton.green[disabled=disabled] {
   background: url($image-sprite) no-repeat 0 -372px;
+  color: #4d9148 !important;
 }
 
 // BUTTON WHITE
@@ -123,6 +125,7 @@ a.smallbutton {
 
 .button.white[disabled=disabled] {
   background: url($image-sprite) no-repeat 0 -441px;
+  color: #8a8a8a !important;
 }
 
 // SMALL BUTTON WHITE
@@ -141,6 +144,7 @@ a.smallbutton {
 
 .smallbutton.white[disabled=disabled] {
   background: url($image-sprite) no-repeat 0 -537px;
+  color: #8a8a8a !important;
 }
 
 // SMALL BUTTON RED
@@ -164,4 +168,5 @@ a.smallbutton {
 
 .smallbutton.red[disabled=disabled] {
   background: url($image-sprite) no-repeat 0 -606px;
+  color: #db5252 !important;
 }
