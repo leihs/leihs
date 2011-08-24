@@ -16,6 +16,7 @@ gem 'haml', '~> 3.1.2'
 gem 'sass', '~> 3.1.5'
 gem 'coffee-script'
 gem 'uglifier', '~> 1.0.1'
+gem 'sprockets', '2.0.0.beta.13' #tmp# TODO remove
 
 gem 'prototype-rails', '~> 0.3.1', :git => 'git://github.com/rubychan/prototype-rails.git'
 gem 'jquery-rails', '~> 1.0.13'
@@ -28,7 +29,7 @@ gem 'gettext_i18n_rails', '~> 0.2.20'
 gem 'ruby_parser', '~> 2.1.0' # gettext dependency that Bundler seems unable to resolve
 
 
-gem 'barby', '0.4.3'
+gem 'barby', '~> 0.4.4'
 #gem "cairo" # Needed to print SVG barcodes
 # gem "RubyInline", '3.8.2', :require => "inline"
 
