@@ -117,7 +117,13 @@
     }
   }
   
-  #calendar {
+  #fullcalendar {
+
+	 div.fc-day-content > div {
+	    font-size: 5em;
+	    text-align: center;
+	    color: silver;
+	  }
   
     .fc {
       direction: ltr;
