@@ -24,24 +24,27 @@ Leihs::Application.routes.draw do
 ############################################################################
 # Frontend
 
+  # used for the current_user
   resource :user do
-      resources :orders do #TODO#, :only => [:show, :destroy]
-        member do
-          get :submitted
-        end
+    resources :orders do #TODO#, :only => [:show, :destroy]
+      member do
+        get :submitted
       end
-      resource :order do
-        member do
-          post :submit
-          post :add_line
-          post :change_line_quantity
-          delete :remove_lines
-          post :change_time_lines
-        end
-      end
-      
-      resources :contracts
+    end
+    resources :contracts
   end
+
+  # used for the current_order
+  resource :order do
+    member do
+      post :submit
+      post :add_line
+      post :change_line_quantity
+      delete :remove_lines
+      post :change_time_lines
+    end
+  end
+
   resource :session do
     member do
       get :authenticate # TODO 2012 both needed? 
@@ -49,10 +52,11 @@ Leihs::Application.routes.draw do
       get :old_new # TODO 05** remove, only for offline login
     end
   end
-  #rails3#
+
   resource :authenticator do
     match 'login', :to => "authenticator/database_authentication#login"
   end
+
   resource :frontend, :controller => 'frontend' do
     member do
       get :get_inventory_pools

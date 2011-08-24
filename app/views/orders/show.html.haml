@@ -15,7 +15,7 @@
   - unless @grouped_order_lines.blank?
     %hr
 
-  = form_tag submit_user_order_path, :method => :post do
+  = form_tag submit_order_path, :method => :post do
     %section.orderlist{:"data-is_valid" => (!@grouped_order_lines.blank? and @order.approvable?)}
       
       - @grouped_order_lines.each_pair do |inventory_pool, lines|
