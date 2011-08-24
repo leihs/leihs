@@ -1,24 +1,24 @@
-:ruby
-  order = current_user.get_current_order
-  grouped_order_lines = current_user.get_current_grouped_order_lines
-
 = render :partial => '/layouts/frontend/tabs'
 = render :partial => '/layouts/frontend/content_box_head_fullwidth'
 
-#order.innercontent{:"data-is_valid" => (!grouped_order_lines.blank? and order.approvable?)}
+#order.innercontent{:"data-is_valid" => (!@grouped_order_lines.blank? and @order.approvable?)}
 
   %h1
     = _("Current Order")
     
   %p.subtitle
-    != _("This is your current list of pre-reserved items. To complete this order please %s it.") % content_tag(:strong, "submit")
+    - if @grouped_order_lines.blank?
+      != _("Currently you have no items in your order. Please %s and choose items for your order.") % link_to(_("go back"), "javascript: window.history.back();")
+    - else 
+      != _("This is your current list of pre-reserved items. To complete this order please %s it.") % content_tag(:strong, _("submit"))
   
-  %hr
+  - unless @grouped_order_lines.blank?
+    %hr
 
   = form_tag submit_user_order_path, :method => :post do
-    %section.orderlist{:"data-is_valid" => (!grouped_order_lines.blank? and order.approvable?)}
+    %section.orderlist{:"data-is_valid" => (!@grouped_order_lines.blank? and @order.approvable?)}
       
-      - grouped_order_lines.each_pair do |inventory_pool, lines|
+      - @grouped_order_lines.each_pair do |inventory_pool, lines|
         .pool
           %h3
             = link_to inventory_pool, :class => "pool", :title => _("View %s") % inventory_pool do
@@ -26,15 +26,16 @@
               %span.address
                 = inventory_pool.address
           = render :partial => "orders/order_line", :collection => lines
-              
-    %section.actions
       
-      = link_to_function _("Save as Template"), :class => "button white"
-      
-      = link_to_function _("Value List"), :class => "button white"
-      
-      %button.button.green{:type => "submit"}
-        = _("Submit Order")
+    - unless @grouped_order_lines.blank?        
+      %section.actions
+        
+        = link_to_function _("Save as Template"), :class => "button white"
+        
+        = link_to_function _("Value List"), :class => "button white"
+        
+        %button.button.green{:type => "submit"}
+          = _("Submit Order")
       
   .borderleft
   .borderright

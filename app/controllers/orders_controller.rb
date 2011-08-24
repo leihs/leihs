@@ -11,7 +11,7 @@ class OrdersController < FrontendController
   end
   
   def show
-    
+    @grouped_order_lines = current_user.get_current_grouped_order_lines
   end
   
 ###########################################################################
@@ -20,6 +20,8 @@ class OrdersController < FrontendController
     @order.created_at = DateTime.now
     unless @order.submit(params[:purpose])
       render :text => _("Submission failed"), :status => 400
+    else
+      @grouped_order_lines = @order.order_lines #current_user.get_current_grouped_order_lines
     end
   end
 
