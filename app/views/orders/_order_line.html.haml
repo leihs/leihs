@@ -1,4 +1,5 @@
-%table.item{:"data-attributes" => order_line.to_json}
+- _class = "with_hover" if (@order.status_const == 1)
+%table.item{:"data-attributes" => order_line.to_json, :class => _class}
   %tr
     %td.image
       - unless order_line.model.images.empty?
@@ -14,5 +15,6 @@
       = "-"
       = short_date(order_line.end_date)
     %td.actions
-      = link_to_function _("Edit"), :class => "smallbutton white edit"
-      = link_to _("Delete"), remove_lines_user_order_path(:lines => order_line.id), :class => "smallbutton red delete", :title => _("Delete this Line"), :method => :delete, :remote => true
+      - if @order.status_const == 1
+        = link_to_function _("Edit"), :class => "smallbutton white edit"
+        = link_to _("Delete"), remove_lines_user_order_path(:lines => order_line.id), :class => "smallbutton red delete", :title => _("Delete this Line"), :method => :delete, :remote => true
