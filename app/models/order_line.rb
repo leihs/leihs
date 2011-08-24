@@ -48,6 +48,12 @@ class OrderLine < DocumentLine
 
 ###############################################
 
+  def self.grouped_by_inventory_pool(order_lines)
+    order_lines.sort {|a,b| a.created_at <=> b.created_at }.group_by {|order_line| order_line.inventory_pool }
+  end
+
+###############################################
+
   def is_late?(current_date = Date.today)
     false #TODO 27 Not necessary anymore
   end

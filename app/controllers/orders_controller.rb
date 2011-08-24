@@ -36,9 +36,15 @@ class OrdersController < FrontendController
     unless @order.submit(params[:purpose])
       render :text => _("Submission failed"), :status => 400
     else
-      @grouped_order_lines = @order.order_lines #current_user.get_current_grouped_order_lines
+      redirect_to submitted_user_order_path(@order)
     end
   end
+
+  def submitted
+    @grouped_order_lines = OrderLine.grouped_by_inventory_pool(@order.order_lines)
+  end
+
+###########################################################################
 
   def add_line(model_id = params[:model_id],
                model_group_id = params[:model_group_id],

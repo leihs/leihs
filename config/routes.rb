@@ -25,7 +25,11 @@ Leihs::Application.routes.draw do
 # Frontend
 
   resource :user do
-      resources :orders #TODO#, :only => [:show, :destroy]
+      resources :orders do #TODO#, :only => [:show, :destroy]
+        member do
+          get :submitted
+        end
+      end
       resource :order do
         member do
           post :submit
