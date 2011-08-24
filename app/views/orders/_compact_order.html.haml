@@ -37,7 +37,6 @@
   function CompactOrder () {
 
     this.purposeMin = 6;
-    this.submitButtonOverlay = $("#compactOrder").append($(document.createElement("div")).attr("id", "submitButtonOverlay"));
     this.submitButtonEnabled = true;
     this.purpose;
     
@@ -45,6 +44,15 @@
       CompactOrder.setupOrderLines();
       CompactOrder.setupPurpose();
       CompactOrder.validate();
+      CompactOrder.setupSubmitButton();
+    }
+    
+    this.setupSubmitButton = function(){
+      $("#compactOrder form button:submit").bind("click", function() {
+        $(this).html('<img src="/assets/loading.gif" class="loading" />');
+        $(this).attr("disabled", true);
+        $("#compactOrder form").submit();
+      });
     }
     
     this.setupOrderLines = function() {
