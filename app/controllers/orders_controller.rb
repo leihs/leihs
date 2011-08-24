@@ -6,13 +6,28 @@ class OrdersController < FrontendController
 #    @orders = current_user.orders
 #  end
   
+  def show
+    respond_to do |format|
+      format.html { @grouped_order_lines = current_user.get_current_grouped_order_lines }
+      format.pdf {
+        if params[:template] == "value_list"
+          require 'prawn/measurement_extensions'
+          prawnto :prawn => { :page_size => 'A4', 
+                              :left_margin => 25.mm,
+                              :right_margin => 15.mm,
+                              :bottom_margin => 15.mm,
+                              :top_margin => 15.mm
+                            }
+          send_data(render(:template => 'orders/value_list_for_models', :layout => false), :type => 'application/pdf', :filename => "value_list_#{@order.id}.pdf")
+        end
+      }
+    end
+  end
+
+
   def new
     render :nothing => true
-  end
-  
-  def show
-    @grouped_order_lines = current_user.get_current_grouped_order_lines
-  end
+  end  
   
 ###########################################################################
   
@@ -91,24 +106,6 @@ class OrdersController < FrontendController
   end      
 
 ########################################################
-
-  def show(sort =  params[:sort] || "model", dir =  params[:sort_mode] || "ASC")
-    # TODO 13** send errors and notices
-    respond_to do |format|
-      format.html
-      if params[:template] == "value_list"
-        require 'prawn/measurement_extensions'
-        prawnto :prawn => { :page_size => 'A4', 
-                            :left_margin => 25.mm,
-                            :right_margin => 15.mm,
-                            :bottom_margin => 15.mm,
-                            :top_margin => 15.mm
-                          }
-        format.pdf { send_data(render(:template => 'orders/value_list_for_models', :layout => false), :type => 'application/pdf', :filename => "value_list_#{@order.id}.pdf") }
-      end
-
-    end
-  end
 
   def destroy
     @order.destroy if @order.deletable_by_user?
