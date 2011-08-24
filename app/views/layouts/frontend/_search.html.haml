@@ -1,0 +1,45 @@
+%section#search
+  .borderleftround
+  .inner
+  
+    .container
+      .borderleft
+      %input{:type => "text"}
+      .borderright
+      %input{:type => "image", :src => icon_path('search'), :alt => "search"}
+      
+  .borderrightstraight
+
+:javascript
+  $(document).ready(function(){
+    Search.setup();
+  });
+  
+  var Search = new Search();
+
+  function Search() {
+  
+    this.setup = function() {
+      Search.setupInput();
+    }
+    
+    this.setupInput = function(){
+      $("#search input[type=text]").bind("keyup", function(){
+        Search.highlightText($(this).val());
+      });
+    }
+    
+    this.highlightText = function(highlightWord) {
+      if(highlightWord.length >= 3){
+        $("#modellist .item .name").removeHighlight().highlight(highlightWord);
+        $("#modellist .item .manufacturer").removeHighlight().highlight(highlightWord);
+        $("#categories").removeHighlight().highlight(highlightWord);
+        $(".aside #templates").removeHighlight().highlight(highlightWord);
+        $("#iplist h3").removeHighlight().highlight(highlightWord);
+        $("#iplist .address").removeHighlight().highlight(highlightWord);
+        $("#iplist .categories").removeHighlight().highlight(highlightWord);
+      } else {
+        $(document).removeHighlight();
+      }
+    }
+  }
