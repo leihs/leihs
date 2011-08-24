@@ -52,6 +52,9 @@
         $(this).html('<img src="/assets/loading.gif" class="loading" />');
         $(this).attr("disabled", true);
         $("#compactOrder form").submit();
+        $("#compactOrder form textarea").attr("disabled", true);
+        $("#compactOrder .edit").hide();
+        $("#compactOrder .item .delete a").hide();
       });
     }
     

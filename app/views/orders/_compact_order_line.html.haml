@@ -1,6 +1,6 @@
 %li.item{:"data-attributes" => compact_order_line.to_json}
   %span.name
-    %a{:href => "#", :title => _("%s (View in Order)") % compact_order_line.model.name}
+    = link_to "/user/order?order_line_id=#{compact_order_line.id}", :title => _("%s (View in Order)") % compact_order_line.model.name do
       = truncate(compact_order_line.model.name, :length => 20)
       - if compact_order_line.quantity > 1
         %span.amount
