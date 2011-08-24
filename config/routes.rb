@@ -57,12 +57,7 @@ Leihs::Application.routes.draw do
     match 'login', :to => "authenticator/database_authentication#login"
   end
 
-  resource :frontend, :controller => 'frontend' do
-    member do
-      get :get_inventory_pools
-      get :set_inventory_pools
-    end
-  end
+  resource :frontend, :controller => 'frontend'
                                       
   resources :models, :except => :index do
     member do

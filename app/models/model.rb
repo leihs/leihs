@@ -167,19 +167,6 @@ class Model < ActiveRecord::Base
     set_property :delta => true
   end
 
-  define_index "frontend_model" do
-    # where "is_package = 1"
-    
-    indexes :name, :sortable => true
-    indexes :manufacturer, :sortable => true
-    indexes properties(:value), :as => :properties_values
-    
-    has :is_package
-    has model_groups(:id), :as => :model_group_id
-    
-    set_property :delta => true
-  end
-
 #old#  sphinx_scope(:sphinx_active) { {:without => {:active_item_id => 0}} }
   sphinx_scope(:sphinx_packages) { {:with => {:is_package => true}} }
   sphinx_scope(:sphinx_with_unpackaged_items) { |inventory_pool_id|
