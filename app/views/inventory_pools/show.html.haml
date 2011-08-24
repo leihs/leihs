@@ -49,34 +49,34 @@
         }
       }
 
-  .aside
-    
-    - #TODO Franco: Opening Hours here
-    %section.openingHours
-    
-      %h3
-        = _("Opening Hours")
+  - #TODO Franco: Opening Hours here
+  %section.openingHours
+  
+    %h3
+      = _("Opening Hours")
+      
+    .group.today
+      .days
+        = _("Today")
+      .time
+        = "08.30 - 09.30 Uhr"
+        %br
+        = "12.30 - 16.30 Uhr"
         
-      %table
-        %tr.today
-          %td.days
-            = _("Today")
-          %td.time
-            = "08.30 - 09.30 Uhr"
-            %br
-            = "12.30 - 16.30 Uhr"
-        %tr
-          %td.days
-            = "Mo - Do"
-          %td.time
-            = "08.30 - 09.30 Uhr"
-            %br
-            = "12.30 - 16.30 Uhr"
-        %tr
-          %td.days
-            = "Fr"
-          %td.time
-            = "08.30 - 12.00 Uhr"
+    .group
+      .days
+        = "Mo - Do"
+      .time
+        = "08.30 - 09.30 Uhr"
+        %br
+        = "12.30 - 16.30 Uhr"
+    
+    .group
+      .days
+        = "Fr"
+      .time
+        = "08.30 - 12.00 Uhr"
+    
   .clear
   
   %hr

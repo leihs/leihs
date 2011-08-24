@@ -131,9 +131,11 @@
             // in hovering mode popup hover immediately
             $(this).parent().find(".hover").hide(0, function(){
                 if(_this.data("over")) {
+                  if($(this).find(".inner").children().length > 2) {
                     $(this).stop().show(0, function() {
                         ModelsListItems.checkPosition($(this));
                     });
+                  }
                 } else {
                     $(this).stop().hide();                    
                 }
@@ -144,9 +146,11 @@
               _this.parent().find(".hover").hide(0, function(){
                 ModelsListItems.hoveringMode = true;
                 if(_this.data("over")) {
-                  $(this).stop().show(0, function() {
-                      ModelsListItems.checkPosition($(this));
-                  });
+                  if($(this).find(".inner").children().length > 2) {
+                    $(this).stop().show(0, function() {
+                        ModelsListItems.checkPosition($(this));
+                    });
+                  }
                 } else {
                     $(this).stop().hide();                    
                 }

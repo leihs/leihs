@@ -28,7 +28,11 @@
         #smallimages
           - @model.images.each_with_index do |i, index|
             - unless index.zero?
-              = link_to image_tag("http://leihs.zhdk.ch#{i.public_filename(:thumb)}"), "http://leihs.zhdk.ch#{i.public_filename()}", :target => "_blank"
+              = link_to "http://leihs.zhdk.ch#{i.public_filename()}", :target => "_blank" do
+                %table
+                  %tr
+                    %td
+                      = image_tag("http://leihs.zhdk.ch#{i.public_filename(:thumb)}")
               
     .clear
     
@@ -113,7 +117,7 @@
             var _delay = 0;
             $("#model .details tr").each(function(index, value){
                 if(index > (DetailsSwitcher.min - 1)) {
-                    $(value).stop().delay(_delay).show(1);
+                    $(value).stop(true, true).delay(_delay).show(1);
                     _delay += DetailsSwitcher.animationAcceleration;
                 }
             });
@@ -140,7 +144,7 @@
         var _delay = 0;
         $("#model .details tr").each(function(index, value){
             if(index > (DetailsSwitcher.min - 1)) {
-                $(value).stop().delay(_delay).hide();
+                $(value).stop(true, true).delay(_delay).hide();
                 _delay += DetailsSwitcher.animationAcceleration;
             }
         });
@@ -165,14 +169,14 @@
     
     this.setup = function() {
       // MOUSEENTER
-      $('#model #smallimages img').bind('mouseenter', function(){
+      $('#model #smallimages a').bind('mouseenter', function(){
           hoveredItem = $(this);
           clearTimeout(ImageSwitcher.leaveTimer);
           $('#model #hiddenimages img').each(function() {
-              $(this).stop().hide();
-              if($(this).attr('src') == hoveredItem.attr('src').replace(/_thumb/g, "")) {
-                  $(this).stop().fadeIn();
-                  $('#model #bigimage img').stop().animate({
+              $(this).stop(true, true).hide();
+              if($(this).attr('src') == hoveredItem.find("img").attr('src').replace(/_thumb/g, "")) {
+                  $(this).stop(true, true).fadeIn();
+                  $('#model #bigimage img').stop(true, true).animate({
                       opacity: 0
                   });
               }
@@ -180,18 +184,18 @@
       });
       
       // MOUSELEAVE
-      $('#model #smallimages img').bind('mouseleave', function(){
+      $('#model #smallimages a').bind('mouseleave', function(){
           hoveredItem = $(this);
           $('#model #hiddenimages img').each(function() {
-              if($(this).attr('src') == hoveredItem.attr('src').replace(/_thumb/g, "")) {
+              if($(this).attr('src') == hoveredItem.find("img").attr('src').replace(/_thumb/g, "")) {
                   if($(this).css("opacity") != 1) {
                       $(this).removeAttr("style");
                   }
-                  $(this).stop().fadeOut(400, function(){
+                  $(this).stop(true, true).fadeOut(400, function(){
                       $(this).removeAttr("style");
                   });
                   ImageSwitcher.leaveTimer = setTimeout(function(){
-                    $('#model #bigimage img').stop().animate({
+                    $('#model #bigimage img').stop(true, true).animate({
                       opacity: 1
                     });
                   }, 100);
