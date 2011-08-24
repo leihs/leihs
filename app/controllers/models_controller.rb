@@ -13,24 +13,17 @@ class ModelsController < FrontendController
     cookies[:show_available] ||= {:value => false.to_json, :expires => cookie_expire }
              
     sort, sort_mode = params[:sort_and_sort_mode].split unless params[:sort_and_sort_mode].blank?
-    
     sort_mode = sort_mode.downcase.to_sym # OPTIMIZE 0501
-    
+
     #1402 TODO refactor to User#accessible_models(current_inventory_pools)
-    model_ids = Model.all(:group => "models.id", #tmp#Rails3.1 is this select kept also for next Model query??# :select => "DISTINCT models.id",
-                          :joins => [:items, :partitions],
-                          :conditions => ["items.inventory_pool_id IN (:ip_ids)
-                                             AND (partitions.group_id IN (:groups_ids)
-                                             OR (partitions.group_id IS NULL AND partitions.inventory_pool_id IN (:ip_ids)))",
-                                          {:ip_ids => current_inventory_pools.collect(&:id),
-                                           :groups_ids => current_user.group_ids}
-                                         ]).collect(&:id)
-#tmp#
-#    model_ids = Model.all(:select => "DISTINCT models.id",
-#                          :joins => :items,
-#                          :conditions => {:items => {:inventory_pool_id => current_inventory_pools.collect(&:id)}}).collect(&:id)
-#    group_ids = current_user.group_ids_including_general
-#    model_ids = model_ids.select {|m_id|  } or #model_ids.delete_if {|m|  }
+    model_ids = Model.select("DISTINCT models.id"). #tmp# :group => "models.id", # is this select kept also for next Model query??
+                      joins(:items, :partitions).
+                      where(["items.inventory_pool_id IN (:ip_ids)
+                                 AND (partitions.group_id IN (:groups_ids)
+                                 OR (partitions.group_id IS NULL AND partitions.inventory_pool_id IN (:ip_ids)))",
+                              {:ip_ids => current_inventory_pools.collect(&:id),
+                               :groups_ids => current_user.group_ids}
+                             ]).collect(&:id)
 
     with = {:sphinx_internal_id => model_ids }
 
@@ -47,16 +40,16 @@ class ModelsController < FrontendController
                                     :per_page => 9999999,
                                     :with => with,
                                     :order => sort, :sort_mode => sort_mode }
+
+    respond_to do |format|
+      format.html
+      format.js { render :json => @models.as_json(:current_user => current_user) }
+    end
   end  
 
 #######################################################  
   
   def show
-    @models = [@model]
-    c = @models.size
-    # OPTIMIZE used for InventoryPool#items_size
-    InventoryPool.current_model, InventoryPool.current_user = [@model, current_user]
-    
     respond_to do |format|
       format.html
     end

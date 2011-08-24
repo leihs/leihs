@@ -46,14 +46,15 @@ class ScopedPartitions
     r
   end
         
-  def by_group(group)
+  def by_group(group, with_update = true)
     if group.nil?
       #tmp#1402 @inventory_pool.items.borrowable.scoped_by_model_id(@model).count - sum(:quantity)
       quantity = @inventory_pool.items.borrowable.where(:model_id => @model).count - @partitions.sum(:quantity, :conditions => "group_id IS NOT NULL")
+      return quantity unless with_update
       p = @partitions.where(:group_id => Group::GENERAL_GROUP_ID).first
       if quantity > 0
         if p
-          p.update_attributes(:quantity => quantity)
+          p.update_attributes(:quantity => quantity) if quantity != p.quantity
         else
           @partitions.create(:group_id => Group::GENERAL_GROUP_ID, :quantity => quantity)
         end
