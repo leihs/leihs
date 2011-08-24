@@ -11,6 +11,10 @@
           
   %form.sort{:method => "get"}
     .container
+      %span.select
+        %span.text
+          = _("Productname (A-Z)")
+        .arrow
       %select.styled{:name => "sort_and_sort_mode"}
         %option{:value => "name ASC"}= _("Productname (A-Z)")
         %option{:value => "name DESC"}= _("Productname (Z-A)")
@@ -23,7 +27,7 @@
         != _("Parks (#{content_tag(:span, current_user.inventory_pools.length, :class => 'amount')})")
       %span.icon
     .container
-      %form.hover
+      .hover
         .header
           .borderleft
           .inner
@@ -33,7 +37,7 @@
             .line{:"data-id" => ip.id}
               %input{:type => "checkbox", :id => "ip-#{ip.id}", :"data-id" => ip.id}
               %label{:for => "ip-#{ip.id}", :title => ip.name, :"data-id" => ip.id}
-                = truncate(ip.name, :length => 14)
+                = truncate(ip.name, :length => 44)
           .borderleft
           .borderright
         .footer
@@ -59,26 +63,34 @@
   function ModelsSort() {
     
     this.setup = function() {
-        // ON CHANGE SORT METHOD
-        $('#topfilter .sort select').bind('change', function(){
-            var _value = $(this).val();
-            var _values = _value.split(" ");
-            var _items = $("#modellist .item");
-            
-            if(_values[0] == "name") {
-                if(_values[1] == "ASC") {
-                    _items.sort(ModelsSort.sortNameAlphabeticaly).appendTo('#modellist');
-                } else if(_values[1] == "DESC") {
-                    _items.sort(ModelsSort.sortNameAlphabeticalyReverse).appendTo('#modellist');
-                }
-            } else if(_values[0] == "manufacturer") {
-                if(_values[1] == "ASC") {
-                    _items.sort(ModelsSort.sortManufacturerAlphabeticaly).appendTo('#modellist');
-                } else if(_values[1] == "DESC") {
-                    _items.sort(ModelsSort.sortManufacturerAlphabeticalyReverse).appendTo('#modellist');
-                }
-            }
-        });
+      this.setupBindings();
+    }
+    
+    this.setupBindings = function() {
+      // ON CHANGE SORT METHOD
+      $('#topfilter .sort select').bind('change', function(){
+          var _value = $(this).val();
+          var _values = _value.split(" ");
+          var _items = $("#modellist .item");
+          
+          if(_values[0] == "name") {
+              if(_values[1] == "ASC") {
+                  _items = _items.sort(ModelsSort.sortNameAlphabeticaly);
+              } else if(_values[1] == "DESC") {
+                  _items = _items.sort(ModelsSort.sortNameAlphabeticalyReverse);
+              }
+          } else if(_values[0] == "manufacturer") {
+              if(_values[1] == "ASC") {
+                  _items = _items.sort(ModelsSort.sortManufacturerAlphabeticaly);
+              } else if(_values[1] == "DESC") {
+                  _items = _items.sort(ModelsSort.sortManufacturerAlphabeticalyReverse);
+              }
+          }
+          
+          $('#modellist').html(_items);
+          $("#topfilter .sort .select .text").html($("#topfilter .sort select option:selected").html());
+          
+      });
     }
     
     this.sortNameAlphabeticaly = function(a,b){
@@ -196,14 +208,9 @@
       var result = new Array();
       $.each(b, function(i, v){
         if($.inArray(parseInt(v), a)){
-          console.log("MATCH: " + v)
           result.push(v);
         }
       });
-      console.log(a);
-      console.log(b);
-      console.log(result);
-      console.log("---------");
       
       return result;
     }
