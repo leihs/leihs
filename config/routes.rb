@@ -1,6 +1,6 @@
 Leihs::Application.routes.draw do
 
-  root :to => "frontend#index"
+  root :to => "categories#index"
 
 #rails3#
   # Install the default routes as the lowest priority.
@@ -57,8 +57,6 @@ Leihs::Application.routes.draw do
     match 'login', :to => "authenticator/database_authentication#login"
   end
 
-  resource :frontend, :controller => 'frontend'
-                                      
   resources :models, :except => :index do
     member do
       get :chart

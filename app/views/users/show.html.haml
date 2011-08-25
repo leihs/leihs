@@ -5,7 +5,7 @@
 
   %section.userdata
     %h1
-      = @user.name
+      = current_user.name
     %p.subtitle
       = _("You can edit your personal data")
       = link_to _("here"), "#"
@@ -14,27 +14,27 @@
     %dl
       %dt= _("Address")
       %dd
-        = @user.address
+        = current_user.address
         %br
-        = @user.zip
-        = @user.city
+        = current_user.zip
+        = current_user.city
         %br
-        =  @user.country
+        =  current_user.country
         
     %dl
       %dt= _("Mobile")
       %dd
-        = @user.phone
+        = current_user.phone
         
     %dl
       %dt= _("Phone")
       %dd
-        = @user.phone
+        = current_user.phone
         
     %dl
       %dt= _("E-Mail")
       %dd
-        = @user.email
+        = current_user.email
         
     .clear
 

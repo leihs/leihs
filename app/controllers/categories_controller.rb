@@ -1,20 +1,9 @@
 class CategoriesController < FrontendController
 
   def index
-
-    # OPTIMIZE 0907
-    if params[:category_id]
-      id = params[:category_id].to_i
-      if id == 0
-        @categories = (current_user.all_categories & Category.roots).sort
-      else
-        # TODO scope only children Category (not ModelGroup)
-        @categories = (current_user.all_categories & Category.find(id).children).sort
-        @categories.each {|c| c.current_parent_id = id }
-      end
-    else
-      @categories = Category.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page }
-    end
+    @current_categories = (current_user.all_categories & Category.roots).sort
+    @missing_fields = current_user.authentication_system.missing_required_fields(current_user)
+    render :template => "users/show", :layout => "frontend_2010" unless @missing_fields.empty?
   end
 
 end
