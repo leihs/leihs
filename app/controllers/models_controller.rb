@@ -10,9 +10,9 @@ class ModelsController < FrontendController
     cookies[:show_available] ||= {:value => false.to_json, :expires => cookie_expire }
              
     model_group = if params[:category_id]
-      @category = Category.find(params[:category_id])
+      @category = Category.includes(:children).find(params[:category_id])
     elsif params[:template_id]
-      @template = Template.find(params[:template_id])
+      @template = Template.includes(:children).find(params[:template_id])
     else
       # models index is always nested either to a category or to a template
     end
@@ -20,12 +20,13 @@ class ModelsController < FrontendController
     #1402 TODO refactor to User#accessible_models
     @models = model_group.all_models.
                       joins(:items, :partitions).
+                      includes(:inventory_pools, :properties, :images).
                       where(["items.inventory_pool_id IN (:ip_ids)
-                                 AND (partitions.group_id IN (:groups_ids)
-                                 OR (partitions.group_id IS NULL AND partitions.inventory_pool_id IN (:ip_ids)))",
+                              AND (partitions.group_id IN (:groups_ids)
+                                   OR (partitions.group_id IS NULL AND partitions.inventory_pool_id IN (:ip_ids)))",
                               {:ip_ids => current_user.active_inventory_pool_ids,
                                :groups_ids => current_user.group_ids}
-                             ])
+                            ])
 
     respond_to do |format|
       format.html

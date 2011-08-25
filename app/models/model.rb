@@ -199,11 +199,11 @@ class Model < ActiveRecord::Base
 
   # TODO 06** define main image
   def image_thumb
-    ( images.empty? ? nil : images.first.public_filename(:thumb) )
+    images.first.try(:public_filename, :thumb)
   end
   
   def image
-    ( images.empty? ? nil : images.first.public_filename() )
+    images.first.try(:public_filename)
   end
 
   def lines
