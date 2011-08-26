@@ -47,50 +47,7 @@
   = render :partial => 'topfilter'
 
   %section#modellist
-    - @models.each do |m|
-      %table.item{:"data-attributes" => {:inventory_pool_ids => m.inventory_pool_ids}.to_json}
-        %tr
-          %td.image
-            - if (image_thumb = m.image_thumb)
-              = link_to image_tag("http://leihs.zhdk.ch/#{image_thumb}"), m
-          %td.name
-            = link_to m.name, m
-          %td.manufacturer
-            = link_to m.manufacturer, m
-          %td.overlay
-            .hover
-              .header 
-                .borderleft
-                .headerinner
-                .borderright
-              .inner
-                - if (image = m.image)
-                  = image_tag("http://leihs.zhdk.ch/#{image}")
-                - unless m.description.blank?
-                  %p.description
-                    = truncate(m.description, :length => 120)
-                %table.details
-                  - m.properties[0..4].each do |p|
-                    %tr
-                      %td.key
-                        = p.key
-                      %td.value
-                        = p.value
-                .borderleft
-                  .arrow
-                .borderright
-                  .arrow
-              
-              .footer
-                .borderleft
-                .footerinner
-                .borderright
-            = link_to "", m, :class=>"imageanchor"
-            = link_to "", m, :class=>"itemanchor"
-          %td.availability
-            = render :partial => 'availability', :locals => {:model => m}
-          %td.add
-            = link_to "+", book_model_path(m), :class => "smallbutton green", :title => _("Book %s") % m.name
+    = render @models
 
   .clear
   
