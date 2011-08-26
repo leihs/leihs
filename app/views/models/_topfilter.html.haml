@@ -9,13 +9,13 @@
       %label{:for => "available-only"}
         = _("Show Available")
           
-  %form.sort{:method => "get"}
+  .sort
     .container
       %span.select
         %span.text
           = _("Productname (A-Z)")
         .arrow
-      %select.styled{:name => "sort_and_sort_mode"}
+      %select.styled
         %option{:value => "name ASC"}= _("Productname (A-Z)")
         %option{:value => "name DESC"}= _("Productname (Z-A)")
         %option{:value => "manufacturer ASC"}= _("Manufacturer (A-Z)")

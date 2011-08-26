@@ -2,61 +2,41 @@ class ModelsController < FrontendController
 
   before_filter :pre_load
 
-  def index( query = params[:query],
-             sort = params[:sort] || 'name', # OPTIMIZE 0501
-             sort_mode = params[:dir] || 'ASC' ) # OPTIMIZE 0501
-    
+  def index
     cookie_expire = 1.hour.from_now
     cookies[:active_ips] ||= {:value => current_user.active_inventory_pool_ids.to_json, :expires => cookie_expire }
     cookies[:start_date] ||= {:value => Date.today.to_json, :expires => cookie_expire }
     cookies[:end_date] ||= {:value => Date.tomorrow.to_json, :expires => cookie_expire }
     cookies[:show_available] ||= {:value => false.to_json, :expires => cookie_expire }
              
-    sort, sort_mode = params[:sort_and_sort_mode].split unless params[:sort_and_sort_mode].blank?
-    
-    sort_mode = sort_mode.downcase.to_sym # OPTIMIZE 0501
-    
-    #1402 TODO refactor to User#accessible_models(current_inventory_pools)
-    model_ids = Model.all(:group => "models.id", #tmp#Rails3.1 is this select kept also for next Model query??# :select => "DISTINCT models.id",
-                          :joins => [:items, :partitions],
-                          :conditions => ["items.inventory_pool_id IN (:ip_ids)
-                                             AND (partitions.group_id IN (:groups_ids)
-                                             OR (partitions.group_id IS NULL AND partitions.inventory_pool_id IN (:ip_ids)))",
-                                          {:ip_ids => current_inventory_pools.collect(&:id),
-                                           :groups_ids => current_user.group_ids}
-                                         ]).collect(&:id)
-#tmp#
-#    model_ids = Model.all(:select => "DISTINCT models.id",
-#                          :joins => :items,
-#                          :conditions => {:items => {:inventory_pool_id => current_inventory_pools.collect(&:id)}}).collect(&:id)
-#    group_ids = current_user.group_ids_including_general
-#    model_ids = model_ids.select {|m_id|  } or #model_ids.delete_if {|m|  }
-
-    with = {:sphinx_internal_id => model_ids }
-
-    if params[:category_id]
-      @category = Category.find(params[:category_id])
-      with[:model_group_id] = @category.self_and_descendant_ids
+    model_group = if params[:category_id]
+      @category = Category.includes(:children).find(params[:category_id])
     elsif params[:template_id]
-      @template = Template.find(params[:template_id])
-      with[:model_group_id] = @template.self_and_descendant_ids
+      @template = Template.includes(:children).find(params[:template_id])
+    else
+      # models index is always nested either to a category or to a template
     end
 
-    @models = Model.search query, { :index => "frontend_model",
-                                    :star => true,
-                                    :per_page => 9999999,
-                                    :with => with,
-                                    :order => sort, :sort_mode => sort_mode }
+    #1402 TODO refactor to User#accessible_models
+    @models = model_group.all_models.
+                      joins(:items, :partitions).
+                      includes(:inventory_pools, :properties, :images).
+                      where(["items.inventory_pool_id IN (:ip_ids)
+                              AND (partitions.group_id IN (:groups_ids)
+                                   OR (partitions.group_id IS NULL AND partitions.inventory_pool_id IN (:ip_ids)))",
+                              {:ip_ids => current_user.active_inventory_pool_ids,
+                               :groups_ids => current_user.group_ids}
+                            ])
+
+    respond_to do |format|
+      format.html
+      format.js { render :json => @models.as_json(:current_user => current_user) }
+    end
   end  
 
 #######################################################  
   
   def show
-    @models = [@model]
-    c = @models.size
-    # OPTIMIZE used for InventoryPool#items_size
-    InventoryPool.current_model, InventoryPool.current_user = [@model, current_user]
-    
     respond_to do |format|
       format.html
     end

@@ -1,15 +1,18 @@
 = render :partial => '/layouts/frontend/tabs'
 = render :partial => '/layouts/frontend/content_box_head'
 
-#models.innercontent{:class => (@category.try(:children).blank? and @template.try(:children).blank?) ? "fullwidth" : nil} 
+- category_children = @category.try(:children)
+- template_children = @template.try(:children)
+
+#models.innercontent{:class => (category_children.blank? and template_children.blank?) ? "fullwidth" : nil} 
     
-  - unless @category.try(:children).blank? and @template.try(:children).blank?
+  - unless category_children.blank? and template_children.blank?
     .aside  
     
       - if @category
-        - unless @category.children.empty?
+        - unless category_children.blank?
           %ul#categories
-            - @category.children.each do |c|
+            - category_children.each do |c|
               %li
                 %h2
                   = link_to c, category_models_path(c), :title => c
@@ -18,13 +21,13 @@
                     %li
                       = link_to child, category_models_path(child) , :title => child
                       
-        - unless @category.all_templates.empty?
+        - unless (all_templates = @category.all_templates).blank?
           %hr
           %h2.templates
             %span.icon
             = _("Matching Templates")
           %ul#templates
-            - @category.all_templates.each do |t|
+            - all_templates.each do |t|
               %li
                 %h2
                   = link_to t, template_models_path(t), :title => t
@@ -33,17 +36,16 @@
                     %li
                       = link_to child, template_models_path(child) , :title => child
       
-      - elsif @template
-        - unless @template.children.empty?
-          %ul#categories
-            - @template.children.each do |t|
-              %li
-                %h2
-                  = link_to t, template_models_path(t), :title => t
-                %ul
-                  - t.children.each do |child|
-                    %li
-                      = link_to child, template_models_path(child) , :title => child
+      - elsif not template_children.blank?
+        %ul#categories
+          - template_children.each do |t|
+            %li
+              %h2
+                = link_to t, template_models_path(t), :title => t
+              %ul
+                - t.children.each do |child|
+                  %li
+                    = link_to child, template_models_path(child) , :title => child
                   
   = render :partial => 'topfilter'
 
@@ -52,8 +54,8 @@
       %table.item{:"data-attributes" => {:inventory_pool_ids => m.inventory_pool_ids}.to_json}
         %tr
           %td.image
-            - unless m.images.empty?
-              = link_to image_tag("http://leihs.zhdk.ch/#{m.image_thumb}"), m
+            - if (image_thumb = m.image_thumb)
+              = link_to image_tag("http://leihs.zhdk.ch/#{image_thumb}"), m
           %td.name
             = link_to m.name, m
           %td.manufacturer
@@ -65,20 +67,18 @@
                 .headerinner
                 .borderright
               .inner
-                - unless m.images.empty?
-                  = image_tag("http://leihs.zhdk.ch/#{m.image}")
+                - if (image = m.image)
+                  = image_tag("http://leihs.zhdk.ch/#{image}")
                 - unless m.description.blank?
                   %p.description
                     = truncate(m.description, :length => 120)
-                - unless m.properties.empty?
-                  %table.details
-                    - m.properties.each_with_index do |p, i|
-                      - if i < 5
-                        %tr
-                          %td.key
-                            = p.key
-                          %td.value
-                            = p.value
+                %table.details
+                  - m.properties[0..4].each do |p|
+                    %tr
+                      %td.key
+                        = p.key
+                      %td.value
+                        = p.value
                 .borderleft
                   .arrow
                 .borderright

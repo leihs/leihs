@@ -27,7 +27,7 @@ module Availability
     def total_borrowable_items_for_user(user)
       inventory_pools.collect do |ip|
         partitions.in(ip).by_groups(user.groups).sum(:quantity).to_i +
-          partitions.in(ip).by_group(Group::GENERAL_GROUP_ID)
+          partitions.in(ip).by_group(Group::GENERAL_GROUP_ID, false)
       end.sum
     end
 
@@ -40,6 +40,19 @@ module Availability
          :availability => availability_changes_in(inventory_pool).changes.available_quantities_for_groups(groups, true) }
       end
     end
+
+
+    ########################################################################
+
+    def as_json(options = {})
+      json = super(options)
+      if options[:current_user]
+        json['total_borrowable'] = total_borrowable_items_for_user(options[:current_user])
+        json['availability'] = availability_periods_for_user(options[:current_user])
+      end
+      json
+    end
+
 
   end
 end

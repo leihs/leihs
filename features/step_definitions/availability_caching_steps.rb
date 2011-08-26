@@ -1,7 +1,7 @@
 When "he checks his basket" do
   # access a method, that is being called by the EJS frontend code to
   # update the OrderLine availabilites
-  get "user/order.ext_json"
+  get "order.ext_json"
   @order = @user.orders.first # TODO: .first => not nice
 end
 

@@ -1,10 +1,10 @@
 %li.item{:"data-attributes" => compact_order_line.to_json}
   %span.name
-    = link_to "/user/order?order_line_id=#{compact_order_line.id}", :title => _("%s (View in Order)") % compact_order_line.model.name do
+    = link_to order_path(:order_line_id => compact_order_line.id), :title => _("%s (View in Order)") % compact_order_line.model.name do
       = truncate(compact_order_line.model.name, :length => 20)
       - if compact_order_line.quantity > 1
         %span.amount
           = "(#{compact_order_line.quantity})"
   %span.delete
-    = link_to "x", remove_lines_user_order_path(:lines => compact_order_line.id), :title => _("Delete this Line"), :method => :delete, :remote => true
+    = link_to "x", remove_lines_order_path(:lines => compact_order_line.id), :title => _("Delete this Line"), :method => :delete, :remote => true
   %span.clear
