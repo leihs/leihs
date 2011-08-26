@@ -1,18 +1,15 @@
 = render :partial => '/layouts/frontend/tabs'
 = render :partial => '/layouts/frontend/content_box_head'
 
-- category_children = @category.try(:children)
-- template_children = @template.try(:children)
-
-#models.innercontent{:class => (category_children.blank? and template_children.blank?) ? "fullwidth" : nil} 
+#models.innercontent{:class => (@category_children.blank? and @template_children.blank?) ? "fullwidth" : nil} 
     
-  - unless category_children.blank? and template_children.blank?
+  - unless @category_children.blank? and @template_children.blank?
     .aside  
     
       - if @category
-        - unless category_children.blank?
+        - unless @category_children.blank?
           %ul#categories
-            - category_children.each do |c|
+            - @category_children.each do |c|
               %li
                 %h2
                   = link_to c, category_models_path(c), :title => c
@@ -36,9 +33,9 @@
                     %li
                       = link_to child, template_models_path(child) , :title => child
       
-      - elsif not template_children.blank?
+      - elsif not @template_children.blank?
         %ul#categories
-          - template_children.each do |t|
+          - @template_children.each do |t|
             %li
               %h2
                 = link_to t, template_models_path(t), :title => t

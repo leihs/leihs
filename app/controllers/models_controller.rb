@@ -1,5 +1,5 @@
 class ModelsController < FrontendController
-
+  
   before_filter :pre_load
 
   def index
@@ -11,8 +11,12 @@ class ModelsController < FrontendController
              
     model_group = if params[:category_id]
       @category = Category.includes(:children).find(params[:category_id])
+      @category_children = @category.children
+      @category
     elsif params[:template_id]
       @template = Template.includes(:children).find(params[:template_id])
+      @template_children = @template.children
+      @template
     else
       # models index is always nested either to a category or to a template
     end
@@ -25,11 +29,10 @@ class ModelsController < FrontendController
                               AND (partitions.group_id IN (:groups_ids)
                                    OR (partitions.group_id IS NULL AND partitions.inventory_pool_id IN (:ip_ids)))",
                               {:ip_ids => current_user.active_inventory_pool_ids,
-                               :groups_ids => current_user.group_ids}
-                            ])
+                               :groups_ids => current_user.group_ids} ])
 
     respond_to do |format|
-      format.html
+      format.html {}
       format.js { render :json => @models.as_json(:current_user => current_user) }
     end
   end  

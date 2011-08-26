@@ -24,7 +24,7 @@
   #ipSelector
     = link_to "javascript: void(0)" do
       %span.text
-        != _("Parks (#{content_tag(:span, current_user.inventory_pools.length, :class => 'amount')})")
+        != _("Parks (#{content_tag(:span, "#{current_user.inventory_pools.length}/#{current_user.inventory_pools.length}", :class => 'amount')})")
       %span.icon
     .container
       .hover
@@ -115,6 +115,8 @@
   
   var ipSelector = new ipSelector();
   
+  ipSelector.hideModellistItemsAtStartup();
+  
   function ipSelector() {
   
     this.hover;
@@ -132,6 +134,12 @@
       ipSelector.setIpSelector();
     }
     
+    this.hideModellistItemsAtStartup = function() {
+      var sheet = document.createElement('style')
+      sheet.innerHTML = "#modellist .item {display: none;}";
+      document.head.appendChild(sheet);      
+    }
+    
     this.readCookieSettings = function() {
       ipSelector.activeIPs = $.parseJSON($.cookie('active_ips'));
     }
@@ -147,7 +155,7 @@
         }
       });
       
-      $("#ipSelector .text .amount").html(ipSelector.activeIPs.length);
+      $("#ipSelector .text .amount").html(ipSelector.activeIPs.length + "/" + $("#ipSelector .line").length);
       ipSelector.updateCookie();
       ipSelector.manipulateModelList();
     }
@@ -155,9 +163,10 @@
     this.manipulateModelList = function() {
       $("#modellist .item").each(function(i, v){
         var _ips = $(this).data("attributes").inventory_pool_ids;
-        var r = $.intersection(_ips, ipSelector.activeIPs);
+        var _active_ips = ipSelector.activeIPs;
+        var r = $.intersection(_ips, _active_ips);
         if(r.length) {
-          $(this).show(); 
+          $(this).show();
         } else {
           $(this).hide();
         }
@@ -203,15 +212,14 @@
       });
     };
     
-    /* TODO: THIS IS NOT WORKING YET!! This function returns the intersection of two arrays (only works with jquery) */
+    /* This function returns the intersection of two arrays (only works with jquery) */
     jQuery.intersection = function(a, b) {
       var result = new Array();
-      $.each(b, function(i, v){
-        if($.inArray(parseInt(v), a)){
+      $.each(a, function(i, v){
+        if($.inArray(v, b) > -1){
           result.push(v);
         }
       });
-      
       return result;
     }
     
