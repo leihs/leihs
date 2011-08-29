@@ -151,6 +151,24 @@ header {
   }
 }
 
+@mixin darkGreylinks {
+  h2 a, h2 a:link, h2 a:visited, h3 a, h3 a:link, h3 a:visited {
+    color: $grey;
+  }
+  
+  h2 a:hover, h2 a:active, h3 a:hover, h3 a:active {
+    color: $darkgrey;
+  }
+  
+  a, a:link, a:visited {   
+    color: $grey;
+  }
+  
+  a:hover, a:active {
+    color: $darkgrey;
+  }
+}
+
 @mixin bluelinks {
   a, a:link, a:visited {   
     color: $lightblue;

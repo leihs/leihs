@@ -278,6 +278,7 @@
         .button {
           left: 7px;
           width: 180px;
+          @include opacity(0.5);
          
           img {
             height: 14px;
