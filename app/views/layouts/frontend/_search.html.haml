@@ -21,6 +21,81 @@
   
     this.setup = function() {
       Search.setupInput();
+      Search.setupAutoComplete();
+    }
+    
+    this.setupAutoComplete = function() {
+    
+      $.widget( "custom.catcomplete", $.ui.autocomplete, {
+        _renderMenu: function( ul, items ) {
+          var self = this;
+          
+          // models
+          $.each( items, function( index, item ) {
+            if (item.type == "model") {
+              var _item = $("<li class='" + item.type + "'></li>");
+              _item.data("item.autocomplete", item);
+              
+              if(item.image.length > 0) {
+                _item.append("<table class='image'><tr><td></td></tr></table>")
+                _item.find(".image tr td").append("<img src='" + item.image + "' alt=''/>");
+              }
+              
+              _item.append("<a href='" + item.link + "'></a>")
+              
+              var _label = item.label;
+              var _regExp = new RegExp($("#search input:text").val(), "i" );
+              var _match = _label.match(_regExp, $("#search input:text").val());
+              _label = _label.replace(_regExp, "<span class='marked'>" + _match + "</span>");
+              
+              _item.find("a").append("<span class='label'>" + _label + "</span>");
+              
+              ul.append(_item);
+            }
+          });
+          
+          // category
+          var categories = $("<li class='categories ui-menu-item'><ul></ul></li>");
+          var categoryitems = [];
+          $.each( items, function( index, item ) {
+            if (item.type == "category") {
+            
+              var _label = item.label;
+              var _regExp = new RegExp($("#search input:text").val(), "i" );
+              var _match = _label.match(_regExp, $("#search input:text").val());
+              _label = _label.replace(_regExp, "<span class='marked'>" + _match + "</span>");
+              
+              categoryitems.push("<li class='category ui-menu-item'><a href='" + item.link + "'>" + _label + "</a></li>");
+            }
+          });
+          categories.append(categoryitems.join(", "));
+          ul.append(categories);
+        }
+      });
+      
+      var data = [
+        { label: "Audio Technica Pro 70", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/1341/amp_sony_AX3_thumb.jpg" , link: "http://localhost:3000/models/1675" },
+        { label: "Digidesign M-Box Audio Interface", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/2399/CD_1820_thumb.jpg" , link: "http://localhost:3000/models/1675" },
+        { label: "Audio Technica Pro 70", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/1341/amp_sony_AX3_thumb.jpg" , link: "http://localhost:3000/models/1675" },
+        { label: "Digidesign M-Box Audio Interface", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/2399/CD_1820_thumb.jpg" , link: "http://localhost:3000/models/1675" },
+        { label: "Audio", type: "category" , link: "http://localhost:3000/categories/38/models"},
+        { label: "Audio Systems", type: "category" , link: "http://localhost:3000/categories/38/models"},
+        { label: "Audio Fidelity", type: "category" , link: "http://localhost:3000/categories/38/models"},
+        { label: "Audio Audio", type: "category" , link: "http://localhost:3000/categories/38/models"},
+        { label: "Audio Interfaces", type: "category", link: "http://localhost:3000/categories/38/models" }
+      ];
+    
+      $("#search input:text").catcomplete({
+        delay: 0,
+        source: data,
+        minLength: 2
+      });
+      
+      $("#search input:text").bind("focus", function(event){
+        if($(event.target).val().length >= 2) {
+          $(".ui-autocomplete").show();        
+        }
+      });
     }
     
     this.setupInput = function(){
@@ -30,7 +105,7 @@
     }
     
     this.highlightText = function(highlightWord) {
-      if(highlightWord.length >= 3){
+      if(highlightWord.length > 1){
         $("#modellist .item .name").removeHighlight().highlight(highlightWord);
         $("#modellist .item .manufacturer").removeHighlight().highlight(highlightWord);
         $("#categories").removeHighlight().highlight(highlightWord);
