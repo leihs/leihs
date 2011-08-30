@@ -1,3 +1,4 @@
+# encoding: utf-8
 set :application, "leihs2"
 
 set :scm, :git
