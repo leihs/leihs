@@ -1,3 +1,4 @@
+# encoding: utf-8
 set :application, "leihs2demo"
 
 set :scm, :git
@@ -122,12 +123,12 @@ task :configure_sphinx do
 end
 
 task :stop_sphinx do
-  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
+  #run "cd #{previous_release} && RAILS_ENV='production' bundle exec rake ts:stop"
 end
 
 task :start_sphinx do
-  run "cd #{release_path} && RAILS_ENV='production' rake ts:reindex"
-  run "cd #{release_path} && RAILS_ENV='production' rake ts:start"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:reindex"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:start"
 end
 
 task :migrate_database do

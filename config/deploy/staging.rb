@@ -1,3 +1,4 @@
+# encoding: utf-8
 set :application, "leihs2test"
 
 set :scm, :git
@@ -120,7 +121,7 @@ task :configure_sphinx do
 end
 
 task :stop_sphinx do
-  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
+  #run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
 end
 
 task :start_sphinx do
