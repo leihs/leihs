@@ -210,7 +210,11 @@ class Item < ActiveRecord::Base
       'is_inventory_relevant',
       'responsible',
       'supplier',
-      'model_manufacturer']
+      'model_manufacturer',
+      'name',
+      'user_name',
+      'note',
+      'location']
   end
 
   # Generates an array suitable for outputting a line of CSV using FasterCSV
@@ -279,7 +283,11 @@ class Item < ActiveRecord::Base
       "#{self.is_inventory_relevant}",
       "#{self.responsible}",
       supplier,
-      model_manufacturer
+      model_manufacturer,
+      "#{self.name}",
+      "#{self.user_name}",
+      "#{self.note}",
+      "#{self.location.to_s}"       
     ]
     
   end
