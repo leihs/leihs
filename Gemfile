@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc6'
+gem 'rails', '3.1.0'
 gem 'builder', '~> 3.0' 
 gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
@@ -10,18 +10,18 @@ gem 'mysql2', '~> 0.3.7'
 #tmp# gem 'squeel', '~> 0.8.4'
 
 # Asset template engines
-gem 'json', '~> 1.5.3'
+gem 'json', '~> 1.5.4'
 gem 'haml', '~> 3.1.2'
-gem 'sass', '~> 3.1.5'
+gem 'sass', '~> 3.1.7'
 gem 'coffee-script'
-gem 'uglifier', '~> 1.0.1'
+gem 'uglifier', '~> 1.0.2'
 
 #old# gem 'prototype-rails', '~> 0.3.1', :git => 'git://github.com/rubychan/prototype-rails.git'
 gem 'jquery-rails', '~> 1.0.13'
 gem 'rails_autolink', '~> 1.0.2'
 
 gem 'will_paginate', '~> 3.0'
-gem 'thinking-sphinx', '~> 2.0.5', :require => 'thinking_sphinx'
+gem 'thinking-sphinx', '~> 2.0.7', :require => 'thinking_sphinx'
 
 gem 'gettext_i18n_rails', '~> 0.2.20'
 gem 'ruby_parser', '~> 2.1.0' # gettext dependency that Bundler seems unable to resolve
@@ -42,7 +42,7 @@ gem 'fastercsv', '~> 1.5.4'
 gem 'prawn', '~> 0.12.0'
 gem 'prawnto', '~> 0.0.4'
 
-gem 'nested_set', '~> 1.6.7'
+gem 'nested_set', '~> 1.6.8'
 gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
 gem 'geocoder', '~> 1.0.2'
@@ -67,7 +67,7 @@ group :cucumber, :test do
 	gem 'rspec-rails', '~> 2.6.1', :require => false
 	gem 'nokogiri', '~> 1.5.0'
 	gem 'capybara', '~> 1.0.1'
-  gem 'launchy', '~> 2.0.4'
+  gem 'launchy', '~> 2.0.5'
 end
 
 #group :culerity do
