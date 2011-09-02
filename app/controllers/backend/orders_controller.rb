@@ -26,10 +26,22 @@ class Backend::OrdersController < Backend::BackendController
   end
 
   def show
-      
+    # TODO 13** send errors and notices
+    respond_to do |format|
+      if params[:template] == "value_list"
+        require 'prawn/measurement_extensions'
+        prawnto :prawn => { :page_size => 'A4',
+                            :left_margin => 25.mm,
+                            :right_margin => 15.mm,
+                            :bottom_margin => 15.mm,
+                            :top_margin => 15.mm
+                          }
+        format.pdf { send_data(render(:template => 'orders/value_list_for_models', :layout => false), :type => 'application/pdf', :filename => "value_list_#{@order.id}.pdf") }
+      end
+
+    end
   end
-  
-  
+ 
   private
   
   def preload

@@ -22,4 +22,4 @@
     -# TODO: Can't hook this up like that. How do we hook it up to some user's
     -#       currently open order? Need to adapt controller?
     = link_to icon_tag("script") + " " + _("Value list"),
-              user_order_path( @order, :format => 'pdf', :template => 'value_list' )
+              backend_inventory_pool_order_path(current_inventory_pool, @order, :format => 'pdf', :template => 'value_list' )
