@@ -22,7 +22,7 @@ gem "thinking-sphinx", '1.3.20', :require => 'thinking_sphinx'
 gem "fastercsv", '1.5.3'
 
 gem "prawn", '0.8.4'
-gem "ruby-net-ldap", "0.0.4", :require => 'net/ldap'
+gem "net-ldap", :require => 'net/ldap'
 
 gem "awesome_nested_set", "1.4.3"
 
