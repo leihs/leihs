@@ -6,19 +6,19 @@
         %li.active{:class => "order"}
           = link_to "javascript: void(0)", :title => _("Order") do
             %span{:class => "icon"}
-        %li{:class => "templates"}
-          = link_to "javascript: void(0)", :title => _("Order Templates") do
+        %li{:class => "log"}
+          = link_to "javascript: void(0)", :title => _("Order Log") do
             %span{:class => "icon"}
     .borderleft
   
   .inner
     = render :partial => "orders/compact_order"
           
-    #compactTemplates
+    #compactLog
       %h3 
-        = _("Order Templates")
-      %a.edit{:href => ""}
-        = _("edit")
+        = _("Order Log")
+      %a.topRight{:href => ""}
+        = _("show")
       .clear
     
     .clear
@@ -74,13 +74,13 @@
     this.setupNavigation = function() {
       $('#aside .navigation .order a').bind('click', function(){
         $('#compactOrder').stop().show();
-        $('#compactTemplates').stop().hide();
+        $('#compactLog').stop().hide();
         Aside.switchActive($(this).parent());
       });
       
-      $('#aside .navigation .templates a').bind('click', function(){
+      $('#aside .navigation .log a').bind('click', function(){
         $('#compactOrder').stop().hide();
-        $('#compactTemplates').stop().show();
+        $('#compactLog').stop().show();
         Aside.switchActive($(this).parent());
       });
     }
