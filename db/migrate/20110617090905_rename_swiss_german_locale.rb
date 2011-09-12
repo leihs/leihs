@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RenameSwissGermanLocale < ActiveRecord::Migration
   def up
     gsw = Language.where(:locale_name => 'gsw_CH@zurich').first
