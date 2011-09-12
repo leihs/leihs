@@ -16,5 +16,5 @@
       = short_date(order_line.end_date)
     %td.actions
       - if @order.status_const == 1
-        = link_to_function _("Edit"), :class => "smallbutton white edit"
+        = link_to _("Edit"), "javascript: void(0)", :class => "smallbutton white edit"
         = link_to _("Delete"), remove_lines_order_path(:lines => order_line.id), :class => "smallbutton red delete", :title => _("Delete this Line"), :method => :delete, :remote => true

@@ -10,7 +10,7 @@
     - if @grouped_order_lines.blank?
       != _("Currently you have no items in your order. Please %s and choose items for your order.") % link_to(_("go back"), "javascript: window.history.back();")
     - else 
-      != _("This is your current list of pre-reserved items. To complete this order please %s it.") % content_tag(:strong, _("submit"))
+      != _("This is your current list of pre-reserved items. To complete this order please %s.") % content_tag(:strong, _("submit it"))
   
   - unless @grouped_order_lines.blank?
     %hr
@@ -30,9 +30,7 @@
     - unless @grouped_order_lines.blank?        
       %section.actions
         
-        = link_to_function _("Save as Template"), :class => "button white"
-        
-        = link_to_function _("Value List"), :class => "button white"
+        = link_to _("Value List"), "javascript: void(0)", :class => "button white"
         
         %button.button.green{:type => "submit"}
           = _("Submit Order")
