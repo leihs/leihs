@@ -5,7 +5,7 @@
 #compactOrder{:"data-is_valid" => (!grouped_order_lines.blank? and order.approvable?)}
   %h3
     = _("Order")
-  = link_to _("edit"), order_path, :class => "edit"
+  = link_to _("edit"), order_path, :class => "topRight"
   .clear
   
   - grouped_order_lines.each_pair do |inventory_pool, lines|
