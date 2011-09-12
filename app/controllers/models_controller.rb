@@ -23,7 +23,7 @@ class ModelsController < FrontendController
     #1402 TODO refactor to User#accessible_models
     @models = model_group.all_models.
                       joins(:items, :partitions).
-                      includes(:inventory_pools, :properties, :images).
+                      includes(:properties, :images). #not working# :inventory_pools
                       where(["items.inventory_pool_id IN (:ip_ids)
                               AND (partitions.group_id IN (:groups_ids)
                                    OR (partitions.group_id IS NULL AND partitions.inventory_pool_id IN (:ip_ids)))",
