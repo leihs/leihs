@@ -8,13 +8,14 @@
     = current_user.name
     
   %p.subtitle
-    = _("You have access to the following Equipment Parks:")
-    - @pools = []
-    - current_user.inventory_pools.each do |ip|
-      - @pools.push(link_to ip.name, inventory_pool_path(ip))
-    %span.pools{:"data-pools" => @pools}
-      = @pools.join(", ").html_safe
-    = link_to_function _("show all"), :class => "showall"
+    - if current_user.inventory_pools.blank?
+      != _("You have %{no_access} to any Equipment Park!") % {:no_access => content_tag(:strong, "no access")}
+    - else 
+      = _("You have access to the following Equipment Parks:")
+      - @pools = []
+      - current_user.inventory_pools.each do |ip|
+        - @pools.push(link_to ip.name, inventory_pool_path(ip))
+      != "#{@pools.join(", ")}."
 
   %hr
   
@@ -53,60 +54,3 @@
   
 = render :partial => '/layouts/frontend/content_box_foot'
 = render :partial => '/layouts/frontend/aside'
-
-:javascript
-  
-  $(document).ready(function(){
-    ShowAllPoolsSwitcher.setup();
-  });
-  
-  var ShowAllPoolsSwitcher = new ShowAllPoolsSwitcher();
-  
-  function ShowAllPoolsSwitcher() {
-  
-    this.min = 3;
-    this.animationDelay = 100;
-  
-    this.setup = function() {
-      ShowAllPoolsSwitcher.setupVisiblePools();
-      ShowAllPoolsSwitcher.bindButtons();
-    }
-    
-    this.setupVisiblePools = function() {
-      if($("#start .subtitle .pools").data("pools").length > ShowAllPoolsSwitcher.min) {
-        $("#start .subtitle .pools").html("");
-        $("#start .subtitle .showall").show();
-        $.each($("#start .subtitle .pools").data("pools"), function(index, value) {
-          if(index < ShowAllPoolsSwitcher.min) {
-            $("#start .subtitle .pools").append(value);
-            if(index != (ShowAllPoolsSwitcher.min-1)) {
-              $("#start .subtitle .pools").append(", ");
-            }
-          }
-        });
-      }
-    }
-    
-    this.bindButtons = function() {
-      $("#start .subtitle .showall").bind("click", function(){
-        $("#start .subtitle .showall").hide();
-        $.each($("#start .subtitle .pools").data("pools"), function(index, value) {
-          if(index >= ShowAllPoolsSwitcher.min) {
-            if(index == (ShowAllPoolsSwitcher.min)) {
-              $("#start .subtitle .pools").append(", ");
-            }
-            var _object = $(value);
-            _object.stop().hide();
-            $("#start .subtitle .pools").append(_object);
-            _object.delay(ShowAllPoolsSwitcher.animationDelay*(index-ShowAllPoolsSwitcher.min)).fadeOut(0, function(){
-              if(index != ($("#start .subtitle .pools").data("pools").length-1)) {
-                $(this).after(", ");
-              }
-            }).fadeIn();
-          }
-        });
-      });
-    }
-  
-  }
-  
