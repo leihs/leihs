@@ -20,29 +20,47 @@
   function Search() {
   
     this.setup = function() {
+      Search.setupBindings();
       Search.setupInput();
       Search.setupAutoComplete();
     }
     
+    this.setupBindings = function() {
+      $("#search input:text").bind("focus", function() {
+        $(this).parents("#search").addClass("active");
+      });
+      
+      $("#search input:text").bind("blur", function() {
+        $(this).parents("#search").removeClass("active");
+      });
+    }
+    
     this.setupAutoComplete = function() {
     
-      $.widget( "custom.catcomplete", $.ui.autocomplete, {
+      $.widget("custom.catcomplete", $.ui.autocomplete, {
         _renderMenu: function( ul, items ) {
           var self = this;
-          var categories = $("<li class='categories ui-menu-item'><ul></ul></li>");
-          var categoryitems = [];
+          var categories = [];
+          var lastItemType = "";
           
           $.each( items, function( index, item ) {
-            if (item.type == "model") {
+              if(item.type != lastItemType && index != 0) {
+                ul.append('<li class="seperator"></li>');
+              }
+              
               var _item = $("<li class='" + item.type + "'></li>");
               _item.data("item.autocomplete", item);
               
-              if(item.image.length > 0) {
+              if(item.image) {
                 _item.append("<table class='image'><tr><td></td></tr></table>")
                 _item.find(".image tr td").append("<img src='" + item.image + "' alt=''/>");
               }
               
               _item.append("<a href='" + item.link + "'></a>")
+              
+              if(item.type == "category") {
+                _item.append(", ");
+              }
               
               var _label = item.label;
               var _regExp = new RegExp($("#search input:text").val(), "i" );
@@ -52,23 +70,15 @@
               _item.find("a").append("<span class='label'>" + _label + "</span>");
               
               ul.append(_item);
-            }else if (item.type == "category") {
-              var _label = item.label;
-              var _regExp = new RegExp($("#search input:text").val(), "i" );
-              var _match = _label.match(_regExp, $("#search input:text").val());
-              _label = _label.replace(_regExp, "<span class='marked'>" + _match + "</span>");
-              
-              categoryitems.push("<li class='category ui-menu-item'><a href='" + item.link + "'>" + _label + "</a></li>");
-            }
+              lastItemType = item.type;
           });
           
-          categories.append(categoryitems.join(", "));
-          ul.append(categories);
+          ul.append('<li class="seperator"></li>')
         }
       });
       
       var data = [
-        { label: "Audio Technica Pro 70", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/1341/amp_sony_AX3_thumb.jpg" , link: "http://localhost:3000/models/1111" },
+        { label: "Audio Technica Pro 70", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/2399/CD_1820_thumb.jpg" , link: "http://localhost:3000/models/1111" },
         { label: "Digidesign M-Box Audio Interface", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/2399/CD_1820_thumb.jpg" , link: "http://localhost:3000/models/2222" },
         { label: "Audio Technica Pro 70", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/1341/amp_sony_AX3_thumb.jpg" , link: "http://localhost:3000/models/3333" },
         { label: "Digidesign M-Box Audio Interface", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/2399/CD_1820_thumb.jpg" , link: "http://localhost:3000/models/4444" },
@@ -84,7 +94,7 @@
         source: data,
         minLength: 2,
       	select: function(event, ui) {
-      		//window.location = ui.item.link;
+      		window.location = ui.item.link;
       		console.log(event);
       	}
       });
