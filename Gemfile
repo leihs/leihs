@@ -56,17 +56,16 @@ group :development do
 end
 
 group :cucumber, :development do
-  gem 'ruby-debug19', :require => 'ruby-debug' # for Ruby 1.8.x: gem 'ruby-debug'
-	gem 'require_relative' # ruby-debug requires linecache requires require_relative
+  gem 'pry' #gem 'ruby-debug19', '~> 0.11.6', :require => 'ruby-debug'
 end
 
 group :cucumber, :test do
-	gem 'cucumber-rails', '~> 1.0.2', :require => false
+	gem 'cucumber-rails', '~> 1.0', :require => false
 	gem 'database_cleaner', '~> 0.6.7', :require => false
 	gem 'rspec', '~> 2.6.0', :require => false
 	gem 'rspec-rails', '~> 2.6.1', :require => false
 	gem 'nokogiri', '~> 1.5.0'
-	gem 'capybara', '~> 1.0.1'
+	gem 'capybara', '~> 1.0'
   gem 'launchy', '~> 2.0.5'
 end
 
