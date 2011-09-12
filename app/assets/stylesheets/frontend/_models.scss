@@ -213,11 +213,10 @@
             }
             
             .details {
-              display: block;
+              border-collapse: separate;
               width: 370px;
               
               tr { 
-                display: table;
                 width: 370px;
               
                 td {
@@ -231,23 +230,26 @@
               }
               
               tr:nth-child(odd)  {
-               background: $highlight-darkgrey;
+                td {
+                  background: $highlight-darkgrey;
+                }
               }
               
               tr:nth-child(even)  {
-               background: $highlight-grey;
+                td {
+                  background: $highlight-grey;
+                }
               }
               
               .key {
+                border-right: 1px solid white;
                 color: $grey;
                 font-weight: bold;
-                margin-right: 8px;
                 padding-left: 10px;
                 width: 120px;
               }
               
               .value {
-                border-left: 1px solid #FFF;
                 padding-left: 10px;
                 padding-right: 10px;
                 width: 250px;
@@ -374,8 +376,8 @@
     }
     
     .item:hover {
-      background: $highlight-darkgrey;
-      
+      @include highlightItem();
+          
       .add {
         @include opacity(1);
       }

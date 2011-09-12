@@ -27,7 +27,8 @@
  * 
 */
 
-@import "frontend/reset.scss"; 
+@import "frontend/reset.scss";
+$bordergrey: #bcbcbb; 
 $darkgrey: #515151;
 $grey: #717171;
 $lightgrey: #999;
@@ -205,6 +206,18 @@ header {
   -moz-box-shadow: $value;
   -webkit-box-shadow: $value;
   box-shadow: $value;
+}
+
+@mixin doubledBoxShadow ($value1, $value2) {
+  -moz-box-shadow: $value1, $value2;
+  -webkit-box-shadow: $value1, $value2;
+  box-shadow: $value1, $value2;
+}
+
+@mixin highlightItem () {
+  background: #FFF;
+  z-index: 1002;
+  @include doubledBoxShadow (0 2px 10px #DDD, 0 -2px 10px #DDD);
 }
 
 @mixin modelsGrid () {

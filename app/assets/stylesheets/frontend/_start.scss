@@ -1,18 +1,10 @@
 #start {
 
-   .subtitle {
-   
-      .pools {
-        @include greylinks;
-      }
-      
-      .showall {
-        display: none;
-      }
-   }
+  .subtitle {
+    @include greylinks;
+  }
    
   #rentedItems {
-    
     hr {
       margin-top: 6px;
     }

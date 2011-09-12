@@ -6,6 +6,7 @@
   background: #FFF;
   border-right: 1px solid #c3c3c3;
   border-bottom: 1px solid #c3c3c3;
+  padding: 0 12px;
   position: absolute;
   width: 350px !important;
   @include boxShadow (2px 2px 2px #DDD);
@@ -22,9 +23,16 @@
     }
   }
   
+  .seperator {
+    display: block;
+    height: 10px;
+  } 
+  
   .ui-menu-item.model {
     border-bottom: 1px solid #e3e3e3;
     height: 65px;
+    margin-left: -12px;
+    margin-right: -12px;
     position: relative;
     @include darkGreylinks();
     
@@ -71,19 +79,13 @@
     background: $highlight-darkgrey;
   }
   
-  .ui-menu-item.categories {
-    border-bottom: 1px solid #e3e3e3;
-    display: block;
-    padding-left: 14px;
-    padding-bottom: 6px;
-    padding-top: 12px;
-    
-    .ui-menu-item.category {
-      display: inline-block;
-      font-size: 1.4em;
-      margin-bottom: 6px;
-      @include darkGreylinks();
-    }
+  .ui-menu-item.category {
+    display: inline-block;
+    font-size: 1.4em;
+    margin-bottom: 2px;
+    margin-right: 8px;
+    margin-top: 4px;
+    @include darkGreylinks();
   }
 }
 

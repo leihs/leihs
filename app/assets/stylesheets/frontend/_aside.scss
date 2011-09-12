@@ -82,7 +82,7 @@
       background: url($image-sprite) no-repeat -156px -312px; 
     }
      
-    li.templates .icon {
+    li.log .icon {
       background: url($image-sprite) no-repeat -172px -312px; 
     }  
       
@@ -128,14 +128,14 @@
       padding-bottom: 6px;
     }
     
-    .edit {
+    .topRight {
       left: 0;
       position: absolute;
       text-align: right;
       padding-bottom: 2px;
       top: 2px;
       width: 190px;
-      @include opacity(0);
+      @include opacity(0.4);
     }
     
     ul {
@@ -288,7 +288,7 @@
       }
     }
     
-    #compactTemplates {
+    #compactLog {
       display: none;
     
       span.name {
@@ -362,7 +362,7 @@
 }
 
 #aside:hover {
-  .edit {
+  .topRight {
     @include opacity(1.0);
   }
 }
