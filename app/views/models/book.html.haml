@@ -4,28 +4,28 @@
 #book.innercontent
   %h1= @model.name
   %h3= @model.manufacturer
-  .button.green
-    = link_to _("Add to Order"), "#"
-
-  .bar
-    .amount
-      %label{:for => "amount"}
-        = _("Amount")
-      .inputcontainer
-        %input#amount{:name => "amount", :value => 1}
-    .date
-      .from
-        %label{:for => "from"}
-          = _("From")
+  
+  = form_tag add_line_order_path(:model_id => @model) do
+    = button_tag _("Add to Order"), :class => "button green"
+  
+    .bar
+      .quantity
+        %label{:for => "quantity"}
+          = _("Quantity")
         .inputcontainer
-          %input#from{:name => "from", :value => short_date(Date.today) }
-      .to
-        %label{:for => "to"}
-          = _("To")
-        .inputcontainer
-          %input#to{:name => "to", :value => short_date(Date.tomorrow) }
-    .reset
-      = link_to _("Reset"), "#"
+          = text_field_tag :quantity, 1
+      .date
+        .from
+          %label{:for => "start_date"}
+            = _("From")
+          .inputcontainer
+            = text_field_tag :start_date, short_date(Date.today)
+        .to
+          %label{:for => "end_date"}
+            = _("To")
+          .inputcontainer
+            = text_field_tag :end_date, short_date(Date.tomorrow)
+      = button_tag _("Reset"), :type => "reset", :class => "smallbutton white"
 
   #fullcalendar{:"data-availability_dates" => @model.availability_periods_for_user(current_user).to_json}
   

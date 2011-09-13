@@ -52,7 +52,7 @@ class OrdersController < FrontendController
                quantity = params[:quantity] || 1,
                start_date = params[:start_date] || Date.today,
                end_date = params[:end_date] || Date.tomorrow,
-               inventory_pool_id = params[:inventory_pool_id])
+               inventory_pool_id = params[:inventory_pool_id] || nil)
     if model_group_id
       model = Template.find(model_group_id)
       inventory_pool_id ||= model.inventory_pools.first.id
@@ -73,9 +73,8 @@ class OrdersController < FrontendController
     
     model.add_to_document(@order, user_id, quantity, start_date, end_date, inventory_pool)
 
-    # OPTIMIZE 08**
     flash[:notice] = @order.errors.full_messages unless @order.save
-    render :text => @order.errors.full_messages.to_s, :status => (@order.errors.empty? ? 200 : 400)
+    redirect_to model
   end
 
   def remove_lines
