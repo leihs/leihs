@@ -40,7 +40,7 @@
 
   //////////////////////////////////////////////////////////////////////
 
-  - overdue_lines, not_overdue_lines =  current_user.things_to_return.partition {|l| l.end_date < Date.today }
+  - overdue_lines, not_overdue_lines = current_user.things_to_return.partition {|l| l.end_date < Date.today }
   - unless overdue_lines.empty?
     %hr
     %h3.red
