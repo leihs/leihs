@@ -16,3 +16,4 @@
 //= require jquery/fullcalendar/fullcalendar.min
 //= require jquery/textarea-autoresize/autoresize.min
 //= require jquery/highlight/highlight.min
+//= require jquery/cookie/cookie
