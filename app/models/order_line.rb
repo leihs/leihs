@@ -29,15 +29,13 @@ class OrderLine < DocumentLine
     # OPTIMIZE suggest best possible inventory pool according to the other order_lines
     # TODO 08** in case of backend add_line, make sure is assigned to current_inventory_pool
     if self.inventory_pool.nil?
-      inventory_pool = nil
-      inventory_pools = model.inventory_pools #temp# & order.user.inventory_pools # TODO 08** also scope to the selected frontend inventory_pools ?? 
+      inventory_pools = model.inventory_pools & order.user.inventory_pools # TODO 08** also scope to the selected frontend inventory_pools ?? 
       inventory_pools.each do |ip|
          if ip.items.where(:model_id => model.id).count >= quantity
-           inventory_pool = ip
+           self.inventory_pool = ip
            break
          end
       end
-      self.inventory_pool = inventory_pool
     end
   end
 

@@ -10,7 +10,6 @@
 
 /////////// Lib /////////////
 //= require jquery/dialog/dialog
-//= require jquery/booking-calendar/booking-calendar
 
 /////////// Vendor /////////////
 //= require jquery/fullcalendar/fullcalendar.min

@@ -9,6 +9,8 @@
 */
 
 $(document).ready(function(){
+	BookingCalendar.setup();
+	
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -17,13 +19,12 @@ $(document).ready(function(){
     var calendar = $('#fullcalendar').fullCalendar({
         viewDisplay: function(view) {
 		  	var availability_dates = $('#fullcalendar').data('availability_dates');
+		  	if (!availability_dates) return false;
         	var colCnt = 7;
         	$("#fullcalendar .fc-content table tbody tr td").each(function(index, element){
 				var cell = {row: Math.floor(index/colCnt), col: index%colCnt};
 				var date = view.cellDate(cell);
-	  			// TODO currently only works for first inventory_pool
-	  			//var f1 = availability_dates.filter(function(x){
-	  			var f1 = availability_dates[0].availability.filter(function(x){
+	  			var f1 = availability_dates.filter(function(x){
 	  			  var availability_date = new Date(x[0] * 1000);
 	  			  return (availability_date < date); // TODO <= ???
 	  			});
@@ -71,5 +72,25 @@ var BookingCalendar = new BookingCalendar();
 
 function BookingCalendar() {
     
+    this.setup = function() {
+    	BookingCalendar.set_data();
+    	
+    	var first_selected =  $("select#inventory_pool_id option:selected");
+    	
+		$("select#inventory_pool_id").change(function(){
+ 		  BookingCalendar.set_data(true);
+	    });
+    	
+		$("#book form").bind("reset", function(){
+		  first_selected.attr("selected", true);
+		  BookingCalendar.set_data(true);
+	    });
+    }
+    
+    this.set_data = function(render) {
+    	var av = $("select#inventory_pool_id option:selected").data("availability_dates");
+    	$('#fullcalendar').data("availability_dates", av);
+    	if (render) $('#fullcalendar').fullCalendar('render');
+    }
     
 }
