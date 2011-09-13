@@ -67,7 +67,7 @@
           opacity: .6;
           position: relative;
           top: 3px;
-          width: 15px;
+          width: 16px;
         }
       }
       
@@ -83,7 +83,7 @@
     }
      
     li.log .icon {
-      background: url($image-sprite) no-repeat -172px -312px; 
+      background: url($image-sprite) no-repeat -173px -312px; 
     }  
       
     li:hover {
@@ -119,6 +119,10 @@
     left: 1px;
     width: 196px;
     
+    .entries {
+      overflow-y: scroll;
+    }
+    
     h3 {
       float: left;
       font-size: 1.2em;
@@ -126,6 +130,14 @@
       margin-bottom: 0;
       padding-left: 8px;
       padding-bottom: 6px;
+    }
+    
+    h4 {
+      a {
+        display: block;
+        font-weight: bold;
+        padding: 0 0 4px 8px;
+      }
     }
     
     .topRight {
@@ -168,7 +180,7 @@
       }
       
       li.item:hover {
-        background: $highlight-darkgrey;
+        @include highlightSmallItem();
         
         span a {
           color: $darkgrey !important;
@@ -181,18 +193,16 @@
       section.pool {
         @include greylinks;
         
-        a.pool {
-          display: block;
-          font-weight: bold;
-          padding: 0 0 4px 8px;
+        h4 a {
+          color: $grey !important;
         }
-      
+        
         li.item {
           clear: both;
           margin-bottom: 1px;
         
           span.name {
-            width: 178px;
+            width: 90%;
             
             a {
               display: block;
@@ -239,6 +249,12 @@
               color: $red;
             }
           }
+        }
+      }
+      
+      section.pool:hover {
+        h4 a {
+          color: $darkgrey !important;
         }
       }
       
@@ -289,19 +305,31 @@
     }
     
     #compactLog {
-      display: none;
-    
-      span.name {
-        color: $grey;
-        display: inline-block;
-        width: 100px;
-      }
       
-      span.amount {
-        display: inline-block;
-        position: absolute;
-        top: 6px;
-        right: 6px;
+      .entries {
+        
+        .group {
+          h4 {
+            color: $grey;
+            padding-bottom: 4px;
+            padding-left: 8px;
+          }
+          
+          .item a {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 4px;
+            padding-top: 3px;
+            padding-left: 10px;
+            padding-right: 8px;
+          }
+        }
+      }    
+      
+      .group:hover {
+        h4 {
+          color: $darkgrey;
+        }
       }
     }
     
@@ -322,6 +350,14 @@
       right: -1px;
       width: 1px;
     }    
+  }
+  
+  .inner > section {
+    display: none;
+  }
+  
+  .inner > section.active {
+    display: block;
   }
   
   .footer {
