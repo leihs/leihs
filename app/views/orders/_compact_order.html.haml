@@ -2,21 +2,23 @@
   order = current_user.get_current_order
   grouped_order_lines = current_user.get_current_grouped_order_lines
 
-#compactOrder{:"data-is_valid" => (!grouped_order_lines.blank? and order.approvable?)}
+%section#compactOrder.active{:"data-is_valid" => (!grouped_order_lines.blank? and order.approvable?)}
   %h3
     = _("Order")
   = link_to _("edit"), order_path, :class => "topRight"
   .clear
   
-  - grouped_order_lines.each_pair do |inventory_pool, lines|
-    %section.pool
-      = link_to inventory_pool, inventory_pool, :class => "pool", :title => _("View %s") % inventory_pool
-      %ul
-        = render :partial => "orders/compact_order_line", :collection => lines
-  
-  - if grouped_order_lines.blank?
-    %p
-      = _("Currently you have no items in your order.")
+  %section.entries
+    - grouped_order_lines.each_pair do |inventory_pool, lines|
+      %section.pool
+        %h4
+          = link_to inventory_pool, inventory_pool, :title => _("View %s") % inventory_pool
+        %ul
+          = render :partial => "orders/compact_order_line", :collection => lines
+    
+    - if grouped_order_lines.blank?
+      %p
+        = _("Currently you have no items in your order.")
           
   = form_tag submit_order_path do
     .purpose

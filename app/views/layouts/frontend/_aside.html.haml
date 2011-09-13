@@ -2,24 +2,18 @@
   .header
     .borderright
     .headerinner
-      %ul.navigation
+      %ul.navigation#asideNavigation
         %li.active{:class => "order"}
-          = link_to "javascript: void(0)", :title => _("Order") do
+          = link_to "javascript: void(0)", :title => _("Order"), :class => "compactOrder", :id => "compactOrder_nav" do
             %span{:class => "icon"}
         %li{:class => "log"}
-          = link_to "javascript: void(0)", :title => _("Order Log") do
+          = link_to "javascript: void(0)", :title => _("Order Log"), :class => "compactLog", :id => "compactLog_nav" do
             %span{:class => "icon"}
     .borderleft
   
   .inner
     = render :partial => "orders/compact_order"
-          
-    #compactLog
-      %h3 
-        = _("Order Log")
-      %a.topRight{:href => ""}
-        = _("show")
-      .clear
+    = render :partial => "orders/compact_log"
     
     .clear
     .borderleft
@@ -32,11 +26,67 @@
     
 :javascript
   
+  setActiveAsideItem(readCookie("active_aside_nav_item"));
+  
+  function setActiveAsideItem(item_id) {
+    if (item_id == null)
+      return 0;
+    
+    var _aside = document.getElementById("aside");
+    var _asideNavigation = document.getElementById("asideNavigation");
+    var _asideInner;
+    
+    // get aside inner
+    
+    for (i=0; i<_aside.childNodes.length; i++) {
+      if(_aside.childNodes[i].className == "inner")
+        _asideInner = _aside.childNodes[i];
+    }
+    
+    // loop through asideNavigation and deactivate all active li elements
+    
+    for (i=0; i<_asideNavigation.childNodes.length; i++) {
+       if(String(_asideNavigation.childNodes[i].className).match(/active/))
+        _asideNavigation.childNodes[i].className = String(_asideNavigation.childNodes[i].className).replace(/active\s*/, "");
+    }
+    
+    // loop through asideInner and deactivate all active section elements
+    
+    for (i=0; i<_asideInner.childNodes.length; i++) {
+       if(String(_asideInner.childNodes[i].className).match(/active/))
+        _asideInner.childNodes[i].className = String(_asideInner.childNodes[i].className).replace(/active\s*/, "");
+    }
+    
+    // active nav item given by func param
+    
+    var _navItem = document.getElementById(item_id + "_nav");
+    _navItem.parentNode.className = (_navItem.parentNode.className) ? _navItem.parentNode.className + ' active' : 'active';
+    
+    // active aside item given by func param
+    
+    var _asideItem = document.getElementById(item_id);
+    _asideItem.className = (_asideItem.className) ? _navItem.className + ' active' : 'active';
+  }
+  
+  function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+  }
+  
+  // DOCUMENT READY
+  
   $(document).ready(function () {
     Aside.setup();
   });
 
   // ASIDE NAVIGATION
+  
   var Aside = new Aside();
   function Aside () {
   
@@ -44,9 +94,11 @@
     this.delayTimer;
     
     this.setup = function () {
-      Aside.setupNavigation();
+      Aside.setupNavigationClickBindings();
       Aside.setupViewportFollowing();
+      Aside.setupViewportScaling();
       Aside.checkPosition();
+      Aside.checkScaling();
     }
     
     this.setupViewportFollowing = function() {
@@ -59,11 +111,17 @@
       });
     }
     
+    this.setupViewportScaling = function() {
+      $(window).resize(function(){
+        Aside.checkScaling();
+      });
+    }
+    
     this.checkPosition = function() {
       $('#aside').css("position", "fixed");
       
       if(window.pageYOffset < $("#content").offset().top-Aside.marginTop){
-        $('#aside').offset({top: $("#content").offset().top});     
+        $('#aside').offset({top: $("#content").offset().top}); 
       } else {
         $('#aside').css("top", Aside.marginTop);
       }
@@ -71,22 +129,30 @@
       $('#aside').offset({left: ($("#content").offset().left + $("#content").width() + $("#aside").outerWidth(true) - $("#aside").outerWidth())});
     }
     
-    this.setupNavigation = function() {
-      $('#aside .navigation .order a').bind('click', function(){
-        $('#compactOrder').stop().show();
-        $('#compactLog').stop().hide();
-        Aside.switchActive($(this).parent());
-      });
+    this.checkScaling = function() {
+      $('#aside .entries').removeAttr("style");
       
-      $('#aside .navigation .log a').bind('click', function(){
-        $('#compactOrder').stop().hide();
-        $('#compactLog').stop().show();
+      console.log($(window).height() + " / " + ($('#aside').height()+parseInt($(aside).css("top"))));
+      
+      if ( $(window).height() < $('#aside').height()+parseInt($(aside).css("top")) ) {
+        $('#aside .entries').height( $(window).height() - parseInt($(aside).css("top")) - ( $("#aside").height()-$('#aside .entries').height() ));
+      } else {
+        $('#aside .entries').removeAttr("style");
+      }
+    }
+    
+    this.setupNavigationClickBindings = function() {
+      
+      $('#aside .navigation a').bind('click', function(){
         Aside.switchActive($(this).parent());
       });
     }
     
     this.switchActive = function(_newActive) {
+      $("#"+$("#aside .navigation .active").find("a").attr("class")).removeClass("active");
+      $("#"+$(_newActive).find("a").attr("class")).addClass("active");
       $("#aside .navigation .active").removeClass("active");
       $(_newActive).addClass("active");
+      $.cookie('active_aside_nav_item', $(_newActive).find("a").attr("class"),  {expires: 24, path: '/' });
     }
   }
