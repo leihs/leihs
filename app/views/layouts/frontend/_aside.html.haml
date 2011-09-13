@@ -43,14 +43,14 @@
         _asideInner = _aside.childNodes[i];
     }
     
-    // loop through asideNavigation and deactivate all active li elements
+    // loop through asideNavigation and deactivate all active elements
     
     for (i=0; i<_asideNavigation.childNodes.length; i++) {
        if(String(_asideNavigation.childNodes[i].className).match(/active/))
         _asideNavigation.childNodes[i].className = String(_asideNavigation.childNodes[i].className).replace(/active\s*/, "");
     }
     
-    // loop through asideInner and deactivate all active section elements
+    // loop through asideInner and deactivate all active elements
     
     for (i=0; i<_asideInner.childNodes.length; i++) {
        if(String(_asideInner.childNodes[i].className).match(/active/))
@@ -97,7 +97,11 @@
       Aside.setupNavigationClickBindings();
       Aside.setupViewportFollowing();
       Aside.setupViewportScaling();
+      
+      // note: I dont know why i have to call this twice, but otherwise it will not work - yes it wont !
       Aside.checkPosition();
+      Aside.checkPosition();
+      
       Aside.checkScaling();
     }
     
@@ -115,30 +119,43 @@
       $(window).resize(function(){
         Aside.checkScaling();
       });
+      
+      $(window).scroll(function(){
+        Aside.checkScaling();
+      });
     }
     
     this.checkPosition = function() {
+      
       $('#aside').css("position", "fixed");
       
+      var offset_left = $("#content").offset().left + $("#content").width() + $("#aside").outerWidth(true) - $("#aside").outerWidth();
+      
       if(window.pageYOffset < $("#content").offset().top-Aside.marginTop){
-        $('#aside').offset({top: $("#content").offset().top}); 
+        $('#aside').offset({top: $("#content").offset().top, left: offset_left});
       } else {
         $('#aside').css("top", Aside.marginTop);
+        $('#aside').offset({left: offset_left});
       }
-      
-      $('#aside').offset({left: ($("#content").offset().left + $("#content").width() + $("#aside").outerWidth(true) - $("#aside").outerWidth())});
     }
     
     this.checkScaling = function() {
-      $('#aside .entries').removeAttr("style");
       
-      console.log($(window).height() + " / " + ($('#aside').height()+parseInt($(aside).css("top"))));
+      console.log("CHECK SCALING");
       
-      if ( $(window).height() < $('#aside').height()+parseInt($(aside).css("top")) ) {
-        $('#aside .entries').height( $(window).height() - parseInt($(aside).css("top")) - ( $("#aside").height()-$('#aside .entries').height() ));
+      // remove the height from the entries before check them against the windwow height
+      $('#aside .inner .active .entries').css("height", "inherit");
+      
+      if ( $(window).height() < $('#aside').outerHeight(true) + parseInt($("#aside").css("top"))) {
+        console.log("VIEWPORT IS NOT BIG ENOUGH");
+        $('#aside .inner .active .entries').height( $(window).height() - parseInt($("#aside").css("top") ) - ( $("#aside").outerHeight(true)-$('#aside .inner .active .entries').height()) );
       } else {
-        $('#aside .entries').removeAttr("style");
+        console.log("VIEWPORT IS FINE");
+        $('#aside .inner .active .entries').css("height", "inherit");
       }
+      
+      console.log("HEIGHT: " + $('#aside .inner .active .entries').height() );
+      
     }
     
     this.setupNavigationClickBindings = function() {
@@ -154,5 +171,6 @@
       $("#aside .navigation .active").removeClass("active");
       $(_newActive).addClass("active");
       $.cookie('active_aside_nav_item', $(_newActive).find("a").attr("class"),  {expires: 24, path: '/' });
+      Aside.checkScaling();
     }
   }
