@@ -21,7 +21,8 @@ $(document).ready(function(){
 		  	var availability_dates = $('#fullcalendar').data('availability_dates');
 		  	if (!availability_dates) return false;
         	var colCnt = 7;
-        	$("#fullcalendar .fc-content table tbody tr td").each(function(index, element){
+        	var required_quantity = $('#fullcalendar').data("required_quantity");
+        	$("#fullcalendar .fc-content .fc-widget-content").each(function(index, element){
 				var cell = {row: Math.floor(index/colCnt), col: index%colCnt};
 				var date = view.cellDate(cell);
 	  			var f1 = availability_dates.filter(function(x){
@@ -29,7 +30,8 @@ $(document).ready(function(){
 	  			  return (availability_date < date); // TODO <= ???
 	  			});
 	  			var available_quantity = (f1.length ? f1[f1.length-1][1] : 0);
-	  			$(element).find('div.fc-day-content > div').text(available_quantity);
+	  			var class_names = (available_quantity >= required_quantity ? ["available", "unavailable"] : ["unavailable", "available"]);
+	  			$(element).removeClass(class_names[1]).addClass(class_names[0]).find('div.fc-day-content > div').text(available_quantity);
         	});
 	    },
     
@@ -80,6 +82,10 @@ function BookingCalendar() {
 		$("select#inventory_pool_id").change(function(){
  		  BookingCalendar.set_data(true);
 	    });
+
+		$("#book input#quantity").keyup(function(){
+ 		  BookingCalendar.set_data(true);
+	    });
     	
 		$("#book form").bind("reset", function(){
 		  first_selected.attr("selected", true);
@@ -88,8 +94,9 @@ function BookingCalendar() {
     }
     
     this.set_data = function(render) {
+    	var q = parseInt($("#book input#quantity").val());
     	var av = $("select#inventory_pool_id option:selected").data("availability_dates");
-    	$('#fullcalendar').data("availability_dates", av);
+    	$('#fullcalendar').data("required_quantity", q).data("availability_dates", av);
     	if (render) $('#fullcalendar').fullCalendar('render');
     }
     

@@ -118,6 +118,14 @@
   }
   
   #fullcalendar {
+  	
+  	.fc-widget-content.available {
+  		background-color: #87ef7c;
+  	}
+  	
+  	.fc-widget-content.unavailable {
+  		background-color: #ff4c4d;
+  	}
 
 	 div.fc-day-content > div {
 	    font-size: 5em;
