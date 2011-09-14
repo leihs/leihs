@@ -10,7 +10,7 @@ gem 'mysql2', '~> 0.3.7'
 #tmp# gem 'squeel', '~> 0.8.4'
 
 # Asset template engines
-gem 'json', '~> 1.5.4'
+gem 'json', '~> 1.6'
 gem 'haml', '~> 3.1.2'
 gem 'sass', '~> 3.1.7'
 gem 'coffee-script'
@@ -24,7 +24,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'thinking-sphinx', '~> 2.0.7', :require => 'thinking_sphinx'
 
 gem 'gettext_i18n_rails', '~> 0.2.20'
-gem 'ruby_parser', '~> 2.1.0' # gettext dependency that Bundler seems unable to resolve
+gem 'ruby_parser', '~> 2.3' # gettext dependency that Bundler seems unable to resolve
 
 
 gem 'barby', '~> 0.5.0'
