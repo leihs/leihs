@@ -95,8 +95,8 @@ class Document < ActiveRecord::Base
     end
   end 
   
-  def remove_line(line_id, user_id)
-    line = lines.find(line_id.to_i)
+  def remove_line(line_or_id, user_id)
+    line = line_or_id.is_a?(DocumentLine) ? line_or_id : lines.find(line_or_id.to_i)
     change = _("Removed %{q} %{m}") % { :q => line.quantity, :m => line.model.name }
     lines.delete(line)
     log_change(change, user_id)
