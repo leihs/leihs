@@ -1,43 +1,62 @@
+:ruby
+  o = @model.availability_periods_for_user(current_user).collect do |av|
+    ["#{av[:inventory_pool][:name]} (#{av[:inventory_pool][:address]})", av[:inventory_pool][:id], {:"data-availability_dates" => av[:availability].to_json}]
+  end
+  #s = o.first[1] # TODO pre-select the inventory_pool with most quantity related to start_date (and end_date) (maybe in javascript)
+
 - content_for :head do
   = javascript_include_tag "jquery/booking-calendar/booking-calendar"
-
 
 = render :partial => '/layouts/frontend/tabs'
 = render :partial => '/layouts/frontend/content_box_head'
 
 #book.innercontent
+  - if (image_thumb = @model.image_thumb)
+    %table.image
+      %tr
+        %td
+          = image_tag("http://leihs.zhdk.ch/#{image_thumb}")
+    
   %h1= @model.name
-  %h3= @model.manufacturer
+  %p.subtitle= @model.manufacturer
+  
+  .clear
   
   = form_tag add_line_order_path(:model_id => @model) do
     = button_tag _("Add to Order"), :class => "button green"
   
-    .bar
-      .quantity
-        %label{:for => "quantity"}
-          = _("Quantity")
-        .inputcontainer
-          = text_field_tag :quantity, 1
-      .date
-        .from
-          %label{:for => "start_date"}
-            = _("From")
-          .inputcontainer
-            = text_field_tag :start_date, short_date(Date.today)
-        .to
-          %label{:for => "end_date"}
-            = _("To")
-          .inputcontainer
-            = text_field_tag :end_date, short_date(Date.tomorrow)
-      .inventory_pool
-        :ruby
-          o = @model.availability_periods_for_user(current_user).collect do |av|
-            [av[:inventory_pool][:name], av[:inventory_pool][:id], {:"data-availability_dates" => av[:availability].to_json}]
-          end
-          #s = o.first[1] # TODO pre-select the inventory_pool with most quantity related to start_date (and end_date) (maybe in javascript)
-        = select_tag :inventory_pool_id, options_for_select(o) #(o, s) 
-      = button_tag _("Reset"), :type => "reset", :class => "smallbutton white"
+    %hr
+  
+    .quantity.container
+      %label{:for => "quantity"}
+        = _("Quantity")
+      = text_field_tag :quantity, 1
+          
+    .date.container
+      .from
+        %label{:for => "start_date"}
+          = _("From")
+        = text_field_tag :start_date, short_date(Date.today)
+      .dash
+        = "-"
+      .to
+        %label{:for => "end_date"}
+          = _("To")
+        = text_field_tag :end_date, short_date(Date.tomorrow)
+          
+    .inventorypool.container
+      %label{:for => "inventory_pool_id"}
+        = _("Equipment Park")
+      %span.select
+        %span.text
+          = o.first[0]
+        .arrow
+      = select_tag :inventory_pool_id, options_for_select(o) #(o, s)
+            
+    .clear
 
+  %hr
+    
   #fullcalendar
   
   .borderleft
