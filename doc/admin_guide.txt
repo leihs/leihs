@@ -22,9 +22,9 @@ This section is meant for admins experienced with installing Ruby on Rails appli
 
 These instructions were tested on a minimal install of Debian GNU/Linux 5.0 (Lenny) and Debian GNU/Linux 6.0 (Squeeze). They might also work on Ubuntu. You might have to substitute +sudo su+ for +su+ because Ubuntu does not configure a root password, thus +su+ would not work.
 
-1. Install Ruby and irb
+1. Install Ruby, irb and libxslt:
 +
- # apt-get install ruby irb rdoc libopenssl-ruby ruby-dev
+ # apt-get install ruby irb rdoc libopenssl-ruby ruby-dev libxslt-dev
 
 2. Install RubyGems from http://rubygems.org/[the RubyGems website]. Make sure *not to install* the edition of RubyGems that is available from Debian's package archives. RubyGem development moves so quickly that we need to use the one from upstream.
 +
