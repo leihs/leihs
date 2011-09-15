@@ -1,13 +1,13 @@
 # encoding: utf-8
-set :application, "leihs2test"
+set :application, "leihs-test"
 
 set :scm, :git
 set :repository,  "git://github.com/psy-q/leihs.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 
-set :db_config, "/home/rails/leihs/leihs2test/database.yml"
-set :ldap_config, "/home/rails/leihs/leihs2test/LDAP.yml"
+set :db_config, "/home/rails/leihs/leihs-test/database.yml"
+set :ldap_config, "/home/rails/leihs/leihs-test/LDAP.yml"
 set :use_sudo, false
 
 set :rails_env, "production"
