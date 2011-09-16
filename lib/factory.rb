@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 # TODO: for some unknown reason find_or_create_by_ will be returning
 # nil within this module. A lot could be improved/simplified here,
 # if it actually worked.
@@ -276,17 +278,23 @@ module Factory
   #
   # InventoryPool
   # 
-  def self.create_inventory_pool(attributes = {})
+  def self.create_inventory_pool(attributes = {}, address_attributes = {})
     default_attributes = {
-      :name => "ABC" 
+      :name => "ABC"
+    }
+    default_address_attributes = {
+      :street => "My Street and Number",
+      :zip_code => "12345",
+      :city => "Zürich",
+      :country_code => "CH"
     }
     ip = InventoryPool.find_by_name default_attributes.merge(attributes)[:name]
     if ip.nil?
       ip = InventoryPool.create default_attributes.merge(attributes)
-      w = ip.workday
-      w.sunday = true
-      w.saturday = true
-      w.save
+      # the workday is create through InventoryPool#before_create,
+      # then we cannot use InventoryPool.find_or_create_by_name
+      ip.workday.update_attributes(:saturday => true, :sunday => true)
+      ip.update_address(default_address_attributes.merge(address_attributes))      
     end
     ip
   end

@@ -208,6 +208,16 @@ class InventoryPool < ActiveRecord::Base
 
 ###################################################################################
 
+  def update_address(attr)
+    if (a = Address.where(attr).first)
+      ip.update_attributes(:address_id => a.id)
+    else
+      ip.create_address(attr)
+    end
+  end
+
+###################################################################################
+
 private
   # Returns a list of Events, where an Event is a particular date, on which a specific
   # customer should come to pick up or return items - or from the other perspective:
