@@ -13,6 +13,7 @@ gem 'mysql2', '~> 0.3.7'
 gem 'json', '~> 1.6'
 gem 'haml', '~> 3.1.2'
 gem 'sass', '~> 3.1.7'
+gem 'sass-rails'
 gem 'coffee-script'
 gem 'uglifier', '~> 1.0.2'
 
