@@ -1,19 +1,21 @@
+-foobar
+
 %aside#aside
   .header
     .borderright
     .headerinner
       %ul.navigation#asideNavigation
         %li.active{:class => "order"}
-          = link_to "javascript: void(0)", :title => _("Order"), :class => "compactOrder", :id => "compactOrder_nav" do
+          = link_to "javascript: void(0)", :title => _("Order"), :id => "compactOrder_nav" do
             %span{:class => "icon"}
-        %li{:class => "log"}
-          = link_to "javascript: void(0)", :title => _("Order Log"), :class => "compactLog", :id => "compactLog_nav" do
+        %li{:class => "history"}
+          = link_to "javascript: void(0)", :title => _("Order History"), :id => "compactHistory_nav" do
             %span{:class => "icon"}
     .borderleft
   
   .inner
     = render :partial => "orders/compact_order"
-    = render :partial => "orders/compact_log"
+    = render :partial => "orders/compact_history"
     
     .clear
     .borderleft
@@ -94,7 +96,7 @@
     this.delayTimer;
     
     this.setup = function () {
-      Aside.setupNavigationClickBindings();
+      Aside.setupNavigationItems();
       Aside.setupViewportFollowing();
       Aside.setupViewportScaling();
       
@@ -141,24 +143,19 @@
     
     this.checkScaling = function() {
       
-      console.log("CHECK SCALING");
-      
       // remove the height from the entries before check them against the windwow height
+      
       $('#aside .inner .active .entries').css("height", "inherit");
       
       if ( $(window).height() < $('#aside').outerHeight(true) + parseInt($("#aside").css("top"))) {
-        console.log("VIEWPORT IS NOT BIG ENOUGH");
         $('#aside .inner .active .entries').height( $(window).height() - parseInt($("#aside").css("top") ) - ( $("#aside").outerHeight(true)-$('#aside .inner .active .entries').height()) );
       } else {
-        console.log("VIEWPORT IS FINE");
         $('#aside .inner .active .entries').css("height", "inherit");
       }
       
-      console.log("HEIGHT: " + $('#aside .inner .active .entries').height() );
-      
     }
     
-    this.setupNavigationClickBindings = function() {
+    this.setupNavigationItems = function() {
       
       $('#aside .navigation a').bind('click', function(){
         Aside.switchActive($(this).parent());
@@ -166,11 +163,15 @@
     }
     
     this.switchActive = function(_newActive) {
-      $("#"+$("#aside .navigation .active").find("a").attr("class")).removeClass("active");
-      $("#"+$(_newActive).find("a").attr("class")).addClass("active");
+      
       $("#aside .navigation .active").removeClass("active");
       $(_newActive).addClass("active");
-      $.cookie('active_aside_nav_item', $(_newActive).find("a").attr("class"),  {expires: 24, path: '/' });
+      
+      var _id = $(_newActive).find("a").attr("id").replace("_nav", "");
+      $("#aside .inner .active").removeClass("active");
+      $("#aside .inner").find("#" + _id).addClass("active");
+      $.cookie('active_aside_nav_item', _id, {expires: 24, path: '/' });
+      
       Aside.checkScaling();
     }
   }

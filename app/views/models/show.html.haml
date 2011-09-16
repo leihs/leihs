@@ -41,27 +41,35 @@
       = @model.description
   
   - unless @model.properties.empty? and @model.attachments.empty?
-    %table.details
+    %section.properties
       - unless @model.attachments.empty?
-        %tr
-          %td.key
-            = _("Documents")
-          %td.value
-            - attachments = []
-            - @model.attachments.each do |a|
-              - attachments.push(link_to a.filename, a.filename, :title => a.filename, :target => "_blank")
-            != attachments.join(", ")
+        %table.item
+          %tr
+            %td.key
+              = _("Documents")
+            %td.value
+              - attachments = []
+              - @model.attachments.each do |a|
+                - attachments.push(link_to a.filename, a.filename, :title => a.filename, :target => "_blank")
+              != attachments.join(", ")
       - @model.properties.each do |p|
+        %table.item
+          %tr
+            %td.key
+              = p.key
+            %td.value
+              = p.value
+      %table.item.switcher
         %tr
-          %td.key
-            = p.key
-          %td.value
-            = p.value
-      %tr.detailsswitcher
-        %td{:colspan => "2"}
-          = link_to_function "+ #{_('show more details')}", :title => _('show more details'), :class => "showmore"
-          = link_to_function "- #{_('show less details')}", :title => _('show less details'), :class => "showless"
-        
+          %td
+            %span.icon
+            %span.amount
+              = @model.properties.size
+            %span.text.more
+              = _("more properties")
+            %span.text.less
+              = _("show less properties")
+              
   - unless @model.compatibles.empty?
     %hr
     %section#accessories
@@ -85,93 +93,118 @@
 :javascript
   
   $(document).ready(function(){
-    DetailsSwitcher.setup();
-    ImageSwitcher.setup();
+    Properties.setup();
+    Images.setup();
   });
   
-  /////// DETAILS SWITCHER ////////
+  /////// PROPERTIES ////////
   
-  var DetailsSwitcher = new DetailsSwitcher();
+  var Properties = new Properties();
   
-  function DetailsSwitcher() {
+  function Properties() {
       
-    this.min = 7;
+    this.min = 6;
     this.max = 15;
     this.animationAcceleration = 50;
+    this.open = false;
       
     this.setup = function() {
-      if(($("#model .details tr").length-1) > DetailsSwitcher.min) {
+    
+      if(($("#model .properties .item").length-1) > Properties.min) {
+      
+        Properties.hideItems();
+        Properties.setupButton();
         
-        // hide details until min
-        $("#model .details tr").each(function(index, value){
-          if(index > (DetailsSwitcher.min - 1)) {
-            $(value).hide();
-          }
-        });
-              
-        // show and bind the showmore button
-        $("#model .details .detailsswitcher .showmore").show();
-        $("#model .details .detailsswitcher .showmore").bind("click", function() {
-                  
-            // show more details animation
-            var _delay = 0;
-            $("#model .details tr").each(function(index, value){
-                if(index > (DetailsSwitcher.min - 1)) {
-                    $(value).stop(true, true).delay(_delay).show(1);
-                    _delay += DetailsSwitcher.animationAcceleration;
-                }
-            });
-            
-            // switch button to less
-            $("#model .details .detailsswitcher .showmore").hide();
-            $("#model .details .detailsswitcher .showless").show();
-        });
-              
-        // bind the show less button
-        DetailsSwitcher.bindShowLess($("#model .details .detailsswitcher .showless"));
-        
-        // show details switcher
-        $("#model .details .detailsswitcher").show();
       }
     }
-      
-    this.bindShowLess = function(_object) {
-          
-      // bind the showless button
-      $(_object).bind("click", function() {
-              
-        // show less details animation
-        var _delay = 0;
-        $("#model .details tr").each(function(index, value){
-            if(index > (DetailsSwitcher.min - 1)) {
-                $(value).stop(true, true).delay(_delay).hide();
-                _delay += DetailsSwitcher.animationAcceleration;
-            }
-        });
-              
-        // switch button to less
-        $("#model .details .detailsswitcher .showless").hide();
-        $("#model .details .detailsswitcher .showmore").show();
-        
-        // show details switcher
-        $("#model .details .detailsswitcher").show();
+    
+    this.hideItems = function() {
+    
+      $("#model .properties .item").each(function(index, value){
+        if(index > (Properties.min - 1)) {
+          $(value).hide();
+        }
       });
     }
+    
+    this.setupButton = function() {
+    
+      $("#model .properties .switcher").bind("click", function() {
+        Properties.toggle();
+      });
+      
+      
+      $("#model .properties .switcher").show();
+    }
+    
+    this.toggle = function() {
+      
+      Properties.open = !Properties.open;
+      
+      if(Properties.open) {
+        Properties.showMore();
+      } else {
+        Properties.showLess();
+      }
+    }
+    
+    this.showMore = function() {
+      
+      var _delay = 0;
+      $("#model .properties .item").each(function(index, value){
+          if(index > (Properties.min - 1)) {
+              $(value).stop(true, true).delay(_delay).show(1);
+              _delay += Properties.animationAcceleration;
+          }
+      });
+      
+      $("html,body").animate({ scrollTop: $("#model .properties").offset().top - 12 }, 1500, "swing");
+      
+      $("#model .properties .switcher .text.more").hide();
+      $("#model .properties .switcher .amount").hide();
+      $("#model .properties .switcher .text.less").show();
+      $("#model .properties .switcher .icon").addClass("rotated");
+    }
+    
+    this.showLess = function() {
+      
+      var _delay = 0;
+      var _items = $("#model .properties .item");
+      
+      for (var i = _items.length-1; i >= 0; i--) {
+        if(i > (Properties.min - 1)) {
+          if(!$(_items[i]).hasClass("switcher")) {
+            $(_items[i]).stop(true, true).delay(_delay).hide(1);
+            _delay += Properties.animationAcceleration/2;
+          }
+        }
+      }
+      
+      var _offset_top =  $(_items[Properties.min]).offset().top + $(_items[Properties.min]).height()*2 - $(window).height();
+      var _duration = Properties.animationAcceleration/2 * (_items.length + Properties.min - 1) ;
+      $("html,body").animate({ scrollTop: _offset_top }, _duration, "swing");
+      
+      $("#model .properties .switcher .text.more").show();
+      $("#model .properties .switcher .amount").show();
+      $("#model .properties .switcher .text.less").hide();
+      $("#model .properties .switcher .icon").removeClass("rotated");
+    }
   }
+      
   
-  /////// IMAGE SWITCHER ////////
+  /////// IMAGES ////////
   
-  var ImageSwitcher = new ImageSwitcher();
+  var Images = new Images();
   
-  function ImageSwitcher() {
+  function Images() {
   
     this.leaveTimer;
     
     this.setup = function() {
-      // MOUSEENTER
+    
       $('#model #smallimages a').bind('mouseenter', function(){
           hoveredItem = $(this);
-          clearTimeout(ImageSwitcher.leaveTimer);
+          clearTimeout(Images.leaveTimer);
           $('#model #hiddenimages img').each(function() {
               $(this).stop(true, true).hide();
               if($(this).attr('src') == hoveredItem.find("img").attr('src').replace(/_thumb/g, "")) {
@@ -183,7 +216,6 @@
           });
       });
       
-      // MOUSELEAVE
       $('#model #smallimages a').bind('mouseleave', function(){
           hoveredItem = $(this);
           $('#model #hiddenimages img').each(function() {
@@ -194,7 +226,7 @@
                   $(this).stop(true, true).fadeOut(400, function(){
                       $(this).removeAttr("style");
                   });
-                  ImageSwitcher.leaveTimer = setTimeout(function(){
+                  Images.leaveTimer = setTimeout(function(){
                     $('#model #bigimage img').stop(true, true).animate({
                       opacity: 1
                     });

@@ -47,6 +47,8 @@
       CompactOrder.setupPurpose();
       CompactOrder.validate();
       CompactOrder.setupSubmitButton();
+      CompactOrder.setupStartTextFallBack();
+      CompactOrder.setupPurposeValidation();
     }
     
     this.setupSubmitButton = function(){
@@ -131,10 +133,7 @@
       CompactOrder.purpose = $("#compactOrder #purpose");
       CompactOrder.purpose.data("start_text", CompactOrder.purpose.text());
       CompactOrder.purpose.data("start_height", CompactOrder.purpose.height());
-      CompactOrder.purpose.autoResize({animateDuration : 200, extraSpace : 20, limit: 250});
-      
-      CompactOrder.bindTextAreaForStartTextClarAndFallBack();
-      CompactOrder.bindTextAreaForRunOrderValidation();
+      CompactOrder.purpose.autoResize({animateDuration : 200, extraSpace : 20, limit: 100, animateCallback: Aside.checkScaling});
     }
     
     this.validatePurpose = function() {
@@ -149,7 +148,7 @@
       return _validation;
     }
     
-    this.bindTextAreaForStartTextClarAndFallBack = function() {
+    this.setupStartTextFallBack = function() {
       
       CompactOrder.purpose.bind('focus', function(){
         if($(this).val() == $(this).data("start_text")) {
@@ -179,7 +178,7 @@
       });  
     }
     
-    this.bindTextAreaForRunOrderValidation = function () {
+    this.setupPurposeValidation = function () {
       
       CompactOrder.purpose.bind('keyup', function(){
           CompactOrder.validate();

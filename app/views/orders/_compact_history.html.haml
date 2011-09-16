@@ -2,7 +2,7 @@
   lines = (current_user.orders.submitted.collect(&:order_lines) + current_user.contracts.collect(&:item_lines)).flatten
   groupped_lines = lines.sort.reverse.group_by(&:start_date)
   
-%section#compactLog
+%section#compactHistory
   %h3 
     = _("Order-History")
   %a.topRight{:href => ""}

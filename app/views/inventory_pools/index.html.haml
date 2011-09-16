@@ -23,16 +23,16 @@
                   = "x"
                 - else
                   = truncate(ip.shortname, :length => 4, :seperator => "")
-                = link_to "", inventory_pool_path(ip), :class => "overlay", :title => _("Show Equipment Park")
+                = link_to "", inventory_pool_path(ip), :class => "overlay", :title => _("Show %s" % ip)
       - else
         - center = ip.address.coordinates.blank? ? ip.address : "#{ip.address.latitude},#{ip.address.longitude}"
         - label = ip.shortname.blank? ? ip.name : ip.shortname
-        = link_to inventory_pool_path(ip), :title => _("Show Equipment Park") do
+        = link_to inventory_pool_path(ip), :title => _("Show %s" % ip) do
           = image_tag "http://maps.google.com/maps/api/staticmap?center=#{center}&zoom=15&size=140x140&maptype=roadmap&markers=color:0x57d04a|#{center}&sensor=false", :class => "map"
       
       .informations
-        %h3
-          = link_to inventory_pool_path(ip), :title => _("Show Equipment Park") do
+        %h2
+          = link_to inventory_pool_path(ip), :title => _("Show %s" % ip) do
             = ip.name
         
         %p.address
