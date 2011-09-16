@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Address < ActiveRecord::Base
 
   geocoded_by :to_s
@@ -7,7 +8,9 @@ class Address < ActiveRecord::Base
   validates_uniqueness_of :street, :scope => [:zip_code, :city, :country_code]
   
   def to_s
-    [street, zip_code, city, country].compact.join(', ')
+    zip = [country, zip_code].compact.join('-')
+    location = [zip, city].compact.join(' ')
+    [street, location].compact.join(', ')
   end
   
   def to_multiline_s
