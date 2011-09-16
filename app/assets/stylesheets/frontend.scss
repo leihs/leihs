@@ -24,6 +24,7 @@
  *= depend_on frontend/_book
  *= depend_on frontend/_dialog
  *= depend_on frontend/_ip
+ *= depend_on frontend/_fullcalendar
  * 
 */
 
@@ -106,6 +107,10 @@ hr {
   height : 15px;
   background : url($slices-h) repeat-x 0 -182px;
   margin: 14px 0 0 0;
+}
+
+input {
+  color: $darkgrey;
 }
 
 .floatright {
@@ -216,16 +221,17 @@ header {
 
 @mixin highlightItem () {
   background: #FFF;
+  position: relative;
   z-index: 1002;
   @include doubledBoxShadow (0 2px 10px #DDD, 0 -2px 10px #DDD);
 }
 
 @mixin highlightSmallItem () {
   background: #FFF;
+  position: relative;
   z-index: 1002;
   @include doubledBoxShadow (0 1px 5px #DDD, 0 -1px 5px #DDD);
 }
-
 
 @mixin modelsGrid () {
   h2 {
@@ -369,3 +375,4 @@ header {
 @import "frontend/book.scss";
 @import "frontend/dialog.scss";
 @import "frontend/ip.scss";
+@import "frontend/fullcalendar.scss";

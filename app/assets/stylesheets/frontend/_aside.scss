@@ -82,7 +82,7 @@
       background: url($image-sprite) no-repeat -156px -312px; 
     }
      
-    li.log .icon {
+    li.history .icon {
       background: url($image-sprite) no-repeat -173px -312px; 
     }  
       
@@ -281,7 +281,7 @@
             margin-bottom: 10px;
             padding: 4px 6px;
             scrollbar-track-color: #FFF;
-            width: 166px;
+            width: 168px;
             @include borderRadius(4px);
           }
           
@@ -293,7 +293,7 @@
         
         .button {
           left: 7px;
-          width: 180px;
+          width: 182px;
           @include opacity(0.5);
          
           img {
@@ -304,7 +304,7 @@
       }
     }
     
-    #compactLog {
+    #compactHistory {
       
       .entries {
         

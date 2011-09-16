@@ -42,7 +42,7 @@
       float: left;
       width: 540px;
       
-      h3 {
+      h2 {
         margin-bottom: 2px;
         
         a {
@@ -79,6 +79,7 @@
       }
       
       .categories {
+        margin: 8px 0;
         @include greylinks();
         
         a {

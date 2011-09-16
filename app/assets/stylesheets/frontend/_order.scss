@@ -75,14 +75,15 @@
       }
       
       td.name {
-        width: 250px;
+        width: 220px;
       }
       
       td.manufacturer {
-        width: 110px;
+        width: 80px;
       }
       
       td.actions {
+        padding-right: 10px;
         text-align: right;
         @include opacity(0.7);
         

@@ -7,7 +7,7 @@
   
   .button {
     position: absolute;
-    right: 18px;
+    right: 15px;
     top: 10px;
   }
   
@@ -26,6 +26,7 @@
         cursor: -webkit-zoom-in;
         cursor: -moz-zoom-in;
         display: block;
+        padding-bottom: 4px;
         
         table {
           min-height: 30px;
@@ -88,74 +89,109 @@
     color: #515151;
     font-size: 1.3em;
     line-height: 1.6em;
-    padding: 12px 4px 12px 4px;
+    padding: 12px 4px 18px 4px;
   }
   
-  .details {
-    tr {
-      td {
-        display: inline-block;
-        font-size: 1.1em;
-        line-height: 1.5em;
-        padding: 8px 0;
-        position: relative;
-        top: 0;
-        vertical-align: top;
-        width: 100%;
+  .properties {
+  
+    .item {
+      
+      tr {
+        td {
+          display: inline-block;
+          font-size: 1.1em;
+          line-height: 1.5em;
+          padding: 10px 0;
+          position: relative;
+          top: 0;
+          vertical-align: top;
+          width: 100%;
+        }
+        
+        .key {
+          font-weight: bold;
+        }
       }
       
       .key {
-        font-weight: bold;
+        margin-right: 8px;
+        padding-left: 16px;
+        width: 180px;
+      }
+      
+      .value {
+        border-left: 1px solid #FFF;
+        padding-left: 12px;
+        padding-right: 12px;
+        width: 492px
       }
     }
     
-    tr:nth-child(odd)  {
-     background: $highlight-grey;
+    .item:nth-child(odd)  {
+      background: $highlight-grey;
     }
     
-    tr:hover  {
-     background: $highlight-darkgrey;
+    .item:nth-child(even)  {
+      background: $highlight-darkgrey;
     }
     
-    tr.detailsswitcher {
-      background: none;
-      display: none;
+    .switcher {
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: bold;
+      display: block;
+      position: relative;
+      
+      tr {
+      
+        td {
+          padding-left: 16px;
+          width: 100%;
         
-      td {
-        text-align: left;
-        padding-bottom: 0;
-        padding-left: 4px;
-        width: 100%;
-        
-        a {
-          padding: 2px 2px;
-        }
-        
-        .showmore {
-          display: none;
-        }
-        
-        .showless {
-          display: none;
+          .icon {
+            background: url($image-sprite) no-repeat -53px -37px;
+            display: inline-block;
+            height: 6px;
+            margin-right: 4px;
+            position: relative;
+            top: -1px;
+            width: 7px;
+            @include opacity(0.6);
+          }
+          
+          .icon.rotated {
+            background: url($image-sprite) no-repeat -73px -37px;
+          }
+          
+          .amount {
+            color: $lightgrey;
+          }
+          
+          .text {
+            color: $lightgrey;
+          }
+          
+          .text.less {
+            display: none;
+          }
         }
       }
     }
     
-    tr.detailsswitcher:hover {
-      background: none;
-    }
-    
-    .key {
-      margin-right: 8px;
-      padding-left: 12px;
-      width: 180px;
-    }
-    
-    .value {
-      border-left: 1px solid #FFF;
-      padding-left: 12px;
-      padding-right: 12px;
-      width: 492px
+    .switcher:hover {
+      @include highlightItem();
+      
+      .icon {
+        @include opacity(1.0);
+      }
+      
+      .amount {
+        color: $grey;
+      }
+      
+      .text {
+        color: $grey;
+      }
     }
   }
   
@@ -163,5 +199,9 @@
      padding-top: 6px;
      @include greylinks;
      @include modelsGrid;
+     
+     h2 {
+      padding-bottom: 20px;     
+     }
   }
 }

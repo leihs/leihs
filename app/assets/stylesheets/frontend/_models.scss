@@ -243,16 +243,17 @@
               
               .key {
                 border-right: 1px solid white;
-                color: $grey;
+                color: $darkgrey;
                 font-weight: bold;
-                padding-left: 10px;
+                padding-left: 12px;
+                padding-right: 6px;
                 width: 120px;
               }
               
               .value {
                 padding-left: 10px;
                 padding-right: 10px;
-                width: 250px;
+                width: 242px;
               }
             }
             
