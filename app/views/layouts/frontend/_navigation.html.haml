@@ -1,17 +1,12 @@
 %nav#navigation
   %ul
     
-    %li.item.first
+    %li.item.first{:class => current_page?(root_path) ? "active" : nil}
       .leftend
-      %a.anchor
-        = _("Home")
+      = link_to _("Home"), root_path, :class => "anchor"
     
-    %li.item
-      .leftend
-      %a.anchor
-        = "Audio"
-        
-    %li.item.active
-      .leftend
-      %a.anchor
-        = "Speakers"
+    - if @category
+      %li.item{:class => current_page?(category_models_path(@category)) ? "active" : nil}
+        .leftend
+        %span.anchor
+          = @category
