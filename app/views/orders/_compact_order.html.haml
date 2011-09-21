@@ -5,7 +5,7 @@
 %section#compactOrder.active{:"data-is_valid" => (!grouped_order_lines.blank? and order.approvable?)}
   %h3
     = _("Order")
-  = link_to _("edit"), order_path, :class => "topRight"
+  = link_to _("Edit"), order_path, :class => "topright", :title => _("Edit Order")
   .clear
   
   %section.entries
