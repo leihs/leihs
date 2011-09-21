@@ -14,7 +14,7 @@
             = link_to _("Backend") , backend_path, :class=>"anchor"
           %li.seperator
           
-        %li.item{:class => current_page?(:controller => 'users', :action => 'show') ? "active" : nil}
+        %li.item{:class => current_page?(user_path) ? "active" : nil}
           = link_to current_user, user_path, :class => "anchor"
           
         %li.seperator
