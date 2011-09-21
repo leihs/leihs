@@ -11,14 +11,14 @@ gem 'mysql2', '~> 0.3.7'
 
 # Asset template engines
 gem 'json', '~> 1.6'
-gem 'haml', '~> 3.1.2'
+gem 'haml', '~> 3.1'
 gem 'sass', '~> 3.1.7'
 gem 'sass-rails'
 gem 'coffee-script'
-gem 'uglifier', '~> 1.0.2'
+gem 'uglifier', '~> 1.0'
 
 #old# gem 'prototype-rails', '~> 0.3.1', :git => 'git://github.com/rubychan/prototype-rails.git'
-gem 'jquery-rails', '~> 1.0.13'
+gem 'jquery-rails', '~> 1.0'
 gem 'rails_autolink', '~> 1.0.2'
 
 gem 'will_paginate', '~> 3.0'
@@ -46,7 +46,7 @@ gem 'prawnto', '~> 0.0.4'
 gem 'nested_set', '~> 1.6.8'
 gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
-gem 'geocoder', '~> 1.0.2'
+gem 'geocoder', '~> 1.0'
 
 group :profiling, :development do
 	gem 'newrelic_rpm', '~> 3.1'
