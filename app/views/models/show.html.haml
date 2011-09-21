@@ -7,7 +7,7 @@
     = @model.name
   %h3
     = @model.manufacturer
-  %button.button.green
+  = link_to book_model_path(@model), :class => "button green" do
     = _("Book")
   
   - unless @model.images.empty?
@@ -16,13 +16,14 @@
         %tr
           %td
             = image_tag "http://leihs.zhdk.ch#{@model.images.first.public_filename}", :alt => @model.name
-      %table#hiddenimages
-        %tr
-          - if @model.images.size > 1
-            - @model.images.each_with_index do |i, index|
-              - unless index.zero?
-                %td
-                  = image_tag "http://leihs.zhdk.ch#{i.public_filename}", :class => "hidden", :alt => @model.name
+      #hiddenimages
+        - if @model.images.size > 1
+          - @model.images.each_with_index do |i, index|
+            - unless index.zero?
+              %table
+                %tr
+                  %td
+                    = image_tag "http://leihs.zhdk.ch#{i.public_filename}", :class => "hidden", :alt => @model.name
               
       - if @model.images.size > 1
         #smallimages
@@ -133,8 +134,9 @@
         Properties.toggle();
       });
       
-      
       $("#model .properties .switcher").show();
+      
+      $("#model .properties .switcher .amount").html($("#model .properties .item:hidden").size());
     }
     
     this.toggle = function() {
@@ -182,7 +184,7 @@
       
       var _offset_top =  $(_items[Properties.min]).offset().top + $(_items[Properties.min]).height()*2 - $(window).height();
       var _duration = Properties.animationAcceleration/2 * (_items.length + Properties.min - 1) ;
-      $("html,body").animate({ scrollTop: _offset_top }, _duration, "swing");
+      $("html,body").stop(true,true).animate({ scrollTop: _offset_top }, _duration, "swing");
       
       $("#model .properties .switcher .text.more").show();
       $("#model .properties .switcher .amount").show();
@@ -199,38 +201,42 @@
   function Images() {
   
     this.leaveTimer;
+    this.enterTimer;
     
     this.setup = function() {
     
       $('#model #smallimages a').bind('mouseenter', function(){
           hoveredItem = $(this);
           clearTimeout(Images.leaveTimer);
-          $('#model #hiddenimages img').each(function() {
-              $(this).stop(true, true).hide();
-              if($(this).attr('src') == hoveredItem.find("img").attr('src').replace(/_thumb/g, "")) {
-                  $(this).stop(true, true).fadeIn();
+          Images.enterTimer = setTimeout(function(){
+            $('#model #hiddenimages img').each(function() {
+                if($(this).attr('src') == hoveredItem.find("img").attr('src').replace(/_thumb/g, "")) {
+                  $(this).stop(true, true).delay(400).fadeTo(1000, 1.0);
+                  
                   $('#model #bigimage img').stop(true, true).animate({
                       opacity: 0
                   });
-              }
-          });
+                }
+            });
+          }, 100);
       });
       
       $('#model #smallimages a').bind('mouseleave', function(){
           hoveredItem = $(this);
+          clearTimeout(Images.enterTimer);
           $('#model #hiddenimages img').each(function() {
               if($(this).attr('src') == hoveredItem.find("img").attr('src').replace(/_thumb/g, "")) {
                   if($(this).css("opacity") != 1) {
                       $(this).removeAttr("style");
                   }
-                  $(this).stop(true, true).fadeOut(400, function(){
+                  $(this).stop(true, true).delay(100).fadeTo(1000, 0, function(){
                       $(this).removeAttr("style");
                   });
                   Images.leaveTimer = setTimeout(function(){
                     $('#model #bigimage img').stop(true, true).animate({
                       opacity: 1
                     });
-                  }, 100);
+                  }, 200);
               }
           });
       });

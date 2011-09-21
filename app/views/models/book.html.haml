@@ -8,6 +8,7 @@
   #s = o.first[1] # TODO pre-select the inventory_pool with most quantity related to start_date (and end_date) (maybe in javascript)
 
 - content_for :head do
+  = javascript_include_tag "jquery/fullcalendar/fullcalendar.min"
   = javascript_include_tag "jquery/booking-calendar/booking-calendar"
 
 = render :partial => '/layouts/frontend/tabs'
@@ -29,24 +30,7 @@
     = button_tag _("Add to Order"), :class => "button green"
   
     %hr
-  
-    .quantity.container
-      %label{:for => "quantity"}
-        = _("Quantity")
-      = text_field_tag :quantity, 1
-          
-    .date.container
-      .from
-        %label{:for => "start_date"}
-          = _("From")
-        = text_field_tag :start_date, short_date(Date.today)
-      .dash
-        = "-"
-      .to
-        %label{:for => "end_date"}
-          = _("To")
-        = text_field_tag :end_date, short_date(Date.tomorrow)
-          
+    
     .inventorypool.container
       %label{:for => "inventory_pool_id"}
         = _("Equipment Park")
@@ -57,6 +41,27 @@
           = o.first[2][:address]
         .arrow
       = select_tag :inventory_pool_id, options_for_select(o) #(o, s)
+  
+    .date.container
+      .from
+        %label{:for => "start_date"}
+          = _("From")
+        = text_field_tag :start_date, Date.today
+      .dash
+        = "-"
+      .to
+        %label{:for => "end_date"}
+          = _("To")
+        = text_field_tag :end_date, Date.tomorrow
+          
+    .quantity.container
+      %label{:for => "quantity"}
+        = _("Quantity")
+      = text_field_tag :quantity, 1, :min => 1, :max => @model.borrowable_items.size
+      = link_to "javascript:void(0)", :class => "increase" do
+        %span.icon
+      = link_to "javascript:void(0)", :class => "decrease" do
+        %span.icon
             
     .clear
 
@@ -67,6 +72,5 @@
   .borderleft
   .borderright
       
-
 = render :partial => '/layouts/frontend/content_box_foot'
 = render :partial => '/layouts/frontend/aside'
