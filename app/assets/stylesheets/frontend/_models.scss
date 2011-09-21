@@ -112,6 +112,33 @@
         }
       }
       
+      .noimage {
+        background: $lightergrey;
+        border: 1px solid $lightgrey;
+        height: 40px;
+        margin: 0 auto;
+        overflow: hidden;
+        width: 40px;
+        @include borderRadius(8px);
+        @include opacity(0.4);
+        
+        table {
+          height: 100%;
+          width: 100%;
+          
+          tr {
+            td {
+              font-size: 0.8em;
+              letter-spacing: -1px;
+              line-height: 0.9em;
+              padding: 0 0 2px 0;
+              text-align: center;
+              vertical-align: middle;
+            }        
+          }
+        }
+      }
+      
       .overlay {
         background: transparent;
         border: none;
@@ -141,7 +168,7 @@
           position: absolute;
           top: -50px;
           width: 400px;
-          z-index: 9999; 
+          z-index: 1004; 
           
          .header {
             display: block;
@@ -199,17 +226,34 @@
             }
             
             img {
-              max-height: 150px;
-              width: auto;
-              max-width: 230px;
-              margin-bottom: 15px;
+              float: right;
+              margin-left: 15px;
+              width: 110px;
+              max-height: 170px;
+              margin-bottom: 5px;
             }
             
-            .description {
-              font-size: 1.2em;
-              line-height: 1.5em;
-              margin-left: 3px;
-              margin-bottom: 12px;
+            .text {
+              h2 {
+                line-height: 1.2em;
+                margin-bottom: 12px;
+                
+                .manufacturer {
+                  color: $grey;
+                  padding-top: 6px;
+                  font-size: 0.9em;
+                }
+              }
+              
+              .description {
+                font-size: 1.2em;
+                line-height: 1.5em;
+                margin-bottom: 12px;
+              }
+              
+              .description.none {
+                color: $lightgrey;
+              }
             }
             
             .details {
@@ -220,6 +264,7 @@
                 width: 370px;
               
                 td {
+                  border-bottom: 2px solid white;
                   color: #515151;
                   line-height: 1.5em;
                   padding: 8px 0;
@@ -245,7 +290,7 @@
                 border-right: 1px solid white;
                 color: $darkgrey;
                 font-weight: bold;
-                padding-left: 12px;
+                padding-left: 8px;
                 padding-right: 6px;
                 width: 120px;
               }

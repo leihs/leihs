@@ -5,10 +5,14 @@
 .ui-autocomplete {
   background: #FFF;
   border-right: 1px solid #c3c3c3;
+  border-left: 1px solid #c3c3c3;
   border-bottom: 1px solid #c3c3c3;
+  left: 0 !important;
+  margin-top: 3px;
   padding: 0 12px;
   position: absolute;
   width: 350px !important;
+  z-index: 1009 !important;
   @include boxShadow (2px 2px 2px #DDD);
   
   .marked {
@@ -116,62 +120,39 @@
     background: url($slices-h) repeat-x 0 -125px;
     height: 34px;
     float: left;
+    position: relative;
     
-    .container {
-      background: url($slices-h) repeat-x 0 -160px;
-      height: 21px;
-      margin-left: 6px;
-      margin-right: 6px;
+    input[type=text] {
+      background: white;
+      border: 1px solid $inputborder-grey;
+      color: $grey;
+      display: block;
+      font-size: 1.2em;
+      height: 15px;
+      margin-top: 4px;
+      padding-top: 2px;
+      padding-left: 6px;
+      padding-right: 18px;
+      padding-bottom: 2px;
       position: relative;
-      top: 4px;
-      
-      .borderleft {
-        background: url($image-sprite) no-repeat -46px 0;
-        display: block;
-        height: 21px;
-        left: -6px;
-        position: absolute; 
-        top: 0;
-        width: 6px;
-      }
-      
-      .borderright {
-        background: url($image-sprite) no-repeat -46px -22px;
-        display: block;
-        height: 21px;
-        right: -6px;
-        position: absolute; 
-        top: 0;
-        width: 6px;
-      }
-      
-      input[type=text] {
-        background: none;
-        border: none;
-        color: $grey;
-        display: block;
-        font-size: 1.2em;
-        height: 19px;
-        left: -7px;
-        margin-left: -4px;
-        padding-left: 13px;
-        padding-right: 16px;
-        padding-bottom: 4px;
-        position: relative;
-        width: 90px;
-        z-index: 1;
-      }
-      
-      input[type=image] {
-        background: none;
-        border: none;
-        cursor: pointer;
-        height: 21px;
-        position: absolute;
-        right: -6px;
-        top: 0;
-        width: 20px;
-      }
+      width: 92px;
+      @include borderRadius(4px);
+    }
+    
+    .icon {
+      background: transparent url($image-sprite) no-repeat -32px -30px;
+      border: none;
+      cursor: pointer;
+      height: 12px;
+      position: absolute;
+      right: 0;
+      top: 9px;
+      width: 13px;
+      @include opacity(0.7);
+    }
+    
+    .icon:hover {
+      @include opacity(1.0);
     }
   }
 }

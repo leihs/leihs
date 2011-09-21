@@ -2,6 +2,10 @@
 
   .subtitle {
     @include greylinks;
+    
+    a {
+      font-size: 0.9em;
+    }
   }
    
   #rentedItems {

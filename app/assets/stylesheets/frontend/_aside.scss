@@ -140,14 +140,14 @@
       }
     }
     
-    .topRight {
+    .topright {
       left: 0;
       position: absolute;
       text-align: right;
       padding-bottom: 2px;
       top: 2px;
       width: 190px;
-      @include opacity(0.4);
+      @include opacity(0.8);
     }
     
     ul {
@@ -282,12 +282,9 @@
             padding: 4px 6px;
             scrollbar-track-color: #FFF;
             width: 168px;
+            max-width: 168px;
+            max-height: 100px;
             @include borderRadius(4px);
-          }
-          
-          textarea:focus {
-            color: $darkgrey;
-            @include boxShadow (0 0 8px #CCC);
           }
         }
         
@@ -312,7 +309,7 @@
           h4 {
             color: $grey;
             padding-bottom: 4px;
-            padding-left: 8px;
+            padding-left: 8px;            
           }
           
           .item a {
@@ -394,11 +391,5 @@
       top: 0;
       width: 6px;
     }
-  }
-}
-
-#aside:hover {
-  .topRight {
-    @include opacity(1.0);
   }
 }

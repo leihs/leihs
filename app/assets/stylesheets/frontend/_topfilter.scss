@@ -64,7 +64,7 @@
         position: absolute;
         left: 7px;
         padding-right: 5px;
-        z-index: 1001;
+        z-index: 1003;
         
         .header {
           background: url($slices-h) repeat-x 0 -94px;
@@ -247,13 +247,14 @@
     top: 7px;
     
     .date {
-      background: url($image-sprite) no-repeat 0 -312px;
-      border: none;
+      background: url($image-sprite) no-repeat 55px -312px;
+      border: 1px solid $inputborder-grey;
       color: #858585;
       font-size: 1.0em;
       height: 18px;
-      padding: 0 10px 0 6px;
-      width: 58px;
+      padding: 0 21px 0 6px;
+      width: 45px;
+      @include borderRadius(4px);
     }
     
     .checkarea {

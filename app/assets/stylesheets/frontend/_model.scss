@@ -78,9 +78,14 @@
     #hiddenimages {
       position: absolute;
       top: 0;
+      
+      table {
+        position: absolute;
+        top: 0;
+      }
         
       img {
-        display: none;
+        @include opacity(0);
       }
     }
   }
@@ -98,6 +103,7 @@
       
       tr {
         td {
+          border-bottom: 2px solid white;
           display: inline-block;
           font-size: 1.1em;
           line-height: 1.5em;

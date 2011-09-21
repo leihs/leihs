@@ -4,6 +4,7 @@
   margin-left: -40px;
   position: absolute;
   width: 158px;
+  z-index: 1005 !important;
   @include greylinks;
   
   .ui-datepicker-header {

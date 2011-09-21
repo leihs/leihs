@@ -13,7 +13,7 @@
  *= depend_on frontend/_search
  *= depend_on frontend/_navigation
  *= depend_on frontend/_content
- *= depend_on frontend/_start
+ *= depend_on frontend/_start 
  *= depend_on frontend/_aside
  *= depend_on frontend/_models
  *= depend_on frontend/_topfilter
@@ -40,104 +40,10 @@ $lightred: #FFAAAA;
 $red: #DD2222;
 $lightblue: #6091d9;
 $blue: #1d62c9;
+$inputborder-grey: #d0d0d0;
 $image-sprite: "frontend/image-sprite.png";
 $slices-v: "frontend/slices-v.png";
 $slices-h: "frontend/slices-h.png";
-
-html {
-  background: #f5f3ee;
-  color: $darkgrey;
-  font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
-  font-size: 62.5%;
-}
-
-a, a:link, a:visited {   
-  color: $lightblue;
-  text-decoration: none;
-}
-
-a:hover, a:active {
-  color: $blue;
-  text-decoration: none;
-}
-
-.clear {
-  clear: both;
-}
-
-p {
-  font-size: 1.1em;
-}
-
-.subtitle {
-  font-size: 1.3em;
-  line-height: 1.6em;
-}
-
-strong {
-  font-weight: bold;
-}
-
-h1 {
-  color: #2d2d2d;
-  font-size: 1.8em;
-  font-weight: normal;
-  margin-bottom: 5px;
-}
-
-h2 {
-  font-size: 1.6em;
-  font-weight: normal;
-  margin-bottom: 2px;
-}
-
-h3 {
-  font-size: 1.4em;
-  font-weight: normal;
-  margin-top: 1px;
-  margin-bottom: 9px;
-}
-
-ul {
-  list-style-type: none;  
-}
-
-hr {
-  border : 0;
-  height : 15px;
-  background : url($slices-h) repeat-x 0 -182px;
-  margin: 14px 0 0 0;
-}
-
-input {
-  color: $darkgrey;
-}
-
-.floatright {
-  float: right;
-}
-
-.floatleft {
-  float: left;
-}
-
-.wrapper {
-  clear: both;
-  display: block;
-  margin: 0 auto;
-  min-width: 990px;
-  padding: 0;
-  position: relative;
-  width: 990px;
-}
-
-header {
-  padding-top: 18px !important;
-}
-
-.red {
-  color: $red;
-}
 
 @mixin greylinks {
   h2 a, h2 a:link, h2 a:visited, h3 a, h3 a:link, h3 a:visited {
@@ -355,6 +261,106 @@ header {
       color: #515151;
     }
   }
+}
+
+html {
+  background: #f5f3ee;
+  color: $darkgrey;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  font-size: 62.5%;
+}
+
+a, a:link, a:visited {   
+  color: $lightblue;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  color: $blue;
+  text-decoration: none;
+}
+
+.clear {
+  clear: both;
+}
+
+p {
+  font-size: 1.1em;
+}
+
+.subtitle {
+  font-size: 1.3em;
+  line-height: 1.6em;
+}
+
+strong {
+  font-weight: bold;
+}
+
+h1 {
+  color: #2d2d2d;
+  font-size: 1.8em;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+
+h2 {
+  font-size: 1.6em;
+  font-weight: normal;
+  margin-bottom: 2px;
+}
+
+h3 {
+  font-size: 1.4em;
+  font-weight: normal;
+  margin-top: 1px;
+  margin-bottom: 9px;
+}
+
+ul {
+  list-style-type: none;  
+}
+
+hr {
+  border : 0;
+  height : 15px;
+  background : url($slices-h) repeat-x 0 -182px;
+  margin: 14px 0 0 0;
+}
+
+input {
+  color: $darkgrey;
+}
+
+textarea:focus, input[type="text"]:focus, select:focus {
+  color: $darkgrey !important;
+  @include boxShadow (0 0 8px #CCC);
+}
+
+.floatright {
+  float: right;
+}
+
+.floatleft {
+  float: left;
+}
+
+.wrapper {
+  clear: both;
+  display: block;
+  margin: 0 auto;
+  min-width: 990px;
+  padding: 0;
+  position: relative;
+  width: 990px;
+}
+
+header {
+  padding-top: 18px !important;
+}
+
+.red {
+  color: $red;
 }
 
 @import "frontend/buttons.scss";
