@@ -3,6 +3,11 @@
     %td.image
       - if (image_thumb = model.image_thumb)
         = link_to image_tag("http://leihs.zhdk.ch/#{image_thumb}"), model
+      - else 
+        .noimage
+          %table
+            %tr
+              %td= _("no image")
     %td.name
       = link_to model.name, model
     %td.manufacturer
@@ -16,9 +21,18 @@
         .inner
           - if (image = model.image)
             = image_tag("http://leihs.zhdk.ch/#{image}")
-          - unless model.description.blank?
-            %p.description
-              = truncate(model.description, :length => 120)
+          .text
+            %h2
+              = model.name
+              %br
+              %span.manufacturer
+                = model.manufacturer
+            - unless model.description.blank?
+              %p.description
+                = truncate(model.description, :length => 120)
+            - else 
+              %p.description.none
+                = _("No description available for this model.")
           %table.details
             - model.properties[0..4].each do |p|
               %tr
