@@ -7,12 +7,13 @@
 //= require jquery.min
 //= require jquery-ui.min
 //= require jquery_ujs
+//= require i18n/i18n
 
 /////////// Lib /////////////
 //= require jquery/dialog/dialog
 
 /////////// Vendor /////////////
-//= require jquery/fullcalendar/fullcalendar.min
 //= require jquery/textarea-autoresize/autoresize.min
 //= require jquery/highlight/highlight.min
 //= require jquery/cookie/cookie
+//= require date/date
