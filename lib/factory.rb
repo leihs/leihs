@@ -357,7 +357,7 @@ module Factory
   #
   def self.create_default_languages
     self.create_default_language
-    [['Deutsch', 'de_CH'], ['Castellano','es'], ['Schwizertüütsch','gsw_CH']].each do |lang|
+    [['English US', 'en_US'], ['Deutsch', 'de_CH'], ['Castellano','es'], ['Schwizertüütsch','gsw_CH']].each do |lang|
       Factory.create_language!(:name => lang[0], :locale_name => lang[1])
     end
   end
@@ -369,7 +369,7 @@ module Factory
     lang = Language.find_by_name 'English'
     if lang.blank?
       lang = Factory.create_language!(:name => 'English',
-                                      :locale_name => 'en_US',
+                                      :locale_name => 'en_GB',
                                       :default => true)
       ActiveRecord::Base.connection.change_column_default :users, :language_id, lang.id
     end
