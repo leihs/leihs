@@ -1,13 +1,9 @@
 %section#search
   .borderleftround
   .inner
-  
-    .container
-      .borderleft
+    = form_tag("") do
       %input{:type => "text"}
-      .borderright
-      %input{:type => "image", :src => icon_path('search'), :alt => "search"}
-      
+      = submit_tag "", :class => "icon"
   .borderrightstraight
 
 :javascript
@@ -95,8 +91,8 @@
         minLength: 2,
       	select: function(event, ui) {
       		window.location = ui.item.link;
-      		console.log(event);
-      	}
+      	},
+      	appendTo: "#search"
       });
       
       $("#search input:text").bind("focus", function(event){
