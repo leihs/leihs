@@ -94,15 +94,25 @@
     this.delayTimer;
     
     this.setup = function () {
-      Aside.setupNavigationItems();
-      Aside.setupViewportFollowing();
-      Aside.setupViewportScaling();
+      this.formatDates();
+      
+      this.setupNavigationItems();
+      this.setupViewportFollowing();
+      this.setupViewportScaling();
       
       // note: I dont know why i have to call this twice, but otherwise it will not work - yes it wont !
-      Aside.checkPosition();
-      Aside.checkPosition();
+      this.checkPosition();
+      this.checkPosition();
       
-      Aside.checkScaling();
+      this.checkScaling();
+    }
+    
+    this.formatDates = function() {
+      $("#compactHistory .entries h4 .date").each(function() {
+        var date = new Date($(this).html())
+        date = formatDate(date, i18n.selected.compacthistory.dateFormat);
+        $(this).html(date);
+      });
     }
     
     this.setupViewportFollowing = function() {
