@@ -17,3 +17,4 @@
 //= require jquery/highlight/highlight.min
 //= require jquery/cookie/cookie
 //= require date/date
+//= require jquery/qtip/qtip.min
