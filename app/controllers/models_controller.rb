@@ -3,11 +3,6 @@ class ModelsController < FrontendController
   before_filter :pre_load
 
   def index
-    cookie_expire = 1.hour.from_now
-    cookies[:active_ips] ||= {:value => current_user.active_inventory_pool_ids.to_json, :expires => cookie_expire }
-    cookies[:start_date] ||= {:value => Date.today.to_json, :expires => cookie_expire }
-    cookies[:end_date] ||= {:value => Date.tomorrow.to_json, :expires => cookie_expire }
-    cookies[:show_available] ||= {:value => false.to_json, :expires => cookie_expire }
              
     model_group = if params[:category_id]
       @category = Category.includes(:children).find(params[:category_id])
