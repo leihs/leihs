@@ -15,6 +15,7 @@
       h3 {
         border-bottom: 1px solid #e3e3e3;
         display: block;
+        font-weight: bold;
         padding-bottom: 4px;
         margin-bottom: 1px;
         @include greylinks();
@@ -24,7 +25,7 @@
           
           span.address {
             font-weight: normal;
-            font-size: 0.7em;
+            font-size: 0.9em;
           }
         }
       }

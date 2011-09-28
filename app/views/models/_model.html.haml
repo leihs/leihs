@@ -1,8 +1,8 @@
-%table.item{:"data-attributes" => {:inventory_pool_ids => model.inventory_pool_ids}.to_json}
+%table.item{:"data-attributes" => {:inventory_pool_ids => model.inventory_pool_ids}.to_json, :"data-availability" => model.availability_periods_for_user(current_user).to_json}
   %tr
     %td.image
       - if (image_thumb = model.image_thumb)
-        = link_to image_tag("http://leihs.zhdk.ch/#{image_thumb}"), model
+        = link_to image_tag("http://leihs.zhdk.ch/#{image_thumb}"), model #TODO: remove the http://leihs.zhdk.ch prefix everywhere
       - else 
         .noimage
           %table
@@ -13,46 +13,35 @@
     %td.manufacturer
       = link_to model.manufacturer, model
     %td.overlay
-      .hover
-        .header 
-          .borderleft
-          .headerinner
-          .borderright
-        .inner
-          - if (image = model.image)
-            = image_tag("http://leihs.zhdk.ch/#{image}")
-          .text
-            %h2
-              = model.name
-              %br
-              %span.manufacturer
-                = model.manufacturer
-            - unless model.description.blank?
-              %p.description
-                = truncate(model.description, :length => 120)
-            - else 
-              %p.description.none
-                = _("No description available for this model.")
-          %table.details
-            - model.properties[0..4].each do |p|
-              %tr
-                %td.key
-                  = p.key
-                %td.value
-                  = p.value
-          .borderleft
-            .arrow
-          .borderright
-            .arrow
-        
-        .footer
-          .borderleft
-          .footerinner
-          .borderright
+      .popup
+        .arrowleft
+        .arrowright
+        - if (image = model.image)
+          = image_tag("http://leihs.zhdk.ch/#{image}")
+        .text
+          %h2
+            = model.name
+            %br
+            %span.manufacturer
+              = model.manufacturer
+          - unless model.description.blank?
+            %p.description
+              = truncate(model.description, :length => 120)
+          - else 
+            %p.description.none
+              = _("No description available for this model.")
+        %table.details
+          - model.properties[0..4].each do |p|
+            %tr
+              %td.key
+                = p.key
+              %td.value
+                = p.value
+
       = link_to "", model, :class => "imageanchor"
       = link_to "", model, :class => "itemanchor"
     %td.availability
-      %span.max_available{:"data-availability" => model.availability_periods_for_user(current_user).to_json}
+      %span.max_available
       \/
       = model.total_borrowable_items_for_user(current_user)
     %td.add

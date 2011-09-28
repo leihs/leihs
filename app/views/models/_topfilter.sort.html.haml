@@ -13,39 +13,44 @@
 :javascript
 
   $(document).ready(function(){
-    ModelsSort.setup();
+    
+    ModelSort.setup();
+    
   });
   
-  var ModelsSort = new ModelsSort();
+  var ModelSort = new ModelSort();
   
-  function ModelsSort() {
+  function ModelSort() {
+    
+    this.sorted_by;
     
     this.setup = function() {
       
       this.setupSelector();
+      this.setupFromStorage();
     }
     
     this.sort_by = function(value) {
-      var _value = value;
-      var _values = _value.split(" ");
-      var _items = $("#modellist .item");
       
-      if(_values[0] == "name") {
-          if(_values[1] == "ASC") {
-              _items = _items.sort(ModelsSort.sortNameAlphabeticaly);
-          } else if(_values[1] == "DESC") {
-              _items = _items.sort(ModelsSort.sortNameAlphabeticalyReverse);
-          }
-      } else if(_values[0] == "manufacturer") {
-          if(_values[1] == "ASC") {
-              _items = _items.sort(ModelsSort.sortManufacturerAlphabeticaly);
-          } else if(_values[1] == "DESC") {
-              _items = _items.sort(ModelsSort.sortManufacturerAlphabeticalyReverse);
-          }
-      }
+      var items = $("#modellist .item");
       
-      $('#modellist').html(_items);
+      if(value == "name ASC")
+        items = items.sort(ModelSort.sortNameAlphabeticaly);
+      
+      if(value == "name DESC")
+        items = items.sort(ModelSort.sortNameAlphabeticalyReverse);
+        
+      if(value == "manufacturer ASC")
+        items = items.sort(ModelSort.sortManufacturerAlphabeticaly);
+      
+      if(value == "manufacturer DESC")
+        items = items.sort(ModelSort.sortManufacturerAlphabeticalyReverse);
+      
+      $('#modellist').html(items);
+      
+      $("#topfilter .sort select").val(value);
       $("#topfilter .sort .select .text").html($("#topfilter .sort select option:selected").html());
+      ModelSort.sorted_by = value;
     }
     
     this.setupSelector = function() {
@@ -53,7 +58,20 @@
       $('#topfilter .sort select').bind('change', function(){
           
           ModelSort.sort_by($(this).val());
+          ModelSort.updateStorage();
       });
+    }
+    
+    this.setupFromStorage = function() {
+      
+      if(sessionStorage.sorted_by && JSON.parse(sessionStorage.sorted_by).length != 0) {
+        ModelSort.sorted_by = JSON.parse(sessionStorage.sorted_by);
+        ModelSort.sort_by(ModelSort.sorted_by);
+      }
+    }
+    
+    this.updateStorage = function() {
+      sessionStorage.sorted_by = JSON.stringify(ModelSort.sorted_by);
     }
     
     this.sortNameAlphabeticaly = function(a,b){

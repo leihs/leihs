@@ -4,15 +4,21 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= depend_on frontend/_reset
- *= depend_on frontend/_buttons
+ *= depend_on _reset
+ *= depend_on _variables
+ *= depend_on _mixins
+ *= depend_on _buttons
+ *= depend_on _content
+ *= depend_on _datepicker
+ *= depend_on _fullcalendar
+ *= depend_on _tips
+ *= depend_on _tabs
+ *= depend_on _topbar
+ *= depend_on _dialog
+ *= depend_on _search
+ *= depend_on _navigation
+ *= depend_on _master
  *= depend_on frontend/_linelist
- *= depend_on frontend/_topbar
- *= depend_on frontend/_tabs
- *= depend_on frontend/_reset
- *= depend_on frontend/_search
- *= depend_on frontend/_navigation
- *= depend_on frontend/_content
  *= depend_on frontend/_start 
  *= depend_on frontend/_aside
  *= depend_on frontend/_models
@@ -20,356 +26,26 @@
  *= depend_on frontend/_model
  *= depend_on frontend/_user
  *= depend_on frontend/_order
- *= depend_on frontend/_datepicker
  *= depend_on frontend/_book
- *= depend_on frontend/_dialog
  *= depend_on frontend/_ip
- *= depend_on frontend/_fullcalendar
  * 
 */
 
-@import "frontend/reset.scss";
-$bordergrey: #bcbcbb; 
-$darkgrey: #515151;
-$grey: #717171;
-$lightgrey: #999;
-$lightergrey: #CCC;
-$highlight-grey: #f8f8f8;
-$highlight-darkgrey: #EBEBEB;
-$lightred: #FFAAAA;
-$red: #DD2222;
-$lightblue: #6091d9;
-$blue: #1d62c9;
-$inputborder-grey: #d0d0d0;
-$image-sprite: "frontend/image-sprite.png";
-$slices-v: "frontend/slices-v.png";
-$slices-h: "frontend/slices-h.png";
-
-@mixin greylinks {
-  h2 a, h2 a:link, h2 a:visited, h3 a, h3 a:link, h3 a:visited {
-    color: $grey;
-  }
-  
-  h2 a:hover, h2 a:active, h3 a:hover, h3 a:active {
-    color: $darkgrey;
-  }
-  
-  a, a:link, a:visited {   
-    color: $lightgrey;
-  }
-  
-  a:hover, a:active {
-    color: $darkgrey;
-  }
-}
-
-@mixin darkGreylinks {
-  h2 a, h2 a:link, h2 a:visited, h3 a, h3 a:link, h3 a:visited {
-    color: $grey;
-  }
-  
-  h2 a:hover, h2 a:active, h3 a:hover, h3 a:active {
-    color: $darkgrey;
-  }
-  
-  a, a:link, a:visited {   
-    color: $grey;
-  }
-  
-  a:hover, a:active {
-    color: $darkgrey;
-  }
-}
-
-@mixin bluelinks {
-  a, a:link, a:visited {   
-    color: $lightblue;
-  }
-  
-  a:hover, a:active {
-    color: $blue;
-  }
-}
-
-@mixin opacity($value) {
-  filter: alpha(opacity=$value); // IE5-7
-  -moz-opacity: $value; // NETSCAPE & MOZILLA
-  -khtml-opacity: $value; // OLD SAFARI
-  opacity: $value; // THE REST
-}
-
-@mixin borderRadius($value) {
-  -moz-border-radius: $value; /* Firefox */
-  -webkit-border-radius: $value; /* Safari, Chrome */
-  border-radius: $value; /* CSS3 */
-}
-
-@mixin listanchor {
-  a, a:link, a:visited, a:hover, a:active {
-    color: $darkgrey;
-    display: block;
-    padding: 10px 0;
-    width: 100%;
-  }
-}
-
-@mixin boxShadow ($value) {
-  -moz-box-shadow: $value;
-  -webkit-box-shadow: $value;
-  box-shadow: $value;
-}
-
-@mixin doubledBoxShadow ($value1, $value2) {
-  -moz-box-shadow: $value1, $value2;
-  -webkit-box-shadow: $value1, $value2;
-  box-shadow: $value1, $value2;
-}
-
-@mixin highlightItem () {
-  background: #FFF;
-  position: relative;
-  z-index: 1002;
-  @include doubledBoxShadow (0 2px 10px #DDD, 0 -2px 10px #DDD);
-}
-
-@mixin highlightSmallItem () {
-  background: #FFF;
-  position: relative;
-  z-index: 1002;
-  @include doubledBoxShadow (0 1px 5px #DDD, 0 -1px 5px #DDD);
-}
-
-@mixin modelsGrid () {
-  h2 {
-    padding: 0 0 14px 6px;
-  }
-
-  .row {
-    padding-bottom: 34px;
-    padding-top: 10px;
-  
-    .cell {
-      float: left;
-      padding-left: 6px;
-      padding-right: 12px;
-      width: 165px;
-    
-      h1, h3 {
-        width: 147px;
-      }
-      
-      a {
-        display: block;
-      }
-    
-      img {
-        height: 80px;
-        @include opacity(0.5);
-        max-width: 160px;
-        margin-bottom: 10px;
-      }
-      
-      h3 {
-        height: 36px;
-        padding: 0;
-        margin: 0;
-        overflow: hidden;
-      }
-    }
-  
-    .cell:nth-child(4n) {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  
-    .cell:hover {
-      img {
-        @include opacity(1);
-      }
-    
-      a {
-        color: $darkgrey;
-      }
-    }
-  }
-}
-
-@mixin categoriesGrid() {
-  .row {
-    padding-bottom: 34px;
-  }
-  
-  .row:nth-last-child(1) {
-    padding-bottom: 0;
-  }
-  
-  .cell {
-    float: left;
-    padding-left: 6px;
-    width: 175px;
-    
-    h2 {
-      padding-top: 4px;
-    }
-  
-    table.image {
-      margin-bottom: 8px;
-      
-      tr td {
-        height: 120px;
-        text-align: left;
-        vertical-align: bottom;
-        width: 150px;
-        
-        img {
-          max-height: 100px;
-          width: auto;
-          max-width: 120px;
-        }
-      }
-    }
-    
-    ul {
-      margin-right: 20px;
-      margin-top: 5px;
-      list-style-type: none;
-      
-      li {
-        display: block;
-        line-height: 1.6em;
-        margin-bottom: 6px;
-        padding-right: 8px;
-        
-        a {
-          font-size: 1.2em;
-          color:#999999;
-        }
-        
-        a:hover {
-          color: #515151;
-        }
-      }
-    }
-  }
-  
-  .cell:nth-child(4n) {
-    padding-left: 0;
-  }
-  
-  .cell:hover {
-    h2 a {
-      color: #515151;
-    }
-  }
-}
-
-html {
-  background: #f5f3ee;
-  color: $darkgrey;
-  font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
-  font-size: 62.5%;
-}
-
-a, a:link, a:visited {   
-  color: $lightblue;
-  text-decoration: none;
-}
-
-a:hover, a:active {
-  color: $blue;
-  text-decoration: none;
-}
-
-.clear {
-  clear: both;
-}
-
-p {
-  font-size: 1.1em;
-}
-
-.subtitle {
-  font-size: 1.3em;
-  line-height: 1.6em;
-}
-
-strong {
-  font-weight: bold;
-}
-
-h1 {
-  color: #2d2d2d;
-  font-size: 1.8em;
-  font-weight: normal;
-  margin-bottom: 5px;
-}
-
-h2 {
-  font-size: 1.6em;
-  font-weight: normal;
-  margin-bottom: 2px;
-}
-
-h3 {
-  font-size: 1.4em;
-  font-weight: normal;
-  margin-top: 1px;
-  margin-bottom: 9px;
-}
-
-ul {
-  list-style-type: none;  
-}
-
-hr {
-  border : 0;
-  height : 15px;
-  background : url($slices-h) repeat-x 0 -182px;
-  margin: 14px 0 0 0;
-}
-
-input {
-  color: $darkgrey;
-}
-
-textarea:focus, input[type="text"]:focus, select:focus {
-  color: $darkgrey !important;
-  @include boxShadow (0 0 8px #CCC);
-}
-
-.floatright {
-  float: right;
-}
-
-.floatleft {
-  float: left;
-}
-
-.wrapper {
-  clear: both;
-  display: block;
-  margin: 0 auto;
-  min-width: 990px;
-  padding: 0;
-  position: relative;
-  width: 990px;
-}
-
-header {
-  padding-top: 18px !important;
-}
-
-.red {
-  color: $red;
-}
-
-@import "frontend/buttons.scss";
+@import "reset.scss";
+@import "variables.scss";
+@import "mixins.scss";
+@import "master.scss";
+@import "buttons.scss";
+@import "content.scss";
+@import "datepicker.scss";
+@import "fullcalendar.scss";
+@import "navigation.scss";
+@import "search.scss";
+@import "tabs.scss";
+@import "tips.scss";
+@import "topbar.scss";
+@import "dialog.scss";
 @import "frontend/linelist.scss";
-@import "frontend/topbar.scss";
-@import "frontend/tabs.scss";
-@import "frontend/search.scss";
-@import "frontend/navigation.scss";
-@import "frontend/content.scss";
 @import "frontend/start.scss";
 @import "frontend/aside.scss";
 @import "frontend/models.scss";
@@ -377,8 +53,5 @@ header {
 @import "frontend/model.scss";
 @import "frontend/user.scss";
 @import "frontend/order.scss";
-@import "frontend/datepicker.scss";
 @import "frontend/book.scss";
-@import "frontend/dialog.scss";
 @import "frontend/ip.scss";
-@import "frontend/fullcalendar.scss";

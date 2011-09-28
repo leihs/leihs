@@ -1,11 +1,13 @@
 :ruby
-  o = @model.availability_periods_for_user(current_user).collect do |av|
+  o = @model.availability_periods_for_user(current_user, true).collect do |av|
     option_name = "#{av[:inventory_pool][:name]}"
-    address = av[:inventory_pool][:address]
-    option_name << " #{address}" unless address.blank?
-    [option_name, av[:inventory_pool][:id], {:name => av[:inventory_pool][:name],:address => av[:inventory_pool][:address], :"data-availability_dates" => av[:availability].to_json}]
+    [option_name, av[:inventory_pool][:id], {:"data-total_borrowable"   => av[:total_borrowable],
+                                             :"data-closed_days"        => av[:inventory_pool][:closed_days],
+                                             :"data-name"               => av[:inventory_pool][:name],
+                                             :"data-address"            => av[:inventory_pool][:address],
+                                             :"data-availability_dates" => av[:availability].to_json}]
   end
-  #s = o.first[1] # TODO pre-select the inventory_pool with most quantity related to start_date (and end_date) (maybe in javascript)
+  s = o.first[1]
 
 - content_for :head do
   = javascript_include_tag "jquery/fullcalendar/fullcalendar.min"
@@ -22,7 +24,8 @@
           = image_tag("http://leihs.zhdk.ch/#{image_thumb}")
     
   %h1= @model.name
-  %p.subtitle= @model.manufacturer
+  %p.subtitle
+    = @model.manufacturer
   
   .clear
   
@@ -36,11 +39,9 @@
         = _("Equipment Park")
       %span.select
         %span.name
-          = o.first[2][:name]
-        %span.address
-          = o.first[2][:address]
+          = o.first[2][:"data-name"]
         .arrow
-      = select_tag :inventory_pool_id, options_for_select(o) #(o, s)
+      = select_tag :inventory_pool_id, options_for_select(o, s)
   
     .date.container
       .from
@@ -69,8 +70,7 @@
     
   #fullcalendar
   
-  .borderleft
-  .borderright
+  
       
 = render :partial => '/layouts/frontend/content_box_foot'
 = render :partial => '/layouts/frontend/aside'

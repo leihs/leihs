@@ -1,0 +1,94 @@
+// BUTTONS
+
+.button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.3em;
+  font-weight: bold;
+  height: 31px;
+  text-align: center;
+  padding: 0 12px;
+  position: relative;
+  vertical-align: middle;
+  
+  @include borderRadius(6px);
+}
+
+.button:active {
+  line-height: 1.5em;
+}
+
+.button:hover {
+  color: #515151 !important;
+}
+
+a.button {
+  padding-top: 6px;
+  height: 23px;
+}
+
+@mixin button($color, $color2, $color3, $pos, $pos-hover, $pos-active) {
+  color: $color;
+  border: 1px solid $color2;
+  border-top: 1px solid $color3;
+  background: url($slices-h) repeat-x 0 $pos;
+  
+  &:hover {
+    background: url($slices-h) repeat-x 0 $pos-hover;
+  }
+  
+  &:active {
+    background: url($slices-h) repeat-x 0 $pos-active;
+  }
+  
+  &[disabled=disabled] {
+    background: url($slices-h) repeat-x 0 $pos;
+    color: $color !important;
+  }
+}
+
+.button.green {@include button(#4d9148, $lightgrey, #47c23e, -156px, -188px, -220px)};
+.button.white {@include button(#8a8a8a, $lightgrey, #c0c0c0, -252px, -284px, -316px)};
+.button.red {@include button(#db5252, #df7070, #ea9090, -252px, -284px, -316px)};
+
+// SMALL BUTTONS
+
+.smallbutton {
+  background: none;
+  border: 0;
+  border: 1px solid $lightgrey;
+  cursor: pointer;
+  display: inline-block;
+  height: 22px;
+  letter-spacing: 0;
+  text-align: center;
+  padding: 0 8px;
+  position: relative;
+  vertical-align: middle;
+  
+  @include borderRadius(6px);
+}
+
+button.smallbutton {
+  height: 24px;
+}
+
+a.smallbutton {
+  font-size: 0.9em;
+  padding-top: 4px;
+  height: 18px;
+}
+
+.smallbutton:hover {
+  color: #515151 !important;
+}
+
+.smallbutton:active {
+  line-height: 1.4em;
+}
+
+.smallbutton.green {@include button(#4d9148, $lightgrey, #47c23e, -444px, -467px, -490px)};
+.smallbutton.white {@include button(#8a8a8a, $lightgrey, #c0c0c0, -513px, -536px, -559px)};
+.smallbutton.red {@include button(#db5252, #df7070, #ea9090, -582px, -605px, -628px)};

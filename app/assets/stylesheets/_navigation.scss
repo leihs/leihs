@@ -33,7 +33,7 @@
       display: block;
       padding: 7px 17px 0 12px;
       position: relative;
-      height: 29px;
+      height: 21px;
     }
   }
   
@@ -50,7 +50,7 @@
   .item:hover {
   
     .anchor {
-      background: url($image-sprite) no-repeat right -128px;
+      background: url($image-sprite) no-repeat right -120px;
       color: $darkgrey;
     }
     
@@ -62,8 +62,9 @@
   .item.active {
   
     .anchor {
-      background: url($image-sprite) no-repeat right -165px;
+      background: url($image-sprite) no-repeat right -149px;
       color: $darkgrey;
+      height: 28px;
       padding-right: 14px;  
     }
     
@@ -75,7 +76,8 @@
   .item.active:hover {
   
     .anchor {
-      background: url($image-sprite) no-repeat right -165px;
+      background: url($image-sprite) no-repeat right -149px;
+      height: 28px;
       color: $darkgrey;
     }
     

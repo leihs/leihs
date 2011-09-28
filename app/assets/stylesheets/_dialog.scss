@@ -16,7 +16,7 @@
   }
   
   .ui-dialog-titlebar {
-    background: url($slices-h) repeat-x 0 -218px;
+    background: url($slices-h) repeat-x 0 -129px;
     height: 20px;
     padding: 3px;
     position: relative;
@@ -33,25 +33,32 @@
   }
   
   .ui-dialog-titlebar-close {
-    background: url($image-sprite) no-repeat -114px -826px;
+    background: url($slices-h) repeat-x 0 -7px;
+    border: 1px solid $borderlightgrey;
     display: block;
     height: 15px;
     position: absolute;
     right: 3px; 
     top: 5px;
     width: 15px;
+    @include borderRadius(4px);
+    @include greylinks();
     
     span {
-      display: none;
+      display: block;
+      position: relative;
+      text-align: center;
+      top: 1px;
     }
   }
   
   .ui-dialog-titlebar-close:hover {
-    background: url($image-sprite) no-repeat -97px -826px;
+    background: url($slices-h) repeat-x 0 -46px;
   }
   
   .ui-dialog-titlebar-close:active {
-    background: url($image-sprite) no-repeat -81px -826px;
+    padding-top: 1px;
+    height: 13px;
   }
   
   .ui-dialog-content {

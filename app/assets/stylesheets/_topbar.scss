@@ -81,44 +81,24 @@
         top: 2px;
       }
       
-      .hover {
+      .popup {
+        border-left: 1px solid $bordergrey;
+        border-right: 1px solid $bordergrey;
+        border-bottom: 1px solid $bordergrey;
         display: none;
-        left: -1px;
+        font-size: 1.1em;
+        font-weight: bold;
+        left: -2px;
         line-height: 1.5em;
         max-width: 350px;
         position: absolute;
         top: 43px;
         z-index: 999;
-        
-        .header {
-          background: url($slices-h) repeat-x 0 -94px;
-          height: 2px;
-          position: relative;
-          width: 100%;
-          
-          .borderleft {
-            background: url($slices-v) repeat-y 0px 0px;
-            height: 100%;
-            left: -2px;
-            position: absolute;
-            top: 0;
-            width: 2px;
-          }
-          
-          .borderright {
-            background: url($slices-v) repeat-y -3px 0;
-            height: 100%;
-            right: -5px;
-            position: absolute;
-            top: 0;
-            width: 5px;
-          }
-        }
+        @include boxShadow (0 4px 8px #DDD);
         
         .inner {
           background: #FFF;
           height: 100%;
-          padding: 9px 11px 11px 10px;
           position: relative;
           
           h3 {
@@ -136,85 +116,13 @@
             padding-bottom: 0px;
           }
           
-          .borderleft {
-            background: url($slices-v) repeat-y 0px 0px;
-            height: 100%;
-            left: -2px;
-            position: absolute;
-            top: 0;
-            width: 2px;
-          }
-          
-          .borderright{
-            background: url($slices-v) repeat-y -3px 0;
-            height: 100%;
-            right: -5px;
-            position: absolute;
-            top: 0;
-            width: 5px;
-          }
-        }
-        
-        .footer {
-          background: url($slices-h) repeat-x 0 -87px;
-          height: 6px;
-          position: relative;
-          width: 100%;
-          
-          .borderleft {
-            background: url($image-sprite) no-repeat -18px 0;
-            height: 6px;
-            left: -2px;
-            position: absolute;
-            top: 0;
-            width: 2px;
-          }
-          
-          .borderright{
-            background: url($image-sprite) no-repeat -18px -7px;
-            height: 6px;
-            right: -5px;
-            position: absolute;
-            top: 0;
-            width: 5px;
-            z-index: 1;
-          }
-        }
-      }
-
-      .hover.pools {
-        @include bluelinks;
-        
-        .inner {
-          padding-top: 12px;
-          padding-bottom: 13px;
-          
-          section {
-            padding-left: 8px;
-            padding-right: 16px;
-            position: relative;
-            min-width: 150px;
             
-            p {
-              padding-bottom: 5px !important;
-            }
-          }
-        }
-      }
-      
-      .hover {
-        font-size: 1.1em;
-        font-weight: bold;
-        
-        .inner {
-          padding: 0;
-          
           hr {
             display: block;
             position: relative;
             margin: 0 0 -15px 0;
           }
-          
+            
           a {
             display: block;
             overflow: hidden;
@@ -224,17 +132,6 @@
           }
         }
       }
-      
-      .topright {
-        display: block;
-        height: 100%;
-        padding: 10px 10px 10px 15px;
-        position: absolute;
-        text-align: right;
-        right: -10px;
-        top: -9px;
-        width: 100%;
-      }
     }
     
     .item:hover {
@@ -243,7 +140,7 @@
         color: $darkgrey;
       }
       
-      .hover {
+      .popup {
         display: block;
       }
     }
@@ -258,13 +155,14 @@
     .item:nth-last-child(1) {
       .anchor {
         margin-right: -2px;
+        padding-right: 18px;
         z-index: 999;
       }
     }
     
     .item:nth-last-child(1):hover {
       .anchor {
-        background: url($image-sprite) no-repeat right -268px;
+        background: url($image-sprite) no-repeat right -185px;
       }
     }
     
@@ -280,13 +178,14 @@
           top: 9px;
           right: 12px;
           width: 18px;
+          @include opacity(0.6);
         }
       }
     }
     
     .item.language:hover {
       .speechbubble {
-        background: url($image-sprite) no-repeat -83px -15px;
+        @include opacity(1.0);
       }
     }
   }

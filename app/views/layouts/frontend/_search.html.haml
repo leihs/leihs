@@ -1,10 +1,9 @@
 %section#search
-  .borderleftround
   .inner
     = form_tag("") do
       %input{:type => "text"}
       = submit_tag "", :class => "icon"
-  .borderrightstraight
+    .borderright
 
 :javascript
   $(document).ready(function(){
@@ -92,7 +91,10 @@
       	select: function(event, ui) {
       		window.location = ui.item.link;
       	},
-      	appendTo: "#search"
+      	appendTo: "#search",
+      	position: {
+          offset: "0 3"      	  
+      	}
       });
       
       $("#search input:text").bind("focus", function(event){

@@ -9,14 +9,13 @@
 
 #models {
 
-  .aside {
+  .sidebar {
     border-right: 1px solid #e3e3e3;
     float: left;
     left: -4px;
     position: relative;
     top: -18px;
     width: 173px;
-    z-index: 99;
   
     #categories, #templates {
       padding-top: 18px;
@@ -55,18 +54,6 @@
       font-size: 1.2em;
       font-weight: 700;
       margin-top: 2px;
-      
-      .icon {
-        background: url($image-sprite) no-repeat -172px -312px;
-        border: 1px solid #e3e3e3;
-        display: inline-block;
-        height: 15px;
-        padding: 0 2px 1px 0;
-        position: relative;
-        top: 4px;
-        left: -2px;        
-        width: 15px;
-      }
     }
     
     hr {
@@ -113,14 +100,13 @@
       }
       
       .noimage {
-        background: $lightergrey;
-        border: 1px solid $lightgrey;
+        background: #ececec;
+        border: 1px solid #d7d7d7;
         height: 40px;
         margin: 0 auto;
         overflow: hidden;
         width: 40px;
         @include borderRadius(8px);
-        @include opacity(0.4);
         
         table {
           height: 100%;
@@ -128,6 +114,7 @@
           
           tr {
             td {
+              color: #bfbfbf;
               font-size: 0.8em;
               letter-spacing: -1px;
               line-height: 0.9em;
@@ -152,7 +139,7 @@
           display: block;
           float: left;
           height: 100%;
-          width: 70px;
+          width: 65px;
         }
         
         .itemanchor {
@@ -162,216 +149,114 @@
           width: 398px;
         }
         
-        .hover {
+        .popup {
+          background: #FFF;
+          border: 1px solid $bordergrey;
           display: none;
-          left: 80px;
+          left: 79px;
+          min-height: 100px;
+          padding: 14px 11px 11px 10px;
           position: absolute;
           top: -50px;
-          width: 400px;
-          z-index: 1004; 
+          width: 360px;
+          z-index: 1004;
+          @include borderRadius(8px);
+          @include boxShadow (0 0 8px #CCC);
           
-         .header {
+          .arrowright {
+            background: url($image-sprite) no-repeat -21px -231px;
             display: block;
-            height: 10px;
-            position: relative;
-            
-            .headerinner {
-              background: url($slices-h) repeat-x 0 -196px;
-              display: block;
-              height: 10px;
-              margin-left: 10px;
-              margin-right: 10px;
+            height: 42px;
+            right: -19px;
+            position: absolute;
+            top: 54px;
+            width: 20px;
+          }
+          
+          .arrowleft {
+            background: url($image-sprite) no-repeat 0 -231px;
+            display: block;
+            height: 42px;
+            left: -19px;
+            position: absolute;
+            top: 54px;
+            width: 20px;
+          }
+          
+          img {
+            float: right;
+            margin-left: 15px;
+            width: 110px;
+            max-height: 170px;
+            margin-bottom: 5px;
+          }
+          
+          .text {
+            h2 {
+              line-height: 1.2em;
+              margin-bottom: 12px;
+              
+              .manufacturer {
+                color: $grey;
+                padding-top: 6px;
+                font-size: 0.9em;
+              }
             }
             
-            .borderright {
-              background: url($image-sprite) no-repeat -167px -328px;
-              display: block;
-              height: 10px;
-              right: 0;
-              position: absolute; 
-              top: 0;
-              width: 10px;
+            .description {
+              font-size: 1.2em;
+              line-height: 1.4em;
+              margin-bottom: 12px;
             }
             
-            .borderleft {
-              background: url($image-sprite) no-repeat -156px -328px;
-              display: block;
-              height: 10px;
-              left: 0;
-              position: absolute; 
-              top: 0;
-              width: 10px;
+            .description.none {
+              color: $lightgrey;
             }
           }
           
-          .inner {
-            background: #FFF;
-            border: none; 
-            margin: 0 auto;
-            min-height: 100px;
-            padding: 9px 11px 11px 10px;
-            position: relative;
-            width: 369px;
+          .details {
+            border-collapse: separate;
+            width: 362px;
             
-            a {
-              display: block;
-              height: 100%;
-              width: 100%;
-              
-              .topright {
-                position: absolute;
-                top: 10px;
-                right: 12px;
-              }
-            }
+            tr { 
+              width: 362px;
             
-            img {
-              float: right;
-              margin-left: 15px;
-              width: 110px;
-              max-height: 170px;
-              margin-bottom: 5px;
-            }
-            
-            .text {
-              h2 {
-                line-height: 1.2em;
-                margin-bottom: 12px;
-                
-                .manufacturer {
-                  color: $grey;
-                  padding-top: 6px;
-                  font-size: 0.9em;
-                }
-              }
-              
-              .description {
-                font-size: 1.2em;
+              td {
+                border-bottom: 2px solid white;
+                color: #515151;
                 line-height: 1.5em;
-                margin-bottom: 12px;
-              }
-              
-              .description.none {
-                color: $lightgrey;
-              }
-            }
-            
-            .details {
-              border-collapse: separate;
-              width: 370px;
-              
-              tr { 
-                width: 370px;
-              
-                td {
-                  border-bottom: 2px solid white;
-                  color: #515151;
-                  line-height: 1.5em;
-                  padding: 8px 0;
-                  position: relative;
-                  top: 0;
-                  vertical-align: top;
-                }
-              }
-              
-              tr:nth-child(odd)  {
-                td {
-                  background: $highlight-darkgrey;
-                }
-              }
-              
-              tr:nth-child(even)  {
-                td {
-                  background: $highlight-grey;
-                }
-              }
-              
-              .key {
-                border-right: 1px solid white;
-                color: $darkgrey;
-                font-weight: bold;
-                padding-left: 8px;
-                padding-right: 6px;
-                width: 120px;
-              }
-              
-              .value {
-                padding-left: 10px;
-                padding-right: 10px;
-                width: 242px;
+                padding: 8px 0;
+                position: relative;
+                top: 0;
+                vertical-align: top;
               }
             }
             
-            .borderright {
-              background: url($slices-v) repeat-y -9px 0;
-              height: 100%;
-              position: absolute;
-              top: 0;
-              right: -5px;
-              width: 10px;
-              
-              .arrow {
-                background: url($image-sprite) no-repeat -21px -786px;
-                display: block;
-                height: 42px;
-                right: -14px;
-                position: absolute;
-                top: 54px;
-                width: 20px;
+            tr:nth-child(odd)  {
+              td {
+                background: $highlight-darkgrey;
               }
             }
             
-            .borderleft {
-              background: url($slices-v) repeat-y -20px 0;
-              height: 100%;
-              position: absolute;
-              top: 0;
-              left: -5px;
-              width: 10px;
-              
-              .arrow {
-                background: url($image-sprite) no-repeat 0 -786px;
-                display: block;
-                height: 42px;
-                left: -14px;
-                position: absolute;
-                top: 54px;
-                width: 20px;
+            tr:nth-child(even)  {
+              td {
+                background: $highlight-grey;
               }
             }
-          }
-          
-          .footer {
-            display: block;
-            height: 14px;
-            position: relative;
             
-             .footerinner {
-                background: url($slices-h) repeat-x 0 -207px;
-                display: block;
-                height: 10px;
-                margin-left: 10px;
-                margin-right: 10px;
-             }
-            
-            .borderright {
-              background: url($image-sprite) no-repeat -189px -328px;
-              display: block;
-              height: 10px;
-              right: 0;
-              position: absolute; 
-              top: 0;
-              width: 10px;
+            .key {
+              border-right: 1px solid white;
+              color: $darkgrey;
+              font-weight: bold;
+              padding-left: 8px;
+              padding-right: 6px;
+              width: 120px;
             }
             
-            .borderleft {
-              background: url($image-sprite) no-repeat -178px -328px;
-              display: block;
-              height: 10px;
-              left: 0;
-              position: absolute; 
-              top: 0;
-              width: 10px;
+            .value {
+              padding-left: 10px;
+              padding-right: 10px;
+              width: 242px;
             }
           }
         }

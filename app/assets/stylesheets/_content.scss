@@ -11,7 +11,7 @@
     position: relative;
     
     .headerinner {
-      background: url($slices-h) repeat-x 0 -97px;
+      background: url($slices-h) repeat-x 0 -87px;
       display: block;
       height: 12px;
       margin-left: 6px;
@@ -41,29 +41,11 @@
   
   .innercontent {
     background: #FFF;
+    border-left: 1px solid $bordergrey;
+    border-right: 1px solid $bordergrey;
     display: block;
     padding: 8px 16px 8px 12px;
     position: relative;
-    margin-right: 2px;
-    left: 1px;
-    
-    .borderleft {
-      background: url($slices-v) repeat-y -193px 0;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: -1px;
-      width: 1px;
-    }
-    
-    .borderright {
-      background: url($slices-v) repeat-y -193px 0;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      right: -1px;
-      width: 1px;
-    }
   }
   
   .contentfooter {
@@ -72,7 +54,7 @@
     position: relative;
     
     .footerinner {
-      background: url($slices-h) repeat-x 0 -110px;
+      background: url($slices-h) repeat-x 0 -100px;
       display: block;
       height: 14px;
       margin-left: 6px;

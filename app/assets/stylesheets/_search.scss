@@ -97,34 +97,18 @@
 	position: relative;
 	width: 150px;
 	z-index: 3;
-	
-	.borderleftround {
-    background: url($image-sprite) no-repeat -32px 0;
-    display: block;
-    float: left;
-    height: 28px;
-    position: relative;
-    width: 6px;
-  }
-  
-  .borderrightstraight {
-    background: url($image-sprite) no-repeat -39px 0;
-    display: block;
-    float: left;
-    height: 28px;
-    position: relative; 
-    width: 6px;
-  }
   
   .inner {
-    background: url($slices-h) repeat-x 0 -125px;
-    height: 34px;
+    background: url($image-sprite) repeat-x 0 -91px;
+    height: 28px;
     float: left;
+    padding-left: 5px;
+    padding-right: 6px;
     position: relative;
     
     input[type=text] {
       background: white;
-      border: 1px solid $inputborder-grey;
+      border: 1px solid $borderlightgrey;
       color: $grey;
       display: block;
       font-size: 1.2em;
@@ -145,7 +129,7 @@
       cursor: pointer;
       height: 12px;
       position: absolute;
-      right: 0;
+      left: 106px;
       top: 9px;
       width: 13px;
       @include opacity(0.7);
@@ -154,5 +138,30 @@
     .icon:hover {
       @include opacity(1.0);
     }
+    
+    .borderright {
+      background: white;
+      border-right: 1px solid $bordergrey;
+      height: 26px;
+      position: absolute;
+      right: 0;
+      top: 1px;
+      width: 1px;
+    }
+  }
+}
+
+#search:hover {
+  
+  .inner {
+    background: url($image-sprite) repeat-x 0 -120px;
+  }
+}
+
+#search.active {
+  
+  .inner {
+    background: url($image-sprite) repeat-x 0 -149px;
+    height: 35px;
   }
 }

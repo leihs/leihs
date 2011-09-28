@@ -25,13 +25,16 @@
       
     %section.actions
       
-      = link_to_function _("Save as Template"), :class => "button white"
-      
-      = link_to_function _("Value List"), :class => "button white"
+      = link_to _("Value List"), "javascript: void(0)", :class => "button white"
       
       = link_to _("Logout"), "logout", :class => "button green"
       
-  .borderleft
-  .borderright
+  
 
 = render :partial => '/layouts/frontend/content_box_foot'
+
+:javascript
+  
+// delte some parts of the sessionStorage when order is submitted
+
+  delete sessionStorage.order_purpose;

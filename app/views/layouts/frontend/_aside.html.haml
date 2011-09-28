@@ -14,10 +14,7 @@
   .inner
     = render :partial => "orders/compact_order"
     = render :partial => "orders/compact_history"
-    
     .clear
-    .borderleft
-    .borderright      
   
   .footer
     .borderleft
@@ -26,7 +23,7 @@
     
 :javascript
   
-  setActiveAsideItem(readCookie("active_aside_nav_item"));
+  setActiveAsideItem(sessionStorage.active_aside_nav_item);
   
   function setActiveAsideItem(item_id) {
     if (item_id == null)
@@ -66,17 +63,6 @@
     
     var _asideItem = document.getElementById(item_id);
     _asideItem.className = (_asideItem.className) ? _navItem.className + ' active' : 'active';
-  }
-  
-  function readCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-      var c = ca[i];
-      while (c.charAt(0)==' ') c = c.substring(1,c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
   }
   
   // DOCUMENT READY
@@ -178,7 +164,7 @@
       var _id = $(_newActive).find("a").attr("id").replace("_nav", "");
       $("#aside .inner .active").removeClass("active");
       $("#aside .inner").find("#" + _id).addClass("active");
-      $.cookie('active_aside_nav_item', _id, {expires: 24, path: '/' });
+      sessionStorage.active_aside_nav_item = _id;
       
       Aside.checkScaling();
     }

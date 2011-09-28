@@ -71,24 +71,6 @@
           height: 2px;
           position: relative;
           width: 100%;
-          
-          .borderleft {
-            background: url($slices-v) repeat-y 0px 0px;
-            height: 100%;
-            left: -2px;
-            position: absolute;
-            top: 0;
-            width: 2px;
-          }
-          
-          .borderright {
-            background: url($slices-v) repeat-y -3px 0;
-            height: 100%;
-            right: -5px;
-            position: absolute;
-            top: 0;
-            width: 5px;
-          }
         }
         
         .inner {
@@ -126,24 +108,6 @@
             label {
               color: $darkgrey;
             }
-          }
-          
-          .borderleft {
-            background: url($slices-v) repeat-y 0px 0px;
-            height: 100%;
-            left: -2px;
-            position: absolute;
-            top: 0;
-            width: 2px;
-          }
-          
-          .borderright{
-            background: url($slices-v) repeat-y -3px 0;
-            height: 100%;
-            right: -5px;
-            position: absolute;
-            top: 0;
-            width: 5px;
           }
         }
         
@@ -246,15 +210,28 @@
     position: relative;
     top: 7px;
     
-    .date {
-      background: url($image-sprite) no-repeat 55px -312px;
-      border: 1px solid $inputborder-grey;
-      color: #858585;
-      font-size: 1.0em;
-      height: 18px;
-      padding: 0 21px 0 6px;
-      width: 45px;
-      @include borderRadius(4px);
+    .container {
+      display: inline-block;
+      position: relative;
+      
+      .date {
+        border: 1px solid $borderlightgrey;
+        color: #858585;
+        font-size: 1.0em;
+        height: 18px;
+        padding: 0 21px 0 6px;
+        width: 45px;
+        @include borderRadius(4px);
+      }
+      
+      .dateicon {
+        background: url($image-sprite) no-repeat -32px -16px;
+        height: 13px;
+        position: absolute;
+        right: 2px;
+        top: 3px;
+        width: 16px;
+      }
     }
     
     .checkarea {

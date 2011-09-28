@@ -38,7 +38,7 @@
   
   function CompactOrder () {
 
-    this.purposeMin = 6;
+    this.purposeMin = 0;
     this.submitButtonEnabled = true;
     this.purpose;
     
@@ -52,13 +52,14 @@
     }
     
     this.setupSubmitButton = function(){
+    
       $("#compactOrder form button:submit").bind("click", function() {
-        $(this).html('<img src="/assets/loading.gif" class="loading" />');
-        $(this).attr("disabled", true);
+      
+        $("body").append('<div class="ui-widget-overlay"/>');
+        $(".ui-widget-overlay").css("cursor", "wait").css("z-index", "1019");
+        $(".ui-widget-overlay").height($(window).height()).width($(window).width());
+        
         $("#compactOrder form").submit();
-        $("#compactOrder form textarea").attr("disabled", true);
-        $("#compactOrder .edit").hide();
-        $("#compactOrder .item .delete a").hide();
       });
     }
     
@@ -101,6 +102,12 @@
         if(!$(this).data("deleting")) {
           $(this).parents(".item").find(".name").css("text-decoration", "line-through");
         }
+        Dialog.add({
+            trigger: $(this),
+            content: '<p>#{_("Something went wrong!")}</p><p>#{_("You should redo your action or reload the page!")}</p>',
+            title: '#{_("ERROR")}',
+            buttons: { "Ok": function() {$(this).dialog("close");} }
+        });
         
       }).live("mouseleave", function(){
         if(!$(this).data("deleting")) {
@@ -126,14 +133,22 @@
       
       CompactOrder.validatePurpose() ? "" : _validation = false;
       
-      _validation ? CompactOrder.enableSubmitButton() : CompactOrder.disableSubmitButton();
+      if(_validation) {
+        CompactOrder.enableSubmitButton();
+        sessionStorage.order_purpose = CompactOrder.purpose.val();
+      } else {
+        CompactOrder.disableSubmitButton();
+      }
     }
     
     this.setupPurpose = function() {
-      CompactOrder.purpose = $("#compactOrder #purpose");
-      CompactOrder.purpose.data("start_text", CompactOrder.purpose.text());
-      CompactOrder.purpose.data("start_height", CompactOrder.purpose.height());
-      CompactOrder.purpose.autoResize({animateDuration : 200, extraSpace : 20, limit: 100, animateCallback: Aside.checkScaling});
+      this.purpose = $("#compactOrder #purpose");
+      this.purpose.data("start_text", CompactOrder.purpose.text());
+      this.purpose.data("start_height", CompactOrder.purpose.height());
+      this.purpose.autoResize({animateDuration : 200, extraSpace : 20, limit: 100, animateCallback: Aside.checkScaling});
+      
+      if (sessionStorage.order_purpose)
+        this.purpose.val(sessionStorage.order_purpose);
     }
     
     this.validatePurpose = function() {
@@ -157,22 +172,13 @@
       });  
       
       CompactOrder.purpose.bind('blur', function(){
+        
         // save start text and height in data
+        
         if(!$(this).val()) {
           $(this).val($(this).data("start_text"));
           $(this).animate({
             height: $(this).data("start_height")
-          });
-        }
-        
-        // validate purpose length
-        if(!CompactOrder.validatePurposeLength() && CompactOrder.purpose.val().length > 0 && CompactOrder.purpose.val() != CompactOrder.purpose.data("start_text")) {
-          Dialog.add({
-              trigger: $(this),
-              content: '<p>#{_("Please elaborate on your order purpose. It is currently to short.")}</p>',
-              callback: function() {CompactOrder.purpose.focus()},
-              title: '#{_("Order Purpose Input")}',
-              buttons: { "Ok": function() {$(this).dialog("close");} }
           });
         }
       });  

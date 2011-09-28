@@ -1,0 +1,225 @@
+@mixin unselectable {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+@mixin greylinks {
+  h2 a, h2 a:link, h2 a:visited, h3 a, h3 a:link, h3 a:visited {
+    color: $grey;
+  }
+  
+  h2 a:hover, h2 a:active, h3 a:hover, h3 a:active {
+    color: $darkgrey;
+  }
+  
+  a, a:link, a:visited {   
+    color: $lightgrey;
+  }
+  
+  a:hover, a:active {
+    color: $darkgrey;
+  }
+}
+
+@mixin darkGreylinks {
+  h2 a, h2 a:link, h2 a:visited, h3 a, h3 a:link, h3 a:visited {
+    color: $grey;
+  }
+  
+  h2 a:hover, h2 a:active, h3 a:hover, h3 a:active {
+    color: $darkgrey;
+  }
+  
+  a, a:link, a:visited {   
+    color: $grey;
+  }
+  
+  a:hover, a:active {
+    color: $darkgrey;
+  }
+}
+
+@mixin bluelinks {
+  a, a:link, a:visited {   
+    color: $lightblue;
+  }
+  
+  a:hover, a:active {
+    color: $blue;
+  }
+}
+
+@mixin opacity($value) {
+  filter: alpha(opacity=$value); // IE5-7
+  -moz-opacity: $value; // NETSCAPE & MOZILLA
+  -khtml-opacity: $value; // OLD SAFARI
+  opacity: $value; // THE REST
+}
+
+@mixin borderRadius($value) {
+  -moz-border-radius: $value; /* Firefox */
+  -webkit-border-radius: $value; /* Safari, Chrome */
+  border-radius: $value; /* CSS3 */
+}
+
+@mixin listanchor {
+  a, a:link, a:visited, a:hover, a:active {
+    color: $darkgrey;
+    display: block;
+    padding: 10px 0;
+    width: 100%;
+  }
+}
+
+@mixin boxShadow ($value) {
+  -moz-box-shadow: $value;
+  -webkit-box-shadow: $value;
+  box-shadow: $value;
+}
+
+@mixin doubledBoxShadow ($value1, $value2) {
+  -moz-box-shadow: $value1, $value2;
+  -webkit-box-shadow: $value1, $value2;
+  box-shadow: $value1, $value2;
+}
+
+@mixin highlightItem () {
+  background: #FFF;
+  position: relative;
+  z-index: 1002;
+  @include doubledBoxShadow (0 2px 10px #DDD, 0 -2px 10px #DDD);
+}
+
+@mixin highlightSmallItem () {
+  background: #FFF;
+  position: relative;
+  z-index: 1002;
+  @include doubledBoxShadow (0 1px 5px #DDD, 0 -1px 5px #DDD);
+}
+
+@mixin modelsGrid () {
+  h2 {
+    padding: 0 0 14px 6px;
+  }
+
+  .row {
+    padding-bottom: 34px;
+    padding-top: 10px;
+  
+    .cell {
+      float: left;
+      padding-left: 6px;
+      padding-right: 12px;
+      width: 165px;
+    
+      h1, h3 {
+        width: 147px;
+      }
+      
+      a {
+        display: block;
+      }
+    
+      img {
+        height: 80px;
+        @include opacity(0.5);
+        max-width: 160px;
+        margin-bottom: 10px;
+      }
+      
+      h3 {
+        height: 36px;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+      }
+    }
+  
+    .cell:nth-child(4n) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  
+    .cell:hover {
+      img {
+        @include opacity(1);
+      }
+    
+      a {
+        color: $darkgrey;
+      }
+    }
+  }
+}
+
+@mixin categoriesGrid() {
+  .row {
+    padding-bottom: 34px;
+  }
+  
+  .row:nth-last-child(1) {
+    padding-bottom: 0;
+  }
+  
+  .cell {
+    float: left;
+    padding-left: 6px;
+    width: 175px;
+    
+    h2 {
+      padding-top: 4px;
+    }
+  
+    table.image {
+      margin-bottom: 8px;
+      
+      tr td {
+        height: 120px;
+        text-align: left;
+        vertical-align: bottom;
+        width: 150px;
+        
+        img {
+          max-height: 100px;
+          width: auto;
+          max-width: 120px;
+        }
+      }
+    }
+    
+    ul {
+      margin-right: 20px;
+      margin-top: 5px;
+      list-style-type: none;
+      
+      li {
+        display: block;
+        line-height: 1.6em;
+        margin-bottom: 6px;
+        padding-right: 8px;
+        
+        a {
+          font-size: 1.2em;
+          color:#999999;
+        }
+        
+        a:hover {
+          color: #515151;
+        }
+      }
+    }
+  }
+  
+  .cell:nth-child(4n) {
+    padding-left: 0;
+  }
+  
+  .cell:hover {
+    h2 a {
+      color: #515151;
+    }
+  }
+}

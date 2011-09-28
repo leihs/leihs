@@ -16,7 +16,7 @@
     position: relative;
     
     .headerinner {
-      background: url($slices-h) repeat-x 0 -97px;
+      background: url($slices-h) repeat-x 0 -87px;
       display: block;
       height: 12px;
       margin-left: 6px;
@@ -55,7 +55,7 @@
       margin-right: 1px;
       
       a {
-        background: url($image-sprite) no-repeat -75px -312px; 
+        background: url($image-sprite) no-repeat -74px -231px; 
         display: block;
         height: 27px;
         width: 26px;
@@ -69,54 +69,53 @@
           top: 3px;
           width: 16px;
         }
+        
+        &:hover {
+          .icon {
+            opacity: 1;
+          }
+        }
       }
       
-      a:hover {
-        .icon {
-          opacity: 1;
+      &:hover {
+        a {
+          background: url($image-sprite) no-repeat -101px -231px; 
         }
       }
     }
      
     li.order .icon {
-      background: url($image-sprite) no-repeat -156px -312px; 
+      background: url($image-sprite) no-repeat -32px 0; 
     }
      
     li.history .icon {
-      background: url($image-sprite) no-repeat -173px -312px; 
+      background: url($image-sprite) no-repeat -83px -15px; 
     }  
-      
-    li:hover {
-      
-      a {
-        background: url($image-sprite) no-repeat -102px -312px; 
-      }
-    }
     
     li.active {
     
       a {
-        background: url($image-sprite) no-repeat -129px -312px; 
+        background: url($image-sprite) no-repeat -128px -231px; 
        
         .icon {
           opacity: 1;
         }
       }
-    }
-    
-    li.active:hover {
-    
-      a {
-        background: url($image-sprite) no-repeat -129px -312px;
+      
+      &:hover {
+        a {
+          background: url($image-sprite) no-repeat -128px -231px;
+        }
       }
-    } 
+    }
   }
   
   .inner {
     background: #FFF;
+    border-left: 1px solid $bordergrey;
+    border-right: 1px solid $bordergrey;
     display: block;
     position: relative;
-    left: 1px;
     width: 196px;
     
     .entries {
@@ -225,10 +224,10 @@
               color: $lightred;
               padding-left: 4px;
               padding-right: 6px;
-            }
-            
-            a:hover {
-              color: $red;
+              
+              &:hover {
+                color: $red;
+              }
             }
             
             img.loading {
@@ -240,13 +239,12 @@
               z-index: 1001;
             }
           }
-        }
-      
-        li.item:hover {
-          span.delete {
-            
-            a {
-              color: $red;
+          
+          &:hover {
+            span.delete {
+              a {
+                color: $red;
+              }
             }
           }
         }
@@ -320,33 +318,15 @@
             padding-left: 10px;
             padding-right: 8px;
           }
+          
+          &:hover {
+            h4 {
+              color: $darkgrey;
+            }
+          }
         }
       }    
-      
-      .group:hover {
-        h4 {
-          color: $darkgrey;
-        }
-      }
     }
-    
-    .borderleft {
-      background: url($slices-v) repeat-y -193px 0;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: -1px;
-      width: 1px;
-    }
-    
-    .borderright {
-      background: url($slices-v) repeat-y -193px 0;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      right: -1px;
-      width: 1px;
-    }    
   }
   
   .inner > section {
@@ -364,7 +344,7 @@
     z-index: 1;
     
     .footerinner {
-      background: url($slices-h) repeat-x 0 -114px;
+      background: url($slices-h) repeat-x 0 -104px;
       display: block;
       height: 10px;
       margin-left: 6px;

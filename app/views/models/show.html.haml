@@ -5,7 +5,7 @@
 
   %h1
     = @model.name
-  %h3
+  %p.subtitle
     = @model.manufacturer
   = link_to book_model_path(@model), :class => "button green" do
     = _("Book")
@@ -85,8 +85,7 @@
                 = link_to truncate(c.name, :length => 32), c, :title=>c.name
           .clear
           
-  .borderleft
-  .borderright
+  
               
 = render :partial => '/layouts/frontend/content_box_foot'
 = render :partial => '/layouts/frontend/aside'
