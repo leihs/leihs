@@ -11,7 +11,21 @@ function i18n() {
   this.locales['de-CH'] = {
   
     bookingcalendar: {
-       dateFormat: "dd.MM.yyyy" //for example: dd.MM.yyyy
+      dateFormat: "dd.MM.yyyy", //for example: dd.MM.yyyy
+      firstDay: 1,
+      buttonText: {
+          today:    'Heute',
+          month:    'Monat',
+          week:     'Woche',
+          day:      'Tag'},
+      monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli','August', 'September', 'Oktober', 'November', 'Dezember'],
+      monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+      dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+      dayNamesShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+      closedDayAlert: {
+        title: "Öffnungszeiten beachten!",
+        text: "An diesem Tag ist die Ausleihe geschlossen."
+      }
     },
     
     compacthistory: {
@@ -42,7 +56,17 @@ function i18n() {
   this.locales['en-US'] = {
   
     bookingcalendar: {
-       dateFormat: "MM/dd/yyyy" //for example: MM.dd.yyyy
+      dateFormat: "MM/dd/yyyy", //for example: MM.dd.yyyy
+      firstDay: 0,
+      buttonText: {
+          today:    'Today',
+          month:    'Month',
+          week:     'Week',
+          day:      'Day'},
+      monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December'],
+      monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      dayNamesShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
     },
     
     compacthistory: {
@@ -73,7 +97,17 @@ function i18n() {
   this.locales['en-GB'] = {
   
     bookingcalendar: {
-       dateFormat: "dd/MM/yyyy" //for example: MM.dd.yyyy
+      dateFormat: "dd/MM/yyyy", //for example: MM.dd.yyyy
+      firstDay: 1,
+      buttonText: {
+          today:    'Today',
+          month:    'Month',
+          week:     'Week',
+          day:      'Day'},
+      monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December'],
+      monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      dayNamesShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
     },
     
     compacthistory: {
