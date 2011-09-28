@@ -90,6 +90,10 @@ class User < ActiveRecord::Base
 
 # TODO ??  after_save :update_sphinx_index
 
+  before_save do
+    self.language ||= Language.default_language
+  end
+
 ################################################
 
   define_index do
