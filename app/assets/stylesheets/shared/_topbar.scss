@@ -36,18 +36,12 @@
   }
   
   .logo {
-    background: url($image-sprite) no-repeat -111px 0;
+    background: url($image-sprite) no-repeat -147px 0;
     height: 40px;
     float: left;
     position: relative;
     top: 1px;
-    width: 103px;
-    
-    a {
-      display: block;
-      height: 100%;
-      width: 100%;
-    }
+    width: 67px;
   }
   
   .navigation {
@@ -82,6 +76,7 @@
       }
       
       .popup {
+        background: #FFF;
         border-left: 1px solid $bordergrey;
         border-right: 1px solid $bordergrey;
         border-bottom: 1px solid $bordergrey;
@@ -95,9 +90,11 @@
         top: 43px;
         z-index: 999;
         @include boxShadow (0 4px 8px #DDD);
+        @include borderRadius(6px);
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
         
         .inner {
-          background: #FFF;
           height: 100%;
           position: relative;
           
@@ -115,7 +112,6 @@
             overflow: hidden;
             padding-bottom: 0px;
           }
-          
             
           hr {
             display: block;
@@ -162,7 +158,7 @@
     
     .item:nth-last-child(1):hover {
       .anchor {
-        background: url($image-sprite) no-repeat right -185px;
+        background: url($image-sprite) no-repeat right -186px;
       }
     }
     

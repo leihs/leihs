@@ -1,0 +1,30 @@
+#search {
+
+  .inner {
+    padding-right: 1px;
+  
+    .borderright {
+      background: transparent url($image-sprite) no-repeat right -91px;
+      border: none;
+      height: 28px;
+      position: absolute;
+      right: -5px;
+      top: 0;
+      width: 5px;
+    }
+  }
+  
+  &:hover {
+    
+    .borderright {
+      background: transparent url($image-sprite) no-repeat right -120px;
+    }
+  }
+  
+  &.active {
+  
+    .borderright {
+      background: url($image-sprite) repeat-x 0 -149px;
+    }
+  }
+}
