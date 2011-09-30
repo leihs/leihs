@@ -2,8 +2,8 @@
   .borderleft
   .inner
     .light
-    .logo
-      = link_to "", root_path, :title=>_("Homepage")
+    = link_to root_path do
+      .logo
       
     %nav.navigation
       %ul
@@ -20,7 +20,7 @@
         %li.seperator
         
         %li.item{:class => request['controller'] == "inventory_pools" ? "active" : nil}
-          = link_to _("Equipment Parks"), inventory_pools_path , :class => "anchor"
+          = link_to _("Equipment Pools"), inventory_pools_path , :class => "anchor"
         
         %li.seperator
         
@@ -45,6 +45,6 @@
         %li.seperator
         
         %li.item
-          = link_to _("Logout"), "logout", :class => "anchor"  
+          = link_to _("Logout"), logout_path, :class => "anchor"  
         
     .borderright
