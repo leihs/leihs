@@ -16,6 +16,22 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   
   $per_page = 50 # OPTIMIZE keep per_page in user session?
+  
+####################################################  
+  
+  def index
+    @prefered_language = Language.prefered(request.env["HTTP_ACCEPT_LANGUAGE"])
+    
+    #check if user is logged in then depending on rights (manager or only customer) redirect to frontend or backend otherwise go on showing splash screen
+    
+    if logged_in?
+      if current_user.has_role?('manager', nil, false)
+        redirect_to backend_path
+      else
+        redirect_to categories_path
+      end
+    end
+  end
  
 ####################################################  
 
