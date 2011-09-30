@@ -6,6 +6,14 @@ require "bundler/capistrano"
 
 set :application, "leihs-test"
 
+
+# Capistrano does not use a normal login shell, in which this would be set, but instead
+# needs its own environment. This is to prevent later calls to sed that have UTF-8 in them
+# from killing the entire deployment.
+#set :default_environment, {
+#  'LANG' => 'en_GB.UTF-8'
+#  }
+
 set :scm, :git
 set :repository,  "git://github.com/psy-q/leihs.git"
 set :branch, "Rails3.1"
@@ -28,7 +36,8 @@ set :sql_password, "163ruby9"
 
 
 # User Variables and Settings
-set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
+#set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
+set :contract_lending_party_string, "ZHdK"
 set :default_email, "ausleihe.benachrichtigung\@zhdk.ch"
 set :email_server, "smtp.zhdk.ch"
 set :email_port, 25
@@ -40,7 +49,8 @@ set :deliver_order_notifications, false # This is false by default. TODO: Actual
 set :perform_deliveries, false
 set :local_currency, "CHF"
 # Escape double-quotes using triple-backslashes in this string: \\\"
-set :contract_terms, 'Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die \\\"Richtlinie zur Ausleihe von Sachen\\\" der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien.'
+set :contract_terms, 'Foo'
+#set :contract_terms, 'Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die \\\"Richtlinie zur Ausleihe von Sachen\\\" der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien.'
 
 
 set :deploy_to, "/home/leihs/#{application}"
@@ -148,7 +158,7 @@ task :migrate_database do
   # deploy.migrate should work, but is buggy and is run in the _previous_ release's
   # directory, thus never runs anything? Strange.
   #deploy.migrate
-  run "cd #{release_path} && RAILS_ENV='production' rake db:migrate"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake db:migrate"
 
 end
 
@@ -169,7 +179,7 @@ after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
-after "deploy:symlink", :migrate_database
+after "bundle:install", :migrate_database
 after "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
