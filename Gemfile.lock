@@ -1,9 +1,9 @@
 GIT
-  remote: git://github.com/mconf/attachment_fu.git
-  revision: 828ea99a2b6f101f63b5faac7068d2b4ad731e56
+  remote: git://github.com/ncri/attachment_fu.git
+  revision: 153336c17c0a190aa95c1cd30058b20e1406ff40
+  branch: rails3
   specs:
-    attachment_fu (1.0.3)
-      aws-s3
+    attachment_fu (0.1.8)
 
 GEM
   remote: http://rubygems.org/
@@ -40,10 +40,6 @@ GEM
     acts-as-dag (2.5.5)
     addressable (2.2.6)
     arel (2.2.1)
-    aws-s3 (0.6.2)
-      builder
-      mime-types
-      xml-simple
     barby (0.5.0)
     builder (3.0.0)
     capybara (1.1.1)
@@ -208,7 +204,6 @@ GEM
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     will_paginate (3.0.1)
-    xml-simple (1.1.0)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
