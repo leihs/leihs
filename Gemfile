@@ -33,7 +33,7 @@ gem 'barby', '~> 0.5.0'
 # gem "RubyInline", '3.8.2', :require => "inline"
 
 gem 'rmagick', '~> 2.13.1', :require => 'RMagick' 
-gem 'attachment_fu', :git => 'git://github.com/jmoses/attachment_fu.git', :branch => "rails3"
+gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency'
 gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
