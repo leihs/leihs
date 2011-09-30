@@ -102,12 +102,6 @@
         if(!$(this).data("deleting")) {
           $(this).parents(".item").find(".name").css("text-decoration", "line-through");
         }
-        Dialog.add({
-            trigger: $(this),
-            content: '<p>#{_("Something went wrong!")}</p><p>#{_("You should redo your action or reload the page!")}</p>',
-            title: '#{_("ERROR")}',
-            buttons: { "Ok": function() {$(this).dialog("close");} }
-        });
         
       }).live("mouseleave", function(){
         if(!$(this).data("deleting")) {

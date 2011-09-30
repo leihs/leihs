@@ -1,0 +1,35 @@
+%section#topbar
+  .borderleft
+  .inner
+    .light
+    = link_to login_path do
+      .logo
+      
+    %nav.navigation
+      %ul
+        %li.seperator
+        
+        %li.item.language
+          = link_to "javascript: void(0)", :class => "anchor" do
+            = @prefered_language.name
+            %span.speechbubble
+          .popup
+            .inner
+              %ul
+                - (Language.active_languages - [@prefered_language]).each do |l|
+                  %li
+                    = link_to l.name, "?locale=#{l.locale_name}"
+                    - unless l == (Language.active_languages - [@prefered_language]).last
+                      %hr
+        
+        %li.seperator
+        
+        %li.item
+          = link_to _("Help"), "#", :class => "anchor"
+          
+        %li.seperator
+        
+        %li.item
+          = link_to _("Login"), login_path, :class => "anchor"  
+        
+    .borderright

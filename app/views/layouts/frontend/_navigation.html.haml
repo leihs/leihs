@@ -1,9 +1,9 @@
 %nav#navigation
   %ul
     
-    %li.item.first{:class => current_page?(root_path) ? "active" : nil}
+    %li.item.first{:class => current_page?(categories_path) ? "active" : nil}
       .leftend
-      = link_to _("Home"), root_path, :class => "anchor"
+      = link_to _("Home"), categories_path, :class => "anchor"
     
     - if @category
       %li.item{:class => current_page?(category_models_path(@category)) ? "active" : nil}

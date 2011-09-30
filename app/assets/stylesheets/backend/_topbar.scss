@@ -1,0 +1,80 @@
+#topbar {
+  background: url($backend-slices-h) repeat-x;
+  
+  .borderleft {
+    background: url($backend-image-sprite) no-repeat;
+  }
+  
+  .borderright {
+     background: url($backend-image-sprite) no-repeat -7px 0;
+  }
+  
+  .light {
+    background: url($backend-image-sprite) no-repeat 0 -46px;
+  }
+  
+  .logo {
+    background-image: url($backend-image-sprite);
+  }
+  
+  .navigation {
+  
+    .seperator {
+      background: url($backend-image-sprite) no-repeat -15px 0;
+      left: 4px;
+      width: 2px;
+    }
+    
+    .item {
+    
+      a, a:link, a:visited {
+        color: #dedbd9;
+      }
+      
+      &.active {
+        .anchor {
+          background: url($backend-slices-h) repeat-x 0 -46px;
+          color: white;
+        }
+      }
+      
+      &:hover {
+      
+        .anchor {
+          background: url($backend-slices-h) repeat-x 0 -46px;
+          color: white;
+        }
+      }
+      
+      &:nth-last-child(1):hover {
+        .anchor {
+          background: url($backend-image-sprite) no-repeat right -92px;
+        }
+      }
+      
+      .popup {
+        border-left: 1px solid #605e57;
+        border-right: 1px solid #605e57;
+        border-bottom: 1px solid #605e57;
+        border-top: 1px solid #9e9b92;
+        left: -1px;
+        top: 42px;
+      
+        .inner {
+          background: #797772;
+          
+          hr {
+            background: url($backend-slices-h) repeat-x 0 -92px;
+            height: 2px;
+            margin-bottom: 0;  
+          }
+          
+          a:hover {
+            background: #8b8a84;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

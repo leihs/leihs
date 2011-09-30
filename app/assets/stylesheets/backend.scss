@@ -13,21 +13,15 @@
  *= depend_on shared/_fullcalendar
  *= depend_on shared/_tips
  *= depend_on shared/_tabs
+ *= depend_on shared/_topbar
  *= depend_on shared/_dialog
  *= depend_on shared/_search
  *= depend_on shared/_navigation
  *= depend_on shared/_master
- *= depend_on shared/_topbar
- *= depend_on frontend/_linelist
- *= depend_on frontend/_start 
- *= depend_on frontend/_aside
- *= depend_on frontend/_models
- *= depend_on frontend/_topfilter
- *= depend_on frontend/_model
- *= depend_on frontend/_user
- *= depend_on frontend/_order
- *= depend_on frontend/_book
- *= depend_on frontend/_ip
+ *= depend_on backend/_variables
+ *= depend_on backend/_topbar
+ *= depend_on backend/_navigation
+ *= depend_on backend/_search
  * 
 */
 
@@ -43,15 +37,9 @@
 @import "shared/search.scss";
 @import "shared/tabs.scss";
 @import "shared/tips.scss";
-@import "shared/dialog.scss";
 @import "shared/topbar.scss";
-@import "frontend/linelist.scss";
-@import "frontend/start.scss";
-@import "frontend/aside.scss";
-@import "frontend/models.scss";
-@import "frontend/topfilter.scss";
-@import "frontend/model.scss";
-@import "frontend/user.scss";
-@import "frontend/order.scss";
-@import "frontend/book.scss";
-@import "frontend/ip.scss";
+@import "shared/dialog.scss";
+@import "backend/variables.scss";
+@import "backend/topbar.scss";
+@import "backend/navigation.scss";
+@import "backend/search.scss";

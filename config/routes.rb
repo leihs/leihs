@@ -1,6 +1,6 @@
 Leihs::Application.routes.draw do
 
-  root :to => "categories#index"
+  root :to => "application#index"
 
 #rails3#
   # Install the default routes as the lowest priority.
@@ -18,7 +18,7 @@ Leihs::Application.routes.draw do
   match '/logout', :to => 'sessions#destroy'
   match '/switch_to_ldap', :to => 'sessions#switch_to_ldap' #TODO 1009: Remove when not used anymore
   
-  match '/backend', :to => 'backend/inventory_pools#index'
+  match '/backend', :to => "backend/backend#index"
   match '/inventory', :to => 'inventory/inventory_pools#index'
 
 ############################################################################
@@ -79,6 +79,8 @@ Leihs::Application.routes.draw do
 
   namespace :backend do
     #tmp# match 'database_backup', :to => 'backend#database_backup'
+    
+    root :to => "backend#index"
     
     resources :barcodes
 

@@ -9,19 +9,20 @@
       %ul
         %li.seperator
         
-        - if current_user.has_role?('manager', nil, false)
-          %li.item
-            = link_to _("Backend") , backend_path, :class=>"anchor"
-          %li.seperator
+        %li.item{:class => current_page?(backend_path) ? "active" : nil}
+          = link_to _("Lending"), backend_path, :class => "anchor"
+        %li.seperator
           
-        %li.item{:class => current_page?(user_path) ? "active" : nil}
-          = link_to current_user, user_path, :class => "anchor"
-          
+        %li.item
+          = link_to _("Inventory"), backend_path, :class => "anchor"
+        %li.seperator
+
+        %li.item
+          = link_to _("Admin"), backend_path, :class => "anchor"
         %li.seperator
         
-        %li.item{:class => request['controller'] == "inventory_pools" ? "active" : nil}
-          = link_to _("Equipment Pools"), inventory_pools_path , :class => "anchor"
-        
+        %li.item{:class => current_page?(user_path) ? "active" : nil}
+          = link_to current_user, user_path, :class => "anchor"
         %li.seperator
         
         %li.item.language
@@ -36,12 +37,14 @@
                     = link_to l.name, "?locale=#{l.locale_name}"
                     - unless l == (Language.active_languages - [current_user.language]).last
                       %hr
-        
         %li.seperator
         
         %li.item
           = link_to _("Help"), "#", :class => "anchor"
-          
+        %li.seperator
+        
+        %li.item
+          = link_to _("Frontend") , categories_path, :class=>"anchor"
         %li.seperator
         
         %li.item

@@ -1,0 +1,36 @@
+#splash {
+  height: 485px;
+  position: relative;
+  
+  .button {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+  }
+  
+  img.splash {
+    position: absolute;
+    right: 0;
+    top: 110px;
+  }
+
+  .container {
+    margin-top: 24px;
+    padding-left: 8px;
+    position: relative;
+  
+    .description {
+      font-size: 1.2em;
+      line-height: 1.4em;
+      margin-bottom: 16px;
+      
+      span.number {
+        font-size: 1.2em;
+        float: left;
+        width: 28px;
+      }
+    }
+  }
+}
+
+

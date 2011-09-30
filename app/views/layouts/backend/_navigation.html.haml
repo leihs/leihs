@@ -1,0 +1,18 @@
+%nav#navigation
+  %ul
+    
+    %li.item{:class => current_page?(backend_path) ? "active" : nil}
+      .leftend
+      = link_to _("Daily View"), backend_path, :class => "anchor"
+      
+    %li.item
+      .leftend
+      = link_to _("Orders"), backend_path, :class => "anchor"
+      
+    %li.item
+      .leftend
+      = link_to _("Hand Overs"), backend_path, :class => "anchor"
+
+    %li.item
+      .leftend
+      = link_to _("Take Backs"), backend_path, :class => "anchor"

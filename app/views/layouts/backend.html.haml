@@ -1,0 +1,21 @@
+!!! 5
+%html{:lang => "#{current_user.language.locale_name.dasherize}"}
+
+  %head
+    %meta{:charset => 'utf-8'}
+    %title
+      = "LEIHS Backend"
+      
+    = stylesheet_link_tag "backend"
+    = javascript_include_tag "backend"
+    = favicon_link_tag "backend/favicon.ico", :type => "image/x-icon"
+    = csrf_meta_tag
+    = javascript_tag "i18n.selected = i18n.locales['#{current_user.language.locale_name.dasherize}']";
+    = yield :head
+
+  %body
+    %header.wrapper= render :partial => "layouts/backend/topbar"
+    
+  %section#main.wrapper
+    = yield
+    .clear

@@ -16,6 +16,8 @@ module ApplicationHelper
 #       ' ' + text + '</a>'
 #  end
 
+###################################################
+
   def submit_button(text, options = {})
     #TODO check options: icon, class, id
     options[:form_name] ||= "f"

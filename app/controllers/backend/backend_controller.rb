@@ -3,9 +3,15 @@ class Backend::BackendController < ApplicationController
   
   before_filter :init
   
-  layout 'layouts/backend/general'
+  layout 'layouts/backend'
  
 ###############################################################  
+  
+  def index
+    
+  end
+  
+###############################################################    
   
   # global search
   def search

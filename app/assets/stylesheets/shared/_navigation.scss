@@ -1,0 +1,88 @@
+#navigation {
+	position: relative;
+	z-index: 2;
+	width: 750px;
+	@include greylinks;
+	
+	ul {
+    position: relative;
+    
+    li {
+      display: inline;
+      position: relative;
+    }
+  }
+ 
+  .item {
+    display: inline-block;
+    font-size: 1.2em;
+    font-weight: bold;
+    position: relative;
+    margin-right: -2px;
+    
+    .leftend {
+      background: url($image-sprite) no-repeat -73px 0;
+      height: 100%;
+      position: absolute;
+      left: -9px;
+      width: 9px;
+    }
+    
+    .anchor {
+      background: url($image-sprite) no-repeat right -91px;
+      display: block;
+      padding: 7px 17px 0 12px;
+      position: relative;
+      height: 21px;
+    }
+  }
+  
+  .item.first {
+    .anchor {
+      padding-left: 15px;
+    }
+    
+    .leftend {
+      display: none;
+    }
+  }
+  
+  .item:hover {
+  
+    .anchor {
+      background: url($image-sprite) no-repeat right -120px;
+      color: $darkgrey;
+    }
+    
+    .leftend {
+      background: url($image-sprite) no-repeat -63px 0;
+    }
+  }
+  
+  .item.active {
+  
+    .anchor {
+      background: url($image-sprite) no-repeat right -149px;
+      color: $darkgrey;
+      height: 28px;
+      padding-right: 14px;  
+    }
+    
+    .leftend {
+      background: url($image-sprite) no-repeat -53px 0;
+    }
+  }
+  
+  .item.active:hover {
+  
+    .anchor {
+      background: url($image-sprite) no-repeat right -149px;
+      height: 28px;
+      color: $darkgrey;
+    }
+    
+    .leftend {
+      background: url($image-sprite) no-repeat -53px 0;
+    }
+  }
+}
