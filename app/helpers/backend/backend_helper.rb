@@ -403,7 +403,7 @@ module Backend::BackendHelper
 ############################################################################################
 
   def select_tag_for_buildings(selected = nil)
-    select_tag 'location[building_id]', "<option value=''>#{_("None")}</option>" + options_from_collection_for_select(Building.all, :id, :to_s, selected)
+    select_tag 'location[building_id]', "<option value=''>#{_("None")}</option>" + options_from_collection_for_select(Building.find(:all, :order => 'name'), :id, :to_s, selected)
   end
 
 ############################################################################################
