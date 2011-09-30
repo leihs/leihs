@@ -9,7 +9,6 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    Ascii85 (1.0.1)
     actionmailer (3.1.1.rc1)
       actionpack (= 3.1.1.rc1)
       mail (~> 2.3.0)
@@ -107,15 +106,7 @@ GEM
       railties (>= 3.0.0)
     newrelic_rpm (3.1.2)
     nokogiri (1.5.0)
-    pdf-reader (0.10.0)
-      Ascii85 (~> 1.0.0)
     polyglot (0.3.2)
-    prawn (0.12.0)
-      pdf-reader (>= 0.9.0)
-      ttfunk (~> 1.0.2)
-    prawnto (0.0.4)
-      prawn
-      rails (>= 2.1)
     pry (0.9.6)
       coderay (>= 0.9.8)
       method_source (>= 0.6.5)
@@ -200,7 +191,6 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    ttfunk (1.0.2)
     tzinfo (0.3.29)
     uglifier (1.0.3)
       execjs (>= 0.3.0)
@@ -234,8 +224,6 @@ DEPENDENCIES
   nested_set (~> 1.6.8)
   newrelic_rpm (~> 3.1)
   nokogiri (~> 1.5.0)
-  prawn (~> 0.12.0)
-  prawnto (~> 0.0.4)
   pry
   rails (= 3.1.1.rc1)
   rails_autolink (~> 1.0.2)
