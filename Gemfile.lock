@@ -1,9 +1,9 @@
 GIT
-  remote: git://github.com/jmoses/attachment_fu.git
-  revision: 0c57f9aeb6624aaf2b0e8d386cd71292a827c9e5
+  remote: git://github.com/ncri/attachment_fu.git
+  revision: 153336c17c0a190aa95c1cd30058b20e1406ff40
   branch: rails3
   specs:
-    attachment_fu (0.0.4)
+    attachment_fu (0.1.8)
 
 GEM
   remote: http://rubygems.org/

@@ -1,13 +1,18 @@
 # encoding: utf-8
-set :application, "leihs2test"
+$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
+require "bundler/capistrano"
+
+set :application, "leihs-test"
 
 set :scm, :git
 set :repository,  "git://github.com/psy-q/leihs.git"
-set :branch, "master"
+set :branch, "Rails3.1"
 set :deploy_via, :remote_cache
 
-set :db_config, "/home/rails/leihs/leihs2test/database.yml"
-set :ldap_config, "/home/rails/leihs/leihs2test/LDAP.yml"
+set :db_config, "/home/leihs/leihs-test/database.yml"
+set :ldap_config, "/home/leihs/leihs-test/LDAP.yml"
 set :use_sudo, false
 
 set :rails_env, "production"
@@ -38,11 +43,11 @@ set :local_currency, "CHF"
 set :contract_terms, 'Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die \\\"Richtlinie zur Ausleihe von Sachen\\\" der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien.'
 
 
-set :deploy_to, "/home/rails/leihs/#{application}"
+set :deploy_to, "/home/leihs/#{application}"
 
-role :app, "leihs@webapp.zhdk.ch"
-role :web, "leihs@webapp.zhdk.ch"
-role :db,  "leihs@webapp.zhdk.ch", :primary => true
+role :app, "leihs@rails.zhdk.ch"
+role :web, "leihs@rails.zhdk.ch"
+role :db,  "leihs@rails.zhdk.ch", :primary => true
 
 task :link_config do
   on_rollback { run "rm #{release_path}/config/database.yml" }
@@ -147,11 +152,6 @@ task :migrate_database do
 
 end
 
-task :install_gems do
-  run "cd #{release_path} && bundle install --deployment --without cucumber profiling"
-  run "sed -i 's/BUNDLE_DISABLE_SHARED_GEMS: \"1\"/BUNDLE_DISABLE_SHARED_GEMS: \"0\"/' #{release_path}/.bundle/config"
-end
-
 namespace :deploy do
 	task :start do
 	# we do absolutely nothing here, as we currently aren't
@@ -169,7 +169,6 @@ after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
-before "migrate_database", :install_gems
 after "deploy:symlink", :migrate_database
 after "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess
