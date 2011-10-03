@@ -6,14 +6,6 @@ require "bundler/capistrano"
 
 set :application, "leihs-test"
 
-
-# Capistrano does not use a normal login shell, in which this would be set, but instead
-# needs its own environment. This is to prevent later calls to sed that have UTF-8 in them
-# from killing the entire deployment.
-#set :default_environment, {
-#  'LANG' => 'en_GB.UTF-8'
-#  }
-
 set :scm, :git
 set :repository,  "git://github.com/psy-q/leihs.git"
 set :branch, "Rails3.1"
@@ -174,6 +166,7 @@ namespace :deploy do
 
 end
 
+before "bundle:install", "deploy:symlink"
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
