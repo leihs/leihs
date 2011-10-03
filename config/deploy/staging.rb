@@ -53,11 +53,12 @@ role :db,  "leihs@rails.zhdk.ch", :primary => true
 
 task :link_config do
   on_rollback { run "rm #{release_path}/config/database.yml" }
-  on_rollback { run "rm #{release_path}/config/LDAP.yml" }
+  if File.exist?("#{release_path}/config/LDAP.yml")
+    run "rm #{release_path}/config/LDAP.yml"
+    run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
+  end
   run "rm #{release_path}/config/database.yml"
-  run "rm #{release_path}/config/LDAP.yml"
   run "ln -s #{db_config} #{release_path}/config/database.yml"
-  run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
 end
 
 task	:link_attachments do
@@ -101,7 +102,9 @@ task :modify_config do
   run "sed -i 's|:encryption|#:encryption|' #{release_path}/app/controllers/authenticator/ldap_authentication_controller.rb"
   run "sed -i 's|CONTRACT_TERMS.*|CONTRACT_TERMS = \"#{contract_terms}\"|' #{configfile}"
   run "sed -i 's|LOCAL_CURRENCY_STRING.*|LOCAL_CURRENCY_STRING = \"#{local_currency}\"|' #{configfile}"
-  run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environments/production.rb" if perform_deliveries == false
+  if perform_deliveries == false
+    run "sed -i 's|config.action_mailer.perform_deliveries = true|config.action_mailer.perform_deliveries = false|' #{configfile}"
+  end
 end
 
 
