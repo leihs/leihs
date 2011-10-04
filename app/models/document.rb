@@ -43,7 +43,7 @@ class Document < ActiveRecord::Base
   end
   
   def next_open_date(x)
-    x = Date.today if x.nil?
+    x ||= Date.today
     if inventory_pool
       inventory_pool.next_open_date(x)
     else
