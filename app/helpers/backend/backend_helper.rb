@@ -1,5 +1,18 @@
 module Backend::BackendHelper
-
+  
+  def last_visitors
+    #TODO: last visitors should be scoped through inventory_pool and later through selected day in daily view
+    #TODO: move this inside of the inventory pools model ?
+    return false if session[:last_visitors].blank?
+    session[:last_visitors].map { |x| link_to x.second, user_path(x.first) }.join(", ")
+  end
+  
+  def is_lending_section? ()
+    current_page?(:controller => "backend/inventory_pools", :action => "show")
+  end
+  
+# EVERYTHING AFTER HERE IS OLD STUFF
+=begin
   def table(options = {}, html_options = {}, &block)
     table_tag(options, html_options, &block)
   end
@@ -442,8 +455,7 @@ module Backend::BackendHelper
       s
     end
   end
-  
-    
-  
-  
+
+=end
+
 end

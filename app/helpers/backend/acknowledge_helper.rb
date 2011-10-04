@@ -1,5 +1,6 @@
 module Backend::AcknowledgeHelper
-
+# EVERYTHING AFTER HERE IS OLD STUFF
+=begin
   def today_or_yesterday_date(past_date)
     current_date_00 = Time.now.at_midnight
     past_date_00 = past_date.at_midnight
@@ -14,5 +15,5 @@ module Backend::AcknowledgeHelper
     end
     d += " " + past_date.strftime("%H:%M")
   end
-
+=end
 end

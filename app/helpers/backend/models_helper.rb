@@ -1,5 +1,8 @@
 module Backend::ModelsHelper
 
+# EVERYTHING AFTER HERE IS OLD STUFF
+=begin
+  
   # creates a javascript widget that displays the
   # availability and allocation of a model over time
   #
@@ -281,4 +284,5 @@ end
               comment + '<br/>' +  
               document_link)
   end
+=end
 end

@@ -1,4 +1,7 @@
 module Backend::MailsHelper
+
+# EVERYTHING AFTER HERE IS OLD STUFF
+=begin
   def mail_link( current_inventory_pool, user, source_path, options = {})
     modal = options.slice(:layout)
     newmailpath = \
@@ -14,4 +17,5 @@ module Backend::MailsHelper
 
     link_to icon_tag("email_edit") + _("Write Email"), newmailpath, options
   end
+=end
 end

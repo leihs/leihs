@@ -1,5 +1,7 @@
 module Backend::CategoriesHelper
-  
+
+# EVERYTHING AFTER HERE IS OLD STUFF
+=begin
   # TODO refactor to model ??
   def category_node(category, parent_id)
     {:data => {:title => category.text(parent_id)},
@@ -162,5 +164,5 @@ module Backend::CategoriesHelper
     
     r += content_tag :div, :id => "my_category_tree" do end
   end
-  
+=end  
 end

@@ -1,5 +1,6 @@
 module Backend::AvailabilityHelper
-
+# EVERYTHING AFTER HERE IS OLD STUFF
+=begin
   def allocated_group(document_line)
     g = document_line.allocated_group
     content_tag :div do
@@ -36,5 +37,5 @@ module Backend::AvailabilityHelper
       end
     end
   end
-  
+=end  
 end

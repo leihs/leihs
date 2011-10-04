@@ -1,5 +1,7 @@
 module Backend::UsersHelper
-
+  
+  # EVERYTHING AFTER HERE IS OLD STUFF
+=begin
   def remind_user_link(user, inventory_pool = nil, with_resume = false)
     h = link_to icon_tag("email") + _("Remind"), url_for([:remind, :backend, inventory_pool, user].compact),
                 :method => :get, :remote => true
@@ -16,5 +18,5 @@ module Backend::UsersHelper
       ""
     end
   end
-
+=end
 end
