@@ -1,18 +1,28 @@
 %nav#navigation
   %ul
     
-    %li.item{:class => current_page?(backend_path) ? "active" : nil}
-      .leftend
-      = link_to _("Daily View"), backend_path, :class => "anchor"
+    %li.item{:class => current_page?(:controller => "backend/inventory_pools", :action => "show") ? "active" : nil}
+      = link_to backend_path, :class => "anchor" do
+        .leftend
+        = _("Daily View")
+        
+    %li.item
+      = link_to backend_path, :class => "anchor" do
+        .leftend
+        = _("Orders")
       
     %li.item
-      .leftend
-      = link_to _("Orders"), backend_path, :class => "anchor"
-      
-    %li.item
-      .leftend
-      = link_to _("Hand Overs"), backend_path, :class => "anchor"
+      = link_to backend_path, :class => "anchor" do
+        .leftend
+        = _("Hand Overs")
 
     %li.item
-      .leftend
-      = link_to _("Take Backs"), backend_path, :class => "anchor"
+      = link_to backend_path, :class => "anchor" do
+        .leftend
+        = _("Take Backs")
+        
+    %li.item
+      = link_to backend_path, :class => "anchor" do
+        .leftend
+        = _("Contracts")
+        

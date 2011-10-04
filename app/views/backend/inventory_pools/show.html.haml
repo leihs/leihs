@@ -1,0 +1,105 @@
+#daily.innercontent
+  %h1= l Date.today, :format => :day_long
+  
+  -unless last_visitors.blank?
+    %p.subtitle
+      = _("Last Visitors:")
+      != last_visitors
+  
+  .navigation
+    = button_tag(:class => "today button white") do
+      = _("Today")
+    = button_tag(:class => "datepicker button white") do
+      .icon
+    = button_tag(:class => "day back button white") do
+      .icon
+    = button_tag(:class => "day forward button white") do
+      .icon
+  .clear
+  %hr
+  
+  .open_orders.list
+    .inlinetabs
+      .tab
+        .icon
+        = _("Open Orders")
+    = render :partial => "open_order", :collection => Order.submitted
+      
+  .hand_overs.overdue.list
+    .inlinetabs
+      .tab
+        .icon
+        = _("Overdue Hand Overs")
+      
+  .take_backs.overdue.list
+    .inlinetabs
+      .tab
+        .icon
+        = _("Overdue Take Backs")
+      
+  .hand_overs.list
+    .inlinetabs
+      .tab
+        .icon
+        = _("Hand Overs")
+      
+  .take_backs.list
+    .inlinetabs
+      .tab
+        .icon
+        = _("Take Backs")
+      
+:javascript
+
+  $(document).ready(function(){
+      DailyView.setup();
+  });
+
+  var DailyView = new DailyView();
+  
+  function DailyView() {
+    
+    this.setup = function() {
+      
+      this.setupHovers();
+    }
+    
+    this.setupHovers = function() {
+    
+      // OPEN ORDERS ITEMS
+      
+      $("#daily .open_orders .item").each(function(){
+        _data = $(this).data("order");
+        
+        // QUANTITY
+        
+        
+        
+        $(this).find(".quantity").qtip({
+          content: {
+            text: "TEST"
+          },
+          position: {
+            my: 'bottom left',
+            at: 'top right',
+            target: $(this).find(".quantity .text"),
+            viewport: $(window)
+          }
+        });
+        
+        // PURPOSE
+        
+        $(this).find(".purpose").qtip({
+          content: {
+            text: _data.purpose
+          },
+          position: {
+            my: 'bottom left',
+            at: 'top right',
+            target: $(this).find(".purpose .text"),
+            viewport: $(window)
+          }
+        });
+      });
+    }
+  }

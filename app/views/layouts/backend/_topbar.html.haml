@@ -9,7 +9,7 @@
       %ul
         %li.seperator
         
-        %li.item{:class => current_page?(backend_path) ? "active" : nil}
+        %li.item{:class => is_lending_section? ? "active" : nil}
           = link_to _("Lending"), backend_path, :class => "anchor"
         %li.seperator
           
@@ -21,7 +21,7 @@
           = link_to _("Admin"), backend_path, :class => "anchor"
         %li.seperator
         
-        %li.item{:class => current_page?(user_path) ? "active" : nil}
+        %li.item
           = link_to current_user, user_path, :class => "anchor"
         %li.seperator
         

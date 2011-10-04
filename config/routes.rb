@@ -10,7 +10,6 @@ Leihs::Application.routes.draw do
   match '/authenticator/ldap/:action', :to => 'authenticator/ldap_authentication'
   match '/authenticator/shibboleth/:action/:id', :to => 'authenticator/shibboleth_authentication'
 
-
   # For RESTful_Authentication
   match '/activate/:activation_code', :to => 'users#activate', :activation_code => nil
   match '/signup', :to => 'users#new'

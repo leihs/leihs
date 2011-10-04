@@ -1,4 +1,4 @@
-#ipSelector
+#ipselector
   = link_to "javascript: void(0)" do
     %span.text
       != _("Parks (#{content_tag(:span, "/#{current_user.inventory_pools.length}", :class => 'amount')})")
@@ -24,14 +24,14 @@
 :javascript
 
   $(document).ready(function(){
-      IpSelector.setup();
+      ipselector.setup();
   });
 
-  var IpSelector = new IpSelector();
+  var ipselector = new ipselector();
   
-  IpSelector.hideModellistItemsAtStartup();
+  ipselector.hideModellistItemsAtStartup();
   
-  function IpSelector() {
+  function ipselector() {
   
     this.hover;
     this.animating;
@@ -50,7 +50,7 @@
       
       this.setupFromStorage();
       
-      this.setIpSelector();
+      this.setipselector();
     }
     
     this.hideModellistItemsAtStartup = function() {
@@ -61,21 +61,21 @@
     
     this.setupFromStorage = function() {
       if(sessionStorage.active_ips && JSON.parse(sessionStorage.active_ips).length != 0) {
-        IpSelector.active_ips = JSON.parse(sessionStorage.active_ips);
+        ipselector.active_ips = JSON.parse(sessionStorage.active_ips);
       } else {
-        IpSelector.selectAllIps();
+        ipselector.selectAllIps();
       }
     }
     
     this.selectAllIps = function() {
-      $("#ipSelector .line").each(function(){
-        IpSelector.active_ips.push($(this).data("id"));
+      $("#ipselector .line").each(function(){
+        ipselector.active_ips.push($(this).data("id"));
       });
     }
     
-    this.setIpSelector = function() {
-      $("#ipSelector .line").each(function(){
-        if( $.inArray( $(this).data("id"), IpSelector.active_ips ) >= 0 ) {
+    this.setipselector = function() {
+      $("#ipselector .line").each(function(){
+        if( $.inArray( $(this).data("id"), ipselector.active_ips ) >= 0 ) {
           $(this).find("input").attr("checked", true);
           $(this).find("label").addClass("checked");
         } else {
@@ -84,15 +84,15 @@
         }
       });
       
-      $("#ipSelector .text .amount").html(IpSelector.active_ips.length + "/" + $("#ipSelector .line").length);
-      IpSelector.updateStorage();
-      IpSelector.manipulateModelList();
+      $("#ipselector .text .amount").html(ipselector.active_ips.length + "/" + $("#ipselector .line").length);
+      ipselector.updateStorage();
+      ipselector.manipulateModelList();
     }
     
     this.manipulateModelList = function() {
       $("#modellist .item").each(function(i, v){
         var _ips = $(this).data("attributes").inventory_pool_ids;
-        var _active_ips = IpSelector.active_ips;
+        var _active_ips = ipselector.active_ips;
         var r = $.intersection(_ips, _active_ips);
         if(r.length) {
           $(this).show();
@@ -103,20 +103,20 @@
     }
     
     this.updateStorage = function() {
-      sessionStorage.active_ips = JSON.stringify(IpSelector.active_ips);
+      sessionStorage.active_ips = JSON.stringify(ipselector.active_ips);
     }
     
     this.setupBindings = function() {
-      $("#topfilter #ipSelector a").bind("click", function() {
-        IpSelector.toggle();
+      $("#topfilter #ipselector a").bind("click", function() {
+        ipselector.toggle();
       });
       
-      $("#topfilter #ipSelector .line input").bind("change", function() {
+      $("#topfilter #ipselector .line input").bind("change", function() {
         if($(this).is(':checked')) {
-          IpSelector.addActiveIP($(this).data("id"));
+          ipselector.addActiveIP($(this).data("id"));
         } else {
-          if(IpSelector.active_ips.length > 1) {
-            IpSelector.removeActiveIP($(this).data("id"));
+          if(ipselector.active_ips.length > 1) {
+            ipselector.removeActiveIP($(this).data("id"));
           } else {
             $(this).attr("checked", true);
           }
@@ -125,13 +125,13 @@
     }
     
     this.addActiveIP = function(_id) {
-      IpSelector.active_ips.push(_id);
-      IpSelector.setIpSelector();
+      ipselector.active_ips.push(_id);
+      ipselector.setipselector();
     }
     
     this.removeActiveIP = function(_id) {
-      IpSelector.active_ips = IpSelector.active_ips.remove(_id);
-      IpSelector.setIpSelector();
+      ipselector.active_ips = ipselector.active_ips.remove(_id);
+      ipselector.setipselector();
     }
     
     /* This function provides functionality to remove a specific element inside an array (only works with jquery) */
@@ -153,54 +153,54 @@
     }
     
     this.setupHover = function() {
-      IpSelector.hover = $("#topfilter #ipSelector .container .hover");
+      ipselector.hover = $("#topfilter #ipselector .container .hover");
     }
     
     this.setupContainer = function() {
-      IpSelector.container =  $("#topfilter #ipSelector .container");
-      IpSelector.hover.show();
-      IpSelector.container.show();
-      IpSelector.height = IpSelector.hover.height();
-      IpSelector.container.height(IpSelector.height);
-      IpSelector.width = IpSelector.hover.outerWidth();
-      IpSelector.container.width(IpSelector.width);
-      IpSelector.hover.hide();
-      IpSelector.container.hide();
+      ipselector.container =  $("#topfilter #ipselector .container");
+      ipselector.hover.show();
+      ipselector.container.show();
+      ipselector.height = ipselector.hover.height();
+      ipselector.container.height(ipselector.height);
+      ipselector.width = ipselector.hover.outerWidth();
+      ipselector.container.width(ipselector.width);
+      ipselector.hover.hide();
+      ipselector.container.hide();
     }
     
     this.toggle = function() {
-      if(IpSelector.container.css("display") == "block") {
-        IpSelector.close();
+      if(ipselector.container.css("display") == "block") {
+        ipselector.close();
       } else {
-        IpSelector.open();
+        ipselector.open();
       }
     }
     
     this.open = function() {
-      IpSelector.container.show();
-      $("#ipSelector .text").addClass("open");
-      IpSelector.hover.offset({top: -IpSelector.height});
-      IpSelector.hover.stop(true, true).show().animate({
+      ipselector.container.show();
+      $("#ipselector .text").addClass("open");
+      ipselector.hover.offset({top: -ipselector.height});
+      ipselector.hover.stop(true, true).show().animate({
         top: 0
       }, function(){
-        $(document).bind("click", IpSelector.checkClickWhileOpen);
+        $(document).bind("click", ipselector.checkClickWhileOpen);
       });
     }
     
     this.close = function() {
-      $("#ipSelector .text").removeClass("open");
-      IpSelector.hover.stop(true, true).show().animate({
-        top: -IpSelector.height
+      $("#ipselector .text").removeClass("open");
+      ipselector.hover.stop(true, true).show().animate({
+        top: -ipselector.height
       }, function() {
-        IpSelector.container.hide();
-        IpSelector.hover.hide();
-        $(document).unbind("click", IpSelector.checkClickWhileOpen);
+        ipselector.container.hide();
+        ipselector.hover.hide();
+        $(document).unbind("click", ipselector.checkClickWhileOpen);
       });
     }
     
     this.checkClickWhileOpen = function(event){
-      if($(event.target).closest("#ipSelector").length == 0) {
-        IpSelector.close();
+      if($(event.target).closest("#ipselector").length == 0) {
+        ipselector.close();
       }
     }
   }

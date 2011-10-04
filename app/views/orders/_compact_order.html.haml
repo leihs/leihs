@@ -55,9 +55,8 @@
     
       $("#compactOrder form button:submit").bind("click", function() {
       
-        $("body").append('<div class="ui-widget-overlay"/>');
-        $(".ui-widget-overlay").css("cursor", "wait").css("z-index", "1019");
-        $(".ui-widget-overlay").height($(window).height()).width($(window).width());
+        $("html, body").css("cursor", "wait").css("z-index", "1019");
+        $("html, body").height($(window).height()).width($(window).width());
         
         $("#compactOrder form").submit();
       });

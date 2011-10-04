@@ -9,9 +9,9 @@
     
   %p.subtitle
     - if current_user.inventory_pools.blank?
-      != _("You have %{no_access} to any Equipment Park!") % {:no_access => content_tag(:strong, "no access")}
+      != _("You have %{no_access} to any Equipment Pools!") % {:no_access => content_tag(:strong, "no access")}
     - else 
-      = _("You have access to the following Equipment Parks:")
+      = _("You have access to the following Equipment Pools:")
       - @pools = []
       - current_user.inventory_pools.each do |ip|
         - @pools.push(link_to ip.name, inventory_pool_path(ip))

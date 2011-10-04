@@ -2,11 +2,12 @@
   %ul
     
     %li.item.first{:class => current_page?(categories_path) ? "active" : nil}
-      .leftend
-      = link_to _("Home"), categories_path, :class => "anchor"
+      = link_to categories_path, :class => "anchor" do
+        .leftend
+        = _("Home")
     
     - if @category
       %li.item{:class => current_page?(category_models_path(@category)) ? "active" : nil}
-        .leftend
         %span.anchor
+          .leftend
           = @category
