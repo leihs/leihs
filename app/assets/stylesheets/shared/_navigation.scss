@@ -20,20 +20,21 @@
     position: relative;
     margin-right: -2px;
     
-    .leftend {
-      background: url($image-sprite) no-repeat -73px 0;
-      height: 100%;
-      position: absolute;
-      left: -9px;
-      width: 9px;
-    }
-    
     .anchor {
       background: url($image-sprite) no-repeat right -91px;
       display: block;
       padding: 7px 17px 0 12px;
       position: relative;
       height: 21px;
+    }
+    
+    .leftend {
+      background: url($image-sprite) no-repeat -73px 0;
+      height: 100%;
+      position: absolute;
+      left: -9px;
+      top: 0;
+      width: 9px;
     }
   }
   

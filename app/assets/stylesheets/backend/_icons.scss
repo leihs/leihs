@@ -1,0 +1,70 @@
+.icon {
+  background: url($backend-image-sprite) no-repeat 14px 14px;
+  display: inline-block;
+  position: relative;
+  top: 2px;
+}
+
+.smallbutton .icon {
+  top: 3px;
+}
+
+.datepicker .icon { 
+  background-position: -132px 0;
+  height: 14px;
+  width: 14px;
+}
+
+.back .icon { 
+  background-position: -132px -15px;
+  height: 14px;
+  width: 14px;
+}
+
+.forward .icon { 
+  background-position: -132px -30px;
+  height: 14px;
+  width: 14px;
+}
+
+.open_orders .icon {
+  background-position: -112px 0;
+  height: 14px;
+  width: 19px;
+}
+
+.hand_overs.overdue .icon {
+  background-position: -90px 0;
+  height: 16px;
+  width: 21px;
+}
+
+.take_backs.overdue .icon {
+  background-position: -70px 0;
+  height: 16px;
+  width: 19px;
+}
+
+.hand_overs .icon {
+  background-position: -90px -17px;
+  height: 16px;
+  width: 21px;
+}
+
+.take_backs .icon {
+  background-position: -48px 0;
+  height: 16px;
+  width: 21px;
+}
+
+.edit .icon {
+  background-position: -116px -15px;
+  height: 16px;
+  width: 15px;
+}
+
+.approve .icon {
+  background-position: -74px -17px;
+  height: 15px;
+  width: 15px;
+}

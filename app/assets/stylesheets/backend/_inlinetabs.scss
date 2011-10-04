@@ -1,0 +1,23 @@
+.inlinetabs {
+  border-bottom: 1px solid $borderlightergrey;
+  display: block;
+  height: 26px;
+  margin-top: 8px;
+  padding-left: 14px;
+  
+  .tab {
+    background: white;
+    border-top: 1px solid $borderlightgrey;
+    border-left: 1px solid $borderlightgrey;
+    border-right: 1px solid $borderlightgrey;
+    display: inline-block;
+    font-size: 1.3em;
+    height: 22px;
+    padding: 4px 14px 0 7px;
+    
+    .icon {
+      top: 3px;
+      margin-right: 4px;
+    }
+  }
+}

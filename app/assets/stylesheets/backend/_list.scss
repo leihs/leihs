@@ -1,0 +1,85 @@
+.list {
+  display: block;
+  margin-bottom: 26px;
+  
+  .item {
+    border-bottom: 1px solid $borderlightergrey;
+    border-tops: 1px solid white;
+    height: 40px;
+    width: 100%;
+    
+    tr {
+      td {
+        color: $lightgrey;
+        font-size: 1.2em;
+        position: relative;
+        padding-left: 12px;
+        padding-right: 12px;
+        vertical-align: middle;
+        
+        a.overlay {
+          display: block;
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
+        
+        &.name {
+          font-weight: bold;
+          width: 120px;
+          @include darkGreylinks;
+        }
+        
+        &.quantity {
+          white-space: nowrap;
+          width: 90px;
+          
+          .number {
+            display: inline-block;
+            text-align: right;
+            width: 30px;
+          }
+        }
+        
+        &.range_number {
+          padding-right: 0;
+          text-align: right;
+          width: 30px;
+        }
+        
+        &.range_text {
+          padding-left: 6px;
+          width: 65px;
+        }
+        
+        &.purpose {
+          padding-left: 30px;
+          width: 250px;
+        }
+        
+        &.actions {
+          text-align: right;
+          @include opacity(0.5);
+        }
+        
+        &:hover {
+          color: $grey;
+        }
+      }
+    }
+    
+    &:nth-child(odd) {
+      background: $highlight-grey;
+    }
+    
+    &:hover {
+      @include highlightItem;
+      
+      .actions {
+        @include opacity(1.0);
+      }
+    }
+  }
+}

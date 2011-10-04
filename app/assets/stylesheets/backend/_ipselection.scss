@@ -1,0 +1,93 @@
+#ipselection {
+  display: inline-block;
+  font-size: 1.2em;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  z-index: 998;
+  @include darkGreylinks;
+  
+  .anchor {
+    display: block;
+    background: url($image-sprite) no-repeat right -120px;
+    padding: 7px 10px 0 4px;
+    position: relative;
+    height: 21px;
+    
+    .leftend {
+      background: url($image-sprite) no-repeat left -120px;
+      height: 100%;
+      position: absolute;
+      left: -9px;
+      top: 0;
+      width: 9px;
+    }
+    
+    .icon {
+      background: url($image-sprite) no-repeat -53px -37px;
+      height: 6px;
+      margin-left: 4px;
+      right: 0;
+      top: 0;
+      width: 7px;
+      @include opacity(0.6);
+    }
+  }
+  
+  .popup {
+      display: none;
+      background: #FFF;
+      border: 1px solid $bordergrey;
+      display: none;
+      font-weight: bold;
+      right: 0;
+      position: absolute;
+      top: 27px;
+      z-index: 999;
+      @include boxShadow (0 4px 8px #DDD);
+      @include borderRadius(6px);
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      @include greylinks;
+      
+      .inner {
+        height: 100%;
+        position: relative;
+        
+        a {
+          display: block;
+          overflow: hidden;
+          padding: 11px 25px 10px 20px;
+          position: relative;
+          text-align: right;
+          white-space: nowrap;
+        }
+        
+        hr {
+          display: block;
+          position: relative;
+          margin: 0 0 -15px 0;
+        }      
+      }
+    }
+  
+  &:hover {
+  
+    .anchor {
+      background: url($image-sprite) no-repeat right -149px;
+      color: $darkgrey;
+      
+      .leftend {
+        background: url($image-sprite) no-repeat left -149px;
+      }
+      
+      .icon {
+        @include opacity(1.0);  
+      }
+    }
+    
+    .popup {
+        display: block;
+      }
+  }
+}

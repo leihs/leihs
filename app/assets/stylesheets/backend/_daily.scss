@@ -1,0 +1,30 @@
+#daily {
+  
+  h1 {
+    float: left;
+    width: 400px;
+  }
+  
+  .subtitle {
+    @include greylinks;
+  }
+  
+  .navigation {
+    float: right;
+    
+    .day.back {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      margin-right: -5px;
+    }
+    
+    .day.forward {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+  
+  .overdue .tab {
+    color: red;
+  }
+}
