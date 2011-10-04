@@ -36,10 +36,10 @@ class Document < ActiveRecord::Base
   end
   
   def max_single_range
-    return 0 if lines.blank?
-    max = lines.first
-    lines.each { |x| max = x if (x.end_date - x.start_date).to_i > (max.end_date - max.start_date).to_i }
-    (max.end_date - max.start_date).to_i
+    lines.select("DATEDIFF(end_date, start_date) + 1 as time_window").
+          reorder("time_window DESC").
+          limit(1).
+          first.try(:time_window).to_i
   end
   
   def next_open_date(x)
