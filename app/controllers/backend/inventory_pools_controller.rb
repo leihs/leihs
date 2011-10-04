@@ -1,6 +1,9 @@
 class Backend::InventoryPoolsController < Backend::BackendController
     
   def index
+    
+# EVERYTHING AFTER HERE IS OLD STUFF
+=begin
     # OPTIMIZE 0501 
     params[:sort] ||= 'name'
     params[:sort_mode] ||= 'ASC'
@@ -19,6 +22,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
         format.js { search_result_rjs(@inventory_pools) }
       end
     end
+=end
   end
 
   def show

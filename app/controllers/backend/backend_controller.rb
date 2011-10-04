@@ -8,7 +8,7 @@ class Backend::BackendController < ApplicationController
 ###############################################################  
   
   def index
-    
+    redirect_to backend_inventory_pool_path(current_user.managed_inventory_pools.first) unless current_user.managed_inventory_pools.blank?
   end
   
 ###############################################################    
@@ -170,7 +170,7 @@ class Backend::BackendController < ApplicationController
       return nil if current_user.nil? #fixes http://leihs.hoptoadapp.com/errors/756097 (when a user is not logged in but tries to go to a certain action in an inventory pool (for example when clicking a link in hoptoad)
       @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
     end
-
+    
     # helper for respond_to format.js called from derived controllers' indexes
     def search_result_rjs(search_results)
       render :update do |page|
@@ -212,7 +212,7 @@ class Backend::BackendController < ApplicationController
     # Allow operations on items. 'user' is *not* a customer!
     def is_privileged_user?
       #@is_privileged_user ||=
-      (has_at_least_access_level(2) and is_owner?)
+      (current_user.has_at_least_access_level(2) and is_owner?)
     end
     
     def is_super_user?
@@ -222,19 +222,19 @@ class Backend::BackendController < ApplicationController
     
     def is_inventory_manager?
       #@is_inventory_manager ||=
-      has_at_least_access_level(3)
+      current_user.has_at_least_access_level(3)
     end
     
     def is_lending_manager?(inventory_pool = current_inventory_pool)
       #@is_lending_manager ||= []
       #@is_lending_manager[inventory_pool] ||=
-      has_at_least_access_level(2, inventory_pool)
+      current_user.has_at_least_access_level(2, inventory_pool)
     end
     
     def is_apprentice?(inventory_pool = current_inventory_pool)
       #@is_apprentice ||= []
       #@is_apprentice[inventory_pool] ||=
-      has_at_least_access_level(1, inventory_pool)
+      current_user.has_at_least_access_level(1, inventory_pool)
     end
     
 
@@ -246,9 +246,6 @@ class Backend::BackendController < ApplicationController
     @item.nil? or (current_inventory_pool.id == @item.owner_id)
   end
   
-  def has_at_least_access_level(level, inventory_pool = current_inventory_pool)
-    (current_user.has_role?('manager', inventory_pool, false) and current_user.access_level_for(inventory_pool) >= level)
-  end
   
   def init
     unless logged_in?
