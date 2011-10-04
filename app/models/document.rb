@@ -35,6 +35,13 @@ class Document < ActiveRecord::Base
     lines.maximum(:end_date) || Date.today
   end
   
+  def max_single_range
+    return 0 if lines.blank?
+    max = lines.first
+    lines.each { |x| max = x if (x.end_date - x.start_date).to_i > (max.end_date - max.start_date).to_i }
+    (max.end_date - max.start_date).to_i
+  end
+  
   def next_open_date(x)
     x = Date.today if x.nil?
     if inventory_pool
