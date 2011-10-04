@@ -247,6 +247,18 @@ class Order < Document
   
   ############################################
 
+  def to_json
+    
+    h = self.attributes
+    h["lines"] = self.lines.collect { |x|
+      line = x.attributes  
+      line["model"] = x.model.attributes
+    }
+    h.to_json
+  end
+  
+  ############################################
+
   private
   
   # TODO assign based on the order_lines' inventory_pools
