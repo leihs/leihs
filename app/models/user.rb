@@ -37,7 +37,6 @@ class User < ActiveRecord::Base
   has_many :active_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "(access_rights.suspended_until IS NULL OR access_rights.suspended_until < CURDATE())"
   has_many :suspended_inventory_pools, :through => :access_rights, :uniq => true, :source => :inventory_pool, :conditions => "access_rights.suspended_until IS NOT NULL AND access_rights.suspended_until >= CURDATE()"
   
-  # TODO 29** has_many :managed_inventory_pools
   has_many :items, :through => :inventory_pools, :uniq => true # (nested)
   has_many :models, :through => :inventory_pools, :uniq => true # do # (nested)
     #  def inventory_pools(ips = nil)
@@ -133,6 +132,18 @@ class User < ActiveRecord::Base
 #    end
 #  end
 #  public
+
+################################################
+
+  # TODO has_many :managed_inventory_pools OR scope ??
+  # get the inventory pools managed by the current user
+  def managed_inventory_pools
+    access_rights.collect { |x| x.inventory_pool if has_at_least_access_level(1, x.inventory_pool) }.compact
+  end
+
+  def has_at_least_access_level(level, inventory_pool = current_inventory_pool)
+    (has_role?('manager', inventory_pool, false) and access_level_for(inventory_pool) >= level)
+  end
 
 ################################################
 
