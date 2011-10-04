@@ -28,7 +28,8 @@ set :sql_password, "163ruby9"
 
 
 # User Variables and Settings
-set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
+#set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
+set :contract_lending_party_string, "ZHdK"
 set :default_email, "ausleihe.benachrichtigung\@zhdk.ch"
 set :email_server, "smtp.zhdk.ch"
 set :email_port, 25
@@ -40,7 +41,8 @@ set :deliver_order_notifications, false # This is false by default. TODO: Actual
 set :perform_deliveries, false
 set :local_currency, "CHF"
 # Escape double-quotes using triple-backslashes in this string: \\\"
-set :contract_terms, 'Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die \\\"Richtlinie zur Ausleihe von Sachen\\\" der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien.'
+set :contract_terms, 'Foo'
+#set :contract_terms, 'Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die \\\"Richtlinie zur Ausleihe von Sachen\\\" der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien.'
 
 
 set :deploy_to, "/home/leihs/#{application}"
@@ -51,11 +53,12 @@ role :db,  "leihs@rails.zhdk.ch", :primary => true
 
 task :link_config do
   on_rollback { run "rm #{release_path}/config/database.yml" }
-  on_rollback { run "rm #{release_path}/config/LDAP.yml" }
+  if File.exist?("#{release_path}/config/LDAP.yml")
+    run "rm #{release_path}/config/LDAP.yml"
+    run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
+  end
   run "rm #{release_path}/config/database.yml"
-  run "rm #{release_path}/config/LDAP.yml"
   run "ln -s #{db_config} #{release_path}/config/database.yml"
-  run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
 end
 
 task	:link_attachments do
@@ -99,7 +102,9 @@ task :modify_config do
   run "sed -i 's|:encryption|#:encryption|' #{release_path}/app/controllers/authenticator/ldap_authentication_controller.rb"
   run "sed -i 's|CONTRACT_TERMS.*|CONTRACT_TERMS = \"#{contract_terms}\"|' #{configfile}"
   run "sed -i 's|LOCAL_CURRENCY_STRING.*|LOCAL_CURRENCY_STRING = \"#{local_currency}\"|' #{configfile}"
-  run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environments/production.rb" if perform_deliveries == false
+  if perform_deliveries == false
+    run "sed -i 's|config.action_mailer.perform_deliveries = true|config.action_mailer.perform_deliveries = false|' #{configfile}"
+  end
 end
 
 
@@ -148,7 +153,7 @@ task :migrate_database do
   # deploy.migrate should work, but is buggy and is run in the _previous_ release's
   # directory, thus never runs anything? Strange.
   #deploy.migrate
-  run "cd #{release_path} && RAILS_ENV='production' rake db:migrate"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake db:migrate"
 
 end
 
@@ -164,12 +169,13 @@ namespace :deploy do
 
 end
 
+before "bundle:install", "deploy:symlink"
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
-after "deploy:symlink", :migrate_database
+after "bundle:install", :migrate_database
 after "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
