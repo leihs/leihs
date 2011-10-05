@@ -2,7 +2,7 @@
   %tr
     %td.image
       - if (image_thumb = model.image_thumb)
-        = link_to image_tag("http://leihs.zhdk.ch/#{image_thumb}"), model #TODO: remove the http://leihs.zhdk.ch prefix everywhere
+        = link_to image_tag("#{image_thumb}"), model
       - else 
         .noimage
           %table
@@ -17,7 +17,7 @@
         .arrowleft
         .arrowright
         - if (image = model.image)
-          = image_tag("http://leihs.zhdk.ch/#{image}")
+          = image_tag("#{image}")
         .text
           %h2
             = model.name

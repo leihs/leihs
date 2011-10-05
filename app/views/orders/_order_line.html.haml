@@ -3,7 +3,7 @@
   %tr
     %td.image
       - unless order_line.model.images.empty?
-        = link_to image_tag("http://leihs.zhdk.ch/#{order_line.model.image_thumb}"), order_line.model, :target => "_blank"
+        = link_to image_tag("#{order_line.model.image_thumb}"), order_line.model, :target => "_blank"
     %td.amount
       = "#{order_line.quantity}x"
     %td.name
