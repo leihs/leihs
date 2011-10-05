@@ -1,0 +1,16 @@
+%script#model_template{:type => "text/x-jquery-tmpl"}
+  %table.item{:style => "display: block;"}
+    %tr
+      %td.image
+        {{if image_thumb}}
+        %img{:src => "${image_thumb}"}
+        {{else}}
+        .noimage
+          %table
+            %tr
+              %td= _("no image")
+        {{/if}}
+      %td.name
+        ${name}
+      %td.manufacturer
+        ${manufacturer}

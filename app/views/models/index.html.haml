@@ -46,7 +46,6 @@
   = render :partial => 'topfilter'
 
   %section#modellist
-    = render @models
 
   .clear
   
@@ -55,9 +54,13 @@
 = render :partial => '/layouts/frontend/content_box_foot'
 = render :partial => '/layouts/frontend/aside'
 
+= render :partial => 'model_template'
+
 :javascript
   
   $(document).ready(function(){
+    $('#modellist').append($("#model_template").tmpl(#{@json}));
+
     ModelList.setup();
   });
   
