@@ -1,0 +1,4 @@
+en_US:
+  date:
+    formats:
+      day_long: "%A %d. %B %Y"
