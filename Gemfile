@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1.rc1'
+gem 'rails', '3.1.1.rc2'
 gem 'builder', '~> 3.0' 
 gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
@@ -19,12 +19,13 @@ gem 'uglifier', '~> 1.0'
 
 #old# gem 'prototype-rails', '~> 0.3.1', :git => 'git://github.com/rubychan/prototype-rails.git'
 gem 'jquery-rails', '~> 1.0'
+gem 'jquery-tmpl-rails', '~> 0.1'
 gem 'rails_autolink', '~> 1.0.2'
 
 gem 'will_paginate', '~> 3.0'
 gem 'thinking-sphinx', '~> 2.0.7', :require => 'thinking_sphinx'
 
-gem 'gettext_i18n_rails', '~> 0.2.20'
+gem 'gettext_i18n_rails', '~> 0.3'
 gem 'ruby_parser', '~> 2.3' # gettext dependency that Bundler seems unable to resolve
 
 
@@ -32,8 +33,7 @@ gem 'barby', '~> 0.5.0'
 #gem "cairo" # Needed to print SVG barcodes
 # gem "RubyInline", '3.8.2', :require => "inline"
 
-gem 'rmagick', '~> 2.13.1', :require => 'RMagick' 
-gem 'attachment_fu', :git => 'git://github.com/zhdk/attachment_fu.git', :branch => 'rails3'
+gem 'mini_magick', '~> 3.3'
 
 gem 'rgl', '~> 0.4.0', :require => 'rgl/adjacency'
 gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
