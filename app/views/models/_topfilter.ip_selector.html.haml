@@ -4,22 +4,13 @@
       != _("Parks (#{content_tag(:span, "/#{current_user.inventory_pools.length}", :class => 'amount')})")
     %span.icon
   .container
-    .hover
-      .header
-        .borderleft
-        .inner
-        .borderright
+    .rollout
       .inner
         - current_user.inventory_pools.each do |ip|
           .line{:"data-id" => ip.id}
             %input{:type => "checkbox", :id => "ip-#{ip.id}", :"data-id" => ip.id}
             %label{:for => "ip-#{ip.id}", :title => ip.name, :"data-id" => ip.id}
               = truncate(ip.name, :length => 44)
-        .borderleft
-        .borderright
-      .footer
-        .borderleft
-        .borderright
 
 :javascript
 
@@ -33,7 +24,7 @@
   
   function ipselector() {
   
-    this.hover;
+    this.rollout;
     this.animating;
     this.container;
     this.hight;
@@ -42,7 +33,7 @@
     
     this.setup = function() {
       
-      this.setupHover();
+      this.setuprollout();
       
       this.setupContainer();
       
@@ -152,19 +143,19 @@
       return result;
     }
     
-    this.setupHover = function() {
-      ipselector.hover = $("#topfilter #ipselector .container .hover");
+    this.setuprollout = function() {
+      ipselector.rollout = $("#topfilter #ipselector .container .rollout");
     }
     
     this.setupContainer = function() {
       ipselector.container =  $("#topfilter #ipselector .container");
-      ipselector.hover.show();
+      ipselector.rollout.show();
       ipselector.container.show();
-      ipselector.height = ipselector.hover.height();
+      ipselector.height = ipselector.rollout.height();
       ipselector.container.height(ipselector.height);
-      ipselector.width = ipselector.hover.outerWidth();
+      ipselector.width = ipselector.rollout.outerWidth();
       ipselector.container.width(ipselector.width);
-      ipselector.hover.hide();
+      ipselector.rollout.hide();
       ipselector.container.hide();
     }
     
@@ -179,8 +170,8 @@
     this.open = function() {
       ipselector.container.show();
       $("#ipselector .text").addClass("open");
-      ipselector.hover.offset({top: -ipselector.height});
-      ipselector.hover.stop(true, true).show().animate({
+      ipselector.rollout.offset({top: -ipselector.height});
+      ipselector.rollout.stop(true, true).show().animate({
         top: 0
       }, function(){
         $(document).bind("click", ipselector.checkClickWhileOpen);
@@ -189,11 +180,11 @@
     
     this.close = function() {
       $("#ipselector .text").removeClass("open");
-      ipselector.hover.stop(true, true).show().animate({
+      ipselector.rollout.stop(true, true).show().animate({
         top: -ipselector.height
       }, function() {
         ipselector.container.hide();
-        ipselector.hover.hide();
+        ipselector.rollout.hide();
         $(document).unbind("click", ipselector.checkClickWhileOpen);
       });
     }

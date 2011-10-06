@@ -2,7 +2,7 @@
   .borderleft
   .inner
     .light
-    = link_to root_path do
+    = link_to backend_path do
       .logo
       
     %nav.navigation
@@ -22,7 +22,11 @@
         %li.seperator
         
         %li.item
-          = link_to current_user, user_path, :class => "anchor"
+          = link_to _("Frontend") , categories_path, :class=>"anchor"
+        %li.seperator
+        
+        %li.item
+          = link_to _("Help"), "#", :class => "anchor"
         %li.seperator
         
         %li.item.language
@@ -38,16 +42,9 @@
                     - unless l == (Language.active_languages - [current_user.language]).last
                       %hr
         %li.seperator
-        
-        %li.item
-          = link_to _("Help"), "#", :class => "anchor"
+          
+        %li.item.last
+          = link_to current_user, user_path, :class => "anchor"
         %li.seperator
-        
-        %li.item
-          = link_to _("Frontend") , categories_path, :class=>"anchor"
-        %li.seperator
-        
-        %li.item
-          = link_to _("Logout"), logout_path, :class => "anchor"  
         
     .borderright

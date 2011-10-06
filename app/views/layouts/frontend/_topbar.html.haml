@@ -2,7 +2,7 @@
   .borderleft
   .inner
     .light
-    = link_to root_path do
+    = link_to categories_path do
       .logo
       
     %nav.navigation
@@ -14,16 +14,17 @@
             = link_to _("Backend") , backend_path, :class=>"anchor"
           %li.seperator
           
-        %li.item{:class => current_page?(user_path) ? "active" : nil}
-          = link_to current_user, user_path, :class => "anchor"
-          
-        %li.seperator
-        
         %li.item{:class => request['controller'] == "inventory_pools" ? "active" : nil}
           = link_to _("Equipment Pools"), inventory_pools_path , :class => "anchor"
         
         %li.seperator
         
+        
+        %li.item
+          = link_to _("Help"), "#", :class => "anchor"
+          
+        %li.seperator
+          
         %li.item.language
           = link_to "javascript: void(0)", :class => "anchor" do
             = current_user.language.name
@@ -39,12 +40,7 @@
         
         %li.seperator
         
-        %li.item
-          = link_to _("Help"), "#", :class => "anchor"
-          
-        %li.seperator
-        
-        %li.item
-          = link_to _("Logout"), logout_path, :class => "anchor"  
+        %li.item.last{:class => current_page?(user_path) ? "active" : nil}
+          = link_to current_user, user_path, :class => "anchor"
         
     .borderright

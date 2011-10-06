@@ -1,5 +1,5 @@
 %script#model_template{:type => "text/x-jquery-tmpl"}
-  %table.item{:style => "display: block;"}
+  %table.item
     %tr
       %td.image
         {{if image_thumb}}
@@ -14,3 +14,43 @@
         ${name}
       %td.manufacturer
         ${manufacturer}
+      %td.overlay
+        .popup
+          .arrowleft
+          .arrowright
+          {{if image_thumb}}
+          %img{:src => "${image_thumb}"}
+          {{/if}}
+          .text
+            %h2
+              ${name}
+              %br
+              %span.manufacturer
+                ${manufacturer}
+                
+            {{if description}}
+            %p.description
+              ${description}
+            {{else}}
+            %p.description.none
+              = _("No description available for this model.")
+            {{/if}}
+              
+          %table.details
+            {{each(i, property) properties}}
+            %tr
+              %td.key
+                ${property.key}
+              %td.value
+                ${property.value}
+            {{/each}}
+        
+        = link_to "", "#{link_prefix}${id}", :class => "imageanchor"
+        = link_to "", "#{link_prefix}${id}", :class => "itemanchor"
+        
+      %td.availability
+        = 5
+        \/
+        ${total_borrowable}
+      %td.add
+        = link_to "+", "#{link_prefix}${id}/book", :class => "smallbutton green", :title => _("Book: ${name}")
