@@ -247,14 +247,16 @@ class Order < Document
   
   ############################################
 
-  def to_json
+  def as_json(options={})
+    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
     
-    h = self.attributes
-    h["lines"] = self.lines.collect { |x|
-      line = x.attributes  
-      line["model"] = x.model.attributes
-    }
-    h.to_json
+    required_options = {:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}}},
+                                     :user => {:only => [:firstname, :lastname]}
+                                    },
+                        :methods => [:quantity, :max_single_range]
+                       }
+    
+    super(options.deep_merge(required_options))
   end
   
   ############################################

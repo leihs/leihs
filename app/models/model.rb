@@ -140,6 +140,28 @@ class Model < ActiveRecord::Base
 
   after_save :update_sphinx_index
 
+
+#############################################
+
+  def as_json(options = {})
+    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
+
+    current_user = options.delete(:current_user)
+    
+    required_options = {:include => :properties }
+    
+    # :methods => :inventory_pool_ids
+    json = super(options.deep_merge(required_options))
+    
+    if current_user
+      json['total_borrowable'] = total_borrowable_items_for_user(current_user)
+      json['availability'] = availability_periods_for_user(current_user)
+    end
+    
+    json
+  end
+
+
 #############################################
 
   define_index do

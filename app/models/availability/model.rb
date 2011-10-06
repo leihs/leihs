@@ -49,19 +49,6 @@ module Availability
     end
 
 
-    ########################################################################
-
-    def as_json(options = {})
-      current_user = options.delete(:current_user)
-      # :methods => :inventory_pool_ids
-      json = super(options)
-      if current_user
-        json['total_borrowable'] = total_borrowable_items_for_user(current_user)
-        json['availability'] = availability_periods_for_user(current_user)
-      end
-      json
-    end
-
 
   end
 end
