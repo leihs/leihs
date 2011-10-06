@@ -1,0 +1,60 @@
+%script#open_order_template{:type => "text/x-jquery-tmpl"}
+  %table.item
+    %tr
+      
+      %td.name
+        ${user.firstname}
+        ${user.lastname}
+        
+      %td.quantity
+        %span.number
+          ${quantity}
+        %span.text
+          = _("Items")
+        = link_to "", "#{link_prefix}${id}", :class => "overlay"
+        
+        .hover
+          %table
+            {{each(i, line) order_lines}}
+            %tr
+              %td.line_quantity
+                ${line.quantity}
+              %td.line_model_name
+                ${line.model.name}
+              %td.line_start_date
+                {{html formatDate(new Date(line.start_date), i18n.selected.tips.dateFormat)}}
+              %td.line_date_connector
+                = "-"
+              %td.line_end_date
+                {{html formatDate(new Date(line.start_date), i18n.selected.tips.dateFormat)}}
+            {{/each}}
+        
+      %td.range
+        %span.number
+          ${max_single_range}
+        %span.text
+          = _("Days max.")
+        = link_to "", "#{link_prefix}${id}", :class => "overlay"
+        
+      %td.purpose{:"data-title" => "${purpose}"}
+        {{if (String(purpose).length == 0)}}
+        %span.nodata.text
+          = _("no purpose")
+        {{/if}}
+        
+        %span.text
+          {{html String(purpose).substring(0, DailyView.purpose_max) }}
+          {{if (String(purpose).length > DailyView.purpose_max)}}
+          {{html "..."}}
+          {{/if}}
+          
+        = link_to "", "#{link_prefix}${id}", :class => "overlay"
+        
+      %td.actions
+        = link_to "javascript:void(0)", :class => "edit smallbutton white" do
+          = _("Edit")
+          .icon
+        = link_to "javascript:void(0)", :class => "approve smallbutton white" do
+          = _("Genehmigen")
+          .icon
+  

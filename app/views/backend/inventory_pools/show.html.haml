@@ -1,11 +1,6 @@
 #daily.innercontent
   %h1= l Date.today, :format => :day_long
   
-  -unless last_visitors.blank?
-    %p.subtitle
-      = _("Last Visitors:")
-      != last_visitors
-  
   .navigation
     = button_tag(:class => "today button white") do
       = _("Today")
@@ -15,7 +10,13 @@
       .icon
     = button_tag(:class => "day forward button white") do
       .icon
+      
   .clear
+  
+  %p.subtitle
+    = _("Last Visitors:")
+    != last_visitors
+    
   %hr
   
   .open_orders.list
@@ -23,7 +24,6 @@
       .tab
         .icon
         = _("Open Orders")
-    = render :partial => "open_order", :collection => Order.submitted
       
   .hand_overs.overdue.list
     .inlinetabs
@@ -49,57 +49,58 @@
         .icon
         = _("Take Backs")
       
+= render :partial => 'open_order_template', :locals => {:link_prefix => "/backend/inventory_pools/#{current_inventory_pool.id}/orders/"}
+      
 :javascript
-
+  
   $(document).ready(function(){
-      DailyView.setup();
+    DailyView.setup();
   });
 
   var DailyView = new DailyView();
   
   function DailyView() {
     
+    this.purpose_max = 37;
+    
     this.setup = function() {
       
-      this.setupHovers();
+      this.setupTemplates();
+      
+      this.setupDefaultTips();
+      
+      this.setupTips();
     }
     
-    this.setupHovers = function() {
+    this.setupTemplates = function() {
+      $('.open_orders').append($("#open_order_template").tmpl(#{Order.submitted.to_json}));
+    }
     
-      // OPEN ORDERS ITEMS
-      
+    this.setupDefaultTips = function() {
+    
+      $.fn.qtip.defaults.position.my = 'bottom center';
+      $.fn.qtip.defaults.position.at = 'top center';
+      $.fn.qtip.defaults.position.viewport = $(window);
+      $.fn.qtip.defaults.show.delay = 220;
+    }
+    
+    this.setupTips = function() {
+    
       $("#daily .open_orders .item").each(function(){
-        _data = $(this).data("order");
-        
-        // QUANTITY
-        
-        
         
         $(this).find(".quantity").qtip({
           content: {
-            text: "TEST"
-          },
-          position: {
-            my: 'bottom left',
-            at: 'top right',
-            target: $(this).find(".quantity .text"),
-            viewport: $(window)
+            text: $(this).find(".quantity .hover")
           }
         });
         
-        // PURPOSE
-        
-        $(this).find(".purpose").qtip({
-          content: {
-            text: _data.purpose
-          },
-          position: {
-            my: 'bottom left',
-            at: 'top right',
-            target: $(this).find(".purpose .text"),
-            viewport: $(window)
-          }
-        });
+        if($(this).find(".purpose").data("title").length > DailyView.purpose_max) {
+          $(this).find(".purpose").qtip({
+            content: {
+              text: $(this).find(".purpose").data("title")
+            }
+          });
+        }
       });
     }
   }
