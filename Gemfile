@@ -40,8 +40,6 @@ gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
 gem 'fastercsv', '~> 1.5.4'
 #tmp# gem 'png', '~> 1.2.0'
 
-# Many, many, many, many issues here (e.g. outdated Ascii85
-# gemspec that raises uninitialized constant Psych::Syck (NameError)
 #. Let's stop using PDF.
 gem 'prawn', '~> 0.12.0'
 gem 'prawnto', '~> 0.0.4'

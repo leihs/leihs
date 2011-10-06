@@ -34,7 +34,8 @@ class Image < ActiveRecord::Base
 =end
     
 ####################################
-
+# TODO merge with attachment.rb 
+  
   # NOTE copied from attachment_fu
   # Gets the thumbnail name for a filename.  'foo.jpg' becomes 'foo_thumbnail.jpg'
   def thumbnail_name_for(thumbnail = nil)
