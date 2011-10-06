@@ -10,6 +10,10 @@ function i18n() {
   
   this.locales['de-CH'] = {
   
+    tips: {
+      dateFormat: "dd.MM.yyyy" //for example: dd.MM.yyyy
+    },
+  
     bookingcalendar: {
       dateFormat: "dd.MM.yyyy", //for example: dd.MM.yyyy
       firstDay: 1,
@@ -55,6 +59,10 @@ function i18n() {
   
   this.locales['en-US'] = {
   
+    tips: {
+      dateFormat: "MM/dd/yyyy" //for example: dd.MM.yyyy
+    },
+  
     bookingcalendar: {
       dateFormat: "MM/dd/yyyy", //for example: MM.dd.yyyy
       firstDay: 0,
@@ -95,6 +103,10 @@ function i18n() {
   };
   
   this.locales['en-GB'] = {
+  
+    tips: {
+      dateFormat: "dd/MM/yyyy" //for example: dd.MM.yyyy
+    },
   
     bookingcalendar: {
       dateFormat: "dd/MM/yyyy", //for example: MM.dd.yyyy
