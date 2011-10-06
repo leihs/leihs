@@ -59,7 +59,7 @@
       position: absolute;
       top: 34px;
     
-      .hover {
+      .rollout {
         display: none;
         position: absolute;
         left: 7px;
@@ -75,9 +75,16 @@
         
         .inner {
           background: #FFF;
+          border-left: 1px solid $bordergrey;
+          border-right: 1px solid $bordergrey;
+          border-bottom: 1px solid $bordergrey;
           height: 100%;
           position: relative;
           padding: 0 4px;
+          @include boxShadow (0 4px 8px #DDD);
+          @include borderRadius(6px);
+          border-top-right-radius: 0;
+          border-top-left-radius: 0;
           
           .line {
             display: block;

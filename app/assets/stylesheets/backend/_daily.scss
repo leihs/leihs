@@ -10,7 +10,8 @@
   }
   
   .navigation {
-    float: right;
+    position: absolute;
+    right: 10px;
     
     .day.back {
       border-top-right-radius: 0;

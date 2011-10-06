@@ -10,7 +10,7 @@
     
     tr {
       td {
-        color: $lightgrey;
+        color: $grey;
         font-size: 1.2em;
         position: relative;
         padding-left: 12px;
@@ -26,10 +26,18 @@
           width: 100%;
         }
         
+        span.nodata {
+          color: $lightgrey;
+        } 
+        
+        .hover {
+          display: none;
+        }
+        
         &.name {
           font-weight: bold;
+          line-height: 1.1em;
           width: 120px;
-          @include darkGreylinks;
         }
         
         &.quantity {
@@ -43,15 +51,15 @@
           }
         }
         
-        &.range_number {
-          padding-right: 0;
-          text-align: right;
-          width: 30px;
-        }
-        
-        &.range_text {
-          padding-left: 6px;
-          width: 65px;
+        &.range {
+          white-space: nowrap;
+          width: 90px;
+          
+          .number {
+            display: inline-block;
+            text-align: right;
+            width: 30px;
+          }
         }
         
         &.purpose {
@@ -62,10 +70,6 @@
         &.actions {
           text-align: right;
           @include opacity(0.5);
-        }
-        
-        &:hover {
-          color: $grey;
         }
       }
     }

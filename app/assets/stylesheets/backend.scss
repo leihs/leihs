@@ -28,6 +28,7 @@
  *= depend_on backend/_list
  *= depend_on backend/_ipselection
  *= depend_on backend/_content
+ *= depend_on backend/_tips
  * 
 */
 
@@ -55,3 +56,4 @@
 @import "backend/_list.scss";
 @import "backend/_ipselection.scss";
 @import "backend/_content.scss";
+@import "backend/_tips.scss";

@@ -75,6 +75,7 @@
     
     .item {
       border-bottom: 1px solid #e3e3e3;
+      display: block;
       margin-bottom: 1px;
       height: 70px;
       position: relative;
@@ -283,6 +284,7 @@
         text-align: right;
         padding-right: 7px;
         vertical-align: middle;
+        width: 110px;
       }
       
       .add {
