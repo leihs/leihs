@@ -2,3 +2,9 @@ de_CH:
   date:
     formats:
       day_long: "%A %d. %B %Y"
+
+    day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
+    abbr_day_names: [Son, Mon, Die, Mit, Don, Fre, Sam]
+
+    month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
