@@ -48,18 +48,16 @@
   %section#modellist
 
   .clear
-  
-  
       
 = render :partial => '/layouts/frontend/content_box_foot'
 = render :partial => '/layouts/frontend/aside'
 
-= render :partial => 'model_template'
+= render :partial => 'model_template', :locals => {:link_prefix => "/models/"}
 
 :javascript
   
   $(document).ready(function(){
-    $('#modellist').append($("#model_template").tmpl(#{@json}));
+    $('#modellist').append($("#model_template").tmpl(#{@models_attributes.to_json}));
 
     ModelList.setup();
   });
