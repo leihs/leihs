@@ -127,6 +127,18 @@
     }
     
     this.setupActions = function() {
+    
+      $("#daily .item > tbody > tr > td.actions").live("ajax:success", function(){
+        var to_remove = $(this).closest("table.item");
+        to_remove.fadeOut(400, function(){
+          $(this).remove();
+        });
+      }).live("ajax:error", function(event, response){
+        Dialog.add({
+          trigger: $(this),
+          content: response.responseText
+        });
+      });
       
     }
   }

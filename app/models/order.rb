@@ -97,9 +97,15 @@ class Order < Document
 
   def approvable?
     if is_approved?
-      return false
+      errors.add(:base, _("This order has already been approved."))
+      false
     else 
-      return lines.all? {|l| l.available? }
+      if lines.all? {|l| l.available? }
+        true
+      else
+        errors.add(:base, _("This order is not approvable because some reserved models are not available."))
+        false
+      end
     end
   end
 
