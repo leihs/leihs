@@ -1,10 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.1'
-gem 'builder', '~> 3.0' 
-gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
-
-#tmp# gem 'unicorn'
+#tmp# gem 'builder', '~> 3.0' 
+#tmp# gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
 gem 'mysql2', '~> 0.3.7'
 #tmp# gem 'squeel', '~> 0.8.4'
@@ -12,14 +10,18 @@ gem 'mysql2', '~> 0.3.7'
 # Asset template engines
 gem 'json', '~> 1.6'
 gem 'haml', '~> 3.1'
-gem 'sass', '~> 3.1.7'
-gem 'sass-rails'
-gem 'coffee-script'
-gem 'uglifier', '~> 1.0'
-
-#old# gem 'prototype-rails', '~> 0.3.1', :git => 'git://github.com/rubychan/prototype-rails.git'
+gem 'sass', '~> 3.1'
+gem 'coffee-script', '~> 2.2'
 gem 'jquery-rails', '~> 1.0'
 gem 'jquery-tmpl-rails', '~> 0.1'
+
+# Gems used only for assets and not required in production environments by default.
+group :assets do
+  gem 'sass-rails', '~> 3.1'
+  gem 'coffee-rails', '~> 3.1'
+  gem 'uglifier', '~> 1.0'
+end
+
 gem 'rails_autolink', '~> 1.0.2'
 
 gem 'will_paginate', '~> 3.0'
@@ -27,7 +29,6 @@ gem 'thinking-sphinx', '~> 2.0.7', :require => 'thinking_sphinx'
 
 gem 'gettext_i18n_rails', '~> 0.3'
 gem 'ruby_parser', '~> 2.3' # gettext dependency that Bundler seems unable to resolve
-
 
 gem 'barby', '~> 0.5.0'
 #gem "cairo" # Needed to print SVG barcodes
@@ -64,8 +65,8 @@ end
 group :cucumber, :test do
 	gem 'cucumber-rails', '~> 1.0', :require => false
 	gem 'database_cleaner', '~> 0.6.7', :require => false
-	gem 'rspec', '~> 2.6.0', :require => false
-	gem 'rspec-rails', '~> 2.6.1', :require => false
+	gem 'rspec', '~> 2.7', :require => false
+	gem 'rspec-rails', '~> 2.7', :require => false
 	gem 'nokogiri', '~> 1.5.0'
 	gem 'capybara', '~> 1.0'
   gem 'launchy', '~> 2.0.5'
