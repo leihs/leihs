@@ -195,6 +195,7 @@ module ApplicationHelper
 
   ######## Tabs #########
 
+=begin #old code#
   # TODO 12** optimize rails-widgets overriding
   def tabnav_override(name, opts={}, &block)
     partial_template = opts[:partial] || "widgets/#{name}_tabnav"
@@ -218,4 +219,6 @@ module ApplicationHelper
       end
     end
   end
+=end
+
 end
