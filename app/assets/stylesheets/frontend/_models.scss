@@ -20,7 +20,7 @@
     #categories, #templates {
       padding-top: 18px;
       padding-right: 8px;
-      @include greylinks;
+      @include darkGreylinks;
   
       li {
         list-style-type: none;
@@ -31,6 +31,10 @@
         font-size: 1.2em;
         font-weight: bold;
         margin-bottom: 4px;
+        
+        a {
+          color: $darkgrey !important;
+        }
       }
       
       li:hover h2 a {
@@ -135,131 +139,26 @@
         left: 0;
         position: absolute;
         width: 82%;
-        
-        .imageanchor {
+        vertical-align: middle;
+ 
+        .anchor {
           display: block;
           float: left;
           height: 100%;
-          width: 65px;
+          position: relative;
+          width: 465px;
         }
         
-        .itemanchor {
+        .tip {
+          display: none;          
+        }
+        
+        .tip_target {
           display: block;
-          float: left;
-          height: 100%;
-          width: 398px;
-        }
-        
-        .popup {
-          background: #FFF;
-          border: 1px solid $bordergrey;
-          display: none;
-          left: 79px;
-          min-height: 100px;
-          padding: 14px 11px 11px 10px;
           position: absolute;
-          top: -50px;
-          width: 360px;
-          z-index: 1004;
-          @include borderRadius(8px);
-          @include boxShadow (0 0 8px #CCC);
-          
-          .arrowright {
-            background: url($image-sprite) no-repeat -21px -231px;
-            display: block;
-            height: 42px;
-            right: -19px;
-            position: absolute;
-            top: 54px;
-            width: 20px;
-          }
-          
-          .arrowleft {
-            background: url($image-sprite) no-repeat 0 -231px;
-            display: block;
-            height: 42px;
-            left: -19px;
-            position: absolute;
-            top: 54px;
-            width: 20px;
-          }
-          
-          img {
-            float: right;
-            margin-left: 15px;
-            width: 110px;
-            max-height: 170px;
-            margin-bottom: 5px;
-          }
-          
-          .text {
-            h2 {
-              line-height: 1.2em;
-              margin-bottom: 12px;
-              
-              .manufacturer {
-                color: $grey;
-                padding-top: 6px;
-                font-size: 0.9em;
-              }
-            }
-            
-            .description {
-              font-size: 1.2em;
-              line-height: 1.4em;
-              margin-bottom: 12px;
-            }
-            
-            .description.none {
-              color: $lightgrey;
-            }
-          }
-          
-          .details {
-            border-collapse: separate;
-            width: 362px;
-            
-            tr { 
-              width: 362px;
-            
-              td {
-                border-bottom: 2px solid white;
-                color: #515151;
-                line-height: 1.5em;
-                padding: 8px 0;
-                position: relative;
-                top: 0;
-                vertical-align: top;
-              }
-            }
-            
-            tr:nth-child(odd)  {
-              td {
-                background: $highlight-darkgrey;
-              }
-            }
-            
-            tr:nth-child(even)  {
-              td {
-                background: $highlight-grey;
-              }
-            }
-            
-            .key {
-              border-right: 1px solid white;
-              color: $darkgrey;
-              font-weight: bold;
-              padding-left: 8px;
-              padding-right: 6px;
-              width: 120px;
-            }
-            
-            .value {
-              padding-left: 10px;
-              padding-right: 10px;
-              width: 242px;
-            }
-          }
+          top: 13px;
+          height: 43px;
+          width: 100%;          
         }
       }
       

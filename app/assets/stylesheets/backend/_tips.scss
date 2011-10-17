@@ -1,0 +1,66 @@
+.bar_tip {
+  
+  .ui-tooltip-content {
+    border-color: $borderdarkgrey;
+    border-width: 3px;
+    background-color: white;
+    color: #555;
+    padding: 5px 6px;
+    @include borderRadius(6px);
+    @include boxShadow (0 0 8px #DDD);
+  }
+}
+
+.list_tip {
+  max-width: 430px;
+  
+  .ui-tooltip-content {
+    border-color: $borderdarkgrey;
+    border-width: 3px;
+    background-color: white;
+    color: #555;
+    padding: 10px;
+    @include borderRadius(6px);
+    @include boxShadow (0 0 8px #DDD);
+  }
+
+  .tip {
+    table {
+      tr {
+        td {
+         
+          &.quantity {
+            text-align: right;
+            padding-right: 10px;
+          }
+         
+          &.model_name {
+            padding-right: 20px;
+           
+            span.text {
+              display: inline-block;
+              overflow: hidden;
+              white-space: nowrap;
+              width: 210px;
+            }
+          }
+           
+          &.date_connector {
+           padding-left: 5px;
+           padding-right: 5px;
+          }
+           
+          &.start_date {
+            letter-spacing: -1px;
+            white-space: nowrap;
+          }
+         
+          &.end_date {
+            letter-spacing: -1px;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+}

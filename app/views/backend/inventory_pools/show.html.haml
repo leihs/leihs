@@ -1,3 +1,4 @@
+-content_for :title, _("Daily View")
 #daily.innercontent
   %h1= l Date.today, :format => :day_long
   
@@ -5,11 +6,11 @@
     = button_tag(:class => "today button white") do
       = _("Today")
     = button_tag(:class => "datepicker button white") do
-      .icon
+      .icon.datepicker
     = button_tag(:class => "day back button white") do
-      .icon
+      .icon.back
     = button_tag(:class => "day forward button white") do
-      .icon
+      .icon.forward
       
   .clear
   
@@ -19,37 +20,39 @@
     
   %hr
   
-  .open_orders.list
+  .orders
     .inlinetabs
       .tab
-        .icon
-        = _("Open Orders")
-      
-  .hand_overs.overdue.list
+        .icon.orders
+        = _("Orders")
+    .list
+  
+  .hand_overs
     .inlinetabs
       .tab
-        .icon
-        = _("Overdue Hand Overs")
-      
-  .take_backs.overdue.list
-    .inlinetabs
-      .tab
-        .icon
-        = _("Overdue Take Backs")
-      
-  .hand_overs.list
-    .inlinetabs
-      .tab
-        .icon
+        .icon.hand_over
         = _("Hand Overs")
-      
-  .take_backs.list
+        .badge.red
+          = @hand_overs_overdue.size
+    .list
+     
+  .take_backs 
     .inlinetabs
       .tab
-        .icon
+        .icon.take_back
         = _("Take Backs")
-      
-= render :partial => 'open_order_template', :locals => {:link_prefix => "/backend/inventory_pools/#{current_inventory_pool.id}/orders/"}
+        .badge.red
+          = @take_backs_overdue.size
+    .list
+    
+= render :partial => 'backend/inventory_pools/bar_chart'
+  
+= render :partial => 'daily_line_template', :locals => {:user_link_prefix => "/backend/inventory_pools/#{current_inventory_pool.id}/users/",
+                                                        :order_link_prefix => "/backend/inventory_pools/#{current_inventory_pool.id}/orders/",
+                                                        :hand_over_postfix => "/hand_over",
+                                                        :take_back_postfix => "/take_back",
+                                                        :acknowledge_postfix => "/acknowledge/",
+                                                        :approve_postfix => "/approve"}
       
 :javascript
   
@@ -61,7 +64,8 @@
   
   function DailyView() {
     
-    this.purpose_max = 37;
+    this.purpose_max = 70;
+    this.tip_modelname_max = 30;
     
     this.setup = function() {
       
@@ -70,37 +74,59 @@
       this.setupDefaultTips();
       
       this.setupTips();
+      
+      this.setupActions();
     }
     
     this.setupTemplates = function() {
-      $('.open_orders').append($("#open_order_template").tmpl(#{Order.submitted.to_json}));
+      $('.orders .list').append($("#daily_line_template").tmpl(#{@orders.to_json}, {type: "order"}));
+      $('.hand_overs .list').append($("#daily_line_template").tmpl(#{@hand_overs_overdue.to_json}, {type: "hand_over", overdue: true}));
+      $('.hand_overs .list').append($("#daily_line_template").tmpl(#{@hand_overs.to_json}, {type: "hand_over"}));
+      $('.take_backs .list').append($("#daily_line_template").tmpl(#{@take_backs_overdue.to_json}, {type: "take_back", overdue: true}));
+      $('.take_backs .list').append($("#daily_line_template").tmpl(#{@take_backs.to_json}, {type: "take_back"}));
     }
     
     this.setupDefaultTips = function() {
-    
       $.fn.qtip.defaults.position.my = 'bottom center';
       $.fn.qtip.defaults.position.at = 'top center';
       $.fn.qtip.defaults.position.viewport = $(window);
       $.fn.qtip.defaults.show.delay = 220;
+      $.fn.qtip.defaults.show.solo = true;
+      $.fn.qtip.defaults.style.tip.width = 12;
+      $.fn.qtip.defaults.style.tip.height = 8;
+      $.fn.qtip.defaults.style.classes = "list_tip";
     }
     
     this.setupTips = function() {
-    
-      $("#daily .open_orders .item").each(function(){
+      
+      $("#daily .item > tbody > tr > .purpose").each(function(){
         
-        $(this).find(".quantity").qtip({
-          content: {
-            text: $(this).find(".quantity .hover")
-          }
-        });
-        
-        if($(this).find(".purpose").data("title").length > DailyView.purpose_max) {
-          $(this).find(".purpose").qtip({
-            content: {
-              text: $(this).find(".purpose").data("title")
-            }
+        if($(this).data("title").length > DailyView.purpose_max) {
+          $(this).qtip({
+             content: {
+                text: $(this).data("title")
+              },
+              position: {
+                target: $(this).find(".tip_target")
+              }
           });
         }
       });
+      
+      $("#daily .item > tbody > tr > .quantity").each(function(){
+        
+        $(this).qtip({
+          content: {
+            text: $(this).find(".tip")
+          },
+          position: {
+            target: $(this).find(".tip_target")
+          }
+        });
+      });
+    }
+    
+    this.setupActions = function() {
+      
     }
   }

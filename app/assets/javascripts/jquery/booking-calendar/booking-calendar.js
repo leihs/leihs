@@ -221,8 +221,8 @@ function BookingCalendar() {
     
     this.setupSelection = function() {
       
-      BookingCalendar.start_date = new Date($("#book #start_date").val());
-      BookingCalendar.end_date = new Date($("#book #end_date").val());
+      BookingCalendar.start_date = new Date($("#book #start_date").val().replace(/-/g, "/")); // SAFARI Workarround for Date.parse problem
+      BookingCalendar.end_date = new Date($("#book #end_date").val().replace(/-/g, "/")); // SAFARI Workarround for Date.parse problem
     }
     
     this.setupLocal = function() {
@@ -511,7 +511,7 @@ function BookingCalendar() {
     this.localizeDates = function() {
       
       $("#book .date input").each(function(){
-        var date = new Date($(this).val());
+        var date = new Date($(this).val().replace(/-/g,"/"));
         date = formatDate(date, BookingCalendar.local.dateFormat);
         $(this).val(date);
       });

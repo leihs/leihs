@@ -57,8 +57,6 @@
 :javascript
   
   $(document).ready(function(){
-    $('#modellist').append($("#model_template").tmpl(#{@models_attributes.to_json}));
-
     ModelList.setup();
   });
   
@@ -66,133 +64,43 @@
   
   function ModelList() {
       
-      this.hovering = false;
-      this.hoveringMode = false;
-      this.showDelayTimer;
-      this.showDelay = 400;
-      this.hoveringModeTimer;
-      this.hoveringModeTimeout = 400;
-      this.paddingTop = 5;
-      this.paddingBottom = 35;
-            
       this.setup = function() {
         
-        this.setupImageAnchor();
+        this.setupTemplates();
+        this.setupTips();
       }
       
-      this.setupImageAnchor = function() {
-      
-        $('#models #modellist .item .overlay .imageanchor').bind('mouseenter', function(){
+      this.setupTemplates = function() {
         
-          var _this = $(this);
-          $(this).data("over", true);
-          ModelList.hovering = true;
-          
-          if(ModelList.hoveringMode) {
-          
-            // in hovering mode popup is displayed immediately
-            
-            $(this).parent().find(".popup").hide(0, function(){
-                if(_this.data("over")) {
-                  if($(this).children().length > 2) {
-                    $(this).stop().show(0, function() {
-                        ModelList.checkPosition($(this));
-                    });
-                  }
-                } else {
-                    $(this).stop().hide();                    
-                }
-            });
-          } else {
-            // normaly having a timer delaying showing the hover
-            ModelList.showDelayTimer = setTimeout(function(){
-              _this.parent().find(".popup").hide(0, function(){
-                ModelList.hoveringMode = true;
-                if(_this.data("over")) {
-                  if($(this).children().length > 2) {
-                    $(this).stop().show(0, function() {
-                        ModelList.checkPosition($(this));
-                    });
-                  }
-                } else {
-                    $(this).stop().hide();                    
-                }
-              });
-            }, ModelList.showDelay);
-          }
-        });
-        
-        $('#models #modellist .item .overlay .imageanchor').bind('mouseleave', function(){
-            $(this).data("over", false);
-            ModelList.hovering = false;
-            clearTimeout(ModelList.showDelayTimer);
-            $(this).parent().find(".popup").stop().hide(0, function() {
-                $(this).position({top: 0});
-                $(this).removeAttr("style");
-                $(this).find(".arrowleft").removeAttr("style");
-                $(this).find(".arrowright").removeAttr("style");
-            });
-            $(this).parent().find(".popup").delay(ModelList.hoveringModeTimeout).hide(0, function() {
-                if(!ModelList.hovering) {
-                    ModelList.hoveringMode = false;
-                }
-            });
-        });
+         $('#modellist').append($("#model_template").tmpl(#{@models_attributes.to_json}));
       }
-     
-      this.checkPosition = function (_object) {
-          $(_object).css("display", "block");
-          
-          if(window.pageYOffset > $(_object).offset().top){
-              // top is higher then viewport
-              $(_object).offset({top: window.pageYOffset + ModelList.paddingTop});
-              
-              // show or hide arrows dedicated to their position in the viewport
-              if($(_object).parent().offset().top - window.pageYOffset < 0) {
-                  $(_object).find(".arrowleft").hide();
-                  $(_object).find(".arrowright").hide();
-              } else {
-                  $(_object).find(".arrowleft").show();
-                  $(_object).find(".arrowright").show();
+      
+      this.setupTips = function() {
+      
+        $.fn.qtip.defaults.position.my = 'bottom center';
+        $.fn.qtip.defaults.position.at = 'top center';
+        $.fn.qtip.defaults.position.viewport = $(window);
+        $.fn.qtip.defaults.position.adjust.x = 53;
+        $.fn.qtip.defaults.show.delay = 220;
+        $.fn.qtip.defaults.show.solo = true;
+        $.fn.qtip.defaults.style.tip.width = 20;
+        $.fn.qtip.defaults.style.tip.height = 12;
+        $.fn.qtip.defaults.style.classes = "model_tip";
+      
+        $('#models #modellist .item').each(function(){
+          $(this).qtip({
+            content: {
+              text: $(this).find(".tip")
+            },
+            position: {
+              target: $(this).find(".tip_target")
+            },
+            show: {
+              effect: function(offset) {
+                $(this).fadeIn();
               }
-              
-              // positioning arrows
-              $(_object).find(".arrowleft").offset({top: $(_object).parent().offset().top+14});
-              $(_object).find(".arrowright").offset({top: $(_object).parent().offset().top+14});
-          } else if(($(_object).parent().offset().top +  $(_object).height()) > (window.pageYOffset +  window.innerHeight)) {
-              // bottom of object is lower then viewport
-              $(_object).offset({top: (window.pageYOffset +  window.innerHeight - $(_object).height() - ModelList.paddingBottom)});
-              
-              // show or hide arrows dedicated to their position in the viewport
-              if($(_object).parent().offset().top > (window.pageYOffset +  window.innerHeight - 80)) {
-                  $(_object).find(".arrowleft").hide();
-                  $(_object).find(".arrowright").hide();
-              } else {
-                  $(_object).find(".arrowleft").show();
-                  $(_object).find(".arrowright").show();
-              }
-              
-              // positioning arrows
-              $(_object).find(".arrowleft").offset({top: $(_object).parent().offset().top+14});
-              $(_object).find(".arrowright").offset({top: $(_object).parent().offset().top+14});
-          } else {
-              // normal position
-              $(_object).offset({top: $(_object).parent().offset().top-50});
-              
-              // show or hide arrows dedicated to their position in the viewport
-              if($(_object).parent().offset().top - window.pageYOffset < 0) {
-                  $(_object).find(".arrowleft").hide();
-                  $(_object).find(".arrowright").hide();
-              } else {
-                  $(_object).find(".arrowleft").show();
-                  $(_object).find(".arrowright").show();
-              }
-              
-              // positioning arrows
-              $(_object).find(".arrowleft").offset({top: $(_object).parent().offset().top+14});
-              $(_object).find(".arrowright").offset({top: $(_object).parent().offset().top+14});
-          }
-          
-          $(_object).css("display", "none");
+            }
+          });
+        });
       }
   }

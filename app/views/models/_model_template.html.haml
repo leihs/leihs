@@ -15,9 +15,9 @@
       %td.manufacturer
         ${manufacturer}
       %td.overlay
-        .popup
-          .arrowleft
-          .arrowright
+        = link_to "#{link_prefix}${id}", :class => "anchor" do
+          .tip_target
+        .tip
           {{if image_thumb}}
           %img{:src => "${image_thumb}"}
           {{/if}}
@@ -35,22 +35,20 @@
             %p.description.none
               = _("No description available for this model.")
             {{/if}}
-              
           %table.details
             {{each(i, property) properties}}
+            {{if i < 5}}
             %tr
               %td.key
                 ${property.key}
               %td.value
                 ${property.value}
+            {{/if}}
             {{/each}}
-        
-        = link_to "", "#{link_prefix}${id}", :class => "imageanchor"
-        = link_to "", "#{link_prefix}${id}", :class => "itemanchor"
         
       %td.availability
         = 5
         \/
         ${total_borrowable}
       %td.add
-        = link_to "+", "#{link_prefix}${id}/book", :class => "smallbutton green", :title => _("Book: ${name}")
+        = link_to "+", "#{link_prefix}${id}/book", :class => "smallbutton green", :title => _("Book this")

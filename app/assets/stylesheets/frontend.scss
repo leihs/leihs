@@ -11,6 +11,7 @@
  *= depend_on shared/_content
  *= depend_on shared/_datepicker
  *= depend_on shared/_fullcalendar
+ *= depend_on shared/_qtips
  *= depend_on shared/_tips
  *= depend_on shared/_tabs
  *= depend_on shared/_dialog
@@ -28,6 +29,7 @@
  *= depend_on frontend/_order
  *= depend_on frontend/_book
  *= depend_on frontend/_ip
+ *= depend_on frontend/_tips
  * 
 */
 
@@ -42,6 +44,7 @@
 @import "shared/navigation.scss";
 @import "shared/search.scss";
 @import "shared/tabs.scss";
+@import "shared/qtips.scss";
 @import "shared/tips.scss";
 @import "shared/dialog.scss";
 @import "shared/topbar.scss";
@@ -55,3 +58,4 @@
 @import "frontend/order.scss";
 @import "frontend/book.scss";
 @import "frontend/ip.scss";
+@import "frontend/tips.scss";

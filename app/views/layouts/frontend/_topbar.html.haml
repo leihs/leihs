@@ -19,6 +19,10 @@
         
         %li.seperator
         
+        %li.item{:class => current_page?(user_path) ? "active" : nil}
+          = link_to current_user, user_path, :class => "anchor"
+          
+        %li.seperator
         
         %li.item
           = link_to _("Help"), "#", :class => "anchor"
@@ -40,7 +44,7 @@
         
         %li.seperator
         
-        %li.item.last{:class => current_page?(user_path) ? "active" : nil}
-          = link_to current_user, user_path, :class => "anchor"
+        %li.item
+          = link_to _("Logout"), logout_path, :class => "anchor"
         
     .borderright

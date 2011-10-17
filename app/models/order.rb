@@ -247,20 +247,6 @@ class Order < Document
   
   ############################################
 
-  def as_json(options={})
-    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-    
-    required_options = {:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}}},
-                                     :user => {:only => [:firstname, :lastname]}
-                                    },
-                        :methods => [:quantity, :max_single_range]
-                       }
-    
-    super(options.deep_merge(required_options))
-  end
-  
-  ############################################
-
   private
   
   # TODO assign based on the order_lines' inventory_pools

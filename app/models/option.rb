@@ -47,6 +47,11 @@ class Option < ActiveRecord::Base
   def to_s
     name
   end
+
+  # OPTIMIZE we might want a real manufacturer attribute (stored in the db) later on
+  def manufacturer
+    nil
+  end
  
 end
  

@@ -1,0 +1,85 @@
+#chart {
+  position: absolute;
+  
+  .legend {
+    font-size: 1.2em;
+    position: absolute;
+    right: 16px;
+    top: 0;
+    
+    .item {
+      margin-top: 2px;
+      display: block;
+      position: relative;
+      
+      .color-box {
+        display: inline-block;
+        height: 12px;
+        margin-right: 5px;
+        position: relative;
+        top: 2px;
+        width: 14px;
+      }
+    }
+  }
+  
+  .barchart {
+    display: block;
+    margin-right: 15px;
+    margin-top: 20px;
+    
+    .grid {
+      
+      .line {
+        
+        .text {
+          font-size: 1.1em;
+          position: absolute;
+          top: -7px !important;
+        }
+        
+        hr {
+          margin: 0 0 0 24px;
+        }
+      }
+    }
+    
+    .graphField {
+      
+      .graphBar {
+        overflow: visible !important;       
+        
+        .subBars {
+          
+          .text {
+            background: white;
+            display: inline-block;
+            color: black;
+            font-size: 0.9em;
+            padding: 1px 4px 3px 4px;
+            margin-top: 1px;
+            @include borderRadius(4px);
+            @include opacity(0.5);
+          }
+        } 
+      }
+    }
+    
+    .graphLabel {
+      font-size: 1.2em;
+      letter-spacing: -1px;
+      padding-top: 8px;
+      
+      strong {
+        display: block;
+        letter-spacing: 0;
+        text-align: center;
+      }
+    }
+    
+    .graphValue {
+      font-size: 1.2em;
+      padding-bottom: 2px;
+    }
+  }
+}

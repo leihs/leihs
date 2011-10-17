@@ -113,7 +113,7 @@
     this.formatDates = function() {
       
       $('#topfilter .availability .date').each(function(){
-        var date = new Date($(this).val());
+        var date = new Date($(this).val().replace(/-/g, "/")); // SAFARI Workarround for the Date.parse problem
         $(this).val($.datepicker.formatDate(i18n.selected.datepicker.dateFormat, date));
       });
     }

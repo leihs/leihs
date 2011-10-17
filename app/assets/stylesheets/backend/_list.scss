@@ -15,7 +15,15 @@
         position: relative;
         padding-left: 12px;
         padding-right: 12px;
+        padding-top: 2px;
         vertical-align: middle;
+        
+        .tip_target {
+          position: absolute;
+          top: 10px;
+          height: 20px;
+          width: 100%;
+        }
         
         a.overlay {
           display: block;
@@ -26,11 +34,11 @@
           width: 100%;
         }
         
-        span.nodata {
+        span.grey {
           color: $lightgrey;
         } 
         
-        .hover {
+        .tip {
           display: none;
         }
         
@@ -53,7 +61,7 @@
         
         &.range {
           white-space: nowrap;
-          width: 90px;
+          width: 115px;
           
           .number {
             display: inline-block;
@@ -63,8 +71,7 @@
         }
         
         &.purpose {
-          padding-left: 30px;
-          width: 250px;
+          width: 265px;
         }
         
         &.actions {
@@ -74,7 +81,7 @@
       }
     }
     
-    &:nth-child(odd) {
+    &:nth-child(even) {
       background: $highlight-grey;
     }
     
@@ -83,6 +90,12 @@
       
       .actions {
         @include opacity(1.0);
+      }
+    }
+    
+    &.overdue {
+      tr td {
+        color: red !important;     
       }
     }
   }
