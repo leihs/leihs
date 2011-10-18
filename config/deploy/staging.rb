@@ -20,13 +20,6 @@ set :rails_env, "production"
 default_run_options[:shell] = false
 
 
-# DB credentials needed by Sphinx, mysqldump etc.
-set :sql_database, "rails_leihs2_dev"
-set :sql_host, "db.zhdk.ch"
-set :sql_username, "leihs2dev"
-set :sql_password, "163ruby9"
-
-
 # User Variables and Settings
 #set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
 set :contract_lending_party_string, "ZHdK"
@@ -51,6 +44,16 @@ role :app, "leihs@rails.zhdk.ch"
 role :web, "leihs@rails.zhdk.ch"
 role :db,  "leihs@rails.zhdk.ch", :primary => true
 
+task :retrieve_db_config do
+  # DB credentials needed by Sphinx, mysqldump etc.
+  get(db_config, "/tmp/leihs_db_config.yml")
+  dbconf = YAML::load_file("/tmp/leihs_db_config.yml")["production"]
+  set :sql_database, dbconf['database']
+  set :sql_host, dbconf['host']
+  set :sql_username, dbconf['username']
+  set :sql_password, dbconf['password']
+end
+
 task :link_config do
   on_rollback { run "rm #{release_path}/config/database.yml" }
   if File.exist?("#{release_path}/config/LDAP.yml")
@@ -61,12 +64,12 @@ task :link_config do
   run "ln -s #{db_config} #{release_path}/config/database.yml"
 end
 
-task	:link_attachments do
-	run "rm -rf #{release_path}/public/images/attachments"
-	run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
+task :link_attachments do
+  run "rm -rf #{release_path}/public/images/attachments"
+  run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
 
-	run "rm -rf #{release_path}/public/attachments"
-	run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/attachments"
+  run "rm -rf #{release_path}/public/attachments"
+  run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/attachments"
 end
 
 task :link_db_backups do
@@ -158,10 +161,10 @@ task :migrate_database do
 end
 
 namespace :deploy do
-	task :start do
-	# we do absolutely nothing here, as we currently aren't
-	# using a spinner script or anything of that sort.
-	end
+  task :start do
+  # we do absolutely nothing here, as we currently aren't
+  # using a spinner script or anything of that sort.
+  end
 
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
@@ -169,6 +172,7 @@ namespace :deploy do
 
 end
 
+before "deploy", "retrieve_db_config"
 before "bundle:install", "deploy:symlink"
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
