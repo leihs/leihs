@@ -94,8 +94,8 @@
 }
 
 #search {
+  display: block;
 	position: relative;
-	width: 150px;
 	z-index: 3;
   
   .inner {
@@ -116,10 +116,10 @@
       margin-top: 4px;
       padding-top: 2px;
       padding-left: 6px;
-      padding-right: 18px;
+      padding-right: 26px;
       padding-bottom: 2px;
       position: relative;
-      width: 92px;
+      width: 89px;
       @include borderRadius(8px);
     }
     
@@ -129,7 +129,7 @@
       cursor: pointer;
       height: 12px;
       position: absolute;
-      left: 106px;
+      left: 111px;
       top: 9px;
       width: 13px;
       @include opacity(0.7);

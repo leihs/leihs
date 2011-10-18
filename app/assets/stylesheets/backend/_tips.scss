@@ -27,11 +27,19 @@
   .tip {
     table {
       tr {
+        &:nth-child(odd) {
+          td {
+            background: $highlight-grey;
+          }
+        }
+        
         td {
+          padding: 4px 0 2px 0;
          
           &.quantity {
             text-align: right;
             padding-right: 10px;
+            padding-left: 5px;
           }
          
           &.model_name {
@@ -57,6 +65,7 @@
          
           &.end_date {
             letter-spacing: -1px;
+            padding-right: 3px;
             white-space: nowrap;
           }
         }

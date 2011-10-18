@@ -18,7 +18,6 @@
     margin-right: -4px;
     
     .icon {
-      top: 3px;
       margin-right: 4px;
     }
     
@@ -29,7 +28,7 @@
       min-width: 12px;
       padding: 2px 3px;
       position: absolute;
-      right: -8px;
+      right: -12px;
       text-align: center;
       top: -8px;
       @include borderRadius(5px);

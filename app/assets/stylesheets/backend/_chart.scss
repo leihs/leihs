@@ -56,7 +56,7 @@
             display: inline-block;
             color: black;
             font-size: 0.9em;
-            padding: 1px 4px 3px 4px;
+            padding: 1px 4px;
             margin-top: 1px;
             @include borderRadius(4px);
             @include opacity(0.5);

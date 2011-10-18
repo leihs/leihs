@@ -4,3 +4,29 @@
       %input{:type => "text"}
       = submit_tag "", :class => "icon"
     .borderright
+    
+:javascript
+  $(document).ready(function(){
+    Search.setup();
+  });
+  
+  var Search = new Search();
+
+  function Search() {
+  
+    this.setup = function() {
+      
+      this.setupFocus();
+    }
+    
+    this.setupFocus = function() {
+      
+      $("#search input:text").bind("focus", function() {
+        $(this).parents("#search").addClass("active");
+      });
+      
+      $("#search input:text").bind("blur", function() {
+        $(this).parents("#search").removeClass("active");
+      });
+    }
+  }
