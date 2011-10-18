@@ -27,11 +27,19 @@ class Backend::AcknowledgeController < Backend::BackendController
   def approve
     if request.post? and @order.approve(params[:comment], current_user)
       # TODO test# @order.destroy # TODO remove old orders ?
-      flash[:error] = @order.errors.full_messages.join("\n") if @order.errors.size > 0
-      redirect_to :action => 'index'
+      
+      respond_to do |format|
+        #old# format.html { redirect_to :action => 'index' }
+        format.js { render :json => true, :status => 200  }
+      end
     else
-      params[:layout] = "modal"
-    end    
+      errors = @order.errors.full_messages.join("\n")
+      #old# flash[:error] = errors if @order.errors.size > 0
+      respond_to do |format|
+        #old# format.html { params[:layout] = "modal" }
+        format.js { render :text => errors, :status => 500 }
+      end
+    end
   end
   
   def reject

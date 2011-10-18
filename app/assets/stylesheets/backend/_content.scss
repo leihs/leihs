@@ -2,8 +2,16 @@
   
   .contentheader {
   
+    .borderleft.round {
+      background: url($image-sprite) no-repeat -25px -30px;
+    }
+  
     .borderright {
       background: url($image-sprite) no-repeat -18px 0;
+    }
+    
+    .borderright.round {
+      background: url($image-sprite) no-repeat -18px -14px;
     }
   }
 }

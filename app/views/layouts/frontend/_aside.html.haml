@@ -95,7 +95,7 @@
     
     this.formatDates = function() {
       $("#compactHistory .entries h4 .date").each(function() {
-        var date = new Date($(this).html())
+        var date = new Date($(this).html().replace(/-/g, "/"))
         date = formatDate(date, i18n.selected.compacthistory.dateFormat);
         $(this).html(date);
       });

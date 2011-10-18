@@ -3,7 +3,7 @@ class Backend::BackendController < ApplicationController
   
   before_filter :init
   
-  layout 'layouts/backend'
+  layout 'backend'
  
 ###############################################################  
   

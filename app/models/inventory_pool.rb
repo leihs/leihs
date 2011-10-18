@@ -190,7 +190,7 @@ class InventoryPool < ActiveRecord::Base
   def hand_over_visits(max_start_date = nil)
     visits(max_start_date, :to_hand_over)
   end
-
+  
   # Returns a list of hand_over events. See #visits for details
   def take_back_visits(max_end_date = nil)
     visits(max_end_date, :to_take_back)

@@ -19,3 +19,4 @@
 /////////// Vendor /////////////
 //= require date/date
 //= require jquery/qtip/qtip.min
+//= require jquery/jqBarGraph/jqBarGraph.1.2.js

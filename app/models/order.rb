@@ -97,9 +97,15 @@ class Order < Document
 
   def approvable?
     if is_approved?
-      return false
+      errors.add(:base, _("This order has already been approved."))
+      false
     else 
-      return lines.all? {|l| l.available? }
+      if lines.all? {|l| l.available? }
+        true
+      else
+        errors.add(:base, _("This order is not approvable because some reserved models are not available."))
+        false
+      end
     end
   end
 
@@ -243,20 +249,6 @@ class Order < Document
       return true if contract and not contract.lines.empty?
     end
     return false
-  end
-  
-  ############################################
-
-  def as_json(options={})
-    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-    
-    required_options = {:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}}},
-                                     :user => {:only => [:firstname, :lastname]}
-                                    },
-                        :methods => [:quantity, :max_single_range]
-                       }
-    
-    super(options.deep_merge(required_options))
   end
   
   ############################################

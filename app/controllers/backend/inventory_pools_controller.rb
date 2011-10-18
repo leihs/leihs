@@ -26,6 +26,26 @@ class Backend::InventoryPoolsController < Backend::BackendController
   end
 
   def show
+    @orders = Order.submitted.as_json({:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}}},
+                                                                    :user => {:only => [:firstname, :lastname, :id]}
+                                                                   },
+                                                       :methods => [:quantity, :max_single_range]
+                                                      })
+   
+    today_and_next_4_days = [Date.today] 
+    4.times { today_and_next_4_days << current_inventory_pool.next_open_date(today_and_next_4_days[-1] + 1.day) }
+      
+    hand_over_visits = current_inventory_pool.hand_over_visits(today_and_next_4_days.last)
+    @hand_overs_overdue = hand_over_visits.select {|v| v.date < today_and_next_4_days.first }.as_json()
+    @hand_overs = hand_over_visits.select {|v| v.date == today_and_next_4_days.first }.as_json()
+    
+    take_back_visits = current_inventory_pool.take_back_visits(today_and_next_4_days.last)
+    @take_backs_overdue = take_back_visits.select {|v| v.date < today_and_next_4_days.first }.as_json()
+    @take_backs = take_back_visits.select {|v| v.date == today_and_next_4_days.first }.as_json
+    
+    @chart_data = today_and_next_4_days.map do |day|
+      [[take_back_visits.select {|v| v.date == day }.size, hand_over_visits.select {|v| v.date == day }.size], l(day, :format => "%a")]
+    end
   end
   
   def new

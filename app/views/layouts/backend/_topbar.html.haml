@@ -26,6 +26,10 @@
         %li.seperator
         
         %li.item
+          = link_to current_user, user_path, :class => "anchor"
+        %li.seperator
+        
+        %li.item
           = link_to _("Help"), "#", :class => "anchor"
         %li.seperator
         
@@ -43,8 +47,7 @@
                       %hr
         %li.seperator
           
-        %li.item.last
-          = link_to current_user, user_path, :class => "anchor"
-        %li.seperator
+        %li.item
+          = link_to _("Logout"), logout_path, :class => "anchor"
         
     .borderright

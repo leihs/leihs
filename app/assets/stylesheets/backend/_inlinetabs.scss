@@ -14,10 +14,39 @@
     font-size: 1.3em;
     height: 22px;
     padding: 4px 14px 0 7px;
+    position: relative;
+    margin-right: -4px;
     
     .icon {
       top: 3px;
       margin-right: 4px;
     }
+    
+    .badge {
+      background: white;
+      border: 1px solid $borderlightgrey;
+      font-size: 0.8em;
+      min-width: 12px;
+      padding: 2px 3px;
+      position: absolute;
+      right: -8px;
+      text-align: center;
+      top: -8px;
+      @include borderRadius(5px);
+      @include boxShadow (0 0 1px #DDD);
+      
+      &.red {
+        background: $red;
+        border: 1px solid white;
+        color: white;
+      }
+    }
+  }
+  
+  .tab.inactive {
+    background: $highlight-darkgrey;
+    padding-top: 2px;
+    height: 24px;
+    top: -2px;
   }
 }

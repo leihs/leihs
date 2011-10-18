@@ -10,6 +10,10 @@ function i18n() {
   
   this.locales['de-CH'] = {
   
+    lines: {
+      dateFormat: "dd.MM.yyyy" //for example: dd.MM.yyyy
+    },
+  
     tips: {
       dateFormat: "dd.MM.yyyy" //for example: dd.MM.yyyy
     },
@@ -59,6 +63,10 @@ function i18n() {
   
   this.locales['en-US'] = {
   
+    lines: {
+      dateFormat: "dd.MM.yyyy" //for example: dd.MM.yyyy
+    },
+  
     tips: {
       dateFormat: "MM/dd/yyyy" //for example: dd.MM.yyyy
     },
@@ -103,6 +111,10 @@ function i18n() {
   };
   
   this.locales['en-GB'] = {
+  
+    lines: {
+      dateFormat: "dd.MM.yyyy" //for example: dd.MM.yyyy
+    },
   
     tips: {
       dateFormat: "dd/MM/yyyy" //for example: dd.MM.yyyy

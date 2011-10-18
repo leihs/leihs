@@ -4,6 +4,8 @@
   %head
     %meta{:charset => 'utf-8'}
     %title
+      = yield :title
+      = " - " unless (yield :title).blank?
       = "LEIHS Backend"
       
     = stylesheet_link_tag "backend"

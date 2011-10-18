@@ -10,7 +10,7 @@
  *= depend_on shared/_master
  *= depend_on shared/_buttons
  *= depend_on shared/_content
- *= depend_on shared/_tips
+ *= depend_on shared/_qtips
  *= depend_on shared/_tabs
  *= depend_on shared/_dialog
  *= depend_on shared/_navigation
@@ -27,7 +27,7 @@
 @import "shared/master.scss";
 @import "shared/buttons.scss";
 @import "shared/content.scss";
-@import "shared/tips.scss";
+@import "shared/qtips.scss";
 @import "shared/tabs.scss";
 @import "shared/dialog.scss";
 @import "shared/navigation.scss";

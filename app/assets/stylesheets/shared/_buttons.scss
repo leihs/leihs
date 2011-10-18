@@ -1,5 +1,3 @@
-// BUTTONS
-
 .button {
   background: none;
   border: 0;
@@ -62,6 +60,7 @@ a.button {
   border: 1px solid $lightgrey;
   cursor: pointer;
   display: inline-block;
+  font-size: 0.9em;
   height: 22px;
   letter-spacing: 0;
   text-align: center;
@@ -77,8 +76,8 @@ button.smallbutton {
 }
 
 a.smallbutton {
-  font-size: 0.9em;
-  height: 22px;
+  padding-top: 4px;
+  height: 18px;
 }
 
 .smallbutton:hover {

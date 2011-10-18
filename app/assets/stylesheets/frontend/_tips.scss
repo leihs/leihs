@@ -1,0 +1,97 @@
+.model_tip {
+  font-size: 1.0em;  
+  width: 586px;
+  max-width: 586px;
+  
+  .ui-tooltip-content{
+    border-color: $borderdarkgrey;
+    border-width: 3px;
+    background-color: white;
+    color: #555;
+    padding: 12px 10px 6px 10px;
+    @include borderRadius(4px);
+    @include boxShadow (0 0 5px #DDD);
+  }
+  
+  .tip {
+    display: block;
+    position: relative;
+    
+    img {
+      float: right;
+      margin-left: 15px;
+      width: 140px;
+      max-height: 140px;
+      margin-bottom: 5px;
+    }
+    
+    .text {
+      h2 {
+        line-height: 1.2em;
+        margin-bottom: 12px;
+        
+        .manufacturer {
+          color: $grey;
+          padding-top: 6px;
+          font-size: 0.9em;
+        }
+      }
+      
+      .description {
+        font-size: 1.2em;
+        line-height: 1.4em;
+        margin-bottom: 12px;
+      }
+      
+      .description.none {
+        color: $lightgrey;
+      }
+    }
+    
+    .details {
+      border-collapse: separate;
+      width: 100%;
+      
+      tr { 
+        width: 362px;
+      
+        td {
+          border-bottom: 2px solid white;
+          color: #515151;
+          line-height: 1.5em;
+          padding: 8px 0;
+          position: relative;
+          top: 0;
+          vertical-align: top;
+        }
+      }
+      
+      tr:nth-child(odd)  {
+        td {
+          background: $highlight-darkgrey;
+        }
+      }
+      
+      tr:nth-child(even)  {
+        td {
+          background: $highlight-grey;
+        }
+      }
+      
+      .key {
+        border-right: 1px solid white;
+        color: $darkgrey;
+        font-weight: bold;
+        padding-left: 8px;
+        padding-right: 6px;
+        width: 120px;
+      }
+      
+      .value {
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 242px;
+      }
+    }
+  }
+}

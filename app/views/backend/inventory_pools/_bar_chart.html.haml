@@ -1,0 +1,51 @@
+= render :partial => '/layouts/frontend/content_box_foot'
+= render :partial => '/layouts/backend/content_box_head_fullwidth_round'
+
+#chart.innercontent
+  %h1= _("Preview of Activities")
+  
+  .legend
+    .item
+      .color-box{:style => "background-color: #cccccc"}
+      = _("Hand Overs")
+    .item
+      .color-box{:style => "background-color: #999999"}
+      = _("Take Backs")
+  
+  .barchart
+  
+:javascript
+  
+  $(document).ready(function(){
+    Chart.setup();
+  });
+
+  var Chart = new Chart();
+  
+  function Chart() {
+  
+    this.width = 933;
+    this.height = 300;
+    this.spacer = 105;
+    this.animate = false;
+  
+    this.setup = function() {
+      
+      this.setupGraph();
+    }
+    
+    this.setupGraph = function() {
+    
+      console.log(#{@chart_data.to_json});
+    
+      $("#chart .barchart").jqBarGraph({
+          data: #{@chart_data.to_json},
+          colors: ['#999999','#cccccc'],
+          width: Chart.width,
+          height: Chart.height,
+          barSpace: Chart.spacer,
+          animate: Chart.animate,
+          interGrids: 0
+      });
+    }
+  }
