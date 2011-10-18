@@ -161,10 +161,10 @@ task :migrate_database do
 end
 
 namespace :deploy do
-	task :start do
-	# we do absolutely nothing here, as we currently aren't
-	# using a spinner script or anything of that sort.
-	end
+  task :start do
+  # we do absolutely nothing here, as we currently aren't
+  # using a spinner script or anything of that sort.
+  end
 
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"

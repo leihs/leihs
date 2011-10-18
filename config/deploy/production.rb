@@ -14,13 +14,6 @@ set :rails_env, "production"
 
 default_run_options[:shell] = false
 
-# DB credentials needed by Sphinx, mysqldump etc.
-set :sql_database, "rails_leihs2_prod"
-set :sql_host, "db.zhdk.ch"
-set :sql_username, "leihs2prod"
-set :sql_password, "cueGbx5F3"
-
-
 # User Variables and Settings
 set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
 set :default_email, "ausleihe.benachrichtigung\@zhdk.ch"
@@ -42,6 +35,16 @@ set :deploy_to, "/home/rails/leihs/#{application}"
 role :app, "leihs@webapp.zhdk.ch"
 role :web, "leihs@webapp.zhdk.ch"
 role :db,  "leihs@webapp.zhdk.ch", :primary => true
+
+task :retrieve_db_config do
+  # DB credentials needed by Sphinx, mysqldump etc.
+  get(db_config, "/tmp/leihs_db_config.yml")
+  dbconf = YAML::load_file("/tmp/leihs_db_config.yml")["production"]
+  set :sql_database, dbconf['database']
+  set :sql_host, dbconf['host']
+  set :sql_username, dbconf['username']
+  set :sql_password, dbconf['password']
+end
 
 task :link_config do
   on_rollback { run "rm #{release_path}/config/database.yml" }
@@ -155,11 +158,6 @@ task :migrate_database do
 
 end
 
-task :install_gems do
-  run "cd #{release_path} && bundle install --deployment --without cucumber profiling"
-  run "sed -i 's/BUNDLE_DISABLE_SHARED_GEMS: \"1\"/BUNDLE_DISABLE_SHARED_GEMS: \"0\"/' #{release_path}/.bundle/config"
-end
-
 task :stop_sphinx do
   run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
 end
@@ -183,14 +181,14 @@ namespace :deploy do
 end
 
 
-
+before "deploy", "retrieve_db_config"
+before "bundle:install", "deploy:symlink"
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
-before "migrate_database", :install_gems
-after "deploy:symlink", :migrate_database
+after "bundle:install", :migrate_database
 after "migrate_database", :configure_sphinx
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
