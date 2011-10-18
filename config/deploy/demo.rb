@@ -15,12 +15,6 @@ set :rails_env, "production"
 
 default_run_options[:shell] = false
 
-# DB credentials needed by Sphinx, mysqldump etc.
-set :sql_database, "rails_leihs2_demo"
-set :sql_host, "db.zhdk.ch"
-set :sql_username, "leihs2demo"
-set :sql_password, "l31hsd3m00"
-
 
 # User Variables and Settings
 set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
@@ -47,6 +41,16 @@ set :deploy_to, "/home/rails/leihs/#{application}"
 role :app, "leihs@webapp.zhdk.ch"
 role :web, "leihs@webapp.zhdk.ch"
 role :db,  "leihs@webapp.zhdk.ch", :primary => true
+
+task :retrieve_db_config do
+  # DB credentials needed by Sphinx, mysqldump etc.
+  get(db_config, "/tmp/leihs_db_config.yml")
+  dbconf = YAML::load_file("/tmp/leihs_db_config.yml")["production"]
+  set :sql_database, dbconf['database']
+  set :sql_host, dbconf['host']
+  set :sql_username, dbconf['username']
+  set :sql_password, dbconf['password']
+end
 
 task :link_config do
   on_rollback { run "rm #{release_path}/config/database.yml" }
@@ -165,6 +169,7 @@ namespace :deploy do
 
 end
 
+before "deploy", "retrieve_db_config"
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
