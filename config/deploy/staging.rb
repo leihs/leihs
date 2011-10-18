@@ -20,13 +20,6 @@ set :rails_env, "production"
 default_run_options[:shell] = false
 
 
-# DB credentials needed by Sphinx, mysqldump etc.
-set :sql_database, "rails_leihs2_dev"
-set :sql_host, "db.zhdk.ch"
-set :sql_username, "leihs2dev"
-set :sql_password, "163ruby9"
-
-
 # User Variables and Settings
 #set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
 set :contract_lending_party_string, "ZHdK"
@@ -50,6 +43,16 @@ set :deploy_to, "/home/leihs/#{application}"
 role :app, "leihs@rails.zhdk.ch"
 role :web, "leihs@rails.zhdk.ch"
 role :db,  "leihs@rails.zhdk.ch", :primary => true
+
+task :retrieve_db_config do
+  # DB credentials needed by Sphinx, mysqldump etc.
+  get(db_config, "/tmp/leihs_db_config.yml")
+  dbconf = YAML::load_file("/tmp/leihs_db_config.yml")["production"]
+  set :sql_database, dbconf['database']
+  set :sql_host, dbconf['host']
+  set :sql_username, dbconf['username']
+  set :sql_password, dbconf['password']
+end
 
 task :link_config do
   on_rollback { run "rm #{release_path}/config/database.yml" }
@@ -131,7 +134,7 @@ task :configure_sphinx do
 end
 
 task :stop_sphinx do
-  #run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
+  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
 end
 
 task :start_sphinx do
@@ -169,6 +172,7 @@ namespace :deploy do
 
 end
 
+before "deploy", "retrieve_db_config"
 before "bundle:install", "deploy:symlink"
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
