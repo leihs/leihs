@@ -14,9 +14,10 @@
       
   .clear
   
-  %p.subtitle
-    = _("Last Visitors:")
-    != last_visitors
+  -if last_visitors
+    %p.subtitle 
+      = _("Last Visitors:")
+      != last_visitors
     
   %hr
   
@@ -25,7 +26,7 @@
       .tab
         .icon.orders
         = _("Orders")
-    .list
+    .list.searcheable
   
   .hand_overs
     .inlinetabs
@@ -99,7 +100,7 @@
     
     this.setupTips = function() {
       
-      $("#daily .item > tbody > tr > .purpose").each(function(){
+      $("#daily .item li.purpose").each(function(){
         
         if($(this).data("title").length > DailyView.purpose_max) {
           $(this).qtip({
@@ -113,7 +114,7 @@
         }
       });
       
-      $("#daily .item > tbody > tr > .quantity").each(function(){
+      $("#daily .item li.quantity").each(function(){
         
         $(this).qtip({
           content: {
@@ -128,7 +129,7 @@
     
     this.setupActions = function() {
     
-      $("#daily .item > tbody > tr > td.actions").live("ajax:success", function(){
+      $("#daily .item li.actions").live("ajax:success", function(){
         var to_remove = $(this).closest("table.item");
         to_remove.fadeOut(400, function(){
           $(this).remove();
@@ -136,6 +137,7 @@
       }).live("ajax:error", function(event, response){
         Dialog.add({
           trigger: $(this),
+          title: _("Not Approvable"),
           content: response.responseText
         });
       });

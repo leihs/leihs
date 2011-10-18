@@ -1,19 +1,33 @@
 %script#daily_line_template{:type => "text/x-jquery-tmpl"}
   
-  %table{:class => "item{{if $item.overdue }} overdue{{/if}}"}
-    %tr
+  %ul{:class => "item{{if $item.overdue }} overdue{{/if}}"}
       
-      -# NAME #####################
-      
-      %td.name
+    -# NAME #####################
+    
+    = link_to "#{user_link_prefix}${user.id}" do
+      %li.name
         ${user.firstname}
         ${user.lastname}
-        = link_to "", "#{user_link_prefix}${user.id}", :class => "overlay"
-      
-      
-      -# QUANTITY #####################
-      
-      %td.quantity
+    
+    
+    -# QUANTITY #####################
+    
+    {{if $item.type == "order"}}
+    ${$link = "#{user_link_prefix}"+user.id+"#{acknowledge_postfix}"+id, ""}
+    {{/if}}
+    
+    {{if $item.type == "hand_over"}}
+    ${$link = "#{user_link_prefix}"+user.id+"#{hand_over_postfix}", ""}
+    {{/if}}
+    
+    {{if $item.type == "take_back"}}
+    ${$link = "#{user_link_prefix}"+user.id+"#{take_back_postfix}", ""}
+    {{/if}}
+
+    = link_to "${$link}" do
+      %li.quantity
+        
+        .tip_target
         
         -# QUANTITY NUMBER #####################
         
@@ -24,8 +38,7 @@
         
         %span.text
           = _("Items")
-          .tip_target
-        
+          
         -# QUANTITY TIP #####################
         
         .tip
@@ -56,24 +69,23 @@
               %td.end_date
                 {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
             {{/each}}
-        
-        -# QUANTITY LINK #####################
             
-        {{if $item.type == "order"}}
-        = link_to "", "#{user_link_prefix}${user.id}#{acknowledge_postfix}${id}", :class => "overlay"
-        {{/if}}
-        
-        {{if $item.type == "hand_over"}}
-        = link_to "", "#{user_link_prefix}${user.id}#{hand_over_postfix}", :class => "overlay"
-        {{/if}}
-        
-        {{if $item.type == "take_back"}}
-        = link_to "", "#{user_link_prefix}${user.id}#{take_back_postfix}", :class => "overlay"
-        {{/if}}
-      
-      -# RANGE #####################
-      
-      %td.range
+    -# RANGE #####################
+    
+    {{if $item.type == "order"}}
+    ${$link = "#{user_link_prefix}"+user.id+"#{acknowledge_postfix}"+id, ""}
+    {{/if}}
+    
+    {{if $item.type == "hand_over"}}
+    ${$link = "#{user_link_prefix}"+user.id+"#{hand_over_postfix}", ""}
+    {{/if}}
+    
+    {{if $item.type == "take_back"}}
+    ${$link = "#{user_link_prefix}"+user.id+"#{take_back_postfix}", ""}
+    {{/if}}
+    
+    = link_to "${$link}" do
+      %li.range
         
         -# RANGE NUMBER #####################
         
@@ -127,52 +139,37 @@
           {{/if}}
           {{/if}}
           
-        -# RANGE LINK #####################
-        
-        {{if $item.type == "order"}}
-        = link_to "", "#{user_link_prefix}${user.id}#{acknowledge_postfix}${id}", :class => "overlay"
-        {{/if}}
-        
-        {{if $item.type == "hand_over"}}
-        = link_to "", "#{user_link_prefix}${user.id}#{hand_over_postfix}", :class => "overlay"
-        {{/if}}
-        
-        {{if $item.type == "take_back"}}
-        = link_to "", "#{user_link_prefix}${user.id}#{take_back_postfix}", :class => "overlay"
-        {{/if}}
-        
-      -# PURPOSE #####################
+    -# PURPOSE #####################
       
-      {{if purpose}}  
-      
-      %td.purpose{:"data-title" => "${purpose}"}
+    {{if purpose}}  
+    
+    = link_to "#{user_link_prefix}${user.id}#{acknowledge_postfix}${id}" do
+      %li.purpose{:"data-title" => "${purpose}"}
+        
+        .tip_target
         
         %span.text
           {{html String(purpose).substring(0, DailyView.purpose_max) }}
           {{if String(purpose).length > DailyView.purpose_max}}
           {{html "..."}}
           {{/if}}
-          
-        = link_to "#{user_link_prefix}${user.id}#{acknowledge_postfix}${id}", :class => "overlay" do
-          .tip_target
-          
-      {{else}}
-      
-      {{if $item.type == "order"}}
-      
-      %td.purpose{:"data-title" => ""}
+        
+    {{else}}
+    
+    {{if $item.type == "order"}}
+    = link_to "#{user_link_prefix}${user.id}#{acknowledge_postfix}${id}" do
+      %li.purpose{:"data-title" => ""}
         %span.grey.text
           = _("No purpose")
-        = link_to "", "#{user_link_prefix}${user.id}#{acknowledge_postfix}${id}", :class => "overlay"
-        
-      {{/if}}
+    {{/if}}
+    
+    {{/if}}
+    
+    -# REMINDER ########################
       
-      {{/if}}
-      
-      -# REMINDER ########################
-      
-      {{if $item.overdue}}
-      %td.reminder
+    {{if $item.overdue}}
+    .nolink
+      %li.reminder
         {{if latest_remind}}
         %span.text
           = _("Lates Reminder:")
@@ -182,81 +179,80 @@
           = _("No reminder yet")
         {{/if}}
       {{/if}}
+    
+    -# TO ########################
       
-      -# TO ########################
-      
-      {{if $item.type == "hand_over"}}
-      {{if !$item.overdue}}
-      %td.note
+    {{if $item.type == "hand_over"}}
+    {{if !$item.overdue}}
+    .nolink
+      %li.note
         %span.text
-          = _("to")
           {{html formatDate(new Date(max_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-      {{/if}}
-      {{/if}}
+    {{/if}}
+    {{/if}}
+    
+    -# SINCE ########################
       
-      -# SINCE ########################
-      
-      {{if $item.type == "take_back"}}
-      {{if !$item.overdue}}
-      %td.note
+    {{if $item.type == "take_back"}}
+    {{if !$item.overdue}}
+    .nolink
+      %li.note
         %span.text
           = _("since")
           {{html formatDate(new Date(min_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+    {{/if}}
+    {{/if}}
+    
+    -# ACTIONS #####################
+    
+    %li.actions
+      
+      {{if $item.type == "order"}}
+      = link_to "#{user_link_prefix}${user.id}#{acknowledge_postfix}${id}", :class => "smallbutton white" do
+        = _("Edit")
+        .icon.edit
+      = link_to "#{user_link_prefix}${user.id}#{acknowledge_postfix}${id}#{approve_postfix}", :class => "smallbutton white", :remote => true, :method => :post do
+        = _("Approve")
+        .icon.approve
+      {{/if}}
+      
+      {{if $item.type == "hand_over"}}
+      {{if $item.overdue}}
+      = link_to "javascript:void(0)", :class => "smallbutton red" do
+        .icon.delete
+        = _("Delete")
+      = link_to "javascript:void(0)", :class => "smallbutton white" do
+        = _("Remind")
+        .icon.send
+      = link_to "javascript:void(0)", :class => "smallbutton white" do
+        = _("Hand Over")
+        .icon.hand_over
+        
+      {{else}}
+      
+      = link_to "javascript:void(0)", :class => "smallbutton red" do
+        .icon.delete
+        = _("Delete")
+      = link_to "javascript:void(0)", :class => "smallbutton white" do
+        = _("Hand Over")
+        .icon.hand_over
       {{/if}}
       {{/if}}
       
-      -# ACTIONS #####################
+      {{if $item.type == "take_back"}}
+      
+      {{if $item.overdue}}
+      = link_to "javascript:void(0)", :class => "smallbutton white" do
+        = _("Remind")
+        .icon.send
+      = link_to "javascript:void(0)", :class => "smallbutton white" do
+        = _("Take Back")
+        .icon.take_back
         
-      %td.actions
-        
-        {{if $item.type == "order"}}
-        = link_to "#{user_link_prefix}${user.id}#{acknowledge_postfix}${id}", :class => "smallbutton white" do
-          = _("Edit")
-          .icon.edit
-        = link_to "#{user_link_prefix}${user.id}#{acknowledge_postfix}${id}#{approve_postfix}", :class => "smallbutton white", :remote => true, :method => :post do
-          = _("Approve")
-          .icon.approve
-        {{/if}}
-        
-        {{if $item.type == "hand_over"}}
-        {{if $item.overdue}}
-        = link_to "javascript:void(0)", :class => "smallbutton red" do
-          .icon.delete
-          = _("Delete")
-        = link_to "javascript:void(0)", :class => "smallbutton white" do
-          = _("Remind")
-          .icon.send
-        = link_to "javascript:void(0)", :class => "smallbutton white" do
-          = _("Hand Over")
-          .icon.hand_over
-          
-        {{else}}
-        
-        = link_to "javascript:void(0)", :class => "smallbutton red" do
-          .icon.delete
-          = _("Delete")
-        = link_to "javascript:void(0)", :class => "smallbutton white" do
-          = _("Hand Over")
-          .icon.hand_over
-        {{/if}}
-        {{/if}}
-        
-        {{if $item.type == "take_back"}}
-        
-        {{if $item.overdue}}
-        = link_to "javascript:void(0)", :class => "smallbutton white" do
-          = _("Remind")
-          .icon.send
-        = link_to "javascript:void(0)", :class => "smallbutton white" do
-          = _("Take Back")
-          .icon.take_back
-          
-        {{else}}
-        
-        = link_to "javascript:void(0)", :class => "smallbutton white" do
-          = _("Take Back")
-          .icon.take_back
-        {{/if}}
-        {{/if}}
-        
-  
+      {{else}}
+      
+      = link_to "javascript:void(0)", :class => "smallbutton white" do
+        = _("Take Back")
+        .icon.take_back
+      {{/if}}
+      {{/if}}

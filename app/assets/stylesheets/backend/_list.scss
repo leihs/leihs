@@ -4,81 +4,37 @@
   
   .item {
     border-bottom: 1px solid $borderlightergrey;
-    border-tops: 1px solid white;
+    border-top: 1px solid white;
+    display: table;
     height: 40px;
+    position: relative;
     width: 100%;
     
-    tr {
-      td {
-        color: $grey;
-        font-size: 1.2em;
-        position: relative;
-        padding-left: 12px;
-        padding-right: 12px;
-        padding-top: 2px;
-        vertical-align: middle;
-        
-        .tip_target {
-          position: absolute;
-          top: 10px;
-          height: 20px;
-          width: 100%;
-        }
-        
-        a.overlay {
-          display: block;
-          height: 100%;
-          left: 0;
-          position: absolute;
-          top: 0;
-          width: 100%;
-        }
-        
-        span.grey {
-          color: $lightgrey;
-        } 
-        
-        .tip {
-          display: none;
-        }
-        
-        &.name {
-          font-weight: bold;
-          line-height: 1.1em;
-          width: 120px;
-        }
-        
-        &.quantity {
-          white-space: nowrap;
-          width: 90px;
-          
-          .number {
-            display: inline-block;
-            text-align: right;
-            width: 30px;
-          }
-        }
-        
-        &.range {
-          white-space: nowrap;
-          width: 115px;
-          
-          .number {
-            display: inline-block;
-            text-align: right;
-            width: 30px;
-          }
-        }
-        
-        &.purpose {
-          width: 265px;
-        }
-        
-        &.actions {
-          text-align: right;
-          @include opacity(0.5);
-        }
-      }
+    &>a, &>.nolink {
+      display: inline-block;
+      height: 40px;
+      position: relative;
+      vertical-align: top;
+    }
+    
+    &>a:first-child li, &>li:first-child {
+      padding-left: 14px;
+    }
+    
+   &>a:last-child li, &>li:last-child {
+      padding-right: 10px;
+    }
+    
+    .tip {
+      display: none;
+    }
+    
+    .tip_target {
+      display: block;
+      position: absolute;
+      top: 9px;
+      height: 22px;
+      width: 100%;
     }
     
     &:nth-child(even) {
@@ -88,14 +44,76 @@
     &:hover {
       @include highlightItem;
       
+      li {
+        color: $darkgrey;
+      }
+      
       .actions {
         @include opacity(1.0);
       }
     }
     
+    span.grey {
+      color: $lightgrey;
+    } 
+    
     &.overdue {
-      tr td {
+      li {
         color: red !important;     
+      }
+    }
+    
+    li {
+      color: $grey;
+      display: table-cell;
+      font-size: 1.2em;
+      height: 40px;
+      position: relative;
+      padding-right: 20px;
+      padding-top: 2px;
+      vertical-align: middle;
+      
+      &.name {
+        font-weight: bold;
+        line-height: 1.1em;
+        width: 110px;
+      }
+      
+      &.quantity {
+        white-space: nowrap;
+        width: 90px;
+        
+        .number {
+          display: inline-block;
+          padding-right: 2px;
+          text-align: right;
+          width: 30px;
+        }
+      }
+      
+      &.range {
+        white-space: nowrap;
+        width: 115px;
+        
+        .number {
+          display: inline-block;
+          padding-right: 2px;
+          text-align: right;
+          width: 30px;
+        }
+      }
+      
+      &.purpose {
+        width: 265px;
+      }
+      
+      &.reminder {
+        width: 190px;
+      }
+      
+      &.actions {
+        text-align: right;
+        @include opacity(0.4);
       }
     }
   }
