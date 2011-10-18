@@ -3,6 +3,7 @@ class Backend::HandOverController < Backend::BackendController
   before_filter :pre_load
 
   def index
+=begin AFTER HERE IS OLD CODE
     visits = current_inventory_pool.hand_over_visits
     
     unless params[:query].blank?
@@ -21,12 +22,15 @@ class Backend::HandOverController < Backend::BackendController
       format.html
       format.js { search_result_rjs(@contracts) }
     end
+=end
   end
 
   # get current open contract for a given user
   def show
+=begin AFTER HERE IS OLD CODE
     @missing_fields = @user.authentication_system.missing_required_fields(@user)
     add_visitor(@user)
+=end
   end
   
   def set_purpose

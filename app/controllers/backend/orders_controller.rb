@@ -3,6 +3,9 @@ class Backend::OrdersController < Backend::BackendController
   before_filter :preload
   
   def index
+    
+=begin OLD CODE AFTER HERE
+  
     with = { :inventory_pool_id => current_inventory_pool.id }
     with[:user_id] = @user.id if @user
              
@@ -23,6 +26,7 @@ class Backend::OrdersController < Backend::BackendController
       format.js { search_result_rjs(@orders) }
     end
 
+=end
   end
 
   def show

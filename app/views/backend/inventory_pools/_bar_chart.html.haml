@@ -36,8 +36,6 @@
     
     this.setupGraph = function() {
     
-      console.log(#{@chart_data.to_json});
-    
       $("#chart .barchart").jqBarGraph({
           data: #{@chart_data.to_json},
           colors: ['#999999','#cccccc'],
