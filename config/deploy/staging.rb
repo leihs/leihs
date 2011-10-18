@@ -64,12 +64,12 @@ task :link_config do
   run "ln -s #{db_config} #{release_path}/config/database.yml"
 end
 
-task	:link_attachments do
-	run "rm -rf #{release_path}/public/images/attachments"
-	run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
+task :link_attachments do
+  run "rm -rf #{release_path}/public/images/attachments"
+  run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/images/attachments"
 
-	run "rm -rf #{release_path}/public/attachments"
-	run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/attachments"
+  run "rm -rf #{release_path}/public/attachments"
+  run "ln -s #{deploy_to}/#{shared_dir}/attachments #{release_path}/public/attachments"
 end
 
 task :link_db_backups do
@@ -134,7 +134,7 @@ task :configure_sphinx do
 end
 
 task :stop_sphinx do
-  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
+  #run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
 end
 
 task :start_sphinx do
