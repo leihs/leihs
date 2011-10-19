@@ -21,6 +21,7 @@ default_run_options[:shell] = false
 
 
 # User Variables and Settings
+# Ruby (1.9.x) and Capistrano now fuck things up when they encounter UTF-8 strings here
 #set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
 set :contract_lending_party_string, "ZHdK"
 set :default_email, "ausleihe.benachrichtigung\@zhdk.ch"
