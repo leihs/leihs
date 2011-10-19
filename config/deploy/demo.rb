@@ -17,7 +17,9 @@ default_run_options[:shell] = false
 
 
 # User Variables and Settings
-set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
+#set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
+
+set :contract_lending_party_string, "Your\nAddress\nHere"
 set :default_email, "ausleihe.benachrichtigung\@zhdk.ch"
 set :email_server, "smtp.zhdk.ch"
 set :email_port, 25
