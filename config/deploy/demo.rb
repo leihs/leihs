@@ -81,7 +81,7 @@ task :chmod_tmp do
 end
 
 task :configure_sphinx do
- run "cd #{release_path} && RAILS_ENV='production' rake ts:config"
+ run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:config"
  run "sed -i 's/listen = 127.0.0.1:3342/listen = 127.0.0.1:3382/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/listen = 127.0.0.1:3343/listen = 127.0.0.1:3383/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/listen = 127.0.0.1:3344/listen = 127.0.0.1:3384/' #{release_path}/config/production.sphinx.conf"
@@ -120,7 +120,7 @@ task :migrate_database do
   # deploy.migrate should work, but is buggy and is run in the _previous_ release's
   # directory, thus never runs anything? Strange.
   #deploy.migrate
-  run "cd #{release_path} && RAILS_ENV='production' rake db:migrate"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake db:migrate"
 
 end
 
