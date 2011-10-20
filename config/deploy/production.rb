@@ -1,19 +1,19 @@
-
-$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
-require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
+# 
+# $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+# require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+# set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
 require "bundler/capistrano"
 
-set :application, "leihs2"
+set :application, "leihs"
 
 set :scm, :git
 set :repository,  "git://github.com/psy-q/leihs.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 
-set :db_config, "/home/leihs/leihs2/database.yml"
-set :app_config, "/home/leihs/leihs2/environment.rb"
-set :ldap_config, "/home/leihs/leihs2/LDAP.yml"
+set :db_config, "/home/leihs/#{application}/database.yml"
+set :app_config, "/home/leihs/#{application}/environment.rb"
+set :ldap_config, "/home/leihs/#{application}/LDAP.yml"
 set :use_sudo, false
 
 set :rails_env, "production"
@@ -116,7 +116,7 @@ end
 
 task :start_sphinx do
   run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:reindex"
-  run "cd #{release_path} && RAILS_ENV='production' bundle execrake ts:start"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:start"
 end
 
 

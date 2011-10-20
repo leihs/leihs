@@ -1,14 +1,17 @@
 # encoding: utf-8
-set :application, "leihs2demo"
+# $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+# require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+# set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
+set :application, "leihs-demo"
 
 set :scm, :git
 set :repository,  "git://github.com/psy-q/leihs.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 
-set :db_config, "/home/leihs/leihs2demo/database.yml"
-set :app_config, "/home/leihs/leihs2demo/application.rb"
-set :ldap_config, "/home/leihs/leihs2demo/LDAP.yml"
+set :db_config, "/home/leihs/#{application}/database.yml"
+set :app_config, "/home/leihs/#{application}/application.rb"
+set :ldap_config, "/home/leihs/#{application}/LDAP.yml"
 
 set :use_sudo, false
 

@@ -11,9 +11,9 @@ set :repository,  "git://github.com/psy-q/leihs.git"
 set :branch, "Rails3.1"
 set :deploy_via, :remote_cache
 
-set :db_config, "/home/leihs/leihs-test/database.yml"
-set :app_config, "/home/leihs/leihs-test/application.rb"
-set :ldap_config, "/home/leihs/leihs-test/LDAP.yml"
+set :db_config, "/home/leihs/#{application}/database.yml"
+set :app_config, "/home/leihs/#{application}/application.rb"
+set :ldap_config, "/home/leihs/#{application}/LDAP.yml"
 set :use_sudo, false
 
 set :rails_env, "production"
