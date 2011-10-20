@@ -76,9 +76,9 @@ end
 
 task :configure_sphinx do
  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:config"
- run "sed -i 's/listen = 127.0.0.1:3312/listen = 127.0.0.1:3342/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/listen = 127.0.0.1:3313/listen = 127.0.0.1:3343/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/listen = 127.0.0.1:3314/listen = 127.0.0.1:3344/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3342/listen = 127.0.0.1:3352/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3343/listen = 127.0.0.1:3353/' #{release_path}/config/production.sphinx.conf"
+ run "sed -i 's/listen = 127.0.0.1:3344/listen = 127.0.0.1:3354/' #{release_path}/config/production.sphinx.conf"
 
  run "sed -i 's/sql_host =.*/sql_host = #{sql_host}/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_user =.*/sql_user = #{sql_username}/' #{release_path}/config/production.sphinx.conf"
@@ -86,10 +86,10 @@ task :configure_sphinx do
  run "sed -i 's/sql_db =.*/sql_db = #{sql_database}/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_sock.*//' #{release_path}/config/production.sphinx.conf"
 
- run "sed -i 's/port: 3312/port: 3342/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/port: 3313/port: 3343/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/port: 3314/port: 3344/' #{release_path}/config/sphinx.yml"
-
+ run "sed -i 's/port: 3342/port: 3352/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3343/port: 3353/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3344/port: 3354/' #{release_path}/config/sphinx.yml"
+ 
 end
 
 task :stop_sphinx do
