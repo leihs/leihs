@@ -6,8 +6,9 @@ set :repository,  "git://github.com/psy-q/leihs.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 
-set :db_config, "/home/rails/leihs/leihs2demo/database.yml"
-set :ldap_config, "/home/rails/leihs/leihs2demo/LDAP.yml"
+set :db_config, "/home/leihs/leihs2demo/database.yml"
+set :app_config, "/home/leihs/leihs2demo/application.rb"
+set :ldap_config, "/home/leihs/leihs2demo/LDAP.yml"
 
 set :use_sudo, false
 
@@ -16,33 +17,14 @@ set :rails_env, "production"
 default_run_options[:shell] = false
 
 
-# User Variables and Settings
-#set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
-
-set :contract_lending_party_string, "Your\nAddress\nHere"
-set :default_email, "ausleihe.benachrichtigung\@zhdk.ch"
-set :email_server, "smtp.zhdk.ch"
-set :email_port, 25
-set :email_domain, "ausleihe.zhdk.ch"
-set :email_charset, "utf-8"
-set :email_content_type, "text/html"
-set :email_signature, "Your leihs test installation"
-# These are false by default. TODO: Actually set them to true if this is true.
-set :deliver_order_notifications, false
-set :perform_deliveries, false
-set :local_currency, "CHF"
-# Escape double-quotes using triple-backslashes in this string: \\\"
-set :contract_terms, 'Put your legalese here.'
-
-
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
-set :deploy_to, "/home/rails/leihs/#{application}"
+set :deploy_to, "/home/leihs/#{application}"
 
-role :app, "leihs@webapp.zhdk.ch"
-role :web, "leihs@webapp.zhdk.ch"
-role :db,  "leihs@webapp.zhdk.ch", :primary => true
+role :app, "leihs@rails.zhdk.ch"
+role :web, "leihs@rails.zhdk.ch"
+role :db,  "leihs@rails.zhdk.ch", :primary => true
 
 task :retrieve_db_config do
   # DB credentials needed by Sphinx, mysqldump etc.
@@ -55,11 +37,15 @@ task :retrieve_db_config do
 end
 
 task :link_config do
-  on_rollback { run "rm #{release_path}/config/database.yml" }
-  run "rm #{release_path}/config/database.yml"
-  run "rm #{release_path}/config/LDAP.yml"
+  if File.exist?("#{release_path}/config/LDAP.yml")
+    run "rm #{release_path}/config/LDAP.yml"
+    run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
+  end
+  run "rm -f #{release_path}/config/database.yml"
+  run "rm -f #{release_path}/config/application.rb"
+
   run "ln -s #{db_config} #{release_path}/config/database.yml"
-  run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
+  run "ln -s #{app_config} #{release_path}/config/application.rb"
 end
 
 task :link_attachments do
@@ -80,30 +66,8 @@ task :link_sphinx do
   run "ln -s #{deploy_to}/#{shared_dir}/sphinx #{release_path}/db/sphinx"
 end
 
-task :remove_htaccess do
-	# Kill the .htaccess file as we are using passenger, so this file
-	# will only confuse the web server if parsed.
-
-	run "rm #{release_path}/public/.htaccess"
-end
-
 task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
-end
-
-task :modify_config do
-  set :configfile, "#{release_path}/config/environment.rb"
-  run "sed -i 's|CONTRACT_LENDING_PARTY_STRING.*|CONTRACT_LENDING_PARTY_STRING = \"#{contract_lending_party_string}\"|' #{configfile}"
-  run "sed -i 's|DEFAULT_EMAIL.*|DEFAULT_EMAIL = \"#{default_email}\"|' #{configfile}"
-  run "sed -i 's|:address.*|:address => \"#{email_server}\",|' #{configfile}"
-  run "sed -i 's|:port.*|:port => #{email_port},|' #{configfile}"
-  run "sed -i 's|:domain.*|:domain => \"#{email_domain}\"|' #{configfile}"
-  run "sed -i 's|ActionMailer::Base.default_charset.*|ActionMailer::Base.default_charset = \"#{email_charset}\"\nActionMailer::Base.default_content_type = \"#{email_content_type}\"|' #{configfile}"
-  run "sed -i 's|EMAIL_SIGNATURE.*|EMAIL_SIGNATURE = \"#{email_signature}\"|' #{configfile}"
-  run "sed -i 's|:encryption|#:encryption|' #{release_path}/app/controllers/authenticator/ldap_authentication_controller.rb"
-  run "sed -i 's|CONTRACT_TERMS.*|CONTRACT_TERMS = \"#{contract_terms}\"|' #{configfile}"
-  run "sed -i 's|LOCAL_CURRENCY_STRING.*|LOCAL_CURRENCY_STRING = \"#{local_currency}\"|' #{configfile}"
-  run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environments/production.rb" if perform_deliveries == false
 end
 
 task :chmod_tmp do
@@ -129,7 +93,7 @@ task :configure_sphinx do
 end
 
 task :stop_sphinx do
-  #run "cd #{previous_release} && RAILS_ENV='production' bundle exec rake ts:stop"
+  run "cd #{previous_release} && RAILS_ENV='production' bundle exec rake ts:stop"
 end
 
 task :start_sphinx do
@@ -172,17 +136,19 @@ namespace :deploy do
 end
 
 before "deploy", "retrieve_db_config"
+before "deploy:cold", "retrieve_db_config"
+before "deploy", :stop_sphinx
+before "bundle:install", "deploy:symlink"
+
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
-after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
-before "migrate_database", :install_gems
-after "deploy:symlink", :migrate_database
+after "bundle:install", :migrate_database
+
 after "migrate_database", :configure_sphinx
-before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
-before "deploy", :stop_sphinx
 before "start_sphinx", :link_sphinx
 after "deploy", :start_sphinx
+after "deploy:cold", :start_sphinx
 after "deploy", "deploy:cleanup"

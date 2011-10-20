@@ -1,4 +1,9 @@
-# encoding: utf-8
+
+$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
+require "bundler/capistrano"
+
 set :application, "leihs2"
 
 set :scm, :git
@@ -6,35 +11,20 @@ set :repository,  "git://github.com/psy-q/leihs.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 
-set :db_config, "/home/rails/leihs/leihs2/database.yml"
-set :ldap_config, "/home/rails/leihs/leihs2/LDAP.yml"
+set :db_config, "/home/leihs/leihs2/database.yml"
+set :app_config, "/home/leihs/leihs2/environment.rb"
+set :ldap_config, "/home/leihs/leihs2/LDAP.yml"
 set :use_sudo, false
 
 set :rails_env, "production"
 
 default_run_options[:shell] = false
 
-# User Variables and Settings
-set :contract_lending_party_string, "Zürcher Hochschule der Künste\nAusstellungsstr. 60\n8005 Zürich"
-set :default_email, "ausleihe.benachrichtigung\@zhdk.ch"
-set :email_server, "smtp.zhdk.ch"
-set :email_port, 25
-set :email_domain, "ausleihe.zhdk.ch"
-set :email_charset, "utf-8"
-set :email_content_type, "text/html"
-set :email_signature, "Das PZ-leihs Team"
-set :deliver_order_notifications, false # This is false by default. TODO: Actually set them to true if this is true.
-set :perform_deliveries, true
-set :local_currency, "CHF"
-# Escape double-quotes using triple-backslashes in this string: \\\"
-set :contract_terms, 'Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die \\\"Richtlinie zur Ausleihe von Sachen\\\" der ZHdK und etwaige abteilungsspezifische Ausleih-Richtlinien.'
+set :deploy_to, "/home/leihs/#{application}"
 
-
-set :deploy_to, "/home/rails/leihs/#{application}"
-
-role :app, "leihs@webapp.zhdk.ch"
-role :web, "leihs@webapp.zhdk.ch"
-role :db,  "leihs@webapp.zhdk.ch", :primary => true
+role :app, "leihs@rails.zhdk.ch"
+role :web, "leihs@rails.zhdk.ch"
+role :db,  "leihs@rails.zhdk.ch", :primary => true
 
 task :retrieve_db_config do
   # DB credentials needed by Sphinx, mysqldump etc.
@@ -47,12 +37,15 @@ task :retrieve_db_config do
 end
 
 task :link_config do
-  on_rollback { run "rm #{release_path}/config/database.yml" }
-  on_rollback { run "rm #{release_path}/config/LDAP.yml" }
-  run "rm #{release_path}/config/database.yml"
-  run "rm #{release_path}/config/LDAP.yml"
+  if File.exist?("#{release_path}/config/LDAP.yml")
+    run "rm #{release_path}/config/LDAP.yml"
+    run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
+  end
+  run "rm -f #{release_path}/config/database.yml"
+  run "rm -f #{release_path}/config/environment.rb"
+  
   run "ln -s #{db_config} #{release_path}/config/database.yml"
-  run "ln -s #{ldap_config} #{release_path}/config/LDAP.yml"
+  run "ln -s #{app_config} #{release_path}/config/environment.rb"
 end
 
 task :link_attachments do
@@ -73,30 +66,8 @@ task :link_sphinx do
   run "ln -s #{deploy_to}/#{shared_dir}/sphinx #{release_path}/db/sphinx"
 end
 
-task :remove_htaccess do
-	# Kill the .htaccess file as we are using mongrel, so this file
-	# will only confuse the web server if parsed.
-
-	run "rm #{release_path}/public/.htaccess"
-end
-
 task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
-end
-
-task :modify_config do
-  set :configfile, "#{release_path}/config/environment.rb"
-  run "sed -i 's|CONTRACT_LENDING_PARTY_STRING.*|CONTRACT_LENDING_PARTY_STRING = \"#{contract_lending_party_string}\"|' #{configfile}"
-  run "sed -i 's|DEFAULT_EMAIL.*|DEFAULT_EMAIL = \"#{default_email}\"|' #{configfile}"
-  run "sed -i 's|:address.*|:address => \"#{email_server}\",|' #{configfile}"
-  run "sed -i 's|:port.*|:port => #{email_port},|' #{configfile}"
-  run "sed -i 's|:domain.*|:domain => \"#{email_domain}\"|' #{configfile}"
-  run "sed -i 's|ActionMailer::Base.default_charset.*|ActionMailer::Base.default_charset = \"#{email_charset}\"\nActionMailer::Base.default_content_type = \"#{email_content_type}\"|' #{configfile}"
-  run "sed -i 's|EMAIL_SIGNATURE.*|EMAIL_SIGNATURE = \"#{email_signature}\"|' #{configfile}"
-  run "sed -i 's|:encryption|#:encryption|' #{release_path}/app/controllers/authenticator/ldap_authentication_controller.rb"
-  run "sed -i 's|CONTRACT_TERMS.*|CONTRACT_TERMS = \"#{contract_terms}\"|' #{configfile}"
-  run "sed -i 's|LOCAL_CURRENCY_STRING.*|LOCAL_CURRENCY_STRING = \"#{local_currency}\"|' #{configfile}"
-  run "echo 'config.action_mailer.perform_deliveries = false' >> #{release_path}/config/environments/production.rb" if perform_deliveries == false
 end
 
 task :chmod_tmp do
@@ -104,15 +75,15 @@ task :chmod_tmp do
 end
 
 task :configure_sphinx do
- run "cd #{release_path} && RAILS_ENV='production' rake ts:config"
- run "sed -i 's/listen = 127.0.0.1:3312/listen = 127.0.0.1:3362/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/listen = 127.0.0.1:3313/listen = 127.0.0.1:3363/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/listen = 127.0.0.1:3314/listen = 127.0.0.1:3364/' #{release_path}/config/production.sphinx.conf"
+ run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:config"
+ 
+ run "sed -i 's/port: 3342/port: 3362/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3343/port: 3363/' #{release_path}/config/sphinx.yml"
+ run "sed -i 's/port: 3344/port: 3364/' #{release_path}/config/sphinx.yml"
 
  run "sed -i 's/listen = 127.0.0.1:3342/listen = 127.0.0.1:3362/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/listen = 127.0.0.1:3343/listen = 127.0.0.1:3363/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/listen = 127.0.0.1:3344/listen = 127.0.0.1:3364/' #{release_path}/config/production.sphinx.conf"
-
 
  run "sed -i 's/sql_host =.*/sql_host = #{sql_host}/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_user =.*/sql_user = #{sql_username}/' #{release_path}/config/production.sphinx.conf"
@@ -120,25 +91,7 @@ task :configure_sphinx do
  run "sed -i 's/sql_db =.*/sql_db = #{sql_database}/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_sock.*//' #{release_path}/config/production.sphinx.conf"
 
- run "sed -i 's/port: 3312/port: 3362/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/port: 3313/port: 3363/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/port: 3314/port: 3364/' #{release_path}/config/sphinx.yml"
-
- run "sed -i 's/port: 3342/port: 3362/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/port: 3343/port: 3363/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/port: 3344/port: 3364/' #{release_path}/config/sphinx.yml"
-
- run "sed -i 's/listen: 127.0.0.1:3312/listen: 127.0.0.1:3362/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/listen: 127.0.0.1:3313/listen: 127.0.0.1:3363/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/listen: 127.0.0.1:3314/listen: 127.0.0.1:3364/' #{release_path}/config/sphinx.yml"
-
- run "sed -i 's/listen: 127.0.0.1:3342/listen: 127.0.0.1:3362/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/listen: 127.0.0.1:3343/listen: 127.0.0.1:3363/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/listen: 127.0.0.1:3344/listen: 127.0.0.1:3364/' #{release_path}/config/sphinx.yml"
-
-
 end
-
 
 task :migrate_database do
   # Produce a string like 2010-07-15T09-16-35+02-00
@@ -154,17 +107,16 @@ task :migrate_database do
   # deploy.migrate should work, but is buggy and is run in the _previous_ release's
   # directory, thus never runs anything? Strange.
   #deploy.migrate
-  run "cd #{release_path} && RAILS_ENV='production' rake db:migrate"
-
+  #run "cd #{release_path} && RAILS_ENV='production' bundle exec rake db:migrate"
 end
 
 task :stop_sphinx do
-  run "cd #{previous_release} && RAILS_ENV='production' rake ts:stop"
+  run "cd #{previous_release} && RAILS_ENV='production' bundle exec rake ts:stop"
 end
 
 task :start_sphinx do
-  run "cd #{release_path} && RAILS_ENV='production' rake ts:reindex"
-  run "cd #{release_path} && RAILS_ENV='production' rake ts:start"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:reindex"
+  run "cd #{release_path} && RAILS_ENV='production' bundle execrake ts:start"
 end
 
 
@@ -177,22 +129,27 @@ namespace :deploy do
    task :restart, :roles => :app, :except => { :no_release => true } do
      run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
    end
+   
+   # This overwrites the (broken, when using Bundler) deploy:migrate task
+   task :migrate do
+   end
 
 end
 
-
 before "deploy", "retrieve_db_config"
+before "deploy:cold", "retrieve_db_config"
+before "deploy", :stop_sphinx
 before "bundle:install", "deploy:symlink"
+
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
-after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
 after "bundle:install", :migrate_database
+
 after "migrate_database", :configure_sphinx
-before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
-before "deploy", :stop_sphinx
 before "start_sphinx", :link_sphinx
 after "deploy", :start_sphinx
+after "deploy:cold", :start_sphinx
 after "deploy", "deploy:cleanup"
