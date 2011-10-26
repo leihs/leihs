@@ -17,6 +17,8 @@ module Backend::BackendHelper
         current_page?(backend_inventory_pool_path(current_inventory_pool))
       when "orders"
         current_page?(:controller => "backend/orders")
+      when "search"
+      current_page?(:controller => "backend", :action => :search)
       when "hand_over"
         current_page?(:controller => "backend/hand_over")
       when "take_back"
