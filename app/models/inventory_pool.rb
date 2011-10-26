@@ -188,12 +188,12 @@ class InventoryPool < ActiveRecord::Base
   
   # Returns a list of hand_over events. See #visits for details
   def hand_over_visits(max_start_date = nil)
-    visits(max_start_date, :to_hand_over)
+    visits(max_start_date, "hand_over")
   end
   
   # Returns a list of hand_over events. See #visits for details
   def take_back_visits(max_end_date = nil)
-    visits(max_end_date, :to_take_back)
+    visits(max_end_date, "take_back")
   end
 
 ###################################################################################
@@ -224,22 +224,22 @@ private
   # when an inventory pool manager should hand over some items to or get them back from
   # the customer.
   #
-  # 'target' says if we want to have hand_overs or take_backs. target can be either
+  # 'action' says if we want to have hand_overs or take_backs. action can be either
   # of those two:
   #
-  # * :to_hand_over
-  # * :to_take_back
+  # * "hand_over"
+  # * "take_back"
   # 
   # see #hand_over_visits and #take_back_visits for the primary API
   #
-  def visits(max_date = nil, target = :to_hand_over)
-    date_field = case target
-                   when :to_hand_over then "start_date"
-                   when :to_take_back then "end_date"
+  def visits(max_date = nil, action = "hand_over")
+    date_field = case action
+                   when "hand_over" then "start_date"
+                   when "take_back" then "end_date"
                    else raise "Wrong usage"
                  end
 
-    lines = contract_lines.send(target).
+    lines = contract_lines.send("to_#{action}").
                 select("contracts.user_id AS user_id, #{date_field} AS date, contract_id, quantity, contract_lines.id AS contract_line_id").
                 includes(:contract => :user).
                 order("contracts.user_id, #{date_field}")
@@ -259,7 +259,8 @@ private
                            :quantity          => l.quantity,
                            :contract_line_ids => [ l.contract_line_id ],
                            :inventory_pool    => self,
-                           :user              => user)
+                           :user              => user,
+                           :action            => action)
 
         previous.date = l.date
         previous.user_id    = l.user_id

@@ -252,6 +252,20 @@ class Order < Document
   end
   
   ############################################
+  
+  def as_json(options = {})
+    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
+
+    required_options = {:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}}},
+                                     :user => {:only => [:firstname, :lastname, :id]}},
+                        :methods => [:quantity, :max_single_range]}
+    
+    json = super(options.deep_merge(required_options))
+    
+    json.merge({:type => self.class.to_s.underscore})
+  end
+  
+  ############################################
 
   private
   

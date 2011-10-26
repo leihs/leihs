@@ -87,6 +87,29 @@ class Contract < Document
   sphinx_scope(:sphinx_unsigned) { { :with => {:status_const => Contract::UNSIGNED} } }
   sphinx_scope(:sphinx_signed) { { :with => {:status_const => Contract::SIGNED} } }
   sphinx_scope(:sphinx_closed) { { :with => {:status_const => Contract::CLOSED} } }
+  
+#########################################################################
+  
+  def as_json(options = {})
+    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
+
+    required_options = {:include => {:user => {:only => [:firstname, :lastname, :id]}}}
+    
+    json = super(options.deep_merge(required_options))
+    
+    lines_array = contract_lines.map {|cl| OpenStruct.new({:start_date => cl.start_date, :end_date => cl.end_date, :model => cl.model, :quantity => cl.quantity}) }
+    
+    sorted_and_grouped_contract_lines = lines_array.sort {|a,b| [a.start_date, a.end_date, a.model.id] <=> [b.start_date, b.end_date, b.model.id] }.
+                                          group_by {|cl| [cl.start_date, cl.end_date, cl.model] }
+    
+    lines_hash = sorted_and_grouped_contract_lines.map {|k,v| {:start_date => k[0],
+                                                      :end_date => k[1],
+                                                      :model => {:name => k[2].name, :manufacturer => k[2].manufacturer}, :quantity => v.sum(&:quantity)} }
+    
+    json[:lines] = lines_hash
+    
+    json.merge({:type => self.class.to_s.underscore})
+  end
 
 #########################################################################
 

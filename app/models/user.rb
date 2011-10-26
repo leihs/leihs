@@ -287,6 +287,18 @@ class User < ActiveRecord::Base
       end
     end    
   end
+  
+###########################################
+
+def as_json(options = {})
+  options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
+
+  required_options = {}
+  
+  json = super(options.deep_merge(required_options))
+  
+  json.merge({:type => self.class.to_s.underscore})
+end
 
 #################### Start role_requirement
 
@@ -344,7 +356,7 @@ class User < ActiveRecord::Base
 
     lines.collect do |l|
       Event.new(:date => l.end_date, :title => "#{self.login} - #{l.contract.inventory_pool}", :quantity => l.quantity, :contract_line_ids => l.contract_line_ids.split(','),
-                :inventory_pool => l.contract.inventory_pool, :user => self)
+                :inventory_pool => l.contract.inventory_pool, :user => self, :action => "take_back")
     end
   end
   
@@ -357,7 +369,7 @@ class User < ActiveRecord::Base
 
     lines.collect do |l|
       Event.new(:date => l.end_date, :title => "#{self.login} - #{l.contract.inventory_pool}", :quantity => l.quantity, :contract_line_ids => l.contract_line_ids.split(','),
-                :inventory_pool => l.contract.inventory_pool, :user => self)
+                :inventory_pool => l.contract.inventory_pool, :user => self, :action => "take_back")
     end
   end
 

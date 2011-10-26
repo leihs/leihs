@@ -158,7 +158,7 @@ class Model < ActiveRecord::Base
       json['availability'] = availability_periods_for_user(current_user)
     end
     
-    json
+    json.merge({:type => self.class.to_s.underscore})
   end
 
 
@@ -176,8 +176,8 @@ class Model < ActiveRecord::Base
     has model_groups(:id), :as => :model_group_id
 #    has items(:inventory_pool_id), :as => :inventory_pool_id
 #    has items(:owner_id), :as => :owner_id
-    has unretired_items(:inventory_pool_id), :as => :unretired_inventory_pool_id
-    has unretired_items(:owner_id), :as => :unretired_owner_id
+    has unretired_items(:inventory_pool_id), :as => :inventory_pool_id
+    has unretired_items(:owner_id), :as => :owner_id
 
     # item has at least one NULL parent_id and thus it has items that were not packaged
     # we collect all the inventory pools for which this is the case

@@ -390,7 +390,6 @@ class Item < ActiveRecord::Base
     end
   end
 
-
 ####################################################################
 
   def current_borrowing_info
@@ -401,6 +400,18 @@ class Item < ActiveRecord::Base
     if contract_line
       _("%s until %s") % [contract_line.contract.user, contract_line.end_date.strftime("%d.%m.%Y")] # TODO 1102** patch Date.to_s => to_s(:rfc822)
     end
+  end
+  
+  def current_borrower
+    contract_line = contract_lines.where(:returned_date => nil).first
+    
+    contract_line.contract.user if contract_line
+  end
+  
+  def current_return_date
+    contract_line = contract_lines.where(:returned_date => nil).first
+    
+    contract_line.end_date if contract_line
   end
 
 ####################################################################
@@ -420,6 +431,18 @@ class Item < ActiveRecord::Base
       end
     end unless children.empty?
   end
+
+####################################################################
+
+def as_json(options = {})
+  options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
+
+  required_options = {:methods => [:current_borrower, :current_return_date, :in_stock?],
+                      :include => { :model => {:only => :name}}}
+  
+  json = super(options.deep_merge(required_options))
+  json.merge({:type => self.class.to_s.underscore})
+end
 
 ####################################################################
 
