@@ -1,0 +1,113 @@
+-content_for :title, _("Search Results for \"%s\"") % params[:text]
+
+#search_results.innercontent
+  %h1= _("Search Results for \"%s\"") % params[:text]
+  
+  %p.subtitle= _("Found %d matches") % @results_total_entries
+  
+  %hr
+  
+  %section.model
+    .inlinetabs
+      .tab
+        %span.text
+          = _("Models")
+        .icon.model
+    .list
+    
+  %section.item
+    .inlinetabs
+      .tab
+        %span.text
+          = _("Items")
+        .icon.item
+    .list
+  
+  %section.user
+    .inlinetabs
+      .tab
+        %span.text
+          = _("Users")
+        .icon.user
+    .list
+    
+  %section.contract
+    .inlinetabs
+      .tab
+        %span.text
+          = _("Contracts")
+        .icon.contract
+    .list
+    
+  %section.order
+    .inlinetabs
+      .tab
+        %span.text
+          = _("Orders")
+        .icon.orders
+    .list
+    
+:javascript
+  
+  $(document).ready(function(){
+    SearchResults.setup();
+  });
+  
+  var SearchResults = new SearchResults();
+  
+  function SearchResults() {
+  
+    this.setup = function() {
+    
+      this.setupTemplates();
+      this.setupShowMore();
+      this.setupTips();
+    }
+    
+    this.setupTemplates = function() {
+      
+      var count = {};
+      
+      $.each(#{@results.to_json}, function(i, result){
+        $('.'+result.type+' .list').append($.tmpl("tmpl/line", result)).parent().show();
+      });
+    }
+    
+    this.setupShowMore = function() {
+    
+      $(".list").each(function(){
+      
+        var text = $(this).parent().find(".tab .text").first().html();
+            text = text.replace(/<.*>.*<\/.*>/g, "");
+      
+        $(this).showMore({
+          min: 4,
+          max: 8,
+          offset: {
+            top: -30
+          },
+          more: "<li><span class='icon'></span>#{_('more')} "+text+"</li>",
+          less: "<li><span class='icon'></span>#{_('show less')}</li>"
+        });
+      });
+    }
+    
+    this.setupTips = function() {
+      
+      $(".list .line .items").each(function(){
+      
+        $(this).qtip({
+        content: {
+          text: $(this).find(".tip")
+        },
+        position: {
+          target: $(this).find(".tip_target"),
+          adjust: {
+            x: -20
+          }
+        }
+      });
+      
+      });
+    }
+  }
