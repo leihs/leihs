@@ -1,0 +1,76 @@
+= link_to "backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}" do
+
+  %li.name
+    ${user.firstname}
+    ${user.lastname}
+
+  %li.items
+    %span.number
+      ${order_lines.length}
+    = _("Items")
+  
+    .tip_target  
+    .tip
+      %table
+        {{each(i, line) order_lines}}
+        %tr
+          %td.quantity
+            ${line.quantity}
+          %td.model_name
+            %span.text
+              {{html String(line.model.name).substring(0, 28) }}
+              {{if String(line.model.name).length > 28}}
+              {{html "..."}}
+              {{/if}}
+          %td.start_date
+            {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+          %td.date_connector
+            = "-"
+          %td.end_date
+            {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+        {{/each}}
+        
+  %li.range
+    %span.number
+      ${max_single_range}
+      
+    %span.text
+      {{if max_single_range < 2}}
+      = _("Day")
+      {{else}}
+      = _("Days max")
+      {{/if}}
+      
+  %li.purpose{:"data-title" => "${purpose}"}
+    .tip_target
+    %span.text
+      {{html String(purpose).substring(0, 70) }}
+      {{if String(purpose).length > 70}}
+      {{html "..."}}
+      {{/if}}
+      
+  {{if status_const == 3}}
+  %li.approved_with_date
+    = _("Approved")
+    %span.grey
+      ({{html formatDate(new Date(updated_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}})
+  {{/if}}
+  
+  {{if status_const == 4}}
+  %li.approved_with_date
+    = _("Rejected")
+    %span.grey
+      ({{html formatDate(new Date(updated_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}})
+  {{/if}}
+      
+{{if status_const == 2}}
+%li.actions
+  = link_to "backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}/approve", :class => "smallbutton red", :remote => true, :method => :post do
+    .icon.delete
+    = _("Decline")
+    
+  = link_to "backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}/reject", :class => "smallbutton white", :remote => true, :method => :post do
+    = _("Approve")
+    .icon.approve
+{{/if}}
+  

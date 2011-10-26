@@ -13,8 +13,12 @@
 /////////// App /////////////
 //= require i18n/i18n
 
+/////////// Templates /////////////
+//= require_tree ./tmpl
+
 /////////// Lib /////////////
 //= require jquery/dialog/dialog
+//= require jquery/showMore/showMore
 
 /////////// Vendor /////////////
 //= require date/date

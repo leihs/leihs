@@ -1,0 +1,6 @@
+%ul.line{:class => "${type}"}
+  {{if type == "user" || type == "model" || type == "order" || type == "contract" || type == "item" || type == "hand_over" || type == "take_back" }}
+  {{tmpl "tmpl/"+type+"_line"}}
+  {{else}}
+  {{tmpl "tmpl/unknown_line"}}
+  {{/if}}

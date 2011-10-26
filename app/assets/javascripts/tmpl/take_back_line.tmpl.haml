@@ -1,0 +1,81 @@
+= link_to "backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back" do
+
+  {{if overdue}}
+  %li.overdue_icon
+    .icon.hand_over.overdue
+  %li.name.overdue
+    ${user.firstname}
+    ${user.lastname}
+  {{else}}
+  %li.name
+    ${user.firstname}
+    ${user.lastname}
+  {{/if}}
+
+  %li.items
+    %span.number
+      ${lines.length}
+    %span.text
+      = _("Items")
+  
+    .tip_target  
+    .tip
+      %table
+        {{each(i, line) lines}}
+        %tr
+          %td.quantity
+            ${line.quantity}
+          %td.model_name
+            %span.text
+              {{html String(line.model.name).substring(0, 30) }}
+              {{if String(line.model.name).length > 30}}
+              {{html "..."}}
+              {{/if}}
+          %td.start_date
+            {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+          %td.date_connector
+            = "-"
+          %td.end_date
+            {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+        {{/each}}
+        
+  %li.range
+    %span.number
+      {{if overdue}}
+      ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24))}
+      {{else}}
+      ${Math.round((new Date() - new Date(min_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24))}
+      {{/if}}
+    %span.text
+      {{if overdue}}
+      = _("Days overdue")
+      {{else}}
+      = _("Days max")
+      {{/if}}      
+      
+  {{if overdue}}
+  %li.reminder
+    {{if latest_remind}}
+    %span.text
+      = _("Lates Reminder:")
+      {{html formatDate(new Date(latest_remind.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+    {{else}}
+    %span.grey.text
+      = _("No reminder yet")
+    {{/if}}
+  {{else}}
+  
+  %li.note
+    &raquo;
+    {{html formatDate(new Date(min_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+  {{/if}}
+ 
+%li.actions
+  {{if overdue}}
+  = link_to "backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back?remind=true", :class => "smallbutton white" do
+    = _("Remind")
+    .icon.send
+  {{/if}}
+  = link_to "backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back", :class => "smallbutton white" do
+    = _("Take Back")
+    .icon.take_back

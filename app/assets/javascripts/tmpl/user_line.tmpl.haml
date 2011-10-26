@@ -1,0 +1,38 @@
+= link_to "backend/inventory_pools/${current_inventory_pool}/users/${id}" do
+
+  %li.name
+    ${firstname}
+    ${lastname}
+
+  %li.city
+    {{if city}}
+    ${city}
+    {{else}}
+    %span.grey
+      = "-"
+    {{/if}}
+
+  %li.phone
+    %span.text
+      = _("Phone:")
+    {{if phone}}
+    %span.digits
+      ${phone}
+    {{else}}
+    %span.grey
+      = "-"
+    {{/if}}
+
+  {{if badge_id}}
+  %li.badge
+    = _("Badge:")
+    ${badge_id}
+  {{/if}}
+
+%li.actions
+  
+  = mail_to "${email}", "#{_('E-Mail')} <div class='icon send'></div>".html_safe, :class => "smallbutton white"
+    
+  = link_to "backend/inventory_pools/${current_inventory_pool}/users/${id}/new_contract", :class => "smallbutton white" do
+    = _("New Contract")
+    .icon.contract
