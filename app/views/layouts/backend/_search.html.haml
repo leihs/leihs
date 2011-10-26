@@ -1,8 +1,9 @@
-%section#search
+%section#search{:class => is_current_page?("search") ?"active" : nil}
   .inner
-    = form_tag("") do
-      %input{:type => "text"}
+    = form_tag(backend_inventory_pool_search_path(current_inventory_pool), :method => :get, :autocomplete => :off) do
+      %input{:type => "text", :name => "text", :value => params[:text]}
       = submit_tag "", :class => "icon"
+      = image_tag "loading.gif", :class => "loading"
     .borderright
     
 :javascript
@@ -17,16 +18,42 @@
     this.setup = function() {
       
       this.setupFocus();
+      this.setupSubmittion();
+      this.setupUnload();
     }
     
     this.setupFocus = function() {
+      var search_input = $("#search input[name='text']");
+        
+      if(search_input.parents("#search").hasClass("active")){
+        search_input.focus().val(search_input.val() + " "); // NOTE: This puts the Cursor at the end on focus
+        search_input.addClass("on_search_page");        
+      }
       
-      $("#search input:text").bind("focus", function() {
-        $(this).parents("#search").addClass("active");
+      search_input.focus(function(){
+        if (! $(this).hasClass("on_search_page"))
+          $(this).parents("#search").addClass("active");
+      }).blur(function() {
+        if (! $(this).hasClass("on_search_page"))
+          $(this).parents("#search").removeClass("active");
       });
+    }
+    
+    this.setupSubmittion = function() {
       
-      $("#search input:text").bind("blur", function() {
-        $(this).parents("#search").removeClass("active");
+      $("#search form").submit(function() {
+        $(this).find(".icon").hide();
+        $(this).find(".loading").show();
+      });
+    }
+    
+    this.setupUnload = function() {
+      
+      $(window).unload(function(){
+        $("#search").find(".icon").show();
+        $("#search").find(".loading").hide();
+        $("#search input:text").val("");
+        $("#search input:text").blur();
       });
     }
   }
