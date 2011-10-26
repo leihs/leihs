@@ -13,34 +13,36 @@ class Backend::BackendController < ApplicationController
   
 ###############################################################    
   
-  # global search
   def search
-# TODO use sphinx_select
-#    @result = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => 200,
-#                                                     :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC",
-##                                                     :group_by => "class_crc",
-#                                                     :sphinx_select => "*, inventory_pool_id = #{current_inventory_pool.id} OR owner_id = #{current_inventory_pool.id} AS a",
-#                                                     :with => { :a => true } }
 
-    @search = [ { :title => _("Booking"),
-                  :color => "#1089D9",
-                  :with => { :inventory_pool_id => [current_inventory_pool.id]} },
-                { :title => _("Inventory"), # TODO prevent search for Inventory if current_user doesn't have enough permissions
-                  :color => "#008209",
-                  :with => { :owner_id => [current_inventory_pool.id]} }]
+    conditions = [ { :klasses => [User, Order, Contract, Model, Item],
+                   :with => { :inventory_pool_id => [current_inventory_pool.id]}
+                 } ]
+    
+    #TODO conditions << { :with => { :owner_id => [current_inventory_pool.id]} } if  # SEARCH FOR MODEL WITHOUT INVENTORY CODE
+    
+    #TODO conditions << { :with => { :owner_id => [current_inventory_pool.id]} } if  # INVENTORY MANAGER
+    
+    #TODO conditions << { :with => { :owner_id => [current_inventory_pool.id]} } if  # ADMIN find USERS
+    
+                # TODO prevent search for Inventory if current_user doesn't have enough permissions
+                # TODO implement this later on :with => { :owner_id => [current_inventory_pool.id]}
+                # TODO implement serach for all user "ADMIN" and merge with users
 
-    @search.each do |s|
-      s[:result] = ThinkingSphinx.search params[:text], { :star => true, :page => params[:page], :per_page => 999,
-                                                          :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC", # :group_by => "class_crc",
-                                                          :with => s[:with] }
-      
-      s[:search] = {}
-      s[:result].each do |r|
-        res = s[:search][r.class.to_s] || []
-        res << r
-        s[:search][r.class.to_s] = res
+    searches = []
+    conditions.each do |s|
+      s[:klasses].each do |klass|
+        searches << klass.search(params[:text], { :star => true, :page => params[:page], :per_page => 54,
+                                               :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC",
+                                               :with => s[:with] })
       end
     end
+
+    @results_total_entries = searches.sum(&:total_entries)
+
+    @results = searches.collect do |results|
+      results.compact
+    end.flatten
   end
 
 ###############################################################  
