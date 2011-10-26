@@ -1,15 +1,16 @@
 .model_tip {
   font-size: 1.0em;  
-  width: 573px;
-  max-width: 573px;
+  width: 590px;
+  max-width: 590px;
   
   .ui-tooltip-content{
-    border-color: $bordergrey;
-    border-width: 1px;
+    border-color: $borderdarkgrey;
+    border-width: 3px;
     background-color: white;
     color: #555;
     padding: 12px 10px 6px 10px;
-    @include boxShadow (0 0 6px #CCC);
+    @include borderRadius(7px);
+    @include boxShadow (0 0 5px #DDD);
   }
   
   .tip {

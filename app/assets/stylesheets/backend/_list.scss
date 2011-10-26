@@ -2,7 +2,11 @@
   display: block;
   margin-bottom: 26px;
   
-  .item {
+  &>.line:not(.toggle) {
+    display: none !important;
+  }
+  
+  .line {
     border-bottom: 1px solid $borderlightergrey;
     border-top: 1px solid white;
     display: table;
@@ -10,18 +14,15 @@
     position: relative;
     width: 100%;
     
-    &>a, &>.nolink {
-      display: inline-block;
-      height: 40px;
-      position: relative;
-      vertical-align: top;
+    &>a {
+      display: block;
     }
     
-    &>a:first-child li, &>li:first-child {
+    &>a>li:first-child {
       padding-left: 14px;
     }
     
-   &>a:last-child li, &>li:last-child {
+    &>li:last-child {
       padding-right: 10px;
     }
     
@@ -55,16 +56,52 @@
     
     span.grey {
       color: $lightgrey;
-    } 
+    }
     
-    &.overdue {
-      li {
-        color: red !important;     
+    span.red {
+      color: $red;
+    }
+    
+    span.digits {
+      letter-spacing: -1px;
+    }
+    
+    &.toggle {
+      background: white;
+      border-bottom: none;
+      cursor: pointer;
+      font-size: 1.1em;
+      
+      .icon {
+        background: url($image-sprite) no-repeat -53px -37px;
+        display: inline-block;
+        height: 6px;
+        margin-right: 8px;
+        margin-left: 12px;
+        position: relative;
+        width: 7px;
+        @include opacity(0.6);
+      }
+      
+      &.show_less {
+        .icon {
+          background: url($image-sprite) no-repeat -73px -37px;  
+        }
+      }
+      
+      &:hover {
+        .icon {
+          @include opacity(1.0);
+        }
+      }
+      
+      .hidden {
+        display: none;
       }
     }
     
     li {
-      color: $grey;
+      color: $darkgrey;
       display: table-cell;
       font-size: 1.2em;
       height: 40px;
@@ -76,7 +113,12 @@
       &.name {
         font-weight: bold;
         line-height: 1.1em;
-        width: 110px;
+        width: 143px;
+        
+        &.overdue {
+          padding-left: 6px;
+          width: 128px;
+        }
       }
       
       &.quantity {
@@ -103,17 +145,107 @@
         }
       }
       
+      &.range.overdue {
+        padding-right: 10px !important;
+        width: 125px;
+        
+        .number {
+          display: inline-block;
+          padding-right: 2px;
+          text-align: right;
+          width: 30px;
+        }
+      }
+      
       &.purpose {
         width: 265px;
       }
       
       &.reminder {
+        width: 180px;
+      }
+      
+      &.city {
+        width: 70px;
+      }
+      
+      &.phone {
         width: 190px;
+        
+        span.text {
+          float: left;
+          margin-right: 4px;
+        }
+        
+        span.digits {
+          display: block;
+          float: left;
+          width: 130px;
+        }
+      }
+      
+      &.number {
+        width: 70px;
+      }
+      
+      &.date {
+        width: 80px;
+      }
+      
+      &.items {
+        width: 120px;
+        
+        .number {
+          display: inline-block;
+          padding-right: 2px;
+          text-align: right;
+          width: 30px;
+        }
+      }
+      
+      &.modelname {
+        font-weight: bold;
+        width: 265px;
+      }
+      
+      &.inventory_code {
+        font-weight: bold;
+        width: 100px;
+      }
+      
+      &.serial_number {
+        width: 100px;
+      }
+      
+      &.overdue_icon {
+        padding-right: 0;
+        padding-left: 8px !important;
+      }
+      
+      &.stock {
+        width: 165px;
+        
+        .digits {
+          display: block;
+        }
+      }
+      
+      &.status {
+        width: 100px;
+      }
+      
+      &.status_with_date {
+        width: 185px;
+      }
+      
+      &.approved_with_date {
+        text-align: right;
+        width: 185px;
       }
       
       &.actions {
         text-align: right;
-        @include opacity(0.4);
+        @include opacity(0.5);
       }
     }
   }

@@ -31,6 +31,7 @@
  *= depend_on backend/_content
  *= depend_on backend/_tips
  *= depend_on backend/_chart
+ *= depend_on backend/_search_results
  * 
 */
 
@@ -61,3 +62,4 @@
 @import "backend/_content.scss";
 @import "backend/_tips.scss";
 @import "backend/_chart.scss";
+@import "backend/_search_results.scss";

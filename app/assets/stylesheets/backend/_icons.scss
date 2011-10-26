@@ -5,6 +5,18 @@
   vertical-align: middle;
 }
 
+.smallbutton .icon {
+  
+  &.edit, &.delete, &.contract {
+    top: -1px;
+  }
+  
+  &.valuelist {
+    top: -1px;
+    margin: 0 1px;
+  }
+}
+
 .datepicker.icon { 
   background-position: -132px 0;
   height: 14px;
@@ -32,7 +44,13 @@
 .hand_over.icon {
   background-position: -90px -17px;
   height: 16px;
-  width: 21px;
+  width: 23px;
+}
+
+.overdue.icon {
+  background-position: -96px 0;
+  height: 16px;
+  width: 15px;
 }
 
 .take_back.icon {
@@ -65,13 +83,32 @@
   width: 19px;
 }
 
-.smallbutton .icon {
-  
-  &.edit {
-    top: -1px;
-  }
-  
-  &.delete {
-    top: -1px;
-  }
+.user.icon {
+  background-position: -42px -17px;
+  height: 16px;
+  width: 16px;
+}
+
+.contract.icon {
+  background-position: -24px -17px;
+  height: 16px;
+  width: 17px;
+}
+
+.item.icon {
+  background-position: 0 -134px;
+  height: 14px;
+  width: 16px;
+}
+
+.valuelist.icon {
+  background-position: -17px -134px;
+  height: 14px;
+  width: 14px;
+}
+
+.retire.icon {
+  background-position: -79px 0;
+  height: 16px;
+  width: 16px;
 }

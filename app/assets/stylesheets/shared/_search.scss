@@ -115,12 +115,21 @@
       height: 15px;
       margin-top: 4px;
       padding-top: 2px;
-      padding-left: 6px;
+      padding-left: 7px;
       padding-right: 26px;
       padding-bottom: 2px;
       position: relative;
-      width: 89px;
+      width: 88px;
       @include borderRadius(8px);
+    }
+    
+    .loading {
+      display: none;
+      height: 14px;
+      left: 110px;
+      position: absolute;
+      top: 8px;
+      width: 14px;
     }
     
     .icon {
@@ -163,5 +172,9 @@
   .inner {
     background: url($image-sprite) repeat-x 0 -149px;
     height: 35px;
+  }
+  
+  input[type=text] {
+   border-color: $borderdarkgrey;
   }
 }
