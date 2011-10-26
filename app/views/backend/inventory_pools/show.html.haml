@@ -21,39 +21,35 @@
     
   %hr
   
-  .orders
+  %section.order
     .inlinetabs
       .tab
+        %span.text
+          = _("Orders")
         .icon.orders
-        = _("Orders")
-    .list.searcheable
+    .list
   
-  .hand_overs
+  %section.hand_over
     .inlinetabs
       .tab
+        %span.text
+          = _("Hand Overs")
         .icon.hand_over
-        = _("Hand Overs")
         .badge.red
           = @hand_overs_overdue.size
     .list
      
-  .take_backs 
+  %section.take_back
     .inlinetabs
       .tab
+        %span.text
+          = _("Take Backs")
         .icon.take_back
-        = _("Take Backs")
         .badge.red
           = @take_backs_overdue.size
     .list
     
 = render :partial => 'backend/inventory_pools/bar_chart'
-  
-= render :partial => 'daily_line_template', :locals => {:user_link_prefix => "/backend/inventory_pools/#{current_inventory_pool.id}/users/",
-                                                        :order_link_prefix => "/backend/inventory_pools/#{current_inventory_pool.id}/orders/",
-                                                        :hand_over_postfix => "/hand_over",
-                                                        :take_back_postfix => "/take_back",
-                                                        :acknowledge_postfix => "/acknowledge/",
-                                                        :approve_postfix => "/approve"}
       
 :javascript
   
@@ -65,37 +61,22 @@
   
   function DailyView() {
     
-    this.purpose_max = 70;
-    this.tip_modelname_max = 30;
-    
     this.setup = function() {
       
       this.setupTemplates();
+      this.setupShowMore();
       
-      this.setupDefaultTips();
-      
-      this.setupTips();
-      
-      this.setupActions();
+      //this.setupTips();
+      // this.setupActions();
     }
     
     this.setupTemplates = function() {
-      $('.orders .list').append($("#daily_line_template").tmpl(#{@orders.to_json}, {type: "order"}));
-      $('.hand_overs .list').append($("#daily_line_template").tmpl(#{@hand_overs_overdue.to_json}, {type: "hand_over", overdue: true}));
-      $('.hand_overs .list').append($("#daily_line_template").tmpl(#{@hand_overs.to_json}, {type: "hand_over"}));
-      $('.take_backs .list').append($("#daily_line_template").tmpl(#{@take_backs_overdue.to_json}, {type: "take_back", overdue: true}));
-      $('.take_backs .list').append($("#daily_line_template").tmpl(#{@take_backs.to_json}, {type: "take_back"}));
-    }
-    
-    this.setupDefaultTips = function() {
-      $.fn.qtip.defaults.position.my = 'bottom center';
-      $.fn.qtip.defaults.position.at = 'top center';
-      $.fn.qtip.defaults.position.viewport = $(window);
-      $.fn.qtip.defaults.show.delay = 220;
-      $.fn.qtip.defaults.show.solo = true;
-      $.fn.qtip.defaults.style.tip.width = 12;
-      $.fn.qtip.defaults.style.tip.height = 8;
-      $.fn.qtip.defaults.style.classes = "list_tip";
+      
+      $('.order .list').append($.tmpl("tmpl/line", #{@orders.to_json}));
+      $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs_overdue.to_json}));
+      $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs.to_json}));
+      $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs_overdue.to_json}));
+      $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs.to_json}));
     }
     
     this.setupTips = function() {
@@ -129,10 +110,11 @@
     
     this.setupActions = function() {
     
-      $("#daily .item li.actions").live("ajax:success", function(){
+      $("#daily .item li.actions").live("ajax:success", function(response){ // TODO
         var to_remove = $(this).closest("table.item");
         to_remove.fadeOut(400, function(){
           $(this).remove();
+          // TODO $("."+response.type+"_list").append($.tmpl("tmpl/line", response.data));
         });
       }).live("ajax:error", function(event, response){
         Dialog.add({
@@ -141,6 +123,23 @@
           content: response.responseText
         });
       });
+    }
       
+    this.setupShowMore = function() {
+  
+      $(".list").each(function(){
+      
+        var text = $(this).parent().find(".tab .text").first().html();
+      
+        $(this).showMore({
+          min: 4,
+          max: 8,
+          offset: {
+            top: -30
+          },
+          more: "<li><span class='icon'></span>%d #{_('more')} "+text+"</li>",
+          less: "<li><span class='icon'></span>#{_('show less')}</li>"
+        });
+      });
     }
   }
