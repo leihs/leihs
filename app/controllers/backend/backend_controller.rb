@@ -19,8 +19,6 @@ class Backend::BackendController < ApplicationController
                    :with => { :inventory_pool_id => [current_inventory_pool.id]}
                  } ]
     
-    #TODO conditions << { :with => { :owner_id => [current_inventory_pool.id]} } if  # SEARCH FOR MODEL WITHOUT INVENTORY CODE
-    
     #TODO conditions << { :with => { :owner_id => [current_inventory_pool.id]} } if  # INVENTORY MANAGER
     
     #TODO conditions << { :with => { :owner_id => [current_inventory_pool.id]} } if  # ADMIN find USERS
@@ -37,12 +35,16 @@ class Backend::BackendController < ApplicationController
                                                :with => s[:with] })
       end
     end
-
-    @results_total_entries = searches.sum(&:total_entries)
-
+    
+    @hits = {}
+    searches.each{ |search|
+      next if search.first.class.to_s.underscore == "nil_class"
+      @hits[search.first.class.to_s.underscore] = search.total_entries 
+    } 
+    
     @results = searches.collect do |results|
       results.compact
-    end.flatten
+    end.flatten.as_json(:current_inventory_pool => current_inventory_pool)
   end
 
 ###############################################################  

@@ -129,7 +129,10 @@ class Backend::AcknowledgeController < Backend::BackendController
       @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
       @order = @user.orders.submitted.find(params[:id]) if params[:id] and @user
     rescue
-      redirect_to :action => 'index' unless @order
+      respond_to do |format|
+        format.html { redirect_to :action => 'index' unless @order }
+        format.js { render :text => _("User or Order not found"), :status => 500 }
+      end
   end
     
 end

@@ -40,7 +40,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
     @take_backs = take_back_visits.select {|v| v.date == today_and_next_4_days.first }
     
     @chart_data = today_and_next_4_days.map do |day|
-      [[take_back_visits.select {|v| v.date == day }.size, hand_over_visits.select {|v| v.date == day }.size], l(day, :format => "%a")]
+      [[take_back_visits.select {|v| v.date == day }.size, hand_over_visits.select {|v| v.date == day }.size], l(day, :format => "%A")]
     end
   end
   
