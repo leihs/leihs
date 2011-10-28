@@ -1,4 +1,4 @@
-= link_to "backend/inventory_pools/${current_inventory_pool}/items/${id}" do
+= link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}" do
   
   %li.modelname
     ${model.name}
@@ -8,24 +8,27 @@
 
   %li.serial_number
     ${serial_number}
-    
-  {{if $item.data["in_stock?"]}}
-  %li.stock
+  
+  %li.item_status
+    {{if $item.data["in_stock?"]}}
     = _("In Stock")
-  {{else}}
-  %li.stock
+    {{else}}
     ${current_borrower.firstname}
     ${current_borrower.lastname}
-    %span.digits
+    %span.grey
       &raquo;
       {{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-  {{/if}}
+    {{/if}}
     
-  %li.status
+    {{if is_broken || is_incomplete}}
+    = ", "
+    {{/if}}
+    
     {{if is_broken}}
     %span.red
       %b= _("Broken")
     {{/if}}
+    
     {{if is_incomplete}}
     {{if is_broken}}
     = ", "
@@ -35,6 +38,6 @@
     {{/if}}
     
 %li.actions
-  = link_to "backend/inventory_pools/${current_inventory_pool}/items/${id}/retire", :class => "smallbutton white" do
+  = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/retire", :class => "smallbutton white" do
     = _("Retire")
     .icon.retire

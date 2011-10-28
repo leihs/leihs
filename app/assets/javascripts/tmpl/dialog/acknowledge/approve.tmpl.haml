@@ -1,0 +1,45 @@
+= form_tag '${$item.action}', :remote => true do
+  %h1= _("Order from ${user.firstname} ${user.lastname}")
+  %p.subtitle= '"${purpose}"'
+  
+  .navigation
+    %a.button.white
+      .icon.return
+      = _("Back")
+    = submit_tag _("Approve"), :class => "button green"
+      
+  %hr
+  
+  %section.lines
+    ${$startdate = 0, ""}
+    ${$enddate = 0, ""}
+    {{each(i, line) order_lines}}
+    {{if line.start_date != $startdate || line.end_date != $enddate}}
+    ${$startdate = line.start_date, ""}
+    ${$enddate = line.end_date, ""}
+    .date
+      {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      = "-"
+      {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+    .range
+      ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24))}
+      = _("Days")
+    .clear
+    .list
+      {{each(i, line) order_lines}}
+      {{if line.start_date == $startdate && line.end_date == $enddate}}
+      %ul.line
+        .container
+          %li.quantity
+            ${line.quantity}
+          %li.model
+            ${line.model.name}
+      {{/if}}
+      {{/each}}  
+    {{/if}}
+    {{/each}}
+  
+  %h2= _("Comment")
+  %p.subtitle= _("This comment will be part of the confirmation E-Mail.")
+  = text_area_tag "comment", "", :autofocus => true
+  ${alert(1),""}

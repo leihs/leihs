@@ -1,0 +1,47 @@
+= link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}" do
+  
+  %li.modelname
+    ${name}
+    
+  {{if categories.length > 0}}
+  ${$count = 0, ""}
+  %li.category
+    {{each(i, category) categories}}
+    {{if i == 0}}
+    ${category.name}
+    {{else}}
+    ${$count = i, ""}
+    {{/if}}
+    {{/each}}
+  %li.categories.hastip
+    {{if categories.length > 1}}
+    ${$count+1}
+    = _("more categories")
+    .tip 
+      %table
+        {{each(i, category) categories}}
+        %tr
+          %td
+            %p
+              ${category.name}
+        {{/each}}
+    {{else}}
+    %span.grey
+      = _("no more categories")
+    {{/if}}
+  {{else}}
+  %li.category
+    %span.grey
+      = _("no category")
+  %li.categories
+  {{/if}}
+  
+  %li.availability
+    ${availability}
+    = "/"
+    ${total_borrowable}
+    
+%li.actions
+  = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}/edit", :class => "smallbutton white" do
+    = _("Edit")
+    .icon.edit

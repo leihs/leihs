@@ -1,4 +1,4 @@
-= link_to "backend/inventory_pools/${current_inventory_pool}/users/${id}" do
+= link_to "/backend/inventory_pools/${current_inventory_pool}/users/${id}" do
 
   %li.name
     ${firstname}
@@ -33,6 +33,6 @@
   
   = mail_to "${email}", "#{_('E-Mail')} <div class='icon send'></div>".html_safe, :class => "smallbutton white"
     
-  = link_to "backend/inventory_pools/${current_inventory_pool}/users/${id}/new_contract", :class => "smallbutton white" do
+  = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${id}/new_contract", :class => "smallbutton white" do
     = _("New Contract")
     .icon.contract

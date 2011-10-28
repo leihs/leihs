@@ -1,0 +1,118 @@
+= link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back" do
+
+  {{if overdue}}
+  %li.overdue_icon
+    .icon.hand_over.overdue
+  %li.name.overdue.hastip
+    ${user.firstname}
+    ${user.lastname}
+    .tip.user
+      %table
+        %tr
+          %td.key
+            %p
+              = _("Phone")
+          %td.value
+            %p
+              ${user.phone}
+        %tr
+          %td.key
+            %p
+              = _("E-Mail")
+          %td.value
+            %p
+              ${user.email}
+  {{else}}
+  %li.name.hastip
+    ${user.firstname}
+    ${user.lastname}
+    .tip.user
+      %table
+        %tr
+          %td.key
+            %p
+              = _("Phone")
+          %td.value
+            %p
+              ${user.phone}
+        %tr
+          %td.key
+            %p
+              = _("E-Mail")
+          %td.value
+            %p
+              ${user.email}
+  {{/if}}
+
+  %li.items.hastip
+    %span.number
+      ${quantity}
+    = _("Items")
+    .tip.lines
+      ${$startdate = 0, ""}
+      ${$enddate = 0, ""}
+      {{each(i, line) lines}}
+      {{if line.start_date != $startdate || line.end_date != $enddate}}
+      ${$startdate = line.start_date, ""}
+      ${$enddate = line.end_date, ""}
+      .date
+        {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+        = "-"
+        {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      .range
+        ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24))}
+        = _("Days")
+      .clear
+      %table
+        {{each(i, line) lines}}
+        {{if line.start_date == $startdate && line.end_date == $enddate}}
+        %tr
+          %td.quantity
+            ${line.quantity}
+          %td.model_name
+            ${line.model.name}
+        {{/if}}
+        {{/each}}  
+      {{/if}}
+      {{/each}}
+        
+  %li.range
+    %span.number
+      {{if overdue}}
+      ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24))}
+      {{else}}
+      ${Math.round((new Date() - new Date(min_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24))}
+      {{/if}}
+    %span.text
+      {{if overdue}}
+      = _("Days overdue")
+      {{else}}
+      = _("Days max")
+      {{/if}}      
+      
+  {{if overdue}}
+  %li.reminder
+    {{if latest_remind}}
+    %span.text
+      = _("Lates Reminder:")
+      {{html formatDate(new Date(latest_remind.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+    {{else}}
+    %span.grey.text
+      = _("No reminder yet")
+    {{/if}}
+  {{else}}
+  
+  %li.note
+    &raquo;
+    {{html formatDate(new Date(min_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+  {{/if}}
+ 
+%li.actions
+  {{if overdue}}
+  = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back?remind=true", :class => "smallbutton white" do
+    = _("Remind")
+    .icon.send
+  {{/if}}
+  = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back", :class => "smallbutton white" do
+    = _("Take Back")
+    .icon.take_back
