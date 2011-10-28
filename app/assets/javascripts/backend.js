@@ -12,6 +12,8 @@
 
 /////////// App /////////////
 //= require i18n/i18n
+//= require jquery/tips/tips
+//= require jquery/buttons/buttons
 
 /////////// Templates /////////////
 //= require_tree ./tmpl
