@@ -257,7 +257,7 @@ class Order < Document
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
 
     required_options = {:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}}},
-                                     :user => {:only => [:firstname, :lastname, :id]}},
+                                     :user => {:only => [:firstname, :lastname, :id, :phone, :email]}},
                         :methods => [:quantity, :max_single_range]}
     
     json = super(options.deep_merge(required_options))

@@ -62,8 +62,10 @@ class InventoryPool < ActiveRecord::Base
 
     
 	has_many :locations, :through => :items, :uniq => true
-  has_many :items, :dependent => :nullify # OPTIMIZE prevent self.destroy unless self.items.empty?
+  has_many :items, :dependent => :nullify # OPTIMIZE prevent self.destroy unless self.items.empty? 
+                                          # NOTE these are only the active items (unretired), because Item has a default_scope
   has_many :own_items, :class_name => "Item", :foreign_key => "owner_id"
+  #TODO  do we need a :all_items ??
   has_many :models, :through => :items, :uniq => true
   has_many :models_active, :through => :items, :source => :model, :uniq => true, :conditions => "items.retired IS NULL" # OPTIMIZE models.active 
   has_many :own_models, :through => :own_items, :source => :model, :uniq => true

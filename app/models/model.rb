@@ -47,8 +47,9 @@ class Model < ActiveRecord::Base
 #    end
   end
 
-  has_many :items
-  has_many :unretired_items, :class_name => "Item", :conditions => {:retired => nil}
+  has_many :items # NOTE these are only the active items (unretired), because Item has a default_scope
+  has_many :unretired_items, :class_name => "Item", :conditions => {:retired => nil} # TODO this is redudant, do we need :retired_items ??
+  #TODO  do we need a :all_items ??
   has_many :borrowable_items, :class_name => "Item", :conditions => {:retired => nil, :is_borrowable => true, :parent_id => nil}
   has_many :unpackaged_items, :class_name => "Item", :conditions => {:parent_id => nil}
   
@@ -146,16 +147,23 @@ class Model < ActiveRecord::Base
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
 
-    current_user = options.delete(:current_user)
+    current_user = options[:current_user]
+    current_inventory_pool = options[:current_inventory_pool]
     
-    required_options = {:include => :properties }
+    required_options = {:include => [:properties, :categories] }
     
     # :methods => :inventory_pool_ids
     json = super(options.deep_merge(required_options))
-    
+
     if current_user
       json['total_borrowable'] = total_borrowable_items_for_user(current_user)
       json['availability'] = availability_periods_for_user(current_user)
+    end
+
+    if current_inventory_pool
+      active_items = items.scoped_by_inventory_pool_id(current_inventory_pool)
+      json['total_borrowable'] = active_items.count
+      json['availability'] = active_items.borrowable.in_stock.count
     end
     
     json.merge({:type => self.class.to_s.underscore})
