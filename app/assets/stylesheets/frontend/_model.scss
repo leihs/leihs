@@ -22,10 +22,6 @@
       width: 50px;
       z-index: 999;
       
-      a {
-        cursor: -webkit-zoom-in;
-        cursor: -moz-zoom-in;
-        display: block;
         padding-bottom: 4px;
         
         table {
@@ -52,7 +48,6 @@
             @include opacity(0.9); 
           }
         }
-      }
     }
     
     table {

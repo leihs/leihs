@@ -1,74 +1,109 @@
-.bar_tip {
-  
-  .ui-tooltip-content {
-    border-color: $borderdarkgrey;
-    border-width: 3px;
-    background-color: white;
-    color: #555;
-    padding: 5px 6px;
-    @include borderRadius(6px);
-    @include boxShadow (0 0 8px #DDD);
-  }
-}
-
 .list_tip {
-  max-width: 430px;
+  max-width: 410px;
   
   .ui-tooltip-content {
-    border-color: $borderdarkgrey;
+    border-color: $borderdarkergrey;
     border-width: 3px;
     background-color: white;
-    color: #555;
+    color: $darkgrey;
     padding: 10px;
     @include borderRadius(6px);
-    @include boxShadow (0 0 8px #DDD);
+    @include boxShadow (0 0 10px #CCC);
   }
 
   .tip {
+    position: relative;
+    
+    &.lines {
+      
+      .date {
+        float: left;
+        display: inline-block;
+        font-size: 0.9em;
+        font-weight: bold;
+      }
+      
+      .range {
+        float: right;
+        display: block;
+        font-size: 0.9em;
+        padding-right: 4px;
+        text-align: right;
+        width: 120px;
+      }
+     
+      table {
+        margin-top: 2px;
+        margin-bottom: 12px;
+        
+        tr {
+          &:nth-child(even) {
+            td {
+              background: $highlight-grey;
+            }
+          }
+          
+          td:nth-child(1) {
+            padding-left: 10px;
+          }
+          
+          td:nth-last-child(1) {
+            padding-right: 10px;
+          }
+          
+          td {
+            &.quantity {
+              text-align: right;
+              padding-right: 10px;
+              padding-left: 8px;
+            }
+           
+            &.model_name {
+              width: 350px;
+            }
+          }
+        }
+      }
+    }
+    
+    &.user {
+      table {
+        tr {
+          td{
+            &.key {
+              width: 80px;
+            }
+          }
+        }
+      }
+    }       
+      
     table {
+      margin-top: 2px;
+      margin-bottom: 12px;
+      
       tr {
-        &:nth-child(odd) {
+        &:nth-child(even) {
           td {
             background: $highlight-grey;
           }
         }
         
-        td {
-          padding: 4px 0 2px 0;
-         
-          &.quantity {
-            text-align: right;
-            padding-right: 10px;
-            padding-left: 5px;
-          }
-         
-          &.model_name {
-            padding-right: 20px;
-           
-            span.text {
-              display: inline-block;
-              overflow: hidden;
-              white-space: nowrap;
-              width: 210px;
-            }
-          }
-           
-          &.date_connector {
-           padding-left: 5px;
-           padding-right: 5px;
-          }
-           
-          &.start_date {
-            letter-spacing: -1px;
-            white-space: nowrap;
-          }
-         
-          &.end_date {
-            letter-spacing: -1px;
-            padding-right: 3px;
-            white-space: nowrap;
-          }
+        td:nth-child(1) {
+          padding-left: 10px;
         }
+        
+        td:nth-last-child(1) {
+          padding-right: 10px;
+        }
+        
+        td {
+          padding: 4px 0 4px 0;
+        }
+      }
+      
+      &:nth-last-child(1) {
+        margin-bottom: 0;
       }
     }
   }

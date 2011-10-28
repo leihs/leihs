@@ -27,23 +27,18 @@
     }
     
     .badge {
-      background: white;
-      border: 1px solid $borderlightgrey;
+      background: $borderdarkgrey;
+      border: 1px solid $borderdarkergrey;
+      color: white;
       font-size: 0.7em;
       min-width: 12px;
       padding: 2px 3px;
       position: absolute;
-      right: -12px;
+      right: -14px;
       text-align: center;
-      top: -8px;
+      top: -9px;
       @include borderRadius(5px);
       @include boxShadow (0 0 1px #DDD);
-      
-      &.red {
-        background: $red;
-        border: 1px solid white;
-        color: white;
-      }
     }
   }
   

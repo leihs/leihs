@@ -2,10 +2,6 @@
   display: block;
   margin-bottom: 26px;
   
-  &>.line:not(.toggle) {
-    display: none !important;
-  }
-  
   .line {
     border-bottom: 1px solid $borderlightergrey;
     border-top: 1px solid white;
@@ -30,7 +26,7 @@
       display: none;
     }
     
-    .tip_target {
+    .tiptarget {
       display: block;
       position: absolute;
       top: 9px;
@@ -116,9 +112,15 @@
         width: 143px;
         
         &.overdue {
-          padding-left: 6px;
-          width: 128px;
+          padding-left: 8px;
+          width: 126px;
         }
+      }
+      
+      &.quantity_small {
+        padding-left: 6px;
+        padding-right: 4px;
+        width: 10px;
       }
       
       &.quantity {
@@ -185,7 +187,7 @@
       }
       
       &.number {
-        width: 70px;
+        width: 96px;
       }
       
       &.date {
@@ -201,11 +203,31 @@
           text-align: right;
           width: 30px;
         }
+        
+        .tiptarget {
+          width: 70%;
+        }
       }
       
       &.modelname {
         font-weight: bold;
         width: 265px;
+      }
+      
+      &.category {
+        width: 190px;
+      }
+      
+      &.categories {
+        width: 170px;
+        
+        .tiptarget {
+          width: 60%;
+        }
+      }
+      
+      &.availability {
+        width: 80px;
       }
       
       &.inventory_code {
@@ -222,16 +244,8 @@
         padding-left: 8px !important;
       }
       
-      &.stock {
-        width: 165px;
-        
-        .digits {
-          display: block;
-        }
-      }
-      
-      &.status {
-        width: 100px;
+      &.item_status {
+        width: 275px;
       }
       
       &.status_with_date {

@@ -63,8 +63,9 @@ hr {
   margin: 14px 0 0 0;
 }
 
-input {
+inpu,textarea {
   color: $darkgrey;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 }
 
 textarea:focus, input:not([type="submit"]):focus, select:focus {

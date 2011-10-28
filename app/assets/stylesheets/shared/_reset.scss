@@ -133,6 +133,12 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   outline: none;
   -moz-outline-style: none;
 }
+/* 
+  REMOVE REZIZE ON TEXTAREAS 
+*/
+textarea {
+  resize: none;
+}
 
 b,
 strong {

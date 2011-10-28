@@ -4,7 +4,7 @@
   max-width: 590px;
   
   .ui-tooltip-content{
-    border-color: $borderdarkgrey;
+    border-color: $borderdarkergrey;
     border-width: 3px;
     background-color: white;
     color: #555;
@@ -63,12 +63,6 @@
           position: relative;
           top: 0;
           vertical-align: top;
-        }
-      }
-      
-      tr:nth-child(odd)  {
-        td {
-          background: $highlight-darkgrey;
         }
       }
       

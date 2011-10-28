@@ -42,9 +42,11 @@ a.button {
     background: url($slices-h) repeat-x 0 $pos-active;
   }
   
-  &[disabled=disabled] {
+  &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active {
     background: url($slices-h) repeat-x 0 $pos;
+    cursor: default;
     color: $color !important;
+    line-height: 1em !important;
   }
 }
 
@@ -67,8 +69,12 @@ a.button {
   padding: 0 8px;
   position: relative;
   vertical-align: middle;
-  
   @include borderRadius(6px);
+  
+  &>img.loading {
+    height: 14px;
+    width: 14px;
+  }  
 }
 
 button.smallbutton {

@@ -1,5 +1,10 @@
 .ui-tooltip, .qtip {
-  font-size: 1.2em;
+  font-size: 1.3em;
 	line-height: normal;
+	
+	hr {
+	  position: relative;
+	  left: -10px;
+	}
 }
 

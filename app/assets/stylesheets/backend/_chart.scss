@@ -10,14 +10,18 @@
     .item {
       margin-top: 2px;
       display: block;
+      padding: 4px 0;
       position: relative;
       
       .color-box {
         display: inline-block;
-        height: 12px;
+        font-size: 0.8em;
+        height: 14px;
         margin-right: 5px;
+        padding-left: 1px;
         position: relative;
         top: 2px;
+        text-align: center;
         width: 14px;
       }
     }
@@ -52,22 +56,26 @@
         .subBars {
           
           .text {
-            background: white;
+            color: white;
             display: inline-block;
-            color: black;
             font-size: 0.9em;
             padding: 1px 4px;
             margin-top: 1px;
-            @include borderRadius(4px);
-            @include opacity(0.5);
+          }
+          
+          &:nth-child(1) {
+            .text {
+              padding-top: 0 !important;
+              color: $darkgrey !important;             
+            }
           }
         } 
       }
     }
     
     .graphLabel {
+      color: $darkgrey;
       font-size: 1.2em;
-      letter-spacing: -1px;
       padding-top: 8px;
       
       strong {
