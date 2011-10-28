@@ -29,11 +29,10 @@
         #smallimages
           - @model.images.each_with_index do |i, index|
             - unless index.zero?
-              = link_to "#{i.public_filename()}", :target => "_blank" do
-                %table
-                  %tr
-                    %td
-                      = image_tag("#{i.public_filename(:thumb)}")
+              %table
+                %tr
+                  %td
+                    = image_tag("#{i.public_filename(:thumb)}")
               
     .clear
     
@@ -203,7 +202,7 @@
     
     this.setup = function() {
     
-      $('#model #smallimages a').bind('mouseenter', function(){
+      $('#model #smallimages table').bind('mouseenter', function(){
           hoveredItem = $(this);
           clearTimeout(Images.leaveTimer);
           Images.enterTimer = setTimeout(function(){
@@ -219,7 +218,7 @@
           }, 100);
       });
       
-      $('#model #smallimages a').bind('mouseleave', function(){
+      $('#model #smallimages table').bind('mouseleave', function(){
           hoveredItem = $(this);
           clearTimeout(Images.enterTimer);
           $('#model #hiddenimages img').each(function() {

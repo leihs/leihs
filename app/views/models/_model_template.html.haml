@@ -16,35 +16,35 @@
         ${manufacturer}
       %td.overlay
         = link_to "#{link_prefix}${id}", :class => "anchor" do
-          .tip_target
-        .tip
-          {{if image_thumb}}
-          %img{:src => "${image_thumb}"}
-          {{/if}}
-          .text
-            %h2
-              ${name}
-              %br
-              %span.manufacturer
-                ${manufacturer}
-                
-            {{if description}}
-            %p.description
-              ${description}
-            {{else}}
-            %p.description.none
-              = _("No description available for this model.")
+          .tiptarget
+          .tip
+            {{if image_thumb}}
+            %img{:src => "${image_thumb}"}
             {{/if}}
-          %table.details
-            {{each(i, property) properties}}
-            {{if i < 4}}
-            %tr
-              %td.key
-                ${property.key}
-              %td.value
-                ${property.value}
-            {{/if}}
-            {{/each}}
+            .text
+              %h2
+                ${name}
+                %br
+                %span.manufacturer
+                  ${manufacturer}
+                  
+              {{if description}}
+              %p.description
+                ${description}
+              {{else}}
+              %p.description.none
+                = _("No description available for this model.")
+              {{/if}}
+            %table.details
+              {{each(i, property) properties}}
+              {{if i < 4}}
+              %tr
+                %td.key
+                  ${property.key}
+                %td.value
+                  ${property.value}
+              {{/if}}
+              {{/each}}
         
       %td.availability
         = 5

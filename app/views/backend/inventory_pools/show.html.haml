@@ -2,7 +2,7 @@
 #daily.innercontent
   %h1= l Date.today, :format => :day_long
   
-  .navigation
+  .navigation{:style => "display: none"}
     = button_tag(:class => "today button white") do
       = _("Today")
     = button_tag(:class => "datepicker button white") do
@@ -27,6 +27,8 @@
         %span.text
           = _("Orders")
         .icon.orders
+        .badge
+          = @orders.size
     .list
   
   %section.hand_over
@@ -35,8 +37,8 @@
         %span.text
           = _("Hand Overs")
         .icon.hand_over
-        .badge.red
-          = @hand_overs_overdue.size
+        .badge
+          = @hand_overs_overdue.size + @hand_overs.size
     .list
      
   %section.take_back
@@ -45,8 +47,8 @@
         %span.text
           = _("Take Backs")
         .icon.take_back
-        .badge.red
-          = @take_backs_overdue.size
+        .badge
+          = @take_backs_overdue.size + @take_backs.size 
     .list
     
 = render :partial => 'backend/inventory_pools/bar_chart'
@@ -54,92 +56,19 @@
 :javascript
   
   $(document).ready(function(){
-    DailyView.setup();
+    $('.order .list').append($.tmpl("tmpl/line", #{@orders.to_json}));
+    $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs_overdue.to_json}));
+    $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs.to_json}));
+    $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs_overdue.to_json}));
+    $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs.to_json}));
+    
+    $(".list").showMore({
+      min: 4,
+      max: 8,
+      offset: {
+        top: -36
+      },
+      more: "<li><span class='icon'></span>%d #{_('more')}</li>",
+      less: "<li><span class='icon'></span>#{_('show less')}</li>"
+    });
   });
-
-  var DailyView = new DailyView();
-  
-  function DailyView() {
-    
-    this.setup = function() {
-      
-      this.setupTemplates();
-      this.setupShowMore();
-      
-      //this.setupTips();
-      // this.setupActions();
-    }
-    
-    this.setupTemplates = function() {
-      
-      $('.order .list').append($.tmpl("tmpl/line", #{@orders.to_json}));
-      $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs_overdue.to_json}));
-      $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs.to_json}));
-      $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs_overdue.to_json}));
-      $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs.to_json}));
-    }
-    
-    this.setupTips = function() {
-      
-      $("#daily .item li.purpose").each(function(){
-        
-        if($(this).data("title").length > DailyView.purpose_max) {
-          $(this).qtip({
-             content: {
-                text: $(this).data("title")
-              },
-              position: {
-                target: $(this).find(".tip_target")
-              }
-          });
-        }
-      });
-      
-      $("#daily .item li.quantity").each(function(){
-        
-        $(this).qtip({
-          content: {
-            text: $(this).find(".tip")
-          },
-          position: {
-            target: $(this).find(".tip_target")
-          }
-        });
-      });
-    }
-    
-    this.setupActions = function() {
-    
-      $("#daily .item li.actions").live("ajax:success", function(response){ // TODO
-        var to_remove = $(this).closest("table.item");
-        to_remove.fadeOut(400, function(){
-          $(this).remove();
-          // TODO $("."+response.type+"_list").append($.tmpl("tmpl/line", response.data));
-        });
-      }).live("ajax:error", function(event, response){
-        Dialog.add({
-          trigger: $(this),
-          title: _("Not Approvable"),
-          content: response.responseText
-        });
-      });
-    }
-      
-    this.setupShowMore = function() {
-  
-      $(".list").each(function(){
-      
-        var text = $(this).parent().find(".tab .text").first().html();
-      
-        $(this).showMore({
-          min: 4,
-          max: 8,
-          offset: {
-            top: -30
-          },
-          more: "<li><span class='icon'></span>%d #{_('more')} "+text+"</li>",
-          less: "<li><span class='icon'></span>#{_('show less')}</li>"
-        });
-      });
-    }
-  }
