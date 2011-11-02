@@ -100,7 +100,7 @@ task :start_sphinx do
   run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:start"
 end
 
-task :backup_database do
+task :migrate_database do
   # Produce a string like 2010-07-15T09-16-35+02-00
   date_string = DateTime.now.to_s.gsub(":","-")
   dump_dir = "#{deploy_to}/#{shared_dir}/db_backups"
@@ -109,6 +109,7 @@ task :backup_database do
   # because run catches the exit code of mysqldump
   run "mysqldump -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -r #{dump_path} #{sql_database}"
   run "bzip2 #{dump_path}"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake db:migrate"
 end
 
 # The built-in capistrano/bundler integration seems broken: It does not cd to release_path but instead
@@ -136,8 +137,6 @@ end
 
 before "deploy", "retrieve_db_config"
 before "deploy:cold", "retrieve_db_config"
-before "deploy", :stop_sphinx
-# before "bundle_install", "deploy:symlink"
 
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
@@ -145,12 +144,14 @@ after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :chmod_tmp
 after "deploy:symlink", :bundle_install
 
-after "bundle_install", :backup_database
-after "backup_database", "deploy:migrate"
-after "backup_database", :configure_sphinx
+after "bundle_install", :migrate_database
+after "migrate_database", "deploy:migrate"
+after "migrate_database", :configure_sphinx
 
 before "deploy:restart", :make_tmp
+
 before "start_sphinx", :link_sphinx
+before "deploy:restart", :stop_sphinx
 after "deploy", :start_sphinx
 after "deploy:cold", :start_sphinx
 after "deploy", "deploy:cleanup"
