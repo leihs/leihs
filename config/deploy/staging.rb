@@ -3,6 +3,8 @@ $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
 
+require "bundler/capistrano"
+
 set :application, "leihs-test"
 
 set :scm, :git
@@ -92,7 +94,7 @@ task :configure_sphinx do
 end
 
 task :stop_sphinx do
-  run "cd #{previous_release} && RAILS_ENV='production' bundle exec rake ts:stop"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:stop"
 end
 
 task :start_sphinx do
@@ -142,15 +144,15 @@ after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :chmod_tmp
-after "deploy:symlink", :bundle_install
+after "deploy:symlink", :stop_sphinx
 
-after "bundle_install", :migrate_database
+after "link_config", :migrate_database
 after "migrate_database", :configure_sphinx
 
 before "deploy:restart", :make_tmp
+after "deploy:restart", :stop_sphinx
+before "stop_sphinx", :link_sphinx
 
-before "start_sphinx", :link_sphinx
-before "deploy:restart", :stop_sphinx
 after "deploy", :start_sphinx
 after "deploy:cold", :start_sphinx
 after "deploy", "deploy:cleanup"
