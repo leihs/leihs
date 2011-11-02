@@ -144,7 +144,6 @@ after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :chmod_tmp
-after "deploy:symlink", :stop_sphinx
 
 after "link_config", :migrate_database
 after "migrate_database", :configure_sphinx
