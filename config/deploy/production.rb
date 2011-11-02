@@ -153,7 +153,6 @@ after "deploy:symlink", :chmod_tmp
 after "deploy:symlink", :bundle_install
 
 after "bundle_install", :migrate_database
-after "migrate_database", "deploy:migrate"
 after "migrate_database", :configure_sphinx
 
 before "deploy:restart", :make_tmp
