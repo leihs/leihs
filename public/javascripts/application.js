@@ -210,9 +210,31 @@ function replace_with_target(element) {
 
 
 /////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+// ADDED Fr. 04. Nov 2011 to preventing wrong item code selection when you are scanning inside of an line item code input field:
+
+var autocomplete_select_on_enter = 1;
+
+jQuery(document).ready(function(){
+	jQuery("#lines .alt-row td").each(function(){
+	  if(jQuery(this).attr("id").match(/inventory_code_\d+/)) {
+	    var id = jQuery(this).find("input").attr("id");
+	    jQuery("#"+id).live("keydown", function(event){
+	      if(event.keyCode != 13) {
+         autocomplete_select_on_enter = 0;
+         window.setTimeout(function(){
+           autocomplete_select_on_enter = 1;
+         },500);
+	      }
+	    });
+	  }
+	});
+});
+
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 
 // Handover handling for a user's contract
-
 
 // returns the id of the line that an input element refers to
 function line_id(input_id) {

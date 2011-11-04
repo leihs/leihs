@@ -83,7 +83,7 @@ Autocompleter.Base = Class.create({
 
     this.element.setAttribute('autocomplete','off');
 
-    Element.hide(this.update);
+    //Element.hide(this.update);
 
     Event.observe(this.element, 'blur', this.onBlur.bindAsEventListener(this));
     Event.observe(this.element, 'keydown', this.onKeyPress.bindAsEventListener(this));
@@ -113,7 +113,7 @@ Autocompleter.Base = Class.create({
   hide: function() {
     this.stopIndicator();
     if(Element.getStyle(this.update, 'display')!='none') this.options.onHide(this.element, this.update);
-    if(this.iefix) Element.hide(this.iefix);
+    //if(this.iefix) Element.hide(this.iefix);
   },
 
   startIndicator: function() {
@@ -121,7 +121,7 @@ Autocompleter.Base = Class.create({
   },
 
   stopIndicator: function() {
-    if(this.options.indicator) Element.hide(this.options.indicator);
+    //if(this.options.indicator) Element.hide(this.options.indicator);
   },
 
   onKeyPress: function(event) {
@@ -129,10 +129,12 @@ Autocompleter.Base = Class.create({
       switch(event.keyCode) {
        case Event.KEY_TAB:
        case Event.KEY_RETURN:
-         this.selectEntry();
+         if(autocomplete_select_on_enter == 1) {
+           this.selectEntry(); this.hide();
+         }
          Event.stop(event);
        case Event.KEY_ESC:
-         this.hide();
+         //this.hide();
          this.active = false;
          Event.stop(event);
          return;
@@ -182,7 +184,7 @@ Autocompleter.Base = Class.create({
     var element = Event.findElement(event, 'LI');
     this.index = element.autocompleteIndex;
     this.selectEntry();
-    this.hide();
+    //this.hide();
   },
 
   onBlur: function(event) {
@@ -204,7 +206,7 @@ Autocompleter.Base = Class.create({
       }
     } else {
       this.active = false;
-      this.hide();
+      //this.hide();
     }
   },
 
@@ -285,7 +287,7 @@ Autocompleter.Base = Class.create({
 
       if(this.entryCount==1 && this.options.autoSelect) {
         this.selectEntry();
-        this.hide();
+        //this.hide();
       } else {
         this.render();
       }
@@ -304,7 +306,7 @@ Autocompleter.Base = Class.create({
       this.getUpdatedChoices();
     } else {
       this.active = false;
-      this.hide();
+      //this.hide();
     }
     this.oldElementValue = this.element.value;
   },
@@ -589,8 +591,8 @@ Ajax.InPlaceEditor = Class.create({
     this._editing = true;
     this.triggerCallback('onEnterEditMode');
     if (this.options.externalControl)
-      this.options.externalControl.hide();
-    this.element.hide();
+      //this.options.externalControl.hide();
+    //this.element.hide();
     this.createForm();
     this.element.parentNode.insertBefore(this._form, this.element);
     if (!this.options.loadTextURL)
