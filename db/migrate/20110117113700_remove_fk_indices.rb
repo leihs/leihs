@@ -16,7 +16,8 @@ class RemoveFkIndices < ActiveRecord::Migration
     keys_to_check.each do |k|
       if schema.include?(k)
         execute "ALTER TABLE contract_lines DROP FOREIGN KEY #{k}"
-        execute "ALTER TABLE contract_lines DROP KEY #{k}"
+        # That last one is a special case
+        execute "ALTER TABLE contract_lines DROP KEY #{k}" unless k == "fk_contract_lines_option_id"
         field_name = k.gsub("fk_contract_lines_","")
         change_table :contract_lines do |t|
           t.index field_name
