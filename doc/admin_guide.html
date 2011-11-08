@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.6.5" />
+<meta name="generator" content="AsciiDoc 8.6.6" />
 <title>leihs administration and installation guide</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -179,7 +179,7 @@ div.quoteblock, div.verseblock {
   margin-left: 1.0em;
   margin-right: 10%;
   border-left: 5px solid #f0f0f0;
-  color: #777777;
+  color: #888;
 }
 
 div.quoteblock > div.attribution {
@@ -514,6 +514,29 @@ th.tableblock.valign-middle, td.tableblock.valign-middle {
 th.tableblock.valign-bottom, td.tableblock.valign-bottom {
   vertical-align: bottom;
 }
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
 </style>
 <script type="text/javascript">
 /*<![CDATA[*/
@@ -587,7 +610,7 @@ toc: function (toclevels) {
   var i;
   for (i = 0; i < toc.childNodes.length; i++) {
     var entry = toc.childNodes[i];
-    if (entry.nodeName == 'DIV'
+    if (entry.nodeName == 'div'
      && entry.getAttribute("class")
      && entry.getAttribute("class").match(/^toclevel/))
       tocEntriesToRemove.push(entry);
@@ -633,7 +656,7 @@ footnotes: function () {
   var entriesToRemove = [];
   for (i = 0; i < noteholder.childNodes.length; i++) {
     var entry = noteholder.childNodes[i];
-    if (entry.nodeName == 'DIV' && entry.getAttribute("class") == "footnote")
+    if (entry.nodeName == 'div' && entry.getAttribute("class") == "footnote")
       entriesToRemove.push(entry);
   }
   for (i = 0; i < entriesToRemove.length; i++) {
@@ -740,11 +763,11 @@ asciidoc.install(2);
 <div class="olist arabic"><ol class="arabic">
 <li>
 <p>
-Install Ruby and irb
+Install Ruby, irb and libxslt:
 </p>
 <div class="literalblock">
 <div class="content">
-<pre><tt># apt-get install ruby irb rdoc libopenssl-ruby ruby-dev</tt></pre>
+<pre><tt># apt-get install ruby irb rdoc libopenssl-ruby ruby-dev libxslt-dev</tt></pre>
 </div></div>
 </li>
 <li>
@@ -754,7 +777,7 @@ Install RubyGems from <a href="http://rubygems.org/">the RubyGems website</a>. M
 <div class="literalblock">
 <div class="content">
 <pre><tt># cd /tmp
-# wget http://rubyforge.org/frs/download.php/56227/rubygems-1.5.2.tgz
+# wget http://production.cf.rubygems.org/rubygems/rubygems-1.5.2.tgz
 # tar xvfz rubygems-1.5.2.tgz
 # cd rubygems-1.5.2
 # ruby setup.rb
@@ -839,8 +862,8 @@ Create and migrate the database:
 <div class="literalblock">
 <div class="content">
 <pre><tt># su - leihs
-$ RAILS_ENV=production rake db:migrate
-$ RAILS_ENV=production rake db:seed</tt></pre>
+$ RAILS_ENV=production bundle exec rake db:migrate
+$ RAILS_ENV=production bundle exec rake db:seed</tt></pre>
 </div></div>
 </li>
 <li>
@@ -863,9 +886,9 @@ Configure and start the Sphinx server:
 <div class="literalblock">
 <div class="content">
 <pre><tt>$ cd /home/leihs
-$ RAILS_ENV=production rake ts:config
-$ RAILS_ENV=production rake ts:reindex
-$ RAILS_ENV=production rake ts:start</tt></pre>
+$ RAILS_ENV=production bundle exec rake ts:config
+$ RAILS_ENV=production bundle exec rake ts:reindex
+$ RAILS_ENV=production bundle exec rake ts:start</tt></pre>
 </div></div>
 </li>
 <li>
@@ -1048,6 +1071,169 @@ Run the server. Make sure you stop your previous leihs server!
 </li>
 </ol></div>
 <div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a>.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upgrading_from_leihs_2_1_to_leihs_2_2">Upgrading from leihs 2.1 to leihs 2.2</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The upgrade should be painless.</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Download the new leihs version (in this example, the .tar.gz version is used) and unpack it to a new location:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ tar xvfz leihs-2.2.tar.gz
+$ cd leihs-2.2</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Copy any images uploaded to your old leihs version so they are also available in the new leihs:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ rm -rf public/images/attachments
+$ cp -pr ../leihs-2.1/public/images/attachments public/images/</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Copy your old database configuration file:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cp ../leihs-2.1/config/database.yml config/</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Look at your old config/environment.rb file in a text editor. Open the new config/environment.rb. Copy the configuration items from your old config to your new config as necessary. You might find new options in the new environment.rb that weren&#8217;t present in the old one. Save your new configuration.
+</p>
+</li>
+<li>
+<p>
+Run the database migration to get all your data up to the new version:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ RAILS_ENV=production rake db:migrate</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Run the server. Make sure you stop your previous leihs server!
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ RAILS_ENV=production ./script/server</tt></pre>
+</div></div>
+</li>
+</ol></div>
+<div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a>.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upgrading_from_leihs_2_2_to_leihs_2_9">Upgrading from leihs 2.2 to leihs 2.9</h2>
+<div class="sectionbody">
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">You must upgrade form 2.2.x to 2.9.1 before continuing on on the 2.9 series. The reason is that with 2.9, we rolled up all previous migrations into one single file to make future migrations faster and easier. The system will warn you if you try to upgrade beyond 2.9.1 without installing 2.9.1 first. The sequence of actions is the same for all 2.9 releases, so once you have 2.9.1, you can just grab e.g. 2.9.4 and follow these instructions again.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>The upgrade should be painless, but please note that the access levels were replaced by user groups in this release. This can give you almost the same behavior, but it&#8217;s different to manage. You now specify groups in the admin interface or your inventory pool&#8217;s backend, and then specify how many items of each model that each group can have.</p></div>
+<div class="paragraph"><p>If you had existing user levels in your system, these will be automatically converted to user groups during the database migration (db:migrate). This is documented below.</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Download the new leihs version (in this example, the .tar.gz version is used) and unpack it to a new location:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ tar xvfz leihs-2.9.tar.gz
+$ cd leihs-2.9</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Copy any images uploaded to your old leihs version so they are also available in the new leihs:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ rm -rf public/images/attachments
+$ cp -pr ../leihs-2.2/public/images/attachments public/images/</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Copy your old database configuration file:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cp ../leihs-2.2/config/database.yml config/</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Look at your old config/environment.rb file in a text editor. Open the new config/environment.rb. Copy the configuration items from your old config to your new config as necessary. You might find new options in the new environment.rb that weren&#8217;t present in the old one. Save your new configuration.
+</p>
+</li>
+<li>
+<p>
+Install bundler and update rake as root:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt># gem install bundler
+# gem install rake</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Run the database migration to get all your data up to the new version:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ RAILS_ENV=production rake db:migrate</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Run the server. Make sure you stop your previous leihs server! If you use mod_passenger, do <tt>touch tmp/restart.txt</tt> instead.
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ RAILS_ENV=production bundle exec ./script/server</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Stop the Sphinx server that&#8217;s running for leihs 2.2.:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd leihs-2.2
+$ RAILS_ENV=production rake ts:stop</tt></pre>
+</div></div>
+</li>
+<li>
+<p>
+Reindex Sphinx at the new location and restart the Sphinx server:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>$ cd leihs-2.9
+$ RAILS_ENV=production bundle exec rake ts:config
+$ RAILS_ENV=production bundle exec rake ts:reindex
+$ RAILS_ENV=production bundle exec rake ts:start</tt></pre>
+</div></div>
+</li>
+</ol></div>
+<div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a> or, if using mod_passenger, at the location you configured.</p></div>
 <div class="sect2">
 <h3 id="_installation_on_mac_os_x_not_officially_supported">Installation on Mac OS X (not officially supported)</h3>
 <div class="paragraph"><p>The following steps were tested on Mac OS X 10.5 and 10.6 on an x86. They may also work for later versions.</p></div>
@@ -1227,151 +1413,6 @@ Optional: Speed boost thanks to memcached
 </div>
 </div>
 <div class="sect1">
-<h2 id="_upgrading_from_leihs_2_1_to_leihs_2_2">Upgrading from leihs 2.1 to leihs 2.2</h2>
-<div class="sectionbody">
-<div class="paragraph"><p>The upgrade should be painless.</p></div>
-<div class="olist arabic"><ol class="arabic">
-<li>
-<p>
-Download the new leihs version (in this example, the .tar.gz version is used) and unpack it to a new location:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ tar xvfz leihs-2.2.tar.gz
-$ cd leihs-2.2</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Copy any images uploaded to your old leihs version so they are also available in the new leihs:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ rm -rf public/images/attachments
-$ cp -pr ../leihs-2.1/public/images/attachments public/images/</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Copy your old database configuration file:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ cp ../leihs-2.1/config/database.yml config/</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Look at your old config/environment.rb file in a text editor. Open the new config/environment.rb. Copy the configuration items from your old config to your new config as necessary. You might find new options in the new environment.rb that weren&#8217;t present in the old one. Save your new configuration.
-</p>
-</li>
-<li>
-<p>
-Run the database migration to get all your data up to the new version:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ RAILS_ENV=production rake db:migrate</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Run the server. Make sure you stop your previous leihs server!
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ RAILS_ENV=production ./script/server</tt></pre>
-</div></div>
-</li>
-</ol></div>
-<div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a>.</p></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_upgrading_from_leihs_2_2_to_leihs_2_9">Upgrading from leihs 2.2 to leihs 2.9</h2>
-<div class="sectionbody">
-<div class="paragraph"><p>The upgrade should be painless, but please note that the access levels were replaced by user groups in this release. This can give you almost the same behavior, but it&#8217;s different to manage. You now specify groups in the admin interface or your inventory pool&#8217;s backend, and then specify how many items of each model that each group can have.</p></div>
-<div class="paragraph"><p>If you had existing user levels in your system, these will be automatically converted to user groups during the database migration (db:migrate). This is documented below.</p></div>
-<div class="olist arabic"><ol class="arabic">
-<li>
-<p>
-Download the new leihs version (in this example, the .tar.gz version is used) and unpack it to a new location:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ tar xvfz leihs-2.9.tar.gz
-$ cd leihs-2.9</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Copy any images uploaded to your old leihs version so they are also available in the new leihs:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ rm -rf public/images/attachments
-$ cp -pr ../leihs-2.2/public/images/attachments public/images/</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Copy your old database configuration file:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ cp ../leihs-2.2/config/database.yml config/</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Look at your old config/environment.rb file in a text editor. Open the new config/environment.rb. Copy the configuration items from your old config to your new config as necessary. You might find new options in the new environment.rb that weren&#8217;t present in the old one. Save your new configuration.
-</p>
-</li>
-<li>
-<p>
-Run the database migration to get all your data up to the new version:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ RAILS_ENV=production rake db:migrate</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Run the server. Make sure you stop your previous leihs server! If you use mod_passenger, do <tt>touch tmp/restart.txt</tt> instead.
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ RAILS_ENV=production ./script/server</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Stop the Sphinx server that&#8217;s running for leihs 2.2.:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ cd leihs-2.2
-$ RAILS_ENV=production rake ts:stop</tt></pre>
-</div></div>
-</li>
-<li>
-<p>
-Reindex Sphinx at the new location and restart the Sphinx server:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><tt>$ cd leihs-2.9
-$ RAILS_ENV=production rake ts:config
-$ RAILS_ENV=production rake ts:reindex
-$ RAILS_ENV=production rake ts:start</tt></pre>
-</div></div>
-</li>
-</ol></div>
-<div class="paragraph"><p>If everything went correctly, you should see leihs coming up at <a href="http://localhost:3000">http://localhost:3000</a> or, if using mod_passenger, at the location you configured.</p></div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_installing_a_production_environment">Installing a production environment</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Please note that this quick-start guide does not cover running a Ruby on Rails application for production. Please look into <a href="http://www.modrails.com/">Phusion Passenger</a> or the Apache Mongrel cluster in the reference section for how to set up a production environment.</p></div>
@@ -1488,7 +1529,7 @@ $ RAILS_ENV=production rake ts:start</tt></pre>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2011-08-11 13:54:30 CEST
+Last updated 2011-11-07 15:51:46 CET
 </div>
 </div>
 </body>
