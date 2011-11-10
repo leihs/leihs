@@ -24,9 +24,9 @@
   %section.order
     .inlinetabs
       .tab
+        .icon.orders
         %span.text
           = _("Orders")
-        .icon.orders
         .badge
           = @orders.size
     .list
@@ -34,9 +34,9 @@
   %section.hand_over
     .inlinetabs
       .tab
+        .icon.hand_over
         %span.text
           = _("Hand Overs")
-        .icon.hand_over
         .badge
           = @hand_overs_overdue.size + @hand_overs.size
     .list
@@ -44,9 +44,9 @@
   %section.take_back
     .inlinetabs
       .tab
+        .icon.take_back
         %span.text
           = _("Take Backs")
-        .icon.take_back
         .badge
           = @take_backs_overdue.size + @take_backs.size 
     .list
@@ -56,6 +56,8 @@
 :javascript
   
   $(document).ready(function(){
+    $('.list').hide();
+    
     $('.order .list').append($.tmpl("tmpl/line", #{@orders.to_json}));
     $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs_overdue.to_json}));
     $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs.to_json}));
@@ -71,4 +73,6 @@
       more: "<li><span class='icon'></span>%d #{_('more')}</li>",
       less: "<li><span class='icon'></span>#{_('show less')}</li>"
     });
+    
+    $('.list').show();
   });
