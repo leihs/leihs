@@ -109,17 +109,15 @@ class Backend::UsersController < Backend::BackendController
     redirect_to :action => 'groups'
   end
 
-  
   def remind
-    flash[:notice] = _("User %s has been reminded ") % @user.remind(current_user)
-    respond_to do |format|
-      format.js { render :update do |page|
-                    page << "if($('remind_resume')){"
-                      page.replace 'remind_resume', remind_user(@user)
-                    page << "}"
-                    page.replace_html 'flash', flash_content
-                    flash.discard
-                  end }
+    if @user.remind(current_user)
+      respond_to do |format|
+        format.js { render :json => true, :status => 200 }
+      end
+    else
+      respond_to do |format|
+        format.js { render :text => @user.errors, :status => 500 }
+      end
     end
   end
   

@@ -41,7 +41,8 @@ class Backend::HandOverController < Backend::BackendController
   end
   
   def delete_visit
-    params[:lines].each {|l| @contract.remove_line(l, current_user.id) }
+    lines = params[:lines].split(",")
+    lines.each {|l| @contract.remove_line(l, current_user.id) }
     redirect_to :action => 'index'
   end
   

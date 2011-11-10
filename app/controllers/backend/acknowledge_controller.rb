@@ -49,9 +49,15 @@ class Backend::AcknowledgeController < Backend::BackendController
       @order.save
       Notification.order_rejected(@order, params[:comment], true, current_user )
       
-      redirect_to :action => 'index'
+      respond_to do |format|
+        #old# redirect_to :action => 'index'
+        format.js { render :json => true, :status => 200 }
+      end
     else
-      params[:layout] = "modal"
+      respond_to do |format|
+        #old# params[:layout] = "modal"
+        format.js { render :text => errors, :status => 500 }
+      end
     end
   end 
 
