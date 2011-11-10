@@ -50,7 +50,7 @@ class Notification < ActiveRecord::Base
   
   def self.order_rejected(order, comment, send_mail = true, current_user = nil)
     current_user ||= order.user
-    o = Mailer::Order.deliver_rejected(order, comment) if send_mail
+    o = Mailer::Order.rejected(order, comment) if send_mail
     title = (o.nil? ? _("Order rejected") : o.subject)
     Notification.create(:user => order.user, :title => title)
     order.log_history(title, current_user.id)
@@ -65,7 +65,7 @@ class Notification < ActiveRecord::Base
   
   
   def self.remind_user(user, visits, send_mail = true)
-    o = Mailer::User.deliver_remind(user, visits) if send_mail
+    o = Mailer::User.remind(user, visits) if send_mail
     title = (o.nil? ? _("Reminder") : o.subject)
     Notification.create(:user => user, :title => title)
     user.histories.create(:text => title, :user_id => user.id, :type_const => History::ACTION)
