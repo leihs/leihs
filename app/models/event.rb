@@ -65,7 +65,7 @@ class Event
     
     
     data = { :title => title,
-             :line_ids => contract_line_ids,
+             :contract_line_ids => contract_line_ids,
              :lines => lines_hash,
              :user => user,
              :inventory_pool => inventory_pool,
