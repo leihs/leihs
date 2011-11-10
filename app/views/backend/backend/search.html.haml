@@ -10,9 +10,9 @@
   %section.model
     .inlinetabs
       .tab
+        .icon.model
         %span.text
           = _("Models")
-        .icon.model
         .badge
           = @hits["model"]
     .list
@@ -20,9 +20,9 @@
   %section.item
     .inlinetabs
       .tab
+        .icon.item
         %span.text
           = _("Items")
-        .icon.item
         .badge
           = @hits["item"]
     .list
@@ -30,9 +30,9 @@
   %section.user
     .inlinetabs
       .tab
+        .icon.user
         %span.text
           = _("Users")
-        .icon.user
         .badge
           = @hits["user"]
     .list
@@ -40,9 +40,9 @@
   %section.contract
     .inlinetabs
       .tab
+        .icon.contract
         %span.text
           = _("Contracts")
-        .icon.contract
         .badge
           = @hits["contract"]
     .list
@@ -50,9 +50,9 @@
   %section.order
     .inlinetabs
       .tab
+        .icon.orders
         %span.text
           = _("Orders")
-        .icon.orders
         .badge
           = @hits["order"]
     .list
@@ -60,44 +60,25 @@
 :javascript
   
   $(document).ready(function(){
-    SearchResults.setup();
+    $('.list').hide();
+  
+    $.each(#{@results.to_json}, function(i, result){
+      $('.'+result.type+' .list').append($.tmpl("tmpl/line", result)).parent().show();
+    });
+    
+    $(".list").each(function(){
+      var text = $(this).parent().find(".tab .text").first().html();
+          text = text.replace(/<.*>.*<\/.*>/g, "");
+      $(this).showMore({
+        min: 4,
+        max: 8,
+        offset: {
+          top: -36
+        },
+        more: "<li><span class='icon'></span>#{_('more')} "+text+"</li>",
+        less: "<li><span class='icon'></span>#{_('show less')}</li>"
+      });
+    });
+    
+    $('.list').show();
   });
-  
-  var SearchResults = new SearchResults();
-  
-  function SearchResults() {
-  
-    this.setup = function() {
-    
-      this.setupTemplates();
-      this.setupShowMore();
-    }
-    
-    this.setupTemplates = function() {
-      
-      var count = {};
-      
-      $.each(#{@results.to_json}, function(i, result){
-        $('.'+result.type+' .list').append($.tmpl("tmpl/line", result)).parent().show();
-      });
-    }
-    
-    this.setupShowMore = function() {
-    
-      $(".list").each(function(){
-      
-        var text = $(this).parent().find(".tab .text").first().html();
-            text = text.replace(/<.*>.*<\/.*>/g, "");
-      
-        $(this).showMore({
-          min: 4,
-          max: 8,
-          offset: {
-            top: -36
-          },
-          more: "<li><span class='icon'></span>#{_('more')} "+text+"</li>",
-          less: "<li><span class='icon'></span>#{_('show less')}</li>"
-        });
-      });
-    }
-  }
