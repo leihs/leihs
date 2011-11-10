@@ -1,7 +1,7 @@
 # encoding: utf-8
-# $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
-# require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-# set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
+#$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+#require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+#set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
 
 require "bundler/capistrano"
 
@@ -99,7 +99,7 @@ task :configure_sphinx do
 end
 
 task :stop_sphinx do
-  run "cd #{previous_release} && RAILS_ENV='production' bundle exec rake ts:stop"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:stop"
 end
 
 task :start_sphinx do
@@ -124,6 +124,13 @@ task :migrate_database do
 
 end
 
+# The built-in capistrano/bundler integration seems broken: It does not cd to release_path but instead
+# to the previous release, which has the wrong Gemfile. This fixes that, but of course means we cannot use 
+# the built-in bundler support.
+task :bundle_install do
+  run "cd #{release_path} && bundle install --gemfile '#{release_path}/Gemfile' --path '#{deploy_to}/#{shared_dir}/bundle' --deployment --without development test"
+end
+
 task :install_gems do
   run "cd #{release_path} && bundle install --deployment --without cucumber profiling"
   run "sed -i 's/BUNDLE_DISABLE_SHARED_GEMS: \"1\"/BUNDLE_DISABLE_SHARED_GEMS: \"0\"/' #{release_path}/.bundle/config"
@@ -141,20 +148,22 @@ namespace :deploy do
 
 end
 
+
 before "deploy", "retrieve_db_config"
 before "deploy:cold", "retrieve_db_config"
-before "deploy", :stop_sphinx
-before "bundle:install", "deploy:symlink"
 
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :chmod_tmp
-after "bundle:install", :migrate_database
 
+after "link_config", :migrate_database
 after "migrate_database", :configure_sphinx
+
 before "deploy:restart", :make_tmp
-before "start_sphinx", :link_sphinx
+after "deploy:restart", :stop_sphinx
+before "stop_sphinx", :link_sphinx
+
 after "deploy", :start_sphinx
 after "deploy:cold", :start_sphinx
 after "deploy", "deploy:cleanup"

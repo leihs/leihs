@@ -2,6 +2,7 @@
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 set :rvm_ruby_string, '1.9.2'        # Or whatever env you want it to run in.
+
 require "bundler/capistrano"
 
 set :application, "leihs-test"
@@ -93,7 +94,7 @@ task :configure_sphinx do
 end
 
 task :stop_sphinx do
-  run "cd #{previous_release} && RAILS_ENV='production' bundle exec rake ts:stop"
+  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:stop"
 end
 
 task :start_sphinx do
@@ -110,13 +111,14 @@ task :migrate_database do
   # because run catches the exit code of mysqldump
   run "mysqldump -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -r #{dump_path} #{sql_database}"
   run "bzip2 #{dump_path}"
-
-  # Migration here 
-  # deploy.migrate should work, but is buggy and is run in the _previous_ release's
-  # directory, thus never runs anything? Strange.
-  #deploy.migrate
   run "cd #{release_path} && RAILS_ENV='production' bundle exec rake db:migrate"
+end
 
+# The built-in capistrano/bundler integration seems broken: It does not cd to release_path but instead
+# to the previous release, which has the wrong Gemfile. This fixes that, but of course means we cannot use 
+# the built-in bundler support.
+task :bundle_install do
+  run "cd #{release_path} && bundle install --gemfile '#{release_path}/Gemfile' --path '#{deploy_to}/#{shared_dir}/bundle' --deployment --without development test"
 end
 
 namespace :deploy do
@@ -137,18 +139,19 @@ end
 
 before "deploy", "retrieve_db_config"
 before "deploy:cold", "retrieve_db_config"
-before "deploy", :stop_sphinx
-before "bundle:install", "deploy:symlink"
 
 after "deploy:symlink", :link_config
 after "deploy:symlink", :link_attachments
 after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :chmod_tmp
-after "bundle:install", :migrate_database
 
+after "link_config", :migrate_database
 after "migrate_database", :configure_sphinx
+
 before "deploy:restart", :make_tmp
-before "start_sphinx", :link_sphinx
+after "deploy:restart", :stop_sphinx
+before "stop_sphinx", :link_sphinx
+
 after "deploy", :start_sphinx
 after "deploy:cold", :start_sphinx
 after "deploy", "deploy:cleanup"
