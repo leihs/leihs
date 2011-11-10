@@ -14,15 +14,18 @@
 //= require i18n/i18n
 //= require jquery/tips/tips
 //= require jquery/buttons/buttons
+//= require jquery/dialog/dialog
+//= require jquery/list/list
 
 /////////// Templates /////////////
 //= require_tree ./tmpl
 
 /////////// Lib /////////////
-//= require jquery/dialog/dialog
 //= require jquery/showMore/showMore
+//= require jquery/historical-search/historical-search
 
 /////////// Vendor /////////////
 //= require date/date
 //= require jquery/qtip/qtip.min
 //= require jquery/jqBarGraph/jqBarGraph.1.2.js
+//= require jquery/pagination/pagination
