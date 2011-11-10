@@ -4,7 +4,7 @@
     %li.item.first{:class => current_page?(categories_path) ? "active" : nil}
       = link_to categories_path, :class => "anchor" do
         .leftend
-        = _("Home")
+        = _("Start")
     
     - if @category
       %li.item{:class => current_page?(category_models_path(@category)) ? "active" : nil}
