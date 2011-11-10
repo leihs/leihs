@@ -18,53 +18,101 @@ function Buttons() {
   
   this.setup = function() {
    this.setupAjaxListener();
-   this.setupDialogListener();   
+   this.setupDialogListener();  
   }
   
   this.setupDialogListener = function() {
-    $("a.smallbutton.open_dialog").live("click", function(event){
-     
-      var _this = $(this);
-      
-      Dialog.add({
-        trigger: _this,
-        content: $.tmpl(_this.attr("rel"), eval(_this.data("ref_for_dialog")), {action: _this.attr("href")}),
-        dialogClass: _this.data("dialog_class")
-      });
-      
-      event.preventDefault();
-      return false; 
+    $(".button.close_dialog").live("click", Buttons.closeDialog);
+    $(".button.open_dialog").live("click", Buttons.openDialog);
+  }
+  
+  this.closeDialog = function(event) {
+    var _this = $(this);
+    $(_this).parents(".dialog").dialog("close");
+    event.preventDefault();
+    return false;
+  }
+  
+  this.openDialog = function(event) {
+    var _this = $(event.currentTarget);
+    Dialog.add({
+      trigger: _this,
+      content: $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {action: _this.attr("href")}),
+      dialogClass: _this.data("dialog_class")
     });
+    event.preventDefault();
+    return false; 
   }
   
   this.setupAjaxListener = function() {
-     $("a.smallbutton[data-remote='true']")
+     $(".button[data-remote='true']")
       .live("ajax:beforeSend", Buttons.ajaxBeforeSend)
       .live("ajax:success", Buttons.ajaxSuccess)
-      .live("ajax:error", Buttons.ajaxError);
+      .live("ajax:error", Buttons.ajaxError); 
+      
+     $("form[data-remote='true']")
+      .live("ajax:beforeSend", Buttons.ajaxBeforeSendForm)
+      .live("ajax:success", Buttons.ajaxSuccessForm)
+      .live("ajax:error", Buttons.ajaxErrorForm);
   }
   
   this.ajaxBeforeSend = function(event, request, settings) {
-    Buttons.disable(event.target);
-    $(event.target).find(".icon").hide().after(Buttons.loadingImg);
+    Buttons.addLoading($(event.currentTarget));
   }
   
   this.ajaxSuccess = function(event, request, settings) {
-    console.log("SUCCESS");
+    var _this = $(event.currentTarget);
+    Buttons.removeLoading(_this);
+    
+    eval($(_this).data("on_success"));
   }
   
   this.ajaxError = function(event, request, settings) {
-    $(event.target).find(".icon").show();
-    $(event.target).find(".loading").remove();
+    var _this = $(event.currentTarget);
+    Buttons.removeLoading(_this);
     
     Dialog.add({
-      trigger: $(event.target),
-      title: "Error",
-      content: request.responseText,
-      buttons: { "Ok": function() {$(this).dialog("close");} }
+      trigger: _this,
+      content: $.tmpl(_this.data("rel")+"_error", eval(_this.data("ref_for_dialog"), {error: request.responseText})),
+      dialogClass: _this.data("dialog_class")+" error"
     });
-    
-    Buttons.enable(event.target);
+  }
+  
+  this.ajaxBeforeSendForm = function(event, request, settings) {
+    Buttons.addLoading($(event.currentTarget).find(".button[type='submit']"));
+  }
+  
+  this.ajaxSuccessForm = function(event, request, settings) {
+    var _this = $(event.currentTarget).find(".button[type='submit']");
+    Buttons.removeLoading($(_this));
+    var dialog_trigger = $(event.currentTarget).parents(".dialog").data("trigger").parents(".line");
+    $(event.currentTarget).parents(".dialog").dialog("close");
+    eval($(_this).data("on_success"));
+  }
+  
+  this.ajaxErrorForm = function(event, request, settings) {
+    Buttons.removeLoading($(event.currentTarget).find(".button[type='submit']"));
+    $(event.currentTarget).find(".flash_message").html(request.responseText).show();
+  }
+  
+  this.addLoading = function(element) {
+    Buttons.disable(element);
+    if($(element).children(".icon").length > 0) {
+      $(element).find(".icon").hide().after(Buttons.loadingImg);
+    } else {
+      var text = $(element).html();
+      $(element).data("text", text).width($(element).outerWidth()).html("").append(Buttons.loadingImg);      
+    } 
+  }
+  
+  this.removeLoading = function(element) {
+    Buttons.enable(element);
+    $(element).find(".loading").remove();
+    if($(element).children(".icon").length > 0) {
+      $(element).find(".icon").show();
+    } else {
+      $(element).width("auto").html($(element).data("text"));      
+    } 
   }
   
   this.disable = function(element) {
