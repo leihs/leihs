@@ -30,9 +30,13 @@
   {{/if}}
 
 %li.actions
-  
-  = mail_to "${email}", "#{_('E-Mail')} <div class='icon send'></div>".html_safe, :class => "smallbutton white"
+  .multibutton
+    .alternatives
+      .trigger
+        .arrow
+      = mail_to "${email}", "<div class='icon send'></div>#{_('E-Mail')}".html_safe, :class => "button white"
+    = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${id}/new_contract", :class => "button white" do
+      .icon.contract
+      = _("New Contract")
     
-  = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${id}/new_contract", :class => "smallbutton white" do
-    = _("New Contract")
-    .icon.contract
+  

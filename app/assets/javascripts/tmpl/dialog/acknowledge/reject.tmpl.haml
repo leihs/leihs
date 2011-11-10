@@ -1,6 +1,6 @@
 = form_tag '${$item.action}', :remote => true do
   %h1
-    = _("Approve order from")
+    = _("Reject order from")
     %strong
       ${user.firstname} ${user.lastname}
   %p.subtitle= '"${purpose}"'
@@ -9,8 +9,8 @@
     %button.button.white.close_dialog
       .icon.return
       = _("Back")
-    %button.button.green{:type => "submit", :"data-on_success" => 'List.remove_line(($(this).parents(".dialog").data("trigger")).parents(".line"), "green")'}
-      = _("Approve")
+    %button.button.red{:type => "submit", :"data-on_success" => 'List.remove_line(($(this).parents(".dialog").data("trigger")).parents(".line"), "red")'}
+      = _("Reject")
       
   .flash_message
   
@@ -48,5 +48,5 @@
   
   %section.comment
     %h2= _("Comment")
-    %p.subtitle= _("This comment will be part of the confirmation e-mail.")
+    %p.subtitle= _("This comment will be part of the rejection e-mail.")
     = text_area_tag "comment", ""

@@ -42,6 +42,13 @@
     ${total_borrowable}
     
 %li.actions
-  = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}/edit", :class => "smallbutton white" do
-    = _("Edit")
-    .icon.edit
+  .multibutton
+    .alternatives
+      .trigger
+        .arrow
+      = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}/edit", :class => "button white" do
+        .icon.edit
+        = _("Edit")
+    = link_to "/backend/inventory_pools/${current_inventory_pool}/models/${id}", :class => "button white" do
+      .icon.view_model
+      = _("View")

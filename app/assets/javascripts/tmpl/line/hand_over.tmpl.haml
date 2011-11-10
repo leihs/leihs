@@ -60,7 +60,7 @@
         = "-"
         {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
       .range
-        ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24))}
+        ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
         = _("Days")
       .clear
       %table
@@ -79,9 +79,9 @@
   %li{:class => "range{{if overdue}} overdue{{/if}}"}
     %span.number
       {{if overdue}}
-      ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24))}
+      ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
       {{else}}
-      ${Math.round((new Date(max_date.replace(/-/g, "/")) - new Date()) / (1000 * 60 * 60 * 24))}
+      ${Math.round((new Date(max_date.replace(/-/g, "/")) - new Date()) / (1000 * 60 * 60 * 24)+1)}
       {{/if}}
     %span.text
       {{if overdue}}
@@ -90,21 +90,21 @@
       = _("Days max")
       {{/if}}
       
-  %li.note
-    %span{:class => "{{if overdue}}grey{{/if}}"}
-      &raquo;
-      {{if overdue}}
-      {{html formatDate(new Date(date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-      {{else}}
-      {{html formatDate(new Date(max_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-      {{/if}}
-      
 %li.actions
   {{if overdue}}
-  = link_to "/javascript:void(0)", :class => "smallbutton red" do
-    .icon.delete
-    = _("Delete")
-  {{/if}}
-  = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over", :class => "smallbutton white" do
+  .multibutton
+    .alternatives
+      .trigger
+        .arrow
+      = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over/delete_visit?lines=${contract_line_ids}", :class => "button red", :method => 'delete', :remote => "true", :"data-rel" => "tmpl/dialog/hand_over/delete", :"data-dialog_class" => "hand_over", :"data-on_success" => 'List.remove_line($(this).parents(".line"), "red")' , :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
+        .icon.delete
+        = _("Delete")
+    = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over", :class => "button white" do
+      .icon.hand_over
+      = _("Hand Over")
+  {{else}}
+  = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over", :class => "button white" do
     = _("Hand Over")
     .icon.hand_over
+  {{/if}}
+  

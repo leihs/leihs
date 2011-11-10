@@ -38,6 +38,14 @@
     {{/if}}
     
 %li.actions
-  = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/retire", :class => "smallbutton white" do
-    = _("Retire")
-    .icon.retire
+  .multibutton
+    .alternatives
+      .trigger
+        .arrow
+      = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/retire", :class => "button white" do
+        .icon.retire
+        = _("Retire")
+    = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}", :class => "button white" do
+      .icon.view_item
+      = _("View Item")
+      

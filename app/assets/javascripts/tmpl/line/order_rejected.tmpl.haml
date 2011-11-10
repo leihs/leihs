@@ -1,4 +1,4 @@
-= link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf" do
+= link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}" do
 
   %li.name.hastip
     ${user.firstname}
@@ -19,25 +19,21 @@
           %td.value
             %p
               ${user.email}
-      
-  %li.number
-    = _("No.")
-    ${id}
-    
-  %li.date
-    {{html formatDate(new Date(created_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
 
   %li.items.hastip
     %span.number
-      ${items.length}
+      ${quantity}
     = _("Items")
     .tip.lines
       ${$startdate = 0, ""}
       ${$enddate = 0, ""}
-      {{each(i, line) lines}}
+      {{each(i, line) order_lines}}
       {{if line.start_date != $startdate || line.end_date != $enddate}}
       ${$startdate = line.start_date, ""}
       ${$enddate = line.end_date, ""}
+      {{if i != 0}}
+      %hr
+      {{/if}}
       .date
         {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
         = "-"
@@ -47,39 +43,49 @@
         = _("Days")
       .clear
       %table
-        {{each(i, line) lines}}
+        {{each(i, line) order_lines}}
         {{if line.start_date == $startdate && line.end_date == $enddate}}
         %tr
           %td.quantity
             ${line.quantity}
           %td.model_name
+            {{if line.model}}
             ${line.model.name}
+            {{else}}
+            %i
+              = _("Model not present any more")
+            {{/if}}
         {{/if}}
         {{/each}}  
       {{/if}}
       {{/each}}
-
+        
+  %li.date
+    &raquo;
+    {{html formatDate(new Date(created_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+  
   %li.status_with_date
-    {{if status_const == 1}}
-    = _("Unsigned")
-    {{/if}}
-    {{if status_const == 2}}
-    = _("Signed")
-    {{/if}}
-    {{if status_const == 3}}
-    = _("Closed")
-    {{/if}}
+    = _("Rejected")
     %span.grey
       ({{html formatDate(new Date(updated_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}})
-    
+      
+  {{if String(purpose).length > 43}}
+  %li.short_purpose.hastip
+    %span.text
+      {{html String(purpose).substring(0, 43) }}
+      {{if String(purpose).length > 43}}
+      {{html "..."}}
+      {{/if}}
+    .tip
+      %p
+        ${purpose}
+  {{else}}
+  %li.short_purpose
+    %span.text
+      {{html String(purpose).substring(0, 43) }}
+  {{/if}}
+  
 %li.actions
-  .multibutton
-    .alternatives
-      .trigger
-        .arrow
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list", :class => "button white" do
-        .icon.valuelist  
-        = _("Value List")
-    = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf", :class => "button white" do
-      .icon.contract
-      = _("Contract PDF")
+  = link_to "/backend/inventory_pools/${current_inventory_pool}/order/${id}", :class => "button white" do
+    .icon.view_order
+    = _("View")
