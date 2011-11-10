@@ -48,7 +48,7 @@ class Order < Document
     indexes user(:badge_id), :as => :user_badge_id
     indexes models(:name), :as => :model_names
     
-    has :inventory_pool_id, :user_id, :status_const
+    has :inventory_pool_id, :user_id, :status_const, :created_at
     has backup(:id), :as => :backup_id
     
     set_property :delta => true
@@ -87,6 +87,7 @@ class Order < Document
   sphinx_scope(:sphinx_submitted) { { :with => {:status_const => Order::SUBMITTED}, :include => :backup } }
   sphinx_scope(:sphinx_approved) { { :with => {:status_const => Order::APPROVED} } }
   sphinx_scope(:sphinx_rejected) { { :with => {:status_const => Order::REJECTED} } }
+  sphinx_scope(:sphinx_all) {{}}
 
 
 #########################################################################
