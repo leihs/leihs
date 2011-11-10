@@ -252,12 +252,18 @@ class User < ActiveRecord::Base
                        :user_id => reminder_user,
                        :type_const => History::REMIND)
         puts "Reminded: #{self.name}"
-      rescue
+        return true
+      rescue Exception => exception
         histories.create(:text => _("Unsuccessful reminder of %{q} items for contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
                                                                                 :c => visits_to_remind.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
                        :user_id => reminder_user,
                        :type_const => History::REMIND)
          puts "Failed to remind: #{self.name}"
+         
+         # archive problem in the log, so the admin/developper
+         # can look up what happened
+         logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
+         return false
       end
     end
   end
