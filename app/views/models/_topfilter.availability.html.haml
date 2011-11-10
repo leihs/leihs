@@ -25,24 +25,15 @@
     this.end_date;
     
     this.setup = function() {
-      
       this.seti18n();
-      
       this.setupFromStorage();
-      
       this.setupCheckbox();
-      
       this.formatDates();
-      
       this.setupDatepicker();
-  
       this.setupBehaviourOnResize();
-  
-      this.updateAvDates();
     }
     
     this.setupBehaviourOnResize = function() {
-      
       $(window).bind("resize scroll", function() {
         
         if (!$("#ui-datepicker-div:visible").length)
@@ -67,7 +58,6 @@
     }
     
     this.setupFromStorage = function() {
-      
       if(sessionStorage.start_date && JSON.parse(sessionStorage.start_date).length != 0)
         $('#topfilter .availability #start_date').val(JSON.parse(sessionStorage.start_date));
         
@@ -79,7 +69,6 @@
     }
     
     this.setupDatepicker = function() {
-      
       var dates = $('#topfilter .availability .date').datepicker({
         minDate: 0,
         showOtherMonths: true,
@@ -104,14 +93,12 @@
     }
     
     this.updateStorage = function() {
-      
       sessionStorage.start_date = JSON.stringify(formatDate($.datepicker.parseDate(i18n.selected.datepicker.dateFormat, $('#topfilter .availability #start_date').val()), "yyyy-MM-dd"));
       sessionStorage.end_date = JSON.stringify(formatDate($.datepicker.parseDate(i18n.selected.datepicker.dateFormat, $('#topfilter .availability #end_date').val()), "yyyy-MM-dd"));
       sessionStorage.available_only = JSON.stringify($("#available-only").attr("checked"));
     }
     
     this.formatDates = function() {
-      
       $('#topfilter .availability .date').each(function(){
         var date = new Date($(this).val().replace(/-/g, "/")); // SAFARI Workarround for the Date.parse problem
         $(this).val($.datepicker.formatDate(i18n.selected.datepicker.dateFormat, date));
@@ -122,8 +109,8 @@
       var sd = $("#start_date").datepicker("getDate").getTime() / 1000;
       var ed = $("#end_date").datepicker("getDate").getTime() / 1000;
       
-      $("#modellist .item[data-availability]").each(function(){
-        var availability_all_ips = $(this).data('availability');
+      $("#modellist .item").each(function(){
+        var availability_all_ips = $(this).tmplItem().data.availability;
         
         // iterates over all inventory_pools
         var min_quantities_for_each_ip = $.map(availability_all_ips, function(elem){

@@ -47,8 +47,7 @@
               {{/each}}
         
       %td.availability
-        = 5
-        \/
-        ${total_borrowable}
+        %span.max_available
+        = "/ ${total_borrowable}"
       %td.add
-        = link_to "+", "#{link_prefix}${id}/book", :class => "smallbutton green", :title => _("Book this")
+        = link_to "+", "#{link_prefix}${id}/book", :class => "button small green", :title => _("Book this")
