@@ -20,11 +20,12 @@ function Tips() {
     $.fn.qtip.defaults.position.my = 'bottom center';
     $.fn.qtip.defaults.position.at = 'top center';
     $.fn.qtip.defaults.position.viewport = $(window);
-    $.fn.qtip.defaults.show.delay = 350;
+    $.fn.qtip.defaults.show.delay = 400;
     $.fn.qtip.defaults.show.solo = true;
     $.fn.qtip.defaults.style.tip.width = 12;
     $.fn.qtip.defaults.style.tip.height = 8;
     $.fn.qtip.defaults.style.classes = "list_tip";
+    $.fn.qtip.zindex = 1000;
     $.fn.qtip.defaults.show.effect = function(offset) {$(this).fadeIn();}
     
     $(".hastip").live("mouseenter", Tips.setupTip);
