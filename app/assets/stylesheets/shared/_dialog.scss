@@ -6,6 +6,14 @@
   @include borderRadius(6px);
   @include boxShadow (0 0 8px #AAA);
   
+  &.error {
+    border: 3px solid red;  
+  }
+  
+  .scalable {
+    @include forceScrollBar();
+  }
+  
   .navigation {
     position: absolute;
     right: 16px;
@@ -21,37 +29,60 @@
     @include borderRadius(6px);
   }
   
+  .flash_message {
+    display: none;
+    border: 1px solid red;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+    margin: 4px 0 16px 0;
+    @include boxShadow (0 0 8px #AAA);  
+  }
+  
   section.lines {
-    margin-top: 6px;
     
-    .date {
-      float: left;
-      font-size: 1.2em;
-      font-weight: bold;
-    }
-    
-    .range {
-      color: $lightgrey;
-      float: right;
-      font-size: 1.2em;
-      text-align: right;
-      padding-right: 4px;
-      width: 150px;
-    }
-    
-    .list {
-      margin-top: 8px;
-      border-top: 1px solid $borderlightgrey;
+    .topline {
+      margin-top: 22px;
       
-      .line {
-        
-        &:hover {
-          @include noBoxShadow;
-        }
-        
-        &:nth-child(even):hover {
-          background: $highlight-grey !important;
-        }
+      &:nth-child(1) {
+        margin-top: 10px;
+      }
+      
+      .date {
+        float: left;
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+      
+      .range {
+        color: $lightgrey;
+        float: right;
+        font-size: 1.2em;
+        text-align: right;
+        padding-right: 4px;
+        width: 150px;
+      }
+    }
+  }
+  
+  section.comment {
+    padding-top: 24px;
+  }
+  
+  .list {
+    margin-top: 6px;
+    margin-bottom: 0;
+    border-top: 1px solid $borderlightgrey;
+    
+    .line {
+      
+      &:hover {
+        @include noBoxShadow;
+      }
+      
+      &:nth-child(even):hover {
+        background: $highlight-grey !important;
       }
     }
   }

@@ -22,7 +22,7 @@
     border-bottom-left-radius: 0;
     
     .icon {
-      margin-left: 2px;
+      margin-right: 2px;
       margin-top: 1px;
     }
     
@@ -30,22 +30,41 @@
       background: $borderdarkgrey;
       border: 1px solid $borderdarkergrey;
       color: white;
+      display: inline-block;
       font-size: 0.7em;
       min-width: 12px;
       padding: 2px 3px;
-      position: absolute;
-      right: -14px;
+      position: relative;
+      top: -3px;
+      margin-right: -7px;
+      margin-left: 1px;
       text-align: center;
-      top: -9px;
+      z-index: 999;
       @include borderRadius(5px);
       @include boxShadow (0 0 1px #DDD);
     }
   }
   
   .tab.inactive {
-    background: $highlight-darkgrey;
-    padding-top: 2px;
-    height: 24px;
-    top: -2px;
+    background: url($image-sprite) no-repeat center -92px;
+    color: $lightgrey;
+    padding-top: 3px;
+    height: 21px;
+    
+    .badge {
+      background: $bordergrey;
+      border: 1px solid $borderdarkgrey;
+    }
+    
+    &:hover {
+      color: $darkgrey;
+      cursor: pointer;
+      background: $highlight-grey;
+      
+      .badge {
+        background: $borderdarkgrey;
+        border: 1px solid $borderdarkergrey;
+      }
+    }
   }
 }

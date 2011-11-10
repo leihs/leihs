@@ -27,4 +27,60 @@
       }
     }
   }
+  
+  &.hand_over {
+    width: 760px !important;
+    
+    textarea {
+      height: 40px;
+      width: 696px;
+    }
+    
+    p.subtitle {
+      width: 550px;
+    }
+    
+    .line {
+      
+      li{
+        
+       &.model {
+          width: 630px;
+        }
+        
+        &.quantity {
+          text-align: right;
+          width: 35px;
+        }
+      }
+    }
+  }
+  
+  &.take_back {
+    width: 760px !important;
+    
+    textarea {
+      height: 40px;
+      width: 696px;
+    }
+    
+    p.subtitle {
+      width: 550px;
+    }
+    
+    .line {
+      
+      li{
+        
+       &.model {
+          width: 630px;
+        }
+        
+        &.quantity {
+          text-align: right;
+          width: 35px;
+        }
+      }
+    }
+  }
 }

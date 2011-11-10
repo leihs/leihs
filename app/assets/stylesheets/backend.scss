@@ -19,6 +19,7 @@
  *= depend_on shared/_search
  *= depend_on shared/_navigation
  *= depend_on shared/_master
+ *= depend_on shared/_pagination
  *= depend_on backend/_variables
  *= depend_on backend/_topbar
  *= depend_on backend/_navigation
@@ -51,6 +52,7 @@
 @import "shared/tips.scss";
 @import "shared/topbar.scss";
 @import "shared/dialog.scss";
+@import "shared/pagination.scss";
 @import "backend/variables.scss";
 @import "backend/topbar.scss";
 @import "backend/navigation.scss";

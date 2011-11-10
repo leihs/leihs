@@ -5,14 +5,9 @@
   vertical-align: middle;
 }
 
-.smallbutton .icon {
-  
-  &.edit, &.delete, &.contract {
-    top: -1px;
-  }
+.button.small .icon {
   
   &.valuelist {
-    top: -1px;
     margin: 0 1px;
   }
 }
@@ -124,3 +119,22 @@
   height: 14px;
   width: 12px;
 }
+
+.view_item.icon {
+  background-position: -62px -134px;
+  height: 14px;
+  width: 16px;
+}
+
+.view_model.icon {
+  background-position: -79px -134px;
+  height: 14px;
+  width: 16px;
+}
+
+.view_order.icon {
+  background-position: -96px -134px;
+  height: 14px;
+  width: 16px;
+}
+

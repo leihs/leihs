@@ -14,15 +14,23 @@
       display: block;
     }
     
-    &>a>li:first-child {
+    &>a>li:first-child, &>li:first-child {
       padding-left: 14px;
     }
     
     &>li:last-child {
-      padding-right: 10px;
+      padding-right: 4px;
     }
     
     .tip {
+      display: none;
+    }
+    
+    .visible {
+      display: inline-block;
+    }
+    
+    .invisible {
       display: none;
     }
     
@@ -163,6 +171,10 @@
         width: 265px;
       }
       
+      &.short_purpose {
+        width: 190px;
+      }
+      
       &.reminder {
         width: 180px;
       }
@@ -191,7 +203,7 @@
       }
       
       &.date {
-        width: 80px;
+        width: 86px;
       }
       
       &.items {
@@ -245,22 +257,115 @@
       }
       
       &.item_status {
-        width: 275px;
+        width: 230px;
       }
       
       &.status_with_date {
-        width: 185px;
-      }
-      
-      &.approved_with_date {
-        text-align: right;
-        width: 185px;
+        width: 160px;
       }
       
       &.actions {
+        font-size: 1.0em;
         text-align: right;
+        padding-top: 0;
         @include opacity(0.5);
+        
+        .button {
+          margin-right: 0;
+        }
       }
+    }
+  }
+  
+  .navigation {
+    
+    .search {
+      padding: 0 !important;
+      width: 300px;
+      
+      input {
+        background: white;
+        border: 1px solid $borderlightgrey;
+        color: $lightgrey !important;
+        display: inline-block;
+        font-size: 1.1em;
+        height: 15px;
+        margin-left: 6px;
+        margin-right: 4px;
+        padding-top: 2px;
+        padding-left: 7px;
+        padding-right: 26px;
+        padding-bottom: 2px;
+        position: relative;
+        width: 100px;
+        @include borderRadius(4px);
+        
+        &:active, &:focus, &.active {
+          color: $darkgrey !important;
+        }
+      }
+      
+      .loading {
+        display: none;
+        height: 14px;
+        left: 124px;
+        position: absolute;
+        top: 12px;
+        width: 14px;
+      }
+    }
+    
+    .historical_search {
+      padding: 0 !important;
+      width: 440px;
+      
+      .hs_container {
+        display: inline-block;        
+        float: right;
+        
+        a, span {
+          color: #8a8a8a;
+          cursor: pointer;
+          display: block;
+          float: left;
+          border: 1px solid $lightgrey;
+          border-top: 1px solid #c0c0c0;
+          background: url($slices-h) repeat-x 0 -252px;
+          padding: 0.3em 0.5em;
+          margin-right: 4px;
+          margin-bottom: 5px;
+          text-align:center;
+          min-width:1em;
+          @include borderRadius(6px);
+          
+          &:hover {
+            background: url($slices-h) repeat-x 0 -284px;
+            color: #515151;
+          }
+          
+          &:active {
+            background: url($slices-h) repeat-x 0 -316px;
+          }
+          
+          &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active {
+            background: url($slices-h) repeat-x 0 -252px;
+            cursor: default;
+            color: #8a8a8a !important;
+          }
+        }
+        
+        .current, .current:hover {
+          background: url($slices-h) repeat-x 0 -252px;
+          border: solid 1px $grey;
+          color: $darkgrey;
+          cursor: default;
+        }
+      }
+    }
+    
+    &:hover {
+      background: white;
+      @include noBoxShadow();
     }
   }
 }

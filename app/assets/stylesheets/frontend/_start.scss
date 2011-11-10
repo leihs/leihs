@@ -15,7 +15,7 @@
   }
    
   #categories {
-    @include greylinks;
+    @include darkGreylinks;
     @include categoriesGrid;
   }
 }

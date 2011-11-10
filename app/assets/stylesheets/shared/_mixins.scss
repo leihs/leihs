@@ -6,6 +6,19 @@
   user-select: none;
 }
 
+@mixin forceScrollBar {
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0,0,0,.5);
+      -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  }
+}
+
 @mixin greylinks {
   h2 a, h2 a:link, h2 a:visited, h3 a, h3 a:link, h3 a:visited {
     color: $grey;
@@ -209,11 +222,11 @@
         
         a {
           font-size: 1.2em;
-          color:#999999;
+          color: $grey;
         }
         
         a:hover {
-          color: #515151;
+          color: $darkgrey;
         }
       }
     }
