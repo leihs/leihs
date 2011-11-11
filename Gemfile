@@ -4,7 +4,7 @@ gem 'rails', '3.1.1'
 #tmp# gem 'builder', '~> 3.0' 
 #tmp# gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
-gem 'mysql2', '~> 0.3.7'
+gem 'mysql2', '~> 0.3.8'
 #tmp# gem 'squeel', '~> 0.8.4'
 
 # Asset template engines
