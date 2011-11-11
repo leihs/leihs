@@ -43,7 +43,10 @@ class Contract < Document
     indexes models(:name), :as => :model_names
     indexes items(:inventory_code), :as => :items_inventory_code
     
-    has :inventory_pool_id, :user_id, :status_const
+    has :inventory_pool_id, :user_id, :status_const, :created_at
+    has "DATE_FORMAT(contracts.created_at, '%Y%m')", :as => :created_at_yearmonth, :type => :integer, :facet => true
+    #tmp# has contract_lines(:start_date), :as => :hand_overs_at, :type => :mva_for_dates, :facet => true
+    #tmp# has contract_lines(:end_date), :as => :take_back_at, :type => :mva_for_dates, :facet => true
     
     set_property :delta => true
   end
@@ -87,6 +90,7 @@ class Contract < Document
   sphinx_scope(:sphinx_unsigned) { { :with => {:status_const => Contract::UNSIGNED} } }
   sphinx_scope(:sphinx_signed) { { :with => {:status_const => Contract::SIGNED} } }
   sphinx_scope(:sphinx_closed) { { :with => {:status_const => Contract::CLOSED} } }
+  sphinx_scope(:sphinx_all) {{}}
   
 #########################################################################
   

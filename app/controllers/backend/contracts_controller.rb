@@ -3,53 +3,53 @@ class Backend::ContractsController < Backend::BackendController
   before_filter :preload
 
   def index
-# working here # deposit_relevant
-
-#    contracts = current_inventory_pool.contracts
-#    contracts = contracts & @user.contracts if @user # TODO 1209** @user.contracts.by_inventory_pool(current_inventory_pool)
     with = { :inventory_pool_id => current_inventory_pool.id }
-    without = {}
-    
-    with.merge!(:user_id => @user.id) if @user
+    with[:user_id] = @user.id if @user
 
-    case params[:filter]
-      when "signed"
-##        contracts = contracts.signed
-        with.merge!(:status_const => Contract::SIGNED)
-      when "closed"
-##        contracts = contracts.closed
-        with.merge!(:status_const => Contract::CLOSED)
+    scope = case params[:filter]
+              when "unsigned"
+                :sphinx_unsigned
+              when "signed"
+                :sphinx_signed
+              when "closed"
+                :sphinx_closed
+              else
+                :sphinx_all
+            end
 
-      #TODO: Clean up, really.
-      # This is meant to show contracts with a specific return or start date,
-      # to make it easier for Michi to reconcile deposits with his "Kassenbuch,
-      when "deposit_relevant"
-        day = Date.yesterday
-        day = params[:day] if params[:day]
-        #lines = ContractLine.where(:returned_date => day)
-        #lines += ContractLine.where(:start_date => day)
-        #ids = []
-        #lines.each do |l|
-        #  ids << l.contract_id if l.contract.inventory_pool = current_inventory_pool
-        #end
-        #ids.uniq!
+    # TODO discard contracts without contract_lines (with quantity=0)
+    facets = Contract.send(scope).facets params[:query], { :facets => [:created_at_yearmonth],
+                                                         :star => true, :page => params[:page], :per_page => $per_page,
+                                                         :with => with,
+                                                         :sort_mode => :extended, :order => "created_at DESC" }
 
-        # Why the heck does the ugly SQL below work and the beautiful (*cough*, ahem) Ruby above doesn't?
-        sql = "id in ( select distinct(contract_id) from contract_lines where (returned_date = ? or start_date = ?) and contract_id in ( select id from contracts where inventory_pool_id = ? ))"
-        contracts = Contract.where([sql, day, day, current_inventory_pool.id]).first
-      else
-##        contracts = contracts.signed + contracts.closed
-        without.merge!(:status_const => Contract::UNSIGNED)
+    year = params[:year].to_i
+    s, e = ["#{year}01".to_i, "#{year}12".to_i]
+
+    @available_months = if params[:year].blank?
+      []
+    else
+      facets[:created_at_yearmonth].keys.grep(s..e).map{|x| x - (year * 100) }
     end
 
-    # TODO 0501
-    @contracts = (contracts ? contracts : Contract).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
-                                                                             :with => with, :without => without }
+    @available_years = facets[:created_at_yearmonth].keys.map{|x| (x / 100).to_i }.uniq.sort
+                                                        
+    h = if not params[:year].blank? and params[:month].blank?
+      {:created_at_yearmonth => (s..e)}
+    elsif not params[:month].blank?
+      month = "%02d" % params[:month].to_i
+      {:created_at_yearmonth => "#{year}#{month}".to_i}
+    else
+      {}
+    end
+
+    @entries = facets.for(h)
+    @pages = @entries.total_pages
+    @total_entries = Contract.send(scope).search_count(:with => with.merge(h))
+
     respond_to do |format|
       format.html
-      format.js { search_result_rjs(@contracts) }
     end
-                                                                             
   end
   
   def show

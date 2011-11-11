@@ -17,7 +17,7 @@ class Backend::OrdersController < Backend::BackendController
                 :sphinx_all
             end
     
-    @facets = Order.send(scope).facets params[:query], { :facets => [:created_at_yearmonth],
+    facets = Order.send(scope).facets params[:query], { :facets => [:created_at_yearmonth],
                                                          :star => true, :page => params[:page], :per_page => $per_page,
                                                          :with => with,
                                                          :sort_mode => :extended, :order => "created_at DESC" }
@@ -28,10 +28,10 @@ class Backend::OrdersController < Backend::BackendController
     @available_months = if params[:year].blank?
       []
     else
-      @facets[:created_at_yearmonth].keys.grep(s..e).map{|x| x - (year * 100) }
+      facets[:created_at_yearmonth].keys.grep(s..e).map{|x| x - (year * 100) }
     end
 
-    @available_years = @facets[:created_at_yearmonth].keys.map{|x| (x / 100).to_i }.uniq.sort
+    @available_years = facets[:created_at_yearmonth].keys.map{|x| (x / 100).to_i }.uniq.sort
                                                         
     h = if not params[:year].blank? and params[:month].blank?
       {:created_at_yearmonth => (s..e)}
@@ -42,7 +42,7 @@ class Backend::OrdersController < Backend::BackendController
       {}
     end
 
-    @entries = @facets.for(h)
+    @entries = facets.for(h)
     @pages = @entries.total_pages
     @total_entries = Order.send(scope).search_count(:with => with.merge(h))
         
