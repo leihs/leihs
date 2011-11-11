@@ -49,6 +49,8 @@ class Order < Document
     indexes models(:name), :as => :model_names
     
     has :inventory_pool_id, :user_id, :status_const, :created_at
+    has "DATE_FORMAT(orders.created_at, '%Y%m')", :as => :created_at_yearmonth, :type => :integer, :facet => true
+    
     has backup(:id), :as => :backup_id
     
     set_property :delta => true

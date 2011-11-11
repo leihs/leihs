@@ -66,21 +66,16 @@
     }
     
     this.setupHistoricalSearch = function() {
-      var first_date = new Date("#{@first_date}".replace(/-/g, "/"));
-      var last_date = new Date("#{@last_date}".replace(/-/g, "/"));
-      
       var options = {};
       var available_months = #{@available_months.to_json};
       
       if(available_months.length) options["available_months"] = available_months;
+      options["available_years"] = #{@available_years.to_json};
       options["selected_year"] = "#{params[:year]}";
       options["selected_month"] = "#{params[:month]}";
       options["callback"] = OrderList.handleHistoricalSearchClick;
-      if(String(first_date.valueOf()).toLowerCase() == "nan" && String(last_date.valueOf()).toLowerCase() == "nan" && available_months.length == 0) {
-        options["show_months"] = false;
-      }
       
-      $(".orders .historical_search").historicalSearch(first_date, last_date, options);
+      $(".orders .historical_search").historicalSearch(options);
     }
     
     this.handleHistoricalSearchClick = function(event) {

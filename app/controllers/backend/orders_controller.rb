@@ -5,13 +5,7 @@ class Backend::OrdersController < Backend::BackendController
   def index
     with = { :inventory_pool_id => current_inventory_pool.id }
     with[:user_id] = @user.id if @user
-    
-    if not params[:year].blank? and params[:month].blank?
-      with[:created_at] = Date.new(params[:year].to_i).to_time.to_i..Date.new(params[:year].to_i).end_of_year.to_time.to_i
-    elsif not params[:month].blank?
-      with[:created_at] = Date.new(params[:year].to_i, params[:month].to_i).beginning_of_month.to_time.to_i..Date.new(params[:year].to_i, params[:month].to_i).end_of_month.to_time.to_i
-    end
-    
+        
     scope = case params[:filter]
               when "approved"
                 :sphinx_approved
@@ -23,26 +17,35 @@ class Backend::OrdersController < Backend::BackendController
                 :sphinx_all
             end
     
-    @entries = Order.send(scope).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page, :with => with, :sort_mode => :extended, :order => "status_const ASC, created_at ASC" }
-    @pages = @entries.total_entries/$per_page
-    
-    @total_entries = (Order.send(scope).search nil, { :star => true, :page => 1, :per_page => 1, :with => with }).total_entries
-    
-    @available_months = []
-    unless params[:year].blank?
-      for month in 1..12
-         with[:created_at] = Date.new(params[:year].to_i, month).beginning_of_month.to_time.to_i..Date.new(params[:year].to_i, month).end_of_month.to_time.to_i
-         search_for_month = Array(Order.send(scope).search params[:query], { :star => true, :page => 1, :per_page => 1, :with => with}).first
-         @available_months << month unless search_for_month.blank?
-      end
+    @facets = Order.send(scope).facets params[:query], { :facets => [:created_at_yearmonth],
+                                                         :star => true, :page => params[:page], :per_page => $per_page,
+                                                         :with => with,
+                                                         :sort_mode => :extended, :order => "created_at DESC" }
+
+    year = params[:year].to_i
+    s, e = ["#{year}01".to_i, "#{year}12".to_i]
+
+    @available_months = if params[:year].blank?
+      []
+    else
+      @facets[:created_at_yearmonth].keys.grep(s..e).map{|x| x - (year * 100) }
     end
-      
-    first_order = Array(Order.send(scope).search params[:query], { :star => true, :page => 1, :per_page => 1, :with => with, :sort_mode => :extended, :order => "created_at ASC" }).first
-    @first_date = first_order.blank? ? nil : first_order.created_at
-    last_order = Array(Order.send(scope).search params[:query], { :star => true, :page => 1, :per_page => 1, :with => with, :sort_mode => :extended, :order => "created_at DESC" }).first
-    @last_date = last_order.blank? ? nil : last_order.created_at
-    
-    
+
+    @available_years = @facets[:created_at_yearmonth].keys.map{|x| (x / 100).to_i }.uniq.sort
+                                                        
+    h = if not params[:year].blank? and params[:month].blank?
+      {:created_at_yearmonth => (s..e)}
+    elsif not params[:month].blank?
+      month = "%02d" % params[:month].to_i
+      {:created_at_yearmonth => "#{year}#{month}".to_i}
+    else
+      {}
+    end
+
+    @entries = @facets.for(h)
+    @pages = @entries.total_pages
+    @total_entries = Order.send(scope).search_count(:with => with.merge(h))
+        
     respond_to do |format|
       format.html
     end
