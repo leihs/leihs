@@ -1,0 +1,65 @@
+.linegroups {
+  
+  .linegroup {
+    background: $highlight-darkgrey;
+    border-top: 1px solid $borderdarkgrey;
+    border-left: 1px solid $bordergrey;
+    border-right: 1px solid $borderlightgrey;
+    border-bottom: 1px solid $borderlightgrey; 
+    display: block;
+    margin: 10px 0 24px;
+    padding: 14px 0 6px 0;
+    position: relative;
+    @include borderRadius(6px);
+    @include boxShadow(inset 0 2px 2px #CCC);
+    
+    .dates {
+      color: $darkgrey;
+      font-size: 1.3em;
+      padding-left: 4px;
+      margin-bottom: 14px;
+      
+      label {
+        cursor: pointer;
+        
+        input {
+          cursor: pointer;
+        }
+      }
+    }
+    
+    .days {
+      color: $grey;
+      font-size: 1.2em;
+      position: absolute;
+      right: 12px;
+      top: 12px;
+    }
+    
+    .lines.list {
+      margin-bottom: 6px;
+      position: relative;
+      
+      .line {
+        background: $highlight-grey;
+        height: 34px; 
+        
+        &:hover {
+          background: white;
+        }
+      }
+    }
+    
+    .add_item {
+      padding-left: 5px;
+    }
+  }
+  
+  &>.linegroup:nth-last-child(2) {
+    margin-bottom: 0;
+  }
+  
+  &>hr:nth-last-child(1) {
+    display: none;
+  }
+}

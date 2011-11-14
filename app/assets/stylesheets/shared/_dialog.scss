@@ -85,6 +85,10 @@
         background: $highlight-grey !important;
       }
     }
+    
+    .line > a > li:first-child, .line > li:first-child, .line > div > li:first-child {
+      padding-left: 0; 
+    }
   }
   
   .ui-dialog-titlebar {

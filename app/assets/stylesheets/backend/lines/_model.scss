@@ -1,0 +1,23 @@
+.model.line {
+ 
+  li.modelname {
+    font-weight: bold;
+    width: 265px;
+  }
+  
+  li.category {
+    width: 190px;
+  }
+  
+  li.categories {
+    width: 170px;
+    
+    .tiptarget {
+      width: 60%;
+    }
+  }
+  
+  li.availability {
+    width: 80px;
+  }
+}

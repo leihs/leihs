@@ -1,0 +1,35 @@
+.contract.line {
+  
+  li.name {
+    font-weight: bold;
+    line-height: 1.1em;
+    width: 143px;
+  }
+  
+  li.number {
+    width: 96px;
+  }
+  
+  li.date {
+    width: 86px;
+  }
+  
+  li.items {
+    width: 120px;
+    
+    .number {
+      display: inline-block;
+      padding-right: 2px;
+      text-align: right;
+      width: 30px;
+    }
+    
+    .tiptarget {
+      width: 70%;
+    }
+  }
+  
+  li.status_with_date {
+    width: 160px;
+  }
+}

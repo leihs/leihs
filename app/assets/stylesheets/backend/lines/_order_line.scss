@@ -1,0 +1,25 @@
+.order_line.line {
+  
+  li.select {
+    padding-right: 5px !important;
+  }
+  
+  li.amount {
+    padding-right: 10px !important;
+    width: 65px;
+    
+    .selected {
+      display: inline-block;
+      text-align: right;
+      width: 30px;
+    }
+  }
+  
+  li.name {
+    width: 480px;
+  }
+  
+  li.actions {
+    padding-right: 8px;
+  }
+}

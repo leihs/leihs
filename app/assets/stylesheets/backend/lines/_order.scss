@@ -1,0 +1,35 @@
+.order.line {
+  
+  li.name {
+    font-weight: bold;
+    line-height: 1.1em;
+    width: 143px;
+  }
+  
+  li.items {
+    width: 120px;
+    
+    .number {
+      display: inline-block;
+      padding-right: 2px;
+      text-align: right;
+      width: 30px;
+    }
+    
+    .tiptarget {
+      width: 70%;
+    }
+  }
+  
+  li.date {
+    width: 86px;
+  }
+  
+  li.purpose {
+    width: 265px;
+  }
+  
+  li.short_purpose {
+    width: 190px;
+  }
+}

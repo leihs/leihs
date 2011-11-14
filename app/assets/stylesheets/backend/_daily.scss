@@ -10,8 +10,6 @@
   }
   
   .navigation {
-    position: absolute;
-    right: 10px;
     
     .day.back {
       border-top-right-radius: 0;
@@ -23,9 +21,5 @@
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
-  }
-  
-  .handovers_overdue.tab, .takebacks_overdue.tab {
-    color: red;
   }
 }

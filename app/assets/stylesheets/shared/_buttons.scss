@@ -48,7 +48,6 @@ a.button {
     background: url($slices-h) repeat-x 0 $pos;
     cursor: default;
     color: $color !important;
-    line-height: 1em !important;
   }
 }
 
@@ -89,6 +88,40 @@ a.button.small {
   display: inline-block;
   position: relative;
   text-align: left;
+  
+  &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active {
+    @include opacity(0.6);
+    
+    &>.button {
+      cursor: default;
+      
+      &:hover {
+        background: url($slices-h) repeat-x 0 -252px;
+        color: #8a8a8a;
+        border-bottom-right-radius: 0;
+      }
+    }
+    
+    &>.alternatives:hover {
+      
+      .trigger {
+        background: url($slices-h) repeat-x 0 -252px;
+        border-bottom-right-radius: 6px;
+        
+        .arrow {
+          @include opacity(0.6);
+        }
+      }
+            
+      .button {
+        display: none;
+      }
+      
+      &+.button {
+        border-bottom-left-radius: 6px;    
+      }
+    }
+  }
   
   &>.button {
     border: 1px solid $lightgrey;
@@ -138,7 +171,7 @@ a.button.small {
     }
     
     .button {
-      border: 1px solid #c0c0c0 !important;
+      border: 1px solid $lightgrey !important;
       border-top: none !important;
       display: none;
       text-align: left;
@@ -146,6 +179,7 @@ a.button.small {
       white-space: nowrap;
       margin-left: 1px;
       @include borderRadius(0);
+      @include boxShadow (0 4px 8px #AAA);
       
       .icon {
         margin-left: 2px;
@@ -159,6 +193,32 @@ a.button.small {
     }
     
     &:hover {
+      z-index: 9999;
+      
+      .trigger {
+        background: url($slices-h) repeat-x 0 -284px;
+        border-bottom-right-radius: 0;
+        
+        .arrow {
+          @include opacity(1.0);
+        }
+      }
+      
+      .button {
+        display: block;        
+      }
+      
+      &+.button {
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+  
+  &.open {
+    
+    .alternatives {
+      
+      z-index: 9999;
       
       .trigger {
         background: url($slices-h) repeat-x 0 -284px;

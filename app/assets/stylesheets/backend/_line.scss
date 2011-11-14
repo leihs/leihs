@@ -1,0 +1,128 @@
+.line {
+  border-bottom: 1px solid $borderlightergrey;
+  border-top: 1px solid white;
+  display: table;
+  height: 40px;
+  position: relative;
+  width: 100%;
+  
+  li {
+    color: $darkgrey;
+    display: table-cell;
+    font-size: 1.2em;
+    height: 40px;
+    position: relative;
+    padding-right: 20px;
+    padding-top: 2px;
+    vertical-align: middle;
+    
+    &.actions {
+      font-size: 1.0em;
+      text-align: right;
+      padding-top: 0;
+      @include opacity(0.5);
+      
+      .button {
+        margin-right: 0;
+      }
+    }
+  }
+  
+  &>a {
+    display: block;
+  }
+  
+  &>a>li:first-child, &>li:first-child, &>div>li:first-child {
+    padding-left: 14px;
+  }
+  
+  &>li:last-child {
+    padding-right: 4px;
+  }
+  
+  .tip {
+    display: none;
+  }
+  
+  .visible {
+    display: inline-block;
+  }
+  
+  .invisible {
+    display: none;
+  }
+  
+  .tiptarget {
+    display: block;
+    position: absolute;
+    top: 9px;
+    height: 22px;
+    width: 100%;
+  }
+  
+  &:nth-child(even) {
+    background: $highlight-grey;
+  }
+  
+  &:hover {
+    @include highlightItem;
+    
+    li {
+      color: $darkgrey;
+    }
+    
+    li.actions {
+      @include opacity(1.0);
+    }
+  }
+  
+  span.grey {
+    color: $lightgrey;
+  }
+  
+  span.red {
+    color: $red;
+  }
+  
+  span.digits {
+    letter-spacing: -1px;
+  }
+  
+  &.toggle {
+    background: white;
+    border-bottom: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    
+    &>li {
+      padding-left: 0;
+    }
+    
+    .icon {
+      background: url($image-sprite) no-repeat -53px -37px;
+      display: inline-block;
+      height: 6px;
+      margin-right: 8px;
+      margin-left: 12px;
+      position: relative;
+      width: 7px;
+      @include opacity(0.6);
+    }
+    
+    &.show_less {
+      .icon {
+        background: url($image-sprite) no-repeat -73px -37px;  
+      }
+    }
+    
+    &:hover {
+      .icon {
+        @include opacity(1.0);
+      }
+    }
+    
+    .hidden {
+      display: none;
+    }
+  }
+}

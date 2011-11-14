@@ -63,7 +63,7 @@ hr {
   margin: 14px 0 0 0;
 }
 
-inpu,textarea {
+input,textarea {
   color: $darkgrey;
   font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 }
@@ -71,6 +71,11 @@ inpu,textarea {
 textarea:focus, input:not([type="submit"]):focus, select:focus {
   color: $darkgrey !important;
   @include boxShadow (0 0 6px #DDD);
+}
+
+label[disabled=disabled] {
+  cursor: auto !important;
+  @include opacity(0.7);
 }
 
 .floatright {

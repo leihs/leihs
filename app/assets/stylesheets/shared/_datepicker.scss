@@ -1,4 +1,5 @@
 #ui-datepicker-div {
+  font-size: 1.2em;
   background: white;
   border: 1px solid $borderlightgrey;
   display: none;
@@ -8,7 +9,7 @@
   position: absolute;
   z-index: 1005 !important;
   @include greylinks;
-  @include borderRadius(6px);
+  @include borderRadius(12px);
   @include boxShadow (0 0 4px #AAA);
   
   .ui-datepicker-header {
@@ -30,18 +31,19 @@
       cursor: pointer;
       display: block;
       height: 14px;
+      padding: 1px 2px 3px 2px;
       position: absolute;
-      top: 3px;
+      top: 1px;
       width: 14px;
       @include borderRadius(4px);
     }
     
     .ui-datepicker-prev {
-      left: 4px;
+      left: 2px;
     }
     
     .ui-datepicker-next {
-      right: 4px;
+      right: 2px;
     }
     
     .ui-datepicker-prev:hover, .ui-datepicker-next:hover {
@@ -76,6 +78,7 @@
           text-align: center;
           a {
             border-right: 1px solid #FFF;
+            color: $grey;
             display: block;
             padding: 3px 4px;
             text-align: center;
@@ -87,7 +90,7 @@
           
           .ui-state-active {
             background: $highlight-darkgrey !important;
-             color: $grey !important;
+             color: $darkgrey !important;
 
             font-weight: bold;
           }
@@ -104,7 +107,7 @@
         
             a {
               background: none !important;
-              color: $lightergrey !important;
+              color: $lightgrey !important;
             }
             
             a:hover {

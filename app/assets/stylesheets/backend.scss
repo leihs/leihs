@@ -34,6 +34,20 @@
  *= depend_on backend/_chart
  *= depend_on backend/_search_results
  *= depend_on backend/_dialog
+ *= depend_on backend/_barcode_fields
+ *= depend_on backend/_add_item
+ *= depend_on backend/_selection_actions
+ *= depend_on backend/_acknowledge
+ *= depend_on backend/_linegroups
+ *= depend_on backend/_line
+ *= depend_on backend/lines/_order
+ *= depend_on backend/lines/_hand_over
+ *= depend_on backend/lines/_take_back
+ *= depend_on backend/lines/_model
+ *= depend_on backend/lines/_item
+ *= depend_on backend/lines/_contract
+ *= depend_on backend/lines/_user
+ *= depend_on backend/lines/_order_line
  * 
 */
 
@@ -67,3 +81,17 @@
 @import "backend/_chart.scss";
 @import "backend/_search_results.scss";
 @import "backend/_dialog.scss";
+@import "backend/_barcode_fields.scss";
+@import "backend/_add_item.scss";
+@import "backend/_selection_actions.scss";
+@import "backend/_acknowledge.scss";
+@import "backend/_linegroups.scss";
+@import "backend/_line.scss";
+@import "backend/lines/_order.scss";
+@import "backend/lines/_hand_over.scss";
+@import "backend/lines/_take_back.scss";
+@import "backend/lines/_model.scss";
+@import "backend/lines/_item.scss";
+@import "backend/lines/_contract.scss";
+@import "backend/lines/_user.scss";
+@import "backend/lines/_order_line.scss";

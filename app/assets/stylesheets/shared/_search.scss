@@ -144,10 +144,6 @@
       @include opacity(0.7);
     }
     
-    .icon:hover {
-      @include opacity(1.0);
-    }
-    
     .borderright {
       background: white;
       border-right: 1px solid $bordergrey;
@@ -165,6 +161,10 @@
   .inner {
     background: url($image-sprite) repeat-x 0 -120px;
   }
+  
+  .icon {
+    @include opacity(0.8);
+  }
 }
 
 #search.active {
@@ -172,6 +172,10 @@
   .inner {
     background: url($image-sprite) repeat-x 0 -149px;
     height: 35px;
+  }
+  
+  .icon {
+    @include opacity(1.0);
   }
   
   input[type=text] {

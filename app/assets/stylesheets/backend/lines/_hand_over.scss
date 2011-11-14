@@ -1,0 +1,57 @@
+.hand_over.line {
+  
+  li.overdue_icon {
+    padding-right: 0;
+    padding-left: 8px !important;
+  }
+  
+  li.name {
+    font-weight: bold;
+    line-height: 1.1em;
+    width: 143px;
+    
+    &.overdue {
+      padding-left: 8px;
+      width: 126px;
+    }
+  }
+  
+  li.items {
+    width: 120px;
+    
+    .number {
+      display: inline-block;
+      padding-right: 2px;
+      text-align: right;
+      width: 30px;
+    }
+    
+    .tiptarget {
+      width: 70%;
+    }
+  }
+  
+  li.range {
+    white-space: nowrap;
+    width: 115px;
+    
+    .number {
+      display: inline-block;
+      padding-right: 2px;
+      text-align: right;
+      width: 30px;
+    }
+    
+    &.overdue {
+      padding-right: 10px !important;
+      width: 125px;
+      
+      .number {
+        display: inline-block;
+        padding-right: 2px;
+        text-align: right;
+        width: 30px;
+      }
+    }
+  }
+}

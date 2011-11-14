@@ -1,0 +1,39 @@
+#selection_actions {
+  display: inline-block;
+  float: right;
+  position: relative;
+  top: 5px;
+  
+  &>.selection {
+    display: inline-block;
+    position: relative;
+    bottom: 0;
+    margin-right: 6px;
+    
+    &>label {
+      cursor: pointer;
+      font-size: 1.3em;
+      margin-right: 14px;
+      
+      input[type='checkbox'] {
+        cursor: pointer;
+      }
+    }
+  }
+  
+  &>.actions {
+    display: inline-block;
+    position: relative;
+    bottom: 6px;
+    
+    .multibutton {
+      padding-right: 6px;
+      
+      .alternatives {
+        .trigger {
+          right: 6px;
+        }
+      }
+    }
+  }
+}
