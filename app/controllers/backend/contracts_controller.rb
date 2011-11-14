@@ -7,14 +7,12 @@ class Backend::ContractsController < Backend::BackendController
     with[:user_id] = @user.id if @user
 
     scope = case params[:filter]
-              when "unsigned"
-                :sphinx_unsigned
               when "signed"
                 :sphinx_signed
               when "closed"
                 :sphinx_closed
               else
-                :sphinx_all
+                :sphinx_signed_or_closed
             end
 
     # TODO discard contracts without contract_lines (with quantity=0)
