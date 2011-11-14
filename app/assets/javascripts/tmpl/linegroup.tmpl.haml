@@ -1,0 +1,29 @@
+{{each $item.data}}
+${$item.time_range = JSON.parse($index), ""}
+${$item.lines = $value, ""}
+${$item.first_date = new Date($item.time_range[0].replace(/-/g, "/")), ""}
+${$item.last_date = new Date($item.time_range[1].replace(/-/g, "/")), ""}
+${$item.days = Math.round(($item.last_date-$item.first_date) / (1000 * 60 * 60 * 24)+1), ""}
+{{/each}}
+
+.linegroup
+  .dates
+    %label
+      = check_box_tag "select_group"
+    ${i18n.selected.datepicker_backend.dayNamesShort[$item.first_date.getDay()]} 
+    ${formatDate($item.first_date, i18n.selected.tips.dateFormat)}
+    = "-"
+    ${i18n.selected.datepicker_backend.dayNamesShort[$item.last_date.getDay()]}
+    ${formatDate($item.last_date, i18n.selected.tips.dateFormat)}
+  .days
+    ${$item.days}
+    {{if $item.days<2}}
+    = _("Day")
+    {{else}}
+    = _("Days")
+    {{/if}}
+  .lines.list
+    {{tmpl($item.lines) "tmpl/line"}}
+          
+%hr
+
