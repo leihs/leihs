@@ -28,7 +28,7 @@ function List() {
     $(search).focus(function(){
       if(!$(this).data("start_text")) $(this).data("start_text", $(this).val());
       if($(this).val() == $(this).data("start_text")) $(this).val("");
-      $('.qtip').qtip('hide').qtip('disable');
+      $('.qtip').qtip('destroy').qtip('disable');
     });
     
     $(search).blur(function(){
