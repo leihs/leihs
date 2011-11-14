@@ -22,6 +22,8 @@ class Backend::AcknowledgeController < Backend::BackendController
     @source_path = request.env['REQUEST_URI']
     @order.to_backup unless @order.has_backup?
     add_visitor(@order.user)
+    
+    @grouped_lines = @order.lines.group_by {|x| [x.start_date.to_formatted_s(:db), x.end_date.to_formatted_s(:db)] }.map{|k,v| {k=>v}}
   end
   
   def approve
