@@ -16,6 +16,7 @@
 //= require jquery/buttons/buttons
 //= require jquery/dialog/dialog
 //= require jquery/list/list
+//= require jquery/selection-actions/selection-actions
 
 /////////// Templates /////////////
 //= require_tree ./tmpl
