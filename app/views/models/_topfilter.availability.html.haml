@@ -78,7 +78,7 @@
           
           if(this.id == "start_date") {
             var date = $.datepicker.parseDate(i18n.selected.datepicker.dateFormat, selectedDate, instance.settings);
-            date = new Date(date.setDate(date.getDate() + 1))
+            date = new Date(date.setDate(date.getDate()))
             $('#topfilter .availability #end_date').datepicker( "option", "minDate", date );
           }
           
