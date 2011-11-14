@@ -15,15 +15,17 @@
     {{/each}}
   %li.categories.hastip
     {{if categories.length > 1}}
-    ${$count+1}
+    ${$count}
     = _("more categories")
     .tip 
       %table
         {{each(i, category) categories}}
+        {{if i>0}}
         %tr
           %td
             %p
               ${category.name}
+        {{/if}}
         {{/each}}
     {{else}}
     %span.grey
