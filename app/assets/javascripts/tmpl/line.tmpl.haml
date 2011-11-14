@@ -1,5 +1,5 @@
 %ul.line{:class => "${type}"}
-  {{if type == "user" || type == "model" || type == "order" || type == "contract" || type == "item" || type == "hand_over" || type == "take_back" }}
+  {{if typeof($.template("tmpl/line/"+type)) == "function"}}
   {{tmpl "tmpl/line/"+type}}
   {{else}}
   {{tmpl "tmpl/line/unknown"}}
