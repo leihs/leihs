@@ -9,13 +9,13 @@
       = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' if params[:filter] && params[:filter] != ""}" do
         %span.text
           = _("All")
-      /
-        = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "approved", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'approved'}" do
-          %span.text
-            = _("Approved")
-        = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "rejected", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'rejected'}" do
-          %span.text
-            = _("Rejected")
+      = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "signed", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'signed'}" do
+        %span.text
+          = _("Open")
+      = link_to backend_inventory_pool_contracts_path(current_inventory_pool, :filter => "closed", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'closed'}" do
+        %span.text
+          = _("Closed")
+            
     .list
       %ul.navigation.line
         %li.search
