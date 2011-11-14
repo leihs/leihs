@@ -16,7 +16,8 @@ module Backend::BackendHelper
       when "daily"
         current_page?(backend_inventory_pool_path(current_inventory_pool))
       when "orders"
-        current_page?(:controller => "backend/orders")
+        current_page?(:controller => "backend/orders") ||
+        !!(request.path =~ /acknowledge\/\d+$/)
       when "search"
       current_page?(:controller => "backend", :action => :search)
       when "hand_over"
