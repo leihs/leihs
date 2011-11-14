@@ -1,0 +1,52 @@
+.container  
+  %li.select
+    %label
+      = check_box_tag "select_all", :id => "select_all"
+      
+  %li.amount
+    %span.selected
+      ${quantity}
+    %span.grey{:title=>"max. borrowable by this user"}
+      = "/"
+      ${total_borrowable}
+  
+  %li.name
+    ${model.name}
+    
+  {{if model.package_models}}
+  {{if model.package_models.length > 0}}
+  %li.packaged_models.hastip
+    ${model.package_models.length}
+    = _("Parts")
+    
+    .tip.lines
+      %table
+        {{each(i, model) model.package_models}}
+        %tr
+          %td.model_name
+            {{if model}}
+            ${model.name}
+            {{else}}
+            %i
+              = _("Model not present any more")
+            {{/if}}
+        {{/each}}  
+      
+  {{/if}}
+  {{/if}}
+    
+%li.actions
+  .multibutton
+    .alternatives
+      .trigger
+        .arrow
+      = link_to "", :class => "button white" do
+        .icon.swap
+        = _("Swap")
+      = link_to "", :class => "button red" do
+        .icon.delete
+        = _("Delete")
+    = link_to "", :class => "button white" do
+      .icon.timerange
+      = _("Time Range")
+  
