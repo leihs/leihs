@@ -15,9 +15,13 @@ class Backend::BackendController < ApplicationController
   
   def search
 
-    conditions = [ { :klasses => [User, Order, Contract, Model, Item],
-                   :with => { :inventory_pool_id => [current_inventory_pool.id]}
-                 } ]
+    conditions = [ { :klasses => { User => {:sort_by => "name ASC"},
+                                   Order => {:sort_by => "created_at DESC"},
+                                   Contract => {:sort_by => "created_at DESC"},
+                                   Model => {:sort_by => "name ASC"},
+                                   Item => {:sort_by => "model_name ASC"} },
+                     :with => { :inventory_pool_id => [current_inventory_pool.id] }
+                    } ]
     
     #TODO conditions << { :with => { :owner_id => [current_inventory_pool.id]} } if  # INVENTORY MANAGER
     
@@ -29,10 +33,10 @@ class Backend::BackendController < ApplicationController
 
     searches = []
     conditions.each do |s|
-      s[:klasses].each do |klass|
+      s[:klasses].each_pair do |klass, options|
         searches << klass.search(params[:text], { :star => true, :page => params[:page], :per_page => 54,
-                                               :sort_mode => :extended, :sort_by => "class_crc ASC, @relevance DESC",
-                                               :with => s[:with] })
+                                                  :sort_mode => :extended,
+                                                  :with => s[:with] }.merge(options) )
       end
     end
     
