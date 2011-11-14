@@ -23,6 +23,8 @@ Leihs::Application.routes.draw do
 ############################################################################
 # Frontend
 
+  match '/search', :to => 'frontend#search'
+
   # used for the current_user
   resource :user do
     resources :orders do #TODO#, :only => [:show, :destroy]

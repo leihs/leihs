@@ -72,21 +72,9 @@
         }
       });
       
-      var data = [
-        { label: "Audio Technica Pro 70", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/2399/CD_1820_thumb.jpg" , link: "http://localhost:3000/models/1111" },
-        { label: "Digidesign M-Box Audio Interface", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/2399/CD_1820_thumb.jpg" , link: "http://localhost:3000/models/2222" },
-        { label: "Audio Technica Pro 70", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/1341/amp_sony_AX3_thumb.jpg" , link: "http://localhost:3000/models/3333" },
-        { label: "Digidesign M-Box Audio Interface", type: "model", image: "http://leihs.zhdk.ch//images/attachments/0000/2399/CD_1820_thumb.jpg" , link: "http://localhost:3000/models/4444" },
-        { label: "Audio", type: "category" , link: "http://localhost:3000/categories/11/models"},
-        { label: "Audio Systems", type: "category" , link: "http://localhost:3000/categories/22/models"},
-        { label: "Audio Fidelity", type: "category" , link: "http://localhost:3000/categories/33/models"},
-        { label: "Audio Audio", type: "category" , link: "http://localhost:3000/categories/44/models"},
-        { label: "Audio Interfaces", type: "category", link: "http://localhost:3000/categories/55/models" }
-      ];
-    
       $("#search input:text").catcomplete({
-        delay: 0,
-        source: data,
+        delay: 500,
+        source: "/search",
         minLength: 2,
       	select: function(event, ui) {
       		window.location = ui.item.link;
