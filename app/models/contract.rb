@@ -90,7 +90,7 @@ class Contract < Document
   sphinx_scope(:sphinx_unsigned) { { :with => {:status_const => Contract::UNSIGNED} } }
   sphinx_scope(:sphinx_signed) { { :with => {:status_const => Contract::SIGNED} } }
   sphinx_scope(:sphinx_closed) { { :with => {:status_const => Contract::CLOSED} } }
-  sphinx_scope(:sphinx_all) {{}}
+  sphinx_scope(:sphinx_signed_or_closed) { { :with => {:status_const => Contract::SIGNED..Contract::CLOSED} } }
   
 #########################################################################
   
