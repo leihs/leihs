@@ -17,13 +17,29 @@ function Buttons() {
   this.loadingImg = $("<img src='/assets/loading.gif' class='loading'/>");
   
   this.setup = function() {
-   this.setupAjaxListener();
-   this.setupDialogListener();  
+    this.setupAjaxListener();
+    this.setupDialogListener();
+    this.setupMultibutton();
+  }
+  
+  this.setupMultibutton = function() {
+    $(".multibutton[disabled!=disabled] .alternatives").live("mouseenter", function(){
+      $(this).closest(".multibutton").addClass("open");
+    });
+    
+    $(".multibutton").live("mouseleave", function(){
+      $(this).closest(".multibutton").removeClass("open");
+    });
+    
+    $(".multibutton[disabled=disabled] .button").live("click mousedown", function(event){
+      event.preventDefault();
+      return false;
+    });
   }
   
   this.setupDialogListener = function() {
-    $(".button.close_dialog").live("click", Buttons.closeDialog);
-    $(".button.open_dialog").live("click", Buttons.openDialog);
+    $(".button.close_dialog[disabled!=disabled]").live("click", Buttons.closeDialog);
+    $(".button.open_dialog[disabled!=disabled]").live("click", Buttons.openDialog);
   }
   
   this.closeDialog = function(event) {
@@ -45,7 +61,7 @@ function Buttons() {
   }
   
   this.setupAjaxListener = function() {
-     $(".button[data-remote='true']")
+     $(".button[data-remote='true'][disabled!=disabled]")
       .live("ajax:beforeSend", Buttons.ajaxBeforeSend)
       .live("ajax:success", Buttons.ajaxSuccess)
       .live("ajax:error", Buttons.ajaxError); 
@@ -93,6 +109,8 @@ function Buttons() {
   this.ajaxErrorForm = function(event, request, settings) {
     Buttons.removeLoading($(event.currentTarget).find(".button[type='submit']"));
     $(event.currentTarget).find(".flash_message").html(request.responseText).show();
+    $(event.currentTarget).closest(".ui-dialog").css("height", "auto");
+    $(event.currentTarget).find(".comment").hide();
   }
   
   this.addLoading = function(element) {
