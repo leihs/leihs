@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   
-  $per_page = 50 # OPTIMIZE keep per_page in user session?
+  $per_page = 20 # OPTIMIZE keep per_page in user session?
   
 ####################################################  
   
