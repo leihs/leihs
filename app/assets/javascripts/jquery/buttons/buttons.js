@@ -6,7 +6,6 @@
 */
 
 $(document).ready(function(){
-  
   Buttons.setup();
 });
 
@@ -53,7 +52,7 @@ function Buttons() {
     var _this = $(event.currentTarget);
     Dialog.add({
       trigger: _this,
-      content: $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {action: _this.attr("href")}),
+      content: $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {action: _this.attr("href"), on_success: _this.data("on_success")}),
       dialogClass: _this.data("dialog_class")
     });
     event.preventDefault();
@@ -102,15 +101,17 @@ function Buttons() {
     var _this = $(event.currentTarget).find(".button[type='submit']");
     Buttons.removeLoading($(_this));
     var dialog_trigger = $(event.currentTarget).parents(".dialog").data("trigger").parents(".line");
-    $(event.currentTarget).parents(".dialog").dialog("close");
+    
+    // execute on success before dialog is closed    
     eval($(_this).data("on_success"));
+    
+    $(event.currentTarget).parents(".dialog").dialog("close");
   }
   
   this.ajaxErrorForm = function(event, request, settings) {
     Buttons.removeLoading($(event.currentTarget).find(".button[type='submit']"));
     $(event.currentTarget).find(".flash_message").html(request.responseText).show();
     $(event.currentTarget).closest(".ui-dialog").css("height", "auto");
-    $(event.currentTarget).find(".comment").hide();
   }
   
   this.addLoading = function(element) {
