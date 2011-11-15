@@ -17,6 +17,8 @@
 //= require jquery/dialog/dialog
 //= require jquery/list/list
 //= require jquery/selection-actions/selection-actions
+//= require jquery/barcode/barcode
+//= require jquery/clearable-input/clearable-input
 
 /////////// Templates /////////////
 //= require_tree ./tmpl
