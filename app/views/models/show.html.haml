@@ -208,7 +208,7 @@
           Images.enterTimer = setTimeout(function(){
             $('#model #hiddenimages img').each(function() {
                 if($(this).attr('src') == hoveredItem.find("img").attr('src').replace(/_thumb/g, "")) {
-                  $(this).stop(true, true).delay(400).fadeTo(1000, 1.0);
+                  $(this).stop(true, true).delay(100).fadeTo(600, 1.0);
                   
                   $('#model #bigimage img').stop(true, true).animate({
                       opacity: 0
