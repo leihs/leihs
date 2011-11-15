@@ -61,7 +61,6 @@
       {{/each}}
         
   %li.date
-    &raquo;
     {{html formatDate(new Date(created_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
   
   %li.status_with_date
