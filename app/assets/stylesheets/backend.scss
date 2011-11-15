@@ -38,6 +38,7 @@
  *= depend_on backend/_add_item
  *= depend_on backend/_selection_actions
  *= depend_on backend/_acknowledge
+ *= depend_on backend/_clearable
  *= depend_on backend/_linegroups
  *= depend_on backend/_line
  *= depend_on backend/lines/_order
@@ -85,6 +86,7 @@
 @import "backend/_add_item.scss";
 @import "backend/_selection_actions.scss";
 @import "backend/_acknowledge.scss";
+@import "backend/_clearable.scss";
 @import "backend/_linegroups.scss";
 @import "backend/_line.scss";
 @import "backend/lines/_order.scss";

@@ -14,7 +14,21 @@
   }
   
   .logo {
-    background-image: url($backend-image-sprite);
+    background: none;
+    color: #FEE;
+    display: inline-block;
+    font-size: 19px;
+    font-weight: bold;
+    height: 100%;
+    padding-top: 11px;
+    position: absolute;
+    left: 6px;
+    text-shadow: 0 0 2px #755;
+    
+    &:hover {
+      color: #FFF;
+      text-shadow: 0 0 2px #533;
+    }
   }
   
   .navigation {

@@ -1,4 +1,4 @@
-.line {
+.list .line {
   border-bottom: 1px solid $borderlightergrey;
   border-top: 1px solid white;
   display: table;
@@ -92,6 +92,7 @@
     background: white;
     border-bottom: none;
     cursor: pointer;
+    color: $lightgrey;
     font-size: 1.1em;
     
     &>li {

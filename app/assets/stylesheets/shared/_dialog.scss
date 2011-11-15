@@ -20,26 +20,6 @@
     top: 20px;
   }
   
-  textarea {
-    border: 1px solid $lightgrey;
-    display: block;
-    font-size: 1.3em;
-    margin-top: 12px;
-    padding: 10px;
-    @include borderRadius(6px);
-  }
-  
-  .flash_message {
-    display: none;
-    border: 1px solid red;
-    font-size: 1.2em;
-    font-weight: bold;
-    text-align: center;
-    padding: 12px;
-    margin: 4px 0 16px 0;
-    @include boxShadow (0 0 8px #AAA);  
-  }
-  
   section.lines {
     
     .topline {
@@ -64,10 +44,6 @@
         width: 150px;
       }
     }
-  }
-  
-  section.comment {
-    padding-top: 24px;
   }
   
   .list {

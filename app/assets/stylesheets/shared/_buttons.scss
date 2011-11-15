@@ -179,7 +179,7 @@ a.button.small {
       white-space: nowrap;
       margin-left: 1px;
       @include borderRadius(0);
-      @include boxShadow (0 4px 8px #AAA);
+      @include boxShadow (0 3px 7px #BBB);
       
       .icon {
         margin-left: 2px;

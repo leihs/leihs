@@ -36,12 +36,20 @@
   }
   
   .logo {
-    background: url($image-sprite) no-repeat -147px 0;
-    height: 40px;
-    float: left;
-    position: relative;
-    top: 1px;
-    width: 67px;
+    background: none;
+    color: #4d4d4d;
+    display: inline-block;
+    font-size: 19px;
+    font-weight: bold;
+    height: 100%;
+    padding-top: 11px;
+    position: absolute;
+    left: 6px;
+    
+    &:hover {
+      color: #3d3d3d;
+      text-shadow: 1px 1px 2px #FFF;
+    }
   }
   
   .navigation {

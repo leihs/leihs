@@ -4,6 +4,14 @@
   .inner {
     padding-right: 1px;
   
+    input[type=text] {
+      width: 102px; 
+    }
+      
+    .icon {
+      left: 123px;
+    }
+    
     .borderright {
       background: transparent url($image-sprite) no-repeat right -91px;
       border: none;
@@ -16,14 +24,12 @@
   }
   
   &:hover {
-    
     .borderright {
       background: transparent url($image-sprite) no-repeat right -120px;
     }
   }
   
   &.active {
-  
     .borderright {
       background: url($image-sprite) repeat-x right -149px;
     }

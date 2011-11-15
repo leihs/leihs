@@ -1,5 +1,45 @@
 .ui-dialog {
   
+  textarea {
+    border: 1px solid $lightgrey;
+    display: block;
+    color: $darkgrey;
+    font-size: 1.3em;
+    margin-top: 12px;
+    padding: 10px;
+    @include borderRadius(6px);
+  }
+  
+  .flash_message {
+    display: none;
+    border: 1px solid red;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+    margin: 4px 0 16px 0;
+    @include boxShadow (0 0 8px #AAA);  
+  }
+  
+  section.comment {
+    padding-top: 24px;
+    position: relative;
+    
+    
+    textarea {
+      color: $darkergrey;
+      height: 40px;
+    }
+        
+    .hint {
+      color: $lightgrey;
+      font-size: 1.2em;
+      position: absolute;
+      top: 48px;
+      left: 14px;
+    }
+  }
+  
   &.acknowledge {
     width: 760px !important;
     

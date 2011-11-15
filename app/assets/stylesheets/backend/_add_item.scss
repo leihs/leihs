@@ -1,8 +1,10 @@
-section#add_item {
-  display: inline-block;
+#add_item {
+  display: block;
   float: left;
+  height: 50px;
+  position: relative;
   
-  &>form>.button {
+  &>.button {
     font-size: 2.0em;
     padding-bottom: 2px;
     padding-left: 8px;
@@ -17,11 +19,12 @@ section#add_item {
     &>input {
       border: 1px solid $lightergrey;
       color: $grey;
+      display: inline-block;
       font-size: 1.2em;
       height: 22px;
       padding: 0 8px;
-      position: relative;
       top: 1px;
+      position: relative;
       width: 100px;
       @include borderRadius(4px);
       
@@ -31,8 +34,10 @@ section#add_item {
     }
     
     &>label.datepicker.icon {
-      left: -24px;
-      margin-right: -17px;
+      position: relative;
+      left: -23px;
+      margin-right: -14px;
+      top: -1px;
     }
   }
 }

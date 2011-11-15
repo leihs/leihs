@@ -37,10 +37,16 @@
       .loading {
         display: none;
         height: 14px;
-        left: 124px;
-        position: absolute;
-        top: 12px;
+        left: -26px;
+        margin-right: -14px;
+        position: relative;
+        top: 0;
         width: 14px;
+      }
+      
+      .clear_icon {
+        top: 2px;
+        left: -21px;
       }
     }
     
