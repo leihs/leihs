@@ -1,8 +1,8 @@
 %section#search{:class => is_current_page?("search") ?"active" : nil}
   .inner
     = form_tag(backend_inventory_pool_search_path(current_inventory_pool), :method => :get, :autocomplete => :off) do
-      %input{:type => "text", :name => "text", :value => params[:text]}
-      = submit_tag "", :class => "icon"
+      %input{:type => "text", :name => "text", :value => params[:text], :class => "clearable"}
+      = submit_tag "", :class => "search icon"
       = image_tag "loading.gif", :class => "loading"
     .borderright
     
@@ -16,7 +16,6 @@
   function Search() {
   
     this.setup = function() {
-      
       this.setupFocus();
       this.setupSubmittion();
       this.setupUnload();
@@ -42,7 +41,8 @@
     this.setupSubmittion = function() {
       
       $("#search form").submit(function() {
-        $(this).find(".icon").hide();
+        $(this).find(".icon").remove();
+        $(this).find(".clear_icon").remove();
         $(this).find(".loading").show();
       });
     }

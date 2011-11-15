@@ -1,0 +1,12 @@
+%section#add_item 
+  
+  = button_tag :class => "button green add_item" do
+    = "+"
+  %input{:type => "text", :name => "barcode_field", :value => _("Barcode"), :class => "barcode clearable"}
+  
+  .dates
+    %input#start_date.date.start{:name => "start_date", :value => Date.today, :title => _("Start Date")}
+    %label.datepicker.icon{:for => "start_date", :title => _("Open Datepicker")}
+    = "-"
+    %input#end_date.date.end{:name => "end_date", :value => Date.tomorrow, :title => _("End Date")}
+    %label.datepicker.icon{:for => "end_date", :title => _("Open Datepicker")}  

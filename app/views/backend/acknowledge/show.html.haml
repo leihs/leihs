@@ -8,15 +8,24 @@
       "#{@order.purpose}"
       
   .navigation
-    = link_to reject_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order), :class => "button red open_dialog", :"data-dialog_class" => "acknowledge", :"data-rel" => "tmpl/dialog/acknowledge/reject", :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')" do
-      = _("Reject")
-    = link_to approve_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order), :class => "button green open_dialog", :"data-dialog_class" => "acknowledge", :"data-rel" => "tmpl/dialog/acknowledge/approve", :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')" do
-      = _("Approve")
+    = link_to _("Reject"), reject_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
+                           :class => "button red open_dialog",
+                           :"data-dialog_class" => "acknowledge",
+                           :"data-rel" => "tmpl/dialog/acknowledge/reject",
+                           :"data-on_success" => 'window.location = document.referrer',
+                           :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
+                                                                                                                
+    = link_to _("Approve"), approve_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
+                            :class => "button green open_dialog", 
+                            :"data-dialog_class" => "acknowledge",
+                            :"data-rel" => "tmpl/dialog/acknowledge/approve",
+                            :"data-on_success" => 'window.location = document.referrer',
+                            :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
       
   %hr
   
   %section.actiongroup
-    = render :partial => '/backend/items/main_add_item'
+    = render :partial => '/backend/items/add_item'
     #selection_actions
       .selection
         %label
@@ -39,7 +48,7 @@
               = _("Delete")
           = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}/reject", :class => "button white", :remote => "true" do
             .icon.timerange
-            = _("Time Range")
+            = _("Edit")
     .clear
     
   %hr
@@ -71,7 +80,7 @@
       
       $('#add_item .dates input').each(function(){
         // format date
-        var date = new Date($(this).val().replace(/-/g, "/")); // SAFARI Workarround for the Date.parse problem
+        var date = new Date($(this).val().replace(/-/g, "/"));
         $(this).val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, date));
         
         // setup datepicker
