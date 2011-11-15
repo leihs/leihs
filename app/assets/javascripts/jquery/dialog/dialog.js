@@ -8,6 +8,14 @@
  * @dependencies jQuery.UI (Dialog)
 */
 
+
+$(document).ready(function(){
+  // hide tip on comment input
+  $(".dialog .comment textarea").live("keydown", function() {
+    $(this).siblings(".hint").fadeOut();
+  });
+});
+
 var Dialog = new Dialog();
 
 function Dialog() {
