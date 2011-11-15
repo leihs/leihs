@@ -1,4 +1,4 @@
-= link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf" do
+= link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf
 
   %li.name.hastip
     ${user.firstname}
@@ -78,13 +78,13 @@
     .alternatives
       .trigger
         .arrow
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf", :class => "button white" do
+      = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf
         .icon.contract
         = _("Contract PDF")
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list", :class => "button white" do
+      = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list
         .icon.valuelist  
         = _("Value List")
-    = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back", :class => "button white" do
+    = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back
       .icon.take_back
       = _("Take Back")
   {{/if}}
@@ -94,10 +94,10 @@
     .alternatives
       .trigger
         .arrow
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list", :class => "button white" do
+      = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf?template=value_list
         .icon.valuelist  
         = _("Value List")
-    = link_to "/backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf", :class => "button white" do
+    = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf
       .icon.contract
       = _("Contract PDF")
   {{/if}}

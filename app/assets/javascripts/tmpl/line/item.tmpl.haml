@@ -1,4 +1,4 @@
-= link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}" do
+= link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}
   
   %li.modelname
     ${model.name}
@@ -41,10 +41,10 @@
     .alternatives
       .trigger
         .arrow
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}/retire", :class => "button white" do
+      = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}/retire
         .icon.retire
         = _("Retire")
-    = link_to "/backend/inventory_pools/${current_inventory_pool}/items/${id}", :class => "button white" do
+    = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}
       .icon.view_item
       = _("View Item")
       

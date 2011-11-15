@@ -125,7 +125,9 @@
     
     .clear_icon {
       position: absolute;
-      left: 111px;
+      left: auto;
+      right: 5px;
+      margin-right: 0;
       top: 7px;
     }
     

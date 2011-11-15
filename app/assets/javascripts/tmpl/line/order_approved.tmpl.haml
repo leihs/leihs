@@ -1,4 +1,4 @@
-= link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}" do
+= link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}
 
   %li.name.hastip
     ${user.firstname}
@@ -85,7 +85,7 @@
   {{/if}}
   
 %li.actions
-  = link_to "/backend/inventory_pools/${current_inventory_pool}/order/${id}", :class => "button white" do
+  = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/order/${id}
     .icon.view_order
     = _("View")
 

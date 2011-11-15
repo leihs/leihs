@@ -40,11 +40,12 @@
         left: -26px;
         margin-right: -14px;
         position: relative;
-        top: 0;
+        top: -1px;
         width: 14px;
       }
       
       .clear_icon {
+        display: inline-block;
         top: 2px;
         left: -21px;
       }

@@ -14,11 +14,11 @@
         %li.seperator
           
         %li.item{:class => is_current_page?("inventory") ? "active" : nil}
-          = link_to _("Inventory"), backend_inventory_pool_items_path(current_inventory_pool), :class => "anchor"
+          = link_to _("Inventory"), "javascript:void(0);", :onclick => "alert('Dieser Bereich wird bald umgesetzt...');", :class => "anchor" #TODO: backend_inventory_pool_items_path(current_inventory_pool)
         %li.seperator
 
         %li.item{:class => is_current_page?("admin") ? "active" : nil}
-          = link_to _("Admin"), backend_inventory_pool_users_path(current_inventory_pool), :class => "anchor"
+          = link_to _("Admin"), "javascript:void(0);", :onclick => "alert('Dieser Bereich wird bald umgesetzt...');", :class => "anchor" #TODO: backend_inventory_pool_users_path(current_inventory_pool)
         %li.seperator
         
         %li.item
@@ -26,11 +26,11 @@
         %li.seperator
         
         %li.item
-          = link_to current_user, user_path, :class => "anchor"
+          = link_to current_user, "javascript:void(0);", :onclick => "alert('Dieser Bereich wird bald umgesetzt...');", :class => "anchor" #TODO: user_path
         %li.seperator
         
         %li.item
-          = link_to _("Help"), "#", :class => "anchor"
+          = link_to _("Help"), "javascript:void(0);", :onclick => "alert('Dieser Bereich wird bald umgesetzt...');", :class => "anchor" #TODO: help_path
         %li.seperator
         
         %li.item.language

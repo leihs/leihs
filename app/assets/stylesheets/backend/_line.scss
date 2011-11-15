@@ -54,9 +54,10 @@
   
   .tiptarget {
     display: block;
-    position: absolute;
-    top: 9px;
+    position: relative;
+    top: 0;
     height: 22px;
+    margin: -22px auto 0 auto;
     width: 100%;
   }
   

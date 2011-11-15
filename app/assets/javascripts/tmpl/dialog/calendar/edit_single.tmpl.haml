@@ -1,0 +1,52 @@
+= form_tag '${$item.action}', :remote => true do
+  %h1
+    = _("Approve order from")
+    %strong
+      ${user.firstname} ${user.lastname}
+  %p.subtitle= '"${purpose}"'
+  
+  .navigation
+    %button.button.white.close_dialog
+      .icon.return
+      = _("Back")
+    %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
+      = _("Approve")
+      
+  .flash_message
+  
+  %hr
+  
+  %section.lines.scalable
+    ${$startdate = 0, ""}
+    ${$enddate = 0, ""}
+    {{each(i, line) order_lines}}
+    {{if line.start_date != $startdate || line.end_date != $enddate}}
+    ${$startdate = line.start_date, ""}
+    ${$enddate = line.end_date, ""}
+    .topline
+      .date
+        {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+        = "-"
+        {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      .range
+        ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+        = _("Days")
+    .clear
+    .list
+      {{each(i, line) order_lines}}
+      {{if line.start_date == $startdate && line.end_date == $enddate}}
+      %ul.line
+        .container
+          %li.quantity
+            ${line.quantity}
+          %li.model
+            ${line.model.name}
+      {{/if}}
+      {{/each}}  
+    {{/if}}
+    {{/each}}
+  
+  %section.comment
+    = text_area_tag "comment", ""
+    %p.hint
+      = _("Write a comment... (your comment will be part of the confirmation e-mail)")

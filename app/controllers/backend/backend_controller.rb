@@ -17,7 +17,7 @@ class Backend::BackendController < ApplicationController
 
     conditions = [ { :klasses => { User => {:sort_by => "name ASC"},
                                    Order => {:sort_by => "created_at DESC"},
-                                   Contract => {:sort_by => "created_at DESC"},
+                                   Contract => {:sort_by => "created_at DESC", :with => {:status_const => Contract::SIGNED..Contract::CLOSED}},
                                    Model => {:sort_by => "name ASC"},
                                    Item => {:sort_by => "model_name ASC"} },
                      :with => { :inventory_pool_id => [current_inventory_pool.id] }
@@ -32,19 +32,16 @@ class Backend::BackendController < ApplicationController
                 # TODO implement serach for all user "ADMIN" and merge with users
 
     searches = []
+    @hits = {}
     conditions.each do |s|
       s[:klasses].each_pair do |klass, options|
-        searches << klass.search(params[:text], { :star => true, :page => params[:page], :per_page => 54,
+        r = klass.search(params[:text], { :star => true, :page => params[:page], :per_page => 54,
                                                   :sort_mode => :extended,
-                                                  :with => s[:with] }.merge(options) )
+                                                  :with => s[:with] }.deep_merge(options) )
+        searches << r
+        @hits[klass.to_s.underscore] = r.total_entries 
       end
     end
-    
-    @hits = {}
-    searches.each{ |search|
-      next if search.first.class.to_s.underscore == "nil_class"
-      @hits[search.first.class.to_s.underscore] = search.total_entries 
-    } 
     
     @results = searches.collect do |results|
       results.compact

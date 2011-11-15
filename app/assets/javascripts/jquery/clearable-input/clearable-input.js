@@ -38,11 +38,11 @@ function ClearableInput() {
     $("input.clearable").each(function(){
       _input = this;
       clear_icon = $("<div class='clear_icon'></div>");
-      $(clear_icon).hide();
+      $(clear_icon).css("display", "inline-block").hide();
       
       // check if clear icon is should be visible
       if($(_input).val() != "" && $(_input).val() != $(_input).data("start_text")) {
-        $(clear_icon).show();
+        $(clear_icon).css("display", "inline-block").show();
         $(this).siblings(".search.icon").hide();
         hideOnInput = true;
       }
@@ -50,7 +50,7 @@ function ClearableInput() {
       // bind key up on input field
       if(hideOnInput) {
         $(_input).bind("keyup", function() {
-          $(clear_icon).hide();
+          $(clear_icon).css("display", "inline-block").hide();
           $(this).siblings(".search.icon").show();
         });
       }
