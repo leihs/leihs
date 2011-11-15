@@ -9,7 +9,7 @@
     %button.button.white.close_dialog
       .icon.return
       = _("Back")
-    %button.button.red{:type => "submit", :"data-on_success" => 'List.remove_line(($(this).parents(".dialog").data("trigger")).parents(".line"), "red")'}
+    %button.button.red{:type => "submit", :"data-on_success" => '${$item.on_success}'}
       = _("Reject")
       
   .flash_message
@@ -47,6 +47,6 @@
     {{/each}}
   
   %section.comment
-    %h2= _("Comment")
-    %p.subtitle= _("This comment will be part of the rejection e-mail.")
     = text_area_tag "comment", ""
+    %p.hint
+      = _("Write a comment... (your comment will be part of the rejection e-mail)")
