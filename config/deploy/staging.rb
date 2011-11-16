@@ -152,6 +152,10 @@ task :migrate_database do
 
 end
 
+task :precompile_assets do
+  run "cd #{release_path} && RAILS_ENV=production bundle exec rake assets:precompile"
+end
+
 namespace :deploy do
 	task :start do
 	# we do absolutely nothing here, as we currently aren't
@@ -170,7 +174,10 @@ after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :modify_config
 after "deploy:symlink", :chmod_tmp
 after "deploy:symlink", :migrate_database
+
 after "migrate_database", :configure_sphinx
+after "link_config", "precompile_assets"
+
 before "deploy:restart", :remove_htaccess
 before "deploy:restart", :make_tmp
 before "deploy", :stop_sphinx
