@@ -26,8 +26,8 @@ class Backend::InventoryPoolsController < Backend::BackendController
   end
 
   def show
-    @orders = Order.submitted
-   
+    @orders = current_inventory_pool.orders.submitted
+    
     today_and_next_4_days = [Date.today] 
     4.times { today_and_next_4_days << current_inventory_pool.next_open_date(today_and_next_4_days[-1] + 1.day) }
       
