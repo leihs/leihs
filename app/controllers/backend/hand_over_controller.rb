@@ -43,7 +43,9 @@ class Backend::HandOverController < Backend::BackendController
   def delete_visit
     lines = params[:lines].split(",")
     lines.each {|l| @contract.remove_line(l, current_user.id) }
-    redirect_to :action => 'index'
+    respond_to do |format|
+      format.js { render :json => true, :status => 200  }
+    end
   end
   
   # Sign definitely the contract
