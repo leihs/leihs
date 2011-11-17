@@ -73,19 +73,6 @@ class OrderLine < DocumentLine
     
     json = super(options.deep_merge(required_options))
     
-    current_user = options[:current_user]
-    if current_user
-      json['total_borrowable'] = model.total_borrowable_items_for_user(current_user)
-      json['availability'] = model.availability_periods_for_user(current_user)
-    end
-    
-    current_inventory_pool = options[:current_inventory_pool]
-    if current_inventory_pool
-      active_items = model.items.scoped_by_inventory_pool_id(current_inventory_pool)
-      json['total_borrowable'] = active_items.count
-      json['availability'] = active_items.borrowable.in_stock.count
-    end
-    
     json.merge({:type => self.class.to_s.underscore})
   end
   
