@@ -8,25 +8,24 @@
   right: 1px;
   width: 560px;
   
-  #ipselector{
+  #ipselector {
+    border-right: 1px solid #e2e0de;
     display: inline-block;
     float: right; 
     font-size: 1.1em;
-    padding: 11px 8px 0 0;
+    padding: 11px 8px 0 8px;
     position: relative;
     @include greylinks();
     
     a {
       .text {
-        color: $grey !important;
+        color: $darkgrey !important;
         padding: 2px 0 8px 0;
         position: relative;
       }
       
       .text.open {
-        color: $darkgrey;
-        font-weight: bold;
-        right: -1px;
+        color: $darkergrey;
       }
       
       .icon {
@@ -43,7 +42,7 @@
     a:hover {
     
       .text {
-        color: $darkgrey !important;
+        color: $darkergrey !important;
       }
       
       .icon {
@@ -63,6 +62,7 @@
         display: none;
         position: absolute;
         left: 7px;
+        min-width: 150px;
         padding-right: 5px;
         z-index: 1003;
         
@@ -150,10 +150,8 @@
   .sort {
     background: none;
     border-right: 1px solid #e2e0de;
-    border-left: 1px solid #e2e0de;
     float: right;
     height: 20px;
-    padding-left: 4px;
     position: relative;
     top: 8px;
     
@@ -164,7 +162,7 @@
     
       .select {
         font-size: 1.1em;
-        color: $grey;
+        color: $darkgrey;
         cursor: pointer;
         display: inline-block;
         height: 20px;
@@ -202,7 +200,7 @@
   
   .sort:hover {
     .select {
-      color: $darkgrey;
+      color: $darkergrey;
       
       .arrow {
         @include opacity(1);
@@ -222,8 +220,8 @@
       position: relative;
       
       .date {
-        border: 1px solid $borderlightgrey;
-        color: #858585;
+        border: 1px solid $bordergrey;
+        color: $darkgrey;
         font-size: 1.0em;
         height: 18px;
         padding: 0 21px 0 6px;
@@ -243,21 +241,23 @@
     
     .checkarea {
       font-size: 1.1em;
+      color: $darkgrey;
       cursor: pointer;
       display: inline-block;
-      margin-left: 2px;
+      margin-left: 6px;
       
       label {
-        padding: 4px 0 9px 0;
+        cursor: pointer;
+        padding: 5px 0 9px 0;
       }
     }
     
     .checkarea:hover {
-      color: $darkgrey;
+      color: $darkergrey;
     }
     
     .checkarea.active {
-      color: $darkgrey;
+      color: $darkergrey;
     }
     
   }

@@ -20,10 +20,9 @@
       font-size: 1.0em;
       text-align: right;
       padding-top: 0;
-      @include opacity(0.5);
       
-      .button {
-        margin-right: 0;
+      &>.button, &>.multibutton {
+        @include opacity(0.6);
       }
     }
   }
@@ -72,8 +71,10 @@
       color: $darkgrey;
     }
     
-    li.actions {
-      @include opacity(1.0);
+    .actions {
+      &>.button, &>.multibutton {
+        @include opacity(1.0);
+      }
     }
   }
   

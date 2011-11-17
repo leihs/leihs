@@ -2,7 +2,7 @@
   display: inline-block;
   float: right;
   position: relative;
-  top: 5px;
+  top: 10px;
   
   &>.selection {
     display: inline-block;
@@ -19,6 +19,7 @@
         cursor: pointer;
       }
     }
+    
   }
   
   &>.actions {
@@ -26,8 +27,10 @@
     position: relative;
     bottom: 6px;
     
-    .multibutton {
+    .multibutton, &>.button {
       padding-right: 6px;
+      position: relative;
+      top: -3px;
       
       .alternatives {
         .trigger {

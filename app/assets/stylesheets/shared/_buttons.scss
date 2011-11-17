@@ -18,6 +18,11 @@
     width: 14px;
     @include opacity(0.8);
   }
+  
+  &.loading {
+    @include opacity(1.0 !important);
+    @include boxShadow (0 0 3px #BBB);
+  }
 }
 
 .button:active {
@@ -27,6 +32,10 @@
 a.button {
   padding-top: 6px;
   height: 23px;
+  
+  .icon {
+    top: -2px;
+  }
 }
 
 @mixin button($color, $color2, $color3, $color4, $pos, $pos-hover, $pos-active) {
@@ -237,5 +246,10 @@ a.button.small {
         border-bottom-left-radius: 0;
       }
     }
+  }
+  
+  &.loading {
+    @include opacity(1.0 !important);
+    @include boxShadow (0 0 3px #BBB);
   }
 }

@@ -87,7 +87,30 @@
     }
     
     .popup {
-        display: block;
+      display: block;
+    }
+  }
+  
+  &[disabled=disabled] {
+    
+    &:hover {
+      
+      .anchor {
+        background: url($image-sprite) no-repeat right -120px;
+        color: $grey;
+        
+        .leftend {
+          background: url($image-sprite) no-repeat left -120px;
+        }
+        
+        .icon {
+          @include opacity(0.6);
+        }
       }
+    }
+    
+    .popup {
+      display: none;
+    }
   }
 }

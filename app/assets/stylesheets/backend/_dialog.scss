@@ -1,13 +1,11 @@
 .ui-dialog {
   
-  textarea {
-    border: 1px solid $lightgrey;
-    display: block;
-    color: $darkgrey;
-    font-size: 1.3em;
-    margin-top: 12px;
-    padding: 10px;
-    @include borderRadius(6px);
+  &.take_back, &.hand_over, &.acknowledge {
+    width: 760px !important;
+  }
+  
+  p.subtitle {
+    width: 500px;
   }
   
   .flash_message {
@@ -17,110 +15,41 @@
     font-weight: bold;
     text-align: center;
     padding: 12px;
-    margin: 4px 0 16px 0;
-    @include boxShadow (0 0 8px #AAA);  
+    margin: 12px 0 16px 0;
+    @include boxShadow (0 0 8px #AAA);
+    
+    &.visible {
+      display: block;
+    }
   }
   
   section.comment {
     padding-top: 24px;
     position: relative;
     
-    
-    textarea {
+    #comment {
+      border: 1px solid $lightgrey;
       color: $darkergrey;
-      height: 40px;
+      display: block;
+      font-size: 1.4em;
+      height: 65px;        
+      margin-top: 12px;
+      padding: 10px;
+      vertical-align: top;
+      width: 700px;
+      @include borderRadius(6px);
+      
+      &[disabled=disabled] {
+        border: 1px solid $lightergrey;
+      }
     }
         
     .hint {
       color: $lightgrey;
-      font-size: 1.2em;
+      font-size: 1.4em;
       position: absolute;
       top: 48px;
       left: 14px;
-    }
-  }
-  
-  &.acknowledge {
-    width: 760px !important;
-    
-    textarea {
-      height: 40px;
-      width: 696px;
-    }
-    
-    p.subtitle {
-      width: 550px;
-    }
-    
-    .line {
-      
-      li{
-        
-       &.model {
-          width: 630px;
-        }
-        
-        &.quantity {
-          text-align: right;
-          width: 35px;
-        }
-      }
-    }
-  }
-  
-  &.hand_over {
-    width: 760px !important;
-    
-    textarea {
-      height: 40px;
-      width: 696px;
-    }
-    
-    p.subtitle {
-      width: 550px;
-    }
-    
-    .line {
-      
-      li{
-        
-       &.model {
-          width: 630px;
-        }
-        
-        &.quantity {
-          text-align: right;
-          width: 35px;
-        }
-      }
-    }
-  }
-  
-  &.take_back {
-    width: 760px !important;
-    
-    textarea {
-      height: 40px;
-      width: 696px;
-    }
-    
-    p.subtitle {
-      width: 550px;
-    }
-    
-    .line {
-      
-      li{
-        
-       &.model {
-          width: 630px;
-        }
-        
-        &.quantity {
-          text-align: right;
-          width: 35px;
-        }
-      }
     }
   }
 }
