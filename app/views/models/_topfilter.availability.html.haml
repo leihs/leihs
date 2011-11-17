@@ -27,10 +27,49 @@
     this.setup = function() {
       this.seti18n();
       this.setupFromStorage();
-      this.setupCheckbox();
+      this.setupAvailableOnly();
       this.formatDates();
       this.setupDatepicker();
       this.setupBehaviourOnResize();
+      this.checkAvailabilitySelect()
+    }
+    
+    this.checkAvailabilitySelect = function() {
+      if($("#available-only").attr("checked") == "checked") {
+        AvSelector.hideUnavailable();
+      } else {
+        AvSelector.showUnavailable();
+      }
+    }
+    
+    this.setupAvailableOnly = function() {
+      $("#available-only").change(function(){
+        if($(this).attr("checked") == "checked") {
+          AvSelector.hideUnavailable();
+        } else {
+          AvSelector.showUnavailable();
+        }
+        AvSelector.updateStorage();
+      });
+    }
+    
+    this.hideUnavailable = function() {
+      $("#modellist .item").each(function(){
+        if(parseInt($(this).find(".availability .max_available").html()) <= 0) {
+          $(this).addClass("unavailable");
+          $(this).removeClass("available");
+        } else {
+          $(this).addClass("available");
+          $(this).removeClass("unavailable");
+        }
+      });
+    }
+    
+    this.showUnavailable = function() {
+      $("#modellist .item").each(function(){
+        $(this).removeClass("available");
+        $(this).removeClass("unavailable");
+      });
     }
     
     this.setupBehaviourOnResize = function() {
@@ -44,12 +83,6 @@
            at: "center bottom",
            of: $(".openendDatepicker")
          });
-      });
-    }
-    
-    this.setupCheckbox = function() {
-      $("#available-only").change(function(){
-        AvSelector.updateStorage();
       });
     }
     
@@ -110,7 +143,7 @@
       var ed = $("#end_date").datepicker("getDate").getTime() / 1000;
       
       $("#modellist .item").each(function(){
-        var availability_all_ips = $(this).tmplItem().data.availability;
+        var availability_all_ips = $(this).tmplItem().data.availability_for_user;
         
         // iterates over all inventory_pools
         var min_quantities_for_each_ip = $.map(availability_all_ips, function(elem){

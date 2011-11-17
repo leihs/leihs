@@ -9,3 +9,11 @@
       -(current_user.managed_inventory_pools - [current_inventory_pool]).each do |ip|
         = link_to ip.name, backend_inventory_pool_path(ip)
         %hr
+        
+:javascript
+
+$(document).ready(function(){
+  if($("#ipselection .popup a").length <= 0) {
+    $("#ipselection").attr("disabled", true); 
+  }
+});

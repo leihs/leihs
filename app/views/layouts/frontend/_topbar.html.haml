@@ -16,6 +16,17 @@
           
         %li.item{:class => request['controller'] == "inventory_pools" ? "active" : nil}
           = link_to _("Equipment Pools"), inventory_pools_path , :class => "anchor"
+          .popup
+            .inner
+              %ul
+                - current_user.inventory_pools[0..4].each do |ip|
+                  %li
+                    = link_to ip.name, inventory_pool_path(ip)
+                    - unless ip == current_user.inventory_pools.last && current_user.inventory_pools.size <= 5
+                      %hr
+                - if current_user.inventory_pools.size > 5
+                  %li
+                    = link_to _("Show all ..."), inventory_pools_path, :title => "Show all equipment parks"
         
         %li.seperator
         

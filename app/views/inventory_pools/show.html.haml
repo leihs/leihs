@@ -94,9 +94,9 @@
             %table.image
               %tr
                 %td
-                  = link_to image_tag("#{ c.image }", :alt=>c.name ), category_models_path(c), :title=>c.name
+                  = link_to image_tag("#{ c.image }", :alt=>c.name ), category_models_path(c, :ipselector => [@inventory_pool.id]), :title=>c.name
             %h2
-              = link_to truncate(c.name, :length => 17), category_models_path(c), :title=>c
+              = link_to truncate(c.name, :length => 17), category_models_path(c, :ipselector => [@inventory_pool.id]), :title=>c
         .clear
     
   

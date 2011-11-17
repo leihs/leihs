@@ -72,7 +72,7 @@
     }
     
     this.setupTemplates = function () {
-      $('#acknowledge .linegroups').append($.tmpl("tmpl/linegroup", #{@grouped_lines.to_json({:current_user => @user})}));
+      $('#acknowledge .linegroups').append($.tmpl("tmpl/linegroup", #{@grouped_lines.to_json}));
     }
     
     this.setupDatepicker = function () {

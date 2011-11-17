@@ -42,7 +42,7 @@
           
         - roots = []
         - ip.used_root_categories.each do |c|
-          - roots << link_to(c, category_models_path(c), :title => c.name)
+          - roots << link_to(c, category_models_path(c, :ipselector => [ip.id]), :title => c.name)
         .categories
           != roots.join(", ")
           -# TODO Franco: switch to this single line: ip.used_root_categories.map {|c| link_to(c, category_models_path(c), :title => c.name) }.join(", ")

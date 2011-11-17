@@ -1,7 +1,7 @@
 #ipselector
   = link_to "javascript: void(0)" do
     %span.text
-      != _("Parks (#{content_tag(:span, "/#{current_user.inventory_pools.length}", :class => 'amount')})")
+      != _("Selected Parks (#{content_tag(:span, "/#{current_user.inventory_pools.length}", :class => 'amount')})")
     %span.icon
   .container
     .rollout
@@ -15,14 +15,14 @@
 :javascript
 
   $(document).ready(function(){
-      ipselector.setup();
+      IpSelector.setup();
   });
 
-  var ipselector = new ipselector();
+  var IpSelector = new IpSelector();
   
-  ipselector.hideModellistItemsAtStartup();
+  IpSelector.hideModellistItemsAtStartup();
   
-  function ipselector() {
+  function IpSelector() {
   
     this.rollout;
     this.animating;
@@ -32,16 +32,11 @@
     this.active_ips = new Array();
     
     this.setup = function() {
-      
       this.setuprollout();
-      
       this.setupContainer();
-      
       this.setupBindings();
-      
       this.setupFromStorage();
-      
-      this.setipselector();
+      this.setIpSelector();
     }
     
     this.hideModellistItemsAtStartup = function() {
@@ -51,22 +46,25 @@
     }
     
     this.setupFromStorage = function() {
-      if(sessionStorage.active_ips && JSON.parse(sessionStorage.active_ips).length != 0) {
-        ipselector.active_ips = JSON.parse(sessionStorage.active_ips);
+      var _params = #{params[:ipselector].blank? ? "undefined" : params[:ipselector].map{|x| x.to_i}.to_json};
+      if(typeof(_params) == "object" && _params.length > 0) {
+        IpSelector.active_ips = _params;
+      } else if(sessionStorage.active_ips && JSON.parse(sessionStorage.active_ips).length != 0) {
+        IpSelector.active_ips = JSON.parse(sessionStorage.active_ips);
       } else {
-        ipselector.selectAllIps();
+        IpSelector.selectAllIps();
       }
     }
     
     this.selectAllIps = function() {
       $("#ipselector .line").each(function(){
-        ipselector.active_ips.push($(this).data("id"));
+        IpSelector.active_ips.push($(this).data("id"));
       });
     }
     
-    this.setipselector = function() {
+    this.setIpSelector = function() {
       $("#ipselector .line").each(function(){
-        if( $.inArray( $(this).data("id"), ipselector.active_ips ) >= 0 ) {
+        if( $.inArray( $(this).data("id"), IpSelector.active_ips ) >= 0 ) {
           $(this).find("input").attr("checked", true);
           $(this).find("label").addClass("checked");
         } else {
@@ -75,16 +73,23 @@
         }
       });
       
-      $("#ipselector .text .amount").html(ipselector.active_ips.length + "/" + $("#ipselector .line").length);
-      ipselector.updateStorage();
-      ipselector.manipulateModelList();
+      $("#ipselector .text .amount").html(IpSelector.active_ips.length + "/" + $("#ipselector .line").length);
+      IpSelector.updateStorage();
+      IpSelector.manipulateModelList();
     }
     
     this.manipulateModelList = function() {
       $("#modellist .item").each(function(i, v){
-        var _ips = $(this).data("attributes").inventory_pool_ids;
-        var _active_ips = ipselector.active_ips;
-        var r = $.intersection(_ips, _active_ips);
+        var _ipsAsObj = $(this).tmplItem().data.inventory_pools;
+        var _ipsAsId = [];
+        for (var i in _ipsAsObj){
+          if(_ipsAsObj[i].id != undefined) {
+            _ipsAsId.push(_ipsAsObj[i].id);
+          }
+        }
+        
+        var _active_ips = IpSelector.active_ips;
+        var r = $.intersection(_ipsAsId, _active_ips);
         if(r.length) {
           $(this).show();
         } else {
@@ -94,20 +99,20 @@
     }
     
     this.updateStorage = function() {
-      sessionStorage.active_ips = JSON.stringify(ipselector.active_ips);
+      sessionStorage.active_ips = JSON.stringify(IpSelector.active_ips);
     }
     
     this.setupBindings = function() {
       $("#topfilter #ipselector a").bind("click", function() {
-        ipselector.toggle();
+        IpSelector.toggle();
       });
       
       $("#topfilter #ipselector .line input").bind("change", function() {
         if($(this).is(':checked')) {
-          ipselector.addActiveIP($(this).data("id"));
+          IpSelector.addActiveIP($(this).data("id"));
         } else {
-          if(ipselector.active_ips.length > 1) {
-            ipselector.removeActiveIP($(this).data("id"));
+          if(IpSelector.active_ips.length > 1) {
+            IpSelector.removeActiveIP($(this).data("id"));
           } else {
             $(this).attr("checked", true);
           }
@@ -116,13 +121,13 @@
     }
     
     this.addActiveIP = function(_id) {
-      ipselector.active_ips.push(_id);
-      ipselector.setipselector();
+      IpSelector.active_ips.push(_id);
+      IpSelector.setIpSelector();
     }
     
     this.removeActiveIP = function(_id) {
-      ipselector.active_ips = ipselector.active_ips.remove(_id);
-      ipselector.setipselector();
+      IpSelector.active_ips = IpSelector.active_ips.remove(_id);
+      IpSelector.setIpSelector();
     }
     
     /* This function provides functionality to remove a specific element inside an array (only works with jquery) */
@@ -144,54 +149,54 @@
     }
     
     this.setuprollout = function() {
-      ipselector.rollout = $("#topfilter #ipselector .container .rollout");
+      IpSelector.rollout = $("#topfilter #ipselector .container .rollout");
     }
     
     this.setupContainer = function() {
-      ipselector.container =  $("#topfilter #ipselector .container");
-      ipselector.rollout.show();
-      ipselector.container.show();
-      ipselector.height = ipselector.rollout.height();
-      ipselector.container.height(ipselector.height);
-      ipselector.width = ipselector.rollout.outerWidth();
-      ipselector.container.width(ipselector.width);
-      ipselector.rollout.hide();
-      ipselector.container.hide();
+      IpSelector.container =  $("#topfilter #ipselector .container");
+      IpSelector.rollout.show();
+      IpSelector.container.show();
+      IpSelector.height = IpSelector.rollout.height();
+      IpSelector.container.height(IpSelector.height);
+      IpSelector.width = IpSelector.rollout.outerWidth();
+      IpSelector.container.width(IpSelector.width);
+      IpSelector.rollout.hide();
+      IpSelector.container.hide();
     }
     
     this.toggle = function() {
-      if(ipselector.container.css("display") == "block") {
-        ipselector.close();
+      if(IpSelector.container.css("display") == "block") {
+        IpSelector.close();
       } else {
-        ipselector.open();
+        IpSelector.open();
       }
     }
     
     this.open = function() {
-      ipselector.container.show();
+      IpSelector.container.show();
       $("#ipselector .text").addClass("open");
-      ipselector.rollout.offset({top: -ipselector.height});
-      ipselector.rollout.stop(true, true).show().animate({
+      IpSelector.rollout.offset({top: -IpSelector.height});
+      IpSelector.rollout.stop(true, true).show().animate({
         top: 0
       }, function(){
-        $(document).bind("click", ipselector.checkClickWhileOpen);
+        $(document).bind("click", IpSelector.checkClickWhileOpen);
       });
     }
     
     this.close = function() {
       $("#ipselector .text").removeClass("open");
-      ipselector.rollout.stop(true, true).show().animate({
-        top: -ipselector.height
+      IpSelector.rollout.stop(true, true).show().animate({
+        top: -IpSelector.height
       }, function() {
-        ipselector.container.hide();
-        ipselector.rollout.hide();
-        $(document).unbind("click", ipselector.checkClickWhileOpen);
+        IpSelector.container.hide();
+        IpSelector.rollout.hide();
+        $(document).unbind("click", IpSelector.checkClickWhileOpen);
       });
     }
     
     this.checkClickWhileOpen = function(event){
       if($(event.target).closest("#ipselector").length == 0) {
-        ipselector.close();
+        IpSelector.close();
       }
     }
   }

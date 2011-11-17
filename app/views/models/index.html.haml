@@ -58,6 +58,8 @@
   
   $(document).ready(function(){
     ModelList.setup();
+    IpSelector.manipulateModelList();
+    AvSelector.checkAvailabilitySelect();
   });
   
   var ModelList = new ModelList();
@@ -65,19 +67,16 @@
   function ModelList() {
       
       this.setup = function() {
-        
         this.setupTemplates();
         this.setupTips();
         AvSelector.updateAvDates();
       }
       
       this.setupTemplates = function() {
-        
          $('#modellist').append($("#model_template").tmpl(#{@models_attributes.to_json}));
       }
       
       this.setupTips = function() {
-      
         $.fn.qtip.defaults.position.my = 'bottom center';
         $.fn.qtip.defaults.position.at = 'top center';
         $.fn.qtip.defaults.position.viewport = $(window);
