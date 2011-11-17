@@ -52,12 +52,11 @@ class Backend::AcknowledgeController < Backend::BackendController
       Notification.order_rejected(@order, params[:comment], true, current_user )
       
       respond_to do |format|
-        #old# redirect_to :action => 'index'
         format.js { render :json => true, :status => 200 }
       end
     else
+      errors = @order.errors.full_messages.join("\n")
       respond_to do |format|
-        #old# params[:layout] = "modal"
         format.js { render :text => errors, :status => 500 }
       end
     end
