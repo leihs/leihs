@@ -14,11 +14,23 @@ var Buttons = new Buttons();
 function Buttons() {
   
   this.loadingImg = $("<img src='/assets/loading.gif' class='loading'/>");
+  this.loadingImgClones = Array();
   
   this.setup = function() {
+    this.cloneLoadingImg(5);
     this.setupAjaxListener();
     this.setupDialogListener();
     this.setupMultibutton();
+  }
+  
+  this.cloneLoadingImg = function(x) {
+    for(var i = 0; i < x; i++) {
+      this.loadingImgClones.push($(this.loadingImg).clone());
+    }
+  }
+  
+  this.getLoadingImg = function() {
+    return this.loadingImgClones.shift();
   }
   
   this.setupMultibutton = function() {
@@ -50,8 +62,10 @@ function Buttons() {
   
   this.openDialog = function(event) {
     var _this = $(event.currentTarget);
+    var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
+    
     Dialog.add({
-      trigger: _this,
+      trigger: _trigger,
       content: $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {action: _this.attr("href"), on_success: _this.data("on_success")}),
       dialogClass: _this.data("dialog_class")
     });
@@ -60,7 +74,7 @@ function Buttons() {
   }
   
   this.setupAjaxListener = function() {
-     $(".button[data-remote='true'][disabled!=disabled]")
+     $(".button[data-remote='true']")
       .live("ajax:beforeSend", Buttons.ajaxBeforeSend)
       .live("ajax:success", Buttons.ajaxSuccess)
       .live("ajax:error", Buttons.ajaxError); 
@@ -72,11 +86,13 @@ function Buttons() {
   }
   
   this.ajaxBeforeSend = function(event, request, settings) {
+    Buttons.disable($(event.currentTarget));
     Buttons.addLoading($(event.currentTarget));
   }
   
   this.ajaxSuccess = function(event, request, settings) {
     var _this = $(event.currentTarget);
+    Buttons.enable(_this);
     Buttons.removeLoading(_this);
     
     eval($(_this).data("on_success"));
@@ -84,22 +100,26 @@ function Buttons() {
   
   this.ajaxError = function(event, request, settings) {
     var _this = $(event.currentTarget);
+    Buttons.enable(_this);
     Buttons.removeLoading(_this);
+    var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
     
     Dialog.add({
-      trigger: _this,
-      content: $.tmpl(_this.data("rel")+"_error", eval(_this.data("ref_for_dialog"), {error: request.responseText})),
+      trigger: _trigger,
+      content: $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {error: request.responseText}),
       dialogClass: _this.data("dialog_class")+" error"
     });
   }
   
   this.ajaxBeforeSendForm = function(event, request, settings) {
+    Buttons.disable($(event.currentTarget).find(".button[type='submit']"));
     Buttons.addLoading($(event.currentTarget).find(".button[type='submit']"));
   }
   
   this.ajaxSuccessForm = function(event, request, settings) {
     var _this = $(event.currentTarget).find(".button[type='submit']");
-    Buttons.removeLoading($(_this));
+    Buttons.enable(_this);
+    Buttons.removeLoading(_this);
     var dialog_trigger = $(event.currentTarget).parents(".dialog").data("trigger").parents(".line");
     
     // execute on success before dialog is closed    
@@ -109,39 +129,77 @@ function Buttons() {
   }
   
   this.ajaxErrorForm = function(event, request, settings) {
+    Buttons.enable($(event.currentTarget).find(".button[type='submit']"));
     Buttons.removeLoading($(event.currentTarget).find(".button[type='submit']"));
     $(event.currentTarget).find(".flash_message").html(request.responseText).show();
     $(event.currentTarget).closest(".ui-dialog").css("height", "auto");
   }
   
   this.addLoading = function(element) {
-    Buttons.disable(element);
     if($(element).children(".icon").length > 0) {
-      $(element).find(".icon").hide().after(Buttons.loadingImg);
+      $(element).find(".icon").hide().after(Buttons.getLoadingImg());
+      Buttons.cloneLoadingImg(1);
     } else {
       var text = $(element).html();
-      $(element).data("text", text).width($(element).outerWidth()).html("").append(Buttons.loadingImg);      
-    } 
+      $(element).data("text", text).width($(element).outerWidth()).html("").append(Buttons.getLoadingImg());  
+      Buttons.cloneLoadingImg(1);    
+    }
+    
+    if($(element).parent().hasClass("multibutton") || $(element).parent().hasClass("alternatives")) {
+      $(element).closest(".multibutton").addClass("loading"); 
+    }
   }
   
   this.removeLoading = function(element) {
-    Buttons.enable(element);
     $(element).find(".loading").remove();
     if($(element).children(".icon").length > 0) {
       $(element).find(".icon").show();
     } else {
       $(element).width("auto").html($(element).data("text"));      
-    } 
+    }
+    
+    if($(element).parent().hasClass("multibutton") || $(element).parent().hasClass("alternatives")) {
+      $(element).closest(".multibutton").removeClass("loading"); 
+    }
   }
   
   this.disable = function(element) {
     $(element).bind("click", Buttons.preventDefaultClick);
     $(element).attr('disabled', true);
+    
+    // if button has multibutton parent - disable as well
+    if($(element).parent().hasClass("multibutton") || $(element).parent().hasClass("alternatives")) {
+      $(element).closest(".multibutton").attr("disabled", true).removeClass("open");
+      $(element).closest(".multibutton").find(".button").attr("disabled", true);
+      $(element).closest(".multibutton").find(".alternatives .button").hide();
+      
+      if($(element).parent().hasClass("alternatives")) {
+        // change element with first action to see loading indicator
+        $(element).after($('<div class="placeholder"></div>'));
+        $(element).closest(".multibutton").children(".button").hide();
+        $(element).closest(".multibutton").append($(element));
+        $(element).show();
+      }
+    }
   }
   
   this.enable = function(element) {
     $(element).unbind("click", Buttons.preventDefaultClick);
     $(element).removeAttr('disabled');
+    
+    // if button has multibutton parent - enable as well
+    if($(element).parent().hasClass("multibutton") || $(element).parent().hasClass("alternatives")) {
+      $(element).closest(".multibutton").removeAttr('disabled');
+      
+      if($(element).closest(".multibutton").children(".button").length > 1) {
+        var giveback_element = $(element).closest(".multibutton").children(".button:visible");
+        $(element).closest(".multibutton").find(".alternatives .placeholder").before(giveback_element);
+        $(element).closest(".multibutton").find(".alternatives .placeholder").remove();
+        $(element).closest(".multibutton").children(".button:hidden").show();
+      }
+      $(element).closest(".multibutton").find(".button").removeAttr('disabled');
+      $(element).closest(".multibutton").find(".alternatives .button").removeAttr("style");
+    }
   }
   
   this.preventDefaultClick = function(event) {
