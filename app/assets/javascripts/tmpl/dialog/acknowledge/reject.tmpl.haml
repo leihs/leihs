@@ -1,6 +1,6 @@
 = form_tag '${$item.action}', :remote => true do
   %h1
-    = _("Reject order from")
+    = _("Order from")
     %strong
       ${user.firstname} ${user.lastname}
   %p.subtitle= '"${purpose}"'
@@ -47,6 +47,6 @@
     {{/each}}
   
   %section.comment
-    = text_area_tag "comment", ""
+    = text_area_tag "comment", "", :class => "focus"
     %p.hint
       = _("Write a comment... (your comment will be part of the rejection e-mail)")
