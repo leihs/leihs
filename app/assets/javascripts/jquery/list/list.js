@@ -81,5 +81,10 @@ function List() {
       var line = $(list).find(".hidden .line:first");
       $(list).find(".hidden").before(line);
     }
+    // no more hidden lines to fetch
+    if($(list).find(".hidden .line").length == 0){
+      $(list).find(".toggle").fadeOut();
+      return 0;
+    };
   }
 }
