@@ -93,6 +93,11 @@ task :configure_sphinx do
  
 end
 
+task :modify_config do
+  # On staging/test, we don't want to deliver e-mail
+  run "sed -i 's/config.action_mailer.perform_deliveries = true/config.action_mailer.perform_deliveries = false/' #{release_path}/config/environments/production.rb"
+end
+
 task :stop_sphinx do
   run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:stop"
 end
@@ -146,6 +151,7 @@ after "deploy:symlink", :link_db_backups
 after "deploy:symlink", :chmod_tmp
 
 after "link_config", :migrate_database
+after "link_config", :modify_config
 after "migrate_database", :configure_sphinx
 
 before "deploy:restart", :make_tmp
