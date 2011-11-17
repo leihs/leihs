@@ -11,8 +11,16 @@
 
 $(document).ready(function(){
   // hide tip on comment input
-  $(".dialog .comment textarea").live("keydown", function() {
+  $(".dialog .comment .focus").live("keydown", function() {
     $(this).siblings(".hint").fadeOut();
+  });
+  
+  // submit form on enter
+  $(".dialog .comment .focus").live("keypress", function(event) {
+    if(event.keyCode == 13) {
+      $(this).attr("disabled", true).blur();
+      $(this).closest("form").submit();
+    }
   });
 });
 
@@ -38,7 +46,7 @@ function Dialog() {
     }
     
     this.autofocus = function(dialog) {
-      $(dialog).find("textarea").focus();
+      $(dialog).find(".focus").focus();
     }
     
     this.checkPosition = function() {
