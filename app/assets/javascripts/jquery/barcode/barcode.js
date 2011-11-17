@@ -7,7 +7,6 @@
 */
 
 $(document).ready(function(){
-  
   Barcode.setup();
 });
 
@@ -31,7 +30,7 @@ function Barcode() {
       var _char = String.fromCharCode(charCode)
       if(charCode == 13) {
         if(Barcode.scannerInput != ""){
-          console.log("ENTER: " + Barcode.scannerInput);
+          Barcode.scannerExecution();
           Barcode.scannerInput = "";
         }
       } else {
@@ -58,5 +57,17 @@ function Barcode() {
         $(this).val($(this).data("start_text"));
       }
     });
+  }
+  
+  this.scannerExecution = function() {
+    if($("input:focus, textarea:focus").length) return false;
+    // the hierarchical order of input fields which should be executed on global scanner input
+    if($("#add_item").length > 0) {
+      $("#add_item input.barcode").val(Barcode.scannerInput);
+      $("#add_item form").submit();
+    } else if($("#search").length > 0) {
+      $("#search input").val(Barcode.scannerInput);
+      $("#search form").submit();
+    }
   }
 }
