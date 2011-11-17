@@ -40,7 +40,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
   # TODO: this mess needs to be untangled and split up into functions called by new/create/update
   def update
     @inventory_pool ||= @inventory_pool = InventoryPool.find(params[:id]) 
-    params[:inventory_pool][:print_contracts] ||= "false" # unchecked checkboxes are *not* being sent
+    params[:inventory_pool][:print_contracts] = "false" if params[:inventory_pool][:print_contracts].blank? # unchecked checkboxes are *not* being sent
     params[:inventory_pool][:email] = nil if params[:inventory_pool][:email].blank?
     if @inventory_pool.update_attributes(params[:inventory_pool])
       redirect_to backend_inventory_pool_path(@inventory_pool)
