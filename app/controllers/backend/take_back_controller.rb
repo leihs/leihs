@@ -2,6 +2,7 @@ class Backend::TakeBackController < Backend::BackendController
 
   before_filter :pre_load
 
+=begin
   def index
     visits = if params[:remind]
                current_inventory_pool.take_back_visits(Date.yesterday)
@@ -28,6 +29,7 @@ class Backend::TakeBackController < Backend::BackendController
       format.js { search_result_rjs(@contracts) }
     end
   end
+=end
 
   # get current contracts for a given user
   def show

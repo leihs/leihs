@@ -86,6 +86,7 @@ class InventoryPool < ActiveRecord::Base
 
   has_many :contracts
   has_many :contract_lines, :through => :contracts, :uniq => true #Rails3.1# TODO still needed?
+  has_many :visits, :include => :user # MySQL View based on contract_lines
 
   has_many :groups #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
 
@@ -187,18 +188,6 @@ class InventoryPool < ActiveRecord::Base
   end
   
 ###################################################################################
-  
-  # Returns a list of hand_over events. See #visits for details
-  def hand_over_visits(max_start_date = nil)
-    visits(max_start_date, "hand_over")
-  end
-  
-  # Returns a list of hand_over events. See #visits for details
-  def take_back_visits(max_end_date = nil)
-    visits(max_end_date, "take_back")
-  end
-
-###################################################################################
 
   def has_access?(user)
     user.inventory_pools.include?(self)
@@ -220,55 +209,4 @@ class InventoryPool < ActiveRecord::Base
 
 ###################################################################################
 
-private
-  # Returns a list of Events, where an Event is a particular date, on which a specific
-  # customer should come to pick up or return items - or from the other perspective:
-  # when an inventory pool manager should hand over some items to or get them back from
-  # the customer.
-  #
-  # 'action' says if we want to have hand_overs or take_backs. action can be either
-  # of those two:
-  #
-  # * "hand_over"
-  # * "take_back"
-  # 
-  # see #hand_over_visits and #take_back_visits for the primary API
-  #
-  def visits(max_date = nil, action = "hand_over")
-    date_field = case action
-                   when "hand_over" then "start_date"
-                   when "take_back" then "end_date"
-                   else raise "Wrong usage"
-                 end
-
-    lines = contract_lines.send("to_#{action}").
-                select("contracts.user_id AS user_id, #{date_field} AS date, contract_id, quantity, contract_lines.id AS contract_line_id").
-                includes(:contract => :user).
-                order("contracts.user_id, #{date_field}")
-    lines = lines.where(["#{date_field} <= ?", max_date]) if max_date
-
-    previous = Struct.new(:event, :user_id, :date).new(nil,nil,nil)
-
-    lines.collect do |l|
-      if l.user_id == previous.user_id && l.date == previous.date
-        previous.event.quantity += l.quantity 
-        previous.event.contract_line_ids << l.contract_line_id
-        nil # return nil to collect
-      else
-        user = User.find(l.user_id)
-        event = Event.new( :date              => l.date,
-                           :title             => user.login,
-                           :quantity          => l.quantity,
-                           :contract_line_ids => [ l.contract_line_id ],
-                           :inventory_pool    => self,
-                           :user              => user,
-                           :action            => action)
-
-        previous.date = l.date
-        previous.user_id    = l.user_id
-        previous.event      = event
-        event # return event to collect
-      end
-    end.compact.sort_by { |e| e.date }
-  end
 end
