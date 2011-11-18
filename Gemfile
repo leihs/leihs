@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1' # TODO rails (= 3.1.2) ruby depends on sprockets (~> 2.1.0)
+gem 'rails', '3.1.1'
 #tmp# gem 'builder', '~> 3.0' 
 #tmp# gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
@@ -13,10 +13,8 @@ gem 'haml', '~> 3.1'
 gem 'sass', '~> 3.1'
 gem 'coffee-script', '~> 2.2'
 gem 'jquery-rails', '~> 1.0'
+gem 'jquery-tmpl-rails'
 gem 'haml_assets'
-
-gem 'jquery-tmpl-rails' # TODO remove when jQueryUI integrates JsRender
-gem 'sprockets', '= 2.0.3' # 2.1.0 breaks jquery-tmpl-rails
 
 # Gems used only for assets and not required in production environments by default.
 group :assets do
