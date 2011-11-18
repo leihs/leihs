@@ -1,6 +1,6 @@
 = link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over
 
-  {{if overdue}}
+  {{if is_overdue}}
   %li.overdue_icon
     .icon.hand_over.overdue
   %li.name.overdue.hastip
@@ -76,22 +76,22 @@
       {{/if}}
       {{/each}}
   
-  %li{:class => "range{{if overdue}} overdue{{/if}}"}
+  %li{:class => "range{{if is_overdue}} overdue{{/if}}"}
     %span.number
-      {{if overdue}}
+      {{if is_overdue}}
       ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
       {{else}}
       ${Math.round((new Date(max_date.replace(/-/g, "/")) - new Date()) / (1000 * 60 * 60 * 24)+1)}
       {{/if}}
     %span.text
-      {{if overdue}}
+      {{if is_overdue}}
       = _("Days overdue")
       {{else}}
       = _("Days max")
       {{/if}}
       
 %li.actions
-  {{if overdue}}
+  {{if is_overdue}}
   .multibutton
     .alternatives
       .trigger

@@ -30,17 +30,12 @@ class Backend::InventoryPoolsController < Backend::BackendController
     
     today_and_next_4_days = [Date.today] 
     4.times { today_and_next_4_days << current_inventory_pool.next_open_date(today_and_next_4_days[-1] + 1.day) }
-      
-    hand_over_visits = current_inventory_pool.hand_over_visits(today_and_next_4_days.last)
-    @hand_overs_overdue = hand_over_visits.select {|v| v.date < today_and_next_4_days.first }
-    @hand_overs = hand_over_visits.select {|v| v.date == today_and_next_4_days.first }
     
-    take_back_visits = current_inventory_pool.take_back_visits(today_and_next_4_days.last)
-    @take_backs_overdue = take_back_visits.select {|v| v.date < today_and_next_4_days.first }
-    @take_backs = take_back_visits.select {|v| v.date == today_and_next_4_days.first }
+    visits = current_inventory_pool.visits.where("date <= ?", today_and_next_4_days.last)
+    @hand_overs, @take_backs = visits.partition {|v| v.status_const == Contract::UNSIGNED }
     
     @chart_data = today_and_next_4_days.map do |day|
-      [[take_back_visits.select {|v| v.date == day }.size, hand_over_visits.select {|v| v.date == day }.size], l(day, :format => "%A")]
+      [[@take_backs.select {|v| v.date == day }.size, @hand_overs.select {|v| v.date == day }.size], l(day, :format => "%A")]
     end
   end
   

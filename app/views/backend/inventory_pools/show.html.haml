@@ -38,7 +38,7 @@
         %span.text
           = _("Hand Overs")
         .badge
-          = @hand_overs_overdue.size + @hand_overs.size
+          = @hand_overs.size
     .list
      
   %section.take_back
@@ -48,7 +48,7 @@
         %span.text
           = _("Take Backs")
         .badge
-          = @take_backs_overdue.size + @take_backs.size 
+          = @take_backs.size 
     .list
     
 = render :partial => 'backend/inventory_pools/bar_chart'
@@ -59,9 +59,7 @@
     $('.list').hide();
     
     $('.order .list').append($.tmpl("tmpl/line", #{@orders.to_json}));
-    $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs_overdue.to_json}));
     $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs.to_json}));
-    $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs_overdue.to_json}));
     $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs.to_json}));
     
     $(".list").showMore({

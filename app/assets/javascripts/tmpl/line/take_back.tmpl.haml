@@ -1,6 +1,6 @@
 = link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back
 
-  {{if overdue}}
+  {{if is_overdue}}
   %li.overdue_icon
     .icon.hand_over.overdue
   %li.name.overdue.hastip
@@ -78,19 +78,19 @@
         
   %li.range
     %span.number
-      {{if overdue}}
+      {{if is_overdue}}
       ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
       {{else}}
       ${Math.round((new Date() - new Date(min_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
       {{/if}}
     %span.text
-      {{if overdue}}
+      {{if is_overdue}}
       = _("Days overdue")
       {{else}}
       = _("Days max")
       {{/if}}      
       
-  {{if overdue}}
+  {{if is_overdue}}
   %li.reminder
     %span{:class => "text{{if latest_remind}} visible{{else}} invisible{{/if}}"}
       = _("Lates Reminder:")
@@ -107,7 +107,7 @@
   {{/if}}
  
 %li.actions
-  {{if overdue}}
+  {{if is_overdue}}
   .multibutton
     .alternatives
       .trigger
