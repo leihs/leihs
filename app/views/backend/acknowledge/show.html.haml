@@ -85,21 +85,22 @@
         
         // setup datepicker
         $(this).datepicker({
-          minDate: 0,
           showOtherMonths: true,
           selectOtherMonths: true,
-          onClose: function(selectedDate, instance) {
-            
-            if(this.id == "start_date") {
-              var date = $.datepicker.parseDate(i18n.selected.datepicker_backend.dateFormat, selectedDate, instance.settings);
-              date = new Date(date.setDate(date.getDate()));
-              $(this).siblings("#end_date").datepicker( "option", "minDate", date );
-            }
-          },
-          
-          beforeShow: function(input, inst) {
-          }
         });
+        
+        // set min date only for end date
+        if($(this).hasClass("end_date")) {
+          $(this).datepicker( "option", "minDate", date);
+        }
+        
+        // set min date updater when start date is closed
+        if($(this).hasClass("start_date")) {
+          $(this).change(function(){
+            var date = $(this).datepicker("getDate");
+            $(this).siblings(".end_date").datepicker("option", "minDate", date);
+          });
+        }
       });
     }
   }

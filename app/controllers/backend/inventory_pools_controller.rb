@@ -1,7 +1,6 @@
 class Backend::InventoryPoolsController < Backend::BackendController
     
   def index
-    
 # EVERYTHING AFTER HERE IS OLD STUFF
 =begin
     # OPTIMIZE 0501 
@@ -35,7 +34,11 @@ class Backend::InventoryPoolsController < Backend::BackendController
     @hand_overs, @take_backs = visits.partition {|v| v.status_const == Contract::UNSIGNED }
     
     @chart_data = today_and_next_4_days.map do |day|
-      [[@take_backs.select {|v| v.date == day }.size, @hand_overs.select {|v| v.date == day }.size], l(day, :format => "%A")]
+      take_back_visits_today = take_back_visits.select{|v| v.date == day}
+      take_back_workload = take_back_visits_today.size * 4 + take_back_visits_today.sum(&:quantity)
+      hand_over_visits_today = hand_over_visits.select{|v| v.date == day }
+      hand_over_workload = hand_over_visits_today.size * 4 + hand_over_visits_today.sum(&:quantity)
+      [[take_back_workload, hand_over_workload], {:name => l(day, :format => "%A"), :value => "#{take_back_visits_today.size+hand_over_visits_today.size} Visits<br/>#{take_back_visits_today.sum(&:quantity)+hand_over_visits_today.sum(&:quantity)} Items"}]
     end
   end
   

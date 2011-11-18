@@ -7,11 +7,17 @@
     border-right: 1px solid $borderlightgrey;
     border-bottom: 1px solid $borderlightgrey; 
     display: block;
-    margin: 10px 0 24px;
+    margin: 10px 0;
     padding: 14px 0 6px 0;
     position: relative;
     @include borderRadius(6px);
     @include boxShadow(inset 0 2px 2px #CCC);
+    
+    &.selected {
+      background: $highlight-darkergrey;
+      border: 1px solid $borderdarkgrey;
+      @include boxShadow(0 0 5px #DDD);
+    }
     
     .dates {
       color: $darkgrey;

@@ -10,18 +10,12 @@
 
 
 $(document).ready(function(){
-  // hide tip on comment input
+  
+  // hide hint on comment input
   $(".dialog .comment .focus").live("keydown", function() {
     $(this).siblings(".hint").fadeOut();
   });
   
-  // submit form on enter
-  $(".dialog .comment .focus").live("keypress", function(event) {
-    if(event.keyCode == 13) {
-      $(this).attr("disabled", true).blur();
-      $(this).closest("form").submit();
-    }
-  });
 });
 
 var Dialog = new Dialog();
@@ -111,7 +105,10 @@ function Dialog() {
               opacity: 1
           }, {
             queue: false,
-            complete: Dialog.autofocus(this)
+            complete: function() {
+              Dialog.autofocus(this);
+              if($(".dialog #fullcalendar").length > 0) BookingCalendar.setup();
+            }
           });
         });
         

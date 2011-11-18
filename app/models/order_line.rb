@@ -69,7 +69,9 @@ class OrderLine < DocumentLine
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
 
-    required_options = {:include => {:model => {:methods => :package_models}}}
+    required_options = {:include => {:model => {:methods => :package_models},
+                                     :order => {:include => {:user => {:only => [:firstname, :lastname]}}}
+                                    }}
     
     json = super(options.deep_merge(required_options))
     

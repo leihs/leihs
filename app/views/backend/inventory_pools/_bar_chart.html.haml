@@ -2,7 +2,7 @@
 = render :partial => '/layouts/backend/content_box_head_fullwidth_round'
 
 #chart.innercontent
-  %h1= _("Preview of Activities")
+  %h1= _("Workload")
   
   .legend
     .item
@@ -30,12 +30,10 @@
     this.animate = false;
   
     this.setup = function() {
-      
       this.setupGraph();
     }
     
     this.setupGraph = function() {
-    
       $("#chart .barchart").jqBarGraph({
           data: #{@chart_data.to_json},
           colors: ['#999999','#cccccc'],

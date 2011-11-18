@@ -26,9 +26,11 @@
 /////////// Lib /////////////
 //= require jquery/showMore/showMore
 //= require jquery/historical-search/historical-search
+//= require jquery/booking-calendar/booking-calendar
 
 /////////// Vendor /////////////
 //= require date/date
+//= require jquery/fullcalendar/fullcalendar
 //= require jquery/qtip/qtip.min
 //= require jquery/jqBarGraph/jqBarGraph.1.2.js
 //= require jquery/pagination/pagination

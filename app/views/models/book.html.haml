@@ -53,7 +53,7 @@
       .to
         %label{:for => "end_date"}
           = _("To")
-        = text_field_tag :end_date, Date.tomorrow
+        = text_field_tag :end_date, Date.today
           
     .quantity.container
       %label{:for => "quantity"}
@@ -70,7 +70,11 @@
     
   #fullcalendar
   
-  
-      
 = render :partial => '/layouts/frontend/content_box_foot'
 = render :partial => '/layouts/frontend/aside'
+
+:javascript
+  
+  $(document).ready(function(){
+    BookingCalendar.setup();
+  });

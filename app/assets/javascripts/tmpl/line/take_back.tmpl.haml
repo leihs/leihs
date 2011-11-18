@@ -96,7 +96,14 @@
       = _("Lates Reminder:")
     %span{:class => "date{{if latest_remind}} visible{{else}} invisible{{/if}}"}
       {{if latest_remind}}
-      {{html formatDate(new Date(latest_remind.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      ${$item.latest_remind = new Date(latest_remind.replace(/-/g, "/")), ""}
+      {{if ((new Date().setHours(0)) < ($item.latest_remind.getTime())) && (($item.latest_remind.getTime()) < (new Date().setHours(23)))}}
+      = _("Today")
+      = "{{if ($item.latest_remind.getHours()+'').length == 1}}0{{/if}}${$item.latest_remind.getHours()}:{{if ($item.latest_remind.getMinutes()+'').length == 1}}0{{/if}}${$item.latest_remind.getMinutes()}"
+      {{else}}
+      %strong
+        {{html formatDate(new Date(latest_remind.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      {{/if}}
       {{/if}}
     %span{:class => "grey{{if latest_remind}} invisible{{else}} visible{{/if}}"}
       = _("No reminder yet")
