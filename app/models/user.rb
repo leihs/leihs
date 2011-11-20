@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
 
 #temp#  has_many :templates, :through => :inventory_pools
   def templates
-    inventory_pools.collect(&:templates).flatten.sort
+    inventory_pools.flat_map(&:templates).sort
   end
 
   has_many :notifications, :dependent => :delete_all
@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
   has_many :contracts
   has_many :contract_lines, :through => :contracts, :uniq => true
   has_many :current_contracts, :class_name => "Contract", :conditions => { :status_const => Contract::UNSIGNED }
+  has_many :visits, :include => :inventory_pool # MySQL View based on contract_lines
 
   validates_presence_of     :login, :email
   validates_length_of       :login,    :within => 3..40
@@ -220,7 +221,7 @@ class User < ActiveRecord::Base
 
   # get signed contract lines, filtering the already returned lines
   def get_signed_contract_lines(inv_pool_id)
-    contracts.by_inventory_pool(inv_pool_id).signed.collect { |c| c.contract_lines.to_take_back}.flatten
+    contracts.by_inventory_pool(inv_pool_id).signed.flat_map { |c| c.contract_lines.to_take_back}
   end
 
 ####################################################################
@@ -248,14 +249,14 @@ class User < ActiveRecord::Base
       begin
         Notification.remind_user(self, visits_to_remind)
         histories.create(:text => _("Reminded %{q} items for contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
-                                                                                :c => visits_to_remind.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
+                                                                                :c => visits_to_remind.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
                        :user_id => reminder_user,
                        :type_const => History::REMIND)
         puts "Reminded: #{self.name}"
         return true
       rescue Exception => exception
         histories.create(:text => _("Unsuccessful reminder of %{q} items for contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
-                                                                                :c => visits_to_remind.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
+                                                                                :c => visits_to_remind.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
                        :user_id => reminder_user,
                        :type_const => History::REMIND)
          puts "Failed to remind: #{self.name}"
@@ -284,7 +285,7 @@ class User < ActiveRecord::Base
       begin
         Notification.deadline_soon_reminder(self, visits_to_remind)
         histories.create(:text => _("Deadline soon reminder sent for %{q} items on contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
-                                                                                :c => visits_to_remind.collect(&:contract_lines).flatten.collect(&:contract_id).uniq.join(',') },
+                                                                                :c => visits_to_remind.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
                          :user_id => reminder_user,
                          :type_const => History::REMIND)
         puts "Deadline soon: #{self.login}"
@@ -350,33 +351,18 @@ end
   
 #################### End role_requirement
 
-    
- # private
+ private
 
-  # TODO dry with deadline_soon
+  #-# FIXME
+  # contract_lines(:group => "contracts.inventory_pool_id, end_date")
+  # :title => "#{self.login} - #{l.contract.inventory_pool}"
+
   def to_remind
-    lines = contract_lines.to_remind.all(:select => "end_date, contract_id, SUM(quantity) AS quantity, GROUP_CONCAT(contract_lines.id SEPARATOR ',') AS contract_line_ids",
-                                         :include => {:contract => :inventory_pool},
-                                         :order => "end_date",
-                                         :group => "contracts.inventory_pool_id, end_date")
-
-    lines.collect do |l|
-      Event.new(:date => l.end_date, :title => "#{self.login} - #{l.contract.inventory_pool}", :quantity => l.quantity, :contract_line_ids => l.contract_line_ids.split(','),
-                :inventory_pool => l.contract.inventory_pool, :user => self, :action => "take_back")
-    end
+    visits.take_back.where("date < CURDATE()")
   end
   
-  # TODO dry with to_remind
   def deadline_soon
-    lines = contract_lines.deadline_soon.all(:select => "end_date, contract_id, SUM(quantity) AS quantity, GROUP_CONCAT(contract_lines.id SEPARATOR ',') AS contract_line_ids",
-                                             :include => {:contract => :inventory_pool},
-                                             :order => "end_date",
-                                             :group => "contracts.inventory_pool_id, end_date")
-
-    lines.collect do |l|
-      Event.new(:date => l.end_date, :title => "#{self.login} - #{l.contract.inventory_pool}", :quantity => l.quantity, :contract_line_ids => l.contract_line_ids.split(','),
-                :inventory_pool => l.contract.inventory_pool, :user => self, :action => "take_back")
-    end
+    visits.take_back.where("date = ADDDATE(CURDATE(), 1)")
   end
 
 end

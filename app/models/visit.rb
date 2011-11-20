@@ -24,8 +24,8 @@ class Visit < ActiveRecord::Base
 
   #######################################################
   
-  scope :hand_over, where(:status_const => Contract::UNSIGNED)
-  scope :take_back, where(:status_const => Contract::SIGNED)
+  scope :hand_over, lambda { where(:status_const => Contract::UNSIGNED) }
+  scope :take_back, lambda { where(:status_const => Contract::SIGNED) }
 
   #######################################################
 

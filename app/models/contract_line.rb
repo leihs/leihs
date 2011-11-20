@@ -52,14 +52,6 @@ class ContractLine < DocumentLine
   scope :handed_over_or_assigned_but_not_returned, lambda { |date|
                                                       where(["returned_date IS NULL AND NOT (end_date < ? AND item_id IS NULL)", date])
                                                    }
-  scope :to_remind, lambda {
-                      joins("INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id").
-                      where(["my_contract.status_const = ? AND contract_lines.returned_date IS NULL AND contract_lines.end_date < CURDATE()", Contract::SIGNED])
-                    }
-  scope :deadline_soon, lambda {
-                          joins("INNER JOIN contracts AS my_contract ON my_contract.id = contract_lines.contract_id").
-                          where(["my_contract.status_const = ? AND contract_lines.returned_date IS NULL AND contract_lines.end_date = ADDDATE(CURDATE(), 1)", Contract::SIGNED])
-                        }
   
   # TODO 1209** refactor to InventoryPool has_many :contract_lines_by_user(user) ??
   # NOTE InventoryPool#contract_lines.by_user(user)
