@@ -52,7 +52,7 @@ class Visit < ActiveRecord::Base
     case action
       when "take_back"
         latest_remind = user.reminders.last
-        json.merge({:latest_remind => (latest_remind and latest_remind.created_at > date) ? latest_remind.created_at.to_s(:db) : nil})
+        json.merge!({:latest_remind => (latest_remind and latest_remind.created_at > date) ? latest_remind.created_at.to_s(:db) : nil})
     end
     
     json.merge({:type => action,
