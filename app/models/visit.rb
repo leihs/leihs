@@ -9,7 +9,7 @@
 # Reading a MySQL View
 
 class Visit < ActiveRecord::Base
-  set_primary_key "user_id" # FIXME only needed for the eager-loader
+  set_primary_key "inventory_pool_id, user_id, status_const, date" # needed by the eager-loader and the identity-map
 
   belongs_to :user
   belongs_to :inventory_pool

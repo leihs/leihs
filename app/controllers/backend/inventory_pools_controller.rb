@@ -31,15 +31,20 @@ class Backend::InventoryPoolsController < Backend::BackendController
     4.times { today_and_next_4_days << current_inventory_pool.next_open_date(today_and_next_4_days[-1] + 1.day) }
     
     visits = current_inventory_pool.visits.where("date <= ?", today_and_next_4_days.last)
-    @hand_overs, @take_backs = visits.partition {|v| v.status_const == Contract::UNSIGNED }
+    @hand_overs, @take_backs = visits.partition {|v| v.action == "hand_over" }
     
     @chart_data = today_and_next_4_days.map do |day|
-      take_back_visits_today = @take_backs.select{|v| v.date == day}
-      take_back_workload = take_back_visits_today.size * 4 + take_back_visits_today.sum(&:quantity)
-      hand_over_visits_today = @hand_overs.select{|v| v.date == day }
-      hand_over_workload = hand_over_visits_today.size * 4 + hand_over_visits_today.sum(&:quantity)
-      [[take_back_workload, hand_over_workload], {:name => l(day, :format => "%A"), :value => "#{take_back_visits_today.size+hand_over_visits_today.size} Visits<br/>#{take_back_visits_today.sum(&:quantity)+hand_over_visits_today.sum(&:quantity)} Items"}]
+      take_back_visits_on_day = @take_backs.select{|v| v.date == day}
+      take_back_workload = take_back_visits_on_day.size * 4 + take_back_visits_on_day.sum(&:quantity)
+      hand_over_visits_on_day = @hand_overs.select{|v| v.date == day }
+      hand_over_workload = hand_over_visits_on_day.size * 4 + hand_over_visits_on_day.sum(&:quantity)
+      [[take_back_workload, hand_over_workload],
+        {:name => l(day, :format => "%A"),
+         :value => "#{take_back_visits_on_day.size+hand_over_visits_on_day.size} Visits<br/>#{take_back_visits_on_day.sum(&:quantity)+hand_over_visits_on_day.sum(&:quantity)} Items"}]
     end
+    
+    @hand_overs.delete_if {|v| v.date > Date.today }
+    @take_backs.delete_if {|v| v.date > Date.today }
   end
   
   def new

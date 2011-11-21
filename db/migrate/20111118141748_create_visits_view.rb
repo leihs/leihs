@@ -9,7 +9,7 @@ class CreateVisitsView < ActiveRecord::Migration
               "FROM contract_lines AS cl INNER JOIN contracts AS c ON cl.contract_id = c.id " \
               "WHERE status_const IN (#{Contract::UNSIGNED}, #{Contract::SIGNED}) " \
                 "AND cl.returned_date IS NULL " \
-              "GROUP BY user_id " \
+              "GROUP BY user_id, status_const, date, inventory_pool_id " \
               "ORDER BY date;")
   end
 
