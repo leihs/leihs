@@ -8,32 +8,29 @@ class Mailer::User < ActionMailer::Base
 
   def remind(user, visits, sent_at = Time.now)
     choose_language_for(user)
-    @subject    = _('[leihs] Reminder')
-    @body["visits"] = visits
-    @recipients = "#{user.email}"
-    @from       = visits.first.inventory_pool.email || DEFAULT_EMAIL
-    @sent_on    = sent_at
-    @headers    = {}
+    @visits = visits
+    mail( :to => user.email,
+          :from => (visits.first.inventory_pool.email || DEFAULT_EMAIL),
+          :subject => _('[leihs] Reminder'),
+          :date => sent_at )
   end
   
   def deadline_soon_reminder(user, visits, sent_at = Time.now)
     choose_language_for(user)
-    @subject    = _('[leihs] Some items should be returned tomorrow')
-    @body["visits"] = visits
-    @recipients = "#{user.email}"
-    @from       = visits.first.inventory_pool.email || DEFAULT_EMAIL
-    @sent_on    = sent_at
-    @headers    = {}
+    @visits = visits
+    mail( :to => user.email,
+          :from => (visits.first.inventory_pool.email || DEFAULT_EMAIL),
+          :subject => _('[leihs] Some items should be returned tomorrow'),
+          :date => sent_at )
   end
   
   
   def email(from, to, subject, body)
-    @subject    = '[leihs] ' + subject
-    @body["email"] = body
-    @recipients = to
-    @from       = from
-    @sent_on    = Time.now
-    @headers    = {}
+    @email = body
+    mail( :to => to,
+          :from => from,
+          :subject => "[leihs] #{subject}",
+          :date => Time.now )
   end
   
 

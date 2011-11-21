@@ -353,10 +353,6 @@ end
 
  private
 
-  #-# FIXME
-  # contract_lines(:group => "contracts.inventory_pool_id, end_date")
-  # :title => "#{self.login} - #{l.contract.inventory_pool}"
-
   def to_remind
     visits.take_back.where("date < CURDATE()")
   end
