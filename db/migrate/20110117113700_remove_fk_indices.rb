@@ -9,7 +9,8 @@ class RemoveFkIndices < ActiveRecord::Migration
     # http://bugs.mysql.com/bug.php?id=10333
     # AR seems to guess the wrong foreign key name, which it can't remove.
     sql = ContractLine.connection.execute("show create table contract_lines")
-    schema = sql.fetch_row[1]
+    #schema = sql.fetch_row[1]
+    schema = sql.to_a[0][1]
     schema.gsub!("`","") # Remove those ugly backticks from around field names
     
     constraints = schema.split("\n").select{|l|
