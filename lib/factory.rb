@@ -356,11 +356,11 @@ module Factory
   # Languages shipped by default
   #
   def self.create_default_languages
-    [['English', 'en_GB', true],
-     ['English US', 'en_US', false],
-     ['Deutsch', 'de_CH', false],
+    [['English', 'en-GB', true],
+     ['English US', 'en-US', false],
+     ['Deutsch', 'de-CH', false],
      ['Castellano','es', false],
-     ['Schwizertüütsch','gsw_CH', false]].each do |lang|
+     ['Schwizertüütsch','gsw-CH', false]].each do |lang|
       Factory.create_language!(:name => lang[0], :locale_name => lang[1], :default => lang[2])
     end
   end
