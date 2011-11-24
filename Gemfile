@@ -20,6 +20,7 @@ gem "rmagick", '2.12.2', :require => 'RMagick'
 gem "rgl", "0.4.0", :require => "rgl/adjacency"
 gem "will_paginate", '2.3.15'
 gem "thinking-sphinx", '1.3.20', :require => 'thinking_sphinx'
+gem "riddle", '1.4.0' # Don't use newer versions, it breaks
 
 gem "fastercsv", '1.5.3'
 

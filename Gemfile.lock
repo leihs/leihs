@@ -91,7 +91,7 @@ GEM
     rgl (0.4.0)
       rake
       stream (>= 0.5)
-    riddle (1.5.0)
+    riddle (1.4.0)
     rmagick (2.12.2)
     rspec (1.3.0)
     rspec-rails (1.3.2)
@@ -143,6 +143,7 @@ DEPENDENCIES
   rails (= 2.3.5)
   rake (= 0.8.7)
   rgl (= 0.4.0)
+  riddle (= 1.4.0)
   rmagick (= 2.12.2)
   rspec (= 1.3.0)
   rspec-rails (= 1.3.2)
