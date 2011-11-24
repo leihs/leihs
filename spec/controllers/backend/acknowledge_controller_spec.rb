@@ -3,9 +3,11 @@ require "rspec/expectations"
 
 require Rails.root + 'lib/factory'
 
-# What do we describe, the mailer model or the controller that uses it? Huh?
-#describe Mailer::Order do
 
+# It seems really hard to test our controllers (?)
+# Remove this file if you think it's too hard, and test by model.
+
+# What do we describe, the mailer model or the controller that uses it? Huh?
 describe Backend::AcknowledgeController do
 
 # Check e-mails like this after issuing them:  
@@ -34,6 +36,7 @@ describe Backend::AcknowledgeController do
     it "should send a confirmation e-mail to the user when their order is confirmed" do
       # That doesn't work. we need to post to approve something, and then check if it sends e-mail
       #post "/backend/inventory_pools/#{@ip.id}/approve"
+      
     end
   end
   
