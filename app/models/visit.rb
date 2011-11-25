@@ -44,7 +44,7 @@ class Visit < ActiveRecord::Base
 
     default_options = {:only => [:quantity, :date],
                        :methods => [:is_overdue],
-                       :include => {:user => {:only => [:id, :firstname, :lastname, :phone, :email]} } }
+                       :include => {:user => {:only => [:id, :firstname, :lastname, :phone, :email, :extended_info]} } }
                        
     default_options.deep_merge(options)
     json = super(default_options)

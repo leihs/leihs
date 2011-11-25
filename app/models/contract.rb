@@ -97,7 +97,7 @@ class Contract < Document
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
 
-    required_options = {:include => {:user => {:only => [:firstname, :lastname, :id, :phone, :email]},
+    required_options = {:include => {:user => {:only => [:firstname, :lastname, :id, :phone, :email, :extended_info]},
                                      :items => {}
                                     }
                        }

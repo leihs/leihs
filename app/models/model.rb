@@ -161,8 +161,8 @@ class Model < ActiveRecord::Base
     current_inventory_pool = options[:current_inventory_pool]
     if current_inventory_pool
       active_items = items.scoped_by_inventory_pool_id(current_inventory_pool)
-      json['total_rentable'] = active_items.count
       json['availability_for_ip'] = active_items.borrowable.in_stock.count
+      json['total_rentable'] = active_items.count
     end
     
     json.merge({:type => self.class.to_s.underscore})
