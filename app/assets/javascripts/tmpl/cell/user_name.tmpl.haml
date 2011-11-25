@@ -1,0 +1,34 @@
+%li.user_name.hastip
+  ${firstname} 
+  ${lastname}
+  .tip.user
+    %table.image
+      %tr
+        %td
+          .noimagetext
+            = _("no image")
+          {{if extended_info}}
+          %img{:src => "http://www.zhdk.ch/?person/foto&width=100&compressionlevel=0&id=${extended_info.uniqueid.match(/[0-9]+/g)[0]}"}
+          {{else}}
+          .noimage
+          {{/if}}
+    %h3= "${firstname} ${lastname}"
+    %table
+      {{if address}}
+      %tr
+        %td.value
+          %p
+            ${address}
+      {{/if}}
+      {{if phone}}
+      %tr
+        %td.value
+          %p
+            ${phone}
+      {{/if}}
+      {{if email}}
+      %tr
+        %td.value
+          %p
+            ${email}
+      {{/if}}
