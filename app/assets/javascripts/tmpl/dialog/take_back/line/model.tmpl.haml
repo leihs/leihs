@@ -1,0 +1,56 @@
+= link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/models/${id}
+  
+  %li.modelname
+    ${name}
+    
+  {{if categories.length > 0}}
+  ${$count = 0, ""}
+  %li.category
+    {{each(i, category) categories}}
+    {{if i == 0}}
+    ${category.name}
+    {{else}}
+    ${$count = i, ""}
+    {{/if}}
+    {{/each}}
+  %li.categories.hastip
+    {{if categories.length > 1}}
+    ${$count}
+    = _("more categories")
+    .tip 
+      %table
+        {{each(i, category) categories}}
+        {{if i>0}}
+        %tr
+          %td
+            %p
+              ${category.name}
+        {{/if}}
+        {{/each}}
+    {{else}}
+    %span.grey
+      = _("no more categories")
+    {{/if}}
+  {{else}}
+  %li.category
+    %span.grey
+      = _("no category")
+  %li.categories
+  {{/if}}
+  
+  %li.availability
+    ${availability_for_ip}
+    = "/"
+    ${total_rentable}
+    
+%li.actions
+  .multibutton
+    .alternatives
+      .trigger
+        .arrow
+      = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');",  :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/models/${id}/edit
+        .icon.edit
+        = _("Edit")
+    = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/models/${id}
+      .icon.view_model
+      = _("View")

@@ -1,5 +1,8 @@
-.container
-  
+%div{:class => "container{{if is_overdue}} overdue{{/if}}"}
+
+  %li.overdue_icon
+    .icon.hand_over.overdue
+    
   {{tmpl($item.data.user) "tmpl/cell/user_name"}}
 
   %li.items.hastip

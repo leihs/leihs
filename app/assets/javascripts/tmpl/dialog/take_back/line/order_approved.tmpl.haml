@@ -1,0 +1,74 @@
+= link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}
+
+  {{tmpl($item.data.user) "tmpl/cell/user_name"}}
+
+  %li.items.hastip
+    %span.number
+      ${quantity}
+    = _("Items")
+    .tip.lines
+      ${$startdate = 0, ""}
+      ${$enddate = 0, ""}
+      {{each(i, line) order_lines}}
+      {{if line.start_date != $startdate || line.end_date != $enddate}}
+      ${$startdate = line.start_date, ""}
+      ${$enddate = line.end_date, ""}
+      {{if i != 0}}
+      %hr
+      {{/if}}
+      .date
+        {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+        = "-"
+        {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      .range
+        ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+        = _("Days")
+      .clear
+      %table
+        {{each(i, line) order_lines}}
+        {{if line.start_date == $startdate && line.end_date == $enddate}}
+        %tr
+          %td.quantity
+            ${line.quantity}
+          %td.model_name
+            {{if line.model}}
+            ${line.model.name}
+            {{else}}
+            %i
+              = _("Model not present any more")
+            {{/if}}
+        {{/if}}
+        {{/each}}  
+      {{/if}}
+      {{/each}}
+        
+  %li.date
+    {{html formatDate(new Date(created_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+  
+  %li.status_with_date
+    = _("Approved")
+    %span.grey
+      ({{html formatDate(new Date(updated_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}})
+      
+  {{if String(purpose).length > 43}}
+  %li.short_purpose.hastip
+    %span.text
+      {{html String(purpose).substring(0, 43) }}
+      {{if String(purpose).length > 43}}
+      {{html "..."}}
+      {{/if}}
+    .tip
+      %p
+        ${purpose}
+  {{else}}
+  %li.short_purpose
+    %span.text
+      {{html String(purpose).substring(0, 43) }}
+  {{/if}}
+  
+%li.actions
+  = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/order/${id}
+    .icon.view_order
+    = _("View")
+
+  

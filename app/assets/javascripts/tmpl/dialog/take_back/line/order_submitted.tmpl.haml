@@ -66,7 +66,8 @@
     .alternatives
       .trigger
         .arrow
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}", :class => "button white" do
+      -#TODO: "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}"  
+      = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...'); return false;", :class => "button white" do
         .icon.edit
         = _("Edit")
       

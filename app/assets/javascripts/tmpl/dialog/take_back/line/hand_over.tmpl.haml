@@ -1,5 +1,8 @@
-%div
+%div{:class => "container{{if is_overdue}} overdue{{/if}}"}
 
+  %li.overdue_icon
+    .icon.hand_over.overdue
+    
   {{tmpl($item.data.user) "tmpl/cell/user_name"}}
 
   %li.items.hastip
@@ -34,7 +37,7 @@
       {{/if}}
       {{/each}}
   
-  %li{:class => "range"}
+  %li{:class => "range{{if is_overdue}} overdue{{/if}}"}
     {{if is_overdue}}
     %span.number
       ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+2)}
