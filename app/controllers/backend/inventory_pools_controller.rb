@@ -34,12 +34,13 @@ class Backend::InventoryPoolsController < Backend::BackendController
     @hand_overs, @take_backs = visits.partition {|v| v.action == "hand_over" }
     
     @chart_data = today_and_next_4_days.map do |day|
+      day_name = (day == Date.today) ? _("Today") : l(day, :format => "%A")
       take_back_visits_on_day = @take_backs.select{|v| v.date == day}
       take_back_workload = take_back_visits_on_day.size * 4 + take_back_visits_on_day.sum(&:quantity)
       hand_over_visits_on_day = @hand_overs.select{|v| v.date == day }
       hand_over_workload = hand_over_visits_on_day.size * 4 + hand_over_visits_on_day.sum(&:quantity)
       [[take_back_workload, hand_over_workload],
-        {:name => l(day, :format => "%A"),
+        {:name => day_name,
          :value => "#{take_back_visits_on_day.size+hand_over_visits_on_day.size} Visits<br/>#{take_back_visits_on_day.sum(&:quantity)+hand_over_visits_on_day.sum(&:quantity)} Items"}]
     end
     
