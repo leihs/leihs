@@ -1,8 +1,15 @@
+:ruby
+  o = [ [ "Inventory Pool", "current", {:"data-total_borrowable"   => "${JSON.stringify(total_rentable)}",
+                                        :"data-closed_days"        => "${JSON.stringify(availability_for_user[0].inventory_pool.closed_days)}",
+                                        :"data-name"               => "${JSON.stringify(availability_for_user[0].inventory_pool.name)}",
+                                        :"data-address"            => "${JSON.stringify(availability_for_user[0].inventory_pool.address)}",
+                                        :"data-availability_dates" => "${JSON.stringify(availability_for_user[0].availability)}" } ] ]
+                                     
 %h1
   %strong
-    ${model.name}
+    = _("Edit ordered item")
 %p.subtitle
-  = "Ordered by"
+  = "for"
   %strong
     ${order.user.firstname}
     ${order.user.lastname}
@@ -10,40 +17,36 @@
   %button.button.white.close_dialog
     .icon.return
     = _("Revert")
-  %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
+  %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
     = _("Confirm")
 %hr
 
-.inventorypool.container
-  %label{:for => "inventory_pool_id"}
-    = _("Equipment Park")
-  %span.select
-    %span.name
-      = #o.first[2][:"data-name"]
-    .arrow
-  = select_tag :inventory_pool_id#, options_for_select(o, s)
+.calendar_input
 
-.date.container
-  .from
-    %label{:for => "start_date"}
-      = _("From")
-    = text_field_tag :start_date, "2011-11-11" #Date.today
-  .dash
-    = "-"
-  .to
-    %label{:for => "end_date"}
-      = _("To")
-    = text_field_tag :end_date, "2011-11-11" #Date.tomorrow
-      
-.quantity.container
-  %label{:for => "quantity"}
-    = _("Quantity")
-  = text_field_tag :quantity, 1, :min => 1, :max => "@model.borrowable_items.size"
-  = link_to "javascript:void(0)", :class => "increase" do
-    %span.icon
-  = link_to "javascript:void(0)", :class => "decrease" do
-    %span.icon
+  .quantity.container
+    = text_field_tag :quantity, "${quantity}", :min => 1, :max => "${total_rentable}", :tabindex => "1", :class => "focus", :autocomplete => "off"
+    %label{:for => "quantity"}
+      = _("Quantity")
+    = link_to "javascript:void(0)", :class => "increase" do
+      %span.icon
+    = link_to "javascript:void(0)", :class => "decrease" do
+      %span.icon
         
+  .date.container
+    .start_date
+      = text_field_tag :start_date, "${start_date}", :tabindex => "2", :autocomplete => "off"
+      %label{:for => "start_date"}
+        = _("Start Date")
+    .dash
+      = "-"
+    .end_date
+      = text_field_tag :end_date, "${end_date}", :tabindex => "3", :autocomplete => "off"
+      %label{:for => "end_date"}
+        = _("End Date")
+  
+  .inventorypool.container
+    = select_tag :inventory_pool_id, options_for_select(o)
+
 .clear
 
 #fullcalendar
