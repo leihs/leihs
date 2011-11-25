@@ -2,11 +2,20 @@
   
   = button_tag :class => "button green add_item" do
     = "+"
-  %input{:type => "text", :name => "barcode_field", :value => _("Barcode"), :class => "barcode clearable"}
+  .container
+    %input{:type => "text", :name => "barcode_field", :value => _("e.g. Barcode"), :class => "barcode"}
+    %label{:for => "barcode_field"}
+      = _("Item Code")
   
   .dates
-    %input.start_date.date.start{:name => "start_date", :value => Date.today, :title => _("Start Date")}
-    %label.datepicker.icon{:for => "start_date", :title => _("Open Datepicker")}
+    .container
+      %input.date.start{:name => "add_start_date", :id => "add_start_date", :value => Date.today, :title => _("Start Date")}
+      %label{:for => "add_start_date"}
+        = _("Start Date")
+      %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
     = "-"
-    %input.end_date.date.end{:name => "end_date", :value => Date.today, :title => _("End Date")}
-    %label.datepicker.icon{:for => "end_date", :title => _("Open Datepicker")}  
+    .container
+      %input.date.end{:name => "add_end_date", :id => "add_end_date", :value => Date.today, :title => _("End Date")}
+      %label{:for => "end_date"}
+        = _("End Date")
+      %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  

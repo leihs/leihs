@@ -4,8 +4,7 @@
   %h1= _("Order from %s") % @user
   %p.subtitle
     = _("%i Items:") % @order.quantity
-    %i
-      "#{@order.purpose}"
+    "#{@order.purpose}"
       
   .navigation
     = link_to _("Reject"), reject_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
@@ -80,8 +79,10 @@
       
       $('#add_item .dates input').each(function(){
         // format date
-        var date = new Date($(this).val().replace(/-/g, "/"));
-        $(this).val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, date));
+        if(! $(this).val().match(/\./)) {
+          var date = new Date($(this).val().replace(/-/g, "/"));
+          $(this).val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, date));
+        }
         
         // setup datepicker
         $(this).datepicker({

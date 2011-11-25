@@ -23,9 +23,9 @@
         %td
           = image_tag("#{image_thumb}")
     
-  %h1= @model.name
-  %p.subtitle
-    = @model.manufacturer
+  %h1
+    = @model.name
+    = "(#{@model.manufacturer})"    
   
   .clear
   
@@ -34,46 +34,46 @@
   
     %hr
     
-    .inventorypool.container
-      %label{:for => "inventory_pool_id"}
-        = _("Equipment Park")
-      %span.select
-        %span.name
-          = o.first[2][:"data-name"]
-        .arrow
-      = select_tag :inventory_pool_id, options_for_select(o, s)
-  
-    .date.container
-      .from
-        %label{:for => "start_date"}
-          = _("From")
-        = text_field_tag :start_date, Date.today
-      .dash
-        = "-"
-      .to
-        %label{:for => "end_date"}
-          = _("To")
-        = text_field_tag :end_date, Date.today
-          
-    .quantity.container
-      %label{:for => "quantity"}
-        = _("Quantity")
-      = text_field_tag :quantity, 1, :min => 1, :max => @model.borrowable_items.size
-      = link_to "javascript:void(0)", :class => "increase" do
-        %span.icon
-      = link_to "javascript:void(0)", :class => "decrease" do
-        %span.icon
-            
-    .clear
-
-  %hr
+    .calendar_input
+      
+      .inventorypool.container
+        %span.select
+          %span.name
+            = o.first[2][:"data-name"]
+          .arrow
+        = select_tag :inventory_pool_id, options_for_select(o, s)
+        %label{:for => "inventory_pool_id"}
+          = _("Equipment Park")
     
+      .date.container
+        .start_date
+          = text_field_tag :start_date, Date.today, :autocomplete => "off"
+          %label{:for => "start_date"}
+            = _("Start Date")
+        .dash
+          = "-"
+        .end_date
+          = text_field_tag :end_date, Date.today, :autocomplete => "off"
+          %label{:for => "end_date"}
+            = _("End Date")
+            
+      .quantity.container
+        = text_field_tag :quantity, 1, :min => 1, :max => @model.borrowable_items.size, :autocomplete => "off"
+        %label{:for => "quantity"}
+          = _("Quantity")
+        = link_to "javascript:void(0)", :class => "increase" do
+          %span.icon
+        = link_to "javascript:void(0)", :class => "decrease" do
+          %span.icon
+            
   #fullcalendar
   
 = render :partial => '/layouts/frontend/content_box_foot'
 = render :partial => '/layouts/frontend/aside'
 
 :javascript
+  
+  BookingCalendar.sessionStorage = true;
   
   $(document).ready(function(){
     BookingCalendar.setup();
