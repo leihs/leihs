@@ -24,7 +24,7 @@ function SelectionActions() {
       $(".linegroup").each(function(){
         var start_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().time_range[0]));
         var end_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().time_range[1]));
-        if(start_date == $("#add_item .start_date").val() && end_date == $("#add_item .end_date").val()) {
+        if(start_date == $("#add_item #add_start_date").val() && end_date == $("#add_item #add_end_date").val()) {
           $(this).addClass("selected");
         } else {
           $(this).removeClass("selected");
@@ -110,27 +110,13 @@ function SelectionActions() {
   
   this.updateTimerange = function(start_date, end_date) {
     // show new selected start date
-    if($("#add_item .start_date").val() != $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, start_date)) {
-      $("#add_item .start_date").val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, start_date)).change();
-      $("#add_item .start_date").css("color", "#515151").css("border-color", "#a2a19c").css("box-shadow", "0 0 6px #DDD").css("-moz-box-shadow", "0 0 6px #DDD").css("-webkit-box-shadow", "0 0 6px #DDD");
-      $("#add_item .start_date").stop().animate({
-        color: "#717171",
-        "border-color": "#cccccc",
-      }, 800, function() {
-        $(this).css("box-shadow", "0 0 0 #FFF").css("-moz-box-shadow", "0 0 0 #FFF").css("-webkit-box-shadow", "0 0 0 #FFF")
-      });
+    if($("#add_item #add_start_date").val() != $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, start_date)) {
+      $("#add_item #add_start_date").val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, start_date)).change();
     }
     // show new selected end date
-    if($("#add_item .end_date").val() != $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date)) {
-      $("#add_item .end_date").val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date)).change();
-      $("#add_item .end_date").datepicker('setDate', $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date));
-      $("#add_item .end_date").css("color", "#515151").css("border-color", "#a2a19c").css("box-shadow", "0 0 6px #DDD").css("-moz-box-shadow", "0 0 6px #DDD").css("-webkit-box-shadow", "0 0 6px #DDD");
-      $("#add_item .end_date").stop().animate({
-        color: "#717171",
-        "border-color": "#cccccc",
-      }, 800, function() {
-        $(this).css("box-shadow", "0 0 0 #FFF").css("-moz-box-shadow", "0 0 0 #FFF").css("-webkit-box-shadow", "0 0 0 #FFF")
-      });
+    if($("#add_item #add_end_date").val() != $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date)) {
+      $("#add_item #add_end_date").val($.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date)).change();
+      $("#add_item #add_end_date").datepicker('setDate', $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, end_date));
     }
   }
   
