@@ -6,9 +6,9 @@
   %li.amount
     %span.selected
       ${quantity}
-    %span.grey{:title=>"max. borrowable by this user"}
-      = "/"
-      ${total_borrowable}
+    %span.grey
+      ="/ ${total_rentable} #{_('total rentable')}"
+      
   
   %li.name
     ${model.name}

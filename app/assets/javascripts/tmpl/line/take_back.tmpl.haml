@@ -1,48 +1,9 @@
-= link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back
+%div{:class => "container{{if is_overdue}} overdue{{/if}}"}
 
-  {{if is_overdue}}
   %li.overdue_icon
     .icon.hand_over.overdue
-  %li.name.overdue.hastip
-    ${user.firstname}
-    ${user.lastname}
-    .tip.user
-      %table
-        %tr
-          %td.key
-            %p
-              = _("Phone")
-          %td.value
-            %p
-              ${user.phone}
-        %tr
-          %td.key
-            %p
-              = _("E-Mail")
-          %td.value
-            %p
-              ${user.email}
-  {{else}}
-  %li.name.hastip
-    ${user.firstname}
-    ${user.lastname}
-    .tip.user
-      %table
-        %tr
-          %td.key
-            %p
-              = _("Phone")
-          %td.value
-            %p
-              ${user.phone}
-        %tr
-          %td.key
-            %p
-              = _("E-Mail")
-          %td.value
-            %p
-              ${user.email}
-  {{/if}}
+    
+  {{tmpl($item.data.user) "tmpl/cell/user_name"}}
 
   %li.items.hastip
     %span.number
@@ -127,6 +88,6 @@
       = _("Take Back")
   {{else}}
   = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back
-    .icon.take_back
     = _("Take Back")
+    .icon.take_back
   {{/if}}

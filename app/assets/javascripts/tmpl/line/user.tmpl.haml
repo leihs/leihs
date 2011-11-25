@@ -1,8 +1,6 @@
 = link_to "javascript:void(0)" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${id}
 
-  %li.name
-    ${firstname}
-    ${lastname}
+  {{tmpl($item.data.user) "tmpl/cell/user_name"}}
 
   %li.city
     {{if city}}

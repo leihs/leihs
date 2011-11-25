@@ -1,24 +1,6 @@
 = link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}
 
-  %li.name.hastip
-    ${user.firstname}
-    ${user.lastname}
-    .tip.user
-      %table
-        %tr
-          %td.key
-            %p
-              = _("Phone")
-          %td.value
-            %p
-              ${user.phone}
-        %tr
-          %td.key
-            %p
-              = _("E-Mail")
-          %td.value
-            %p
-              ${user.email}
+  {{tmpl($item.data.user) "tmpl/cell/user_name"}}
 
   %li.items.hastip
     %span.number
