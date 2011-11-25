@@ -54,3 +54,8 @@
       {{/each}}  
     {{/if}}
     {{/each}}
+    
+  %section.comment
+    = text_area_tag "comment", "", :class => "focus"
+    %p.hint
+      = _("Write a comment... (your comment will be part of the confirmation e-mail)")

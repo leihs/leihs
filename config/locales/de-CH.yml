@@ -2,6 +2,14 @@
 # by Clemens Kofler (clemens@railway.at)
 
 de-CH:
+  
+  leihs:
+    date:
+      formats:
+        day_long: "%A %d. %B %Y"
+  
+# ==== FROM HERE DEFAULTS:  
+  
   date:
     formats:
       default: "%d.%m.%Y"

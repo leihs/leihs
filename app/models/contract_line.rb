@@ -74,6 +74,32 @@ class ContractLine < DocumentLine
   def document
     contract
   end
+  
+  def as_json(options = {})
+    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
+
+    required_options = {:include => {:model => {:methods => :package_models},
+                                     :contract => {:include => {:user => {:only => [:firstname, :lastname]}}}
+                                    }}
+    
+    json = super(options.deep_merge(required_options))
+    
+    current_user = options[:current_user]
+    if current_user
+      json['total_borrowable'] = model.total_borrowable_items_for_user(current_user)
+      json['availability_for_user'] = model.availability_periods_for_user(current_user)
+    end
+    
+    current_inventory_pool = options[:current_inventory_pool]
+    if current_inventory_pool
+      active_items = model.items.scoped_by_inventory_pool_id(current_inventory_pool)
+      json['availability_for_ip'] = active_items.borrowable.in_stock.count
+      json['total_rentable'] = active_items.count
+    end
+    
+    line_type = (contract.status_const == 1) ? "hand_over_line" : "take_back_line"
+    json.merge({:type => line_type})
+  end
 
 end
 

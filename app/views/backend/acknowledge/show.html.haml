@@ -1,28 +1,40 @@
 -content_for :title, _("Order from %s") % @user
 
 #acknowledge.innercontent{:"data-order" => @order.to_json}
-  %h1= _("Order from %s") % @user
-  %p.subtitle
-    = _("%i Items:") % @order.quantity
-    "#{@order.purpose}"
+  .top
+    %h1= _("Order from %s") % @user
+    %p.subtitle
+      = _("%i Items:") % @order.quantity
+      "#{@order.purpose}"
       
-  .navigation
-    = link_to _("Reject"), reject_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
-                           :class => "button red open_dialog",
-                           :"data-dialog_class" => "acknowledge",
-                           :"data-rel" => "tmpl/dialog/acknowledge/reject",
-                           :"data-on_success" => 'window.location = document.referrer',
-                           :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
-                                                                                                                
-    = link_to _("Approve"), approve_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
-                            :class => "button green open_dialog", 
-                            :"data-dialog_class" => "acknowledge",
-                            :"data-rel" => "tmpl/dialog/acknowledge/approve",
-                            :"data-on_success" => 'window.location = document.referrer',
-                            :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
+    .navigation
+      = link_to _("Reject"), reject_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
+        :class => "button red open_dialog",
+        :"data-dialog_class" => "acknowledge",
+        :"data-rel" => "tmpl/dialog/acknowledge/reject",
+        :"data-on_success" => 'window.location = document.referrer',
+        :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
       
-  %hr
-  
+      .multibutton
+        .alternatives
+          .trigger.green
+            .arrow
+          = link_to approve_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
+            :class => "button white open_dialog", 
+            :"data-dialog_class" => "acknowledge",
+            :"data-rel" => "tmpl/dialog/acknowledge/approve_with_comment",
+            :"data-on_success" => 'window.location = document.referrer',
+            :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')" do
+            .icon.edit
+            = _("with comment")
+        = link_to _("Approve Order"), approve_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
+          :remote => true,
+          :class => "button green", 
+          :"data-dialog_class" => "acknowledge",
+          :"data-rel" => "tmpl/dialog/acknowledge/approve",
+          :"data-on_success" => 'window.location = document.referrer',
+          :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
+      
   %section.actiongroup
     = render :partial => '/backend/items/add_item'
     #selection_actions

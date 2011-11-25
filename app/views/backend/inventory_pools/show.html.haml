@@ -1,26 +1,27 @@
 -content_for :title, _("Daily View")
 #daily.innercontent
-  %h1= l Date.today, :format => :day_long
   
-  .navigation{:style => "display: none"}
-    = button_tag(:class => "today button white") do
-      = _("Today")
-    = button_tag(:class => "datepicker button white") do
-      .icon.datepicker
-    = button_tag(:class => "day back button white") do
-      .icon.back
-    = button_tag(:class => "day forward button white") do
-      .icon.forward
-      
-  .clear
-  
-  -if last_visitors
-    %p.subtitle 
-      = _("Last Visitors:")
-      != last_visitors
+  .top
+
+    %h1= l Date.today, :format => :day_long, :scope => 'leihs'
     
-  %hr
-  
+    .navigation{:style => "display: none"}
+      = button_tag(:class => "today button white") do
+        = _("Today")
+      = button_tag(:class => "datepicker button white") do
+        .icon.datepicker
+      = button_tag(:class => "day back button white") do
+        .icon.back
+      = button_tag(:class => "day forward button white") do
+        .icon.forward
+        
+    .clear
+    
+    -if last_visitors
+      %p.subtitle 
+        = _("Last Visitors:")
+        != last_visitors
+    
   %section.order
     .inlinetabs
       .tab

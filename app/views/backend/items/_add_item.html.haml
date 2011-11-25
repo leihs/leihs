@@ -1,6 +1,6 @@
 %section#add_item 
   
-  = button_tag :class => "button green add_item" do
+  = button_tag :class => "button green add_item", :title => _("Add Item") do
     = "+"
   .container
     %input{:type => "text", :name => "barcode_field", :value => _("e.g. Barcode"), :class => "barcode"}

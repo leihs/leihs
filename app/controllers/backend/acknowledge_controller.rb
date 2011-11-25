@@ -19,7 +19,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
   
   def show
-    @source_path = request.env['REQUEST_URI']
+    # OLD ? @source_path = request.env['REQUEST_URI']
     @order.to_backup unless @order.has_backup?
     add_visitor(@order.user)
     

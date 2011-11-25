@@ -3,20 +3,28 @@
   %li.modelname
     ${model.name}
     
-  %li.inventory_code
-    ${inventory_code}
+  %li.inventory_code{:title => _("Inventory Code")}
+    ${inventory_code.replace("/", " / ")}
 
-  %li.serial_number
+  %li.serial_number{:title => _("Serial Number")}
+    {{if serial_number}}
     ${serial_number}
+    {{else}}
+    %span.grey
+      = _("no serial number")
+    {{/if}}
   
-  %li.item_status
+  %li.item_status{:title => "{{if current_borrower}} #{_("%s returns the item on %s") % ["${current_borrower.firstname} ${current_borrower.lastname}", '{{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}'] } {{/if}}"}
     {{if $item.data["in_stock?"]}}
     = _("In Stock")
     {{else}}
+    {{if current_borrower}}
     ${current_borrower.firstname}
     ${current_borrower.lastname}
-    %span.grey
-      {{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+    {{/if}}
+    {{if current_return_date}}
+    ({{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}})
+    {{/if}}
     {{/if}}
     
     {{if is_broken || is_incomplete}}

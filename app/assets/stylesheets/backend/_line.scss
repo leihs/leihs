@@ -24,6 +24,14 @@
       &>.button, &>.multibutton {
         @include opacity(0.7);
       }
+      
+      &>.button {
+        margin-right: 4px;
+      }
+      
+      &>.multibutton {
+        margin-right: 3px;
+      }
     }
   }
   

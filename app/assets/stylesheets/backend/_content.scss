@@ -14,4 +14,19 @@
       background: url($image-sprite) no-repeat -18px -14px;
     }
   }
+  
+  .innercontent {
+    .top {
+      margin-bottom: 24px;
+    } 
+    
+    &>.actiongroup {
+      top: 26px;
+      position: relative;
+    }
+    
+    &>.subtitle {
+      width: 700px;    
+    }
+  }
 }

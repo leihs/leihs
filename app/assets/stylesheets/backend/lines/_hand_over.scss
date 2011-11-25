@@ -1,17 +1,7 @@
 .hand_over.line {
   
-  li.overdue_icon {
-    display: none;
-    padding-right: 0;
-    padding-left: 8px !important;
-  }
-  
-  .overdue li.overdue_icon {
-    display: table-cell;
-  }
-  
   li.items {
-    width: 120px;
+    width: 142px;
     
     .number {
       display: inline-block;

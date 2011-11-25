@@ -35,7 +35,6 @@
  *= depend_on backend/_search_results
  *= depend_on backend/_add_item
  *= depend_on backend/_selection_actions
- *= depend_on backend/_acknowledge
  *= depend_on backend/_clearable
  *= depend_on backend/_dialog
  *= depend_on backend/dialog/_calendar
@@ -86,7 +85,6 @@
 @import "backend/_search_results.scss";
 @import "backend/_add_item.scss";
 @import "backend/_selection_actions.scss";
-@import "backend/_acknowledge.scss";
 @import "backend/_clearable.scss";
 @import "backend/_dialog.scss";
 @import "backend/dialog/_calendar.scss";

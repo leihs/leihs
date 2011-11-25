@@ -38,18 +38,27 @@
       {{/each}}
   
   %li{:class => "range{{if is_overdue}} overdue{{/if}}"}
+    {{if is_overdue}}
     %span.number
-      {{if is_overdue}}
-      ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
-      {{else}}
-      ${Math.round((new Date(max_date.replace(/-/g, "/")) - new Date()) / (1000 * 60 * 60 * 24)+1)}
-      {{/if}}
+      ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+2)}
     %span.text
-      {{if is_overdue}}
+      {{if Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1) > 2}}
       = _("Days overdue")
       {{else}}
-      = _("Days max")
+      = _("Day overdue")
       {{/if}}
+    {{else}}
+    %span.text.grey
+      = _("for max.")
+    %span.number
+      ${Math.round((new Date(max_date.replace(/-/g, "/")) - new Date()) / (1000 * 60 * 60 * 24)+2)}
+    %span.text
+    {{if Math.round((new Date(max_date.replace(/-/g, "/")) - new Date()) / (1000 * 60 * 60 * 24)+2) > 1}}
+    = _("Days")
+    {{else}}
+    = _("Day")
+    {{/if}}
+    {{/if}}
       
 %li.actions
   {{if is_overdue}}
@@ -60,11 +69,13 @@
       = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over/delete_visit?lines=${contract_line_ids}", :class => "button red", :method => 'delete', :remote => "true", :"data-rel" => "tmpl/dialog/hand_over/delete", :"data-dialog_class" => "hand_over", :"data-on_success" => 'List.remove_line($(this).parents(".line"), "red")' , :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
         .icon.delete
         = _("Delete")
-    = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');",  :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over
+    -#TODO: "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over"    
+    = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');",  :class => "button white" do
       .icon.hand_over
       = _("Hand Over")
   {{else}}
-  = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over
+  -#TODO: "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/hand_over"
+  = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do
     .icon.hand_over
     = _("Hand Over")
   {{/if}}

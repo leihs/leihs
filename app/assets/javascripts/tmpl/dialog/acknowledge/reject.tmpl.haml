@@ -1,9 +1,9 @@
 = form_tag '${$item.action}', :remote => true do
   %h1
-    = _("Order from")
+    = _("Reject order from")
     %strong
       ${user.firstname} ${user.lastname}
-  %p.subtitle= '"${purpose}"'
+  %p.subtitle= '${quantity} items for "${purpose}"'
   
   .navigation
     %button.button.white.close_dialog

@@ -25,12 +25,12 @@ class Backend::HandOverController < Backend::BackendController
 =end
   end
 
-  # get current open contract for a given user
   def show
-=begin AFTER HERE IS OLD CODE
-    @missing_fields = @user.authentication_system.missing_required_fields(@user)
+    #OLD? @missing_fields = @user.authentication_system.missing_required_fields(@user)
     add_visitor(@user)
-=end
+    
+    @grouped_lines = @contract.lines.group_by {|x| [x.start_date.to_formatted_s(:db), x.end_date.to_formatted_s(:db)] }.map{|k,v| {k=>v}}
+    @grouped_lines = @grouped_lines.as_json({:current_user => @user, :current_inventory_pool => current_inventory_pool})
   end
   
   def set_purpose

@@ -10,10 +10,20 @@ ${$item.days = Math.round(($item.last_date-$item.first_date) / (1000 * 60 * 60 *
   .dates
     %label
       = check_box_tag "select_group"
-    ${i18n.selected.datepicker_backend.dayNamesShort[$item.first_date.getDay()]} 
+    {{if formatDate($item.first_date, i18n.selected.tips.dateFormat) == formatDate(new Date(), i18n.selected.tips.dateFormat)}}
+    %strong
+      = _("Today")
+    {{else}}
+    ${i18n.selected.datepicker_backend.dayNamesShort[$item.first_date.getDay()]}
+    {{/if}} 
     ${formatDate($item.first_date, i18n.selected.tips.dateFormat)}
     = "-"
+    {{if formatDate($item.last_date, i18n.selected.tips.dateFormat) == formatDate(new Date(), i18n.selected.tips.dateFormat)}}
+    %strong
+      = _("Today")
+    {{else}}
     ${i18n.selected.datepicker_backend.dayNamesShort[$item.last_date.getDay()]}
+    {{/if}}
     ${formatDate($item.last_date, i18n.selected.tips.dateFormat)}
   .days
     ${$item.days}
