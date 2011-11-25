@@ -63,10 +63,10 @@ function Barcode() {
     if($("input:focus, textarea:focus").length) return false;
     // the hierarchical order of input fields which should be executed on global scanner input
     if($("#add_item").length > 0) {
-      $("#add_item input.barcode").val(Barcode.scannerInput);
+      $("#add_item input.barcode").val("").val(Barcode.scannerInput);
       $("#add_item form").submit();
     } else if($("#search").length > 0) {
-      $("#search input").val(Barcode.scannerInput);
+      $("#search input").val("").val(Barcode.scannerInput);
       $("#search form").submit();
     }
   }
