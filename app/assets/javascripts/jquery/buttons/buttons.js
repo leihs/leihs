@@ -56,6 +56,7 @@ function Buttons() {
   this.closeDialog = function(event) {
     var _this = $(this);
     $(_this).parents(".dialog").dialog("close");
+    
     event.preventDefault();
     return false;
   }
@@ -69,6 +70,11 @@ function Buttons() {
       content: $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {action: _this.attr("href"), on_success: _this.data("on_success")}),
       dialogClass: _this.data("dialog_class")
     });
+    
+    // dont loose tmplItem().data
+    $(".dialog").tmplItem().data = eval(_this.data("ref_for_dialog"));
+    
+    // prevent default
     event.preventDefault();
     return false; 
   }
