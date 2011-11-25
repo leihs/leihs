@@ -9,57 +9,51 @@ class Mailer::Order < ActionMailer::Base
 
   def approved(order, comment, sent_at = Time.now)
     choose_language_for(order.user)
-    @subject    = _('[leihs] Reservation Confirmation')
-    @body["order"] = order
-    @body["comment"] = comment
-    @recipients = "#{order.user.email}"
-    @from       = order.inventory_pool.email || DEFAULT_EMAIL
-    @sent_on    = sent_at
-    @headers    = {}
+    @order = order
+    @comment = comment
+    mail( :to => order.user.email,
+          :from => (order.inventory_pool.email || DEFAULT_EMAIL),
+          :subject => _('[leihs] Reservation Confirmation'),
+          :date => sent_at )
   end
 
   def submitted(order, purpose, sent_at = Time.now)
     choose_language_for(order.user)
-    @subject    = _('[leihs] Reservation Submitted')
-    @body["order"] = order
-    @body["purpose"] = purpose
-    @recipients = "#{order.user.email}"
-    @from       = order.inventory_pool.email || DEFAULT_EMAIL
-    @sent_on    = sent_at
-    @headers    = {}
+    @order = order
+    @purpose = purpose
+    mail( :to => order.user.email,
+          :from => (order.inventory_pool.email || DEFAULT_EMAIL),
+          :subject => _('[leihs] Reservation Submitted'),
+          :date => sent_at )
   end
 
   def received(order, purpose, sent_at = Time.now)
     choose_language_for(order.user)
-    @subject    = _('[leihs] Order received')
-    @body["order"] = order
-    @body["purpose"] = purpose
-    @recipients = order.inventory_pool.email || DEFAULT_EMAIL
-    @from       = order.inventory_pool.email || DEFAULT_EMAIL
-    @sent_on    = sent_at
-    @headers    = {}
+    @order = order
+    @purpose = purpose
+    mail( :to => (order.inventory_pool.email || DEFAULT_EMAIL),
+          :from => (order.inventory_pool.email || DEFAULT_EMAIL),
+          :subject => _('[leihs] Order received'),
+          :date => sent_at )
   end
 
   def rejected(order, comment, sent_at = Time.now)
     choose_language_for(order.user)
-    @subject    = _('[leihs] Reservation Rejected')
-    @body["order"] = order
-    @body["comment"] = comment
-    @recipients = "#{order.user.email}"
-    @from       = order.inventory_pool.email || DEFAULT_EMAIL
-    @sent_on    = sent_at
-    @headers    = {}
+    @order = order
+    @comment = comment
+    mail( :to => order.user.email,
+          :from => (order.inventory_pool.email || DEFAULT_EMAIL),
+          :subject => _('[leihs] Reservation Rejected'),
+          :date => sent_at )
   end
 
   def changed(order, comment, sent_at = Time.now)
     choose_language_for(order.user)
-    @subject    = _('[leihs] Reservation confirmed (with changes)')
-    @body["order"]  = order
-    @body["comment"] = comment
-    
-    @recipients = "#{order.user.email}"
-    @from       = order.inventory_pool.email || DEFAULT_EMAIL
-    @sent_on    = sent_at
-    @headers    = {}
+    @order = order
+    @comment = comment
+    mail( :to => order.user.email,
+          :from => (order.inventory_pool.email || DEFAULT_EMAIL),
+          :subject => _('[leihs] Reservation confirmed (with changes)'),
+          :date => sent_at )
   end
 end

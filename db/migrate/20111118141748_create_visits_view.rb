@@ -1,5 +1,6 @@
 class CreateVisitsView < ActiveRecord::Migration
   def up
+    execute("DROP VIEW IF EXISTS visits")
     execute("CREATE VIEW visits AS " \
               "SELECT inventory_pool_id, user_id, status_const, " \
                 "IF(status_const = #{Contract::UNSIGNED}, 'hand_over', 'take_back') AS action, " \
