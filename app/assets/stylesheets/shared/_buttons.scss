@@ -61,7 +61,7 @@ a.button {
 }
 
 .button.green {@include button(#4d9148, $lightgrey, #47c23e, #515151, -156px, -188px, -220px)};
-.button.white {@include button(#8a8a8a, $lightgrey, #c0c0c0, #515151, -252px, -284px, -316px)};
+.button.white {@include button(#808080, $lightgrey, #c0c0c0, #515151, -252px, -284px, -316px)};
 .button.red {@include button(#db5252, #df7070, #ea9090, #f60000, -252px, -284px, -316px)};
 
 // SMALLBUTTON ////////////////////////////////
@@ -88,7 +88,7 @@ a.button.small {
 }
 
 .button.small.green {@include button(#4d9148, $lightgrey, #47c23e, #515151, -444px, -467px, -490px)};
-.button.small.white {@include button(#8a8a8a, $lightgrey, #c0c0c0, #515151, -513px, -536px, -559px)};
+.button.small.white {@include button(#808080, $lightgrey, #c0c0c0, #515151, -513px, -536px, -559px)};
 .button.small.red {@include button(#db5252, #df7070, #ea9090, #f60000, -582px, -605px, -628px)};
 
 // MULTIBUTTON ////////////////////////////////
@@ -106,7 +106,7 @@ a.button.small {
       
       &:hover {
         background: url($slices-h) repeat-x 0 -252px;
-        color: #8a8a8a;
+        color: #808080;
         border-bottom-right-radius: 0;
       }
     }

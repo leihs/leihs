@@ -15,18 +15,19 @@
     
     &.selected {
       background: $highlight-darkergrey;
-      border: 1px solid $borderdarkgrey;
+      border: 1px solid $borderdarkergrey;
       @include boxShadow(0 0 5px #DDD);
     }
     
     .dates {
       color: $darkgrey;
       font-size: 1.3em;
-      padding-left: 4px;
+      padding-left: 8px;
       margin-bottom: 14px;
       
       label {
         cursor: pointer;
+        margin-right: 4px;
         
         input {
           cursor: pointer;

@@ -1,3 +1,15 @@
+.qtip.closed-day-alert {
+  @include boxShadow (0 0 10px #C66);
+  
+  .ui-tooltip-titlebar {
+    border-color: $red;
+  }
+  
+  .ui-tooltip-content {
+    border-color: $red;
+  }
+}
+
 .list_tip {
   max-width: 410px;
   
@@ -5,10 +17,29 @@
     border-color: $borderdarkergrey;
     border-width: 3px;
     background-color: white;
-    color: $darkgrey;
+    color: $darkergrey;
     padding: 10px;
     @include borderRadius(6px);
     @include boxShadow (0 0 10px #CCC);
+  }
+  
+  .ui-tooltip-titlebar {
+    border-color: $borderdarkergrey;
+    border-width: 3px;
+    background-color: white;
+    color: $darkgrey;
+    padding: 10px 10px 0 10px;
+    @include borderRadius(6px);
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: none;
+    
+    &+.ui-tooltip-content  {
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      border-top: none;
+       @include noBoxShadow;
+    }
   }
 
   .tip {
@@ -68,11 +99,55 @@
     }
     
     &.user {
+      display: inline-block;
+      width: 400px;
+      
+      h3 {
+        color: $darkergrey;
+        float: left;
+        margin-top: 6px;
+        padding-left: 8px;
+      }
+      
       table {
+        float: left;
+        width: 240px;
+      }
+      
+      table.image {
+        border: 1px solid white;
+        padding-right: 20px;
+        min-height: 80px;
+        width: 90px;
+        
         tr {
-          td{
-            &.key {
-              width: 80px;
+          td {
+            height: auto;
+            position: relative;
+            vertical-align: middle;
+            
+            .noimagetext {
+              color: $lightgrey;
+              position: absolute;
+              top: 43px;
+              text-align: center;
+              width: 90px;
+              z-index: 0;
+            }
+            
+            img, .noimage {
+              display: block;
+              height: auto;
+              position: relative;
+              width: 90px;
+              @include borderRadius(4px);
+              @include boxShadow (0 0 4px #AAA);
+              z-index: 1000;
+            }
+            
+            .noimage {
+              height: 90px;
+              width: 90px;
             }
           }
         }

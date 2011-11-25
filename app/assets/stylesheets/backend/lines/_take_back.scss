@@ -5,17 +5,6 @@
     padding-left: 8px !important;
   }
   
-  li.name {
-    font-weight: bold;
-    line-height: 1.1em;
-    width: 143px;
-    
-    &.overdue {
-      padding-left: 8px;
-      width: 126px;
-    }
-  }
-  
   li.items {
     width: 120px;
     
@@ -56,6 +45,7 @@
   }
   
   li.reminder {
+    padding-left: 10px;
     width: 180px;
   }
 }

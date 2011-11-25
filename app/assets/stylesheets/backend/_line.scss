@@ -7,7 +7,7 @@
   width: 100%;
   
   li {
-    color: $darkgrey;
+    color: $darkergrey;
     display: table-cell;
     font-size: 1.2em;
     height: 40px;
@@ -22,7 +22,7 @@
       padding-top: 0;
       
       &>.button, &>.multibutton {
-        @include opacity(0.6);
+        @include opacity(0.7);
       }
     }
   }
@@ -68,7 +68,7 @@
     @include highlightItem;
     
     li {
-      color: $darkgrey;
+      color: $darkergrey !important;
     }
     
     .actions {
@@ -79,7 +79,7 @@
   }
   
   span.grey {
-    color: $lightgrey;
+    color: $grey;
   }
   
   span.red {

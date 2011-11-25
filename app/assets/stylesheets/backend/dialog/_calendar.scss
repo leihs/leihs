@@ -1,10 +1,106 @@
 .ui-dialog.calendar {
   
-  .inventorypool.container {
-    display: none;
-  }
+  .calendar_input {
+    padding-left: 2px;
+    position: absolute;
+    z-index: 9999;
     
+    .container {
+      display: block;
+      float: left;
+      position: relative;
+      margin: 20px 16px 2px 0;
+      
+      label {
+        cursor: pointer;
+        color: $grey;
+        position: absolute;
+        top: -16px;
+        left: 0;
+      }
+      
+      input{
+        background: white;
+        border: 1px solid $borderlightgrey;
+        font-size: 1.2em;
+        height: 20px;
+        padding-top: 2px;
+        position: relative;
+        text-align: center;
+        @include borderRadius(4px);
+      }
+      
+      &.inventorypool {display: none;}
+      
+      &.quantity {
+    
+        input {
+          font-size: 1.4em;
+          padding-right: 12px;
+          width: 30px;
+        }
+        
+        a {
+          display: block;
+          height: 12px;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 11px;
+        }
+        
+        .icon {
+          display: block;
+          height: 5px;
+          position: relative;
+          left: 1px;
+          width: 5px;
+          @include opacity(0.6);
+        }
+        
+        a:hover {
+          .icon {
+            @include opacity(1.0);
+          }
+        }
+            
+        .increase .icon {
+          background: url($image-sprite) no-repeat -65px -37px;
+          top: 6px;
+        }
+        
+        .decrease {
+          top: 12px;
+        
+          .icon {
+            top: 3px;
+            background: url($image-sprite) no-repeat -65px -43px;
+          } 
+        }
+      }
+      
+      &.date {
+        
+        input {
+          padding-right: 6px;
+          padding-left: 5px;
+          width: 80px;
+        }
+        
+        div {
+          float: left;
+           position: relative;
+        }
+        
+        .dash {
+          padding: 7px 6px 0 6px;
+        }
+      }
+    }
+  }
+  
   #fullcalendar {
+    margin-top: 20px;
     height: 567px;
   }
 }

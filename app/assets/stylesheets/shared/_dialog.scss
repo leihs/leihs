@@ -4,7 +4,7 @@
   display: inline-block;
   position: absolute;
   @include borderRadius(6px);
-  @include boxShadow (0 0 8px #AAA);
+  @include boxShadow (0 0 12px #AAA);
   
   &.error {
     border: 3px solid red;  
@@ -146,5 +146,6 @@
   top: 0;
   left: 0;
   @include opacity(0.5);
+  @include boxShadow(inset 0 0 300px #000);
 }
 

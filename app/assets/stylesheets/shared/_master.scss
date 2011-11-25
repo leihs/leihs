@@ -63,14 +63,17 @@ hr {
   margin: 14px 0 0 0;
 }
 
-input,textarea {
+input, textarea, select {
   color: $darkgrey;
   font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
-}
-
-textarea:focus, input:not([type="submit"]):focus, select:focus {
-  color: $darkgrey !important;
-  @include boxShadow (0 0 6px #DDD);
+  
+  &:focus, &:hover {
+    color: $darkergrey !important;
+    border-color: $borderdarkgrey !important;
+    @include boxShadow (0 0 6px #DDD);
+  }
+  
+  &:focus+label, &:hover+label {color: $darkergrey !important;}
 }
 
 label[disabled=disabled] {

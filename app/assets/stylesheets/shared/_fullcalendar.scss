@@ -1,18 +1,21 @@
 .calendar-tail {
+  display: block;
   height: 47px !important;
   min-height: 47px !important;
   position: absolute;
+  top: 19px;
   width: 15px;
-  z-index: 1000;
+  z-index: 9999;
 }
 
 #calendar-tail-left {
-  background: url($image-sprite) no-repeat -42px -231px;
+  background: url($image-sprite) no-repeat -183px -43px;
+  left: -1px;
 }
 
 #calendar-tail-right {
-  background: url($image-sprite) no-repeat -58px -231px;
-  margin-left: 2px;
+  background: url($image-sprite) no-repeat -199px -43px;
+  right: -1px;
 }
 
 #fullcalendar {
@@ -20,13 +23,26 @@
     margin-top: 8px;
     @include unselectable();
     
+    .fc-widget-content {
+      cursor: pointer;
+    }
+    
+    &.dragging .fc-widget-content {
+      cursor: move;
+    }
+    
     .fc-widget-content.available.selected {
       background-color: #87ef7c !important;
-      border-left-color: #87ef7c !important;
-      border-top-color: #87ef7c !important;
+      border-left: 1px dashed #73d769 !important;
+      border-top: 1px dashed #73d769 !important;
       
       .fc-day-content > div {
-        color: #797979 !important;
+        color: #595c58 !important;
+      }
+      
+      .fc-day-number {
+        color: #595c58 !important;
+        @include opacity(1.0);
       }
     }
     
@@ -38,12 +54,17 @@
     
     .fc-widget-content.unavailable.selected {
       background-color: #ff4c4d !important;
-      border-left-color: #ff4c4d !important;
-      border-top-color: #ff4c4d !important;
+      border-left: 1px dashed #e62b2c !important;
+      border-top: 1px dashed #e62b2c !important;
       
       .fc-day-content > div {
         color: #3a3a3a !important;
         @include unselectable();
+      }
+      
+      .fc-day-number {
+        color: #3a3a3a !important;
+        @include opacity(1.0);
       }
     }
     
@@ -99,17 +120,20 @@
       }
     
     .fc-header-left {
-      width: 25%;
-      text-align: left;
+      padding-top: 2px;
+      width: 576px;
+      text-align: right;
       }
       
     .fc-header-center {
+      display: none;
       text-align: center;
       }
       
     .fc-header-right {
-      width: 25%;
+      width: 100px;
       text-align: right;
+      padding-right: 20px;
       position: absolute;
       top: 0;
       right: 0;
@@ -130,9 +154,15 @@
       }
       
     .fc-header .fc-button {
+      font-size: 1.2em;
       margin-bottom: 1em;
       vertical-align: top;
       }
+      
+    .fc-header .fc-button-today {
+      overflow: hidden;
+      margin-right: 6px !important;
+    }
       
     /* buttons edges butting together */
     
@@ -176,6 +206,8 @@
     .fc-view {
       width: 100%; /* needed for view switching (when view is absolute) */
       overflow: visible; /* needed for the tails */
+      position: relative;
+      top: 4px;
       }
       
       
@@ -183,17 +215,30 @@
     /* Cell Styles
     ------------------------------------------------------------------------*/
     
-    .fc-widget-header,    /* <th>, usually */
+    .fc-widget-header {  /* <td>, usually */
+      font-size: 1.2em;
+      border: 1px solid #ccc;
+      position: relative;
+      padding: 1px;
+      background: $highlight-grey;
+    }
+    
     .fc-widget-content {  /* <td>, usually */
       border: 1px solid #ccc;
       position: relative;
       
-      
+      &>div {
+        position: relative;
+      }
     }
       
     .fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
       
       }
+      
+    .fc-today {
+       background: $highlight-grey;
+    }
       
     .fc-cell-overlay { /* semi-transparent rectangle while dragging */
       background: #9cf;
@@ -209,24 +254,27 @@
     .fc-button {
       position: relative;
       display: inline-block;
+      height: 23px;
       cursor: pointer;
-      }
+      color: #8a8a8a;
+      border: 1px solid $lightgrey;
+      border-top: 1px solid #c0c0c0;
+      background: #c0c0c0 url($slices-h) repeat-x 0 -252px;
+      padding-top: 1px;
+      top: -2px;
+      @include borderRadius(4px);
+    }
       
-    .fc-state-default { /* non-theme */
-      border-style: solid;
-      border-width: 1px 0;
-      }
+    .fc-state-default {
+     }
       
     .fc-button-inner {
+      border: none !important;
       position: relative;
       float: left;
       overflow: hidden;
-      }
-      
-    .fc-state-default .fc-button-inner { /* non-theme */
-      border-style: solid;
-      border-width: 0 1px;
-      }
+      @include borderRadius(4px);
+    }
       
     .fc-button-content {
       position: relative;
@@ -235,7 +283,47 @@
       line-height: 1.9em;
       padding: 0 .6em;
       white-space: nowrap;
+      @include borderRadius(4px);
+    }
+      
+    .fc-button-prev, .fc-button-next {
+      overflow: hidden;
+      width: 28px;
+      
+      .fc-button-inner {
+        background: url($image-sprite) no-repeat -102px 0 !important;
+        display: block;
+        height: 14px;
+        left: 7px;
+        top: 4px;
+        position: relaitve;
+        width: 14px;
+        @include opacity(0.7);
+        
+        .fc-button-content {
+          display: none;        
+        }
       }
+      
+      &:hover {
+        .fc-button-inner {
+          @include opacity(1.0);
+        }
+      }
+      
+      &.fc-state-disabled:hover {
+        .fc-button-inner {
+          @include opacity(0.7);
+        }
+      }
+    }
+    
+    .fc-button-next {
+      .fc-button-inner {
+        left: 8px;
+        background: url($image-sprite) no-repeat -102px -15px !important;
+      }
+    }
       
     /* icon (for jquery ui) */
       
@@ -251,72 +339,36 @@
       margin-top: -50%;
       *margin-top: 0;
       *top: -50%;
-      }
+    }
       
-    /* gloss effect */
-      
-    .fc-state-default .fc-button-effect {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      }
-      
-    .fc-state-default .fc-button-effect span {
-      position: absolute;
-      top: -100px;
-      left: 0;
-      width: 500px;
-      height: 100px;
-      border-width: 100px 0 0 1px;
-      border-style: solid;
-      border-color: #fff;
-      background: #444;
-      opacity: .09;
-      filter: alpha(opacity=9);
-      }
-      
-    /* button states (determines colors)  */
+    /* button states  */
       
     .fc-state-default,
     .fc-state-default .fc-button-inner {
-      border-style: solid;
-      border-color: #ccc #bbb #aaa;
-      background: #F3F3F3;
-      color: #000;
-      }
+      color: $grey;
+    }
       
     .fc-state-hover,
     .fc-state-hover .fc-button-inner {
-      border-color: #999;
-      }
+      color: $darkergrey;
+      border-top: 1px solid #c0c0c0;
+      background: #c0c0c0 url($slices-h) repeat-x 0 -284px;
+    }
       
     .fc-state-down,
     .fc-state-down .fc-button-inner {
-      border-color: #555;
-      background: #777;
-      }
+      background: #c0c0c0 url($slices-h) repeat-x 0 -316px;
+    }
       
     .fc-state-active,
     .fc-state-active .fc-button-inner {
-      border-color: #555;
-      background: #777;
       color: #fff;
-      }
-      
-    .fc-state-disabled,
-    .fc-state-disabled .fc-button-inner {
-      color: #999;
-      border-color: #ddd;
-      }
+    }
       
     .fc-state-disabled {
       cursor: default;
-      }
-      
-    .fc-state-disabled .fc-button-effect {
-      display: none;
-      }
-      
+      @include opacity(0.6);
+    }
       
     
     /* Global Event Styles
@@ -502,10 +554,12 @@
       }
       
     .fc-grid .fc-day-number {
-      float: right;
-      padding: 0 2px;
+      font-size: 1.2em;
+      position: absolute;
+      top: 2px;
+      right: 2px;
       @include unselectable();
-      }
+    }
       
     .fc-grid .fc-other-month .fc-day-number {
       opacity: 0.3;
@@ -517,7 +571,7 @@
       
     .fc-grid .fc-day-content {
       clear: both;
-      padding: 2px 2px 1px; /* distance between events and day edges */
+      padding: 13px 2px 1px; /* distance between events and day edges */
       }
       
     /* event styles */

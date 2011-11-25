@@ -21,33 +21,32 @@
       top: 0;
       width: 50px;
       z-index: 999;
+      padding-bottom: 4px;
       
-        padding-bottom: 4px;
+      table {
+        min-height: 30px;
+        width: 100%;
         
-        table {
-          min-height: 30px;
-          width: 100%;
+        tr {
           
-          tr {
-            
-            td {
+          td {
+            height: auto;
+            vertical-align: middle;
+          
+            img {
               height: auto;
-              vertical-align: middle;
-            
-                img {
-                  height: auto;
-                  @include opacity(0.5);
-                  width: 50px;
-                }
-              }
+              @include opacity(0.5);
+              width: 50px;
             }
-          } 
-            
-        a:hover {
-          img {
-            @include opacity(0.9); 
           }
         }
+        
+        &:hover {
+          img {
+            @include opacity(1.0); 
+          }
+        }
+      } 
     }
     
     table {

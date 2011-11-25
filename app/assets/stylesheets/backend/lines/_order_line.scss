@@ -6,7 +6,11 @@
   
   li.amount {
     padding-right: 10px !important;
-    width: 65px;
+    width: 160px;
+    
+    span {
+      cursor: default;
+    }
     
     .selected {
       display: inline-block;
