@@ -37,7 +37,7 @@ module Availability
       d = if is_a?(ContractLine) and returned_date
             returned_date
           elsif is_late?
-            Date.today + Availability::REPLACEMENT_INTERVAL
+            Date.today + Availability::Change::REPLACEMENT_INTERVAL
           else
             end_date
           end

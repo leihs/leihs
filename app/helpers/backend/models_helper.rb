@@ -229,7 +229,7 @@ end
       #                                                    nil)
 
       # if line is late then it won't be available until the item is returned 
-      end_date = line.is_late? ? Availability::ETERNITY :
+      end_date = line.is_late? ? Availability::Change::ETERNITY :
                                  (line.end_date.tomorrow.to_time - 1.second)
 
       # if line is reserved in the future and assigned an item, then the item will be
