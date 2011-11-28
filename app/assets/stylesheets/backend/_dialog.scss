@@ -23,6 +23,14 @@
     }
   }
   
+  .loading {
+    background: white;
+    display: block;
+    height: 20px;
+    margin: 25px auto 0 auto;
+    width: 20px;
+  }
+  
   section.comment {
     padding-top: 24px;
     position: relative;

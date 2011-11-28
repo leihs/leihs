@@ -11,11 +11,16 @@ var SelectionActions = new SelectionActions();
 function SelectionActions() {
   
   this.setup = function() {
+    this.deselectRadioButtons();
     this.setupMainSelection();
     this.setupGroupSelections();
     this.setupLineSelections();
     this.setupTimerangeUpdater();
     this.setupLinegroupHighlighting()
+  }
+  
+  this.deselectRadioButtons = function() {
+    $(".actiongroup input[type=radio]").attr("checked", false);
   }
   
   this.setupLinegroupHighlighting = function() {

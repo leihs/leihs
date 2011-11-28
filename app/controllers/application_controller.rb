@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   def add_visitor(user)
     session[:last_visitors] ||= []
     unless session[:last_visitors].include?([user.id, user.name])
-      session[:last_visitors].delete_at(0) if session[:last_visitors].size > 5 
+      session[:last_visitors].delete_at(0) if session[:last_visitors].size > 4 
       session[:last_visitors] << [user.id, user.name]
     end
   end

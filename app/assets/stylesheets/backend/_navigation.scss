@@ -12,6 +12,24 @@
       .leftend {
         background: url($image-sprite) no-repeat left -91px;
       }
+      
+      .badge {
+        background: $borderdarkergrey;
+        border: 1px solid white;
+        color: white;
+        display: inline-block;
+        font-size: 0.8em;
+        min-width: 12px;
+        padding: 1px 2px;
+        position: relative;
+        top: -4px;
+        margin-right: -14px;
+        margin-left: 1px;
+        text-align: center;
+        z-index: 999;
+        @include borderRadius(5px);
+        @include boxShadow (0 0 1px #DDD);
+      }
     }
     
     &:hover {

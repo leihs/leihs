@@ -14,7 +14,9 @@ module Backend::BackendHelper
     
     case section
       when "daily"
-        current_page?(backend_inventory_pool_path(current_inventory_pool))
+        current_page?(backend_inventory_pool_path(current_inventory_pool)) and not params[:overdue]
+      when "overdue"
+        current_page?(backend_inventory_pool_path(current_inventory_pool)) and params[:overdue]
       when "orders"
         current_page?(:controller => "backend/orders") ||
         !!(request.path =~ /acknowledge\/\d+$/)
@@ -28,6 +30,7 @@ module Backend::BackendHelper
       current_page?(:controller => "backend/contracts")
       when "lending"
         is_current_page?("daily") or
+        is_current_page?("overdue") or
         is_current_page?("orders") or
         is_current_page?("hand_over") or
         is_current_page?("take_back") or

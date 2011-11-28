@@ -28,6 +28,7 @@ function Dialog() {
     this.min_padding = 20;
   
     this.add = function(_params) {
+        if(_params.trigger == undefined) _params.trigger = $("body");
         var _dialog = $(document.createElement("div")).addClass("dialog").html(_params.content);
         $("body").append(_dialog);
         $(_dialog).data("startLeft", ($(_params.trigger).offset().left + $(_params.trigger).width()/2));

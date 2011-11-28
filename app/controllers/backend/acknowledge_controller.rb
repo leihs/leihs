@@ -28,7 +28,8 @@ class Backend::AcknowledgeController < Backend::BackendController
   end
   
   def approve
-    if request.post? and @order.approve(params[:comment], current_user)
+    #old# if request.post?
+    if @order.approve(params[:comment], current_user)
       # TODO test# @order.destroy # TODO remove old orders ?
       
       respond_to do |format|

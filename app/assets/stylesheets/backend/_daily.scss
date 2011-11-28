@@ -1,7 +1,6 @@
 #daily {
   
   h1 {
-    float: left;
     width: 400px;
   }
   
@@ -9,7 +8,7 @@
     @include darkGreylinks;
   }
   
-  .navigation {
+  .content_navigation {
     
     .day.back {
       border-top-right-radius: 0;

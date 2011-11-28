@@ -22,6 +22,7 @@
   &.loading {
     @include opacity(1.0 !important);
     @include boxShadow (0 0 3px #BBB);
+    margin-right: 5px;
   }
 }
 

@@ -2,10 +2,9 @@
 #daily.innercontent
   
   .top
-
-    %h1= l Date.today, :format => :day_long, :scope => 'leihs'
+    %h1= l @date, :format => :day_long, :scope => 'leihs'
     
-    .navigation{:style => "display: none"}
+    .content_navigation
       = button_tag(:class => "today button white") do
         = _("Today")
       = button_tag(:class => "datepicker button white") do
@@ -17,10 +16,15 @@
         
     .clear
     
-    -if last_visitors
+    -if @date == Date.today
+      -if last_visitors
+        %p.subtitle 
+          = _("Last Visitors:")
+          != last_visitors
+    -else
       %p.subtitle 
-        = _("Last Visitors:")
-        != last_visitors
+        = _("This is a preview of that day")
+        != "(#{link_to 'show today', backend_inventory_pool_path(current_inventory_pool)})"
     
   %section.order
     .inlinetabs

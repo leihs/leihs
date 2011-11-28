@@ -17,16 +17,28 @@
   width: 14px;
 }
 
-.back.icon { 
-  background-position: -132px -15px;
+.back.icon {
+  background: url($image-sprite) no-repeat 14px 14px; 
+  background-position: -102px 0;
   height: 14px;
   width: 14px;
+  @include opacity(0.6);
 }
 
-.forward.icon { 
-  background-position: -132px -30px;
+.button:hover {
+  .back.icon {@include opacity(1.0)}
+}
+
+.forward.icon {
+  background: url($image-sprite) no-repeat 14px 14px; 
+  background-position: -102px -15px;
   height: 14px;
   width: 14px;
+  @include opacity(0.6);
+}
+
+.button:hover {
+  .forward.icon {@include opacity(1.0)}
 }
 
 .orders.icon {
@@ -41,6 +53,12 @@
   width: 23px;
 }
 
+.overdue_hand_over.icon {
+  background-position: -147px 0;
+  height: 16px;
+  width: 24px;
+}
+
 .overdue.icon {
   background-position: -96px 0;
   height: 16px;
@@ -51,6 +69,12 @@
   background-position: -48px 0;
   height: 16px;
   width: 21px;
+}
+
+.overdue_take_back.icon {
+  background-position: -147px -17px;
+  height: 16px;
+  width: 24px;
 }
 
 .edit.icon {

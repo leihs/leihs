@@ -217,7 +217,7 @@ Leihs::Application.routes.draw do
         end
         resources :acknowledge do
           member do
-            get :approve
+            #NOTE: (Not needed any more) get :approve 
             post :approve
             get :reject
             post :reject

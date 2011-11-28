@@ -13,7 +13,7 @@ var Buttons = new Buttons();
 
 function Buttons() {
   
-  this.loadingImg = $("<img src='/assets/loading.gif' class='loading'/>");
+  this.loadingImg = $("<img src='/assets/loading.gif' class='loading icon'/>");
   this.loadingImgClones = Array();
   
   this.setup = function() {
@@ -146,8 +146,7 @@ function Buttons() {
       $(element).find(".icon").hide().after(Buttons.getLoadingImg());
       Buttons.cloneLoadingImg(1);
     } else {
-      var text = $(element).html();
-      $(element).data("text", text).width($(element).outerWidth()).html("").append(Buttons.getLoadingImg());  
+      $(element).prepend(Buttons.getLoadingImg());  
       Buttons.cloneLoadingImg(1);    
     }
     
@@ -160,8 +159,6 @@ function Buttons() {
     $(element).find(".loading").remove();
     if($(element).children(".icon").length > 0) {
       $(element).find(".icon").show();
-    } else {
-      $(element).width("auto").html($(element).data("text"));      
     }
     
     if($(element).parent().hasClass("multibutton") || $(element).parent().hasClass("alternatives")) {

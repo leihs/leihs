@@ -4,15 +4,16 @@
   .top
     %h1= _("Order from %s") % @user
     %p.subtitle
-      = _("%i Items:") % @order.quantity
+      %strong
+        = _("%i Items:") % @order.quantity
       "#{@order.purpose}"
       
-    .navigation
+    .content_navigation
       = link_to _("Reject"), reject_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
         :class => "button red open_dialog",
         :"data-dialog_class" => "acknowledge",
         :"data-rel" => "tmpl/dialog/acknowledge/reject",
-        :"data-on_success" => 'window.location = document.referrer',
+        :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading"), dialogClass: "loading"}); window.location = document.referrer',
         :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
       
       .multibutton
@@ -23,16 +24,17 @@
             :class => "button white open_dialog", 
             :"data-dialog_class" => "acknowledge",
             :"data-rel" => "tmpl/dialog/acknowledge/approve_with_comment",
-            :"data-on_success" => 'window.location = document.referrer',
+            :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading"), dialogClass: "loading"}); window.location = document.referrer',
             :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')" do
             .icon.edit
             = _("with comment")
         = link_to _("Approve Order"), approve_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
           :remote => true,
+          :method => :post,
           :class => "button green", 
           :"data-dialog_class" => "acknowledge",
           :"data-rel" => "tmpl/dialog/acknowledge/approve",
-          :"data-on_success" => 'window.location = document.referrer',
+          :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading"), dialogClass: "loading"}); window.location = document.referrer',
           :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
       
   %section.actiongroup
@@ -59,7 +61,7 @@
               = _("Delete")
           = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}/reject", :class => "button white", :remote => "true" do
             .icon.timerange
-            = _("Edit")
+            = _("Edit Selection")
     .clear
     
   %hr
