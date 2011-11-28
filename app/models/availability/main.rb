@@ -18,7 +18,7 @@ module Availability
     end
     
     def end_date_of(change)
-      first_after(change.date).try(:date).try(:yesterday) || Availability::ETERNITY
+      first_after(change.date).try(:date).try(:yesterday) || Availability::Change::ETERNITY
     end
     
     # returns a change, the last before the date argument
@@ -90,18 +90,17 @@ module Availability
     end
         
     def compute
-      @changes = Changes.new
-      reservations = model.running_reservations(inventory_pool)
       initial_change = Change.new(:date => Date.today)
-      
       current_partition = model.partitions.in(inventory_pool).current_partition
       #1402 TODO write big model_ids partition hash ?? or keep it as instance variable ??
-      
       current_partition.each_pair do |group_id, quantity|
         initial_change.quantities << Quantity.new(:group_id => group_id, :in_quantity => quantity)
       end
 
+      @changes = Changes.new
       @changes << initial_change
+
+      reservations = model.running_reservations(inventory_pool)
       reservations.each do |document_line|
         start_change = @changes.insert_or_fetch_change(document_line.unavailable_from) # we don't recalculate the past
         end_change   = @changes.insert_or_fetch_change(document_line.available_again_after_today)
@@ -135,7 +134,7 @@ module Availability
 ###########################################################
     private
 
-    def scoped_maximum_available_in_period_for_groups(group_or_groups, start_date = Date.today, end_date = Availability::ETERNITY)
+    def scoped_maximum_available_in_period_for_groups(group_or_groups, start_date = Date.today, end_date = Availability::Change::ETERNITY)
       max_per_group = Hash.new
       Array(group_or_groups).each do |group|
         max_per_group[group] = minimum_in_group_between(start_date, end_date, group)

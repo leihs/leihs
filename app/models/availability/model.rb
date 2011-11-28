@@ -32,7 +32,7 @@ module Availability
       end.sum
     end
 
-    def availability_periods_for_user(user, with_total_borrowable = false, start_date = Date.today, end_date = Availability::ETERNITY)
+    def availability_periods_for_user(user, with_total_borrowable = false, start_date = Date.today, end_date = Availability::Change::ETERNITY)
       (inventory_pools & user.inventory_pools).collect do |inventory_pool|
         groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
         h = {:inventory_pool => {:id => inventory_pool.id,

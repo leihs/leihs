@@ -10,7 +10,7 @@ module Backend::AvailabilityHelper
 
   def availability_periods_merged_groups(model, inventory_pool, user)
     start_date = Date.today
-    end_date = Availability::ETERNITY
+    end_date = Availability::Change::ETERNITY
     groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
     changes = model.availability_changes_in(inventory_pool).changes.between(start_date, end_date).available_quantities_for_groups(groups)
 
