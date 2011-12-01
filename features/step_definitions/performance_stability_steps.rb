@@ -8,7 +8,7 @@ Given /^the MacBook availability as of (\d+\-\d+\-\d+)$/ do |date|
   fixture = YAML::load( 
               File.open(
                 File.join( Rails.root,
-                           'test/fixtures/availability_calculation_performance.yml')))
+                           'features/fixtures/availability_calculation_performance.yml')))
 
   # suspend Availability recomputation - we only want to import data
   Availability::Observer.class_eval \
