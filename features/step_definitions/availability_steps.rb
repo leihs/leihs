@@ -68,7 +68,7 @@ end
 
 Then "it should always be available" do
   @model.availability_changes_in(@inventory_pool).
-	 maximum_available_in_period_for_user(@user, Date.today, Availability::ETERNITY).
+	 maximum_available_in_period_for_user(@user, Date.today, Availability::Change::ETERNITY).
          should > 0
 end
 
