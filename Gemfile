@@ -26,7 +26,7 @@ end
 gem 'rails_autolink', '~> 1.0.2'
 
 gem 'will_paginate', '~> 3.0'
-gem 'thinking-sphinx', '~> 2.0.7', :require => 'thinking_sphinx'
+gem 'thinking-sphinx', '~> 2.0.10', :require => 'thinking_sphinx'
 
 gem 'gettext_i18n_rails', '~> 0.3'
 gem 'ruby_parser', '~> 2.3' # gettext dependency that Bundler seems unable to resolve
