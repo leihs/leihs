@@ -54,6 +54,9 @@ class Item < ActiveRecord::Base
   belongs_to :owner, :class_name => "InventoryPool", :foreign_key => "owner_id"
   belongs_to :supplier
   belongs_to :inventory_pool
+
+  # only used for sphinx not_in_stock attribute
+  has_one :out_item_line, :class_name => "ItemLine", :conditions => "returned_date IS NULL"
   
   has_many :contract_lines
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
@@ -91,15 +94,13 @@ class Item < ActiveRecord::Base
 
     has :is_borrowable, :is_broken, :is_incomplete, :is_inventory_relevant, :type => :boolean
     has :parent_id, :model_id, :location_id, :owner_id, :inventory_pool_id, :supplier_id
-# OPTIMIZE
+
+    # OPTIMIZE
     # this will also exclude items that are reserved for future hand over
-    # - i.e. contract_lines that only start in the future and allready have
-    #   an item assigned
-    has "items.id NOT IN " \
-          "(SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) " \
-        "AND parent_id IS NULL",
-        :as => :in_stock, :type => :boolean
-#    has "items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)", :as => :not_in_stock, :type => :boolean
+    # - i.e. contract_lines that only start in the future and allready have an item assigned
+    has out_item_line(:id), :as => :not_in_stock, :type => :boolean
+    #has "parent_id IS NOT NULL", :as => :is_child, :type => :boolean
+
     # 0501
     has "retired IS NOT NULL", :as => :retired, :type => :boolean
     has model(:is_package), :as => :model_is_package, :type => :boolean
@@ -199,8 +200,9 @@ class Item < ActiveRecord::Base
   #temp# named_scope :packaged, :conditions => "parent_id IS NOT NULL"
   
   # Added parent_id to "in_stock" so items that are in packages are considered to not be available
-  named_scope :in_stock, :conditions => ['items.id NOT IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL) AND parent_id IS NULL']
-  named_scope :not_in_stock, :conditions => ['items.id IN (SELECT item_id FROM contract_lines WHERE item_id IS NOT NULL AND returned_date IS NULL)']
+  named_scope :in_stock, :joins => "LEFT JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL",
+                         :conditions => "contract_lines.id IS NULL AND parent_id IS NULL"
+  named_scope :not_in_stock, :joins => "INNER JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL"
 
 ####################################################################
 
