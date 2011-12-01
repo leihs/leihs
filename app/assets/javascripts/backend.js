@@ -19,6 +19,7 @@
 //= require jquery/selection-actions/selection-actions
 //= require jquery/barcode/barcode
 //= require jquery/clearable-input/clearable-input
+//= require jquery/daily-navigator/daily-navigator
 
 /////////// Templates /////////////
 //= require_tree ./tmpl

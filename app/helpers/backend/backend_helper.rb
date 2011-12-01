@@ -4,6 +4,7 @@ module Backend::BackendHelper
     #TODO: last visitors should be scoped through inventory_pool and later through selected day in daily view
     #TODO: move this inside of the inventory pools model ?
     return false if session[:last_visitors].blank?
+    session[:last_visitors] = session[:last_visitors][0..3]
     session[:last_visitors].map { |x| link_to x.second, user_path(x.first) }.join(", ")
   end
   
@@ -14,9 +15,7 @@ module Backend::BackendHelper
     
     case section
       when "daily"
-        current_page?(backend_inventory_pool_path(current_inventory_pool)) and not params[:overdue]
-      when "overdue"
-        current_page?(backend_inventory_pool_path(current_inventory_pool)) and params[:overdue]
+        current_page?(backend_inventory_pool_path(current_inventory_pool))
       when "orders"
         current_page?(:controller => "backend/orders") ||
         !!(request.path =~ /acknowledge\/\d+$/)
@@ -30,7 +29,6 @@ module Backend::BackendHelper
       current_page?(:controller => "backend/contracts")
       when "lending"
         is_current_page?("daily") or
-        is_current_page?("overdue") or
         is_current_page?("orders") or
         is_current_page?("hand_over") or
         is_current_page?("take_back") or

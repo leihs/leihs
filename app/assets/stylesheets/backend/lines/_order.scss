@@ -15,12 +15,22 @@
     }
   }
   
+  li.range {
+    width: 112px;
+    
+    span.number {
+      display: inline-block;
+      text-align: right;
+      width: 25px;
+    }
+  }
+  
   li.date {
-    width: 86px;
+    width: 70px;
   }
   
   li.purpose {
-    width: 265px;
+    width: 190px;
   }
   
   li.short_purpose {

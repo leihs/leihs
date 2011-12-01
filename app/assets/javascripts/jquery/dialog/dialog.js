@@ -26,6 +26,7 @@ function Dialog() {
     this.followViewPortDelay = 115;
     this.followViewPortAnimationTime = 400;
     this.min_padding = 20;
+    this.checkOnScroll = true;
   
     this.add = function(_params) {
         if(_params.trigger == undefined) _params.trigger = $("body");
@@ -46,29 +47,51 @@ function Dialog() {
     
     this.checkPosition = function() {
       clearTimeout(Dialog.followViewPortDelayTimer);
+      Dialog.checkScale($(".dialog"));
+      Dialog.setPosition();
+    }
+    
+    this.setPosition = function() {
       Dialog.followViewPortDelayTimer = setTimeout(function() {
-        Dialog.checkScale($(".dialog"));
         var _top = $(".dialog").data("padding") + window.pageYOffset;
+        if(_top < 0){_top = 1;}
         var _left = ( ( $(window).width()/2 ) - ( $(".ui-dialog ").width()/2 ) + window.pageXOffset );
         $(".ui-dialog").stop(true, true).animate({
             top: _top,
             left: _left,
-        }, {queue: false, duration: Dialog.followViewPortAnimationTime});   
+        }, {queue: false, duration: Dialog.followViewPortAnimationTime});
       }, Dialog.followViewPortDelay);
     }
     
     this.checkScale = function(dialog) {
       if($(window).height() < parseInt($(dialog).data("total_height") + Dialog.min_padding*2)) {
+        // dialog is bigger than viewport
         $(dialog).data("padding", Dialog.min_padding);
         var _staticHeight = $(dialog).data("total_height") - $(dialog).data("total_scalable_height");
         var _newHeight = $(window).height() - $(dialog).data("padding")*2;
         var _scalableHeight = _newHeight - _staticHeight;
         $(dialog).find(".scalable").css("overflow-y", "scroll").height(_scalableHeight);
         $(dialog).parent().height(_newHeight);
+        
+        if($(window).height() < parseInt($(dialog).data("total_height") + Dialog.min_padding*2)) {
+          // dialog is still not fitting inside viewport
+          $(dialog).data("padding", parseInt(($(window).height()-$(dialog).data("total_height"))/2));
+          $(dialog).parent().height($(dialog).data("total_height"));
+          $(dialog).find(".scalable").height("auto").css("overflow-y", "auto");
+          $(window).unbind("scroll", Dialog.checkPosition);
+          Dialog.checkOnScroll = false;
+        }
       } else {
+        // dialog fits viewport
         $(dialog).data("padding", parseInt(($(window).height()-$(dialog).data("total_height"))/2));
         $(dialog).parent().height($(dialog).data("total_height"));
         $(dialog).find(".scalable").height("auto").css("overflow-y", "auto");
+        
+        // reset scroll binding
+        if(!Dialog.checkOnScroll) {
+          $(window).bind("scroll", Dialog.checkPosition);
+          Dialog.checkOnScroll = true;
+        }
       }
     }
     
@@ -98,6 +121,7 @@ function Dialog() {
           
           // animate
           var _top = $(this).data("padding") + window.pageYOffset;
+          if(_top < 0){_top = 1;}
           var _left = ( ( $(window).width()/2 ) - ( $(this).parent().width()/2 ) + window.pageXOffset );
           
           $(this).parent().stop(true, true).hide().fadeIn().animate({

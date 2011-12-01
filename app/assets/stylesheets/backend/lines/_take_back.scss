@@ -24,6 +24,11 @@
     white-space: nowrap;
     width: 115px;
     
+    .text.grey {
+      display: inline-block;
+      width: 65px;
+    }
+    
     .number {
       display: inline-block;
       padding-right: 2px;

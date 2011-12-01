@@ -2,7 +2,8 @@
   
   .calendar_input {
     padding-left: 2px;
-    position: absolute;
+    position: relative;
+    top: 20px;
     z-index: 9999;
     
     .container {
@@ -87,7 +88,7 @@
           width: 80px;
         }
         
-        div {
+        &>div {
           float: left;
            position: relative;
         }
@@ -95,12 +96,44 @@
         .dash {
           padding: 7px 6px 0 6px;
         }
+        
+        label {
+          .icon {
+            position: relative;
+            top: -2px;
+            @include opacity(0.6);
+            &:hover {
+              @include opacity(1.0);
+            }
+          }
+        }
       }
     }
   }
   
   #fullcalendar {
-    margin-top: 20px;
+    margin-bottom: 10px;
+    position: relative;
+    top: -13px;
     height: 567px;
+  }
+  
+  .list {
+    
+    .line {
+      
+      .name {
+        padding-left: 10px;
+        width: 410px;
+      }
+      
+      .amount {
+        width: 100px;
+      }
+      
+      .actions {
+        text-align: right;
+      }
+    }
   }
 }

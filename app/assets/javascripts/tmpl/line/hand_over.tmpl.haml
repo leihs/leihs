@@ -1,4 +1,4 @@
-%div
+%div{:class => "{{if is_overdue}}overdue{{/if}}"}
 
   {{tmpl($item.data.user) "tmpl/cell/user_name"}}
 
@@ -37,13 +37,15 @@
   %li{:class => "range"}
     {{if is_overdue}}
     %span.number
-      ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+2)}
+      %strong
+        ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+2)}
     %span.text
-      {{if Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1) > 2}}
-      = _("Days overdue")
-      {{else}}
-      = _("Day overdue")
-      {{/if}}
+      %strong
+        {{if Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1) > 2}}
+        = _("Days overdue")
+        {{else}}
+        = _("Day overdue")
+        {{/if}}
     {{else}}
     %span.text.grey
       = _("for max.")

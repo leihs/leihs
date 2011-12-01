@@ -129,17 +129,27 @@ class Backend::BackendController < ApplicationController
 
     if request.post?
       begin
-        start_date = Date.new(params[:line]['start_date(1i)'].to_i, params[:line]['start_date(2i)'].to_i, params[:line]['start_date(3i)'].to_i) if params[:line]['start_date(1i)']
-        end_date = Date.new(params[:line]['end_date(1i)'].to_i, params[:line]['end_date(2i)'].to_i, params[:line]['end_date(3i)'].to_i) if params[:line]['end_date(1i)']
+        start_date = if params['start_date']
+          Date.parse(params['start_date'])
+        elsif params[:line]['start_date(1i)']
+          Date.new(params[:line]['start_date(1i)'].to_i, params[:line]['start_date(2i)'].to_i, params[:line]['start_date(3i)'].to_i)  
+        end
+        
+        end_date = if params['end_date']
+          Date.parse(params['end_date'])
+        elsif params[:line]['end_date(1i)']
+          Date.new(params[:line]['end_date(1i)'].to_i, params[:line]['end_date(2i)'].to_i, params[:line]['end_date(3i)'].to_i)
+        end
+         
         @lines.each {|l| l.document.update_time_line(l.id, start_date, end_date, current_user.id) }
       rescue
+        respond_to do |format|
+          format.js { render :text => "Error", :status => 500 }
+        end
       end 
-      flash[:error] = []
-      @lines.collect(&:document).uniq.each {|doc| flash[:error] += doc.errors.full_messages }
-      redirect_to :action => 'show', :id => @lines.first.document.id # NOTE only used for Acknowledge
-    else
-      params[:layout] = "modal"
-      render :template => 'backend/backend/time_lines'
+      respond_to do |format|
+        format.js { render :json => true, :status => 200 }
+      end
     end   
   end    
   

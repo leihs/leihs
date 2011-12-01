@@ -44,11 +44,12 @@
         .icon.delete
         = _("Delete")
         
-    = link_to "", :class => "button white open_dialog", 
-                                                                                                                :"data-rel" => "tmpl/dialog/calendar/edit_single", 
-                                                                                                                :"data-dialog_class" => "calendar",
-                                                                                                                :"data-on_success" => 'console.log("SUCCESS")',
-                                                                                                                :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
+    = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${order.user_id}/acknowledge/${order.id}/update_lines", 
+      :class => "button white open_dialog", 
+      :"data-rel" => "tmpl/dialog/calendar/edit_single", 
+      :"data-dialog_class" => "calendar",
+      :"data-on_success" => 'List.update_lines($(".dialog #fullcalendar").data("lines"), {start_date: (new Date(getDateFromFormat($(".dialog #start_date").val(), BookingCalendar.local.dateFormat))).toJSON().substr(0, 10), end_date: (new Date(getDateFromFormat($(".dialog #end_date").val(), BookingCalendar.local.dateFormat))).toJSON().substr(0,10), quantity: $(".dialog #quantity").val()})',
+      :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
       .icon.timerange
       = _("Edit")
   

@@ -1,5 +1,14 @@
 %h1
+  {{if title}}
+  ${title}
+  {{else}}
   = _("Loading...")
-%p.subtitle= _("please wait")
+  {{/if}}
+%p.subtitle
+  {{if message}}
+  ${message}
+  {{else}}
+  = _("please wait")
+  {{/if}}
 
-%img{:src => "/assets/loading.gif", :class => "loading icon"}
+%img{:src => "/assets/loading.gif", :class => "loading icon big"}

@@ -4,6 +4,10 @@
     width: 760px !important;
   }
   
+  h1 {
+    width: 500px;
+  }
+  
   p.subtitle {
     width: 500px;
   }
@@ -23,7 +27,7 @@
     }
   }
   
-  .loading {
+  .loading.icon.big {
     background: white;
     display: block;
     height: 20px;

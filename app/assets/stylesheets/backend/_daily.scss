@@ -20,5 +20,14 @@
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
+    
+    .datepicker input {
+      position: absolute;
+      top: 25px;
+      left: -30px;
+      height: 1px;
+      width: 1px;
+      @include opacity(0);
+    }
   }
 }

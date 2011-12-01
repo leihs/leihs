@@ -8,6 +8,7 @@
  *= depend_on shared/_variables
  *= depend_on shared/_mixins
  *= depend_on shared/_buttons
+ *= depend_on shared/_multibutton
  *= depend_on shared/_content
  *= depend_on shared/_datepicker
  *= depend_on shared/_fullcalendar
@@ -59,6 +60,7 @@
 @import "shared/mixins.scss";
 @import "shared/master.scss";
 @import "shared/buttons.scss";
+@import "shared/multibutton.scss";
 @import "shared/content.scss";
 @import "shared/datepicker.scss";
 @import "shared/fullcalendar.scss";

@@ -25,7 +25,7 @@
   @include opacity(0.6);
 }
 
-.button:hover {
+.button:not([disabled=disabled]):hover {
   .back.icon {@include opacity(1.0)}
 }
 
@@ -37,7 +37,7 @@
   @include opacity(0.6);
 }
 
-.button:hover {
+.button:not([disabled=disabled]):hover {
   .forward.icon {@include opacity(1.0)}
 }
 
@@ -170,5 +170,12 @@
 .swap.icon {
   background-position: -130px -134px;
   height: 14px;
+  width: 14px;
+}
+
+.jumpto.icon {
+  background: url($image-sprite) no-repeat;
+  background-position: -102px -30px;
+  height: 12px;
   width: 14px;
 }

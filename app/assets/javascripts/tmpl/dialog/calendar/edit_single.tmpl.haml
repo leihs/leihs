@@ -4,50 +4,69 @@
                                         :"data-name"               => "${JSON.stringify(availability_for_user[0].inventory_pool.name)}",
                                         :"data-address"            => "${JSON.stringify(availability_for_user[0].inventory_pool.address)}",
                                         :"data-availability_dates" => "${JSON.stringify(availability_for_user[0].availability)}" } ] ]
-                                     
-%h1
-  %strong
-    = _("Edit ordered item")
-%p.subtitle
-  ${model.name}
-  = "for"
-  %strong
-    ${order.user.firstname}
-    ${order.user.lastname}
-.navigation
-  %button.button.white.close_dialog
-    .icon.return
-    = _("Revert")
-  %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
-    = _("Confirm")
-%hr
 
-.calendar_input
-
-  .quantity.container
-    = text_field_tag :quantity, "${quantity}", :min => 1, :max => "${total_rentable}", :tabindex => "1", :class => "focus", :autocomplete => "off"
-    %label{:for => "quantity"}
-      = _("Quantity")
-    = link_to "javascript:void(0)", :class => "increase" do
-      %span.icon
-    = link_to "javascript:void(0)", :class => "decrease" do
-      %span.icon
-        
-  .date.container
-    .start_date
-      = text_field_tag :start_date, "${start_date}", :tabindex => "2", :autocomplete => "off"
-      %label{:for => "start_date"}
-        = _("Start Date")
-    .dash
-      = "-"
-    .end_date
-      = text_field_tag :end_date, "${end_date}", :tabindex => "3", :autocomplete => "off"
-      %label{:for => "end_date"}
-        = _("End Date")
+= form_tag '${$item.action}', :remote => true do                                       
+  %h1
+    = _("Edit ordered item") 
+  %p.subtitle
+    = _("for")
+    %strong
+      ${order.user.firstname}
+      ${order.user.lastname}
+  .navigation
+    %button.button.white.close_dialog
+      .icon.return
+      = _("Revert")
+    %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
+      = _("Save Changes")
   
-  .inventorypool.container
-    = select_tag :inventory_pool_id, options_for_select(o)
-
-.clear
-
-#fullcalendar
+  .calendar_input
+    .quantity.container
+      = text_field_tag :quantity, "${quantity}", :min => 1, :max => "${total_rentable}", :tabindex => "1", :class => "focus", :autocomplete => "off"
+      %label{:for => "quantity"}
+        = _("Quantity")
+      = link_to "javascript:void(0)", :class => "increase" do
+        %span.icon
+      = link_to "javascript:void(0)", :class => "decrease" do
+        %span.icon
+          
+    .date.container
+      .start_date
+        = text_field_tag :start_date, "${start_date}", :tabindex => "2", :autocomplete => "off"
+        %label{:for => "start_date"}
+          = _("Start Date")
+          .icon.jumpto.fc-goto-start{:title => _("jump to this date")}
+      .dash
+        = "-"
+      .end_date
+        = text_field_tag :end_date, "${end_date}", :tabindex => "3", :autocomplete => "off"
+        %label{:for => "end_date"}
+          = _("End Date")
+          .icon.jumpto.fc-goto-end{:title => _("jump to this date")}
+    
+    .inventorypool.container
+      = select_tag :inventory_pool_id, options_for_select(o)
+  
+  .clear
+  
+  #fullcalendar{:"data-line_ids" => "[${id}]"}
+  
+  .list
+    %ul.line
+      .container
+        %li.name
+          %strong
+            ${model.name}
+        %li.amount
+          ="${total_rentable}"
+          %span.grey
+          = _("total rentable")
+      %li.actions
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${order.user_id}/acknowledge/${order.id}/update_lines", 
+          :class => "button white open_dialog", 
+          :"data-rel" => "tmpl/dialog/calendar/edit_single", 
+          :"data-dialog_class" => "calendar",
+          :"data-on_success" => 'List.update_lines($(".dialog #fullcalendar").data("lines"), {start_date: (new Date(getDateFromFormat($(".dialog #start_date").val(), BookingCalendar.local.dateFormat))).toJSON().substr(0, 10), end_date: (new Date(getDateFromFormat($(".dialog #end_date").val(), BookingCalendar.local.dateFormat))).toJSON().substr(0,10), quantity: $(".dialog #quantity").val()})',
+          :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
+          .icon.swap
+          = _("Change")

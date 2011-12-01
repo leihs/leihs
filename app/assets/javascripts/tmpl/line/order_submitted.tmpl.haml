@@ -41,24 +41,37 @@
         {{/each}}  
       {{/if}}
       {{/each}}
-        
+  
   %li.date
     {{html formatDate(new Date(created_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+  
+  %li.range
+    {{if max_range}}
+    %span.text
+      %span.grey
+        = _("for max.")
+    %span.number
+      ${max_range}
+    %span.text
+      = _("Days")
+    {{/if}}
       
   {{if String(purpose).length > 70}}
   %li.purpose.hastip
     %span.text
-      {{html String(purpose).substring(0, 70) }}
-      {{if String(purpose).length > 70}}
-      {{html "..."}}
-      {{/if}}
+      %i
+        {{html String(purpose).substring(0, 70) }}
+        {{if String(purpose).length > 70}}
+        {{html "..."}}
+        {{/if}}
     .tip
       %p
         ${purpose}
   {{else}}
   %li.purpose
     %span.text
-      {{html String(purpose).substring(0, 70) }}
+      %i
+        ${purpose}
   {{/if}}
       
 %li.actions

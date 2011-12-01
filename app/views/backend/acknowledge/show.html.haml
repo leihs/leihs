@@ -1,11 +1,11 @@
 -content_for :title, _("Order from %s") % @user
 
-#acknowledge.innercontent{:"data-order" => @order.to_json}
+#acknowledge.innercontent{:"data-order" => @order.to_json, :"data-grouped_lines" => @grouped_lines.to_json}
   .top
     %h1= _("Order from %s") % @user
     %p.subtitle
-      %strong
-        = _("%i Items:") % @order.quantity
+      = pluralize(@order.quantity, _("Item"))
+      = _("for") 
       "#{@order.purpose}"
       
     .content_navigation
@@ -13,7 +13,7 @@
         :class => "button red open_dialog",
         :"data-dialog_class" => "acknowledge",
         :"data-rel" => "tmpl/dialog/acknowledge/reject",
-        :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading"), dialogClass: "loading"}); window.location = document.referrer',
+        :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Rejection Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
         :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
       
       .multibutton
@@ -24,7 +24,7 @@
             :class => "button white open_dialog", 
             :"data-dialog_class" => "acknowledge",
             :"data-rel" => "tmpl/dialog/acknowledge/approve_with_comment",
-            :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading"), dialogClass: "loading"}); window.location = document.referrer',
+            :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
             :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')" do
             .icon.edit
             = _("with comment")
@@ -34,7 +34,7 @@
           :class => "button green", 
           :"data-dialog_class" => "acknowledge",
           :"data-rel" => "tmpl/dialog/acknowledge/approve",
-          :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading"), dialogClass: "loading"}); window.location = document.referrer',
+          :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
           :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
       
   %section.actiongroup

@@ -104,6 +104,12 @@ class Backend::AcknowledgeController < Backend::BackendController
     generic_time_lines(@order)
   end    
   
+  def update_lines
+    order_lines = @order.lines.find(params[:line_ids])
+    required_quantity = params[:quantity].to_i
+    #TODO: GO ON HERE
+  end
+  
   def remove_lines
     generic_remove_lines(@order)
   end
@@ -136,7 +142,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def pre_load
       @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
-      @order = @user.orders.submitted.find(params[:id]) if params[:id] and @user
+      @order = @user.orders.submitted.scoped_by_inventory_pool_id(current_inventory_pool).find(params[:id]) if params[:id] and @user
     rescue
       respond_to do |format|
         format.html { redirect_to :action => 'index' unless @order }

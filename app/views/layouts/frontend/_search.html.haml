@@ -3,6 +3,7 @@
     = form_tag("") do
       %input{:type => "text"}
       = submit_tag "", :class => "icon"
+      = image_tag "loading.gif", :class => "loading"
     .borderright
 
 :javascript
@@ -82,10 +83,16 @@
       	appendTo: "#search",
       	position: {
           offset: "0 3"      	  
+      	},
+      	search: function(event, ui) {
+      	 $("#search .loading").show();
+      	 $("#search .icon").hide();
+      	},
+      	open: function(event, ui) {
+      	 $("#search .loading").hide();
+         $("#search .icon").show();
       	}
-      });
-      
-      $("#search input:text").bind("focus", function(event){
+      }).bind("focus", function(event){
         if($(event.target).val().length >= 2) {
           $(".ui-autocomplete").show();        
         }

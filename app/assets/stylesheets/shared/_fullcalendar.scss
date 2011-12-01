@@ -1,5 +1,5 @@
 .calendar-tail {
-  display: block;
+  display: none;
   height: 47px !important;
   min-height: 47px !important;
   position: absolute;
@@ -238,6 +238,9 @@
       
     .fc-today {
        background: $highlight-grey;
+       .fc-day-number {
+         font-weight: bold;
+       }
     }
       
     .fc-cell-overlay { /* semi-transparent rectangle while dragging */

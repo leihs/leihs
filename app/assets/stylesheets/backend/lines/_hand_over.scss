@@ -1,7 +1,7 @@
 .hand_over.line {
   
   li.items {
-    width: 142px;
+    width: 120px;
     
     .number {
       display: inline-block;
@@ -18,6 +18,11 @@
   li.range {
     white-space: nowrap;
     width: 115px;
+    
+    .text.grey {
+      display: inline-block;
+      width: 65px;
+    }
     
     .number {
       display: inline-block;

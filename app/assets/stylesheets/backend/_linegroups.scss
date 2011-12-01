@@ -15,7 +15,7 @@
     
     &.selected {
       background: $highlight-darkergrey;
-      border: 1px solid $borderdarkergrey;
+      border: 1px solid $borderdarkgrey;
       @include boxShadow(0 0 5px #DDD);
     }
     

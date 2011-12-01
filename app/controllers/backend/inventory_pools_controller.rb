@@ -26,6 +26,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
 
   def show
     @date = (params[:date]) ? Date.parse(params[:date]) : Date.today
+    redirect_to backend_inventory_pool_path(current_inventory_pool) if @date<Date.today
     
     @orders = current_inventory_pool.orders.submitted
     
@@ -46,12 +47,12 @@ class Backend::InventoryPoolsController < Backend::BackendController
          :value => "#{take_back_visits_on_day.size+hand_over_visits_on_day.size} Visits<br/>#{take_back_visits_on_day.sum(&:quantity)+hand_over_visits_on_day.sum(&:quantity)} Items"}]
     end
     
-    if(params[:overdue] == "true")
-      @hand_overs.delete_if {|v| v.date >= Date.today}
-      @take_backs.delete_if {|v| v.date >= Date.today}
+    if(params[:date] && Date.parse(params[:date]) != Date.today)
+      @hand_overs.delete_if {|v| v.date <= @date}
+      @take_backs.delete_if {|v| v.date <= @date}
     else
-      @hand_overs.delete_if {|v| v.date > @date || v.date < @date}
-      @take_backs.delete_if {|v| v.date > @date || v.date < @date}
+      @hand_overs.delete_if {|v| v.date > @date}
+      @take_backs.delete_if {|v| v.date > @date}
     end
   end
   

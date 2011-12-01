@@ -1,4 +1,81 @@
--if params[:overdue] == "true"
-  = render :partial => 'backend/inventory_pools/overdue'
--else
-  = render :partial => 'backend/inventory_pools/daily_view'
+-content_for :title, _("Daily View")
+#daily.innercontent
+  
+  .top
+    %h1= l @date, :format => :day_long, :scope => 'leihs'
+    
+    .content_navigation
+      = link_to backend_inventory_pool_path(current_inventory_pool), :class => "today button white", :title => _("go to today") do
+        = _("Today")
+      = button_tag(:class => "datepicker button white", :title => _("open datepicker")) do
+        .icon.datepicker
+        = text_field_tag "datepicker", :id => "datepicker"
+      = button_tag(:class => "day back button white", :title => l(@date-1, :format => :day_long, :scope => 'leihs')) do
+        .icon.back
+      = button_tag(:class => "day forward button white", :title => l(@date+1, :format => :day_long, :scope => 'leihs')) do
+        .icon.forward
+        
+    .clear
+    
+    -if @date == Date.today
+      -if last_visitors
+        %p.subtitle
+          = _("Last Visitors:")
+          != last_visitors
+    -else
+      %p.subtitle 
+        = _("This is a preview of that day")
+        
+  -if @date == Date.today
+    %section.order
+      .inlinetabs
+        .tab
+          .icon.orders
+          %span.text
+            = _("Open Orders")
+          .badge
+            = @orders.size
+      .list
+  
+  %section.hand_over
+    .inlinetabs
+      .tab
+        .icon.hand_over
+        %span.text
+          = _("Hand Overs")
+        .badge
+          = @hand_overs.size
+    .list
+     
+  %section.take_back
+    .inlinetabs
+      .tab
+        .icon.take_back
+        %span.text
+          = _("Take Backs")
+        .badge
+          = @take_backs.size 
+    .list
+    
+= render :partial => 'backend/inventory_pools/bar_chart'
+      
+:javascript
+  
+  $(document).ready(function(){
+    $('.list').hide();
+    
+    $('.order .list').append($.tmpl("tmpl/line", #{@orders.to_json}));
+    $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs.to_json}));
+    $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs.to_json}));
+    
+    $(".list").showMore({
+      min: 4,
+      offset: {
+        top: -36
+      },
+      more: "<li><span class='icon'></span>%d #{_('more')}</li>",
+      less: "<li><span class='icon'></span>#{_('show less')}</li>"
+    });
+    
+    $('.list').show();
+  });

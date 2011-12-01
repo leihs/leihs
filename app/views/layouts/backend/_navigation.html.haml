@@ -5,29 +5,16 @@
       = link_to backend_inventory_pool_path(current_inventory_pool), :class => "anchor" do
         .leftend
         = _("Daily View")
-        
-    %li.item{:class => is_current_page?("overdue") ?"active" : nil}
-      = link_to backend_inventory_pool_path(current_inventory_pool, :overdue => "true"), :class => "anchor" do
-        .leftend
-        = _("Overdue Visits")
-        .badge
-          = current_inventory_pool.visits.select{|v| v.date < Date.today}.count
-        
+    
     %li.item{:class => is_current_page?("orders") ?"active" : nil}
       = link_to backend_inventory_pool_orders_path(current_inventory_pool), :class => "anchor" do
         .leftend
         = _("Orders")
         
-    /    
-      %li.item{:class => is_current_page?("hand_over") ?"active" : nil}
-        = link_to url_for(:controller => "hand_over"), :class => "anchor" do
-          .leftend
-          = _("Hand Overs")
-  
-      %li.item{:class => is_current_page?("take_back") ?"active" : nil}
-        = link_to url_for(:controller => "take_back"), :class => "anchor" do
-          .leftend
-          = _("Take Backs")
+    %li.item{:class => is_current_page?("visits") ?"active" : nil}
+      = link_to "javascript:void(0);", :onclick => "javascript:alert('Dieser Bereicht wird bald implementiert.');", :class => "anchor" do
+        .leftend
+        = _("Visits")
         
     %li.item{:class => is_current_page?("contracts") ?"active" : nil}
       = link_to backend_inventory_pool_contracts_path(current_inventory_pool), :class => "anchor" do

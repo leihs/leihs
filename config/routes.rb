@@ -224,13 +224,13 @@ Leihs::Application.routes.draw do
             get :delete
             get :add_line
             post :add_line
-            post :change_line_quantity
+            post :change_line_quantity # TODO remove soon
             get :remove_lines
             delete :remove_lines
-            get :swap_model_line
-            post :swap_model_line
-            get :time_lines
-            post :time_lines
+            get :swap_model_line # TODO remove soon
+            post :swap_model_line # TODO remove soon
+            post :time_lines # TODO remove soon
+            post :update_lines 
             get :restore
             post :restore
             get :swap_user

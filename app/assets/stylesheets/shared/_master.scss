@@ -1,8 +1,12 @@
 html {
-  background: #f4f2ed url("background.png") repeat-x top center;
+  background: #f4f2ed;
   color: $darkgrey;
   font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
   font-size: 62.5%;
+}
+
+body {
+  background: #f4f2ed url("background.png") repeat-x top center;
 }
 
 a, a:link, a:visited {   

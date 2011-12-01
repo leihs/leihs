@@ -146,6 +146,5 @@
   top: 0;
   left: 0;
   @include opacity(0.5);
-  @include boxShadow(inset 0 0 300px #000);
 }
 

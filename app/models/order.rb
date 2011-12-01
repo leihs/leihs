@@ -262,10 +262,16 @@ class Order < Document
     required_options = {:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}}},
                                      :user => {:only => [:firstname, :lastname, :id, :phone, :email, :extended_info ] } },
                         :methods => [:quantity, :max_single_range]}
+                        
     
     json = super(options.deep_merge(required_options))
     
-    json.merge({:type => self.class.to_s.underscore})
+    max_range = order_lines.max {|x| x.end_date - x.start_date}
+    max_range = Integer(max_range[:end_date] - max_range[:start_date] + 1)
+    json.merge({:type => self.class.to_s.underscore,
+                :min_date => order_lines.min {|x| x.start_date}[:start_date],
+                :max_date => order_lines.max {|x| x.end_date }[:end_date],
+                :max_range => max_range})
   end
   
   ############################################
