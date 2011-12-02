@@ -104,10 +104,31 @@ class Backend::AcknowledgeController < Backend::BackendController
     generic_time_lines(@order)
   end    
   
-  def update_lines
-    order_lines = @order.lines.find(params[:line_ids])
-    required_quantity = params[:quantity].to_i
-    #TODO: GO ON HERE
+  def update_lines(line_ids = params[:line_ids], required_quantity = params[:quantity].to_i )
+    errors = []
+    order_lines = @order.lines.find(line_ids)
+
+    OrderLine.transaction do
+      # TODO merge to Order#update_line
+      order_lines.each do |order_line|
+        max_available = order_line.maximum_available_quantity
+        original_quantity = order_line.quantity
+        order_line.quantity = [required_quantity, 0].max
+        if order_line.save
+          change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => order_line.model.name, :from => original_quantity, :to => order_line.quantity }
+          if required_quantity > max_available
+            change += " " + _("(maximum available: %{max})") % {:max => max_available}
+            errors << _("Choosen quantity is not available")
+            raise ActiveRecord::Rollback, _("Choosen quantity is not available")
+          end
+          @order.log_change(change, current_user.id)
+        end
+      end
+    end
+
+    respond_to do |format|
+      format.js { render :json => errors.join(', '), :status => (errors.empty? ? 200 : 500) }
+    end
   end
   
   def remove_lines
