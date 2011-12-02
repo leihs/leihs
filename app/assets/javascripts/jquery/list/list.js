@@ -48,19 +48,19 @@ function List() {
   
   this.remove_line = function(element, color) {
     var parent = $(element).parents(".list");
-    $(element).css("background-color", color).fadeOut(1000, function(){
+    $(element).css("background-color", color).fadeOut(400, function(){
       List.subtract(parent);
       $(this).remove();
     });
   }
   
   this.update_reminder = function(element) {
-    $(element).find(".reminder .grey").fadeOut(500, function(){
-      $(this).siblings(".text").fadeIn(500);
+    $(element).find(".reminder .grey").fadeOut(300, function(){
+      $(this).siblings(".text").fadeIn(300);
     });
-    $(element).find(".reminder .date").fadeOut(500, function(){
+    $(element).find(".reminder .date").fadeOut(300, function(){
       var _text = "Today " + new Date().getHours() + ":" + new Date().getMinutes();
-      $(this).html(_text).fadeIn(500);
+      $(this).html(_text).fadeIn(300);
     });
   }
   
