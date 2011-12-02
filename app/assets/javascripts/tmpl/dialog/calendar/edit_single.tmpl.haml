@@ -14,11 +14,13 @@
       ${order.user.firstname}
       ${order.user.lastname}
   .navigation
-    %button.button.white.close_dialog
-      .icon.return
-      = _("Revert")
+    %button.button.red.close_dialog
+      = _("Cancle")
+      .icon.delete
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
       = _("Save Changes")
+  
+  .flash_message
   
   .calendar_input
     .quantity.container
