@@ -111,23 +111,16 @@ class Backend::AcknowledgeController < Backend::BackendController
     OrderLine.transaction do
       # TODO merge to Order#update_line
       order_lines.each do |order_line|
-        max_available = order_line.maximum_available_quantity
-        original_quantity = order_line.quantity
         order_line.quantity = [required_quantity, 0].max
-        if order_line.save
-          change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => order_line.model.name, :from => original_quantity, :to => order_line.quantity }
-          if required_quantity > max_available
-            change += " " + _("(maximum available: %{max})") % {:max => max_available}
-            errors << _("Choosen quantity is not available")
-            raise ActiveRecord::Rollback, _("Choosen quantity is not available")
-          end
-          @order.log_change(change, current_user.id)
+        if order_line.changes[:quantity]
+          change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => order_line.model.name, :from => order_line.changes[:quantity].first, :to => order_line.changes[:quantity].last }
+          @order.log_change(change, current_user.id) if order_line.save
         end
       end
     end
 
     respond_to do |format|
-      format.js { render :json => errors.join(', '), :status => (errors.empty? ? 200 : 500) }
+      format.js { render :json => order_lines.as_json(:current_user => @user) }
     end
   end
   

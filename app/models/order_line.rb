@@ -71,7 +71,8 @@ class OrderLine < DocumentLine
 
     required_options = {:include => {:model => {:methods => :package_models},
                                      :order => {:include => {:user => {:only => [:firstname, :lastname]}}}
-                                    }}
+                                    },
+                        :methods => :is_complete}
     
     json = super(options.deep_merge(required_options))
     

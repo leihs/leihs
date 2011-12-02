@@ -33,6 +33,7 @@ class DocumentLine < ActiveRecord::Base
   def complete?
     self.valid? and self.available?
   end
+  alias :is_complete :complete?
 
   # TODO 04** merge in complete? 
   def complete_tooltip
