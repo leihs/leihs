@@ -3,7 +3,7 @@ module Availability
 
     def self.included(base)
       attr_accessor :should_recompute_after_update
-      #after_initialize see below
+      base.after_initialize { @should_recompute_after_update = true }
     end
 
     # manual association, reversing serialized references
@@ -12,10 +12,6 @@ module Availability
       @changes ||= model.availability_changes_in(inventory_pool).changes
       aq = @changes.select {|x| x.date >= sd and x.date <= end_date }.collect(&:quantities).flatten
       aq.select {|x| x.out_document_lines and x.out_document_lines[self.class.to_s].try(:include?, id)}
-    end
-
-    def after_initialize
-      @should_recompute_after_update = true # default
     end
 
     def recompute
@@ -96,7 +92,6 @@ module Availability
       end
     end
 
-    # this is only used for unsubmitted OrderLines
     def maximum_available_quantity
       model.availability_changes_in(inventory_pool).maximum_available_in_period_for_user(document.user, start_date, end_date)      
     end
