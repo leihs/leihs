@@ -27,7 +27,7 @@ module Availability
     end
 
     # returns a Hash {group_id => sum_quantity}
-    def available_quantities_for_groups(groups, in_seconds = false)
+    def available_quantities_for_groups(groups)
       group_ids = [Group::GENERAL_GROUP_ID] + groups.collect(&:id)
       map do |change|
         #selected_quantities = change.quantities.select {|q| group_ids.include?(q.group_id) }
@@ -35,7 +35,7 @@ module Availability
         total = change.quantities.inject(0) do |sum,q|
           group_ids.include?(q.group_id) ? sum + q.in_quantity : sum
         end      
-        [(in_seconds ? change.date.to_datetime.to_i : change.date), total]
+        [change.date, total]
       end
     end
 
