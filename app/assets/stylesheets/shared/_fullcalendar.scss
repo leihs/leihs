@@ -21,7 +21,6 @@
 #fullcalendar {
     margin-left: 3px;
     margin-top: 8px;
-    @include unselectable();
     
     .fc-widget-content {
       cursor: pointer;
@@ -59,7 +58,6 @@
       
       .fc-day-content > div {
         color: #3a3a3a !important;
-        @include unselectable();
       }
       
       .fc-day-number {
@@ -561,7 +559,6 @@
       position: absolute;
       top: 2px;
       right: 2px;
-      @include unselectable();
     }
       
     .fc-grid .fc-other-month .fc-day-number {

@@ -5,10 +5,12 @@
   vertical-align: middle;
 }
 
-.button.small .icon {
-  &.valuelist {
-    margin: 0 1px;
-  }
+a.button .icon {
+  vertical-align: middle;
+}
+
+button .icon {
+  vertical-align: top;
 }
 
 .datepicker.icon { 
