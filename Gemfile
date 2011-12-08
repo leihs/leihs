@@ -4,7 +4,7 @@ gem 'rails', '3.1.3'
 #tmp# gem 'builder', '~> 3.0' 
 #tmp# gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
-gem 'mysql2', '~> 0.3.8'
+gem 'mysql2', '~> 0.3.11'
 #tmp# gem 'squeel', '~> 0.8.4'
 
 # Asset template engines
@@ -20,10 +20,10 @@ gem 'haml_assets'
 group :assets do
   gem 'sass-rails', '~> 3.1'
   gem 'coffee-rails', '~> 3.1'
-  gem 'uglifier', '~> 1.0'
+  gem 'uglifier', '~> 1.1'
 end
 
-gem 'rails_autolink', '~> 1.0.2'
+gem 'rails_autolink', '~> 1.0'
 
 gem 'will_paginate', '~> 3.0'
 gem 'thinking-sphinx', '~> 2.0.10', :require => 'thinking_sphinx'
@@ -49,10 +49,10 @@ gem 'prawnto', '~> 0.0.4'
 gem 'nested_set', '~> 1.6.8'
 gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
-gem 'geocoder', '~> 1.0'
+gem 'geocoder', '~> 1.1'
 
 group :profiling, :development do
-	gem 'newrelic_rpm', '~> 3.1'
+	gem 'newrelic_rpm', '~> 3.3'
 end
 
 group :development do 
@@ -64,12 +64,12 @@ group :cucumber, :development do
 end
 
 group :cucumber, :test do
-	gem 'cucumber-rails', '~> 1.0', :require => false
-	gem 'database_cleaner', '~> 0.6.7', :require => false
+	gem 'cucumber-rails', '~> 1.2', :require => false
+	gem 'database_cleaner', '~> 0.7', :require => false
 	gem 'rspec', '~> 2.7', :require => false
 	gem 'rspec-rails', '~> 2.7', :require => false
 	gem 'nokogiri', '~> 1.5.0'
-	gem 'capybara', '~> 1.0'
+	gem 'capybara', '~> 1.1'
   gem 'launchy', '~> 2.0.5'
 end
 
