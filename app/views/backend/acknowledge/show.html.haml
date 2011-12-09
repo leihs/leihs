@@ -1,6 +1,6 @@
 -content_for :title, _("Order from %s") % @user
 
-#acknowledge.innercontent{:"data-order" => @order.to_json, :"data-grouped_lines" => @grouped_lines.to_json}
+#acknowledge.innercontent
   .top
     %h1= _("Order from %s") % @user
     %p.subtitle
@@ -14,7 +14,7 @@
         :"data-dialog_class" => "acknowledge",
         :"data-rel" => "tmpl/dialog/acknowledge/reject",
         :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Rejection Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
-        :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
+        :"data-ref_for_dialog" => "$('#order .container').tmplItem().data"
       
       .multibutton
         .alternatives
@@ -25,7 +25,7 @@
             :"data-dialog_class" => "acknowledge",
             :"data-rel" => "tmpl/dialog/acknowledge/approve_with_comment",
             :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
-            :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')" do
+            :"data-ref_for_dialog" => "$('#order .container').tmplItem().data" do
             .icon.edit
             = _("with comment")
         = link_to _("Approve Order"), approve_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
@@ -35,7 +35,7 @@
           :"data-dialog_class" => "acknowledge",
           :"data-rel" => "tmpl/dialog/acknowledge/approve",
           :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
-          :"data-ref_for_dialog" => "$(this).closest('.innercontent').data('order')"
+          :"data-ref_for_dialog" => "$('#order .container').tmplItem().data"
       
   %section.actiongroup
     = render :partial => '/backend/items/add_item'
@@ -66,7 +66,7 @@
     
   %hr
   
-  %section.linegroups
+  %section#order
 
 :javascript
   
@@ -85,7 +85,7 @@
     }
     
     this.setupTemplates = function () {
-      $('#acknowledge .linegroups').append($.tmpl("tmpl/linegroup", #{@grouped_lines.to_json}));
+      $('#acknowledge #order').append($.tmpl("tmpl/order", #{@order.to_json}));
     }
     
     this.setupDatepicker = function () {

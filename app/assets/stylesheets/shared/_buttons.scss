@@ -63,7 +63,7 @@ a.button {
   }
 }
 
-.button.green {@include button(#4d9148, $lightgrey, #47c23e, #515151, -156px, -188px, -220px)};
+.button.green {@include button(#388533, $lightgrey, #47c23e, #515151, -156px, -188px, -220px)};
 .button.white {@include button(#808080, $lightgrey, #c0c0c0, #515151, -252px, -284px, -316px)};
 .button.red {@include button(#db5252, #df7070, #ea9090, #f60000, -252px, -284px, -316px)};
 

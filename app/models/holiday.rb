@@ -12,7 +12,7 @@
 class Holiday < ActiveRecord::Base
   belongs_to :inventory_pool
   
-  scope :future, where(['end_date > ?', Date.today])
+  scope :future, where(['end_date >= ?', Date.today])
   
   before_save :end_date_is_bigger_than_start_date
   

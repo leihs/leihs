@@ -10,9 +10,9 @@
       = button_tag(:class => "datepicker button white", :title => _("open datepicker")) do
         .icon.datepicker
         = text_field_tag "datepicker", :id => "datepicker"
-      = button_tag(:class => "day back button white", :title => l(@date-1, :format => :day_long, :scope => 'leihs')) do
+      = link_to backend_inventory_pool_path(current_inventory_pool, :date => current_inventory_pool.last_open_date(@date - 1)), :class => "day back button white", :title => l(current_inventory_pool.last_open_date(@date - 1), :format => :day_long, :scope => 'leihs') do
         .icon.back
-      = button_tag(:class => "day forward button white", :title => l(@date+1, :format => :day_long, :scope => 'leihs')) do
+      = link_to backend_inventory_pool_path(current_inventory_pool, :date => current_inventory_pool.next_open_date(@date + 1)), :class => "day forward button white", :title => l(current_inventory_pool.next_open_date(@date + 1), :format => :day_long, :scope => 'leihs') do
         .icon.forward
         
     .clear
@@ -62,6 +62,8 @@
 :javascript
   
   $(document).ready(function(){
+    DailyNavigator.setup();
+  
     $('.list').hide();
     
     $('.order .list').append($.tmpl("tmpl/line", #{@orders.to_json}));

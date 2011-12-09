@@ -38,6 +38,13 @@ module Availability
         [change.date, total]
       end
     end
+    
+    def available_total_quantities
+      map do |change|
+        total = change.quantities.sum(&:in_quantity)
+        [change.date, total]
+      end
+    end
 
     # Ensure that a change with the given "new_change_date" exists.
     #

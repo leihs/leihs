@@ -111,6 +111,7 @@ class Order < Document
       end
     end
   end
+  alias :is_approvable :approvable?
 
 
   # TODO 13** forward purpose
@@ -254,24 +255,55 @@ class Order < Document
     return false
   end
   
+  def min_date
+    unless order_lines.blank?
+      order_lines.min {|x| x.start_date}[:start_date]
+    else
+      nil
+    end
+  end
+  
+  def max_date
+    unless order_lines.blank?
+      order_lines.max {|x| x.end_date }[:end_date]
+    else
+      nil
+    end
+  end
+  
+  def max_range
+     unless order_lines.blank?
+      max_range = order_lines.max {|x| x.end_date - x.start_date}
+      max_range = Integer(max_range[:end_date] - max_range[:start_date] + 1)
+    else
+      nil
+    end
+  end
+  
+  def grouped_lines
+    grouped_lines = lines.group_by {|x| [x.start_date.to_formatted_s(:db), x.end_date.to_formatted_s(:db)] }
+    grouped_lines = grouped_lines.map{ |k,v| {
+      "start_date" => k[0],
+      "end_date" => k[1],
+      "lines" => v } }
+    grouped_lines = grouped_lines.as_json(:current_user => user, :current_inventory_pool => inventory_pool)
+  end
+  
+  def type
+    self.class.to_s.underscore
+  end
+  
   ############################################
   
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-
-    required_options = {:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}}},
+    
+    required_options = {:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}},
+                                                      :methods => :type},
                                      :user => {:only => [:firstname, :lastname, :id, :phone, :email, :extended_info ] } },
-                        :methods => [:quantity, :max_single_range]}
-                        
+                        :methods => [:quantity, :max_single_range, :min_date, :max_date, :max_range, :grouped_lines, :type, :is_approvable]}
     
     json = super(options.deep_merge(required_options))
-    
-    max_range = order_lines.max {|x| x.end_date - x.start_date}
-    max_range = Integer(max_range[:end_date] - max_range[:start_date] + 1)
-    json.merge({:type => self.class.to_s.underscore,
-                :min_date => order_lines.min {|x| x.start_date}[:start_date],
-                :max_date => order_lines.max {|x| x.end_date }[:end_date],
-                :max_range => max_range})
   end
   
   ############################################

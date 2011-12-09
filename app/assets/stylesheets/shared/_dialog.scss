@@ -52,18 +52,16 @@
     border-top: 1px solid $borderlightgrey;
     
     .line {
+      background: none !important;
       
       &:hover {
+        background: none !important;  
         @include noBoxShadow;
       }
       
-      &:nth-child(even):hover {
-        background: $highlight-grey !important;
+      &li:first-child {
+       padding-left: 10px;
       }
-    }
-    
-    .line > a > li:first-child, .line > li:first-child, .line > div > li:first-child {
-      padding-left: 0; 
     }
   }
   

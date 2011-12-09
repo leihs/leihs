@@ -15,17 +15,24 @@ function Buttons() {
   
   this.loadingImg = $("<img src='/assets/loading.gif' class='loading icon'/>");
   this.loadingImgClones = Array();
+  this.loadingImgWhite = $("<img src='/assets/loading-white.gif' class='loading icon'/>");
+  this.loadingImgWhiteClones = Array();
   
   this.setup = function() {
-    this.cloneLoadingImg(5);
+    this.cloneLoadingImg(5, "black");
+    this.cloneLoadingImg(5, "white");
     this.setupAjaxListener();
     this.setupDialogListener();
     this.setupMultibutton();
   }
   
-  this.cloneLoadingImg = function(x) {
+  this.cloneLoadingImg = function(x, color) {
     for(var i = 0; i < x; i++) {
-      this.loadingImgClones.push($(this.loadingImg).clone());
+      if(color == "black") {
+        this.loadingImgClones.push($(this.loadingImg).clone());
+      } else {
+        this.loadingImgWhiteClones.push($(this.loadingImgWhite).clone());
+      }
     }
   }
   
@@ -144,10 +151,10 @@ function Buttons() {
   this.addLoading = function(element) {
     if($(element).children(".icon").length > 0) {
       $(element).find(".icon").hide().after(Buttons.getLoadingImg());
-      Buttons.cloneLoadingImg(1);
+      Buttons.cloneLoadingImg(1, "black");
     } else {
       $(element).prepend(Buttons.getLoadingImg());  
-      Buttons.cloneLoadingImg(1);    
+      Buttons.cloneLoadingImg(1, "black");    
     }
     
     if($(element).parent().hasClass("multibutton") || $(element).parent().hasClass("alternatives")) {

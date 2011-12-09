@@ -27,8 +27,8 @@ function SelectionActions() {
     $("#add_item .date").change(function(){
       // highlight selected group of lines
       $(".linegroup").each(function(){
-        var start_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().time_range[0]));
-        var end_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().time_range[1]));
+        var start_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().data.start_date));
+        var end_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().data.end_date));
         if(start_date == $("#add_item #add_start_date").val() && end_date == $("#add_item #add_end_date").val()) {
           $(this).addClass("selected");
         } else {
@@ -41,6 +41,10 @@ function SelectionActions() {
   this.setupTimerangeUpdater = function() {
     $(".linegroup").live("click", function() {
       SelectionActions.updateTimerange($(this).tmplItem().first_date, $(this).tmplItem().last_date);
+    });
+
+    $(".linegroup .button").live("click", function() {
+      SelectionActions.updateTimerange($(this).closest(".linegroup").tmplItem().first_date, $(this).closest(".linegroup").tmplItem().last_date);
     });
   }
   

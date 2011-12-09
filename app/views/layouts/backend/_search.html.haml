@@ -44,6 +44,9 @@
         $(this).find(".icon").remove();
         $(this).find(".clear_icon").remove();
         $(this).find(".loading").show();
+        Dialog.add({ 
+          content: $.tmpl("tmpl/dialog/loading", {title:"#{_('Searching')}", message:"#{_('please wait...')}"}),
+          dialogClass: "loading"});
       });
     }
     

@@ -1,5 +1,14 @@
 .order_line.line {
   
+  &.unavailable {
+    background: #fbc1c1 !important;
+    border-bottom: 1px solid #fe9393 !important;
+    
+    &:hover {
+      background: #ffb1b1 !important;  
+    }
+  }
+  
   li.select {
     padding-right: 5px !important;
   }
