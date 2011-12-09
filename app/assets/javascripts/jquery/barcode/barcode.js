@@ -30,6 +30,7 @@ function Barcode() {
       var _char = String.fromCharCode(charCode)
       if(charCode == 13) {
         if(Barcode.scannerInput != ""){
+          e.preventDefault();
           Barcode.scannerExecution();
           Barcode.scannerInput = "";
         }
@@ -60,14 +61,20 @@ function Barcode() {
   }
   
   this.scannerExecution = function() {
-    if($("input:focus, textarea:focus").length) return false;
-    // the hierarchical order of input fields which should be executed on global scanner input
-    if($("#add_item").length > 0) {
-      $("#add_item input.barcode").val("").val(Barcode.scannerInput);
-      $("#add_item form").submit();
-    } else if($("#search").length > 0) {
-      $("#search input").val("").val(Barcode.scannerInput);
-      $("#search form").submit();
+    // if input field is not focused user hotspots for insert the barcode data
+    if($("input:focus, textarea:focus").length){
+      var target = $("input:focus, textarea:focus");
+      $(target).focus().val("").val(Barcode.scannerInput);
+      $(target).closest("form").submit();
+    } else {
+      // the hierarchical order of input fields which should be executed on global scanner input
+      if($("#add_item").length > 0) {
+        $("#add_item input.barcode").focus().val("").val(Barcode.scannerInput);
+        $("#add_item form").submit();
+      } else if($("#search").length > 0) {
+        $("#search input").focus().val("").val(Barcode.scannerInput);
+        $("#search form").submit();
+      }
     }
   }
 }
