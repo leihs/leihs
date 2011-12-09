@@ -1,7 +1,7 @@
 .hand_over.line {
   
   li.items {
-    width: 120px;
+    width: 129px;
     
     .number {
       display: inline-block;
@@ -15,13 +15,17 @@
     }
   }
   
+  .overdue li.items {
+    width: 107px !important;
+  }
+  
   li.range {
     white-space: nowrap;
     width: 115px;
     
     .text.grey {
       display: inline-block;
-      width: 65px;
+      width: 55px;
     }
     
     .number {
