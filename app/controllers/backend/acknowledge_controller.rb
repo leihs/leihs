@@ -22,9 +22,6 @@ class Backend::AcknowledgeController < Backend::BackendController
     # OLD ? @source_path = request.env['REQUEST_URI']
     @order.to_backup unless @order.has_backup?
     add_visitor(@order.user)
-    
-    @grouped_lines = @order.lines.group_by {|x| [x.start_date.to_formatted_s(:db), x.end_date.to_formatted_s(:db)] }.map{|k,v| {k=>v}}
-    @grouped_lines = @grouped_lines.as_json({:current_user => @user, :current_inventory_pool => current_inventory_pool})
   end
   
   def approve
@@ -104,23 +101,50 @@ class Backend::AcknowledgeController < Backend::BackendController
     generic_time_lines(@order)
   end    
   
-  def update_lines(line_ids = params[:line_ids], required_quantity = params[:quantity].to_i )
-    errors = []
-    order_lines = @order.lines.find(line_ids)
+  def update_lines(line_ids = params[:line_ids] || [],
+                   line_id_model_id = params[:line_id_model_id] || {},
+                   quantity = params[:quantity],
+                   start_date = params[:start_date],
+                   end_date = params[:end_date],
+                   delete_line_ids = params[:delete_line_ids] || [])
 
     OrderLine.transaction do
+      unless delete_line_ids.blank?
+        to_delete_lines = @order.lines.find(delete_line_ids)
+        to_delete_lines.each do |line|
+          change = _("Deleted %s (%s - %s)") % [line.model, line.start_date, line.end_date]
+          @order.log_change(change, current_user.id)
+        end
+        OrderLine.delete(to_delete_lines.map(&:id))
+      end
+
+      order_lines = @order.lines.find(line_ids - delete_line_ids)
       # TODO merge to Order#update_line
       order_lines.each do |order_line|
-        order_line.quantity = [required_quantity, 0].max
-        if order_line.changes[:quantity]
-          change = _("Changed quantity for %{model} from %{from} to %{to}") % { :model => order_line.model.name, :from => order_line.changes[:quantity].first, :to => order_line.changes[:quantity].last }
-          @order.log_change(change, current_user.id) if order_line.save
-        end
+        order_line.quantity = [quantity.to_i, 0].max if quantity
+        order_line.start_date = Date.parse(start_date) if start_date
+        order_line.end_date = Date.parse(end_date) if end_date
+        order_line.model = order_line.order.user.models.find(new_model_id) if (new_model_id = line_id_model_id[order_line.id.to_s]) 
+        
+        change = _("[Model %s] ") % order_line.model 
+        change += order_line.changes.map do |c|
+          what = c.first
+          if what == "model_id"
+            from = Model.find(from).to_s
+            _("Swapped from %s ") % [from]
+          else
+            from = c.last.first
+            to = c.last.last
+            _("Changed %s from %s to %s") % [what, from, to]
+          end
+        end.join(', ')
+
+        @order.log_change(change, current_user.id) if order_line.save
       end
     end
 
     respond_to do |format|
-      format.js { render :json => order_lines.as_json(:current_user => @user) }
+      format.js { render :json => @order, :status => 200 }
     end
   end
   
