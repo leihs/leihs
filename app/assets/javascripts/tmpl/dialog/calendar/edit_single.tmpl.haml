@@ -1,9 +1,9 @@
 :ruby
   o = [ [ "Inventory Pool", "current", {:"data-total_borrowable"   => "${JSON.stringify(total_rentable)}",
-                                        :"data-closed_days"        => "${JSON.stringify(availability_for_user[0].inventory_pool.closed_days)}",
-                                        :"data-name"               => "${JSON.stringify(availability_for_user[0].inventory_pool.name)}",
-                                        :"data-address"            => "${JSON.stringify(availability_for_user[0].inventory_pool.address)}",
-                                        :"data-availability_dates" => "${JSON.stringify(availability_for_user[0].availability)}" } ] ]
+                                        :"data-closed_days"        => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.closed_days)}",
+                                        :"data-name"               => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.name)}",
+                                        :"data-address"            => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.address)}",
+                                        :"data-availability_dates" => "${JSON.stringify(availability_for_inventory_pool.availability)}" } ] ]
 
 = form_tag '${$item.action}', :remote => true do                                       
   %h1
@@ -14,8 +14,8 @@
       ${order.user.firstname}
       ${order.user.lastname}
   .navigation
-    %button.button.red.close_dialog
-      = _("Cancle")
+    %a.button.red.close_dialog
+      = _("Cancel")
       .icon.delete
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "4"}
       = _("Save Changes")
@@ -64,11 +64,19 @@
           %span.grey
           = _("total rentable")
       %li.actions
-        = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${order.user_id}/acknowledge/${order.id}/update_lines", 
-          :class => "button white open_dialog", 
-          :"data-rel" => "tmpl/dialog/calendar/edit_single", 
-          :"data-dialog_class" => "calendar",
-          :"data-on_success" => 'List.update_lines($(".dialog #fullcalendar").data("lines"), {start_date: (new Date(getDateFromFormat($(".dialog #start_date").val(), BookingCalendar.local.dateFormat))).toJSON().substr(0, 10), end_date: (new Date(getDateFromFormat($(".dialog #end_date").val(), BookingCalendar.local.dateFormat))).toJSON().substr(0,10), quantity: $(".dialog #quantity").val()})',
-          :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
-          .icon.swap
-          = _("Change")
+        .multibutton
+          .alternatives
+            .trigger
+              .arrow
+            = link_to "", :class => "button red" do
+              .icon.delete
+              = _("Delete")
+              
+          = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${order.user_id}/acknowledge/${order.id}/update_lines", 
+            :class => "button white open_dialog", 
+            :"data-rel" => "tmpl/dialog/calendar/edit_single", 
+            :"data-dialog_class" => "calendar",
+            :"data-on_success" => '',
+            :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
+            .icon.swap
+            = _("Change")
