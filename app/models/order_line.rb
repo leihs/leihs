@@ -64,6 +64,10 @@ class OrderLine < DocumentLine
     nil
   end
   
+  def type
+    self.class.to_s.underscore
+  end
+  
 ###############################################
 
   def as_json(options = {})
@@ -72,7 +76,7 @@ class OrderLine < DocumentLine
     required_options = {:include => {:model => {:methods => :package_models},
                                      :order => {:include => {:user => {:only => [:firstname, :lastname]}}}
                                     },
-                        :methods => :is_complete}
+                        :methods => [:is_complete, :is_available]}
     
     json = super(options.deep_merge(required_options))
     
@@ -85,6 +89,15 @@ class OrderLine < DocumentLine
       borrowable_items = model.items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
       json['total_rentable'] = borrowable_items.count
       json['total_rentable_in_stock'] = borrowable_items.in_stock.count
+      
+      # adding the quantity of this order_line (self) to the quantity of the model again,
+      # because it's already computed on the availabilty (self-blocking problem)    
+      av = model.availability_periods_for_inventory_pool(current_inventory_pool)
+      av[:availability].each do |date_quantity|
+        next unless (start_date..end_date).include?(date_quantity[0])
+        date_quantity[1] += quantity
+      end
+      json['availability_for_inventory_pool'] = av
     end
     
     json.merge({:type => self.class.to_s.underscore})

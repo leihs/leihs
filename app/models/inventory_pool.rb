@@ -169,7 +169,20 @@ class InventoryPool < ActiveRecord::Base
     end
     x
   end
-
+  
+  def last_open_date(x = Date.today)
+    if closed_days.size < 7
+      while not is_open_on?(x) do
+        holiday = running_holiday_on(x)
+        if holiday
+          x = holiday.end_date.tomorrow
+        else
+          x -= 1.day
+        end
+      end
+    end
+    x
+  end
   
   def closed_days
     workday.closed_days

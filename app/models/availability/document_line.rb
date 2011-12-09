@@ -76,6 +76,7 @@ module Availability
       
       return av
     end
+    alias :is_available :available?
 
     def allocated_group
       availability_quantities.first.try(:group)
