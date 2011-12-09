@@ -1,6 +1,7 @@
 :ruby
   o = [ [ "Inventory Pool", "current", {:"data-total_borrowable"   => "${JSON.stringify(total_rentable)}",
                                         :"data-closed_days"        => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.closed_days)}",
+                                        :"data-holidays"           => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.holidays)}",
                                         :"data-name"               => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.name)}",
                                         :"data-address"            => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.address)}",
                                         :"data-availability_dates" => "${JSON.stringify(availability_for_inventory_pool.availability)}" } ] ]
@@ -73,10 +74,10 @@
               = _("Delete")
               
           = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${order.user_id}/acknowledge/${order.id}/update_lines", 
-            :class => "button white open_dialog", 
-            :"data-rel" => "tmpl/dialog/calendar/edit_single", 
-            :"data-dialog_class" => "calendar",
-            :"data-on_success" => '',
-            :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
+                    :class => "button white open_dialog", 
+                    :"data-rel" => "tmpl/dialog/calendar/edit_single", 
+                    :"data-dialog_class" => "calendar",
+                    :"data-on_success" => '',
+                    :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
             .icon.swap
             = _("Change")

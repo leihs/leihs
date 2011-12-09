@@ -222,4 +222,12 @@ class InventoryPool < ActiveRecord::Base
 
 ###################################################################################
 
+  def as_json(options = {})
+    {:id => id,
+     :name => to_s,
+     :address => address.to_s,
+     :closed_days => workday.closed_days,
+     :holidays => holidays.future.as_json(:except => [:id, :inventory_pool_id]) }    
+  end
+
 end
