@@ -8,10 +8,6 @@
  * @name DailyNavigator
 */
 
-$(document).ready(function(){
-  if($("#daily .content_navigation")) DailyNavigator.setup();
-});
-
 var DailyNavigator = new DailyNavigator();
 
 function DailyNavigator() {
@@ -54,22 +50,23 @@ function DailyNavigator() {
   this.setupDisabled = function() {
     // disabled not needed buttons
     if(DailyNavigator.is_today) {
-      $("#daily .content_navigation .today").attr("disabled", true);
-      $("#daily .content_navigation .day.back").attr("disabled", true);
+      $("#daily .content_navigation .today").attr("disabled", true).addClass("disabled");
+      $("#daily .content_navigation .day.back").attr("disabled", true).addClass("disabled");
     }
   }
   
   this.setupNavigation = function() {
-    $("#daily .content_navigation .day.forward").bind("click", function() {
-      DailyNavigator.gotoDate(new Date(DailyNavigator.current_date.getTime()+DailyNavigator.oneDay));      
+    // prevent default click on back when disabled
+    $("#daily .content_navigation .day.back[disabled=disabled]").bind("click", function(event){
+      event.preventDefault();
+      return false;     
     });
-        
-    // bind only if not today
-    if(!DailyNavigator.is_today) {
-      $("#daily .content_navigation .day.back").bind("click", function() {
-        DailyNavigator.gotoDate(new Date(DailyNavigator.current_date.getTime()-DailyNavigator.oneDay));      
-      });
-    }
+    
+    // prevent default click on today when disabled
+    $("#daily .content_navigation .today[disabled=disabled]").click(function(event){
+      event.preventDefault();
+      return false;
+    });
   }
   
   this.setupDatepicker = function() {
