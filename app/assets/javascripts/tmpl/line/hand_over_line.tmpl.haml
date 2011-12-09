@@ -1,7 +1,8 @@
-.container  
-  %li.select
-    %label
-      = check_box_tag "select_all", :id => "select_all"
-      
-  %li.barcode
-  
+%ul.line{:class => "${type}"}
+  .container  
+    %li.select
+      %label
+        = check_box_tag "select_all", :id => "select_all"
+        
+    %li.barcode
+    

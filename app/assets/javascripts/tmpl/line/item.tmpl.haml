@@ -1,58 +1,59 @@
-= link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}
-  
-  %li.modelname
-    ${model.name}
+%ul.line{:class => "${type}"}
+  = link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}
     
-  %li.inventory_code{:title => _("Inventory Code")}
-    ${inventory_code.replace("/", " / ")}
-
-  %li.serial_number{:title => _("Serial Number")}
-    {{if serial_number}}
-    ${serial_number}
-    {{else}}
-    %span.grey
-      = _("no serial number")
-    {{/if}}
-  
-  %li.item_status{:title => "{{if current_borrower}} #{_("%s returns the item on %s") % ["${current_borrower.firstname} ${current_borrower.lastname}", '{{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}'] } {{/if}}"}
-    {{if $item.data["in_stock?"]}}
-    = _("In Stock")
-    {{else}}
-    {{if current_borrower}}
-    ${current_borrower.firstname}
-    ${current_borrower.lastname}
-    {{/if}}
-    {{if current_return_date}}
-    ({{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}})
-    {{/if}}
-    {{/if}}
-    
-    {{if is_broken || is_incomplete}}
-    = ", "
-    {{/if}}
-    
-    {{if is_broken}}
-    %span.red
-      %b= _("Broken")
-    {{/if}}
-    
-    {{if is_incomplete}}
-    {{if is_broken}}
-    = ", "
-    {{/if}}
-    %span.red
-      %b= _("Incomplete")
-    {{/if}}
-    
-%li.actions
-  .multibutton
-    .alternatives
-      .trigger
-        .arrow
-      = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}/retire
-        .icon.retire
-        = _("Retire")
-    = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}
-      .icon.view_item
-      = _("View Item")
+    %li.modelname
+      ${model.name}
       
+    %li.inventory_code{:title => _("Inventory Code")}
+      ${inventory_code.replace("/", " / ")}
+  
+    %li.serial_number{:title => _("Serial Number")}
+      {{if serial_number}}
+      ${serial_number}
+      {{else}}
+      %span.grey
+        = _("no serial number")
+      {{/if}}
+    
+    %li.item_status{:title => "{{if current_borrower}} #{_("%s returns the item on %s") % ["${current_borrower.firstname} ${current_borrower.lastname}", '{{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}'] } {{/if}}"}
+      {{if $item.data["in_stock?"]}}
+      = _("In Stock")
+      {{else}}
+      {{if current_borrower}}
+      ${current_borrower.firstname}
+      ${current_borrower.lastname}
+      {{/if}}
+      {{if current_return_date}}
+      ({{html formatDate(new Date(current_return_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}})
+      {{/if}}
+      {{/if}}
+      
+      {{if is_broken || is_incomplete}}
+      = ", "
+      {{/if}}
+      
+      {{if is_broken}}
+      %span.red
+        %b= _("Broken")
+      {{/if}}
+      
+      {{if is_incomplete}}
+      {{if is_broken}}
+      = ", "
+      {{/if}}
+      %span.red
+        %b= _("Incomplete")
+      {{/if}}
+      
+  %li.actions
+    .multibutton
+      .alternatives
+        .trigger
+          .arrow
+        = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}/retire
+          .icon.retire
+          = _("Retire")
+      = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do #TODO: /backend/inventory_pools/${current_inventory_pool}/items/${id}
+        .icon.view_item
+        = _("View Item")
+        

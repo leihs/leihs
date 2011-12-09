@@ -1,99 +1,100 @@
-%div{:class => "{{if is_overdue}}overdue{{/if}}"}
+%ul.line{:class => "${type}"}
+  %div{:class => "{{if is_overdue}}overdue{{/if}}"}
+    
+    {{tmpl($item.data.user) "tmpl/cell/user_name"}}
   
-  {{tmpl($item.data.user) "tmpl/cell/user_name"}}
-
-  %li.items.hastip
-    %span.number
-      ${quantity}
-    = _("Items")
-    .tip.lines
-      ${$startdate = 0, ""}
-      ${$enddate = 0, ""}
-      {{each(i, line) lines}}
-      {{if line.start_date != $startdate || line.end_date != $enddate}}
-      ${$startdate = line.start_date, ""}
-      ${$enddate = line.end_date, ""}
-      .date
-        {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-        = "-"
-        {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-      .range
-        ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
-        = _("Days")
-      .clear
-      %table
+    %li.items.hastip
+      %span.number
+        ${quantity}
+      = _("Items")
+      .tip.lines
+        ${$startdate = 0, ""}
+        ${$enddate = 0, ""}
         {{each(i, line) lines}}
-        {{if line.start_date == $startdate && line.end_date == $enddate}}
-        %tr
-          %td.quantity
-            ${line.quantity}
-          %td.model_name
-            ${line.model.name}
+        {{if line.start_date != $startdate || line.end_date != $enddate}}
+        ${$startdate = line.start_date, ""}
+        ${$enddate = line.end_date, ""}
+        .date
+          {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+          = "-"
+          {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+        .range
+          ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+          = _("Days")
+        .clear
+        %table
+          {{each(i, line) lines}}
+          {{if line.start_date == $startdate && line.end_date == $enddate}}
+          %tr
+            %td.quantity
+              ${line.quantity}
+            %td.model_name
+              ${line.model.name}
+          {{/if}}
+          {{/each}}  
         {{/if}}
-        {{/each}}  
-      {{/if}}
-      {{/each}}
-        
-  %li.range
-    {{if is_overdue}}
-    %span.number
-      %strong
-        ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
-    {{/if}}
-    %span.text
+        {{/each}}
+          
+    %li.range
       {{if is_overdue}}
-      %strong
-        = _("Days overdue")
-      {{else}}
-      %span.grey
-        = _("since max.")
-      {{/if}}      
-    {{if !is_overdue}}
-    %span.number
-      ${Math.round((new Date() - new Date(min_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
-    %span.text
-      = _("Days")
+      %span.number
+        %strong
+          ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+      {{/if}}
+      %span.text
+        {{if is_overdue}}
+        %strong
+          = _("Days overdue")
+        {{else}}
+        %span.grey
+          = _("since max.")
+        {{/if}}      
+      {{if !is_overdue}}
+      %span.number
+        ${Math.round((new Date() - new Date(min_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+      %span.text
+        = _("Days")
+      {{/if}}
+        
+    {{if is_overdue}}
+    %li.reminder
+      %span{:class => "text{{if latest_remind}} visible{{else}} invisible{{/if}}"}
+        = _("Lates Reminder:")
+      %span{:class => "date{{if latest_remind}} visible{{else}} invisible{{/if}}"}
+        {{if latest_remind}}
+        ${$item.latest_remind = new Date(latest_remind.replace(/-/g, "/")), ""}
+        {{if ((new Date().setHours(0)) < ($item.latest_remind.getTime())) && (($item.latest_remind.getTime()) < (new Date().setHours(23)))}}
+        = _("Today")
+        = "{{if ($item.latest_remind.getHours()+'').length == 1}}0{{/if}}${$item.latest_remind.getHours()}:{{if ($item.latest_remind.getMinutes()+'').length == 1}}0{{/if}}${$item.latest_remind.getMinutes()}"
+        {{else}}
+        %strong
+          {{html formatDate(new Date(latest_remind.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+        {{/if}}
+        {{/if}}
+      %span{:class => "grey{{if latest_remind}} invisible{{else}} visible{{/if}}"}
+        = _("No reminder yet")
+    {{else}}
+    
+    %li.note
+      {{html formatDate(new Date(min_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
     {{/if}}
-      
-  {{if is_overdue}}
-  %li.reminder
-    %span{:class => "text{{if latest_remind}} visible{{else}} invisible{{/if}}"}
-      = _("Lates Reminder:")
-    %span{:class => "date{{if latest_remind}} visible{{else}} invisible{{/if}}"}
-      {{if latest_remind}}
-      ${$item.latest_remind = new Date(latest_remind.replace(/-/g, "/")), ""}
-      {{if ((new Date().setHours(0)) < ($item.latest_remind.getTime())) && (($item.latest_remind.getTime()) < (new Date().setHours(23)))}}
-      = _("Today")
-      = "{{if ($item.latest_remind.getHours()+'').length == 1}}0{{/if}}${$item.latest_remind.getHours()}:{{if ($item.latest_remind.getMinutes()+'').length == 1}}0{{/if}}${$item.latest_remind.getMinutes()}"
-      {{else}}
-      %strong
-        {{html formatDate(new Date(latest_remind.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-      {{/if}}
-      {{/if}}
-    %span{:class => "grey{{if latest_remind}} invisible{{else}} visible{{/if}}"}
-      = _("No reminder yet")
-  {{else}}
-  
-  %li.note
-    {{html formatDate(new Date(min_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-  {{/if}}
- 
-%li.actions
-  {{if is_overdue}}
-  .multibutton
-    .alternatives
-      .trigger
-        .arrow
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/remind", :class => "button white", :remote => true, :"data-rel" => "tmpl/dialog/take_back/remind", :"data-dialog_class" => "take_back", :"data-on_success" => 'List.update_reminder($(this).parents(".line"))' , :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
-        .icon.send
-        = _("Remind")
+   
+  %li.actions
+    {{if is_overdue}}
+    .multibutton
+      .alternatives
+        .trigger
+          .arrow
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/remind", :class => "button white", :remote => true, :"data-rel" => "tmpl/dialog/take_back/remind", :"data-dialog_class" => "take_back", :"data-on_success" => 'List.update_reminder($(this).parents(".line"))' , :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
+          .icon.send
+          = _("Remind")
+      -#TODO: "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back"
+      = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do
+        .icon.take_back
+        = _("Take Back")
+    {{else}}
     -#TODO: "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back"
     = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do
       .icon.take_back
       = _("Take Back")
-  {{else}}
-  -#TODO: "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/take_back"
-  = link_to "javascript:void(0);", :onclick => "alert('Diese Funktion wird bald implementiert...');", :class => "button white" do
-    .icon.take_back
-    = _("Take Back")
-  {{/if}}
+    {{/if}}
