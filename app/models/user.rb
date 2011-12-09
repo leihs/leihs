@@ -174,6 +174,16 @@ class User < ActiveRecord::Base
   def documents
     orders + contracts
   end
+  
+################################################
+
+  def alternative_email
+    extended_info["email_alt"] if extended_info
+  end
+  
+  def emails
+    [email, alternative_email].compact
+  end
 
 ################################################
 

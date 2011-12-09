@@ -9,7 +9,7 @@ class Mailer::User < ActionMailer::Base
   def remind(user, visits, sent_at = Time.now)
     choose_language_for(user)
     @visits = visits
-    mail( :to => user.email,
+    mail( :to => user.emails,
           :from => (visits.first.inventory_pool.email || DEFAULT_EMAIL),
           :subject => _('[leihs] Reminder'),
           :date => sent_at )
@@ -18,7 +18,7 @@ class Mailer::User < ActionMailer::Base
   def deadline_soon_reminder(user, visits, sent_at = Time.now)
     choose_language_for(user)
     @visits = visits
-    mail( :to => user.email,
+    mail( :to => user.emails,
           :from => (visits.first.inventory_pool.email || DEFAULT_EMAIL),
           :subject => _('[leihs] Some items should be returned tomorrow'),
           :date => sent_at )
