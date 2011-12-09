@@ -6,7 +6,6 @@
 */
 
 $(document).ready(function(){
-  
   List.setup();
 });
 
@@ -64,27 +63,9 @@ function List() {
     });
   }
   
-  this.update_lines = function(given_lines, options) {
-    var grouped_lines = $("[data-grouped_lines]").data("grouped_lines");
-    // merge new options with matching given lines
-    $.each(grouped_lines, function(index_gr, linegroup){
-      $.each(linegroup, function(date, lines){
-        $.each(lines, function(index_ln, line) {
-          $.each(given_lines, function(index_gl, given_line_id){
-            if(line.id == given_line_id) {
-              for (var attrname in options) {
-                line[attrname] = options[attrname];
-              }
-            }
-          });
-        });
-      });
-    });
-    
-    // update dom
-    $("[data-grouped_lines]").data("grouped_lines", grouped_lines);
-    $(".linegroups").html("");
-    $('.linegroups').append($.tmpl("tmpl/linegroup", grouped_lines));
+  this.update_order = function(order) {
+    $("#order").html("");
+    $('#order').append($.tmpl("tmpl/order", order));
   }
   
   this.subtract = function(list) {
