@@ -11,9 +11,10 @@
 
 $(document).ready(function(){
   
-  // hide hint on comment input
-  $(".dialog .comment .focus").live("keydown", function() {
-    $(this).siblings(".hint").fadeOut();
+  // hide hint on comment input and click
+  $(".dialog .comment").live("keydown click mouseup", function() {
+    $(this).find(".hint").fadeOut();
+    $(this).find(".focus").focus();
   });
   
 });
