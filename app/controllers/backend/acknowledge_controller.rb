@@ -79,10 +79,10 @@ class Backend::AcknowledgeController < Backend::BackendController
       redirect_to :controller=> 'acknowledge', :action => 'index'
   end
 
-  def add_line
-    generic_add_line(@order)
-  end
+###################################################################################
+# old code #
 
+=begin
   def swap_model_line
     generic_swap_model_line(@order)
   end
@@ -97,10 +97,22 @@ class Backend::AcknowledgeController < Backend::BackendController
     @order.save
   end
 
+  def remove_lines
+    generic_remove_lines(@order)
+  end
+=end
+
+  def add_line
+    generic_add_line(@order)
+  end
+
   def time_lines
     generic_time_lines(@order)
   end    
   
+###################################################################################
+# new code #
+
   def update_lines(line_ids = params[:line_ids] || [],
                    line_id_model_id = params[:line_id_model_id] || {},
                    quantity = params[:quantity],
@@ -147,11 +159,9 @@ class Backend::AcknowledgeController < Backend::BackendController
       format.js { render :json => @order, :status => 200 }
     end
   end
-  
-  def remove_lines
-    generic_remove_lines(@order)
-  end
 
+###################################################################################
+  
   def change_purpose
     if request.post?
       @order.change_purpose(params[:purpose], current_user.id)
