@@ -35,3 +35,9 @@
 //= require jquery/qtip/qtip.min
 //= require jquery/jqBarGraph/jqBarGraph.1.2.js
 //= require jquery/pagination/pagination
+
+// type or global formating/accepting of ajax requestes
+$.ajaxSetup({
+  data: {format: "js"},
+  dataType: 'json'
+});

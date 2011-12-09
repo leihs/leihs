@@ -21,3 +21,9 @@
 //= require jquery/highlight/highlight.min
 //= require date/date
 //= require jquery/qtip/qtip.min
+
+// type or global formating/accepting of ajax requestes
+$.ajaxSetup({
+  data: {format: "js"},
+  dataType: 'json'
+});
