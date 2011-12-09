@@ -7,7 +7,7 @@
 				<td><%= category.all_models.active.count %></td><%# OPTIMIZE 0501 search_count %>
 				<td><%= category.all_models.active.by_inventory_pool(current_inventory_pool).count %></td><%# OPTIMIZE 0501 search_count %>
 				<td><%= category.children.count %></td>
-				<td><%= category.all_children.size %></td>
+				<td><%= category.descendants.size %></td>
 				<td><%= category.parents.count %></td>
 				<td class="buttons">
 					<ul>

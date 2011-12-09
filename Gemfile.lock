@@ -11,6 +11,7 @@ GEM
     activeresource (2.3.5)
       activesupport (= 2.3.5)
     activesupport (2.3.5)
+    acts-as-dag (1.1.4)
     addressable (2.2.6)
     after_commit (1.0.10)
       activerecord (< 3.0.0, >= 1.15.6)
@@ -122,6 +123,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts-as-dag (= 1.1.4)
   awesome_nested_set (= 1.4.3)
   barby (= 0.2.0)
   cairo

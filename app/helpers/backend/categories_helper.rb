@@ -64,7 +64,7 @@ module Backend::CategoriesHelper
     initially_open_ids = []
     selected_categories.each do |c|
       initially_select_ids << c.id
-      initially_open_ids += c.all_parents.collect(&:id)
+      initially_open_ids += c.ancestor_ids
     end
 
     plugins = %w(themes json_data sort ui)

@@ -28,6 +28,7 @@ gem "prawn", '0.8.4'
 gem "net-ldap", :require => 'net/ldap'
 
 gem "awesome_nested_set", "1.4.3"
+gem 'acts-as-dag', '1.1.4' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
 gem "haml"
 
