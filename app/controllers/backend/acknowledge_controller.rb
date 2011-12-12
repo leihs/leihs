@@ -28,7 +28,6 @@ class Backend::AcknowledgeController < Backend::BackendController
     #old# if request.post?
     if @order.approve(params[:comment], current_user)
       # TODO test# @order.destroy # TODO remove old orders ?
-      
       respond_to do |format|
         #old# format.html { redirect_to :action => 'index' }
         format.js { render :json => true, :status => 200  }
