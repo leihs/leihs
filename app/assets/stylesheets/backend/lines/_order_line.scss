@@ -1,11 +1,11 @@
 .order_line.line {
   
   &.unavailable {
-    background: #fbc1c1 !important;
-    border-bottom: 1px solid #fe9393 !important;
+    background: $highlight-red !important;
+    border-bottom: 1px solid $borderhighlightred !important;
     
     &:hover {
-      background: #ffb1b1 !important;  
+      background: $highlight-darkred !important;  
     }
   }
   

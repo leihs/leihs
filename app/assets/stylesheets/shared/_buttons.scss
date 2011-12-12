@@ -15,8 +15,10 @@
   
   &>img.loading {
     display: inline-block;
-    height: 14px;
-    width: 14px;
+    height: 16px;
+    margin-right: 4px;
+    margin-left: 2px;
+    width: 16px;
     @include opacity(0.8);
   }
   
@@ -27,7 +29,7 @@
   }
 }
 
-.button:active {
+a.button:active {
   line-height: 1.5em;
 }
 

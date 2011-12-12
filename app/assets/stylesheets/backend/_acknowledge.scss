@@ -1,4 +1,13 @@
 #acknowledge {
   
-  
+  #order {
+    
+    .linegroup:nth-last-child(2) {
+      margin-bottom: 0;
+    }
+    
+    hr:last-child{
+      display: none;
+    }   
+  }
 }

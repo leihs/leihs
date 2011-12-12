@@ -1,0 +1,19 @@
+.ui-dialog.acknowledge {
+  .list {
+    .line {
+      &.unavailable {
+        background: $highlight-red !important;
+      }
+      
+      li.model {
+        width: 500px;
+      }
+      
+      li.availability {
+        font-weight: bold;
+        padding-right: 12px;
+        text-align: right;
+      }
+    }
+  }
+}

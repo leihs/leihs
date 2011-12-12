@@ -101,7 +101,7 @@
   &.toggle {
     background: white;
     border-bottom: none;
-    cursor: pointer;
+    cursor: s-resize;
     color: $lightgrey;
     font-size: 1.1em;
     
@@ -121,6 +121,8 @@
     }
     
     &.show_less {
+      cursor: n-resize;
+      
       .icon {
         background: url($image-sprite) no-repeat -73px -37px;  
       }
