@@ -16,7 +16,9 @@ function SelectionActions() {
     this.setupGroupSelections();
     this.setupLineSelections();
     this.setupTimerangeUpdater();
-    this.setupLinegroupHighlighting()
+    this.setupLinegroupHighlighting();
+    this.setupDeleteSelection();
+    this.setupEditSelection();
   }
   
   this.deselectRadioButtons = function() {
@@ -36,6 +38,38 @@ function SelectionActions() {
         }
       }); 
    });
+  }
+  
+  this.setupEditSelection = function() {
+    $(".actiongroup #edit_selection").bind("click", function(event){
+      // add all selected lines to the order data
+      var lines_data = [];
+      $(".line input:checked").each(function(i, input){
+        lines_data.push($(this).closest(".line").tmplItem().data);
+      });
+      $("#order").data("selected_lines", lines_data);
+    });
+  }
+  
+  this.setupDeleteSelection = function() {
+    $(".actiongroup #delete_selection").bind("click", function(event){
+      // add all selected lines to delete selections buttons data + params for the remote action
+      var lines = [];
+      var action = $(this).attr("href");
+      action = action.replace(/\?.*?$/,"");
+      action += "?"
+      $(".line input:checked").each(function(i, input){
+        var line = $(this).closest(".line");
+        lines.push($(line));
+        if(i==0) {
+          action += "delete_line_ids[]=" + line.tmplItem().data.id;          
+        } else {
+          action += "&delete_line_ids[]=" + line.tmplItem().data.id;
+        }
+      });
+      $(this).data("lines", lines);
+      $(this).attr("href", action);
+    });
   }
   
   this.setupTimerangeUpdater = function() {
