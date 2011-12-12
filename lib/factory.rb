@@ -47,7 +47,10 @@ module Factory
       :default => false,
       :active  => true
     }
-    unless Language.find_by_name( attributes[:name])
+    
+    if (lang = Language.find_by_name(attributes[:name]))
+      lang.update_attributes(:locale_name => attributes[:locale_name])
+    else
       Language.create! default_attributes.merge(attributes)
     end
   end
@@ -346,24 +349,13 @@ module Factory
   # Languages shipped by default
   #
   def self.create_default_languages
-    self.create_default_language
-    [['Deutsch', 'de_CH'], ['Castellano','es'], ['Züritüütsch','gsw_CH@zurich']].each do |lang|
-      Factory.create_language!(:name => lang[0], :locale_name => lang[1])
+    [['English', 'en-GB', true],
+     ['English US', 'en-US', false],
+     ['Deutsch', 'de-CH', false],
+     ['Castellano','es', false],
+     ['Schwizertüütsch','gsw-CH', false]].each do |lang|
+      Factory.create_language!(:name => lang[0], :locale_name => lang[1], :default => lang[2])
     end
-  end
-  
-  #
-  # default language
-  #
-  def self.create_default_language
-    lang = Language.find_by_name 'English'
-    if lang.blank?
-      lang = Factory.create_language!(:name => 'English',
-                                      :locale_name => 'en_US',
-                                      :default => true)
-      ActiveRecord::Base.connection.change_column_default :users, :language_id, lang.id
-    end
-    lang
   end
   
   #
