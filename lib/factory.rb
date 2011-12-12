@@ -49,7 +49,10 @@ module Factory
       :default => false,
       :active  => true
     }
-    unless Language.find_by_name( attributes[:name])
+
+    if (lang = Language.find_by_name(attributes[:name]))
+      lang.update_attributes(:locale_name => attributes[:locale_name])
+    else
       Language.create! default_attributes.merge(attributes)
     end
   end
