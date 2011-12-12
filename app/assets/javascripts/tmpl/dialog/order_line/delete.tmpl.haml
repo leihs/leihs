@@ -1,0 +1,51 @@
+%h1
+  %strong
+    = _("Error")
+
+%p.subtitle
+  = _("while deleting order line for")
+  %strong
+    ${order.user.firstname}
+    ${order.user.lastname}
+
+.navigation
+  %a.button.white.close_dialog
+    .icon.return
+    = _("Go Back")
+    
+%hr
+
+{{if $item.error}}
+.flash_message.visible
+  ${$item.error}
+{{/if}}
+
+%section.lines.scalable
+  ${$startdate = 0, ""}
+  ${$enddate = 0, ""}
+  {{each(i, line) lines}}
+  {{if line.start_date != $startdate || line.end_date != $enddate}}
+  ${$startdate = line.start_date, ""}
+  ${$enddate = line.end_date, ""}
+  .topline
+    .date
+      {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      = "-"
+      {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+    .range
+      ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+      = _("Days")
+  .clear
+  .list
+    {{each(i, line) lines}}
+    {{if line.start_date == $startdate && line.end_date == $enddate}}
+    %ul.line
+      .container
+        %li.quantity
+          ${line.quantity}
+        %li.model
+          ${line.model.name}
+    {{/if}}
+    {{/each}}  
+  {{/if}}
+  {{/each}}
