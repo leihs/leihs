@@ -15,12 +15,9 @@ function Buttons() {
   
   this.loadingImg = $("<img src='/assets/loading.gif' class='loading icon'/>");
   this.loadingImgClones = Array();
-  this.loadingImgWhite = $("<img src='/assets/loading-white.gif' class='loading icon'/>");
-  this.loadingImgWhiteClones = Array();
   
   this.setup = function() {
-    this.cloneLoadingImg(5, "black");
-    this.cloneLoadingImg(5, "white");
+    this.cloneLoadingImg(5);
     this.setupAjaxListener();
     this.setupDialogListener();
     this.setupMultibutton();
@@ -28,11 +25,7 @@ function Buttons() {
   
   this.cloneLoadingImg = function(x, color) {
     for(var i = 0; i < x; i++) {
-      if(color == "black") {
-        this.loadingImgClones.push($(this.loadingImg).clone());
-      } else {
-        this.loadingImgWhiteClones.push($(this.loadingImgWhite).clone());
-      }
+      this.loadingImgClones.push($(this.loadingImg).clone());
     }
   }
   
