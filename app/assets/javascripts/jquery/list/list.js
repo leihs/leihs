@@ -46,11 +46,25 @@ function List() {
   }
   
   this.remove_line = function(element, color) {
-    var parent = $(element).parents(".list");
-    $(element).css("background-color", color).fadeOut(400, function(){
-      List.subtract(parent);
-      $(this).remove();
-    });
+    if($(element).closest(".linegroup").length) {
+      $(element).css("background-color", color).fadeOut(400, function(){
+        if($(this).closest(".linegroup").find(".lines .line").length == 1) {
+          $(this).closest(".linegroup").next("hr").remove();
+          $(this).closest(".linegroup").remove();
+          if(typeof(SelectionActions) != "undefined") SelectionActions.updateSelectionCount();
+        } else {
+          $(this).remove();
+          if(typeof(SelectionActions) != "undefined") SelectionActions.updateSelectionCount();
+        }
+      });
+    } else {
+      var parent = $(element).parents(".list");
+      $(element).css("background-color", color).fadeOut(400, function(){
+        List.subtract(parent);
+        $(this).remove();
+        if(typeof(SelectionActions) != "undefined") SelectionActions.updateSelectionCount();
+      });
+    }
   }
   
   this.update_reminder = function(element) {
