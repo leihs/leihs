@@ -1,0 +1,32 @@
+${$startdate = 0, ""}
+${$enddate = 0, ""}
+{{each(i, line) order_lines}}
+{{if line.start_date != $startdate || line.end_date != $enddate}}
+${$startdate = line.start_date, ""}
+${$enddate = line.end_date, ""}
+.topline
+  .date
+    {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+    = "-"
+    {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+  .range
+    ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+    = _("Days")
+.clear
+.list
+  {{each(i, line) order_lines}}
+  {{if line.start_date == $startdate && line.end_date == $enddate}}
+  %ul{:class => "line {{if !line.is_available}} unavailable{{/if}}"}
+    .container
+      %li.quantity
+        ${line.quantity}
+      %li.model
+        ${line.model.name}
+    {{if !line.is_available}}
+    %li.availability
+      = _("Unavailable")
+    {{/if}}
+  {{/if}}
+  {{/each}}  
+{{/if}}
+{{/each}}
