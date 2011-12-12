@@ -1,10 +1,10 @@
+
 -content_for :title, _("Order from %s") % @user
 
 #acknowledge.innercontent
   .top
     %h1= _("Order from %s") % @user
     %p.subtitle
-      = pluralize(@order.quantity, _("Item"))
       = _("for") 
       "#{@order.purpose}"
       
@@ -56,10 +56,24 @@
             = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}/reject", :class => "button white", :remote => "true" do
               .icon.valuelist
               = _("Value List")
-            = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}/reject", :class => "button white", :remote => "true" do
+            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@order.user.id}/acknowledge/#{@order.id}/update_lines",
+            :class => "button white",
+            :remote => "true",
+            :method => "post",
+            :"data-rel" => "tmpl/dialog/order_line/delete_multiple",
+            :"data-dialog_class" => "order_line",
+            :"data-on_success" => '$.each($(_this).data("lines"), function(line){List.remove_line($(this), "red");})' ,
+            :"data-ref_for_dialog" => "$(_this).data()",
+            :id => "delete_selection" do
               .icon.delete
               = _("Delete")
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}/reject", :class => "button white", :remote => "true" do
+          = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@order.user.id}/acknowledge/#{@order.id}/update_lines", 
+          :class => "button white open_dialog",
+          :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
+          :"data-dialog_class" => "calendar",
+          :"data-on_success" => 'List.update_order(request);',
+          :"data-ref_for_dialog" => "$('#order').tmplItem().data",
+          :id => "edit_selection" do
             .icon.timerange
             = _("Edit Selection")
     .clear
