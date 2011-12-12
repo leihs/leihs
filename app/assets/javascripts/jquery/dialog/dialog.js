@@ -76,7 +76,7 @@ function Dialog() {
         
         if($(window).height() < parseInt($(dialog).data("total_height") + Dialog.min_padding*2)) {
           // dialog is still not fitting inside viewport
-          $(dialog).data("padding", parseInt(($(window).height()-$(dialog).data("total_height"))/2));
+          $(dialog).data("padding", parseInt(($(window).height()-$(dialog).data("total_height"))/4));
           $(dialog).parent().height($(dialog).data("total_height"));
           $(dialog).find(".scalable").height("auto").css("overflow-y", "auto");
           $(window).unbind("scroll", Dialog.checkPosition);
@@ -84,7 +84,7 @@ function Dialog() {
         }
       } else {
         // dialog fits viewport
-        $(dialog).data("padding", parseInt(($(window).height()-$(dialog).data("total_height"))/2));
+        $(dialog).data("padding", parseInt(($(window).height()-$(dialog).data("total_height"))/4));
         $(dialog).parent().height($(dialog).data("total_height"));
         $(dialog).find(".scalable").height("auto").css("overflow-y", "auto");
         
