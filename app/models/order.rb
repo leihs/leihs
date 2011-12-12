@@ -299,7 +299,7 @@ class Order < Document
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
     
     required_options = {:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}},
-                                                      :methods => :type},
+                                                      :methods => [:type, :is_available]},
                                      :user => {:only => [:firstname, :lastname, :id, :phone, :email, :extended_info ] } },
                         :methods => [:quantity, :max_single_range, :min_date, :max_date, :max_range, :grouped_lines, :type, :is_approvable]}
     
