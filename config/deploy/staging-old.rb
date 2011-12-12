@@ -6,7 +6,7 @@
 require "bundler/capistrano"
 
 
-set :application, "leihs"
+set :application, "leihs-test-old"
 
 set :scm, :git
 set :repository,  "git://github.com/psy-q/leihs.git"
@@ -79,9 +79,13 @@ end
 task :configure_sphinx do
  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:config"
  
-#  run "sed -i 's/port: 3342/port: 3362/' #{release_path}/config/sphinx.yml"
-#  run "sed -i 's/port: 3343/port: 3363/' #{release_path}/config/sphinx.yml"
-#  run "sed -i 's/port: 3344/port: 3364/' #{release_path}/config/sphinx.yml"
+  run "sed -i 's/port: 3342/port: 3392/' #{release_path}/config/sphinx.yml"
+  run "sed -i 's/port: 3343/port: 3393/' #{release_path}/config/sphinx.yml"
+  run "sed -i 's/port: 3344/port: 3394/' #{release_path}/config/sphinx.yml"
+
+  run "sed -i 's/listen: 127.0.0.1:3342/port: 3392/' #{release_path}/config/sphinx.yml"
+  run "sed -i 's/listen: 127.0.0.1:3343/port: 3393/' #{release_path}/config/sphinx.yml"
+  run "sed -i 's/listen: 127.0.0.1:3344/port: 3394/' #{release_path}/config/sphinx.yml"
 
  run "sed -i 's/sql_host =.*/sql_host = #{sql_host}/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_user =.*/sql_user = #{sql_username}/' #{release_path}/config/production.sphinx.conf"
@@ -89,9 +93,9 @@ task :configure_sphinx do
  run "sed -i 's/sql_db =.*/sql_db = #{sql_database}/' #{release_path}/config/production.sphinx.conf"
  run "sed -i 's/sql_sock.*//' #{release_path}/config/production.sphinx.conf"
 
-#  run "sed -i 's/listen = 127.0.0.1:3342/listen = 127.0.0.1:3362/' #{release_path}/config/production.sphinx.conf"
-#  run "sed -i 's/listen = 127.0.0.1:3343/listen = 127.0.0.1:3363/' #{release_path}/config/production.sphinx.conf"
-#  run "sed -i 's/listen = 127.0.0.1:3344/listen = 127.0.0.1:3364/' #{release_path}/config/production.sphinx.conf"
+  run "sed -i 's/listen = 127.0.0.1:3342/listen = 127.0.0.1:3392/' #{release_path}/config/production.sphinx.conf"
+  run "sed -i 's/listen = 127.0.0.1:3343/listen = 127.0.0.1:3393/' #{release_path}/config/production.sphinx.conf"
+  run "sed -i 's/listen = 127.0.0.1:3344/listen = 127.0.0.1:3394/' #{release_path}/config/production.sphinx.conf"
 
 end
 
@@ -117,6 +121,11 @@ end
 # the built-in bundler support.
 task :bundle_install do
   run "cd #{release_path} && bundle install --gemfile '#{release_path}/Gemfile' --path '#{deploy_to}/#{shared_dir}/bundle' --deployment --without development test"
+end
+
+task :modify_config do
+  # On staging/test, we don't want to deliver e-mail
+  run "sed -i 's/config.action_mailer.perform_deliveries = true/config.action_mailer.perform_deliveries = false/' #{release_path}/config/environments/production.rb"
 end
 
 task :stop_sphinx do
