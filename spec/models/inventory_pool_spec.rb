@@ -1,4 +1,3 @@
-require 'ruby-debug'
 require 'spec/spec_helper.rb'
 require RAILS_ROOT + '/lib/factory.rb'
 
