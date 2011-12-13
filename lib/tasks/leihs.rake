@@ -80,7 +80,7 @@ namespace :leihs do
     Rake::Task["db:migrate"].invoke
     Rake::Task["db:seed"].invoke
     Rake::Task["ts:conf"].invoke
-    Rake::Task["thinking_sphinx:reindex"].invoke
+    Rake::Task["ts:reindex"].invoke
   end
   
 ################################################################################################
