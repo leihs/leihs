@@ -42,7 +42,15 @@ module Availability
     def available_total_quantities
       map do |change|
         total = change.quantities.sum(&:in_quantity)
-        [change.date, total]
+        groups = change.quantities.map do |q|
+          h = if q.group_id
+            q.group.as_json(:only => [:id, :name])
+          else
+            {:id => 0, :name => nil}
+          end
+          h.merge({:quantity => q.in_quantity})
+        end
+        [change.date, total, groups]
       end
     end
 
