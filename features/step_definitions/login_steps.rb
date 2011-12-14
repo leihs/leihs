@@ -1,8 +1,8 @@
-#Given "a $role for inventory pool '$ip_name' logs in as '$who'" do | role, ip_name, who |
-#  Given "a #{role} '#{who}' for inventory pool '#{ip_name}'"
-#  When "I log in as '#{who}' with password 'pass'" # use default pw
-#  @last_manager_login_name = who
-#end
+Given "a $role for inventory pool '$ip_name' logs in as '$who'" do | role, ip_name, who |
+  Given "a #{role} '#{who}' for inventory pool '#{ip_name}'"
+  When "I log in as '#{who}' with password 'pass'" # use default pw
+  @last_manager_login_name = who
+end
 
 Given "I log in as a $role for inventory pool '$ip_name'$with_access_level" do |role, ip_name,with_access_level|
   # use default user name
