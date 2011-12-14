@@ -122,11 +122,23 @@ module Availability
    
         # groups that this particular reservation can be possibly assigned to
         groups = document_line.document.user.groups.scoped_by_inventory_pool_id(inventory_pool) # optimize!
-        # groups doesn't contain the general group!
-        maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.unavailable_until)
+        # groups doesn't contain the general group! then we add it manually
+        groups_with_general = groups + [Group::GENERAL_GROUP_ID]
+        maximum = scoped_maximum_available_in_period_for_groups(groups_with_general, document_line.start_date, document_line.unavailable_until)
   
         # TODO sort groups by quantity desc
-        group = groups.detect(Group::GENERAL_GROUP_ID) {|group| maximum[group] >= document_line.quantity }
+        # currently the general is the last one!
+        group = groups_with_general.detect {|group| maximum[group] >= document_line.quantity }
+        
+        # if no user's group or general has enough available quantity,
+        # we force to allocate to a group which the user is not even member,
+        group ||= begin
+          # reset groups and maximum
+          groups = inventory_pool.groups
+          maximum = scoped_maximum_available_in_period_for_groups(groups, document_line.start_date, document_line.unavailable_until)
+          # if still no group has enough available quantity, we allocate to general as fallback
+          groups.detect(proc {Group::GENERAL_GROUP_ID}) {|group| maximum[group] >= document_line.quantity }
+        end
   
         inner_changes = @changes.between(start_change.date, end_change.date.yesterday)
         inner_changes.each do |ic|
@@ -139,7 +151,7 @@ module Availability
       # ensure changes are sorted
       @changes = Changes.new(@changes.sort_by(&:date)) # cast Array into Changes
     end
-
+    
     def maximum_available_in_period_for_user(user, start_date, end_date)
       groups = user.groups.scoped_by_inventory_pool_id(inventory_pool)
       h = @changes.between(start_date, end_date).available_quantities_for_groups(groups)
@@ -160,7 +172,7 @@ module Availability
     def minimum_in_group_between(start_date, end_date, group)
       minimum = nil
       @changes.between(start_date, end_date).each do |change|
-        quantity = change.quantities.detect { |qty| qty.group_id == group.id }
+        quantity = change.quantities.detect { |qty| qty.group_id == group.try(:id) }
         unless quantity.nil?
           minimum = (minimum.nil? ? quantity.in_quantity : [quantity.in_quantity, minimum].min)
         end
