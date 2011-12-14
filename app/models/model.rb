@@ -60,7 +60,7 @@ class Model < ActiveRecord::Base
     def in(inventory_pool)
       # At this point partitions are model scoped, additionally
       # we want to scope them for inventory pool too (double scope).
-      ScopedPartitions.new(inventory_pool, proxy_owner,
+      ScopedPartitions.new(inventory_pool, proxy_association.owner,
                            self.scoped.where(:inventory_pool_id => inventory_pool))
     end
   end
