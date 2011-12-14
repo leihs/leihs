@@ -110,7 +110,7 @@ def back_to_the_future( date )
     end
   end
 
-  Availability::Change.recompute_all # run nightly "cron job"
+  #no-cache# Availability::Change.recompute_all # run nightly "cron job"
 end
 
 def back_to_the_present
@@ -118,5 +118,5 @@ def back_to_the_present
     alias_method :today, :today_original
   end
 
-  Availability::Change.recompute_all # run nightly "cron job"
+  #no-cache# Availability::Change.recompute_all # run nightly "cron job"
 end

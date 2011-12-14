@@ -1,6 +1,9 @@
 module Availability
 
     class Observer < ActiveRecord::Observer
+
+#no-cache#
+=begin
       observe :order_line, :item_line, :item
       
       #tmp#6 OPTIMIZE bulk recompute if many lines are updated together
@@ -22,5 +25,7 @@ module Availability
       def after_destroy(record)
         recompute(record)
       end
+=end
     end
+
 end

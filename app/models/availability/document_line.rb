@@ -1,10 +1,11 @@
 module Availability
   module DocumentLine
 
-    def self.included(base)
-      attr_accessor :should_recompute_after_update
-      base.after_initialize { @should_recompute_after_update = true }
-    end
+    #no-cache#
+    #def self.included(base)
+    #  attr_accessor :should_recompute_after_update
+    #  base.after_initialize { @should_recompute_after_update = true }
+    #end
 
     # manual association, reversing serialized references
     def availability_quantities(sd = Date.today)
@@ -14,9 +15,10 @@ module Availability
       aq.select {|x| x.out_document_lines and x.out_document_lines[self.class.to_s].try(:include?, id)}
     end
 
-    def recompute
-      model.delete_availability_changes_in(document.inventory_pool)
-    end
+    #no-cache#
+    #def recompute
+    #  model.delete_availability_changes_in(document.inventory_pool)
+    #end
 
     def unavailable_from
       if is_a?(ContractLine) and item_id

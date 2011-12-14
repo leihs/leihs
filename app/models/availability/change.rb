@@ -14,7 +14,9 @@ module Availability
     end
   
   #############################################
-  
+
+#no-cache#
+=begin  
     def self.recompute_all
       ::Model.suspended_delta do
         ::InventoryPool.all.each do |inventory_pool|
@@ -25,6 +27,7 @@ module Availability
         end
       end
     end
+=end
     
   #############################################
 
