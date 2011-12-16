@@ -2,49 +2,51 @@ class Backend::OrdersController < Backend::BackendController
   
   before_filter :preload
   
-  def index
-    with = { :inventory_pool_id => current_inventory_pool.id }
-    with[:user_id] = @user.id if @user
+  def index(filter = params[:filter],
+            query = params[:query],
+            year = params[:year].to_i,
+            month = params[:month].to_i,
+            page = params[:page])
+
+    conditions = { :inventory_pool_id => current_inventory_pool.id }
+    conditions[:user_id] = @user.id if @user
         
-    scope = case params[:filter]
+    scope = case filter
               when "approved"
-                :sphinx_approved
+                :approved
               when "rejected"
-                :sphinx_rejected
+                :rejected
               when "pending"
-                :sphinx_submitted
+                :submitted
               else
-                :sphinx_all
+                :scoped
             end
     
-    facets = Order.send(scope).facets params[:query], { :facets => [:created_at_yearmonth],
-                                                         :star => true, :page => params[:page], :per_page => $per_page,
-                                                         :with => with,
-                                                         :sort_mode => :extended, :order => "created_at DESC" }
+    # unscoped is for skip de default_scope
+    sql = Order.unscoped.send(scope).where(conditions)
+    search_sql = sql.search2(query)
 
-    year = params[:year].to_i
-    s, e = ["#{year}01".to_i, "#{year}12".to_i]
-
-    @available_months = if params[:year].blank?
+    @available_months = unless year.zero?
       []
     else
-      facets[:created_at_yearmonth].keys.grep(s..e).map{|x| x - (year * 100) }
+      # OPTIMIZE: DISTINCT instead of .uniq 
+      search_sql.select("MONTH(orders.created_at) AS month").where("YEAR(orders.created_at) = ?", year).map(&:month).uniq.sort
     end
 
-    @available_years = facets[:created_at_yearmonth].keys.map{|x| (x / 100).to_i }.uniq.sort
-                                                        
-    h = if not params[:year].blank? and params[:month].blank?
-      {:created_at_yearmonth => (s..e)}
-    elsif not params[:month].blank?
-      month = "%02d" % params[:month].to_i
-      {:created_at_yearmonth => "#{year}#{month}".to_i}
+    # OPTIMIZE: DISTINCT instead of .uniq 
+    @available_years = search_sql.select("YEAR(orders.created_at) AS year").map(&:year).uniq.sort
+
+    time_range = if not year.zero? and month.zero?
+      "YEAR(orders.created_at) = %d" % year
+    elsif not year.zero?
+      "YEAR(orders.created_at) = %d AND MONTH(orders.created_at) = %d" % [year, month]
     else
       {}
     end
 
-    @entries = facets.for(h)
+    @total_entries = sql.where(time_range).count
+    @entries = search_sql.where(time_range).order("orders.created_at DESC").paginate(:page => page, :per_page => $per_page)
     @pages = @entries.total_pages
-    @total_entries = Order.send(scope).search_count(:with => with.merge(h))
         
     respond_to do |format|
       format.html

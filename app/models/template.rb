@@ -16,17 +16,18 @@ class Template < ModelGroup
   # TODO 12** validates belongs_to 1 and only 1 inventory pool
   # TODO 12** validates all models are present to current inventory_pool
   # TODO 12** has_many :models through
-  
-  define_index do
-    indexes :name
 
-    indexes :id # 0501 forcing indexer even if blank attributes, validates_presence_of :name ???
+  ####################################################################################
 
-    has inventory_pools(:id), :as => :inventory_pool_id
-    
-    set_property :delta => true
+  def self.search2(query)
+    return scoped unless query
+
+    w = query.split.map do |x|
+      "name LIKE '%#{x}%'"
+    end.join(' AND ')
+    where(w)
   end
-  
+
   ####################################################################################
   
   

@@ -44,27 +44,28 @@ class Location < ActiveRecord::Base
 
 #################################################################
 
-  define_index do
-    indexes :room, :sortable => true
-    indexes :shelf, :sortable => true
-    indexes building(:name), :as => :building_name, :sortable => true 
+  def self.search2(query)
+    return scoped unless query
 
-    indexes :id # 0501 forcing indexer even if blank attributes, validates_presence_of :room ???
-
-    has :building_id
-    has items(:inventory_pool_id), :as => :inventory_pool_id
-
-    # set_property :order => :room
-    set_property :delta => true
+    w = query.split.map do |x|
+      s = []
+      s << "CONCAT(room, shelf) LIKE '%#{x}%'"
+      s << "buildings.name LIKE '%#{x}%'"
+      "(%s)" % s.join(' OR ')
+    end.join(' AND ')
+    
+    joins(:building).where(w)
   end
 
-  # TODO 0501
-  default_sphinx_scope :default_search
-  sphinx_scope(:default_search) { {:order => :room, :sort_mode => :asc} }
-
-  def touch_for_sphinx
-    @block_delta_indexing = true
-    save # trigger reindex
+  def self.filter2(options)
+    sql = select("DISTINCT locations.*")
+    options.each_pair do |k,v|
+      case k
+        when :inventory_pool_id
+          sql = sql.joins(:items).where(:items => {k => v})
+      end
+    end
+    sql
   end
 
 #################################################################

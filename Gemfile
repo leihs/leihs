@@ -25,8 +25,8 @@ end
 
 gem 'rails_autolink', '~> 1.0'
 
-gem 'will_paginate', '~> 3.0'
-gem 'thinking-sphinx', '~> 2.0.10', :require => 'thinking_sphinx'
+#gem 'will_paginate', '~> 3.0' # alternatives: kaminari
+gem 'will_paginate', :git => "https://github.com/halloffame/will_paginate.git" # fixing count distinct, alternatives: .count(:id, :distinct => true)
 
 gem 'gettext_i18n_rails', '~> 0.3'
 gem 'ruby_parser', '~> 2.3' # gettext dependency that Bundler seems unable to resolve

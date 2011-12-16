@@ -105,6 +105,8 @@ module ApplicationHelper
     r
   end
 
+#no-sphinx#
+=begin
   # let the user know when the search was too short inside a ruby "flash"
   def flash_on_search_result(query, results = nil)
     unless query.blank?
@@ -122,6 +124,7 @@ module ApplicationHelper
       end    
     end
   end
+=end
   
   ######## Hash/Array to <ul> list #########
 

@@ -99,7 +99,7 @@
     }
     
     this.setupTemplates = function () {
-      $('#acknowledge #order').append($.tmpl("tmpl/order", #{@order.to_json}));
+      $('#acknowledge #order').append($.tmpl("tmpl/order", #{@order.to_json(:with_availability => true)}));
     }
     
     this.setupDatepicker = function () {

@@ -29,14 +29,18 @@ class Option < ActiveRecord::Base
     record.inventory_code = nil if !record.inventory_code.nil? and record.inventory_code.blank? 
   end
 
-  define_index do
-    indexes :inventory_code
-    indexes :name
-    
-    has :inventory_pool_id
-    
-    set_property :delta => true
+##########################################
+
+  def self.search2(query)
+    return scoped unless query
+
+    w = query.split.map do |x|
+      "CONCAT(name, inventory_code) LIKE '%#{x}%'"
+    end.join(' AND ')
+    where(w)
   end
+
+##########################################
 
   # TODO 2702** before_destroy: check if option_lines.empty?
 

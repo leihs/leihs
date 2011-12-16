@@ -4,6 +4,7 @@ class Backend::UsersController < Backend::BackendController
   before_filter :authorized_admin_user_unless_current_inventory_pool # OPTIMIZE
 
   def index
+=begin    
     # OPTIMIZE 0501 
     params[:sort] ||= 'login'
     params[:sort_mode] ||= 'ASC'
@@ -30,6 +31,7 @@ class Backend::UsersController < Backend::BackendController
         with.merge!(:inventory_pool_id => current_inventory_pool.id) if current_inventory_pool
     end
 
+    #no-sphinx#
     @users = (users ? users : User).search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
                                            :with => with, :without => without,
                                            :order => params[:sort], :sort_mode => params[:sort_mode] }
@@ -41,7 +43,7 @@ class Backend::UsersController < Backend::BackendController
       format.js { search_result_rjs(@users) }
       format.auto_complete { render :layout => false }
     end
-
+=end
   end
 
   def show

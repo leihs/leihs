@@ -86,7 +86,7 @@ class InventoryPool < ActiveRecord::Base
 
   has_many :contracts
   has_many :contract_lines, :through => :contracts, :uniq => true #Rails3.1# TODO still needed?
-  has_many :visits, :include => :user # MySQL View based on contract_lines
+  has_many :visits, :include => {:user => [:reminders, :groups]} # MySQL View based on contract_lines
 
   has_many :groups #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
 
@@ -100,8 +100,6 @@ class InventoryPool < ActiveRecord::Base
 
   before_create :create_workday
 
-# TODO ??  after_save :update_sphinx_index
-
   validates_presence_of :name
 
   default_scope order("name")
@@ -112,36 +110,20 @@ class InventoryPool < ActiveRecord::Base
 
 #######################################################################
 
+=begin #no-sphinx#
   define_index do
-    indexes :name, :sortable => true
-    indexes :description
-
     has access_rights(:user_id), :as => :user_id
-
-    # set_property :order => :name
-    set_property :delta => true
   end
+=end
 
-  def touch_for_sphinx
-    @block_delta_indexing = true
-    save # trigger reindex
+  def self.search2(query)
+    return scoped unless query
+
+    w = query.split.map do |x|
+      "CONCAT(name, description) LIKE '%#{x}%'"
+    end.join(' AND ')
+    where(w)
   end
-
-# TODO ??
-#  private
-#  def update_sphinx_index
-#    return if @block_delta_indexing
-#    Item.suspended_delta do
-#      items.each {|x| x.touch_for_sphinx }
-#    end
-#    User.suspended_delta do
-#      users.each {|x| x.touch_for_sphinx }
-#    end
-#    ModelGroup.suspended_delta do
-#      model_groups.each {|x| x.touch_for_sphinx }
-#    end
-#  end
-#  public
 
 #######################################################################
 

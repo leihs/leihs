@@ -4,6 +4,7 @@ class Backend::ModelsController < Backend::BackendController
   before_filter :authorized_privileged_user?, :only => [:new, :update]
 
   def index
+=begin
     # OPTIMIZE 0501
     params[:sort] ||= 'name'
     params[:sort_mode] ||= 'ASC'
@@ -31,6 +32,7 @@ class Backend::ModelsController < Backend::BackendController
 #            See features/search.feature. We hope that this will be fixed in thinking_sphinx 2/rails 3 and
 #            therefore, since we have no reports of this problem occuring in "real life" are deferring the
 #            solution of this race until after migrating to rails 3. Knock on wood :-/
+    #no-sphinx#
     @models = search_scope.search params[:query], { :index => "model",
                                                     :star => true, :page => params[:page], :per_page => $per_page,
                                                     :with => with,
@@ -55,6 +57,7 @@ class Backend::ModelsController < Backend::BackendController
       format.js { search_result_rjs(@models) }
       format.auto_complete { render :layout => false }
     end
+=end
   end
 
   def show

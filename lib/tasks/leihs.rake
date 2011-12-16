@@ -9,7 +9,6 @@ namespace :leihs do
   # TODO :boot or :server_reboot ??
   desc "Application boot (task called after server reboot)"
   task :boot => :environment do
-    Rake::Task["thinking_sphinx:start"].invoke
   end
  
   
@@ -25,9 +24,6 @@ namespace :leihs do
     #no-cache#
     # puts "Recomputing availability..."
     # system "./script/runner Availability::Change.recompute_all"
-
-    puts "Rebuilding sphinx index..."
-    Rake::Task["thinking_sphinx:reindex"].invoke
 
     puts "Maintenance complete ------------------------"    
   end

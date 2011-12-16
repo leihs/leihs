@@ -1,14 +1,3 @@
-:ruby
-  o = @model.availability_periods_for_user(current_user, true).collect do |av|
-    option_name = "#{av[:inventory_pool][:name]}"
-    [option_name, av[:inventory_pool][:id], {:"data-total_borrowable"   => av[:total_borrowable],
-                                             :"data-closed_days"        => av[:inventory_pool][:closed_days],
-                                             :"data-name"               => av[:inventory_pool][:name],
-                                             :"data-address"            => av[:inventory_pool][:address],
-                                             :"data-availability_dates" => av[:availability].to_json}]
-  end
-  s = o.first[1]
-
 - content_for :head do
   = javascript_include_tag "jquery/fullcalendar/fullcalendar.min"
   = javascript_include_tag "jquery/booking-calendar/booking-calendar"
@@ -39,9 +28,9 @@
       .inventorypool.container
         %span.select
           %span.name
-            = o.first[2][:"data-name"]
+            = @availability.first[2][:"data-name"]
           .arrow
-        = select_tag :inventory_pool_id, options_for_select(o, s)
+        = select_tag :inventory_pool_id, options_for_select(@availaiblity, @availability.first[1])
         %label{:for => "inventory_pool_id"}
           = _("Equipment Park")
     

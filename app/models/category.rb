@@ -20,20 +20,16 @@ class Category < ModelGroup
 
   ######################################################
 
-  define_index do
-    indexes :name, :sortable => true
+  def self.search2(query)
+    return scoped unless query
 
-    indexes :id # 0501 forcing indexer even if blank attributes, validates_presence_of :name ???
-    
-    # TODO 0501 has :parent_id, :child_id
-    has inventory_pools(:id), :as => :inventory_pool_id
-    
-    set_property :delta => true
+    w = query.split.map do |x|
+      "name LIKE '%#{x}%'"
+    end.join(' AND ')
+    where(w)
   end
 
-  # TODO 0501 doesn't work!
-  default_sphinx_scope :default_search
-  sphinx_scope(:default_search) { {:order => :name, :sort_mode => :asc} }
+  ######################################################
 
 end
 

@@ -3,7 +3,7 @@ class Backend::GroupsController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    @groups = current_inventory_pool.groups.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page}
+    @groups = current_inventory_pool.groups.search2(params[:query]).paginate(:page => params[:page], :per_page => $per_page)
 
     respond_to do |format|
       format.html

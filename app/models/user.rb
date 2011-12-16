@@ -88,51 +88,37 @@ class User < ActiveRecord::Base
 
 ################################################
 
-# TODO ??  after_save :update_sphinx_index
-
   before_save do
     self.language ||= Language.default_language
   end
 
 ################################################
 
+=begin #no-sphinx#
   define_index do
-    indexes :login, :sortable => true
-    indexes [:firstname,:lastname], :as => :name, :sortable => true
-    indexes :badge_id
-    
-    has access_rights(:inventory_pool_id), :as => :inventory_pool_id
-    # has active_inventory_pools(:id), :as => :active_inventory_pool_id
     has suspended_inventory_pools(:id), :as => :suspended_inventory_pool_id
-    
-    #temp# has "LEFT JOIN access_rights ON access_rights.user_id = users.id LEFT JOIN roles ON roles.id = access_rights.role_id", :as => :is_admin, :type => :boolean
-    #temp# has access_rights.role(:name), :type => :string, :as => :role_name
-    # has ... :manager_of_inventory_pool_id
-    # has ... :customer_of_inventory_pool_id
-    
-    # set_property :order => :login
-    set_property :delta => true
+  end
+=end
+
+  def self.search2(query)
+    return scoped unless query
+
+    w = query.split.map do |x|
+      "CONCAT(login, firstname, lastname, badge_id) LIKE '%#{x}%'"
+    end.join(' AND ')
+    where(w)
   end
 
-  # sphinx_scope(:sphinx_admins) {{ :is_admin => true }}
-
-  def touch_for_sphinx
-    @block_delta_indexing = true
-    save # trigger reindex
+  def self.filter2(options)
+    sql = select("DISTINCT users.*")
+    options.each_pair do |k,v|
+      case k
+        when :inventory_pool_id
+          sql = sql.joins(:access_rights).where(:access_rights => {k => v})
+      end
+    end
+    sql
   end
-
-# TODO ??
-#  private
-#  def update_sphinx_index
-#    return if @block_delta_indexing
-#    Contract.suspended_delta do
-#      contracts.each {|x| x.touch_for_sphinx }
-#    end
-#    Order.suspended_delta do
-#      orders.each {|x| x.touch_for_sphinx }
-#    end
-#  end
-#  public
 
 ################################################
 

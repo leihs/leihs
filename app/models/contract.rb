@@ -33,24 +33,6 @@ class Contract < Document
   has_many :items, :through => :item_lines, :uniq => false
   has_many :options, :through => :option_lines, :uniq => true
 
-  define_index do
-    indexes :id
-    indexes :note
-    indexes user(:login), :as => :user_login
-    indexes user(:firstname), :as => :user_firstname
-    indexes user(:lastname), :as => :user_lastname
-    indexes user(:badge_id), :as => :user_badge_id
-    indexes models(:name), :as => :model_names
-    indexes items(:inventory_code), :as => :items_inventory_code
-    
-    has :inventory_pool_id, :user_id, :status_const, :created_at
-    has "DATE_FORMAT(contracts.created_at, '%Y%m')", :as => :created_at_yearmonth, :type => :integer, :facet => true
-    #tmp# has contract_lines(:start_date), :as => :hand_overs_at, :type => :mva_for_dates, :facet => true
-    #tmp# has contract_lines(:end_date), :as => :take_back_at, :type => :mva_for_dates, :facet => true
-    
-    set_property :delta => true
-  end
-
   # TODO validates_uniqueness [user_id, inventory_pool_id, status_const] if status_consts == Contract::UNSIGNED
 
   UNSIGNED = 1
@@ -74,6 +56,7 @@ class Contract < Document
   scope :unsigned, where(:status_const => Contract::UNSIGNED)
   scope :signed, where(:status_const => Contract::SIGNED)
   scope :closed, where(:status_const => Contract::CLOSED)
+  scope :signed_or_closed, where(:status_const => [Contract::SIGNED, Contract::CLOSED])
   
   # OPTIMIZE use INNER JOIN (:joins => :contract_lines) -OR- union :unsigned + :signed (with lines) 
   scope :pending, select("DISTINCT contracts.*").
@@ -86,11 +69,36 @@ class Contract < Document
 
   scope :by_inventory_pool, lambda { |inventory_pool| where(:inventory_pool_id => inventory_pool) }
 
-# 0501 rename /sphinx_/ and remove relative scope
-  sphinx_scope(:sphinx_unsigned) { { :with => {:status_const => Contract::UNSIGNED} } }
-  sphinx_scope(:sphinx_signed) { { :with => {:status_const => Contract::SIGNED} } }
-  sphinx_scope(:sphinx_closed) { { :with => {:status_const => Contract::CLOSED} } }
-  sphinx_scope(:sphinx_signed_or_closed) { { :with => {:status_const => Contract::SIGNED..Contract::CLOSED} } }
+#########################################################################
+
+  def self.search2(query)
+    return scoped unless query
+
+    sql = select("DISTINCT contracts.*").joins(:user, :models, :items)
+
+    w = query.split.map do |x|
+      s = []
+      s << "CONCAT(contracts.id, contracts.note) LIKE '%#{x}%'"
+      s << "CONCAT(users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
+      s << "models.name LIKE '%#{x}%'"
+      s << "items.inventory_code LIKE '%#{x}%'"
+      "(%s)" % s.join(' OR ')
+    end.join(' AND ')
+    sql.where(w)
+  end
+
+  def self.filter2(options)
+    sql = scoped
+    options.each_pair do |k,v|
+      case k
+        when :inventory_pool_id
+          sql = sql.where(k => v)
+        when :status_const
+          sql = sql.where(k => v)
+      end
+    end
+    sql
+  end
   
 #########################################################################
   

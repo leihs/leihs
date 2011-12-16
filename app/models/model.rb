@@ -60,7 +60,7 @@ class Model < ActiveRecord::Base
     def in(inventory_pool)
       # At this point partitions are model scoped, additionally
       # we want to scope them for inventory pool too (double scope).
-      ScopedPartitions.new(inventory_pool, proxy_association.owner,
+      Partition::Scoped.new(inventory_pool, proxy_association.owner,
                            self.scoped.where(:inventory_pool_id => inventory_pool))
     end
   end
@@ -97,8 +97,8 @@ class Model < ActiveRecord::Base
                           :association_foreign_key => "compatible_id",
                      #TODO :insert_sql => "INSERT INTO models_compatibles (model_id, compatible_id)
                      #                 VALUES (#{id}, #{record.id}), (#{record.id}, #{id})" 
-                          :after_add => [:add_bidirectional_compatibility, :update_sphinx_index_compatibility],
-                          :after_remove => [:remove_bidirectional_compatibility, :update_sphinx_index_compatibility]
+                          :after_add => [:add_bidirectional_compatibility],
+                          :after_remove => [:remove_bidirectional_compatibility]
   def add_bidirectional_compatibility(compatible)
     compatible.compatibles << self unless compatible.compatibles.include?(self)
   end
@@ -107,11 +107,6 @@ class Model < ActiveRecord::Base
     compatible.compatibles.delete(self) if compatible.compatibles.include?(self)
   end
   
-  def update_sphinx_index_compatibility(compatible)
-    self.touch_for_sphinx
-    compatible.touch_for_sphinx
-  end
-
 #############################################  
 
   validates_presence_of :name
@@ -139,11 +134,6 @@ class Model < ActiveRecord::Base
 
 #############################################
 
-  after_save :update_sphinx_index
-
-
-#############################################
-
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
 
@@ -152,15 +142,17 @@ class Model < ActiveRecord::Base
     # :methods => :inventory_pool_ids
     json = super(options.deep_merge(required_options))
 
-    if (customer_user = options[:current_user])
-      json['total_borrowable'] = total_borrowable_items_for_user(customer_user)
-      json['availability_for_user'] = availability_periods_for_user(customer_user)
-    end
-
-    if (current_inventory_pool = options[:current_inventory_pool])
-      borrowable_items = items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
-      json['total_rentable'] = borrowable_items.count
-      json['total_rentable_in_stock'] = borrowable_items.in_stock.count
+    if options[:with_availability]
+      if (customer_user = options[:current_user])
+        json['total_borrowable'] = total_borrowable_items_for_user(customer_user)
+        json['availability_for_user'] = availability_periods_for_user(customer_user)
+      end
+  
+      if (current_inventory_pool = options[:current_inventory_pool])
+        borrowable_items = items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
+        json['total_rentable'] = borrowable_items.count
+        json['total_rentable_in_stock'] = borrowable_items.in_stock.count
+      end
     end
     
     json.merge({:type => self.class.to_s.underscore})
@@ -169,49 +161,49 @@ class Model < ActiveRecord::Base
 
 #############################################
 
+=begin #no-sphinx#
   define_index do
-    indexes :name, :sortable => true
-    indexes :manufacturer, :sortable => true
-    indexes categories(:name), :as => :category_names
-    indexes properties(:value), :as => :properties_values
-    indexes items(:inventory_code), :as => :items_inventory_codes
-    
-    has :is_package
     has compatibles(:id), :as => :compatible_id
     has model_groups(:id), :as => :model_group_id
-#    has items(:inventory_pool_id), :as => :inventory_pool_id
-#    has items(:owner_id), :as => :owner_id
-    has unretired_items(:inventory_pool_id), :as => :inventory_pool_id
     has unretired_items(:owner_id), :as => :owner_id
 
     # item has at least one NULL parent_id and thus it has items that were not packaged
     # we collect all the inventory pools for which this is the case
     has "(SELECT GROUP_CONCAT(DISTINCT i.inventory_pool_id) FROM items i WHERE i.model_id = models.id AND i.parent_id IS NULL)",
         :as => :inventory_pools_with_unpackaged_items, :type => :multi
-#    has unpackaged_items(:inventory_pool_id), :as => :unpackaged_inventory_pool_id
-    
-    # set_property :order => :name
-    set_property :delta => true
   end
 
-#old#  sphinx_scope(:sphinx_active) { {:without => {:active_item_id => 0}} }
   sphinx_scope(:sphinx_packages) { {:with => {:is_package => true}} }
   sphinx_scope(:sphinx_with_unpackaged_items) { |inventory_pool_id|
                                                 {:with => {:inventory_pools_with_unpackaged_items => inventory_pool_id.to_s}} }
+=end
 
-  def touch_for_sphinx
-    @block_delta_indexing = true
-    save # trigger reindex
+  def self.search2(query)
+    return scoped unless query
+
+    sql = select("DISTINCT models.*").joins(:categories, :properties, :items)
+
+    w = query.split.map do |x|
+      s = []
+      s << "CONCAT(models.name, models.manufacturer) LIKE '%#{x}%'"
+      s << "model_groups.name LIKE '%#{x}%'"
+      s << "properties.value LIKE '%#{x}%'"
+      s << "items.inventory_code LIKE '%#{x}%'"
+      "(%s)" % s.join(' OR ')
+    end.join(' AND ')
+    sql.where(w)
   end
-
-  private
-  def update_sphinx_index
-    return if @block_delta_indexing
-    Item.suspended_delta do # FIXME doesn't work!!!
-      items.each {|x| x.touch_for_sphinx }
+  
+  def self.filter2(options)
+    sql = select("DISTINCT models.*")
+    options.each_pair do |k,v|
+      case k
+        when :inventory_pool_id
+          sql = sql.joins(:unretired_items).where(:items => {k => v})
+      end
     end
+    sql
   end
-  public
 
 #############################################  
 

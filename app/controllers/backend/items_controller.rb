@@ -3,6 +3,7 @@ class Backend::ItemsController < Backend::BackendController
   before_filter :pre_load
 
   def index
+=begin
     # OPTIMIZE 0501 
     params[:sort] ||= 'model_name'
     params[:sort_mode] ||= 'ASC'
@@ -67,9 +68,11 @@ class Backend::ItemsController < Backend::BackendController
     
     # OPTIMIZE
     @items = if params[:filter] == "retired"
-      search_options[:per_page] = (2**30) 
+      search_options[:per_page] = (2**30)
+      #no-sphinx# 
       Item.unscoped { Item.where(:id => Item.search_for_ids(params[:query], search_options)) }.paginate(:per_page => per_page)
     else
+      #no-sphinx#
       Item.search(params[:query], search_options)
     end
 
@@ -92,6 +95,7 @@ class Backend::ItemsController < Backend::BackendController
       end
       
     end
+=end
   end
 
   def new(id = params[:original_id])

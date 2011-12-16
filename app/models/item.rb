@@ -55,9 +55,6 @@ class Item < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :inventory_pool
   
-  # only used for sphinx not_in_stock attribute
-  has_one :out_item_line, :class_name => "ItemLine", :conditions => "returned_date IS NULL"
-
   has_many :contract_lines
   has_many :histories, :as => :target, :dependent => :destroy, :order => 'created_at ASC'
 
@@ -73,68 +70,53 @@ class Item < ActiveRecord::Base
     record.owner = record.inventory_pool if record.inventory_pool and !record.owner
   end
 
-  after_save :update_sphinx_index, :update_children_attributes
+  after_save :update_children_attributes
 
 ####################################################################
 
-  define_index do
-    # 0501 where "retired IS NULL"
-    
-    # 0501 where "parent_id IS NULL"
-    # 0501 indexes childen...
-    
-    indexes :inventory_code, :sortable => true
-    indexes :serial_number #, :sortable => true
-    indexes model(:name), :as => :model_name, :sortable => true 
-    indexes model(:manufacturer), :as => :model_manufacturer #, :sortable => true
-    indexes inventory_pool(:name), :as => :inventory_pool_name #, :sortable => true 
-    indexes :invoice_number
-    indexes :note
-    indexes :name
+=begin #no-sphinx#
+  # only used for sphinx not_in_stock attribute
+  has_one :out_item_line, :class_name => "ItemLine", :conditions => "returned_date IS NULL"
 
-    has :is_borrowable, :is_broken, :is_incomplete, :is_inventory_relevant, :type => :boolean
-    has :parent_id, :model_id, :location_id, :owner_id, :inventory_pool_id, :supplier_id
-    
+  define_index do
     # OPTIMIZE
     # this will also exclude items that are reserved for future hand over
     # - i.e. contract_lines that only start in the future and allready have an item assigned
     has out_item_line(:id), :as => :not_in_stock, :type => :boolean
-    #has "parent_id IS NOT NULL", :as => :is_child, :type => :boolean
     
     # 0501
     has "retired IS NOT NULL", :as => :retired, :type => :boolean
     has model(:is_package), :as => :model_is_package, :type => :boolean
-    
-    # set_property :order => :model_name
-    set_property :delta => true
   end
   
-#temp#
-#  define_index "retired_item" do
-#    where "retired IS NOT NULL"
-#    ...
-#  end
-
-  # TODO 0501 doesn't work!
-#  default_sphinx_scope :default_search
-#  sphinx_scope(:default_search) { {:with => {:retired => false}} }
   sphinx_scope(:retired) { {:with => {:retired => true}} }
+=end
 
-  def touch_for_sphinx
-    @block_delta_indexing = true
-    save # trigger reindex
+  def self.search2(query)
+    return scoped unless query
+
+    sql = select("DISTINCT items.*").joins(:model, :inventory_pool)
+
+    w = query.split.map do |x|
+      s = []
+      s << "CONCAT(items.name, items.inventory_code, items.serial_number, items.invoice_number, items.note) LIKE '%#{x}%'"
+      s << "CONCAT(models.name, models.manufacturer) LIKE '%#{x}%'"
+      s << "inventory_pools.name LIKE '%#{x}%'"
+      "(%s)" % s.join(' OR ')
+    end.join(' AND ')
+    sql.where(w)
   end
 
-  private
-  def update_sphinx_index
-    return if @block_delta_indexing
-    model.touch_for_sphinx
-    location.touch_for_sphinx if location
-#    Contract.suspended_delta do
-#      contracts.each {|x| x.touch_for_sphinx }
-#    end
+  def self.filter2(options)
+    sql = scoped
+    options.each_pair do |k,v|
+      case k
+        when :inventory_pool_id
+          sql = sql.where(k => v)
+      end
+    end
+    sql
   end
-  public
 
 ####################################################################
 # preventing delete
@@ -392,10 +374,10 @@ class Item < ActiveRecord::Base
   end
 
 ####################################################################
+# TODO include Statistic module
 
   def current_borrowing_info
-    # TODO 1102** make sure is only max 1 contract_line
-    contract_line = contract_lines.where(:returned_date => nil).first
+    contract_line = current_contract_line
     
     # FIXME this is a quick fix
     if contract_line
@@ -404,16 +386,37 @@ class Item < ActiveRecord::Base
   end
   
   def current_borrower
-    contract_line = contract_lines.where(:returned_date => nil).first
-    
+    contract_line = current_contract_line
     contract_line.contract.user if contract_line
   end
   
   def current_return_date
-    contract_line = contract_lines.where(:returned_date => nil).first
-    
+    contract_line = current_contract_line
     contract_line.end_date if contract_line
   end
+
+  # TODO statistics  
+  def latest_borrower
+    contract_line = latest_contract_line
+    contract_line.contract.user if contract_line
+  end
+
+  # TODO statistics  
+  def latest_take_back_manager
+  end
+
+  private
+  # TODO has_one
+  def current_contract_line
+    # TODO 1102** make sure is only max 1 contract_line
+    contract_lines.where(:returned_date => nil).first
+  end
+
+  # TODO has_one/has_many
+  def latest_contract_line
+    contract_lines.where("returned_date IS NOT NULL").order("returned_date").last
+  end
+  public
 
 ####################################################################
 
@@ -435,15 +438,15 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-def as_json(options = {})
-  options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-
-  required_options = {:methods => [:current_borrower, :current_return_date, :in_stock?],
-                      :include => { :model => {:only => :name}}}
+  def as_json(options = {})
+    options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
   
-  json = super(options.deep_merge(required_options))
-  json.merge({:type => self.class.to_s.underscore})
-end
+    required_options = {:methods => [:current_borrower, :current_return_date, :in_stock?],
+                        :include => { :model => {:only => :name}}}
+    
+    json = super(options.deep_merge(required_options))
+    json.merge({:type => self.class.to_s.underscore})
+  end
 
 ####################################################################
 

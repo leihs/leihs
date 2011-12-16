@@ -3,7 +3,7 @@ class Backend::OptionsController < Backend::BackendController
   before_filter :pre_load
 
   def index
-    @options = current_inventory_pool.options.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page }
+    @options = current_inventory_pool.options.search2(params[:query]).paginate(:page => params[:page], :per_page => $per_page)
 
     if params[:source_path] # we are in a greybox
       @start_date = Date.parse(params[:start_date])

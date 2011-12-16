@@ -7,8 +7,8 @@ class RenameLocalesToFitRailsStyle < ActiveRecord::Migration
     [["en_GB", "en-GB"], ["en_US", "en-US"], ["de_CH", "de-CH"], ["gsw_CH", "gsw-CH"]].each do |langs|
       lang = Language.where(:locale_name => langs[0]).first
       unless lang.nil?
-	lang.locale_name = langs[1]
-	lang.save
+      	lang.locale_name = langs[1]
+      	lang.save
       end
     end
 
@@ -18,8 +18,8 @@ class RenameLocalesToFitRailsStyle < ActiveRecord::Migration
     [["en_GB", "en-GB"], ["en_US", "en-US"], ["de_CH", "de-CH"], ["gsw_CH", "gsw-CH"]].each do |langs|
       lang = Language.where(:locale_name => langs[1])
       unless lang.nil?
-	lang.locale_name = langs[0]
-	lang.save
+      	lang.locale_name = langs[0]
+      	lang.save
       end
     end
     

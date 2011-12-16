@@ -26,7 +26,6 @@ class AccessRight < ActiveRecord::Base
 
   before_validation :remove_old, :on => :create
   before_save :adjust_levels
-  after_save :update_sphinx_index
   
   scope :not_suspended, where("suspended_until IS NULL OR suspended_until < CURDATE()")
   scope :not_admin, where("role_id > 1") #TODO: replace hardcoded 1 with Role name (Role.admin)
@@ -78,11 +77,6 @@ class AccessRight < ActiveRecord::Base
       when "manager"
         self.access_level = [access_level.to_i, 1].max
     end
-  end
-
-  def update_sphinx_index
-    user.touch_for_sphinx
-    inventory_pool.touch_for_sphinx if inventory_pool
   end
 
 end

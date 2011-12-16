@@ -15,11 +15,11 @@ class Backend::BackendController < ApplicationController
   
   def search
 
-    conditions = [ { :klasses => { User => {:sort_by => "name ASC"},
+    conditions = [ { :klasses => { User => {:sort_by => "firstname ASC, lastname ASC"},
                                    Order => {:sort_by => "created_at DESC"},
                                    Contract => {:sort_by => "created_at DESC", :with => {:status_const => Contract::SIGNED..Contract::CLOSED}},
                                    Model => {:sort_by => "name ASC"},
-                                   Item => {:sort_by => "model_name ASC"} },
+                                   Item => {:sort_by => "models.name ASC"} },
                      :with => { :inventory_pool_id => [current_inventory_pool.id] }
                     } ]
     
@@ -35,9 +35,17 @@ class Backend::BackendController < ApplicationController
     @hits = {}
     conditions.each do |s|
       s[:klasses].each_pair do |klass, options|
-        r = klass.search(params[:text], { :star => true, :page => params[:page], :per_page => 54,
-                                                  :sort_mode => :extended,
-                                                  :with => s[:with] }.deep_merge(options) )
+        r = if klass.respond_to?(:search2)
+          klass.search2(params[:text]).
+                filter2(s[:with].merge(options[:with] || {})).
+                order(options[:sort_by]).
+                paginate(:page => params[:page], :per_page => 54)
+        else
+          #klass.search(params[:text], { :star => true, :page => params[:page], :per_page => 54,
+          #                              :sort_mode => :extended,
+          #                              :with => s[:with] }.deep_merge(options) )
+        end
+
         searches << r
         @hits[klass.to_s.underscore] = r.total_entries 
       end
@@ -186,10 +194,11 @@ class Backend::BackendController < ApplicationController
       @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
     end
     
+    # TODO remove ??
     # helper for respond_to format.js called from derived controllers' indexes
     def search_result_rjs(search_results)
       render :update do |page|
-        flash_on_search_result(params[:query], search_results)
+        #no-sphinx# flash_on_search_result(params[:query], search_results)
         page.replace 'list_table', :partial => 'index' # will render derived controller's partial _index
         page.replace_html 'flash', flash_content
         flash.discard        

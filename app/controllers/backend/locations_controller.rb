@@ -4,13 +4,14 @@ class Backend::LocationsController < Backend::BackendController
 
   def index
     # OPTIMIZE 0501 
-    params[:sort] ||= 'building_name'
+    params[:sort] ||= 'buildings.name'
     params[:sort_mode] ||= 'ASC'
     params[:sort_mode] = params[:sort_mode].downcase.to_sym
 
-    @locations = Location.search params[:query], { :star => true, :page => params[:page], :per_page => $per_page,
-                                                   :order => params[:sort], :sort_mode => params[:sort_mode],
-                                                   :with => { :inventory_pool_id => current_inventory_pool.id } }
+    @locations = Location.search2(params[:query]).
+                          filter2(:inventory_pool_id => current_inventory_pool.id).
+                          paginate(:page => params[:page], :per_page => $per_page).
+                          order("#{params[:sort]} #{params[:sort_mode]}")
 
     respond_to do |format|
       format.html

@@ -40,23 +40,6 @@ class Order < Document
 
   acts_as_commentable
 
-  define_index do
-    indexes :purpose
-    indexes user(:login), :as => :user_login
-    indexes user(:firstname), :as => :user_firstname
-    indexes user(:lastname), :as => :user_lastname
-    indexes user(:badge_id), :as => :user_badge_id
-    indexes models(:name), :as => :model_names
-    
-    has :inventory_pool_id, :user_id, :status_const, :created_at
-    has "DATE_FORMAT(orders.created_at, '%Y%m')", :as => :created_at_yearmonth, :type => :integer, :facet => true
-    
-    has backup(:id), :as => :backup_id
-    
-    set_property :delta => true
-  end
-
-                 
   UNSUBMITTED = 1
   SUBMITTED = 2
   APPROVED = 3
@@ -85,12 +68,32 @@ class Order < Document
 
   scope :by_inventory_pool,  lambda { |inventory_pool| where(:inventory_pool_id => inventory_pool) }
 
-# 0501 rename /sphinx_/ and remove relative scope
-  sphinx_scope(:sphinx_submitted) { { :with => {:status_const => Order::SUBMITTED}, :include => :backup } }
-  sphinx_scope(:sphinx_approved) { { :with => {:status_const => Order::APPROVED} } }
-  sphinx_scope(:sphinx_rejected) { { :with => {:status_const => Order::REJECTED} } }
-  sphinx_scope(:sphinx_all) {{}}
+#########################################################################
+  
+  def self.search2(query)
+    return scoped unless query
 
+    sql = select("DISTINCT orders.*").joins(:user, :models)
+
+    w = query.split.map do |x|
+      s = []
+      s << "CONCAT(users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
+      s << "models.name LIKE '%#{x}%'"
+      "(%s)" % s.join(' OR ')
+    end.join(' AND ')
+    sql.where(w)
+  end
+
+  def self.filter2(options)
+    sql = scoped
+    options.each_pair do |k,v|
+      case k
+        when :inventory_pool_id
+          sql = sql.where(k => v)
+      end
+    end
+    sql
+  end
 
 #########################################################################
 
@@ -280,13 +283,10 @@ class Order < Document
     end
   end
   
-  def grouped_lines
+  def grouped_lines(with_availability = false)
     grouped_lines = lines.group_by {|x| [x.start_date.to_formatted_s(:db), x.end_date.to_formatted_s(:db)] }
-    grouped_lines = grouped_lines.map{ |k,v| {
-      "start_date" => k[0],
-      "end_date" => k[1],
-      "lines" => v } }
-    grouped_lines = grouped_lines.as_json(:current_user => user, :current_inventory_pool => inventory_pool)
+    grouped_lines = grouped_lines.map {|k,v| { "start_date" => k[0], "end_date" => k[1], "lines" => v } }
+    grouped_lines.as_json(:current_user => user, :current_inventory_pool => inventory_pool, :with_availability => with_availability)
   end
   
   def type
@@ -301,9 +301,13 @@ class Order < Document
     required_options = {:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}},
                                                       :methods => [:type, :is_available]},
                                      :user => {:only => [:firstname, :lastname, :id, :phone, :email, :extended_info ] } },
-                        :methods => [:quantity, :max_single_range, :min_date, :max_date, :max_range, :grouped_lines, :type, :is_approvable]}
+                        :methods => [:quantity, :max_single_range, :min_date, :max_date, :max_range, :type, :is_approvable]}
     
     json = super(options.deep_merge(required_options))
+
+    json['grouped_lines'] = grouped_lines(options[:with_availability])
+
+    json
   end
   
   ############################################

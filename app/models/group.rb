@@ -23,12 +23,15 @@ class Group < ActiveRecord::Base
 
 #tmp#2 scope :general, where(:name => 'General', :inventory_pool_id => nil)
 
-  define_index do
-    indexes :name, :sortable => true
+##########################################
 
-    has :inventory_pool_id
+  def self.search2(query)
+    return scoped unless query
 
-    set_property :delta => true
+    w = query.split.map do |x|
+      "name LIKE '%#{x}%'"
+    end.join(' AND ')
+    where(w)
   end
 
 ##########################################

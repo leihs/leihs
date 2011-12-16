@@ -34,7 +34,7 @@
           - unless item.is_borrowable?
             %li= _("Unborrowable")
     %td
-      - if item.in_stock? # OPTIMIZE 0501 performance: scope or sphinx_scope in_stock?(item)
+      - if item.in_stock? # OPTIMIZE 0501 performance: scope
         = icon_tag('accept')
       - else
         = item.current_borrowing_info

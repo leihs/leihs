@@ -5,8 +5,8 @@ class FrontendController < ApplicationController
   layout "frontend"
 
   def search
-    models = Model.search params[:term], {:star => true, :page => 1, :per_page => 5,
-                                          :with => {:inventory_pool_id => current_user.inventory_pool_ids} }
+    models = Model.search2(params[:term]).filter(:inventory_pool_id => current_user.inventory_pool_ids).limit(5)
+
     results = models.map do |model|
       { label: model.to_s,
         type: "model",
@@ -14,11 +14,9 @@ class FrontendController < ApplicationController
         link: model_path(model) }
     end
 
-    categories = Category.search params[:term], {:star => true, :page => 1, :per_page => 5,
-                                                 :with => {:sphinx_internal_id => current_user.all_categories.map(&:id) } }
-                                                 # NOTE alternatives:
-                                                 # :sphinx_internal_id => current_user.category_ids
-                                                 # :inventory_pool_id => current_user.inventory_pool_ids
+    ids = current_user.all_categories.map(&:id)
+    categories = Category.search2(params[:term]).where(:id => ids).limit(5)
+
     results += categories.map do |category|
       { label: category.to_s,
         type: "category",
