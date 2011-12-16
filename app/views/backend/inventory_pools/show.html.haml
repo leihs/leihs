@@ -66,7 +66,7 @@
   
     $('.list').hide();
     
-    $('.order .list').append($.tmpl("tmpl/line", #{@orders.to_json}));
+    $('.order .list').append($.tmpl("tmpl/line", #{@orders.to_json(:with => {:grouped_lines => {}, :user => {}})}));
     $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs.to_json}));
     $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs.to_json}));
     

@@ -171,6 +171,13 @@ class User < ActiveRecord::Base
     [email, alternative_email].compact
   end
 
+  def image_url
+    if unique_id and USER_IMAGE_URL
+      numeric_unique_id = unique_id.gsub(/\D/, '')
+      USER_IMAGE_URL.gsub(/\{:id\}/, numeric_unique_id)
+    end
+  end
+  
 ################################################
 
   def things_to_return

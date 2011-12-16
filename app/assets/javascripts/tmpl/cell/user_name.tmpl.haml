@@ -11,7 +11,7 @@
           .noimagetext
             = _("no image")
           {{if extended_info}}
-          %img{:src => "http://www.zhdk.ch/?person/foto&width=100&compressionlevel=0&id=${extended_info.uniqueid.match(/[0-9]+/g)[0]}"}
+          %img{:src => "${image_url}" }
           {{else}}
           .noimage
           {{/if}}

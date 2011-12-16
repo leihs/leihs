@@ -283,31 +283,41 @@ class Order < Document
     end
   end
   
-  def grouped_lines(with_availability = false)
+  def grouped_lines
     grouped_lines = lines.group_by {|x| [x.start_date.to_formatted_s(:db), x.end_date.to_formatted_s(:db)] }
-    grouped_lines = grouped_lines.map {|k,v| { "start_date" => k[0], "end_date" => k[1], "lines" => v } }
-    grouped_lines.as_json(:current_user => user, :current_inventory_pool => inventory_pool, :with_availability => with_availability)
-  end
-  
-  def type
-    self.class.to_s.underscore
+    grouped_lines.map {|k,v| { "start_date" => k[0], "end_date" => k[1], "lines" => v } }
   end
   
   ############################################
   
+  # example: ip.orders.submitted.as_json(:with => {:user => {}, :grouped_lines => {:with_availability => true}})
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
     
-    required_options = {:include => {:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}},
-                                                      :methods => [:type, :is_available]},
-                                     :user => {:only => [:firstname, :lastname, :id, :phone, :email, :extended_info ] } },
-                        :methods => [:quantity, :max_single_range, :min_date, :max_date, :max_range, :type, :is_approvable]}
+    #{:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}}, :methods => [:type, :is_available]}, #TODO WE ALLREADY HAVE GROUPED LINES SO GET THE INFORMATIONS THERE
+    #:quantity, :max_single_range, :min_date, :max_date, :max_range, :is_approvable #TODO MOVE ALL THIS LOGIC TO CLIENT
     
-    json = super(options.deep_merge(required_options))
+    default_options = {:only => [:id, :inventory_pool_id, :purpose, :status_const, :created_at]}
+    more_json = {}
+    
+    if (with = options[:with])
+      if with[:user]
+        user_default_options = {:include => {:user => {:only => [:firstname, :lastname, :id, :phone, :email],
+                                                       :methods => [:image_url] }}}
+        default_options.merge!(user_default_options.deep_merge(with[:user]))
+      end
 
-    json['grouped_lines'] = grouped_lines(options[:with_availability])
-
-    json
+      if with[:grouped_lines]
+        grouped_lines_default_options = {:current_user => user, :current_inventory_pool => inventory_pool}
+        more_json['grouped_lines'] = grouped_lines.as_json(grouped_lines_default_options.merge(with[:grouped_lines]))
+      end
+    end
+    
+    json = super(default_options.deep_merge(options))
+    
+    json['type'] = :order # needed for templating (type identifier)
+    
+    json.merge(more_json)
   end
   
   ############################################

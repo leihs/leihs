@@ -114,4 +114,6 @@ DEFAULT_EMAIL = 'sender@example.com'
 # inventory pool has no address set, messages go to DEFAULT_EMAIL
 DELIVER_ORDER_NOTIFICATIONS = false
 
+USER_IMAGE_URL = "http://www.zhdk.ch/?person/foto&width=100&compressionlevel=0&id={:id}"
+
 ######################################################
