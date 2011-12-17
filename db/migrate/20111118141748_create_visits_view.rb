@@ -6,7 +6,8 @@ class CreateVisitsView < ActiveRecord::Migration
 
     execute("CREATE VIEW visits AS " \
               "SELECT " \
-                "CONCAT_WS(',', inventory_pool_id, user_id, status_const, IF(status_const = #{Contract::UNSIGNED}, start_date, end_date)) as id, " \
+                "CAST( CONCAT( UNIX_TIMESTAMP( IF(status_const = #{Contract::UNSIGNED}, start_date, end_date)), " \
+                " inventory_pool_id, user_id, status_const) AS UNSIGNED) as id, " \
                 "inventory_pool_id, user_id, status_const, " \
                 "IF(status_const = #{Contract::UNSIGNED}, 'hand_over', 'take_back') AS action, " \
                 "IF(status_const = #{Contract::UNSIGNED}, start_date, end_date) AS date, " \
