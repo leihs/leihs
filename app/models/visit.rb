@@ -16,7 +16,7 @@ class Visit < ActiveRecord::Base
     contract_line_ids.split(',').map(&:to_i)
   end
   def contract_lines
-    @contract_lines ||= ContractLine.find(line_ids)
+    @contract_lines ||= ContractLine.includes(:model).find(line_ids)
   end
   alias :lines :contract_lines
 

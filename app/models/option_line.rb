@@ -48,8 +48,8 @@ class OptionLine < ContractLine
 ########################################################
 # aliases
 
-  alias_attribute :item, :option
-  alias_attribute :model, :option
+  belongs_to :item, :class_name => "Option", :foreign_key => :option_id
+  belongs_to :model, :class_name => "Option", :foreign_key => :option_id
 
 ##################################################
 
