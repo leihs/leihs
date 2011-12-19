@@ -27,9 +27,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
   def show(date = params[:date])
     @date = date ? Date.parse(date) : Date.today
     redirect_to backend_inventory_pool_path(current_inventory_pool) if @date < Date.today
-    
-    orders = current_inventory_pool.orders.submitted
-    
+        
     today_and_next_4_days = [@date] 
     4.times { today_and_next_4_days << current_inventory_pool.next_open_date(today_and_next_4_days[-1] + 1.day) }
     
@@ -37,21 +35,26 @@ class Backend::InventoryPoolsController < Backend::BackendController
     
     @chart_data = today_and_next_4_days.map do |day|
       day_name = (day == Date.today) ? _("Today") : l(day, :format => "%a %d.%m")
-      take_back_visits_on_day = grouped_visits[["take_back", day]]
+      take_back_visits_on_day = grouped_visits[["take_back", day]] || []
       take_back_workload = take_back_visits_on_day.size * 4 + take_back_visits_on_day.sum(&:quantity)
-      hand_over_visits_on_day = grouped_visits[["hand_over", day]]
+      hand_over_visits_on_day = grouped_visits[["hand_over", day]] || []
       hand_over_workload = hand_over_visits_on_day.size * 4 + hand_over_visits_on_day.sum(&:quantity)
       [[take_back_workload, hand_over_workload],
         {:name => day_name,
          :value => "#{take_back_visits_on_day.size+hand_over_visits_on_day.size} Visits<br/>#{take_back_visits_on_day.sum(&:quantity)+hand_over_visits_on_day.sum(&:quantity)} Items"}]
     end
-    
+
+    orders = current_inventory_pool.orders.submitted
     @orders_json = orders.to_json(:with => {:grouped_lines => {}, :user => {}})
     @orders_size = orders.size
-    @hand_overs_json = grouped_visits[["hand_over", @date]].to_json
-    @hand_overs_size = grouped_visits[["hand_over", @date]].size
-    @take_backs_json = grouped_visits[["take_back", @date]].to_json
-    @take_backs_size = grouped_visits[["take_back", @date]].size
+
+    ho = grouped_visits[["hand_over", @date]] || []
+    @hand_overs_json = ho.to_json
+    @hand_overs_size = ho.size
+
+    tb = grouped_visits[["take_back", @date]] || []
+    @take_backs_json = tb.to_json
+    @take_backs_size = tb.size
   end
   
   def new
