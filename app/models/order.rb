@@ -295,14 +295,14 @@ class Order < Document
     #{:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}}, :methods => [:type, :is_available]}, #TODO WE ALLREADY HAVE GROUPED LINES SO GET THE INFORMATIONS THERE
     #:quantity, :max_single_range, :min_date, :max_date, :max_range, :is_approvable #TODO MOVE ALL THIS LOGIC TO CLIENT
     
-    default_options = {:only => [:id, :inventory_pool_id, :purpose, :status_const, :created_at]}
+    default_options = {:only => [:id, :inventory_pool_id, :purpose, :status_const, :created_at, :updated_at]}
     more_json = {}
     
     if (with = options[:with])
       if with[:user]
         user_default_options = {:include => {:user => {:only => [:firstname, :lastname, :id, :phone, :email],
                                                        :methods => [:image_url] }}}
-        default_options.merge!(user_default_options.deep_merge(with[:user]))
+        default_options.deep_merge!(user_default_options.deep_merge(with[:user]))
       end
 
       if with[:grouped_lines]
@@ -312,7 +312,6 @@ class Order < Document
     end
     
     json = super(default_options.deep_merge(options))
-    
     json['type'] = :order # needed for templating (type identifier)
     
     json.merge(more_json)

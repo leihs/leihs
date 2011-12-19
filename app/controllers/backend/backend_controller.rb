@@ -31,29 +31,21 @@ class Backend::BackendController < ApplicationController
                 # TODO implement this later on :with => { :owner_id => [current_inventory_pool.id]}
                 # TODO implement serach for all user "ADMIN" and merge with users
 
-    searches = []
+    results = []
     @hits = {}
     conditions.each do |s|
       s[:klasses].each_pair do |klass, options|
-        r = if klass.respond_to?(:search2)
-          klass.search2(params[:text]).
-                filter2(s[:with].merge(options[:with] || {})).
-                order(options[:sort_by]).
-                paginate(:page => params[:page], :per_page => 54)
-        else
-          #klass.search(params[:text], { :star => true, :page => params[:page], :per_page => 54,
-          #                              :sort_mode => :extended,
-          #                              :with => s[:with] }.deep_merge(options) )
-        end
+        r = klass.search2(params[:text]).
+              filter2(s[:with].merge(options[:with] || {})).
+              order(options[:sort_by]).
+              paginate(:page => params[:page], :per_page => 54)
 
-        searches << r
+        results << r
         @hits[klass.to_s.underscore] = r.total_entries 
       end
     end
     
-    @results = searches.collect do |results|
-      results.compact
-    end.flatten.as_json(:current_inventory_pool => current_inventory_pool)
+    @results_json = results.flatten.as_json(:current_inventory_pool => current_inventory_pool, :with => {:user => {}}).to_json
   end
 
 ###############################################################  
