@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   has_many :contracts
   has_many :contract_lines, :through => :contracts, :uniq => true
   has_many :current_contracts, :class_name => "Contract", :conditions => { :status_const => Contract::UNSIGNED }
-  has_many :visits, :include => :inventory_pool # MySQL View based on contract_lines
+  has_many :visits #, :include => :inventory_pool # MySQL View based on contract_lines
 
   validates_presence_of     :login, :email
   validates_length_of       :login,    :within => 3..40
