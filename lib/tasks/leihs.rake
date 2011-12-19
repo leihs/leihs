@@ -66,6 +66,10 @@ namespace :leihs do
 
     Rake::Task["db:reset"].invoke
 
+    system "bundle exec rspec spec"
+    exit_code = $? >> 8 # magic brainfuck
+    raise "Tests failed with: #{exit_code}" if exit_code != 0
+
     ENV['CUCUMBER_FORMAT'] = 'pretty' unless ENV['CUCUMBER_FORMAT']
     system "bundle exec cucumber"
     exit_code = $? >> 8 # magic brainfuck
