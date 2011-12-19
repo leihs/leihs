@@ -21,30 +21,27 @@ def create_item(model_name, inventory_code, serial_number, manufacturer, categor
   
   ip = InventoryPool.find_or_create_by_name("HSLU")
   
-  Item.suspended_delta do
-
-    i = Item.new
-    i.model = m
-    i.inventory_code = inventory_code
-    i.serial_number = serial_number
-    i.note = note
-    i.owner = ip
-    i.is_borrowable = true
-    i.is_inventory_relevant = true
-    i.inventory_pool = ip
-    i.price = price
-    i.invoice_date = invoice_date
-    
-    if i.save
-      puts "Item imported correctly:"
-      @successes += 1
-      puts i.inspect
-    else
-      @failures += 1
-      puts "Could not import item #{inventory_code}"
-      puts i.errors.full_messages
-      puts i.inspect
-    end
+  i = Item.new
+  i.model = m
+  i.inventory_code = inventory_code
+  i.serial_number = serial_number
+  i.note = note
+  i.owner = ip
+  i.is_borrowable = true
+  i.is_inventory_relevant = true
+  i.inventory_pool = ip
+  i.price = price
+  i.invoice_date = invoice_date
+  
+  if i.save
+    puts "Item imported correctly:"
+    @successes += 1
+    puts i.inspect
+  else
+    @failures += 1
+    puts "Could not import item #{inventory_code}"
+    puts i.errors.full_messages
+    puts i.inspect
   end
   
   puts "-----------------------------------------"
@@ -64,22 +61,20 @@ def create_model(name, category, manufacturer, accessory_string)
     c = Category.find_or_create_by_name(category)
   end
   
-  Model.suspended_delta do
-    m = Model.create(:name => name, :manufacturer => manufacturer)
-    m.categories << c
+  m = Model.create(:name => name, :manufacturer => manufacturer)
+  m.categories << c
 
-    unless accessory_string.blank?  
-      accessory_string.split("-").each do |string|
-        unless string.blank?
-          acc = Accessory.create(:name => string.strip)
-          m.accessories << acc
-        end
+  unless accessory_string.blank?  
+    accessory_string.split("-").each do |string|
+      unless string.blank?
+        acc = Accessory.create(:name => string.strip)
+        m.accessories << acc
       end
     end
-
-    m.save
-    return m
   end
+
+  m.save
+  return m
 end
 
 items_to_import = FasterCSV.open(import_file, :headers => true)
