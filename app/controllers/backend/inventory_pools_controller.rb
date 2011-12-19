@@ -24,36 +24,43 @@ class Backend::InventoryPoolsController < Backend::BackendController
 =end
   end
 
-  def show
-    @date = (params[:date]) ? Date.parse(params[:date]) : Date.today
-    redirect_to backend_inventory_pool_path(current_inventory_pool) if @date<Date.today
+  def show(date = params[:date])
+    @date = date ? Date.parse(date) : Date.today
+    redirect_to backend_inventory_pool_path(current_inventory_pool) if @date < Date.today
     
-    @orders = current_inventory_pool.orders.submitted
+    orders = current_inventory_pool.orders.submitted
     
     today_and_next_4_days = [@date] 
     4.times { today_and_next_4_days << current_inventory_pool.next_open_date(today_and_next_4_days[-1] + 1.day) }
     
     visits = current_inventory_pool.visits.where("date <= ?", today_and_next_4_days.last)
-    @hand_overs, @take_backs = visits.partition {|v| v.action == "hand_over" }
+    hand_overs, take_backs = visits.partition {|v| v.action == "hand_over" }
     
     @chart_data = today_and_next_4_days.map do |day|
       day_name = (day == Date.today) ? _("Today") : l(day, :format => "%a %d.%m")
-      take_back_visits_on_day = @take_backs.select{|v| v.date == day}
+      take_back_visits_on_day = take_backs.select{|v| v.date == day}
       take_back_workload = take_back_visits_on_day.size * 4 + take_back_visits_on_day.sum(&:quantity)
-      hand_over_visits_on_day = @hand_overs.select{|v| v.date == day }
+      hand_over_visits_on_day = hand_overs.select{|v| v.date == day }
       hand_over_workload = hand_over_visits_on_day.size * 4 + hand_over_visits_on_day.sum(&:quantity)
       [[take_back_workload, hand_over_workload],
         {:name => day_name,
          :value => "#{take_back_visits_on_day.size+hand_over_visits_on_day.size} Visits<br/>#{take_back_visits_on_day.sum(&:quantity)+hand_over_visits_on_day.sum(&:quantity)} Items"}]
     end
     
-    if(params[:date] && Date.parse(params[:date]) != Date.today)
-      @hand_overs.delete_if {|v| v.date <= @date}
-      @take_backs.delete_if {|v| v.date <= @date}
+    unless @date == Date.today
+      hand_overs.delete_if {|v| v.date <= @date}
+      take_backs.delete_if {|v| v.date <= @date}
     else
-      @hand_overs.delete_if {|v| v.date > @date}
-      @take_backs.delete_if {|v| v.date > @date}
+      hand_overs.delete_if {|v| v.date > @date}
+      take_backs.delete_if {|v| v.date > @date}
     end
+
+    @orders_json = orders.to_json(:with => {:grouped_lines => {}, :user => {}})
+    @orders_size = orders.size
+    @hand_overs_json = hand_overs.to_json
+    @hand_overs_size = hand_overs.size
+    @take_backs_json = take_backs.to_json
+    @take_backs_size = take_backs.size
   end
   
   def new
