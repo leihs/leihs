@@ -86,7 +86,7 @@ class InventoryPool < ActiveRecord::Base
 
   has_many :contracts
   has_many :contract_lines, :through => :contracts, :uniq => true #Rails3.1# TODO still needed?
-  has_many :visits, :include => {:user => [:reminders, :groups]} # MySQL View based on contract_lines
+  has_many :visits #, :include => {:user => [:reminders, :groups]} # MySQL View based on contract_lines
 
   has_many :groups #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
 
