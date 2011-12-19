@@ -1,3 +1,11 @@
+# === PLEASE NOTE ===
+# RubyGems and the various gems listed here have MANY incompatibilities
+# with each other. Therefore, you must use a specific version of RubyGems
+# to install them (sorry, not our fault!)
+#
+# Please use only RubyGems version 1.5.2 to install these gems.
+# === PLEASE NOTE ===
+
 source 'http://rubygems.org'
 
 gem 'rails', '2.3.5'
@@ -6,7 +14,9 @@ gem 'rake', '0.8.7'
 gem 'mysql'
 #gem 'memcache-client' #gem 'dalli' #gem 'redis-store'
 
+# This version is incompatible with RubyGems 1.8+
 gem "gettext", "2.1.0"
+
 # 2901 gem "locale_rails", '2.0.5' # see config/initializers/gettext.rb
 gem "gettext_activerecord", '2.1.0'
 gem "gettext_rails", '2.1.0'
