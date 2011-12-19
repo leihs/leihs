@@ -196,9 +196,9 @@ class InventoryPool < ActiveRecord::Base
 
   def update_address(attr)
     if (a = Address.where(attr).first)
-      ip.update_attributes(:address_id => a.id)
+      update_attributes(:address_id => a.id)
     else
-      ip.create_address(attr)
+      create_address(attr)
     end
   end
 
