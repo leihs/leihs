@@ -1,5 +1,5 @@
-require 'spec/spec_helper.rb'
-require RAILS_ROOT + '/lib/factory.rb'
+require 'spec_helper'
+require Rails.root + 'lib/factory'
 
 describe InventoryPool do
 
