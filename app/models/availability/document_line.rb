@@ -1,12 +1,6 @@
 module Availability
   module DocumentLine
 
-    #no-cache#
-    #def self.included(base)
-    #  attr_accessor :should_recompute_after_update
-    #  base.after_initialize { @should_recompute_after_update = true }
-    #end
-
     # manual association, reversing serialized references
     def availability_quantities(sd = Date.today)
       # we keep the changes in an instance variable to avoid re-hit the same memcached key during the same request 
@@ -14,11 +8,6 @@ module Availability
       aq = @changes.select {|x| x.date >= sd and x.date <= end_date }.collect(&:quantities).flatten
       aq.select {|x| x.out_document_lines and x.out_document_lines[self.class.to_s].try(:include?, id)}
     end
-
-    #no-cache#
-    #def recompute
-    #  model.delete_availability_changes_in(document.inventory_pool)
-    #end
 
     def unavailable_from
       if is_a?(ContractLine) and item_id

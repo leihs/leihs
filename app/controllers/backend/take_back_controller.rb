@@ -46,11 +46,6 @@ class Backend::TakeBackController < Backend::BackendController
       @lines = current_inventory_pool.contract_lines.find(params[:lines]) if params[:lines]
       @lines ||= []
       
-      #no-cache#
-      # only recompute model availability *after* all lines have been treated, since we don't
-      # want to do recomputation more than once if multiple lines refer to the same model
-      #@lines.each { |line| line.should_recompute_after_update = false }
-
       if params[:returned_quantity]
         params[:returned_quantity].each_pair do |k,v|
           line = @lines.detect {|l| l.id == k.to_i }
@@ -77,7 +72,6 @@ class Backend::TakeBackController < Backend::BackendController
       @lines.each do |line|
         if line.is_a?(ItemLine) and not models.include?(line.model)
           models << line.model
-          #no-cache# line.should_recompute_after_update = true
           line.save
         end
       end

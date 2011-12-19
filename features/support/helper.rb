@@ -109,14 +109,10 @@ def back_to_the_future( date )
       @@my_date
     end
   end
-
-  #no-cache# Availability::Change.recompute_all # run nightly "cron job"
 end
 
 def back_to_the_present
   class << Date
     alias_method :today, :today_original
   end
-
-  #no-cache# Availability::Change.recompute_all # run nightly "cron job"
 end

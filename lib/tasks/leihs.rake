@@ -21,10 +21,8 @@ namespace :leihs do
   desc "Maintenance"
   task :maintenance => :environment do
     
-    #no-cache#
-    # puts "Recomputing availability..."
-    # system "./script/runner Availability::Change.recompute_all"
-
+    # nothing to do
+    
     puts "Maintenance complete ------------------------"    
   end
 

@@ -10,12 +10,6 @@ Given /^the MacBook availability as of (\d+\-\d+\-\d+)$/ do |date|
                 File.join( Rails.root,
                            'features/fixtures/availability_calculation_performance.yml')))
 
-#no-cache#
-#  # suspend Availability recomputation - we only want to import data
-#  Availability::Observer.class_eval \
-#    "alias_method :orig_recompute, :recompute;" \
-#    "def recompute(foo); end"
-
   # suspend reindexing within the loop to save time
   #Availability::Quantity.suspended_delta do
     Contract.suspended_delta do
@@ -39,11 +33,6 @@ Given /^the MacBook availability as of (\d+\-\d+\-\d+)$/ do |date|
   #    end
     end
   #end
-
-#no-cache#
-#  # re-enable Availability recomputation
-#  Availability::Observer.class_eval \
-#    "alias_method :recompute, :orig_recompute"
 
   # first item inside the fixtures is the model
   @model = Model.find fixture.first.id

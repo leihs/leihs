@@ -15,22 +15,6 @@ module Availability
   
   #############################################
 
-#no-cache#
-=begin  
-    def self.recompute_all
-      ::Model.suspended_delta do
-        ::InventoryPool.all.each do |inventory_pool|
-          inventory_pool.models.each do |model|
-            model.delete_availability_changes_in(inventory_pool)
-            model.availability_changes_in(inventory_pool)
-          end
-        end
-      end
-    end
-=end
-    
-  #############################################
-
     # compares two objects in order to sort them
     def <=>(other)
       self.date <=> other.date

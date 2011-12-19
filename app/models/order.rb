@@ -339,7 +339,6 @@ class Order < Document
         o.save        
       end
       save
-      #no-cache# lines.reload.each {|l| l.touch } # to recompute availability
   end
 
   def validates_order_lines
