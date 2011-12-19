@@ -19,15 +19,13 @@ class CreatePartitionsDropAvailability < ActiveRecord::Migration
       t.index [:model_id, :inventory_pool_id, :group_id], :unique => true
     end
 
-    Model.suspended_delta do
-      AvailabilityChange.all(:group => "model_id, inventory_pool_id").each do |change|
-        partitions = {}
-        change.availability_quantities.each do |q|
-          v = q.in_quantity + q.out_quantity
-          partitions[q.group_id] = v if q.group_id != Group::GENERAL_GROUP_ID and v > 0
-        end
-        change.model.partitions.in(change.inventory_pool).set(partitions) unless partitions.blank?
+    AvailabilityChange.all(:group => "model_id, inventory_pool_id").each do |change|
+      partitions = {}
+      change.availability_quantities.each do |q|
+        v = q.in_quantity + q.out_quantity
+        partitions[q.group_id] = v if q.group_id != Group::GENERAL_GROUP_ID and v > 0
       end
+      change.model.partitions.in(change.inventory_pool).set(partitions) unless partitions.blank?
     end
 
     drop_table :availability_quantities
