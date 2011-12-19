@@ -47,13 +47,8 @@ class Backend::InventoryPoolsController < Backend::BackendController
          :value => "#{take_back_visits_on_day.size+hand_over_visits_on_day.size} Visits<br/>#{take_back_visits_on_day.sum(&:quantity)+hand_over_visits_on_day.sum(&:quantity)} Items"}]
     end
     
-    unless @date == Date.today
-      hand_overs.delete_if {|v| v.date <= @date}
-      take_backs.delete_if {|v| v.date <= @date}
-    else
-      hand_overs.delete_if {|v| v.date > @date}
-      take_backs.delete_if {|v| v.date > @date}
-    end
+    hand_overs.keep_if {|v| v.date == @date}
+    take_backs.keep_if {|v| v.date == @date}
 
     @orders_json = orders.to_json(:with => {:grouped_lines => {}, :user => {}})
     @orders_size = orders.size
