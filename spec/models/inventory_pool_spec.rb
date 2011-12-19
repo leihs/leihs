@@ -42,8 +42,7 @@ describe InventoryPool do
         }
         make_sure_no_start_date_is_identical_to_any_other! open_contracts
     
-        hand_over_visits = @ip.hand_over_visits()
-    
+        hand_over_visits = @ip.visits.hand_over
         # We should have as many events as there are different start dates
         hand_over_visits.count.should equal(
           open_contracts.map(&:contract_lines).flatten.map(&:start_date).uniq.count )
@@ -61,7 +60,7 @@ describe InventoryPool do
                                                  {:contract_lines => 3 } )
         start_first_contract_line_on_same_date_as_second! open_contract
         start_third_contract_line_on_different_date! open_contract
-        hand_over_visits = @ip.hand_over_visits()
+        hand_over_visits = @ip.visits.hand_over
 
         # the first two contract_lines should now be grouped inside the
         # first Event, which makes it two events in total
@@ -81,7 +80,7 @@ describe InventoryPool do
           contract_lines[0].save
         }
 
-        hand_over_visits = @ip.hand_over_visits()
+        hand_over_visits = @ip.visits.hand_over
 
         # the first two contract_lines should now be grouped inside the
         # first Event, which makes it two events in total
@@ -141,7 +140,7 @@ describe InventoryPool do
 
         open_contracts.each { |c| c.sign(c.contract_lines, @manager) }
     
-        take_back_visits = @ip.take_back_visits()
+        take_back_visits = @ip.visits.take_back
     
         # We should have as many events as there are different start dates
         take_back_visits.count.should equal(
@@ -163,7 +162,7 @@ describe InventoryPool do
 
         open_contract.sign(open_contract.contract_lines, @manager)
     
-        take_back_visits = @ip.take_back_visits()
+        take_back_visits = @ip.visits.take_back
 
         # the first two contract_lines should now be grouped inside the
         # first Event, which makes it two events in total
@@ -184,7 +183,7 @@ describe InventoryPool do
 
         [ open_contract, open_contract2].each { |c| c.sign(c.contract_lines, @manager) }
 
-        take_back_visits = @ip.take_back_visits()
+        take_back_visits = @ip.visits.take_back
     
         # the first two contract_lines should now be grouped inside the
         # first Event, which makes it two events in total
