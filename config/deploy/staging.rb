@@ -28,7 +28,7 @@ role :web, "leihs@rails.zhdk.ch"
 role :db,  "leihs@rails.zhdk.ch", :primary => true
 
 task :retrieve_db_config do
-  # DB credentials needed by Sphinx, mysqldump etc.
+  # DB credentials needed by mysqldump etc.
   get(db_config, "/tmp/leihs_db_config.yml")
   dbconf = YAML::load_file("/tmp/leihs_db_config.yml")["production"]
   set :sql_database, dbconf['database']
@@ -62,11 +62,6 @@ task :link_db_backups do
   run "ln -s #{deploy_to}/#{shared_dir}/db_backups #{release_path}/db/backups"
 end
 
-task :link_sphinx do
-  run "rm -rf #{release_path}/db/sphinx"
-  run "ln -s #{deploy_to}/#{shared_dir}/sphinx #{release_path}/db/sphinx"
-end
-
 task :make_tmp do
 	run "mkdir -p #{release_path}/tmp/sessions #{release_path}/tmp/cache"
 end
@@ -75,36 +70,9 @@ task :chmod_tmp do
   run "chmod g-w #{release_path}/tmp"
 end
 
-task :configure_sphinx do
- run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:config"
- run "sed -i 's/listen = 127.0.0.1:3342/listen = 127.0.0.1:3352/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/listen = 127.0.0.1:3343/listen = 127.0.0.1:3353/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/listen = 127.0.0.1:3344/listen = 127.0.0.1:3354/' #{release_path}/config/production.sphinx.conf"
-
- run "sed -i 's/sql_host =.*/sql_host = #{sql_host}/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/sql_user =.*/sql_user = #{sql_username}/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/sql_pass =.*/sql_pass = #{sql_password}/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/sql_db =.*/sql_db = #{sql_database}/' #{release_path}/config/production.sphinx.conf"
- run "sed -i 's/sql_sock.*//' #{release_path}/config/production.sphinx.conf"
-
- run "sed -i 's/port: 3342/port: 3352/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/port: 3343/port: 3353/' #{release_path}/config/sphinx.yml"
- run "sed -i 's/port: 3344/port: 3354/' #{release_path}/config/sphinx.yml"
- 
-end
-
 task :modify_config do
   # On staging/test, we don't want to deliver e-mail
   run "sed -i 's/config.action_mailer.perform_deliveries = true/config.action_mailer.perform_deliveries = false/' #{release_path}/config/environments/production.rb"
-end
-
-task :stop_sphinx do
-  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:stop"
-end
-
-task :start_sphinx do
-  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:reindex"
-  run "cd #{release_path} && RAILS_ENV='production' bundle exec rake ts:start"
 end
 
 task :migrate_database do
@@ -152,12 +120,7 @@ after "deploy:symlink", :chmod_tmp
 
 after "link_config", :migrate_database
 after "link_config", :modify_config
-after "migrate_database", :configure_sphinx
 
 before "deploy:restart", :make_tmp
-after "deploy:restart", :stop_sphinx
-before "stop_sphinx", :link_sphinx
 
-after "deploy", :start_sphinx
-after "deploy:cold", :start_sphinx
 after "deploy", "deploy:cleanup"
