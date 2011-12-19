@@ -1,4 +1,10 @@
 class RemoveDeltaColumns < ActiveRecord::Migration
+  
+  # TODO run in future
+  # currently the same database serves both leihs2 and leihs3, 
+  # so we will run this migration just after we are switching off leihs2
+  # and the database is not used in parallel  
+  
   def up
     remove_column :backup_orders, :delta
     remove_column :contracts, :delta
