@@ -41,7 +41,7 @@ group :cucumber, :development do
 	gem 'ruby-debug', :require => false
 end
 
-group :cucumber, :test, :development do
+group :cucumber, :test do
 	gem 'cucumber-rails', '0.3.2', :require => false
 	gem 'database_cleaner', '0.5.0', :require => false
 	gem 'rspec', '1.3.0', :require => false
