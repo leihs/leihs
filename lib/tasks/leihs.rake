@@ -61,7 +61,8 @@ namespace :leihs do
       system "rm -f rerun.txt"
     end
 
-    Rake::Task["db:reset"].invoke
+    Rake::Task["leihs:reset"].invoke
+    #Rake::Task["db:reset"].invoke
 
     system "bundle exec rspec spec"
     exit_code = $? >> 8 # magic brainfuck
@@ -80,8 +81,8 @@ namespace :leihs do
     Rake::Task["db:create"].invoke
     Rake::Task["db:migrate"].invoke
     Rake::Task["db:seed"].invoke
-    Rake::Task["ts:conf"].invoke
-    Rake::Task["ts:reindex"].invoke
+    #Rake::Task["ts:conf"].invoke
+    #Rake::Task["ts:reindex"].invoke
   end
   
 ################################################################################################
