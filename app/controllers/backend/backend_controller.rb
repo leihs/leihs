@@ -164,9 +164,7 @@ class Backend::BackendController < ApplicationController
   # remove OrderLines or ContractLines
   def generic_remove_lines(document)
     if request.delete?
-      Model.suspended_delta do
-        params[:lines].each {|l| document.remove_line(l, current_user.id) }
-      end
+      params[:lines].each {|l| document.remove_line(l, current_user.id) }
       redirect_to :action => 'show', :id => document.id
     else
       @lines = document.lines.find(params[:lines].split(','))

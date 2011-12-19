@@ -207,7 +207,6 @@ class Backend::ModelsController < Backend::BackendController
       end
     elsif request.delete?
       root_item.children.delete(@item)
-      @item.save # forcing delta index
     end
     get_root_items
     render :action => 'package_roots'
@@ -232,10 +231,8 @@ class Backend::ModelsController < Backend::BackendController
 
   def categories
     if request.post?
-      Model.suspended_delta do
-        @model.categories.delete_all
-        @model.categories << @categories if @categories
-      end
+      @model.categories.delete_all
+      @model.categories << @categories if @categories
       flash[:notice] = _("This model is now in %d categories") % @model.categories.count
       render :update do |page|
         page.replace_html 'flash', flash_content

@@ -429,11 +429,9 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   def update_children_attributes
-    Item.suspended_delta do
-      children.each do |child|
-        update_child_attributes(child)
-      end
-    end unless children.empty?
+    children.each do |child|
+      update_child_attributes(child)
+    end
   end
 
 ####################################################################

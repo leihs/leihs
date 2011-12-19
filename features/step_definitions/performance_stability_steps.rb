@@ -10,29 +10,12 @@ Given /^the MacBook availability as of (\d+\-\d+\-\d+)$/ do |date|
                 File.join( Rails.root,
                            'features/fixtures/availability_calculation_performance.yml')))
 
-  # suspend reindexing within the loop to save time
-  #Availability::Quantity.suspended_delta do
-    Contract.suspended_delta do
-  #    ContractLine.suspended_delta do
-        User.suspended_delta do
-          InventoryPool.suspended_delta do
-            Group.suspended_delta do
-              Item.suspended_delta do
-                Model.suspended_delta do
-                  fixture.each do |fixture_instance|
-                    #puts fixture_instance #debug
-                    new_instance = fixture_instance.clone
-                    new_instance.id = fixture_instance.id
-                    new_instance.save!
-                  end
-                end
-              end
-            end
-          end
-        end
-  #    end
-    end
-  #end
+  fixture.each do |fixture_instance|
+    #puts fixture_instance #debug
+    new_instance = fixture_instance.clone
+    new_instance.id = fixture_instance.id
+    new_instance.save!
+  end
 
   # first item inside the fixtures is the model
   @model = Model.find fixture.first.id

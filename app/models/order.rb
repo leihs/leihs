@@ -156,20 +156,18 @@ class Order < Document
 
   # submits order
   def submit(purpose = nil)
-    self.class.suspended_delta do
-      self.purpose = purpose if purpose
-      save
-  
-      if approvable?
-        self.status_const = Order::SUBMITTED
-        split_and_assign_to_inventory_pool
-  
-        Notification.order_submitted(self, purpose, false)
-        Notification.order_received(self, purpose, true)
-        return true
-      else
-        return false
-      end
+    self.purpose = purpose if purpose
+    save
+
+    if approvable?
+      self.status_const = Order::SUBMITTED
+      split_and_assign_to_inventory_pool
+
+      Notification.order_submitted(self, purpose, false)
+      Notification.order_received(self, purpose, true)
+      return true
+    else
+      return false
     end
   end
 
