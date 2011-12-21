@@ -12,11 +12,11 @@ Given /^a customer "([^"]*)"( exists)?$/ do |name,foo|
 end
 
 Given /^a customer '([^']*)'( exists)?$/ do |name,foo|
-  Given "a customer \"#{name}\" exists"
+  step "a customer \"#{name}\" exists"
 end
 
 Given /a (\w+) '([^']*)' for inventory pool '([^']*)'( with access level )?(\d)?$/ do |role,who,ip_name,foo,access_level|
-  Given "inventory pool '#{ip_name}'"
+  step "inventory pool '#{ip_name}'"
   access_level = access_level ? access_level.to_i : 0
   @user = Factory.create_user({:login => who},
                               {:role => role,
@@ -62,7 +62,7 @@ end
 
 When /^I create a new user '([^']*)' at '([^']*)'( in ')?([^']*)'?$/ \
 do |name,email,filler,ip|
-  When "I create a new inventory pool '#{ip}'" unless ip.blank?
+  step "I create a new inventory pool '#{ip}'" unless ip.blank?
 
   # TODO: for some reason, cucumber sometimes won't properly clean up
   # the DB between runs

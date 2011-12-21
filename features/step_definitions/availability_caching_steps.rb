@@ -29,7 +29,7 @@ end
 #tmp#8#old-availability#
 Then "the availability of the respective orderline should be cached" do 
   # uh, dirty...
-  Then "the availability of all order lines should be cached"
+  step "the availability of all order lines should be cached"
 end
 
 #tmp#8#old-availability#

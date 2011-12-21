@@ -19,7 +19,7 @@ When /^I follow the sloppy link "([^"]*)" in the greybox$/ do |text|
   page.has_css?("#GB_frame", :visible => true)
 
   within_frame "GB_frame" do
-    When "I follow the sloppy link \"#{text}\""
+    step "I follow the sloppy link \"#{text}\""
   end
 end
 
@@ -36,7 +36,7 @@ end
 # using this step with 'within' has not been tested yet!
 Then /^"([^"]*)" should appear before "([^"]*)"(?: within "([^"]*)")?$/ do
 |first, second, selector|
-  When "I wait for the spinner to disappear"
+  step "I wait for the spinner to disappear"
   with_scope(selector) do
     page.body.index(first).should < page.body.index(second)
   end

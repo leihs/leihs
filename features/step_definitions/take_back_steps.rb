@@ -14,8 +14,8 @@ end
 
 Given "there is only a signed contract by '$who' for item '$inventory_code'" \
 do | who, inventory_code |
-  Given "there are no contracts"
-  Given "a signed contract by '#{who}' for item '#{inventory_code}'"
+  step "there are no contracts"
+  step "a signed contract by '#{who}' for item '#{inventory_code}'"
 end
 
 # copied from hand_over_steps

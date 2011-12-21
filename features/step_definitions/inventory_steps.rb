@@ -73,7 +73,7 @@ Given "a model '$model' exists" do | model |
 end
 
 When /^I register a new model '([^']*)'$/ do |model|
-  Given "a model '#{model}' exists"
+  step "a model '#{model}' exists"
 end
   
 Given "the model '$model' belongs to the category '$category'" do |model, category|
@@ -115,7 +115,7 @@ do |particle,plural, inventory_codes, model, plural2, only|
 end
 
 Given "at that location resides an item '$item' of model '$model'" do |item, model|
-  Given "an item '#{item}' of model '#{model}' exists"
+  step "an item '#{item}' of model '#{model}' exists"
   our_item = Item.find_by_inventory_code(item)
   our_item.location = @location
   our_item.save!

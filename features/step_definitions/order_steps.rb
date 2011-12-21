@@ -1,5 +1,5 @@
 Given /there is (only )?an order by (a customer named )?'(.*)'/ do | only, bla, who |
-  Given "there are no orders" if only
+  step "there are no orders" if only
   firstname, lastname = who
   firstname, lastname = who.split(" ") if who.include?(" ")
   
@@ -14,7 +14,7 @@ end
 
 # TODO perform real post 
 When "'$who' places a new order" do | who |
-  Given "there is an order by '#{who}'"
+  step "there is an order by '#{who}'"
   post "/session", :login => who #new#
 end
 

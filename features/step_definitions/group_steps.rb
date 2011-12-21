@@ -31,7 +31,7 @@ end
 Then /^no items of that model should be available in any group$/ do
   # will not find any group of that name, which is OK
   # this is an artifact of the olde days when the 'General' group existed...
-  Then "0 items of that model should be available in group 'NotExistent' only"
+  step "0 items of that model should be available in group 'NotExistent' only"
 end
 
 Then "that model should not be available in any group"  do
@@ -42,19 +42,19 @@ end
 
 # TODO: currently unused
 Given /^(\d+) items of that model in group "([^"]*)"$/ do |n, group_name|
-  Given "#{n} items of model '#{@model.name}' exist"
-  When "I assign #{n} items to group \"#{group_name}\""
+  step "#{n} items of model '#{@model.name}' exist"
+  step "I assign #{n} items to group \"#{group_name}\""
 end
 
 #
 # Items
 #
 When /^I add (\d+) item(s?) of that model$/ do |n, plural|
-  Given "#{n} items of model '#{@model.name}' exist"
+  step "#{n} items of model '#{@model.name}' exist"
 end
 
 When /^an item is assigned to group "([^"]*)"$/ do |to_group_name|
-  When "I assign one item to group \"#{to_group_name}\""
+  step "I assign one item to group \"#{to_group_name}\""
 end
 
 When /^I assign (\w+) item(s?) to group "([^"]*)"$/ do |n, plural, to_group_name|
@@ -67,12 +67,12 @@ When /^I assign (\w+) item(s?) to group "([^"]*)"$/ do |n, plural, to_group_name
 end
 
 Then "that model should not be available to anybody" do
-  Then "0 items of that model should be available to everybody"
+  step "0 items of that model should be available to everybody"
 end
 
 Then "$n items of that model should be available to everybody" do |n|
   User.all.each do |user|
-    Then "#{n} items of that model should be available to \"#{user.login}\""
+    step "#{n} items of that model should be available to \"#{user.login}\""
   end
 end
 
@@ -88,7 +88,7 @@ end
 # Groups
 #
 Given /^a group '([^']*)'( exists)?$/ do |name,foo|
-  When "I add a new group \"#{name}\""
+  step "I add a new group \"#{name}\""
 end
 
 When /^I add a new group "([^"]*)"$/ do |name|
@@ -123,8 +123,8 @@ Given /^the customer "([^"]*)" is added to group "([^"]*)"$/ do |user, group|
 end
 
 Given /^a customer "([^"]*)" that belongs to group "([^"]*)"$/ do |user, group|
-  Given "a customer '#{user}' for inventory pool '#{@inventory_pool.name}'"
-  Given "the customer \"#{user}\" is added to group \"#{group}\""
+  step "a customer '#{user}' for inventory pool '#{@inventory_pool.name}'"
+  step "the customer \"#{user}\" is added to group \"#{group}\""
 end
 
 When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user|

@@ -30,7 +30,7 @@ end
 #
 Then /^wait$/ do
   @delay ||= 2 # default
-  Then "wait #{@delay} seconds"
+  step "wait #{@delay} seconds"
 end
 
 Then /^wait (\d+) second(s?)/ do |seconds, plural|
@@ -40,11 +40,11 @@ end
 # tag your scenarion with '@slowly' and then every step
 # will be executed with a default delay of 2 seconds
 Before('@slowly') do
-  Then "wait" unless @skip_wait
+  step "wait" unless @skip_wait
 end
 
 AfterStep('@slowly') do
-  Then "wait" unless @skip_wait
+  step "wait" unless @skip_wait
 end
 
 # since only Scenarios and not single steps can be tagged with
