@@ -34,7 +34,7 @@ end
 #
 When /^(\w+) wait(s?)$/ do |who, plural|
   @delay ||= 2 # default
-  When "#{who} wait#{plural} #{@delay} seconds"
+  step "#{who} wait#{plural} #{@delay} seconds"
 end
 
 When /(\w+) wait (\d+) second(s?)/ do |who, seconds, plural|
@@ -44,11 +44,11 @@ end
 # tag your scenarion with '@slowly' and then every step
 # will be executed with a default delay of 2 seconds
 Before('@slowly') do
-  When "I wait" unless @skip_wait
+  step "I wait" unless @skip_wait
 end
 
 AfterStep('@slowly') do
-  When "I wait" unless @skip_wait
+  step "I wait" unless @skip_wait
 end
 
 # since only Scenarios and not single steps can be tagged with

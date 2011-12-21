@@ -1,5 +1,5 @@
 When 'I sort by "$sort_key"' do |sort_key|
-  When "I click \"#{sort_key}\""
+  step "I click \"#{sort_key}\""
 end
 
 When "I count the number of indexed models" do

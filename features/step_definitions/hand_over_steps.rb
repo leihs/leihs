@@ -67,16 +67,16 @@ When "$who chooses $name's visit" do | who, name |
 end
 
 When "$who assigns '$item' to the first line" do | who, item |
-  When "#{who} assigns '#{item}' to line 0"
+  step "#{who} assigns '#{item}' to line 0"
 end
 
 When "$who tries to assign '$item' to the first line" do | who,item |
-  When "#{who} tries to assign '#{item}' to line 0"
+  step "#{who} tries to assign '#{item}' to line 0"
 end
 
 When "$who assigns '$item' to line $number" do | who, item, number |
-  When "#{who} tries to assign '#{item}' to line #{number}"
-  Then "#{who} should not see a flash error"
+  step "#{who} tries to assign '#{item}' to line #{number}"
+  step "#{who} should not see a flash error"
 end
 
 When "$who tries to assign '$item' to line $number" do | who, item, number |

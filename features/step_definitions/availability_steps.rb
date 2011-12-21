@@ -121,7 +121,7 @@ end
 Then "$number reservation should show an influence on today's borrowability" \
 do |number|
   today = Date.today.strftime("%d.%m.%Y")
-  Then "#{to_number(number)} reservations should show an influence on the borrowability on #{today}"
+  step "#{to_number(number)} reservations should show an influence on the borrowability on #{today}"
 end
 
 # the following is extremely markup structure dependent

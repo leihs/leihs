@@ -16,7 +16,7 @@ When "lending_manager looks at the screen" do
 end
 
 Then "it will fail with an error" do
-  Then "user sees an error message"
+  step "user sees an error message"
 end
 
 # Flash error message

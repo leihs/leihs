@@ -74,7 +74,7 @@ end
 # NOTE this is not actually what he sees on the first page, but the total submitted orders
 Then /^(.*) sees ([0-9]+) order(s?)$/ do | who, size, s |
 #old#0402  @orders.total_entries.should == size.to_i
-  When "#{who} clicks on 'acknowledge'" unless assigns(:orders)
+  step "#{who} clicks on 'acknowledge'" unless assigns(:orders)
   assigns(:orders).total_entries.should == size.to_i
 end
 

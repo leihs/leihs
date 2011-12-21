@@ -1,6 +1,6 @@
 Given "a $role for inventory pool '$ip_name' logs in as '$who'" do | role, ip_name, who |
-  Given "a #{role} '#{who}' for inventory pool '#{ip_name}'"
-  When "he logs in"
+  step "a #{role} '#{who}' for inventory pool '#{ip_name}'"
+  step "he logs in"
   get backend_inventory_pool_path(@inventory_pool, :locale => 'en_US')
   @inventory_pool = assigns(:current_inventory_pool)
   @last_manager_login_name = who
@@ -24,11 +24,11 @@ Given /(his|her) password is '([^']*)'$/ do |foo,password|
 end
 
 When 'I log in as the admin' do
-  Given 'I am on the home page'
-   When 'I make sure I am logged out'
-    And 'I fill in "login_user" with "super_user_1"'
-    And 'I fill in "login_password" with "pass"'
-    And 'I press "Login"'
+  step 'I am on the home page'
+  step 'I make sure I am logged out'
+  step 'I fill in "login_user" with "super_user_1"'
+  step 'I fill in "login_password" with "pass"'
+  step 'I press "Login"'
 end
 
 

@@ -12,7 +12,7 @@ Given /^a customer "([^"]*)"( exists)?$/ do |name,foo|
 end
 
 Given /^a customer '([^']*)'( exists)?$/ do |name,foo|
-  Given "a customer \"#{name}\" exists"
+  step "a customer \"#{name}\" exists"
 end
 
 #Given /^the user '(\w+)'$/ do |name|
@@ -20,7 +20,7 @@ end
 #end
 
 Given /a (\w+) '([^']*)' for inventory pool '([^']*)'$/ do |role,who,ip_name|
-  Given "inventory pool '#{ip_name}'"
+  step "inventory pool '#{ip_name}'"
   @user = Factory.create_user({:login => who},
                               {:role => role,
                               :inventory_pool => @inventory_pool })
@@ -29,8 +29,8 @@ Given /a (\w+) '([^']*)' for inventory pool '([^']*)'$/ do |role,who,ip_name|
 end
 
 Given "a manager '$name' with access level $access_level" do |name,access_level|
-  Given "a manager '#{name}' for inventory pool '#{@inventory_pool.name}'"
-  Given "he has access level #{access_level}"
+  step "a manager '#{name}' for inventory pool '#{@inventory_pool.name}'"
+  step "he has access level #{access_level}"
   @user.reload
 end
 
@@ -62,7 +62,7 @@ end
 
 When /^I create a new user '([^']*)' at '([^']*)'( in ')?([^']*)'?$/ \
 do |name,email,filler,ip|
-  When "I create a new inventory pool '#{ip}'" unless ip.blank?
+  step "I create a new inventory pool '#{ip}'" unless ip.blank?
 
   # TODO: for some reason, cucumber sometimes won't properly clean up
   # the DB between runs

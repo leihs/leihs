@@ -1,5 +1,5 @@
 Given "a package '$package' exists" do |package|
-  Given "a model '#{package}' exists"
+  step "a model '#{package}' exists"
   model = Model.find_by_name package
   model.is_package = true
   model.save
