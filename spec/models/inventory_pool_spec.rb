@@ -7,7 +7,7 @@ describe InventoryPool do
   context "hand_over and take_back visits" do
 
     before(:all) do
-      Factory.create_default_language
+      Factory.create_default_languages
     
       # create default inventory_pool
       @ip = Factory.create_inventory_pool
