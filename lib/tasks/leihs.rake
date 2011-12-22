@@ -172,8 +172,7 @@ namespace :leihs do
   end
 
   def add_to(parent, sub)
-    parent.children << sub unless parent.children.include?(sub)
-    sub.set_label(parent, sub.name)
+    sub.set_parent_with_label(parent, sub.name)
   end
   
   

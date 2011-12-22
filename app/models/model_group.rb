@@ -58,7 +58,8 @@ class ModelGroup < ActiveRecord::Base
     return name
   end
 
-  def set_label(parent, label)
+  def set_parent_with_label(parent, label)
+    ModelGroupLink.create_edge(parent, self)
     l = links_as_child.where(:ancestor_id => parent.id).first
     l.update_attributes(:label => label) if l
   end

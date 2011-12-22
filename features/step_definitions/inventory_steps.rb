@@ -45,8 +45,7 @@ end
 Given "the category '$category' is child of '$parent' with label '$label'" do | category, parent, label |
   c = Category.where(:name => category).first
   p = Category.where(:name => parent).first
-  c.parents << p
-  c.set_label(p, label)
+  c.set_parent_with_label(p, label)
 end
 
 When "the category '$category' is selected" do |category|
