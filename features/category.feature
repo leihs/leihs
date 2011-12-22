@@ -4,7 +4,8 @@ Feature: Creating and editing the category tree in the backend
   to the system and manage the category tree (parents, children).
   
   Background: We have a manager as well as stuff in categories
-    Given inventory pool 'MyPool'
+    Given a minimal leihs setup
+      And inventory pool 'MyPool'
       And a manager 'inv_man_0' with access level 3
       And his password is 'pass'
       And a category 'Tierkörperteile' exists

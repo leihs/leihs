@@ -6,10 +6,10 @@ Feature: Send Emails to Users
 
 
 Background:
-        Given a minimal leihs setup
-	Given comment: the admin
-	Given comment: And the mail queue is empty
-	Given comment: And we setup Culerity Logging as we like
+  Given a minimal leihs setup
+  Given comment: the admin
+  Given comment: And the mail queue is empty
+  Given comment: And we setup Culerity Logging as we like
 
 
 @javascript
