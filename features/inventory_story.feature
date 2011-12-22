@@ -4,7 +4,8 @@ Feature: Inventory
 	
 	
 Background: As a Organisation we have some Inventory with things to lend out
-	Given inventory pool 'ABC'
+  Given a minimal leihs setup
+	  And inventory pool 'ABC'
 	  And inventory pool short name 'ABC'
 
 
