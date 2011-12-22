@@ -174,7 +174,7 @@ namespace :leihs do
   end
 
   def add_to(parent, sub)
-    parent.children << sub unless parent.children.include?(sub)
+    ModelGroupLink.create_edge(parent, sub)
     sub.set_label(parent, sub.name)
   end
   

@@ -45,7 +45,7 @@ end
 Given "the category '$category' is child of '$parent' with label '$label'" do | category, parent, label |
   c = Category.find(:first, :conditions => {:name => category})
   p = Category.find(:first, :conditions => {:name => parent})
-  c.parents << p
+  ModelGroupLink.create_edge(p, c)
   c.set_label(p, label)
 end
 

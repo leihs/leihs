@@ -129,7 +129,7 @@ class Backend::CategoriesController < Backend::BackendController
   def add_parent(parent = params[:parent])
     begin
       @parent = Category.find(parent[:category_id])
-      @parent.children << @category unless @parent.children.include?(@category)
+      ModelGroupLink.create_edge(@parent, @category)
       @category.set_label(@parent, parent[:label]) unless parent[:label].blank?
     rescue
       flash[:error] = _("Attempt to add node to own graph collection")
