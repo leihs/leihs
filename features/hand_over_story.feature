@@ -5,7 +5,8 @@ Feature: Hand Over
 	in order to generate contracts and hand over the physical items
 
 Background:
-	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+  Given a minimal leihs setup
+	  And a manager for inventory pool 'ABC' logs in as 'inv_man_0'
 	  And his password is 'pass'
   # For full-stack steps:
   Given inventory pool 'ABC'
