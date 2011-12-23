@@ -10,8 +10,8 @@
         %td
           .noimagetext
             = _("no image")
-          {{if extended_info}}
-          %img{:src => "${image_url}" }
+          {{if image_url}}
+          %img{:src => "${image_url}"}
           {{else}}
           .noimage
           {{/if}}

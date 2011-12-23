@@ -97,6 +97,7 @@
       
       .anchor {
         background: url($image-sprite) no-repeat right -120px;
+        cursor: default;
         color: $grey;
         
         .leftend {

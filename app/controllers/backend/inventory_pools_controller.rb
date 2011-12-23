@@ -45,7 +45,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
     end
 
     orders = current_inventory_pool.orders.submitted
-    @orders_json = orders.to_json(:with => {:grouped_lines => {}, :user => {}})
+    @orders_json = orders.to_json(:with => {:grouped_lines => {}, :user => {:methods => [:image_url]}})
     @orders_size = orders.size
 
     ho = grouped_visits[["hand_over", @date]] || []

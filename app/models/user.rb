@@ -304,9 +304,7 @@ def as_json(options = {})
   options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
 
   required_options = {}
-  
   json = super(options.deep_merge(required_options))
-  
   json.merge({:type => self.class.to_s.underscore})
 end
 
