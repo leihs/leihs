@@ -20,7 +20,7 @@ class Language < ActiveRecord::Base
     Language.where(:default => true).first || Language.first
   end
   
-  def self.prefered(accepted_languages)
+  def self.preferred(accepted_languages)
     default = default_language.locale_name.dasherize
     
     return default if accepted_languages.nil?
@@ -29,13 +29,13 @@ class Language < ActiveRecord::Base
     return default if accepted_languages.blank?
      
     possible_languages = active_languages.map { |x| x.locale_name.match(/\w{2}/).to_s }
-    prefered_languages = accepted_languages & possible_languages
+    preferred_languages = accepted_languages & possible_languages
     
-    return default if prefered_languages.blank?
+    return default if preferred_languages.blank?
     
-    prefered_language = active_languages.detect { |x| !!(x.locale_name =~ /^#{prefered_languages.first}/) }
+    preferred_language = active_languages.detect { |x| !!(x.locale_name =~ /^#{preferred_languages.first}/) }
     
-    return prefered_language
+    return preferred_language
   end
 end
 

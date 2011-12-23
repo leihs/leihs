@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 ####################################################  
   
   def index
-    @prefered_language = Language.prefered(request.env["HTTP_ACCEPT_LANGUAGE"])
+    @preferred_language = Language.preferred(request.env["HTTP_ACCEPT_LANGUAGE"])
     
     #check if user is logged in then depending on rights (manager or only customer) redirect to frontend or backend otherwise go on showing splash screen
     
