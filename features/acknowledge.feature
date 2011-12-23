@@ -5,8 +5,10 @@ Feature: Acknowledge orders
        in order to have control over who is receiving what
 
 
-Background:
-       Given I log in as a manager for inventory pool 'ABC' with access level 3
+# Need to comment this background so it doesn't get run -- backgrounds don't support
+# tags like @old-ui
+#Background:
+#       Given I log in as a manager for inventory pool 'ABC' with access level 3
 
 # Does not work due to completely new UI
 @old-ui       

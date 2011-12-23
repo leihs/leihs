@@ -49,7 +49,7 @@ Scenario: Models organized in categories
        When the category 'Video' is selected   
        Then there are 1 models belonging to that category
 
-
+@old-ui
 Scenario: Tell the user if we can't create a new Package
        Given item 'P-ABC124' of model 'Book' exists
        Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'

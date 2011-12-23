@@ -4,15 +4,15 @@ Feature: Hand Over
        I want to see all approved orders, grouped by customer,
        in order to generate contracts and hand over the physical items
 
-Background:
-  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
-    And his password is 'pass'
-  # For full-stack steps:
-  Given inventory pool 'ABC'
-    And a manager 'inv_man_0' with access level 3
-    And his password is 'pass'
+#Background:
+#  Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
+#    And his password is 'pass'
+#  # For full-stack steps:
+#  Given inventory pool 'ABC'
+#    And a manager 'inv_man_0' with access level 3
+#    And his password is 'pass'
 
-       
+@old-ui       
 Scenario: List approved orders, grouped by same customer and same start_date
 
        Given 15 items of model 'NEC 245' exist
@@ -32,7 +32,7 @@ Scenario: List approved orders, grouped by same customer and same start_date
                And lending_manager approves the order
                And lending_manager clicks on 'hand_over'
        Then he sees 1 line with a total quantity of 10 
-
+@old-ui
 Scenario: List approved orders, grouped by different customers and different start_dates
        Given 15 items of model 'NEC 245' exist
          And 12 items of model 'BENQ 19' exist
@@ -59,7 +59,7 @@ Scenario: List approved orders, grouped by different customers and different sta
                And line 2 has a quantity of 7 for customer 'Joe' 
                And line 3 has a quantity of 4 for customer 'Jack'
                And line 4 has a quantity of 4 for customer 'Joe'
-       
+@old-ui       
 Scenario: Generation of contract lines based on the approved order lines of a given customer
 
        Given 15 items of model 'NEC 245' exist
@@ -76,7 +76,7 @@ Scenario: Generation of contract lines based on the approved order lines of a gi
        Then he sees 2 lines with a total quantity of 6
        When lending_manager chooses one line
        Then he sees 6 contract lines for all approved order lines
-
+@old-ui
 Scenario: Select order lines to hand over
 
        Given 15 items of model 'NEC 245' exist
@@ -96,7 +96,7 @@ Scenario: Select order lines to hand over
       When he selects to hand over the first 3 items
       And he clicks the button 'hand_over'
 
-
+@old-ui
 Scenario: Don't generate a new contract if all Items are handed over
 
        Given item 'AV_NEC245_1' of model 'NEC 245' exists
@@ -111,7 +111,7 @@ Scenario: Don't generate a new contract if all Items are handed over
          And he assigns 'AV_NEC245_1' to the first line
          And he signs the contract
        Then the total number of contracts is 1
-
+@old-ui
 Scenario: Bugfix: Don't allow handing over the same item twice
 
        Given items 'AV_NEC245_1,AV_NEC245_2' of model 'NEC 245' exist
@@ -132,7 +132,7 @@ Scenario: Bugfix: Don't allow handing over the same item twice
        When he tries to assign 'AV_NEC245_1' to the first line
        Then he should see a flash error
 
-@here @javascript
+@old-ui
 Scenario: Pre-set the 'from' and 'to' date of a new line before adding it via 'add model' button
   Given items 'GUN1,GUN2.5,GUN33.33' of model 'Naked Gun' exist
   Given there are no contracts
@@ -155,7 +155,7 @@ Scenario: Pre-set the 'from' and 'to' date of a new line before adding it via 'a
     # TODO: Actually set a date and add something.
 
 
-@wip
+@old-ui
 Scenario: Only automatically check items and options for hand over that have a time period starting today
        Given items 'AV_SOUNDGARDEN_1,AV_SOUNDGARDEN_2' of model 'The Day I tried to live - Single' exist
         Given there are no contracts
