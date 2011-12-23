@@ -80,6 +80,9 @@ function List() {
   this.update_order = function(order) {
     $("#order").html("");
     $('#order').append($.tmpl("tmpl/order", order));
+    
+    // restore lines which were selected before re templating
+    SelectionActions.restoreSelectedLines();
   }
   
   this.subtract = function(list) {

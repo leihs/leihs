@@ -132,6 +132,7 @@
     }
       
     .inventorypool {
+      width: 130px;
       
       .select {
         background: white;
@@ -141,7 +142,7 @@
         font-size: 1.2em;
         height: 18px;
         padding-top: 4px;
-        position: absolute;
+        position: relative;
         width: 100%;
         @include borderRadius(4px);
         
@@ -166,8 +167,17 @@
         cursor: pointer;
         font-size: 1.2em;
         height: 24px;
+        left: 0;
         padding-right: 8px;
+        position: absolute;
+        top: 0;
         @include opacity(0);
+      }
+      
+      &:hover {
+        .arrow {
+          @include opacity(1);
+        }
       }
     }
   }

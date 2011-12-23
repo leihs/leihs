@@ -10,6 +10,8 @@ var SelectionActions = new SelectionActions();
 
 function SelectionActions() {
   
+  this.selected_lines;
+  
   this.setup = function() {
     this.deselectRadioButtons();
     this.setupMainSelection();
@@ -26,7 +28,7 @@ function SelectionActions() {
   }
   
   this.setupLinegroupHighlighting = function() {
-    $("#add_item .date").change(function(){
+    $("#add_item .date").live("change", function(){
       // highlight selected group of lines
       $(".linegroup").each(function(){
         var start_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().data.start_date));
@@ -41,18 +43,56 @@ function SelectionActions() {
   }
   
   this.setupEditSelection = function() {
-    $(".actiongroup #edit_selection").bind("click", function(event){
-      // add all selected lines to the order data
-      var lines_data = [];
-      $(".line input:checked").each(function(i, input){
-        lines_data.push($(this).closest(".line").tmplItem().data);
+    $(".actiongroup #edit_selection").live("click", function(event){
+      
+      
+    });
+  }
+  
+  this.storeSelectedLines = function() {
+    // add all selected lines to the order data
+    var lines_data = [];
+    var min_start_date;
+    var max_end_date;
+    $(".line input:checked").each(function(i, input){
+      var line = $(this).closest(".line");
+      // set line data
+      lines_data.push($(line).tmplItem().data);
+      // set start date
+      if(min_start_date == undefined){
+        min_start_date = new Date($(line).tmplItem().data.start_date.replace(/-/g, "/"));
+      } else if(new Date(line.tmplItem().data.start_date.replace(/-/g, "/")).getTime() < min_start_date.getTime()) {
+        min_start_date = new Date($(line).tmplItem().data.start_date.replace(/-/g, "/"));
+      }
+      // set end date
+      if(max_end_date == undefined){
+        max_end_date = new Date($(line).tmplItem().data.end_date.replace(/-/g, "/"));
+      } else if(new Date(line.tmplItem().data.end_date.replace(/-/g, "/")).getTime() > max_end_date.getTime()) {
+        max_end_date = new Date($(line).tmplItem().data.end_date.replace(/-/g, "/"));
+      }
+    });
+    
+    // add data to #order .container template item data
+    $("#order .container").tmplItem().data.selected_lines = SelectionActions.selected_lines = lines_data;
+    $("#order .container").tmplItem().data.selected_range = {start_date: min_start_date, end_date: max_end_date};
+  }
+  
+  this.restoreSelectedLines = function() {
+    var selected_lines = this.selected_lines;
+        
+    // select all selected lines again
+    $("#order .line").each(function(i_line,line){
+      $.each(selected_lines, function(i_selected, selected_line){
+        if($(line).tmplItem().data.id == selected_line.id) {
+          $(line).find("input[type=checkbox]").attr("checked",true);
+          $(line).find("input[type=checkbox]").change();
+        }
       });
-      $("#order").data("selected_lines", lines_data);
     });
   }
   
   this.setupDeleteSelection = function() {
-    $(".actiongroup #delete_selection").bind("click", function(event){
+    $(".actiongroup #delete_selection").live("click", function(event){
       // add all selected lines to delete selections buttons data + params for the remote action
       var lines = [];
       var action = $(this).attr("href");
@@ -85,7 +125,7 @@ function SelectionActions() {
   this.setupMainSelection = function() {
     SelectionActions.updateSelectionCount();
     
-    $(".actiongroup input[value='all']").change(function(){
+    $(".actiongroup input[value='all']").live("change", function(){
       $(".lines>.line .select input[type='checkbox']:not(:checked)").attr("checked",true);
       $(".linegroup .dates input[type='checkbox']:not(:checked)").attr("checked",true);
       SelectionActions.updateSelectionCount();
@@ -94,7 +134,7 @@ function SelectionActions() {
   }
   
   this.setupGroupSelections = function() {
-    $(".linegroup>.dates input[type='checkbox']").change(function(){
+    $(".linegroup>.dates input[type='checkbox']").live("change", function(){
       if($(this).attr('checked')) {
         $(this).closest(".linegroup").find(".select input[type='checkbox']").attr('checked', true);
       } else {
@@ -106,7 +146,7 @@ function SelectionActions() {
   }
   
   this.setupLineSelections = function() {
-    $(".linegroup>.lines>.line .select input[type='checkbox']").change(function(){
+    $(".linegroup>.lines>.line .select input[type='checkbox']").live("change", function(){
       if($(this).attr('checked')) {
         SelectionActions.checkIfGroupIsComplete($(this).closest(".linegroup"));
       } else {
@@ -149,6 +189,9 @@ function SelectionActions() {
       SelectionActions.disableSelectionActionButton();
       SelectionActions.disableSelectionActionRange();
     }
+    
+    // store changes
+    SelectionActions.storeSelectedLines();
   }
   
   this.updateTimerange = function(start_date, end_date) {

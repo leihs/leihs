@@ -69,12 +69,6 @@
         margin-bottom: 12px;
         
         tr {
-          &:nth-child(even) {
-            td {
-              background: $highlight-grey;
-            }
-          }
-          
           td:nth-child(1) {
             padding-left: 10px;
           }
@@ -159,11 +153,6 @@
       margin-bottom: 12px;
       
       tr {
-        &:nth-child(even) {
-          td {
-            background: $highlight-grey;
-          }
-        }
         
         td:nth-child(1) {
           padding-left: 10px;

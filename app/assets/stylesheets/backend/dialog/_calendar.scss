@@ -3,7 +3,7 @@
   .calendar_input {
     padding-left: 2px;
     position: relative;
-    top: 20px;
+    top: 21px;
     z-index: 9999;
     
     .container {
@@ -32,6 +32,59 @@
       }
       
       &.inventorypool {display: none;}
+      
+      &.group {
+        width: 135px;
+        
+        .select {
+          background: white;
+          border: 1px solid #d0d0d0;
+          cursor: pointer;
+          display: block;
+          font-size: 1.2em;
+          height: 19px;
+          padding-top: 4px;
+          position: relative;
+          width: 100%;
+          @include borderRadius(4px);
+          
+          .name {
+            font-weight: bold;
+            padding-left: 6px;
+          }
+          
+          .arrow {
+            background: url($image-sprite) no-repeat -53px -37px;
+            display: block;
+            height: 6px;
+            position: absolute;
+            right: 5px;
+            top: 9px;
+            width: 7px;
+            @include opacity(0.6);
+          }
+        }
+        
+        select {
+          cursor: pointer;
+          font-size: 1.2em;
+          height: 24px;
+          left: 0;
+          padding-right: 8px;
+          position: absolute;
+          top: 0;
+          width: 135px;
+          @include opacity(0);
+        }
+        
+        &:hover {
+          .select {
+            .arrow {
+              @include opacity(1);
+            }
+          }
+        }
+      }
       
       &.quantity {
     
@@ -122,6 +175,14 @@
     
     .line {
       
+      &:hover {
+        z-index: 99999;
+      }
+      
+      .selection {
+        display: none;
+      }
+      
       .name {
         padding-left: 10px;
         width: 375px;
@@ -133,6 +194,39 @@
       
       .actions {
         text-align: right;
+        
+        .button, .multibutton {
+          @include opacity(1.0);
+        }
+      }
+      
+      &:nth-last-child(1) {
+        border-bottom: none;
+      }
+      
+      &:nth-child(1) {
+        border-top: none;
+      }
+    }
+  }
+  
+  &.multiple {
+    .list {
+      
+      .selection {
+        display: table-cell;
+        padding-left: 10px;
+        width: 10px;
+        
+        input {
+          cursor: pointer;
+          z-index: 99999;
+        }
+      }
+      
+      .name {
+        padding-left: 0;
+        width: 335px;
       }
     }
   }

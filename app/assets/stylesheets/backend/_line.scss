@@ -73,6 +73,7 @@
   }
   
   &:hover {
+    z-index: 999;
     @include highlightItem;
     
     li {

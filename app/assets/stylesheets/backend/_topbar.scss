@@ -85,8 +85,13 @@
             margin-bottom: 0;  
           }
           
+          a {
+            border-top: none;
+          }
+          
           a:hover {
             background: #8b8a84;
+            border-top: none !important;
             color: white;
           }
         }

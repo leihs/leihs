@@ -128,11 +128,23 @@
           }
             
           a {
+            border-top: 1px solid white;
             display: block;
             overflow: hidden;
             padding: 11px 25px 10px 20px;
             position: relative;
             white-space: nowrap;
+            
+            &:hover {
+              background: url($slices-h) repeat-x 0 -48px;
+              border-top: 1px solid $borderlightgrey;
+            }
+          }
+          
+          li:nth-child(1){
+            a:hover {
+              border-top: 1px solid white;
+            }
           }
         }
       }

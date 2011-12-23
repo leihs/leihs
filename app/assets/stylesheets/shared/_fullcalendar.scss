@@ -70,10 +70,23 @@
       color: #D7D7D7 !important;
    }
 
+   div.fc-day-content {
+    height: 70px;
+    position: relative;  
+   }
+   
    div.fc-day-content > div {
       font-size: 5em;
       text-align: center;
       color: #a7a7a7;
+      
+      &.total_quantity {
+       font-size: 1.3em;
+       position: absolute;
+       right: 3px;
+       bottom: 3px;
+       @include opacity(0.6); 
+      }
     }
   
     .fc {
