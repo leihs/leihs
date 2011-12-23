@@ -1,0 +1,41 @@
+= form_tag '${$item.action}', :remote => true do   
+  = hidden_field(:line_ids, "", :value => "${id}")
+  
+  %h1
+    = _("Edit Multiple Items") 
+  %p.subtitle
+    = _("for")
+    %strong
+      ${user.firstname}
+      ${user.lastname}
+  .navigation
+    %a.button.red.close_dialog
+      = _("Cancel")
+      .icon.delete
+    %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}', :tabindex => "3"}
+      = _("Save Changes")
+      
+  .flash_message
+  
+  .calendar_input
+          
+    .date.container
+      .start_date
+        = text_field_tag :start_date, "start_date", :value => "${selected_range.start_date}", :tabindex => "1", :autocomplete => "off"
+        %label{:for => "start_date"}
+          = _("Start Date")
+          .icon.jumpto.fc-goto-start{:title => _("jump to this date")}
+      .dash
+        = "-"
+      .end_date
+        = text_field_tag :end_date, "end_date", :value => "${selected_range.end_date}", :tabindex => "2", :autocomplete => "off"
+        %label{:for => "end_date"}
+          = _("End Date")
+          .icon.jumpto.fc-goto-end{:title => _("jump to this date")}
+          
+  .clear
+  
+  #fullcalendar
+  
+  .list
+    {{tmpl(selected_lines) "tmpl/line/calendar_edit_line"}}

@@ -1,4 +1,5 @@
-= form_tag '${$item.action}', :remote => true do                                       
+= form_tag '${$item.action}', :remote => true do
+  = hidden_field(:line_ids, "", :value => "${id}")
   %h1
     = _("Edit ordered item") 
   %p.subtitle
@@ -24,7 +25,7 @@
         %span.icon
       = link_to "javascript:void(0)", :class => "decrease" do
         %span.icon
-          
+    
     .date.container
       .start_date
         = text_field_tag :start_date, "${start_date}", :tabindex => "2", :autocomplete => "off"
@@ -38,7 +39,7 @@
         %label{:for => "end_date"}
           = _("End Date")
           .icon.jumpto.fc-goto-end{:title => _("jump to this date")}
-    
+          
     .inventorypool.container
       %select{:id => "inventory_pool_id", :name => "inventory_pool_id"}
         %option{:value => "current",
@@ -46,37 +47,30 @@
                 :"data-closed_days" => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.closed_days)}",
                 :"data-availability_dates" => "${JSON.stringify(availability_for_inventory_pool.availability)}"}
           ${availability_for_inventory_pool.inventory_pool.name}
+          
+    .group.container
+      %span.select
+        %span.name
+          = "Total"
+        .arrow
+        %select{:id => "group", :name => "group"}
+          %option{:value => "", :"data-name" => _("Total"), :"data-total_rentable" => "${total_rentable}"}
+            = _("Total (max. ${total_rentable})")
+          {{each(i, group) availability_for_inventory_pool.partitions}}
+          {{if group.group_id == 0}}
+          %option{:value => "${group.group_id}", :"data-name" => _("General everyone"), :"data-total_rentable" => "${group.quantity}"}
+            = _("General (max. ${group.quantity})")
+          {{else}}
+          %option{:value => "${group.group_id}", :"data-name" => "${group.name}", :"data-total_rentable" => "${group.quantity}"}
+            = _("${group.name} (max. ${group.quantity})")
+          {{/if}}
+          {{/each}}
+      %label{:for => "group"}
+        = _("Group")
   
   .clear
   
-  #fullcalendar{:"data-line_ids" => "[${id}]"}
+  #fullcalendar
   
   .list
-    %ul.line
-      .container
-        %li.name
-          %strong
-            ${model.name}
-        %li.amount
-          ${quantity} /          
-          %span.grey
-            ="${total_rentable}"
-            = _("total rentable")
-      %li.actions
-        .multibutton
-          .alternatives
-            .trigger
-              .arrow
-            = link_to "", :class => "button red" do
-              .icon.delete
-              = _("Delete")
-            
-              
-          = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${order.user_id}/acknowledge/${order.id}/update_lines", 
-                    :class => "button white open_dialog", 
-                    :"data-rel" => "tmpl/dialog/calendar/edit_single", 
-                    :"data-dialog_class" => "calendar",
-                    :"data-on_success" => '',
-                    :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
-            .icon.swap
-            = _("Change")
+    {{tmpl($item.data) "tmpl/line/calendar_edit_line"}}

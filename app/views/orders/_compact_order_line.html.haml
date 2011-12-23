@@ -2,9 +2,9 @@
   %span.name
     = link_to order_path(:order_line_id => compact_order_line.id), :title => _("%s (View in Order)") % compact_order_line.model.name do
       - if compact_order_line.quantity > 1
-        = truncate(compact_order_line.model.name, :length => 25) 
+        = truncate(compact_order_line.model.name, :length => 23) 
       - else
-        = truncate(compact_order_line.model.name, :length => 29) 
+        = truncate(compact_order_line.model.name, :length => 27) 
       - if compact_order_line.quantity > 1
         %span.amount
           = "(#{compact_order_line.quantity})"

@@ -67,12 +67,13 @@
             :id => "delete_selection" do
               .icon.delete
               = _("Delete")
-          = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@order.user.id}/acknowledge/#{@order.id}/update_lines", 
+          -#TODO /backend/inventory_pools/#{current_inventory_pool.id}/users/#{@order.user.id}/acknowledge/#{@order.id}/update_lines 
+          = link_to "#", 
           :class => "button white open_dialog",
           :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
-          :"data-dialog_class" => "calendar",
+          :"data-dialog_class" => "calendar multiple",
           :"data-on_success" => 'List.update_order(request);',
-          :"data-ref_for_dialog" => "$('#order').tmplItem().data",
+          :"data-ref_for_dialog" => "$('#order .container').tmplItem().data",
           :id => "edit_selection" do
             .icon.timerange
             = _("Edit Selection")

@@ -69,5 +69,4 @@ class Partition < ActiveRecord::Base
       @partitions.where(:group_id => groups)
     end
   end
-
 end

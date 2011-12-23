@@ -38,6 +38,7 @@ module Availability
 
     def availability_periods_for_inventory_pool(inventory_pool)
       {:inventory_pool => inventory_pool.as_json,
+       :partitions => partitions.in(inventory_pool).current_partition(true),
        :availability => availability_changes_in(inventory_pool).changes.available_total_quantities }
     end
 
