@@ -92,7 +92,6 @@ Scenario: Select order lines to hand over
        When lending_manager chooses one line
        Then a new contract is generated
                And he sees 4 contract lines for all approved order lines
-temp#
       When he assigns items to the first 3 items
       When he selects to hand over the first 3 items
       And he clicks the button 'hand_over'

@@ -130,7 +130,7 @@ end
 Given /^(\w+) item(s?) of that model exist(s?)/ \
 do |number, plural, plural2|
   number = to_number(number)
-  Given "#{number} items of this model exist"
+  step "#{number} items of this model exist"
 end
 
 Given "we have items with the following inventory_codes:" do |inventory_codes_table|

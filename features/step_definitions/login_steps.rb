@@ -4,6 +4,21 @@ Given "a $role for inventory pool '$ip_name' logs in as '$who'" do | role, ip_na
   @last_manager_login_name = who
 end
 
+# This does NOT go through the UI. It simply logs in the user.
+# for 99% of our Cucumber scenarios, we don't need the UI at all!
+Given "a $role for inventory pool '$ip_name' is logged in as '$who'" do | role, ip_name, who |
+  step "a #{role} '#{who}' for inventory pool '#{ip_name}'"
+  step "I am logged in as '#{who}' with password 'foobar'"
+  @last_manager_login_name = who
+end
+
+# Ignores password at the moment, since we always seem to ignore that (?)
+Given "I am logged in as '$username' with password '$password'" do |username, password|
+  current_user = User.where(:login => username).first
+  @user = current_user
+end
+
+
 Given "I log in as a $role for inventory pool '$ip_name'$with_access_level" do |role, ip_name,with_access_level|
   # use default user name
   step "a #{role} 'inv_man_0' for inventory pool '#{ip_name}'#{with_access_level}"
