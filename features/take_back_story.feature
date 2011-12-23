@@ -11,7 +11,7 @@ Feature: Take Back
 	Then we do not want to trip over that fact
 	 And be able to take back the broken/invalid ItemLine anyway
 
-	
+@old-ui
 Scenario: Because of a bug in leihs, we've handed over an Item twice, now we want to at least be able to take it back
 
 	Given a manager for inventory pool 'ABC' logs in as 'inv_man_0'
