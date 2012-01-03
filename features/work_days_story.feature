@@ -78,6 +78,8 @@ Scenario: With Holidays
        When I try to order an item for 28.5.2100
        Then the order should be approvable
 
+
+@old-ui
 Scenario: Hand Over on a Sunday
 
        Given today is Sunday 3.10.2100
@@ -88,6 +90,7 @@ Scenario: Hand Over on a Sunday
        Then that should be possible because the inventory manager wants to be able to decide when he takes back things
        Given today is today again for test sanity's sake
        
+@old-ui
 Scenario: Hand Over during holiday
 
        Given 1.1.2100 is free because of New Year
@@ -98,7 +101,8 @@ Scenario: Hand Over during holiday
        When trying to set the end date to the same date
        Then that should be possible because the inventory manager wants to be able to decide when he takes back things
        Given today is today again for test sanity's sake
-       
+
+@old-ui
 Scenario: Changing Workdays
 
        When an inventory manager clicks 'Opening Times'

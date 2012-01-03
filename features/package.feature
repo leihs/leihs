@@ -23,7 +23,7 @@ Background: An inventory, a manager, a package with two items and a non-packaged
        Given we are using inventory pool '2' for now
          And item 'EKR_PLUS' of model 'Khil Remix' exists
 
-
+@old-ui
 Scenario: Don't show Model if it belongs to Package in Greybox and don't be influenced by other inventory pools
 
        Given we are using inventory pool '1' for now
@@ -39,7 +39,7 @@ Scenario: Don't show Model if it belongs to Package in Greybox and don't be infl
         And even though 'Khil Remix' is not part of a package in inventory pool 2!
         And he sees 0 lines 'Khil Original'
 
-
+@old-ui
 Scenario: If a Model is completely packaged in one Inventory Pool it can have an independent Item in another Inventory
 
        Given we are using inventory pool '2' for now
