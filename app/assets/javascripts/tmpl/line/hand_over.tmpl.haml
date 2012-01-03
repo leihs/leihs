@@ -2,47 +2,16 @@
   %div{:class => "{{if is_overdue}}overdue{{/if}}"}
   
     {{tmpl($item.data.user) "tmpl/cell/user_name"}}
-  
-    %li.items.hastip
-      %span.number
-        ${quantity}
-      = _("Items")
-      .tip.lines
-        ${$startdate = 0, ""}
-        ${$enddate = 0, ""}
-        {{each(i, line) lines}}
-        {{if line.start_date != $startdate || line.end_date != $enddate}}
-        ${$startdate = line.start_date, ""}
-        ${$enddate = line.end_date, ""}
-        .date
-          {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-          = "-"
-          {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-        .range
-          ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
-          = _("Days")
-        .clear
-        %table
-          {{each(i, line) lines}}
-          {{if line.start_date == $startdate && line.end_date == $enddate}}
-          %tr
-            %td.quantity
-              ${line.quantity}
-            %td.model_name
-              ${line.model.name}
-          {{/if}}
-          {{/each}}  
-        {{/if}}
-        {{/each}}
+    {{tmpl($item.data) "tmpl/cell/items"}}
     
     %li{:class => "range"}
       {{if is_overdue}}
       %span.number
         %strong
-          ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+2)}
+          ${Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
       %span.text
         %strong
-          {{if Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1) > 2}}
+          {{if Math.round((new Date() - new Date(date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1) > 1}}
           = _("Days overdue")
           {{else}}
           = _("Day overdue")
@@ -51,9 +20,11 @@
       %span.text.grey
         = _("for max.")
       %span.number
-        ${Math.round((new Date(max_date.replace(/-/g, "/")) - new Date()) / (1000 * 60 * 60 * 24)+2)}
+        ${$max_date = new MaxDate(lines), ""}
+        ${$max_days = Math.round( ($max_date - new Date()) / ((1000 * 60 * 60 * 24)+1) ), ""}
+        ${$max_days}
       %span.text
-      {{if Math.round((new Date(max_date.replace(/-/g, "/")) - new Date()) / (1000 * 60 * 60 * 24)+2) > 1}}
+      {{if $max_days > 1}}
       = _("Days")
       {{else}}
       = _("Day")

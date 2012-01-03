@@ -84,7 +84,6 @@
       }
       
       .popup {
-        background: #FFF;
         border-left: 1px solid $bordergrey;
         border-right: 1px solid $bordergrey;
         border-bottom: 1px solid $bordergrey;
@@ -128,6 +127,7 @@
           }
             
           a {
+            background: url($slices-h) repeat-x 0 -2px;
             border-top: 1px solid white;
             display: block;
             overflow: hidden;
@@ -137,7 +137,6 @@
             
             &:hover {
               background: url($slices-h) repeat-x 0 -48px;
-              border-top: 1px solid $borderlightgrey;
             }
           }
           

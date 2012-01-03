@@ -171,7 +171,7 @@
     
     input[type=text] {
       border: 1px solid $borderdarkgrey;
-      @include boxShadow (inset 0 1px 2px #DDD);  
+      @include boxShadow (inset 0 1px 2px #FFF);  
     }
   }
   

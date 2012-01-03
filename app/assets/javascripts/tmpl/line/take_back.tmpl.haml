@@ -2,39 +2,8 @@
   %div{:class => "{{if is_overdue}}overdue{{/if}}"}
     
     {{tmpl($item.data.user) "tmpl/cell/user_name"}}
-  
-    %li.items.hastip
-      %span.number
-        ${quantity}
-      = _("Items")
-      .tip.lines
-        ${$startdate = 0, ""}
-        ${$enddate = 0, ""}
-        {{each(i, line) lines}}
-        {{if line.start_date != $startdate || line.end_date != $enddate}}
-        ${$startdate = line.start_date, ""}
-        ${$enddate = line.end_date, ""}
-        .date
-          {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-          = "-"
-          {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-        .range
-          ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
-          = _("Days")
-        .clear
-        %table
-          {{each(i, line) lines}}
-          {{if line.start_date == $startdate && line.end_date == $enddate}}
-          %tr
-            %td.quantity
-              ${line.quantity}
-            %td.model_name
-              ${line.model.name}
-          {{/if}}
-          {{/each}}  
-        {{/if}}
-        {{/each}}
-          
+    {{tmpl($item.data) "tmpl/cell/items"}}
+    
     %li.range
       {{if is_overdue}}
       %span.number
@@ -51,7 +20,9 @@
         {{/if}}      
       {{if !is_overdue}}
       %span.number
-        ${Math.round((new Date() - new Date(min_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+        ${$min_date = new MinDate(lines), ""}
+        ${$min_days = Math.round( (new Date()- $min_date) / ((1000 * 60 * 60 * 24)+1) ), ""}
+        ${$min_days}
       %span.text
         = _("Days")
       {{/if}}
@@ -76,7 +47,7 @@
     {{else}}
     
     %li.note
-      {{html formatDate(new Date(min_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      {{html formatDate($min_date, i18n.selected.tips.dateFormat)}}
     {{/if}}
    
   %li.actions

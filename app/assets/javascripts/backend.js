@@ -20,6 +20,10 @@
 //= require jquery/barcode/barcode
 //= require jquery/clearable-input/clearable-input
 //= require jquery/daily-navigator/daily-navigator
+//= require jquery/lines/grouped
+//= require jquery/lines/max_range
+//= require jquery/lines/max_date
+//= require jquery/lines/min_date
 
 /////////// Templates /////////////
 //= require_tree ./tmpl

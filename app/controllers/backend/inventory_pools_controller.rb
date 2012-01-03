@@ -45,15 +45,25 @@ class Backend::InventoryPoolsController < Backend::BackendController
     end
 
     orders = current_inventory_pool.orders.submitted
-    @orders_json = orders.to_json(:with => {:grouped_lines => {}, :user => {:methods => [:image_url]}})
+    @orders_json = orders.to_json(:with => {:lines => {:include => :model}, 
+                                            :user => {:methods => [:image_url]}},
+                                  :methods => :quantity)
     @orders_size = orders.size
-
+    
+    #TODO Franco: the overdued hand overs are missing here right ??
+    #TODO Include overdue hand overs but only if date == today
     ho = grouped_visits[["hand_over", @date]] || []
-    @hand_overs_json = ho.to_json
+    @hand_overs_json = ho.to_json(:with => {:lines => {},
+                                            :user => {:methods => [:image_url]}},
+                                  :methods => :is_overdue)
     @hand_overs_size = ho.size
-
+    
+    #TODO Franco: the overdued take backs are missing here right ??
+    #TODO Include overdue take backs but only if date == today
     tb = grouped_visits[["take_back", @date]] || []
-    @take_backs_json = tb.to_json
+    @take_backs_json = tb.to_json(:with => {:lines => {},
+                                            :user => {:methods => [:image_url]}},
+                                  :methods => :is_overdue)
     @take_backs_size = tb.size
   end
   

@@ -272,28 +272,11 @@ class Order < Document
     end
   end
   
-  def max_range
-     unless order_lines.blank?
-      max_range = order_lines.max {|x| x.end_date - x.start_date}
-      max_range = Integer(max_range[:end_date] - max_range[:start_date] + 1)
-    else
-      nil
-    end
-  end
-  
-  def grouped_lines
-    grouped_lines = lines.includes(:model).group_by {|x| [x.start_date.to_formatted_s(:db), x.end_date.to_formatted_s(:db)] }
-    grouped_lines.map {|k,v| { "start_date" => k[0], "end_date" => k[1], "lines" => v } }
-  end
-  
   ############################################
   
-  # example: ip.orders.submitted.as_json(:with => {:user => {}, :grouped_lines => {:with_availability => true}})
+  # example: ip.orders.submitted.as_json(:with => {:user => {}, :lines => {:with_availability => true}})
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-    
-    #{:order_lines => {:include => {:model => {:only => [:name, :manufacturer]}}, :methods => [:type, :is_available]}, #TODO WE ALLREADY HAVE GROUPED LINES SO GET THE INFORMATIONS THERE
-    #:quantity, :max_single_range, :min_date, :max_date, :max_range, :is_approvable #TODO MOVE ALL THIS LOGIC TO CLIENT
     
     default_options = {:only => [:id, :inventory_pool_id, :purpose, :status_const, :created_at, :updated_at]}
     more_json = {}
@@ -305,9 +288,9 @@ class Order < Document
         default_options.deep_merge!(user_default_options.deep_merge(with[:user]))
       end
 
-      if with[:grouped_lines]
-        grouped_lines_default_options = {:current_user => user, :current_inventory_pool => inventory_pool}
-        more_json['grouped_lines'] = grouped_lines.as_json(grouped_lines_default_options.merge(with[:grouped_lines]))
+      if with[:lines]
+        lines_default_options = {:current_user => user, :current_inventory_pool => inventory_pool}
+        more_json['lines'] = lines.as_json(lines_default_options.merge(with[:lines]))
       end
     end
     

@@ -1,0 +1,36 @@
+${$grouped_lines = new GroupedLines(lines), ""}
+
+%li.items.hastip
+  %span.number
+    ${quantity}
+  = _("Items")
+  .tip.lines
+    {{each(i, linegroup) $grouped_lines}}
+    {{if i != 0}}
+    %hr
+    {{/if}}
+    .date
+      {{html formatDate(new Date(linegroup.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      = "-"
+      {{html formatDate(new Date(linegroup.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+    .range
+      ${Math.round((new Date(linegroup.end_date.replace(/-/g, "/")) - new Date(linegroup.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
+      = _("Days")
+    .clear
+    %table
+      {{each(i, line) linegroup.lines}}
+      %tr
+        %td.quantity
+          ${line.quantity}
+        %td.model_name
+          {{if line.model}}
+          {{html String(line.model.name).substring(0, 47) }}
+          {{if String(line.model.name).length > 47}}
+          {{html "..."}}
+          {{/if}}
+          {{else}}
+          %i
+            = _("Model not present any more")
+          {{/if}}
+      {{/each}}
+    {{/each}}

@@ -29,7 +29,28 @@ class Visit < ActiveRecord::Base
 
   def as_json(options={})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
-
+    
+    default_options = {:only => [:quantity, :date, :id]}
+    more_json = {}
+    
+    if (with = options[:with])
+      if with[:user]
+        user_default_options = {:include => {:user => {:only => [:firstname, :lastname, :id, :phone, :email],
+                                                       :methods => [:image_url] }}}
+        default_options.deep_merge!(user_default_options.deep_merge(with[:user]))
+      end
+      
+      if with[:lines]
+        lines_default_options = {:current_user => user, :current_inventory_pool => inventory_pool}
+        more_json['lines'] = lines.as_json(lines_default_options.merge(with[:lines]))
+      end
+    end
+        
+    json = super(default_options.deep_merge(options))
+    json['type'] = action # needed for templating (type identifier)
+    json.merge(more_json)
+    
+=begin OLD CODE (DEPRECATED TO MUCH INCLUDED PER DEFAULT)
     # OPTIMIZE because "comparison of ItemLine with OptionLine failed"
     lines_array = contract_lines.map {|cl| OpenStruct.new({:start_date => cl.start_date, :end_date => cl.end_date, :model => cl.model, :quantity => cl.quantity}) }
     
@@ -59,6 +80,7 @@ class Visit < ActiveRecord::Base
                 :lines => lines_hash, ###
                 :min_date => lines_hash.min {|x| x[:start_date]}[:start_date], ###
                 :max_date => lines_hash.max {|x| x[:end_date]}[:end_date] }) ###
+=end
   end
 
   #######################################################

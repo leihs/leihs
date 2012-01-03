@@ -1,26 +1,26 @@
-${$item.first_date = new Date(start_date.replace(/-/g, "/")), ""}
-${$item.last_date = new Date(end_date.replace(/-/g, "/")), ""}
-${$item.days = Math.round(($item.last_date-$item.first_date) / (1000 * 60 * 60 * 24)+1), ""}
+${$item.start_date = new Date(start_date.replace(/-/g, "/")), ""}
+${$item.end_date = new Date(end_date.replace(/-/g, "/")), ""}
+${$item.days = Math.round(($item.end_date-$item.start_date) / (1000 * 60 * 60 * 24)+1), ""}
 
 .linegroup
   .dates
     %label
       = check_box_tag "select_group"
-    {{if formatDate($item.first_date, i18n.selected.tips.dateFormat) == formatDate(new Date(), i18n.selected.tips.dateFormat)}}
+    {{if formatDate($item.start_date, i18n.selected.tips.dateFormat) == formatDate(new Date(), i18n.selected.tips.dateFormat)}}
     %strong
       = _("Today")
     {{else}}
-    ${i18n.selected.datepicker_backend.dayNamesShort[$item.first_date.getDay()]}
+    ${i18n.selected.datepicker_backend.dayNamesShort[$item.start_date.getDay()]}
     {{/if}} 
-    ${formatDate($item.first_date, i18n.selected.tips.dateFormat)}
+    ${formatDate($item.start_date, i18n.selected.tips.dateFormat)}
     = "-"
-    {{if formatDate($item.last_date, i18n.selected.tips.dateFormat) == formatDate(new Date(), i18n.selected.tips.dateFormat)}}
+    {{if formatDate($item.end_date, i18n.selected.tips.dateFormat) == formatDate(new Date(), i18n.selected.tips.dateFormat)}}
     %strong
       = _("Today")
     {{else}}
-    ${i18n.selected.datepicker_backend.dayNamesShort[$item.last_date.getDay()]}
+    ${i18n.selected.datepicker_backend.dayNamesShort[$item.end_date.getDay()]}
     {{/if}}
-    ${formatDate($item.last_date, i18n.selected.tips.dateFormat)}
+    ${formatDate($item.end_date, i18n.selected.tips.dateFormat)}
   .days
     ${$item.days}
     {{if $item.days<2}}

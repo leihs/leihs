@@ -2,60 +2,20 @@
   .container
   
     {{tmpl($item.data.user) "tmpl/cell/user_name"}}
-  
-    %li.items.hastip
-      %span.number
-        ${quantity}
-      = _("Items")
-      .tip.lines
-        ${$startdate = 0, ""}
-        ${$enddate = 0, ""}
-        {{each(i, line) order_lines}}
-        {{if line.start_date != $startdate || line.end_date != $enddate}}
-        ${$startdate = line.start_date, ""}
-        ${$enddate = line.end_date, ""}
-        {{if i != 0}}
-        %hr
-        {{/if}}
-        .date
-          {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-          = "-"
-          {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-        .range
-          ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
-          = _("Days")
-        .clear
-        %table
-          {{each(i, line) order_lines}}
-          {{if line.start_date == $startdate && line.end_date == $enddate}}
-          %tr
-            %td.quantity
-              ${line.quantity}
-            %td.model_name
-              {{if line.model}}
-              ${line.model.name}
-              {{else}}
-              %i
-                = _("Model not present any more")
-              {{/if}}
-          {{/if}}
-          {{/each}}  
-        {{/if}}
-        {{/each}}
+    {{tmpl($item.data) "tmpl/cell/items"}}
     
     %li.date
       {{html formatDate(new Date(created_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
     
     %li.range
-      {{if max_range}}
       %span.text
         %span.grey
           = _("for max.")
       %span.number
-        ${max_range}
+        ${$max_range = new MaxRange(lines), ""}
+        ${$max_range.value}
       %span.text
         = _("Days")
-      {{/if}}
         
     {{if String(purpose).length > 70}}
     %li.purpose.hastip
