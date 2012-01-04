@@ -107,6 +107,7 @@ Leihs::Application.routes.draw do
 
       resources :orders
       resources :contracts
+      resources :visits, :only => :index
       
       resources :locations do
         resources :items

@@ -1,0 +1,48 @@
+-content_for :title, _("List of Visits")
+#orders.innercontent
+
+  .top
+    %h1= _("List of Visits")
+  
+  %section.orders
+    .inlinetabs
+      = link_to backend_inventory_pool_visits_path(current_inventory_pool, :filter => "", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' if params[:filter] && params[:filter] != ""}" do
+        %span.text
+          = _("All")
+      = link_to backend_inventory_pool_visits_path(current_inventory_pool, :filter => "hand_over", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'signed'}" do
+        %span.text
+          = _("Hand Over")
+      = link_to backend_inventory_pool_visits_path(current_inventory_pool, :filter => "take_back", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'closed'}" do
+        %span.text
+          = _("Take Back")
+            
+    .list
+      %ul.navigation.line
+        %li.search
+          = form_tag("", :method => :get, :autocomplete => :off) do
+            %input{:type => "query", :name => "query", :value => "#{params[:query]}", :"data-start_text" => _("Suchen..."), :class => "clearable"}
+            %input{:type => "hidden", :name => "year", :value => params[:year]}
+            %input{:type => "hidden", :name => "month", :value => params[:month]}
+            %input{:type => "hidden", :name => "filter", :value => params[:filter]}
+            = image_tag "loading.gif", :class => "loading"
+            -unless params[:query].blank?
+              %strong
+                = _("found %i") % @entries.total_entries
+            = _("in")
+            %strong
+              = @total_entries
+            = _("entries%s") % "."
+          = image_tag "loading.gif", :class => "loading"
+        %li.historical_search
+      - if @entries.blank?
+        %ul.line
+          %li.name
+            %strong
+              = _("No entry found")
+              - unless params[:query].blank?
+                = _("for '%s'") % params[:query]
+  
+  - unless @entries.blank?
+    .pagination_container
+
+= @entries.to_json # (:with => {:lines => {}, :user => {:methods => [:image_url]}}, :methods => :is_overdue)

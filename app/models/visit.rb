@@ -27,6 +27,21 @@ class Visit < ActiveRecord::Base
 
   #######################################################
 
+  def self.search2(query)
+    return scoped unless query
+
+    sql = joins(:user)
+
+    w = query.split.map do |x|
+      s = []
+      s << "CONCAT(users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
+      "(%s)" % s.join(' OR ')
+    end.join(' AND ')
+    sql.where(w)
+  end
+
+  #######################################################
+
   def as_json(options={})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
     

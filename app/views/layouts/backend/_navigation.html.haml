@@ -12,7 +12,7 @@
         = _("Orders")
         
     %li.item{:class => is_current_page?("visits") ?"active" : nil}
-      = link_to "javascript:void(0);", :onclick => "javascript:alert('Dieser Bereicht wird bald implementiert.');", :class => "anchor" do
+      = link_to backend_inventory_pool_visits_path(current_inventory_pool), :class => "anchor" do
         .leftend
         = _("Visits")
         
