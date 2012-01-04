@@ -50,17 +50,15 @@ class Backend::InventoryPoolsController < Backend::BackendController
                                   :methods => :quantity)
     @orders_size = orders.size
     
-    #TODO Franco: the overdued hand overs are missing here right ??
-    #TODO Include overdue hand overs but only if date == today
-    ho = grouped_visits[["hand_over", @date]] || []
+    #TODO Include overdue hand overs but only if date == today (Franco: ???)
+    ho = grouped_visits.select {|k, v| k[0] == "hand_over" and k[1] <= @date }.values.flatten
     @hand_overs_json = ho.to_json(:with => {:lines => {},
                                             :user => {:methods => [:image_url]}},
                                   :methods => :is_overdue)
     @hand_overs_size = ho.size
     
-    #TODO Franco: the overdued take backs are missing here right ??
-    #TODO Include overdue take backs but only if date == today
-    tb = grouped_visits[["take_back", @date]] || []
+    #TODO Include overdue take backs but only if date == today (Franco: ???)
+    tb = grouped_visits.select {|k, v| k[0] == "take_back" and k[1] <= @date }.values.flatten
     @take_backs_json = tb.to_json(:with => {:lines => {},
                                             :user => {:methods => [:image_url]}},
                                   :methods => :is_overdue)
