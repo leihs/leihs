@@ -45,4 +45,110 @@
   - unless @entries.blank?
     .pagination_container
 
-= @entries.to_json # (:with => {:lines => {}, :user => {:methods => [:image_url]}}, :methods => :is_overdue)
+- @visits_json = @entries.to_json(:with => {:lines => {}, :user => {:methods => [:image_url]}}, :methods => :is_overdue)
+
+:javascript
+  
+  $(document).ready(function(){
+  
+    OrderList.setup();
+  });
+  
+  var OrderList = new OrderList();
+  
+  function OrderList() {
+    
+    this.setup = function() {
+      this.setupTemplates();
+      this.setupPagination(); 
+      this.setupHistoricalSearch();
+    }
+    
+    this.setupTemplates = function() {
+      $('.orders .list').append($.tmpl("tmpl/line", #{@visits_json}));
+    }
+    
+    this.setupHistoricalSearch = function() {
+      var options = {};
+      var available_months = #{@available_months.to_json};
+      
+      if(available_months.length) options["available_months"] = available_months;
+      options["available_years"] = #{@available_years.to_json};
+      options["selected_year"] = "#{params[:year]}";
+      options["selected_month"] = "#{params[:month]}";
+      options["callback"] = OrderList.handleHistoricalSearchClick;
+      
+      $(".orders .historical_search").historicalSearch(options);
+    }
+    
+    this.handleHistoricalSearchClick = function(event) {
+      event.preventDefault();
+      var target = event.currentTarget;
+      var params = window.location.search;
+      
+      // clean page when new date is selected
+      params = params.replace(/\?*?\&*page\=\d+/, "");
+      
+      if($(target).hasClass("back")) {
+        params = params.replace(/\?*?&*?year\=\d+/, "");
+        params = params.replace(/\?*?&*?month\=\d+/, "");
+      } else if($(target).data("year")) {
+        if (params.match(/year\=/)) {
+          params = params.replace(/year\=\d*/, "year="+$(target).data("year"));
+        } else {
+          if (params.match(/^\?/)) {
+            params = params+"&year="+$(target).data("year");
+          } else {
+            params = "?year="+$(target).data("year");     
+          }       
+        }
+      } else if($(target).data("month")) {
+        if (params.match(/month\=/)) {
+          params = params.replace(/month\=\d*/, "month="+$(target).data("month"));
+        } else if (params.match(/^\?/)) {
+          params = params+"&month="+$(target).data("month");
+        } else {
+          params = "?month="+$(target).data("month");      
+        }
+      }
+      
+      if(params == "?&") params ="";
+      
+      window.location = window.location.pathname + params;
+      return false;
+    }
+        
+    this.setupPagination = function() {
+      var current_page = #{params[:page].blank? ? 0 : params[:page]};
+          current_page = (current_page == 0) ? 0 : current_page-1;
+      
+      $(".pagination_container").pagination(#{@entries.total_entries}, {
+        items_per_page: #{$per_page},
+        callback: OrderList.handlePaginationClick,
+        current_page: current_page,
+        num_display_entries: 7,
+        num_edge_entries: 2,
+        next_text: "#{_("Next")}",
+        prev_text: "#{_("Previous")}"
+      });
+    }
+    
+    this.handlePaginationClick = function (new_page_index, pagination_container) {
+      event.preventDefault();
+      var params = window.location.search;
+      var page_param = "page="+parseInt(new_page_index+1);
+      
+      if(params.match(/page\=\d+/)) {
+        params = params.replace(/page\=\d+/, page_param);
+      } else {
+        if (params.match(/^\?/)) {
+          params = params+"&"+page_param;
+        } else {
+          params = "?"+page_param;      
+        }
+      }
+      
+      window.location = window.location.pathname + params;
+      return false;
+    }
+  }

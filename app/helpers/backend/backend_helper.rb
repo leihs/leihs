@@ -20,13 +20,15 @@ module Backend::BackendHelper
         current_page?(:controller => "backend/orders") ||
         !!(request.path =~ /acknowledge\/\d+$/)
       when "search"
-      current_page?(:controller => "backend", :action => :search)
+        current_page?(:controller => "backend", :action => :search)
       when "hand_over"
         current_page?(:controller => "backend/hand_over")
       when "take_back"
         current_page?(:controller => "backend/take_back")
       when "contracts"
-      current_page?(:controller => "backend/contracts")
+         current_page?(:controller => "backend/contracts")
+      when "visits"
+         current_page?(:controller => "backend/visits")
       when "lending"
         is_current_page?("daily") or
         is_current_page?("orders") or
