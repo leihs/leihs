@@ -9,6 +9,8 @@
 # Reading a MySQL View
 
 class Visit < ActiveRecord::Base
+  set_primary_key :id
+  
   belongs_to :user
   belongs_to :inventory_pool
 
@@ -30,6 +32,7 @@ class Visit < ActiveRecord::Base
   def self.search2(query)
     return scoped unless query
 
+    # TODO search on contract_lines' models and items
     sql = joins(:user)
 
     w = query.split.map do |x|

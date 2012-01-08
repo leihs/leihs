@@ -21,8 +21,7 @@ class RefactorModelGroupLinks < ActiveRecord::Migration
     end    
 
     ModelGroupsParent.all.each do |mgp|
-      mgp.parent.children << mgp.model_group
-      mgp.model_group.set_label(mgp.parent, mgp.label) unless mgp.label.blank?
+      mgp.model_group.set_parent_with_label(mgp.parent, mgp.label)
     end
 
     drop_table :model_groups_parents
