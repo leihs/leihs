@@ -6,7 +6,7 @@
     
   .popup
     .inner
-      -(current_user.managed_inventory_pools - [current_inventory_pool]).each do |ip|
+      - current_managed_inventory_pools.each do |ip|
         = link_to ip.name, backend_inventory_pool_path(ip)
         %hr
         

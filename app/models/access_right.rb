@@ -29,8 +29,7 @@ class AccessRight < ActiveRecord::Base
   
   scope :not_suspended, where("suspended_until IS NULL OR suspended_until < CURDATE()")
   scope :not_admin, where("role_id > 1") #TODO: replace hardcoded 1 with Role name (Role.admin)
-  
-  #rails3#tmp# scope :managers, joins(:role).where(['roles.name = ? AND deleted_at IS NULL', 'manager'])
+  scope :managers, joins(:role).where(:roles => {:name => "manager"}, :deleted_at => nil)
   
 ####################################################################
 

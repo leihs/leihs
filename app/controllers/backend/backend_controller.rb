@@ -168,7 +168,7 @@ class Backend::BackendController < ApplicationController
 
   protected
 
-    helper_method :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :is_apprentice?, :is_admin?
+    helper_method :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :is_apprentice?, :is_admin?, :current_managed_inventory_pools
 
     # TODO: what's happening here? Explain the goal of this method
     def current_inventory_pool
@@ -183,6 +183,12 @@ class Backend::BackendController < ApplicationController
       return nil if current_user.nil? #fixes http://leihs.hoptoadapp.com/errors/756097 (when a user is not logged in but tries to go to a certain action in an inventory pool (for example when clicking a link in hoptoad)
       @current_inventory_pool ||= current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
     end
+
+    def current_managed_inventory_pools
+      @current_managed_inventory_pools ||= (current_user.managed_inventory_pools - [current_inventory_pool])
+    end
+
+    ##################################################
     
     # TODO remove ??
     # helper for respond_to format.js called from derived controllers' indexes
