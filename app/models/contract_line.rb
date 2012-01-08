@@ -78,9 +78,13 @@ class ContractLine < DocumentLine
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
 
-    required_options = {:include => {:model => {:methods => :package_models},
-                                     :contract => {:include => {:user => {:only => [:firstname, :lastname]}}}
-                                    }}
+    required_options = {:include => {:model => {:methods => :package_models} }}
+
+    if (with = options[:with])
+      if with[:contract]
+        required_options[:include].merge(:contract => {:include => {:user => {:only => [:firstname, :lastname]}}})
+      end
+    end
     
     json = super(options.deep_merge(required_options))
     
@@ -96,9 +100,15 @@ class ContractLine < DocumentLine
         json['total_rentable_in_stock'] = borrowable_items.in_stock.count
       end
     end
+
+    if (with = options[:with])
+      if with[:contract]
+        line_type = (contract.status_const == 1) ? "hand_over_line" : "take_back_line"
+        json['type'] = line_type
+      end
+    end
     
-    line_type = (contract.status_const == 1) ? "hand_over_line" : "take_back_line"
-    json.merge({:type => line_type})
+    json
   end
 
 end

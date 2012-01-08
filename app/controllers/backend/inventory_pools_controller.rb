@@ -31,7 +31,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
     today_and_next_4_days = [@date] 
     4.times { today_and_next_4_days << current_inventory_pool.next_open_date(today_and_next_4_days[-1] + 1.day) }
     
-    grouped_visits = current_inventory_pool.visits.where("date <= ?", today_and_next_4_days.last).group_by {|x| [x.action, x.date] }
+    grouped_visits = current_inventory_pool.visits.includes(:user).where("date <= ?", today_and_next_4_days.last).group_by {|x| [x.action, x.date] }
     
     @chart_data = today_and_next_4_days.map do |day|
       day_name = (day == Date.today) ? _("Today") : l(day, :format => "%a %d.%m")
@@ -44,7 +44,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
          :value => "#{take_back_visits_on_day.size+hand_over_visits_on_day.size} Visits<br/>#{take_back_visits_on_day.sum(&:quantity)+hand_over_visits_on_day.sum(&:quantity)} Items"}]
     end
 
-    orders = current_inventory_pool.orders.submitted
+    orders = current_inventory_pool.orders.submitted.includes(:order_lines => :model, :user => {})
     @orders_json = orders.to_json(:with => {:lines => {:include => :model}, 
                                             :user => {:methods => [:image_url]}},
                                   :methods => :quantity)
