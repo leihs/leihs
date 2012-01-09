@@ -7,20 +7,22 @@
 # * "take_back"
 #
 # Reading a MySQL View
-
 class Visit < ActiveRecord::Base
   set_primary_key :id
   
   belongs_to :user
   belongs_to :inventory_pool
-
-  def line_ids
-    contract_line_ids.split(',').map(&:to_i)
-  end
-  def contract_lines
-    @contract_lines ||= ContractLine.includes(:model).find(line_ids)
-  end
+  
+  has_many :visit_lines
+  has_many :contract_lines, :through => :visit_lines
   alias :lines :contract_lines
+
+#  def line_ids
+#    contract_line_ids.split(',').map(&:to_i)
+#  end
+#  def contract_lines
+#    @contract_lines ||= ContractLine.includes(:model).find(line_ids)
+#  end
 
   #######################################################
   

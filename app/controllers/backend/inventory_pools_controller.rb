@@ -31,7 +31,7 @@ class Backend::InventoryPoolsController < Backend::BackendController
     today_and_next_4_days = [@date] 
     4.times { today_and_next_4_days << current_inventory_pool.next_open_date(today_and_next_4_days[-1] + 1.day) }
     
-    grouped_visits = current_inventory_pool.visits.includes(:user).where("date <= ?", today_and_next_4_days.last).group_by {|x| [x.action, x.date] }
+    grouped_visits = current_inventory_pool.visits.includes(:user => {}, :contract_lines => :model).where("date <= ?", today_and_next_4_days.last).group_by {|x| [x.action, x.date] }
     
     @chart_data = today_and_next_4_days.map do |day|
       day_name = (day == Date.today) ? _("Today") : l(day, :format => "%a %d.%m")

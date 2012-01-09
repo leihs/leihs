@@ -23,6 +23,10 @@ class OptionLine < ContractLine
 
   belongs_to :option
 
+  # aliases, fetching option anyway
+  belongs_to :item, :class_name => "Option", :foreign_key => :option_id
+  belongs_to :model, :class_name => "Option", :foreign_key => :option_id
+
   validates_presence_of :option
   validate :validate_inventory_pool
 
@@ -43,13 +47,6 @@ class OptionLine < ContractLine
   def is_late?(current_date = Date.today)
     option and super
   end
-
-
-########################################################
-# aliases
-
-  belongs_to :item, :class_name => "Option", :foreign_key => :option_id
-  belongs_to :model, :class_name => "Option", :foreign_key => :option_id
 
 ##################################################
 
