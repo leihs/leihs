@@ -5,7 +5,7 @@ class FrontendController < ApplicationController
   layout "frontend"
 
   def search
-    models = Model.search2(params[:term]).filter(:inventory_pool_id => current_user.inventory_pool_ids).limit(5)
+    models = Model.search2(params[:term]).filter2(:inventory_pool_id => current_user.inventory_pool_ids).limit(5)
 
     results = models.map do |model|
       { label: model.to_s,

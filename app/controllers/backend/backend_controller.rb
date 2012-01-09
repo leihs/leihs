@@ -16,19 +16,19 @@ class Backend::BackendController < ApplicationController
   def search
 
     conditions = [ { :klasses => { User => {:sort_by => "firstname ASC, lastname ASC"},
-                                   Order => {:sort_by => "created_at DESC"},
-                                   Contract => {:sort_by => "created_at DESC", :with => {:status_const => Contract::SIGNED..Contract::CLOSED}},
-                                   Model => {:sort_by => "name ASC"},
+                                   Order => {:sort_by => "created_at DESC", :with => {:user => {}}},
+                                   Contract => {:sort_by => "created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}, :with => {:user => {}}, :include => :items},
+                                   Model => {:sort_by => "name ASC", :include => :categories},
                                    Item => {:sort_by => "models.name ASC"} },
-                     :with => { :inventory_pool_id => [current_inventory_pool.id] }
+                     :filter => { :inventory_pool_id => [current_inventory_pool.id] }
                     } ]
     
-    #TODO conditions << { :with => { :owner_id => [current_inventory_pool.id]} } if  # INVENTORY MANAGER
+    #TODO conditions << { :filter => { :owner_id => [current_inventory_pool.id]} } if  # INVENTORY MANAGER
     
-    #TODO conditions << { :with => { :owner_id => [current_inventory_pool.id]} } if  # ADMIN find USERS
+    #TODO conditions << { :filter => { :owner_id => [current_inventory_pool.id]} } if  # ADMIN find USERS
     
                 # TODO prevent search for Inventory if current_user doesn't have enough permissions
-                # TODO implement this later on :with => { :owner_id => [current_inventory_pool.id]}
+                # TODO implement this later on :filter => { :owner_id => [current_inventory_pool.id]}
                 # TODO implement serach for all user "ADMIN" and merge with users
 
     results = []
@@ -36,16 +36,17 @@ class Backend::BackendController < ApplicationController
     conditions.each do |s|
       s[:klasses].each_pair do |klass, options|
         r = klass.search2(params[:text]).
-              filter2(s[:with].merge(options[:with] || {})).
+              filter2(s[:filter].merge(options[:filter] || {})).
               order(options[:sort_by]).
               paginate(:page => params[:page], :per_page => 54)
 
-        results << r
+        results << r.as_json(:include => options[:include], :with => options[:with]) # FIXME drop :with and use :include instead
         @hits[klass.to_s.underscore] = r.total_entries 
       end
     end
     
-    @results_json = results.flatten.as_json(:current_inventory_pool => current_inventory_pool, :with => {:user => {}}).to_json
+    #old# @results_json = results.flatten.as_json(:current_inventory_pool => current_inventory_pool, :with => {:user => {}}).to_json
+    @results_json = results.flatten.to_json
   end
 
 ###############################################################  

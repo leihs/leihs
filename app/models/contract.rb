@@ -105,8 +105,7 @@ class Contract < Document
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
 
-    default_options = {:only => [:id, :inventory_pool_id, :purpose, :status_const, :created_at, :updated_at],
-                       :include => {:items => {}}}
+    default_options = {:only => [:id, :inventory_pool_id, :purpose, :status_const, :created_at, :updated_at]}
     more_json = {}
 
     if (with = options[:with])

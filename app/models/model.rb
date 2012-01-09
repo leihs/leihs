@@ -137,11 +137,9 @@ class Model < ActiveRecord::Base
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
 
-    # FIXME requires explicitly
-    required_options = {:include => [:properties, :categories, :inventory_pools] }
-    
-    # :methods => :inventory_pool_ids
-    json = super(options.deep_merge(required_options))
+    #old# required_options = {:include => [:properties, :categories, :inventory_pools] }
+
+    json = super(options)
 
     if options[:with_availability]
       if (customer_user = options[:current_user])
