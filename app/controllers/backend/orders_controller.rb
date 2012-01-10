@@ -46,6 +46,9 @@ class Backend::OrdersController < Backend::BackendController
 
     @total_entries = sql.where(time_range).count
     @entries = search_sql.where(time_range).order("orders.created_at DESC").paginate(:page => page, :per_page => $per_page)
+    @entries_json = @entries.to_json(:with => {:lines => {:include => :model}, 
+                                               :user => {:methods => [:image_url]}},
+                                     :methods => :quantity)
     @pages = @entries.total_pages
         
     respond_to do |format|
