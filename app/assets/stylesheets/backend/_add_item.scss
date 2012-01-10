@@ -6,18 +6,16 @@
   top: 6px;
   
   &>.button {
-    font-size: 2.0em;
-    padding: 1px 9px 5px;
     position: relative;
     top: -5px;
   }
   
   .barcode {
     border: 1px solid $lightergrey;
-    color: $lightgrey;
+    color: $grey;
     font-size: 1.2em;
     height: 22px;
-    padding: 0 6px;
+    padding: 0 19px 0 6px;
     position: relative;
     top: 1px;
     width: 100px;
@@ -35,15 +33,38 @@
     left: 0;
   }
   
-  .container {
+  .item_code {
     display: inline-block;
     position: relative;
+    margin-right: 6px;
+    
+    input[type=submit] {
+      background: none;
+      border: none;
+      color: $grey;
+      cursor: pointer;
+      font-size: 1.6em;
+      padding: 2px 2px 1px 2px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      @include borderRadius(4px);
+      
+      &:hover {
+        color: $darkgrey;
+      }
+    }
   }
   
   .dates {
     display: inline-block;
-    margin-left: 10px;
+    margin-right: 4px;
     position: relative;
+    
+    .container {
+      display: inline-block;
+      position: relative;
+    }
     
     & input {
       border: 1px solid $lightergrey;
@@ -62,7 +83,7 @@
       position: relative;
       left: -23px;
       margin-right: -14px;
-      top: -2px;
+      top: -1px;
     }
   }
 }

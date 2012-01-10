@@ -33,7 +33,12 @@
     width: 190px;
   }
   
-  li.short_purpose {
-    width: 190px;
+  li.status {
+    width: 360px;
+    
+    .red {
+      font-weight: bold;
+      font-style: italic;
+    }
   }
 }

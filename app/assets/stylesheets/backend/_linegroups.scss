@@ -16,7 +16,7 @@ section {
     &.selected {
       background: $highlight-darkergrey;
       border: 1px solid $borderdarkgrey;
-      @include boxShadow(0 0 5px #DDD);
+      @include boxShadow(0 0 8px #CDD);
     }
     
     .dates {
