@@ -1,5 +1,5 @@
 %ul.line{:class => "${type}"}
-  = link_to "javascript:void(0);" do #TODO: /backend/inventory_pools/${current_inventory_pool}/contracts/${id}.pdf
+  .container
   
     {{tmpl($item.data.user) "tmpl/cell/user_name"}}
         
@@ -10,37 +10,7 @@
     %li.date
       {{html formatDate(new Date(created_at.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
   
-    %li.items.hastip
-      %span.number
-        ${items.length}
-      = _("Items")
-      .tip.lines
-        ${$startdate = 0, ""}
-        ${$enddate = 0, ""}
-        {{each(i, line) lines}}
-        {{if line.start_date != $startdate || line.end_date != $enddate}}
-        ${$startdate = line.start_date, ""}
-        ${$enddate = line.end_date, ""}
-        .date
-          {{html formatDate(new Date(line.start_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-          = "-"
-          {{html formatDate(new Date(line.end_date.replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
-        .range
-          ${Math.round((new Date(line.end_date.replace(/-/g, "/")) - new Date(line.start_date.replace(/-/g, "/"))) / (1000 * 60 * 60 * 24)+1)}
-          = _("Days")
-        .clear
-        %table
-          {{each(i, line) lines}}
-          {{if line.start_date == $startdate && line.end_date == $enddate}}
-          %tr
-            %td.quantity
-              ${line.quantity}
-            %td.model_name
-              ${line.model.name}
-          {{/if}}
-          {{/each}}  
-        {{/if}}
-        {{/each}}
+    {{tmpl($item.data) "tmpl/cell/items"}}
   
     %li.status_with_date
       {{if status_const == 1}}

@@ -1,2 +1,3 @@
 .container
-  {{tmpl(grouped_lines) "tmpl/linegroup"}}
+  ${$grouped_lines = new GroupedLines(lines), ""}
+  {{tmpl($grouped_lines) "tmpl/linegroup"}}

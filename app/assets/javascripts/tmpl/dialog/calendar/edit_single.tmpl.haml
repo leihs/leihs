@@ -48,29 +48,31 @@
                 :"data-availability_dates" => "${JSON.stringify(availability_for_inventory_pool.availability)}"}
           ${availability_for_inventory_pool.inventory_pool.name}
           
-    .group.container
+    .partition.container
       %span.select
         %span.name
-          = "Total"
+          = "For Borrower"
         .arrow
-        %select{:id => "group", :name => "group"}
-          %option{:value => "", :"data-name" => _("Total"), :"data-total_rentable" => "${total_rentable}"}
-            = _("Total (max. ${total_rentable})")
-          {{each(i, group) availability_for_inventory_pool.partitions}}
-          {{if group.group_id == 0}}
-          %option{:value => "${group.group_id}", :"data-name" => _("General everyone"), :"data-total_rentable" => "${group.quantity}"}
-            = _("General (max. ${group.quantity})")
+        %select{:id => "partition", :name => "partition"}
+          %option{:value => "${JSON.stringify([0].concat(order.user.groups))}", :"data-name" => _("For Borrower"), :"data-total_rentable" => "FIXME"}
+            = _("For Borrower (max. FIXME)")
+          {{each(i, partition) availability_for_inventory_pool.partitions}}
+          {{if partition.group_id == null}}
+          %option{:value => "[0]", :"data-name" => _("Everyone"), :"data-total_rentable" => "${partition.quantity}"}
+            = _("Everyone (max. ${partition.quantity})")
           {{else}}
-          %option{:value => "${group.group_id}", :"data-name" => "${group.name}", :"data-total_rentable" => "${group.quantity}"}
-            = _("${group.name} (max. ${group.quantity})")
+          %option{:value => "[${partition.group_id}]", :"data-name" => "${partition.group.name}", :"data-total_rentable" => "${partition.quantity}"}
+            = _("${partition.group.name} (max. ${partition.quantity})")
           {{/if}}
           {{/each}}
-      %label{:for => "group"}
-        = _("Group")
+          %option{:value => "", :"data-name" => _("In Total"), :"data-total_rentable" => "${total_rentable}"}
+            = _("In Total (max. ${total_rentable})")
+      %label{:for => "partition"}
+        = _("Availability")
   
   .clear
   
   #fullcalendar
   
   .list
-    {{tmpl($item.data) "tmpl/line/calendar_edit_line"}}
+    {{tmpl($item.data) "tmpl/line/calendar_edit_single_line"}}
