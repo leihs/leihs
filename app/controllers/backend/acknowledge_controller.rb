@@ -21,6 +21,14 @@ class Backend::AcknowledgeController < Backend::BackendController
     # OLD ? @source_path = request.env['REQUEST_URI']
     @order.to_backup unless @order.has_backup?
     add_visitor(@order.user)
+    
+    @order_json = @order.to_json(:with => {:lines => {:include => {:model => {}, 
+                                                                   :order => {:include => {:user => {:include => :groups}}}},
+                                                      :current_inventory_pool => current_inventory_pool, 
+                                                      :with_availability => true,
+                                                      :methods => :is_available }, 
+                                           :user => {}},
+                                 :methods => :quantity)
   end
   
   def approve
