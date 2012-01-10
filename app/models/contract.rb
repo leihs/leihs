@@ -105,6 +105,27 @@ class Contract < Document
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
 
+    default_options = {:only => [:id, :status_const, :created_at, :updated_at]}
+    more_json = {}
+    
+    if (with = options[:with])
+      if with[:user]
+        user_default_options = {:include => {:user => {:only => [:firstname, :lastname, :id, :phone, :email],
+                                                       :methods => [:image_url] }}}
+        default_options.deep_merge!(user_default_options.deep_merge(with[:user]))
+      end
+      
+      if with[:lines]
+        lines_default_options = {:current_user => user, :current_inventory_pool => inventory_pool}
+        more_json['lines'] = lines.as_json(lines_default_options.merge(with[:lines]))
+      end
+    end
+        
+    json = super(default_options.deep_merge(options))
+    json['type'] =  :contract # needed for templating (type identifier)
+    json.merge(more_json)
+    
+=begin
     default_options = {:only => [:id, :inventory_pool_id, :purpose, :status_const, :created_at, :updated_at],
                        :include => {:items => {}}}
     more_json = {}
@@ -134,6 +155,7 @@ class Contract < Document
     json[:lines] = lines_hash
     
     json.merge(more_json)
+=end
   end
 
 #########################################################################
