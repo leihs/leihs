@@ -12,33 +12,33 @@
 
 /////////// App /////////////
 //= require i18n/i18n
-//= require jquery/tips/tips
-//= require jquery/buttons/buttons
-//= require jquery/dialog/dialog
-//= require jquery/list/list
-//= require jquery/selection-actions/selection-actions
-//= require jquery/barcode/barcode
-//= require jquery/clearable-input/clearable-input
-//= require jquery/daily-navigator/daily-navigator
-//= require jquery/lines/grouped
-//= require jquery/lines/max_range
-//= require jquery/lines/max_date
-//= require jquery/lines/min_date
+//= require tips/tips
+//= require buttons/buttons
+//= require dialog/dialog
+//= require list/list
+//= require selection-actions/selection-actions
+//= require barcode/barcode
+//= require clearable-input/clearable-input
+//= require daily-navigator/daily-navigator
+//= require lines/grouped
+//= require lines/max_range
+//= require lines/max_date
+//= require lines/min_date
 
 /////////// Templates /////////////
 //= require_tree ./tmpl
 
 /////////// Lib /////////////
-//= require jquery/showMore/showMore
-//= require jquery/historical-search/historical-search
-//= require jquery/booking-calendar/booking-calendar
+//= require showMore/showMore
+//= require historical-search/historical-search
+//= require booking-calendar/booking-calendar
 
 /////////// Vendor /////////////
 //= require date/date
-//= require jquery/fullcalendar/fullcalendar
-//= require jquery/qtip/qtip.min
-//= require jquery/jqBarGraph/jqBarGraph.1.2.js
-//= require jquery/pagination/pagination
+//= require fullcalendar/fullcalendar
+//= require qtip/qtip.min
+//= require jqBarGraph/jqBarGraph.1.2.js
+//= require pagination/pagination
 
 // type or global formating/accepting of ajax requestes
 $.ajaxSetup({

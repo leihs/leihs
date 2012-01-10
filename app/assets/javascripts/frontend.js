@@ -14,13 +14,13 @@
 //= require i18n/i18n
 
 /////////// Lib /////////////
-//= require jquery/dialog/dialog
+//= require dialog/dialog
 
 /////////// Vendor /////////////
-//= require jquery/textarea-autoresize/autoresize.min
-//= require jquery/highlight/highlight.min
+//= require textarea-autoresize/autoresize.min
+//= require highlight/highlight.min
 //= require date/date
-//= require jquery/qtip/qtip.min
+//= require qtip/qtip.min
 
 // type or global formating/accepting of ajax requestes
 $.ajaxSetup({

@@ -21,6 +21,7 @@ function SelectionActions() {
     this.setupLinegroupHighlighting();
     this.setupDeleteSelection();
     this.setupEditSelection();
+    this.checkIfLinegroupIsSelected();
   }
   
   this.deselectRadioButtons = function() {
@@ -29,22 +30,25 @@ function SelectionActions() {
   
   this.setupLinegroupHighlighting = function() {
     $("#add_item .date").live("change", function(){
-      // highlight selected group of lines
-      $(".linegroup").each(function(){
-        var start_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().data.start_date));
-        var end_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().data.end_date));
-        if(start_date == $("#add_item #add_start_date").val() && end_date == $("#add_item #add_end_date").val()) {
-          $(this).addClass("selected");
-        } else {
-          $(this).removeClass("selected");
-        }
-      }); 
+      SelectionActions.checkIfLinegroupIsSelected();
    });
+  }
+  
+  this.checkIfLinegroupIsSelected = function() {
+    // highlight selected group of lines
+    $(".linegroup").each(function(){
+      var start_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().data.start_date));
+      var end_date = $.datepicker.formatDate(i18n.selected.datepicker_backend.dateFormat, new Date($(this).tmplItem().data.end_date));
+      if(start_date == $("#add_item #add_start_date").val() && end_date == $("#add_item #add_end_date").val()) {
+        $(this).addClass("selected");
+      } else {
+        $(this).removeClass("selected");
+      }
+    }); 
   }
   
   this.setupEditSelection = function() {
     $(".actiongroup #edit_selection").live("click", function(event){
-      
       
     });
   }
@@ -114,11 +118,11 @@ function SelectionActions() {
   
   this.setupTimerangeUpdater = function() {
     $(".linegroup").live("click", function() {
-      SelectionActions.updateTimerange($(this).tmplItem().first_date, $(this).tmplItem().last_date);
+      SelectionActions.updateTimerange(new Date($(this).tmplItem().data.start_date.replace(/-/g, "/")), new Date($(this).tmplItem().data.end_date.replace(/-/g, "/")));
     });
 
     $(".linegroup .button").live("click", function() {
-      SelectionActions.updateTimerange($(this).closest(".linegroup").tmplItem().first_date, $(this).closest(".linegroup").tmplItem().last_date);
+      SelectionActions.updateTimerange(new Date($(this).closest(".linegroup").tmplItem().data.start_date.replace(/-/g, "/")), new Date($(this).closest(".linegroup").tmplItem().data.end_date.replace(/-/g, "/")));
     });
   }
   
