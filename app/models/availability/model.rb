@@ -37,11 +37,34 @@ module Availability
     end
 
     def availability_periods_for_inventory_pool(inventory_pool)
+      p = partitions.in(inventory_pool).by_groups(inventory_pool.groups) + partitions.in(inventory_pool).by_groups(Group::GENERAL_GROUP_ID)
       {:inventory_pool => inventory_pool.as_json,
-       :partitions => partitions.in(inventory_pool).current_partition(true),
+       :partitions => p,
        :availability => availability_changes_in(inventory_pool).changes.available_total_quantities }
     end
-
-
+    
+    # Returns the availability periods for the given inventory pool but
+    # recovers the availability reserved from the given OrderLine back to the availability.
+    # 
+    # @param [InventoryPool] InventoryPool the InventoryPool for the av calculation 
+    # @param [OrderLine] OrderLine the OrderLine that should be added to the availability again
+    # @return [Hash] a Hash that containts informations for: inventory_pool, partions and availability
+    def non_selfblocking_av_periods_for_inventory_pool(ip, ol) 
+      av = availability_periods_for_inventory_pool ip
+        
+      av[:availability].each do |availability|
+        next unless (ol.start_date..ol.end_date).include?(availability[0])
+        # recover the total quantity
+        availability[1] += ol.quantity
+        # recover the partition/group availability
+        availability[2].each do |partition|
+          partition[:out_document_lines]["OrderLine"].each do |line|
+            partition[:in_quantity] += ol.quantity
+          end
+        end        
+      end
+      
+      av
+    end
   end
 end

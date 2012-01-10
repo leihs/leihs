@@ -128,6 +128,7 @@ class Contract < Document
 =begin
     default_options = {:only => [:id, :inventory_pool_id, :purpose, :status_const, :created_at, :updated_at],
                        :include => {:items => {}}}
+
     more_json = {}
 
     if (with = options[:with])

@@ -64,7 +64,7 @@
     }
     
     this.setupTemplates = function() {
-      $('.orders .list').append($.tmpl("tmpl/line", #{@entries.to_json}));
+      $('.orders .list').append($.tmpl("tmpl/line", #{@entries_json}));
     }
     
     this.setupHistoricalSearch = function() {

@@ -68,5 +68,9 @@ class Partition < ActiveRecord::Base
     def by_groups(groups)
       @partitions.where(:group_id => groups)
     end
+    
+    def all
+      @partitions
+    end
   end
 end

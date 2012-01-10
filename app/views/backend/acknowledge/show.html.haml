@@ -1,4 +1,3 @@
-
 -content_for :title, _("Order from %s") % @user
 
 #acknowledge.innercontent
@@ -38,7 +37,31 @@
           :"data-ref_for_dialog" => "$('#order .container').tmplItem().data"
       
   %section.actiongroup
-    = render :partial => '/backend/items/add_item'
+    
+    %section#add_item 
+      .dates
+        .container
+          %input.date.start{:name => "add_start_date", :id => "add_start_date", :value => @order.min_date, :title => _("Start Date")}
+          %label{:for => "add_start_date"}
+            = _("Start Date")
+          %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
+        = "-"
+        .container
+          %input.date.end{:name => "add_end_date", :id => "add_end_date", :value => @order.max_date, :title => _("End Date")}
+          %label{:for => "add_end_date"}
+            = _("End Date")
+          %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
+            
+      .item_code
+        %input{:type => "text", :name => "barcode_field", :value => _('Item Code'), :name => "barcode_field", :class => "barcode"}
+        %label{:for => "barcode_field"}
+          = _("Quick Add")
+        %input{:type => :submit, :value => "+"}
+          
+      = link_to "#", :class => "button white", :title => _("Add Item/Option") do
+        .icon.additem
+        = _("Add Item")
+        
     #selection_actions
       .selection
         %label
@@ -100,7 +123,7 @@
     }
     
     this.setupTemplates = function () {
-      $('#acknowledge #order').append($.tmpl("tmpl/order", #{@order.to_json(:with => {:grouped_lines => {}}, :with_availability => true)}));
+      $('#acknowledge #order').append($.tmpl("tmpl/order", #{@order_json}));
     }
     
     this.setupDatepicker = function () {

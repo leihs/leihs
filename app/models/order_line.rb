@@ -79,7 +79,7 @@ class OrderLine < DocumentLine
     if options[:with_availability]
       if (customer_user = options[:current_user])
         json['total_borrowable'] = model.total_borrowable_items_for_user(customer_user)
-        json['availability_for_user'] = model.availability_periods_for_user(customer_user)
+        json['availability_for_user'] = model.availability_periods_for_user(customer_user, true)
       end
       
       if (current_inventory_pool = options[:current_inventory_pool])
@@ -87,14 +87,9 @@ class OrderLine < DocumentLine
         json['total_rentable'] = borrowable_items.count
         json['total_rentable_in_stock'] = borrowable_items.in_stock.count
         
-        # adding the quantity of this order_line (self) to the quantity of the model again,
-        # because it's already computed on the availabilty (self-blocking problem)    
-        av = model.availability_periods_for_inventory_pool(current_inventory_pool)
-        av[:availability].each do |date_quantity|
-          next unless (start_date..end_date).include?(date_quantity[0])
-          date_quantity[1] += quantity
-        end
-        json['availability_for_inventory_pool'] = av
+        av = model.non_selfblocking_av_periods_for_inventory_pool(current_inventory_pool, self)
+        
+        json['availability_for_inventory_pool'] = av.as_json(:include => :group)
       end
     end
     

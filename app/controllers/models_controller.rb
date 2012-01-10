@@ -25,7 +25,7 @@ class ModelsController < FrontendController
                               {:ip_ids => current_user.active_inventory_pool_ids,
                                :groups_ids => current_user.group_ids} ])
 
-    @models_attributes = models.as_json(:current_user => current_user, :methods => :image_thumb)
+    @models_attributes = models.as_json(:current_user => current_user, :methods => :image_thumb, :include => :properties)
 
     respond_to do |format|
       format.html { }
