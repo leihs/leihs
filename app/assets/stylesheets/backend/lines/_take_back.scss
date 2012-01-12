@@ -1,7 +1,7 @@
 .take_back.line {
   
   li.items {
-    width: 129px;
+    width: 120px;
     
     .number {
       display: inline-block;
@@ -14,11 +14,6 @@
       width: 70%;
     }
   }
-  
-  .overdue li.items {
-    width: 107px !important;
-  }
-
   
   li.range {
     white-space: nowrap;

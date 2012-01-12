@@ -1,7 +1,8 @@
 .ui-dialog.calendar {
   
   .calendar_input {
-    padding-left: 2px;
+    display: inline-block;
+    float: right;
     position: relative;
     top: 21px;
     z-index: 9999;
@@ -34,6 +35,7 @@
       &.inventorypool {display: none;}
       
       &.partition {
+        margin-right: 40px;
         width: 145px;
         
         .select {
@@ -134,6 +136,7 @@
       }
       
       &.date {
+        margin-right: 0;
         
         input {
           padding-right: 6px;
@@ -228,6 +231,19 @@
         padding-left: 0;
         width: 335px;
       }
+    }
+  }
+  
+  #fullcalendar {
+    
+    .fc-header-left {
+      text-align: left;
+      width: 140px;
+    }
+    
+    .fc-header-right {
+      text-align: left;
+      width: 550px;
     }
   }
 }
