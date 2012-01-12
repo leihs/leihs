@@ -4,6 +4,9 @@
     {{tmpl($item.data.user) "tmpl/cell/user_name"}}
     {{tmpl($item.data) "tmpl/cell/items"}}
     
+    %li.date
+      {{html formatDate(new Date(date.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+    
     %li.range
       {{if is_overdue}}
       %span.number
