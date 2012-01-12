@@ -34,7 +34,8 @@ module Backend::BackendHelper
         is_current_page?("orders") or
         is_current_page?("hand_over") or
         is_current_page?("take_back") or
-        is_current_page?("contracts")
+        is_current_page?("contracts") or
+        is_current_page?("visits")
     end
   end
   
