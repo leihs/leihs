@@ -123,7 +123,7 @@
     }
     
     this.setupTemplates = function () {
-      $('#acknowledge #order').append($.tmpl("tmpl/order", #{@order_json}));
+      $('#acknowledge #order').replaceWith($.tmpl("tmpl/order", #{@order_json}));
     }
     
     this.setupDatepicker = function () {
