@@ -17,6 +17,28 @@
   .flash_message
   
   .calendar_input
+    .partition.container
+      %span.select
+        %span.name
+          = "For Borrower"
+        .arrow
+        %select{:id => "partition", :name => "partition"}
+          %option{:value => "${JSON.stringify([0].concat(order.user.groups))}", :"data-name" => _("For Borrower"), :"data-total_rentable" => "FIXME"}
+            = _("For Borrower (max. FIXME)")
+          {{each(i, partition) availability_for_inventory_pool.partitions}}
+          {{if partition.group_id == null}}
+          %option{:value => "[0]", :"data-name" => _("Everyone"), :"data-total_rentable" => "${partition.quantity}"}
+            = _("Everyone (max. ${partition.quantity})")
+          {{else}}
+          %option{:value => "[${partition.group_id}]", :"data-name" => "${partition.group.name}", :"data-total_rentable" => "${partition.quantity}"}
+            = _("${partition.group.name} (max. ${partition.quantity})")
+          {{/if}}
+          {{/each}}
+          %option{:value => "", :"data-name" => _("In Total"), :"data-total_rentable" => "${total_rentable}"}
+            = _("In Total (max. ${total_rentable})")
+      %label{:for => "partition"}
+        = _("Availability")
+  
     .quantity.container
       = text_field_tag :quantity, "${quantity}", :min => 1, :max => "${total_rentable}", :tabindex => "1", :class => "focus", :autocomplete => "off"
       %label{:for => "quantity"}
@@ -47,28 +69,6 @@
                 :"data-closed_days" => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.closed_days)}",
                 :"data-availability_dates" => "${JSON.stringify(availability_for_inventory_pool.availability)}"}
           ${availability_for_inventory_pool.inventory_pool.name}
-          
-    .partition.container
-      %span.select
-        %span.name
-          = "For Borrower"
-        .arrow
-        %select{:id => "partition", :name => "partition"}
-          %option{:value => "${JSON.stringify([0].concat(order.user.groups))}", :"data-name" => _("For Borrower"), :"data-total_rentable" => "FIXME"}
-            = _("For Borrower (max. FIXME)")
-          {{each(i, partition) availability_for_inventory_pool.partitions}}
-          {{if partition.group_id == null}}
-          %option{:value => "[0]", :"data-name" => _("Everyone"), :"data-total_rentable" => "${partition.quantity}"}
-            = _("Everyone (max. ${partition.quantity})")
-          {{else}}
-          %option{:value => "[${partition.group_id}]", :"data-name" => "${partition.group.name}", :"data-total_rentable" => "${partition.quantity}"}
-            = _("${partition.group.name} (max. ${partition.quantity})")
-          {{/if}}
-          {{/each}}
-          %option{:value => "", :"data-name" => _("In Total"), :"data-total_rentable" => "${total_rentable}"}
-            = _("In Total (max. ${total_rentable})")
-      %label{:for => "partition"}
-        = _("Availability")
   
   .clear
   
