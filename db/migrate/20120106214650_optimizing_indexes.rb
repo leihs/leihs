@@ -6,22 +6,25 @@ class OptimizingIndexes < ActiveRecord::Migration
       t.index [:user_id, :inventory_pool_id, :deleted_at], :name => :index_on_user_id_and_inventory_pool_id_and_deleted_at
     end
 
+    table_name = :contract_lines
+    existing_indexes = indexes(table_name).map(&:name)
+    [:contract_lines_contract_id, :contract_lines_option_id, :contract_lines_model_id, :contract_lines_item_id].each do |index_name|
+      execute "ALTER TABLE #{table_name} DROP INDEX #{index_name}" if existing_indexes.include? index_name 
+    end
+
     change_table :contract_lines do |t|
-      t.remove_index :name => :contract_lines_contract_id
-      t.remove_index :name => :contract_lines_option_id
-      t.remove_index :name => :contract_lines_model_id
-      t.remove_index :name => :contract_lines_item_id
       t.remove_index :returned_date 
       t.remove_index :type 
       t.index [:returned_date, :contract_id]
       t.index [:type, :contract_id]
     end
 
-    change_table :contracts do |t|
-      t.remove_index :name => :fk_contracts_user_id
-      t.remove_index :name => :fk_contracts_inventory_pool_id
+    table_name = :contracts
+    existing_indexes = indexes(table_name).map(&:name)
+    [:fk_contracts_user_id, :fk_contracts_inventory_pool_id].each do |index_name|
+      execute "ALTER TABLE #{table_name} DROP INDEX #{index_name}" if existing_indexes.include? index_name 
     end
-    
+
     change_table :holidays do |t|
       t.index [:start_date, :end_date]
     end
