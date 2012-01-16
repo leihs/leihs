@@ -9,7 +9,7 @@ class OptimizingIndexes < ActiveRecord::Migration
     table_name = :contract_lines
     existing_indexes = indexes(table_name).map(&:name)
     [:contract_lines_contract_id, :contract_lines_option_id, :contract_lines_model_id, :contract_lines_item_id].each do |index_name|
-      execute "ALTER TABLE #{table_name} DROP INDEX #{index_name}" if existing_indexes.include? index_name 
+      execute "ALTER TABLE #{table_name} DROP INDEX #{index_name}" if existing_indexes.include? index_name.to_s 
     end
 
     change_table :contract_lines do |t|
@@ -22,7 +22,7 @@ class OptimizingIndexes < ActiveRecord::Migration
     table_name = :contracts
     existing_indexes = indexes(table_name).map(&:name)
     [:fk_contracts_user_id, :fk_contracts_inventory_pool_id].each do |index_name|
-      execute "ALTER TABLE #{table_name} DROP INDEX #{index_name}" if existing_indexes.include? index_name 
+      execute "ALTER TABLE #{table_name} DROP INDEX #{index_name}" if existing_indexes.include? index_name.to_s 
     end
 
     change_table :holidays do |t|
