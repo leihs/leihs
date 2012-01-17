@@ -1,9 +1,8 @@
 = form_tag '${$item.action}', :remote => true do
   %h1
-    = _("Reject order from")
-    %strong
-      ${user.firstname} ${user.lastname}
-  %p.subtitle= '${quantity} items for "${purpose}"'
+    = _("Order from")
+    ${user.firstname} ${user.lastname}
+  %p.subtitle= '${purpose}'
   
   .navigation
     %button.button.white.close_dialog
@@ -17,7 +16,8 @@
   %hr
   
   %section.lines.scalable
-    {{tmpl "tmpl/dialog/acknowledge/lines"}}
+    ${$grouped_lines = new GroupedLines(lines), ""}
+    {{tmpl($grouped_lines) "tmpl/dialog/acknowledge/lines"}}
   
   %section.comment
     = text_area_tag "comment", "", :class => "focus"
