@@ -1,12 +1,17 @@
 = form_tag '${$item.action}', :remote => true do
   = hidden_field(:line_ids, "", :value => "${id}")
   %h1
-    = _("Edit ordered item") 
+    = _("Edit ordered item")
+    "${model.name}" 
   %p.subtitle
     = _("for")
     %strong
       ${order.user.firstname}
       ${order.user.lastname}
+    %span.date
+      ({{html formatDate(new Date(start_date.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}}
+      = "-"
+      {{html formatDate(new Date(end_date.replace(/T.*$/g, "").replace(/-/g, "/")), i18n.selected.tips.dateFormat)}})
   .navigation
     %a.button.red.close_dialog
       = _("Cancel")
@@ -23,8 +28,10 @@
           = "For Borrower"
         .arrow
         %select{:id => "partition", :name => "partition"}
-          %option{:value => "${JSON.stringify([0].concat(order.user.groups))}", :"data-name" => _("For Borrower"), :"data-total_rentable" => "FIXME"}
-            = _("For Borrower (max. FIXME)")
+          ${$users_availablility = new UserAvailability(availability_for_inventory_pool, order.user.groups), ""}
+          ${$user_groups = $users_availablility.user_group_ids.join(","), ""}
+          %option{:value => "[${$user_groups}]", :"data-name" => _("For Borrower"), :"data-total_rentable" => "${$users_availablility.total_rentable}"}
+            = _("For Borrower (max. ${$users_availablility.total_rentable})")
           {{each(i, partition) availability_for_inventory_pool.partitions}}
           {{if partition.group_id == null}}
           %option{:value => "[0]", :"data-name" => _("Everyone"), :"data-total_rentable" => "${partition.quantity}"}
@@ -67,7 +74,8 @@
         %option{:value => "current",
                 :"data-total_borrowable" => "${JSON.stringify(total_rentable)}",
                 :"data-closed_days" => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.closed_days)}",
-                :"data-availability_dates" => "${JSON.stringify(availability_for_inventory_pool.availability)}"}
+                :"data-availability_dates" => "${JSON.stringify(availability_for_inventory_pool.availability)}",
+                :"data-holidays" => "${JSON.stringify(availability_for_inventory_pool.inventory_pool.holidays)}"}
           ${availability_for_inventory_pool.inventory_pool.name}
   
   .clear
