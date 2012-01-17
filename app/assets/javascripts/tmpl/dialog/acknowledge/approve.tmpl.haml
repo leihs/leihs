@@ -1,18 +1,25 @@
 = form_tag '${$item.action}', :remote => true do
   %h1
-    = _("Approve order from")
-    %strong
-      ${user.firstname} ${user.lastname}
-  %p.subtitle= '${quantity} items for "${purpose}"'
+    = _("Order from")
+    ${user.firstname} ${user.lastname}
+  %p.subtitle= '${purpose}'
   
   .navigation
     %button.button.white.close_dialog
       .icon.return
       = _("Back")
     {{if $item.error}}
-    = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}", :class => "button white" do
-      .icon.edit
-      = _("Edit Order")
+    .multibutton
+      .alternatives
+        .trigger
+          .arrow
+        = link_to "", :class => "button white", do
+          .icon.approve
+          = _("Approve anyway")
+          
+      = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}", :class => "button white" do
+        .icon.edit
+        = _("Edit this Order")
     {{else}}
     %button.button.green{:type => "submit", :"data-on_success" => '${$item.on_success}'}
       = _("Approve")
@@ -26,4 +33,9 @@
   %hr
   
   %section.lines.scalable
-    {{tmpl "tmpl/dialog/acknowledge/lines"}}
+    ${$grouped_lines = new GroupedLines(lines), ""}
+    {{tmpl($grouped_lines) "tmpl/dialog/acknowledge/lines"}}
+    
+  %section.comment
+    = text_area_tag "comment", "", :class => "focus"
+    %p.hint= _("Write a comment... (your comment will be part of the confirmation e-mail)")
