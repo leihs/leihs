@@ -3,9 +3,7 @@
 #acknowledge.innercontent
   .top
     %h1= _("Order from %s") % @user
-    %p.subtitle
-      = _("for") 
-      "#{@order.purpose}"
+    %p.subtitle= "#{@order.purpose}"
       
     .content_navigation
       = link_to _("Reject"), reject_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
@@ -13,7 +11,7 @@
         :"data-dialog_class" => "acknowledge",
         :"data-rel" => "tmpl/dialog/acknowledge/reject",
         :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Rejection Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
-        :"data-ref_for_dialog" => "$('#order .container').tmplItem().data"
+        :"data-ref_for_dialog" => "$('#order').tmplItem().data"
       
       .multibutton
         .alternatives
@@ -21,10 +19,10 @@
             .arrow
           = link_to approve_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
             :class => "button white open_dialog", 
-            :"data-dialog_class" => "acknowledge",
-            :"data-rel" => "tmpl/dialog/acknowledge/approve_with_comment",
+            :"data-dialog_class" => "acknowledge with_comment",
+            :"data-rel" => "tmpl/dialog/acknowledge/approve",
             :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
-            :"data-ref_for_dialog" => "$('#order .container').tmplItem().data" do
+            :"data-ref_for_dialog" => "$('#order').tmplItem().data" do
             .icon.edit
             = _("with comment")
         = link_to _("Approve Order"), approve_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
@@ -34,7 +32,7 @@
           :"data-dialog_class" => "acknowledge",
           :"data-rel" => "tmpl/dialog/acknowledge/approve",
           :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
-          :"data-ref_for_dialog" => "$('#order .container').tmplItem().data"
+          :"data-ref_for_dialog" => "$('#order').tmplItem().data"
       
   %section.actiongroup
     
@@ -96,7 +94,7 @@
           :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
           :"data-dialog_class" => "calendar multiple",
           :"data-on_success" => 'List.update_order(request);',
-          :"data-ref_for_dialog" => "$('#order .container').tmplItem().data",
+          :"data-ref_for_dialog" => "$('#order').tmplItem().data",
           :id => "edit_selection" do
             .icon.timerange
             = _("Edit Selection")
