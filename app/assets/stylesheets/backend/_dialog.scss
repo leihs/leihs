@@ -9,10 +9,15 @@
   }
   
   p.subtitle {
-    width: 500px;
+    width: 400px;
+    
+    .date {
+      font-size: 0.9em;
+    }
   }
   
   .flash_message {
+    color: $darkergrey;
     display: none;
     border: 1px solid red;
     font-size: 1.2em;
