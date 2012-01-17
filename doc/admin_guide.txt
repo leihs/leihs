@@ -58,7 +58,7 @@ Note that the URL above might change! Please visit the RubyGems site to find the
 
 6. Optional: If you want to use images of inventory items, install ImageMagick:
 +
- # apt-get install imagemagick graphicsmagick-libmagick-dev-compat libmagickwand-dev
+ # apt-get install imagemagick libmagickwand-dev
 
 7. Install the required version of Rails as well as a few gems that cannot be installed automatically:
 +
