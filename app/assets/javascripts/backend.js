@@ -20,10 +20,8 @@
 //= require barcode/barcode
 //= require clearable-input/clearable-input
 //= require daily-navigator/daily-navigator
-//= require lines/grouped
-//= require lines/max_range
-//= require lines/max_date
-//= require lines/min_date
+//= require_tree ./lines
+//= require_tree ./availability
 
 /////////// Templates /////////////
 //= require_tree ./tmpl
