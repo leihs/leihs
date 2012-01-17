@@ -34,7 +34,12 @@ function Tips() {
   this.setupTip = function(event) {
     var _this = event.currentTarget;
     $(_this).removeClass("hastip");
-    $(_this).find(".tip").after("<div class='tiptarget'></div")
+    $(_this).find(".tip").after("<div class='tiptarget'></div");
+    $(_this).find(".tip").next(".tiptarget").position({
+      my: "center center",
+      at: "center center",
+      of: $(_this).find(".tip").closest("li")
+    });
     $(_this).qtip({
       content: {
         text: $(_this).find(".tip")
