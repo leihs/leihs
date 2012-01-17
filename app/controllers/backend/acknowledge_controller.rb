@@ -162,7 +162,14 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
 
     respond_to do |format|
-      format.js { render :json => @order, :status => 200 }
+      @order_json = @order.to_json(:with => {:lines => {:include => {:model => {}, 
+                                                                   :order => {:include => {:user => {:include => :groups}}}},
+                                                      :current_inventory_pool => current_inventory_pool, 
+                                                      :with_availability => true,
+                                                      :methods => :is_available }, 
+                                           :user => {}},
+                                 :methods => :quantity)
+      format.js { render :json => @order_json, :status => 200 }
     end
   end
 
