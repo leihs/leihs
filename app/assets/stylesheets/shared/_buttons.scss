@@ -17,7 +17,8 @@
     display: inline-block;
     height: 16px;
     margin-right: 4px;
-    margin-left: 2px;
+    position: relative;
+    top: 0 !important;
     width: 16px;
     @include opacity(0.8);
   }

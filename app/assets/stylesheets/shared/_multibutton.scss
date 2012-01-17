@@ -16,6 +16,7 @@
       }
       
       &.green:hover {
+        color: #2e7929;
         background: url($slices-h) repeat-x 0 -156px;  
       }
     }
@@ -29,6 +30,10 @@
         .arrow {
           @include opacity(0.6);
         }
+        
+        &.green {
+          background: url($slices-h) repeat-x 0 -156px;
+        }
       }
             
       .button {
@@ -37,12 +42,6 @@
       
       &+.button {
         border-bottom-left-radius: 6px;    
-      }
-    }
-    
-    &.green>.alternatives:hover {
-      .trigger {
-        background: url($slices-h) repeat-x 0 -156px;
       }
     }
   }

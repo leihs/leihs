@@ -69,6 +69,10 @@
    .fc-other-month .fc-day-content > div {
       color: #D7D7D7 !important;
    }
+   
+   .fc-other-month .fc-day-content .total_quantity {
+     color: #B9B9B9 !important;
+   }
 
    div.fc-day-content {
     height: 70px;
@@ -79,14 +83,21 @@
       font-size: 5em;
       text-align: center;
       color: #a7a7a7;
-      
-      &.total_quantity {
-       font-size: 1.3em;
-       position: absolute;
-       right: 3px;
-       bottom: 3px;
-       @include opacity(0.6); 
-      }
+    }
+    
+   div.fc-day-content >.total_quantity {
+     font-size: 1.3em;
+     position: absolute;
+     right: 3px;
+     bottom: 3px;
+     @include opacity(0.6); 
+    }
+    
+    div.fc-day-content >.holiday {
+     font-size: 1.1em;
+     position: relative;
+     top: 7px;
+     left: 5px;
     }
   
     .fc {
@@ -250,7 +261,16 @@
     .fc-today {
        background: $highlight-grey;
        .fc-day-number {
+         font-size: 1.3em !important;
          font-weight: bold;
+       }
+       
+       &.available.selected {
+         background-color: #73e766 !important;
+       }
+       
+       &.unavailable.selected {
+         background-color: #f13c3e !important;
        }
     }
       

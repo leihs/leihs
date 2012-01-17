@@ -63,8 +63,8 @@
     display: block;
     position: relative;
     top: 0;
-    height: 22px;
-    margin: -22px auto 0 auto;
+    height: 31px;
+    margin: -31px auto 0 auto;
     width: 100%;
   }
   
@@ -73,6 +73,7 @@
   }
   
   &:hover {
+    border-bottom: 1px solid $bordergrey;
     z-index: 999;
     @include highlightItem;
     

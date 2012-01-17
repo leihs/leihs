@@ -3,9 +3,12 @@
   &.unavailable {
     background: $highlight-red !important;
     border-bottom: 1px solid $borderhighlightred !important;
+    border-top: 1px solid $highlight-darkred !important;
     
     &:hover {
-      background: $highlight-darkred !important;  
+      background: $highlight-darkred !important;
+      border-top: 1px solid $highlight-darkred !important;
+      border-bottom: 1px solid $highlight-darkred !important;
     }
   }
   
