@@ -1,9 +1,4 @@
 
-
-pools = InventoryPool.all(:order => :name)
-
-#pools = [InventoryPool.find(4)]
-
 def statistics_for_year(ip, year = 2011)
   order_lines = ip.order_lines.find(:all, :conditions => "start_date BETWEEN DATE('#{year}-01-01') AND DATE('#{year}-12-31')")
   orders = order_lines.collect(&:order)
@@ -38,7 +33,7 @@ def pretty_print_statistics(stats, year = 2011)
   end
   padded_short_pool = "#{pool.shortname.to_s}#{" " * (pad_to - pool.shortname.to_s.length)}"
 
-  f = File.open("/tmp/stats_#{year}.csv", "a")
+  f = File.open("/tmp/stats_#{year}.txt", "a")
   f.puts "#{padded_pool}#{orders.count} Bestellungen, #{contracts.count} Verträge"
   f.puts "#{padded_short_pool}#{item_count} Gegenstände in Verträgen"
   f.puts "\n"
@@ -63,6 +58,7 @@ def csv_print_statistics(stats, year = 2011)
 end
 
 
+pools = InventoryPool.all(:order => :name)
 [2007, 2008, 2009, 2010, 2011].each do |year|
   csv_print_header(year)
   pools.each do |ip|
