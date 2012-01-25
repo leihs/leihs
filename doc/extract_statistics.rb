@@ -4,11 +4,11 @@ pools = InventoryPool.all(:order => :name)
 
 #pools = [InventoryPool.find(4)]
 
-def statistics_for_year(ip, year)
-  order_lines = ip.order_lines.find(:all, :conditions => "start_date BETWEEN DATE('2011-01-01') AND DATE('#{year}-12-31')")
+def statistics_for_year(ip, year = 2011)
+  order_lines = ip.order_lines.find(:all, :conditions => "start_date BETWEEN DATE('#{year}-01-01') AND DATE('#{year}-12-31')")
   orders = order_lines.collect(&:order)
 
-  contract_lines = ip.contract_lines.find(:all, :conditions => "start_date BETWEEN DATE('2011-01-01') AND DATE('#{year}-12-31')")
+  contract_lines = ip.contract_lines.find(:all, :conditions => "start_date BETWEEN DATE('#{year}-01-01') AND DATE('#{year}-12-31')")
   contracts = contract_lines.collect(&:contract)
 
   item_count = 0
@@ -22,7 +22,7 @@ def statistics_for_year(ip, year)
   return statistics
 end
 
-def pretty_print_statistics(stats)
+def pretty_print_statistics(stats, year = 2011)
   pad_to = 30
   pool = stats[:pool]
   orders = stats[:orders]
@@ -38,32 +38,36 @@ def pretty_print_statistics(stats)
   end
   padded_short_pool = "#{pool.shortname.to_s}#{" " * (pad_to - pool.shortname.to_s.length)}"
 
-  puts "#{padded_pool}#{orders.count} Bestellungen, #{contracts.count} Verträge"
-  puts "#{padded_short_pool}#{item_count} Gegenstände in Verträgen"
-  puts "\n"
+  f = File.open("/tmp/stats_#{year}.csv", "a")
+  f.puts "#{padded_pool}#{orders.count} Bestellungen, #{contracts.count} Verträge"
+  f.puts "#{padded_short_pool}#{item_count} Gegenstände in Verträgen"
+  f.puts "\n"
+  f.close
 end
 
-def csv_print_header
-  f = File.open("/tmp/stats.csv", "w")
+def csv_print_header(year = 2011)
+  f = File.open("/tmp/stats_#{year}.csv", "w")
   f.puts("pool,orders,contracts,items\n")
   f.close
 end
 
-def csv_print_statistics(stats)
+def csv_print_statistics(stats, year = 2011)
   pool = stats[:pool]
   orders = stats[:orders]
   contracts = stats[:contracts]
   item_count = stats[:item_count]
 
-  f = File.open("/tmp/stats.csv", "a")
+  f = File.open("/tmp/stats_#{year}.csv", "a")
   f.puts("#{pool.to_s} (#{pool.shortname}),#{orders.count},#{contracts.count},#{item_count}\n")
   f.close
 end
 
-csv_print_header
 
-pools.each do |ip|
-  stats = statistics_for_year(ip, 2011)
-  pretty_print_statistics(stats)
-  csv_print_statistics(stats)
+[2007, 2008, 2009, 2010, 2011].each do |year|
+  csv_print_header(year)
+  pools.each do |ip|
+    stats = statistics_for_year(ip, year)
+    pretty_print_statistics(stats, year)
+    csv_print_statistics(stats,year)
+  end
 end
