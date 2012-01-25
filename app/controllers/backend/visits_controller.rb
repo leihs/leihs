@@ -12,7 +12,7 @@ class Backend::VisitsController < Backend::BackendController
               when "take_back"
                 :take_back
               else
-                :unscoped
+                :scoped
             end
             
     sql = current_inventory_pool.visits.send(scope)
