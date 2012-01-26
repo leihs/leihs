@@ -15,12 +15,16 @@ namespace :app do
       commands = []
       commands << "mkdir ./db/backups/"
       commands << "scp leihs@rails:/tmp/leihs-current.sql ./db/backups/"
+      commands << "rake db:drop db:create"
       commands << "mysql -h localhost -u root leihs2_dev < ./db/backups/leihs-current.sql"
       commands << "rake db:migrate"
       commands << "rake leihs:maintenance"
 
-      Open3.popen3(commands.join(' & ')) do |i,o,e,t|
-        puts o.read.chomp
+      commands.each do |command|
+        puts command
+        Open3.popen3(command) do |i,o,e,t|
+          puts o.read.chomp
+        end
       end
       
       puts " DONE"
