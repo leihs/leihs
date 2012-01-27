@@ -13,11 +13,16 @@
       .alternatives
         .trigger
           .arrow
-        = link_to "", :class => "button white", do
+        %button.button.white{:type => "submit", :"data-on_success" => '${$item.on_success}', :name => "force", :value => true}
           .icon.approve
           = _("Approve anyway")
-          
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}", :class => "button white" do
+      
+      ${$link_to = "/backend/inventory_pools/"+current_inventory_pool+"/users/"+user.id+"/acknowledge/"+id, ""}
+      {{if location.href.match($link_to)}}
+      ${$link_class = "close_dialog", ""}
+      ${$link_to = "javascript:void(0);",""}
+      {{/if}}
+      = link_to "${$link_to}", :class => "button white{{if $link_class}} ${$link_class}{{/if}}" do
         .icon.edit
         = _("Edit this Order")
     {{else}}
@@ -28,6 +33,8 @@
   {{if $item.error}}
   .flash_message.visible
     ${$item.error}
+  {{else}}
+  .flash_message
   {{/if}}
   
   %hr

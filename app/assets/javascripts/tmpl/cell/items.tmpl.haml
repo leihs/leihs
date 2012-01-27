@@ -24,8 +24,8 @@ ${$grouped_lines = new GroupedLines(lines), ""}
           ${line.quantity}
         %td.model_name
           {{if line.model}}
-          {{html String(line.model.name).substring(0, 47) }}
-          {{if String(line.model.name).length > 47}}
+          {{html String(line.model.name).substring(0, 45) }}
+          {{if String(line.model.name).length > 45}}
           {{html "..."}}
           {{/if}}
           {{else}}

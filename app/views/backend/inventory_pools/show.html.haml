@@ -70,13 +70,17 @@
     $('.hand_over .list').append($.tmpl("tmpl/line", #{@hand_overs_json}));
     $('.take_back .list').append($.tmpl("tmpl/line", #{@take_backs_json}));
     
-    $(".list").showMore({
-      min: 4,
-      offset: {
-        top: -36
-      },
-      more: "<li><span class='icon'></span>%d #{_('more')}</li>",
-      less: "<li><span class='icon'></span>#{_('show less')}</li>"
+     $(".list").each(function(){
+      var text = $(this).parent().find(".tab .text").first().html();
+          text = text.replace(/<.*>.*<\/.*>/g, "");
+      $(this).showMore({
+        min: 4,
+        offset: {
+          top: -36
+        },
+        more: "<li><div class='shadow'></div><span class='icon'></span>%d #{_('more')} "+text+"</li>",
+        less: "<li><div class='shadow'></div><span class='icon'></span>#{_('show less')}</li>"
+      });
     });
     
     $('.list').show();

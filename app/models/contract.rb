@@ -104,6 +104,7 @@ class Contract < Document
   
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
+    options.delete_if {|k,v| v.nil? }
 
     default_options = {:only => [:id, :status_const, :created_at, :updated_at]}
     more_json = {}

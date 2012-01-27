@@ -5,6 +5,7 @@
   height: 40px;
   position: relative;
   width: 100%;
+  z-index: 2;
   
   li {
     color: $darkergrey;
@@ -72,8 +73,11 @@
     background: $highlight-grey;
   }
   
+  &:nth-child(odd) {
+    background: white;
+  }
+  
   &:hover {
-    border-bottom: 1px solid $bordergrey;
     z-index: 999;
     @include highlightItem;
     
@@ -104,10 +108,21 @@
     background: white;
     border-bottom: none;
     cursor: s-resize;
-    color: $lightgrey;
     font-size: 1.1em;
+    z-index: 1;
+    
+    .shadow {
+      height: 10px;
+      top: -25px;
+      margin-bottom: -14px;
+      position: relative;
+      width: 100%;
+      z-index: 1;
+      @include boxShadow(0 2px 8px rgba(0,0,0,0.1));
+    }
     
     &>li {
+      color: $grey;
       padding-left: 0;
     }
     
@@ -131,8 +146,22 @@
     }
     
     &:hover {
+      @include boxShadow(0 0 0 rgba(255,255,255,0));
+      
+      &.show_more .shadow {
+        @include boxShadow(0 3px 8px rgba(50,50,50,0.2));
+      }
+      
+      &.show_less .shadow {
+        @include boxShadow(0 2px 3px rgba(0,0,0,0.1));
+      }
+      
       .icon {
         @include opacity(1.0);
+      }
+      
+      li {
+        color: $darkgrey;
       }
     }
     

@@ -33,72 +33,72 @@
           :"data-rel" => "tmpl/dialog/acknowledge/approve",
           :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
           :"data-ref_for_dialog" => "$('#order').tmplItem().data"
-      
-  %section.actiongroup
-    
-    %section#add_item 
-      .dates
-        .container
-          %input.date.start{:name => "add_start_date", :id => "add_start_date", :value => @order.min_date, :title => _("Start Date")}
-          %label{:for => "add_start_date"}
-            = _("Start Date")
-          %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
-        = "-"
-        .container
-          %input.date.end{:name => "add_end_date", :id => "add_end_date", :value => @order.max_date, :title => _("End Date")}
-          %label{:for => "add_end_date"}
-            = _("End Date")
-          %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
+  
+  .indent      
+    %section.actiongroup
+      %section#add_item 
+        .dates
+          .container
+            %input.date.start{:name => "add_start_date", :id => "add_start_date", :value => @order.min_date, :title => _("Start Date")}
+            %label{:for => "add_start_date"}
+              = _("Start Date")
+            %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
+          = "-"
+          .container
+            %input.date.end{:name => "add_end_date", :id => "add_end_date", :value => @order.max_date, :title => _("End Date")}
+            %label{:for => "add_end_date"}
+              = _("End Date")
+            %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
+              
+        .item_code
+          %input{:type => "text", :name => "barcode_field", :value => _('Item Code'), :name => "barcode_field", :class => "barcode"}
+          %label{:for => "barcode_field"}
+            = _("Quick Add")
+          %input{:type => :submit, :value => "+"}
             
-      .item_code
-        %input{:type => "text", :name => "barcode_field", :value => _('Item Code'), :name => "barcode_field", :class => "barcode"}
-        %label{:for => "barcode_field"}
-          = _("Quick Add")
-        %input{:type => :submit, :value => "+"}
+        = link_to "#", :class => "button white", :title => _("Add Item/Option") do
+          .icon.additem
+          = _("Add Item")
           
-      = link_to "#", :class => "button white", :title => _("Add Item/Option") do
-        .icon.additem
-        = _("Add Item")
-        
-    #selection_actions
-      .selection
-        %label
-          = radio_button_tag "selection_range", "all"
-          = _("All")
-        %label
-          = radio_button_tag "selection_range", "selection"
-          = _("Auswahl")
-          %span.count= "(0)"
-      .actions
-        .multibutton
-          .alternatives
-            .trigger
-              .arrow
-            = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}/reject", :class => "button white", :remote => "true" do
-              .icon.valuelist
-              = _("Value List")
-            = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@order.user.id}/acknowledge/#{@order.id}/update_lines",
-            :class => "button white",
-            :remote => "true",
-            :method => "post",
-            :"data-rel" => "tmpl/dialog/order_line/delete_multiple",
-            :"data-dialog_class" => "order_line",
-            :"data-on_success" => '$.each($(_this).data("lines"), function(line){List.remove_line($(this), "red");})' ,
-            :"data-ref_for_dialog" => "$(_this).data()",
-            :id => "delete_selection" do
-              .icon.delete
-              = _("Delete")
-          -#TODO /backend/inventory_pools/#{current_inventory_pool.id}/users/#{@order.user.id}/acknowledge/#{@order.id}/update_lines 
-          = link_to "#", 
-          :class => "button white open_dialog",
-          :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
-          :"data-dialog_class" => "calendar multiple",
-          :"data-on_success" => 'List.update_order(request);',
-          :"data-ref_for_dialog" => "$('#order').tmplItem().data",
-          :id => "edit_selection" do
-            .icon.timerange
-            = _("Edit Selection")
-    .clear
+      #selection_actions
+        .selection
+          %label
+            = radio_button_tag "selection_range", "all"
+            = _("All")
+          %label
+            = radio_button_tag "selection_range", "selection"
+            = _("Auswahl")
+            %span.count= "(0)"
+        .actions
+          .multibutton
+            .alternatives
+              .trigger
+                .arrow
+              = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${user.id}/acknowledge/${id}/reject", :class => "button white", :remote => "true" do
+                .icon.valuelist
+                = _("Value List")
+              = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/users/#{@order.user.id}/acknowledge/#{@order.id}/update_lines",
+              :class => "button white",
+              :remote => "true",
+              :method => "post",
+              :"data-rel" => "tmpl/dialog/order_line/delete_multiple",
+              :"data-dialog_class" => "order_line",
+              :"data-on_success" => '$.each($(_this).data("lines"), function(line){List.remove_line($(this), "red");})' ,
+              :"data-ref_for_dialog" => "$(_this).data()",
+              :id => "delete_selection" do
+                .icon.delete
+                = _("Delete")
+            -#TODO /backend/inventory_pools/#{current_inventory_pool.id}/users/#{@order.user.id}/acknowledge/#{@order.id}/update_lines 
+            = link_to "#", 
+            :class => "button white open_dialog",
+            :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
+            :"data-dialog_class" => "calendar multiple",
+            :"data-on_success" => 'List.update_order(request);',
+            :"data-ref_for_dialog" => "$('#order').tmplItem().data",
+            :id => "edit_selection" do
+              .icon.timerange
+              = _("Edit Selection")
+      .clear
     
   %hr
   

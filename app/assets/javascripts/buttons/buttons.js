@@ -112,7 +112,7 @@ function Buttons() {
     
     Dialog.add({
       trigger: _trigger,
-      content: $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {error: request.responseText}),
+      content: $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {error: request.responseText, action: _this.attr("href"), on_success: _this.data("on_success")}),
       dialogClass: _this.data("dialog_class")+" error"
     });
   }

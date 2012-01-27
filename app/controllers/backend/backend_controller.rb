@@ -16,9 +16,9 @@ class Backend::BackendController < ApplicationController
   def search
 
     conditions = [ { :klasses => { User => {:sort_by => "firstname ASC, lastname ASC"},
-                                   Order => {:sort_by => "created_at DESC", :with => {:user => {}}},
-                                   Contract => {:sort_by => "created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}, :with => {:user => {}}, :include => :items},
-                                   Model => {:sort_by => "name ASC", :include => :categories},
+                                   Order => {:sort_by => "created_at DESC", :with => {:user => {}}, :methods => [:lines, :quantity]},
+                                   Contract => {:sort_by => "created_at DESC", :filter => {:status_const => Contract::SIGNED..Contract::CLOSED}, :with => {:user => {}}, :methods => [:lines,:quantity]},
+                                   Model => {:sort_by => "name ASC", :include => :categories, :with_availability => true, :current_inventory_pool => current_inventory_pool},
                                    Item => {:sort_by => "models.name ASC"} },
                      :filter => { :inventory_pool_id => [current_inventory_pool.id] }
                     } ]
@@ -40,7 +40,7 @@ class Backend::BackendController < ApplicationController
               order(options[:sort_by]).
               paginate(:page => params[:page], :per_page => 54)
 
-        results << r.as_json(:include => options[:include], :with => options[:with]) # FIXME drop :with and use :include instead
+        results << r.as_json(:include => options[:include], :methods => options[:methods], :with => options[:with], :with_availability => options[:with_availability], :current_inventory_pool => options[:current_inventory_pool]) # FIXME drop :with and use :include instead
         @hits[klass.to_s.underscore] = r.total_entries 
       end
     end

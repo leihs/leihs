@@ -3,13 +3,14 @@
   margin-bottom: 26px;
   
   .navigation {
+    
     &:hover {
-      background: white;
-      @include noBoxShadow();
+      background: white !important;
+      border-bottom: 1px solid $borderlightergrey !important;
     }
     
     .search {
-      padding: 0 !important;
+      padding: 0 0 0 4px !important;
       width: 300px;
       
       input {
@@ -52,7 +53,7 @@
     }
     
     .historical_search {
-      padding: 0 !important;
+      padding: 0 3px 0 0 !important;
       width: 440px;
       
       .hs_container {

@@ -10,6 +10,7 @@
     display: block;
     height: 12px;
     position: relative;
+    z-index: 101;
     
     .headerinner {
       background: url($slices-h) repeat-x 0 -87px;
@@ -45,13 +46,25 @@
     border-left: 1px solid $bordergrey;
     border-right: 1px solid $bordergrey;
     display: block;
-    padding: 8px 16px 8px 12px;
+    padding: 8px 0 8px 0;
     position: relative;
+    z-index: 100;
+    @include boxShadow(0 0 12px rgba(0,0,0,0.1));
+    
+    .top {
+      padding-left: $inner-padding-left;
+      margin-bottom: 24px;
+    } 
     
     .content_navigation {
       position: absolute;
       top: 10px;
       right: 10px;
+    }
+    
+    .indent {
+      padding-left: $inner-padding-left;
+      padding-right: $inner-padding-right;
     }
   }
   
@@ -59,6 +72,7 @@
     display: block;
     height: 14px;
     position: relative;
+    z-index: 101;
     
     .footerinner {
       background: url($slices-h) repeat-x 0 -100px;

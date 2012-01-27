@@ -119,8 +119,8 @@ class Order < Document
 
   # TODO 13** forward purpose
   # approves order then generates a new contract and item_lines for each item
-  def approve(comment, send_mail = true, current_user = nil)
-    if approvable?
+  def approve(comment, send_mail = true, current_user = nil, force = false)
+    if approvable? || force
       self.status_const = Order::APPROVED
       remove_backup
       save
@@ -277,6 +277,7 @@ class Order < Document
   # example: ip.orders.submitted.as_json(:with => {:user => {}, :lines => {:with_availability => true}})
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
+    options.delete_if {|k,v| v.nil? }
     
     default_options = {:only => [:id, :inventory_pool_id, :purpose, :status_const, :created_at, :updated_at]}
     more_json = {}

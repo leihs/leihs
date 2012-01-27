@@ -31,9 +31,9 @@ class Backend::AcknowledgeController < Backend::BackendController
                                  :methods => :quantity)
   end
   
-  def approve
+  def approve(force = (params.has_key? :force) ? true : false)
     #old# if request.post?
-    if @order.approve(params[:comment], current_user)
+    if @order.approve(params[:comment], true, current_user, force)
       # TODO test# @order.destroy # TODO remove old orders ?
       respond_to do |format|
         #old# format.html { redirect_to :action => 'index' }

@@ -67,6 +67,14 @@ function DailyNavigator() {
       event.preventDefault();
       return false;
     });
+    
+    // open loading dialog on normal click
+    $("#daily .content_navigation .day.back:not([disabled=disabled]), #daily .content_navigation .day.forward:not([disabled=disabled]), #daily .content_navigation .today:not([disabled=disabled])").click(function(event){
+      Dialog.add({
+        content: $.tmpl("tmpl/dialog/loading"),
+        dialogClass: ".loading"
+      }); 
+    });
   }
   
   this.setupDatepicker = function() {
@@ -100,6 +108,11 @@ function DailyNavigator() {
     } else { // there are current params but no date is setted
       new_params = params+"&date="+date_param;
     }
+    
+    Dialog.add({
+      content: $.tmpl("tmpl/dialog/loading"),
+      dialogClass: ".loading"
+    });
     
     window.location = "http://"+location.host+location.pathname+new_params;
   }

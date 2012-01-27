@@ -2,7 +2,8 @@
 = render :partial => '/layouts/backend/content_box_head_fullwidth_round'
 
 #chart.innercontent
-  %h1= _("Workload")
+  .top
+    %h1= _("Workload")
   .legend
     .item
       .color-box{:style => "background-color: #999999"}
@@ -22,7 +23,7 @@
   
   function Chart() {
   
-    this.width = 933;
+    this.width = 960;
     this.height = 300;
     this.spacer = 105;
     this.animate = false;

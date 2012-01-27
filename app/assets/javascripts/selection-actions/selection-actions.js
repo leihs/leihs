@@ -49,7 +49,7 @@ function SelectionActions() {
   
   this.setupEditSelection = function() {
     $(".actiongroup #edit_selection").live("click", function(event){
-      
+      SelectionActions.storeSelectedLines();
     });
   }
   
@@ -76,9 +76,9 @@ function SelectionActions() {
       }
     });
     
-    // add data to #order .container template item data
-    $("#order .container").tmplItem().data.selected_lines = SelectionActions.selected_lines = lines_data;
-    $("#order .container").tmplItem().data.selected_range = {start_date: min_start_date, end_date: max_end_date};
+    // add data to #order template item data
+    $("#order").tmplItem().data.selected_lines = SelectionActions.selected_lines = lines_data;
+    $("#order").tmplItem().data.selected_range = {start_date: min_start_date, end_date: max_end_date};
   }
   
   this.restoreSelectedLines = function() {

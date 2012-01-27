@@ -5,114 +5,17 @@
  *
 */
 
+$(document).ready(function(){
+  List.setup();
+});
+
 var List = new List();
 
 function List() {
   
-  this.per_page;
-  this.current_page;
-  this.total_entries;
-  this.next_text = "Next";
-  this.previous_text = "Previous";
-  this.available_years;
-  this.available_months;
-  this.selected_year;
-  this.selected_month;
-  
   this.setup = function() {
-    if($(".list .navigation .search input[type=query]").length) this.setupSearch();
-    if($(".pagination_container").length) this.setupPagination();
-    if($(".historical_search").length) this.setupHistoricalSearch();
+    this.setupSearch();
   }
-  
-   this.setupHistoricalSearch = function() {
-      var options = {};
-      var available_months = List.available_months;
-      
-      if(available_months.length) options["available_months"] = available_months;
-      options["available_years"] = List.available_years;
-      options["selected_year"] = List.selected_year;
-      options["selected_month"] = List.selected_month;
-      options["callback"] = List.handleHistoricalSearchClick;
-      
-      $(".historical_search").historicalSearch(options);
-    }
-    
-    this.handleHistoricalSearchClick = function(event) {
-      event.preventDefault();
-      var target = event.currentTarget;
-      var params = window.location.search;
-      
-      // clean page when new date is selected
-      params = params.replace(/\?*?\&*page\=\d+/, "");
-      
-      if($(target).hasClass("back")) {
-        params = params.replace(/\?*?&*?year\=\d+/, "");
-        params = params.replace(/\?*?&*?month\=\d+/, "");
-      } else if($(target).data("year")) {
-        if (params.match(/year\=/)) {
-          params = params.replace(/year\=\d*/, "year="+$(target).data("year"));
-        } else {
-          if (params.match(/^\?/)) {
-            params = params+"&year="+$(target).data("year");
-          } else {
-            params = "?year="+$(target).data("year");     
-          }       
-        }
-      } else if($(target).data("month")) {
-        if (params.match(/month\=/)) {
-          params = params.replace(/month\=\d*/, "month="+$(target).data("month"));
-        } else if (params.match(/^\?/)) {
-          params = params+"&month="+$(target).data("month");
-        } else {
-          params = "?month="+$(target).data("month");      
-        }
-      }
-      
-      if(params == "?&") params ="";
-      
-      window.location = window.location.pathname + params;
-      return false;
-    }
-  
-  this.setupPagination = function() {
-    current_page = (List.current_page == 0) ? 0 : List.current_page-1;
-    
-    $(".pagination_container").pagination(List.total_entries, {
-      items_per_page: List.per_page,
-      callback: List.handlePaginationClick,
-      current_page: current_page,
-      num_display_entries: 7,
-      num_edge_entries: 2,
-      next_text: List.next_text,
-      prev_text: List.previous_text
-    });
-    
-    $(".pagination_container a").click(function(e){
-      Dialog.add({
-        content: $.tmpl("tmpl/dialog/loading"),
-        dialogClass: ".loading"
-      });
-    });
-  }
-  
-  this.handlePaginationClick = function (new_page_index, pagination_container) {
-      var params = window.location.search;
-      var page_param = "page="+parseInt(new_page_index+1);
-      
-      if(params.match(/page\=\d+/)) {
-        params = params.replace(/page\=\d+/, page_param);
-      } else {
-        if (params.match(/^\?/)) {
-          params = params+"&"+page_param;
-        } else {
-          params = "?"+page_param;      
-        }
-      }
-      
-      window.location = window.location.pathname + params;
-      return false;
-    }
   
   this.setupSearch = function() {
     var search = $(".list .navigation .search input[type=query]");
