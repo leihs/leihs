@@ -61,8 +61,7 @@ class Visit < ActiveRecord::Base
       end
       
       if with[:lines]
-        lines_default_options = {:current_user => user, :current_inventory_pool => inventory_pool}
-        more_json['lines'] = lines.as_json(lines_default_options.merge(with[:lines]))
+        more_json['lines'] = lines.as_json(with[:lines])
       end
     end
         

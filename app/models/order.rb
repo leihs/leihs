@@ -274,7 +274,7 @@ class Order < Document
   
   ############################################
   
-  # example: ip.orders.submitted.as_json(:with => {:user => {}, :lines => {:with_availability => true}})
+  # example: ip.orders.submitted.as_json(:with => {:user => {}, :lines => {:with => {:availability => {:inventory_pool => ip}},}})
   def as_json(options = {})
     options ||= {} # NOTE workaround, because options is nil, is this a BUG ??
     options.delete_if {|k,v| v.nil? }
@@ -290,8 +290,7 @@ class Order < Document
       end
 
       if with[:lines]
-        lines_default_options = {}
-        more_json['lines'] = lines.as_json(lines_default_options.merge(with[:lines]))
+        more_json['lines'] = lines.as_json(with[:lines])
       end
     end
     

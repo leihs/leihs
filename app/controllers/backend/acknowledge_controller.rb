@@ -24,8 +24,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     
     @order_json = @order.to_json(:with => {:lines => {:include => {:model => {}, 
                                                                    :order => {:include => {:user => {:include => :groups}}}},
-                                                      :current_inventory_pool => current_inventory_pool, 
-                                                      :with_availability => true,
+                                                      :with => {:availability => {:inventory_pool => current_inventory_pool}},
                                                       :methods => :is_available }, 
                                            :user => {}},
                                  :methods => :quantity)
@@ -187,8 +186,7 @@ class Backend::AcknowledgeController < Backend::BackendController
   def order_respond_to
     order_json = @order.to_json(:with => {:lines => {:include => {:model => {}, 
                                                                   :order => {:include => {:user => {:include => :groups}}}},
-                                                     :current_inventory_pool => current_inventory_pool, 
-                                                     :with_availability => true,
+                                                     :with => {:availability => {:inventory_pool => current_inventory_pool}},
                                                      :methods => :is_available }, 
                                           :user => {}},
                                 :methods => :quantity)
