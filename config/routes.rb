@@ -223,7 +223,7 @@ Leihs::Application.routes.draw do
             get :reject
             post :reject
             get :delete
-            get :add_line
+            #get :add_line # TODO remove soon 
             post :add_line
             #post :change_line_quantity # TODO remove soon
             #get :remove_lines

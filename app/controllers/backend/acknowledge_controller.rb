@@ -106,11 +106,11 @@ class Backend::AcknowledgeController < Backend::BackendController
   def remove_lines
     generic_remove_lines(@order)
   end
-=end
 
   def add_line
     generic_add_line(@order)
   end
+=end
 
   def time_lines
     generic_time_lines(@order)
@@ -118,6 +118,26 @@ class Backend::AcknowledgeController < Backend::BackendController
   
 ###################################################################################
 # new code #
+
+  def add_line( quantity = params[:quantity],
+                start_date = params[:start_date],
+                end_date = params[:end_date],
+                model_id = params[:model_id],
+                model_group_id = params[:model_group_id] )
+    
+    model = if model_group_id
+      ModelGroup.find(model_group_id) # TODO scope current_inventory_pool ?
+    elsif model_id
+      current_inventory_pool.models.find(model_id)
+    else
+      raise "either model_id or model_group_id required"
+    end
+    
+    model.add_to_document(@order, current_user.id, quantity, start_date, end_date, current_inventory_pool)
+
+    flash[:notice] = @order.errors.full_messages unless @order.save
+    order_respond_to
+  end
 
   def update_lines(line_ids = params[:line_ids] || [],
                    line_id_model_id = params[:line_id_model_id] || {},
@@ -160,16 +180,21 @@ class Backend::AcknowledgeController < Backend::BackendController
         @order.log_change(change, current_user.id) if order_line.save
       end
     end
+    
+    order_respond_to
+  end
 
+  def order_respond_to
+    order_json = @order.to_json(:with => {:lines => {:include => {:model => {}, 
+                                                                  :order => {:include => {:user => {:include => :groups}}}},
+                                                     :current_inventory_pool => current_inventory_pool, 
+                                                     :with_availability => true,
+                                                     :methods => :is_available }, 
+                                          :user => {}},
+                                :methods => :quantity)
+                                 
     respond_to do |format|
-      @order_json = @order.to_json(:with => {:lines => {:include => {:model => {}, 
-                                                                   :order => {:include => {:user => {:include => :groups}}}},
-                                                      :current_inventory_pool => current_inventory_pool, 
-                                                      :with_availability => true,
-                                                      :methods => :is_available }, 
-                                           :user => {}},
-                                 :methods => :quantity)
-      format.js { render :json => @order_json, :status => 200 }
+      format.js { render :json => order_json, :status => 200 }
     end
   end
 
