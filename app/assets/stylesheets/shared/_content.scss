@@ -5,12 +5,12 @@
   margin-bottom: 20px;
   position: relative;
   width: 755px;
+  @include boxShadow(0 8px 12px rgba(0,0,0,0.1));  
   
   .contentheader {
     display: block;
     height: 12px;
     position: relative;
-    z-index: 101;
     
     .headerinner {
       background: url($slices-h) repeat-x 0 -87px;
@@ -48,8 +48,6 @@
     display: block;
     padding: 8px 0 8px 0;
     position: relative;
-    z-index: 100;
-    @include boxShadow(0 0 12px rgba(0,0,0,0.1));
     
     .top {
       padding-left: $inner-padding-left;
