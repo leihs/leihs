@@ -41,8 +41,7 @@ module Leihs
     config.assets.enabled = true
 
     # Enable IdentityMap for Active Record, to disable set to false or remove the line below.  
-    config.active_record.identity_map = true
-    ActiveRecord::IdentityMap.enabled = true #Rails3.1# TODO remove this line
+    # config.active_record.identity_map = true
   end
 end
 

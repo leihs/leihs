@@ -141,13 +141,13 @@ class Model < ActiveRecord::Base
 
     json = super(options)
 
-    if options[:with_availability]
-      if (customer_user = options[:current_user])
+    if (with = options[:with]) and with[:availability]
+      if (customer_user = with[:availability][:user])
         json['total_borrowable'] = total_borrowable_items_for_user(customer_user)
         json['availability_for_user'] = availability_periods_for_user(customer_user)
       end
   
-      if (current_inventory_pool = options[:current_inventory_pool])
+      if (current_inventory_pool = with[:availability][:inventory_pool])
         borrowable_items = items.scoped_by_inventory_pool_id(current_inventory_pool).borrowable
         json['total_rentable'] = borrowable_items.count
         json['total_rentable_in_stock'] = borrowable_items.in_stock.count
