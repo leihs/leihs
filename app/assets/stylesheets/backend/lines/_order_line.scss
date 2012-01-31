@@ -9,6 +9,10 @@
       background: $highlight-darkred !important;
       border-top: 1px solid $highlight-darkred !important;
       border-bottom: 1px solid $highlight-darkred !important;
+      
+      span.grey {
+        color: $darkgrey;
+      }
     }
   }
   

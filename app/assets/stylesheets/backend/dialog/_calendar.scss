@@ -35,7 +35,8 @@
       &.inventorypool {display: none;}
       
       &.partition {
-        margin-right: 40px;
+        position: absolute;
+        right: 288px;
         width: 140px;
         
         .select {
@@ -89,6 +90,7 @@
       }
       
       &.quantity {
+        &.hidden {display: none;}
     
         input {
           font-size: 1.4em;
@@ -197,6 +199,7 @@
       
       .actions {
         text-align: right;
+        width: 160px;
         
         .button, .multibutton {
           @include opacity(1.0);

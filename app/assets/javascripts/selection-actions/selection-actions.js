@@ -58,7 +58,7 @@ function SelectionActions() {
     var lines_data = [];
     var min_start_date;
     var max_end_date;
-    $(".line input:checked").each(function(i, input){
+    $(".innercontent .line input:checked").each(function(i, input){
       var line = $(this).closest(".line");
       // set line data
       lines_data.push($(line).tmplItem().data);
@@ -77,7 +77,8 @@ function SelectionActions() {
     });
     
     // add data to #order template item data
-    $("#order").tmplItem().data.selected_lines = SelectionActions.selected_lines = lines_data;
+    SelectionActions.selected_lines = lines_data;
+    $("#order").tmplItem().data.selected_lines = lines_data;
     $("#order").tmplItem().data.selected_range = {start_date: min_start_date, end_date: max_end_date};
   }
   

@@ -35,7 +35,7 @@
       border-left: 1px dashed #73d769 !important;
       border-top: 1px dashed #73d769 !important;
       
-      .fc-day-content > div {
+      .fc-day-content > div, .fc-day-content > .total_quantity {
         color: #595c58 !important;
       }
       
@@ -56,7 +56,7 @@
       border-left: 1px dashed #e62b2c !important;
       border-top: 1px dashed #e62b2c !important;
       
-      .fc-day-content > div {
+      .fc-day-content > div, .fc-day-content > .total_quantity {
         color: #3a3a3a !important;
       }
       

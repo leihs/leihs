@@ -120,11 +120,13 @@ function Dialog() {
           // check scale
           Dialog.checkScale($(this));
           
+          // reset modal overlay height
+          $(".ui-widget-overlay").height($(window).height());
+          
           // animate
           var _top = $(this).data("padding") + window.pageYOffset;
           if(_top < 0){_top = 1;}
           var _left = ( ( $(window).width()/2 ) - ( $(this).parent().width()/2 ) + window.pageXOffset );
-          
           $(this).parent().stop(true, true).hide().fadeIn().animate({
               top: _top,
               left: _left,
@@ -134,6 +136,9 @@ function Dialog() {
             complete: function() {
               Dialog.autofocus(this);
               if($(".dialog #fullcalendar").length > 0) BookingCalendar.setup();
+              
+              // correct modal overlay height
+              $(".ui-widget-overlay").height($(document).height());
             }
           });
         });

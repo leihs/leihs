@@ -73,10 +73,12 @@ input, textarea, select, span.select {
   color: $darkgrey;
   font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
   
-  &:focus, &:hover {
-    color: $darkergrey !important;
-    border-color: $borderdarkgrey !important;
-    @include boxShadow (0 0 6px #DDD);
+  &:not([type=submit]) {
+    &:focus, &:hover {
+      color: $darkergrey !important;
+      border-color: $borderdarkgrey !important;
+      @include boxShadow (0 0 6px #DDD);
+    }
   }
   
   &:focus+label, &:hover+label {color: $darkergrey !important;}

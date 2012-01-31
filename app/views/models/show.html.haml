@@ -3,89 +3,92 @@
 
 #model.innercontent
 
-  %h1
-    = @model.name
-  %p.subtitle
-    = @model.manufacturer
-  = link_to book_model_path(@model), :class => "button green" do
-    = _("Book")
+  .top
+    %h1
+      = @model.name
+    %p.subtitle
+      = @model.manufacturer
+    = link_to book_model_path(@model), :class => "button green" do
+      = _("Book")
   
   - unless @model.images.empty?
-    %section#images
-      %table#bigimage
-        %tr
-          %td
-            = image_tag "#{@model.images.first.public_filename}", :alt => @model.name
-      #hiddenimages
+    .indent
+      %section#images
+        %table#bigimage
+          %tr
+            %td
+              = image_tag "#{@model.images.first.public_filename}", :alt => @model.name
+        #hiddenimages
+          - if @model.images.size > 1
+            - @model.images.each_with_index do |i, index|
+              - unless index.zero?
+                %table
+                  %tr
+                    %td
+                      = image_tag "#{i.public_filename}", :class => "hidden", :alt => @model.name
+                
         - if @model.images.size > 1
-          - @model.images.each_with_index do |i, index|
-            - unless index.zero?
-              %table
-                %tr
-                  %td
-                    = image_tag "#{i.public_filename}", :class => "hidden", :alt => @model.name
-              
-      - if @model.images.size > 1
-        #smallimages
-          - @model.images.each_with_index do |i, index|
-            - unless index.zero?
-              %table
-                %tr
-                  %td
-                    = image_tag("#{i.public_filename(:thumb)}")
+          #smallimages
+            - @model.images.each_with_index do |i, index|
+              - unless index.zero?
+                %table
+                  %tr
+                    %td
+                      = image_tag("#{i.public_filename(:thumb)}")
               
     .clear
     
   - unless @model.description.blank?
-    %p.description
-      = @model.description
+    .indent
+      %p.description
+        = @model.description
   
   - unless @model.properties.empty? and @model.attachments.empty?
-    %section.properties
-      - unless @model.attachments.empty?
-        %table.item
+    .indent
+      %section.properties
+        - unless @model.attachments.empty?
+          %table.item
+            %tr
+              %td.key
+                = _("Documents")
+              %td.value
+                - attachments = []
+                - @model.attachments.each do |a|
+                  - attachments.push(link_to a.filename, a.filename, :title => a.filename, :target => "_blank")
+                != attachments.join(", ")
+        - @model.properties.each do |p|
+          %table.item
+            %tr
+              %td.key
+                = p.key
+              %td.value
+                = p.value
+        %table.item.switcher
           %tr
-            %td.key
-              = _("Documents")
-            %td.value
-              - attachments = []
-              - @model.attachments.each do |a|
-                - attachments.push(link_to a.filename, a.filename, :title => a.filename, :target => "_blank")
-              != attachments.join(", ")
-      - @model.properties.each do |p|
-        %table.item
-          %tr
-            %td.key
-              = p.key
-            %td.value
-              = p.value
-      %table.item.switcher
-        %tr
-          %td
-            %span.icon
-            %span.amount
-              = @model.properties.size
-            %span.text.more
-              = _("more properties")
-            %span.text.less
-              = _("show less properties")
+            %td
+              %span.icon
+              %span.amount
+                = @model.properties.size
+              %span.text.more
+                = _("more properties")
+              %span.text.less
+                = _("show less properties")
               
   - unless @model.compatibles.empty?
     %hr
-    %section#accessories
-      %h2
-        = _("Recommended Accessories")
-      - @model.compatibles.each_slice(4) do |s|
-        .row
-          - s.each do |c|
-            .cell
-              = link_to image_tag("#{ c.image_thumb }"), c, :title=>c.name
-              %h3
-                = link_to truncate(c.name, :length => 32), c, :title=>c.name
-          .clear
+    .indent
+      %section#accessories
+        %h2
+          = _("Recommended Accessories")
+        - @model.compatibles.each_slice(4) do |s|
+          .row
+            - s.each do |c|
+              .cell
+                = link_to image_tag("#{ c.image_thumb }"), c, :title=>c.name
+                %h3
+                  = link_to truncate(c.name, :length => 32), c, :title=>c.name
+            .clear
           
-  
-              
 = render :partial => '/layouts/frontend/content_box_foot'
 = render :partial => '/layouts/frontend/aside'
 

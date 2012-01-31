@@ -26,9 +26,10 @@ class Backend::AcknowledgeController < Backend::BackendController
                                                                    :order => {:include => {:user => {:include => :groups}}}},
                                                       :current_inventory_pool => current_inventory_pool, 
                                                       :with_availability => true,
-                                                      :methods => :is_available }, 
-                                           :user => {}},
-                                 :methods => :quantity)
+                                                      :methods => :is_available }},
+                                 :methods => :quantity,
+                                 :include => {:user => {:include => [:groups]}}
+                                 )
   end
   
   def approve(force = (params.has_key? :force) ? true : false)

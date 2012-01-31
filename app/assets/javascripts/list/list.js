@@ -146,8 +146,8 @@ function List() {
     if($(element).closest(".linegroup").length) {
       $(element).css("background-color", color).fadeOut(400, function(){
         if($(this).closest(".linegroup").find(".lines .line").length == 1) {
-          $(this).closest(".linegroup").next("hr").remove();
-          $(this).closest(".linegroup").remove();
+          $(this).closest(".indent").next("hr").remove();
+          $(this).closest(".indent").remove();
           if(typeof(SelectionActions) != "undefined") SelectionActions.updateSelectionCount();
         } else {
           $(this).remove();

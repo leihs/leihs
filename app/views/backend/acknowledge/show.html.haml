@@ -51,14 +51,10 @@
             %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
               
         .item_code
-          %input{:type => "text", :name => "barcode_field", :value => _('Item Code'), :name => "barcode_field", :class => "barcode"}
+          %input{:type => "text", :name => "barcode_field", :value => _('Item Code / Name'), :name => "barcode_field", :class => "barcode"}
           %label{:for => "barcode_field"}
-            = _("Quick Add")
+            = _("Add Item")
           %input{:type => :submit, :value => "+"}
-            
-        = link_to "#", :class => "button white", :title => _("Add Item/Option") do
-          .icon.additem
-          = _("Add Item")
           
       #selection_actions
         .selection
