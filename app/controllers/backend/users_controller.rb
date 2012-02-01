@@ -167,7 +167,7 @@ class Backend::UsersController < Backend::BackendController
 
   def remove_access_right
     ar = @user.access_rights.find(params[:access_right_id])
-    if ar.inventory_pool_id.nil? or @user.contract_lines.by_inventory_pool(ar.inventory_pool).to_take_back.empty?
+    if ar.inventory_pool_id.nil? or ar.inventory_pool.contract_lines.by_user(@user).to_take_back.empty?
       ar.deactivate
     else
       flash[:error] = _("Currently has things to return")

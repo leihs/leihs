@@ -55,7 +55,7 @@
 
     %tr{ :id => "access_right_#{access_right.id}" }
       - if access_right.role == admin_role
-        %td{ :colspan => 4 }
+        %td
           = access_right.role.name
       - else
         %td
@@ -78,7 +78,7 @@
         = submit_tag _('Save')
 
       %td.buttons
-        - if @user.contract_lines.by_inventory_pool(access_right.inventory_pool).to_take_back.empty?
+        - if access_right.inventory_pool_id.nil? or access_right.inventory_pool.contract_lines.by_user(@user).to_take_back.empty? 
           - remove_link = if current_inventory_pool # OPTIMIZE
             - remove_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right)
           - else
