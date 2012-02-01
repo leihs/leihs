@@ -55,7 +55,7 @@
 
     %tr{ :id => "access_right_#{access_right.id}" }
       - if access_right.role == admin_role
-        %td{ :colspan => 4 }
+        %td
           = access_right.role.name
       - else
         %td
@@ -78,13 +78,16 @@
         = submit_tag _('Save')
 
       %td.buttons
-        - if current_inventory_pool # OPTIMIZE
-          - remove_link = remove_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right)
+        - if access_right.inventory_pool_id.nil? or access_right.inventory_pool.contract_lines.by_user(@user).to_take_back.empty? 
+          - remove_link = if current_inventory_pool # OPTIMIZE
+            - remove_access_right_backend_inventory_pool_user_path(current_inventory_pool, @user, :access_right_id => access_right)
+          - else
+            - remove_access_right_backend_user_path(@user, :access_right_id => access_right)
+  
+          = link_to icon_tag("cancel") + " " + _('Remove'), remove_link, :confirm => _("Are you sure?"), :method  => :delete
         - else
-          - remove_link = remove_access_right_backend_user_path(@user, :access_right_id => access_right)
+          = _("Currently has things to return")
 
-        = link_to icon_tag("cancel") + " " + _('Remove'),
-                  remove_link, :confirm => _("Are you sure?"), :method  => :delete
 
         - if current_inventory_pool
           - if access_right.suspended?

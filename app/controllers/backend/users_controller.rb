@@ -167,7 +167,11 @@ class Backend::UsersController < Backend::BackendController
 
   def remove_access_right
     ar = @user.access_rights.find(params[:access_right_id])
-    ar.deactivate
+    if ar.inventory_pool_id.nil? or ar.inventory_pool.contract_lines.by_user(@user).to_take_back.empty? 
+      ar.deactivate
+    else
+      flash[:error] = _("Currently has things to return")
+    end
     redirect_to url_for([:access_rights, :backend, current_inventory_pool, @user].compact)
   end
 
