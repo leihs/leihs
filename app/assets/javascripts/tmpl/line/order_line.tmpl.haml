@@ -55,7 +55,8 @@
           .icon.delete
           = _("Delete")
           
-      = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${order.user_id}/acknowledge/${order.id}/update_lines",
+      -# /backend/inventory_pools/${current_inventory_pool}/users/${order.user_id}/acknowledge/${order.id}/update_lines
+      = link_to "#",
         :class => "button white open_dialog", 
         :"data-rel" => "tmpl/dialog/calendar/edit_single", 
         :"data-dialog_class" => "calendar",

@@ -1,6 +1,7 @@
 ${$start_date = new MinDate(lines), ""}
 ${$end_date = new MaxDate(lines), ""}
-${merged_multiple_lines = new MergedMultipleLinesAvailability(selected_lines), ""}
+${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(selected_lines), ""}
+${console.log(merged_lines_availabilities), ""}
 = form_tag '${$item.action}', :remote => true do
   = hidden_field(:line_ids, "", :value => "${id}")
   %h1
@@ -30,25 +31,18 @@ ${merged_multiple_lines = new MergedMultipleLinesAvailability(selected_lines), "
           = "Borrower"
         .arrow
         %select{:id => "partition", :name => "partition"}
-          ${$users_availablility = new UserAvailability(merged_multiple_lines.availability_for_inventory_pool, user.groups), ""}
+          ${$users_availablility = new UserAvailability(merged_lines_availabilities, user.groups), ""}
           ${$user_groups = $users_availablility.user_group_ids.join(","), ""}
-          ${$custom_groups = 0, ""}
           %option{:value => "[${$user_groups}]", :"data-name" => _("Borrower")}
             = _("Borrower")
-          {{each(i, partition) merged_multiple_lines.availability_for_inventory_pool.partitions}}
-          {{if partition.group_id == null}}
-          -# %option{:value => "[0]", :"data-name" => _("Everyone")}
-            -# = _("Everyone")
-          {{else}}
-          ${$custom_groups = $custom_groups+1, ""}
+          {{each(i, partition) merged_lines_availabilities.partitions}}
+          {{if partition.group_id != null}}
           %option{:value => "[${partition.group_id}]", :"data-name" => _("Group ${partition.group.name}")}
             = _("Group ${partition.group.name}")
           {{/if}}
           {{/each}}
-          {{if ($custom_groups > 1)}}
           %option{:value => "", :"data-name" => _("In Total")}
             = _("In Total")
-          {{/if}}
       %label{:for => "partition"}
         = _("Show Availability")
     
@@ -72,10 +66,10 @@ ${merged_multiple_lines = new MergedMultipleLinesAvailability(selected_lines), "
     .inventorypool.container
       %select{:id => "inventory_pool_id", :name => "inventory_pool_id"}
         %option{:value => "current",
-                :"data-closed_days" => "${JSON.stringify(merged_multiple_lines.availability_for_inventory_pool.inventory_pool.closed_days)}",
-                :"data-availability_dates" => "${JSON.stringify(merged_multiple_lines.availability_for_inventory_pool.availability)}",
-                :"data-holidays" => "${JSON.stringify(merged_multiple_lines.availability_for_inventory_pool.inventory_pool.holidays)}"}
-          ${merged_multiple_lines.availability_for_inventory_pool.inventory_pool.name}
+                :"data-closed_days" => "${JSON.stringify(merged_lines_availabilities.inventory_pool.closed_days)}",
+                :"data-availability_dates" => "${JSON.stringify(merged_lines_availabilities.availability)}",
+                :"data-holidays" => "${JSON.stringify(merged_lines_availabilities.inventory_pool.holidays)}"}
+          ${merged_lines_availabilities.inventory_pool.name}
   
   .clear
   

@@ -15,7 +15,8 @@
           {{else}}
           .noimage
           {{/if}}
-    %h3= "${firstname} ${lastname}"
+    ${$name=firstname+" "+lastname, ""}    
+    %h3= "${$name}"
     %table
       {{if address}}
       %tr
