@@ -170,7 +170,7 @@
     background: url($image-sprite) repeat-x 0 -120px;
     
     input[type=text] {
-      border: 1px solid $borderdarkgrey;
+      border: 1px solid $bordergrey !important;
       @include boxShadow (inset 0 1px 2px #FFF);  
     }
   }
