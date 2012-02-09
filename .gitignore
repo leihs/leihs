@@ -4,6 +4,7 @@
 .loadpath
 .project
 .sass-cache
+jhw.*
 log/*
 tmp/*
 config/environments/development_mail.rb
@@ -18,3 +19,4 @@ doc/todo.html
 public/images/graphs/*
 rerun.txt
 public/images/attachments
+.jhw-cache
