@@ -1,9 +1,7 @@
 ${$start_date = new MinDate(lines), ""}
 ${$end_date = new MaxDate(lines), ""}
 ${merged_lines_availabilities = new MultipleMergedLinesAvailabilities(selected_lines), ""}
-${console.log(merged_lines_availabilities), ""}
 = form_tag '${$item.action}', :remote => true do
-  = hidden_field(:line_ids, "", :value => "${id}")
   %h1
     = _("Edit multiple selected items")
   %p.subtitle
@@ -35,12 +33,6 @@ ${console.log(merged_lines_availabilities), ""}
           ${$user_groups = $users_availablility.user_group_ids.join(","), ""}
           %option{:value => "[${$user_groups}]", :"data-name" => _("Borrower")}
             = _("Borrower")
-          {{each(i, partition) merged_lines_availabilities.partitions}}
-          {{if partition.group_id != null}}
-          %option{:value => "[${partition.group_id}]", :"data-name" => _("Group ${partition.group.name}")}
-            = _("Group ${partition.group.name}")
-          {{/if}}
-          {{/each}}
           %option{:value => "", :"data-name" => _("In Total")}
             = _("In Total")
       %label{:for => "partition"}
@@ -76,4 +68,4 @@ ${console.log(merged_lines_availabilities), ""}
   #fullcalendar.multiple
   
   .list
-    {{tmpl(selected_lines, {multiple: true}) "tmpl/line/calendar_model_line"}}
+    {{tmpl(selected_lines, {multiple: true}) "tmpl/line/calendar_order_line"}}

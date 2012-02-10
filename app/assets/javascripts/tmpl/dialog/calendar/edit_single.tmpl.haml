@@ -1,5 +1,4 @@
 = form_tag '${$item.action}', :remote => true do
-  = hidden_field(:line_ids, "", :value => "${id}")
   %h1
     = _("Edit ordered item")
     "${model.name}" 
@@ -80,4 +79,4 @@
   #fullcalendar
   
   .list
-    {{tmpl($item.data) "tmpl/line/calendar_model_line"}}
+    {{tmpl($item.data) "tmpl/line/calendar_order_line"}}

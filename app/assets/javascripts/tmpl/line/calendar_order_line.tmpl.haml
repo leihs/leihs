@@ -1,3 +1,4 @@
+= hidden_field("line_ids", "", :value => "${id}")
 %ul.line
   .container
     %li.selection
@@ -17,7 +18,7 @@
       .alternatives
         .trigger
           .arrow
-        = link_to "",
+        = link_to "/backend/inventory_pools/${current_inventory_pool}/users/${order.user_id}/acknowledge/${order.id}/update_lines?line_ids[]=${id}&delete_line_ids[]=${id}",
         :class => "button red",
         :method => "post",
         :remote => "true",
