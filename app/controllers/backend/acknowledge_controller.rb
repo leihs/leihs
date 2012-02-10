@@ -22,13 +22,7 @@ class Backend::AcknowledgeController < Backend::BackendController
     @order.to_backup unless @order.has_backup?
     add_visitor(@order.user)
     
-    @order_json = @order.to_json(:with => {:lines => {:include => {:model => {}, 
-                                                                   :order => {:include => {:user => {:include => :groups}}}},
-                                                      :with => {:availability => {:inventory_pool => current_inventory_pool}},
-                                                      :methods => :is_available }},
-                                 :methods => :quantity,
-                                 :include => {:user => {:include => [:groups]}}
-                                 )
+    @order_json = order_json_response
   end
   
   def approve(force = (params.has_key? :force) ? true : false)
@@ -181,20 +175,21 @@ class Backend::AcknowledgeController < Backend::BackendController
       end
     end
     
-    order_respond_to
+    
+    respond_to do |format|
+      format.js { render :json => order_json_response, :status => 200 }
+    end
   end
 
-  def order_respond_to
-    order_json = @order.to_json(:with => {:lines => {:include => {:model => {}, 
-                                                                  :order => {:include => {:user => {:include => :groups}}}},
-                                                     :with => {:availability => {:inventory_pool => current_inventory_pool}},
-                                                     :methods => :is_available }, 
-                                          :user => {}},
-                                :methods => :quantity)
-                                 
-    respond_to do |format|
-      format.js { render :json => order_json, :status => 200 }
-    end
+  def order_json_response
+    @order.to_json(:with => {:lines => {:include => {:model => {}, 
+                                                     :order => {:include => {:user => {:include => :groups}}}},
+                                        :with => {:availability => {:inventory_pool => current_inventory_pool}},
+                                        :methods => :is_available },
+                             :user => {}},
+                   :methods => :quantity,
+                   :include => {:user => {:include => [:groups]}}
+                   )
   end
 
 ###################################################################################
