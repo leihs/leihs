@@ -14,10 +14,6 @@ class Backend::ItemsController < Backend::BackendController
              elsif params[:model_id]
                 Model.find(params[:model_id])
              end
-  
-    @tabs = []
-    @tabs << :model_backend if @model and not ["new", "show"].include?(action_name)
-    #tmp# @tabs << :item_backend if ["new", "show"].include?(action_name)
   end
 
 ######################################################################
@@ -236,7 +232,6 @@ class Backend::ItemsController < Backend::BackendController
       end
     end
     
-    @tabs = nil
     params[:layout] = "modal"
     render :action => 'retire'
   end

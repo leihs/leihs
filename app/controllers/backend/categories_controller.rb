@@ -6,11 +6,6 @@ class Backend::CategoriesController < Backend::BackendController
     @parent = Category.find(params[:parent_id]) unless params[:parent_id].blank?
 
     @model = current_inventory_pool.models.find(params[:model_id]) unless params[:model_id].blank?
-
-    @tabs = []
-    @tabs << :model_backend if @model
-
-    @tabs << :category_backend if @category
   end
 
 ######################################################################

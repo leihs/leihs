@@ -196,32 +196,4 @@ module ApplicationHelper
     contact
   end
 
-  ######## Tabs #########
-
-=begin #old code#
-  # TODO 12** optimize rails-widgets overriding
-  def tabnav_override(name, opts={}, &block)
-    partial_template = opts[:partial] || "widgets/#{name}_tabnav"
-    html = capture { render :partial => partial_template }
-    if block_given?
-      options = {:id => @_tabnav.html[:id] + '_content', :class => @_tabnav.html[:class] + '_content'}
-      html += content_tag :div, options do
-          capture(&block)
-      end
-    end
-    return html
-  end
-
-  def tabnavs(tabs, content)
-    if tabs.empty?
-      return content
-    else
-      t = tabs.delete_at(0)
-      tabnav_override t do
-        tabnavs tabs, content
-      end
-    end
-  end
-=end
-
 end

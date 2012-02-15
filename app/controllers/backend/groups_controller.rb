@@ -3,9 +3,6 @@ class Backend::GroupsController < Backend::BackendController
   before_filter do
     params[:group_id] ||= params[:id] if params[:id]
     @group = current_inventory_pool.groups.find(params[:group_id]) if params[:group_id]
-    
-    @tabs = []
-    @tabs << :group_backend if @group
   end
 
 ######################################################################

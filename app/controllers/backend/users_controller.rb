@@ -5,9 +5,6 @@ class Backend::UsersController < Backend::BackendController
 #    @user = current_inventory_pool.users.find(params[:id]) if params[:id]
     @user = User.find(params[:id]) if params[:id]
 
-    @tabs = []
-    @tabs << :user_backend if @user
-
     authorized_admin_user? unless current_inventory_pool  
   end
 

@@ -3,9 +3,6 @@ class Backend::LocationsController < Backend::BackendController
   before_filter do
     params[:id] ||= params[:location_id] if params[:location_id]
     @location = current_inventory_pool.locations.find(params[:id]) if params[:id]
-
-    @tabs = []
-    @tabs << :location_backend if @location
   end
 
 ######################################################################

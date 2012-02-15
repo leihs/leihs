@@ -42,13 +42,6 @@
 
 			<%= flash_helper(false) %>
 			
-			<%# TODO 12** optimize nested tabs rendering %>
-			<% if @tabs %>
-				<%= tabnavs @tabs, yield %>
-			<% else %>
-				<%=  yield %>
-			<% end %>
-
 		<% else %>
 
 			<div id="header">
@@ -76,13 +69,6 @@
 	
 					<%= flash_helper %>
 					
-					<%# TODO 12** optimize nested tabs rendering %>
-					<% if @tabs %>
-						<%= tabnavs @tabs, yield %>
-					<% else %>
-						<%=  yield %>
-					<% end %>
-				
 				</div>
 			</div>
 

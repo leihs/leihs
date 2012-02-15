@@ -4,9 +4,6 @@ class Backend::TemplatesController < Backend::BackendController
     params[:template_id] ||= params[:id] if params[:id]
     # NOTE @template is a reserved variable
     @my_template = current_inventory_pool.templates.find(params[:template_id]) if params[:template_id]
-    
-    @tabs = []
-    @tabs << :template_backend if @my_template
   end
 
 ######################################################################
