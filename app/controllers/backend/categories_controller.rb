@@ -1,6 +1,19 @@
 class Backend::CategoriesController < Backend::BackendController
 
-  before_filter :pre_load
+  before_filter do
+    params[:id] ||= params[:category_id] if params[:category_id]
+    @category = Category.find(params[:id]) if not params[:id].blank? and params[:id].to_i != 0 
+    @parent = Category.find(params[:parent_id]) unless params[:parent_id].blank?
+
+    @model = current_inventory_pool.models.find(params[:model_id]) unless params[:model_id].blank?
+
+    @tabs = []
+    @tabs << :model_backend if @model
+
+    @tabs << :category_backend if @category
+  end
+
+######################################################################
 
   def index
     # OPTIMIZE 0501 
@@ -131,24 +144,6 @@ class Backend::CategoriesController < Backend::BackendController
       flash[:error] = _("Attempt to add node to own graph collection")
     end
     redirect_to backend_inventory_pool_category_parents_path(current_inventory_pool, @category)
-  end
-
-#################################################################
-
-  private
-  
-  def pre_load
-    params[:id] ||= params[:category_id] if params[:category_id]
-    @category = Category.find(params[:id]) if not params[:id].blank? and params[:id].to_i != 0 
-    @parent = Category.find(params[:parent_id]) unless params[:parent_id].blank?
-
-    @model = current_inventory_pool.models.find(params[:model_id]) unless params[:model_id].blank?
-
-    @tabs = []
-    @tabs << :model_backend if @model
-
-    @tabs << :category_backend if @category
-
   end
   
 end

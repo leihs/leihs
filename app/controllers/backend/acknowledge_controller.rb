@@ -1,7 +1,19 @@
 class Backend::AcknowledgeController < Backend::BackendController
 
-  before_filter :pre_load
-
+  before_filter do
+    begin
+      @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
+      @order = @user.orders.submitted.scoped_by_inventory_pool_id(current_inventory_pool).find(params[:id]) if params[:id] and @user
+    rescue
+      respond_to do |format|
+        format.html { redirect_to :action => 'index' unless @order }
+        format.js { render :text => _("User or Order not found"), :status => 500 }
+      end
+    end
+  end
+  
+######################################################################
+ 
   def index
 =begin    
     with = { :inventory_pool_id => current_inventory_pool.id }
@@ -217,17 +229,5 @@ class Backend::AcknowledgeController < Backend::BackendController
                                                     :source_path => request.env['REQUEST_URI'])
     end
   end   
-    
-  private
-  
-  def pre_load
-      @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
-      @order = @user.orders.submitted.scoped_by_inventory_pool_id(current_inventory_pool).find(params[:id]) if params[:id] and @user
-    rescue
-      respond_to do |format|
-        format.html { redirect_to :action => 'index' unless @order }
-        format.js { render :text => _("User or Order not found"), :status => 500 }
-      end
-  end
     
 end

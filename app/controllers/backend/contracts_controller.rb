@@ -1,6 +1,10 @@
 class Backend::ContractsController < Backend::BackendController
   
-  before_filter :preload
+  before_filter do
+    @contract = current_inventory_pool.contracts.find(params[:id]) if params[:id]
+  end
+
+######################################################################
 
   def index(filter = params[:filter],
             query = params[:query],
@@ -77,12 +81,6 @@ class Backend::ContractsController < Backend::BackendController
         format.pdf { send_data(render(:template => 'contracts/show', :layout => false), :type => 'application/pdf', :filename => "contract_#{@contract.id}.pdf") }
 			end
     end
-  end
-
-  private
-  
-  def preload
-    @contract = current_inventory_pool.contracts.find(params[:id]) if params[:id]
   end
   
 end

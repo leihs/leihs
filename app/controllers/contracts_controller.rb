@@ -1,6 +1,10 @@
 class ContractsController < FrontendController
 
-  before_filter :pre_load
+  before_filter do
+    @contract = current_user.contracts.find(params[:id]) if params[:id]
+  end
+
+######################################################################
 
   def show(sort =  params[:sort] || "model", dir =  params[:sort_mode] || "ASC")
     respond_to do |format|
@@ -25,13 +29,5 @@ class ContractsController < FrontendController
       end
     end
   end
-
-########################################################
-  
-  private
-  
-  def pre_load
-      @contract = current_user.contracts.find(params[:id]) if params[:id]
-  end  
 
 end

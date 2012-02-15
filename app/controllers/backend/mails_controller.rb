@@ -1,7 +1,12 @@
 class Backend::MailsController < Backend::BackendController
 
-  before_filter :pre_load
-  before_filter :authorized?
+  before_filter do
+    @user = User.find params[:user_id]
+    
+    not_authorized! unless is_admin? or is_privileged_user?
+  end
+
+######################################################################
 
   def new
     if @user.email.blank?
@@ -44,11 +49,4 @@ private
     email
   end
  
-  def pre_load
-    @user = User.find params[:user_id]
-  end
-
-  def authorized?
-    not_authorized! unless is_admin? or is_privileged_user?
-  end
 end

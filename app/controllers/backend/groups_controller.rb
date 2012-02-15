@@ -1,6 +1,14 @@
 class Backend::GroupsController < Backend::BackendController
   
-  before_filter :pre_load
+  before_filter do
+    params[:group_id] ||= params[:id] if params[:id]
+    @group = current_inventory_pool.groups.find(params[:group_id]) if params[:group_id]
+    
+    @tabs = []
+    @tabs << :group_backend if @group
+  end
+
+######################################################################
 
   def index
     @groups = current_inventory_pool.groups.search2(params[:query]).paginate(:page => params[:page], :per_page => $per_page)
@@ -55,15 +63,4 @@ class Backend::GroupsController < Backend::BackendController
     redirect_to :action => 'users'
   end
 
-#################################################################
-
-  private
-  
-  def pre_load
-    params[:group_id] ||= params[:id] if params[:id]
-    @group = current_inventory_pool.groups.find(params[:group_id]) if params[:group_id]
-    
-    @tabs = []
-    @tabs << :group_backend if @group
-  end
 end

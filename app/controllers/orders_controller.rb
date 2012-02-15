@@ -1,6 +1,10 @@
 class OrdersController < FrontendController
 
-  before_filter :pre_load
+  before_filter do
+    @order = (params[:id] ? current_user.orders.find(params[:id]) : current_user.get_current_order)
+  end
+
+######################################################################
 
 #  def index
 #    @orders = current_user.orders
@@ -118,13 +122,5 @@ class OrdersController < FrontendController
       format.js { render :partial => "/orders/pending" }
     end
   end
-  
-########################################################
-  
-  private
-  
-  def pre_load
-        @order = (params[:id] ? current_user.orders.find(params[:id]) : current_user.get_current_order)
-  end  
 
 end

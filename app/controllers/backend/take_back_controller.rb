@@ -1,6 +1,10 @@
 class Backend::TakeBackController < Backend::BackendController
 
-  before_filter :pre_load
+  before_filter do
+    @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
+  end
+
+######################################################################
 
 =begin
   def index
@@ -133,11 +137,5 @@ class Backend::TakeBackController < Backend::BackendController
   def time_lines
     generic_time_lines(@user, false, true)
   end    
-
-  private
-  
-  def pre_load
-    @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
-  end
     
 end

@@ -1,6 +1,11 @@
 class Backend::OptionsController < Backend::BackendController
 
-  before_filter :pre_load
+  before_filter do
+    params[:id] ||= params[:option_id] if params[:option_id]
+    @option = current_inventory_pool.options.find(params[:id]) if params[:id]
+  end
+
+######################################################################
 
   def index
     @options = current_inventory_pool.options.search2(params[:query]).paginate(:page => params[:page], :per_page => $per_page)
@@ -45,13 +50,5 @@ class Backend::OptionsController < Backend::BackendController
     @option.destroy
     redirect_to(backend_inventory_pool_options_path)
   end
-  
-  
-  private
-  
-  def pre_load
-    params[:id] ||= params[:option_id] if params[:option_id]
-    @option = current_inventory_pool.options.find(params[:id]) if params[:id]
-  end
-  
+    
 end

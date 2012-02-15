@@ -1,7 +1,34 @@
 class Backend::ModelsController < Backend::BackendController
 
-  before_filter :pre_load
+  before_filter do
+    params[:model_id] ||= params[:id] if params[:id]
+
+    @model = Model.find(params[:model_id]) if params[:model_id]
+
+    @category = Category.find(params[:category_id]) if not params[:category_id].blank? and params[:category_id].to_i != 0
+    @categories = Category.find(params[:category_ids]) unless params[:category_ids].blank?
+
+    if params[:item_id]
+      @item = current_inventory_pool.items.where(:id => params[:item_id]).first
+      #@item ||= Item.unscoped { current_inventory_pool.own_items.where(:id => params[:item_id]).first }
+      @item ||= current_inventory_pool.own_items.where(:id => params[:item_id]).first
+    end
+    @model ||= @item.model if @item
+    
+    @group = current_inventory_pool.groups.find(params[:group_id]) if params[:group_id]
+    
+    @line = current_inventory_pool.contract_lines.find(params[:contract_line_id]) if params[:contract_line_id]
+    @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
+    @categories ||= @line.model.categories if @line and !@line.model.categories.blank?
+    
+    @tabs = []
+    @tabs << :category_backend if @category
+    @tabs << :model_backend if @model
+    @tabs << :group_backend if @group
+  end
   before_filter :authorized_privileged_user?, :only => [:new, :update]
+
+######################################################################
 
   def index
 =begin
@@ -299,38 +326,6 @@ class Backend::ModelsController < Backend::BackendController
     elsif request.delete?
       @model.attachments.destroy(params[:attachment_id])
     end
-  end
-
-#################################################################
-
-  private
-
-  def pre_load
-    params[:model_id] ||= params[:id] if params[:id]
-
-    @model = Model.find(params[:model_id]) if params[:model_id]
-
-    @category = Category.find(params[:category_id]) if not params[:category_id].blank? and params[:category_id].to_i != 0
-    @categories = Category.find(params[:category_ids]) unless params[:category_ids].blank?
-
-    if params[:item_id]
-      @item = current_inventory_pool.items.where(:id => params[:item_id]).first
-      #@item ||= Item.unscoped { current_inventory_pool.own_items.where(:id => params[:item_id]).first }
-      @item ||= current_inventory_pool.own_items.where(:id => params[:item_id]).first
-    end
-    @model ||= @item.model if @item
-    
-    @group = current_inventory_pool.groups.find(params[:group_id]) if params[:group_id]
-    
-    @line = current_inventory_pool.contract_lines.find(params[:contract_line_id]) if params[:contract_line_id]
-    @line = current_inventory_pool.order_lines.find(params[:order_line_id]) if params[:order_line_id]
-    @categories ||= @line.model.categories if @line and !@line.model.categories.blank?
-    
-    @tabs = []
-    @tabs << :category_backend if @category
-    @tabs << :model_backend if @model
-    @tabs << :group_backend if @group
-
   end
 
 end

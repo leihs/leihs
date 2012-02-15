@@ -1,6 +1,12 @@
 class ModelsController < FrontendController
   
-  before_filter :pre_load
+  before_filter do
+    params[:model_id] ||= params[:id] if params[:id]
+    @model = current_user.models.find(params[:model_id]) if params[:model_id]
+    @inventory_pool = current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
+  end
+
+######################################################################
 
   def index
              
@@ -59,16 +65,5 @@ class ModelsController < FrontendController
                                                :"data-availability_dates" => av[:availability].to_json}]
     end
   end
-
-#################################################################
-
-  private
-  
-  def pre_load
-    params[:model_id] ||= params[:id] if params[:id]
-    @model = current_user.models.find(params[:model_id]) if params[:model_id]
-    @inventory_pool = current_user.inventory_pools.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
-  end
-
 
 end

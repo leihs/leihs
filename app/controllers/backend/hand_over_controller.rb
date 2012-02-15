@@ -1,6 +1,11 @@
 class Backend::HandOverController < Backend::BackendController
 
-  before_filter :pre_load
+  before_filter do
+    @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
+    @contract = @user.get_current_contract(current_inventory_pool) if @user
+  end
+
+######################################################################
 
   def index
 =begin AFTER HERE IS OLD CODE
@@ -241,13 +246,5 @@ class Backend::HandOverController < Backend::BackendController
                                                     :source_path => request.env['REQUEST_URI'])
     end
   end   
-  
-  private
-  
-  def pre_load
-    @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
-    @contract = @user.get_current_contract(current_inventory_pool) if @user
-  end
-
 
 end

@@ -1,6 +1,15 @@
 class Backend::TemplatesController < Backend::BackendController
 
-  before_filter :pre_load
+  before_filter do
+    params[:template_id] ||= params[:id] if params[:id]
+    # NOTE @template is a reserved variable
+    @my_template = current_inventory_pool.templates.find(params[:template_id]) if params[:template_id]
+    
+    @tabs = []
+    @tabs << :template_backend if @my_template
+  end
+
+######################################################################
 
   def index
     @templates = current_inventory_pool.templates.search2(params[:query]).paginate(:page => params[:page], :per_page => $per_page)
@@ -53,17 +62,4 @@ class Backend::TemplatesController < Backend::BackendController
     redirect_to :action => 'models'
   end
   
-#################################################################
-
-  private
-  
-  def pre_load
-    params[:template_id] ||= params[:id] if params[:id]
-    # NOTE @template is a reserved variable
-    @my_template = current_inventory_pool.templates.find(params[:template_id]) if params[:template_id]
-    
-    @tabs = []
-    @tabs << :template_backend if @my_template
-  end
-
 end

@@ -1,7 +1,17 @@
 class Backend::UsersController < Backend::BackendController
 
-  before_filter :pre_load
-  before_filter :authorized_admin_user_unless_current_inventory_pool # OPTIMIZE
+  before_filter do
+    params[:id] ||= params[:user_id] if params[:user_id]
+#    @user = current_inventory_pool.users.find(params[:id]) if params[:id]
+    @user = User.find(params[:id]) if params[:id]
+
+    @tabs = []
+    @tabs << :user_backend if @user
+
+    authorized_admin_user? unless current_inventory_pool  
+  end
+
+######################################################################
 
   def index
 =begin    
@@ -201,23 +211,6 @@ class Backend::UsersController < Backend::BackendController
                     page.replace_html 'flash', flash_content
                     flash.discard
                   end
-  end
-
-#################################################################
-
-  private
-  
-  def authorized_admin_user_unless_current_inventory_pool
-    authorized_admin_user? unless current_inventory_pool  
-  end
-  
-  def pre_load
-    params[:id] ||= params[:user_id] if params[:user_id]
-#    @user = current_inventory_pool.users.find(params[:id]) if params[:id]
-    @user = User.find(params[:id]) if params[:id]
-
-    @tabs = []
-    @tabs << :user_backend if @user
   end
 
 end

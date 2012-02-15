@@ -1,6 +1,14 @@
 class Backend::LocationsController < Backend::BackendController
 
-  before_filter :pre_load
+  before_filter do
+    params[:id] ||= params[:location_id] if params[:location_id]
+    @location = current_inventory_pool.locations.find(params[:id]) if params[:id]
+
+    @tabs = []
+    @tabs << :location_backend if @location
+  end
+
+######################################################################
 
   def index
     # OPTIMIZE 0501 
@@ -28,18 +36,6 @@ class Backend::LocationsController < Backend::BackendController
   def destroy
     @location.destroy
     redirect_to(backend_inventory_pool_locations_path(current_inventory_pool))
-  end
-
-#################################################################
-
-  private
-  
-  def pre_load
-    params[:id] ||= params[:location_id] if params[:location_id]
-    @location = current_inventory_pool.locations.find(params[:id]) if params[:id]
-
-    @tabs = []
-    @tabs << :location_backend if @location
   end
 
 end

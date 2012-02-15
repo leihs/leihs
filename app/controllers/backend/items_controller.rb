@@ -1,6 +1,26 @@
 class Backend::ItemsController < Backend::BackendController
   
-  before_filter :pre_load
+  before_filter do
+    params[:id] ||= params[:item_id] if params[:item_id]
+    if params[:id]
+      @item = current_inventory_pool.items.where(:id => params[:id]).first
+      @item ||= Item.unscoped { current_inventory_pool.own_items.where(:id => params[:id]).first }
+    end
+
+    @location = Location.find(params[:location_id]) if params[:location_id]
+    
+    @model = if @item
+                @item.model
+             elsif params[:model_id]
+                Model.find(params[:model_id])
+             end
+  
+    @tabs = []
+    @tabs << :model_backend if @model and not ["new", "show"].include?(action_name)
+    #tmp# @tabs << :item_backend if ["new", "show"].include?(action_name)
+  end
+
+######################################################################
 
   def index
 =begin
@@ -273,25 +293,4 @@ class Backend::ItemsController < Backend::BackendController
     @histories.sort!
   end
   
-  def pre_load
-    params[:id] ||= params[:item_id] if params[:item_id]
-    if params[:id]
-      @item = current_inventory_pool.items.where(:id => params[:id]).first
-      @item ||= Item.unscoped { current_inventory_pool.own_items.where(:id => params[:id]).first }
-    end
-
-    @location = Location.find(params[:location_id]) if params[:location_id]
-    
-    @model = if @item
-                @item.model
-             elsif params[:model_id]
-                Model.find(params[:model_id])
-             end
-  
-    @tabs = []
-    @tabs << :model_backend if @model and not ["new", "show"].include?(action_name)
-    #tmp# @tabs << :item_backend if ["new", "show"].include?(action_name)
-
-  end
-
 end
