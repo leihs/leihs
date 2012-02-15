@@ -105,13 +105,14 @@ class Order < Document
     if is_approved?
       errors.add(:base, _("This order has already been approved."))
       false
-    else 
-      if lines.all? {|l| l.available? }
-        true
-      else
-        errors.add(:base, _("This order is not approvable because some reserved models are not available."))
-        false
-      end
+    elsif lines.empty?
+      errors.add(:base, _("This order is not approvable because doesn't have any reserved models."))
+      false
+    elsif lines.all? {|l| l.available? }
+      true
+    else
+      errors.add(:base, _("This order is not approvable because some reserved models are not available."))
+      false
     end
   end
   alias :is_approvable :approvable?
