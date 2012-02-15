@@ -1,8 +1,6 @@
 = form_tag '${$item.action}', :remote => true do
-  %h1
-    = _("Order from")
-    ${user.firstname} ${user.lastname}
-  %p.subtitle= '${purpose}'
+  
+  {{tmpl($item.data) "tmpl/cell/dialog_order_head"}}
   
   .navigation
     %button.button.white.close_dialog
@@ -13,11 +11,9 @@
       
   .flash_message
   
-  %hr
-  
-  %section.lines.scalable
-    ${$grouped_lines = new GroupedLines(lines), ""}
-    {{tmpl($grouped_lines) "tmpl/dialog/acknowledge/lines"}}
+  {{tmpl($item.data) "tmpl/cell/dialog_purpose"}}
+    
+  {{tmpl($item.data) "tmpl/cell/dialog_lines"}}
   
   %section.comment
     = text_area_tag "comment", "", :class => "focus"

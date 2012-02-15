@@ -198,7 +198,7 @@ function i18n() {
       yearSuffix: ''
     },
     
-    datepicke_backend: {
+    datepicker_backend: {
       closeText: 'Done',
       prevText: '&lt;',
       nextText: '&gt;',

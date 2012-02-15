@@ -109,21 +109,25 @@
     border-bottom: none;
     cursor: s-resize;
     font-size: 1.1em;
-    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    height: 32px;
     
     .shadow {
-      height: 10px;
-      top: -25px;
-      margin-bottom: -14px;
-      position: relative;
+      background: white;
+      height: 30px;
+      top: 1px;
+      position: absolute;
       width: 100%;
       z-index: 1;
-      @include boxShadow(0 2px 8px rgba(0,0,0,0.1));
+      @include boxShadow(inset 0 4px 7px -4px rgba(0,0,0,0.3));
     }
     
     &>li {
       color: $grey;
+      height: 32px;
       padding-left: 0;
+      vertical-align: top;
     }
     
     .icon {
@@ -133,12 +137,24 @@
       margin-right: 8px;
       margin-left: 12px;
       position: relative;
+      top: 7px;
       width: 7px;
+      z-index: 102;
       @include opacity(0.6);
+    }
+    
+    .text {
+      position: relative;
+      top: 7px;
+      z-index: 101;
     }
     
     &.show_less {
       cursor: n-resize;
+      
+      .shadow {
+        display: none;
+      }
       
       .icon {
         background: url($image-sprite) no-repeat -73px -37px;  
@@ -146,14 +162,9 @@
     }
     
     &:hover {
-      @include boxShadow(0 0 0 rgba(255,255,255,0));
       
       &.show_more .shadow {
-        @include boxShadow(0 3px 8px rgba(50,50,50,0.2));
-      }
-      
-      &.show_less .shadow {
-        @include boxShadow(0 2px 3px rgba(0,0,0,0.1));
+        @include boxShadow(inset 0 5px 7px -4px rgba(0,0,0,0.3));
       }
       
       .icon {

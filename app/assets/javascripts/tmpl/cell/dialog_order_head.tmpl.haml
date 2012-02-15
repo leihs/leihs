@@ -1,0 +1,4 @@
+%h1
+  = _("Order from")
+  ${user.firstname} ${user.lastname}
+%p.subtitle= "${quantity} Items for max. ${new MaxRange(lines).value} days straight"

@@ -50,7 +50,7 @@
         :remote => "true",
         :"data-rel" => "tmpl/dialog/order_line/delete",
         :"data-dialog_class" => "order_line",
-        :"data-on_success" => 'List.remove_line($(this).parents(".line"), "red")' ,
+        :"data-on_success" => 'List.remove_line({"element": $(this).parents(".line"), "color": "red", "callback": function(){List.update_order(request)}});' ,
         :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
           .icon.delete
           = _("Delete")

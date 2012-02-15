@@ -6,7 +6,7 @@
   
   %section
     .inlinetabs
-      = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' if params[:filter] && params[:filter] != ""}" do
+      = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "", :year => params[:year], :month => params[:month]), :class => "tab#{' inactive' if params[:filter] && params[:filter] != ""}" do
         %span.text
           = _("All")
       = link_to backend_inventory_pool_orders_path(current_inventory_pool, :filter => "pending", :year => params[:year], :month => params[:month], :query => params[:query]), :class => "tab#{' inactive' unless params[:filter] == 'pending'}" do

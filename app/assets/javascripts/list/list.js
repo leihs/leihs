@@ -142,8 +142,12 @@ function List() {
     });
   }
   
-  this.remove_line = function(element, color) {
+  this.remove_line = function(options) {
+    element = options.element;
+    color = options.color;
+    callback = (options.callback != undefined) ? options.callback : function(){};
     if($(element).closest(".linegroup").length) {
+      // element to delete is part of a linegroup
       $(element).css("background-color", color).fadeOut(400, function(){
         if($(this).closest(".linegroup").find(".lines .line").length == 1) {
           $(this).closest(".indent").next("hr").remove();
@@ -153,13 +157,49 @@ function List() {
           $(this).remove();
           if(typeof(SelectionActions) != "undefined") SelectionActions.updateSelectionCount();
         }
+        if(AcknowledgeOrder != undefined) {
+          AcknowledgeOrder.checkApproveOrderAvailability();
+        }
+        // finaly callback
+        callback.call(this);
+      });
+    } else if($(element).closest(".dialog").length) {
+      // element to delete is part of a dialog
+       $(element).css("background-color", color).fadeOut(400, function(){
+        var lines_to_remove = [];         
+        $(".line").each(function(i_line, line){
+          if(JSON.stringify($(line).tmplItem().data) == JSON.stringify($(element).tmplItem().data)) {
+            lines_to_remove.push(line);
+          }              
+        });
+        
+        $.each(lines_to_remove, function(i_line, line){
+          if($(line).closest(".linegroup").length>0) {
+            List.remove_line({"element": line, "color": color});
+          } else {
+            // just remove the line
+            $(line).remove();
+          }
+        });
+        
+        if($(element).closest(".dialog").find(".list .line").length == 0) {
+          // if it was the last line of the dialog close dialog as well
+          $(".dialog").dialog("close");
+        }
+        
+        // finaly callback
+        callback.call(this);
       });
     } else {
+      // its a default line (part of a list)
       var parent = $(element).parents(".list");
       $(element).css("background-color", color).fadeOut(400, function(){
         List.subtract(parent);
         $(this).remove();
         if(typeof(SelectionActions) != "undefined") SelectionActions.updateSelectionCount();
+        
+        // finaly callback
+        callback.call(this);
       });
     }
   }

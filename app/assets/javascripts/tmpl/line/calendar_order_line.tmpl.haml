@@ -1,19 +1,15 @@
 = hidden_field("line_ids", "", :value => "${id}")
 %ul.line
   .container
-    %li.selection
-      %label
-        %input{:id => "selected_line_${id}", :name => "selected_line_${id}", :type => "checkbox", :value => "1", :checked => "checked"}
-    %li.name
-      %strong
-        ${model.name}
     %li.amount
       ${quantity} /          
       %span.grey
         ="${total_rentable}"
         = _("total rentable")
+    %li.name
+      %strong
+        ${model.name}
   %li.actions
-    {{if $item.multiple == true}}
     .multibutton
       .alternatives
         .trigger
@@ -24,7 +20,7 @@
         :remote => "true",
         :"data-rel" => "tmpl/dialog/order_line/delete",
         :"data-dialog_class" => "order_line",
-        :"data-on_success" => 'List.remove_line($(this).parents(".line"), "red")' ,
+        :"data-on_success" => 'List.remove_line({"element": $(this).parents(".line"), "color": "red"})' ,
         :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
           .icon.delete
           = _("Delete")
@@ -37,13 +33,3 @@
       :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
         .icon.swap
         = _("Change Item")
-    {{else}}
-    = link_to "", 
-    :class => "button white open_dialog", 
-    :"data-rel" => "tmpl/dialog/calendar/edit_single", 
-    :"data-dialog_class" => "calendar",
-    :"data-on_success" => '',
-    :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
-      .icon.swap
-      = _("Change Item")
-    {{/if}}

@@ -1,3 +1,4 @@
+{{if lines.length}}
 ${$grouped_lines = new GroupedLines(lines), ""}
 
 %li.items.hastip
@@ -34,3 +35,8 @@ ${$grouped_lines = new GroupedLines(lines), ""}
           {{/if}}
       {{/each}}
     {{/each}}
+{{else}}
+%li.items
+  %span.number= "0"
+  = _("Items")
+{{/if}}

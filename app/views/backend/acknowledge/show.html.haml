@@ -3,7 +3,7 @@
 #acknowledge.innercontent
   .top
     %h1= _("Order from %s") % @user
-    %p.subtitle= "#{@order.purpose}"
+    %p.subtitle= "#{@order.quantity} Items for max. #{(@order.max_single_range).to_i} days straight"
       
     .content_navigation
       = link_to _("Reject"), reject_backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
@@ -13,7 +13,7 @@
         :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Rejection Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
         :"data-ref_for_dialog" => "$('#order').tmplItem().data"
       
-      .multibutton
+      #approve.multibutton
         .alternatives
           .trigger.green
             .arrow
@@ -34,27 +34,35 @@
           :"data-on_success" => 'Dialog.add({content: $.tmpl("tmpl/dialog/loading", {title: "'+_("Approval Successful")+'", message: "'+_("please wait...")+'"}), dialogClass: "loading"}); window.location = document.referrer',
           :"data-ref_for_dialog" => "$('#order').tmplItem().data"
   
+  .indent.purpose
+    %section.purpose
+      %label= _("Purpose")
+      %p= "#{@order.purpose}"
+      
   .indent      
     %section.actiongroup
       %section#add_item 
         .dates
           .container
-            %input.date.start{:name => "add_start_date", :id => "add_start_date", :value => @order.min_date, :title => _("Start Date")}
+            %input.date.start{:name => "add_start_date", :id => "add_start_date", :value => (@order.min_date).blank? ? Date.today : @order.min_date , :title => _("Start Date")}
             %label{:for => "add_start_date"}
               = _("Start Date")
             %label.datepicker.icon{:for => "add_start_date", :title => _("Open Datepicker")}
           = "-"
           .container
-            %input.date.end{:name => "add_end_date", :id => "add_end_date", :value => @order.max_date, :title => _("End Date")}
+            %input.date.end{:name => "add_end_date", :id => "add_end_date", :value => (@order.max_date).blank? ? Date.today : @order.max_date, :title => _("End Date")}
             %label{:for => "add_end_date"}
               = _("End Date")
             %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
               
         .item_code
-          %input{:type => "text", :name => "barcode_field", :value => _('Item Code / Name'), :name => "barcode_field", :class => "barcode"}
+          %input{:type => "text", :name => "barcode_field", :value => _('Code / Name'), :name => "barcode_field", :class => "barcode"}
           %label{:for => "barcode_field"}
-            = _("Add Item")
-          %input{:type => :submit, :value => "+"}
+            = _("Quick Add")
+          
+        %a.button.white{:href=>"#"}
+          .icon.additem
+          = _("Add Item")
           
       #selection_actions
         .selection
@@ -111,8 +119,47 @@
   function AcknowledgeOrder() {
   
     this.setup = function () {
+      this.setupPurpose();
       this.setupDatepicker();    
       this.setupTemplates();
+      AcknowledgeOrder.checkApproveOrderAvailability();
+    }
+    
+    this.checkApproveOrderAvailability = function () {
+      if ($("#order").find(".lines").length == 0) {
+        AcknowledgeOrder.disableApproveButton();
+      } else {
+        AcknowledgeOrder.enableApproveButton();
+      }      
+    }
+    
+    this.disableApproveButton = function() {
+      $("#approve.multibutton").attr("disabled", true);
+      $("#approve.multibutton").removeAttr("remote");
+      $("#approve.multibutton .button").attr("disabled", true);
+    }
+  
+    this.enableApproveButton = function() {
+      $("#approve.multibutton").attr("disabled", false);
+      $("#approve.multibutton").attr("remote", true);
+      $("#approve.multibutton .button").attr("disabled", false);
+    }
+    
+    this.setupPurpose = function () {
+      if($(".indent.purpose").height() > 45){
+        $(".indent.purpose").addClass("collapsed");
+        $(".indent.purpose").after("<div class='showmore'></div>");
+      }
+      
+      $(".indent.purpose.collapsed").live("click", function(){
+        $(this).removeClass("collapsed");
+        $(this).addClass("expanded");
+      });
+      
+      $(".indent.purpose.expanded").live("click", function(){
+        $(this).removeClass("expanded");
+        $(this).addClass("collapsed");
+      });
     }
     
     this.setupTemplates = function () {
