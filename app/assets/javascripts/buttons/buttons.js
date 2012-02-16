@@ -21,7 +21,6 @@ function Buttons() {
     this.setupAjaxListener();
     this.setupDialogListener();
     this.setupMultibutton();
-    this.setupRemoteButtons();
   }
   
   this.cloneLoadingImg = function(x, color) {
@@ -32,12 +31,6 @@ function Buttons() {
   
   this.getLoadingImg = function() {
     return this.loadingImgClones.shift();
-  }
-  
-  this.setupRemoteButtons = function() {
-    $(".multibutton[disabled=disabled] .button[data-remote=true], .button[disabled=disabled][data-remote=true]").live("mousedown", function(event){
-      console.log("MOUSEDOWN DISABLED REMOTE BUTTON");
-    });
   }
   
   this.setupMultibutton = function() {
@@ -214,6 +207,7 @@ function Buttons() {
   
   this.preventDefaultClick = function(event) {
     event.preventDefault();
+    event.stopImmediatePropagation();
     return false; 
   }
 }
