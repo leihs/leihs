@@ -97,7 +97,7 @@ function SelectionActions() {
   }
   
   this.setupDeleteSelection = function() {
-    $(".actiongroup #delete_selection").live("click", function(event){
+    $(".actiongroup #delete_selection").live("mousedown", function(event){
       // add all selected lines to delete selections buttons data + params for the remote action
       var lines = [];
       var action = $(this).attr("href");
@@ -114,6 +114,7 @@ function SelectionActions() {
       });
       $(this).data("lines", lines);
       $(this).attr("href", action);
+      console.log($(this).attr("href"));
     });
   }
   

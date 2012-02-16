@@ -50,7 +50,7 @@
         :remote => "true",
         :"data-rel" => "tmpl/dialog/order_line/delete",
         :"data-dialog_class" => "order_line",
-        :"data-on_success" => 'List.remove_line({"element": $(this).parents(".line"), "color": "red", "callback": function(){List.update_order(request)}});' ,
+        :"data-on_success" => 'List.remove_line({"element": $(this).parents(".line"), "color": "red", "callback": function(){AcknowledgeOrder.update_order(request)}});' ,
         :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
           .icon.delete
           = _("Delete")
@@ -59,7 +59,7 @@
         :class => "button white open_dialog", 
         :"data-rel" => "tmpl/dialog/calendar/edit_single", 
         :"data-dialog_class" => "calendar",
-        :"data-on_success" => 'List.update_order(request);',
+        :"data-on_success" => 'AcknowledgeOrder.update_order(request);',
         :"data-ref_for_dialog" => "$(this).closest('.line').tmplItem().data" do
         .icon.timerange
         = _("Edit")
