@@ -214,14 +214,6 @@ function List() {
     });
   }
   
-  this.update_order = function(order) {
-    $("#order").html("");
-    $('#order').replaceWith($.tmpl("tmpl/order", order));
-    
-    // restore lines which were selected before re templating
-    SelectionActions.restoreSelectedLines();
-  }
-  
   this.subtract = function(list) {
     // subtract badge
     var badge = $(list).prev(".inlinetabs").find(".tab:first .badge");

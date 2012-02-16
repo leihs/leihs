@@ -96,7 +96,7 @@
             :class => "button white open_dialog",
             :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
             :"data-dialog_class" => "calendar multiple",
-            :"data-on_success" => 'List.update_order(request);',
+            :"data-on_success" => 'AcknowledgeOrder.update_order(request);',
             :"data-ref_for_dialog" => "$('#order').tmplItem().data",
             :id => "edit_selection" do
               .icon.timerange
@@ -125,24 +125,29 @@
       AcknowledgeOrder.checkApproveOrderAvailability();
     }
     
-    this.checkApproveOrderAvailability = function () {
-      if ($("#order").find(".lines").length == 0) {
-        AcknowledgeOrder.disableApproveButton();
-      } else {
-        AcknowledgeOrder.enableApproveButton();
-      }      
+    this.update_order = function(order) {
+      console.log("UPDATE ORDER");
+      // reset the order template with the new data
+      $("#order").html("");
+      $('#order').replaceWith($.tmpl("tmpl/order", order));
+      
+      // update the subtitle numbers
+      var subtitle_text = $("#acknowledge .subtitle").html();
+      subtitle_text.replace(/^\d+/, order.quantity);
+      subtitle_text.replace(/\s\d+/, " "+new MaxRange(order.lines).value);
+      $("#acknowledge .subtitle").html(subtitle_text);
+      
+      
+      // restore lines which were selected before re templating
+      SelectionActions.restoreSelectedLines();
     }
     
-    this.disableApproveButton = function() {
-      $("#approve.multibutton").attr("disabled", true);
-      $("#approve.multibutton").removeAttr("remote");
-      $("#approve.multibutton .button").attr("disabled", true);
-    }
-  
-    this.enableApproveButton = function() {
-      $("#approve.multibutton").attr("disabled", false);
-      $("#approve.multibutton").attr("remote", true);
-      $("#approve.multibutton .button").attr("disabled", false);
+    this.checkApproveOrderAvailability = function () {
+      if ($("#order").find(".lines").length == 0) {
+        Buttons.disable($("#approve.multibutton"));
+      } else {
+        Buttons.enable($("#approve.multibutton"));
+      }      
     }
     
     this.setupPurpose = function () {
