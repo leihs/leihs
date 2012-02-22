@@ -73,8 +73,14 @@ hr {
 }
 
 input, textarea, select, span.select {
-  color: $darkgrey;
+  border: 1px solid $lightergrey;
+  color: $grey;
+  display: inline-block;
   font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  font-size: 1.2em;
+  padding: 0 6px;
+  position: relative;
+  @include borderRadius(4px);
   
   &:not([type=submit]) {
     &:focus, &:hover {

@@ -26,14 +26,7 @@
       }
       
       input{
-        background: white;
-        border: 1px solid $borderlightgrey;
-        font-size: 1.2em;
-        height: 20px;
-        padding-top: 2px;
-        position: relative;
-        text-align: center;
-        @include borderRadius(4px);
+        height: 23px;
       }
       
       &.inventorypool {display: none;}
@@ -99,6 +92,7 @@
         input {
           font-size: 1.4em;
           padding-right: 12px;
+          text-align: center;
           width: 30px;
         }
         
