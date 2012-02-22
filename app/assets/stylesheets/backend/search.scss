@@ -1,0 +1,44 @@
+@import "../shared/mixins";
+@import "../shared/variables";
+
+#search {
+  width: 210px;
+
+  .inner {
+    padding-right: 1px;
+  
+    input[type=text] {
+      width: 102px; 
+    }
+      
+    .icon {
+      left: 123px;
+    }
+    
+    .loading {
+      left: 122px;
+    }
+    
+    .borderright {
+      background: transparent url($image-sprite) no-repeat right -91px;
+      border: none;
+      height: 28px;
+      position: absolute;
+      right: -5px;
+      top: 0;
+      width: 5px;
+    }
+  }
+  
+  &:hover {
+    .borderright {
+      background: transparent url($image-sprite) no-repeat right -120px;
+    }
+  }
+  
+  &.active {
+    .borderright {
+      background: url($image-sprite) repeat-x right -149px;
+    }
+  }
+}

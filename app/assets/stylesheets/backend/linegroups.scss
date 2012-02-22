@@ -1,0 +1,67 @@
+@import "../shared/mixins";
+@import "../shared/variables";
+
+section {
+  
+  .linegroup {
+    background: $highlight-grey;
+    border-top: 1px solid $borderdarkgrey;
+    border-left: 1px solid $bordergrey;
+    border-right: 1px solid $borderlightgrey;
+    border-bottom: 1px solid $borderlightgrey; 
+    display: block;
+    margin: 10px 0 20px 0;
+    padding: 14px 0 6px 0;
+    position: relative;
+    @include borderRadius(6px);
+    @include boxShadow(inset 0 2px 2px #CCC);
+    
+    &.selected {
+      background: $highlight-darkergrey;
+      border: 1px solid $borderdarkgrey;
+      @include boxShadow(0 0 8px #CDD);
+    }
+    
+    .dates {
+      color: $darkgrey;
+      font-size: 1.3em;
+      padding-left: 8px;
+      margin-bottom: 14px;
+      
+      label {
+        cursor: pointer;
+        margin-right: 4px;
+        
+        input {
+          cursor: pointer;
+        }
+      }
+    }
+    
+    .days {
+      color: $grey;
+      font-size: 1.2em;
+      position: absolute;
+      right: 12px;
+      top: 12px;
+    }
+    
+    .lines.list {
+      margin-bottom: 6px;
+      position: relative;
+      
+      .line {
+        background: $highlight-grey;
+        height: 34px; 
+        
+        &:hover {
+          background: white;
+        }
+      }
+    }
+    
+    .add_item {
+      padding-left: 5px;
+    }
+  }
+}

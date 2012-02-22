@@ -1,0 +1,193 @@
+@import "../shared/mixins";
+@import "../shared/variables";
+@import "../backend/variables";
+
+.icon {
+  background: url($backend-image-sprite) no-repeat 14px 14px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+
+a.button .icon {
+  vertical-align: middle;
+}
+
+button .icon {
+  vertical-align: top;
+}
+
+.datepicker.icon { 
+  background-position: -132px 0;
+  height: 14px;
+  width: 14px;
+}
+
+.back.icon {
+  background: url($image-sprite) no-repeat 14px 14px; 
+  background-position: -102px 0;
+  height: 14px;
+  width: 14px;
+  @include opacity(0.6);
+}
+
+.button:not([disabled=disabled]):hover {
+  .back.icon {@include opacity(1.0)}
+}
+
+.forward.icon {
+  background: url($image-sprite) no-repeat 14px 14px; 
+  background-position: -102px -15px;
+  height: 14px;
+  width: 14px;
+  @include opacity(0.6);
+}
+
+.button:not([disabled=disabled]):hover {
+  .forward.icon {@include opacity(1.0)}
+}
+
+.orders.icon {
+  background-position: -112px 0;
+  height: 14px;
+  width: 19px;
+}
+
+.hand_over.icon {
+  background-position: -90px -17px;
+  height: 16px;
+  width: 23px;
+}
+
+.overdue_hand_over.icon {
+  background-position: -147px 0;
+  height: 16px;
+  width: 24px;
+}
+
+.overdue.icon {
+  background-position: -96px 0;
+  height: 16px;
+  width: 15px;
+}
+
+.take_back.icon {
+  background-position: -48px 0;
+  height: 16px;
+  width: 21px;
+}
+
+.overdue_take_back.icon {
+  background-position: -147px -17px;
+  height: 16px;
+  width: 24px;
+}
+
+.edit.icon {
+  background-position: -116px -15px;
+  height: 16px;
+  width: 15px;
+}
+
+.approve.icon {
+  background-position: -74px -17px;
+  height: 15px;
+  width: 15px;
+}
+
+.delete.icon {
+  background-position: -59px -17px;
+  height: 15px;
+  width: 14px;
+}
+
+.send.icon {
+  background-position: -28px 0;
+  height: 14px;
+  width: 19px;
+}
+
+.user.icon {
+  background-position: -42px -17px;
+  height: 16px;
+  width: 16px;
+}
+
+.contract.icon {
+  background-position: -24px -17px;
+  height: 16px;
+  width: 17px;
+}
+
+.item.icon {
+  background-position: 0 -134px;
+  height: 14px;
+  width: 16px;
+}
+
+.valuelist.icon {
+  background-position: -17px -134px;
+  height: 14px;
+  width: 14px;
+}
+
+.retire.icon {
+  background-position: -79px 0;
+  height: 16px;
+  width: 16px;
+}
+
+.model.icon {
+  background-position: -32px -134px;
+  height: 14px;
+  width: 16px;
+}
+
+.return.icon {
+  background-position: -49px -134px;
+  height: 14px;
+  width: 12px;
+}
+
+.view_item.icon {
+  background-position: -62px -134px;
+  height: 14px;
+  width: 16px;
+}
+
+.view_model.icon {
+  background-position: -79px -134px;
+  height: 14px;
+  width: 16px;
+}
+
+.view_order.icon {
+  background-position: -96px -134px;
+  height: 14px;
+  width: 16px;
+}
+
+.timerange.icon {
+  background-position: -113px -134px;
+  height: 14px;
+  width: 16px;
+}
+
+.swap.icon {
+  background-position: -130px -134px;
+  height: 14px;
+  width: 14px;
+}
+
+.jumpto.icon {
+  background: url($image-sprite) no-repeat;
+  background-position: -102px -30px;
+  height: 12px;
+  width: 14px;
+}
+
+.additem.icon {
+  background-position: -160px -134px;
+  height: 14px;
+  width: 16px;
+}

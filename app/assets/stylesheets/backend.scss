@@ -3,109 +3,26 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require shared/reset
+ *= require shared/variables
+ *= require shared/mixins
+ *= require shared/buttons
+ *= require shared/multibutton
+ *= require shared/content
+ *= require shared/datepicker
+ *= require shared/fullcalendar
+ *= require shared/qtips
+ *= require shared/tips
+ *= require shared/tabs
+ *= require shared/topbar
+ *= require shared/dialog
+ *= require shared/search
+ *= require shared/navigation
+ *= require shared/master
+ *= require shared/pagination
+ * 
+ *= require_tree ./backend
+ * 
  *= require_self
- *= depend_on shared/_reset
- *= depend_on shared/_variables
- *= depend_on shared/_mixins
- *= depend_on shared/_buttons
- *= depend_on shared/_multibutton
- *= depend_on shared/_content
- *= depend_on shared/_datepicker
- *= depend_on shared/_fullcalendar
- *= depend_on shared/_qtips
- *= depend_on shared/_tips
- *= depend_on shared/_tabs
- *= depend_on shared/_topbar
- *= depend_on shared/_dialog
- *= depend_on shared/_search
- *= depend_on shared/_navigation
- *= depend_on shared/_master
- *= depend_on shared/_pagination
- *= depend_on backend/_variables
- *= depend_on backend/_topbar
- *= depend_on backend/_navigation
- *= depend_on backend/_search
- *= depend_on backend/_daily
- *= depend_on backend/_icons
- *= depend_on backend/_inlinetabs
- *= depend_on backend/_list
- *= depend_on backend/_ipselection
- *= depend_on backend/_content
- *= depend_on backend/_tips
- *= depend_on backend/_chart
- *= depend_on backend/_search_results
- *= depend_on backend/_add_item
- *= depend_on backend/_selection_actions
- *= depend_on backend/_clearable
- *= depend_on backend/_acknowledge
- *= depend_on backend/_dialog
- *= depend_on backend/dialog/_calendar
- *= depend_on backend/dialog/_acknowledge
- * 
- *= depend_on backend/_linegroups
- *= depend_on backend/_line
- *= depend_on backend/lines/_order
- *= depend_on backend/lines/_hand_over
- *= depend_on backend/lines/_take_back
- *= depend_on backend/lines/_model
- *= depend_on backend/lines/_item
- *= depend_on backend/lines/_contract
- *= depend_on backend/lines/_user
- *= depend_on backend/lines/_order_line
- * 
- *= depend_on backend/lines/cells/_user_name
  * 
 */
-
-@import "shared/reset.scss";
-
-@import "shared/variables.scss";
-@import "shared/mixins.scss";
-
-@import "shared/master.scss";
-@import "shared/buttons.scss";
-@import "shared/multibutton.scss";
-@import "shared/content.scss";
-@import "shared/datepicker.scss";
-@import "shared/fullcalendar.scss";
-@import "shared/navigation.scss";
-@import "shared/search.scss";
-@import "shared/tabs.scss";
-@import "shared/qtips.scss";
-@import "shared/tips.scss";
-@import "shared/topbar.scss";
-@import "shared/dialog.scss";
-@import "shared/pagination.scss";
-@import "backend/variables.scss";
-@import "backend/topbar.scss";
-@import "backend/navigation.scss";
-@import "backend/search.scss";
-@import "backend/_daily.scss";
-@import "backend/_icons.scss";
-@import "backend/_inlinetabs.scss";
-@import "backend/_list.scss";
-@import "backend/_ipselection.scss";
-@import "backend/_content.scss";
-@import "backend/_tips.scss";
-@import "backend/_chart.scss";
-@import "backend/_search_results.scss";
-@import "backend/_add_item.scss";
-@import "backend/_selection_actions.scss";
-@import "backend/_clearable.scss";
-@import "backend/_acknowledge.scss";
-@import "backend/_dialog.scss";
-@import "backend/dialog/_calendar.scss";
-@import "backend/dialog/_acknowledge.scss";
-
-@import "backend/_linegroups.scss";
-@import "backend/_line.scss";
-@import "backend/lines/_order.scss";
-@import "backend/lines/_hand_over.scss";
-@import "backend/lines/_take_back.scss";
-@import "backend/lines/_model.scss";
-@import "backend/lines/_item.scss";
-@import "backend/lines/_contract.scss";
-@import "backend/lines/_user.scss";
-@import "backend/lines/_order_line.scss";
-
-@import "backend/lines/cells/_user_name.scss";

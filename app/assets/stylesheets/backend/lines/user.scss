@@ -1,0 +1,31 @@
+@import "../../shared/mixins";
+@import "../../shared/variables";
+@import "../variables";
+
+.user.line {
+ 
+  li.name {
+    font-weight: bold;
+    line-height: 1.1em;
+    width: 143px;
+  }
+  
+  li.city {
+    width: 70px;
+  }
+  
+  li.phone {
+    width: 190px;
+    
+    span.text {
+      float: left;
+      margin-right: 4px;
+    }
+    
+    span.digits {
+      display: block;
+      float: left;
+      width: 130px;
+    }
+  }
+}

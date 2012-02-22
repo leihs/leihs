@@ -1,0 +1,36 @@
+@import "../shared/mixins";
+@import "../shared/variables";
+
+#daily {
+  
+  h1 {
+    width: 400px;
+  }
+  
+  .subtitle {
+    @include darkGreylinks;
+  }
+  
+  .content_navigation {
+    
+    .day.back {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      margin-right: -5px;
+    }
+    
+    .day.forward {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    
+    .datepicker input {
+      position: absolute;
+      top: 25px;
+      left: -30px;
+      height: 1px;
+      width: 1px;
+      @include opacity(0);
+    }
+  }
+}

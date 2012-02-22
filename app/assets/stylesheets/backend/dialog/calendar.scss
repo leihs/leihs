@@ -1,0 +1,256 @@
+@import "../../shared/mixins";
+@import "../../shared/variables";
+@import "../variables";
+
+.ui-dialog.calendar {
+  
+  .calendar_input {
+    display: inline-block;
+    float: right;
+    position: relative;
+    top: 21px;
+    z-index: 9999;
+    
+    .container {
+      display: block;
+      float: left;
+      position: relative;
+      margin: 20px 16px 2px 0;
+      
+      label {
+        cursor: pointer;
+        color: $grey;
+        position: absolute;
+        top: -16px;
+        left: 0;
+      }
+      
+      input{
+        background: white;
+        border: 1px solid $borderlightgrey;
+        font-size: 1.2em;
+        height: 20px;
+        padding-top: 2px;
+        position: relative;
+        text-align: center;
+        @include borderRadius(4px);
+      }
+      
+      &.inventorypool {display: none;}
+      
+      &.partition {
+        position: absolute;
+        right: 288px;
+        width: 140px;
+        
+        .select {
+          background: white;
+          border: 1px solid #d0d0d0;
+          cursor: pointer;
+          display: block;
+          font-size: 1.2em;
+          height: 19px;
+          padding-top: 4px;
+          position: relative;
+          width: 100%;
+          @include borderRadius(4px);
+          
+          .name {
+            font-weight: bold;
+            padding-left: 6px;
+          }
+          
+          .arrow {
+            background: url($image-sprite) no-repeat -53px -37px;
+            display: block;
+            height: 6px;
+            position: absolute;
+            right: 5px;
+            top: 9px;
+            width: 7px;
+            @include opacity(0.6);
+          }
+        }
+        
+        select {
+          cursor: pointer;
+          font-size: 1.2em;
+          height: 24px;
+          left: 0;
+          padding-right: 8px;
+          position: absolute;
+          top: 0;
+          width: 135px;
+          @include opacity(0);
+        }
+        
+        &:hover {
+          .select {
+            .arrow {
+              @include opacity(1);
+            }
+          }
+        }
+      }
+      
+      &.quantity {
+        &.hidden {display: none;}
+    
+        input {
+          font-size: 1.4em;
+          padding-right: 12px;
+          width: 30px;
+        }
+        
+        a {
+          display: block;
+          height: 12px;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 11px;
+        }
+        
+        .icon {
+          display: block;
+          height: 5px;
+          position: relative;
+          left: 1px;
+          width: 5px;
+          @include opacity(0.6);
+        }
+        
+        a:hover {
+          .icon {
+            @include opacity(1.0);
+          }
+        }
+            
+        .increase .icon {
+          background: url($image-sprite) no-repeat -65px -37px;
+          top: 6px;
+        }
+        
+        .decrease {
+          top: 12px;
+        
+          .icon {
+            top: 3px;
+            background: url($image-sprite) no-repeat -65px -43px;
+          } 
+        }
+      }
+      
+      &.date {
+        margin-right: 0;
+        
+        input {
+          padding-right: 6px;
+          padding-left: 5px;
+          width: 80px;
+        }
+        
+        &>div {
+          float: left;
+           position: relative;
+        }
+        
+        .dash {
+          padding: 7px 6px 0 6px;
+        }
+        
+        label {
+          .icon {
+            position: relative;
+            top: -2px;
+            @include opacity(0.6);
+            &:hover {
+              @include opacity(1.0);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  #fullcalendar {
+    margin-bottom: 10px;
+    position: relative;
+    top: -13px;
+    height: 567px;
+  }
+  
+  .list {
+    
+    .line {
+      
+      &:hover {
+        z-index: 99999;
+      }
+      
+      .selection {
+        display: none;
+      }
+      
+      .name {
+        padding-left: 10px;
+        width: 375px;
+      }
+      
+      .amount {
+        width: 135px;
+      }
+      
+      .actions {
+        text-align: right;
+        width: 160px;
+        
+        .button, .multibutton {
+          @include opacity(1.0);
+        }
+      }
+      
+      &:nth-last-child(1) {
+        border-bottom: none;
+      }
+      
+      &:nth-child(1) {
+        border-top: none;
+      }
+    }
+  }
+  
+  &.multiple {
+    .list {
+      
+      .selection {
+        display: table-cell;
+        padding-left: 10px;
+        width: 10px;
+        
+        input {
+          cursor: pointer;
+          z-index: 99999;
+        }
+      }
+      
+      .name {
+        padding-left: 0;
+        width: 335px;
+      }
+    }
+  }
+  
+  #fullcalendar {
+    
+    .fc-header-left {
+      text-align: left;
+      width: 140px;
+    }
+    
+    .fc-header-right {
+      text-align: left;
+      width: 550px;
+    }
+  }
+}

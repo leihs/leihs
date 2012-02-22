@@ -1,0 +1,76 @@
+@import "../shared/mixins";
+@import "../shared/variables";
+@import "../backend/variables";
+
+.ui-dialog {
+  
+  &.take_back, &.hand_over, &.acknowledge, &.calendar, &.order_line, &.add_item {
+    width: 760px !important;
+  }
+  
+  h1 {
+    width: 500px;
+  }
+  
+  p.subtitle {
+    width: 400px;
+    
+    .date {
+      font-size: 0.9em;
+    }
+  }
+  
+  .flash_message {
+    color: $darkergrey;
+    display: none;
+    border: 1px solid red;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+    margin: 12px 0 16px 0;
+    @include boxShadow (0 0 8px #AAA);
+    
+    &.visible {
+      display: block;
+    }
+  }
+  
+  .loading.icon.big {
+    background: white;
+    display: block;
+    height: 20px;
+    margin: 25px auto 0 auto;
+    width: 20px;
+  }
+  
+  section.comment {
+    padding-top: 24px;
+    position: relative;
+    
+    #comment {
+      border: 1px solid $lightgrey;
+      color: $darkergrey;
+      display: block;
+      font-size: 1.4em;
+      height: 65px;        
+      margin-top: 12px;
+      padding: 10px;
+      vertical-align: top;
+      width: 700px;
+      @include borderRadius(6px);
+      
+      &[disabled=disabled] {
+        border: 1px solid $lightergrey;
+      }
+    }
+        
+    .hint {
+      color: $lightgrey;
+      font-size: 1.4em;
+      position: absolute;
+      top: 48px;
+      left: 14px;
+    }
+  }
+}

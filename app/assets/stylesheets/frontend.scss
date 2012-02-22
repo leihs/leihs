@@ -3,59 +3,24 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require shared/reset
+ *= require shared/variables
+ *= require shared/mixins
+ *= require shared/buttons
+ *= require shared/content
+ *= require shared/datepicker
+ *= require shared/fullcalendar
+ *= require shared/qtips
+ *= require shared/tips
+ *= require shared/tabs
+ *= require shared/dialog
+ *= require shared/search
+ *= require shared/navigation
+ *= require shared/master
+ *= require shared/topbar
+ * 
+ *= require_tree ./frontend
+ * 
  *= require_self
- *= depend_on shared/_reset
- *= depend_on shared/_variables
- *= depend_on shared/_mixins
- *= depend_on shared/_buttons
- *= depend_on shared/_content
- *= depend_on shared/_datepicker
- *= depend_on shared/_fullcalendar
- *= depend_on shared/_qtips
- *= depend_on shared/_tips
- *= depend_on shared/_tabs
- *= depend_on shared/_dialog
- *= depend_on shared/_search
- *= depend_on shared/_navigation
- *= depend_on shared/_master
- *= depend_on shared/_topbar
- *= depend_on frontend/_linelist
- *= depend_on frontend/_start 
- *= depend_on frontend/_aside
- *= depend_on frontend/_models
- *= depend_on frontend/_topfilter
- *= depend_on frontend/_model
- *= depend_on frontend/_user
- *= depend_on frontend/_order
- *= depend_on frontend/_book
- *= depend_on frontend/_ip
- *= depend_on frontend/_tips
  * 
 */
-
-@import "shared/reset.scss";
-@import "shared/variables.scss";
-@import "shared/mixins.scss";
-@import "shared/master.scss";
-@import "shared/buttons.scss";
-@import "shared/content.scss";
-@import "shared/datepicker.scss";
-@import "shared/fullcalendar.scss";
-@import "shared/navigation.scss";
-@import "shared/search.scss";
-@import "shared/tabs.scss";
-@import "shared/qtips.scss";
-@import "shared/tips.scss";
-@import "shared/dialog.scss";
-@import "shared/topbar.scss";
-@import "frontend/linelist.scss";
-@import "frontend/start.scss";
-@import "frontend/aside.scss";
-@import "frontend/models.scss";
-@import "frontend/topfilter.scss";
-@import "frontend/model.scss";
-@import "frontend/user.scss";
-@import "frontend/order.scss";
-@import "frontend/book.scss";
-@import "frontend/ip.scss";
-@import "frontend/tips.scss";

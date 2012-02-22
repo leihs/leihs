@@ -1,0 +1,106 @@
+@import "../shared/mixins";
+@import "../shared/variables";
+@import "../backend/variables";
+
+#topbar {
+  background: url($backend-slices-h) repeat-x;
+  
+  .borderleft {
+    background: url($backend-image-sprite) no-repeat;
+  }
+  
+  .borderright {
+     background: url($backend-image-sprite) no-repeat -7px 0;
+  }
+  
+  .light {
+    background: url($backend-image-sprite) no-repeat 0 -46px;
+  }
+  
+  .logo {
+    background: none;
+    color: #FEE;
+    display: inline-block;
+    font-size: 19px;
+    font-weight: bold;
+    height: 100%;
+    padding-top: 11px;
+    position: absolute;
+    left: 6px;
+    text-shadow: 0 0 1px #555;
+    
+    &:hover {
+      color: #FFF;
+      text-shadow: 0 0 3px #444;
+    }
+  }
+  
+  .navigation {
+  
+    .seperator {
+      background: url($backend-image-sprite) no-repeat -15px 0;
+      left: 4px;
+      width: 2px;
+    }
+    
+    .item {
+    
+      a, a:link, a:visited {
+        color: #dedbd9;
+      }
+      
+      &.active {
+        .anchor {
+          background: url($backend-slices-h) repeat-x 0 -46px;
+          color: white;
+          text-shadow: 0 0 2px #533;
+        }
+      }
+      
+      &:hover {
+      
+        .anchor {
+          background: url($backend-slices-h) repeat-x 0 -46px;
+          color: white;
+          text-shadow: 0 0 2px #533;
+        }
+      }
+      
+      &:nth-last-child(1):hover {
+        .anchor {
+          background: url($backend-image-sprite) no-repeat right -92px;
+        }
+      }
+      
+      .popup {
+        border-left: 1px solid #605e57;
+        border-right: 1px solid #605e57;
+        border-bottom: 1px solid #605e57;
+        border-top: 1px solid #9e9b92;
+        left: -1px;
+        top: 42px;
+      
+        .inner {
+          background: #797772;
+          
+          hr {
+            background: url($backend-slices-h) repeat-x 0 -92px;
+            height: 2px;
+            margin-bottom: 0;  
+          }
+          
+          a {
+            background: none;
+            border-top: none;
+          }
+          
+          a:hover {
+            background: #8b8a84;
+            border-top: none !important;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

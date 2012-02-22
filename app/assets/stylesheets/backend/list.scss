@@ -1,0 +1,106 @@
+@import "../shared/mixins";
+@import "../shared/variables";
+
+.list {
+  display: block;
+  margin-bottom: 26px;
+  
+  .navigation {
+    
+    &:hover {
+      background: white !important;
+      border-bottom: 1px solid $borderlightergrey !important;
+    }
+    
+    .search {
+      padding: 0 0 0 4px !important;
+      width: 300px;
+      
+      input {
+        background: white;
+        border: 1px solid $borderlightgrey;
+        color: $lightgrey !important;
+        display: inline-block;
+        font-size: 1.1em;
+        height: 15px;
+        margin-left: 6px;
+        margin-right: 4px;
+        padding-top: 2px;
+        padding-left: 7px;
+        padding-right: 26px;
+        padding-bottom: 2px;
+        position: relative;
+        width: 100px;
+        @include borderRadius(4px);
+        
+        &:active, &:focus, &.active {
+          color: $darkgrey !important;
+        }
+      }
+      
+      .loading {
+        display: none;
+        height: 14px;
+        left: -26px;
+        margin-right: -14px;
+        position: relative;
+        top: -1px;
+        width: 14px;
+      }
+      
+      .clear_icon {
+        display: inline-block;
+        top: 2px;
+        left: -21px;
+      }
+    }
+    
+    .historical_search {
+      padding: 0 3px 0 0 !important;
+      width: 440px;
+      
+      .hs_container {
+        display: inline-block;        
+        float: right;
+        
+        a, span {
+          color: #8a8a8a;
+          cursor: pointer;
+          display: block;
+          float: left;
+          border: 1px solid $lightgrey;
+          border-top: 1px solid #c0c0c0;
+          background: url($slices-h) repeat-x 0 -252px;
+          padding: 0.3em 0.5em;
+          margin-right: 4px;
+          margin-bottom: 5px;
+          text-align:center;
+          min-width:1em;
+          @include borderRadius(6px);
+          
+          &:hover {
+            background: url($slices-h) repeat-x 0 -284px;
+            color: #515151;
+          }
+          
+          &:active {
+            background: url($slices-h) repeat-x 0 -316px;
+          }
+          
+          &[disabled=disabled], &[disabled=disabled]:hover, &[disabled=disabled]:active {
+            background: url($slices-h) repeat-x 0 -252px;
+            cursor: default;
+            color: #8a8a8a !important;
+          }
+        }
+        
+        .current, .current:hover {
+          background: url($slices-h) repeat-x 0 -252px;
+          border: solid 1px $grey;
+          color: $darkgrey;
+          cursor: default;
+        }
+      }
+    }
+  }
+}

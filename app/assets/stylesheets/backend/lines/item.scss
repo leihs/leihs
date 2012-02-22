@@ -1,0 +1,23 @@
+@import "../../shared/mixins";
+@import "../../shared/variables";
+@import "../variables";
+
+.item.line {
+  
+  li.modelname {
+    font-weight: bold;
+    width: 205px;
+  }
+  
+  li.inventory_code {
+    width: 100px;
+  }
+  
+  li.serial_number {
+    width: 100px;
+  }
+  
+  li.item_status {
+    width: 230px;
+  }
+}

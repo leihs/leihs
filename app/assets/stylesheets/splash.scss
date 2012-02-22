@@ -3,35 +3,21 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
- *= depend_on shared/_reset
- *= depend_on shared/_variables
- *= depend_on shared/_mixins
- *= depend_on shared/_master
- *= depend_on shared/_buttons
- *= depend_on shared/_content
- *= depend_on shared/_qtips
- *= depend_on shared/_tabs
- *= depend_on shared/_dialog
- *= depend_on shared/_navigation
- *= depend_on shared/_topbar
+ *= require shared/reset
+ *= require shared/variables
+ *= require shared/mixins
+ *= require shared/master
+ *= require shared/buttons
+ *= require shared/content
+ *= require shared/qtips
+ *= require shared/tabs
+ *= require shared/dialog
+ *= require shared/navigation
+ *= require shared/topbar
  * 
- *= depend_on splash/_navigation
- *= depend_on splash/_splash
+ *= require splash/navigation
+ *= require splash/splash
+ * 
+ *= require_self
  * 
 */
-
-@import "shared/reset.scss";
-@import "shared/variables.scss";
-@import "shared/mixins.scss";
-@import "shared/master.scss";
-@import "shared/buttons.scss";
-@import "shared/content.scss";
-@import "shared/qtips.scss";
-@import "shared/tabs.scss";
-@import "shared/dialog.scss";
-@import "shared/navigation.scss";
-@import "shared/topbar.scss";
-
-@import "splash/navigation.scss";
-@import "splash/splash.scss";
