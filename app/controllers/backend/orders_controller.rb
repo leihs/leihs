@@ -28,6 +28,7 @@ class Backend::OrdersController < Backend::BackendController
   def show
     # TODO 13** send errors and notices
     respond_to do |format|
+      format.html
       if params[:template] == "value_list"
         require 'prawn/measurement_extensions'
         prawnto :prawn => { :page_size => 'A4',
