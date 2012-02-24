@@ -15,6 +15,7 @@ gem 'coffee-script', '~> 2.2'
 gem 'jquery-rails', '~> 1.0'
 gem 'jquery-tmpl-rails'
 gem 'haml_assets'
+gem "rabl", "~> 0.5.4"
 
 # Gems used only for assets and not required in production environments by default.
 group :assets do
