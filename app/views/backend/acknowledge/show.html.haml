@@ -56,11 +56,15 @@
             %label.datepicker.icon{:for => "add_end_date", :title => _("Open Datepicker")}  
               
         .item_code
-          %input{:type => "text", :name => "barcode_field", :value => _('Code / Name'), :name => "barcode_field", :class => "barcode"}
+          %input{:type => "text", :name => "barcode_field", :value => "", :placeholder => _('Code / Name'), :name => "barcode_field", :class => "barcode"}
           %label{:for => "barcode_field"}
             = _("Quick Add")
           
-        %a.button.white{:href=>"#"}
+        = link_to "/backend/inventory_pools/#{current_inventory_pool.id}/models", :class=> "button white open_dialog add_item",
+        :"data-rel" => "tmpl/dialog/add_item/add_item",
+        :"data-on_success" => '',
+        :"data-ref_for_dialog" => "$('#order').tmplItem().data",
+        :"data-dialog_class" => "add_item" do
           .icon.additem
           = _("Add Item")
           
@@ -96,7 +100,7 @@
             :class => "button white open_dialog",
             :"data-rel" => "tmpl/dialog/calendar/edit_multiple", 
             :"data-dialog_class" => "calendar multiple",
-            :"data-on_success" => 'AcknowledgeOrder.update_order(request);',
+            :"data-on_success" => 'AcknowledgeOrder.update_order(response);',
             :"data-ref_for_dialog" => "$('#order').tmplItem().data",
             :id => "edit_selection" do
               .icon.timerange
@@ -151,7 +155,7 @@
     }
     
     this.setupPurpose = function () {
-      if($(".indent.purpose").height() > 45){
+      if($(".indent.purpose").height() > 70){
         $(".indent.purpose").addClass("collapsed");
         $(".indent.purpose").after("<div class='showmore'></div>");
       }

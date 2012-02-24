@@ -25,61 +25,27 @@ class Backend::ModelsController < Backend::BackendController
 
 ######################################################################
 
-  def index
-=begin
-    # OPTIMIZE 0501
-    params[:sort] ||= 'name'
-    params[:sort_mode] ||= 'ASC'
-    params[:sort_mode] = params[:sort_mode].downcase.to_sym
+  def index(query = params[:query],
+            sort_attr = params[:sort_attr] || 'name',
+            sort_dir = params[:sort_dir] || 'ASC',
+            page = (params[:page] || 1).to_i,
+            category_id = params[:category_id].try(:to_i),
+            borrower_user = params[:user_id].try{|x| current_inventory_pool.users.find(x)},
+            start_date = params[:start_date].try{|x| Date.parse(x)},
+            end_date = params[:end_date].try{|x| Date.parse(x)})
 
-    with = {}
-    search_scope = Model
-    case params[:filter]
-      when "all"
-      when "own"
-        with[:owner_id] = current_inventory_pool.id
-      else
-        with[:inventory_pool_id] = current_inventory_pool.id
-    end
-
-    search_scope = search_scope.sphinx_packages unless params[:packages].blank?
-    with[:compatible_id] = @model.id if @model
-    with[:model_group_id] = @categories.collect(&:self_and_descendant_ids).flatten.uniq if @categories
-    with[:sphinx_internal_id] = @group.models.collect(&:id) if @group
-
-    search_scope = search_scope.sphinx_with_unpackaged_items(current_inventory_pool.id) if params[:source_path]
-
-#TODO 0124 - unless we access search_scope (that is don't do lazy evaluation, as we're doing here)
-#            search_scope.search will sometimes return no results. This seems to be a timing issue/a race.
-#            See features/search.feature. We hope that this will be fixed in thinking_sphinx 2/rails 3 and
-#            therefore, since we have no reports of this problem occuring in "real life" are deferring the
-#            solution of this race until after migrating to rails 3. Knock on wood :-/
-    #no-sphinx#
-    @models = search_scope.search params[:query], { :index => "model",
-                                                    :star => true, :page => params[:page], :per_page => $per_page,
-                                                    :with => with,
-                                                    :order => params[:sort], :sort_mode => params[:sort_mode] }
-
-    if params[:source_path] # we are in a greybox
-      if @line # this is for swap model
-        @start_date = @line.start_date
-        @end_date = @line.end_date
-        @user = @line.document.user            
-      else # this is for add new model
-        @start_date = Date.parse(params[:start_date])
-        @end_date = Date.parse(params[:end_date])
-        @user = current_inventory_pool.users.find(params[:user_id])
-      end
-    end
-
-    @show_categories_tree = (@category.nil? and params[:packages].blank?)
-
+    models = Model.search2(query).
+              filter2(:inventory_pool_id => current_inventory_pool.id).
+              order("#{sort_attr} #{sort_dir}").
+              paginate(:page => page, :per_page => 10)
+    
     respond_to do |format|
-      format.html
-      format.js { search_result_rjs(@models) }
-      format.auto_complete { render :layout => false }
+      format.json { render :json => models.as_json(:with => {:availability => {:inventory_pool => current_inventory_pool,
+                                                                               :user => borrower_user,
+                                                                               :start_date => start_date,
+                                                                               :end_date => end_date }}, 
+                                                   :include => :images )}
     end
-=end
   end
 
   def show

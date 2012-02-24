@@ -22,6 +22,7 @@
 //= require daily-navigator/daily-navigator
 //= require_tree ./lines
 //= require_tree ./availability
+//= require_tree ./add_item
 
 /////////// Templates /////////////
 //= require_tree ./tmpl

@@ -16,11 +16,11 @@ module Availability
     #  end.sum
     #end
 
-    def total_borrowable_items_for_user(user)
+    def total_borrowable_items_for_user(user, inventory_pool = nil)
       inventory_pools.collect do |ip|
-        partitions.in(ip).by_groups(user.groups).sum(:quantity).to_i +
-          partitions.in(ip).by_group(Group::GENERAL_GROUP_ID, false)
-      end.sum
+        next if inventory_pool and ip != inventory_pool
+        partitions.in(ip).by_groups(user.groups).sum(:quantity).to_i + partitions.in(ip).by_group(Group::GENERAL_GROUP_ID, false)
+      end.compact.sum
     end
 
     def availability_periods_for_user(user, with_total_borrowable = false) #, start_date = Date.today, end_date = Availability::Change::ETERNITY)

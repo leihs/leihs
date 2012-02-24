@@ -17,11 +17,11 @@
   max-width: 410px;
   
   .ui-tooltip-content {
-    border-color: white;
+    border-color: $borderdarkergrey;
     border-width: 2px;
-    background-color: $highlight-grey;
+    background-color: white;
     color: $darkergrey;
-    padding: 10px;
+    padding: 10px 14px;
     @include borderRadius(6px);
     @include boxShadow (0 0 10px #888);
   }

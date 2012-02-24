@@ -16,7 +16,6 @@ $(document).ready(function(){
     $(this).find(".hint").fadeOut();
     $(this).find(".focus").focus();
   });
-  
 });
 
 var Dialog = new Dialog();
@@ -43,7 +42,11 @@ function Dialog() {
     }
     
     this.autofocus = function(dialog) {
-      $(dialog).find(".focus").focus();
+      if($(dialog).find(".focus").val() != "") {
+        $(dialog).find(".focus").focus().select();        
+      } else {
+        $(dialog).find(".focus").focus();
+      }
     }
     
     this.checkPosition = function() {
@@ -94,6 +97,16 @@ function Dialog() {
           Dialog.checkOnScroll = true;
         }
       }
+    }
+    
+    this.rescale = function(dialog) {
+      $(dialog).data("total_height", $(dialog).outerHeight());
+      $(dialog).data("total_scalable_height", $(dialog).find(".scalable").outerHeight());
+      Dialog.checkScale(dialog);
+      Dialog.checkPosition(dialog);
+      $(dialog).parent().stop(true, true).animate({
+        height: $(dialog).data("total_height")
+      });
     }
     
     this.setup = function(_dialog) {
@@ -154,5 +167,4 @@ function Dialog() {
           $(this).remove();
         });
     }
-    
 }

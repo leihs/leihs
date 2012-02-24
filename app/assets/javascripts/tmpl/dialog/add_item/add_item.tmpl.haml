@@ -1,0 +1,27 @@
+%h1= _("Add Item")
+
+.navigation
+  %button.button.white.close_dialog
+    .icon.return
+    = _("Back")
+
+{{if $item.error}}
+.flash_message.visible
+  ${$item.error}
+{{else}}
+.flash_message
+{{/if}}
+
+.clear
+
+%section.filters
+  .left
+    = text_field_tag 'query', nil, :placeholder => _("Search..."), :class => "focus"
+    .icon.search      
+
+%img{:src => "/assets/loading.gif", :class => "loading icon big"}
+
+%section.categories
+  
+%ul.models.list.invisible
+  

@@ -1,0 +1,13 @@
+%ul.line{:class => "${type}"}
+  .container
+  
+    %li.modelname
+      ${name}
+      
+    %li.manufacturer
+      ${manufacturer}
+
+  %li.availability
+    ${total_rentable_in_stock}
+    = "/"
+    ${total_rentable}

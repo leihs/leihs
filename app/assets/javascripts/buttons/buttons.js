@@ -64,10 +64,13 @@ function Buttons() {
   this.openDialog = function(event) {
     var _this = $(event.currentTarget);
     var _trigger = $(_this).parent().hasClass("alternatives") ? $(_this).closest(".multibutton") : _this;
+    var data = (_this.data("ref_for_dialog") != undefined) ? eval(_this.data("ref_for_dialog")) : {};
+    var template = (_this.data("rel") != undefined) ? _this.data("rel") : "";
+    
     
     Dialog.add({
       trigger: _trigger,
-      content: $.tmpl(_this.data("rel"), eval(_this.data("ref_for_dialog")), {action: _this.attr("href"), on_success: _this.data("on_success")}),
+      content: $.tmpl(template, data, {action: _this.attr("href"), on_success: _this.data("on_success")}),
       dialogClass: _this.data("dialog_class")
     });
     
@@ -96,7 +99,7 @@ function Buttons() {
     Buttons.addLoading($(event.currentTarget));
   }
   
-  this.ajaxSuccess = function(event, request, settings) {
+  this.ajaxSuccess = function(event, response, settings) {
     var _this = $(event.currentTarget);
     Buttons.enable(_this);
     Buttons.removeLoading(_this);

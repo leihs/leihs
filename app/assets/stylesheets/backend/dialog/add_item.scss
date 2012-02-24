@@ -1,7 +1,49 @@
+@import "../../shared/variables";
+@import "../../shared/mixins";
+
 .ui-dialog.add_item {
   
-  .list.filters {
+  .filters {
+    border-bottom: 1px solid $bordergrey;
+    display: block;
+    height: 32px;
     position: relative;
     margin-top: 22px;
+    
+    .left {
+      float :left;
+      
+      input {
+        height: 22px;
+        padding-right: 25px;
+        width: 130px;
+      }
+      
+      .search.icon {
+        position: relative;
+        left: -22px;
+        top: -1px;
+      }
+    }
+  }
+  
+  .models.list {
+    &:invisible { @include opacity(0.0); }
+    &:visible { @include opacity(1.0); }
+    
+    .container {
+      width: 400px;
+      
+      .model.line {
+        .modelname {
+          width: 290px;
+        }
+      }      
+    }
+    
+    .availability {
+      text-align: center;
+      width: 75px;
+    }
   }
 }
