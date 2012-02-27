@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.3'
+gem 'rails', '3.2.1'
 #tmp# gem 'builder', '~> 3.0' 
 #tmp# gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
@@ -13,15 +13,15 @@ gem 'haml', '~> 3.1'
 gem 'sass', '~> 3.1'
 gem 'coffee-script', '~> 2.2'
 gem 'jquery-rails', '~> 1.0'
-gem 'jquery-tmpl-rails'
+gem 'jquery-tmpl-rails', :git => "git://github.com/Jaen/jquery-tmpl-rails.git"
 gem 'haml_assets'
 gem "rabl", "~> 0.5.4"
 
 # Gems used only for assets and not required in production environments by default.
 group :assets do
-  gem 'sass-rails', '~> 3.1'
-  gem 'coffee-rails', '~> 3.1'
-  gem 'uglifier', '~> 1.1'
+  gem 'sass-rails', '~> 3.2'
+  gem 'coffee-rails', '~> 3.2'
+  gem 'uglifier', '~> 1.2'
 end
 
 gem 'rails_autolink', '~> 1.0'
@@ -45,7 +45,7 @@ gem 'fastercsv', '~> 1.5.4'
 
 #. Let's stop using PDF.
 gem 'prawn', '~> 0.12.0'
-gem 'prawnto', '~> 0.0.4'
+gem 'prawnto', '~> 0.1'
 
 gem 'nested_set', '~> 1.6.8'
 gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
@@ -53,7 +53,7 @@ gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 gem 'geocoder', '~> 1.1'
 
 group :profiling, :development do
-	gem 'newrelic_rpm', '~> 3.3'
+  gem 'newrelic_rpm', '~> 3.3'
 end
 
 group :development do 
@@ -65,16 +65,16 @@ group :cucumber, :development do
 end
 
 group :cucumber, :test do
-	gem 'cucumber-rails', '~> 1.2', :require => false
-	gem 'database_cleaner', '~> 0.7', :require => false
-	gem 'rspec', '~> 2.7', :require => false
-	gem 'rspec-rails', '~> 2.7', :require => false
-	gem 'nokogiri', '~> 1.5.0'
-	gem 'capybara', '~> 1.1'
+  gem 'cucumber-rails', '~> 1.2', :require => false
+  gem 'database_cleaner', '~> 0.7', :require => false
+  gem 'rspec', '~> 2.7', :require => false
+  gem 'rspec-rails', '~> 2.7', :require => false
+  gem 'nokogiri', '~> 1.5.0'
+  gem 'capybara', '~> 1.1'
   gem 'launchy', '~> 2.0.5'
 end
 
 #group :culerity do
-#	# http://github.com/langalex/culerity - enable testing of JavaScript views
-#	gem "culerity"
+# # http://github.com/langalex/culerity - enable testing of JavaScript views
+# gem "culerity"
 #end
