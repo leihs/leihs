@@ -10,7 +10,7 @@
 #
 # this class should never be used directly, the main purpose is to provide a join association between visits and contract_lines 
 class VisitLine < ActiveRecord::Base
-  set_primary_key :contract_line_id
+  self.primary_key = :contract_line_id
   
   #belongs_to :user
   #belongs_to :inventory_pool

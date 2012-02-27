@@ -8,7 +8,7 @@
 #
 # Reading a MySQL View
 class Visit < ActiveRecord::Base
-  set_primary_key :id
+  self.primary_key = :id
   
   belongs_to :user
   belongs_to :inventory_pool
