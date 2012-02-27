@@ -5,7 +5,7 @@ module Availability
     def availability_quantities(sd = Date.today)
       # we keep the changes in an instance variable to avoid re-hit the same memcached key during the same request 
       @changes ||= model.availability_changes_in(inventory_pool).changes
-      aq = @changes.select {|x| x.date >= sd and x.date <= end_date }.collect(&:quantities).flatten
+      aq = @changes.select {|x| x.date >= sd and x.date <= end_date }.flat_map(&:quantities)
       aq.select {|x| x.out_document_lines and x.out_document_lines[self.class.to_s].try(:include?, id)}
     end
 

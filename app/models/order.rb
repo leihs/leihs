@@ -307,7 +307,7 @@ class Order < Document
   
   # TODO assign based on the order_lines' inventory_pools
   def split_and_assign_to_inventory_pool
-      inventory_pools = lines.collect(&:inventory_pool).flatten.uniq
+      inventory_pools = lines.flat_map(&:inventory_pool).uniq
       inventory_pools.each do |ip|
         if ip == inventory_pools.first
           self.inventory_pool = ip

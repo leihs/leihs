@@ -67,7 +67,7 @@
   
     //////////////////////////////////////////////////////////////////////
   
-    - unless (lines = current_user.orders.submitted.collect(&:lines).flatten).empty?
+    - unless (lines = current_user.orders.submitted.flat_map(&:lines)).empty?
       %hr
       %h3
         = _("Requested Items")

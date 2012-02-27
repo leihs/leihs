@@ -93,7 +93,7 @@ class InventoryPool < ActiveRecord::Base
 #######################################################################
 
   def used_root_categories
-    models.map(&:categories).flatten.map{|x| x.ancestors.roots }.flatten.uniq
+    models.flat_map(&:categories).flat_map{|x| x.ancestors.roots }.uniq
   end
   
 #######################################################################
