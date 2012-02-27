@@ -34,17 +34,13 @@ class Backend::ModelsController < Backend::BackendController
             start_date = params[:start_date].try{|x| Date.parse(x)},
             end_date = params[:end_date].try{|x| Date.parse(x)})
 
-    models = Model.search2(query).
+    @models = Model.search2(query).
               filter2(:inventory_pool_id => current_inventory_pool.id).
               order("#{sort_attr} #{sort_dir}").
               paginate(:page => page, :per_page => 10)
     
     respond_to do |format|
-      format.json { render :json => models.as_json(:with => {:availability => {:inventory_pool => current_inventory_pool,
-                                                                               :user => borrower_user,
-                                                                               :start_date => start_date,
-                                                                               :end_date => end_date }}, 
-                                                   :include => :images )}
+      format.json 
     end
   end
 

@@ -29,12 +29,13 @@ class AddItem
           user_id: data.user.id
           start_date: start_date
           end_date: end_date
-          image_thumb: 1
+          with:
+            availability: 1
       
   @load_model_data: ()->
     ajax_options = arguments[0]
-    $.extend ajax_options, data: format:"json"
-    $.extend ajax_options, success: AddItem.setup_models
+    $.extend true, ajax_options, data: format:"json"
+    $.extend true, ajax_options, success: AddItem.setup_models
     $.ajax ajax_options
     
   @setup_models: (data)->
