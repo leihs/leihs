@@ -48,7 +48,7 @@ gem 'prawn', '~> 0.12.0'
 gem 'prawnto', '~> 0.1'
 
 gem 'nested_set', '~> 1.6.8'
-gem 'acts-as-dag', '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
+gem 'acts-as-dag', :git => "git://github.com/jrust/acts-as-dag.git" #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 
 gem 'geocoder', '~> 1.1'
 

@@ -6,6 +6,12 @@ GIT
       rails (>= 3.2.0)
 
 GIT
+  remote: git://github.com/jrust/acts-as-dag.git
+  revision: 3e1b01d23116d7083a136302c4bde859f4222d39
+  specs:
+    acts-as-dag (2.5.7)
+
+GIT
   remote: https://github.com/halloffame/will_paginate.git
   revision: c16fc5229623c7e8514e9c953a7296168cc02cf6
   specs:
@@ -42,7 +48,6 @@ GEM
     activesupport (3.2.1)
       i18n (~> 0.6)
       multi_json (~> 1.0)
-    acts-as-dag (2.5.5)
     addressable (2.2.7)
     arel (3.0.2)
     barby (0.5.0)
@@ -219,7 +224,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts-as-dag (~> 2.5.5)
+  acts-as-dag!
   barby (~> 0.5.0)
   capybara (~> 1.1)
   coffee-rails (~> 3.2)
