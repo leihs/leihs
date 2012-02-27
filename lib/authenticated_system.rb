@@ -113,4 +113,16 @@ module AuthenticatedSystem
         self.current_user = user
       end
     end
+
+####################################################  
+#sellittf# Extending authentication with role check
+
+  def require_role(role, inventory_pool = nil)
+    if current_user.has_role?(role, inventory_pool)
+      true
+    else
+      access_denied
+    end
+  end
+
 end

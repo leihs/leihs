@@ -76,12 +76,6 @@ ActionMailer::Base.smtp_settings = {
 }
 ActionMailer::Base.default :charset => 'utf-8'
 
-# E-Mail uncaught exceptions to the devs.
-#rails3#
-### ExceptionNotifier.exception_recipients = %w( ramon.cahenzli@zhdk.ch errors@jeromemueller.ch )
-### ExceptionNotifier.sender_address = %( no-reply@zhdk.ch )
-### ExceptionNotifier.email_prefix = "[leihs:ERROR] "
-
 ######################################################
 # Settings
 
