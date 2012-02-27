@@ -22,10 +22,30 @@ class AccessRight < ActiveRecord::Base
 
   validates_presence_of :user, :role
   validates_uniqueness_of :inventory_pool_id, :scope => :user_id
-  validate :validates_inventory_pool
+  validate do
+    if role.name == 'admin'
+      errors.add(:base, _("The admin role cannot be scoped to an inventory pool")) unless inventory_pool.nil?
+    else
+      errors.add(:base, _("Inventory Pool is missing")) if inventory_pool.nil?
+    end
+  end
 
-  before_validation :remove_old, :on => :create
-  before_save :adjust_levels
+  before_validation(:on => :create) do
+    self.inventory_pool = nil if role.name == 'admin'
+    unless user.access_rights.empty?
+      old_ar = user.access_rights.where( :inventory_pool_id => inventory_pool.id ).first if inventory_pool
+      user.access_rights.delete(old_ar) if old_ar
+    end
+  end
+
+  before_save do
+    case role.name
+      when "admin", "customer"
+        self.access_level = nil
+      when "manager"
+        self.access_level = [access_level.to_i, 1].max
+    end
+  end
   
   scope :not_suspended, where("suspended_until IS NULL OR suspended_until < CURDATE()")
   scope :not_admin, where("role_id > 1") #TODO: replace hardcoded 1 with Role name (Role.admin)
@@ -47,35 +67,6 @@ class AccessRight < ActiveRecord::Base
 
   def deactivate
     update_attributes(:deleted_at => DateTime.now)
-  end
-
-####################################################################
-
-  private
-
-  def validates_inventory_pool
-    if role.name == 'admin'
-      errors.add(:base, _("The admin role cannot be scoped to an inventory pool")) unless inventory_pool.nil?
-    else
-      errors.add(:base, _("Inventory Pool is missing")) if inventory_pool.nil?
-    end
-  end
-
-  def remove_old
-    self.inventory_pool = nil if role.name == 'admin'
-    unless user.access_rights.empty?
-      old_ar = user.access_rights.where( :inventory_pool_id => inventory_pool.id ).first if inventory_pool
-      user.access_rights.delete(old_ar) if old_ar
-    end
-  end
-
-  def adjust_levels
-    case role.name
-      when "admin", "customer"
-        self.access_level = nil
-      when "manager"
-        self.access_level = [access_level.to_i, 1].max
-    end
   end
 
 end

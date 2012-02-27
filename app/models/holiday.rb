@@ -14,9 +14,7 @@ class Holiday < ActiveRecord::Base
   
   scope :future, where(['end_date >= ?', Date.today])
   
-  before_save :end_date_is_bigger_than_start_date
-  
-  def end_date_is_bigger_than_start_date
+  before_save do
     self.end_date = self.start_date if self.end_date < self.start_date
   end
   
