@@ -1,5 +1,5 @@
 describe "Merging multiple lines availability in total and for partitions", ->
-  
+
   beforeEach ->
     @inventory_pool = {id: 1, closed_days: [0,6], name: "AV-Ausleihe"}
     @lines = []
@@ -7,57 +7,57 @@ describe "Merging multiple lines availability in total and for partitions", ->
       inventory_pool: @inventory_pool   
       partitions: [{group_id: null, quantity: 4}, {group_id: 1, quantity: 2}, {group_id: 2, quantity: 2}]
       availability: 
-        [["2012-01-01", 0, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-02", 0, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-03", 0, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-12", 2, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 2}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-15", 4, [{group_id: null, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
+        [["2012-01-01", 0, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-02", 0, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-03", 0, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-12", 2, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 2}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-15", 4, [{group_id: 0, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
         ]
     @lines[1] = availability_for_inventory_pool:
       inventory_pool: @inventory_pool   
-      partitions: [{group_id: null, quantity: 4}, {group_id: 1, quantity: 2}, {group_id: 2, quantity: 2}]
+      partitions: [{group_id: 0, quantity: 4}, {group_id: 1, quantity: 2}, {group_id: 2, quantity: 2}]
       availability: 
-        [["2012-01-01", 0, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-02", 2, [{group_id: null, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-04", 1, [{group_id: null, in_quantity: 1}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-12", 2, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 2}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-15", 4, [{group_id: null, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
+        [["2012-01-01", 0, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-02", 2, [{group_id: 0, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-04", 1, [{group_id: 0, in_quantity: 1}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-12", 2, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 2}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-15", 4, [{group_id: 0, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
         ]
     @lines[2] = availability_for_inventory_pool:
       inventory_pool: @inventory_pool   
-      partitions: [{group_id: null, quantity: 4}, {group_id: 1, quantity: 2}, {group_id: 2, quantity: 2}]
+      partitions: [{group_id: 0, quantity: 4}, {group_id: 1, quantity: 2}, {group_id: 2, quantity: 2}]
       availability: 
-        [["2012-01-01", 0, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-02", 3, [{group_id: null, in_quantity: 3}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-12", 2, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 2}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-15", 2, [{group_id: null, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
+        [["2012-01-01", 0, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-02", 3, [{group_id: 0, in_quantity: 3}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-12", 2, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 2}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-15", 2, [{group_id: 0, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
         ]
     @lines[3] = availability_for_inventory_pool:
       inventory_pool: @inventory_pool   
-      partitions: [{group_id: null, quantity: 4}, {group_id: 1, quantity: 2}, {group_id: 2, quantity: 2}]
+      partitions: [{group_id: 0, quantity: 4}, {group_id: 1, quantity: 2}, {group_id: 2, quantity: 2}]
       availability:
-        [["2012-01-01", 0, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-02", 1, [{group_id: null, in_quantity: 1}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-12", 2, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 2}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-15", 4, [{group_id: null, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
+        [["2012-01-01", 0, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-02", 1, [{group_id: 0, in_quantity: 1}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-12", 2, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 2}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-15", 4, [{group_id: 0, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
         ]
     @lines[4] = availability_for_inventory_pool:
       inventory_pool: @inventory_pool   
-      partitions: [{group_id: null, quantity: 4}, {group_id: 1, quantity: 2}, {group_id: 2, quantity: 2}]
+      partitions: [{group_id: 0, quantity: 4}, {group_id: 1, quantity: 2}, {group_id: 2, quantity: 2}]
       availability: 
-        [["2012-01-01", 0, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-02", 4, [{group_id: null, in_quantity: 4}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-12", 2, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 2}, {group_id: 2, in_quantity: 0}]],
-         ["2012-01-15", 4, [{group_id: null, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
+        [["2012-01-01", 0, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-02", 4, [{group_id: 0, in_quantity: 4}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-12", 2, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 2}, {group_id: 2, in_quantity: 0}]],
+         ["2012-01-15", 4, [{group_id: 0, in_quantity: 2}, {group_id: 1, in_quantity: 0}, {group_id: 2, in_quantity: 2}]]
         ]
     @lines[5] = availability_for_inventory_pool:
       inventory_pool: @inventory_pool   
-      partitions: [{group_id: null, quantity: 4}, {group_id: 1, quantity: 2}]
+      partitions: [{group_id: 0, quantity: 4}, {group_id: 1, quantity: 2}]
       availability: 
-        [["2012-01-01", 0, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 0}]],
-         ["2012-01-02", 2, [{group_id: null, in_quantity: 2}, {group_id: 1, in_quantity: 0}]],
-         ["2012-01-12", 2, [{group_id: null, in_quantity: 0}, {group_id: 1, in_quantity: 2}]],
-         ["2012-01-15", 2, [{group_id: null, in_quantity: 2}, {group_id: 1, in_quantity: 0}]]
+        [["2012-01-01", 0, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 0}]],
+         ["2012-01-02", 2, [{group_id: 0, in_quantity: 2}, {group_id: 1, in_quantity: 0}]],
+         ["2012-01-12", 2, [{group_id: 0, in_quantity: 0}, {group_id: 1, in_quantity: 2}]],
+         ["2012-01-15", 2, [{group_id: 0, in_quantity: 2}, {group_id: 1, in_quantity: 0}]]
         ]
        
     @merged_lines_availabilities = new MultipleMergedLinesAvailabilities @lines
@@ -133,3 +133,8 @@ describe "Merging multiple lines availability in total and for partitions", ->
           found_partition = true if partition.group_id == 2
           expect(partition.in_quantity == 0).toBeTruthy("Summed nested partition with group_id 2 for the 2012-01-15 is not correct") if partition.group_id == 2
     expect(found_partition).toBeTruthy("Partition not found")
+    
+  it "is not containing a nested partition with group_id == null (at least id has to be 0)", ->
+    for av_date in @merged_lines_availabilities.availability
+      for partition in av_date[2]
+        expect(partition.group_id != null).toBeTruthy("Group_ID of null not allowed (at least 0)")
