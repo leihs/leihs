@@ -21,6 +21,7 @@ class MultipleMergedLinesAvailabilities
       for partition in line.availability_for_inventory_pool.partitions
         existing_partition = (existing_partition for existing_partition in merged_lines_availabilities.partitions when partition.group_id is existing_partition.group_id)[0]
         if not existing_partition?
+          if partition.group_id == null then partition.group_id = 0
           merged_lines_availabilities.partitions.push partition
     
     # go trough all selected lines to just collect the possible existing availability dates first (before merging anything)
@@ -51,7 +52,7 @@ class MultipleMergedLinesAvailabilities
           # force all partitions to become available as well
           for partition in merged_lines_availabilities.partitions
             new_partition = 
-              group_id: partition.group_id
+              group_id: if (partition.group_id == null) then 0 else partition.group_id
               in_quantity: 1
             new_entry[2].push new_partition
           break # for selected_line in selected_lines
@@ -71,31 +72,34 @@ class MultipleMergedLinesAvailabilities
             # set new_entry partitions by merging partitions (involve all unified partitions)
             for partition in merged_lines_availabilities.partitions
               new_partition = 
-                group_id: partition.group_id
+                group_id: if (partition.group_id == null) then 0 else partition.group_id
                 in_quantity: 0
               new_entry[2].push new_partition
             break
           else # new entry has total quantity greater then 0
             # set new_entry partitions by merging partitions (involve all unified partitions)
             for partition in merged_lines_availabilities.partitions
-              last_av_entry_maching_partitions = (last_av_partition for last_av_partition in last_av_entry[2] when partition.group_id is last_av_partition.group_id)
-              last_av_entry_maching_partition = if last_av_entry_maching_partitions.length > 0 then last_av_entry_maching_partitions[0] else undefined
-              new_entry_matching_partitions = (new_entry_partition for new_entry_partition in new_entry[2] when partition.group_id is new_entry_partition.group_id)
-              new_entry_matching_partition = if new_entry_matching_partitions.length > 0 then new_entry_matching_partitions[0] else undefined
+              last_av_entry_matching_partition = undefined
+              for last_av_partition in last_av_entry[2] 
+                if partition.group_id is last_av_partition.group_id
+                  last_av_entry_matching_partition = last_av_partition
+              new_entry_matching_partition = undefined
+              for new_entry_partition in new_entry[2] 
+                if partition.group_id is new_entry_partition.group_id
+                  new_entry_matching_partition = new_entry_partition
               if new_entry_matching_partition? # partition entry alerady existing for the new entry
-                if not last_av_entry_maching_partition?
+                if not last_av_entry_matching_partition?
                   new_entry_matching_partition.in_quantity = 0
                 else 
-                  new_entry_matching_partition.in_quantity = if new_entry_matching_partition.in_quantity == 0 or last_av_entry_maching_partition.in_quantity == 0 then 0 else 1
+                  new_entry_matching_partition.in_quantity = if new_entry_matching_partition.in_quantity == 0 or last_av_entry_matching_partition.in_quantity == 0 then 0 else 1
               else # new partition not matching any partition inside of the new entry
-                computed_in_quantity = if not last_av_entry_maching_partition? or last_av_entry_maching_partition.in_quantity <= 0 then 0 else 1
+                computed_in_quantity = if not last_av_entry_matching_partition? or last_av_entry_matching_partition.in_quantity <= 0 then 0 else 1
                 new_partition = 
-                  group_id: partition.group_id
+                  group_id: if (partition.group_id == null) then 0 else partition.group_id
                   in_quantity: computed_in_quantity
                 new_entry[2].push new_partition
               
-              
-      # got entry push it to result
+      # push new entry to the results
       merged_lines_availabilities.availability.push new_entry
     
     return merged_lines_availabilities
