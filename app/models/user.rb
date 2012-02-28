@@ -47,8 +47,8 @@ class User < ActiveRecord::Base
   has_many :categories, :through => :models, :uniq => true # (nested)
   # OPTIMIZE 0907
   def all_categories
-    @c = categories.collect(&:ancestors)
-    [categories, @c].flatten.uniq
+    ancestors = categories.collect(&:ancestors)
+    [categories, ancestors].flatten.uniq
   end
 
 #temp#  has_many :templates, :through => :inventory_pools
@@ -251,14 +251,14 @@ class User < ActiveRecord::Base
     unless visits_to_remind.empty?
       begin
         Notification.remind_user(self, visits_to_remind)
-        histories.create(:text => _("Reminded %{q} items for contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
+        histories.create(:text => _("Reminded %{q} items for contracts %{c}") % { :q => visits_to_remind.sum(:quantity),
                                                                                 :c => visits_to_remind.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
                        :user_id => reminder_user,
                        :type_const => History::REMIND)
         puts "Reminded: #{self.name}"
         return true
       rescue Exception => exception
-        histories.create(:text => _("Unsuccessful reminder of %{q} items for contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
+        histories.create(:text => _("Unsuccessful reminder of %{q} items for contracts %{c}") % { :q => visits_to_remind.sum(:quantity),
                                                                                 :c => visits_to_remind.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
                        :user_id => reminder_user,
                        :type_const => History::REMIND)
@@ -287,7 +287,7 @@ class User < ActiveRecord::Base
     unless visits_to_remind.empty?
       begin
         Notification.deadline_soon_reminder(self, visits_to_remind)
-        histories.create(:text => _("Deadline soon reminder sent for %{q} items on contracts %{c}") % { :q => visits_to_remind.collect(&:quantity).sum,
+        histories.create(:text => _("Deadline soon reminder sent for %{q} items on contracts %{c}") % { :q => visits_to_remind.sum(:quantity),
                                                                                 :c => visits_to_remind.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
                          :user_id => reminder_user,
                          :type_const => History::REMIND)

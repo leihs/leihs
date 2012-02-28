@@ -191,9 +191,7 @@ describe InventoryPool do
       end
 
       def make_sure_no_end_date_is_identical_to_any_other!(open_contracts)
-        last_date = open_contracts.flat_map(&:contract_lines).
-                                   map(&:end_date).
-                                   max { |a,b| a <=> b }
+        last_date = open_contracts.flat_map(&:contract_lines).map(&:end_date).max { |a,b| a <=> b }
         open_contracts.flat_map(&:contract_lines).each do |cl|
           cl.end_date = last_date  
           last_date = cl.end_date.tomorrow
