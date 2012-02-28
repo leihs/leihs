@@ -1,18 +1,18 @@
 # coding: UTF-8
 
-# Persona:  Mike
-# Job:      Inventory Manager, 
+# Persona:  Pius
+# Job:      Inventory
 #
 require 'factory'
 
 module Persona
   
-  class Mike
+  class Ramon
     
-    NAME = "Mike"
-    LASTNAME = "H."
+    NAME = "Pius"
+    LASTNAME = ""
     PASSWORD = "password"
-    EMAIL = "mike@zhdk.ch"
+    EMAIL = "ramon.cahn@zhdk.ch"
     
     def initialize
       ActiveRecord::Base.transaction do 
