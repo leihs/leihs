@@ -4,22 +4,28 @@ $borderdarkergrey: #82817a;
 $borderlightgrey: #d0d0d0;
 $borderlightergrey: #e5e5e5;
 $borderhighlightred: #fe9393;
+
 $grey: #616161;
 $darkgrey: #515151;
 $darkergrey: #3a3a3a;
 $lightgrey: #999;
 $lightergrey: #CCC;
+
 $highlight-grey: #f8f8f8;
 $highlight-darkgrey: #EBEBEB;
 $highlight-darkergrey: #e0dfde;
 $highlight-red: rgba(254, 102, 102, 0.6);
 $highlight-darkred: #FF4C4D; 
-$lightred: #FFAAAA;
+
 $red: #DD2222;
+$lightred: #FFAAAA;
 $green: #87e96e;
-$lightblue: #6091d9;
 $blue: #1d62c9;
-$image-sprite: "image-sprite.png";
-$slices-h: "slices-h.png";
+$lightblue: #6091d9;
+
+$image-sprite: image-path("image-sprite.png");
+$slices-h: image-path("slices-h.png");
+$background: image-path("background.png");
+
 $inner-padding-left: 12px;
 $inner-padding-right: 12px;
