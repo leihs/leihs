@@ -1,6 +1,8 @@
 class FrontendController < ApplicationController
 
-  require_role "customer"
+  before_filter do
+    require_role "customer"
+  end
 
   layout "frontend"
 

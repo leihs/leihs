@@ -45,13 +45,13 @@ describe InventoryPool do
         hand_over_visits = @ip.visits.hand_over
         # We should have as many events as there are different start dates
         hand_over_visits.count.should equal(
-          open_contracts.map(&:contract_lines).flatten.map(&:start_date).uniq.count )
+          open_contracts.flat_map(&:contract_lines).map(&:start_date).uniq.count )
     
         # When we combine all the contract_lines of all the events,
         # then we should get the set of contract_lines that are
         # associated with the users' contracts
-        hand_over_visits.map(&:contract_lines).flatten.count.
-          should equal( open_contracts.map(&:contract_lines).flatten.count )
+        hand_over_visits.flat_map(&:contract_lines).count.
+          should equal( open_contracts.flat_map(&:contract_lines).count )
       end
 
 
@@ -111,7 +111,7 @@ describe InventoryPool do
 
       def make_sure_no_start_date_is_identical_to_any_other!(open_contracts)
         previous_date = Date.tomorrow
-        open_contracts.map(&:contract_lines).flatten.each do |cl|
+        open_contracts.flat_map(&:contract_lines).each do |cl|
           cl.start_date = previous_date  
           cl.end_date   = cl.start_date + 2.days 
           previous_date = previous_date.tomorrow
@@ -144,13 +144,13 @@ describe InventoryPool do
     
         # We should have as many events as there are different start dates
         take_back_visits.count.should equal(
-          open_contracts.map(&:contract_lines).flatten.map(&:end_date).uniq.count )
+          open_contracts.flat_map(&:contract_lines).map(&:end_date).uniq.count )
     
         # When we combine all the contract_lines of all the events,
         # then we should get the set of contract_lines that are
         # associated with the users' contracts
-        take_back_visits.map(&:contract_lines).flatten.count.
-          should equal( open_contracts.map(&:contract_lines).flatten.count )
+        take_back_visits.flat_map(&:contract_lines).count.
+          should equal( open_contracts.flat_map(&:contract_lines).count )
       end
 
 
@@ -191,10 +191,10 @@ describe InventoryPool do
       end
 
       def make_sure_no_end_date_is_identical_to_any_other!(open_contracts)
-        last_date = open_contracts.map(&:contract_lines).
-                                   flatten.map(&:end_date).
+        last_date = open_contracts.flat_map(&:contract_lines).
+                                   map(&:end_date).
                                    max { |a,b| a <=> b }
-        open_contracts.map(&:contract_lines).flatten.each do |cl|
+        open_contracts.flat_map(&:contract_lines).each do |cl|
           cl.end_date = last_date  
           last_date = cl.end_date.tomorrow
           cl.save

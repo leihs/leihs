@@ -1,6 +1,10 @@
 class Backend::WorkdaysController < Backend::BackendController
 
-  before_filter :load_workdays, :load_holidays
+  before_filter do
+    @workday = current_inventory_pool.workday
+    @holidays = current_inventory_pool.holidays.future
+    @holiday = Holiday.new
+  end
 
   def index
   end
@@ -27,14 +31,5 @@ class Backend::WorkdaysController < Backend::BackendController
   
   def update_workday(day, is_open)
     @workday.update_attributes(params[:day] => is_open) if Workday::DAYS.include?(params[:day])    
-  end
-  
-  def load_workdays
-    @workday = current_inventory_pool.workday
-  end
-  
-  def load_holidays
-    @holidays = current_inventory_pool.holidays.future
-    @holiday = Holiday.new
   end
 end

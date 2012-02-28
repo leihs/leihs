@@ -1,7 +1,13 @@
 class Backend::BackendController < ApplicationController
-  require_role "manager", :for_current_inventory_pool => true
   
-  before_filter :init
+  before_filter do
+    unless logged_in?
+      store_location
+      redirect_to :controller => '/session', :action => 'new' and return
+    else
+      require_role "manager", current_inventory_pool
+    end
+  end
   
   layout 'backend'
  
@@ -265,14 +271,6 @@ class Backend::BackendController < ApplicationController
   
   def is_owner?
     @item.nil? or (current_inventory_pool.id == @item.owner_id)
-  end
-  
-  
-  def init
-    unless logged_in?
-      store_location
-      redirect_to :controller => '/session', :action => 'new' and return
-    end
   end
   
 end

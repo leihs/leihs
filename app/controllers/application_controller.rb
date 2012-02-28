@@ -4,12 +4,8 @@
 class ApplicationController < ActionController::Base
 
   #rails3# TODO upgrade restful-authentication or use devise authentication system instead ??
-  # AuthenticatedSystem must be included for RoleRequirement, and is provided by installing acts_as_authenticates and running 'script/generate authenticated account user'.
   require File.join(Rails.root, 'lib', 'authenticated_system.rb')
   include AuthenticatedSystem
-  # You can move this into a different controller, if you wish. This module gives you the require_role helpers, and others.
-  require File.join(Rails.root, 'lib', 'role_requirement_system.rb')
-  include RoleRequirementSystem
 
   before_filter :set_gettext_locale
 

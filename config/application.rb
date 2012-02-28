@@ -3,9 +3,12 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-# If you have a Gemfile, require the gems listed there, including any gems
-# you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env) if defined?(Bundler)
+if defined?(Bundler)
+  # If you precompile assets before deploying to production, use this line
+  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  # If you want your assets lazily compiled in production, use this line
+  # Bundler.require(:default, :assets, Rails.env)
+end
 
 module Leihs
   class Application < Rails::Application
@@ -43,6 +46,9 @@ module Leihs
 
     # Enable IdentityMap for Active Record, to disable set to false or remove the line below.  
     # config.active_record.identity_map = true
+
+    # Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '1.0'
   end
 end
 
@@ -75,12 +81,6 @@ ActionMailer::Base.smtp_settings = {
   :domain => "beta.ausleihe.zhdk.ch"
 }
 ActionMailer::Base.default :charset => 'utf-8'
-
-# E-Mail uncaught exceptions to the devs.
-#rails3#
-### ExceptionNotifier.exception_recipients = %w( ramon.cahenzli@zhdk.ch errors@jeromemueller.ch )
-### ExceptionNotifier.sender_address = %( no-reply@zhdk.ch )
-### ExceptionNotifier.email_prefix = "[leihs:ERROR] "
 
 ######################################################
 # Settings

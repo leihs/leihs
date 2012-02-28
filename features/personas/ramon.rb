@@ -36,7 +36,7 @@ module Persona
     end
     
     def create_inventory_pool
-      description = "EINIGE WICHTIGE HINWEISE:\n\n- Ausleihdauer: max. 1-2 Wochen. Längere Ausleihen nur in Ausnahmefällen und ohne Gewähr!\n\n- Pünktlichkeit: Den anderen zuliebe: Bitte die Ausleihen IMMER am abgemachten Datum zurückbringen; es gibt nichts Schlimmeres als wenn der/die Nächste die bestellten Geräte wegen verspäteter Rückgabe nicht abholen kann.\n\n- Anfragen für Ausleihverlängerungen immer per mail an: ausleihe.pz@zhdk.ch\n\n- Bei Nichtbedarf bitte die Stornierung der gemachten Reservierungen per Mail beantragen; so werden die Geräte wieder für alle verfügbar.\n\n\nÖffnungzeiten:\n\nMontag bis Freitag 8.30 - 9.30 Uhr\nund 12.30 - 16.30 Uhr\n\nZimmer K11 (Untergeschoss)\nim Hauptgebäude\nAustellungsstrasse 60\nCH-8005 Zürich\n\nTelefon: 043 446 44 45\nEmail: ausleihe.pz@zhdk.ch\n\nProduktionszentrum AV-Technik\n  \n"
+      description = "Wichtige Hinweise.."
       contact_details = "AV Verleih  /  ZHdK\nausleihe.pz@zhdk.ch\n+41 43 446 44 45"
       Factory(:inventory_pool, :name => "AV-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Audio Visueller Verleih", :email => "ausleihe@zhdk.ch", :shortname => "AVA")
     end
