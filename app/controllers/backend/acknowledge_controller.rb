@@ -31,7 +31,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   
   def show
     # OLD ? @source_path = request.env['REQUEST_URI']
-    @order.to_backup unless @order.has_backup?
     add_visitor(@order.user)
     
     @order_json = order_json_response
@@ -58,7 +57,6 @@ class Backend::AcknowledgeController < Backend::BackendController
   def reject
     if request.post? and params[:comment]
       @order.status_const = Order::REJECTED
-      @order.backup = nil
       @order.save
       Notification.order_rejected(@order, params[:comment], true, current_user )
       
@@ -73,15 +71,6 @@ class Backend::AcknowledgeController < Backend::BackendController
     end
   end 
 
-  def restore
-    if request.post?
-      @order.from_backup      
-      redirect_to :action => 'index'        
-    else
-      params[:layout] = "modal"
-    end
-  end 
-  
   def delete
       params[:layout] = "modal"
   end
