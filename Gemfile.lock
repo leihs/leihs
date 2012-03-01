@@ -169,6 +169,8 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.7)
       slop (>= 2.4.4, < 3)
+    pry-rails (0.1.6)
+      pry
     rabl (0.6.0)
       activesupport (>= 2.3.14)
       multi_json (~> 1.0.3)
@@ -297,6 +299,7 @@ DEPENDENCIES
   prawn (~> 0.12.0)
   prawnto (~> 0.1)
   pry
+  pry-rails
   rabl (~> 0.6)
   rails (= 3.2.1)
   rails_autolink (~> 1.0)

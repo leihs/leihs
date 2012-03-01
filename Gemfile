@@ -64,6 +64,7 @@ group :test, :development do
   gem 'factory_girl_rails', "~> 1.2"
   gem 'faker'
   gem 'pry'
+  gem 'pry-rails'
   gem 'spork'
 	gem 'cucumber-rails', '~> 1.2', :require => false
 	gem 'database_cleaner', '~> 0.7', :require => false

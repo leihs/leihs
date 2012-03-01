@@ -41,15 +41,6 @@ Leihs::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  # Uses Pry as console
-  silence_warnings do
-    begin
-      require 'pry'
-      IRB = Pry
-      rescue LoadError
-    end
-  end
-
 end
 
 # For some reason, this setting does not propagate from environment.rb
