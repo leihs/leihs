@@ -1,1 +1,0 @@
-<td><%= (current_user.access_right_for(inventorypool).nil?) ? inventorypool.name : link_to(inventorypool.name, backend_inventory_pool_path(inventorypool)) %></td>

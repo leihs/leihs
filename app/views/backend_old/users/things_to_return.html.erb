@@ -1,9 +1,0 @@
-
-<% if @user_things_to_return.size > 0 %>
-<h3><%= _("Currently has the following things") %></h3>
-  <ul style="margin-left: 20px">
-  <% @user_things_to_return.each do | thing | %>
-    <li style="list-style-type:square"><%= thing %></li>
-  <% end %>
-  </ul>
-<% end %>

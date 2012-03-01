@@ -1,3 +1,0 @@
-page.replace 'list_table', :partial => 'search_results'
-page.replace_html 'flash', flash_content
-flash.discard

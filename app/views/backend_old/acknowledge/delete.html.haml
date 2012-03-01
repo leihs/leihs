@@ -1,8 +1,0 @@
-%h2= _("Do you really want to delete the object?")
-%br
-.buttons
-  = link_to( icon_tag("cancel") + " " + _("Delete"),
-             backend_inventory_pool_user_acknowledge_path(current_inventory_pool, @order.user, @order),
-             :class => 'negative', :method => :delete, :target=> '_top')
-
-  = cancel_popup_button(_("Cancel") )
