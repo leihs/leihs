@@ -36,9 +36,9 @@ module Persona
     end
     
     def create_inventory_pool
-      description = "Wichtige Hinweise.."
-      contact_details = "AV Verleih  /  ZHdK\nausleihe.pz@zhdk.ch\n+41 43 446 44 45"
-      Factory(:inventory_pool, :name => "AV-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Audio Visueller Verleih", :email => "ausleihe@zhdk.ch", :shortname => "AVA")
+      description = "Wichtige Hinweise...\n Bitte die Gegenstände rechtzeitig zurückbringen"
+      contact_details = "A Verleih  /  ZHdK\nav@zhdk.ch\n+41 00 00 00 00"
+      Factory(:inventory_pool, :name => "A-Ausleihe", :description => description, :contact_details => contact_details, :contract_description => "Ausleihe", :email => "av@zhdk.ch", :shortname => "AA")
     end
 
   end  
