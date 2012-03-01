@@ -1,7 +1,7 @@
 # coding: UTF-8
 
 # Persona:  Pius
-# Job:      Inventory
+# Job:      Inventory Pool Manager
 #
 require 'factory'
 
@@ -10,9 +10,10 @@ module Persona
   class Ramon
     
     NAME = "Pius"
-    LASTNAME = ""
+    LASTNAME = "C."
     PASSWORD = "password"
-    EMAIL = "ramon.cahn@zhdk.ch"
+    EMAIL = "pius@zh-dk.ch"
+    INVENTORY_POOL_NAME = "A-Ausleihe"
     
     def initialize
       ActiveRecord::Base.transaction do 
