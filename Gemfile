@@ -11,9 +11,9 @@ gem 'haml', '~> 3.1'
 gem 'sass', '~> 3.1'
 gem 'coffee-script', '~> 2.2'
 gem 'jquery-rails', '~> 1.0'
-gem 'jquery-tmpl-rails', :git => "git://github.com/Jaen/jquery-tmpl-rails.git"
+gem 'jquery-tmpl-rails', '~> 0.1.2' #:git => "git://github.com/Jaen/jquery-tmpl-rails.git"
 gem 'haml_assets'
-gem "rabl", "~> 0.5.4"
+gem "rabl", "~> 0.6"
 
 gem 'rails_autolink', '~> 1.0'
 gem 'will_paginate', :git => "https://github.com/halloffame/will_paginate.git" # fixing count distinct, alternatives: .count(:id, :distinct => true)
@@ -27,7 +27,8 @@ gem 'ruby-net-ldap', '~> 0.0.4', :require => 'net/ldap'
 gem 'fastercsv', '~> 1.5.4'
 gem 'prawn', '~> 0.12.0'
 gem 'prawnto', '~> 0.1'
-gem 'nested_set', '~> 1.6.8'
+
+gem 'nested_set', '~> 1.7'
 gem 'acts-as-dag', :git => "git://github.com/jrust/acts-as-dag.git" #tmp# '~> 2.5.5' # TOOD use instead ?? gem 'dagnabit', '2.2.6'
 gem 'geocoder', '~> 1.1'
 #tmp# gem 'squeel', '~> 0.8.4'

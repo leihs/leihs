@@ -22,7 +22,7 @@ class Document < ActiveRecord::Base
   end
 
   def quantity
-    lines.collect(&:quantity).sum
+    lines.sum(:quantity)
   end
 
 ################################################################

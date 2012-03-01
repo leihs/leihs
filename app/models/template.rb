@@ -40,7 +40,7 @@ class Template < ModelGroup
   end  
   
   def total_quantity
-    model_links.collect(&:quantity).sum
+    model_links.sum(:quantity)
   end
   
   

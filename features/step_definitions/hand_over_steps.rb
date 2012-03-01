@@ -36,7 +36,7 @@ end
 
 Then /he sees ([0-9]+) line(s?) with a total quantity of ([0-9]+)$/ do |total, s, quantity |
    @visits.size.should == total.to_i
-   s = @visits.collect(&:quantity).sum
+   s = @visits.sum(:quantity)
    s.should == quantity.to_i 
 end
 

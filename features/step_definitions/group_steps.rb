@@ -10,7 +10,7 @@ end
 Then /^(\w+) item(s?) of that model should be available in group '([^"]*)'( only)?$/ do |n, plural, group_name, exclusivity|
   n = to_number(n)
   @group = @inventory_pool.groups.find_by_name(group_name)
-  all_groups = [Group::GENERAL_GROUP_ID] + @inventory_pool.groups.map(&:id)
+  all_groups = [Group::GENERAL_GROUP_ID] + @inventory_pool.group_ids
   quantities = @model.partitions.in(@inventory_pool).current_partition
   quantities[@group.id].to_i.should == to_number(n)
 

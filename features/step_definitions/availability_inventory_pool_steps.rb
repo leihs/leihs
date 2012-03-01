@@ -17,7 +17,7 @@ end
 Then /it asks for ([0-9]+) item(s?)$/ do |number, s|
   total = 0
   @orders.each do |o|
-    total += o.lines.collect(&:quantity).sum
+    total += o.lines.sum(:quantity)
   end
   total.should == number.to_i
 end
