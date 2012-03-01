@@ -30,7 +30,28 @@ module Persona
     end
     
     def create_minimal_inventory
-      
+      setup_beamer
+      setup_camera
+    end
+    
+    def setup_beamer
+      @beamer_category = Factory(:category, :name => "Beamer")
+      @beamer = Factory(:model, :name => "Sharp Beamer",
+                                :manufacturer => "Sharp", 
+                                :description => "Beamer, geeignet für alle Verwendungszwecke.", 
+                                :hand_over_note => "Beamer brauch ein VGA Kabel!", 
+                                :maintance_period => 0)
+      @beamer.model_links.create :model_group => @beamer_category
+    end
+    
+    def setup_camera
+      @camera_category = Factory(:category, :name => "Cameras")
+      @camera = Factory(:model, :name => "Kamera Nikon X12",
+                                :manufacturer => "Nikon", 
+                                :description => "Super Kamera.", 
+                                :hand_over_note => "Kamera brauch Akkus!", 
+                                :maintance_period => 0)
+      @camera.model_links.create :model_group => @camera_category
     end
 
   end  

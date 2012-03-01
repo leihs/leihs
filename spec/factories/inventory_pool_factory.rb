@@ -7,7 +7,7 @@ FactoryGirl.define do
     contract_description { name }
     email Faker::Internet.email
     contract_url { email }
-    shortname { name[0..2].uppercase }
+    shortname { name[0..2].upcase }
   end
 
 end
