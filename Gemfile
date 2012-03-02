@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.2'
 #tmp# gem 'builder', '~> 3.0' 
 #tmp# gem 'i18n', '~> 0.6.0' # Need this explicitly, otherwise can't deploy
 
