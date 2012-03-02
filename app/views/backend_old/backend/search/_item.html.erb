@@ -1,3 +1,0 @@
-<td><%= link_to item.inventory_code, backend_inventory_pool_item_path(current_inventory_pool, item) %></td>
-<td><%= item.model.name %></td>
-<td><%= _("Broken") + " / " if item.is_broken? %><%= _("Incomplete") + " / " if item.is_incomplete? %><%= _("In Stock") if item.in_stock? %></td>

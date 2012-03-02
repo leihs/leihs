@@ -34,8 +34,6 @@ class Order < Document
   has_many :order_lines, :dependent => :destroy, :order => 'start_date ASC, end_date ASC, created_at ASC'
   has_many :models, :through => :order_lines, :uniq => true
 
-  has_one :backup, :class_name => "Backup::Order", :dependent => :destroy #TODO delete when nullify # TODO acts_as_backupable
-
   validate :validates_order_lines
 
   acts_as_commentable
@@ -62,7 +60,7 @@ class Order < Document
   default_scope order('created_at ASC')
   
   scope :unsubmitted, where(:status_const => Order::UNSUBMITTED)
-  scope :submitted, where(:status_const => Order::SUBMITTED).includes(:backup) # OPTIMIZE N+1 select problem
+  scope :submitted, where(:status_const => Order::SUBMITTED) # OPTIMIZE N+1 select problem
   scope :approved, where(:status_const => Order::APPROVED) # TODO 0501 remove
   scope :rejected, where(:status_const => Order::REJECTED)
 
@@ -123,7 +121,6 @@ class Order < Document
   def approve(comment, send_mail = true, current_user = nil, force = false)
     if approvable? || force
       self.status_const = Order::APPROVED
-      remove_backup
       save
 
       contract = user.get_current_contract(self.inventory_pool)
@@ -209,44 +206,8 @@ class Order < Document
     end
   end  
   
- 
   def deletable_by_user?
-    !has_backup? and status_const == Order::SUBMITTED 
-  end
-    
-  # TODO acts_as_backupable ##################
-  def has_backup?
-    !self.backup.nil?
-  end
-
-  def to_backup
-    self.backup = Backup::Order.new(attributes)
-    
-    order_lines.each do |ol|
-      backup.order_lines.create(ol.attributes)
-    end
-
-    save
-  end  
- 
-  def from_backup
-    self.attributes = backup.attributes.reject {|key, value| key == "order_id" }
-    
-    order_lines.clear
-    
-    backup.order_lines.each do |ol|
-      order_lines.create(ol.attributes.reject {|key, value| key == "order_id" }) 
-    end
-        
-    histories.each {|h| h.destroy if h.created_at > backup.created_at}
-    
-    remove_backup
-    
-    save
-  end
-  
-  def remove_backup
-    self.backup = nil
+    status_const == Order::SUBMITTED 
   end
 
   def waiting_for_hand_over

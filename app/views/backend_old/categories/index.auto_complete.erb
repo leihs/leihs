@@ -1,8 +1,0 @@
-<ul>
-<% for category in @categories %>
-	<li id="<%= dom_id(category) %>" style="clear: both;">
-		<div class="name"><b><%=h category %></b></div>
-		<span class="informal"><i>id: <%=h category.id %></i></span>
-	</li>
-<% end %>
-</ul>

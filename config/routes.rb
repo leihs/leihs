@@ -232,8 +232,6 @@ Leihs::Application.routes.draw do
             #post :swap_model_line # TODO remove soon
             post :time_lines # TODO remove soon
             post :update_lines 
-            get :restore
-            post :restore
             get :swap_user
             post :swap_user
             get :change_purpose
