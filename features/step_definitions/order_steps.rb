@@ -4,11 +4,11 @@ Given /there is (only )?an order by (a customer named )?'(.*)'/ do | only, bla, 
   firstname, lastname = who.split(" ") if who.include?(" ")
   
   if @inventory_pool
-    @user = Factory.create_user( { :login => who, :firstname => firstname, :lastname => lastname }, { :inventory_pool => @inventory_pool } )
-    @order = Factory.create_order( :user_id => @user.id, :inventory_pool => @inventory_pool )    
+    @user = LeihsFactory.create_user( { :login => who, :firstname => firstname, :lastname => lastname }, { :inventory_pool => @inventory_pool } )
+    @order = LeihsFactory.create_order( :user_id => @user.id, :inventory_pool => @inventory_pool )    
   else
-    @user = Factory.create_user(:login => who, :firstname => firstname, :lastname => lastname)
-    @order = Factory.create_order({:user_id => @user.id})    
+    @user = LeihsFactory.create_user(:login => who, :firstname => firstname, :lastname => lastname)
+    @order = LeihsFactory.create_order({:user_id => @user.id})    
   end
 end
 
@@ -32,15 +32,15 @@ end
 
 Given "there are only $total orders" do | total |
   total.to_i.times do | i |
-    user = Factory.create_user(:login => "user_#{i}")
-    order = Factory.create_order(:user_id => user.id).submit
+    user = LeihsFactory.create_user(:login => "user_#{i}")
+    order = LeihsFactory.create_order(:user_id => user.id).submit
   end
 end
 
 Given "the list of submitted orders contains $total elements" do | total |
   Order.submitted.count.should == 0
-  user = Factory.create_user
-  total.to_i.times { Factory.create_order(:user_id => user.id).submit }
+  user = LeihsFactory.create_user
+  total.to_i.times { LeihsFactory.create_order(:user_id => user.id).submit }
   Order.submitted.count.should == total.to_i
 end
 
@@ -90,7 +90,7 @@ end
 # TODO test as Given 
 When "$who asks for $quantity '$what' from $from" do | who, quantity, what, from |
   from = Date.today.strftime("%d.%m.%Y") if from == "today"
-  @order.order_lines << Factory.create_order_line(:model_name => what,
+  @order.order_lines << LeihsFactory.create_order_line(:model_name => what,
                                                   :quantity => quantity,
                                                   :start_date => from,
 						  :inventory_pool => @inventory_pool)
@@ -162,7 +162,7 @@ Then /([0-9]+) order(s?) exist(s?) for inventory pool (.*)/ do |size, s1, s2, ip
 end
 
 Then "customer '$user' gets notified that his order has been submitted" do |who|
-  user = Factory.create_user({:login => who })
+  user = LeihsFactory.create_user({:login => who })
   user.notifications.size.should == 1
   user.notifications.first.title = "Order submitted"
 end

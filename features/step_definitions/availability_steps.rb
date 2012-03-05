@@ -5,7 +5,7 @@ end
 Given "a reservation exists for $quantity '$model' from $from to $to" \
 do |quantity, model, from, to|
   model = Model.find_by_name(model)
-  order = Factory.create_order({:user_id => Factory.create_user.id})
+  order = LeihsFactory.create_order({:user_id => LeihsFactory.create_user.id})
   order.add_line(quantity.to_i, model, nil, to_date(from), to_date(to))
   order.submit.should == true
   order.lines.size.should >= 1
@@ -18,7 +18,7 @@ do |quantity, model, from, to|
   to   = to_date(to)
 
   model = Model.find_by_name(model)
-  @contract = Factory.create_user.
+  @contract = LeihsFactory.create_user.
 	              get_current_contract(model.items.first.inventory_pool)
   @contract.add_line(quantity.to_i, model, nil, from, to)
   @contract.save

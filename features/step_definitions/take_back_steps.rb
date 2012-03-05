@@ -1,9 +1,9 @@
 Given "a signed contract by '$who' for item '$inventory_code'" \
 do | who, inventory_code |
-  user     = Factory.create_user( :login => who ); user.save
+  user     = LeihsFactory.create_user( :login => who ); user.save
   item     = Item.find_by_inventory_code( inventory_code )
-  contract = Factory.create_contract( :user_id => user.id )
-  contract.contract_lines << Factory.create_contract_line(:model_name => item.model.name,
+  contract = LeihsFactory.create_contract( :user_id => user.id )
+  contract.contract_lines << LeihsFactory.create_contract_line(:model_name => item.model.name,
                                                           :quantity => 1 )
   cl = contract.contract_lines.first
   cl.update_attribute(:item, item) # don't validate - allow creation of *invalid* records!

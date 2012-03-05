@@ -36,7 +36,7 @@ When /^I log in as '([^']*)' with password '([^']*)'$/ do |who,password|
 end
 
 Given /(his|her) password is '([^']*)'$/ do |foo,password|
-  Factory.create_db_auth( :login => @user.login,
+  LeihsFactory.create_db_auth( :login => @user.login,
 			  :password => password)
 end
 

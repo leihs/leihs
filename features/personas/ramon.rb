@@ -3,7 +3,7 @@
 # Persona:  Ramon
 # Job:      Leihs Developer and Administrator
 #
-require 'factory'
+require 'leihs_factory'
 
 module Persona
   
@@ -24,10 +24,10 @@ module Persona
     end
     
     def create_minimal_setup
-      Factory.create_default_languages
-      Factory.create_default_authentication_systems
-      Factory.create_default_roles
-      Factory.create_default_building
+      LeihsFactory.create_default_languages
+      LeihsFactory.create_default_authentication_systems
+      LeihsFactory.create_default_roles
+      LeihsFactory.create_default_building
     end
     
     def create_admin_user

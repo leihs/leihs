@@ -5,7 +5,7 @@ Given /^the admin$/ do
 end
 
 Given /^a customer "([^"]*)"( exists)?$/ do |name,foo|
-  @user = Factory.create_user({:login => name },
+  @user = LeihsFactory.create_user({:login => name },
                               {:role => 'customer'})
   r = @user.access_rights.first
   r.save
@@ -18,7 +18,7 @@ end
 Given /a (\w+) '([^']*)' for inventory pool '([^']*)'( with access level )?(\d)?$/ do |role,who,ip_name,foo,access_level|
   step "inventory pool '#{ip_name}'"
   access_level = access_level ? access_level.to_i : 0
-  @user = Factory.create_user({:login => who},
+  @user = LeihsFactory.create_user({:login => who},
                               {:role => role,
                               :inventory_pool => @inventory_pool,
                               :password => 'pass',
@@ -35,7 +35,7 @@ end
 #end
 
 Given /^he is a (\w+)$/ do |role|
-  @role = Factory.define_role @user, @inventory_pool, role
+  @role = LeihsFactory.define_role @user, @inventory_pool, role
 end
 
 Given "he has access level $level" do |level|
@@ -52,10 +52,10 @@ Given "customer '$who' has access to inventory pool $ip_s" do |who, ip_s|
   inventory_pools = ip_s.split(" and ").collect { | ip_name |
     InventoryPool.find_by_name ip_name
   }
-  user = Factory.create_user({:login => who}, #, :password => "pass"
+  user = LeihsFactory.create_user({:login => who}, #, :password => "pass"
 			     { :inventory_pool => inventory_pools.first })
   inventory_pools.each { |ip|
-    Factory.define_role(user, ip, "customer" )
+    LeihsFactory.define_role(user, ip, "customer" )
     user.inventory_pools.include?(ip).should == true
   }
 end
@@ -77,5 +77,5 @@ do |name,email,filler,ip|
 end
 
 Given "'$name' has password '$pass'" do |name,pass|
-  Factory.create_db_auth(:login => name, :password => pass)
+  LeihsFactory.create_db_auth(:login => name, :password => pass)
 end

@@ -4,7 +4,7 @@
 # nil within this module. A lot could be improved/simplified here,
 # if it actually worked.
 #
-module Factory
+module LeihsFactory
 
   ##########################################
   #
@@ -72,14 +72,14 @@ module Factory
     options[:role] ||= "customer"
     options[:access_level] ||= 0
     options[:inventory_pool] = InventoryPool.first unless options.has_key?(:inventory_pool)
-    Factory.define_role(u, options[:inventory_pool], options[:role], options[:access_level])
+    LeihsFactory.define_role(u, options[:inventory_pool], options[:role], options[:access_level])
 
     u.save
 
     # if a password is provided, then we create the user in a way that she can log in
     # for real
     if options[:password]
-      Factory.create_db_auth(:login => u.login, :password => options[:password])
+      LeihsFactory.create_db_auth(:login => u.login, :password => options[:password])
     end
 
     u
@@ -143,10 +143,10 @@ module Factory
     }
     o = Order.create default_attributes.merge(attributes)
     options[:order_lines].times do |i|
-        model = Factory.create_model(:name => "model_#{i}" )
+        model = LeihsFactory.create_model(:name => "model_#{i}" )
         quantity = rand(3) + 1
         quantity.times {
-            Factory.create_item( :model => model,
+            LeihsFactory.create_item( :model => model,
                                  :inventory_pool => o.inventory_pool )
         }
         d = [ self.random_future_date, self.random_future_date ]
@@ -166,10 +166,10 @@ module Factory
     }
     c = Contract.create default_attributes.merge(attributes)
     options[:contract_lines].times { |i|
-        model = Factory.create_model(:name => "model_#{i}" )
+        model = LeihsFactory.create_model(:name => "model_#{i}" )
         quantity = rand(3) + 1
         quantity.times {
-          Factory.create_item(:model => model,
+          LeihsFactory.create_item(:model => model,
                               :inventory_pool => c.inventory_pool)
         }
         d = [ self.random_future_date, self.random_future_date ]
@@ -236,7 +236,7 @@ module Factory
   # OrderLine
   # 
   def self.create_order_line(options = {})
-      model = Factory.create_model :name => options[:model_name]
+      model = LeihsFactory.create_model :name => options[:model_name]
 
       if options[:start_date]
         start_date = parsedate(options[:start_date])
@@ -259,7 +259,7 @@ module Factory
   # ContractLine
   # 
   def self.create_contract_line(options = {})
-      model = Factory.create_model :name => options[:model_name]
+      model = LeihsFactory.create_model :name => options[:model_name]
 
       if options[:start_date]
         start_date = parsedate(options[:start_date])
@@ -338,19 +338,19 @@ module Factory
   #
   def self.create_dataset_simple
     
-    inventory_pool = Factory.create_inventory_pool_default_workdays
+    inventory_pool = LeihsFactory.create_inventory_pool_default_workdays
         
     # Create Manager
-    user = Factory.create_user( {:login => 'inv_man'},
+    user = LeihsFactory.create_user( {:login => 'inv_man'},
                                 {:role => "manager",
                                  :inventory_pool => inventory_pool})
     # Create Customer
-    customer = Factory.create_user( {:login => 'customer'},
+    customer = LeihsFactory.create_user( {:login => 'customer'},
                                     {:role => "customer",
                                      :inventory_pool => inventory_pool})
     # Create Model and Item
-    model = Factory.create_model(:name => 'holey parachute')
-    Factory.create_item(:model => model, :inventory_pool => inventory_pool)
+    model = LeihsFactory.create_model(:name => 'holey parachute')
+    LeihsFactory.create_item(:model => model, :inventory_pool => inventory_pool)
     
     [inventory_pool, user, customer, model]
   end
@@ -364,7 +364,7 @@ module Factory
      ['Deutsch', 'de-CH', false],
      ['Castellano','es', false],
      ['Schwizertüütsch','gsw-CH', false]].each do |lang|
-      Factory.create_language!(:name => lang[0], :locale_name => lang[1], :default => lang[2])
+      LeihsFactory.create_language!(:name => lang[0], :locale_name => lang[1], :default => lang[2])
     end
   end
     
@@ -372,11 +372,11 @@ module Factory
   # Authentication systems supported by default
   #
   def self.create_default_authentication_systems
-    Factory.create_default_authentication_system
-    Factory.create_authentication_system! :name => "LDAP Authentication",
+    LeihsFactory.create_default_authentication_system
+    LeihsFactory.create_authentication_system! :name => "LDAP Authentication",
                                           :class_name => "LdapAuthentication"
 
-    Factory.create_authentication_system! :name => "ZHDK Authentication",
+    LeihsFactory.create_authentication_system! :name => "ZHDK Authentication",
                                           :class_name => "Zhdk"
   end
 
@@ -384,7 +384,7 @@ module Factory
   # default authentication systems
   #
   def self.create_default_authentication_system
-    Factory.create_authentication_system! :name => "Database Authentication",
+    LeihsFactory.create_authentication_system! :name => "Database Authentication",
                                           :class_name => "DatabaseAuthentication",
                                           :is_active => true,
                                           :is_default => true
@@ -422,7 +422,7 @@ module Factory
   # default buildings
   #
   def self.create_default_building
-    Factory.create_building! :code => 'ZZZ', :name => 'Great Pyramid of Giza'
+    LeihsFactory.create_building! :code => 'ZZZ', :name => 'Great Pyramid of Giza'
 	end
 
   #
@@ -485,16 +485,16 @@ module Factory
      ["BU",  "Schützenmattstrsse, 1B"],
      ["KST", "Kart-Stauffer-Strasse, 26"]].each do |building|
     
-       Factory.create_building! :code => building[0], :name => building[1]
+       LeihsFactory.create_building! :code => building[0], :name => building[1]
     end
   end
 
   def self.create_minimal_setup
-    Factory.create_default_languages
-    Factory.create_default_authentication_systems
-    Factory.create_default_roles
-    superuser = Factory.create_super_user
+    LeihsFactory.create_default_languages
+    LeihsFactory.create_default_authentication_systems
+    LeihsFactory.create_default_roles
+    superuser = LeihsFactory.create_super_user
     puts _("The administrator %{a} has been created ") % { :a => superuser.login }
-    Factory.create_default_building
+    LeihsFactory.create_default_building
   end
 end

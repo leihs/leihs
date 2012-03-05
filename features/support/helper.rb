@@ -55,7 +55,7 @@ def to_date( date )
   elsif date == "the_end_of_time"
     return Availability::Change::ETERNITY
   else
-    return Factory.parsedate( date )
+    return LeihsFactory.parsedate( date )
   end
 end
 

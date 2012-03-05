@@ -1,7 +1,7 @@
 Given "the list of approved orders contains $total elements" do | total |
   orders = @inventory_pool.orders.approved
-  user = Factory.create_user
-  total.to_i.times { orders << Factory.create_order(:user_id => user.id, :status_const => Order::APPROVED) }
+  user = LeihsFactory.create_user
+  total.to_i.times { orders << LeihsFactory.create_order(:user_id => user.id, :status_const => Order::APPROVED) }
   orders.size.should == total.to_i
 end
 

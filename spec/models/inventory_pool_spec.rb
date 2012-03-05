@@ -6,20 +6,20 @@ describe InventoryPool do
   context "hand_over and take_back visits" do
 
     before(:all) do
-      Factory.create_default_languages
+      LeihsFactory.create_default_languages
     
       # create default inventory_pool
-      @ip = Factory.create_inventory_pool
+      @ip = LeihsFactory.create_inventory_pool
     
       User.delete_all
       # those should be created inside our default inventory_pool
-      Factory.create_user :login => "le_mac"      
-      Factory.create_user :login => "eichen_berge"
-      Factory.create_user :login => "birke"       
-      Factory.create_user :login => "venger"      
-      Factory.create_user :login => "siegfried"   
+      LeihsFactory.create_user :login => "le_mac"      
+      LeihsFactory.create_user :login => "eichen_berge"
+      LeihsFactory.create_user :login => "birke"       
+      LeihsFactory.create_user :login => "venger"      
+      LeihsFactory.create_user :login => "siegfried"   
       @manager = \
-      Factory.create_user({:login => "hammer"},
+      LeihsFactory.create_user({:login => "hammer"},
                           {:role  => "manager"} )
     end
     
@@ -37,7 +37,7 @@ describe InventoryPool do
       it "should return a list of hand_over events per user" do
 
         open_contracts = User.all.map { |user|
-          Factory.create_contract( {:user => user},
+          LeihsFactory.create_contract( {:user => user},
                                    {:contract_lines => 3 } ) # arbitrary
         }
         make_sure_no_start_date_is_identical_to_any_other! open_contracts
@@ -56,7 +56,7 @@ describe InventoryPool do
 
 
       it "should return an Event containing contract_lines for items that are reserved from the same day on by a user" do
-        open_contract = Factory.create_contract( {:user => User.first},
+        open_contract = LeihsFactory.create_contract( {:user => User.first},
                                                  {:contract_lines => 3 } )
         start_first_contract_line_on_same_date_as_second! open_contract
         start_third_contract_line_on_different_date! open_contract
@@ -69,10 +69,10 @@ describe InventoryPool do
     
 
       it "should not mix Events of different users" do
-        open_contract  = Factory.create_contract( {:user => User.first},
+        open_contract  = LeihsFactory.create_contract( {:user => User.first},
                                                   {:contract_lines => 1 } )
 
-        open_contract2 = Factory.create_contract( {:user => User.last},
+        open_contract2 = LeihsFactory.create_contract( {:user => User.last},
                                                   {:contract_lines => 1 } )
         open_contract2.instance_eval {
           contract_lines[0].start_date = open_contract.contract_lines[0].start_date
@@ -133,7 +133,7 @@ describe InventoryPool do
       it "should return a list of take_back events per user" do
 
         open_contracts = User.all.map { |user|
-          Factory.create_contract( {:user => user},
+          LeihsFactory.create_contract( {:user => user},
                                    {:contract_lines => 3 } ) # arbitrary
         }
         make_sure_no_end_date_is_identical_to_any_other! open_contracts
@@ -155,7 +155,7 @@ describe InventoryPool do
 
 
       it "should return an Event containing contract_lines for items that are reserved from the same day on by a user" do
-        open_contract = Factory.create_contract( {:user => User.first},
+        open_contract = LeihsFactory.create_contract( {:user => User.first},
                                                  {:contract_lines => 3 } )
         end_first_contract_line_on_same_date_as_second! open_contract
         end_third_contract_line_on_different_date! open_contract
@@ -171,10 +171,10 @@ describe InventoryPool do
     
 
       it "should not mix Events of different users" do
-        open_contract  = Factory.create_contract( {:user => User.first},
+        open_contract  = LeihsFactory.create_contract( {:user => User.first},
                                                   {:contract_lines => 1 } )
 
-        open_contract2 = Factory.create_contract( {:user => User.last},
+        open_contract2 = LeihsFactory.create_contract( {:user => User.last},
                                                   {:contract_lines => 1 } )
         open_contract2.instance_eval {
           contract_lines[0].end_date = open_contract.contract_lines[0].end_date

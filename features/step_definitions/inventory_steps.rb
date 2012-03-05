@@ -2,7 +2,7 @@
 # Inventory Pools
 
 Given "inventory pool '$inventory_pool_name'" do | inventory_pool_name |
-  @inventory_pool = Factory.create_inventory_pool :name => inventory_pool_name
+  @inventory_pool = LeihsFactory.create_inventory_pool :name => inventory_pool_name
 end
 
 Given "inventory pool short name '$shortname'" do | shortname |
@@ -18,7 +18,7 @@ end
 Given /^(\d+) inventory pool(s?)$/ do | size, plural |
   InventoryPool.delete_all
   size.to_i.times do |i|
-    Factory.create_inventory_pool(:name => (i+1))
+    LeihsFactory.create_inventory_pool(:name => (i+1))
   end
   @inventory_pools = InventoryPool.all
   @inventory_pools.size.should == size.to_i
@@ -30,7 +30,7 @@ end
 # Locations
 
 Given "a location in building '$building' room '$room' and shelf '$shelf' exists" do | building, room, shelf |
-  @location = Factory.create_location(:building => building,
+  @location = LeihsFactory.create_location(:building => building,
                                       :room     => room,
                                       :shelf    => shelf)
 end  
@@ -39,7 +39,7 @@ end
 # Categories
 
 Given "a category '$category' exists" do | category |
-  Factory.create_category(:name => category)
+  LeihsFactory.create_category(:name => category)
 end  
   
 Given "the category '$category' is child of '$parent' with label '$label'" do | category, parent, label |
@@ -68,7 +68,7 @@ end
 # Models
 
 Given "a model '$model' exists" do | model |
-  @model = Factory.create_model(:name => model)
+  @model = LeihsFactory.create_model(:name => model)
 end
 
 When /^I register a new model '([^']*)'$/ do |model|
@@ -94,9 +94,9 @@ end
 
 #Given "$number items of model '$model' exist" do |number, model|
 Given /(\d+) item(s?) of model '(.+)' exist(s?)/ do |number, plural1, model, plural2|
-  @model = Factory.create_model(:name => model)
+  @model = LeihsFactory.create_model(:name => model)
   number.to_i.times do | i |
-    Factory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool )
+    LeihsFactory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool )
   end
 end
 
@@ -104,11 +104,11 @@ Given /^(a?n? ?)item(s?) '([^']*)' of model '([^']*)' exist(s?)( only)?$/ \
 do |particle,plural, inventory_codes, model, plural2, only|
   Item.delete_all if only
 
-  @model = Factory.create_model(:name => model)
+  @model = LeihsFactory.create_model(:name => model)
 
   inv_codes = inventory_codes.split /,/
   inv_codes.each do | inv_code |
-    Factory.create_item(:model_id => @model.id, :inventory_code => inv_code,
+    LeihsFactory.create_item(:model_id => @model.id, :inventory_code => inv_code,
 		        :inventory_pool => @inventory_pool )
   end
 end
@@ -122,7 +122,7 @@ end
 
 Given "$number items of this model exist" do |number|
   number.to_i.times do | i |
-    Factory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool )
+    LeihsFactory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool )
   end
   @model = Model.find(@model.id)
 end
@@ -135,7 +135,7 @@ end
 
 Given "we have items with the following inventory_codes:" do |inventory_codes_table|
   inventory_codes_table.hashes.each do |hash|
-    Factory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool, :inventory_code => hash[:inventory_code] )
+    LeihsFactory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool, :inventory_code => hash[:inventory_code] )
   end
 end
 
@@ -173,7 +173,7 @@ Then "the generated_code should look like this '$result'" do |result|
 end
 
 When "we add an item '$inventory_code'" do |inventory_code|
-  i = Factory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool, :inventory_code => inventory_code )
+  i = LeihsFactory.create_item( :model_id => @model.id, :inventory_pool => @inventory_pool, :inventory_code => inventory_code )
 end
 
 # this test is specifically for the 'New Item' page
@@ -195,5 +195,5 @@ When "I give the customer '$user' access to the inventory pool '$inventory_pool'
 do |user, inventory_pool|
   @user = User.find_by_login user
   @nventory_pool = InventoryPool.find_by_name inventory_pool
-  Factory.define_role( @user, @inventory_pool )
+  LeihsFactory.define_role( @user, @inventory_pool )
 end

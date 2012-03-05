@@ -2,7 +2,7 @@ Given "$ip has default workdays" do
 end
 
 Given "inventory_pool is open on $days" do |days|
-  inventory_pool = Factory.create_inventory_pool
+  inventory_pool = LeihsFactory.create_inventory_pool
   inventory_pool.workday.monday = false
   inventory_pool.workday.tuesday = false
   inventory_pool.workday.wednesday = false
@@ -17,17 +17,17 @@ Given "inventory_pool is open on $days" do |days|
 end
 
 Given "holidays are from $startdate - $finished because of $reason" do |startdate, finish, reason|
-  ip = Factory.create_inventory_pool
-  ip.holidays << Holiday.new(:start_date => Factory.parsedate(startdate),
-                              :end_date => Factory.parsedate(finish),
+  ip = LeihsFactory.create_inventory_pool
+  ip.holidays << Holiday.new(:start_date => LeihsFactory.parsedate(startdate),
+                              :end_date => LeihsFactory.parsedate(finish),
                               :name => reason)
   ip.save                                            
 end
 
 Given "$date is free because of $reason" do |date, reason|
-  ip = Factory.create_inventory_pool
-  ip.holidays << Holiday.new(:start_date => Factory.parsedate(date),
-                              :end_date => Factory.parsedate(date),
+  ip = LeihsFactory.create_inventory_pool
+  ip.holidays << Holiday.new(:start_date => LeihsFactory.parsedate(date),
+                              :end_date => LeihsFactory.parsedate(date),
                               :name => reason)
   ip.save
 end
@@ -42,7 +42,7 @@ Given /today is today again/ do
   back_to_the_present
 end
 When "$who try to order an item for $date" do |who, date|
-  inventory_pool, inv_manager, user, model = Factory.create_dataset_simple
+  inventory_pool, inv_manager, user, model = LeihsFactory.create_dataset_simple
 
   # Login                            
   post "/session", :login => user.login
@@ -62,7 +62,7 @@ end
 
 # OPTIMIZE 0402
 When "$who clicks '$action'" do |who, action|
-  @inventory_pool, inv_manager, @user, model = Factory.create_dataset_simple
+  @inventory_pool, inv_manager, @user, model = LeihsFactory.create_dataset_simple
   
   #Login as User
   post "/session", :login => inv_manager.login
@@ -75,13 +75,13 @@ end
 Then "that should be possible$reason" do |reason|
   @contract.lines.size.should == 1
   line = @contract.lines.first
-  line.start_date = Factory.parsedate(@date)
+  line.start_date = LeihsFactory.parsedate(@date)
   line.save.should == true
 end
 
 When "trying to set the end date to the same date" do  
   line = @contract.lines.first
-  line.end_date = Factory.parsedate(@date)
+  line.end_date = LeihsFactory.parsedate(@date)
   @save_successful = line.save
 end
 

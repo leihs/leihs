@@ -1,7 +1,7 @@
 require 'spec_helper'
 require "rspec/expectations"
 
-require Rails.root + 'lib/factory'
+require Rails.root + 'lib/leihs_factory'
 
 
 # It seems really hard to test our controllers (?)
@@ -16,11 +16,11 @@ describe Backend::AcknowledgeController do
 #   @emails[index].subject.should == subject
   
   before(:all) do
-    @ip = Factory.create_inventory_pool
-    u = Factory.create_user({:login => 'foo', :email => 'foo@example.com'}, {:password => 'barbarbar'})
+    @ip = LeihsFactory.create_inventory_pool
+    u = LeihsFactory.create_user({:login => 'foo', :email => 'foo@example.com'}, {:password => 'barbarbar'})
     @borrowing_user = u
     
-    admin_user = Factory.create_user({:login => 'admin', :email => 'admin@example.com'}, 
+    admin_user = LeihsFactory.create_user({:login => 'admin', :email => 'admin@example.com'}, 
                                      {:password => 'barbarbar', :role => 'admin', :inventory_pool => @ip})
     current_user = admin_user
   end

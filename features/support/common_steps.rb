@@ -32,7 +32,7 @@ end
 
 # Date changing hackery
 When "I beam into the future to $date" do |date|
-  back_to_the_future( Factory.parsedate( date ) )
+  back_to_the_future( LeihsFactory.parsedate( date ) )
 end
 
 When "I beam back into the present" do

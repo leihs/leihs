@@ -4,9 +4,9 @@ Given "a minimal leihs setup" do
   # but not when run on its own. For some reason resetting the world before this
   # test makes it behave normally again.
   puts `rake leihs:reset`
-  Factory.create_default_languages
-  Factory.create_default_authentication_system
-  Factory.create_default_roles
-  Factory.create_super_user
-  Factory.create_default_building
+  LeihsFactory.create_default_languages
+  LeihsFactory.create_default_authentication_system
+  LeihsFactory.create_default_roles
+  LeihsFactory.create_super_user
+  LeihsFactory.create_default_building
 end

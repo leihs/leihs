@@ -4,6 +4,6 @@ require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation, {:except => %w[authentication_systems languages roles]} #sellittf#
 
 # require our factory
-require("#{Rails.root}/lib/factory.rb")
+require("#{Rails.root}/lib/leihs_factory.rb")
 
-Factory.create_minimal_setup
+LeihsFactory.create_minimal_setup
