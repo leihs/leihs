@@ -60,7 +60,7 @@ function Dialog() {
         var _top = $(".dialog").data("padding") + window.pageYOffset;
         if(_top < 0){_top = 1;}
         var _left = ( ( $(window).width()/2 ) - ( $(".ui-dialog ").width()/2 ) + window.pageXOffset );
-        $(".ui-dialog").stop(true, true).animate({
+        $(".ui-dialog").animate({
             top: _top,
             left: _left,
         }, {queue: false, duration: Dialog.followViewPortAnimationTime});
@@ -104,7 +104,7 @@ function Dialog() {
       $(dialog).data("total_scalable_height", $(dialog).find(".scalable").outerHeight());
       Dialog.checkScale(dialog);
       Dialog.checkPosition(dialog);
-      $(dialog).parent().stop(true, true).animate({
+      $(dialog).parent().animate({
         height: $(dialog).data("total_height")
       });
     }
@@ -140,7 +140,7 @@ function Dialog() {
           var _top = $(this).data("padding") + window.pageYOffset;
           if(_top < 0){_top = 1;}
           var _left = ( ( $(window).width()/2 ) - ( $(this).parent().width()/2 ) + window.pageXOffset );
-          $(this).parent().stop(true, true).hide().fadeIn().animate({
+          $(this).parent().hide().fadeIn().animate({
               top: _top,
               left: _left,
               opacity: 1
