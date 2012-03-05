@@ -55,8 +55,6 @@ end
 ########################################################################
 #rails3#
 
-require 'looks_like_email_addr'
-
 ######################################################
 # This ensures that a mongrel can start even if it's started
 # by a user that is not the same user the mongrel runs as. In other words,
