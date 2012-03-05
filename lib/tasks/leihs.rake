@@ -64,13 +64,13 @@ namespace :leihs do
     Rake::Task["leihs:reset"].invoke
     #Rake::Task["db:reset"].invoke
 
-    system "bundle exec rspec spec"
+    system "bundle exec rspec --format d --format html --out tmp/html/rspec.html spec"
     exit_code = $? >> 8 # magic brainfuck
     raise "Tests failed with: #{exit_code}" if exit_code != 0
 
     ENV['CUCUMBER_FORMAT'] = 'pretty' unless ENV['CUCUMBER_FORMAT']
     # We skip the tests that broke due to the new UI. We need to re-implement them with the new UI.
-    system "bundle exec cucumber --tags=~@old-ui"
+    system "bundle exec cucumber -r features --format pretty --format junit --out tmp/junit --format html --out tmp/html/cucumber.html --tags=~@old-ui features"
     exit_code = $? >> 8 # magic brainfuck
     raise "Tests failed with: #{exit_code}" if exit_code != 0
 
