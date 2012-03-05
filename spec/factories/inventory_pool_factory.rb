@@ -4,10 +4,10 @@ FactoryGirl.define do
     name Faker::Lorem.words(3).join
     description Faker::Lorem.sentence
     contact_details Faker::Lorem.sentence
-    contract_description { name }
+    contract_description name
     email Faker::Internet.email
-    contract_url { email }
-    shortname { name[0..2].upcase }
+    contract_url email
+    shortname name[0..2].upcase
   end
 
 end

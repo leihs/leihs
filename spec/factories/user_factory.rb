@@ -5,7 +5,7 @@ FactoryGirl.define do
     firstname Faker::Name.first_name
     lastname Faker::Name.last_name
     phone Faker::PhoneNumber.phone_number.gsub(/\D/, "")
-    authentication_system { AuthenticationSystem.first.blank? ? Factory(:authentication_system) : AuthenticationSystem.first}
+    authentication_system AuthenticationSystem.first.blank? ? Factory(:authentication_system) : AuthenticationSystem.first
     unique_id UUIDTools::UUID.random_create.to_s
     email Faker::Internet.email
     badge_id UUIDTools::UUID.random_create.to_s
@@ -13,7 +13,7 @@ FactoryGirl.define do
     city Faker::Address.city
     zip Faker::Address.zip_code
     country Faker::Address.country
-    language { LanguageFactory.create }
+    language LanguageFactory.create
   end
 
 end

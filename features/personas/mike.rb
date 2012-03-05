@@ -45,13 +45,23 @@ module Persona
     end
     
     def setup_camera
-      @camera_category = Factory(:category, :name => "Cameras")
+      @camera_category = Factory(:category, :name => "Kameras")
       @camera = Factory(:model, :name => "Kamera Nikon X12",
                                 :manufacturer => "Nikon", 
                                 :description => "Super Kamera.", 
                                 :hand_over_note => "Kamera brauch Akkus!", 
                                 :maintance_period => 0)
       @camera.model_links.create :model_group => @camera_category
+    end
+    
+    def setup_tripod
+      @tripod_category = Factory(:category, :name => "Stative")
+      @tripod = Factory(:model, :name => "Kamera Stativ",
+                                :manufacturer => "Feli", 
+                                :description => "Stabiles Kamera Stativ", 
+                                :hand_over_note => "Stativ muss mit Stativtasche ausgehändigt werden.", 
+                                :maintance_period => 0)
+      @tripod.model_links.create :model_group => @tripod_category
     end
 
   end  
