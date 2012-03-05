@@ -12,13 +12,14 @@ module Persona
     NAME = "Mike"
     LASTNAME = "H."
     PASSWORD = "password"
-    EMAIL = "mike@zh-dk.ch"
+    EMAIL = "mike@zhdk.ch"
     INVENTORY_POOL_NAME = "A-Ausleihe"
     
     def initialize
       ActiveRecord::Base.transaction do 
         create_inventory_manager_user
-        setup_minimal_inventory
+        create_location_and_building
+        create_minimal_inventory
       end
     end
     
@@ -29,6 +30,11 @@ module Persona
       @database_authentication = Factory(:database_authentication, :user => @user, :password => PASSWORD)
     end
     
+    def create_location_and_building
+      @building = Factory(:building, :name => "Ausstellungsstrasse 60", :code => "AU60")
+      @location = Factory(:location, :room => "UG 13", :shelf => "Ausgabe", :building => @building)
+    end
+    
     def create_minimal_inventory
       setup_beamer
       setup_camera
@@ -36,32 +42,35 @@ module Persona
     
     def setup_beamer
       @beamer_category = Factory(:category, :name => "Beamer")
-      @beamer = Factory(:model, :name => "Sharp Beamer",
+      @beamer_model = Factory(:model, :name => "Sharp Beamer",
                                 :manufacturer => "Sharp", 
                                 :description => "Beamer, geeignet für alle Verwendungszwecke.", 
                                 :hand_over_note => "Beamer brauch ein VGA Kabel!", 
-                                :maintance_period => 0)
-      @beamer.model_links.create :model_group => @beamer_category
+                                :maintenance_period => 0)
+      @beamer_model.model_links.create :model_group => @beamer_category
+      @beamer_item = Factory(:item, :inventory_code => "beam123", :serial_number => "xyz456", :model => @beamer_model, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_camera
       @camera_category = Factory(:category, :name => "Kameras")
-      @camera = Factory(:model, :name => "Kamera Nikon X12",
+      @camera_model = Factory(:model, :name => "Kamera Nikon X12",
                                 :manufacturer => "Nikon", 
                                 :description => "Super Kamera.", 
                                 :hand_over_note => "Kamera brauch Akkus!", 
-                                :maintance_period => 0)
-      @camera.model_links.create :model_group => @camera_category
+                                :maintenance_period => 0)
+      @camera_model.model_links.create :model_group => @camera_category
+      @camera_item = Factory(:item, :inventory_code => "cam123", :serial_number => "abc234", :model => @camera_model, :location => @location, :owner => @inventory_pool)
     end
     
     def setup_tripod
       @tripod_category = Factory(:category, :name => "Stative")
-      @tripod = Factory(:model, :name => "Kamera Stativ",
+      @tripod_model = Factory(:model, :name => "Kamera Stativ",
                                 :manufacturer => "Feli", 
                                 :description => "Stabiles Kamera Stativ", 
-                                :hand_over_note => "Stativ muss mit Stativtasche ausgehändigt werden.", 
-                                :maintance_period => 0)
-      @tripod.model_links.create :model_group => @tripod_category
+                                :hand_over_note => "Stativ muss mit Stativtasche ausgehändigt werden.",
+                                :maintenance_period => 0)
+      @tripod_model.model_links.create :model_group => @tripod_category
+      @tripod_item = Factory(:item, :inventory_code => "tri789", :serial_number => "fgh567", :model => @tripod_model, :location => @location, :owner => @inventory_pool)
     end
 
   end  

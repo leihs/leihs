@@ -1,8 +1,9 @@
 Given /^personas are loaded$/ do
 
-  #Persona.create("Ramon") # Ramon should created wirst, he is setting up the Application
-  #Persona.create("Mike") 
-  #Persona.create("Pius") 
+  Persona.create("Ramon") # Ramon should created first, he is setting up the Application
+  Persona.create("Mike") 
+  Persona.create("Pius") 
+  Persona.create("Normin") 
 
 end
 

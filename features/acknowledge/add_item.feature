@@ -9,4 +9,7 @@ Feature: Add Item during acknowledge process
     
   @javascript
   Scenario: Adding a model quickly to an order by just typing in the serial_number or inventory_number
+    When I am "Pius"
+     And I open the order from "Normin" for acknowledgment
+     And I type ""
     

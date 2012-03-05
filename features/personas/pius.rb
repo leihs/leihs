@@ -7,12 +7,12 @@ require 'factory'
 
 module Persona
   
-  class Ramon
+  class Pius
     
     NAME = "Pius"
     LASTNAME = "C."
     PASSWORD = "password"
-    EMAIL = "pius@zh-dk.ch"
+    EMAIL = "pius@zhdk.ch"
     INVENTORY_POOL_NAME = "A-Ausleihe"
     
     def initialize
