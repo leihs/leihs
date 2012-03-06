@@ -2,13 +2,13 @@ require 'digest/sha1'
 
 class Authenticator::DatabaseAuthenticationController < Authenticator::AuthenticatorController
 
-  layout 'layouts/backend/general'
-        
   def login_form_path
     "/authenticator/db/login"
   end
   
   def login
+    @preferred_language = Language.preferred(request.env["HTTP_ACCEPT_LANGUAGE"])
+    
     if request.post?
       l = DatabaseAuthentication.authenticate(params[:login][:user], params[:login][:password])
       if l

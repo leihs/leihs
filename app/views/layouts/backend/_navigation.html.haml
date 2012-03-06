@@ -1,23 +1,31 @@
 %nav#navigation
   %ul
     
-    %li.item{:class => is_current_page?("daily") ?"active" : nil}
-      = link_to backend_inventory_pool_path(current_inventory_pool), :class => "anchor" do
-        .leftend
-        = _("Daily View")
-    
-    %li.item{:class => is_current_page?("orders") ?"active" : nil}
-      = link_to backend_inventory_pool_orders_path(current_inventory_pool), :class => "anchor" do
-        .leftend
-        = _("Orders")
-        
-    %li.item{:class => is_current_page?("visits") ?"active" : nil}
-      = link_to backend_inventory_pool_visits_path(current_inventory_pool), :class => "anchor" do
-        .leftend
-        = _("Visits")
-        
-    %li.item{:class => is_current_page?("contracts") ?"active" : nil}
-      = link_to backend_inventory_pool_contracts_path(current_inventory_pool), :class => "anchor" do
-        .leftend
-        = _("Contracts")
-        
+    - if is_current_page?("lending")
+      %li.item{:class => is_current_page?("daily") ?"active" : nil}
+        = link_to backend_inventory_pool_path(current_inventory_pool), :class => "anchor" do
+          .leftend
+          = _("Daily View")
+      
+      %li.item{:class => is_current_page?("orders") ?"active" : nil}
+        = link_to backend_inventory_pool_orders_path(current_inventory_pool), :class => "anchor" do
+          .leftend
+          = _("Orders")
+          
+      %li.item{:class => is_current_page?("visits") ?"active" : nil}
+        = link_to backend_inventory_pool_visits_path(current_inventory_pool), :class => "anchor" do
+          .leftend
+          = _("Visits")
+          
+      %li.item{:class => is_current_page?("contracts") ?"active" : nil}
+        = link_to backend_inventory_pool_contracts_path(current_inventory_pool), :class => "anchor" do
+          .leftend
+          = _("Contracts")
+
+    - elsif is_current_page?("admin")
+      %li.item{:class => is_current_page?("contracts") ?"active" : nil}
+        = link_to backend_inventory_pool_contracts_path(current_inventory_pool), :class => "anchor" do
+          .leftend
+          = _("Contracts")
+          
+          

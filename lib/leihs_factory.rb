@@ -411,8 +411,7 @@ module LeihsFactory
   # TODO tpo: reuse create_user and create_db_auth instead
   def self.create_super_user
     self.create_user( { :email          => "super_user_1@example.com",
-                        :login          => "super_user_1",
-                        :unique_id      => "super_user_1" },
+                        :login          => "super_user_1" },
 		      { :role           => "admin",
 		        :password       => "pass",
 		        :inventory_pool => nil,            })

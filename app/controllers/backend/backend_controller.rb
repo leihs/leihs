@@ -239,7 +239,7 @@ class Backend::BackendController < ApplicationController
     # Allow operations on items. 'user' is *not* a customer!
     def is_privileged_user?
       #@is_privileged_user ||=
-      (current_user.has_at_least_access_level(2) and is_owner?)
+      (current_user.has_at_least_access_level(2, current_inventory_pool) and is_owner?)
     end
     
     def is_super_user?
@@ -249,7 +249,7 @@ class Backend::BackendController < ApplicationController
     
     def is_inventory_manager?
       #@is_inventory_manager ||=
-      current_user.has_at_least_access_level(3)
+      current_user.has_at_least_access_level(3, current_inventory_pool)
     end
     
     def is_lending_manager?(inventory_pool = current_inventory_pool)

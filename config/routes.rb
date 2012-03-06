@@ -82,7 +82,8 @@ Leihs::Application.routes.draw do
     #tmp# match 'database_backup', :to => 'backend#database_backup'
     
     root :to => "backend#index"
-    
+    match 'search', :to => 'backend#search'
+
     resources :barcodes
 
     resources :users do

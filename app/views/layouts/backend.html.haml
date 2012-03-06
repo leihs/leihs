@@ -13,7 +13,7 @@
     = favicon_link_tag "backend/favicon.ico", :type => "image/x-icon"
     = csrf_meta_tag
     = javascript_tag "i18n.selected = i18n.locales['#{current_user.language.locale_name.dasherize}']";
-    = javascript_tag "var current_inventory_pool = #{current_inventory_pool.id}";
+    = javascript_tag "var current_inventory_pool = #{current_inventory_pool.try(:id)}";
     = yield :head
 
   %body

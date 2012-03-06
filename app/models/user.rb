@@ -126,8 +126,8 @@ class User < ActiveRecord::Base
     access_rights.managers.where("access_level >= 1").includes(:inventory_pool).collect(&:inventory_pool)
   end
 
-  def has_at_least_access_level(level, inventory_pool = current_inventory_pool)
-    (has_role?('manager', inventory_pool, false) and access_level_for(inventory_pool) >= level)
+  def has_at_least_access_level(level, inventory_pool)
+    inventory_pool and (has_role?('manager', inventory_pool, false) and access_level_for(inventory_pool) >= level)
   end
 
 ################################################

@@ -1,6 +1,6 @@
 %section#search{:class => is_current_page?("search") ?"active" : nil}
   .inner
-    = form_tag(backend_inventory_pool_search_path(current_inventory_pool), :method => :get, :autocomplete => :off) do
+    = form_tag(url_for([:backend, current_inventory_pool, :search].compact), :method => :get, :autocomplete => :off) do
       %input{:type => "text", :name => "text", :value => params[:text], :class => "clearable"}
       = submit_tag "", :class => "search icon"
       = image_tag "loading.gif", :class => "loading"

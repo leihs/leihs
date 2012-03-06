@@ -29,6 +29,7 @@ module Backend::BackendHelper
          current_page?(:controller => "backend/contracts")
       when "visits"
          current_page?(:controller => "backend/visits")
+
       when "lending"
         is_current_page?("daily") or
         is_current_page?("orders") or
@@ -36,6 +37,10 @@ module Backend::BackendHelper
         is_current_page?("take_back") or
         is_current_page?("contracts") or
         is_current_page?("visits")
+      when "admin"
+        
+      when "inventory"
+        
     end
   end
   
