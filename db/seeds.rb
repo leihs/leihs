@@ -1,2 +1,2 @@
-require("#{Rails.root}/lib/leihs_factory.rb")
+require "#{Rails.root}/features/support/leihs_factory.rb"
 LeihsFactory.create_minimal_setup

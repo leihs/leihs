@@ -1,5 +1,5 @@
 require 'spec_helper'
-require Rails.root + 'lib/factory'
+require "#{Rails.root}/features/support/leihs_factory.rb"
 
 describe InventoryPool do
 

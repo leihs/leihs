@@ -1,7 +1,7 @@
 require 'spec_helper'
 require "rspec/expectations"
 
-require Rails.root + 'lib/leihs_factory'
+require "#{Rails.root}/features/support/leihs_factory.rb"
 
 
 # It seems really hard to test our controllers (?)

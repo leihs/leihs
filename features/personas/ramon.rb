@@ -3,7 +3,7 @@
 # Persona:  Ramon
 # Job:      Leihs Developer and Administrator
 #
-require 'leihs_factory'
+require "#{Rails.root}/features/support/leihs_factory.rb"
 
 module Persona
   
