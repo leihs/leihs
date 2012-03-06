@@ -364,7 +364,10 @@ module LeihsFactory
      ['Deutsch', 'de-CH', false],
      ['Castellano','es', false],
      ['Schwizertüütsch','gsw-CH', false]].each do |lang|
-      LeihsFactory.create_language!(:name => lang[0], :locale_name => lang[1], :default => lang[2])
+        next if Language.exists?(:locale_name => lang[1])
+        LeihsFactory.create_language!(:name => lang[0],
+                                      :locale_name => lang[1],
+                                      :default => (lang[2] and not Language.exists?(:default => true)))
     end
   end
     
