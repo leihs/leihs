@@ -9,11 +9,11 @@ module Persona
   
   class Pius
     
-    NAME = "Pius"
-    LASTNAME = "C."
-    PASSWORD = "password"
-    EMAIL = "pius@zhdk.ch"
-    INVENTORY_POOL_NAME = "A-Ausleihe"
+    @@name = "Pius"
+    @@lastname = "C."
+    @@password = "password"
+    @@email = "pius@zhdk.ch"
+    @@inventory_pool_name = "A-Ausleihe"
     
     def initialize
       ActiveRecord::Base.transaction do 

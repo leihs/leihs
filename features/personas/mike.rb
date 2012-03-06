@@ -9,11 +9,11 @@ module Persona
   
   class Mike
     
-    NAME = "Mike"
-    LASTNAME = "H."
-    PASSWORD = "password"
-    EMAIL = "mike@zhdk.ch"
-    INVENTORY_POOL_NAME = "A-Ausleihe"
+    @@name = "Mike"
+    @@lastname = "H."
+    @@password = "password"
+    @@email = "mike@zhdk.ch"
+    @@inventory_pool_name = "A-Ausleihe"
     
     def initialize
       ActiveRecord::Base.transaction do 
@@ -24,10 +24,10 @@ module Persona
     end
     
     def create_inventory_manager_user
-      @user = Factory(:user, :firstname => NAME, :lastname => LASTNAME, :login => NAME.downcase, :email => EMAIL)
-      @inventory_pool = InventoryPool.find_by_name(INVENTORY_POOL_NAME)
+      @user = Factory(:user, :firstname => @@name, :lastname => @@lastname, :login => @@name.downcase, :email => @@email)
+      @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_name)
       @user.access_rights.create(:role => Role.find_by_name("manager"), :inventory_pool => @inventory_pool, :access_level => 3)
-      @database_authentication = Factory(:database_authentication, :user => @user, :password => PASSWORD)
+      @database_authentication = Factory(:database_authentication, :user => @user, :password => @@password)
     end
     
     def create_location_and_building
