@@ -19,7 +19,7 @@ FactoryGirl.define do
     active {true}
     name { Faker::Lorem.words(1).join }
     locale_name { name[0..1].downcase }
-    default { Language.find_by_default(1).blank? ? 1 : 0 }
+    default { Language.find_by_default(true).blank? }
   end
     
 end

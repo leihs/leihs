@@ -25,18 +25,19 @@ end
 ###########################################################################
 
 Then "he gets an empty result set" do
-  @models.empty?.should == true
+  @models_json.empty?.should be_true
 end
 
 Then "he sees the '$model' model" do |model|
   m = Model.find_by_name(model)
-  @models.include?(m).should == true
+  @models_json.include?(m).should be_true
 end
 
 Then "all order lines should be available" do
+  @order = @user.get_current_order
   @order.order_lines.all?{|l| l.available? }.should be_true
 end
 
 Then "some order lines should not be available" do
- @order.order_lines.any?{|l| not l.available? }.should be_true
+  @order.order_lines.any?{|l| not l.available? }.should be_true
 end

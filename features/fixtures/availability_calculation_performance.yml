@@ -6,7 +6,6 @@
   attributes: 
     name: MacBook Pro 15
     created_at: 2009-12-17 15:21:58
-    delta: "0"
     updated_at: 2011-01-10 08:47:53
     rental_price: 
     maintenance_period: "0"
@@ -25,7 +24,6 @@
     shortname: ICST
     name: Institute for Computer Music and Sound Technology (Dept. Musik)
     default_contract_note: 
-    delta: "0"
     contract_url: 
     color: 
     contact_details: 
@@ -42,7 +40,6 @@
     shortname: ITZ
     name: IT-Zentrum
     default_contract_note: Foo
-    delta: "0"
     contract_url: 
     color: yellow
     contact_details: 
@@ -59,7 +56,6 @@
     shortname: ITZA
     name: ITZ-Ausleihe
     default_contract_note: Foo
-    delta: "0"
     contract_url: foo.example.org
     color: ""
     contact_details:
@@ -76,7 +72,6 @@
     shortname: TdK
     name: "Theater der K\xC3\xBCnste"
     default_contract_note: 
-    delta: "0"
     contract_url: 
     color: 
     contact_details: 
@@ -93,7 +88,6 @@
     shortname: VBK
     name: Vertiefung Bildende Kunst
     default_contract_note: ""
-    delta: "0"
     contract_url: foo3.example.org
     color: ""
     contact_details:
@@ -110,7 +104,6 @@
     shortname: VIAD
     name: Vertiefung Interaction Design
     default_contract_note: 
-    delta: "0"
     contract_url: foo4.example.org
     color: 
     contact_details:
@@ -127,7 +120,6 @@
     shortname: VVK
     name: Vertiefung Visuelle Kommunikation
     default_contract_note: ""
-    delta: "0"
     contract_url: 
     color: ""
     contact_details: 
@@ -144,7 +136,6 @@
   attributes: 
     name: Level 3
     created_at: 2010-09-20 20:09:49
-    delta: "0"
     updated_at: 2010-09-20 20:09:49
     id: "51"
     inventory_pool_id: "4"
@@ -154,7 +145,6 @@
   attributes: 
     name: Level 9
     created_at: 2010-09-20 20:09:50
-    delta: "0"
     updated_at: 2010-09-20 20:09:50
     id: "55"
     inventory_pool_id: "4"
@@ -164,7 +154,6 @@
   attributes: 
     name: Level 3
     created_at: 2010-09-20 20:10:21
-    delta: "0"
     updated_at: 2010-09-20 20:10:21
     id: "89"
     inventory_pool_id: "8"
@@ -174,7 +163,6 @@
   attributes: 
     name: Level 9
     created_at: 2010-09-20 20:10:21
-    delta: "0"
     updated_at: 2010-09-20 20:10:21
     id: "93"
     inventory_pool_id: "8"
@@ -184,7 +172,6 @@
   attributes: 
     name: Level 9
     created_at: 2010-09-20 20:11:04
-    delta: "0"
     updated_at: 2010-09-20 20:11:04
     id: "117"
     inventory_pool_id: "27"
@@ -194,7 +181,6 @@
   attributes: 
     name: Level 3
     created_at: 2010-09-20 20:11:06
-    delta: "0"
     updated_at: 2010-09-20 20:11:06
     id: "119"
     inventory_pool_id: "27"
@@ -204,7 +190,6 @@
   attributes: 
     name: Level 9
     created_at: 2010-09-20 20:09:47
-    delta: "0"
     updated_at: 2010-09-20 20:09:47
     id: "47"
     inventory_pool_id: "90"
@@ -220,7 +205,6 @@
     serial_number:
     created_at: 2009-01-28 08:08:22
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2007-08-15"
@@ -251,7 +235,6 @@
     serial_number:
     created_at: 2009-01-28 08:08:22
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2007-08-15"
@@ -282,7 +265,6 @@
     serial_number:
     created_at: 2009-12-17 15:27:30
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2009-06-01"
@@ -313,7 +295,6 @@
     serial_number:
     created_at: 2009-12-22 12:16:53
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2008-11-18"
@@ -344,7 +325,6 @@
     serial_number:
     created_at: 2009-12-22 12:42:43
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2008-11-18"
@@ -375,7 +355,6 @@
     serial_number:
     created_at: 2010-01-15 16:26:17
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2008-03-18"
@@ -406,7 +385,6 @@
     serial_number:
     created_at: 2010-01-15 16:40:24
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2010-01-14"
@@ -437,7 +415,6 @@
     serial_number:
     created_at: 2010-01-21 14:42:19
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2007-08-21"
@@ -468,7 +445,6 @@
     serial_number:
     created_at: 2010-02-02 09:45:50
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2010-02-01"
@@ -499,7 +475,6 @@
     serial_number:
     created_at: 2010-02-02 15:13:03
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2010-09-01"
@@ -530,7 +505,6 @@
     serial_number:
     created_at: 2010-02-03 15:26:35
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2009-07-07"
@@ -561,7 +535,6 @@
     serial_number:
     created_at: 2010-02-04 14:22:29
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2008-11-19"
@@ -592,7 +565,6 @@
     serial_number:
     created_at: 2010-02-04 16:07:49
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2011-11-18"
@@ -623,7 +595,6 @@
     serial_number:
     created_at: 2010-02-05 10:52:29
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2007-05-31"
@@ -654,7 +625,6 @@
     serial_number:
     created_at: 2010-02-09 10:10:45
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2007-01-12"
@@ -685,7 +655,6 @@
     serial_number:
     created_at: 2010-02-09 11:19:57
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2009-10-21"
@@ -716,7 +685,6 @@
     serial_number:
     created_at: 2010-02-09 15:45:56
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2009-08-06"
@@ -747,7 +715,6 @@
     serial_number:
     created_at: 2010-02-09 15:57:00
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2008-11-18"
@@ -778,7 +745,6 @@
     serial_number:
     created_at: 2010-02-09 16:01:39
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2009-07-29"
@@ -809,7 +775,6 @@
     serial_number:
     created_at: 2010-02-09 16:20:10
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2007-01-12"
@@ -840,7 +805,6 @@
     serial_number:
     created_at: 2010-02-09 16:24:21
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2006-11-22"
@@ -871,7 +835,6 @@
     serial_number:
     created_at: 2010-02-09 16:49:00
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2007-03-16"
@@ -902,7 +865,6 @@
     serial_number:
     created_at: 2010-02-25 10:16:04
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2008-11-19"
@@ -933,7 +895,6 @@
     serial_number:
     created_at: 2010-03-05 15:10:00
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2010-03-04"
@@ -964,7 +925,6 @@
     serial_number:
     created_at: 2010-03-08 12:11:33
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2009-08-01"
@@ -995,7 +955,6 @@
     serial_number:
     created_at: 2010-03-10 13:34:23
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2006-12-11"
@@ -1026,7 +985,6 @@
     serial_number:
     created_at: 2010-03-10 15:29:30
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2008-07-11"
@@ -1057,7 +1015,6 @@
     serial_number:
     created_at: 2010-03-11 10:38:35
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2007-12-27"
@@ -1088,7 +1045,6 @@
     serial_number:
     created_at: 2010-03-11 13:55:49
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2009-01-20"
@@ -1119,7 +1075,6 @@
     serial_number:
     created_at: 2010-03-23 16:18:17
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2007-09-19"
@@ -1150,7 +1105,6 @@
     serial_number:
     created_at: 2010-03-24 08:19:35
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2008-05-28"
@@ -1181,7 +1135,6 @@
     serial_number:
     created_at: 2010-03-24 13:20:38
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2008-05-28"
@@ -1212,7 +1165,6 @@
     serial_number:
     created_at: 2010-03-24 13:28:13
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2006-03-10"
@@ -1243,7 +1195,6 @@
     serial_number:
     created_at: 2010-03-24 13:36:05
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:33
     invoice_date: "2009-03-13"
@@ -1274,7 +1225,6 @@
     serial_number:
     created_at: 2010-03-26 16:17:35
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-03-25"
@@ -1305,7 +1255,6 @@
     serial_number:
     created_at: 2010-04-07 08:08:06
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2007-12-27"
@@ -1336,7 +1285,6 @@
     serial_number:
     created_at: 2010-04-14 11:02:41
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2006-11-22"
@@ -1367,7 +1315,6 @@
     serial_number:
     created_at: 2010-04-16 13:04:12
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-04-15"
@@ -1398,7 +1345,6 @@
     serial_number:
     created_at: 2010-04-21 08:56:36
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2009-07-16"
@@ -1429,7 +1375,6 @@
     serial_number:
     created_at: 2010-04-21 16:59:47
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-02-01"
@@ -1460,7 +1405,6 @@
     serial_number:
     created_at: 2010-04-22 15:18:16
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2009-08-12"
@@ -1491,7 +1435,6 @@
     serial_number:
     created_at: 2010-04-26 09:35:52
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-02-25"
@@ -1522,7 +1465,6 @@
     serial_number:
     created_at: 2010-04-28 08:00:26
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-01-01"
@@ -1553,7 +1495,6 @@
     serial_number:
     created_at: 2010-04-28 14:32:40
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2008-10-07"
@@ -1584,7 +1525,6 @@
     serial_number:
     created_at: 2010-05-03 13:03:10
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-05-02"
@@ -1615,7 +1555,6 @@
     serial_number:
     created_at: 2010-05-03 13:52:43
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2008-12-02"
@@ -1646,7 +1585,6 @@
     serial_number:
     created_at: 2010-05-05 11:02:23
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-05-04"
@@ -1677,7 +1615,6 @@
     serial_number:
     created_at: 2010-05-06 14:48:27
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-05-05"
@@ -1708,7 +1645,6 @@
     serial_number:
     created_at: 2010-05-10 07:26:18
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2007-07-31"
@@ -1739,7 +1675,6 @@
     serial_number:
     created_at: 2010-05-10 09:42:50
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2008-11-19"
@@ -1770,7 +1705,6 @@
     serial_number:
     created_at: 2010-05-20 17:27:13
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-05-19"
@@ -1801,7 +1735,6 @@
     serial_number:
     created_at: 2010-05-28 16:33:33
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2007-11-02"
@@ -1832,7 +1765,6 @@
     serial_number:
     created_at: 2010-05-31 15:19:03
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2009-07-29"
@@ -1863,7 +1795,6 @@
     serial_number:
     created_at: 2010-06-02 13:34:42
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-06-01"
@@ -1894,7 +1825,6 @@
     serial_number:
     created_at: 2010-06-04 08:32:04
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2008-06-24"
@@ -1925,7 +1855,6 @@
     serial_number:
     created_at: 2010-06-04 10:42:19
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2009-07-16"
@@ -1956,7 +1885,6 @@
     serial_number:
     created_at: 2010-06-04 12:40:11
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2009-02-16"
@@ -1987,7 +1915,6 @@
     serial_number:
     created_at: 2010-06-08 14:19:14
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2008-12-27"
@@ -2018,7 +1945,6 @@
     serial_number:
     created_at: 2010-06-08 14:44:17
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-06-07"
@@ -2049,7 +1975,6 @@
     serial_number:
     created_at: 2010-06-08 15:02:52
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2008-12-27"
@@ -2080,7 +2005,6 @@
     serial_number:
     created_at: 2010-06-08 15:07:06
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-06-07"
@@ -2111,7 +2035,6 @@
     serial_number:
     created_at: 2010-06-08 15:07:27
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-06-07"
@@ -2142,7 +2065,6 @@
     serial_number:
     created_at: 2010-06-08 15:21:29
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-06-07"
@@ -2173,7 +2095,6 @@
     serial_number:
     created_at: 2010-06-08 15:25:05
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-06-07"
@@ -2204,7 +2125,6 @@
     serial_number:
     created_at: 2010-06-08 15:43:12
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-06-07"
@@ -2235,7 +2155,6 @@
     serial_number:
     created_at: 2010-06-09 09:43:52
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2009-07-07"
@@ -2266,7 +2185,6 @@
     serial_number:
     created_at: 2010-06-10 08:58:33
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2012-11-27"
@@ -2297,7 +2215,6 @@
     serial_number:
     created_at: 2010-06-11 12:26:00
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2007-12-27"
@@ -2328,7 +2245,6 @@
     serial_number:
     created_at: 2010-06-17 09:44:13
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-06-16"
@@ -2359,7 +2275,6 @@
     serial_number:
     created_at: 2010-06-21 07:30:29
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2007-08-21"
@@ -2390,7 +2305,6 @@
     serial_number:
     created_at: 2010-06-29 13:53:07
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2008-12-27"
@@ -2421,7 +2335,6 @@
     serial_number:
     created_at: 2010-07-05 13:44:51
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2007-12-10"
@@ -2452,7 +2365,6 @@
     serial_number:
     created_at: 2010-07-06 14:42:57
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-07-05"
@@ -2483,7 +2395,6 @@
     serial_number:
     created_at: 2010-07-29 11:05:16
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-07-28"
@@ -2514,7 +2425,6 @@
     serial_number:
     created_at: 2010-07-29 13:01:12
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-07-28"
@@ -2545,7 +2455,6 @@
     serial_number:
     created_at: 2010-07-29 13:02:00
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-07-28"
@@ -2576,7 +2485,6 @@
     serial_number:
     created_at: 2010-07-29 13:05:22
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-07-28"
@@ -2607,7 +2515,6 @@
     serial_number:
     created_at: 2010-07-29 13:06:13
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-07-28"
@@ -2638,7 +2545,6 @@
     serial_number:
     created_at: 2010-07-29 13:07:12
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-07-28"
@@ -2669,7 +2575,6 @@
     serial_number:
     created_at: 2010-07-29 13:08:43
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-07-28"
@@ -2700,7 +2605,6 @@
     serial_number:
     created_at: 2010-08-02 09:23:03
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2007-11-02"
@@ -2731,7 +2635,6 @@
     serial_number:
     created_at: 2010-08-04 06:45:40
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-08-03"
@@ -2762,7 +2665,6 @@
     serial_number:
     created_at: 2010-08-04 06:46:05
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-08-03"
@@ -2793,7 +2695,6 @@
     serial_number:
     created_at: 2010-08-04 06:46:12
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-08-03"
@@ -2824,7 +2725,6 @@
     serial_number:
     created_at: 2010-08-04 06:46:20
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-08-03"
@@ -2855,7 +2755,6 @@
     serial_number:
     created_at: 2010-08-04 06:46:27
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-08-03"
@@ -2886,7 +2785,6 @@
     serial_number:
     created_at: 2010-08-04 06:46:34
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-08-03"
@@ -2917,7 +2815,6 @@
     serial_number:
     created_at: 2010-08-04 06:46:43
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:34
     invoice_date: "2010-08-03"
@@ -2948,7 +2845,6 @@
     serial_number:
     created_at: 2010-08-04 06:46:53
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-08-03"
@@ -2979,7 +2875,6 @@
     serial_number:
     created_at: 2010-08-04 06:50:40
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-08-03"
@@ -3010,7 +2905,6 @@
     serial_number:
     created_at: 2010-08-04 06:51:31
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-08-03"
@@ -3041,7 +2935,6 @@
     serial_number:
     created_at: 2010-08-04 06:52:46
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-08-03"
@@ -3072,7 +2965,6 @@
     serial_number:
     created_at: 2010-08-04 06:55:39
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-08-03"
@@ -3103,7 +2995,6 @@
     serial_number:
     created_at: 2010-08-04 06:55:53
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-08-03"
@@ -3134,7 +3025,6 @@
     serial_number:
     created_at: 2010-08-04 06:56:00
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-08-03"
@@ -3165,7 +3055,6 @@
     serial_number:
     created_at: 2010-08-04 06:56:10
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-08-03"
@@ -3196,7 +3085,6 @@
     serial_number:
     created_at: 2010-08-04 06:56:19
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-08-03"
@@ -3227,7 +3115,6 @@
     serial_number:
     created_at: 2010-08-04 06:56:25
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-08-03"
@@ -3258,7 +3145,6 @@
     serial_number:
     created_at: 2010-08-04 06:56:44
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-08-03"
@@ -3289,7 +3175,6 @@
     serial_number:
     created_at: 2010-08-13 13:14:08
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2008-11-18"
@@ -3320,7 +3205,6 @@
     serial_number:
     created_at: 2010-08-16 12:18:39
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2009-02-11"
@@ -3351,7 +3235,6 @@
     serial_number:
     created_at: 2010-08-23 10:53:35
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-05-19"
@@ -3382,7 +3265,6 @@
     serial_number:
     created_at: 2010-08-30 08:26:14
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-05-19"
@@ -3413,7 +3295,6 @@
     serial_number:
     created_at: 2010-09-06 07:17:51
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-05-19"
@@ -3444,7 +3325,6 @@
     serial_number:
     created_at: 2010-09-06 09:26:02
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-09-01"
@@ -3475,7 +3355,6 @@
     serial_number:
     created_at: 2010-09-09 08:33:57
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-09-06"
@@ -3506,7 +3385,6 @@
     serial_number:
     created_at: 2010-09-09 08:45:08
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-09-06"
@@ -3537,7 +3415,6 @@
     serial_number:
     created_at: 2010-09-16 09:08:06
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2009-07-28"
@@ -3568,7 +3445,6 @@
     serial_number:
     created_at: 2010-09-16 12:23:28
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-09-15"
@@ -3599,7 +3475,6 @@
     serial_number:
     created_at: 2010-09-24 08:09:59
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2009-08-20"
@@ -3630,7 +3505,6 @@
     serial_number:
     created_at: 2010-10-07 15:35:22
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2008-06-24"
@@ -3661,7 +3535,6 @@
     serial_number:
     created_at: 2010-10-08 11:20:10
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2007-08-15"
@@ -3692,7 +3565,6 @@
     serial_number:
     created_at: 2010-10-08 12:57:26
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2006-11-20"
@@ -3723,7 +3595,6 @@
     serial_number:
     created_at: 2010-10-08 13:36:03
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2007-05-31"
@@ -3754,7 +3625,6 @@
     serial_number:
     created_at: 2010-10-08 14:24:22
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2007-08-15"
@@ -3785,7 +3655,6 @@
     serial_number:
     created_at: 2010-10-08 15:40:12
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2007-07-31"
@@ -3816,7 +3685,6 @@
     serial_number:
     created_at: 2010-10-11 10:30:33
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2006-11-22"
@@ -3847,7 +3715,6 @@
     serial_number:
     created_at: 2010-10-11 12:45:05
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2008-05-28"
@@ -3878,7 +3745,6 @@
     serial_number:
     created_at: 2010-10-11 13:00:20
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2007-07-31"
@@ -3909,7 +3775,6 @@
     serial_number:
     created_at: 2010-10-12 10:40:22
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2008-12-27"
@@ -3940,7 +3805,6 @@
     serial_number:
     created_at: 2010-10-12 10:53:41
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2006-10-06"
@@ -3971,7 +3835,6 @@
     serial_number:
     created_at: 2010-10-15 13:35:08
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-02-01"
@@ -4002,7 +3865,6 @@
     serial_number:
     created_at: 2010-10-20 08:44:20
     is_broken: "1"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2009-07-28"
@@ -4033,7 +3895,6 @@
     serial_number:
     created_at: 2010-11-04 09:52:49
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2008-06-14"
@@ -4064,7 +3925,6 @@
     serial_number:
     created_at: 2010-11-04 12:25:04
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2006-11-08"
@@ -4095,7 +3955,6 @@
     serial_number:
     created_at: 2010-11-12 12:03:47
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2007-12-27"
@@ -4126,7 +3985,6 @@
     serial_number:
     created_at: 2010-11-12 15:40:59
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2007-12-27"
@@ -4157,7 +4015,6 @@
     serial_number:
     created_at: 2010-11-18 13:59:43
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2007-07-31"
@@ -4188,7 +4045,6 @@
     serial_number:
     created_at: 2010-12-15 10:38:16
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-12-14"
@@ -4219,7 +4075,6 @@
     serial_number:
     created_at: 2010-12-17 12:42:35
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2010-12-17"
@@ -4250,7 +4105,6 @@
     serial_number:
     created_at: 2010-12-20 16:28:04
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2008-12-27"
@@ -4281,7 +4135,6 @@
     serial_number:
     created_at: 2010-12-22 15:01:58
     is_broken: "0"
-    delta: "0"
     is_inventory_relevant: "1"
     updated_at: 2011-01-10 09:25:35
     invoice_date: "2007-12-27"
@@ -4312,7 +4165,6 @@
     serial_number:
     created_at: 2011-01-11 14:47:36
     is_broken: "0"
-    delta: "1"
     is_inventory_relevant: "0"
     updated_at: 2011-01-11 14:47:36
     invoice_date: 
@@ -4338,7 +4190,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-02-02 09:36:32
-    delta: "0"
     updated_at: 2010-02-02 09:36:32
     status_const: "2"
     id: "4472"
@@ -4351,7 +4202,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-02-02 09:50:32
-    delta: "0"
     updated_at: 2010-04-22 11:10:44
     status_const: "2"
     id: "4474"
@@ -4364,7 +4214,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-02-02 15:15:18
-    delta: "0"
     updated_at: 2010-02-02 15:15:18
     status_const: "2"
     id: "4493"
@@ -4377,7 +4226,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-02-05 08:34:03
-    delta: "0"
     updated_at: 2010-02-05 08:34:03
     status_const: "2"
     id: "4535"
@@ -4390,7 +4238,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-02-05 11:08:26
-    delta: "0"
     updated_at: 2010-02-05 11:08:26
     status_const: "2"
     id: "4544"
@@ -4403,7 +4250,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-02-09 11:21:32
-    delta: "0"
     updated_at: 2010-10-21 13:36:49
     status_const: "2"
     id: "4587"
@@ -4416,7 +4262,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-02-16 17:57:45
-    delta: "0"
     updated_at: 2010-02-16 17:57:45
     status_const: "2"
     id: "4734"
@@ -4429,7 +4274,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-02-19 13:32:30
-    delta: "0"
     updated_at: 2010-02-19 13:32:30
     status_const: "2"
     id: "4794"
@@ -4442,7 +4286,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-02-22 15:15:55
-    delta: "0"
     updated_at: 2010-02-22 15:15:55
     status_const: "2"
     id: "4822"
@@ -4455,7 +4298,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-03-05 15:25:56
-    delta: "0"
     updated_at: 2010-03-05 15:25:56
     status_const: "2"
     id: "5140"
@@ -4468,7 +4310,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-03-10 15:30:22
-    delta: "0"
     updated_at: 2010-03-10 15:30:22
     status_const: "2"
     id: "5232"
@@ -4481,7 +4322,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-03-10 15:32:18
-    delta: "0"
     updated_at: 2010-03-10 15:32:18
     status_const: "2"
     id: "5234"
@@ -4494,7 +4334,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-03-11 10:39:12
-    delta: "0"
     updated_at: 2010-03-11 10:39:12
     status_const: "2"
     id: "5255"
@@ -4507,7 +4346,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-03-11 13:56:54
-    delta: "0"
     updated_at: 2010-03-11 13:56:54
     status_const: "2"
     id: "5273"
@@ -4520,7 +4358,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-03-24 08:23:16
-    delta: "0"
     updated_at: 2010-03-24 08:23:16
     status_const: "2"
     id: "5537"
@@ -4533,7 +4370,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-04-06 13:28:11
-    delta: "0"
     updated_at: 2010-04-06 13:28:11
     status_const: "2"
     id: "5809"
@@ -4546,7 +4382,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-04-08 14:12:51
-    delta: "0"
     updated_at: 2010-04-08 14:12:51
     status_const: "2"
     id: "5912"
@@ -4559,7 +4394,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-04-14 11:16:15
-    delta: "0"
     updated_at: 2010-04-14 11:16:15
     status_const: "2"
     id: "6050"
@@ -4572,7 +4406,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-04-16 13:10:10
-    delta: "0"
     updated_at: 2010-04-20 14:00:21
     status_const: "2"
     id: "6146"
@@ -4585,7 +4418,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-04-21 08:57:13
-    delta: "0"
     updated_at: 2010-04-21 08:57:13
     status_const: "2"
     id: "5999"
@@ -4598,7 +4430,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-04-21 17:03:52
-    delta: "0"
     updated_at: 2010-04-21 17:03:52
     status_const: "2"
     id: "6267"
@@ -4611,7 +4442,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-04-23 06:36:44
-    delta: "0"
     updated_at: 2010-04-23 06:36:44
     status_const: "2"
     id: "6328"
@@ -4624,7 +4454,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-04-26 11:05:22
-    delta: "0"
     updated_at: 2010-04-26 11:05:22
     status_const: "2"
     id: "6349"
@@ -4637,7 +4466,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-04-28 14:46:45
-    delta: "0"
     updated_at: 2010-04-28 14:46:45
     status_const: "2"
     id: "6391"
@@ -4650,7 +4478,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-04-29 09:09:03
-    delta: "0"
     updated_at: 2010-04-29 09:09:03
     status_const: "2"
     id: "5256"
@@ -4663,7 +4490,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-05-03 10:40:04
-    delta: "0"
     updated_at: 2010-05-03 10:40:04
     status_const: "2"
     id: "6428"
@@ -4676,7 +4502,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-05-03 13:04:24
-    delta: "0"
     updated_at: 2010-05-03 13:04:24
     status_const: "2"
     id: "6434"
@@ -4689,7 +4514,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-05-06 09:04:58
-    delta: "0"
     updated_at: 2010-05-06 09:04:58
     status_const: "2"
     id: "6466"
@@ -4702,7 +4526,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-05-18 09:39:28
-    delta: "0"
     updated_at: 2010-05-18 09:39:28
     status_const: "2"
     id: "6624"
@@ -4715,7 +4538,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-05-19 07:32:44
-    delta: "0"
     updated_at: 2010-05-19 07:32:44
     status_const: "2"
     id: "6640"
@@ -4728,7 +4550,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-05-20 17:28:09
-    delta: "0"
     updated_at: 2010-05-20 17:28:09
     status_const: "2"
     id: "3727"
@@ -4741,7 +4562,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-05-28 16:36:46
-    delta: "0"
     updated_at: 2010-05-28 16:36:46
     status_const: "2"
     id: "6893"
@@ -4754,7 +4574,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-05-31 15:22:48
-    delta: "0"
     updated_at: 2010-05-31 15:22:48
     status_const: "2"
     id: "6921"
@@ -4767,7 +4586,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-02 14:35:08
-    delta: "0"
     updated_at: 2010-06-02 14:35:08
     status_const: "2"
     id: "6964"
@@ -4780,7 +4598,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-04 08:34:50
-    delta: "0"
     updated_at: 2010-11-04 08:23:52
     status_const: "2"
     id: "6993"
@@ -4793,7 +4610,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-04 12:41:23
-    delta: "0"
     updated_at: 2010-06-04 12:41:23
     status_const: "2"
     id: "7003"
@@ -4806,7 +4622,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-08 14:45:08
-    delta: "0"
     updated_at: 2010-06-08 14:45:08
     status_const: "2"
     id: "7056"
@@ -4819,7 +4634,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-08 15:08:27
-    delta: "0"
     updated_at: 2010-06-08 15:08:27
     status_const: "2"
     id: "7057"
@@ -4832,7 +4646,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-08 15:26:15
-    delta: "0"
     updated_at: 2010-06-08 15:26:15
     status_const: "2"
     id: "7058"
@@ -4845,7 +4658,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-08 15:27:21
-    delta: "0"
     updated_at: 2010-08-23 09:53:00
     status_const: "2"
     id: "7059"
@@ -4858,7 +4670,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-08 15:44:26
-    delta: "0"
     updated_at: 2010-06-11 12:15:45
     status_const: "2"
     id: "4529"
@@ -4871,7 +4682,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-11 12:30:11
-    delta: "0"
     updated_at: 2010-06-11 12:30:11
     status_const: "2"
     id: "7127"
@@ -4884,7 +4694,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-15 08:22:38
-    delta: "0"
     updated_at: 2010-06-15 08:22:38
     status_const: "2"
     id: "7146"
@@ -4897,7 +4706,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-17 09:45:27
-    delta: "0"
     updated_at: 2010-06-17 09:45:27
     status_const: "2"
     id: "7184"
@@ -4910,7 +4718,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-21 07:32:42
-    delta: "0"
     updated_at: 2010-06-21 07:32:42
     status_const: "2"
     id: "7210"
@@ -4923,7 +4730,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-21 12:18:38
-    delta: "0"
     updated_at: 2010-06-21 12:18:38
     status_const: "2"
     id: "7217"
@@ -4936,7 +4742,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-23 08:16:54
-    delta: "0"
     updated_at: 2010-06-23 08:16:54
     status_const: "2"
     id: "7236"
@@ -4949,7 +4754,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-06-23 09:30:18
-    delta: "0"
     updated_at: 2010-12-14 11:42:09
     status_const: "2"
     id: "7237"
@@ -4962,7 +4766,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-07-01 09:12:59
-    delta: "0"
     updated_at: 2010-07-01 09:12:59
     status_const: "2"
     id: "6211"
@@ -4975,7 +4778,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-07-05 13:45:55
-    delta: "0"
     updated_at: 2010-07-05 13:45:55
     status_const: "2"
     id: "7343"
@@ -4988,7 +4790,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-07-06 14:58:50
-    delta: "0"
     updated_at: 2010-07-06 14:58:50
     status_const: "2"
     id: "7359"
@@ -5001,7 +4802,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-07-08 08:09:21
-    delta: "0"
     updated_at: 2010-07-08 08:09:21
     status_const: "2"
     id: "4064"
@@ -5014,7 +4814,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-07-08 09:30:06
-    delta: "0"
     updated_at: 2010-07-08 09:30:06
     status_const: "2"
     id: "7366"
@@ -5027,7 +4826,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-07-08 10:37:37
-    delta: "0"
     updated_at: 2010-10-29 10:38:21
     status_const: "2"
     id: "7367"
@@ -5040,7 +4838,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-07-26 09:45:50
-    delta: "0"
     updated_at: 2010-07-26 09:45:50
     status_const: "2"
     id: "7477"
@@ -5053,7 +4850,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-07-29 13:18:08
-    delta: "0"
     updated_at: 2010-07-29 13:18:08
     status_const: "2"
     id: "7435"
@@ -5066,7 +4862,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-04 14:28:59
-    delta: "0"
     updated_at: 2010-08-04 14:28:59
     status_const: "2"
     id: "7504"
@@ -5079,7 +4874,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-04 14:44:11
-    delta: "0"
     updated_at: 2010-08-04 14:44:11
     status_const: "2"
     id: "7506"
@@ -5092,7 +4886,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-05 10:26:06
-    delta: "0"
     updated_at: 2010-08-05 10:26:06
     status_const: "2"
     id: "7509"
@@ -5105,7 +4898,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-13 13:39:35
-    delta: "0"
     updated_at: 2010-08-13 13:39:35
     status_const: "2"
     id: "7528"
@@ -5118,7 +4910,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-24 08:47:34
-    delta: "0"
     updated_at: 2010-10-28 11:45:32
     status_const: "2"
     id: "7614"
@@ -5131,7 +4922,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-24 14:00:57
-    delta: "0"
     updated_at: 2010-09-03 07:03:52
     status_const: "2"
     id: "7622"
@@ -5144,7 +4934,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-24 14:41:02
-    delta: "0"
     updated_at: 2010-08-24 14:41:02
     status_const: "2"
     id: "7624"
@@ -5157,7 +4946,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-25 10:47:26
-    delta: "0"
     updated_at: 2010-08-25 10:47:26
     status_const: "2"
     id: "7638"
@@ -5170,7 +4958,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-25 14:14:27
-    delta: "0"
     updated_at: 2010-08-25 14:14:27
     status_const: "2"
     id: "7646"
@@ -5183,7 +4970,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-26 09:20:30
-    delta: "0"
     updated_at: 2010-08-26 09:20:30
     status_const: "2"
     id: "7648"
@@ -5196,7 +4982,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-30 08:27:42
-    delta: "0"
     updated_at: 2010-08-30 08:27:42
     status_const: "2"
     id: "7672"
@@ -5209,7 +4994,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-30 09:19:24
-    delta: "0"
     updated_at: 2010-10-01 09:16:08
     status_const: "2"
     id: "7673"
@@ -5222,7 +5006,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-08-31 13:24:15
-    delta: "0"
     updated_at: 2010-08-31 13:24:15
     status_const: "2"
     id: "5838"
@@ -5235,7 +5018,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-09-06 09:32:52
-    delta: "0"
     updated_at: 2010-09-06 09:32:52
     status_const: "2"
     id: "5259"
@@ -5248,7 +5030,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-09-02 10:18:29
-    delta: "0"
     updated_at: 2010-09-02 10:18:29
     status_const: "2"
     id: "7717"
@@ -5261,7 +5042,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-09-02 10:23:38
-    delta: "0"
     updated_at: 2010-09-02 10:23:38
     status_const: "2"
     id: "7718"
@@ -5274,7 +5054,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-09-02 10:33:26
-    delta: "0"
     updated_at: 2010-09-02 10:33:26
     status_const: "2"
     id: "7719"
@@ -5287,7 +5066,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-09-03 09:41:53
-    delta: "0"
     updated_at: 2010-09-03 09:41:53
     status_const: "2"
     id: "7733"
@@ -5300,7 +5078,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-09-16 09:38:45
-    delta: "0"
     updated_at: 2010-09-16 09:38:45
     status_const: "2"
     id: "7803"
@@ -5313,7 +5090,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-09-08 11:46:53
-    delta: "0"
     updated_at: 2010-09-08 11:46:53
     status_const: "2"
     id: "7837"
@@ -5326,7 +5102,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-09-16 09:37:16
-    delta: "0"
     updated_at: 2010-09-16 09:37:16
     status_const: "2"
     id: "8031"
@@ -5339,7 +5114,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-09-20 13:39:49
-    delta: "0"
     updated_at: 2010-09-20 13:39:50
     status_const: "2"
     id: "8129"
@@ -5352,7 +5126,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-09-22 11:03:47
-    delta: "0"
     updated_at: 2010-09-22 11:03:47
     status_const: "2"
     id: "8199"
@@ -5365,7 +5138,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-09-24 08:15:45
-    delta: "0"
     updated_at: 2010-09-24 08:15:45
     status_const: "2"
     id: "8307"
@@ -5378,7 +5150,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-10-04 11:52:42
-    delta: "0"
     updated_at: 2010-10-04 11:52:42
     status_const: "2"
     id: "8663"
@@ -5391,7 +5162,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-10-08 15:13:14
-    delta: "0"
     updated_at: 2010-10-08 15:13:14
     status_const: "2"
     id: "8889"
@@ -5404,7 +5174,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-10-12 15:01:21
-    delta: "0"
     updated_at: 2010-10-21 11:36:26
     status_const: "2"
     id: "8985"
@@ -5417,7 +5186,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-10-19 16:20:47
-    delta: "0"
     updated_at: 2010-10-19 16:20:47
     status_const: "2"
     id: "9259"
@@ -5430,7 +5198,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-10-21 15:19:34
-    delta: "0"
     updated_at: 2010-10-21 15:19:34
     status_const: "2"
     id: "9379"
@@ -5443,7 +5210,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-10-21 15:28:31
-    delta: "0"
     updated_at: 2010-10-21 15:28:31
     status_const: "2"
     id: "9381"
@@ -5456,7 +5222,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-11-04 12:14:51
-    delta: "0"
     updated_at: 2010-11-04 12:14:51
     status_const: "2"
     id: "9963"
@@ -5469,7 +5234,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-11-08 08:01:06
-    delta: "0"
     updated_at: 2010-11-08 08:01:06
     status_const: "2"
     id: "9993"
@@ -5482,7 +5246,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-11-08 14:57:33
-    delta: "0"
     updated_at: 2010-11-08 14:57:33
     status_const: "2"
     id: "10101"
@@ -5495,7 +5258,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-11-12 12:12:48
-    delta: "0"
     updated_at: 2010-11-12 12:12:48
     status_const: "2"
     id: "10351"
@@ -5508,7 +5270,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-11-12 15:42:28
-    delta: "0"
     updated_at: 2010-11-12 15:42:28
     status_const: "2"
     id: "10369"
@@ -5521,7 +5282,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-11-18 13:40:26
-    delta: "0"
     updated_at: 2010-11-18 13:40:26
     status_const: "2"
     id: "10639"
@@ -5534,7 +5294,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-11-18 14:47:07
-    delta: "0"
     updated_at: 2010-11-18 14:47:07
     status_const: "2"
     id: "10655"
@@ -5547,7 +5306,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-11-23 14:26:31
-    delta: "0"
     updated_at: 2010-11-23 14:26:31
     status_const: "2"
     id: "10871"
@@ -5560,7 +5318,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-12-03 15:16:33
-    delta: "0"
     updated_at: 2010-12-03 15:16:33
     status_const: "2"
     id: "11391"
@@ -5573,7 +5330,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-12-08 14:41:47
-    delta: "0"
     updated_at: 2010-12-08 14:41:47
     status_const: "2"
     id: "11619"
@@ -5586,7 +5342,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-12-14 14:57:33
-    delta: "0"
     updated_at: 2010-12-14 14:57:33
     status_const: "2"
     id: "11879"
@@ -5599,7 +5354,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-12-15 12:31:19
-    delta: "0"
     updated_at: 2010-12-15 12:31:19
     status_const: "2"
     id: "11967"
@@ -5612,7 +5366,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-12-16 10:55:09
-    delta: "0"
     updated_at: 2010-12-16 10:55:09
     status_const: "2"
     id: "12001"
@@ -5625,7 +5378,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-12-17 12:52:43
-    delta: "0"
     updated_at: 2010-12-17 12:52:43
     status_const: "2"
     id: "12067"
@@ -5638,7 +5390,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2010-12-20 12:26:50
-    delta: "0"
     updated_at: 2010-12-20 12:26:50
     status_const: "2"
     id: "12133"
@@ -5651,7 +5402,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2011-01-10 09:26:46
-    delta: "0"
     updated_at: 2011-01-10 09:26:46
     status_const: "2"
     id: "12505"
@@ -5664,7 +5414,6 @@
 - !ruby/object:Contract 
   attributes: 
     created_at: 2009-01-27 11:46:32
-    delta: "0"
     updated_at: 2010-04-20 14:03:36
     status_const: "2"
     id: "902"
@@ -5683,7 +5432,6 @@
     zip: 
     badge_id: 
     created_at: 2010-01-19 10:41:17
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-20 14:50:03
@@ -5705,7 +5453,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:05
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-04-22 11:10:43
@@ -5727,7 +5474,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:19:32
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-02-03 15:16:14
@@ -5749,7 +5495,6 @@
     zip: 
     badge_id: 
     created_at: 2010-02-04 16:37:30
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-02-05 08:32:13
@@ -5771,7 +5516,6 @@
     zip: 
     badge_id: 
     created_at: 2009-09-15 08:41:33
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2011-01-10 07:45:44
@@ -5793,7 +5537,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:00
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-10-21 13:37:36
@@ -5815,7 +5558,6 @@
     zip: 
     badge_id: 
     created_at: 2010-02-16 17:55:23
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-19 05:30:25
@@ -5837,7 +5579,6 @@
     zip: 
     badge_id: 
     created_at: 2010-02-19 12:01:31
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-28 09:56:44
@@ -5859,7 +5600,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:19:45
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-03 15:44:38
@@ -5881,7 +5621,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:52
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-09-01 06:01:10
@@ -5903,7 +5642,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:27
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-01 10:07:21
@@ -5925,7 +5663,6 @@
     zip: 
     badge_id: 
     created_at: 2010-03-09 17:34:02
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-19 05:30:29
@@ -5947,7 +5684,6 @@
     zip: 
     badge_id: 
     created_at: 2010-03-10 15:48:03
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-08 14:26:09
@@ -5969,7 +5705,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:19:39
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-19 05:30:27
@@ -5991,7 +5726,6 @@
     zip: 
     badge_id: 
     created_at: 2010-03-24 08:16:30
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-30 12:50:03
@@ -6013,7 +5747,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:49
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-06-16 14:41:31
@@ -6035,7 +5768,6 @@
     zip: 
     badge_id: 
     created_at: 2010-04-08 14:09:22
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-31 06:31:03
@@ -6057,7 +5789,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:19:53
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-17 08:30:39
@@ -6079,7 +5810,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:20:18
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-09-02 12:57:54
@@ -6101,7 +5831,6 @@
     zip: 
     badge_id: 
     created_at: 2010-02-11 17:01:33
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-04-22 13:12:09
@@ -6123,7 +5852,6 @@
     zip: 
     badge_id: 
     created_at: 2010-04-21 16:52:50
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-19 05:30:30
@@ -6145,7 +5873,6 @@
     zip: 
     badge_id: 
     created_at: 2010-04-22 16:55:26
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-04-23 06:35:53
@@ -6167,7 +5894,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:19:09
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-12 12:33:21
@@ -6189,7 +5915,6 @@
     zip: 
     badge_id: 
     created_at: 2010-04-28 14:42:07
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-19 05:30:50
@@ -6211,7 +5936,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:05
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-17 07:43:42
@@ -6233,7 +5957,6 @@
     zip: 
     badge_id: 
     created_at: 2010-05-03 13:02:38
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-03 13:03:34
@@ -6255,7 +5978,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:20:02
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-10-09 08:34:33
@@ -6277,7 +5999,6 @@
     zip: 
     badge_id: 
     created_at: 2010-05-18 09:33:21
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-19 05:30:49
@@ -6299,7 +6020,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:16:49
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-19 07:31:06
@@ -6321,7 +6041,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:19:49
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2011-01-11 08:43:17
@@ -6343,7 +6062,6 @@
     zip: 
     badge_id: 
     created_at: 2010-05-28 16:04:56
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-05-28 16:34:01
@@ -6365,7 +6083,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:57
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-07-19 11:38:43
@@ -6387,7 +6104,6 @@
     zip: 
     badge_id: 
     created_at: 2010-06-02 14:31:15
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-06-08 13:16:50
@@ -6409,7 +6125,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:19:09
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-04 08:23:51
@@ -6431,7 +6146,6 @@
     zip: 
     badge_id: 
     created_at: 2009-09-10 09:52:05
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-06-04 12:40:44
@@ -6453,7 +6167,6 @@
     zip: 
     badge_id: 
     created_at: 2009-02-05 15:21:35
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2011-01-10 09:02:25
@@ -6475,7 +6188,6 @@
     zip: 
     badge_id: 
     created_at: 2009-05-13 10:28:48
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2011-01-11 08:26:38
@@ -6497,7 +6209,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:51
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-09 08:56:17
@@ -6519,7 +6230,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:02
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-22 12:08:19
@@ -6541,7 +6251,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:16:57
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2011-01-06 14:20:52
@@ -6563,7 +6272,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:19:49
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-13 07:28:32
@@ -6585,7 +6293,6 @@
     zip: 
     badge_id: 
     created_at: 2010-06-11 15:16:01
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-07-21 08:02:59
@@ -6607,7 +6314,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:48
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-15 19:58:32
@@ -6629,7 +6335,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:25
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2011-01-11 09:37:32
@@ -6651,7 +6356,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:31
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-09-08 11:46:19
@@ -6673,7 +6377,6 @@
     zip: 
     badge_id: 
     created_at: 2010-05-17 09:35:28
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2011-01-05 21:03:23
@@ -6695,7 +6398,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:11
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-02 11:35:35
@@ -6717,7 +6419,6 @@
     zip: 
     badge_id: 
     created_at: 2010-06-08 13:26:20
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-07-05 13:45:17
@@ -6739,7 +6440,6 @@
     zip: 
     badge_id: 
     created_at: 2010-06-08 13:26:31
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-07-06 13:31:59
@@ -6761,7 +6461,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:16:50
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-17 09:24:51
@@ -6783,7 +6482,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:30
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-25 09:14:13
@@ -6805,7 +6503,6 @@
     zip: 
     badge_id: 
     created_at: 2010-07-06 15:49:58
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-03 11:52:57
@@ -6827,7 +6524,6 @@
     zip: 
     badge_id: 
     created_at: 2010-07-26 09:15:35
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-07-27 10:15:50
@@ -6849,7 +6545,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:22
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-06-24 08:37:56
@@ -6871,7 +6566,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:41
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-09 08:44:08
@@ -6893,7 +6587,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:16:57
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2011-01-09 15:45:14
@@ -6915,7 +6608,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:20
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-01 12:23:33
@@ -6937,7 +6629,6 @@
     zip: 
     badge_id: 
     created_at: 2010-08-13 13:29:12
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-08-13 13:36:52
@@ -6959,7 +6650,6 @@
     zip: 
     badge_id: 
     created_at: 2010-08-02 08:49:04
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-08 08:56:42
@@ -6981,7 +6671,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:20
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-15 21:27:21
@@ -7003,7 +6692,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:19:28
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-08-24 14:40:30
@@ -7025,7 +6713,6 @@
     zip: 
     badge_id: 
     created_at: 2010-07-15 09:09:16
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-03 09:42:58
@@ -7047,7 +6734,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:30
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-08-25 14:11:11
@@ -7069,7 +6755,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:50
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-08-26 09:15:03
@@ -7091,7 +6776,6 @@
     zip: 
     badge_id: 
     created_at: 2010-04-06 10:08:25
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-16 09:46:13
@@ -7113,7 +6797,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:01
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2011-01-10 17:25:45
@@ -7135,7 +6818,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:59
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-07 07:47:14
@@ -7157,7 +6839,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:19:54
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-08 19:22:27
@@ -7179,7 +6860,6 @@
     zip: 
     badge_id: 
     created_at: 2010-09-02 10:11:38
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-09-02 10:17:31
@@ -7201,7 +6881,6 @@
     zip: 
     badge_id: 
     created_at: 2010-09-02 10:14:53
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-09-02 10:21:38
@@ -7223,7 +6902,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:43
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-09-02 10:28:07
@@ -7245,7 +6923,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:16:48
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-09-03 09:41:16
@@ -7267,7 +6944,6 @@
     zip: 
     badge_id: 
     created_at: 2010-06-08 13:18:00
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-09-07 13:18:44
@@ -7289,7 +6965,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:16:55
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-15 09:45:07
@@ -7311,7 +6986,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:12
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-22 10:50:09
@@ -7333,7 +7007,6 @@
     zip: 
     badge_id: 
     created_at: 2009-09-07 11:32:38
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-09-20 13:38:58
@@ -7355,7 +7028,6 @@
     zip: 
     badge_id: 
     created_at: 2010-06-08 13:17:22
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-09-22 10:59:55
@@ -7377,7 +7049,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:57
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-09-24 07:58:41
@@ -7399,7 +7070,6 @@
     zip: 
     badge_id: 
     created_at: 2010-04-27 09:05:23
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-10-04 11:48:23
@@ -7421,7 +7091,6 @@
     zip: 
     badge_id: 
     created_at: 2010-10-08 14:36:16
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-10-08 14:37:43
@@ -7443,7 +7112,6 @@
     zip: 
     badge_id: 
     created_at: 2010-10-11 10:58:14
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-08 11:19:21
@@ -7465,7 +7133,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:12
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-10-26 14:04:18
@@ -7487,7 +7154,6 @@
     zip: 
     badge_id: 
     created_at: 2010-10-21 08:23:12
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-10-21 15:15:12
@@ -7509,7 +7175,6 @@
     zip: 
     badge_id: 
     created_at: 2010-09-10 08:59:32
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-10-21 15:24:38
@@ -7531,7 +7196,6 @@
     zip: 
     badge_id: 
     created_at: 2010-06-08 13:18:36
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-04 12:12:51
@@ -7553,7 +7217,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:27
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-04 16:12:59
@@ -7575,7 +7238,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:38
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-08 14:52:26
@@ -7597,7 +7259,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:16:59
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-12 15:35:55
@@ -7619,7 +7280,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:23
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-18 13:12:29
@@ -7641,7 +7301,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:18:49
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-18 14:40:45
@@ -7663,7 +7322,6 @@
     zip: 
     badge_id: 
     created_at: 2009-08-11 16:57:01
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-23 19:11:36
@@ -7685,7 +7343,6 @@
     zip: 
     badge_id: 
     created_at: 2010-06-08 13:26:34
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-11-26 13:03:33
@@ -7707,7 +7364,6 @@
     zip: 
     badge_id: 
     created_at: 2010-12-08 14:13:10
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-08 14:13:54
@@ -7729,7 +7385,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:20:00
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-09 14:13:04
@@ -7751,7 +7406,6 @@
     zip: 
     badge_id: 
     created_at: 2009-11-05 11:01:15
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-15 12:17:51
@@ -7773,7 +7427,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:19:40
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-16 10:44:40
@@ -7795,7 +7448,6 @@
     zip: 
     badge_id: 
     created_at: 2010-07-01 12:37:52
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-17 12:44:03
@@ -7817,7 +7469,6 @@
     zip: 
     badge_id: 
     created_at: 2010-02-15 07:42:59
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-20 12:18:39
@@ -7839,7 +7490,6 @@
     zip: 
     badge_id: 
     created_at: 2009-01-28 08:17:05
-    delta: "0"
     country: 
     unique_id: 
     updated_at: 2010-12-02 15:58:19

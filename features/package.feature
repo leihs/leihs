@@ -1,3 +1,4 @@
+@old-ui
 Feature: Handling of Packages
 
        As an Inventory Manager or a Customer

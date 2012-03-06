@@ -11,10 +11,14 @@ Given /^the MacBook availability as of (\d+\-\d+\-\d+)$/ do |date|
                            'features/fixtures/availability_calculation_performance.yml')))
 
   fixture.each do |fixture_instance|
-    #puts fixture_instance #debug
-    new_instance = fixture_instance.clone
-    new_instance.id = fixture_instance.id
-    new_instance.save!
+    klass = fixture_instance.class
+    mass_attrs = [:id, :unique_id, :extended_info, :created_at, :updated_at, :type]
+    attrs = fixture_instance.attributes.select {|k,v| not mass_attrs.include? k.to_sym }
+    klass.create(attrs) do |r|
+      mass_attrs.each do |a|
+        r.send("#{a}=", fixture_instance.send(a)) if fixture_instance.respond_to?(a)
+      end
+    end
   end
 
   # first item inside the fixtures is the model

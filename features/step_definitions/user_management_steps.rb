@@ -52,8 +52,7 @@ Given "customer '$who' has access to inventory pool $ip_s" do |who, ip_s|
   inventory_pools = ip_s.split(" and ").collect { | ip_name |
     InventoryPool.find_by_name ip_name
   }
-  user = LeihsFactory.create_user({:login => who}, #, :password => "pass"
-			     { :inventory_pool => inventory_pools.first })
+  user = Factory(:user, :login => who)
   inventory_pools.each { |ip|
     LeihsFactory.define_role(user, ip, "customer" )
     user.inventory_pools.include?(ip).should == true

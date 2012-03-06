@@ -3,7 +3,6 @@
 # Persona:  Pius
 # Job:      Inventory Pool Manager
 #
-require 'factory'
 
 module Persona
   

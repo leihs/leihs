@@ -3,7 +3,6 @@
 # Persona:  Normin
 # Job:      ZHDK Student
 #
-require 'factory'
 
 module Persona
   

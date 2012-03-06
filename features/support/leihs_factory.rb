@@ -64,7 +64,7 @@ module LeihsFactory
     default_attributes = {
       :login => "jerome",
       :email  => "jerome@example.com",
-      :language_id => Language.default_language.id
+      :language_id => (Language.default_language ? Language.default_language.id : LanguageFactory.create)
     }
     default_attributes[:email] = "#{attributes[:login].gsub(' ', '_')}@example.com" if attributes[:login]
     u = User.find_or_create_by_login default_attributes.merge(attributes)

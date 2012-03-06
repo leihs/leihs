@@ -21,7 +21,7 @@ class Language < ActiveRecord::Base
   end
   
   def self.preferred(accepted_languages)
-    default = default_language.locale_name.dasherize
+    default = default_language
     
     return default if accepted_languages.nil?
     
