@@ -236,6 +236,10 @@ GEM
       multi_json (~> 1.0)
       rubyzip
     sexp_processor (3.1.0)
+    simplecov (0.6.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.5.3)
+    simplecov-html (0.5.3)
     slop (2.4.4)
     spork (0.9.0)
     sprockets (2.1.2)
@@ -312,6 +316,7 @@ DEPENDENCIES
   ruby_parser (~> 2.3)
   sass (~> 3.1)
   sass-rails (~> 3.2)
+  simplecov
   spork
   uglifier (~> 1.2)
   uuidtools (~> 2.1.2)
