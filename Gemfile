@@ -66,12 +66,13 @@ group :test, :development do
   gem 'pry'
   gem 'pry-rails'
   gem 'spork'
-	gem 'cucumber-rails', '~> 1.2', :require => false
-	gem 'database_cleaner', '~> 0.7', :require => false
-	gem 'rspec', '~> 2.7', :require => false
-	gem 'rspec-rails', '~> 2.7', :require => false
-	gem 'nokogiri', '~> 1.5.0'
-	gem 'capybara', '~> 1.1'
+  gem 'cucumber-rails', '~> 1.2', :require => false
+  gem 'database_cleaner', '~> 0.7', :require => false
+  gem 'rspec', '~> 2.7', :require => false
+  gem 'rspec-rails', '~> 2.7', :require => false
+  gem 'nokogiri', '~> 1.5.0'
+  gem 'capybara', '~> 1.1'
+  gem 'simplecov'
   gem 'launchy', '~> 2.0.5'
   gem "uuidtools", "~> 2.1.2" # needed for creating unique ids during tests (factories)
 end

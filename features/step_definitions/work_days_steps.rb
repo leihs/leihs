@@ -46,17 +46,16 @@ When "$who try to order an item for $date" do |who, date|
 
   # Login                            
   post "/session", :login => user.login
+  step "I am '%s'" % user.login
   @order.destroy if @order
   get '/order'
-  @order = assigns(:order)
-  
   post add_line_order_path( :model_id => model.id,
                             :quantity => 1,
                             :inventory_pool_id => inventory_pool.id,
                             :start_date => date,
                             :end_date => date)
                            
-  @order = assigns(:order)
+  @order = @user.get_current_order
   @line = @order.order_lines.last
 end
 
@@ -69,7 +68,7 @@ When "$who clicks '$action'" do |who, action|
   get backend_inventory_pool_hand_over_index_path(@inventory_pool) if action == 'hand over'
   get backend_inventory_pool_workdays_path(@inventory_pool) if action == 'Opening Times'
 
-  @workday = assigns(:workday)
+  #old??# @workday = assigns(:workday)
 end
 
 Then "that should be possible$reason" do |reason|

@@ -64,11 +64,11 @@ class OrdersController < FrontendController
       model = current_user.models.find(model_id)
     end
 
-    if start_date
+    if start_date.is_a? String
       sd = start_date.split('.').map{|x| x.to_i}
       start_date = Date.new(sd[2],sd[1],sd[0])
     end
-    if end_date
+    if end_date.is_a? String
       ed = end_date.split('.').map{|x| x.to_i}
       end_date = Date.new(ed[2],ed[1],ed[0])
     end

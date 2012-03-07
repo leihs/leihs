@@ -24,9 +24,10 @@ Given "the order was submitted" do
 end
 
 When "he submits the new order" do
+  @order = @user.get_current_order
   @order.status_const.should == Order::UNSUBMITTED
   post submit_order_path
-  @order = assigns(:order)
+  @order = @order.reload
   @order.status_const.should == Order::SUBMITTED
 end
 
@@ -72,7 +73,7 @@ When "$who chooses one order" do | who |
   order = @orders.first
   get backend_inventory_pool_user_acknowledge_path(@inventory_pool, order.user, order)
   response.should render_template('backend/acknowledge/show')
-  @order = assigns(:order)
+  #old??# @order = assigns(:order)
 end
 
 When "I choose to process $who's order" do | who |
@@ -113,46 +114,45 @@ end
 When "$who rejects order" do |who|
   @comment ||= ""
   post reject_backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order, :comment => @comment)
-  @order = assigns(:order)
+  #old??# @order = assigns(:order)
   response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
 end
 
 
 When "he deletes order" do
+  @order = @user.get_current_order
   delete backend_inventory_pool_user_acknowledge_path(@inventory_pool, @order.user, @order)
-  @order = assigns(:order)
   response.redirect_url.should == "http://www.example.com/backend/inventory_pools/#{@inventory_pool.id}/acknowledge"
 end
 
 When "'$who' orders $quantity '$model'" do |who, quantity, model|
   post "/session", :login => who #, :password => "pass"
+  step "I am '%s'" % who
   get '/order'
-  @order = assigns(:order)
   model_id = Model.find_by_name(model).id
   post add_line_order_path(:model_id => model_id, :quantity => quantity)
-  @order = assigns(:order)
 end
 
 When "'$user' orders another $quantity '$model' for the same time" do |user, quantity, model|
   model_id = Model.find_by_name(model).id
   post add_line_order_path(:model_id => model_id, :quantity => quantity)
-  @order = assigns(:order)
+  #old??# @order = assigns(:order)
 end
 
 When "'$who' orders $quantity '$model' from inventory pool $ip" do |who, quantity, model, ip|
   post "/session", :login => who #, :password => "pass"
+  step "I am '%s'" % who
   get '/order'
-  @order = assigns(:order)
   model_id = Model.find_by_name(model).id
   inv_pool = InventoryPool.find_by_name(ip)
   post add_line_order_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id)
-  @order = assigns(:order)
+  @order = @user.get_current_order
 end
 
 When "'$who' searches for '$model' on frontend" do |who, model|
   post "/session", :login => who #, :password => "pass"
-  get models_path(:query => model)
-  @models = assigns(:models)
+  response = get search_path(:term => model, :format => :js)
+  @models_json = JSON.parse(response.body)
 end
 
 Then /([0-9]+) order(s?) exist(s?) for inventory pool (.*)/ do |size, s1, s2, ip|

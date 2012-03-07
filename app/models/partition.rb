@@ -19,7 +19,7 @@ class Partition < ActiveRecord::Base
     end
   
     def set(new_partitions)
-      @partitions.clear
+      @partitions.delete_all
       new_partitions.delete(Group::GENERAL_GROUP_ID)
       unless new_partitions.blank?
         valid_group_ids = @inventory_pool.group_ids

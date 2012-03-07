@@ -3,6 +3,12 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'database_cleaner'
+
+require 'simplecov'
+SimpleCov.start 'rails' do
+  merge_timeout 3600
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

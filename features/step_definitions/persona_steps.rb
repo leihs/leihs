@@ -7,6 +7,6 @@ Given /^personas are loaded$/ do
 
 end
 
-Given /^I am "(\w+)"$/ do |persona_name|
-  step 'I am logged in as "%s" with password "password"' % persona_name.downcase
+Given /^I am '(\w+)'$/ do |persona_name|
+  step "I am logged in as '%s' with password 'password'" % persona_name.downcase
 end

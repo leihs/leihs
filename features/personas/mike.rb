@@ -3,7 +3,6 @@
 # Persona:  Mike
 # Job:      Inventory Manager
 #
-require 'factory'
 
 module Persona
   
@@ -38,6 +37,7 @@ module Persona
     def create_minimal_inventory
       setup_beamer
       setup_camera
+      setup_tripod
     end
     
     def setup_beamer

@@ -75,7 +75,7 @@ class Order < Document
 
     w = query.split.map do |x|
       s = []
-      s << "CONCAT(users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
+      s << "CONCAT_WS(' ', users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
       s << "models.name LIKE '%#{x}%'"
       "(%s)" % s.join(' OR ')
     end.join(' AND ')
@@ -104,7 +104,7 @@ class Order < Document
       errors.add(:base, _("This order has already been approved."))
       false
     elsif lines.empty?
-      errors.add(:base, _("This order is not approvable because doesn't have any reserved models."))
+      errors.add(:base, _("This order is not approvable because doesn't have any models."))
       false
     elsif lines.all? {|l| l.available? }
       true
@@ -275,7 +275,8 @@ class Order < Document
           next          
         end
         to_split_lines = lines.select {|l| l.inventory_pool == ip }
-        o = Order.new(self.attributes)
+        attrs = self.attributes.reject {|k,v| [:id, :created_at, :updated_at].include? k.to_sym }
+        o = Order.new(attrs)
         o.inventory_pool = ip
         to_split_lines.each {|l| o.lines << l }
         o.save        

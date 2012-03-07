@@ -6,6 +6,11 @@
 
 require 'cucumber/rails'
 
+require 'simplecov'
+SimpleCov.start 'rails' do
+  merge_timeout 3600
+end
+
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
@@ -34,7 +39,7 @@ ActionController::Base.allow_rescue = false
 begin
   require 'database_cleaner'
   require 'database_cleaner/cucumber'
-  DatabaseCleaner.strategy = :truncation
+  DatabaseCleaner.strategy = :transaction
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end

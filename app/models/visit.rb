@@ -39,7 +39,7 @@ class Visit < ActiveRecord::Base
 
     w = query.split.map do |x|
       s = []
-      s << "CONCAT(users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
+      s << "CONCAT_WS(' ', users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
       "(%s)" % s.join(' OR ')
     end.join(' AND ')
     sql.where(w)

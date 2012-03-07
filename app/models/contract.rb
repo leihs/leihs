@@ -75,11 +75,16 @@ class Contract < Document
     return scoped unless query
 
     sql = select("DISTINCT contracts.*").joins(:user, :models, :items)
+      # TODO ??
+      #joins("LEFT JOIN `users` ON `users`.`id` = `contracts`.`user_id`").
+      #joins("LEFT JOIN `contract_lines` ON `contract_lines`.`contract_id` = `contracts`.`id` AND `contract_lines`.`type` IN ('ItemLine')").
+      #joins("LEFT JOIN `models` ON `models`.`id` = `contract_lines`.`model_id`").
+      #joins("LEFT JOIN `items` ON `items`.`id` = `contract_lines`.`item_id`")
 
     w = query.split.map do |x|
       s = []
-      s << "CONCAT(contracts.id, contracts.note) LIKE '%#{x}%'"
-      s << "CONCAT(users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
+      s << "CONCAT_WS(' ', contracts.id, contracts.note) LIKE '%#{x}%'"
+      s << "CONCAT_WS(' ', users.login, users.firstname, users.lastname, users.badge_id) LIKE '%#{x}%'"
       s << "models.name LIKE '%#{x}%'"
       s << "items.inventory_code LIKE '%#{x}%'"
       "(%s)" % s.join(' OR ')
