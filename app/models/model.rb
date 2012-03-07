@@ -194,11 +194,15 @@ class Model < ActiveRecord::Base
   def self.search2(query)
     return scoped unless query
 
-    sql = select("DISTINCT models.*").joins(:categories, :properties, :items)
+    sql = select("DISTINCT models.*"). #old# joins(:categories, :properties, :items)
+      joins("LEFT JOIN `model_links` ON `model_links`.`model_id` = `models`.`id`").
+      joins("LEFT JOIN `model_groups` ON `model_groups`.`id` = `model_links`.`model_group_id` AND `model_groups`.`type` = 'Category'").
+      joins("LEFT JOIN `properties` ON `properties`.`model_id` = `models`.`id`").
+      joins("LEFT JOIN `items` ON `items`.`model_id` = `models`.`id`")
 
     w = query.split.map do |x|
       s = []
-      s << "CONCAT(models.name, models.manufacturer) LIKE '%#{x}%'"
+      s << "CONCAT_WS(' ', models.name, models.manufacturer) LIKE '%#{x}%'"
       s << "model_groups.name LIKE '%#{x}%'"
       s << "properties.value LIKE '%#{x}%'"
       s << "items.inventory_code LIKE '%#{x}%'"

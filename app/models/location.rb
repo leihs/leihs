@@ -49,7 +49,7 @@ class Location < ActiveRecord::Base
 
     w = query.split.map do |x|
       s = []
-      s << "CONCAT(room, shelf) LIKE '%#{x}%'"
+      s << "CONCAT_WS(' ', room, shelf) LIKE '%#{x}%'"
       s << "buildings.name LIKE '%#{x}%'"
       "(%s)" % s.join(' OR ')
     end.join(' AND ')

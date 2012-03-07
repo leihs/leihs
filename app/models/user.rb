@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
     return scoped unless query
 
     w = query.split.map do |x|
-      "CONCAT(login, firstname, lastname, badge_id) LIKE '%#{x}%'"
+      "CONCAT_WS(' ', login, firstname, lastname, badge_id) LIKE '%#{x}%'"
     end.join(' AND ')
     where(w)
   end

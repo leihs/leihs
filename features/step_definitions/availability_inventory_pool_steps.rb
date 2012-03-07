@@ -30,7 +30,7 @@ end
 
 Then "he sees the '$model' model" do |model|
   m = Model.find_by_name(model)
-  @models_json.include?(m).should be_true
+  @models_json.map{|x| x["label"]}.include?(m.name).should be_true
 end
 
 Then "all order lines should be available" do

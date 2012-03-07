@@ -35,7 +35,7 @@ class Option < ActiveRecord::Base
     return scoped unless query
 
     w = query.split.map do |x|
-      "CONCAT(name, inventory_code) LIKE '%#{x}%'"
+      "CONCAT_WS(' ', name, inventory_code) LIKE '%#{x}%'"
     end.join(' AND ')
     where(w)
   end

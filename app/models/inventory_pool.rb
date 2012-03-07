@@ -118,7 +118,7 @@ class InventoryPool < ActiveRecord::Base
     return scoped unless query
 
     w = query.split.map do |x|
-      "CONCAT(name, description) LIKE '%#{x}%'"
+      "CONCAT_WS(' ', name, description) LIKE '%#{x}%'"
     end.join(' AND ')
     where(w)
   end
