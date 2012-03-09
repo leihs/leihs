@@ -10,6 +10,7 @@ gem 'json', '~> 1.6'
 gem 'haml', '~> 3.1'
 gem 'sass', '~> 3.1'
 gem 'coffee-script', '~> 2.2'
+gem "coffee-filter", "~> 0.1.1"
 gem 'jquery-rails', '~> 1.0'
 gem 'jquery-tmpl-rails', '~> 0.1.2' #:git => "git://github.com/Jaen/jquery-tmpl-rails.git"
 gem 'haml_assets'
