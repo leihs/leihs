@@ -11,6 +11,16 @@
   }
 }
 
+@mixin inset-box {
+  background: $highlight-grey;
+  border-top: 1px solid $borderdarkgrey;
+  border-left: 1px solid $bordergrey;
+  border-right: 1px solid $borderlightgrey;
+  border-bottom: 1px solid $borderlightgrey; 
+  @include borderRadius(6px);
+  @include boxShadow(inset 0 2px 2px #CCC);
+}
+
 @mixin greylinks {
   h2 a, h2 a:link, h2 a:visited, h3 a, h3 a:link, h3 a:visited {
     color: $grey;

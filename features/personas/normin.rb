@@ -31,8 +31,8 @@ module Persona
     def create_order
       @inventory_pool = InventoryPool.find_by_name(@@inventory_pool_name)
       @camera_model = Model.find_by_name "Kamera Nikon X12"
-      @order_for_camera = Factory(:order, :user => @user, :inventory_pool => @inventory_pool, :status_const => 1)
-      @order_line_camera = Factory(:order_line, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera)
+      @order_for_camera = Factory(:order, :user => @user, :inventory_pool => @inventory_pool, :status_const => 2)
+      @order_line_camera = Factory(:order_line, :inventory_pool => @inventory_pool, :model => @camera_model, :order => @order_for_camera, :start_date => Date.today, :end_date => Date.tomorrow)
     end
   end  
 end

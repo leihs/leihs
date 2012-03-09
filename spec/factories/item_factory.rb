@@ -9,7 +9,7 @@ FactoryGirl.define do
     owner { Factory :inventory_pool }
     inventory_pool { owner }
     invoice_date { Time.local(  (Time.now.year - rand(5) - 1) , (rand(12) + 1), (rand(31)+1) ).to_date }
-    price { rand(1.50..1000).round(2) }
+    price { rand(1500).round(2) }
     is_broken 0
     is_incomplete 0
     is_borrowable 1

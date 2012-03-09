@@ -5,5 +5,7 @@ FactoryGirl.define do
     model { Factory :model }
     order { Factory :order }
     quantity 1
+    start_date { Date.today }
+    end_date { Date.tomorrow }
   end
 end
