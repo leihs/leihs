@@ -10,7 +10,7 @@ class Authenticator::DatabaseAuthenticationController < Authenticator::Authentic
     @preferred_language = Language.preferred(request.env["HTTP_ACCEPT_LANGUAGE"])
     
     if request.post?
-      l = DatabaseAuthentication.authenticate(params[:login][:user], params[:login][:password])
+      l = DatabaseAuthentication.authenticate(params[:login][:username], params[:login][:password])
       if l
         self.current_user = l.user
         if current_user.access_rights.size == 0

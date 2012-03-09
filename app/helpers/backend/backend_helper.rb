@@ -14,8 +14,16 @@ module Backend::BackendHelper
     # return false if caller == is_current_page?(section)
     
     case section
+      
+      when "lending"
+        is_current_page?("daily") or
+        is_current_page?("orders") or
+        is_current_page?("hand_over") or
+        is_current_page?("take_back") or
+        is_current_page?("contracts") or
+        is_current_page?("visits")
       when "daily"
-        current_page?(backend_inventory_pool_path(current_inventory_pool))
+        current_inventory_pool and current_page?(backend_inventory_pool_path(current_inventory_pool))
       when "orders"
         current_page?(:controller => "backend/orders") ||
         !!(request.path =~ /acknowledge\/\d+$/)
@@ -26,21 +34,19 @@ module Backend::BackendHelper
       when "take_back"
         current_page?(:controller => "backend/take_back")
       when "contracts"
-         current_page?(:controller => "backend/contracts")
+        current_page?(:controller => "backend/contracts")
       when "visits"
-         current_page?(:controller => "backend/visits")
-
-      when "lending"
-        is_current_page?("daily") or
-        is_current_page?("orders") or
-        is_current_page?("hand_over") or
-        is_current_page?("take_back") or
-        is_current_page?("contracts") or
-        is_current_page?("visits")
+        current_page?(:controller => "backend/visits")
+        
       when "admin"
+        is_current_page?("inventory_pools")
+      when "inventory_pools"
+        current_page?(:controller => "backend/inventory_pools", :action => :index)
         
       when "inventory"
-        
+        is_current_page?("items")
+      when "items"
+        current_page?(:controller => "backend/items")
     end
   end
   

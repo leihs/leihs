@@ -18,7 +18,7 @@ Leihs::Application.routes.draw do
   match '/switch_to_ldap', :to => 'sessions#switch_to_ldap' #TODO 1009: Remove when not used anymore
   
   match '/backend', :to => "backend/backend#index"
-  match '/inventory', :to => 'inventory/inventory_pools#index'
+  # match '/inventory', :to => 'inventory/inventory_pools#index' # NOTE seems not to be used any longer
 
 ############################################################################
 # Frontend

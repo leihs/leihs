@@ -15,11 +15,8 @@ class SessionsController < ApplicationController
   def authenticate(id = params[:id])
     @selected_system = AuthenticationSystem.active_systems.find(id) if id
     @selected_system ||= AuthenticationSystem.default_system.first
-    # puts @selected_system.class_name #debug
     sys = eval("Authenticator::" + @selected_system.class_name + "Controller").new
-    
     redirect_to sys.login_form_path
-    
   rescue
     logger.error($!)
     render :text => "No default authentication system selected." unless AuthenticationSystem.default_system.first
@@ -42,10 +39,6 @@ class SessionsController < ApplicationController
   def create
     self.current_user = User.find_by_login(params[:login])
     if logged_in?
-      if params[:remember_me] == "1"
-        current_user.remember_me unless current_user.remember_token?
-        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
-      end
       if current_user.access_rights.size == 0
         render :text => _("You don't have any rights to access this application.") 
         return

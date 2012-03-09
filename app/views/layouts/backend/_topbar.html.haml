@@ -10,17 +10,17 @@
         %li.seperator
 
         - if is_lending_manager?  
-          %li.item{:class => is_current_page?("lending") ? "active" : nil}
+          %li#lending.item{:class => is_current_page?("lending") ? "active" : nil}
             = link_to _("Lending"), backend_inventory_pool_path(current_inventory_pool), :class => "anchor"
           %li.seperator
         
         - if is_inventory_manager?        
-          %li.item{:class => is_current_page?("inventory") ? "active" : nil}
+          %li#inventory.item{:class => is_current_page?("inventory") ? "active" : nil}
             = link_to _("Inventory"), "javascript:void(0);", :onclick => "alert('Dieser Bereich wird bald umgesetzt...');", :class => "anchor" #TODO: backend_inventory_pool_items_path(current_inventory_pool)
           %li.seperator
 
         - if is_admin?
-          %li.item{:class => is_current_page?("admin") ? "active" : nil}
+          %li#admin.item{:class => is_current_page?("admin") ? "active" : nil}
             = link_to _("Admin"), backend_path, :class => "anchor"
           %li.seperator
         

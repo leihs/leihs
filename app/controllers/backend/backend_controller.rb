@@ -14,7 +14,17 @@ class Backend::BackendController < ApplicationController
 ###############################################################  
   
   def index
-    redirect_to backend_inventory_pool_path(current_user.managed_inventory_pools.first) unless current_user.managed_inventory_pools.blank?
+    # if user is admin only, redirect to admin section (/inventory_pools)
+    if current_user.managed_inventory_pools.blank? and current_user.has_role? :admin
+      redirect_to backend_inventory_pools_path
+    elsif current_user.access_rights.managers.where(:access_level => 3).exists? # user has manager level 3 => inventory manager
+      redirect_to backend_inventory_pool_items_path(current_user.managed_inventory_pools.first)
+    elsif current_user.access_rights.managers.where(:access_level => 1..2).exists? # user has at least manager level 1 => lending manager
+      redirect_to backend_inventory_pool_path(current_user.managed_inventory_pools.first)
+    else
+      # no one should enter here (customers should already be redirectet by the before filter)     
+      redirect_to root_path
+    end 
   end
   
 ###############################################################    

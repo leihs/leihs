@@ -1,8 +1,10 @@
+@import "../shared/mixins";
+
 #splash {
   height: 485px;
   position: relative;
   
-  .button {
+  #login.button {
     position: absolute;
     top: 12px;
     right: 18px;
@@ -29,6 +31,38 @@
         float: left;
         width: 28px;
       }
+    }
+  }
+  
+  .login {
+    position: absolute;
+    top: 36px;
+    right: 18px;
+    z-index: 11;
+    
+    .button {
+      float: right;
+    }
+    
+    table {
+      tr{
+        
+        td {
+          font-size: 1.2em;
+          vertical-align: sub;
+          
+          &:nth-child(1) {
+            padding-right: 12px;
+          }
+        }
+      }
+    }
+    
+    input:not(.button) {
+      font-size: 1em;
+      height: 22px;
+      margin-bottom: 8px;
+      width: 150px;
     }
   }
 }

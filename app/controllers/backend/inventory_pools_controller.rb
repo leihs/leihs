@@ -22,6 +22,9 @@ class Backend::InventoryPoolsController < Backend::BackendController
       end
     end
 =end
+    respond_to do |format|
+      format.html
+    end
   end
 
   def show(date = params[:date])
