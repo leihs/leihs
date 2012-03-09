@@ -4,7 +4,7 @@ FactoryGirl.define do
     user { Factory(:user) }
     password { Faker::Lorem.words(2).join }
     password_confirmation { password }
-    login { user.email }
+    login { user.login }
   end
 
 end

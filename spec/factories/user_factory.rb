@@ -13,7 +13,7 @@ FactoryGirl.define do
     city { Faker::Address.city }
     zip { Faker::Address.zip_code }
     country { Faker::Address.country }
-    language { LanguageFactory.create }
+    language { Language.exists? ? Language.first : LanguageLanguageFactory.create }
   end
 
 end
