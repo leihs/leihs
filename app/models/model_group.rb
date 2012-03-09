@@ -38,11 +38,12 @@ class ModelGroup < ActiveRecord::Base
 ################################################
 # Edge Label
   def label(parent = nil)
+    r = nil
     if parent
       l = links_as_descendant.first(:conditions => {:ancestor_id => parent.id})
-      return l.try(:label) # TODO return name if nil ??
+      r = l.try(:label)
     end
-    return name
+    r || name
   end
 
   def set_label(parent, label)
@@ -54,7 +55,7 @@ class ModelGroup < ActiveRecord::Base
 # aliases for Ext.Tree
 
   def text(parent_id = 0)
-    parent = (parent_id == 0 ? nil : ModelGroup.find(parent_id))
+    parent = (parent_id.to_i.zero? ? nil : ModelGroup.find(parent_id))
     # "#{label(parent)} (#{models.size})" # TODO intersection with current_user.models
     label(parent)
     #"#{label(parent)} (id #{id})" # TODO temp
