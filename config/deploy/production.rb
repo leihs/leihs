@@ -136,7 +136,10 @@ namespace :deploy do
 	end
 
    task :restart, :roles => :app, :except => { :no_release => true } do
-     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+     # We cannot use Passenger on the server because this app runs with a legacy Ruby 1.8.7 and legacy Rails.
+     # That's why we have to restart using a proxied standalone Passenger server.
+     #run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+     run "cd #{release_path} && passenger stop -p 3003 && passenger start -p 3003 -e production -d"
    end
    
    # This overwrites the (broken, when using Bundler) deploy:migrate task
