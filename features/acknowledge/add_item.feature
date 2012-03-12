@@ -19,4 +19,3 @@ Feature: Add Item during acknowledge process
   
   @javascript
   Scenario: Choose a model to add to the order by opening the add model dialog
-     

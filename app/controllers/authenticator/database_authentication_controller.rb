@@ -8,10 +8,8 @@ class Authenticator::DatabaseAuthenticationController < Authenticator::Authentic
   
   def login
     @preferred_language = Language.preferred(request.env["HTTP_ACCEPT_LANGUAGE"])
-    
     if request.post?
-      l = DatabaseAuthentication.authenticate(params[:login][:username], params[:login][:password])
-      if l
+      if (l = DatabaseAuthentication.authenticate(params[:login][:username], params[:login][:password]))
         self.current_user = l.user
         if current_user.access_rights.size == 0
           render :text => _("You don't have any rights to access this application.") 

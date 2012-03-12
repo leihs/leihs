@@ -5,7 +5,8 @@ end
 
 When /^I add an item through the quick add item field$/ do
   fill_in("quick_add", :with =>  @user.managed_inventory_pools.first.items.first.serial_number)
-  find("#add_item .add_item.button").click
+  
+  pending
 end
 
 Then /^the item is added to the order$/ do

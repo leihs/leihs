@@ -10,6 +10,7 @@ Feature: Login through database authentication
     
   @javascript
   Scenario: Login through database authentication
+   Given I am logged out 
     When I visit the homepage
      And I login
     Then I am logged in

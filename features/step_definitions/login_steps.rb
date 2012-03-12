@@ -28,12 +28,8 @@ Given "I log in as a $role for inventory pool '$ip_name'$with_access_level" do |
 end
 
 # This one 'really' goes through the auth process
-When /^I log in as '([^']*)' with password '([^']*)'$/ do |who,password|
-  visit "/logout"
-  visit login_authenticator_path
-  fill_in 'username',     :with => who
-  fill_in 'password', :with => password
-  click_button 'Login'
+When /^I log in as '([^']*)' with password '([^']*)'$/ do |username, password|
+  post "/authenticator/db/login", {:login => {:username => username, :password => password}}
 end
 
 Given /(his|her) password is '([^']*)'$/ do |foo,password|

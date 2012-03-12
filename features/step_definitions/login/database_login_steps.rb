@@ -1,3 +1,7 @@
+Given /^I am logged out$/ do
+  visit "/logout"
+end
+
 When /^I visit the homepage$/ do
   visit "/"
 end
