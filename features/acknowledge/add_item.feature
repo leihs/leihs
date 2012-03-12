@@ -9,9 +9,14 @@ Feature: Add Item during acknowledge process
     
   @javascript
   Scenario: Adding a model quickly to an order by just typing in the serial_number or inventory_number
-    When I am 'Pius'
-     And I open the order from "Normin" for acknowledgment
-     And I type ""
+   Given I am "Pius"
+     And I edit an order for acknowledgment
+    When I add an item through the quick add item field
+    Then the item is added to the order 
     
-
-
+  @javascript
+  Scenario: Autocompletion of quick add input
+  
+  @javascript
+  Scenario: Choose a model to add to the order by opening the add model dialog
+     
